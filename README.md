@@ -5,12 +5,12 @@ The _SoftiCAR Platform_ is a lightweight, Java-based library to create interacti
 ## Main Features
 
 - domain-oriented development of business applications
-  - business objects and queries defined using _SoftiCAR Query and Modeling Language (SQML)_
-  - configurable and dynamically generated management pages (CRUD) for business objects
+  - business objects and queries defined using _SoftiCAR Query and Modeling Language ([SQML](https://github.com/Prevent-DEV/com.softicar.sqml))_
+  - configurable and dynamically generated management pages ([CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)) for business objects
   - custom workflows for business objects (work in progress)
 - lightweight web applications based on a server-side _document object model (DOM)_
   - all business logic defined in Java and running on server
-  - interactive web pages using asynchronous Javascript (AJAX)
+  - interactive web pages using asynchronous Javascript ([AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)))
 
 ## Requirements
 
