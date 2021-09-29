@@ -1,0 +1,20 @@
+PACKAGE com.softicar.platform.core.module.user.notification
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+QUERY NotificationTargetUsersQuery {
+	Boolean active
+	Boolean systemUser
+	
+	SELECT user.* AS user
+	SELECT user.id TITLE "ID"
+	SELECT user.firstName TITLE "First Name"
+	SELECT user.lastName  TITLE "Last Name"
+	SELECT user.loginName TITLE "Login Name"
+	SELECT user.emailAddress TITLE "Email Address"
+	
+	FROM AGUser AS user
+	WHERE user.emailAddress LIKE '%@%'
+	WHERE user.active = $active
+	WHERE user.systemUser = $systemUser
+}

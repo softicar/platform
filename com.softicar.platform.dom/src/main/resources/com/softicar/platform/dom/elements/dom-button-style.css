@@ -1,0 +1,96 @@
+
+:root {
+	--DOM_BUTTON_DECORATION_BACKGROUND_COLOR: var(--PRIMARY_COLOR);
+	--DOM_BUTTON_DECORATION_COLOR: var(--PRIMARY_CONTRAST_COLOR);
+	--DOM_BUTTON_DECORATION_INTERACTION_BOX_SHADOW: var(--BOX_SHADOW_FOCUS);
+	--DOM_BUTTON_DECORATION_PADDING: 3px 16px;
+
+	--DOM_BUTTON_ICON_DECORATION_FILTER: var(--PRIMARY_CONTRAST_COLOR_FILTER);
+	--DOM_BUTTON_ICON_SIZE: 20px;
+	--DOM_BUTTON_DECORATED_ICON_SIZE: 24px;
+
+	--DOM_BUTTON_LABEL_DECORATION_TEXT_TRANSFORM: uppercase;
+}
+
+.DomButton {
+	/* position and layout */
+	align-items: center;
+	column-gap: var(--COLUMN_GAP);
+	display: inline-grid;
+	grid-auto-flow: column;
+	padding: 0;
+	position: relative;
+	white-space: nowrap;
+	justify-self: start;
+
+	/* look */
+	background-color: transparent;
+	border: none;
+	border-radius: var(--BORDER_RADIUS);
+	color: var(--PRIMARY_COLOR);
+	font-family: inherit;
+	font-size: inherit;
+	outline-style: none;
+
+	/* interaction */
+	cursor: pointer;
+	user-select: none;
+	
+	/* touch interaction */
+	-webkit-touch-callout: none;
+}
+
+.DomButton.disabled {
+	cursor: default;
+	opacity: 0.3;
+}
+
+.DomButton.selected {
+	font-weight: 500; 
+}
+
+.DomButton:hover:not(.disabled),
+.DomButton:focus:not(.disabled) {
+	filter: drop-shadow(var(--TEXT_SHADOW_FOCUS));
+}
+
+/* ------------------------------ click-displacement upon "active" ------------------------------ */
+
+.DomButton::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.DomButton:active::after,
+.DomButton.active::after {
+	top: -1px;
+}
+
+.DomButton:active:not(.disabled),
+.DomButton.active:not(.disabled) {
+	top: 1px;
+}
+
+/* ------------------------------ icon and label ------------------------------ */
+
+.DomButtonIcon {
+	width: var(--DOM_BUTTON_ICON_SIZE);
+	height: var(--DOM_BUTTON_ICON_SIZE);
+}
+
+.DomButtonIcon:not(.precolored) {
+	filter: var(--PRIMARY_COLOR_FILTER);
+}
+
+.DomButtonLabel {
+	align-content: center;
+	display: inline-grid;
+	max-width: 300px;
+	min-height: var(--DOM_BUTTON_ICON_SIZE);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

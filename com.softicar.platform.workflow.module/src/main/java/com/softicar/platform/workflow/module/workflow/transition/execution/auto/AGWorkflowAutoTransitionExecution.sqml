@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.transition.execution.auto
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
+IMPORT com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition
+
+TABLE AGWorkflowAutoTransitionExecution 'Workflow.WorkflowAutoTransitionExecution' {
+	PK Integer id = SERIAL
+	
+	AGWorkflowItem workflowItem
+	AGWorkflowTransition workflowTransition
+	AGTransaction transaction
+	
+}

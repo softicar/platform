@@ -1,0 +1,33 @@
+PACKAGE com.softicar.platform.core.module.user.activity
+
+IMPORT com.softicar.platform.core.module.ajax.event.AGAjaxEvent
+IMPORT com.softicar.platform.core.module.ajax.event.AGAjaxEventType
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+QUERY UserActivityQuery {
+
+	DayTime threshold
+	AGAjaxEventType type
+
+	SELECT user.id
+	SELECT user.loginName
+	SELECT user AS userName
+	SELECT user.emailAddress
+	SELECT lastAccess.date AS lastPageCreation
+	SELECT lastAccess.date AS daysAgo
+	
+	FROM AGUser AS user
+
+	LEFT JOIN (
+		SELECT event.user
+		SELECT max(event.eventDate) AS date
+		FROM AGAjaxEvent AS event
+		WHERE event.type = $type
+		GROUP BY event.user
+	) AS lastAccess
+	ON lastAccess.user = user AND lastAccess.date < $threshold
+
+	WHERE user.active
+	
+	ORDER BY lastPageCreation ASC
+}

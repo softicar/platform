@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.image
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGWorkflowIconLog "Workflow.WorkflowIconLog" {
+	PK AGWorkflowIcon workflowIcon
+	PK AGTransaction transaction
+	String name = NULL [NULLABLE MAXLENGTH=255]
+	AGStoredFile icon = NULL [NULLABLE]
+}

@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.version
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowVersionLog 'Workflow.WorkflowVersionLog' {
+	
+	PK AGWorkflowVersion workflowVersion
+	PK AGTransaction transaction
+	AGWorkflowNode rootNode = NULL [NULLABLE]
+	Boolean draft = NULL [NULLABLE]
+}

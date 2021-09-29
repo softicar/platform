@@ -1,0 +1,20 @@
+PACKAGE com.softicar.platform.core.module.log.process
+
+QUERY LogProcessTableQuery {
+	
+	String className
+	
+	SELECT logProcess.* AS action
+	SELECT logProcess.id TITLE "Process ID"
+	SELECT logProcess.className TITLE "Process Name"
+	SELECT logProcess.worstLevel TITLE "Worst Log Level"
+	SELECT logProcess.startTime TITLE "Start Time"
+	SELECT logProcess.serverIp TITLE "Machine IP"
+	
+	FROM AGLogProcess logProcess
+	
+	WHERE logProcess.className=$className
+	
+	ORDER BY logProcess.startTime DESC 
+	
+}

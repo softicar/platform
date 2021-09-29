@@ -1,0 +1,19 @@
+PACKAGE com.softicar.platform.core.module.file.stored.cleanup
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.file.stored.set.AGStoredFileSet
+IMPORT com.softicar.platform.core.module.file.stored.set.AGStoredFileSetItem
+
+QUERY StoredFileSetGarbageCollectorQuery {
+
+	DayTime removeAtThreshold
+
+	SELECT fileSet.*
+	FROM AGStoredFileSet AS fileSet
+	JOIN AGStoredFileSetItem AS item
+	ON (item.fileSet = fileSet)
+	JOIN AGStoredFile AS file
+	ON (item.file = file)
+	GROUP BY fileSet
+	HAVING count(file.id) = count(file.removeAt) AND max(file.removeAt) <= $removeAtThreshold
+}

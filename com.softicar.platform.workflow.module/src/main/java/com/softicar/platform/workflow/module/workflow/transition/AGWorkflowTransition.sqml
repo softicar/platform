@@ -1,0 +1,22 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.transition
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.image.AGWorkflowIcon
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+IMPORT com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion
+
+TABLE AGWorkflowTransition 'Workflow.WorkflowTransition' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowVersion workflowVersion
+	String name [MAXLENGTH=255]
+	Boolean active = TRUE
+	AGWorkflowNode sourceNode
+	AGWorkflowNode targetNode
+	Boolean notify = TRUE
+	Boolean autoTransition = FALSE
+	String requiredVotes [MAXLENGTH=255]
+	String htmlColor = NULL [NULLABLE MAXLENGTH=7]
+	AGWorkflowIcon transitionIcon = NULL [NULLABLE]
+	AGUuid sideEffect = NULL [NULLABLE]
+}

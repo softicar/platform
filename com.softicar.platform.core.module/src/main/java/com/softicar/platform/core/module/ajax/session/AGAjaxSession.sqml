@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.ajax.session
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGAjaxSession 'Core.AjaxSession' {
+	PK Integer id = SERIAL
+	AGUser user = NULL [NULLABLE ON DELETE CASCADE ON UPDATE CASCADE]
+	String clientIpAddress = NULL [NULLABLE MAXLENGTH=255]
+	String localName = NULL [NULLABLE MAXLENGTH=255]
+	String localAddress = NULL [NULLABLE MAXLENGTH=255]
+	Integer localPort = 0
+	DayTime accessDate = '1970-01-01 00:00:00'
+
+	IK user
+}

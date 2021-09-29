@@ -1,0 +1,22 @@
+.EmfPrefilterElement {
+	padding-top: 5px;
+	text-align: center;
+}
+
+.EmfPrefilterRowContent {
+	grid-auto-flow: column;
+	align-items: center;
+	align-content: center;
+}
+
+.EmfPrefilterRowContent > :last-child {
+	justify-self: end;
+}
+
+.EmfPrefilterAddFilterBar {
+	justify-self: center;
+}
+
+.EmfPrefilterFilterTypeButton {
+	justify-self: center;
+}

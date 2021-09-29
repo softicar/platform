@@ -1,0 +1,19 @@
+.DomVerticalTextBox {
+	display: inline-block;
+	overflow: hidden;
+	width: 1.5em;
+	line-height: 1.5em;
+}
+
+.DomVerticalTextBox > div {
+	display: inline-block;
+	white-space: nowrap;
+	transform: translate(0,100%) rotate(-90deg);
+	transform-origin: 0 0;
+}
+
+.DomVerticalTextBox > div:after {
+	content: "";
+	float: left;
+	margin-top: 100%;
+}

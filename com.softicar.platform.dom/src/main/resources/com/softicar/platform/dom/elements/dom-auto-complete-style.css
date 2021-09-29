@@ -1,0 +1,22 @@
+.DomAutoCompleteInput {
+	display: grid;
+	position: relative;
+	gap: 5px;
+}
+
+.DomAutoCompleteInputFilterDisplay {
+	opacity: 0.33;
+}
+
+.DomAutoCompleteInputFilterDisplay:empty {
+	display: none;
+}
+
+.DomAutoCompleteInputFilterDisplay img {
+	width: 16px;
+	height: 16px;
+}
+
+.DomAutoCompleteInputFilterDisplay .DomBar {
+	gap: 0;
+}

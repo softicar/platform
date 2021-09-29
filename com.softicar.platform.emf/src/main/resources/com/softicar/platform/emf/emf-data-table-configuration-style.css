@@ -1,0 +1,38 @@
+.EmfDataTableConfigurationColumnPositionInput,
+.EmfDataTableConfigurationColumnOrderInput {
+	display: grid;
+	grid-auto-flow: column;
+	gap: 5px;
+	align-items: center;
+	justify-content: center;
+}
+
+.EmfDataTableConfigurationColumnPositionInput > select {
+	min-width: 2em;
+}
+
+.EmfDataTableConfigurationColumnOrderInput > input[type="text"] {
+	width: 2em;
+}
+
+.EmfDataTableConfigurationColumnOrderInput > select {
+	min-width: 2em;
+}
+
+.EmfDataTableConfigurationPageSizeInput {
+	gap: 12px;
+}
+
+.EmfDataTableConfigurationPageSizeInput > input[type="text"] {
+	width: 3em;
+}
+
+.EmfDataTableConfigurationPopup {
+	gap: 12px;
+}
+
+.EmfDataTableConfigurationPopup > fieldset {
+	border: 0;
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+	color: var(--PRIMARY_COLOR);
+}

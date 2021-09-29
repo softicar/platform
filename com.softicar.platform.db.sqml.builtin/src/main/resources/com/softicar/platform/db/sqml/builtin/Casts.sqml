@@ -1,0 +1,98 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- toDay(x) -------------------- //
+FUNCTION Day toDay(DayTime x) {
+	SQL {CAST($x AS DATE)}
+}
+
+FUNCTION Day toDay(String x) {
+	SQL {CAST($x AS DATE)}
+}
+
+// -------------------- toDayTime(x) -------------------- //
+FUNCTION DayTime toDayTime(Day x) {
+	SQL {CAST($x AS DATETIME)}
+}
+
+FUNCTION DayTime toDayTime(String x) {
+	SQL {CAST($x AS DATETIME)}
+}
+
+// -------------------- toDecimal(x,p,d) -------------------- //
+FUNCTION Decimal toDecimal(Integer value,
+	Integer precision,
+	Integer decimal) {
+	SQL {CAST($value AS DECIMAL($precision, $decimal))}
+}
+
+FUNCTION Decimal toDecimal(Long value,
+	Integer precision,
+	Integer decimal) {
+	SQL {CAST($value AS DECIMAL($precision, $decimal))}
+}
+
+FUNCTION Decimal toDecimal(String value,
+	Integer precision,
+	Integer decimal) {
+	SQL {CAST($value AS DECIMAL($precision, $decimal))}
+}
+
+FUNCTION Decimal toDecimal(Double value,
+	Integer precision,
+	Integer decimal) {
+	SQL {CAST($value AS DECIMAL($precision, $decimal))}
+}
+
+FUNCTION Decimal toDecimal(Float value,
+	Integer precision,
+	Integer decimal) {
+	SQL {CAST($value AS DECIMAL($precision, $decimal))}
+}
+
+// -------------------- toInteger -------------------- //
+FUNCTION Integer toInteger(Long value) {
+	SQL {$value}
+}
+
+FUNCTION Integer toInteger(String value) {
+	SQL {CAST($value AS SIGNED)}
+}
+
+// -------------------- toLong -------------------- //
+FUNCTION Long toLong(Integer value) {
+	SQL {$value}
+}
+
+FUNCTION Long toLong(String value) {
+	SQL {CAST($value AS SIGNED)}
+}
+
+// -------------------- toString -------------------- //
+FUNCTION String toString(Integer value) {
+	SQL {CAST($value AS CHAR)}
+}
+
+FUNCTION String toString(Long value) {
+	SQL {CAST($value AS CHAR)}
+}
+
+FUNCTION String toString(Float value) {
+	SQL {CAST($value AS CHAR)}
+}
+
+FUNCTION String toString(Double value) {
+	SQL {CAST($value AS CHAR)}
+}
+
+FUNCTION String toString(Decimal value) {
+	SQL {CAST($value AS CHAR)}
+}
+
+// -------------------- toTime(x) -------------------- //
+FUNCTION Time toTime(DayTime x) {
+	SQL {CAST($x AS TIME)}
+}
+
+FUNCTION Time toTime(String x) {
+	SQL {CAST($x AS TIME)}
+}

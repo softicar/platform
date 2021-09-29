@@ -1,0 +1,17 @@
+<svg width="24" height="24" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path id="b" d="M0 0H24V24H0z"/>
+ </defs>
+ <g transform="matrix(-1,0,0,1,24,0)" fill-rule="evenodd">
+  <mask id="a" fill="#ffffff">
+   <use width="100%" height="100%" xlink:href="#b"/>
+  </mask>
+  <path d="m11.995 4c-4.423 0-7.995 3.58-7.995 8s3.572 8 7.995 8c3.732 0 0 0 0 0v-2s2.612 0 0 0c-3.312 0-6.004-2.69-6.004-6s2.692-6 6.004-6c1.661 0 3.142 0.69 4.223 1.78l-2.3496 1.8373 6.1316 1.3827-0.41388-7.1037-1.9371 2.4537c-1.451-1.45-3.443-2.35-5.654-2.35z" fill="#2e3a59" fill-rule="nonzero" mask="url(#a)"/>
+ </g>
+ <g transform="matrix(.92819 0 0 .92819 .91132 .8712)" stroke-width="1.4006">
+  <g transform="matrix(.85546 0 0 .85546 1.739 1.7925)" fill="#2e3a59" fill-rule="evenodd" stroke="#2e3a59" stroke-linejoin="round" stroke-width="1.6372">
+   <rect x="11.668" y="6.6678" width=".66435" height="10.664"/>
+   <rect x="6.6563" y="11.656" width="10.687" height=".68732"/>
+  </g>
+ </g>
+</svg>

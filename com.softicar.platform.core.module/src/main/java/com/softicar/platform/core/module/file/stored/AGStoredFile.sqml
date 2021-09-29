@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.file.stored
+
+IMPORT com.softicar.platform.core.module.file.stored.hash.AGStoredFileSha1
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGStoredFile 'Core.StoredFile' {
+	PK Integer id = SERIAL
+	String fileName [MAXLENGTH=255]
+	String contentType = '' [MAXLENGTH=255]
+	AGStoredFileSha1 sha1 = NULL [NULLABLE]
+	AGUser createdBy
+	DayTime createdAt = NOW
+	DayTime removeAt = NULL [NULLABLE]
+}  

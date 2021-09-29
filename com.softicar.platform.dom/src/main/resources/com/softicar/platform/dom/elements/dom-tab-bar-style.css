@@ -1,0 +1,78 @@
+
+.DomTabBar {
+	
+	display: inline-grid;
+	gap: 4px;
+}
+
+.DomTabBarVertical {
+	
+	grid-auto-flow: column;
+}
+
+.DomTabBarHorizontal {
+	
+	grid-auto-flow: row;
+}
+
+/* -------------------- Tab Bar Header -------------------- */
+
+.DomTabBarHeader {
+	
+	display: grid;
+	gap: 2px;
+}
+
+.DomTabBarVertical .DomTabBarHeader {
+	
+	grid-auto-flow: row;
+	align-content: start;
+	border-right: 2px solid var(--PRIMARY_COLOR);
+} 
+
+.DomTabBarHorizontal .DomTabBarHeader {
+
+	grid-auto-flow: column;
+	justify-content: start;
+	border-bottom: 2px solid var(--PRIMARY_COLOR);
+}
+
+/* -------------------- Tab Header -------------------- */
+
+.DomTabHeader {
+	
+	display: flex;
+	cursor: pointer;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	
+	font-weight: bold;
+	
+	min-width: 45px;
+	min-height: 20px;
+}
+
+.DomTabHeader.selected {
+
+	background: var(--PRIMARY_COLOR);
+	color: var(--PRIMARY_CONTRAST_COLOR);
+}
+
+.DomTabHeader:not(.selected) {
+
+	background: var(--PRIMARY_DISABLED_COLOR);
+	color: var(--PRIMARY_COLOR);
+}
+
+.DomTabBarVertical .DomTabHeader {
+	
+	border-radius: var(--BORDER_RADIUS) 0px 0px var(--BORDER_RADIUS);
+	padding: 5px 9px 5px 11px;
+}
+
+.DomTabBarHorizontal .DomTabHeader {
+	
+	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0px 0px;
+	padding: 6px 10px 4px 10px;
+}

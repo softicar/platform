@@ -1,0 +1,18 @@
+PACKAGE com.softicar.platform.core.module.ajax.exception
+
+IMPORT com.softicar.platform.core.module.ajax.session.AGAjaxSession
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGAjaxException 'Core.AjaxException' {
+	PK Integer id = SERIAL
+	AGAjaxSession session
+	AGUser user = NULL [NULLABLE]
+	DayTime exceptionDate = '1970-01-01 00:00:00'
+	String exceptionType [MAXLENGTH=255]
+	String exceptionText [NULLABLE LENGTHBITS=16]
+	String exceptionStackTrace [LENGTHBITS=16]
+
+	IK exceptionDate
+	IK session
+	IK user
+}

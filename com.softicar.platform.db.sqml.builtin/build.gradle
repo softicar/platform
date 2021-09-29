@@ -1,0 +1,3 @@
+dependencies {
+	implementation project(':com.softicar.platform.common.core')
+}

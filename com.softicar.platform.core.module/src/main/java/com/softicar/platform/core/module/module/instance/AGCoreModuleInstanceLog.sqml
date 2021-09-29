@@ -1,0 +1,26 @@
+PACKAGE com.softicar.platform.core.module.module.instance
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
+IMPORT com.softicar.platform.core.module.server.AGServer
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
+	PK AGCoreModuleInstance coreModuleInstance
+	PK AGTransaction transaction
+	AGUser systemUser = NULL [NULLABLE]
+	AGStoredFileServer primaryFileServer = NULL [NULLABLE]
+	AGServer emailServer = NULL [NULLABLE]
+	String supportEmailAddress = NULL [NULLABLE MAXLENGTH=255]
+	String noReplyEmailAddress = NULL [NULLABLE MAXLENGTH=255]
+	String portalProtocol = NULL [NULLABLE MAXLENGTH=255]
+	String portalHost = NULL [NULLABLE MAXLENGTH=255]
+	String portalApplication = NULL [NULLABLE MAXLENGTH=255]
+	AGStoredFile portalLogo = NULL [NULLABLE]
+
+	IK transaction
+	IK primaryFileServer
+	IK systemUser
+	IK emailServer
+}

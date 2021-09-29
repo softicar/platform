@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.user.impersonation
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGUserImpersonationState 'Core.UserImpersonationState' {
+	PK Integer id = SERIAL
+	AGUser sourceUser
+	AGUser targetUser
+	String reason [LENGTHBITS=16]
+	DayTime startedAt
+	DayTime finishedAt = NULL [NULLABLE]
+
+	IK sourceUser
+	IK targetUser
+}

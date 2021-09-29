@@ -1,0 +1,56 @@
+
+.DomPercentageBar {
+	/* look */
+	background-color: var(--GRAY_BACKGROUND_COLOR); 
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	color: var(--FONT_COLOR);
+	overflow: hidden;
+
+	/* size */
+	height: 10px;
+	position: relative;
+}
+
+.DomPercentage { 
+	/* look */
+	background: var(--SECONDARY_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	
+	/* position & size */
+	height: 100%;
+	top: 0;
+	transition: width 0.3s;
+}
+
+.DomPercentageLabel {
+	/* layout */
+	align-items: center;
+	display: flex;
+	justify-content: center;
+
+	/* position & size */
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.DomPercentageMultiBar {
+	display: flex;
+	flex-direction: row;
+}
+
+.DomPercentageMultiBar .DomPercentage {
+	/* layout */
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	
+	/* look */
+	border-radius: 0px;
+}
+
+.DomPercentageMultiBar .DomPercentage:last-child {
+	border-radius: 0px var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0px;
+}

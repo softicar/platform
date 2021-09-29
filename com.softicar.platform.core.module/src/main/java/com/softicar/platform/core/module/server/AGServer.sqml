@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.core.module.server
+
+TABLE AGServer 'Core.Server' {
+	PK Integer id = SERIAL
+	Boolean active = TRUE
+	String name [MAXLENGTH=255]
+	String address [MAXLENGTH=255]
+	Integer port
+	String username = ''[MAXLENGTH=255]
+	String password = '' [MAXLENGTH=255]
+	String domain = NULL [NULLABLE MAXLENGTH=255]
+}

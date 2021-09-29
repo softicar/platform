@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.user.login.failure
+
+IMPORT com.softicar.platform.core.module.user.login.failure.type.AGUserLoginFailureType
+
+TABLE AGUserLoginFailureLog 'Core.UserLoginFailureLog' {
+	PK Integer id = SERIAL
+	AGUserLoginFailureType type = NULL [NULLABLE]
+	String username = '' [MAXLENGTH=255]
+	String serverIpAddress = NULL [NULLABLE MAXLENGTH=255] // TODO rename to clientAddress
+	DayTime loginAt
+
+	IK username loginAt
+	IK type
+}

@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.environment
+
+IMPORT com.softicar.platform.core.module.date.weekday.AGWeekday
+IMPORT com.softicar.platform.core.module.module.instance.AGCoreModuleInstance
+
+TABLE AGLiveSystemConfiguration 'Core.LiveSystemConfiguration' {
+	PK AGCoreModuleInstance coreModuleInstance [ON DELETE CASCADE ON UPDATE CASCADE]
+	String systemName = "SoftiCAR" [MAXLENGTH=255]
+	AGWeekday dbmsDownTimeWeekday = NULL [NULLABLE]
+	Time dbmsDownTimeBegin = NULL [NULLABLE]
+	Time dbmsDownTimeEnd = NULL [NULLABLE]
+
+	IK dbmsDownTimeWeekday
+}

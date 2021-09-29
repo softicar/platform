@@ -1,0 +1,35 @@
+
+:root {
+	--DOM_PAGEABLE_TABLE_PAGE_BUTTON_SIZE: 26px;
+}
+
+.DomPageableTableNavigation {
+	padding: 0 1em 1em 1em;
+}
+
+.DomPageableTableNavigationGoToPagePopup .DomNumberInput {
+	width: 4em;
+}
+
+.DomPageableTableNavigationPageList {
+	display: flex;
+	align-items: center;
+
+	border-radius: calc(var(--DOM_PAGEABLE_TABLE_PAGE_BUTTON_SIZE) / 2.0);
+	background-color: var(--GRAY_BACKGROUND_COLOR);
+}
+
+.DomPageableTableNavigationPageList > .DomButton {
+	width: var(--DOM_PAGEABLE_TABLE_PAGE_BUTTON_SIZE);
+	height: var(--DOM_PAGEABLE_TABLE_PAGE_BUTTON_SIZE);
+	border-radius: 50%;
+	
+	color: var(--PRIMARY_COLOR);
+	font-weight: 500;
+	background-color: var(--GRAY_BACKGROUND_COLOR);
+}
+
+.DomPageableTableNavigationPageList > .DomButton.selected {
+	color: var(--PRIMARY_CONTRAST_COLOR);
+	background-color: var(--PRIMARY_COLOR);
+}

@@ -1,0 +1,181 @@
+
+:root {
+	--MODULE_ICON_MARGIN: 4px;
+	--MODULE_ICON_SIZE: 24px;
+}
+
+/* -------------------- PageNavigationDiv -------------------- */
+
+.PageNavigationDiv {
+
+	/* position */
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	top: 0;
+	transition: width 0.3s;
+	width: var(--PAGE_NAVIGATION_WIDTH);
+	z-index: 2;
+
+	/* overflow */
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	/* looks */
+	background: #fff;
+	user-select: none;
+}
+
+/* Hide scroll-bar for IE, Edge and Firefox */
+.PageNavigationDiv {
+
+ 	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+/* Hide scroll-bar for Chrome, Safari and Opera */
+.PageNavigationDiv::-webkit-scrollbar {
+
+	display: none;
+}
+
+.PageNavigationCollapsed > .PageNavigationDiv {
+
+	width: 0px;
+}
+
+/* -------------------- PageNavigationFolderContentDiv -------------------- */
+
+.PageNavigationFolderDiv {
+	gap: 0;
+}
+
+.PageNavigationFolderDiv > .PageNavigationFolderContentDiv {
+
+	padding-left: 20px; 
+}
+
+.PageNavigationFolderContentDiv {
+	gap: 0;
+}
+
+/* -------------------- PageNavigationFolderChevron -------------------- */
+
+.PageNavigationFolderChevron {
+	
+	margin-left: auto;
+	transition: transform 0.1s;
+	margin-right: 4px;
+	color: var(--GRAY_FONT_COLOR);
+	font-size: var(--FONT_SIZE);
+}
+
+.selected > .PageNavigationFolderTitleDiv > .PageNavigationFolderChevron {
+	
+	transform: rotate(90deg);
+	color: var(--PRIMARY_COLOR);
+}
+
+/* -------------------- PageNavigationFolderTitleDiv -------------------- */
+
+.PageNavigationFolderTitleDiv {
+	
+	min-height: 32px;
+	
+	/* content */
+	grid-auto-flow: column;
+	grid-auto-columns: max-content auto;
+	align-items: center;
+	align-content: center;
+	padding: 0 4px;
+	
+	/* looks */
+	color: var(--PRIMARY_COLOR);
+	cursor: pointer;
+	font-size: var(--FONT_SIZE_BIGGER);
+	transition: font-weight 0.1s;
+}
+
+.PageNavigationFolderTitleDiv:hover {
+
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.selected > .PageNavigationFolderTitleDiv {
+	
+	font-weight: bold;
+}
+
+.PageNavigationFolderTitleDiv > img {
+
+	margin-right: var(--MODULE_ICON_MARGIN);
+	height: var(--MODULE_ICON_SIZE);
+	width: var(--MODULE_ICON_SIZE);
+
+	filter: var(--PRIMARY_COLOR_FILTER);
+}
+
+/* -------------------- PageNavigationLogoDiv -------------------- */
+
+.PageNavigationLogoDiv {
+	
+	align-content: center;
+	height: 50px;
+	padding: 5px 20px;
+	width: calc(var(--PAGE_NAVIGATION_WIDTH) - 40px);
+}
+
+.PageNavigationLogoDiv > img {
+	
+	max-height: 50px;
+	max-width: calc(var(--PAGE_NAVIGATION_WIDTH) - 40px);
+}
+
+/* -------------------- PageNavigationPageLinkDiv -------------------- */
+
+.PageNavigationPageLinkDiv {
+
+	min-height: 32px;
+	
+	/* content */
+	gap: 0;
+	align-content: center;
+	grid-template-columns: auto min-content;
+	padding: 0 4px;
+	
+	/* looks */
+	color: #397399;
+	cursor: pointer;
+	font-size: var(--FONT_SIZE);
+	font-weight: normal;
+}
+
+.PageNavigationPageLinkDiv:hover,
+.PageNavigationPageLinkDiv.selected {
+	
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.PageNavigationPageLinkDiv > .PageNavigationPageLinkTitle {
+
+	align-content: center;
+	min-height: inherit;
+	transition: font-weight 0.1s;
+}
+
+.PageNavigationPageLinkDiv.selected > .PageNavigationPageLinkTitle {
+
+	font-weight: bold;
+}
+
+.PageNavigationPageLinkDiv > .DomButton {
+
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.PageNavigationPageLinkDiv > .DomButton:hover {
+
+	opacity: 1;
+}

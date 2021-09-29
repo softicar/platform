@@ -1,0 +1,16 @@
+PACKAGE com.softicar.platform.core.module.date.weekday
+
+ENUM TABLE AGWeekday 'Core.Weekday' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+
+	UK name
+
+	ROW (1, 'Monday')
+	ROW (2, 'Tuesday')
+	ROW (3, 'Wednesday')
+	ROW (4, 'Thursday')
+	ROW (5, 'Friday')
+	ROW (6, 'Saturday')
+	ROW (7, 'Sunday')
+}

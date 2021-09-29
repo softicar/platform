@@ -1,0 +1,27 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Day a, Day b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Day a, Day b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(Day a, Day b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(Day a, Day b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(Day a, Day b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(Day a, Day b) {
+	SQL {$a >= $b}
+}

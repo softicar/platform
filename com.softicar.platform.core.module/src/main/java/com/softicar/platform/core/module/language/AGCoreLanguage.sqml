@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.language
+
+ENUM TABLE AGCoreLanguage 'Core.CoreLanguage' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+	String iso6391 [MAXLENGTH=2]
+
+	UK name
+	UK iso6391
+
+	ROW (1, 'English', 'en')
+	ROW (2, 'German', 'de')
+}

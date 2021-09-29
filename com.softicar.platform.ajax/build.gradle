@@ -1,0 +1,11 @@
+dependencies {
+	api project(':com.softicar.platform.common.security')
+	api project(':com.softicar.platform.dom')
+	api "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
+	api "org.eclipse.jetty:jetty-servlet:$versions.jetty"
+	
+	implementation "commons-fileupload:commons-fileupload:$versions.commonsFileupload"
+	implementation "org.seleniumhq.selenium:selenium-chrome-driver:$versions.selenium"
+	implementation "org.seleniumhq.selenium:selenium-firefox-driver:$versions.selenium"
+	implementation "org.seleniumhq.selenium:selenium-support:$versions.selenium"
+}

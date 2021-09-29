@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.substitute
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGWorkflowSubstitute 'Workflow.WorkflowSubstitute' {
+	
+	PK AGUser user
+	Boolean active = TRUE
+	AGUser substitute
+	Day validFrom
+	Day validTo
+}

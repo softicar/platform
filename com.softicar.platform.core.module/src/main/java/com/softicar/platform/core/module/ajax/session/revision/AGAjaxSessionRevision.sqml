@@ -1,0 +1,8 @@
+PACKAGE com.softicar.platform.core.module.ajax.session.revision
+
+IMPORT com.softicar.platform.core.module.ajax.session.AGAjaxSession
+
+TABLE AGAjaxSessionRevision 'Core.AjaxSessionRevision' {
+	PK AGAjaxSession session [ON DELETE CASCADE ON UPDATE NO_ACTION]
+	String revision = '' [MAXLENGTH=255]
+}

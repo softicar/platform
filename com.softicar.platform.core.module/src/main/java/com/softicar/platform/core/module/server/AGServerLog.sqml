@@ -1,0 +1,17 @@
+PACKAGE com.softicar.platform.core.module.server
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGServerLog 'Core.ServerLog' {
+	PK AGServer server [ON UPDATE CASCADE]
+	PK AGTransaction transaction [ON UPDATE CASCADE]
+	Boolean active = NULL [NULLABLE]
+	String name = NULL [NULLABLE MAXLENGTH=255]
+	String address = NULL [NULLABLE MAXLENGTH=255]
+	Integer port = NULL [NULLABLE]
+	String username = NULL [NULLABLE MAXLENGTH=255]
+	String password = NULL [NULLABLE MAXLENGTH=255]
+	String domain = NULL [NULLABLE MAXLENGTH=255]
+
+	IK transaction
+}

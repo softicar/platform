@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.ajax.event
+
+ENUM TABLE AGAjaxEventType 'Core.AjaxEventType' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+
+	ROW (1, 'ACCESS_VIOLATION')
+	ROW (2, 'DOCUMENT_CREATION')
+	ROW (3, 'DOCUMENT_DELETION')
+}

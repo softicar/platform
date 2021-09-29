@@ -1,0 +1,100 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- dateFormat(x, format) -------------------- //
+
+// formats the Day according to the given format string
+FUNCTION String dateFormat(Day x, String format) {
+	SQL {DATE_FORMAT($x, $format)}
+}
+
+// formats the DayTime according to the given format string
+FUNCTION String dateFormat(DayTime x, String format) {
+	SQL {DATE_FORMAT($x, $format)}
+}
+
+// -------------------- dayOfMonth(x) -------------------- //
+
+// returns the day of month in the range [1,31]
+FUNCTION Integer dayOfMonth(Day x) {
+	SQL {DAYOFMONTH($x)}
+}
+
+// returns the day of month in the range [1,31]
+FUNCTION Integer dayOfMonth(DayTime x) {
+	SQL {DAYOFMONTH($x)}
+}
+
+// -------------------- dayOfYear(x) -------------------- //
+
+// returns the day of year in the range [1,366]
+FUNCTION Integer dayOfYear(Day x) {
+	SQL {DAYOFYEAR($x)}
+}
+
+// returns the day of year in the range [1,366]
+FUNCTION Integer dayOfYear(DayTime x) {
+	SQL {DAYOFYEAR($x)}
+}
+
+// -------------------- month(x) -------------------- //
+
+// returns the month in the range [1,12]
+FUNCTION Integer month(Day x) {
+	SQL {MONTH($x)}
+}
+
+// returns the month in the range [1,12]
+FUNCTION Integer month(DayTime x) {
+	SQL {MONTH($x)}
+}
+
+// -------------------- now() -------------------- //
+FUNCTION DayTime now() {
+	SQL {^NOW()}
+}
+
+// -------------------- today() -------------------- //
+FUNCTION Day today() {
+	SQL {CURDATE()}
+}
+
+// -------------------- year(x) -------------------- //
+FUNCTION Integer year(Day x) {
+	SQL {YEAR($x)}
+}
+
+FUNCTION Integer year(DayTime x) {
+	SQL {YEAR($x)}
+}
+
+// -------------------- date difference -------------------- //
+
+FUNCTION Integer dateDiff(Day a, Day b) {
+	SQL {DATEDIFF($a, $b)}
+}
+
+FUNCTION Integer dateDiff(DayTime a, DayTime b) {
+	SQL {DATEDIFF($a, $b)}
+}
+
+// -------------------- timestamp difference -------------------- //
+
+FUNCTION Integer timestampDiffSeconds(DayTime earlier, DayTime later) {
+	SQL {TIMESTAMPDIFF(SECOND, $earlier, $later)}
+}
+
+FUNCTION Integer timestampDiffMinutes(DayTime earlier, DayTime later) {
+	SQL {TIMESTAMPDIFF(MINUTE, $earlier, $later)}
+}
+
+FUNCTION Integer timestampDiffHours(DayTime earlier, DayTime later) {
+	SQL {TIMESTAMPDIFF(HOUR, $earlier, $later)}
+}
+
+FUNCTION Integer timestampDiffMonths(DayTime earlier, DayTime later) {
+	SQL {TIMESTAMPDIFF(MONTH, $earlier, $later)}
+}
+
+FUNCTION Integer timestampDiffYears(DayTime earlier, DayTime later) {
+	SQL {TIMESTAMPDIFF(YEAR, $earlier, $later)}
+}

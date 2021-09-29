@@ -1,0 +1,26 @@
+PACKAGE com.softicar.platform.core.module.event.panic
+
+IMPORT com.softicar.platform.core.module.log.level.AGLogLevel
+IMPORT com.softicar.platform.core.module.log.message.AGLogMessage
+
+QUERY CurrentPanicsQuery {
+	
+	AGLogLevel level
+	
+	SELECT process.id TITLE "Process ID"
+	SELECT process.className TITLE "Process Class Name"
+	SELECT count(process.id) AS count TITLE "Count"
+	SELECT message.logTime TITLE "Date"
+	SELECT message.logText TITLE "Text"
+	
+	FROM AGLogMessage message
+	JOIN message.process process
+	
+	WHERE message.level = $level
+	WHERE message.notificationTime IS NULL
+	
+	ORDER BY count DESC
+	ORDER BY message.logTime
+	
+	GROUP BY process.id
+}

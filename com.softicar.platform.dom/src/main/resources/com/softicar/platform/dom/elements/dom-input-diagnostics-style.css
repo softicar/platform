@@ -1,0 +1,35 @@
+
+.DomInputDiagnosticsDisplay {
+	display: grid;
+	gap: 1px;
+}
+
+.DomInputDiagnosticsDisplay.error {
+	color: var(--ERROR_FONT_COLOR);
+}
+
+.DomInputDiagnosticsDisplay.success {
+	color: var(--SUCCESS_FONT_COLOR);
+}
+
+.DomInputDiagnosticsDisplay.warning {
+	color: var(--WARNING_FONT_COLOR);
+}
+
+.DomInputDiagnosticsDisplay.error input,
+.DomInputDiagnosticsDisplay.error select,
+.DomInputDiagnosticsDisplay.error textarea {
+	border-color: var(--ERROR_BORDER_COLOR);
+}
+
+.DomInputDiagnosticsDisplay.success input,
+.DomInputDiagnosticsDisplay.success select,
+.DomInputDiagnosticsDisplay.success textarea {
+	border-color: var(--SUCCESS_BORDER_COLOR);
+}
+
+.DomInputDiagnosticsDisplay.warning input,
+.DomInputDiagnosticsDisplay.warning select,
+.DomInputDiagnosticsDisplay.warning textarea {
+	border-color: var(--WARNING_BORDER_COLOR);
+}

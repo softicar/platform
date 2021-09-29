@@ -1,0 +1,12 @@
+<!-- This configuration file exists because 'tess4j' has a hard dependency on 'ch.qos.logback:logback-classic'. -->
+<!-- We configure 'logback-class' here to be less noisy, see http://logback.qos.ch/manual/configuration.html -->
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="warn">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

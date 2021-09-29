@@ -1,0 +1,5 @@
+dependencies {
+	api project(':com.softicar.platform.common.pdf')
+
+	implementation "org.bytedeco:tesseract-platform:$versions.tesseractPlatform"
+}
