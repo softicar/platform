@@ -1,0 +1,16 @@
+PACKAGE com.softicar.platform.core.module.log.message
+
+IMPORT com.softicar.platform.core.module.log.process.AGLogProcess
+
+QUERY LogMessageTableQuery{
+	
+	AGLogProcess logProcess
+	
+	SELECT logMessage.level TITLE "Log level"
+	SELECT logMessage.logText TITLE "Log message"
+	SELECT logMessage.logTime TITLE "Log time"
+	SELECT logMessage.notificationTime TITLE "Notification time"
+	FROM AGLogMessage logMessage
+	WHERE logMessage.process=$logProcess
+	ORDER BY logMessage.logTime DESC 
+}

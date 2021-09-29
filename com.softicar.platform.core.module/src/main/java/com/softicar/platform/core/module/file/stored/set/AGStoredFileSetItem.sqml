@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.file.stored.set
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+
+TABLE AGStoredFileSetItem 'Core.StoredFileSetItem' {
+	PK AGStoredFileSet fileSet
+	PK AGStoredFile file
+
+	IK file
+}

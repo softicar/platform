@@ -1,0 +1,14 @@
+.EmfIconColumnHandler,
+.EmfScopeFieldColumnHandler, 
+.EmfChildTablesColumnHandler,
+.EmfDisplayStringToTextAreaColumnHandler,
+.EmfPredicateColumnHandler {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+
+.EmfIconColumnHandler > img {
+	width: 19px;
+	height: 19px;
+}

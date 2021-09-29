@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.program.execution.scheduled
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGScheduledProgramExecution 'Core.ScheduledProgramExecution' {
+
+	PK Integer id = SERIAL
+	Boolean active = TRUE
+	String cronExpression [MAXLENGTH=255]
+	AGUuid programUuid
+
+	UK programUuid
+}

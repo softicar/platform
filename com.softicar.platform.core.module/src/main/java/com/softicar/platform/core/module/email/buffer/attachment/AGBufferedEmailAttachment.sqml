@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.email.buffer.attachment
+
+IMPORT com.softicar.platform.core.module.email.buffer.AGBufferedEmail
+
+TABLE AGBufferedEmailAttachment 'Core.BufferedEmailAttachment' {
+	PK Integer id = SERIAL
+	AGBufferedEmail email [ON DELETE CASCADE ON UPDATE CASCADE]
+	Integer index
+	String name [LENGTHBITS=16]
+	String type [LENGTHBITS=16]
+	Blob data [LENGTHBITS=32]
+
+	UK email index
+}

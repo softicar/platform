@@ -1,0 +1,51 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Decimal a, Decimal b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Decimal a, Decimal b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(Decimal a, Decimal b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(Decimal a, Decimal b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(Decimal a, Decimal b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(Decimal a, Decimal b) {
+	SQL {$a >= $b}
+}
+
+// -------------------- addition -------------------- //
+
+FUNCTION Decimal +(Decimal a, Decimal b) {
+	SQL {$a + $b}
+}
+
+FUNCTION Decimal -(Decimal a, Decimal b) {
+	SQL {$a - $b}
+}
+
+// -------------------- multiplication -------------------- //
+
+FUNCTION Decimal *(Decimal a, Decimal b) {
+	SQL {$a * $b}
+}
+
+FUNCTION Decimal /(Decimal a, Decimal b) {
+	SQL {$a / $b}
+}
+
+FUNCTION Decimal %(Decimal a, Decimal b) {
+	SQL {$a % $b}
+}

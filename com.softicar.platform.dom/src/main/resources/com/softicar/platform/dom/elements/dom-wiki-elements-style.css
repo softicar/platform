@@ -1,0 +1,45 @@
+h4.DomWikiHeadline,
+h5.DomWikiHeadline,
+h6.DomWikiHeadline {
+	border-bottom: 1px solid var(--LABEL_BORDER_COLOR);
+}
+
+.DomWikiMonospace {
+	display: inline;
+	color: #880000;
+	background-color: #f0f0f0;
+	border-radius: var(--BORDER_RADIUS);
+	box-sahdow: 0 0 0 1px #cccccc inset;
+	padding: 0 5px;
+	font-family: monospace;
+}
+
+.DomWikiRawText {
+	font-family: monospace;
+	white-space: pre;
+	overflow: auto;
+}
+
+.DomWikiRawTextInline {
+	display: inline;
+}
+
+.DomWikiRawTextCode {
+	background: var(--INFO_BACKGROUND_COLOR);
+	border: 1px solid var(--INFO_BORDER_COLOR);
+	box-shadow: 0 0 5px 0 #888888;
+	padding: 2px 2px;
+}
+
+.DomWikiRawTextCode.DomWikiRawTextCodeBlock {
+	padding: 5px 10px;
+}
+
+.DomWikiUnderline {
+	display: inline;
+	text-decoration: underline;
+}
+
+.DomWikiSyntaxDiv {
+	justify-items: start;
+}

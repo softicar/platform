@@ -1,0 +1,33 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(String a, String b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(String a, String b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(String a, String b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(String a, String b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(String a, String b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(String a, String b) {
+	SQL {$a >= $b}
+}
+
+// -------------------- addition -------------------- //
+
+FUNCTION String +(String a, String b) {
+	SQL {CONCAT($a, $b)}
+}

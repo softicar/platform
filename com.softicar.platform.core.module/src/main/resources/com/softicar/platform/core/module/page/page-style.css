@@ -1,0 +1,153 @@
+:root {
+	--PAGE_HEADER_BUTTON_SIZE: 32px;
+	--PAGE_HEADER_HEIGHT: 60px;
+	--PAGE_NAVIGATION_WIDTH: 275px;
+}
+
+/* -------------------- PageContentDiv -------------------- */
+
+.PageContentDiv {
+
+	/* position */
+	box-sizing: border-box;
+	bottom: 0;
+	left: var(--PAGE_NAVIGATION_WIDTH);
+	position: fixed;
+	right: 0;
+	top: var(--PAGE_HEADER_HEIGHT);
+	transition: left 0.3s;
+
+	/* content layout */
+	align-items: start;
+	display: grid;
+	justify-items: start;
+	padding: 20px;
+
+	/* overflow */
+	overflow: auto;
+	scrollbar-color: var(--PRIMARY_COLOR) var(--GRAY_BACKGROUND_COLOR);
+
+	/* looks */
+	background: var(--GRAY_BACKGROUND_COLOR);
+	box-shadow: var(--PAGE_BOX_SHADOW) inset;
+}
+
+.PageContentDiv::-webkit-scrollbar {
+	
+	width: 6px;
+}
+
+.PageContentDiv::-webkit-scrollbar-thumb {
+	
+	background: var(--PRIMARY_COLOR);
+}
+
+.PageNavigationCollapsed .PageContentDiv {
+	
+	left: 0px;
+}
+
+/* -------------------- PageHeaderDiv -------------------- */
+
+.PageHeaderDiv {
+	
+	/* position */
+	box-sizing: border-box;
+	height: var(--PAGE_HEADER_HEIGHT);
+	left: var(--PAGE_NAVIGATION_WIDTH);
+	position: fixed;
+	right: 0;
+	top: 0;
+	transition: left 0.3s;
+	z-index: 1;
+	
+	/* content layout */
+	column-gap: 1em;
+	display: grid;
+	grid-template-columns: max-content auto max-content 26px max-content;
+	padding: 14px;
+	align-items: center;
+	
+	/* looks */
+	background: #fff;
+	box-shadow: var(--PAGE_BOX_SHADOW);
+	color: var(--PRIMARY_COLOR);
+}
+
+.PageNavigationCollapsed .PageHeaderDiv {
+
+	left: 0px;
+}
+
+.PageHeaderDiv > .DomButton img {
+
+	max-height: var(--PAGE_HEADER_BUTTON_SIZE);
+	max-width: var(--PAGE_HEADER_BUTTON_SIZE);
+
+	height: var(--PAGE_HEADER_BUTTON_SIZE);
+	width: var(--PAGE_HEADER_BUTTON_SIZE);
+}
+
+.PageHeaderPathDiv {
+
+	/* content layout */
+	align-items: center;
+	display: grid;
+	gap: 1em;
+	grid-auto-flow: column;
+	justify-content: left;
+	white-space: nowrap;
+}
+
+.PageHeaderSeparator {
+	
+	font-weight: bold;
+}
+
+.PageHeaderPageName {
+	
+	font-size: var(--FONT_SIZE_BIGGER);
+	font-weight: bold;
+}
+
+/* -------------------- PageServiceLoginDiv -------------------- */
+
+.PageServiceLoginDiv {
+	
+	/* position */
+	box-sizing: border-box;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	
+	/* content layout */
+	align-content: center;
+	display: grid;
+	justify-items: center;
+
+	/* looks */
+	background: var(--GRAY_BACKGROUND_COLOR);	
+}
+
+.PageServiceLoginDiv form {
+
+	/* content layout */
+	display: grid;
+	justify-items: center;
+	padding: 5em;
+	row-gap: 4em;
+
+	/* looks */
+	background-color: #fff;
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+}
+
+.PageServiceLoginErrorDiv {
+	
+	display: grid;
+	justify-content: center;
+	padding-top: 5px;
+}

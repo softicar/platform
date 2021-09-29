@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task.delegation
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGWorkflowTaskDelegationLog 'Workflow.WorkflowTaskDelegationLog' {
+	
+	PK AGWorkflowTaskDelegation workflowTaskDelegation 
+	PK AGTransaction transaction
+	AGUser targetUser = NULL [NULLABLE]
+	AGUser delegatedBy = NULL [NULLABLE]
+	Boolean active = NULL [NULLABLE]
+
+}

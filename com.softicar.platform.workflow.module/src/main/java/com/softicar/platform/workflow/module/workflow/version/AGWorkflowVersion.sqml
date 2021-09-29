@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.version
+
+IMPORT com.softicar.platform.workflow.module.workflow.AGWorkflow
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowVersion 'Workflow.WorkflowVersion' {
+	
+	PK Integer id = SERIAL
+	AGWorkflow workflow
+	AGWorkflowNode rootNode = NULL [NULLABLE]
+	Boolean draft = TRUE
+}

@@ -1,0 +1,3 @@
+dependencies {
+	api project(':com.softicar.platform.db.sql')
+}

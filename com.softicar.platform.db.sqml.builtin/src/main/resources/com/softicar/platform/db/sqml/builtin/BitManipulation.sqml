@@ -1,0 +1,53 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- Integer -------------------- //
+
+FUNCTION Integer bitOr(Integer x, Integer y) {
+	SQL {($x | $y)}
+}
+
+FUNCTION Integer bitAnd(Integer x, Integer y) {
+	SQL {($x & $y)}
+}
+
+FUNCTION Integer bitXor(Integer x, Integer y) {
+	SQL {($x ^ $y)}
+}
+
+FUNCTION Integer bitShiftLeft(Integer x, Integer y) {
+	SQL {($x << $y)}
+}
+
+FUNCTION Integer bitShiftRight(Integer x, Integer y) {
+	SQL {($x >> $y)}
+}
+
+FUNCTION Integer bitInverse(Integer x) {
+	SQL {(~$x)}
+}
+
+// -------------------- Long -------------------- //
+
+FUNCTION Long bitOr(Long x, Long y) {
+	SQL {($x | $y)}
+}
+
+FUNCTION Long bitAnd(Long x, Long y) {
+	SQL {($x & $y)}
+}
+
+FUNCTION Long bitXor(Long x, Long y) {
+	SQL {($x ^ $y)}
+}
+
+FUNCTION Long bitShiftLeft(Long x, Long y) {
+	SQL {($x << $y)}
+}
+
+FUNCTION Long bitShiftRight(Long x, Long y) {
+	SQL {($x >> $y)}
+}
+
+FUNCTION Long bitInverse(Long x) {
+	SQL {(~$x)}
+}

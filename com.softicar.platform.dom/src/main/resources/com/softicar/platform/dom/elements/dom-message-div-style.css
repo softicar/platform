@@ -1,0 +1,37 @@
+
+.DomMessageDiv {
+	
+	display: inline-grid;
+	grid-auto-flow: column;
+	gap: var(--COLUMN_GAP);
+	align-items: center;
+	justify-self: start;
+	
+	padding: 15px 10px;
+	border: solid 1px;
+	border-radius: var(--BORDER_RADIUS);
+}
+
+.DomMessageDiv.info {
+	
+	background: var(--INFO_BACKGROUND_COLOR);
+	border-color: var(--INFO_BORDER_COLOR);
+}
+
+.DomMessageDiv.success {
+	
+	background: var(--SUCCESS_BACKGROUND_COLOR);
+	border-color: var(--SUCCESS_BORDER_COLOR);
+}
+
+.DomMessageDiv.warning {
+	
+	background: var(--WARNING_BACKGROUND_COLOR);
+	border-color: var(--WARNING_BORDER_COLOR);
+}
+
+.DomMessageDiv.error {
+	
+	background: var(--ERROR_BACKGROUND_COLOR);
+	border-color: var(--ERROR_BORDER_COLOR);
+}

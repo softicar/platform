@@ -1,0 +1,53 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Time a, Time b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Time a, Time b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(Time a, Time b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(Time a, Time b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(Time a, Time b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(Time a, Time b) {
+	SQL {$a >= $b}
+}
+
+// -------------------- conversion -------------------- //
+
+FUNCTION Time toTime(Integer hour, Integer minute, Integer second) {
+	SQL {MAKETIME($hour, $minute, $second)}
+}
+
+FUNCTION Time toTime(Integer secondsOfDay) {
+	SQL {SEC_TO_TIME($secondsOfDay)}
+}
+
+FUNCTION Integer toSecondsOfDay(Time time) {
+	SQL {TIME_TO_SEC($time)}
+}
+
+FUNCTION Integer getHour(Time time) {
+	SQL {HOUR($time)}
+}
+
+FUNCTION Integer getMinute(Time time) {
+	SQL {MINUTE($time)}
+}
+
+FUNCTION Integer getSecond(Time time) {
+	SQL {SECOND($time)}
+}

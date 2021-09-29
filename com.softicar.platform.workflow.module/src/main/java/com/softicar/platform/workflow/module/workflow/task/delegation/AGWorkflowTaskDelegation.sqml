@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task.delegation
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask
+
+TABLE AGWorkflowTaskDelegation 'Workflow.WorkflowTaskDelegation' {
+	
+	PK AGWorkflowTask workflowTask 
+	AGUser targetUser
+	AGUser delegatedBy
+	Boolean active = TRUE
+}

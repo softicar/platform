@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.log.process
+
+IMPORT com.softicar.platform.core.module.log.level.AGLogLevel
+
+TABLE AGLogProcess 'Core.LogProcess' {
+	PK Integer id = SERIAL
+	String serverIp = '' [MAXLENGTH=255]
+	String className [MAXLENGTH=255]
+	DayTime startTime = NOW [TIMESTAMP]
+	AGLogLevel worstLevel = NULL [NULLABLE]
+
+	IK startTime
+	IK className
+	IK worstLevel
+} 

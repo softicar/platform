@@ -1,0 +1,61 @@
+.WorkflowManagementDiv {
+	position: relative;
+	resize: both;
+	overflow: auto;
+	min-width: 1024px;
+	min-height: 768px;
+}
+
+.WorkflowDisplayElement {
+	display: block;
+	position: absolute;
+	background-color: var(--LABEL_BACKGROUND_COLOR);
+	box-shadow: var(--BOX_SHADOW_HEADER);
+	border: 1px solid var(--LABEL_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+}
+
+.WorkflowCircleDisplayElement {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+}
+
+.WorkflowEndCircleInnerCircle {
+	width: 10px;
+	height: 10px;
+	margin: 5px;
+	border-radius: 50%;
+	box-shadow: inset var(--BOX_SHADOW_HEADER);
+}
+
+.WorkflowNode {
+	width: 150px;
+	height: 70px;
+	color: var(--LABEL_FONT_COLOR);
+	overflow: hidden;
+	text-align: center;
+}
+
+.WorkflowNodeSeparator {
+	width: 140px;
+	height: 1px;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: var(--LABEL_FONT_COLOR);
+}
+
+.WorkflowNodeName {
+	padding: 2px 5px 0px 5px;
+}
+
+.WorkflowNode.draggable {
+	cursor: move;
+}
+
+.WorkflowDisplayLinePixel {
+	position: absolute;
+	display: block;
+	border-radius: var(--BORDER_RADIUS);
+	border: 1px solid var(--PRIMARY_COLOR);
+}

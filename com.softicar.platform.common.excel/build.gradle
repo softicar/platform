@@ -1,0 +1,5 @@
+dependencies {
+	api project(':com.softicar.platform.common.io')
+	api "org.apache.poi:poi:$versions.poi"
+	api "org.apache.poi:poi-ooxml:$versions.poi"
+}

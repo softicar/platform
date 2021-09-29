@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
+
+TABLE AGWorkflowTask 'Workflow.WorkflowTask' {
+	
+	PK Integer id = SERIAL
+	AGTransaction transaction
+	AGWorkflowItem workflowItem 
+	AGUser user
+	Boolean closed = FALSE
+	Boolean notify = FALSE
+}

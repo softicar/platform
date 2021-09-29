@@ -1,0 +1,8 @@
+PACKAGE com.softicar.platform.core.module.file.stored.set
+
+TABLE AGStoredFileSet 'Core.StoredFileSet' {
+	PK Integer id = SERIAL
+	Blob hash [MAXLENGTH=16]
+
+	UK hash
+}

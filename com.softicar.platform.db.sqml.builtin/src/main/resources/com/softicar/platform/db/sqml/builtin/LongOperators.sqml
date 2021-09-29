@@ -1,0 +1,51 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Long a, Long b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Long a, Long b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(Long a, Long b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(Long a, Long b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(Long a, Long b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(Long a, Long b) {
+	SQL {$a >= $b}
+}
+
+// -------------------- addition -------------------- //
+
+FUNCTION Long +(Long a, Long b) {
+	SQL {$a + $b}
+}
+
+FUNCTION Long -(Long a, Long b) {
+	SQL {$a - $b}
+}
+
+// -------------------- multiplication -------------------- //
+
+FUNCTION Long *(Long a, Long b) {
+	SQL {$a * $b}
+}
+
+FUNCTION Long /(Long a, Long b) {
+	SQL {$a / $b}
+}
+
+FUNCTION Long %(Long a, Long b) {
+	SQL {$a % $b}
+}

@@ -1,0 +1,9 @@
+PACKAGE com.softicar.platform.core.module.file.stored.hash
+
+TABLE AGStoredFileSha1 'Core.StoredFileSha1' {
+	PK Integer id = SERIAL
+	Blob hash [MAXLENGTH=20]
+	Long size = 0L
+
+	UK hash 
+}

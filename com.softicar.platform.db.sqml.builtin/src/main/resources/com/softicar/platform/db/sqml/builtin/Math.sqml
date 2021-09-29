@@ -1,0 +1,93 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- abs(x) -------------------- //
+
+FUNCTION Integer abs(Integer x) {
+	SQL {ABS($x)}
+}
+
+FUNCTION Long abs(Long x) {
+	SQL {ABS($x)}
+}
+
+FUNCTION Float abs(Float x) {
+	SQL {ABS($x)}
+}
+
+FUNCTION Double abs(Double x) {
+	SQL {ABS($x)}
+}
+
+FUNCTION Decimal abs(Decimal x) {
+	SQL {ABS($x)}
+}
+
+// -------------------- ceil(x) -------------------- //
+
+FUNCTION Float ceil(Float x) {
+	SQL {CEIL($x)}
+}
+
+FUNCTION Double ceil(Double x) {
+	SQL {CEIL($x)}
+}
+
+FUNCTION Decimal ceil(Decimal x) {
+	SQL {CEIL($x)}
+}
+
+// -------------------- floor(x) -------------------- //
+
+FUNCTION Float floor(Float x) {
+	SQL {FLOOR($x)}
+}
+
+FUNCTION Double floor(Double x) {
+	SQL {FLOOR($x)}
+}
+
+FUNCTION Decimal floor(Decimal x) {
+	SQL {FLOOR($x)}
+}
+
+// -------------------- round(x) -------------------- //
+
+FUNCTION Float round(Float x) {
+	SQL {ROUND($x)}
+}
+
+FUNCTION Double round(Double x) {
+	SQL {ROUND($x)}
+}
+
+FUNCTION Decimal round(Decimal x) {
+	SQL {ROUND($x)}
+}
+
+// -------------------- round(x,d) -------------------- //
+
+FUNCTION Float round(Float x, Integer d) {
+	SQL {ROUND($x, $d)}
+}
+
+FUNCTION Double round(Double x, Integer d) {
+	SQL {ROUND($x, $d)}
+}
+
+FUNCTION Decimal round(Decimal x, Integer d) {
+	SQL {ROUND($x, $d)}
+}
+
+// -------------------- truncate(x,d) -------------------- //
+
+FUNCTION Float truncate(Float x, Integer d) {
+	SQL {TRUNCATE($x, $d)}
+}
+
+FUNCTION Double truncate(Double x, Integer d) {
+	SQL {TRUNCATE($x, $d)}
+}
+
+FUNCTION Decimal truncate(Decimal x, Integer d) {
+	SQL {TRUNCATE($x, $d)}
+}

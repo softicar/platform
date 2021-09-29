@@ -1,0 +1,86 @@
+
+.DomCheckbox {
+	/* position and layout */
+	align-items: center;
+	display: inline-grid;
+	grid-auto-flow: column;
+	gap: var(--COLUMN_GAP);
+	position: relative;
+	justify-self: start;
+	
+	/* look */
+	outline-style: none;
+	
+	/* interaction */
+	cursor: pointer;
+}
+
+.DomCheckbox.disabled {
+	cursor: default;
+	opacity: 0.33;
+}
+
+/* ------------------------------ click-displacement upon "active" ------------------------------ */
+
+.DomCheckbox::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.DomCheckbox:active::after,
+.DomCheckbox.active::after {
+	top: -1px;
+}
+
+.DomCheckbox:active:not(.disabled),
+.DomCheckbox.active:not(.disabled) {
+	top: 1px;
+}
+
+/* ------------------------------ inner box ------------------------------ */
+
+.DomCheckbox:hover:not(.disabled) > .DomCheckboxBox,
+.DomCheckbox:focus:not(.disabled) > .DomCheckboxBox {
+	box-shadow: var(--BOX_SHADOW_FOCUS);
+}
+
+.DomCheckboxBox {
+	background-image: linear-gradient(#eee, #fff);
+	border: 1px solid var(--PRIMARY_COLOR);
+	border-radius: 4px;
+	display: inline-block;
+	height: 10px;
+	padding: 3px;
+	width: 10px;
+}
+
+/* ------------------------------ inner box filler ------------------------------ */
+
+.DomCheckboxBoxFiller {
+	background-color: var(--PRIMARY_COLOR);
+	border-radius: 2px;	
+	height: 100%;
+	width: 100%;
+}
+
+/* ------------------------------ label ------------------------------ */
+
+.DomCheckbox:hover:not(.disabled) > .DomCheckboxLabel,
+.DomCheckbox:focus:not(.disabled) > .DomCheckboxLabel {
+	text-shadow: var(--TEXT_SHADOW_FOCUS);
+}
+
+.DomCheckboxLabel {
+	display: inline-block;
+}
+
+/* ------------------------------ list ------------------------------ */
+.DomCheckboxList {
+	display: grid;
+	grid-auto-flow: row;
+	gap: var(--COLUMN_GAP);
+}

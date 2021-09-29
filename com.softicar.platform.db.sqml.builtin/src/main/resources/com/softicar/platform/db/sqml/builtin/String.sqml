@@ -1,0 +1,88 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- charLength(x) -------------------- //
+
+// returns the number of chars in the given string 
+FUNCTION Integer charLength(String x) {
+	SQL {CHAR_LENGTH($x)}
+}
+
+// -------------------- length(x) -------------------- //
+
+// returns the number of bytes in the given string (same as octetLength(x)) 
+FUNCTION Integer length(String x) {
+	SQL {LENGTH($x)}
+}
+
+// -------------------- octetLength(x) -------------------- //
+
+// returns the number of bytes in the given string (same as length(x))
+FUNCTION Integer octetLength(String x) {
+	SQL {OCTET_LENGTH($x)}
+}
+
+// -------------------- lower(x) -------------------- //
+
+// converts the given string into lower-case characters 
+FUNCTION String lower(String x) {
+	SQL {LOWER($x)}
+}
+
+// -------------------- lpad(x) -------------------- //
+
+// prepends padding characters until the given string has the desired length
+FUNCTION String lpad(String x,
+	Integer length,
+	String padding) {
+	SQL {LPAD($x, $length, $padding)}
+}
+
+// -------------------- ltrim(x) -------------------- //
+
+// removes all leading whitespace characters
+FUNCTION String ltrim(String x) {
+	SQL {LTRIM($x)}
+}
+
+// -------------------- trim(x) -------------------- //
+
+// removes all leading and trailing whitespace characters
+FUNCTION String trim(String x) {
+	SQL {TRIM($x)}
+}
+
+// -------------------- rpad(x) -------------------- //
+
+// appends padding characters until the given string has the desired length
+FUNCTION String rpad(String x,
+	Integer length,
+	String padding) {
+	SQL {RPAD($x, $length, $padding)}
+}
+
+// -------------------- rtrim(x) -------------------- //
+
+// removes all trailing whitespace characters
+FUNCTION String rtrim(String x) {
+	SQL {RTRIM($x)}
+}
+
+// -------------------- substr(x,start[,length]) -------------------- //
+
+// extracts a substring from the given string, where start is in the range [1,n]
+FUNCTION String substr(String x, Integer start) {
+	SQL {SUBSTR($x, $start)}
+}
+
+// extracts a substring with the desired length from the given string,
+// where start is in the range [1,n]
+FUNCTION String substr(String x, Integer start, Integer length) {
+	SQL {SUBSTR($x, $start, $length)}
+}
+
+// -------------------- upper(x) -------------------- //
+
+// converts the given string into upper-case characters 
+FUNCTION String upper(String x) {
+	SQL {UPPER($x)}
+}

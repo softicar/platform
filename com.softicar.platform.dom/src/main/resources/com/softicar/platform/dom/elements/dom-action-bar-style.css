@@ -1,0 +1,31 @@
+
+/* ------------------------------ DomButton decoration ------------------------------ */
+
+:not(td) > .DomActionBar > .DomButton {
+	padding: var(--DOM_BUTTON_DECORATION_PADDING);
+	background-color: var(--DOM_BUTTON_DECORATION_BACKGROUND_COLOR);
+	color: var(--DOM_BUTTON_DECORATION_COLOR);
+}
+
+:not(td) > .DomActionBar > .DomButton:hover:not(.disabled),
+:not(td) > .DomActionBar > .DomButton:focus:not(.disabled) {
+	box-shadow: var(--DOM_BUTTON_DECORATION_INTERACTION_BOX_SHADOW);
+}
+
+:not(td) > .DomActionBar > .DomButton.selected {
+	background-color: var(--SECONDARY_COLOR);
+}
+
+:not(td) > .DomActionBar > .DomButton > .DomButtonIcon {
+	width: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
+	height: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
+}
+
+:not(td) > .DomActionBar > .DomButton > .DomButtonIcon:not(.precolored) {
+	filter: var(--DOM_BUTTON_ICON_DECORATION_FILTER);
+}
+
+:not(td) > .DomActionBar > .DomButton > .DomButtonLabel {
+	min-height: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
+	text-transform: var(--DOM_BUTTON_LABEL_DECORATION_TEXT_TRANSFORM);
+}

@@ -1,0 +1,19 @@
+PACKAGE com.softicar.platform.core.module.access.role.assignment.module.system
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGSystemModuleRoleAssignment 'Core.SystemModuleRoleAssignment' {
+	PK Integer id = SERIAL
+	AGTransaction transaction [ON UPDATE CASCADE]
+	AGUser user
+	AGUuid module
+	AGUuid role
+	Boolean active = TRUE
+
+	UK user module role
+	IK module
+	IK role
+	IK transaction
+}

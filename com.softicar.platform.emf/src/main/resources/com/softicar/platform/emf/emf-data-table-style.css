@@ -1,0 +1,102 @@
+.EmfDataTableHeaderCellDiv {
+	gap: 2px;
+}
+
+.EmfDataTableHeaderCellDiv .DomBar {
+	gap: 2px;
+}
+
+.EmfDataTableHeaderCellDiv > :not(.DomBar) {
+	font-size: var(--FONT_SIZE_SMALL);
+	text-align: left;
+}
+
+.EmfDataTableHeaderCellDiv .DomButton {
+	color: var(--PRIMARY_COLOR);
+}
+
+.EmfDataTableHeaderCellDiv .DomButton img {
+	width: 16px;
+	height: 16px;
+	max-width: 16px;
+	max-height: 16px;
+}
+
+.DomDataTable > thead > tr > th.EmfDataTableVerticalHeaderCell {
+	padding: 5px 1px;
+}
+
+.EmfDataTableVerticalHeaderCellDiv {
+	vertical-align: bottom;
+}	
+
+.EmfDataTableDiv {
+	background-color: #fff;
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+	display: inline-grid;
+	row-gap: 8px;
+	justify-self: start;
+}
+
+.EmfDataTableDiv > .EmfDataTable {
+	box-shadow: none;
+}
+
+.EmfDataTableDiv > .EmfDataTable > :last-child > tr:last-child > :first-child {
+	border-bottom-left-radius: 0;
+}
+
+.EmfDataTableDiv > .EmfDataTable > :last-child > tr:last-child > :last-child {
+	border-bottom-right-radius: 0;
+}
+
+.EmfDataTableDiv td > img {
+	width: 24px;
+	height: 24px;
+	max-width: 24px;
+	max-height: 24px;
+	vertical-align: middle;
+}
+
+.EmfDataTableRowSelectionCheckbox {
+	opacity: 25%;
+}
+
+tr:hover .EmfDataTableRowSelectionCheckbox,
+tr.selected .EmfDataTableRowSelectionCheckbox{
+	opacity: 100%;
+	transition: opacity 0.2s;
+}
+
+.EmfDataTableRowSelectionControlElement {
+	color: var(--PRIMARY_COLOR);
+}
+
+.EmfDataTableFilterListDiv {
+	display: grid;
+	row-gap: var(--ROW_GAP);
+	justify-items: center;
+}
+
+.EmfDataTableFilterListElementDiv {
+	align-items: center;
+	column-gap: var(--COLUMN_GAP);
+	display: grid;
+	grid-auto-flow: column;
+}
+
+.EmfDataTableOrderByButtonCountElement {
+	display: grid;
+	position: absolute;
+	align-content: center;
+	right: -6px;
+	bottom: -4px;
+	height: 12px;
+	width: 12px;
+	border-radius: var(--BORDER_RADIUS);
+	background-color: var(--PRIMARY_COLOR);
+	color: var(--PRIMARY_CONTRAST_COLOR);
+	font-size: var(--FONT_SIZE_SMALL);
+	font-weight: bold;
+}

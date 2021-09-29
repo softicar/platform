@@ -1,0 +1,36 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation
+IMPORT com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution
+
+QUERY WorkflowTaskQuery {
+	AGUser user
+	Boolean showMyDelegations
+	
+	SELECT item
+	SELECT task
+	SELECT delegation.delegatedBy AS delegatedBy TITLE 'Delegation'
+	SELECT transaction.at AS createdAt
+	
+	FROM AGWorkflowTask AS task
+	JOIN task.workflowItem AS item
+	JOIN task.user AS user
+	JOIN item.workflow AS workflow
+	JOIN item.workflowNode AS workflowNode
+	JOIN workflowNode.workflowVersion AS workflowVersion
+	LEFT JOIN task.transaction AS transaction
+	LEFT JOIN AGWorkflowTaskDelegation AS delegation ON delegation.workflowTask = task AND delegation.active
+	LEFT JOIN AGWorkflowTransitionExecution execution ON execution.workflowTask = task 
+	
+	GROUP BY item, task
+	WHERE ((task.user = $user AND IF ($showMyDelegations, TRUE, delegation IS NULL))
+	 OR (delegation.targetUser=$user))
+	
+	WHERE NOT task.closed
+	WHERE task.notify
+	
+	WHERE execution IS NULL
+	
+	ORDER BY createdAt DESC
+}

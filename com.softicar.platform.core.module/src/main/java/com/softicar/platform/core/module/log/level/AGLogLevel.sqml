@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.core.module.log.level
+
+ENUM TABLE AGLogLevel 'Core.LogLevel' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+
+	ROW (1, 'PANIC')
+	ROW (2, 'ERROR')
+	ROW (3, 'WARNING')
+	ROW (4, 'INFO')
+	ROW (5, 'VERBOSE')
+}

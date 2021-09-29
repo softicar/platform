@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.transition.role
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGWorkflowTransitionRoleLog 'Workflow.WorkflowTransitionRoleLog' {
+	
+	PK AGWorkflowTransitionRole transitionRole
+	PK AGTransaction transaction
+	AGUuid role = NULL [NULLABLE]
+	Boolean active = NULL [NULLABLE]
+}

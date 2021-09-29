@@ -1,0 +1,32 @@
+<svg width="38" height="27" version="1.1" viewBox="0 0 38 27" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <filter id="f" x="-3.9%" y="-16.7%" width="107.9%" height="133.3%">
+   <feMorphology in="SourceAlpha" operator="dilate" radius=".5" result="shadowSpreadOuter1"/>
+   <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+   <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"/>
+  </filter>
+  <filter id="e" x="-3.9%" y="-16.7%" width="107.9%" height="133.3%">
+   <feMorphology in="SourceAlpha" operator="dilate" radius=".5" result="shadowSpreadOuter1"/>
+   <feOffset in="shadowSpreadOuter1" result="shadowOffsetOuter1"/>
+   <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"/>
+  </filter>
+  <path id="c" d="M0 9H38V18H0z"/>
+  <path id="d" d="M0 18H38V27H0z"/>
+  <rect id="b" width="38" height="27" rx="2"/>
+ </defs>
+ <g fill="none" fill-rule="evenodd">
+  <mask id="a" fill="#fff">
+   <use xlink:href="#b"/>
+  </mask>
+  <use fill="#FFF" xlink:href="#b"/>
+  <path d="M0 0H38V9H0z" fill="#262626" mask="url(#a)"/>
+  <g mask="url(#a)">
+   <use fill="#000" filter="url(#f)" xlink:href="#c"/>
+   <use fill="#F01515" xlink:href="#c"/>
+  </g>
+  <g mask="url(#a)">
+   <use fill="#000" filter="url(#e)" xlink:href="#d"/>
+   <use fill="#FFD521" xlink:href="#d"/>
+  </g>
+ </g>
+</svg>

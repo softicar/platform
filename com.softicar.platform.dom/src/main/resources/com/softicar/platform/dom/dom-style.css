@@ -1,0 +1,174 @@
+
+@font-face { font-family: "Rubik"; src: url("<%% /com/softicar/platform/common/ui/font/Rubik-wght.ttf %%>") format("truetype"); font-style: normal; font-weight: 300; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Rubik"; src: url("<%% /com/softicar/platform/common/ui/font/Rubik-wght.ttf %%>") format("truetype"); font-style: normal; font-weight: 400; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Rubik"; src: url("<%% /com/softicar/platform/common/ui/font/Rubik-wght.ttf %%>") format("truetype"); font-style: normal; font-weight: 500; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Rubik"; src: url("<%% /com/softicar/platform/common/ui/font/Rubik-wght.ttf %%>") format("truetype"); font-style: normal; font-weight: 600; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Rubik"; src: url("<%% /com/softicar/platform/common/ui/font/Rubik-wght.ttf %%>") format("truetype"); font-style: normal; font-weight: 700; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+	
+	/* ---------- border radius and gaps ---------- */
+	
+	--BORDER_RADIUS: 6px;
+	--COLUMN_GAP: 5px;
+	--ROW_GAP: 5px;
+
+	/* ---------- shadows ---------- */
+	
+	--BOX_SHADOW_FOCUS: 0px 0px 3px 2px #0004;
+	--BOX_SHADOW_HEADER: 0px 2px 4px #0004;
+	--BOX_SHADOW_OVERLAY: 0 0 20px #0004;
+	--BOX_SHADOW_SECTION_HEADER: 0px 3px 4px -2px #0004;
+	--BOX_SHADOW_TABLE_HEADER: 0px 3px 4px -2px #0004;
+	--PAGE_BOX_SHADOW: 4px 4px 8px #e5e4e6;
+	--TEXT_SHADOW_FOCUS: 1px 1px 3px #0006;
+
+	/* ---------- colors ---------- */
+
+	--PRIMARY_COLOR: #21445b;
+	  /* color #21445b generated with https://codepen.io/sosuke/pen/Pjoqqp */
+	--PRIMARY_COLOR_FILTER: brightness(0) saturate(100%) invert(21%) sepia(98%) saturate(274%) hue-rotate(159deg) brightness(94%) contrast(97%);
+	--PRIMARY_CONTRAST_COLOR: #fff;
+	--PRIMARY_CONTRAST_COLOR_FILTER: brightness(0) invert(1);
+	--PRIMARY_DISABLED_COLOR: #bcc7ce;
+
+	--SECONDARY_COLOR: #ee7203;
+	--SECONDARY_CONTRAST_COLOR: #fff;
+
+	--GRAY_BACKGROUND_COLOR: #f3f5f7;
+	--GRAY_FONT_COLOR: #888;
+	
+	--INPUT_BACKGROUND_COLOR: #fff;
+	--INPUT_BORDER_COLOR: #c9c9c9;
+	
+	--SELECTION_BACKGROUND_COLOR: #ebf2f6;
+	--SELECTION_BACKGROUND_ALTERNATE_COLOR: #e0e7eb;
+
+	/* ---------- label style ---------- */
+
+	--LABEL_BACKGROUND_COLOR: var(--GRAY_BACKGROUND_COLOR);
+	--LABEL_BORDER_COLOR: #c9c9c9;
+	--LABEL_FONT_COLOR: var(--PRIMARY_COLOR);
+	--LABEL_FONT_WEIGHT: 500;
+
+	/* ---------- default font style ---------- */
+
+	--FONT_COLOR: #25252a;
+	--FONT_FAMILY: "Rubik", sans-serif;
+	--FONT_WEIGHT: normal;
+	--FONT_SIZE: 13px;
+	--FONT_SIZE_CAPTION: 20px;
+	--FONT_SIZE_BIGGER: 15px;
+	--FONT_SIZE_SMALL: 9px;
+
+	/* ---------- diagnostics colors ---------- */
+
+	--ERROR_BACKGROUND_COLOR: #ed97a0;
+	--ERROR_BORDER_COLOR: #dc3545;
+	--ERROR_FONT_COLOR: var(--ERROR_BORDER_COLOR);
+
+	--INFO_BACKGROUND_COLOR: #e3eeff;
+	--INFO_BORDER_COLOR: #518abf;
+	--INFO_FONT_COLOR: var(--INFO_BORDER_COLOR);
+
+	--SUCCESS_BACKGROUND_COLOR: #c0ffc0;
+	--SUCCESS_BORDER_COLOR: #4bb91e;
+	--SUCCESS_FONT_COLOR: var(--SUCCESS_BORDER_COLOR);
+
+	--WARNING_BACKGROUND_COLOR: #ffffc0;
+	--WARNING_BORDER_COLOR: #f1cd46;
+	--WARNING_FONT_COLOR: var(--WARNING_BORDER_COLOR);
+}
+
+body {
+	color: var(--FONT_COLOR);
+	font-family: var(--FONT_FAMILY);
+	font-size: var(--FONT_SIZE);
+}
+
+fieldset {
+	display: grid;
+	grid-auto-flow: row;
+	grid-auto-rows: max-content;
+	gap: var(--ROW_GAP);
+	border-radius: var(--BORDER_RADIUS);
+	border: 1px solid var(--LABEL_BORDER_COLOR);
+	margin: 0;
+}
+
+hr {
+	background-color: var(--LABEL_BORDER_COLOR);
+	border: none;
+	height: 1px;
+	width: 100%;
+	margin: 2px 0;
+}
+
+div {
+	display: grid;
+	grid-auto-flow: row;
+	grid-auto-rows: max-content;
+	gap: var(--ROW_GAP);
+}
+
+/* -------------------- input -------------------- */
+
+input,
+textarea {
+	color: var(--FONT_COLOR);
+	background-color: var(--INPUT_BACKGROUND_COLOR);
+}
+
+input[type=text],
+input[type=password],
+textarea {
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	outline: none;
+	padding: 5px 10px;
+	transition: box-shadow 0.1s linear;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+textarea:focus {
+	box-shadow: var(--BOX_SHADOW_FOCUS);
+}
+
+input[type=text]:disabled,
+input[type=password]:disabled
+textarea:disabled {
+	opacity: 0.3;
+}
+
+/* -------------------- select -------------------- */
+
+select {
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	color: var(--FONT_COLOR);
+	min-width: 10em;
+	outline: none;
+	/* Note that there is currently no clean solution to having equally-sized left-paddings in Firefox and Chrome. */
+	/* Firefox erroneously adds some extra left-hand padding; see: https://bugzilla.mozilla.org/show_bug.cgi?id=1582545 */
+	padding: 5px 28px 5px 10px;
+	transition: box-shadow 0.1s linear;
+}
+
+select:not([multiple]) {
+	appearance: none;
+	background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' fill='rgb(37, 37, 42)'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat calc(100% - 10px) 50% #fff;
+}
+
+select:not([multiple]):hover:not([disabled]) {
+	background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' fill='rgb(238, 114, 3)'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat calc(100% - 10px) 50% #fff;
+	cursor: pointer;
+}
+
+select:focus {
+	box-shadow: var(--BOX_SHADOW_FOCUS);
+}
+
+select:disabled {
+	opacity: 0.3;
+}

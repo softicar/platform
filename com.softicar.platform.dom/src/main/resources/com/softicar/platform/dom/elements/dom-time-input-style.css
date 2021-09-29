@@ -1,0 +1,9 @@
+
+.DomTimeInput {
+	display: inline-grid;
+	gap: 0;
+}
+
+.DomTimeInputElement {
+	width: 25px;
+}

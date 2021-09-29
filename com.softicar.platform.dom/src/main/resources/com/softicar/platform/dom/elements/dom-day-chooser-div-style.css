@@ -1,0 +1,78 @@
+
+.DomDayChooserDiv {
+	
+	display: inline-grid;
+	grid-auto-flow: row;
+}
+
+.DomDayChooserDivWeekend {
+	
+	background-color: var(--SECONDARY_CONTRAST_COLOR);
+	color: var(--SECONDARY_COLOR);
+}
+
+.DomDayChooserDivWorkday.selected,
+.DomDayChooserDivWeekend.selected {
+	
+	border-radius: var(--BORDER_RADIUS);
+	background-color: var(--SECONDARY_COLOR);
+	color: var(--SECONDARY_CONTRAST_COLOR);
+}
+
+/* -------------------- table styling -------------------- */ 
+
+.DomDayChooserDiv table {
+	
+	border-spacing: 0;
+}
+
+.DomDayChooserDiv th, 
+.DomDayChooserDiv td {
+	
+	padding: 5px 11px 5px 11px;
+	text-align: center;
+}
+
+.DomDayChooserDiv th { 
+	
+	color: var(--PRIMARY_CONTRAST_COLOR);
+	background-color: var(--PRIMARY_COLOR);
+}
+
+.DomDayChooserDiv td {
+	
+	cursor: pointer;
+}
+
+.DomDayChooserDiv td:not(.DomDayChooserDivWorkday, .DomDayChooserDivWeekend) {
+	
+	color: var(--GRAY_FONT_COLOR);
+}
+
+.DomDayChooserDiv td:hover:not(.selected) {
+	
+	border-radius: var(--BORDER_RADIUS);
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+/* -------------------- border-radius of corner cells -------------------- */ 
+
+.DomDayChooserDiv thead > tr > th:first-child {
+	
+	border-top-left-radius: var(--BORDER_RADIUS);
+}
+
+.DomDayChooserDiv thead > tr > th:last-child {
+	
+	border-top-right-radius: var(--BORDER_RADIUS);
+}
+
+.DomDayChooserDiv tbody > tr:last-child > th:first-child {
+	
+	border-bottom-left-radius: var(--BORDER_RADIUS);
+}
+
+.DomDayChooserDiv tbody > tr:last-child > td:last-child {
+	
+	border-bottom-right-radius: var(--BORDER_RADIUS);
+}

@@ -1,0 +1,24 @@
+
+.DomLabelGrid {
+	/* layout */
+	align-items: center;
+	grid-template-columns: fit-content(50%) auto;
+}
+
+.DomLabelGrid > label {
+	/* layout */
+	align-items: center;
+	align-self: stretch;
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 0.5em;
+	min-height: 24px;
+	text-align: right;
+
+	/* looks */	
+	background-color: var(--LABEL_BACKGROUND_COLOR);
+	border: solid 1px var(--LABEL_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS) 0 0 var(--BORDER_RADIUS);
+	color: var(--LABEL_FONT_COLOR);
+	font-weight: var(--LABEL_FONT_WEIGHT);
+}

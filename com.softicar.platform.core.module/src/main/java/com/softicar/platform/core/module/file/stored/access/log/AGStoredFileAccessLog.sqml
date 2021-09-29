@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.file.stored.access.log
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGStoredFileAccessLog 'Core.StoredFileAccessLog' {
+	PK Integer id = SERIAL
+	AGStoredFile file
+	AGUser accessedBy
+	DayTime accessedAt = NOW [TIMESTAMP]
+
+	IK file
+	IK accessedBy
+}

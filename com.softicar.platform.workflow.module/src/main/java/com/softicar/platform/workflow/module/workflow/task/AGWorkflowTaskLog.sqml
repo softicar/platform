@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGWorkflowTaskLog 'Workflow.WorkflowTaskLog' {
+	
+	PK AGWorkflowTask workflowTask
+	PK AGTransaction transaction
+	AGUser user = NULL [NULLABLE]
+	Boolean closed = NULL [NULLABLE]
+	Boolean notify = NULL [NULLABLE]
+}

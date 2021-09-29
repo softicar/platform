@@ -1,0 +1,4 @@
+dependencies {
+	api project(':com.softicar.platform.common.container')
+	api project(':com.softicar.platform.common.date')
+}

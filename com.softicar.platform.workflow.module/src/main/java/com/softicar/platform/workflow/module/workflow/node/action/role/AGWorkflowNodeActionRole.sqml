@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.action.role
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction
+
+TABLE AGWorkflowNodeActionRole 'Workflow.WorkflowNodeActionRole' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowNodeAction workflowNodeAction
+	Boolean active = TRUE
+	AGUuid roleUuid
+}

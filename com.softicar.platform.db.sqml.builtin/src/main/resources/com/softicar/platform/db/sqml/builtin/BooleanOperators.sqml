@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Boolean a, Boolean b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Boolean a, Boolean b) {
+	SQL {$a != $b}
+}

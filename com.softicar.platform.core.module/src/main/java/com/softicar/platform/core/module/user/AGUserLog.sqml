@@ -1,0 +1,19 @@
+PACKAGE com.softicar.platform.core.module.user
+
+IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy
+IMPORT com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule
+
+TABLE AGUserLog 'Core.UserLog' {
+	PK AGUser user
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	String loginName = NULL [NULLABLE MAXLENGTH=255]
+	String firstName = NULL [NULLABLE MAXLENGTH=255]
+	String lastName = NULL [NULLABLE MAXLENGTH=255]
+	String emailAddress = NULL [NULLABLE MAXLENGTH=255]
+	AGCoreLanguage preferredLanguage = NULL [NULLABLE]
+	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
+	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
+}

@@ -1,0 +1,9 @@
+PACKAGE com.softicar.platform.core.module.file.stored.cleanup
+
+IMPORT com.softicar.platform.core.module.file.stored.chunk.AGStoredFileChunk
+
+QUERY StoredFileIdFromChunksQuery {
+	SELECT chunk.file AS file
+	FROM AGStoredFileChunk AS chunk
+	GROUP BY chunk.id
+}

@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.action
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowNodeAction 'Workflow.WorkflowNodeAction' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowNode workflowNode
+	Boolean active = TRUE
+	AGUuid action
+	
+	UK workflowNode action
+}

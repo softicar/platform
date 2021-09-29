@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.program.execution.scheduled
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGScheduledProgramExecutionLog 'Core.ScheduledProgramExecutionLog' {
+
+	PK AGScheduledProgramExecution scheduledProgramExecution
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	String cronExpression = NULL [NULLABLE MAXLENGTH=255]
+}

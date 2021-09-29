@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.action
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGWorkflowNodeActionLog 'Workflow.WorkflowNodeActionLog' {
+	
+	PK AGWorkflowNodeAction workflowNodeAction
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	AGUuid action = NULL [NULLABLE] 
+}

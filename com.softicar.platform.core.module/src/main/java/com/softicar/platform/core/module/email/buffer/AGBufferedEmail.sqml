@@ -1,0 +1,28 @@
+PACKAGE com.softicar.platform.core.module.email.buffer
+
+IMPORT com.softicar.platform.core.module.server.AGServer
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGBufferedEmail 'Core.BufferedEmail' {
+	PK Integer id = SERIAL
+	AGServer emailServer [ON UPDATE CASCADE]
+	DayTime createdAt = NOW [TIMESTAMP]
+	AGUser createdBy
+	DayTime sentAt = NULL [NULLABLE TIMESTAMP]
+	String from [LENGTHBITS=16]
+	String sender = '' [LENGTHBITS=16]
+	String replyTo = '' [LENGTHBITS=16]
+	String to = '' [LENGTHBITS=16]
+	String cc = '' [LENGTHBITS=16]
+	String bcc = '' [LENGTHBITS=16]
+	String messageId [NULLABLE LENGTHBITS=16]
+	String inReplyTo [NULLABLE LENGTHBITS=16]
+	String references [NULLABLE LENGTHBITS=16]
+	String subject = '' [LENGTHBITS=16]
+	String content [NULLABLE LENGTHBITS=24]
+	String contentType = NULL [NULLABLE MAXLENGTH=255]
+	String autoSubmitted = NULL [NULLABLE MAXLENGTH=255]
+
+	IK createdBy
+	IK emailServer
+}

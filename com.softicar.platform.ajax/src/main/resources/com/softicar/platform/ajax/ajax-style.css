@@ -1,0 +1,134 @@
+
+/* -------------------- auto-complete -------------------- */
+
+.AjaxAutoCompletePopup {
+	
+	position: absolute;
+
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+
+	background-color: var(--INPUT_BACKGROUND_COLOR); 
+	overflow:hidden;
+	gap: 0;
+}
+
+.AjaxAutoCompleteItem {
+	
+	cursor: pointer;
+	padding: 3px 4px;
+}
+
+.AjaxAutoCompleteItem:hover {
+	
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.AjaxAutoCompleteSelectedItem {
+	
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.AjaxAutoCompleteNoItems {
+	
+	font-style: italic;
+	color: var(--GRAY_FONT_COLOR);
+	padding: 3px 4px;
+}
+
+.AjaxAutoCompleteMatch {
+	
+	font-weight: bold;
+}
+
+.AjaxAutoCompleteDescription {
+  
+  font-size: var(--FONT_SIZE_SMALL);
+  font-weight: normal;
+  vertical-align: middle;
+  height: 100%;
+  margin-left: 6px;
+}
+
+/* -------------------- session timeout dialog -------------------- */
+
+.AjaxSessionTimeoutDialog {
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+
+	background-color: #0006;
+	opacity: 1;
+	transition: opacity 0.3s;
+}
+
+.AjaxSessionTimeoutDialog.hidden {
+
+	opacity: 0;
+	visibility: hidden;
+}
+
+.AjaxSessionTimeoutDialogMessage {
+	
+	display: grid;
+	align-content: center;
+	position: fixed;
+	top: 30%;
+	left: 44%;
+	height: 30px;
+	padding: 10px 15px;
+	background-color: var(--ERROR_BACKGROUND_COLOR);
+	border: 1px solid var(--ERROR_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+	cursor: pointer;
+	user-select: none;
+}
+
+/* -------------------- working indicator -------------------- */
+
+.AjaxWorkingIndicator {
+	
+	position: fixed;
+	top: 0;
+	right: 0;
+
+	color: transparent;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.AjaxWorkingIndicator.hidden {
+	
+	opacity: 0;
+	visibility: hidden;
+}
+
+.AjaxWorkingIndicator::before {
+	
+	content: "";
+	
+	position: fixed;
+	right: 56px;
+	top: 14px;
+	box-sizing: border-box;
+	height: 32px;
+	width: 32px;
+	
+	border-radius: 50%;
+	border: 4px solid var(--PRIMARY_COLOR);
+	border-color: var(--PRIMARY_COLOR) transparent var(--PRIMARY_COLOR) transparent;
+	animation: AjaxSpinAnimation 1s linear infinite;
+}
+
+/* -------------------- spin animation for auto-complete etc. -------------------- */
+
+@keyframes AjaxSpinAnimation {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
