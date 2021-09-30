@@ -1,0 +1,51 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(Float a, Float b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(Float a, Float b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(Float a, Float b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(Float a, Float b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(Float a, Float b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(Float a, Float b) {
+	SQL {$a >= $b}
+}
+
+// -------------------- addition -------------------- //
+
+FUNCTION Float +(Float a, Float b) {
+	SQL {$a + $b}
+}
+
+FUNCTION Float -(Float a, Float b) {
+	SQL {$a - $b}
+}
+
+// -------------------- multiplication -------------------- //
+
+FUNCTION Float *(Float a, Float b) {
+	SQL {$a * $b}
+}
+
+FUNCTION Float /(Float a, Float b) {
+	SQL {$a / $b}
+}
+
+FUNCTION Float %(Float a, Float b) {
+	SQL {$a % $b}
+}

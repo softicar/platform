@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.program.execution
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGProgramExecutionLog 'Core.ProgramExecutionLog' {
+
+	PK AGProgramExecution programExecution
+	PK AGTransaction transaction
+	DayTime startedAt = NULL [NULLABLE]
+	DayTime terminatedAt = NULL [NULLABLE]
+	Boolean failed = NULL [NULLABLE]
+	String output = NULL [NULLABLE LENGTHBITS=32]
+}

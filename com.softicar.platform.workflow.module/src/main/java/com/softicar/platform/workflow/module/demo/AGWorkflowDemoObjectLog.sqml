@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.demo
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
+
+TABLE AGWorkflowDemoObjectLog 'Workflow.WorkflowDemoObjectLog' {
+	PK AGWorkflowDemoObject workflowDemoObject
+	PK AGTransaction transaction
+	String name = NULL [MAXLENGTH=50 NULLABLE]
+	Boolean active = NULL [NULLABLE]
+	AGWorkflowItem workflowItem = NULL [NULLABLE]
+}

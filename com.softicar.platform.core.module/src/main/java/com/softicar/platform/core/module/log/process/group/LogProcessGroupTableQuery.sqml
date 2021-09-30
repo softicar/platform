@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.log.process.group
+
+IMPORT com.softicar.platform.core.module.log.process.AGLogProcess
+
+QUERY LogProcessGroupTableQuery{
+	SELECT logProcess.* AS action
+	SELECT logProcess.className TITLE "Process Name"
+	SELECT logProcess.worstLevel TITLE "Worst Log Level"
+	FROM AGLogProcess logProcess
+	
+	JOIN (SELECT max(logProcess2.id) AS id FROM AGLogProcess logProcess2 GROUP BY logProcess2.className) logProcess2 ON logProcess2.id=logProcess.id
+	
+	ORDER BY logProcess.startTime DESC 
+}

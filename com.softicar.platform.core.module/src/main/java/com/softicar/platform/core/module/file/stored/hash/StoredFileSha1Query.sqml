@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.file.stored.hash
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+
+QUERY StoredFileSha1Query {
+
+	AGStoredFile[] files
+
+	SELECT sha1
+	SELECT file
+	FROM AGStoredFile file
+	JOIN file.sha1 sha1
+	WHERE file IN $files
+}

@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.file.stored.server
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGStoredFileServerLog 'Core.StoredFileServerLog' {
+	PK AGStoredFileServer storedFileServer
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	String url = NULL [NULLABLE MAXLENGTH=255]
+	String domain = NULL [NULLABLE MAXLENGTH=255]
+	String username = NULL [NULLABLE MAXLENGTH=255]
+	String password = NULL [NULLABLE MAXLENGTH=255]
+
+	IK transaction
+}

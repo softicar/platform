@@ -1,0 +1,16 @@
+PACKAGE com.softicar.platform.core.module.log.message
+
+IMPORT com.softicar.platform.core.module.log.level.AGLogLevel
+IMPORT com.softicar.platform.core.module.log.process.AGLogProcess
+
+TABLE AGLogMessage 'Core.LogMessage' {
+	PK Integer id = SERIAL
+	AGLogProcess process [ON DELETE CASCADE ON UPDATE NO_ACTION]
+	AGLogLevel level = NULL [NULLABLE]
+	String logText [LENGTHBITS=16]
+	DayTime logTime = NOW [TIMESTAMP]
+	DayTime notificationTime = NULL [NULLABLE]
+
+	IK process
+	IK level
+} 

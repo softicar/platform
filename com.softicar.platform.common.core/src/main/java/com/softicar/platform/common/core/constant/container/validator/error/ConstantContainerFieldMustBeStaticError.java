@@ -1,0 +1,11 @@
+package com.softicar.platform.common.core.constant.container.validator.error;
+
+import com.softicar.platform.common.core.constant.container.field.IConstantContainerField;
+
+public class ConstantContainerFieldMustBeStaticError<T> extends AbstractConstantContainerValidationError<T> {
+
+	public ConstantContainerFieldMustBeStaticError(IConstantContainerField<T> field) {
+
+		super(field, "Must be static.");
+	}
+}

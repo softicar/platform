@@ -1,0 +1,27 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- comparison -------------------- //
+
+FUNCTION Boolean =(DayTime a, DayTime b) {
+	SQL {$a = $b}
+}
+
+FUNCTION Boolean !=(DayTime a, DayTime b) {
+	SQL {$a != $b}
+}
+
+FUNCTION Boolean <(DayTime a, DayTime b) {
+	SQL {$a < $b}
+}
+
+FUNCTION Boolean >(DayTime a, DayTime b) {
+	SQL {$a > $b}
+}
+
+FUNCTION Boolean <=(DayTime a, DayTime b) {
+	SQL {$a <= $b}
+}
+
+FUNCTION Boolean >=(DayTime a, DayTime b) {
+	SQL {$a >= $b}
+}

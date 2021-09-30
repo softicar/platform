@@ -1,0 +1,41 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+FUNCTION Boolean nullIf(Boolean x, Boolean y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Day nullIf(Day x, Day y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION DayTime nullIf(DayTime x, DayTime y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Decimal nullIf(Decimal x, Decimal y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Double nullIf(Double x, Double y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Float nullIf(Float x, Float y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Integer nullIf(Integer x, Integer y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Long nullIf(Long x, Long y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION String nullIf(String x, String y) {
+	SQL {NULLIF($x, $y)}
+}
+
+FUNCTION Time nullIf(Time x, Time y) {
+	SQL {NULLIF($x, $y)}
+}

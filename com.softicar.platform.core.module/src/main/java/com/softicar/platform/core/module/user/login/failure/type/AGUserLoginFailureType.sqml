@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.user.login.failure.type
+
+ENUM TABLE AGUserLoginFailureType 'Core.UserLoginFailureType' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+
+	ROW (1, 'MALFORMED_REQUEST')
+	ROW (2, 'UNKOWN_USER')
+	ROW (3, 'DISABLED_USER')
+	ROW (4, 'NO_ACTIVE_PASSWORD')
+	ROW (5, 'WRONG_PASSWORD')
+	ROW (6, 'TOO_MANY_FAILURES')
+	ROW (7, 'ILLEGAL_IP')
+	ROW (8, 'TOO_MANY_LOGINS')
+}

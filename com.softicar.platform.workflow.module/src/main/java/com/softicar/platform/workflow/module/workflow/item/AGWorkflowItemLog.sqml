@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.item
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowItemLog 'Workflow.WorkflowItemLog' {
+	
+	PK AGWorkflowItem workflowItem
+	PK AGTransaction transaction
+	AGWorkflowNode workflowNode = NULL [NULLABLE]
+}

@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.ajax.event
+
+IMPORT com.softicar.platform.core.module.ajax.session.AGAjaxSession
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGAjaxEvent 'Core.AjaxEvent' {
+	PK Integer id = SERIAL
+	AGAjaxSession session [ON DELETE CASCADE ON UPDATE CASCADE]
+	AGAjaxEventType type = NULL [NULLABLE]
+	DayTime eventDate = '1970-01-01 00:00:00'
+	AGUser user = NULL [NULLABLE]
+	AGUuid pageUuid [ON DELETE CASCADE ON UPDATE CASCADE]
+}

@@ -1,0 +1,52 @@
+.EmfLogFeed {
+	display: grid;
+	gap: var(--COLUMN_GAP);
+}
+
+.EmfLogFeedTransactionLegend {
+	display: grid;
+	grid-auto-flow: column;
+	gap: var(--COLUMN_GAP);
+	align-items: center;
+}
+
+.EmfLogFeedGrid {
+	display: grid;
+	grid-template-columns: min-content auto;
+	gap: var(--COLUMN_GAP);	
+}
+
+.EmfLogFeedGridLabel {
+	display: grid;
+	grid-auto-flow: column;
+	gap: var(--COLUMN_GAP);
+	align-items: center;
+	min-height: 20px;
+	font-weight: bold;
+}
+
+.EmfLogFeedGridLabel > :first-child {
+	padding-left: 5px;
+}
+
+.EmfLogFeedGridLabel > :last-child {
+	white-space: nowrap;
+	text-align: right;
+}
+
+.EmfLogFeedGridLabel > .success{
+	color: var(--SUCCESS_BORDER_COLOR);
+}
+
+.EmfLogFeedGridLabel > .error{
+	color: var(--ERROR_BORDER_COLOR);
+}
+
+.EmfLogFeedGridLabel > .info{
+	color: var(--INFO_BORDER_COLOR);
+}
+
+.EmfLogFeedGridValue {
+	display: grid;
+	align-items: center;
+}

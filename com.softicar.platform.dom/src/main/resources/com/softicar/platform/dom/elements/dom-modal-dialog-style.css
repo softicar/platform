@@ -1,0 +1,34 @@
+
+.DomModalDialogBackdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #0008;
+}
+
+.DomModalDialogBackdrop.invisible {
+	background-color: transparent;
+}
+
+.DomModalDialogPopup {
+	display: grid;
+	gap: var(--COLUMN_GAP);
+	min-width: 256px;
+	max-width: 512px;
+}
+
+.DomModalDialogPopupContent {
+	display: grid;
+	gap: var(--COLUMN_GAP);
+	overflow: auto;
+
+	/* Avoid that border shadows on contained input elements get clipped, without setting 'overflow: visible' */
+	padding: 6px;
+	margin: -6px;
+}
+
+.DomModalDialogPopup .DomActionBar {
+	justify-content: center;
+}

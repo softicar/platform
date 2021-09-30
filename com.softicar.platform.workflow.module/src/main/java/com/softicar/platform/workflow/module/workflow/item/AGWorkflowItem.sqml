@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.item
+
+IMPORT com.softicar.platform.workflow.module.workflow.AGWorkflow
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowItem 'Workflow.WorkflowItem' {
+	
+	PK Integer id = SERIAL
+	AGWorkflow workflow
+	AGWorkflowNode workflowNode
+}

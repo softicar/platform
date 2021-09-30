@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.program.execution
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGProgramExecution 'Core.ProgramExecution' {
+
+	PK Long id = SERIAL
+	AGUuid programUuid
+	DayTime startedAt = NULL [NULLABLE]
+	DayTime terminatedAt = NULL [NULLABLE]
+	Boolean failed = FALSE
+	String output = '' [LENGTHBITS=32]
+}

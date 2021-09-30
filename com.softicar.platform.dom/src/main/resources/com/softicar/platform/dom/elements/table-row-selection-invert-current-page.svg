@@ -1,0 +1,32 @@
+<svg width="24" height="24" version="1.1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <path id="c" d="M0 0H24V24H0z"/>
+  <mask id="b" fill="#fff">
+   <path d="m0 0h24v24h-24z"/>
+  </mask>
+ </defs>
+ <g transform="matrix(.71429 0 0 .71429 -.85714 7.254)" fill-rule="evenodd">
+  <mask id="a" fill="#ffffff">
+   <use width="100%" height="100%" xlink:href="#c"/>
+  </mask>
+  <path d="m5 7v10c0 1.103 0.897 2 2 2h10c1.103 0 2-0.897 2-2v-10c0-1.103-0.897-2-2-2h-10c-1.103 0-2 0.897-2 2zm2 0h10l2e-3 10h-10.002z" fill="#2e3a59" mask="url(#a)"/>
+ </g>
+ <g transform="matrix(.71429 0 0 .71429 7.7143 7.254)" fill-rule="evenodd">
+  <mask fill="#ffffff">
+   <path d="m0 0h24v24h-24z"/>
+  </mask>
+  <path d="m5 7v10c0 1.103 0.897 2 2 2h10c1.103 0 2-0.897 2-2v-10c0-1.103-0.897-2-2-2h-10c-1.103 0-2 0.897-2 2zm2 0h10l2e-3 10h-10.002zm2.7 4.285-1.4 1.43 2.704 2.647 4.699-4.651-1.406-1.422-3.301 3.267z" fill="#2e3a59" mask="url(#b)"/>
+ </g>
+ <g transform="matrix(-1 0 0 1 24.032 -1.837)" fill-rule="evenodd">
+  <mask fill="#ffffff">
+   <use width="100%" height="100%" xlink:href="#7iowt5n2ja"/>
+  </mask>
+  <path d="m17.659 6.34 2.341-2.34v7h-7.004l3.222-3.22c-1.08-1.09-2.56-1.779-4.219-1.78-2.609 3e-3 -4.828 1.672-5.648 4h-0.017c-0.114 0.322-0.202 0.656-0.26 1h-2.011c0.49-3.948 3.85-7 7.933-7h0.01c2.21 0 4.208 0.894 5.654 2.34z" fill="#2e3a59" fill-rule="evenodd" style="mix-blend-mode:normal"/>
+ </g>
+ <g transform="translate(-.0315 -1.837)" fill-rule="evenodd">
+  <mask fill="#ffffff">
+   <use width="100%" height="100%" xlink:href="#7iowt5n2ja"/>
+  </mask>
+  <path d="m17.659 6.34 2.341-2.34v7h-7.004l3.222-3.22c-1.08-1.09-2.56-1.779-4.219-1.78-2.609 3e-3 -4.828 1.672-5.648 4h-0.017c-0.114 0.322-0.202 0.656-0.26 1h-2.011c0.49-3.948 3.85-7 7.933-7h0.01c2.21 0 4.208 0.894 5.654 2.34z" fill="#2e3a59" fill-rule="evenodd" style="mix-blend-mode:normal"/>
+ </g>
+</svg>

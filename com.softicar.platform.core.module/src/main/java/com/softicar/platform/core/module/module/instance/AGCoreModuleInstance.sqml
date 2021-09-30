@@ -1,0 +1,23 @@
+PACKAGE com.softicar.platform.core.module.module.instance
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
+IMPORT com.softicar.platform.core.module.server.AGServer
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
+	PK Integer id = SERIAL
+	AGUser systemUser = NULL [NULLABLE]
+	AGStoredFileServer primaryFileServer = NULL [NULLABLE COMMENT='Server used for uploading files']
+	AGServer emailServer = NULL [NULLABLE]
+	String supportEmailAddress = 'support@example.com' [MAXLENGTH=255]
+	String noReplyEmailAddress = 'no-reply@example.com' [MAXLENGTH=255]
+	String portalProtocol = 'https' [MAXLENGTH=255]
+	String portalHost = 'www.example.com' [MAXLENGTH=255]
+	String portalApplication = 'portal' [MAXLENGTH=255]
+	AGStoredFile portalLogo = NULL [NULLABLE]
+
+	IK primaryFileServer
+	IK systemUser
+	IK emailServer
+}

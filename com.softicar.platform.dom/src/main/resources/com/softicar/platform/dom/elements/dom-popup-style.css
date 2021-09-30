@@ -1,0 +1,44 @@
+
+.DomPopup {
+	border-radius: 0 0 var(--BORDER_RADIUS) var(--BORDER_RADIUS);
+	display: grid;
+	padding: 16px;
+}
+
+.DomPopupCaption {
+	color: var(--PRIMARY_COLOR);
+	font-size: var(--FONT_SIZE_CAPTION);
+}
+
+.DomPopupSubCaption {
+	color: var(--PRIMARY_COLOR);
+	font-size: var(--FONT_SIZE);
+}
+
+.DomPopupFrame {
+	background-color: #fff;
+	border: 1px solid var(--LABEL_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+	outline-style: none;
+	width: max-content;
+}
+
+.DomPopupFrameHeader {
+	cursor: move;
+	
+	display: grid;
+	grid-template-columns: auto 32px;
+	padding: 8px 16px;
+	align-items: center;
+	
+	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
+	background-color: var(--LABEL_BACKGROUND_COLOR);
+}
+
+.DomPopupFrameHeader .DomButton img {
+	width: 32px;
+	height: 32px;
+	max-width: 32px;
+	max-height: 32px;
+}

@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.user.rule.ip
+
+TABLE AGUserAllowedIpRule 'Core.UserAllowedIpRule' {
+	PK Integer id = SERIAL
+	Boolean active = TRUE
+	String name [MAXLENGTH=255]
+	String addresses [LENGTHBITS=16 COMMENT='each line contains an ip or network address']
+
+	UK name 
+}

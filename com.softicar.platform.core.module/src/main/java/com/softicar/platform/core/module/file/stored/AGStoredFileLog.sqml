@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.file.stored
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGStoredFileLog 'Core.StoredFileLog' {
+	PK Integer id = SERIAL
+	AGStoredFile file [ON DELETE CASCADE ON UPDATE CASCADE]
+	DayTime removeAt = NULL [NULLABLE]
+	DayTime loggedAt
+	AGUser loggedBy
+
+	IK file
+	IK loggedBy
+	IK loggedAt
+}

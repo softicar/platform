@@ -1,0 +1,69 @@
+
+.DomDataTable {
+	background-color: #fff;
+	border-collapse: collapse;
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+	white-space: nowrap;
+}
+
+.DomDataTable > thead {
+	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
+	box-shadow: var(--BOX_SHADOW_TABLE_HEADER);
+	position: relative;
+}
+
+.DomDataTable > thead > tr > th {
+	color: var(--PRIMARY_COLOR);
+	font-weight: normal;
+	padding: 0.75em 1em;
+	text-align: center;
+}
+
+.DomDataTable > thead > tr > th:not(:last-child) {
+	border-right: 1px solid var(--INPUT_BORDER_COLOR);
+}
+
+.DomDataTable tr > td {
+	padding: 0.5em 1em;
+}
+
+/* -------------------- zebra -------------------- */ 
+
+.DomDataTable tr:nth-child(2n) > td {
+	background-color: var(--GRAY_BACKGROUND_COLOR);
+}
+
+/* -------------------- highlighting -------------------- */ 
+
+.DomDataTable tr:hover:not(.selected) > td {
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.DomDataTable tr.selected:not(:hover) > td {
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.DomDataTable tr.selected:hover > td {
+	background-color: var(--SELECTION_BACKGROUND_ALTERNATE_COLOR);
+}
+
+/* ------------------------------ border-radius ------------------------------ */
+
+.DomDataTable > :first-child > tr:first-child > :first-child {
+	border-top-left-radius: var(--BORDER_RADIUS);
+}
+
+.DomDataTable > :first-child > tr:first-child > :last-child {
+	border-top-right-radius: var(--BORDER_RADIUS);
+}
+
+.DomDataTable > tr:last-child > :first-child,
+.DomDataTable > :last-child > tr:last-child > :first-child {
+	border-bottom-left-radius: var(--BORDER_RADIUS);
+}
+
+.DomDataTable > tr:last-child > :last-child,
+.DomDataTable > :last-child > tr:last-child > :last-child {
+	border-bottom-right-radius: var(--BORDER_RADIUS);
+}

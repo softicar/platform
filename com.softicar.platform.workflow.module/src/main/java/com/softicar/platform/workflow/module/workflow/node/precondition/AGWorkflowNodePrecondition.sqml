@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.precondition
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
+
+TABLE AGWorkflowNodePrecondition 'Workflow.WorkflowNodePrecondition' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowNode workflowNode 
+    Boolean active = TRUE
+    AGUuid function 
+}

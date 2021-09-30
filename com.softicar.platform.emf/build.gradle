@@ -1,0 +1,10 @@
+dependencies {
+	api project(':com.softicar.platform.ajax')
+	api project(':com.softicar.platform.db.runtime')
+	api project(':com.softicar.platform.dom')
+	
+	implementation project(':com.softicar.platform.common.excel')
+	implementation "io.github.classgraph:classgraph:$versions.classgraph"
+	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
+	implementation "org.apache.commons:commons-text:$versions.commonsText"
+}

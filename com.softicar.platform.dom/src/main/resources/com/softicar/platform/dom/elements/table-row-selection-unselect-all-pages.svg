@@ -1,0 +1,17 @@
+<svg width="24" height="24" version="1.1" viewBox="0 0 6.35 6.35" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <mask id="a" fill="#ffffff">
+   <path d="m0 0h6.35v6.35h-6.35z" stroke-width=".26458"/>
+  </mask>
+ </defs>
+ <g fill="none">
+  <g transform="translate(19.635 -3.0197)" fill-rule="evenodd">
+   <mask fill="#ffffff">
+    <path d="m0 0h6.35v6.35h-6.35z" stroke-width=".26458"/>
+   </mask>
+   <path d="m5 7v10c0 1.103 0.897 2 2 2h10c1.103 0 2-0.897 2-2v-10c0-1.103-0.897-2-2-2h-10c-1.103 0-2 0.897-2 2zm2 0h10l2e-3 10h-10.002z" fill="#2e3a59" mask="url(#a)"/>
+  </g>
+  <path d="m1.1209 1.1209v3.0076h1.1006v-1.907h1.907v-1.1006z" stroke="#2e3a59" stroke-linecap="round" stroke-linejoin="round" stroke-width=".49557"/>
+  <path d="m2.2215 2.2215h3.0076v3.0076h-3.0076z" stroke="#2e3a59" stroke-linecap="round" stroke-linejoin="round" stroke-width=".49557"/>
+ </g>
+</svg>

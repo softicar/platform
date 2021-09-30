@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.email.recipient.type
+
+ENUM TABLE AGEmailRecipientType 'Core.EmailRecipientType' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+
+	ROW (1, 'TO')
+	ROW (2, 'CC')
+	ROW (3, 'BCC')
+}

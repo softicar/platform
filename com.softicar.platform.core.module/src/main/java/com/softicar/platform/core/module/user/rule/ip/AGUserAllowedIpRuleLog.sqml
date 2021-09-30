@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.user.rule.ip
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGUserAllowedIpRuleLog 'Core.UserAllowedIpRuleLog' {
+	PK AGUserAllowedIpRule userAllowedIpRule
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	String name = NULL [NULLABLE MAXLENGTH=255]
+	String addresses [NULLABLE LENGTHBITS=16]
+
+	IK transaction
+}

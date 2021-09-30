@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.transaction
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGTransaction 'Core.Transaction' {
+	PK Long id = SERIAL
+	DayTime at [TIMESTAMP]
+	AGUser by
+
+	IK by
+}

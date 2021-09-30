@@ -1,0 +1,46 @@
+
+.EmfManagementDiv {
+	display: inline-grid;
+}
+
+.EmfManagementActionsButton {
+	opacity: 25%;
+}
+
+.EmfManagementActionsButton:focus {
+	opacity: 100%;
+	transition: opacity 0.2s;
+}
+
+tr:hover .EmfManagementActionsButton,
+tr.selected .EmfManagementActionsButton{
+	opacity: 100%;
+	transition: opacity 0.2s;
+}
+
+.DomPopup.DomPopover.EmfManagementActionsPopover {
+	min-width: 100px;
+	gap: 0;
+}
+
+.EmfManagementActionsPopover > .DomButton {
+	justify-self: auto;
+	grid-auto-columns: auto 1fr;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
+.EmfManagementActionsPopover > .DomButton:focus,
+.EmfManagementActionsPopover > .DomButton:hover {
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+	filter: none;
+}
+
+.EmfManagementActionsPopover > .DomButton:focus > .DomButtonIcon,
+.EmfManagementActionsPopover > .DomButton:hover > .DomButtonLabel {
+	filter: drop-shadow(var(--TEXT_SHADOW_FOCUS));
+}
+
+.EmfManagementActionsPopover > .DomButton > .DomButtonLabel {
+	text-align: left;
+}

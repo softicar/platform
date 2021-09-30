@@ -1,0 +1,21 @@
+PACKAGE com.softicar.platform.core.module.replication.checksum
+
+// This table is for the tool pt-table-checksum.
+// Do not remove the physical column names!
+// https://www.percona.com/doc/percona-toolkit/LATEST/pt-table-checksum.html
+TABLE AGReplicationChecksum 'Core.ReplicationChecksum' {
+	PK String databaseName ['db' MAXLENGTH=64]
+	PK String tableName ['tbl' MAXLENGTH=64]
+	PK Integer chunk
+	Float chunkTime = NULL ['chunk_time' NULLABLE]
+	String chunkIndex = NULL ['chunk_index' NULLABLE MAXLENGTH=200]
+	String lowerBoundary ['lower_boundary' NULLABLE LENGTHBITS=16]
+	String upperBoundary ['upper_boundary' NULLABLE LENGTHBITS=16]
+	String checksum ['this_crc' MAXLENGTH=40]
+	Integer rowCount ['this_cnt']
+	String masterServerChecksum = NULL ['master_crc' NULLABLE MAXLENGTH=40]
+	Integer masterServerRowCount = NULL ['master_cnt' NULLABLE]
+	DayTime timestamp = NOW ['ts' ON UPDATE NOW TIMESTAMP]
+
+	IK timestamp databaseName tableName
+}

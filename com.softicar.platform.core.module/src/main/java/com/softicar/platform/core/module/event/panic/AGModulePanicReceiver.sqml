@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.event.panic
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGModulePanicReceiver 'Core.ModulePanicReceiver' {
+	PK Integer id = SERIAL
+	AGUuid moduleUuid
+	Boolean active = TRUE
+	AGUser user
+
+	UK moduleUuid user
+	IK user
+} 

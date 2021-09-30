@@ -1,0 +1,20 @@
+PACKAGE com.softicar.platform.core.module.user
+
+IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy
+IMPORT com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule
+
+TABLE AGUser 'Core.User' {
+	PK Integer id = SERIAL
+	Boolean active = TRUE
+	String loginName [MAXLENGTH=255]
+	String firstName [MAXLENGTH=255]
+	String lastName [MAXLENGTH=255]
+	String emailAddress = '' [MAXLENGTH=255]
+	Boolean systemUser = FALSE
+	AGCoreLanguage preferredLanguage = 1 [NULLABLE]
+	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
+	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
+
+	UK loginName
+} 

@@ -1,0 +1,6 @@
+dependencies {
+	api project(':com.softicar.platform.common.io')
+	api "com.jcraft:jsch:$versions.jsch"
+
+	implementation "commons-net:commons-net:$versions.commonsNet"
+}

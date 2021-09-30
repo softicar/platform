@@ -1,0 +1,161 @@
+PACKAGE com.softicar.platform.db.sqml.builtin
+
+// -------------------- avg(x) -------------------- //
+
+FUNCTION Integer avg(Integer x) {
+	SQL {AVG($x)}
+}
+
+FUNCTION Long avg(Long x) {
+	SQL {AVG($x)}
+}
+
+FUNCTION Float avg(Float x) {
+	SQL {AVG($x)}
+}
+
+FUNCTION Double avg(Double x) {
+	SQL {AVG($x)}
+}
+
+FUNCTION Decimal avg(Decimal x) {
+	SQL {AVG($x)}
+}
+
+// -------------------- countAll() -------------------- //
+
+FUNCTION Integer countAll() {
+	SQL {COUNT(*)}
+}
+
+// -------------------- count(x) -------------------- //
+
+FUNCTION Integer count(Boolean x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Integer x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Long x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Float x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Double x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Decimal x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(String x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(Day x) {
+	SQL {COUNT($x)}
+}
+
+FUNCTION Integer count(DayTime x) {
+	SQL {COUNT($x)}
+}
+
+// -------------------- max(x) -------------------- //
+
+FUNCTION Integer max(Integer x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Long max(Long x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Float max(Float x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Double max(Double x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Decimal max(Decimal x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION String max(String x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Day max(Day x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION DayTime max(DayTime x) {
+	SQL {MAX($x)}
+}
+
+FUNCTION Time max(Time x) {
+	SQL {MAX($x)}
+}
+
+// -------------------- min(x) -------------------- //
+
+FUNCTION Integer min(Integer x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION Long min(Long x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION Float min(Float x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION Double min(Double x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION Decimal min(Decimal x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION String min(String x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION Day min(Day x) {
+	SQL {MIN($x)}
+}
+
+FUNCTION DayTime min(DayTime x) {
+	SQL {MIN($x)}
+}
+
+// -------------------- sum(x) -------------------- //
+
+FUNCTION Integer sum(Integer x) {
+	SQL {SUM($x)}
+}
+
+FUNCTION Long sum(Long x) {
+	SQL {SUM($x)}
+}
+
+FUNCTION Float sum(Float x) {
+	SQL {SUM($x)}
+}
+
+FUNCTION Double sum(Double x) {
+	SQL {SUM($x)}
+}
+
+FUNCTION Decimal sum(Decimal x) {
+	SQL {SUM($x)}
+}

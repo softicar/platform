@@ -1,0 +1,110 @@
+
+.EmfFormSectionDiv {
+	
+	white-space: initial;
+}
+
+.EmfFormSectionHeaderDiv {
+	
+	display: flex;
+	position: relative;
+	align-items: center;
+	background: var(--LABEL_BACKGROUND_COLOR);
+	
+	border: 1px solid var(--LABEL_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	padding: 0px 30px;
+	
+	color: var(--PRIMARY_COLOR);
+	font-weight: var(--LABEL_FONT_WEIGHT);
+	box-shadow: var(--BOX_SHADOW_SECTION_HEADER);
+	z-index: 1;
+	cursor: pointer;
+}
+
+.EmfFormSectionHeaderDiv.invisible {
+	
+	display: none;
+}
+
+.EmfFormSectionHeaderDiv.disabled {
+	
+	cursor: default;
+}
+
+.EmfFormSectionHeaderOpenIndicator {
+	
+	display: inline-block;
+	pointer-events: none;
+}
+
+.EmfFormSectionHeaderOpenIndicator.open {
+	
+	border-top: var(--BORDER_RADIUS) solid #888;
+	border-bottom: 0px solid #888;
+	border-right: var(--BORDER_RADIUS) solid transparent;
+	border-left: var(--BORDER_RADIUS) solid transparent;
+}
+
+.EmfFormSectionHeaderOpenIndicator.open.invisible {
+
+	border-top: var(--BORDER_RADIUS) solid transparent;
+	border-bottom: 0px solid transparent;
+}
+/*TODO Replace the OpenIndicator with a Image that is rotated to reduce style complexity*/
+.EmfFormSectionHeaderOpenIndicator:not(.open) {
+	
+	margin-left: 6px;
+	
+	border-top: var(--BORDER_RADIUS) solid transparent;
+	border-bottom: var(--BORDER_RADIUS) solid transparent;
+	border-right: 0px solid #888;
+	border-left: var(--BORDER_RADIUS) solid #888;
+}
+
+.EmfFormSectionHeaderOpenIndicator:not(.open).invisible {
+
+	border-right: 0px solid transparent;
+	border-left: var(--BORDER_RADIUS) solid transparent;
+}
+
+.EmfFormSectionHeaderIcon {
+	
+	display: flex;
+	width: 24px;
+	height: 24px;
+	pointer-events: none;
+	user-select: none;
+}
+
+.EmfFormSectionHeaderTitle {
+	
+	pointer-events: none;
+	user-select: none;
+}
+
+.EmfFormSectionHeaderContent {
+	
+	margin-left: auto;
+	pointer-events: auto;
+}
+
+.EmfFormSectionContentDiv {
+	
+	overflow: auto;
+}
+
+.EmfFormSectionContentDiv:not(.invisible) {
+	
+	/* TODO replace hard-coded size of margin and padding with derived values */
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	margin-top: -25px;
+	padding: 25px 6px 6px;
+	background: var(--PAGE_CONTENT_BACKGROUND);
+}
+
+.EmfFormSectionNoContent {
+	
+	font-style: italic;
+}

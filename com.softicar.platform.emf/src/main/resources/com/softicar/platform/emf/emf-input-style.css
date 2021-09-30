@@ -1,0 +1,41 @@
+
+.EmfInputDiv {
+	display: grid;
+	grid-auto-flow: column;
+}
+
+.EmfWikiTextInput {
+	display: grid;
+}
+
+.EmfWikiTextInputPreview {
+	border-radius: var(--BORDER_RADIUS);
+	border: 1px solid var(--LABEL_BORDER_COLOR);
+	padding: 5px;
+}
+
+.EmfPasswordInput {
+	position: relative;
+}
+
+.EmfPasswordVisibilityButton {
+	opacity: 0.25;
+	position: absolute;
+	justify-self: end;
+	align-self: center;
+	padding-right: 5px;
+}
+
+.EmfPasswordVisibilityButton:hover {
+	opacity: 100;
+	transition: opacity 0.3s;
+}
+
+.EmfPasswordVisibilityButton.active {
+  opacity: 100;
+  transition: opacity 0.3s;
+}
+
+.EmfPasswordVisibilityButton.active:hover {
+	filter: drop-shadow(var(--TEXT_SHADOW_FOCUS));
+}

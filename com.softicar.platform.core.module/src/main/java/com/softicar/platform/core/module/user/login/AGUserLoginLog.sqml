@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.core.module.user.login
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.user.password.AGUserPassword
+
+TABLE AGUserLoginLog 'Core.UserLoginLog' {
+	PK Integer id = SERIAL
+	AGUser user
+	AGUserPassword password
+	DayTime loginAt
+
+	IK password
+	IK loginAt
+	IK user loginAt
+}

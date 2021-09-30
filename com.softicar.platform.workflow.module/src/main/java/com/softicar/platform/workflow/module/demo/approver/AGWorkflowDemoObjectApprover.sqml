@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.workflow.module.demo.approver
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.workflow.module.demo.AGWorkflowDemoObject
+
+TABLE AGWorkflowDemoObjectApprover 'Workflow.WorkflowDemoObjectApprover' {
+	PK Integer id = SERIAL
+	AGWorkflowDemoObject object
+	Integer approvalTier = 0
+	AGUser user
+	Boolean active = TRUE
+	Boolean approved = NULL [NULLABLE]
+}

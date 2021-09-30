@@ -1,0 +1,15 @@
+PACKAGE com.softicar.platform.workflow.module.workflow
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.AGWorkflowModuleInstance
+IMPORT com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion
+
+TABLE AGWorkflow 'Workflow.Workflow' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowModuleInstance moduleInstance
+	String name [MAXLENGTH=255]
+	AGUuid entityTable
+	Boolean active = TRUE
+	AGWorkflowVersion currentVersion = NULL [NULLABLE]
+}
