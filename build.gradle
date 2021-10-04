@@ -87,6 +87,10 @@ subprojects {
 		options.encoding = "UTF-8"
 	}
 
+	compileTestJava {
+		options.encoding = "UTF-8"
+	}
+
 	processResources {
 		from('src/main/java') {
 			include '**/*.sqml'
