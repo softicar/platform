@@ -17,7 +17,7 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Dependencies
-        run: ./gradle dependencies
+        run: ./gradlew dependencies
       - name: Clean
         run: ./gradlew clean
       - name: Classes
