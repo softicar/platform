@@ -1,0 +1,28 @@
+# Uses a self-hosted runner to execute:
+# - clean-build
+# - unit tests
+# - checks
+
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Dependencies
+        run: ./gradle dependencies
+      - name: Clean
+        run: ./gradlew clean
+      - name: Classes
+        run: ./gradlew classes
+      - name: Test Classes
+        run: ./gradlew testClasses
+      - name: Test
+        run: ./gradlew check
