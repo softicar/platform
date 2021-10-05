@@ -16,13 +16,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
-      - name: Dependencies
-        run: ./gradlew dependencies
-      - name: Clean
-        run: ./gradlew clean
-      - name: Classes
-        run: ./gradlew classes
-      - name: Test Classes
-        run: ./gradlew testClasses
-      - name: Test
-        run: ./gradlew check
+      - name: Build1
+        run: ./gradlew clean check
+      - name: Build2
+        run: ./gradlew clean check
+      - name: Build3
+        run: ./gradlew clean check
