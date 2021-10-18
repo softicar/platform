@@ -24,3 +24,5 @@ During development, an integrated [Jetty-Server](https://www.eclipse.org/jetty/)
 
 - [Apache Tomcat 9+](http://tomcat.apache.org/)
 - [MariaDB  10+](https://mariadb.org/) or [MySQL-Server 8+](https://dev.mysql.com/downloads/mysql/)
+
+When contributing to this project please keep our [code of conduct](CODE_OF_CONDUCT.md) in mind.
