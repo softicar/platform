@@ -1,20 +1,21 @@
-# Uses a self-hosted runner to execute:
-# - clean-build
-# - unit tests
-# - checks
-
-name: Java CI
-
-on: [push]
-
+name: Continuous Integration
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: self-hosted
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Gradle Cache Setup
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Execute Build
-        run: ./gradlew clean check
+        run: ./gradlew clean build
