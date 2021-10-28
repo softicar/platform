@@ -1,10 +1,6 @@
 // -------------------- build script -------------------- //
 
 buildscript {
-	new File(System.properties['user.home'] + "/.softicar/build.properties").withReader { reader ->
-		new Properties().tap { load(reader) }.each { project.ext.set(it.key, it.value) }
-	}
-
 	repositories {
 		ivy {
 			allowInsecureProtocol true
