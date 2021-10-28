@@ -1,0 +1,12 @@
+name: Continuous Integration
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Execute Build
+        run: ./gradlew clean build
