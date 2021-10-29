@@ -1,30 +1,13 @@
-// -------------------- build script -------------------- //
-
-buildscript {
-	repositories {
-		ivy {
-			allowInsecureProtocol true
-			url project['com.softicar.ivy.repository.url']
-		}
-		if(project.hasProperty('com.softicar.maven.proxies')) {
-			for(proxy: project['com.softicar.maven.proxies'].split("\\s")) {
-				maven {
-					allowInsecureProtocol true
-					url proxy
-				}
-			}
-		} else {
-			maven { url 'https://plugins.gradle.org/m2/' }
-		}
-	}
-	dependencies.classpath "com.softicar:com.softicar.gradle.plugin:3.1.3"
-}
 
 // -------------------- plug-ins -------------------- //
 
-apply plugin: 'com.softicar.gradle.java.library' 
-apply plugin: 'com.softicar.gradle.release' 
-apply plugin: 'com.softicar.gradle.selenium.grid'
+plugins {
+	id 'com.softicar.gradle.java.library' version '4.0.1'
+	id 'com.softicar.gradle.code.validation' version '4.0.1' apply false
+	id 'com.softicar.gradle.dependency.validation' version '4.0.1' apply false
+	id 'com.softicar.gradle.selenium.grid' version '4.0.1'
+	id 'com.softicar.gradle.test.logger' version '4.0.1' apply false
+}
 
 // -------------------- dependencies -------------------- //
 
@@ -58,20 +41,27 @@ project.ext {
 	]
 }
 
-subprojects {
-	repositories {
-		if(project.hasProperty('com.softicar.maven.proxies')) {
-			for(proxy: project['com.softicar.maven.proxies'].split("\\s")) {
+if(project.hasProperty('dependencyProxy')) {
+	println "Using dependency proxy: $dependencyProxy"
+	subprojects {
+		repositories {
+			for(proxy: project['dependencyProxy'].split("\\s")) {
 				maven {
 					allowInsecureProtocol true
 					url proxy
 				}
 			}
-		} else {
+		}
+	}
+} else {
+	subprojects {
+		repositories {
 			mavenCentral()
 		}
 	}
+}
 
+subprojects {
 	configurations.all {
 		resolutionStrategy {
 			failOnVersionConflict()
@@ -139,24 +129,6 @@ subprojects {
 	}
 
 	check.dependsOn softicarCodeValidation
-}
-
-// -------------------- publish -------------------- //
-
-if(project.hasProperty('com.softicar.ivy.repository.upload.url')) {
-	subprojects {
-		apply plugin: 'com.softicar.gradle.ivy.publish'
-	
-		softicarIvyPublishSettings {
-			ivyUploadUrl = project['com.softicar.ivy.repository.upload.url']
-			if(project.hasProperty('com.softicar.ivy.repository.upload.username')) {
-				ivyUploadUsername = project['com.softicar.ivy.repository.upload.username']
-				ivyUploadPassword = project['com.softicar.ivy.repository.upload.password']
-			}
-		}
-	
-		rootProject.afterReleaseBuild.dependsOn publish
-	}
 }
 
 // -------------------- access rules -------------------- //
