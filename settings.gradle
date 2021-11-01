@@ -8,7 +8,7 @@ if(hasProperty('pluginProxy')) {
 	}
 }
 
-rootProject.name='com.softicar.platform'
+rootProject.name='platform'
 include 'platform-ajax'
 include 'platform-common-code'
 include 'platform-common-container'
