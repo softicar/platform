@@ -17,7 +17,7 @@ public class JavaClasspathFinderTest extends Assert {
 			classpaths//
 				.stream()
 				.map(it -> it.getPath())
-				.filter(it -> it.contains("com.softicar.platform.common.core"))
+				.filter(it -> it.contains("platform-common-core"))
 				.findAny()
 				.isPresent());
 	}
