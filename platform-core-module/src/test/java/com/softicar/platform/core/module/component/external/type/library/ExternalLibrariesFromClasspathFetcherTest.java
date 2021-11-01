@@ -97,7 +97,7 @@ public class ExternalLibrariesFromClasspathFetcherTest extends Assert {
 					BuildTimeArtifactPattern.JAVAX_INJECT.get(),
 					BuildTimeArtifactPattern.JUL_TO_SLF4J.get(),
 					BuildTimeArtifactPattern.NATIVE_PLATFORM.get(),
-					BuildTimeArtifactPattern.SOFTICAR.get()
+					BuildTimeArtifactPattern.PLATFORM.get()
 				//
 				);
 		}
@@ -108,7 +108,7 @@ public class ExternalLibrariesFromClasspathFetcherTest extends Assert {
 			JAVAX_INJECT("javax\\.inject"),
 			JUL_TO_SLF4J("jul-to-slf4j"),
 			NATIVE_PLATFORM("native-platform"),
-			SOFTICAR("com\\.softicar\\..*"),
+			PLATFORM("platform-.*"),
 			//
 			;
 
