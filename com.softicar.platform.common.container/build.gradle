@@ -1,4 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.common.math')
-	api project(':com.softicar.platform.common.string')
-}

@@ -1,0 +1,7 @@
+dependencies {
+	api project(':platform-common-string')
+	api "junit:junit:$versions.junit"
+	api "org.mockito:mockito-core:$versions.mockito"
+	
+	implementation project(':platform-common-container')
+}

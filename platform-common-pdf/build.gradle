@@ -1,0 +1,5 @@
+dependencies {
+	api project(':platform-common-ui')
+
+	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
+}

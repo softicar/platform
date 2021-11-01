@@ -1,6 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.core.module')
-	
-	// FIXME this should be provided as "api", on a higher level
-	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
-}

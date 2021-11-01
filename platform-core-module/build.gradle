@@ -1,0 +1,33 @@
+dependencies {
+	api project(':platform-common-network')
+	api project(':platform-db-sqml-builtin')
+	api project(':platform-emf')
+
+	api("jcifs:jcifs:$versions.jcifs") {
+		exclude group: 'javax.servlet', module: 'servlet-api'
+	}
+
+	api "com.sun.mail:imap:$versions.sunMail"
+	api "com.sun.mail:mailapi:$versions.sunMail"
+	api "com.sun.mail:smtp:$versions.sunMail"
+
+	implementation "com.google.code.gson:gson:$versions.gson"
+	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
+	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
+}
+
+// configure Eclipse project to export all dependencies
+apply plugin: 'eclipse'
+
+def BUILDSHIP_CONTAINER_PATH = 'org.eclipse.buildship.core.gradleclasspathcontainer'
+
+eclipse.classpath {
+	containers BUILDSHIP_CONTAINER_PATH
+	file.whenMerged {
+		entries.each {
+			if(it.path.equals(BUILDSHIP_CONTAINER_PATH)) {
+				it.exported = "true"
+			}
+		}
+	}
+}
