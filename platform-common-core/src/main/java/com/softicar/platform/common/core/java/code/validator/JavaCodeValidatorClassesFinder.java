@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 public class JavaCodeValidatorClassesFinder {
 
-	private static final String JAR_NAME_PREFIX = "com.softicar.";
 	private final JavaCodeValidationEnvironment environment;
 
 	public JavaCodeValidatorClassesFinder(JavaCodeValidationEnvironment environment) {
@@ -31,10 +30,6 @@ public class JavaCodeValidatorClassesFinder {
 
 	private boolean isRelevantRoot(IJavaClasspathRoot root) {
 
-		if (root.isFolder()) {
-			return true;
-		} else {
-			return root.isJar() && root.getFile().getName().startsWith(JAR_NAME_PREFIX);
-		}
+		return root.isFolder() || root.isJar();
 	}
 }

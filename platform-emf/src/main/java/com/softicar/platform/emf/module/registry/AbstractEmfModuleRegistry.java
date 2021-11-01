@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.module.registry;
 
-import com.softicar.platform.common.code.classpath.iterable.SofticarClasspathFileIterable;
+import com.softicar.platform.common.code.classpath.iterable.ClasspathFileIterable;
 import com.softicar.platform.common.code.classpath.metadata.ClasspathFilesMetadata;
 import com.softicar.platform.common.code.classpath.metadata.IClasspathFilesMetadata;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
@@ -27,7 +27,7 @@ public abstract class AbstractEmfModuleRegistry implements IEmfModuleRegistry {
 
 	public AbstractEmfModuleRegistry() {
 
-		this.classpathFilesMetadata = new ClasspathFilesMetadata(new SofticarClasspathFileIterable());
+		this.classpathFilesMetadata = new ClasspathFilesMetadata(new ClasspathFileIterable());
 		this.moduleMap = new EmfModuleMap();
 		this.messageBus = new EmfModuleMessageBus();
 		this.extensionRegistry = new EmfModuleExtensionRegistry();
