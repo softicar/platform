@@ -5,7 +5,7 @@ The _SoftiCAR Platform_ is a lightweight, Java-based library to create interacti
 ## Main Features
 
 - domain-oriented development of business applications
-  - business objects and queries defined using _SoftiCAR Query and Modeling Language ([SQML](https://github.com/SoftiCAR/com.softicar.sqml))_
+  - business objects and queries defined using _SoftiCAR Query and Modeling Language ([SQML](https://github.com/softicar/sqml))_
   - configurable and dynamically generated management pages ([CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)) for business objects
   - custom workflows for business objects (work in progress)
 - lightweight web applications based on a server-side _document object model (DOM)_
@@ -18,7 +18,7 @@ To develop business applications based on the _SoftiCAR Platform_, the following
 
 - Java SDK 15+, e.g. [OpenJDK](https://adoptopenjdk.net/)
 - [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. 2020-09 (4.17) or higher
-- [SQML Eclipse Plugin](https://github.com/SoftiCAR/com.softicar.sqml)
+- [SQML Eclipse Plugin](https://github.com/softicar/sqml)
 
 During development, an integrated [Jetty-Server](https://www.eclipse.org/jetty/) together with an integrated in-memory [H2-Database](https://www.h2database.com/html/main.html) can be used. To start such a server, create a Java class, similar to this:
 
