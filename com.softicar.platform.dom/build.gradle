@@ -1,9 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.common.testing')
-	api project(':com.softicar.platform.common.ui')
-	api "junit:junit:$versions.junit"
-	
-	implementation "io.github.classgraph:classgraph:$versions.classgraph"
-	
-	testImplementation project(':com.softicar.platform.common.testing')
-}

@@ -1,5 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.common.ui')
-
-	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
-}

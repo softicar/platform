@@ -1,0 +1,10 @@
+dependencies {
+	api project(':platform-ajax')
+	api project(':platform-db-runtime')
+	api project(':platform-dom')
+	
+	implementation project(':platform-common-excel')
+	implementation "io.github.classgraph:classgraph:$versions.classgraph"
+	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
+	implementation "org.apache.commons:commons-text:$versions.commonsText"
+}

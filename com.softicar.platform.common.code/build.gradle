@@ -1,5 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.common.io')
-
-	implementation "org.ow2.asm:asm:$versions.asm"
-}

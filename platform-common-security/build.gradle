@@ -1,0 +1,5 @@
+dependencies {
+	api project(':platform-common-io')
+
+	implementation "commons-codec:commons-codec:$versions.commonsCodec"
+}

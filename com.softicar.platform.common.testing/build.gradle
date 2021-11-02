@@ -1,7 +1,0 @@
-dependencies {
-	api project(':com.softicar.platform.common.string')
-	api "junit:junit:$versions.junit"
-	api "org.mockito:mockito-core:$versions.mockito"
-	
-	implementation project(':com.softicar.platform.common.container')
-}
