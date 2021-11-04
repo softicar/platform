@@ -2,6 +2,9 @@
 // -------------------- plug-ins -------------------- //
 
 plugins {
+	id 'maven-publish'
+	id 'signing'
+
 	id 'com.softicar.gradle.java.library' version '4.0.3'
 	id 'com.softicar.gradle.code.validation' version '4.0.3' apply false
 	id 'com.softicar.gradle.dependency.validation' version '4.0.3' apply false
@@ -131,7 +134,56 @@ subprojects {
 	check.dependsOn softicarCodeValidation
 }
 
-// -------------------- access rules -------------------- //
+// -------------------- publishing -------------------- //
+
+subprojects {
+	java {
+		withJavadocJar()
+		withSourcesJar()
+	}
+	
+	publishing {
+		repositories {
+			maven {
+//				url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+				url = System.properties['user.home'] + '/local-plugin-repository/'
+				if(hasProperty("ossrhUsername")) {
+					authentication(ossrhUsername, ossrhPassword)
+				}
+			}
+		}
+		publications {
+			mavenJava(MavenPublication) {
+				pom {
+					name = 'SoftiCAR Platform'
+					description = 'The SoftiCAR Platform is a lightweight, Java-based library to create interactive business web applications.'
+					url = 'https://github.com/softicar/platform'
+					developers {
+						developer {
+							name = 'SoftiCAR'
+							email = 'opensource@softicar.com'
+							organization = 'SoftiCAR'
+							organizationUrl = 'https://github.com/softicar'
+						}
+					}
+					licenses {
+						license {
+							name = 'MIT License'
+							url = 'https://github.com/softicar/platform/blob/main/LICENSE'
+						}
+					}
+					scm {
+						connection = 'scm:git:git://github.com/softicar/platform.git'
+						developerConnection = 'scm:git:ssh://github.com:softicar/platform.git'
+						url = 'https://github.com/softicar/platform/tree/main'
+					}
+				}
+			}
+		}
+	}
+}
+
+// -------------------- Eclipse access rules -------------------- //
 
 import org.gradle.plugins.ide.eclipse.model.AccessRule
 
