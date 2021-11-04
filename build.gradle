@@ -2,7 +2,6 @@
 // -------------------- plug-ins -------------------- //
 
 plugins {
-	id 'maven-publish'
 	id 'signing'
 
 	id 'com.softicar.gradle.java.library' version '4.0.3'
@@ -137,6 +136,7 @@ subprojects {
 // -------------------- publishing -------------------- //
 
 subprojects {
+	apply plugin: 'maven-publish'
 	javadoc {
 		options.encoding = 'UTF-8'
 	}
@@ -156,6 +156,7 @@ subprojects {
 		}
 		publications {
 			mavenJava(MavenPublication) {
+				from components.java
 				pom {
 					name = 'SoftiCAR Platform'
 					description = 'The SoftiCAR Platform is a lightweight, Java-based library to create interactive business web applications.'
