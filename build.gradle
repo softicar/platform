@@ -147,10 +147,11 @@ subprojects {
 	publishing {
 		repositories {
 			maven {
-//				url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-				url = System.properties['user.home'] + '/local-plugin-repository/'
-				if(hasProperty("ossrhUsername")) {
-					authentication(ossrhUsername, ossrhPassword)
+				if(hasProperty("ossrhUrl")) {
+					url = ossrhUrl
+					if(hasProperty("ossrhUsername")) {
+						authentication(ossrhUsername, ossrhPassword)
+					}
 				}
 			}
 		}
