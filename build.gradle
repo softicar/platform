@@ -188,6 +188,11 @@ subprojects {
 	signing {
 		sign publishing.publications.mavenJava
 	}
+	publishMavenJavaPublicationToMavenRepository.doFirst {
+		if(!hasProperty("ossrhUrl")) {
+			throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
+		}
+	}
 }
 
 // -------------------- Eclipse access rules -------------------- //
