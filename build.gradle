@@ -2,8 +2,6 @@
 // -------------------- plug-ins -------------------- //
 
 plugins {
-	id 'signing'
-
 	id 'com.softicar.gradle.java.library' version '4.0.3'
 	id 'com.softicar.gradle.code.validation' version '4.0.3' apply false
 	id 'com.softicar.gradle.dependency.validation' version '4.0.3' apply false
@@ -137,6 +135,8 @@ subprojects {
 
 subprojects {
 	apply plugin: 'maven-publish'
+	apply plugin: 'signing'
+
 	javadoc {
 		options.encoding = 'UTF-8'
 	}
@@ -183,6 +183,9 @@ subprojects {
 				}
 			}
 		}
+	}
+	signing {
+		sign publishing.publications.mavenJava
 	}
 }
 
