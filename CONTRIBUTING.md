@@ -1,4 +1,4 @@
-# How to Contribute to the SoftiCAR Gradle Plugins
+# How to Contribute to the Repository.
 
 First of all, thank you for taking the time to contribute!
 
