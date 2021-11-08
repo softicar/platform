@@ -133,6 +133,10 @@ subprojects {
 
 // -------------------- publishing -------------------- //
 
+def OSSRH_URL = findProperty('ossrhUrl')
+def OSSRH_USERNAME = findProperty('ossrhUsername')
+def OSSRH_PASSWORD = findProperty('ossrhPassword')
+
 subprojects {
 	apply plugin: 'maven-publish'
 	apply plugin: 'signing'
@@ -147,10 +151,10 @@ subprojects {
 	publishing {
 		repositories {
 			maven {
-				if(hasProperty("ossrhUrl")) {
-					url = ossrhUrl
-					if(hasProperty("ossrhUsername")) {
-						authentication(ossrhUsername, ossrhPassword)
+				if(OSSRH_URL != null) {
+					url = OSSRH_URL
+					if(OSSRH_USERNAME != null) {
+						authentication(OSSRH_USERNAME, OSSRH_PASSWORD)
 					}
 				}
 			}
@@ -189,8 +193,11 @@ subprojects {
 		sign publishing.publications.mavenJava
 	}
 	publishMavenJavaPublicationToMavenRepository.doFirst {
-		if(!hasProperty("ossrhUrl")) {
+		if(OSSRH_URL == null) {
 			throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
+		}
+		if(version == "unspecified") {
+			throw new GradleException("Please specify the version to release with '-Pversion=X.Y.Z'.")
 		}
 	}
 }
