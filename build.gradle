@@ -131,7 +131,71 @@ subprojects {
 	check.dependsOn softicarCodeValidation
 }
 
-// -------------------- access rules -------------------- //
+// -------------------- publishing -------------------- //
+
+subprojects {
+	apply plugin: 'maven-publish'
+	apply plugin: 'signing'
+
+	javadoc {
+		options.encoding = 'UTF-8'
+	}
+	java {
+		withJavadocJar()
+		withSourcesJar()
+	}
+	publishing {
+		repositories {
+			maven {
+				if(hasProperty("ossrhUrl")) {
+					url = ossrhUrl
+					if(hasProperty("ossrhUsername")) {
+						authentication(ossrhUsername, ossrhPassword)
+					}
+				}
+			}
+		}
+		publications {
+			mavenJava(MavenPublication) {
+				from components.java
+				pom {
+					name = 'SoftiCAR Platform'
+					description = 'The SoftiCAR Platform is a lightweight, Java-based library to create interactive business web applications.'
+					url = 'https://github.com/softicar/platform'
+					developers {
+						developer {
+							name = 'SoftiCAR'
+							email = 'opensource@softicar.com'
+							organization = 'SoftiCAR'
+							organizationUrl = 'https://github.com/softicar'
+						}
+					}
+					licenses {
+						license {
+							name = 'MIT License'
+							url = 'https://github.com/softicar/platform/blob/main/LICENSE'
+						}
+					}
+					scm {
+						connection = 'scm:git:git://github.com/softicar/platform.git'
+						developerConnection = 'scm:git:ssh://github.com:softicar/platform.git'
+						url = 'https://github.com/softicar/platform/tree/main'
+					}
+				}
+			}
+		}
+	}
+	signing {
+		sign publishing.publications.mavenJava
+	}
+	publishMavenJavaPublicationToMavenRepository.doFirst {
+		if(!hasProperty("ossrhUrl")) {
+			throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
+		}
+	}
+}
+
+// -------------------- Eclipse access rules -------------------- //
 
 import org.gradle.plugins.ide.eclipse.model.AccessRule
 
