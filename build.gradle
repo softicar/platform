@@ -45,11 +45,9 @@ if(project.hasProperty('dependencyProxy')) {
 	println "Using dependency proxy: $dependencyProxy"
 	subprojects {
 		repositories {
-			for(proxy: project['dependencyProxy'].split("\\s")) {
-				maven {
-					allowInsecureProtocol true
-					url proxy
-				}
+			maven {
+				allowInsecureProtocol true
+				url project['dependencyProxy']
 			}
 		}
 	}
