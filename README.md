@@ -12,7 +12,27 @@ The _SoftiCAR Platform_ is a lightweight, Java-based library to create interacti
   - All business logic defined in Java and running on server
   - Interactive web pages using asynchronous Javascript ([AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)))
 
-## 2 Building and Development
+## 2 Releases and Versioning
+
+Version numbers of _SoftiCAR Platform_ releases follow the [Semantic Versioning](https://semver.org/) principle.
+
+```
+     1.2.3
+    /  |  \
+major  |  patch
+     minor
+```
+
+1. If there was an **API break** since the previous release, the **major version** is incremented: `1.2.3 -> 2.0.0` -- API breaks include:
+   - Incompatible changes to existing Java code which is part of the API; most notably: changes to (or removal of) `public`/`protected` classes/fields/methods/signatures
+   - Changes in the behavior of existing Java code (except fixes of defective behavior)
+   - _Any_ change to a database table
+   - Fundamental changes to the behavior or style of the UI
+1. If there was **no API break** but a **new feature** was added, the **minor version** is incremented: `1.2.3 -> 1.3.0`
+1. If there was **no API break** and **no new feature** was added, the **patch version** is incremented: `1.2.3 -> 1.2.4`
+   - e.g. when _only_ defects were fixed
+
+## 3 Building and Development
 
 To develop business applications based on the _SoftiCAR Platform_, the following is required:
 
@@ -52,26 +72,6 @@ http://localhost:8000/portal/service?id=95cf1a1b-c12e-4594-9d20-783988fe32b9
 ```
 
 Open a web browser and enter the URL. To log in, use one of the default users: `admin.user`, `normal.user` or `view.user`. The password is `test`.
-
-## 3 Releases and Versioning
-
-Version numbers of _SoftiCAR Platform_ releases follow the [Semantic Versioning](https://semver.org/) principle.
-
-```
-     1.2.3
-    /  |  \
-major  |  patch
-     minor
-```
-
-1. If there was an **API break** since the previous release, the **major version** is incremented: `1.2.3 -> 2.0.0` -- API breaks include:
-   - Incompatible changes to existing Java code which is part of the API; most notably: changes to (or removal of) `public`/`protected` classes/fields/methods/signatures
-   - Changes in the behavior of existing Java code (except fixes of defective behavior)
-   - _Any_ change to a database table
-   - Fundamental changes to the behavior or style of the UI
-1. If there was **no API break** but a **new feature** was added, the **minor version** is incremented: `1.2.3 -> 1.3.0`
-1. If there was **no API break** and **no new feature** was added, the **patch version** is incremented: `1.2.3 -> 1.2.4`
-   - e.g. when _only_ defects were fixed
 
 ## 4 Operations
 
