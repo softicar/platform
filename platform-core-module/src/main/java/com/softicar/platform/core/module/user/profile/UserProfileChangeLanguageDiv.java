@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user.profile;
 
 import com.softicar.platform.common.core.i18n.CurrentLanguage;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
 import com.softicar.platform.core.module.user.AGUser;
@@ -64,12 +63,10 @@ class UserProfileChangeLanguageDiv extends DomDiv {
 			user.save();
 
 			languageTextDiv.refresh();
-
 			executeAlert(
-				CoreI18n.YOUR_LANGUAGE_HAS_BEEN_CHANGED_TO_ARG1
+				CoreI18n.YOUR_LANGUAGE_HAS_BEEN_CHANGED_TO_ARG1//
 					.toDisplay(language.toDisplay())
-					.concat(" ")
-					.concat(CoreI18n.PLEASE_RESTART_YOUR_BROWSER_OR_RESET_YOUR_ARG1_SESSION.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier())));
+					.concatSentence(CoreI18n.PLEASE_PRESS_F5_TO_REFRESH));
 		}
 
 		private void setIconAndTitle() {

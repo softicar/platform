@@ -641,8 +641,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bitte Inhalt eingeben.");
 	I18n0 PLEASE_PRESS_F5_TO_REFRESH = new I18n0("Please press F5 to refresh.")//
 		.de("Bitte F5 zum Aktualisieren drücken.");
-	I18n1 PLEASE_RESTART_YOUR_BROWSER_OR_RESET_YOUR_ARG1_SESSION = new I18n1("Please restart your browser or reset your %s session.")//
-		.de("Bitte starten Sie Ihren Browser neu, oder setzen Sie Ihre %s Sitzung zurück.");
 	I18n0 PLEASE_SELECT_RECIPIENTS = new I18n0("Please select recipients.")//
 		.de("Bitte Empfänger auswählen.");
 	I18n0 PLEASE_SELECT_THE_USER_TO_IMPERSONATE = new I18n0("Please select the user to impersonate.")//
