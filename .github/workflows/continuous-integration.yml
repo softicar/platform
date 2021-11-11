@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: self-hosted
-    timeout-minutes: 15
+    timeout-minutes: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
