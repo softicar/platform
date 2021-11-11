@@ -64,7 +64,7 @@ major  |  patch
      minor
 ```
 
-1. If there was an **API break** since the previous release, the **major version** in incremented: `1.2.3 -> 2.0.0` -- API breaks include:
+1. If there was an **API break** since the previous release, the **major version** is incremented: `1.2.3 -> 2.0.0` -- API breaks include:
    - Incompatible changes to existing Java code which is part of the API; most notably: changes to (or removal of) `public`/`protected` classes/fields/methods/signatures
    - Changes in the behavior of existing Java code (except fixes of defective behavior)
    - _Any_ change to a database table
