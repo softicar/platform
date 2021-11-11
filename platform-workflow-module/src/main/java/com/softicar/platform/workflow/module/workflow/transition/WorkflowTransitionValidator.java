@@ -26,8 +26,10 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 			}
 		}
 
-		if (!tableRow.isAutoTransition() && !requiredVotesStringIsValid(tableRow.getRequiredVotes())) {
-			addError(AGWorkflowTransition.REQUIRED_VOTES, WorkflowI18n.REQUIRED_VOTES_NOT_VALID);
+		if (!tableRow.isAutoTransition() && tableRow.getRequiredVotes() != null) {
+			if (!requiredVotesStringIsValid(tableRow.getRequiredVotes())) {
+				addError(AGWorkflowTransition.REQUIRED_VOTES, WorkflowI18n.REQUIRED_VOTES_NOT_VALID);
+			}
 		}
 
 		if (tableRow.isAutoTransition()) {
