@@ -509,6 +509,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Modul");
 	I18n1 MODULE_ARG1_IS_NOT_A_STANDARD_MODULE = new I18n1("Module '%s' is not a standard module.")//
 		.de("Modul '%s' ist kein Standard-Modul.");
+	I18n0 MODULE_CLASS = new I18n0("Module Class")//
+		.de("Modulklasse");
 	I18n0 MODULE_CLASSES = new I18n0("Module Classes")//
 		.de("Modulklassen");
 	I18n0 MODULE_INSTANCE = new I18n0("Module Instance")//

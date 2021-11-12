@@ -14,6 +14,8 @@ import java.util.Optional;
 
 public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfObject<AGModuleInstance>, IEmfModuleInstance<AGModuleInstance> {
 
+	public static final ModuleInstanceTitleField TITLE_FIELD = new ModuleInstanceTitleField();
+
 	@Override
 	public ItemId getItemId() {
 
@@ -23,7 +25,9 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return IDisplayString.create(getModuleName());
+		return getActualModuleInstance()//
+			.map(IEmfModuleInstance::toDisplayWithoutId)
+			.orElseGet(() -> IEmfModuleInstance.super.toDisplayWithoutId());
 	}
 
 	@Override
@@ -40,6 +44,17 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	public boolean hasRole(IEmfModuleRole<AGModuleInstance> role, IBasicUser user) {
 
 		return AGUser.get(user).hasModuleRole(role, this);
+	}
+
+	/**
+	 * Returns the actual {@link IEmfModuleInstance} that derives from this
+	 * {@link AGModuleInstance}.
+	 *
+	 * @return the optional {@link IEmfModuleInstance}.
+	 */
+	public Optional<IEmfModuleInstance<?>> getActualModuleInstance() {
+
+		return getModule().map(module -> module.getModuleInstanceById(getId()));
 	}
 
 	/**

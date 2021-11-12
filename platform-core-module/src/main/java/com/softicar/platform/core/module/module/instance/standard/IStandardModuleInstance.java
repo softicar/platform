@@ -34,7 +34,7 @@ public interface IStandardModuleInstance<I extends IStandardModuleInstance<I>> e
 	@Override
 	default IDisplayString toDisplayWithoutId() {
 
-		return pk().toDisplayWithoutId();
+		return IEmfModuleInstance.super.toDisplayWithoutId();
 	}
 
 	@Override
