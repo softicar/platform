@@ -34,7 +34,7 @@ public class WorkflowTaskManager {
 
 			checkConcurrentModificationOfWorkflowItem(oldNodeOfWorkflowItem);
 
-			closeAllOpenTasks();
+			closeAllTasks();
 			item.setWorkflowNode(nextNode).save();
 			insertTasks();
 			Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
@@ -43,16 +43,19 @@ public class WorkflowTaskManager {
 		}
 	}
 
-	public void closeAllOpenTasks() {
+	public void closeAllTasks() {
 
-		List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(item)).list();
-		taskList.forEach(task -> task.setClosed(true));
-		AGWorkflowTask.TABLE.saveAll(taskList);
-		AGWorkflowTaskDelegation.TABLE
-			.createSelect()
-			.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.in(taskList))
-			.stream()
-			.forEach(delegation -> delegation.setActive(false).save());
+		try (DbTransaction transaction = new DbTransaction()) {
+			List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(item)).list();
+			taskList.forEach(task -> task.setClosed(true));
+			AGWorkflowTask.TABLE.saveAll(taskList);
+			AGWorkflowTaskDelegation.TABLE
+				.createSelect()
+				.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.in(taskList))
+				.stream()
+				.forEach(delegation -> delegation.setActive(false).save());
+			transaction.commit();
+		}
 	}
 
 	private void checkConcurrentModificationOfWorkflowItem(AGWorkflowNode oldNodeOfWorkflowItem) {
