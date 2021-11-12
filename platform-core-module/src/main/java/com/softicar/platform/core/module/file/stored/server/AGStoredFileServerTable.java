@@ -37,7 +37,10 @@ public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, 
 		attributes.editAttribute(AGStoredFileServer.URL).setPredicateMandatory(EmfPredicates.always());
 		attributes.editAttribute(AGStoredFileServer.DOMAIN).setPredicateMandatory(EmfPredicates.always());
 		attributes.editAttribute(AGStoredFileServer.USERNAME).setPredicateMandatory(EmfPredicates.always());
-		attributes.editAttribute(AGStoredFileServer.PASSWORD).setPredicateMandatory(EmfPredicates.always());
+		attributes//
+			.editStringAttribute(AGStoredFileServer.PASSWORD)
+			.setPasswordMode(true)
+			.setPredicateMandatory(EmfPredicates.always());
 	}
 
 	@Override
