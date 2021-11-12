@@ -34,11 +34,26 @@ public class WorkflowTaskManager {
 
 			checkConcurrentModificationOfWorkflowItem(oldNodeOfWorkflowItem);
 
-			closeAllPreviousTasks();
+			closeAllTasks();
 			item.setWorkflowNode(nextNode).save();
 			insertTasks();
 			Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
 
+			transaction.commit();
+		}
+	}
+
+	public void closeAllTasks() {
+
+		try (DbTransaction transaction = new DbTransaction()) {
+			List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(item)).list();
+			taskList.forEach(task -> task.setClosed(true));
+			AGWorkflowTask.TABLE.saveAll(taskList);
+			AGWorkflowTaskDelegation.TABLE
+				.createSelect()
+				.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.in(taskList))
+				.stream()
+				.forEach(delegation -> delegation.setActive(false).save());
 			transaction.commit();
 		}
 	}
@@ -55,18 +70,6 @@ public class WorkflowTaskManager {
 					.concat(" ")
 					.concat(WorkflowI18n.PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN));
 		}
-	}
-
-	private void closeAllPreviousTasks() {
-
-		List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(item)).list();
-		taskList.forEach(task -> task.setClosed(true));
-		AGWorkflowTask.TABLE.saveAll(taskList);
-		AGWorkflowTaskDelegation.TABLE
-			.createSelect()
-			.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.in(taskList))
-			.stream()
-			.forEach(delegation -> delegation.setActive(false).save());
 	}
 
 	private void insertTasks() {
