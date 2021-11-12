@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.module;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.emf.EmfI18n;
@@ -34,6 +35,18 @@ public interface IEmfModuleInstance<I extends IEmfModuleInstance<I>> {
 	 * @return the {@link IUuid} of this {@link IEmfModuleInstance} (never null)
 	 */
 	IUuid getModuleUuid();
+
+	/**
+	 * Returns the title of this {@link IEmfModuleInstance}.
+	 * <p>
+	 * By default this simply returns the result of {@link #getModuleName()}.
+	 *
+	 * @return the title (never <i>null</i>)
+	 */
+	default IDisplayString toDisplayWithoutId() {
+
+		return IDisplayString.create(getModuleName());
+	}
 
 	/**
 	 * Determines the {@link IEmfModule} that matches the {@link IUuid} of this

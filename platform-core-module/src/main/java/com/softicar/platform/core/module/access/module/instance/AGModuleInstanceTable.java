@@ -54,9 +54,11 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, Syst
 		attributes//
 			.editIndirectEntityAttribute(AGModuleInstance.MODULE_UUID)
 			.setEntityLoader(() -> AGUuidBasedSourceCodeReferencePoints.getAll(IEmfModule.class))
-			.setTitle(CoreI18n.MODULE)
+			.setTitle(CoreI18n.MODULE_CLASS)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
+		attributes//
+			.addTransientAttribute(AGModuleInstance.TITLE_FIELD);
 	}
 
 	@Override
