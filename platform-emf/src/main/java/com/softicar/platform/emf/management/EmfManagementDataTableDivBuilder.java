@@ -45,6 +45,6 @@ public class EmfManagementDataTableDivBuilder<R extends IEmfTableRow<R, P>, P, S
 
 	private void addOrderByToBuilder(Pair<IEmfAttribute<R, ?>, OrderDirection> orderBy) {
 
-		dataTable.getFieldStrategy(orderBy.getFirst()).ifPresent(strategy -> strategy.addOrderBy(builder, orderBy.getSecond()));
+		dataTable.addOrderBy(builder, orderBy.getFirst(), orderBy.getSecond());
 	}
 }
