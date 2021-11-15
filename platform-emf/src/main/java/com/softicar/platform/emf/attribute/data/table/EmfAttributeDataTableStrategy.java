@@ -7,11 +7,11 @@ import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-public class EmfDataTableStrategy<R extends IEmfTableRow<R, ?>, V> extends AbstractEmfDataTableStrategy<R, V> {
+public class EmfAttributeDataTableStrategy<R extends IEmfTableRow<R, ?>, V> extends AbstractEmfAttributeDataTableStrategy<R, V> {
 
 	protected IDataTableColumn<R, V> dataColumn;
 
-	public EmfDataTableStrategy(IEmfAttribute<R, V> attribute) {
+	public EmfAttributeDataTableStrategy(IEmfAttribute<R, V> attribute) {
 
 		super(attribute);
 	}

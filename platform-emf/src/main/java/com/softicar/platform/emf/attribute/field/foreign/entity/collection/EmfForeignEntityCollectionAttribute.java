@@ -2,7 +2,7 @@ package com.softicar.platform.emf.attribute.field.foreign.entity.collection;
 
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.EmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.field.foreign.entity.EmfForeignEntityAttributeValidator;
 import com.softicar.platform.emf.attribute.field.foreign.entity.scope.IEmfForeignEntityScope;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
@@ -49,7 +49,7 @@ public class EmfForeignEntityCollectionAttribute<R extends IEmfTableRow<R, ?>, S
 		return this;
 	}
 
-	private class DataTableStrategy extends EmfDataTableStrategy<R, S> {
+	private class DataTableStrategy extends EmfAttributeDataTableStrategy<R, S> {
 
 		public DataTableStrategy(IEmfAttribute<R, S> attribute) {
 

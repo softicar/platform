@@ -2,10 +2,10 @@ package com.softicar.platform.emf.attribute.field.dummy;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 
-public class EmfDummyDataTableStrategy<E> implements IEmfDataTableStrategy<E> {
+public class EmfDummyAttributeDataTableStrategy<E> implements IEmfAttributeDataTableStrategy<E> {
 
 	@Override
 	public void addDataColumns(AbstractInMemoryDataTable<E> dataTable) {

@@ -10,6 +10,6 @@ public class EmfDummyAttribute<R extends IEmfTableRow<R, ?>, V> extends EmfField
 
 		super(field);
 
-		setDataTableStrategyFactory(EmfDummyDataTableStrategy::new);
+		setDataTableStrategyFactory(EmfDummyAttributeDataTableStrategy::new);
 	}
 }

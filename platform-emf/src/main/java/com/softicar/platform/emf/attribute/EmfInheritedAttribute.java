@@ -6,8 +6,8 @@ import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
-import com.softicar.platform.emf.attribute.data.table.EmfDataTableStrategy;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.entity.IEmfEntity;
@@ -172,10 +172,10 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	}
 
 	@Override
-	public IEmfDataTableStrategy<O> createDataTableStrategy() {
+	public IEmfAttributeDataTableStrategy<O> createDataTableStrategy() {
 
 		// TODO probably need here a special implementation
-		return new EmfDataTableStrategy<>(this);
+		return new EmfAttributeDataTableStrategy<>(this);
 	}
 
 	@Override

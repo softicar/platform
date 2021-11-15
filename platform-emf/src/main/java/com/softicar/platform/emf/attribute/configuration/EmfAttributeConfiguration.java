@@ -2,8 +2,8 @@ package com.softicar.platform.emf.attribute.configuration;
 
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
-import com.softicar.platform.emf.attribute.data.table.EmfDataTableStrategy;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeTableRowDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeValueDisplayFactory;
@@ -18,7 +18,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	private final IEmfAttribute<R, V> attribute;
 	private IEmfInputFactory<R, V> inputFactory;
 	private IEmfAttributeTableRowDisplayFactory<R> displayFactory;
-	private Supplier<IEmfDataTableStrategy<R>> dataTableStrategyFactory;
+	private Supplier<IEmfAttributeDataTableStrategy<R>> dataTableStrategyFactory;
 	private Supplier<IEmfDataTableRowBasedColumnHandler<R, V>> columnHandlerFactory;
 
 	public EmfAttributeConfiguration(IEmfAttribute<R, V> attribute) {
@@ -26,7 +26,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 		this.attribute = attribute;
 		this.inputFactory = null;
 		this.displayFactory = null;
-		this.dataTableStrategyFactory = () -> new EmfDataTableStrategy<>(attribute);
+		this.dataTableStrategyFactory = () -> new EmfAttributeDataTableStrategy<>(attribute);
 		this.columnHandlerFactory = () -> new EmfAttributeColumnHandler<>(attribute);
 	}
 
@@ -71,12 +71,12 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 
 	// ------------------------------ data table strategy factory ------------------------------ //
 
-	public Supplier<IEmfDataTableStrategy<R>> getDataTableStrategyFactory() {
+	public Supplier<IEmfAttributeDataTableStrategy<R>> getDataTableStrategyFactory() {
 
 		return dataTableStrategyFactory;
 	}
 
-	public void setDataTableStrategyFactory(Supplier<IEmfDataTableStrategy<R>> dataTableStrategyFactory) {
+	public void setDataTableStrategyFactory(Supplier<IEmfAttributeDataTableStrategy<R>> dataTableStrategyFactory) {
 
 		this.dataTableStrategyFactory = dataTableStrategyFactory;
 	}

@@ -8,7 +8,7 @@ import com.softicar.platform.db.sql.ISqlBooleanExpression;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -27,8 +27,8 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 	private final IEmfTable<R, P, S> entityTable;
 	private final S scopeEntity;
 	private final boolean showInactive;
-	private final List<IEmfDataTableStrategy<R>> fieldStrategiesList;
-	private final Map<IEmfAttribute<R, ?>, IEmfDataTableStrategy<R>> fieldStrategiesMap;
+	private final List<IEmfAttributeDataTableStrategy<R>> fieldStrategiesList;
+	private final Map<IEmfAttribute<R, ?>, IEmfAttributeDataTableStrategy<R>> fieldStrategiesMap;
 	private Optional<Set<R>> prefilteredEntities;
 	private Optional<ISqlBooleanExpression<R>> additionalFilterExpression;
 
@@ -126,7 +126,7 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		fieldStrategiesList.forEach(strategy -> strategy.setColumnHandlers(tableDivBuilder));
 	}
 
-	public <V> Optional<IEmfDataTableStrategy<R>> getFieldStrategy(IEmfAttribute<R, V> attribute) {
+	public <V> Optional<IEmfAttributeDataTableStrategy<R>> getFieldStrategy(IEmfAttribute<R, V> attribute) {
 
 		return Optional.ofNullable(fieldStrategiesMap.get(attribute));
 	}
@@ -144,7 +144,7 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 
 	private <V> void addStrategy(IEmfAttribute<R, V> attribute) {
 
-		IEmfDataTableStrategy<R> strategy = attribute.createDataTableStrategy();
+		IEmfAttributeDataTableStrategy<R> strategy = attribute.createDataTableStrategy();
 		fieldStrategiesList.add(strategy);
 		fieldStrategiesMap.put(attribute, strategy);
 	}

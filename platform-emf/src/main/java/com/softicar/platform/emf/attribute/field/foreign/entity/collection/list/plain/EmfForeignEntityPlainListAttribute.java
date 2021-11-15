@@ -5,7 +5,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.logic.IDbObjectTable;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.EmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.entity.EmfForeignEntityAttributeValidator;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInputEngine;
@@ -51,7 +51,7 @@ public class EmfForeignEntityPlainListAttribute<R extends IEmfTableRow<R, ?>, F 
 		return new EmfForeignEntityIdPlainListParser(idList).parseToEntityList(foreignTable);
 	}
 
-	private class DataTableStrategy extends EmfDataTableStrategy<R, String> {
+	private class DataTableStrategy extends EmfAttributeDataTableStrategy<R, String> {
 
 		public DataTableStrategy(IEmfAttribute<R, String> attribute) {
 

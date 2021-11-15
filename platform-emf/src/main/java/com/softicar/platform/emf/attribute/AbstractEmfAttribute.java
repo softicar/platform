@@ -2,7 +2,7 @@ package com.softicar.platform.emf.attribute;
 
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.configuration.EmfAttributeConfiguration;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeTableRowDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeValueDisplayFactory;
@@ -100,7 +100,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	}
 
 	@Override
-	public final IEmfDataTableStrategy<R> createDataTableStrategy() {
+	public final IEmfAttributeDataTableStrategy<R> createDataTableStrategy() {
 
 		return configuration.getDataTableStrategyFactory().get();
 	}
@@ -211,7 +211,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 
 	// -------------------------------- Data Table Strategy Factory -------------------------------- //
 
-	public final AbstractEmfAttribute<R, V> setDataTableStrategyFactory(Supplier<IEmfDataTableStrategy<R>> dataTableStrategyFactory) {
+	public final AbstractEmfAttribute<R, V> setDataTableStrategyFactory(Supplier<IEmfAttributeDataTableStrategy<R>> dataTableStrategyFactory) {
 
 		configuration.setDataTableStrategyFactory(dataTableStrategyFactory);
 		return this;

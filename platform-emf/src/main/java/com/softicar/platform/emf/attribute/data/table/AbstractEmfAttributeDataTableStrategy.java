@@ -5,11 +5,11 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-public abstract class AbstractEmfDataTableStrategy<R extends IEmfTableRow<R, ?>, V> implements IEmfDataTableStrategy<R> {
+public abstract class AbstractEmfAttributeDataTableStrategy<R extends IEmfTableRow<R, ?>, V> implements IEmfAttributeDataTableStrategy<R> {
 
 	protected final IEmfAttribute<R, V> attribute;
 
-	public AbstractEmfDataTableStrategy(IEmfAttribute<R, V> attribute) {
+	public AbstractEmfAttributeDataTableStrategy(IEmfAttribute<R, V> attribute) {
 
 		this.attribute = attribute;
 	}
