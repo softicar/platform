@@ -5,7 +5,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
+import com.softicar.platform.emf.attribute.configuration.EmfAttributeColumnHandler;
 import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.input.IEmfInput;

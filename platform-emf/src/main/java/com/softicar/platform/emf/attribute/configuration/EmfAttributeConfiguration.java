@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.attribute.configuration;
 
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
 import com.softicar.platform.emf.attribute.data.table.EmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.data.table.IEmfAttributeDataTableStrategy;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
