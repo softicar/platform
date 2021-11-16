@@ -29,6 +29,7 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 	public void customizeActionSet(EmfActionSet<AGScheduledProgramExecution, SystemModuleInstance> actionSet) {
 
 		actionSet.addScopeAction(new CronExpressionInformationAction());
+		actionSet.addManagementAction(new ScheduledProgramExecutionEnqueueAction());
 	}
 
 	@Override
