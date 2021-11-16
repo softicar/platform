@@ -17,6 +17,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Neuen Knoten hinzufügen");
 	I18n0 ADD_NEW_TRANSITION = new I18n0("Add New Transition")//
 		.de("Neuen Übergang hinzufügen");
+	I18n1 ALL_TRANSITIONS_NEED_TO_HAVE_THE_CORRECT_SOURCE_NODE_ARG1 = new I18n1("All transitions need to have the correct source node: %s.")//
+		.de("Alle Übergänge müssen den richtigen Ursprungsknoten besitzen: %s.");
 	I18n0 APPROVAL_TIER = new I18n0("Approval Tier")//
 		.de("Genehmigungsebene");
 	I18n0 APPROVED = new I18n0("Approved")//
