@@ -400,8 +400,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ungültige IP-Addressen: %s");
 	I18n0 IS_NOT_QUEUED = new I18n0("Is not queued")//
 		.de("Nicht in der Warteschlange");
-	I18n0 IS_NOT_RUNNING = new I18n0("Is not running")//
-		.de("Wird nicht ausgeführt");
 	I18n0 ISO_6391 = new I18n0("ISO 6391")//
 		.de("ISO 6391");
 	I18n0 ISO_CODE = new I18n0("ISO Code")//
