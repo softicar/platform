@@ -1,0 +1,49 @@
+package com.softicar.platform.demo.module;
+
+import com.softicar.platform.common.core.annotations.Generated;
+import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.db.runtime.field.IDbBaseField;
+import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
+import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
+
+/**
+ * This is the automatically generated class AGDemoModuleInstance for
+ * database table <i>Demo.DemoModuleInstance</i>.
+ */
+@Generated
+@SuppressWarnings("all")
+public class AGDemoModuleInstanceGenerated extends AbstractDbSubObject<AGDemoModuleInstance, AGModuleInstance> {
+
+	// -------------------------------- STATIC CONSTANTS -------------------------------- //
+
+	// @formatter:off
+	private static final DbSubObjectTableBuilder<AGDemoModuleInstance, AGDemoModuleInstanceGenerated, AGModuleInstance, Integer> BUILDER = new DbSubObjectTableBuilder<>("Demo", "DemoModuleInstance", AGDemoModuleInstance::new, AGDemoModuleInstance.class);
+	static {
+		BUILDER.setTitle(DemoI18n.DEMO_MODULE_INSTANCE);
+		BUILDER.setPluralTitle(DemoI18n.DEMO_MODULE_INSTANCES);
+	}
+
+	public static final IDbBaseField<AGDemoModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final AGDemoModuleInstanceTable TABLE = new AGDemoModuleInstanceTable(BUILDER);
+	// @formatter:on
+
+	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
+
+	public final AGModuleInstance getModuleInstance() {
+
+		return pk();
+	}
+
+	// -------------------------------- UTILS -------------------------------- //
+
+	@Override
+	public final AGDemoModuleInstanceTable table() {
+
+		return TABLE;
+	}
+
+	// -------------------------------- FIELD MEMBERS -------------------------------- //
+
+	private AGModuleInstance m_moduleInstance;
+}
+
