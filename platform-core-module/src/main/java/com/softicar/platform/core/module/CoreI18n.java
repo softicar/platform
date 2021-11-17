@@ -8,6 +8,12 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 IS_NOT_RUNNING = new I18n0("Is not running")//
+		.de("Wird nicht ausgeführt");
+	I18n0 IS_NOT_QUEUED = new I18n0("Is not queued")//
+		.de("Nicht in der Warteschlange");
+	I18n0 ENQUEUE = new I18n0("Enqueue")//
+		.de("Einreihen");
 	I18n1 A_LOG_PERIOD_IS_ALREADY_DEFINED_FOR_THE_GIVEN_UUID_OF_ARG1 = new I18n1("A log period is already defined for the given UUID of '%s'.")//
 		.de("Eine Log-Zeitraum ist für die gegebene UUID von '%s' bereits definiert.");
 	I18n0 ABORT = new I18n0("Abort")//

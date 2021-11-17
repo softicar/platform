@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
+import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueueAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
@@ -49,6 +50,10 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		actionSet//
 			.addCommonAction(new ProgramAbortAction())
 			.addManagementAction(new ProgramAbortAction());
+
+		actionSet//
+			.addCommonAction(new ProgramEnqueueAction())
+			.addManagementAction(new ProgramEnqueueAction());
 
 		actionSet//
 			.addCommonAction(new ProgramUnqueueAction())
