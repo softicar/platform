@@ -8,12 +8,6 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
-	I18n0 IS_NOT_RUNNING = new I18n0("Is not running")//
-		.de("Wird nicht ausgeführt");
-	I18n0 IS_NOT_QUEUED = new I18n0("Is not queued")//
-		.de("Nicht in der Warteschlange");
-	I18n0 ENQUEUE = new I18n0("Enqueue")//
-		.de("Einreihen");
 	I18n1 A_LOG_PERIOD_IS_ALREADY_DEFINED_FOR_THE_GIVEN_UUID_OF_ARG1 = new I18n1("A log period is already defined for the given UUID of '%s'.")//
 		.de("Eine Log-Zeitraum ist für die gegebene UUID von '%s' bereits definiert.");
 	I18n0 ABORT = new I18n0("Abort")//
@@ -276,6 +270,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ende");
 	I18n0 ENGLISH = new I18n0("English")//
 		.de("Englisch");
+	I18n0 ENQUEUE = new I18n0("Enqueue")//
+		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
 	I18n0 ENTRIES = new I18n0("Entries")//
@@ -402,6 +398,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Initialisiert");
 	I18n1 INVALID_IP_ADDRESSES_ARG1 = new I18n1("Invalid IP addresses: %s")//
 		.de("Ungültige IP-Addressen: %s");
+	I18n0 IS_NOT_QUEUED = new I18n0("Is not queued")//
+		.de("Nicht in der Warteschlange");
+	I18n0 IS_NOT_RUNNING = new I18n0("Is not running")//
+		.de("Wird nicht ausgeführt");
 	I18n0 ISO_6391 = new I18n0("ISO 6391")//
 		.de("ISO 6391");
 	I18n0 ISO_CODE = new I18n0("ISO Code")//
