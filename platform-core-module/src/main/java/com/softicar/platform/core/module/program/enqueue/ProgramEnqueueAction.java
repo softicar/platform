@@ -18,8 +18,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPredicate<AGProgram> getPrecondition() {
 
-		return ProgramPredicates.IS_NOT_QUEUED//
-			.and(ProgramPredicates.IS_NOT_RUNNING);
+		return ProgramPredicates.IS_NOT_QUEUED;
 	}
 
 	@Override
@@ -44,8 +43,10 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	public void handleClick(AGProgram program) {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			program.setQueuedAt(DayTime.now().truncateSeconds()).save();
-			transaction.commit();
+			if (program.reloadForUpdate() && !program.isQueued()) {
+				program.setQueuedAt(DayTime.now().truncateSeconds()).save();
+				transaction.commit();
+			}
 		}
 	}
 }
