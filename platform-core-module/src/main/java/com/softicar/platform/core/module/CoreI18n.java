@@ -398,8 +398,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Initialisiert");
 	I18n1 INVALID_IP_ADDRESSES_ARG1 = new I18n1("Invalid IP addresses: %s")//
 		.de("Ungültige IP-Addressen: %s");
-	I18n0 IS_NOT_QUEUED = new I18n0("Is not queued")//
-		.de("Nicht in der Warteschlange");
 	I18n0 ISO_6391 = new I18n0("ISO 6391")//
 		.de("ISO 6391");
 	I18n0 ISO_CODE = new I18n0("ISO Code")//
@@ -571,6 +569,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NO_STACK_TRACE_RECORDED = new I18n0("No stack trace recorded.")//
 		.de("Kein Stacktrace aufgezeichnet.");
+	I18n0 NOT_QUEUED = new I18n0("Not queued")//
+		.de("Nicht in der Warteschlange");
 	I18n0 NOT_TERMINATED_YET = new I18n0("not terminated yet")//
 		.de("noch nicht terminiert");
 	I18n0 NOTIFICATION_TIME = new I18n0("Notification Time")//

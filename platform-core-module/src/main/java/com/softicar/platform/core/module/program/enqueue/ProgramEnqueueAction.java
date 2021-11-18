@@ -18,7 +18,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPredicate<AGProgram> getPrecondition() {
 
-		return ProgramPredicates.IS_NOT_QUEUED;
+		return ProgramPredicates.NOT_QUEUED;
 	}
 
 	@Override
