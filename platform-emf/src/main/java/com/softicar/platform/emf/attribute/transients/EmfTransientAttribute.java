@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.transients;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.emf.attribute.AbstractEmfAttribute;
@@ -71,6 +72,12 @@ public class EmfTransientAttribute<R extends IEmfTableRow<R, ?>, V> extends Abst
 	public IDisplayString getTitle() {
 
 		return field.getTitle();
+	}
+
+	@Override
+	public IStaticObject getTestMarker() {
+
+		return field;
 	}
 
 	@Override

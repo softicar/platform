@@ -1,7 +1,10 @@
 package com.softicar.platform.emf.data.table.column.settings;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.styles.CssTextAlign;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 
@@ -11,6 +14,7 @@ public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 	private CssTextAlign alignment;
 	private boolean showIds;
 	private IDisplayString titleOverride;
+	private Collection<IStaticObject> markers;
 
 	public EmfDataTableColumnSettings() {
 
@@ -20,6 +24,7 @@ public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 		this.alignment = null;
 		this.showIds = true;
 		this.titleOverride = null;
+		this.markers = new ArrayList<>();
 	}
 
 	public EmfDataTableColumnSettings(IEmfDataTableColumnSettings other) {
@@ -74,6 +79,12 @@ public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 		return titleOverride;
 	}
 
+	@Override
+	public Collection<IStaticObject> getMarkers() {
+
+		return markers;
+	}
+
 	public void setConcealed(boolean concealed) {
 
 		this.concealed = concealed;
@@ -107,5 +118,10 @@ public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 	public void setTitleOverride(IDisplayString titleOverride) {
 
 		this.titleOverride = titleOverride;
+	}
+
+	public void addMarker(IStaticObject marker) {
+
+		this.markers.add(marker);
 	}
 }

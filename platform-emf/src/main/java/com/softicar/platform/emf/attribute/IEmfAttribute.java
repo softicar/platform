@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.attribute;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
@@ -86,6 +87,13 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 * @return the title of this attribute (never null)
 	 */
 	IDisplayString getTitle();
+
+	/**
+	 * Returns the {@link IStaticObject} to be used as test marker in the UI.
+	 *
+	 * @return the marker for this {@link IEmfAttribute} (never <i>null</i>)
+	 */
+	IStaticObject getTestMarker();
 
 	/**
 	 * Returns true if this attribute is concealed, false otherwise.

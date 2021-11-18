@@ -127,6 +127,11 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		columnMap.values().forEach(column -> column.setColumnHandler(builder));
 	}
 
+	void addColumnMakers(EmfDataTableDivBuilder<R> builder) {
+
+		columnMap.values().forEach(column -> column.addColumnMarker(builder));
+	}
+
 	void addOrderBy(EmfDataTableDivBuilder<R> builder, IEmfAttribute<R, ?> attribute, OrderDirection direction) {
 
 		Optional//
@@ -177,6 +182,11 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		public void setColumnHandler(EmfDataTableDivBuilder<R> builder) {
 
 			builder.setColumnHandler(column, attribute.createColumnHandler());
+		}
+
+		public void addColumnMarker(EmfDataTableDivBuilder<R> builder) {
+
+			builder.addColumnMarker(column, attribute.getTestMarker());
 		}
 
 		public void addOrderBy(EmfDataTableDivBuilder<R> builder, OrderDirection direction) {

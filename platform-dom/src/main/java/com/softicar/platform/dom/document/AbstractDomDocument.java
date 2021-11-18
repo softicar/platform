@@ -134,9 +134,9 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	}
 
 	@Override
-	public boolean hasMarker(IDomNode node, IStaticObject marker) {
+	public boolean hasMarker(IDomNode node, IStaticObject...markers) {
 
-		return markerHolder.hasMarker(node, marker);
+		return markerHolder.hasMarker(node, markers);
 	}
 
 	@Override

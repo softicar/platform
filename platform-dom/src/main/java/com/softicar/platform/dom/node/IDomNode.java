@@ -169,6 +169,8 @@ public interface IDomNode {
 
 	/**
 	 * Defines the {@link IStaticObject} marker for this node.
+	 * <p>
+	 * TODO This method should be rather called <i>addMarker</i>.
 	 *
 	 * @param marker
 	 *            the marker to set (never null)
@@ -182,16 +184,16 @@ public interface IDomNode {
 	}
 
 	/**
-	 * Checks whether this note has the given marker.
+	 * Checks whether this {@link IDomNode} has all given markers.
 	 *
-	 * @param marker
-	 *            the marker to check for
-	 * @return <i>true</i> if the node has the given marker, <i>false</i>
+	 * @param markers
+	 *            the markers to check for
+	 * @return <i>true</i> if the node has the given markers, <i>false</i>
 	 *         otherwise
 	 */
-	default boolean hasMarker(IStaticObject marker) {
+	default boolean hasMarker(IStaticObject...markers) {
 
-		return getDomDocument().hasMarker(this, marker);
+		return getDomDocument().hasMarker(this, markers);
 	}
 
 	// -------------------------------- alert, confirm and prompt -------------------------------- //

@@ -2,6 +2,7 @@ package com.softicar.platform.emf.data.table.configuration.testing;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.tester.IDomNodeTesterFindMethods;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -14,18 +15,20 @@ import org.junit.Assert;
 public class EmfDataTableConfigurationTableAsserter {
 
 	private final IDomNodeTesterFindMethods methods;
+	private final IStaticObject tableMarker;
 	private int orderingIndex;
 
-	public EmfDataTableConfigurationTableAsserter(IDomNodeTesterFindMethods methods) {
+	public EmfDataTableConfigurationTableAsserter(IDomNodeTesterFindMethods methods, IStaticObject tableMarker) {
 
 		this.methods = methods;
+		this.tableMarker = tableMarker;
 		this.orderingIndex = 0;
 	}
 
 	public EmfDataTableConfigurationTableAsserter assertRows(int expected) {
 
 		methods//
-			.findNode(EmfDataTableDivMarker.TABLE)
+			.findNode(EmfDataTableDivMarker.TABLE, tableMarker)
 			.findNodes(EmfDataTableDivMarker.BODY_ROW)
 			.assertSize(expected);
 		return this;
@@ -84,7 +87,7 @@ public class EmfDataTableConfigurationTableAsserter {
 	private IEmfDataTable<?> getEmfDataTable() {
 
 		return methods//
-			.findNode(EmfDataTableDivMarker.TABLE)
+			.findNode(EmfDataTableDivMarker.TABLE, tableMarker)
 			.getNode(IEmfDataTable.class);
 	}
 }

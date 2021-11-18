@@ -13,6 +13,7 @@ class EmfDataTableCell<R, T> extends DomCell implements IEmfDataTableCell<R, T> 
 		this.tableRow = tableRow;
 		this.column = column;
 		setMarker(EmfDataTableDivMarker.BODY_CELL);
+		column.getSettings().getMarkers().forEach(this::setMarker);
 	}
 
 	@Override

@@ -96,17 +96,17 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Calls {@link #findNodes()} and filters for the given
-	 * {@link IStaticObject} marker.
+	 * {@link IStaticObject} markers.
 	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
+	 * @param markers
+	 *            the {@link IStaticObject} markers to search for (never
 	 *            <i>null</i>)
 	 * @return all matching {@link IDomNode} objects as an
 	 *         {@link IDomNodeIterable} (never <i>null</i>)
 	 */
-	default IDomNodeIterable<IDomNode> findNodes(IStaticObject marker) {
+	default IDomNodeIterable<IDomNode> findNodes(IStaticObject...markers) {
 
-		return findNodes().withMarker(marker);
+		return findNodes().withMarker(markers);
 	}
 
 	/**
@@ -127,10 +127,10 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Calls {@link #findNodes} and asserts for a single {@link IDomNode} with
-	 * the given marker.
+	 * all given marker.
 	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
+	 * @param markers
+	 *            the {@link IStaticObject} markers to search for (never
 	 *            <i>null</i>)
 	 * @return a {@link DomNodeTester} of the matching {@link IDomNode} (never
 	 *         <i>null</i>)
@@ -138,9 +138,9 @@ public interface IDomNodeTesterFindMethods {
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomNodeTester findNode(IStaticObject marker) {
+	default DomNodeTester findNode(IStaticObject...markers) {
 
-		return findNodes(marker).assertOne();
+		return findNodes(markers).assertOne();
 	}
 
 	/**
@@ -319,19 +319,28 @@ public interface IDomNodeTesterFindMethods {
 	/**
 	 * Searches for a {@link DomTable} with the given {@link IStaticObject}
 	 * marker.
+	 * <p>
+	 * Same as {@link #findTable()} but ignores all nodes without the marker.
+	 */
+	default DomTableTester findTable(IStaticObject marker) {
+
+		return findNodes(marker)//
+			.withType(DomTable.class)
+			.assertOne(node -> new DomTableTester(getEngine(), node));
+	}
+
+	/**
+	 * Searches for a single {@link DomTable} instance.
 	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
 	 * @return a {@link DomTableTester} of the matching {@link IDomNode}
 	 *         instance (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomTableTester findTable(IStaticObject marker) {
+	default DomTableTester findTable() {
 
-		return findNodes(marker)//
+		return findNodes()//
 			.withType(DomTable.class)
 			.assertOne(node -> new DomTableTester(getEngine(), node));
 	}

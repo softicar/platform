@@ -36,8 +36,11 @@ public class EmfManagementDataTableDivBuilder<R extends IEmfTableRow<R, P>, P, S
 
 		builder.setActionColumnHandler(new EmfManagementActionColumnHandler<>(entityTable));
 		builder.setRowCustomizer(new EmfManagementDataTableRowCustomizer<>());
+		builder.addTableMarker(entityTable);
+		builder.addTableDivMarker(entityTable);
 		dataTableDivCustomizer.accept(builder);
 		dataTable.setColumnHandlers(builder);
+		dataTable.addColumnMakers(builder);
 		entityTable.getManagementConfiguration().getOrderBys().forEach(this::addOrderByToBuilder);
 		entityTable.getManagementConfiguration().getRowCustomizer().ifPresent(builder::setRowCustomizer);
 		return builder.build();

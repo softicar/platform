@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.DomTHead;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import java.util.stream.Collectors;
 
 public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 
@@ -19,6 +20,15 @@ public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 	public IDomNodeIterable<DomCell> findCells(IStaticObject marker) {
 
 		return findNodes(marker).withType(DomCell.class);
+	}
+
+	public String getTextInColumns(IStaticObject marker) {
+
+		return findCells(marker)//
+			.stream()
+			.map(cell -> new DomNodeTester(getEngine(), cell))
+			.map(cell -> cell.getAllTextInDocument("|"))
+			.collect(Collectors.joining("|"));
 	}
 
 	public IDomNodeIterable<DomRow> getHeadRows() {

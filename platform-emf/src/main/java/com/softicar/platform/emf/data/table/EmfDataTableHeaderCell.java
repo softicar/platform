@@ -21,6 +21,7 @@ public class EmfDataTableHeaderCell<R, T> extends DomHeaderCell implements IRefr
 
 		this.column = column;
 		setMarker(EmfDataTableDivMarker.HEADER_PRIMARY_CELL);
+		column.getSettings().getMarkers().forEach(this::setMarker);
 		refresh();
 	}
 
