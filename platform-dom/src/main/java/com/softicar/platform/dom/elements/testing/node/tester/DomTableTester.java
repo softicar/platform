@@ -32,6 +32,11 @@ public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 			.collect(Collectors.joining("|"));
 	}
 
+	public DomNodeTester findHeaderCell(IStaticObject marker) {
+
+		return findHeaderCells(marker).assertOne();
+	}
+
 	public IDomNodeIterable<DomHeaderCell> findHeaderCells(IStaticObject marker) {
 
 		return findNodes(marker).withType(DomHeaderCell.class);

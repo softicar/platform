@@ -30,6 +30,7 @@ public class EmfDataTableFilterPopup<R> extends DomPopup implements IDomEnterKey
 		setCaption(EmfDataTableI18n.FILTER_BY_COLUMN);
 		setSubCaption(column.getTitle());
 		setMarker(EmfDataTableDivMarker.FILTER_POPUP);
+		column.getSettings().getMarkers().forEach(this::setMarker);
 
 		appendChild(filterListDiv);
 		appendChild(new DomActionBar(removeOtherFiltersCheckbox));

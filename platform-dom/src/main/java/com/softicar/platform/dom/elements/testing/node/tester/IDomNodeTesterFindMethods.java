@@ -177,10 +177,10 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Searches for a {@link DomPopup} with the given {@link IStaticObject}
-	 * marker.
+	 * markers.
 	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
+	 * @param markers
+	 *            the {@link IStaticObject} markers to search for (never
 	 *            <i>null</i>)
 	 * @return a {@link DomPopupTester} of the matching {@link IDomNode}
 	 *         instance (never <i>null</i>)
@@ -188,9 +188,9 @@ public interface IDomNodeTesterFindMethods {
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomPopupTester findPopup(IStaticObject marker) {
+	default DomPopupTester findPopup(IStaticObject...markers) {
 
-		return findNodes(marker)//
+		return findNodes(markers)//
 			.withType(DomPopup.class)
 			.assertOne(node -> new DomPopupTester(getEngine(), node));
 	}

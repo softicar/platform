@@ -37,7 +37,7 @@ public class DemoInvoicesTransientFieldSortingTest extends AbstractDemoModuleTes
 
 		DomTableTester table = findTable(AGDemoInvoice.TABLE);
 
-		DomNodeTester headerCell = table.findHeaderCells(AGDemoInvoice.GROSS_AMOUNT_FIELD).assertOne();
+		DomNodeTester headerCell = table.findHeaderCell(AGDemoInvoice.GROSS_AMOUNT_FIELD);
 		headerCell.clickNode(EmfDataTableDivMarker.ORDER_BY_BUTTON);
 
 		assertEquals("00001|00003|00002", table.getTextInColumns(AGDemoInvoice.INVOICE_NUMBER));
@@ -49,7 +49,7 @@ public class DemoInvoicesTransientFieldSortingTest extends AbstractDemoModuleTes
 
 		DomTableTester table = findTable(AGDemoInvoice.TABLE);
 
-		DomNodeTester headerCell = table.findHeaderCells(AGDemoInvoice.GROSS_AMOUNT_FIELD).assertOne();
+		DomNodeTester headerCell = table.findHeaderCell(AGDemoInvoice.GROSS_AMOUNT_FIELD);
 		headerCell.clickNode(EmfDataTableDivMarker.ORDER_BY_BUTTON);
 		headerCell.clickNode(EmfDataTableDivMarker.ORDER_BY_BUTTON);
 
