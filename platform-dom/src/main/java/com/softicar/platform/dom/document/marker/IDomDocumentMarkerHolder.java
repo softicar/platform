@@ -21,7 +21,7 @@ public interface IDomDocumentMarkerHolder {
 	/**
 	 * Defines the marker for the given {@link IDomNode}.
 	 * <p>
-	 * TODO This method should be rather called <i>addMarker</i>.
+	 * TODO PLAT-568 This method should be rather called <i>addMarker</i>.
 	 *
 	 * @param node
 	 *            the node (never <i>null</i>)
@@ -42,6 +42,8 @@ public interface IDomDocumentMarkerHolder {
 	 * <p>
 	 * If the DOM framework is <b>not</b> in test mode, <i>false</i> is
 	 * returned.
+	 * <p>
+	 * TODO PLAT-568 The method name should be pluralized <i>hasMarkers</i>.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to check (never <i>null</i>)

@@ -231,13 +231,13 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	// ------------------------------ retrieve textual content ------------------------------ //
 
-	// TODO this method should be renamed to getAllText (or similar)
+	// TODO PLAT-568 This method should be renamed to getAllText (or similar).
 	public String getAllTextInDocument(String delimiter) {
 
 		return getAllTextsInTree().collect(Collectors.joining(delimiter));
 	}
 
-	// TODO this method should be renamed to getAllTextAsStream (or similar)
+	// TODO PLAT-568 This method should be renamed to getAllTextAsStream (or similar).
 	public Stream<String> getAllTextsInTree() {
 
 		if (IDomTextNode.class.isAssignableFrom(node.getClass())) {

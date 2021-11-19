@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.demo.module.test.fixture.DemoModuleTestFixtureMethods;
 
-public class AbstractDemoModuleTest extends AbstractDbTest implements DemoModuleTestFixtureMethods {
+public abstract class AbstractDemoModuleTest extends AbstractDbTest implements DemoModuleTestFixtureMethods {
 
 	protected final AGUser user;
 	protected final AGDemoModuleInstance moduleInstance;
