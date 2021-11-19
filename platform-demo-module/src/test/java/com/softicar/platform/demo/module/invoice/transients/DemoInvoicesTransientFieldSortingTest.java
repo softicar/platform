@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.invoice.transients.sorting;
+package com.softicar.platform.demo.module.invoice.transients;
 
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
