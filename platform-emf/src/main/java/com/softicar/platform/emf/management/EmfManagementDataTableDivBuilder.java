@@ -36,8 +36,11 @@ public class EmfManagementDataTableDivBuilder<R extends IEmfTableRow<R, P>, P, S
 
 		builder.setActionColumnHandler(new EmfManagementActionColumnHandler<>(entityTable));
 		builder.setRowCustomizer(new EmfManagementDataTableRowCustomizer<>());
+		builder.addTableMarker(entityTable);
+		builder.addTableDivMarker(entityTable);
 		dataTableDivCustomizer.accept(builder);
 		dataTable.setColumnHandlers(builder);
+		dataTable.addColumnMakers(builder);
 		entityTable.getManagementConfiguration().getOrderBys().forEach(this::addOrderByToBuilder);
 		entityTable.getManagementConfiguration().getRowCustomizer().ifPresent(builder::setRowCustomizer);
 		return builder.build();
@@ -45,6 +48,6 @@ public class EmfManagementDataTableDivBuilder<R extends IEmfTableRow<R, P>, P, S
 
 	private void addOrderByToBuilder(Pair<IEmfAttribute<R, ?>, OrderDirection> orderBy) {
 
-		dataTable.getFieldStrategy(orderBy.getFirst()).ifPresent(strategy -> strategy.addOrderBy(builder, orderBy.getSecond()));
+		dataTable.addOrderBy(builder, orderBy.getFirst(), orderBy.getSecond());
 	}
 }

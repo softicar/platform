@@ -1,6 +1,8 @@
 package com.softicar.platform.emf.management;
 
+import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
@@ -8,12 +10,10 @@ import com.softicar.platform.db.sql.ISqlBooleanExpression;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -27,8 +27,7 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 	private final IEmfTable<R, P, S> entityTable;
 	private final S scopeEntity;
 	private final boolean showInactive;
-	private final List<IEmfDataTableStrategy<R>> fieldStrategiesList;
-	private final Map<IEmfAttribute<R, ?>, IEmfDataTableStrategy<R>> fieldStrategiesMap;
+	private final Map<IEmfAttribute<R, ?>, AttributeColumn<?>> columnMap;
 	private Optional<Set<R>> prefilteredEntities;
 	private Optional<ISqlBooleanExpression<R>> additionalFilterExpression;
 
@@ -37,19 +36,14 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		this.entityTable = entityTable;
 		this.scopeEntity = scopeEntity;
 		this.showInactive = showInactive;
-		this.fieldStrategiesList = new ArrayList<>();
-		this.fieldStrategiesMap = new IdentityHashMap<>();
+		this.columnMap = new IdentityHashMap<>();
 		this.prefilteredEntities = Optional.empty();
 
-		// create field strategies
 		entityTable//
 			.getAttributes()
 			.stream()
 			.filter(this::showAttribute)
-			.forEach(this::addStrategy);
-
-		// create data columns
-		fieldStrategiesList.forEach(strategy -> strategy.addDataColumns(this));
+			.forEach(this::addDataColumn);
 	}
 
 	@Override
@@ -103,6 +97,13 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		return getAuthorizedEntities(select);
 	}
 
+	@Override
+	public void invalidateCaches() {
+
+		entityTable.getCache().getTransientValueCache().invalidateAll();
+		super.invalidateCaches();
+	}
+
 	private Set<P> getPrefilterEntityPrimaryKeys() {
 
 		return prefilteredEntities//
@@ -121,14 +122,21 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		return allEntities.stream().filter(entity -> viewRole.test(entity, currentUser)).collect(Collectors.toList());
 	}
 
-	public void setColumnHandlers(EmfDataTableDivBuilder<R> tableDivBuilder) {
+	void setColumnHandlers(EmfDataTableDivBuilder<R> builder) {
 
-		fieldStrategiesList.forEach(strategy -> strategy.setColumnHandlers(tableDivBuilder));
+		columnMap.values().forEach(column -> column.setColumnHandler(builder));
 	}
 
-	public <V> Optional<IEmfDataTableStrategy<R>> getFieldStrategy(IEmfAttribute<R, V> attribute) {
+	void addColumnMakers(EmfDataTableDivBuilder<R> builder) {
 
-		return Optional.ofNullable(fieldStrategiesMap.get(attribute));
+		columnMap.values().forEach(column -> column.addColumnMarker(builder));
+	}
+
+	void addOrderBy(EmfDataTableDivBuilder<R> builder, IEmfAttribute<R, ?> attribute, OrderDirection direction) {
+
+		Optional//
+			.ofNullable(columnMap.get(attribute))
+			.ifPresent(column -> column.addOrderBy(builder, direction));
 	}
 
 	private <V> boolean showAttribute(IEmfAttribute<R, V> attribute) {
@@ -142,11 +150,14 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 		}
 	}
 
-	private <V> void addStrategy(IEmfAttribute<R, V> attribute) {
+	private <V> void addDataColumn(IEmfAttribute<R, V> attribute) {
 
-		IEmfDataTableStrategy<R> strategy = attribute.createDataTableStrategy();
-		fieldStrategiesList.add(strategy);
-		fieldStrategiesMap.put(attribute, strategy);
+		IDataTableColumn<R, V> column = newColumn(attribute.getValueClass())//
+			.setComparator(attribute.getValueComparator())
+			.setGetter(attribute::getValue)
+			.setTitle(attribute.getTitle())
+			.addColumn();
+		columnMap.put(attribute, new AttributeColumn<>(attribute, column));
 	}
 
 	private <V> boolean isActiveAttribute(IEmfAttribute<R, V> attribute) {
@@ -157,10 +168,30 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 			.isActiveAttribute(attribute);
 	}
 
-	@Override
-	public void invalidateCaches() {
+	private class AttributeColumn<V> {
 
-		entityTable.getCache().getTransientValueCache().invalidateAll();
-		super.invalidateCaches();
+		private final IEmfAttribute<R, V> attribute;
+		private final IDataTableColumn<R, V> column;
+
+		public AttributeColumn(IEmfAttribute<R, V> attribute, IDataTableColumn<R, V> column) {
+
+			this.attribute = attribute;
+			this.column = column;
+		}
+
+		public void setColumnHandler(EmfDataTableDivBuilder<R> builder) {
+
+			builder.setColumnHandler(column, attribute.createColumnHandler());
+		}
+
+		public void addColumnMarker(EmfDataTableDivBuilder<R> builder) {
+
+			builder.addColumnMarker(column, attribute.getTestMarker());
+		}
+
+		public void addOrderBy(EmfDataTableDivBuilder<R> builder, OrderDirection direction) {
+
+			builder.addOrderBy(column, direction);
+		}
 	}
 }

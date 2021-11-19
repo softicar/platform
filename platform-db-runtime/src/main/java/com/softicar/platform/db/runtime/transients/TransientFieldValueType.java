@@ -12,7 +12,7 @@ public class TransientFieldValueType<V> implements ITransientFieldValueType<V> {
 	public TransientFieldValueType(Class<V> valueClass) {
 
 		this.valueClass = Objects.requireNonNull(valueClass);
-		this.comparator = Optional.empty();
+		this.comparator = Optional.ofNullable(getNaturalOrderComparatorOrNull(valueClass));
 	}
 
 	public TransientFieldValueType(Class<V> valueClass, Comparator<V> comparator) {
@@ -31,5 +31,15 @@ public class TransientFieldValueType<V> implements ITransientFieldValueType<V> {
 	public Optional<Comparator<V>> getComparator() {
 
 		return comparator;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <V> Comparator<V> getNaturalOrderComparatorOrNull(Class<V> valueClass) {
+
+		if (Comparable.class.isAssignableFrom(valueClass)) {
+			return (Comparator<V>) Comparator.naturalOrder();
+		} else {
+			return null;
+		}
 	}
 }

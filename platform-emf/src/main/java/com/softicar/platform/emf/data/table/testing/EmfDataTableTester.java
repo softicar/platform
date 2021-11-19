@@ -1,14 +1,11 @@
 package com.softicar.platform.emf.data.table.testing;
 
-import com.softicar.platform.common.container.data.table.IDataTableColumn;
-import com.softicar.platform.dom.elements.DomCell;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
-import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomTableTester;
-import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.data.table.EmfDataTableHeaderCell;
+import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 
 public class EmfDataTableTester extends DomTableTester {
 
@@ -17,19 +14,14 @@ public class EmfDataTableTester extends DomTableTester {
 		super(engine, node);
 	}
 
-	public IDomNodeIterable<DomCell> getCells(IDataTableColumn<?, ?> column) {
+	public DomPopupTester openFilterPopup(IStaticObject columnMarker) {
 
-		IDomNode headerCell = getHeaderCell(column).getNode();
-		int childIndex = headerCell.getParent().getChildIndex(headerCell);
-		return getBodyRows().map(row -> row.getChild(childIndex)).withType(DomCell.class);
+		findHeaderCell(columnMarker).clickNode(EmfDataTableDivMarker.FILTER_POPUP_BUTTON);
+		return findFilterPopup(columnMarker);
 	}
 
-	public DomNodeTester getHeaderCell(IDataTableColumn<?, ?> column) {
+	public DomPopupTester findFilterPopup(IStaticObject columnMarker) {
 
-		return getHeadRows()//
-			.last()
-			.findNodes(EmfDataTableHeaderCell.class)
-			.filter(headerCell -> headerCell.getDataColumn() == column)
-			.assertOne();
+		return findBody().findPopup(EmfDataTableDivMarker.FILTER_POPUP, columnMarker);
 	}
 }

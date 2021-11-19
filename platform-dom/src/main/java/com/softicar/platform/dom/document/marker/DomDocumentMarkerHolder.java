@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 /**
  * Default implementation of {@link IDomDocumentMarkerHolder}.
@@ -78,9 +79,12 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public boolean hasMarker(IDomNode node, IStaticObject marker) {
+	public boolean hasMarker(IDomNode node, IStaticObject...markers) {
 
-		return getMarkers(node).contains(marker);
+		Collection<IStaticObject> existingMarkers = getMarkers(node);
+		return Stream//
+			.of(markers)
+			.allMatch(existingMarkers::contains);
 	}
 
 	private Collection<IDomNode> getNodes(Set<Integer> nodeIds) {

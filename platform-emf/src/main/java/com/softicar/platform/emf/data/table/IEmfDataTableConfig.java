@@ -24,9 +24,9 @@ public interface IEmfDataTableConfig<R> {
 
 	IDataTable<R> getDataTable();
 
-	IStaticObject getTableMarker();
+	Collection<IStaticObject> getTableMarkers();
 
-	IStaticObject getTableDivMarker();
+	Collection<IStaticObject> getTableDivMarkers();
 
 	EmfDataTableOrdering<R> getOrdering();
 

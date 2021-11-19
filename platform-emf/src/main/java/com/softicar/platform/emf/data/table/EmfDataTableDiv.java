@@ -57,8 +57,8 @@ class EmfDataTableDiv<R> extends DomDiv implements IEmfDataTableDiv<R> {
 			appendChild(createNavigation(table));
 		}
 
-		setMarker(config.getTableDivMarker());
-		table.setMarker(config.getTableMarker());
+		config.getTableDivMarkers().forEach(this::setMarker);
+		config.getTableMarkers().forEach(table::setMarker);
 
 		setCssClass(EmfCssClasses.EMF_DATA_TABLE_DIV);
 	}

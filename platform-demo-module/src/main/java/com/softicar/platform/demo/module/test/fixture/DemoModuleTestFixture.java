@@ -16,14 +16,6 @@ public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, ISta
 	}
 
 	@Override
-	public IStandardModuleTestFixture<AGDemoModuleInstance> apply() {
-
-		this.moduleInstance = insertDemoModuleInstance();
-		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
-		return this;
-	}
-
-	@Override
 	public AGDemoModuleInstance getInstance() {
 
 		return moduleInstance;
@@ -35,4 +27,12 @@ public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, ISta
 		return AGDemoModuleInstance.TABLE;
 	}
 
+	@Override
+	public IStandardModuleTestFixture<AGDemoModuleInstance> apply() {
+
+		this.moduleInstance = insertDemoModuleInstance();
+		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
+		new DemoInvoicesTextFixture(moduleInstance).apply();
+		return this;
+	}
 }
