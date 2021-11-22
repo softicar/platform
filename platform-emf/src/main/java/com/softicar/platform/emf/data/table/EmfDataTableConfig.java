@@ -34,8 +34,8 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	private final IDataTable<R> dataTable;
 	private boolean hideNavigationAtBottom;
 	private boolean hideNavigationAtTop;
-	private IStaticObject tableMarker;
-	private IStaticObject tableDivMarker;
+	private final Collection<IStaticObject> tableMarkers;
+	private final Collection<IStaticObject> tableDivMarkers;
 	private final EmfDataTableOrdering<R> ordering;
 	private int pageSize;
 	private final List<DomButton> rowSelectionActionButtons;
@@ -56,8 +56,8 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 		this.dataTable = dataTable;
 		this.hideNavigationAtBottom = false;
 		this.hideNavigationAtTop = true;
-		this.tableMarker = EmfDataTableDivMarker.TABLE;
-		this.tableDivMarker = EmfDataTableDivMarker.TABLE_DIV;
+		this.tableMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE));
+		this.tableDivMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE_DIV));
 		this.ordering = new EmfDataTableOrdering<>();
 		this.pageSize = DomPageableTable.DEFAULT_PAGE_SIZE;
 		this.rowSelectionActionButtons = new ArrayList<>();
@@ -195,25 +195,25 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	}
 
 	@Override
-	public IStaticObject getTableMarker() {
+	public Collection<IStaticObject> getTableMarkers() {
 
-		return tableMarker;
+		return tableMarkers;
 	}
 
-	public void setTableMarker(IStaticObject marker) {
+	public void addTableMarker(IStaticObject marker) {
 
-		this.tableMarker = marker;
+		this.tableMarkers.add(marker);
 	}
 
 	@Override
-	public IStaticObject getTableDivMarker() {
+	public Collection<IStaticObject> getTableDivMarkers() {
 
-		return tableDivMarker;
+		return tableDivMarkers;
 	}
 
-	public void setTableDivMarker(IStaticObject tableDivMarker) {
+	public void addTableDivMarker(IStaticObject marker) {
 
-		this.tableDivMarker = tableDivMarker;
+		this.tableDivMarkers.add(marker);
 	}
 
 	@Override

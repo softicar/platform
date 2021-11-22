@@ -45,8 +45,8 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 			.setHideNavigation(true)
 			.setPageSize(model.getColumns().size())
 			.setRowSelectionCallback(this::handleRowSelection)
-			.setTableMarker(EmfDataTableConfigurationMarker.TABLE)
-			.setTableDivMarker(EmfDataTableConfigurationMarker.TABLE_DIV)
+			.addTableMarker(EmfDataTableConfigurationMarker.TABLE)
+			.addTableDivMarker(EmfDataTableConfigurationMarker.TABLE_DIV)
 			.build();
 		this.tableDiv = appendChild(tableDiv);
 

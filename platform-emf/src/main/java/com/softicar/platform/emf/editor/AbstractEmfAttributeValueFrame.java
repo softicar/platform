@@ -5,7 +5,8 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-public abstract class AbstractEmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends DomInputDiagnosticsFrame implements IEmfAttributeValueFrame<R, V> {
+public abstract class AbstractEmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends DomInputDiagnosticsFrame
+		implements IEmfAttributeValueFrame<R, V> {
 
 	protected final IEmfAttribute<R, V> attribute;
 
@@ -15,10 +16,7 @@ public abstract class AbstractEmfAttributeValueFrame<R extends IEmfTableRow<R, ?
 
 		this.attribute = attribute;
 
-		attribute//
-			.getOriginalAttribute()
-			.getField()
-			.ifPresent(valueNode::setMarker);
+		valueNode.setMarker(attribute.getTestMarker());
 	}
 
 	@Override

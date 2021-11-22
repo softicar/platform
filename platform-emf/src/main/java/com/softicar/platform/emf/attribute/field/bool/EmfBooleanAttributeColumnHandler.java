@@ -2,7 +2,7 @@ package com.softicar.platform.emf.attribute.field.bool;
 
 import com.softicar.platform.dom.styles.CssTextAlign;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
+import com.softicar.platform.emf.attribute.configuration.EmfAttributeColumnHandler;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 

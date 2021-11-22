@@ -194,6 +194,21 @@ public class EmfDataTableDivBuilder<R> {
 	}
 
 	/**
+	 * Adds the given test marker for the specified {@link IDataTableColumn}.
+	 *
+	 * @param column
+	 *            the {@link IDataTableColumn} (never <i>null</i>)
+	 * @param marker
+	 *            the test marker
+	 * @return this builder
+	 */
+	public EmfDataTableDivBuilder<R> addColumnMarker(IDataTableColumn<R, ?> column, IStaticObject marker) {
+
+		config.getColumnSettings(column).addMarker(marker);
+		return this;
+	}
+
+	/**
 	 * Enabled or disables row selection.
 	 * <p>
 	 * When enabled, an extra table column is shown where the user can select
@@ -451,28 +466,27 @@ public class EmfDataTableDivBuilder<R> {
 	}
 
 	/**
-	 * Defines the marker to be used for the {@link DomTable} in the
+	 * Adds a marker to be used for the {@link DomTable} in the
 	 * {@link IEmfDataTableDiv} to be built.
 	 *
 	 * @param marker
 	 *            the {@link IStaticObject} marker (never <i>null</i>)
 	 */
-	public EmfDataTableDivBuilder<R> setTableMarker(IStaticObject marker) {
+	public EmfDataTableDivBuilder<R> addTableMarker(IStaticObject marker) {
 
-		this.config.setTableMarker(marker);
+		this.config.addTableMarker(marker);
 		return this;
 	}
 
 	/**
-	 * Defines the marker to be used for the {@link IEmfDataTableDiv} to be
-	 * built.
+	 * Adds a marker to be used for the {@link IEmfDataTableDiv} to be built.
 	 *
 	 * @param marker
 	 *            the {@link IStaticObject} marker (never <i>null</i>)
 	 */
-	public EmfDataTableDivBuilder<R> setTableDivMarker(IStaticObject marker) {
+	public EmfDataTableDivBuilder<R> addTableDivMarker(IStaticObject marker) {
 
-		this.config.setTableDivMarker(marker);
+		this.config.addTableDivMarker(marker);
 		return this;
 	}
 

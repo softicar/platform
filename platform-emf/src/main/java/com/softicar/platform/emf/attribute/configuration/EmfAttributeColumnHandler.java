@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.attribute.data.table;
+package com.softicar.platform.emf.attribute.configuration;
 
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.IEmfAttribute;

@@ -6,6 +6,7 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	PK Integer id = SERIAL
 	AGDemoInvoice invoice
 	String item
+	Integer quantity
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
 }

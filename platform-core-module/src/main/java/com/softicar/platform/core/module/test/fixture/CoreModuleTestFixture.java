@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.test.fixture;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
+import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
 
@@ -41,6 +42,8 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 
 		insertRoleMembership(adminUser, CoreRoles.ACCESS_MANAGER, CoreModule.class);
 		insertRoleMembership(adminUser, CoreRoles.SUPER_USER, CoreModule.class);
+
+		new ProgramStandardConfiguration().createAndSaveAll();
 	}
 
 	public AGUser getViewUser() {

@@ -72,7 +72,7 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 		insertTestRecords();
 		this.interactor = new EmfDataTableConfigurationPopupTestInteractor(this);
 		this.popupAsserter = new EmfDataTableConfigurationPopupAsserter(this);
-		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this);
+		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, TestObject.TABLE);
 	}
 
 	@Test

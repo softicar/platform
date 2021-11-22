@@ -1,13 +1,12 @@
 package com.softicar.platform.emf.attribute;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.data.table.EmfAttributeColumnHandler;
-import com.softicar.platform.emf.attribute.data.table.EmfDataTableStrategy;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
+import com.softicar.platform.emf.attribute.configuration.EmfAttributeColumnHandler;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.entity.IEmfEntity;
@@ -94,6 +93,12 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	}
 
 	@Override
+	public IStaticObject getTestMarker() {
+
+		return originalAttribute.getTestMarker();
+	}
+
+	@Override
 	public boolean isConcealed() {
 
 		return concealed || originalAttribute.isConcealed();
@@ -169,13 +174,6 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	public Optional<IEmfInput<V>> createInput(O tableRow) {
 
 		return originalAttribute.createInput(tableRow.pk());
-	}
-
-	@Override
-	public IEmfDataTableStrategy<O> createDataTableStrategy() {
-
-		// TODO probably need here a special implementation
-		return new EmfDataTableStrategy<>(this);
 	}
 
 	@Override

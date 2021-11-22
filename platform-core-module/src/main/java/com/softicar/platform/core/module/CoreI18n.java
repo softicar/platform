@@ -270,6 +270,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ende");
 	I18n0 ENGLISH = new I18n0("English")//
 		.de("Englisch");
+	I18n0 ENQUEUE = new I18n0("Enqueue")//
+		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
 	I18n0 ENTRIES = new I18n0("Entries")//
@@ -567,6 +569,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NO_STACK_TRACE_RECORDED = new I18n0("No stack trace recorded.")//
 		.de("Kein Stacktrace aufgezeichnet.");
+	I18n0 NOT_QUEUED = new I18n0("Not queued")//
+		.de("Nicht in der Warteschlange");
 	I18n0 NOT_TERMINATED_YET = new I18n0("not terminated yet")//
 		.de("noch nicht terminiert");
 	I18n0 NOTIFICATION_TIME = new I18n0("Notification Time")//

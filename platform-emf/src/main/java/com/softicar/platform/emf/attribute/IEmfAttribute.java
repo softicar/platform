@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.attribute;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.emf.attribute.data.table.IEmfDataTableStrategy;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.management.EmfManagementDiv;
@@ -87,6 +87,13 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 * @return the title of this attribute (never null)
 	 */
 	IDisplayString getTitle();
+
+	/**
+	 * Returns the {@link IStaticObject} to be used as test marker in the UI.
+	 *
+	 * @return the marker for this {@link IEmfAttribute} (never <i>null</i>)
+	 */
+	IStaticObject getTestMarker();
 
 	/**
 	 * Returns true if this attribute is concealed, false otherwise.
@@ -220,14 +227,6 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 *         attribute for the given {@link IEmfTableRow}
 	 */
 	Optional<IEmfInput<V>> createInput(R tableRow);
-
-	/**
-	 * Returns a new {@link IEmfDataTableStrategy} for this attribute.
-	 *
-	 * @return a new {@link IEmfDataTableStrategy} for this attribute (never
-	 *         null)
-	 */
-	IEmfDataTableStrategy<R> createDataTableStrategy();
 
 	/**
 	 * Returns a new {@link IEmfDataTableRowBasedColumnHandler} to display the

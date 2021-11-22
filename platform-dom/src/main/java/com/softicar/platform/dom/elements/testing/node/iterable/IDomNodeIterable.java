@@ -68,7 +68,7 @@ public interface IDomNodeIterable<N extends IDomNode> extends Iterable<N> {
 
 	// ------------------------------ with marker ------------------------------ //
 
-	default IDomNodeIterable<N> withMarker(IStaticObject marker) {
+	default IDomNodeIterable<N> withMarker(IStaticObject...marker) {
 
 		return filter(node -> node.hasMarker(marker));
 	}

@@ -20,6 +20,8 @@ public interface IDomDocumentMarkerHolder {
 
 	/**
 	 * Defines the marker for the given {@link IDomNode}.
+	 * <p>
+	 * TODO PLAT-568 This method should be rather called <i>addMarker</i>.
 	 *
 	 * @param node
 	 *            the node (never <i>null</i>)
@@ -31,25 +33,27 @@ public interface IDomDocumentMarkerHolder {
 	void setMarker(IDomNode node, IStaticObject marker);
 
 	/**
-	 * Checks whether the given {@link IDomNode} has the given
-	 * {@link IStaticObject} marker.
+	 * Checks whether the given {@link IDomNode} has all given
+	 * {@link IStaticObject} markers.
 	 * <p>
-	 * Returns <i>false</i> the given {@link IDomNode} is not appended to the
+	 * Returns <i>false</i> if the given {@link IDomNode} is not appended to the
 	 * {@link DomDocument} (that is, if the {@link DomBody} is not among the
 	 * transitive parents of the given {@link IDomNode}).
 	 * <p>
 	 * If the DOM framework is <b>not</b> in test mode, <i>false</i> is
 	 * returned.
+	 * <p>
+	 * TODO PLAT-568 The method name should be pluralized <i>hasMarkers</i>.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to check (never <i>null</i>)
-	 * @param marker
-	 *            the {@link IStaticObject} marker to check for (never
+	 * @param markers
+	 *            the {@link IStaticObject} markers to check for (never
 	 *            <i>null</i>)
-	 * @return <i>true</i> if the {@link IDomNode} has the given
-	 *         {@link IStaticObject} marker; <i>false</i> otherwise
+	 * @return <i>true</i> if the {@link IDomNode} has all given
+	 *         {@link IStaticObject} markers; <i>false</i> otherwise
 	 */
-	boolean hasMarker(IDomNode node, IStaticObject marker);
+	boolean hasMarker(IDomNode node, IStaticObject...markers);
 
 	/**
 	 * Returns a {@link Collection} of all {@link IDomNode} instances in the

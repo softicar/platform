@@ -7,6 +7,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupAsserter;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupTestInteractor;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationTableAsserter;
@@ -28,7 +29,7 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 		setNodeSupplier(new EmfDataTableDivBuilder<>(dataTable)::build);
 
 		this.interactor = new EmfDataTableConfigurationPopupTestInteractor(this);
-		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this);
+		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, EmfDataTableDivMarker.TABLE);
 		this.popupAsserter = new EmfDataTableConfigurationPopupAsserter(this);
 	}
 

@@ -1,7 +1,11 @@
 package com.softicar.platform.emf.test;
 
+import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
+import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.data.table.testing.EmfDataTableTester;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.management.EmfManagementDiv;
 import com.softicar.platform.emf.management.EmfManagementPopup;
@@ -11,6 +15,13 @@ import com.softicar.platform.emf.test.tester.EmfManagementDivTester;
 import com.softicar.platform.emf.test.tester.EmfManagementPopupTester;
 
 public interface IEmfTestEngineMethods extends IDomTestEngineMethods {
+
+	default EmfDataTableTester findEmfDataTable(IStaticObject tableMarker) {
+
+		return findNodes(EmfDataTableDivMarker.TABLE, tableMarker)//
+			.withType(DomTable.class)
+			.assertOne(node -> new EmfDataTableTester(getEngine(), node));
+	}
 
 	default EmfManagementDivTester findManagementDiv() {
 

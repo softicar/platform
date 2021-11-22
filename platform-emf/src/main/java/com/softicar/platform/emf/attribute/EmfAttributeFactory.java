@@ -8,6 +8,7 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
 import com.softicar.platform.db.runtime.field.IDbBigDecimalField;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
+import com.softicar.platform.db.runtime.field.IDbByteArrayField;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbDoubleField;
@@ -25,10 +26,10 @@ import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.field.bigdecimal.EmfBigDecimalAttribute;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanAttribute;
+import com.softicar.platform.emf.attribute.field.bytes.EmfByteArrayAttribute;
 import com.softicar.platform.emf.attribute.field.day.EmfDayAttribute;
 import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeAttribute;
 import com.softicar.platform.emf.attribute.field.doubles.EmfDoubleAttribute;
-import com.softicar.platform.emf.attribute.field.dummy.EmfDummyAttribute;
 import com.softicar.platform.emf.attribute.field.enums.EmfEnumAttribute;
 import com.softicar.platform.emf.attribute.field.enums.table.row.EmfEnumTableRowAttribute;
 import com.softicar.platform.emf.attribute.field.floats.EmfFloatAttribute;
@@ -111,7 +112,7 @@ public class EmfAttributeFactory<R extends IEmfTableRow<R, ?>, V> {
 		case BOOLEAN:
 			return new EmfBooleanAttribute<>((IDbBooleanField<R>) field);
 		case BYTE_ARRAY:
-			return new EmfDummyAttribute<>(field);
+			return new EmfByteArrayAttribute<>((IDbByteArrayField<R>) field);
 		case DAY:
 			return new EmfDayAttribute<>((IDbDayField<R>) field);
 		case DAY_TIME:
