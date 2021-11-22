@@ -27,7 +27,7 @@ public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 		.asList(//
 			AbstractStandardModule.class,
 			AbstractSystemModule.class);
-	private static final IJavaClassNameMatcher VALID_CLASS_NAME = new JavaClassNameGlobPatternMatcher("com.softicar.**.module.*Module");
+	private static final IJavaClassNameMatcher VALID_CLASS_NAME = new JavaClassNameGlobPatternMatcher("**.module.*Module");
 
 	public ModuleClassesValidator() {
 
