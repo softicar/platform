@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.uuid;
 
-import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
@@ -10,17 +9,12 @@ import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
-import com.softicar.platform.emf.authorization.role.CurrentEmfRoleRegistry;
-import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
-import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.registry.IEmfModuleRegistry;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -32,23 +26,10 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return new DisplayString().append(getName());
-	}
-
-	private String getName() {
-
-		Optional<IEmfModule<?>> module = IEmfModuleRegistry.get().getModule(getUuid());
-		if (module.isPresent()) {
-			return module.get().getClassName();
-		} else {
-			// FIXME This pattern does not scale well. We also cannot ask things (e.g. registries) beyond the CoreModule for titles, this way.
-			return CurrentEmfRoleRegistry//
-				.get()
-				.getStaticRole(getUuid())
-				.map(IEmfStaticRole::getTitle)
-				.map(IDisplayString::toString)
-				.orElse(getUuidString());
-		}
+		return EmfSourceCodeReferencePoints//
+			.getReferencePoint(getUuid())
+			.map(IEmfSourceCodeReferencePoint::toDisplay)
+			.orElse(IDisplayString.create(getUuidString()));
 	}
 
 	@Override
