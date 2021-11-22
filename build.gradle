@@ -134,6 +134,7 @@ subprojects {
 def OSSRH_URL = findProperty('ossrhUrl')
 def OSSRH_USERNAME = findProperty('ossrhUsername')
 def OSSRH_PASSWORD = findProperty('ossrhPassword')
+def OSSRH_TARGET = findProperty('ossrhTarget')
 
 subprojects {
 	apply plugin: 'maven-publish'
@@ -148,15 +149,21 @@ subprojects {
 	}
 	publishing {
 		repositories {
-			maven {
-				if(OSSRH_URL != null) {
-					url = OSSRH_URL
-					if(OSSRH_USERNAME != null) {
-						credentials(PasswordCredentials) {
-							username OSSRH_USERNAME
-							password OSSRH_PASSWORD
+			if(OSSRH_TARGET == 'public') {
+				maven {
+					if(OSSRH_URL != null) {
+						url = OSSRH_URL
+						if(OSSRH_USERNAME != null) {
+							credentials(PasswordCredentials) {
+								username OSSRH_USERNAME
+								password OSSRH_PASSWORD
+							}
 						}
 					}
+				}
+			} else if(OSSRH_TARGET == 'local') {
+				maven {
+					url = System.properties['user.home'] + '/.softicar/maven-local'
 				}
 			}
 		}
@@ -190,15 +197,24 @@ subprojects {
 			}
 		}
 	}
-	signing {
-		sign publishing.publications.mavenJava
-	}
-	publishMavenJavaPublicationToMavenRepository.doFirst {
-		if(OSSRH_URL == null) {
-			throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
-		}
-		if(version == "unspecified") {
-			throw new GradleException("Please specify the version to release with '-Pversion=X.Y.Z'.")
+
+	publish.doFirst {
+		if(OSSRH_TARGET == 'public') {
+			signing {
+					sign publishing.publications.mavenJava
+			}
+			publishMavenJavaPublicationToMavenRepository.doFirst {
+				if(OSSRH_URL == null) {
+					throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
+				}
+				if(version == "unspecified") {
+					throw new GradleException("Please specify the version to release with '-Pversion=X.Y.Z'.")
+				}
+			}
+		} else if(OSSRH_TARGET == 'local') {
+			// nothing
+		} else {
+			throw new GradleException("When 'publish' is invoked, '-PossrhTarget=[public|local]' must be specified.")
 		}
 	}
 }
