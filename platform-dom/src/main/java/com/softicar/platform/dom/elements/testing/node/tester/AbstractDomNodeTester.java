@@ -43,7 +43,9 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 	public void setInputValue(IStaticObject marker, String value) {
 
 		this//
-			.findNode(marker)
+			.findNodes(marker)
+			.filter(this::hasStringInputNode)
+			.assertOne()
 			.findNode(IDomStringInputNode.class)
 			.setInputValue(value);
 	}
@@ -248,5 +250,10 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 				.map(IDomTextNode.class::cast)
 				.map(IDomTextNode::getText);
 		}
+	}
+
+	private boolean hasStringInputNode(IDomNode node) {
+
+		return new DomNodeTester(engine, node).findNodes(IDomStringInputNode.class).size() > 0;
 	}
 }
