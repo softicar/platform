@@ -1,7 +1,10 @@
 package com.softicar.platform.dom.event;
 
 /**
- * You should implement this interface if you want to receive DOM events.
+ * Generic interface to receive {@link IDomEvent} notifications.
+ * <p>
+ * A simpler API that automatically enables listening to events is available
+ * through {@link IDomAutoEventHandler}.
  *
  * @author Oliver Richers
  */
