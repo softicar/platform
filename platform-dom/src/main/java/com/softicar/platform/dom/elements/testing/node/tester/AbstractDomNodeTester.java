@@ -6,7 +6,6 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
-import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomStringInputNode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -45,8 +44,9 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 		this//
 			.findNodes(marker)
-			.withInstanceOf(DomTextInput.class)
+			.filter(this::hasStringInputNode)
 			.assertOne()
+			.findNode(IDomStringInputNode.class)
 			.setInputValue(value);
 	}
 
@@ -250,5 +250,10 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 				.map(IDomTextNode.class::cast)
 				.map(IDomTextNode::getText);
 		}
+	}
+
+	private boolean hasStringInputNode(IDomNode node) {
+
+		return new DomNodeTester(engine, node).findNodes(IDomStringInputNode.class).size() > 0;
 	}
 }
