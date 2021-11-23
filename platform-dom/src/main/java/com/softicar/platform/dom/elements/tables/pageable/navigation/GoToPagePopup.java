@@ -10,9 +10,8 @@ import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
-import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomEventHandler;
 
 /**
  * A {@link DomPopup} allowing for direct navigation to a specific page of a
@@ -60,16 +59,15 @@ class GoToPagePopup extends DomPopup {
 		hide();
 	}
 
-	private class PageNumberInput extends DomIntegerInput implements IDomEventHandler {
+	private class PageNumberInput extends DomIntegerInput implements IDomEnterKeyEventHandler {
 
 		public PageNumberInput() {
 
-			listenToEvent(DomEventType.ENTER);
 			setMarker(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_INPUT_ELEMENT);
 		}
 
 		@Override
-		public void handleDOMEvent(IDomEvent event) {
+		public void handleEnterKey(IDomEvent event) {
 
 			applyCurrentPageToTableAndHide();
 		}
