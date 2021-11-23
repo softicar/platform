@@ -131,10 +131,10 @@ subprojects {
 
 // -------------------- publishing -------------------- //
 
+def OSSRH_TARGET = findProperty('ossrhTarget')
 def OSSRH_URL = findProperty('ossrhUrl')
 def OSSRH_USERNAME = findProperty('ossrhUsername')
 def OSSRH_PASSWORD = findProperty('ossrhPassword')
-def OSSRH_TARGET = findProperty('ossrhTarget')
 
 subprojects {
 	apply plugin: 'maven-publish'
@@ -149,7 +149,7 @@ subprojects {
 	}
 	publishing {
 		repositories {
-			if(OSSRH_TARGET == 'public') {
+			if(OSSRH_TARGET == 'remote') {
 				maven {
 					if(OSSRH_URL != null) {
 						url = OSSRH_URL
@@ -198,23 +198,23 @@ subprojects {
 		}
 	}
 
+	signing {
+		if(OSSRH_TARGET == 'remote') {
+			sign publishing.publications.mavenJava
+		}
+	}
+
 	publish.doFirst {
-		if(OSSRH_TARGET == 'public') {
-			signing {
-					sign publishing.publications.mavenJava
+		if(OSSRH_TARGET != 'remote' && OSSRH_TARGET != 'local') {
+			throw new GradleException("Please specify the publication target with '-PossrhTarget=[remote|local]'.")
+		}
+		if(OSSRH_TARGET == 'remote') {
+			if(OSSRH_URL == null) {
+				throw new GradleException("Please specify the remote publication URL with 'ossrhUrl' in '~/.gradle/gradle.properties'.")
 			}
-			publishMavenJavaPublicationToMavenRepository.doFirst {
-				if(OSSRH_URL == null) {
-					throw new GradleException("Please specify the variable 'ossrhUrl' in '~/.gradle/gradle.properties'.")
-				}
-				if(version == "unspecified") {
-					throw new GradleException("Please specify the version to release with '-Pversion=X.Y.Z'.")
-				}
-			}
-		} else if(OSSRH_TARGET == 'local') {
-			// nothing
-		} else {
-			throw new GradleException("When 'publish' is invoked, '-PossrhTarget=[public|local]' must be specified.")
+		}
+		if(version == "unspecified") {
+			throw new GradleException("Please specify the version to publish with '-Pversion=X.Y.Z'.")
 		}
 	}
 }
