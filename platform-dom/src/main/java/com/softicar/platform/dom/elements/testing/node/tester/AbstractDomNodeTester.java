@@ -6,7 +6,6 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
-import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomStringInputNode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -45,7 +44,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 		this//
 			.findNode(marker)
-			.findNode(DomTextInput.class)
+			.findNode(IDomStringInputNode.class)
 			.setInputValue(value);
 	}
 
