@@ -81,7 +81,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithButtonClick(1);
+		goToPageWithEnterKey(1);
 		assertSecondPageDisplayed(dataTableDiv);
 	}
 
@@ -91,7 +91,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithEnterPress(1);
+		goToPageWithButtonClick(1);
 		assertSecondPageDisplayed(dataTableDiv);
 	}
 
@@ -101,7 +101,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithButtonClick(-1);
+		goToPageWithEnterKey(-1);
 		assertFirstPageDisplayed(dataTableDiv);
 	}
 
@@ -114,7 +114,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 
 		assertFirstPageDisplayed(dataTableDiv);
 		final int maxPageIndex = EmfDataTableTestUtil.calculateTotalPageCount(numTotalRows, pageSize) - 1;
-		goToPageWithButtonClick(maxPageIndex + 1);
+		goToPageWithEnterKey(maxPageIndex + 1);
 		assertEquals(maxPageIndex, dataTableDiv.getCurrentPage());
 	}
 
@@ -130,7 +130,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 
 		assertFirstPageDisplayed(dataTableDiv);
 		final int maxPageIndex = EmfDataTableTestUtil.calculateTotalPageCount(numTotalRows, pageSize) - 1;
-		goToPageWithButtonClick(maxPageIndex + 1);
+		goToPageWithEnterKey(maxPageIndex + 1);
 		assertExpectedPageDisplayed(dataTableDiv, maxPageIndex);
 	}
 
@@ -168,14 +168,14 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 			.click();
 	}
 
-	private void goToPageWithButtonClick(int targetPageIndex) {
+	private void goToPageWithEnterKey(int targetPageIndex) {
 
 		clickGotoPageButton();
 		inputTagetPageNumber(targetPageIndex);
 		pressEnterOnTagetPageNumberInput();
 	}
 
-	private void goToPageWithEnterPress(int targetPageIndex) {
+	private void goToPageWithButtonClick(int targetPageIndex) {
 
 		clickGotoPageButton();
 		inputTagetPageNumber(targetPageIndex);

@@ -22,11 +22,6 @@ public enum DomEventType {
 
 	private final DomEventDelegator<?> eventDelegator;
 
-	private DomEventType() {
-
-		this.eventDelegator = null;
-	}
-
 	private <H extends IDomAutoEventHandler> DomEventType(Class<H> eventHandlerClass, BiConsumer<H, IDomEvent> eventConsumer) {
 
 		this.eventDelegator = new DomEventDelegator<>(this, eventHandlerClass, eventConsumer);
@@ -44,11 +39,7 @@ public enum DomEventType {
 	 */
 	public boolean enableEventListening(IDomNode node) {
 
-		if (eventDelegator != null) {
-			return eventDelegator.enableEventListening(node);
-		} else {
-			return false;
-		}
+		return eventDelegator.enableEventListening(node);
 	}
 
 	/**
@@ -65,10 +56,6 @@ public enum DomEventType {
 	 */
 	public boolean handleEvent(IDomNode node, IDomEvent event) {
 
-		if (eventDelegator != null) {
-			return eventDelegator.handleEvent(node, event);
-		} else {
-			return false;
-		}
+		return eventDelegator.handleEvent(node, event);
 	}
 }
