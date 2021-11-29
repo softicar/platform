@@ -29,6 +29,7 @@ public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskD
 		configuration.setScopeField(AGWorkflowTaskDelegation.WORKFLOW_TASK);
 		configuration.addValidator(WorkflowTaskDelegationValidator::new);
 		configuration.setIcon(WorkflowImages.RIGHT);
+		configuration.addSaveHook(WorkflowTaskDelegationSaveHook::new);
 	}
 
 	@Override
