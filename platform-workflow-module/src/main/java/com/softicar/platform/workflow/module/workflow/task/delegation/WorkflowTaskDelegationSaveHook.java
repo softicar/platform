@@ -14,6 +14,8 @@ public class WorkflowTaskDelegationSaveHook implements IEmfSaveHook<AGWorkflowTa
 
 	private void notifyTargetUser(AGWorkflowTaskDelegation tableRow) {
 
-		new WorkflowTaskNotificationSubmitter(tableRow.getWorkflowTask(), tableRow.getTargetUser()).submit();
+		new WorkflowTaskNotificationSubmitter(tableRow.getWorkflowTask())//
+			.setNotificationRecipient(tableRow.getTargetUser())
+			.submit();
 	}
 }

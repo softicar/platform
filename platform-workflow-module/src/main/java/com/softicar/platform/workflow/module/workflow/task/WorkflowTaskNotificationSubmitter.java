@@ -6,30 +6,31 @@ import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.WorkflowI18n;
+import java.util.Objects;
 
 public class WorkflowTaskNotificationSubmitter {
 
 	private final AGWorkflowTask task;
-	private final AGUser user;
+	private AGUser notificationRecipient;
 
 	public WorkflowTaskNotificationSubmitter(AGWorkflowTask task) {
 
 		this.task = task;
-		this.user = task.getUser();
+		this.notificationRecipient = task.getUser();
 	}
 
-	public WorkflowTaskNotificationSubmitter(AGWorkflowTask task, AGUser user) {
+	public WorkflowTaskNotificationSubmitter setNotificationRecipient(AGUser notificationRecipient) {
 
-		this.task = task;
-		this.user = user;
+		this.notificationRecipient = Objects.requireNonNull(notificationRecipient);
+		return this;
 	}
 
 	public void submit() {
 
-		try (LanguageScope scope = new LanguageScope(user.getLanguageEnum())) {
+		try (LanguageScope scope = new LanguageScope(notificationRecipient.getLanguageEnum())) {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
-				.addToRecipient(user)
+				.addToRecipient(notificationRecipient)
 				.setSubject(WorkflowI18n.NEW_WORKFLOW_TASK)
 				.setContent(
 					String
