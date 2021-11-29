@@ -7,9 +7,8 @@ import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public interface WorkflowPredicates {
 
-	// FIXME the predicate title appears completely wrong?!
 	IEmfPredicate<AGWorkflowVersion> WORKFLOW_VERSION_DRAFT = new EmfPredicate<>(//
-		WorkflowI18n.WORKFLOW_VERSION_FINALIZED,
+		WorkflowI18n.WORKFLOW_VERSION_DRAFT,
 		AGWorkflowVersion::isDraft);
 
 	// FIXME strange, not-draft implies finalized?
