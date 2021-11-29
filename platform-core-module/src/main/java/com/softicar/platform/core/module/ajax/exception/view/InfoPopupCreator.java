@@ -23,7 +23,7 @@ class InfoPopupCreator {
 			.add(CoreI18n.LOCAL_ADDRESS, session.getLocalAddress())
 			.add(CoreI18n.LOCAL_PORT, session.getLocalPort().toString())
 			.add(CoreI18n.ACCESS_DATE, session.getAccessDate().toGermanString())
-			.add(CoreI18n.REVISION, revision.getRevision());
+			.add(CoreI18n.REVISION, revision == null? "" : revision.getRevision());
 		popup.appendCloseButton();
 		return popup;
 	}
