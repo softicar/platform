@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module.workflow.task;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import org.junit.Test;
@@ -51,6 +52,27 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 					+ "<br/><br/>"//
 					+ "<a href=\"" + getMyTasksPageUrl() + "\" target=\"_blank\">Meine Aufgaben</a>",
 			email.getContent());
+	}
+
+	@Test
+	public void testWithDifferentRecipient() {
+
+		AGUser differentUser = insertUser("Different User")//
+			.setEmailAddress("differentUser@example.com")
+			.setPreferredLanguage(LanguageEnum.GERMAN)
+			.save();
+
+		new WorkflowTaskNotificationSubmitter(task).setNotificationRecipient(differentUser).submit();
+
+		AGBufferedEmail email = assertOne(AGBufferedEmail.TABLE.loadAll());
+		assertEquals("differentUser@example.com", email.getTo());
+		assertEquals("Neue Arbeitsablauf-Aufgabe", email.getSubject());
+		assertEquals(
+			"Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit."//
+					+ "<br/><br/>"//
+					+ "<a href=\"" + getMyTasksPageUrl() + "\" target=\"_blank\">Meine Aufgaben</a>",
+			email.getContent());
+
 	}
 
 	private String getMyTasksPageUrl() {
