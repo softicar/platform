@@ -295,8 +295,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Benutzer");
 	I18n0 WORKFLOW_VERSION = new I18n0("Workflow Version")//
 		.de("Arbeitsablauf-Version");
-	I18n0 WORKFLOW_VERSION_DRAFT = new I18n0("Workflow Version Draft")//
-		.de("Entwurf der Arbeitsablauf-Version");
 	I18n0 WORKFLOW_VERSION_FINALIZED = new I18n0("Workflow Version Finalized")//
 		.de("Arbeitsablauf-Version finalisiert");
 	I18n0 WORKFLOW_VERSION_LOG = new I18n0("Workflow Version Log")//

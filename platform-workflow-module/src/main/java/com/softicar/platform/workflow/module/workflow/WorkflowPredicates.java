@@ -8,7 +8,7 @@ import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 public interface WorkflowPredicates {
 
 	IEmfPredicate<AGWorkflowVersion> WORKFLOW_VERSION_DRAFT = new EmfPredicate<>(//
-		WorkflowI18n.WORKFLOW_VERSION_DRAFT,
+		WorkflowI18n.DRAFT,
 		AGWorkflowVersion::isDraft);
 
 	// FIXME strange, not-draft implies finalized?
