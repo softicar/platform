@@ -12,7 +12,52 @@ The _SoftiCAR Platform_ is a lightweight, Java-based library to create interacti
   - All business logic defined in Java and running on server
   - Interactive web pages using asynchronous Javascript ([AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)))
 
-## 2 Releases and Versioning
+## 2 Example Web Application
+
+See the [SoftiCAR Platform Example Project](https://github.com/softicar/platform-example), for an exemplary web application that is based upon the _SoftiCAR Platform_.
+
+## 3 Building and Development
+
+To build and develop the code in this repository, an **Ubuntu 20.04 (Focal)** based workstation is recommended, with the following software installed:
+
+1. [AdoptOpenJDK 15 with HotSpot JVM](https://adoptopenjdk.net/archive.html?variant=openjdk15&jvmVariant=hotspot), with `java` in the `PATH`
+2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2020-09 (4.17)](https://www.eclipse.org/downloads/packages/release/2020-09/r)
+3. [SQML Eclipse Plugin](https://github.com/softicar/sqml)
+
+In _Eclipse_, the code shall be imported via _File / Import / Gradle / Existing Gradle Project_.
+
+For prototyping purposes, an integrated [Jetty Server](https://www.eclipse.org/jetty/) and an integrated ephemeral [H2-Database](https://www.h2database.com/html/main.html) can be used:
+- To start such a server, create a Java class like this:
+  ```java
+  public class DevelopmentServlet extends HotDeploymentWebServiceServlet {
+
+      public DevelopmentServlet() {
+
+          database.applyFixture(() -> {
+              TestFixtureRegistry registry = new TestFixtureRegistry(new CoreModuleTestFixture());
+              registry.registerIfMissing(WorkflowModuleTestFixture::new);
+              return registry;
+          });
+      }
+
+      public static void main(String[] args) {
+
+          new HotDeploymentWebServiceServer(DevelopmentServlet.class)//
+                  .setRequestString("service?id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageService.class))
+                  .setPort(8000).startAndJoin();
+      }
+  }
+  ```
+- When executed, it will print something like this:
+  ```
+  Server started at http://localhost:8000
+  Full URL:
+  http://localhost:8000/portal/service?id=95cf1a1b-c12e-4594-9d20-783988fe32b9
+  ```
+- Open a web browser and enter the URL.
+- To log in, use one of the default users: `admin.user`, `normal.user` or `view.user`. The password is `test` for each of those.
+
+## 4 Releases and Versioning
 
 Releases of this repository follow the [Semantic Versioning](https://semver.org/) principle.
 
@@ -28,57 +73,9 @@ major  |  patch
    - Changes in the behavior of existing Java code (except fixes of defective behavior)
    - _Any_ change to a database table
    - Fundamental changes to the behavior or style of the UI
-1. If there was **no API break** but a **new feature** was added, the **minor version** is incremented: `1.2.3 -> 1.3.0`
-1. If there was **no API break** and **no new feature** was added, the **patch version** is incremented: `1.2.3 -> 1.2.4`
+2. If there was **no API break** but a **new feature** was added, the **minor version** is incremented: `1.2.3 -> 1.3.0`
+3. If there was **no API break** and **no new feature** was added, the **patch version** is incremented: `1.2.3 -> 1.2.4`
    - e.g. when _only_ defects were fixed
-
-## 3 Building and Development
-
-To develop business applications based on the _SoftiCAR Platform_, the following is required:
-
-- Java SDK 15+, e.g. [OpenJDK](https://adoptopenjdk.net/)
-- [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. 2020-09 (4.17) or higher
-- [SQML Eclipse Plugin](https://github.com/softicar/sqml)
-
-During development, an integrated [Jetty-Server](https://www.eclipse.org/jetty/) together with an integrated in-memory [H2-Database](https://www.h2database.com/html/main.html) can be used. To start such a server, create a Java class, similar to this:
-
-```java
-public class MyServlet extends HotDeploymentWebServiceServlet {
-
-	public MyServlet() {
-
-		database.applyFixture(() -> {
-			TestFixtureRegistry registry = new TestFixtureRegistry(new CoreModuleTestFixture());
-			registry.registerIfMissing(WorkflowModuleTestFixture::new);
-			return registry;
-		});
-	}
-
-	public static void main(String[] args) {
-
-		new HotDeploymentWebServiceServer(MyServlet.class)//
-				.setRequestString("service?id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageService.class))
-				.setPort(8000).startAndJoin();
-	}
-}
-```
-
-When executed, this will start a [Jetty-Server](https://www.eclipse.org/jetty/) and print something like this:
-
-```
-Server started at http://localhost:8000
-Full URL:
-http://localhost:8000/portal/service?id=95cf1a1b-c12e-4594-9d20-783988fe32b9
-```
-
-Open a web browser and enter the URL. To log in, use one of the default users: `admin.user`, `normal.user` or `view.user`. The password is `test`.
-
-## 4 Operations
-
-For operations, you will usually need the following:
-
-- [Apache Tomcat 9+](http://tomcat.apache.org/)
-- [MariaDB  10+](https://mariadb.org/) or [MySQL-Server 8+](https://dev.mysql.com/downloads/mysql/)
 
 ## 5 Contributing
 
