@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.Optional;
 
 /**
@@ -16,8 +15,6 @@ import java.util.Optional;
  */
 public class DomBigDecimalInput extends AbstractDomNumberInput {
 
-	private final DecimalFormat decimalFormat;
-
 	public DomBigDecimalInput() {
 
 		this(null);
@@ -25,15 +22,13 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 
 	public DomBigDecimalInput(BigDecimal value) {
 
-		this.decimalFormat = new DecimalFormat();
-
 		setBigDecimal(value);
 	}
 
 	public void setBigDecimal(BigDecimal value) {
 
 		if (value != null) {
-			setValue(decimalFormat.format(value));
+			setValue(value.toPlainString());
 		} else {
 			setValue(null);
 		}
@@ -65,6 +60,6 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 
 	private BigDecimal parseValue(String value) {
 
-		return new BigDecimal(value.replace(",", ".")).stripTrailingZeros();
+		return new BigDecimal(value.replace(",", "."));
 	}
 }

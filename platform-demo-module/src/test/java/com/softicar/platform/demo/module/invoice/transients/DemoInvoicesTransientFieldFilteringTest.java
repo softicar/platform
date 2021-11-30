@@ -60,14 +60,14 @@ public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoModuleT
 
 		// regression: ensure the filter value is displayed correctly
 		assertEquals(//
-			DemoI18n.GROSS_AMOUNT + "|= 15",
+			DemoI18n.GROSS_AMOUNT + "|= 15.0",
 			table.findHeaderCell(AGDemoInvoice.GROSS_AMOUNT_FIELD).getAllTextInDocument("|"));
 
 		// regression: ensure the filter input contains the expected value
 		table//
 			.openFilterPopup(AGDemoInvoice.GROSS_AMOUNT_FIELD)
 			.findInput(EmfDataTableDivMarker.FILTER_INPUT_VALUE)
-			.assertInputValue("15");
+			.assertInputValue("15.0");
 	}
 
 	@Override
