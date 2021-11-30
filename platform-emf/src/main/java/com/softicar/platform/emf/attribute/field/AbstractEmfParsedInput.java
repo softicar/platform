@@ -3,6 +3,7 @@ package com.softicar.platform.emf.attribute.field;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
 import com.softicar.platform.emf.attribute.input.EmfInputException;
@@ -60,5 +61,12 @@ public abstract class AbstractEmfParsedInput<T> extends AbstractEmfChangeListeni
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		input.setChangeCallback(callback);
+	}
+
+	@Override
+	public IDomValueBasedInputNode<T> setPlaceholder(IDisplayString placeholder) {
+
+		input.setPlaceholder(placeholder);
+		return this;
 	}
 }

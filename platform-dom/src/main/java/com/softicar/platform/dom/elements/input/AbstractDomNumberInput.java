@@ -1,8 +1,6 @@
 package com.softicar.platform.dom.elements.input;
 
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.styles.CssTextAlign;
 
 /**
  * Base class of all number input elements.
@@ -15,13 +13,11 @@ public abstract class AbstractDomNumberInput extends DomTextInput {
 
 	protected AbstractDomNumberInput() {
 
-		addCssClass(DomElementsCssClasses.DOM_NUMBER_INPUT);
+		//nothing to do
 	}
 
 	protected AbstractDomNumberInput(String valueText) {
 
 		super(valueText);
-		addCssClass(DomElementsCssClasses.DOM_NUMBER_INPUT);
-		setStyle(CssTextAlign.RIGHT);
 	}
 }
