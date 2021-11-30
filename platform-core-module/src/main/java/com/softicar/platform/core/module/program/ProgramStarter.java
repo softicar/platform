@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.ISOCalendar;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.log.LogDb;
+import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.UUID;
 
@@ -53,5 +55,6 @@ public class ProgramStarter {
 
 		ISOCalendar.setDefaultTimeZone();
 		LogDb.setProcessClass(program.getClass());
+		CurrentUser.set(AGUser.getSystemUser());
 	}
 }
