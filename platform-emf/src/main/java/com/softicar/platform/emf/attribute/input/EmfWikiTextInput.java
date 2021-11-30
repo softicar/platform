@@ -1,9 +1,11 @@
 package com.softicar.platform.emf.attribute.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
+import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
@@ -43,6 +45,12 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 	public void setValue(String value) {
 
 		input.setValue(value);
+	}
+
+	@Override
+	public IDomValueBasedInputNode<String> setPlaceholder(IDisplayString placeholder) {
+
+		return input.setPlaceholder(placeholder);
 	}
 
 	private void preview() {
