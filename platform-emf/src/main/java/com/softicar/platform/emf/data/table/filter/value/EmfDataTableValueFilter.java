@@ -56,7 +56,7 @@ public class EmfDataTableValueFilter<R, T> implements IEmfDataTableFilter<R> {
 		if (value instanceof IDisplayable) {
 			return ((IDisplayable) value).toDisplay();
 		} else {
-			return IDisplayString.create(" " + value);
+			return IDisplayString.create("" + value);
 		}
 	}
 }
