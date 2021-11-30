@@ -131,13 +131,12 @@ subprojects {
 
 // -------------------- publishing -------------------- //
 
-// TODO Replace "ossrh" with "publish" or "publish_remote"
-def OSSRH_TARGET = findProperty('ossrhTarget')
-def OSSRH_URL = findProperty('ossrhUrl')
-def OSSRH_USERNAME = findProperty('ossrhUsername')
-def OSSRH_PASSWORD = findProperty('ossrhPassword')
+def PUBLISH_TARGET = findProperty('publish.target')
+def PUBLISH_URL = findProperty('publish.url')
+def PUBLISH_USERNAME = findProperty('publish.username')
+def PUBLISH_PASSWORD = findProperty('publish.password')
 def SIGNING_KEY_ID = findProperty('signing.keyId')
-def SIGNING_PASSWORD = findProperty('signing.password')
+def SIGNING_SECRET_KEY_PASSPHRASE = findProperty('signing.secretKeyPassphrase')
 def SIGNING_SECRET_KEY_RING_FILE = findProperty('signing.secretKeyRingFile')
 
 subprojects {
@@ -153,19 +152,19 @@ subprojects {
 	}
 	publishing {
 		repositories {
-			if(OSSRH_TARGET == 'remote') {
+			if(PUBLISH_TARGET == 'remote') {
 				maven {
-					if(OSSRH_URL != null) {
-						url = OSSRH_URL
-						if(OSSRH_USERNAME != null) {
+					if(PUBLISH_URL != null) {
+						url = PUBLISH_URL
+						if(PUBLISH_USERNAME != null) {
 							credentials(PasswordCredentials) {
-								username OSSRH_USERNAME
-								password OSSRH_PASSWORD
+								username PUBLISH_USERNAME
+								password PUBLISH_PASSWORD
 							}
 						}
 					}
 				}
-			} else if(OSSRH_TARGET == 'local') {
+			} else if(PUBLISH_TARGET == 'local') {
 				maven {
 					url = System.properties['user.home'] + '/.softicar/maven-local'
 				}
@@ -203,14 +202,14 @@ subprojects {
 	}
 
 	signing {
-		if(OSSRH_TARGET == 'remote') {
+		if(PUBLISH_TARGET == 'remote') {
 			sign publishing.publications.mavenJava
 		}
 	}
 
 	publish.doFirst {
-		if(OSSRH_TARGET != 'remote' && OSSRH_TARGET != 'local') {
-			throw new GradleException("Please specify the publication target with '-PossrhTarget=[remote|local]'.")
+		if(PUBLISH_TARGET != 'remote' && PUBLISH_TARGET != 'local') {
+			throw new GradleException("Please specify the publication target with '-Ppublish.target=[remote|local]'.")
 		}
 		if(version == "unspecified") {
 			throw new GradleException("Please specify the version to publish with '-Pversion=X.Y.Z'.")
@@ -220,15 +219,12 @@ subprojects {
 	// This task is created dynamically, upon a valid 'signing' definition.
 	if(tasks.findByName('signMavenJavaPublication')) {
 		signMavenJavaPublication.doFirst {
-			if(OSSRH_TARGET == 'remote') {
+			if(PUBLISH_TARGET == 'remote') {
 				if(SIGNING_KEY_ID == null) {
 					throw new GradleException("Please specify the PGP signing key ID with 'signing.keyId' in '~/.gradle/gradle.properties'.")
 				}
-				// TODO Fix inconsistent naming:
-				// (1) In a PGP context, the term of "passphrase" is preferred over "password"
-				// (2) Should be named "signing KEY passphrase", instead of "signing passphrase", because the passphrase strongly relates to the key.
-				if(SIGNING_PASSWORD == null) {
-					throw new GradleException("Please specify the PGP signing key passphrase with 'signing.password' in '~/.gradle/gradle.properties'.")
+				if(SIGNING_SECRET_KEY_PASSPHRASE == null) {
+					throw new GradleException("Please specify the PGP secret key passphrase with 'signing.secretKeyPassphrase' in '~/.gradle/gradle.properties'.")
 				}
 				if(SIGNING_SECRET_KEY_RING_FILE == null) {
 					throw new GradleException("Please specify the PGP secret key ring file with 'signing.secretKeyRingFile' in '~/.gradle/gradle.properties'.")
@@ -240,21 +236,21 @@ subprojects {
 	// This task is created dynamically, upon a valid 'publishing' definition.
 	if(tasks.findByName('publishMavenJavaPublicationToMavenRepository')) {
 		publishMavenJavaPublicationToMavenRepository.doFirst {
-			if(OSSRH_TARGET != 'remote' && OSSRH_TARGET != 'local') {
-				throw new GradleException("Please specify the publication target with '-PossrhTarget=[remote|local]'.")
+			if(PUBLISH_TARGET != 'remote' && PUBLISH_TARGET != 'local') {
+				throw new GradleException("Please specify the publication target with '-Ppublish.target=[remote|local]'.")
 			}
 			if(version == "unspecified") {
 				throw new GradleException("Please specify the version to publish with '-Pversion=X.Y.Z'.")
 			}
-			if(OSSRH_TARGET == 'remote') {
-				if(OSSRH_URL == null) {
-					throw new GradleException("Please specify the remote publication URL with 'ossrhUrl' in '~/.gradle/gradle.properties'.")
+			if(PUBLISH_TARGET == 'remote') {
+				if(PUBLISH_URL == null) {
+					throw new GradleException("Please specify the remote publication URL with 'publish.url' in '~/.gradle/gradle.properties'.")
 				}
-				if(OSSRH_USERNAME == null) {
-					throw new GradleException("Please specify the remote publication username with 'ossrhUsername' in '~/.gradle/gradle.properties'.")
+				if(PUBLISH_USERNAME == null) {
+					throw new GradleException("Please specify the remote publication username with 'publish.username' in '~/.gradle/gradle.properties'.")
 				}
-				if(OSSRH_PASSWORD == null) {
-					throw new GradleException("Please specify the remote publication password with 'ossrhPassword' in '~/.gradle/gradle.properties'.")
+				if(PUBLISH_PASSWORD == null) {
+					throw new GradleException("Please specify the remote publication password with 'publish.password' in '~/.gradle/gradle.properties'.")
 				}
 			}
 		}
