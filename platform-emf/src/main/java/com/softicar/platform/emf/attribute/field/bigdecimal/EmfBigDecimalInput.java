@@ -13,17 +13,10 @@ import java.math.BigDecimal;
 
 public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDecimal> {
 
-	private final Integer scale;
 	private final ChangeListeningBigDecimalInput input;
 
 	public EmfBigDecimalInput() {
 
-		this(null);
-	}
-
-	public EmfBigDecimalInput(Integer scale) {
-
-		this.scale = scale;
 		this.input = new ChangeListeningBigDecimalInput();
 		appendChild(input);
 	}
@@ -43,11 +36,7 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	@Override
 	public void setValue(BigDecimal value) {
 
-		if (scale != null) {
-			input.setBigDecimal(value, scale);
-		} else {
-			input.setBigDecimal(value);
-		}
+		input.setBigDecimal(value);
 	}
 
 	@Override
