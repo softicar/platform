@@ -22,7 +22,6 @@ public interface DomElementsCssFiles {
 	IResourceSupplier DOM_DAY_TIME_INPUT_STYLE = FACTORY.create("dom-day-time-input-style.css");
 	IResourceSupplier DOM_ICON_STYLE = FACTORY.create("dom-icon-style.css");
 	IResourceSupplier DOM_INPUT_DIAGNOSTICS_STYLE = FACTORY.create("dom-input-diagnostics-style.css");
-	IResourceSupplier DOM_INPUT_STYLE = FACTORY.create("dom-input-style.css");
 	IResourceSupplier DOM_LABEL_GRID_STYLE = FACTORY.create("dom-label-grid-style.css");
 	IResourceSupplier DOM_MESSAGE_DIV_STYLE = FACTORY.create("dom-message-div-style.css");
 	IResourceSupplier DOM_MODAL_DIALOG_STYLE = FACTORY.create("dom-modal-dialog-style.css");
