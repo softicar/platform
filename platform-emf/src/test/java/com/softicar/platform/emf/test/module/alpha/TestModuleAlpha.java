@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.emf.module.AbstractEmfModule;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Collection;
+import java.util.Optional;
 
 @TestingOnly
 @EmfSourceCodeReferencePointUuid(TestModuleAlpha.UUID)
@@ -21,5 +22,11 @@ public class TestModuleAlpha extends AbstractEmfModule<TestModuleAlphaInstance> 
 	public TestModuleAlphaInstance getModuleInstanceById(Integer moduleInstanceId) {
 
 		return TestModuleAlphaInstance.TABLE.get(moduleInstanceId);
+	}
+
+	@Override
+	public Optional<TestModuleAlphaInstance> getModuleInstance(Integer moduleInstanceId) {
+
+		return Optional.of(TestModuleAlphaInstance.TABLE.get(moduleInstanceId));
 	}
 }
