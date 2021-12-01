@@ -34,6 +34,13 @@ public abstract class AbstractStandardModule<I extends IStandardModuleInstance<I
 	@Override
 	public final I getModuleInstanceById(Integer moduleInstanceId) {
 
+		return getModuleInstance(moduleInstanceId)
+			.orElseThrow(() -> new SofticarUserException(CoreI18n.MODULE_INSTANCE_WITH_ID_ARG1_DOES_NOT_EXIST.toDisplay(moduleInstanceId)));
+	}
+
+	@Override
+	public Optional<I> getModuleInstance(Integer moduleInstanceId) {
+
 		IStandardModuleInstanceTable<I> table = getModuleInstanceTable();
 		return table//
 			.createSelect()
@@ -41,8 +48,7 @@ public abstract class AbstractStandardModule<I extends IStandardModuleInstance<I
 			.where(AGModuleInstance.ID.isEqual(moduleInstanceId))
 			.where(AGModuleInstance.ACTIVE)
 			.where(AGModuleInstance.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
-			.getOneAsOptional()
-			.orElseThrow(() -> new SofticarUserException(CoreI18n.MODULE_INSTANCE_WITH_ID_ARG1_DOES_NOT_EXIST.toDisplay(moduleInstanceId)));
+			.getOneAsOptional();
 	}
 
 	@Override

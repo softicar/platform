@@ -54,7 +54,7 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	 */
 	public Optional<IEmfModuleInstance<?>> getActualModuleInstance() {
 
-		return getModule().map(module -> module.getModuleInstanceById(getId()));
+		return getModule().flatMap(module -> module.getModuleInstance(getId()));
 	}
 
 	/**
