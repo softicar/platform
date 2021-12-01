@@ -5,6 +5,7 @@ import com.softicar.platform.emf.module.AbstractEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Common base class of all system modules that are bound to the singleton
@@ -28,6 +29,12 @@ public abstract class AbstractSystemModule extends AbstractEmfModule<SystemModul
 	public final SystemModuleInstance getModuleInstanceById(Integer moduleInstanceId) {
 
 		return getSystemModuleInstance();
+	}
+
+	@Override
+	public Optional<SystemModuleInstance> getModuleInstance(Integer moduleInstanceId) {
+
+		return Optional.of(getSystemModuleInstance());
 	}
 
 	/**
