@@ -29,6 +29,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Rechnungsnummer");
 	I18n0 ITEM = new I18n0("Item")//
 		.de("Position");
+	I18n0 LOCKED_ITEMS = new I18n0("Locked Items")//
+		.de("Gesperrte Positionen.");
 	I18n0 NET_AMOUNT = new I18n0("Net Amount")//
 		.de("Nettobetrag");
 	I18n0 QUANTITY = new I18n0("Quantity")//

@@ -139,6 +139,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 				.getConfig()
 				.getActionColumnHandler()
 				.ifPresent(it -> it.buildCell(this, dataRow));
+			setMarker(EmfDataTableDivMarker.ACTION_CELL);
 		}
 
 		@Override

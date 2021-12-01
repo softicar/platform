@@ -7,4 +7,5 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	AGDemoModuleInstance moduleInstance
 	String invoiceNumber
 	Day invoiceDate
+	Boolean lockedItems = FALSE
 }
