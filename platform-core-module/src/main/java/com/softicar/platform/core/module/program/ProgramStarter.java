@@ -5,7 +5,7 @@ import com.softicar.platform.common.date.ISOCalendar;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.log.LogDb;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.core.module.user.CurrentUser;
+import com.softicar.platform.core.module.user.CurrentUserScope;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.UUID;
 
@@ -42,12 +42,9 @@ public class ProgramStarter {
 
 	public void start() {
 
-		try {
+		try (var scope = new CurrentUserScope(AGUser.getSystemUser())) {
 			prepareExecution();
 			program.executeProgram();
-		} catch (Exception exception) {
-			LogDb.panic(exception);
-			throw exception;
 		}
 	}
 
@@ -55,6 +52,5 @@ public class ProgramStarter {
 
 		ISOCalendar.setDefaultTimeZone();
 		LogDb.setProcessClass(program.getClass());
-		CurrentUser.set(AGUser.getSystemUser());
 	}
 }
