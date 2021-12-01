@@ -11,6 +11,7 @@ import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Common interface of all modules.
@@ -78,8 +79,22 @@ public interface IEmfModule<I extends IEmfModuleInstance<I>> extends IEmfSourceC
 	 * @return the module instance associated with the given ID (never null)
 	 * @throws RuntimeException
 	 *             if no module instance can be determined for the given ID
+	 * @deprecated use {@link #getModuleInstance(Integer)} instead
 	 */
+	@Deprecated
 	I getModuleInstanceById(Integer moduleInstanceId);
+
+	/**
+	 * Determines the module instance that is associated with the given ID.
+	 * <p>
+	 * If module instance IDs are irrelevant for this module, e.g. for singleton
+	 * modules, <i>null</i> may be passed as an argument.
+	 *
+	 * @param moduleInstanceId
+	 *            the ID of the module instance (may be null)
+	 * @return the optional module instance associated with the given ID
+	 */
+	Optional<I> getModuleInstance(Integer moduleInstanceId);
 
 	// ------------------------------ pages ------------------------------ //
 
