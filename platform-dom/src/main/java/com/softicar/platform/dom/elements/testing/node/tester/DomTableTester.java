@@ -23,7 +23,16 @@ public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 		return findNodes(marker).withType(DomCell.class);
 	}
 
+	/**
+	 * @deprecated use {@link #getTextInCells(IStaticObject)}
+	 */
+	@Deprecated
 	public String getTextInColumns(IStaticObject marker) {
+
+		return getTextInCells(marker);
+	}
+
+	public String getTextInCells(IStaticObject marker) {
 
 		return findCells(marker)//
 			.stream()

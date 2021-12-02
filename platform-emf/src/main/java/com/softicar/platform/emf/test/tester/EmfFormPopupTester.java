@@ -10,6 +10,8 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.action.IEmfPrimaryAction;
+import com.softicar.platform.emf.action.marker.EmfActionMarker;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.form.EmfFormMarker;
@@ -38,6 +40,11 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 	public void clickSaveAndCloseButton() {
 
 		clickNode(EmfMarker.SAVE_AND_CLOSE);
+	}
+
+	public void clickActionButton(Class<? extends IEmfPrimaryAction<?>> actionClass) {
+
+		clickNode(new EmfActionMarker(actionClass));
 	}
 
 	public void clickCommonActionRefreshButton() {

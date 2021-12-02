@@ -313,7 +313,7 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 	}
 
 	@SuppressWarnings("all")
-	private static class TestObject extends AbstractDbObject<TestObject> implements IEmfObject<TestObject> {
+	public static class TestObject extends AbstractDbObject<TestObject> implements IEmfObject<TestObject> {
 
 		// -------------------------------- STATIC CONSTANTS -------------------------------- //
 

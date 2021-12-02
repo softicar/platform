@@ -2,6 +2,8 @@ package com.softicar.platform.dom.elements.testing.node.tester;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
@@ -86,27 +88,34 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	// ------------------------------ events ------------------------------ //
 
-	public void sendEvent(DomEventType type) {
+	public AbstractDomNodeTester<N> sendEvent(DomEventType type) {
 
+		Assert.assertFalse("Trying to send %s event to disabled node.".formatted(type), isNodeDisabled());
 		engine.sendEvent(node, type);
+		return this;
 	}
 
 	public AbstractDomNodeTester<N> click() {
 
-		engine.sendEvent(node, DomEventType.CLICK);
-		return this;
+		return sendEvent(DomEventType.CLICK);
 	}
 
 	public AbstractDomNodeTester<N> doubleClick() {
 
-		engine.sendEvent(node, DomEventType.DBLCLICK);
-		return this;
+		return sendEvent(DomEventType.DBLCLICK);
 	}
 
 	public AbstractDomNodeTester<N> rightClick() {
 
-		engine.sendEvent(node, DomEventType.CONTEXTMENU);
-		return this;
+		return sendEvent(DomEventType.CONTEXTMENU);
+	}
+
+	private boolean isNodeDisabled() {
+
+		return CastUtils//
+			.tryCast(node, DomButton.class)
+			.map(button -> !button.isEnabled())
+			.orElse(false);
 	}
 
 	// ------------------------------ click child ------------------------------ //
