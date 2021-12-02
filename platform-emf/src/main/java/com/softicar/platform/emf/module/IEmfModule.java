@@ -75,8 +75,9 @@ public interface IEmfModule<I extends IEmfModuleInstance<I>> extends IEmfSourceC
 	 * modules, <i>null</i> may be passed as an argument.
 	 *
 	 * @param moduleInstanceId
-	 *            the ID of the module instance (may be null)
-	 * @return the module instance associated with the given ID (never null)
+	 *            the ID of the module instance (may be be <i>null</i>)
+	 * @return the module instance associated with the given ID (never be
+	 *         <i>null</i>)
 	 * @throws RuntimeException
 	 *             if no module instance can be determined for the given ID
 	 * @deprecated use {@link #getModuleInstance(Integer)} instead
@@ -91,7 +92,7 @@ public interface IEmfModule<I extends IEmfModuleInstance<I>> extends IEmfSourceC
 	 * modules, <i>null</i> may be passed as an argument.
 	 *
 	 * @param moduleInstanceId
-	 *            the ID of the module instance (may be null)
+	 *            the ID of the module instance (may be <i>null</i>)
 	 * @return the optional module instance associated with the given ID
 	 */
 	Optional<I> getModuleInstance(Integer moduleInstanceId);

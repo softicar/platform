@@ -5,4 +5,5 @@ IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 TABLE AGDemoModuleInstance 'Demo.DemoModuleInstance' {
 	
 	PK AGModuleInstance moduleInstance = BASE
+	String title = ""
 }
