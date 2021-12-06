@@ -16,7 +16,6 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import com.softicar.platform.emf.form.IEmfFormBody;
-import com.softicar.platform.emf.form.refresh.EmfFormInteractiveRefreshSpan;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,16 +122,12 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 	private void save(boolean close) {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			if (formBody.getTableRow().isFresh()) {
-				if (executeSaveHandlers()) {
-					formBody.queueEntityForRefresh();
-					if (close) {
-						formBody.closeFrame();
-					}
+			formBody.getTableRow().assertFresh();
+			if (executeSaveHandlers()) {
+				formBody.queueEntityForRefresh();
+				if (close) {
+					formBody.closeFrame();
 				}
-			} else {
-				buttonContainer.removeChildren();
-				buttonContainer.appendChild(new EmfFormInteractiveRefreshSpan<>(formBody, true));
 			}
 			transaction.commit();
 		}

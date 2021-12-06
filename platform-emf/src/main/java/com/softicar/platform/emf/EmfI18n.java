@@ -296,14 +296,14 @@ public interface EmfI18n {
 		.de("Die Konfiguration dieser Tabelle wird nicht persistent gespeichert.");
 	I18n1 THE_CURRENT_USER_DOES_NOT_POSSESS_THE_ROLE_ARG1 = new I18n1("The current user does not possess the role '%s'.")//
 		.de("Der aktuelle Benutzer besitzt nicht die Rolle '%s'.");
+	I18n0 THE_ENTRY_IS_OUTDATED = new I18n0("The entry is outdated.")//
+		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
 		.de("Das Dateiformat muss 'PDF' sein.");
 	I18n0 THERE_ARE_UNSAVED_CHANGES = new I18n0("There are unsaved changes.")//
 		.de("Es gibt nicht-gespeicherte Änderungen.");
 	I18n0 THIS_ENTRY_IS_ALREADY_CONTAINED_IN_THE_LIST = new I18n0("This entry is already contained in the list.")//
 		.de("Dieser Eintrag ist bereits in der Liste enthalten.");
-	I18n0 THIS_ENTRY_IS_OUTDATED = new I18n0("This entry is outdated.")//
-		.de("Dieser Eintrag ist veraltet.");
 	I18n0 THIS_TRAIT_WAS_NOT_CONFIGURED_YET = new I18n0("This trait was not configured, yet.")//
 		.de("Dieses Merkmal wurde noch nicht konfiguriert.");
 	I18n0 TITLE = new I18n0("Title")//

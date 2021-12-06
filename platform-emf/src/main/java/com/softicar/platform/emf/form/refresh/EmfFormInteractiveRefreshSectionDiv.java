@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.form.refresh;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.form.IEmfFormBody;
@@ -13,7 +14,7 @@ public class EmfFormInteractiveRefreshSectionDiv<F extends IEmfTableRow<F, ?>> e
 	public EmfFormInteractiveRefreshSectionDiv(IEmfFormBody<F> formBody) {
 
 		super(formBody, createSectionHeader());
-		addElement(() -> new EmfFormInteractiveRefreshSpan<>(formBody, false));
+		addElement(() -> new EmfFormInteractiveRefreshSpan<>(formBody, false, INullaryVoidFunction.NO_OPERATION));
 		setOpen(true);
 	}
 
