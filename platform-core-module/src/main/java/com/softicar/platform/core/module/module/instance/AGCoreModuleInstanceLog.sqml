@@ -18,6 +18,7 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	String portalHost = NULL [NULLABLE MAXLENGTH=255]
 	String portalApplication = NULL [NULLABLE MAXLENGTH=255]
 	AGStoredFile portalLogo = NULL [NULLABLE]
+	Boolean testSystem = NULL [NULLABLE]
 
 	IK transaction
 	IK primaryFileServer
