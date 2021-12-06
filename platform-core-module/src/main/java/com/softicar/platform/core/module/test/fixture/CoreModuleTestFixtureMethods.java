@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.access.role.assignment.module.system.AG
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
+import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
@@ -98,5 +99,18 @@ public interface CoreModuleTestFixtureMethods {
 	default AGCoreModuleInstance insertCoreModuleInstance() {
 
 		return new AGCoreModuleInstance().save();
+	}
+
+	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {
+
+		return new AGServer()
+			.setActive(true)
+			.setAddress(serverAddress)
+			.setDomain(domain)
+			.setName(name)
+			.setPassword(password)
+			.setPort(port)
+			.setUsername(username)
+			.save();
 	}
 }
