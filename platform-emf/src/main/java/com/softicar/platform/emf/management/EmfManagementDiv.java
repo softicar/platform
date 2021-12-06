@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.db.sql.ISqlBooleanExpression;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -26,7 +27,6 @@ import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -43,6 +43,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 	private Optional<Set<R>> prefilteredEntities;
 	private Optional<ISqlBooleanExpression<R>> additionalFilterExpression;
 	private Consumer<EmfDataTableDivBuilder<R>> dataTableDivCustomizer;
+	private EmfManagementDiv<R, P, S>.ScopeActionBar scopeActionBar;
+	private EmfManagementDiv<R, P, S>.ActionBar actionBar;
 
 	public EmfManagementDiv(IEmfTable<R, P, S> entityTable, S scopeEntity) {
 
@@ -59,30 +61,19 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		this.prefilteredEntities = builder.getEntityFilter();
 		this.additionalFilterExpression = builder.getAdditionalFilterExpression();
 		this.dataTableDivCustomizer = builder.getDataTableDivCustomizer();
+		this.scopeActionBar = new ScopeActionBar();
+		this.actionBar = new ActionBar();
 		this.refreshable = Optional.empty();
 
 		setCssClass(EmfCssClasses.EMF_MANAGEMENT_DIV);
-		appendScopeActions();
-		appendChild(new ActionBar());
+		appendChild(scopeActionBar);
+		appendChild(actionBar);
 		rebuildTable();
 	}
 
 	public IEmfTable<R, P, S> getTable() {
 
 		return entityTable;
-	}
-
-	private void appendScopeActions() {
-
-		IBasicUser user = CurrentBasicUser.get();
-		List<IEmfScopeAction<S>> scopeActions = entityTable//
-			.getScopeActions()
-			.stream()
-			.filter(action -> action.isAvailable(scopeEntity, user))
-			.collect(Collectors.toList());
-		if (!scopeActions.isEmpty()) {
-			appendChild(new ScopeActionBar(scopeActions));
-		}
 	}
 
 	private void rebuildTable() {
@@ -117,6 +108,25 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			tableDiv.refresh();
 			refreshable.ifPresent(IRefreshable::refresh);
 		}
+		if (isScopeChanged(event)) {
+			this.scopeActionBar = replaceChild(new ScopeActionBar(), scopeActionBar);
+			this.actionBar = replaceChild(new ActionBar(), actionBar);
+		}
+	}
+
+	private boolean isScopeChanged(IDomRefreshBusEvent event) {
+
+		Object scope = scopeEntity;
+		while (scope != null) {
+			if (event.isChanged(scope)) {
+				return true;
+			}
+			scope = CastUtils//
+				.tryCast(scope, IEmfTableRow.class)
+				.map(row -> row.table().getScope(row))
+				.orElse(null);
+		}
+		return false;
 	}
 
 	private void toggleShowInactive(boolean showInactive) {
@@ -132,9 +142,16 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 	private class ScopeActionBar extends DomActionBar {
 
-		public ScopeActionBar(List<IEmfScopeAction<S>> scopeActions) {
+		public ScopeActionBar() {
 
-			scopeActions.forEach(this::appendAction);
+			IBasicUser user = CurrentBasicUser.get();
+
+			entityTable//
+				.getScopeActions()
+				.stream()
+				.filter(action -> action.isAvailable(scopeEntity, user))
+				.collect(Collectors.toList())
+				.forEach(this::appendAction);
 		}
 
 		private void appendAction(IEmfScopeAction<S> action) {
@@ -155,7 +172,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 			appendChild(
 				new DomButton()//
-					.setClickCallback(this::refresh)
+					.setClickCallback(this::invalidateCachesAndRefreshAll)
 					.setIcon(EmfImages.REFRESH.getResource())
 					.setLabel(EmfI18n.REFRESH)
 					.setMarker(EmfManagementMarker.REFRESH_BUTTON));
@@ -173,7 +190,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 		}
 
-		private void refresh() {
+		private void invalidateCachesAndRefreshAll() {
 
 			DbTableRowCaches.invalidateAll();
 			CurrentDomDocument.get().getRefreshBus().setAllChanged();

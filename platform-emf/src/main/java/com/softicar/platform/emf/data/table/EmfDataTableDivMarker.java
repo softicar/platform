@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 
 public enum EmfDataTableDivMarker implements IStaticObject {
 
+	ACTION_CELL,
 	ACTION_HEADER_CELL,
 	BODY_CELL,
 	BODY_ROW,
