@@ -39,8 +39,9 @@ class CsvDelimiterFinder {
 		this.quoteContext = false;
 		this.valueFinished = false;
 
-		var delimiters = new ArrayList<CsvDelimiter>();
 		int offset = 0;
+		var delimiters = new ArrayList<CsvDelimiter>();
+		delimiters.add(CsvDelimiter.newline(-1));
 
 		while (true) {
 			CsvDelimiter delimiter;
@@ -62,13 +63,19 @@ class CsvDelimiterFinder {
 					if (delimiter.isQuote()) {
 						leaveQuoteContext();
 						setValueFinished();
+					} else if (delimiter.isNone()) {
+						throw new CsvFormatException(CommonStringI18n.MISSING_CLOSING_QUOTE, offset);
 					}
 				}
 			} else {
 				delimiter = findDelimiter(csv, offset);
 				if (delimiter.isComma() || delimiter.isNewline()) {
-					delimiters.add(delimiter);
-					unsetValueFinished();
+					if (offset == delimiter.getIndex()) {
+						delimiters.add(delimiter);
+						unsetValueFinished();
+					} else {
+						throw new CsvFormatException(CommonStringI18n.EXPECTED_A_COMMA_AFTER_THE_VALUE, offset);
+					}
 				} else if (offset >= csv.length()) {
 					// reached end-of-file
 				} else {
@@ -84,8 +91,6 @@ class CsvDelimiterFinder {
 			}
 		}
 
-		// add artificial lower and upper delimiters
-		delimiters.add(0, CsvDelimiter.newline(-1));
 		delimiters.add(CsvDelimiter.newline(csv.length()));
 		return delimiters;
 	}

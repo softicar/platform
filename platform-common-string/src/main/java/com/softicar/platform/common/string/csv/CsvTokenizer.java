@@ -1,6 +1,5 @@
 package com.softicar.platform.common.string.csv;
 
-import com.softicar.platform.common.string.CommonStringI18n;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +65,7 @@ public class CsvTokenizer {
 				if (value.endsWith("\"")) {
 					value = value.substring(1, value.length() - 1);
 				} else {
-					throw new CsvFormatException(CommonStringI18n.EXPECTED_A_QUOTE_AT_THE_END_OF_THE_VALUE, lower.getIndex());
+					throw new CsvProcessorIllegalStateException("Value '%s' lacks a closing quote.".formatted(value));
 				}
 			}
 			row.add(value.replaceAll("\"\"", "\""));

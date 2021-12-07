@@ -149,7 +149,7 @@ public class CsvTokenizerTest extends Assert {
 			tokenize("qwe,\"asd,zxc");
 			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 3: Expected a quote at the end of the value.", exception.getMessage());
+			assertEquals("Invalid CSV format after character 5: Missing closing quote.", exception.getMessage());
 		}
 	}
 
@@ -169,7 +169,7 @@ public class CsvTokenizerTest extends Assert {
 			tokenize("qwe,\"\"asd,zxc");
 			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 3: Expected a quote at the end of the value.", exception.getMessage());
+			assertEquals("Invalid CSV format after character 6: Expected a comma after the value.", exception.getMessage());
 		}
 	}
 
