@@ -13,4 +13,5 @@ public interface PageCssClasses {
 	ICssClass PAGE_HEADER_USER_DISPLAY = new CssClass("PageHeaderUserDisplay", PageResources.PAGE_STYLE);
 	ICssClass PAGE_SERVICE_LOGIN_DIV = new CssClass("PageServiceLoginDiv", PageResources.PAGE_STYLE);
 	ICssClass PAGE_SERVICE_LOGIN_ERROR_DIV = new CssClass("PageServiceLoginErrorDiv", PageResources.PAGE_STYLE);
+	ICssClass TEST_SYSTEM = new CssClass("TestSystem", PageResources.PAGE_STYLE);
 }

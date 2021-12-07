@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.page;
 
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -15,8 +16,11 @@ class PageContentDiv extends DomDiv {
 
 	public PageContentDiv(PageNavigationLink<?> link) {
 
-		setCssClass(PageCssClasses.PAGE_CONTENT_DIV);
+		addCssClass(PageCssClasses.PAGE_CONTENT_DIV);
 		setMarker(PageNavigationMarker.PAGE_CONTENT_DIV);
 		appendChild(link.createContentNode());
+		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
+			addCssClass(PageCssClasses.TEST_SYSTEM);
+		}
 	}
 }
