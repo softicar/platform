@@ -924,6 +924,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ziel-Benutzer");
 	I18n0 TERMINATED_AT = new I18n0("Terminated At")//
 		.de("Terminiert um");
+	I18n0 TEST_SYSTEM = new I18n0("Test System")//
+		.de("Testsystem");
 	I18n0 TEXT = new I18n0("Text")//
 		.de("Text");
 	I18n1 THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU = new I18n1("The %s user account has been created or was changed for you.")//

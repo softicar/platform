@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.test.fixture;
 
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
 import com.softicar.platform.core.module.user.AGUser;
@@ -35,6 +36,8 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		this.adminUser = insertUser("Admin", "User")//
 			.setEmailAddress("admin.user@example.com")
 			.save();
+
+		AGCoreModuleInstance.getInstance().setTestSystem(true).save();
 
 		insertPassword(viewUser, "test");
 		insertPassword(normalUser, "test");
