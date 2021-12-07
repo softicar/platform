@@ -253,7 +253,10 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 				public OrderPrioritySelect() {
 
-					super(builder -> builder.setNilOptionDisplayString(IDisplayString.create("-")));
+					super(
+						builder -> builder//
+							.setNilOptionDisplayString(IDisplayString.create("-"))
+							.setValueComparator(Integer::compareTo));
 
 					setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 					setCallbackOnChange(this::handleChange);
