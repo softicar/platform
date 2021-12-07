@@ -2,6 +2,7 @@ package com.softicar.platform.emf.editor;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfCommonAction;
@@ -63,7 +64,9 @@ public class EmfEditAction<R extends IEmfTableRow<R, ?>> implements IEmfCommonAc
 	@Override
 	public void handleClick(R tableRow) {
 
-		new EmfFormPopup<>(tableRow)//
+		DomPopupManager//
+			.getInstance()
+			.getPopup(tableRow, EmfFormPopup.class, EmfFormPopup::new)
 			.setDirectEditing(true)
 			.show();
 	}
