@@ -12,15 +12,14 @@ import java.util.Objects;
  * <p>
  * Assumes that escaping is done via:
  * <ol>
- * <li>Enclosing <i>escape-worthy</i> values in double quotes ({@code "}),
- * and</li>
- * <li>Duplication of any double quote that is contained in a value
+ * <li>Enclosing <i>escape-worthy</i> values in quotes ({@code "}), and</li>
+ * <li>Duplication of any quote that is contained in a value
  * ({@code " -> ""})</li>
  * </ol>
  * A value is <i>escape-worthy</i> if it contains at least one of the following
  * characters: {@code [,][\r][\n]["]}
  * <p>
- * Tolerates superfluous double quotes around values which are not
+ * Tolerates superfluous quotes around values which are not
  * <i>escape-worthy</i>.
  * <p>
  * Retains line breaks in values, as long as the values are quoted. This way, an
@@ -67,7 +66,7 @@ public class CsvTokenizer {
 				if (value.endsWith("\"")) {
 					value = value.substring(1, value.length() - 1);
 				} else {
-					throw new CsvFormatException(CommonStringI18n.EXPECTED_A_DOUBLE_QUOTE_AT_THE_END_OF_THE_VALUE, lower.getIndex());
+					throw new CsvFormatException(CommonStringI18n.EXPECTED_A_QUOTE_AT_THE_END_OF_THE_VALUE, lower.getIndex());
 				}
 			}
 			row.add(value.replaceAll("\"\"", "\""));

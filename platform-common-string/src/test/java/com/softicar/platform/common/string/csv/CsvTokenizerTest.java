@@ -94,13 +94,10 @@ public class CsvTokenizerTest extends Assert {
 
 		try {
 			tokenize("\"qwe\" \"asd\",zxc");
+			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals(
-				"Invalid CSV format after character 5: After a double quoted value, a comma, a newline or end-of-file are expected.",
-				exception.getMessage());
-			return;
+			assertEquals("Invalid CSV format after character 5: After a quoted value, a comma, a newline or end-of-file are expected.", exception.getMessage());
 		}
-		fail();
 	}
 
 	// ---------------- line-spanning value ---------------- //
@@ -150,11 +147,10 @@ public class CsvTokenizerTest extends Assert {
 
 		try {
 			tokenize("qwe,\"asd,zxc");
+			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 3: Expected a double quote at the end of the value.", exception.getMessage());
-			return;
+			assertEquals("Invalid CSV format after character 3: Expected a quote at the end of the value.", exception.getMessage());
 		}
-		fail();
 	}
 
 	@Test
@@ -171,11 +167,10 @@ public class CsvTokenizerTest extends Assert {
 
 		try {
 			tokenize("qwe,\"\"asd,zxc");
+			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 3: Expected a double quote at the end of the value.", exception.getMessage());
-			return;
+			assertEquals("Invalid CSV format after character 3: Expected a quote at the end of the value.", exception.getMessage());
 		}
-		fail();
 	}
 
 	@Test
@@ -183,13 +178,21 @@ public class CsvTokenizerTest extends Assert {
 
 		try {
 			tokenize("qwe,\"\"asd\",zxc");
+			fail();
 		} catch (CsvFormatException exception) {
-			assertEquals(
-				"Invalid CSV format after character 6: After a double quoted value, a comma, a newline or end-of-file are expected.",
-				exception.getMessage());
-			return;
+			assertEquals("Invalid CSV format after character 6: After a quoted value, a comma, a newline or end-of-file are expected.", exception.getMessage());
 		}
-		fail();
+	}
+
+	@Test
+	public void testWithQuoteInNonQuotedValue() {
+
+		try {
+			tokenize("qwe,a\"sd,zxc");
+			fail();
+		} catch (CsvFormatException exception) {
+			assertEquals("Invalid CSV format after character 4: Unexpected quote in an value.", exception.getMessage());
+		}
 	}
 
 	// ---------------- blank values and lines ---------------- //

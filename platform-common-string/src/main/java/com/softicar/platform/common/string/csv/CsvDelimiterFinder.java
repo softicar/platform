@@ -20,7 +20,7 @@ class CsvDelimiterFinder {
 	private static final Pattern ODD_LENGTH_QUOTE_BLOCK = Pattern.compile("(?<!\")\"(\"\")*(?!\")");
 
 	private boolean quoteContext;
-	private boolean afterQuoteContext;
+	private boolean valueFinished;
 
 	/**
 	 * Finds the positions and types of value delimiters (i.e. non-escaped
@@ -37,7 +37,7 @@ class CsvDelimiterFinder {
 		Objects.requireNonNull(csv);
 
 		this.quoteContext = false;
-		this.afterQuoteContext = false;
+		this.valueFinished = false;
 
 		var delimiters = new ArrayList<CsvDelimiter>();
 		int offset = 0;
@@ -45,11 +45,15 @@ class CsvDelimiterFinder {
 		while (true) {
 			CsvDelimiter delimiter;
 
-			if (!afterQuoteContext) {
+			if (!valueFinished) {
 				if (!quoteContext) {
 					delimiter = findDelimiter(csv, offset);
 					if (delimiter.isQuote()) {
-						enterQuoteContext();
+						if (offset >= delimiter.getIndex()) {
+							enterQuoteContext();
+						} else {
+							throw new CsvFormatException(CommonStringI18n.UNEXPECTED_QUOTE_IN_A_VALUE, offset);
+						}
 					} else if (delimiter.isComma() || delimiter.isNewline()) {
 						delimiters.add(delimiter);
 					}
@@ -57,18 +61,18 @@ class CsvDelimiterFinder {
 					delimiter = findQuoteBlockWithOddLength(csv, offset);
 					if (delimiter.isQuote()) {
 						leaveQuoteContext();
-						setAfterQuoteContext();
+						setValueFinished();
 					}
 				}
 			} else {
 				delimiter = findDelimiter(csv, offset);
 				if (delimiter.isComma() || delimiter.isNewline()) {
 					delimiters.add(delimiter);
-					unsetAfterQuoteContext();
+					unsetValueFinished();
 				} else if (offset >= csv.length()) {
 					// reached end-of-file
 				} else {
-					throw new CsvFormatException(CommonStringI18n.AFTER_A_DOUBLE_QUOTED_VALUE_A_COMMA_A_NEWLINE_OR_END_OF_FILE_ARE_EXPECTED, offset);
+					throw new CsvFormatException(CommonStringI18n.AFTER_A_QUOTED_VALUE_A_COMMA_A_NEWLINE_OR_END_OF_FILE_ARE_EXPECTED, offset);
 				}
 			}
 
@@ -96,14 +100,14 @@ class CsvDelimiterFinder {
 		this.quoteContext = false;
 	}
 
-	private void setAfterQuoteContext() {
+	private void setValueFinished() {
 
-		this.afterQuoteContext = true;
+		this.valueFinished = true;
 	}
 
-	private void unsetAfterQuoteContext() {
+	private void unsetValueFinished() {
 
-		this.afterQuoteContext = false;
+		this.valueFinished = false;
 	}
 
 	private CsvDelimiter findDelimiter(String text, int offset) {
