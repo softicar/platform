@@ -3,6 +3,7 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
+import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
@@ -13,6 +14,7 @@ import com.softicar.platform.emf.form.error.EmfFormAccessDeniedDiv;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorRow;
 import com.softicar.platform.emf.form.tab.EmfFormTabBar;
 import com.softicar.platform.emf.form.tab.factory.IEmfFormTabConfiguration;
+import com.softicar.platform.emf.table.listener.IEmfSaveHook;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
 import java.util.ArrayList;
@@ -123,8 +125,17 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	// ------------------------------ behavioral configuration ------------------------------ //
 
 	/**
-	 * Sets a callback {@link Consumer} to be called after the creation of an
-	 * new {@link IEmfTableRow} through this {@link EmfForm}.
+	 * Sets a callback {@link Consumer} to be called whenever a new
+	 * {@link IEmfTableRow} was inserted through this {@link EmfForm}.
+	 * <p>
+	 * This callback mechanism is primarily intended for UI updates. It is
+	 * called when the new {@link IDbTableRow} was <b>persistently</b> inserted
+	 * and all transactions were successfully <b>committed</b>.
+	 * <p>
+	 * If you intend to insert additional {@link IEmfTableRow} objects through
+	 * the callback, you should use an {@link IEmfSaveHook} instead. Only that
+	 * will ensure that the original {@link IDbTableRow} and the additional
+	 * {@link IDbTableRow} objects will be inserted with the same transaction.
 	 *
 	 * @param callbackAfterCreation
 	 *            the callback {@link Consumer} object (never <i>null</i>)
