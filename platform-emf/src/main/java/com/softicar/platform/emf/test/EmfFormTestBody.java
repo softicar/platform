@@ -73,6 +73,12 @@ public class EmfFormTestBody<R extends IEmfTableRow<R, ?>> extends DomDiv implem
 	}
 
 	@Override
+	public void refreshAfterConcurrentModification() {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public void enterEditMode() {
 
 		throw new UnsupportedOperationException();

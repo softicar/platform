@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.form;
 
+import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
 import com.softicar.platform.emf.form.section.IEmfFormSectionContainer;
@@ -79,10 +80,14 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 	@Override
 	public void enterEditMode() {
 
-		if (!upperPart.isEditMode() && ensureEntityIsFresh()) {
-			upperPart.enterEditMode();
-			lowerPart.showSectionContainer(new EmfFormSaveOrCancelActions<>(this, upperPart.getAttributesDiv()));
+		if (!upperPart.isEditMode()) {
 			this.creationMode = tableRow.impermanent();
+			if (ensureEntityIsFresh()) {
+				upperPart.enterEditMode();
+				lowerPart.showSectionContainer(new EmfFormSaveOrCancelActions<>(this, upperPart.getAttributesDiv()));
+			} else {
+				upperPart.enterViewMode();
+			}
 		}
 	}
 
@@ -108,6 +113,17 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 				enterViewMode();
 			}
 			queueEntityForRefresh();
+		}
+	}
+
+	@Override
+	public void refreshAfterConcurrentModification() {
+
+		DbTableRowCaches.invalidateAll();
+		queueEntityForRefresh();
+
+		if (upperPart.isEditMode()) {
+			upperPart.enterViewMode();
 		}
 	}
 

@@ -36,8 +36,11 @@ public class PageServiceLoginDiv extends DomDiv {
 		this.documentBuilder = documentBuilder;
 		this.loginForm = new LoginForm();
 
-		setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_DIV);
+		addCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_DIV);
 		appendChild(loginForm);
+		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
+			addCssClass(PageCssClasses.TEST_SYSTEM);
+		}
 	}
 
 	private class LoginForm extends DomForm {

@@ -151,3 +151,13 @@
 	justify-content: center;
 	padding-top: 5px;
 }
+
+.TestSystem {
+	
+	background: repeating-linear-gradient(
+		135deg, 
+		var(--GRAY_BACKGROUND_COLOR), 
+		var(--GRAY_BACKGROUND_COLOR) 20px, 
+		white 20px, 
+		white 40px);
+}

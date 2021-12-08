@@ -3,6 +3,7 @@ package com.softicar.platform.emf.table.row;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.emf.concurrency.EmfConcurrencyController;
+import com.softicar.platform.emf.concurrency.EmfOutdatedTableRowException;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import java.util.Collection;
@@ -45,5 +46,12 @@ public interface IEmfTableRow<R extends IEmfTableRow<R, P>, P> extends IDbTableR
 	default boolean isFresh() {
 
 		return new EmfConcurrencyController<>(getThis()).peekForFreshnessOfAttributeOwners();
+	}
+
+	default void assertFresh() {
+
+		if (!isFresh()) {
+			throw new EmfOutdatedTableRowException(this);
+		}
 	}
 }

@@ -2,17 +2,15 @@ package com.softicar.platform.emf.form.section;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
-import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.dom.exception.IDomExceptionDisplayElement;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.emf.EmfCssClasses;
-import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.concurrency.EmfOutdatedTableRowException;
 import com.softicar.platform.emf.form.IEmfFormBody;
+import com.softicar.platform.emf.form.refresh.EmfFormInteractiveRefreshSpan;
+import com.softicar.platform.emf.form.section.exception.EmfFormExceptionDiv;
 import com.softicar.platform.emf.form.section.header.EmfFormSectionHeaderDiv;
 import com.softicar.platform.emf.form.section.header.IEmfFormSectionHeader;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -93,18 +91,11 @@ public class EmfFormSectionDiv<R extends IEmfTableRow<R, ?>> extends DomDiv impl
 	public void display(Exception exception) {
 
 		IDomParentElement container = createContainer();
-		container
-			.appendChild(
-				new DomWikiDivBuilder()//
-					.addText(IDisplayString.create(exception.getMessage()).enclose("<error>", "</error>"))
-					.build());
-		container.appendNewChild(DomElementTag.HR);
-		container
-			.appendChild(
-				new DomButton()//
-					.setLabel(EmfI18n.OK)
-					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
-					.setClickCallback(() -> container.getParent().replaceChild(contentDiv, container)));
+		if (exception instanceof EmfOutdatedTableRowException) {
+			container.appendChild(new EmfFormInteractiveRefreshSpan<>(formBody, true, () -> container.getParent().replaceChild(contentDiv, container)));
+		} else {
+			container.appendChild(new EmfFormExceptionDiv(exception, () -> container.getParent().replaceChild(contentDiv, container)));
+		}
 		replaceContentWith(container);
 
 		// need to discard refresh event (see #35867)
