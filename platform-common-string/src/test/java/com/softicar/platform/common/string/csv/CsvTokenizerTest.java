@@ -95,8 +95,8 @@ public class CsvTokenizerTest extends Assert {
 		try {
 			tokenize("\"qwe\" \"asd\",zxc");
 			fail();
-		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 5: After a quoted value, a comma, a newline or end-of-file are expected.", exception.getMessage());
+		} catch (CsvSyntaxException exception) {
+			assertEquals("CSV syntax error in line 1 at character 6", exception.getMessage());
 		}
 	}
 
@@ -148,8 +148,8 @@ public class CsvTokenizerTest extends Assert {
 		try {
 			tokenize("qwe,\"asd,zxc");
 			fail();
-		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 5: Missing closing quote.", exception.getMessage());
+		} catch (CsvSyntaxException exception) {
+			assertEquals("CSV syntax error in line 1 at character 13", exception.getMessage());
 		}
 	}
 
@@ -168,8 +168,8 @@ public class CsvTokenizerTest extends Assert {
 		try {
 			tokenize("qwe,\"\"asd,zxc");
 			fail();
-		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 6: Expected a comma after the value.", exception.getMessage());
+		} catch (CsvSyntaxException exception) {
+			assertEquals("CSV syntax error in line 1 at character 7", exception.getMessage());
 		}
 	}
 
@@ -179,8 +179,8 @@ public class CsvTokenizerTest extends Assert {
 		try {
 			tokenize("qwe,\"\"asd\",zxc");
 			fail();
-		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 6: After a quoted value, a comma, a newline or end-of-file are expected.", exception.getMessage());
+		} catch (CsvSyntaxException exception) {
+			assertEquals("CSV syntax error in line 1 at character 7", exception.getMessage());
 		}
 	}
 
@@ -190,8 +190,8 @@ public class CsvTokenizerTest extends Assert {
 		try {
 			tokenize("qwe,a\"sd,zxc");
 			fail();
-		} catch (CsvFormatException exception) {
-			assertEquals("Invalid CSV format after character 4: Unexpected quote in an value.", exception.getMessage());
+		} catch (CsvSyntaxException exception) {
+			assertEquals("CSV syntax error in line 1 at character 6", exception.getMessage());
 		}
 	}
 

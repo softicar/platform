@@ -1,33 +1,93 @@
 package com.softicar.platform.common.string.csv;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Extracts value tokens from a CSV-formatted {@link String}.
  * <p>
- * Assumes a comma ({@code ,}) as value separator.
+ * Assumes the following special characters:
+ * <ul>
+ * <li>commas {@code [,]} as value separators</li>
+ * <li>quotes {@code ["]} as value delimiters</li>
+ * <li>newlines {@code [\r or \r\n]} as row separators</li>
+ * </ul>
  * <p>
- * Assumes that escaping is done via:
- * <ol>
- * <li>Enclosing <i>escape-worthy</i> values in quotes ({@code "}), and</li>
- * <li>Duplication of any quote that is contained in a value
- * ({@code " -> ""})</li>
- * </ol>
- * A value is <i>escape-worthy</i> if it contains at least one of the following
- * characters: {@code [,][\r][\n]["]}
- * <p>
- * Tolerates superfluous quotes around values which are not
- * <i>escape-worthy</i>.
+ * Assumes the following CSV formatting rules:
+ * <ul>
+ * <li>A value is enclosed in quotes {@code ["]} if it contains at least one of
+ * the following characters: {@code [,][\r][\n]["]}</li>
+ * <li>Quotes {@code ["]} inside values are escaped via duplication
+ * {@code ["] -> [""]}</li>
+ * <li>Superfluous quotes {@code ["]} around values are tolerated</li>
+ * </ul>
  * <p>
  * Retains line breaks in values, as long as the values are quoted. This way, an
  * extracted <i>logical row</i> can emerge from several <i>physical rows</i> in
  * the original CSV {@link String}.
+ * <p>
+ * Implementation is based upon a <a href=
+ * "https://en.wikipedia.org/wiki/Deterministic_finite_automaton">Deterministic
+ * Finite Automaton</a>.
  *
  * @author Alexander Schmidt
+ * @author Oliver Richers
  */
 public class CsvTokenizer {
+
+	private final Map<State, Collection<Transition>> transitionMap;
+	private State currentState;
+	private Character currentCharacter;
+	private StringBuilder currentValue;
+	private List<String> currentRow;
+	private int currentLineNumber;
+	private int currentCharacterNumber;
+	private List<List<String>> resultRows;
+
+	/**
+	 * Constructs a new {@link CsvTokenizer}.
+	 */
+	public CsvTokenizer() {
+
+		this.transitionMap = new TreeMap<>();
+
+		addTransition(State.START_OF_ROW, Char.QUOTE, State.QUOTED_VALUE, INullaryVoidFunction.NO_OPERATION);
+		addTransition(State.START_OF_ROW, Char.NEWLINE, State.START_OF_ROW, INullaryVoidFunction.NO_OPERATION);
+		addTransition(State.START_OF_ROW, Char.COMMA, State.START_OF_VALUE, this::commitValue);
+		addTransition(State.START_OF_ROW, Char.EOF, State.END, INullaryVoidFunction.NO_OPERATION);
+		addTransition(State.START_OF_ROW, Char.REGULAR, State.UNQUOTED_VALUE, this::addCharToValue);
+
+		addTransition(State.START_OF_VALUE, Char.QUOTE, State.QUOTED_VALUE, INullaryVoidFunction.NO_OPERATION);
+		addTransition(State.START_OF_VALUE, Char.NEWLINE, State.START_OF_ROW, this::commitValueAndRow);
+		addTransition(State.START_OF_VALUE, Char.COMMA, State.START_OF_VALUE, this::commitValue);
+		addTransition(State.START_OF_VALUE, Char.EOF, State.END, this::commitValueAndRow);
+		addTransition(State.START_OF_VALUE, Char.REGULAR, State.UNQUOTED_VALUE, this::addCharToValue);
+
+		addTransition(State.UNQUOTED_VALUE, Char.QUOTE, State.ERROR, this::throwSyntaxException);
+		addTransition(State.UNQUOTED_VALUE, Char.NEWLINE, State.START_OF_ROW, this::commitValueAndRow);
+		addTransition(State.UNQUOTED_VALUE, Char.COMMA, State.START_OF_VALUE, this::commitValue);
+		addTransition(State.UNQUOTED_VALUE, Char.EOF, State.END, this::commitValueAndRow);
+		addTransition(State.UNQUOTED_VALUE, Char.REGULAR, State.UNQUOTED_VALUE, this::addCharToValue);
+
+		addTransition(State.QUOTED_VALUE, Char.QUOTE, State.QUOTED_VALUE_QUOTE, INullaryVoidFunction.NO_OPERATION);
+		addTransition(State.QUOTED_VALUE, Char.NEWLINE, State.QUOTED_VALUE, this::addCharToValue);
+		addTransition(State.QUOTED_VALUE, Char.COMMA, State.QUOTED_VALUE, this::addCharToValue);
+		addTransition(State.QUOTED_VALUE, Char.EOF, State.ERROR, this::throwSyntaxException);
+		addTransition(State.QUOTED_VALUE, Char.REGULAR, State.QUOTED_VALUE, this::addCharToValue);
+
+		addTransition(State.QUOTED_VALUE_QUOTE, Char.QUOTE, State.QUOTED_VALUE, this::addCharToValue);
+		addTransition(State.QUOTED_VALUE_QUOTE, Char.NEWLINE, State.START_OF_ROW, this::commitValueAndRow);
+		addTransition(State.QUOTED_VALUE_QUOTE, Char.COMMA, State.START_OF_VALUE, this::commitValue);
+		addTransition(State.QUOTED_VALUE_QUOTE, Char.EOF, State.END, this::commitValueAndRow);
+		addTransition(State.QUOTED_VALUE_QUOTE, Char.REGULAR, State.ERROR, this::throwSyntaxException);
+	}
 
 	/**
 	 * Extracts values from the given CSV-formatted {@link String}.
@@ -52,42 +112,109 @@ public class CsvTokenizer {
 
 		Objects.requireNonNull(csv);
 
-		var delimiters = new CsvDelimiterFinder().findDelimiters(csv);
-		var rows = new ArrayList<List<String>>();
+		this.currentState = State.START_OF_ROW;
+		this.currentCharacter = null;
+		this.currentValue = new StringBuilder();
+		this.currentRow = new ArrayList<>();
+		this.currentLineNumber = 1;
+		this.currentCharacterNumber = 1;
+		this.resultRows = new ArrayList<>();
 
-		List<String> row = new ArrayList<>();
-		for (int i = 0; i < delimiters.size() - 1; i++) {
-			CsvDelimiter lower = delimiters.get(i);
-			CsvDelimiter upper = delimiters.get(i + 1);
-
-			String value = csv.substring(lower.getIndex() + 1, upper.getIndex());
-			if (value.startsWith("\"")) {
-				if (value.endsWith("\"")) {
-					value = value.substring(1, value.length() - 1);
-				} else {
-					throw new CsvProcessorIllegalStateException("Value '%s' lacks a closing quote.".formatted(value));
-				}
-			}
-			row.add(value.replaceAll("\"\"", "\""));
-
-			if (upper.isNewline()) {
-				if (hasContent(row)) {
-					rows.add(row);
-				}
-				row = new ArrayList<>();
+		for (int i = 0; i <= csv.length(); i++) {
+			this.currentCharacter = i < csv.length()? csv.charAt(i) : '\0';
+			this.currentState = findTransition(currentState, currentCharacter).execute();
+			if (currentCharacter == '\n') {
+				this.currentLineNumber++;
+				this.currentCharacterNumber = 1;
+			} else {
+				this.currentCharacterNumber++;
 			}
 		}
-
-		return rows;
+		return resultRows;
 	}
 
-	private boolean hasContent(List<String> row) {
+	private void addTransition(State current, Predicate<Character> condition, State successor, INullaryVoidFunction action) {
 
-		return !row.isEmpty() && !hasSingleEmptyValue(row);
+		this.transitionMap//
+			.computeIfAbsent(current, dummy -> new ArrayList<>())
+			.add(new Transition(successor, condition, action));
 	}
 
-	private boolean hasSingleEmptyValue(List<String> row) {
+	private Transition findTransition(State current, Character c) {
 
-		return row.size() == 1 && row.get(0).equals("");
+		return transitionMap//
+			.get(current)
+			.stream()
+			.filter(successor -> successor.test(c))
+			.findFirst()
+			.orElseThrow();
+	}
+
+	private void addCharToValue() {
+
+		currentValue.append(currentCharacter);
+	}
+
+	private void commitValue() {
+
+		currentRow.add(currentValue.toString());
+		currentValue.setLength(0);
+	}
+
+	private void commitValueAndRow() {
+
+		commitValue();
+		resultRows.add(currentRow);
+		currentRow = new ArrayList<>();
+	}
+
+	private void throwSyntaxException() {
+
+		throw new CsvSyntaxException(currentLineNumber, currentCharacterNumber);
+	}
+
+	private static enum State {
+
+		START_OF_ROW,
+		START_OF_VALUE,
+		UNQUOTED_VALUE,
+		QUOTED_VALUE,
+		QUOTED_VALUE_QUOTE,
+		ERROR,
+		END
+	}
+
+	private static class Transition {
+
+		private final State successor;
+		private final Predicate<Character> condition;
+		private final INullaryVoidFunction action;
+
+		public Transition(State successor, Predicate<Character> condition, INullaryVoidFunction action) {
+
+			this.successor = successor;
+			this.condition = condition;
+			this.action = action;
+		}
+
+		public boolean test(char c) {
+
+			return condition.test(c);
+		}
+
+		public State execute() {
+
+			action.apply();
+			return successor;
+		}
+	}
+
+	private static interface Char {
+
+		Predicate<Character> QUOTE = c -> c == '"';
+		Predicate<Character> NEWLINE = c -> c == '\r' || c == '\n';
+		Predicate<Character> COMMA = c -> c == ',';
+		Predicate<Character> EOF = c -> c == '\0';
+		Predicate<Character> REGULAR = c -> Stream.of(QUOTE, NEWLINE, COMMA, EOF).noneMatch(it -> it.test(c));
 	}
 }
