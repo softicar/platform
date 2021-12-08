@@ -9,7 +9,6 @@ import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.EmfMarker;
-import com.softicar.platform.emf.form.refresh.EmfFormInteractiveRefreshSpan;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomDiv {
@@ -55,12 +54,8 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 
 		boolean creation = formBody.getTableRow().impermanent();
 		try (DbTransaction transaction = new DbTransaction()) {
-			if (formBody.getTableRow().isFresh()) {
-				saveAttributes(creation, closeAfterSave);
-			} else {
-				buttonContainer.removeChildren();
-				buttonContainer.appendChild(new EmfFormInteractiveRefreshSpan<>(formBody, true));
-			}
+			formBody.getTableRow().assertFresh();
+			saveAttributes(creation, closeAfterSave);
 			transaction.commit();
 		}
 	}

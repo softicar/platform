@@ -34,7 +34,7 @@ public interface IEmfFormBody<R extends IEmfTableRow<R, ?>> {
 		return getTableRow().table();
 	}
 
-	// ------------------------------ refresh bus ------------------------------ //
+	// ------------------------------ refresh ------------------------------ //
 
 	IDomRefreshBus getRefreshBus();
 
@@ -43,6 +43,12 @@ public interface IEmfFormBody<R extends IEmfTableRow<R, ?>> {
 	 * owners to the queue of the {@link IDomRefreshBus}.
 	 */
 	void queueEntityForRefresh();
+
+	/**
+	 * Refreshes the body after a concurrent modification of the
+	 * {@link IEmfTableRow} has been detected.
+	 */
+	void refreshAfterConcurrentModification();
 
 	// ------------------------------ show sections ------------------------------ //
 
