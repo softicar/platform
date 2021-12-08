@@ -122,9 +122,16 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 	// ------------------------------ behavioral configuration ------------------------------ //
 
+	/**
+	 * Sets a callback {@link Consumer} to be called after the creation of an
+	 * new {@link IEmfTableRow} through this {@link EmfForm}.
+	 *
+	 * @param callbackAfterCreation
+	 *            the callback {@link Consumer} object (never <i>null</i>)
+	 */
 	public void setCallbackAfterCreation(Consumer<R> callbackAfterCreation) {
 
-		this.callbackAfterCreation = callbackAfterCreation;
+		this.callbackAfterCreation = Objects.requireNonNull(callbackAfterCreation);
 	}
 
 	protected Consumer<R> getCallbackAfterCreation() {

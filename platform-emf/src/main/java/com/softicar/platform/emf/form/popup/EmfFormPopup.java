@@ -57,6 +57,9 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 		return form.getTableRow();
 	}
 
+	/**
+	 * Delegates to {@link EmfForm#setCallbackAfterCreation(Consumer)}.
+	 */
 	public EmfFormPopup<R> setCallbackAfterCreation(Consumer<R> callbackAfterCreation) {
 
 		form.setCallbackAfterCreation(callbackAfterCreation);

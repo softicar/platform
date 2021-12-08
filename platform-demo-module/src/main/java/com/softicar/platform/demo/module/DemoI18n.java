@@ -27,6 +27,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Rechnungsdatum");
 	I18n0 INVOICE_NUMBER = new I18n0("Invoice Number")//
 		.de("Rechnungsnummer");
+	I18n0 INVOICE_NUMBERS_MAY_ONLY_CONTAIN_LETTERS_AND_DIGITS = new I18n0("Invoice numbers may only contain letters and digits.")//
+		.de("Rechnungsnummern duerfen nur Buchstaben und Ziffern enthalten.");
 	I18n0 ITEM = new I18n0("Item")//
 		.de("Position");
 	I18n0 LOCKED_ITEMS = new I18n0("Locked Items")//

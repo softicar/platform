@@ -25,7 +25,7 @@ public class DomEventHandlerNodeCaller {
 			} else {
 				event.getType().handleEvent(eventNode, event);
 			}
-		} catch (RuntimeException exception) {
+		} catch (Exception exception) {
 			IDomExceptionDisplayElement displayElement = findExceptionDisplayElement(eventNode, exception);
 			if (displayElement != null) {
 				displayElement.display(exception);
