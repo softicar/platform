@@ -535,8 +535,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Modulinstanz-Rollen-Zuweisungen");
 	I18n0 MODULE_INSTANCE_WAS_NOT_INITIALIZED = new I18n0("Module instance was not initialized.")//
 		.de("Modulinstanz wurde nicht initialisiert.");
-	I18n1 MODULE_INSTANCE_WITH_ID_ARG1_DOES_NOT_EXIST = new I18n1("Module instance with ID %s does not exist.")//
-		.de("Modulinstanz mit ID %s existiert nicht.");
 	I18n0 MODULE_INSTANCES = new I18n0("Module Instances")//
 		.de("Modulinstanzen");
 	I18n0 MODULE_PANIC_RECEIVER = new I18n0("Module Panic Receiver")//

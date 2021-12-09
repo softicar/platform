@@ -19,12 +19,6 @@ public class RoleTestModule extends AbstractEmfModule<RoleTestModuleInstance> {
 	}
 
 	@Override
-	public RoleTestModuleInstance getModuleInstanceById(Integer moduleInstanceId) {
-
-		return RoleTestModuleInstance.TABLE.get(moduleInstanceId);
-	}
-
-	@Override
 	public Optional<RoleTestModuleInstance> getModuleInstance(Integer moduleInstanceId) {
 
 		return Optional.of(RoleTestModuleInstance.TABLE.get(moduleInstanceId));

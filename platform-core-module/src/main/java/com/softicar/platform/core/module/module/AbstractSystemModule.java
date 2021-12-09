@@ -23,14 +23,8 @@ public abstract class AbstractSystemModule extends AbstractEmfModule<SystemModul
 	 *
 	 * @param moduleInstanceId
 	 *            the module instance ID (will be ignored)
-	 * @return the {@link SystemModuleInstance} (never null)
+	 * @return the {@link SystemModuleInstance} wrapped as {@link Optional}
 	 */
-	@Override
-	public final SystemModuleInstance getModuleInstanceById(Integer moduleInstanceId) {
-
-		return getSystemModuleInstance();
-	}
-
 	@Override
 	public Optional<SystemModuleInstance> getModuleInstance(Integer moduleInstanceId) {
 
