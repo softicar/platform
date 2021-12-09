@@ -1,16 +1,61 @@
 package com.softicar.platform.db.core.transaction;
 
+import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.transaction.ITransaction;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.db.core.connection.IDbConnection;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * An {@link IDbTransaction} instance represents a transaction on the database
+ * management system (DBMS).
+ * <p>
+ * An {@link IDbTransaction} may represent a root transaction or a nested
+ * transaction.
+ * <ul>
+ * <li>A root transaction is a physical transaction on the DBMS, opened with the
+ * <i>START TRANSACTION</i> command and closed with the <i>COMMIT</i> or
+ * <i>ROLLBACK</i> command.</li>
+ * <li>A nested transaction is a simulated transaction, opened by the
+ * <i>SAVEPOINT</i> command and closed by either doing nothing or executing the
+ * <i>ROLLBACK TO SAVEPOINT</i> command.</li>
+ * </ul>
+ */
 public interface IDbTransaction extends ITransaction {
 
 	int getId();
 
-	boolean isRootTransaction();
+	/**
+	 * Tests whether this {@link IDbTransaction} is a root transaction.
+	 *
+	 * @return <i>true</i> if this is a root transaction; <i>false</i> otherwise
+	 */
+	default boolean isRootTransaction() {
 
+		return !getParentTransaction().isPresent();
+	}
+
+	/**
+	 * Asserts that this {@link IDbTransaction} is a root transaction.
+	 *
+	 * @throws SofticarDeveloperException
+	 *             if the assertion fails
+	 */
+	default void assertIsRootTransaction() {
+
+		if (!isRootTransaction()) {
+			throw new SofticarDeveloperException("Expected a root transaction but encountered a nested transaction.");
+		}
+	}
+
+	/**
+	 * Tests whether this {@link IDbTransaction} represents the currently
+	 * active transaction on the respective {@link IDbConnection}.
+	 *
+	 * @return <i>true</i> if this {@link IDbTransaction} is open and no nested
+	 *         {@link IDbTransaction} is active; <i>false</i> otherwise
+	 */
 	boolean isCurrentTransaction();
 
 	Optional<IDbTransaction> getParentTransaction();

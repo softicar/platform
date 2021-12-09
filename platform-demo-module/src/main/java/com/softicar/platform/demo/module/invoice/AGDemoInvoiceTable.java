@@ -19,6 +19,7 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGDemoInvoice, Integer, AGDemoModuleInstance> configuration) {
 
 		configuration.setScopeField(AGDemoInvoice.MODULE_INSTANCE);
+		configuration.addValidator(DemoInvoiceValidator::new);
 	}
 
 	@Override
