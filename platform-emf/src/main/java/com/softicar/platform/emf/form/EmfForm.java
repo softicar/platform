@@ -138,7 +138,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	 * {@link IDbTableRow} objects will be inserted with the same transaction.
 	 *
 	 * @param callbackAfterCreation
-	 *            the callback {@link Consumer} object (never <i>null</i>)
+	 *            the callback {@link Consumer} (never <i>null</i>)
 	 */
 	public void setCallbackAfterCreation(Consumer<R> callbackAfterCreation) {
 
