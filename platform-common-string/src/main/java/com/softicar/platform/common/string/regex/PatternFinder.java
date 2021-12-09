@@ -11,52 +11,80 @@ import java.util.regex.Pattern;
  */
 public class PatternFinder {
 
-	public static PatternFinderResult indexOfPattern(String regex, String haystack, int offset) {
+	/**
+	 * Finds the index of the first occurrence of the given regular expression
+	 * in the given text.
+	 *
+	 * @param regex
+	 *            the regular expression (never <i>null</i>)
+	 * @param text
+	 *            the text to search in (never <i>null</i>)
+	 * @return a {@link PatternFinderResult} that contains the search result
+	 *         (never <i>null</i>)
+	 */
+	public static PatternFinderResult indexOfPattern(String regex, String text) {
+
+		return indexOfPattern(regex, text, 0);
+	}
+
+	/**
+	 * Finds the index of the first occurrence of the given regular expression
+	 * in the given text. Starts searching at the given offset.
+	 *
+	 * @param regex
+	 *            the regular expression (never <i>null</i>)
+	 * @param text
+	 *            the text to search in (never <i>null</i>)
+	 * @return a {@link PatternFinderResult} that contains the search result
+	 *         (never <i>null</i>)
+	 */
+	public static PatternFinderResult indexOfPattern(String regex, String text, int offset) {
+
+		return indexOfPattern(Pattern.compile(regex), text, offset);
+	}
+
+	/**
+	 * Finds the index of the first occurrence of the given {@link Pattern} in
+	 * the given text. Starts searching at the given offset.
+	 *
+	 * @param pattern
+	 *            the {@link Pattern} (never <i>null</i>)
+	 * @param text
+	 *            the text to search in (never <i>null</i>)
+	 * @return a {@link PatternFinderResult} that contains the search result
+	 *         (never <i>null</i>)
+	 */
+	public static PatternFinderResult indexOfPattern(Pattern pattern, String text, int offset) {
 
 		if (offset < 0) {
 			throw new IllegalArgumentException("The offset must not be negative.");
 		}
 
-		haystack = haystack.substring(offset);
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(haystack);
+		text = text.substring(offset);
+		Matcher matcher = pattern.matcher(text);
 
 		if (matcher.find()) {
 			return new PatternFinderResult(matcher.group(), matcher.start() + offset);
 		} else {
-			return new PatternFinderResult();
+			return new PatternFinderResult(null, -1);
 		}
 	}
 
 	/**
-	 * Finds the index of the first occurrence of the given regex in the given
-	 * haystack.
-	 * 
+	 * Finds the index of the last occurrence of the given regular expression in
+	 * the given text.
+	 *
 	 * @param regex
-	 * @param haystack
-	 * @return A Pair of (the index of the first occurrence of the given pattern
-	 *         in the haystack or -1, if not found) and (the matched substring,
-	 *         or an empty String if no match was found).
+	 *            the regular expression (never <i>null</i>)
+	 * @param text
+	 *            the text to search in (never <i>null</i>)
+	 * @return a {@link PatternFinderResult} that contains the search result
+	 *         (never <i>null</i>)
 	 */
-	public static PatternFinderResult indexOfPattern(String regex, String haystack) {
-
-		return indexOfPattern(regex, haystack, 0);
-	}
-
-	/**
-	 * Finds the index of the last occurrence of the given regex in the given
-	 * haystack. Inefficient for huge haystacks due to the necessity of crawling
-	 * them from the start.
-	 * 
-	 * @param regex
-	 * @param haystack
-	 * @return The index of the last occurrence of the given pattern in the
-	 *         haystack or -1, if not found.
-	 */
-	public static int lastIndexOfPattern(String regex, String haystack) {
+	public static int lastIndexOfPattern(String regex, String text) {
 
 		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(haystack);
+		Matcher matcher = pattern.matcher(text);
 
 		int lastMatchIndex = -1;
 

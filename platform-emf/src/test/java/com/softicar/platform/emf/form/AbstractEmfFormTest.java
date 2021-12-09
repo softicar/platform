@@ -8,16 +8,21 @@ import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 
 	protected final EmfFormTestFrame frame;
 	protected final EmfTestSubObject testEntity;
+	protected final Collection<Object> creationCallbacks;
+	protected EmfForm<EmfTestSubObject> form;
 
 	public AbstractEmfFormTest() {
 
 		this.frame = new EmfFormTestFrame();
 		this.testEntity = insertTestEntity("foo");
+		this.creationCallbacks = new ArrayList<>();
 
 		setNodeSupplier(() -> frame);
 	}
@@ -29,7 +34,9 @@ public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 
 	protected EmfTestSubObject showForm(EmfTestSubObject entity) {
 
-		appendEntityForm(entity).peekAndRefresh();
+		this.form = appendEntityForm(entity);
+		form.setCallbackAfterCreation(creationCallbacks::add);
+		form.peekAndRefresh();
 		return entity;
 	}
 

@@ -53,12 +53,6 @@ public abstract class AbstractDbTransaction implements IDbTransaction {
 	}
 
 	@Override
-	public boolean isRootTransaction() {
-
-		return !parentTransaction.isPresent();
-	}
-
-	@Override
 	public boolean isCurrentTransaction() {
 
 		return hierarchy//

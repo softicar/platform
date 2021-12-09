@@ -3,6 +3,7 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
+import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
@@ -13,6 +14,7 @@ import com.softicar.platform.emf.form.error.EmfFormAccessDeniedDiv;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorRow;
 import com.softicar.platform.emf.form.tab.EmfFormTabBar;
 import com.softicar.platform.emf.form.tab.factory.IEmfFormTabConfiguration;
+import com.softicar.platform.emf.table.listener.IEmfSaveHook;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
 import java.util.ArrayList;
@@ -122,9 +124,27 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 	// ------------------------------ behavioral configuration ------------------------------ //
 
+	/**
+	 * Sets a callback {@link Consumer} to be called whenever a new
+	 * {@link IEmfTableRow} was inserted through this {@link EmfForm}.
+	 * <p>
+	 * This callback mechanism is primarily intended for UI updates. It is
+	 * called when the new {@link IDbTableRow} was already <b>persistently</b>
+	 * inserted and all transactions were successfully <b>committed</b>. The
+	 * callback should <b>not</b> write to the database.
+	 * <p>
+	 * If you intend to insert or update additional {@link IEmfTableRow} objects
+	 * through the callback, you should use an {@link IEmfSaveHook} instead.
+	 * Only that will ensure that the original {@link IDbTableRow} and the
+	 * additional {@link IDbTableRow} objects will be inserted and updated
+	 * atomically, that is, within the same transaction.
+	 *
+	 * @param callbackAfterCreation
+	 *            the callback {@link Consumer} (never <i>null</i>)
+	 */
 	public void setCallbackAfterCreation(Consumer<R> callbackAfterCreation) {
 
-		this.callbackAfterCreation = callbackAfterCreation;
+		this.callbackAfterCreation = Objects.requireNonNull(callbackAfterCreation);
 	}
 
 	protected Consumer<R> getCallbackAfterCreation() {
@@ -138,6 +158,20 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		return this;
 	}
 
+	/**
+	 * Enables or disables direct editing for this {@link EmfForm}.
+	 * <p>
+	 * If direct editing is enabled, the {@link EmfForm} will be spawned in edit
+	 * mode, so that clicking the common <i>edit</i> action is not necessary.
+	 * Additionally, when the user clicks the <i>cancel</i> button, the form is
+	 * closed, instead of switching to view mode.
+	 * <p>
+	 * Direct editing is disabled by default.
+	 *
+	 * @param enabled
+	 *            <i>true</i> if direct editing should be enabled; <i>false</i>
+	 *            otherwise
+	 */
 	public void setDirectEditing(boolean enabled) {
 
 		this.directEditingEnabled = enabled;
