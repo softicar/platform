@@ -15,11 +15,6 @@ public class DemoInvoiceValidator extends AbstractEmfValidator<AGDemoInvoice> {
 
 	private static boolean isAlphaNumeric(String text) {
 
-		for (int i = 0; i < text.length(); i++) {
-			if (!Character.isLetterOrDigit(text.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
+		return text.matches("[a-zA-Z0-9]*");
 	}
 }
