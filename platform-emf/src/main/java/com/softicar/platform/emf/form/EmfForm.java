@@ -129,7 +129,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	 * {@link IEmfTableRow} was inserted through this {@link EmfForm}.
 	 * <p>
 	 * This callback mechanism is primarily intended for UI updates. It is
-	 * called when the new {@link IDbTableRow} was <b>persistently</b> inserted
+	 * called when the new {@link IDbTableRow} was already <b>persistently</b> inserted
 	 * and all transactions were successfully <b>committed</b>.
 	 * <p>
 	 * If you intend to insert additional {@link IEmfTableRow} objects through
