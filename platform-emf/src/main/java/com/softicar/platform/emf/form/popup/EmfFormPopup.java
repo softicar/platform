@@ -66,6 +66,9 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 		return this;
 	}
 
+	/**
+	 * Delegates to {@link EmfForm#addAdditionalValidator(IEmfValidator)}.
+	 */
 	public EmfFormPopup<R> addAdditionalValidator(IEmfValidator<R> validator) {
 
 		form.addAdditionalValidator(validator);
@@ -73,19 +76,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 	}
 
 	/**
-	 * Enables or disables direct editing for this pop-up.
-	 * <p>
-	 * If direct editing is enabled, the pop-up will be spawned in edit mode, so
-	 * that clicking the generic "edit" action is not necessary. Additionally,
-	 * when the user clicks the "save" or "cancel" buttons, the pop-up is
-	 * closed, instead of the enclosed {@link EmfForm} switching to view mode.
-	 * <p>
-	 * Direct editing is disabled by default.
-	 *
-	 * @param enabled
-	 *            <i>true</i> if direct editing should be enabled for this
-	 *            pop-up; <i>false</i> otherwise
-	 * @return this {@link EmfFormPopup}
+	 * Delegates to {@link EmfForm#setDirectEditing(boolean)}.
 	 */
 	public EmfFormPopup<R> setDirectEditing(boolean enabled) {
 

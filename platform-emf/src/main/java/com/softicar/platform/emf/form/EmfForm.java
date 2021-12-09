@@ -158,6 +158,20 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		return this;
 	}
 
+	/**
+	 * Enables or disables direct editing for this {@link EmfForm}.
+	 * <p>
+	 * If direct editing is enabled, the {@link EmfForm} will be spawned in edit
+	 * mode, so that clicking the common <i>edit</i> action is not necessary.
+	 * Additionally, when the user clicks the <i>cancel</i> button, the form is
+	 * closed, instead of switching to view mode.
+	 * <p>
+	 * Direct editing is disabled by default.
+	 *
+	 * @param enabled
+	 *            <i>true</i> if direct editing should be enabled; <i>false</i>
+	 *            otherwise
+	 */
 	public void setDirectEditing(boolean enabled) {
 
 		this.directEditingEnabled = enabled;
