@@ -27,7 +27,7 @@ public interface IDbTransaction extends ITransaction {
 	int getId();
 
 	/**
-	 * Tests whether this {@link IDbTransaction} is a root transaction or not.
+	 * Tests whether this {@link IDbTransaction} is a root transaction.
 	 *
 	 * @return <i>true</i> if this is a root transaction; <i>false</i> otherwise
 	 */
