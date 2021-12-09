@@ -136,7 +136,7 @@ def PUBLISH_URL = findProperty('publish.url')
 def PUBLISH_USERNAME = findProperty('publish.username')
 def PUBLISH_PASSWORD = findProperty('publish.password')
 def SIGNING_KEY_ID = findProperty('signing.keyId')
-def SIGNING_SECRET_KEY_PASSPHRASE = findProperty('signing.secretKeyPassphrase')
+def SIGNING_PASSWORD = findProperty('signing.password')
 def SIGNING_SECRET_KEY_RING_FILE = findProperty('signing.secretKeyRingFile')
 
 subprojects {
@@ -223,8 +223,8 @@ subprojects {
 				if(SIGNING_KEY_ID == null) {
 					throw new GradleException("Please specify the PGP signing key ID with 'signing.keyId' in '~/.gradle/gradle.properties'.")
 				}
-				if(SIGNING_SECRET_KEY_PASSPHRASE == null) {
-					throw new GradleException("Please specify the PGP secret key passphrase with 'signing.secretKeyPassphrase' in '~/.gradle/gradle.properties'.")
+				if(SIGNING_PASSWORD == null) {
+					throw new GradleException("Please specify the PGP secret key password with 'signing.password' in '~/.gradle/gradle.properties'.")
 				}
 				if(SIGNING_SECRET_KEY_RING_FILE == null) {
 					throw new GradleException("Please specify the PGP secret key ring file with 'signing.secretKeyRingFile' in '~/.gradle/gradle.properties'.")
