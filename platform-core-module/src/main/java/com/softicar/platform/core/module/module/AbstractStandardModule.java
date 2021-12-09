@@ -1,7 +1,5 @@
 package com.softicar.platform.core.module.module;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -29,13 +27,6 @@ public abstract class AbstractStandardModule<I extends IStandardModuleInstance<I
 			.where(AGModuleInstance.ACTIVE)
 			.where(AGModuleInstance.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.getOneAsOptional();
-	}
-
-	@Override
-	public final I getModuleInstanceById(Integer moduleInstanceId) {
-
-		return getModuleInstance(moduleInstanceId)
-			.orElseThrow(() -> new SofticarUserException(CoreI18n.MODULE_INSTANCE_WITH_ID_ARG1_DOES_NOT_EXIST.toDisplay(moduleInstanceId)));
 	}
 
 	@Override

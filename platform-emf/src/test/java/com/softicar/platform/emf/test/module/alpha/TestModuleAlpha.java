@@ -19,12 +19,6 @@ public class TestModuleAlpha extends AbstractEmfModule<TestModuleAlphaInstance> 
 	}
 
 	@Override
-	public TestModuleAlphaInstance getModuleInstanceById(Integer moduleInstanceId) {
-
-		return TestModuleAlphaInstance.TABLE.get(moduleInstanceId);
-	}
-
-	@Override
 	public Optional<TestModuleAlphaInstance> getModuleInstance(Integer moduleInstanceId) {
 
 		return Optional.of(TestModuleAlphaInstance.TABLE.get(moduleInstanceId));

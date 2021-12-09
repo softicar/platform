@@ -14,12 +14,6 @@ public abstract class AbstractEmfTestModule extends AbstractEmfModule<EmfTestMod
 	}
 
 	@Override
-	public EmfTestModuleInstance getModuleInstanceById(Integer moduleInstanceId) {
-
-		return EmfTestModuleInstance.getInstance();
-	}
-
-	@Override
 	public Optional<EmfTestModuleInstance> getModuleInstance(Integer moduleInstanceId) {
 
 		return Optional.of(EmfTestModuleInstance.getInstance());

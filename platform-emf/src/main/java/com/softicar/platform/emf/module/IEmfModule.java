@@ -1,8 +1,10 @@
 package com.softicar.platform.emf.module;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.module.extension.IEmfModuleExtensionRegistry;
 import com.softicar.platform.emf.module.message.bus.IEmfModuleMessageBus;
@@ -69,33 +71,31 @@ public interface IEmfModule<I extends IEmfModuleInstance<I>> extends IEmfSourceC
 	Collection<I> getActiveModuleInstances();
 
 	/**
-	 * Determines the module instance that is associated with the given ID.
-	 * <p>
-	 * If module instance IDs are irrelevant for this module, e.g. for singleton
-	 * modules, <i>null</i> may be passed as an argument.
-	 *
-	 * @param moduleInstanceId
-	 *            the ID of the module instance (may be be <i>null</i>)
-	 * @return the module instance associated with the given ID (never be
-	 *         <i>null</i>)
-	 * @throws RuntimeException
-	 *             if no module instance can be determined for the given ID
-	 * @deprecated use {@link #getModuleInstance(Integer)} instead
-	 */
-	@Deprecated
-	I getModuleInstanceById(Integer moduleInstanceId);
-
-	/**
-	 * Determines the module instance that is associated with the given ID.
+	 * Determines the active {@link IEmfModuleInstance} that is associated with
+	 * the given ID.
 	 * <p>
 	 * If module instance IDs are irrelevant for this module, e.g. for singleton
 	 * modules, <i>null</i> may be passed as an argument.
 	 *
 	 * @param moduleInstanceId
 	 *            the ID of the module instance (may be <i>null</i>)
-	 * @return the optional module instance associated with the given ID
+	 * @return the optional {@link IEmfModuleInstance} associated with the given
+	 *         ID
 	 */
 	Optional<I> getModuleInstance(Integer moduleInstanceId);
+
+	/**
+	 * Same as {@link #getModuleInstance(Integer)} but throws an exception if
+	 * the respective module instance does not exist.
+	 *
+	 * @return the {@link IEmfModuleInstance} associated with the given ID
+	 *         (never <i>null</i>)
+	 */
+	default I getModuleInstanceOrThrow(Integer moduleInstanceId) {
+
+		return getModuleInstance(moduleInstanceId)
+			.orElseThrow(() -> new SofticarUserException(EmfI18n.NO_ACTIVE_MODULE_INSTANCE_WITH_ID_ARG1_FOUND.toDisplay(moduleInstanceId)));
+	}
 
 	// ------------------------------ pages ------------------------------ //
 

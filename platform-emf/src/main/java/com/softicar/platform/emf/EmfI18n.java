@@ -163,6 +163,8 @@ public interface EmfI18n {
 		.de("Weiter");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
+	I18n1 NO_ACTIVE_MODULE_INSTANCE_WITH_ID_ARG1_FOUND = new I18n1("No active module instance with ID %s found.")//
+		.de("Modulinstanz mit ID %s existiert nicht.");
 	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
 		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
