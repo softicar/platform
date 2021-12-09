@@ -53,7 +53,7 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 	private void save(boolean closeAfterSave) {
 
 		boolean creation = formBody.getTableRow().impermanent();
-		try (DbTransaction rootTransaction = new DbTransaction()) {
+		try (var rootTransaction = new DbTransaction()) {
 			rootTransaction.assertIsRootTransaction();
 			formBody.getTableRow().assertFresh();
 			if (!attributesDiv.tryToApplyValidateAndSave()) {
