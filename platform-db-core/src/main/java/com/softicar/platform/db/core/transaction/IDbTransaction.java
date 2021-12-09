@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * An {@link IDbTransaction} is an object representing a logical transaction on
+ * An {@link IDbTransaction} instance represents a logical transaction on
  * the database management system (DBMS).
  * <p>
  * An {@link IDbTransaction} may represent a root (physical) transaction or a
