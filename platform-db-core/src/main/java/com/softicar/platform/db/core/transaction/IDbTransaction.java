@@ -50,7 +50,7 @@ public interface IDbTransaction extends ITransaction {
 	}
 
 	/**
-	 * Tests whether this {@link IDbTransaction} object represents the currently
+	 * Tests whether this {@link IDbTransaction} represents the currently
 	 * active transaction on the respective {@link IDbConnection}.
 	 *
 	 * @return <i>true</i> if this {@link IDbTransaction} is open and no nested
