@@ -8,18 +8,18 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * An {@link IDbTransaction} instance represents a logical transaction on
- * the database management system (DBMS).
+ * An {@link IDbTransaction} instance represents a transaction on the database
+ * management system (DBMS).
  * <p>
- * An {@link IDbTransaction} may represent a root (physical) transaction or a
- * nested (logical) transaction.
+ * An {@link IDbTransaction} may represent a root transaction or a nested
+ * transaction.
  * <ul>
  * <li>A root transaction is a physical transaction on the DBMS, opened with the
  * <i>START TRANSACTION</i> command and closed with the <i>COMMIT</i> or
  * <i>ROLLBACK</i> command.</li>
- * <li>A nested transaction is opened by the <i>SAVEPOINT</i> command and closed
- * by either doing nothing or executing the <i>ROLLBACK TO SAVEPOINT</i>
- * command.</li>
+ * <li>A nested transaction is a simulated transaction, opened by the
+ * <i>SAVEPOINT</i> command and closed by either doing nothing or executing the
+ * <i>ROLLBACK TO SAVEPOINT</i> command.</li>
  * </ul>
  */
 public interface IDbTransaction extends ITransaction {
