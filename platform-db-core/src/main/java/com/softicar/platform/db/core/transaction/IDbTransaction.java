@@ -45,7 +45,7 @@ public interface IDbTransaction extends ITransaction {
 	default void assertIsRootTransaction() {
 
 		if (!isRootTransaction()) {
-			throw new SofticarDeveloperException("Unexpected nesting of transactions.");
+			throw new SofticarDeveloperException("Expected a root transaction but encountered a nested transaction.");
 		}
 	}
 
