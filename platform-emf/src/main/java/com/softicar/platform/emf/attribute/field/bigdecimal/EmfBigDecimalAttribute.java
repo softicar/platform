@@ -12,6 +12,6 @@ public class EmfBigDecimalAttribute<R extends IEmfTableRow<R, ?>> extends EmfFie
 		super(field);
 
 		setDisplayFactory(EmfBigDecimalDisplay::new);
-		setInputFactory(() -> new EmfBigDecimalInput());
+		setInputFactory(() -> new EmfBigDecimalInput().setScale(field.getScale()));
 	}
 }

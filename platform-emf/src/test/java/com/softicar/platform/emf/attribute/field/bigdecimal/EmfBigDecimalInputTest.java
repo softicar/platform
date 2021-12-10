@@ -35,6 +35,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	@Test
 	public void testGetValueOrThrowWithoutScale() {
 
+		enterInputValue("10").assertGetValueOrThrow("10");
 		enterInputValue("12").assertGetValueOrThrow("12");
 		enterInputValue("12.6").assertGetValueOrThrow("12.6");
 		enterInputValue("12.60").assertGetValueOrThrow("12.60");
@@ -46,10 +47,12 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		input.setScale(2);
 
 		// scale increase
+		enterInputValue("10").assertGetValueOrThrow("10.00");
 		enterInputValue("12").assertGetValueOrThrow("12.00");
 		enterInputValue("12.3").assertGetValueOrThrow("12.30");
 
 		// scale retention
+		enterInputValue("10.00").assertGetValueOrThrow("10.00");
 		enterInputValue("12.00").assertGetValueOrThrow("12.00");
 		enterInputValue("12.34").assertGetValueOrThrow("12.34");
 
