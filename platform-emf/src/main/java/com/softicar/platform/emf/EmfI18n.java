@@ -133,6 +133,8 @@ public interface EmfI18n {
 		.de("Index");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
+	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
+		.de("Ungültige Dezimalzahl.");
 	I18n1 INVALID_DECIMAL_NUMBER_ARG1 = new I18n1("Invalid decimal number: '%s'")//
 		.de("Ungültige Dezimalzahl: '%s'");
 	I18n0 INVALID_PRECONDITION = new I18n0("Invalid precondition")//
@@ -187,6 +189,8 @@ public interface EmfI18n {
 		.de("OK");
 	I18n0 ONE_OF_THE_FOLLOWING_ROLES = new I18n0("One of the following roles:")//
 		.de("Eine der folgenden Rollen:");
+	I18n1 ONLY_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("Only %s decimal places allowed.")//
+		.de("Nur %s Dezimalstellen erlaubt.");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
 		.de("Es darf nur eine einzelne Datei angehängt werden.");
 	I18n0 OPENS_THE_HISTORY_WINDOW_FOR_THE_GIVEN_ENTRY = new I18n0("Opens the history window for the given entry.")//

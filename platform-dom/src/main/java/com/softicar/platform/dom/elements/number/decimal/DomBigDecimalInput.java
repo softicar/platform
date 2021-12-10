@@ -44,16 +44,43 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 		return getBigDecimal().orElse(BigDecimal.ZERO);
 	}
 
+	/**
+	 * Parses the value text into a {@link BigDecimal}.
+	 * <p>
+	 * If the textual value is empty or if the value text cannot be parsed into
+	 * a {@link BigDecimal}, an {@link Optional#empty()} is returned.
+	 *
+	 * @return the optional value as {@link BigDecimal}
+	 * @throws NumberFormatException
+	 *             if the value text cannot be parsed into a valid
+	 *             {@link BigDecimal}
+	 */
 	public Optional<BigDecimal> getBigDecimal() {
+
+		try {
+			return getBigDecimalOrThrowIfInvalidFormat();
+		} catch (NumberFormatException exception) {
+			DevNull.swallow(exception);
+			return Optional.empty();
+		}
+	}
+
+	/**
+	 * Parses the value text into a {@link BigDecimal}.
+	 * <p>
+	 * If and only if the textual value is empty, an {@link Optional#empty()} is
+	 * returned.
+	 *
+	 * @return the optional value as {@link BigDecimal}
+	 * @throws NumberFormatException
+	 *             if the value text cannot be parsed into a valid
+	 *             {@link BigDecimal}
+	 */
+	public Optional<BigDecimal> getBigDecimalOrThrowIfInvalidFormat() throws NumberFormatException {
 
 		String value = getTextOrNull();
 		if (value != null) {
-			try {
-				return Optional.of(parseValue(value));
-			} catch (NumberFormatException exception) {
-				DevNull.swallow(exception);
-				return Optional.empty();
-			}
+			return Optional.of(parseValue(value));
 		}
 		return Optional.empty();
 	}
