@@ -1,6 +1,7 @@
 package com.softicar.platform.common.testing;
 
 import com.softicar.platform.common.container.iterable.Iterables;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import java.util.Collection;
@@ -31,7 +32,7 @@ public class Asserts extends Assert {
 		assertSame(expectedObject, optional.get());
 	}
 
-	// --------------------------- assertThrows --------------------------- //
+	// --------------------------- exceptions --------------------------- //
 
 	/**
 	 * Asserts that an exception is thrown by the given function.
@@ -63,6 +64,16 @@ public class Asserts extends Assert {
 					thrownClass.getCanonicalName(),
 					StackTraceFormatting.getStackTraceAsString(thrown)),
 			expectedThrowableClass.isAssignableFrom(thrownClass));
+	}
+
+	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+
+		try {
+			thrower.apply();
+			fail("missing exception");
+		} catch (Exception exception) {
+			assertEquals(expectedMessage.toString(), exception.getMessage());
+		}
 	}
 
 	// --------------------------- assertCount --------------------------- //
@@ -132,6 +143,15 @@ public class Asserts extends Assert {
 
 		if (!fullText.contains(substring)) {
 			throw new AssertionError(String.format("Failed to find substring '%s' in '%s'.", substring, fullText));
+		}
+	}
+
+	// --------------------------- assertEmpty --------------------------- //
+
+	public static void assertEmpty(Optional<?> optional) {
+
+		if (!optional.isEmpty()) {
+			throw new AssertionError("Expected optional to be empty.");
 		}
 	}
 

@@ -18,7 +18,7 @@ public class EmfTimeInput extends AbstractEmfInputDiv<Time> {
 	@Override
 	public Time getValueOrThrow() {
 
-		return timeInput.getTime();
+		return timeInput.getTimeOrThrowIfInvalid().orElse(null);
 	}
 
 	@Override

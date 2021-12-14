@@ -14,7 +14,7 @@ public class EmfDataTableDayFilterInput extends DomDayInput implements IEmfDataT
 	@Override
 	public Day getFilterValue() {
 
-		return getDayOrNull();
+		return getDayOrThrowIfInvalid().orElse(null);
 	}
 
 	@Override

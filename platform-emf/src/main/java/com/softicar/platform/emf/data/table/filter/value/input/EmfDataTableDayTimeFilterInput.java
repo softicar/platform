@@ -8,14 +8,13 @@ public class EmfDataTableDayTimeFilterInput extends DomDayTimeInput implements I
 
 	public EmfDataTableDayTimeFilterInput() {
 
-		getDayInput().setDay(null);
-		getTimeInput().clear();
+		super(null);
 	}
 
 	@Override
 	public DayTime getFilterValue() {
 
-		return getDayTime();
+		return getDayTimeOrThrowIfInvalid().orElse(null);
 	}
 
 	@Override
@@ -27,6 +26,7 @@ public class EmfDataTableDayTimeFilterInput extends DomDayTimeInput implements I
 	@Override
 	public void selectFirstInputElement() {
 
+		// TODO tell, don't ask
 		getDayInput().getTextBoxInput().select();
 	}
 }

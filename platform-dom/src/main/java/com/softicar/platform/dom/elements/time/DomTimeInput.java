@@ -1,14 +1,16 @@
 package com.softicar.platform.dom.elements.time;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.date.IllegalTimeSpecificationException;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
 import com.softicar.platform.dom.elements.tables.DomDataTable;
+import java.util.Optional;
 
 public class DomTimeInput extends DomBar {
 
@@ -28,16 +30,19 @@ public class DomTimeInput extends DomBar {
 
 	public DomTimeInput(Time time, boolean showLabels) {
 
-		hourInput = new DomIntegerInput();
+		hourInput = new DomIntegerInput().setRange(0, 23);
 		hourInput.setTitle(DomI18n.HOURS);
+		hourInput.setMarker(DomTestMarker.HOUR_INPUT);
 		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		minuteInput = new DomIntegerInput();
+		minuteInput = new DomIntegerInput().setRange(0, 59);
 		minuteInput.setTitle(DomI18n.MINUTES);
+		minuteInput.setMarker(DomTestMarker.MINUTES_INPUT);
 		minuteInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		secondInput = new DomIntegerInput();
+		secondInput = new DomIntegerInput().setRange(0, 59);
 		secondInput.setTitle(DomI18n.SECONDS);
+		secondInput.setMarker(DomTestMarker.SECONDS_INPUT);
 		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
 		if (showLabels) {
@@ -59,18 +64,38 @@ public class DomTimeInput extends DomBar {
 		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
 	}
 
+	/**
+	 * Parses the value text into a {@link Time} object.
+	 * <p>
+	 * If the value text is empty or blank, an empty {@link Optional} is
+	 * returned. Otherwise, the value text is parsed into a {@link Time} object.
+	 * If parsing failed, an exception is thrown.
+	 *
+	 * @return the optionally entered {@link Time}
+	 * @throws IllegalTimeSpecificationException
+	 *             if the non-blank value text could not be parsed
+	 */
+	public Optional<Time> getTimeOrThrowIfInvalid() {
+
+		return Optional.ofNullable(getTime());
+	}
+
 	public Time getTime() {
 
-		Integer hours = hourInput.getIntegerOrNull();
-		Integer minutes = minuteInput.getIntegerOrNull();
-		Integer seconds = secondInput.getIntegerOrNull();
-		if (hours != null && minutes != null && seconds != null) {
-			return new Time(hours, minutes, seconds);
-		} else if (hours == null && minutes == null && seconds == null) {
-			return null;
-		} else {
-			throw new SofticarUserException(DomI18n.//
-					CANNOT_PARSE_TIME_WITH_ARG1_HOURS_ARG2_MINUTES_AND_ARG3_SECONDS.toDisplay(hours, minutes, seconds));
+		try {
+			Integer hours = hourInput.getIntegerOrNull();
+			Integer minutes = minuteInput.getIntegerOrNull();
+			Integer seconds = secondInput.getIntegerOrNull();
+
+			if (hours != null && minutes != null && seconds != null) {
+				return new Time(hours, minutes, seconds);
+			} else if (hours == null && minutes == null && seconds == null) {
+				return null;
+			} else {
+				throw new IllegalTimeSpecificationException(getValueAsString());
+			}
+		} catch (Exception exception) {
+			throw new IllegalTimeSpecificationException(exception, getValueAsString());
 		}
 	}
 
@@ -96,5 +121,14 @@ public class DomTimeInput extends DomBar {
 
 		secondInput.setInteger(0);
 		secondInput.disable();
+	}
+
+	private String getValueAsString() {
+
+		return "%s:%s:%s"
+			.formatted(//
+				Optional.ofNullable(hourInput.getValue()).orElse(""),
+				Optional.ofNullable(minuteInput.getValue()).orElse(""),
+				Optional.ofNullable(secondInput.getValue()).orElse(""));
 	}
 }

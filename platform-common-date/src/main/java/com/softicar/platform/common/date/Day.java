@@ -197,21 +197,46 @@ public final class Day extends DateItem<Day> {
 	// -------------------------------- FACTORY FUNCTIONS -------------------------------- //
 
 	/**
-	 * Returns the specified day of the given year and month.
+	 * Returns the {@link Day} for the given triplet of year, month and day of
+	 * the month.
 	 *
 	 * @param year
-	 *            the absolute index of the year
+	 *            the absolute number of the year
 	 * @param month
-	 *            the index of the month within the year [1,12]
+	 *            the number of the month [1,12]
 	 * @param day
-	 *            the index of the day within the month [1,31]
-	 * @return the specified day
+	 *            the number of the day [1,31]
+	 * @return the respective {@link Day} (never <i>null</i>)
 	 */
 	public static Day fromYMD(int year, int month, int day) {
 
 		int absoluteMonth = ISOCalendar.getMonthOfYear(year, month);
 		int absoluteDay = ISOCalendar.getDayOfMonth(absoluteMonth, day);
 		return Day.get(absoluteDay);
+	}
+
+	/**
+	 * Returns the {@link Day} for the given triplet of year, month and day of
+	 * the month.
+	 *
+	 * @param year
+	 *            the absolute number of the year
+	 * @param month
+	 *            the number of the month [1,12]
+	 * @param day
+	 *            the number of the day [1,n], where <i>n</i> is the number of
+	 *            days in the month
+	 * @return the respective {@link Day} (never <i>null</i>)
+	 * @throws IllegalDateSpecificationException
+	 *             if either the month number violates the range [1,12] or if
+	 *             the day number violates the range [1,n]
+	 */
+	public static Day fromYMDChecked(int year, int month, int day) {
+
+		if (!ISOCalendar.isValidYMD(year, month, day)) {
+			throw new IllegalDateSpecificationException(year, month, day);
+		}
+		return fromYMD(year, month, day);
 	}
 
 	/**

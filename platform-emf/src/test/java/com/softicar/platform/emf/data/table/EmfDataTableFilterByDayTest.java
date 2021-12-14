@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -134,9 +135,9 @@ public class EmfDataTableFilterByDayTest extends AbstractEmfDataTableFilterByVal
 
 	private void applyFilter(DataTableValueFilterOperator filterType, String filterString) {
 
-		openFilterPopup(column);
+		DomNodeTester popup = openFilterPopup(column);
 		selectFilterType(filterType);
-		findDayInput(EmfDataTableDivMarker.FILTER_INPUT_VALUE).inputString(filterString != null? filterString : "");
+		popup.setInputValue(EmfDataTableDivMarker.FILTER_INPUT_VALUE, filterString != null? filterString : "");
 		confirmFilterPopup();
 	}
 }

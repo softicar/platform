@@ -24,8 +24,6 @@ public interface DomI18n {
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
-	I18n3 CANNOT_PARSE_TIME_WITH_ARG1_HOURS_ARG2_MINUTES_AND_ARG3_SECONDS = new I18n3("Cannot parse time with '%s' hours, '%s' minutes and '%s' seconds.")//;
-		.de("Zeit mit '%s' Stunden, '%s' Minuten und '%s' Sekunden konnte nicht geparst werden.");
 	I18n0 CLOSE = new I18n0("Close")//
 		.de("Schließen");
 	I18n0 COLUMN_NAME = new I18n0("Column Name")//

@@ -19,6 +19,10 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Modulinstanz");
 	I18n0 DEMO_MODULE_INSTANCES = new I18n0("Demo Module Instances")//
 		.de("Demo-Modulinstanzen");
+	I18n0 DEMO_MOMENT = new I18n0("Demo Moment")//
+		.de("Demo-Moment");
+	I18n0 DEMO_MOMENTS = new I18n0("Demo Moments")//
+		.de("Demo-Momente");
 	I18n0 DOCUMENT = new I18n0("Document")//
 		.de("Dokument");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
@@ -37,6 +41,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Gesperrte Positionen.");
 	I18n0 NET_AMOUNT = new I18n0("Net Amount")//
 		.de("Nettobetrag");
+	I18n0 POINT_IN_TIME = new I18n0("Point-In-Time")//
+		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//
 		.de("Menge");
 }

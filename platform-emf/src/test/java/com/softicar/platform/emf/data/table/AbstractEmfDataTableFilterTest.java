@@ -1,13 +1,14 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 
 abstract class AbstractEmfDataTableFilterTest extends AbstractEmfDataTableTest {
 
-	protected void openFilterPopup(IDataTableColumn<TestTableRow, ?> column) {
+	protected DomNodeTester openFilterPopup(IDataTableColumn<TestTableRow, ?> column) {
 
 		clickColumnFilterButton(column);
-		findNodes(EmfDataTableDivMarker.FILTER_POPUP).assertOne();
+		return findNodes(EmfDataTableDivMarker.FILTER_POPUP).assertOne();
 	}
 
 	protected void confirmFilterPopup() {

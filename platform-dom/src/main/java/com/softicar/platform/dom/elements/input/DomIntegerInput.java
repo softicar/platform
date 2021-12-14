@@ -81,10 +81,11 @@ public class DomIntegerInput extends AbstractDomNumberInput {
 		}
 	}
 
-	public void setRange(Integer begin, Integer end) {
+	public DomIntegerInput setRange(Integer begin, Integer end) {
 
 		this.minimum = begin;
 		this.maximum = end;
+		return this;
 	}
 
 	public void setMinimumInteger(Integer minimum) {
