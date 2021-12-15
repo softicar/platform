@@ -3,12 +3,11 @@ package com.softicar.platform.db.runtime.table.listener;
 import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import java.util.Collection;
-import java.util.List;
 
 class DbTableRowNotificationSet<R> implements IDbTableRowNotificationSet<R> {
 
 	private final IDbTable<R, ?> table;
-	private final List<DbTableRowNotification<R>> notifications;
+	private final Collection<DbTableRowNotification<R>> notifications;
 
 	public DbTableRowNotificationSet(IDbTable<R, ?> table) {
 
@@ -22,7 +21,7 @@ class DbTableRowNotificationSet<R> implements IDbTableRowNotificationSet<R> {
 	}
 
 	@Override
-	public List<DbTableRowNotification<R>> getAllNotifications() {
+	public Collection<DbTableRowNotification<R>> getAllNotifications() {
 
 		return notifications;
 	}

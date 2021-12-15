@@ -2,7 +2,7 @@ package com.softicar.platform.db.runtime.table.listener;
 
 import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.db.runtime.table.IDbTable;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
  */
 public interface IDbTableRowNotificationSet<R> {
 
-	List<DbTableRowNotification<R>> getAllNotifications();
+	Collection<DbTableRowNotification<R>> getAllNotifications();
 
-	default List<R> getAllTableRows() {
+	default Collection<R> getAllTableRows() {
 
 		return getAllNotifications()//
 			.stream()
@@ -24,7 +24,7 @@ public interface IDbTableRowNotificationSet<R> {
 			.collect(Collectors.toCollection(HashList::new));
 	}
 
-	default List<R> getAllTableRows(DbTableRowNotificationType notificationType) {
+	default Collection<R> getAllTableRows(DbTableRowNotificationType notificationType) {
 
 		return getAllNotifications()//
 			.stream()
@@ -33,17 +33,17 @@ public interface IDbTableRowNotificationSet<R> {
 			.collect(Collectors.toCollection(HashList::new));
 	}
 
-	default List<R> getDeletedRows() {
+	default Collection<R> getDeletedRows() {
 
 		return getAllTableRows(DbTableRowNotificationType.DELETE);
 	}
 
-	default List<R> getLoadedRows() {
+	default Collection<R> getLoadedRows() {
 
 		return getAllTableRows(DbTableRowNotificationType.LOAD);
 	}
 
-	default List<R> getSavedRows() {
+	default Collection<R> getSavedRows() {
 
 		return getAllTableRows(DbTableRowNotificationType.SAVE);
 	}
