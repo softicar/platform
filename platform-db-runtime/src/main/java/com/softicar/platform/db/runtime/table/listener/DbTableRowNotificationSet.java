@@ -1,19 +1,18 @@
 package com.softicar.platform.db.runtime.table.listener;
 
+import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 class DbTableRowNotificationSet<R> implements IDbTableRowNotificationSet<R> {
 
 	private final IDbTable<R, ?> table;
-	private final Set<DbTableRowNotification<R>> notifications;
+	private final Collection<DbTableRowNotification<R>> notifications;
 
 	public DbTableRowNotificationSet(IDbTable<R, ?> table) {
 
 		this.table = table;
-		this.notifications = new HashSet<>();
+		this.notifications = new HashList<>();
 	}
 
 	public IDbTable<R, ?> getTable() {
