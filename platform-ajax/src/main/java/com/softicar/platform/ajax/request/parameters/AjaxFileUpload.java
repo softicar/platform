@@ -4,28 +4,28 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.io.IOException;
 import java.io.InputStream;
-import org.apache.commons.fileupload.FileItemStream;
+import javax.servlet.http.Part;
 
 class AjaxFileUpload implements IDomFileUpload {
 
-	private final FileItemStream item;
+	private final Part part;
 
-	public AjaxFileUpload(FileItemStream item) {
+	public AjaxFileUpload(Part part) {
 
-		this.item = item;
+		this.part = part;
 	}
 
 	@Override
 	public String getFilename() {
 
-		return item.getName();
+		return part.getSubmittedFileName();
 	}
 
 	@Override
 	public InputStream getStream() {
 
 		try {
-			return item.openStream();
+			return part.getInputStream();
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
@@ -34,6 +34,6 @@ class AjaxFileUpload implements IDomFileUpload {
 	@Override
 	public String getContentType() {
 
-		return item.getContentType();
+		return part.getContentType();
 	}
 }

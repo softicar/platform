@@ -1,5 +1,7 @@
 PACKAGE com.softicar.platform.demo.module.invoice
 
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.file.stored.set.AGStoredFileSet
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.demo.module.AGDemoModuleInstance
 
@@ -10,4 +12,6 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	String invoiceNumber [MAXLENGTH=255]
 	Day invoiceDate
 	Boolean lockedItems = FALSE
+	AGStoredFile document = NULL [NULLABLE]
+	AGStoredFileSet attachments = NULL [NULLABLE]
 }

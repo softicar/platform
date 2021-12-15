@@ -19,6 +19,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Modulinstanz");
 	I18n0 DEMO_MODULE_INSTANCES = new I18n0("Demo Module Instances")//
 		.de("Demo-Modulinstanzen");
+	I18n0 DOCUMENT = new I18n0("Document")//
+		.de("Dokument");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
 	I18n0 INVOICE = new I18n0("Invoice")//

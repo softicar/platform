@@ -3,11 +3,13 @@ package com.softicar.platform.ajax.server.hot;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Optional;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.eclipse.jetty.server.Request;
 
 /**
  * A special {@link HttpServlet} wrapper to enable hot deployment.
@@ -53,6 +55,7 @@ public class HotDeploymentServlet extends HttpServlet {
 
 		// service the request
 		try {
+			setRequestAttributes(request);
 			servlet.service(request, response);
 		} catch (IOException | ServletException exception) {
 			throw new RuntimeException(exception);
@@ -84,6 +87,14 @@ public class HotDeploymentServlet extends HttpServlet {
 			} catch (IOException exception) {
 				throw new RuntimeException(exception);
 			}
+		}
+	}
+
+	private void setRequestAttributes(HttpServletRequest request) {
+
+		// Inject a Jetty-specific multipart configuration
+		if (request.getContentType() != null && request.getContentType().startsWith("multipart/")) {
+			request.setAttribute(Request.MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
 		}
 	}
 }

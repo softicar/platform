@@ -1,44 +1,38 @@
 package com.softicar.platform.ajax.request.parameters;
 
-import com.softicar.platform.common.core.exceptions.SofticarException;
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
+import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 /**
- * An adapter for the {@link FileItemIterator}.
- * <p>
- * This adapter isolates the client code from the dependency on
- * {@link FileItemIterator}, so that this might be replaced later if necessary.
- * <p>
- * Also, the fact that the {@link FileItemIterator} given to this class is
- * already advanced beyond the first file item, is hidden.
+ * An {@link Iterable} and {@link Iterator} of {@link Part} instances from a
+ * {@link HttpServletRequest}.
  *
  * @author Oliver Richers
+ * @author Alexander Schmidt
  */
 class AjaxFileUploadList implements Iterable<IDomFileUpload>, Iterator<IDomFileUpload> {
 
-	private final FileItemIterator iterator;
-	private FileItemStream current;
+	private final Iterator<Part> iterator;
+	private Part current;
 
 	/**
-	 * Constructs this {@link AjaxFileUploadList} with the specified first
-	 * {@link FileItemStream} and the {@link FileItemIterator}.
+	 * Constructs a new {@link AjaxFileUploadList} with the specified first
+	 * {@link Part} and an {@link Iterator} of {@link Part} instances.
 	 *
-	 * @param first
-	 *            the first file item
+	 * @param part
+	 *            the first {@link Part} (never <i>null</i>)
 	 * @param iterator
-	 *            the iterator to the following file items
+	 *            the {@link Iterator} to the following {@link Part} instances
+	 *            (never <i>null</i>)
 	 */
-	public AjaxFileUploadList(FileItemStream first, FileItemIterator iterator) {
+	public AjaxFileUploadList(Part part, Iterator<Part> iterator) {
 
-		this.current = first;
-		this.iterator = iterator;
+		this.current = Objects.requireNonNull(part);
+		this.iterator = Objects.requireNonNull(iterator);
 
 		if (!isCurrentOkay()) {
 			findNext();
@@ -61,7 +55,7 @@ class AjaxFileUploadList implements Iterable<IDomFileUpload>, Iterator<IDomFileU
 			throw new NoSuchElementException();
 		}
 
-		FileItemStream tmp = current;
+		Part tmp = current;
 		current = null;
 		return new AjaxFileUpload(tmp);
 	}
@@ -80,24 +74,23 @@ class AjaxFileUploadList implements Iterable<IDomFileUpload>, Iterator<IDomFileU
 
 	private boolean isCurrentOkay() {
 
-		return current != null && !current.isFormField() && !current.getName().isEmpty();
+		return current != null && !isFormField(current) && !current.getName().isEmpty();
+	}
+
+	private boolean isFormField(Part part) {
+
+		return part.getSubmittedFileName() == null;
 	}
 
 	private void findNext() {
 
-		try {
-			while (iterator.hasNext()) {
-				current = iterator.next();
-				if (isCurrentOkay()) {
-					return;
-				}
+		while (iterator.hasNext()) {
+			current = iterator.next();
+			if (isCurrentOkay()) {
+				return;
 			}
-
-			current = null;
-		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
-		} catch (FileUploadException exception) {
-			throw new SofticarException(exception);
 		}
+
+		current = null;
 	}
 }

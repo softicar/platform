@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  * Central {@link HttpServlet} for all web-services.
  * <p>
  * WARNING: DO NOT RENAME OR MOVE THIS CLASS.
+ * <p>
+ * This class is referenced via canonical name, from the {@code web.xml} files
+ * of consuming projects.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
