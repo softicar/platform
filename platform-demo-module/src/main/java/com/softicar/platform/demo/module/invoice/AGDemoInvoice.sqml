@@ -7,7 +7,7 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	PK Integer id = SERIAL
 	AGTransaction transaction
 	AGDemoModuleInstance moduleInstance
-	String invoiceNumber
+	String invoiceNumber [MAXLENGTH=255]
 	Day invoiceDate
 	Boolean lockedItems = FALSE
 }
