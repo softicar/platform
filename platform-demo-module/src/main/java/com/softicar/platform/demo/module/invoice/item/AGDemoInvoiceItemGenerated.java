@@ -32,7 +32,7 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 
 	public static final IDbIdField<AGDemoInvoiceItem> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
 	public static final IDbForeignField<AGDemoInvoiceItem, AGDemoInvoice> INVOICE = BUILDER.addForeignField("invoice", o->o.m_invoice, (o,v)->o.m_invoice=v, AGDemoInvoice.ID).setTitle(DemoI18n.INVOICE);
-	public static final IDbStringField<AGDemoInvoiceItem> ITEM = BUILDER.addStringField("item", o->o.m_item, (o,v)->o.m_item=v).setTitle(DemoI18n.ITEM);
+	public static final IDbStringField<AGDemoInvoiceItem> ITEM = BUILDER.addStringField("item", o->o.m_item, (o,v)->o.m_item=v).setTitle(DemoI18n.ITEM).setMaximumLength(255);
 	public static final IDbIntegerField<AGDemoInvoiceItem> QUANTITY = BUILDER.addIntegerField("quantity", o->o.m_quantity, (o,v)->o.m_quantity=v).setTitle(DemoI18n.QUANTITY);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> GROSS_AMOUNT = BUILDER.addBigDecimalField("grossAmount", o->o.m_grossAmount, (o,v)->o.m_grossAmount=v).setTitle(DemoI18n.GROSS_AMOUNT).setSize(20, 4);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> NET_AMOUNT = BUILDER.addBigDecimalField("netAmount", o->o.m_netAmount, (o,v)->o.m_netAmount=v).setTitle(DemoI18n.NET_AMOUNT).setSize(20, 4);

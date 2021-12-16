@@ -5,7 +5,7 @@ IMPORT com.softicar.platform.demo.module.invoice.AGDemoInvoice
 TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	PK Integer id = SERIAL
 	AGDemoInvoice invoice
-	String item
+	String item [MAXLENGTH=255]
 	Integer quantity
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
