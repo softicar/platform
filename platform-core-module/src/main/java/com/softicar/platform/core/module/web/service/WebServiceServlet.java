@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.web.service.environment.WebServiceDefau
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Collection;
 import java.util.UUID;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
+@MultipartConfig
 public class WebServiceServlet extends HttpServlet {
 
 	private static final String ID_PARAMETER_NAME = "id";
