@@ -2,7 +2,9 @@ package com.softicar.platform.ajax.server.standalone;
 
 import com.softicar.platform.common.core.exception.CheckedExceptions;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.utils.CastUtils;
 import java.util.Objects;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServlet;
 import org.eclipse.jetty.http.HttpCookie.SameSite;
 import org.eclipse.jetty.server.Server;
@@ -10,6 +12,7 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.servlet.ServletHolder.Registration;
 
 /**
  * Base class for stand-alone {@link HttpServlet} servers.
@@ -18,18 +21,20 @@ import org.eclipse.jetty.servlet.ServletHolder;
  */
 public abstract class AbstractStandAloneServletServer<T> {
 
-	private static final int DEFAULT_PORT = 0;
-	private static final String DEFAULT_CONTEXT_NAME = "context";
-	private static final String DEFAULT_REQUEST_STRING = "";
-	private int port;
-	private String contextName;
-	private String requestString;
+	private final StandAloneServletServerConfiguration configuration;
+	private Integer localPort;
+	protected StandAloneServletServerHandle serverHandle;
 
 	public AbstractStandAloneServletServer() {
 
-		this.port = DEFAULT_PORT;
-		this.contextName = DEFAULT_CONTEXT_NAME;
-		this.requestString = DEFAULT_REQUEST_STRING;
+		this(new StandAloneServletServerConfiguration());
+	}
+
+	public AbstractStandAloneServletServer(StandAloneServletServerConfiguration configuration) {
+
+		this.configuration = Objects.requireNonNull(configuration);
+		this.localPort = null;
+		this.serverHandle = null;
 	}
 
 	// ------------------------------ configuration ------------------------------ //
@@ -45,14 +50,27 @@ public abstract class AbstractStandAloneServletServer<T> {
 	 */
 	public T setPort(int port) {
 
-		this.port = port;
+		configuration.setPort(port);
 		return getThis();
+	}
+
+	/**
+	 * Returns the TCP port on which the started server listens.
+	 * <p>
+	 * Returns <i>null</i> if the server was not yet started.
+	 *
+	 * @return the port (may be <i>null</i>)
+	 */
+	public int getLocalPort() {
+
+		return localPort;
 	}
 
 	/**
 	 * Defines the context name, also called web application name.
 	 * <p>
-	 * The default context name is {@value #DEFAULT_CONTEXT_NAME}.
+	 * The default context name is
+	 * {@value StandAloneServletServerConfiguration#DEFAULT_CONTEXT_NAME}.
 	 *
 	 * @param contextName
 	 *            the context name (never null)
@@ -60,7 +78,7 @@ public abstract class AbstractStandAloneServletServer<T> {
 	 */
 	public T setContextName(String contextName) {
 
-		this.contextName = Objects.requireNonNull(contextName);
+		configuration.setContextName(contextName);
 		return getThis();
 	}
 
@@ -71,7 +89,8 @@ public abstract class AbstractStandAloneServletServer<T> {
 	 * this request string, that is, <i>http://localhost:$port/</i> is mapped to
 	 * <i>http://localhost:$port/$context/$requestString</i>.
 	 * <p>
-	 * The default request string is {@value #DEFAULT_REQUEST_STRING}.
+	 * The default request string is
+	 * {@value StandAloneServletServerConfiguration#DEFAULT_REQUEST_STRING}.
 	 *
 	 * @param requestString
 	 *            the default request string (never null)
@@ -79,7 +98,7 @@ public abstract class AbstractStandAloneServletServer<T> {
 	 */
 	public T setRequestString(String requestString) {
 
-		this.requestString = Objects.requireNonNull(requestString);
+		configuration.setRequestString(requestString);
 		return getThis();
 	}
 
@@ -95,10 +114,12 @@ public abstract class AbstractStandAloneServletServer<T> {
 	@SuppressWarnings("resource")
 	public StandAloneServletServerHandle start() {
 
-		Server server = createServer();
+		ServletHolder servletHolder = prepareServletHolder();
+		Server server = createServer(servletHolder);
 		ServerConnector connector = addConnector(server);
 		CheckedExceptions.wrap(() -> server.start());
-		return new StandAloneServletServerHandle(server, connector);
+		this.localPort = connector.getLocalPort();
+		return this.serverHandle = new StandAloneServletServerHandle(server, connector, servletHolder);
 	}
 
 	/**
@@ -112,7 +133,7 @@ public abstract class AbstractStandAloneServletServer<T> {
 	public void startAndJoin() {
 
 		try (StandAloneServletServerHandle serverHandle = start()) {
-			printServerAddress(serverHandle);
+			printServerAddress();
 			serverHandle.join();
 		}
 	}
@@ -121,21 +142,40 @@ public abstract class AbstractStandAloneServletServer<T> {
 
 	protected abstract T getThis();
 
-	protected abstract ServletHolder getServletHolder();
+	protected abstract ServletHolder createServletHolder();
 
 	// ------------------------------ private ------------------------------ //
 
-	private Server createServer() {
+	private ServletHolder prepareServletHolder() {
+
+		return applyDefaultMultipartConfig(createServletHolder());
+	}
+
+	private ServletHolder applyDefaultMultipartConfig(ServletHolder holder) {
+
+		var registration = holder.getRegistration();
+		if (CastUtils.tryCast(registration, Registration.class).map(Registration::getMultipartConfig).isEmpty()) {
+			registration.setMultipartConfig(new MultipartConfigElement(""));
+		}
+		return holder;
+	}
+
+	private Server createServer(ServletHolder servletHolder) {
+
+		String contextName = configuration.getContextName();
+		String requestString = configuration.getRequestString();
 
 		// create and setup context handler
 		ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		contextHandler.setContextPath("/" + contextName);
-		contextHandler.addServlet(getServletHolder(), "/*");
+		contextHandler.addServlet(servletHolder, "/*");
 		contextHandler.getSessionHandler().setSameSite(SameSite.STRICT);
 
 		// create handler list
 		HandlerList handlerList = new HandlerList();
-		handlerList.addHandler(new RedirectionHandler("/", String.format("/%s/%s", contextName, requestString)));
+		if (!contextName.isEmpty()) {
+			handlerList.addHandler(new RedirectionHandler("/", String.format("/%s/%s", contextName, requestString)));
+		}
 		handlerList.addHandler(contextHandler);
 
 		// create server
@@ -146,18 +186,24 @@ public abstract class AbstractStandAloneServletServer<T> {
 
 	private ServerConnector addConnector(Server server) {
 
+		int port = configuration.getPort();
 		ServerConnector connector = new ServerConnector(server);
-		connector.setPort(port);
+		if (port != 0) {
+			connector.setPort(port);
+		}
 		server.addConnector(connector);
 		return connector;
 	}
 
-	private void printServerAddress(StandAloneServletServerHandle serverHandle) {
+	private void printServerAddress() {
 
-		@SuppressWarnings("resource")
-		int localPort = serverHandle.getConnector().getLocalPort();
 		Log.finfo("Server started at http://localhost:%s", localPort);
 		Log.finfo("Full URL:");
-		Log.finfo("http://localhost:%s/%s/%s", localPort, contextName, requestString);
+		Log
+			.finfo(//
+				"http://localhost:%s/%s/%s",
+				localPort,
+				configuration.getContextName(),
+				configuration.getRequestString());
 	}
 }

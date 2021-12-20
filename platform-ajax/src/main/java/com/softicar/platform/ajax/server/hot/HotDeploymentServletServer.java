@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServlet;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 /**
- * A stand-alone, hot-deployment server for a single {@link HttpServlet}.
+ * A stand-alone, hot-deployment capable server for a single
+ * {@link HttpServlet}.
  *
  * @author Oliver Richers
+ * @author Alexander Schmidt
  */
 public class HotDeploymentServletServer extends AbstractStandAloneServletServer<HotDeploymentServletServer> {
 
@@ -31,7 +33,7 @@ public class HotDeploymentServletServer extends AbstractStandAloneServletServer<
 	}
 
 	@Override
-	protected ServletHolder getServletHolder() {
+	protected ServletHolder createServletHolder() {
 
 		return new ServletHolder(new HotDeploymentServlet(servletLoader));
 	}

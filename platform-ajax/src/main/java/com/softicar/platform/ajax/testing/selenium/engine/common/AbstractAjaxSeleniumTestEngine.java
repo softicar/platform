@@ -5,7 +5,6 @@ import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestEnvironment;
 import com.softicar.platform.ajax.testing.selenium.grid.AjaxSeleniumGridController;
 import com.softicar.platform.ajax.testing.selenium.screenshot.AjaxSeleniumScreenshotQueue;
 import com.softicar.platform.ajax.testing.selenium.web.driver.AjaxSeleniumWebDriverController;
-import com.softicar.platform.ajax.testing.server.IAjaxTestingServerEnvironment;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.node.IDomNode;
@@ -42,12 +41,7 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 
 	public AbstractAjaxSeleniumTestEngine() {
 
-		this(null);
-	}
-
-	public AbstractAjaxSeleniumTestEngine(IAjaxTestingServerEnvironment environment) {
-
-		this.testEnvironment = new AjaxSeleniumTestEnvironment(this::navigateTo, environment);
+		this.testEnvironment = new AjaxSeleniumTestEnvironment(this::navigateTo);
 		this.webDriverController = new AjaxSeleniumWebDriverController();
 		this.screenshotQueue = new AjaxSeleniumScreenshotQueue(this::getWebDriver);
 

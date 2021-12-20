@@ -49,7 +49,7 @@ public class WebServiceTestServer extends AbstractStandAloneServletServer<WebSer
 	}
 
 	@Override
-	protected ServletHolder getServletHolder() {
+	protected ServletHolder createServletHolder() {
 
 		return new ServletHolder(new WebServiceServlet().setEnvironment(environment));
 	}
