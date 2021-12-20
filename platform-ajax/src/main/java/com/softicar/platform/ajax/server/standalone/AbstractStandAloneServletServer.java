@@ -18,6 +18,7 @@ import org.eclipse.jetty.servlet.ServletHolder.Registration;
  * Base class for stand-alone {@link HttpServlet} servers.
  *
  * @author Oliver Richers
+ * @author Alexander Schmidt
  */
 public abstract class AbstractStandAloneServletServer<T> {
 
