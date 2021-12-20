@@ -20,6 +20,8 @@ public class PageDiv extends DomDiv {
 		appendChild(pageHeaderAndContentDiv);
 
 		checkDocumentParameters(documentParameters);
+
+		setCssClass(PageCssClasses.PAGE_DIV);
 	}
 
 	private void checkDocumentParameters(IAjaxDocumentParameters documentParameters) {

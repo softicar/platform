@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.form;
 
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
 import java.util.Collection;
@@ -14,6 +15,8 @@ class EmfAttributesTableContainer<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		this.attributesDiv = new EmfFormAttributesDiv<>(tableRow, editMode);
 
 		appendChild(attributesDiv);
+
+		setCssClass(EmfCssClasses.EMF_ATTRIBUTES_TABLE_CONTAINER);
 	}
 
 	public EmfAttributesTableContainer<R> addAdditionalValidators(Collection<IEmfValidator<R>> validators) {

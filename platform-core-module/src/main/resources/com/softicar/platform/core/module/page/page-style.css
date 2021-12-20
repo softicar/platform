@@ -7,7 +7,6 @@
 /* -------------------- PageContentDiv -------------------- */
 
 .PageContentDiv {
-
 	/* position */
 	box-sizing: border-box;
 	bottom: 0;
@@ -19,7 +18,7 @@
 
 	/* content layout */
 	align-items: start;
-	display: grid;
+	display: flex;
 	justify-items: start;
 	padding: 20px;
 
@@ -33,24 +32,32 @@
 }
 
 .PageContentDiv::-webkit-scrollbar {
-	
 	width: 6px;
 }
 
 .PageContentDiv::-webkit-scrollbar-thumb {
-	
 	background: var(--PRIMARY_COLOR);
 }
 
 .PageNavigationCollapsed .PageContentDiv {
-	
 	left: 0px;
+}
+
+/* -------------------- PageDiv -------------------- */
+
+.PageDiv {
+	display: block;
+}
+
+/* -------------------- PageHeaderAndContentDiv -------------------- */
+
+.PageHeaderAndContentDiv {
+	display: block;
 }
 
 /* -------------------- PageHeaderDiv -------------------- */
 
 .PageHeaderDiv {
-	
 	/* position */
 	box-sizing: border-box;
 	height: var(--PAGE_HEADER_HEIGHT);
@@ -75,12 +82,10 @@
 }
 
 .PageNavigationCollapsed .PageHeaderDiv {
-
 	left: 0px;
 }
 
 .PageHeaderDiv > .DomButton img {
-
 	max-height: var(--PAGE_HEADER_BUTTON_SIZE);
 	max-width: var(--PAGE_HEADER_BUTTON_SIZE);
 
@@ -89,7 +94,6 @@
 }
 
 .PageHeaderPathDiv {
-
 	/* content layout */
 	align-items: center;
 	display: grid;
@@ -100,12 +104,10 @@
 }
 
 .PageHeaderSeparator {
-	
 	font-weight: bold;
 }
 
 .PageHeaderPageName {
-	
 	font-size: var(--FONT_SIZE_BIGGER);
 	font-weight: bold;
 }
@@ -113,7 +115,6 @@
 /* -------------------- PageServiceLoginDiv -------------------- */
 
 .PageServiceLoginDiv {
-	
 	/* position */
 	box-sizing: border-box;
 	bottom: 0;
@@ -132,7 +133,6 @@
 }
 
 .PageServiceLoginDiv form {
-
 	/* content layout */
 	display: grid;
 	justify-items: center;
@@ -146,14 +146,12 @@
 }
 
 .PageServiceLoginErrorDiv {
-	
 	display: grid;
 	justify-content: center;
 	padding-top: 5px;
 }
 
 .TestSystem {
-	
 	background: repeating-linear-gradient(
 		135deg, 
 		var(--GRAY_BACKGROUND_COLOR), 

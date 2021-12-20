@@ -4,6 +4,7 @@
 }
 
 .DomPageableTableNavigation {
+	display: flex;
 	padding: 0 1em 1em 1em;
 }
 

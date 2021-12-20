@@ -27,7 +27,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		this.commonActionsDiv = null;
 		this.editMode = false;
 
-		setCssClass(EmfCssClasses.EMF_FORM_UPPER_BODY_PART);
+		setCssClass(EmfCssClasses.EMF_FORM_BODY_UPPER_PART);
 	}
 
 	public boolean isEditMode() {

@@ -45,6 +45,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 		public TitleSpan() {
 
 			appendText(link.getTitle());
+			setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_TITLE);
 		}
 	}
 

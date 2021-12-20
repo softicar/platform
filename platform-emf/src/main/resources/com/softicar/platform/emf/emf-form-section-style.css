@@ -1,11 +1,9 @@
 
 .EmfFormSectionDiv {
-	
 	white-space: initial;
 }
 
 .EmfFormSectionHeaderDiv {
-	
 	display: flex;
 	position: relative;
 	align-items: center;
@@ -23,23 +21,19 @@
 }
 
 .EmfFormSectionHeaderDiv.invisible {
-	
 	display: none;
 }
 
 .EmfFormSectionHeaderDiv.disabled {
-	
 	cursor: default;
 }
 
 .EmfFormSectionHeaderOpenIndicator {
-	
 	display: inline-block;
 	pointer-events: none;
 }
 
 .EmfFormSectionHeaderOpenIndicator.open {
-	
 	border-top: var(--BORDER_RADIUS) solid #888;
 	border-bottom: 0px solid #888;
 	border-right: var(--BORDER_RADIUS) solid transparent;
@@ -53,7 +47,6 @@
 }
 /*TODO Replace the OpenIndicator with a Image that is rotated to reduce style complexity*/
 .EmfFormSectionHeaderOpenIndicator:not(.open) {
-	
 	margin-left: 6px;
 	
 	border-top: var(--BORDER_RADIUS) solid transparent;
@@ -63,13 +56,11 @@
 }
 
 .EmfFormSectionHeaderOpenIndicator:not(.open).invisible {
-
 	border-right: 0px solid transparent;
 	border-left: var(--BORDER_RADIUS) solid transparent;
 }
 
 .EmfFormSectionHeaderIcon {
-	
 	display: flex;
 	width: 24px;
 	height: 24px;
@@ -78,24 +69,20 @@
 }
 
 .EmfFormSectionHeaderTitle {
-	
 	pointer-events: none;
 	user-select: none;
 }
 
 .EmfFormSectionHeaderContent {
-	
 	margin-left: auto;
 	pointer-events: auto;
 }
 
 .EmfFormSectionContentDiv {
-	
 	overflow: auto;
 }
 
 .EmfFormSectionContentDiv:not(.invisible) {
-	
 	/* TODO replace hard-coded size of margin and padding with derived values */
 	border: 1px solid var(--INPUT_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
@@ -104,7 +91,10 @@
 	background: var(--PAGE_CONTENT_BACKGROUND);
 }
 
+.EmfFormSectionContentDivContainer {
+	display: block;
+}
+
 .EmfFormSectionNoContent {
-	
 	font-style: italic;
 }

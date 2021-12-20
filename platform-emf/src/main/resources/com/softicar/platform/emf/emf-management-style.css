@@ -1,6 +1,7 @@
 
 .EmfManagementDiv {
-	display: inline-grid;
+	display: inline-flex;
+	flex-direction: column;
 }
 
 .EmfManagementActionsButton {

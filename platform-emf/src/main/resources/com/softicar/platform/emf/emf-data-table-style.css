@@ -1,8 +1,9 @@
 .EmfDataTableHeaderCellDiv {
-	gap: 2px;
+	display: block;
 }
 
 .EmfDataTableHeaderCellDiv .DomBar {
+	display: flex;
 	gap: 2px;
 }
 
@@ -34,8 +35,9 @@
 	background-color: #fff;
 	border-radius: var(--BORDER_RADIUS);
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
-	display: inline-grid;
-	row-gap: 8px;
+	display: inline-flex;
+	flex-direction: column;
+	gap: 8px;
 	justify-self: start;
 }
 

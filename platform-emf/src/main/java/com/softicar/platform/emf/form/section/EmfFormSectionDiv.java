@@ -50,6 +50,7 @@ public class EmfFormSectionDiv<R extends IEmfTableRow<R, ?>> extends DomDiv impl
 		this.open = false;
 		this.headerDiv = appendChild(new EmfFormSectionHeaderDiv()).setClickCallback(this::toggleOpen);
 		this.contentDiv = appendChild(new DomDiv());
+		this.contentDiv.setCssClass(EmfCssClasses.EMF_FORM_SECTION_CONTENT_DIV_CONTAINER);
 		this.elementSuppliers = new ArrayList<>();
 		setCssClass(EmfCssClasses.EMF_FORM_SECTION_DIV);
 		refreshHeaderAndContent();

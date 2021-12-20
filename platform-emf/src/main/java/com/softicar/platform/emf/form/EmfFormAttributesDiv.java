@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.form;
 
+import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.editor.EmfAttributeValueInputFrame;
 import com.softicar.platform.emf.editor.EmfAttributesDiv;
@@ -19,6 +20,8 @@ public class EmfFormAttributesDiv<R extends IEmfTableRow<R, ?>> extends EmfAttri
 
 		this.tableRow = tableRow;
 		this.editMode = editMode;
+
+		setCssClass(EmfCssClasses.EMF_FORM_ATTRIBUTES_DIV);
 
 		refresh();
 	}

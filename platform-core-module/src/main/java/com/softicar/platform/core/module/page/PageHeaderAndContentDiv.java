@@ -32,6 +32,8 @@ public class PageHeaderAndContentDiv extends DomDiv {
 		changeBrowserUrl(link);
 		appendChild(new PageHeaderDiv<>(link, navigationToggleFunction));
 		appendChild(new PageContentDiv(link));
+
+		setCssClass(PageCssClasses.PAGE_HEADER_AND_CONTENT_DIV);
 	}
 
 	private void closeRemainingPopupFrames() {

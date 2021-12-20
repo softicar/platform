@@ -61,6 +61,7 @@ public interface DomElementsCssClasses {
 
 	ICssClass DOM_SEPARATOR_CELL = new CssClass("DomSeparatorCell", DomElementsCssFiles.DOM_SEPARATOR_CELL_STYLE);
 
+	ICssClass DOM_TAB = new CssClass("DomTab", DomElementsCssFiles.DOM_TAB_BAR_STYLE);
 	ICssClass DOM_TAB_BAR = new CssClass("DomTabBar", DomElementsCssFiles.DOM_TAB_BAR_STYLE);
 	ICssClass DOM_TAB_BAR_CONTENT_CONTAINER = new CssClass("DomTabBarContentContainer", DomElementsCssFiles.DOM_TAB_BAR_STYLE);
 	ICssClass DOM_TAB_BAR_HEADER = new CssClass("DomTabBarHeader", DomElementsCssFiles.DOM_TAB_BAR_STYLE);

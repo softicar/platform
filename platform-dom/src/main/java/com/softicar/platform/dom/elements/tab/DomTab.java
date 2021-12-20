@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.util.Optional;
 
 /**
@@ -29,6 +30,8 @@ public class DomTab extends DomDiv {
 
 		this.label = label;
 		this.headerMarker = Optional.empty();
+
+		setCssClass(DomElementsCssClasses.DOM_TAB);
 	}
 
 	/**

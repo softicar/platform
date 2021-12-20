@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.form;
 
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.form.refresh.EmfFormInteractiveRefreshSectionDiv;
 import com.softicar.platform.emf.form.section.IEmfFormSectionContainer;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -19,6 +20,8 @@ class EmfFormBodyLowerPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 	public EmfFormBodyLowerPart(IEmfFormBody<R> formBody) {
 
 		this.formBody = formBody;
+
+		setCssClass(EmfCssClasses.EMF_FORM_BODY_LOWER_PART);
 	}
 
 	public void showSectionContainer(IEmfFormSectionContainer sectionContainer) {

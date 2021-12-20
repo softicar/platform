@@ -1,3 +1,7 @@
+.EmfAttributesTableContainer {
+	display: block;
+}
+
 .EmfBooleanDisplay {
 	display: grid;
 }

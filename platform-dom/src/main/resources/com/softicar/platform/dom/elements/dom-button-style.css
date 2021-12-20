@@ -16,7 +16,7 @@
 	/* position and layout */
 	align-items: center;
 	column-gap: var(--COLUMN_GAP);
-	display: inline-grid;
+	display: inline-flex;
 	grid-auto-flow: column;
 	padding: 0;
 	position: relative;
@@ -87,8 +87,8 @@
 }
 
 .DomButtonLabel {
-	align-content: center;
-	display: inline-grid;
+	display: flex;
+	align-items: center;
 	max-width: 300px;
 	min-height: var(--DOM_BUTTON_ICON_SIZE);
 	overflow: hidden;

@@ -8,6 +8,8 @@ public interface EmfCssClasses {
 	ICssClass OPEN = new CssClass("open");
 	ICssClass INVISIBLE = new CssClass("invisible");
 
+	ICssClass EMF_ATTRIBUTES_TABLE_CONTAINER = new CssClass("EmfAttributesTableContainer", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
+
 	ICssClass EMF_BOOLEAN_DISPLAY = new CssClass("EmfBooleanDisplay", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
 	ICssClass EMF_BOOLEAN_DISPLAY_TRUE = new CssClass("EmfBooleanDisplayTrue", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
 	ICssClass EMF_BOOLEAN_DISPLAY_FALSE = new CssClass("EmfBooleanDisplayFalse", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
@@ -35,6 +37,9 @@ public interface EmfCssClasses {
 	ICssClass EMF_EXTERNAL_PAGE_FRAME_CONTAINER = new CssClass("EmfExternalPageFrameContainer", EmfCssFiles.EMF_EXTERNAL_PAGE_STYLE);
 
 	ICssClass EMF_FORM = new CssClass("EmfForm", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_ATTRIBUTES_DIV = new CssClass("EmfFormAttributesDiv", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_BODY_LOWER_PART = new CssClass("EmfFormBodyLowerPart", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_BODY_UPPER_PART = new CssClass("EmfFormBodyUpperPart", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_COMMON_ACTIONS_DIV = new CssClass("EmfFormCommonActionsDiv", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME = new CssClass("EmfFormFrame", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME_HEADER = new CssClass("EmfFormFrameHeader", EmfCssFiles.EMF_FORM_STYLE);
@@ -46,6 +51,7 @@ public interface EmfCssClasses {
 	ICssClass EMF_FORM_PRIMARY_ACTIONS_SECTION_DIV = new CssClass("EmfFormPrimaryActionSectionDiv", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_SAVE_OR_CANCEL_ACTIONS_INPUT = new CssClass("EmfFormSaveOrCancelActionsInput", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_SECTION_CONTENT_DIV = new CssClass("EmfFormSectionContentDiv", EmfCssFiles.EMF_FORM_SECTION_STYLE);
+	ICssClass EMF_FORM_SECTION_CONTENT_DIV_CONTAINER = new CssClass("EmfFormSectionContentDivContainer", EmfCssFiles.EMF_FORM_SECTION_STYLE);
 	ICssClass EMF_FORM_SECTION_DIV = new CssClass("EmfFormSectionDiv", EmfCssFiles.EMF_FORM_SECTION_STYLE);
 	ICssClass EMF_FORM_SECTION_HEADER_CONTENT = new CssClass("EmfFormSectionHeaderContent", EmfCssFiles.EMF_FORM_SECTION_STYLE);
 	ICssClass EMF_FORM_SECTION_HEADER_DIV = new CssClass("EmfFormSectionHeaderDiv", EmfCssFiles.EMF_FORM_SECTION_STYLE);
@@ -53,7 +59,6 @@ public interface EmfCssClasses {
 	ICssClass EMF_FORM_SECTION_HEADER_OPEN_INDICATOR = new CssClass("EmfFormSectionHeaderOpenIndicator", EmfCssFiles.EMF_FORM_SECTION_STYLE);
 	ICssClass EMF_FORM_SECTION_HEADER_TITLE = new CssClass("EmfFormSectionHeaderTitle", EmfCssFiles.EMF_FORM_SECTION_STYLE);
 	ICssClass EMF_FORM_SECTION_NO_CONTENT = new CssClass("EmfFormSectionNoContent", EmfCssFiles.EMF_FORM_SECTION_STYLE);
-	ICssClass EMF_FORM_UPPER_BODY_PART = new CssClass("EmfFormBodyUpperPart", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_WIZARD_ACTION_HEADER_DISABLED = new CssClass("EmfFormWizardActionHeaderDisabled", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_WIZARD_ACTION_TITLE_MODIFIER = new CssClass("EmfFormWizardActionTitleModifier", EmfCssFiles.EMF_FORM_STYLE);
 
