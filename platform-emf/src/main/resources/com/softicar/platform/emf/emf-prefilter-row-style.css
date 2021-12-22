@@ -1,11 +1,13 @@
+
 .EmfPrefilterElement {
 	padding-top: 5px;
 	text-align: center;
 }
 
 .EmfPrefilterRowContent {
-	grid-auto-flow: column;
-	align-items: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	align-content: center;
 }
 

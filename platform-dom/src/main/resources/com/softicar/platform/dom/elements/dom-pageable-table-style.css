@@ -13,7 +13,7 @@
 
 .DomPageableTableNavigationPageList {
 	display: flex;
-	align-items: center;
+	flex-direction: row;
 
 	border-radius: calc(var(--DOM_PAGEABLE_TABLE_PAGE_BUTTON_SIZE) / 2.0);
 	background-color: var(--GRAY_BACKGROUND_COLOR);

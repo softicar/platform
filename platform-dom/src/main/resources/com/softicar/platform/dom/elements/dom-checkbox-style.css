@@ -2,8 +2,8 @@
 .DomCheckbox {
 	/* position and layout */
 	align-items: center;
-	display: inline-grid;
-	grid-auto-flow: column;
+	display: inline-flex;
+	flex-direction: row;
 	gap: var(--COLUMN_GAP);
 	position: relative;
 	justify-self: start;

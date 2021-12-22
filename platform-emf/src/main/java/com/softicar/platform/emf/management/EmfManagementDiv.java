@@ -140,6 +140,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		return entityTable.getTableSpecialization().createNewTableRowPopup(scopeEntity);
 	}
 
+	// TODO This element will be appended even if there are no scope actions. This causes a vertical offset for all elements below.
 	private class ScopeActionBar extends DomActionBar {
 
 		public ScopeActionBar() {

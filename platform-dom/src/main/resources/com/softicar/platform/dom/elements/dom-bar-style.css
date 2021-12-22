@@ -1,5 +1,6 @@
 
 .DomBar {
+	display: grid;
 	align-content: center;
 	align-items: center;
 	grid-auto-columns: max-content;

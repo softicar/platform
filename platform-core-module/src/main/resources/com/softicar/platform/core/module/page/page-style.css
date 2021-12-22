@@ -18,8 +18,8 @@
 	transition: left 0.3s;
 
 	/* content layout */
+	display: flex;
 	align-items: start;
-	display: grid;
 	justify-items: start;
 	padding: 20px;
 
@@ -92,9 +92,9 @@
 
 	/* content layout */
 	align-items: center;
-	display: grid;
+	display: flex;
 	gap: 1em;
-	grid-auto-flow: column;
+	flex-direction: row;
 	justify-content: left;
 	white-space: nowrap;
 }

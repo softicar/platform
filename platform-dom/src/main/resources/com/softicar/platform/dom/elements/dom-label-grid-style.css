@@ -1,6 +1,7 @@
 
 .DomLabelGrid {
 	/* layout */
+	display: grid;
 	align-items: center;
 	grid-template-columns: fit-content(50%) auto;
 }
