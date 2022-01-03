@@ -75,6 +75,8 @@ public interface EmfI18n {
 		.de("Verborgen");
 	I18n0 CONFIGURE_TRAIT = new I18n0("Configure Trait")//
 		.de("Merkmal konfigurieren");
+	I18n0 CREATE = new I18n0("Create")//
+		.de("Erstellen");
 	I18n0 DATABASE_TABLE = new I18n0("Database Table")//
 		.de("Datenbank-Tabelle");
 	I18n0 DEACTIVATE = new I18n0("Deactivate")//
@@ -159,8 +161,6 @@ public interface EmfI18n {
 		.de("Name");
 	I18n0 NEVER = new I18n0("Never")//
 		.de("Niemals");
-	I18n0 NEW_ENTRY = new I18n0("New Entry")//
-		.de("Neuer Eintrag");
 	I18n0 NEXT = new I18n0("Next")//
 		.de("Weiter");
 	I18n0 NO = new I18n0("No")//
