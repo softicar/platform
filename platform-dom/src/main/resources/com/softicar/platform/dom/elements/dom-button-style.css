@@ -14,10 +14,10 @@
 
 .DomButton {
 	/* position and layout */
-	align-items: center;
+	justify-content: center;
 	column-gap: var(--COLUMN_GAP);
-	display: inline-grid;
-	grid-auto-flow: column;
+	display: inline-flex;
+	flex-direction: row;
 	padding: 0;
 	position: relative;
 	white-space: nowrap;

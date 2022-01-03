@@ -1,7 +1,8 @@
 
 .DomPopup {
 	border-radius: 0 0 var(--BORDER_RADIUS) var(--BORDER_RADIUS);
-	display: grid;
+	display: flex;
+	align-items: start;
 	padding: 16px;
 }
 

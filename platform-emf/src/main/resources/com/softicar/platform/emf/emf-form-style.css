@@ -1,3 +1,4 @@
+
 .EmfForm {
 	display: grid;
 	min-width: 320px;
@@ -74,7 +75,8 @@
 
 .EmfFormCommonActionsDiv {
 	gap: 4px;
-	grid-auto-flow: row;
+	display: flex;
+	flex-direction: column;
 }
 
 .EmfFormPopupContainer {
@@ -83,11 +85,6 @@
 }
 
 /* ------------------------------ DomButton decoration ------------------------------ */
-
-.EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv {
-	grid-auto-flow: column;
-	grid-auto-columns: max-content;
-}
 
 .EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton {
 	padding: var(--DOM_BUTTON_DECORATION_PADDING);
@@ -117,7 +114,8 @@
 /* ------------------------------ Form Actions ------------------------------ */
 
 .EmfFormWizardActionTitleModifier {
-	grid-auto-flow: column;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	align-content: center;
 }

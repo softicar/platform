@@ -7,6 +7,7 @@
 /* -------------------- PageNavigationDiv -------------------- */
 
 .PageNavigationDiv {
+	display: block;
 
 	/* position */
 	box-sizing: border-box;
@@ -29,41 +30,36 @@
 
 /* Hide scroll-bar for IE, Edge and Firefox */
 .PageNavigationDiv {
-
  	scrollbar-width: none;
 	-ms-overflow-style: none;
 }
 
 /* Hide scroll-bar for Chrome, Safari and Opera */
 .PageNavigationDiv::-webkit-scrollbar {
-
 	display: none;
 }
 
 .PageNavigationCollapsed > .PageNavigationDiv {
-
 	width: 0px;
 }
 
 /* -------------------- PageNavigationFolderContentDiv -------------------- */
 
 .PageNavigationFolderDiv {
-	gap: 0;
+	display: block;
 }
 
 .PageNavigationFolderDiv > .PageNavigationFolderContentDiv {
-
 	padding-left: 20px; 
 }
 
 .PageNavigationFolderContentDiv {
-	gap: 0;
+	display: block;
 }
 
 /* -------------------- PageNavigationFolderChevron -------------------- */
 
 .PageNavigationFolderChevron {
-	
 	margin-left: auto;
 	transition: transform 0.1s;
 	margin-right: 4px;
@@ -72,7 +68,6 @@
 }
 
 .selected > .PageNavigationFolderTitleDiv > .PageNavigationFolderChevron {
-	
 	transform: rotate(90deg);
 	color: var(--PRIMARY_COLOR);
 }
@@ -80,12 +75,11 @@
 /* -------------------- PageNavigationFolderTitleDiv -------------------- */
 
 .PageNavigationFolderTitleDiv {
-	
 	min-height: 32px;
 	
 	/* content */
-	grid-auto-flow: column;
-	grid-auto-columns: max-content auto;
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	align-content: center;
 	padding: 0 4px;
@@ -98,17 +92,14 @@
 }
 
 .PageNavigationFolderTitleDiv:hover {
-
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
 }
 
 .selected > .PageNavigationFolderTitleDiv {
-	
 	font-weight: bold;
 }
 
 .PageNavigationFolderTitleDiv > img {
-
 	margin-right: var(--MODULE_ICON_MARGIN);
 	height: var(--MODULE_ICON_SIZE);
 	width: var(--MODULE_ICON_SIZE);
@@ -119,7 +110,6 @@
 /* -------------------- PageNavigationLogoDiv -------------------- */
 
 .PageNavigationLogoDiv {
-	
 	align-content: center;
 	height: 50px;
 	padding: 5px 20px;
@@ -127,7 +117,6 @@
 }
 
 .PageNavigationLogoDiv > img {
-	
 	max-height: 50px;
 	max-width: calc(var(--PAGE_NAVIGATION_WIDTH) - 40px);
 }
@@ -135,14 +124,14 @@
 /* -------------------- PageNavigationPageLinkDiv -------------------- */
 
 .PageNavigationPageLinkDiv {
-
 	min-height: 32px;
 	
 	/* content */
+	display: flex;
+	flex-direction: row;
 	gap: 0;
-	align-content: center;
-	grid-template-columns: auto min-content;
 	padding: 0 4px;
+	align-items: center;
 	
 	/* looks */
 	color: #397399;
@@ -153,29 +142,31 @@
 
 .PageNavigationPageLinkDiv:hover,
 .PageNavigationPageLinkDiv.selected {
-	
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
 }
 
 .PageNavigationPageLinkDiv > .PageNavigationPageLinkTitle {
-
-	align-content: center;
 	min-height: inherit;
 	transition: font-weight 0.1s;
 }
 
 .PageNavigationPageLinkDiv.selected > .PageNavigationPageLinkTitle {
-
 	font-weight: bold;
 }
 
 .PageNavigationPageLinkDiv > .DomButton {
-
 	opacity: 0;
 	transition: opacity 0.2s;
 }
 
 .PageNavigationPageLinkDiv > .DomButton:hover {
-
 	opacity: 1;
+}
+
+/* -------------------- PageNavigationPageLinkTitle -------------------- */
+
+.PageNavigationPageLinkTitle {
+	display: flex;
+	justify-content: center;
+	flex-grow: 1;
 }

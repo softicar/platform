@@ -24,10 +24,10 @@ tr.selected .EmfManagementActionsButton{
 }
 
 .EmfManagementActionsPopover > .DomButton {
-	justify-self: auto;
-	grid-auto-columns: auto 1fr;
+	justify-content: start;
 	padding-bottom: 2px;
 	padding-top: 2px;
+	width: 100%;
 }
 
 .EmfManagementActionsPopover > .DomButton:focus,

@@ -1,4 +1,5 @@
 
 .DomDayInput {
 	display: inline-grid;
+	grid-auto-columns: auto max-content;
 }
