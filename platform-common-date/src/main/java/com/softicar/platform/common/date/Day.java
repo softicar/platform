@@ -225,7 +225,7 @@ public final class Day extends DateItem<Day> {
 	 *            the number of the month [1,12]
 	 * @param day
 	 *            the number of the day [1,n], where <i>n</i> is the number of
-	 *            days in the month
+	 *            days in the month of the respective year
 	 * @return the respective {@link Day} (never <i>null</i>)
 	 * @throws IllegalDateSpecificationException
 	 *             if either the month number violates the range [1,12] or if
