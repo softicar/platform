@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class DayParser {
 
 	public DayParser(String text) {
 
-		this.text = text;
+		this.text = Objects.requireNonNull(text);
 	}
 
 	/**
