@@ -70,7 +70,7 @@ public class Asserts extends Assert {
 
 		try {
 			thrower.apply();
-			fail("missing exception");
+			fail("An expected exception failed to occur.");
 		} catch (Exception exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());
 		}
