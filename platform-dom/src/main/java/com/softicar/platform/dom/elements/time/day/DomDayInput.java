@@ -68,7 +68,7 @@ public class DomDayInput extends DomBar {
 
 		String value = dayInput.getValue();
 		if (value != null && !value.isBlank()) {
-			return Optional.of(new DayParser(value).parseOrThrowIfInvalid());
+			return Optional.of(new DayParser(value).parseOrThrow());
 		} else {
 			return Optional.empty();
 		}

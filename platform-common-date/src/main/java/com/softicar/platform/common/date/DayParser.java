@@ -39,7 +39,7 @@ public class DayParser {
 	 * @throws IllegalDateSpecificationException
 	 *             if the given text could not be parsed
 	 */
-	public Day parseOrThrowIfInvalid() {
+	public Day parseOrThrow() {
 
 		try {
 			return FORMATS//
@@ -56,13 +56,13 @@ public class DayParser {
 	/**
 	 * Parses the given text into a {@link Day}.
 	 *
-	 * @return the parsed {@link Day} object as {@link Optional}; an empty
-	 *         {@link Optional} if parsing failed
+	 * @return the parsed {@link Day} object as {@link Optional}; if parsing
+	 *         fails, {@link Optional#empty()} is returned
 	 */
 	public Optional<Day> parse() {
 
 		try {
-			return Optional.of(parseOrThrowIfInvalid());
+			return Optional.of(parseOrThrow());
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return Optional.empty();
