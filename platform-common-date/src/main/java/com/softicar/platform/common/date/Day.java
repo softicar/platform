@@ -207,7 +207,7 @@ public final class Day extends DateItem<Day> {
 	 * <p>
 	 * Day numbers that leave the range [1,n] are also mapped to valid dates.
 	 * For example, an invalid date like the 39st of November will be mapped to
-	 * the 9st of December. This logic also properly handles leap years, that
+	 * the 9th of December. This logic also properly handles leap years, that
 	 * is, the 29th of February is only mapped to the 1st of March for non-leap
 	 * years.
 	 */
