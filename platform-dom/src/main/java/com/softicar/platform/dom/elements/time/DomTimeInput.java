@@ -32,7 +32,7 @@ public class DomTimeInput extends DomBar {
 
 		hourInput = new DomIntegerInput().setRange(0, 23);
 		hourInput.setTitle(DomI18n.HOURS);
-		hourInput.setMarker(DomTestMarker.HOUR_INPUT);
+		hourInput.setMarker(DomTestMarker.HOURS_INPUT);
 		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
 		minuteInput = new DomIntegerInput().setRange(0, 59);
