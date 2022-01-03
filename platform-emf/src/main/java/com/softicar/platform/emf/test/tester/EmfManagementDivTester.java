@@ -37,7 +37,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public void clickNewEntryButton() {
 
-		clickNode(EmfManagementMarker.NEW_ENTRY_BUTTON);
+		clickNode(EmfManagementMarker.CREATE_BUTTON);
 	}
 
 	public void clickShowInactiveEntriesCheckbox() {
@@ -80,7 +80,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public DomButton findNewEntryButton() {
 
-		return findNodes(EmfManagementMarker.NEW_ENTRY_BUTTON).assertOne().assertType(DomButton.class);
+		return findNodes(EmfManagementMarker.CREATE_BUTTON).assertOne().assertType(DomButton.class);
 	}
 
 	public DomCheckbox findShowInactiveEntriesCheckbox() {
