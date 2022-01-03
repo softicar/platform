@@ -3,16 +3,19 @@ package com.softicar.platform.ajax.server.standalone;
 import com.softicar.platform.common.core.exception.CheckedExceptions;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletHolder;
 
 public class StandAloneServletServerHandle implements AutoCloseable {
 
 	private final Server server;
 	private final ServerConnector connector;
+	private final ServletHolder servletHolder;
 
-	public StandAloneServletServerHandle(Server server, ServerConnector connector) {
+	public StandAloneServletServerHandle(Server server, ServerConnector connector, ServletHolder servletHolder) {
 
 		this.server = server;
 		this.connector = connector;
+		this.servletHolder = servletHolder;
 	}
 
 	public Server getServer() {
@@ -23,6 +26,11 @@ public class StandAloneServletServerHandle implements AutoCloseable {
 	public ServerConnector getConnector() {
 
 		return connector;
+	}
+
+	public ServletHolder getServletHolder() {
+
+		return servletHolder;
 	}
 
 	/**

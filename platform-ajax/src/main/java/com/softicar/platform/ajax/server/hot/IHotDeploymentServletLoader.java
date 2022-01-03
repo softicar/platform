@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 public interface IHotDeploymentServletLoader {
 
 	/**
-	 * Returns whether a reload of the servlet is necessary for the given HTTP
-	 * request.
+	 * Determines whether a reload of the servlet is necessary for the given
+	 * HTTP request.
 	 * <p>
 	 * One possible implementation is to return <i>true</i> for GET requests and
 	 * <i>false</i> for POST request. Another implementation might check if a
 	 * session object exists.
 	 *
 	 * @param request
-	 *            the HTTP request that needs to be handled
-	 * @return <i>true</i> if the servlet class should be reloaded, <i>false</i>
+	 *            the HTTP request that needs to be handled (never <i>null</i>)
+	 * @return <i>true</i> if the servlet class should be reloaded; <i>false</i>
 	 *         otherwise
 	 */
 	boolean isReloadNecessary(HttpServletRequest request);
@@ -31,9 +31,10 @@ public interface IHotDeploymentServletLoader {
 	 * Loads a new servlet instance using the given class loader.
 	 *
 	 * @param servletContext
-	 *            the servlet context (never null)
+	 *            the servlet context (never <i>null</i>)
 	 * @param classLoader
-	 *            the class loader to use for loading the servlet class
+	 *            the class loader to use for loading the servlet class (never
+	 *            <i>null</i>)
 	 * @return a new instance of the servlet
 	 */
 	HttpServlet loadServlet(ServletContext servletContext, ClassLoader classLoader);

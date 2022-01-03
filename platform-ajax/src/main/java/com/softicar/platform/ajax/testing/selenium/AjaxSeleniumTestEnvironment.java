@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.testing.selenium;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
+import com.softicar.platform.ajax.server.standalone.StandAloneServletServerConfiguration;
 import com.softicar.platform.ajax.testing.server.AjaxTestingServer;
-import com.softicar.platform.ajax.testing.server.IAjaxTestingServerEnvironment;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.node.IDomNode;
@@ -16,10 +16,10 @@ public class AjaxSeleniumTestEnvironment {
 	private final Supplier<AjaxTestingServer> serverFactory;
 	private AjaxTestingServer server;
 
-	public AjaxSeleniumTestEnvironment(Consumer<String> urlConsumer, IAjaxTestingServerEnvironment environment) {
+	public AjaxSeleniumTestEnvironment(Consumer<String> urlConsumer) {
 
 		this.urlConsumer = urlConsumer;
-		this.serverFactory = () -> new AjaxTestingServer(environment);
+		this.serverFactory = () -> new AjaxTestingServer(new StandAloneServletServerConfiguration().setContextName(""));
 	}
 
 	public <T extends IDomNode> T openTestNode(Supplier<T> factory) {

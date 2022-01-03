@@ -30,7 +30,7 @@ public class StandAloneServletServer extends AbstractStandAloneServletServer<Sta
 	}
 
 	@Override
-	protected ServletHolder getServletHolder() {
+	protected ServletHolder createServletHolder() {
 
 		return new ServletHolder(servletClass);
 	}

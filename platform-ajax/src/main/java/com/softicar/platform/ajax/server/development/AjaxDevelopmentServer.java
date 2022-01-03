@@ -21,7 +21,7 @@ public class AjaxDevelopmentServer extends AbstractStandAloneServletServer<AjaxD
 	}
 
 	@Override
-	protected ServletHolder getServletHolder() {
+	protected ServletHolder createServletHolder() {
 
 		return new ServletHolder(new HotDeploymentServlet(servletLoader));
 	}

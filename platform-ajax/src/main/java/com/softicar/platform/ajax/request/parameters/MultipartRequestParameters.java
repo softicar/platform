@@ -7,38 +7,24 @@ import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.Iterator;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import javax.servlet.http.Part;
 
 class MultipartRequestParameters extends AbstractAjaxRequestParameters {
 
+	private static final String AJAX_INPUT_REQUEST_PARAMETER = "ajaxInput";
 	private Iterable<IDomFileUpload> fileUploads = Collections.emptyList();
 
-	// see http://commons.apache.org/fileupload/streaming.html
 	public MultipartRequestParameters(HttpServletRequest request) {
 
 		try {
-			ServletFileUpload upload = new ServletFileUpload();
-			FileItemIterator iterator = upload.getItemIterator(request);
-			while (iterator.hasNext()) {
-				FileItemStream item = iterator.next();
-				if (item.isFormField()) {
-					if (item.getFieldName().equals("ajaxInput")) {
-						try (InputStream stream = item.openStream()) {
-							setMap(AjaxUtils.parseHexParameterMap(stream));
-						}
-					}
-				} else {
-					fileUploads = new AjaxFileUploadList(item, iterator);
-					break;
-				}
-			}
+			setRequestParameters(request);
+			initializeFileUploadsIterable(request);
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
-		} catch (FileUploadException exception) {
+		} catch (ServletException exception) {
 			throw new SofticarDeveloperException(exception);
 		}
 	}
@@ -47,5 +33,24 @@ class MultipartRequestParameters extends AbstractAjaxRequestParameters {
 	public Iterable<IDomFileUpload> getFileUploads() {
 
 		return fileUploads;
+	}
+
+	private void setRequestParameters(HttpServletRequest request) throws IOException, ServletException {
+
+		try (InputStream stream = request.getPart(AJAX_INPUT_REQUEST_PARAMETER).getInputStream()) {
+			setMap(AjaxUtils.parseHexParameterMap(stream));
+		}
+	}
+
+	private void initializeFileUploadsIterable(HttpServletRequest request) throws IOException, ServletException {
+
+		Iterator<Part> iterator = request.getParts().iterator();
+		while (iterator.hasNext()) {
+			Part part = iterator.next();
+			if (!part.getName().equals(AJAX_INPUT_REQUEST_PARAMETER)) {
+				fileUploads = new AjaxFileUploadList(part, iterator);
+				break;
+			}
+		}
 	}
 }
