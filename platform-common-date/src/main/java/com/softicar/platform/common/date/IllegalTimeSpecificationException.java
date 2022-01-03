@@ -3,7 +3,7 @@ package com.softicar.platform.common.date;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 
 /**
- * This {@link Exception} is thrown if an illegal time was specified.
+ * Thrown if an illegal time was specified.
  *
  * @author Oliver Richers
  */

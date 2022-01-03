@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.Padding;
 
 /**
- * This {@link Exception} is thrown if an illegal date was specified.
+ * Thrown if an illegal date was specified.
  *
  * @author Oliver Richers
  */
