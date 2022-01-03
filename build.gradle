@@ -18,7 +18,6 @@ project.ext {
 		byteBuddy: "1.10.18",
 		classgraph: "4.8.90",
 		commonsCodec: "1.15",
-		commonsFileupload: "1.4",
 		commonsLang3: "3.11",
 		commonsNet: "3.7.2",
 		commonsText: "1.9",

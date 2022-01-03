@@ -31,7 +31,7 @@ public class ExternalLibrariesFromClasspathFetcherTest extends Assert {
 		// ensure the presence of some arbitrary external libraries
 		new Asserter(libraries)//
 			.assertContains("asm")
-			.assertContains("commons-io")
+			.assertContains("commons-lang3")
 			.assertContains("junit");
 	}
 

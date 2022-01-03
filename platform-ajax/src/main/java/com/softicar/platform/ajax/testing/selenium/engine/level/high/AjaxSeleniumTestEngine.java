@@ -2,7 +2,6 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.high;
 
 import com.softicar.platform.ajax.testing.selenium.engine.common.AbstractAjaxSeleniumTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
-import com.softicar.platform.ajax.testing.server.IAjaxTestingServerEnvironment;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineLazySetup;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
@@ -67,13 +66,6 @@ public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine imple
 	private final IDomTestEngineLazySetup setup;
 
 	public AjaxSeleniumTestEngine() {
-
-		this(null);
-	}
-
-	public AjaxSeleniumTestEngine(IAjaxTestingServerEnvironment environment) {
-
-		super(environment);
 
 		this.setup = AjaxSeleniumTestEngineLazySetup.createAndRegister(testEnvironment::openTestNode);
 	}

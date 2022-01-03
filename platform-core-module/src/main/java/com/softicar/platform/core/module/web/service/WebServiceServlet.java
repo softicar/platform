@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.web.service.environment.WebServiceDefau
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Collection;
 import java.util.UUID;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,14 @@ import javax.servlet.http.HttpServletResponse;
  * Central {@link HttpServlet} for all web-services.
  * <p>
  * WARNING: DO NOT RENAME OR MOVE THIS CLASS.
+ * <p>
+ * This class is referenced via canonical name, from the {@code web.xml} files
+ * of consuming projects.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
+@MultipartConfig
 public class WebServiceServlet extends HttpServlet {
 
 	private static final String ID_PARAMETER_NAME = "id";
