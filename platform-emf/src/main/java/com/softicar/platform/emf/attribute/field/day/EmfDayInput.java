@@ -20,7 +20,7 @@ public class EmfDayInput extends AbstractEmfInputDiv<Day> {
 	@Override
 	public Day getValueOrThrow() {
 
-		return dayInput.getDayOrThrowIfInvalid().orElse(null);
+		return dayInput.parseValue().orElse(null);
 	}
 
 	@Override

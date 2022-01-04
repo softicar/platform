@@ -28,34 +28,34 @@ public class DomDayInputTest extends AbstractTest implements IDomTestEngineMetho
 	}
 
 	@Test
-	public void testGetDayOrThrowIfInvalid() {
+	public void testParseValue() {
 
 		// test empty input
 		enterValue("");
-		assertEmpty(input.getDayOrThrowIfInvalid());
+		assertEmpty(input.parseValue());
 
 		// test valid dates
-		assertValueForGetDayOrThrowIfInvalid("2021-12-15", "2021-12-15");
-		assertValueForGetDayOrThrowIfInvalid("2021-12-15", "15.12.2021");
-		assertValueForGetDayOrThrowIfInvalid("2021-12-15", "12/15/2021");
+		assertValueForParseValue("2021-12-15", "2021-12-15");
+		assertValueForParseValue("2021-12-15", "15.12.2021");
+		assertValueForParseValue("2021-12-15", "12/15/2021");
 
 		// test illegal dates
-		assertExceptionForGetDayOrThrowIfInvalid("foo");
-		assertExceptionForGetDayOrThrowIfInvalid("2021-02-29");
-		assertExceptionForGetDayOrThrowIfInvalid("2021-01-66");
-		assertExceptionForGetDayOrThrowIfInvalid("2021-18-01");
+		assertExceptionForParseValue("foo");
+		assertExceptionForParseValue("2021-02-29");
+		assertExceptionForParseValue("2021-01-66");
+		assertExceptionForParseValue("2021-18-01");
 	}
 
-	private void assertExceptionForGetDayOrThrowIfInvalid(String inputValue) {
+	private void assertExceptionForParseValue(String inputValue) {
 
 		enterValue(inputValue);
-		assertExceptionMessage(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue), () -> input.getDayOrThrowIfInvalid());
+		assertExceptionMessage(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue), () -> input.parseValue());
 	}
 
-	private void assertValueForGetDayOrThrowIfInvalid(String expectedValue, String inputValue) {
+	private void assertValueForParseValue(String expectedValue, String inputValue) {
 
 		enterValue(inputValue);
-		assertEquals(expectedValue, input.getDayOrThrowIfInvalid().get().toISOString());
+		assertEquals(expectedValue, input.parseValue().get().toISOString());
 	}
 
 	private void enterValue(String value) {

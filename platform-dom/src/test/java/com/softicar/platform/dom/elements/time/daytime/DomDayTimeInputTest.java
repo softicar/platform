@@ -32,34 +32,34 @@ public class DomDayTimeInputTest extends AbstractTest implements IDomTestEngineM
 	}
 
 	@Test
-	public void testGetDayTimeOrThrowIfInvalid() {
+	public void testParseValue() {
 
 		// test empty input
 		enterValues(",,,");
-		assertEmpty(input.getDayTimeOrThrowIfInvalid());
+		assertEmpty(input.parseValue());
 
 		// test valid dates and times
-		assertValueForGetDayTimeOrThrowIfInvalid("2021-12-15 08:04:02", "2021-12-15,8,4,2");
-		assertValueForGetDayTimeOrThrowIfInvalid("2021-12-15 23:59:59", "15.12.2021,23,59,59");
-		assertValueForGetDayTimeOrThrowIfInvalid("2021-12-15 00:00:00", "12/15/2021,0,0,0");
+		assertValueForParseValue("2021-12-15 08:04:02", "2021-12-15,8,4,2");
+		assertValueForParseValue("2021-12-15 23:59:59", "15.12.2021,23,59,59");
+		assertValueForParseValue("2021-12-15 00:00:00", "12/15/2021,0,0,0");
 
 		// test illegal combinations
-		assertExceptionForGetDayTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"), "foo,0,0,0");
-		assertExceptionForGetDayTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("x:y:z"), "2021-01-01,x,y,z");
-		assertExceptionForGetDayTimeOrThrowIfInvalid(CommonDateI18n.MISSING_DATE_SPECIFICATION, ",0,0,0");
-		assertExceptionForGetDayTimeOrThrowIfInvalid(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,,,");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"), "foo,0,0,0");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("x:y:z"), "2021-01-01,x,y,z");
+		assertExceptionForParseValue(CommonDateI18n.MISSING_DATE_SPECIFICATION, ",0,0,0");
+		assertExceptionForParseValue(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,,,");
 	}
 
-	private void assertValueForGetDayTimeOrThrowIfInvalid(String expectedValue, String inputValue) {
+	private void assertValueForParseValue(String expectedValue, String inputValue) {
 
 		enterValues(inputValue);
-		assertEquals(expectedValue, input.getDayTimeOrThrowIfInvalid().get().toString());
+		assertEquals(expectedValue, input.parseValue().get().toString());
 	}
 
-	private void assertExceptionForGetDayTimeOrThrowIfInvalid(IDisplayString expectedMessage, String inputValue) {
+	private void assertExceptionForParseValue(IDisplayString expectedMessage, String inputValue) {
 
 		enterValues(inputValue);
-		assertExceptionMessage(expectedMessage, () -> input.getDayTimeOrThrowIfInvalid());
+		assertExceptionMessage(expectedMessage, () -> input.parseValue());
 	}
 
 	private void enterValues(String valueList) {

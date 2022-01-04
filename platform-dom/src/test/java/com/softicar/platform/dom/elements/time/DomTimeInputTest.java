@@ -32,35 +32,35 @@ public class DomTimeInputTest extends AbstractTest implements IDomTestEngineMeth
 	}
 
 	@Test
-	public void testGetTimeOrThrowIfInvalid() {
+	public void testParseValue() {
 
 		// test empty input
 		enterValues("::");
-		assertEmpty(input.getTimeOrThrowIfInvalid());
+		assertEmpty(input.parseValue());
 
 		// test valid dates and times
-		assertValueForGetTimeOrThrowIfInvalid("00:00:00", "0:0:0");
-		assertValueForGetTimeOrThrowIfInvalid("08:04:02", "8:4:2");
-		assertValueForGetTimeOrThrowIfInvalid("23:59:59", "23:59:59");
+		assertValueForParseValue("00:00:00", "0:0:0");
+		assertValueForParseValue("08:04:02", "8:4:2");
+		assertValueForParseValue("23:59:59", "23:59:59");
 
 		// test illegal combinations
-		assertExceptionForGetTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "x:y:z");
-		assertExceptionForGetTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "-1:0:0");
-		assertExceptionForGetTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "24:0:0");
-		assertExceptionForGetTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:0");
-		assertExceptionForGetTimeOrThrowIfInvalid(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:60");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "x:y:z");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "-1:0:0");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "24:0:0");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:0");
+		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:60");
 	}
 
-	private void assertValueForGetTimeOrThrowIfInvalid(String expectedValue, String inputValue) {
+	private void assertValueForParseValue(String expectedValue, String inputValue) {
 
 		enterValues(inputValue);
-		assertEquals(expectedValue, input.getTimeOrThrowIfInvalid().get().toString());
+		assertEquals(expectedValue, input.parseValue().get().toString());
 	}
 
-	private void assertExceptionForGetTimeOrThrowIfInvalid(I18n1 expectedMessage, String inputValue) {
+	private void assertExceptionForParseValue(I18n1 expectedMessage, String inputValue) {
 
 		enterValues(inputValue);
-		assertExceptionMessage(expectedMessage.toDisplay(inputValue), () -> input.getTimeOrThrowIfInvalid());
+		assertExceptionMessage(expectedMessage.toDisplay(inputValue), () -> input.parseValue());
 	}
 
 	private void enterValues(String valueList) {
