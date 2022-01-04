@@ -254,6 +254,28 @@ public class DayTest extends Assert {
 	}
 
 	@Test
+	public void testFromYMD() {
+
+		// underflow
+		assertDay("2000-11-30", Day.fromYMD(2001, 0, 0));
+		assertDay("2000-12-31", Day.fromYMD(2001, 1, 0));
+
+		// overflow
+		assertDay("2001-02-01", Day.fromYMD(2001, 1, 32));
+		assertDay("2001-02-05", Day.fromYMD(2001, 1, 36));
+
+		// overflow and underflow with leap day
+		assertDay("2000-02-29", Day.fromYMD(2000, 2, 29));
+		assertDay("2000-02-29", Day.fromYMD(2000, 3, 0));
+		assertDay("2000-03-01", Day.fromYMD(2000, 2, 30));
+
+		// overflow and underflow with non-leap day
+		assertDay("2001-02-28", Day.fromYMD(2001, 2, 28));
+		assertDay("2001-02-28", Day.fromYMD(2001, 3, 0));
+		assertDay("2001-03-01", Day.fromYMD(2001, 2, 29));
+	}
+
+	@Test
 	public void testFromYMDChecked() {
 
 		// normal days
