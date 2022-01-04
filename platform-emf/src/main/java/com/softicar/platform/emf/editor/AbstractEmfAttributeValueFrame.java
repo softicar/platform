@@ -16,7 +16,7 @@ public abstract class AbstractEmfAttributeValueFrame<R extends IEmfTableRow<R, ?
 
 		this.attribute = attribute;
 
-		valueNode.setMarker(attribute.getTestMarker());
+		setMarker(attribute.getTestMarker());
 	}
 
 	@Override

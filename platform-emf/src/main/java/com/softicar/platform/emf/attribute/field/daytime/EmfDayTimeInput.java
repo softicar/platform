@@ -18,7 +18,7 @@ public class EmfDayTimeInput extends AbstractEmfInputDiv<DayTime> {
 	@Override
 	public DayTime getValueOrThrow() {
 
-		return dayTimeInput.getDayTime();
+		return dayTimeInput.retrieveValue().orElse(null);
 	}
 
 	@Override

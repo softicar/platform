@@ -134,7 +134,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		return this;
 	}
 
-	private EmfBigDecimalInputTest assertException(IDisplayString expectedMessage) {
+	private void assertException(IDisplayString expectedMessage) {
 
 		try {
 			input.getValueOrThrow();
@@ -142,6 +142,5 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		} catch (EmfInputException exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());
 		}
-		return this;
 	}
 }

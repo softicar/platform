@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,18 +30,41 @@ public class DayParser {
 
 	public DayParser(String text) {
 
-		this.text = text;
+		this.text = Objects.requireNonNull(text);
 	}
 
-	public Optional<Day> parse() {
+	/**
+	 * Parses the given text into a {@link Day}.
+	 *
+	 * @return the parsed {@link Day} object (never <i>null</i>)
+	 * @throws IllegalDateSpecificationException
+	 *             if the given text could not be parsed
+	 */
+	public Day parseOrThrow() {
 
 		try {
 			return FORMATS//
 				.stream()
 				.filter(format -> format.matches(text))
 				.findFirst()
-				.map(format -> format.parse(text));
+				.map(format -> format.parse(text))
+				.orElseThrow(() -> new IllegalDateSpecificationException(text));
 		} catch (NumberFormatException exception) {
+			throw new IllegalDateSpecificationException(exception, text);
+		}
+	}
+
+	/**
+	 * Parses the given text into a {@link Day}.
+	 *
+	 * @return the parsed {@link Day} object as {@link Optional}; if parsing
+	 *         fails, {@link Optional#empty()} is returned
+	 */
+	public Optional<Day> parse() {
+
+		try {
+			return Optional.of(parseOrThrow());
+		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return Optional.empty();
 		}
@@ -99,7 +123,7 @@ public class DayParser {
 
 		private Day createDay(int year, int month, int day) {
 
-			return Day.fromYMD(rebaseAbbreviatedYear(year), month, day);
+			return Day.fromYMDChecked(rebaseAbbreviatedYear(year), month, day);
 		}
 
 		private int rebaseAbbreviatedYear(int year) {

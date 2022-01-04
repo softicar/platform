@@ -3,6 +3,8 @@ package com.softicar.platform.dom.elements.testing.node.tester;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.string.Tokenizer;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -13,6 +15,7 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.Assert;
@@ -42,7 +45,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	// ------------------------------ input ------------------------------ //
 
-	public void setInputValue(IStaticObject marker, String value) {
+	public AbstractDomNodeTester<N> setInputValue(IStaticObject marker, String value) {
 
 		this//
 			.findNodes(marker)
@@ -50,6 +53,51 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 			.assertOne()
 			.findNode(IDomStringInputNode.class)
 			.setInputValue(value);
+		return this;
+	}
+
+	/**
+	 * Searches for a node with the given marker and then applies the given time
+	 * string to the respective inputs for hours, minutes and seconds.
+	 *
+	 * @param marker
+	 *            the test marker
+	 * @param timeString
+	 *            the time string in the format <hours>:<minutes>:<seconds>
+	 *            (never <i>null</i)>
+	 * @return this
+	 */
+	public AbstractDomNodeTester<N> setTimeInputValue(IStaticObject marker, String timeString) {
+
+		List<String> elements = new Tokenizer(':', '\\').tokenize(timeString);
+		if (elements.size() != 3) {
+			throw new IllegalArgumentException("Expected a time string in the form '<hours>:<minutes>:<seconds>' but got: %s".formatted(timeString));
+		}
+		findNode(marker)//
+			.setInputValue(DomTestMarker.HOURS_INPUT, elements.get(0))
+			.setInputValue(DomTestMarker.MINUTES_INPUT, elements.get(1))
+			.setInputValue(DomTestMarker.SECONDS_INPUT, elements.get(2));
+		return this;
+	}
+
+	/**
+	 * Searches for a node with the given marker and then applies the given
+	 * values to the respective inputs for day, hour, minutes and seconds.
+	 *
+	 * @param marker
+	 *            the test marker
+	 * @param dayString
+	 *            the literal input value for the day input (never <i>null</i)>
+	 * @param timeString
+	 *            the time string in the format <hours>:<minutes>:<seconds>
+	 *            (never <i>null</i)>
+	 * @return this
+	 */
+	public AbstractDomNodeTester<N> setDayTimeInputValue(IStaticObject marker, String dayString, String timeString) {
+
+		findNode(marker).setInputValue(DomTestMarker.DAY_INPUT, dayString);
+		setTimeInputValue(marker, timeString);
+		return this;
 	}
 
 	public AbstractDomNodeTester<N> setInputValue(String text) {

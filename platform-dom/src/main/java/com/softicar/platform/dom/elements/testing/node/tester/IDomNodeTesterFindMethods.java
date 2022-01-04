@@ -12,8 +12,6 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
-import com.softicar.platform.dom.elements.time.day.DomDayInput;
-import com.softicar.platform.dom.elements.time.daytime.DomDayTimeInput;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomInputNode;
 import com.softicar.platform.dom.node.IDomNode;
@@ -254,46 +252,6 @@ public interface IDomNodeTesterFindMethods {
 		return findNodes(marker)//
 			.withType(IDomInputNode.class)
 			.assertOne();
-	}
-
-	/**
-	 * Searches for a {@link DomDayInput} with the given {@link IStaticObject}
-	 * marker.
-	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
-	 * @return a {@link DomDayInputTester} of the matching {@link IDomNode}
-	 *         instance (never <i>null</i>)
-	 * @throws DomNodeAssertionError
-	 *             if there is more than one matching {@link IDomNode}, or none
-	 *             at all
-	 */
-	default DomDayInputTester findDayInput(IStaticObject marker) {
-
-		return findNodes(marker)//
-			.withType(DomDayInput.class)
-			.assertOne(node -> new DomDayInputTester(getEngine(), node));
-	}
-
-	/**
-	 * Searches for a {@link DomDayTimeInput} with the given
-	 * {@link IStaticObject} marker.
-	 *
-	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
-	 * @return a {@link DomDayTimeInputTester} of the matching {@link IDomNode}
-	 *         instance (never <i>null</i>)
-	 * @throws DomNodeAssertionError
-	 *             if there is more than one matching {@link IDomNode}, or none
-	 *             at all
-	 */
-	default DomDayTimeInputTester findDayTimeInput(IStaticObject marker) {
-
-		return findNodes(marker)//
-			.withType(DomDayTimeInput.class)
-			.assertOne(node -> new DomDayTimeInputTester(getEngine(), node));
 	}
 
 	/**
