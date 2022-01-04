@@ -5,13 +5,17 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.date.DateUtils;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.date.DayParser;
+import com.softicar.platform.common.date.IllegalDateSpecificationException;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
+import java.util.Optional;
 
 /**
  * A text input field combined with a day button.
@@ -49,11 +53,40 @@ public class DomDayInput extends DomBar {
 		dayButton.unlistenToEvent(DomEventType.CLICK);
 	}
 
+	/**
+	 * Parses the value text into a {@link Day}.
+	 * <p>
+	 * If the value text is empty or blank, an empty {@link Optional} is
+	 * returned. Otherwise, the value text is parsed into a {@link Day}. If
+	 * parsing failed, an exception is thrown.
+	 *
+	 * @return the optionally entered {@link Day}
+	 * @throws IllegalDateSpecificationException
+	 *             if the non-blank value text could not be parsed
+	 */
+	public Optional<Day> retrieveValue() {
+
+		String value = dayInput.getValue();
+		if (value != null && !value.isBlank()) {
+			return Optional.of(new DayParser(value).parseOrThrow());
+		} else {
+			return Optional.empty();
+		}
+	}
+
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public Day getDayOrNull() {
 
 		return DateUtils.parseDate(dayInput.getValue());
 	}
 
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public Day getDay() {
 
 		Day day = getDayOrNull();
@@ -123,6 +156,7 @@ public class DomDayInput extends DomBar {
 		public DayInput() {
 
 			setMaxLength(10);
+			setMarker(DomTestMarker.DAY_INPUT);
 		}
 
 		public void setCallback(INullaryVoidFunction callback) {

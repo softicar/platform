@@ -2,6 +2,7 @@ package com.softicar.platform.common.date;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -250,5 +251,79 @@ public class DayTest extends Assert {
 	public void testHashCode() {
 
 		assertEquals(Day.fromYMD(2015, 9, 28).hashCode(), Day.fromYMD(2015, 9, 28).hashCode());
+	}
+
+	@Test
+	public void testFromYMD() {
+
+		// underflow
+		assertDay("2000-11-30", Day.fromYMD(2001, 0, 0));
+		assertDay("2000-12-31", Day.fromYMD(2001, 1, 0));
+
+		// overflow
+		assertDay("2001-02-01", Day.fromYMD(2001, 1, 32));
+		assertDay("2001-02-05", Day.fromYMD(2001, 1, 36));
+
+		// overflow and underflow with leap day
+		assertDay("2000-02-29", Day.fromYMD(2000, 2, 29));
+		assertDay("2000-02-29", Day.fromYMD(2000, 3, 0));
+		assertDay("2000-03-01", Day.fromYMD(2000, 2, 30));
+
+		// overflow and underflow with non-leap day
+		assertDay("2001-02-28", Day.fromYMD(2001, 2, 28));
+		assertDay("2001-02-28", Day.fromYMD(2001, 3, 0));
+		assertDay("2001-03-01", Day.fromYMD(2001, 2, 29));
+	}
+
+	@Test
+	public void testFromYMDChecked() {
+
+		// normal days
+		assertDay("2001-01-01", Day.fromYMDChecked(2001, 1, 1));
+		assertDay("2001-01-31", Day.fromYMDChecked(2001, 1, 31));
+		assertDay("2001-02-01", Day.fromYMDChecked(2001, 2, 1));
+		assertDay("2001-02-28", Day.fromYMDChecked(2001, 2, 28));
+		assertDay("2001-03-01", Day.fromYMDChecked(2001, 3, 1));
+		assertDay("2001-03-31", Day.fromYMDChecked(2001, 3, 31));
+		assertDay("2001-04-01", Day.fromYMDChecked(2001, 4, 1));
+		assertDay("2001-04-30", Day.fromYMDChecked(2001, 4, 30));
+
+		// leap days
+		assertDay("2000-02-29", Day.fromYMDChecked(2000, 2, 29));
+		assertDay("2004-02-29", Day.fromYMDChecked(2004, 2, 29));
+		assertDay("2008-02-29", Day.fromYMDChecked(2008, 2, 29));
+
+		// illegal month number
+		assertThrows(() -> Day.fromYMDChecked(2001, 0, 1), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 13, 1), IllegalDateSpecificationException.class);
+
+		// illegal day of month number
+		assertThrows(() -> Day.fromYMDChecked(2001, 1, 0), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 1, 32), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 2, 0), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 2, 29), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 3, 0), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 3, 32), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 4, 0), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 4, 31), IllegalDateSpecificationException.class);
+
+		// illegal leap days
+		assertThrows(() -> Day.fromYMDChecked(1900, 2, 29), IllegalDateSpecificationException.class);
+		assertThrows(() -> Day.fromYMDChecked(2001, 2, 29), IllegalDateSpecificationException.class);
+	}
+
+	private void assertDay(String expectedDay, Day actualDay) {
+
+		assertEquals(expectedDay, actualDay.toISOString());
+	}
+
+	private void assertThrows(INullaryVoidFunction test, Class<?> expectedExceptionClass) {
+
+		try {
+			test.apply();
+			fail("Missing expected exception.");
+		} catch (Exception exception) {
+			assertEquals("expected exception", expectedExceptionClass.getCanonicalName(), exception.getClass().getCanonicalName());
+		}
 	}
 }

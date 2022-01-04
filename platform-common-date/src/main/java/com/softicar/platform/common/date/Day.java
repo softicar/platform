@@ -197,21 +197,49 @@ public final class Day extends DateItem<Day> {
 	// -------------------------------- FACTORY FUNCTIONS -------------------------------- //
 
 	/**
-	 * Returns the specified day of the given year and month.
-	 *
-	 * @param year
-	 *            the absolute index of the year
-	 * @param month
-	 *            the index of the month within the year [1,12]
-	 * @param day
-	 *            the index of the day within the month [1,31]
-	 * @return the specified day
+	 * Same as {@link #fromYMDChecked} but does not check for out-of-range
+	 * values.
+	 * <p>
+	 * Month numbers that leave the range [1,12] are gracefully mapped to valid
+	 * months. For example, month number 16 would be mapped to March of the next
+	 * year, while -1 would be mapped to November of the previous year. This
+	 * allows simple arithmetics on months.
+	 * <p>
+	 * Day numbers that leave the range [1,n] are also mapped to valid dates.
+	 * For example, an invalid date like the 39st of November will be mapped to
+	 * the 9th of December. This logic also properly handles leap years, that
+	 * is, the 29th of February is only mapped to the 1st of March for non-leap
+	 * years.
 	 */
 	public static Day fromYMD(int year, int month, int day) {
 
 		int absoluteMonth = ISOCalendar.getMonthOfYear(year, month);
 		int absoluteDay = ISOCalendar.getDayOfMonth(absoluteMonth, day);
 		return Day.get(absoluteDay);
+	}
+
+	/**
+	 * Returns the {@link Day} for the given triplet of year, month and day of
+	 * the month.
+	 *
+	 * @param year
+	 *            the absolute number of the year
+	 * @param month
+	 *            the number of the month [1,12]
+	 * @param day
+	 *            the number of the day [1,n], where <i>n</i> is the number of
+	 *            days in the month of the respective year
+	 * @return the respective {@link Day} (never <i>null</i>)
+	 * @throws IllegalDateSpecificationException
+	 *             if either the month number violates the range [1,12] or if
+	 *             the day number violates the range [1,n]
+	 */
+	public static Day fromYMDChecked(int year, int month, int day) {
+
+		if (!ISOCalendar.isValidYMD(year, month, day)) {
+			throw new IllegalDateSpecificationException(year, month, day);
+		}
+		return fromYMD(year, month, day);
 	}
 
 	/**
