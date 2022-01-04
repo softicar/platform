@@ -58,12 +58,12 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	/**
 	 * Searches for a node with the given marker and then applies the given time
-	 * string to the respective inputs for hour, minutes and seconds.
+	 * string to the respective inputs for hours, minutes and seconds.
 	 *
 	 * @param marker
 	 *            the test marker
 	 * @param timeString
-	 *            the time string in the format <hour>:<minutes>:<seconds>
+	 *            the time string in the format <hours>:<minutes>:<seconds>
 	 *            (never <i>null</i)>
 	 * @return this
 	 */
@@ -71,7 +71,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 		List<String> elements = new Tokenizer(':', '\\').tokenize(timeString);
 		if (elements.size() != 3) {
-			throw new IllegalArgumentException("Expected a time string in the form '<hour>:<minutes>:<seconds>' but got: %s".formatted(timeString));
+			throw new IllegalArgumentException("Expected a time string in the form '<hours>:<minutes>:<seconds>' but got: %s".formatted(timeString));
 		}
 		findNode(marker)//
 			.setInputValue(DomTestMarker.HOURS_INPUT, elements.get(0))
@@ -89,7 +89,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 	 * @param dayString
 	 *            the literal input value for the day input (never <i>null</i)>
 	 * @param timeString
-	 *            the time string in the format <hour>:<minutes>:<seconds>
+	 *            the time string in the format <hours>:<minutes>:<seconds>
 	 *            (never <i>null</i)>
 	 * @return this
 	 */
