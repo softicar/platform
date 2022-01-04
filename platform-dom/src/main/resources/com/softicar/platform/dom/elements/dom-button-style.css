@@ -87,8 +87,8 @@
 }
 
 .DomButtonLabel {
-	align-content: center;
-	display: inline-grid;
+	justify-content: center;
+	display: inline-flex;
 	max-width: 300px;
 	min-height: var(--DOM_BUTTON_ICON_SIZE);
 	overflow: hidden;
