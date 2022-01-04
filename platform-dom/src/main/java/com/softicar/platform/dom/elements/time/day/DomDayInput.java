@@ -64,7 +64,7 @@ public class DomDayInput extends DomBar {
 	 * @throws IllegalDateSpecificationException
 	 *             if the non-blank value text could not be parsed
 	 */
-	public Optional<Day> parseValue() {
+	public Optional<Day> retrieveValue() {
 
 		String value = dayInput.getValue();
 		if (value != null && !value.isBlank()) {
@@ -75,7 +75,7 @@ public class DomDayInput extends DomBar {
 	}
 
 	/**
-	 * @deprecated use {@link #parseValue()}
+	 * @deprecated use {@link #retrieveValue()}
 	 */
 	@Deprecated
 	public Day getDayOrNull() {
@@ -84,7 +84,7 @@ public class DomDayInput extends DomBar {
 	}
 
 	/**
-	 * @deprecated use {@link #parseValue()}
+	 * @deprecated use {@link #retrieveValue()}
 	 */
 	@Deprecated
 	public Day getDay() {

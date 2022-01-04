@@ -32,34 +32,34 @@ public class DomDayTimeInputTest extends AbstractTest implements IDomTestEngineM
 	}
 
 	@Test
-	public void testParseValue() {
+		public void testRetrieveValue() {
+	
+			// test empty input
+			enterValues(",,,");
+			assertEmpty(input.retrieveValue());
+	
+			// test valid dates and times
+			assertValueForRetrieveValue("2021-12-15 08:04:02", "2021-12-15,8,4,2");
+			assertValueForRetrieveValue("2021-12-15 23:59:59", "15.12.2021,23,59,59");
+			assertValueForRetrieveValue("2021-12-15 00:00:00", "12/15/2021,0,0,0");
+	
+			// test illegal combinations
+			assertExceptionForRetrieveValue(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"), "foo,0,0,0");
+			assertExceptionForRetrieveValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("x:y:z"), "2021-01-01,x,y,z");
+			assertExceptionForRetrieveValue(CommonDateI18n.MISSING_DATE_SPECIFICATION, ",0,0,0");
+			assertExceptionForRetrieveValue(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,,,");
+		}
 
-		// test empty input
-		enterValues(",,,");
-		assertEmpty(input.parseValue());
-
-		// test valid dates and times
-		assertValueForParseValue("2021-12-15 08:04:02", "2021-12-15,8,4,2");
-		assertValueForParseValue("2021-12-15 23:59:59", "15.12.2021,23,59,59");
-		assertValueForParseValue("2021-12-15 00:00:00", "12/15/2021,0,0,0");
-
-		// test illegal combinations
-		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"), "foo,0,0,0");
-		assertExceptionForParseValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("x:y:z"), "2021-01-01,x,y,z");
-		assertExceptionForParseValue(CommonDateI18n.MISSING_DATE_SPECIFICATION, ",0,0,0");
-		assertExceptionForParseValue(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,,,");
-	}
-
-	private void assertValueForParseValue(String expectedValue, String inputValue) {
-
-		enterValues(inputValue);
-		assertEquals(expectedValue, input.parseValue().get().toString());
-	}
-
-	private void assertExceptionForParseValue(IDisplayString expectedMessage, String inputValue) {
+	private void assertValueForRetrieveValue(String expectedValue, String inputValue) {
 
 		enterValues(inputValue);
-		assertExceptionMessage(expectedMessage, () -> input.parseValue());
+		assertEquals(expectedValue, input.retrieveValue().get().toString());
+	}
+
+	private void assertExceptionForRetrieveValue(IDisplayString expectedMessage, String inputValue) {
+
+		enterValues(inputValue);
+		assertExceptionMessage(expectedMessage, () -> input.retrieveValue());
 	}
 
 	private void enterValues(String valueList) {

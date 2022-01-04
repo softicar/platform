@@ -75,7 +75,7 @@ public class DomTimeInput extends DomBar {
 	 * @throws IllegalTimeSpecificationException
 	 *             if the non-blank value text could not be parsed
 	 */
-	public Optional<Time> parseValue() {
+	public Optional<Time> retrieveValue() {
 
 		return Optional.ofNullable(getTime());
 	}

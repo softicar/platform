@@ -59,10 +59,10 @@ public class DomDayTimeInput extends DomBar {
 	 * @throws SofticarUserException
 	 *             if the non-blank value text could not be parsed
 	 */
-	public Optional<DayTime> parseValue() {
+	public Optional<DayTime> retrieveValue() {
 
-		Optional<Day> day = dayInput.parseValue();
-		Optional<Time> time = timeInput.parseValue();
+		Optional<Day> day = dayInput.retrieveValue();
+		Optional<Time> time = timeInput.retrieveValue();
 
 		if (day.isPresent() && time.isPresent()) {
 			return Optional.of(new DayTime(day.get(), time.get()));
@@ -78,7 +78,7 @@ public class DomDayTimeInput extends DomBar {
 	}
 
 	/**
-	 * @deprecated use {@link #parseValue()}
+	 * @deprecated use {@link #retrieveValue()}
 	 */
 	@Deprecated
 	public DayTime getDayTime() {

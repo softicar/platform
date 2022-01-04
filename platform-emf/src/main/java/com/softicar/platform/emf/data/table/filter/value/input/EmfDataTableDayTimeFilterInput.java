@@ -14,7 +14,7 @@ public class EmfDataTableDayTimeFilterInput extends DomDayTimeInput implements I
 	@Override
 	public DayTime getFilterValue() {
 
-		return parseValue().orElse(null);
+		return retrieveValue().orElse(null);
 	}
 
 	@Override

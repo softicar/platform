@@ -28,34 +28,34 @@ public class DomDayInputTest extends AbstractTest implements IDomTestEngineMetho
 	}
 
 	@Test
-	public void testParseValue() {
+	public void testRetrieveValue() {
 
 		// test empty input
 		enterValue("");
-		assertEmpty(input.parseValue());
+		assertEmpty(input.retrieveValue());
 
 		// test valid dates
-		assertValueForParseValue("2021-12-15", "2021-12-15");
-		assertValueForParseValue("2021-12-15", "15.12.2021");
-		assertValueForParseValue("2021-12-15", "12/15/2021");
+		assertValueForRetrieveValue("2021-12-15", "2021-12-15");
+		assertValueForRetrieveValue("2021-12-15", "15.12.2021");
+		assertValueForRetrieveValue("2021-12-15", "12/15/2021");
 
 		// test illegal dates
-		assertExceptionForParseValue("foo");
-		assertExceptionForParseValue("2021-02-29");
-		assertExceptionForParseValue("2021-01-66");
-		assertExceptionForParseValue("2021-18-01");
+		assertExceptionForRetrieveValue("foo");
+		assertExceptionForRetrieveValue("2021-02-29");
+		assertExceptionForRetrieveValue("2021-01-66");
+		assertExceptionForRetrieveValue("2021-18-01");
 	}
 
-	private void assertExceptionForParseValue(String inputValue) {
+	private void assertExceptionForRetrieveValue(String inputValue) {
 
 		enterValue(inputValue);
-		assertExceptionMessage(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue), () -> input.parseValue());
+		assertExceptionMessage(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue), () -> input.retrieveValue());
 	}
 
-	private void assertValueForParseValue(String expectedValue, String inputValue) {
+	private void assertValueForRetrieveValue(String expectedValue, String inputValue) {
 
 		enterValue(inputValue);
-		assertEquals(expectedValue, input.parseValue().get().toISOString());
+		assertEquals(expectedValue, input.retrieveValue().get().toISOString());
 	}
 
 	private void enterValue(String value) {
