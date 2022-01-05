@@ -18,6 +18,7 @@ project.ext {
 		byteBuddy: "1.10.18",
 		classgraph: "4.8.90",
 		commonsCodec: "1.15",
+		commonsCompress: "1.21",
 		commonsLang3: "3.11",
 		commonsNet: "3.7.2",
 		commonsText: "1.9",
@@ -65,6 +66,8 @@ subprojects {
 			force "commons-codec:commons-codec:$versions.commonsCodec"
 			force "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
 			force "net.bytebuddy:byte-buddy:$versions.byteBuddy"
+			// versions below 1.21 have known vulnerabilities
+			force "org.apache.commons:commons-compress:$versions.commonsCompress"
 		}
 	}
 
