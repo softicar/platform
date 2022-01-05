@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.uuid;
 
-import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
@@ -33,16 +32,6 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 			.getReferencePoint(getUuid())
 			.map(IEmfSourceCodeReferencePoint::toDisplay)
 			.orElse(getStaticRoleTitle(getUuid()));
-	}
-
-	// FIXME Should be replaced when roles can be created at runtime
-	private static IDisplayString getStaticRoleTitle(UUID uuid) {
-
-		return CurrentEmfRoleRegistry//
-			.get()
-			.getStaticRole(uuid)
-			.map(IEmfStaticRole::getTitle)
-			.orElse(DisplayString.EMPTY);
 	}
 
 	@Override
@@ -137,6 +126,16 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 				return uuidObject;
 			}
 		}
+	}
+
+	// FIXME Should be replaced when roles can be created at runtime
+	private IDisplayString getStaticRoleTitle(UUID uuid) {
+
+		return CurrentEmfRoleRegistry//
+			.get()
+			.getStaticRole(uuid)
+			.map(IEmfStaticRole::getTitle)
+			.orElse(IDisplayString.create(getUuidString()));
 	}
 
 	@Override
