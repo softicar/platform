@@ -28,7 +28,7 @@ public class DbStatementTest extends AbstractDbResultSetTest {
 
 		this.schema = DbDdlStatements.createSchema("TEST_SCHEMA");
 		this.metadataTableA = DbDdlStatements.createTable(schema, "TABLE_A", "id INT AUTO_INCREMENT, text VARCHAR");
-		this.metadataTableB = DbDdlStatements.createTable(schema, "TABLE_B", "value INT");
+		this.metadataTableB = DbDdlStatements.createTable(schema, "TABLE_B", "someValue INT");
 		this.tableA = new DbCoreTestTable(metadataTableA);
 		this.tableB = new DbCoreTestTable(metadataTableB);
 		this.rowXId = insertTextIntoTable(tableA, ROW_X_TEXT);
@@ -164,13 +164,13 @@ public class DbStatementTest extends AbstractDbResultSetTest {
 		new DbStatement()//
 			.addTable(tableA)
 			.addTable(tableB)
-			.addText("INSERT INTO %s (value) VALUES (12)", tableB)
+			.addText("INSERT INTO %s (someValue) VALUES (12)", tableB)
 			.executeUpdate();
 
 		listener.assertAccess(tableA, tableB);
-		new DbResultSetAsserter(() -> selectFromTable(tableB, "value"))//
+		new DbResultSetAsserter(() -> selectFromTable(tableB, "someValue"))//
 			.assertNextRow()
-			.assertInt("value", 12)
+			.assertInt("someValue", 12)
 			.assertEndOfResultSet();
 	}
 

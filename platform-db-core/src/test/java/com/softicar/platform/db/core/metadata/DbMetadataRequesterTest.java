@@ -37,7 +37,7 @@ public class DbMetadataRequesterTest extends AbstractDbCoreTest {
 		DbMetadataTable tableA = tables.get("tab");
 		assertSame(schema, tableA.getSchema());
 		assertEquals("tab", tableA.getTableName());
-		assertEquals("TABLE", tableA.getTableType());
+		assertEquals("BASE TABLE", tableA.getTableType());
 
 		DbMetadataTable tableB = tables.get("v");
 		assertSame(schema, tableB.getSchema());
@@ -53,7 +53,7 @@ public class DbMetadataRequesterTest extends AbstractDbCoreTest {
 			.addText("CREATE TABLE someSchema.someTable (")
 			.addText("id int AUTO_INCREMENT,")
 			.addText("name VARCHAR(33) NULL DEFAULT 'abc',")
-			.addText("value DECIMAL(10,3) NOT NULL DEFAULT 3.14")
+			.addText("someValue DECIMAL(10,3) NOT NULL DEFAULT 3.14")
 			.addText(")")
 			.execute();
 
@@ -64,7 +64,7 @@ public class DbMetadataRequesterTest extends AbstractDbCoreTest {
 		assertEquals(3, columns.size());
 		assertTrue(columns.containsKey("id"));
 		assertTrue(columns.containsKey("name"));
-		assertTrue(columns.containsKey("value"));
+		assertTrue(columns.containsKey("someValue"));
 
 		DbMetadataColumn idColumn = columns.get("id");
 		assertSame(table, idColumn.getTable());
@@ -84,9 +84,9 @@ public class DbMetadataRequesterTest extends AbstractDbCoreTest {
 		assertFalse(nameColumn.isAutoIncrement());
 		assertTrue(nameColumn.isNullable());
 
-		DbMetadataColumn valueColumn = columns.get("value");
+		DbMetadataColumn valueColumn = columns.get("someValue");
 		assertSame(table, valueColumn.getTable());
-		assertEquals("value", valueColumn.getColumnName());
+		assertEquals("someValue", valueColumn.getColumnName());
 		assertEquals(3, valueColumn.getColumnIndex());
 		assertEquals(Types.DECIMAL, valueColumn.getDataType());
 		assertEquals(10, valueColumn.getCharOctetLength());

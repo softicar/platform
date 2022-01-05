@@ -231,7 +231,7 @@ public class DbConnection implements IDbConnection {
 
 		try (ResultSet resultSet = statementCache.getCurrentPreparedStatement().getGeneratedKeys()) {
 			List<Integer> ids = new ArrayList<>();
-			if (resultSet != null) {
+			if (resultSet != null && isFirstColumnAutoIncrement(resultSet)) {
 				// read all generated keys
 				while (resultSet.next()) {
 					ids.add(resultSet.getInt(1));
@@ -246,6 +246,12 @@ public class DbConnection implements IDbConnection {
 		} catch (SQLException exception) {
 			throw new SofticarSqlException(exception);
 		}
+	}
+
+	private boolean isFirstColumnAutoIncrement(ResultSet resultSet) throws SQLException {
+
+		var metaData = resultSet.getMetaData();
+		return metaData.getColumnCount() > 0 && metaData.isAutoIncrement(1);
 	}
 
 	private int getInsertId() {
