@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.module.page.ModulePageOverviewButton;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
@@ -54,14 +55,20 @@ public class ModuleOverviewPageDiv extends DomDiv {
 			appendChild(
 				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
 					.setRefreshable(cell.getTableRow())
+					.setCallbackBeforeShow(this::hide)
 					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle()));
 			appendChild(
-				new DomButton()//
+				new DomPopupButton()//
+					.setPopupFactory(() -> new EmfTableOverviewPopup(module))
+					.setCallbackBeforeShow(this::hide)
 					.setIcon(CoreImages.MODULES.getResource())
-					.setLabel(EmfI18n.SHOW_TABLES)
-					.setClickCallback(() -> new EmfTableOverviewPopup(module).show()));
-			appendChild(new EmfModuleRoleViewButton(module));
-			appendChild(new ModulePageOverviewButton(module));
+					.setLabel(EmfI18n.SHOW_TABLES));
+			appendChild(
+				new EmfModuleRoleViewButton(module)//
+					.setCallbackBeforeShow(this::hide));
+			appendChild(
+				new ModulePageOverviewButton(module)//
+					.setCallbackBeforeShow(this::hide));
 		}
 	}
 }
