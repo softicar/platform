@@ -27,7 +27,7 @@ project.ext {
 		imgscalr: "4.2", // no longer maintained - this version dates back to 2012
 		javaxServletApi: "4.0.1",
 		jcifs: "1.3.17",
-		jetty: "9.4.34.v20201102",
+		jetty: "9.4.44.v20210927",
 		jsch: "0.1.55",
 		junit: "4.13.1",
 		mockito: "3.6.0",
