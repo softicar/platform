@@ -21,7 +21,7 @@ public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<
 	@Override
 	public IEmfPredicate<AGModuleInstance> getPrecondition() {
 
-		return ModuleInstancePredicates.NOT_INITIALIZED;
+		return ModuleInstancePredicates.NOT_INITIALIZED.and(ModuleInstancePredicates.ACTIVE);
 	}
 
 	@Override
