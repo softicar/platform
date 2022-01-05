@@ -14,7 +14,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.entity.table.overview.EmfTableOverviewPopup;
-import com.softicar.platform.emf.management.EmfManagementButton;
+import com.softicar.platform.emf.management.EmfManagementPopup;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.role.EmfModuleRoleViewButton;
 
@@ -50,18 +50,29 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 		public <M extends IEmfModule<?>> ActionPopover(IEmfDataTableActionCell<M> cell, M module) {
 
-			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
 			appendChild(
-				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
-					.setRefreshable(cell.getTableRow())
-					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle()));
+				new DomButton()//
+					.setClickCallback(() -> showPanicReceiverPopup(cell, module))
+					.setIcon(AGModulePanicReceiver.TABLE.getIcon())
+					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle())
+					.setTitle(EmfI18n.MANAGE_ARG1.toDisplay(AGModulePanicReceiver.TABLE.getPluralTitle())));
 			appendChild(
 				new DomButton()//
 					.setIcon(CoreImages.MODULES.getResource())
 					.setLabel(EmfI18n.SHOW_TABLES)
-					.setClickCallback(() -> new EmfTableOverviewPopup(module).show()));
-			appendChild(new EmfModuleRoleViewButton(module));
-			appendChild(new ModulePageOverviewButton(module));
+					.setClickCallback(() -> {
+						hide();
+						new EmfTableOverviewPopup(module).show();
+					}));
+			appendChild(new EmfModuleRoleViewButton(module).setCallbackBeforeShow(this::hide));
+			appendChild(new ModulePageOverviewButton(module).setCallbackBeforeShow(this::hide));
+		}
+
+		private <M extends IEmfModule<?>> void showPanicReceiverPopup(IEmfDataTableActionCell<M> cell, M module) {
+
+			hide();
+			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
+			new EmfManagementPopup<>(AGModulePanicReceiver.TABLE, uuid).setRefreshable(cell.getTableRow()).show();
 		}
 	}
 }
