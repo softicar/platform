@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.uuid;
 
+import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
@@ -9,6 +10,8 @@ import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
+import com.softicar.platform.emf.authorization.role.CurrentEmfRoleRegistry;
+import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
 import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
@@ -29,7 +32,17 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		return EmfSourceCodeReferencePoints//
 			.getReferencePoint(getUuid())
 			.map(IEmfSourceCodeReferencePoint::toDisplay)
-			.orElse(IDisplayString.create(getUuidString()));
+			.orElse(getStaticRoleTitle(getUuid()));
+	}
+
+	// FIXME Should be replaced when roles can be created at runtime
+	private static IDisplayString getStaticRoleTitle(UUID uuid) {
+
+		return CurrentEmfRoleRegistry//
+			.get()
+			.getStaticRole(uuid)
+			.map(IEmfStaticRole::getTitle)
+			.orElse(DisplayString.EMPTY);
 	}
 
 	@Override
