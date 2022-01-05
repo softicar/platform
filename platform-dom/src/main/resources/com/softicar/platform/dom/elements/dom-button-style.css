@@ -14,7 +14,7 @@
 
 .DomButton {
 	/* position and layout */
-	justify-content: center;
+	align-items: center;
 	column-gap: var(--COLUMN_GAP);
 	display: inline-flex;
 	flex-direction: row;
