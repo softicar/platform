@@ -15,7 +15,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.entity.table.overview.EmfTableOverviewPopup;
-import com.softicar.platform.emf.management.EmfManagementPopup;
+import com.softicar.platform.emf.management.EmfManagementButton;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.role.EmfModuleRoleViewButton;
 
@@ -53,12 +53,10 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
 			appendChild(
-				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfManagementPopup<>(AGModulePanicReceiver.TABLE, uuid).setRefreshable(cell.getTableRow()))
+				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
+					.setRefreshable(cell.getTableRow())
 					.setCallbackBeforeShow(this::hide)
-					.setIcon(AGModulePanicReceiver.TABLE.getIcon())
-					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle())
-					.setTitle(EmfI18n.MANAGE_ARG1.toDisplay(AGModulePanicReceiver.TABLE.getPluralTitle())));
+					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle()));
 			appendChild(
 				new DomPopupButton()//
 					.setPopupFactory(() -> new EmfTableOverviewPopup(module))
