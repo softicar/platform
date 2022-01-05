@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.module.page.ModulePageOverviewButton;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
@@ -50,29 +51,26 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 		public <M extends IEmfModule<?>> ActionPopover(IEmfDataTableActionCell<M> cell, M module) {
 
+			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
 			appendChild(
-				new DomButton()//
-					.setClickCallback(() -> showPanicReceiverPopup(cell, module))
+				new DomPopupButton()//
+					.setPopupFactory(() -> new EmfManagementPopup<>(AGModulePanicReceiver.TABLE, uuid).setRefreshable(cell.getTableRow()))
+					.setCallbackBeforeShow(this::hide)
 					.setIcon(AGModulePanicReceiver.TABLE.getIcon())
 					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle())
 					.setTitle(EmfI18n.MANAGE_ARG1.toDisplay(AGModulePanicReceiver.TABLE.getPluralTitle())));
 			appendChild(
-				new DomButton()//
+				new DomPopupButton()//
+					.setPopupFactory(() -> new EmfTableOverviewPopup(module))
+					.setCallbackBeforeShow(this::hide)
 					.setIcon(CoreImages.MODULES.getResource())
-					.setLabel(EmfI18n.SHOW_TABLES)
-					.setClickCallback(() -> {
-						hide();
-						new EmfTableOverviewPopup(module).show();
-					}));
-			appendChild(new EmfModuleRoleViewButton(module).setCallbackBeforeShow(this::hide));
-			appendChild(new ModulePageOverviewButton(module).setCallbackBeforeShow(this::hide));
-		}
-
-		private <M extends IEmfModule<?>> void showPanicReceiverPopup(IEmfDataTableActionCell<M> cell, M module) {
-
-			hide();
-			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
-			new EmfManagementPopup<>(AGModulePanicReceiver.TABLE, uuid).setRefreshable(cell.getTableRow()).show();
+					.setLabel(EmfI18n.SHOW_TABLES));
+			appendChild(
+				new EmfModuleRoleViewButton(module)//
+					.setCallbackBeforeShow(this::hide));
+			appendChild(
+				new ModulePageOverviewButton(module)//
+					.setCallbackBeforeShow(this::hide));
 		}
 	}
 }
