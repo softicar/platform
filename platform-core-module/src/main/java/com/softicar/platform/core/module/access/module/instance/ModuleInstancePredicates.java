@@ -10,5 +10,11 @@ public interface ModuleInstancePredicates {
 		CoreI18n.INITIALIZED,
 		AGModuleInstance::isInitialized);
 
+	IEmfPredicate<AGModuleInstance> ACTIVE = new EmfPredicate<>(//
+		CoreI18n.ACTIVE,
+		AGModuleInstance::isActive);
+
 	IEmfPredicate<AGModuleInstance> NOT_INITIALIZED = INITIALIZED.not();
+
+	IEmfPredicate<AGModuleInstance> NOT_ACTIVE = ACTIVE.not();
 }
