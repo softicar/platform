@@ -1,6 +1,7 @@
 
 .DomBar {
-	display: grid;
+	display: flex;
+	flex-direction: row;
 	align-content: center;
 	align-items: center;
 	grid-auto-columns: max-content;
