@@ -2,8 +2,9 @@
 :root {
 	--DOM_BUTTON_DECORATION_BACKGROUND_COLOR: var(--PRIMARY_COLOR);
 	--DOM_BUTTON_DECORATION_COLOR: var(--PRIMARY_CONTRAST_COLOR);
+	--DOM_BUTTON_DECORATION_HEIGHT: 30px;
 	--DOM_BUTTON_DECORATION_INTERACTION_BOX_SHADOW: var(--BOX_SHADOW_FOCUS);
-	--DOM_BUTTON_DECORATION_PADDING: 3px 16px;
+	--DOM_BUTTON_DECORATION_PADDING: 0px 16px;
 
 	--DOM_BUTTON_ICON_DECORATION_FILTER: var(--PRIMARY_CONTRAST_COLOR_FILTER);
 	--DOM_BUTTON_ICON_SIZE: 20px;
@@ -88,10 +89,8 @@
 }
 
 .DomButtonLabel {
-	justify-content: center;
-	display: inline-flex;
+	display: inline;
 	max-width: 300px;
-	min-height: var(--DOM_BUTTON_ICON_SIZE);
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
