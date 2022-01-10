@@ -39,10 +39,9 @@ public class UsersNotificationPageDiv extends DomDiv {
 		appendChild(new DomMessageDiv(DomMessageType.INFO, CoreI18n.SENDS_AN_EMAIL_WITH_THE_SPECIFIED_CONTENT_TO_ALL_SELECTED_USERS));
 		appendChild(
 			new DomLabelGrid()//
-				.add(CoreI18n.FROM, fromInput = new DomTextInput())
+				.add(CoreI18n.FROM, fromInput = new DomTextInput(AGCoreModuleInstance.getInstance().getNoReplyEmailAddress()))
 				.add(CoreI18n.SUBJECT, subjectInput = new DomTextInput())
 				.add(CoreI18n.CONTENT, contentInput = new EmfMultilineStringInput()));
-		fromInput.setValue(AGCoreModuleInstance.getInstance().getSupportEmailAddress());
 		appendChild(new DomMessageDiv(DomMessageType.WARNING, CoreI18n.PLEASE_DOUBLE_CHECK_ALL_INPUTS_BEFORE_CLICKING_ARG1.toDisplay(CoreI18n.SEND)));
 		appendChild(
 			new DomActionBar(
