@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Objects;
 
@@ -21,6 +22,8 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 	 *            the message to display (never <i>null</i>)
 	 */
 	public DomModalAlertPopup(IDisplayString message) {
+
+		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 
 		Objects.requireNonNull(message);
 
