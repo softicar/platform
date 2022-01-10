@@ -21,7 +21,6 @@
 	flex-direction: row;
 	padding: 0;
 	position: relative;
-	white-space: nowrap;
 	justify-self: start;
 
 	/* look */
