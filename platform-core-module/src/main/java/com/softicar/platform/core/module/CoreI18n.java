@@ -8,6 +8,10 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL_IF_AVAILABLE = new I18n0("The user will be notified via email if available.")//
+		.de("Der Benutzer wird, falls verfügbar, per E-Mail benachrichtigt.");
+	I18n1 IN_CASE_EMAIL_SENDING_FAILS_THE_NEW_PASSWORD_IS_ARG1 = new I18n1("In case email sending fails, the new password is %s")//
+		.de("Falls das Senden der E_Mail nicht funktioniert, das neue Passwort ist %s");
 	I18n1 A_LOG_PERIOD_IS_ALREADY_DEFINED_FOR_THE_GIVEN_UUID_OF_ARG1 = new I18n1("A log period is already defined for the given UUID of '%s'.")//
 		.de("Eine Log-Zeitraum ist für die gegebene UUID von '%s' bereits definiert.");
 	I18n0 ABORT = new I18n0("Abort")//
