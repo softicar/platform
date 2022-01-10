@@ -5,12 +5,14 @@
 	padding: var(--DOM_BUTTON_DECORATION_PADDING);
 	background-color: var(--DOM_BUTTON_DECORATION_BACKGROUND_COLOR);
 	color: var(--DOM_BUTTON_DECORATION_COLOR);
+	height: var(--DOM_BUTTON_DECORATION_HEIGHT);
 }
 
 td .DomActionBar > .DomButton {
 	padding: unset;
 	background-color: unset;
 	color: unset;
+	height: unset;
 }
 
 /* ---------------- DomButton: hover and focus ---------------- */
@@ -43,8 +45,8 @@ td .DomActionBar > .DomButton.selected {
 }
 
 td .DomActionBar > .DomButton > .DomButtonIcon {
-	width: unset;
-	height: unset;
+	width: var(--DOM_BUTTON_ICON_SIZE);
+	height: var(--DOM_BUTTON_ICON_SIZE);
 }
 
 /* ---------------- DomButton: icon color ---------------- */
@@ -60,7 +62,6 @@ td .DomActionBar > .DomButton > .DomButtonIcon:not(.precolored) {
 /* ---------------- DomButton: label ---------------- */
 
 .DomActionBar > .DomButton > .DomButtonLabel {
-	min-height: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
 	text-transform: var(--DOM_BUTTON_LABEL_DECORATION_TEXT_TRANSFORM);
 }
 
