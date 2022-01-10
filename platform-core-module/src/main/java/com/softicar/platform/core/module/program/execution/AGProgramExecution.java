@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.object.IEmfObject;
@@ -47,18 +48,22 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 	}
 
 	/**
-	 * Returns all executions that have started since the given {@link DayTime}.
+	 * Returns all executions of the given {@link AGProgram} that have started
+	 * since the given {@link DayTime}.
 	 * <p>
 	 * This includes running and finished executions.
 	 *
+	 * @param program
+	 *            the {@link AGProgram} (never <i>null</i>)
 	 * @param startedAt
 	 *            the minimum started-at (never <i>null</i>)
 	 * @return all matching executions
 	 */
-	public static Collection<AGProgramExecution> getRecentExecutions(DayTime startedAt) {
+	public static Collection<AGProgramExecution> getRecentExecutions(AGProgram program, DayTime startedAt) {
 
 		return AGProgramExecution.TABLE//
 			.createSelect()
+			.where(AGProgramExecution.PROGRAM_UUID.equal(program.getProgramUuid()))
 			.where(AGProgramExecution.STARTED_AT.isGreaterEqual(startedAt))
 			.orderBy(AGProgramExecution.STARTED_AT)
 			.orderBy(AGProgramExecution.ID)
