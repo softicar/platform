@@ -374,6 +374,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("Hilfe");
 	I18n0 HOUR = new I18n0("Hour")//
 		.de("Stunde");
+	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL =
+			new I18n0("If an email server is configured, the user will receive this password via email.")//
+				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer dieses Passwort via E-Mail erhalten.");
 	I18n1 IGNORE_ARG1_EXCEPTIONS = new I18n1("Ignore %s Exceptions")//
 		.de("Ignoriere %s Ausnahmen");
 	I18n0 IGNORE_SESSION_TIMEOUT_EXCEPTIONS = new I18n0("Ignore Session Timeout Exceptions")//
@@ -388,8 +391,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer verkörpern");
 	I18n0 IMPERSONATED_USER = new I18n0("Impersonated User")//
 		.de("Verkörperter Benutzer");
-	I18n1 IN_CASE_EMAIL_SENDING_FAILS_THE_NEW_PASSWORD_IS_ARG1 = new I18n1("In case email sending fails, the new password is %s")//
-		.de("Falls das Senden der E_Mail nicht funktioniert, das neue Passwort ist %s");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
 	I18n0 INFO = new I18n0("Info")//
@@ -961,6 +962,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Das Passwort enthält nur ASCII-Zeichen.");
 	I18n0 THE_PASSWORD_DOES_NOT_FULFILL_THE_REQUIRED_SECURITY_CRITERIA = new I18n0("The password does not fulfill the required security criteria.")//
 		.de("Das Passwort erfüllt nicht die erforderlichen Sicherheitskriterien.");
+	I18n2 THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2 = new I18n2("The password for user '%s' is now: %s")//
+		.de("Das Password für Benutzer '%s' lautet jetzt: %s");
 	I18n1 THE_PASSWORD_FULFILLS_AT_LEAST_ARG1_SUB_CRITERIA = new I18n1("The password fulfills at least %s sub-criteria.")//
 		.de("Das Passwort erfüllt mindestens %s Unterkriterien.");
 	I18n1 THE_PASSWORD_HAS_A_MINIMUM_LENGTH_OF_ARG1_CHARACTERS = new I18n1("The password has a minimum length of %s characters.")//
@@ -977,8 +980,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Das Pseudonym wird als Nachname verwendet.");
 	I18n0 THE_USER_MUST_NOT_BE_ACTIVE = new I18n0("The user must not be active.")//
 		.de("Der Benutzer darf nicht aktiv sein.");
-	I18n0 THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL_IF_AVAILABLE = new I18n0("The user will be notified via email if available.")//
-		.de("Der Benutzer wird, falls verfügbar, per E-Mail benachrichtigt.");
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_A_DAY_TIME_SPECIFICATION_BUT_WAS_ARG2 =
 			new I18n2("The value of the servlet parameter '%s' must be a day-time specification but was '%s'.")//
 				.de("Der Wert des Servlet-Parameters '%s' muss eine Tag-Zeit-Spezifikation sein, doch er war '%s'.");

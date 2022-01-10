@@ -56,8 +56,10 @@ public class UserPasswordGenerator {
 			new UserPasswordUpdater(user, password).update();
 			AGUser.sendPaswordResetNotification(user, password);
 			new DomModalAlertPopup(
-				CoreI18n.THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL_IF_AVAILABLE
-					.concatSentence(CoreI18n.IN_CASE_EMAIL_SENDING_FAILS_THE_NEW_PASSWORD_IS_ARG1.toDisplay(password))).show();
+				CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2
+					.toDisplay(user.getLoginName(), password)
+					.concat("\n\n")
+					.concat(CoreI18n.IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL)).show();
 			transaction.commit();
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, CoreI18n.COULD_NOT_RESET_USER_PASSWORD);
