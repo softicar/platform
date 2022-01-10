@@ -16,13 +16,13 @@
 
 .EmfPasswordInput {
 	position: relative;
+	justify-content: center;
 }
 
 .EmfPasswordVisibilityButton {
 	opacity: 0.25;
 	position: absolute;
-	justify-self: end;
-	align-self: center;
+	align-self: end;
 	padding-right: 5px;
 }
 
