@@ -8,10 +8,6 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
-	I18n0 THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL_IF_AVAILABLE = new I18n0("The user will be notified via email if available.")//
-		.de("Der Benutzer wird, falls verfügbar, per E-Mail benachrichtigt.");
-	I18n1 IN_CASE_EMAIL_SENDING_FAILS_THE_NEW_PASSWORD_IS_ARG1 = new I18n1("In case email sending fails, the new password is %s")//
-		.de("Falls das Senden der E_Mail nicht funktioniert, das neue Passwort ist %s");
 	I18n1 A_LOG_PERIOD_IS_ALREADY_DEFINED_FOR_THE_GIVEN_UUID_OF_ARG1 = new I18n1("A log period is already defined for the given UUID of '%s'.")//
 		.de("Eine Log-Zeitraum ist für die gegebene UUID von '%s' bereits definiert.");
 	I18n0 ABORT = new I18n0("Abort")//
@@ -392,6 +388,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer verkörpern");
 	I18n0 IMPERSONATED_USER = new I18n0("Impersonated User")//
 		.de("Verkörperter Benutzer");
+	I18n1 IN_CASE_EMAIL_SENDING_FAILS_THE_NEW_PASSWORD_IS_ARG1 = new I18n1("In case email sending fails, the new password is %s")//
+		.de("Falls das Senden der E_Mail nicht funktioniert, das neue Passwort ist %s");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
 	I18n0 INFO = new I18n0("Info")//
@@ -979,6 +977,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Das Pseudonym wird als Nachname verwendet.");
 	I18n0 THE_USER_MUST_NOT_BE_ACTIVE = new I18n0("The user must not be active.")//
 		.de("Der Benutzer darf nicht aktiv sein.");
+	I18n0 THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL_IF_AVAILABLE = new I18n0("The user will be notified via email if available.")//
+		.de("Der Benutzer wird, falls verfügbar, per E-Mail benachrichtigt.");
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_A_DAY_TIME_SPECIFICATION_BUT_WAS_ARG2 =
 			new I18n2("The value of the servlet parameter '%s' must be a day-time specification but was '%s'.")//
 				.de("Der Wert des Servlet-Parameters '%s' muss eine Tag-Zeit-Spezifikation sein, doch er war '%s'.");
