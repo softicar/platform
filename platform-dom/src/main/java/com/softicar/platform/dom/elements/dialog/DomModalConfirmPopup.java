@@ -3,6 +3,7 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import java.util.Objects;
@@ -27,6 +28,8 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	 *            the message to display (never <i>null</i>)
 	 */
 	public DomModalConfirmPopup(INullaryVoidFunction confirmHandler, IDisplayString message) {
+
+		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 
 		Objects.requireNonNull(confirmHandler);
 		Objects.requireNonNull(message);

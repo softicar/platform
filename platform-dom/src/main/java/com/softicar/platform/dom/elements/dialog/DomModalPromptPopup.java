@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
@@ -33,6 +34,8 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 	 *            the initial value of the input element (may be <i>null</i>)
 	 */
 	public DomModalPromptPopup(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
+
+		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 
 		this.promptHandler = Objects.requireNonNull(promptHandler);
 		Objects.requireNonNull(message);

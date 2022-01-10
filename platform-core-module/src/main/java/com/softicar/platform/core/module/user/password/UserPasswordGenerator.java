@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.policy.SofticarPasswordPolicy;
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -54,6 +55,11 @@ public class UserPasswordGenerator {
 			String password = new UserPasswordGenerator().generatePassword();
 			new UserPasswordUpdater(user, password).update();
 			AGUser.sendPaswordResetNotification(user, password);
+			new DomModalAlertPopup(
+				CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2
+					.toDisplay(user.getLoginName(), password)
+					.concat("\n\n")
+					.concat(CoreI18n.IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL)).show();
 			transaction.commit();
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, CoreI18n.COULD_NOT_RESET_USER_PASSWORD);
