@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
@@ -16,6 +17,7 @@ import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
+import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstance> {
 
@@ -36,6 +38,23 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setEntityLoader(Programs::getAllProgramsAsIndirectEntities)
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
+			.setPredicateMandatory(EmfPredicates.always())
+			.setPredicateEditable(EmfPredicates.never());
+
+		attributes//
+			.editAttribute(AGProgram.QUEUED_AT)
+			.setPredicateEditable(EmfPredicates.never());
+
+		attributes//
+			.editAttribute(AGProgram.ABORT_REQUESTED)
+			.setPredicateEditable(EmfPredicates.never());
+
+		attributes//
+			.editAttribute(AGProgram.CURRENT_EXECUTION)
+			.setPredicateEditable(EmfPredicates.never());
+
+		attributes//
+			.editAttribute(AGProgram.RETENTION_DAYS_OF_EXECUTIONS)
 			.setPredicateMandatory(EmfPredicates.always());
 
 		attributes//
@@ -56,11 +75,17 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	}
 
 	@Override
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGProgram, Integer, SystemModuleInstance> configuration) {
+
+		configuration.addValidator(ProgramValidator::new);
+	}
+
+	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGProgram, SystemModuleInstance> authorizer) {
 
 		authorizer//
 			.setCreationRole(EmfRoles.nobody())
-			.setEditRole(EmfRoles.nobody())
+			.setEditRole(CoreRoles.SUPER_USER.toOtherEntityRole())
 			.setDeleteRole(EmfRoles.nobody());
 	}
 

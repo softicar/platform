@@ -767,6 +767,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Reply-To");
 	I18n0 RESET_PASSWORD = new I18n0("Reset Password")//
 		.de("Passwort zurücksetzen");
+	I18n0 RETENTION_DAYS_OF_EXECUTIONS = new I18n0("Retention Days of Executions")//
+		.de("Speicherungstage für Ausführungen");
+	I18n0 RETENTION_DAYS_OF_EXECUTIONS_MUST_NOT_BE_SMALLER_THAN_0 = new I18n0("Retention days of executions must not be smaller than 0.")//
+		.de("Speicherungstage für Ausführungen darf nicht kleiner als 0 sein.");
 	I18n1 RETURN_TO_USER_ARG1 = new I18n1("Return to user: %s")//
 		.de("Zurückkehren zu Benuter: %s");
 	I18n0 REVISION = new I18n0("Revision")//

@@ -69,6 +69,17 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	}
 
 	@Test
+	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
+
+		program.setQueuedAt(null).save();
+		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
+
+		runEnqueuer(noon);
+
+		assertQueuedAt(noon);
+	}
+
+	@Test
 	public void testWithMatchingScheduleWithExistingQueuedAt() {
 
 		program//
