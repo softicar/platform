@@ -39,12 +39,12 @@ class ScheduledProgramEnqueuer {
 
 	private boolean isNotQueuedAndNotRunning(AGProgram program) {
 
-		return !program.isQueued() && !hasRecentExecutions();
+		return !program.isQueued() && !hasRecentExecutions(program);
 	}
 
-	private boolean hasRecentExecutions() {
+	private boolean hasRecentExecutions(AGProgram program) {
 
-		return !AGProgramExecution.getRecentExecutions(currentMinute).isEmpty();
+		return !AGProgramExecution.getRecentExecutions(program, currentMinute).isEmpty();
 	}
 
 	private AGProgram updateQueuedAt(AGProgram program) {
