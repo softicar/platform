@@ -4,12 +4,12 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.AbstractProgramTest;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
-import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.UUID;
 import org.junit.Test;
 
-public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
+public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 
 	private static final Time NOON = new Time(12, 0, 0);
 	private static final Day SOME_DAY = Day.fromYMD(2020, 1, 1);
@@ -42,7 +42,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAt() {
 
-		program.setQueuedAt(null).save();
+		program.setQueuedAt(null).setQueuedBy(null).save();
 
 		runEnqueuer(noon);
 
@@ -52,7 +52,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
 
-		program.setQueuedAt(null).save();
+		program.setQueuedAt(null).setQueuedBy(user).save();
 		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
 
 		runEnqueuer(noon);
@@ -63,7 +63,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 	@Test
 	public void testWithMatchingScheduleWithExistingQueuedAt() {
 
-		program.setQueuedAt(beforeNoon).save();
+		program.setQueuedAt(beforeNoon).setQueuedBy(user).save();
 
 		runEnqueuer(noon);
 
@@ -145,6 +145,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 		return new AGProgramExecution()//
 			.setProgramUuid(programUuid)
 			.setStartedAt(startedAt)
+			.setQueuedBy(user)
 			.save();
 	}
 }

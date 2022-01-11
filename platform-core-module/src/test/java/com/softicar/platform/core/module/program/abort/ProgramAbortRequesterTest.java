@@ -2,12 +2,12 @@ package com.softicar.platform.core.module.program.abort;
 
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.AbstractProgramTest;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionInserter;
-import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.UUID;
 import org.junit.Test;
 
-public class ProgramAbortRequesterTest extends AbstractDbTest {
+public class ProgramAbortRequesterTest extends AbstractProgramTest {
 
 	private static final UUID SOME_UUID = UUID.fromString("d6c08b5e-9e35-489d-a984-16ad021f6b1e");
 	private final AGProgram program;
@@ -17,6 +17,7 @@ public class ProgramAbortRequesterTest extends AbstractDbTest {
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.setQueuedAt(null)
+			.setQueuedBy(user)
 			.setAbortRequested(false)
 			.setCurrentExecution(null)
 			.save();

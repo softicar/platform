@@ -6,7 +6,6 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,20 +25,18 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
+public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static final UUID SOME_UUID = UUID.fromString("2e2c901b-1a64-4690-8f0e-757e1206612f");
 	private final FakeLimitedThreadRunner threadRunner;
 	private final QueuedProgramExecutionDaemon daemon;
 	private final DayTime now;
-	private final AGUser user;
 
 	public QueuedProgramExecutionDaemonTest() {
 
 		this.threadRunner = new FakeLimitedThreadRunner();
 		this.daemon = new QueuedProgramExecutionDaemon(threadRunner);
 		this.now = DayTime.now();
-		this.user = insertUser();
 		setupTestSleeper();
 	}
 
@@ -487,17 +484,6 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 			.setQueuedBy(user)
 			.setAbortRequested(abortRequested)
 			.setCurrentExecution(currentExecution)
-			.save();
-	}
-
-	private static AGUser insertUser() {
-
-		return new AGUser()//
-			.setActive(false)
-			.setLoginName("john.doe")
-			.setFirstName("John")
-			.setLastName("Doe")
-			.setEmailAddress("john.doe@example.com")
 			.save();
 	}
 
