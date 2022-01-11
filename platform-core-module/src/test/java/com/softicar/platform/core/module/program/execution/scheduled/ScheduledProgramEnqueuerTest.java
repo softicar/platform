@@ -50,6 +50,17 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 	}
 
 	@Test
+	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
+
+		program.setQueuedAt(null).save();
+		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
+
+		runEnqueuer(noon);
+
+		assertQueuedAt(noon);
+	}
+
+	@Test
 	public void testWithMatchingScheduleWithExistingQueuedAt() {
 
 		program.setQueuedAt(beforeNoon).save();
@@ -126,8 +137,13 @@ public class ScheduledProgramEnqueuerTest extends AbstractDbTest {
 
 	private AGProgramExecution insertProgramExecution(DayTime startedAt) {
 
+		return insertProgramExecution(startedAt, SOME_UUID);
+	}
+
+	private AGProgramExecution insertProgramExecution(DayTime startedAt, UUID programUuid) {
+
 		return new AGProgramExecution()//
-			.setProgramUuid(SOME_UUID)
+			.setProgramUuid(programUuid)
 			.setStartedAt(startedAt)
 			.save();
 	}

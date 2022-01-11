@@ -37,6 +37,7 @@ public interface DomElementsCssClasses {
 
 	ICssClass DOM_MODAL_DIALOG_POPUP = new CssClass("DomModalDialogPopup", DomElementsCssFiles.DOM_MODAL_DIALOG_STYLE);
 	ICssClass DOM_MODAL_DIALOG_POPUP_CONTENT = new CssClass("DomModalDialogPopupContent", DomElementsCssFiles.DOM_MODAL_DIALOG_STYLE);
+	ICssClass DOM_MODAL_DIALOG_POPUP_WRAPPED = new CssClass("DomModalDialogPopupWrapped", DomElementsCssFiles.DOM_MODAL_DIALOG_STYLE);
 	ICssClass DOM_MODAL_DIALOG_BACKDROP = new CssClass("DomModalDialogBackdrop", DomElementsCssFiles.DOM_MODAL_DIALOG_STYLE);
 
 	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION = new CssClass("DomPageableTableNavigation", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
