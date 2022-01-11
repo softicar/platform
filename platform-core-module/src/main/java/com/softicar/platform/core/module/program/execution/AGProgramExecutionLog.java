@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.transaction.AGTransaction;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
@@ -38,6 +39,7 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 	public static final IDbDayTimeField<AGProgramExecutionLog> TERMINATED_AT = BUILDER.addDayTimeField("terminatedAt", o->o.m_terminatedAt, (o,v)->o.m_terminatedAt=v).setTitle(CoreI18n.TERMINATED_AT).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgramExecutionLog> FAILED = BUILDER.addBooleanField("failed", o->o.m_failed, (o,v)->o.m_failed=v).setTitle(CoreI18n.FAILED).setNullable().setDefault(null);
 	public static final IDbStringField<AGProgramExecutionLog> OUTPUT = BUILDER.addStringField("output", o->o.m_output, (o,v)->o.m_output=v).setTitle(CoreI18n.OUTPUT).setNullable().setDefault(null).setLengthBits(32);
+	public static final IDbForeignField<AGProgramExecutionLog, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null);
 	public static final IDbTableKey<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM_EXECUTION, TRANSACTION));
 	public static final DbRecordTable<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -111,6 +113,21 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 		return setValue(OUTPUT, value);
 	}
 
+	public final Integer getQueuedByID() {
+
+		return getValueId(QUEUED_BY);
+	}
+
+	public final AGUser getQueuedBy() {
+
+		return getValue(QUEUED_BY);
+	}
+
+	public final AGProgramExecutionLog setQueuedBy(AGUser value) {
+
+		return setValue(QUEUED_BY, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -127,5 +144,6 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 	private DayTime m_terminatedAt;
 	private Boolean m_failed;
 	private String m_output;
+	private AGUser m_queuedBy;
 }
 

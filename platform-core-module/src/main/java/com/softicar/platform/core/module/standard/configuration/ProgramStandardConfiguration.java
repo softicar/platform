@@ -26,6 +26,7 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 			.setCurrentExecution(null)
 			.setProgramUuid(uuid.getUuid())
 			.setQueuedAt(null)
+			.setQueuedBy(null)
 			.save();
 	}
 }

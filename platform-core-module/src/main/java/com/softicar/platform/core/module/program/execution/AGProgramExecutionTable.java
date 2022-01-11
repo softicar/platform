@@ -78,6 +78,7 @@ public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, 
 			.addMapping(AGProgramExecution.STARTED_AT, AGProgramExecutionLog.STARTED_AT)
 			.addMapping(AGProgramExecution.TERMINATED_AT, AGProgramExecutionLog.TERMINATED_AT)
 			.addMapping(AGProgramExecution.FAILED, AGProgramExecutionLog.FAILED)
-			.addMapping(AGProgramExecution.OUTPUT, AGProgramExecutionLog.OUTPUT);
+			.addMapping(AGProgramExecution.OUTPUT, AGProgramExecutionLog.OUTPUT)
+			.addMapping(AGProgramExecution.QUEUED_BY, AGProgramExecutionLog.QUEUED_BY);
 	}
 }

@@ -701,10 +701,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-Ausführungs-Logs");
 	I18n0 PROGRAM_EXECUTIONS = new I18n0("Program Executions")//
 		.de("Programm-Ausführungen");
-	I18n0 PROGRAM_MANUAL_EXECUTION = new I18n0("Program Manual Execution")//
-		.de("Manuelle Programmausführung");
-	I18n0 PROGRAM_MANUAL_EXECUTIONS = new I18n0("Program Manual Executions")//
-		.de("Manuelle Programmausführungen");
 	I18n0 PROGRAM_UUID = new I18n0("Program UUID")//
 		.de("Programm-UUID");
 	I18n0 PROGRAMS = new I18n0("Programs")//
@@ -721,6 +717,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Eingereiht");
 	I18n0 QUEUED_AT = new I18n0("Queued At")//
 		.de("Eingereiht um");
+	I18n0 QUEUED_BY = new I18n0("Queued By")//
+		.de("Eingereiht von");
 	I18n0 QUEUED_OR_RUNNING = new I18n0("Queued or Running")//
 		.de("Eingereiht oder laufend");
 	I18n0 QUEUED_PROGRAM_EXECUTION_LOG = new I18n0("Queued Program Execution Log")//

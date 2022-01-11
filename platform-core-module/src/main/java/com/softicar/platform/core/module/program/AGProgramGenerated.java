@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
@@ -34,6 +35,7 @@ public class AGProgramGenerated extends AbstractDbObject<AGProgram> {
 	public static final IDbIdField<AGProgram> ID = BUILDER.addIdFieldForLong("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbForeignField<AGProgram, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID);
 	public static final IDbDayTimeField<AGProgram> QUEUED_AT = BUILDER.addDayTimeField("queuedAt", o->o.m_queuedAt, (o,v)->o.m_queuedAt=v).setTitle(CoreI18n.QUEUED_AT).setNullable().setDefault(null);
+	public static final IDbForeignField<AGProgram, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgram> ABORT_REQUESTED = BUILDER.addBooleanField("abortRequested", o->o.m_abortRequested, (o,v)->o.m_abortRequested=v).setTitle(CoreI18n.ABORT_REQUESTED).setDefault(false);
 	public static final IDbForeignField<AGProgram, AGProgramExecution> CURRENT_EXECUTION = BUILDER.addForeignField("currentExecution", o->o.m_currentExecution, (o,v)->o.m_currentExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.CURRENT_EXECUTION).setNullable().setDefault(null);
 	public static final IDbKey<AGProgram> UK_PROGRAM_UUID = BUILDER.addUniqueKey("programUuid", PROGRAM_UUID);
@@ -87,6 +89,21 @@ public class AGProgramGenerated extends AbstractDbObject<AGProgram> {
 		return setValue(QUEUED_AT, value);
 	}
 
+	public final Integer getQueuedByID() {
+
+		return getValueId(QUEUED_BY);
+	}
+
+	public final AGUser getQueuedBy() {
+
+		return getValue(QUEUED_BY);
+	}
+
+	public final AGProgram setQueuedBy(AGUser value) {
+
+		return setValue(QUEUED_BY, value);
+	}
+
 	public final Boolean isAbortRequested() {
 
 		return getValue(ABORT_REQUESTED);
@@ -125,6 +142,7 @@ public class AGProgramGenerated extends AbstractDbObject<AGProgram> {
 	private Integer m_id;
 	private AGUuid m_programUuid;
 	private DayTime m_queuedAt;
+	private AGUser m_queuedBy;
 	private Boolean m_abortRequested;
 	private AGProgramExecution m_currentExecution;
 }

@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.program.execution.scheduled;
 
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -51,6 +52,7 @@ class ScheduledProgramEnqueuer {
 
 		return program//
 			.setQueuedAt(currentMinute)
+			.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
 			.save();
 	}
 }

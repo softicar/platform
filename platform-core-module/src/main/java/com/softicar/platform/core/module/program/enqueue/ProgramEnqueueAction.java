@@ -8,7 +8,6 @@ import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.ProgramPredicates;
-import com.softicar.platform.core.module.program.execution.manual.AGProgramManualExecution;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.action.IEmfSecondaryAction;
@@ -46,11 +45,9 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 
 		try (DbTransaction transaction = new DbTransaction()) {
 			if (program.reloadForUpdate() && !program.isQueued()) {
-				program.setQueuedAt(DayTime.now().truncateSeconds()).save();
-				new AGProgramManualExecution()//
-					.setProgram(program)
-					.setUser(CurrentUser.get())
-					.setTime(DayTime.now())
+				program//
+					.setQueuedAt(DayTime.now().truncateSeconds())
+					.setQueuedBy(CurrentUser.get())
 					.save();
 				transaction.commit();
 			}

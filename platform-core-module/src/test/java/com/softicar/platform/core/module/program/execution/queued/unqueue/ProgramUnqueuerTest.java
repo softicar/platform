@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program.execution.queued.unqueue;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueuer;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.UUID;
 import org.junit.Test;
@@ -17,6 +18,7 @@ public class ProgramUnqueuerTest extends AbstractDbTest {
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.setQueuedAt(null)
+			.setQueuedBy(null)
 			.setAbortRequested(false)
 			.setCurrentExecution(null)
 			.save();
@@ -29,16 +31,31 @@ public class ProgramUnqueuerTest extends AbstractDbTest {
 
 		assertFalse(removed);
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithQueuedAt() {
 
-		program.setQueuedAt(DayTime.now()).save();
+		program//
+			.setQueuedAt(DayTime.now())
+			.setQueuedBy(insertUser())
+			.save();
 
 		boolean removed = new ProgramUnqueuer(program).removeFromQueue();
 
 		assertTrue(removed);
 		assertNull(program.getQueuedAt());
+	}
+
+	private AGUser insertUser() {
+
+		return new AGUser()//
+			.setActive(false)
+			.setLoginName("john.doe")
+			.setFirstName("John")
+			.setLastName("Doe")
+			.setEmailAddress("john.doe@example.com")
+			.save();
 	}
 }

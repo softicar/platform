@@ -1,5 +1,6 @@
 PACKAGE com.softicar.platform.core.module.program.execution
 
+IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGProgramExecution 'Core.ProgramExecution' {
@@ -10,4 +11,5 @@ TABLE AGProgramExecution 'Core.ProgramExecution' {
 	DayTime terminatedAt = NULL [NULLABLE]
 	Boolean failed = FALSE
 	String output = '' [LENGTHBITS=32]
+	AGUser queuedBy
 }

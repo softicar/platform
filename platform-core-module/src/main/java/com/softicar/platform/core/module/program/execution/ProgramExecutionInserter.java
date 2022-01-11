@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.util.Objects;
 
@@ -25,18 +27,24 @@ public class ProgramExecutionInserter {
 
 	private AGProgramExecution insertAndUpdateCurrentExecution() {
 
-		program//
-			.setCurrentExecution(insertExecution())
-			.setQueuedAt(null)
-			.save();
-
-		return program.getCurrentExecution();
+		try (var transaction = new DbTransaction()) {
+			program.reloadForUpdate();
+			program//
+				.setCurrentExecution(insertExecution(program.getQueuedBy()))
+				.setQueuedBy(null)
+				.setQueuedAt(null)
+				.save();
+			var currentExecution = program.getCurrentExecution();
+			transaction.commit();
+			return currentExecution;
+		}
 	}
 
-	private AGProgramExecution insertExecution() {
+	private AGProgramExecution insertExecution(AGUser queuedBy) {
 
 		return new AGProgramExecution()//
 			.setProgramUuid(program.getProgramUuid())
+			.setQueuedBy(queuedBy)
 			.setStartedAt(null)
 			.setTerminatedAt(null)
 			.save();

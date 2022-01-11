@@ -1,6 +1,7 @@
 PACKAGE com.softicar.platform.core.module.program
 
 IMPORT com.softicar.platform.core.module.program.execution.AGProgramExecution
+IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGProgram 'Core.Program' {
@@ -8,6 +9,7 @@ TABLE AGProgram 'Core.Program' {
 	PK Long id = SERIAL
 	AGUuid programUuid
 	DayTime queuedAt = NULL [NULLABLE]
+	AGUser queuedBy = NULL [NULLABLE]
 	Boolean abortRequested = FALSE
 	AGProgramExecution currentExecution = NULL [NULLABLE]
 	

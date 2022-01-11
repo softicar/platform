@@ -4,7 +4,6 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
-import com.softicar.platform.core.module.program.execution.manual.AGProgramManualExecution;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueueAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
@@ -13,7 +12,6 @@ import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
-import com.softicar.platform.emf.table.configuration.EmfChildTableSet;
 
 public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstance> {
 
@@ -60,11 +58,5 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		actionSet//
 			.addCommonAction(new ProgramUnqueueAction())
 			.addManagementAction(new ProgramUnqueueAction());
-	}
-
-	@Override
-	public void customizeChildTables(EmfChildTableSet<AGProgram> childTableSet) {
-
-		childTableSet.add(AGProgramManualExecution.TABLE);
 	}
 }
