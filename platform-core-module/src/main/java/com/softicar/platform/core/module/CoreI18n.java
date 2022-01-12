@@ -717,6 +717,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Eingereiht");
 	I18n0 QUEUED_AT = new I18n0("Queued At")//
 		.de("Eingereiht um");
+	I18n0 QUEUED_BY = new I18n0("Queued By")//
+		.de("Eingereiht von");
 	I18n0 QUEUED_OR_RUNNING = new I18n0("Queued or Running")//
 		.de("Eingereiht oder laufend");
 	I18n0 QUEUED_PROGRAM_EXECUTION_LOG = new I18n0("Queued Program Execution Log")//

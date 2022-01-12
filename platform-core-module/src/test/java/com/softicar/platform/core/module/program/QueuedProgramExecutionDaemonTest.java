@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
-import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import com.softicar.platform.core.module.user.AGUser;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,7 +25,7 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
+public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static final UUID SOME_UUID = UUID.fromString("2e2c901b-1a64-4690-8f0e-757e1206612f");
 	private final FakeLimitedThreadRunner threadRunner;
@@ -54,7 +54,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 	@Test
 	public void testWithCurrentExecutionAndQueuedAndAbortAndSlots() {
 
-		AGProgram program = insertProgram(insertCurrentExecution(), now, true);
+		AGProgram program = insertProgram(insertCurrentExecution(user), now, user, true);
 
 		daemon.runIteration();
 
@@ -64,12 +64,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndQueuedAndAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(insertCurrentExecution(), now, true);
+		AGProgram program = insertProgram(insertCurrentExecution(user), now, user, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -80,13 +81,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndQueuedAndNoAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution();
-		AGProgram program = insertProgram(currentExecution, now, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user);
+		AGProgram program = insertProgram(currentExecution, now, user, false);
 
 		daemon.runIteration();
 
@@ -96,13 +98,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndQueuedAndNoAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution();
-		AGProgram program = insertProgram(currentExecution, now, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user);
+		AGProgram program = insertProgram(currentExecution, now, user, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -113,12 +116,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndNotQueuedAndAbortAndSlots() {
 
-		AGProgram program = insertProgram(insertCurrentExecution(), null, true);
+		AGProgram program = insertProgram(insertCurrentExecution(user), null, null, true);
 
 		daemon.runIteration();
 
@@ -128,12 +132,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndNotQueuedAndAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(insertCurrentExecution(), null, true);
+		AGProgram program = insertProgram(insertCurrentExecution(user), null, null, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -144,13 +149,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndNotQueuedAndNoAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution();
-		AGProgram program = insertProgram(currentExecution, null, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user);
+		AGProgram program = insertProgram(currentExecution, null, null, false);
 
 		daemon.runIteration();
 
@@ -160,13 +166,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithCurrentExecutionAndNotQueuedAndNoAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution();
-		AGProgram program = insertProgram(currentExecution, null, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user);
+		AGProgram program = insertProgram(currentExecution, null, null, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -177,12 +184,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndQueuedAndAbortAndSlots() {
 
-		AGProgram program = insertProgram(null, now, true);
+		AGProgram program = insertProgram(null, now, user, true);
 
 		daemon.runIteration();
 
@@ -192,12 +200,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndQueuedAndAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(null, now, true);
+		AGProgram program = insertProgram(null, now, user, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -208,12 +217,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndQueuedAndNoAbortAndSlots() {
 
-		AGProgram program = insertProgram(null, now, false);
+		AGProgram program = insertProgram(null, now, user, false);
 
 		daemon.runIteration();
 
@@ -228,12 +238,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertSame(execution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndQueuedAndNoAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(null, now, false);
+		AGProgram program = insertProgram(null, now, user, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -244,12 +255,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndNotQueuedAndAbortAndSlots() {
 
-		AGProgram program = insertProgram(null, null, true);
+		AGProgram program = insertProgram(null, null, null, true);
 
 		daemon.runIteration();
 
@@ -259,12 +271,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndNotQueuedAndAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(null, null, true);
+		AGProgram program = insertProgram(null, null, null, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -275,12 +288,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndNotQueuedAndNoAbortAndSlots() {
 
-		AGProgram program = insertProgram(null, null, false);
+		AGProgram program = insertProgram(null, null, null, false);
 
 		daemon.runIteration();
 
@@ -290,12 +304,13 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithNoCurrentExecutionAndNotQueuedAndNoAbortAndNoSlots() {
 
-		AGProgram program = insertProgram(null, null, false);
+		AGProgram program = insertProgram(null, null, null, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -306,6 +321,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	// -------------------------------- Cleanup of terminated executions -------------------------------- //
@@ -313,8 +329,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 	@Test
 	public void testWithTerminatedCurrentExecutionAndQueuedAndAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, now, true);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, now, user, true);
 
 		daemon.runIteration();
 
@@ -324,13 +340,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndQueuedAndAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, now, true);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, now, user, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -341,13 +358,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndQueuedAndNoAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, now, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, now, user, false);
 
 		daemon.runIteration();
 
@@ -357,13 +375,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndQueuedAndNoAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, now, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, now, user, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -374,13 +393,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndNotQueuedAndAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, null, true);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, null, null, true);
 
 		daemon.runIteration();
 
@@ -390,13 +410,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndNotQueuedAndAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, null, true);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, null, null, true);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -407,13 +428,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndNotQueuedAndNoAbortAndSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, null, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, null, null, false);
 
 		daemon.runIteration();
 
@@ -423,13 +445,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
 	public void testWithTerminatedCurrentExecutionAndNotQueuedAndNoAbortAndNoSlots() {
 
-		AGProgramExecution currentExecution = insertCurrentExecution().setTerminatedAt(now.minusDays(1)).save();
-		AGProgram program = insertProgram(currentExecution, null, false);
+		AGProgramExecution currentExecution = insertCurrentExecution(user).setTerminatedAt(now.minusDays(1)).save();
+		AGProgram program = insertProgram(currentExecution, null, null, false);
 		threadRunner.simulateNoAvailableSlots();
 
 		daemon.runIteration();
@@ -440,22 +463,25 @@ public class QueuedProgramExecutionDaemonTest extends AbstractDbTest {
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	// ------------------------------ auxiliary methods ------------------------------ //
 
-	private static AGProgramExecution insertCurrentExecution() {
+	private static AGProgramExecution insertCurrentExecution(AGUser user) {
 
 		return new AGProgramExecution()//
 			.setProgramUuid(SOME_UUID)
+			.setQueuedBy(user)
 			.save();
 	}
 
-	private static AGProgram insertProgram(AGProgramExecution currentExecution, DayTime queuedAt, boolean abortRequested) {
+	private static AGProgram insertProgram(AGProgramExecution currentExecution, DayTime queuedAt, AGUser user, boolean abortRequested) {
 
 		return new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.setQueuedAt(queuedAt)
+			.setQueuedBy(user)
 			.setAbortRequested(abortRequested)
 			.setCurrentExecution(currentExecution)
 			.save();

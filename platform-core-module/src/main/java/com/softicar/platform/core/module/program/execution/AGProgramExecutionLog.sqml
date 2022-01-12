@@ -1,6 +1,7 @@
 PACKAGE com.softicar.platform.core.module.program.execution
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGProgramExecutionLog 'Core.ProgramExecutionLog' {
 
@@ -10,4 +11,5 @@ TABLE AGProgramExecutionLog 'Core.ProgramExecutionLog' {
 	DayTime terminatedAt = NULL [NULLABLE]
 	Boolean failed = NULL [NULLABLE]
 	String output = NULL [NULLABLE LENGTHBITS=32]
+	AGUser queuedBy = NULL [NULLABLE]
 }

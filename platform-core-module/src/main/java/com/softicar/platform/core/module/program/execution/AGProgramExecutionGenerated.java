@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program.execution;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
@@ -36,6 +37,7 @@ public class AGProgramExecutionGenerated extends AbstractDbObject<AGProgramExecu
 	public static final IDbDayTimeField<AGProgramExecution> TERMINATED_AT = BUILDER.addDayTimeField("terminatedAt", o->o.m_terminatedAt, (o,v)->o.m_terminatedAt=v).setTitle(CoreI18n.TERMINATED_AT).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgramExecution> FAILED = BUILDER.addBooleanField("failed", o->o.m_failed, (o,v)->o.m_failed=v).setTitle(CoreI18n.FAILED).setDefault(false);
 	public static final IDbStringField<AGProgramExecution> OUTPUT = BUILDER.addStringField("output", o->o.m_output, (o,v)->o.m_output=v).setTitle(CoreI18n.OUTPUT).setDefault("").setLengthBits(32);
+	public static final IDbForeignField<AGProgramExecution, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY);
 	public static final AGProgramExecutionTable TABLE = new AGProgramExecutionTable(BUILDER);
 	// @formatter:on
 
@@ -108,6 +110,21 @@ public class AGProgramExecutionGenerated extends AbstractDbObject<AGProgramExecu
 		return setValue(OUTPUT, value);
 	}
 
+	public final Integer getQueuedByID() {
+
+		return getValueId(QUEUED_BY);
+	}
+
+	public final AGUser getQueuedBy() {
+
+		return getValue(QUEUED_BY);
+	}
+
+	public final AGProgramExecution setQueuedBy(AGUser value) {
+
+		return setValue(QUEUED_BY, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -124,5 +141,6 @@ public class AGProgramExecutionGenerated extends AbstractDbObject<AGProgramExecu
 	private DayTime m_terminatedAt;
 	private Boolean m_failed;
 	private String m_output;
+	private AGUser m_queuedBy;
 }
 

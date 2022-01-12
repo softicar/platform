@@ -73,14 +73,16 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	}
 
 	/**
-	 * Resets {@link AGProgram#CURRENT_EXECUTION}, {@link AGProgram#QUEUED_AT}
-	 * and {@link AGProgram#ABORT_REQUESTED} to their respective default values.
+	 * Resets {@link AGProgram#CURRENT_EXECUTION}, {@link AGProgram#QUEUED_AT},
+	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#ABORT_REQUESTED} to
+	 * their respective default values.
 	 */
 	public void resetAll() {
 
 		getThis()//
 			.setCurrentExecution(null)
 			.setQueuedAt(null)
+			.setQueuedBy(null)
 			.setAbortRequested(false)
 			.save();
 	}
@@ -117,6 +119,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 			.setProgramUuid(programUuid)
 			.setCurrentExecution(null)
 			.setQueuedAt(null)
+			.setQueuedBy(null)
 			.save();
 	}
 }
