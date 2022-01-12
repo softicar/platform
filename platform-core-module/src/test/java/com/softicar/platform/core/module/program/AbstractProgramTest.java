@@ -15,7 +15,7 @@ public abstract class AbstractProgramTest extends AbstractDbTest {
 	private AGUser insertUser() {
 
 		return new AGUser()//
-			.setActive(false)
+			.setActive(true)
 			.setLoginName("john.doe")
 			.setFirstName("John")
 			.setLastName("Doe")

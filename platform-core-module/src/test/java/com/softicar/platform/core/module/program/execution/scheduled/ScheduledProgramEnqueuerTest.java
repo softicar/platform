@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program.execution.scheduled;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.AbstractProgramTest;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
@@ -42,32 +43,32 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAt() {
 
-		program.setQueuedAt(null).setQueuedBy(null).save();
+		program.setQueuedAt(null).save();
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(noon);
+		assertQueued(noon);
 	}
 
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
 
-		program.setQueuedAt(null).setQueuedBy(user).save();
+		program.setQueuedAt(null).save();
 		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(noon);
+		assertQueued(noon);
 	}
 
 	@Test
 	public void testWithMatchingScheduleWithExistingQueuedAt() {
 
-		program.setQueuedAt(beforeNoon).setQueuedBy(user).save();
+		program.setQueuedAt(beforeNoon).setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser()).save();
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(beforeNoon);
+		assertQueued(beforeNoon);
 	}
 
 	@Test
@@ -77,7 +78,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(null);
+		assertQueued(null);
 	}
 
 	@Test
@@ -87,7 +88,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(noon);
+		assertQueued(noon);
 	}
 
 	@Test
@@ -97,7 +98,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 
 		runEnqueuer(noon);
 
-		assertQueuedAt(null);
+		assertQueued(null);
 	}
 
 	@Test
@@ -130,9 +131,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 		new ScheduledProgramEnqueuer(scheduledExecution, currentMinute).enqueueExecution();
 	}
 
-	private void assertQueuedAt(DayTime expectedQueuedAt) {
+	private void assertQueued(DayTime expectedQueuedAt) {
 
 		assertEquals(expectedQueuedAt, program.getQueuedAt());
+		assertEquals(expectedQueuedAt != null? AGCoreModuleInstance.getInstance().getSystemUser() : null, program.getQueuedBy());
 	}
 
 	private AGProgramExecution insertProgramExecution(DayTime startedAt) {

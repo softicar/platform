@@ -34,9 +34,8 @@ public class ProgramExecutionInserter {
 				.setQueuedBy(null)
 				.setQueuedAt(null)
 				.save();
-			var currentExecution = program.getCurrentExecution();
 			transaction.commit();
-			return currentExecution;
+			return program.getCurrentExecution();
 		}
 	}
 
