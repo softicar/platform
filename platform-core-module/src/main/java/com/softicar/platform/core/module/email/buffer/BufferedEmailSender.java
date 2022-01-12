@@ -57,15 +57,15 @@ public class BufferedEmailSender {
 			email.reloadForUpdate();
 			if (email.getSentAt() == null) {
 				MimeMessage mimeMessage = createMimeMessage(email);
-				// send e-mail
+				// send email
 				if (EmailSystemProperties.SENDING_ENABLED.getValue()) {
 					Transport.send(mimeMessage);
-					Log.finfo("Sent e-mail #%s.", email.getId());
+					Log.finfo("Sent email #%s.", email.getId());
 				}
-				// dump e-mail
+				// dump email
 				if (EmailSystemProperties.DUMPING_ENABLED.getValue()) {
 					new EmailDumper(mimeMessage).dump();
-					Log.finfo("Dumped e-mail #%s.", email.getId());
+					Log.finfo("Dumped email #%s.", email.getId());
 				}
 			}
 			email.setSentAt(DayTime.now());
