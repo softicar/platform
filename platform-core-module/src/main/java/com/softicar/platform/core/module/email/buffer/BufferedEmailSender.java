@@ -3,6 +3,8 @@ package com.softicar.platform.core.module.email.buffer;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.email.EmailDumper;
+import com.softicar.platform.core.module.email.EmailSystemProperties;
 import com.softicar.platform.core.module.email.buffer.attachment.AGBufferedEmailAttachment;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.db.core.transaction.DbTransaction;
@@ -54,8 +56,17 @@ public class BufferedEmailSender {
 		try (DbTransaction transaction = new DbTransaction()) {
 			email.reloadForUpdate();
 			if (email.getSentAt() == null) {
-				Transport.send(createMimeMessage(email));
-				Log.finfo("Sent e-mail #%s.", email.getId());
+				MimeMessage mimeMessage = createMimeMessage(email);
+				// send email
+				if (EmailSystemProperties.SENDING_ENABLED.getValue()) {
+					Transport.send(mimeMessage);
+					Log.finfo("Sent email #%s.", email.getId());
+				}
+				// dump email
+				if (EmailSystemProperties.DUMPING_ENABLED.getValue()) {
+					new EmailDumper(mimeMessage).dump();
+					Log.finfo("Dumped email #%s.", email.getId());
+				}
 			}
 			email.setSentAt(DayTime.now());
 			email.save();

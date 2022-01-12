@@ -10,7 +10,7 @@ import java.io.File;
  *
  * @author Oliver Richers
  */
-abstract class EmailSystemProperties {
+public abstract class EmailSystemProperties {
 
 	// TODO the property prefix should be adapted to match existing packages
 	private static final PropertyFactory FACTORY = SofticarConfiguration.createPropertyFactory("com.softicar.common.mail");

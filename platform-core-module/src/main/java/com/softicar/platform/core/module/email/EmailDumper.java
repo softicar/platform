@@ -11,7 +11,7 @@ import java.util.Date;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-class EmailDumper {
+public class EmailDumper {
 
 	private final File dumpFolder;
 	private final MimeMessage message;
