@@ -34,7 +34,8 @@ class ProgramEnqueuer<P extends IProgram> {
 		AGProgram program = AGProgram.loadOrInsert(programUuid);
 		if (program.reloadForUpdate()) {
 			program//
-				.setQueuedAt(DayTime.now())
+				.getOrCreateProgramState()
+				.setQueuedAt(DayTime.now().truncateSeconds())
 				.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
 				.save();
 		}

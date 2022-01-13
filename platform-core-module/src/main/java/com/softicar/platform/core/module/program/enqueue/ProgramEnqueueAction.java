@@ -46,6 +46,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 		try (DbTransaction transaction = new DbTransaction()) {
 			if (program.reloadForUpdate() && !program.isQueued()) {
 				program//
+					.getOrCreateProgramState()
 					.setQueuedAt(DayTime.now().truncateSeconds())
 					.setQueuedBy(CurrentUser.get())
 					.save();

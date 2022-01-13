@@ -16,10 +16,6 @@ public class ProgramUnqueuerTest extends AbstractProgramTest {
 
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
-			.setQueuedAt(null)
-			.setQueuedBy(null)
-			.setAbortRequested(false)
-			.setCurrentExecution(null)
 			.save();
 	}
 
@@ -37,6 +33,7 @@ public class ProgramUnqueuerTest extends AbstractProgramTest {
 	public void testWithQueuedAt() {
 
 		program//
+			.getOrCreateProgramState()
 			.setQueuedAt(DayTime.now())
 			.setQueuedBy(user)
 			.save();

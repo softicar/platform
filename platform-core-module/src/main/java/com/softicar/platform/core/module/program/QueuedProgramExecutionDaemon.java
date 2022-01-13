@@ -16,6 +16,7 @@ import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 class QueuedProgramExecutionDaemon implements IDaemon {
 
@@ -134,13 +135,15 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	 */
 	private Collection<AGProgram> loadAllRelevantPrograms() {
 
-		return AGProgram.TABLE//
+		return AGProgramState.TABLE
 			.createSelect()
-			.where(AGProgram.ABORT_REQUESTED)
-			.orWhere(AGProgram.QUEUED_AT.isNotNull())
-			.orWhere(AGProgram.CURRENT_EXECUTION.isNotNull())
-			.orderBy(AGProgram.QUEUED_AT)
-			.orderBy(AGProgram.ID)
-			.list();
+			.where(AGProgramState.ABORT_REQUESTED)
+			.orWhere(AGProgramState.QUEUED_AT.isNotNull())
+			.orWhere(AGProgramState.CURRENT_EXECUTION.isNotNull())
+			.orderBy(AGProgramState.QUEUED_AT)
+			.orderBy(AGProgramState.PROGRAM)
+			.stream()
+			.map(AGProgramState::getProgram)
+			.collect(Collectors.toList());
 	}
 }

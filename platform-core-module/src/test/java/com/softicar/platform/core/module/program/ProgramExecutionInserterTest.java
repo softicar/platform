@@ -15,6 +15,9 @@ public class ProgramExecutionInserterTest extends AbstractProgramTest {
 
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
+			.save();
+		this.program//
+			.getOrCreateProgramState()
 			.setQueuedAt(DayTime.now())
 			.setQueuedBy(user)
 			.setAbortRequested(false)

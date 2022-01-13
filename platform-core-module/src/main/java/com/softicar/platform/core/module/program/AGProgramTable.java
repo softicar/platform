@@ -33,6 +33,11 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
+
+		attributes.addTransientAttribute(AGProgram.QUEUED_BY);
+		attributes.addTransientAttribute(AGProgram.QUEUED_AT);
+		attributes.addTransientAttribute(AGProgram.ABORT_REQUESTED);
+		attributes.addTransientAttribute(AGProgram.CURRENT_EXECUTION);
 	}
 
 	@Override

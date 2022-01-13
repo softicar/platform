@@ -701,6 +701,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-Ausführungs-Logs");
 	I18n0 PROGRAM_EXECUTIONS = new I18n0("Program Executions")//
 		.de("Programm-Ausführungen");
+	I18n0 PROGRAM_STATE = new I18n0("Program State")//
+		.de("Programmstatus");
+	I18n0 PROGRAM_STATES = new I18n0("Program States")//
+		.de("Programmstatus");
 	I18n0 PROGRAM_UUID = new I18n0("Program UUID")//
 		.de("Programm-UUID");
 	I18n0 PROGRAMS = new I18n0("Programs")//

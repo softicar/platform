@@ -50,9 +50,11 @@ class ScheduledProgramEnqueuer {
 
 	private AGProgram updateQueuedAt(AGProgram program) {
 
-		return program//
+		program//
+			.getOrCreateProgramState()
 			.setQueuedAt(currentMinute)
 			.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
 			.save();
+		return program;
 	}
 }

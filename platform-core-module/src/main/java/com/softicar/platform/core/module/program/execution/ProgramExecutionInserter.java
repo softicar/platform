@@ -30,6 +30,7 @@ public class ProgramExecutionInserter {
 		try (var transaction = new DbTransaction()) {
 			program.reloadForUpdate();
 			program//
+				.getOrCreateProgramState()
 				.setCurrentExecution(insertExecution(program.getQueuedBy()))
 				.setQueuedBy(null)
 				.setQueuedAt(null)
