@@ -87,6 +87,7 @@
 /* ------------------------------ DomButton decoration ------------------------------ */
 
 .EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton {
+	height: var(--DOM_BUTTON_DECORATION_HEIGHT);
 	padding: var(--DOM_BUTTON_DECORATION_PADDING);
 	background-color: var(--DOM_BUTTON_DECORATION_BACKGROUND_COLOR);
 	color: var(--DOM_BUTTON_DECORATION_COLOR);
@@ -95,6 +96,11 @@
 .EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton:hover:not(.disabled),
 .EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton:focus:not(.disabled) {
 	box-shadow: var(--DOM_BUTTON_DECORATION_INTERACTION_BOX_SHADOW);
+}
+
+.EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton > .DomButtonIcon {
+	width: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
+	height: var(--DOM_BUTTON_DECORATED_ICON_SIZE);
 }
 
 .EmfFormPrimaryActionSectionDiv .EmfFormSectionContentDiv:not(.invisible) .DomButton > .DomButtonIcon:not(.precolored) {
