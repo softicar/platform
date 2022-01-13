@@ -2,6 +2,7 @@ package com.softicar.platform.workflow.module.test;
 
 import com.softicar.platform.workflow.module.AbstractWorkflowTest;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
+import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
@@ -19,5 +20,13 @@ public abstract class AbstractTestObjectWorkflowTest extends AbstractWorkflowTes
 
 		workflow.setCurrentVersion(workflowVersion).save();
 		workflowVersion.setRootNode(rootNode).save();
+	}
+
+	public WorkflowTestObject insertWorkflowTestObject(String name, AGWorkflowItem item) {
+
+		return new WorkflowTestObject()//
+			.setName(name)
+			.setWorkflowItem(item)
+			.save();
 	}
 }
