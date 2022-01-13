@@ -34,12 +34,9 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 
 	public boolean isUserAllowedToSeeTransition(AGUser user, AGWorkflowItem item) {
 
-		return getRoles().stream().anyMatch(role -> role.testUserAssignmentForItem(user, item));
-	}
-
-	public List<AGWorkflowTransitionRole> getRoles() {
-
-		return AGWorkflowTransitionRole.createSelect().where(AGWorkflowTransitionRole.TRANSITION.equal(this)).list();
+		return getAllActiveWorkflowTransitionRoles()//
+			.stream()
+			.anyMatch(role -> role.testUserAssignmentForItem(user, item));
 	}
 
 	public IResource getIcon() {

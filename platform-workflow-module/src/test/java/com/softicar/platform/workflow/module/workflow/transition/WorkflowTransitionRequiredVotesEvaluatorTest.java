@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
+import com.softicar.platform.workflow.module.test.WorkflowTestObject;
 import com.softicar.platform.workflow.module.test.WorkflowTestObjectTable;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
@@ -12,12 +13,15 @@ public class WorkflowTransitionRequiredVotesEvaluatorTest extends AbstractTestOb
 	private final AGWorkflowNode nextNode;
 	private final AGWorkflowTransition transition;
 	private final AGWorkflowItem item;
+	private final WorkflowTestObject testObject;
 
 	public WorkflowTransitionRequiredVotesEvaluatorTest() {
 
 		this.nextNode = insertWorkflowNode(workflowVersion, "Next Node");
 		this.transition = insertWorkflowTransition("Transition", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.ROLE_A);
 		this.item = insertWorkflowItem(rootNode);
+		this.testObject = insertWorkflowTestObject("Workflow Test Object", item);
+		testObject.addRoleMember(user, "A");
 	}
 
 	@Test

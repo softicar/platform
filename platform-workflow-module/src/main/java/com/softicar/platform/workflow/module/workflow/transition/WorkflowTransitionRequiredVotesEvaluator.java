@@ -25,13 +25,17 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 
 	private int getNumberOfExecutedVotes() {
 
-		return AGWorkflowTask
-			.createSelect()
-			.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
-			.where(AGWorkflowTask.CLOSED.isFalse())
-			.joinReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
-			.where(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION.isEqual(transition))
-			.count();
+		return Math
+			.toIntExact(
+				AGWorkflowTask
+					.createSelect()
+					.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
+					.where(AGWorkflowTask.CLOSED.isFalse())
+					.joinReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
+					.where(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION.isEqual(transition))
+					.stream()
+					.filter(it -> transition.isUserAllowedToSeeTransition(it.getUser(), item))
+					.count());
 	}
 
 	private int getRequiredVotes() {
@@ -59,10 +63,14 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 
 	private int getTotalNumberOfRelevantTasks() {
 
-		return AGWorkflowTask//
-			.createSelect()
-			.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
-			.where(AGWorkflowTask.CLOSED.isFalse())
-			.count();
+		return Math
+			.toIntExact(
+				AGWorkflowTask//
+					.createSelect()
+					.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
+					.where(AGWorkflowTask.CLOSED.isFalse())
+					.stream()
+					.filter(it -> transition.isUserAllowedToSeeTransition(it.getUser(), item))
+					.count());
 	}
 }
