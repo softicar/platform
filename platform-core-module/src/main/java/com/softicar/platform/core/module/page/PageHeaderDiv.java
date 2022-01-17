@@ -8,7 +8,9 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.page.navigation.PageNavigationToggleButton;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.core.module.page.service.PageService;
 import com.softicar.platform.core.module.user.CurrentUser;
+import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -93,6 +95,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 		public void logout() {
 
 			getAjaxRequest().getHttpSession().invalidate();
+			getDomEngine().pushBrowserHistoryState(CoreI18n.LOGIN.toString(), new WebServiceUrlBuilder(PageService.class).build().getStartingFromPath());
 			getDomEngine().reloadPage();
 		}
 	}
