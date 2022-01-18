@@ -43,7 +43,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public void handleClick(AGProgram program) {
 
-		try (DbTransaction transaction = new DbTransaction()) {
+		try (var transaction = new DbTransaction()) {
 			if (program.reloadForUpdate() && program.reloadProgramState() && !program.isQueued()) {
 				program//
 					.getOrCreateProgramState()
