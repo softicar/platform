@@ -59,7 +59,7 @@ public abstract class AbstractProperty<T> implements IProperty<T> {
 
 		String valueString = getValueString(propertyName);
 		if (valueString != null) {
-			return parser.apply(valueString);
+			return parser.apply(valueString.trim());
 		} else {
 			return defaultValue;
 		}
