@@ -149,6 +149,11 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return AGProgramState.TABLE.getOrCreate(getThis());
 	}
 
+	public boolean reloadProgramState() {
+
+		return getOrCreateProgramState().reload();
+	}
+
 	public static AGProgram loadOrInsert(AGUuid programUuid) {
 
 		Objects.requireNonNull(programUuid);
