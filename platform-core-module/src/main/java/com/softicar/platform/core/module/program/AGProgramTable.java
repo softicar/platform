@@ -6,13 +6,13 @@ import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueueAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
-import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanDisplay;
+import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeDisplay;
+import com.softicar.platform.emf.attribute.field.item.EmfBasicEntityDisplay;
 import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
-import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 
@@ -38,23 +38,20 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setPredicateMandatory(EmfPredicates.always());
 
 		attributes//
-		.addTransientAttribute(AGProgram.QUEUED_AT);
-		
-		attributes//
-		.addTransientAttribute(AGProgram.QUEUED_BY).setDisplayFactory(this::createToDisplayWithoutIdElement);
+			.addTransientAttribute(AGProgram.QUEUED_AT)
+			.setDisplayFactory(EmfDayTimeDisplay::new);
 
 		attributes//
-		.addTransientAttribute(AGProgram.ABORT_REQUESTED);
-		
+			.addTransientAttribute(AGProgram.QUEUED_BY)
+			.setDisplayFactory(EmfBasicEntityDisplay::new);
+
 		attributes//
-		.addTransientAttribute(AGProgram.CURRENT_EXECUTION).setDisplayFactory(this::createToDisplayWithoutIdElement);
-	}
+			.addTransientAttribute(AGProgram.ABORT_REQUESTED)
+			.setDisplayFactory(EmfBooleanDisplay::new);
 
-	private IDomElement createToDisplayWithoutIdElement(IEmfObject<?> object) {
-
-		DomDiv div = new DomDiv();
-		div.appendText(object.toDisplayWithoutId());
-		return div;
+		attributes//
+			.addTransientAttribute(AGProgram.CURRENT_EXECUTION)
+			.setDisplayFactory(EmfBasicEntityDisplay::new);
 	}
 
 	@Override
