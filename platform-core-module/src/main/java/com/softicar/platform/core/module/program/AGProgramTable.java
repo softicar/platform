@@ -13,6 +13,7 @@ import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeDisplay;
 import com.softicar.platform.emf.attribute.field.item.EmfBasicEntityDisplay;
 import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
+import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 
@@ -78,4 +79,13 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.addCommonAction(new ProgramUnqueueAction())
 			.addManagementAction(new ProgramUnqueueAction());
 	}
+
+	@Override
+	public void customizeLoggers(EmfChangeLoggerSet<AGProgram> loggerSet) {
+
+		loggerSet//
+			.addPlainChangeLogger(AGProgramLog.PROGRAM, AGProgramLog.TRANSACTION)
+			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID);
+	}
+
 }
