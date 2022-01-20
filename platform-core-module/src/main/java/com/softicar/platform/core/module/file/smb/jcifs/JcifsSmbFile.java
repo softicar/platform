@@ -25,12 +25,6 @@ class JcifsSmbFile implements ISmbFile {
 	protected final SmbFile file;
 	protected final NtlmPasswordAuthentication auth;
 
-	public JcifsSmbFile(SmbFile file, NtlmPasswordAuthentication auth) {
-
-		this.file = file;
-		this.auth = auth;
-	}
-
 	public JcifsSmbFile(String url, NtlmPasswordAuthentication auth) {
 
 		try {
@@ -136,7 +130,7 @@ class JcifsSmbFile implements ISmbFile {
 			for (SmbFile file: file.listFiles()) {
 				if (file.isDirectory()) {
 					String subFolder = Trim.trimRight(file.getName(), '/');
-					new JcifsSmbFile(file, auth).listAllFiles(prefix + "/" + subFolder, filenames);
+					new JcifsSmbFile(file.getCanonicalPath(), auth).listAllFiles(prefix + "/" + subFolder, filenames);
 				} else {
 					filenames.add(prefix + "/" + file.getName());
 				}
