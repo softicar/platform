@@ -44,14 +44,14 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	public void handleClick(AGProgram program) {
 
 		try (var transaction = new DbTransaction()) {
-			if (program.reloadForUpdate() && program.reloadProgramState() && !program.isQueued()) {
+			if (program.reloadProgramStateForUpdate() && !program.isQueued()) {
 				program//
 					.getOrCreateProgramState()
 					.setQueuedAt(DayTime.now().truncateSeconds())
 					.setQueuedBy(CurrentUser.get())
 					.save();
-				transaction.commit();
 			}
+			transaction.commit();
 		}
 	}
 }

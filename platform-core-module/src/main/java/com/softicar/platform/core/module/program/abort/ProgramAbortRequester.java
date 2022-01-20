@@ -39,7 +39,7 @@ public class ProgramAbortRequester {
 
 	private boolean requestAbortIfPossible() {
 
-		if (program.reloadForUpdate() && program.reloadProgramState() && program.isQueuedOrRunning()) {
+		if (program.reloadProgramStateForUpdate() && program.isQueuedOrRunning()) {
 			program.saveAbortRequested(true);
 			return true;
 		} else {

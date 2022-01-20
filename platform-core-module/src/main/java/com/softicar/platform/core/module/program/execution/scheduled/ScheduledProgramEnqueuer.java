@@ -28,8 +28,8 @@ class ScheduledProgramEnqueuer {
 	private void enqueueExecutionIfAppropriate(AGUuid programUuid) {
 
 		AGProgram program = loadOrInsertProgram(programUuid);
-		if (program.reloadForUpdate() && program.reloadProgramState() && isNotQueuedAndNotRunning(program)) {
-			updateQueuedAt(program);
+		if (program.reloadProgramStateForUpdate() && isNotQueuedAndNotRunning(program)) {
+			updateQueuedAtAndQueuedBy(program);
 		}
 	}
 
@@ -48,13 +48,12 @@ class ScheduledProgramEnqueuer {
 		return !AGProgramExecution.getRecentExecutions(program, currentMinute).isEmpty();
 	}
 
-	private AGProgram updateQueuedAt(AGProgram program) {
+	private void updateQueuedAtAndQueuedBy(AGProgram program) {
 
 		program//
 			.getOrCreateProgramState()
 			.setQueuedAt(currentMinute)
 			.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
 			.save();
-		return program;
 	}
 }
