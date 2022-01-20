@@ -174,18 +174,6 @@ class JcifsSmbFile implements ISmbFile {
 	}
 
 	@Override
-	public void mkdirs() {
-
-		try {
-			if (!file.exists()) {
-				file.mkdirs();
-			}
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
-	}
-
-	@Override
 	public void delete() {
 
 		try {
@@ -224,11 +212,7 @@ class JcifsSmbFile implements ISmbFile {
 
 		try {
 			return new SmbFileInputStream(file);
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		} catch (MalformedURLException exception) {
-			throw new SofticarIOException(exception);
-		} catch (UnknownHostException exception) {
+		} catch (SmbException | MalformedURLException | UnknownHostException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
@@ -238,11 +222,7 @@ class JcifsSmbFile implements ISmbFile {
 
 		try {
 			return new SmbFileOutputStream(file);
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		} catch (MalformedURLException exception) {
-			throw new SofticarIOException(exception);
-		} catch (UnknownHostException exception) {
+		} catch (SmbException | MalformedURLException | UnknownHostException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}

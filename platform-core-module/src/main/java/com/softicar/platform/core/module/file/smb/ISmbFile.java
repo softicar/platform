@@ -35,8 +35,6 @@ public interface ISmbFile {
 
 	ISmbDirectory getParentDirectory();
 
-	void mkdirs();
-
 	void delete();
 
 	ISmbFile moveTo(ISmbDirectory parent);

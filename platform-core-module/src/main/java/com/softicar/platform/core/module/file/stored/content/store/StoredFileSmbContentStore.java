@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.CurrentSmbApi;
+import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
@@ -83,7 +84,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public void createFolderIfDoesNotExist(String folderName) {
 
-		createSmbFile(folderName).mkdirs();
+		createSmbFile(folderName).asDirectory().ifPresent(ISmbDirectory::mkdirs);
 	}
 
 	@Override
