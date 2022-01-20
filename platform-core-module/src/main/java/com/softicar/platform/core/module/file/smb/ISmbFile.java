@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.file.smb;
 
 import com.softicar.platform.common.date.DayTime;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -43,4 +44,8 @@ public interface ISmbFile {
 	ISmbFile renameTo(String name);
 
 	ISmbFile moveAndRenameTo(ISmbDirectory parent, String name);
+
+	InputStream createInputStream();
+
+	OutputStream createOutputStream();
 }

@@ -8,6 +8,7 @@ import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
+import jcifs.smb.SmbFileOutputStream;
 
 class JcifsSmbFile implements ISmbFile {
 
@@ -214,6 +216,34 @@ class JcifsSmbFile implements ISmbFile {
 			return new JcifsSmbFile(target.getCanonicalPath(), auth);
 		} catch (SmbException | MalformedURLException exception) {
 			throw new RuntimeException(exception);
+		}
+	}
+
+	@Override
+	public InputStream createInputStream() {
+
+		try {
+			return new SmbFileInputStream(file);
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		} catch (MalformedURLException exception) {
+			throw new SofticarIOException(exception);
+		} catch (UnknownHostException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	@Override
+	public OutputStream createOutputStream() {
+
+		try {
+			return new SmbFileOutputStream(file);
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		} catch (MalformedURLException exception) {
+			throw new SofticarIOException(exception);
+		} catch (UnknownHostException exception) {
+			throw new SofticarIOException(exception);
 		}
 	}
 }

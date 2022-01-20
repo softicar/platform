@@ -65,50 +65,43 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public OutputStream createFile(String fileName) {
 
-		ISmbFile file = createSmbFile(fileName);
-		return CurrentSmbApi.get().createOutputStream(file);
+		return createSmbFile(fileName).createOutputStream();
 	}
 
 	@Override
 	public InputStream readFile(String fileName) {
 
-		ISmbFile file = createSmbFile(fileName);
-		return CurrentSmbApi.get().createInputStream(file);
+		return createSmbFile(fileName).createInputStream();
 	}
 
 	@Override
 	public void moveFile(String sourceName, String targetName) {
 
-		ISmbFile source = createSmbFile(sourceName);
-		source.renameTo(targetName);
+		createSmbFile(sourceName).renameTo(targetName);
 	}
 
 	@Override
 	public void createFolderIfDoesNotExist(String folderName) {
 
-		ISmbFile folder = createSmbFile(folderName);
-		folder.mkdirs();
+		createSmbFile(folderName).mkdirs();
 	}
 
 	@Override
 	public void removeFile(String fileName) {
 
-		ISmbFile file = createSmbFile(fileName);
-		file.delete();
+		createSmbFile(fileName).delete();
 	}
 
 	@Override
 	public boolean exists(String name) {
 
-		ISmbFile file = createSmbFile(name);
-		return file.exists();
+		return createSmbFile(name).exists();
 	}
 
 	@Override
 	public long getFileSize(String filename) {
 
-		ISmbFile file = createSmbFile(filename);
-		return file.length();
+		return createSmbFile(filename).length();
 	}
 
 	@Override
@@ -126,8 +119,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public DayTime getLastModified(String filename) {
 
-		ISmbFile file = createSmbFile(filename);
-		return file.lastModified();
+		return createSmbFile(filename).lastModified();
 	}
 
 	private ISmbFile createSmbFile(String name) {

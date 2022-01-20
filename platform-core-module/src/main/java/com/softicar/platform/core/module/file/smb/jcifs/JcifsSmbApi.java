@@ -1,18 +1,10 @@
 package com.softicar.platform.core.module.file.smb.jcifs;
 
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.core.module.file.smb.ISmbApi;
 import com.softicar.platform.core.module.file.smb.ISmbCredentials;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import jcifs.Config;
 import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFileInputStream;
-import jcifs.smb.SmbFileOutputStream;
 
 public class JcifsSmbApi implements ISmbApi {
 
@@ -35,35 +27,5 @@ public class JcifsSmbApi implements ISmbApi {
 		// the reason. vvvv
 		// this is very important (see #38419)
 		Config.setProperty("jcifs.smb.client.dfs.disabled", "true");
-	}
-
-	@Override
-	public InputStream createInputStream(ISmbFile file) {
-
-		JcifsSmbFile jcifsFile = (JcifsSmbFile) file;
-		try {
-			return new SmbFileInputStream(jcifsFile.getSmbFile());
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		} catch (MalformedURLException exception) {
-			throw new SofticarIOException(exception);
-		} catch (UnknownHostException exception) {
-			throw new SofticarIOException(exception);
-		}
-	}
-
-	@Override
-	public OutputStream createOutputStream(ISmbFile file) {
-
-		JcifsSmbFile jcifsFile = (JcifsSmbFile) file;
-		try {
-			return new SmbFileOutputStream(jcifsFile.getSmbFile());
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		} catch (MalformedURLException exception) {
-			throw new SofticarIOException(exception);
-		} catch (UnknownHostException exception) {
-			throw new SofticarIOException(exception);
-		}
 	}
 }
