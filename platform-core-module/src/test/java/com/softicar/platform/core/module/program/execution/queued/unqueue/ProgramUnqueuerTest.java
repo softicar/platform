@@ -17,6 +17,7 @@ public class ProgramUnqueuerTest extends AbstractProgramTest {
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.save();
+		this.program.getOrCreateProgramState().save();
 	}
 
 	@Test

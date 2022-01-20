@@ -6,6 +6,7 @@ import com.softicar.platform.common.date.Time;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.AGProgramLog;
+import com.softicar.platform.core.module.program.AGProgramState;
 import com.softicar.platform.core.module.program.AbstractProgramTest;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.save();
+		this.program.getOrCreateProgramState().save();
 	}
 
 	// -------------------- matching schedule ------------------------------ //
@@ -105,17 +107,20 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	}
 
 	@Test
-	public void testWithMatchingScheduleWithoutProgramRow() {
+	public void testWithMatchingScheduleWithoutProgram() {
 
 		AGProgramLog.TABLE.createDelete().where(AGProgramLog.PROGRAM.equal(program)).execute();
+		AGProgramState.TABLE.createDelete().where(AGProgramState.PROGRAM.equal(program)).execute();
 		program.delete();
 
 		runEnqueuer(noon);
 
 		AGProgram program = assertOne(AGProgram.TABLE.loadAll());
 		assertEquals(SOME_UUID, program.getProgramUuid().getUuid());
-		assertEquals(noon, program.getQueuedAt());
-		assertNull(program.getCurrentExecution());
+
+		AGProgramState programState = assertOne(AGProgramState.TABLE.loadAll());
+		assertEquals(noon, programState.getQueuedAt());
+		assertNull(programState.getCurrentExecution());
 	}
 
 	// -------------------- non-matching schedule ------------------------------ //
