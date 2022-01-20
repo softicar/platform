@@ -11,7 +11,7 @@ import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
-public class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
+class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 
 	public JcifsSmbDirectory(String url, NtlmPasswordAuthentication auth) {
 

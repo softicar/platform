@@ -1,21 +1,33 @@
 package com.softicar.platform.core.module.file.smb.jcifs;
 
+import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Optional;
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
 
-public class JcifsSmbFile implements ISmbFile {
+class JcifsSmbFile implements ISmbFile {
 
 	protected final SmbFile file;
 	protected final NtlmPasswordAuthentication auth;
+
+	public JcifsSmbFile(SmbFile file, NtlmPasswordAuthentication auth) {
+
+		this.file = file;
+		this.auth = auth;
+	}
 
 	public JcifsSmbFile(String url, NtlmPasswordAuthentication auth) {
 
@@ -35,6 +47,11 @@ public class JcifsSmbFile implements ISmbFile {
 		} catch (MalformedURLException exception) {
 			throw new SofticarIOException(exception);
 		}
+	}
+
+	public SmbFile getSmbFile() {
+
+		return file;
 	}
 
 	@Override
@@ -80,6 +97,55 @@ public class JcifsSmbFile implements ISmbFile {
 	}
 
 	@Override
+	public long getFreeDiskSpace() {
+
+		try {
+			return file.getDiskFreeSpace();
+		} catch (SmbException exception) {
+			DevNull.swallow(exception);
+			return 0;
+		}
+	}
+
+	@Override
+	public long length() {
+
+		try {
+			return file.length();
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
+	}
+
+	@Override
+	public DayTime lastModified() {
+
+		try {
+			return DayTime.fromDate(new Date(file.lastModified()));
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	@Override
+	public Collection<String> listAllFiles(String prefix, Collection<String> filenames) {
+
+		try {
+			for (SmbFile file: file.listFiles()) {
+				if (file.isDirectory()) {
+					String subFolder = Trim.trimRight(file.getName(), '/');
+					new JcifsSmbFile(file, auth).listAllFiles(prefix + "/" + subFolder, filenames);
+				} else {
+					filenames.add(prefix + "/" + file.getName());
+				}
+			}
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
+		return filenames;
+	}
+
+	@Override
 	public InputStream getInputStream() {
 
 		try {
@@ -103,6 +169,28 @@ public class JcifsSmbFile implements ISmbFile {
 	public ISmbDirectory getParentDirectory() {
 
 		return new JcifsSmbDirectory(file.getParent(), auth);
+	}
+
+	@Override
+	public void mkdirs() {
+
+		try {
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
+	}
+
+	@Override
+	public void delete() {
+
+		try {
+			file.delete();
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.file.smb;
 
+import com.softicar.platform.common.date.DayTime;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -18,11 +20,23 @@ public interface ISmbFile {
 
 	boolean isFile();
 
+	long getFreeDiskSpace();
+
+	long length();
+
+	DayTime lastModified();
+
+	Collection<String> listAllFiles(String prefix, Collection<String> filenames);
+
 	InputStream getInputStream();
 
 	Optional<ISmbDirectory> asDirectory();
 
 	ISmbDirectory getParentDirectory();
+
+	void mkdirs();
+
+	void delete();
 
 	ISmbFile moveTo(ISmbDirectory parent);
 
