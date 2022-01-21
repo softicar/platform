@@ -7,9 +7,9 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientObjectField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;
 
-public class CurrentExecutionField extends AbstractTransientObjectField<AGProgram, AGProgramExecution> {
+public class ProgramCurrentExecutionField extends AbstractTransientObjectField<AGProgram, AGProgramExecution> {
 
-	public CurrentExecutionField() {
+	public ProgramCurrentExecutionField() {
 
 		super(AGProgramExecution.class);
 	}

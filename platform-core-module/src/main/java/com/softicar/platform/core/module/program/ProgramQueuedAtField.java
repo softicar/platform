@@ -7,7 +7,7 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientDayTimeField
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;
 
-public class QueuedAtField extends AbstractTransientDayTimeField<AGProgram> {
+public class ProgramQueuedAtField extends AbstractTransientDayTimeField<AGProgram> {
 
 	@Override
 	public IDisplayString getTitle() {

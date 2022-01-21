@@ -14,10 +14,10 @@ import java.util.UUID;
 
 public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgram> {
 
-	public static final AbortRequestedField ABORT_REQUESTED = new AbortRequestedField();
-	public static final QueuedAtField QUEUED_AT = new QueuedAtField();
-	public static final QueuedByField QUEUED_BY = new QueuedByField();
-	public static final CurrentExecutionField CURRENT_EXECUTION = new CurrentExecutionField();
+	public static final ProgramAbortRequestedField ABORT_REQUESTED = new ProgramAbortRequestedField();
+	public static final ProgramQueuedAtField QUEUED_AT = new ProgramQueuedAtField();
+	public static final ProgramQueuedByField QUEUED_BY = new ProgramQueuedByField();
+	public static final ProgramCurrentExecutionField CURRENT_EXECUTION = new ProgramCurrentExecutionField();
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
@@ -35,19 +35,9 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return getOrCreateProgramState().getQueuedAt();
 	}
 
-	public void saveQueuedAt(DayTime value) {
-
-		getOrCreateProgramState().setQueuedAt(value).save();
-	}
-
 	public AGUser getQueuedBy() {
 
 		return getOrCreateProgramState().getQueuedBy();
-	}
-
-	public void saveQueuedBy(AGUser value) {
-
-		getOrCreateProgramState().setQueuedBy(value).save();
 	}
 
 	public Boolean isAbortRequested() {
@@ -55,19 +45,9 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return getOrCreateProgramState().isAbortRequested();
 	}
 
-	public void saveAbortRequested(Boolean value) {
-
-		getOrCreateProgramState().setAbortRequested(value).save();
-	}
-
 	public AGProgramExecution getCurrentExecution() {
 
 		return getOrCreateProgramState().getCurrentExecution();
-	}
-
-	public void saveCurrentExecution(AGProgramExecution value) {
-
-		getOrCreateProgramState().setCurrentExecution(value).save();
 	}
 
 	/**
@@ -120,8 +100,8 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	/**
 	 * Resets {@link AGProgram#CURRENT_EXECUTION}, {@link AGProgram#QUEUED_AT},
-	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#ABORT_REQUESTED} to
-	 * their respective default values.
+	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#PROGRAM_ABORT_REQUESTED}
+	 * to their respective default values.
 	 */
 	public void resetAll() {
 

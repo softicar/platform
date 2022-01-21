@@ -44,7 +44,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAt() {
 
-		program.saveQueuedAt(null);
+		program//
+			.getOrCreateProgramState()
+			.setQueuedAt(null)
+			.save();
 
 		runEnqueuer(noon);
 
@@ -54,7 +57,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
 
-		program.saveQueuedAt(null);
+		program//
+			.getOrCreateProgramState()
+			.setQueuedAt(null)
+			.save();
 		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
 
 		runEnqueuer(noon);
@@ -79,7 +85,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithActiveExecution() {
 
-		program.saveCurrentExecution(insertProgramExecution(noon));
+		program//
+			.getOrCreateProgramState()
+			.setCurrentExecution(insertProgramExecution(noon))
+			.save();
 
 		runEnqueuer(noon);
 
@@ -89,7 +98,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithActiveButOldExecution() {
 
-		program.saveCurrentExecution(insertProgramExecution(beforeNoon));
+		program//
+			.getOrCreateProgramState()
+			.setCurrentExecution(insertProgramExecution(beforeNoon))
+			.save();
 
 		runEnqueuer(noon);
 
