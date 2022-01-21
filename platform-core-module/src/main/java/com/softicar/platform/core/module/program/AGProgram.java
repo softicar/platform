@@ -129,7 +129,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return AGProgramState.TABLE.getOrCreate(getThis());
 	}
 
-	public boolean reloadProgramStateForUpdate() {
+	public boolean reloadStateForUpdate() {
 
 		return getState().reloadForUpdate();
 	}

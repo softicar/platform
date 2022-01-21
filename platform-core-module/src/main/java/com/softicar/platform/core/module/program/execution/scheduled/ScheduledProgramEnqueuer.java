@@ -28,7 +28,7 @@ class ScheduledProgramEnqueuer {
 	private void enqueueExecutionIfAppropriate(AGUuid programUuid) {
 
 		AGProgram program = loadOrInsertProgram(programUuid);
-		if (program.reloadProgramStateForUpdate() && isNotQueuedAndNotRunning(program)) {
+		if (program.reloadStateForUpdate() && isNotQueuedAndNotRunning(program)) {
 			updateQueuedAtAndQueuedBy(program);
 		}
 	}

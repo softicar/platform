@@ -40,7 +40,7 @@ public class ProgramUnqueuer {
 
 	private boolean removeFromQueueIfPossible() {
 
-		if (program.reloadProgramStateForUpdate() && program.isQueued()) {
+		if (program.reloadStateForUpdate() && program.isQueued()) {
 			program//
 				.getState()
 				.setQueuedAt(null)
