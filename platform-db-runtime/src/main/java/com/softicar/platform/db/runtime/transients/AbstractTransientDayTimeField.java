@@ -5,9 +5,6 @@ import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 
 /**
  * Defines a transient field with values of type {@link DayTime}.
- * <p>
- * Please note that null-values are not supported. If the values are optional,
- * use {@link AbstractTransientOptionalField}.
  *
  * @param <O>
  *            the type of the field owning object class
