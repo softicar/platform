@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.db.runtime.transients.AbstractTransientDayTimeField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;

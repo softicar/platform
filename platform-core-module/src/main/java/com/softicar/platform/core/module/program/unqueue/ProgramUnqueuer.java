@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.unqueue;
 
 import com.softicar.platform.core.module.program.AGProgram;
-import com.softicar.platform.core.module.program.AGProgramState;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.util.Objects;
 

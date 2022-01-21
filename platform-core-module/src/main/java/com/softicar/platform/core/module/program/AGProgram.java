@@ -5,6 +5,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionGenerated;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionInserter;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;

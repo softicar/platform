@@ -1,8 +1,9 @@
-package com.softicar.platform.core.module.program;
+package com.softicar.platform.core.module.program.state;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;

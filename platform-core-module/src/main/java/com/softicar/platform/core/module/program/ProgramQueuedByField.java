@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.transients.AbstractTransientObjectField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;

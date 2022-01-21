@@ -1,5 +1,6 @@
-PACKAGE com.softicar.platform.core.module.program
+PACKAGE com.softicar.platform.core.module.program.state
 
+IMPORT com.softicar.platform.core.module.program.AGProgram
 IMPORT com.softicar.platform.core.module.program.execution.AGProgramExecution
 IMPORT com.softicar.platform.core.module.user.AGUser
 
