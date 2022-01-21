@@ -478,13 +478,17 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static AGProgram insertProgram(AGProgramExecution currentExecution, DayTime queuedAt, AGUser user, boolean abortRequested) {
 
-		return new AGProgram()//
+		AGProgram program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
+			.save();
+		program//
+			.getState()
 			.setQueuedAt(queuedAt)
 			.setQueuedBy(user)
 			.setAbortRequested(abortRequested)
 			.setCurrentExecution(currentExecution)
 			.save();
+		return program;
 	}
 
 	// TODO generalize this class into a LimitedThreadTestRunner

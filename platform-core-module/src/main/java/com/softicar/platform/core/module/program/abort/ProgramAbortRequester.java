@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.abort;
 
 import com.softicar.platform.core.module.program.AGProgram;
-import com.softicar.platform.core.module.program.AGProgramGenerated;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.util.Objects;
 
@@ -18,8 +18,7 @@ public class ProgramAbortRequester {
 	 * Constructs a new {@link ProgramAbortRequester}.
 	 *
 	 * @param program
-	 *            the {@link AGProgram} to abort (never
-	 *            <i>null</i>)
+	 *            the {@link AGProgram} to abort (never <i>null</i>)
 	 */
 	public ProgramAbortRequester(AGProgram program) {
 
@@ -27,8 +26,8 @@ public class ProgramAbortRequester {
 	}
 
 	/**
-	 * Sets the "abort requested" flag of the {@link AGProgram}.
-	 * That is, {@link AGProgramGenerated#ABORT_REQUESTED}.
+	 * Sets the "abort requested" flag of the {@link AGProgram}. That is,
+	 * {@link AGProgramState#ABORT_REQUESTED}.
 	 *
 	 * @return <i>true</i> if the flag was successfully updated; <i>false</i>
 	 *         otherwise
@@ -40,10 +39,8 @@ public class ProgramAbortRequester {
 
 	private boolean requestAbortIfPossible() {
 
-		if (program.reloadForUpdate() && program.isQueuedOrRunning()) {
-			program//
-				.setAbortRequested(true)
-				.save();
+		if (program.reloadStateForUpdate() && program.isQueuedOrRunning()) {
+			program.saveAbortRequested(true);
 			return true;
 		} else {
 			return false;

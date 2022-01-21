@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.unqueue;
 
 import com.softicar.platform.core.module.program.AGProgram;
-import com.softicar.platform.core.module.program.AGProgramGenerated;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.util.Objects;
 
@@ -28,7 +28,7 @@ public class ProgramUnqueuer {
 
 	/**
 	 * Removes the {@link AGProgram} from the queue. That is, resets
-	 * {@link AGProgramGenerated#QUEUED_AT} to its default value.
+	 * {@link AGProgramState#QUEUED_AT} to its default value.
 	 *
 	 * @return <i>true</i> if the execution was actually removed from the queue;
 	 *         <i>false</i> otherwise
@@ -40,8 +40,9 @@ public class ProgramUnqueuer {
 
 	private boolean removeFromQueueIfPossible() {
 
-		if (program.reloadForUpdate() && program.isQueued()) {
+		if (program.reloadStateForUpdate() && program.isQueued()) {
 			program//
+				.getState()
 				.setQueuedAt(null)
 				.setQueuedBy(null)
 				.save();

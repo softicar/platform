@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.program.state
+
+IMPORT com.softicar.platform.core.module.program.AGProgram
+IMPORT com.softicar.platform.core.module.program.execution.AGProgramExecution
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGProgramState 'Core.ProgramState' {
+	
+	PK AGProgram program	
+	DayTime queuedAt = NULL [NULLABLE]
+	AGUser queuedBy = NULL [NULLABLE]
+	Boolean abortRequested = FALSE
+	AGProgramExecution currentExecution = NULL [NULLABLE]
+}
