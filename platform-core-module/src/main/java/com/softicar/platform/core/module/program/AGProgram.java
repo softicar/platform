@@ -33,22 +33,22 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	public DayTime getQueuedAt() {
 
-		return getOrCreateProgramState().getQueuedAt();
+		return getState().getQueuedAt();
 	}
 
 	public AGUser getQueuedBy() {
 
-		return getOrCreateProgramState().getQueuedBy();
+		return getState().getQueuedBy();
 	}
 
 	public Boolean isAbortRequested() {
 
-		return getOrCreateProgramState().isAbortRequested();
+		return getState().isAbortRequested();
 	}
 
 	public AGProgramExecution getCurrentExecution() {
 
-		return getOrCreateProgramState().getCurrentExecution();
+		return getState().getCurrentExecution();
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public boolean isQueued() {
 
-		return getOrCreateProgramState().getQueuedAt() != null;
+		return getState().getQueuedAt() != null;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public boolean isRunning() {
 
-		return getOrCreateProgramState().getCurrentExecution() != null;
+		return getState().getCurrentExecution() != null;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public void resetAll() {
 
-		getOrCreateProgramState()//
+		getState()//
 			.setCurrentExecution(null)
 			.setQueuedAt(null)
 			.setQueuedBy(null)
@@ -119,19 +119,19 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public void resetCurrentExecution() {
 
-		getOrCreateProgramState()//
+		getState()//
 			.setCurrentExecution(null)
 			.save();
 	}
 
-	public AGProgramState getOrCreateProgramState() {
+	public AGProgramState getState() {
 
 		return AGProgramState.TABLE.getOrCreate(getThis());
 	}
 
 	public boolean reloadProgramStateForUpdate() {
 
-		return getOrCreateProgramState().reloadForUpdate();
+		return getState().reloadForUpdate();
 	}
 
 	public static AGProgram loadOrInsert(AGUuid programUuid) {
@@ -156,7 +156,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		AGProgram program = new AGProgram()//
 			.setProgramUuid(programUuid)
 			.save();
-		program.getOrCreateProgramState().save();
+		program.getState().save();
 		return program;
 	}
 }

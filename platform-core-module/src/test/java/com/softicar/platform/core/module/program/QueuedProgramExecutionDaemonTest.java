@@ -482,7 +482,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 			.setProgramUuid(SOME_UUID)
 			.save();
 		program//
-			.getOrCreateProgramState()
+			.getState()
 			.setQueuedAt(queuedAt)
 			.setQueuedBy(user)
 			.setAbortRequested(abortRequested)

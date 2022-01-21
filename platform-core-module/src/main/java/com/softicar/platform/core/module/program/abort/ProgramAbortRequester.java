@@ -41,7 +41,7 @@ public class ProgramAbortRequester {
 
 		if (program.reloadProgramStateForUpdate() && program.isQueuedOrRunning()) {
 			program//
-				.getOrCreateProgramState()
+				.getState()
 				.setAbortRequested(true)
 				.save();
 			return true;

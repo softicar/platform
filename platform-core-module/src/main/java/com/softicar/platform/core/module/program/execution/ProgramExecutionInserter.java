@@ -28,7 +28,7 @@ public class ProgramExecutionInserter {
 
 		program.reloadProgramStateForUpdate();
 		program//
-			.getOrCreateProgramState()
+			.getState()
 			.setCurrentExecution(insertExecution(program.getQueuedBy()))
 			.setQueuedBy(null)
 			.setQueuedAt(null)

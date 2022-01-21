@@ -24,6 +24,6 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 		AGProgram program = new AGProgram()//
 			.setProgramUuid(uuid.getUuid())
 			.save();
-		program.getOrCreateProgramState().save();
+		program.getState().save();
 	}
 }

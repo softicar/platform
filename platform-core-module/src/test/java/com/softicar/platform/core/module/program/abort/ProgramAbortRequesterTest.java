@@ -18,7 +18,7 @@ public class ProgramAbortRequesterTest extends AbstractProgramTest {
 			.setProgramUuid(SOME_UUID)
 			.save();
 		this.program//
-			.getOrCreateProgramState()
+			.getState()
 			.setQueuedBy(user)
 			.save();
 	}
@@ -99,7 +99,7 @@ public class ProgramAbortRequesterTest extends AbstractProgramTest {
 
 	private void updateQueuedAtToNow() {
 
-		program.getOrCreateProgramState().setQueuedAt(DayTime.now()).save();
+		program.getState().setQueuedAt(DayTime.now()).save();
 	}
 
 	private void insertCurrentExecution() {

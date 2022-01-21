@@ -42,7 +42,7 @@ public class ProgramUnqueuer {
 
 		if (program.reloadProgramStateForUpdate() && program.isQueued()) {
 			program//
-				.getOrCreateProgramState()
+				.getState()
 				.setQueuedAt(null)
 				.setQueuedBy(null)
 				.save();
