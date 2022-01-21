@@ -2,7 +2,7 @@ package com.softicar.platform.core.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.core.module.file.smb.CurrentSmbApi;
+import com.softicar.platform.core.module.file.smb.CurrentSmbClient;
 import com.softicar.platform.core.module.module.AbstractSystemModule;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.emf.page.EmfPagePath;
@@ -33,7 +33,7 @@ public class CoreModule extends AbstractSystemModule {
 
 	public CoreModule() {
 
-		CurrentSmbApi.get().initialize();
+		CurrentSmbClient.get().initialize();
 	}
 
 	@Override

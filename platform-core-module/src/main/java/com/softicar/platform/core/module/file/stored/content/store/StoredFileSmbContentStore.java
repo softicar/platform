@@ -4,14 +4,13 @@ import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
-import com.softicar.platform.core.module.file.smb.CurrentSmbApi;
+import com.softicar.platform.core.module.file.smb.CurrentSmbClient;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -102,7 +101,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public long getFileSize(String filename) {
 
-		return createSmbFile(filename).length();
+		return createSmbFile(filename).getLength();
 	}
 
 	@Override
@@ -114,19 +113,22 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public Collection<String> getAllFiles(String root) {
 
-		return createSmbFile(root).listAllFiles(Trim.trimRight(root, '/'), new ArrayList<>());
+		return createSmbFile(root)//
+			.asDirectory()
+			.orElseThrow()
+			.listFilesRecursively(Trim.trimRight(root, '/'));
 	}
 
 	@Override
 	public DayTime getLastModified(String filename) {
 
-		return createSmbFile(filename).lastModified();
+		return createSmbFile(filename).getLastModifiedDate();
 	}
 
 	private ISmbFile createSmbFile(String name) {
 
 		AGStoredFileServer fileServer = getServerOrThrow();
-		return CurrentSmbApi
+		return CurrentSmbClient
 			.get()
 			.createFile(
 				getServerOrThrow().getUrl() + "/" + name,

@@ -1,10 +1,14 @@
 package com.softicar.platform.core.module.file.smb.jcifs;
 
+import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import jcifs.smb.NtlmPasswordAuthentication;
@@ -38,6 +42,28 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	}
 
 	@Override
+	public Collection<String> listFilesRecursively(String root) {
+
+		Collection<String> filenames = new ArrayList<>();
+		try {
+			for (SmbFile file: file.listFiles()) {
+				if (file.isDirectory()) {
+					String subFolder = Trim.trimRight(file.getName(), '/');
+					listFiles(//
+						root + "/" + subFolder,
+						new JcifsSmbDirectory(file.getCanonicalPath(), auth),
+						filenames);
+				} else {
+					filenames.add(root + "/" + file.getName());
+				}
+			}
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
+		return filenames;
+	}
+
+	@Override
 	public void mkdirs() {
 
 		try {
@@ -62,12 +88,6 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	}
 
 	@Override
-	public InputStream getInputStream() {
-
-		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
-	}
-
-	@Override
 	public ISmbDirectory moveTo(ISmbDirectory parent) {
 
 		return moveAndRenameTo(parent, getName());
@@ -83,6 +103,27 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	public ISmbDirectory moveAndRenameTo(ISmbDirectory parent, String name) {
 
 		return super.moveAndRenameTo(parent, name).asDirectory().orElseThrow();
+	}
+
+	@Override
+	public InputStream createInputStream() {
+
+		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
+	}
+
+	private void listFiles(String root, JcifsSmbDirectory directory, Collection<String> filenames) {
+
+		for (ISmbFile file: directory.listFiles()) {
+			if (file.isDirectory()) {
+				String subFolder = Trim.trimRight(file.getName(), '/');
+				listFiles(//
+					root + "/" + subFolder,
+					new JcifsSmbDirectory(file.getCanonicalPath(), auth),
+					filenames);
+			} else {
+				filenames.add(root + "/" + file.getName());
+			}
+		}
 	}
 
 	private ISmbFile wrapSmbFile(SmbFile smbFile) {

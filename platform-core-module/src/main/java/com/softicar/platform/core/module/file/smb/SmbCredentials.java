@@ -1,6 +1,14 @@
 package com.softicar.platform.core.module.file.smb;
 
-public class SmbCredentials implements ISmbCredentials {
+import java.util.Objects;
+
+/**
+ * This is a container class to hold the credentials used for
+ * {@link ISmbClient#createFile(String, SmbCredentials)}.
+ *
+ * @author Daniel Klose
+ */
+public class SmbCredentials {
 
 	private final String domain;
 	private final String username;
@@ -8,24 +16,21 @@ public class SmbCredentials implements ISmbCredentials {
 
 	public SmbCredentials(String domain, String username, String password) {
 
-		this.domain = domain;
-		this.username = username;
-		this.password = password;
+		this.domain = Objects.requireNonNull(domain);
+		this.username = Objects.requireNonNull(username);
+		this.password = Objects.requireNonNull(password);
 	}
 
-	@Override
 	public String getDomain() {
 
 		return domain;
 	}
 
-	@Override
 	public String getUsername() {
 
 		return username;
 	}
 
-	@Override
 	public String getPassword() {
 
 		return password;

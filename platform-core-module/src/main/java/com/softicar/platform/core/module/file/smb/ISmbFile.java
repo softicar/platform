@@ -3,7 +3,6 @@ package com.softicar.platform.core.module.file.smb;
 import com.softicar.platform.common.date.DayTime;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -21,15 +20,23 @@ public interface ISmbFile {
 
 	boolean isFile();
 
+	/**
+	 * This method returns the free disk space in bytes of the drive this share
+	 * represents or the drive on which the directory or file resides.
+	 *
+	 * @return the free disk space in bytes of the drive on which this file or
+	 *         directory resides
+	 */
 	long getFreeDiskSpace();
 
-	long length();
+	/**
+	 * Returns the length of this <tt>ISmbFile</tt> in bytes.
+	 *
+	 * @return The length of the file in bytes
+	 */
+	long getLength();
 
-	DayTime lastModified();
-
-	Collection<String> listAllFiles(String prefix, Collection<String> filenames);
-
-	InputStream getInputStream();
+	DayTime getLastModifiedDate();
 
 	Optional<ISmbDirectory> asDirectory();
 

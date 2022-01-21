@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.file.smb.jcifs;
 
-import com.softicar.platform.core.module.file.smb.ISmbApi;
-import com.softicar.platform.core.module.file.smb.ISmbCredentials;
+import com.softicar.platform.core.module.file.smb.ISmbClient;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
+import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import jcifs.Config;
 import jcifs.smb.NtlmPasswordAuthentication;
 
-public class JcifsSmbApi implements ISmbApi {
+public class JcifsSmbClient implements ISmbClient {
 
 	@Override
 	public void initialize() {
@@ -15,7 +15,7 @@ public class JcifsSmbApi implements ISmbApi {
 	}
 
 	@Override
-	public ISmbFile createFile(String url, ISmbCredentials credentials) {
+	public ISmbFile createFile(String url, SmbCredentials credentials) {
 
 		var authentication = new NtlmPasswordAuthentication(credentials.getDomain(), credentials.getUsername(), credentials.getPassword());
 		return new JcifsSmbFile(url, authentication);
