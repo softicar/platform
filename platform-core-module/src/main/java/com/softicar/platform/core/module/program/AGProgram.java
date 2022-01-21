@@ -100,8 +100,8 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	/**
 	 * Resets {@link AGProgram#CURRENT_EXECUTION}, {@link AGProgram#QUEUED_AT},
-	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#PROGRAM_ABORT_REQUESTED}
-	 * to their respective default values.
+	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#ABORT_REQUESTED} to
+	 * their respective default values.
 	 */
 	public void resetAll() {
 
