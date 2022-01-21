@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
+import com.softicar.platform.db.sql.statement.SqlSelectLock;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.Objects;
 import java.util.UUID;
@@ -143,12 +144,11 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	private static AGProgram executeLoadOrInsert(AGUuid programUuid) {
 
-		AGProgram program = AGProgram.loadByProgramUuid(programUuid);
-		if (program == null) {
-			return executeInsert(programUuid);
-		} else {
-			return program;
-		}
+		return AGProgram.TABLE//
+			.createSelect(SqlSelectLock.FOR_UPDATE)
+			.where(AGProgram.PROGRAM_UUID.isEqual(programUuid))
+			.getOneAsOptional()
+			.orElseGet(() -> executeInsert(programUuid));
 	}
 
 	private static AGProgram executeInsert(AGUuid programUuid) {
