@@ -35,7 +35,7 @@ class ProgramEnqueuer<P extends IProgram> {
 		if (program.reloadStateForUpdate()) {
 			program//
 				.getState()
-				.setQueuedAt(DayTime.now().truncateSeconds())
+				.setQueuedAt(DayTime.now())
 				.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
 				.save();
 		}
