@@ -82,6 +82,11 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return isQueued() || isRunning();
 	}
 
+	public void saveAbortRequested(Boolean value) {
+
+		getState().setAbortRequested(value).save();
+	}
+
 	/**
 	 * Inserts a new {@link AGProgramExecution} as current execution of this
 	 * {@link AGProgram}.
