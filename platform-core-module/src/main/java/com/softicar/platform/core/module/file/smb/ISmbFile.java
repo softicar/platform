@@ -30,11 +30,11 @@ public interface ISmbFile {
 	long getFreeDiskSpace();
 
 	/**
-	 * Returns the length of this <tt>ISmbFile</tt> in bytes.
+	 * Returns the size of this {@link ISmbFile} in bytes.
 	 *
-	 * @return The length of the file in bytes
+	 * @return the size of the file in bytes
 	 */
-	long getLength();
+	long getSize();
 
 	DayTime getLastModifiedDate();
 

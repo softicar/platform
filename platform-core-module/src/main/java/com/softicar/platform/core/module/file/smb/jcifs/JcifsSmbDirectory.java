@@ -42,25 +42,13 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	}
 
 	@Override
-	public Collection<String> listFilesRecursively(String root) {
+	public Collection<String> listFilesRecursively(String subDirectory) {
 
-		Collection<String> filenames = new ArrayList<>();
 		try {
-			for (SmbFile file: file.listFiles()) {
-				if (file.isDirectory()) {
-					String subFolder = Trim.trimRight(file.getName(), '/');
-					listFiles(//
-						root + "/" + subFolder,
-						new JcifsSmbDirectory(file.getCanonicalPath(), auth),
-						filenames);
-				} else {
-					filenames.add(root + "/" + file.getName());
-				}
-			}
+			return listFiles(subDirectory, Arrays.asList(file.listFiles()), new ArrayList<>());
 		} catch (SmbException exception) {
 			throw new SofticarException(exception);
 		}
-		return filenames;
 	}
 
 	@Override
@@ -111,19 +99,24 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
 	}
 
-	private void listFiles(String root, JcifsSmbDirectory directory, Collection<String> filenames) {
+	private Collection<String> listFiles(String subDirectory, Collection<SmbFile> files, Collection<String> filenames) {
 
-		for (ISmbFile file: directory.listFiles()) {
-			if (file.isDirectory()) {
-				String subFolder = Trim.trimRight(file.getName(), '/');
-				listFiles(//
-					root + "/" + subFolder,
-					new JcifsSmbDirectory(file.getCanonicalPath(), auth),
-					filenames);
-			} else {
-				filenames.add(root + "/" + file.getName());
+		try {
+			for (SmbFile file: files) {
+				if (file.isDirectory()) {
+					String subFolder = Trim.trimRight(file.getName(), '/');
+					listFiles(//
+						subDirectory + "/" + subFolder,
+						Arrays.asList(file.listFiles()),
+						filenames);
+				} else {
+					filenames.add(subDirectory + "/" + file.getName());
+				}
 			}
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
 		}
+		return filenames;
 	}
 
 	private ISmbFile wrapSmbFile(SmbFile smbFile) {

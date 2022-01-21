@@ -101,7 +101,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public long getFileSize(String filename) {
 
-		return createSmbFile(filename).getLength();
+		return createSmbFile(filename).getSize();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 		return CurrentSmbClient
 			.get()
 			.createFile(
-				getServerOrThrow().getUrl() + "/" + name,
+				Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + name,
 				new SmbCredentials(fileServer.getDomain(), fileServer.getUsername(), fileServer.getPassword()));
 	}
 

@@ -100,7 +100,7 @@ class JcifsSmbFile implements ISmbFile {
 	}
 
 	@Override
-	public long getLength() {
+	public long getSize() {
 
 		try {
 			return file.length();
