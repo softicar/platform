@@ -21,6 +21,6 @@ public class ProgramExecutionCleanupProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		new ProgramExecutionDeleter(THROTTLING_MILLISECONDS).execute();
+		new ProgramExecutionDeleter(THROTTLING_MILLISECONDS).delete();
 	}
 }

@@ -14,6 +14,7 @@ import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,17 +22,19 @@ import org.junit.Test;
 
 public class ProgramExecutionDeleterTest extends AbstractCoreTest {
 
+	private static final DayTime CURRENT_DAYTIME = DayTime.fromYMD_HMS(2022, 1, 24, 0, 0, 0);
+	private final Day referenceDay = CURRENT_DAYTIME.getDay();
 	private final SetMap<AGProgram, AGProgramExecution> expectedRetainedProgramExecutionsMap = new SetMap<>();
-	private final Day referenceDay = Day.today();
 
 	public ProgramExecutionDeleterTest() {
 
 		// Suppress lower-level log output under test
 		LogLevel.ERROR.set();
 
-		List<AGProgram> programs = insertPrograms();
+		// Use of special clock for JUnit tests because ProgramExecutionDeleter uses the current day to load the to be deleted program executions
+		testClock.setInstant(Instant.ofEpochMilli(CURRENT_DAYTIME.toMillis()));
 
-		for (AGProgram program: programs) {
+		for (AGProgram program: insertPrograms()) {
 			insertExecutionsOfProgram(program);
 		}
 	}
@@ -95,9 +98,9 @@ public class ProgramExecutionDeleterTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void test() {
+	public void testDelete() {
 
-		new ProgramExecutionDeleter(0).execute();
+		new ProgramExecutionDeleter(0).delete();
 		assertEquals(expectedRetainedProgramExecutionsMap, loadProgramExecutions());
 	}
 

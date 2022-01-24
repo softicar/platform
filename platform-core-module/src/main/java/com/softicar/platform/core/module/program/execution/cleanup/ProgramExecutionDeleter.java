@@ -31,16 +31,16 @@ public class ProgramExecutionDeleter {
 		this.referenceDay = Day.today();
 	}
 
-	public void execute() {
+	public void delete() {
 
 		Log.finfo("%s started for %s", ProgramExecutionDeleter.class.getSimpleName(), referenceDay);
 
 		for (AGProgram program: AGProgram.TABLE.createSelect().orderBy(AGProgram.ID)) {
-			cleanupExecutionsOfProgram(program);
+			deleteExecutionsOfProgram(program);
 		}
 	}
 
-	private void cleanupExecutionsOfProgram(AGProgram program) {
+	private void deleteExecutionsOfProgram(AGProgram program) {
 
 		Log.finfo("Cleanup executions of program %s", fetchProgramNameIfPossible(program));
 
