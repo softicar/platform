@@ -68,12 +68,13 @@ public class ProgramExecutionDeleterTest extends AbstractDbTest {
 
 	private AGProgramExecution insertProgramExecutionWithLog(AGProgram program, Day terminatedAtDay) {
 
+		AGTransaction transaction = new AGTransaction().setAt(DayTime.now()).setByToCurrentUser().save();
+
 		AGProgramExecution programExecution = new AGProgramExecution()//
 			.setProgramUuid(program.getProgramUuid())
 			.setTerminatedAt(DayTime.fromDayAndSeconds(terminatedAtDay, 0))
+			.setQueuedBy(CurrentUser.get())
 			.save();
-
-		AGTransaction transaction = new AGTransaction().setAt(DayTime.now()).setByToCurrentUser().save();
 
 		AGProgramExecutionLog.TABLE.getOrCreate(new Tuple2<>(programExecution, transaction));
 
