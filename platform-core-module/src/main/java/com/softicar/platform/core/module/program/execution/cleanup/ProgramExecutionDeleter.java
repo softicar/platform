@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.program.execution.cleanup;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DateItemRange;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
@@ -32,7 +33,7 @@ public class ProgramExecutionDeleter {
 
 	public void execute() {
 
-		Log.finfo("%s started for %s", ProgramExecutionCleanupProgram.class.getSimpleName(), referenceDay);
+		Log.finfo("%s started for %s", ProgramExecutionDeleter.class.getSimpleName(), referenceDay);
 
 		for (AGProgram program: AGProgram.TABLE.createSelect().orderBy(AGProgram.ID)) {
 			cleanupExecutionsOfProgram(program);
@@ -41,11 +42,7 @@ public class ProgramExecutionDeleter {
 
 	private void cleanupExecutionsOfProgram(AGProgram program) {
 
-		// FIXME Use program.toDisplay()
-//		Log.finfo("Cleanup executions of program %s", program.toDisplay());
-		Log.finfo("Cleanup executions of program %s", program);
-
-		Day minimalRetainedDay = referenceDay.getRelative(-program.getRetentionDaysOfExecutions());
+		Log.finfo("Cleanup executions of program %s", fetchProgramNameIfPossible(program));
 
 		AGProgramExecution
 			.createSelect()
@@ -55,10 +52,23 @@ public class ProgramExecutionDeleter {
 			.getFirstAsOptional()
 			.map(AGProgramExecution::getTerminatedAt)
 			.map(DayTime::getDay)
-			.ifPresent(minimalDayInDb -> deleteBatchwise(program, minimalRetainedDay, minimalDayInDb));
+			.ifPresentOrElse(minimalDayInDb -> deleteBatchwise(program, minimalDayInDb), this::logInfoNothingToDelete);
 	}
 
-	private void deleteBatchwise(AGProgram program, Day minimalRetainedDay, Day minimalDayInDb) {
+	private String fetchProgramNameIfPossible(AGProgram program) {
+
+		try {
+			// Will fail in JUnit tests
+			return program.toDisplayWithoutId() + "";
+		} catch (Exception exception) {
+			DevNull.swallow(exception);
+		}
+		return program + "";
+	}
+
+	private void deleteBatchwise(AGProgram program, Day minimalDayInDb) {
+
+		Day minimalRetainedDay = referenceDay.getRelative(-program.getRetentionDaysOfExecutions());
 
 		if (minimalDayInDb.isBefore(minimalRetainedDay)) {
 			int distance = minimalDayInDb.getDistance(minimalRetainedDay);
@@ -66,15 +76,21 @@ public class ProgramExecutionDeleter {
 			Log.finfo("Deleting records in %s day-based batches, from %s to %s...", distance, firstThresholdDay, minimalRetainedDay);
 
 			for (Day thresholdDay: new DateItemRange<>(firstThresholdDay, minimalRetainedDay)) {
-
-				List<AGProgramExecution> programExecutions = loadToBeDeletedProgramExecutions(program, thresholdDay);
-
-				Log.finfo("Deleting %d program execution(s) older than %s...", programExecutions.size(), thresholdDay);
-				deleteProgramExecutionLogsAndProgramExecutions(programExecutions);
+				deleteExecutionsOlderThan(program, thresholdDay);
 				sleepIfNecessary(thresholdDay, minimalRetainedDay);
 			}
 		} else {
-			Log.finfo("Nothing to delete.");
+			logInfoNothingToDelete();
+		}
+	}
+
+	private void deleteExecutionsOlderThan(AGProgram program, Day thresholdDay) {
+
+		List<AGProgramExecution> programExecutions = loadToBeDeletedProgramExecutions(program, thresholdDay);
+		Log.finfo("Deleting %d program execution(s) older than %s...", programExecutions.size(), thresholdDay);
+		try (DbTransaction transaction = new DbTransaction()) {
+			deleteProgramExecutionLogsAndProgramExecutions(programExecutions);
+			transaction.commit();
 		}
 	}
 
@@ -90,11 +106,8 @@ public class ProgramExecutionDeleter {
 
 	private void deleteProgramExecutionLogsAndProgramExecutions(List<AGProgramExecution> programExecutions) {
 
-		try (DbTransaction transaction = new DbTransaction()) {
-			AGProgramExecutionLog.TABLE.createDelete().where(AGProgramExecutionLog.PROGRAM_EXECUTION.in(programExecutions)).execute();
-			AGProgramExecution.TABLE.createDelete().where(AGProgramExecution.ID.isIn(programExecutions)).execute();
-			transaction.commit();
-		}
+		AGProgramExecutionLog.TABLE.createDelete().where(AGProgramExecutionLog.PROGRAM_EXECUTION.in(programExecutions)).execute();
+		AGProgramExecution.TABLE.createDelete().where(AGProgramExecution.ID.isIn(programExecutions)).execute();
 	}
 
 	private void sleepIfNecessary(Day thresholdDay, Day minimalRetainedDay) {
@@ -102,5 +115,10 @@ public class ProgramExecutionDeleter {
 		if (thresholdDay.isBefore(minimalRetainedDay)) {
 			Sleep.sleep(throttlingMilliseconds);
 		}
+	}
+
+	private void logInfoNothingToDelete() {
+
+		Log.finfo("Nothing to delete.");
 	}
 }
