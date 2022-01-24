@@ -42,22 +42,6 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setPredicateEditable(EmfPredicates.never());
 
 		attributes//
-			.editAttribute(AGProgram.QUEUED_AT)
-			.setPredicateEditable(EmfPredicates.never());
-
-		attributes//
-			.editAttribute(AGProgram.ABORT_REQUESTED)
-			.setPredicateEditable(EmfPredicates.never());
-
-		attributes//
-			.editAttribute(AGProgram.CURRENT_EXECUTION)
-			.setPredicateEditable(EmfPredicates.never());
-
-		attributes//
-			.editAttribute(AGProgram.RETENTION_DAYS_OF_EXECUTIONS)
-			.setPredicateMandatory(EmfPredicates.always());
-
-		attributes//
 			.addTransientAttribute(AGProgram.QUEUED_AT)
 			.setDisplayFactory(EmfDayTimeDisplay::new);
 
@@ -72,6 +56,10 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		attributes//
 			.addTransientAttribute(AGProgram.CURRENT_EXECUTION)
 			.setDisplayFactory(EmfBasicEntityDisplay::new);
+
+		attributes//
+			.editAttribute(AGProgram.RETENTION_DAYS_OF_EXECUTIONS)
+			.setPredicateMandatory(EmfPredicates.always());
 	}
 
 	@Override
