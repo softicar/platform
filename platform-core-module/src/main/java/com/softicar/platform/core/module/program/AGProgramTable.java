@@ -98,7 +98,8 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 
 		loggerSet//
 			.addPlainChangeLogger(AGProgramLog.PROGRAM, AGProgramLog.TRANSACTION)
-			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID);
+			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID)
+			.addMapping(AGProgram.RETENTION_DAYS_OF_EXECUTIONS, AGProgramLog.RETENTION_DAYS_OF_EXECUTIONS);
 	}
 
 }
