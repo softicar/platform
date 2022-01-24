@@ -10,17 +10,16 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
+import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.transaction.AGTransaction;
-import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.junit.Test;
 
-public class ProgramExecutionDeleterTest extends AbstractDbTest {
+public class ProgramExecutionDeleterTest extends AbstractCoreTest {
 
 	private final SetMap<AGProgram, AGProgramExecution> expectedRetainedProgramExecutionsMap = new SetMap<>();
 	private final Day referenceDay = Day.today();
@@ -29,8 +28,6 @@ public class ProgramExecutionDeleterTest extends AbstractDbTest {
 
 		// Suppress lower-level log output under test
 		LogLevel.ERROR.set();
-
-		CurrentUser.set(new AGUser().setLoginName("test").setFirstName("test").setLastName("test").save());
 
 		List<AGProgram> programs = insertPrograms();
 
