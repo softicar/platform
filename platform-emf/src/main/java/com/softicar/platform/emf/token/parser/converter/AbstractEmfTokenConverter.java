@@ -36,7 +36,7 @@ abstract class AbstractEmfTokenConverter<V, F extends IDbField<?, ?>> implements
 
 		return typeName//
 			.concatSpace()
-			.concatInParentheses(EmfI18n.E_G.concatSpace().concat(example));
+			.concatInParentheses(EmfI18n.EXAMPLE.concat(": ").concat(example));
 	}
 
 	protected IDisplayString createValueOutOfRangeMessage(String token, String minValue, String maxValue) {

@@ -183,7 +183,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 			new EmfTokenMatrixParser<>(table).parse(tokenMatrix);
 		} catch (Exception exception) {
 			assertEquals(
-				"Row #2, Column #3: Failed to process token [???]:\n[], [2022-01-26], **[???]**, [bar]\nReason: '???' is not of type 'Integer (e.g. 128)'",
+				"Row #2, Column #3: Failed to process token [???]:\n[], [2022-01-26], **[???]**, [bar]\nReason: '???' is not of type 'Integer (Example: 128)'",
 				exception.getMessage());
 		}
 	}
@@ -202,7 +202,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.BIG_DECIMAL_FIELD, "???"),
-			"Reason: '???' is not of type 'Decimal Number (e.g. 123.456)'");
+			"Reason: '???' is not of type 'Decimal Number (Example: 123.456)'");
 	}
 
 	@Test
@@ -210,7 +210,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.BIG_DECIMAL_FIELD, ""),
-			"Reason: A value of type 'Decimal Number (e.g. 123.456)' is missing");
+			"Reason: A value of type 'Decimal Number (Example: 123.456)' is missing");
 	}
 
 	@Test
@@ -254,7 +254,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.BIG_DECIMAL_FIELD, "123456.09876"),
-			"Reason: Number of digits exceeded (max. possible: 10, encountered: 11)");
+			"Reason: Number of digits exceeded (maximum: 10, encountered: 11)");
 	}
 
 	@Test
@@ -269,7 +269,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.BIG_DECIMAL_FIELD, "1234.098765"),
-			"Reason: Number of decimal places exceeded (max. possible: 5, encountered: 6)");
+			"Reason: Number of decimal places exceeded (maximum: 5, encountered: 6)");
 	}
 
 	@Test
@@ -357,7 +357,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_FIELD, "???"),
-			"Reason: '???' is not of type 'Day (e.g. 2000-12-31)'");
+			"Reason: '???' is not of type 'Day (Example: 2000-12-31)'");
 	}
 
 	@Test
@@ -365,7 +365,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_FIELD, ""),
-			"Reason: A value of type 'Day (e.g. 2000-12-31)' is missing");
+			"Reason: A value of type 'Day (Example: 2000-12-31)' is missing");
 	}
 
 	@Test
@@ -388,7 +388,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_FIELD, "09.12.2021"),
-			"Reason: '09.12.2021' is not of type 'Day (e.g. 2000-12-31)'");
+			"Reason: '09.12.2021' is not of type 'Day (Example: 2000-12-31)'");
 	}
 
 	@Test
@@ -396,7 +396,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_FIELD, "12/09/2021"),
-			"Reason: '12/09/2021' is not of type 'Day (e.g. 2000-12-31)'");
+			"Reason: '12/09/2021' is not of type 'Day (Example: 2000-12-31)'");
 	}
 
 	// -------------------------------- DayTime tokens -------------------------------- //
@@ -413,7 +413,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_TIME_FIELD, "???"),
-			"Reason: '???' is not of type 'Daytime (e.g. 2000-12-31 14:59:59)'");
+			"Reason: '???' is not of type 'Daytime (Example: 2000-12-31 14:59:59)'");
 	}
 
 	@Test
@@ -421,7 +421,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DAY_TIME_FIELD, ""),
-			"Reason: A value of type 'Daytime (e.g. 2000-12-31 14:59:59)' is missing");
+			"Reason: A value of type 'Daytime (Example: 2000-12-31 14:59:59)' is missing");
 	}
 
 	@Test
@@ -468,7 +468,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DOUBLE_FIELD, "???"),
-			"Reason: '???' is not of type 'Double-Precision Floating-Point Number (e.g. 123.456)'");
+			"Reason: '???' is not of type 'Double-Precision Floating-Point Number (Example: 123.456)'");
 	}
 
 	@Test
@@ -476,7 +476,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DOUBLE_FIELD, ""),
-			"Reason: A value of type 'Double-Precision Floating-Point Number (e.g. 123.456)' is missing");
+			"Reason: A value of type 'Double-Precision Floating-Point Number (Example: 123.456)' is missing");
 	}
 
 	@Test
@@ -491,7 +491,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.DOUBLE_FIELD, "123,456"),
-			"Reason: '123,456' is not of type 'Double-Precision Floating-Point Number (e.g. 123.456)'");
+			"Reason: '123,456' is not of type 'Double-Precision Floating-Point Number (Example: 123.456)'");
 	}
 
 	@Test
@@ -582,7 +582,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.FLOAT_FIELD, "???"),
-			"Reason: '???' is not of type 'Floating-Point Number (e.g. 123.456)'");
+			"Reason: '???' is not of type 'Floating-Point Number (Example: 123.456)'");
 	}
 
 	@Test
@@ -590,7 +590,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.FLOAT_FIELD, ""),
-			"Reason: A value of type 'Floating-Point Number (e.g. 123.456)' is missing");
+			"Reason: A value of type 'Floating-Point Number (Example: 123.456)' is missing");
 	}
 
 	@Test
@@ -605,7 +605,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.FLOAT_FIELD, "123,456"),
-			"Reason: '123,456' is not of type 'Floating-Point Number (e.g. 123.456)'");
+			"Reason: '123,456' is not of type 'Floating-Point Number (Example: 123.456)'");
 	}
 
 	@Test
@@ -664,7 +664,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.FOREIGN_FIELD, "???"),
-			"Reason: '???' is not of type 'Foreign ID (e.g. 128)'");
+			"Reason: '???' is not of type 'Foreign ID (Example: 128)'");
 	}
 
 	@Test
@@ -680,7 +680,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.FOREIGN_FIELD, ""),
-			"Reason: A value of type 'Foreign ID (e.g. 128)' is missing");
+			"Reason: A value of type 'Foreign ID (Example: 128)' is missing");
 	}
 
 	@Test
@@ -704,7 +704,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.ID_FIELD, "???"),
-			"Reason: '???' is not of type 'ID (e.g. 128)'");
+			"Reason: '???' is not of type 'ID (Example: 128)'");
 	}
 
 	@Test
@@ -766,7 +766,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.INTEGER_FIELD, "???"),
-			"Reason: '???' is not of type 'Integer (e.g. 128)'");
+			"Reason: '???' is not of type 'Integer (Example: 128)'");
 	}
 
 	@Test
@@ -774,7 +774,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.INTEGER_FIELD, ""),
-			"Reason: A value of type 'Integer (e.g. 128)' is missing");
+			"Reason: A value of type 'Integer (Example: 128)' is missing");
 	}
 
 	@Test
@@ -849,7 +849,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.LONG_FIELD, "???"),
-			"Reason: '???' is not of type 'Long-Integer (e.g. 128)'");
+			"Reason: '???' is not of type 'Long-Integer (Example: 128)'");
 	}
 
 	@Test
@@ -857,7 +857,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.LONG_FIELD, ""),
-			"Reason: A value of type 'Long-Integer (e.g. 128)' is missing");
+			"Reason: A value of type 'Long-Integer (Example: 128)' is missing");
 	}
 
 	@Test
@@ -968,7 +968,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.STRING_FIELD, Padding.padRight("", "x", 17)),
-			"Reason: Too many characters (max. possible: 16, encountered: 17)");
+			"Reason: Too many characters (maximum: 16, encountered: 17)");
 	}
 
 	@Test
@@ -983,7 +983,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.STRING_TINY_TEXT_FIELD, Padding.padRight("", "x", 256)),
-			"Reason: Too many characters (max. possible: 255, encountered: 256)");
+			"Reason: Too many characters (maximum: 255, encountered: 256)");
 	}
 
 	@Test
@@ -998,7 +998,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.STRING_TEXT_FIELD, Padding.padRight("", "x", 65536)),
-			"Reason: Too many characters (max. possible: 65535, encountered: 65536)");
+			"Reason: Too many characters (maximum: 65535, encountered: 65536)");
 	}
 
 	// Omitted tests for MEDIUMTEXT (length bits: 24; 16MB) and LONGTEXT (length bits: 32; 4GB) due to memory consumption concerns.
@@ -1017,7 +1017,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.TIME_FIELD, "???"),
-			"Reason: '???' is not of type 'Time (e.g. 14:30:00)'");
+			"Reason: '???' is not of type 'Time (Example: 14:30:00)'");
 	}
 
 	@Test
@@ -1025,7 +1025,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.TIME_FIELD, ""),
-			"Reason: A value of type 'Time (e.g. 14:30:00)' is missing");
+			"Reason: A value of type 'Time (Example: 14:30:00)' is missing");
 	}
 
 	@Test
@@ -1040,7 +1040,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.set(TestObject.TIME_FIELD, "33:59:22"),
-			"Reason: '33:59:22' is not of type 'Time (e.g. 14:30:00)'");
+			"Reason: '33:59:22' is not of type 'Time (Example: 14:30:00)'");
 	}
 
 	@Test

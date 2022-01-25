@@ -14,12 +14,12 @@ class EmfTokenToBigDecimalConverter extends AbstractEmfTokenConverter<BigDecimal
 		if (field.getPrecision() < value.precision()) {
 			IDisplayString message = EmfI18n.NUMBER_OF_DIGITS_EXCEEDED
 				.concatSpace()
-				.concatInParentheses(EmfI18n.MAX_POSSIBLE_ARG1_ENCOUNTERED_ARG2.toDisplay(field.getPrecision(), value.precision()));
+				.concatInParentheses(EmfI18n.MAXIMUM_ARG1_ENCOUNTERED_ARG2.toDisplay(field.getPrecision(), value.precision()));
 			return EmfTokenConverterResult.failed(message);
 		} else if (field.getScale() < value.scale()) {
 			IDisplayString message = EmfI18n.NUMBER_OF_DECIMAL_PLACES_EXCEEDED
 				.concatSpace()
-				.concatInParentheses(EmfI18n.MAX_POSSIBLE_ARG1_ENCOUNTERED_ARG2.toDisplay(field.getScale(), value.scale()));
+				.concatInParentheses(EmfI18n.MAXIMUM_ARG1_ENCOUNTERED_ARG2.toDisplay(field.getScale(), value.scale()));
 			return EmfTokenConverterResult.failed(message);
 		} else {
 			return EmfTokenConverterResult.okay(value);

@@ -107,8 +107,6 @@ public interface EmfI18n {
 		.de("Beschreibung");
 	I18n0 DOUBLE_PRECISION_FLOATING_POINT_NUMBER = new I18n0("Double-Precision Floating-Point Number")//
 		.de("Doppeltgenaue Gleitkommazahl");
-	I18n0 E_G = new I18n0("e.g.")//
-		.de("z.B.");
 	I18n0 EDIT = new I18n0("Edit")//
 		.de("Bearbeiten");
 	I18n0 EDIT_ENTRY = new I18n0("Edit Entry")//
@@ -129,6 +127,8 @@ public interface EmfI18n {
 		.de("Enumerator '%s' konnte in Enumeration '%s' nicht gefunden werden.");
 	I18n0 ERROR = new I18n0("Error")//
 		.de("Fehler");
+	I18n0 EXAMPLE = new I18n0("Example")//
+		.de("Beispiel");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
 	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
@@ -179,8 +179,8 @@ public interface EmfI18n {
 		.de("%s verwalten");
 	I18n0 MANDATORINESS_PREDICATE = new I18n0("Mandatoriness Predicate")//
 		.de("Erforderlichkeits-Prädikat");
-	I18n2 MAX_POSSIBLE_ARG1_ENCOUNTERED_ARG2 = new I18n2("max. possible: %s, encountered: %s")//
-		.de("max. möglich: %s, vorgefunden: %s");
+	I18n2 MAXIMUM_ARG1_ENCOUNTERED_ARG2 = new I18n2("maximum: %s, encountered: %s")//
+		.de("maximal: %s, vorgefunden: %s");
 	I18n1 MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED = new I18n1("Maximum length of %s characters exceeded.")//
 		.de("Maximale Länge von %s Buchstaben überschritten.");
 	I18n0 MISSING_AUTHORIZATION = new I18n0("Missing authorization")//

@@ -59,7 +59,7 @@ class EmfTokenToStringConverter extends AbstractEmfTokenConverter<String, DbStri
 			if (token.length() > maximumLength) {
 				IDisplayString message = EmfI18n.TOO_MANY_CHARACTERS
 					.concatSpace()
-					.concatInParentheses(EmfI18n.MAX_POSSIBLE_ARG1_ENCOUNTERED_ARG2.toDisplay(maximumLength, token.length()));
+					.concatInParentheses(EmfI18n.MAXIMUM_ARG1_ENCOUNTERED_ARG2.toDisplay(maximumLength, token.length()));
 				return Optional.of(EmfTokenConverterResult.failed(message));
 			}
 		}
