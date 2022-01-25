@@ -116,7 +116,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 		return createSmbFile(root)//
 			.asDirectory()
 			.orElseThrow()
-			.listFilesRecursively(Trim.trimRight(root, '/'));
+			.listFilesRecursively();
 	}
 
 	@Override

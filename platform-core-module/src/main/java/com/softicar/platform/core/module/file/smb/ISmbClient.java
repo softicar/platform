@@ -25,4 +25,16 @@ public interface ISmbClient {
 	 * @return the new {@link ISmbFile} (never <i>null</i>)
 	 */
 	ISmbFile createFile(String url, SmbCredentials credentials);
+
+	/**
+	 * Creates a new {@link ISmbDirectory} from the given URL and
+	 * {@link SmbCredentials}.
+	 *
+	 * @param url
+	 *            the URL to the file on the SMB share (never <i>null</i>)
+	 * @param credentials
+	 *            the credentials to log in to the SMB share (never <i>null</i>)
+	 * @return the new {@link ISmbDirectory} (never <i>null</i>)
+	 */
+	ISmbDirectory createDirectory(String url, SmbCredentials credentials);
 }

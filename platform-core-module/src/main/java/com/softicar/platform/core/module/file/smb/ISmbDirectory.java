@@ -17,7 +17,7 @@ public interface ISmbDirectory extends ISmbFile {
 
 	List<ISmbFile> listFiles();
 
-	Collection<String> listFilesRecursively(String subDirectory);
+	Collection<String> listFilesRecursively();
 
 	ISmbFile getFile(String name);
 

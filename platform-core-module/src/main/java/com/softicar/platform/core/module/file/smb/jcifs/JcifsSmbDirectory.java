@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.file.smb.jcifs;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import java.io.InputStream;
@@ -42,13 +41,9 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	}
 
 	@Override
-	public Collection<String> listFilesRecursively(String subDirectory) {
+	public Collection<String> listFilesRecursively() {
 
-		try {
-			return listFiles(subDirectory, Arrays.asList(file.listFiles()), new ArrayList<>());
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		return listFiles("", file, new ArrayList<>());
 	}
 
 	@Override
@@ -99,18 +94,15 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
 	}
 
-	private Collection<String> listFiles(String subDirectory, Collection<SmbFile> files, Collection<String> filenames) {
+	private Collection<String> listFiles(String subDirectory, SmbFile directory, Collection<String> filenames) {
 
 		try {
-			for (SmbFile file: files) {
+			for (SmbFile file: directory.listFiles()) {
+				String path = subDirectory + file.getName();
 				if (file.isDirectory()) {
-					String subFolder = Trim.trimRight(file.getName(), '/');
-					listFiles(//
-						subDirectory + "/" + subFolder,
-						Arrays.asList(file.listFiles()),
-						filenames);
+					listFiles(path, file, filenames);
 				} else {
-					filenames.add(subDirectory + "/" + file.getName());
+					filenames.add(path);
 				}
 			}
 		} catch (SmbException exception) {
