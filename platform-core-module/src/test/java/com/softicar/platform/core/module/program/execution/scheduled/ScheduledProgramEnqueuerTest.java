@@ -5,8 +5,10 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.AGProgramLog;
 import com.softicar.platform.core.module.program.AbstractProgramTest;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import java.util.UUID;
 import org.junit.Test;
 
@@ -33,9 +35,8 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
-			.setQueuedAt(null)
-			.setCurrentExecution(null)
 			.save();
+		this.program.getState().save();
 	}
 
 	// -------------------- matching schedule ------------------------------ //
@@ -43,7 +44,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAt() {
 
-		program.setQueuedAt(null).save();
+		program//
+			.getState()
+			.setQueuedAt(null)
+			.save();
 
 		runEnqueuer(noon);
 
@@ -53,7 +57,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
 
-		program.setQueuedAt(null).save();
+		program//
+			.getState()
+			.setQueuedAt(null)
+			.save();
 		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
 
 		runEnqueuer(noon);
@@ -64,7 +71,11 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithExistingQueuedAt() {
 
-		program.setQueuedAt(beforeNoon).setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser()).save();
+		program//
+			.getState()
+			.setQueuedAt(beforeNoon)
+			.setQueuedBy(AGCoreModuleInstance.getInstance().getSystemUser())
+			.save();
 
 		runEnqueuer(noon);
 
@@ -74,7 +85,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithActiveExecution() {
 
-		program.setCurrentExecution(insertProgramExecution(noon)).save();
+		program//
+			.getState()
+			.setCurrentExecution(insertProgramExecution(noon))
+			.save();
 
 		runEnqueuer(noon);
 
@@ -84,7 +98,10 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithActiveButOldExecution() {
 
-		program.setCurrentExecution(insertProgramExecution(beforeNoon)).save();
+		program//
+			.getState()
+			.setCurrentExecution(insertProgramExecution(beforeNoon))
+			.save();
 
 		runEnqueuer(noon);
 
@@ -102,16 +119,20 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	}
 
 	@Test
-	public void testWithMatchingScheduleWithoutProgramRow() {
+	public void testWithMatchingScheduleWithoutProgram() {
 
+		AGProgramLog.TABLE.createDelete().where(AGProgramLog.PROGRAM.equal(program)).execute();
+		AGProgramState.TABLE.createDelete().where(AGProgramState.PROGRAM.equal(program)).execute();
 		program.delete();
 
 		runEnqueuer(noon);
 
 		AGProgram program = assertOne(AGProgram.TABLE.loadAll());
 		assertEquals(SOME_UUID, program.getProgramUuid().getUuid());
-		assertEquals(noon, program.getQueuedAt());
-		assertNull(program.getCurrentExecution());
+
+		AGProgramState programState = assertOne(AGProgramState.TABLE.loadAll());
+		assertEquals(noon, programState.getQueuedAt());
+		assertNull(programState.getCurrentExecution());
 	}
 
 	// -------------------- non-matching schedule ------------------------------ //

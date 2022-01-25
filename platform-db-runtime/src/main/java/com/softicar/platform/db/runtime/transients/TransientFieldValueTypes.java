@@ -1,6 +1,7 @@
 package com.softicar.platform.db.runtime.transients;
 
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.date.DayTime;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,11 @@ public class TransientFieldValueTypes {
 	public static final ITransientFieldValueType<BigDecimal> getBigDecimal() {
 
 		return getComparable(BigDecimal.class);
+	}
+
+	public static final ITransientFieldValueType<DayTime> getDayTime() {
+
+		return getComparable(DayTime.class);
 	}
 
 	public static final ITransientFieldValueType<Double> getDouble() {

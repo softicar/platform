@@ -21,12 +21,9 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 
 	private void registerProgram(AGUuid uuid) {
 
-		new AGProgram()//
-			.setAbortRequested(false)
-			.setCurrentExecution(null)
+		AGProgram program = new AGProgram()//
 			.setProgramUuid(uuid.getUuid())
-			.setQueuedAt(null)
-			.setQueuedBy(null)
 			.save();
+		program.getState().save();
 	}
 }

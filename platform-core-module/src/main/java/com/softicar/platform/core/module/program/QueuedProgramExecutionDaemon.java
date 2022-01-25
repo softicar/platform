@@ -10,12 +10,14 @@ import com.softicar.platform.core.module.daemon.DaemonProperties;
 import com.softicar.platform.core.module.daemon.IDaemon;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 class QueuedProgramExecutionDaemon implements IDaemon {
 
@@ -50,7 +52,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void handleProgram(AGProgram program) {
 
-		program.reloadForUpdate();
+		program.reloadStateForUpdate();
 
 		if (program.isRunning()) {
 			handleRunningProgram(program);
@@ -134,13 +136,15 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	 */
 	private Collection<AGProgram> loadAllRelevantPrograms() {
 
-		return AGProgram.TABLE//
+		return AGProgramState.TABLE
 			.createSelect()
-			.where(AGProgram.ABORT_REQUESTED)
-			.orWhere(AGProgram.QUEUED_AT.isNotNull())
-			.orWhere(AGProgram.CURRENT_EXECUTION.isNotNull())
-			.orderBy(AGProgram.QUEUED_AT)
-			.orderBy(AGProgram.ID)
-			.list();
+			.where(AGProgramState.ABORT_REQUESTED)
+			.orWhere(AGProgramState.QUEUED_AT.isNotNull())
+			.orWhere(AGProgramState.CURRENT_EXECUTION.isNotNull())
+			.orderBy(AGProgramState.QUEUED_AT)
+			.orderBy(AGProgramState.PROGRAM)
+			.stream()
+			.map(AGProgramState::getProgram)
+			.collect(Collectors.toList());
 	}
 }

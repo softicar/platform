@@ -1,9 +1,12 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionGenerated;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionInserter;
+import com.softicar.platform.core.module.program.state.AGProgramState;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
@@ -12,6 +15,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgram> {
+
+	public static final ProgramAbortRequestedField ABORT_REQUESTED = new ProgramAbortRequestedField();
+	public static final ProgramQueuedAtField QUEUED_AT = new ProgramQueuedAtField();
+	public static final ProgramQueuedByField QUEUED_BY = new ProgramQueuedByField();
+	public static final ProgramCurrentExecutionField CURRENT_EXECUTION = new ProgramCurrentExecutionField();
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
@@ -24,6 +32,26 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return setProgramUuid(AGUuid.getOrCreate(programUuid));
 	}
 
+	public DayTime getQueuedAt() {
+
+		return getState().getQueuedAt();
+	}
+
+	public AGUser getQueuedBy() {
+
+		return getState().getQueuedBy();
+	}
+
+	public Boolean isAbortRequested() {
+
+		return getState().isAbortRequested();
+	}
+
+	public AGProgramExecution getCurrentExecution() {
+
+		return getState().getCurrentExecution();
+	}
+
 	/**
 	 * Tests whether the program is queued.
 	 *
@@ -31,7 +59,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public boolean isQueued() {
 
-		return getQueuedAt() != null;
+		return getState().getQueuedAt() != null;
 	}
 
 	/**
@@ -41,7 +69,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public boolean isRunning() {
 
-		return getCurrentExecution() != null;
+		return getState().getCurrentExecution() != null;
 	}
 
 	/**
@@ -54,6 +82,11 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return isQueued() || isRunning();
 	}
 
+	public void saveAbortRequested(Boolean value) {
+
+		getState().setAbortRequested(value).save();
+	}
+
 	/**
 	 * Inserts a new {@link AGProgramExecution} as current execution of this
 	 * {@link AGProgram}.
@@ -62,7 +95,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 * {@link AGProgramExecutionGenerated#TERMINATED_AT} will be inserted with
 	 * <i>null</i> values.
 	 * <p>
-	 * The {@link AGProgramGenerated#QUEUED_AT} field will be updated to
+	 * The {@link AGProgramState#QUEUED_AT} field will be updated to
 	 * <i>null</i>.
 	 *
 	 * @return the current {@link AGProgramExecution}
@@ -79,7 +112,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public void resetAll() {
 
-		getThis()//
+		getState()//
 			.setCurrentExecution(null)
 			.setQueuedAt(null)
 			.setQueuedBy(null)
@@ -92,9 +125,19 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 */
 	public void resetCurrentExecution() {
 
-		getThis()//
+		getState()//
 			.setCurrentExecution(null)
 			.save();
+	}
+
+	public AGProgramState getState() {
+
+		return AGProgramState.TABLE.getOrCreate(getThis());
+	}
+
+	public boolean reloadStateForUpdate() {
+
+		return getState().reloadForUpdate();
 	}
 
 	public static AGProgram loadOrInsert(AGUuid programUuid) {
@@ -115,11 +158,10 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	private static AGProgram executeInsert(AGUuid programUuid) {
 
-		return new AGProgram()//
+		AGProgram program = new AGProgram()//
 			.setProgramUuid(programUuid)
-			.setCurrentExecution(null)
-			.setQueuedAt(null)
-			.setQueuedBy(null)
 			.save();
+		program.getState().save();
+		return program;
 	}
 }
