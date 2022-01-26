@@ -152,10 +152,10 @@ class JcifsSmbFile implements ISmbFile {
 	}
 
 	@Override
-	public void copyTo(String path) {
+	public void copyTo(String url) {
 
 		try {
-			file.copyTo(new SmbFile(path, auth));
+			file.copyTo(new SmbFile(url, auth));
 		} catch (SmbException | MalformedURLException exception) {
 			throw new SofticarException(exception);
 		}

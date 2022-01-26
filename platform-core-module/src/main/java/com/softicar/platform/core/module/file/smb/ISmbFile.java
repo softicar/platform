@@ -46,7 +46,7 @@ public interface ISmbFile {
 
 	ISmbFile moveTo(ISmbDirectory parent);
 
-	void copyTo(String path);
+	void copyTo(String url);
 
 	ISmbFile renameTo(String name);
 
