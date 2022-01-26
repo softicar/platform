@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.file.smb;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,6 +16,8 @@ public interface ISmbDirectory extends ISmbFile {
 	void mkdirs();
 
 	List<ISmbFile> listFiles();
+
+	Collection<String> listFilesRecursively();
 
 	ISmbFile getFile(String name);
 
