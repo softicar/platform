@@ -209,7 +209,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		}
 	}
 
-	public static abstract class AbstractTestProgram implements IProgram {
+	private static abstract class AbstractTestProgram implements IProgram {
 
 		@Override
 		public void executeProgram() {
