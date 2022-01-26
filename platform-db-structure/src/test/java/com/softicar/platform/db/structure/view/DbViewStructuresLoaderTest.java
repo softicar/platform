@@ -20,7 +20,7 @@ public class DbViewStructuresLoaderTest extends AbstractDbCoreTest {
 
 		assertEquals(1, views.size());
 		IDbViewStructure viewStructure = views.get(new DbTableName("a", "foo"));
-		assertEquals("CREATE FORCE VIEW `a`.`foo` AS SELECT FROM `a`.`tab`".replace('`', '"'), viewStructure.getViewQuery().replace("\n", " "));
+		assertEquals("SELECT FROM `a`.`tab`".replace('`', '"'), viewStructure.getViewQuery().replace("\n", " "));
 	}
 
 	@Test

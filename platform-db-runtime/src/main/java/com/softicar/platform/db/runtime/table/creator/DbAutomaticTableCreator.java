@@ -1,6 +1,7 @@
 package com.softicar.platform.db.runtime.table.creator;
 
 import com.softicar.platform.common.container.list.HashList;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.core.statement.IDbStatement;
 import com.softicar.platform.db.core.statement.IDbStatementExecutionListener;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -108,9 +109,15 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 	private void createTable(IDbTable<?, ?> table) {
 
 		if (!existingTables.contains(table) && !pendingTables.contains(table)) {
-			new DbTableStructureCreator(table)//
-				.setAutoIncrement(autoIncrementSupplier.get())
-				.create();
+			try {
+				new DbTableStructureCreator(table)//
+					.setAutoIncrement(autoIncrementSupplier.get())
+					.create();
+			} catch (Exception exception) {
+				// Print the exception message to avoid silent failures
+				Log.ferror(exception);
+				throw exception;
+			}
 		}
 	}
 

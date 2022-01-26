@@ -22,8 +22,8 @@ public class DbTransactionalModificationTest extends AbstractDbTestWithConnectio
 		this.whenNotPredicate = new TestRowPredicate("B", false);
 		this.successfullReload = true;
 
-		execute("CREATE TABLE T (id INT, value INT)");
-		execute("INSERT INTO T (id, value) VALUES (?, ?)", ID, VALUE);
+		execute("CREATE TABLE T (id INT, someValue INT)");
+		execute("INSERT INTO T (id, someValue) VALUES (?, ?)", ID, VALUE);
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class DbTransactionalModificationTest extends AbstractDbTestWithConnectio
 		profiler.assertStatement(2, "SELECT * FROM T WHERE id = ? FOR UPDATE", ID);
 		profiler.assertStatement(3, "SAVEPOINT A");
 		profiler.assertStatement(4, "SAVEPOINT B");
-		profiler.assertStatement(5, "UPDATE T SET value = ? WHERE id = ?", VALUE + 1, ID);
+		profiler.assertStatement(5, "UPDATE T SET someValue = ? WHERE id = ?", VALUE + 1, ID);
 		profiler.assertStatement(6, "COMMIT");
 	}
 
@@ -112,7 +112,7 @@ public class DbTransactionalModificationTest extends AbstractDbTestWithConnectio
 		public TestRow(DbResultSet resultSet) {
 
 			this.id = resultSet.getInt("id");
-			this.value = resultSet.getInt("value");
+			this.value = resultSet.getInt("someValue");
 		}
 
 		@Override
@@ -125,7 +125,7 @@ public class DbTransactionalModificationTest extends AbstractDbTestWithConnectio
 		public TestRow incrementValue() {
 
 			this.value = value + 1;
-			executeUpdate("UPDATE T SET value = ? WHERE id = ?", value, id);
+			executeUpdate("UPDATE T SET someValue = ? WHERE id = ?", value, id);
 			return this;
 		}
 	}

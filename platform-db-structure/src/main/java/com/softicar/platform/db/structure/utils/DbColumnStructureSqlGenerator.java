@@ -92,7 +92,7 @@ public class DbColumnStructureSqlGenerator {
 
 		switch (columnStructure.getLengthBits()) {
 		case 0:
-			return String.format("VARBINARY(%s)", columnStructure.getMaxLength());
+			return getVarbinaryType();
 		case 8:
 			return "TINYBLOB";
 		case 16:
@@ -129,7 +129,7 @@ public class DbColumnStructureSqlGenerator {
 
 		switch (columnStructure.getLengthBits()) {
 		case 0:
-			return String.format("VARCHAR(%s)", columnStructure.getMaxLength());
+			return getVarcharType();
 		case 8:
 			return "TINYTEXT";
 		case 16:
@@ -141,6 +141,26 @@ public class DbColumnStructureSqlGenerator {
 		default:
 			throw new SofticarDeveloperException(
 				String.format("Type of string field with %s length bits cannot be determined.", columnStructure.getLengthBits()));
+		}
+	}
+
+	private String getVarbinaryType() {
+
+		int maxLength = columnStructure.getMaxLength();
+		if (isH2Database && maxLength == 0) {
+			return "VARBINARY";
+		} else {
+			return String.format("VARBINARY(%s)", maxLength);
+		}
+	}
+
+	private String getVarcharType() {
+
+		int maxLength = columnStructure.getMaxLength();
+		if (isH2Database && maxLength == 0) {
+			return "VARCHAR";
+		} else {
+			return String.format("VARCHAR(%s)", maxLength);
 		}
 	}
 

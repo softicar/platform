@@ -23,13 +23,14 @@ public class DbTableInsertTest extends AbstractDbTest {
 		assertEquals(3, ids.size());
 
 		List<DbTinyTestObject> objects = DbTinyTestObject.TABLE.createSelect().list();
+		assertEquals(3, objects.size());
 		assertEquals(objects.get(0).getId(), ids.get(0));
 		assertEquals(objects.get(1).getId(), ids.get(1));
 		assertEquals(objects.get(2).getId(), ids.get(2));
 	}
 
 	@Test
-	public void testExecuteMultiInsertWithH2WithoutIdGeneration() {
+	public void testExecuteMultiInsertWithH2AndExplicitPrimaryKeyIds() {
 
 		List<Integer> ids = DbTinyTestObject.TABLE//
 			.createInsert()
@@ -40,12 +41,12 @@ public class DbTableInsertTest extends AbstractDbTest {
 			.set(DbTinyTestObject.STRING_FIELD, "bar")
 			.executeMultiInsert();
 
-		assertEquals(0, ids.size());
+		assertEquals(2, ids.size());
 
 		List<DbTinyTestObject> objects = DbTinyTestObject.TABLE.createSelect().list();
 		assertEquals(2, objects.size());
-		assertEquals(1, objects.get(0).getId());
-		assertEquals(2, objects.get(1).getId());
+		assertEquals(objects.get(0).getId(), ids.get(0));
+		assertEquals(objects.get(1).getId(), ids.get(1));
 	}
 
 	@Test

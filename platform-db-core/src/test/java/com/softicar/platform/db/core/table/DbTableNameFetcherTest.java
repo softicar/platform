@@ -25,7 +25,7 @@ public class DbTableNameFetcherTest extends AbstractDbCoreTest {
 
 		Map<DbTableName, String> tableNames = fetcher.fetchAllAsMap();
 
-		assertEquals("{`a`.`table`=TABLE, `a`.`view`=VIEW}", tableNames.toString());
+		assertEquals("{`a`.`table`=BASE TABLE, `a`.`view`=VIEW}", tableNames.toString());
 	}
 
 	@Test

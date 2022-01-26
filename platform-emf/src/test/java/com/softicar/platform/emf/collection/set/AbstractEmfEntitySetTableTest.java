@@ -1,10 +1,5 @@
 package com.softicar.platform.emf.collection.set;
 
-
-
-
-
-
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
