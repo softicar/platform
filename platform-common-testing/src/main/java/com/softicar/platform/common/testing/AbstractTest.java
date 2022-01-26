@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
 import com.softicar.platform.common.core.thread.sleeper.CurrentSleeper;
 import com.softicar.platform.common.core.thread.sleeper.TestSleeper;
+import com.softicar.platform.common.date.ISOCalendar;
 import org.junit.Rule;
 
 /**
@@ -23,6 +24,7 @@ public abstract class AbstractTest extends Asserts {
 
 		this.testClock = new TestClock();
 		CurrentClock.set(testClock);
+		ISOCalendar.setDefaultTimeZone();
 	}
 
 	/**

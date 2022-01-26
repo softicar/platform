@@ -4,4 +4,5 @@ dependencies {
 	api "org.mockito:mockito-core:$versions.mockito"
 	
 	implementation project(':platform-common-container')
+	implementation project(':platform-common-date')
 }

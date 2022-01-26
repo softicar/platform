@@ -2,7 +2,6 @@ package com.softicar.platform.db.core.test;
 
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
-import java.util.TimeZone;
 
 /**
  * Base class for unit test working on an H2 in-memory database.
@@ -15,7 +14,7 @@ public abstract class AbstractDbCoreTest extends AbstractTest {
 
 	public AbstractDbCoreTest() {
 
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+//		Log.finfo(System.getProperty("user.timezone"));
 
 		this.testDatabase = new DbTestDatabase();
 
