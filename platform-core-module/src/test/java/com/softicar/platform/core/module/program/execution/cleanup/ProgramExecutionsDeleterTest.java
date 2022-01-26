@@ -4,7 +4,6 @@ import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.core.uuid.UuidBytes;
-import com.softicar.platform.common.date.DateItemRange;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
@@ -15,15 +14,12 @@ import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import org.junit.Test;
 
 public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 	private static final DayTime CURRENT_DAYTIME = DayTime.fromYMD_HMS(2022, 1, 24, 0, 0, 0);
-	private final Day referenceDay = CURRENT_DAYTIME.getDay();
 	private final SetMap<AGProgram, AGProgramExecution> expectedRetainedProgramExecutionsMap = new SetMap<>();
 
 	public ProgramExecutionsDeleterTest() {
@@ -33,35 +29,114 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		// Use of special clock for JUnit tests because ProgramExecutionDeleter uses the current day to load the to be deleted program executions
 		testClock.setInstant(Instant.ofEpochMilli(CURRENT_DAYTIME.toMillis()));
-
-		for (AGProgram program: insertPrograms()) {
-			insertExecutionsOfProgram(program);
-		}
 	}
 
-	private void insertExecutionsOfProgram(AGProgram program) {
+	@Test
+	public void testDeleteWithProgramWithRetentionDaysOfExecutionsOfZero() {
 
-		for (Day terminatedAtDay: new DateItemRange<>(referenceDay.getRelative(-4), referenceDay)) {
-			AGProgramExecution execution = insertProgramExecutionWithLog(program, terminatedAtDay);
-			putExecutionOnExpectedRetainedProgramExecutionsMapIfNecessary(program, terminatedAtDay, execution);
-		}
+		AGProgram program = insertProgram(0);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		insertExecutionOfProgram(program, ExecutionDay.YESTERDAY);
+		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
+
+		runProgramExecutionsDeleterAndValidate();
 	}
 
-	private void putExecutionOnExpectedRetainedProgramExecutionsMapIfNecessary(AGProgram program, Day terminatedAtDay, AGProgramExecution execution) {
+	@Test
+	public void testDeleteWithProgramWithRetentionDaysOfExecutionsOfOne() {
 
-		Day minimalRetainedDay = referenceDay.getRelative(-program.getRetentionDaysOfExecutions());
-		if (terminatedAtDay.compareTo(minimalRetainedDay) >= 0) {
-			expectedRetainedProgramExecutionsMap.addToSet(program, execution);
-		}
+		AGProgram program = insertProgram(1);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
+		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
+
+		runProgramExecutionsDeleterAndValidate();
 	}
 
-	private List<AGProgram> insertPrograms() {
+	@Test
+	public void testDeleteWithProgramWithRetentionDaysOfExecutionsOfTwo() {
 
-		List<AGProgram> programs = new ArrayList<>();
-		for (int retentionDaysOfExecutions = 0; retentionDaysOfExecutions < 3; retentionDaysOfExecutions++) {
-			programs.add(insertProgram(retentionDaysOfExecutions));
-		}
-		return programs;
+		AGProgram program = insertProgram(2);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO));
+		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
+
+		runProgramExecutionsDeleterAndValidate();
+	}
+
+	@Test
+	public void testDeleteWithSeveralExecutionsOnEachDay() {
+
+		AGProgram program = insertProgram(0);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		insertExecutionOfProgram(program, ExecutionDay.YESTERDAY);
+		insertExecutionOfProgram(program, ExecutionDay.YESTERDAY);
+		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
+		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
+
+		runProgramExecutionsDeleterAndValidate();
+	}
+
+	@Test
+	public void testDeleteWithNotTerminatedExecution() {
+
+		AGProgram program = insertProgram(0);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertProgramExecutionWithLog(program, null));
+
+		runProgramExecutionsDeleterAndValidate();
+	}
+
+	@Test
+	public void testDeleteWithSeveralProgramsAndExecutions() {
+
+		AGProgram program0 = insertProgram(0);
+		expectedRetainedProgramExecutionsMap.addToSet(program0, insertExecutionOfProgram(program0, ExecutionDay.TODAY));
+		insertExecutionOfProgram(program0, ExecutionDay.YESTERDAY);
+		insertExecutionOfProgram(program0, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program0, ExecutionDay.THREE_DAYS_AGO);
+
+		AGProgram program1 = insertProgram(1);
+		expectedRetainedProgramExecutionsMap.addToSet(program1, insertExecutionOfProgram(program1, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program1, insertExecutionOfProgram(program1, ExecutionDay.YESTERDAY));
+		insertExecutionOfProgram(program1, ExecutionDay.TWO_DAYS_AGO);
+		insertExecutionOfProgram(program1, ExecutionDay.THREE_DAYS_AGO);
+
+		AGProgram program2 = insertProgram(2);
+		expectedRetainedProgramExecutionsMap.addToSet(program2, insertExecutionOfProgram(program2, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program2, insertExecutionOfProgram(program2, ExecutionDay.YESTERDAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program2, insertExecutionOfProgram(program2, ExecutionDay.TWO_DAYS_AGO));
+		insertExecutionOfProgram(program2, ExecutionDay.THREE_DAYS_AGO);
+
+		AGProgram program3 = insertProgram(3);
+		expectedRetainedProgramExecutionsMap.addToSet(program3, insertExecutionOfProgram(program3, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program3, insertExecutionOfProgram(program3, ExecutionDay.YESTERDAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program3, insertExecutionOfProgram(program3, ExecutionDay.TWO_DAYS_AGO));
+		expectedRetainedProgramExecutionsMap.addToSet(program3, insertExecutionOfProgram(program3, ExecutionDay.THREE_DAYS_AGO));
+
+		runProgramExecutionsDeleterAndValidate();
+	}
+
+	private void runProgramExecutionsDeleterAndValidate() {
+
+		new ProgramExecutionsDeleter(0).delete();
+		assertEquals(expectedRetainedProgramExecutionsMap, loadProgramExecutions());
+	}
+
+	@Test
+	public void testDeleteWithExecutionTerminatedJustBeforeMidnight() {
+
+		DayTime yesterdayJustBeforeMidnight = ExecutionDay.TODAY.dayTime.minusSeconds(1.0);
+
+		AGProgram program = insertProgram(0);
+		insertProgramExecutionWithLog(program, yesterdayJustBeforeMidnight);
+
+		runProgramExecutionsDeleterAndValidate();
 	}
 
 	private AGProgram insertProgram(int retentionDaysOfExecutions) {
@@ -80,11 +155,16 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		return new AGUuid().setUuidString(uuid.toString()).setUuidBytes(uuidBytes).save();
 	}
 
-	private AGProgramExecution insertProgramExecutionWithLog(AGProgram program, Day terminatedAtDay) {
+	private AGProgramExecution insertExecutionOfProgram(AGProgram program, ExecutionDay executionDay) {
+
+		return insertProgramExecutionWithLog(program, executionDay.dayTime);
+	}
+
+	private AGProgramExecution insertProgramExecutionWithLog(AGProgram program, DayTime terminatedAt) {
 
 		AGProgramExecution programExecution = new AGProgramExecution()//
 			.setProgramUuid(program.getProgramUuid())
-			.setTerminatedAt(DayTime.fromDayAndSeconds(terminatedAtDay, 0))
+			.setTerminatedAt(terminatedAt)
 			.setQueuedBy(CurrentUser.get())
 			.save();
 		insertLogRecord(programExecution);
@@ -97,17 +177,25 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		AGProgramExecutionLog.TABLE.getOrCreate(new Tuple2<>(programExecution, transaction));
 	}
 
-	@Test
-	public void testDelete() {
-
-		new ProgramExecutionsDeleter(0).delete();
-		assertEquals(expectedRetainedProgramExecutionsMap, loadProgramExecutions());
-	}
-
 	private SetMap<AGProgram, AGProgramExecution> loadProgramExecutions() {
 
 		SetMap<AGProgram, AGProgramExecution> programExecutions = new SetMap<>();
 		AGProgramExecution.createSelect().forEach(record -> programExecutions.addToSet(AGProgram.loadOrInsert(record.getProgramUuid()), record));
 		return programExecutions;
+	}
+
+	private enum ExecutionDay {
+
+		TODAY(CURRENT_DAYTIME.getDay()),
+		YESTERDAY(CURRENT_DAYTIME.getDay().getRelative(-1)),
+		TWO_DAYS_AGO(CURRENT_DAYTIME.getDay().getRelative(-2)),
+		THREE_DAYS_AGO(CURRENT_DAYTIME.getDay().getRelative(-3)),;
+
+		private DayTime dayTime;
+
+		ExecutionDay(Day day) {
+
+			this.dayTime = day.getBegin();
+		}
 	}
 }
