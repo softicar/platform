@@ -153,9 +153,14 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		return sendEvent(DomEventType.DBLCLICK);
 	}
 
-	public AbstractDomNodeTester<N> rightClick() {
+	public AbstractDomNodeTester<N> contextClick() {
 
 		return sendEvent(DomEventType.CONTEXTMENU);
+	}
+
+	public AbstractDomNodeTester<N> rightClick() {
+
+		return contextClick();
 	}
 
 	private boolean isNodeDisabled() {
