@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.program.execution.cleanup;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DateItemRange;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
@@ -42,7 +41,7 @@ public class ProgramExecutionsDeleter {
 
 	private void deleteExecutionsOfProgram(AGProgram program) {
 
-		Log.finfo("Clean up executions of program %s", fetchProgramNameIfPossible(program));
+		Log.finfo("Clean up executions of program %s", program.toDisplayWithoutId());
 
 		AGProgramExecution
 			.createSelect()
@@ -53,17 +52,6 @@ public class ProgramExecutionsDeleter {
 			.map(AGProgramExecution::getTerminatedAt)
 			.map(DayTime::getDay)
 			.ifPresentOrElse(minimalDayInDb -> deleteBatchwise(program, minimalDayInDb), this::logInfoNothingToDelete);
-	}
-
-	private String fetchProgramNameIfPossible(AGProgram program) {
-
-		try {
-			// Will fail in JUnit tests
-			return program.toDisplayWithoutId() + "";
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-		}
-		return program + "";
 	}
 
 	private void deleteBatchwise(AGProgram program, Day minimalDayInDb) {

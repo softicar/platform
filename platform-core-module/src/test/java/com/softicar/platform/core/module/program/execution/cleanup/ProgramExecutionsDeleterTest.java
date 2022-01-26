@@ -2,17 +2,21 @@ package com.softicar.platform.core.module.program.execution.cleanup;
 
 import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.container.tuple.Tuple2;
+import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.core.uuid.UuidBytes;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
+import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.time.Instant;
 import java.util.UUID;
 import org.junit.Test;
@@ -53,13 +57,6 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testDeleteWithProgramWithThreeRetentionDaysOfExecutions() {
-
-		insertProgramWithThreeRetentionDaysOfExecutionsAndInsertItsExecutions();
-		runProgramExecutionsDeleterAndValidate();
-	}
-
-	@Test
 	public void testDeleteWithSeveralExecutionsOnEachDay() {
 
 		AGProgram program = insertProgram(0);
@@ -69,8 +66,6 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		insertExecutionOfProgram(program, ExecutionDay.YESTERDAY);
 		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
 		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
-		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
-		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
 
 		runProgramExecutionsDeleterAndValidate();
 	}
@@ -90,7 +85,6 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		insertProgramWithZeroRetentionDaysOfExecutionsAndInsertItsExecutions();
 		insertProgramWithOneRetentionDaysOfExecutionsAndInsertItsExecutions();
 		insertProgramWithTwoRetentionDaysOfExecutionsAndInsertItsExecutions();
-		insertProgramWithThreeRetentionDaysOfExecutionsAndInsertItsExecutions();
 
 		runProgramExecutionsDeleterAndValidate();
 	}
@@ -107,68 +101,76 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	}
 
 	private void runProgramExecutionsDeleterAndValidate() {
-	
+
 		new ProgramExecutionsDeleter(0).delete();
 		assertEquals(expectedRetainedProgramExecutionsMap, loadProgramExecutions());
 	}
 
 	private SetMap<AGProgram, AGProgramExecution> loadProgramExecutions() {
-	
+
 		SetMap<AGProgram, AGProgramExecution> programExecutions = new SetMap<>();
 		AGProgramExecution.createSelect().forEach(record -> programExecutions.addToSet(AGProgram.loadOrInsert(record.getProgramUuid()), record));
 		return programExecutions;
 	}
 
 	private void insertProgramWithZeroRetentionDaysOfExecutionsAndInsertItsExecutions() {
-	
+
 		AGProgram program = insertProgram(0);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
 		insertExecutionOfProgram(program, ExecutionDay.YESTERDAY);
 		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
-		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
 	}
 
 	private void insertProgramWithOneRetentionDaysOfExecutionsAndInsertItsExecutions() {
-	
+
 		AGProgram program = insertProgram(1);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
 		insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO);
-		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
 	}
 
 	private void insertProgramWithTwoRetentionDaysOfExecutionsAndInsertItsExecutions() {
-	
+
 		AGProgram program = insertProgram(2);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO));
-		insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO);
-	}
-
-	private void insertProgramWithThreeRetentionDaysOfExecutionsAndInsertItsExecutions() {
-	
-		AGProgram program = insertProgram(3);
-		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
-		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
-		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO));
-		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO));
 	}
 
 	private AGProgram insertProgram(int retentionDaysOfExecutions) {
 
-		AGUuid uuid = insertRandomUuid();
+		Class<?> programClass = fetchProgramClass(retentionDaysOfExecutions);
+		AGUuid uuid = insertUuid(programClass);
+
 		return new AGProgram()//
 			.setProgramUuid(uuid)
 			.setRetentionDaysOfExecutions(retentionDaysOfExecutions)
 			.save();
 	}
 
-	private AGUuid insertRandomUuid() {
+	private Class<?> fetchProgramClass(int retentionDaysOfExecutions) {
 
-		UUID uuid = UUID.randomUUID();
+		switch (retentionDaysOfExecutions) {
+		case 0:
+			return TestProgram1.class;
+		case 1:
+			return TestProgram2.class;
+		case 2:
+			return TestProgram3.class;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + retentionDaysOfExecutions);
+		}
+	}
+
+	private AGUuid insertUuid(Class<?> referencePointClass) {
+
+		UUID uuid = EmfSourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
 		byte[] uuidBytes = UuidBytes.asBytes(uuid);
-		return new AGUuid().setUuidString(uuid.toString()).setUuidBytes(uuidBytes).save();
+
+		return new AGUuid()//
+			.setUuidString(uuid.toString())
+			.setUuidBytes(uuidBytes)
+			.save();
 	}
 
 	private AGProgramExecution insertExecutionOfProgram(AGProgram program, ExecutionDay executionDay) {
@@ -197,14 +199,46 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		TODAY(CURRENT_DAYTIME.getDay()),
 		YESTERDAY(CURRENT_DAYTIME.getDay().getRelative(-1)),
-		TWO_DAYS_AGO(CURRENT_DAYTIME.getDay().getRelative(-2)),
-		THREE_DAYS_AGO(CURRENT_DAYTIME.getDay().getRelative(-3)),;
+		TWO_DAYS_AGO(CURRENT_DAYTIME.getDay().getRelative(-2));
 
 		private DayTime dayTime;
 
 		ExecutionDay(Day day) {
 
 			this.dayTime = day.getBegin();
+		}
+	}
+
+	@TestingOnly
+	@EmfSourceCodeReferencePointUuid("c977d6ed-ad3d-4748-a7fc-1a64be5c4728")
+	public static class TestProgram1 implements IProgram {
+
+		@Override
+		public void executeProgram() {
+
+			// nothing to do
+		}
+	}
+
+	@TestingOnly
+	@EmfSourceCodeReferencePointUuid("fc4033f8-3130-4542-bb03-0b3948c87ff1")
+	public static class TestProgram2 implements IProgram {
+
+		@Override
+		public void executeProgram() {
+
+			// nothing to do
+		}
+	}
+
+	@TestingOnly
+	@EmfSourceCodeReferencePointUuid("73b18606-65b0-4cb0-8e7b-26b3530d403c")
+	public static class TestProgram3 implements IProgram {
+
+		@Override
+		public void executeProgram() {
+
+			// nothing to do
 		}
 	}
 }
