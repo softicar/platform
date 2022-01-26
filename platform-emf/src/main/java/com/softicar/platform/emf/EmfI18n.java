@@ -7,6 +7,8 @@ import com.softicar.platform.common.core.i18n.I18n3;
 
 public interface EmfI18n {
 
+	I18n1 A_VALUE_OF_TYPE_ARG1_IS_MISSING = new I18n1("A value of type '%s' is missing")//
+		.de("Ein Wert vom Typ '%s' fehlt");
 	I18n0 ACCESS_TO_THIS_ENTRY_IS_RESTRICTED = new I18n0("Access to this entry is restricted.")//
 		.de("Der Zugriff auf diesen Eintrag ist eingeschränkt.");
 	I18n0 ACTIONS = new I18n0("Actions")//
@@ -57,8 +59,16 @@ public interface EmfI18n {
 		.de("Attributs-Übersicht");
 	I18n0 AUTHORIZED_ROLE = new I18n0("Authorized Role")//
 		.de("Autorisierte Rolle");
+	I18n0 AVAILABLE_VALUES = new I18n0("Available values")//
+		.de("Verfügbare Werte");
+	I18n0 BASE64_ENCODED_BINARY_DATA = new I18n0("Base64-Encoded Binary Data")//
+		.de("Base64-codierte Binärdaten");
+	I18n0 BOOLEAN = new I18n0("Boolean")//
+		.de("Boolesch");
 	I18n1 BUSINESS_KEY_CONFLICT_WITH_AN_EXISTING_ENTRY_ARG1 = new I18n1("Business key conflict with an existing entry: %s")//
 		.de("Business-Key-Konflikt mit einem existierenden Eintrag: %s");
+	I18n1 CALENDAR_DAY_ARG1_DOES_NOT_EXIST = new I18n1("Calendar day '%s' does not exist")//
+		.de("Kalendertag '%s' existiert nicht");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
 	I18n0 CANCEL_AND_REFRESH = new I18n0("Cancel and Refresh")//
@@ -79,6 +89,10 @@ public interface EmfI18n {
 		.de("Erstellen");
 	I18n0 DATABASE_TABLE = new I18n0("Database Table")//
 		.de("Datenbank-Tabelle");
+	I18n0 DAY = new I18n0("Day")//
+		.de("Tag");
+	I18n0 DAYTIME = new I18n0("Daytime")//
+		.de("Tageszeit");
 	I18n0 DEACTIVATE = new I18n0("Deactivate")//
 		.de("Deaktivieren");
 	I18n0 DEACTIVATES_THE_GIVEN_ENTRY = new I18n0("Deactivates the given entry.")//
@@ -87,8 +101,12 @@ public interface EmfI18n {
 		.de("Deaktivierung verfügbar");
 	I18n0 DEACTIVATION_SUPPORTED = new I18n0("Deactivation supported")//
 		.de("Deaktivierung unterstützt");
+	I18n0 DECIMAL_NUMBER = new I18n0("Decimal Number")//
+		.de("Dezimalzahl");
 	I18n0 DESCRIPTION = new I18n0("Description")//
 		.de("Beschreibung");
+	I18n0 DOUBLE_PRECISION_FLOATING_POINT_NUMBER = new I18n0("Double-Precision Floating-Point Number")//
+		.de("Doppeltgenaue Gleitkommazahl");
 	I18n0 EDIT = new I18n0("Edit")//
 		.de("Bearbeiten");
 	I18n0 EDIT_ENTRY = new I18n0("Edit Entry")//
@@ -103,8 +121,18 @@ public interface EmfI18n {
 		.de("Ziel-Index eingeben");
 	I18n0 ENTER_WIKI_TEXT_HERE = new I18n0("Enter wiki text here...")//
 		.de("Wiki-Text hier eingeben...");
+	I18n0 ENUMERATOR = new I18n0("Enumerator")//
+		.de("Enumerator");
+	I18n2 ENUMERATOR_ARG1_COULD_NOT_BE_FOUND_IN_ENUMERATION_ARG2 = new I18n2("Enumerator '%s' could not be found in enumeration '%s'.")//
+		.de("Enumerator '%s' konnte in Enumeration '%s' nicht gefunden werden.");
 	I18n0 ERROR = new I18n0("Error")//
 		.de("Fehler");
+	I18n0 EXAMPLE = new I18n0("Example")//
+		.de("Beispiel");
+	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
+		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
+	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
+		.de("'%s' konnte nicht zum Typ '%s' konvertiert werden.");
 	I18n0 FAILED_TO_CREATE_THE_INPUT_ELEMENT = new I18n0("Failed to create the input element.")//
 		.de("Erstellung des Eingabe-Elements fehlgeschlagen.");
 	I18n1 FAILED_TO_DETERMINE_THE_MODULE_FOR_UUID_ARG1 = new I18n1("Failed to determine the module for UUID %s.")//
@@ -119,6 +147,10 @@ public interface EmfI18n {
 		.de("Filter");
 	I18n0 FLIP_ROWS_AND_COLUMNS = new I18n0("Flip Rows and Columns")//
 		.de("Zeilen und Spalten tauschen");
+	I18n0 FLOATING_POINT_NUMBER = new I18n0("Floating-Point Number")//
+		.de("Gleitkommazahl");
+	I18n0 FOREIGN_ID = new I18n0("Foreign ID")//
+		.de("Fremde ID");
 	I18n0 HIDE_DEFAULT_VALUES = new I18n0("Hide default values")//
 		.de("Standard-Werte ausblenden");
 	I18n0 HISTORY = new I18n0("History")//
@@ -147,6 +179,8 @@ public interface EmfI18n {
 		.de("%s verwalten");
 	I18n0 MANDATORINESS_PREDICATE = new I18n0("Mandatoriness Predicate")//
 		.de("Erforderlichkeits-Prädikat");
+	I18n2 MAXIMUM_ARG1_ENCOUNTERED_ARG2 = new I18n2("maximum: %s, encountered: %s")//
+		.de("maximal: %s, vorgefunden: %s");
 	I18n1 MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED = new I18n1("Maximum length of %s characters exceeded.")//
 		.de("Maximale Länge von %s Buchstaben überschritten.");
 	I18n0 MISSING_AUTHORIZATION = new I18n0("Missing authorization")//
@@ -183,6 +217,10 @@ public interface EmfI18n {
 		.de("NICHT %s");
 	I18n0 NOT_PERSISTENT = new I18n0("Not Persistent")//
 		.de("Nicht persistent");
+	I18n0 NUMBER_OF_DECIMAL_PLACES_EXCEEDED = new I18n0("Number of decimal places exceeded")//
+		.de("Anzahl an Nachkommastellen überschritten");
+	I18n0 NUMBER_OF_DIGITS_EXCEEDED = new I18n0("Number of digits exceeded")//
+		.de("Anzahl an Ziffern überschritten");
 	I18n0 OF = new I18n0("of")//
 		.de("von");
 	I18n0 OK = new I18n0("OK")//
@@ -219,6 +257,8 @@ public interface EmfI18n {
 		.de("Bitte einen gültigen Index angeben.");
 	I18n0 PLURAL_TITLE = new I18n0("Plural Title")//
 		.de("Plural-Titel");
+	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
+		.de("Zeitpunkt '%s' existiert nicht");
 	I18n0 PRECONDITION = new I18n0("Precondition")//
 		.de("Vorbedingung");
 	I18n0 PREFILTER = new I18n0("Prefilter")//
@@ -227,6 +267,8 @@ public interface EmfI18n {
 		.de("Vorschau");
 	I18n0 PROPERTIES = new I18n0("Properties")//
 		.de("Eigenschaften");
+	I18n0 REASON = new I18n0("Reason")//
+		.de("Grund");
 	I18n0 REFRESH = new I18n0("Refresh")//
 		.de("Aktualisieren");
 	I18n0 RELOAD = new I18n0("Reload")//
@@ -251,6 +293,10 @@ public interface EmfI18n {
 		.de("Rolle zum Bearbeiten");
 	I18n0 ROLE_TO_VIEW = new I18n0("Role to View")//
 		.de("Rolle zum Ansehen");
+	I18n3 ROW_ARG1_COLUMN_ARG2_FAILED_TO_PROCESS_TOKEN_ARG3 = new I18n3("Row #%s, Column #%s: Failed to process token %s")//
+		.de("Zeile #%s, Spalte #%s: Token %s konnte nicht verarbeitet werden");
+	I18n1 ROW_ARG1_COULD_NOT_BE_PROCESSED = new I18n1("Row #%s could not be processed")//
+		.de("Zeile #%s konnte nicht verarbeitet werden");
 	I18n0 SAVE = new I18n0("Save")//
 		.de("Speichern");
 	I18n0 SAVE_AND_CLOSE = new I18n0("Save and Close")//
@@ -288,6 +334,8 @@ public interface EmfI18n {
 		.de("Tabellen-Übersicht");
 	I18n0 TABLES = new I18n0("Tables")//
 		.de("Tabellen");
+	I18n0 TEXT = new I18n0("Text")//
+		.de("Text");
 	I18n1 THE_ATTRIBUTE_ARG1_IS_MANDATORY = new I18n1("The attribute '%s' is mandatory.")//
 		.de("Das Attribut '%s' ist erforderlich.");
 	I18n1 THE_ATTRIBUTE_ARG1_MAY_NOT_BE_EMPTY = new I18n1("The attribute '%s' may not be empty.")//
@@ -306,14 +354,24 @@ public interface EmfI18n {
 		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
 		.de("Das Dateiformat muss 'PDF' sein.");
+	I18n2 THE_RECORD_WITH_ID_ARG1_COULD_NOT_BE_FOUND_IN_TABLE_ARG2 = new I18n2("The record with ID #%s could not be found in table %s")//
+		.de("Der Datensatz mit ID #%s konnte in Tabelle %s nicht gefunden werden");
 	I18n0 THERE_ARE_UNSAVED_CHANGES = new I18n0("There are unsaved changes.")//
 		.de("Es gibt nicht-gespeicherte Änderungen.");
+	I18n1 THERE_IS_NO_CONVERTER_FOR_FIELD_TYPE_ARG1 = new I18n1("There is no converter for field type '%s'.")//
+		.de("Es gibt keinen Konverter für Feld-Typ '%s'.");
 	I18n0 THIS_ENTRY_IS_ALREADY_CONTAINED_IN_THE_LIST = new I18n0("This entry is already contained in the list.")//
 		.de("Dieser Eintrag ist bereits in der Liste enthalten.");
 	I18n0 THIS_TRAIT_WAS_NOT_CONFIGURED_YET = new I18n0("This trait was not configured, yet.")//
 		.de("Dieses Merkmal wurde noch nicht konfiguriert.");
+	I18n0 TIME = new I18n0("Time")//
+		.de("Zeit");
 	I18n0 TITLE = new I18n0("Title")//
 		.de("Titel");
+	I18n0 TOO_MANY_BYTES = new I18n0("Too many bytes")//
+		.de("Zuviele Bytes");
+	I18n0 TOO_MANY_CHARACTERS = new I18n0("Too many characters")//
+		.de("Zuviele Zeichen");
 	I18n0 TRANSACTION = new I18n0("Transaction")//
 		.de("Transaktion");
 	I18n0 TRANSIENT = new I18n0("Transient")//
@@ -340,6 +398,8 @@ public interface EmfI18n {
 		.de("UUID");
 	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//
 		.de("Validierung fehlgeschlagen");
+	I18n1 VALUE_ARG1_IS_OUT_OF_RANGE = new I18n1("Value '%s' is out of range")//
+		.de("Wert '%s' liegt außerhalb des Wertebereichs");
 	I18n0 VALUE_CLASS = new I18n0("Value Class")//
 		.de("Klasse des Werts");
 	I18n0 VIEW = new I18n0("View")//

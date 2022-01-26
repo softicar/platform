@@ -1,22 +1,18 @@
 package com.softicar.platform.core.module.file.stored.content.store;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
-import com.softicar.platform.common.core.exceptions.SofticarException;
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
-import com.softicar.platform.core.module.file.smb.jcifs.JcifsSmbFileUtils;
+import com.softicar.platform.core.module.file.smb.CurrentSmbClient;
+import com.softicar.platform.core.module.file.smb.ISmbDirectory;
+import com.softicar.platform.core.module.file.smb.ISmbFile;
+import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Optional;
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
 
 public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
@@ -48,7 +44,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 		try {
 			return createSmbFile("/").exists();
-		} catch (SmbException exception) {
+		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return false;
 		}
@@ -63,92 +59,49 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public long getFreeDiskSpace() {
 
-		try {
-			return createSmbFile("/").getDiskFreeSpace();
-		} catch (SmbException exception) {
-			DevNull.swallow(exception);
-			return 0;
-		}
+		return createSmbFile("/").getFreeDiskSpace();
 	}
 
 	@Override
 	public OutputStream createFile(String fileName) {
 
-		SmbFile file = createSmbFile(fileName);
-
-		return JcifsSmbFileUtils.createOutputStream(file);
+		return createSmbFile(fileName).createOutputStream();
 	}
 
 	@Override
 	public InputStream readFile(String fileName) {
 
-		SmbFile file = createSmbFile(fileName);
-
-		return JcifsSmbFileUtils.createInputStream(file);
+		return createSmbFile(fileName).createInputStream();
 	}
 
 	@Override
 	public void moveFile(String sourceName, String targetName) {
 
-		SmbFile source = createSmbFile(sourceName);
-
-		SmbFile target = createSmbFile(targetName);
-
-		try {
-			source.renameTo(target);
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		createSmbFile(sourceName).renameTo(targetName);
 	}
 
 	@Override
 	public void createFolderIfDoesNotExist(String folderName) {
 
-		SmbFile folder = createSmbFile(folderName);
-
-		try {
-			if (!folder.exists()) {
-				folder.mkdirs();
-			}
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		createSmbFile(folderName).asDirectory().ifPresent(ISmbDirectory::mkdirs);
 	}
 
 	@Override
 	public void removeFile(String fileName) {
 
-		SmbFile file = createSmbFile(fileName);
-
-		try {
-			file.delete();
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		createSmbFile(fileName).delete();
 	}
 
 	@Override
 	public boolean exists(String name) {
 
-		SmbFile file = createSmbFile(name);
-
-		try {
-			return file.exists();
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		return createSmbFile(name).exists();
 	}
 
 	@Override
 	public long getFileSize(String filename) {
 
-		SmbFile file = createSmbFile(filename);
-
-		try {
-			return file.length();
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
+		return createSmbFile(filename).getSize();
 	}
 
 	@Override
@@ -160,50 +113,26 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public Collection<String> getAllFiles(String root) {
 
-		return listAllFiles(createSmbFile(root), Trim.trimRight(root, '/'), new ArrayList<>());
+		return createSmbFile(root)//
+			.asDirectory()
+			.orElseThrow()
+			.listFilesRecursively();
 	}
 
 	@Override
 	public DayTime getLastModified(String filename) {
 
-		SmbFile file = createSmbFile(filename);
-
-		try {
-			return DayTime.fromDate(new Date(file.lastModified()));
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		}
+		return createSmbFile(filename).getLastModifiedDate();
 	}
 
-	private Collection<String> listAllFiles(SmbFile root, String prefix, Collection<String> filenames) {
+	private ISmbFile createSmbFile(String name) {
 
-		try {
-			for (SmbFile file: root.listFiles()) {
-				if (file.isDirectory()) {
-					String subFolder = Trim.trimRight(file.getName(), '/');
-					listAllFiles(file, prefix + "/" + subFolder, filenames);
-				} else {
-					filenames.add(prefix + "/" + file.getName());
-				}
-			}
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
-		}
-
-		return filenames;
-	}
-
-	private SmbFile createSmbFile(String name) {
-
-		return JcifsSmbFileUtils.createFile(getServerOrThrow().getUrl() + "/" + name, getAuthentication(getServerOrThrow()));
-	}
-
-	private NtlmPasswordAuthentication getAuthentication(AGStoredFileServer fileServer) {
-
-		return new NtlmPasswordAuthentication(//
-			fileServer.getDomain(),
-			fileServer.getUsername(),
-			fileServer.getPassword());
+		AGStoredFileServer fileServer = getServerOrThrow();
+		return CurrentSmbClient
+			.get()
+			.createFile(
+				Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + name,
+				new SmbCredentials(fileServer.getDomain(), fileServer.getUsername(), fileServer.getPassword()));
 	}
 
 	private AGStoredFileServer getServerOrThrow() {
