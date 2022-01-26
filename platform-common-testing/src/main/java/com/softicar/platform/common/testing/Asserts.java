@@ -71,8 +71,25 @@ public class Asserts extends Assert {
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
+		} catch (NullPointerException exception) {
+			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());
+		}
+	}
+
+	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+
+		try {
+			thrower.apply();
+			fail("An expected exception failed to occur.");
+		} catch (NullPointerException exception) {
+			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
+		} catch (Exception exception) {
+			assertTrue(//
+				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\""
+					.formatted(expectedMessage.toString(), exception.getMessage()),
+				exception.getMessage().contains(expectedMessage.toString()));
 		}
 	}
 
