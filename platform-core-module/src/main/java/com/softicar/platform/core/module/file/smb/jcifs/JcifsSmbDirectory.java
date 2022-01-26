@@ -1,17 +1,20 @@
 package com.softicar.platform.core.module.file.smb.jcifs;
 
+import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
-public class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
+class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 
 	public JcifsSmbDirectory(String url, NtlmPasswordAuthentication auth) {
 
@@ -35,6 +38,12 @@ public class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 		} catch (SmbException exception) {
 			throw new SofticarIOException(exception);
 		}
+	}
+
+	@Override
+	public Collection<String> listFilesRecursively() {
+
+		return listFiles("", file, new ArrayList<>());
 	}
 
 	@Override
@@ -62,12 +71,6 @@ public class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	}
 
 	@Override
-	public InputStream getInputStream() {
-
-		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
-	}
-
-	@Override
 	public ISmbDirectory moveTo(ISmbDirectory parent) {
 
 		return moveAndRenameTo(parent, getName());
@@ -83,6 +86,29 @@ public class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	public ISmbDirectory moveAndRenameTo(ISmbDirectory parent, String name) {
 
 		return super.moveAndRenameTo(parent, name).asDirectory().orElseThrow();
+	}
+
+	@Override
+	public InputStream createInputStream() {
+
+		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
+	}
+
+	private Collection<String> listFiles(String subDirectory, SmbFile directory, Collection<String> filenames) {
+
+		try {
+			for (SmbFile file: directory.listFiles()) {
+				String path = subDirectory + file.getName();
+				if (file.isDirectory()) {
+					listFiles(path, file, filenames);
+				} else {
+					filenames.add(path);
+				}
+			}
+		} catch (SmbException exception) {
+			throw new SofticarException(exception);
+		}
+		return filenames;
 	}
 
 	private ISmbFile wrapSmbFile(SmbFile smbFile) {
