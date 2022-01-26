@@ -14,8 +14,6 @@ public abstract class AbstractDbCoreTest extends AbstractTest {
 
 	public AbstractDbCoreTest() {
 
-//		Log.finfo(System.getProperty("user.timezone"));
-
 		this.testDatabase = new DbTestDatabase();
 
 		DbCurrentDatabase.set(this.testDatabase);
