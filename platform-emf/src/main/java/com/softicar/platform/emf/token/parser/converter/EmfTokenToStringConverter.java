@@ -27,14 +27,14 @@ class EmfTokenToStringConverter extends AbstractEmfTokenConverter<String, DbStri
 		if (isUndefined(token)) {
 			return EmfTokenConverterResult.okay(null);
 		} else {
-			var maximumLengthCheckResult = checkRange(token, targetField.getMaximumLength());
-			if (maximumLengthCheckResult.isPresent()) {
-				return maximumLengthCheckResult.get();
+			var maximumLengthResult = checkSize(token.length(), targetField.getMaximumLength());
+			if (maximumLengthResult.isPresent()) {
+				return maximumLengthResult.get();
 			}
 
-			var lengthBitsCheckResult = checkRange(token, determineMaximumCharacters(targetField.getLengthBits()));
-			if (lengthBitsCheckResult.isPresent()) {
-				return lengthBitsCheckResult.get();
+			var lengthBitsResult = checkSize(token.length(), determineMaximumSize(targetField.getLengthBits()));
+			if (lengthBitsResult.isPresent()) {
+				return lengthBitsResult.get();
 			}
 
 			return EmfTokenConverterResult.okay(token);
@@ -53,20 +53,20 @@ class EmfTokenToStringConverter extends AbstractEmfTokenConverter<String, DbStri
 		return token.equals(MAGIC_CONSTANT_FOR_UNDEFINED);
 	}
 
-	private Optional<EmfTokenConverterResult<String>> checkRange(String token, long maximumLength) {
+	private Optional<EmfTokenConverterResult<String>> checkSize(int encounteredLength, long maximumLength) {
 
 		if (maximumLength > 0) {
-			if (token.length() > maximumLength) {
+			if (encounteredLength > maximumLength) {
 				IDisplayString message = EmfI18n.TOO_MANY_CHARACTERS
 					.concatSpace()
-					.concatInParentheses(EmfI18n.MAXIMUM_ARG1_ENCOUNTERED_ARG2.toDisplay(maximumLength, token.length()));
+					.concatInParentheses(EmfI18n.MAXIMUM_ARG1_ENCOUNTERED_ARG2.toDisplay(maximumLength, encounteredLength));
 				return Optional.of(EmfTokenConverterResult.failed(message));
 			}
 		}
 		return Optional.empty();
 	}
 
-	private long determineMaximumCharacters(int lengthBits) {
+	private long determineMaximumSize(int lengthBits) {
 
 		if (lengthBits > 0) {
 			switch (lengthBits) {

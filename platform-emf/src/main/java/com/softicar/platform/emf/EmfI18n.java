@@ -368,6 +368,8 @@ public interface EmfI18n {
 		.de("Zeit");
 	I18n0 TITLE = new I18n0("Title")//
 		.de("Titel");
+	I18n0 TOO_MANY_BYTES = new I18n0("Too many bytes")//
+		.de("Zuviele Bytes");
 	I18n0 TOO_MANY_CHARACTERS = new I18n0("Too many characters")//
 		.de("Zuviele Zeichen");
 	I18n0 TRANSACTION = new I18n0("Transaction")//

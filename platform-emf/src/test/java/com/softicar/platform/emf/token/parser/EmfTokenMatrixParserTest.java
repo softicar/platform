@@ -71,6 +71,8 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 		assertValue(TestObject.BOOLEAN_NULLABLE_FIELD, true);
 		assertValue(TestObject.BYTES_FIELD, "I'm a blob".getBytes());
 		assertValue(TestObject.BYTES_NULLABLE_FIELD, "I'm a blob".getBytes());
+		assertValue(TestObject.BYTES_TINY_BLOB_FIELD, "I'm a blob".getBytes());
+		assertValue(TestObject.BYTES_BLOB_FIELD, "I'm a blob".getBytes());
 		assertValue(TestObject.DAY_FIELD, Day.fromYMD(2021, 12, 9));
 		assertValue(TestObject.DAY_NULLABLE_FIELD, Day.fromYMD(2021, 12, 9));
 		assertValue(TestObject.DAY_TIME_FIELD, DayTime.fromYMD_HMS(2021, 12, 9, 13, 59, 22));
@@ -101,8 +103,8 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 	public void testParseWithRowOfTooManyTokens() {
 
 		parseToException(//
-			Arrays.asList("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30".split(",")),
-			"Reason: Expected 29 columns but encountered 30");
+			Arrays.asList("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32".split(",")),
+			"Reason: Expected 31 columns but encountered 32");
 	}
 
 	@Test
@@ -110,7 +112,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.unset(TestObject.INTEGER_FIELD),
-			"Reason: Expected 29 columns but encountered 28");
+			"Reason: Expected 31 columns but encountered 30");
 	}
 
 	@Test
@@ -118,7 +120,7 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 
 		parseToException(//
 			tokenRow.unsetAll(),
-			"Reason: Expected 29 columns but encountered 0");
+			"Reason: Expected 31 columns but encountered 0");
 	}
 
 	// -------------------------------- Exception text -------------------------------- //
@@ -342,6 +344,53 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 		parse(tokenRow.set(TestObject.BYTES_NULLABLE_FIELD, ""));
 		assertValue(TestObject.BYTES_NULLABLE_FIELD, null);
 	}
+
+	@Test
+	public void testParseWithStringTokenAndVarbinaryFieldAndCharactersAtUpperLimit() {
+
+		parse(tokenRow.set(TestObject.BYTES_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 16).getBytes())));
+		assertValue(TestObject.BYTES_FIELD, Padding.padRight("", "x", 16).getBytes());
+	}
+
+	@Test
+	public void testParseWithStringTokenAndVarbinaryFieldAndCharactersAboveUpperLimit() {
+
+		parseToException(//
+			tokenRow.set(TestObject.BYTES_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 17).getBytes())),
+			"Reason: Too many bytes (maximum: 16, encountered: 17)");
+	}
+
+	@Test
+	public void testParseWithStringTokenAndTinyBlobFieldAndCharactersAtUpperLimit() {
+
+		parse(tokenRow.set(TestObject.BYTES_TINY_BLOB_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 255).getBytes())));
+		assertValue(TestObject.BYTES_TINY_BLOB_FIELD, Padding.padRight("", "x", 255).getBytes());
+	}
+
+	@Test
+	public void testParseWithStringTokenAndTinyBlobFieldAndCharactersAboveUpperLimit() {
+
+		parseToException(//
+			tokenRow.set(TestObject.BYTES_TINY_BLOB_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 256).getBytes())),
+			"Reason: Too many bytes (maximum: 255, encountered: 256)");
+	}
+
+	@Test
+	public void testParseWithStringTokenAndBlobFieldAndCharactersAtUpperLimit() {
+
+		parse(tokenRow.set(TestObject.BYTES_BLOB_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 65535).getBytes())));
+		assertValue(TestObject.BYTES_BLOB_FIELD, Padding.padRight("", "x", 65535).getBytes());
+	}
+
+	@Test
+	public void testParseWithStringTokenAndBlobFieldAndCharactersAboveUpperLimit() {
+
+		parseToException(//
+			tokenRow.set(TestObject.BYTES_BLOB_FIELD, Base64.getEncoder().encodeToString(Padding.padRight("", "x", 65536).getBytes())),
+			"Reason: Too many bytes (maximum: 65535, encountered: 65536)");
+	}
+
+	// Omitted tests for MEDIUMBLOB (length bits: 24; 16MB) and LONGBLOB (length bits: 32; 4GB) due to memory consumption concerns.
 
 	// -------------------------------- Day tokens -------------------------------- //
 
@@ -957,14 +1006,14 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testParseWithStringTokenTooAndVarcharFieldAndCharactersAtUpperLimit() {
+	public void testParseWithStringTokenAndVarcharFieldAndCharactersAtUpperLimit() {
 
 		parse(tokenRow.set(TestObject.STRING_FIELD, Padding.padRight("", "x", 16)));
 		assertValue(TestObject.STRING_FIELD, Padding.padRight("", "x", 16));
 	}
 
 	@Test
-	public void testParseWithStringTokenTooAndVarcharFieldAndCharactersAboveUpperLimit() {
+	public void testParseWithStringTokenAndVarcharFieldAndCharactersAboveUpperLimit() {
 
 		parseToException(//
 			tokenRow.set(TestObject.STRING_FIELD, Padding.padRight("", "x", 17)),
@@ -1101,6 +1150,8 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 			.set(TestObject.BOOLEAN_NULLABLE_FIELD, "1")
 			.set(TestObject.BYTES_FIELD, Base64.getEncoder().encodeToString("I'm a blob".getBytes()))
 			.set(TestObject.BYTES_NULLABLE_FIELD, Base64.getEncoder().encodeToString("I'm a blob".getBytes()))
+			.set(TestObject.BYTES_TINY_BLOB_FIELD, Base64.getEncoder().encodeToString("I'm a blob".getBytes()))
+			.set(TestObject.BYTES_BLOB_FIELD, Base64.getEncoder().encodeToString("I'm a blob".getBytes()))
 			.set(TestObject.DAY_FIELD, "2021-12-09")
 			.set(TestObject.DAY_NULLABLE_FIELD, "2021-12-09")
 			.set(TestObject.DAY_TIME_FIELD, "2021-12-09 13:59:22")
@@ -1187,8 +1238,10 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 		public static final IDbBigDecimalField<TestObject> BIG_DECIMAL_NULLABLE_FIELD = BUILDER.addBigDecimalField("decimalValueNullable", o->o.decimalValueNullable, (o,v)->o.decimalValueNullable=v).setSize(10, 5).setNullable();
 		public static final IDbBooleanField<TestObject> BOOLEAN_FIELD = BUILDER.addBooleanField("booleanValue", o->o.booleanValue, (o,v)->o.booleanValue=v);
 		public static final IDbBooleanField<TestObject> BOOLEAN_NULLABLE_FIELD = BUILDER.addBooleanField("booleanValueNullable", o->o.booleanValueNullable, (o,v)->o.booleanValueNullable=v).setNullable();
-		public static final IDbByteArrayField<TestObject> BYTES_FIELD = BUILDER.addByteArrayField("bytesValue", o->o.bytesValue, (o,v)->o.bytesValue=v).setMaximumLength(255);
-		public static final IDbByteArrayField<TestObject> BYTES_NULLABLE_FIELD = BUILDER.addByteArrayField("bytesValueNullable", o->o.bytesValueNullable, (o,v)->o.bytesValueNullable=v).setMaximumLength(255).setNullable();
+		public static final IDbByteArrayField<TestObject> BYTES_FIELD = BUILDER.addByteArrayField("bytesValue", o->o.bytesValue, (o,v)->o.bytesValue=v).setMaximumLength(16);
+		public static final IDbByteArrayField<TestObject> BYTES_NULLABLE_FIELD = BUILDER.addByteArrayField("bytesValueNullable", o->o.bytesValueNullable, (o,v)->o.bytesValueNullable=v).setMaximumLength(16).setNullable();
+		public static final IDbByteArrayField<TestObject> BYTES_TINY_BLOB_FIELD = BUILDER.addByteArrayField("bytesTinyBlobValue", o->o.bytesTinyBlobValue, (o,v)->o.bytesTinyBlobValue=v).setLengthBits(8);
+		public static final IDbByteArrayField<TestObject> BYTES_BLOB_FIELD = BUILDER.addByteArrayField("bytesBlobValue", o->o.bytesBlobValue, (o,v)->o.bytesBlobValue=v).setLengthBits(16);
 		public static final IDbDayField<TestObject> DAY_FIELD = BUILDER.addDayField("dayValue", o->o.dayValue, (o,v)->o.dayValue=v);
 		public static final IDbDayField<TestObject> DAY_NULLABLE_FIELD = BUILDER.addDayField("dayValueNullable", o->o.dayValueNullable, (o,v)->o.dayValueNullable=v).setNullable();
 		public static final IDbDayTimeField<TestObject> DAY_TIME_FIELD = BUILDER.addDayTimeField("dayTimeValue", o->o.dayTimeValue, (o,v)->o.dayTimeValue=v);
@@ -1221,6 +1274,8 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 		private Boolean booleanValueNullable;
 		private byte[] bytesValue;
 		private byte[] bytesValueNullable;
+		private byte[] bytesTinyBlobValue;
+		private byte[] bytesBlobValue;
 		private Day dayValue;
 		private Day dayValueNullable;
 		private DayTime dayTimeValue;
