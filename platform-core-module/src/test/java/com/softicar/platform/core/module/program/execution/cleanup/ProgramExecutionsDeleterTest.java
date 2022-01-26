@@ -68,6 +68,18 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	}
 
 	@Test
+	public void testDeleteWithProgramWithRetentionDaysOfExecutionsOfThree() {
+
+		AGProgram program = insertProgram(3);
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TODAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.YESTERDAY));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.TWO_DAYS_AGO));
+		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, ExecutionDay.THREE_DAYS_AGO));
+
+		runProgramExecutionsDeleterAndValidate();
+	}
+
+	@Test
 	public void testDeleteWithSeveralExecutionsOnEachDay() {
 
 		AGProgram program = insertProgram(0);
