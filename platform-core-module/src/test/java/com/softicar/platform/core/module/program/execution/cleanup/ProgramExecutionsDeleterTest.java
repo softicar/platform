@@ -209,36 +209,30 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		}
 	}
 
-	@TestingOnly
-	@EmfSourceCodeReferencePointUuid("c977d6ed-ad3d-4748-a7fc-1a64be5c4728")
-	public static class TestProgram1 implements IProgram {
+	public static abstract class AbstractTestProgram implements IProgram {
 
 		@Override
 		public void executeProgram() {
 
-			// nothing to do
+			// Nothing to do
 		}
+	}
+
+	@TestingOnly
+	@EmfSourceCodeReferencePointUuid("c977d6ed-ad3d-4748-a7fc-1a64be5c4728")
+	public static class TestProgram1 extends AbstractTestProgram {
+		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}
 
 	@TestingOnly
 	@EmfSourceCodeReferencePointUuid("fc4033f8-3130-4542-bb03-0b3948c87ff1")
-	public static class TestProgram2 implements IProgram {
-
-		@Override
-		public void executeProgram() {
-
-			// nothing to do
-		}
+	public static class TestProgram2 extends AbstractTestProgram {
+		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}
 
 	@TestingOnly
 	@EmfSourceCodeReferencePointUuid("73b18606-65b0-4cb0-8e7b-26b3530d403c")
-	public static class TestProgram3 implements IProgram {
-
-		@Override
-		public void executeProgram() {
-
-			// nothing to do
-		}
+	public static class TestProgram3 extends AbstractTestProgram {
+		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}
 }
