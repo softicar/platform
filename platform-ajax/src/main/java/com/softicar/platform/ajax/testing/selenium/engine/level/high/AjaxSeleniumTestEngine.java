@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTes
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.IDomStringInputNode;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
@@ -88,7 +89,9 @@ public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine imple
 		screenshotQueue.addNewScreenshot("sendEvent-call");
 
 		if (eventType == DomEventType.CLICK) {
-			clickAtNodeCoordinates(node);
+			clickAtNodeCoordinates(node, ClickType.CLICK);
+		} else if (eventType == DomEventType.CONTEXTMENU) {
+			clickAtNodeCoordinates(node, ClickType.CONTEXT_CLICK);
 		} else if (eventType == DomEventType.ENTER) {
 			screenshotQueue.addNewScreenshot("sendEvent-enter-wait");
 			getWebElement(node).sendKeys(Keys.ENTER);
@@ -138,19 +141,48 @@ public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine imple
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to click (never <i>null</i>)
+	 * @param clickType
+	 *            the {@link ClickType} (never <i>null</i>)
 	 */
-	private void clickAtNodeCoordinates(IDomNode node) {
+	private void clickAtNodeCoordinates(IDomNode node, ClickType clickType) {
 
 		WebElement webElement = getWebElement(node);
 		AjaxSeleniumTestPoint clickPoint = createPoint(webElement);
 		screenshotQueue//
-			.addNewScreenshot("sendEvent-click-x%s-y%s".formatted(clickPoint.getX(), clickPoint.getY()))
+			.addNewScreenshot("sendEvent-%s-x%s-y%s".formatted(clickType.getName(), clickPoint.getX(), clickPoint.getY()))
 			.drawPointMarker(clickPoint);
-		new Actions(getWebDriver()).moveToElement(webElement).click().perform();
+		var actions = new Actions(getWebDriver()).moveToElement(webElement);
+		var clickFunction = clickType.getClickFunction();
+		clickFunction.apply(actions).perform();
 	}
 
 	private AjaxSeleniumTestPoint createPoint(WebElement webElement) {
 
 		return new AjaxSeleniumTestPoint(webElement.getLocation().getX(), webElement.getLocation().getY());
+	}
+
+	private static enum ClickType {
+
+		CLICK(Actions::click, "click"),
+		CONTEXT_CLICK(Actions::contextClick, "contextClick");
+
+		private final Function<Actions, Actions> clickFunction;
+		private final String name;
+
+		private ClickType(Function<Actions, Actions> clickFunction, String name) {
+
+			this.clickFunction = clickFunction;
+			this.name = name;
+		}
+
+		public Function<Actions, Actions> getClickFunction() {
+
+			return clickFunction;
+		}
+
+		public String getName() {
+
+			return name;
+		}
 	}
 }
