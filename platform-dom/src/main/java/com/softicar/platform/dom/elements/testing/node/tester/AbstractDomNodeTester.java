@@ -64,7 +64,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 	 *            the test marker
 	 * @param timeString
 	 *            the time string in the format <hours>:<minutes>:<seconds>
-	 *            (never <i>null</i)>
+	 *            (never <i>null</i>)
 	 * @return this
 	 */
 	public AbstractDomNodeTester<N> setTimeInputValue(IStaticObject marker, String timeString) {
@@ -87,10 +87,10 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 	 * @param marker
 	 *            the test marker
 	 * @param dayString
-	 *            the literal input value for the day input (never <i>null</i)>
+	 *            the literal input value for the day input (never <i>null</i>)
 	 * @param timeString
 	 *            the time string in the format <hours>:<minutes>:<seconds>
-	 *            (never <i>null</i)>
+	 *            (never <i>null</i>)
 	 * @return this
 	 */
 	public AbstractDomNodeTester<N> setDayTimeInputValue(IStaticObject marker, String dayString, String timeString) {
