@@ -13,19 +13,19 @@ import com.softicar.platform.db.core.transaction.DbTransaction;
 import java.util.List;
 
 /**
- * Deletes program execution records ({@link AGProgramExecution}) and their log
- * records records ({@link AGProgramExecutionLog}) if they are older than the
- * return value of related method
+ * Deletes {@link AGProgramExecution} records and their corresponding
+ * {@link AGProgramExecutionLog} records if they are older than the return value
+ * of related method
  * {@link com.softicar.platform.core.module.program.AGProgram#getRetentionDaysOfExecutions()}
  *
  * @author Thees Koester
  */
-public class ProgramExecutionDeleter {
+public class ProgramExecutionsDeleter {
 
 	private final int throttlingMilliseconds;
 	private final Day referenceDay;
 
-	public ProgramExecutionDeleter(int throttlingMilliseconds) {
+	public ProgramExecutionsDeleter(int throttlingMilliseconds) {
 
 		this.throttlingMilliseconds = throttlingMilliseconds;
 		this.referenceDay = Day.today();
@@ -33,7 +33,7 @@ public class ProgramExecutionDeleter {
 
 	public void delete() {
 
-		Log.finfo("%s started for %s", ProgramExecutionDeleter.class.getSimpleName(), referenceDay);
+		Log.finfo("%s started for %s", ProgramExecutionsDeleter.class.getSimpleName(), referenceDay);
 
 		for (AGProgram program: AGProgram.TABLE.createSelect().orderBy(AGProgram.ID)) {
 			deleteExecutionsOfProgram(program);
@@ -42,7 +42,7 @@ public class ProgramExecutionDeleter {
 
 	private void deleteExecutionsOfProgram(AGProgram program) {
 
-		Log.finfo("Cleanup executions of program %s", fetchProgramNameIfPossible(program));
+		Log.finfo("Clean up executions of program %s", fetchProgramNameIfPossible(program));
 
 		AGProgramExecution
 			.createSelect()
@@ -86,7 +86,7 @@ public class ProgramExecutionDeleter {
 
 	private void deleteExecutionsOlderThan(AGProgram program, Day thresholdDay) {
 
-		List<AGProgramExecution> programExecutions = loadToBeDeletedProgramExecutions(program, thresholdDay);
+		List<AGProgramExecution> programExecutions = loadOutdatedProgramExecutions(program, thresholdDay);
 		Log.finfo("Deleting %d program execution(s) older than %s...", programExecutions.size(), thresholdDay);
 		try (DbTransaction transaction = new DbTransaction()) {
 			deleteProgramExecutionLogsAndProgramExecutions(programExecutions);
@@ -94,12 +94,11 @@ public class ProgramExecutionDeleter {
 		}
 	}
 
-	private List<AGProgramExecution> loadToBeDeletedProgramExecutions(AGProgram program, Day thresholdDay) {
+	private List<AGProgramExecution> loadOutdatedProgramExecutions(AGProgram program, Day thresholdDay) {
 
 		return AGProgramExecution.TABLE
 			.createSelect()
 			.where(AGProgramExecution.PROGRAM_UUID.equal(program.getProgramUuid()))
-			.where(AGProgramExecution.TERMINATED_AT.isNotNull())
 			.where(AGProgramExecution.TERMINATED_AT.less(thresholdDay.toDayTime()))
 			.list();
 	}

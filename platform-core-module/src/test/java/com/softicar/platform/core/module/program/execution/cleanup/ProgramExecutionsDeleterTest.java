@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.Test;
 
-public class ProgramExecutionDeleterTest extends AbstractCoreTest {
+public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 	private static final DayTime CURRENT_DAYTIME = DayTime.fromYMD_HMS(2022, 1, 24, 0, 0, 0);
 	private final Day referenceDay = CURRENT_DAYTIME.getDay();
 	private final SetMap<AGProgram, AGProgramExecution> expectedRetainedProgramExecutionsMap = new SetMap<>();
 
-	public ProgramExecutionDeleterTest() {
+	public ProgramExecutionsDeleterTest() {
 
 		// Suppress lower-level log output under test
 		LogLevel.ERROR.set();
@@ -100,7 +100,7 @@ public class ProgramExecutionDeleterTest extends AbstractCoreTest {
 	@Test
 	public void testDelete() {
 
-		new ProgramExecutionDeleter(0).delete();
+		new ProgramExecutionsDeleter(0).delete();
 		assertEquals(expectedRetainedProgramExecutionsMap, loadProgramExecutions());
 	}
 
