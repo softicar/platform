@@ -25,7 +25,7 @@ project.ext {
 		gson: "2.8.9",
 		guava: "31.0.1-jre",
 		h2: "2.1.210",
-		hikariCp: "3.4.5",
+		hikariCp: "5.0.1",
 		javaxServletApi: "4.0.1",
 		jcifsNg: "2.1.7",
 		jetty: "9.4.44.v20210927",
@@ -36,9 +36,8 @@ project.ext {
 		poi: "4.1.2",
 		selenium: "3.141.59",
 		slf4j: "1.7.32",
-		sunMail: "1.6.5",
+		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
-		zxing: "3.4.1",
 	]
 }
 
