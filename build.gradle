@@ -35,7 +35,7 @@ project.ext {
 		pdfbox: "2.0.24",
 		poi: "4.1.2",
 		selenium: "3.141.59",
-		sunMail: "1.6.5",
+		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
 		zxing: "3.4.1",
 	]
