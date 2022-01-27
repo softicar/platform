@@ -25,6 +25,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/google/guava/blob/master/COPYING
+		addLibrary("listenablefuture", ".*", License.APACHE_2_0);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/typetools/checker-framework/blob/master/checker-qual/LICENSE.txt
 		addLibrary("checker-compat-qual", ".*", License.MIT);
 
