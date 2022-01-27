@@ -15,7 +15,7 @@ plugins {
 project.ext {
 	versions = [
 		asm: "9.0",
-		byteBuddy: "1.10.18",
+		byteBuddy: "1.12.7",
 		classgraph: "4.8.90",
 		commonsCodec: "1.15",
 		commonsCompress: "1.21",
@@ -30,7 +30,7 @@ project.ext {
 		jetty: "9.4.44.v20210927",
 		jsch: "0.1.55",
 		junit: "4.13.1",
-		mockito: "3.6.0",
+		mockito: "4.3.1",
 		pdfbox: "2.0.24",
 		poi: "4.1.2",
 		selenium: "3.141.59",
