@@ -2,7 +2,9 @@ dependencies {
 	api project(':platform-ajax')
 	api project(':platform-db-runtime')
 	api project(':platform-dom')
-	
+	api "org.apache.poi:poi:$versions.poi"
+	api "org.apache.poi:poi-ooxml:$versions.poi"
+
 	implementation project(':platform-common-excel')
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"

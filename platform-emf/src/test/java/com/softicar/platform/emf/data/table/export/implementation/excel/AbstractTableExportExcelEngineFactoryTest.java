@@ -374,7 +374,7 @@ public abstract class AbstractTableExportExcelEngineFactoryTest<F extends Abstra
 
 			ByteBuffer byteBuffer = exportToByteBuffer(tables);
 			ScExcelFileParser excelFileParser = new ScExcelFileParser(byteBuffer, "file");
-			return new ExportedTable(excelFileParser.getRowsBySheetIndex());
+			return new ExportedTable(excelFileParser.parse());
 		}
 
 		private ByteBuffer exportToByteBuffer(DomTable...tables) throws Exception {

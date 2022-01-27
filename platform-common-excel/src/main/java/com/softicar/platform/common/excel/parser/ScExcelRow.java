@@ -4,7 +4,12 @@ import com.softicar.platform.common.string.Imploder;
 import java.util.TreeMap;
 
 /**
- * A simple List of {@link ScExcelCell}s. May contain null entries.
+ * Represents a row in an Excel sheet.
+ * <p>
+ * The keys are zero-based column indexes. Values are {@link ScExcelCell} base
+ * cell contents.
+ * <p>
+ * May contain <i>null</i> values.
  *
  * @author Alexander Schmidt
  */

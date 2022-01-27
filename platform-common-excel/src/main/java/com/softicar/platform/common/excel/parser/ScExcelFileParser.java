@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.apache.poi.ss.usermodel.Cell;
@@ -20,25 +21,27 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * Facilitates fetching the contents of XLS or XLSX based Excel files in a truly
- * type safe and simple manner.
+ * Facilitates fetching the contents of XLS or XLSX based Excel files.
+ * <p>
+ * TODO Create a builder, instead of using telescope constructors.
  *
  * @author Alexander Schmidt
  */
 public class ScExcelFileParser {
 
-	private final InputStream inputStream;
+	private final Supplier<InputStream> inputStreamSupplier;
 	private final String fileName;
-	private final List<Integer> onlySheetIndexes;
+	private final List<Integer> sheetIndexes;
 	private ListTreeMap<Integer, ScExcelRow> rowsBySheet;
 
 	private static final String DEFAULT_FILE_NAME = "none";
 
 	/**
-	 * Prepares all sheets of the given file for being parsed.
+	 * Creates an {@link ScExcelFileParser} for all sheets of the given Excel
+	 * {@link File}.
 	 *
 	 * @param file
-	 *            The Excel file to be parsed.
+	 *            the Excel {@link File} to be parsed (never <i>null</i>)
 	 */
 	public ScExcelFileParser(File file) {
 
@@ -46,34 +49,57 @@ public class ScExcelFileParser {
 	}
 
 	/**
-	 * Prepares the given sheet of the given file for being parsed.
+	 * Creates an {@link ScExcelFileParser} for the given sheets of the given
+	 * Excel {@link File}.
 	 *
 	 * @param file
-	 *            The Excel file to be parsed.
-	 * @param onlySheetIndexes
-	 *            The 0-based index of the only sheet to be read.
+	 *            the Excel {@link File} to be parsed (never <i>null</i>)
+	 * @param sheetIndexes
+	 *            the 0-based indexes of the sheets to be parsed (never
+	 *            <i>null</i>)
 	 */
-	public ScExcelFileParser(File file, Integer...onlySheetIndexes) {
+	public ScExcelFileParser(File file, Integer...sheetIndexes) {
 
-		this(file, Arrays.asList(onlySheetIndexes));
+		this(file, Arrays.asList(sheetIndexes));
 	}
 
 	/**
-	 * Prepares the given sheets of the given file for being parsed.
+	 * Creates an {@link ScExcelFileParser} for the given sheets of the given
+	 * Excel {@link File}.
 	 *
 	 * @param file
-	 *            The Excel file to be parsed.
-	 * @param onlySheetIndexes
-	 *            A List of 0-based indexes of the only sheets to be read.
+	 *            the Excel {@link File} to be parsed (never <i>null</i>)
+	 * @param sheetIndexes
+	 *            the 0-based indexes of the sheets to be parsed (never
+	 *            <i>null</i>)
 	 */
-	public ScExcelFileParser(File file, List<Integer> onlySheetIndexes) {
+	public ScExcelFileParser(File file, List<Integer> sheetIndexes) {
 
-		this(() -> ScExcelFileParserLib.getFileInputStream(file), ScExcelFileParserLib.getCanonicalFilePath(file), onlySheetIndexes);
+		this(() -> ScExcelFileParserLib.getFileInputStream(file), ScExcelFileParserLib.getCanonicalFilePath(file), sheetIndexes);
 	}
 
 	/**
+	 * Creates an {@link ScExcelFileParser} for all sheets of the given Excel
+	 * file content.
+	 *
 	 * @param byteBuffer
+	 *            a {@link ByteBuffer} that provides the content of the Excel
+	 *            file (never <i>null</i>)
+	 */
+	public ScExcelFileParser(ByteBuffer byteBuffer) {
+
+		this(byteBuffer, null);
+	}
+
+	/**
+	 * Creates an {@link ScExcelFileParser} for all sheets of the given Excel
+	 * file content.
+	 *
+	 * @param byteBuffer
+	 *            a {@link ByteBuffer} that provides the content of the Excel
+	 *            file (never <i>null</i>)
 	 * @param fileName
+	 *            the name of the Excel file to be parsed (may be <i>null</i>)
 	 */
 	public ScExcelFileParser(ByteBuffer byteBuffer, String fileName) {
 
@@ -81,69 +107,114 @@ public class ScExcelFileParser {
 	}
 
 	/**
-	 * @param byteBuffer
-	 * @param fileName
-	 * @param onlySheetIndexes
-	 */
-	public ScExcelFileParser(ByteBuffer byteBuffer, String fileName, Integer...onlySheetIndexes) {
-
-		this(byteBuffer, fileName, Arrays.asList(onlySheetIndexes));
-	}
-
-	/**
-	 * @param byteBuffer
-	 * @param fileName
-	 * @param onlySheetIndexes
-	 */
-	public ScExcelFileParser(ByteBuffer byteBuffer, String fileName, List<Integer> onlySheetIndexes) {
-
-		this(byteBuffer::getInputStream, fileName, onlySheetIndexes);
-	}
-
-	/**
-	 * Prepares the given sheet of the given uploaded file for being parsed.
+	 * Creates an {@link ScExcelFileParser} for the given sheets of the given
+	 * Excel file content.
 	 *
-	 * @param streamSupplier
-	 *            A {@link Supplier} for a stream of an Excel file to be parsed.
-	 *            Make sure it has not been processed before.
+	 * @param byteBuffer
+	 *            a {@link ByteBuffer} that provides the content of the Excel
+	 *            file (never <i>null</i>)
+	 * @param fileName
+	 *            the name of the Excel file to be parsed (may be <i>null</i>)
+	 * @param sheetIndexes
+	 *            the 0-based indexes of the sheets to be parsed (never
+	 *            <i>null</i>)
 	 */
-	public ScExcelFileParser(Supplier<InputStream> streamSupplier, String fileName) {
+	public ScExcelFileParser(ByteBuffer byteBuffer, String fileName, Integer...sheetIndexes) {
 
-		this(streamSupplier, fileName, new ArrayList<>());
+		this(byteBuffer, fileName, Arrays.asList(sheetIndexes));
 	}
 
 	/**
-	 * @param streamSupplier
-	 *            A {@link Supplier} for a stream of an Excel file to be parsed.
-	 *            Make sure it has not been processed before.
+	 * Creates an {@link ScExcelFileParser} for the given sheets of the given
+	 * Excel file content.
+	 *
+	 * @param byteBuffer
+	 *            a {@link ByteBuffer} that provides the content of the Excel
+	 *            file (never <i>null</i>)
 	 * @param fileName
-	 * @param onlySheetIndexes
+	 *            the name of the Excel file to be parsed (may be <i>null</i>)
+	 * @param sheetIndexes
+	 *            the 0-based indexes of the sheets to be parsed (never
+	 *            <i>null</i>)
 	 */
-	public ScExcelFileParser(Supplier<InputStream> streamSupplier, String fileName, List<Integer> onlySheetIndexes) {
+	public ScExcelFileParser(ByteBuffer byteBuffer, String fileName, List<Integer> sheetIndexes) {
 
-		this.inputStream = streamSupplier.get();
+		this(byteBuffer::getInputStream, fileName, sheetIndexes);
+	}
+
+	/**
+	 * Creates an {@link ScExcelFileParser} for all sheets of the Excel file
+	 * content provided by the given {@link InputStream} {@link Supplier}.
+	 *
+	 * @param inputStreamSupplier
+	 *            a {@link Supplier} of an {@link InputStream} of the content of
+	 *            an Excel file to be parsed (never <i>null</i>)
+	 */
+	public ScExcelFileParser(Supplier<InputStream> inputStreamSupplier) {
+
+		this(inputStreamSupplier, null);
+	}
+
+	/**
+	 * Creates an {@link ScExcelFileParser} for all sheets of the Excel file
+	 * content provided by the given {@link InputStream} {@link Supplier}.
+	 *
+	 * @param inputStreamSupplier
+	 *            a {@link Supplier} of an {@link InputStream} of the content of
+	 *            an Excel file to be parsed (never <i>null</i>)
+	 * @param fileName
+	 *            the name of the Excel file to be parsed (may be <i>null</i>)
+	 */
+	public ScExcelFileParser(Supplier<InputStream> inputStreamSupplier, String fileName) {
+
+		this(inputStreamSupplier, fileName, new ArrayList<>());
+	}
+
+	/**
+	 * Creates an {@link ScExcelFileParser} for the given sheets of the Excel
+	 * file content provided by the given {@link InputStream} {@link Supplier}.
+	 *
+	 * @param inputStreamSupplier
+	 *            a {@link Supplier} of an {@link InputStream} of the content of
+	 *            an Excel file to be parsed (never <i>null</i>)
+	 * @param fileName
+	 *            the name of the Excel file to be parsed (may be <i>null</i>)
+	 * @param sheetIndexes
+	 *            the 0-based indexes of the sheets to be parsed (never
+	 *            <i>null</i>)
+	 */
+	public ScExcelFileParser(Supplier<InputStream> inputStreamSupplier, String fileName, List<Integer> sheetIndexes) {
+
+		this.inputStreamSupplier = Objects.requireNonNull(inputStreamSupplier);
 		this.fileName = Optional.ofNullable(fileName).orElse(DEFAULT_FILE_NAME);
-		this.onlySheetIndexes = assertValidSheetNumbers(onlySheetIndexes);
+		this.sheetIndexes = assertValidSheetNumbers(sheetIndexes);
 		this.rowsBySheet = null;
 	}
 
 	/**
-	 * Converts the Excel file contents to a List of {@link ScExcelRow}s.
+	 * Parses the Excel file to a List of {@link ScExcelRow} instances.
 	 * <p>
-	 * If a sheet was empty, its index won't occur as a key in the returned map.
+	 * If a sheet was completely empty, its index won't occur as a key in the
+	 * returned map.
+	 * <p>
+	 * TODO change return type to Map<Integer, List<ScExcelRow>> as soon as we
+	 * have test coverage
 	 *
-	 * @return A Map from zero-based sheet indexes to associated Lists of
-	 *         {@link ScExcelRow}s, representing the Excel file's contents.
+	 * @return a map from zero-based sheet index to the corresponding
+	 *         {@link List} of {@link ScExcelRow} instances (never <i>null</i>)
 	 */
-	public ListTreeMap<Integer, ScExcelRow> getRowsBySheetIndex() {
+	public ListTreeMap<Integer, ScExcelRow> parse() {
 
 		if (this.rowsBySheet == null) {
-			try (Workbook wb = ScExcelFileParserLib.getWorkbookFromInputStream(this.inputStream)) {
+			try (//
+					var inputStream = inputStreamSupplier.get();
+					Workbook workbook = ScExcelFileParserLib.getWorkbookFromInputStream(inputStream)) {
+
 				ListTreeMap<Integer, ScExcelRow> rowsBySheet = new ListTreeMap<>();
-				List<Integer> sheetIndexes = ScExcelFileParserLib.getSheetIndexesInternal(wb, this.onlySheetIndexes);
+				List<Integer> sheetIndexes = ScExcelFileParserLib.getSheetIndexesInternal(workbook, this.sheetIndexes);
 
 				for (int sheetIndex: sheetIndexes) {
-					Sheet sheet = wb.getSheetAt(sheetIndex);
+					Sheet sheet = workbook.getSheetAt(sheetIndex);
 					Integer lastPhysicalRowNumOrNull = ScExcelFileParserLib.getLastPhysicalRowNumOrNull(sheet);
 
 					if (lastPhysicalRowNumOrNull != null) {
@@ -156,59 +227,6 @@ public class ScExcelFileParser {
 
 								while (cellIterator.hasNext()) {
 									Cell cell = cellIterator.next();
-									excelRow.put(cell.getColumnIndex(), new ScExcelCell(cell));
-								}
-							}
-
-							rowsBySheet.addToList(sheetIndex, excelRow);
-						}
-					}
-				}
-
-				this.rowsBySheet = rowsBySheet;
-			} catch (IOException exception) {
-				throw new SofticarUserException(exception, createParsingErrorMessage(this.fileName));
-			}
-		}
-
-		return this.rowsBySheet;
-	}
-
-	/**
-	 * Converts the Excel file contents to a List of {@link ScExcelRow}s.
-	 * <p>
-	 * In case
-	 * {@link ScExcelFileParserLib#getSheetIndexesInternal(Workbook, List)}
-	 * returns more than one sheet index, the contents of the respective sheets
-	 * are continuously appended to the resulting matrix, in the given order.
-	 *
-	 * @return A Map from sheet indexes to Lists of {@link ScExcelRow}s with
-	 *         empty cells, representing the Excel file's contents.
-	 */
-	public ListTreeMap<Integer, ScExcelRow> getRowsBySheetIndexWithEmptyCells(int headerRow) {
-
-		int lastColumn = 0;
-		if (this.rowsBySheet == null) {
-
-			try (Workbook wb = ScExcelFileParserLib.getWorkbookFromInputStream(this.inputStream)) {
-				ListTreeMap<Integer, ScExcelRow> rowsBySheet = new ListTreeMap<>();
-				List<Integer> sheetIndexes = ScExcelFileParserLib.getSheetIndexesInternal(wb, this.onlySheetIndexes);
-
-				for (int sheetIndex: sheetIndexes) {
-					Sheet sheet = wb.getSheetAt(sheetIndex);
-					Integer lastPhysicalRowNumOrNull = ScExcelFileParserLib.getLastPhysicalRowNumOrNull(sheet);
-
-					if (lastPhysicalRowNumOrNull != null) {
-						for (int i = 0; i <= lastPhysicalRowNumOrNull; i++) {
-							Row row = sheet.getRow(i);
-							ScExcelRow excelRow = new ScExcelRow();
-
-							if (row != null) {
-								if (i == headerRow) {
-									lastColumn = row.getPhysicalNumberOfCells();
-								}
-								for (int cellIndex = 0; cellIndex < lastColumn; cellIndex++) {
-									Cell cell = row.getCell(cellIndex);
 									excelRow.put(cell.getColumnIndex(), new ScExcelCell(cell));
 								}
 							}
