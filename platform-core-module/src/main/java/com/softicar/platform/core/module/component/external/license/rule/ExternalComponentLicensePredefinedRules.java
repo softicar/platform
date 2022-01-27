@@ -40,6 +40,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/AgNO3/jcifs-ng/blob/master/LICENSE
+		addLibrary("jcifs-ng", ".*", License.LGPL_2_1);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/findbugsproject/findbugs/blob/master/findbugs/licenses/LICENSE-jsr305.txt
 		addLibrary("jsr305", ".*", License.BSD_3_CLAUSE);
 
