@@ -16,7 +16,7 @@ project.ext {
 	versions = [
 		asm: "9.0",
 		byteBuddy: "1.10.18",
-		classgraph: "4.8.90",
+		classgraph: "4.8.138",
 		commonsCodec: "1.15",
 		commonsCompress: "1.21",
 		commonsLang3: "3.11",
