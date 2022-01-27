@@ -62,6 +62,6 @@ public class DbResultSetCastingTest extends AbstractDbResultSetTest {
 	@Test
 	public void castsToString() {
 
-		assertClassAndValue("1337", "SELECT CAST(1337 AS CHAR)");
+		assertClassAndValue("1337", "SELECT CAST(1337 AS VARCHAR)");
 	}
 }

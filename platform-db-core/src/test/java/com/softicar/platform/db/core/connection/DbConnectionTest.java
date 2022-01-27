@@ -12,8 +12,8 @@ import org.junit.Test;
 
 public class DbConnectionTest extends AbstractDbCoreTest {
 
-	private static final String INSERT = "INSERT INTO foo (name, value) VALUES (?, ?)";
-	private static final String MULTI_INSERT = "INSERT INTO foo (name, value) VALUES (?, ?), (?, ?), (?, ?)";
+	private static final String INSERT = "INSERT INTO foo (name, someValue) VALUES (?, ?)";
+	private static final String MULTI_INSERT = "INSERT INTO foo (name, someValue) VALUES (?, ?), (?, ?), (?, ?)";
 	private final IDbConnection connection;
 
 	public DbConnectionTest() {
@@ -113,7 +113,7 @@ public class DbConnectionTest extends AbstractDbCoreTest {
 					.addText("CREATE TABLE foo (")
 					.addText("	id INT NOT NULL AUTO_INCREMENT,")
 					.addText("	name VARCHAR(255),")
-					.addText("	value INT,")
+					.addText("	someValue INT,")
 					.addText("	PRIMARY KEY (id))"));
 	}
 }

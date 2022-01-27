@@ -23,6 +23,7 @@ public class DbViewStructuresLoader {
 	public DbViewStructuresLoader() {
 
 		this.tableSchemasToIgnore = new TreeSet<>();
+		addIgnoredTableSchema("INFORMATION_SCHEMA");
 	}
 
 	/**

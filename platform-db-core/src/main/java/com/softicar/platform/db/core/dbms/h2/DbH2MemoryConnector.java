@@ -42,6 +42,7 @@ public class DbH2MemoryConnector extends AbstractDbConnector {
 
 		Properties properties = new Properties();
 		properties.put("DATABASE_TO_UPPER", databaseToUpper? "true" : "false");
+		properties.put("MODE", "MySQL");
 		return properties;
 	}
 }
