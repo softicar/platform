@@ -8,5 +8,5 @@ TABLE AGProgramLog 'Core.ProgramLog' {
 	PK AGProgram program
 	PK AGTransaction transaction	
 	AGUuid programUuid = NULL [NULLABLE]
-	Integer retentionDaysOfExecutions = NULL [NULLABLE]
+	Integer executionRetentionDays = NULL [NULLABLE]
 }

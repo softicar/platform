@@ -9,7 +9,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
  * Deletes {@link AGProgramExecution} records and their corresponding
  * {@link AGProgramExecutionLog} records if they are older than the return value
  * of related method
- * {@link com.softicar.platform.core.module.program.AGProgram#getRetentionDaysOfExecutions()}
+ * {@link com.softicar.platform.core.module.program.AGProgram#getExecutionRetentionDays()}
  *
  * @author Thees Köster
  */

@@ -6,7 +6,7 @@ TABLE AGProgram 'Core.Program' {
 
 	PK Long id = SERIAL
 	AGUuid programUuid
-	Integer retentionDaysOfExecutions = 28
+	Integer executionRetentionDays = 28
 	
 	UK programUuid
 }

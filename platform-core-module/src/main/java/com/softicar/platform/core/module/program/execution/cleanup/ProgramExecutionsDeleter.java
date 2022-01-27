@@ -15,7 +15,7 @@ import java.util.List;
  * Deletes {@link AGProgramExecution} records and their corresponding
  * {@link AGProgramExecutionLog} records if they are older than the return value
  * of related method
- * {@link com.softicar.platform.core.module.program.AGProgram#getRetentionDaysOfExecutions()}
+ * {@link com.softicar.platform.core.module.program.AGProgram#getExecutionRetentionDays()}
  *
  * @author Thees Koester
  */
@@ -56,7 +56,7 @@ public class ProgramExecutionsDeleter {
 
 	private void deleteBatchwise(AGProgram program, Day minimalDayInDb) {
 
-		Day minimalRetainedDay = referenceDay.getRelative(-program.getRetentionDaysOfExecutions());
+		Day minimalRetainedDay = referenceDay.getRelative(-program.getExecutionRetentionDays());
 
 		if (minimalDayInDb.isBefore(minimalRetainedDay)) {
 			int distance = minimalDayInDb.getDistance(minimalRetainedDay);

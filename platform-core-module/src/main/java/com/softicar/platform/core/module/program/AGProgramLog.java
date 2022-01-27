@@ -33,7 +33,7 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 	public static final IDbForeignField<AGProgramLog, AGProgram> PROGRAM = BUILDER.addForeignField("program", o->o.m_program, (o,v)->o.m_program=v, AGProgram.ID).setTitle(CoreI18n.PROGRAM);
 	public static final IDbForeignField<AGProgramLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
 	public static final IDbForeignField<AGProgramLog, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID).setNullable().setDefault(null);
-	public static final IDbIntegerField<AGProgramLog> RETENTION_DAYS_OF_EXECUTIONS = BUILDER.addIntegerField("retentionDaysOfExecutions", o->o.m_retentionDaysOfExecutions, (o,v)->o.m_retentionDaysOfExecutions=v).setTitle(CoreI18n.RETENTION_DAYS_OF_EXECUTIONS).setNullable().setDefault(null);
+	public static final IDbIntegerField<AGProgramLog> EXECUTION_RETENTION_DAYS = BUILDER.addIntegerField("executionRetentionDays", o->o.m_executionRetentionDays, (o,v)->o.m_executionRetentionDays=v).setTitle(CoreI18n.EXECUTION_RETENTION_DAYS).setNullable().setDefault(null);
 	public static final IDbTableKey<AGProgramLog, Tuple2<AGProgram, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM, TRANSACTION));
 	public static final DbRecordTable<AGProgramLog, Tuple2<AGProgram, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -82,14 +82,14 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 		return setValue(PROGRAM_UUID, value);
 	}
 
-	public final Integer getRetentionDaysOfExecutions() {
+	public final Integer getExecutionRetentionDays() {
 
-		return getValue(RETENTION_DAYS_OF_EXECUTIONS);
+		return getValue(EXECUTION_RETENTION_DAYS);
 	}
 
-	public final AGProgramLog setRetentionDaysOfExecutions(Integer value) {
+	public final AGProgramLog setExecutionRetentionDays(Integer value) {
 
-		return setValue(RETENTION_DAYS_OF_EXECUTIONS, value);
+		return setValue(EXECUTION_RETENTION_DAYS, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -105,6 +105,6 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 	private AGProgram m_program;
 	private AGTransaction m_transaction;
 	private AGUuid m_programUuid;
-	private Integer m_retentionDaysOfExecutions;
+	private Integer m_executionRetentionDays;
 }
 

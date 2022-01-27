@@ -58,7 +58,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setDisplayFactory(EmfBasicEntityDisplay::new);
 
 		attributes//
-			.editAttribute(AGProgram.RETENTION_DAYS_OF_EXECUTIONS)
+			.editAttribute(AGProgram.EXECUTION_RETENTION_DAYS)
 			.setPredicateMandatory(EmfPredicates.always());
 	}
 
@@ -99,7 +99,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		loggerSet//
 			.addPlainChangeLogger(AGProgramLog.PROGRAM, AGProgramLog.TRANSACTION)
 			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID)
-			.addMapping(AGProgram.RETENTION_DAYS_OF_EXECUTIONS, AGProgramLog.RETENTION_DAYS_OF_EXECUTIONS);
+			.addMapping(AGProgram.EXECUTION_RETENTION_DAYS, AGProgramLog.EXECUTION_RETENTION_DAYS);
 	}
 
 }

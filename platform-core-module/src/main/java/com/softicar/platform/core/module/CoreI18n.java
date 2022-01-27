@@ -320,6 +320,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausnahmetext");
 	I18n0 EXCEPTION_TYPE = new I18n0("Exception Type")//
 		.de("Ausnahmetyp");
+	I18n0 EXECUTION_RETENTION_DAYS = new I18n0("Execution Retention Days")//
+		.de("Speicherungstage für Ausführungen");
+	I18n0 EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0 = new I18n0("Execution retention days must be at least 0.")//
+		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
 	I18n0 EXTERNAL_COMPONENTS = new I18n0("External Components")//
 		.de("Externe Komponenten");
 	I18n0 FAILED = new I18n0("Failed")//
@@ -767,10 +771,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Reply-To");
 	I18n0 RESET_PASSWORD = new I18n0("Reset Password")//
 		.de("Passwort zurücksetzen");
-	I18n0 RETENTION_DAYS_OF_EXECUTIONS = new I18n0("Retention Days of Executions")//
-		.de("Speicherungstage für Ausführungen");
-	I18n0 RETENTION_DAYS_OF_EXECUTIONS_MUST_BE_AT_LEAST_0 = new I18n0("Retention days of executions must be at least 0.")//
-		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
 	I18n1 RETURN_TO_USER_ARG1 = new I18n1("Return to user: %s")//
 		.de("Zurückkehren zu Benuter: %s");
 	I18n0 REVISION = new I18n0("Revision")//

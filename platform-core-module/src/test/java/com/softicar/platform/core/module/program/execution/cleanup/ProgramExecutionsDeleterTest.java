@@ -41,23 +41,23 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testDeleteWithProgramWithZeroRetentionDaysOfExecutions() {
+	public void testDeleteWithProgramWithZeroExecutionRetentionDays() {
 
-		insertProgramWithZeroRetentionDaysOfExecutionsAndInsertItsExecutions();
+		insertProgramWithZeroExecutionRetentionDaysAndInsertItsExecutions();
 		runProgramExecutionsDeleterAndValidate();
 	}
 
 	@Test
-	public void testDeleteWithProgramWithOneRetentionDaysOfExecutions() {
+	public void testDeleteWithProgramWithOneExecutionRetentionDays() {
 
-		insertProgramWithOneRetentionDaysOfExecutionsAndInsertItsExecutions();
+		insertProgramWithOneExecutionRetentionDaysAndInsertItsExecutions();
 		runProgramExecutionsDeleterAndValidate();
 	}
 
 	@Test
-	public void testDeleteWithProgramWithTwoRetentionDaysOfExecutions() {
+	public void testDeleteWithProgramWithTwoExecutionRetentionDays() {
 
-		insertProgramWithTwoRetentionDaysOfExecutionsAndInsertItsExecutions();
+		insertProgramWithTwoExecutionRetentionDaysAndInsertItsExecutions();
 		runProgramExecutionsDeleterAndValidate();
 	}
 
@@ -87,9 +87,9 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	@Test
 	public void testDeleteWithSeveralProgramsAndExecutions() {
 
-		insertProgramWithZeroRetentionDaysOfExecutionsAndInsertItsExecutions();
-		insertProgramWithOneRetentionDaysOfExecutionsAndInsertItsExecutions();
-		insertProgramWithTwoRetentionDaysOfExecutionsAndInsertItsExecutions();
+		insertProgramWithZeroExecutionRetentionDaysAndInsertItsExecutions();
+		insertProgramWithOneExecutionRetentionDaysAndInsertItsExecutions();
+		insertProgramWithTwoExecutionRetentionDaysAndInsertItsExecutions();
 
 		runProgramExecutionsDeleterAndValidate();
 	}
@@ -118,7 +118,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		return programExecutions;
 	}
 
-	private void insertProgramWithZeroRetentionDaysOfExecutionsAndInsertItsExecutions() {
+	private void insertProgramWithZeroExecutionRetentionDaysAndInsertItsExecutions() {
 
 		AGProgram program = insertProgram(0);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, TODAY_AT_MIDNIGHT));
@@ -126,7 +126,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		insertExecutionOfProgram(program, TWO_DAYS_AGO_AT_MIDNIGHT);
 	}
 
-	private void insertProgramWithOneRetentionDaysOfExecutionsAndInsertItsExecutions() {
+	private void insertProgramWithOneExecutionRetentionDaysAndInsertItsExecutions() {
 
 		AGProgram program = insertProgram(1);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, TODAY_AT_MIDNIGHT));
@@ -134,7 +134,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		insertExecutionOfProgram(program, TWO_DAYS_AGO_AT_MIDNIGHT);
 	}
 
-	private void insertProgramWithTwoRetentionDaysOfExecutionsAndInsertItsExecutions() {
+	private void insertProgramWithTwoExecutionRetentionDaysAndInsertItsExecutions() {
 
 		AGProgram program = insertProgram(2);
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, TODAY_AT_MIDNIGHT));
@@ -142,20 +142,20 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		expectedRetainedProgramExecutionsMap.addToSet(program, insertExecutionOfProgram(program, TWO_DAYS_AGO_AT_MIDNIGHT));
 	}
 
-	private AGProgram insertProgram(int retentionDaysOfExecutions) {
+	private AGProgram insertProgram(int executionRetentionDays) {
 
-		Class<?> programClass = fetchProgramClass(retentionDaysOfExecutions);
+		Class<?> programClass = fetchProgramClass(executionRetentionDays);
 		AGUuid uuid = insertUuid(programClass);
 
 		return new AGProgram()//
 			.setProgramUuid(uuid)
-			.setRetentionDaysOfExecutions(retentionDaysOfExecutions)
+			.setExecutionRetentionDays(executionRetentionDays)
 			.save();
 	}
 
-	private Class<?> fetchProgramClass(int retentionDaysOfExecutions) {
+	private Class<?> fetchProgramClass(int executionRetentionDays) {
 
-		switch (retentionDaysOfExecutions) {
+		switch (executionRetentionDays) {
 		case 0:
 			return TestProgram1.class;
 		case 1:
@@ -163,7 +163,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 		case 2:
 			return TestProgram3.class;
 		default:
-			throw new IllegalArgumentException("Unexpected value: " + retentionDaysOfExecutions);
+			throw new IllegalArgumentException("Unexpected value: " + executionRetentionDays);
 		}
 	}
 

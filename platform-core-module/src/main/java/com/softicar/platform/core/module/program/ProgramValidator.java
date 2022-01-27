@@ -8,8 +8,8 @@ public class ProgramValidator extends AbstractEmfValidator<AGProgram> {
 	@Override
 	protected void validate() {
 
-		if (tableRow.getRetentionDaysOfExecutions() < 0) {
-			addError(AGProgram.RETENTION_DAYS_OF_EXECUTIONS, CoreI18n.RETENTION_DAYS_OF_EXECUTIONS_MUST_BE_AT_LEAST_0);
+		if (tableRow.getExecutionRetentionDays() < 0) {
+			addError(AGProgram.EXECUTION_RETENTION_DAYS, CoreI18n.EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0);
 		}
 	}
 }
