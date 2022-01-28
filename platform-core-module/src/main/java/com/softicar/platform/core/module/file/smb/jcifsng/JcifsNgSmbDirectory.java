@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.smb.jcifs;
+package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
@@ -10,20 +10,21 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.CIFSContext;
+import jcifs.SmbResource;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
-class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
+class JcifsNgSmbDirectory extends JcifsNgSmbFile implements ISmbDirectory {
 
-	public JcifsSmbDirectory(String url, NtlmPasswordAuthentication auth) {
+	public JcifsNgSmbDirectory(String url, CIFSContext context) {
 
-		super(appendSlashIfMissing(url), auth);
+		super(appendSlashIfMissing(url), context);
 	}
 
-	public JcifsSmbDirectory(String context, String name, NtlmPasswordAuthentication auth) {
+	public JcifsNgSmbDirectory(SmbResource parent, String name) {
 
-		super(context, appendSlashIfMissing(name), auth);
+		super(parent, appendSlashIfMissing(name));
 	}
 
 	@Override
@@ -61,13 +62,13 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	@Override
 	public ISmbFile getFile(String name) {
 
-		return new JcifsSmbFile(file.getCanonicalPath(), name, auth);
+		return new JcifsNgSmbFile(file, name);
 	}
 
 	@Override
 	public ISmbDirectory getSubDirectory(String name) {
 
-		return new JcifsSmbDirectory(file.getCanonicalPath(), name, auth);
+		return new JcifsNgSmbDirectory(file, name);
 	}
 
 	@Override
@@ -113,7 +114,7 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 
 	private ISmbFile wrapSmbFile(SmbFile smbFile) {
 
-		return new JcifsSmbFile(smbFile.getCanonicalPath(), auth);
+		return new JcifsNgSmbFile(smbFile.getCanonicalPath(), context);
 	}
 
 	private static String appendSlashIfMissing(String path) {

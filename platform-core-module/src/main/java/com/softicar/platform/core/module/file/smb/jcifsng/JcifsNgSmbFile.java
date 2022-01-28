@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.smb.jcifs;
+package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
@@ -13,33 +13,34 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.Optional;
-import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.CIFSContext;
+import jcifs.SmbResource;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
-class JcifsSmbFile implements ISmbFile {
+class JcifsNgSmbFile implements ISmbFile {
 
 	protected final SmbFile file;
-	protected final NtlmPasswordAuthentication auth;
+	protected final CIFSContext context;
 
-	public JcifsSmbFile(String url, NtlmPasswordAuthentication auth) {
+	public JcifsNgSmbFile(String url, CIFSContext context) {
 
 		try {
-			this.file = new SmbFile(url, auth);
-			this.auth = auth;
+			this.file = new SmbFile(url, context);
+			this.context = context;
 		} catch (MalformedURLException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
 
-	public JcifsSmbFile(String context, String name, NtlmPasswordAuthentication auth) {
+	public JcifsNgSmbFile(SmbResource parent, String name) {
 
 		try {
-			this.file = new SmbFile(context, name, auth);
-			this.auth = auth;
-		} catch (MalformedURLException exception) {
+			this.file = new SmbFile(parent, name);
+			this.context = parent.getContext();
+		} catch (MalformedURLException | UnknownHostException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
@@ -123,7 +124,7 @@ class JcifsSmbFile implements ISmbFile {
 	public Optional<ISmbDirectory> asDirectory() {
 
 		if (isDirectory()) {
-			return Optional.of(new JcifsSmbDirectory(file.getCanonicalPath(), auth));
+			return Optional.of(new JcifsNgSmbDirectory(file.getCanonicalPath(), context));
 		} else {
 			return Optional.empty();
 		}
@@ -132,7 +133,7 @@ class JcifsSmbFile implements ISmbFile {
 	@Override
 	public ISmbDirectory getParentDirectory() {
 
-		return new JcifsSmbDirectory(file.getParent(), auth);
+		return new JcifsNgSmbDirectory(file.getParent(), context);
 	}
 
 	@Override
@@ -154,8 +155,8 @@ class JcifsSmbFile implements ISmbFile {
 	@Override
 	public void copyTo(String url) {
 
-		try {
-			file.copyTo(new SmbFile(url, auth));
+		try (SmbFile target = new SmbFile(url, context)) {
+			file.copyTo(target);
 		} catch (SmbException | MalformedURLException exception) {
 			throw new SofticarException(exception);
 		}
@@ -170,10 +171,9 @@ class JcifsSmbFile implements ISmbFile {
 	@Override
 	public ISmbFile moveAndRenameTo(ISmbDirectory parent, String name) {
 
-		try {
-			SmbFile target = new SmbFile(parent.getCanonicalPath(), name, auth);
+		try (SmbFile target = new SmbFile(parent.getCanonicalPath() + name, context)) {
 			file.renameTo(target);
-			return new JcifsSmbFile(target.getCanonicalPath(), auth);
+			return new JcifsNgSmbFile(target.getCanonicalPath(), context);
 		} catch (SmbException | MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}
@@ -184,7 +184,7 @@ class JcifsSmbFile implements ISmbFile {
 
 		try {
 			return new SmbFileInputStream(file);
-		} catch (SmbException | MalformedURLException | UnknownHostException exception) {
+		} catch (SmbException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
@@ -194,7 +194,7 @@ class JcifsSmbFile implements ISmbFile {
 
 		try {
 			return new SmbFileOutputStream(file);
-		} catch (SmbException | MalformedURLException | UnknownHostException exception) {
+		} catch (SmbException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}

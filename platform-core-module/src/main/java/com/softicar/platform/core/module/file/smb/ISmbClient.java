@@ -10,13 +10,6 @@ import java.io.OutputStream;
 public interface ISmbClient {
 
 	/**
-	 * Initializes this SMB client implementation.
-	 * <p>
-	 * Can be used to set related configuration parameters.
-	 */
-	void initialize();
-
-	/**
 	 * Creates a new {@link ISmbFile} from the given URL and
 	 * {@link SmbCredentials}.
 	 * <p>
