@@ -19,7 +19,6 @@ import com.softicar.platform.db.runtime.select.IDbSqlSelect;
 import com.softicar.platform.db.sql.token.SqlKeyword;
 import com.softicar.platform.db.sql.token.SqlSymbol;
 import com.softicar.platform.db.sql.type.SqlValueTypes;
-import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
@@ -37,7 +36,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 	IDbQueryTableColumn<IRow, AGWorkflowItem> ITEM_COLUMN = new DbQueryTableStubColumn<>(IRow::getItem, "item", AGWorkflowItem.TABLE);
 	IDbQueryTableColumn<IRow, AGWorkflowTask> TASK_COLUMN = new DbQueryTableStubColumn<>(IRow::getTask, "task", AGWorkflowTask.TABLE);
-	IDbQueryTableColumn<IRow, AGUser> DELEGATED_BY_COLUMN = new DbQueryTableStubColumn<>(IRow::getDelegatedBy, "delegatedBy", AGUser.TABLE, WorkflowI18n.DELEGATION);
+	IDbQueryTableColumn<IRow, AGUser> DELEGATED_BY_COLUMN = new DbQueryTableStubColumn<>(IRow::getDelegatedBy, "delegatedBy", AGUser.TABLE);
 	IDbQueryColumn<IRow, DayTime> CREATED_AT_COLUMN = new DbQueryColumn<>(IRow::getCreatedAt, "createdAt", SqlValueTypes.DAY_TIME);
 	IFactory FACTORY = new Implementation.Factory();
 

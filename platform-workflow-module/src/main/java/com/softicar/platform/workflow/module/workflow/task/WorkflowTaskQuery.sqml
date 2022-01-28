@@ -10,7 +10,7 @@ QUERY WorkflowTaskQuery {
 	
 	SELECT item
 	SELECT task
-	SELECT delegation.delegatedBy AS delegatedBy TITLE 'Delegation'
+	SELECT delegation.delegatedBy AS delegatedBy
 	SELECT transaction.at AS createdAt
 	
 	FROM AGWorkflowTask AS task
