@@ -8,6 +8,7 @@ package com.softicar.platform.core.module.license;
 public enum License {
 
 	APACHE_2_0("Apache v2.0"),
+	BOUNCY_CASTLE("Bouncy Castle"),
 	BSD_3_CLAUSE("BSD 3-Clause"),
 	BSD_4_CLAUSE("BSD 4-Clause"),
 	CDDL_1_0("CDDL v1.0"),

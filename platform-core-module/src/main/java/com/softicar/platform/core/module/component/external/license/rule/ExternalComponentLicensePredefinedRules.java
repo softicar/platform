@@ -25,6 +25,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://www.bouncycastle.org/licence.html
+		addLibrary("bcprov-jdk15on", ".*", License.BOUNCY_CASTLE);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/google/guava/blob/master/COPYING
 		addLibrary("listenablefuture", ".*", License.APACHE_2_0);
 
@@ -37,6 +42,11 @@ public class ExternalComponentLicensePredefinedRules {
 		// License defined at:
 		// http://h2database.com/html/license.html
 		addLibrary("h2", ".*", License.EPL_1_0);
+
+		// Artifact does not contain license information.
+		// License defined at:
+		// https://github.com/AgNO3/jcifs-ng/blob/master/LICENSE
+		addLibrary("jcifs-ng", ".*", License.LGPL_2_1);
 
 		// Artifact does not contain license information.
 		// License defined at:
