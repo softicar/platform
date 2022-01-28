@@ -8,9 +8,7 @@ dependencies {
 	api "com.sun.mail:mailapi:$versions.sunMail"
 	api "com.sun.mail:smtp:$versions.sunMail"
 
-	implementation("eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg") {
-		exclude group: 'javax.servlet', module: 'servlet-api'
-	}
+	implementation("eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg")
 	implementation "com.google.code.gson:gson:$versions.gson"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
 	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
