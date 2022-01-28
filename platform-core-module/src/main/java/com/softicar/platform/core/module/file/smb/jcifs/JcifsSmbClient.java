@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import java.util.Properties;
+import jcifs.CIFSContext;
 import jcifs.CIFSException;
 import jcifs.config.PropertyConfiguration;
 import jcifs.context.BaseContext;
@@ -18,28 +19,24 @@ public class JcifsSmbClient implements ISmbClient {
 	@Override
 	public ISmbFile createFile(String url, SmbCredentials credentials) {
 
-		var cifsContext =
-				BASE_CONTEXT.withCredentials(new NtlmPasswordAuthenticator(credentials.getDomain(), credentials.getUsername(), credentials.getPassword()));
-		return new JcifsSmbFile(url, cifsContext);
+		return new JcifsSmbFile(url, createContext(credentials));
 	}
 
 	@Override
 	public ISmbDirectory createDirectory(String url, SmbCredentials credentials) {
 
-		var cifsContext =
-				BASE_CONTEXT.withCredentials(new NtlmPasswordAuthenticator(credentials.getDomain(), credentials.getUsername(), credentials.getPassword()));
-		return new JcifsSmbDirectory(url, cifsContext);
+		return new JcifsSmbDirectory(url, createContext(credentials));
+	}
+
+	private CIFSContext createContext(SmbCredentials credentials) {
+
+		return BASE_CONTEXT.withCredentials(new NtlmPasswordAuthenticator(credentials.getDomain(), credentials.getUsername(), credentials.getPassword()));
 	}
 
 	private static BaseContext setupBaseContext() {
 
 		try {
-			// FIXME vvvv explain why. don't make obscure claims. digging out #38419 should not be necessary to understand
-			// the reason. vvvv
-			// this is very important (see #38419)
-			Properties jcifsProperties = new Properties();
-			jcifsProperties.setProperty("jcifs.smb.client.dfs.disabled", "true");
-			return new BaseContext(new PropertyConfiguration(jcifsProperties));
+			return new BaseContext(new PropertyConfiguration(new Properties()));
 		} catch (CIFSException exception) {
 			throw new SofticarException(exception);
 		}

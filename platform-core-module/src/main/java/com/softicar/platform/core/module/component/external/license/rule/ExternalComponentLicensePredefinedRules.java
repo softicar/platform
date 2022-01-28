@@ -25,8 +25,8 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
-		// https://github.com/google/guava/blob/master/COPYING
-		addLibrary("bcprov-jdk15on", ".*", License.MIT);
+		// https://www.bouncycastle.org/licence.html
+		addLibrary("bcprov-jdk15on", ".*", License.BOUNCY_CASTLE);
 
 		// Artifact does not contain license information.
 		// License defined at:
