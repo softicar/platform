@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
@@ -16,6 +17,7 @@ import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
+import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstance> {
 
@@ -36,7 +38,8 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.setEntityLoader(Programs::getAllProgramsAsIndirectEntities)
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
-			.setPredicateMandatory(EmfPredicates.always());
+			.setPredicateMandatory(EmfPredicates.always())
+			.setPredicateEditable(EmfPredicates.never());
 
 		attributes//
 			.addTransientAttribute(AGProgram.QUEUED_AT)
@@ -53,6 +56,16 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		attributes//
 			.addTransientAttribute(AGProgram.CURRENT_EXECUTION)
 			.setDisplayFactory(EmfBasicEntityDisplay::new);
+
+		attributes//
+			.editAttribute(AGProgram.EXECUTION_RETENTION_DAYS)
+			.setPredicateMandatory(EmfPredicates.always());
+	}
+
+	@Override
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGProgram, Integer, SystemModuleInstance> configuration) {
+
+		configuration.addValidator(ProgramValidator::new);
 	}
 
 	@Override
@@ -60,7 +73,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 
 		authorizer//
 			.setCreationRole(EmfRoles.nobody())
-			.setEditRole(EmfRoles.nobody())
+			.setEditRole(CoreRoles.SUPER_USER.toOtherEntityRole())
 			.setDeleteRole(EmfRoles.nobody());
 	}
 
@@ -85,7 +98,8 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 
 		loggerSet//
 			.addPlainChangeLogger(AGProgramLog.PROGRAM, AGProgramLog.TRANSACTION)
-			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID);
+			.addMapping(AGProgram.PROGRAM_UUID, AGProgramLog.PROGRAM_UUID)
+			.addMapping(AGProgram.EXECUTION_RETENTION_DAYS, AGProgramLog.EXECUTION_RETENTION_DAYS);
 	}
 
 }
