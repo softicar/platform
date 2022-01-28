@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.smb.jcifs;
+package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
@@ -20,12 +20,12 @@ import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFileInputStream;
 import jcifs.smb.SmbFileOutputStream;
 
-class JcifsSmbFile implements ISmbFile {
+class JcifsNgSmbFile implements ISmbFile {
 
 	protected final SmbFile file;
 	protected final CIFSContext context;
 
-	public JcifsSmbFile(String url, CIFSContext context) {
+	public JcifsNgSmbFile(String url, CIFSContext context) {
 
 		try {
 			this.file = new SmbFile(url, context);
@@ -35,7 +35,7 @@ class JcifsSmbFile implements ISmbFile {
 		}
 	}
 
-	public JcifsSmbFile(SmbResource parent, String name) {
+	public JcifsNgSmbFile(SmbResource parent, String name) {
 
 		try {
 			this.file = new SmbFile(parent, name);
@@ -124,7 +124,7 @@ class JcifsSmbFile implements ISmbFile {
 	public Optional<ISmbDirectory> asDirectory() {
 
 		if (isDirectory()) {
-			return Optional.of(new JcifsSmbDirectory(file.getCanonicalPath(), context));
+			return Optional.of(new JcifsNgSmbDirectory(file.getCanonicalPath(), context));
 		} else {
 			return Optional.empty();
 		}
@@ -133,7 +133,7 @@ class JcifsSmbFile implements ISmbFile {
 	@Override
 	public ISmbDirectory getParentDirectory() {
 
-		return new JcifsSmbDirectory(file.getParent(), context);
+		return new JcifsNgSmbDirectory(file.getParent(), context);
 	}
 
 	@Override
@@ -173,7 +173,7 @@ class JcifsSmbFile implements ISmbFile {
 
 		try (SmbFile target = new SmbFile(parent.getCanonicalPath() + name, context)) {
 			file.renameTo(target);
-			return new JcifsSmbFile(target.getCanonicalPath(), context);
+			return new JcifsNgSmbFile(target.getCanonicalPath(), context);
 		} catch (SmbException | MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}

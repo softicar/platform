@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.file.smb;
 
 import com.softicar.platform.common.core.singleton.Singleton;
-import com.softicar.platform.core.module.file.smb.jcifs.JcifsSmbClient;
+import com.softicar.platform.core.module.file.smb.jcifsng.JcifsNgSmbClient;
 import java.util.Objects;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class CurrentSmbClient {
 
-	private static final Singleton<ISmbClient> VALUE = new Singleton<>(JcifsSmbClient::new);
+	private static final Singleton<ISmbClient> VALUE = new Singleton<>(JcifsNgSmbClient::new);
 
 	public static ISmbClient get() {
 

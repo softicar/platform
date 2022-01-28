@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.smb.jcifs;
+package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
@@ -15,14 +15,14 @@ import jcifs.SmbResource;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
-class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
+class JcifsNgSmbDirectory extends JcifsNgSmbFile implements ISmbDirectory {
 
-	public JcifsSmbDirectory(String url, CIFSContext context) {
+	public JcifsNgSmbDirectory(String url, CIFSContext context) {
 
 		super(appendSlashIfMissing(url), context);
 	}
 
-	public JcifsSmbDirectory(SmbResource parent, String name) {
+	public JcifsNgSmbDirectory(SmbResource parent, String name) {
 
 		super(parent, appendSlashIfMissing(name));
 	}
@@ -62,13 +62,13 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 	@Override
 	public ISmbFile getFile(String name) {
 
-		return new JcifsSmbFile(file, name);
+		return new JcifsNgSmbFile(file, name);
 	}
 
 	@Override
 	public ISmbDirectory getSubDirectory(String name) {
 
-		return new JcifsSmbDirectory(file, name);
+		return new JcifsNgSmbDirectory(file, name);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ class JcifsSmbDirectory extends JcifsSmbFile implements ISmbDirectory {
 
 	private ISmbFile wrapSmbFile(SmbFile smbFile) {
 
-		return new JcifsSmbFile(smbFile.getCanonicalPath(), context);
+		return new JcifsNgSmbFile(smbFile.getCanonicalPath(), context);
 	}
 
 	private static String appendSlashIfMissing(String path) {

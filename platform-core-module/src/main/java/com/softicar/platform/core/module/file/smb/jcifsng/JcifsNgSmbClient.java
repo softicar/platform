@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.smb.jcifs;
+package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.core.module.file.smb.ISmbClient;
@@ -12,20 +12,20 @@ import jcifs.config.PropertyConfiguration;
 import jcifs.context.BaseContext;
 import jcifs.smb.NtlmPasswordAuthenticator;
 
-public class JcifsSmbClient implements ISmbClient {
+public class JcifsNgSmbClient implements ISmbClient {
 
 	private static final BaseContext BASE_CONTEXT = setupBaseContext();
 
 	@Override
 	public ISmbFile createFile(String url, SmbCredentials credentials) {
 
-		return new JcifsSmbFile(url, createContext(credentials));
+		return new JcifsNgSmbFile(url, createContext(credentials));
 	}
 
 	@Override
 	public ISmbDirectory createDirectory(String url, SmbCredentials credentials) {
 
-		return new JcifsSmbDirectory(url, createContext(credentials));
+		return new JcifsNgSmbDirectory(url, createContext(credentials));
 	}
 
 	private CIFSContext createContext(SmbCredentials credentials) {
