@@ -41,6 +41,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Vertretung konfigurieren");
 	I18n0 COPY_WORKFLOW_VERSION = new I18n0("Copy Workflow Version")//
 		.de("Arbeitsablauf-Version kopieren");
+	I18n0 CREATED_AT = new I18n0("Created At")//
+		.de("Erstellt am");
 	I18n0 CREATION_TRANSACTION = new I18n0("Creation Transaction")//
 		.de("Erstellende Transaktion");
 	I18n0 CURRENT_VERSION = new I18n0("Current Version")//
@@ -132,6 +134,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Zielknoten");
 	I18n0 TARGET_USER_IS_SYSTEM_USER = new I18n0("Target user is system user.")//
 		.de("Ziel-Benutzer ist System-Benutzer.");
+	I18n0 TASK = new I18n0("Task")//
+		.de("Aufgabe");
 	I18n2 TASK_ARG1_EXECUTED_TRANSITION_ARG2 = new I18n2("Task '%s' executed transition '%s'.")//
 		.de("Aufgabe '%s' hat den Übergang '%s' ausgeführt.");
 	I18n1 TASK_DELEGATED_TO_ARG1 = new I18n1("Task delegated to %s.")//

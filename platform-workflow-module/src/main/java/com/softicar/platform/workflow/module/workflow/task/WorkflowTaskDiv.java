@@ -87,6 +87,9 @@ public class WorkflowTaskDiv extends DomDiv {
 						.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
 						.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
 						.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
+						.setColumnTitle(IWorkflowTaskQuery.TASK_COLUMN, WorkflowI18n.TASK)
+						.setColumnTitle(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, WorkflowI18n.DELEGATION)
+						.setColumnTitle(IWorkflowTaskQuery.CREATED_AT_COLUMN, WorkflowI18n.CREATED_AT)
 						.build());
 
 			return userDiv;
