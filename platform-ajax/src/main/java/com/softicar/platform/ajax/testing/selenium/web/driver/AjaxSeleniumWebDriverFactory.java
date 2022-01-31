@@ -4,8 +4,8 @@ import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.common.core.retry.RetryingSupplier;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -45,13 +45,13 @@ public class AjaxSeleniumWebDriverFactory {
 		Timeouts timeouts = driver.manage().timeouts();
 		Optional//
 			.ofNullable(AjaxSeleniumTestProperties.DRIVER_IMPLICIT_WAIT_TIMEOUT.getValue())
-			.ifPresent(timeout -> timeouts.implicitlyWait(timeout, TimeUnit.MILLISECONDS));
+			.ifPresent(timeout -> timeouts.implicitlyWait(Duration.ofMillis(timeout)));
 		Optional//
 			.ofNullable(AjaxSeleniumTestProperties.DRIVER_PAGE_LOAD_TIMEOUT.getValue())
-			.ifPresent(timeout -> timeouts.pageLoadTimeout(timeout, TimeUnit.MILLISECONDS));
+			.ifPresent(timeout -> timeouts.pageLoadTimeout(Duration.ofMillis(timeout)));
 		Optional//
 			.ofNullable(AjaxSeleniumTestProperties.DRIVER_SCRIPT_TIMEOUT.getValue())
-			.ifPresent(timeout -> timeouts.setScriptTimeout(timeout, TimeUnit.MILLISECONDS));
+			.ifPresent(timeout -> timeouts.scriptTimeout(Duration.ofMillis(timeout)));
 	}
 
 	private static Capabilities getFirefoxCapabilities() {

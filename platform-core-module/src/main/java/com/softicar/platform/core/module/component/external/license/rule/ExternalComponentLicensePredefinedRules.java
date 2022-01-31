@@ -33,11 +33,6 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/google/guava/blob/master/COPYING
 		addLibrary("listenablefuture", ".*", License.APACHE_2_0);
 
-		// Artifact does not contain license information.
-		// License defined at:
-		// https://github.com/typetools/checker-framework/blob/master/checker-qual/LICENSE.txt
-		addLibrary("checker-compat-qual", ".*", License.MIT);
-
 		// Dual-Licensed (MPL 2.0 and EPL 1.0) - we choose EPL 1.0.
 		// License defined at:
 		// http://h2database.com/html/license.html
@@ -47,6 +42,11 @@ public class ExternalComponentLicensePredefinedRules {
 		// License defined at:
 		// https://github.com/AgNO3/jcifs-ng/blob/master/LICENSE
 		addLibrary("jcifs-ng", ".*", License.LGPL_2_1);
+
+		// Artifact does not contain license information.
+		// License defined at:
+		// https://github.com/cbeust/jcommander/blob/master/license.txt
+		addLibrary("jcommander", ".*", License.APACHE_2_0);
 
 		// Artifact does not contain license information.
 		// License defined at:
@@ -60,20 +60,20 @@ public class ExternalComponentLicensePredefinedRules {
 		// http://www.leptonica.org/about-the-license.html (Leptonica library; BSD 2-Clause)
 		addLibrary("leptonica(-platform)?", ".*", License.APACHE_2_0);
 
-		// Artifact does not contain license information.
+		// Artifacts do not contain license information.
 		// License defined at:
-		// https://github.com/square/okhttp/blob/master/LICENSE.txt
-		addLibrary("okhttp", ".*", License.APACHE_2_0);
+		// https://github.com/open-telemetry/opentelemetry-java/blob/main/LICENSE
+		addLibrary("opentelemetry-.*", ".*", License.APACHE_2_0);
 
 		// Artifact does not contain license information.
 		// License defined at:
-		// https://github.com/square/okio/blob/master/LICENSE.txt
-		addLibrary("okio", ".*", License.APACHE_2_0);
+		// https://github.com/reactive-streams/reactive-streams-jvm/blob/master/LICENSE
+		addLibrary("reactive-streams", ".*", License.MIT_0);
 
-		// Artifact does not contain license information.
+		// Artifacts do not contain license information.
 		// License defined at:
 		// https://github.com/SeleniumHQ/selenium/blob/trunk/LICENSE
-		addLibrary("selenium-(api|((chrome|firefox|remote)-driver)|support)", ".*", License.APACHE_2_0);
+		addLibrary("selenium-.*", ".*", License.APACHE_2_0);
 
 		// Artifact does not contain license information.
 		// License defined at:

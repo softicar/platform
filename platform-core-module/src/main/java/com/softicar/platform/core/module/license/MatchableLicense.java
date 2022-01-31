@@ -43,7 +43,10 @@ enum MatchableLicense {
 			".*GNU Lesser General Public License, version 2\\.1.*"),
 	MIT(//
 			License.MIT,//
-			".*MIT License.*");
+			".*MIT License.*"),
+	MIT_0(//
+			License.MIT_0,//
+			".*MIT No Attribution.*");
 
 	private final License license;
 	private final Collection<Pattern> patterns;
