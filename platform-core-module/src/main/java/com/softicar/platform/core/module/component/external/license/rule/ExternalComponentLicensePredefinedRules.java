@@ -33,11 +33,6 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/google/guava/blob/master/COPYING
 		addLibrary("listenablefuture", ".*", License.APACHE_2_0);
 
-		// Artifact does not contain license information.
-		// License defined at:
-		// https://github.com/typetools/checker-framework/blob/master/checker-qual/LICENSE.txt
-		addLibrary("checker-compat-qual", ".*", License.MIT);
-
 		// Dual-Licensed (MPL 2.0 and EPL 1.0) - we choose EPL 1.0.
 		// License defined at:
 		// http://h2database.com/html/license.html
@@ -64,16 +59,6 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/bytedeco/javacpp-presets/blob/master/LICENSE.txt (C++ wrapper; Apache 2.0)
 		// http://www.leptonica.org/about-the-license.html (Leptonica library; BSD 2-Clause)
 		addLibrary("leptonica(-platform)?", ".*", License.APACHE_2_0);
-
-		// Artifact does not contain license information.
-		// License defined at:
-		// https://github.com/square/okhttp/blob/master/LICENSE.txt
-		addLibrary("okhttp", ".*", License.APACHE_2_0);
-
-		// Artifact does not contain license information.
-		// License defined at:
-		// https://github.com/square/okio/blob/master/LICENSE.txt
-		addLibrary("okio", ".*", License.APACHE_2_0);
 
 		// Artifacts do not contain license information.
 		// License defined at:
