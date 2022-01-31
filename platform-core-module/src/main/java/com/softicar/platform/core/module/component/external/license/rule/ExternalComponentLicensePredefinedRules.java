@@ -50,6 +50,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/cbeust/jcommander/blob/master/license.txt
+		addLibrary("jcommander", ".*", License.APACHE_2_0);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/findbugsproject/findbugs/blob/master/findbugs/licenses/LICENSE-jsr305.txt
 		addLibrary("jsr305", ".*", License.BSD_3_CLAUSE);
 
@@ -70,10 +75,20 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/square/okio/blob/master/LICENSE.txt
 		addLibrary("okio", ".*", License.APACHE_2_0);
 
+		// Artifacts do not contain license information.
+		// License defined at:
+		// https://github.com/open-telemetry/opentelemetry-java/blob/main/LICENSE
+		addLibrary("opentelemetry-.*", ".*", License.APACHE_2_0);
+
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/reactive-streams/reactive-streams-jvm/blob/master/LICENSE
+		addLibrary("reactive-streams", ".*", License.MIT_0);
+
+		// Artifacts do not contain license information.
+		// License defined at:
 		// https://github.com/SeleniumHQ/selenium/blob/trunk/LICENSE
-		addLibrary("selenium-(api|((chrome|firefox|remote)-driver)|support)", ".*", License.APACHE_2_0);
+		addLibrary("selenium-.*", ".*", License.APACHE_2_0);
 
 		// Artifact does not contain license information.
 		// License defined at:

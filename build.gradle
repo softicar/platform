@@ -26,15 +26,17 @@ project.ext {
 		guava: "31.0.1-jre",
 		h2: "2.1.210",
 		hikariCp: "5.0.1",
+		jakartaActivation: "1.2.2",
 		javaxServletApi: "4.0.1",
 		jcifsNg: "2.1.7",
 		jetty: "9.4.44.v20210927",
 		jsch: "0.1.55",
 		junit: "4.13.2",
 		mockito: "4.3.1",
+		netty: "4.1.73.Final",
 		pdfbox: "2.0.25",
 		poi: "5.2.0",
-		selenium: "3.141.59",
+		selenium: "4.1.2",
 		slf4j: "1.7.32",
 		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
@@ -65,12 +67,22 @@ subprojects {
 			failOnVersionConflict()
 			// versions below 30.0 have known vulnerabilities
 			force "com.google.guava:guava:$versions.guava";
+			force "com.sun.activation:jakarta.activation:$versions.jakartaActivation"
 			force "commons-codec:commons-codec:$versions.commonsCodec"
 			force "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
 			force "net.bytebuddy:byte-buddy:$versions.byteBuddy"
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
 			force "org.slf4j:slf4j-api:$versions.slf4j"
+
+			eachDependency { details ->
+				// force version for most 'io.netty' dependencies
+				if (details.requested.group == 'io.netty') {
+					if(details.requested.name != 'netty-tcnative-classes') {
+						details.useVersion "$versions.netty"
+					}
+				}
+			}
 		}
 	}
 
