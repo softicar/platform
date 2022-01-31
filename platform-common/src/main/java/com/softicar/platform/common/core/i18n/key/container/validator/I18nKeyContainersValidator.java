@@ -9,7 +9,9 @@ import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Implements {@link IJavaCodeValidator} for I18N classes.
@@ -33,7 +35,9 @@ public class I18nKeyContainersValidator extends AbstractConstantContainersValida
 	@Override
 	protected void prepareForEnvironment(JavaCodeValidationEnvironment environment) {
 
-		this.mandatoryTranslations = environment.getMandatoryTranslations();
+		var reader = environment.getConfigurationJsonValueReader();
+		List<String> languages = reader.readList("$.mandatoryTranslations");
+		this.mandatoryTranslations = new TreeSet<>(languages);
 	}
 
 	@Override
