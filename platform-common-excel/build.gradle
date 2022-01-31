@@ -1,5 +1,6 @@
 dependencies {
 	api project(':platform-common-io')
-	api "org.apache.poi:poi:$versions.poi"
-	api "org.apache.poi:poi-ooxml:$versions.poi"
+
+	implementation "org.apache.poi:poi:$versions.poi"
+	implementation "org.apache.poi:poi-ooxml:$versions.poi"
 }

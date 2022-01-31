@@ -33,7 +33,7 @@ project.ext {
 		junit: "4.13.2",
 		mockito: "4.3.1",
 		pdfbox: "2.0.25",
-		poi: "4.1.2",
+		poi: "5.2.0",
 		selenium: "3.141.59",
 		slf4j: "1.7.32",
 		sunMail: "1.6.7",

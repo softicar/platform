@@ -136,7 +136,6 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	protected Cell createAndAppendCell(Row documentRow, int targetColIndex, boolean isHeader,
 			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
 
@@ -192,7 +191,7 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 		// <<<< handle distinct cell ValueTypes <<<<
 		//
 
-		if (cell.getCellTypeEnum().equals(CellType.BLANK)) {
+		if (cell.getCellType().equals(CellType.BLANK)) {
 			// circumvent NullPointerException when horizontally auto-sizing the column
 			cell.setCellValue("");
 		}
@@ -264,7 +263,7 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 
 	private short calculateOutputRowHeight(CellStyle cellStyle, int numLines) {
 
-		short fontHeight = (short) (numLines * this.workbook.getFontAt(cellStyle.getFontIndexAsInt()).getFontHeight());
+		short fontHeight = (short) (numLines * this.workbook.getFontAt(cellStyle.getFontIndex()).getFontHeight());
 		short spacing = (short) ((numLines - 1) * LINE_BREAK_SPACING);
 
 		return (short) (fontHeight + spacing + VERTIAL_PADDING_COMPENSATION);

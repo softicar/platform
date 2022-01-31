@@ -23,7 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Alexander Schmidt
  */
-public class ScExcelFileParserLib {
+class ScExcelFileParserLib {
 
 	public static FileInputStream getFileInputStream(File file) {
 

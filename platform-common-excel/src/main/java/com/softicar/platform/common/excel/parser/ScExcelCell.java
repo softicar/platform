@@ -5,13 +5,13 @@ import com.softicar.platform.common.core.exceptions.SofticarNotImplementedYetExc
 import com.softicar.platform.common.core.number.parser.DoubleParser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.common.date.DateFormat;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.date.DayParser;
 import com.softicar.platform.common.string.parsing.NumberStringCleaner;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.poi.ss.usermodel.Cell;
@@ -22,86 +22,79 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * Provides convenience methods to access the contents of a POI {@link Cell}
- * instance which represents a cell of an Excel file.
+ * Provides convenience methods to access the contents of an Excel file cell.
+ * <p>
+ * Instances are created via {@link ScExcelFileParser}.
  *
  * @author Alexander Schmidt
  */
 public class ScExcelCell {
 
-	private final Cell poiCell;
+	private final Cell cell;
 
-	/**
-	 * @param cell
-	 */
-	public ScExcelCell(Cell cell) {
+	ScExcelCell(Cell cell) {
 
-		this.poiCell = cell;
+		this.cell = Objects.requireNonNull(cell);
 	}
 
 	/**
-	 * @return The coordinates (0-based row and column indexes, in that order)
-	 *         of the cell within its sheet.
+	 * Returns the coordinates of this cell in its sheet.
+	 * <p>
+	 * The returned values are row and column indexes. Both are zero-based.
+	 *
+	 * @return the coordinates of this cell (never <i>null</i>)
 	 */
 	public Pair<Integer, Integer> getCoordinatesInSheet() {
 
-		return new Pair<>(poiCell.getRowIndex(), poiCell.getColumnIndex());
+		return new Pair<>(cell.getRowIndex(), cell.getColumnIndex());
 	}
 
 	/**
-	 * @return Boolean, whether or not the cell is empty/blank.
+	 * Determines whether this cell is blank.
+	 *
+	 * @return <i>true</i> if this cell is blank; <i>false</i> otherwise
 	 */
 	public boolean isBlank() {
 
-		return getPoiCellType() == CellType.BLANK;
+		return isCellTypeBlank();
 	}
 
 	/**
-	 * @see #getDateOrNull(List)
-	 */
-	public Date getDateOrNull(DateFormat...fallbackDateFormats) {
-
-		if (fallbackDateFormats != null) {
-			return getDateOrNull(Arrays.asList(fallbackDateFormats));
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Fetches a Date object from this cell. The given {@link DateFormat}s are
-	 * tried in the specified order in case this cell is not formatted as an
-	 * Excel date cell. Defaults to null if no date could be determined for
-	 * whatever reason.
+	 * Fetches a {@link Date} value from this cell.
 	 * <p>
-	 * More precisely, in case the cell is not a real Excel date cell but a
-	 * string or non-double numeric cell containing a date in some arbitrary
-	 * format, the given {@link DateFormat}s are applied in the given order to
-	 * the string content, trying to derive a valid date from it.
+	 * If this cell is date-formatted (according to the cell settings in Excel),
+	 * the date is retrieved without any conversion.
+	 * <p>
+	 * If this cell is formatted differently (i.e. as a generic string cell or
+	 * as a non-double numeric cell), a content-to-date conversion is attempted.
+	 * <p>
+	 * Supported date formats are: <b>ISO</b> ("2020-12-31"), <b>German</b>
+	 * ("31.12.2020"), <b>US</b> ("12/31/2020")
+	 * <p>
+	 * Returns <i>null</i> if no date could be determined.
 	 *
-	 * @param fallbackDateFormats
-	 * @return This cell's content as a Date, or null.
+	 * @return the content if this cell as {@link Date} (may be <i>null</i>)
 	 */
-	public Date getDateOrNull(List<DateFormat> fallbackDateFormats) {
+	public Date getDateOrNull() {
 
 		Date result = null;
 
-		if (getPoiCellType() == CellType.NUMERIC) {
-			if (DateUtil.isCellDateFormatted(poiCell)) {
-				result = poiCell.getDateCellValue();
+		if (isCellTypeNumeric()) {
+			if (DateUtil.isCellDateFormatted(cell)) {
+				result = cell.getDateCellValue();
 			} else {
-				double numericCellValue = poiCell.getNumericCellValue();
+				double numericCellValue = cell.getNumericCellValue();
 				String dateString = Double.valueOf(numericCellValue + "").intValue() + "";
-				result = getDateOrNullFromString(dateString, fallbackDateFormats);
+				result = getDateOrNullFromString(dateString);
 			}
 		}
 
-		else if (getPoiCellType() == CellType.STRING) {
-			String dateString = poiCell.getStringCellValue();
-			result = getDateOrNullFromString(dateString, fallbackDateFormats);
+		else if (isCellTypeString()) {
+			String dateString = cell.getStringCellValue();
+			result = getDateOrNullFromString(dateString);
 		}
 
-		else if (getPoiCellType() == CellType.FORMULA) {
+		else if (isCellTypeFormula()) {
 			//TODO
 			throw new SofticarNotImplementedYetException();
 		}
@@ -110,70 +103,157 @@ public class ScExcelCell {
 	}
 
 	/**
-	 * Fetches an Integer value from this cell. Defaults to null if no such
-	 * value could be determined for whatever reason.
+	 * Fetches an {@link Integer} value from this cell.
 	 * <p>
-	 * Wraps {@link #getDoubleOrNull()}, truncating (i.e. flooring) its result.
+	 * Returns <i>null</i> if no such value could be determined.
 	 *
-	 * @return This cell's content as an Integer, or null.
+	 * @return the content if this cell as {@link Integer} (may be <i>null</i>)
 	 */
 	public Integer getIntegerOrNull() {
 
-		Integer value = null;
-
-		Double doubleOrNull = getDoubleOrNull();
-		if (doubleOrNull != null) {
-			value = doubleOrNull.intValue();
-		}
-
-		return value;
+		return Optional//
+			.ofNullable(getDoubleOrNull())
+			.map(Double::intValue)
+			.orElse(null);
 	}
 
 	/**
-	 * Fetches a Long value from this cell. Defaults to null if no such value
-	 * could be determined for whatever reason.
+	 * Fetches a {@link Long} value from this cell.
 	 * <p>
-	 * Wraps {@link #getDoubleOrNull()}, truncating (i.e. flooring) its result.
+	 * Returns <i>null</i> if no such value could be determined.
 	 *
-	 * @return This cell's content as a Long, or null.
+	 * @return the content if this cell as {@link Long} (may be <i>null</i>)
 	 */
 	public Long getLongOrNull() {
 
-		Long value = null;
+		return Optional//
+			.ofNullable(getDoubleOrNull())
+			.map(Double::longValue)
+			.orElse(null);
+	}
 
-		Double doubleOrNull = getDoubleOrNull();
-		if (doubleOrNull != null) {
-			value = doubleOrNull.longValue();
+	/**
+	 * Fetches a {@link Double} value from this cell.
+	 * <p>
+	 * Returns <i>null</i> if no such value could be determined.
+	 *
+	 * @return the content if this cell as {@link Double} (may be <i>null</i>)
+	 */
+	public Double getDoubleOrNull() {
+
+		return getNumberOrNull(Function.identity(), Double::parseDouble, () -> 0d);
+	}
+
+	/**
+	 * Fetches a {@link BigDecimal} value from this cell.
+	 * <p>
+	 * Returns <i>null</i> if no such value could be determined.
+	 *
+	 * @return the content if this cell as {@link BigDecimal} (may be
+	 *         <i>null</i>)
+	 */
+	public BigDecimal getBigDecimalOrNull() {
+
+		return getNumberOrNull(BigDecimal::new, BigDecimal::new, () -> BigDecimal.ZERO);
+	}
+
+	/**
+	 * Fetches a {@link String} value from this cell.
+	 * <p>
+	 * Returns <i>null</i> if no such value could be determined, or if the
+	 * trimmed content of this cell is empty.
+	 *
+	 * @return the content if this cell as {@link String} (may be <i>null</i>)
+	 */
+	public String getStringOrNull() {
+
+		return getStringOrNull(false);
+	}
+
+	/**
+	 * Fetches a {@link String} value from this cell.
+	 * <p>
+	 * Returns <i>null</i> if no such value could be determined, or if the
+	 * content of this cell is empty.
+	 * <p>
+	 * If <i>true</i> is given, the content of the cell is trimmed after
+	 * retrieval. If this leads to an empty {@link String}, <i>null</i> is
+	 * returned.
+	 *
+	 * @param trimResult
+	 *            <i>true</i> if the {@link String} content should be trimmed;
+	 *            <i>false</i> otherwise
+	 * @return the content if this cell as {@link String} (may be <i>null</i>)
+	 */
+	public String getStringOrNull(boolean trimResult) {
+
+		String value = null;
+
+		if (isCellTypeString()) {
+			value = cell.getStringCellValue();
+		}
+
+		else if (isCellTypeNumeric()) {
+			double cellValue = cell.getNumericCellValue();
+
+			Double cellValueFloored = Math.floor(cellValue);
+
+			if (cellValue == Math.floor(cellValue) && !Double.isInfinite(cellValue)) {
+				Long longCellValueFloored = cellValueFloored.longValue();
+				value = Long.valueOf(longCellValueFloored) + "";
+			} else {
+				value = cellValue + "";
+			}
+		}
+
+		else if (isCellTypeFormula()) {
+			try {
+				CellValue cellValue = evaluateCell();
+				value = cellValue.getStringValue();
+			} catch (RuntimeException e) {
+				DevNull.swallow(e);
+				value = getCellValueFromFormulaCache();
+			}
+		}
+
+		if (value != null) {
+			if (trimResult) {
+				value = value.trim();
+			}
+
+			if (value.isEmpty()) {
+				value = null;
+			}
 		}
 
 		return value;
 	}
 
-	/**
-	 * Fetches a Double value from this cell. Defaults to null if no such value
-	 * could be determined for whatever reason.
-	 *
-	 * @return This cell's content as a Double, or null.
-	 */
-	public Double getDoubleOrNull() {
+	private Date getDateOrNullFromString(String dateString) {
 
-		return getNumberOrNull(this, Function.identity(), it -> Double.parseDouble(it), () -> 0d);
+		Date date = null;
+		try {
+			if (dateString != null) {
+				dateString = dateString.trim();
+				if (!dateString.isEmpty()) {
+					date = new DayParser(dateString).parse().map(Day::toDate).orElse(null);
+				}
+			}
+		} catch (Exception exception) {
+			// ignore to eventually return a null value
+			DevNull.swallow(exception);
+		}
+		return date;
 	}
 
-	public BigDecimal getBigDecimalOrNull() {
+	private <T extends Number> T getNumberOrNull(Function<Double, T> doubleConverter, Function<String, T> stringConverter, Supplier<T> zeroValueSupplier) {
 
-		return getNumberOrNull(this, it -> new BigDecimal(it), it -> new BigDecimal(it), () -> BigDecimal.ZERO);
-	}
-
-	private static <T extends Number> T getNumberOrNull(ScExcelCell cell, Function<Double, T> doubleConverter, Function<String, T> stringConverter,
-			Supplier<T> zeroValueSupplier) {
-
-		if (cell.getPoiCellType() == CellType.NUMERIC) {
-			return doubleConverter.apply(cell.poiCell.getNumericCellValue());
+		if (isCellTypeNumeric()) {
+			return doubleConverter.apply(cell.getNumericCellValue());
 		}
 
-		else if (cell.getPoiCellType() == CellType.STRING) {
-			String stringCellValue = cell.poiCell.getStringCellValue().trim();
+		else if (isCellTypeString()) {
+			String stringCellValue = cell.getStringCellValue().trim();
 			String cleanDoubleString = NumberStringCleaner.convertToCleanNumberString(stringCellValue);
 
 			if (DoubleParser.isDouble(cleanDoubleString)) {
@@ -181,8 +261,8 @@ public class ScExcelCell {
 			}
 		}
 
-		else if (cell.getPoiCellType() == CellType.FORMULA) {
-			CellValue cellValue = cell.evaluateCell();
+		else if (isCellTypeFormula()) {
+			CellValue cellValue = evaluateCell();
 			Double numberValue = cellValue.getNumberValue();
 
 			if (!numberValue.equals(0.0)) {
@@ -207,137 +287,46 @@ public class ScExcelCell {
 		return CastUtils.cast(null);
 	}
 
-	/**
-	 * Fetches a String value from this cell. Defaults to null if the cell is
-	 * empty after trimming, or if no such value could be determined for
-	 * whatever reason.
-	 *
-	 * @return This cell's content as a String, or null.
-	 */
-	public String getStringOrNull() {
-
-		return getStringOrNull(false);
-	}
-
-	/**
-	 * Fetches a String value from this cell. Defaults to null if the cell is
-	 * empty after (optional) trimming, or if no such value could be determined
-	 * for whatever reason.
-	 *
-	 * @param trimResult
-	 *            Whether or not the resulting String should be trimmed.
-	 * @return This cell's content as a String, or null.
-	 */
-	public String getStringOrNull(boolean trimResult) {
-
-		String value = null;
-
-		if (getPoiCellType() == CellType.STRING) {
-			value = poiCell.getStringCellValue();
-		}
-
-		else if (getPoiCellType() == CellType.NUMERIC) {
-			double cellValue = poiCell.getNumericCellValue();
-
-			Double cellValueFloored = Math.floor(cellValue);
-
-			if (cellValue == Math.floor(cellValue) && !Double.isInfinite(cellValue)) {
-				Long longCellValueFloored = cellValueFloored.longValue();
-				value = Long.valueOf(longCellValueFloored) + "";
-			} else {
-				value = cellValue + "";
-			}
-		}
-
-		else if (getPoiCellType() == CellType.FORMULA) {
-			try {
-				CellValue cellValue = evaluateCell();
-				value = cellValue.getStringValue();
-			} catch (RuntimeException e) {
-				DevNull.swallow(e);
-				value = getCellValueFromFormulaCache();
-			}
-		}
-
-		if (value != null) {
-			if (trimResult) {
-				value = value.trim();
-			}
-
-			if (value.isEmpty()) {
-				value = null;
-			}
-		}
-
-		return value;
-	}
-
-	private Date getDateOrNullFromString(String dateString, List<DateFormat> fallbackDateFormats) {
-
-		Date date = null;
-
-		if (fallbackDateFormats != null) {
-			for (DateFormat dateFormat: fallbackDateFormats) {
-				date = getDateOrNullFromString(dateString, dateFormat);
-
-				if (date != null) {
-					break;
-				}
-			}
-		}
-
-		return date;
-	}
-
-	private Date getDateOrNullFromString(String dateString, DateFormat dateFormat) {
-
-		Date date = null;
-
-		try {
-			if (dateString != null) {
-				dateString = dateString.trim();
-
-				if (!dateString.isEmpty()) {
-					date = Day.parse(dateFormat, dateString).toDate();
-				}
-			}
-		} catch (Exception e) {
-			DevNull.swallow(e);
-			//ignore to eventually return a null value
-		}
-
-		return date;
-	}
-
-	public CellType getPoiCellType() {
-
-		return poiCell.getCellType();
-	}
-
-	public Cell getPoiCell() {
-
-		return poiCell;
-	}
-
 	@SuppressWarnings("resource")
 	private CellValue evaluateCell() {
 
-		Workbook workbook = poiCell.getSheet().getWorkbook();
+		Workbook workbook = cell.getSheet().getWorkbook();
 		FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-		CellValue cellValue = evaluator.evaluate(poiCell);
+		CellValue cellValue = evaluator.evaluate(cell);
 
 		return cellValue;
 	}
 
 	private String getCellValueFromFormulaCache() {
 
-		switch (poiCell.getCachedFormulaResultType()) {
+		switch (cell.getCachedFormulaResultType()) {
 		case NUMERIC:
-			return poiCell.getNumericCellValue() + "";
+			return cell.getNumericCellValue() + "";
 		case STRING:
-			return poiCell.getRichStringCellValue() + "";
+			return cell.getRichStringCellValue() + "";
 		default:
 			return null;
 		}
 	}
+
+	private boolean isCellTypeNumeric() {
+
+		return cell.getCellType() == CellType.NUMERIC;
+	}
+
+	private boolean isCellTypeString() {
+
+		return cell.getCellType() == CellType.STRING;
+	}
+
+	private boolean isCellTypeFormula() {
+
+		return cell.getCellType() == CellType.FORMULA;
+	}
+
+	private boolean isCellTypeBlank() {
+
+		return cell.getCellType() == CellType.BLANK;
+	}
+
 }
