@@ -81,7 +81,8 @@
 
 .EmfFormPopupContainer {
 	align-items: start;
-	display: flex;
+	display: inline;
+	width: 100%;
 }
 
 /* ------------------------------ DomButton decoration ------------------------------ */
