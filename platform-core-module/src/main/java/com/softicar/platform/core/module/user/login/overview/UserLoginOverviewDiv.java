@@ -10,29 +10,23 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
+import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBasedColumnHandler;
 
 class UserLoginOverviewDiv extends DomDiv {
 
-	private final DomDiv container;
+	private final IEmfDataTableDiv<IRow> tableDiv;
 
 	public UserLoginOverviewDiv() {
 
-		this.container = new DomDiv();
+		this.tableDiv = new UserLoginOverviewTableDivBuilder().build();
 		appendChild(
 			new DomActionBar(
 				new DomButton()//
 					.setIcon(EmfImages.REFRESH.getResource())
 					.setLabel(CoreI18n.REFRESH)
-					.setClickCallback(this::refresh)));
-		appendChild(container);
-		refresh();
-	}
-
-	private void refresh() {
-
-		container.removeChildren();
-		container.appendChild(new UserLoginOverviewTableDivBuilder().build());
+					.setClickCallback(tableDiv::refresh)));
+		appendChild(tableDiv);
 	}
 
 	private class UserLoginOverviewTableDivBuilder extends EmfDataTableDivBuilder<IRow> {
