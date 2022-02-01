@@ -4,3 +4,11 @@
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
 }
+
+.EmfTableRowDisplay {
+	display: inline;
+}
+
+.EmfTableRowDisplay > .DomButton {
+	user-select: text;
+}
