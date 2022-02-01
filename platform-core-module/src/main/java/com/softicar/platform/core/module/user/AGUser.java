@@ -21,6 +21,7 @@ import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.user.login.UserLastLoginField;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordGenerator;
 import com.softicar.platform.core.module.user.password.UserPasswordLoader;
@@ -34,6 +35,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasicUser {
+
+	public static final UserLastLoginField LAST_LOGIN = new UserLastLoginField();
 
 	private final EmfModuleRoleAssignmentCache roleMembershipCache;
 

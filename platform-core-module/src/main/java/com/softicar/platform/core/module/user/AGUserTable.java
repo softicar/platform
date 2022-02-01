@@ -42,6 +42,9 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 	public void customizeAttributeProperties(IEmfAttributeList<AGUser> attributes) {
 
 		attributes.editAttribute(AGUser.SYSTEM_USER).setImmutable(true);
+
+		attributes//
+			.addTransientAttribute(AGUser.LAST_LOGIN);
 	}
 
 	@Override
