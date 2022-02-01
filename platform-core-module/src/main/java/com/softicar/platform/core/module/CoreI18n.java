@@ -422,8 +422,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Letzter Login am");
 	I18n0 LAST_NAME = new I18n0("Last Name")//
 		.de("Nachname");
-	I18n0 LAST_PAGE_CREATION = new I18n0("Last Page Creation")//
-		.de("Letzter Seiten-Aufruf");
 	I18n0 LEVEL = new I18n0("Level")//
 		.de("Ebene");
 	I18n0 LIBRARY = new I18n0("Library")//
@@ -837,8 +835,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort anzeigen");
 	I18n0 SHOW_STACK_TRACE = new I18n0("Show Stack Trace")//
 		.de("Stacktrace anzeigen");
-	I18n0 SHOWS_USERS_THAT_HAVE_NOT_OPENED_A_PAGE_IN_THE_GIVEN_TIME_PERIOD = new I18n0("Shows users that have not opened a page in the given time period.")//
-		.de("Zeigt Benutzer, die keine Seite in der gegebenen Zeitperiode aufgerufen haben.");
 	I18n0 SIMPLE_NAME = new I18n0("Simple Name")//
 		.de("einfacher Name");
 	I18n0 SINGLE_FILE_UPLOAD = new I18n0("Single File Upload")//
@@ -1061,8 +1057,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzen Sie die Start-Seite um die Benutzer-Verkörperung zu beenden.");
 	I18n0 USER = new I18n0("User")//
 		.de("Benutzer");
-	I18n0 USER_ACTIVITY_CHECK = new I18n0("User Activity Check")//
-		.de("Benutzer-Aktivitäts-Check");
 	I18n0 USER_ALLOWED_IP_RULE = new I18n0("User Allowed IP Rule")//
 		.de("Benutzer-Erlaubte-IP-Regel");
 	I18n0 USER_ALLOWED_IP_RULE_LOG = new I18n0("User Allowed IP Rule Log")//
@@ -1101,6 +1095,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer-Login-Logs");
 	I18n0 USER_LOGIN_NAME = new I18n0("User Login Name")//
 		.de("Benutzer-Login-Name");
+	I18n0 USER_LOGIN_OVERVIEW = new I18n0("User Login Overview")//
+		.de("Benutzer-Login-Übersicht");
 	I18n0 USER_LOGS = new I18n0("User Logs")//
 		.de("Benutzer-Logs");
 	I18n0 USER_NAME = new I18n0("User Name")//

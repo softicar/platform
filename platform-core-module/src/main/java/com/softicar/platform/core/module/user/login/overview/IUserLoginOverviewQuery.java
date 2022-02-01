@@ -1,10 +1,9 @@
-package com.softicar.platform.core.module.user.activity;
+package com.softicar.platform.core.module.user.login.overview;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.ajax.event.AGAjaxEvent;
-import com.softicar.platform.core.module.ajax.event.AGAjaxEventType;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.login.AGUserLoginLog;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.runtime.query.AbstractDbQuery;
 import com.softicar.platform.db.runtime.query.AbstractDbQueryRow;
@@ -26,7 +25,7 @@ import java.util.List;
 
 @Generated
 @SuppressWarnings("all")
-public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
+public interface IUserLoginOverviewQuery extends IDbQuery<IUserLoginOverviewQuery.IRow> {
 
 	// -------------------------------- CONSTANTS -------------------------------- //
 
@@ -34,8 +33,8 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 	IDbQueryColumn<IRow, String> LOGIN_NAME_COLUMN = new DbQueryColumn<>(IRow::getLoginName, "loginName", SqlValueTypes.STRING);
 	IDbQueryTableColumn<IRow, AGUser> USER_NAME_COLUMN = new DbQueryTableStubColumn<>(IRow::getUserName, "userName", AGUser.TABLE);
 	IDbQueryColumn<IRow, String> EMAIL_ADDRESS_COLUMN = new DbQueryColumn<>(IRow::getEmailAddress, "emailAddress", SqlValueTypes.STRING);
-	IDbQueryColumn<IRow, DayTime> LAST_PAGE_CREATION_COLUMN = new DbQueryColumn<>(IRow::getLastPageCreation, "lastPageCreation", SqlValueTypes.DAY_TIME);
-	IDbQueryColumn<IRow, DayTime> DAYS_AGO_COLUMN = new DbQueryColumn<>(IRow::getDaysAgo, "daysAgo", SqlValueTypes.DAY_TIME);
+	IDbQueryColumn<IRow, DayTime> LAST_LOGIN_AT_COLUMN = new DbQueryColumn<>(IRow::getLastLoginAt, "lastLoginAt", SqlValueTypes.DAY_TIME);
+	IDbQueryColumn<IRow, DayTime> DAYS_PASSED_COLUMN = new DbQueryColumn<>(IRow::getDaysPassed, "daysPassed", SqlValueTypes.DAY_TIME);
 	IFactory FACTORY = new Implementation.Factory();
 
 	// -------------------------------- INTERFACES -------------------------------- //
@@ -46,23 +45,13 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 		String getLoginName();
 		AGUser getUserName();
 		String getEmailAddress();
-		DayTime getLastPageCreation();
-		DayTime getDaysAgo();
+		DayTime getLastLoginAt();
+		DayTime getDaysPassed();
 	}
 
 	interface IFactory extends IDbQueryFactory<IRow> {
 
-		IThresholdSetter createQuery();
-	}
-
-	interface IThresholdSetter {
-
-		ITypeSetter setThreshold(DayTime threshold);
-	}
-
-	interface ITypeSetter {
-
-		IUserActivityQuery setType(AGAjaxEventType type);
+		IUserLoginOverviewQuery createQuery();
 	}
 
 	// -------------------------------- IMPLEMENTATION -------------------------------- //
@@ -79,14 +68,14 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 				this.columns.add(LOGIN_NAME_COLUMN);
 				this.columns.add(USER_NAME_COLUMN);
 				this.columns.add(EMAIL_ADDRESS_COLUMN);
-				this.columns.add(LAST_PAGE_CREATION_COLUMN);
-				this.columns.add(DAYS_AGO_COLUMN);
+				this.columns.add(LAST_LOGIN_AT_COLUMN);
+				this.columns.add(DAYS_PASSED_COLUMN);
 			}
 
 			@Override
-			public IThresholdSetter createQuery() {
+			public IUserLoginOverviewQuery createQuery() {
 
-				return new Query().new ThresholdSetter();
+				return new Query();
 			}
 
 			@Override
@@ -96,15 +85,7 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 			}
 		}
 
-		private static class Parameters {
-
-			private DayTime threshold;
-			private AGAjaxEventType type;
-		}
-
-		private static class Query extends AbstractDbQuery<IRow> implements IUserActivityQuery {
-
-			private final Parameters parameters = new Parameters();
+		private static class Query extends AbstractDbQuery<IRow> implements IUserLoginOverviewQuery {
 
 			@Override
 			public IRow createRow(IDbSqlSelect select, DbResultSet resultSet) {
@@ -122,26 +103,6 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 			public QuerySqlBuilder createSqlBuilder() {
 
 				return new QuerySqlBuilder();
-			}
-
-			public class ThresholdSetter implements IThresholdSetter {
-
-				@Override
-				public final ITypeSetter setThreshold(DayTime threshold) {
-
-					Query.this.parameters.threshold = threshold;
-					return Query.this.new TypeSetter();
-				}
-			}
-
-			public class TypeSetter implements ITypeSetter {
-
-				@Override
-				public final IUserActivityQuery setType(AGAjaxEventType type) {
-
-					Query.this.parameters.type = type;
-					return Query.this;
-				}
 			}
 
 			private class QuerySqlBuilder extends AbstractDbQuerySqlBuilder {
@@ -164,58 +125,41 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 					addIdentifier("user", AGUser.EMAIL_ADDRESS);
 					addToken(SqlKeyword.AS);
 					addIdentifier("emailAddress");
-					SELECT(LAST_PAGE_CREATION_COLUMN);
-					addIdentifier("lastAccess", "date");
+					SELECT(LAST_LOGIN_AT_COLUMN);
+					addToken(new DbSqlRawToken("MAX"));
+					addToken(SqlSymbol.LEFT_PARENTHESIS);
+					addIdentifier("loginLog", AGUserLoginLog.LOGIN_AT);
+					addToken(SqlSymbol.RIGHT_PARENTHESIS);
 					addToken(SqlKeyword.AS);
-					addIdentifier("lastPageCreation");
-					SELECT(DAYS_AGO_COLUMN);
-					addIdentifier("lastAccess", "date");
+					addIdentifier("lastLoginAt");
+					SELECT(DAYS_PASSED_COLUMN);
+					addToken(new DbSqlRawToken("MAX"));
+					addToken(SqlSymbol.LEFT_PARENTHESIS);
+					addIdentifier("loginLog", AGUserLoginLog.LOGIN_AT);
+					addToken(SqlSymbol.RIGHT_PARENTHESIS);
 					addToken(SqlKeyword.AS);
-					addIdentifier("daysAgo");
+					addIdentifier("daysPassed");
 					FROM();
 					addIdentifier(AGUser.TABLE);
 					addToken(SqlKeyword.AS);
 					addIdentifier("user");
 					JOIN(SqlKeyword.LEFT);
-					addToken(SqlSymbol.LEFT_PARENTHESIS);
-					startSubSelect();
-					SELECT();
-					addIdentifier("event", AGAjaxEvent.USER);
+					addIdentifier(AGUserLoginLog.TABLE);
 					addToken(SqlKeyword.AS);
-					addIdentifier("user");
-					SELECT();
-					addToken(new DbSqlRawToken("MAX"));
-					addToken(SqlSymbol.LEFT_PARENTHESIS);
-					addIdentifier("event", AGAjaxEvent.EVENT_DATE);
-					addToken(SqlSymbol.RIGHT_PARENTHESIS);
-					addToken(SqlKeyword.AS);
-					addIdentifier("date");
-					FROM();
-					addIdentifier(AGAjaxEvent.TABLE);
-					addToken(SqlKeyword.AS);
-					addIdentifier("event");
-					WHERE();
-					addIdentifier("event", AGAjaxEvent.TYPE);
-					addToken(SqlSymbol.EQUAL);
-					addParameter(parameters.type);
-					GROUP_BY();
-					addIdentifier("event", AGAjaxEvent.USER);
-					finishSubSelect();
-					addToken(SqlSymbol.RIGHT_PARENTHESIS);
-					addToken(SqlKeyword.AS);
-					addIdentifier("lastAccess");
+					addIdentifier("loginLog");
 					ON();
-					addIdentifier("lastAccess", "user");
+					addIdentifier("loginLog", AGUserLoginLog.USER);
 					addToken(SqlSymbol.EQUAL);
 					addIdentifier("user", AGUser.ID);
-					addToken(SqlKeyword.AND);
-					addIdentifier("lastAccess", "date");
-					addToken(SqlSymbol.LESS);
-					addParameter(parameters.threshold);
 					WHERE();
 					addIdentifier("user", AGUser.ACTIVE);
+					WHERE();
+					addToken(SqlKeyword.NOT);
+					addIdentifier("user", AGUser.SYSTEM_USER);
+					GROUP_BY();
+					addIdentifier("user", AGUser.ID);
 					ORDER_BY();
-					addIdentifier("lastPageCreation");
+					addIdentifier("lastLoginAt");
 				}
 			}
 		}
@@ -226,10 +170,10 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 			private final String loginName;
 			private final AGUser userName;
 			private final String emailAddress;
-			private final DayTime lastPageCreation;
-			private final DayTime daysAgo;
+			private final DayTime lastLoginAt;
+			private final DayTime daysPassed;
 
-			private Row(IUserActivityQuery query, IDbSqlSelect select, DbResultSet resultSet) {
+			private Row(IUserLoginOverviewQuery query, IDbSqlSelect select, DbResultSet resultSet) {
 
 				super(query);
 
@@ -237,8 +181,8 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 				this.loginName = LOGIN_NAME_COLUMN.loadValue(select, resultSet);
 				this.userName = USER_NAME_COLUMN.loadValue(select, resultSet);
 				this.emailAddress = EMAIL_ADDRESS_COLUMN.loadValue(select, resultSet);
-				this.lastPageCreation = LAST_PAGE_CREATION_COLUMN.loadValue(select, resultSet);
-				this.daysAgo = DAYS_AGO_COLUMN.loadValue(select, resultSet);
+				this.lastLoginAt = LAST_LOGIN_AT_COLUMN.loadValue(select, resultSet);
+				this.daysPassed = DAYS_PASSED_COLUMN.loadValue(select, resultSet);
 			}
 
 			@Override
@@ -272,15 +216,15 @@ public interface IUserActivityQuery extends IDbQuery<IUserActivityQuery.IRow> {
 			}
 
 			@Override
-			public DayTime getLastPageCreation() {
+			public DayTime getLastLoginAt() {
 
-				return this.lastPageCreation;
+				return this.lastLoginAt;
 			}
 
 			@Override
-			public DayTime getDaysAgo() {
+			public DayTime getDaysPassed() {
 
-				return this.daysAgo;
+				return this.daysPassed;
 			}
 		}
 	}
