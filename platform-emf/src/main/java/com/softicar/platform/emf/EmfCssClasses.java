@@ -86,6 +86,7 @@ public interface EmfCssClasses {
 	ICssClass EMF_PREFILTER_FILTER_TYPE_BUTTON = new CssClass("EmfPrefilterFilterTypeButton", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);
 
 	ICssClass EMF_STRING_DISPLAY = new CssClass("EmfStringDisplay", EmfCssFiles.EMF_DISPLAY_STYLE);
+	ICssClass EMF_TABLE_ROW_DISPLAY = new CssClass("EmfTableRowDisplay", EmfCssFiles.EMF_DISPLAY_STYLE);
 
 	ICssClass EMF_WIKI_TEXT_INPUT = new CssClass("EmfWikiTextInput", EmfCssFiles.EMF_INPUT_STYLE);
 	ICssClass EMF_WIKI_TEXT_INPUT_PREVIEW = new CssClass("EmfWikiTextInputPreview", EmfCssFiles.EMF_INPUT_STYLE);
