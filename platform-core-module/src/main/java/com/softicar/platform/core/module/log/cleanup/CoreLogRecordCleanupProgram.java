@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.log.cleanup;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.core.module.ajax.event.AGAjaxEvent;
 import com.softicar.platform.core.module.ajax.session.AGAjaxSession;
 import com.softicar.platform.core.module.file.stored.AGStoredFileLog;
 import com.softicar.platform.core.module.log.process.AGLogProcess;
@@ -28,7 +27,6 @@ public class CoreLogRecordCleanupProgram implements IProgram {
 
 		new CoreLogRecordDeleter(minimalRetainedDay)//
 			.setThrottlingMilliseconds(THROTTLING_MILLISECONDS)
-			.delete(AGAjaxEvent.EVENT_DATE)
 			.delete(AGAjaxSession.ACCESS_DATE)
 			.delete(AGLogProcess.START_TIME)
 			.delete(AGUserLoginFailureLog.LOGIN_AT)
