@@ -8,8 +8,6 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
-	I18n1 A_LOG_PERIOD_IS_ALREADY_DEFINED_FOR_THE_GIVEN_UUID_OF_ARG1 = new I18n1("A log period is already defined for the given UUID of '%s'.")//
-		.de("Eine Log-Zeitraum ist für die gegebene UUID von '%s' bereits definiert.");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -18,8 +16,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zugriffsdatum");
 	I18n0 ACCESS_MANAGER = new I18n0("Access Manager")//
 		.de("Zugriffsmanager");
-	I18n0 ACCESS_MONITOR = new I18n0("Access Monitor")//
-		.de("Zugriffsmonitor");
 	I18n0 ACCESSED_AT = new I18n0("Accessed At")//
 		.de("Abgerufen am");
 	I18n0 ACCESSED_BY = new I18n0("Accessed By")//
@@ -28,14 +24,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Aktion");
 	I18n0 ACTIVE = new I18n0("Active")//
 		.de("Aktiv");
-	I18n0 ADD_LOG_PERIOD = new I18n0("Add Log Period")//
-		.de("Log-Zeitraum hinzufügen");
 	I18n0 ADDRESS = new I18n0("Address")//
 		.de("Adresse");
 	I18n0 ADDRESSES = new I18n0("Addresses")//
 		.de("Adressen");
-	I18n0 ADMINISTRATOR = new I18n0("Administrator")//
-		.de("Administrator");
 	I18n0 AJAX = new I18n0("AJAX")//
 		.de("AJAX");
 	I18n0 AJAX_EVENT = new I18n0("AJAX Event")//
@@ -68,8 +60,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Erlaubte-IP-Regel");
 	I18n0 ALLOWED_VALUES = new I18n0("Allowed Values")//
 		.de("Zulässige Werte");
-	I18n1 ANY_DEFINED_LOG_PERIOD_MUST_END_WITHIN_ARG1_DAYS_FROM_TODAY = new I18n1("Any defined log period must end within %s days from today.")//
-		.de("Jeder definierte Log-Zeitraum muss innerhalb von %s Tagen von heute an enden.");
 	I18n1 ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS = new I18n1("%s is available at the following address")//
 		.de("%s steht unter der folgenden Adresse zur Verfügung");
 	I18n1 ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS = new I18n1("%s one-time password has been sent to your email address.")//
@@ -92,8 +82,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zurück zur Übersicht");
 	I18n0 BCC = new I18n0("BCC")//
 		.de("BCC");
-	I18n0 BEGIN = new I18n0("Begin")//
-		.de("Beginn");
 	I18n0 BEST_REGARDS = new I18n0("Best regards")//
 		.de("Mit besten Grüßen");
 	I18n0 BUFFERED_EMAIL = new I18n0("Buffered Email")//
@@ -106,10 +94,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gepufferte E-Mails");
 	I18n0 BY = new I18n0("By")//
 		.de("Durch");
-	I18n0 CALL_STACK = new I18n0("Call Stack")//
-		.de("Aufruf-Stack");
-	I18n0 CANONICAL_NAME = new I18n0("Canonical Name")//
-		.de("kanonischer Name");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
 	I18n1 CHANGE_LANGUAGE_TO_ARG1 = new I18n1("Change language to '%s'")//
@@ -144,18 +128,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klicken, um die Programm-Logs anzuzeigen.");
 	I18n0 CLIENT_IP_ADDRESS = new I18n0("Client IP Address")//
 		.de("Client IP Adresse");
-	I18n0 CODE = new I18n0("Code")//
-		.de("Kennzeichen");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
 		.de("Spaltenüberschriften-Hash");
 	I18n0 COMPROMISED = new I18n0("Compromised")//
 		.de("kompromittiert");
-	I18n0 CONFIGURATION = new I18n0("Configuration")//
-		.de("Konfiguration");
-	I18n0 CONFIGURE_LOGGING_PERIODS = new I18n0("Configure Logging Periods")//
-		.de("Logging-Zeiträume konfigurieren");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
 		.de("Bestätigung");
 	I18n0 CONTENT = new I18n0("Content")//
@@ -180,14 +158,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort konnte nicht zurückgesetzt werden.");
 	I18n0 COUNT = new I18n0("Count")//
 		.de("Anzahl");
-	I18n0 COUNTRIES = new I18n0("Countries")//
-		.de("Länder");
-	I18n0 COUNTRY = new I18n0("Country")//
-		.de("Land");
 	I18n0 CREATED_AT = new I18n0("Created At")//
 		.de("Erstellt am");
-	I18n0 CREATED_AT_TIME = new I18n0("Created At Time")//
-		.de("Erstellt zu Zeitpunkt");
 	I18n0 CREATED_BY = new I18n0("Created By")//
 		.de("Erstellt von");
 	I18n0 CRON_EXPRESSION = new I18n0("Cron Expression")///
@@ -202,16 +174,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Aktuelles Passwort");
 	I18n0 CURRENTLY_NOT_IMPERSONATING_A_USER = new I18n0("Currently not impersonating a user.")//
 		.de("Momentan wird kein Benutzer verkörpert.");
-	I18n1 CURRENTLY_THERE_ARE_NO_LOG_RECORDS_FOR_UUID_ARG1 = new I18n1("Currently, there are no log records for UUID '%s'.")//
-		.de("Es gibt momentan keine Log-Einträge für UUID '%s'.");
-	I18n0 CURRENTLY_THERE_ARE_NO_ORPHANED_LOG_RECORDS = new I18n0("Currently, there are no orphaned log records.")//
-		.de("Es gibt momentan keine verwaisten Log-Einträge.");
 	I18n0 DAEMON_WATCHDOG_STATE = new I18n0("Daemon Watchdog State")//
 		.de("Daemon-Watchdog-Status");
 	I18n0 DATA = new I18n0("Data")//
 		.de("Daten");
-	I18n0 DATA_CONSISTENCY_CHECKS_FAILED = new I18n0("Data consistency checks failed.")//
-		.de("Datenkonsistenz-Checks fehlgeschlagen.");
 	I18n0 DATABASE_NAME = new I18n0("Database Name")//
 		.de("Datenbankname");
 	I18n0 DATE = new I18n0("Date")//
@@ -222,8 +188,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tag des Monats");
 	I18n0 DAYS = new I18n0("Days")//
 		.de("Tage");
-	I18n0 DAYS_PASSED = new I18n0("Days Passed")//
-		.de("Vergangene Tage");
+	I18n0 DAYS_SINCE_LAST_LOGIN = new I18n0("Days Since Last Login")//
+		.de("Tage seit letzten Einloggen");
 	I18n0 DBMS_DOWN_TIME_BEGIN = new I18n0("DBMS Down Time Begin")//
 		.de("Begin des DBMS-Wartungsfensters");
 	I18n0 DBMS_DOWN_TIME_END = new I18n0("DBMS Down Time End")//
@@ -232,22 +198,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wochentag des DBMS-Wartungsfensters");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
-	I18n0 DELETE_LOG_RECORDS = new I18n0("Delete Log Records")//
-		.de("Log-Einträge löschen");
-	I18n0 DELETE_LOG_RECORDS_BY_UUID = new I18n0("Delete Log Records by UUID")//
-		.de("Log-Einträge anhand von UUID löschen");
-	I18n0 DELETE_ORPHANED_LOG_RECORDS = new I18n0("Delete Orphaned Log Records")//
-		.de("Verwaiste Log-Einträge löschen");
-	I18n0 DEPRECATED = new I18n0("deprecated")//
-		.de("Überholt");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
 		.de("Panik-Einträge verwerfen");
-	I18n0 DUE = new I18n0("Due")//
-		.de("Fällig");
-	I18n0 EDIT_LOG_PERIOD = new I18n0("Edit Log Period")//
-		.de("Log-Zeitraum bearbeiten");
 	I18n0 EMAIL = new I18n0("Email")//
 		.de("E-Mail");
 	I18n0 EMAIL_ADDRESS = new I18n0("Email Address")//
@@ -262,46 +216,16 @@ public interface CoreI18n extends EmfI18n {
 		.de("E-Mail-Server nicht konfiguriert.");
 	I18n0 EMPTY_CRON_ELEMENT = new I18n0("Empty Cron element.")//
 		.de("Leeres Cron-Element.");
-	I18n0 ENABLED = new I18n0("Enabled")//
-		.de("Aktiv");
 	I18n0 ENCRYPTED_PASSWORD = new I18n0("Encrypted Password")//
 		.de("verschlüsseltes Passwort");
-	I18n0 END = new I18n0("End")//
-		.de("Ende");
 	I18n0 ENGLISH = new I18n0("English")//
 		.de("Englisch");
 	I18n0 ENQUEUE = new I18n0("Enqueue")//
 		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
-	I18n0 ENTRIES = new I18n0("Entries")//
-		.de("Einträge");
-	I18n0 ENTRY = new I18n0("Entry")//
-		.de("Eintrag");
-	I18n0 ENTRY_POINT = new I18n0("Entry Point")//
-		.de("Einstiegspunkt");
-	I18n0 ENTRY_POINT_CREATION_LOG = new I18n0("Entry Point Creation Log")//
-		.de("Einstiegspunkt-Erstellungs-Log");
-	I18n0 ENTRY_POINT_CREATION_LOG_PERIOD = new I18n0("Entry Point Creation Log Period")//
-		.de("Einstiegspunkt-Erstellungs-Log-Zeitraum");
-	I18n0 ENTRY_POINT_CREATION_LOG_PERIODS = new I18n0("Entry Point Creation Log Periods")//
-		.de("Einstiegspunkt-Erstellungs-Log-Zeiträume");
-	I18n0 ENTRY_POINT_CREATION_LOGS = new I18n0("Entry Point Creation Logs")//
-		.de("Einstiegspunkt-Erstellungs-Logs");
-	I18n0 ENTRY_POINT_LOOKUP = new I18n0("Entry Point Lookup")//
-		.de("Einstiegspunkt-Suche");
-	I18n0 ENTRY_POINT_TYPE = new I18n0("Entry Point Type")//
-		.de("Einstiegspunkt-Typ");
-	I18n0 ENTRY_POINT_UUID = new I18n0("Entry Point UUID")//
-		.de("Einstiegspunkt-UUID");
-	I18n0 ENTRY_POINTS = new I18n0("Entry Points")//
-		.de("Einstiegspunkte");
 	I18n0 EVENT_DATE = new I18n0("Event Date")//
 		.de("Ereignisdatum");
-	I18n0 EVENT_TYPE = new I18n0("Event Type")//
-		.de("Ereignisart");
-	I18n0 EVENTS = new I18n0("Events")//
-		.de("Ereignisse");
 	I18n0 EVERY_DAY_AT_MIDNIGHT = new I18n0("Every day at midnight.")//
 		.de("Jeden Tag um Mitternacht.");
 	I18n0 EVERY_FIVE_MINUTES = new I18n0("Every five minutes.")//
@@ -340,11 +264,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Datei-Satz");
 	I18n0 FILE_UPLOAD = new I18n0("File Upload")//
 		.de("Dateien hochladen");
-	I18n0 FIND_ENTRY_POINT = new I18n0("Find Entry Point")//
-		.de("Einstiegspunkt finden");
-	I18n1 FINDS_ARG1_ENTRY_POINTS_PROGRAMS_PAGES_OR_WEB_SERVICES_FOR_A_GIVEN_UUID =
-			new I18n1("Finds %s entry points (programs, pages or web services) for a given UUID.")//
-				.de("Findet %s Einstiegspunkte (Programme, Seiten, Web Services oder Workflow-Aktionen) zu einer gegebenen UUID.");
 	I18n0 FINISHED_AT = new I18n0("Finished At")//
 		.de("Abgeschlossen am");
 	I18n0 FIRST_NAME = new I18n0("First Name")//
@@ -355,9 +274,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Fünf, fünfundzwanzig und fünfundvierzig Minuten nach jeder vollen Stunde.");
 	I18n0 FONT = new I18n0("Font")//
 		.de("Schriftart");
-	I18n0 FOR_THIS_PURPOSE_IT_LOGS_ENTRY_POINT_CREATIONS_DURING_PREVIOUSLY_DEFINED_PERIODS =
-			new I18n0("For this purpose, it logs entry point creations during previously defined periods.")//
-				.de("Zu diesem Zweck loggt es Einstiegspunkt-Erstellungen innerhalb vorher definierter Zeiträume.");
 	I18n0 FROM = new I18n0("From")//
 		.de("Von");
 	I18n0 FROM_MONDAY_TO_FRIDAY_AT_1_20_AND_1_30_AM = new I18n0("From Monday to Friday at 1:20 and 1:30 am.")//
@@ -383,10 +299,6 @@ public interface CoreI18n extends EmfI18n {
 				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer dieses Passwort via E-Mail erhalten.");
 	I18n1 IGNORE_ARG1_EXCEPTIONS = new I18n1("Ignore %s Exceptions")//
 		.de("Ignoriere %s Ausnahmen");
-	I18n0 IGNORE_SESSION_TIMEOUT_EXCEPTIONS = new I18n0("Ignore Session Timeout Exceptions")//
-		.de("Ignoriere Sitzungsauslauf-Ausnahmen");
-	I18n0 IGNORE_SOFTICAR_EXCEPTIONS = new I18n0("Ignore SoftiCAR Exceptions")//
-		.de("Ignoriere SoftiCAR-Ausnahmen");
 	I18n1 ILLEGAL_CRON_ELEMENT_FORMAT_ARG1 = new I18n1("Illegal Cron element format: '%s'")//
 		.de("Ungültiges Cron-Element-Format: %s.");
 	I18n2 ILLEGAL_UUID_FOR_REQUEST_PARAMETER_ARG1_ARG2 = new I18n2("Illegal UUID for request parameter '%s': '%s'")//
@@ -397,8 +309,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Verkörperter Benutzer");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
-	I18n0 INFO = new I18n0("Info")//
-		.de("Info");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
 		.de("Modulinstanz initialisieren");
 	I18n0 INITIALIZED = new I18n0("Initialized")//
@@ -407,11 +317,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ungültige IP-Addressen: %s");
 	I18n0 ISO_6391 = new I18n0("ISO 6391")//
 		.de("ISO 6391");
-	I18n0 ISO_CODE = new I18n0("ISO Code")//
-		.de("ISO-Code");
-	I18n1 IT_CAN_TAKE_UP_TO_ARG1_SECONDS_UNTIL_CHANGES_TO_THIS_CONFIGURATION_ARE_ADOPTED_BY_THE_LIVE_SYSTEM =
-			new I18n1("It can take up to %s seconds until changes to this configuration are adopted by the live system.")//
-				.de("Es kann bis zu %s Sekunden dauern bis Änderungen an dieser Konfiguration vom Live-System übernommen werden.");
 	I18n0 LANGUAGE = new I18n0("Language")//
 		.de("Sprache");
 	I18n0 LAST_ACCESS = new I18n0("Last Access")//
@@ -422,8 +327,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Letzter Login am");
 	I18n0 LAST_NAME = new I18n0("Last Name")//
 		.de("Nachname");
-	I18n0 LAST_PAGE_CREATION = new I18n0("Last Page Creation")//
-		.de("Letzter Seiten-Aufruf");
 	I18n0 LEVEL = new I18n0("Level")//
 		.de("Ebene");
 	I18n0 LIBRARY = new I18n0("Library")//
@@ -458,16 +361,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Log-Prozess");
 	I18n0 LOG_PROCESSES = new I18n0("Log Processes")//
 		.de("Log-Prozesse");
-	I18n0 LOG_RECORD_DELETION_WIZARD = new I18n0("Log Record Deletion Wizard")//
-		.de("Lösch-Assistent für Log-Einträge");
-	I18n0 LOG_STACKTRACE = new I18n0("Log Stacktrace")//
-		.de("Log-Stacktrace");
 	I18n0 LOG_TEXT = new I18n0("Log Text")//
 		.de("Log-Text");
 	I18n0 LOG_TIME = new I18n0("Log Time")//
 		.de("Log-Zeit");
-	I18n0 LOG_UNTIL = new I18n0("Log Until")//
-		.de("Log bis");
 	I18n0 LOG_VIEW = new I18n0("Log View")//
 		.de("Log-Ansicht");
 	I18n0 LOGGED_AT = new I18n0("Logged At")//
@@ -494,8 +391,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Master-Server-Checksumme");
 	I18n0 MASTER_SERVER_ROW_COUNT = new I18n0("Master Server Row Count")//
 		.de("Master-Server-Zeilenanzahl");
-	I18n0 MAX = new I18n0("Max")//
-		.de("Max");
 	I18n1 MAXIMUM_OF_ARG1_FILES_REACHED = new I18n1("Maximum of %s files reached.")//
 		.de("Maximum von %s Dateien erreicht.");
 	I18n0 MAXIMUM_PASSWORD_AGE = new I18n0("Maximum Password Age")//
@@ -506,14 +401,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Nachrichten-ID");
 	I18n0 MINUTE = new I18n0("Minute")//
 		.de("Minute");
-	I18n0 MISCELLANEOUS = new I18n0("Miscellaneous")//
-		.de("Sonstiges");
 	I18n0 MISSING_CRON_EXPRESSION_PART = new I18n0("Missing Cron expression part.")//
 		.de("Fehlender Cron-Ausdruck-Teil.");
 	I18n0 MISSING_PROGRAM_UUID = new I18n0("Missing program UUID.")//
 		.de("Program-UUID fehlt.");
-	I18n1 MISSING_REQUEST_PARAMETER_ARG1 = new I18n1("Missing request parameter '%s'.")//
-		.de("Anfrageparameter '%s' fehlt.");
 	I18n0 MODULE = new I18n0("Module")//
 		.de("Modul");
 	I18n1 MODULE_ARG1_IS_NOT_A_STANDARD_MODULE = new I18n1("Module '%s' is not a standard module.")//
@@ -558,22 +449,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Module");
 	I18n0 MONTH = new I18n0("Month")//
 		.de("Monat");
-	I18n0 MONTHS = new I18n0("Months")//
-		.de("Monate");
 	I18n0 MORE_FILES = new I18n0("More Files")//
 		.de("Mehr Dateien");
-	I18n0 NATURAL_PERSON = new I18n0("Natural Person")//
-		.de("Natürliche Person");
-	I18n0 NEW_PASSWORD = new I18n0("New Password")//
-		.de("Neues Passwort");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse");
-	I18n0 NO_STACK_TRACE_RECORDED = new I18n0("No stack trace recorded.")//
-		.de("Kein Stacktrace aufgezeichnet.");
 	I18n0 NOT_QUEUED = new I18n0("Not queued")//
 		.de("Nicht in der Warteschlange");
 	I18n0 NOT_TERMINATED_YET = new I18n0("not terminated yet")//
@@ -582,48 +465,18 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benachrichtigungs-Zeit");
 	I18n1 NOTIFICATION_WAS_SENT_TO_ARG1_USERS = new I18n1("Notification was sent to %s users.")//
 		.de("Benachrichtigung wurde an %s Benutzer gesendet.");
-	I18n0 NUMBER = new I18n0("Number")//
-		.de("Nummer");
-	I18n0 NUMBER_OF_CREATIONS = new I18n0("Number of Creations")//
-		.de("Anzahl der Erstellungen");
-	I18n0 NUMBER_OF_DAYS = new I18n0("Number of Days")//
-		.de("Anzahl der Tage");
-	I18n0 OLD_ID = new I18n0("Old ID")//
-		.de("Alte ID");
 	I18n0 ONE_TIME_PASSWORD = new I18n0("One-Time Password")//
 		.de("Einmal-Passwort");
 	I18n3 ONE_TIME_PASSWORD_ARG1_TO_LOG_IN_TO_YOUR_ARG2_ACCOUNT_ARG3 = new I18n3("One-time password %s to log in to your %s account: '%s'.")//
 		.de("Einmal-Passwort %s für den Login in Ihr %s Benutzerkonto: '%s'.");
-	I18n0 OPERATOR = new I18n0("Operator")//
-		.de("Anwender");
 	I18n0 OUTPUT = new I18n0("Output")//
 		.de("Ausgabe");
-	I18n0 OWNER = new I18n0("Owner")//
-		.de("Besitzer");
-	I18n0 PAGE = new I18n0("Page")//
-		.de("Seite");
-	I18n0 PAGE_ACCESS_INFORMATION = new I18n0("Page Access Information")//
-		.de("Seiten-Zugriffsinformation");
-	I18n0 PAGE_ACTIVITY = new I18n0("Page Activity")//
-		.de("Seiten-Aktivität");
-	I18n0 PAGE_CREATION_DATE = new I18n0("Page Creation Date")//
-		.de("Seiten-Erstellungsdatum");
-	I18n0 PAGE_CREATOR = new I18n0("Page Creator")//
-		.de("Seiten-Ersteller");
 	I18n0 PAGE_DEFINITIONS = new I18n0("Page Definitions")//
 		.de("Seiten-Definitionen");
-	I18n0 PAGE_INSTANCE = new I18n0("Page Instance")//
-		.de("Seiten-Instanz");
-	I18n0 PAGE_NAME = new I18n0("Page Name")//
-		.de("Seiten-Name");
 	I18n0 PAGE_OVERVIEW = new I18n0("Page Overview")//
 		.de("Seiten-Übersicht");
-	I18n0 PAGE_TYPE = new I18n0("Page Type")//
-		.de("Seiten-Typ");
 	I18n0 PAGE_UUID = new I18n0("Page UUID")//
 		.de("Seiten-UUID");
-	I18n0 PANIC_MESSAGES_HAVE_BEEN_SENT = new I18n0("Panic messages have been sent.")//
-		.de("Panik-Nachrichten wurden gesendet.");
 	I18n0 PANIC_RECEIVERS = new I18n0("Panic Receivers")//
 		.de("Panik-Empfänger");
 	I18n0 PASSWORD = new I18n0("Password")//
@@ -646,8 +499,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bitte eine Absenderadresse eingeben.");
 	I18n0 PLEASE_ENTER_A_SUBJECT = new I18n0("Please enter a subject.")//
 		.de("Bitte einen Betreff eingeben.");
-	I18n0 PLEASE_ENTER_A_VALID_UUID_OR_INTEGER_ID = new I18n0("Please enter a valid UUID or integer ID.")//
-		.de("Bitte eine gültige UUID oder ganzzahlige ID eingeben");
 	I18n0 PLEASE_ENTER_SOME_CONTENT = new I18n0("Please enter some content.")//
 		.de("Bitte Inhalt eingeben.");
 	I18n0 PLEASE_PRESS_F5_TO_REFRESH = new I18n0("Please press F5 to refresh.")//
@@ -656,10 +507,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bitte Empfänger auswählen.");
 	I18n0 PLEASE_SELECT_THE_USER_TO_IMPERSONATE = new I18n0("Please select the user to impersonate.")//
 		.de("Bitte den Benutzer auswählen, der verkörpert werden soll.");
-	I18n0 PLEASE_SPECIFY_A_NON_NEGATIVE_NUMBER_OF_DAYS = new I18n0("Please specify a non-negative number of days.")//
-		.de("Bitte geben Sie eine nicht-negative Anzahl an Tage ein.");
-	I18n1 PLEASE_SPECIFY_AN_ISSUE_ID_IN_THE_ARG1_FIELD = new I18n1("Please specify an issue ID in the '%s' field.")//
-		.de("Bitte eine Angelegenheits-ID im '%s'-Feld angeben.");
 	I18n1 PLEASE_SPECIFY_THE_ID_OF_THE_ISSUE_YOU_ARE_WORKING_ON_IN_THE_ARG1_FIELD_FOR_EXAMPLE_I123 =
 			new I18n1("Please specify the ID of the issue you are working on in the '%s' field (for example i123).")//
 				.de("Bitte geben Sie die ID der bearbeiteten Angelegenheit im Feld '%s' an (beispielsweise i123).");
@@ -681,8 +528,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Portal-Logo");
 	I18n0 PORTAL_PROTOCOL = new I18n0("Portal Protocol")//
 		.de("Portal-Protokoll");
-	I18n0 POSTAL_CODE = new I18n0("Postal Code")//
-		.de("Postleitzahl");
 	I18n0 PREFERRED_LANGUAGE = new I18n0("Preferred Language")//
 		.de("Bevorzugte Sprache");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
@@ -733,34 +578,20 @@ public interface CoreI18n extends EmfI18n {
 		.de("Eingereiht von");
 	I18n0 QUEUED_OR_RUNNING = new I18n0("Queued or Running")//
 		.de("Eingereiht oder laufend");
-	I18n0 QUEUED_PROGRAM_EXECUTION_LOG = new I18n0("Queued Program Execution Log")//
-		.de("Anstehende-Programmausführung-Log");
-	I18n0 QUEUED_PROGRAM_EXECUTION_LOGS = new I18n0("Queued Program Execution Logs")//
-		.de("Anstehende-Programmausführung-Logs");
 	I18n0 RATIONALE = new I18n0("Rationale")//
 		.de("Begründung");
 	I18n1 RATIONALE_NEEDS_A_MINIMUM_OF_ARG1_CHARACTERS = new I18n1("Rationale needs a minimum of %s characters.")//
 		.de("Begründung muss mindestens %s Zeichen lang sein.");
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
-	I18n0 RECORD_LOGS_UNTIL = new I18n0("Record Logs Until")//
-		.de("Logs aufzeichnen bis");
-	I18n0 RECORD_STACK_TRACE = new I18n0("Record Stack Trace")//
-		.de("Stacktrace aufzeichnen");
 	I18n0 REFERENCES = new I18n0("References")//
 		.de("References");
-	I18n0 REGISTRATION_NUMBER = new I18n0("Registration Number")//
-		.de("Registrierungsnummer");
-	I18n0 RELEASE_NOTES = new I18n0("Release Notes")//
-		.de("Release-Anmerkungen");
 	I18n0 REMOTE_ADDRESS = new I18n0("Remote address")//
 		.de("Entfernte Adresse");
 	I18n0 REMOVE_AT = new I18n0("Remove At")//
 		.de("Entfernen am");
 	I18n0 REMOVE_FROM_QUEUE = new I18n0("Remove From Queue")//
 		.de("Aus Warteschlange entfernen");
-	I18n0 REMOVE_LOG_PERIOD = new I18n0("Remove log period")//
-		.de("Log-Zeitraum entfernen");
 	I18n0 REPEAT_PASSWORD = new I18n0("Repeat Password")//
 		.de("Passwort wiederholen");
 	I18n0 REPLICATION_CHECKSUM = new I18n0("Replication Checksum")//
@@ -825,8 +656,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sitzungs-ID");
 	I18n0 SESSION_INFORMATION = new I18n0("Session Information")//
 		.de("Sitzungs-Informationen");
-	I18n0 SESSIONS = new I18n0("Sessions")//
-		.de("Sitzungen");
 	I18n0 SHA_1 = new I18n0("SHA-1")//
 		.de("SHA-1");
 	I18n0 SHOW_OUTPUT = new I18n0("Show Output")//
@@ -837,14 +666,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort anzeigen");
 	I18n0 SHOW_STACK_TRACE = new I18n0("Show Stack Trace")//
 		.de("Stacktrace anzeigen");
-	I18n0 SHOWS_USERS_THAT_HAVE_NOT_OPENED_A_PAGE_IN_THE_GIVEN_TIME_PERIOD = new I18n0("Shows users that have not opened a page in the given time period.")//
-		.de("Zeigt Benutzer, die keine Seite in der gegebenen Zeitperiode aufgerufen haben.");
-	I18n0 SIMPLE_NAME = new I18n0("Simple Name")//
-		.de("einfacher Name");
 	I18n0 SINGLE_FILE_UPLOAD = new I18n0("Single File Upload")//
 		.de("Einzelner Datei-Upload");
-	I18n0 SOME_EXAMPLES_HOW_TO_USE_THE_CRON_SYNTAX = new I18n0("Some examples how to use the Cron syntax:")//
-		.de("Einige Beispiele für die Verwendung der Cron-Schreibweise:");
 	I18n0 SOURCE_USER = new I18n0("Source User")//
 		.de("Quell-Benutzer");
 	I18n0 STACK_TRACE = new I18n0("Stack Trace")//
@@ -895,16 +718,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gespeicherte-Datei-Sätze");
 	I18n0 STORED_FILE_SHA_1 = new I18n0("Stored File SHA-1")//
 		.de("Gespeicherte-Datei-SHA-1");
-	I18n0 STORED_FILE_SHA_1_RELATION = new I18n0("Stored File SHA-1 Relation")//
-		.de("Gespeicherte-Datei-SHA-1-Relation");
-	I18n0 STORED_FILE_SHA_1_RELATIONS = new I18n0("Stored File SHA-1 Relations")//
-		.de("Gespeicherte-Datei-SHA-1-Relationen");
 	I18n0 STORED_FILE_SHA_1S = new I18n0("Stored File SHA-1s")//
 		.de("Gespeicherte-Datei-SHA-1-Hashes");
 	I18n0 STORED_FILES = new I18n0("Stored Files")//
 		.de("Gespeicherte Dateien");
-	I18n0 STREET = new I18n0("Street")//
-		.de("Straße");
 	I18n0 SUBJECT = new I18n0("Subject")//
 		.de("Betreff");
 	I18n0 SUPER_USER = new I18n0("Super User")//
@@ -945,20 +762,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Text");
 	I18n1 THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU = new I18n1("The %s user account has been created or was changed for you.")//
 		.de("Das %s Benutzerkonto wurde für Sie erstellt oder geändert.");
-	I18n2 THE_ATTRIBUTE_ARG1_OR_ARG2_MUST_BE_DEFINED = new I18n2("The attribute '%s' or '%s' must be defined.")//
-		.de("Das Attribut '%s' oder '%s' muss definiert werden.");
 	I18n0 THE_ENTERED_CURRENT_PASSWORD_IS_WRONG = new I18n0("The entered, current password is wrong.")//
 		.de("Das eigegebene, aktuelle Passwort ist falsch.");
 	I18n0 THE_ENTERED_PASSWORDS_DO_NOT_MATCH = new I18n0("The entered passwords do not match.")//
 		.de("Die eingegebenen Passwörter stimmen nicht überein.");
-	I18n1 THE_ENTERED_STRING_ARG1_IS_NOT_A_UUID = new I18n1("The entered string '%s' is not a UUID.")//
-		.de("Die eingegebene Zeichenfolge '%s' ist keine UUID.");
 	I18n0 THE_FOLLOWING_RATIONALE_WAS_GIVEN = new I18n0("The following rationale was given.")//
 		.de("Die folgende Begründung wurde gegeben.");
 	I18n0 THE_IMPERSONATED_USER_WILL_BE_INFORMED = new I18n0("The impersonated user will be informed.")//
 		.de("Der verkörperte Benutzer wird informiert.");
-	I18n1 THE_LATEST_POSSIBLE_LOG_PERIOD_END_IS_CURRENTLY_ARG1 = new I18n1("The latest possible log period end is currently '%s'.")//
-		.de("Das späteste mögliche Log-Perioden-Ende ist momentan '%s'.");
 	I18n1 THE_PASSWORD_CONTAINS_AT_LEAST_ARG1_DIGITS = new I18n1("The password contains at least %s digits.")//
 		.de("Das Passwort enthält mindestens %s Ziffern.");
 	I18n1 THE_PASSWORD_CONTAINS_AT_LEAST_ARG1_DISTINCT_CHARACTERS = new I18n1("The password contains at least %s distinct characters.")//
@@ -1000,13 +811,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_AN_INTEGER_BUT_WAS_ARG2 =
 			new I18n2("The value of the servlet parameter '%s' must be an integer but was '%s'.")//
 				.de("Der Wert des Servlet-Parameters '%s' muss eine Ganzzahl sein, doch er war '%s'.");
-	I18n1 THERE_IS_NO_REGISTERED_ENTRY_POINT_WITH_UUID_ARG1 = new I18n1("There is no registered entry point with UUID '%s'.")//
-		.de("Es gibt keinen registrierten Einstiegspunkt mit UUID '%s'.");
 	I18n0 THIS_ACTION_CANNOT_BE_UNDONE = new I18n0("This action cannot be undone.")//
 		.de("Diese Aktion kann nicht rückgängig gemacht werden.");
-	I18n0 THIS_LOGGING_SYSTEM_ALLOWS_TO_DETERMINE_WHETHER_SPECIFIC_ENTRY_POINTS_ARE_STILL_USED =
-			new I18n0("This logging system allows to determine whether specific entry points are still used.")//
-				.de("Dieses Logging-System erlaubt es, zu ermitteln, ob bestimmte Einstiegspunkts noch benutzt werden.");
 	I18n0 THREAD_ACTIVE = new I18n0("Thread Active")//
 		.de("Thread aktiv");
 	I18n0 THREAD_EXISTS = new I18n0("Thread Exists")//
@@ -1033,10 +839,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zuviele Login-Versuche.");
 	I18n0 TRANSACTIONS = new I18n0("Transactions")//
 		.de("Transaktionen");
-	I18n0 TRANSPORT_SERVER = new I18n0("Transport Server")//
-		.de("Transport-Server");
-	I18n0 TRIGGERED_AT = new I18n0("Triggered At")//
-		.de("Ausgelöst um");
 	I18n0 TWO_FACTOR_AUTHENTICATION = new I18n0("Two Factor Authentication")//
 		.de("Zwei-Faktor-Authentifizierung");
 	I18n0 TWO_FACTOR_AUTHENTICATION_IS_ACTIVE = new I18n0("Two-factor authentication is active.")//
@@ -1045,10 +847,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Typ");
 	I18n0 UNKNOWN = new I18n0("unknown")//
 		.de("Unbekannt");
-	I18n0 UNKNOWN_LANGUAGE = new I18n0("Unknown Language")//
-		.de("Unbekannte Sprache");
-	I18n1 UNKNOWN_PAGE_WITH_UUID_ARG1 = new I18n1("Unknown page with UUID '%s'.")//
-		.de("Unbekannte Seite mit UUID '%s'.");
 	I18n0 UPLOAD_FILE = new I18n0("Upload File")//
 		.de("Datei hochladen");
 	I18n0 UPLOAD_FILES = new I18n0("Upload Files")//
@@ -1057,12 +855,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Obere Grenze");
 	I18n0 URL = new I18n0("URL")//
 		.de("URL");
-	I18n0 USE_THE_START_PAGE_TO_TERMINATE_THE_USER_IMPERSONATION = new I18n0("Use the start page to terminate the user impersonation.")//
-		.de("Benutzen Sie die Start-Seite um die Benutzer-Verkörperung zu beenden.");
 	I18n0 USER = new I18n0("User")//
 		.de("Benutzer");
-	I18n0 USER_ACTIVITY_CHECK = new I18n0("User Activity Check")//
-		.de("Benutzer-Aktivitäts-Check");
 	I18n0 USER_ALLOWED_IP_RULE = new I18n0("User Allowed IP Rule")//
 		.de("Benutzer-Erlaubte-IP-Regel");
 	I18n0 USER_ALLOWED_IP_RULE_LOG = new I18n0("User Allowed IP Rule Log")//
@@ -1099,12 +893,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer-Login-Log");
 	I18n0 USER_LOGIN_LOGS = new I18n0("User Login Logs")//
 		.de("Benutzer-Login-Logs");
-	I18n0 USER_LOGIN_NAME = new I18n0("User Login Name")//
-		.de("Benutzer-Login-Name");
 	I18n0 USER_LOGS = new I18n0("User Logs")//
 		.de("Benutzer-Logs");
-	I18n0 USER_NAME = new I18n0("User Name")//
-		.de("Benutzername");
 	I18n0 USER_NAME_OR_USER_ID = new I18n0("User Name or User ID")//
 		.de("Benutzername oder Benutzer-ID");
 	I18n0 USER_PASSWORD = new I18n0("User Password")//
@@ -1133,26 +923,18 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer-Benachrichtigung");
 	I18n0 UUID_BYTES = new I18n0("UUID Bytes")//
 		.de("UUID-Bytes");
-	I18n0 UUID_OR_INTEGER_ID_NOT_FOUND = new I18n0("UUID or integer ID not found.")//
-		.de("UUID oder ganzzahlige ID nicht gefunden.");
 	I18n0 UUID_STRING = new I18n0("UUID String")//
 		.de("UUID-String");
 	I18n0 UUIDS = new I18n0("UUIDs")//
 		.de("UUIDs");
-	I18n1 UUIDS_MUST_HAVE_THE_FOLLOWING_FORMAT_ARG1 = new I18n1("UUIDs must have the following format: '%s'")//
-		.de("UUIDs müssen das folgende Format haben: '%s'");
 	I18n0 VALID_FROM = new I18n0("Valid From")//
 		.de("Gültig ab");
 	I18n0 VALID_TO = new I18n0("Valid To")//
 		.de("Gültig bis");
 	I18n3 VALUE_OUT_OF_RANGE_ARG1_ARG2_ARG3 = new I18n3("Value out of range [%s-%s]: '%s'")//
 		.de("Wert außerhalb des Bereichs [%s-%s]: '%s'.");
-	I18n0 VAT_ID = new I18n0("VAT ID")//
-		.de("USt-ID");
 	I18n0 VERSION = new I18n0("Version")//
 		.de("Version");
-	I18n0 VIEW_STACK_TRACE = new I18n0("View Stack Trace")//
-		.de("Stacktrace ansehen");
 	I18n0 WATCHED_DAEMONS = new I18n0("Watched Daemons")//
 		.de("Überwachte Daemons");
 	I18n0 WEEKDAY = new I18n0("Weekday")//
@@ -1165,8 +947,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Schlimmste Log-Ebene");
 	I18n0 WRONG_USERNAME_OR_PASSWORD = new I18n0("Wrong username or password.")//
 		.de("Falscher Benutzername oder Passwort.");
-	I18n0 YEAR_AND_MONTH = new I18n0("Year and Month")//
-		.de("Jahr und Monat");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
 	I18n0 YOU_ALREADY_IMPERSONATE_ANOTHER_USER = new I18n0("You already impersonate another user.")//
@@ -1197,6 +977,4 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ihr aktuelles Passwort wurde möglicherweise kompromittiert.");
 	I18n1 YOUR_LANGUAGE_HAS_BEEN_CHANGED_TO_ARG1 = new I18n1("Your language has been changed to '%s'.")//
 		.de("Ihre Sprache wurde geändert auf '%s'.");
-	I18n0 YOUR_SESSION_WAS_SUCCESSFULLY_RESET = new I18n0("Your session was successfully reset.")//
-		.de("Ihre Sitzung wurde erfolgreich zurückgesetzt.");
 }
