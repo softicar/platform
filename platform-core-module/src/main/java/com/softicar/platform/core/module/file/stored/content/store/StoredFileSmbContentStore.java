@@ -6,6 +6,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.CurrentSmbClient;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
+import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
@@ -43,7 +45,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	public boolean isAvailable() {
 
 		try {
-			return createSmbFile("/").exists();
+			return createSmbEntry("/").exists();
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return false;
@@ -59,7 +61,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public long getFreeDiskSpace() {
 
-		return createSmbFile("/").getFreeDiskSpace();
+		return createSmbEntry("/").getFreeDiskSpace();
 	}
 
 	@Override
@@ -83,19 +85,19 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public void createFolderIfDoesNotExist(String folderName) {
 
-		createSmbFile(folderName).asDirectory().ifPresent(ISmbDirectory::mkdirs);
+		createSmbEntry(folderName).asDirectory().ifPresent(ISmbDirectory::mkdirs);
 	}
 
 	@Override
 	public void removeFile(String fileName) {
 
-		createSmbFile(fileName).delete();
+		createSmbEntry(fileName).delete();
 	}
 
 	@Override
 	public boolean exists(String name) {
 
-		return createSmbFile(name).exists();
+		return createSmbEntry(name).exists();
 	}
 
 	@Override
@@ -113,26 +115,40 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public Collection<String> getAllFiles(String root) {
 
-		return createSmbFile(root)//
+		return createSmbEntry(root)//
 			.asDirectory()
 			.orElseThrow()
-			.listFilesRecursively();
+			.listFilesRecursively()
+			.stream()
+			.map(ISmbFile::getUrl)
+			.collect(Collectors.toList());
 	}
 
 	@Override
 	public DayTime getLastModified(String filename) {
 
-		return createSmbFile(filename).getLastModifiedDate();
+		return createSmbEntry(filename).getLastModifiedDate();
+	}
+
+	private ISmbEntry createSmbEntry(String name) {
+
+		return CurrentSmbClient.get().getEntry(createSmbUrl(name), getSmbCredentials());
 	}
 
 	private ISmbFile createSmbFile(String name) {
 
+		return createSmbEntry(name).asFileOrThrow();
+	}
+
+	private String createSmbUrl(String name) {
+
+		return Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + name;
+	}
+
+	private SmbCredentials getSmbCredentials() {
+
 		AGStoredFileServer fileServer = getServerOrThrow();
-		return CurrentSmbClient
-			.get()
-			.createFile(
-				Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + name,
-				new SmbCredentials(fileServer.getDomain(), fileServer.getUsername(), fileServer.getPassword()));
+		return new SmbCredentials(fileServer.getDomain(), fileServer.getUsername(), fileServer.getPassword());
 	}
 
 	private AGStoredFileServer getServerOrThrow() {

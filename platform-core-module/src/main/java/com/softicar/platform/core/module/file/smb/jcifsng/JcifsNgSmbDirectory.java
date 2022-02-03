@@ -2,57 +2,43 @@ package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.interfaces.Predicates;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
+import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
-import java.io.InputStream;
+import com.softicar.platform.core.module.file.smb.SmbExpectedDirectoryException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jcifs.CIFSContext;
 import jcifs.SmbResource;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
-class JcifsNgSmbDirectory extends JcifsNgSmbFile implements ISmbDirectory {
-
-	public JcifsNgSmbDirectory(String url, CIFSContext context) {
-
-		super(appendSlashIfMissing(url), context);
-	}
+class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 
 	public JcifsNgSmbDirectory(SmbResource parent, String name) {
 
 		super(parent, appendSlashIfMissing(name));
+		assertDirectory();
 	}
 
-	@Override
-	public List<ISmbFile> listFiles() {
+	public JcifsNgSmbDirectory(String url, CIFSContext context) {
 
-		try {
-			return Arrays//
-				.asList(file.listFiles())
-				.stream()
-				.map(this::wrapSmbFile)
-				.collect(Collectors.toList());
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
-		}
-	}
-
-	@Override
-	public Collection<String> listFilesRecursively() {
-
-		return listFiles("", file, new ArrayList<>());
+		super(appendSlashIfMissing(url), context);
+		assertDirectory();
 	}
 
 	@Override
 	public void mkdirs() {
 
 		try {
-			if (!file.exists()) {
-				file.mkdirs();
+			if (!entry.exists()) {
+				entry.mkdirs();
 			}
 		} catch (SmbException exception) {
 			throw new SofticarIOException(exception);
@@ -60,15 +46,55 @@ class JcifsNgSmbDirectory extends JcifsNgSmbFile implements ISmbDirectory {
 	}
 
 	@Override
+	public List<ISmbFile> listFiles() {
+
+		return list(this::isFile, this::wrapFile);
+	}
+
+	@Override
+	public List<ISmbFile> listFilesRecursively() {
+
+		List<ISmbFile> files = new ArrayList<>();
+		files.addAll(listFiles());
+		for (ISmbDirectory subDirectory: listSubDirectories()) {
+			files.addAll(subDirectory.listFilesRecursively());
+		}
+		return files;
+	}
+
+	@Override
+	public List<ISmbDirectory> listSubDirectories() {
+
+		return list(this::isDirectory, this::wrapDirectory);
+	}
+
+	@Override
+	public List<ISmbEntry> listEntries() {
+
+		return list(Predicates.always(), this::wrapEntry);
+	}
+
+	@Override
 	public ISmbFile getFile(String name) {
 
-		return new JcifsNgSmbFile(file, name);
+		return new JcifsNgSmbFile(entry, name);
 	}
 
 	@Override
 	public ISmbDirectory getSubDirectory(String name) {
 
-		return new JcifsNgSmbDirectory(file, name);
+		return new JcifsNgSmbDirectory(entry, name);
+	}
+
+	@Override
+	public ISmbDirectory copyTo(ISmbDirectory directory) {
+
+		try (SmbFile target = new SmbFile(directory.getUrl(), context)) {
+			entry.copyTo(target);
+			return wrapDirectory(target);
+		} catch (SmbException | MalformedURLException exception) {
+			throw new SofticarException(exception);
+		}
 	}
 
 	@Override
@@ -86,39 +112,55 @@ class JcifsNgSmbDirectory extends JcifsNgSmbFile implements ISmbDirectory {
 	@Override
 	public ISmbDirectory moveAndRenameTo(ISmbDirectory parent, String name) {
 
-		return super.moveAndRenameTo(parent, name).asDirectory().orElseThrow();
-	}
-
-	@Override
-	public InputStream createInputStream() {
-
-		throw new UnsupportedOperationException("Cannot create an InputStream of a directory.");
-	}
-
-	private Collection<String> listFiles(String subDirectory, SmbFile directory, Collection<String> filenames) {
-
-		try {
-			for (SmbFile file: directory.listFiles()) {
-				String path = subDirectory + file.getName();
-				if (file.isDirectory()) {
-					listFiles(path, file, filenames);
-				} else {
-					filenames.add(path);
-				}
-			}
-		} catch (SmbException exception) {
-			throw new SofticarException(exception);
+		try (SmbFile target = new SmbFile(parent.getUrl() + name, context)) {
+			entry.renameTo(target);
+			return wrapDirectory(target);
+		} catch (SmbException | MalformedURLException exception) {
+			throw new RuntimeException(exception);
 		}
-		return filenames;
-	}
-
-	private ISmbFile wrapSmbFile(SmbFile smbFile) {
-
-		return new JcifsNgSmbFile(smbFile.getCanonicalPath(), context);
 	}
 
 	private static String appendSlashIfMissing(String path) {
 
-		return !path.endsWith("/")? path + '/' : path;
+		return path + (path.endsWith("/")? "" : "/");
+	}
+
+	private <T> List<T> list(Predicate<SmbFile> filter, Function<SmbFile, T> factory) {
+
+		try {
+			return Arrays//
+				.asList(entry.listFiles())
+				.stream()
+				.filter(filter)
+				.map(factory::apply)
+				.collect(Collectors.toList());
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	private boolean isFile(SmbFile smbFile) {
+
+		try {
+			return smbFile.isFile();
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	private boolean isDirectory(SmbFile smbFile) {
+
+		try {
+			return smbFile.isDirectory();
+		} catch (SmbException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	private void assertDirectory() {
+
+		if (exists() && !isDirectory()) {
+			throw new SmbExpectedDirectoryException();
+		}
 	}
 }

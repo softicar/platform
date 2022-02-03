@@ -9,6 +9,9 @@ import java.io.OutputStream;
  */
 public interface ISmbClient {
 
+	// TODO
+	ISmbEntry getEntry(String url, SmbCredentials credentials);
+
 	/**
 	 * Creates a new {@link ISmbFile} from the given URL and
 	 * {@link SmbCredentials}.
@@ -24,7 +27,7 @@ public interface ISmbClient {
 	 *            the credentials to log in to the SMB share (never <i>null</i>)
 	 * @return the new {@link ISmbFile} (never <i>null</i>)
 	 */
-	ISmbFile createFile(String url, SmbCredentials credentials);
+	ISmbFile getFile(String url, SmbCredentials credentials);
 
 	/**
 	 * Creates a new {@link ISmbDirectory} from the given URL and
@@ -39,5 +42,5 @@ public interface ISmbClient {
 	 *            the credentials to log in to the SMB share (never <i>null</i>)
 	 * @return the new {@link ISmbDirectory} (never <i>null</i>)
 	 */
-	ISmbDirectory createDirectory(String url, SmbCredentials credentials);
+	ISmbDirectory getDirectory(String url, SmbCredentials credentials);
 }

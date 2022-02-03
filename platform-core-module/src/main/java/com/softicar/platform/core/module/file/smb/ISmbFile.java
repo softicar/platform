@@ -1,33 +1,14 @@
 package com.softicar.platform.core.module.file.smb;
 
-import com.softicar.platform.common.date.DayTime;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Optional;
 
 /**
- * TODO add Javadoc as soon as this interface has stabilized
+ * Represents a file on an SMB share.
+ *
+ * @author Alexander Schmidt
  */
-public interface ISmbFile {
-
-	String getName();
-
-	String getCanonicalPath();
-
-	boolean exists();
-
-	boolean isDirectory();
-
-	boolean isFile();
-
-	/**
-	 * This method returns the free disk space in bytes of the drive this share
-	 * represents or the drive on which the directory or file resides.
-	 *
-	 * @return the free disk space in bytes of the drive on which this file or
-	 *         directory resides
-	 */
-	long getFreeDiskSpace();
+public interface ISmbFile extends ISmbEntry {
 
 	/**
 	 * Returns the size of this {@link ISmbFile} in bytes.
@@ -36,23 +17,79 @@ public interface ISmbFile {
 	 */
 	long getSize();
 
-	DayTime getLastModifiedDate();
+	/**
+	 * Copies this file to the given target file.
+	 *
+	 * @param file
+	 *            the target file (never <i>null</i>)
+	 * @return the new file, after copying (never <i>null</i>)
+	 */
+	ISmbFile copyTo(ISmbFile file);
 
-	Optional<ISmbDirectory> asDirectory();
+	/**
+	 * Copies this file into the given target directory.
+	 *
+	 * @param directory
+	 *            the target directory (never <i>null</i>)
+	 * @return the new file, after copying (never <i>null</i>)
+	 */
+	ISmbFile copyTo(ISmbDirectory directory);
 
-	ISmbDirectory getParentDirectory();
+	/**
+	 * Moves this file into the given target directory.
+	 *
+	 * @param directory
+	 *            the target directory (never <i>null</i>)
+	 * @return the new file, after moving (never <i>null</i>)
+	 */
+	ISmbFile moveTo(ISmbDirectory directory);
 
-	void delete();
+	/**
+	 * Renames this file within its parent directory.
+	 *
+	 * @param fileName
+	 *            the new name for this file (never <i>null</i>)
+	 * @return the new file, after renaming (never <i>null</i>)
+	 */
+	ISmbFile renameTo(String fileName);
 
-	ISmbFile moveTo(ISmbDirectory parent);
+	/**
+	 * Moves this file into the given target directory, and renames it.
+	 *
+	 * @param directory
+	 *            the target directory (never <i>null</i>)
+	 * @param fileName
+	 *            the new name for this file (never <i>null</i>)
+	 * @return the new file, after moving and renaming (never <i>null</i>)
+	 */
+	ISmbFile moveAndRenameTo(ISmbDirectory directory, String fileName);
 
-	void copyTo(String url);
+	/**
+	 * Creates this file, if necessary.
+	 * <p>
+	 * If this file already exists, this method will do nothing.
+	 *
+	 * @return this file
+	 */
+	ISmbFile touch();
 
-	ISmbFile renameTo(String name);
-
-	ISmbFile moveAndRenameTo(ISmbDirectory parent, String name);
-
+	/**
+	 * Returns an {@link InputStream} to read the contents of this file.
+	 * <p>
+	 * The caller is obliged to close the returned {@link InputStream} after
+	 * use.
+	 *
+	 * @return an {@link InputStream} of this file (never <i>null</i>)
+	 */
 	InputStream createInputStream();
 
+	/**
+	 * Returns an {@link OutputStream} to write to this file.
+	 * <p>
+	 * The caller is obliged to close the returned {@link OutputStream} after
+	 * use.
+	 *
+	 * @return an {@link OutputStream} of this file (never <i>null</i>)
+	 */
 	OutputStream createOutputStream();
 }
