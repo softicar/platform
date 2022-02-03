@@ -155,6 +155,11 @@ class JcifsNgSmbFile implements ISmbFile {
 	@Override
 	public void copyTo(String url) {
 
+		if (isDirectory()) {
+			if (!url.endsWith("/")) {
+				url = url + "/";
+			}
+		}
 		try (SmbFile target = new SmbFile(url, context)) {
 			file.copyTo(target);
 		} catch (SmbException | MalformedURLException exception) {

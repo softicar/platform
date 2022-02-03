@@ -46,6 +46,13 @@ public interface ISmbFile {
 
 	ISmbFile moveTo(ISmbDirectory parent);
 
+	/**
+	 * This method copies the {@link ISmbFile} to the given url.
+	 * <p>
+	 * Be aware that if the given url doesn't have a trailing '/' and this
+	 * {@link ISmbFile} is in fact an {@link ISmbDirectory}, a trailing '/' will
+	 * automatically get added to prevent erronerous copying.
+	 */
 	void copyTo(String url);
 
 	ISmbFile renameTo(String name);
