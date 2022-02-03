@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.interfaces.Predicates;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
-import com.softicar.platform.core.module.file.smb.SmbExpectedDirectoryException;
+import com.softicar.platform.core.module.file.smb.SmbNoDirectoryException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -160,7 +160,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	private void assertDirectory() {
 
 		if (exists() && !isDirectory()) {
-			throw new SmbExpectedDirectoryException();
+			throw new SmbNoDirectoryException();
 		}
 	}
 }

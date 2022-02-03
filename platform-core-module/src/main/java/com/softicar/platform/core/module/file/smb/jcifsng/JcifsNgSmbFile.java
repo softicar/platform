@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
-import com.softicar.platform.core.module.file.smb.SmbExpectedFileException;
+import com.softicar.platform.core.module.file.smb.SmbNoFileException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -120,7 +120,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 	private void assertFile() {
 
 		if (exists() && !isFile()) {
-			throw new SmbExpectedFileException();
+			throw new SmbNoFileException();
 		}
 	}
 }

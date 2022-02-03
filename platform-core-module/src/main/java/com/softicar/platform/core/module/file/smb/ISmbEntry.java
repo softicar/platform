@@ -112,12 +112,12 @@ public interface ISmbEntry {
 	 * Attempts to convert this entry to an {@link ISmbFile}.
 	 *
 	 * @return this entry as an {@link ISmbFile} (never <i>null</i>)
-	 * @throws SmbExpectedFileException
+	 * @throws SmbNoFileException
 	 *             if this entry is not a file
 	 */
 	default ISmbFile asFileOrThrow() {
 
-		return asFile().orElseThrow(SmbExpectedFileException::new);
+		return asFile().orElseThrow(SmbNoFileException::new);
 	}
 
 	/**
@@ -133,11 +133,11 @@ public interface ISmbEntry {
 	 * Attempts to convert this entry to an {@link ISmbDirectory}.
 	 *
 	 * @return this entry as an {@link ISmbDirectory} (never <i>null</i>)
-	 * @throws SmbExpectedFileException
+	 * @throws SmbNoFileException
 	 *             if this entry is not a directory
 	 */
 	default ISmbDirectory asDirectoryOrThrow() {
 
-		return asDirectory().orElseThrow(SmbExpectedDirectoryException::new);
+		return asDirectory().orElseThrow(SmbNoDirectoryException::new);
 	}
 }
