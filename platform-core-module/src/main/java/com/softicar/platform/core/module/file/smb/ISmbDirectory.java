@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.file.smb;
 
+import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * Lists all files in this directory.
 	 *
 	 * @return the files in this directory (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	List<ISmbFile> listFiles();
 
@@ -28,6 +31,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 *
 	 * @return the files in this directory and its sub-directories (never
 	 *         <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	List<ISmbFile> listFilesRecursively();
 
@@ -35,6 +40,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * Lists all sub-directories in this directory.
 	 *
 	 * @return the sub-directories in this directory (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	List<ISmbDirectory> listSubDirectories();
 
@@ -42,13 +49,15 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * Lists all entries (files and directories) in this directory.
 	 *
 	 * @return the entries in this directory (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	List<ISmbEntry> listEntries();
 
 	/**
 	 * Fetches the file with the given name from this directory.
 	 * <p>
-	 * An {@link ISmbFile} instance is returned even if no such file exists.
+	 * The returned {@link ISmbFile} may or may not exist.
 	 *
 	 * @param fileName
 	 *            the name of the file in this directory (never <i>null</i>)
@@ -77,6 +86,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * @param directory
 	 *            the target directory (never <i>null</i>)
 	 * @return the new directory, after copying (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	ISmbDirectory copyTo(ISmbDirectory directory);
 
@@ -88,6 +99,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * @param directory
 	 *            the target directory (never <i>null</i>)
 	 * @return the new directory, after moving (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	ISmbDirectory moveTo(ISmbDirectory directory);
 
@@ -97,6 +110,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * @param directoryName
 	 *            the new name for this directory (never <i>null</i>)
 	 * @return the new directory, after renaming (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	ISmbDirectory renameTo(String directoryName);
 
@@ -109,6 +124,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * @param directoryName
 	 *            the new name for this directory (never <i>null</i>)
 	 * @return the new directory, after moving and renaming (never <i>null</i>)
+	 * @throws SofticarIOException
+	 *             if this directory does not exist
 	 */
 	ISmbDirectory moveAndRenameTo(ISmbDirectory directory, String directoryName);
 }

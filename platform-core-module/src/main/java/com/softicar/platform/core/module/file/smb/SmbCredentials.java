@@ -3,8 +3,7 @@ package com.softicar.platform.core.module.file.smb;
 import java.util.Objects;
 
 /**
- * This is a container class to hold the credentials used for {@link ISmbClient}
- * methods.
+ * Holds the credentials used for {@link ISmbClient} methods.
  *
  * @author Daniel Klose
  */

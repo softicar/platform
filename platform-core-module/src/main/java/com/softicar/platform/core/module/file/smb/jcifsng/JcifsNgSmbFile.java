@@ -85,16 +85,6 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		return moveAndRenameTo(concatUrl(parent.getUrl(), name));
 	}
 
-	private ISmbFile moveAndRenameTo(String url) {
-
-		try (SmbFile target = new SmbFile(url, context)) {
-			entry.renameTo(target);
-			return wrapFile(target);
-		} catch (SmbException | MalformedURLException exception) {
-			throw new RuntimeException(exception);
-		}
-	}
-
 	@Override
 	public ISmbFile touch() {
 
@@ -122,6 +112,16 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 			return new SmbFileOutputStream(entry);
 		} catch (SmbException exception) {
 			throw new SofticarIOException(exception);
+		}
+	}
+
+	private ISmbFile moveAndRenameTo(String url) {
+
+		try (SmbFile target = new SmbFile(url, context)) {
+			entry.renameTo(target);
+			return wrapFile(target);
+		} catch (SmbException | MalformedURLException exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 

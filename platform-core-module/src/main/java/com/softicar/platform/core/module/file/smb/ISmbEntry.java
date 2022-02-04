@@ -40,14 +40,14 @@ public interface ISmbEntry {
 	 * Deletes this entry from the share.
 	 *
 	 * @throws SofticarIOException
-	 *             if this entry does not exist on the share
+	 *             if this entry does not exist
 	 */
 	void delete();
 
 	/**
 	 * Deletes this entry from the share.
 	 * <p>
-	 * Does nothing if this entry does not exist on the share.
+	 * Does nothing if this entry does not exist
 	 */
 	default void deleteIfExists() {
 
@@ -58,6 +58,8 @@ public interface ISmbEntry {
 
 	/**
 	 * Returns the modification time stamp of this entry.
+	 * <p>
+	 * If this entry does not exist, {@link DayTime#get1970()} is returned.
 	 *
 	 * @return the modification time stamp (never <i>null</i>)
 	 */
@@ -71,6 +73,8 @@ public interface ISmbEntry {
 	 * <p>
 	 * If invoked on the share itself, a directory that represents the host name
 	 * will be returned.
+	 * <p>
+	 * The returned {@link ISmbDirectory} may or may not exist.
 	 *
 	 * @return the parent directory (never <i>null</i>)
 	 */
@@ -87,6 +91,8 @@ public interface ISmbEntry {
 
 	/**
 	 * Determines whether this entry is a file.
+	 * <p>
+	 * Returns <i>false</i> if this entry does not exist.
 	 *
 	 * @return <i>true</i> if this entry is a file; <i>false</i> otherwise
 	 */
@@ -94,6 +100,8 @@ public interface ISmbEntry {
 
 	/**
 	 * Determines whether this entry is a directory.
+	 * <p>
+	 * Returns <i>false</i> if this entry does not exist.
 	 *
 	 * @return <i>true</i> if this entry is a directory; <i>false</i> otherwise
 	 */
@@ -102,7 +110,8 @@ public interface ISmbEntry {
 	/**
 	 * Attempts to convert this entry to an {@link ISmbFile}.
 	 * <p>
-	 * If this entry is not a file, {@link Optional#empty()} is returned.
+	 * Returns {@link Optional#empty()} if this entry is not a file, or if it
+	 * does not exist.
 	 *
 	 * @return this entry as an {@link ISmbFile}
 	 */
@@ -110,10 +119,12 @@ public interface ISmbEntry {
 
 	/**
 	 * Attempts to convert this entry to an {@link ISmbFile}.
+	 * <p>
+	 * The returned {@link ISmbFile} may or may not exist.
 	 *
 	 * @return this entry as an {@link ISmbFile} (never <i>null</i>)
 	 * @throws SmbNoFileException
-	 *             if this entry is not a file
+	 *             if this entry exists and is not a file
 	 */
 	default ISmbFile asFileOrThrow() {
 
@@ -123,7 +134,8 @@ public interface ISmbEntry {
 	/**
 	 * Attempts to convert this entry to an {@link ISmbDirectory}.
 	 * <p>
-	 * If this entry is not a directory, {@link Optional#empty()} is returned.
+	 * Returns {@link Optional#empty()} if this entry is not a directory, or if
+	 * it does not exist.
 	 *
 	 * @return this entry as an {@link ISmbDirectory}
 	 */
@@ -131,10 +143,12 @@ public interface ISmbEntry {
 
 	/**
 	 * Attempts to convert this entry to an {@link ISmbDirectory}.
+	 * <p>
+	 * The returned {@link ISmbDirectory} may or may not exist.
 	 *
 	 * @return this entry as an {@link ISmbDirectory} (never <i>null</i>)
 	 * @throws SmbNoFileException
-	 *             if this entry is not a directory
+	 *             if this entry exists and is not a directory
 	 */
 	default ISmbDirectory asDirectoryOrThrow() {
 
