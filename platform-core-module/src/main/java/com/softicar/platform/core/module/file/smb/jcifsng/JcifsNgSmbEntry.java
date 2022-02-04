@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
@@ -127,7 +128,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 	@Override
 	public Optional<ISmbFile> asFile() {
 
-		if (isFile()) {
+		if (isFile() || !exists()) {
 			return Optional.of(new JcifsNgSmbFile(entry.getCanonicalPath(), context));
 		} else {
 			return Optional.empty();
@@ -137,7 +138,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 	@Override
 	public Optional<ISmbDirectory> asDirectory() {
 
-		if (isDirectory()) {
+		if (isDirectory() || !exists()) {
 			return Optional.of(new JcifsNgSmbDirectory(entry.getCanonicalPath(), context));
 		} else {
 			return Optional.empty();
@@ -157,5 +158,10 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 	protected ISmbEntry wrapEntry(SmbFile smbFile) {
 
 		return new JcifsNgSmbEntry(smbFile.getCanonicalPath(), context);
+	}
+
+	protected String concatUrl(String prefix, String suffix) {
+
+		return Trim.trimRight(prefix, '/') + "/" + Trim.trimLeft(suffix, '/');
 	}
 }

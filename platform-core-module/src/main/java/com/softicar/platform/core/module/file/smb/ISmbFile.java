@@ -45,6 +45,15 @@ public interface ISmbFile extends ISmbEntry {
 	ISmbFile moveTo(ISmbDirectory directory);
 
 	/**
+	 * Moves this file to the given target file.
+	 *
+	 * @param file
+	 *            the target file (never <i>null</i>)
+	 * @return the new file, after moving (never <i>null</i>)
+	 */
+	ISmbFile moveTo(ISmbFile file);
+
+	/**
 	 * Renames this file within its parent directory.
 	 *
 	 * @param fileName

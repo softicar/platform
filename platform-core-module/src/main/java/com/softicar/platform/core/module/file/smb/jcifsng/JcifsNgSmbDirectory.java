@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.file.smb.jcifsng;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.interfaces.Predicates;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
@@ -112,7 +113,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	@Override
 	public ISmbDirectory moveAndRenameTo(ISmbDirectory parent, String name) {
 
-		try (SmbFile target = new SmbFile(parent.getUrl() + name, context)) {
+		try (SmbFile target = new SmbFile(concatUrl(parent.getUrl(), name), context)) {
 			entry.renameTo(target);
 			return wrapDirectory(target);
 		} catch (SmbException | MalformedURLException exception) {
@@ -122,7 +123,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 
 	private static String appendSlashIfMissing(String path) {
 
-		return path + (path.endsWith("/")? "" : "/");
+		return Trim.trimRight(path, '/') + "/";
 	}
 
 	private <T> List<T> list(Predicate<SmbFile> filter, Function<SmbFile, T> factory) {

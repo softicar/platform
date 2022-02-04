@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbNoFileException;
@@ -48,6 +47,12 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 	}
 
 	@Override
+	public ISmbFile moveTo(ISmbFile file) {
+
+		return moveAndRenameTo(file.getUrl());
+	}
+
+	@Override
 	public ISmbFile copyTo(ISmbFile file) {
 
 		try (SmbFile target = new SmbFile(file.getUrl(), context)) {
@@ -61,7 +66,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 	@Override
 	public ISmbFile copyTo(ISmbDirectory directory) {
 
-		try (SmbFile target = new SmbFile(directory.getUrl() + getName(), context)) {
+		try (SmbFile target = new SmbFile(concatUrl(directory.getUrl(), getName()), context)) {
 			entry.copyTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {
@@ -78,8 +83,12 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 	@Override
 	public ISmbFile moveAndRenameTo(ISmbDirectory parent, String name) {
 
-		try (SmbFile target = new SmbFile(parent.getUrl() + name, context)) {
-			Log.finfo("moveAndRenameTo: %s", target.getCanonicalPath());
+		return moveAndRenameTo(concatUrl(parent.getUrl(), name));
+	}
+
+	private ISmbFile moveAndRenameTo(String url) {
+
+		try (SmbFile target = new SmbFile(url, context)) {
 			entry.renameTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {

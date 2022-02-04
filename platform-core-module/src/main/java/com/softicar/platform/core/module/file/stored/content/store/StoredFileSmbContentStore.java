@@ -79,7 +79,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public void moveFile(String sourceName, String targetName) {
 
-		createSmbFile(sourceName).renameTo(targetName);
+		createSmbFile(sourceName).moveTo(createSmbFile(targetName));
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	private String createSmbUrl(String name) {
 
-		return Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + name;
+		return Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + Trim.trimLeft(name, '/');
 	}
 
 	private SmbCredentials getSmbCredentials() {
