@@ -56,14 +56,14 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 
 		List<ISmbFile> files = new ArrayList<>();
 		files.addAll(listFiles());
-		for (ISmbDirectory directory: listSubDirectories()) {
+		for (ISmbDirectory directory: listDirectories()) {
 			files.addAll(directory.listFilesRecursively());
 		}
 		return files;
 	}
 
 	@Override
-	public List<ISmbDirectory> listSubDirectories() {
+	public List<ISmbDirectory> listDirectories() {
 
 		return list(this::isDirectory, this::wrapDirectory);
 	}
@@ -81,7 +81,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	}
 
 	@Override
-	public ISmbDirectory getSubDirectory(String name) {
+	public ISmbDirectory getDirectory(String name) {
 
 		return new JcifsNgSmbDirectory(entry, name);
 	}

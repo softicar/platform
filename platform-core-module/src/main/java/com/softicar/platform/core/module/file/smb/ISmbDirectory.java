@@ -43,7 +43,7 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * @throws SofticarIOException
 	 *             if this directory does not exist
 	 */
-	List<ISmbDirectory> listSubDirectories();
+	List<ISmbDirectory> listDirectories();
 
 	/**
 	 * Lists all entries (files and directories) in this directory.
@@ -76,7 +76,7 @@ public interface ISmbDirectory extends ISmbEntry {
 	 *            <i>null</i>)
 	 * @return the referenced {@link ISmbDirectory} (never <i>null</i>)
 	 */
-	ISmbDirectory getSubDirectory(String directoryName);
+	ISmbDirectory getDirectory(String directoryName);
 
 	/**
 	 * Recursively copies this directory to the given target directory.
