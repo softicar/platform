@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
-import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
@@ -36,7 +35,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		try {
 			return entry.length();
 		} catch (SmbException exception) {
-			throw new SofticarException(exception);
+			throw new SofticarIOException(exception);
 		}
 	}
 
@@ -59,7 +58,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 			entry.copyTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {
-			throw new SofticarException(exception);
+			throw new SofticarIOException(exception);
 		}
 	}
 
@@ -70,7 +69,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 			entry.copyTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {
-			throw new SofticarException(exception);
+			throw new SofticarIOException(exception);
 		}
 	}
 

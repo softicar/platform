@@ -46,6 +46,9 @@ public interface ISmbFile extends ISmbEntry {
 
 	/**
 	 * Moves this file to the given target file.
+	 * <p>
+	 * The given target file shall <b>not</b> exist. It may have a different
+	 * name than this file.
 	 *
 	 * @param file
 	 *            the target file (never <i>null</i>)
