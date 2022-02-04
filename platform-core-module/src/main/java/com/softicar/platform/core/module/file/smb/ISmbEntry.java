@@ -110,8 +110,9 @@ public interface ISmbEntry {
 	/**
 	 * Tries to convert this entry to an {@link ISmbFile}.
 	 * <p>
-	 * Returns {@link Optional#empty()} if this entry is not a file, or if it
-	 * does not exist.
+	 * The returned {@link ISmbFile} may or may not exist.
+	 * <p>
+	 * Returns {@link Optional#empty()} if this entry exists and is not a file.
 	 *
 	 * @return this entry as an {@link ISmbFile}
 	 */
@@ -134,8 +135,10 @@ public interface ISmbEntry {
 	/**
 	 * Tries to convert this entry to an {@link ISmbDirectory}.
 	 * <p>
-	 * Returns {@link Optional#empty()} if this entry is not a directory, or if
-	 * it does not exist.
+	 * The returned {@link ISmbDirectory} may or may not exist.
+	 * <p>
+	 * Returns {@link Optional#empty()} if this entry exists and is not a
+	 * directory.
 	 *
 	 * @return this entry as an {@link ISmbDirectory}
 	 */
