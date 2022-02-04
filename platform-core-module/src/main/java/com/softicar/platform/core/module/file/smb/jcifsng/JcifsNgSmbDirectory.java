@@ -56,8 +56,8 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 
 		List<ISmbFile> files = new ArrayList<>();
 		files.addAll(listFiles());
-		for (ISmbDirectory subDirectory: listSubDirectories()) {
-			files.addAll(subDirectory.listFilesRecursively());
+		for (ISmbDirectory directory: listSubDirectories()) {
+			files.addAll(directory.listFilesRecursively());
 		}
 		return files;
 	}
