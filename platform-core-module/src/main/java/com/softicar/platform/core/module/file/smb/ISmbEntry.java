@@ -14,7 +14,7 @@ public interface ISmbEntry {
 	/**
 	 * Returns the name of this entry, inside its parent directory.
 	 * <p>
-	 * If this entry a directory, a the returned {@link String} will have a
+	 * If this entry a directory, the returned {@link String} will have a
 	 * tailing slash.
 	 *
 	 * @return the name of this entry (never <i>null</i>)
@@ -108,7 +108,7 @@ public interface ISmbEntry {
 	boolean isDirectory();
 
 	/**
-	 * Attempts to convert this entry to an {@link ISmbFile}.
+	 * Tries to convert this entry to an {@link ISmbFile}.
 	 * <p>
 	 * Returns {@link Optional#empty()} if this entry is not a file, or if it
 	 * does not exist.
@@ -118,7 +118,7 @@ public interface ISmbEntry {
 	Optional<ISmbFile> asFile();
 
 	/**
-	 * Attempts to convert this entry to an {@link ISmbFile}.
+	 * Tries to convert this entry to an {@link ISmbFile}.
 	 * <p>
 	 * The returned {@link ISmbFile} may or may not exist.
 	 *
@@ -132,7 +132,7 @@ public interface ISmbEntry {
 	}
 
 	/**
-	 * Attempts to convert this entry to an {@link ISmbDirectory}.
+	 * Tries to convert this entry to an {@link ISmbDirectory}.
 	 * <p>
 	 * Returns {@link Optional#empty()} if this entry is not a directory, or if
 	 * it does not exist.
@@ -142,7 +142,7 @@ public interface ISmbEntry {
 	Optional<ISmbDirectory> asDirectory();
 
 	/**
-	 * Attempts to convert this entry to an {@link ISmbDirectory}.
+	 * Tries to convert this entry to an {@link ISmbDirectory}.
 	 * <p>
 	 * The returned {@link ISmbDirectory} may or may not exist.
 	 *

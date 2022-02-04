@@ -85,7 +85,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	@Override
 	public void createFolderIfDoesNotExist(String folderName) {
 
-		createSmbEntry(folderName).asDirectory().ifPresent(ISmbDirectory::mkdirs);
+		createSmbEntry(folderName).asDirectory().ifPresent(ISmbDirectory::makeDirectories);
 	}
 
 	@Override

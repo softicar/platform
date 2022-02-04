@@ -15,7 +15,7 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * <p>
 	 * If this directory already exists, this method will do nothing.
 	 */
-	void mkdirs();
+	void makeDirectories();
 
 	/**
 	 * Lists all files in this directory.
@@ -27,9 +27,9 @@ public interface ISmbDirectory extends ISmbEntry {
 	List<ISmbFile> listFiles();
 
 	/**
-	 * Lists the files in this directory and all of its sub-directories.
+	 * Lists the files in this directory and all of its subdirectories.
 	 *
-	 * @return the files in this directory and its sub-directories (never
+	 * @return the files in this directory and its subdirectories (never
 	 *         <i>null</i>)
 	 * @throws SofticarIOException
 	 *             if this directory does not exist
@@ -37,9 +37,9 @@ public interface ISmbDirectory extends ISmbEntry {
 	List<ISmbFile> listFilesRecursively();
 
 	/**
-	 * Lists all sub-directories in this directory.
+	 * Lists all subdirectories in this directory.
 	 *
-	 * @return the sub-directories in this directory (never <i>null</i>)
+	 * @return the subdirectories in this directory (never <i>null</i>)
 	 * @throws SofticarIOException
 	 *             if this directory does not exist
 	 */
@@ -66,22 +66,22 @@ public interface ISmbDirectory extends ISmbEntry {
 	ISmbFile getFile(String fileName);
 
 	/**
-	 * Fetches the sub-directory with the given name from this directory.
+	 * Fetches the subdirectory with the given name from this directory.
 	 * <p>
 	 * An {@link ISmbDirectory} instance is returned even if no such
-	 * sub-directory exists.
+	 * subdirectory exists.
 	 *
 	 * @param directoryName
-	 *            the name of the sub-directory in this directory (never
+	 *            the name of the subdirectory in this directory (never
 	 *            <i>null</i>)
 	 * @return the referenced {@link ISmbDirectory} (never <i>null</i>)
 	 */
-	ISmbDirectory getSubDirectory(String directoryName);
+	ISmbDirectory getSubdirectory(String directoryName);
 
 	/**
 	 * Recursively copies this directory to the given target directory.
 	 * <p>
-	 * Note to be confused with {@link #moveTo(ISmbDirectory)}.
+	 * Not to be confused with {@link #moveTo(ISmbDirectory)}.
 	 *
 	 * @param directory
 	 *            the target directory (never <i>null</i>)
@@ -94,7 +94,7 @@ public interface ISmbDirectory extends ISmbEntry {
 	/**
 	 * Moves this directory <b>into</b> the given target directory.
 	 * <p>
-	 * Note to be confused with {@link #copyTo(ISmbDirectory)}.
+	 * Not to be confused with {@link #copyTo(ISmbDirectory)}.
 	 *
 	 * @param directory
 	 *            the target directory (never <i>null</i>)

@@ -34,7 +34,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	}
 
 	@Override
-	public void mkdirs() {
+	public void makeDirectories() {
 
 		try {
 			if (!entry.exists()) {
@@ -81,7 +81,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	}
 
 	@Override
-	public ISmbDirectory getSubDirectory(String name) {
+	public ISmbDirectory getSubdirectory(String name) {
 
 		return new JcifsNgSmbDirectory(entry, name);
 	}

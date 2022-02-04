@@ -66,7 +66,7 @@ public interface ISmbClient {
 	 * This method does <b>not</b> physically create a directory on the
 	 * respective SMB share.
 	 * <p>
-	 * To physically create the directory, use {@link ISmbDirectory#mkdirs()}.
+	 * To physically create the directory, use {@link ISmbDirectory#makeDirectories()}.
 	 *
 	 * @param url
 	 *            the URL to the directory on the SMB share (never <i>null</i>)
