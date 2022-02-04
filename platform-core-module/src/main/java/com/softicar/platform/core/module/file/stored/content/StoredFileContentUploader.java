@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.file.stored.content;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.hash.HashingOutputStream;
 import com.softicar.platform.common.string.formatting.MemoryFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
@@ -47,14 +48,21 @@ class StoredFileContentUploader {
 			return useChunks();
 		}
 
-		if (store.isAvailable() && store.getFreeDiskSpace() >= MINIMUM_FREE_SPACE) {
-			return useStore();
+		if (store.isAvailable()) {
+			long freeDiskSpace = store.getFreeDiskSpace();
+			if (freeDiskSpace >= MINIMUM_FREE_SPACE) {
+				return useStore();
+			} else {
+				String message = "File store '%s' has not enough free space (%s free space required but only %s available). Falling back to database store."
+					.formatted(store.getUrl(), MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1), MemoryFormatting.formatMemory(freeDiskSpace, 1));
+				Log.ferror(message);
+				LogDb.panic(message);
+				return useChunks();
+			}
 		} else {
-			LogDb
-				.panic(//
-					"File store '%s' is not available or has not enough free space (%s free space required). Falling back to database store.",
-					store.getUrl(),
-					MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1));
+			String message = "File store '%s' is not available. Falling back to database store.".formatted(store.getUrl());
+			Log.ferror(message);
+			LogDb.panic(message);
 			return useChunks();
 		}
 	}
