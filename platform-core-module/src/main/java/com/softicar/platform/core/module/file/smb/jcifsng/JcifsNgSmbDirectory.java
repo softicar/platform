@@ -81,7 +81,7 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 	}
 
 	@Override
-	public ISmbDirectory getSubdirectory(String name) {
+	public ISmbDirectory getSubDirectory(String name) {
 
 		return new JcifsNgSmbDirectory(entry, name);
 	}

@@ -76,7 +76,7 @@ public interface ISmbDirectory extends ISmbEntry {
 	 *            <i>null</i>)
 	 * @return the referenced {@link ISmbDirectory} (never <i>null</i>)
 	 */
-	ISmbDirectory getSubdirectory(String directoryName);
+	ISmbDirectory getSubDirectory(String directoryName);
 
 	/**
 	 * Recursively copies this directory to the given target directory.
