@@ -8,6 +8,7 @@ import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
@@ -27,6 +28,7 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 		setSubCaption();
 
 		appendChild(new EmfEntitiesUploadForm(this::importFiles));
+		appendChild(new EmfDataTableDivBuilder<>(new EmfEntitiesImportPreviewDataTable<>(entityTable)).build());
 	}
 
 	private void setCaption() {
