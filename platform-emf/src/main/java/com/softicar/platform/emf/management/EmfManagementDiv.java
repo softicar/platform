@@ -43,8 +43,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 	private Optional<Set<R>> prefilteredEntities;
 	private Optional<ISqlBooleanExpression<R>> additionalFilterExpression;
 	private Consumer<EmfDataTableDivBuilder<R>> dataTableDivCustomizer;
-	private EmfManagementDiv<R, P, S>.ScopeActionBar scopeActionBar;
-	private EmfManagementDiv<R, P, S>.ActionBar actionBar;
+	private ScopeActionBar scopeActionBar;
+	private ActionBar actionBar;
 
 	public EmfManagementDiv(IEmfTable<R, P, S> entityTable, S scopeEntity) {
 
@@ -140,6 +140,11 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		return entityTable.getTableSpecialization().createNewTableRowPopup(scopeEntity);
 	}
 
+	private DomPopup createImportPopup() {
+
+		return new DomPopup();
+	}
+
 	// TODO This element will be appended even if there are no scope actions. This causes a vertical offset for all elements below.
 	private class ScopeActionBar extends DomActionBar {
 
@@ -184,7 +189,15 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setLabel(EmfI18n.CREATE)
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
-					.setTitle(getCreationTitle()));
+					.setTitle(getCreationPredicateTitle()));
+			appendChild(
+				new DomPopupButton()//
+					.setPopupFactory(() -> createImportPopup())
+					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
+					.setLabel(EmfI18n.IMPORT)
+					.setMarker(EmfManagementMarker.IMPORT_BUTTON)
+					.setEnabled(isCreationAllowed())
+					.setTitle(getCreationPredicateTitle()));
 
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
@@ -206,7 +219,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 		}
 
-		private IDisplayString getCreationTitle() {
+		private IDisplayString getCreationPredicateTitle() {
 
 			IEmfPredicate<S> creationPredicate = entityTable.getEmfTableConfiguration().getCreationPredicate();
 			if (!creationPredicate.test(scopeEntity)) {

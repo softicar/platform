@@ -163,6 +163,8 @@ public interface EmfI18n {
 		.de("ID");
 	I18n0 IF = new I18n0("IF")//
 		.de("WENN");
+	I18n0 IMPORT = new I18n0("Import")//
+		.de("Importieren");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
 	I18n0 INTEGER = new I18n0("Integer")//
