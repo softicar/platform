@@ -232,7 +232,7 @@ public class DbConnection implements IDbConnection {
 
 		try (ResultSet resultSet = statementCache.getCurrentPreparedStatement().getGeneratedKeys()) {
 			List<Integer> ids = new ArrayList<>();
-			if (resultSet != null && hasNumericFirstColumn(resultSet)) {
+			if (resultSet != null && hasIntegerFirstColumn(resultSet)) {
 				// read all generated keys
 				while (resultSet.next()) {
 					ids.add(resultSet.getInt(1));
@@ -249,7 +249,7 @@ public class DbConnection implements IDbConnection {
 		}
 	}
 
-	private boolean hasNumericFirstColumn(ResultSet resultSet) throws SQLException {
+	private boolean hasIntegerFirstColumn(ResultSet resultSet) throws SQLException {
 
 		var metaData = resultSet.getMetaData();
 		if (metaData.getColumnCount() > 0) {
