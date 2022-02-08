@@ -23,6 +23,7 @@ import com.softicar.platform.workflow.module.workflow.item.message.WorkflowItemM
 import com.softicar.platform.workflow.module.workflow.substitute.AGWorkflowSubstitute;
 import com.softicar.platform.workflow.module.workflow.task.IWorkflowTaskQuery.IRow;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
+import com.softicar.platform.workflow.module.workflow.task.user.notification.AGWorkflowTaskUserNotification;
 
 public class WorkflowTaskDiv extends DomDiv {
 
@@ -31,11 +32,12 @@ public class WorkflowTaskDiv extends DomDiv {
 		AGUser currentUser = CurrentUser.get();
 
 		appendChild(new DomActionBar())
-			.appendChild(
+			.appendChildren(
 				new DomPopupButton()//
 					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowSubstitute.TABLE.getOrCreate(currentUser)))
 					.setIcon(WorkflowImages.USERS.getResource())
-					.setLabel(WorkflowI18n.CONFIGURE_WORKFLOW_SUBSTITUTE));
+					.setLabel(WorkflowI18n.CONFIGURE_WORKFLOW_SUBSTITUTE),
+				createUserNotificationCheckbox());
 
 		appendNewChild(DomElementTag.HR);
 		appendChild(new WorkflowTaskForUserDiv(currentUser));
@@ -44,6 +46,19 @@ public class WorkflowTaskDiv extends DomDiv {
 			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(substitute.getUser().toDisplay()));
 			appendChild(new WorkflowTaskForUserDiv(substitute.getUser()));
 		}
+	}
+
+	private DomCheckbox createUserNotificationCheckbox() {
+
+		AGWorkflowTaskUserNotification userNotification = AGWorkflowTaskUserNotification.TABLE.getOrCreate(CurrentUser.get());
+		if (userNotification.impermanent()) {
+			userNotification.save();
+		}
+
+		return new DomCheckbox()//
+			.setLabel(WorkflowI18n.RECEIVE_EMAILS_ABOUT_NEW_TASKS)
+			.setChecked(userNotification.isNotify())
+			.setChangeCallback(it -> userNotification.setNotify(it).save());
 	}
 
 	private class WorkflowTaskForUserDiv extends DomDiv implements IDomRefreshBusListener {

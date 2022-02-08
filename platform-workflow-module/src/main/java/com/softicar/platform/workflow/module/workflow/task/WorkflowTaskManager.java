@@ -9,6 +9,7 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
+import com.softicar.platform.workflow.module.workflow.task.user.notification.AGWorkflowTaskUserNotification;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
 import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
@@ -105,7 +106,7 @@ public class WorkflowTaskManager {
 			.setWorkflowItem(item)
 			.setUser(user)
 			.save();
-		if (notify) {
+		if (notify && AGWorkflowTaskUserNotification.TABLE.getOrCreate(user).isNotify()) {
 			new WorkflowTaskNotificationSubmitter(task).submit();
 		}
 	}

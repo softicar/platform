@@ -106,6 +106,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Bitte das Eingabeelement aktualisieren oder F5 drücken, um den Bildschirm neu zu laden.");
 	I18n0 PRECONDITIONS = new I18n0("Preconditions")//
 		.de("Vorbedingungen");
+	I18n0 RECEIVE_EMAILS_ABOUT_NEW_TASKS = new I18n0("Receive emails about new tasks")//
+		.de("E-Mails über neue Aufgaben erhalten");
 	I18n0 REQUIRED_VOTES = new I18n0("Required Votes")//
 		.de("Benötigte Stimmen");
 	I18n0 REQUIRED_VOTES_NOT_VALID = new I18n0("Required votes not valid.")//
@@ -271,6 +273,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Aufgabe-Log");
 	I18n0 WORKFLOW_TASK_LOGS = new I18n0("Workflow Task Logs")//
 		.de("Arbeitsablauf-Aufgabe-Logs");
+	I18n0 WORKFLOW_TASK_USER_NOTIFICATION = new I18n0("Workflow Task User Notification")//
+		.de("Arbeitsablauf-Aufgabe-Benutzer-Benachrichtigung");
+	I18n0 WORKFLOW_TASK_USER_NOTIFICATIONS = new I18n0("Workflow Task User Notifications")//
+		.de("Arbeitsablauf-Aufgabe-Benutzer-Benachrichtigungen");
 	I18n0 WORKFLOW_TASKS = new I18n0("Workflow Tasks")//
 		.de("Arbeitsablauf-Aufgaben");
 	I18n0 WORKFLOW_TRANSITION = new I18n0("Workflow Transition")//

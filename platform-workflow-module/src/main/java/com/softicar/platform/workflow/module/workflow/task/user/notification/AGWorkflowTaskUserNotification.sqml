@@ -1,0 +1,9 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task.user.notification
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGWorkflowTaskUserNotification "Workflow.WorkflowTaskUserNotification" {
+	
+	PK AGUser user
+	Boolean notify = TRUE 
+}
