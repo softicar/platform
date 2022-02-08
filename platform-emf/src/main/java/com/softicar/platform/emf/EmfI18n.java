@@ -219,6 +219,8 @@ public interface EmfI18n {
 		.de("NICHT %s");
 	I18n0 NOT_PERSISTENT = new I18n0("Not Persistent")//
 		.de("Nicht persistent");
+	I18n0 NOTHING_TO_IMPORT = new I18n0("Nothing to import.")//
+		.de("Nichts zum importieren.");
 	I18n0 NUMBER_OF_DECIMAL_PLACES_EXCEEDED = new I18n0("Number of decimal places exceeded")//
 		.de("Anzahl an Nachkommastellen überschritten");
 	I18n0 NUMBER_OF_DIGITS_EXCEEDED = new I18n0("Number of digits exceeded")//

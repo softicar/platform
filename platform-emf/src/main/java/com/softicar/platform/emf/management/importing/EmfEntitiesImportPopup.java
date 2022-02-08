@@ -1,13 +1,16 @@
 package com.softicar.platform.emf.management.importing;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -36,7 +39,7 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 		var uploadForm = new EmfEntitiesUploadForm(EmfEntitiesImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
 
 		appendChild(uploadForm);
-		appendChild(new DomActionBar()).appendChild(uploadButton);
+		appendChild(new DomActionBar(uploadButton, new ImportButton()));
 		appendChild(previewTableDiv);
 	}
 
@@ -64,5 +67,26 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 		List<List<String>> tokenMatrix = new CsvTokenizer().tokenize(content);
 		List<R> rows = new EmfTokenMatrixParser<>(entityTable).parse(tokenMatrix);
 		previewDataTable.addRows(rows);
+	}
+
+	private class ImportButton extends DomButton {
+
+		public ImportButton() {
+
+			setIcon(EmfImages.ENTITY_IMPORT.getResource());
+			setLabel(EmfI18n.IMPORT);
+			setClickCallback(this::importRows);
+		}
+
+		private void importRows() {
+
+			if (previewDataTable.getTableRows().isEmpty()) {
+				throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
+			} else {
+				new EmfEntitiesInserter<>(entityTable).insertAll(previewDataTable.getTableRows());
+				getDomDocument().getRefreshBus().setAllChanged();
+				hide();
+			}
+		}
 	}
 }

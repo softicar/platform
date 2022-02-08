@@ -41,7 +41,7 @@ public class EmfEntitiesImportPreviewDataTable<R extends IEmfTableRow<R, P>, P, 
 	}
 
 	@Override
-	protected Iterable<R> getTableRows() {
+	protected Collection<R> getTableRows() {
 
 		return rows;
 	}
