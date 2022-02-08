@@ -1,14 +1,15 @@
 package com.softicar.platform.emf.management.importing;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.string.csv.CsvTokenizer;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
@@ -18,17 +19,25 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 
 	private final IEmfTable<R, P, S> entityTable;
 	private final S scopeEntity;
+	private final EmfEntitiesImportPreviewDataTable<R, P, S> previewDataTable;
+	private final IEmfDataTableDiv<R> previewTableDiv;
 
 	public EmfEntitiesImportPopup(IEmfTable<R, P, S> entityTable, S scopeEntity) {
 
 		this.entityTable = entityTable;
 		this.scopeEntity = scopeEntity;
+		this.previewDataTable = new EmfEntitiesImportPreviewDataTable<>(entityTable);
+		this.previewTableDiv = new EmfDataTableDivBuilder<>(previewDataTable).build();
 
 		setCaption();
 		setSubCaption();
 
-		appendChild(new EmfEntitiesUploadForm(this::importFiles));
-		appendChild(new EmfDataTableDivBuilder<>(new EmfEntitiesImportPreviewDataTable<>(entityTable)).build());
+		var uploadButton = new EmfEntitiesUploadButton();
+		var uploadForm = new EmfEntitiesUploadForm(EmfEntitiesImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
+
+		appendChild(uploadForm);
+		appendChild(new DomActionBar()).appendChild(uploadButton);
+		appendChild(previewTableDiv);
 	}
 
 	private void setCaption() {
@@ -43,16 +52,17 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 			.ifPresent(s -> setSubCaption(s.toDisplay()));
 	}
 
-	private void importFiles(Iterable<IDomFileUpload> fileUploads) {
+	private void parseFiles(Iterable<IDomFileUpload> fileUploads) {
 
-		fileUploads.forEach(this::importFile);
+		fileUploads.forEach(this::parseFile);
+		previewTableDiv.refresh();
 	}
 
-	private void importFile(IDomFileUpload fileUpload) {
+	private void parseFile(IDomFileUpload fileUpload) {
 
 		String content = fileUpload.getContentAsString(Charsets.UTF8);
 		List<List<String>> tokenMatrix = new CsvTokenizer().tokenize(content);
 		List<R> rows = new EmfTokenMatrixParser<>(entityTable).parse(tokenMatrix);
-		executeAlert(IDisplayString.format("Got %s rows!", rows.size()));
+		previewDataTable.addRows(rows);
 	}
 }

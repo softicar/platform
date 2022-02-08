@@ -22,6 +22,16 @@ public class EmfEntitiesImportPreviewDataTable<R extends IEmfTableRow<R, P>, P, 
 		}
 	}
 
+	public void clear() {
+
+		rows.clear();
+	}
+
+	public void addRows(Collection<R> rows) {
+
+		this.rows.addAll(rows);
+	}
+
 	private <V> void addFieldColumn(IDbField<R, V> field) {
 
 		newColumn(field.getValueType().getValueClass())//

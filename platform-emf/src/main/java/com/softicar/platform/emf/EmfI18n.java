@@ -394,6 +394,8 @@ public interface EmfI18n {
 		.de("Aktualisiert am");
 	I18n0 UPDATED_BY = new I18n0("Updated By")//
 		.de("Aktualisiert von");
+	I18n0 UPLOAD = new I18n0("Upload")//
+		.de("Hochladen");
 	I18n0 USED_ROLES = new I18n0("Used Roles")//
 		.de("Benutzte Rollen");
 	I18n0 UUID = new I18n0("UUID")//

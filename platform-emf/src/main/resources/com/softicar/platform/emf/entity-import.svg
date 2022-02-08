@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
     <defs>
-        <path id="gqur2l5nra" d="M0 0H24V24H0z"/>
+        <path id="zlkxgmh7ca" d="M0 0H24V24H0z"/>
     </defs>
     <g fill="none" fill-rule="evenodd">
         <g>
-            <mask id="2tqvdpwbnb" fill="#fff">
-                <use xlink:href="#gqur2l5nra"/>
+            <mask id="ki5rc1x3ub" fill="#fff">
+                <use xlink:href="#zlkxgmh7ca"/>
             </mask>
-            <path fill="#2E3A59" fill-rule="nonzero" d="M13 7.83l3.59 3.58L18 10l-6-6-6 6 1.41 1.41L11 7.83V20h2V7.83z" mask="url(#2tqvdpwbnb)"/>
+            <path fill="#2E3A59" d="M8 13l4-4 4 4h-2.55v3h-2.9v-3H8zm4-9c3.748 0 6.895 2.578 7.763 6.058C22.163 10.425 24 12.498 24 15c0 2.761-2.239 5-5 5H6c-3.314 0-6-2.686-6-6 0-2.982 2.175-5.456 5.025-5.921C6.397 5.644 9.006 4 12 4c2.499 0 2.499 0 0 0zm-6.652 6.053l.948-.155.472-.837C7.799 7.229 9.758 6 12 6c2.809 0 5.171 1.932 5.822 4.542l.322 1.291 1.316.202C20.898 12.255 22 13.5 22 15c0 1.657-1.343 3-3 3H6c-2.21 0-4-1.79-4-4 0-1.986 1.45-3.637 3.348-3.947z" mask="url(#ki5rc1x3ub)"/>
         </g>
     </g>
 </svg>

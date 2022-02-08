@@ -7,29 +7,27 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.dom.styles.CssDisplay;
-import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.EmfImages;
 import java.util.function.Consumer;
 
 class EmfEntitiesUploadForm extends DomForm implements IDomFileUploadHandler {
 
 	private final Consumer<Iterable<IDomFileUpload>> consumer;
+	private final FileInput fileInput;
 
 	public EmfEntitiesUploadForm(Consumer<Iterable<IDomFileUpload>> consumer) {
 
 		this.consumer = consumer;
-
-		FileInput fileInput = new FileInput();
-		DomButton uploadButton = new DomButton()//
-			.setIcon(EmfImages.ENTITY_IMPORT.getResource())
-			.setLabel(EmfI18n.IMPORT);
+		this.fileInput = new FileInput();
 
 		appendChild(fileInput);
-		appendChild(uploadButton);
+	}
 
-		getDomEngine().setClickTargetForEventDelegation(uploadButton, DomEventType.CLICK, fileInput);
-		getDomEngine().setClickTargetForEventDelegation(uploadButton, DomEventType.ENTER, fileInput);
-		getDomEngine().setClickTargetForEventDelegation(uploadButton, DomEventType.SPACE, fileInput);
+	public EmfEntitiesUploadForm setupEventDelegation(DomButton button) {
+
+		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.CLICK, fileInput);
+		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.ENTER, fileInput);
+		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.SPACE, fileInput);
+		return this;
 	}
 
 	@Override

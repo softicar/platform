@@ -36,5 +36,6 @@ public interface EmfImages {
 	IResourceSupplier TABLE_COLUMN_SORT_NONE = FACTORY.create("table-column-sort-none.svg");
 	IResourceSupplier TABLE_CONFIGURATION = FACTORY.create("table-configuration.svg");
 	IResourceSupplier TABLE_DETAILS = FACTORY.create("table-details.svg");
+	IResourceSupplier UPLOAD = FACTORY.create("upload.svg");
 	IResourceSupplier USER_ROLE_ASSIGNMENT = FACTORY.create("user-role-assignment.svg");
 }
