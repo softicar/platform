@@ -21,6 +21,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -231,7 +232,7 @@ public class DbConnection implements IDbConnection {
 
 		try (ResultSet resultSet = statementCache.getCurrentPreparedStatement().getGeneratedKeys()) {
 			List<Integer> ids = new ArrayList<>();
-			if (resultSet != null && isFirstColumnAutoIncrement(resultSet)) {
+			if (resultSet != null && hasNumericFirstColumn(resultSet)) {
 				// read all generated keys
 				while (resultSet.next()) {
 					ids.add(resultSet.getInt(1));
@@ -248,10 +249,19 @@ public class DbConnection implements IDbConnection {
 		}
 	}
 
-	private boolean isFirstColumnAutoIncrement(ResultSet resultSet) throws SQLException {
+	private boolean hasNumericFirstColumn(ResultSet resultSet) throws SQLException {
 
 		var metaData = resultSet.getMetaData();
-		return metaData.getColumnCount() > 0 && metaData.isAutoIncrement(1);
+		if (metaData.getColumnCount() > 0) {
+			switch (metaData.getColumnType(1)) {
+			case Types.BIGINT:
+			case Types.INTEGER:
+			case Types.SMALLINT:
+			case Types.TINYINT:
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private int getInsertId() {
