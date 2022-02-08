@@ -24,6 +24,7 @@ import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
+import com.softicar.platform.emf.management.importing.EmfEntitiesImportPopup;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -140,11 +141,6 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		return entityTable.getTableSpecialization().createNewTableRowPopup(scopeEntity);
 	}
 
-	private DomPopup createImportPopup() {
-
-		return new DomPopup();
-	}
-
 	// TODO This element will be appended even if there are no scope actions. This causes a vertical offset for all elements below.
 	private class ScopeActionBar extends DomActionBar {
 
@@ -192,7 +188,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setTitle(getCreationPredicateTitle()));
 			appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> createImportPopup())
+					.setPopupFactory(() -> new EmfEntitiesImportPopup<>(entityTable, scopeEntity))
 					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
 					.setLabel(EmfI18n.IMPORT)
 					.setMarker(EmfManagementMarker.IMPORT_BUTTON)
