@@ -20,16 +20,18 @@ import java.util.List;
 
 public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup {
 
-	private final IEmfTable<R, P, S> entityTable;
-	private final S scopeEntity;
+	private final IEmfTable<R, P, S> table;
+	private final S scope;
+	private final EmfImportEngine<R, P, S> engine;
 	private final EmfImportRowsPreviewTable<R, P, S> previewDataTable;
 	private final IEmfDataTableDiv<R> previewTableDiv;
 
-	public EmfImportPopup(IEmfTable<R, P, S> entityTable, S scopeEntity) {
+	public EmfImportPopup(IEmfTable<R, P, S> table, S scope) {
 
-		this.entityTable = entityTable;
-		this.scopeEntity = scopeEntity;
-		this.previewDataTable = new EmfImportRowsPreviewTable<>(entityTable);
+		this.table = table;
+		this.scope = scope;
+		this.engine = new EmfImportEngine<>(table).setScope(scope);
+		this.previewDataTable = new EmfImportRowsPreviewTable<>(engine);
 		this.previewTableDiv = new EmfDataTableDivBuilder<>(previewDataTable).build();
 
 		setCaption();
@@ -45,13 +47,13 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 	private void setCaption() {
 
-		setCaption(EmfI18n.IMPORT.concat(": ").concat(entityTable.getPluralTitle()));
+		setCaption(EmfI18n.IMPORT.concat(": ").concat(table.getPluralTitle()));
 	}
 
 	private void setSubCaption() {
 
 		CastUtils//
-			.tryCast(scopeEntity, IDisplayable.class)
+			.tryCast(scope, IDisplayable.class)
 			.ifPresent(s -> setSubCaption(s.toDisplay()));
 	}
 
@@ -65,7 +67,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		String content = fileUpload.getContentAsString(Charsets.UTF8);
 		List<List<String>> tokenMatrix = new CsvTokenizer().tokenize(content);
-		List<R> rows = new EmfTokenMatrixParser<>(entityTable).parse(tokenMatrix);
+		List<R> rows = new EmfTokenMatrixParser<>(table).parse(tokenMatrix);
 		previewDataTable.addRows(rows);
 	}
 
@@ -83,7 +85,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 			if (previewDataTable.getTableRows().isEmpty()) {
 				throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
 			} else {
-				new EmfImportRowsInserter<>(entityTable).insertAll(previewDataTable.getTableRows());
+				new EmfImportRowsInserter<>(table).insertAll(previewDataTable.getTableRows());
 				getDomDocument().getRefreshBus().setAllChanged();
 				hide();
 			}
