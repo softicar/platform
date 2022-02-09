@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.charset.Charsets;
-import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -15,8 +14,6 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
-import java.util.List;
 
 public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup {
 
@@ -65,10 +62,8 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 	private void parseFile(IDomFileUpload fileUpload) {
 
-		String content = fileUpload.getContentAsString(Charsets.UTF8);
-		List<List<String>> tokenMatrix = new CsvTokenizer().tokenize(content);
-		List<R> rows = new EmfTokenMatrixParser<>(table).parse(tokenMatrix);
-		previewDataTable.addRows(rows);
+		engine.addCsvRows(fileUpload.getContentAsString(Charsets.UTF8));
+		engine.parseRows();
 	}
 
 	private class ImportButton extends DomButton {

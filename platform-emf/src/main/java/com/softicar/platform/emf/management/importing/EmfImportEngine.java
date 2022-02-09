@@ -1,22 +1,51 @@
 package com.softicar.platform.emf.management.importing;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
+import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
+	private final List<List<String>> textualRows;
+	private final List<R> parsedRows;
 	private Optional<S> scope;
 
 	public EmfImportEngine(IEmfTable<R, P, S> table) {
 
 		this.table = table;
+		this.textualRows = new ArrayList<>();
+		this.parsedRows = new ArrayList<>();
 		this.scope = Optional.empty();
+	}
+
+	public void addCsvRows(String csv) {
+
+		textualRows.addAll(new CsvTokenizer().tokenize(csv));
+	}
+
+	public void parseRows() {
+
+		parsedRows.clear();
+		parsedRows.addAll(new EmfTokenMatrixParser<>(table).parse(textualRows));
+	}
+
+	public List<List<String>> getTextualRows() {
+
+		return textualRows;
+	}
+
+	public List<R> getParsedRows() {
+
+		return parsedRows;
 	}
 
 	public EmfImportEngine<R, P, S> setScope(S scope) {
