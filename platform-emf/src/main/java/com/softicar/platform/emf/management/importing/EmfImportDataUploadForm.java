@@ -9,12 +9,12 @@ import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.util.function.Consumer;
 
-class EmfEntitiesUploadForm extends DomForm implements IDomFileUploadHandler {
+class EmfImportDataUploadForm extends DomForm implements IDomFileUploadHandler {
 
 	private final Consumer<Iterable<IDomFileUpload>> consumer;
 	private final FileInput fileInput;
 
-	public EmfEntitiesUploadForm(Consumer<Iterable<IDomFileUpload>> consumer) {
+	public EmfImportDataUploadForm(Consumer<Iterable<IDomFileUpload>> consumer) {
 
 		this.consumer = consumer;
 		this.fileInput = new FileInput();
@@ -22,7 +22,7 @@ class EmfEntitiesUploadForm extends DomForm implements IDomFileUploadHandler {
 		appendChild(fileInput);
 	}
 
-	public EmfEntitiesUploadForm setupEventDelegation(DomButton button) {
+	public EmfImportDataUploadForm setupEventDelegation(DomButton button) {
 
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.CLICK, fileInput);
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.ENTER, fileInput);
@@ -43,7 +43,7 @@ class EmfEntitiesUploadForm extends DomForm implements IDomFileUploadHandler {
 			setStyle(CssDisplay.NONE);
 			setMultiple(true);
 
-			getDomEngine().submitFormOnChange(EmfEntitiesUploadForm.this, this);
+			getDomEngine().submitFormOnChange(EmfImportDataUploadForm.this, this);
 		}
 	}
 }

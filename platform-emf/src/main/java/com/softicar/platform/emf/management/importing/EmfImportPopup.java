@@ -18,25 +18,25 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
 import java.util.List;
 
-public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup {
+public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup {
 
 	private final IEmfTable<R, P, S> entityTable;
 	private final S scopeEntity;
-	private final EmfEntitiesImportPreviewDataTable<R, P, S> previewDataTable;
+	private final EmfImportRowsPreviewTable<R, P, S> previewDataTable;
 	private final IEmfDataTableDiv<R> previewTableDiv;
 
-	public EmfEntitiesImportPopup(IEmfTable<R, P, S> entityTable, S scopeEntity) {
+	public EmfImportPopup(IEmfTable<R, P, S> entityTable, S scopeEntity) {
 
 		this.entityTable = entityTable;
 		this.scopeEntity = scopeEntity;
-		this.previewDataTable = new EmfEntitiesImportPreviewDataTable<>(entityTable);
+		this.previewDataTable = new EmfImportRowsPreviewTable<>(entityTable);
 		this.previewTableDiv = new EmfDataTableDivBuilder<>(previewDataTable).build();
 
 		setCaption();
 		setSubCaption();
 
-		var uploadButton = new EmfEntitiesUploadButton();
-		var uploadForm = new EmfEntitiesUploadForm(EmfEntitiesImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
+		var uploadButton = new EmfImportDataUploadButton();
+		var uploadForm = new EmfImportDataUploadForm(EmfImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
 
 		appendChild(uploadForm);
 		appendChild(new DomActionBar(uploadButton, new ImportButton()));
@@ -83,7 +83,7 @@ public class EmfEntitiesImportPopup<R extends IEmfTableRow<R, P>, P, S> extends 
 			if (previewDataTable.getTableRows().isEmpty()) {
 				throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
 			} else {
-				new EmfEntitiesInserter<>(entityTable).insertAll(previewDataTable.getTableRows());
+				new EmfImportRowsInserter<>(entityTable).insertAll(previewDataTable.getTableRows());
 				getDomDocument().getRefreshBus().setAllChanged();
 				hide();
 			}

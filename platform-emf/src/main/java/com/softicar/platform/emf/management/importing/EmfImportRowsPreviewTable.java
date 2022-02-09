@@ -7,12 +7,12 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class EmfEntitiesImportPreviewDataTable<R extends IEmfTableRow<R, P>, P, S> extends AbstractInMemoryDataTable<R> {
+public class EmfImportRowsPreviewTable<R extends IEmfTableRow<R, P>, P, S> extends AbstractInMemoryDataTable<R> {
 
 	private final IEmfTable<R, P, S> entityTable;
 	private final Collection<R> rows;
 
-	public EmfEntitiesImportPreviewDataTable(IEmfTable<R, P, S> entityTable) {
+	public EmfImportRowsPreviewTable(IEmfTable<R, P, S> entityTable) {
 
 		this.entityTable = entityTable;
 		this.rows = new ArrayList<>();

@@ -24,7 +24,7 @@ import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
-import com.softicar.platform.emf.management.importing.EmfEntitiesImportPopup;
+import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -188,7 +188,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setTitle(getCreationPredicateTitle()));
 			appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfEntitiesImportPopup<>(entityTable, scopeEntity))
+					.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
 					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
 					.setLabel(EmfI18n.IMPORT)
 					.setMarker(EmfManagementMarker.IMPORT_BUTTON)

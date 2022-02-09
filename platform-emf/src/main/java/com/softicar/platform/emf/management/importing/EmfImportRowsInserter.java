@@ -7,11 +7,11 @@ import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
 
-class EmfEntitiesInserter<R extends IEmfTableRow<R, P>, P, S> {
+class EmfImportRowsInserter<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
 
-	public EmfEntitiesInserter(IEmfTable<R, P, S> table) {
+	public EmfImportRowsInserter(IEmfTable<R, P, S> table) {
 
 		this.table = table;
 	}
