@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.ajax.exception.cleanup;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.ajax.exception.AGAjaxException;
@@ -24,7 +25,7 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 		int remove = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).count();
 		int keep = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.greaterEqual(minDayTime)).count();
 
-		System.out.printf("will remove %d entries and keep %d entries\n", remove, keep);
+		Log.finfo("Will remove %d entries and keep %d entries\n", remove, keep);
 
 		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).execute();
 	}

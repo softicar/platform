@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.emf.action.IEmfSecondaryAction;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.predicate.EmfPredicate;
@@ -43,5 +44,6 @@ public class ProgramAbortAction implements IEmfSecondaryAction<AGProgram> {
 	public void handleClick(AGProgram program) {
 
 		new ProgramAbortRequester(program).requestAbort();
+		CurrentDomDocument.get().getRefreshBus().setChanged(program);
 	}
 }
