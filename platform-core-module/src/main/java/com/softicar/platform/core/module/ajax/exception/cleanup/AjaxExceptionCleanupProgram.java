@@ -25,7 +25,7 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 		int remove = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).count();
 		int keep = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.greaterEqual(minDayTime)).count();
 
-		Log.finfo("will remove %d entries and keep %d entries\n", remove, keep);
+		Log.finfo("Will remove %d entries and keep %d entries\n", remove, keep);
 
 		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).execute();
 	}
