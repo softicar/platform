@@ -10,6 +10,7 @@ import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.ProgramPredicates;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.emf.action.IEmfSecondaryAction;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
@@ -52,6 +53,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 					.save();
 			}
 			transaction.commit();
+			CurrentDomDocument.get().getRefreshBus().setChanged(program);
 		}
 	}
 }
