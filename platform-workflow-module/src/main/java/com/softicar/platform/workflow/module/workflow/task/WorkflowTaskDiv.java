@@ -20,10 +20,9 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.item.message.WorkflowItemMessagePopup;
-import com.softicar.platform.workflow.module.workflow.substitute.AGWorkflowSubstitute;
 import com.softicar.platform.workflow.module.workflow.task.IWorkflowTaskQuery.IRow;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
-import com.softicar.platform.workflow.module.workflow.task.user.notification.AGWorkflowTaskUserNotification;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 
 public class WorkflowTaskDiv extends DomDiv {
 
@@ -32,33 +31,19 @@ public class WorkflowTaskDiv extends DomDiv {
 		AGUser currentUser = CurrentUser.get();
 
 		appendChild(new DomActionBar())
-			.appendChildren(
+			.appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowSubstitute.TABLE.getOrCreate(currentUser)))
+					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserConfiguration.TABLE.getOrCreate(currentUser)))
 					.setIcon(WorkflowImages.USERS.getResource())
-					.setLabel(WorkflowI18n.CONFIGURE_WORKFLOW_SUBSTITUTE),
-				createUserNotificationCheckbox());
+					.setLabel(WorkflowI18n.CONFIGURE_SETTINGS));
 
 		appendNewChild(DomElementTag.HR);
 		appendChild(new WorkflowTaskForUserDiv(currentUser));
-		for (AGWorkflowSubstitute substitute: AGWorkflowSubstitute.loadAllActiveForUser(currentUser)) {
+		for (AGUser user: AGWorkflowUserConfiguration.loadAllActiveUsersWithSubstitute(currentUser)) {
 			appendNewChild(DomElementTag.HR);
-			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(substitute.getUser().toDisplay()));
-			appendChild(new WorkflowTaskForUserDiv(substitute.getUser()));
+			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(user.toDisplayWithoutId()));
+			appendChild(new WorkflowTaskForUserDiv(user));
 		}
-	}
-
-	private DomCheckbox createUserNotificationCheckbox() {
-
-		AGWorkflowTaskUserNotification userNotification = AGWorkflowTaskUserNotification.TABLE.getOrCreate(CurrentUser.get());
-		if (userNotification.impermanent()) {
-			userNotification.save();
-		}
-
-		return new DomCheckbox()//
-			.setLabel(WorkflowI18n.RECEIVE_EMAILS_ABOUT_NEW_TASKS)
-			.setChecked(userNotification.isNotify())
-			.setChangeCallback(it -> userNotification.setNotify(it).save());
 	}
 
 	private class WorkflowTaskForUserDiv extends DomDiv implements IDomRefreshBusListener {
@@ -99,6 +84,7 @@ public class WorkflowTaskDiv extends DomDiv {
 				.appendChild(
 					new EmfDataTableDivBuilder<>(query)//
 						.setActionColumnHandler(new ActionColumnHandler())
+						.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
 						.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
 						.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
 						.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
@@ -132,13 +118,22 @@ public class WorkflowTaskDiv extends DomDiv {
 		}
 	}
 
+	private class TaskColumnHandler extends EmfDataTableValueBasedColumnHandler<AGWorkflowTask> {
+
+		@Override
+		public void buildCell(IEmfDataTableCell<?, AGWorkflowTask> cell, AGWorkflowTask task) {
+
+			cell.appendText(task.toDisplayWithoutId());
+		}
+	}
+
 	private class DelegationColumnHandler extends EmfDataTableValueBasedColumnHandler<AGUser> {
 
 		@Override
 		public void buildCell(IEmfDataTableCell<?, AGUser> cell, AGUser user) {
 
 			if (user != null) {
-				cell.appendText(WorkflowI18n.DELEGATED_BY_ARG1.toDisplay(user.toDisplay()));
+				cell.appendText(WorkflowI18n.DELEGATED_BY_ARG1.toDisplay(user.toDisplayWithoutId()));
 			}
 		}
 	}

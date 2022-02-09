@@ -7,6 +7,8 @@ import com.softicar.platform.core.module.CoreI18n;
 
 public interface WorkflowI18n extends CoreI18n {
 
+	I18n0 SUBSTITUTE_SET = new I18n0("Substitute set")//
+		.de("Vertretungs gesetzt");
 	I18n0 A_NEW_WORKFLOW_TASK_REQUIRES_YOUR_ATTENTION = new I18n0("A new workflow task requires your attention.")//
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
@@ -37,8 +39,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine Rollen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
-	I18n0 CONFIGURE_WORKFLOW_SUBSTITUTE = new I18n0("Configure Workflow Substitute")//
-		.de("Arbeitsablauf-Vertretung konfigurieren");
+	I18n0 CONFIGURE_SETTINGS = new I18n0("Configure settings")//
+		.de("Einstellungen konfigurieren");
 	I18n0 COPY_WORKFLOW_VERSION = new I18n0("Copy Workflow Version")//
 		.de("Arbeitsablauf-Version kopieren");
 	I18n0 CREATED_AT = new I18n0("Created At")//
@@ -251,14 +253,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Workflow gestartet.");
 	I18n0 WORKFLOW_STATUS = new I18n0("Workflow Status")//
 		.de("Workflow-Status");
-	I18n0 WORKFLOW_SUBSTITUTE = new I18n0("Workflow Substitute")//
-		.de("Arbeitsablauf-Vertretung");
-	I18n0 WORKFLOW_SUBSTITUTE_LOG = new I18n0("Workflow Substitute Log")//
-		.de("Arbeitsablauf-Vertretung-Log");
-	I18n0 WORKFLOW_SUBSTITUTE_LOGS = new I18n0("Workflow Substitute Logs")//
-		.de("Arbeitsablauf-Vertretung-Logs");
-	I18n0 WORKFLOW_SUBSTITUTES = new I18n0("Workflow Substitutes")//
-		.de("Arbeitsablauf-Vertretungen");
 	I18n0 WORKFLOW_TASK = new I18n0("Workflow Task")//
 		.de("Arbeitsablauf-Aufgabe");
 	I18n0 WORKFLOW_TASK_DELEGATION = new I18n0("Workflow Task Delegation")//
@@ -273,10 +267,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Aufgabe-Log");
 	I18n0 WORKFLOW_TASK_LOGS = new I18n0("Workflow Task Logs")//
 		.de("Arbeitsablauf-Aufgabe-Logs");
-	I18n0 WORKFLOW_TASK_USER_NOTIFICATION = new I18n0("Workflow Task User Notification")//
-		.de("Arbeitsablauf-Aufgabe-Benutzer-Benachrichtigung");
-	I18n0 WORKFLOW_TASK_USER_NOTIFICATIONS = new I18n0("Workflow Task User Notifications")//
-		.de("Arbeitsablauf-Aufgabe-Benutzer-Benachrichtigungen");
 	I18n0 WORKFLOW_TASKS = new I18n0("Workflow Tasks")//
 		.de("Arbeitsablauf-Aufgaben");
 	I18n0 WORKFLOW_TRANSITION = new I18n0("Workflow Transition")//
@@ -301,6 +291,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Übergangs-Rollen");
 	I18n0 WORKFLOW_TRANSITIONS = new I18n0("Workflow Transitions")//
 		.de("Arbeitsablauf-Übergänge");
+	I18n0 WORKFLOW_USER_CONFIGURATION = new I18n0("Workflow User Configuration")//
+		.de("Arbeitsablauf-User-Konfiguration");
+	I18n0 WORKFLOW_USER_CONFIGURATIONS = new I18n0("Workflow User Configurations")//
+		.de("Arbeitsablauf-User-Konfigurationen");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOG = new I18n0("Workflow User Configuration Log")//
+		.de("Arbeitsablauf-User-Konfiguration-Log");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOGS = new I18n0("Workflow User Configuration Logs")//
+		.de("Arbeitsablauf-User-Konfiguration-Logs");
 	I18n0 WORKFLOW_USERS = new I18n0("Workflow Users")//
 		.de("Arbeitsablauf-Benutzer");
 	I18n0 WORKFLOW_VERSION = new I18n0("Workflow Version")//

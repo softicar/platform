@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
-import com.softicar.platform.workflow.module.workflow.substitute.AGWorkflowSubstitute;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -22,8 +22,8 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 		return IDisplayString
 			.create(
 				getWorkflowItem().getWorkflow().getTableReferencePointOrThrow().getTable().getFullName().getSimpleName() // 
-						+ " " //
-						+ getWorkflowItem().getEntityOrThrow().toDisplay().toString() + // 
+						+ " - " //
+						+ getWorkflowItem().getEntityOrThrow().toDisplayWithoutId().toString() + // 
 						" :: " // 
 						+ getWorkflowItem().getWorkflowNode().getName());
 	}
@@ -44,8 +44,8 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 		HashSet<AGWorkflowTask> tasksToClose = new HashSet<>();
 
 		tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
-		AGWorkflowSubstitute.loadAllActiveForUser(user).forEach(it -> {
-			tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(it.getUser(), workflowItem));
+		AGWorkflowUserConfiguration.loadAllActiveUsersWithSubstitute(user).forEach(it -> {
+			tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
 		});
 
 		return tasksToClose;
