@@ -8,12 +8,12 @@ import java.util.List;
 
 public class AGWorkflowUserConfiguration extends AGWorkflowUserConfigurationGenerated implements IEmfTrait<AGWorkflowUserConfiguration, AGUser> {
 
-	public static List<AGUser> loadAllActiveUsersWithSubstitute(AGUser user) {
+	public static List<AGUser> loadAllUsersWithSubstitute(AGUser substitute) {
 
-		return loadAllActiveUsersWithSubstituteAndDay(user, Day.today());
+		return loadAllUsersWithSubstituteAndDay(substitute, Day.today());
 	}
 
-	public static List<AGUser> loadAllActiveUsersWithSubstituteAndDay(AGUser substitute, Day day) {
+	public static List<AGUser> loadAllUsersWithSubstituteAndDay(AGUser substitute, Day day) {
 
 		return Sql
 			.from(AGWorkflowUserConfiguration.TABLE)

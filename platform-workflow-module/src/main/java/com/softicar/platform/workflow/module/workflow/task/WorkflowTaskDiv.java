@@ -39,7 +39,7 @@ public class WorkflowTaskDiv extends DomDiv {
 
 		appendNewChild(DomElementTag.HR);
 		appendChild(new WorkflowTaskForUserDiv(currentUser));
-		for (AGUser user: AGWorkflowUserConfiguration.loadAllActiveUsersWithSubstitute(currentUser)) {
+		for (AGUser user: AGWorkflowUserConfiguration.loadAllUsersWithSubstitute(currentUser)) {
 			appendNewChild(DomElementTag.HR);
 			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(user.toDisplayWithoutId()));
 			appendChild(new WorkflowTaskForUserDiv(user));

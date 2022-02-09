@@ -44,7 +44,7 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 		HashSet<AGWorkflowTask> tasksToClose = new HashSet<>();
 
 		tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
-		AGWorkflowUserConfiguration.loadAllActiveUsersWithSubstitute(user).forEach(it -> {
+		AGWorkflowUserConfiguration.loadAllUsersWithSubstitute(user).forEach(it -> {
 			tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
 		});
 
