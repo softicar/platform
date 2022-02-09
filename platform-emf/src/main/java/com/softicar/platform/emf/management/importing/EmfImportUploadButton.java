@@ -4,9 +4,9 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 
-public class EmfImportDataUploadButton extends DomButton {
+public class EmfImportUploadButton extends DomButton {
 
-	public EmfImportDataUploadButton() {
+	public EmfImportUploadButton() {
 
 		setIcon(EmfImages.UPLOAD.getResource());
 		setLabel(EmfI18n.UPLOAD);

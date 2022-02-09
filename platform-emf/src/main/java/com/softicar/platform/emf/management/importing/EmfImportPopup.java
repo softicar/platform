@@ -20,7 +20,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 	private final IEmfTable<R, P, S> table;
 	private final S scope;
 	private final EmfImportEngine<R, P, S> engine;
-	private final EmfImportRowsPreviewTable<R, P, S> previewDataTable;
+	private final EmfImportParsedRowsTable<R, P, S> previewDataTable;
 	private final IEmfDataTableDiv<R> previewTableDiv;
 
 	public EmfImportPopup(IEmfTable<R, P, S> table, S scope) {
@@ -28,14 +28,14 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 		this.table = table;
 		this.scope = scope;
 		this.engine = new EmfImportEngine<>(table).setScope(scope);
-		this.previewDataTable = new EmfImportRowsPreviewTable<>(engine);
+		this.previewDataTable = new EmfImportParsedRowsTable<>(engine);
 		this.previewTableDiv = new EmfDataTableDivBuilder<>(previewDataTable).build();
 
 		setCaption();
 		setSubCaption();
 
-		var uploadButton = new EmfImportDataUploadButton();
-		var uploadForm = new EmfImportDataUploadForm(EmfImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
+		var uploadButton = new EmfImportUploadButton();
+		var uploadForm = new EmfImportUploadForm(EmfImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
 
 		appendChild(uploadForm);
 		appendChild(new DomActionBar(uploadButton, new ImportButton()));

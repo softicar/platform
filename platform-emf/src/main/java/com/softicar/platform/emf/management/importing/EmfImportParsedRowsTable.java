@@ -4,34 +4,31 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
-import java.util.List;
 
-public class EmfImportDataPreviewTable<R extends IEmfTableRow<R, P>, P, S> extends AbstractInMemoryDataTable<List<String>> {
+public class EmfImportParsedRowsTable<R extends IEmfTableRow<R, P>, P, S> extends AbstractInMemoryDataTable<R> {
 
 	private final EmfImportEngine<R, P, S> engine;
 
-	public EmfImportDataPreviewTable(EmfImportEngine<R, P, S> engine) {
+	public EmfImportParsedRowsTable(EmfImportEngine<R, P, S> engine) {
 
 		this.engine = engine;
 
-		var index = 0;
 		for (IDbField<R, ?> field: engine.getFieldsToImport()) {
-			addColumn(field, index);
-			index++;
+			addFieldColumn(field);
 		}
 	}
 
-	private void addColumn(IDbField<R, ?> field, int index) {
+	private <V> void addFieldColumn(IDbField<R, V> field) {
 
-		newColumn(String.class)//
-			.setGetter(row -> row.get(index))
+		newColumn(field.getValueType().getValueClass())//
+			.setGetter(field::getValue)
 			.setTitle(engine.getFieldTitle(field))
 			.addColumn();
 	}
 
 	@Override
-	protected Collection<List<String>> getTableRows() {
+	protected Collection<R> getTableRows() {
 
-		return engine.getTextualRows();
+		return engine.getParsedRows();
 	}
 }
