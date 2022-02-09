@@ -39,12 +39,29 @@ public class Asserts extends Assert {
 	 *
 	 * @param expectedThrowableClass
 	 *            the expected exception class, a super-class or interface
-	 *            thereof
+	 *            thereof (never <i>null</i>)
 	 * @param thrower
 	 *            the function which is expected to throw an exception of the
-	 *            given type
+	 *            given type (never <i>null</i>)
 	 */
-	public static void assertThrows(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+
+		assertException(expectedThrowableClass, thrower, null);
+	}
+
+	/**
+	 * Asserts that an exception is thrown by the given function.
+	 *
+	 * @param expectedThrowableClass
+	 *            the expected exception class, a super-class or interface
+	 *            thereof (never <i>null</i>)
+	 * @param thrower
+	 *            the function which is expected to throw an exception of the
+	 *            given type (never <i>null</i>)
+	 * @param expectedMessage
+	 *            the expected exception message (may be <i>null</i>)
+	 */
+	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower, String expectedMessage) {
 
 		Objects.requireNonNull(expectedThrowableClass);
 		Objects.requireNonNull(thrower);
@@ -64,26 +81,52 @@ public class Asserts extends Assert {
 					thrownClass.getCanonicalName(),
 					StackTraceFormatting.getStackTraceAsString(thrown)),
 			expectedThrowableClass.isAssignableFrom(thrownClass));
+		if (expectedMessage != null) {
+			assertEquals("Unexpected message.", expectedMessage, thrown.getMessage());
+		}
 	}
 
-	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+	/**
+	 * @deprecated use {@link #assertException(Class, INullaryVoidFunction)}
+	 *             instead
+	 */
+	@Deprecated
+	public static void assertThrows(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+
+		assertException(expectedThrowableClass, thrower);
+	}
+
+	public static void assertException(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
 
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
 		} catch (NullPointerException exception) {
+			// The message of an NPE is always null, so it's not reasonable to call this method in the first place when an NPE is expected.
 			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());
 		}
 	}
 
-	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+	/**
+	 * @deprecated use
+	 *             {@link #assertException(INullaryVoidFunction, IDisplayString)}
+	 *             instead
+	 */
+	@Deprecated
+	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+
+		assertException(thrower, expectedMessage);
+	}
+
+	public static void assertExceptionMessageContains(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
 
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
 		} catch (NullPointerException exception) {
+			// The message of an NPE is always null, so it's not reasonable to call this method in the first place when an NPE is expected.
 			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
 			assertTrue(//
@@ -91,6 +134,17 @@ public class Asserts extends Assert {
 					.formatted(expectedMessage.toString(), exception.getMessage()),
 				exception.getMessage().contains(expectedMessage.toString()));
 		}
+	}
+
+	/**
+	 * @deprecated use
+	 *             {@link #assertExceptionMessageContains(INullaryVoidFunction, IDisplayString)}
+	 *             instead
+	 */
+	@Deprecated
+	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
+
+		assertExceptionMessageContains(thrower, expectedMessage);
 	}
 
 	// --------------------------- assertCount --------------------------- //

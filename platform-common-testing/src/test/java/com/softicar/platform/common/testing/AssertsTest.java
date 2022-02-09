@@ -9,7 +9,7 @@ public class AssertsTest {
 	@Test
 	public void testAssertThrows() {
 
-		Asserts.assertThrows(NumberFormatException.class, () -> Integer.parseInt("foo"));
+		Asserts.assertException(NumberFormatException.class, () -> Integer.parseInt("foo"));
 	}
 
 	@Test

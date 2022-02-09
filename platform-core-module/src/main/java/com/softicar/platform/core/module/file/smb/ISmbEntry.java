@@ -1,11 +1,10 @@
 package com.softicar.platform.core.module.file.smb;
 
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.date.DayTime;
 import java.util.Optional;
 
 /**
- * Represents a file or directory on an SMB share.
+ * Represents an entry (that is, a file or a directory) on an SMB share.
  *
  * @author Alexander Schmidt
  */
@@ -14,8 +13,10 @@ public interface ISmbEntry {
 	/**
 	 * Returns the name of this entry, inside its parent directory.
 	 * <p>
-	 * If this entry a directory, the returned {@link String} will have a
-	 * tailing slash.
+	 * The returned {@link String} will never have a tailing slash.
+	 * <p>
+	 * If this entry refers to the root of the share, the name of the share is
+	 * returned.
 	 *
 	 * @return the name of this entry (never <i>null</i>)
 	 */
@@ -23,6 +24,15 @@ public interface ISmbEntry {
 
 	/**
 	 * Returns the full, canonical URL of this entry.
+	 * <p>
+	 * If this entry refers to an existing directory, the returned
+	 * {@link String} will have a tailing slash.
+	 * <p>
+	 * If this entry refers to an existing file, the returned {@link String}
+	 * will not have a tailing slash.
+	 * <p>
+	 * If this entry does not exist, the returned {@link String} may or may not
+	 * have a tailing slash.
 	 *
 	 * @return the URL of this entry (never <i>null</i>)
 	 */
@@ -30,6 +40,8 @@ public interface ISmbEntry {
 
 	/**
 	 * Determines whether this entry exists on the share.
+	 * <p>
+	 * If this entry refers to the root of the share, <i>true</i> is returned.
 	 *
 	 * @return <i>true</i> if this entry exists on the share; <i>false</i>
 	 *         otherwise
@@ -39,27 +51,37 @@ public interface ISmbEntry {
 	/**
 	 * Deletes this entry from the share.
 	 *
-	 * @throws SofticarIOException
-	 *             if this entry does not exist
+	 * @throws SmbIOException
+	 *             if this entry does not exist, or if invoked on the root of
+	 *             the share
 	 */
 	void delete();
 
 	/**
 	 * Deletes this entry from the share.
 	 * <p>
-	 * Does nothing if this entry does not exist
+	 * Does nothing if this entry does not exist.
+	 *
+	 * @return <i>true</i> if this entry was actually deleted; <i>false</i>
+	 *         otherwise
+	 * @throws SmbIOException
+	 *             if invoked on the root of the share
 	 */
-	default void deleteIfExists() {
+	default boolean deleteIfExists() {
 
 		if (exists()) {
 			delete();
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 	/**
 	 * Returns the modification time stamp of this entry.
 	 * <p>
-	 * If this entry does not exist, {@link DayTime#get1970()} is returned.
+	 * Returns {@link DayTime#get1970()} if this entry does not exist, or if
+	 * this entry refers to the root of the share.
 	 *
 	 * @return the modification time stamp (never <i>null</i>)
 	 */
@@ -68,10 +90,10 @@ public interface ISmbEntry {
 	/**
 	 * Returns the parent directory in which this entry resides.
 	 * <p>
-	 * If invoked on the root directory of a share, a directory that represents
-	 * the share name will be returned.
+	 * If invoked on the root directory of a share, a directory that refers to
+	 * the share itself will be returned.
 	 * <p>
-	 * If invoked on the share itself, a directory that represents the host name
+	 * If invoked on the share itself, a directory that refers to the host name
 	 * will be returned.
 	 * <p>
 	 * The returned {@link ISmbDirectory} may or may not exist.
@@ -83,6 +105,8 @@ public interface ISmbEntry {
 	/**
 	 * This method returns the free disk space in bytes of the drive this share
 	 * represents or the drive on which the directory or file resides.
+	 * <p>
+	 * Returns 0 if this entry does not exist.
 	 *
 	 * @return the free disk space in bytes of the drive on which this file or
 	 *         directory resides

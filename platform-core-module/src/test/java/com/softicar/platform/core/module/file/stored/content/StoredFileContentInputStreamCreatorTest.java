@@ -106,7 +106,7 @@ public class StoredFileContentInputStreamCreatorTest extends AbstractDbTest impl
 
 		// assert that file not found is thrown
 		Asserts
-			.assertThrows(//
+			.assertException(//
 				StoredFileContentNotFoundException.class,
 				() -> new StoredFileContentInputStreamCreator(storedFile)//
 					.addContentStore(createBrokenStore())

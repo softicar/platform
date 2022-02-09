@@ -60,7 +60,7 @@ public class DomTimeInputTest extends AbstractTest implements IDomTestEngineMeth
 	private void assertExceptionForRetrieveValue(I18n1 expectedMessage, String inputValue) {
 
 		enterValues(inputValue);
-		assertExceptionMessage(expectedMessage.toDisplay(inputValue), () -> input.retrieveValue());
+		assertException(() -> input.retrieveValue(), expectedMessage.toDisplay(inputValue));
 	}
 
 	private void enterValues(String valueList) {

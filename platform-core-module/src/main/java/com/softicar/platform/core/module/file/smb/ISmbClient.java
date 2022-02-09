@@ -26,6 +26,11 @@ public interface ISmbClient {
 	 * @param credentials
 	 *            the credentials to log in to the SMB share (never <i>null</i>)
 	 * @return the {@link ISmbEntry} handle (never <i>null</i>)
+	 * @throws IllegalArgumentException
+	 *             if the given URL does not start with {@code smb://}
+	 * @throws IllegalArgumentException
+	 *             if the given URL contains adjacent slashes after the protocol
+	 *             part
 	 */
 	ISmbEntry getEntry(String url, SmbCredentials credentials);
 
@@ -33,9 +38,9 @@ public interface ISmbClient {
 	 * Creates a new {@link ISmbFile} handle from the given URL and
 	 * {@link SmbCredentials}.
 	 * <p>
-	 * If the given URL refers to a directory, {@link SmbNoFileException} is
-	 * thrown. For a URL that refers to a directory,
-	 * {@link #getDirectory(String, SmbCredentials)} or
+	 * If the given URL refers to an existing directory,
+	 * {@link SmbNoFileException} is thrown. For a URL that refers to a
+	 * directory, {@link #getDirectory(String, SmbCredentials)} or
 	 * {@link #getEntry(String, SmbCredentials)} can be used.
 	 * <p>
 	 * This method does <b>not</b> physically create a file on the respective
@@ -50,7 +55,12 @@ public interface ISmbClient {
 	 *            the credentials to log in to the SMB share (never <i>null</i>)
 	 * @return the {@link ISmbFile} handle (never <i>null</i>)
 	 * @throws SmbNoFileException
-	 *             if the given URL refers to a directory
+	 *             if the given URL refers to an existing directory
+	 * @throws IllegalArgumentException
+	 *             if the given URL does not start with {@code smb://}
+	 * @throws IllegalArgumentException
+	 *             if the given URL contains adjacent slashes after the protocol
+	 *             part
 	 */
 	ISmbFile getFile(String url, SmbCredentials credentials);
 
@@ -58,15 +68,16 @@ public interface ISmbClient {
 	 * Creates a new {@link ISmbDirectory} handle from the given URL and
 	 * {@link SmbCredentials}.
 	 * <p>
-	 * If the given URL refers to a file, {@link SmbNoDirectoryException} is
-	 * thrown. For a URL that refers to a file,
-	 * {@link #getFile(String, SmbCredentials)} or
+	 * If the given URL refers to an existing file,
+	 * {@link SmbNoDirectoryException} is thrown. For a URL that refers to a
+	 * file, {@link #getFile(String, SmbCredentials)} or
 	 * {@link #getEntry(String, SmbCredentials)} can be used.
 	 * <p>
 	 * This method does <b>not</b> physically create a directory on the
 	 * respective SMB share.
 	 * <p>
-	 * To physically create the directory, use {@link ISmbDirectory#makeDirectories()}.
+	 * To physically create the directory, use
+	 * {@link ISmbDirectory#makeDirectories()}.
 	 *
 	 * @param url
 	 *            the URL to the directory on the SMB share (never <i>null</i>)
@@ -74,7 +85,12 @@ public interface ISmbClient {
 	 *            the credentials to log in to the SMB share (never <i>null</i>)
 	 * @return the {@link ISmbDirectory} handle (never <i>null</i>)
 	 * @throws SmbNoDirectoryException
-	 *             if the given URL refers to a file
+	 *             if the given URL refers to an existing file
+	 * @throws IllegalArgumentException
+	 *             if the given URL does not start with {@code smb://}
+	 * @throws IllegalArgumentException
+	 *             if the given URL contains adjacent slashes after the protocol
+	 *             part
 	 */
 	ISmbDirectory getDirectory(String url, SmbCredentials credentials);
 }

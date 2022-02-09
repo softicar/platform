@@ -1,8 +1,9 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
+import com.softicar.platform.core.module.file.smb.SmbIOException;
 import com.softicar.platform.core.module.file.smb.SmbNoFileException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,16 +18,22 @@ import jcifs.smb.SmbFileOutputStream;
 
 class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 
-	public JcifsNgSmbFile(SmbResource parent, String name) {
-
-		super(parent, name);
-		assertFile();
-	}
-
 	public JcifsNgSmbFile(String url, CIFSContext context) {
 
 		super(url, context);
-		assertFile();
+		assertFileIfExists();
+	}
+
+	JcifsNgSmbFile(SmbResource parent, String name) {
+
+		super(parent, name);
+		assertFileIfExists();
+	}
+
+	@Override
+	public String getUrl() {
+
+		return Trim.trimRight(super.getUrl(), '/');
 	}
 
 	@Override
@@ -35,7 +42,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		try {
 			return entry.length();
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -58,7 +65,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 			entry.copyTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -69,20 +76,14 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 			entry.copyTo(target);
 			return wrapFile(target);
 		} catch (SmbException | MalformedURLException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
 	@Override
-	public ISmbFile renameTo(String name) {
+	public ISmbFile renameTo(String fileName) {
 
-		return moveAndRenameTo(getParentDirectory(), name);
-	}
-
-	@Override
-	public ISmbFile moveAndRenameTo(ISmbDirectory parent, String name) {
-
-		return moveAndRenameTo(concatUrl(parent.getUrl(), name));
+		return moveAndRenameTo(getParentDirectory(), fileName);
 	}
 
 	@Override
@@ -91,7 +92,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		try (var outputStream = createOutputStream()) {
 			return this;
 		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -101,7 +102,7 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		try {
 			return new SmbFileInputStream(entry);
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -111,21 +112,32 @@ class JcifsNgSmbFile extends JcifsNgSmbEntry implements ISmbFile {
 		try {
 			return new SmbFileOutputStream(entry);
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
+	}
+
+	private ISmbFile moveAndRenameTo(ISmbDirectory parent, String fileName) {
+
+		return moveAndRenameTo(concatUrl(parent.getUrl(), fileName));
 	}
 
 	private ISmbFile moveAndRenameTo(String url) {
 
+		assertValidSmbUrl(url);
 		try (SmbFile target = new SmbFile(url, context)) {
-			entry.renameTo(target);
-			return wrapFile(target);
+			if (!target.exists()) {
+				entry.copyTo(target);
+				entry.delete();
+				return wrapFile(target);
+			} else {
+				throw new SmbException("The target already exists.");
+			}
 		} catch (SmbException | MalformedURLException exception) {
-			throw new RuntimeException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
-	private void assertFile() {
+	private void assertFileIfExists() {
 
 		if (exists() && !isFile()) {
 			throw new SmbNoFileException();

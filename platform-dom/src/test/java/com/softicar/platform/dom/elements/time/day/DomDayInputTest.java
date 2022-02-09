@@ -49,7 +49,7 @@ public class DomDayInputTest extends AbstractTest implements IDomTestEngineMetho
 	private void assertExceptionForRetrieveValue(String inputValue) {
 
 		enterValue(inputValue);
-		assertExceptionMessage(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue), () -> input.retrieveValue());
+		assertException(() -> input.retrieveValue(), CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(inputValue));
 	}
 
 	private void assertValueForRetrieveValue(String expectedValue, String inputValue) {
