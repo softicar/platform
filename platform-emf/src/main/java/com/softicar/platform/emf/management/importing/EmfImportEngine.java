@@ -1,8 +1,10 @@
 package com.softicar.platform.emf.management.importing;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
@@ -36,6 +38,15 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		parsedRows.clear();
 		parsedRows.addAll(new EmfTokenMatrixParser<>(table).parse(textualRows));
+	}
+
+	public void insertRows() {
+
+		if (parsedRows.isEmpty()) {
+			throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
+		} else {
+			new EmfImportRowsInserter<>(table).insertAll(parsedRows);
+		}
 	}
 
 	public List<List<String>> getTextualRows() {

@@ -402,6 +402,8 @@ public interface EmfI18n {
 		.de("Benutzte Rollen");
 	I18n0 UUID = new I18n0("UUID")//
 		.de("UUID");
+	I18n0 VALIDATE = new I18n0("Validate")//
+		.de("Validieren");
 	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//
 		.de("Validierung fehlgeschlagen");
 	I18n1 VALUE_ARG1_IS_OUT_OF_RANGE = new I18n1("Value '%s' is out of range")//

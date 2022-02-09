@@ -1,17 +1,9 @@
 package com.softicar.platform.emf.management.importing;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.string.charset.Charsets;
-import com.softicar.platform.dom.elements.bar.DomActionBar;
-import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
-import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -20,26 +12,34 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 	private final IEmfTable<R, P, S> table;
 	private final S scope;
 	private final EmfImportEngine<R, P, S> engine;
-	private final EmfImportParsedRowsTable<R, P, S> previewDataTable;
-	private final IEmfDataTableDiv<R> previewTableDiv;
 
 	public EmfImportPopup(IEmfTable<R, P, S> table, S scope) {
 
 		this.table = table;
 		this.scope = scope;
 		this.engine = new EmfImportEngine<>(table).setScope(scope);
-		this.previewDataTable = new EmfImportParsedRowsTable<>(engine);
-		this.previewTableDiv = new EmfDataTableDivBuilder<>(previewDataTable).build();
 
 		setCaption();
 		setSubCaption();
 
-		var uploadButton = new EmfImportUploadButton();
-		var uploadForm = new EmfImportUploadForm(EmfImportPopup.this::parseFiles).setupEventDelegation(uploadButton);
+		showUploadDiv();
+	}
 
-		appendChild(uploadForm);
-		appendChild(new DomActionBar(uploadButton, new ImportButton()));
-		appendChild(previewTableDiv);
+	public EmfImportEngine<R, P, S> getEngine() {
+
+		return engine;
+	}
+
+	public void showUploadDiv() {
+
+		removeChildren();
+		appendChild(new EmfImportUploadDiv<>(this));
+	}
+
+	public void showSubmitDiv() {
+
+		removeChildren();
+		appendChild(new EmfImportSubmitDiv<>(this));
 	}
 
 	private void setCaption() {
@@ -52,38 +52,5 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 		CastUtils//
 			.tryCast(scope, IDisplayable.class)
 			.ifPresent(s -> setSubCaption(s.toDisplay()));
-	}
-
-	private void parseFiles(Iterable<IDomFileUpload> fileUploads) {
-
-		fileUploads.forEach(this::parseFile);
-		previewTableDiv.refresh();
-	}
-
-	private void parseFile(IDomFileUpload fileUpload) {
-
-		engine.addCsvRows(fileUpload.getContentAsString(Charsets.UTF8));
-		engine.parseRows();
-	}
-
-	private class ImportButton extends DomButton {
-
-		public ImportButton() {
-
-			setIcon(EmfImages.ENTITY_IMPORT.getResource());
-			setLabel(EmfI18n.IMPORT);
-			setClickCallback(this::importRows);
-		}
-
-		private void importRows() {
-
-			if (previewDataTable.getTableRows().isEmpty()) {
-				throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
-			} else {
-				new EmfImportRowsInserter<>(table).insertAll(previewDataTable.getTableRows());
-				getDomDocument().getRefreshBus().setAllChanged();
-				hide();
-			}
-		}
 	}
 }
