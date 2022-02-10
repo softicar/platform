@@ -3,9 +3,9 @@ PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
-TABLE AGWorkflowUserSettingsLog "Workflow.WorkflowUserSettingsLog" {
+TABLE AGWorkflowUserConfigurationLog "Workflow.WorkflowUserConfigurationLog" {
 	
-	PK AGWorkflowUserSettings workflowUserSettings
+	PK AGWorkflowUserConfiguration workflowUserConfiguration
 	PK AGTransaction transaction
 	Boolean emailNotificationsForNewTasks = NULL [NULLABLE]
 	AGUser substitute = NULL [NULLABLE]

@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration
 
 IMPORT com.softicar.platform.core.module.user.AGUser
 
-TABLE AGWorkflowUserSettings "Workflow.WorkflowUserSettings" {
+TABLE AGWorkflowUserConfiguration "Workflow.WorkflowUserConfiguration" {
 	
 	PK AGUser user
 	Boolean emailNotificationsForNewTasks = TRUE 

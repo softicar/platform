@@ -2,11 +2,11 @@ package com.softicar.platform.workflow.module.workflow.user.configuration;
 
 import com.softicar.platform.emf.attribute.field.day.EmfDayInput;
 
-public class WorkflowUserSettingsDayInput extends EmfDayInput {
+public class WorkflowUserConfigurationDayInput extends EmfDayInput {
 
-	private final AGWorkflowUserSettings userConfiguration;
+	private final AGWorkflowUserConfiguration userConfiguration;
 
-	public WorkflowUserSettingsDayInput(AGWorkflowUserSettings userConfiguration) {
+	public WorkflowUserConfigurationDayInput(AGWorkflowUserConfiguration userConfiguration) {
 
 		this.userConfiguration = userConfiguration;
 	}

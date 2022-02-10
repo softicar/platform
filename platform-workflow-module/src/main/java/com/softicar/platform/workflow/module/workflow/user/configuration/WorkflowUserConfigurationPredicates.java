@@ -4,9 +4,9 @@ import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 
-public interface WorkflowUserSettingsPredicates {
+public interface WorkflowUserConfigurationPredicates {
 
-	IEmfPredicate<AGWorkflowUserSettings> SUBSTITUTE_SET = new EmfPredicate<>(//
+	IEmfPredicate<AGWorkflowUserConfiguration> SUBSTITUTE_SET = new EmfPredicate<>(//
 		WorkflowI18n.SUBSTITUTE_SET,
 		it -> it.getSubstitute() != null);
 }

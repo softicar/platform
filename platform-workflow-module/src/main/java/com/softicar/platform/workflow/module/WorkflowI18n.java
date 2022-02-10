@@ -37,6 +37,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine Rollen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
+	I18n0 CONFIGURE = new I18n0("Configure")//
+		.de("Konfigurieren");
 	I18n0 COPY_WORKFLOW_VERSION = new I18n0("Copy Workflow Version")//
 		.de("Arbeitsablauf-Version kopieren");
 	I18n0 CREATED_AT = new I18n0("Created At")//
@@ -112,8 +114,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Benötigte Stimmen nicht gültig.");
 	I18n0 ROOT_NODE = new I18n0("Root Node")//
 		.de("Wurzel-Knoten");
-	I18n0 SETTINGS = new I18n0("Settings")//
-		.de("Einstellungen");
 	I18n0 SHOW_TASKS_DELEGATED_BY_ME = new I18n0("Show Tasks Delegated By Me")//
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//
@@ -297,13 +297,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Übergangs-Rollen");
 	I18n0 WORKFLOW_TRANSITIONS = new I18n0("Workflow Transitions")//
 		.de("Arbeitsablauf-Übergänge");
-	I18n0 WORKFLOW_USER_SETTINGS = new I18n0("Workflow User Settings")//
-		.de("Arbeitsablauf-User-Einstellungen");
-	I18n0 WORKFLOW_USER_SETTINGS_LOG = new I18n0("Workflow User Settings Log")//
-		.de("Arbeitsablauf-User-Einstellungen-Log");
-	I18n0 WORKFLOW_USER_SETTINGS_LOGS = new I18n0("Workflow User Settings Logs")//
-		.de("Arbeitsablauf-User-Einstellungen-Logs");
-	I18n0 WORKFLOW_USER_SETTINGSES = WORKFLOW_USER_SETTINGS;
+	I18n0 WORKFLOW_USER_CONFIGURATION = new I18n0("Workflow User Configuration")//
+		.de("Arbeitsablauf-User-Konfiguration");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOG = new I18n0("Workflow User Configuration Log")//
+		.de("Arbeitsablauf-User-Konfiguration-Log");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOGS = new I18n0("Workflow User Configuration Logs")//
+		.de("Arbeitsablauf-User-Konfiguration-Logs");
+	I18n0 WORKFLOW_USER_CONFIGURATIONS = new I18n0("Workflow User Configurations")//
+		.de("Arbeitsablauf-User-Konfigurationen");
 	I18n0 WORKFLOW_USERS = new I18n0("Workflow Users")//
 		.de("Arbeitsablauf-Benutzer");
 	I18n0 WORKFLOW_VERSION = new I18n0("Workflow Version")//
