@@ -158,11 +158,9 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 
 	private static AGProgram executeInsertProgram(AGUuid programUuid) {
 
-		AGProgram program = new AGProgram()//
+		return new AGProgram()//
 			.setProgramUuid(programUuid)
 			.save();
-		program.getState().save();
-		return program;
 	}
 
 	private static AGProgramState executeLoadOrInsertProgramState(AGProgram program) {
