@@ -302,9 +302,9 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n0 WORKFLOW_USER_CONFIGURATION_LOG = new I18n0("Workflow User Configuration Log")//
 		.de("Arbeitsablauf-Benutzer-Konfigurations-Log");
 	I18n0 WORKFLOW_USER_CONFIGURATION_LOGS = new I18n0("Workflow User Configuration Logs")//
-		.de("Arbeitsablauf-User-Konfiguration-Logs");
+		.de("Arbeitsablauf-Benutzer-Konfigurations-Logs");
 	I18n0 WORKFLOW_USER_CONFIGURATIONS = new I18n0("Workflow User Configurations")//
-		.de("Arbeitsablauf-User-Konfigurationen");
+		.de("Arbeitsablauf-Benutzer-Konfigurationen");
 	I18n0 WORKFLOW_USERS = new I18n0("Workflow Users")//
 		.de("Arbeitsablauf-Benutzer");
 	I18n0 WORKFLOW_VERSION = new I18n0("Workflow Version")//
