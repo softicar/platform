@@ -58,7 +58,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		public RowsTable() {
 
-			for (IDbField<R, ?> field: engine.getFieldsToImport()) {
+			for (IDbField<R, ?> field: engine.getTable().getAllFields()) {
 				addFieldColumn(field);
 			}
 		}

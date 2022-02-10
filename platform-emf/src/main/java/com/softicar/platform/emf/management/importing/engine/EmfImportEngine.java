@@ -39,6 +39,11 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		ignoreTransactionFields();
 	}
 
+	public IEmfTable<R, P, S> getTable() {
+
+		return table;
+	}
+
 	public void clear() {
 
 		textualRows.clear();
