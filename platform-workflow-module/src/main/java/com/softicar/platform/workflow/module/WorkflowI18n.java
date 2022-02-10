@@ -57,7 +57,7 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Delegierung");
 	I18n0 DRAFT = new I18n0("Draft")//
 		.de("Entwurf");
-	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email notifications for new tasks")//
+	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email Notifications for New Tasks")//
 		.de("E-Mail Benachrichtigungen für neue Aufgaben");
 	I18n0 ENTITY_TABLE = new I18n0("Entity Table")//
 		.de("Entitätstabelle");
