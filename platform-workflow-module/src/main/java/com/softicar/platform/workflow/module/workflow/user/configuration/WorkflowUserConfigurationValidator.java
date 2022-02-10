@@ -11,12 +11,7 @@ public class WorkflowUserConfigurationValidator extends AbstractEmfValidator<AGW
 
 		assertSourceAndTargetUserNotEqual();
 		validateThisUserIsNotASubstitute();
-		if (tableRow.getSubstituteFrom() != null && tableRow.getSubstituteTo() != null) {
-			verifyValidFromBeforeValidTo();
-		}
-		if (tableRow.getSubstitute() == null) {
-			verifyEmptyValidFromAndValidTo();
-		}
+		verifySubstituteFromAndSubstituteTo();
 	}
 
 	private void assertSourceAndTargetUserNotEqual() {
@@ -47,21 +42,22 @@ public class WorkflowUserConfigurationValidator extends AbstractEmfValidator<AGW
 		return substitutesText.toString();
 	}
 
-	private void verifyValidFromBeforeValidTo() {
+	private void verifySubstituteFromAndSubstituteTo() {
 
-		if (tableRow.getSubstituteFrom().compareTo(tableRow.getSubstituteTo()) > 0) {
-			addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.VALID_FROM_AFTER_VALID_TO);
-			addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.VALID_FROM_AFTER_VALID_TO);
-		}
-	}
-
-	private void verifyEmptyValidFromAndValidTo() {
-
-		if (tableRow.getSubstituteFrom() != null) {
-			addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
-		}
-		if (tableRow.getSubstituteTo() != null) {
-			addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
+		if (tableRow.getSubstitute() == null) {
+			if (tableRow.getSubstituteFrom() != null) {
+				addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
+			}
+			if (tableRow.getSubstituteTo() != null) {
+				addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
+			}
+		} else {
+			if (tableRow.getSubstituteFrom() != null && tableRow.getSubstituteTo() != null) {
+				if (tableRow.getSubstituteFrom().compareTo(tableRow.getSubstituteTo()) > 0) {
+					addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO);
+					addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO);
+				}
+			}
 		}
 	}
 }

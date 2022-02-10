@@ -7,6 +7,8 @@ import com.softicar.platform.core.module.CoreI18n;
 
 public interface WorkflowI18n extends CoreI18n {
 
+	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("Substitute from is after Substitute to")//
+		.de("Vertretung von ist nach Vertretung bis");
 	I18n0 A_NEW_WORKFLOW_TASK_REQUIRES_YOUR_ATTENTION = new I18n0("A new workflow task requires your attention.")//
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
@@ -133,7 +135,7 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n1 SUBSTITUTE_FOR_ARG1 = new I18n1("Substitute for %s")//
 		.de("Vertretung für %s");
 	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
-		.de("Vertretung vom");
+		.de("Vertretung von");
 	I18n0 SUBSTITUTE_MUST_BE_DEFINED = new I18n0("Substitute must be defined")//
 		.de("Eine Vertretung muss definiert sein");
 	I18n0 SUBSTITUTE_SET = new I18n0("Substitute set")//
@@ -158,8 +160,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergangs-Rolle");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
-	I18n0 VALID_FROM_AFTER_VALID_TO = new I18n0("Valid from after valid to")//
-		.de("Gültig ab liegt nach Gültig von");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
