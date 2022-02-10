@@ -135,33 +135,47 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 		return AGProgramState.TABLE.getOrCreate(getThis());
 	}
 
-	public boolean reloadStateForUpdate() {
+	public void lockProgramState() {
 
-		return getState().reloadForUpdate();
+		executeLoadOrInsertProgramState(getThis());
 	}
 
 	public static AGProgram loadOrInsert(AGUuid programUuid) {
 
 		Objects.requireNonNull(programUuid);
 
-		return DbTransactions.wrap(AGProgram::executeLoadOrInsert).apply(programUuid);
+		return DbTransactions.wrap(AGProgram::executeLoadOrInsertProgram).apply(programUuid);
 	}
 
-	private static AGProgram executeLoadOrInsert(AGUuid programUuid) {
+	private static AGProgram executeLoadOrInsertProgram(AGUuid programUuid) {
 
 		return AGProgram.TABLE//
 			.createSelect(SqlSelectLock.FOR_UPDATE)
 			.where(AGProgram.PROGRAM_UUID.isEqual(programUuid))
 			.getOneAsOptional()
-			.orElseGet(() -> executeInsert(programUuid));
+			.orElseGet(() -> executeInsertProgram(programUuid));
 	}
 
-	private static AGProgram executeInsert(AGUuid programUuid) {
+	private static AGProgram executeInsertProgram(AGUuid programUuid) {
 
 		AGProgram program = new AGProgram()//
 			.setProgramUuid(programUuid)
 			.save();
 		program.getState().save();
 		return program;
+	}
+
+	private static AGProgramState executeLoadOrInsertProgramState(AGProgram program) {
+
+		return AGProgramState.TABLE//
+			.createSelect(SqlSelectLock.FOR_UPDATE)
+			.where(AGProgramState.PROGRAM.isEqual(program))
+			.getOneAsOptional()
+			.orElseGet(() -> executeInsertProgramState(program));
+	}
+
+	private static AGProgramState executeInsertProgramState(AGProgram program) {
+
+		return AGProgramState.TABLE.getOrCreate(program);
 	}
 }

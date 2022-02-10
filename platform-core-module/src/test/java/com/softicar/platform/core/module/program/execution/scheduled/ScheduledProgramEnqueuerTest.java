@@ -36,18 +36,12 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 		this.program = new AGProgram()//
 			.setProgramUuid(SOME_UUID)
 			.save();
-		this.program.getState().save();
 	}
 
 	// -------------------- matching schedule ------------------------------ //
 
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAt() {
-
-		program//
-			.getState()
-			.setQueuedAt(null)
-			.save();
 
 		runEnqueuer(noon);
 
@@ -57,10 +51,6 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutExistingQueuedAtAndWithRunningOtherProgram() {
 
-		program//
-			.getState()
-			.setQueuedAt(null)
-			.save();
 		insertProgramExecution(noon, UUID.fromString("34fcfe77-e7b3-403f-ae3a-556d848d315a"));
 
 		runEnqueuer(noon);
