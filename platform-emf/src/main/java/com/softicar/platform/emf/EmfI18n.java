@@ -133,6 +133,8 @@ public interface EmfI18n {
 		.de("Beispiel");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
+	I18n1 EXPECTED_NUMBER_OF_COLUMNS_IS_ARG1 = new I18n1("Expected number of columns is %s.")//
+		.de("Erwartete Anzahl von Spalten ist %s.");
 	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
 		.de("'%s' konnte nicht zum Typ '%s' konvertiert werden.");
 	I18n0 FAILED_TO_CREATE_THE_INPUT_ELEMENT = new I18n0("Failed to create the input element.")//
@@ -205,6 +207,8 @@ public interface EmfI18n {
 		.de("Nein");
 	I18n1 NO_ACTIVE_MODULE_INSTANCE_WITH_ID_ARG1_FOUND = new I18n1("No active module instance with ID %s found.")//
 		.de("Modulinstanz mit ID %s existiert nicht.");
+	I18n0 NO_DATA_ROWS_FOUND = new I18n0("No data rows found.")//
+		.de("Keine Datenzeilen gefunden.");
 	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
 		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
@@ -261,6 +265,8 @@ public interface EmfI18n {
 		.de("Bitte einen Eintrag auswählen.");
 	I18n0 PLEASE_SPECIFY_A_VALID_INDEX = new I18n0("Please specify a valid index.")//
 		.de("Bitte einen gültigen Index angeben.");
+	I18n0 PLEASE_UPLOAD_DATA_FIRST = new I18n0("Please upload data first.")//
+		.de("Bitte zuerst Daten hochladen.");
 	I18n0 PLURAL_TITLE = new I18n0("Plural Title")//
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
@@ -420,6 +426,8 @@ public interface EmfI18n {
 		.de("Betrachter");
 	I18n0 VISIBILITY_PREDICATE = new I18n0("Visibility Predicate")//
 		.de("Sichtbarkeits-Prädikat");
+	I18n0 WRONG_NUMBER_OF_COLUMNS = new I18n0("Wrong number of columns.")//
+		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
 }

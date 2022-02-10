@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
@@ -48,6 +49,10 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		}
 
 		private void parseRows() {
+
+			if (engine.getTextualRows().isEmpty()) {
+				throw new SofticarUserException(EmfI18n.PLEASE_UPLOAD_DATA_FIRST);
+			}
 
 			engine.parseRows();
 			popup.showSubmitDiv();
