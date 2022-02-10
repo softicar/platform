@@ -19,7 +19,7 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 		super(builder);
 	}
 
-	//FIXME for the future (everybody should change it's own but only admin may change it for everyone)
+	// FIXME for the future (everybody should change their own configuration but only admins may change it for others)
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowUserConfiguration, AGUser> authorizer) {
 
