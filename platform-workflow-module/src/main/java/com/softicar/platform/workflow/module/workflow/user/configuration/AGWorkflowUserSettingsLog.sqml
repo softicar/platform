@@ -3,12 +3,12 @@ PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
-TABLE AGWorkflowUserConfigurationLog "Workflow.WorkflowUserConfigurationLog" {
+TABLE AGWorkflowUserSettingsLog "Workflow.WorkflowUserSettingsLog" {
 	
-	PK AGWorkflowUserConfiguration workflowUserConfiguration
+	PK AGWorkflowUserSettings workflowUserSettings
 	PK AGTransaction transaction
-	Boolean notify = NULL [NULLABLE]
+	Boolean emailNotificationsForNewTasks = NULL [NULLABLE]
 	AGUser substitute = NULL [NULLABLE]
-	Day validFrom = NULL [NULLABLE]
-	Day validTo = NULL [NULLABLE]
+	Day substituteFrom = NULL [NULLABLE]
+	Day substituteTo = NULL [NULLABLE]
 }

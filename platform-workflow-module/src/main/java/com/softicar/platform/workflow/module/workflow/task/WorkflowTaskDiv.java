@@ -22,7 +22,7 @@ import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowIte
 import com.softicar.platform.workflow.module.workflow.item.message.WorkflowItemMessagePopup;
 import com.softicar.platform.workflow.module.workflow.task.IWorkflowTaskQuery.IRow;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
-import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserSettings;
 
 public class WorkflowTaskDiv extends DomDiv {
 
@@ -33,13 +33,13 @@ public class WorkflowTaskDiv extends DomDiv {
 		appendChild(new DomActionBar())
 			.appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserConfiguration.TABLE.getOrCreate(currentUser)))
+					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserSettings.TABLE.getOrCreate(currentUser)))
 					.setIcon(WorkflowImages.USERS.getResource())
-					.setLabel(WorkflowI18n.CONFIGURE_SETTINGS));
+					.setLabel(WorkflowI18n.SETTINGS));
 
 		appendNewChild(DomElementTag.HR);
 		appendChild(new WorkflowTaskForUserDiv(currentUser));
-		for (AGUser user: AGWorkflowUserConfiguration.loadAllUsersWithSubstitute(currentUser)) {
+		for (AGUser user: AGWorkflowUserSettings.loadAllUsersWithSubstitute(currentUser)) {
 			appendNewChild(DomElementTag.HR);
 			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(user.toDisplayWithoutId()));
 			appendChild(new WorkflowTaskForUserDiv(user));

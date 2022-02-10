@@ -6,7 +6,7 @@ import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.emf.trait.IEmfTrait;
 import java.util.List;
 
-public class AGWorkflowUserConfiguration extends AGWorkflowUserConfigurationGenerated implements IEmfTrait<AGWorkflowUserConfiguration, AGUser> {
+public class AGWorkflowUserSettings extends AGWorkflowUserSettingsGenerated implements IEmfTrait<AGWorkflowUserSettings, AGUser> {
 
 	public static List<AGUser> loadAllUsersWithSubstitute(AGUser substitute) {
 
@@ -16,11 +16,11 @@ public class AGWorkflowUserConfiguration extends AGWorkflowUserConfigurationGene
 	public static List<AGUser> loadAllUsersWithSubstituteAndDay(AGUser substitute, Day day) {
 
 		return Sql
-			.from(AGWorkflowUserConfiguration.TABLE)
-			.select(AGWorkflowUserConfiguration.USER)
-			.where(AGWorkflowUserConfiguration.SUBSTITUTE.equal(substitute))
-			.where(AGWorkflowUserConfiguration.VALID_FROM.lessEqual(day))
-			.where(AGWorkflowUserConfiguration.VALID_TO.greaterEqual(day))
+			.from(AGWorkflowUserSettings.TABLE)
+			.select(AGWorkflowUserSettings.USER)
+			.where(AGWorkflowUserSettings.SUBSTITUTE.equal(substitute))
+			.where(AGWorkflowUserSettings.SUBSTITUTE_FROM.lessEqual(day))
+			.where(AGWorkflowUserSettings.SUBSTITUTE_TO.greaterEqual(day))
 			.list();
 	}
 }
