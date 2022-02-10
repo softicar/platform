@@ -42,7 +42,7 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		public ParseButton() {
 
-			setIcon(EmfImages.ENTITY_VIEW.getResource());
+			setIcon(EmfImages.WIZARD_NEXT.getResource());
 			setLabel(EmfI18n.VALIDATE);
 			setClickCallback(this::parseRows);
 		}

@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.management.importing;
 
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
@@ -27,7 +26,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		public BackButton() {
 
-			setIcon(DomElementsImages.UNDO.getResource());
+			setIcon(EmfImages.WIZARD_PREVIOUS.getResource());
 			setLabel(EmfI18n.BACK);
 			setClickCallback(() -> popup.showUploadDiv());
 		}
@@ -37,7 +36,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		public ImportButton() {
 
-			setIcon(EmfImages.ENTITY_IMPORT.getResource());
+			setIcon(EmfImages.WIZARD_NEXT.getResource());
 			setLabel(EmfI18n.IMPORT);
 			setClickCallback(this::importRows);
 		}

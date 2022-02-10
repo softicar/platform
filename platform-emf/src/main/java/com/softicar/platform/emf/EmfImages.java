@@ -38,4 +38,6 @@ public interface EmfImages {
 	IResourceSupplier TABLE_DETAILS = FACTORY.create("table-details.svg");
 	IResourceSupplier UPLOAD = FACTORY.create("upload.svg");
 	IResourceSupplier USER_ROLE_ASSIGNMENT = FACTORY.create("user-role-assignment.svg");
+	IResourceSupplier WIZARD_NEXT = FACTORY.create("wizard-next.svg");
+	IResourceSupplier WIZARD_PREVIOUS = FACTORY.create("wizard-previous.svg");
 }
