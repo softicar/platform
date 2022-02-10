@@ -25,7 +25,7 @@ import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityI
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInputEngine;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
 import com.softicar.platform.emf.collection.set.IEmfEntitySet;
-import com.softicar.platform.emf.data.table.EmfDataTableEmptyRow;
+import com.softicar.platform.emf.data.table.empty.EmfDataTableEmptyTablePlaceholderRow;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Comparator;
@@ -147,7 +147,7 @@ public class EmfForeignEntitySetInput<R extends IEmfTableRow<R, ?>, S extends IE
 			}
 
 			if (entities.isEmpty()) {
-				getBody().appendChild(new EmfDataTableEmptyRow(2));
+				getBody().appendChild(new EmfDataTableEmptyTablePlaceholderRow(2));
 			}
 
 			refreshUnsavedChangesHighlight(changed);

@@ -74,6 +74,11 @@ tr.selected .EmfDataTableRowSelectionCheckbox{
 	color: var(--PRIMARY_COLOR);
 }
 
+.EmfDataTableEmptyTablePlaceholderDiv {
+	color: #888;
+	font-style: italic;
+}
+
 .EmfDataTableFilterListDiv {
 	display: grid;
 	row-gap: var(--ROW_GAP);

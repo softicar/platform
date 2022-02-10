@@ -14,6 +14,7 @@ public interface EmfCssClasses {
 
 	ICssClass EMF_DATA_TABLE = new CssClass("EmfDataTable", EmfCssFiles.EMF_DATA_TABLE_STYLE);
 	ICssClass EMF_DATA_TABLE_DIV = new CssClass("EmfDataTableDiv", EmfCssFiles.EMF_DATA_TABLE_STYLE);
+	ICssClass EMF_DATA_TABLE_EMPTY_TABLE_PLACEHOLDER_DIV = new CssClass("EmfDataTableEmptyTablePlaceholderDiv", EmfCssFiles.EMF_DATA_TABLE_STYLE);
 	ICssClass EMF_DATA_TABLE_FILTER_LIST_DIV = new CssClass("EmfDataTableFilterListDiv", EmfCssFiles.EMF_DATA_TABLE_STYLE);
 	ICssClass EMF_DATA_TABLE_FILTER_LIST_ELEMENT_DIV = new CssClass("EmfDataTableFilterListElementDiv", EmfCssFiles.EMF_DATA_TABLE_STYLE);
 	ICssClass EMF_DATA_TABLE_HEADER_CELL_DIV = new CssClass("EmfDataTableHeaderCellDiv", EmfCssFiles.EMF_DATA_TABLE_STYLE);
