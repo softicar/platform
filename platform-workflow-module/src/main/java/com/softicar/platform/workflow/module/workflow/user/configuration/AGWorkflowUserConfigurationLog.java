@@ -35,7 +35,7 @@ public class AGWorkflowUserConfigurationLog extends AbstractDbRecord<AGWorkflowU
 
 	public static final IDbForeignRowField<AGWorkflowUserConfigurationLog, AGWorkflowUserConfiguration, AGUser> WORKFLOW_USER_CONFIGURATION = BUILDER.addForeignRowField("workflowUserConfiguration", o->o.m_workflowUserConfiguration, (o,v)->o.m_workflowUserConfiguration=v, AGWorkflowUserConfiguration.USER).setTitle(WorkflowI18n.WORKFLOW_USER_CONFIGURATION);
 	public static final IDbForeignField<AGWorkflowUserConfigurationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
-	public static final IDbBooleanField<AGWorkflowUserConfigurationLog> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setDefault(true);
+	public static final IDbBooleanField<AGWorkflowUserConfigurationLog> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setNullable().setDefault(null);
 	public static final IDbForeignField<AGWorkflowUserConfigurationLog, AGUser> SUBSTITUTE = BUILDER.addForeignField("substitute", o->o.m_substitute, (o,v)->o.m_substitute=v, AGUser.ID).setTitle(WorkflowI18n.SUBSTITUTE).setNullable().setDefault(null);
 	public static final IDbDayField<AGWorkflowUserConfigurationLog> VALID_FROM = BUILDER.addDayField("validFrom", o->o.m_validFrom, (o,v)->o.m_validFrom=v).setTitle(WorkflowI18n.VALID_FROM).setNullable().setDefault(null);
 	public static final IDbDayField<AGWorkflowUserConfigurationLog> VALID_TO = BUILDER.addDayField("validTo", o->o.m_validTo, (o,v)->o.m_validTo=v).setTitle(WorkflowI18n.VALID_TO).setNullable().setDefault(null);

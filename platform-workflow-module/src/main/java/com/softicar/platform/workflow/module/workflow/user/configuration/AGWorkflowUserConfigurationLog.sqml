@@ -7,7 +7,7 @@ TABLE AGWorkflowUserConfigurationLog "Workflow.WorkflowUserConfigurationLog" {
 	
 	PK AGWorkflowUserConfiguration workflowUserConfiguration
 	PK AGTransaction transaction
-	Boolean notify = TRUE 
+	Boolean notify = NULL [NULLABLE]
 	AGUser substitute = NULL [NULLABLE]
 	Day validFrom = NULL [NULLABLE]
 	Day validTo = NULL [NULLABLE]
