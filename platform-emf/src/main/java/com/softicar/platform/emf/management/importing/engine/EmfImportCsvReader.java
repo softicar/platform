@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing;
+package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.math.Range;
@@ -6,7 +6,7 @@ import com.softicar.platform.common.string.csv.CsvTokenizer;
 import com.softicar.platform.emf.EmfI18n;
 import java.util.List;
 
-public class EmfImportCsvReader {
+class EmfImportCsvReader {
 
 	private final String csv;
 
@@ -29,7 +29,7 @@ public class EmfImportCsvReader {
 		} else {
 			throw new SofticarUserException(
 				EmfI18n.WRONG_NUMBER_OF_COLUMNS//
-					.concatSentence(EmfI18n.EXPECTED_NUMBER_OF_COLUMNS_IS_ARG1.toDisplay(expectedColumnCount)));
+					.concatSentence(EmfI18n.EXPECTED_ARG1_COLUMNS.toDisplay(expectedColumnCount)));
 		}
 	}
 

@@ -35,6 +35,8 @@ public interface EmfI18n {
 		.de("Beim Hinzufügen einer Aktion ist ein Fehler aufgetreten.");
 	I18n0 AN_ERROR_OCCURRED_WHILE_DISPLAYING_THIS_VALUE = new I18n0("An error occurred while displaying this value.")//
 		.de("Beim Anzeigen dieses Wertes ist ein Fehler aufgetreten.");
+	I18n0 ANALYZE = new I18n0("Analyze")//
+		.de("Analysieren");
 	I18n0 AND = new I18n0("and")//
 		.de("und");
 	I18n0 ANYBODY = new I18n0("Anybody")//
@@ -131,10 +133,10 @@ public interface EmfI18n {
 		.de("Fehler");
 	I18n0 EXAMPLE = new I18n0("Example")//
 		.de("Beispiel");
+	I18n1 EXPECTED_ARG1_COLUMNS = new I18n1("Expected %s columns.")//
+		.de("%s Spalten erwartet.");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
-	I18n1 EXPECTED_NUMBER_OF_COLUMNS_IS_ARG1 = new I18n1("Expected number of columns is %s.")//
-		.de("Erwartete Anzahl von Spalten ist %s.");
 	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
 		.de("'%s' konnte nicht zum Typ '%s' konvertiert werden.");
 	I18n0 FAILED_TO_CREATE_THE_INPUT_ELEMENT = new I18n0("Failed to create the input element.")//
@@ -209,6 +211,8 @@ public interface EmfI18n {
 		.de("Modulinstanz mit ID %s existiert nicht.");
 	I18n0 NO_DATA_ROWS_FOUND = new I18n0("No data rows found.")//
 		.de("Keine Datenzeilen gefunden.");
+	I18n0 NO_DATA_UPLOADED = new I18n0("No data uploaded.")//
+		.de("Keine Daten hochgeladen.");
 	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
 		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
@@ -410,8 +414,6 @@ public interface EmfI18n {
 		.de("Benutzte Rollen");
 	I18n0 UUID = new I18n0("UUID")//
 		.de("UUID");
-	I18n0 VALIDATE = new I18n0("Validate")//
-		.de("Validieren");
 	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//
 		.de("Validierung fehlgeschlagen");
 	I18n1 VALUE_ARG1_IS_OUT_OF_RANGE = new I18n1("Value '%s' is out of range")//

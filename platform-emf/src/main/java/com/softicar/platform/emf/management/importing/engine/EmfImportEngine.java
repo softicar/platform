@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing;
+package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -26,6 +26,12 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		this.textualRows = new ArrayList<>();
 		this.parsedRows = new ArrayList<>();
 		this.scope = Optional.empty();
+	}
+
+	public void clear() {
+
+		textualRows.clear();
+		parsedRows.clear();
 	}
 
 	public void addCsvRows(String csv) {

@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing;
+package com.softicar.platform.emf.management.importing.upload;
 
 import com.softicar.platform.dom.elements.DomFileInput;
 import com.softicar.platform.dom.elements.DomForm;

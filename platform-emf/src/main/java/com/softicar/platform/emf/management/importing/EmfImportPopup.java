@@ -4,6 +4,10 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.management.importing.analyze.EmfImportAnalyseDiv;
+import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
+import com.softicar.platform.emf.management.importing.submit.EmfImportSubmitDiv;
+import com.softicar.platform.emf.management.importing.upload.EmfImportUploadDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -34,6 +38,12 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		removeChildren();
 		appendChild(new EmfImportUploadDiv<>(this));
+	}
+
+	public void showParseDiv() {
+
+		removeChildren();
+		appendChild(new EmfImportAnalyseDiv<>(this));
 	}
 
 	public void showSubmitDiv() {
