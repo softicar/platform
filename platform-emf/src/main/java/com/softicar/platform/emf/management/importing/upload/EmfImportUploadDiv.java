@@ -3,8 +3,10 @@ package com.softicar.platform.emf.management.importing.upload;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.charset.Charsets;
+import com.softicar.platform.common.ui.wiki.element.tag.WikiBoxType;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
@@ -24,6 +26,17 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		this.popup = popup;
 		this.engine = popup.getEngine();
+
+		appendChild(
+			new DomWikiDivBuilder()//
+				.beginBox(WikiBoxType.INFO)
+				.addUnorderedListItem(EmfI18n.SELECT_A_CSV_FILE_TO_IMPORT)
+				.addUnorderedListItem(EmfI18n.THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED)
+				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMA)
+				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS)
+				.addUnorderedListItem(EmfI18n.THE_FILE_SELECTION_WILL_NOT_PERFORM_ANY_IMPORT_YET)
+				.endBox(WikiBoxType.INFO)
+				.build());
 
 		appendChild(
 			new EmfDataTableDivBuilder<>(new UploadTable())//

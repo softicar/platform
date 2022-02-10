@@ -83,6 +83,8 @@ public interface EmfI18n {
 		.de("Änderungs-Logger existieren");
 	I18n0 CHILD_TABLES = new I18n0("Child Tables")//
 		.de("Kind-Tabellen");
+	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMA = new I18n0("Column values must be separated by commas.")//
+		.de("Spaltenwerte müssen durch Kommas getrennt werden.");
 	I18n0 COMPONENT = new I18n0("Component")//
 		.de("Komponente");
 	I18n0 CONCEALED = new I18n0("Concealed")//
@@ -173,6 +175,8 @@ public interface EmfI18n {
 		.de("Importieren");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
+	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS = new I18n0("Individual column values can be enclosed by quotation marks.")//
+		.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden.");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
@@ -321,6 +325,8 @@ public interface EmfI18n {
 		.de("Scope");
 	I18n0 SELECT = new I18n0("Select")//
 		.de("Auswählen");
+	I18n0 SELECT_A_CSV_FILE_TO_IMPORT = new I18n0("Select a CSV file to import.")//
+		.de("Wählen Sie eine CSV-Datei zum Importieren.");
 	I18n0 SELECT_CSV_FILE = new I18n0("Select CSV File")//
 		.de("CSV-Datei auswählen");
 	I18n0 SHA_1_HASH = new I18n0("SHA-1 Hash")//
@@ -372,8 +378,12 @@ public interface EmfI18n {
 		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
 		.de("Das Dateiformat muss 'PDF' sein.");
+	I18n0 THE_FILE_SELECTION_WILL_NOT_PERFORM_ANY_IMPORT_YET = new I18n0("The file selection does not perform any import yet.")//
+		.de("Die Dateiauswahl wird noch keinen Import durchführen.");
 	I18n2 THE_RECORD_WITH_ID_ARG1_COULD_NOT_BE_FOUND_IN_TABLE_ARG2 = new I18n2("The record with ID #%s could not be found in table %s")//
 		.de("Der Datensatz mit ID #%s konnte in Tabelle %s nicht gefunden werden");
+	I18n0 THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED = new I18n0("The table shows the columns to be included.")//
+		.de("Die Tabelle zeigt die einzubeziehenden Spalten.");
 	I18n0 THERE_ARE_UNSAVED_CHANGES = new I18n0("There are unsaved changes.")//
 		.de("Es gibt nicht-gespeicherte Änderungen.");
 	I18n1 THERE_IS_NO_CONVERTER_FOR_FIELD_TYPE_ARG1 = new I18n1("There is no converter for field type '%s'.")//
