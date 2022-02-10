@@ -7,11 +7,13 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableColumnHandlerMap;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableValueBasedColumnHandler;
 import com.softicar.platform.emf.data.table.column.settings.EmfDataTableColumnSettings;
 import com.softicar.platform.emf.data.table.column.settings.EmfDataTableColumnSettingsMap;
+import com.softicar.platform.emf.data.table.empty.EmfDataTableEmptyTablePlaceholderDiv;
 import com.softicar.platform.emf.data.table.header.secondary.EmfDataTableExtraRowColumnGroupListAccumulator;
 import com.softicar.platform.emf.data.table.header.secondary.IEmfDataTableExtraRowColumnGroupListAccumulator;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	private final EmfDataTableColumnSettingsMap<R> columnSettingsMap;
 	private Supplier<IDbDatabaseScope> databaseScopeSupplier;
 	private final IDataTable<R> dataTable;
+	private Supplier<IDomNode> emptyTablePlaceholderFactory;
 	private boolean hideNavigationAtBottom;
 	private boolean hideNavigationAtTop;
 	private final Collection<IStaticObject> tableMarkers;
@@ -54,6 +57,7 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 		this.columnSettingsMap = new EmfDataTableColumnSettingsMap<>();
 		this.databaseScopeSupplier = NoOperationDatabaseScope::new;
 		this.dataTable = dataTable;
+		this.emptyTablePlaceholderFactory = EmfDataTableEmptyTablePlaceholderDiv::new;
 		this.hideNavigationAtBottom = false;
 		this.hideNavigationAtTop = true;
 		this.tableMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE));
@@ -137,6 +141,17 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	public void setDatabaseScopeSupplier(Supplier<IDbDatabaseScope> databaseScopeSupplier) {
 
 		this.databaseScopeSupplier = databaseScopeSupplier;
+	}
+
+	public void setEmptyTablePlaceholderFactory(Supplier<IDomNode> placeholderFactory) {
+
+		this.emptyTablePlaceholderFactory = Objects.requireNonNull(placeholderFactory);
+	}
+
+	@Override
+	public Supplier<IDomNode> getEmptyTablePlaceholderFactory() {
+
+		return emptyTablePlaceholderFactory;
 	}
 
 	public void setHideNavigation(boolean hideNavigation) {

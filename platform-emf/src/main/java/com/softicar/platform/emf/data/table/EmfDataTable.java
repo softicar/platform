@@ -243,7 +243,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 		}
 
 		if (rowCount <= 0) {
-			getBody().appendChild(new EmfDataTableEmptyTablePlaceholderRow(this.primaryHeaderRow.getColumnCount()));
+			getBody().appendChild(new EmfDataTableEmptyTablePlaceholderRow(config, this.primaryHeaderRow.getColumnCount()));
 		}
 
 		config//

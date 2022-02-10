@@ -21,6 +21,7 @@ import com.softicar.platform.dom.elements.wiki.box.DomWikiBoxShadow;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.attribute.field.foreign.entity.collection.EmfEmptyTablePlaceholderRow;
 import com.softicar.platform.emf.attribute.field.foreign.entity.collection.EmfUnsavedChangedMessageDiv;
 import com.softicar.platform.emf.attribute.field.foreign.entity.collection.set.EmfForeignEntitySetInput;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
@@ -28,7 +29,6 @@ import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityI
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
 import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.collection.list.IEmfEntityList;
-import com.softicar.platform.emf.data.table.empty.EmfDataTableEmptyTablePlaceholderRow;
 import com.softicar.platform.emf.data.table.util.ListShifter;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -165,7 +165,7 @@ public class EmfForeignEntityListInput<R extends IEmfTableRow<R, ?>, L extends I
 			}
 
 			if (entities.isEmpty()) {
-				getBody().appendChild(new EmfDataTableEmptyTablePlaceholderRow(3));
+				getBody().appendChild(new EmfEmptyTablePlaceholderRow(3));
 			}
 
 			refreshUnsavedChangesHighlight(changed);

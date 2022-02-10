@@ -23,20 +23,29 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		this.popup = popup;
 		this.engine = popup.getEngine();
-		this.textualRowsTableDiv = new EmfDataTableDivBuilder<>(new EmfImportTextualRowsTable<>(engine)).build();
-
-		var uploadButton = new EmfImportUploadButton();
-		var uploadForm = new EmfImportUploadForm(this::readCsvUploads).setupEventDelegation(uploadButton);
-
-		appendChild(uploadForm);
-		appendChild(new DomActionBar(uploadButton, new ParseButton()));
+		this.textualRowsTableDiv = new EmfDataTableDivBuilder<>(new EmfImportTextualRowsTable<>(engine))//
+			.setEmptyTablePlaceholderFactory(UploadElement::new)
+			.build();
+		appendChild(new DomActionBar(new ParseButton()));
 		appendChild(textualRowsTableDiv);
 	}
 
-	private void readCsvUploads(Iterable<IDomFileUpload> uploads) {
+	private class UploadElement extends DomDiv {
 
-		uploads.forEach(upload -> engine.addCsvRows(upload.getContentAsString(Charsets.UTF8)));
-		textualRowsTableDiv.refresh();
+		public UploadElement() {
+
+			var uploadButton = new EmfImportUploadButton();
+			var uploadForm = new EmfImportUploadForm(this::readCsvUploads).setupEventDelegation(uploadButton);
+
+			appendChild(uploadForm);
+			appendChild(uploadButton);
+		}
+
+		private void readCsvUploads(Iterable<IDomFileUpload> uploads) {
+
+			uploads.forEach(upload -> engine.addCsvRows(upload.getContentAsString(Charsets.UTF8)));
+			textualRowsTableDiv.refresh();
+		}
 	}
 
 	private class ParseButton extends DomButton {
