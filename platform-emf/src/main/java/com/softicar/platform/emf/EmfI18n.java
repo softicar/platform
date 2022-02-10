@@ -83,7 +83,7 @@ public interface EmfI18n {
 		.de("Änderungs-Logger existieren");
 	I18n0 CHILD_TABLES = new I18n0("Child Tables")//
 		.de("Kind-Tabellen");
-	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMA = new I18n0("Column values must be separated by commas.")//
+	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS = new I18n0("Column values must be separated by commas.")//
 		.de("Spaltenwerte müssen durch Kommas getrennt werden.");
 	I18n0 COMPONENT = new I18n0("Component")//
 		.de("Komponente");
@@ -378,7 +378,7 @@ public interface EmfI18n {
 		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
 		.de("Das Dateiformat muss 'PDF' sein.");
-	I18n0 THE_FILE_SELECTION_WILL_NOT_PERFORM_ANY_IMPORT_YET = new I18n0("The file selection does not perform any import yet.")//
+	I18n0 THE_FILE_SELECTION_WILL_NOT_PERFORM_ANY_IMPORT_YET = new I18n0("The file selection will not perform any import yet.")//
 		.de("Die Dateiauswahl wird noch keinen Import durchführen.");
 	I18n2 THE_RECORD_WITH_ID_ARG1_COULD_NOT_BE_FOUND_IN_TABLE_ARG2 = new I18n2("The record with ID #%s could not be found in table %s")//
 		.de("Der Datensatz mit ID #%s konnte in Tabelle %s nicht gefunden werden");

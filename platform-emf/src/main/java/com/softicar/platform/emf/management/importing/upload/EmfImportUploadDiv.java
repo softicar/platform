@@ -32,7 +32,7 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				.beginBox(WikiBoxType.INFO)
 				.addUnorderedListItem(EmfI18n.SELECT_A_CSV_FILE_TO_IMPORT)
 				.addUnorderedListItem(EmfI18n.THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED)
-				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMA)
+				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS)
 				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS)
 				.addUnorderedListItem(EmfI18n.THE_FILE_SELECTION_WILL_NOT_PERFORM_ANY_IMPORT_YET)
 				.endBox(WikiBoxType.INFO)
