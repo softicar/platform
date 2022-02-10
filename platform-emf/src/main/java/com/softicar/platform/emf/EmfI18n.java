@@ -321,6 +321,8 @@ public interface EmfI18n {
 		.de("Scope");
 	I18n0 SELECT = new I18n0("Select")//
 		.de("Auswählen");
+	I18n0 SELECT_CSV_FILE = new I18n0("Select CSV File")//
+		.de("CSV-Datei auswählen");
 	I18n0 SHA_1_HASH = new I18n0("SHA-1 Hash")//
 		.de("SHA-1 Hash");
 	I18n0 SHOW_FILES = new I18n0("Show Files")//

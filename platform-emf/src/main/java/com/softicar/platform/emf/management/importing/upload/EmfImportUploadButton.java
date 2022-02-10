@@ -9,6 +9,6 @@ public class EmfImportUploadButton extends DomButton {
 	public EmfImportUploadButton() {
 
 		setIcon(EmfImages.UPLOAD.getResource());
-		setLabel(EmfI18n.UPLOAD);
+		setLabel(EmfI18n.SELECT_CSV_FILE);
 	}
 }

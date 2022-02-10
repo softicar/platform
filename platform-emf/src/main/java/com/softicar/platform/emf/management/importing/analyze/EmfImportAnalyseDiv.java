@@ -52,10 +52,10 @@ public class EmfImportAnalyseDiv<R extends IEmfTableRow<R, P>, P, S> extends Dom
 
 			setIcon(EmfImages.WIZARD_NEXT.getResource());
 			setLabel(EmfI18n.ANALYZE);
-			setClickCallback(this::parseRows);
+			setClickCallback(this::analyzeRows);
 		}
 
-		private void parseRows() {
+		private void analyzeRows() {
 
 			engine.parseRows();
 			popup.showSubmitDiv();
