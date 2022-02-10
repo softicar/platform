@@ -1,12 +1,10 @@
 PACKAGE com.softicar.platform.core.module.program
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
-IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGProgramLog 'Core.ProgramLog' {
 	
 	PK AGProgram program
 	PK AGTransaction transaction	
-	AGUuid programUuid = NULL [NULLABLE]
 	Integer executionRetentionDays = NULL [NULLABLE]
 }

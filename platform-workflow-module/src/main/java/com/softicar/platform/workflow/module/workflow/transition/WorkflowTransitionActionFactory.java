@@ -12,11 +12,11 @@ import java.util.Collection;
 
 public class WorkflowTransitionActionFactory<R extends IWorkflowableObject<R>> implements IEmfPrimaryActionFactory<R> {
 
-	private final AGUuid tableUuid;
+	private final Class<? extends IWorkflowTableReferencePoint<?>> referencePointClass;
 
 	public WorkflowTransitionActionFactory(Class<? extends IWorkflowTableReferencePoint<?>> referencePointClass) {
 
-		this.tableUuid = AGUuid.getOrCreate(referencePointClass);
+		this.referencePointClass = referencePointClass;
 	}
 
 	@Override
@@ -24,6 +24,7 @@ public class WorkflowTransitionActionFactory<R extends IWorkflowableObject<R>> i
 
 		Collection<IEmfPrimaryAction<R>> set = new ArrayList<>();
 		if (workflowableObject.isActive()) {
+			AGUuid tableUuid = AGUuid.getOrCreate(referencePointClass);
 			AGWorkflowTransition
 				.createSelect()
 				.where(AGWorkflowTransition.AUTO_TRANSITION.isFalse())

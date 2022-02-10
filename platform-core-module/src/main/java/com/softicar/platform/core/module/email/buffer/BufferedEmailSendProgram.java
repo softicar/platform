@@ -37,10 +37,14 @@ public class BufferedEmailSendProgram implements IProgram {
 
 		public void sendForAllServers() {
 
-			AGServer.TABLE
+			AGBufferedEmail.TABLE//
 				.createSelect()
-				.where(AGServer.ACTIVE)//
+				.where(AGBufferedEmail.SENT_AT.isNull())
+				.groupBy(AGBufferedEmail.EMAIL_SERVER)
+				.join(AGBufferedEmail.EMAIL_SERVER)
+				.where(AGServer.ACTIVE)
 				.stream()
+				.map(AGBufferedEmail::getEmailServer)
 				.forEach(this::sendEmails);
 
 			collector.throwExceptionIfNotEmpty();

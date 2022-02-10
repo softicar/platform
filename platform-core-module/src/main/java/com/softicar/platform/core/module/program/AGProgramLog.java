@@ -4,7 +4,6 @@ import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.transaction.AGTransaction;
-import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
@@ -32,7 +31,6 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 
 	public static final IDbForeignField<AGProgramLog, AGProgram> PROGRAM = BUILDER.addForeignField("program", o->o.m_program, (o,v)->o.m_program=v, AGProgram.ID).setTitle(CoreI18n.PROGRAM);
 	public static final IDbForeignField<AGProgramLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
-	public static final IDbForeignField<AGProgramLog, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID).setNullable().setDefault(null);
 	public static final IDbIntegerField<AGProgramLog> EXECUTION_RETENTION_DAYS = BUILDER.addIntegerField("executionRetentionDays", o->o.m_executionRetentionDays, (o,v)->o.m_executionRetentionDays=v).setTitle(CoreI18n.EXECUTION_RETENTION_DAYS).setNullable().setDefault(null);
 	public static final IDbTableKey<AGProgramLog, Tuple2<AGProgram, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM, TRANSACTION));
 	public static final DbRecordTable<AGProgramLog, Tuple2<AGProgram, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
@@ -67,21 +65,6 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 		return getValue(TRANSACTION);
 	}
 
-	public final Integer getProgramUuidID() {
-
-		return getValueId(PROGRAM_UUID);
-	}
-
-	public final AGUuid getProgramUuid() {
-
-		return getValue(PROGRAM_UUID);
-	}
-
-	public final AGProgramLog setProgramUuid(AGUuid value) {
-
-		return setValue(PROGRAM_UUID, value);
-	}
-
 	public final Integer getExecutionRetentionDays() {
 
 		return getValue(EXECUTION_RETENTION_DAYS);
@@ -104,7 +87,6 @@ public class AGProgramLog extends AbstractDbRecord<AGProgramLog, Tuple2<AGProgra
 
 	private AGProgram m_program;
 	private AGTransaction m_transaction;
-	private AGUuid m_programUuid;
 	private Integer m_executionRetentionDays;
 }
 
