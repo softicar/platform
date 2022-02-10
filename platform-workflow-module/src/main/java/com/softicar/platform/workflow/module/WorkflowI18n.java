@@ -7,8 +7,6 @@ import com.softicar.platform.core.module.CoreI18n;
 
 public interface WorkflowI18n extends CoreI18n {
 
-	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("Substitute from is after Substitute to")//
-		.de("Vertretung von ist nach Vertretung bis");
 	I18n0 A_NEW_WORKFLOW_TASK_REQUIRES_YOUR_ATTENTION = new I18n0("A new workflow task requires your attention.")//
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
@@ -136,6 +134,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Vertretung für %s");
 	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
 		.de("Vertretung von");
+	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("Substitute from is after Substitute to")//
+		.de("Vertretung von ist nach Vertretung bis");
 	I18n0 SUBSTITUTE_MUST_BE_DEFINED = new I18n0("Substitute must be defined")//
 		.de("Eine Vertretung muss definiert sein");
 	I18n0 SUBSTITUTE_SET = new I18n0("Substitute set")//
