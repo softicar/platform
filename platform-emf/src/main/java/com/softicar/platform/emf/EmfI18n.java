@@ -61,6 +61,8 @@ public interface EmfI18n {
 		.de("Autorisierte Rolle");
 	I18n0 AVAILABLE_VALUES = new I18n0("Available values")//
 		.de("Verfügbare Werte");
+	I18n0 BACK = new I18n0("Back")//
+		.de("Zurück");
 	I18n0 BASE64_ENCODED_BINARY_DATA = new I18n0("Base64-Encoded Binary Data")//
 		.de("Base64-codierte Binärdaten");
 	I18n0 BOOLEAN = new I18n0("Boolean")//
