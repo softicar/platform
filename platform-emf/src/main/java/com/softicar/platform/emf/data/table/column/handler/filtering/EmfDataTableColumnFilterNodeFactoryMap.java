@@ -50,7 +50,6 @@ public class EmfDataTableColumnFilterNodeFactoryMap {
 		addFactory(Integer.class, this::createIntegerFilterNode);
 		addFactory(Long.class, this::createLongFilterNode);
 		addFactory(String.class, this::createStringFilterNode);
-		// TODO PLAT-679 We should add support for IDisplayString here
 	}
 
 	private <T> void addFactory(Class<T> valueClass, IEmfDataTableColumnFilterNodeFactory<T> factory) {
