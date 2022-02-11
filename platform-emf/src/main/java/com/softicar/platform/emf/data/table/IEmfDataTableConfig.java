@@ -5,6 +5,7 @@ import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.data.table.column.settings.EmfDataTableColumnSettings;
 import com.softicar.platform.emf.data.table.header.secondary.IEmfDataTableExtraRowColumnGroupListAccumulator;
@@ -55,4 +56,6 @@ public interface IEmfDataTableConfig<R> {
 	IEmfDataTableExtraRowColumnGroupListAccumulator<R> getFooterRowAccumulator();
 
 	Optional<Consumer<Collection<R>>> getCallbackAfterContentChange();
+
+	Supplier<IDomNode> getEmptyTablePlaceholderFactory();
 }

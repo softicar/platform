@@ -10,10 +10,12 @@ import com.softicar.platform.db.core.database.IDbDatabase;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableValueBasedColumnHandler;
+import com.softicar.platform.emf.data.table.empty.EmfDataTableEmptyTablePlaceholderDiv;
 import com.softicar.platform.emf.data.table.header.secondary.EmfDataTableExtraRowDefinition;
 import com.softicar.platform.emf.data.table.header.secondary.IEmfDataTableExtraRowColumnGroupList;
 import java.util.Collection;
@@ -510,6 +512,22 @@ public class EmfDataTableDivBuilder<R> {
 	public EmfDataTableDivBuilder<R> setCallbackAfterContentChange(Consumer<Collection<R>> callback) {
 
 		this.config.setCallbackAfterContentChange(callback);
+		return this;
+	}
+
+	/**
+	 * Defines a factory for a placeholder {@link IDomNode} shown if the table
+	 * contains no rows.
+	 * <p>
+	 * The default placeholder is {@link EmfDataTableEmptyTablePlaceholderDiv}.
+	 *
+	 * @param placeholderFactory
+	 *            the placeholder factory (never <i>null</i>)
+	 * @return this
+	 */
+	public EmfDataTableDivBuilder<R> setEmptyTablePlaceholderFactory(Supplier<IDomNode> placeholderFactory) {
+
+		this.config.setEmptyTablePlaceholderFactory(placeholderFactory);
 		return this;
 	}
 

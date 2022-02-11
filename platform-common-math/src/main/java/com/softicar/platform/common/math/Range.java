@@ -2,7 +2,7 @@ package com.softicar.platform.common.math;
 
 /**
  * A simple immutable range class.
- * 
+ *
  * @author Oliver Richers
  */
 public class Range<T extends Comparable<? super T>> {
@@ -42,7 +42,7 @@ public class Range<T extends Comparable<? super T>> {
 
 	/**
 	 * Returns true if this is an valid range.
-	 * 
+	 *
 	 * @return whether this range is valid or not
 	 */
 	public boolean isValid() {
@@ -53,8 +53,8 @@ public class Range<T extends Comparable<? super T>> {
 	/**
 	 * Returns true if this range is valid and if {@link #getMin()} equals
 	 * {@link #getMax()}.
-	 * 
-	 * @return whether this is a valid singluar range
+	 *
+	 * @return whether this is a valid singular range
 	 */
 	public boolean isSingular() {
 
@@ -62,9 +62,9 @@ public class Range<T extends Comparable<? super T>> {
 	}
 
 	/**
-	 * Returns true if this range is valid and not singluar.
-	 * 
-	 * @return whether this range is valid and not singluar
+	 * Returns true if this range is valid and not singular.
+	 *
+	 * @return whether this range is valid and not singular
 	 */
 	public boolean hasSize() {
 

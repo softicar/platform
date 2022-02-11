@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableConfiguration;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
+import com.softicar.platform.emf.data.table.empty.EmfDataTableEmptyTablePlaceholderRow;
 import com.softicar.platform.emf.data.table.export.ITableExportDomTableExtension;
 import com.softicar.platform.emf.data.table.header.secondary.EmfDataTableExtraRow;
 import com.softicar.platform.emf.data.table.header.secondary.IEmfDataTableExtraRowColumnGroupList;
@@ -242,7 +243,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 		}
 
 		if (rowCount <= 0) {
-			getBody().appendChild(new EmfDataTableEmptyRow(this.primaryHeaderRow.getColumnCount()));
+			getBody().appendChild(new EmfDataTableEmptyTablePlaceholderRow(config, this.primaryHeaderRow.getColumnCount()));
 		}
 
 		config//

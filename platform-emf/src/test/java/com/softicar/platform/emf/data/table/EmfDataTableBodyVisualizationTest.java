@@ -35,9 +35,9 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 
 		findNodes(EmfDataTableDivMarker.TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.EMPTY_BODY_ROW)
+			.findNodes(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_ROW)
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.EMPTY_BODY_CELL)
+			.findNodes(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_CELL)
 			.assertOne()
 			.assertContainsText(EmfDataTableI18n.NO_ENTRIES_FOUND);
 	}

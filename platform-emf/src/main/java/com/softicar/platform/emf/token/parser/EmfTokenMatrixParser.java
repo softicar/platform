@@ -8,6 +8,7 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.converter.EmfTokenConverterResult;
 import com.softicar.platform.emf.token.parser.converter.EmfTokenConverters;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P> {
 
 	private final EmfTokenConverters converters;
 	private final IEmfTable<R, P, ?> table;
+	private List<? extends IDbField<R, ?>> fields;
 	private Integer currentRowIndex;
 	private List<String> currentRow;
 	private Integer currentColumnIndex;
@@ -34,11 +36,28 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P> {
 	public EmfTokenMatrixParser(IEmfTable<R, P, ?> table) {
 
 		this.table = Objects.requireNonNull(table);
+		this.fields = table.getAllFields();
 		this.converters = new EmfTokenConverters();
 		this.currentRowIndex = null;
 		this.currentRow = null;
 		this.currentColumnIndex = null;
 		this.currentToken = null;
+	}
+
+	/**
+	 * Overrides the default list of expected {@link IDbField} objects.
+	 * <p>
+	 * By default, the list of expected {@link IDbField} objects equals
+	 * {@link IEmfTable#getAllFields()}.
+	 *
+	 * @param fields
+	 *            the list of {@link IDbField} objects (never <i>null</i>)
+	 * @return this
+	 */
+	public EmfTokenMatrixParser<R, P> setFields(Collection<IDbField<R, ?>> fields) {
+
+		this.fields = new ArrayList<>(fields);
+		return this;
 	}
 
 	/**
@@ -64,7 +83,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P> {
 
 			this.currentRow = Objects.requireNonNull(tokenRow);
 
-			var fields = table.getAllFields();
 			assertColumnCount(fields, tokenRow);
 
 			R object = table.getRowFactory().get();

@@ -35,6 +35,8 @@ public interface EmfI18n {
 		.de("Beim Hinzufügen einer Aktion ist ein Fehler aufgetreten.");
 	I18n0 AN_ERROR_OCCURRED_WHILE_DISPLAYING_THIS_VALUE = new I18n0("An error occurred while displaying this value.")//
 		.de("Beim Anzeigen dieses Wertes ist ein Fehler aufgetreten.");
+	I18n0 ANALYZE = new I18n0("Analyze")//
+		.de("Analysieren");
 	I18n0 AND = new I18n0("and")//
 		.de("und");
 	I18n0 ANYBODY = new I18n0("Anybody")//
@@ -61,6 +63,8 @@ public interface EmfI18n {
 		.de("Autorisierte Rolle");
 	I18n0 AVAILABLE_VALUES = new I18n0("Available values")//
 		.de("Verfügbare Werte");
+	I18n0 BACK = new I18n0("Back")//
+		.de("Zurück");
 	I18n0 BASE64_ENCODED_BINARY_DATA = new I18n0("Base64-Encoded Binary Data")//
 		.de("Base64-codierte Binärdaten");
 	I18n0 BOOLEAN = new I18n0("Boolean")//
@@ -79,6 +83,8 @@ public interface EmfI18n {
 		.de("Änderungs-Logger existieren");
 	I18n0 CHILD_TABLES = new I18n0("Child Tables")//
 		.de("Kind-Tabellen");
+	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS = new I18n0("Column values must be separated by commas.")//
+		.de("Spaltenwerte müssen durch Kommas getrennt sein.");
 	I18n0 COMPONENT = new I18n0("Component")//
 		.de("Komponente");
 	I18n0 CONCEALED = new I18n0("Concealed")//
@@ -129,6 +135,8 @@ public interface EmfI18n {
 		.de("Fehler");
 	I18n0 EXAMPLE = new I18n0("Example")//
 		.de("Beispiel");
+	I18n1 EXPECTED_ARG1_COLUMNS = new I18n1("Expected %s columns.")//
+		.de("%s Spalten erwartet.");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
 	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
@@ -163,8 +171,15 @@ public interface EmfI18n {
 		.de("ID");
 	I18n0 IF = new I18n0("IF")//
 		.de("WENN");
+	I18n0 IMPORT = new I18n0("Import")//
+		.de("Importieren");
+	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
+		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
+	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
+			new I18n0("Individual column values can be enclosed by quotation marks, for example \"value\".")//
+				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, zum Beispiel \"Wert\".");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
@@ -201,6 +216,12 @@ public interface EmfI18n {
 		.de("Nein");
 	I18n1 NO_ACTIVE_MODULE_INSTANCE_WITH_ID_ARG1_FOUND = new I18n1("No active module instance with ID %s found.")//
 		.de("Modulinstanz mit ID %s existiert nicht.");
+	I18n0 NO_DATA_ROWS_FOUND = new I18n0("No data rows found.")//
+		.de("Keine Datenzeilen gefunden.");
+	I18n0 NO_DATA_UPLOADED = new I18n0("No data uploaded.")//
+		.de("Keine Daten hochgeladen.");
+	I18n0 NO_DATA_WILL_BE_SAVED_YET = new I18n0("No data will be saved yet.")//
+		.de("Es werden noch keine Daten gespeichert.");
 	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
 		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
@@ -217,6 +238,8 @@ public interface EmfI18n {
 		.de("NICHT %s");
 	I18n0 NOT_PERSISTENT = new I18n0("Not Persistent")//
 		.de("Nicht persistent");
+	I18n0 NOTHING_TO_IMPORT = new I18n0("Nothing to import.")//
+		.de("Nichts zu importieren.");
 	I18n0 NUMBER_OF_DECIMAL_PLACES_EXCEEDED = new I18n0("Number of decimal places exceeded")//
 		.de("Anzahl an Nachkommastellen überschritten");
 	I18n0 NUMBER_OF_DIGITS_EXCEEDED = new I18n0("Number of digits exceeded")//
@@ -255,6 +278,8 @@ public interface EmfI18n {
 		.de("Bitte einen Eintrag auswählen.");
 	I18n0 PLEASE_SPECIFY_A_VALID_INDEX = new I18n0("Please specify a valid index.")//
 		.de("Bitte einen gültigen Index angeben.");
+	I18n0 PLEASE_UPLOAD_DATA_FIRST = new I18n0("Please upload data first.")//
+		.de("Bitte zuerst Daten hochladen.");
 	I18n0 PLURAL_TITLE = new I18n0("Plural Title")//
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
@@ -305,6 +330,10 @@ public interface EmfI18n {
 		.de("Scope");
 	I18n0 SELECT = new I18n0("Select")//
 		.de("Auswählen");
+	I18n0 SELECT_A_CSV_FILE_TO_IMPORT = new I18n0("Select a CSV file to import.")//
+		.de("Wählen Sie eine CSV-Datei zum Importieren.");
+	I18n0 SELECT_CSV_FILE = new I18n0("Select CSV File")//
+		.de("CSV-Datei auswählen");
 	I18n0 SHA_1_HASH = new I18n0("SHA-1 Hash")//
 		.de("SHA-1 Hash");
 	I18n0 SHOW_FILES = new I18n0("Show Files")//
@@ -356,6 +385,8 @@ public interface EmfI18n {
 		.de("Das Dateiformat muss 'PDF' sein.");
 	I18n2 THE_RECORD_WITH_ID_ARG1_COULD_NOT_BE_FOUND_IN_TABLE_ARG2 = new I18n2("The record with ID #%s could not be found in table %s")//
 		.de("Der Datensatz mit ID #%s konnte in Tabelle %s nicht gefunden werden");
+	I18n0 THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED = new I18n0("The table shows the columns to be included.")//
+		.de("Die Tabelle zeigt die einzubeziehenden Spalten.");
 	I18n0 THERE_ARE_UNSAVED_CHANGES = new I18n0("There are unsaved changes.")//
 		.de("Es gibt nicht-gespeicherte Änderungen.");
 	I18n1 THERE_IS_NO_CONVERTER_FOR_FIELD_TYPE_ARG1 = new I18n1("There is no converter for field type '%s'.")//
@@ -392,6 +423,8 @@ public interface EmfI18n {
 		.de("Aktualisiert am");
 	I18n0 UPDATED_BY = new I18n0("Updated By")//
 		.de("Aktualisiert von");
+	I18n0 UPLOAD = new I18n0("Upload")//
+		.de("Hochladen");
 	I18n0 USED_ROLES = new I18n0("Used Roles")//
 		.de("Benutzte Rollen");
 	I18n0 UUID = new I18n0("UUID")//
@@ -410,6 +443,8 @@ public interface EmfI18n {
 		.de("Betrachter");
 	I18n0 VISIBILITY_PREDICATE = new I18n0("Visibility Predicate")//
 		.de("Sichtbarkeits-Prädikat");
+	I18n0 WRONG_NUMBER_OF_COLUMNS = new I18n0("Wrong number of columns.")//
+		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
 }

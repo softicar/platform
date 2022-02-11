@@ -24,6 +24,7 @@ import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
+import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -43,8 +44,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 	private Optional<Set<R>> prefilteredEntities;
 	private Optional<ISqlBooleanExpression<R>> additionalFilterExpression;
 	private Consumer<EmfDataTableDivBuilder<R>> dataTableDivCustomizer;
-	private EmfManagementDiv<R, P, S>.ScopeActionBar scopeActionBar;
-	private EmfManagementDiv<R, P, S>.ActionBar actionBar;
+	private ScopeActionBar scopeActionBar;
+	private ActionBar actionBar;
 
 	public EmfManagementDiv(IEmfTable<R, P, S> entityTable, S scopeEntity) {
 
@@ -184,7 +185,15 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setLabel(EmfI18n.CREATE)
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
-					.setTitle(getCreationTitle()));
+					.setTitle(getCreationPredicateTitle()));
+			appendChild(
+				new DomPopupButton()//
+					.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
+					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
+					.setLabel(EmfI18n.IMPORT)
+					.setMarker(EmfManagementMarker.IMPORT_BUTTON)
+					.setEnabled(isCreationAllowed())
+					.setTitle(getCreationPredicateTitle()));
 
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
@@ -206,7 +215,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 		}
 
-		private IDisplayString getCreationTitle() {
+		private IDisplayString getCreationPredicateTitle() {
 
 			IEmfPredicate<S> creationPredicate = entityTable.getEmfTableConfiguration().getCreationPredicate();
 			if (!creationPredicate.test(scopeEntity)) {
