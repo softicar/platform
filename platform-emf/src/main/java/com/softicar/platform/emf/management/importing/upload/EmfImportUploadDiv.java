@@ -33,7 +33,7 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				.addUnorderedListItem(EmfI18n.SELECT_A_CSV_FILE_TO_IMPORT)
 				.addUnorderedListItem(EmfI18n.THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED)
 				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS)
-				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_E_G_VALUE)
+				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE)
 				.addUnorderedListItem(
 					EmfI18n.IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED//
 						.concatSentence(EmfI18n.NO_DATA_WILL_BE_SAVED_YET))
