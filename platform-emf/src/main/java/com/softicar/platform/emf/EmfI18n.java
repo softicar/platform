@@ -177,9 +177,9 @@ public interface EmfI18n {
 		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
-	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_E_G_VALUE =
-			new I18n0("Individual column values can be enclosed by quotation marks, e.g. \"value\".")//
-				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, z.B. \"Wert\".");
+	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
+			new I18n0("Individual column values can be enclosed by quotation marks, for example \"value\".")//
+				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, zum Beispiel \"Wert\".");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
