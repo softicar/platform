@@ -20,9 +20,9 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.item.message.WorkflowItemMessagePopup;
-import com.softicar.platform.workflow.module.workflow.substitute.AGWorkflowSubstitute;
 import com.softicar.platform.workflow.module.workflow.task.IWorkflowTaskQuery.IRow;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 
 public class WorkflowTaskDiv extends DomDiv {
 
@@ -33,16 +33,16 @@ public class WorkflowTaskDiv extends DomDiv {
 		appendChild(new DomActionBar())
 			.appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowSubstitute.TABLE.getOrCreate(currentUser)))
+					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserConfiguration.TABLE.getOrCreate(currentUser)))
 					.setIcon(WorkflowImages.USERS.getResource())
-					.setLabel(WorkflowI18n.CONFIGURE_WORKFLOW_SUBSTITUTE));
+					.setLabel(WorkflowI18n.CONFIGURE));
 
 		appendNewChild(DomElementTag.HR);
 		appendChild(new WorkflowTaskForUserDiv(currentUser));
-		for (AGWorkflowSubstitute substitute: AGWorkflowSubstitute.loadAllActiveForUser(currentUser)) {
+		for (AGUser user: AGWorkflowUserConfiguration.loadAllUsersWithSubstitute(currentUser)) {
 			appendNewChild(DomElementTag.HR);
-			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(substitute.getUser().toDisplay()));
-			appendChild(new WorkflowTaskForUserDiv(substitute.getUser()));
+			appendNewChild(DomElementTag.H4).appendText(WorkflowI18n.SUBSTITUTE_FOR_ARG1.toDisplay(user.toDisplayWithoutId()));
+			appendChild(new WorkflowTaskForUserDiv(user));
 		}
 	}
 
@@ -84,6 +84,7 @@ public class WorkflowTaskDiv extends DomDiv {
 				.appendChild(
 					new EmfDataTableDivBuilder<>(query)//
 						.setActionColumnHandler(new ActionColumnHandler())
+						.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
 						.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
 						.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
 						.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
@@ -117,13 +118,22 @@ public class WorkflowTaskDiv extends DomDiv {
 		}
 	}
 
+	private class TaskColumnHandler extends EmfDataTableValueBasedColumnHandler<AGWorkflowTask> {
+
+		@Override
+		public void buildCell(IEmfDataTableCell<?, AGWorkflowTask> cell, AGWorkflowTask task) {
+
+			cell.appendText(task.toDisplayWithoutId());
+		}
+	}
+
 	private class DelegationColumnHandler extends EmfDataTableValueBasedColumnHandler<AGUser> {
 
 		@Override
 		public void buildCell(IEmfDataTableCell<?, AGUser> cell, AGUser user) {
 
 			if (user != null) {
-				cell.appendText(WorkflowI18n.DELEGATED_BY_ARG1.toDisplay(user.toDisplay()));
+				cell.appendText(WorkflowI18n.DELEGATED_BY_ARG1.toDisplay(user.toDisplayWithoutId()));
 			}
 		}
 	}

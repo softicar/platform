@@ -26,7 +26,7 @@ public class ProgramExecutionInserter {
 
 	private AGProgramExecution insertAndUpdateCurrentExecution() {
 
-		program.reloadStateForUpdate();
+		program.lockProgramState();
 		program//
 			.getState()
 			.setCurrentExecution(insertExecution(program.getQueuedBy()))

@@ -52,7 +52,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void handleProgram(AGProgram program) {
 
-		program.reloadStateForUpdate();
+		program.lockProgramState();
 
 		if (program.isRunning()) {
 			handleRunningProgram(program);

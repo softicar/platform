@@ -9,6 +9,8 @@ public interface WorkflowI18n extends CoreI18n {
 
 	I18n0 A_NEW_WORKFLOW_TASK_REQUIRES_YOUR_ATTENTION = new I18n0("A new workflow task requires your attention.")//
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
+	I18n0 A_SUBSTITUTE_MUST_BE_DEFINED = new I18n0("A substitute must be defined.")//
+		.de("Eine Vertretung muss definiert sein.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
 		.de("Aktivieren");
 	I18n0 ADD_NEW_MESSAGE = new I18n0("Add New Message")//
@@ -37,8 +39,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine Rollen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
-	I18n0 CONFIGURE_WORKFLOW_SUBSTITUTE = new I18n0("Configure Workflow Substitute")//
-		.de("Arbeitsablauf-Vertretung konfigurieren");
+	I18n0 CONFIGURE = new I18n0("Configure")//
+		.de("Konfigurieren");
 	I18n0 COPY_WORKFLOW_VERSION = new I18n0("Copy Workflow Version")//
 		.de("Arbeitsablauf-Version kopieren");
 	I18n0 CREATED_AT = new I18n0("Created At")//
@@ -57,6 +59,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Delegierung");
 	I18n0 DRAFT = new I18n0("Draft")//
 		.de("Entwurf");
+	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email Notifications for New Tasks")//
+		.de("E-Mail Benachrichtigungen für neue Aufgaben");
 	I18n0 ENTITY_TABLE = new I18n0("Entity Table")//
 		.de("Entitätstabelle");
 	I18n1 EXECUTED_ACTION_ARG1 = new I18n1("Executed action '%s'.")//
@@ -128,8 +132,16 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf starten");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//
 		.de("Vertretung");
+	I18n0 SUBSTITUTE_DEFINED = new I18n0("Substitute defined")//
+		.de("Vertretung definiert");
 	I18n1 SUBSTITUTE_FOR_ARG1 = new I18n1("Substitute for %s")//
 		.de("Vertretung für %s");
+	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
+		.de("Vertretung seit");
+	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("'Substitute from' is after 'Substitute to'")//
+		.de("'Vertretung seit' ist nach 'Vertretung bis'");
+	I18n0 SUBSTITUTE_TO = new I18n0("Substitute to")//
+		.de("Vertretung bis");
 	I18n0 TARGET_NODE = new I18n0("Target Node")//
 		.de("Zielknoten");
 	I18n0 TARGET_USER_IS_SYSTEM_USER = new I18n0("Target user is system user.")//
@@ -148,8 +160,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergangs-Rolle");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
-	I18n0 VALID_FROM_AFTER_VALID_TO = new I18n0("Valid from after valid to")//
-		.de("Gültig ab liegt nach Gültig von");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
@@ -249,14 +259,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Workflow gestartet.");
 	I18n0 WORKFLOW_STATUS = new I18n0("Workflow Status")//
 		.de("Workflow-Status");
-	I18n0 WORKFLOW_SUBSTITUTE = new I18n0("Workflow Substitute")//
-		.de("Arbeitsablauf-Vertretung");
-	I18n0 WORKFLOW_SUBSTITUTE_LOG = new I18n0("Workflow Substitute Log")//
-		.de("Arbeitsablauf-Vertretung-Log");
-	I18n0 WORKFLOW_SUBSTITUTE_LOGS = new I18n0("Workflow Substitute Logs")//
-		.de("Arbeitsablauf-Vertretung-Logs");
-	I18n0 WORKFLOW_SUBSTITUTES = new I18n0("Workflow Substitutes")//
-		.de("Arbeitsablauf-Vertretungen");
 	I18n0 WORKFLOW_TASK = new I18n0("Workflow Task")//
 		.de("Arbeitsablauf-Aufgabe");
 	I18n0 WORKFLOW_TASK_DELEGATION = new I18n0("Workflow Task Delegation")//
@@ -295,6 +297,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Übergangs-Rollen");
 	I18n0 WORKFLOW_TRANSITIONS = new I18n0("Workflow Transitions")//
 		.de("Arbeitsablauf-Übergänge");
+	I18n0 WORKFLOW_USER_CONFIGURATION = new I18n0("Workflow User Configuration")//
+		.de("Arbeitsablauf-Benutzer-Konfiguration");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOG = new I18n0("Workflow User Configuration Log")//
+		.de("Arbeitsablauf-Benutzer-Konfigurations-Log");
+	I18n0 WORKFLOW_USER_CONFIGURATION_LOGS = new I18n0("Workflow User Configuration Logs")//
+		.de("Arbeitsablauf-Benutzer-Konfigurations-Logs");
+	I18n0 WORKFLOW_USER_CONFIGURATIONS = new I18n0("Workflow User Configurations")//
+		.de("Arbeitsablauf-Benutzer-Konfigurationen");
 	I18n0 WORKFLOW_USERS = new I18n0("Workflow Users")//
 		.de("Arbeitsablauf-Benutzer");
 	I18n0 WORKFLOW_VERSION = new I18n0("Workflow Version")//
