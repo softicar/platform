@@ -33,7 +33,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 			setIcon(EmfImages.WIZARD_PREVIOUS.getResource());
 			setLabel(EmfI18n.BACK);
-			setClickCallback(() -> popup.showParseDiv());
+			setClickCallback(() -> popup.showAnalyzeDiv());
 		}
 	}
 

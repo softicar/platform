@@ -14,10 +14,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// TODO integrate with EmfTokenMatrixParser and add unit tests
 public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
@@ -28,7 +30,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public EmfImportEngine(IEmfTable<R, P, S> table) {
 
-		this.table = table;
+		this.table = Objects.requireNonNull(table);
 		this.textualRows = new ArrayList<>();
 		this.parsedRows = new ArrayList<>();
 		this.ignoredFields = new HashSet<>();

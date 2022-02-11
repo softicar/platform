@@ -14,12 +14,12 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
 import java.util.List;
 
-public class EmfImportAnalyseDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
+public class EmfImportAnalyzeDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
 
 	private final EmfImportPopup<R, P, S> popup;
 	private final EmfImportEngine<R, P, S> engine;
 
-	public EmfImportAnalyseDiv(EmfImportPopup<R, P, S> popup) {
+	public EmfImportAnalyzeDiv(EmfImportPopup<R, P, S> popup) {
 
 		this.popup = popup;
 		this.engine = popup.getEngine();
