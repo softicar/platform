@@ -136,10 +136,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Vertretung seit");
 	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("'Substitute from' is after 'Substitute to'")//
 		.de("'Vertretung seit' ist nach 'Vertretung bis'");
-	I18n0 SUBSTITUTE_MUST_BE_DEFINED = new I18n0("Substitute must be defined")//
-		.de("Eine Vertretung muss definiert sein");
-	I18n0 SUBSTITUTE_SET = new I18n0("Substitute set")//
-		.de("Vertretung gesetzt");
+	I18n0 A_SUBSTITUTE_MUST_BE_DEFINED = new I18n0("A substitute must be defined.")//
+		.de("Eine Vertretung muss definiert sein.");
+	I18n0 SUBSTITUTE_DEFINED = new I18n0("Substitute defined")//
+		.de("Vertretung definiert");
 	I18n0 SUBSTITUTE_TO = new I18n0("Substitute to")//
 		.de("Vertretung bis");
 	I18n0 TARGET_NODE = new I18n0("Target Node")//

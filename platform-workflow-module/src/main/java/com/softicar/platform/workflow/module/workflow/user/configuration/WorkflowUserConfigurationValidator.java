@@ -46,10 +46,10 @@ public class WorkflowUserConfigurationValidator extends AbstractEmfValidator<AGW
 
 		if (tableRow.getSubstitute() == null) {
 			if (tableRow.getSubstituteFrom() != null) {
-				addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
+				addError(AGWorkflowUserConfiguration.SUBSTITUTE_FROM, WorkflowI18n.A_SUBSTITUTE_MUST_BE_DEFINED);
 			}
 			if (tableRow.getSubstituteTo() != null) {
-				addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.SUBSTITUTE_MUST_BE_DEFINED);
+				addError(AGWorkflowUserConfiguration.SUBSTITUTE_TO, WorkflowI18n.A_SUBSTITUTE_MUST_BE_DEFINED);
 			}
 		} else {
 			if (tableRow.getSubstituteFrom() != null && tableRow.getSubstituteTo() != null) {

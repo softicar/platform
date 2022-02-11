@@ -57,11 +57,11 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 		attributes//
 			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE_FROM)
 			.setInputFactoryByEntity(WorkflowUserConfigurationDayInput::new)
-			.setPredicateMandatory(WorkflowUserConfigurationPredicates.SUBSTITUTE_SET);
+			.setPredicateMandatory(WorkflowUserConfigurationPredicates.SUBSTITUTE_DEFINED);
 		attributes//
 			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE_TO)
 			.setInputFactoryByEntity(WorkflowUserConfigurationDayInput::new)
-			.setPredicateMandatory(WorkflowUserConfigurationPredicates.SUBSTITUTE_SET);
+			.setPredicateMandatory(WorkflowUserConfigurationPredicates.SUBSTITUTE_DEFINED);
 	}
 
 	@Override
