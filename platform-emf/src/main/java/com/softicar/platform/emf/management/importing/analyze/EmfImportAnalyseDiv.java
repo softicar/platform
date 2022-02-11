@@ -73,18 +73,18 @@ public class EmfImportAnalyseDiv<R extends IEmfTableRow<R, P>, P, S> extends Dom
 			}
 		}
 
+		@Override
+		protected Collection<List<String>> getTableRows() {
+
+			return engine.getTextualRows();
+		}
+
 		private void addColumn(IDbField<R, ?> field, int index) {
 
 			newColumn(String.class)//
 				.setGetter(row -> row.get(index))
 				.setTitle(engine.getFieldTitle(field))
 				.addColumn();
-		}
-
-		@Override
-		protected Collection<List<String>> getTableRows() {
-
-			return engine.getTextualRows();
 		}
 	}
 }

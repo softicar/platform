@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.event.upload;
 
+import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.StreamUtils;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +59,7 @@ public interface IDomFileUpload {
 		try (InputStream stream = getStream()) {
 			return converter.apply(stream);
 		} catch (IOException exception) {
-			throw new RuntimeException(exception);
+			throw new SofticarIOException(exception);
 		}
 	}
 

@@ -76,18 +76,18 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 			engine.getFieldsToImport().forEach(this::addColumn);
 		}
 
+		@Override
+		protected Collection<List<String>> getTableRows() {
+
+			return Collections.emptyList();
+		}
+
 		private void addColumn(IDbField<R, ?> field) {
 
 			newColumn(String.class)//
 				.setGetter(row -> "")
 				.setTitle(engine.getFieldTitle(field))
 				.addColumn();
-		}
-
-		@Override
-		protected Collection<List<String>> getTableRows() {
-
-			return Collections.emptyList();
 		}
 	}
 }

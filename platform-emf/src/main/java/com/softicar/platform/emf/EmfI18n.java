@@ -84,7 +84,7 @@ public interface EmfI18n {
 	I18n0 CHILD_TABLES = new I18n0("Child Tables")//
 		.de("Kind-Tabellen");
 	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS = new I18n0("Column values must be separated by commas.")//
-		.de("Spaltenwerte müssen durch Kommas getrennt werden.");
+		.de("Spaltenwerte müssen durch Kommas getrennt sein.");
 	I18n0 COMPONENT = new I18n0("Component")//
 		.de("Komponente");
 	I18n0 CONCEALED = new I18n0("Concealed")//
@@ -177,8 +177,9 @@ public interface EmfI18n {
 		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
-	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS = new I18n0("Individual column values can be enclosed by quotation marks.")//
-		.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden.");
+	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS =
+			new I18n0("Individual column values can be enclosed by quotation marks, e.g. \"value\".")//
+				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, z.B. \"Wert\".");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
@@ -238,7 +239,7 @@ public interface EmfI18n {
 	I18n0 NOT_PERSISTENT = new I18n0("Not Persistent")//
 		.de("Nicht persistent");
 	I18n0 NOTHING_TO_IMPORT = new I18n0("Nothing to import.")//
-		.de("Nichts zum importieren.");
+		.de("Nichts zu importieren.");
 	I18n0 NUMBER_OF_DECIMAL_PLACES_EXCEEDED = new I18n0("Number of decimal places exceeded")//
 		.de("Anzahl an Nachkommastellen überschritten");
 	I18n0 NUMBER_OF_DIGITS_EXCEEDED = new I18n0("Number of digits exceeded")//

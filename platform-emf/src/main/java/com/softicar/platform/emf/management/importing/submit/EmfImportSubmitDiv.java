@@ -63,18 +63,18 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 			}
 		}
 
+		@Override
+		protected Collection<R> getTableRows() {
+
+			return engine.getParsedRows();
+		}
+
 		private <V> void addFieldColumn(IDbField<R, V> field) {
 
 			newColumn(field.getValueType().getValueClass())//
 				.setGetter(field::getValue)
 				.setTitle(engine.getFieldTitle(field))
 				.addColumn();
-		}
-
-		@Override
-		protected Collection<R> getTableRows() {
-
-			return engine.getParsedRows();
 		}
 	}
 }

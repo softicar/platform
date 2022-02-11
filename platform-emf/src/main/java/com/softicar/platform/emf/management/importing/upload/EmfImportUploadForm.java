@@ -22,6 +22,12 @@ class EmfImportUploadForm extends DomForm implements IDomFileUploadHandler {
 		appendChild(fileInput);
 	}
 
+	@Override
+	public void handleFileUploads(Iterable<IDomFileUpload> fileUploads) {
+
+		consumer.accept(fileUploads);
+	}
+
 	public EmfImportUploadForm setupEventDelegation(DomButton button) {
 
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.CLICK, fileInput);
@@ -30,18 +36,12 @@ class EmfImportUploadForm extends DomForm implements IDomFileUploadHandler {
 		return this;
 	}
 
-	@Override
-	public void handleFileUploads(Iterable<IDomFileUpload> fileUploads) {
-
-		consumer.accept(fileUploads);
-	}
-
 	private class FileInput extends DomFileInput {
 
 		public FileInput() {
 
 			setStyle(CssDisplay.NONE);
-			setMultiple(true);
+			setMultiple(false);
 
 			getDomEngine().submitFormOnChange(EmfImportUploadForm.this, this);
 		}

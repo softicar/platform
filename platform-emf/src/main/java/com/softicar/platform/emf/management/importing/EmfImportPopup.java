@@ -61,6 +61,6 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		CastUtils//
 			.tryCast(scope, IDisplayable.class)
-			.ifPresent(s -> setSubCaption(s.toDisplay()));
+			.ifPresent(scope -> setSubCaption(scope.toDisplay()));
 	}
 }
