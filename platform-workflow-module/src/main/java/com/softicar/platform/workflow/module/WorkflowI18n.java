@@ -9,6 +9,8 @@ public interface WorkflowI18n extends CoreI18n {
 
 	I18n0 A_NEW_WORKFLOW_TASK_REQUIRES_YOUR_ATTENTION = new I18n0("A new workflow task requires your attention.")//
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
+	I18n0 A_SUBSTITUTE_MUST_BE_DEFINED = new I18n0("A substitute must be defined.")//
+		.de("Eine Vertretung muss definiert sein.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
 		.de("Aktivieren");
 	I18n0 ADD_NEW_MESSAGE = new I18n0("Add New Message")//
@@ -130,16 +132,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf starten");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//
 		.de("Vertretung");
+	I18n0 SUBSTITUTE_DEFINED = new I18n0("Substitute defined")//
+		.de("Vertretung definiert");
 	I18n1 SUBSTITUTE_FOR_ARG1 = new I18n1("Substitute for %s")//
 		.de("Vertretung für %s");
 	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
 		.de("Vertretung seit");
 	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("'Substitute from' is after 'Substitute to'")//
 		.de("'Vertretung seit' ist nach 'Vertretung bis'");
-	I18n0 A_SUBSTITUTE_MUST_BE_DEFINED = new I18n0("A substitute must be defined.")//
-		.de("Eine Vertretung muss definiert sein.");
-	I18n0 SUBSTITUTE_DEFINED = new I18n0("Substitute defined")//
-		.de("Vertretung definiert");
 	I18n0 SUBSTITUTE_TO = new I18n0("Substitute to")//
 		.de("Vertretung bis");
 	I18n0 TARGET_NODE = new I18n0("Target Node")//
