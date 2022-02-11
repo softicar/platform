@@ -133,9 +133,9 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n1 SUBSTITUTE_FOR_ARG1 = new I18n1("Substitute for %s")//
 		.de("Vertretung für %s");
 	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
-		.de("Vertretung von");
-	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("Substitute from is after Substitute to")//
-		.de("Vertretung von ist nach Vertretung bis");
+		.de("Vertretung seit");
+	I18n0 SUBSTITUTE_FROM_IS_AFTER_SUBSTITUTE_TO = new I18n0("'Substitute from' is after 'Substitute to'")//
+		.de("'Vertretung seit' ist nach 'Vertretung bis'");
 	I18n0 SUBSTITUTE_MUST_BE_DEFINED = new I18n0("Substitute must be defined")//
 		.de("Eine Vertretung muss definiert sein");
 	I18n0 SUBSTITUTE_SET = new I18n0("Substitute set")//
