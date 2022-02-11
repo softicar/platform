@@ -128,7 +128,7 @@ public interface DomI18n {
 	I18n0 PLEASE_SELECT_A_FORMAT = new I18n0("Please select a format.")//
 		.de("Bitte ein Format auswählen.");
 	I18n0 PLEASE_SELECT_A_VALID_ENTRY = new I18n0("Please select a valid entry.")//
-		.de("Bitte einen gültigen Entrag auswählen.");
+		.de("Bitte einen gültigen Eintrag auswählen.");
 	I18n0 PLEASE_SELECT_AN_EXPORT_FORMAT = new I18n0("Please select an export format.")//
 		.de("Bitte ein Export-Format auswählen.");
 	I18n0 PLEASE_SELECT_AT_LEAST_ONE_COLUMN = new I18n0("Please select at least one column.")//
