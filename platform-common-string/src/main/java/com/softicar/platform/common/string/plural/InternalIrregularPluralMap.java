@@ -18,6 +18,8 @@ class InternalIrregularPluralMap {
 		add("life", "lives");
 		add("man", "men");
 		add("woman", "women");
+		add("settings", "settings");
+		add("preferences", "preferences");
 	}
 
 	public static InternalIrregularPluralMap getInstance() {

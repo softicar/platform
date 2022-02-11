@@ -12,6 +12,7 @@ import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflow
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
 import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -105,7 +106,7 @@ public class WorkflowTaskManager {
 			.setWorkflowItem(item)
 			.setUser(user)
 			.save();
-		if (notify) {
+		if (notify && AGWorkflowUserConfiguration.TABLE.getOrCreate(user).isEmailNotificationsForNewTasks()) {
 			new WorkflowTaskNotificationSubmitter(task).submit();
 		}
 	}
