@@ -23,7 +23,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		this.popup = popup;
 		this.engine = popup.getEngine();
 
-		appendChild(new DomActionBar(new BackButton(), new ImportButton()));
+		appendChild(new DomActionBar(new BackButton(), new SaveButton()));
 		appendChild(new EmfDataTableDivBuilder<>(new RowsTable()).build());
 	}
 
@@ -37,16 +37,16 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		}
 	}
 
-	private class ImportButton extends DomButton {
+	private class SaveButton extends DomButton {
 
-		public ImportButton() {
+		public SaveButton() {
 
 			setIcon(EmfImages.WIZARD_NEXT.getResource());
-			setLabel(EmfI18n.IMPORT);
-			setClickCallback(this::importRows);
+			setLabel(EmfI18n.SAVE_AND_CLOSE);
+			setClickCallback(this::saveRows);
 		}
 
-		private void importRows() {
+		private void saveRows() {
 
 			engine.insertRows();
 			getDomDocument().getRefreshBus().setAllChanged();
