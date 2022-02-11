@@ -173,6 +173,8 @@ public interface EmfI18n {
 		.de("WENN");
 	I18n0 IMPORT = new I18n0("Import")//
 		.de("Importieren");
+	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
+		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
 	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS = new I18n0("Individual column values can be enclosed by quotation marks.")//
@@ -217,6 +219,8 @@ public interface EmfI18n {
 		.de("Keine Datenzeilen gefunden.");
 	I18n0 NO_DATA_UPLOADED = new I18n0("No data uploaded.")//
 		.de("Keine Daten hochgeladen.");
+	I18n0 NO_DATA_WILL_BE_SAVED_YET = new I18n0("No data will be saved yet.")//
+		.de("Es werden noch keine Daten gespeichert.");
 	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
 		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
@@ -378,10 +382,6 @@ public interface EmfI18n {
 		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
 		.de("Das Dateiformat muss 'PDF' sein.");
-	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
-		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
-	I18n0 NO_DATA_WILL_BE_SAVED_YET = new I18n0("No data will be saved yet.")//
-		.de("Es werden noch keine Daten gespeichert.");
 	I18n2 THE_RECORD_WITH_ID_ARG1_COULD_NOT_BE_FOUND_IN_TABLE_ARG2 = new I18n2("The record with ID #%s could not be found in table %s")//
 		.de("Der Datensatz mit ID #%s konnte in Tabelle %s nicht gefunden werden");
 	I18n0 THE_TABLE_SHOWS_THE_COLUMNS_TO_BE_INCLUDED = new I18n0("The table shows the columns to be included.")//
