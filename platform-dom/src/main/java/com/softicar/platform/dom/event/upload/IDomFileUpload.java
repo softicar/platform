@@ -43,7 +43,7 @@ public interface IDomFileUpload {
 	 * Calls {@link #getStream()} and reads and converts the content using the
 	 * provided converter function.
 	 * <p>
-	 * The content steam is closed automatically.
+	 * The content stream is closed automatically.
 	 * <p>
 	 * This method may only be called once.
 	 *

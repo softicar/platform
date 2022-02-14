@@ -1,6 +1,7 @@
 
 .EmfForm {
 	display: grid;
+	flex-grow: 1;
 	min-width: 320px;
 }
 
@@ -81,7 +82,6 @@
 
 .EmfFormPopupContainer {
 	align-items: start;
-	display: inline;
 	width: 100%;
 }
 
