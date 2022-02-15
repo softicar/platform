@@ -39,6 +39,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		ignoreActiveField();
 		ignoreGeneratedFields();
 		ignoreTransactionFields();
+		ignoreConcealedFields();
 	}
 
 	public IEmfTable<R, P, S> getTable() {
@@ -138,6 +139,15 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (IDbField<R, ?> field: table.getAllFields()) {
 			if (table.getAttribute(field) instanceof EmfTransactionAttribute) {
+				ignoredFields.add(field);
+			}
+		}
+	}
+
+	private void ignoreConcealedFields() {
+
+		for (IDbField<R, ?> field: table.getAllFields()) {
+			if (table.getAttribute(field).isConcealed()) {
 				ignoredFields.add(field);
 			}
 		}

@@ -22,6 +22,7 @@ import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
+import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
@@ -186,18 +187,28 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
-			appendChild(
-				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
-					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
-					.setLabel(EmfI18n.IMPORT)
-					.setMarker(EmfManagementMarker.IMPORT_BUTTON)
-					.setEnabled(isCreationAllowed())
-					.setTitle(getCreationPredicateTitle()));
-
+			if (!isNonConcealedForeignAttributePresent()) {
+				appendChild(
+					new DomPopupButton()//
+						.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
+						.setIcon(EmfImages.ENTITY_IMPORT.getResource())
+						.setLabel(EmfI18n.IMPORT)
+						.setMarker(EmfManagementMarker.IMPORT_BUTTON)
+						.setEnabled(isCreationAllowed())
+						.setTitle(getCreationPredicateTitle()));
+			}
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
 			}
+		}
+
+		private boolean isNonConcealedForeignAttributePresent() {
+
+			return entityTable//
+				.getAttributes()
+				.stream()
+				.filter(it -> !it.isConcealed())
+				.anyMatch(EmfForeignRowAttribute.class::isInstance);
 		}
 
 		private void invalidateCachesAndRefreshAll() {
