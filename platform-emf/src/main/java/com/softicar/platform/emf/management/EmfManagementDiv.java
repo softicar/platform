@@ -22,6 +22,7 @@ import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
+import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
@@ -187,7 +188,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
-			if (!isNonConcealedForeignAttributePresent()) {
+			if (!isNonConcealedNonNullableForeignAttributePresent()) {
 				appendChild(
 					new DomPopupButton()//
 						.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
@@ -202,13 +203,22 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 		}
 
-		private boolean isNonConcealedForeignAttributePresent() {
+		private boolean isNonConcealedNonNullableForeignAttributePresent() {
 
 			return entityTable//
 				.getAttributes()
 				.stream()
 				.filter(it -> !it.isConcealed())
+				.filter(it -> !isNullable(it))
 				.anyMatch(EmfForeignRowAttribute.class::isInstance);
+		}
+
+		private boolean isNullable(IEmfAttribute<R, ?> attribute) {
+
+			if (attribute.getField().isPresent()) {
+				return attribute.getField().get().isNullable();
+			}
+			return false;
 		}
 
 		private void invalidateCachesAndRefreshAll() {
