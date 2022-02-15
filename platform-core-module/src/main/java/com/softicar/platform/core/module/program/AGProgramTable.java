@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueueAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
+import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanDisplay;
 import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeDisplay;
@@ -101,4 +102,9 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.addMapping(AGProgram.EXECUTION_RETENTION_DAYS, AGProgramLog.EXECUTION_RETENTION_DAYS);
 	}
 
+	@Override
+	public void customizeAttributeOrdering(EmfAttributeReorderer<AGProgram> reorderer) {
+
+		reorderer.moveAttribute(AGProgram.PROGRAM).behind(AGProgram.ID);
+	}
 }
