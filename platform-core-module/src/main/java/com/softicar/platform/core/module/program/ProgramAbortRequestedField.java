@@ -7,7 +7,7 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientBooleanField
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;
 
-public class ProgramAbortRequestedField extends AbstractTransientBooleanField<AGProgram> {
+class ProgramAbortRequestedField extends AbstractTransientBooleanField<AGProgram> {
 
 	@Override
 	public IDisplayString getTitle() {

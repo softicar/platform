@@ -8,7 +8,7 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientObjectField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;
 
-public class ProgramQueuedByField extends AbstractTransientObjectField<AGProgram, AGUser> {
+class ProgramQueuedByField extends AbstractTransientObjectField<AGProgram, AGUser> {
 
 	public ProgramQueuedByField() {
 
