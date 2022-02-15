@@ -30,13 +30,13 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	public void customizeAttributeProperties(IEmfAttributeList<AGProgram> attributes) {
 
 		attributes//
-			.editAttribute(AGProgram.ID)
-			.setConcealed(true);
+			.addTransientAttribute(AGProgram.PROGRAM);
 
 		attributes//
 			.editIndirectEntityAttribute(AGProgram.PROGRAM_UUID)
 			.setEntityLoader(Programs::getAllProgramsAsIndirectEntities)
 			.setTitle(CoreI18n.PROGRAM)
+			.setConcealed(true)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always())
 			.setPredicateEditable(EmfPredicates.never());
