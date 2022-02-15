@@ -71,7 +71,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		if (parsedRows.isEmpty()) {
 			throw new SofticarUserException(EmfI18n.NOTHING_TO_IMPORT);
 		} else {
-			new EmfImportRowsInserter<>(table).insertAll(parsedRows);
+			table.saveAll(parsedRows);
 		}
 	}
 
