@@ -11,6 +11,7 @@ import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
+import com.softicar.platform.emf.data.table.column.handler.EmfDataTableNonSortableColumnHandler;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -56,7 +57,8 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, Syst
 			.setEntityLoader(() -> AGUuidBasedSourceCodeReferencePoints.getAll(IEmfModule.class))
 			.setTitle(CoreI18n.MODULE_CLASS)
 			.setImmutable(true)
-			.setPredicateMandatory(EmfPredicates.always());
+			.setPredicateMandatory(EmfPredicates.always())
+			.setColumnHandlerFactory(EmfDataTableNonSortableColumnHandler::new);
 		attributes//
 			.addTransientAttribute(AGModuleInstance.TITLE_FIELD);
 	}
