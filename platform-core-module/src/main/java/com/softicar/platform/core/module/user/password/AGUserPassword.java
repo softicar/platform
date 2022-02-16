@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.security.crypt.Apr1Crypt;
 import com.softicar.platform.common.security.crypt.Bcrypt;
 import com.softicar.platform.common.security.crypt.UnixCrypt;
@@ -39,7 +39,7 @@ public class AGUserPassword extends AGUserPasswordGenerated implements IEmfObjec
 
 		Optional<Integer> maxAllowedAge = Optional.ofNullable(getUser().getPasswordPolicy()).map(AGPasswordPolicy::getMaximumPasswordAge);
 		if (maxAllowedAge.isPresent()) {
-			return getCreatedAt().isBeforeOrEqual(Day.today().toDayTime().minusDays(maxAllowedAge.get()));
+			return DayTime.now().isBeforeOrEqual(getCreatedAt().plusDays(maxAllowedAge.get()));
 		} else {
 			return true;
 		}
