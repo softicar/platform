@@ -2,13 +2,16 @@ package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.security.crypt.Apr1Crypt;
 import com.softicar.platform.common.security.crypt.Bcrypt;
 import com.softicar.platform.common.security.crypt.UnixCrypt;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.algorithm.AGUserPasswordAlgorithmEnum;
+import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
 import com.softicar.platform.emf.object.IEmfObject;
+import java.util.Optional;
 
 public class AGUserPassword extends AGUserPasswordGenerated implements IEmfObject<AGUserPassword> {
 
@@ -30,6 +33,16 @@ public class AGUserPassword extends AGUserPasswordGenerated implements IEmfObjec
 			return Apr1Crypt.verifyPassword(password, getThis().getEncryptedPassword());
 		}
 		throw new SofticarUnknownEnumConstantException(algorithm);
+	}
+
+	public boolean isValid() {
+
+		Optional<Integer> maxAllowedAge = Optional.ofNullable(getUser().getPasswordPolicy()).map(AGPasswordPolicy::getMaximumPasswordAge);
+		if (maxAllowedAge.isPresent()) {
+			return DayTime.now().isBeforeOrEqual(getCreatedAt().plusDays(maxAllowedAge.get()));
+		} else {
+			return true;
+		}
 	}
 
 	public static AGUserPassword getActive(AGUser user) {

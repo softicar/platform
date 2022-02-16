@@ -7,7 +7,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.i18n.LanguageScope;
 import com.softicar.platform.common.core.user.IBasicUser;
-import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -106,7 +105,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean isPasswordChangeNecessary() {
 
-		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || isMaximumPasswordAgeReached();
+		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || !hasValidPassword();
 	}
 
 	public AGUser updatePassword(String password) {
@@ -246,13 +245,11 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 			.orElse(false);
 	}
 
-	public boolean isMaximumPasswordAgeReached() {
+	public boolean hasValidPassword() {
 
-		DayTime passwordCreatedAt = AGUserPassword.getActive(getThis()).getCreatedAt();
 		return Optional//
-			.ofNullable(getPasswordPolicy())
-			.map(AGPasswordPolicy::getMaximumPasswordAge)
-			.map(maximumAge -> passwordCreatedAt.isBeforeOrEqual(Day.today().toDayTime().minusDays(maximumAge)))
+			.ofNullable(AGUserPassword.getActive(getThis()))
+			.map(AGUserPassword::isValid)
 			.orElse(false);
 	}
 
