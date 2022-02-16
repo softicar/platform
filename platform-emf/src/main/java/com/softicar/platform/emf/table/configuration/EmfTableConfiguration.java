@@ -7,6 +7,7 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.action.IEmfCommonAction;
@@ -90,6 +91,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfDeleteHook<R>> deleteHooks;
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
+	private Function<S, DomPopup> creationPopupFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
 	private IEmfPredicate<R> deactivationPredicate;
@@ -121,6 +123,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
 		this.validators = new ArrayList<>();
+		this.creationPopupFactory = table.getTableSpecialization()::createNewTableRowPopup;
 		this.creationPredicate = EmfPredicates.always();
 		this.editPredicate = EmfPredicates.always();
 		this.deactivationPredicate = EmfPredicates.always();
@@ -211,6 +214,11 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final void setAttributeAuthorizerFactory(BiFunction<R, IBasicUser, IEmfAttributeAuthorizer<R>> attributeAuthorizerFactory) {
 
 		this.attributeAuthorizerFactory = attributeAuthorizerFactory;
+	}
+
+	public final void setCreationPopupFactory(Function<S, DomPopup> creationPopupFactory) {
+
+		this.creationPopupFactory = creationPopupFactory;
 	}
 
 	public final void setCreationPredicate(IEmfPredicate<S> creationPredicate) {
@@ -432,6 +440,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfAuthorizer<R, S> getAuthorizer() {
 
 		return authorizerSupplier.get();
+	}
+
+	@Override
+	public Function<S, DomPopup> getCreationPopupFactory() {
+
+		return creationPopupFactory;
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.action.IEmfCommonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
@@ -114,6 +115,8 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	Collection<IEmfValidator<R>> getValidators();
 
 	IEmfAuthorizer<R, S> getAuthorizer();
+
+	Function<S, DomPopup> getCreationPopupFactory();
 
 	IEmfPredicate<S> getCreationPredicate();
 
