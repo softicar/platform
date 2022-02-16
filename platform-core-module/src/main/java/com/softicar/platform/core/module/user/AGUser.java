@@ -106,7 +106,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean isPasswordChangeNecessary() {
 
-		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || hasNoValidPassword();
+		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || !hasValidPassword();
 	}
 
 	public AGUser updatePassword(String password) {
@@ -246,7 +246,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 			.orElse(false);
 	}
 
-	public boolean hasNoValidPassword() {
+	public boolean hasValidPassword() {
 
 		Optional<DayTime> passwordCreatedAt = Optional.ofNullable(AGUserPassword.getActive(getThis())).map(AGUserPassword::getCreatedAt);
 		Optional<Integer> maxAllowedAge = Optional.ofNullable(getPasswordPolicy()).map(AGPasswordPolicy::getMaximumPasswordAge);

@@ -33,14 +33,14 @@ public class UserPasswordChangeDiv extends DomDiv {
 	private final QualityMessageDiv qualityMessageDiv;
 	private final PasswordSaveButton saveButton;
 	private final DomCheckbox visiblePasswordCheckbox;
-	private boolean maximumPasswordAgeReached;
+	private boolean hasNoValidPassword;
 
 	public UserPasswordChangeDiv(IPasswordPolicy passwordPolicy) {
 
 		this.passwordPolicy = passwordPolicy;
 		this.user = CurrentUser.get();
 		this.userPasswordPolicy = user.getPasswordPolicy();
-		this.maximumPasswordAgeReached = user.hasNoValidPassword();
+		this.hasNoValidPassword = !user.hasValidPassword();
 		this.visiblePasswordCheckbox = new DomCheckbox()//
 			.setLabel(CoreI18n.SHOW_PASSWORD)
 			.setChangeCallback(this::setPasswordVisible);
@@ -96,8 +96,8 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		if (checkPassword()) {
 			user.updatePassword(inputTable.getPassword());
-			if (maximumPasswordAgeReached) {
-				maximumPasswordAgeReached = false;
+			if (hasNoValidPassword) {
+				hasNoValidPassword = false;
 				appendChild(
 					new DomMessageDiv(
 						DomMessageType.INFO,
@@ -164,7 +164,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 						CoreI18n.YOUR_CURRENT_PASSWORD_MIGHT_HAVE_BEEN_COMPROMISED//
 							.concatSentence(CoreI18n.PLEASE_DEFINE_A_NEW_PASSWORD_BELOW)));
 			}
-			if (maximumPasswordAgeReached) {
+			if (hasNoValidPassword) {
 				appendChild(
 					new DomMessageDiv(
 						DomMessageType.ERROR,
