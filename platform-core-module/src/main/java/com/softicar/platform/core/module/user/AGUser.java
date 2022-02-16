@@ -248,12 +248,16 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean isMaximumPasswordAgeReached() {
 
-		DayTime passwordCreatedAt = AGUserPassword.getActive(getThis()).getCreatedAt();
-		return Optional//
-			.ofNullable(getPasswordPolicy())
-			.map(AGPasswordPolicy::getMaximumPasswordAge)
-			.map(maximumAge -> passwordCreatedAt.isBeforeOrEqual(Day.today().toDayTime().minusDays(maximumAge)))
-			.orElse(false);
+		Optional<DayTime> passwordCreatedAt = Optional.ofNullable(AGUserPassword.getActive(getThis())).map(AGUserPassword::getCreatedAt);
+		if (passwordCreatedAt.isPresent()) {
+			return Optional//
+				.ofNullable(getPasswordPolicy())
+				.map(AGPasswordPolicy::getMaximumPasswordAge)
+				.map(maximumAge -> passwordCreatedAt.get().isBeforeOrEqual(Day.today().toDayTime().minusDays(maximumAge)))
+				.orElse(false);
+		} else {
+			return false;
+		}
 	}
 
 	/**
