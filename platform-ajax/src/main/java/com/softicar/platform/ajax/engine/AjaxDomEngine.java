@@ -492,7 +492,7 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void updateDocumentTitle(String pageTitle) {
 
-		updateCodeJS.appendStatement("document.title = \"" + pageTitle + "\";");
+		JS_setAttribute("document.title", pageTitle);
 	}
 
 	@Override
@@ -540,6 +540,11 @@ public class AjaxDomEngine implements IDomEngine {
 	private void JS_removeNodeAttribute(IDomNode node, String name) {
 
 		updateCodeJS.appendStatement(JS_getNode(node) + ".removeAttribute('" + name + "');");
+	}
+
+	private void JS_setAttribute(String attribute, String value) {
+
+		updateCodeJS.appendStatement(attribute + " = \"" + value + "\";");
 	}
 
 	private static String JS_getNode(IDomNode node) {
