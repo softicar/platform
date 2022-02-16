@@ -7,7 +7,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.i18n.LanguageScope;
 import com.softicar.platform.common.core.user.IBasicUser;
-import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -248,18 +247,10 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean hasValidPassword() {
 
-		Optional<DayTime> passwordCreatedAt = Optional.ofNullable(AGUserPassword.getActive(getThis())).map(AGUserPassword::getCreatedAt);
-		Optional<Integer> maxAllowedAge = Optional.ofNullable(getPasswordPolicy()).map(AGPasswordPolicy::getMaximumPasswordAge);
-
-		if (maxAllowedAge.isPresent()) {
-			if (passwordCreatedAt.isPresent()) {
-				return passwordCreatedAt.get().isBeforeOrEqual(Day.today().toDayTime().minusDays(maxAllowedAge.get()));
-			} else {
-				return false;
-			}
-		} else {
-			return passwordCreatedAt.isPresent();
-		}
+		return Optional//
+			.ofNullable(AGUserPassword.getActive(getThis()))
+			.map(AGUserPassword::isValid)
+			.orElse(false);
 	}
 
 	/**
