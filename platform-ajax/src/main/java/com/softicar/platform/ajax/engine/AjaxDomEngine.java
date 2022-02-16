@@ -490,6 +490,12 @@ public class AjaxDomEngine implements IDomEngine {
 	// -------------------------------- browser manipulation -------------------------------- //
 
 	@Override
+	public void updateDocumentTitle(String pageTitle) {
+
+		updateCodeJS.appendStatement("document.title = \"" + pageTitle + "\";");
+	}
+
+	@Override
 	public void pushBrowserHistoryState(String pageName, String pageUrl) {
 
 		JS_call("pushBrowserHistoryState", pageName, pageUrl);

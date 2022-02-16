@@ -141,6 +141,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void updateDocumentTitle(String pageTitle) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void pushBrowserHistoryState(String pageName, String pageUrl) {
 
 		// nothing to do

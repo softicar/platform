@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
+import com.softicar.platform.dom.engine.IDomEngine;
 import java.util.stream.Collectors;
 
 /**
@@ -50,9 +51,8 @@ public class PageHeaderAndContentDiv extends DomDiv {
 
 	private void changeBrowserUrl(PageNavigationLink<?> link) {
 
-		CurrentDomDocument//
-			.get()
-			.getEngine()
-			.pushBrowserHistoryState(link.getTitle(), new PageUrlBuilder<>(link).build().getStartingFromPath());
+		IDomEngine engine = CurrentDomDocument.get().getEngine();
+		engine.pushBrowserHistoryState(link.getTitle(), new PageUrlBuilder<>(link).build().getStartingFromPath());
+		engine.updateDocumentTitle(link.getTitle());
 	}
 }
