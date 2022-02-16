@@ -40,7 +40,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.passwordPolicy = passwordPolicy;
 		this.user = CurrentUser.get();
 		this.userPasswordPolicy = user.getPasswordPolicy();
-		this.maximumPasswordAgeReached = user.isMaximumPasswordAgeReached();
+		this.maximumPasswordAgeReached = user.hasValidPassword();
 		this.visiblePasswordCheckbox = new DomCheckbox()//
 			.setLabel(CoreI18n.SHOW_PASSWORD)
 			.setChangeCallback(this::setPasswordVisible);

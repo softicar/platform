@@ -106,7 +106,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean isPasswordChangeNecessary() {
 
-		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || isMaximumPasswordAgeReached();
+		return isPasswordCompromised() || !isPasswordPolicyFulfilled() || hasValidPassword();
 	}
 
 	public AGUser updatePassword(String password) {
@@ -246,17 +246,19 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 			.orElse(false);
 	}
 
-	public boolean isMaximumPasswordAgeReached() {
+	public boolean hasValidPassword() {
 
 		Optional<DayTime> passwordCreatedAt = Optional.ofNullable(AGUserPassword.getActive(getThis())).map(AGUserPassword::getCreatedAt);
-		if (passwordCreatedAt.isPresent()) {
-			return Optional//
-				.ofNullable(getPasswordPolicy())
-				.map(AGPasswordPolicy::getMaximumPasswordAge)
-				.map(maximumAge -> passwordCreatedAt.get().isBeforeOrEqual(Day.today().toDayTime().minusDays(maximumAge)))
-				.orElse(false);
+		Optional<Integer> maxAllowedAge = Optional.ofNullable(getPasswordPolicy()).map(AGPasswordPolicy::getMaximumPasswordAge);
+
+		if (maxAllowedAge.isPresent()) {
+			if (passwordCreatedAt.isPresent()) {
+				return passwordCreatedAt.get().isBeforeOrEqual(Day.today().toDayTime().minusDays(maxAllowedAge.get()));
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			return passwordCreatedAt.isPresent();
 		}
 	}
 
