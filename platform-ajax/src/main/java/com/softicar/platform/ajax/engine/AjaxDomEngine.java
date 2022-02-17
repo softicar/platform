@@ -490,6 +490,12 @@ public class AjaxDomEngine implements IDomEngine {
 	// -------------------------------- browser manipulation -------------------------------- //
 
 	@Override
+	public void setDocumentTitle(String pageTitle) {
+
+		JS_setAttribute("document.title", pageTitle);
+	}
+
+	@Override
 	public void pushBrowserHistoryState(String pageName, String pageUrl) {
 
 		JS_call("pushBrowserHistoryState", pageName, pageUrl);
@@ -534,6 +540,11 @@ public class AjaxDomEngine implements IDomEngine {
 	private void JS_removeNodeAttribute(IDomNode node, String name) {
 
 		updateCodeJS.appendStatement(JS_getNode(node) + ".removeAttribute('" + name + "');");
+	}
+
+	private void JS_setAttribute(String attribute, String value) {
+
+		updateCodeJS.appendStatement(attribute + " = \"" + value + "\";");
 	}
 
 	private static String JS_getNode(IDomNode node) {
