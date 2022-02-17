@@ -41,7 +41,7 @@ public class PageNavigationPageController {
 		unselectCurrentPageLinkDiv();
 		selectPageLinkDiv(pageLinkDiv);
 
-		folderController.openFolderAndCloseOthers(pageLinkDiv.getFolderDiv());
+		folderController.openFolder(pageLinkDiv.getFolderDiv());
 		pageHeaderAndContentDiv.setContent(pageLinkDiv.getLink());
 	}
 
