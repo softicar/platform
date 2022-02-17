@@ -2,6 +2,7 @@ package com.softicar.platform.emf.table.configuration;
 
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
@@ -141,4 +142,6 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	 * @return the {@link IEmfTableRowDeactivationStrategy} (never null)
 	 */
 	IEmfTableRowDeactivationStrategy<R> getDeactivationStrategy();
+
+	IDbKey<R> getBusinessKey();
 }
