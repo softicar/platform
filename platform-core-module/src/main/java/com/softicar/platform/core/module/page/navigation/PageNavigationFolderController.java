@@ -26,31 +26,30 @@ public class PageNavigationFolderController {
 	public void toggleFolder(PageNavigationFolderDiv folderDiv) {
 
 		if (openFolderDivs.contains(folderDiv)) {
-			closeFolder(folderDiv);
+			close(folderDiv);
 		} else {
-			openFolderAndCloseOthers(folderDiv);
+			openFolder(folderDiv);
 		}
 	}
 
-	public void openFolderAndCloseOthers(PageNavigationFolderDiv folderDiv) {
+	public void openFolder(PageNavigationFolderDiv folderDiv) {
 
 		Set<PageNavigationFolderDiv> desiredFolderDivs = new HashSet<>();
 		while (folderDiv != null) {
 			desiredFolderDivs.add(folderDiv);
 			folderDiv = folderDiv.getParentFolderDiv();
 		}
-		Sets.difference(openFolderDivs, desiredFolderDivs).forEach(this::closeFolder);
-		Sets.difference(desiredFolderDivs, openFolderDivs).forEach(this::openFolder);
+		Sets.difference(desiredFolderDivs, openFolderDivs).forEach(this::open);
 	}
 
-	public void openFolder(PageNavigationFolderDiv folderDiv) {
+	private void open(PageNavigationFolderDiv folderDiv) {
 
 		folderDiv.addCssClass(DomCssPseudoClasses.SELECTED);
 		folderDiv.appendContentDiv();
 		openFolderDivs.add(folderDiv);
 	}
 
-	public void closeFolder(PageNavigationFolderDiv folderDiv) {
+	private void close(PageNavigationFolderDiv folderDiv) {
 
 		folderDiv.removeCssClass(DomCssPseudoClasses.SELECTED);
 		folderDiv.removeContentDiv();

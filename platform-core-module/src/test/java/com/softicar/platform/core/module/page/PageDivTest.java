@@ -85,15 +85,14 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testOnlySingleOpenFolder() {
+	public void testMultipleOpenFolder() {
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
 		clickFolderLink("Email");
 		assertLinkPresent("Buffered Emails");
 		clickFolderLink("Logging");
-		assertNoLinkPresent("Buffered Emails");
-		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
+		assertLinksPresent("Buffered Emails", "Current Panic Entries", "Log Messages", "Log View");
 	}
 
 	private void assertTestPageIsShown() {
