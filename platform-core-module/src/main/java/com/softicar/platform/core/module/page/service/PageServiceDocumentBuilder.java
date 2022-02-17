@@ -45,7 +45,7 @@ public class PageServiceDocumentBuilder {
 		} else {
 			registerCss(PageResources.PAGE_STYLE);
 			registerCss(PageNavigationResources.PAGE_NAVIGATION_STYLE);
-			document.getEngine().updateDocumentTitle(CoreI18n.LOGIN.toString());
+			document.getEngine().setDocumentTitle(CoreI18n.LOGIN.toString());
 			document.appendToBody(new PageServiceLoginDiv(this));
 			document.getBody().focusFirst();
 		}

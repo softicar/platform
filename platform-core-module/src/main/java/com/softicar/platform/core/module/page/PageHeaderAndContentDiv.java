@@ -53,6 +53,6 @@ public class PageHeaderAndContentDiv extends DomDiv {
 
 		IDomEngine engine = CurrentDomDocument.get().getEngine();
 		engine.pushBrowserHistoryState(link.getTitle(), new PageUrlBuilder<>(link).build().getStartingFromPath());
-		engine.updateDocumentTitle(link.getTitle());
+		engine.setDocumentTitle(link.getTitle());
 	}
 }

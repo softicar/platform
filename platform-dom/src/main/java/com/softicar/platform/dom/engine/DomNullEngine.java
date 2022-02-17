@@ -141,7 +141,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void updateDocumentTitle(String pageTitle) {
+	public void setDocumentTitle(String pageTitle) {
 
 		// nothing to do
 	}

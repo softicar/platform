@@ -490,7 +490,7 @@ public class AjaxDomEngine implements IDomEngine {
 	// -------------------------------- browser manipulation -------------------------------- //
 
 	@Override
-	public void updateDocumentTitle(String pageTitle) {
+	public void setDocumentTitle(String pageTitle) {
 
 		JS_setAttribute("document.title", pageTitle);
 	}
