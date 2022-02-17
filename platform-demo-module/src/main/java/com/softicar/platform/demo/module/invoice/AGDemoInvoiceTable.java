@@ -20,6 +20,7 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		configuration.setScopeField(AGDemoInvoice.MODULE_INSTANCE);
 		configuration.addValidator(DemoInvoiceValidator::new);
+		configuration.setCreationPopupFactory(scope -> new DemoInvoiceCreationPopup(AGDemoInvoice.TABLE.createEntity(scope)));
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class DemoModuleInstanceCreationTest extends AbstractCoreTest implements 
 		insertRoleMembership(CurrentUser.get(), CoreRoles.ACCESS_MANAGER, CoreModule.class);
 		insertRoleMembership(CurrentUser.get(), CoreRoles.SUPER_USER, CoreModule.class);
 
-		findManagementDiv(AGModuleInstance.TABLE).clickNewEntryButton();
+		findManagementDiv(AGModuleInstance.TABLE).clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGModuleInstance.class);
 		popup.setInputValue(AGModuleInstance.MODULE_UUID, "Demo");

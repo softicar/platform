@@ -20,7 +20,7 @@ public class DemoMomentInputTest extends AbstractDemoModuleTest {
 	@Test
 	public void testWithValidInputs() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "2022-01-01");
@@ -37,7 +37,7 @@ public class DemoMomentInputTest extends AbstractDemoModuleTest {
 	@Test
 	public void testWithMissingInputs() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "");
@@ -54,7 +54,7 @@ public class DemoMomentInputTest extends AbstractDemoModuleTest {
 	@Test
 	public void testWithInvalidInputs() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "foo");
@@ -71,7 +71,7 @@ public class DemoMomentInputTest extends AbstractDemoModuleTest {
 	@Test
 	public void testWithMissingTimeInput() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31", "::");
@@ -84,7 +84,7 @@ public class DemoMomentInputTest extends AbstractDemoModuleTest {
 	@Test
 	public void testWithMissingDateInput() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "", "13:23:03");
