@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 
@@ -22,6 +23,7 @@ public class EmfTestObjectGenerated extends AbstractDbObject<EmfTestObject> {
 	public static final IDbDayField<EmfTestObject> DAY = BUILDER.addDayField("day", o -> o.day, (o, v) -> o.day = v).setNullable().setDefault(null);
 	public static final IDbBooleanField<EmfTestObject> ACTIVE = BUILDER.addBooleanField("active", o -> o.active, (o, v) -> o.active = v).setDefault(true);
 	public static final EmfTestObjectTable TABLE = new EmfTestObjectTable(BUILDER);
+	public static final IDbKey<EmfTestObject> UK_NAME_DAY = BUILDER.addUniqueKey("nameDay", NAME, DAY);
 	// @formatter:on
 
 	private Integer id;
