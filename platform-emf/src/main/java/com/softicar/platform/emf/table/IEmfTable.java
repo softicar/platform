@@ -87,6 +87,7 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	@Override
 	default void assertValidConfigurationOrThrow() {
 
+		IDbTable.super.assertValidConfigurationOrThrow();
 		new EmfTableValidator<>(this).validate();
 	}
 
