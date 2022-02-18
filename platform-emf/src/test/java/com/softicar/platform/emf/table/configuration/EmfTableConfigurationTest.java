@@ -15,12 +15,6 @@ public class EmfTableConfigurationTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testSetBusinessKey() {
-
-		configuration.setBusinessKey(EmfTestObject.UK_NAME_DAY);
-	}
-
-	@Test
 	public void testGetBusinessKeyWithDefaultValue() {
 
 		assertTrue(configuration.getBusinessKey().isPrimaryKey());
