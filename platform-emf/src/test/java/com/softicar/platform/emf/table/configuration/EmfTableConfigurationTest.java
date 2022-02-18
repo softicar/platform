@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class EmfTableConfigurationTest extends AbstractDbTest {
 
-	EmfTableConfiguration<EmfTestObject, Integer, EmfTestModuleInstance> configuration;
+	private final EmfTableConfiguration<EmfTestObject, Integer, EmfTestModuleInstance> configuration;
 
 	public EmfTableConfigurationTest() {
 
