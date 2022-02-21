@@ -3,6 +3,7 @@ package com.softicar.platform.emf.table.configuration;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
@@ -103,6 +104,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private Optional<IEmfTableRowsFinder<R>> tableRowsFinder;
 	private IEmfDeleteStrategy<R> deleteStrategy;
 	private IEmfTableRowDeactivationStrategy<R> deactivationStrategy;
+	private IDbKey<R> businessKey;
 
 	public EmfTableConfiguration(IEmfTable<R, P, S> table) {
 
@@ -508,4 +510,14 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		table.customizeAttributeOrdering(attributes.createReorderer());
 	}
 
+	public void setBusinessKey(IDbKey<R> businessKey) {
+
+		this.businessKey = businessKey;
+	}
+
+	@Override
+	public IDbKey<R> getBusinessKey() {
+
+		return businessKey != null? businessKey : table.getPrimaryKey();
+	}
 }

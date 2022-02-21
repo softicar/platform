@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.table.DbTable;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.transients.ITransientField;
@@ -86,6 +87,7 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	@Override
 	default void assertValidConfigurationOrThrow() {
 
+		IDbTable.super.assertValidConfigurationOrThrow();
 		new EmfTableValidator<>(this).validate();
 	}
 
@@ -327,6 +329,11 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	default Boolean isCreationPossible(S scopeEntity) {
 
 		return getEmfTableConfiguration().getCreationPredicate().test(scopeEntity);
+	}
+
+	default IDbKey<R> getBusinessKey() {
+
+		return getEmfTableConfiguration().getBusinessKey();
 	}
 
 	IEmfTableConfiguration<R, P, S> getEmfTableConfiguration();

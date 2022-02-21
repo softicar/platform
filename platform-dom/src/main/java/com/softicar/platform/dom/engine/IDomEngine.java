@@ -223,6 +223,8 @@ public interface IDomEngine {
 	 */
 	IResourceUrl getResourceUrl(IResource resource);
 
+	void setDocumentTitle(String pageTitle);
+
 	void pushBrowserHistoryState(String pageName, String pageUrl);
 
 	void reloadPage();
