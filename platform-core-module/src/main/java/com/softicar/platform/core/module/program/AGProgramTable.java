@@ -34,6 +34,9 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 			.addTransientAttribute(AGProgram.PROGRAM);
 
 		attributes//
+			.addTransientAttribute(AGProgram.MODULE);
+
+		attributes//
 			.editIndirectEntityAttribute(AGProgram.PROGRAM_UUID)
 			.setEntityLoader(Programs::getAllProgramsAsIndirectEntities)
 			.setTitle(CoreI18n.PROGRAM)
@@ -105,6 +108,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	@Override
 	public void customizeAttributeOrdering(EmfAttributeReorderer<AGProgram> reorderer) {
 
+		reorderer.moveAttribute(AGProgram.MODULE).behind(AGProgram.ID);
 		reorderer.moveAttribute(AGProgram.PROGRAM).behind(AGProgram.ID);
 	}
 }

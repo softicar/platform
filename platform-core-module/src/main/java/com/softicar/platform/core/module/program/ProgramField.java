@@ -22,10 +22,7 @@ class ProgramField extends AbstractTransientObjectField<AGProgram, String> {
 	@Override
 	protected void loadValues(Set<AGProgram> programs, IValueSetter<AGProgram, String> setter) {
 
-		AGProgram.TABLE//
-			.createSelect()
-			.where(AGProgram.ID.isIn(programs))
-			.forEach(record -> setter.set(record, record.toDisplayWithoutId().toString()));
+		programs.forEach(program -> setter.set(program, program.toDisplayWithoutId().toString()));
 	}
 
 	@Override
