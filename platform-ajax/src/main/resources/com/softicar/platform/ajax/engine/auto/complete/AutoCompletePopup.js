@@ -4,6 +4,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 	// -------------------- fields -------------------- //
 
 	var div = new DomElementBuilder('div').setId('AjaxAutoCompletePopup').setClassName('AjaxAutoCompletePopup').build();
+	var maxCount = 16;
 	var pattern = null;
 	var values = null;
 	var cells = [];
@@ -53,6 +54,13 @@ function AutoCompletePopup(inputContext, applySelection) {
 	function appendValues() {
 
 		for(var i = 0; i < values.length; ++i) {
+			if(i == maxCount){
+				new DomElementBuilder('span')
+				.appendTo(div)
+				.setClassName('AjaxAutoCompleteMoreItems')
+				.appendText("...");
+				continue;
+			}
 			// append new row
 			var builder = new DomElementBuilder('span')
 				.appendTo(div)

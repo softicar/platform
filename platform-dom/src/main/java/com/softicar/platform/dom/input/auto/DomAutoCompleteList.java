@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class DomAutoCompleteList implements Iterable<String> {
 
-	public static final int MAXIMUM_ELEMENT_COUNT = 16;
+	public static final int MAXIMUM_ELEMENT_COUNT = 17;
 	private final List<String> items;
 
 	public DomAutoCompleteList() {
