@@ -9,7 +9,7 @@ public class EmfDataTableBigDecimalFilterInput extends DomBigDecimalInput implem
 	@Override
 	public BigDecimal getFilterValue() {
 
-		return getBigDecimalOrNull();
+		return retrieveValue().orElse(null);
 	}
 
 	@Override
