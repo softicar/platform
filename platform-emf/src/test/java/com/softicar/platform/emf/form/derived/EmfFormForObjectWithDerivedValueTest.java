@@ -1,8 +1,5 @@
 package com.softicar.platform.emf.form.derived;
 
-
-
-
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.form.EmfForm;
@@ -34,7 +31,7 @@ public class EmfFormForObjectWithDerivedValueTest extends AbstractEmfTest {
 	@Test
 	public void testCreationOfNewObject() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		var popup = findFormPopup(EmfTestObjectWithDerivedValue.class);
 		popup.setInputValue(EmfTestObjectWithDerivedValue.VALUE, "7");
@@ -51,7 +48,7 @@ public class EmfFormForObjectWithDerivedValueTest extends AbstractEmfTest {
 	@Test
 	public void testFailingCreationOfNewObject() {
 
-		findManagementDiv().clickNewEntryButton();
+		findManagementDiv().clickCreateButton();
 
 		var popup = findFormPopup(EmfTestObjectWithDerivedValue.class);
 		popup.setInputValue(EmfTestObjectWithDerivedValue.VALUE, "");

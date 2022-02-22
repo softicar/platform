@@ -35,7 +35,13 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 		clickNode(EmfManagementMarker.REFRESH_BUTTON);
 	}
 
+	@Deprecated
 	public void clickNewEntryButton() {
+
+		clickCreateButton();
+	}
+
+	public void clickCreateButton() {
 
 		clickNode(EmfManagementMarker.CREATE_BUTTON);
 	}

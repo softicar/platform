@@ -3,10 +3,12 @@ package com.softicar.platform.emf.table.configuration;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.action.IEmfCommonAction;
@@ -90,6 +92,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfDeleteHook<R>> deleteHooks;
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
+	private Function<S, DomPopup> creationPopupFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
 	private IEmfPredicate<R> deactivationPredicate;
@@ -101,6 +104,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private Optional<IEmfTableRowsFinder<R>> tableRowsFinder;
 	private IEmfDeleteStrategy<R> deleteStrategy;
 	private IEmfTableRowDeactivationStrategy<R> deactivationStrategy;
+	private IDbKey<R> businessKey;
 
 	public EmfTableConfiguration(IEmfTable<R, P, S> table) {
 
@@ -121,6 +125,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
 		this.validators = new ArrayList<>();
+		this.creationPopupFactory = table.getTableSpecialization()::createNewTableRowPopup;
 		this.creationPredicate = EmfPredicates.always();
 		this.editPredicate = EmfPredicates.always();
 		this.deactivationPredicate = EmfPredicates.always();
@@ -211,6 +216,11 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final void setAttributeAuthorizerFactory(BiFunction<R, IBasicUser, IEmfAttributeAuthorizer<R>> attributeAuthorizerFactory) {
 
 		this.attributeAuthorizerFactory = attributeAuthorizerFactory;
+	}
+
+	public final void setCreationPopupFactory(Function<S, DomPopup> creationPopupFactory) {
+
+		this.creationPopupFactory = creationPopupFactory;
 	}
 
 	public final void setCreationPredicate(IEmfPredicate<S> creationPredicate) {
@@ -435,6 +445,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	}
 
 	@Override
+	public Function<S, DomPopup> getCreationPopupFactory() {
+
+		return creationPopupFactory;
+	}
+
+	@Override
 	public IEmfPredicate<S> getCreationPredicate() {
 
 		return creationPredicate;
@@ -494,4 +510,14 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		table.customizeAttributeOrdering(attributes.createReorderer());
 	}
 
+	public void setBusinessKey(IDbKey<R> businessKey) {
+
+		this.businessKey = businessKey;
+	}
+
+	@Override
+	public IDbKey<R> getBusinessKey() {
+
+		return businessKey != null? businessKey : table.getPrimaryKey();
+	}
 }

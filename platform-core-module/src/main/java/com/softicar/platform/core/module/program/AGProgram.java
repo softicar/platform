@@ -17,6 +17,7 @@ import java.util.UUID;
 public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgram> {
 
 	public static final ProgramField PROGRAM = new ProgramField();
+	public static final ProgramModuleField MODULE = new ProgramModuleField();
 	public static final ProgramAbortRequestedField ABORT_REQUESTED = new ProgramAbortRequestedField();
 	public static final ProgramQueuedAtField QUEUED_AT = new ProgramQueuedAtField();
 	public static final ProgramQueuedByField QUEUED_BY = new ProgramQueuedByField();

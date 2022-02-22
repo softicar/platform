@@ -45,4 +45,6 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//
 		.de("Menge");
+	I18n0 THIS_IS_A_DEMO = new I18n0("This is a demo.")//
+		.de("Das ist eine Demo.");
 }
