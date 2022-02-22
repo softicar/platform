@@ -4,6 +4,7 @@ import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.test.fixture.DemoInvoicesTextFixture;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 import com.softicar.platform.emf.data.table.testing.EmfDataTableTester;
@@ -25,6 +26,15 @@ public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoModuleT
 		EmfDataTableTester table = findEmfDataTable(AGDemoInvoice.TABLE);
 		assertEquals("00001|00002|00003", table.getTextInCells(AGDemoInvoice.INVOICE_NUMBER));
 		assertEquals("15.0000|21346.0000|97.0000", table.getTextInCells(AGDemoInvoice.GROSS_AMOUNT_FIELD));
+	}
+
+	@Test
+	public void testIllegalFilterInput() {
+
+		var popup = findEmfDataTable(AGDemoInvoice.TABLE).openFilterPopup(AGDemoInvoice.GROSS_AMOUNT_FIELD);
+		popup.setInputValue(EmfDataTableDivMarker.FILTER_INPUT_VALUE, "x");
+
+		assertExceptionMessage(DomI18n.INVALID_DECIMAL_NUMBER, () -> popup.clickNode(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON));
 	}
 
 	@Test
