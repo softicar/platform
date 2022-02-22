@@ -5,9 +5,9 @@ package com.softicar.platform.emf.attribute.field.floating;
 import com.softicar.platform.common.core.number.parser.DoubleParser;
 import com.softicar.platform.common.string.formatting.DoubleFormatter;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import org.junit.Test;
 
 public class EmfFloatingPointInputTest extends AbstractEmfTest {
@@ -54,7 +54,7 @@ public class EmfFloatingPointInputTest extends AbstractEmfTest {
 		assertEquals(3.14, value, 0.01);
 	}
 
-	@Test(expected = EmfInputException.class)
+	@Test(expected = DomInputException.class)
 	public void testGetValueWithInvalidInput() {
 
 		inputNode.setInputValue("xxx");

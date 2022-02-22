@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomStringInputNode;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import java.math.BigDecimal;
 import org.junit.Rule;
@@ -139,7 +139,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		try {
 			input.getValueOrThrow();
 			fail("expected exception");
-		} catch (EmfInputException exception) {
+		} catch (DomInputException exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());
 		}
 	}

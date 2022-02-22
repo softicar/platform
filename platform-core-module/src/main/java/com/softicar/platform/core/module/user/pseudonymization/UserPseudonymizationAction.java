@@ -10,10 +10,10 @@ import com.softicar.platform.core.module.user.UserPredicates;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.action.AbstractEmfPromptAction;
 import com.softicar.platform.emf.action.IEmfPromptActionInput;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Objects;
@@ -99,7 +99,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 		public void assertConfirmation() {
 
 			if (!isCorrectConfirmationText()) {
-				throw new EmfInputException(CoreI18n.ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1.toDisplay(getConfirmationText()));
+				throw new DomInputException(CoreI18n.ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1.toDisplay(getConfirmationText()));
 			}
 		}
 

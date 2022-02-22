@@ -18,6 +18,7 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.prompt.DomPromptButtonBuilder;
 import com.softicar.platform.dom.elements.tables.DomDataTable;
 import com.softicar.platform.dom.elements.wiki.box.DomWikiBoxShadow;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
@@ -27,7 +28,6 @@ import com.softicar.platform.emf.attribute.field.foreign.entity.collection.set.E
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInputEngine;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.collection.list.IEmfEntityList;
 import com.softicar.platform.emf.data.table.util.ListShifter;
 import com.softicar.platform.emf.entity.IEmfEntity;
@@ -68,7 +68,7 @@ public class EmfForeignEntityListInput<R extends IEmfTableRow<R, ?>, L extends I
 	}
 
 	@Override
-	public L getValueOrThrow() throws EmfInputException {
+	public L getValueOrThrow() throws DomInputException {
 
 		return attribute.getCollectionTable().getOrInsert(table.getEntities());
 	}

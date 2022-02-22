@@ -5,6 +5,7 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
@@ -36,7 +37,7 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 	}
 
 	@Override
-	public String getValueOrThrow() throws EmfInputException {
+	public String getValueOrThrow() throws DomInputException {
 
 		return input.getValueOrThrow();
 	}

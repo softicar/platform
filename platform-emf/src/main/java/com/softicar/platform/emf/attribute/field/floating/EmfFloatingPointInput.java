@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.attribute.field.floating;
 
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 
 public class EmfFloatingPointInput<V> extends AbstractEmfInputDiv<V> {
 
@@ -18,7 +18,7 @@ public class EmfFloatingPointInput<V> extends AbstractEmfInputDiv<V> {
 	}
 
 	@Override
-	public V getValueOrThrow() throws EmfInputException {
+	public V getValueOrThrow() throws DomInputException {
 
 		String text = input.getValue();
 		if (text != null && !text.trim().isEmpty()) {
@@ -26,7 +26,7 @@ public class EmfFloatingPointInput<V> extends AbstractEmfInputDiv<V> {
 			if (strategy.isParseable(text)) {
 				return strategy.parseValue(text);
 			} else {
-				throw new EmfInputException(EmfI18n.INVALID_DECIMAL_NUMBER_ARG1.toDisplay(text));
+				throw new DomInputException(EmfI18n.INVALID_DECIMAL_NUMBER_ARG1.toDisplay(text));
 			}
 		} else {
 			return null;
