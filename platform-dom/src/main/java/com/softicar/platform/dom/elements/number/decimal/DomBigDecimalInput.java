@@ -102,7 +102,7 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	private BigDecimal parseValue(String value) {
 
 		try {
-			return new BigDecimal(value.replace(",", "."));
+			return new BigDecimal(value.trim().replace(",", "."));
 		} catch (Exception exception) {
 			throw new DomInputException(exception, DomI18n.INVALID_DECIMAL_NUMBER);
 		}
