@@ -36,11 +36,19 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 		}
 	}
 
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public BigDecimal getBigDecimalOrNull() {
 
 		return getBigDecimal().orElse(null);
 	}
 
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public BigDecimal getBigDecimalOrZero() {
 
 		return getBigDecimal().orElse(BigDecimal.ZERO);
@@ -56,7 +64,9 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	 * @throws NumberFormatException
 	 *             if the value text cannot be parsed into a valid
 	 *             {@link BigDecimal}
+	 * @deprecated use {@link #retrieveValue()}
 	 */
+	@Deprecated
 	public Optional<BigDecimal> getBigDecimal() {
 
 		try {
@@ -70,8 +80,9 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	/**
 	 * Parses the value text into a {@link BigDecimal}.
 	 * <p>
-	 * If and only if the textual value is empty, an {@link Optional#empty()} is
-	 * returned.
+	 * If the value text is empty or blank, an empty {@link Optional} is
+	 * returned. Otherwise, the value text is parsed into a {@link BigDecimal}.
+	 * If parsing failed, an exception is thrown.
 	 *
 	 * @return the optional value as {@link BigDecimal}
 	 * @throws DomInputException
@@ -80,11 +91,12 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	 */
 	public Optional<BigDecimal> retrieveValue() throws DomInputException {
 
-		String value = getTextOrNull();
-		if (value != null) {
+		String value = getValue();
+		if (value != null && !value.isBlank()) {
 			return Optional.of(parseValue(value));
+		} else {
+			return Optional.empty();
 		}
-		return Optional.empty();
 	}
 
 	private BigDecimal parseValue(String value) {
