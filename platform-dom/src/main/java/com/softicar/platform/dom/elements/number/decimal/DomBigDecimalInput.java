@@ -1,7 +1,9 @@
 package com.softicar.platform.dom.elements.number.decimal;
 
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -58,8 +60,8 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	public Optional<BigDecimal> getBigDecimal() {
 
 		try {
-			return getBigDecimalOrThrowIfInvalidFormat();
-		} catch (NumberFormatException exception) {
+			return retrieveValue();
+		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return Optional.empty();
 		}
@@ -72,11 +74,11 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	 * returned.
 	 *
 	 * @return the optional value as {@link BigDecimal}
-	 * @throws NumberFormatException
+	 * @throws DomInputException
 	 *             if the value text cannot be parsed into a valid
 	 *             {@link BigDecimal}
 	 */
-	public Optional<BigDecimal> getBigDecimalOrThrowIfInvalidFormat() throws NumberFormatException {
+	public Optional<BigDecimal> retrieveValue() throws DomInputException {
 
 		String value = getTextOrNull();
 		if (value != null) {
@@ -87,6 +89,10 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 
 	private BigDecimal parseValue(String value) {
 
-		return new BigDecimal(value.replace(",", "."));
+		try {
+			return new BigDecimal(value.replace(",", "."));
+		} catch (Exception exception) {
+			throw new DomInputException(exception, DomI18n.INVALID_DECIMAL_NUMBER);
+		}
 	}
 }

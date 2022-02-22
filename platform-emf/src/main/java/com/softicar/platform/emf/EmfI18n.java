@@ -4,8 +4,9 @@ import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.I18n2;
 import com.softicar.platform.common.core.i18n.I18n3;
+import com.softicar.platform.dom.DomI18n;
 
-public interface EmfI18n {
+public interface EmfI18n extends DomI18n {
 
 	I18n1 A_VALUE_OF_TYPE_ARG1_IS_MISSING = new I18n1("A value of type '%s' is missing")//
 		.de("Ein Wert vom Typ '%s' fehlt");
@@ -182,8 +183,6 @@ public interface EmfI18n {
 				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, zum Beispiel \"Wert\".");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
-	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
-		.de("Ungültige Dezimalzahl.");
 	I18n1 INVALID_DECIMAL_NUMBER_ARG1 = new I18n1("Invalid decimal number: '%s'")//
 		.de("Ungültige Dezimalzahl: '%s'");
 	I18n0 INVALID_PRECONDITION = new I18n0("Invalid precondition")//

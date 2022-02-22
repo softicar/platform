@@ -2,7 +2,6 @@ package com.softicar.platform.emf.attribute.field.bigdecimal;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.number.decimal.DomBigDecimalInput;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
@@ -75,16 +74,11 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	@Override
 	public BigDecimal getValueOrThrow() throws DomInputException {
 
-		try {
-			var value = applyScale(input.getBigDecimalOrThrowIfInvalidFormat().orElse(null));
-			if (value != null && scale >= 0 && value.scale() > scale) {
-				throw new DomInputException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
-			}
-			return value;
-		} catch (NumberFormatException exception) {
-			DevNull.swallow(exception);
-			throw new DomInputException(EmfI18n.INVALID_DECIMAL_NUMBER);
+		var value = applyScale(input.retrieveValue().orElse(null));
+		if (value != null && scale >= 0 && value.scale() > scale) {
+			throw new DomInputException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
 		}
+		return value;
 	}
 
 	/**
