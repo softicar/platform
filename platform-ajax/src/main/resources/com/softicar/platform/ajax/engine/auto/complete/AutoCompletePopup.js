@@ -4,9 +4,8 @@ function AutoCompletePopup(inputContext, applySelection) {
 	// -------------------- fields -------------------- //
 
 	var div = new DomElementBuilder('div').setId('AjaxAutoCompletePopup').setClassName('AjaxAutoCompletePopup').build();
-	var maxCount = 16;
 	var pattern = null;
-	var values = null;
+	var items = null;
 	var cells = [];
 	var selectedIndex = null;
 
@@ -24,14 +23,14 @@ function AutoCompletePopup(inputContext, applySelection) {
 
 	// -------------------- implementation -------------------- //
 
-	function show(pattern_, values_) {
+	function show(pattern_, response) {
 
 		pattern = pattern_;
-		values = values_;
+		items = response.items;
 
 		clear();
-		if(values.length > 0) {
-			appendValues();
+		if(items.length > 0) {
+			appendValues(response);
 			initializeSelection();
 		} else {
 			appendNoValues();
@@ -51,14 +50,14 @@ function AutoCompletePopup(inputContext, applySelection) {
 		}
 	}
 
-	function appendValues() {
+	function appendValues(response) {
 
-		for(var i = 0; i < values.length; ++i) {
-			if(i == maxCount){
+		for(var i = 0; i < items.length; ++i) {
+			if(i == response.maxRows){
 				new DomElementBuilder('span')
 				.appendTo(div)
-				.setClassName('AjaxAutoCompleteMoreItems')
-				.appendText("...");
+				.setClassName('AjaxAutoCompleteInfo')
+				.appendText(response.moreItemsText);
 				continue;
 			}
 			// append new row
@@ -69,7 +68,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 			cells[i] = builder.getElement();
 
 			// append name with matching highlight
-			var name = values[i].v;
+			var name = items[i].v;
 			var index = name.toLowerCase().indexOf(pattern);
 			if(index >= 0) {
 				if(index > 0) {
@@ -88,7 +87,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 			}
 			
 			// append description
-			var description = values[i].d;
+			var description = items[i].d;
 			if(description) {
 				builder.appendNewChild('span')
 					.appendText('(' + description + ')')
@@ -104,7 +103,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 		var builder = new DomElementBuilder('div')
 			.appendTo(div)
 			.appendText(message)
-			.setClassName('AjaxAutoCompleteNoItems');
+			.setClassName('AjaxAutoCompleteInfo');
 	}
 
 	function showDiv() {
@@ -140,19 +139,19 @@ function AutoCompletePopup(inputContext, applySelection) {
 
 	function getValue(index) {
 
-		return values[index].v;
+		return items[index].v;
 	}
 
 	// -------------------- selection -------------------- //
 
 	function moveSelection(up) {
 
-		if(values.length > 0) {
+		if(items.length > 0) {
 			if(up) {
 				var begin = selectedIndex == 0 || selectedIndex === null;
-				setSelection(begin? values.length-1 : selectedIndex-1);
+				setSelection(begin? items.length-1 : selectedIndex-1);
 			} else {
-				var end = selectedIndex == values.length-1 || selectedIndex === null;
+				var end = selectedIndex == items.length-1 || selectedIndex === null;
 				setSelection(end? 0 : selectedIndex+1);
 			}
 		}
@@ -165,7 +164,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 
 	function setSelection(index) {
 
-		if(values.length > 0) {
+		if(items.length > 0) {
 			clearSelection();
 			selectedIndex = index;
 			cells[selectedIndex].className = "AjaxAutoCompleteItem AjaxAutoCompleteSelectedItem";

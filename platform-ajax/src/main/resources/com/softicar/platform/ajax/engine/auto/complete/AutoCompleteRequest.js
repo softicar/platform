@@ -21,7 +21,7 @@ function AutoCompleteRequest(inputContext, pattern, callback) {
 	function handleResponse(request, success) {
 
 		if(success && request.responseText) {
-			callback(pattern, eval(request.responseText));
+			callback(pattern, JSON.parse(request.responseText));
 		}
 	}
 }

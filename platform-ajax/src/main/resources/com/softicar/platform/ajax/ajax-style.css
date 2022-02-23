@@ -20,11 +20,6 @@
 	padding: 3px 4px;
 }
 
-.AjaxAutoCompleteMoreItems {
-	
-	padding: 3px 4px;
-}
-
 .AjaxAutoCompleteItem:hover {
 	
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
@@ -35,7 +30,7 @@
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
 }
 
-.AjaxAutoCompleteNoItems {
+.AjaxAutoCompleteInfo {
 	
 	font-style: italic;
 	color: var(--GRAY_FONT_COLOR);

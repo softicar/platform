@@ -1,5 +1,6 @@
 package com.softicar.platform.ajax.auto.complete;
 
+import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.document.AjaxDocumentScope;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.request.IAjaxRequest;
@@ -32,32 +33,36 @@ public class AjaxAutoCompleteService extends AbstractAjaxService {
 
 		// try to get document instance
 		synchronized (document) {
-			DomAutoCompleteList autoCompleteList = getAutoCompleteList(document, nodeId, pattern);
-			if (autoCompleteList != null) {
-				sendReply(autoCompleteList);
+			String autoCompleteString = getAutoCompleteList(document, nodeId, pattern);
+			if (autoCompleteString != null) {
+				sendReply(autoCompleteString);
 			}
 		}
 	}
 
-	private void sendReply(DomAutoCompleteList autoCompleteList) {
+	private void sendReply(String autoCompleteList) {
 
 		response.setContentType("text/html; charset=UTF-8");
 		try (PrintWriter writer = response.getWriter()) {
-			writer.print("[");
-			writer.print(Imploder.implode(autoCompleteList, ","));
-			writer.print("]");
+			writer.print(autoCompleteList);
 			writer.flush();
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
 
-	private DomAutoCompleteList getAutoCompleteList(IAjaxDocument document, String nodeId, String pattern) {
+	private String getAutoCompleteList(IAjaxDocument document, String nodeId, String pattern) {
 
 		IDomNode node = document.getNode(nodeId);
 		if (node instanceof IDomAutoCompleteInput) {
 			try (AjaxDocumentScope scope = new AjaxDocumentScope(document, request)) {
-				return ((IDomAutoCompleteInput<?>) node).getItemList(pattern);
+				StringBuilder builder = new StringBuilder();
+				builder.append("{");
+				builder.append("\"items\":[" + Imploder.implode(((IDomAutoCompleteInput<?>) node).getItemList(pattern), ",") + "], ");
+				builder.append("\"maxRows\":" + DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT + ", ");
+				builder.append("\"moreItemsText\":\"(" + AjaxI18n.FURTHER_ENTRIES_AVAILABLE.toString() + ")\"");
+				builder.append("}");
+				return builder.toString();
 			}
 		} else {
 			return null;

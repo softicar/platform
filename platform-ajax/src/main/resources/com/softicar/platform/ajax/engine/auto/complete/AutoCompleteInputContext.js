@@ -141,12 +141,12 @@ function AutoCompleteInputContext(input, inputField) {
 		}
 	}
 
-	function onRequestResponse(pattern, items) {
+	function onRequestResponse(pattern, response) {
 
 		filterPattern = pattern;
-		filterItems = items;
+		filterItems = response.items;
 		if(hasFocus() && !isChangeEventActive()) {
-			popup.show(pattern, items);
+			popup.show(pattern, response);
 			popup.setMaximumZIndex();
 		}
 		if(isPopupUpToDate()) {

@@ -54,11 +54,11 @@ function AutoCompleteRequestManager(inputContext, callback) {
 		return getSize(requests) * 100;
 	}
 
-	function handleRequestResponse(pattern, items) {
+	function handleRequestResponse(pattern, response) {
 
 		delete requests[pattern];
 		if(pattern == desiredPattern) {
-			callback(pattern, items);
+			callback(pattern, response);
 		}
 	}
 }

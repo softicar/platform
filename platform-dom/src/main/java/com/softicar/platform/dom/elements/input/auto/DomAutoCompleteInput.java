@@ -100,7 +100,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	@Override
 	public DomAutoCompleteList getItemList(String pattern) {
 
-		return new DomAutoCompleteListGenerator<>(inputEngine, DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT)//
+		return new DomAutoCompleteListGenerator<>(inputEngine, DomAutoCompleteList.MAXIMUM_ROW_COUNT)//
 			.generate(getTrimmedLowerCase(pattern));
 	}
 
@@ -198,7 +198,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 			// Assumes that the entered string is among the first DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT matches, respecting capitalization.
 			// FIXME This is still a problem in theory. However, it was neglected because the number of items which have names that only differ in
 			// FIXME capitalization was assumed to always be lower than DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT.
-			return getMatchingItems(pattern, DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT);
+			return getMatchingItems(pattern, DomAutoCompleteList.MAXIMUM_ROW_COUNT);
 		}
 	}
 
