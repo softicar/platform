@@ -22,6 +22,8 @@ public interface AjaxI18n extends DomI18n {
 		.de("Anfrage abbrechen");
 	I18n0 FAILED_TO_FETCH_REQUEST_PARAMETERS = new I18n0("Failed to fetch request parameters.")//
 		.de("Abruf der Anfrageparameter fehlgeschlagen.");
+	I18n0 FURTHER_ENTRIES_AVAILABLE = new I18n0("further entries available")//
+		.de("weitere Einträge verfügbar");
 	I18n0 ILLEGAL_INPUT = new I18n0("Illegal Input")//
 		.de("Ungültige Eingabe");
 	I18n0 INPUT_REQUIRED = new I18n0("Input Required")//

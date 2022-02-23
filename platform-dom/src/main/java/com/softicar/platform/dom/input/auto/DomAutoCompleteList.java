@@ -13,6 +13,7 @@ import java.util.List;
 public class DomAutoCompleteList implements Iterable<String> {
 
 	public static final int MAXIMUM_ELEMENT_COUNT = 16;
+	public static final int MAXIMUM_ROW_COUNT = MAXIMUM_ELEMENT_COUNT + 1;
 	private final List<String> items;
 
 	public DomAutoCompleteList() {
@@ -30,7 +31,7 @@ public class DomAutoCompleteList implements Iterable<String> {
 	 */
 	public void add(String name, String description) {
 
-		if (items.size() < MAXIMUM_ELEMENT_COUNT) {
+		if (items.size() < MAXIMUM_ROW_COUNT) {
 			items.add(String.format("{v:'%s',d:'%s'}", JavascriptEscaping.getEscaped(name), JavascriptEscaping.getEscaped(description)));
 		}
 	}

@@ -19,6 +19,8 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	boolean isAutoCompleteItemPlaceholderDisplayed();
 
+	boolean isAutoCompleteMoreItemsInfoDisplayed();
+
 	void clickAutoCompletePopupItem(int index);
 
 	void clickAutoCompleteItem(IAjaxSeleniumTestDomAutoCompleteTestItem item);

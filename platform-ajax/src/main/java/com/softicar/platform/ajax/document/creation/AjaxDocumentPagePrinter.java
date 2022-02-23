@@ -11,6 +11,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.io.writer.IManagedPrintWriter;
+import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 
 /**
  * Implementation of the initial page printing for {@link AjaxDocument}.
@@ -86,6 +87,7 @@ class AjaxDocumentPagePrinter {
 		// texts
 		println("var LOCK_MESSAGE = '%s';", AjaxI18n.PLEASE_WAIT.concat(" ").concat(AjaxI18n.ANOTHER_ACTION_IS_STILL_EXECUTING));
 		println("var AUTO_COMPLETE_TEXT_GENERIC = '%s';", AjaxI18n.AUTO_COMPLETE_INPUT_ELEMENT);
+		println("var AUTO_COMPLETE_TEXT_FURTHER_ENTRIES_AVAILABLE = '%s';", AjaxI18n.FURTHER_ENTRIES_AVAILABLE);
 		println("var AUTO_COMPLETE_TEXT_NO_RECORDS_FOUND = '%s';", AjaxI18n.NO_RECORDS_FOUND);
 		println("var AUTO_COMPLETE_TEXT_NOT_OKAY = '%s';", AjaxI18n.INVALID_INPUT);
 		println("var AUTO_COMPLETE_TEXT_VALUE_AMBIGUOUS = '%s';", AjaxI18n.AMBIGUOUS_INPUT);
@@ -102,6 +104,7 @@ class AjaxDocumentPagePrinter {
 		println("var AUTO_COMPLETE_IMAGE_VALUE_VALID = '%s';", getResourceUrl(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID));
 
 		// variables
+		println("var AUTO_COMPLETE_MAXIMUM_ELEMENT_COUNT = '%s';", DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT);
 		println("var DOCUMENT_INSTANCE_UUID = '%s'", document.getInstanceUuid().toString());
 		println("var VERBOSE = %s;", ajaxRequest.isVerbose());
 		println("var DEBUG = %s;", ajaxRequest.isDebug());
