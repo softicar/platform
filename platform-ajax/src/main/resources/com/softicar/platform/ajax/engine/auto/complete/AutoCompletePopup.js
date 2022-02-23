@@ -53,6 +53,13 @@ function AutoCompletePopup(inputContext, applySelection) {
 	function appendValues() {
 
 		for(var i = 0; i < values.length; ++i) {
+			if(i == AUTO_COMPLETE_MAXIMUM_ELEMENT_COUNT){
+				new DomElementBuilder('span')
+				.appendTo(div)
+				.setClassName('AjaxAutoCompleteMoreItems')
+				.appendText("(" + AUTO_COMPLETE_TEXT_FURTHER_ENTRIES_AVAILABLE + ")");
+				continue;
+			}
 			// append new row
 			var builder = new DomElementBuilder('span')
 				.appendTo(div)

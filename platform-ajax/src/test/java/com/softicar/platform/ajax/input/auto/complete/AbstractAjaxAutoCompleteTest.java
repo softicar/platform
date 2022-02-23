@@ -68,6 +68,11 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().isAutoCompleteItemPlaceholderDisplayed();
 	}
 
+	protected boolean isAutoCompleteMoreItemsInfoElementDisplayed() {
+
+		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreItemsInfoDisplayed();
+	}
+
 	// -------------------- asserts -------------------- //
 
 	protected void assertPopupIsDisplayed(boolean displayed) {
