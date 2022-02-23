@@ -5,7 +5,7 @@ package com.softicar.platform.dom.input;
  *
  * @author Oliver Richers
  */
-public class DomTextInput extends DomValueBasedInput<String> implements Comparable<DomTextInput>, IDomStringInputNode {
+public class DomTextInput extends DomValueBasedInput<String> implements IDomStringInputNode {
 
 	// -------------------------------- CONSTRUCTORS -------------------------------- //
 
@@ -78,16 +78,5 @@ public class DomTextInput extends DomValueBasedInput<String> implements Comparab
 		} else {
 			return true;
 		}
-	}
-
-	/**
-	 * Compares the values of the text input elements.
-	 * <p>
-	 * TODO Do we really need this functionality?
-	 */
-	@Override
-	public int compareTo(final DomTextInput o) {
-
-		return getValue().compareTo(o.getValue());
 	}
 }
