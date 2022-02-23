@@ -1,6 +1,5 @@
 package com.softicar.platform.dom.elements.number.decimal;
 
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
@@ -32,47 +31,6 @@ public class DomBigDecimalInput extends DomTextInput {
 			setValue(value.toPlainString());
 		} else {
 			setValue(null);
-		}
-	}
-
-	/**
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public BigDecimal getBigDecimalOrNull() {
-
-		return getBigDecimal().orElse(null);
-	}
-
-	/**
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public BigDecimal getBigDecimalOrZero() {
-
-		return getBigDecimal().orElse(BigDecimal.ZERO);
-	}
-
-	/**
-	 * Parses the value text into a {@link BigDecimal}.
-	 * <p>
-	 * If the textual value is empty or if the value text cannot be parsed into
-	 * a {@link BigDecimal}, an {@link Optional#empty()} is returned.
-	 *
-	 * @return the optional value as {@link BigDecimal}
-	 * @throws NumberFormatException
-	 *             if the value text cannot be parsed into a valid
-	 *             {@link BigDecimal}
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public Optional<BigDecimal> getBigDecimal() {
-
-		try {
-			return retrieveValue();
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			return Optional.empty();
 		}
 	}
 
