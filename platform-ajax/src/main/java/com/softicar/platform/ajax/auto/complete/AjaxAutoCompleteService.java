@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.auto.complete;
 
-import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.document.AjaxDocumentScope;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.request.IAjaxRequest;
@@ -59,8 +58,7 @@ public class AjaxAutoCompleteService extends AbstractAjaxService {
 				StringBuilder builder = new StringBuilder();
 				builder.append("{");
 				builder.append("\"items\":[" + Imploder.implode(((IDomAutoCompleteInput<?>) node).getItemList(pattern), ",") + "], ");
-				builder.append("\"maxRows\":" + DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT + ", ");
-				builder.append("\"moreItemsText\":\"(" + AjaxI18n.FURTHER_ENTRIES_AVAILABLE.toString() + ")\"");
+				builder.append("\"maxRows\":" + DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT);
 				builder.append("}");
 				return builder.toString();
 			}

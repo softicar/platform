@@ -21,6 +21,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	private static final String AUTO_COMPLETE_ID_POPUP = "AjaxAutoCompletePopup";
 	private static final String AUTO_COMPLETE_CLASS_POPUP_ITEM = "AjaxAutoCompleteItem";
 	private static final String AUTO_COMPLETE_CLASS_POPUP_ITEM_PLACEHOLDER = "AjaxAutoCompleteNoItems";
+	private static final String AUTO_COMPLETE_CLASS_POPUP_MORE_ITEMS_INFO = "AjaxAutoCompleteMoreItems";
 	private static final String AUTO_COMPLETE_CLASS_POPUP_SELECTED_ITEM = "AjaxAutoCompleteSelectedItem";
 
 	private static final Duration AUTO_COMPLETE_TIMEOUT = Duration.ofSeconds(10);
@@ -92,6 +93,14 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	public boolean isAutoCompleteItemPlaceholderDisplayed() {
 
 		return getAutoCompleteItemPlaceholderElement()//
+			.map(WebElement::isDisplayed)
+			.orElse(false);
+	}
+
+	@Override
+	public boolean isAutoCompleteMoreItemsInfoDisplayed() {
+
+		return getAutoCompleteMoreItemsInfoElement()//
 			.map(WebElement::isDisplayed)
 			.orElse(false);
 	}
@@ -185,6 +194,15 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 		return webDriverSupplier//
 			.get()
 			.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_ITEM_PLACEHOLDER))
+			.stream()
+			.findFirst();
+	}
+
+	private Optional<WebElement> getAutoCompleteMoreItemsInfoElement() {
+
+		return webDriverSupplier//
+			.get()
+			.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_MORE_ITEMS_INFO))
 			.stream()
 			.findFirst();
 	}

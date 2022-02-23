@@ -30,7 +30,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 
 		clear();
 		if(items.length > 0) {
-			appendValues(response);
+			appendValues(response.maxRows);
 			initializeSelection();
 		} else {
 			appendNoValues();
@@ -50,14 +50,14 @@ function AutoCompletePopup(inputContext, applySelection) {
 		}
 	}
 
-	function appendValues(response) {
+	function appendValues(maxRows) {
 
 		for(var i = 0; i < items.length; ++i) {
-			if(i == response.maxRows){
+			if(i == maxRows){
 				new DomElementBuilder('span')
 				.appendTo(div)
-				.setClassName('AjaxAutoCompleteInfo')
-				.appendText(response.moreItemsText);
+				.setClassName('AjaxAutoCompleteMoreItems')
+				.appendText("(" + AUTO_COMPLETE_TEXT_FURTHER_ENTRIES_AVAILABLE + ")");
 				continue;
 			}
 			// append new row
@@ -103,7 +103,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 		var builder = new DomElementBuilder('div')
 			.appendTo(div)
 			.appendText(message)
-			.setClassName('AjaxAutoCompleteInfo');
+			.setClassName('AjaxAutoCompleteNoItems');
 	}
 
 	function showDiv() {
