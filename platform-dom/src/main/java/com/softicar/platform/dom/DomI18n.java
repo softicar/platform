@@ -94,6 +94,8 @@ public interface DomI18n {
 		.de("Unendlich");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
 		.de("Ungültige Dezimalzahl.");
+	I18n0 INVALID_INTEGER = new I18n0("Invalid integer.")//
+		.de("Ungültige Ganzzahl.");
 	I18n0 MEMORY_CONSUMPTION_IS_TOO_HIGH = new I18n0("Memory consumption is too high.")//
 		.de("Speicherverbrauch ist zu hoch.");
 	I18n0 MINUTES = new I18n0("Minutes")//

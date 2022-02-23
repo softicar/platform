@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 
 /**
@@ -14,9 +14,6 @@ import com.softicar.platform.dom.input.DomTextInput;
  * @author Oliver Richers
  */
 public class DomIntegerInput extends DomTextInput {
-
-	private int minimum = Integer.MIN_VALUE;
-	private int maximum = Integer.MAX_VALUE;
 
 	public DomIntegerInput() {
 
@@ -35,12 +32,14 @@ public class DomIntegerInput extends DomTextInput {
 		}
 	}
 
+	// TODO the semantics of this method are bad
 	public Integer getInteger() {
 
 		Integer integer = getIntegerOrNull();
 		return integer != null? integer : 0;
 	}
 
+	// TODO the semantics of this method are bad
 	public Integer getIntegerOrNull() {
 
 		if (getValue() == null) {
@@ -53,22 +52,9 @@ public class DomIntegerInput extends DomTextInput {
 				return null;
 			}
 
-			// parse string
-			Integer result = Integer.valueOf(text);
-
-			// check range
-			if (result < minimum) {
-				throwOutOfRange(text);
-			}
-			if (result > maximum) {
-				throwOutOfRange(text);
-			}
-
-			return result;
+			return Integer.valueOf(text);
 		} catch (NumberFormatException exception) {
-			throw new SofticarUserException(
-				exception,
-				DomI18n.THE_SPECIFIED_VALUE_ARG1_IS_NOT_IN_THE_RANGE_BETWEEN_ARG2_AND_ARG3.toDisplay(text, minimum, maximum));
+			throw new DomInputException(exception, DomI18n.INVALID_INTEGER);
 		}
 	}
 
@@ -79,27 +65,5 @@ public class DomIntegerInput extends DomTextInput {
 		} else {
 			setValue(null);
 		}
-	}
-
-	public DomIntegerInput setRange(Integer begin, Integer end) {
-
-		this.minimum = begin;
-		this.maximum = end;
-		return this;
-	}
-
-	public void setMinimumInteger(Integer minimum) {
-
-		this.minimum = minimum;
-	}
-
-	public void setMaximumInteger(Integer maximum) {
-
-		this.maximum = maximum;
-	}
-
-	private void throwOutOfRange(String value) {
-
-		throw new SofticarUserException(DomI18n.THE_SPECIFIED_VALUE_ARG1_IS_NOT_IN_THE_RANGE_BETWEEN_ARG2_AND_ARG3.toDisplay(value, minimum, maximum));
 	}
 }
