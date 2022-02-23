@@ -12,7 +12,10 @@ import java.util.List;
  */
 public class DomAutoCompleteList implements Iterable<String> {
 
+	// The maximum amount of elements that are displayed
 	public static final int MAXIMUM_ELEMENT_COUNT = 16;
+
+	// The maximum amount of rows that are loaded
 	public static final int MAXIMUM_ROW_COUNT = MAXIMUM_ELEMENT_COUNT + 1;
 	private final List<String> items;
 
