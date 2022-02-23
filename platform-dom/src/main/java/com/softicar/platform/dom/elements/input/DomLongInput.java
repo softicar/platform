@@ -13,7 +13,7 @@ import com.softicar.platform.dom.input.DomTextInput;
  *
  * @author Oliver Richers
  */
-public class DomLongInput extends AbstractDomNumberInput {
+public class DomLongInput extends DomTextInput {
 
 	private long minimum = Long.MIN_VALUE;
 	private long maximum = Long.MAX_VALUE;

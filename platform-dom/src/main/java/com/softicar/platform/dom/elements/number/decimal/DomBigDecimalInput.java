@@ -2,7 +2,6 @@ package com.softicar.platform.dom.elements.number.decimal;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.math.BigDecimal;
@@ -15,7 +14,7 @@ import java.util.Optional;
  * @author Semsudin Mekanic
  * @author Oliver Richers
  */
-public class DomBigDecimalInput extends AbstractDomNumberInput {
+public class DomBigDecimalInput extends DomTextInput {
 
 	public DomBigDecimalInput() {
 

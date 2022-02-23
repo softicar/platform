@@ -16,7 +16,7 @@ import com.softicar.platform.dom.input.DomTextInput;
  *
  * @author Semsudin Mekanic
  */
-public class DomDoubleInput extends AbstractDomNumberInput {
+public class DomDoubleInput extends DomTextInput {
 
 	private int displayPrecision = 6;
 	private int allowedPrecision = 0;
