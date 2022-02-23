@@ -104,7 +104,7 @@ class AjaxDocumentPagePrinter {
 		println("var AUTO_COMPLETE_IMAGE_VALUE_VALID = '%s';", getResourceUrl(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID));
 
 		// variables
-		println("var AUTO_COMPLETE_MAXIMUM_ELEMENT_COUNT = '%s';", DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT);
+		println("var AUTO_COMPLETE_MAXIMUM_ELEMENT_COUNT = '%s';", DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY);
 		println("var DOCUMENT_INSTANCE_UUID = '%s'", document.getInstanceUuid().toString());
 		println("var VERBOSE = %s;", ajaxRequest.isVerbose());
 		println("var DEBUG = %s;", ajaxRequest.isDebug());

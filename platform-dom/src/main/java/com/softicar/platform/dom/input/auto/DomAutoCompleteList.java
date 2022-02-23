@@ -12,11 +12,8 @@ import java.util.List;
  */
 public class DomAutoCompleteList implements Iterable<String> {
 
-	// The maximum amount of elements that are displayed
-	public static final int MAXIMUM_ELEMENT_COUNT = 16;
-
-	// The maximum amount of rows that are loaded
-	public static final int MAXIMUM_ROW_COUNT = MAXIMUM_ELEMENT_COUNT + 1;
+	public static final int MAXIMUM_ELEMENT_TO_DISPLAY = 16;
+	public static final int MAXIMUM_ELEMENTS_TO_LOAD = MAXIMUM_ELEMENT_TO_DISPLAY + 1;
 	private final List<String> items;
 
 	public DomAutoCompleteList() {
@@ -34,7 +31,7 @@ public class DomAutoCompleteList implements Iterable<String> {
 	 */
 	public void add(String name, String description) {
 
-		if (items.size() < MAXIMUM_ROW_COUNT) {
+		if (items.size() < MAXIMUM_ELEMENTS_TO_LOAD) {
 			items.add(String.format("{v:'%s',d:'%s'}", JavascriptEscaping.getEscaped(name), JavascriptEscaping.getEscaped(description)));
 		}
 	}
