@@ -2,15 +2,14 @@ package com.softicar.platform.emf.attribute.field.bigdecimal;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.number.decimal.DomBigDecimalInput;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import java.math.BigDecimal;
 
 public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDecimal> {
@@ -63,28 +62,23 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	 * <p>
 	 * If and only if a scale was defined by {@link #setScale(int)}, trailing
 	 * zeros will be appended or removed to match the scale. If the defined
-	 * scale cannot be reached by this, an {@link EmfInputException} will be
+	 * scale cannot be reached by this, an {@link DomInputException} will be
 	 * thrown.
 	 *
 	 * @return the {@link BigDecimal} value or <i>null</i>
-	 * @throws EmfInputException
+	 * @throws DomInputException
 	 *             if the input value does not represent a valid
 	 *             {@link BigDecimal} or if the scale of the {@link BigDecimal}
 	 *             exceeds the scale defined by {@link #setScale(int)}
 	 */
 	@Override
-	public BigDecimal getValueOrThrow() throws EmfInputException {
+	public BigDecimal getValueOrThrow() throws DomInputException {
 
-		try {
-			var value = applyScale(input.getBigDecimalOrThrowIfInvalidFormat().orElse(null));
-			if (value != null && scale >= 0 && value.scale() > scale) {
-				throw new EmfInputException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
-			}
-			return value;
-		} catch (NumberFormatException exception) {
-			DevNull.swallow(exception);
-			throw new EmfInputException(EmfI18n.INVALID_DECIMAL_NUMBER);
+		var value = applyScale(input.retrieveValue().orElse(null));
+		if (value != null && scale >= 0 && value.scale() > scale) {
+			throw new DomInputException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
 		}
+		return value;
 	}
 
 	/**

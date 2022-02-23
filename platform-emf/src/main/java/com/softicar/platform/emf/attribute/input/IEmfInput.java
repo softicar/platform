@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import java.util.Optional;
 
@@ -16,9 +17,9 @@ public interface IEmfInput<V> extends IDomValueBasedInputNode<V>, IEmfChangeCall
 	 * </ul>
 	 *
 	 * @return the entered value (may be null)
-	 * @throws EmfInputException
+	 * @throws DomInputException
 	 */
-	V getValueOrThrow() throws EmfInputException;
+	V getValueOrThrow() throws DomInputException;
 
 	/**
 	 * Returns the current value as an {@link Optional}, as follows:
@@ -30,7 +31,7 @@ public interface IEmfInput<V> extends IDomValueBasedInputNode<V>, IEmfChangeCall
 	 *
 	 * @return the entered value as an {@link Optional} (never null)
 	 */
-	default Optional<V> getValueAsOptional() throws EmfInputException {
+	default Optional<V> getValueAsOptional() throws DomInputException {
 
 		return Optional.ofNullable(getValueOrThrow());
 	}

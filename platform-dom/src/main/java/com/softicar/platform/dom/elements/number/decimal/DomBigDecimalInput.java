@@ -1,7 +1,9 @@
 package com.softicar.platform.dom.elements.number.decimal;
 
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -34,11 +36,19 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 		}
 	}
 
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public BigDecimal getBigDecimalOrNull() {
 
 		return getBigDecimal().orElse(null);
 	}
 
+	/**
+	 * @deprecated use {@link #retrieveValue()}
+	 */
+	@Deprecated
 	public BigDecimal getBigDecimalOrZero() {
 
 		return getBigDecimal().orElse(BigDecimal.ZERO);
@@ -54,12 +64,14 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	 * @throws NumberFormatException
 	 *             if the value text cannot be parsed into a valid
 	 *             {@link BigDecimal}
+	 * @deprecated use {@link #retrieveValue()}
 	 */
+	@Deprecated
 	public Optional<BigDecimal> getBigDecimal() {
 
 		try {
-			return getBigDecimalOrThrowIfInvalidFormat();
-		} catch (NumberFormatException exception) {
+			return retrieveValue();
+		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			return Optional.empty();
 		}
@@ -68,25 +80,31 @@ public class DomBigDecimalInput extends AbstractDomNumberInput {
 	/**
 	 * Parses the value text into a {@link BigDecimal}.
 	 * <p>
-	 * If and only if the textual value is empty, an {@link Optional#empty()} is
-	 * returned.
+	 * If the value text is empty or blank, an empty {@link Optional} is
+	 * returned. Otherwise, the value text is parsed into a {@link BigDecimal}.
+	 * If parsing failed, an exception is thrown.
 	 *
 	 * @return the optional value as {@link BigDecimal}
-	 * @throws NumberFormatException
+	 * @throws DomInputException
 	 *             if the value text cannot be parsed into a valid
 	 *             {@link BigDecimal}
 	 */
-	public Optional<BigDecimal> getBigDecimalOrThrowIfInvalidFormat() throws NumberFormatException {
+	public Optional<BigDecimal> retrieveValue() throws DomInputException {
 
-		String value = getTextOrNull();
-		if (value != null) {
+		String value = getValue();
+		if (value != null && !value.isBlank()) {
 			return Optional.of(parseValue(value));
+		} else {
+			return Optional.empty();
 		}
-		return Optional.empty();
 	}
 
 	private BigDecimal parseValue(String value) {
 
-		return new BigDecimal(value.replace(",", "."));
+		try {
+			return new BigDecimal(value.trim().replace(",", "."));
+		} catch (Exception exception) {
+			throw new DomInputException(exception, DomI18n.INVALID_DECIMAL_NUMBER);
+		}
 	}
 }

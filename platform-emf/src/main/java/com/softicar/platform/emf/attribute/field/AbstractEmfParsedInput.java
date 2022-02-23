@@ -3,10 +3,10 @@ package com.softicar.platform.emf.attribute.field;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.attribute.input.IEmfStringInputNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -40,7 +40,7 @@ public abstract class AbstractEmfParsedInput<T> extends AbstractEmfChangeListeni
 		if (value != null) {
 			return value;
 		} else {
-			throw new EmfInputException(EmfI18n.ARG1_IS_NOT_OF_TYPE_ARG2.toDisplay(valueString, typeDescription));
+			throw new DomInputException(EmfI18n.ARG1_IS_NOT_OF_TYPE_ARG2.toDisplay(valueString, typeDescription));
 		}
 	}
 

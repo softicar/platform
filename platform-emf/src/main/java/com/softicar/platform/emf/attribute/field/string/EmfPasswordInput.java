@@ -6,9 +6,9 @@ import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.attribute.input.EmfInputException;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 
 public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
@@ -38,7 +38,7 @@ public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 	}
 
 	@Override
-	public String getValueOrThrow() throws EmfInputException {
+	public String getValueOrThrow() throws DomInputException {
 
 		return passwordInput.getValue();
 	}
