@@ -18,7 +18,7 @@ import com.softicar.platform.dom.input.DomTextInput;
 public class DomDoubleInput extends DomTextInput {
 
 	// TODO the default precision is arbitrary
-	private int displayPrecision = 4;
+	private int displayPrecision = 6;
 
 	public DomDoubleInput() {
 
