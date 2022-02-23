@@ -5,7 +5,7 @@ package com.softicar.platform.dom.input;
  *
  * @author Oliver Richers
  */
-public class DomTextInput extends DomValueBasedInput<String> implements IDomStringInputNode {
+public class DomTextInput extends DomInput implements IDomStringInputNode {
 
 	// -------------------------------- CONSTRUCTORS -------------------------------- //
 
