@@ -314,6 +314,43 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		assertInputValue(ITEM1);
 	}
 
+	@Test
+	public void testMoreItemsInfoDisplayed() {
+
+		for (int i = 0; i < 16; i++) {
+			AjaxAutoCompleteTestItem item = new AjaxAutoCompleteTestItem("" + i, "description" + i);
+			inputDiv.getEngine().addItem(item);
+		}
+		send(inputField, Key.DOWN);
+		waitForAutoCompletePopup();
+		assertTrue(isAutoCompleteMoreItemsInfoElementDisplayed());
+	}
+
+	@Test
+	public void testMoreItemsInfoNotDisplayed() {
+
+		send(inputField, Key.DOWN);
+		waitForAutoCompletePopup();
+		assertFalse(isAutoCompleteMoreItemsInfoElementDisplayed());
+	}
+
+	@Test
+	public void testNoItemPlaceholderDisplayed() {
+
+		inputDiv.getEngine().clearItems();
+		send(inputField, Key.DOWN);
+		waitForAutoCompletePopup();
+		assertTrue(isAutoCompleteItemPlaceholderElementDisplayed());
+	}
+
+	@Test
+	public void testNoItemPlaceholderNotDisplayed() {
+
+		send(inputField, Key.DOWN);
+		waitForAutoCompletePopup();
+		assertFalse(isAutoCompleteItemPlaceholderElementDisplayed());
+	}
+
 	// -------------------- private -------------------- //
 
 	private void assertRequests(String...expectedRequests) {

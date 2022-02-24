@@ -30,7 +30,8 @@
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
 }
 
-.AjaxAutoCompleteNoItems {
+.AjaxAutoCompleteNoItems,
+.AjaxAutoCompleteMoreItems {
 	
 	font-style: italic;
 	color: var(--GRAY_FONT_COLOR);
