@@ -318,7 +318,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testMoreItemsInfoDisplayed() {
 
 		for (int i = 0; i < 16; i++) {
-			AjaxAutoCompleteTestItem item = new AjaxAutoCompleteTestItem("" + i, "description" + i);
+			AjaxAutoCompleteTestItem item = new AjaxAutoCompleteTestItem("" + i);
 			inputDiv.getEngine().addItem(item);
 		}
 		send(inputField, Key.DOWN);

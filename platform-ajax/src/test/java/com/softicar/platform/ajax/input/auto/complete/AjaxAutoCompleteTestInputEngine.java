@@ -35,12 +35,6 @@ public class AjaxAutoCompleteTestInputEngine extends AbstractDomAutoCompletePref
 	}
 
 	@Override
-	public String getDescription(AjaxAutoCompleteTestItem item) {
-
-		return item.getDescription();
-	}
-
-	@Override
 	public Collection<AjaxAutoCompleteTestItem> findMatches(String pattern, int limit) {
 
 		try (Locker locker = lock()) {
@@ -96,7 +90,7 @@ public class AjaxAutoCompleteTestInputEngine extends AbstractDomAutoCompletePref
 
 	public AjaxAutoCompleteTestInputEngine addStringItem(String name) {
 
-		items.add(new AjaxAutoCompleteTestItem(name, ""));
+		items.add(new AjaxAutoCompleteTestItem(name));
 		return this;
 	}
 
