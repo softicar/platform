@@ -4,5 +4,4 @@ public interface IAjaxSeleniumTestDomAutoCompleteTestItem {
 
 	String getName();
 
-	String getDescription();
 }

@@ -158,7 +158,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		super.assertPopupItems(//
 			AjaxTestEntity::getName,
-			it -> "", // Entities do not have descriptions
 			items);
 	}
 

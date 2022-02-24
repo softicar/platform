@@ -85,12 +85,12 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, Function<I, String> descriptionGetter, I...items) {
+	protected <I> void assertPopupItems(Function<I, String> nameGetter, I...items) {
 
-		assertPopupItems(nameGetter, descriptionGetter, Arrays.asList(items));
+		assertPopupItems(nameGetter, Arrays.asList(items));
 	}
 
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, Function<I, String> descriptionGetter, List<I> items) {
+	protected <I> void assertPopupItems(Function<I, String> nameGetter, List<I> items) {
 
 		List<String> elementNames = getAutoCompletePopupItemNames();
 		try {
@@ -100,7 +100,6 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 				elementNames.size());
 			for (int i = 0; i < items.size(); i++) {
 				assertContainsText(elementNames.get(i), nameGetter.apply(items.get(i)));
-				assertContainsText(elementNames.get(i), descriptionGetter.apply(items.get(i)));
 			}
 		} catch (AssertionError error) {
 			Log.finfo("elements {");
