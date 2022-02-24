@@ -27,10 +27,10 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		String filterText = this.filterInput.getTextOrNull();
+		String filterText = this.filterInput.getNormalizedFilterText();
 		EmfDataTableStringFilterType filterType = filterTypeSelect.getSelectedValue();
 		Resetter resetter = new Resetter(filterType, filterText);
-		if (filterText != null) {
+		if (!filterText.isBlank()) {
 			switch (filterType) {
 			case CONTAINS_WORDS:
 				return new ContainsWordsFilter<>(column.getDataColumn(), filterText, resetter);
@@ -81,7 +81,7 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 		public void apply() {
 
 			filterTypeSelect.setSelectedValue(filterType);
-			filterInput.setValue(filterText);
+			filterInput.setInputText(filterText);
 		}
 	}
 }

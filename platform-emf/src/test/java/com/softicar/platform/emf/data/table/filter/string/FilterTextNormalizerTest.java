@@ -8,8 +8,6 @@ public class FilterTextNormalizerTest extends Assert {
 	@Test
 	public void test() {
 
-		assertNull(filter(null));
-
 		assertEquals("", filter(""));
 		assertEquals("", filter(" \t\n"));
 

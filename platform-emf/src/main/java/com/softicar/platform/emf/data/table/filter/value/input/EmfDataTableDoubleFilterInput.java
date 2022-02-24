@@ -8,13 +8,13 @@ public class EmfDataTableDoubleFilterInput extends DomDoubleInput implements IEm
 	@Override
 	public Double getFilterValue() {
 
-		return getDoubleOrNull();
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(Double value) {
 
-		setDouble(value);
+		setValue(value);
 	}
 
 	@Override

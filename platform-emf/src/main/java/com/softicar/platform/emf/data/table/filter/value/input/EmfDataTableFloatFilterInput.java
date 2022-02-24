@@ -8,13 +8,13 @@ public class EmfDataTableFloatFilterInput extends DomFloatInput implements IEmfD
 	@Override
 	public Float getFilterValue() {
 
-		return getFloatOrNull();
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(Float value) {
 
-		setFloat(value);
+		setValue(value);
 	}
 
 	@Override

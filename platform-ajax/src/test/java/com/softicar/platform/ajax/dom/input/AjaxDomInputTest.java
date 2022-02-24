@@ -85,14 +85,14 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 		send(input, TestConstants.SPECIAL_TEXT);
 		click(button);
 		waitForServer();
-		assertEquals(TestConstants.SPECIAL_TEXT, testDiv.getInput().getValue());
+		assertEquals(TestConstants.SPECIAL_TEXT, testDiv.getInput().getInputText());
 	}
 
 	@Test
 	public void testSetValue() {
 
 		openTestDiv((input, button) -> {
-			input.setValue(TestConstants.SPECIAL_TEXT);
+			input.setInputText(TestConstants.SPECIAL_TEXT);
 		});
 
 		assertEquals(TestConstants.SPECIAL_TEXT, getAttributeValue(input, "value"));

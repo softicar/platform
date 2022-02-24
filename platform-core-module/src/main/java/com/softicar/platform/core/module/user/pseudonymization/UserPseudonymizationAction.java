@@ -17,7 +17,6 @@ import com.softicar.platform.emf.action.IEmfPromptActionInput;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Objects;
-import java.util.Optional;
 
 public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> {
 
@@ -77,7 +76,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 
 		public String getValue() {
 
-			return input.getTextOrNull();
+			return input.getInputText();
 		}
 	}
 
@@ -105,10 +104,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 
 		private boolean isCorrectConfirmationText() {
 
-			return Optional//
-				.ofNullable(input.getTextOrNull())
-				.map(text -> Objects.equals(text, getConfirmationText().toString()))
-				.orElse(false);
+			return Objects.equals(input.getInputText(), getConfirmationText().toString());
 		}
 
 		private IDisplayString getConfirmationText() {

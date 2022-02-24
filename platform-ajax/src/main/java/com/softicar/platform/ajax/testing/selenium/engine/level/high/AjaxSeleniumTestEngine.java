@@ -6,7 +6,7 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineLazySetup;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -105,7 +105,7 @@ public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine imple
 	}
 
 	@Override
-	public void setInputValue(IDomStringInputNode node, String text) {
+	public void setInputValue(IDomTextualInput node, String text) {
 
 		screenshotQueue.addNewScreenshot("setInputValue-call");
 
@@ -121,7 +121,7 @@ public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine imple
 	}
 
 	@Override
-	public String getInputValue(IDomStringInputNode node) {
+	public String getInputValue(IDomTextualInput node) {
 
 		WebElement webElement = getWebElement(node);
 		return webElement.getAttribute("value");

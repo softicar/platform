@@ -74,7 +74,7 @@ public class UserImpersonationPageDiv extends DomDiv {
 
 		public String getRationale() {
 
-			String rationale = rationaleInput.getValue().trim();
+			String rationale = rationaleInput.getInputTextTrimmed();
 			//FIXME Arbitrary check for rationale length, decide for better check later
 			if (rationale.length() > 25) {
 				return rationale;

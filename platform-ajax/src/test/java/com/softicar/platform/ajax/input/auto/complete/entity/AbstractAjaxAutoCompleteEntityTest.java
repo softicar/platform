@@ -15,7 +15,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInMemoryInputEngine;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
@@ -132,7 +132,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected DomAutoCompleteEntityInput<AjaxTestEntity> inputNode;
 	protected DomButton eventTriggerButton;
 	protected IDomNode focusPredecessorElement;
-	protected IDomStringInputNode inputFieldElement;
+	protected IDomTextualInput inputFieldElement;
 	protected InputProxy input;
 	protected EventTriggerProxy eventTrigger;
 	protected final Setup setup;
@@ -195,7 +195,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public Setup setStringValue(String stringValue) {
 
-			return add((input, engine) -> input.getInputField().setValue(stringValue));
+			return add((input, engine) -> input.getInputField().setInputText(stringValue));
 		}
 
 		public Setup setMandatory() {

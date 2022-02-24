@@ -1,39 +1,25 @@
 package com.softicar.platform.emf.attribute.field.integer;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
+import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.field.AbstractEmfParsedInput;
-import com.softicar.platform.emf.attribute.input.IEmfStringInputNode;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
+import java.util.Objects;
 
-public class EmfIntegerInput extends AbstractEmfParsedInput<Integer> {
+public class EmfIntegerInput extends DomIntegerInput implements IEmfInput<Integer>, IDomChangeEventHandler {
 
-	public EmfIntegerInput() {
+	private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
 
-		super(//
-			ChangeListeningIntegerInput::new,
-			IntegerParser::parseInteger,
-			EmfI18n.INTEGER);
+	@Override
+	public void setChangeCallback(INullaryVoidFunction callback) {
+
+		this.callback = Objects.requireNonNull(callback);
 	}
 
-	private static class ChangeListeningIntegerInput extends DomIntegerInput implements IEmfStringInputNode {
+	@Override
+	public void handleChange(IDomEvent event) {
 
-		private INullaryVoidFunction callback;
-
-		@Override
-		public void setChangeCallback(INullaryVoidFunction callback) {
-
-			this.callback = callback;
-		}
-
-		@Override
-		public void handleChange(IDomEvent event) {
-
-			if (callback != null) {
-				callback.apply();
-			}
-		}
+		callback.apply();
 	}
 }

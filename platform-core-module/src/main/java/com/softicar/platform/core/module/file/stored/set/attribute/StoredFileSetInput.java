@@ -4,7 +4,6 @@ import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.attribute.upload.IStoredFileUploadSaveHook;
 import com.softicar.platform.core.module.file.stored.attribute.upload.StoredFileUploadDiv;
 import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
-import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,9 +26,9 @@ public class StoredFileSetInput extends AbstractEmfInputDiv<AGStoredFileSet> {
 	}
 
 	@Override
-	public AGStoredFileSet getValueOrThrow() throws DomInputException {
+	public Optional<AGStoredFileSet> getValue() {
 
-		return saveHook.getFileSet();
+		return Optional.ofNullable(saveHook.getFileSet());
 	}
 
 	@Override

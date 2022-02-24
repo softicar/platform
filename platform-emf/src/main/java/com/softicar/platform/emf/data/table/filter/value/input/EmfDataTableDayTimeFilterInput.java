@@ -14,13 +14,13 @@ public class EmfDataTableDayTimeFilterInput extends DomDayTimeInput implements I
 	@Override
 	public DayTime getFilterValue() {
 
-		return retrieveValue().orElse(null);
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(DayTime value) {
 
-		setDayTime(value);
+		setValue(value);
 	}
 
 	@Override

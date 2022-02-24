@@ -3,6 +3,7 @@ package com.softicar.platform.emf.attribute.field.daytime;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.dom.elements.time.daytime.DomDayTimeInput;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
+import java.util.Optional;
 
 public class EmfDayTimeInput extends AbstractEmfInputDiv<DayTime> {
 
@@ -16,14 +17,14 @@ public class EmfDayTimeInput extends AbstractEmfInputDiv<DayTime> {
 	}
 
 	@Override
-	public DayTime getValueOrThrow() {
+	public Optional<DayTime> getValue() {
 
-		return dayTimeInput.retrieveValue().orElse(null);
+		return dayTimeInput.getValue();
 	}
 
 	@Override
 	public void setValue(DayTime value) {
 
-		dayTimeInput.setDayTime(value);
+		dayTimeInput.setValue(value);
 	}
 }

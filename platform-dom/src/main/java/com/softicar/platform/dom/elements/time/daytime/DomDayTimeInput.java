@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.time.daytime;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
@@ -10,9 +9,10 @@ import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.time.DomTimeInput;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
+import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Optional;
 
-public class DomDayTimeInput extends DomBar {
+public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
 
 	private final DomDayInput dayInput;
 	private final DomTimeInput timeInput;
@@ -42,27 +42,18 @@ public class DomDayTimeInput extends DomBar {
 		return dayInput;
 	}
 
-	public void setDayTime(DayTime dayTime) {
+	@Override
+	public void setValue(DayTime dayTime) {
 
-		this.dayInput.setDay(dayTime != null? dayTime.getDay() : null);
-		this.timeInput.setTime(dayTime != null? dayTime.getTime() : null);
+		this.dayInput.setValue(dayTime != null? dayTime.getDay() : null);
+		this.timeInput.setValue(dayTime != null? dayTime.getTime() : null);
 	}
 
-	/**
-	 * Parses the value text into a {@link DayTime}.
-	 * <p>
-	 * If the value text is empty or blank, an empty {@link Optional} is
-	 * returned. Otherwise, the value text is parsed into a {@link DayTime}. If
-	 * parsing failed, an exception is thrown.
-	 *
-	 * @return the optionally entered {@link DayTime}
-	 * @throws SofticarUserException
-	 *             if the non-blank value text could not be parsed
-	 */
-	public Optional<DayTime> retrieveValue() {
+	@Override
+	public Optional<DayTime> getValue() {
 
-		Optional<Day> day = dayInput.retrieveValue();
-		Optional<Time> time = timeInput.retrieveValue();
+		Optional<Day> day = dayInput.getValue();
+		Optional<Time> time = timeInput.getValue();
 
 		if (day.isPresent() && time.isPresent()) {
 			return Optional.of(new DayTime(day.get(), time.get()));
@@ -75,41 +66,5 @@ public class DomDayTimeInput extends DomBar {
 				throw new SofticarUserException(CommonDateI18n.MISSING_TIME_SPECIFICATION);
 			}
 		}
-	}
-
-	/**
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public DayTime getDayTime() {
-
-		Day dayOrNull = dayInput.getDayOrNull();
-
-		Time timeOrNull;
-		try {
-			timeOrNull = timeInput.getTime();
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			timeOrNull = null;
-		}
-
-		if (dayOrNull != null && timeOrNull != null) {
-			int year = dayOrNull.getYear().getAbsoluteIndex();
-			int month = dayOrNull.getMonth().getIndexWithinYear();
-			int day = dayOrNull.getIndexWithinMonth();
-			int hour = timeOrNull.getHour();
-			int minute = timeOrNull.getMinute();
-			int second = timeOrNull.getSecond();
-
-			return DayTime.fromYMD_HMS(year, month, day, hour, minute, second);
-		} else {
-			return null;
-		}
-	}
-
-	public void clear() {
-
-		dayInput.clear();
-		timeInput.clear();
 	}
 }

@@ -19,22 +19,22 @@ public class DomTextAreaTest extends Assert {
 	@Test
 	public void testGetValueAfterConstruction() {
 
-		assertEquals("", textArea.getValue());
+		assertEquals("", textArea.getInputText());
 	}
 
 	@Test
 	public void testGetValueAfterSetValue() {
 
-		textArea.setValue("foo");
+		textArea.setInputText("foo");
 
-		assertEquals("foo", textArea.getValue());
+		assertEquals("foo", textArea.getInputText());
 	}
 
 	@Test
 	public void testGetValueAfterSetValueWithNull() {
 
-		textArea.setValue(null);
+		textArea.setInputText(null);
 
-		assertNull(textArea.getValue());
+		assertEquals("", textArea.getInputText());
 	}
 }

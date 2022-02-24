@@ -7,6 +7,7 @@ import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
+import java.util.Optional;
 
 public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfChangeListeningInputDiv<E> {
 
@@ -27,9 +28,9 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfChangeListeningI
 	}
 
 	@Override
-	public E getValueOrThrow() {
+	public Optional<E> getValue() {
 
-		return enumInput.getSelectedValue();
+		return Optional.ofNullable(enumInput.getSelectedValue());
 	}
 
 	@Override

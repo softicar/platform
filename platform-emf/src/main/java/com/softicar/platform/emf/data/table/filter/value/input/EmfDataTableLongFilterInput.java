@@ -8,13 +8,13 @@ public class EmfDataTableLongFilterInput extends DomLongInput implements IEmfDat
 	@Override
 	public Long getFilterValue() {
 
-		return getLongOrNull();
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(Long value) {
 
-		setLong(value);
+		setValue(value);
 	}
 
 	@Override

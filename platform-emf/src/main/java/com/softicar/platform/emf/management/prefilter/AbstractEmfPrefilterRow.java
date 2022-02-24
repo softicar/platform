@@ -31,7 +31,7 @@ public abstract class AbstractEmfPrefilterRow<E extends IEmfTableRow<E, ?>> exte
 
 		return inputElements//
 			.stream()
-			.allMatch(input -> !input.getValueAsOptional().isPresent());
+			.allMatch(input -> !input.getValue().isPresent());
 	}
 
 	public abstract ISqlBooleanExpression<E> getFilterExpression();

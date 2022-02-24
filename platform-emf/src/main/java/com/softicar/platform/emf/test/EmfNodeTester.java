@@ -44,7 +44,7 @@ public class EmfNodeTester extends DomNodeTester {
 
 	public <R extends IEmfTableRow<R, ?>, V> V getEmfInputValue(IDbField<R, V> field) {
 
-		return getEmfInput(field).getValueOrThrow();
+		return getEmfInput(field).getValue().orElse(null);
 	}
 
 	public <R extends IEmfTableRow<R, ?>, V> IEmfInput<V> getEmfInput(IDbField<R, V> field) {

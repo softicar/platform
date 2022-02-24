@@ -5,6 +5,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
+import java.util.Optional;
 
 public class EmfDayInput extends AbstractEmfInputDiv<Day> {
 
@@ -18,15 +19,15 @@ public class EmfDayInput extends AbstractEmfInputDiv<Day> {
 	}
 
 	@Override
-	public Day getValueOrThrow() {
+	public Optional<Day> getValue() {
 
-		return dayInput.retrieveValue().orElse(null);
+		return dayInput.getValue();
 	}
 
 	@Override
 	public void setValue(Day value) {
 
-		dayInput.setDay(value);
+		dayInput.setValue(value);
 	}
 
 	@Override

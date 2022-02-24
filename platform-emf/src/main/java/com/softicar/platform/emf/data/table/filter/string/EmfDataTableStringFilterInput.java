@@ -7,14 +7,13 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 	public EmfDataTableStringFilterInput() {
 
-		super("", 100);
+		super("");
 
 		setMarker(EmfDataTableDivMarker.FILTER_INPUT_STRING);
 	}
 
-	public String getNormalizedFilterTextOrNull() {
+	public String getNormalizedFilterText() {
 
-		String text = getTextOrNull();
-		return text != null? new FilterTextNormalizer(text).getNormalized() : null;
+		return new FilterTextNormalizer(getInputTextTrimmed()).getNormalized();
 	}
 }

@@ -1,13 +1,14 @@
 package com.softicar.platform.dom.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import java.util.Optional;
+
 /**
  * A simple text input element.
  *
  * @author Oliver Richers
  */
-public class DomTextInput extends DomInput implements IDomStringInputNode {
-
-	// -------------------------------- CONSTRUCTORS -------------------------------- //
+public class DomTextInput extends DomInput implements IDomTextualInput {
 
 	/**
 	 * Creates an empty text input.
@@ -15,45 +16,48 @@ public class DomTextInput extends DomInput implements IDomStringInputNode {
 	public DomTextInput() {
 
 		setAttribute("type", "text");
-		getAccessor().setAttributeInMap("value", ""); // value is an empty string by default
+		getAccessor().setAttributeInMap("value", "");
 	}
 
 	/**
-	 * Creates the text input, initialized with the specified value.
+	 * Creates the text input, initialized with the specified text.
+	 *
+	 * @param inputText
+	 *            the input text to assign (may be <i>null</i>>)
 	 */
-	public DomTextInput(String value) {
+	public DomTextInput(String inputText) {
 
-		setAttribute("type", "text");
-		setAttribute("value", value);
+		this();
+		setInputText(inputText);
+	}
+
+	@Override
+	public DomTextInput setInputText(String inputText) {
+
+		setAttribute("value", Optional.ofNullable(inputText).orElse(""));
+		return this;
+	}
+
+	@Override
+	public String getInputText() {
+
+		return getAttributeValue("value").orElse("");
 	}
 
 	/**
-	 * Convenience constructor to initialize the value and the maximum length of
-	 * the text input.
-	 */
-	public DomTextInput(String value, int maxLength) {
-
-		this(value);
-		setMaxLength(maxLength);
-	}
-
-	// -------------------------------- ATTRIBUTES -------------------------------- //
-
-	/**
-	 * Maximum number of characters that can be entered into this input field.
+	 * Sets the maximum number of characters that can be entered into this
+	 * {@link DomTextInput}.
 	 *
 	 * @param maxLength
-	 *            the maximum number of characters for this input
+	 *            the maximum number of characters (must be zero or greater)
 	 */
 	public void setMaxLength(int maxLength) {
 
 		setAttribute("maxlength", "" + maxLength);
 	}
 
-	// -------------------------------- READONLY -------------------------------- //
-
 	/**
-	 * Makes this input element read-only.
+	 * Makes this {@link DomTextInput} read-only.
 	 * <p>
 	 * In contrast to {@link #setEnabled(boolean)}, the user can still see and
 	 * copy the text of this input element.
@@ -63,20 +67,16 @@ public class DomTextInput extends DomInput implements IDomStringInputNode {
 		setAttribute("readonly", readonly);
 	}
 
-	// -------------------------------- SPECIAL VALUE METHODS -------------------------------- //
-
 	/**
-	 * Returns whether the trimmed value of this input element is empty or not.
+	 * Defines the HTML placeholder attribute.
 	 *
-	 * @return true if the value (in trimmed form) is empty or null, false if
-	 *         the value is a valid non-empty string
+	 * @param placeholder
+	 *            the placeholder text to display (never <i>null</i>)
+	 * @return this
 	 */
-	public boolean isEmpty() {
+	public DomTextInput setPlaceholder(IDisplayString placeholder) {
 
-		if (getValue() != null && !getValue().trim().isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
+		setAttribute("placeholder", placeholder.toString());
+		return this;
 	}
 }

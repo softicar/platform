@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
-
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.user.EmfTestUser;
@@ -39,7 +38,8 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		return findBody()//
 			.findNode(EmfEntityInput.class)
 			.assertType(EmfEntityInput.class)
-			.getValueOrThrow();
+			.getValue()
+			.orElse(null);
 	}
 
 	private void setInputValue(String value) {

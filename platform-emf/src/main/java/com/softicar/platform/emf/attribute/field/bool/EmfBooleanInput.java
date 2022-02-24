@@ -5,6 +5,7 @@ import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
+import java.util.Optional;
 
 public class EmfBooleanInput extends AbstractEmfChangeListeningInputDiv<Boolean> {
 
@@ -18,9 +19,9 @@ public class EmfBooleanInput extends AbstractEmfChangeListeningInputDiv<Boolean>
 	}
 
 	@Override
-	public Boolean getValueOrThrow() {
+	public Optional<Boolean> getValue() {
 
-		return checkBox.isChecked();
+		return Optional.of(checkBox.isChecked());
 	}
 
 	@Override
