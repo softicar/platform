@@ -30,17 +30,17 @@ public class DomTimeInput extends DomBar {
 
 	public DomTimeInput(Time time, boolean showLabels) {
 
-		hourInput = new DomIntegerInput().setRange(0, 23);
+		hourInput = new DomIntegerInput();
 		hourInput.setTitle(DomI18n.HOURS);
 		hourInput.setMarker(DomTestMarker.HOURS_INPUT);
 		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		minuteInput = new DomIntegerInput().setRange(0, 59);
+		minuteInput = new DomIntegerInput();
 		minuteInput.setTitle(DomI18n.MINUTES);
 		minuteInput.setMarker(DomTestMarker.MINUTES_INPUT);
 		minuteInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		secondInput = new DomIntegerInput().setRange(0, 59);
+		secondInput = new DomIntegerInput();
 		secondInput.setTitle(DomI18n.SECONDS);
 		secondInput.setMarker(DomTestMarker.SECONDS_INPUT);
 		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);

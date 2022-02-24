@@ -52,12 +52,6 @@ public interface EmfI18n extends DomI18n {
 		.de("'%s' ist nicht vom Typ '%s'");
 	I18n2 ARG1_OF_ARG2 = new I18n2("%s of %s")//
 		.de("%s von %s");
-	I18n0 ATTRIBUTE_ADDED = new I18n0("attribute added")//
-		.de("Attribut hinzugefügt");
-	I18n0 ATTRIBUTE_CHANGED = new I18n0("attribute changed")//
-		.de("Attribut geändert");
-	I18n0 ATTRIBUTE_REMOVED = new I18n0("attribute removed")//
-		.de("Attribut entfernt");
 	I18n0 ATTRIBUTES_OVERVIEW = new I18n0("Attributes Overview")//
 		.de("Attributs-Übersicht");
 	I18n0 AUTHORIZED_ROLE = new I18n0("Authorized Role")//
@@ -86,8 +80,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Kind-Tabellen");
 	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS = new I18n0("Column values must be separated by commas.")//
 		.de("Spaltenwerte müssen durch Kommas getrennt sein.");
-	I18n0 COMPONENT = new I18n0("Component")//
-		.de("Komponente");
 	I18n0 CONCEALED = new I18n0("Concealed")//
 		.de("Verborgen");
 	I18n0 CONFIGURE_TRAIT = new I18n0("Configure Trait")//
@@ -140,8 +132,6 @@ public interface EmfI18n extends DomI18n {
 		.de("%s Spalten erwartet.");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
-	I18n2 FAILED_TO_CONVERT_ARG1_TO_TYPE_ARG2 = new I18n2("Failed to convert '%s' to type '%s'.")//
-		.de("'%s' konnte nicht zum Typ '%s' konvertiert werden.");
 	I18n0 FAILED_TO_CREATE_THE_INPUT_ELEMENT = new I18n0("Failed to create the input element.")//
 		.de("Erstellung des Eingabe-Elements fehlgeschlagen.");
 	I18n1 FAILED_TO_DETERMINE_THE_MODULE_FOR_UUID_ARG1 = new I18n1("Failed to determine the module for UUID %s.")//
@@ -221,8 +211,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Keine Daten hochgeladen.");
 	I18n0 NO_DATA_WILL_BE_SAVED_YET = new I18n0("No data will be saved yet.")//
 		.de("Es werden noch keine Daten gespeichert.");
-	I18n0 NO_DIAGNOSTICS = new I18n0("no diagnostics")//
-		.de("keine Diagnosedaten");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
 		.de("Kein Bild gefunden für: %s");
 	I18n0 NO_ROLES = new I18n0("no roles")//
@@ -277,8 +265,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Bitte einen Eintrag auswählen.");
 	I18n0 PLEASE_SPECIFY_A_VALID_INDEX = new I18n0("Please specify a valid index.")//
 		.de("Bitte einen gültigen Index angeben.");
-	I18n0 PLEASE_UPLOAD_DATA_FIRST = new I18n0("Please upload data first.")//
-		.de("Bitte zuerst Daten hochladen.");
 	I18n0 PLURAL_TITLE = new I18n0("Plural Title")//
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
@@ -368,8 +354,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Das Attribut '%s' ist erforderlich.");
 	I18n1 THE_ATTRIBUTE_ARG1_MAY_NOT_BE_EMPTY = new I18n1("The attribute '%s' may not be empty.")//
 		.de("Das Attribut '%s' darf nicht leer sein.");
-	I18n3 THE_ATTRIBUTE_ARG1_MUST_BE_ARG2_BUT_WAS_ARG3 = new I18n3("The attribute '%s' must be '%s' but was '%s'.")//
-		.de("Das Attribut '%s' muss '%s' sein, es war jedoch '%s'.");
 	I18n1 THE_ATTRIBUTE_ARG1_MUST_BE_EMPTY = new I18n1("The attribute '%s' must be empty.")//
 		.de("Das Attribut '%s' muss leer sein.");
 	I18n2 THE_ATTRIBUTE_ARG1_MUST_NOT_BE_DEFINED_BUT_WAS_ARG2 = new I18n2("The attribute '%s' must not be defined but was '%s'.")//
@@ -408,12 +392,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Flüchtig");
 	I18n0 UNDO = new I18n0("Undo")//
 		.de("Rückgängig");
-	I18n2 UNKNOWN_ARG1_WITH_ID_ARG2 = new I18n2("Unknown %s with ID '%s'.")//
-		.de("%s mit ID '%s' unbekannt.");
-	I18n2 UNKNOWN_ARG1_WITH_UUID_ARG2 = new I18n2("Unknown %s with UUID '%s'.")//
-		.de("%s mit UUID '%s' unbekannt.");
-	I18n1 UNKNOWN_ENTRY_POINT_CLASS_ARG1 = new I18n1("Unknown entry point class '%s'.")//
-		.de("Unbekannte Einstiegspunktklasse '%s'.");
 	I18n0 UNKNOWN_MODULE = new I18n0("Unknown Module")//
 		.de("Unbekanntes Modul");
 	I18n1 UNSUPPORTED_ROLE_CLASS_ARG1 = new I18n1("Unsupported role class: %s")//
@@ -422,8 +400,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Aktualisiert am");
 	I18n0 UPDATED_BY = new I18n0("Updated By")//
 		.de("Aktualisiert von");
-	I18n0 UPLOAD = new I18n0("Upload")//
-		.de("Hochladen");
 	I18n0 USED_ROLES = new I18n0("Used Roles")//
 		.de("Benutzte Rollen");
 	I18n0 UUID = new I18n0("UUID")//

@@ -37,25 +37,6 @@ public interface IEmfInput<V> extends IDomValueBasedInputNode<V>, IEmfChangeCall
 	}
 
 	/**
-	 * Returns the current value as an {@link Optional} an never throws
-	 * {@link Exception}.
-	 * <p>
-	 * If the input has no value or the value is invalid, the returned
-	 * {@link Optional} will be empty.
-	 *
-	 * @return the value as an {@link Optional} (never null)
-	 */
-	default Optional<V> getValueSafelyAsOptional() {
-
-		try {
-			return getValueAsOptional();
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			return Optional.empty();
-		}
-	}
-
-	/**
 	 * Defines the given callback to be notified when the value changes.
 	 * <p>
 	 * This method is called by the entity framework, don't call it directly.

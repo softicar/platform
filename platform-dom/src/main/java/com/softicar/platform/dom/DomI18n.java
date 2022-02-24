@@ -3,7 +3,6 @@ package com.softicar.platform.dom;
 import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.I18n2;
-import com.softicar.platform.common.core.i18n.I18n3;
 
 public interface DomI18n {
 
@@ -90,10 +89,10 @@ public interface DomI18n {
 	I18n0 IN_CASE_NO_EXPLICIT_FORMAT_WAS_DEFINED_A_CONVERSION_TO_A_PURELY_TEXTUAL_FORMAT_IS_APPLIED =
 			new I18n0("In case no explicit format was defined, a conversion to a purely textual format is applied.")//
 				.de("Falls kein explizites Format definiert wurde, wird eine rein-textuelle Konvertierung vorgenommen.");
-	I18n0 INFINITY = new I18n0("infinity")//
-		.de("Unendlich");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
 		.de("Ungültige Dezimalzahl.");
+	I18n0 INVALID_INTEGER = new I18n0("Invalid integer.")//
+		.de("Ungültige Ganzzahl.");
 	I18n0 MEMORY_CONSUMPTION_IS_TOO_HIGH = new I18n0("Memory consumption is too high.")//
 		.de("Speicherverbrauch ist zu hoch.");
 	I18n0 MINUTES = new I18n0("Minutes")//
@@ -151,8 +150,6 @@ public interface DomI18n {
 		.de("Standard");
 	I18n0 STRICT = new I18n0("Strict")//
 		.de("Streng");
-	I18n2 THE_DECIMAL_VALUE_ARG1_MUST_HAVE_ARG2_OR_LESS_DECIMAL_PLACES = new I18n2("The decimal value %s must have %s or less decimal places.")//
-		.de("Der Dezimalwert %s muss %s oder weniger Nachkommastellen haben.");
 	I18n0 THE_FOLLOWING_PROBLEM_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problem can occur when exporting the table")//
 		.de("Das folgende Problem kann beim Exportieren der Tabelle auftreten");
 	I18n0 THE_FOLLOWING_PROBLEMS_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problems can occur when exporting the table")//
@@ -161,10 +158,6 @@ public interface DomI18n {
 		.de("Beim Export der Tabelle sollte Folgendes beachtet werden");
 	I18n1 THE_SELECTED_OPTION_ARG1_VANISHED = new I18n1("The selected option '%s' vanished.")//
 		.de("Die ausgewählte Option '%s' is verschwunden.");
-	I18n1 THE_SPECIFIED_VALUE_ARG1_IS_NOT_A_VALID_DECIMAL_NUMBER = new I18n1("The specified value '%s' is not a valid decimal number.")//
-		.de("Der angegebene Wert '%s' ist keine gültige Dezimalzahl.");
-	I18n3 THE_SPECIFIED_VALUE_ARG1_IS_NOT_IN_THE_RANGE_BETWEEN_ARG2_AND_ARG3 = new I18n3("The specified value '%s' is not in the range between '%s' and '%s'.")//
-		.de("Der angegebene Wert '%s' liegt nicht in dem Bereich '%s' und '%s'.");
 	I18n0 THE_TABLE_CANNOT_BE_EXPORTED_DUE_TO_THE_FOLLOWING_REASON = new I18n0("The table cannot be exported due to the following reason")//
 		.de("Die Tabelle kann aus dem folgenden Grund nicht exportiert werden");
 	I18n0 THE_TABLE_CANNOT_BE_EXPORTED_DUE_TO_THE_FOLLOWING_REASONS = new I18n0("The table cannot be exported due to the following reasons")//
