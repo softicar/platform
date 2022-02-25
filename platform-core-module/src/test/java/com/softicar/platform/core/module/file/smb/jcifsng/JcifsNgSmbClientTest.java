@@ -141,7 +141,7 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 		ISmbEntry entry = client.getEntry(url, credentials);
 
 		assertNotNull(entry);
-		assertEquals("testShare", entry.getName());
+		assertEquals("testshare", entry.getName());
 		assertEquals(shareUrlSlash, entry.getUrl());
 		assertTrue(entry.exists());
 		assertYear1970(entry.getLastModifiedDate());
@@ -434,7 +434,7 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 		ISmbDirectory directory = client.getDirectory(url, credentials);
 
 		assertNotNull(directory);
-		assertEquals("testShare", directory.getName());
+		assertEquals("testshare", directory.getName());
 		assertEquals(shareUrlSlash, directory.getUrl());
 		assertTrue(directory.exists());
 		assertYear1970(directory.getLastModifiedDate());

@@ -3,6 +3,9 @@ package com.softicar.platform.core.module.file.smb.testing;
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.command.ShellCommandExecutor;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -94,21 +97,74 @@ public class SmbTestServerController {
 			return "docker stop %s || echo 'No longer running.'".formatted(containerName);
 		}
 
+		// FIXME This is a proof-of-concept ONLY.
+		// FIXME The code in here is totally misplaced, hackish, and plain ugly.
+		// FIXME It will fill disks with dangling images.
 		public String generateServerUpCommand() {
 
+			String tempDirectory = "/tmp/samba-image-build-%s".formatted(UUID.randomUUID());
+
+			try {
+				Files.createDirectory(Path.of(tempDirectory));
+			} catch (IOException exception) {
+				throw new RuntimeException(exception);
+			}
+
+			String smbConfContent = """
+					[global]
+					log file = /dev/stdout
+					server role = standalone server
+					server min protocol = SMB2_02
+
+					[testshare]
+					path = /testshare
+					read only = no
+					valid users = testuser
+					""";
+			try {
+				Files.writeString(Path.of(tempDirectory, "smb.conf"), smbConfContent);
+			} catch (IOException exception) {
+				throw new RuntimeException(exception);
+			}
+
+			String dockerfileContent = """
+					FROM ubuntu:20.04
+
+					RUN	apt-get update && \
+						apt-get install -y samba smbclient dumb-init && \
+						adduser --no-create-home --disabled-password --disabled-login --gecos "" testuser && \
+						(echo "testpassword"; echo "testpassword") | smbpasswd -s -a testuser && \
+						mkdir /testshare && \
+						chown testuser:testuser /testshare && \
+						rm /etc/samba/smb.conf && \
+						rm -rf /var/lib/apt/lists/*
+
+					COPY smb.conf /etc/samba/
+
+					# RUN service smbd force-reload
+
+					EXPOSE 137/udp 138/udp 139 445
+
+					# HEALTHCHECK --interval=60s --timeout=15s CMD smbclient -L \\localhost -U % -m SMB3
+					HEALTHCHECK CMD smbclient -L \\localhost -U % -m SMB3
+
+					# ENTRYPOINT ["/sbin/tini", "--"]
+					ENTRYPOINT ["/usr/bin/dumb-init", "-v", "--"]
+					CMD ["/usr/sbin/smbd", "-FS", "--no-process-group"]
+					""";
+
+			try {
+				Files.writeString(Path.of(tempDirectory, "Dockerfile"), dockerfileContent);
+			} catch (IOException exception) {
+				throw new RuntimeException(exception);
+			}
+
 			return new StringBuilder()//
-				.append("cd ~ && \\ ")
-				.append("git clone https://github.com/dperson/samba.git && \\ ")
-				.append("cd samba && \\ ")
-				.append("sed -i 's/ streams_xattr//g' Dockerfile && \\ ")
-				.append("docker build -t softicar/samba-server . && \\ ")
+				.append("cd %s && ".formatted(tempDirectory))
+				.append("docker build -t softicar/samba-server . && ")
 				.append("docker run -dit --rm ")
-				.append("--name %s ".formatted(containerName))
+				.append("--name=\"%s\" ".formatted(containerName))
 				.append("softicar/samba-server ")
-				.append("-p ")
-				.append("-r ")
-				.append("-u \"%s;%s\" ".formatted(configuration.getTestUser(), configuration.getTestPassword()))
-				.append("-s \"%s;/testshare;no;no;no;%s\" ".formatted(configuration.getTestShare(), configuration.getTestUser()))
 				.toString();
 		}
 
@@ -125,8 +181,9 @@ public class SmbTestServerController {
 
 	private static class DockerCommandExecutor {
 
-		private static final int SERVER_READY_POLLING_INTERVAL_MS = 50;
-		private static final int SERVER_READY_POLLING_RETRY_COUNT = 40;
+		// FIXME this should be lower
+		private static final int SERVER_READY_POLLING_INTERVAL_MS = 500;
+		private static final int SERVER_READY_POLLING_RETRY_COUNT = 400;
 
 		private final DockerCommandGenerator commandGenerator;
 

@@ -185,7 +185,7 @@ public class JcifsNgSmbEntryTest extends AbtractJcifsNgSmbTest {
 
 	private void testGetNameWithShareRoot(String url) {
 
-		assertEquals("testShare", entry(url).getName());
+		assertEquals("testshare", entry(url).getName());
 	}
 
 	@Test

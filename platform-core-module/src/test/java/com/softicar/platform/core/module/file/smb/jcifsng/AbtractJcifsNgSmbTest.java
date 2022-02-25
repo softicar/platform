@@ -28,9 +28,9 @@ import org.junit.BeforeClass;
  */
 public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
-	private static final String TEST_PASSWORD = "testPassword";
-	private static final String TEST_SHARE = "testShare";
-	private static final String TEST_USER = "testUser";
+	private static final String TEST_PASSWORD = "testpassword";
+	private static final String TEST_SHARE = "testshare";
+	private static final String TEST_USER = "testuser";
 	private static final String TEST_WORKGROUP = "WORKGROUP";
 	private static final SmbTestServerController SERVER_CONTROLLER = createController();
 
