@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.file.smb.testing;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.command.ShellCommandExecutor;
 import java.io.IOException;
@@ -65,6 +66,9 @@ public class SmbTestServerController {
 	 */
 	public void startup() {
 
+		// TODO remove
+		Log.ferror("SmbTestServerController: startup");
+
 		commandExecutor.executeServerUp();
 		this.serverIpAddress = commandExecutor.executeServerIpAddressRetrieval();
 	}
@@ -77,6 +81,9 @@ public class SmbTestServerController {
 	 * @see #registerRuntimeShutdownHook()
 	 */
 	public void shutdown() {
+
+		// TODO remove
+		Log.ferror("SmbTestServerController: shutdown");
 
 		commandExecutor.executeServerDown();
 	}
