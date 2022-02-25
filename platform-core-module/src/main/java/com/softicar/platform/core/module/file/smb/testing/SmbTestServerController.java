@@ -97,9 +97,14 @@ public class SmbTestServerController {
 		public String generateServerUpCommand() {
 
 			return new StringBuilder()//
+				.append("cd ~ && \\ ")
+				.append("git clone https://github.com/dperson/samba.git && \\ ")
+				.append("cd samba && \\ ")
+				.append("sed -i 's/ streams_xattr//g' Dockerfile && \\ ")
+				.append("docker build -t softicar/samba-server . && \\ ")
 				.append("docker run -dit --rm ")
 				.append("--name %s ".formatted(containerName))
-				.append("dperson/samba ")
+				.append("softicar/samba-server ")
 				.append("-p ")
 				.append("-r ")
 				.append("-u \"%s;%s\" ".formatted(configuration.getTestUser(), configuration.getTestPassword()))
