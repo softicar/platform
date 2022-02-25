@@ -10,4 +10,4 @@ jobs:
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Execute Build
-        run: ./gradlew -Pcom.softicar.test.logger.enabled=true clean build
+        run: ./gradlew --console=plain -Pcom.softicar.test.logger.enabled=true clean build
