@@ -28,10 +28,10 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 			.setProgramUuid(uuid.getUuid())
 			.save();
 		program.getState().save();
-		registerDefaultSchedule(uuid);
+		registerDefaultScheduleIfPossible(uuid);
 	}
 
-	private void registerDefaultSchedule(AGUuid uuid) {
+	private void registerDefaultScheduleIfPossible(AGUuid uuid) {
 
 		EmfSourceCodeReferencePoints
 			.getReferencePointOrThrow(uuid.getUuid(), IProgram.class)//
