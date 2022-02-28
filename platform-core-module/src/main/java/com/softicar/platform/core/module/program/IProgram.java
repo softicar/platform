@@ -18,9 +18,8 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	/**
 	 * This method can be overwritten in that way that it returns an Optional
 	 * with a cron expression. In this case the program will be scheduled
-	 * automatically with it.
+	 * automatically with it (see {@link ProgramStandardConfiguration}).
 	 *
-	 * @see ProgramStandardConfiguration
 	 * @return An Optional with a cron expression, or an empty Optional.
 	 */
 	default Optional<String> getDefaultCronExpression() {
