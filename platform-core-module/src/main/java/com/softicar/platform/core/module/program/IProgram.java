@@ -12,4 +12,9 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	}
 
 	void executeProgram();
+
+	default String getDefaultCronExpression() {
+
+		return "";
+	}
 }
