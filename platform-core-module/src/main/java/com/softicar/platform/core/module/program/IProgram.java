@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
+import java.util.Optional;
 
 public interface IProgram extends IEmfSourceCodeReferencePoint {
 
@@ -13,8 +15,16 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 
 	void executeProgram();
 
-	default String getDefaultCronExpression() {
+	/**
+	 * This method can be overwritten in that way that it returns an Optional
+	 * with a cron expression. In this case the program will be scheduled
+	 * automatically with it.
+	 *
+	 * @see ProgramStandardConfiguration
+	 * @return An Optional with a cron expression, or an empty Optional.
+	 */
+	default Optional<String> getDefaultCronExpression() {
 
-		return "";
+		return Optional.empty();
 	}
 }
