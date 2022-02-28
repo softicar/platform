@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * Deletes {@link AGProgramExecution} records and their corresponding
@@ -25,8 +26,8 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 	}
 
 	@Override
-	public String getDefaultCronExpression() {
+	public Optional<String> getDefaultCronExpression() {
 
-		return "0 0 * * *";
+		return Optional.of("0 0 * * *");
 	}
 }

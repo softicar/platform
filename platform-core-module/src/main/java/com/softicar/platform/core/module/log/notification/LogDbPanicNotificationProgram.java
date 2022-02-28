@@ -19,6 +19,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class checks the {@link AGLogMessage} table and sends notification
@@ -101,8 +102,8 @@ public class LogDbPanicNotificationProgram implements IProgram {
 	}
 
 	@Override
-	public String getDefaultCronExpression() {
+	public Optional<String> getDefaultCronExpression() {
 
-		return "0 0 * * *";
+		return Optional.of("0 0 * * *");
 	}
 }

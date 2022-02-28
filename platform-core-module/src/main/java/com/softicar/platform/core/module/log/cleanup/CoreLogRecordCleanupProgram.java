@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.user.login.AGUserLoginLog;
 import com.softicar.platform.core.module.user.login.failure.AGUserLoginFailureLog;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * TODO add javadoc
@@ -35,8 +36,8 @@ public class CoreLogRecordCleanupProgram implements IProgram {
 	}
 
 	@Override
-	public String getDefaultCronExpression() {
+	public Optional<String> getDefaultCronExpression() {
 
-		return "0 0 * * *";
+		return Optional.of("0 0 * * *");
 	}
 }

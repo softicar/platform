@@ -6,6 +6,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.ajax.exception.AGAjaxException;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * TODO add javadoc
@@ -31,8 +32,8 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 	}
 
 	@Override
-	public String getDefaultCronExpression() {
+	public Optional<String> getDefaultCronExpression() {
 
-		return "0 0 * * *";
+		return Optional.of("0 0 * * *");
 	}
 }

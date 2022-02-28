@@ -11,6 +11,7 @@ import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionExecutor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
 
 /**
@@ -58,8 +59,8 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 	}
 
 	@Override
-	public String getDefaultCronExpression() {
+	public Optional<String> getDefaultCronExpression() {
 
-		return "* * * * *";
+		return Optional.of("* * * * *");
 	}
 }

@@ -33,15 +33,18 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 
 	private void registerDefaultSchedule(AGUuid uuid) {
 
-		IProgram program = EmfSourceCodeReferencePoints.getReferencePointOrThrow(uuid.getUuid(), IProgram.class);
-		String defaultCronExpression = program.getDefaultCronExpression();
+		EmfSourceCodeReferencePoints
+			.getReferencePointOrThrow(uuid.getUuid(), IProgram.class)//
+			.getDefaultCronExpression()
+			.ifPresent(cronExpression -> insertScheduledProgramExecution(cronExpression, uuid));
+	}
 
-		if (!defaultCronExpression.isEmpty()) {
-			new AGScheduledProgramExecution()//
-				.setActive(true)
-				.setCronExpression(defaultCronExpression)
-				.setProgramUuid(uuid.getUuid())
-				.save();
-		}
+	private void insertScheduledProgramExecution(String cronExpression, AGUuid uuid) {
+
+		new AGScheduledProgramExecution()//
+			.setActive(true)
+			.setCronExpression(cronExpression)
+			.setProgramUuid(uuid.getUuid())
+			.save();
 	}
 }
