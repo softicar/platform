@@ -9,8 +9,6 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoint;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
-import java.util.Optional;
 
 public class ProgramStandardConfiguration extends AbstractStandardConfiguration {
 
@@ -35,8 +33,8 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 
 	private void registerDefaultSchedule(AGUuid uuid) {
 
-		Optional<IEmfSourceCodeReferencePoint> point = EmfSourceCodeReferencePoints.getReferencePoint(uuid.getUuid());
-		String defaultCronExpression = ((IProgram) point.get()).getDefaultCronExpression();
+		IProgram program = EmfSourceCodeReferencePoints.getReferencePointOrThrow(uuid.getUuid(), IProgram.class);
+		String defaultCronExpression = program.getDefaultCronExpression();
 
 		if (!defaultCronExpression.isEmpty()) {
 			new AGScheduledProgramExecution()//
