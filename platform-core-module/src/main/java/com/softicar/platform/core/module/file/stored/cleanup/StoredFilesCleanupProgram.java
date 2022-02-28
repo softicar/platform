@@ -31,4 +31,10 @@ public class StoredFilesCleanupProgram implements IProgram {
 
 		StoredFileChunksToFileStoreMigrator.migrateAll();
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

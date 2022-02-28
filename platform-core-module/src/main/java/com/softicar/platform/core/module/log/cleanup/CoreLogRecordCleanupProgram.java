@@ -33,4 +33,10 @@ public class CoreLogRecordCleanupProgram implements IProgram {
 			.delete(AGUserLoginLog.LOGIN_AT)
 			.delete(AGStoredFileLog.LOGGED_AT);
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

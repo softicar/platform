@@ -16,4 +16,10 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 
 		new UnreferencedStoredFileCleaner().cleanAll();
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

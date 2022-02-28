@@ -29,4 +29,10 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 
 		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).execute();
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

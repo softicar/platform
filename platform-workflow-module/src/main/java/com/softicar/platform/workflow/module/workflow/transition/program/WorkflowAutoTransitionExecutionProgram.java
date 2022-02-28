@@ -56,4 +56,10 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 					.add(it.get1()));
 		return itemToTransitionsMap;
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "* * * * *";
+	}
 }

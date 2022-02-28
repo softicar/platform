@@ -99,4 +99,10 @@ public class LogDbPanicNotificationProgram implements IProgram {
 				EmailContentType.PLAIN);
 		email.submit();
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

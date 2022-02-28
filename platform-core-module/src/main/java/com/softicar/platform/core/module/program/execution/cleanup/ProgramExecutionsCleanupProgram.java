@@ -23,4 +23,10 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 
 		new ProgramExecutionsDeleter(THROTTLING_MILLISECONDS).delete();
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "0 0 * * *";
+	}
 }

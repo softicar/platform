@@ -60,4 +60,10 @@ public class BufferedEmailSendProgram implements IProgram {
 			}
 		}
 	}
+
+	@Override
+	public String getDefaultCronExpression() {
+
+		return "* * * * *";
+	}
 }
