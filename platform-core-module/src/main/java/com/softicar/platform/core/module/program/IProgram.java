@@ -21,7 +21,7 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	 * If defined, the cron expression will be used to schedule this {@link IProgram}
 	 * automatically by {@link ProgramStandardConfiguration}.
 	 *
-	 * @return An Optional with a cron expression, or an empty Optional.
+	 * @return an optional cron expression
 	 */
 	default Optional<String> getDefaultCronExpression() {
 
