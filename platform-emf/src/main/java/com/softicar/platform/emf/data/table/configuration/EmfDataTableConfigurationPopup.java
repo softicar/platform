@@ -127,7 +127,7 @@ class EmfDataTableConfigurationPopup<R> extends DomPopup {
 		public ResetButton() {
 
 			setLabel(EmfDataTableI18n.RESET);
-			setIcon(EmfImages.REFRESH.getResource());
+			setIcon(EmfImages.RESET.getResource());
 			setMarker(EmfDataTableConfigurationMarker.RESET_BUTTON);
 			setClickCallback(this::handleClick);
 		}
