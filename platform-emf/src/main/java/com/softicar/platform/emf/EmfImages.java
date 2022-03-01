@@ -30,6 +30,7 @@ public interface EmfImages {
 	IResourceSupplier MODULE_DEFAULT = FACTORY.create("module-default.svg");
 	IResourceSupplier PAGE_DEFAULT = FACTORY.create("page-default.svg");
 	IResourceSupplier REFRESH = FACTORY.create("refresh.svg");
+	IResourceSupplier RESET = FACTORY.create("reset.svg");
 	IResourceSupplier SHOW_PASSWORD = FACTORY.create("show-password.svg");
 	IResourceSupplier TABLE_COLUMN_SORT_ASCENDING = FACTORY.create("table-column-sort-ascending.svg");
 	IResourceSupplier TABLE_COLUMN_SORT_DESCENDING = FACTORY.create("table-column-sort-descending.svg");
