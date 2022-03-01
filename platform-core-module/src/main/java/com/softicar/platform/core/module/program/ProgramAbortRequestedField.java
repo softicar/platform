@@ -18,10 +18,7 @@ class ProgramAbortRequestedField extends AbstractTransientBooleanField<AGProgram
 	@Override
 	protected void loadValues(Set<AGProgram> programs, IValueSetter<AGProgram, Boolean> setter) {
 
-		AGProgramState.TABLE//
-			.createSelect()
-			.where(AGProgramState.PROGRAM.isIn(programs))
-			.forEach(record -> setter.set(record.getProgram(), record.isAbortRequested()));
+		programs.forEach(program -> setter.set(program, program.isAbortRequested()));
 	}
 
 	@Override
