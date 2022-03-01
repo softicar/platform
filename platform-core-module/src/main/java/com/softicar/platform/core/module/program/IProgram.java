@@ -16,9 +16,10 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	void executeProgram();
 
 	/**
-	 * This method can be overwritten in that way that it returns an Optional
-	 * with a cron expression. In this case the program will be scheduled
-	 * automatically with it (see {@link ProgramStandardConfiguration}).
+	 * This method can be overridden to return an optional cron expression.
+	 * <p>
+	 * If defined, the cron expression will be used to schedule this {@link IProgram}
+	 * automatically by {@link ProgramStandardConfiguration}.
 	 *
 	 * @return An Optional with a cron expression, or an empty Optional.
 	 */
