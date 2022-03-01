@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.file.stored.content.database.StoredFile
 import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * TODO add javadoc
@@ -30,5 +31,11 @@ public class StoredFilesCleanupProgram implements IProgram {
 		new StoredFileStoreGarbageCollector(new StoredFileDatabase(), store).collect();
 
 		StoredFileChunksToFileStoreMigrator.migrateAll();
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("0 0 * * *");
 	}
 }

@@ -6,6 +6,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.ajax.exception.AGAjaxException;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * TODO add javadoc
@@ -28,5 +29,11 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 		Log.finfo("Will remove %d entries and keep %d entries\n", remove, keep);
 
 		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).execute();
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("0 0 * * *");
 	}
 }

@@ -6,7 +6,6 @@ import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.demo.configuration.WorkflowDemoConfiguration;
 import com.softicar.platform.workflow.module.standard.configuration.WorkflowIconStandardConfiguration;
-import com.softicar.platform.workflow.module.standard.configuration.WorkflowProgramStandardConfiguration;
 
 public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMethods, IStandardModuleTestFixture<AGWorkflowModuleInstance> {
 
@@ -31,7 +30,6 @@ public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMetho
 		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(workflowModuleInstance);
 		new WorkflowIconStandardConfiguration(workflowModuleInstance).createAndSaveAll();
 		new WorkflowDemoConfiguration(workflowModuleInstance, registry.getCoreModuleTestFixture()).createAndSaveAll();
-		new WorkflowProgramStandardConfiguration().createAndSaveAll();
 		return this;
 	}
 
