@@ -5,12 +5,11 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
-import com.softicar.platform.dom.input.DomInputException;
-import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
+import java.util.Optional;
 
 public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 
@@ -37,9 +36,9 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 	}
 
 	@Override
-	public String getValueOrThrow() throws DomInputException {
+	public Optional<String> getValue() {
 
-		return input.getValueOrThrow();
+		return Optional.of(input.getInputText());
 	}
 
 	@Override
@@ -48,10 +47,10 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 		input.setValue(value);
 	}
 
-	@Override
-	public IDomValueBasedInputNode<String> setPlaceholder(IDisplayString placeholder) {
+	public EmfWikiTextInput setPlaceholder(IDisplayString placeholder) {
 
-		return input.setPlaceholder(placeholder);
+		input.setPlaceholder(placeholder);
+		return this;
 	}
 
 	private void preview() {
@@ -61,7 +60,7 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 			preview = null;
 		}
 
-		this.preview = new PreviewDiv(input.getValueOrThrow());
+		this.preview = new PreviewDiv(input.getInputText());
 		appendChild(preview);
 	}
 

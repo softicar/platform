@@ -117,7 +117,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	public void testInputElementWithNullDefaultValue() {
 
 		var prompt = showPrompt(null);
-		assertEquals(null, prompt.getInputElement().getInputValue());
+		assertEquals("", prompt.getInputElement().getInputValue());
 	}
 
 	// ---------------- interaction with frame ---------------- //

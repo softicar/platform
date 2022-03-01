@@ -1,21 +1,19 @@
 package com.softicar.platform.emf.data.table.filter.string;
 
+import java.util.Objects;
+
 class FilterTextNormalizer {
 
 	private final String filterText;
 
 	public FilterTextNormalizer(String filterText) {
 
-		this.filterText = filterText;
+		this.filterText = Objects.requireNonNull(filterText);
 	}
 
 	public String getNormalized() {
 
-		if (filterText != null) {
-			return getFilter().trim();
-		} else {
-			return null;
-		}
+		return getFilter().trim();
 	}
 
 	private String getFilter() {

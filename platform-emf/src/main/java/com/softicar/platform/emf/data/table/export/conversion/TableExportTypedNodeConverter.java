@@ -282,7 +282,7 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 
 		else if (node instanceof DomTextArea) {
 			debugPrint(currentDepth, "DomTextArea");
-			values.add(createStringExportNodeValue(((DomTextArea) node).getValue().trim()));
+			values.add(createStringExportNodeValue(((DomTextArea) node).getInputTextTrimmed()));
 		}
 
 		else if (node instanceof DomPreformattedLabel) {
@@ -348,7 +348,7 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 		//
 		else if (node instanceof DomTextInput) {
 			debugPrint(currentDepth, DomTextInput.class.getSimpleName());
-			values.add(autoConvert(((DomTextInput) node).getValue().trim(), currentDepth + 1));
+			values.add(autoConvert(((DomTextInput) node).getInputTextTrimmed(), currentDepth + 1));
 		}
 
 		else if (node instanceof DomTextNode) {

@@ -12,8 +12,8 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomStringInputNode;
-import com.softicar.platform.dom.input.IDomValueBasedInputNode;
+import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -39,7 +39,7 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T>, IDomValueBasedInputNode<T> {
+public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T>, IDomInputNode {
 
 	private IDomAutoCompleteInputEngine<T> inputEngine;
 	private final boolean sloppyAmbiguityCheck;
@@ -92,7 +92,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	}
 
 	@Override
-	public IDomStringInputNode getInputField() {
+	public IDomTextualInput getInputField() {
 
 		return inputField;
 	}
@@ -111,13 +111,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 			inputEngine,
 			configuration,
 			this::getMatchingItems,
-			getTrimmed(inputField.getValue()));
-	}
-
-	@Override
-	public T getValue() {
-
-		return getSelection().getValueOrNull();
+			inputField.getInputTextTrimmed());
 	}
 
 	@Override
@@ -128,7 +122,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 			.map(inputEngine::getDisplayString)
 			.map(IDisplayString::toString)
 			.orElse("");
-		inputField.setValue(valueString);
+		inputField.setInputText(valueString);
 	}
 
 	@Override
@@ -138,7 +132,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		refreshInputValidity();
 	}
 
-	@Override
 	public DomAutoCompleteInput<T> setPlaceholder(IDisplayString placeholder) {
 
 		inputField.setPlaceholder(placeholder);
@@ -187,7 +180,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	 */
 	protected String getRawValueString() {
 
-		return Optional.ofNullable(inputField.getValue()).orElse("");
+		return inputField.getInputText();
 	}
 
 	private Collection<T> getMatchingItems(String pattern) {
@@ -223,7 +216,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 
 	private void refreshInputValidity() {
 
-		inputField.setValue(inputField.getValue());
+		inputField.setInputText(inputField.getInputText());
 		if (!getSelection().isValid()) {
 			getDomEngine().setAutoCompleteInputInvalid(this);
 		}

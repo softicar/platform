@@ -1,10 +1,7 @@
 package com.softicar.platform.emf.matrix;
 
-
-
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -463,11 +460,10 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		@Override
 		public void setValue(TestValue value) {
 
-			String valueString = Optional//
+			input.setValue(Optional//
 				.ofNullable(value)
-				.map(it -> it.getQuantity() + "")
-				.orElse("");
-			input.setValue(valueString);
+				.map(it -> it.getQuantity())
+				.orElse(null));
 		}
 
 		@Override
@@ -479,9 +475,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		@Override
 		public Optional<TestValue> getValue() {
 
-			return IntegerParser//
-				.parse(input.getValue())
-				.map(TestValue::new);
+			return input.getValue().map(TestValue::new);
 		}
 	}
 

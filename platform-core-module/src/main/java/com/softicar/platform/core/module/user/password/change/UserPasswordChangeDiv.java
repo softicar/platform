@@ -248,7 +248,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public String getCurrentPassword() {
 
-			return currentPasswordInput.getValue();
+			return currentPasswordInput.getInputText();
 		}
 
 		public String getRepeatedPassword() {
@@ -297,7 +297,6 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public PasswordInput() {
 
-			setValue("");
 			listenToEvent(DomEventType.CHANGE);
 			listenToEvent(DomEventType.ENTER);
 		}
@@ -328,12 +327,12 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public String getPassword() {
 
-			return getValue();
+			return getInputText();
 		}
 
 		public void setPassword(String password) {
 
-			this.setValue(password);
+			setInputText(password);
 		}
 	}
 

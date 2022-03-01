@@ -17,7 +17,7 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Collection;
 import java.util.List;
@@ -69,7 +69,7 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 	@Override
 	public String getText(IDomNode node) {
 
-		if (node instanceof IDomStringInputNode) {
+		if (node instanceof IDomTextualInput) {
 			return webElementResolver.apply(node).getAttribute("value");
 		} else {
 			return webElementResolver.apply(node).getText();

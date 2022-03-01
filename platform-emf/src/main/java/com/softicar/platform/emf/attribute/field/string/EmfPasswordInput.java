@@ -6,10 +6,10 @@ import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
+import java.util.Optional;
 
 public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 
@@ -28,19 +28,13 @@ public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 	@Override
 	public void setValue(String value) {
 
-		passwordInput.setValue(value);
+		passwordInput.setInputText(value);
 	}
 
 	@Override
-	public String getValue() {
+	public Optional<String> getValue() {
 
-		return passwordInput.getValue();
-	}
-
-	@Override
-	public String getValueOrThrow() throws DomInputException {
-
-		return passwordInput.getValue();
+		return Optional.of(passwordInput.getInputText());
 	}
 
 	public void showText() {

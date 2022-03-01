@@ -1,13 +1,8 @@
 package com.softicar.platform.dom.elements.time.day;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.date.DateUtils;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
-import com.softicar.platform.common.date.IllegalDateSpecificationException;
-import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -15,6 +10,7 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Optional;
 
 /**
@@ -23,7 +19,7 @@ import java.util.Optional;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public class DomDayInput extends DomBar {
+public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 
 	private final DayInput dayInput;
 	private final DayButton dayButton;
@@ -53,55 +49,19 @@ public class DomDayInput extends DomBar {
 		dayButton.unlistenToEvent(DomEventType.CLICK);
 	}
 
-	/**
-	 * Parses the value text into a {@link Day}.
-	 * <p>
-	 * If the value text is empty or blank, an empty {@link Optional} is
-	 * returned. Otherwise, the value text is parsed into a {@link Day}. If
-	 * parsing failed, an exception is thrown.
-	 *
-	 * @return the optionally entered {@link Day}
-	 * @throws IllegalDateSpecificationException
-	 *             if the non-blank value text could not be parsed
-	 */
-	public Optional<Day> retrieveValue() {
+	@Override
+	public Optional<Day> getValue() {
 
-		String value = dayInput.getValue();
-		if (value != null && !value.isBlank()) {
-			return Optional.of(new DayParser(value).parseOrThrow());
+		String inputText = dayInput.getInputTextTrimmed();
+		if (!inputText.isBlank()) {
+			return Optional.of(new DayParser(inputText).parseOrThrow());
 		} else {
 			return Optional.empty();
 		}
 	}
 
-	/**
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public Day getDayOrNull() {
-
-		return DateUtils.parseDate(dayInput.getValue());
-	}
-
-	/**
-	 * @deprecated use {@link #retrieveValue()}
-	 */
-	@Deprecated
-	public Day getDay() {
-
-		Day day = getDayOrNull();
-		if (day == null) {
-			IDisplayString message = DomI18n.THE_TEXT_ARG1_DOES_NOT_REPRESENT_A_VALID_DATE
-				.toDisplay(dayInput.getValue())
-				.concat(" ")
-				.concat(DomI18n.VALID_FORMATS)
-				.concat(" 2000-12-31, 31.12.2000, 12/31/2000");
-			throw new SofticarUserException(message);
-		}
-		return day;
-	}
-
-	public void setDay(Day day) {
+	@Override
+	public void setValue(Day day) {
 
 		setDay(day, true);
 	}
@@ -117,11 +77,6 @@ public class DomDayInput extends DomBar {
 		}
 	}
 
-	public void clear() {
-
-		setDay(null);
-	}
-
 	public DomTextInput getTextBoxInput() {
 
 		return dayInput;
@@ -134,10 +89,7 @@ public class DomDayInput extends DomBar {
 			setShowLabel(false);
 			setTabIndex(-1);
 			setClickCallback(() -> {
-				Day day = getDayOrNull();
-				if (day != null) {
-					setDay(day);
-				}
+				getValueNoThrow().ifPresent(this::setDay);
 				showPopup();
 			});
 		}
@@ -175,7 +127,6 @@ public class DomDayInput extends DomBar {
 			applyCallback();
 		}
 
-		@Override
 		public void setValue(String value) {
 
 			setValue(value, true);
@@ -183,7 +134,7 @@ public class DomDayInput extends DomBar {
 
 		public void setValue(String value, boolean triggerCallback) {
 
-			super.setValue(value);
+			setInputText(value);
 			if (triggerCallback) {
 				applyCallback();
 			}

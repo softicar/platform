@@ -65,9 +65,9 @@ public class EmfForeignEntitySetInput<R extends IEmfTableRow<R, ?>, S extends IE
 	}
 
 	@Override
-	public S getValueOrThrow() {
+	public Optional<S> getValue() {
 
-		return attribute.getCollectionTable().getOrInsert(table.getEntities());
+		return Optional.of(attribute.getCollectionTable().getOrInsert(table.getEntities()));
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public class EmfForeignEntitySetInput<R extends IEmfTableRow<R, ?>, S extends IE
 
 		private void save() {
 
-			F entity = entityInput.getValueOrThrow();
+			F entity = entityInput.getValueNoThrow().orElse(null);
 			if (entity == null) {
 				throw new SofticarUserException(EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
 			}

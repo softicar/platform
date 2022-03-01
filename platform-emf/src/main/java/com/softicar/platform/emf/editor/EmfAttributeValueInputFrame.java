@@ -67,7 +67,7 @@ public class EmfAttributeValueInputFrame<R extends IEmfTableRow<R, ?>, V> extend
 
 	public void applyToTableRow() {
 
-		attribute.setValue(row, input.getValueOrThrow());
+		attribute.setValue(row, input.getValue().orElse(null));
 	}
 
 	public void showDiagnostics(IEmfValidationResult validationResult) {

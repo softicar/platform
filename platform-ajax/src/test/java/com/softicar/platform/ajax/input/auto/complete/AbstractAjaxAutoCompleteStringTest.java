@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 	protected static final AjaxAutoCompleteTestItem ITEM3 = new AjaxAutoCompleteTestItem("third");
 	protected static final AjaxAutoCompleteTestItem ITEM4 = new AjaxAutoCompleteTestItem("thirdPlusOne");
 	protected AjaxAutoCompleteTestInput inputDiv;
-	protected IDomStringInputNode inputField;
+	protected IDomTextualInput inputField;
 
 	protected void openTestInput(Consumer<AjaxAutoCompleteTestInput> setup) {
 

@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.dom.elements.DomTextArea;
-import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
+import java.util.Optional;
 
 public class EmfMultilineStringInput extends DomTextArea implements IEmfInput<String> {
 
@@ -12,8 +12,14 @@ public class EmfMultilineStringInput extends DomTextArea implements IEmfInput<St
 	}
 
 	@Override
-	public String getValueOrThrow() throws DomInputException {
+	public void setValue(String value) {
 
-		return getValue();
+		setInputText(value);
+	}
+
+	@Override
+	public Optional<String> getValue() {
+
+		return Optional.of(getInputText());
 	}
 }
