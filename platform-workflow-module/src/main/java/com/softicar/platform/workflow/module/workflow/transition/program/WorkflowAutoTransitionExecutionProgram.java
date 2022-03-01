@@ -11,6 +11,7 @@ import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionExecutor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeMap;
 
 /**
@@ -55,5 +56,11 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 					.computeIfAbsent(it.get0(), dummy -> new ArrayList<>())
 					.add(it.get1()));
 		return itemToTransitionsMap;
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("* * * * *");
 	}
 }

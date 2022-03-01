@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.file.stored.cleanup;
 
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * This class is only used manually on occasion.
@@ -15,5 +16,11 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 	public void executeProgram() {
 
 		new UnreferencedStoredFileCleaner().cleanAll();
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("0 0 * * *");
 	}
 }

@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import java.util.Optional;
 
 /**
  * Sends e-mails in {@link AGBufferedEmail} and removes old entries.
@@ -59,5 +60,11 @@ public class BufferedEmailSendProgram implements IProgram {
 				collector.add(exception);
 			}
 		}
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("* * * * *");
 	}
 }
