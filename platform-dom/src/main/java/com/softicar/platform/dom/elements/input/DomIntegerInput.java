@@ -5,65 +5,35 @@ import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 
 /**
- * A {@link DomTextInput} that verifies that the user entered a valid
- * {@link Integer} value.
- * <p>
- * <b>TODO</b> A common base class should be implemented for
- * {@link DomIntegerInput} and {@link DomLongInput}.
+ * A {@link DomTextInput} for {@link Integer} values.
  *
  * @author Oliver Richers
  */
-public class DomIntegerInput extends DomTextInput {
+public class DomIntegerInput extends AbstractDomNumberInput<Integer> {
 
 	public DomIntegerInput() {
 
-		// nothing
-	}
-
-	public DomIntegerInput(int value) {
-
-		super("" + value);
+		// nothing to do
 	}
 
 	public DomIntegerInput(Integer value) {
 
-		if (value != null) {
-			setValue("" + value);
-		}
+		setValue(value);
 	}
 
-	// TODO the semantics of this method are bad
-	public Integer getInteger() {
+	@Override
+	protected String formatValue(Integer value) {
 
-		Integer integer = getIntegerOrNull();
-		return integer != null? integer : 0;
+		return value.toString();
 	}
 
-	// TODO the semantics of this method are bad
-	public Integer getIntegerOrNull() {
+	@Override
+	protected Integer parseValue(String inputText) {
 
-		if (getValue() == null) {
-			return null;
-		}
-
-		String text = getValue().trim();
 		try {
-			if (text.isEmpty()) {
-				return null;
-			}
-
-			return Integer.valueOf(text);
-		} catch (NumberFormatException exception) {
+			return Integer.valueOf(inputText);
+		} catch (Exception exception) {
 			throw new DomInputException(exception, DomI18n.INVALID_INTEGER);
-		}
-	}
-
-	public void setInteger(Integer value) {
-
-		if (value != null) {
-			setValue("" + value);
-		} else {
-			setValue(null);
 		}
 	}
 }

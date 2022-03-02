@@ -10,7 +10,7 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.text.IDomTextNode;
@@ -51,7 +51,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 			.findNodes(marker)
 			.filter(this::hasStringInputNode)
 			.assertOne()
-			.findNode(IDomStringInputNode.class)
+			.findNode(IDomTextualInput.class)
 			.setInputValue(value);
 		return this;
 	}
@@ -102,20 +102,20 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	public AbstractDomNodeTester<N> setInputValue(String text) {
 
-		if (node instanceof IDomStringInputNode) {
-			engine.setInputValue((IDomStringInputNode) node, text);
+		if (node instanceof IDomTextualInput) {
+			engine.setInputValue((IDomTextualInput) node, text);
 		} else {
-			throw new AssertionError(String.format("The node must be of type %s.", IDomStringInputNode.class.getSimpleName()));
+			throw new AssertionError(String.format("The node must be of type %s.", IDomTextualInput.class.getSimpleName()));
 		}
 		return this;
 	}
 
 	public String getInputValue() {
 
-		if (node instanceof IDomStringInputNode) {
-			return engine.getInputValue((IDomStringInputNode) node);
+		if (node instanceof IDomTextualInput) {
+			return engine.getInputValue((IDomTextualInput) node);
 		} else {
-			throw new AssertionError(String.format("The node must be of type %s.", IDomStringInputNode.class.getSimpleName()));
+			throw new AssertionError(String.format("The node must be of type %s.", IDomTextualInput.class.getSimpleName()));
 		}
 	}
 
@@ -316,6 +316,6 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 	private boolean hasStringInputNode(IDomNode node) {
 
-		return new DomNodeTester(engine, node).findNodes(IDomStringInputNode.class).size() > 0;
+		return new DomNodeTester(engine, node).findNodes(IDomTextualInput.class).size() > 0;
 	}
 }

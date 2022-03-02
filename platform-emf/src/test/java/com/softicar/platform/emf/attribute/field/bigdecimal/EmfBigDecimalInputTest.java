@@ -5,7 +5,7 @@ import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
 import com.softicar.platform.dom.input.DomInputException;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import java.math.BigDecimal;
@@ -35,10 +35,10 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	@Test
 	public void testGetValueOrThrowWithoutScale() {
 
-		enterInputValue("10").assertGetValueOrThrow("10");
-		enterInputValue("12").assertGetValueOrThrow("12");
-		enterInputValue("12.6").assertGetValueOrThrow("12.6");
-		enterInputValue("12.60").assertGetValueOrThrow("12.60");
+		enterInputValue("10").assertGetValue("10");
+		enterInputValue("12").assertGetValue("12");
+		enterInputValue("12.6").assertGetValue("12.6");
+		enterInputValue("12.60").assertGetValue("12.60");
 	}
 
 	@Test
@@ -47,20 +47,20 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		input.setScale(2);
 
 		// scale increase
-		enterInputValue("10").assertGetValueOrThrow("10.00");
-		enterInputValue("12").assertGetValueOrThrow("12.00");
-		enterInputValue("12.3").assertGetValueOrThrow("12.30");
+		enterInputValue("10").assertGetValue("10.00");
+		enterInputValue("12").assertGetValue("12.00");
+		enterInputValue("12.3").assertGetValue("12.30");
 
 		// scale retention
-		enterInputValue("10.00").assertGetValueOrThrow("10.00");
-		enterInputValue("12.00").assertGetValueOrThrow("12.00");
-		enterInputValue("12.34").assertGetValueOrThrow("12.34");
+		enterInputValue("10.00").assertGetValue("10.00");
+		enterInputValue("12.00").assertGetValue("12.00");
+		enterInputValue("12.34").assertGetValue("12.34");
 
 		// scale reduction
-		enterInputValue("12.000").assertGetValueOrThrow("12.00");
+		enterInputValue("12.000").assertGetValue("12.00");
 		enterInputValue("12.123").assertException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2));
 		enterInputValue("12.1230").assertException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2));
-		enterInputValue("12.1200").assertGetValueOrThrow("12.12");
+		enterInputValue("12.1200").assertGetValue("12.12");
 	}
 
 	@Test
@@ -73,8 +73,8 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	@Test
 	public void testGetValueOrThrowWithFormatQuirks() {
 
-		enterInputValue("12,34").assertGetValueOrThrow("12.34");
-		enterInputValue(" 12.34 ").assertGetValueOrThrow("12.34");
+		enterInputValue("12,34").assertGetValue("12.34");
+		enterInputValue(" 12.34 ").assertGetValue("12.34");
 	}
 
 	// ------------------------------ setValue ------------------------------ //
@@ -112,7 +112,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 
 	private EmfBigDecimalInputTest enterInputValue(String value) {
 
-		findNode(IDomStringInputNode.class).setInputValue(value);
+		findNode(IDomTextualInput.class).setInputValue(value);
 		return this;
 	}
 
@@ -122,22 +122,22 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 		return this;
 	}
 
-	private EmfBigDecimalInputTest assertGetValueOrThrow(String expectedValue) {
+	private EmfBigDecimalInputTest assertGetValue(String expectedValue) {
 
-		assertEquals(expectedValue, input.getValueOrThrow().toPlainString());
+		assertEquals(expectedValue, input.getValue().get().toPlainString());
 		return this;
 	}
 
 	private EmfBigDecimalInputTest assertInputValue(String expectedValue) {
 
-		findNode(IDomStringInputNode.class).assertInputValue(expectedValue);
+		findNode(IDomTextualInput.class).assertInputValue(expectedValue);
 		return this;
 	}
 
 	private void assertException(IDisplayString expectedMessage) {
 
 		try {
-			input.getValueOrThrow();
+			input.getValue();
 			fail("expected exception");
 		} catch (DomInputException exception) {
 			assertEquals(expectedMessage.toString(), exception.getMessage());

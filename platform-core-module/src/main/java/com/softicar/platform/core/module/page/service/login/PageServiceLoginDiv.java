@@ -80,7 +80,7 @@ public class PageServiceLoginDiv extends DomDiv {
 		private void login() {
 
 			try {
-				new PageServiceLoginExecutor(userInput.getValue(), passwordInput.getValue()).executeLogin();
+				new PageServiceLoginExecutor(userInput.getInputText(), passwordInput.getInputText()).executeLogin();
 				documentBuilder.refreshBody();
 			} catch (SofticarUserException exception) {
 				errorDiv.showError(exception.getMessage());

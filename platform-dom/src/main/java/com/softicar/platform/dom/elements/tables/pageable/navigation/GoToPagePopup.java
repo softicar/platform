@@ -43,7 +43,7 @@ class GoToPagePopup extends DomPopup {
 		pageNumberBar.appendChild(pageNumberInput = new PageNumberInput());
 		pageNumberBar.appendText(" / " + totalPageCount);
 
-		pageNumberInput.setValue("" + Math.min(currentPageNumber, totalPageCount));
+		pageNumberInput.setValue(Math.min(currentPageNumber, totalPageCount));
 		appendChild(new DomLabelGrid().add(DomI18n.PAGE, pageNumberBar));
 		appendActionNode(new OkayButton());
 		appendCancelButton();
@@ -55,7 +55,7 @@ class GoToPagePopup extends DomPopup {
 
 	private void applyCurrentPageToTableAndHide() {
 
-		table.setCurrentPage(Math.max(Math.min(pageNumberInput.getInteger(), table.getPageCount()), 1) - 1);
+		table.setCurrentPage(Math.max(Math.min(pageNumberInput.getValue().orElse(1), table.getPageCount()), 1) - 1);
 		hide();
 	}
 

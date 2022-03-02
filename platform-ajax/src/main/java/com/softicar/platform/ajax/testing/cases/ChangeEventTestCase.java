@@ -16,7 +16,7 @@ public class ChangeEventTestCase extends AbstractTestCaseDiv {
 		@Override
 		public void handleChange(IDomEvent event) {
 
-			log("got %s event, value = '%s'", event.getType(), getValue());
+			log("got %s event, value = '%s'", event.getType(), getInputText());
 		}
 	}
 }
