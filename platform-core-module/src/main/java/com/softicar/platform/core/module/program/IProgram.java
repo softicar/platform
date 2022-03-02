@@ -29,16 +29,16 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	}
 
 	/**
-	 * This method can be overridden to return a description of this
+	 * This method can be overridden to return an optional description of this
 	 * {@link IProgram}.
 	 * <p>
 	 * If defined, the description will be displayed in the table of
 	 * {@link ProgramPage}.
 	 *
-	 * @return a description
+	 * @return an optional description
 	 */
-	default IDisplayString getDescription() {
+	default Optional<IDisplayString> getDescription() {
 
-		return IDisplayString.EMPTY;
+		return Optional.empty();
 	}
 }

@@ -36,6 +36,7 @@ class ProgramDescriptionField extends AbstractTransientObjectField<AGProgram, ID
 
 		return EmfSourceCodeReferencePoints
 			.getReferencePointOrThrow(program.getProgramUuid().getUuid(), IProgram.class)//
-			.getDescription();
+			.getDescription()
+			.orElse(getDefaultValue());
 	}
 }
