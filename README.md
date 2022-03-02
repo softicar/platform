@@ -80,3 +80,16 @@ major  |  patch
 ## 5 Contributing
 
 Please read the [contribution guidelines](CONTRIBUTING.md) for this repository and keep our [code of conduct](CODE_OF_CONDUCT.md) in mind.
+
+## 6 Notes to Contributors
+
+### 6.1 Optimize All SVG Images
+
+To convert all SVGs in a directory tree to an uncluttered and optimized format, use `scour` (`sudo apt install scour`):
+
+```
+find . -type f -name "*.svg" | xargs -d $'\n' sh -c 'for file do\
+  scour -i "$file" -o "$file"-opt --strip-xml-prolog --remove-metadata --enable-id-stripping --enable-comment-stripping;\
+  mv -v -- "$file"-opt "$file";\
+done' _
+```
