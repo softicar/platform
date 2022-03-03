@@ -27,8 +27,6 @@ import java.util.Optional;
  * e-mails for all messages with severity PANIC.
  * <p>
  * The panic receivers are defined by the table {@link AGModulePanicReceiver}.
- * <p>
- * TODO PLAT-395 add to a standard configuration
  *
  * @author Marco Pilipovic
  * @author Oliver Richers

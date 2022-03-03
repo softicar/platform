@@ -11,8 +11,6 @@ import java.util.Optional;
 
 /**
  * TODO add javadoc
- * <p>
- * TODO PLAT-395 add to a standard configuration
  */
 @EmfSourceCodeReferencePointUuid("c748e8d1-fe5b-41dd-9d12-339177eda6e0")
 public class StoredFilesCleanupProgram implements IProgram {

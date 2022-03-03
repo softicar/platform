@@ -12,8 +12,6 @@ import java.util.Optional;
 
 /**
  * TODO add javadoc
- * <p>
- * TODO PLAT-395 add to a standard configuration
  */
 @EmfSourceCodeReferencePointUuid("f32a65ea-c410-47d2-b752-f7d5961eab40")
 public class AjaxExceptionCleanupProgram implements IProgram {

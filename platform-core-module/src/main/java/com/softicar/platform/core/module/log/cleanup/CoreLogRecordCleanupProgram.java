@@ -14,8 +14,6 @@ import java.util.Optional;
 
 /**
  * TODO add javadoc
- * <p>
- * TODO PLAT-395 add to a standard configuration
  */
 @EmfSourceCodeReferencePointUuid("1b4ca844-39b6-41a1-9afa-0863c92d1e94")
 public class CoreLogRecordCleanupProgram implements IProgram {
