@@ -44,6 +44,6 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 
 		return Optional
 			.of(//
-				CoreI18n.DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARGS_DAYS.toDisplay(DAYS_TO_KEEP));
+				CoreI18n.DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS.toDisplay(DAYS_TO_KEEP));
 	}
 }

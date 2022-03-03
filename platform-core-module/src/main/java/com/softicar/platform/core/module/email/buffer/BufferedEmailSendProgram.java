@@ -75,6 +75,6 @@ public class BufferedEmailSendProgram implements IProgram {
 
 		return Optional
 			.of(//
-				CoreI18n.SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARGS_DAYS.toDisplay(BufferedEmailCleaner.MAXIMUM_DAYS_TO_KEEP));
+				CoreI18n.SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARG1_DAYS.toDisplay(BufferedEmailCleaner.MAXIMUM_DAYS_TO_KEEP));
 	}
 }

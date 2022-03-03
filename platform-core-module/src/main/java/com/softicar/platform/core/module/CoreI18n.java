@@ -198,7 +198,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wochentag des DBMS-Wartungsfensters");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
-	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARGS_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
+	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
@@ -634,7 +634,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sender");
 	I18n0 SENDS_AN_EMAIL_WITH_THE_SPECIFIED_CONTENT_TO_ALL_SELECTED_USERS = new I18n0("Sends an email with the specified content to all selected users.")//
 		.de("Sendet eine E-Mail mit dem angegebenen Inhalt an alle ausgewählten Benutzer.");
-	I18n1 SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARGS_DAYS = new I18n1("Sends saved emails and deletes already sent emails after %s days")//
+	I18n1 SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARG1_DAYS = new I18n1("Sends saved emails and deletes already sent emails after %s days")//
 		.de("Sendet gespeicherte Emails und löscht bereits gesendete Emails nach %s Tagen");
 	I18n0 SENT_AT = new I18n0("Sent At")//
 		.de("Gesendet am");
