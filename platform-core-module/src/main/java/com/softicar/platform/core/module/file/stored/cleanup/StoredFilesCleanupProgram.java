@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.file.stored.cleanup;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.file.stored.content.database.StoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
 import com.softicar.platform.core.module.program.IProgram;
@@ -37,5 +39,11 @@ public class StoredFilesCleanupProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("0 0 * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(CoreI18n.CLEANS_FILE_SERVER_FROM_TEMPORARY_FILES);
 	}
 }
