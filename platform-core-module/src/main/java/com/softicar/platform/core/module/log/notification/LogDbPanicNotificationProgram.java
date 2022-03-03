@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.log.notification;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.EmailFactory;
@@ -105,5 +106,11 @@ public class LogDbPanicNotificationProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("0 0 * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(CoreI18n.SENDS_PANIC_ENTRIES_BY_EMAIL);
 	}
 }

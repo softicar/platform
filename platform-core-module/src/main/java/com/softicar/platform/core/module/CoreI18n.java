@@ -641,6 +641,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sender");
 	I18n0 SENDS_AN_EMAIL_WITH_THE_SPECIFIED_CONTENT_TO_ALL_SELECTED_USERS = new I18n0("Sends an email with the specified content to all selected users.")//
 		.de("Sendet eine E-Mail mit dem angegebenen Inhalt an alle ausgewählten Benutzer.");
+	I18n0 SENDS_PANIC_ENTRIES_BY_EMAIL = new I18n0("Sends panic entries by email")//
+		.de("Versendet Panik-Einträge per E-Mail");
 	I18n1 SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARG1_DAYS = new I18n1("Sends saved emails and deletes already sent emails after %s days")//
 		.de("Sendet gespeicherte E-Mails und löscht bereits gesendete E-Mails nach %s Tagen");
 	I18n0 SENT_AT = new I18n0("Sent At")//
