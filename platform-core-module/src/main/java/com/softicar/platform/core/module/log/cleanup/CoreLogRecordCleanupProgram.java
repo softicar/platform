@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.log.cleanup;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.AGAjaxSession;
 import com.softicar.platform.core.module.file.stored.AGStoredFileLog;
 import com.softicar.platform.core.module.log.process.AGLogProcess;
@@ -39,5 +41,11 @@ public class CoreLogRecordCleanupProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("0 0 * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(CoreI18n.DELETES_RECORDS_OF_CORE_LOG_TABLES_OLDER_THAN_ARG1_DAYS.toDisplay(LOG_RETENTION_DAYS));
 	}
 }
