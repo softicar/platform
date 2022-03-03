@@ -1,10 +1,12 @@
 package com.softicar.platform.workflow.module.workflow.transition.program;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
+import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
@@ -62,5 +64,11 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("* * * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(WorkflowI18n.EXECUTES_WORKFLOW_TRANSITIONS);
 	}
 }
