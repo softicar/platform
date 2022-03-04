@@ -8,9 +8,9 @@ import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 /**
  * Simple popup to upload files.
  * <p>
- * The popup contains a number of file inputs and a button to add event more
- * file inputs. If the user clicks on the upload button the selected files will
- * be uploaded and the popup will be closed.
+ * The popup contains a number of file inputs and a button to add even more file
+ * inputs. If the user clicks on the upload button the selected files will be
+ * uploaded and the popup will be closed.
  *
  * @author Oliver Richers
  */
