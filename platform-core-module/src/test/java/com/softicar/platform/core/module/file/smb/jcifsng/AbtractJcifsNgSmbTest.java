@@ -102,12 +102,15 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	protected ISmbDirectory directory(String url) {
 
-		return new JcifsNgSmbDirectory(url, createContext());
+		return new JcifsNgSmbDirectory(url, createContext(), uuid, start);
 	}
 
 	protected CIFSContext createContext() {
 
-		return JcifsNgSmbCifsContextFactory.create(credentials);
+		Log.ferror("%s: %sms: createContext: CAL", uuid, System.currentTimeMillis() - start);
+		CIFSContext context = JcifsNgSmbCifsContextFactory.create(credentials);
+		Log.ferror("%s: %sms: createContext: RET", uuid, System.currentTimeMillis() - start);
+		return context;
 	}
 
 	/**

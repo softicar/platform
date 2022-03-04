@@ -25,7 +25,13 @@ class JcifsNgSmbDirectory extends JcifsNgSmbEntry implements ISmbDirectory {
 
 	public JcifsNgSmbDirectory(String url, CIFSContext context) {
 
-		super(appendSlashIfMissing(url), context);
+		this(url, context, null, null);
+	}
+
+	// TODO remove debug CTOR
+	public JcifsNgSmbDirectory(String url, CIFSContext context, String uuid, Long start) {
+
+		super(appendSlashIfMissing(url), context, uuid, start);
 		assertDirectoryIfExists();
 	}
 
