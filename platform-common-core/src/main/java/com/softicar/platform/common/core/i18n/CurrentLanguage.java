@@ -3,8 +3,7 @@ package com.softicar.platform.common.core.i18n;
 import com.softicar.platform.common.core.singleton.Singleton;
 
 /**
- * This is a {@link Singleton} to hold the currently selected
- * {@link LanguageEnum}.
+ * This {@link Singleton} holds the currently selected {@link LanguageEnum}.
  * <p>
  * It is used to determine the destination language for translation.
  *
@@ -15,9 +14,9 @@ public class CurrentLanguage {
 	private static final Singleton<LanguageEnum> CURRENT_LANGUAGE = new Singleton<>(() -> LanguageEnum.ENGLISH).setInheritByIdentity();
 
 	/**
-	 * Returns the currently selected language, which is English by default.
+	 * Returns the current language, which is English by default.
 	 *
-	 * @return the current language, never null
+	 * @return the current language (never <i>null</i>)
 	 */
 	public static LanguageEnum get() {
 
@@ -25,7 +24,7 @@ public class CurrentLanguage {
 	}
 
 	/**
-	 * Sets the currently selected language to the specified value.
+	 * Sets the current language to the specified value.
 	 */
 	public static void set(LanguageEnum language) {
 
