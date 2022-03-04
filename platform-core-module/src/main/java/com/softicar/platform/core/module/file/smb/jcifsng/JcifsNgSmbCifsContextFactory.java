@@ -44,7 +44,9 @@ class JcifsNgSmbCifsContextFactory {
 	private static BaseContext createBaseContext() {
 
 		try {
-			return new BaseContext(new PropertyConfiguration(new Properties()));
+			var properties = new Properties();
+			properties.setProperty("jcifs.resolveOrder", "DNS");
+			return new BaseContext(new PropertyConfiguration(properties));
 		} catch (CIFSException exception) {
 			throw new SmbIOException(exception);
 		}
