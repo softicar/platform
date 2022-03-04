@@ -45,7 +45,14 @@ class JcifsNgSmbCifsContextFactory {
 
 		try {
 			var properties = new Properties();
-			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS,WINS,BCAST");
+			// fast
+//			properties.setProperty("jcifs.resolveOrder", "DNS");
+
+			// slow
+//			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS,WINS,BCAST");
+
+			// testing
+			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS,BCAST");
 			return new BaseContext(new PropertyConfiguration(properties));
 		} catch (CIFSException exception) {
 			throw new SmbIOException(exception);
