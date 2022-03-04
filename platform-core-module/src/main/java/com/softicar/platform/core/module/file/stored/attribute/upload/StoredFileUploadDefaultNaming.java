@@ -8,7 +8,7 @@ class StoredFileUploadDefaultNaming implements IStoredFileUploadNaming {
 	@Override
 	public IDisplayString getAddFileDisplayString() {
 
-		return EmfI18n.ADD_FILE;
+		return EmfI18n.CHOOSE_OR_DROP_FILE;
 	}
 
 	@Override
