@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.io.StreamUtils;
@@ -15,6 +16,7 @@ import com.softicar.platform.core.module.file.smb.testing.SmbTestServerConfigura
 import com.softicar.platform.core.module.file.smb.testing.SmbTestServerController;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import jcifs.CIFSContext;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -45,9 +47,15 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 	protected String someDirUrl;
 	protected String someDirUrlSlash;
 
+	// TODO remove - debug only
+	protected final String uuid;
+
 	public AbtractJcifsNgSmbTest() {
 
 		LogLevel.ERROR.set();
+
+		// TODO remove - debug only
+		this.uuid = UUID.randomUUID().toString();
 	}
 
 	@BeforeClass
@@ -159,14 +167,28 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	private void flushShareRoot() {
 
+		Log.ferror("%s: flushShareRoot: CAL", uuid);
+
 		try {
-			directory(shareUrl).listEntries().forEach(ISmbEntry::delete);
+			ISmbDirectory directory = directory(shareUrl);
+			Log.ferror("%s: flushShareRoot: got upper dir", uuid);
+
+			List<ISmbEntry> entries = directory.listEntries();
+			Log.ferror("%s: flushShareRoot: got upper entries", uuid);
+
+			entries.forEach(ISmbEntry::delete);
+			Log.ferror("%s: flushShareRoot: deleted them", uuid);
 		} catch (Exception exception) {
 			throw new SofticarDeveloperException(exception, "Failed to flush the share.");
 		}
 
 		try {
-			List<ISmbEntry> entries = directory(shareUrl).listEntries();
+			ISmbDirectory directory = directory(shareUrl);
+			Log.ferror("%s: flushShareRoot: got lower dir", uuid);
+
+			List<ISmbEntry> entries = directory.listEntries();
+			Log.ferror("%s: flushShareRoot: got lower entries", uuid);
+
 			assertTrue(//
 				"Expected an empty share before the execution of a test method. Encountered %s leftover entries from a previous execution: [%s]"
 					.formatted(entries.size(), Imploder.implode(entries, ISmbEntry::getName, ", ")),
@@ -174,6 +196,8 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 		} catch (Exception exception) {
 			throw new SofticarDeveloperException(exception, "Failed to list the entries in the share root.");
 		}
+
+		Log.ferror("%s: flushShareRoot: RET", uuid);
 	}
 
 	private static SmbTestServerController createController() {
