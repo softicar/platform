@@ -8,11 +8,10 @@ import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileBuilder;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomFileInput;
 import com.softicar.platform.dom.elements.DomForm;
-import com.softicar.platform.dom.elements.bar.DomActionBar;
-import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import java.io.IOException;
@@ -23,37 +22,28 @@ import java.util.Collection;
 class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 
 	private final StoredFileUploadTable table;
-	private final FileInput fileInput;
-	private final DomButton button;
+	private final DomDiv uploadDiv;
 
 	public StoredFileUploadForm(StoredFileUploadTable table) {
 
 		super(true);
 
 		this.table = table;
-
-		DomActionBar actionBar = appendChild(new DomActionBar());
-		button = actionBar//
-			.appendChild(new DomButton())
-			.setIcon(CoreImages.STORED_FILE_UPLOAD.getResource())
-			.setLabel(table.getNaming().getAddFileDisplayString());
-		this.fileInput = button.appendChild(new FileInput(this));
-
-		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.ENTER, fileInput);
-		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.SPACE, fileInput);
+		this.uploadDiv = appendChild(new UploadDiv());
+		uploadDiv.appendChild(new FileInput(this));
 	}
 
-	public void attachButton() {
+	public void attachFileUploadDiv() {
 
-		if (button.getParent() == null) {
-			appendChild(button);
+		if (uploadDiv.getParent() == null) {
+			appendChild(uploadDiv);
 		}
 	}
 
-	public void detachButton() {
+	public void detachFileUploadDiv() {
 
-		if (button.getParent() != null) {
-			button.getParent().removeChild(button);
+		if (uploadDiv.getParent() != null) {
+			uploadDiv.getParent().removeChild(uploadDiv);
 		}
 	}
 
@@ -87,6 +77,16 @@ class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 			transaction.commit();
 		}
 		return files;
+	}
+
+	private class UploadDiv extends DomDiv {
+
+		public UploadDiv() {
+
+			addCssClass(CoreCssClasses.STORED_FILE_UPLOAD_DIV);
+			appendChild(new DomImage(CoreImages.STORED_FILE_UPLOAD.getResource()));
+			appendText(table.getNaming().getAddFileDisplayString());
+		}
 	}
 
 	private class FileInput extends DomFileInput {

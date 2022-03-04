@@ -22,8 +22,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Aktiv-Feld existiert");
 	I18n0 ADD_ENTRY = new I18n0("Add Entry")//
 		.de("Eintrag hinzufügen");
-	I18n0 ADD_FILE = new I18n0("Add File")//
-		.de("Datei hinzufügen");
 	I18n0 ADD_FILTER = new I18n0("Add Filter")//
 		.de("Filter hinzufügen");
 	I18n0 ADMINISTRATOR = new I18n0("Administrator")//
@@ -78,6 +76,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Änderungs-Logger existieren");
 	I18n0 CHILD_TABLES = new I18n0("Child Tables")//
 		.de("Kind-Tabellen");
+	I18n0 CHOOSE_OR_DROP_FILE = new I18n0("Choose or drop file")//
+		.de("Datei wählen oder ablegen");
 	I18n0 COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS = new I18n0("Column values must be separated by commas.")//
 		.de("Spaltenwerte müssen durch Kommas getrennt sein.");
 	I18n0 CONCEALED = new I18n0("Concealed")//
