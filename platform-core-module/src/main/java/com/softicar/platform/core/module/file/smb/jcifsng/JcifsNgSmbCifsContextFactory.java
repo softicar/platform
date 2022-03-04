@@ -45,17 +45,8 @@ class JcifsNgSmbCifsContextFactory {
 
 		try {
 			var properties = new Properties();
-			// fast
-//			properties.setProperty("jcifs.resolveOrder", "DNS");
-
-			// slow
-//			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS,WINS,BCAST");
-
-			// fast
-//			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS");
-
-			// testing
-			properties.setProperty("jcifs.resolveOrder", "DNS,LMHOSTS,WINS");
+			// Note: Establishing SMB connections during unit tests of Docker-in-Docker based builds is very slow, unless "BCAST" is omitted here.
+			properties.setProperty("jcifs.resolveOrder", "LMHOSTS,DNS,WINS");
 			return new BaseContext(new PropertyConfiguration(properties));
 		} catch (CIFSException exception) {
 			throw new SmbIOException(exception);
