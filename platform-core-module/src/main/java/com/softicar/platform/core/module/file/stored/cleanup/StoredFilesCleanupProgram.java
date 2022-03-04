@@ -42,6 +42,6 @@ public class StoredFilesCleanupProgram implements IProgram {
 	@Override
 	public Optional<IDisplayString> getDescription() {
 
-		return Optional.of(CoreI18n.CLEANS_FILE_SERVER_FROM_TEMPORARY_FILES);
+		return Optional.of(CoreI18n.CLEANS_FILE_SERVERS_FROM_TEMPORARY_FILES);
 	}
 }
