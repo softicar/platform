@@ -207,7 +207,7 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	private static SmbTestServerController createController() {
 
-		var configuration = new SmbTestServerConfiguration(TEST_PASSWORD, TEST_SHARE, TEST_USER);
+		var configuration = new SmbTestServerConfiguration(TEST_SHARE, TEST_USER, TEST_PASSWORD);
 		return new SmbTestServerController(configuration);
 	}
 }

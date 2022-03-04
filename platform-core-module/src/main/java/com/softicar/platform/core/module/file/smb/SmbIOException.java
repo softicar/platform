@@ -13,16 +13,11 @@ public class SmbIOException extends SofticarIOException {
 
 	public SmbIOException(IOException ioException) {
 
-		this(ioException, "An I/O exception occured while using an SMB share: %s", ioException);
+		super(ioException, "An I/O exception occured while using an SMB share: %s", ioException);
 	}
 
 	public SmbIOException(IOException ioException, String message) {
 
-		this(ioException, message, new Object[0]);
-	}
-
-	public SmbIOException(IOException ioException, String format, Object...args) {
-
-		super(ioException, format, args);
+		super(ioException, message);
 	}
 }

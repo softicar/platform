@@ -82,7 +82,7 @@ public class Asserts extends Assert {
 					StackTraceFormatting.getStackTraceAsString(thrown)),
 			expectedThrowableClass.isAssignableFrom(thrownClass));
 		if (expectedMessage != null) {
-			assertEquals("Unexpected message.", expectedMessage, thrown.getMessage());
+			assertEquals("Unexpected exception message.", expectedMessage, thrown.getMessage());
 		}
 	}
 
@@ -101,11 +101,8 @@ public class Asserts extends Assert {
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
-		} catch (NullPointerException exception) {
-			// The message of an NPE is always null, so it's not reasonable to call this method in the first place when an NPE is expected.
-			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
-			assertEquals(expectedMessage.toString(), exception.getMessage());
+			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(exception));
 		}
 	}
 
@@ -125,13 +122,10 @@ public class Asserts extends Assert {
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
-		} catch (NullPointerException exception) {
-			// The message of an NPE is always null, so it's not reasonable to call this method in the first place when an NPE is expected.
-			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
+			String message = getNonNullMessageOrFail(exception);
 			assertTrue(//
-				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\""
-					.formatted(expectedMessage.toString(), exception.getMessage()),
+				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
 				exception.getMessage().contains(expectedMessage.toString()));
 		}
 	}
@@ -243,5 +237,15 @@ public class Asserts extends Assert {
 			.toStream(objects)
 			.filter(predicate)
 			.collect(Collectors.toList());
+	}
+
+	private static String getNonNullMessageOrFail(Exception exception) {
+
+		String message = exception.getMessage();
+		if (message != null) {
+			return message;
+		} else {
+			throw new AssertionError("The encountered %s does not have a message.".formatted(exception.getClass().getSimpleName()));
+		}
 	}
 }

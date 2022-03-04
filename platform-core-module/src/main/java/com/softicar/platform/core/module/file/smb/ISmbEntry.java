@@ -50,6 +50,9 @@ public interface ISmbEntry {
 
 	/**
 	 * Deletes this entry from the share.
+	 * <p>
+	 * If this entry is a directory, all contained files and subdirectories will
+	 * be deleted as well.
 	 *
 	 * @throws SmbIOException
 	 *             if this entry does not exist, or if invoked on the root of

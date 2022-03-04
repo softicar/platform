@@ -2,20 +2,15 @@ package com.softicar.platform.core.module.file.smb.testing;
 
 public class SmbTestServerConfiguration {
 
-	private final String testPassword;
 	private final String testShare;
 	private final String testUser;
+	private final String testPassword;
 
-	public SmbTestServerConfiguration(String testPassword, String testShare, String testUser) {
+	public SmbTestServerConfiguration(String testShare, String testUser, String testPassword) {
 
-		this.testPassword = testPassword;
 		this.testShare = testShare;
 		this.testUser = testUser;
-	}
-
-	public String getTestPassword() {
-
-		return testPassword;
+		this.testPassword = testPassword;
 	}
 
 	public String getTestShare() {
@@ -26,5 +21,10 @@ public class SmbTestServerConfiguration {
 	public String getTestUser() {
 
 		return testUser;
+	}
+
+	public String getTestPassword() {
+
+		return testPassword;
 	}
 }

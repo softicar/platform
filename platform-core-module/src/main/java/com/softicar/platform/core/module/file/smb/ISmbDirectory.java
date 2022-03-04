@@ -135,8 +135,8 @@ public interface ISmbDirectory extends ISmbEntry {
 	 * <p>
 	 * The target directory must <b>not</b> yet exist.
 	 * <p>
-	 * The given directory name may be a <b>relative</b> path to a nested
-	 * subdirectory.
+	 * The given directory name may be an <b>absolute</b> path to a nonexistent
+	 * subdirectory of an existing directory.
 	 *
 	 * @param directoryName
 	 *            the new name for this directory (never <i>null</i>)
