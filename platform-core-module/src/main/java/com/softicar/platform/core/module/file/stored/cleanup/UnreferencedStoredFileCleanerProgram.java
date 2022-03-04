@@ -31,7 +31,7 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 
 		return Optional
 			.of(//
-				CoreI18n.DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_SERVER_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE
+				CoreI18n.DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_SERVERS_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE
 					.toDisplay(UnreferencedStoredFileCleaner.MINIMUM_DAYS_BEFORE_REMOVAL));
 	}
 }
