@@ -43,7 +43,6 @@ public interface CoreImages {
 	IResourceSupplier ROTATE = FACTORY.create("rotate.svg");
 	IResourceSupplier SESSION = FACTORY.create("session.svg");
 	IResourceSupplier STORED_FILE = FACTORY.create("stored-file.svg");
-	IResourceSupplier STORED_FILE_ADD = FACTORY.create("stored-file-add.svg");
 	IResourceSupplier STORED_FILE_DOWNLOAD = FACTORY.create("stored-file-download.svg");
 	IResourceSupplier STORED_FILE_SERVER = FACTORY.create("stored-file-server.svg");
 	IResourceSupplier STORED_FILE_UPLOAD = FACTORY.create("stored-file-upload.svg");

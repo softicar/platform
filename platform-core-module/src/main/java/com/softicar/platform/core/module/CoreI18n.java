@@ -391,8 +391,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Master-Server-Checksumme");
 	I18n0 MASTER_SERVER_ROW_COUNT = new I18n0("Master Server Row Count")//
 		.de("Master-Server-Zeilenanzahl");
-	I18n1 MAXIMUM_OF_ARG1_FILES_REACHED = new I18n1("Maximum of %s files reached.")//
-		.de("Maximum von %s Dateien erreicht.");
 	I18n0 MAXIMUM_PASSWORD_AGE = new I18n0("Maximum Password Age")//
 		.de("Maximales Passwort-Alter");
 	I18n0 MAXIMUM_PASSWORD_REUSE = new I18n0("Maximum Password Reuse")//
@@ -449,8 +447,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Module");
 	I18n0 MONTH = new I18n0("Month")//
 		.de("Monat");
-	I18n0 MORE_FILES = new I18n0("More Files")//
-		.de("Mehr Dateien");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NO = new I18n0("No")//
@@ -847,10 +843,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Typ");
 	I18n0 UNKNOWN = new I18n0("unknown")//
 		.de("Unbekannt");
-	I18n0 UPLOAD_FILE = new I18n0("Upload File")//
-		.de("Datei hochladen");
-	I18n0 UPLOAD_FILES = new I18n0("Upload Files")//
-		.de("Dateien hochladen");
 	I18n0 UPPER_BOUNDARY = new I18n0("Upper Boundary")//
 		.de("Obere Grenze");
 	I18n0 URL = new I18n0("URL")//
