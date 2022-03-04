@@ -18,12 +18,26 @@ public interface IProgram extends IEmfSourceCodeReferencePoint {
 	/**
 	 * This method can be overridden to return an optional cron expression.
 	 * <p>
-	 * If defined, the cron expression will be used to schedule this {@link IProgram}
-	 * automatically by {@link ProgramStandardConfiguration}.
+	 * If defined, the cron expression will be used to schedule this
+	 * {@link IProgram} automatically by {@link ProgramStandardConfiguration}.
 	 *
 	 * @return an optional cron expression
 	 */
 	default Optional<String> getDefaultCronExpression() {
+
+		return Optional.empty();
+	}
+
+	/**
+	 * This method can be overridden to return an optional description of this
+	 * {@link IProgram}.
+	 * <p>
+	 * If defined, the description will be displayed in the table of
+	 * {@link ProgramPage}.
+	 *
+	 * @return an optional description
+	 */
+	default Optional<IDisplayString> getDescription() {
 
 		return Optional.empty();
 	}

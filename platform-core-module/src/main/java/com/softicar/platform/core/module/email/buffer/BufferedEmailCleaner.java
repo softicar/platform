@@ -11,7 +11,7 @@ import com.softicar.platform.common.date.DayTime;
  */
 public class BufferedEmailCleaner {
 
-	private static final int MAXIMUM_DAYS_TO_KEEP = 3;
+	static final int MAXIMUM_DAYS_TO_KEEP = 3;
 	private final DayTime minimumSentAt;
 
 	public BufferedEmailCleaner() {

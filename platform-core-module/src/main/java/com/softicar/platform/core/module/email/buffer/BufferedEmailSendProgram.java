@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.email.buffer;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
@@ -66,5 +68,13 @@ public class BufferedEmailSendProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("* * * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional
+			.of(//
+				CoreI18n.SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARG1_DAYS.toDisplay(BufferedEmailCleaner.MAXIMUM_DAYS_TO_KEEP));
 	}
 }
