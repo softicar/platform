@@ -1,5 +1,5 @@
 .StoredFileUploadDiv {
-    position: relative;
+	position: relative;
 	display: inline-flex;
 	flex-direction: row;
 	align-items: center;
@@ -10,16 +10,16 @@
 	padding: var(--DOM_BUTTON_DECORATION_PADDING);
 	max-width: 300px;
 	border: 2px dashed var(--INFO_BORDER_COLOR);
-    border-radius: var(--BORDER_RADIUS);
-    color: var(--PRIMARY_COLOR);
-    background-color: var(--INFO_BACKGROUND_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	color: var(--PRIMARY_COLOR);
+	background-color: var(--INFO_BACKGROUND_COLOR);
 	opacity: 0.95;
 	box-sizing: border-box;
 }
 
 .StoredFileUploadDiv.active {
 	border: 2px dashed green;
-    background-color: lightgreen;
+	background-color: lightgreen;
 }
 
 .StoredFileUploadDiv > img {
