@@ -1,5 +1,7 @@
 package com.softicar.platform.core.module.program.execution.cleanup;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
@@ -29,5 +31,11 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 	public Optional<String> getDefaultCronExpression() {
 
 		return Optional.of("0 0 * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(CoreI18n.DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE);
 	}
 }

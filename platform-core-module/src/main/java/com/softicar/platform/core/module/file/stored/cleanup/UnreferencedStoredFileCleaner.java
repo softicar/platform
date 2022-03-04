@@ -16,7 +16,8 @@ import java.util.Set;
 
 class UnreferencedStoredFileCleaner {
 
-	private static final long MINIMUM_AGE_BEFORE_REMOVAL = 7 * 24 * 60 * 60;// 7 days
+	static final int MINIMUM_DAYS_BEFORE_REMOVAL = 7;
+	private static final long MINIMUM_AGE_BEFORE_REMOVAL = MINIMUM_DAYS_BEFORE_REMOVAL * 24 * 60 * 60;
 	private final Set<byte[]> filesInDatabase;
 	private final Map<byte[], StoredFileContentName> filesOnFileStore;
 	private final IStoredFileContentStore store;

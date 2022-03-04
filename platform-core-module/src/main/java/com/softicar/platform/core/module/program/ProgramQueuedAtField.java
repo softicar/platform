@@ -19,10 +19,7 @@ class ProgramQueuedAtField extends AbstractTransientDayTimeField<AGProgram> {
 	@Override
 	protected void loadValues(Set<AGProgram> programs, IValueSetter<AGProgram, DayTime> setter) {
 
-		AGProgramState.TABLE//
-			.createSelect()
-			.where(AGProgramState.PROGRAM.isIn(programs))
-			.forEach(record -> setter.set(record.getProgram(), record.getQueuedAt()));
+		programs.forEach(program -> setter.set(program, program.getQueuedAt()));
 	}
 
 	@Override

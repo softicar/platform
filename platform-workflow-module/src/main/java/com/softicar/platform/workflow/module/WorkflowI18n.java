@@ -65,6 +65,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Entitätstabelle");
 	I18n1 EXECUTED_ACTION_ARG1 = new I18n1("Executed action '%s'.")//
 		.de("Ausgeführte Aktion '%s'.");
+	I18n0 EXECUTES_WORKFLOW_TRANSITIONS = new I18n0("Executes workflow transitions")//
+		.de("Führt Arbeitsablauf-Übergänge aus");
 	I18n0 FUNCTION = new I18n0("Function")//
 		.de("Funktion");
 	I18n0 FURTHER_APPROVAL_IS_REQUIRED = new I18n0("Further approval is required.")//

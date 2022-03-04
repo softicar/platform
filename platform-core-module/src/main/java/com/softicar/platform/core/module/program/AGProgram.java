@@ -22,6 +22,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	public static final ProgramQueuedAtField QUEUED_AT = new ProgramQueuedAtField();
 	public static final ProgramQueuedByField QUEUED_BY = new ProgramQueuedByField();
 	public static final ProgramCurrentExecutionField CURRENT_EXECUTION = new ProgramCurrentExecutionField();
+	public static final ProgramDescriptionField DESCRIPTION = new ProgramDescriptionField();
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
