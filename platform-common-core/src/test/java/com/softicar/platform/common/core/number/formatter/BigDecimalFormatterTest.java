@@ -2,6 +2,7 @@ package com.softicar.platform.common.core.number.formatter;
 
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,6 +16,19 @@ public class BigDecimalFormatterTest extends Assert {
 		this.locale = new Locale()//
 			.setDecimalSeparator(",")
 			.setDigitGroupSeparator(".");
+	}
+
+	@Test
+	public void testWithLocaleScope() {
+
+		BigDecimal value = new BigDecimal("1234.56");
+
+		assertEquals("1234.56", new BigDecimalFormatter(value).format());
+
+		var newLocale = new Locale().setDecimalSeparator(",").setDigitGroupSeparator(".");
+		try (var scope = new LocaleScope(newLocale)) {
+			assertEquals("1.234,56", new BigDecimalFormatter(value).format());
+		}
 	}
 
 	@Test
