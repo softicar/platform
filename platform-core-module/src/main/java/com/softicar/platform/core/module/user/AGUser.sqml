@@ -12,7 +12,7 @@ TABLE AGUser 'Core.User' {
 	String lastName [MAXLENGTH=255]
 	String emailAddress = '' [MAXLENGTH=255]
 	Boolean systemUser = FALSE
-	AGCoreLanguage preferredLanguage = 1 [NULLABLE]
+	AGCoreLanguage preferredLanguage = NULL [NULLABLE]
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
 
