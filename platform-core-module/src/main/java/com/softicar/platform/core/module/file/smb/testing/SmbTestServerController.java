@@ -148,14 +148,10 @@ public class SmbTestServerController {
 
 					COPY smb.conf /etc/samba/
 
-					# RUN service smbd force-reload
-
 					EXPOSE 137/udp 138/udp 139 445
 
-					# HEALTHCHECK --interval=60s --timeout=15s CMD smbclient -L \\localhost -U % -m SMB3
 					HEALTHCHECK CMD smbclient -L \\localhost -U % -m SMB3
 
-					# ENTRYPOINT ["/sbin/tini", "--"]
 					ENTRYPOINT ["/usr/bin/dumb-init", "-v", "--"]
 					CMD ["/usr/sbin/smbd", "-FS", "--no-process-group"]
 					""";
