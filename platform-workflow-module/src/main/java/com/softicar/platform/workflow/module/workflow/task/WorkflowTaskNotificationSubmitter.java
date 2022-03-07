@@ -1,6 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.task;
 
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
@@ -27,7 +27,7 @@ public class WorkflowTaskNotificationSubmitter {
 
 	public void submit() {
 
-		try (LanguageScope scope = new LanguageScope(notificationRecipient.getLanguageEnum())) {
+		try (var scope = new LocaleScope(notificationRecipient.getLocale())) {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
 				.addToRecipient(notificationRecipient)

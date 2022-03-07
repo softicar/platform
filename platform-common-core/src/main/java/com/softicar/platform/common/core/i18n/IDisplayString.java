@@ -1,5 +1,6 @@
 package com.softicar.platform.common.core.i18n;
 
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 
 	/**
 	 * Returns the string to be displayed, localized according to
-	 * {@link CurrentLanguage}.
+	 * {@link CurrentLocale}.
 	 *
 	 * @return the string to be displayed (never null)
 	 */
