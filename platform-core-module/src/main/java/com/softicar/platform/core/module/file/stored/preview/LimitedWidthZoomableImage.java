@@ -1,14 +1,12 @@
 package com.softicar.platform.core.module.file.stored.preview;
 
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.common.ui.color.RgbColor;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
-import com.softicar.platform.dom.styles.CssBoxShadow;
 import com.softicar.platform.dom.styles.CssCursor;
 
 public class LimitedWidthZoomableImage extends DomImage implements IDomClickEventHandler {
@@ -21,7 +19,7 @@ public class LimitedWidthZoomableImage extends DomImage implements IDomClickEven
 		super(resource);
 		this.maxWidth = maxWidth;
 		setLimitWidth(true);
-		setStyle(new CssBoxShadow(ICssLength.ZERO, ICssLength.ZERO, new CssPixel(3), new RgbColor(0x777777)));
+		addCssClass(CoreCssClasses.STORED_FILE_PREVIEW_IMAGE);
 		refresh();
 	}
 

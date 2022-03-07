@@ -2,15 +2,15 @@ package com.softicar.platform.core.module.file.stored.preview;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
-import com.softicar.platform.dom.styles.CssOverflow;
-import com.softicar.platform.dom.styles.CssTextAlign;
 import java.util.List;
 
 public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable {
@@ -34,17 +34,15 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 		this.rotationDiv = new RotationDiv();
 		this.nextImageButton = new DomButton().setClickCallback(this::nextImage);
 		this.previousImageButton = new DomButton().setClickCallback(this::previousImage);
-		// TODO extract style to CSS
-		setStyle(CssTextAlign.CENTER);
+		addCssClass(CoreCssClasses.STORED_FILE_PREVIEW_IMAGE_DIV);
 		refresh();
 	}
 
 	public LimitedWidthZoomableImageDiv setInPlaceZoom(ICssLength width) {
 
 		// TODO extract style to CSS
+		addCssClass(DomCssPseudoClasses.DRAGGABLE);
 		imageDiv.setStyle(CssStyle.WIDTH, width);
-		imageDiv.setStyle(CssStyle.HEIGHT, "85vh");
-		imageDiv.setStyle(CssOverflow.SCROLL);
 		return this;
 	}
 
@@ -116,7 +114,7 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 	private class RotationDiv extends DomDiv {
 
-		private int currentRotation = 0;
+		private boolean rotated = false;
 
 		public RotationDiv() {
 
@@ -128,9 +126,12 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 		private void rotate() {
 
-			currentRotation += 180;
-			// TODO extract style to CSS
-			currentImage.setStyle(CssStyle.TRANSFORM, "rotate(" + currentRotation + "deg)");
+			if (rotated) {
+				currentImage.removeCssClass(DomCssPseudoClasses.ROTATED);
+			} else {
+				currentImage.addCssClass(DomCssPseudoClasses.ROTATED);
+			}
+			rotated = !rotated;
 		}
 	}
 }
