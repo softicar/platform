@@ -25,6 +25,10 @@ public class CurrentLanguage {
 
 	/**
 	 * Sets the current language to the specified value.
+	 *
+	 * @param language
+	 *            the {@link LanguageEnum} to use or <i>null</i> to reset to
+	 *            default
 	 */
 	public static void set(LanguageEnum language) {
 
