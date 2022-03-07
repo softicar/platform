@@ -2,58 +2,10 @@ package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.input.DomInputException;
-import com.softicar.platform.dom.input.IDomValueBasedInputNode;
-import java.util.Optional;
+import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomValueInput;
 
-public interface IEmfInput<V> extends IDomValueBasedInputNode<V>, IEmfChangeCallbackProvider {
-
-	/**
-	 * Returns the value of this input element, as follows:
-	 * <ul>
-	 * <li>If a valid value is entered, the value is returned.</li>
-	 * <li>If no value is entered, <i>null</i> is returned.</li>
-	 * <li>If an invalid value is entered, an exception is thrown.</li>
-	 * </ul>
-	 *
-	 * @return the entered value (may be null)
-	 * @throws DomInputException
-	 */
-	V getValueOrThrow() throws DomInputException;
-
-	/**
-	 * Returns the current value as an {@link Optional}, as follows:
-	 * <ul>
-	 * <li>If a valid value is entered, the value is returned.</li>
-	 * <li>If no value is entered, {@link Optional#empty()} is returned.</li>
-	 * <li>If an invalid value is entered, an exception is thrown.</li>
-	 * </ul>
-	 *
-	 * @return the entered value as an {@link Optional} (never null)
-	 */
-	default Optional<V> getValueAsOptional() throws DomInputException {
-
-		return Optional.ofNullable(getValueOrThrow());
-	}
-
-	/**
-	 * Returns the current value as an {@link Optional} an never throws
-	 * {@link Exception}.
-	 * <p>
-	 * If the input has no value or the value is invalid, the returned
-	 * {@link Optional} will be empty.
-	 *
-	 * @return the value as an {@link Optional} (never null)
-	 */
-	default Optional<V> getValueSafelyAsOptional() {
-
-		try {
-			return getValueAsOptional();
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			return Optional.empty();
-		}
-	}
+public interface IEmfInput<V> extends IDomValueInput<V>, IDomInputNode {
 
 	/**
 	 * Defines the given callback to be notified when the value changes.
@@ -63,7 +15,6 @@ public interface IEmfInput<V> extends IDomValueBasedInputNode<V>, IEmfChangeCall
 	 * @param callback
 	 *            the callback (never null)
 	 */
-	@Override
 	default void setChangeCallback(INullaryVoidFunction callback) {
 
 		DevNull.swallow(callback);

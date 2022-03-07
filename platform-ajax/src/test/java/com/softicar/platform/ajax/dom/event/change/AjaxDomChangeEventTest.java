@@ -70,7 +70,7 @@ public class AjaxDomChangeEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(DomEventType.CHANGE, event.getType());
 		assertSame(testDiv.getInput(), event.getCurrentTarget());
 
-		assertEquals(expectedValue, testDiv.getInput().getValue());
+		assertEquals(expectedValue, testDiv.getInput().getInputText());
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv {

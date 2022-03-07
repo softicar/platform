@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.file.name.FilenameCleaner;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.ajax.login.SofticarAjaxLoginExecutor;
@@ -47,8 +47,7 @@ public abstract class AbstractWebServiceRequestHandler {
 		if (authenticate()) {
 			AGUser user = getUser();
 			CurrentUser.set(user);
-
-			CurrentLanguage.set(user.getLanguageEnum());
+			CurrentLocale.set(user.getLocale());
 
 			// execute service
 			try {

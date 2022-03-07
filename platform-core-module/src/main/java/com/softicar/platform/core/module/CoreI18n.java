@@ -116,6 +116,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klasse");
 	I18n0 CLASS_NAME = new I18n0("Class Name")//
 		.de("Klassenname");
+	I18n0 CLEANS_FILE_SERVERS_FROM_TEMPORARY_FILES = new I18n0("Cleans file servers from temporary files")//
+		.de("Bereinigt Dateiserver von temporären Dateien");
 	I18n0 CLICK_TO_DELETE_THIS_PROCESS = new I18n0("Click to delete this process.")//
 		.de("Klicken, um diesen Prozess zu löschen.");
 	I18n1 CLICK_TO_DOWNLOAD_THE_FILE_ARG1 = new I18n1("Click to download the file: %s")//
@@ -198,6 +200,16 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wochentag des DBMS-Wartungsfensters");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
+	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
+		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
+	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
+			new I18n0("Deletes execution records of all programs according to their execution retention days value")//
+				.de("Löscht Ausführungsdatensätze aller Programme entsprechend dem Wert ihrer Speicherungstage für Ausführungen");
+	I18n1 DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_SERVERS_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE =
+			new I18n1("Deletes files older than %s days from file servers that are no longer referenced in the database")//
+				.de("Löscht Dateien älter als %s Tage von Dateiservern, die nicht mehr in der Datenbank referenziert werden");
+	I18n1 DELETES_RECORDS_OF_CORE_LOG_TABLES_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes records of core log tables older than %s days")//
+		.de("Löscht Datensätze von Kern-Logtabellen, die älter als %s Tage sind");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
@@ -391,8 +403,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Master-Server-Checksumme");
 	I18n0 MASTER_SERVER_ROW_COUNT = new I18n0("Master Server Row Count")//
 		.de("Master-Server-Zeilenanzahl");
-	I18n1 MAXIMUM_OF_ARG1_FILES_REACHED = new I18n1("Maximum of %s files reached.")//
-		.de("Maximum von %s Dateien erreicht.");
 	I18n0 MAXIMUM_PASSWORD_AGE = new I18n0("Maximum Password Age")//
 		.de("Maximales Passwort-Alter");
 	I18n0 MAXIMUM_PASSWORD_REUSE = new I18n0("Maximum Password Reuse")//
@@ -449,8 +459,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Module");
 	I18n0 MONTH = new I18n0("Month")//
 		.de("Monat");
-	I18n0 MORE_FILES = new I18n0("More Files")//
-		.de("Mehr Dateien");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NO = new I18n0("No")//
@@ -632,6 +640,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sender");
 	I18n0 SENDS_AN_EMAIL_WITH_THE_SPECIFIED_CONTENT_TO_ALL_SELECTED_USERS = new I18n0("Sends an email with the specified content to all selected users.")//
 		.de("Sendet eine E-Mail mit dem angegebenen Inhalt an alle ausgewählten Benutzer.");
+	I18n0 SENDS_PANIC_ENTRIES_BY_EMAIL = new I18n0("Sends panic entries by email")//
+		.de("Versendet Panik-Einträge per E-Mail");
+	I18n1 SENDS_SAVED_EMAILS_AND_DELETES_ALREADY_SENT_EMAILS_AFTER_ARG1_DAYS = new I18n1("Sends saved emails and deletes already sent emails after %s days")//
+		.de("Sendet gespeicherte E-Mails und löscht bereits gesendete E-Mails nach %s Tagen");
 	I18n0 SENT_AT = new I18n0("Sent At")//
 		.de("Gesendet am");
 	I18n0 SERIALIZATION = new I18n0("Serialization")//
@@ -847,10 +859,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Typ");
 	I18n0 UNKNOWN = new I18n0("unknown")//
 		.de("Unbekannt");
-	I18n0 UPLOAD_FILE = new I18n0("Upload File")//
-		.de("Datei hochladen");
-	I18n0 UPLOAD_FILES = new I18n0("Upload Files")//
-		.de("Dateien hochladen");
 	I18n0 UPPER_BOUNDARY = new I18n0("Upper Boundary")//
 		.de("Obere Grenze");
 	I18n0 URL = new I18n0("URL")//

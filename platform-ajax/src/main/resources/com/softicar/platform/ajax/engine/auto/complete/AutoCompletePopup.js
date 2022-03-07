@@ -85,14 +85,6 @@ function AutoCompletePopup(inputContext, applySelection) {
 			} else {
 				builder.appendText(name);
 			}
-			
-			// append description
-			var description = values[i].d;
-			if(description) {
-				builder.appendNewChild('span')
-					.appendText('(' + description + ')')
-					.setClassName('AjaxAutoCompleteDescription');
-			}
 		}
 	}
 

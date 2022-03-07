@@ -27,7 +27,7 @@ public class DomAutoCompleteListGenerator<T> {
 		for (T item: inputEngine.findMatches(pattern, limit)) {
 			String displayName = getDisplayName(item);
 			if (isNotBlank(displayName)) {
-				list.add(displayName, getDescription(item));
+				list.add(displayName);
 			}
 		}
 		return list;
@@ -38,13 +38,6 @@ public class DomAutoCompleteListGenerator<T> {
 		return Optional//
 			.ofNullable(inputEngine.getDisplayString(item))
 			.map(IDisplayString::toString)
-			.orElse("");
-	}
-
-	private String getDescription(T item) {
-
-		return Optional//
-			.ofNullable(inputEngine.getDescription(item))
 			.orElse("");
 	}
 

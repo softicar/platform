@@ -7,10 +7,10 @@ import com.softicar.platform.dom.elements.number.decimal.DomBigDecimalInput;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomInputException;
-import com.softicar.platform.dom.input.IDomValueBasedInputNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDecimal> {
 
@@ -29,9 +29,9 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	 * Defines the number of decimal places for this input.
 	 * <p>
 	 * Trailing zeros in the fractional part will be added or removed by the
-	 * {@link #setValue} and {@link #getValueOrThrow} methods to match the
-	 * desired scale. Non-zero decimal places will never be removed. See the
-	 * respective methods for more details.
+	 * {@link #setValue} and {@link #getValue()} methods to match the desired
+	 * scale. Non-zero decimal places will never be removed. See the respective
+	 * methods for more details.
 	 * <p>
 	 * By default, i.e. when this method was not called, this input does not
 	 * modify the scale of values in this input.
@@ -72,13 +72,13 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	 *             exceeds the scale defined by {@link #setScale(int)}
 	 */
 	@Override
-	public BigDecimal getValueOrThrow() throws DomInputException {
+	public Optional<BigDecimal> getValue() throws DomInputException {
 
-		var value = applyScale(input.retrieveValue().orElse(null));
+		var value = applyScale(input.getValue().orElse(null));
 		if (value != null && scale >= 0 && value.scale() > scale) {
 			throw new DomInputException(EmfI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
 		}
-		return value;
+		return Optional.ofNullable(value);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 	@Override
 	public void setValue(BigDecimal value) {
 
-		input.setBigDecimal(applyScale(value));
+		input.setValue(applyScale(value));
 	}
 
 	@Override
@@ -103,8 +103,7 @@ public class EmfBigDecimalInput extends AbstractEmfChangeListeningInputDiv<BigDe
 		return this;
 	}
 
-	@Override
-	public IDomValueBasedInputNode<BigDecimal> setPlaceholder(IDisplayString placeholder) {
+	public EmfBigDecimalInput setPlaceholder(IDisplayString placeholder) {
 
 		input.setPlaceholder(placeholder);
 		return this;

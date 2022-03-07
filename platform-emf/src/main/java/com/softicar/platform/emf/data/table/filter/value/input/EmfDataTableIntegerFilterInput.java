@@ -8,13 +8,13 @@ public class EmfDataTableIntegerFilterInput extends DomIntegerInput implements I
 	@Override
 	public Integer getFilterValue() {
 
-		return getIntegerOrNull();
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(Integer value) {
 
-		setInteger(value);
+		setValue(value);
 	}
 
 	@Override

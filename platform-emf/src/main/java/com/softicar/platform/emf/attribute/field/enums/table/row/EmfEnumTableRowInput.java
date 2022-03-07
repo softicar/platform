@@ -6,7 +6,6 @@ import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
-import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
 import java.util.Optional;
 
@@ -26,12 +25,11 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 	}
 
 	@Override
-	public R getValueOrThrow() throws DomInputException {
+	public Optional<R> getValue() {
 
 		return Optional//
 			.ofNullable(input.getSelection().getValueOrThrow())
-			.map(EmfEnumTableRowEntityWrapper::getRow)
-			.orElse(null);
+			.map(EmfEnumTableRowEntityWrapper::getRow);
 	}
 
 	@Override

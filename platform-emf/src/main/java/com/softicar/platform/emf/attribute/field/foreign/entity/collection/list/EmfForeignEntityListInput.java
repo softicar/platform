@@ -68,9 +68,9 @@ public class EmfForeignEntityListInput<R extends IEmfTableRow<R, ?>, L extends I
 	}
 
 	@Override
-	public L getValueOrThrow() throws DomInputException {
+	public Optional<L> getValue() throws DomInputException {
 
-		return attribute.getCollectionTable().getOrInsert(table.getEntities());
+		return Optional.of(attribute.getCollectionTable().getOrInsert(table.getEntities()));
 	}
 
 	@Override
@@ -295,12 +295,12 @@ public class EmfForeignEntityListInput<R extends IEmfTableRow<R, ?>, L extends I
 
 		private void save() {
 
-			Integer index = indexInput.getInteger();
+			Integer index = indexInput.getValueNoThrow().orElse(null);
 			if (index == null) {
 				throw new SofticarUserException(EmfI18n.PLEASE_SPECIFY_A_VALID_INDEX);
 			}
 
-			F entity = entityInput.getValueOrThrow();
+			F entity = entityInput.getValueNoThrow().orElse(null);
 			if (entity == null) {
 				throw new SofticarUserException(EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
 			}

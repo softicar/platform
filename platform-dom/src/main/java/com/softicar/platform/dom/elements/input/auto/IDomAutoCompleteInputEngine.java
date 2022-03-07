@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.utils.DevNull;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -29,19 +28,6 @@ public interface IDomAutoCompleteInputEngine<T> {
 	 * @return a Collection of items that match the given pattern (never null)
 	 */
 	Collection<T> findMatches(String pattern, int limit);
-
-	/**
-	 * Returns a description of the given item.
-	 *
-	 * @param item
-	 *            the item to get the description for
-	 * @return the description to display, or null
-	 */
-	default String getDescription(T item) {
-
-		DevNull.swallow(item);
-		return null;
-	}
 
 	/**
 	 * Returns a collection of active item filters.

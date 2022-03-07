@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.log.notification;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.EmailFactory;
@@ -19,14 +20,13 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class checks the {@link AGLogMessage} table and sends notification
  * e-mails for all messages with severity PANIC.
  * <p>
  * The panic receivers are defined by the table {@link AGModulePanicReceiver}.
- * <p>
- * TODO PLAT-395 add to a standard configuration
  *
  * @author Marco Pilipovic
  * @author Oliver Richers
@@ -98,5 +98,17 @@ public class LogDbPanicNotificationProgram implements IProgram {
 					.toString(),
 				EmailContentType.PLAIN);
 		email.submit();
+	}
+
+	@Override
+	public Optional<String> getDefaultCronExpression() {
+
+		return Optional.of("0 0 * * *");
+	}
+
+	@Override
+	public Optional<IDisplayString> getDescription() {
+
+		return Optional.of(CoreI18n.SENDS_PANIC_ENTRIES_BY_EMAIL);
 	}
 }

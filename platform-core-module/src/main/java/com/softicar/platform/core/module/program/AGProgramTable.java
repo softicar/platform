@@ -64,6 +64,9 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 		attributes//
 			.editAttribute(AGProgram.EXECUTION_RETENTION_DAYS)
 			.setPredicateMandatory(EmfPredicates.always());
+
+		attributes//
+			.addTransientAttribute(AGProgram.DESCRIPTION);
 	}
 
 	@Override
@@ -108,6 +111,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	@Override
 	public void customizeAttributeOrdering(EmfAttributeReorderer<AGProgram> reorderer) {
 
+		reorderer.moveAttribute(AGProgram.DESCRIPTION).behind(AGProgram.ID);
 		reorderer.moveAttribute(AGProgram.MODULE).behind(AGProgram.ID);
 		reorderer.moveAttribute(AGProgram.PROGRAM).behind(AGProgram.ID);
 	}

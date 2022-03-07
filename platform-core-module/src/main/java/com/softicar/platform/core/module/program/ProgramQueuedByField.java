@@ -24,11 +24,7 @@ class ProgramQueuedByField extends AbstractTransientObjectField<AGProgram, AGUse
 	@Override
 	protected void loadValues(Set<AGProgram> programs, IValueSetter<AGProgram, AGUser> setter) {
 
-		AGProgramState.TABLE//
-			.createSelect()
-			.where(AGProgramState.PROGRAM.isIn(programs))
-			.forEach(record -> setter.set(record.getProgram(), record.getQueuedBy()));
-
+		programs.forEach(program -> setter.set(program, program.getQueuedBy()));
 	}
 
 	@Override

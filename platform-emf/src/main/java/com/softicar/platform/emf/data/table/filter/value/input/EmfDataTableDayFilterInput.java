@@ -14,13 +14,13 @@ public class EmfDataTableDayFilterInput extends DomDayInput implements IEmfDataT
 	@Override
 	public Day getFilterValue() {
 
-		return retrieveValue().orElse(null);
+		return getValue().orElse(null);
 	}
 
 	@Override
 	public void setFilterValue(Day value) {
 
-		setDay(value);
+		setValue(value);
 	}
 
 	@Override

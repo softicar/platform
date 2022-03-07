@@ -76,9 +76,9 @@ public class UsersNotificationPageDiv extends DomDiv {
 			Collection<List<AGUser>> userSplices = splice(users, USER_BURST_SIZE);
 			for (List<AGUser> userSplice: userSplices) {
 				BufferedEmail email = new BufferedEmail();
-				email.setFrom(fromInput.getValue());
-				email.setSubject(IDisplayString.create(subjectInput.getValue().trim()));
-				email.setContent(contentInput.getValue().trim(), EmailContentType.PLAIN);
+				email.setFrom(fromInput.getInputTextTrimmed());
+				email.setSubject(IDisplayString.create(subjectInput.getInputTextTrimmed()));
+				email.setContent(contentInput.getInputTextTrimmed(), EmailContentType.PLAIN);
 				for (AGUser user: userSplice) {
 					email.addBccRecipient(user.getEmailAddress());
 				}
@@ -117,13 +117,13 @@ public class UsersNotificationPageDiv extends DomDiv {
 		if (targetUsersTable.getSelectedRows().size() == 0) {
 			throw new SofticarUserException(CoreI18n.PLEASE_SELECT_RECIPIENTS);
 		}
-		if (fromInput.getValue().isEmpty()) {
+		if (fromInput.isBlank()) {
 			throw new SofticarUserException(CoreI18n.PLEASE_ENTER_A_SENDER_ADDRESS);
 		}
-		if (subjectInput.getValue().trim().isEmpty()) {
+		if (subjectInput.isBlank()) {
 			throw new SofticarUserException(CoreI18n.PLEASE_ENTER_A_SUBJECT);
 		}
-		if (contentInput.getValueAsOptional().isEmpty()) {
+		if (contentInput.isBlank()) {
 			throw new SofticarUserException(CoreI18n.PLEASE_ENTER_SOME_CONTENT);
 		}
 	}

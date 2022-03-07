@@ -10,9 +10,10 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
 import com.softicar.platform.dom.elements.tables.DomDataTable;
+import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Optional;
 
-public class DomTimeInput extends DomBar {
+public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 
 	private final DomIntegerInput hourInput;
 	private final DomIntegerInput minuteInput;
@@ -30,17 +31,17 @@ public class DomTimeInput extends DomBar {
 
 	public DomTimeInput(Time time, boolean showLabels) {
 
-		hourInput = new DomIntegerInput().setRange(0, 23);
+		hourInput = new DomIntegerInput();
 		hourInput.setTitle(DomI18n.HOURS);
 		hourInput.setMarker(DomTestMarker.HOURS_INPUT);
 		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		minuteInput = new DomIntegerInput().setRange(0, 59);
+		minuteInput = new DomIntegerInput();
 		minuteInput.setTitle(DomI18n.MINUTES);
 		minuteInput.setMarker(DomTestMarker.MINUTES_INPUT);
 		minuteInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
-		secondInput = new DomIntegerInput().setRange(0, 59);
+		secondInput = new DomIntegerInput();
 		secondInput.setTitle(DomI18n.SECONDS);
 		secondInput.setMarker(DomTestMarker.SECONDS_INPUT);
 		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
@@ -59,38 +60,23 @@ public class DomTimeInput extends DomBar {
 		} else {
 			appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
 		}
-		setTime(time);
+		setValue(time);
 
 		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
 	}
 
-	/**
-	 * Parses the value text into a {@link Time} object.
-	 * <p>
-	 * If the value text is empty or blank, an empty {@link Optional} is
-	 * returned. Otherwise, the value text is parsed into a {@link Time} object.
-	 * If parsing failed, an exception is thrown.
-	 *
-	 * @return the optionally entered {@link Time}
-	 * @throws IllegalTimeSpecificationException
-	 *             if the non-blank value text could not be parsed
-	 */
-	public Optional<Time> retrieveValue() {
-
-		return Optional.ofNullable(getTime());
-	}
-
-	public Time getTime() {
+	@Override
+	public Optional<Time> getValue() {
 
 		try {
-			Integer hours = hourInput.getIntegerOrNull();
-			Integer minutes = minuteInput.getIntegerOrNull();
-			Integer seconds = secondInput.getIntegerOrNull();
+			Integer hours = hourInput.getValue().orElse(null);
+			Integer minutes = minuteInput.getValue().orElse(null);
+			Integer seconds = secondInput.getValue().orElse(null);
 
 			if (hours != null && minutes != null && seconds != null) {
-				return new Time(hours, minutes, seconds);
+				return Optional.of(new Time(hours, minutes, seconds));
 			} else if (hours == null && minutes == null && seconds == null) {
-				return null;
+				return Optional.empty();
 			} else {
 				throw new IllegalTimeSpecificationException(getValueAsString());
 			}
@@ -99,12 +85,13 @@ public class DomTimeInput extends DomBar {
 		}
 	}
 
-	public void setTime(Time time) {
+	@Override
+	public void setValue(Time time) {
 
 		if (time != null) {
-			hourInput.setInteger(time.getHour());
-			minuteInput.setInteger(time.getMinute());
-			secondInput.setInteger(time.getSecond());
+			hourInput.setValue(time.getHour());
+			minuteInput.setValue(time.getMinute());
+			secondInput.setValue(time.getSecond());
 		} else {
 			clear();
 		}
@@ -112,14 +99,14 @@ public class DomTimeInput extends DomBar {
 
 	public void clear() {
 
-		hourInput.setInteger(null);
-		minuteInput.setInteger(null);
-		secondInput.setInteger(null);
+		hourInput.setValue(null);
+		minuteInput.setValue(null);
+		secondInput.setValue(null);
 	}
 
 	public void disableSeconds() {
 
-		secondInput.setInteger(0);
+		secondInput.setValue(0);
 		secondInput.disable();
 	}
 
@@ -127,8 +114,8 @@ public class DomTimeInput extends DomBar {
 
 		return "%s:%s:%s"
 			.formatted(//
-				Optional.ofNullable(hourInput.getValue()).orElse(""),
-				Optional.ofNullable(minuteInput.getValue()).orElse(""),
-				Optional.ofNullable(secondInput.getValue()).orElse(""));
+				hourInput.getInputText(),
+				minuteInput.getInputText(),
+				secondInput.getInputText());
 	}
 }

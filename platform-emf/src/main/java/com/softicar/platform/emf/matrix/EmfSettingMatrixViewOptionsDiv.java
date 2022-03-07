@@ -12,7 +12,6 @@ import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.emf.EmfI18n;
-import java.util.Optional;
 
 /**
  * The standard implementation of an option UI element for an
@@ -61,13 +60,13 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 	@Override
 	public String getRowFilterString() {
 
-		return Optional.ofNullable(rowFilterInput.getTextOrNull()).orElse("");
+		return rowFilterInput.getInputText();
 	}
 
 	@Override
 	public String getColumnFilterString() {
 
-		return Optional.ofNullable(columnFilterInput.getTextOrNull()).orElse("");
+		return columnFilterInput.getInputText();
 	}
 
 	@Override

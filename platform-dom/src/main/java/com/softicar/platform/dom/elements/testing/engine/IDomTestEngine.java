@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.testing.engine;
 
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
 import org.junit.Rule;
@@ -57,7 +57,7 @@ public interface IDomTestEngine extends TestRule {
 	void sendEvent(IDomNode node, DomEventType eventType);
 
 	/**
-	 * Inputs the specified text into the given {@link IDomStringInputNode} and
+	 * Inputs the specified text into the given {@link IDomTextualInput} and
 	 * triggers an {@link IDomEvent} of type {@link DomEventType#TAB}.
 	 *
 	 * @param node
@@ -65,7 +65,7 @@ public interface IDomTestEngine extends TestRule {
 	 * @param text
 	 *            the text to send (never <i>null</i>)
 	 */
-	void setInputValue(IDomStringInputNode node, String text);
+	void setInputValue(IDomTextualInput node, String text);
 
 	/**
 	 * Retrieves the content of the given text input element.
@@ -75,5 +75,5 @@ public interface IDomTestEngine extends TestRule {
 	 *            <i>null</i>)
 	 * @return the the textual content (may be <i>null</i>)
 	 */
-	String getInputValue(IDomStringInputNode node);
+	String getInputValue(IDomTextualInput node);
 }

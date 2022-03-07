@@ -255,7 +255,7 @@ public class TableExportComplexTestTable extends DomDataTable {
 	public static DomTextArea generate_3x7_DomTextArea() {
 
 		DomTextArea textArea = new DomTextArea();
-		textArea.setValue("009988.123");
+		textArea.setInputText("009988.123");
 
 		return textArea;
 	}
@@ -278,7 +278,7 @@ public class TableExportComplexTestTable extends DomDataTable {
 	public static DomTextInput generate_4x7_DomTextInput() {
 
 		DomTextInput textInput = new DomTextInput();
-		textInput.setValue("001122.345");
+		textInput.setInputText("001122.345");
 
 		return textInput;
 	}

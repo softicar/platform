@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.Arrays;
@@ -15,12 +15,12 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 	protected static final String AMBIGUOUS_INPUT = "ir";
 	protected static final String INCOMPLETE_ITEM1_NAME = "fir";
 	protected static final String INVALID_INPUT = "xxx";
-	protected static final AjaxAutoCompleteTestItem ITEM1 = new AjaxAutoCompleteTestItem("first", "foo");
-	protected static final AjaxAutoCompleteTestItem ITEM2 = new AjaxAutoCompleteTestItem("second", "bar");
-	protected static final AjaxAutoCompleteTestItem ITEM3 = new AjaxAutoCompleteTestItem("third", "baz");
-	protected static final AjaxAutoCompleteTestItem ITEM4 = new AjaxAutoCompleteTestItem("thirdPlusOne", "meh");
+	protected static final AjaxAutoCompleteTestItem ITEM1 = new AjaxAutoCompleteTestItem("first");
+	protected static final AjaxAutoCompleteTestItem ITEM2 = new AjaxAutoCompleteTestItem("second");
+	protected static final AjaxAutoCompleteTestItem ITEM3 = new AjaxAutoCompleteTestItem("third");
+	protected static final AjaxAutoCompleteTestItem ITEM4 = new AjaxAutoCompleteTestItem("thirdPlusOne");
 	protected AjaxAutoCompleteTestInput inputDiv;
-	protected IDomStringInputNode inputField;
+	protected IDomTextualInput inputField;
 
 	protected void openTestInput(Consumer<AjaxAutoCompleteTestInput> setup) {
 
@@ -61,7 +61,6 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 
 		super.assertPopupItems(//
 			AjaxAutoCompleteTestItem::getName,
-			AjaxAutoCompleteTestItem::getDescription,
 			items);
 	}
 }

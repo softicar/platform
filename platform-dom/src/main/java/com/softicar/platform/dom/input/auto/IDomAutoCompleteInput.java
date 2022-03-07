@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.input.auto;
 
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.parent.IDomParentElement;
 
 /**
@@ -18,7 +18,7 @@ public interface IDomAutoCompleteInput<T> extends IDomParentElement {
 	 * @return the native input field that is contained in the auto-complete
 	 *         parent element (never null)
 	 */
-	IDomStringInputNode getInputField();
+	IDomTextualInput getInputField();
 
 	/**
 	 * Returns the configuration object of this input element.

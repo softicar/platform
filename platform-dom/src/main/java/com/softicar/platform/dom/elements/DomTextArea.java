@@ -1,26 +1,21 @@
 package com.softicar.platform.dom.elements;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.input.IDomStringInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.parent.DomParentElement;
+import java.util.Optional;
 
 /**
  * This class represents an Html text area element.
  *
  * @author Oliver Richers
  */
-public class DomTextArea extends DomParentElement implements IDomStringInputNode {
+public class DomTextArea extends DomParentElement implements IDomTextualInput {
 
 	public DomTextArea() {
 
 		getAccessor().setAttributeInMap("value", "");
-	}
-
-	public DomTextArea(String value, int rows, int cols) {
-
-		setAttribute("value", value);
-		setAttribute("rows", "" + rows);
-		setAttribute("cols", "" + cols);
 	}
 
 	public DomTextArea(int rows, int cols) {
@@ -28,10 +23,43 @@ public class DomTextArea extends DomParentElement implements IDomStringInputNode
 		this("", rows, cols);
 	}
 
+	public DomTextArea(String inputText, int rows, int cols) {
+
+		setInputText(inputText);
+		setRowCount(rows);
+		setColCount(cols);
+	}
+
+	@Override
+	public DomTextArea setInputText(String inputText) {
+
+		setAttribute("value", Optional.ofNullable(inputText).orElse(""));
+		return this;
+	}
+
+	@Override
+	public String getInputText() {
+
+		return getAttributeValue("value").orElse("");
+	}
+
 	@Override
 	public DomElementTag getTag() {
 
 		return DomElementTag.TEXTAREA;
+	}
+
+	/**
+	 * Defines the HTML placeholder attribute.
+	 *
+	 * @param placeholder
+	 *            the placeholder text to display (never <i>null</i>)
+	 * @return this
+	 */
+	public DomTextArea setPlaceholder(IDisplayString placeholder) {
+
+		setAttribute("placeholder", placeholder.toString());
+		return this;
 	}
 
 	// -------------------------------- configuration -------------------------------- //

@@ -26,13 +26,11 @@ public class DomAutoCompleteList implements Iterable<String> {
 	 *
 	 * @param name
 	 *            the name of the item (never null)
-	 * @param description
-	 *            the description of the value (may be any string)
 	 */
-	public void add(String name, String description) {
+	public void add(String name) {
 
 		if (items.size() < MAXIMUM_ELEMENTS_TO_LOAD) {
-			items.add(String.format("{v:'%s',d:'%s'}", JavascriptEscaping.getEscaped(name), JavascriptEscaping.getEscaped(description)));
+			items.add(String.format("{v:'%s'}", JavascriptEscaping.getEscaped(name)));
 		}
 	}
 

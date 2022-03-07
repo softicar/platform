@@ -58,14 +58,14 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 	private void closeAndApplyInput() {
 
 		getCloseManager().closePopupNonInteractive();
-		promptHandler.accept(inputElement.getValue());
+		promptHandler.accept(inputElement.getInputText());
 	}
 
 	private class InputElement extends DomTextInput implements IDomEnterKeyEventHandler {
 
 		public InputElement(String defaultValue) {
 
-			setValue(defaultValue);
+			setInputText(defaultValue);
 			select();
 			setMarker(DomModalPromptMarker.INPUT_ELEMENT);
 		}
