@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.page.navigation.link;
 
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
@@ -95,7 +95,7 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 
 	public void sortChildrenByTitle() {
 
-		Collator collator = Collator.getInstance(CurrentLanguage.get().getLocale());
+		Collator collator = Collator.getInstance(CurrentLocale.get().getLanguage().getLocale());
 		Collections
 			.sort(
 				children,

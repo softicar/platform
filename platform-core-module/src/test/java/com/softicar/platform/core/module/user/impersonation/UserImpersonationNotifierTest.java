@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.user.impersonation;
 
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -22,14 +22,14 @@ public class UserImpersonationNotifierTest extends AbstractUserImpersonationTest
 
 	private String getExpectedSubject() {
 
-		try (LanguageScope scope = new LanguageScope(TEST_LANGUAGE)) {
+		try (var scope = new LocaleScope(TEST_LOCALE)) {
 			return CoreI18n.USER_IMPERSONATION.toString();
 		}
 	}
 
 	private String getExpectedPreamble() {
 
-		try (LanguageScope scope = new LanguageScope(TEST_LANGUAGE)) {
+		try (var scope = new LocaleScope(TEST_LOCALE)) {
 			return CoreI18n.ARG1_STARTED_A_USER_IMPERSONATION_SESSION_OF_YOUR_USER_ARG2//
 				.toDisplay(CurrentUser.get().toDisplay(), impersonatedUser.toDisplay())
 				.toString();

@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.user.profile;
 
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
@@ -56,11 +56,11 @@ class UserProfileChangeLanguageDiv extends DomDiv {
 
 		public void handleClick() {
 
-			language.getLanguageEnum().ifPresent(CurrentLanguage::set);
-
 			AGUser user = CurrentUser.get();
 			user.setPreferredLanguage(language);
 			user.save();
+
+			CurrentLocale.set(user.getLocale());
 
 			languageTextDiv.refresh();
 			executeAlert(

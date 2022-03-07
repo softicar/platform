@@ -2,6 +2,9 @@ package com.softicar.platform.common.core.i18n;
 
 import com.softicar.platform.common.core.i18n.key.AbstractI18nKey;
 import com.softicar.platform.common.core.i18n.key.II18nKey;
+import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.core.locale.Locale;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,8 +18,15 @@ public class I18nKeyDisplayStringTest extends Assert {
 
 		this.fallbackTranslator = new TestTranslator();
 
-		CurrentLanguage.set(LANGUAGE);
+		CurrentLocale.set(new Locale().setLanguage(LANGUAGE));
 		CurrentLanguageTranslator.set(fallbackTranslator);
+	}
+
+	@After
+	public void cleanup() {
+
+		CurrentLocale.set(null);
+		CurrentLanguageTranslator.set(null);
 	}
 
 	@Test
@@ -43,7 +53,7 @@ public class I18nKeyDisplayStringTest extends Assert {
 		II18nKey key = new TestKey("foo").de("bar");
 		addFallback(key, "fallback");
 
-		CurrentLanguage.set(UNSUPPORTED_LANGUAGE);
+		CurrentLocale.set(new Locale().setLanguage(UNSUPPORTED_LANGUAGE));
 		assertEquals("foo", new I18nKeyDisplayString(key).toString());
 	}
 

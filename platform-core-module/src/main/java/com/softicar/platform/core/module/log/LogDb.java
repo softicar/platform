@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.log;
 
+import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.date.DayTime;
@@ -201,7 +202,8 @@ public class LogDb {
 
 		return Optional//
 			.ofNullable(currentUser)
-			.map(AGUser::getLanguageEnum)
+			.map(AGUser::getLocale)
+			.map(ILocale::getLanguage)
 			.map(Object::toString)
 			.orElse("undefined language");
 	}

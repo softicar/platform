@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.user;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.item.IBasicItem;
+import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
@@ -89,9 +89,9 @@ public class CurrentUser {
 		}
 
 		@Override
-		public LanguageEnum getLanguageEnum() {
+		public ILocale getLocale() {
 
-			return get().getLanguageEnum();
+			return get().getLocale();
 		}
 
 		@Override
