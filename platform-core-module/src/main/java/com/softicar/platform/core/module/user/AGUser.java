@@ -5,7 +5,9 @@ import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.ILocale;
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
@@ -60,9 +62,11 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	}
 
 	@Override
-	public LanguageEnum getLanguageEnum() {
+	public ILocale getLocale() {
 
-		return getPreferredLanguage().getLanguageEnum().orElse(null);
+		var locale = new Locale();
+		getPreferredLanguage().getLanguageEnum().ifPresent(locale::setLanguage);
+		return locale;
 	}
 
 	public AGUser setPreferredLanguage(LanguageEnum languageEnum) {
@@ -170,9 +174,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public static void sendPaswordResetNotification(AGUser user, String password) {
 
-		LanguageEnum userLanguage = user.getLanguageEnum();
-
-		try (LanguageScope languageScope = new LanguageScope(userLanguage)) {
+		try (var scope = new LocaleScope(user.getLocale())) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(CoreI18n.THE_PASSWORD_WAS_RESET_BY_ARG1.toDisplay(CurrentUser.get().getFirstAndLastName()));
 			sb.append("\r\n\r\n");

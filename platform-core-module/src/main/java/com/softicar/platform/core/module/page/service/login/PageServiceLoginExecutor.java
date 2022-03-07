@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.page.service.login;
 import com.softicar.platform.ajax.request.CurrentAjaxRequest;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.session.AjaxSessionAttributeManager;
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.core.module.ajax.logging.AjaxLogging;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
@@ -37,7 +37,7 @@ class PageServiceLoginExecutor {
 		new AjaxSessionAttributeManager(session).setInstance(SofticarAjaxSession.class, createSession(user));
 
 		CurrentUser.set(user);
-		CurrentLanguage.set(user.getLanguageEnum());
+		CurrentLocale.set(user.getLocale());
 	}
 
 	private SofticarAjaxSession createSession(AGUser user) {

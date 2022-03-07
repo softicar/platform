@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.user.impersonation;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.EmailFactory;
 import com.softicar.platform.core.module.user.AGUser;
@@ -35,14 +35,14 @@ class UserImpersonationNotifier {
 
 	public String getNotificationSubject() {
 
-		try (LanguageScope scope = new LanguageScope(impersonatedUser.getLanguageEnum())) {
+		try (var scope = new LocaleScope(impersonatedUser.getLocale())) {
 			return CoreI18n.USER_IMPERSONATION.toString();
 		}
 	}
 
 	public String getNotificationText() {
 
-		try (LanguageScope scope = new LanguageScope(impersonatedUser.getLanguageEnum())) {
+		try (var scope = new LocaleScope(impersonatedUser.getLocale())) {
 			return CoreI18n.ARG1_STARTED_A_USER_IMPERSONATION_SESSION_OF_YOUR_USER_ARG2//
 				.toDisplay(CurrentUser.get().toDisplay(), impersonatedUser.toDisplay())
 				.concat("\n\n")

@@ -1,7 +1,8 @@
 package com.softicar.platform.emf.test.user;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.LanguageEnum;
+import com.softicar.platform.common.core.locale.ILocale;
+import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
@@ -69,9 +70,9 @@ public class EmfTestUser extends AbstractEmfObject<EmfTestUser> implements IBasi
 	}
 
 	@Override
-	public LanguageEnum getLanguageEnum() {
+	public ILocale getLocale() {
 
-		return LanguageEnum.ENGLISH;
+		return new Locale();
 	}
 
 	@Override

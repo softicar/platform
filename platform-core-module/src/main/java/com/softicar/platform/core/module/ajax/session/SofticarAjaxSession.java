@@ -39,7 +39,7 @@ public final class SofticarAjaxSession {
 
 	public LanguageEnum getLanguage() {
 
-		return user.get().getLanguageEnum();
+		return user.get().getLocale().getLanguage();
 	}
 
 	public AGUser getUser() {
