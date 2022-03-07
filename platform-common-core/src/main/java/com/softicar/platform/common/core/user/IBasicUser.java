@@ -1,7 +1,7 @@
 package com.softicar.platform.common.core.user;
 
 import com.softicar.platform.common.core.entity.IEntity;
-import com.softicar.platform.common.core.i18n.LanguageEnum;
+import com.softicar.platform.common.core.locale.ILocale;
 
 /**
  * Represents a basic user of the system.
@@ -42,11 +42,11 @@ public interface IBasicUser extends IEntity {
 	Boolean isSuperUser();
 
 	/**
-	 * Returns the language of this user.
+	 * Returns the {@link ILocale} of this user.
 	 *
-	 * @return the user language (never null)
+	 * @return the user {@link ILocale} (never <i>null</i>)
 	 */
-	LanguageEnum getLanguageEnum();
+	ILocale getLocale();
 
 	/**
 	 * Compares this user to the given user.

@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.page.service;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
@@ -73,6 +73,6 @@ public class PageServiceDocumentBuilder {
 	private void setupThreadLocals(AGUser user) {
 
 		CurrentUser.set(user);
-		CurrentLanguage.set(user.getLanguageEnum());
+		CurrentLocale.set(user.getLocale());
 	}
 }

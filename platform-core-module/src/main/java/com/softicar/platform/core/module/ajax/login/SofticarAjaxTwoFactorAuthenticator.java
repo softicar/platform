@@ -1,8 +1,7 @@
 package com.softicar.platform.core.module.ajax.login;
 
-import com.softicar.platform.common.core.i18n.CurrentLanguage;
 import com.softicar.platform.common.core.i18n.DisplayString;
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.EmailContentType;
@@ -67,8 +66,10 @@ class SofticarAjaxTwoFactorAuthenticator {
 			.getInstance(request.getSession())
 			.generateAndStorePasswort();
 
-		sendEmail(password);
-		printTokenInputPage(password.getIndex(), response);
+		try (var scope = new LocaleScope(user.getLocale())) {
+			sendEmail(password);
+			printTokenInputPage(password.getIndex(), response);
+		}
 	}
 
 	private String getOneTimePasswordFromRequest() {
@@ -77,8 +78,6 @@ class SofticarAjaxTwoFactorAuthenticator {
 	}
 
 	private void sendEmail(OneTimePassword password) {
-
-		CurrentLanguage.set(user.getLanguageEnum());
 
 		BufferedEmailFactory//
 			.createNoReplyEmail()
@@ -109,18 +108,16 @@ class SofticarAjaxTwoFactorAuthenticator {
 
 	private String getTokenInputPageHtml(int passwordCounter) {
 
-		try (LanguageScope languageScope = new LanguageScope(user.getLanguageEnum())) {
-			return new DisplayString()//
-				.setSeparator("\r\n")
-				.append(CoreI18n.TWO_FACTOR_AUTHENTICATION_IS_ACTIVE)
-				.append(CoreI18n.ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()))
-				.append("<br>")
-				.append("<form method='post'>")
-				.append(CoreI18n.ONE_TIME_PASSWORD.concat(" #" + passwordCounter + ":"))
-				.append("<input type='text' name='otp'>")
-				.append("<input type='submit'>")
-				.append("</form>")
-				.toString();
-		}
+		return new DisplayString()//
+			.setSeparator("\r\n")
+			.append(CoreI18n.TWO_FACTOR_AUTHENTICATION_IS_ACTIVE)
+			.append(CoreI18n.ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()))
+			.append("<br>")
+			.append("<form method='post'>")
+			.append(CoreI18n.ONE_TIME_PASSWORD.concat(" #" + passwordCounter + ":"))
+			.append("<input type='text' name='otp'>")
+			.append("<input type='submit'>")
+			.append("</form>")
+			.toString();
 	}
 }

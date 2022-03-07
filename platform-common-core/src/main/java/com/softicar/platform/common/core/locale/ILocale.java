@@ -1,11 +1,20 @@
 package com.softicar.platform.common.core.locale;
 
+import com.softicar.platform.common.core.i18n.LanguageEnum;
+
 /**
  * Interface for locale configuration.
  *
  * @author Oliver Richers
  */
 public interface ILocale {
+
+	/**
+	 * Returns the {@link LanguageEnum} to be used for translations.
+	 *
+	 * @return the {@link LanguageEnum} to use (never <i>null</i>)
+	 */
+	LanguageEnum getLanguage();
 
 	/**
 	 * Returns the {@link String} to be used as decimal separator.

@@ -2,8 +2,9 @@ package com.softicar.platform.core.module.ajax.login;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.LanguageEnum;
-import com.softicar.platform.common.core.i18n.LanguageScope;
+import com.softicar.platform.common.core.locale.ILocale;
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.core.module.CoreI18n;
@@ -87,7 +88,7 @@ class SofticarBasicAuthenticator {
 
 		// load user and language
 		AGUser user = AGUser.loadByLoginName(username);
-		LanguageEnum language = getUserLanguageOrEnglish(user);
+		ILocale locale = getUserLocaleOrDefault(user);
 
 		// check for too many login failures
 		int failedLogins = AGUserLoginFailureLog//
@@ -102,7 +103,7 @@ class SofticarBasicAuthenticator {
 			printFailureAnswerAndFlush(//
 				WebServiceUtils.getTooManyRequestsHttpCode(),
 				CoreI18n.TOO_MANY_FAILED_LOGIN_ATTEMPTS.concatSpace().concat(CoreI18n.PLEASE_WAIT_FOR_ARG1_SECONDS.toDisplay(loginFailureTimeout)),
-				language);
+				locale);
 			return null;
 		}
 
@@ -119,7 +120,7 @@ class SofticarBasicAuthenticator {
 			printFailureAnswerAndFlush(//
 				HttpServletResponse.SC_FORBIDDEN,
 				CoreI18n.YOU_ARE_NOT_ALLOWED_TO_LOG_IN_FROM_THE_FOLLOWING_IP_ADDRESS_ARG1.toDisplay(clientAddress),
-				language);
+				locale);
 			return null;
 		}
 
@@ -153,7 +154,7 @@ class SofticarBasicAuthenticator {
 			printFailureAnswerAndFlush(//
 				WebServiceUtils.getTooManyRequestsHttpCode(),
 				CoreI18n.TOO_MANY_FAILED_LOGIN_ATTEMPTS.concatSpace().concat(CoreI18n.PLEASE_WAIT_FOR_ARG1_SECONDS.toDisplay(MAXIMUM_LOGINS_PERIOD)),
-				language);
+				locale);
 			return null;
 		}
 
@@ -174,14 +175,14 @@ class SofticarBasicAuthenticator {
 		return allowedIpRule == null || allowedIpRule.isActive() && allowedIpRule.matches(clientAddress);
 	}
 
-	private LanguageEnum getUserLanguageOrEnglish(AGUser user) {
+	private ILocale getUserLocaleOrDefault(AGUser user) {
 
-		return Optional.ofNullable(user).map(AGUser::getLanguageEnum).orElse(LanguageEnum.ENGLISH);
+		return Optional.ofNullable(user).map(AGUser::getLocale).orElse(new Locale());
 	}
 
-	private void printFailureAnswerAndFlush(int statusCode, IDisplayString message, LanguageEnum language) {
+	private void printFailureAnswerAndFlush(int statusCode, IDisplayString message, ILocale locale) {
 
-		try (LanguageScope languageScope = new LanguageScope(language)) {
+		try (var scope = new LocaleScope(locale)) {
 			WebServiceUtils.sendPlainTextResponse(response, statusCode, message);
 			response.flushBuffer();
 		} catch (IOException exception) {
