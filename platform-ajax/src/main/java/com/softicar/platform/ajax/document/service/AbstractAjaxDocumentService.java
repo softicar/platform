@@ -1,10 +1,12 @@
 package com.softicar.platform.ajax.document.service;
 
+import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.engine.JavascriptStatementList;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.service.AbstractAjaxService;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.io.writer.IManagedPrintWriter;
@@ -44,8 +46,11 @@ public abstract class AbstractAjaxDocumentService extends AbstractAjaxService {
 
 		try {
 			payloadCode.apply();
-		} catch (Exception exception) {
+		} catch (SofticarUserException exception) {
 			document.getBody().executeAlert(IDisplayString.create(exception.getLocalizedMessage()));
+			framework.getAjaxStrategy().logException(exception, request);
+		} catch (Exception exception) {
+			document.getBody().executeAlert(AjaxI18n.AN_INTERNAL_PROGRAM_ERROR_OCCURRED);
 			framework.getAjaxStrategy().logException(exception, request);
 		}
 	}
