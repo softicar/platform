@@ -95,9 +95,9 @@ public class SmbTestServerController {
 				.toString();
 		}
 
-		public String generateServerLogsCommand() {
+		public String generateServerHealthStatusCommand() {
 
-			return "docker logs %s".formatted(containerName);
+			return "docker inspect -f '{{ .State.Health.Status }}' %s".formatted(containerName);
 		}
 
 		public String generateServerIpAddressRetrievalCommand() {
@@ -109,7 +109,7 @@ public class SmbTestServerController {
 	private static class DockerCommandExecutor {
 
 		private static final int SERVER_READY_POLLING_INTERVAL_MS = 50;
-		private static final int SERVER_READY_POLLING_RETRY_COUNT = 40;
+		private static final int SERVER_READY_POLLING_RETRY_COUNT = 200;
 
 		private final DockerCommandGenerator commandGenerator;
 
@@ -158,7 +158,6 @@ public class SmbTestServerController {
 			}
 		}
 
-		// TODO try to use the health check for that, e.g. https://stackoverflow.com/questions/21183088/how-can-i-wait-for-a-docker-container-to-be-up-and-running
 		private void waitForServer() {
 
 			int retryCounter = 0;
@@ -176,7 +175,7 @@ public class SmbTestServerController {
 
 		private boolean isServerReady() {
 
-			return execute(commandGenerator.generateServerLogsCommand(), "ready-check").contains("daemon_ready");
+			return execute(commandGenerator.generateServerHealthStatusCommand(), "health check").trim().equals("healthy");
 		}
 	}
 }
