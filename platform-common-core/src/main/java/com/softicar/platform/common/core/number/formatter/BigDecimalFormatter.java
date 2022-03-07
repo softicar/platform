@@ -3,6 +3,7 @@ package com.softicar.platform.common.core.number.formatter;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.ILocale;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * A formatter for {@link BigDecimal} respecting {@link CurrentLocale}.
@@ -20,9 +21,16 @@ public class BigDecimalFormatter {
 		this.locale = CurrentLocale.get();
 	}
 
+	/**
+	 * Overrides the {@link ILocale} to use for formatting.
+	 *
+	 * @param locale
+	 *            the {@link ILocale} to use (never <i>null</i>)
+	 * @return this
+	 */
 	public BigDecimalFormatter setLocale(ILocale locale) {
 
-		this.locale = locale;
+		this.locale = Objects.requireNonNull(locale);
 		return this;
 	}
 
