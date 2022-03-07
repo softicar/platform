@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public class BigDecimalFormatter {
 
+	private static final int DIGIT_GROUP_SIZE = 3;
 	private final BigDecimal value;
 	private ILocale locale;
 
@@ -32,6 +33,16 @@ public class BigDecimalFormatter {
 
 		this.locale = Objects.requireNonNull(locale);
 		return this;
+	}
+
+	/**
+	 * Returns the number of digits per digit group.
+	 *
+	 * @return the number of digits
+	 */
+	public static int getDigitGroupSize() {
+
+		return DIGIT_GROUP_SIZE;
 	}
 
 	public String format() {
