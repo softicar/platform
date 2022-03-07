@@ -24,11 +24,6 @@ class StartPageDiv extends DomDiv {
 		createUserImpersonationTerminationNode().ifPresent(nodes::add);
 		appendSeparatedByHr(nodes);
 		setMarker(StartPageMarker.MAIN_ELEMENT);
-		AGStoredFile file = AGStoredFile.TABLE.createSelect().where(AGStoredFile.FILE_NAME.equal("test.pdf")).getOne();
-		appendChild(
-			new DomPopupButton()//
-				.setPopupFactory(() -> new StoredFilePdfPreviewPopup(file, new CssPixel(500)))
-				.setLabel("Show Popup"));
 	}
 
 	private Optional<IDomNode> createPasswordChangeNode() {
