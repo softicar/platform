@@ -24,6 +24,9 @@ public class CurrentLocale {
 
 	/**
 	 * Sets the current {@link ILocale} to the specified value.
+	 *
+	 * @param locale
+	 *            the {@link ILocale} to use or <i>null</i> to reset to default
 	 */
 	public static void set(ILocale locale) {
 
