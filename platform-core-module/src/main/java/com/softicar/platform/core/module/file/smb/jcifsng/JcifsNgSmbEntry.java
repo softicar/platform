@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
@@ -24,43 +23,12 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 
 	public JcifsNgSmbEntry(String url, CIFSContext context) {
 
-		this(url, context, null, null);
-	}
-
-	// TODO remove debug CTOR
-	public JcifsNgSmbEntry(String url, CIFSContext context, String uuid, Long start) {
-
 		try {
-			// TODO remove
-			if (uuid != null && start != null) {
-				Log.ferror("%s: %sms: JcifsNgSmbEntry CTOR: CAL", uuid, System.currentTimeMillis() - start);
-			}
-
 			assertValidSmbUrl(url);
 			Objects.requireNonNull(context);
-
-			// TODO remove
-			if (uuid != null && start != null) {
-				Log.ferror("%s: %sms: JcifsNgSmbEntry CTOR: creating SmbFile", uuid, System.currentTimeMillis() - start);
-			}
 			this.entry = new SmbFile(url, context);
-
-			// TODO remove
-			if (uuid != null && start != null) {
-				Log.ferror("%s: %sms: JcifsNgSmbEntry CTOR: connecting", uuid, System.currentTimeMillis() - start);
-			}
 			this.entry.connect();
-
-			// TODO remove
-			if (uuid != null && start != null) {
-				Log.ferror("%s: %sms: JcifsNgSmbEntry CTOR: connected", uuid, System.currentTimeMillis() - start);
-			}
 			this.context = context;
-
-			// TODO remove
-			if (uuid != null && start != null) {
-				Log.ferror("%s: %sms: JcifsNgSmbEntry CTOR: RET", uuid, System.currentTimeMillis() - start);
-			}
 		} catch (IOException exception) {
 			throw new SmbIOException(exception);
 		}

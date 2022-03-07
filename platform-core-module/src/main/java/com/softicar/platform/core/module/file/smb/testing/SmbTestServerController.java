@@ -1,10 +1,8 @@
 package com.softicar.platform.core.module.file.smb.testing;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.command.ShellCommandExecutor;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,16 +21,11 @@ public class SmbTestServerController {
 
 	/**
 	 * Creates a new {@link SmbTestServerController} with a globally-unique ID.
-	 *
-	 * @param configuration
-	 *            a {@link SmbTestServerConfiguration} for this
-	 *            {@link SmbTestServerController} (never <i>null</i>)
 	 */
-	public SmbTestServerController(SmbTestServerConfiguration configuration) {
+	public SmbTestServerController() {
 
-		Objects.requireNonNull(configuration);
 		this.containerName = "smb-test-%s".formatted(UUID.randomUUID());
-		this.commandExecutor = new DockerCommandExecutor(configuration, containerName);
+		this.commandExecutor = new DockerCommandExecutor(containerName);
 		this.shutdownHookRegistered = false;
 		this.serverIpAddress = null;
 	}
@@ -63,9 +56,6 @@ public class SmbTestServerController {
 	 */
 	public void startup() {
 
-		// TODO remove
-		Log.ferror("SmbTestServerController: startup");
-
 		commandExecutor.executeServerUp();
 		this.serverIpAddress = commandExecutor.executeServerIpAddressRetrieval();
 	}
@@ -79,21 +69,15 @@ public class SmbTestServerController {
 	 */
 	public void shutdown() {
 
-		// TODO remove
-		Log.ferror("SmbTestServerController: shutdown");
-
 		commandExecutor.executeServerDown();
 	}
 
 	private static class DockerCommandGenerator {
 
-		// TODO cleanup
-		private final SmbTestServerConfiguration configuration;
 		private final String containerName;
 
-		public DockerCommandGenerator(SmbTestServerConfiguration configuration, String containerName) {
+		public DockerCommandGenerator(String containerName) {
 
-			this.configuration = configuration;
 			this.containerName = containerName;
 		}
 
@@ -124,15 +108,14 @@ public class SmbTestServerController {
 
 	private static class DockerCommandExecutor {
 
-		// FIXME this should be lower
-		private static final int SERVER_READY_POLLING_INTERVAL_MS = 500;
-		private static final int SERVER_READY_POLLING_RETRY_COUNT = 400;
+		private static final int SERVER_READY_POLLING_INTERVAL_MS = 50;
+		private static final int SERVER_READY_POLLING_RETRY_COUNT = 40;
 
 		private final DockerCommandGenerator commandGenerator;
 
-		public DockerCommandExecutor(SmbTestServerConfiguration configuration, String containerName) {
+		public DockerCommandExecutor(String containerName) {
 
-			this.commandGenerator = new DockerCommandGenerator(configuration, containerName);
+			this.commandGenerator = new DockerCommandGenerator(containerName);
 		}
 
 		public void executeServerDown() {
@@ -175,6 +158,7 @@ public class SmbTestServerController {
 			}
 		}
 
+		// TODO try to use the health check for that, e.g. https://stackoverflow.com/questions/21183088/how-can-i-wait-for-a-docker-container-to-be-up-and-running
 		private void waitForServer() {
 
 			int retryCounter = 0;

@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.io.StreamUtils;
@@ -12,11 +11,9 @@ import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
-import com.softicar.platform.core.module.file.smb.testing.SmbTestServerConfiguration;
 import com.softicar.platform.core.module.file.smb.testing.SmbTestServerController;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import jcifs.CIFSContext;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -47,17 +44,9 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 	protected String someDirUrl;
 	protected String someDirUrlSlash;
 
-	// TODO remove - debug only
-	protected final String uuid;
-	protected long start;
-
 	public AbtractJcifsNgSmbTest() {
 
 		LogLevel.ERROR.set();
-
-		// TODO remove - debug only
-		this.uuid = UUID.randomUUID().toString();
-		this.start = System.currentTimeMillis();
 	}
 
 	@BeforeClass
@@ -102,15 +91,12 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	protected ISmbDirectory directory(String url) {
 
-		return new JcifsNgSmbDirectory(url, createContext(), uuid, start);
+		return new JcifsNgSmbDirectory(url, createContext());
 	}
 
 	protected CIFSContext createContext() {
 
-		Log.ferror("%s: %sms: createContext: CAL", uuid, System.currentTimeMillis() - start);
-		CIFSContext context = JcifsNgSmbCifsContextFactory.create(credentials);
-		Log.ferror("%s: %sms: createContext: RET", uuid, System.currentTimeMillis() - start);
-		return context;
+		return JcifsNgSmbCifsContextFactory.create(credentials);
 	}
 
 	/**
@@ -172,28 +158,17 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	private void flushShareRoot() {
 
-		Log.ferror("%s: %sms: flushShareRoot: CAL", uuid, System.currentTimeMillis() - start);
-
 		try {
 			ISmbDirectory directory = directory(shareUrl);
-			Log.ferror("%s: %sms: flushShareRoot: got upper dir", uuid, System.currentTimeMillis() - start);
-
 			List<ISmbEntry> entries = directory.listEntries();
-			Log.ferror("%s: %sms: flushShareRoot: got upper entries", uuid, System.currentTimeMillis() - start);
-
 			entries.forEach(ISmbEntry::delete);
-			Log.ferror("%s: %sms: flushShareRoot: deleted them", uuid, System.currentTimeMillis() - start);
 		} catch (Exception exception) {
 			throw new SofticarDeveloperException(exception, "Failed to flush the share.");
 		}
 
 		try {
 			ISmbDirectory directory = directory(shareUrl);
-			Log.ferror("%s: %sms: flushShareRoot: got lower dir", uuid, System.currentTimeMillis() - start);
-
 			List<ISmbEntry> entries = directory.listEntries();
-			Log.ferror("%s: %sms: flushShareRoot: got lower entries", uuid, System.currentTimeMillis() - start);
-
 			assertTrue(//
 				"Expected an empty share before the execution of a test method. Encountered %s leftover entries from a previous execution: [%s]"
 					.formatted(entries.size(), Imploder.implode(entries, ISmbEntry::getName, ", ")),
@@ -201,13 +176,10 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 		} catch (Exception exception) {
 			throw new SofticarDeveloperException(exception, "Failed to list the entries in the share root.");
 		}
-
-		Log.ferror("%s: %sms: flushShareRoot: RET", uuid, System.currentTimeMillis() - start);
 	}
 
 	private static SmbTestServerController createController() {
 
-		var configuration = new SmbTestServerConfiguration(TEST_SHARE, TEST_USER, TEST_PASSWORD);
-		return new SmbTestServerController(configuration);
+		return new SmbTestServerController();
 	}
 }
