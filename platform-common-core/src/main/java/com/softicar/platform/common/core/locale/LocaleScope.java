@@ -13,7 +13,7 @@ public class LocaleScope implements AutoCloseable {
 	 * Sets {@link CurrentLocale} to the given {@link ILocale}.
 	 *
 	 * @param locale
-	 *            the language to set (never null)
+	 *            the {@link ILocale} to set (never <i>null</i>)
 	 */
 	public LocaleScope(ILocale locale) {
 
