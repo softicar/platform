@@ -12,5 +12,4 @@ jobs:
       - name: Execute Build
         run: |
           ./gradlew clean build \
-          -PpluginProxy=http://nexus:8081/repository/gradle-plugins/ \
           -PdependencyProxy=http://nexus:8081/repository/maven-central/
