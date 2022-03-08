@@ -41,3 +41,20 @@
 	display: grid;
 	gap: var(--ROW_GAP);
 }
+
+.StoredFilePreviewImageDiv {
+	align-items: center;
+}
+
+.StoredFilePreviewImageDiv.draggable {
+	height: 85vh;
+	overflow: scroll;
+}
+
+.StoredFilePreviewImage {
+	box-shadow: 0px 0px 3px #777777;
+}
+
+.StoredFilePreviewImage.rotated {
+	transform: rotate(180deg);
+}
