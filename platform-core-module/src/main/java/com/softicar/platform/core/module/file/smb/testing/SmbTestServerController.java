@@ -109,7 +109,7 @@ public class SmbTestServerController {
 	private static class DockerCommandExecutor {
 
 		private static final int SERVER_READY_POLLING_INTERVAL_MS = 50;
-		private static final int SERVER_READY_POLLING_RETRY_COUNT = 200;
+		private static final int SERVER_READY_POLLING_RETRY_COUNT = 600;
 
 		private final DockerCommandGenerator commandGenerator;
 
