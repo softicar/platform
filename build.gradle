@@ -52,6 +52,7 @@ if(project.hasProperty('dependencyProxy')) {
 				url project['dependencyProxy']
 				credentials {
 					username "anonymous"
+					password ""
 				}
 			}
 		}
