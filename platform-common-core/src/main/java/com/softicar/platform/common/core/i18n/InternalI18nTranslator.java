@@ -1,12 +1,13 @@
 package com.softicar.platform.common.core.i18n;
 
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import java.util.IllegalFormatException;
 
 class InternalI18nTranslator {
 
 	public static String translate(String text, Object...args) {
 
-		return translate(CurrentLanguage.get(), text, args);
+		return translate(CurrentLocale.get().getLanguage(), text, args);
 	}
 
 	public static String translate(LanguageEnum language, String text, Object...args) {

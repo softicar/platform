@@ -1,6 +1,7 @@
 package com.softicar.platform.common.core.i18n;
 
 import com.softicar.platform.common.core.i18n.key.II18nKey;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 
 /**
  * Maps an {@link II18nKey} into an {@link IDisplayString}.
@@ -21,9 +22,8 @@ class I18nKeyDisplayString extends AbstractDisplayString {
 	@Override
 	public String toString() {
 
-		LanguageEnum languageEnum = CurrentLanguage.get();
 		return key//
-			.toLanguage(languageEnum)
+			.toLanguage(CurrentLocale.get().getLanguage())
 			.map(this::formatString)
 			.orElseGet(this::getFallbackTranslation);
 	}
