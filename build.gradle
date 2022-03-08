@@ -50,6 +50,10 @@ if(project.hasProperty('dependencyProxy')) {
 			maven {
 				allowInsecureProtocol true
 				url project['dependencyProxy']
+				credentials {
+					username = null
+					password = null
+				}
 			}
 		}
 	}
