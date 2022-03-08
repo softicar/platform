@@ -1,6 +1,8 @@
 package com.softicar.platform.ajax.event;
 
 import com.softicar.platform.ajax.utils.TestButton;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 
 class AjaxDomEventWithExceptionTestDiv extends DomDiv {
@@ -28,6 +30,6 @@ class AjaxDomEventWithExceptionTestDiv extends DomDiv {
 
 		output.setAttribute("name", "foo");
 		output.appendText("Hello");
-		throw new RuntimeException("Exception Text");
+		throw new SofticarUserException(IDisplayString.create("Exception Text"));
 	}
 }
