@@ -51,8 +51,7 @@ if(project.hasProperty('dependencyProxy')) {
 				allowInsecureProtocol true
 				url project['dependencyProxy']
 				credentials {
-					username = null
-					password = null
+					// none
 				}
 			}
 		}
