@@ -276,8 +276,9 @@ public class AjaxSeleniumGridController {
 		/**
 		 * Generates a shell script to shut down the Selenium grid.
 		 * <p>
-		 * The generated script will trap <tt>SIGTERM</tt> to avoid that Jenkins
-		 * kills <tt>docker-compose</tt> prematurely when a job run concludes.
+		 * The generated script will trap <tt>SIGTERM</tt> to avoid that the CI
+		 * build executor kills <tt>docker-compose</tt> prematurely when a job
+		 * run concludes.
 		 *
 		 * @return the content of the generated shell script (never <i>null</i>)
 		 */
