@@ -46,12 +46,19 @@ public abstract class AbstractAjaxDocumentService extends AbstractAjaxService {
 
 		try {
 			payloadCode.apply();
-		} catch (SofticarUserException exception) {
-			document.getBody().executeAlert(IDisplayString.create(exception.getLocalizedMessage()));
-			framework.getAjaxStrategy().logException(exception, request);
 		} catch (Exception exception) {
-			document.getBody().executeAlert(AjaxI18n.AN_INTERNAL_PROGRAM_ERROR_OCCURRED);
+			IDisplayString message = getDisplayMessage(exception);
+			document.getBody().executeAlert(message);
 			framework.getAjaxStrategy().logException(exception, request);
+		}
+	}
+
+	private IDisplayString getDisplayMessage(Exception exception) {
+
+		if (exception instanceof SofticarUserException) {
+			return IDisplayString.create(exception.getLocalizedMessage());
+		} else {
+			return AjaxI18n.AN_INTERNAL_PROGRAM_ERROR_OCCURRED;
 		}
 	}
 
