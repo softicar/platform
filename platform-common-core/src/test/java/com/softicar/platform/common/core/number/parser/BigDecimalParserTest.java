@@ -22,6 +22,7 @@ public class BigDecimalParserTest extends Assert {
 	@Test
 	public void test() {
 
+		// positive
 		assertParsed("0", "0");
 		assertParsed("0.0", "0,0");
 		assertParsed("1.23", "1,23");
@@ -30,6 +31,7 @@ public class BigDecimalParserTest extends Assert {
 		assertParsed("1234567.89", "1234567,89");
 		assertParsed("1234567.89", "1.234.567,89");
 
+		// negative
 		assertParsed("0", "-0");
 		assertParsed("0.0", "-0,0");
 		assertParsed("-1.23", "-1,23");
@@ -37,6 +39,11 @@ public class BigDecimalParserTest extends Assert {
 		assertParsed("-1234.567", "-1.234,567");
 		assertParsed("-1234567.89", "-1234567,89");
 		assertParsed("-1234567.89", "-1.234.567,89");
+
+		// exponent
+		assertParsed("1234.57E+5", "1.234,57E5");
+		assertParsed("1234.57E+5", "1.234,57E+5");
+		assertParsed("1234.57E-5", "1.234,57E-5");
 	}
 
 	@Test
