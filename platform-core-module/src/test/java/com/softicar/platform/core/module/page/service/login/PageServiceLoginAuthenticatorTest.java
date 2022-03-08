@@ -36,18 +36,18 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 
 		int maximumFailureCount = PageServiceLoginAuthenticator.DEFAULT_MAXIMUM_LOGIN_FAILURES;
 		for (int i = 0; i < maximumFailureCount; i++) {
-			assertThrows(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, ""));
+			assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, ""));
 		}
 
 		// please note we are using the correct username and password now
-		assertThrows(PageServiceLoginExceptionTooManyFailedLogins.class, () -> authenticate(USERNAME, PASSWORD));
+		assertException(PageServiceLoginExceptionTooManyFailedLogins.class, () -> authenticate(USERNAME, PASSWORD));
 		assertCount(maximumFailureCount + 1, AGUserLoginFailureLog.TABLE.loadAll());
 	}
 
 	@Test
 	public void testWithUnknownUser() {
 
-		assertThrows(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate("unknown", ""));
+		assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate("unknown", ""));
 		assertFailureLog(AGUserLoginFailureTypeEnum.UNKOWN_USER, "unknown");
 	}
 
@@ -61,7 +61,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 			.save();
 		user.setAllowedIpRule(rule).save();
 
-		assertThrows(PageServiceLoginExceptionIllegalClientAddress.class, () -> authenticate(USERNAME, PASSWORD));
+		assertException(PageServiceLoginExceptionIllegalClientAddress.class, () -> authenticate(USERNAME, PASSWORD));
 		assertFailureLog(AGUserLoginFailureTypeEnum.ILLEGAL_IP, USERNAME);
 	}
 
@@ -70,14 +70,14 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 
 		password.setActive(false).save();
 
-		assertThrows(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, PASSWORD));
+		assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, PASSWORD));
 		assertFailureLog(AGUserLoginFailureTypeEnum.NO_ACTIVE_PASSWORD, USERNAME);
 	}
 
 	@Test
 	public void testWithWrongPassword() {
 
-		assertThrows(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, "wrong"));
+		assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, "wrong"));
 		assertFailureLog(AGUserLoginFailureTypeEnum.WRONG_PASSWORD, USERNAME);
 	}
 
@@ -86,7 +86,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 
 		user.setActive(false).save();
 
-		assertThrows(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, PASSWORD));
+		assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate(USERNAME, PASSWORD));
 		assertFailureLog(AGUserLoginFailureTypeEnum.DISABLED_USER, USERNAME);
 	}
 
@@ -98,7 +98,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 			authenticate(USERNAME, PASSWORD);
 		}
 
-		assertThrows(PageServiceLoginExceptionTooManyLogins.class, () -> authenticate(USERNAME, PASSWORD));
+		assertException(PageServiceLoginExceptionTooManyLogins.class, () -> authenticate(USERNAME, PASSWORD));
 		assertFailureLog(AGUserLoginFailureTypeEnum.TOO_MANY_LOGINS, USERNAME);
 	}
 

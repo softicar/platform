@@ -68,7 +68,7 @@ public class DbTransactionsTest extends AbstractDbTestWithConnectionProfiler {
 
 		Supplier<String> supplier = DbTransactions.wrap(this::throwingSupplier);
 
-		Asserts.assertThrows(RuntimeException.class, supplier::get);
+		Asserts.assertException(RuntimeException.class, supplier::get);
 
 		profiler.assertStatementCount(2);
 		profiler.assertStatement(0, "BEGIN");
@@ -80,7 +80,7 @@ public class DbTransactionsTest extends AbstractDbTestWithConnectionProfiler {
 
 		Function<String, String> function = DbTransactions.wrap(this::throwingFunction);
 
-		Asserts.assertThrows(RuntimeException.class, () -> function.apply(A));
+		Asserts.assertException(RuntimeException.class, () -> function.apply(A));
 
 		profiler.assertStatementCount(2);
 		profiler.assertStatement(0, "BEGIN");
@@ -93,7 +93,7 @@ public class DbTransactionsTest extends AbstractDbTestWithConnectionProfiler {
 
 		Consumer<String> consumer = DbTransactions.wrap(this::throwingConsumer);
 
-		Asserts.assertThrows(RuntimeException.class, () -> consumer.accept(A));
+		Asserts.assertException(RuntimeException.class, () -> consumer.accept(A));
 
 		profiler.assertStatementCount(2);
 		profiler.assertStatement(0, "BEGIN");

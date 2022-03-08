@@ -39,12 +39,29 @@ public class Asserts extends Assert {
 	 *
 	 * @param expectedThrowableClass
 	 *            the expected exception class, a super-class or interface
-	 *            thereof
+	 *            thereof (never <i>null</i>)
 	 * @param thrower
 	 *            the function which is expected to throw an exception of the
-	 *            given type
+	 *            given type (never <i>null</i>)
 	 */
-	public static void assertThrows(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+
+		assertException(expectedThrowableClass, thrower, null);
+	}
+
+	/**
+	 * Asserts that an exception is thrown by the given function.
+	 *
+	 * @param expectedThrowableClass
+	 *            the expected exception class, a super-class or interface
+	 *            thereof (never <i>null</i>)
+	 * @param thrower
+	 *            the function which is expected to throw an exception of the
+	 *            given type (never <i>null</i>)
+	 * @param expectedMessage
+	 *            the expected exception message (may be <i>null</i>)
+	 */
+	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower, String expectedMessage) {
 
 		Objects.requireNonNull(expectedThrowableClass);
 		Objects.requireNonNull(thrower);
@@ -64,33 +81,64 @@ public class Asserts extends Assert {
 					thrownClass.getCanonicalName(),
 					StackTraceFormatting.getStackTraceAsString(thrown)),
 			expectedThrowableClass.isAssignableFrom(thrownClass));
+		if (expectedMessage != null) {
+			assertEquals("Unexpected exception message.", expectedMessage, thrown.getMessage());
+		}
 	}
 
+	/**
+	 * @deprecated use {@link #assertException(Class, INullaryVoidFunction)}
+	 *             instead
+	 */
+	@Deprecated
+	public static void assertThrows(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
+
+		assertException(expectedThrowableClass, thrower);
+	}
+
+	public static void assertException(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
+
+		try {
+			thrower.apply();
+			fail("An expected exception failed to occur.");
+		} catch (Exception exception) {
+			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(exception));
+		}
+	}
+
+	/**
+	 * @deprecated use
+	 *             {@link #assertException(INullaryVoidFunction, IDisplayString)}
+	 *             instead
+	 */
+	@Deprecated
 	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
+		assertException(thrower, expectedMessage);
+	}
+
+	public static void assertExceptionMessageContains(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
+
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
-		} catch (NullPointerException exception) {
-			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
 		} catch (Exception exception) {
-			assertEquals(expectedMessage.toString(), exception.getMessage());
+			String message = getNonNullMessageOrFail(exception);
+			assertTrue(//
+				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
+				exception.getMessage().contains(expectedMessage.toString()));
 		}
 	}
 
+	/**
+	 * @deprecated use
+	 *             {@link #assertExceptionMessageContains(INullaryVoidFunction, IDisplayString)}
+	 *             instead
+	 */
+	@Deprecated
 	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
-		try {
-			thrower.apply();
-			fail("An expected exception failed to occur.");
-		} catch (NullPointerException exception) {
-			fail("Unexpected exception type: %s\n%s".formatted(exception.getClass().getSimpleName(), StackTraceFormatting.getStackTraceAsString(exception)));
-		} catch (Exception exception) {
-			assertTrue(//
-				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\""
-					.formatted(expectedMessage.toString(), exception.getMessage()),
-				exception.getMessage().contains(expectedMessage.toString()));
-		}
+		assertExceptionMessageContains(thrower, expectedMessage);
 	}
 
 	// --------------------------- assertCount --------------------------- //
@@ -189,5 +237,15 @@ public class Asserts extends Assert {
 			.toStream(objects)
 			.filter(predicate)
 			.collect(Collectors.toList());
+	}
+
+	private static String getNonNullMessageOrFail(Exception exception) {
+
+		String message = exception.getMessage();
+		if (message != null) {
+			return message;
+		} else {
+			throw new AssertionError("The encountered %s does not have a message.".formatted(exception.getClass().getSimpleName()));
+		}
 	}
 }
