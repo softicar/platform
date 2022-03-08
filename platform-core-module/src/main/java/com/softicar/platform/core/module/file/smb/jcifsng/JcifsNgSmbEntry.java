@@ -1,16 +1,14 @@
 package com.softicar.platform.core.module.file.smb.jcifsng;
 
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
+import com.softicar.platform.core.module.file.smb.SmbIOException;
+import java.io.IOException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import jcifs.CIFSContext;
 import jcifs.SmbResource;
@@ -19,39 +17,53 @@ import jcifs.smb.SmbFile;
 
 public class JcifsNgSmbEntry implements ISmbEntry {
 
+	private static final String SMB_PROTOCOL_PREFIX = "smb://";
 	protected final SmbFile entry;
 	protected final CIFSContext context;
 
 	public JcifsNgSmbEntry(String url, CIFSContext context) {
 
 		try {
+			assertValidSmbUrl(url);
+			Objects.requireNonNull(context);
 			this.entry = new SmbFile(url, context);
+			this.entry.connect();
 			this.context = context;
-		} catch (MalformedURLException exception) {
-			throw new SofticarIOException(exception);
+		} catch (IOException exception) {
+			throw new SmbIOException(exception);
 		}
 	}
 
-	public JcifsNgSmbEntry(SmbResource parent, String name) {
+	JcifsNgSmbEntry(SmbResource parent, String name) {
 
 		try {
+			Objects.requireNonNull(name);
+			assertNoAdjacentSlashes(name);
 			this.entry = new SmbFile(parent, name);
+			this.entry.connect();
 			this.context = parent.getContext();
-		} catch (MalformedURLException | UnknownHostException exception) {
-			throw new SofticarIOException(exception);
+		} catch (IOException exception) {
+			throw new SmbIOException(exception);
 		}
 	}
 
 	@Override
 	public String getName() {
 
-		return entry.getName();
+		return Trim.trimRight(entry.getName(), '/');
 	}
 
 	@Override
 	public String getUrl() {
 
-		return entry.getCanonicalPath();
+		String url = entry.getCanonicalPath();
+		if (isDirectory()) {
+			return Trim.trimRight(entry.getCanonicalPath(), '/').concat("/");
+		} else if (isFile()) {
+			return Trim.trimRight(entry.getCanonicalPath(), '/');
+		} else {
+			return url;
+		}
 	}
 
 	@Override
@@ -60,7 +72,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 		try {
 			return entry.exists();
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -68,9 +80,13 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 	public void delete() {
 
 		try {
+			if (isDirectory()) {
+				asDirectoryOrThrow().listFiles().forEach(ISmbFile::delete);
+				asDirectoryOrThrow().listDirectories().forEach(ISmbDirectory::delete);
+			}
 			entry.delete();
-		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+		} catch (IOException exception) {
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -80,7 +96,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 		try {
 			return DayTime.fromDate(new Date(entry.lastModified()));
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -94,14 +110,13 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 	public long getFreeDiskSpace() {
 
 		try {
-			return entry.getDiskFreeSpace();
+			if (entry.exists()) {
+				return entry.getDiskFreeSpace();
+			} else {
+				return 0;
+			}
 		} catch (SmbException exception) {
-			// TODO Questionable behavior:
-			// TODO Why would we assume 0 instead of (quasi-)infinite space in this case?
-			// TODO Why would we even catch this?
-			Log.ferror("Could not determine free disk space of share.");
-			DevNull.swallow(exception);
-			return 0;
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -111,7 +126,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 		try {
 			return entry.isFile();
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -121,7 +136,7 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 		try {
 			return entry.isDirectory();
 		} catch (SmbException exception) {
-			throw new SofticarIOException(exception);
+			throw new SmbIOException(exception);
 		}
 	}
 
@@ -162,6 +177,25 @@ public class JcifsNgSmbEntry implements ISmbEntry {
 
 	protected String concatUrl(String prefix, String suffix) {
 
-		return Trim.trimRight(prefix, '/') + "/" + Trim.trimLeft(suffix, '/');
+		Objects.requireNonNull(suffix);
+		String url = Trim.trimRight(prefix, '/') + "/" + Trim.trimLeft(suffix, '/');
+		return assertValidSmbUrl(url);
+	}
+
+	protected String assertValidSmbUrl(String url) {
+
+		Objects.requireNonNull(url);
+		if (!url.startsWith(SMB_PROTOCOL_PREFIX)) {
+			throw new IllegalArgumentException("The URL must start with 'smb://'.");
+		}
+		assertNoAdjacentSlashes(url.substring(SMB_PROTOCOL_PREFIX.length(), url.length()));
+		return url;
+	}
+
+	private void assertNoAdjacentSlashes(String urlToken) {
+
+		if (urlToken.contains("//")) {
+			throw new IllegalArgumentException("The URL must not contain adjacent slashes after the protocol prefix.");
+		}
 	}
 }

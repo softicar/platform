@@ -9,9 +9,9 @@ public class EmfDataTableTestUtilTest extends Assert {
 	@Test
 	public void testCalculateTotalPageCount() {
 
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(-1, 1));
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(0, 0));
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(0, -1));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(-1, 1));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(0, 0));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateTotalPageCount(0, -1));
 		assertEquals(0, EmfDataTableTestUtil.calculateTotalPageCount(0, 18));
 		assertEquals(1, EmfDataTableTestUtil.calculateTotalPageCount(1, 18));
 		assertEquals(1, EmfDataTableTestUtil.calculateTotalPageCount(17, 18));
@@ -26,9 +26,9 @@ public class EmfDataTableTestUtilTest extends Assert {
 	@Test
 	public void testCalculateNumberOfRowsOnLastPage() {
 
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(-1, 1));
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(0, 0));
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(0, -1));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(-1, 1));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(0, 0));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(0, -1));
 		assertEquals(0, EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(0, 18));
 		assertEquals(1, EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(1, 18));
 		assertEquals(17, EmfDataTableTestUtil.calculateNumberOfRowsOnLastPage(17, 18));
@@ -42,7 +42,7 @@ public class EmfDataTableTestUtilTest extends Assert {
 	@Test
 	public void testCalculateRowCountOnPage() {
 
-		Asserts.assertThrows(Exception.class, () -> EmfDataTableTestUtil.calculateRowCountOnPage(2, 2, 1));
+		Asserts.assertException(Exception.class, () -> EmfDataTableTestUtil.calculateRowCountOnPage(2, 2, 1));
 		assertEquals(1, EmfDataTableTestUtil.calculateRowCountOnPage(0, 1, 18));
 		assertEquals(17, EmfDataTableTestUtil.calculateRowCountOnPage(0, 17, 18));
 		assertEquals(18, EmfDataTableTestUtil.calculateRowCountOnPage(0, 18, 18));

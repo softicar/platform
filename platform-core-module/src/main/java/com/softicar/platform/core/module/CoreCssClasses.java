@@ -5,6 +5,8 @@ import com.softicar.platform.dom.style.ICssClass;
 
 public interface CoreCssClasses {
 
+	ICssClass STORED_FILE_PREVIEW_IMAGE = new CssClass("StoredFilePreviewImage", CoreCssFiles.STORED_FILE_STYLE);
+	ICssClass STORED_FILE_PREVIEW_IMAGE_DIV = new CssClass("StoredFilePreviewImageDiv", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_DIV = new CssClass("StoredFileUploadDiv", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_INPUT = new CssClass("StoredFileUploadInput", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_TABLE_DIV = new CssClass("StoredFileUploadTableDiv", CoreCssFiles.STORED_FILE_STYLE);

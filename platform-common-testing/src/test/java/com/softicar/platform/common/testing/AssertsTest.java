@@ -7,9 +7,9 @@ import org.junit.Test;
 public class AssertsTest {
 
 	@Test
-	public void testAssertThrows() {
+	public void testAssertException() {
 
-		Asserts.assertThrows(NumberFormatException.class, () -> Integer.parseInt("foo"));
+		Asserts.assertException(NumberFormatException.class, () -> Integer.parseInt("foo"));
 	}
 
 	@Test

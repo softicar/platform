@@ -34,7 +34,7 @@ public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoModuleT
 		var popup = findEmfDataTable(AGDemoInvoice.TABLE).openFilterPopup(AGDemoInvoice.GROSS_AMOUNT_FIELD);
 		popup.setInputValue(EmfDataTableDivMarker.FILTER_INPUT_VALUE, "x");
 
-		assertExceptionMessage(DomI18n.INVALID_DECIMAL_NUMBER, () -> popup.clickNode(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON));
+		assertException(() -> popup.clickNode(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON), DomI18n.INVALID_DECIMAL_NUMBER);
 	}
 
 	@Test

@@ -1119,15 +1119,15 @@ public class EmfTokenMatrixParserTest extends AbstractDbTest {
 	private void parseToException(TokenRow tokenRow, String containedMessage) {
 
 		assertExceptionMessageContains(//
-			IDisplayString.create(containedMessage),
-			() -> parse(tokenRow));
+			() -> parse(tokenRow),
+			IDisplayString.create(containedMessage));
 	}
 
 	private void parseToException(List<String> tokenList, String containedMessage) {
 
 		assertExceptionMessageContains(//
-			IDisplayString.create(containedMessage),
-			() -> parse(tokenList));
+			() -> parse(tokenList),
+			IDisplayString.create(containedMessage));
 	}
 
 	private <V> void assertValue(IDbField<TestObject, V> field, V expected) {
