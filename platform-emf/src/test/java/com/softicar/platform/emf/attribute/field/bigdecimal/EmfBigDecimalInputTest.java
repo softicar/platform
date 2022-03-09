@@ -1,6 +1,8 @@
 package com.softicar.platform.emf.attribute.field.bigdecimal;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
@@ -33,7 +35,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	// ------------------------------ getValueOrThrow ------------------------------ //
 
 	@Test
-	public void testGetValueOrThrowWithoutScale() {
+	public void testGetValueWithoutScale() {
 
 		enterInputValue("10").assertGetValue("10");
 		enterInputValue("12").assertGetValue("12");
@@ -42,7 +44,7 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	}
 
 	@Test
-	public void testGetValueOrThrowWithScale() {
+	public void testGetValueWithScale() {
 
 		input.setScale(2);
 
@@ -64,17 +66,22 @@ public class EmfBigDecimalInputTest extends AbstractTest implements IEmfTestEngi
 	}
 
 	@Test
-	public void testGetValueOrThrowWithIllegalFormat() {
+	public void testGetValueWithIllegalFormat() {
 
 		enterInputValue("x").assertException(EmfI18n.INVALID_DECIMAL_NUMBER);
 		enterInputValue("12.3x").assertException(EmfI18n.INVALID_DECIMAL_NUMBER);
 	}
 
 	@Test
-	public void testGetValueOrThrowWithFormatQuirks() {
+	public void testGetValueWithCustomLocale() {
 
-		enterInputValue("12,34").assertGetValue("12.34");
-		enterInputValue(" 12.34 ").assertGetValue("12.34");
+		var locale = new Locale()//
+			.setDecimalSeparator(",")
+			.setDigitGroupSeparator(".");
+
+		try (var scope = new LocaleScope(locale)) {
+			enterInputValue("1.234.567,89").assertGetValue("1234567.89");
+		}
 	}
 
 	// ------------------------------ setValue ------------------------------ //

@@ -1,5 +1,7 @@
 package com.softicar.platform.dom.elements.number.decimal;
 
+import com.softicar.platform.common.core.number.formatter.BigDecimalFormatter;
+import com.softicar.platform.common.core.number.parser.BigDecimalParser;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
 import com.softicar.platform.dom.input.DomInputException;
@@ -27,14 +29,14 @@ public class DomBigDecimalInput extends AbstractDomNumberInput<BigDecimal> {
 	@Override
 	protected String formatValue(BigDecimal value) {
 
-		return value.toPlainString();
+		return new BigDecimalFormatter(value).format();
 	}
 
 	@Override
 	protected BigDecimal parseValue(String text) {
 
 		try {
-			return new BigDecimal(text.replace(",", "."));
+			return new BigDecimalParser(text).parseOrThrow();
 		} catch (Exception exception) {
 			throw new DomInputException(exception, DomI18n.INVALID_DECIMAL_NUMBER);
 		}
