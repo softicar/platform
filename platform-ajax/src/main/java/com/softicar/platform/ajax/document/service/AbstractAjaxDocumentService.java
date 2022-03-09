@@ -47,8 +47,7 @@ public abstract class AbstractAjaxDocumentService extends AbstractAjaxService {
 		try {
 			payloadCode.apply();
 		} catch (Exception exception) {
-			IDisplayString message = getDisplayMessage(exception);
-			document.getBody().executeAlert(message);
+			document.getBody().executeAlert(getDisplayMessage(exception));
 			framework.getAjaxStrategy().logException(exception, request);
 		}
 	}
