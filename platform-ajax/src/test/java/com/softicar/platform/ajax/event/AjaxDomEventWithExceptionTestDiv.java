@@ -14,7 +14,7 @@ class AjaxDomEventWithExceptionTestDiv extends DomDiv {
 	public AjaxDomEventWithExceptionTestDiv() {
 
 		this.softicarUserExceptionButton = appendChild(new TestButton(this::appendTextAndThrowSofticarUserException));
-		this.nonSofticarUserExceptionButton = appendChild(new TestButton(this::throwNonSofticarUserException));
+		this.nonSofticarUserExceptionButton = appendChild(new TestButton(this::appendTextAndThrowNonSofticarUserException));
 		this.output = appendChild(new DomDiv());
 	}
 
@@ -35,13 +35,13 @@ class AjaxDomEventWithExceptionTestDiv extends DomDiv {
 
 	private void appendTextAndThrowSofticarUserException() {
 
-		output.setAttribute("name", "foo");
 		output.appendText("Hello");
 		throw new SofticarUserException(IDisplayString.create("Exception Text"));
 	}
 
-	private void throwNonSofticarUserException() {
+	private void appendTextAndThrowNonSofticarUserException() {
 
+		output.appendText("Hello");
 		throw new RuntimeException("Exception Text");
 	}
 }
