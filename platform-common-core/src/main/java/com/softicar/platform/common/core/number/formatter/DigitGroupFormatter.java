@@ -1,5 +1,7 @@
 package com.softicar.platform.common.core.number.formatter;
 
+import com.softicar.platform.common.core.string.Strings;
+
 /**
  * Adds digit group separators to a given number string.
  *
@@ -7,7 +9,7 @@ package com.softicar.platform.common.core.number.formatter;
  */
 class DigitGroupFormatter {
 
-	private static final int DIGIT_GROUP_SIZE = 3;
+	private static final int DIGIT_GROUP_SIZE = BigDecimalFormatter.getDigitGroupSize();
 	private final String reversedNumber;
 	private final String reversedSeparator;
 	private StringBuilder builder;
@@ -24,8 +26,8 @@ class DigitGroupFormatter {
 	 */
 	public DigitGroupFormatter(String numberString, String separator) {
 
-		this.reversedNumber = new StringBuilder(numberString).reverse().toString();
-		this.reversedSeparator = new StringBuilder(separator).reverse().toString();
+		this.reversedNumber = Strings.reversed(numberString);
+		this.reversedSeparator = Strings.reversed(separator);
 	}
 
 	public String format() {
@@ -44,17 +46,12 @@ class DigitGroupFormatter {
 
 	private void addDigitGroup() {
 
-		builder.append(clampedSubstring(reversedNumber, index, index + DIGIT_GROUP_SIZE));
+		builder.append(Strings.substringClamped(reversedNumber, index, index + DIGIT_GROUP_SIZE));
 		index += DIGIT_GROUP_SIZE;
 	}
 
 	private void addSeparator() {
 
 		builder.append(reversedSeparator);
-	}
-
-	private static String clampedSubstring(String string, int begin, int end) {
-
-		return string.substring(Math.max(begin, 0), Math.min(end, string.length()));
 	}
 }
