@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.i18n.key.AbstractI18nKey;
 import com.softicar.platform.common.core.i18n.key.II18nKey;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
+import java.math.BigDecimal;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,6 +66,28 @@ public class I18nKeyDisplayStringTest extends Assert {
 		addFallback(key, "fallback %s!");
 
 		assertEquals("bar 1337!", new I18nKeyDisplayString(key, 1337).toString());
+	}
+
+	@Test
+	public void testWithBigDecimalParameters() {
+
+		var englishLocale = new Locale()//
+			.setLanguage(LanguageEnum.ENGLISH)
+			.setDecimalSeparator(".")
+			.setDigitGroupSeparator(",");
+		var germanLocale = new Locale()//
+			.setLanguage(LanguageEnum.GERMAN)
+			.setDecimalSeparator(",")
+			.setDigitGroupSeparator(".");
+
+		II18nKey key = new TestKey("english %s!").de("german %s!");
+
+		try (var scope = new LocaleScope(englishLocale)) {
+			assertEquals("english 1,234,567.89!", new I18nKeyDisplayString(key, new BigDecimal("1234567.89")).toString());
+		}
+		try (var scope = new LocaleScope(germanLocale)) {
+			assertEquals("german 1.234.567,89!", new I18nKeyDisplayString(key, new BigDecimal("1234567.89")).toString());
+		}
 	}
 
 	// ------------------------------ private ------------------------------ //
