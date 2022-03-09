@@ -2,9 +2,12 @@ package com.softicar.platform.core.module.page.service;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
+import com.softicar.platform.core.module.language.AGCoreLanguage;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.PageDiv;
 import com.softicar.platform.core.module.page.PageResources;
 import com.softicar.platform.core.module.page.navigation.PageNavigationResources;
@@ -45,6 +48,10 @@ public class PageServiceDocumentBuilder {
 		} else {
 			registerCss(PageResources.PAGE_STYLE);
 			registerCss(PageNavigationResources.PAGE_NAVIGATION_STYLE);
+			Optional//
+				.ofNullable(AGCoreModuleInstance.getInstance().getDefaultLanguage())
+				.flatMap(AGCoreLanguage::getLanguageEnum)
+				.ifPresent(it -> CurrentLocale.set(new Locale().setLanguage(it)));
 			document.getEngine().setDocumentTitle(CoreI18n.LOGIN.toString());
 			document.appendToBody(new PageServiceLoginDiv(this));
 			document.getBody().focusFirst();

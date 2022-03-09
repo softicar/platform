@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.user;
 
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.user.password.UserResetPasswordAction;
 import com.softicar.platform.core.module.user.pseudonymization.UserPseudonymizationAction;
@@ -10,6 +11,7 @@ import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
@@ -42,8 +44,13 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 	public void customizeAttributeProperties(IEmfAttributeList<AGUser> attributes) {
 
 		attributes.editAttribute(AGUser.SYSTEM_USER).setImmutable(true);
-
 		attributes.addTransientAttribute(AGUser.LAST_LOGIN);
+	}
+
+	@Override
+	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGUser, SystemModuleInstance> defaultValueSet) {
+
+		defaultValueSet.setSupplier(AGUser.PREFERRED_LANGUAGE, () -> AGCoreModuleInstance.getInstance().getDefaultLanguage());
 	}
 
 	@Override
