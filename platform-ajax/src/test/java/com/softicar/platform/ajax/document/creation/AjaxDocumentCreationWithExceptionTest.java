@@ -1,6 +1,8 @@
 package com.softicar.platform.ajax.document.creation;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -42,7 +44,7 @@ public class AjaxDocumentCreationWithExceptionTest extends AbstractAjaxSeleniumL
 			testContent.appendText("Hello");
 			appendChild(testContent);
 
-			throw new RuntimeException("Exception Text");
+			throw new SofticarUserException(IDisplayString.create("Exception Text"));
 		}
 	}
 }
