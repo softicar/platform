@@ -34,6 +34,7 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGUser.FIRST_NAME, "System")
 			.set(AGUser.LAST_NAME, "User")
 			.set(AGUser.EMAIL_ADDRESS, "system.user@example.com")
+			.set(AGUser.PREFERRED_LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
 			.set(AGUser.SYSTEM_USER, true)
 			.execute();
 		return AGUser.TABLE.getStub(userId);
