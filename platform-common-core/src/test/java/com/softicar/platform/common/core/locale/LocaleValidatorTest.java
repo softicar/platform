@@ -44,10 +44,10 @@ public class LocaleValidatorTest extends Assert {
 
 		for (var character: List.of("+", "-", "e", "E")) {
 			assertValidationException(//
-				CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_THESE_CHARACTERS_ARG1.toDisplay("+-eE"),
+				CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay("+-eE"),
 				new Locale().setDecimalSeparator(character));
 			assertValidationException(//
-				CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_THESE_CHARACTERS_ARG1.toDisplay("+-eE"),
+				CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay("+-eE"),
 				new Locale().setDigitGroupSeparator(character));
 		}
 	}

@@ -16,7 +16,7 @@ class I18nKeyDisplayString extends AbstractDisplayString {
 	public I18nKeyDisplayString(II18nKey key, Object...arguments) {
 
 		this.key = key;
-		this.arguments = new I18nFormatArgumentsProcessor(arguments).process();
+		this.arguments = new I18nFormatArgumentsLocalizer(arguments).localize();
 	}
 
 	@Override
