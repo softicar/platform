@@ -1,47 +1,75 @@
 package com.softicar.platform.ajax.event;
 
+import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertMarker;
+import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
+import com.softicar.platform.dom.node.IDomNode;
 import org.junit.Test;
 
 public class AjaxDomEventWithExceptionTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private final AjaxDomEventWithExceptionTestDiv testDiv;
-	private final TestButton button;
+	private final TestButton softicarUserExceptionButton;
+	private final TestButton nonSofticarUserExceptionButton;
 	private final DomDiv output;
 
 	public AjaxDomEventWithExceptionTest() {
 
 		this.testDiv = openTestNode(AjaxDomEventWithExceptionTestDiv::new);
-		this.button = testDiv.getButton();
+		this.softicarUserExceptionButton = testDiv.getSofticarUserExceptionButton();
+		this.nonSofticarUserExceptionButton = testDiv.getNonSofticarUserExceptionButton();
 		this.output = testDiv.getOutput();
 	}
 
 	@Test
-	public void test() {
+	public void testWithSofticarUserException() {
 
-		// check that the document was created properly
-		assertEquals("", getText(output));
+		validateWithButton(softicarUserExceptionButton, "Exception Text");
+	}
 
-		// click exception-throwing button
-		click(button);
-		waitForServer();
+	@Test
+	public void testWithNonSofticarUserException() {
 
-		// assert modal alert is displayed
-		var alert = findModalAlertOrFail();
-		assertFocused(DomModalAlertMarker.CLOSE_BUTTON);
-		assertEquals("Exception Text", getText(alert.getContent()));
+		validateWithButton(nonSofticarUserExceptionButton, AjaxI18n.AN_INTERNAL_PROGRAM_ERROR_OCCURRED.toString());
+	}
 
-		// close modal alert
-		click(alert.getCloseButton());
-		waitForServer();
+	private void validateWithButton(TestButton appendingTextAndExceptionThrowingButton, String expectedModalAlertMessage) {
 
-		// assert modal alert is gone
+		// validate that there is no text appended
+		validateDocumentContent("");
+
+		clickButtonAndWaitForServer(appendingTextAndExceptionThrowingButton);
+
+		IDomModalAlertNodes<IDomNode> alert = validateModalAlert(expectedModalAlertMessage);
+
+		clickButtonAndWaitForServer(alert.getCloseButton());
+
+		// assert modal dialog is gone
 		assertNoModalDialog();
 
-		// assert text that was appended before the Exception occurred is displayed
-		assertEquals("Hello", getText(output));
+		// validate text that was appended just before exception was triggered
+		validateDocumentContent("Hello");
+	}
+
+	private void validateDocumentContent(String expectedContent) {
+
+		assertEquals(expectedContent, getText(output));
+	}
+
+	private void clickButtonAndWaitForServer(IDomNode button) {
+
+		click(button);
+		waitForServer();
+	}
+
+	private IDomModalAlertNodes<IDomNode> validateModalAlert(String expectedModalAlertMessage) {
+
+		IDomModalAlertNodes<IDomNode> alert = findModalAlertOrFail();
+		assertFocused(DomModalAlertMarker.CLOSE_BUTTON);
+		assertEquals(expectedModalAlertMessage, getText(alert.getContent()));
+		return alert;
 	}
 }

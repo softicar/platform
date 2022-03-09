@@ -200,6 +200,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wochentag des DBMS-Wartungsfensters");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
+	I18n0 DEFAULT_LANGUAGE = new I18n0("Default Language")//
+		.de("Standardsprache");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =

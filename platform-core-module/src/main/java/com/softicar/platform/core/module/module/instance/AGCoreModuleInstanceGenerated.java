@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
+import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
@@ -42,6 +43,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModule
 	public static final IDbStringField<AGCoreModuleInstance> PORTAL_HOST = BUILDER.addStringField("portalHost", o->o.m_portalHost, (o,v)->o.m_portalHost=v).setTitle(CoreI18n.PORTAL_HOST).setDefault("www.example.com").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> PORTAL_APPLICATION = BUILDER.addStringField("portalApplication", o->o.m_portalApplication, (o,v)->o.m_portalApplication=v).setTitle(CoreI18n.PORTAL_APPLICATION).setDefault("portal").setMaximumLength(255);
 	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null);
+	public static final IDbForeignField<AGCoreModuleInstance, AGCoreLanguage> DEFAULT_LANGUAGE = BUILDER.addForeignField("defaultLanguage", o->o.m_defaultLanguage, (o,v)->o.m_defaultLanguage=v, AGCoreLanguage.ID).setTitle(CoreI18n.DEFAULT_LANGUAGE).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGCoreModuleInstance> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setDefault(false);
 	public static final IDbKey<AGCoreModuleInstance> IK_PRIMARY_FILE_SERVER = BUILDER.addIndexKey("primaryFileServer", PRIMARY_FILE_SERVER);
 	public static final IDbKey<AGCoreModuleInstance> IK_SYSTEM_USER = BUILDER.addIndexKey("systemUser", SYSTEM_USER);
@@ -173,6 +175,21 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModule
 		return setValue(PORTAL_LOGO, value);
 	}
 
+	public final Integer getDefaultLanguageID() {
+
+		return getValueId(DEFAULT_LANGUAGE);
+	}
+
+	public final AGCoreLanguage getDefaultLanguage() {
+
+		return getValue(DEFAULT_LANGUAGE);
+	}
+
+	public final AGCoreModuleInstance setDefaultLanguage(AGCoreLanguage value) {
+
+		return setValue(DEFAULT_LANGUAGE, value);
+	}
+
 	public final Boolean isTestSystem() {
 
 		return getValue(TEST_SYSTEM);
@@ -203,6 +220,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModule
 	private String m_portalHost;
 	private String m_portalApplication;
 	private AGStoredFile m_portalLogo;
+	private AGCoreLanguage m_defaultLanguage;
 	private Boolean m_testSystem;
 }
 
