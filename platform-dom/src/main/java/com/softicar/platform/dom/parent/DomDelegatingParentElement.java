@@ -3,6 +3,7 @@ package com.softicar.platform.dom.parent;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomDelegatingElement;
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.List;
@@ -159,5 +160,17 @@ public abstract class DomDelegatingParentElement extends DomDelegatingElement im
 	public void focusFirst() {
 
 		getTargetParentElement().focusFirst();
+	}
+
+	@Override
+	public void listenToEvent(DomEventType type) {
+
+		getTargetParentElement().listenToEvent(type);
+	}
+
+	@Override
+	public void unlistenToEvent(DomEventType type) {
+
+		getTargetParentElement().unlistenToEvent(type);
 	}
 }
