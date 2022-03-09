@@ -13,6 +13,7 @@ public interface DomCssPseudoClasses {
 	ICssClass INFO = new CssClass("info");
 	ICssClass INVISIBLE = new CssClass("invisible");
 	ICssClass PRECOLORED = new CssClass("precolored");
+	ICssClass ROTATED = new CssClass("rotated");
 	ICssClass SELECTED = new CssClass("selected");
 	ICssClass SUCCESS = new CssClass("success");
 	ICssClass WARNING = new CssClass("warning");

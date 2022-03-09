@@ -4,6 +4,12 @@ import com.softicar.platform.common.core.i18n.I18n0;
 
 public interface CommonCoreI18n {
 
+	I18n0 DIGIT_GROUP_TOO_LONG = new I18n0("Digit group too long.")//
+		.de("Zifferngruppe zu lang.");
+	I18n0 DIGIT_GROUP_TOO_SHORT = new I18n0("Digit group too short.")//
+		.de("Zifferngruppe zu kurz.");
+	I18n0 THE_DECIMAL_PART_MUST_NOT_CONTAIN_DIGIT_GROUP_SEPARATORS = new I18n0("The decimal part must not contain digit group separators.")//
+		.de("Der Dezimalteil darf keine Zifferngruppentrennzeichen enthalten.");
 	I18n0 THE_DECIMAL_SEPARATOR_MAY_NOT_BE_EMPTY = new I18n0("The decimal separator may not be empty.")//
 		.de("Das Dezimaltrennzeichen darf nicht leer sein.");
 	I18n0 THE_DECIMAL_SEPARATOR_MUST_BE_DIFFERENT_FROM_THE_DIGIT_GROUP_SEPARATOR =
