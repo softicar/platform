@@ -91,8 +91,6 @@ public interface DomI18n {
 				.de("Falls kein explizites Format definiert wurde, wird eine rein-textuelle Konvertierung vorgenommen.");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
 		.de("Ungültige Dezimalzahl.");
-	I18n0 INVALID_FLOATING_POINT_NUMBER = new I18n0("Invalid floating-point number.")//
-		.de("Ungültige Fließkommazahl.");
 	I18n0 INVALID_INTEGER = new I18n0("Invalid integer.")//
 		.de("Ungültige Ganzzahl.");
 	I18n0 MEMORY_CONSUMPTION_IS_TOO_HIGH = new I18n0("Memory consumption is too high.")//
@@ -111,6 +109,8 @@ public interface DomI18n {
 		.de("nichts");
 	I18n0 OK = new I18n0("OK")//
 		.de("OK");
+	I18n1 ONLY_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("Only %s decimal places allowed.")//
+		.de("Nur %s Dezimalstellen erlaubt.");
 	I18n0 ONLY_ONE_OPTION_MAY_BE_SELECTED = new I18n0("Only one option may be selected.")//
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//

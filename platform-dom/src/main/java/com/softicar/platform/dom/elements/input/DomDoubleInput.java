@@ -1,5 +1,7 @@
 package com.softicar.platform.dom.elements.input;
 
+import com.softicar.platform.common.core.number.BigDecimalMapper;
+import com.softicar.platform.dom.elements.number.decimal.DomDecimalInput;
 import com.softicar.platform.dom.input.DomTextInput;
 
 /**
@@ -7,10 +9,10 @@ import com.softicar.platform.dom.input.DomTextInput;
  *
  * @author Oliver Richers
  */
-public class DomDoubleInput extends DomFloatingPointInput<Double> {
+public class DomDoubleInput extends DomDecimalInput<Double> {
 
 	public DomDoubleInput() {
 
-		super(Double::valueOf);
+		super(BigDecimalMapper.DOUBLE);
 	}
 }

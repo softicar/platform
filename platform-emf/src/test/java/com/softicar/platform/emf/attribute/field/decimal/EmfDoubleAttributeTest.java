@@ -1,10 +1,13 @@
-package com.softicar.platform.emf.attribute.field.floating;
+package com.softicar.platform.emf.attribute.field.decimal;
 
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.db.runtime.field.IDbDoubleField;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.attribute.field.decimal.EmfDoubleAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import org.junit.Test;
@@ -47,10 +50,14 @@ public class EmfDoubleAttributeTest extends AbstractEmfTest {
 	@Test
 	public void testGetValueWithCommaAsDecimalSeparator() {
 
-		inputTester.setInputValue("3,14");
-		Double value = input.getValue().get();
+		var locale = new Locale().setDecimalSeparator(",");
 
-		assertEquals(3.14, value, 0.01);
+		try (var scope = new LocaleScope(locale)) {
+			inputTester.setInputValue("3,14");
+			Double value = input.getValue().get();
+
+			assertEquals(3.14, value, 0.01);
+		}
 	}
 
 	@Test(expected = DomInputException.class)

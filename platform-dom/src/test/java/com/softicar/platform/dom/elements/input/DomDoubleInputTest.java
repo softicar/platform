@@ -23,12 +23,11 @@ public class DomDoubleInputTest extends AbstractDomValueInputTest<Double> {
 		assertResultForGetValue(123.0, "123");
 		assertResultForGetValue(-123.45, "-123.45");
 		assertResultForGetValue(3.12345678, "3.12345678");
-		assertResultForGetValue(3.12345678, "3,12345678");
 
 		// test illegal inputs
-		assertExceptionForGetValue(DomI18n.INVALID_FLOATING_POINT_NUMBER, "foo");
-		assertExceptionForGetValue(DomI18n.INVALID_FLOATING_POINT_NUMBER, "3.4.2");
-		assertExceptionForGetValue(DomI18n.INVALID_FLOATING_POINT_NUMBER, "3;2");
-		assertExceptionForGetValue(DomI18n.INVALID_FLOATING_POINT_NUMBER, "3 2");
+		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "foo");
+		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3.4.2");
+		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3;2");
+		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3 2");
 	}
 }
