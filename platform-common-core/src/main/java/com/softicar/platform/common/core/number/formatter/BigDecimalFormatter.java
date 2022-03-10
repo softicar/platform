@@ -59,6 +59,12 @@ public class BigDecimalFormatter {
 		}
 	}
 
+	@Override
+	public String toString() {
+
+		return format();
+	}
+
 	private String formatIntegralPart(String integralPart) {
 
 		return getSign() + new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();
