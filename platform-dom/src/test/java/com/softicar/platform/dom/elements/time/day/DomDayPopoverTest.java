@@ -5,12 +5,16 @@ import com.softicar.platform.common.core.clock.TestClock;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.elements.AbstractDomValueSelect;
 import com.softicar.platform.dom.elements.DomCell;
+import com.softicar.platform.dom.elements.DomValueOption;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.DomTextInput;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +27,7 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 
 	public DomDayPopoverTest() {
 
-		setNodeSupplier(() -> new DomDayInput(testDay));
+		setNodeSupplier(() -> new DomDayInput(null));
 		CurrentClock.set(new TestClock().setInstant(testDay.toDate().toInstant()));
 	}
 
@@ -41,7 +45,7 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 	}
 
 	@Test
-	public void testPopupButton() {
+	public void testPopoverButton() {
 
 		findNode(DomButton.class).click();
 		findNodes(DomPopover.class).assertOne();
@@ -53,11 +57,19 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 		findNode(DomButton.class).click();
 		findNode(DomPopover.class).clickNode(DomI18n.TODAY);
 
-		assertPopupClosedAndSelectedDay(testDay);
+		assertPopoverClosedAndSelectedDay(testDay);
 	}
 
 	@Test
-	public void testDaySelectionButton() {
+	public void testEscapeToClosePopover() {
+
+		findNode(DomButton.class).click();
+		findNode(DomPopupFrame.class).sendEvent(DomEventType.ESCAPE);
+		assertPopoverClosedAndSelectedDay(null);
+	}
+
+	@Test
+	public void testDaySelectionCell() {
 
 		findNode(DomButton.class).click();
 		findNode(DomPopover.class)//
@@ -65,12 +77,63 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 			.withText("" + testDay.getNext().getIndexWithinMonth())
 			.assertOne()
 			.click();
-		assertPopupClosedAndSelectedDay(testDay.getNext());
+		assertPopoverClosedAndSelectedDay(testDay.getNext());
 	}
 
-	private void assertPopupClosedAndSelectedDay(Day selectedDay) {
+	@Test
+	public void testCorrectDaySelectedWhenInputIsEmpty() {
+
+		findNode(DomButton.class).click();
+		assertEquals(testDay, getDomDayChooserDiv().getDay());
+	}
+
+	@Test
+	public void testCorrectDaySelectedWhenInputIsNotEmpty() {
+
+		findNode(DomTextInput.class).setInputValue(testDay.getNext().toString());
+		findNode(DomButton.class).click();
+		assertEquals(testDay.getNext(), getDomDayChooserDiv().getDay());
+	}
+
+	@Test
+	public void testCorrectDaySelectedWhenInputContainsGarbage() {
+
+		findNode(DomTextInput.class).setInputValue("2022-02-30");
+		findNode(DomButton.class).click();
+		assertEquals(testDay, getDomDayChooserDiv().getDay());
+	}
+
+	@Test
+	public void testCorrectDaySelectedWhenChangingYearAndMonthAndDismissingPopover() {
+
+		findNode(DomButton.class).click();
+		findNodes(AbstractDomValueSelect.class)//
+			.first()
+			.click()
+			.findNodes(DomValueOption.class)
+			.withText("2023")
+			.assertOne()
+			.click();
+		findNodes(AbstractDomValueSelect.class)//
+			.last()
+			.click()
+			.findNodes(DomValueOption.class)
+			.first()
+			.click();
+		findNode(DomPopupFrame.class).sendEvent(DomEventType.ESCAPE);
+		assertPopoverClosedAndSelectedDay(null);
+	}
+
+	private DomDayChooserDiv getDomDayChooserDiv() {
+
+		return findNode(DomPopover.class)//
+			.findNode(DomDayChooserDiv.class)
+			.assertType(DomDayChooserDiv.class);
+	}
+
+	private void assertPopoverClosedAndSelectedDay(Day selectedDay) {
 
 		findNodes(DomPopover.class).assertNone();
-		assertEquals(selectedDay.toString(), findNode(DomTextInput.class).getInputValue());
+		assertEquals(selectedDay != null? selectedDay.toString() : "", findNode(DomTextInput.class).getInputValue());
 	}
 }
