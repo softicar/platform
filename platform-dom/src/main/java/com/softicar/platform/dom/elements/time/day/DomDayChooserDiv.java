@@ -253,10 +253,13 @@ public class DomDayChooserDiv extends DomDiv {
 
 			setIcon(DomElementsImages.CALENDAR_TODAY.getResource());
 			setLabel(DomI18n.TODAY);
-			setClickCallback(() -> {
-				setDay(Day.today());
-				dayConsumer.accept(selectedDay);
-			});
+			setClickCallback(this::setToCurrentDay);
+		}
+
+		private void setToCurrentDay() {
+
+			setDay(Day.today());
+			dayConsumer.accept(selectedDay);
 		}
 	}
 }
