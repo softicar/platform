@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 
 public class LocaleValidator {
 
+	private final static String ILLEGAL_SEPARATOR_CHARACTERS = "+-eE";
 	private final ILocale locale;
 
 	public LocaleValidator(ILocale locale) {
@@ -29,12 +30,32 @@ public class LocaleValidator {
 		if (containsNumbers(locale.getDigitGroupSeparator())) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_DIGITS);
 		}
+
+		if (containsIllegalCharacters(locale.getDecimalSeparator())) {
+			throw new SofticarUserException(
+				CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay(ILLEGAL_SEPARATOR_CHARACTERS));
+		}
+
+		if (containsIllegalCharacters(locale.getDigitGroupSeparator())) {
+			throw new SofticarUserException(
+				CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay(ILLEGAL_SEPARATOR_CHARACTERS));
+		}
 	}
 
 	private boolean containsNumbers(String text) {
 
 		for (int i = 0; i < text.length(); i++) {
 			if (Character.isDigit(text.charAt(i))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean containsIllegalCharacters(String text) {
+
+		for (int i = 0; i < text.length(); i++) {
+			if (ILLEGAL_SEPARATOR_CHARACTERS.contains("" + text.charAt(i))) {
 				return true;
 			}
 		}
