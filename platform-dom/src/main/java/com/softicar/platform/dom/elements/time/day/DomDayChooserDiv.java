@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.time.day;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.Month;
 import com.softicar.platform.common.date.MonthName;
@@ -24,6 +25,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
+import java.util.function.Consumer;
 
 /**
  * A {@link DomDiv} for choosing a day.
@@ -35,25 +37,14 @@ public class DomDayChooserDiv extends DomDiv {
 	public static final int MINIMUM_YEAR = 1970;
 	public static final int YEARS_INTO_THE_FUTURE = 20;
 	private Day selectedDay;
-	private final boolean readOnly;
 	private final YearSelect yearSelect;
 	private final MonthSelect monthSelect;
 	private DayTable table;
-
-	public DomDayChooserDiv() {
-
-		this(Day.today(), false);
-	}
+	private Consumer<Day> dayConsumer = Consumers.noOperation();
 
 	public DomDayChooserDiv(Day selectedDay) {
 
-		this(selectedDay, false);
-	}
-
-	public DomDayChooserDiv(Day selectedDay, boolean readOnly) {
-
 		this.selectedDay = selectedDay == null? Day.today() : selectedDay;
-		this.readOnly = readOnly;
 		this.yearSelect = new YearSelect();
 		this.monthSelect = new MonthSelect();
 		appendChild(new DomActionBar(yearSelect, monthSelect, new TodayButton()));
@@ -73,6 +64,12 @@ public class DomDayChooserDiv extends DomDiv {
 	public Day getDay() {
 
 		return selectedDay;
+	}
+
+	public DomDayChooserDiv setDayConsumer(Consumer<Day> dayConsumer) {
+
+		this.dayConsumer = dayConsumer;
+		return this;
 	}
 
 	private class DayTable extends DomTable {
@@ -126,9 +123,7 @@ public class DomDayChooserDiv extends DomDiv {
 				if (day.equals(selectedDay)) {
 					addCssClass(DomCssPseudoClasses.SELECTED);
 				}
-				if (!readOnly) {
-					listenToEvent(DomEventType.CLICK);
-				}
+				listenToEvent(DomEventType.CLICK);
 			}
 
 			@Override
@@ -136,6 +131,7 @@ public class DomDayChooserDiv extends DomDiv {
 
 				selectedDay = day;
 				updateAll();
+				dayConsumer.accept(day);
 			}
 		}
 	}
@@ -158,12 +154,7 @@ public class DomDayChooserDiv extends DomDiv {
 
 			addValues(MonthName.values());
 			setSelectedValue(selectedDay.getMonth().getName());
-
-			if (readOnly) {
-				setEnabled(false);
-			} else {
-				listenToEvent(DomEventType.CHANGE);
-			}
+			listenToEvent(DomEventType.CHANGE);
 		}
 
 		@Override
@@ -201,12 +192,7 @@ public class DomDayChooserDiv extends DomDiv {
 		public YearSelect() {
 
 			setSelectedValue(selectedDay.getYear());
-
-			if (readOnly) {
-				setEnabled(false);
-			} else {
-				listenToEvent(DomEventType.CHANGE);
-			}
+			listenToEvent(DomEventType.CHANGE);
 		}
 
 		@Override
@@ -267,7 +253,13 @@ public class DomDayChooserDiv extends DomDiv {
 
 			setIcon(DomElementsImages.CALENDAR_TODAY.getResource());
 			setLabel(DomI18n.TODAY);
-			setClickCallback(() -> setDay(Day.today()));
+			setClickCallback(this::setToCurrentDay);
+		}
+
+		private void setToCurrentDay() {
+
+			setDay(Day.today());
+			dayConsumer.accept(selectedDay);
 		}
 	}
 }
