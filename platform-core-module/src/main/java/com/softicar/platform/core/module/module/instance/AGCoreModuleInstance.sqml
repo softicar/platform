@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.core.module.module.instance
 
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
-IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.locale.AGLocalizationPreset
 IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.user.AGUser
 
@@ -17,7 +17,7 @@ TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
 	String portalHost = 'www.example.com' [MAXLENGTH=255]
 	String portalApplication = 'portal' [MAXLENGTH=255]
 	AGStoredFile portalLogo = NULL [NULLABLE]
-	AGCoreLanguage defaultLanguage = NULL [NULLABLE]
+	AGLocalizationPreset defaultLocalization = NULL [NULLABLE]
 	Boolean testSystem = FALSE
 
 	IK primaryFileServer

@@ -1,6 +1,5 @@
 package com.softicar.platform.workflow.module.workflow.task;
 
-import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
@@ -22,7 +21,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	public void testWithEnglishLanguage() {
 
 		user//
-			.setPreferredLanguage(LanguageEnum.ENGLISH)
+			.setLocalization(insertLocalizationPresetUsa())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).submit();
@@ -40,7 +39,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	public void testWithGermanLanguage() {
 
 		user//
-			.setPreferredLanguage(LanguageEnum.GERMAN)
+			.setLocalization(insertLocalizationPresetGermany())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).submit();
@@ -59,7 +58,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 
 		AGUser differentUser = insertUser("Different User")//
 			.setEmailAddress("differentUser@example.com")
-			.setPreferredLanguage(LanguageEnum.GERMAN)
+			.setLocalization(insertLocalizationPresetGermany())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).setNotificationRecipient(differentUser).submit();

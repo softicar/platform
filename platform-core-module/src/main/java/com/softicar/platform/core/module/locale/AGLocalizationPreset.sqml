@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.locale
+
+IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+
+TABLE AGLocalizationPreset 'Core.LocalizationPreset' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+	
+	AGCoreLanguage language
+	String decimalSeparator = '.'
+	String digitGroupSeparator = ''
+	
+	UK name
+}

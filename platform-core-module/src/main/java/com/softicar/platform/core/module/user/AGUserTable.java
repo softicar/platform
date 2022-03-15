@@ -50,7 +50,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 	@Override
 	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGUser, SystemModuleInstance> defaultValueSet) {
 
-		defaultValueSet.setSupplier(AGUser.PREFERRED_LANGUAGE, () -> AGCoreModuleInstance.getInstance().getDefaultLanguage());
+		defaultValueSet.setSupplier(AGUser.LOCALIZATION, () -> AGCoreModuleInstance.getInstance().getDefaultLocalization());
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 			.addMapping(AGUser.FIRST_NAME, AGUserLog.FIRST_NAME)
 			.addMapping(AGUser.LAST_NAME, AGUserLog.LAST_NAME)
 			.addMapping(AGUser.EMAIL_ADDRESS, AGUserLog.EMAIL_ADDRESS)
-			.addMapping(AGUser.PREFERRED_LANGUAGE, AGUserLog.PREFERRED_LANGUAGE)
+			.addMapping(AGUser.LOCALIZATION, AGUserLog.LOCALIZATION)
 			.addMapping(AGUser.PASSWORD_POLICY, AGUserLog.PASSWORD_POLICY)
 			.addMapping(AGUser.ALLOWED_IP_RULE, AGUserLog.ALLOWED_IP_RULE);
 	}

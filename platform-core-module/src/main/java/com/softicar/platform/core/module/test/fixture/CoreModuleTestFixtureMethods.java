@@ -6,6 +6,8 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
 import com.softicar.platform.core.module.access.role.assignment.module.instance.AGModuleInstanceRoleAssignment;
 import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
+import com.softicar.platform.core.module.language.AGCoreLanguage;
+import com.softicar.platform.core.module.locale.AGLocalizationPreset;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -47,13 +49,33 @@ public interface CoreModuleTestFixtureMethods {
 			.setLastName(lastName)
 			.setLoginName(loginName)
 			.setEmailAddress(String.format("%s@test.com", loginName))
-			.setPreferredLanguage(LanguageEnum.ENGLISH)
+			.setLocalization(AGCoreModuleInstance.getInstance().getDefaultLocalization())
 			.save();
 	}
 
 	default AGUserPassword insertPassword(AGUser user, String password) {
 
 		return new UserPasswordUpdater(user, password).updatePasswordInDatabase();
+	}
+
+	default AGLocalizationPreset insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator) {
+
+		return new AGLocalizationPreset()//
+			.setName(name)
+			.setLanguage(AGCoreLanguage.getByLanguageEnum(language).get())
+			.setDecimalSeparator(decimalSeparator)
+			.setDigitGroupSeparator(digitGroupSeparator)
+			.save();
+	}
+
+	default AGLocalizationPreset insertLocalizationPresetGermany() {
+
+		return insertLocalizationPreset("Germany", LanguageEnum.GERMAN, ",", ".");
+	}
+
+	default AGLocalizationPreset insertLocalizationPresetUsa() {
+
+		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}
 
 	default AGSystemModuleRoleAssignment insertRoleMembership(AGUser user, EmfSystemModuleRole role, Class<? extends IEmfModule<?>> moduleClass) {

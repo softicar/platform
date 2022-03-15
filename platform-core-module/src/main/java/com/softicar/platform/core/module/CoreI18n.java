@@ -202,6 +202,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("deaktiviert");
 	I18n0 DEFAULT_LANGUAGE = new I18n0("Default Language")//
 		.de("Standardsprache");
+	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
+		.de("Standard-Lokalisierung");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
@@ -361,6 +363,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Lokaler Name");
 	I18n0 LOCAL_PORT = new I18n0("Local Port")//
 		.de("Lokaler Port");
+	I18n0 LOCALIZATION = new I18n0("Localization")//
+		.de("Lokalisation");
+	I18n0 LOCALIZATION_PRESET = new I18n0("Localization Preset")//
+		.de("Lokalisierungsvoreinstellung");
+	I18n0 LOCALIZATION_PRESETS = new I18n0("Localization Presets")//
+		.de("Lokalisierungsvoreinstellungen");
 	I18n0 LOG_DETAILS = new I18n0("Log Details")//
 		.de("Log-Details");
 	I18n0 LOG_LEVEL = new I18n0("Log Level")//
@@ -512,7 +520,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 PLEASE_ENTER_SOME_CONTENT = new I18n0("Please enter some content.")//
 		.de("Bitte Inhalt eingeben.");
 	I18n0 PLEASE_PRESS_F5_TO_REFRESH = new I18n0("Please press F5 to refresh.")//
-		.de("Bitte F5 zum Aktualisieren drücken.");
+		.de("Bitte drücken Sie F5 zum Aktualisieren.");
 	I18n0 PLEASE_SELECT_RECIPIENTS = new I18n0("Please select recipients.")//
 		.de("Bitte Empfänger auswählen.");
 	I18n0 PLEASE_SELECT_THE_USER_TO_IMPERSONATE = new I18n0("Please select the user to impersonate.")//
@@ -985,6 +993,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ihr aktuelles Passwort ist zu alt.");
 	I18n0 YOUR_CURRENT_PASSWORD_MIGHT_HAVE_BEEN_COMPROMISED = new I18n0("Your current password might have been compromised.")//
 		.de("Ihr aktuelles Passwort wurde möglicherweise kompromittiert.");
-	I18n1 YOUR_LANGUAGE_HAS_BEEN_CHANGED_TO_ARG1 = new I18n1("Your language has been changed to '%s'.")//
-		.de("Ihre Sprache wurde geändert auf '%s'.");
+	I18n0 YOUR_LOCALIZATION_HAS_BEEN_CHANGED = new I18n0("Your localization has been changed.")//
+		.de("Ihre Lokalisation wurde geändert.");
 }
