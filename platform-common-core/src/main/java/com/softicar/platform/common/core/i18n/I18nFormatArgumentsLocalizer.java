@@ -32,6 +32,10 @@ class I18nFormatArgumentsLocalizer {
 
 		if (argument instanceof BigDecimal) {
 			return new BigDecimalFormatter().format((BigDecimal) argument);
+		} else if (argument instanceof Double) {
+			return new BigDecimalFormatter().format((Double) argument);
+		} else if (argument instanceof Float) {
+			return new BigDecimalFormatter().format((Float) argument);
 		} else {
 			return argument;
 		}
