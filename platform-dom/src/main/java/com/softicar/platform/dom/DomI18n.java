@@ -41,8 +41,6 @@ public interface DomI18n {
 	I18n0 CONVERTS_ALL_CONTENTS_OF_THE_COLUMN_TO_THE_FORMAT_THAT_WAS_INTENDED_BY_THE_DEVELOPER_OF_THE_PROGRAM =
 			new I18n0("Converts all contents of the column to the format that was intended by the developer of the program.")//
 				.de("Konvertiert die Inhalte der Spalte in das Format, das vom Entwickler des Programms vorgesehen wurde.");
-	I18n0 DAY_SELECTION = new I18n0("Day Selection")//
-		.de("Tagesauswahl");
 	I18n0 DISPLAY_HELP = new I18n0("Display Help")//
 		.de("Hilfe anzeigen");
 	I18n0 EXCEL_2003_COMPATIBLE = new I18n0("Excel 2003 compatible")//

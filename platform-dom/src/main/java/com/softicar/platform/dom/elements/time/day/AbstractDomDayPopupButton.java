@@ -9,32 +9,26 @@ import com.softicar.platform.dom.input.IDomInputNode;
 /**
  * A click-able button that shows the date of a {@link DomDayChooserDiv} object.
  * <p>
- * An object of this class already contains a {@link DomDayPopup} object. If you
- * change the date and close the pop-up menuToClose the changes you have made
- * will be shown.
+ * An object of this class already contains a {@link DomDayPopover} object. If
+ * you change the date, the popover closes and the changes will be shown.
  *
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public abstract class AbstractDomDayPopupButton extends DomButton implements IDomInputNode {
+abstract class AbstractDomDayPopupButton extends DomButton implements IDomInputNode {
 
-	private final DomDayPopup popup;
+	private final DomDayPopover popup;
 	private final DomDayChooserDiv chooser;
 	private boolean showLabel = true;
 
 	private AbstractDomDayPopupButton(DomDayChooserDiv chooser) {
 
 		this.chooser = chooser;
-		this.popup = new DomDayPopup(chooser, this);
+		this.popup = new DomDayPopover(chooser, this);
 
 		setIcon(DomElementsImages.CALENDAR_DAY.getResource());
 		setLabel(IDisplayString.create(chooser.getDay().toString()));
 		setClickCallback(() -> popup.show());
-	}
-
-	public AbstractDomDayPopupButton(Day day) {
-
-		this(new DomDayChooserDiv(day));
 	}
 
 	public AbstractDomDayPopupButton() {
