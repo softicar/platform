@@ -13,12 +13,10 @@ import java.util.Objects;
 public class BigDecimalFormatter {
 
 	private static final int DIGIT_GROUP_SIZE = 3;
-	private final BigDecimal value;
 	private ILocale locale;
 
-	public BigDecimalFormatter(BigDecimal value) {
+	public BigDecimalFormatter() {
 
-		this.value = value;
 		this.locale = CurrentLocale.get();
 	}
 
@@ -45,32 +43,27 @@ public class BigDecimalFormatter {
 		return DIGIT_GROUP_SIZE;
 	}
 
-	public String format() {
+	public String format(BigDecimal value) {
 
+		var sign = getSign(value);
 		var plainString = value.abs().toPlainString();
 		var decimalSeparatorIndex = plainString.indexOf('.');
 
 		if (decimalSeparatorIndex < 0) {
-			return formatIntegralPart(plainString);
+			return sign + formatIntegralPart(plainString);
 		} else {
 			var integralPart = plainString.substring(0, decimalSeparatorIndex);
 			var fractionalPart = plainString.substring(decimalSeparatorIndex + 1);
-			return formatIntegralPart(integralPart) + locale.getDecimalSeparator() + fractionalPart;
+			return sign + formatIntegralPart(integralPart) + locale.getDecimalSeparator() + fractionalPart;
 		}
-	}
-
-	@Override
-	public String toString() {
-
-		return format();
 	}
 
 	private String formatIntegralPart(String integralPart) {
 
-		return getSign() + new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();
+		return new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();
 	}
 
-	private String getSign() {
+	private static String getSign(BigDecimal value) {
 
 		return value.signum() < 0? "-" : "";
 	}

@@ -10,7 +10,7 @@ class EmfDataTableBigDecimalCellBuilder implements IEmfDataTableCellBuilder<BigD
 	public void buildCell(IEmfDataTableCell<?, BigDecimal> cell, BigDecimal value) {
 
 		if (value != null) {
-			cell.appendText(new BigDecimalFormatter(value).format());
+			cell.appendText(new BigDecimalFormatter().format(value));
 		}
 	}
 }
