@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * Applies a given scale to {@link BigDecimal} values.
+ * Applies a given scale to a {@link BigDecimal} value.
  *
  * @author Oliver Richers
  */
