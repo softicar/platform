@@ -50,7 +50,7 @@ public class DomDecimalDisplayTest extends AbstractTest implements IDomTestEngin
 	}
 
 	@Test
-	public void testNegariveValue() {
+	public void testNegativeValue() {
 
 		var input = "-123456.789";
 

@@ -20,8 +20,7 @@ public class BigDecimalScaleApplier {
 	}
 
 	/**
-	 * Defines the desired scale of the values, i.e. the number of decimal
-	 * places.
+	 * Defines the desired number of decimal places.
 	 * <p>
 	 * If <i>null</i> is provided as scale (which is the default), no changes
 	 * will be applied to the value.
@@ -37,7 +36,7 @@ public class BigDecimalScaleApplier {
 	}
 
 	/**
-	 * Defines the {@link RoundingMode} for the values.
+	 * Defines the desired {@link RoundingMode} used to match the scale.
 	 * <p>
 	 * If <i>null</i> is provided as {@link RoundingMode} (which is the
 	 * default), no rounding will be done. Only redundant, trailing zeros will
