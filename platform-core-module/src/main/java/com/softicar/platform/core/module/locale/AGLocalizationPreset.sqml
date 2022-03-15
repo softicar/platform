@@ -7,8 +7,8 @@ TABLE AGLocalizationPreset 'Core.LocalizationPreset' {
 	String name [MAXLENGTH=255]
 	
 	AGCoreLanguage language
-	String decimalSeparator = '.'
-	String digitGroupSeparator = ''
+	String decimalSeparator = '.' [MAXLENGTH=255]
+	String digitGroupSeparator = '' [MAXLENGTH=255]
 	
 	UK name
 }

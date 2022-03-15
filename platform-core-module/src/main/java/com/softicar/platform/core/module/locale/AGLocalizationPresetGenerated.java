@@ -31,8 +31,8 @@ public class AGLocalizationPresetGenerated extends AbstractDbObject<AGLocalizati
 	public static final IDbIdField<AGLocalizationPreset> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbStringField<AGLocalizationPreset> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setMaximumLength(255);
 	public static final IDbForeignField<AGLocalizationPreset, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE);
-	public static final IDbStringField<AGLocalizationPreset> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setDefault(".");
-	public static final IDbStringField<AGLocalizationPreset> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setDefault("");
+	public static final IDbStringField<AGLocalizationPreset> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setDefault(".").setMaximumLength(255);
+	public static final IDbStringField<AGLocalizationPreset> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setDefault("").setMaximumLength(255);
 	public static final IDbKey<AGLocalizationPreset> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final AGLocalizationPresetTable TABLE = new AGLocalizationPresetTable(BUILDER);
 	// @formatter:on
