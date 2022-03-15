@@ -61,7 +61,7 @@ public class DomDecimalDisplay<T extends Number> extends DomDiv {
 
 		if (value != null) {
 			var decimal = getScaled(mapper.toBigDecimal(value));
-			appendText(new BigDecimalFormatter(decimal).format());
+			appendText(new BigDecimalFormatter().format(decimal));
 		}
 
 		return this;

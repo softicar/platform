@@ -31,7 +31,7 @@ class I18nFormatArgumentsLocalizer {
 	private Object processArgument(Object argument) {
 
 		if (argument instanceof BigDecimal) {
-			return new BigDecimalFormatter((BigDecimal) argument).format();
+			return new BigDecimalFormatter().format((BigDecimal) argument);
 		} else {
 			return argument;
 		}

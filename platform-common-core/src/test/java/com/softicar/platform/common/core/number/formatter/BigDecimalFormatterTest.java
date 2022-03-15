@@ -23,11 +23,11 @@ public class BigDecimalFormatterTest extends Assert {
 
 		BigDecimal value = new BigDecimal("1234.56");
 
-		assertEquals("1234.56", new BigDecimalFormatter(value).format());
+		assertEquals("1234.56", new BigDecimalFormatter().format(value));
 
 		var newLocale = new Locale().setDecimalSeparator(",").setDigitGroupSeparator(".");
 		try (var scope = new LocaleScope(newLocale)) {
-			assertEquals("1.234,56", new BigDecimalFormatter(value).format());
+			assertEquals("1.234,56", new BigDecimalFormatter().format(value));
 		}
 	}
 
@@ -86,6 +86,6 @@ public class BigDecimalFormatterTest extends Assert {
 
 	private void assertFormattedString(String expectedOutput, String input) {
 
-		assertEquals(expectedOutput, new BigDecimalFormatter(new BigDecimal(input)).setLocale(locale).format());
+		assertEquals(expectedOutput, new BigDecimalFormatter().setLocale(locale).format(new BigDecimal(input)));
 	}
 }
