@@ -17,8 +17,8 @@ import com.softicar.platform.db.runtime.record.DbRecordTable;
 import com.softicar.platform.db.runtime.table.DbTableBuilder;
 
 /**
- * This is the automatically generated class AGUserLog for database table
- * <i>Core.UserLog</i>.
+ * This is the automatically generated class AGUserLog for
+ * database table <i>Core.UserLog</i>.
  */
 @Generated
 @SuppressWarnings("all")
@@ -192,3 +192,4 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 	private AGPasswordPolicy m_passwordPolicy;
 	private AGUserAllowedIpRule m_allowedIpRule;
 }
+
