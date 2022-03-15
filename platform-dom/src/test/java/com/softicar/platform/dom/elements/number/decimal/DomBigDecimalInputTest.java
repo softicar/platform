@@ -85,8 +85,8 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 
 		// scale reduction
 		assertResultForGetValue("12.00", "12.000");
-		assertExceptionForGetValue(DomI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2), "12.123");
-		assertExceptionForGetValue(DomI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2), "12.1230");
+		assertExceptionForGetValue(DomI18n.NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2), "12.123");
+		assertExceptionForGetValue(DomI18n.NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(2), "12.1230");
 		assertResultForGetValue("12.12", "12.1200");
 	}
 

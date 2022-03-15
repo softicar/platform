@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * A {@link DomTextInput} for decimal values that formats and parses values
@@ -20,34 +21,34 @@ import java.math.BigDecimal;
 public class DomDecimalInput<T extends Number> extends AbstractDomNumberInput<T> {
 
 	private final BigDecimalMapper<T> mapper;
-	private int scale = -1;
+	private Integer scale;
 
 	public DomDecimalInput(BigDecimalMapper<T> mapper) {
 
-		this.mapper = mapper;
+		this.mapper = Objects.requireNonNull(mapper);
+		this.scale = null;
 	}
 
 	/**
-	 * Defines the number of decimal places for this input.
+	 * Defines the number of decimal places (if given) for this input.
 	 * <p>
-	 * Trailing zeros in the fractional part will be added or removed by the
-	 * {@link #setValue} and {@link #getValue()} methods to match the desired
-	 * scale. Non-zero decimal places will never be removed. If the user entered
-	 * too many decimal places, {@link #getValue()} will throw a respective
-	 * exception.
+	 * If <i>null</i> is given or by default, i.e. when this method was not
+	 * called, this input does not modify the scale of values, that is, the
+	 * intrinsic scale of the value will be retained.
 	 * <p>
-	 * By default, i.e. when this method was not called, this input does not
-	 * modify the scale of values in this input.
+	 * If a scale is given, trailing zeros in the fractional part will be added
+	 * or removed by the {@link #setValue} and {@link #getValue()} methods to
+	 * match the desired scale. Non-zero decimal places will never be removed
+	 * and no rounding will ever be performed. If the user entered too many
+	 * decimal places, {@link #getValue()} will throw a respective exception.
 	 *
 	 * @param scale
-	 *            the number of decimal places which must be <i>>= 0</i>
+	 *            the number of decimal places; or <i>null</i> to perform no
+	 *            scaling
 	 * @return this
 	 */
-	public DomDecimalInput<T> setScale(int scale) {
+	public DomDecimalInput<T> setScale(Integer scale) {
 
-		if (scale < 0) {
-			throw new IllegalArgumentException("Scale must be non-negative.");
-		}
 		this.scale = scale;
 		return this;
 	}
@@ -64,8 +65,8 @@ public class DomDecimalInput<T extends Number> extends AbstractDomNumberInput<T>
 
 		try {
 			var decimal = getScaled(new BigDecimalParser(text).parseOrThrow());
-			if (scale >= 0 && decimal.scale() > scale) {
-				throw new DomInputException(DomI18n.ONLY_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
+			if (scale != null && decimal.scale() > scale) {
+				throw new DomInputException(DomI18n.NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
 			}
 			return mapper.fromBigDecimal(decimal);
 		} catch (NumberFormatException exception) {
@@ -75,12 +76,8 @@ public class DomDecimalInput<T extends Number> extends AbstractDomNumberInput<T>
 
 	private BigDecimal getScaled(BigDecimal value) {
 
-		if (scale >= 0) {
-			return new BigDecimalScaleApplier()//
-				.setScale(scale)
-				.apply(value);
-		} else {
-			return value;
-		}
+		return new BigDecimalScaleApplier()//
+			.setScale(scale)
+			.apply(value);
 	}
 }

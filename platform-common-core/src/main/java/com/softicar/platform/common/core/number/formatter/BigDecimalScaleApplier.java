@@ -27,7 +27,7 @@ public class BigDecimalScaleApplier {
 	 * will be applied to the value.
 	 *
 	 * @param scale
-	 *            the scale; or <i>null</i> to disable scaling
+	 *            the scale; or <i>null</i> to perform no scaling
 	 * @return this
 	 */
 	public BigDecimalScaleApplier setScale(Integer scale) {
@@ -45,7 +45,8 @@ public class BigDecimalScaleApplier {
 	 * scale as possible.
 	 *
 	 * @param roundingMode
-	 *            the {@link RoundingMode}; or <i>null</i> to disable rounding
+	 *            the {@link RoundingMode}; or <i>null</i> to perform no
+	 *            rounding
 	 * @return this
 	 */
 	public BigDecimalScaleApplier setRoundingMode(RoundingMode roundingMode) {
@@ -55,7 +56,8 @@ public class BigDecimalScaleApplier {
 	}
 
 	/**
-	 * Applies the scale defined by calling {@link #setScale(Integer)}.
+	 * Applies the scale defined by calling {@link #setScale(Integer)} and
+	 * rounds the values as necessary if a {@link RoundingMode} was specified.
 	 *
 	 * @param value
 	 *            the value to apply the scale to (may be <i>null</i>)

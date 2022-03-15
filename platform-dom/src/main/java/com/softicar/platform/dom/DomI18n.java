@@ -103,14 +103,14 @@ public interface DomI18n {
 		.de("nächste Seite");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
+	I18n1 NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("No more than %s decimal places allowed.")//
+		.de("Nicht mehr als %s Dezimalstellen erlaubt.");
 	I18n0 NO_TITLE = new I18n0("No Title")//
 		.de("kein Titel");
 	I18n0 NONE = new I18n0("none")//
 		.de("nichts");
 	I18n0 OK = new I18n0("OK")//
 		.de("OK");
-	I18n1 ONLY_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("Only %s decimal places allowed.")//
-		.de("Nur %s Dezimalstellen erlaubt.");
 	I18n0 ONLY_ONE_OPTION_MAY_BE_SELECTED = new I18n0("Only one option may be selected.")//
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//

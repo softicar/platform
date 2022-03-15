@@ -11,27 +11,37 @@ import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Objects;
-import java.util.Optional;
 
 public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number> extends EmfFieldAttribute<R, V> {
 
 	private final BigDecimalMapper<V> mapper;
-	private Optional<Integer> scale;
+	private Integer scale;
 
 	public EmfDecimalAttribute(IDbField<R, V> field, BigDecimalMapper<V> mapper) {
 
 		super(field);
 
 		this.mapper = mapper;
-		this.scale = Optional.empty();
+		this.scale = null;
 
 		setDisplayFactory(Display::new);
 		setInputFactory(Input::new);
 	}
 
-	public EmfDecimalAttribute<R, V> setScale(int scale) {
+	/**
+	 * Defines the number of decimal places (if given) for this display.
+	 * <p>
+	 * See {@link DomDecimalDisplay#setScale} and
+	 * {@link DomDecimalInput#setScale} for more information.
+	 *
+	 * @param scale
+	 *            the number of decimal places; or <i>null</i> to perform no
+	 *            scaling
+	 * @return this
+	 */
+	public EmfDecimalAttribute<R, V> setScale(Integer scale) {
 
-		this.scale = Optional.of(scale);
+		this.scale = scale;
 		return this;
 	}
 
@@ -41,7 +51,7 @@ public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number>
 
 			super(mapper);
 
-			scale.ifPresent(this::setScale);
+			setScale(scale);
 			setValue(value);
 		}
 	}
@@ -54,7 +64,7 @@ public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number>
 
 			super(mapper);
 
-			scale.ifPresent(this::setScale);
+			setScale(scale);
 			this.callback = INullaryVoidFunction.NO_OPERATION;
 		}
 

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.function.Function;
 
 /**
- * A class to map between {@link Number} and {@link BigDecimal}.
+ * A class to map between {@link BigDecimal} and a {@link Number} based type.
  *
  * @author Oliver Richers
  */

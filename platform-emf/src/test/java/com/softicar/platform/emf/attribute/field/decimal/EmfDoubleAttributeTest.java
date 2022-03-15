@@ -7,7 +7,6 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
-import com.softicar.platform.emf.attribute.field.decimal.EmfDoubleAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import org.junit.Test;
