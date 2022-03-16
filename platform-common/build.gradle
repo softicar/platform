@@ -6,6 +6,5 @@ dependencies {
 	implementation "commons-codec:commons-codec:$versions.commonsCodec"
 	implementation "commons-net:commons-net:$versions.commonsNet"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
-	implementation "junit:junit:$versions.junit"
 	implementation "org.ow2.asm:asm:$versions.asm"
 }
