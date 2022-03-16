@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.emf.object.IEmfObject;
 
-public class AGLocalizationPreset extends AGLocalizationPresetGenerated implements IEmfObject<AGLocalizationPreset> {
+public class AGLocalization extends AGLocalizationGenerated implements IEmfObject<AGLocalization> {
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {

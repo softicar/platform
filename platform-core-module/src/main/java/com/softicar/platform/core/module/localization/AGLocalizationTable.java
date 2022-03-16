@@ -4,9 +4,9 @@ import com.softicar.platform.core.module.module.instance.system.SystemModuleInst
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 
-public class AGLocalizationPresetTable extends EmfObjectTable<AGLocalizationPreset, SystemModuleInstance> {
+public class AGLocalizationTable extends EmfObjectTable<AGLocalization, SystemModuleInstance> {
 
-	public AGLocalizationPresetTable(IDbObjectTableBuilder<AGLocalizationPreset> builder) {
+	public AGLocalizationTable(IDbObjectTableBuilder<AGLocalization> builder) {
 
 		super(builder);
 	}

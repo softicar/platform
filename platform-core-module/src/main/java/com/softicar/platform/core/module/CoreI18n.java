@@ -365,10 +365,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Lokaler Port");
 	I18n0 LOCALIZATION = new I18n0("Localization")//
 		.de("Lokalisierung");
-	I18n0 LOCALIZATION_PRESET = new I18n0("Localization Preset")//
-		.de("Lokalisierungsvoreinstellung");
-	I18n0 LOCALIZATION_PRESETS = new I18n0("Localization Presets")//
-		.de("Lokalisierungsvoreinstellungen");
+	I18n0 LOCALIZATIONS = new I18n0("Localizations")//
+		.de("Lokalisierungen");
 	I18n0 LOG_DETAILS = new I18n0("Log Details")//
 		.de("Log-Details");
 	I18n0 LOG_LEVEL = new I18n0("Log Level")//

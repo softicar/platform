@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
 import com.softicar.platform.core.module.access.role.assignment.module.instance.AGModuleInstanceRoleAssignment;
 import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
-import com.softicar.platform.core.module.localization.AGLocalizationPreset;
+import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -58,9 +58,9 @@ public interface CoreModuleTestFixtureMethods {
 		return new UserPasswordUpdater(user, password).updatePasswordInDatabase();
 	}
 
-	default AGLocalizationPreset insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator) {
+	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator) {
 
-		return new AGLocalizationPreset()//
+		return new AGLocalization()//
 			.setName(name)
 			.setLanguage(AGCoreLanguage.getByLanguageEnum(language).get())
 			.setDecimalSeparator(decimalSeparator)
@@ -68,12 +68,12 @@ public interface CoreModuleTestFixtureMethods {
 			.save();
 	}
 
-	default AGLocalizationPreset insertLocalizationPresetGermany() {
+	default AGLocalization insertLocalizationPresetGermany() {
 
 		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".");
 	}
 
-	default AGLocalizationPreset insertLocalizationPresetUsa() {
+	default AGLocalization insertLocalizationPresetUsa() {
 
 		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}

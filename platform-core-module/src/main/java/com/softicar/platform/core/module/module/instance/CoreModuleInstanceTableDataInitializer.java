@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
-import com.softicar.platform.core.module.localization.AGLocalizationPreset;
+import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.table.configuration.IDbTableDataInitializer;
@@ -31,19 +31,19 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.executeWithoutIdGeneration();
 	}
 
-	private AGLocalizationPreset insertLocalizationPreset() {
+	private AGLocalization insertLocalizationPreset() {
 
-		var id = AGLocalizationPreset.TABLE//
+		var id = AGLocalization.TABLE//
 			.createInsert()
-			.set(AGLocalizationPreset.NAME, "[DEFAULT]")
-			.set(AGLocalizationPreset.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
-			.set(AGLocalizationPreset.DECIMAL_SEPARATOR, ".")
-			.set(AGLocalizationPreset.DIGIT_GROUP_SEPARATOR, "")
+			.set(AGLocalization.NAME, "[DEFAULT]")
+			.set(AGLocalization.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
+			.set(AGLocalization.DECIMAL_SEPARATOR, ".")
+			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, "")
 			.execute();
-		return AGLocalizationPreset.TABLE.getStub(id);
+		return AGLocalization.TABLE.getStub(id);
 	}
 
-	private AGUser insertSystemUser(AGLocalizationPreset localizationPreset) {
+	private AGUser insertSystemUser(AGLocalization localizationPreset) {
 
 		var id = AGUser.TABLE//
 			.createInsert()

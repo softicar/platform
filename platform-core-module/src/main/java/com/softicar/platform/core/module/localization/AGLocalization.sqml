@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.core.module.localization
 
 IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
 
-TABLE AGLocalizationPreset 'Core.LocalizationPreset' {
+TABLE AGLocalization 'Core.LocalizationPreset' {
 	PK Integer id = SERIAL
 	String name [MAXLENGTH=255]
 	

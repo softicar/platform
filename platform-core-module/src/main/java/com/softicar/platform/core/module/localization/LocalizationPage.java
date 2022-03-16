@@ -11,7 +11,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.emf.table.IEmfTable;
 
 @EmfSourceCodeReferencePointUuid("20d7f18a-43b6-410a-93d4-2ea5658337ec")
-public class LocalizationPresetPage extends AbstractEmfManagementPage<SystemModuleInstance> {
+public class LocalizationPage extends AbstractEmfManagementPage<SystemModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -28,7 +28,7 @@ public class LocalizationPresetPage extends AbstractEmfManagementPage<SystemModu
 	@Override
 	protected IEmfTable<?, ?, SystemModuleInstance> getTable() {
 
-		return AGLocalizationPreset.TABLE;
+		return AGLocalization.TABLE;
 	}
 
 	@Override
