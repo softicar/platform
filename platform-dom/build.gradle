@@ -1,9 +1,8 @@
 dependencies {
-	api project(':platform-common-testing')
-	api project(':platform-common-ui')
+	api project(':platform-common')
 	api "junit:junit:$versions.junit"
 	
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
 	
-	testImplementation project(':platform-common-testing')
+	// testImplementation project(':platform-common-testing')
 }

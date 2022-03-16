@@ -1,4 +1,0 @@
-dependencies {
-	api project(':platform-common-math')
-	api project(':platform-common-string')
-}

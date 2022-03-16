@@ -1,4 +1,0 @@
-dependencies {
-	api project(':platform-common-container')
-	api project(':platform-common-date')
-}

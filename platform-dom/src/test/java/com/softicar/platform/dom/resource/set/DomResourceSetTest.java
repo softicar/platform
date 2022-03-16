@@ -3,14 +3,14 @@ package com.softicar.platform.dom.resource.set;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.key.IResourceKey;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.ui.font.Fonts;
 import com.softicar.platform.dom.DomCssFiles;
 import com.softicar.platform.dom.resource.preprocessed.DomPreprocessedCssResource;
 import java.util.Optional;
 import org.junit.Test;
 
-public class DomResourceSetTest extends Asserts {
+public class DomResourceSetTest extends AbstractTest {
 
 	private static final IResourceSupplier DEFAULT_RESOURCE_EXAMPLE = Fonts.RUBIK_VARIABLE_WEIGHT;
 	private static final IResourceSupplier CSS_TEMPLATE_DEFAULT_RESOURCE_EXAMPLE = DomCssFiles.DOM_STYLE;
