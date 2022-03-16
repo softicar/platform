@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.logging.CurrentLogLevel;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
+import com.softicar.platform.common.core.number.parser.BigDecimalParser;
 import com.softicar.platform.common.core.number.parser.DoubleParser;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.number.parser.LongParser;
@@ -32,8 +33,10 @@ import com.softicar.platform.emf.data.table.export.node.ITableExportManipulatedN
 import com.softicar.platform.emf.data.table.export.node.ITableExportTypedNode;
 import com.softicar.platform.emf.data.table.export.node.TableExportNodeValueType;
 import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Converts {@link IDomNode}s to {@link TableExportTypedNodeValue} instances.
@@ -415,12 +418,17 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 		if (this.enableAutomaticTypeConversion) {
 			cellContent = NumberStringCleaner.convertToCleanNumberString(cellContent.trim());
 
+			Optional<BigDecimal> decimal = new BigDecimalParser(cellContent).parse();
+
 			if (IntegerParser.isInteger(cellContent)) {
 				debugPrint(currentDepth, "detected: Integer: [" + cellContent + "]");
 				typedExportNodeValue = createTypedExportNodeValue(TableExportNodeValueType.NUMBER, Integer.parseInt(cellContent));
 			} else if (LongParser.isLong(cellContent)) {
 				debugPrint(currentDepth, "detected: Long: [" + cellContent + "]");
 				typedExportNodeValue = createTypedExportNodeValue(TableExportNodeValueType.NUMBER, Long.parseLong(cellContent));
+			} else if (decimal.isPresent()) {
+				debugPrint(currentDepth, "detected: Decimal: [" + cellContent + "]");
+				typedExportNodeValue = createTypedExportNodeValue(TableExportNodeValueType.NUMBER, decimal.get());
 			} else if (DoubleParser.isDouble(cellContent)) {
 				debugPrint(currentDepth, "detected: Double: [" + cellContent + "]");
 				typedExportNodeValue = createTypedExportNodeValue(TableExportNodeValueType.NUMBER, Double.parseDouble(cellContent));

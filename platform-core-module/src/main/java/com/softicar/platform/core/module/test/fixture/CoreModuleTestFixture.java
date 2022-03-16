@@ -25,6 +25,12 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 	 */
 	public CoreModuleTestFixture() {
 
+		AGCoreModuleInstance//
+			.getInstance()
+			.setTestSystem(true)
+			.setDefaultLocalization(insertLocalizationPresetGermany())
+			.save();
+
 		this.viewUser = insertUser("View", "User")//
 			.setEmailAddress("view.user@example.com")
 			.save();
@@ -36,8 +42,6 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		this.adminUser = insertUser("Admin", "User")//
 			.setEmailAddress("admin.user@example.com")
 			.save();
-
-		AGCoreModuleInstance.getInstance().setTestSystem(true).save();
 
 		insertPassword(viewUser, "test");
 		insertPassword(normalUser, "test");

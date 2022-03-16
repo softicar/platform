@@ -58,6 +58,16 @@ public class BigDecimalFormatter {
 		}
 	}
 
+	public String format(Double value) {
+
+		return format(BigDecimal.valueOf(value));
+	}
+
+	public String format(Float value) {
+
+		return format(BigDecimal.valueOf(value));
+	}
+
 	private String formatIntegralPart(String integralPart) {
 
 		return new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();

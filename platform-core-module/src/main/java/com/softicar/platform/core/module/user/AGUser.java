@@ -1,12 +1,9 @@
 package com.softicar.platform.core.module.user;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.ILocale;
-import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
@@ -20,7 +17,6 @@ import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
-import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.login.UserLastLoginField;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
@@ -64,18 +60,10 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	@Override
 	public ILocale getLocale() {
 
-		var locale = new Locale();
-		getPreferredLanguage().getLanguageEnum().ifPresent(locale::setLanguage);
-		return locale;
-	}
-
-	public AGUser setPreferredLanguage(LanguageEnum languageEnum) {
-
-		AGCoreLanguage coreLanguage = AGCoreLanguage//
-			.getByLanguageEnum(languageEnum)
-			.orElseThrow(
-				() -> new SofticarDeveloperException("Failed to determine core language for: %s.%s", LanguageEnum.class.getSimpleName(), languageEnum.name()));
-		return setPreferredLanguage(coreLanguage);
+		return Optional//
+			.ofNullable(getLocalization())
+			.orElse(AGCoreModuleInstance.getInstance().getDefaultLocalization())
+			.getLocale();
 	}
 
 	@Override

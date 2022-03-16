@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.core.module.user
 
-IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.localization.AGLocalization
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy
 IMPORT com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule
@@ -13,7 +13,7 @@ TABLE AGUserLog 'Core.UserLog' {
 	String firstName = NULL [NULLABLE MAXLENGTH=255]
 	String lastName = NULL [NULLABLE MAXLENGTH=255]
 	String emailAddress = NULL [NULLABLE MAXLENGTH=255]
-	AGCoreLanguage preferredLanguage = NULL [NULLABLE]
+	AGLocalization localization = NULL [NULLABLE]
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
 }

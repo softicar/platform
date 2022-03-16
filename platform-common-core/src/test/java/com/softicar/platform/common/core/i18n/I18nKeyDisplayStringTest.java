@@ -69,7 +69,7 @@ public class I18nKeyDisplayStringTest extends Assert {
 	}
 
 	@Test
-	public void testWithBigDecimalParameters() {
+	public void testWithDecimalParameters() {
 
 		var englishLocale = new Locale()//
 			.setLanguage(LanguageEnum.ENGLISH)
@@ -84,9 +84,13 @@ public class I18nKeyDisplayStringTest extends Assert {
 
 		try (var scope = new LocaleScope(englishLocale)) {
 			assertEquals("english 1,234,567.89!", new I18nKeyDisplayString(key, new BigDecimal("1234567.89")).toString());
+			assertEquals("english 1,234,567.89!", new I18nKeyDisplayString(key, 1234567.89).toString());
+			assertEquals("english 1,234,567.875!", new I18nKeyDisplayString(key, 1234567.89f).toString());
 		}
 		try (var scope = new LocaleScope(germanLocale)) {
 			assertEquals("german 1.234.567,89!", new I18nKeyDisplayString(key, new BigDecimal("1234567.89")).toString());
+			assertEquals("german 1.234.567,89!", new I18nKeyDisplayString(key, 1234567.89).toString());
+			assertEquals("german 1.234.567,875!", new I18nKeyDisplayString(key, 1234567.89f).toString());
 		}
 	}
 

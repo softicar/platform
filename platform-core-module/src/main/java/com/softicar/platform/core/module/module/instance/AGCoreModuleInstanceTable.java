@@ -73,7 +73,7 @@ public class AGCoreModuleInstanceTable extends EmfObjectTable<AGCoreModuleInstan
 			.addMapping(AGCoreModuleInstance.PORTAL_HOST, AGCoreModuleInstanceLog.PORTAL_HOST)
 			.addMapping(AGCoreModuleInstance.PORTAL_APPLICATION, AGCoreModuleInstanceLog.PORTAL_APPLICATION)
 			.addMapping(AGCoreModuleInstance.PORTAL_LOGO, AGCoreModuleInstanceLog.PORTAL_LOGO)
-			.addMapping(AGCoreModuleInstance.DEFAULT_LANGUAGE, AGCoreModuleInstanceLog.DEFAULT_LANGUAGE)
+			.addMapping(AGCoreModuleInstance.DEFAULT_LOCALIZATION, AGCoreModuleInstanceLog.DEFAULT_LOCALIZATION)
 			.addMapping(AGCoreModuleInstance.TEST_SYSTEM, AGCoreModuleInstanceLog.TEST_SYSTEM);
 	}
 }
