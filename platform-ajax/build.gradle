@@ -1,5 +1,5 @@
 dependencies {
-	api project(':platform-common-security')
+	api project(':platform-common')
 	api project(':platform-dom')
 	api "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
 	api "org.eclipse.jetty:jetty-servlet:$versions.jetty"

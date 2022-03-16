@@ -1,8 +1,7 @@
 dependencies {
-	api project(':platform-common-network')
+	api project(':platform-common')
 	api project(':platform-db-sqml-builtin')
 	api project(':platform-emf')
-
 
 	api "com.sun.mail:imap:$versions.sunMail"
 	api "com.sun.mail:mailapi:$versions.sunMail"

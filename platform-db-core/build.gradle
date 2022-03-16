@@ -1,6 +1,5 @@
 dependencies {
-	api project(':platform-common-code')
-	api project(':platform-common-testing')
+	api project(':platform-common')
 
 	implementation "com.h2database:h2:$versions.h2"
 	implementation "com.zaxxer:HikariCP:$versions.hikariCp"
