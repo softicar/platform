@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.management.importing.EmfImportBackButton;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -23,17 +24,19 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		this.popup = popup;
 		this.engine = popup.getEngine();
 
-		appendChild(new DomActionBar(new BackButton(), new SaveButton()));
+		appendChild(
+			new DomActionBar(//
+				new EmfImportBackButton(this::goBack),
+				new SaveButton()));
 		appendChild(new EmfDataTableDivBuilder<>(new RowsTable()).build());
 	}
 
-	private class BackButton extends DomButton {
+	private void goBack() {
 
-		public BackButton() {
-
-			setIcon(EmfImages.WIZARD_PREVIOUS.getResource());
-			setLabel(EmfI18n.BACK);
-			setClickCallback(() -> popup.showAnalyzeDiv());
+		if (engine.containsVariables()) {
+			popup.showOldVariablesInputDiv();
+		} else {
+			popup.showAnalyzeDiv();
 		}
 	}
 

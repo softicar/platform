@@ -1,52 +1,70 @@
 package com.softicar.platform.emf.management.importing.variable.replace;
 
 import com.softicar.platform.common.container.map.set.SetMap;
-import com.softicar.platform.emf.management.importing.variable.Coordinates;
+import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class EmfImportVariablesReplacer {
 
 	private final List<List<String>> rows;
+	private Map<EmfImportVariableCoordinates, String> coordinatesToVariableValueMap;
 
 	public EmfImportVariablesReplacer(List<List<String>> rows) {
 
 		this.rows = rows;
 	}
 
-	public List<List<String>> execute(SetMap<String, Coordinates> variableCoordinates, Map<String, String> variableValueMap) {
+	public List<List<String>> execute(SetMap<String, EmfImportVariableCoordinates> variableCoordinates, Map<String, String> variableToValueMap) {
 
-		List<List<String>> rowsWithReplacedVariables = createRowsCopy();
+		if (!variableCoordinates.keySet().equals(variableToValueMap.keySet())) {
+			throw new IllegalArgumentException("variableCoordinates must contain the same keys as variableToValueMap");
+		}
 
-		for (Map.Entry<String, TreeSet<Coordinates>> entry: variableCoordinates.entrySet()) {
-			String variable = entry.getKey();
-			for (Coordinates coordinates: entry.getValue()) {
-				List<String> row = rowsWithReplacedVariables.get(coordinates.getY());
-				row.remove(coordinates.getX());
-				row.add(coordinates.getX(), variableValueMap.get(variable));
+		createCoordinatesToVariableValueMap(variableCoordinates, variableToValueMap);
+		return rowsCopyWithReplacedVariables();
+	}
+
+	private Map<EmfImportVariableCoordinates, String> createCoordinatesToVariableValueMap(SetMap<String, EmfImportVariableCoordinates> variableCoordinates,
+			Map<String, String> variableValueMap) {
+
+		coordinatesToVariableValueMap = new TreeMap<>();
+
+		for (Map.Entry<String, TreeSet<EmfImportVariableCoordinates>> entry: variableCoordinates.entrySet()) {
+			String variableValue = variableValueMap.get(entry.getKey());
+			for (EmfImportVariableCoordinates coordinates: entry.getValue()) {
+				coordinatesToVariableValueMap.put(coordinates, variableValue);
+			}
+		}
+		return coordinatesToVariableValueMap;
+	}
+
+	private List<List<String>> rowsCopyWithReplacedVariables() {
+
+		List<List<String>> rowsCopyWithReplacedVariables = new ArrayList<>();
+		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+			rowsCopyWithReplacedVariables.add(createRowCopyWithReplacedVariablesOfRowIndex(rowIndex));
+		}
+		return rowsCopyWithReplacedVariables;
+	}
+
+	private List<String> createRowCopyWithReplacedVariablesOfRowIndex(int rowIndex) {
+
+		List<String> rowCopyWithReplacedVariables = new ArrayList<>();
+
+		List<String> row = rows.get(rowIndex);
+		for (int columnIndex = 0; columnIndex < row.size(); columnIndex++) {
+			String newValue = coordinatesToVariableValueMap.get(new EmfImportVariableCoordinates(columnIndex, rowIndex));
+			if (newValue == null) {
+				rowCopyWithReplacedVariables.add(row.get(columnIndex));
+			} else {
+				rowCopyWithReplacedVariables.add(newValue);
 			}
 		}
 
-		return rowsWithReplacedVariables;
-	}
-
-	private List<List<String>> createRowsCopy() {
-
-		List<List<String>> copy = new ArrayList<>();
-		addRowsToCopy(copy);
-		return copy;
-	}
-
-	private void addRowsToCopy(List<List<String>> copy) {
-
-		rows.stream().forEach(row -> copy.add(createRowCopy(row)));
-	}
-
-	private List<String> createRowCopy(List<String> row) {
-
-		return row.stream().collect(Collectors.toList());
+		return rowCopyWithReplacedVariables;
 	}
 }

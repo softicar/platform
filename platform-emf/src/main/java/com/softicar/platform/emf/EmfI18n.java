@@ -164,8 +164,12 @@ public interface EmfI18n extends DomI18n {
 		.de("WENN");
 	I18n0 IMPORT = new I18n0("Import")//
 		.de("Importieren");
-	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
-		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
+	I18n0 IN_THE_NEXT_STEP_YOU_CAN_EITHER_SET_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT_OR_YOU_CAN_SEE_THE_FILE_CONTENT =
+			new I18n0("In the next step you can either set the variable values for the current import or you can see the file content.")
+				.de("Im nächsten Schritt können Sie entweder die Variablenwerte für den aktuellen Import festlegen oder den Inhalt der Datei sehen.");
+	I18n0 IN_THE_NEXT_STEP_YOU_WILL_SEE_WHAT_WOULD_BE_IMPORTED_AND_YOU_CAN_DECIDE_TO_EXECUTE_THE_IMPORT_OR_NOT = new I18n0(
+		"In the next step you will see what would be imported and you can decide to execute the import or not.")//
+			.de("Im nächsten Schritt sehen Sie, was importiert werden würde, und Sie können entscheiden, ob Sie den Import durchführen möchten oder nicht.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
 	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
@@ -269,6 +273,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
 		.de("Zeitpunkt '%s' existiert nicht");
+	I18n0 POSSIBLE_VARIABLE_IDENTIFIERS_ARE_ALL_ASCII_LOWERCASE_LETTERS_FROM_A_TO_Z =
+			new I18n0("Possible variable identifiers are all ASCII lowercase letters from a to z.")//
+				.de("Mögliche Variablenbezeichner sind alle ASCII-Kleinbuchenstaben von a bis z.");
 	I18n0 PRECONDITION = new I18n0("Precondition")//
 		.de("Vorbedingung");
 	I18n0 PREFILTER = new I18n0("Prefilter")//
@@ -319,6 +326,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Wählen Sie eine CSV-Datei zum Importieren.");
 	I18n0 SELECT_CSV_FILE = new I18n0("Select CSV File")//
 		.de("CSV-Datei auswählen");
+	I18n0 SET_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT = new I18n0("Set the variable values for the current import.")//
+		.de("Legen Sie die Variablenwerte für den aktuellen Import fest.");
 	I18n0 SHA_1_HASH = new I18n0("SHA-1 Hash")//
 		.de("SHA-1 Hash");
 	I18n0 SHOW_FILES = new I18n0("Show Files")//
@@ -422,4 +431,7 @@ public interface EmfI18n extends DomI18n {
 		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
+	I18n2 YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSE_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2 = new I18n2(
+		"You can define variables by enclose them with double dollar signs, for example %s to define variable %s.")//
+			.de("Sie können Variablen definieren, indem Sie sie mit doppelten Dollarzeichen umschließen, zum Beispiel %s, um die Variable %s zu definieren.");
 }

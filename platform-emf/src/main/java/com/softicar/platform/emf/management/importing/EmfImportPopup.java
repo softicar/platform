@@ -9,6 +9,7 @@ import com.softicar.platform.emf.management.importing.analyze.EmfImportAnalyzeDi
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.management.importing.submit.EmfImportSubmitDiv;
 import com.softicar.platform.emf.management.importing.upload.EmfImportUploadDiv;
+import com.softicar.platform.emf.management.importing.variable.input.EmfImportVariablesInputDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -17,6 +18,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 	private final IEmfTable<R, P, S> table;
 	private final S scope;
 	private final EmfImportEngine<R, P, S> engine;
+	private EmfImportVariablesInputDiv<R, P, S> variablesInputDiv;
 
 	public EmfImportPopup(IEmfTable<R, P, S> table, S scope) {
 
@@ -42,10 +44,22 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 		appendChild(new EmfImportUploadDiv<>(this));
 	}
 
+	public void showNewVariablesInputDiv() {
+
+		removeChildren();
+		variablesInputDiv = appendChild(new EmfImportVariablesInputDiv<>(this));
+	}
+
 	public void showAnalyzeDiv() {
 
 		removeChildren();
 		appendChild(new EmfImportAnalyzeDiv<>(this));
+	}
+
+	public void showOldVariablesInputDiv() {
+
+		removeChildren();
+		appendChild(variablesInputDiv);
 	}
 
 	public void showSubmitDiv() {

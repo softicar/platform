@@ -35,7 +35,10 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS)
 				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE)
 				.addUnorderedListItem(
-					EmfI18n.IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED//
+					EmfI18n.YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSE_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2.toDisplay("$$a$$", "a"))
+				.addUnorderedListItem(EmfI18n.POSSIBLE_VARIABLE_IDENTIFIERS_ARE_ALL_ASCII_LOWERCASE_LETTERS_FROM_A_TO_Z)
+				.addUnorderedListItem(
+					EmfI18n.IN_THE_NEXT_STEP_YOU_CAN_EITHER_SET_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT_OR_YOU_CAN_SEE_THE_FILE_CONTENT
 						.concatSentence(EmfI18n.NO_DATA_WILL_BE_SAVED_YET))
 				.endBox(WikiBoxType.INFO)
 				.build());
@@ -63,6 +66,8 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 			if (engine.getTextualRows().isEmpty()) {
 				throw new SofticarUserException(EmfI18n.NO_DATA_UPLOADED);
+			} else if (engine.containsVariables()) {
+				popup.showNewVariablesInputDiv();
 			} else {
 				popup.showAnalyzeDiv();
 			}
