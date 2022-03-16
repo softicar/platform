@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.locale;
+package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;

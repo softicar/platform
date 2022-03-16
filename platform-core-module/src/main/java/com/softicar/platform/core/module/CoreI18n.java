@@ -364,7 +364,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 LOCAL_PORT = new I18n0("Local Port")//
 		.de("Lokaler Port");
 	I18n0 LOCALIZATION = new I18n0("Localization")//
-		.de("Lokalisation");
+		.de("Lokalisierung");
 	I18n0 LOCALIZATION_PRESET = new I18n0("Localization Preset")//
 		.de("Lokalisierungsvoreinstellung");
 	I18n0 LOCALIZATION_PRESETS = new I18n0("Localization Presets")//
@@ -994,5 +994,5 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 YOUR_CURRENT_PASSWORD_MIGHT_HAVE_BEEN_COMPROMISED = new I18n0("Your current password might have been compromised.")//
 		.de("Ihr aktuelles Passwort wurde möglicherweise kompromittiert.");
 	I18n0 YOUR_LOCALIZATION_HAS_BEEN_CHANGED = new I18n0("Your localization has been changed.")//
-		.de("Ihre Lokalisation wurde geändert.");
+		.de("Ihre Lokalisierung wurde geändert.");
 }

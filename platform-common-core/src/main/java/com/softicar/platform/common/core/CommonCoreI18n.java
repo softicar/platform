@@ -8,7 +8,7 @@ public interface CommonCoreI18n {
 	I18n0 DECIMAL_SEPARATOR = new I18n0("Decimal Separator")//
 		.de("Dezimaltrennzeichen");
 	I18n0 DIGIT_GROUP_SEPARATOR = new I18n0("Digit Group Separator")//
-		.de("Zifferngruppenseparator");
+		.de("Zifferngruppentrennzeichen");
 	I18n0 DIGIT_GROUP_TOO_LONG = new I18n0("Digit group too long.")//
 		.de("Zifferngruppe zu lang.");
 	I18n0 DIGIT_GROUP_TOO_SHORT = new I18n0("Digit group too short.")//

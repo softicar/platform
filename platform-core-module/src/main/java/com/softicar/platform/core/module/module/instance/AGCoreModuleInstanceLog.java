@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
-import com.softicar.platform.core.module.locale.AGLocalizationPreset;
+import com.softicar.platform.core.module.localization.AGLocalizationPreset;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;

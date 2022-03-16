@@ -34,13 +34,12 @@ class UserProfileChangeLocalizationDiv extends DomDiv {
 
 		public void handleClick() {
 
-			attributesDiv.tryToApplyValidateAndSave();
-
-			CurrentLocale.set(CurrentUser.get().getLocale());
-
-			executeAlert(
-				CoreI18n.YOUR_LOCALIZATION_HAS_BEEN_CHANGED//
-					.concatSentence(CoreI18n.PLEASE_PRESS_F5_TO_REFRESH));
+			if (attributesDiv.tryToApplyValidateAndSave()) {
+				CurrentLocale.set(CurrentUser.get().getLocale());
+				executeAlert(
+					CoreI18n.YOUR_LOCALIZATION_HAS_BEEN_CHANGED//
+						.concatSentence(CoreI18n.PLEASE_PRESS_F5_TO_REFRESH));
+			}
 		}
 	}
 }

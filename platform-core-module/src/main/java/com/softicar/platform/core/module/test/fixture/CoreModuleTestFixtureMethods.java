@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
 import com.softicar.platform.core.module.access.role.assignment.module.instance.AGModuleInstanceRoleAssignment;
 import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
-import com.softicar.platform.core.module.locale.AGLocalizationPreset;
+import com.softicar.platform.core.module.localization.AGLocalizationPreset;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -70,7 +70,7 @@ public interface CoreModuleTestFixtureMethods {
 
 	default AGLocalizationPreset insertLocalizationPresetGermany() {
 
-		return insertLocalizationPreset("Germany", LanguageEnum.GERMAN, ",", ".");
+		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".");
 	}
 
 	default AGLocalizationPreset insertLocalizationPresetUsa() {

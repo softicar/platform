@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.core.module.user
 
-IMPORT com.softicar.platform.core.module.locale.AGLocalizationPreset
+IMPORT com.softicar.platform.core.module.localization.AGLocalizationPreset
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy
 IMPORT com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule

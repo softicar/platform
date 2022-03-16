@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.locale;
+package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;

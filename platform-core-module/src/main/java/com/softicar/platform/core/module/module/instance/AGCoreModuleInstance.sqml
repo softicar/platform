@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.core.module.module.instance
 
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
-IMPORT com.softicar.platform.core.module.locale.AGLocalizationPreset
+IMPORT com.softicar.platform.core.module.localization.AGLocalizationPreset
 IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.user.AGUser
 

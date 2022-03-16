@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
-import com.softicar.platform.core.module.locale.AGLocalizationPreset;
+import com.softicar.platform.core.module.localization.AGLocalizationPreset;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.table.configuration.IDbTableDataInitializer;

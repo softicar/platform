@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.locale;
+package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;

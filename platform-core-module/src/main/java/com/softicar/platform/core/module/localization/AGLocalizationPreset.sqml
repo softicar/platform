@@ -1,4 +1,4 @@
-PACKAGE com.softicar.platform.core.module.locale
+PACKAGE com.softicar.platform.core.module.localization
 
 IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
 
@@ -7,8 +7,8 @@ TABLE AGLocalizationPreset 'Core.LocalizationPreset' {
 	String name [MAXLENGTH=255]
 	
 	AGCoreLanguage language
-	String decimalSeparator = '.' [MAXLENGTH=255]
-	String digitGroupSeparator = '' [MAXLENGTH=255]
+	String decimalSeparator [MAXLENGTH=255]
+	String digitGroupSeparator [MAXLENGTH=255]
 	
 	UK name
 }
