@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
+import static org.junit.Assert.assertEquals;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
@@ -214,6 +215,17 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 						node.getClass().getCanonicalName(),
 						concreteType.getCanonicalName()));
 		}
+	}
+
+	public AbstractDomNodeTester<N> assertText(IDisplayString expectedText) {
+
+		return assertText(expectedText.toString());
+	}
+
+	public AbstractDomNodeTester<N> assertText(String expectedText) {
+
+		assertEquals(expectedText, getAllTextInDocument(""));
+		return this;
 	}
 
 	public AbstractDomNodeTester<N> assertContainsText(IDisplayString expectedText) {

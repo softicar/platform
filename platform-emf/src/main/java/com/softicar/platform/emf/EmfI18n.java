@@ -241,8 +241,6 @@ public interface EmfI18n extends DomI18n {
 		.de("OK");
 	I18n0 ONE_OF_THE_FOLLOWING_ROLES = new I18n0("One of the following roles:")//
 		.de("Eine der folgenden Rollen:");
-	I18n1 ONLY_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("Only %s decimal places allowed.")//
-		.de("Nur %s Dezimalstellen erlaubt.");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
 		.de("Es darf nur eine einzelne Datei angehängt werden.");
 	I18n0 OPENS_THE_HISTORY_WINDOW_FOR_THE_GIVEN_ENTRY = new I18n0("Opens the history window for the given entry.")//

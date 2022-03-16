@@ -1,44 +1,23 @@
 package com.softicar.platform.dom.elements.number.decimal;
 
-import com.softicar.platform.common.core.number.formatter.BigDecimalFormatter;
-import com.softicar.platform.common.core.number.parser.BigDecimalParser;
-import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.input.AbstractDomNumberInput;
-import com.softicar.platform.dom.input.DomInputException;
-import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.common.core.number.BigDecimalMapper;
 import java.math.BigDecimal;
 
 /**
- * A {@link DomTextInput} that verifies that the user entered a valid
- * {@link BigDecimal} value.
+ * A {@link DomDecimalInput} for {@link BigDecimal}.
  *
  * @author Oliver Richers
  */
-public class DomBigDecimalInput extends AbstractDomNumberInput<BigDecimal> {
+public class DomBigDecimalInput extends DomDecimalInput<BigDecimal> {
 
 	public DomBigDecimalInput() {
 
-		this(null);
+		super(BigDecimalMapper.BIG_DECIMAL);
 	}
 
 	public DomBigDecimalInput(BigDecimal value) {
 
+		super(BigDecimalMapper.BIG_DECIMAL);
 		setValue(value);
-	}
-
-	@Override
-	protected String formatValue(BigDecimal value) {
-
-		return new BigDecimalFormatter(value).format();
-	}
-
-	@Override
-	protected BigDecimal parseValue(String text) {
-
-		try {
-			return new BigDecimalParser(text).parseOrThrow();
-		} catch (Exception exception) {
-			throw new DomInputException(exception, DomI18n.INVALID_DECIMAL_NUMBER);
-		}
 	}
 }
