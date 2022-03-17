@@ -34,7 +34,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 	private void goBack() {
 
 		if (engine.containsVariables()) {
-			popup.showAnalyzeDiv();
+			popup.showDataWithReplacementsDiv();
 		} else {
 			popup.showUploadedDataDiv();
 		}

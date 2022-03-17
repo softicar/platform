@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing.analyze;
+package com.softicar.platform.emf.management.importing.variable.replace;
 
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -15,12 +15,12 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
 import java.util.List;
 
-public class EmfImportAnalyzeDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
+public class EmfImportViewDataWithReplacementsDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
 
 	private final EmfImportPopup<R, P, S> popup;
 	private final EmfImportEngine<R, P, S> engine;
 
-	public EmfImportAnalyzeDiv(EmfImportPopup<R, P, S> popup) {
+	public EmfImportViewDataWithReplacementsDiv(EmfImportPopup<R, P, S> popup) {
 
 		this.popup = popup;
 		this.engine = popup.getEngine();

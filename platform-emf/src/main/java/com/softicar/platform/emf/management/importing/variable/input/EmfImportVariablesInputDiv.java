@@ -75,7 +75,7 @@ public class EmfImportVariablesInputDiv<R extends IEmfTableRow<R, P>, P, S> exte
 		private void analyzeRows() {
 
 			engine.replaceVariables(createVariableValueMap());
-			popup.showAnalyzeDiv();
+			popup.showDataWithReplacementsDiv();
 		}
 	}
 }
