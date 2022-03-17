@@ -57,7 +57,7 @@ public class DomDecimalInput<T extends Number> extends AbstractDomNumberInput<T>
 	protected String formatValue(T value) {
 
 		var decimal = getScaled(mapper.toBigDecimal(value));
-		return new BigDecimalFormatter().format(decimal);
+		return new BigDecimalFormatter().setApplyDigitGroupSeparation(false).format(decimal);
 	}
 
 	@Override

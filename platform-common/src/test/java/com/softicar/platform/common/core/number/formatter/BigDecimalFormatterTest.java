@@ -84,6 +84,17 @@ public class BigDecimalFormatterTest extends Assert {
 		assertFormattedString("-123xyz456abc1234", "-123456.1234");
 	}
 
+	@Test
+	public void testWithDisabledDigitGroupSeparation() {
+
+		assertEquals(
+			"-1234567,89",
+			new BigDecimalFormatter()//
+				.setLocale(locale)
+				.setApplyDigitGroupSeparation(false)
+				.format(new BigDecimal("-1234567.89")));
+	}
+
 	private void assertFormattedString(String expectedOutput, String input) {
 
 		assertEquals(expectedOutput, new BigDecimalFormatter().setLocale(locale).format(new BigDecimal(input)));

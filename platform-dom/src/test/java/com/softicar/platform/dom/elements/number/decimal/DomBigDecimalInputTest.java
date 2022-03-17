@@ -12,6 +12,10 @@ import org.junit.Test;
 
 public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal> {
 
+	private static final Locale SPECIAL_LOCALE = new Locale()//
+		.setDecimalSeparator(",")
+		.setDigitGroupSeparator(".");
+
 	public DomBigDecimalInputTest() {
 
 		super(DomBigDecimalInput::new);
@@ -47,11 +51,7 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 	@Test
 	public void testGetValueWithCustomLocale() {
 
-		Locale locale = new Locale()//
-			.setDecimalSeparator(",")
-			.setDigitGroupSeparator(".");
-
-		try (var scope = new LocaleScope(locale)) {
+		try (var scope = new LocaleScope(SPECIAL_LOCALE)) {
 			// test valid inputs
 			assertResultForGetValue("0", "0");
 			assertResultForGetValue("123", "123");
@@ -117,6 +117,14 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 		setValue("12.600").assertInputValue("12.60");
 		setValue("12.123").assertInputValue("12.123");
 		setValue("12.1230").assertInputValue("12.123");
+	}
+
+	@Test
+	public void testSetValueWithLocale() {
+
+		try (var scope = new LocaleScope(SPECIAL_LOCALE)) {
+			setValue("1234567.89").assertInputValue("1234567,89");
+		}
 	}
 
 	private DomBigDecimalInputTest setValue(String value) {
