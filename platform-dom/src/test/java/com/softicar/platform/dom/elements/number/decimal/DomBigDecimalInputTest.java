@@ -12,6 +12,10 @@ import org.junit.Test;
 
 public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal> {
 
+	private static final Locale SPECIAL_LOCALE = new Locale()//
+		.setDecimalSeparator(",")
+		.setDigitGroupSeparator(".");
+
 	public DomBigDecimalInputTest() {
 
 		super(DomBigDecimalInput::new);
@@ -37,34 +41,30 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 		assertResultForGetValue("3.12345678", "3.12345678");
 
 		// test illegal inputs
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3,2");
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "foo");
 		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3.4.2");
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3;2");
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3 2");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(","), "3,2");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("fo"), "foo");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(";"), "3;2");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(" "), "3 2");
 	}
 
 	@Test
 	public void testGetValueWithCustomLocale() {
 
-		Locale locale = new Locale()//
-			.setDecimalSeparator(",")
-			.setDigitGroupSeparator(".");
-
-		try (var scope = new LocaleScope(locale)) {
+		try (var scope = new LocaleScope(SPECIAL_LOCALE)) {
 			// test valid inputs
 			assertResultForGetValue("0", "0");
 			assertResultForGetValue("123", "123");
 			assertResultForGetValue("-1234.56", "-1234,56");
-			assertResultForGetValue("-1234.56", "-1.234,56");
 			assertResultForGetValue("3.12345678", "3,12345678");
 
 			// test illegal inputs
-			assertExceptionForGetValue(CommonCoreI18n.DIGIT_GROUP_TOO_SHORT, "3.2");
-			assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "foo");
 			assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3,4,2");
-			assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3;2");
-			assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3 2");
+			assertExceptionForGetValue(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("."), "3.2");
+			assertExceptionForGetValue(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("."), "-1.234,56");
+			assertExceptionForGetValue(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("fo"), "foo");
+			assertExceptionForGetValue(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(";"), "3;2");
+			assertExceptionForGetValue(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(" "), "3 2");
 		}
 	}
 
@@ -117,6 +117,14 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 		setValue("12.600").assertInputValue("12.60");
 		setValue("12.123").assertInputValue("12.123");
 		setValue("12.1230").assertInputValue("12.123");
+	}
+
+	@Test
+	public void testSetValueWithLocale() {
+
+		try (var scope = new LocaleScope(SPECIAL_LOCALE)) {
+			setValue("1234567.89").assertInputValue("1234567,89");
+		}
 	}
 
 	private DomBigDecimalInputTest setValue(String value) {

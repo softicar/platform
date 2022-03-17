@@ -25,9 +25,9 @@ public class DomDoubleInputTest extends AbstractDomValueInputTest<Double> {
 		assertResultForGetValue(3.12345678, "3.12345678");
 
 		// test illegal inputs
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "foo");
 		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3.4.2");
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3;2");
-		assertExceptionForGetValue(DomI18n.INVALID_DECIMAL_NUMBER, "3 2");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("fo"), "foo");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(";"), "3;2");
+		assertExceptionForGetValue(DomI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(" "), "3 2");
 	}
 }
