@@ -4,7 +4,8 @@ import com.softicar.platform.common.container.data.table.DataTableValueFilterOpe
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
+import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
@@ -13,19 +14,23 @@ import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilterTypeSelect;
 import com.softicar.platform.emf.data.table.filter.nop.EmfDataTableNopFilter;
 import com.softicar.platform.emf.data.table.filter.value.EmfDataTableValueFilter;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends AbstractEmfDataTableMultiTypeFilterDiv<R, EmfDataTableEntityFilterType> {
 
 	private final IEmfDataTableColumn<R, T> column;
 	private final EmfDataTableEntityFilterTypeSelect filterTypeSelect;
-	private final DomSimpleValueSelect<T> select;
+	private final IDomAutoCompleteInput<T> entityInput;
 
 	public EmfDataTableEntityFilterNode(IEmfDataTableColumn<R, T> column) {
 
 		this.column = column;
 		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect();
-		this.select = new EmfDataTableEntityValueSelectBuilder<>(column).build();
-		this.select.setMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
+		this.entityInput = new EntityInput<>(column);
+		this.entityInput.setMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
 
 		refresh();
 	}
@@ -33,7 +38,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		var filterValue = select.getSelectedValue();
+		Optional<T> filterValue = entityInput.getSelection().getValue();
 		EmfDataTableEntityFilterType filterType = filterTypeSelect.getSelectedValue();
 		Resetter resetter = new Resetter(filterType, filterValue.orElse(null));
 		if (filterValue.isPresent()) {
@@ -64,7 +69,25 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	@Override
 	public IDomNode getFilterInput(EmfDataTableEntityFilterType filterType) {
 
-		return select;
+		return entityInput;
+	}
+
+	private static class EntityInput<T extends IEntity> extends DomAutoCompleteEntityInput<T> {
+
+		public EntityInput(IEmfDataTableColumn<?, T> column) {
+
+			super(getSortedColumnValues(column));
+		}
+
+		private static <T extends IEntity> Collection<T> getSortedColumnValues(IEmfDataTableColumn<?, T> column) {
+
+			Collection<T> columnValues = column.getDistinctColumnValues();
+			column.getDataColumn().prefetchData(columnValues);
+			return columnValues//
+				.stream()
+				.sorted(Comparator.comparing(IEntity::toDisplay))
+				.collect(Collectors.toList());
+		}
 	}
 
 	private class Resetter implements INullaryVoidFunction {
@@ -82,7 +105,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 		public void apply() {
 
 			filterTypeSelect.setSelectedValue(filterType);
-			select.selectValue(filterValue);
+			entityInput.setValue(filterValue);
 		}
 	}
 }
