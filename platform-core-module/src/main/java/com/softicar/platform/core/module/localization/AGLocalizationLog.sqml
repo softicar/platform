@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.localization
+
+IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGLocalizationLog 'Core.LocalizationLog' {
+	PK AGLocalization user
+	PK AGTransaction transaction
+	String name = NULL [NULLABLE MAXLENGTH=255]
+	AGCoreLanguage language = NULL [NULLABLE]
+	String decimalSeparator = NULL [NULLABLE MAXLENGTH=255]
+	String digitGroupSeparator = NULL [NULLABLE MAXLENGTH=255]
+}

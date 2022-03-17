@@ -57,14 +57,14 @@ public class DomDecimalInput<T extends Number> extends AbstractDomNumberInput<T>
 	protected String formatValue(T value) {
 
 		var decimal = getScaled(mapper.toBigDecimal(value));
-		return new BigDecimalFormatter().format(decimal);
+		return new BigDecimalFormatter().setApplyDigitGroupSeparation(false).format(decimal);
 	}
 
 	@Override
 	protected T parseValue(String text) {
 
 		try {
-			var decimal = getScaled(new BigDecimalParser(text).parseOrThrow());
+			var decimal = getScaled(new BigDecimalParser(text).setProhibitDigitGroupSeparators(true).parseOrThrow());
 			if (scale != null && decimal.scale() > scale) {
 				throw new DomInputException(DomI18n.NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED.toDisplay(scale));
 			}

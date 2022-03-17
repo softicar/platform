@@ -14,10 +14,12 @@ public class BigDecimalFormatter {
 
 	private static final int DIGIT_GROUP_SIZE = 3;
 	private ILocale locale;
+	private boolean digitGroupSeparation;
 
 	public BigDecimalFormatter() {
 
 		this.locale = CurrentLocale.get();
+		this.digitGroupSeparation = true;
 	}
 
 	/**
@@ -30,6 +32,23 @@ public class BigDecimalFormatter {
 	public BigDecimalFormatter setLocale(ILocale locale) {
 
 		this.locale = Objects.requireNonNull(locale);
+		return this;
+	}
+
+	/**
+	 * If enabled, digit group separators will be inserted into the integral
+	 * number part where appropriate.
+	 * <p>
+	 * By default, this is enabled, i.e. digit group separators are added.
+	 *
+	 * @param digitGroupSeparation
+	 *            <i>true</i> to enable insertion of digit group separators;
+	 *            <i>false</i> to disable it
+	 * @return this
+	 */
+	public BigDecimalFormatter setApplyDigitGroupSeparation(boolean digitGroupSeparation) {
+
+		this.digitGroupSeparation = digitGroupSeparation;
 		return this;
 	}
 
@@ -70,7 +89,11 @@ public class BigDecimalFormatter {
 
 	private String formatIntegralPart(String integralPart) {
 
-		return new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();
+		if (digitGroupSeparation) {
+			return new DigitGroupFormatter(integralPart, locale.getDigitGroupSeparator()).format();
+		} else {
+			return integralPart;
+		}
 	}
 
 	private static String getSign(BigDecimal value) {

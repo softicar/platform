@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.attribute.field.decimal;
 
+import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.db.runtime.field.IDbDoubleField;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
@@ -59,11 +59,12 @@ public class EmfDoubleAttributeTest extends AbstractEmfTest {
 		}
 	}
 
-	@Test(expected = DomInputException.class)
+	@Test
 	public void testGetValueWithInvalidInput() {
 
 		inputTester.setInputValue("xxx");
-		input.getValue();
+
+		assertException(() -> input.getValue(), CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("x"));
 	}
 
 	@Test

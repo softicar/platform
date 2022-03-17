@@ -1,16 +1,15 @@
 package com.softicar.platform.common.core.number.parser;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
+import com.softicar.platform.common.testing.Asserts;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class BigDecimalParserTest extends Assert {
+public class BigDecimalParserTest extends Asserts {
 
 	private final ILocale locale;
 
@@ -47,11 +46,26 @@ public class BigDecimalParserTest extends Assert {
 	}
 
 	@Test
-	public void testIllegalInput() {
+	public void testWithIllegalInput() {
 
 		assertException("-1.234567,89", CommonCoreI18n.DIGIT_GROUP_TOO_LONG);
 		assertException("-1.23.45.67,89", CommonCoreI18n.DIGIT_GROUP_TOO_SHORT);
 		assertException("-123,456.789", CommonCoreI18n.THE_DECIMAL_PART_MUST_NOT_CONTAIN_DIGIT_GROUP_SEPARATORS);
+		assertException("[123]", CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("[]"));
+		assertException("foo", CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("fo"));
+	}
+
+	@Test
+	public void testWithProhibitedDigitGroupSeparator() {
+
+		var input = "1.234.567,89";
+
+		assertException(//
+			() -> new BigDecimalParser(input)//
+				.setLocale(locale)
+				.setProhibitDigitGroupSeparators(true)
+				.parseOrThrow(),
+			CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("."));
 	}
 
 	@Test
@@ -70,10 +84,6 @@ public class BigDecimalParserTest extends Assert {
 
 	private void assertException(String input, IDisplayString expectedMessage) {
 
-		try {
-			new BigDecimalParser(input).setLocale(locale).parseOrThrow();
-		} catch (SofticarUserException exception) {
-			assertEquals(expectedMessage.toString(), exception.getMessage());
-		}
+		assertException(() -> new BigDecimalParser(input).setLocale(locale).parseOrThrow(), expectedMessage);
 	}
 }

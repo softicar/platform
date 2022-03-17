@@ -77,7 +77,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findSelect(EmfDataTableDivMarker.FILTER_INPUT_ENTITY).selectValue(item);
+		findAutoCompleteInput(EmfDataTableDivMarker.FILTER_INPUT_ENTITY).selectValue(item);
 		confirmFilterPopup();
 	}
 
