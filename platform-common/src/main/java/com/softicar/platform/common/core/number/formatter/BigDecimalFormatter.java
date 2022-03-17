@@ -35,6 +35,17 @@ public class BigDecimalFormatter {
 		return this;
 	}
 
+	/**
+	 * If enabled, digit group separators will be inserted into the integral
+	 * number part where appropriate.
+	 * <p>
+	 * By default, this is enabled, i.e. digit group separators are added.
+	 *
+	 * @param digitGroupSeparation
+	 *            <i>true</i> to enable insertion of digit group separators;
+	 *            <i>false</i> to disable it
+	 * @return this
+	 */
 	public BigDecimalFormatter setApplyDigitGroupSeparation(boolean digitGroupSeparation) {
 
 		this.digitGroupSeparation = digitGroupSeparation;

@@ -53,7 +53,7 @@ public class BigDecimalParser {
 	}
 
 	/**
-	 * If enabled, parsing will throw an exception is a digit group separator is
+	 * If enabled, parsing will throw an exception if a digit group separator is
 	 * encountered.
 	 * <p>
 	 * By default, this is disabled, i.e. digit group separators are allowed.
