@@ -2,8 +2,8 @@ package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
@@ -18,28 +18,35 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		this.input = appendChild(new AutoCompleteTestCaseInput(this));
 
-		appendNewChild(DomElementTag.BR);
-		appendChild(new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.GENERIC));
-		appendChild(new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.VALIDATION));
-		appendNewChild(DomElementTag.BR);
-		appendChild(new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE));
-		appendChild(new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE));
-		appendChild(new SetValidationModeButton(DomAutoCompleteInputValidationMode.RESTRICTIVE));
-		appendNewChild(DomElementTag.BR);
-		appendChild(new SetValueMandatoryButton(true));
-		appendChild(new SetValueMandatoryButton(false));
-		appendNewChild(DomElementTag.BR);
-		appendChild(new MarkAsInvalidButton());
-		appendChild(new SetValueButton());
-		appendNewChild(DomElementTag.BR);
-		appendChild(new GetSelectionValueButton());
-		appendChild(new GetValueStringOrNullButton());
-		appendChild(new GetValueStringOrEmptyButton());
-		appendChild(new GetRawValueStringButton());
-		appendChild(new FireAssertionButton());
-		appendNewChild(DomElementTag.BR);
-		appendChild(new SetEnabledButton(true));
-		appendChild(new SetEnabledButton(false));
+		appendChild(
+			new DomActionBar(//
+				new DomActionBar(//
+					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.GENERIC),
+					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.VALIDATION))));
+		appendChild(
+			new DomActionBar(//
+				new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE),
+				new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE),
+				new SetValidationModeButton(DomAutoCompleteInputValidationMode.RESTRICTIVE)));
+		appendChild(
+			new DomActionBar(//
+				new SetValueMandatoryButton(true),
+				new SetValueMandatoryButton(false)));
+		appendChild(
+			new DomActionBar(//
+				new MarkAsInvalidButton(),
+				new SetValueButton()));
+		appendChild(
+			new DomActionBar(//
+				new GetSelectionValueButton(),
+				new GetValueStringOrNullButton(),
+				new GetValueStringOrEmptyButton(),
+				new GetRawValueStringButton(),
+				new FireAssertionButton()));
+		appendChild(
+			new DomActionBar(//
+				new SetEnabledButton(true),
+				new SetEnabledButton(false)));
 	}
 
 	private class MarkAsInvalidButton extends DomButton {
