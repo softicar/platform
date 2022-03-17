@@ -9,6 +9,9 @@ import com.softicar.platform.common.core.utils.DevNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * A parser for {@link BigDecimal} respecting {@link CurrentLocale}.
@@ -17,9 +20,11 @@ import java.util.Optional;
  */
 public class BigDecimalParser {
 
+	private static final String LEGAL_CHARACTERS = "+-0123456789.eE";
 	private static final int DIGIT_GROUP_SIZE = BigDecimalFormatter.getDigitGroupSize();
 	private final String numberString;
 	private ILocale locale;
+	private boolean prohibitDigitGroupSeparators;
 
 	/**
 	 * Constructs this {@link BigDecimalParser}.
@@ -31,6 +36,7 @@ public class BigDecimalParser {
 
 		this.numberString = Objects.requireNonNull(numberString);
 		this.locale = CurrentLocale.get();
+		this.prohibitDigitGroupSeparators = false;
 	}
 
 	/**
@@ -43,6 +49,23 @@ public class BigDecimalParser {
 	public BigDecimalParser setLocale(ILocale locale) {
 
 		this.locale = locale;
+		return this;
+	}
+
+	/**
+	 * If enabled, parsing will throw an exception is a digit group separator is
+	 * encountered.
+	 * <p>
+	 * By default, this is disabled, i.e. digit group separators are allowed.
+	 *
+	 * @param prohibitDigitGroupSeparators
+	 *            <i>true</i> to prohibit digit group separators; <i>false</i>
+	 *            to allow them
+	 * @return this
+	 */
+	public BigDecimalParser setProhibitDigitGroupSeparators(boolean prohibitDigitGroupSeparators) {
+
+		this.prohibitDigitGroupSeparators = prohibitDigitGroupSeparators;
 		return this;
 	}
 
@@ -77,6 +100,7 @@ public class BigDecimalParser {
 		var normalized = numberString//
 			.replace(locale.getDigitGroupSeparator(), "")
 			.replace(locale.getDecimalSeparator(), ".");
+		validateCharacters(normalized);
 		return new BigDecimal(normalized);
 	}
 
@@ -98,6 +122,9 @@ public class BigDecimalParser {
 
 		String[] groups = integralPart.replace(locale.getDigitGroupSeparator(), ",").split(",");
 		if (groups.length > 1) {
+			if (prohibitDigitGroupSeparators) {
+				throw new SofticarUserException(CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay(locale.getDigitGroupSeparator()));
+			}
 			for (int i = 0; i < groups.length; i++) {
 				if (groups[i].length() > DIGIT_GROUP_SIZE) {
 					throw new SofticarUserException(CommonCoreI18n.DIGIT_GROUP_TOO_LONG);
@@ -114,5 +141,30 @@ public class BigDecimalParser {
 		if (fractionalPart.contains(locale.getDigitGroupSeparator())) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DECIMAL_PART_MUST_NOT_CONTAIN_DIGIT_GROUP_SEPARATORS);
 		}
+	}
+
+	private void validateCharacters(String normalizedNumberString) {
+
+		Set<Character> illegalCharacters = new TreeSet<>();
+		for (int i = 0; i < normalizedNumberString.length(); i++) {
+			char character = normalizedNumberString.charAt(i);
+			if (!isValidCharacter(character)) {
+				illegalCharacters.add(character);
+			}
+		}
+		if (!illegalCharacters.isEmpty()) {
+			throw new SofticarUserException(
+				CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1
+					.toDisplay(
+						illegalCharacters//
+							.stream()
+							.map(Object::toString)
+							.collect(Collectors.joining())));
+		}
+	}
+
+	private boolean isValidCharacter(char character) {
+
+		return LEGAL_CHARACTERS.contains("" + character);
 	}
 }

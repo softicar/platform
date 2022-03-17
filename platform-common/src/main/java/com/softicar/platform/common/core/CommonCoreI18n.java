@@ -30,4 +30,6 @@ public interface CommonCoreI18n {
 				.de("Das Zifferngruppentrennzeichen darf keines der folgenden Zeichen enthalten: %s");
 	I18n0 THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_DIGITS = new I18n0("The digit group separator must not contain digits.")//
 		.de("Das Zifferngruppentrennzeichen darf keine Ziffern beinhalten.");
+	I18n1 ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1 = new I18n1("Illegal characters for decimal number: %s")//
+		.de("Unzulässige Zeichen für Dezimalzahl: %s");
 }
