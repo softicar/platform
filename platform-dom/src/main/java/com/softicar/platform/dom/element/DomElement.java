@@ -65,6 +65,20 @@ public abstract class DomElement extends DomNode implements IDomElement {
 	@Override
 	public abstract DomElementTag getTag();
 
+	// -------------------- events -------------------- //
+
+	@Override
+	public void listenToEvent(DomEventType type) {
+
+		getDomEngine().listenToEvent(this, type);
+	}
+
+	@Override
+	public void unlistenToEvent(DomEventType type) {
+
+		getDomEngine().unlistenToEvent(this, type);
+	}
+
 	// -------------------- CSS CLASS -------------------- //
 
 	@Override
