@@ -2,6 +2,7 @@ package com.softicar.platform.dom.element;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.ui.color.IColor;
+import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssClass;
@@ -33,7 +34,13 @@ public interface IDomElement extends IDomNode {
 	 */
 	DomElementTag getTag();
 
-	// -------------------- css class methods -------------------- //
+	// -------------------- events -------------------- //
+
+	void listenToEvent(DomEventType type);
+
+	void unlistenToEvent(DomEventType type);
+
+	// -------------------- CSS class methods -------------------- //
 
 	default void setCssClass(ICssClass...cssClasses) {
 
@@ -58,7 +65,7 @@ public interface IDomElement extends IDomNode {
 
 	void unsetCssClass();
 
-	// -------------------- css style methods -------------------- //
+	// -------------------- CSS style methods -------------------- //
 
 	IDomElement setStyle(ICssStyle style, String value);
 
@@ -71,7 +78,7 @@ public interface IDomElement extends IDomNode {
 
 	IDomElement unsetStyle(ICssStyle style);
 
-	// -------------------- convenience css style methods -------------------- //
+	// -------------------- convenience CSS style methods -------------------- //
 
 	/**
 	 * Sets the CSS <i>display</i> style to <i>none</i> on this

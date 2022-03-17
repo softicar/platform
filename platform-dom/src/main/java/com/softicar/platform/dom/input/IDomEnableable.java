@@ -3,17 +3,17 @@ package com.softicar.platform.dom.input;
 import com.softicar.platform.dom.element.IDomElement;
 
 /**
- * Simple interface for enableable and disableable dom elements.
+ * Interface to enable or disable {@link IDomElement} instances.
  *
  * @author Oliver Richers
  */
 public interface IDomEnableable extends IDomElement {
 
 	/**
-	 * Enables or disables this element.
+	 * Enables or disables this {@link IDomElement}.
 	 *
 	 * @param enabled
-	 *            true to enable, false to disable
+	 *            <i>true</i> to enable; <i>false</i> to disable
 	 */
 	default IDomElement setEnabled(boolean enabled) {
 
@@ -23,5 +23,15 @@ public interface IDomEnableable extends IDomElement {
 			setAttribute("disabled", "disabled");
 		}
 		return this;
+	}
+
+	/**
+	 * Disables this {@link IDomElement}.
+	 * <p>
+	 * Convenience method for {@link #setEnabled(boolean)}.
+	 */
+	default void disable() {
+
+		setEnabled(false);
 	}
 }

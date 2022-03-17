@@ -3,7 +3,6 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.event.IDomEventHandler;
-import com.softicar.platform.dom.input.IDomListeningNode;
 
 /**
  * Represents a result row of an {@link IEmfDataTable}.
@@ -11,7 +10,7 @@ import com.softicar.platform.dom.input.IDomListeningNode;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public interface IEmfDataTableRow<R> extends IDomElement, IRefreshable, IDomListeningNode, IDomEventHandler {
+public interface IEmfDataTableRow<R> extends IDomElement, IRefreshable, IDomEventHandler {
 
 	IEmfDataTable<R> getTable();
 

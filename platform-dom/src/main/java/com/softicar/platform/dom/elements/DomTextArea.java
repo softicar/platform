@@ -7,7 +7,7 @@ import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Optional;
 
 /**
- * This class represents an Html text area element.
+ * Represents an HTML text area element.
  *
  * @author Oliver Richers
  */
