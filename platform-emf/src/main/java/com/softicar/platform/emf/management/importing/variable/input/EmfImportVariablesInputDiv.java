@@ -31,17 +31,17 @@ public class EmfImportVariablesInputDiv<R extends IEmfTableRow<R, P>, P, S> exte
 
 		appendChild(
 			new DomActionBar(//
-				new EmfImportBackButton(() -> popup.showUploadDiv()),
-				new AnalyzeButton()));
-
+				new EmfImportBackButton(() -> popup.showUploadedDataDiv()),
+				new ReplaceVariablesButton()));
 		appendChild(
 			new DomWikiDivBuilder()//
 				.beginBox(WikiBoxType.INFO)
-				.addUnorderedListItem(EmfI18n.SET_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT)
-				.addUnorderedListItem(EmfI18n.IN_THE_NEXT_STEP_YOU_WILL_SEE_WHAT_WOULD_BE_IMPORTED_AND_YOU_CAN_DECIDE_TO_EXECUTE_THE_IMPORT_OR_NOT)
+				.addUnorderedListItem(EmfI18n.ENTER_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT)
+				.addUnorderedListItem(
+					EmfI18n.IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VARIABLE_VALUES
+						.concatSentence(EmfI18n.NO_DATA_WILL_BE_SAVED_YET))
 				.endBox(WikiBoxType.INFO)
 				.build());
-
 		addVariableInputs(appendChild(new DomLabelGrid()));
 	}
 
@@ -63,20 +63,19 @@ public class EmfImportVariablesInputDiv<R extends IEmfTableRow<R, P>, P, S> exte
 		return variableValueMap;
 	}
 
-	private class AnalyzeButton extends DomButton {
+	private class ReplaceVariablesButton extends DomButton {
 
-		public AnalyzeButton() {
+		public ReplaceVariablesButton() {
 
 			setIcon(EmfImages.WIZARD_NEXT.getResource());
-			setLabel(EmfI18n.ANALYZE);
+			setLabel(EmfI18n.REPLACE_VARIABLES);
 			setClickCallback(this::analyzeRows);
 		}
 
 		private void analyzeRows() {
 
 			engine.replaceVariables(createVariableValueMap());
-			engine.parseRows();
-			popup.showSubmitDiv();
+			popup.showAnalyzeDiv();
 		}
 	}
 }

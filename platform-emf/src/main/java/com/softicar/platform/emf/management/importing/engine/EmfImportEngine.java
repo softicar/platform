@@ -14,7 +14,6 @@ import com.softicar.platform.emf.management.importing.variable.replace.EmfImport
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -92,6 +91,11 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 	public List<List<String>> getTextualRows() {
 
 		return textualRows;
+	}
+
+	public List<List<String>> getTextualRowsWithReplacements() {
+
+		return textualRowsWithReplacements;
 	}
 
 	public List<R> getParsedRows() {

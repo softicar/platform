@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing.analyze;
+package com.softicar.platform.emf.management.importing.upload;
 
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -15,53 +15,52 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
 import java.util.List;
 
-public class EmfImportAnalyzeDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
+public class EmfImportViewUploadedDataDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
 
 	private final EmfImportPopup<R, P, S> popup;
 	private final EmfImportEngine<R, P, S> engine;
 
-	public EmfImportAnalyzeDiv(EmfImportPopup<R, P, S> popup) {
+	public EmfImportViewUploadedDataDiv(EmfImportPopup<R, P, S> popup) {
 
 		this.popup = popup;
 		this.engine = popup.getEngine();
 
 		appendChild(
 			new DomActionBar(//
-				new EmfImportBackButton(this::goBack),
-				new AnalyzeButton()));
+				new EmfImportBackButton(() -> popup.showUploadDiv()),
+				new GoOnButton()));
 		appendChild(
-			new EmfDataTableDivBuilder<>(new ParseTable())//
+			new EmfDataTableDivBuilder<>(new UploadedDataTable())//
 				.build());
 	}
 
-	private void goBack() {
+	private class GoOnButton extends DomButton {
 
-		if (engine.containsVariables()) {
-			popup.showVariablesInputDiv();
-		} else {
-			popup.showUploadedDataDiv();
-		}
-	}
-
-	private class AnalyzeButton extends DomButton {
-
-		public AnalyzeButton() {
+		public GoOnButton() {
 
 			setIcon(EmfImages.WIZARD_NEXT.getResource());
-			setLabel(EmfI18n.ANALYZE);
-			setClickCallback(this::analyzeRows);
+			if (engine.containsVariables()) {
+				setLabel(EmfI18n.ENTER_VARIABLE_VALUES);
+			} else {
+				setLabel(EmfI18n.ANALYZE);
+			}
+			setClickCallback(this::goOn);
 		}
 
-		private void analyzeRows() {
+		private void goOn() {
 
-			engine.parseRows();
-			popup.showSubmitDiv();
+			if (engine.containsVariables()) {
+				popup.showVariablesInputDiv();
+			} else {
+				engine.parseRows();
+				popup.showSubmitDiv();
+			}
 		}
 	}
 
-	private class ParseTable extends AbstractInMemoryDataTable<List<String>> {
+	private class UploadedDataTable extends AbstractInMemoryDataTable<List<String>> {
 
-		public ParseTable() {
+		public UploadedDataTable() {
 
 			var index = 0;
 			for (IDbField<R, ?> field: engine.getFieldsToImport()) {
@@ -73,7 +72,7 @@ public class EmfImportAnalyzeDiv<R extends IEmfTableRow<R, P>, P, S> extends Dom
 		@Override
 		protected Collection<List<String>> getTableRows() {
 
-			return engine.getTextualRowsWithReplacements();
+			return engine.getTextualRows();
 		}
 
 		private void addColumn(IDbField<R, ?> field, int index) {
