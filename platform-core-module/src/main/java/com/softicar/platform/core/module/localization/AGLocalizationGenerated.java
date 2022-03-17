@@ -13,7 +13,7 @@ import com.softicar.platform.db.sql.statement.ISqlSelect;
 
 /**
  * This is the automatically generated class AGLocalization for
- * database table <i>Core.LocalizationPreset</i>.
+ * database table <i>Core.Localization</i>.
  */
 @Generated
 @SuppressWarnings("all")
@@ -22,7 +22,7 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	// -------------------------------- STATIC CONSTANTS -------------------------------- //
 
 	// @formatter:off
-	private static final DbObjectTableBuilder<AGLocalization, AGLocalizationGenerated> BUILDER = new DbObjectTableBuilder<>("Core", "LocalizationPreset", AGLocalization::new, AGLocalization.class);
+	private static final DbObjectTableBuilder<AGLocalization, AGLocalizationGenerated> BUILDER = new DbObjectTableBuilder<>("Core", "Localization", AGLocalization::new, AGLocalization.class);
 	static {
 		BUILDER.setTitle(CoreI18n.LOCALIZATION);
 		BUILDER.setPluralTitle(CoreI18n.LOCALIZATIONS);
