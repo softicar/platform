@@ -104,11 +104,4 @@ public class I18nKeyComputer {
 		}
 		return string.toUpperCase();
 	}
-
-	public static void main(String[] args) {
-
-		String s = "In the next step you can control the replacement of the variables by the entered variable values.";
-		System.out.println(new I18nKeyComputer(s).compute());
-
-	}
 }
