@@ -15,6 +15,8 @@ public class TestCasesDiv extends DomDiv {
 		appendChild(new AutoCompleteEntityTestCase());
 		appendChild(new AutoCompleteEntityWithChangeHandlerTestCase());
 		appendChild(new AutoCompleteInPopupTestCase());
+		appendChild(new InputDisabledTestCase());
+		appendChild(new InputReadonlyTestCase());
 		appendChild(new ChangeEventTestCase());
 		appendChild(new HiddenFileInputTestCase());
 		appendChild(new EnterEventOnButtonTestCase());

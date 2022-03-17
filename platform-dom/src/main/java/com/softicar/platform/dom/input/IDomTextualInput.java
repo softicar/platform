@@ -88,4 +88,28 @@ public interface IDomTextualInput extends IDomInputNode {
 
 		getDomEngine().select(this);
 	}
+
+	// -------------------------------- read-only -------------------------------- //
+
+	/**
+	 * Makes this {@link IDomTextualInput} read-only.
+	 * <p>
+	 * In contrast to {@link #setEnabled(boolean)}, the user can still see and
+	 * copy the text of this {@link IDomTextualInput}.
+	 */
+	default void setReadonly(boolean readonly) {
+
+		setAttribute("readonly", readonly? "" : null);
+	}
+
+	/**
+	 * Tests whether this {@link IDomTextualInput} is read-only.
+	 *
+	 * @return <i>true</i> if this {@link IDomTextualInput} is read-only;
+	 *         <i>false</i> otherwise
+	 */
+	default boolean isReadonly() {
+
+		return getAttributeValue("readonly").isPresent();
+	}
 }
