@@ -15,7 +15,9 @@ import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilterTypeSelect
 import com.softicar.platform.emf.data.table.filter.nop.EmfDataTableNopFilter;
 import com.softicar.platform.emf.data.table.filter.value.EmfDataTableValueFilter;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends AbstractEmfDataTableMultiTypeFilterDiv<R, EmfDataTableEntityFilterType> {
 
@@ -74,14 +76,17 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 
 		public EntityInput(IEmfDataTableColumn<?, T> column) {
 
-			super(getColumnValues(column));
+			super(getSortedColumnValues(column));
 		}
 
-		private static <T extends IEntity> Collection<T> getColumnValues(IEmfDataTableColumn<?, T> column) {
+		private static <T extends IEntity> Collection<T> getSortedColumnValues(IEmfDataTableColumn<?, T> column) {
 
 			Collection<T> columnValues = column.getDistinctColumnValues();
 			column.getDataColumn().prefetchData(columnValues);
-			return columnValues;
+			return columnValues//
+				.stream()
+				.sorted(Comparator.comparing(IEntity::toDisplay))
+				.collect(Collectors.toList());
 		}
 	}
 
