@@ -38,7 +38,7 @@ public class EmfImportVariablesInputDiv<R extends IEmfTableRow<R, P>, P, S> exte
 				.beginBox(WikiBoxType.INFO)
 				.addUnorderedListItem(EmfI18n.ENTER_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT)
 				.addUnorderedListItem(
-					EmfI18n.IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VARIABLE_VALUES
+					EmfI18n.IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VALUES
 						.concatSentence(EmfI18n.NO_DATA_WILL_BE_SAVED_YET))
 				.endBox(WikiBoxType.INFO)
 				.build());

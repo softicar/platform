@@ -170,9 +170,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Importieren");
 	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
 		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
-	I18n0 IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VARIABLE_VALUES =
-			new I18n0("In the next step you can control the replacement of the variables by the entered variable values.")//
-				.de("Im nächsten Schritt können Sie die Ersetzung der Variablen durch die eingegebenen Variablenwerte kontrollieren.");
+	I18n0 IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VALUES =
+			new I18n0("In the next step you can control the replacement of the variables by the entered values.")//
+				.de("Im nächsten Schritt können Sie die Ersetzung der Variablen durch die eingegebenen Werte kontrollieren.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
 	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
