@@ -25,7 +25,7 @@ public class EmfImportVariablesReplacer {
 		}
 
 		createCoordinatesToVariableValueMap(variableCoordinates, variableToValueMap);
-		return rowsCopyWithReplacedVariables();
+		return createRowsCopyWithReplacedVariables();
 	}
 
 	private Map<EmfImportVariableCoordinates, String> createCoordinatesToVariableValueMap(SetMap<String, EmfImportVariableCoordinates> variableCoordinates,
@@ -42,7 +42,7 @@ public class EmfImportVariablesReplacer {
 		return coordinatesToVariableValueMap;
 	}
 
-	private List<List<String>> rowsCopyWithReplacedVariables() {
+	private List<List<String>> createRowsCopyWithReplacedVariables() {
 
 		List<List<String>> rowsCopyWithReplacedVariables = new ArrayList<>();
 		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
