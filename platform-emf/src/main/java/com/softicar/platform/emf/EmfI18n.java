@@ -120,7 +120,7 @@ public interface EmfI18n extends DomI18n {
 		.de("Ziel-Index eingeben");
 	I18n0 ENTER_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT = new I18n0("Enter the variable values for the current import.")//
 		.de("Geben Sie die Variablenwerte für den aktuellen Import ein.");
-	I18n0 ENTER_VARIABLE_VALUES = new I18n0("Enter variable values")//
+	I18n0 ENTER_VARIABLE_VALUES = new I18n0("Enter Variable Values")//
 		.de("Variablenwerte eingeben");
 	I18n0 ENTER_WIKI_TEXT_HERE = new I18n0("Enter wiki text here...")//
 		.de("Wiki-Text hier eingeben...");
@@ -299,7 +299,7 @@ public interface EmfI18n extends DomI18n {
 		.de("Eintrag entfernen");
 	I18n0 REMOVE_FILE = new I18n0("Remove File")//
 		.de("Datei entfernen");
-	I18n0 REPLACE_VARIABLES = new I18n0("Replace variables")//
+	I18n0 REPLACE_VARIABLES = new I18n0("Replace Variables")//
 		.de("Variablen ersetzen");
 	I18n0 RESET = new I18n0("Reset")//
 		.de("Zurücksetzen");
@@ -432,7 +432,7 @@ public interface EmfI18n extends DomI18n {
 		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
-	I18n2 YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSE_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2 = new I18n2(
-		"You can define variables by enclose them with double dollar signs, for example %s to define variable %s.")//
+	I18n2 YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSING_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2 = new I18n2(
+		"You can define variables by enclosing them with double dollar signs, for example %s to define variable %s.")//
 			.de("Sie können Variablen definieren, indem Sie sie mit doppelten Dollarzeichen umschließen, zum Beispiel %s, um die Variable %s zu definieren.");
 }
