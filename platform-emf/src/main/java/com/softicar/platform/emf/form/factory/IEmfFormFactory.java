@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.form.configuration;
+package com.softicar.platform.emf.form.factory;
 
 import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;

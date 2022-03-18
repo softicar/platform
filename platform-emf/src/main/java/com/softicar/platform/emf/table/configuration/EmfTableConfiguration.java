@@ -33,8 +33,8 @@ import com.softicar.platform.emf.deactivation.EmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.delete.EmfDeleteStrategyBuilder;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
-import com.softicar.platform.emf.form.EmfFormConfiguration;
-import com.softicar.platform.emf.form.configuration.IEmfFormConfiguration;
+import com.softicar.platform.emf.form.factory.EmfFormDefaultFactory;
+import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
@@ -82,7 +82,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Supplier<EmfAttributeList<R, P>> attributeListSupplier;
 	private final Supplier<EmfAttributeDependencyMap<R>> attributeDependencyMapSupplier;
 	private final Supplier<EmfAttributeDefaultValueSet<R, S>> attributeDefaultValueSetSupplier;
-	private final Supplier<EmfFormConfiguration<R>> formConfigurationSupplier;
 	private final Supplier<EmfFormIndicatorConfiguration<R>> indicatorConfigurationSupplier;
 	private final Supplier<EmfFormSectionConfiguration<R>> sectionConfigurationSupplier;
 	private final Supplier<EmfFormTabConfiguration<R>> tabConfigurationSupplier;
@@ -95,6 +94,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfDeleteHook<R>> deleteHooks;
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
+	private IEmfFormFactory<R> formFactory;
 	private Function<S, DomPopup> creationPopupFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
@@ -116,7 +116,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.attributeListSupplier = new EmfLazySupplier<>(table, EmfAttributeList::new, this::customizeAttributesAndOrder);
 		this.attributeDependencyMapSupplier = new EmfLazySupplier<>(table, EmfAttributeDependencyMap::new, table::customizeAttributeDependencies);
 		this.attributeDefaultValueSetSupplier = new EmfLazySupplier<>(table, EmfAttributeDefaultValueSet::new, table::customizeAttributeDefaultValues);
-		this.formConfigurationSupplier = new EmfLazySupplier<>(EmfFormConfiguration::new, table::customizeForm);
 		this.indicatorConfigurationSupplier = new EmfLazySupplier<>(EmfFormIndicatorConfiguration::new, table::customizeFormIndicators);
 		this.sectionConfigurationSupplier = new EmfLazySupplier<>(EmfFormSectionConfiguration::new, table::customizeFormSections);
 		this.tabConfigurationSupplier = new EmfLazySupplier<>(() -> new EmfFormTabConfiguration<>(table), table::customizeFormTabs);
@@ -125,6 +124,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.childTableSetSupplier = new EmfLazySupplier<>(EmfChildTableSet::new, table::customizeChildTables);
 		this.managementConfigurationSupplier = new EmfLazySupplier<>(table, EmfManagementConfiguration::new, table::customizeManagementConfiguraton);
 		this.authorizerSupplier = new EmfLazySupplier<>(EmfAuthorizer::new, table::customizeAuthorizer);
+		this.formFactory = new EmfFormDefaultFactory<>();
 		this.commitHooks = new ArrayList<>();
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
@@ -222,6 +222,11 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.attributeAuthorizerFactory = attributeAuthorizerFactory;
 	}
 
+	public final void setFormFactory(IEmfFormFactory<R> formFactory) {
+
+		this.formFactory = formFactory;
+	}
+
 	public final void setCreationPopupFactory(Function<S, DomPopup> creationPopupFactory) {
 
 		this.creationPopupFactory = creationPopupFactory;
@@ -269,12 +274,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final Function<R, IDomElement> getDisplayFactory() {
 
 		return displayFactory;
-	}
-
-	@Override
-	public IEmfFormConfiguration<R> getFormConfiguration() {
-
-		return formConfigurationSupplier.get();
 	}
 
 	@Override
@@ -452,6 +451,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfAuthorizer<R, S> getAuthorizer() {
 
 		return authorizerSupplier.get();
+	}
+
+	@Override
+	public IEmfFormFactory<R> getFormFactory() {
+
+		return formFactory;
 	}
 
 	@Override
