@@ -93,9 +93,6 @@ public interface IDomTextualInput extends IDomInputNode {
 
 	/**
 	 * Makes this {@link IDomTextualInput} read-only.
-	 * <p>
-	 * In contrast to {@link #setEnabled(boolean)}, the user can still see and
-	 * copy the text of this {@link IDomTextualInput}.
 	 */
 	default void setReadonly(boolean readonly) {
 
