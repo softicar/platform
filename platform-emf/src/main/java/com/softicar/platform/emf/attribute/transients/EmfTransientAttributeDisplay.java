@@ -1,13 +1,23 @@
 package com.softicar.platform.emf.attribute.transients;
 
+import com.softicar.platform.common.core.number.formatter.BigDecimalFormatter;
 import com.softicar.platform.dom.elements.DomDiv;
+import java.math.BigDecimal;
 
 public class EmfTransientAttributeDisplay<V> extends DomDiv {
 
 	public EmfTransientAttributeDisplay(V value) {
 
 		if (value != null) {
-			appendText(value.toString());
+			if (value instanceof BigDecimal) {
+				appendText(new BigDecimalFormatter().format((BigDecimal) value));
+			} else if (value instanceof Double) {
+				appendText(new BigDecimalFormatter().format((Double) value));
+			} else if (value instanceof Float) {
+				appendText(new BigDecimalFormatter().format((Float) value));
+			} else {
+				appendText(value.toString());
+			}
 		}
 	}
 }

@@ -144,7 +144,7 @@ public class SofticarBasicAuthenticatorTest extends AbstractCoreTest {
 			.add(CoreI18n.TOO_MANY_FAILED_LOGIN_ATTEMPTS, LanguageEnum.GERMAN, "Zuviele blablabla")
 			.add(CoreI18n.PLEASE_WAIT_FOR_ARG1_SECONDS, LanguageEnum.GERMAN, "Bitte warten blabla %s");
 		CurrentLanguageTranslator.set(translator);
-		user.setPreferredLanguage(LanguageEnum.GERMAN).save();
+		user.setLocalization(insertLocalizationPresetGermany()).save();
 
 		// execute too many failed logins
 		for (int i = 0; i < SofticarBasicAuthenticator.DEFAULT_MAXIMUM_LOGIN_FAILURES; i++) {
@@ -184,7 +184,7 @@ public class SofticarBasicAuthenticatorTest extends AbstractCoreTest {
 		this.user = insertUserWithPassword("foo", "bar");
 
 		// prepare translation
-		user.setPreferredLanguage(LanguageEnum.GERMAN).save();
+		user.setLocalization(insertLocalizationPresetGermany()).save();
 
 		// execute maximum logins
 		for (int i = 0; i < SofticarBasicAuthenticator.MAXIMUM_LOGINS; i++) {

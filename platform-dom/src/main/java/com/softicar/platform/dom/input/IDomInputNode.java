@@ -5,7 +5,7 @@ package com.softicar.platform.dom.input;
  *
  * @author Oliver Richers
  */
-public interface IDomInputNode extends IDomEnableable, IDomFocusable, IDomListeningNode {
+public interface IDomInputNode extends IDomEnableable, IDomFocusable {
 
 	// nothing
 }

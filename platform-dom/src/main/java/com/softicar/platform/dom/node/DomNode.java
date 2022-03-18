@@ -8,7 +8,6 @@ import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
 import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
 import com.softicar.platform.dom.elements.dialog.DomModalPromptPopup;
-import com.softicar.platform.dom.input.IDomListeningNode;
 import java.io.IOException;
 import java.util.function.Consumer;
 
@@ -17,7 +16,7 @@ import java.util.function.Consumer;
  *
  * @author Oliver Richers
  */
-public abstract class DomNode extends AbstractDomNode implements IDomListeningNode {
+public abstract class DomNode extends AbstractDomNode {
 
 	// -------------------- BASIC METHODS -------------------- //
 

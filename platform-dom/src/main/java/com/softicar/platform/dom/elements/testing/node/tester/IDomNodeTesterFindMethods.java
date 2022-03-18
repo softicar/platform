@@ -14,6 +14,7 @@ import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import java.util.NoSuchElementException;
@@ -320,6 +321,25 @@ public interface IDomNodeTesterFindMethods {
 		return findNode(marker)//
 			.findNodes(DomSelect.class)
 			.assertOne(node -> new DomSelectTester<>(getEngine(), node));
+	}
+
+	/**
+	 * Recursively searches for a single {@link IDomAutoCompleteInput} child
+	 * node with the given {@link IStaticObject} marker, and returns it as an
+	 * {@link DomAutoCompleteTester}.
+	 *
+	 * @param marker
+	 *            the marker to search for (never <i>null</i>)
+	 * @return a {@link DomAutoCompleteTester} of the single matching child node
+	 *         (never <i>null</i>)
+	 * @throws DomNodeAssertionError
+	 *             if there is more than one matching child node, or none at all
+	 */
+	default <T> DomAutoCompleteTester<T> findAutoCompleteInput(IStaticObject marker) {
+
+		return findNode(marker)//
+			.findNodes(IDomAutoCompleteInput.class)
+			.assertOne(node -> new DomAutoCompleteTester<>(getEngine(), node));
 	}
 
 	// ------------------------------ find methods for parent nodes ------------------------------ //

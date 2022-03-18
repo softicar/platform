@@ -1,0 +1,10 @@
+dependencies {
+	api "com.jcraft:jsch:$versions.jsch"
+	api "junit:junit:$versions.junit"
+	api "org.mockito:mockito-core:$versions.mockito"
+
+	implementation "commons-codec:commons-codec:$versions.commonsCodec"
+	implementation "commons-net:commons-net:$versions.commonsNet"
+	implementation "io.github.classgraph:classgraph:$versions.classgraph"
+	implementation "org.ow2.asm:asm:$versions.asm"
+}

@@ -1,10 +1,11 @@
 package com.softicar.platform.dom;
 
+import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.I18n2;
 
-public interface DomI18n {
+public interface DomI18n extends CommonCoreI18n {
 
 	I18n0 ACTIVE_FILTER = new I18n0("Active filter")//
 		.de("Aktiver Filter");

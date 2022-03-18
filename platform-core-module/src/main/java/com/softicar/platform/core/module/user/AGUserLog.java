@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.user;
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.language.AGCoreLanguage;
+import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
 import com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule;
@@ -40,7 +40,7 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 	public static final IDbStringField<AGUserLog> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(CoreI18n.FIRST_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(CoreI18n.LAST_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> EMAIL_ADDRESS = BUILDER.addStringField("emailAddress", o->o.m_emailAddress, (o,v)->o.m_emailAddress=v).setTitle(CoreI18n.EMAIL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
-	public static final IDbForeignField<AGUserLog, AGCoreLanguage> PREFERRED_LANGUAGE = BUILDER.addForeignField("preferredLanguage", o->o.m_preferredLanguage, (o,v)->o.m_preferredLanguage=v, AGCoreLanguage.ID).setTitle(CoreI18n.PREFERRED_LANGUAGE).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserLog, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION).setNullable().setDefault(null);
 	public static final IDbForeignField<AGUserLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null);
 	public static final IDbForeignField<AGUserLog, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGUserLog, Tuple2<AGUser, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(USER, TRANSACTION));
@@ -126,19 +126,19 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 		return setValue(EMAIL_ADDRESS, value);
 	}
 
-	public final Integer getPreferredLanguageID() {
+	public final Integer getLocalizationID() {
 
-		return getValueId(PREFERRED_LANGUAGE);
+		return getValueId(LOCALIZATION);
 	}
 
-	public final AGCoreLanguage getPreferredLanguage() {
+	public final AGLocalization getLocalization() {
 
-		return getValue(PREFERRED_LANGUAGE);
+		return getValue(LOCALIZATION);
 	}
 
-	public final AGUserLog setPreferredLanguage(AGCoreLanguage value) {
+	public final AGUserLog setLocalization(AGLocalization value) {
 
-		return setValue(PREFERRED_LANGUAGE, value);
+		return setValue(LOCALIZATION, value);
 	}
 
 	public final Integer getPasswordPolicyID() {
@@ -188,7 +188,7 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 	private String m_firstName;
 	private String m_lastName;
 	private String m_emailAddress;
-	private AGCoreLanguage m_preferredLanguage;
+	private AGLocalization m_localization;
 	private AGPasswordPolicy m_passwordPolicy;
 	private AGUserAllowedIpRule m_allowedIpRule;
 }

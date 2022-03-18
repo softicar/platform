@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.core.module.module.instance
 
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
-IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
+IMPORT com.softicar.platform.core.module.localization.AGLocalization
 IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
@@ -19,7 +19,7 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	String portalHost = NULL [NULLABLE MAXLENGTH=255]
 	String portalApplication = NULL [NULLABLE MAXLENGTH=255]
 	AGStoredFile portalLogo = NULL [NULLABLE]
-	AGCoreLanguage defaultLanguage = NULL [NULLABLE]
+	AGLocalization defaultLocalization = NULL [NULLABLE]
 	Boolean testSystem = NULL [NULLABLE]
 
 	IK transaction
