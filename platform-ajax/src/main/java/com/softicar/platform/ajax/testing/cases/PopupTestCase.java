@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import java.util.function.Consumer;
@@ -14,7 +15,7 @@ public class PopupTestCase extends AbstractTestCaseDiv {
 
 	public PopupTestCase() {
 
-		appendChild(new PopupButton());
+		appendChild(new DomActionBar(new PopupButton()));
 	}
 
 	public void setPopupSetup(Consumer<DomDiv> popupSetup) {

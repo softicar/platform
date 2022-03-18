@@ -57,17 +57,6 @@ public class DomTextInput extends DomInput implements IDomTextualInput {
 	}
 
 	/**
-	 * Makes this {@link DomTextInput} read-only.
-	 * <p>
-	 * In contrast to {@link #setEnabled(boolean)}, the user can still see and
-	 * copy the text of this input element.
-	 */
-	public void setReadonly(boolean readonly) {
-
-		setAttribute("readonly", readonly);
-	}
-
-	/**
 	 * Defines the HTML placeholder attribute.
 	 *
 	 * @param placeholder

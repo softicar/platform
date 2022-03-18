@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.testing.cases;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 
 public class AutoCompleteWithChangeHandlerTestCase extends AbstractTestCaseDiv {
@@ -17,7 +18,7 @@ public class AutoCompleteWithChangeHandlerTestCase extends AbstractTestCaseDiv {
 		appendChild(input);
 
 		appendNewChild(DomElementTag.BR);
-		appendChild(new MarkAsInvalidButton());
+		appendChild(new DomActionBar(new MarkAsInvalidButton()));
 	}
 
 	private class MarkAsInvalidButton extends DomButton {

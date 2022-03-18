@@ -107,7 +107,7 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 	public void disableSeconds() {
 
 		secondInput.setValue(0);
-		secondInput.disable();
+		secondInput.setDisabled(true);
 	}
 
 	private String getValueAsString() {

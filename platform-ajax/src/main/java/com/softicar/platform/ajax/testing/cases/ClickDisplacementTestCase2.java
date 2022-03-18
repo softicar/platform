@@ -2,13 +2,14 @@ package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 
 public class ClickDisplacementTestCase2 extends AbstractTestCaseDiv {
 
 	public ClickDisplacementTestCase2() {
 
-		appendChild(new PromptButton());
+		appendChild(new DomActionBar(new PromptButton()));
 	}
 
 	private class PromptButton extends DomButton {

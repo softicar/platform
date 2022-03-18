@@ -12,26 +12,34 @@ public interface IDomEnableable extends IDomElement {
 	/**
 	 * Enables or disables this {@link IDomElement}.
 	 *
+	 * @param disabled
+	 *            <i>true</i> to disable; <i>false</i> to enable
+	 */
+	default IDomElement setDisabled(boolean disabled) {
+
+		setAttribute("disabled", disabled? "" : null);
+		return this;
+	}
+
+	/**
+	 * Enables or disables this {@link IDomElement}.
+	 *
 	 * @param enabled
 	 *            <i>true</i> to enable; <i>false</i> to disable
 	 */
 	default IDomElement setEnabled(boolean enabled) {
 
-		if (enabled) {
-			setAttribute("disabled", null);
-		} else {
-			setAttribute("disabled", "disabled");
-		}
-		return this;
+		return setDisabled(!enabled);
 	}
 
 	/**
-	 * Disables this {@link IDomElement}.
-	 * <p>
-	 * Convenience method for {@link #setEnabled(boolean)}.
+	 * Tests whether this {@link IDomElement} is disabled.
+	 *
+	 * @return <i>true</i> if this {@link IDomElement} is disabled; <i>false</i>
+	 *         otherwise
 	 */
-	default void disable() {
+	default boolean isDisabled() {
 
-		setEnabled(false);
+		return getAttributeValue("disabled").isPresent();
 	}
 }
