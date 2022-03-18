@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomFileInput;
 import com.softicar.platform.dom.elements.DomForm;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
@@ -18,7 +19,7 @@ public class HiddenFileInputTestCase extends AbstractTestCaseDiv {
 
 		FileInput fileInput = uploadForm.getFileInput();
 
-		UploadButton button = appendChild(new UploadButton());
+		UploadButton button = appendChild(new DomActionBar()).appendChild(new UploadButton());
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.CLICK, fileInput);
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.ENTER, fileInput);
 		getDomEngine().setClickTargetForEventDelegation(button, DomEventType.SPACE, fileInput);

@@ -118,6 +118,10 @@ public interface EmfI18n extends DomI18n {
 		.de("Aktiviert den Bearbeitungs-Modus für den gegebenen Eintrag.");
 	I18n0 ENTER_TARGET_INDEX = new I18n0("Enter target index")//
 		.de("Ziel-Index eingeben");
+	I18n0 ENTER_THE_VARIABLE_VALUES_FOR_THE_CURRENT_IMPORT = new I18n0("Enter the variable values for the current import.")//
+		.de("Geben Sie die Variablenwerte für den aktuellen Import ein.");
+	I18n0 ENTER_VARIABLE_VALUES = new I18n0("Enter Variable Values")//
+		.de("Variablenwerte eingeben");
 	I18n0 ENTER_WIKI_TEXT_HERE = new I18n0("Enter wiki text here...")//
 		.de("Wiki-Text hier eingeben...");
 	I18n0 ENUMERATOR = new I18n0("Enumerator")//
@@ -166,6 +170,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Importieren");
 	I18n0 IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED = new I18n0("In the next step, the content of the file will be displayed.")//
 		.de("Im nächsten Schritt wird der Inhalt der Datei angezeigt.");
+	I18n0 IN_THE_NEXT_STEP_YOU_CAN_CONTROL_THE_REPLACEMENT_OF_THE_VARIABLES_BY_THE_ENTERED_VALUES =
+			new I18n0("In the next step you can control the replacement of the variables by the entered values.")//
+				.de("Im nächsten Schritt können Sie die Ersetzung der Variablen durch die eingegebenen Werte kontrollieren.");
 	I18n0 INDEX = new I18n0("Index")//
 		.de("Index");
 	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
@@ -267,6 +274,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
 		.de("Zeitpunkt '%s' existiert nicht");
+	I18n0 POSSIBLE_VARIABLE_IDENTIFIERS_ARE_ALL_ASCII_LOWERCASE_LETTERS_FROM_A_TO_Z =
+			new I18n0("Possible variable identifiers are all ASCII lowercase letters from a to z.")//
+				.de("Mögliche Variablenbezeichner sind alle ASCII-Kleinbuchenstaben von a bis z.");
 	I18n0 PRECONDITION = new I18n0("Precondition")//
 		.de("Vorbedingung");
 	I18n0 PREFILTER = new I18n0("Prefilter")//
@@ -289,6 +299,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Eintrag entfernen");
 	I18n0 REMOVE_FILE = new I18n0("Remove File")//
 		.de("Datei entfernen");
+	I18n0 REPLACE_VARIABLES = new I18n0("Replace Variables")//
+		.de("Variablen ersetzen");
 	I18n0 RESET = new I18n0("Reset")//
 		.de("Zurücksetzen");
 	I18n0 ROLE = new I18n0("Role")//
@@ -420,4 +432,7 @@ public interface EmfI18n extends DomI18n {
 		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
+	I18n2 YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSING_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2 = new I18n2(
+		"You can define variables by enclosing them with double dollar signs, for example %s to define variable %s.")//
+			.de("Sie können Variablen definieren, indem Sie sie mit doppelten Dollarzeichen umschließen, zum Beispiel %s, um die Variable %s zu definieren.");
 }

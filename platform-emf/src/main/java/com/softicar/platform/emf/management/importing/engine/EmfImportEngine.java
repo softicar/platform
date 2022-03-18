@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
+import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -7,13 +8,16 @@ import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.field.transaction.EmfTransactionAttribute;
 import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
+import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
+import com.softicar.platform.emf.management.importing.variable.find.EmfImportVariablesFinder;
+import com.softicar.platform.emf.management.importing.variable.replace.EmfImportVariablesReplacer;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -23,16 +27,16 @@ import java.util.stream.Collectors;
 public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
-	private final List<List<String>> textualRows;
-	private final List<R> parsedRows;
 	private final Set<ISqlField<?, ?>> ignoredFields;
 	private Optional<S> scope;
+	private List<List<String>> textualRows;
+	private List<List<String>> textualRowsWithReplacements;
+	private SetMap<String, EmfImportVariableCoordinates> variableCoordinates;
+	private List<R> parsedRows;
 
 	public EmfImportEngine(IEmfTable<R, P, S> table) {
 
 		this.table = Objects.requireNonNull(table);
-		this.textualRows = new ArrayList<>();
-		this.parsedRows = new ArrayList<>();
 		this.ignoredFields = new HashSet<>();
 		this.scope = Optional.empty();
 
@@ -47,22 +51,26 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		return table;
 	}
 
-	public void clear() {
-
-		textualRows.clear();
-		parsedRows.clear();
-	}
-
 	public void addCsvRows(String csv) {
 
-		textualRows.addAll(new EmfImportCsvReader(csv).parse(getFieldsToImport().size()));
+		textualRows = new EmfImportCsvReader(csv).parse(getFieldsToImport().size());
+		variableCoordinates = new EmfImportVariablesFinder(textualRows).find();
+		textualRowsWithReplacements = textualRows;
+	}
+
+	public boolean containsVariables() {
+
+		return !variableCoordinates.isEmpty();
+	}
+
+	public void replaceVariables(Map<String, String> variableValueMap) {
+
+		textualRowsWithReplacements = new EmfImportVariablesReplacer(textualRows).execute(variableCoordinates, variableValueMap);
 	}
 
 	public void parseRows() {
 
-		parsedRows.clear();
-		parsedRows.addAll(new EmfTokenMatrixParser<>(table).setFields(getFieldsToImport()).parse(textualRows));
-
+		parsedRows = new EmfTokenMatrixParser<>(table).setFields(getFieldsToImport()).parse(textualRowsWithReplacements);
 		scope.ifPresent(this::setScopeValues);
 	}
 
@@ -75,9 +83,19 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		}
 	}
 
+	public Set<String> getVariables() {
+
+		return variableCoordinates.keySet();
+	}
+
 	public List<List<String>> getTextualRows() {
 
 		return textualRows;
+	}
+
+	public List<List<String>> getTextualRowsWithReplacements() {
+
+		return textualRowsWithReplacements;
 	}
 
 	public List<R> getParsedRows() {
