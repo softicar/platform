@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.management.importing.submit;
+package com.softicar.platform.emf.management.importing.variable.replace;
 
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -13,13 +13,14 @@ import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
+import java.util.List;
 
-public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
+public class EmfImportViewDataWithReplacementsDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
 
 	private final EmfImportPopup<R, P, S> popup;
 	private final EmfImportEngine<R, P, S> engine;
 
-	public EmfImportSubmitDiv(EmfImportPopup<R, P, S> popup) {
+	public EmfImportViewDataWithReplacementsDiv(EmfImportPopup<R, P, S> popup) {
 
 		this.popup = popup;
 		this.engine = popup.getEngine();
@@ -27,55 +28,58 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		appendChild(
 			new DomActionBar(//
 				new EmfImportBackButton(this::goBack),
-				new SaveButton()));
-		appendChild(new EmfDataTableDivBuilder<>(new RowsTable()).build());
+				new AnalyzeButton()));
+		appendChild(
+			new EmfDataTableDivBuilder<>(new ParseTable())//
+				.build());
 	}
 
 	private void goBack() {
 
 		if (engine.containsVariables()) {
-			popup.showDataWithReplacementsDiv();
+			popup.showVariablesInputDiv();
 		} else {
 			popup.showUploadedDataDiv();
 		}
 	}
 
-	private class SaveButton extends DomButton {
+	private class AnalyzeButton extends DomButton {
 
-		public SaveButton() {
+		public AnalyzeButton() {
 
 			setIcon(EmfImages.WIZARD_NEXT.getResource());
-			setLabel(EmfI18n.SAVE_AND_CLOSE);
-			setClickCallback(this::saveRows);
+			setLabel(EmfI18n.ANALYZE);
+			setClickCallback(this::analyzeRows);
 		}
 
-		private void saveRows() {
+		private void analyzeRows() {
 
-			engine.insertRows();
-			getDomDocument().getRefreshBus().setAllChanged();
-			popup.hide();
+			engine.parseRows();
+			popup.showSubmitDiv();
 		}
 	}
 
-	private class RowsTable extends AbstractInMemoryDataTable<R> {
+	private class ParseTable extends AbstractInMemoryDataTable<List<String>> {
 
-		public RowsTable() {
+		public ParseTable() {
 
-			for (IDbField<R, ?> field: engine.getTable().getAllFields()) {
-				addFieldColumn(field);
+			var index = 0;
+			for (IDbField<R, ?> field: engine.getFieldsToImport()) {
+				addColumn(field, index);
+				index++;
 			}
 		}
 
 		@Override
-		protected Collection<R> getTableRows() {
+		protected Collection<List<String>> getTableRows() {
 
-			return engine.getParsedRows();
+			return engine.getTextualRowsWithReplacements();
 		}
 
-		private <V> void addFieldColumn(IDbField<R, V> field) {
+		private void addColumn(IDbField<R, ?> field, int index) {
 
-			newColumn(field.getValueType().getValueClass())//
-				.setGetter(field::getValue)
+			newColumn(String.class)//
+				.setGetter(row -> row.get(index))
 				.setTitle(engine.getFieldTitle(field))
 				.addColumn();
 		}
