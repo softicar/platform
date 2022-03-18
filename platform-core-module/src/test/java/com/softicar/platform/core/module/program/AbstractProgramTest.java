@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 
@@ -20,6 +21,7 @@ public abstract class AbstractProgramTest extends AbstractDbTest {
 			.setFirstName("John")
 			.setLastName("Doe")
 			.setEmailAddress("john.doe@example.com")
+			.setLocalization(AGCoreModuleInstance.getInstance().getDefaultLocalization())
 			.save();
 	}
 }

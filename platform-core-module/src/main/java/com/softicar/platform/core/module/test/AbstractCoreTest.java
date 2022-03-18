@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.test;
 
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -15,7 +16,8 @@ public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTes
 
 	public AbstractCoreTest() {
 
-		CurrentUser.set(insertUserWithoutLogging());
+		AGUser user = insertUserWithoutLogging();
+		CurrentUser.set(user);
 	}
 
 	@Override
@@ -35,6 +37,7 @@ public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTes
 			.set(AGUser.LOGIN_NAME, "current.user")
 			.set(AGUser.FIRST_NAME, "Current")
 			.set(AGUser.LAST_NAME, "User")
+			.set(AGUser.LOCALIZATION, AGCoreModuleInstance.getInstance().getDefaultLocalization())
 			.execute();
 		return AGUser.get(userId);
 	}
