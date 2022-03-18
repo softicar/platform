@@ -5,10 +5,12 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.EmfManagementMarker;
-import com.softicar.platform.emf.management.importing.analyze.EmfImportAnalyzeDiv;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.management.importing.submit.EmfImportSubmitDiv;
 import com.softicar.platform.emf.management.importing.upload.EmfImportUploadDiv;
+import com.softicar.platform.emf.management.importing.upload.EmfImportViewUploadedDataDiv;
+import com.softicar.platform.emf.management.importing.variable.input.EmfImportVariablesInputDiv;
+import com.softicar.platform.emf.management.importing.variable.replace.EmfImportViewDataWithReplacementsDiv;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -17,6 +19,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 	private final IEmfTable<R, P, S> table;
 	private final S scope;
 	private final EmfImportEngine<R, P, S> engine;
+	private EmfImportVariablesInputDiv<R, P, S> variablesInputDiv;
 
 	public EmfImportPopup(IEmfTable<R, P, S> table, S scope) {
 
@@ -42,10 +45,31 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 		appendChild(new EmfImportUploadDiv<>(this));
 	}
 
-	public void showAnalyzeDiv() {
+	public void resetVariableInputDiv() {
+
+		variablesInputDiv = null;
+	}
+
+	public void showUploadedDataDiv() {
 
 		removeChildren();
-		appendChild(new EmfImportAnalyzeDiv<>(this));
+		appendChild(new EmfImportViewUploadedDataDiv<>(this));
+	}
+
+	public void showVariablesInputDiv() {
+
+		removeChildren();
+		if (variablesInputDiv == null) {
+			variablesInputDiv = appendChild(new EmfImportVariablesInputDiv<>(this));
+		} else {
+			appendChild(variablesInputDiv);
+		}
+	}
+
+	public void showDataWithReplacementsDiv() {
+
+		removeChildren();
+		appendChild(new EmfImportViewDataWithReplacementsDiv<>(this));
 	}
 
 	public void showSubmitDiv() {
