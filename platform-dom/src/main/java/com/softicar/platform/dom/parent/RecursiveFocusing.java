@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.parent;
 
-import com.softicar.platform.dom.input.IDomInputNode;
-import com.softicar.platform.dom.input.IDomTextualInput;
+import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.node.IDomNode;
 
 /**
@@ -13,8 +12,8 @@ class RecursiveFocusing {
 
 	public static boolean focusFirst(IDomNode node) {
 
-		if (node instanceof IDomTextualInput) {
-			((IDomInputNode) node).setFocus(true);
+		if (node instanceof IDomFocusable) {
+			((IDomFocusable) node).focus();
 			return true;
 		} else if (node instanceof IDomParentElement) {
 			for (IDomNode child: ((IDomParentElement) node).getChildren()) {

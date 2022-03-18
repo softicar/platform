@@ -10,7 +10,7 @@ public class DomDayInputTest extends AbstractDomValueInputTest<Day> {
 
 	public DomDayInputTest() {
 
-		super(() -> new DomDayInput(null));
+		super(DomDayInput::new);
 	}
 
 	@Test

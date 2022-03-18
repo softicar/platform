@@ -2,6 +2,7 @@ package com.softicar.platform.emf.data.table.filter.value;
 
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.input.IDomValueInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiTypeFilterDiv;
@@ -14,9 +15,9 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 
 	private final IEmfDataTableColumn<R, T> column;
 	private final EmfDataTableValueFilterOperatorSelect filterOperatorSelect;
-	private final IEmfDataTableValueFilterInput<T> valueFilterInput;
+	private final IDomValueInput<T> valueFilterInput;
 
-	public EmfDataTableValueFilterNode(IEmfDataTableColumn<R, T> column, Supplier<IEmfDataTableValueFilterInput<T>> inputFactory) {
+	public EmfDataTableValueFilterNode(IEmfDataTableColumn<R, T> column, Supplier<IDomValueInput<T>> inputFactory) {
 
 		this.column = column;
 		this.filterOperatorSelect = new EmfDataTableValueFilterOperatorSelect(this);
@@ -30,7 +31,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	public IEmfDataTableFilter<R> createFilter() {
 
 		DataTableValueFilterOperator filterOperator = filterOperatorSelect.getSelectedValue();
-		T filterValue = valueFilterInput.getFilterValue();
+		T filterValue = valueFilterInput.getValue().orElse(null);
 		Resetter resetter = new Resetter(filterOperator, filterValue);
 
 		if (filterValue != null) {
@@ -43,7 +44,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	@Override
 	public void selectFirstInputElement() {
 
-		valueFilterInput.selectFirstInputElement();
+		valueFilterInput.focus();
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	}
 
 	@Override
-	public IEmfDataTableValueFilterInput<T> getFilterInput(DataTableValueFilterOperator filterType) {
+	public IDomValueInput<T> getFilterInput(DataTableValueFilterOperator filterType) {
 
 		return valueFilterInput;
 	}
@@ -72,7 +73,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 		@Override
 		public void apply() {
 
-			valueFilterInput.setFilterValue(filterValue);
+			valueFilterInput.setValue(filterValue);
 			filterOperatorSelect.setSelectedType(filterOperator);
 		}
 	}
