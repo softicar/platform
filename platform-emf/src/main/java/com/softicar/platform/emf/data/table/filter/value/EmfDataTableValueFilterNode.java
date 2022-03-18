@@ -42,12 +42,6 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		valueFilterInput.focus();
-	}
-
-	@Override
 	public IEmfDataTableFilterTypeSelect<DataTableValueFilterOperator> getFilterSelect() {
 
 		return filterOperatorSelect;

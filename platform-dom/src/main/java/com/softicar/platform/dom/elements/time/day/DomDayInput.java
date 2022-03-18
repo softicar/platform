@@ -54,7 +54,6 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		}
 	}
 
-	@Override
 	public void disable() {
 
 		dayInput.setDisabled(true);

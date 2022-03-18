@@ -82,9 +82,8 @@ public class EmfDataTableFilterPopup<R> extends DomPopup implements IDomEnterKey
 	@Override
 	public void show() {
 
-		super.show();
 		filter.reset();
 		filterListDiv.updateAndRebuildFilterElements();
-		filterListDiv.selectFirstInputElement();
+		super.show();
 	}
 }

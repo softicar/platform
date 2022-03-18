@@ -40,12 +40,6 @@ public class EmfDataTableCollectionFilterNode<R, C, E> extends DomDiv implements
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		input.focusFirst();
-	}
-
-	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
 		E element = input.getSelection().getValueOrNull();

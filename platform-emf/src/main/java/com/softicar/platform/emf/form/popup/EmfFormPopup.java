@@ -43,7 +43,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 	@Override
 	public void focusFrame() {
 
-		focusFrameOrFirstInputElement();
+		focusFirstTextualInputOrFrame();
 	}
 
 	@Override
