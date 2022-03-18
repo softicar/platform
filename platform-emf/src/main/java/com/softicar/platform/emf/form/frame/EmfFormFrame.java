@@ -3,7 +3,7 @@ package com.softicar.platform.emf.form.frame;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.emf.EmfCssClasses;
-import com.softicar.platform.emf.form.EmfForm;
+import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -23,7 +23,7 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 
 		setCssClass(EmfCssClasses.EMF_FORM_FRAME);
 		appendChild(header);
-		appendChild(new EmfForm<>(this, tableRow)).peekAndRefresh();
+		appendChild(getForm(tableRow));
 	}
 
 	@Override
@@ -42,5 +42,14 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 	public void focusFrame() {
 
 		// nothing to do
+	}
+
+	private IEmfForm<R> getForm(R tableRow) {
+
+		return tableRow//
+			.table()
+			.getFormFactory()
+			.getForm(this, tableRow)
+			.peekAndRefresh();
 	}
 }

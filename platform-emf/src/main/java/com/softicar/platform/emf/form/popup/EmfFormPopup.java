@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.form.EmfForm;
+import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
@@ -14,16 +15,14 @@ import java.util.function.Consumer;
 
 public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup implements IEmfFormFrame<R> {
 
-	private final EmfForm<R> form;
+	private final IEmfForm<R> form;
 	private final IEmfFormPopupConfiguration<R> popupConfiguration;
 
 	public EmfFormPopup(R tableRow) {
 
 		Objects.requireNonNull(tableRow);
-
-		this.form = new EmfForm<>(this, tableRow);
 		this.popupConfiguration = tableRow.table().getEmfTableConfiguration().getFormPopupConfiguration();
-
+		this.form = tableRow.table().getFormFactory().getForm(this, tableRow);
 		setCallbackBeforeShow(form::peekAndRefresh);
 
 		IDomParentElement container = appendChild(new DomBar());
