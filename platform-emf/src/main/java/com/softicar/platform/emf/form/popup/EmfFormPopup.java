@@ -22,7 +22,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 
 		Objects.requireNonNull(tableRow);
 		this.popupConfiguration = tableRow.table().getEmfTableConfiguration().getFormPopupConfiguration();
-		this.form = tableRow.table().getFormFactory().getForm(this, tableRow);
+		this.form = tableRow.table().getFormFactory().createForm(this, tableRow);
 		setCallbackBeforeShow(form::peekAndRefresh);
 
 		IDomParentElement container = appendChild(new DomBar());

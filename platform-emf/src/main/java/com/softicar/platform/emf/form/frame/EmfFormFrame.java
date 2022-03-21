@@ -23,7 +23,7 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 
 		setCssClass(EmfCssClasses.EMF_FORM_FRAME);
 		appendChild(header);
-		appendChild(getForm(tableRow));
+		appendChild(createForm(tableRow));
 	}
 
 	@Override
@@ -44,12 +44,12 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 		// nothing to do
 	}
 
-	private IEmfForm<R> getForm(R tableRow) {
+	private IEmfForm<R> createForm(R tableRow) {
 
 		return tableRow//
 			.table()
 			.getFormFactory()
-			.getForm(this, tableRow)
+			.createForm(this, tableRow)
 			.peekAndRefresh();
 	}
 }

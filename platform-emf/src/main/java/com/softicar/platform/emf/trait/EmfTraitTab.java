@@ -82,7 +82,7 @@ public class EmfTraitTab<T extends IEmfTrait<T, R>, R extends IEmfTableRow<R, ?>
 
 	private void appendTraitForm(T trait) {
 
-		this.traitForm = traitTable.getFormFactory().getForm(this, trait);
+		this.traitForm = traitTable.getFormFactory().createForm(this, trait);
 		appendChild(traitForm);
 		traitForm.peekAndRefresh();
 	}
