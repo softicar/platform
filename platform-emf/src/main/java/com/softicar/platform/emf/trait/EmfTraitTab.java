@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.elements.tab.DomTab;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.form.IEmfForm;
@@ -45,7 +46,7 @@ public class EmfTraitTab<T extends IEmfTrait<T, R>, R extends IEmfTableRow<R, ?>
 	@Override
 	public void focusFrame() {
 
-		focusFirst();
+		IDomTextualInput.focusFirstTextualInput(this);
 	}
 
 	private void onShow() {

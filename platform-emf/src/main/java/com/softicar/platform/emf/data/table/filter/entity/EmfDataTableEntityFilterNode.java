@@ -55,12 +55,6 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		// no default focus
-	}
-
-	@Override
 	public IEmfDataTableFilterTypeSelect<EmfDataTableEntityFilterType> getFilterSelect() {
 
 		return filterTypeSelect;

@@ -29,6 +29,6 @@ public class EmfFormFramePopupAdapter<R extends IEmfTableRow<R, ?>> implements I
 	@Override
 	public void focusFrame() {
 
-		popup.focusFrameOrFirstInputElement();
+		popup.focusFirstTextualInputOrFrame();
 	}
 }

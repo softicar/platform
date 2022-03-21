@@ -19,14 +19,9 @@ public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
 
 	public DomDayTimeInput() {
 
-		this(DayTime.now());
-	}
+		this.dayInput = appendChild(new DomDayInput());
+		this.timeInput = appendChild(new DomTimeInput());
 
-	public DomDayTimeInput(DayTime dayTime) {
-
-		this.dayInput = new DomDayInput(dayTime != null? dayTime.getDay() : null);
-		this.timeInput = new DomTimeInput(dayTime != null? dayTime.getTime() : null);
-		appendChildren(dayInput, timeInput);
 		addCssClass(DomElementsCssClasses.DOM_DAY_TIME_INPUT);
 	}
 

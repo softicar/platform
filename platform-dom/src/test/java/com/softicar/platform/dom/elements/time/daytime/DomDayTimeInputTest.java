@@ -13,7 +13,7 @@ public class DomDayTimeInputTest extends AbstractDomValueInputTest<DayTime> {
 
 	public DomDayTimeInputTest() {
 
-		super(() -> new DomDayTimeInput(null));
+		super(DomDayTimeInput::new);
 	}
 
 	@Test

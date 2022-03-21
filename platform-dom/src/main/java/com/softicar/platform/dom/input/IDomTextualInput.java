@@ -1,6 +1,8 @@
 package com.softicar.platform.dom.input;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.IDomParentElement;
 
 public interface IDomTextualInput extends IDomInputNode {
 
@@ -108,5 +110,22 @@ public interface IDomTextualInput extends IDomInputNode {
 	default boolean isReadonly() {
 
 		return getAttributeValue("readonly").isPresent();
+	}
+
+	// -------------------------------- focus -------------------------------- //
+
+	static boolean focusFirstTextualInput(IDomNode root) {
+
+		if (root instanceof IDomTextualInput) {
+			((IDomTextualInput) root).focus();
+			return true;
+		} else if (root instanceof IDomParentElement) {
+			for (IDomNode child: ((IDomParentElement) root).getChildren()) {
+				if (focusFirstTextualInput(child)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

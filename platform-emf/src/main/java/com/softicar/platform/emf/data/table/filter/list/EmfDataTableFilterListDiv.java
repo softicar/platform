@@ -27,15 +27,6 @@ public class EmfDataTableFilterListDiv<R> extends DomDiv implements IEmfDataTabl
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		EmfDataTableFilterListElementDiv<R, ?> filterElement = getFirstFilterElementOrNull();
-		if (filterElement != null) {
-			filterElement.getFilterElement().selectFirstInputElement();
-		}
-	}
-
-	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
 		FilterElementList<R> filterElementList = model.getFilterElementList();
@@ -122,11 +113,5 @@ public class EmfDataTableFilterListDiv<R> extends DomDiv implements IEmfDataTabl
 			.filter(OperatorButton.class::isInstance)
 			.map(OperatorButton.class::cast)
 			.forEach(OperatorButton::refresh);
-	}
-
-	private EmfDataTableFilterListElementDiv<R, ?> getFirstFilterElementOrNull() {
-
-		List<EmfDataTableFilterListElementDiv<R, ?>> filterElements = model.getFilterElementList().getSavedAndUnsavedElements();
-		return !filterElements.isEmpty()? filterElements.iterator().next() : null;
 	}
 }

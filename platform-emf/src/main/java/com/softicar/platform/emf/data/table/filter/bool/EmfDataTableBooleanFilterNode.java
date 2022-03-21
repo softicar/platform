@@ -34,12 +34,6 @@ public class EmfDataTableBooleanFilterNode<R> extends DomDiv implements IEmfData
 		}
 	}
 
-	@Override
-	public void selectFirstInputElement() {
-
-		// no default focus
-	}
-
 	private class Resetter implements INullaryVoidFunction {
 
 		private final Boolean value;

@@ -66,12 +66,6 @@ public class EmfDataTableEnumFilterNode<R, T extends Enum<T>> extends AbstractEm
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		// no default focus
-	}
-
-	@Override
 	public IEmfDataTableFilterTypeSelect<EmfDataTableEnumFilterType> getFilterSelect() {
 
 		return filterTypeSelect;

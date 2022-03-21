@@ -1,8 +1,9 @@
 package com.softicar.platform.emf.data.table.filter;
 
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.filter.nop.EmfDataTableNopFilter;
 
-public interface IEmfDataTableFilterNode<R> extends IInputNode {
+public interface IEmfDataTableFilterNode<R> extends IDomNode {
 
 	/**
 	 * Creates an {@link IEmfDataTableFilter} from the data the user entered to

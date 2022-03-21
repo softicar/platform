@@ -270,9 +270,4 @@ public interface IDomParentElement extends IDomElement {
 	 * Enables or disables all input elements contained in this element.
 	 */
 	void setEnabledRecursively(boolean enabled);
-
-	/**
-	 * Sets focus on the first input element contained in this element.
-	 */
-	void focusFirst();
 }
