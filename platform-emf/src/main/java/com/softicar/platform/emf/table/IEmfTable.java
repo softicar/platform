@@ -30,6 +30,7 @@ import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAuthorizer;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
+import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorAlignment;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorFactory;
@@ -199,6 +200,11 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	default Function<R, IDomElement> getDisplayFactory() {
 
 		return getEmfTableConfiguration().getDisplayFactory();
+	}
+
+	default IEmfFormFactory<R> getFormFactory() {
+
+		return getEmfTableConfiguration().getFormFactory();
 	}
 
 	default Collection<IEmfFormIndicatorFactory<R>> getIndicatorFactories(EmfFormIndicatorAlignment alignment) {

@@ -33,6 +33,8 @@ import com.softicar.platform.emf.deactivation.EmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.delete.EmfDeleteStrategyBuilder;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
+import com.softicar.platform.emf.form.EmfForm;
+import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
@@ -92,6 +94,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfDeleteHook<R>> deleteHooks;
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
+	private IEmfFormFactory<R> formFactory;
 	private Function<S, DomPopup> creationPopupFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
@@ -121,6 +124,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.childTableSetSupplier = new EmfLazySupplier<>(EmfChildTableSet::new, table::customizeChildTables);
 		this.managementConfigurationSupplier = new EmfLazySupplier<>(table, EmfManagementConfiguration::new, table::customizeManagementConfiguraton);
 		this.authorizerSupplier = new EmfLazySupplier<>(EmfAuthorizer::new, table::customizeAuthorizer);
+		this.formFactory = EmfForm::new;
 		this.commitHooks = new ArrayList<>();
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
@@ -216,6 +220,11 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final void setAttributeAuthorizerFactory(BiFunction<R, IBasicUser, IEmfAttributeAuthorizer<R>> attributeAuthorizerFactory) {
 
 		this.attributeAuthorizerFactory = attributeAuthorizerFactory;
+	}
+
+	public final void setFormFactory(IEmfFormFactory<R> formFactory) {
+
+		this.formFactory = formFactory;
 	}
 
 	public final void setCreationPopupFactory(Function<S, DomPopup> creationPopupFactory) {
@@ -442,6 +451,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfAuthorizer<R, S> getAuthorizer() {
 
 		return authorizerSupplier.get();
+	}
+
+	@Override
+	public IEmfFormFactory<R> getFormFactory() {
+
+		return formFactory;
 	}
 
 	@Override
