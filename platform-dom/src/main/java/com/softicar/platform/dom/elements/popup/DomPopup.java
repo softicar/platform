@@ -15,6 +15,7 @@ import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewpo
 import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewportOriginPositionStrategy;
 import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPercent;
 import java.util.Objects;
@@ -200,6 +201,7 @@ public class DomPopup extends DomDiv {
 	public void show() {
 
 		show(positionStrategy.getPosition(getCurrentEvent()));
+		focusFirstTextualInputOrFrame();
 	}
 
 	/**
@@ -236,16 +238,17 @@ public class DomPopup extends DomDiv {
 	// -------------------------------- focus -------------------------------- //
 
 	/**
-	 * Tries to focus the first focusable child element of this
-	 * {@link DomPopup}. If there is no such element, the frame of this
-	 * {@link DomPopup} gets focused.
+	 * Tries to focus the first {@link IDomTextualInput} in this
+	 * {@link DomPopup}. If there is no such {@link IDomTextualInput}, the frame
+	 * of this {@link DomPopup} gets focused.
 	 * <p>
 	 * Must be called <b>after</b> {@link #show()}.
 	 */
-	public void focusFrameOrFirstInputElement() {
+	public void focusFirstTextualInputOrFrame() {
 
-		getDomEngine().focus(frame);
-		focusFirst();
+		if (!IDomTextualInput.focusFirstTextualInput(this)) {
+			getDomEngine().focus(frame);
+		}
 	}
 
 	// -------------------------------- close manager -------------------------------- //
@@ -343,7 +346,7 @@ public class DomPopup extends DomDiv {
 		this.shown = true;
 
 		// set focus
-		focusFrameOrFirstInputElement();
+		focusFirstTextualInputOrFrame();
 	}
 
 	private void hidePopup() {

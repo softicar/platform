@@ -311,12 +311,6 @@ public abstract class DomParentElement extends DomElement implements IDomParentE
 		RecursiveEnabling.setEnabled(this, enabled);
 	}
 
-	@Override
-	public void focusFirst() {
-
-		RecursiveFocusing.focusFirst(this);
-	}
-
 	// -------------------------------- HTML -------------------------------- //
 
 	protected void buildChildrenHTML(Appendable out) throws IOException {

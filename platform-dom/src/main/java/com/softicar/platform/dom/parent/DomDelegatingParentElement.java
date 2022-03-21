@@ -157,12 +157,6 @@ public abstract class DomDelegatingParentElement extends DomDelegatingElement im
 	}
 
 	@Override
-	public void focusFirst() {
-
-		getTargetParentElement().focusFirst();
-	}
-
-	@Override
 	public void listenToEvent(DomEventType type) {
 
 		getTargetParentElement().listenToEvent(type);

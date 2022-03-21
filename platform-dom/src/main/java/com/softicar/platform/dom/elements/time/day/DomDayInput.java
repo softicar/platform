@@ -23,24 +23,35 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 
 	private final DayInput dayInput;
 	private final DayButton dayButton;
+	private INullaryVoidFunction callback;
 
 	public DomDayInput() {
 
-		this(Day.today());
-	}
-
-	public DomDayInput(Day day) {
-
 		this.dayInput = appendChild(new DayInput());
 		this.dayButton = appendChild(new DayButton());
-		setDay(day, false);
+		this.callback = null;
+
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
 	}
 
 	public DomDayInput setCallback(INullaryVoidFunction callback) {
 
-		dayInput.setCallback(callback);
+		this.callback = callback;
+
+		if (callback != null) {
+			dayInput.listenToEvent(DomEventType.CHANGE);
+		} else {
+			dayInput.unlistenToEvent(DomEventType.CHANGE);
+		}
+
 		return this;
+	}
+
+	public void applyCallback() {
+
+		if (callback != null) {
+			callback.apply();
+		}
 	}
 
 	public void disable() {
@@ -63,18 +74,8 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 	@Override
 	public void setValue(Day day) {
 
-		setDay(day, true);
-	}
-
-	private void setDay(Day day, boolean triggerCallback) {
-
-		if (day != null) {
-			dayInput.setValue(day.toISOString(), triggerCallback);
-			dayButton.setDay(day);
-		} else {
-			dayInput.setValue("", triggerCallback);
-			dayButton.setDay(Day.today());
-		}
+		dayInput.setInputText(day != null? day.toISOString() : "");
+		dayButton.setDay(day);
 	}
 
 	public DomTextInput getTextBoxInput() {
@@ -97,13 +98,12 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		@Override
 		public void handleDayChange() {
 
-			dayInput.setValue(getDay().toISOString());
+			dayInput.setInputText(getDay().toISOString());
+			applyCallback();
 		}
 	}
 
 	private class DayInput extends DomTextInput implements IDomEventHandler {
-
-		private INullaryVoidFunction callback;
 
 		public DayInput() {
 
@@ -111,40 +111,10 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 			setMarker(DomTestMarker.DAY_INPUT);
 		}
 
-		public void setCallback(INullaryVoidFunction callback) {
-
-			this.callback = callback;
-			if (callback != null) {
-				listenToEvent(DomEventType.CHANGE);
-			} else {
-				unlistenToEvent(DomEventType.CHANGE);
-			}
-		}
-
 		@Override
 		public void handleDOMEvent(IDomEvent event) {
 
 			applyCallback();
-		}
-
-		public void setValue(String value) {
-
-			setValue(value, true);
-		}
-
-		public void setValue(String value, boolean triggerCallback) {
-
-			setInputText(value);
-			if (triggerCallback) {
-				applyCallback();
-			}
-		}
-
-		private void applyCallback() {
-
-			if (callback != null) {
-				callback.apply();
-			}
 		}
 	}
 }

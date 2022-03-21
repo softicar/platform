@@ -27,7 +27,7 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 
 	public DomDayPopoverTest() {
 
-		setNodeSupplier(() -> new DomDayInput(null));
+		setNodeSupplier(DomDayInput::new);
 		CurrentClock.set(new TestClock().setInstant(testDay.toDate().toInstant()));
 	}
 

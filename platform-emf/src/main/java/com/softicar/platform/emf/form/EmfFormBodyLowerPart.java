@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.form;
 
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.form.refresh.EmfFormInteractiveRefreshSectionDiv;
 import com.softicar.platform.emf.form.section.IEmfFormSectionContainer;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -25,7 +26,7 @@ class EmfFormBodyLowerPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		removeChildren();
 		appendChild(sectionContainer);
-		focusFirst();
+		IDomTextualInput.focusFirstTextualInput(sectionContainer);
 	}
 
 	public void showStandardSectionContainer() {

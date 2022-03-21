@@ -49,12 +49,6 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 	}
 
 	@Override
-	public void selectFirstInputElement() {
-
-		this.filterInput.select();
-	}
-
-	@Override
 	public IEmfDataTableFilterTypeSelect<EmfDataTableStringFilterType> getFilterSelect() {
 
 		return this.filterTypeSelect;

@@ -8,6 +8,13 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.dom.elements.DomEnumSelect;
+import com.softicar.platform.dom.elements.input.DomDoubleInput;
+import com.softicar.platform.dom.elements.input.DomFloatInput;
+import com.softicar.platform.dom.elements.input.DomIntegerInput;
+import com.softicar.platform.dom.elements.input.DomLongInput;
+import com.softicar.platform.dom.elements.number.decimal.DomBigDecimalInput;
+import com.softicar.platform.dom.elements.time.day.DomDayInput;
+import com.softicar.platform.dom.elements.time.daytime.DomDayTimeInput;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilterNode;
 import com.softicar.platform.emf.data.table.filter.bool.EmfDataTableBooleanFilterNode;
@@ -15,13 +22,6 @@ import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilt
 import com.softicar.platform.emf.data.table.filter.enums.EmfDataTableEnumFilterNode;
 import com.softicar.platform.emf.data.table.filter.string.EmfDataTableStringFilterNode;
 import com.softicar.platform.emf.data.table.filter.value.EmfDataTableValueFilterNode;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableBigDecimalFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableDayFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableDayTimeFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableDoubleFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableFloatFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableIntegerFilterInput;
-import com.softicar.platform.emf.data.table.filter.value.input.EmfDataTableLongFilterInput;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,37 +114,37 @@ public class EmfDataTableColumnFilterNodeFactoryMap {
 
 	private <R> IEmfDataTableFilterNode<R> createBigDecimalFilterNode(IEmfDataTableColumn<R, BigDecimal> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableBigDecimalFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomBigDecimalInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createDayFilterNode(IEmfDataTableColumn<R, Day> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableDayFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomDayInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createDayTimeFilterNode(IEmfDataTableColumn<R, DayTime> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableDayTimeFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomDayTimeInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createDoubleFilterNode(IEmfDataTableColumn<R, Double> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableDoubleFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomDoubleInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createFloatFilterNode(IEmfDataTableColumn<R, Float> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableFloatFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomFloatInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createIntegerFilterNode(IEmfDataTableColumn<R, Integer> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableIntegerFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomIntegerInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createLongFilterNode(IEmfDataTableColumn<R, Long> column) {
 
-		return new EmfDataTableValueFilterNode<>(column, EmfDataTableLongFilterInput::new);
+		return new EmfDataTableValueFilterNode<>(column, DomLongInput::new);
 	}
 
 	private <R> IEmfDataTableFilterNode<R> createStringFilterNode(IEmfDataTableColumn<R, String> column) {
