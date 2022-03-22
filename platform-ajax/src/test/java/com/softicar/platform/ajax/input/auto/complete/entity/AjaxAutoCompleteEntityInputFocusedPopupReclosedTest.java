@@ -5,8 +5,7 @@ import org.junit.Test;
 
 /**
  * Contains unit tests for {@link DomAutoCompleteEntityInput} interaction phase
- * <b>"2.3 Popup Closed"</b> (see
- * {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <b>"2.3 Popup Closed"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  *
  * @author Alexander Schmidt
  */
@@ -100,7 +99,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -135,7 +134,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		asserter//
 			.expectClientValue("other invalid item name")
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

@@ -5,11 +5,11 @@ import com.softicar.platform.db.runtime.data.table.DbTableBasedDataTableValueFil
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.sql.ISqlBooleanExpression;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.input.IDomValueInput;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfCssClasses;
-import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +18,7 @@ import java.util.Optional;
 public abstract class AbstractEmfPrefilterRow<E extends IEmfTableRow<E, ?>> extends DomDiv {
 
 	private final DomDiv contentElement;
-	private final Collection<IEmfInput<?>> inputElements;
+	private final Collection<IDomValueInput<?>> inputElements;
 
 	public AbstractEmfPrefilterRow() {
 
@@ -36,16 +36,16 @@ public abstract class AbstractEmfPrefilterRow<E extends IEmfTableRow<E, ?>> exte
 
 	public abstract ISqlBooleanExpression<E> getFilterExpression();
 
-	protected <I extends IEmfInput<?>> I appendInputElement(I inputElement) {
+	protected <I extends IDomValueInput<?>> I appendInputElement(I inputElement) {
 
-		appendElement(inputElement);
+		appendNode(inputElement);
 		this.inputElements.add(inputElement);
 		return inputElement;
 	}
 
-	protected void appendElement(IDomElement element) {
+	protected void appendNode(IDomNode node) {
 
-		this.contentElement.appendChild(element);
+		this.contentElement.appendChild(node);
 	}
 
 	protected <V> Optional<ISqlBooleanExpression<E>> createFilterExpressionWithOperator(IDbField<E, V> field, DataTableValueFilterOperator operator,

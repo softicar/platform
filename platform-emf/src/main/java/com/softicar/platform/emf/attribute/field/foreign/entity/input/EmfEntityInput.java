@@ -6,7 +6,6 @@ import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntit
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.entity.table.IEmfEntityTable;
-import java.util.Optional;
 
 public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteEntityInput<E> implements IEmfInput<E> {
 
@@ -34,12 +33,6 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteE
 	public void refreshInputConstraints() {
 
 		refreshFilters();
-	}
-
-	@Override
-	public Optional<E> getValue() {
-
-		return Optional.ofNullable(getSelection().getValueOrThrow());
 	}
 
 	@Override
