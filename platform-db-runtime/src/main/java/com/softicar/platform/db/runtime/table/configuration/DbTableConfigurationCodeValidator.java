@@ -51,7 +51,7 @@ public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
 
 	private Predicate<File> isRelevantJarFile() {
 
-		// TODO Find a better solution to determine the JAR file that contains IDbTable and IDbTableRow.
+		// TODO Find a better solution to determine the JAR file that contains IDbTable and IDbTableRow. (PLAT-754)
 		return jarFile -> jarFile.getName().equals("platform-db-runtime.jar");
 	}
 }
