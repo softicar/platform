@@ -115,6 +115,12 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	}
 
 	@Override
+	public Optional<T> getValue() {
+
+		return getSelection().getValue();
+	}
+
+	@Override
 	public void setValue(T value) {
 
 		String valueString = Optional//

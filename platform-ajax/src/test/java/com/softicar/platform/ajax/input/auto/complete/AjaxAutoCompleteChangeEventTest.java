@@ -55,7 +55,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		waitForAutoCompletePopup();
 		send(inputField, Key.ESCAPE);
 
-		assertEventAndNullValue();
+		assertEvent();
 		indicator.assertValueIllegal(true);
 	}
 
@@ -276,27 +276,25 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	// -------------------- private -------------------- //
 
 	/**
-	 * asserts that change event was triggered and checks value of input
+	 * Asserts that a change event was triggered.
+	 */
+	private void assertEvent() {
+
+		waitForServer();
+		inputDiv.assertOneEvent();
+	}
+
+	/**
+	 * Asserts that a change event was triggered, and the value of the input.
 	 */
 	private void assertEventAndValue(AjaxAutoCompleteTestItem item) {
 
-		waitForServer();
-		inputDiv.assertOneEvent();
-		assertSame(item, inputDiv.getSelection().getValueOrThrow());
+		assertEvent();
+		assertSame(item, inputDiv.getValueOrNull());
 	}
 
 	/**
-	 * asserts that no change event was triggered and checks input is empty
-	 */
-	private void assertEventAndNullValue() {
-
-		waitForServer();
-		inputDiv.assertOneEvent();
-		assertNull(inputDiv.getSelection().getValueOrNull());
-	}
-
-	/**
-	 * enters the name of the given item and waits for the pop-up
+	 * Enters the name of the given item and waits for the pop-up.
 	 */
 	private void openPopup() {
 
@@ -306,7 +304,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	/**
-	 * un-focuses the input and re-focuses it
+	 * Un-focuses the input and re-focuses it.
 	 */
 	private void unfocusAndRefocusInput() {
 
