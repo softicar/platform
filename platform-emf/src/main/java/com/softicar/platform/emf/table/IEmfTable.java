@@ -34,7 +34,6 @@ import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorAlignment;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorFactory;
-import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -371,11 +370,6 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	default void customizeFormTabs(EmfFormTabConfiguration<R> tabConfiguration) {
 
 		DevNull.swallow(tabConfiguration);
-	}
-
-	default void customizeFormPopup(EmfFormPopupConfiguration<R> popupConfiguration) {
-
-		DevNull.swallow(popupConfiguration);
 	}
 
 	default void customizeAttributeProperties(IEmfAttributeList<R> attributes) {

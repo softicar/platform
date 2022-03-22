@@ -1,8 +1,12 @@
 
 .EmfForm {
+	width: 100%; 
+}
+
+.EmfFormContainer {
 	display: grid;
 	flex-grow: 1;
-	min-width: 320px;
+	min-width: 320px; 
 }
 
 .EmfFormFrame {
@@ -78,11 +82,6 @@
 	gap: 4px;
 	display: flex;
 	flex-direction: column;
-}
-
-.EmfFormPopupContainer {
-	align-items: start;
-	width: 100%;
 }
 
 /* ------------------------------ DomButton decoration ------------------------------ */

@@ -80,4 +80,14 @@ public interface IEmfForm<R extends IEmfTableRow<R, ?>> {
 	 * @return an {@link IEmfValidator} (never <i>null</i>)
 	 */
 	Collection<IEmfValidator<R>> getAdditionalValidators();
+
+	default void enterEditMode() {
+
+		//nothing per default
+	}
+
+	default void enterViewMode() {
+
+		//nothing per default
+	}
 }

@@ -247,6 +247,11 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		return this;
 	}
 
+	public AbstractDomNodeTester<N> assertDoesNotContainText(IDisplayString expectedText) {
+
+		return assertDoesNotContainText(expectedText.toString());
+	}
+
 	public AbstractDomNodeTester<N> assertDoesNotContainText(String expectedText) {
 
 		if (containsText(expectedText)) {
