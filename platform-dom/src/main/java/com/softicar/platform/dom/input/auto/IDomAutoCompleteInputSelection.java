@@ -11,59 +11,79 @@ import java.util.Optional;
 public interface IDomAutoCompleteInputSelection<T> {
 
 	/**
-	 * Validates the selected value. Returns the selected value if validation
-	 * passes. Throws if validation fails.
+	 * Returns the optional value of this input element, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, that value is
+	 * returned.</li>
+	 * <li>If the entered text is blank, {@link Optional#empty()} is
+	 * returned.</li>
+	 * <li>If the entered text cannot be mapped to a value, an exception is
+	 * thrown.</li>
+	 * </ul>
 	 *
-	 * @return The validated selected value. May be null (if not selecting a
-	 *         value is considered valid).
-	 * @see #isValid()
-	 * @see #assertValid()
-	 */
-	T getValueOrThrow();
-
-	/**
-	 * Validates the selected value. Returns the selected value if validation
-	 * passes. Returns null if validation fails.
-	 *
-	 * @return The validated selected value. May be null (if not selecting a
-	 *         value is considered valid). Null if validation fails.
-	 * @see #isValid()
-	 * @see #assertValid()
-	 */
-	T getValueOrNull();
-
-	/**
-	 * Validates the selected value. Returns an Optional that contains the
-	 * selected value if validation passes. Returns an empty Optional if
-	 * validation fails.
-	 *
-	 * @return An Optional that contains the validated selected value. May be
-	 *         empty (if not selecting a value is considered valid). Empty if
-	 *         validation fails.
-	 * @see #isValid()
-	 * @see #assertValid()
+	 * @return the value as an {@link Optional} (never <i>null</i>)
 	 */
 	Optional<T> getValue();
 
 	/**
-	 * Validates the selected value. Throws an Exception if validation fails
-	 * (i.e. if {@link #isValid()} would return false).
+	 * Returns the value of this input element, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, that value is
+	 * returned.</li>
+	 * <li>If the entered text is blank, <i>null</i> is returned.</li>
+	 * <li>If the entered text cannot be mapped to a value, an exception is
+	 * thrown.</li>
+	 * </ul>
 	 *
-	 * @see #isValid()
+	 * @return the value (may be <i>null</i>)
 	 */
-	void assertValid();
+	T getValueOrNull();
 
 	/**
-	 * Validates the selected value. Returns a boolean value to indicate the
-	 * result of the validation.
+	 * Returns the value of this input element, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, that value is
+	 * returned.</li>
+	 * <li>If the entered text is blank, or if the entered text cannot be mapped
+	 * to a value, an exception is thrown.</li>
+	 * </ul>
 	 *
-	 * @return true if validation passes. false if validation fails.
-	 * @see #assertValid()
+	 * @return the value (never <i>null</i>)
+	 */
+	T getValueOrThrow();
+
+	/**
+	 * Determines whether the entered text can be mapped to a value.
+	 * <p>
+	 * Returns <i>true</i> if the entered text can be mapped to a value, or if
+	 * the entered text is blank.
+	 *
+	 * @return <i>true</i> if the selected value is valid; <i>false</i>
+	 *         otherwise
+	 */
+
+	/**
+	 * Determines the validity of the entered text, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, <i>true</i> is
+	 * returned.</li>
+	 * <li>If the entered text is blank, <i>true</i> is returned.</li>
+	 * <li>Otherwise, <i>false</i> is returned.</li>
+	 * </ul>
+	 *
+	 * @return <i>true</i> if the entered text is valid; <i>false</i> otherwise
 	 */
 	boolean isValid();
 
 	/**
-	 * @return true if the trimmed pattern is empty. false otherwise.
+	 * Asserts the validity of the entered text.
+	 * <p>
+	 * If {@link #isValid()} would return <i>false</i>, an exception is thrown.
+	 */
+	void assertValid();
+
+	/**
+	 * @return <i>true</i> if the entered text is blank; <i>false</i> otherwise
 	 */
 	boolean isBlankPattern();
 }

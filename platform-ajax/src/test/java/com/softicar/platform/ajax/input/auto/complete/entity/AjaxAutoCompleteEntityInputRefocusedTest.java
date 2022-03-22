@@ -28,8 +28,8 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 			.focusWithClick();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(INVALID_ITEM_NAME)
+			.expectServerValueNone()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -53,8 +53,8 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 			.focusWithClick();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(INVALID_ITEM_NAME)
+			.expectServerValueNone()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

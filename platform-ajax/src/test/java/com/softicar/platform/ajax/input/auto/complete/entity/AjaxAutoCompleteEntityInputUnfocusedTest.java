@@ -60,7 +60,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorNotOkay()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -302,7 +302,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectClientValue("fo")
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorNotOkay()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

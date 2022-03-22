@@ -8,6 +8,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -305,6 +307,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		private boolean executed;
 		private AjaxTestEntity expectedServerValue;
+		private IDisplayString expectedServerValueExceptionMessage;
 		private String expectedClientValue;
 		private Indicator expectedIndicator;
 		private boolean expectedIndicatorPresence;
@@ -344,17 +347,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return expectValues(null);
 		}
 
-		public ClientValueExpectationSetter expectServerValue(AjaxTestEntity serverValue) {
-
-			setExpectedServerValue(serverValue);
-			return new ClientValueExpectationSetter();
-		}
-
-		public ClientValueExpectationSetter expectServerValueNone() {
-
-			return expectServerValue(null);
-		}
-
 		public ServerValueExpectationSetter expectClientValue(AjaxTestEntity clientValue) {
 
 			return expectClientValue(clientValue.toDisplay().toString());
@@ -374,6 +366,11 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private void setExpectedServerValue(AjaxTestEntity serverValue) {
 
 			this.expectedServerValue = serverValue;
+		}
+
+		private void setExpectedServerValueExceptionMessage(IDisplayString exceptionMessage) {
+
+			this.expectedServerValueExceptionMessage = exceptionMessage;
 		}
 
 		private void setExpectedClientValue(String clientValue) {
@@ -446,6 +443,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 
 		public class ServerValueExpectationSetter {
+
+			public IndicatorExpectationSetter expectServerValueExceptionMessage() {
+
+				setExpectedServerValueExceptionMessage(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+				return new IndicatorExpectationSetter();
+			}
 
 			public IndicatorExpectationSetter expectServerValue(AjaxTestEntity serverValue) {
 
@@ -716,10 +719,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 				executed = true;
 				setup.assertExecuted();
-				input.assertValues(expectedServerValue, expectedClientValue);
-				input.assertFocusState(expectedFocusState);
+				input.assertValues(expectedServerValueExceptionMessage, expectedServerValue, expectedClientValue);
 				indicator.assertIndicates(expectedIndicator, expectedIndicatorPresence);
 				popup.assertDisplayed(expectedPopupDisplayed);
+				input.assertFocusState(expectedFocusState);
 				if (expectedPopupDisplayed) {
 					popup.assertEntities(expectedPopupItems);
 					popup.assertSelectedEntity(expectedSelectedItemNumber);
@@ -848,16 +851,22 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public void assertValues(AjaxTestEntity serverValue, String clientValue) {
+		public void assertValues(IDisplayString expectedServerValueExceptionMessage, AjaxTestEntity expectedServerValue, String expectedClientValue) {
 
-			assertEquals(//
-				"Unexpected server-side value.",
-				serverValue,
-				inputNode.getSelection().getValueOrNull());
+			if (expectedServerValueExceptionMessage != null) {
+				Asserts.assertException(inputNode.getSelection()::getValueOrNull, expectedServerValueExceptionMessage);
+				waitForServer();
+			} else {
+				AjaxTestEntity actualServerValue = inputNode.getSelection().getValueOrNull();
+				assertEquals(//
+					"Unexpected server-side value.",
+					expectedServerValue,
+					actualServerValue);
+			}
 
 			assertEquals(//
 				"Unexpected client-side value.",
-				clientValue,
+				expectedClientValue,
 				getAttributeValue(inputFieldElement, "value"));
 		}
 
@@ -1033,7 +1042,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		@Override
 		public void apply() {
 
-			this.lastValue = inputNode.getSelection().getValueOrNull();
+			this.lastValue = inputNode.getValueNoThrow().orElse(null);
 			this.count++;
 		}
 
