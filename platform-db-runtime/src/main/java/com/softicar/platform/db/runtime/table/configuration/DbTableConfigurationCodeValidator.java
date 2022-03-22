@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * Validates the configuration of every {@link IDbTable} in this repository.
  * <p>
  * FIXME This is too inefficient. The same tables are checked over and over
- * again.
+ * again. (PLAT-754).
  *
  * @author Alexander Schmidt
  */
