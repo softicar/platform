@@ -23,7 +23,7 @@ import java.util.function.Predicate;
  *
  * @author Alexander Schmidt
  */
-//@JavaCodeValidator // FIXME Fix and re-enable this.
+//@JavaCodeValidator // FIXME Fix and re-enable this. (PLAT-754)
 public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
 
 	@Override
