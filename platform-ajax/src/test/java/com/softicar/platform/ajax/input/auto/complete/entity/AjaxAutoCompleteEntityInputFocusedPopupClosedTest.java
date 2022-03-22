@@ -6,8 +6,7 @@ import org.junit.Test;
 
 /**
  * Contains unit tests for {@link DomAutoCompleteEntityInput} interaction phase
- * <b>"2.3 Popup Closed"</b> (see
- * {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <b>"2.3 Popup Closed"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  * <p>
  * Note that, for passive input elements, the value is not transferred to the
  * server until the next arbitrary event is handled.
@@ -272,7 +271,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueNone()
-			.expectIndicatorValueAmbiguous() // TODO if input is active, "illegal" indicator is displayed. this is kind of inconsistent.
+			.expectIndicatorValueAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -296,8 +295,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
-			.expectIndicatorValueIllegal() // TODO if input is passive, "ambiguous" indicator is displayed. this is kind of inconsistent.
+			.expectServerValueExceptionMessage()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -345,7 +344,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -492,7 +491,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -912,7 +911,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -968,7 +967,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

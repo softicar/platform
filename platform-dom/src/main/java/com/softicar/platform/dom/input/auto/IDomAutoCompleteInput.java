@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.input.auto;
 
 import com.softicar.platform.dom.input.IDomTextualInput;
+import com.softicar.platform.dom.input.IDomValueInput;
 import com.softicar.platform.dom.parent.IDomParentElement;
 
 /**
@@ -9,7 +10,7 @@ import com.softicar.platform.dom.parent.IDomParentElement;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public interface IDomAutoCompleteInput<T> extends IDomParentElement {
+public interface IDomAutoCompleteInput<T> extends IDomParentElement, IDomValueInput<T> {
 
 	/**
 	 * Returns the native input field that is contained in the auto-complete
@@ -46,14 +47,6 @@ public interface IDomAutoCompleteInput<T> extends IDomParentElement {
 	 *         represents the current selection (never null)
 	 */
 	IDomAutoCompleteInputSelection<T> getSelection();
-
-	/**
-	 * Sets the selected value for this input element.
-	 *
-	 * @param value
-	 *            the value to be set for this input element (may be null)
-	 */
-	void setValue(T value);
 
 	/**
 	 * Sets the selected value for this input element and triggers a

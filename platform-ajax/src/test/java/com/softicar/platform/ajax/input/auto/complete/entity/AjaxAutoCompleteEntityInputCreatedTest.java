@@ -197,8 +197,8 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 			.execute();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -216,8 +216,8 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 			.execute();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -456,7 +456,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
