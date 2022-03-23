@@ -118,9 +118,9 @@ public interface CoreModuleTestFixtureMethods {
 	}
 
 	// TODO: CoreModule is currently SystemModuleInstance and this needs to be adjusted
-	default AGCoreModuleInstance insertCoreModuleInstance() {
+	default AGCoreModuleInstance insertCoreModuleInstance(AGLocalization defaultLocalization) {
 
-		return new AGCoreModuleInstance().save();
+		return new AGCoreModuleInstance().setDefaultLocalization(defaultLocalization).save();
 	}
 
 	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {

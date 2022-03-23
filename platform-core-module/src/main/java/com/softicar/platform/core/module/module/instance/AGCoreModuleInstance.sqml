@@ -17,7 +17,7 @@ TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
 	String portalHost = 'www.example.com' [MAXLENGTH=255]
 	String portalApplication = 'portal' [MAXLENGTH=255]
 	AGStoredFile portalLogo = NULL [NULLABLE]
-	AGLocalization defaultLocalization = NULL [NULLABLE]
+	AGLocalization defaultLocalization
 	Boolean testSystem = FALSE
 
 	IK primaryFileServer
