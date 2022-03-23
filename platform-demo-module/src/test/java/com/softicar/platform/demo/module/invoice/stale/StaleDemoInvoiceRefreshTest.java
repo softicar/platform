@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
@@ -22,7 +23,7 @@ public class StaleDemoInvoiceRefreshTest extends AbstractDemoModuleTest {
 
 	public StaleDemoInvoiceRefreshTest() {
 
-		this.invoice = insertDemoInvoice(moduleInstance, OLD, Day.fromYMD(2020, 1, 1));
+		this.invoice = insertDemoInvoice(moduleInstance, AGDemoInvoiceTypeEnum.INBOUND, OLD, Day.fromYMD(2020, 1, 1));
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGDemoInvoice.TABLE, moduleInstance).build());
 	}

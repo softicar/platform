@@ -5,6 +5,10 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 
 public interface DemoI18n extends WorkflowI18n {
 
+	I18n0 CREDITOR = new I18n0("Creditor")//
+		.de("Kreditor");
+	I18n0 DEBITOR = new I18n0("Debitor")//
+		.de("Debitor");
 	I18n0 DEMO = new I18n0("Demo")//
 		.de("Demo");
 	I18n0 DEMO_INVOICE = new I18n0("Demo Invoice")//
@@ -13,6 +17,10 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Rechnungsposition");
 	I18n0 DEMO_INVOICE_ITEMS = new I18n0("Demo Invoice Items")//
 		.de("Demo-Rechnungspositionen");
+	I18n0 DEMO_INVOICE_TYPE = new I18n0("Demo Invoice Type")//
+		.de("Demo-Rechnungstyp");
+	I18n0 DEMO_INVOICE_TYPES = new I18n0("Demo Invoice Types")//
+		.de("Demo-Rechnungstypen");
 	I18n0 DEMO_INVOICES = new I18n0("Demo Invoices")//
 		.de("Demo-Rechnungen");
 	I18n0 DEMO_MODULE_INSTANCE = new I18n0("Demo Module Instance")//
@@ -27,6 +35,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Dokument");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
+	I18n0 INBOUND = new I18n0("Inbound")//
+		.de("Eingehend");
 	I18n0 INVOICE = new I18n0("Invoice")//
 		.de("Rechnung");
 	I18n0 INVOICE_DATE = new I18n0("Invoice Date")//
@@ -41,6 +51,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Gesperrte Positionen.");
 	I18n0 NET_AMOUNT = new I18n0("Net Amount")//
 		.de("Nettobetrag");
+	I18n0 OUTBOUND = new I18n0("Outbound")//
+		.de("Ausgehend");
 	I18n0 POINT_IN_TIME = new I18n0("Point-In-Time")//
 		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//

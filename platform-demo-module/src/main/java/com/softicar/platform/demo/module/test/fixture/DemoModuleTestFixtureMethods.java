@@ -4,6 +4,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.item.AGDemoInvoiceItem;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.workflow.module.test.fixture.WorkflowModuleTestFixtureMethods;
 import java.math.BigDecimal;
 
@@ -14,10 +15,13 @@ public interface DemoModuleTestFixtureMethods extends WorkflowModuleTestFixtureM
 		return insertStandardModuleInstance(AGDemoModuleInstance.TABLE);
 	}
 
-	default AGDemoInvoice insertDemoInvoice(AGDemoModuleInstance moduleInstance, String number, Day invoiceDate) {
+	default AGDemoInvoice insertDemoInvoice(AGDemoModuleInstance moduleInstance, AGDemoInvoiceTypeEnum type, String number, Day invoiceDate) {
 
 		return new AGDemoInvoice()//
 			.setModuleInstance(moduleInstance)
+			.setType(type.getRecord())
+			.setCreditor(type == AGDemoInvoiceTypeEnum.INBOUND? "ACME" : "")
+			.setDebitor(type == AGDemoInvoiceTypeEnum.OUTBOUND? "ACME" : "")
 			.setInvoiceNumber(number)
 			.setInvoiceDate(invoiceDate)
 			.save();

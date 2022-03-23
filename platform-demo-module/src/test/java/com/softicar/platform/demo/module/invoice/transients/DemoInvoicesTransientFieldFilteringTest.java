@@ -3,7 +3,7 @@ package com.softicar.platform.demo.module.invoice.transients;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.test.fixture.DemoInvoicesTextFixture;
+import com.softicar.platform.demo.module.test.fixture.DemoInvoicesTestFixture;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -15,7 +15,7 @@ public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoModuleT
 
 	public DemoInvoicesTransientFieldFilteringTest() {
 
-		new DemoInvoicesTextFixture(moduleInstance).apply();
+		new DemoInvoicesTestFixture(moduleInstance).apply();
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGDemoInvoice.TABLE, moduleInstance).build());
 	}

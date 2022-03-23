@@ -17,6 +17,7 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceType;
 
 /**
  * This is the automatically generated class AGDemoInvoice for
@@ -38,6 +39,9 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static final IDbIdField<AGDemoInvoice> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
 	public static final IDbForeignField<AGDemoInvoice, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(DemoI18n.TRANSACTION);
 	public static final IDbForeignRowField<AGDemoInvoice, AGDemoModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignField<AGDemoInvoice, AGDemoInvoiceType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGDemoInvoiceType.ID).setTitle(DemoI18n.TYPE);
+	public static final IDbStringField<AGDemoInvoice> CREDITOR = BUILDER.addStringField("creditor", o->o.m_creditor, (o,v)->o.m_creditor=v).setTitle(DemoI18n.CREDITOR).setMaximumLength(255);
+	public static final IDbStringField<AGDemoInvoice> DEBITOR = BUILDER.addStringField("debitor", o->o.m_debitor, (o,v)->o.m_debitor=v).setTitle(DemoI18n.DEBITOR).setMaximumLength(255);
 	public static final IDbStringField<AGDemoInvoice> INVOICE_NUMBER = BUILDER.addStringField("invoiceNumber", o->o.m_invoiceNumber, (o,v)->o.m_invoiceNumber=v).setTitle(DemoI18n.INVOICE_NUMBER).setMaximumLength(255);
 	public static final IDbDayField<AGDemoInvoice> INVOICE_DATE = BUILDER.addDayField("invoiceDate", o->o.m_invoiceDate, (o,v)->o.m_invoiceDate=v).setTitle(DemoI18n.INVOICE_DATE);
 	public static final IDbBooleanField<AGDemoInvoice> LOCKED_ITEMS = BUILDER.addBooleanField("lockedItems", o->o.m_lockedItems, (o,v)->o.m_lockedItems=v).setTitle(DemoI18n.LOCKED_ITEMS).setDefault(false);
@@ -83,6 +87,41 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public final AGDemoInvoice setModuleInstance(AGDemoModuleInstance value) {
 
 		return setValue(MODULE_INSTANCE, value);
+	}
+
+	public final Integer getTypeID() {
+
+		return getValueId(TYPE);
+	}
+
+	public final AGDemoInvoiceType getType() {
+
+		return getValue(TYPE);
+	}
+
+	public final AGDemoInvoice setType(AGDemoInvoiceType value) {
+
+		return setValue(TYPE, value);
+	}
+
+	public final String getCreditor() {
+
+		return getValue(CREDITOR);
+	}
+
+	public final AGDemoInvoice setCreditor(String value) {
+
+		return setValue(CREDITOR, value);
+	}
+
+	public final String getDebitor() {
+
+		return getValue(DEBITOR);
+	}
+
+	public final AGDemoInvoice setDebitor(String value) {
+
+		return setValue(DEBITOR, value);
 	}
 
 	public final String getInvoiceNumber() {
@@ -158,6 +197,9 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	private Integer m_id;
 	private AGTransaction m_transaction;
 	private AGDemoModuleInstance m_moduleInstance;
+	private AGDemoInvoiceType m_type;
+	private String m_creditor;
+	private String m_debitor;
 	private String m_invoiceNumber;
 	private Day m_invoiceDate;
 	private Boolean m_lockedItems;
