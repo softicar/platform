@@ -27,12 +27,30 @@ public interface IDomValueInput<V> extends IDomNode {
 	 * <li>If an invalid value is entered, an exception is thrown.</li>
 	 * </ul>
 	 *
-	 * @return the entered value as an {@link Optional} (never <i>null</i>)
+	 * @return the entered value as an {@link Optional}
 	 * @throws DomInputException
 	 *             if the user entered something into this input element which
 	 *             does not represent a valid value
 	 */
 	Optional<V> getValue();
+
+	/**
+	 * Returns the value of this input element, as follows:
+	 * <ul>
+	 * <li>If a valid value was entered, the value is returned.</li>
+	 * <li>If no value is entered, <i>null</i> is returned.</li>
+	 * <li>If an invalid value is entered, an exception is thrown.</li>
+	 * </ul>
+	 *
+	 * @return the entered value (may be <i>null</i>)
+	 * @throws DomInputException
+	 *             if the user entered something into this input element which
+	 *             does not represent a valid value
+	 */
+	default V getValueOrNull() {
+
+		return getValue().orElse(null);
+	}
 
 	/**
 	 * Same as {@link #getValue()} but never throws an {@link Exception}.

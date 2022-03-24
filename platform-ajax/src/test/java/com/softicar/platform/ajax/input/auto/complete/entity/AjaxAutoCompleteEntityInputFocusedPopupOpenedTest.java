@@ -8,8 +8,7 @@ import org.junit.Test;
 
 /**
  * Contains unit tests for {@link DomAutoCompleteEntityInput} interaction phase
- * <b>"2.2 Popup Opened"</b> (see
- * {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <b>"2.2 Popup Opened"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  *
  * @author Alexander Schmidt
  */
@@ -303,7 +302,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -369,8 +368,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.pressDownArrowAndWaitForPopup();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
@@ -437,8 +436,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.pressUpArrowAndWaitForPopup();
 
 		asserter//
-			.expectServerValueNone()
 			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()

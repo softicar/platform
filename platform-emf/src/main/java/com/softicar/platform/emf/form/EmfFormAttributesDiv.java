@@ -1,11 +1,9 @@
 package com.softicar.platform.emf.form;
 
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.editor.EmfAttributeValueInputFrame;
 import com.softicar.platform.emf.editor.EmfAttributesDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EmfFormAttributesDiv<R extends IEmfTableRow<R, ?>> extends EmfAttributesDiv<R> {
@@ -32,10 +30,7 @@ public class EmfFormAttributesDiv<R extends IEmfTableRow<R, ?>> extends EmfAttri
 				// skip transient attributes in creation mode
 			} else {
 				if (editMode && attribute.isEditable(tableRow)) {
-					Optional<EmfAttributeValueInputFrame<R, ?>> inputRow = Optional.ofNullable(appendInputRowOrNull(attribute));
-					if (inputRow.isPresent() && attribute.isMandatory(tableRow)) {
-						inputRow.get().setMandatory(true);
-					}
+					appendInputRow(attribute);
 				} else {
 					appendDisplayRow(attribute);
 				}

@@ -16,6 +16,8 @@ public interface IDbEntityTable<R extends IDbEntity<R, P>, P> extends IDbTable<R
 
 	/**
 	 * Returns a stub entity for the given ID.
+	 * <p>
+	 * TODO PLAT-755 This method should not exist.
 	 *
 	 * @param id
 	 *            the ID (may be null)

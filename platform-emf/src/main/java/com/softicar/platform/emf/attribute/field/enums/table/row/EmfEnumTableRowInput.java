@@ -27,9 +27,7 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 	@Override
 	public Optional<R> getValue() {
 
-		return Optional//
-			.ofNullable(input.getSelection().getValueOrThrow())
-			.map(EmfEnumTableRowEntityWrapper::getRow);
+		return input.getValue().map(EmfEnumTableRowEntityWrapper::getRow);
 	}
 
 	@Override

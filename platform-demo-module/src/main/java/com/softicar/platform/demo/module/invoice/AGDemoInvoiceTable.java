@@ -33,5 +33,13 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 	public void customizeAttributeProperties(IEmfAttributeList<AGDemoInvoice> attributes) {
 
 		attributes.addTransientAttribute(AGDemoInvoice.GROSS_AMOUNT_FIELD);
+
+		attributes//
+			.editAttribute(AGDemoInvoice.CREDITOR)
+			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.INBOUND);
+
+		attributes//
+			.editAttribute(AGDemoInvoice.DEBITOR)
+			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.OUTBOUND);
 	}
 }

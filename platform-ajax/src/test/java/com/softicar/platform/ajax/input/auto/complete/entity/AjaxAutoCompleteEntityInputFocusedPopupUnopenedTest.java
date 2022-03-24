@@ -108,7 +108,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

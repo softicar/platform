@@ -42,7 +42,7 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 	protected boolean isValueSubmitted() {
 
 		String clientValue = Optional.ofNullable(getAttributeValue(inputField, "value")).orElse("");
-		String serverValue = Optional.ofNullable(inputDiv.getSelection().getValueOrThrow()).map(item -> item.getName()).orElse("");
+		String serverValue = inputDiv.getValue().map(item -> item.getName()).orElse("");
 		return clientValue.equals(serverValue);
 	}
 

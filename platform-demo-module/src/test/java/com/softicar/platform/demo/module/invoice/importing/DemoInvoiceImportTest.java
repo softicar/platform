@@ -3,6 +3,7 @@ package com.softicar.platform.demo.module.invoice.importing;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.emf.EmfI18n;
@@ -14,6 +15,14 @@ import java.util.List;
 import org.junit.Test;
 
 public class DemoInvoiceImportTest extends AbstractDemoModuleTest {
+
+	private static final String CSV_CONTENT = """
+			%s,ACME,,123,2022-02-02,0,,
+			%s,,ACME,234,2022-02-10,1,,
+			"""
+		.formatted(//
+			AGDemoInvoiceTypeEnum.INBOUND.getId(),
+			AGDemoInvoiceTypeEnum.OUTBOUND.getId());
 
 	public DemoInvoiceImportTest() {
 
@@ -30,7 +39,7 @@ public class DemoInvoiceImportTest extends AbstractDemoModuleTest {
 			.findNodes()
 			.filter(IDomFileUploadHandler.class::isInstance)
 			.assertOne(node -> IDomFileUploadHandler.class.cast(node))
-			.handleFileUploads(List.of(new DummyUpload("foo.csv", "123,2022-02-02,0,,\n234,2022-02-10,1,,")));
+			.handleFileUploads(List.of(new DummyUpload("foo.csv", CSV_CONTENT)));
 		popup.clickNode(EmfI18n.ANALYZE);
 		popup.clickNode(EmfI18n.SAVE_AND_CLOSE);
 

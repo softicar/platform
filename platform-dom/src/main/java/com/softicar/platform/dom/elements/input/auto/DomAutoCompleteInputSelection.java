@@ -1,7 +1,9 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
@@ -39,10 +41,10 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 	}
 
 	@Override
-	public T getValueOrThrow() {
+	public Optional<T> getValue() {
 
 		assertValid();
-		return getMatchingValue().orElse(null);
+		return getMatchingValue();
 	}
 
 	@Override
@@ -52,13 +54,9 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 	}
 
 	@Override
-	public Optional<T> getValue() {
+	public T getValueOrThrow() {
 
-		if (isValid()) {
-			return getMatchingValue();
-		} else {
-			return Optional.empty();
-		}
+		return getValue().orElseThrow(() -> new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY));
 	}
 
 	@Override
@@ -72,9 +70,7 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 	@Override
 	public boolean isValid() {
 
-		if (isValueMissing()) {
-			return false;
-		} else if (isValueEmptyOrModePermissive()) {
+		if (isValueEmptyOrModePermissive()) {
 			return true;
 		} else {
 			return isValueValid();
@@ -85,11 +81,6 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 	public boolean isBlankPattern() {
 
 		return pattern.isEmpty();
-	}
-
-	private boolean isValueMissing() {
-
-		return configuration.isMandatory() && isBlankPattern();
 	}
 
 	private boolean isValueValid() {
@@ -118,11 +109,17 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 
 	private Optional<T> getMatchingValue() {
 
-		if (configuration.getValidationMode().isRestrictive()) {
+		var mode = configuration.getValidationMode();
+		switch (mode) {
+		case RESTRICTIVE:
 			return getFirstMatchingValue(true);
-		} else {
+		case DEDUCTIVE:
 			return getDeducedValue();
+		case PERMISSIVE:
+			// TODO PLAT-753 This cast should not be necessary. Permissive mode should not even be handled in the same auto-complete input implementation.
+			return Optional.of(CastUtils.cast(pattern));
 		}
+		throw new SofticarUnknownEnumConstantException(mode);
 	}
 
 	/**

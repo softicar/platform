@@ -1,8 +1,10 @@
 package com.softicar.platform.db.runtime.enums;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
-import java.util.Optional;
+import java.util.Objects;
 
 /**
  * Represents an enum value of an {@link IDbEnumTableRow}.
@@ -37,14 +39,12 @@ public interface IDbEnumTableRowEnum<E extends IDbEnumTableRowEnum<E, R>, R exte
 	 * Returns the {@link IDbEnumTableRow} corresponding to this enum value.
 	 *
 	 * @return the corresponding {@link IDbEnumTableRow} (never null)
-	 * @throws DbMissingEnumTableRowException
-	 *             if no {@link IDbEnumTableRow} was found
 	 */
 	default R getRecord() {
 
-		return Optional//
-			.ofNullable(getTable().get(getId()))
-			.orElseThrow(() -> new DbMissingEnumTableRowException(this));
+		Integer id = Objects.requireNonNull(getId());
+		// TODO PLAT-755 This casting magic should not be necessary.
+		return CastUtils.cast(IDbTable.class.cast(getTable()).getStub(id));
 	}
 
 	/**

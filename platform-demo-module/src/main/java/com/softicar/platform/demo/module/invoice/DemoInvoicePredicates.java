@@ -10,5 +10,12 @@ public interface DemoInvoicePredicates {
 		DemoI18n.LOCKED_ITEMS,
 		AGDemoInvoice::isLockedItems);
 
+	IEmfPredicate<AGDemoInvoice> INBOUND = new EmfPredicate<>(//
+		DemoI18n.INBOUND,
+		AGDemoInvoice::isInbound);
+	IEmfPredicate<AGDemoInvoice> OUTBOUND = new EmfPredicate<>(//
+		DemoI18n.OUTBOUND,
+		AGDemoInvoice::isOutbound);
+
 	IEmfPredicate<AGDemoInvoice> NOT_LOCKED_ITEMS = LOCKED_ITEMS.not();
 }
