@@ -11,8 +11,8 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	AGTransaction transaction
 	AGDemoModuleInstance moduleInstance
 	AGDemoInvoiceType type
-	String creditor [MAXLENGTH=255]
-	String debitor [MAXLENGTH=255]
+	String creditor = NULL [NULLABLE MAXLENGTH=255]
+	String debitor = NULL [NULLABLE MAXLENGTH=255]
 	String invoiceNumber [MAXLENGTH=255]
 	Day invoiceDate
 	Boolean lockedItems = FALSE

@@ -34,12 +34,13 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		attributes.addTransientAttribute(AGDemoInvoice.GROSS_AMOUNT_FIELD);
 
+		// FIXME This does not work right now.
 		attributes//
 			.editAttribute(AGDemoInvoice.CREDITOR)
-			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.INBOUND);
+			.setPredicateVisibleEditable(DemoInvoicePredicates.INBOUND);
 
 		attributes//
 			.editAttribute(AGDemoInvoice.DEBITOR)
-			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.OUTBOUND);
+			.setPredicateVisibleEditable(DemoInvoicePredicates.OUTBOUND);
 	}
 }

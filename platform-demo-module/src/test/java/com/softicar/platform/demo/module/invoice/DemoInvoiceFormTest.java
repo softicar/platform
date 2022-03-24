@@ -3,6 +3,7 @@ package com.softicar.platform.demo.module.invoice;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
@@ -43,6 +44,7 @@ public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
 		findManagementDiv(AGDemoInvoice.TABLE).clickCreateButton();
 		assertCreateBoxShown();
 		EmfFormPopupTester formPopup = findFormPopup(AGDemoInvoice.class);
+		formPopup.setInputValue(AGDemoInvoice.TYPE, AGDemoInvoiceTypeEnum.INBOUND.name());
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_NUMBER, "123465");
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_DATE, Day.today().toString());
 		formPopup.clickSaveButton();
