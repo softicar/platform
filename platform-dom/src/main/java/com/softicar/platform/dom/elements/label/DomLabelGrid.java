@@ -22,11 +22,30 @@ public class DomLabelGrid extends DomDiv {
 	}
 
 	/**
-	 * Appends a new {@link DomLabel} together with the given {@link IDomNode}.
+	 * Appends the given {@link DomLabel} together with the {@link IDomNode}.
 	 * <p>
 	 * If the given {@link IDomNode} or one of its children is an
 	 * {@link IDomInputNode}, the <i>for</i> attribute of the {@link DomLabel}
 	 * will be assigned respectively.
+	 *
+	 * @param label
+	 *            the label to use (never <i>null</i>)
+	 * @param node
+	 *            the {@link IDomNode} (never <i>null</i>)
+	 * @return this
+	 */
+	public DomLabelGrid add(DomLabel label, IDomNode node) {
+
+		appendChild(label.updateFor(node));
+		appendChild(node);
+		return this;
+	}
+
+	/**
+	 * Appends a new {@link DomLabel} together with the given {@link IDomNode}.
+	 * <p>
+	 * Effectively, creates a new {@link DomLabel} with the given text and then
+	 * calls {@link #add(DomLabel, IDomNode)}.
 	 *
 	 * @param labelText
 	 *            the label text, without a colon (never <i>null</i>)
@@ -36,9 +55,7 @@ public class DomLabelGrid extends DomDiv {
 	 */
 	public DomLabelGrid add(IDisplayString labelText, IDomNode node) {
 
-		appendChild(new DomLabel(labelText).updateFor(node));
-		appendChild(node);
-		return this;
+		return add(new DomLabel(labelText), node);
 	}
 
 	/**

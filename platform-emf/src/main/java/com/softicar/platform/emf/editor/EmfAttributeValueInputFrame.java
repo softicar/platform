@@ -11,27 +11,16 @@ public class EmfAttributeValueInputFrame<R extends IEmfTableRow<R, ?>, V> extend
 
 	private final R row;
 	private final IEmfInput<V> input;
-	private boolean mandatory;
 
 	public EmfAttributeValueInputFrame(IEmfAttribute<R, V> attribute, R row, IEmfInput<V> input) {
 
-		super(attribute, input);
+		super(attribute);
 
 		this.row = row;
 		this.input = input;
-		this.mandatory = false;
-	}
 
-	@Override
-	public boolean isEditable() {
-
-		return true;
-	}
-
-	@Override
-	public boolean isMandatory() {
-
-		return mandatory;
+		input.setMandatory(attribute.isMandatory(row));
+		appendChild(input);
 	}
 
 	public IEmfInput<V> getInput() {
@@ -42,12 +31,6 @@ public class EmfAttributeValueInputFrame<R extends IEmfTableRow<R, ?>, V> extend
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		input.setChangeCallback(callback);
-	}
-
-	public void setMandatory(boolean mandatory) {
-
-		this.mandatory = mandatory;
-		input.setMandatory(mandatory);
 	}
 
 	public void refreshInputConstraints() {
