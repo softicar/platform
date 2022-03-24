@@ -31,9 +31,8 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	private EmfFormBody<R> body;
 	private boolean closed;
 	private Consumer<R> callbackAfterCreation;
-	private boolean directEditingEnabled;
-
 	private Consumer<EmfFormMode> modeChangeCallback;
+	private boolean directEditingEnabled;
 	private boolean initialized;
 
 	public EmfForm(IEmfFormFrame<R> frame, R tableRow) {

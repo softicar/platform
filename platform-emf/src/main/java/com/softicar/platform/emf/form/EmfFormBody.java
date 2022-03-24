@@ -84,13 +84,7 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			if (ensureEntityIsFresh()) {
 				upperPart.enterEditMode();
 				lowerPart.showSectionContainer(new EmfFormSaveOrCancelActions<>(this, upperPart.getAttributesDiv()));
-				if (creationMode) {
-					form.handleModeChange(EmfFormMode.CREATION);
-				} else {
-					form.handleModeChange(EmfFormMode.EDIT);
-				}
 			} else {
-				form.handleModeChange(EmfFormMode.VIEW);
 				upperPart.enterViewMode();
 			}
 		}
@@ -128,7 +122,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 		queueEntityForRefresh();
 
 		if (upperPart.isEditMode()) {
-			form.handleModeChange(EmfFormMode.VIEW);
 			upperPart.enterViewMode();
 		}
 	}
@@ -162,7 +155,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			upperPart.enterViewModeIfNoInputChanged();
 			lowerPart.showInteractiveRefreshSectionContainer();
 		}
-		form.handleModeChange(EmfFormMode.VIEW);
 	}
 
 	private boolean ensureEntityIsFresh() {

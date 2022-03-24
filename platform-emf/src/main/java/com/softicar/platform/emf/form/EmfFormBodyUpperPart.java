@@ -52,6 +52,11 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		this.editMode = true;
 
 		appendChild(attributesContainer);
+		if (formBody.getTableRow().impermanent()) {
+			formBody.getForm().handleModeChange(EmfFormMode.CREATION);
+		} else {
+			formBody.getForm().handleModeChange(EmfFormMode.EDIT);
+		}
 	}
 
 	public void enterViewMode() {
@@ -65,6 +70,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		appendChild(attributesContainer);
 		appendChild(commonActionsDiv);
+		formBody.getForm().handleModeChange(EmfFormMode.VIEW);
 	}
 
 	public void enterViewModeIfNoInputChanged() {

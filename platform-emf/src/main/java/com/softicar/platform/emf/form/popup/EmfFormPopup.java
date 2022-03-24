@@ -1,10 +1,7 @@
 package com.softicar.platform.emf.form.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.parent.IDomParentElement;
-import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.form.EmfForm;
 import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;
@@ -22,10 +19,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 		Objects.requireNonNull(tableRow);
 		this.form = tableRow.table().getFormFactory().createForm(this, tableRow);
 		setCallbackBeforeShow(form::peekAndRefresh);
-
-		IDomParentElement container = appendChild(new DomDiv());
-		container.addCssClass(EmfCssClasses.EMF_FORM_POPUP_CONTAINER);
-		container.appendChild(form);
+		appendChild(form);
 	}
 
 	@Override
