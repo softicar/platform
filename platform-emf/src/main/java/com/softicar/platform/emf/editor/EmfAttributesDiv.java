@@ -68,26 +68,17 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		return inputRows;
 	}
 
-	public <V> EmfAttributeValueInputFrame<R, V> appendInputRowOrNull(IDbField<R, V> field) {
+	public <V> void appendInputRow(IDbField<R, V> field) {
 
-		return appendInputRow(field).orElse(null);
+		appendInputRow(tableRow.table().getAttribute(field));
 	}
 
-	public <V> Optional<EmfAttributeValueInputFrame<R, V>> appendInputRow(IDbField<R, V> field) {
-
-		return appendInputRow(tableRow.table().getAttribute(field));
-	}
-
-	public <V> EmfAttributeValueInputFrame<R, V> appendInputRowOrNull(IEmfAttribute<R, V> attribute) {
-
-		return appendInputRow(attribute).orElse(null);
-	}
-
-	public <V> Optional<EmfAttributeValueInputFrame<R, V>> appendInputRow(IEmfAttribute<R, V> attribute) {
+	public <V> void appendInputRow(IEmfAttribute<R, V> attribute) {
 
 		Optional<IEmfInput<V>> input = attribute.createInput(tableRow);
 		if (input.isPresent()) {
 			EmfAttributeValueInputFrame<R, V> inputRow = new EmfAttributeValueInputFrame<>(attribute, tableRow, input.get());
+			inputRow.setMandatory(attribute.isMandatory(tableRow));
 			inputRows.add(inputRow);
 			constraintController.addInputRow(attribute, inputRow);
 			IDisplayString attributeTitle = attribute.getTitle();
@@ -95,16 +86,9 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 				attributeTitle = attributeTitle.concat("*");
 			}
 			attributeGrid.add(attributeTitle, inputRow);
-			return Optional.of(inputRow);
 		} else {
 			appendDisplayRow(attribute);
-			return Optional.empty();
 		}
-	}
-
-	public <V> EmfAttributeValueInputFrame<R, V> getInputRow(IEmfAttribute<R, V> attribute) {
-
-		return constraintController.getInputRow(attribute);
 	}
 
 	// ------------------------------ apply and save ------------------------------ //

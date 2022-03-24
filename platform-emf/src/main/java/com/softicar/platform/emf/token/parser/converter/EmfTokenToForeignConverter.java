@@ -6,7 +6,6 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.logic.IDbObject;
 import com.softicar.platform.db.runtime.table.IDbTable;
-import com.softicar.platform.db.runtime.table.field.DbTableFieldExtractor;
 import com.softicar.platform.emf.EmfI18n;
 
 class EmfTokenToForeignConverter extends AbstractEmfTokenConverter<IDbObject<?>, IDbForeignField<?, ?>> {
@@ -14,8 +13,7 @@ class EmfTokenToForeignConverter extends AbstractEmfTokenConverter<IDbObject<?>,
 	@Override
 	protected EmfTokenConverterResult<IDbObject<?>> convertToken(IDbForeignField<?, ?> field, String token) {
 
-		Class<?> targetClass = field.getValueType().getValueClass();
-		IDbTable<?, ?> targetTable = new DbTableFieldExtractor().extractTable(targetClass);
+		IDbTable<?, ?> targetTable = field.getTargetTable();
 		if (hasIntegerPrimaryKey(targetTable)) {
 			int id = Integer.parseInt(token);
 			IDbObject<?> value = CastUtils.cast(targetTable.get(CastUtils.cast(id)));

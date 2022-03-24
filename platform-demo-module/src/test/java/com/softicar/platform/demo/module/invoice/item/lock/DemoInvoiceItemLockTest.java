@@ -4,6 +4,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import com.softicar.platform.emf.test.tester.EmfManagementDivTester;
@@ -14,7 +15,7 @@ public class DemoInvoiceItemLockTest extends AbstractDemoModuleTest {
 
 	public DemoInvoiceItemLockTest() {
 
-		AGDemoInvoice invoice = insertDemoInvoice(moduleInstance, "00001", Day.fromYMD(2020, 1, 1));
+		AGDemoInvoice invoice = insertDemoInvoice(moduleInstance, AGDemoInvoiceTypeEnum.INBOUND, "00001", Day.fromYMD(2020, 1, 1));
 		insertDemoInvoiceItem(invoice, "Paper", 100, BigDecimal.valueOf(12), BigDecimal.valueOf(10));
 		insertDemoInvoiceItem(invoice, "Pens", 3, BigDecimal.valueOf(3), BigDecimal.valueOf(2));
 
