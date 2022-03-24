@@ -20,7 +20,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 		this.tableRow = form.getTableRow();
 		this.upperPart = new EmfFormBodyUpperPart<>(this);
 		this.lowerPart = new EmfFormBodyLowerPart<>(this);
-
 		appendChild(upperPart);
 		appendChild(lowerPart);
 
@@ -85,8 +84,13 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			if (ensureEntityIsFresh()) {
 				upperPart.enterEditMode();
 				lowerPart.showSectionContainer(new EmfFormSaveOrCancelActions<>(this, upperPart.getAttributesDiv()));
-				form.enterEditMode();
+				if (creationMode) {
+					form.handleModeChange(EmfFormMode.CREATION);
+				} else {
+					form.handleModeChange(EmfFormMode.EDIT);
+				}
 			} else {
+				form.handleModeChange(EmfFormMode.VIEW);
 				upperPart.enterViewMode();
 			}
 		}
@@ -99,7 +103,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			if (form.isDirectEditingEnabled() || creationMode) {
 				form.closeFrame();
 			} else {
-				form.enterViewMode();
 				enterViewMode();
 			}
 		}
@@ -112,7 +115,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			if (closeAfterFinish) {
 				form.closeFrame();
 			} else {
-				form.enterViewMode();
 				enterViewMode();
 			}
 			queueEntityForRefresh();
@@ -126,6 +128,7 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 		queueEntityForRefresh();
 
 		if (upperPart.isEditMode()) {
+			form.handleModeChange(EmfFormMode.VIEW);
 			upperPart.enterViewMode();
 		}
 	}
@@ -159,6 +162,7 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 			upperPart.enterViewModeIfNoInputChanged();
 			lowerPart.showInteractiveRefreshSectionContainer();
 		}
+		form.handleModeChange(EmfFormMode.VIEW);
 	}
 
 	private boolean ensureEntityIsFresh() {

@@ -81,13 +81,5 @@ public interface IEmfForm<R extends IEmfTableRow<R, ?>> {
 	 */
 	Collection<IEmfValidator<R>> getAdditionalValidators();
 
-	default void enterEditMode() {
-
-		//nothing per default
-	}
-
-	default void enterViewMode() {
-
-		//nothing per default
-	}
+	void handleModeChange(EmfFormMode mode);
 }

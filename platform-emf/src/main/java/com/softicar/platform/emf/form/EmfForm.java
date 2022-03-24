@@ -24,7 +24,6 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 	private final IEmfFormFrame<R> frame;
 	private final R tableRow;
-	private final DomDiv formContainer;
 	private final IEmfFormTabConfiguration<R> tabConfiguration;
 	private final Collection<IEmfValidator<R>> additionalValidators;
 	private EmfFormTabBar<R> tabBar;
@@ -33,13 +32,14 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	private boolean closed;
 	private Consumer<R> callbackAfterCreation;
 	private boolean directEditingEnabled;
+
+	private Consumer<EmfFormMode> modeChangeCallback;
 	private boolean initialized;
 
 	public EmfForm(IEmfFormFrame<R> frame, R tableRow) {
 
 		this.frame = Objects.requireNonNull(frame);
 		this.tableRow = Objects.requireNonNull(tableRow);
-		this.formContainer = new DomDiv();
 		this.tabConfiguration = tableRow.table().getEmfTableConfiguration().getFormTabConfiguration();
 		this.additionalValidators = new ArrayList<>();
 		this.tabBar = null;
@@ -47,11 +47,10 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		this.body = null;
 		this.closed = false;
 		this.callbackAfterCreation = Consumers.noOperation();
+		this.modeChangeCallback = Consumers.noOperation();
 		this.directEditingEnabled = false;
 		this.initialized = false;
 		addCssClass(EmfCssClasses.EMF_FORM);
-		formContainer.setCssClass(EmfCssClasses.EMF_FORM_CONTAINER);
-		appendChild(formContainer);
 	}
 
 	@Override
@@ -146,6 +145,17 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		return directEditingEnabled;
 	}
 
+	public void setModeChangeCallback(Consumer<EmfFormMode> modeChangeCallback) {
+
+		this.modeChangeCallback = Objects.requireNonNull(modeChangeCallback);
+	}
+
+	@Override
+	public void handleModeChange(EmfFormMode mode) {
+
+		modeChangeCallback.accept(mode);
+	}
+
 	// ------------------------------ refresh and initialize ------------------------------ //
 
 	private void initialize() {
@@ -155,8 +165,8 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		this.indicatorRow = new EmfFormIndicatorRow<>(tableRow);
 		this.body = new EmfFormBody<>(this);
 		this.tabBar = showTabBar? new EmfFormTabBar<>(this, tabConfiguration, body) : null;
-		formContainer.appendChild(indicatorRow);
-		formContainer.appendChild(showTabBar? tabBar : body);
+		appendChild(indicatorRow);
+		appendChild(showTabBar? tabBar : body);
 		refreshFormTitle();
 
 		this.initialized = true;
@@ -185,7 +195,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 		if (tabBar == null && isShowTabBar()) {
 			this.body.disappend();
-			this.tabBar = formContainer.appendChild(new EmfFormTabBar<>(this, tabConfiguration, body));
+			this.tabBar = appendChild(new EmfFormTabBar<>(this, tabConfiguration, body));
 		}
 	}
 
@@ -211,8 +221,8 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 	private void removeChildrenAndAppendExceptionDisplay(EmfAccessPermissionException exception) {
 
-		formContainer.removeChildren();
-		formContainer.appendChild(new EmfFormAccessDeniedDiv<>(this, exception));
+		removeChildren();
+		appendChild(new EmfFormAccessDeniedDiv<>(this, exception));
 		frame.setTitle(tableRow.table().getTitle(), EmfI18n.ERROR);
 	}
 }

@@ -1,12 +1,12 @@
 
 .EmfForm {
-	width: 100%; 
-}
-
-.EmfFormContainer {
 	display: grid;
 	flex-grow: 1;
-	min-width: 320px; 
+	min-width: 320px;
+}
+
+.EmfFormDelegator {
+	width: 100%;
 }
 
 .EmfFormFrame {
@@ -15,6 +15,11 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 	display: inline-grid;
 	outline-style: none;
+}
+
+.EmfFormPopupContainer {
+	align-items: start;
+	width: 100%;
 }
 
 .EmfFormFrameHeader {
