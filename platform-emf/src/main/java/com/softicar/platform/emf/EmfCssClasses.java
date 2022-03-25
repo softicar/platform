@@ -37,13 +37,13 @@ public interface EmfCssClasses {
 
 	ICssClass EMF_FORM = new CssClass("EmfForm", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_COMMON_ACTIONS_DIV = new CssClass("EmfFormCommonActionsDiv", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_DELEGATOR = new CssClass("EmfFormDelegator", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME = new CssClass("EmfFormFrame", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME_HEADER = new CssClass("EmfFormFrameHeader", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR = new CssClass("EmfFormIndicator", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR_CONTAINER = new CssClass("EmfFormIndicatorContainer", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR_IMAGE = new CssClass("EmfFormIndicatorImage", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR_ROW = new CssClass("EmfFormIndicatorRow", EmfCssFiles.EMF_FORM_STYLE);
-	ICssClass EMF_FORM_POPUP_CONTAINER = new CssClass("EmfFormPopupContainer", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_PRIMARY_ACTIONS_SECTION_DIV = new CssClass("EmfFormPrimaryActionSectionDiv", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_SAVE_OR_CANCEL_ACTIONS_INPUT = new CssClass("EmfFormSaveOrCancelActionsInput", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_SECTION_CONTENT_DIV = new CssClass("EmfFormSectionContentDiv", EmfCssFiles.EMF_FORM_SECTION_STYLE);

@@ -15,12 +15,12 @@ import java.util.Optional;
  */
 class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
-	private final IEmfFormBody<R> formBody;
+	private final EmfFormBody<R> formBody;
 	private EmfAttributesTableContainer<R> attributesContainer;
 	private EmfFormCommonActionsDiv<R> commonActionsDiv;
 	private boolean editMode;
 
-	public EmfFormBodyUpperPart(IEmfFormBody<R> formBody) {
+	public EmfFormBodyUpperPart(EmfFormBody<R> formBody) {
 
 		this.formBody = formBody;
 		this.attributesContainer = null;
@@ -52,6 +52,11 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		this.editMode = true;
 
 		appendChild(attributesContainer);
+		if (formBody.getTableRow().impermanent()) {
+			formBody.getForm().handleModeChange(EmfFormMode.CREATION);
+		} else {
+			formBody.getForm().handleModeChange(EmfFormMode.EDIT);
+		}
 	}
 
 	public void enterViewMode() {
@@ -65,6 +70,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		appendChild(attributesContainer);
 		appendChild(commonActionsDiv);
+		formBody.getForm().handleModeChange(EmfFormMode.VIEW);
 	}
 
 	public void enterViewModeIfNoInputChanged() {

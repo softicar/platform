@@ -1,10 +1,7 @@
 package com.softicar.platform.emf.form.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.parent.IDomParentElement;
-import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.form.EmfForm;
 import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;
@@ -16,20 +13,13 @@ import java.util.function.Consumer;
 public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup implements IEmfFormFrame<R> {
 
 	private final IEmfForm<R> form;
-	private final IEmfFormPopupConfiguration<R> popupConfiguration;
 
 	public EmfFormPopup(R tableRow) {
 
 		Objects.requireNonNull(tableRow);
-		this.popupConfiguration = tableRow.table().getEmfTableConfiguration().getFormPopupConfiguration();
 		this.form = tableRow.table().getFormFactory().createForm(this, tableRow);
 		setCallbackBeforeShow(form::peekAndRefresh);
-
-		IDomParentElement container = appendChild(new DomBar());
-		container.addCssClass(EmfCssClasses.EMF_FORM_POPUP_CONTAINER);
-		appendAdditionalContent(container);
-
-		container.appendChild(form);
+		appendChild(form);
 	}
 
 	@Override
@@ -81,12 +71,5 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 
 		form.setDirectEditing(enabled);
 		return this;
-	}
-
-	private void appendAdditionalContent(IDomParentElement container) {
-
-		popupConfiguration//
-			.createAdditionalContent(form.getTableRow())
-			.forEach(container::appendChild);
 	}
 }

@@ -7,7 +7,6 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.action.IEmfCommonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
@@ -25,7 +24,6 @@ import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
-import com.softicar.platform.emf.form.popup.IEmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.IEmfFormTabConfiguration;
 import com.softicar.platform.emf.log.IEmfChangeLogger;
@@ -56,8 +54,6 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	IEmfFormSectionConfiguration<R> getFormSectionConfiguration();
 
 	IEmfFormTabConfiguration<R> getFormTabConfiguration();
-
-	IEmfFormPopupConfiguration<R> getFormPopupConfiguration();
 
 	// ------------------------------ attributes ------------------------------ //
 
@@ -119,8 +115,6 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	IEmfAuthorizer<R, S> getAuthorizer();
 
 	IEmfFormFactory<R> getFormFactory();
-
-	Function<S, DomPopup> getCreationPopupFactory();
 
 	IEmfPredicate<S> getCreationPredicate();
 

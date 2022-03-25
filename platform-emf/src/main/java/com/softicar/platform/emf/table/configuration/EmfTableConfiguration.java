@@ -8,7 +8,6 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.action.IEmfCommonAction;
@@ -37,8 +36,6 @@ import com.softicar.platform.emf.form.EmfForm;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
-import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
-import com.softicar.platform.emf.form.popup.IEmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -85,7 +82,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Supplier<EmfFormIndicatorConfiguration<R>> indicatorConfigurationSupplier;
 	private final Supplier<EmfFormSectionConfiguration<R>> sectionConfigurationSupplier;
 	private final Supplier<EmfFormTabConfiguration<R>> tabConfigurationSupplier;
-	private final Supplier<EmfFormPopupConfiguration<R>> popupConfigurationSupplier;
 	private final Supplier<EmfChangeLoggerSet<R>> loggerSetSupplier;
 	private final Supplier<EmfChildTableSet<R>> childTableSetSupplier;
 	private final Supplier<EmfManagementConfiguration<R>> managementConfigurationSupplier;
@@ -95,7 +91,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
 	private IEmfFormFactory<R> formFactory;
-	private Function<S, DomPopup> creationPopupFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
 	private IEmfPredicate<R> deactivationPredicate;
@@ -119,7 +114,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.indicatorConfigurationSupplier = new EmfLazySupplier<>(EmfFormIndicatorConfiguration::new, table::customizeFormIndicators);
 		this.sectionConfigurationSupplier = new EmfLazySupplier<>(EmfFormSectionConfiguration::new, table::customizeFormSections);
 		this.tabConfigurationSupplier = new EmfLazySupplier<>(() -> new EmfFormTabConfiguration<>(table), table::customizeFormTabs);
-		this.popupConfigurationSupplier = new EmfLazySupplier<>(EmfFormPopupConfiguration::new, table::customizeFormPopup);
 		this.loggerSetSupplier = new EmfLazySupplier<>(EmfChangeLoggerSet::new, table::customizeLoggers);
 		this.childTableSetSupplier = new EmfLazySupplier<>(EmfChildTableSet::new, table::customizeChildTables);
 		this.managementConfigurationSupplier = new EmfLazySupplier<>(table, EmfManagementConfiguration::new, table::customizeManagementConfiguraton);
@@ -129,7 +123,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
 		this.validators = new ArrayList<>();
-		this.creationPopupFactory = table.getTableSpecialization()::createNewTableRowPopup;
 		this.creationPredicate = EmfPredicates.always();
 		this.editPredicate = EmfPredicates.always();
 		this.deactivationPredicate = EmfPredicates.always();
@@ -227,11 +220,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.formFactory = formFactory;
 	}
 
-	public final void setCreationPopupFactory(Function<S, DomPopup> creationPopupFactory) {
-
-		this.creationPopupFactory = creationPopupFactory;
-	}
-
 	public final void setCreationPredicate(IEmfPredicate<S> creationPredicate) {
 
 		this.creationPredicate = creationPredicate;
@@ -292,12 +280,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfFormTabConfiguration<R> getFormTabConfiguration() {
 
 		return tabConfigurationSupplier.get();
-	}
-
-	@Override
-	public final IEmfFormPopupConfiguration<R> getFormPopupConfiguration() {
-
-		return popupConfigurationSupplier.get();
 	}
 
 	// ------------------------------ attributes ------------------------------ //
@@ -457,12 +439,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public IEmfFormFactory<R> getFormFactory() {
 
 		return formFactory;
-	}
-
-	@Override
-	public Function<S, DomPopup> getCreationPopupFactory() {
-
-		return creationPopupFactory;
 	}
 
 	@Override
