@@ -1,19 +1,21 @@
 package com.softicar.platform.emf.editor;
 
+import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.db.core.transaction.DbLazyTransaction;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.EmfValidationException;
 import com.softicar.platform.emf.validation.IEmfValidator;
 import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -24,71 +26,99 @@ import java.util.Set;
  */
 public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
-	private final R tableRow;
-	private final List<EmfAttributeValueInputFrame<R, ?>> inputRows;
-	private final EmfAttributeInputRowDependencyController<R> constraintController;
+	protected final R tableRow;
+	protected final boolean editMode;
+	private final Collection<IEmfAttribute<R, ?>> attributes;
+	private final Collection<EmfAttributeValueFrame<R, ?>> valueFrames;
+	private final Map<IEmfAttribute<R, ?>, EmfAttributeValueLabel<R, ?>> attributeToValueLabelMap;
+	private final Map<IEmfAttribute<R, ?>, EmfAttributeValueFrame<R, ?>> attributeToValueFrameMap;
+	private final DomLabelGrid attributeGrid;
 	private final List<IEmfValidator<R>> additionalValidators;
 	private EmfAttributesDivValidationDiv<R> validationDiv;
-	private DomLabelGrid attributeGrid;
 
-	public EmfAttributesDiv(R tableRow) {
+	public EmfAttributesDiv(R tableRow, boolean editMode) {
 
 		this.tableRow = tableRow;
-		this.inputRows = new ArrayList<>();
-		this.constraintController = new EmfAttributeInputRowDependencyController<>(tableRow.table());
+		this.editMode = editMode;
+		this.attributes = new ArrayList<>();
+		this.valueFrames = new ArrayList<>();
+		this.attributeToValueLabelMap = new HashMap<>();
+		this.attributeToValueFrameMap = new HashMap<>();
+		this.attributeGrid = new DomLabelGrid();
 		this.additionalValidators = new ArrayList<>();
 		this.validationDiv = null;
-		this.attributeGrid = appendChild(new DomLabelGrid());
+
+		appendChild(attributeGrid);
 	}
 
-	protected void removeContent() {
+	public void refresh() {
 
-		removeChildren();
-		this.attributeGrid = appendChild(new DomLabelGrid());
+		attributes.forEach(attribute -> {
+			var mode = getValueMode(attribute);
+			attributeToValueLabelMap.get(attribute).refresh(mode);
+			attributeToValueFrameMap.get(attribute).refresh(mode);
+		});
 	}
 
-	// ------------------------------ display rows ------------------------------ //
+	// ------------------------------ attributes ------------------------------ //
 
-	public void appendDisplayRow(IDbField<R, ?> field) {
+	public void addAttribute(IDbField<R, ?> field) {
 
-		appendDisplayRow(tableRow.table().getAttribute(field));
+		addAttribute(tableRow.table().getAttribute(field));
 	}
 
-	public void appendDisplayRow(IEmfAttribute<R, ?> attribute) {
+	public void addAttribute(IEmfAttribute<R, ?> attribute) {
 
-		attributeGrid.add(attribute.getTitle(), new EmfAttributeValueDisplayFrame<>(attribute, tableRow));
+		var valueMode = getValueMode(attribute);
+		var valueLabel = new EmfAttributeValueLabel<>(attribute, valueMode);
+		var valueFrame = new EmfAttributeValueFrame<>(this, attribute, tableRow, valueMode);
+
+		attributes.add(attribute);
+		attributeToValueLabelMap.put(attribute, valueLabel);
+		attributeToValueFrameMap.put(attribute, valueFrame);
+		attributeGrid.add(valueLabel, valueFrame);
+		valueFrames.add(valueFrame);
 	}
 
-	// ------------------------------ input rows ------------------------------ //
+	private EmfAttributeValueMode getValueMode(IEmfAttribute<R, ?> attribute) {
 
-	public List<EmfAttributeValueInputFrame<R, ?>> getInputRows() {
-
-		return inputRows;
-	}
-
-	public <V> void appendInputRow(IDbField<R, V> field) {
-
-		appendInputRow(tableRow.table().getAttribute(field));
-	}
-
-	public <V> void appendInputRow(IEmfAttribute<R, V> attribute) {
-
-		Optional<IEmfInput<V>> input = attribute.createInput(tableRow);
-		if (input.isPresent()) {
-			EmfAttributeValueInputFrame<R, V> inputFrame = new EmfAttributeValueInputFrame<>(attribute, tableRow, input.get());
-			inputRows.add(inputFrame);
-			constraintController.addInputRow(attribute, inputFrame);
-			attributeGrid.add(new EmfAttributeValueLabel<>(attribute, tableRow), inputFrame);
+		if (attribute.isVisible(tableRow)) {
+			if (editMode && attribute.isEditable(tableRow)) {
+				if (attribute.isMandatory(tableRow)) {
+					return EmfAttributeValueMode.MANDATORY_INPUT;
+				} else {
+					return EmfAttributeValueMode.OPTIONAL_INPUT;
+				}
+			} else {
+				return EmfAttributeValueMode.DISPLAY;
+			}
 		} else {
-			appendDisplayRow(attribute);
+			return EmfAttributeValueMode.HIDDEN;
+		}
+	}
+
+	void onInputValueChange() {
+
+		// using transaction to apply the attribute values temporarily
+		try (var transaction = new DbLazyTransaction()) {
+			for (var valueFrame: valueFrames) {
+				try {
+					valueFrame.applyToTableRow();
+				} catch (Exception exception) {
+					// any failure to read the input value shall be ignored
+					DevNull.swallow(exception);
+				}
+			}
+
+			refresh();
 		}
 	}
 
 	// ------------------------------ apply and save ------------------------------ //
 
-	public void applyFromEntity() {
+	public void applyToTableRow() {
 
-		inputRows.forEach(row -> row.applyFromTableRow());
+		valueFrames.forEach(row -> row.applyToTableRow());
 	}
 
 	/**
@@ -105,7 +135,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 	public boolean tryToApplyValidateAndSave() {
 
 		try {
-			new EmfAttributesApplier<>(tableRow, inputRows)//
+			new EmfAttributesApplier<>(tableRow, valueFrames)//
 				.addAdditionalValidators(additionalValidators)
 				.applyValidateAndSave();
 			clearDiagnostics();
@@ -146,15 +176,15 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 	private void clearDiagnosticsOnInputs() {
 
-		getInputRows().forEach(row -> row.clear());
+		valueFrames.forEach(row -> row.clear());
 	}
 
 	private Set<IEmfAttribute<?, ?>> showDiagnosticsOnInputs(IEmfValidationResult validationResult) {
 
-		Set<IEmfAttribute<?, ?>> shownAttributes = new HashSet<>();
-		for (EmfAttributeValueInputFrame<R, ?> inputRow: getInputRows()) {
-			inputRow.showDiagnostics(validationResult);
-			shownAttributes.add(inputRow.getAttribute().getOriginalAttribute());
+		var shownAttributes = new HashSet<IEmfAttribute<?, ?>>();
+		for (var valueFrame: valueFrames) {
+			valueFrame.showDiagnostics(validationResult);
+			shownAttributes.add(valueFrame.getAttribute().getOriginalAttribute());
 		}
 		return shownAttributes;
 	}
