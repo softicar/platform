@@ -1,9 +1,0 @@
-PACKAGE com.softicar.platform.demo.module.importbk
-
-TABLE AGComposer 'Demo.Composer' {
-	PK Integer id = SERIAL
-	String name
-	String birthday
-	
-	UK name birthday
-}
