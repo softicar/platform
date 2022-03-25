@@ -59,4 +59,12 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Menge");
 	I18n0 THIS_IS_A_DEMO = new I18n0("This is a demo.")//
 		.de("Das ist eine Demo.");
+
+	I18n0 COMPOSER = new I18n0("Composer")//
+		.de("Komponist");
+	I18n0 COMPOSERS = new I18n0("Composers")//
+		.de("Komponisten");
+	I18n0 BIRTHDAY = new I18n0("Birthday")//
+		.de("Geburtstag");
+
 }
