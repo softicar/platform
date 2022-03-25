@@ -3,7 +3,6 @@ package com.softicar.platform.dom.elements.input.diagnostics;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.node.IDomNode;
 
 /**
  * An {@link DomInputDiagnosticsDisplay} around an input node.
@@ -18,11 +17,9 @@ public class DomInputDiagnosticsFrame extends DomInputDiagnosticsDisplay {
 
 	private DomDiv messageDiv;
 
-	public DomInputDiagnosticsFrame(IDomNode inputNode) {
+	public DomInputDiagnosticsFrame() {
 
 		this.messageDiv = null;
-
-		appendChild(inputNode);
 	}
 
 	/**

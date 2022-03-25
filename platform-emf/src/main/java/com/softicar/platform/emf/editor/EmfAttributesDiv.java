@@ -1,11 +1,9 @@
 package com.softicar.platform.emf.editor;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.field.bool.EmfBooleanAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.EmfValidationException;
@@ -77,15 +75,10 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		Optional<IEmfInput<V>> input = attribute.createInput(tableRow);
 		if (input.isPresent()) {
-			EmfAttributeValueInputFrame<R, V> inputRow = new EmfAttributeValueInputFrame<>(attribute, tableRow, input.get());
-			inputRow.setMandatory(attribute.isMandatory(tableRow));
-			inputRows.add(inputRow);
-			constraintController.addInputRow(attribute, inputRow);
-			IDisplayString attributeTitle = attribute.getTitle();
-			if (attribute.isMandatory(tableRow) && !EmfBooleanAttribute.class.isInstance(attribute)) {
-				attributeTitle = attributeTitle.concat("*");
-			}
-			attributeGrid.add(attributeTitle, inputRow);
+			EmfAttributeValueInputFrame<R, V> inputFrame = new EmfAttributeValueInputFrame<>(attribute, tableRow, input.get());
+			inputRows.add(inputFrame);
+			constraintController.addInputRow(attribute, inputFrame);
+			attributeGrid.add(new EmfAttributeValueLabel<>(attribute, tableRow), inputFrame);
 		} else {
 			appendDisplayRow(attribute);
 		}
