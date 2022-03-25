@@ -17,11 +17,6 @@
 	outline-style: none;
 }
 
-.EmfFormPopupContainer {
-	align-items: start;
-	width: 100%;
-}
-
 .EmfFormFrameHeader {
 	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
 	background-color: var(--LABEL_BACKGROUND_COLOR);

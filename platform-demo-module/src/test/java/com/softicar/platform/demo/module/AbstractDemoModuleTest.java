@@ -26,7 +26,7 @@ public abstract class AbstractDemoModuleTest extends AbstractCoreTest implements
 			.setInvoiceDate(invoiceDate)
 			.setType(AGDemoInvoiceTypeEnum.OUTBOUND.getRecord())
 			.setCreditor("Creditor")
-			.setDebitor("Debitor")
+			.setDebtor("Debitor")
 			.save();
 	}
 

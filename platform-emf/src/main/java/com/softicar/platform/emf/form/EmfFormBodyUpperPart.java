@@ -15,12 +15,12 @@ import java.util.Optional;
  */
 class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
-	private final IEmfFormBody<R> formBody;
+	private final EmfFormBody<R> formBody;
 	private EmfAttributesTableContainer<R> attributesContainer;
 	private EmfFormCommonActionsDiv<R> commonActionsDiv;
 	private boolean editMode;
 
-	public EmfFormBodyUpperPart(IEmfFormBody<R> formBody) {
+	public EmfFormBodyUpperPart(EmfFormBody<R> formBody) {
 
 		this.formBody = formBody;
 		this.attributesContainer = null;

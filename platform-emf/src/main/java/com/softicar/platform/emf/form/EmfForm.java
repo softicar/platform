@@ -149,7 +149,6 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		this.modeChangeCallback = Objects.requireNonNull(modeChangeCallback);
 	}
 
-	@Override
 	public void handleModeChange(EmfFormMode mode) {
 
 		modeChangeCallback.accept(mode);

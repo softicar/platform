@@ -16,10 +16,10 @@ public class DemoInvoicePaymentForm extends EmfFormDelegator<AGDemoInvoicePaymen
 
 		super(frame, tableRow);
 		this.container = appendChild(new DomDiv());
-		form.setModeChangeCallback(this::changeMode);
+		form.setModeChangeCallback(this::handleModeChange);
 	}
 
-	private void changeMode(EmfFormMode mode) {
+	private void handleModeChange(EmfFormMode mode) {
 
 		container.removeChildren();
 		switch (mode) {

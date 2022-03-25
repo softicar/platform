@@ -58,10 +58,4 @@ public abstract class EmfFormDelegator<R extends IEmfTableRow<R, ?>> extends Dom
 
 		return form.getAdditionalValidators();
 	}
-
-	@Override
-	public void handleModeChange(EmfFormMode mode) {
-
-		form.handleModeChange(mode);
-	}
 }

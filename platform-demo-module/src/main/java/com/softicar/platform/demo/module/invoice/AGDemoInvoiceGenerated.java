@@ -41,7 +41,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static final IDbForeignRowField<AGDemoInvoice, AGDemoModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbForeignField<AGDemoInvoice, AGDemoInvoiceType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGDemoInvoiceType.ID).setTitle(DemoI18n.TYPE);
 	public static final IDbStringField<AGDemoInvoice> CREDITOR = BUILDER.addStringField("creditor", o->o.m_creditor, (o,v)->o.m_creditor=v).setTitle(DemoI18n.CREDITOR).setDefault("").setMaximumLength(255);
-	public static final IDbStringField<AGDemoInvoice> DEBITOR = BUILDER.addStringField("debitor", o->o.m_debitor, (o,v)->o.m_debitor=v).setTitle(DemoI18n.DEBITOR).setDefault("").setMaximumLength(255);
+	public static final IDbStringField<AGDemoInvoice> DEBTOR = BUILDER.addStringField("debtor", o->o.m_debtor, (o,v)->o.m_debtor=v).setTitle(DemoI18n.DEBTOR).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGDemoInvoice> INVOICE_NUMBER = BUILDER.addStringField("invoiceNumber", o->o.m_invoiceNumber, (o,v)->o.m_invoiceNumber=v).setTitle(DemoI18n.INVOICE_NUMBER).setMaximumLength(255);
 	public static final IDbDayField<AGDemoInvoice> INVOICE_DATE = BUILDER.addDayField("invoiceDate", o->o.m_invoiceDate, (o,v)->o.m_invoiceDate=v).setTitle(DemoI18n.INVOICE_DATE);
 	public static final IDbBooleanField<AGDemoInvoice> LOCKED_ITEMS = BUILDER.addBooleanField("lockedItems", o->o.m_lockedItems, (o,v)->o.m_lockedItems=v).setTitle(DemoI18n.LOCKED_ITEMS).setDefault(false);
@@ -114,14 +114,14 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return setValue(CREDITOR, value);
 	}
 
-	public final String getDebitor() {
+	public final String getDebtor() {
 
-		return getValue(DEBITOR);
+		return getValue(DEBTOR);
 	}
 
-	public final AGDemoInvoice setDebitor(String value) {
+	public final AGDemoInvoice setDebtor(String value) {
 
-		return setValue(DEBITOR, value);
+		return setValue(DEBTOR, value);
 	}
 
 	public final String getInvoiceNumber() {
@@ -199,7 +199,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	private AGDemoModuleInstance m_moduleInstance;
 	private AGDemoInvoiceType m_type;
 	private String m_creditor;
-	private String m_debitor;
+	private String m_debtor;
 	private String m_invoiceNumber;
 	private Day m_invoiceDate;
 	private Boolean m_lockedItems;

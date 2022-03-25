@@ -9,7 +9,7 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Merkmal erstellen");
 	I18n0 CREDITOR = new I18n0("Creditor")//
 		.de("Kreditor");
-	I18n0 DEBITOR = new I18n0("Debitor")//
+	I18n0 DEBTOR = new I18n0("Debtor")//
 		.de("Debitor");
 	I18n0 DEMO = new I18n0("Demo")//
 		.de("Demo");

@@ -21,7 +21,7 @@ public interface DemoModuleTestFixtureMethods extends WorkflowModuleTestFixtureM
 			.setModuleInstance(moduleInstance)
 			.setType(type.getRecord())
 			.setCreditor(type == AGDemoInvoiceTypeEnum.INBOUND? "ACME" : "")
-			.setDebitor(type == AGDemoInvoiceTypeEnum.OUTBOUND? "ACME" : "")
+			.setDebtor(type == AGDemoInvoiceTypeEnum.OUTBOUND? "ACME" : "")
 			.setInvoiceNumber(number)
 			.setInvoiceDate(invoiceDate)
 			.save();

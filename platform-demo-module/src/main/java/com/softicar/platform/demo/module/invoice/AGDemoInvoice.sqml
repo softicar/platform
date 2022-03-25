@@ -12,7 +12,7 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	AGDemoModuleInstance moduleInstance
 	AGDemoInvoiceType type
 	String creditor = '' [MAXLENGTH=255]
-	String debitor = '' [MAXLENGTH=255]
+	String debtor = '' [MAXLENGTH=255]
 	String invoiceNumber [MAXLENGTH=255]
 	Day invoiceDate
 	Boolean lockedItems = FALSE
