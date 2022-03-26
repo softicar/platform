@@ -11,7 +11,6 @@ import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBased
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> implements IEmfAttribute<R, V> {
@@ -66,36 +65,21 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	}
 
 	@Override
-	public final Optional<IDomElement> createDisplay(R tableRow) {
+	public final IDomElement createDisplay(R tableRow) {
 
-		IEmfAttributeTableRowDisplayFactory<R> displayFactory = configuration.getDisplayFactory();
-		if (displayFactory != null) {
-			return Optional.of(displayFactory.createDisplay(tableRow));
-		} else {
-			return Optional.empty();
-		}
+		return configuration.getDisplayFactory().createDisplay(tableRow);
 	}
 
 	@Override
-	public final Optional<IDomElement> createTabularDisplay(R tableRow) {
+	public final IDomElement createTabularDisplay(R tableRow) {
 
-		IEmfAttributeTableRowDisplayFactory<R> displayFactory = configuration.getDisplayFactory();
-		if (displayFactory != null) {
-			return Optional.of(displayFactory.createTabularDisplay(tableRow));
-		} else {
-			return createDisplay(tableRow);
-		}
+		return configuration.getDisplayFactory().createTabularDisplay(tableRow);
 	}
 
 	@Override
-	public final Optional<IEmfInput<V>> createInput(R tableRow) {
+	public final IEmfInput<V> createInput(R tableRow) {
 
-		IEmfInputFactory<R, V> inputFactory = configuration.getInputFactory();
-		if (inputFactory != null) {
-			return Optional.of(inputFactory.createInput(tableRow));
-		} else {
-			return Optional.empty();
-		}
+		return configuration.getInputFactory().createInput(tableRow);
 	}
 
 	@Override

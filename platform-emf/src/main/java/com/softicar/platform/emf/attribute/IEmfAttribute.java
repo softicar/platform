@@ -195,11 +195,11 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 *
 	 * @param tableRow
 	 *            the {@link IEmfTableRow} for which the value of this attribute
-	 *            should be displayed (never null)
+	 *            should be displayed (never <i>null</i>)
 	 * @return a new {@link IDomElement} that displays the value of this
-	 *         attribute for the given {@link IEmfTableRow}
+	 *         attribute for the given {@link IEmfTableRow} (never <i>null</i>)
 	 */
-	Optional<IDomElement> createDisplay(R tableRow);
+	IDomElement createDisplay(R tableRow);
 
 	/**
 	 * Returns a new {@link IDomElement} that displays the value of this
@@ -208,13 +208,12 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 *
 	 * @param tableRow
 	 *            the {@link IEmfTableRow} for which the value of this attribute
-	 *            should be displayed (never null)
+	 *            should be displayed (never <i>null</i>)
 	 * @return a new {@link IDomElement} that displays the value of this
-	 *         attribute for the given {@link IEmfTableRow}, optimized to be
-	 *         appended to a cell of the table in {@link EmfManagementDiv}
+	 *         attribute for the given {@link IEmfTableRow} (never <i>null</i>)
 	 * @see EmfManagementDiv
 	 */
-	Optional<IDomElement> createTabularDisplay(R tableRow);
+	IDomElement createTabularDisplay(R tableRow);
 
 	/**
 	 * Returns a new {@link IEmfInput} element to enter the value of this
@@ -222,11 +221,11 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 *
 	 * @param tableRow
 	 *            the {@link IEmfTableRow} for which the value of this attribute
-	 *            should be entered (never null)
+	 *            should be entered (never <i>null</i>)
 	 * @return a new {@link IEmfInput} element to enter the value of this
-	 *         attribute for the given {@link IEmfTableRow}
+	 *         attribute for the given {@link IEmfTableRow} (never <i>null</i>)
 	 */
-	Optional<IEmfInput<V>> createInput(R tableRow);
+	IEmfInput<V> createInput(R tableRow);
 
 	/**
 	 * Returns a new {@link IEmfDataTableRowBasedColumnHandler} to display the

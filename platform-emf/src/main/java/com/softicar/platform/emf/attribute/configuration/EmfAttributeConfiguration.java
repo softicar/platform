@@ -1,9 +1,11 @@
 package com.softicar.platform.emf.attribute.configuration;
 
+import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeTableRowDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeValueDisplayFactory;
+import com.softicar.platform.emf.attribute.input.EmfDummyInput;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.attribute.input.IEmfInputFactory;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
@@ -20,8 +22,8 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	public EmfAttributeConfiguration(IEmfAttribute<R, V> attribute) {
 
 		this.attribute = attribute;
-		this.inputFactory = null;
-		this.displayFactory = null;
+		this.inputFactory = row -> new EmfDummyInput<>();
+		this.displayFactory = row -> new DomDiv();
 		this.columnHandlerFactory = () -> new EmfAttributeColumnHandler<>(attribute);
 	}
 

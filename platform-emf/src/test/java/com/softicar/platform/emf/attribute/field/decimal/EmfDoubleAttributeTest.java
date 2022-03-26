@@ -22,7 +22,7 @@ public class EmfDoubleAttributeTest extends AbstractEmfTest {
 
 		IDbDoubleField<EmfTestObject> field = Mockito.mock(IDbDoubleField.class);
 		this.attribute = new EmfDoubleAttribute<>(field);
-		this.input = attribute.createInput(null).get();
+		this.input = attribute.createInput(null);
 
 		setNodeSupplier(() -> input);
 		this.inputTester = findBody().findNode(DomTextInput.class);

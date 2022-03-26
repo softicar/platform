@@ -32,19 +32,16 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 
 			setDisplayNone(valueMode.isHidden());
 
-			removeChildren();
 			if (valueMode.isDisplay()) {
 				refreshDisplay();
 			} else if (valueMode.isInput()) {
-				appendInput();
+				refreshInput();
 			}
 		} else {
-			if (valueMode.isHidden()) {
-				// nothing to refresh
-			} else if (isInputAppended()) {
-				input.refreshInputConstraints();
-			} else {
+			if (valueMode.isDisplay()) {
 				refreshDisplay();
+			} else if (valueMode.isInput()) {
+				input.refreshInputConstraints();
 			}
 		}
 	}
@@ -52,32 +49,35 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 	private void refreshDisplay() {
 
 		removeChildren();
-
-		attribute//
-			.createDisplay(row)
-			.ifPresent(this::appendChild);
+		appendChild(attribute.createDisplay(row));
 	}
 
-	private void appendInput() {
+	private void refreshInput() {
 
 		if (input == null) {
-			this.input = attribute.createInput(row).orElse(null);
-
-			if (input != null) {
-				input.setChangeCallback(attributesDiv::onInputValueChange);
-				input.setMandatory(valueMode.isMandatory());
-				input.setValue(attribute.getValue(row));
-				appendChild(input);
-			} else {
-				refreshDisplay();
-			}
+			createInput();
 		} else {
-			input.setMandatory(valueMode.isMandatory());
-			input.refreshInputConstraints();
+			updateInput();
+		}
 
-			// TODO check if input is already appended
+		if (!isInputAppended()) {
+			removeChildren();
 			appendChild(input);
 		}
+	}
+
+	private void createInput() {
+
+		this.input = attribute.createInput(row);
+		input.setChangeCallback(attributesDiv::onInputValueChange);
+		input.setMandatory(valueMode.isMandatory());
+		input.setValue(attribute.getValue(row));
+	}
+
+	private void updateInput() {
+
+		input.setMandatory(valueMode.isMandatory());
+		input.refreshInputConstraints();
 	}
 
 	private boolean isInputAppended() {
