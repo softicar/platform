@@ -31,6 +31,13 @@ public class EmfBooleanInput extends AbstractEmfChangeListeningInputDiv<Boolean>
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(Boolean value) {
+
+		// DomCheckbox#setChecked already executes a callback
+		checkBox.setChecked(value);
+	}
+
+	@Override
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		checkBox.setChangeCallback(callback);

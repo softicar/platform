@@ -85,6 +85,13 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		}
 	}
 
+	public void applyChangeCallback() {
+
+		Optional//
+			.ofNullable(changeCallback)
+			.ifPresent(INullaryVoidFunction::apply);
+	}
+
 	@Override
 	public IDomAutoCompleteInputConfiguration getConfiguration() {
 
