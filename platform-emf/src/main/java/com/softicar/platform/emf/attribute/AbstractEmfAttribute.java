@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.configuration.EmfAttributeConfiguration;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
@@ -12,6 +13,7 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> implements IEmfAttribute<R, V> {
@@ -20,6 +22,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	private IEmfPredicate<R> visiblePredicate;
 	private IEmfPredicate<R> editablePredicate;
 	private IEmfPredicate<R> mandatoryPredicate;
+	private Consumer<R> valueDeducer;
 
 	public AbstractEmfAttribute() {
 
@@ -27,6 +30,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		this.visiblePredicate = EmfPredicates.always();
 		this.editablePredicate = EmfPredicates.always();
 		this.mandatoryPredicate = EmfPredicates.never();
+		this.valueDeducer = Consumers.noOperation();
 	}
 
 	@Override
@@ -63,6 +67,12 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	public final IEmfPredicate<R> getPredicateMandatory() {
 
 		return mandatoryPredicate;
+	}
+
+	@Override
+	public void applyValueDeducer(R tableRow) {
+
+		valueDeducer.accept(tableRow);
 	}
 
 	@Override
@@ -135,6 +145,37 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 
 		this.editablePredicate = predicate;
 		this.mandatoryPredicate = predicate;
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setValueDeducer(Consumer<R> valueDeducer) {
+
+		this.valueDeducer = valueDeducer;
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setValueDeducer(IEmfPredicate<R> predicate, V value) {
+
+		return setValueDeducer(row -> {
+			if (predicate.test(row)) {
+				setValue(row, value);
+			}
+		});
+	}
+
+	// ------------------------------ Predicate Convenience ------------------------------ //
+
+	public AbstractEmfAttribute<R, V> setConditionallyAvailable(IEmfPredicate<R> predicate, V fallbackValue) {
+
+		setPredicateVisibleEditable(predicate);
+		setValueDeducer(predicate.not(), fallbackValue);
+		return this;
+	}
+
+	public AbstractEmfAttribute<R, V> setConditionallyAvailableAndMandatory(IEmfPredicate<R> predicate, V fallbackValue) {
+
+		setPredicateVisibleEditableMandatory(predicate);
+		setValueDeducer(predicate.not(), fallbackValue);
 		return this;
 	}
 

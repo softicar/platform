@@ -190,6 +190,18 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	IEmfPredicate<R> getPredicateMandatory();
 
 	/**
+	 * Tries to deduce and set the value of this {@link IEmfAttribute} for the
+	 * given {@link IEmfTableRow}.
+	 * <p>
+	 * By default, this method does nothing, but the {@link IEmfAttribute} can
+	 * be configured to deduce its value.
+	 *
+	 * @param tableRow
+	 *            the {@link IEmfTableRow} (never <i>null</i>)
+	 */
+	void applyValueDeducer(R tableRow);
+
+	/**
 	 * Returns a new {@link IDomElement} that displays the value of this
 	 * attribute for the given {@link IEmfTableRow}.
 	 *

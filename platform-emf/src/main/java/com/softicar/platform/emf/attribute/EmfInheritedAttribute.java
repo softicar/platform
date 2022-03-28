@@ -159,6 +159,12 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	}
 
 	@Override
+	public void applyValueDeducer(O tableRow) {
+
+		originalAttribute.applyValueDeducer(baseField.getValue(tableRow));
+	}
+
+	@Override
 	public IDomElement createDisplay(O tableRow) {
 
 		return originalAttribute.createDisplay(tableRow.pk());

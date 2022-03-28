@@ -97,6 +97,8 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 
 		if (valueMode.isInput()) {
 			attribute.setValue(row, input.getValue().orElse(null));
+		} else {
+			attribute.applyValueDeducer(row);
 		}
 	}
 
