@@ -84,15 +84,15 @@ public interface IDomElement extends IDomNode {
 	 * Toggles the {@link CssStyle#DISPLAY} between {@link CssDisplay#NONE} and
 	 * undefined.
 	 *
-	 * @param hide
+	 * @param displayNone
 	 *            <i>true</i> will set the {@link CssStyle#DISPLAY} to
 	 *            {@link CssDisplay#NONE}; <i>false</i> will call
 	 *            {@link #unsetStyle} with {@link CssStyle#DISPLAY}
 	 * @return this
 	 */
-	default IDomElement setDisplayNone(boolean hide) {
+	default IDomElement setDisplayNone(boolean displayNone) {
 
-		if (hide) {
+		if (displayNone) {
 			setStyle(CssDisplay.NONE);
 		} else {
 			unsetStyle(CssStyle.DISPLAY);

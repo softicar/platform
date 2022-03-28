@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.configuration;
 
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
+import com.softicar.platform.emf.attribute.display.EmfDummyDisplay;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeTableRowDisplayFactory;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeValueDisplayFactory;
@@ -10,6 +10,7 @@ import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.attribute.input.IEmfInputFactory;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
@@ -22,8 +23,8 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	public EmfAttributeConfiguration(IEmfAttribute<R, V> attribute) {
 
 		this.attribute = attribute;
-		this.inputFactory = row -> new EmfDummyInput<>();
-		this.displayFactory = row -> new DomDiv();
+		this.inputFactory = EmfDummyInput::new;
+		this.displayFactory = EmfDummyDisplay::new;
 		this.columnHandlerFactory = () -> new EmfAttributeColumnHandler<>(attribute);
 	}
 
@@ -36,7 +37,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 
 	public void setInputFactoryByEntity(IEmfInputFactory<R, V> inputFactory) {
 
-		this.inputFactory = inputFactory;
+		this.inputFactory = Objects.requireNonNull(inputFactory);
 	}
 
 	public void setInputFactoryByValue(Supplier<IEmfInput<V>> inputFactory) {
@@ -53,7 +54,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 
 	public void setDisplayFactoryByEntity(IEmfAttributeTableRowDisplayFactory<R> displayFactory) {
 
-		this.displayFactory = displayFactory;
+		this.displayFactory = Objects.requireNonNull(displayFactory);
 	}
 
 	public void setDisplayFactoryByEntityFieldValue(IEmfAttributeFieldValueDisplayFactory<R, V> displayFactory) {

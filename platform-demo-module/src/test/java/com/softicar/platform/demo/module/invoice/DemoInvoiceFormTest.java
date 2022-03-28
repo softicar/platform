@@ -10,13 +10,13 @@ import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
 /**
- * This test verifies the callback for {@link EmfFormMode} changes.
+ * Verifies the callback for {@link EmfFormMode} changes.
  *
- * @author Oliver Richers
+ * @author Daniel Klose
  */
-public class DemoInvoiceFormModeChangeCallbackTest extends AbstractDemoModuleTest {
+public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
 
-	public DemoInvoiceFormModeChangeCallbackTest() {
+	public DemoInvoiceFormTest() {
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGDemoInvoice.TABLE, moduleInstance).build());
 	}

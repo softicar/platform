@@ -11,6 +11,7 @@ import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBased
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> implements IEmfAttribute<R, V> {
@@ -67,19 +68,19 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	@Override
 	public final IDomElement createDisplay(R tableRow) {
 
-		return configuration.getDisplayFactory().createDisplay(tableRow);
+		return Objects.requireNonNull(configuration.getDisplayFactory().createDisplay(tableRow));
 	}
 
 	@Override
 	public final IDomElement createTabularDisplay(R tableRow) {
 
-		return configuration.getDisplayFactory().createTabularDisplay(tableRow);
+		return Objects.requireNonNull(configuration.getDisplayFactory().createTabularDisplay(tableRow));
 	}
 
 	@Override
 	public final IEmfInput<V> createInput(R tableRow) {
 
-		return configuration.getInputFactory().createInput(tableRow);
+		return Objects.requireNonNull(configuration.getInputFactory().createInput(tableRow));
 	}
 
 	@Override

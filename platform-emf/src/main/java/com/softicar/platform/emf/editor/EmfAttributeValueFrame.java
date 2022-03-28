@@ -34,9 +34,9 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 			setDisplayNone(valueMode.isHidden());
 
 			if (valueMode.isDisplay()) {
-				refreshDisplay();
+				enterDisplayMode();
 			} else if (valueMode.isInput()) {
-				refreshInput();
+				enterInputMode();
 			}
 		} else {
 			if (valueMode.isDisplay()) {
@@ -47,13 +47,18 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 		}
 	}
 
+	private void enterDisplayMode() {
+
+		refreshDisplay();
+	}
+
 	private void refreshDisplay() {
 
 		removeChildren();
 		appendChild(attribute.createDisplay(row));
 	}
 
-	private void refreshInput() {
+	private void enterInputMode() {
 
 		if (input == null) {
 			createInput();
@@ -61,7 +66,7 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 			updateInput();
 		}
 
-		if (!isInputAppended()) {
+		if (input.getParent() == null) {
 			removeChildren();
 			appendChild(input);
 		}
@@ -81,21 +86,16 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 		input.refreshInputConstraints();
 	}
 
-	private boolean isInputAppended() {
-
-		return input != null && input.getParent() != null;
-	}
-
 	public void executePostSaveHook() {
 
-		if (isInputAppended()) {
+		if (valueMode.isInput()) {
 			input.executePostSaveHook();
 		}
 	}
 
 	public void applyToTableRow() {
 
-		if (isInputAppended()) {
+		if (valueMode.isInput()) {
 			attribute.setValue(row, input.getValue().orElse(null));
 		}
 	}
