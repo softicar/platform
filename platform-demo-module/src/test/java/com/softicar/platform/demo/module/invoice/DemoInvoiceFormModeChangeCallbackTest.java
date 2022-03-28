@@ -4,13 +4,19 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
-public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
+/**
+ * This test verifies the callback for {@link EmfFormMode} changes.
+ *
+ * @author Oliver Richers
+ */
+public class DemoInvoiceFormModeChangeCallbackTest extends AbstractDemoModuleTest {
 
-	public DemoInvoiceFormTest() {
+	public DemoInvoiceFormModeChangeCallbackTest() {
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGDemoInvoice.TABLE, moduleInstance).build());
 	}
@@ -45,6 +51,7 @@ public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
 		assertCreateBoxShown();
 		EmfFormPopupTester formPopup = findFormPopup(AGDemoInvoice.class);
 		formPopup.setInputValue(AGDemoInvoice.TYPE, AGDemoInvoiceTypeEnum.INBOUND.name());
+		formPopup.setInputValue(AGDemoInvoice.CREDITOR, "Foo");
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_NUMBER, "123465");
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_DATE, Day.today().toString());
 		formPopup.clickSaveButton();

@@ -71,7 +71,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		var valueMode = getValueMode(attribute);
 		var valueLabel = new EmfAttributeValueLabel<>(attribute, valueMode);
-		var valueFrame = new EmfAttributeValueFrame<>(this, attribute, tableRow, valueMode);
+		var valueFrame = new EmfAttributeValueFrame<>(this::onInputValueChange, attribute, tableRow, valueMode);
 
 		attributes.add(attribute);
 		attributeToValueLabelMap.put(attribute, valueLabel);

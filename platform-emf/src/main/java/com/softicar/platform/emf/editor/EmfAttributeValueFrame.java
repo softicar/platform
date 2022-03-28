@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.editor;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -8,16 +9,16 @@ import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 
 public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends AbstractEmfAttributeValueFrame<R, V> {
 
-	private final EmfAttributesDiv<R> attributesDiv;
+	private final INullaryVoidFunction changeCallback;
 	private final R row;
 	private EmfAttributeValueMode valueMode;
 	private IEmfInput<V> input;
 
-	public EmfAttributeValueFrame(EmfAttributesDiv<R> attributesDiv, IEmfAttribute<R, V> attribute, R row, EmfAttributeValueMode valueMode) {
+	public EmfAttributeValueFrame(INullaryVoidFunction changeCallback, IEmfAttribute<R, V> attribute, R row, EmfAttributeValueMode valueMode) {
 
 		super(attribute);
 
-		this.attributesDiv = attributesDiv;
+		this.changeCallback = changeCallback;
 		this.row = row;
 		this.valueMode = null;
 		this.input = null;
@@ -69,7 +70,7 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 	private void createInput() {
 
 		this.input = attribute.createInput(row);
-		input.setChangeCallback(attributesDiv::onInputValueChange);
+		input.setChangeCallback(changeCallback);
 		input.setMandatory(valueMode.isMandatory());
 		input.setValue(attribute.getValue(row));
 	}
