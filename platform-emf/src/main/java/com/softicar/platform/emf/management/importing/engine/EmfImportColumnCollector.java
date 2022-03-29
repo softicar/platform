@@ -48,7 +48,7 @@ public class EmfImportColumnCollector<R extends IEmfTableRow<R, P>, P, S> {
 //				new FkResolver<>(emfObject.table()).resolve();
 
 			} else {
-				columns.add(field.getTitle());
+				System.out.println(field.getTitle());
 			}
 		}
 
