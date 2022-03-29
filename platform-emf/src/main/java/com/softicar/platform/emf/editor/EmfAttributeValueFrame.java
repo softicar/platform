@@ -33,7 +33,9 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 
 			setDisplayNone(valueMode.isHidden());
 
-			if (valueMode.isDisplay()) {
+			if (valueMode.isHidden()) {
+				removeChildren();
+			} else if (valueMode.isDisplay()) {
 				enterDisplayMode();
 			} else if (valueMode.isInput()) {
 				enterInputMode();
