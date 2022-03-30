@@ -18,4 +18,6 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	Boolean lockedItems = FALSE
 	AGStoredFile document = NULL [NULLABLE]
 	AGStoredFileSet attachments = NULL [NULLABLE]
+	
+	UK moduleInstance invoiceNumber
 }
