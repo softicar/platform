@@ -25,6 +25,13 @@ public class EmfDayInput extends AbstractEmfInputDiv<Day> {
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(Day value) {
+
+		setValue(value);
+		dayInput.applyCallback();
+	}
+
+	@Override
 	public void setValue(Day value) {
 
 		dayInput.setValue(value);
