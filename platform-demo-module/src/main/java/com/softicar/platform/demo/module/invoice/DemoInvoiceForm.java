@@ -5,11 +5,11 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.emf.form.EmfFormDelegator;
 import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.form.IEmfFormFrame;
+import com.softicar.platform.emf.form.delegator.AbstractEmfFormDelegator;
 
-public class DemoInvoiceForm extends EmfFormDelegator<AGDemoInvoice> {
+public class DemoInvoiceForm extends AbstractEmfFormDelegator<AGDemoInvoice> {
 
 	private final DomDiv container;
 
