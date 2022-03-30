@@ -8,44 +8,44 @@ import org.junit.Test;
 public class JsonValueReaderTest extends AbstractTest {
 
 	@Test
-	public void testReadWithEmptyJsonString() {
+	public void testReadValueWithEmptyJsonString() {
 
 		assertException(IllegalArgumentException.class, () -> new JsonValueReader(""));
 	}
 
 	@Test
-	public void testReadWithEmptyPath() {
+	public void testReadValueWithEmptyPath() {
 
 		var reader = createReader();
-		assertException(IllegalArgumentException.class, () -> reader.read(""));
+		assertException(IllegalArgumentException.class, () -> reader.readValue(""));
 	}
 
 	@Test
-	public void testReadWithValue() {
+	public void testReadValueWithValue() {
 
 		var reader = createReader();
-		Optional<String> value = reader.read("$.outerElement.innerArray[1]");
+		Optional<String> value = reader.readValue("$.outerElement.innerArray[1]");
 		assertEquals("second", value.get());
 	}
 
 	@Test
-	public void testReadWithValueArray() {
+	public void testReadValueWithValueArray() {
 
 		var reader = createReader();
-		Optional<String> value = reader.read("$.outerElement.innerArray");
+		Optional<String> value = reader.readValue("$.outerElement.innerArray");
 		assertFalse(value.isPresent());
 	}
 
 	@Test
-	public void testReadWithNonexistentPath() {
+	public void testReadValueWithNonexistentPath() {
 
 		var reader = createReader();
-		Optional<String> value = reader.read("$.xxxx");
+		Optional<String> value = reader.readValue("$.xxxx");
 		assertFalse(value.isPresent());
 	}
 
 	@Test
-	public void testReadListWithValue() {
+	public void testReadValueListWithValue() {
 
 		var reader = createReader();
 		List<String> valueList = reader.readList("$.outerElement.innerArray[1].title");
@@ -53,7 +53,7 @@ public class JsonValueReaderTest extends AbstractTest {
 	}
 
 	@Test
-	public void testReadListWithValueArray() {
+	public void testReadValueListWithValueArray() {
 
 		var reader = createReader();
 		List<String> valueList = reader.readList("$.outerElement.innerArray");
@@ -64,7 +64,7 @@ public class JsonValueReaderTest extends AbstractTest {
 	}
 
 	@Test
-	public void testReadListWithNonexistentPath() {
+	public void testReadValueListWithNonexistentPath() {
 
 		var reader = createReader();
 		List<String> valueList = reader.readList("$.xxxx");

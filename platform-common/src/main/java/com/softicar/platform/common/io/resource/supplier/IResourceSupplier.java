@@ -2,12 +2,8 @@ package com.softicar.platform.common.io.resource.supplier;
 
 import com.softicar.platform.common.core.constant.container.field.ConstantContainerFieldExtractor;
 import com.softicar.platform.common.core.constant.container.field.IConstantContainerField;
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.key.IResourceKey;
-import com.softicar.platform.common.string.charset.Charsets;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -31,22 +27,6 @@ public interface IResourceSupplier {
 	 * @return the {@link IResourceKey} (never <i>null</i>)
 	 */
 	IResourceKey getResourceKey();
-
-	/**
-	 * Returns the content of the {@link IResource} as UTF-8 encoded text.
-	 * <p>
-	 * May only be called on textual resources.
-	 *
-	 * @return the content as UTF-8 encoded text (never <i>null</i>)
-	 */
-	default String getTextUtf8() {
-
-		try (var inputStream = getResource().getResourceAsStream()) {
-			return StreamUtils.toString(inputStream, Charsets.UTF8);
-		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
-		}
-	}
 
 	/**
 	 * Returns all {@link IResourceSupplier} that are in a given interface.

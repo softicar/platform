@@ -33,7 +33,7 @@ public class DatabaseStructureVersionResourceTest extends Asserts {
 		var converter = new DatabaseStructureTableDefinitionsConverter();
 		var resourceSuppliers = DatabaseStructureVersionResources.getAllStructureResourceSuppliers();
 		for (var resourceSupplier: resourceSuppliers) {
-			String json = resourceSupplier.getTextUtf8();
+			String json = resourceSupplier.getResource().getContentTextUtf8();
 			String fileName = resourceSupplier.getResource().getFilename().get();
 			var definitionList = converter.convertToDefinitionList(json);
 			assertFalse(//

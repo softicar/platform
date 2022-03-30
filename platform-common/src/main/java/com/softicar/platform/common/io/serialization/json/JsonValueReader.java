@@ -45,7 +45,7 @@ public class JsonValueReader {
 	 *            the path, in "JsonPath" syntax (never <i>null</i>)
 	 * @return the {@link String} value to which the given path points
 	 */
-	public Optional<String> read(String path) {
+	public Optional<String> readValue(String path) {
 
 		try {
 			String value = readInternal(path);

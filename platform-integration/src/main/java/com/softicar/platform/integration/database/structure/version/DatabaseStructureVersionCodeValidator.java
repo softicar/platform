@@ -39,8 +39,8 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 
 		var reader = environment.getConfigurationJsonValueReader();
 		JavaClasspath classPath = environment.getClassPath();
-		Optional<String> integrationProjectName = reader.read(INTEGRATION_PROJECT_NAME_JSON_PATH);
-		Optional<String> tablePackagePrefix = reader.read(TABLE_PACKAGE_PREFIX_JSON_PATH);
+		Optional<String> integrationProjectName = reader.readValue(INTEGRATION_PROJECT_NAME_JSON_PATH);
+		Optional<String> tablePackagePrefix = reader.readValue(TABLE_PACKAGE_PREFIX_JSON_PATH);
 
 		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix)) {
 			var resourceSupplier = DatabaseStructureVersionResources.getLatestStructureResourceSupplier();
@@ -128,7 +128,7 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 
 	private String loadStructureJsonFromResource(IResourceSupplier resourceSupplier) {
 
-		return resourceSupplier.getTextUtf8();
+		return resourceSupplier.getResource().getContentTextUtf8();
 	}
 
 	private String getClasspathDirectories(JavaClasspath classPath) {
