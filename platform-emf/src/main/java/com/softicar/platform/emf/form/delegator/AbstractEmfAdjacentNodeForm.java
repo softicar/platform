@@ -65,23 +65,18 @@ public abstract class AbstractEmfAdjacentNodeForm<R extends IEmfTableRow<R, ?>> 
 		IDomNode node = createAdjacentNode(mode, getTableRow());
 		container.removeChildren();
 		if (getAdjacentNodeSide().isBefore()) {
-			appendNodeIfNonNull(node);
-			appendForm();
+			appendToContainer(node, form);
 		} else {
-			appendForm();
-			appendNodeIfNonNull(node);
+			appendToContainer(form, node);
 		}
 	}
 
-	private void appendForm() {
+	private void appendToContainer(IDomNode...nodes) {
 
-		container.appendChildren(form);
-	}
-
-	private void appendNodeIfNonNull(IDomNode additionalNode) {
-
-		if (additionalNode != null) {
-			container.appendChildren(additionalNode);
+		for (IDomNode node: nodes) {
+			if (node != null) {
+				container.appendChildren(node);
+			}
 		}
 	}
 
