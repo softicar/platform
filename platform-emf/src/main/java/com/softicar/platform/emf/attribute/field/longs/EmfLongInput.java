@@ -12,6 +12,13 @@ public class EmfLongInput extends DomLongInput implements IEmfInput<Long>, IDomC
 	private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
 
 	@Override
+	public void setValueAndHandleChangeCallback(Long value) {
+
+		setValue(value);
+		callback.apply();
+	}
+
+	@Override
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		this.callback = Objects.requireNonNull(callback);
