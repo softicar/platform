@@ -188,16 +188,16 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
-//			if (!isNonConcealedNonNullableForeignAttributePresent()) {
-			appendChild(
-				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
-					.setIcon(EmfImages.ENTITY_IMPORT.getResource())
-					.setLabel(EmfI18n.IMPORT)
-					.setMarker(EmfManagementMarker.IMPORT_BUTTON)
-					.setEnabled(isCreationAllowed())
-					.setTitle(getCreationPredicateTitle()));
-//			}
+			if (!isNonConcealedNonNullableForeignAttributePresent()) {
+				appendChild(
+					new DomPopupButton()//
+						.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
+						.setIcon(EmfImages.ENTITY_IMPORT.getResource())
+						.setLabel(EmfI18n.IMPORT)
+						.setMarker(EmfManagementMarker.IMPORT_BUTTON)
+						.setEnabled(isCreationAllowed())
+						.setTitle(getCreationPredicateTitle()));
+			}
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
 			}
