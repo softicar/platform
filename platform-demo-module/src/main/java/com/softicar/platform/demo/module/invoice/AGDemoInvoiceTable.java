@@ -20,7 +20,7 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		configuration.setScopeField(AGDemoInvoice.MODULE_INSTANCE);
 		configuration.addValidator(DemoInvoiceValidator::new);
-		configuration.setCreationPopupFactory(scope -> new DemoInvoiceCreationPopup(AGDemoInvoice.TABLE.createEntity(scope)));
+		configuration.setFormFactory(DemoInvoiceForm::new);
 	}
 
 	@Override
@@ -34,12 +34,13 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		attributes.addTransientAttribute(AGDemoInvoice.GROSS_AMOUNT_FIELD);
 
+		// FIXME This does not work right now.
 		attributes//
 			.editAttribute(AGDemoInvoice.CREDITOR)
-			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.INBOUND);
+			.setPredicateVisibleEditable(DemoInvoicePredicates.INBOUND);
 
 		attributes//
-			.editAttribute(AGDemoInvoice.DEBITOR)
-			.setPredicateVisibleEditableMandatory(DemoInvoicePredicates.OUTBOUND);
+			.editAttribute(AGDemoInvoice.DEBTOR)
+			.setPredicateVisibleEditable(DemoInvoicePredicates.OUTBOUND);
 	}
 }

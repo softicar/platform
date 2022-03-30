@@ -20,7 +20,6 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 		this.tableRow = form.getTableRow();
 		this.upperPart = new EmfFormBodyUpperPart<>(this);
 		this.lowerPart = new EmfFormBodyLowerPart<>(this);
-
 		appendChild(upperPart);
 		appendChild(lowerPart);
 

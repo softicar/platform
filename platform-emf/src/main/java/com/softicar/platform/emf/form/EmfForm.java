@@ -31,6 +31,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	private EmfFormBody<R> body;
 	private boolean closed;
 	private Consumer<R> callbackAfterCreation;
+	private Consumer<EmfFormMode> modeChangeCallback;
 	private boolean directEditingEnabled;
 	private boolean initialized;
 
@@ -45,10 +46,10 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		this.body = null;
 		this.closed = false;
 		this.callbackAfterCreation = Consumers.noOperation();
+		this.modeChangeCallback = Consumers.noOperation();
 		this.directEditingEnabled = false;
 		this.initialized = false;
-
-		setCssClass(EmfCssClasses.EMF_FORM);
+		addCssClass(EmfCssClasses.EMF_FORM);
 	}
 
 	@Override
@@ -141,6 +142,16 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 	protected boolean isDirectEditingEnabled() {
 
 		return directEditingEnabled;
+	}
+
+	public void setModeChangeCallback(Consumer<EmfFormMode> modeChangeCallback) {
+
+		this.modeChangeCallback = Objects.requireNonNull(modeChangeCallback);
+	}
+
+	public void handleModeChange(EmfFormMode mode) {
+
+		modeChangeCallback.accept(mode);
 	}
 
 	// ------------------------------ refresh and initialize ------------------------------ //

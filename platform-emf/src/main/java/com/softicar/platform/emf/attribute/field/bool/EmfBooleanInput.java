@@ -31,6 +31,14 @@ public class EmfBooleanInput extends AbstractEmfChangeListeningInputDiv<Boolean>
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(Boolean value) {
+
+		// FIXME PLAT-756 Should change this behavior
+		// DomCheckbox#setChecked already executes a callback
+		checkBox.setChecked(value);
+	}
+
+	@Override
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		checkBox.setChangeCallback(callback);

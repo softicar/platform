@@ -37,6 +37,13 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(R value) {
+
+		setValue(value);
+		input.applyChangeCallback();
+	}
+
+	@Override
 	public void setValue(R row) {
 
 		input.setValue(EmfEnumTableRowEntityWrapper.wrap(row));

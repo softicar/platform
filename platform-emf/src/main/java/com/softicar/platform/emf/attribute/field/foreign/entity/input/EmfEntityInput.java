@@ -30,6 +30,13 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteE
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(E value) {
+
+		setValue(value);
+		applyChangeCallback();
+	}
+
+	@Override
 	public void refreshInputConstraints() {
 
 		refreshFilters();
