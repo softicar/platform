@@ -34,6 +34,13 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfChangeListeningI
 	}
 
 	@Override
+	public void setValueAndHandleChangeCallback(E value) {
+
+		setValue(value);
+		enumInput.applyChangeCallback();
+	}
+
+	@Override
 	public void setValue(E value) {
 
 		enumInput.setSelectedValue(value);
@@ -59,6 +66,13 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfChangeListeningI
 		public void setChangeCallback(INullaryVoidFunction callback) {
 
 			this.callback = callback;
+		}
+
+		public void applyChangeCallback() {
+
+			Optional//
+				.ofNullable(callback)
+				.ifPresent(INullaryVoidFunction::apply);
 		}
 
 		@Override

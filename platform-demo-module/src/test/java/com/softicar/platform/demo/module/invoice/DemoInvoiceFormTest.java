@@ -4,10 +4,16 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
+/**
+ * Verifies the callback for {@link EmfFormMode} changes.
+ *
+ * @author Daniel Klose
+ */
 public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
 
 	public DemoInvoiceFormTest() {
@@ -45,6 +51,7 @@ public class DemoInvoiceFormTest extends AbstractDemoModuleTest {
 		assertCreateBoxShown();
 		EmfFormPopupTester formPopup = findFormPopup(AGDemoInvoice.class);
 		formPopup.setInputValue(AGDemoInvoice.TYPE, AGDemoInvoiceTypeEnum.INBOUND.name());
+		formPopup.setInputValue(AGDemoInvoice.CREDITOR, "Foo");
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_NUMBER, "123465");
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_DATE, Day.today().toString());
 		formPopup.clickSaveButton();

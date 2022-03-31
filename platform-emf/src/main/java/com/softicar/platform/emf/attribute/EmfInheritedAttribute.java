@@ -159,19 +159,25 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	}
 
 	@Override
-	public Optional<IDomElement> createDisplay(O tableRow) {
+	public void applyValueDeducer(O tableRow) {
+
+		originalAttribute.applyValueDeducer(baseField.getValue(tableRow));
+	}
+
+	@Override
+	public IDomElement createDisplay(O tableRow) {
 
 		return originalAttribute.createDisplay(tableRow.pk());
 	}
 
 	@Override
-	public Optional<IDomElement> createTabularDisplay(O tableRow) {
+	public IDomElement createTabularDisplay(O tableRow) {
 
 		return originalAttribute.createTabularDisplay(tableRow.pk());
 	}
 
 	@Override
-	public Optional<IEmfInput<V>> createInput(O tableRow) {
+	public IEmfInput<V> createInput(O tableRow) {
 
 		return originalAttribute.createInput(tableRow.pk());
 	}

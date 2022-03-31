@@ -76,4 +76,12 @@ public interface IDomTestEngine extends TestRule {
 	 * @return the the textual content (may be <i>null</i>)
 	 */
 	String getInputValue(IDomTextualInput node);
+
+	/**
+	 * Tests whether the given {@link IDomNode} is displayed in the browser.
+	 *
+	 * @return <i>true</i> if the {@link IDomNode} is displayed; <i>false</i>
+	 *         otherwise
+	 */
+	boolean isDisplayed(IDomNode node);
 }

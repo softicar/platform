@@ -12,7 +12,7 @@ import org.junit.Rule;
 
 public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTestEngineMethods, CoreModuleTestFixtureMethods {
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public IDomTestEngine engine = new DomDocumentTestEngine();
 
 	public AbstractCoreTest() {
 

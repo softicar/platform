@@ -69,6 +69,13 @@ public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number>
 		}
 
 		@Override
+		public void setValueAndHandleChangeCallback(V value) {
+
+			setValue(value);
+			callback.apply();
+		}
+
+		@Override
 		public void setChangeCallback(INullaryVoidFunction callback) {
 
 			this.callback = Objects.requireNonNull(callback);

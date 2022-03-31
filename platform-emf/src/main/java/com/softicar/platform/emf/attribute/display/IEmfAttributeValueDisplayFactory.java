@@ -12,7 +12,7 @@ public interface IEmfAttributeValueDisplayFactory<V> {
 	 *
 	 * @param value
 	 *            the value to display (may be <i>null</i>)
-	 * @return an {@link IDomElement} to display the given value (may be
+	 * @return an {@link IDomElement} to display the given value (never
 	 *         <i>null</i>)
 	 */
 	IDomElement createDisplay(V value);

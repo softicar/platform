@@ -57,4 +57,11 @@ public class DomDocumentTestEngine extends TestWatcher implements IDomTestEngine
 
 		return node.getInputText();
 	}
+
+	@Override
+	public boolean isDisplayed(IDomNode node) {
+
+		// TODO implement PLAT-758
+		throw new UnsupportedOperationException("Not implemented. Consider to use a different test engine.");
+	}
 }
