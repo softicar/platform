@@ -32,7 +32,7 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	public static final IDbStringField<AGLocalization> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setMaximumLength(255);
 	public static final IDbForeignField<AGLocalization, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE);
 	public static final IDbStringField<AGLocalization> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setMaximumLength(255);
-	public static final IDbStringField<AGLocalization> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setMaximumLength(255);
+	public static final IDbStringField<AGLocalization> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setDefault("").setMaximumLength(255);
 	public static final IDbKey<AGLocalization> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final AGLocalizationTable TABLE = new AGLocalizationTable(BUILDER);
 	// @formatter:on
