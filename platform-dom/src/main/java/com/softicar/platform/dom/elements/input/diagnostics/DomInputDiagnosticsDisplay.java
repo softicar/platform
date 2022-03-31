@@ -11,7 +11,7 @@ public class DomInputDiagnosticsDisplay extends DomDiv {
 
 		this.state = DomInputDiagnosticsState.NONE;
 
-		setCssClass(DomElementsCssClasses.DOM_INPUT_DIAGNOSTICS_DISPLAY);
+		addCssClass(DomElementsCssClasses.DOM_INPUT_DIAGNOSTICS_DISPLAY);
 	}
 
 	/**

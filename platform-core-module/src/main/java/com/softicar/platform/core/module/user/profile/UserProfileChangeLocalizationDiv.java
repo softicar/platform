@@ -16,9 +16,8 @@ class UserProfileChangeLocalizationDiv extends DomDiv {
 
 	public UserProfileChangeLocalizationDiv() {
 
-		this.attributesDiv = new EmfAttributesDiv<>(CurrentUser.get());
-		attributesDiv.appendInputRow(AGUser.LOCALIZATION);
-		attributesDiv.applyFromEntity();
+		this.attributesDiv = new EmfAttributesDiv<>(CurrentUser.get(), true);
+		attributesDiv.addAttribute(AGUser.LOCALIZATION);
 
 		appendChild(attributesDiv);
 		appendChild(new DomActionBar(new SaveButton()));
