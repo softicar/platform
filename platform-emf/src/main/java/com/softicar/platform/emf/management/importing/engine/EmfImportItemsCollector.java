@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.management.importing.engine;
 
-import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
@@ -65,8 +64,7 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private void collectBusinessKeyItems(EmfImportItem item, IEmfAttribute<R, ?> attribute) {
 
-		EmfForeignRowAttribute<R, ?> foreignRowAttribute = CastUtils.cast(attribute);
-		IEmfTable<?, ?, ?> emfTable = foreignRowAttribute.getTargetTable();
+		IEmfTable<?, ?, ?> emfTable = ((EmfForeignRowAttribute<R, ?>) attribute).getTargetTable();
 		new EmfImportBusinessKeyItemsCollector<>(emfTable, item).collect();
 	}
 
