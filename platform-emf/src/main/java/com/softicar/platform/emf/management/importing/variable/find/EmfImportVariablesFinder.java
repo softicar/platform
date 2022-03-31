@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EmfImportVariablesFinder {
 
-	private static final String VARIABLE_PATTERN = "\\$\\$[a-z]\\$\\$";
+	private static final String VARIABLE_PATTERN = "\\$\\$[a-z]+\\$\\$";
 
 	private final List<List<String>> rows;
 	private final SetMap<String, EmfImportVariableCoordinates> variableCoordinates = new SetMap<>();
@@ -36,7 +36,7 @@ public class EmfImportVariablesFinder {
 	private void addVariableCoordinatesIfPatternFound(String cell, int columnIndex, int rowIndex) {
 
 		if (cell.matches(VARIABLE_PATTERN)) {
-			String variable = cell.substring(2, 3);
+			String variable = cell.substring(2, cell.length() - 2);
 			variableCoordinates.addToSet(variable, new EmfImportVariableCoordinates(columnIndex, rowIndex));
 		}
 	}
