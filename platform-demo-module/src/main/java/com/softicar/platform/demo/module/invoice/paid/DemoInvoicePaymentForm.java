@@ -1,38 +1,38 @@
 package com.softicar.platform.demo.module.invoice.paid;
 
+import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.demo.module.DemoI18n;
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.emf.form.EmfFormDelegator;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.form.IEmfFormFrame;
+import com.softicar.platform.emf.form.delegator.AbstractEmfAdjacentNodeForm;
 
-public class DemoInvoicePaymentForm extends EmfFormDelegator<AGDemoInvoicePayment> {
-
-	private final DomDiv container;
+public class DemoInvoicePaymentForm extends AbstractEmfAdjacentNodeForm<AGDemoInvoicePayment> {
 
 	public DemoInvoicePaymentForm(IEmfFormFrame<AGDemoInvoicePayment> frame, AGDemoInvoicePayment tableRow) {
 
 		super(frame, tableRow);
-		this.container = appendChild(new DomDiv());
-		form.setModeChangeCallback(this::handleModeChange);
 	}
 
-	private void handleModeChange(EmfFormMode mode) {
+	@Override
+	protected IDomNode createAdjacentNode(EmfFormMode mode, AGDemoInvoicePayment tableRow) {
 
-		container.removeChildren();
 		switch (mode) {
 		case CREATION:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.CREATE_TRAIT));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.CREATE_TRAIT);
 		case EDIT:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.EDIT_TRAIT));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.EDIT_TRAIT);
 		case VIEW:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.VIEW_TRAIT));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.VIEW_TRAIT);
 		}
-		container.appendChild(form);
+		throw new SofticarUnknownEnumConstantException(mode);
+	}
+
+	@Override
+	protected AdjacentNodeSide getAdjacentNodeSide() {
+
+		return AdjacentNodeSide.TOP;
 	}
 }

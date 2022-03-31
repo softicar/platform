@@ -1,39 +1,38 @@
 package com.softicar.platform.demo.module.invoice;
 
+import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.demo.module.DemoI18n;
-import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.emf.form.EmfFormDelegator;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.form.IEmfFormFrame;
+import com.softicar.platform.emf.form.delegator.AbstractEmfAdjacentNodeForm;
 
-public class DemoInvoiceForm extends EmfFormDelegator<AGDemoInvoice> {
-
-	private final DomDiv container;
+public class DemoInvoiceForm extends AbstractEmfAdjacentNodeForm<AGDemoInvoice> {
 
 	public DemoInvoiceForm(IEmfFormFrame<AGDemoInvoice> frame, AGDemoInvoice tableRow) {
 
 		super(frame, tableRow);
-		this.container = appendChild(new DomBar());
-		form.setModeChangeCallback(this::handleModeChange);
 	}
 
-	private void handleModeChange(EmfFormMode mode) {
+	@Override
+	protected IDomNode createAdjacentNode(EmfFormMode mode, AGDemoInvoice tableRow) {
 
-		container.removeChildren();
 		switch (mode) {
 		case CREATION:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.CREATE));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.CREATE);
 		case EDIT:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.EDIT));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.EDIT);
 		case VIEW:
-			container.appendChild(new DomMessageDiv(DomMessageType.INFO, DemoI18n.VIEW));
-			break;
+			return new DomMessageDiv(DomMessageType.INFO, DemoI18n.VIEW);
 		}
-		container.appendChild(form);
+		throw new SofticarUnknownEnumConstantException(mode);
+	}
+
+	@Override
+	protected AdjacentNodeSide getAdjacentNodeSide() {
+
+		return AdjacentNodeSide.LEFT;
 	}
 }
