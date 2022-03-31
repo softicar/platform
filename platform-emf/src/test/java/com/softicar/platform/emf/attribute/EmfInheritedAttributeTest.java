@@ -1,8 +1,5 @@
 package com.softicar.platform.emf.attribute;
 
-
-
-
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.IDomElement;
@@ -192,21 +189,21 @@ public class EmfInheritedAttributeTest extends AbstractEmfTest {
 	@Test
 	public void testCreateDisplay() {
 
-		Optional<IDomElement> element = Optional.of(Mockito.mock(IDomElement.class));
+		IDomElement element = Mockito.mock(IDomElement.class);
 		assertDelegation(() -> attribute.createDisplay(simpleEntity1), () -> inheritedAttribute.createDisplay(testEntity1), element);
 	}
 
 	@Test
 	public void testCreateManagementDisplay() {
 
-		Optional<IDomElement> element = Optional.of(Mockito.mock(IDomElement.class));
+		IDomElement element = Mockito.mock(IDomElement.class);
 		assertDelegation(() -> attribute.createTabularDisplay(simpleEntity1), () -> inheritedAttribute.createTabularDisplay(testEntity1), element);
 	}
 
 	@Test
 	public void testCreateInput() {
 
-		Optional<IDomElement> element = Optional.of(Mockito.mock(IEmfInput.class));
+		IDomElement element = Mockito.mock(IEmfInput.class);
 		assertDelegation(() -> attribute.createInput(simpleEntity1), () -> inheritedAttribute.createInput(testEntity1), element);
 	}
 

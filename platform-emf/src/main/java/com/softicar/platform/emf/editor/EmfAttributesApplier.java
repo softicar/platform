@@ -17,14 +17,14 @@ import java.util.List;
 class EmfAttributesApplier<R extends IEmfTableRow<R, ?>> {
 
 	private final R tableRow;
-	private final Collection<EmfAttributeValueInputFrame<R, ?>> inputRows;
+	private final Collection<EmfAttributeValueFrame<R, ?>> valueFrames;
 	private final List<IEmfValidator<R>> additionalValidators;
 	private final EmfValidationResult validationResult;
 
-	public EmfAttributesApplier(R tableRow, Collection<EmfAttributeValueInputFrame<R, ?>> inputRows) {
+	public EmfAttributesApplier(R tableRow, Collection<EmfAttributeValueFrame<R, ?>> valueFrames) {
 
 		this.tableRow = tableRow;
-		this.inputRows = inputRows;
+		this.valueFrames = valueFrames;
 		this.additionalValidators = new ArrayList<>();
 		this.validationResult = new EmfValidationResult();
 	}
@@ -59,11 +59,11 @@ class EmfAttributesApplier<R extends IEmfTableRow<R, ?>> {
 
 	private void applyAttributeValues() {
 
-		for (EmfAttributeValueInputFrame<R, ?> inputRow: inputRows) {
+		for (var valueFrame: valueFrames) {
 			try {
-				inputRow.applyToTableRow();
+				valueFrame.applyToTableRow();
 			} catch (SofticarUserException exception) {
-				validationResult.addError(inputRow.getAttribute(), IDisplayString.create(exception.getMessage()));
+				validationResult.addError(valueFrame.getAttribute(), IDisplayString.create(exception.getMessage()));
 			}
 		}
 	}
@@ -79,8 +79,8 @@ class EmfAttributesApplier<R extends IEmfTableRow<R, ?>> {
 
 	private void notifyAttributeInputs() {
 
-		for (EmfAttributeValueInputFrame<R, ?> inputRow: inputRows) {
-			inputRow.executePostSaveHook();
+		for (var valueFrame: valueFrames) {
+			valueFrame.executePostSaveHook();
 		}
 	}
 

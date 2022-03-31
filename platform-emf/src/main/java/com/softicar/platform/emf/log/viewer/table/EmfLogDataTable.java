@@ -18,7 +18,6 @@ import com.softicar.platform.emf.log.viewer.item.EmfLogItemLoader;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 class EmfLogDataTable<R extends IEmfTableRow<R, ?>> extends AbstractInMemoryDataTable<EmfLogDataTableRow<R>> {
@@ -105,12 +104,8 @@ class EmfLogDataTable<R extends IEmfTableRow<R, ?>> extends AbstractInMemoryData
 		public void buildCell(IEmfDataTableCell<EmfLogDataTableRow<R>, V> cell, EmfLogDataTableRow<R> row) {
 
 			R tableRow = row.getImpermanentEntity();
-			Optional<IDomElement> displayElement = new EmfLogDisplayFactoryWrapper().createDisplay(() -> attribute.createTabularDisplay(tableRow));
-			if (displayElement.isPresent()) {
-				cell.appendChild(displayElement.get());
-			} else {
-				super.buildCell(cell, row);
-			}
+			IDomElement displayElement = new EmfLogDisplayFactoryWrapper().createDisplay(() -> attribute.createTabularDisplay(tableRow));
+			cell.appendChild(displayElement);
 		}
 	}
 

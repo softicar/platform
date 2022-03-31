@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.configuration.EmfAttributeConfiguration;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
@@ -11,7 +12,8 @@ import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBased
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.Optional;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> implements IEmfAttribute<R, V> {
@@ -20,6 +22,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	private IEmfPredicate<R> visiblePredicate;
 	private IEmfPredicate<R> editablePredicate;
 	private IEmfPredicate<R> mandatoryPredicate;
+	private Consumer<R> valueDeducer;
 
 	public AbstractEmfAttribute() {
 
@@ -27,6 +30,7 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		this.visiblePredicate = EmfPredicates.always();
 		this.editablePredicate = EmfPredicates.always();
 		this.mandatoryPredicate = EmfPredicates.never();
+		this.valueDeducer = Consumers.noOperation();
 	}
 
 	@Override
@@ -66,36 +70,27 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	}
 
 	@Override
-	public final Optional<IDomElement> createDisplay(R tableRow) {
+	public void applyValueDeducer(R tableRow) {
 
-		IEmfAttributeTableRowDisplayFactory<R> displayFactory = configuration.getDisplayFactory();
-		if (displayFactory != null) {
-			return Optional.of(displayFactory.createDisplay(tableRow));
-		} else {
-			return Optional.empty();
-		}
+		valueDeducer.accept(tableRow);
 	}
 
 	@Override
-	public final Optional<IDomElement> createTabularDisplay(R tableRow) {
+	public final IDomElement createDisplay(R tableRow) {
 
-		IEmfAttributeTableRowDisplayFactory<R> displayFactory = configuration.getDisplayFactory();
-		if (displayFactory != null) {
-			return Optional.of(displayFactory.createTabularDisplay(tableRow));
-		} else {
-			return createDisplay(tableRow);
-		}
+		return Objects.requireNonNull(configuration.getDisplayFactory().createDisplay(tableRow));
 	}
 
 	@Override
-	public final Optional<IEmfInput<V>> createInput(R tableRow) {
+	public final IDomElement createTabularDisplay(R tableRow) {
 
-		IEmfInputFactory<R, V> inputFactory = configuration.getInputFactory();
-		if (inputFactory != null) {
-			return Optional.of(inputFactory.createInput(tableRow));
-		} else {
-			return Optional.empty();
-		}
+		return Objects.requireNonNull(configuration.getDisplayFactory().createTabularDisplay(tableRow));
+	}
+
+	@Override
+	public final IEmfInput<V> createInput(R tableRow) {
+
+		return Objects.requireNonNull(configuration.getInputFactory().createInput(tableRow));
 	}
 
 	@Override
@@ -150,6 +145,59 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 
 		this.editablePredicate = predicate;
 		this.mandatoryPredicate = predicate;
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setValueDeducer(Consumer<R> valueDeducer) {
+
+		this.valueDeducer = valueDeducer;
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setValueDeducer(IEmfPredicate<R> predicate, V value) {
+
+		return setValueDeducer(row -> {
+			if (predicate.test(row)) {
+				setValue(row, value);
+			}
+		});
+	}
+
+	// ------------------------------ Predicate Convenience ------------------------------ //
+
+	/**
+	 * Makes this {@link IEmfAttribute} visible and editable under the given
+	 * {@link IEmfPredicate} and forces the given value otherwise.
+	 *
+	 * @param predicate
+	 *            the {@link IEmfPredicate} (never <i>null</i>)
+	 * @param fallbackValue
+	 *            the value to assign to this {@link IEmfAttribute} if the
+	 *            {@link IEmfPredicate} is <b>not</b> <i>true</i> (may be null)
+	 * @return this
+	 */
+	public AbstractEmfAttribute<R, V> setConditionallyAvailable(IEmfPredicate<R> predicate, V fallbackValue) {
+
+		setPredicateVisibleEditable(predicate);
+		setValueDeducer(predicate.not(), fallbackValue);
+		return this;
+	}
+
+	/**
+	 * Makes this {@link IEmfAttribute} visible, editable and mandatory under
+	 * the given {@link IEmfPredicate} and forces the given value otherwise.
+	 *
+	 * @param predicate
+	 *            the {@link IEmfPredicate} (never <i>null</i>)
+	 * @param fallbackValue
+	 *            the value to assign to this {@link IEmfAttribute} if the
+	 *            {@link IEmfPredicate} is <b>not</b> <i>true</i> (may be null)
+	 * @return this
+	 */
+	public AbstractEmfAttribute<R, V> setConditionallyRequired(IEmfPredicate<R> predicate, V fallbackValue) {
+
+		setPredicateVisibleEditableMandatory(predicate);
+		setValueDeducer(predicate.not(), fallbackValue);
 		return this;
 	}
 

@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.log.viewer.item;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -46,8 +45,7 @@ public class EmfLogItemPopup<R extends IEmfTableRow<R, ?>> extends DomPopup {
 			DomLabelGrid attributeDisplayGrid = appendChild(new DomLabelGrid());
 			for (IEmfAttribute<R, ?> attribute: getOrderedAttributes()) {
 				IDisplayString title = attribute.getTitle();
-				IDomElement valueElement = attribute.createDisplay(logItem.getImpermanentTableRow()).orElse(new DomDiv());
-				attributeDisplayGrid.add(title, valueElement);
+				attributeDisplayGrid.add(title, attribute.createDisplay(logItem.getImpermanentTableRow()));
 			}
 		}
 

@@ -1,6 +1,8 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
@@ -279,6 +281,16 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		return this;
 	}
 
+	public void assertDisplayed() {
+
+		assertTrue("Expected node to be displayed.", isDisplayed());
+	}
+
+	public void assertNotDisplayed() {
+
+		assertFalse("Expected node to not be displayed.", isDisplayed());
+	}
+
 	// ------------------------------ predicates ------------------------------ //
 
 	public boolean isParentOf(IDomNode potentialChild) {
@@ -289,6 +301,11 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		} else {
 			return false;
 		}
+	}
+
+	public boolean isDisplayed() {
+
+		return engine.isDisplayed(node);
 	}
 
 	public boolean containsText(String expectedText) {

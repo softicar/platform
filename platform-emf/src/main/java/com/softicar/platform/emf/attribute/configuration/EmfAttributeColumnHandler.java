@@ -1,13 +1,11 @@
 package com.softicar.platform.emf.attribute.configuration;
 
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
-import java.util.Optional;
 
 public class EmfAttributeColumnHandler<R extends IEmfTableRow<R, ?>, V> extends EmfDataTableRowBasedColumnHandler<R, V> {
 
@@ -29,12 +27,7 @@ public class EmfAttributeColumnHandler<R extends IEmfTableRow<R, ?>, V> extends 
 	@Override
 	public void buildCell(IEmfDataTableCell<R, V> cell, R tableRow) {
 
-		Optional<IDomElement> display = attribute.createTabularDisplay(tableRow);
-		if (display.isPresent()) {
-			cell.appendChild(display.get());
-		} else {
-			super.buildCell(cell, tableRow);
-		}
+		cell.appendChild(attribute.createTabularDisplay(tableRow));
 	}
 
 	@Override

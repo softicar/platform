@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -75,16 +74,16 @@ public class EmfLogFeedDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 			EmfLogFeedGrid logViewerForm = appendChild(new EmfLogFeedGrid());
 			for (EmfLogFeedItem<R, ?> item: getSortedFeedItems(feedItems)) {
-				Optional<IDomElement> displayElement = new EmfLogDisplayFactoryWrapper().createDisplay(() -> createDisplay(item));
+				IDomElement displayElement = new EmfLogDisplayFactoryWrapper().createDisplay(() -> createDisplay(item));
 				logViewerForm
 					.appendRow(
 						item.getTitle(),//
-						displayElement.orElse(new DomDiv()),
+						displayElement,
 						item.getType());
 			}
 		}
 
-		private Optional<IDomElement> createDisplay(EmfLogFeedItem<R, ?> item) {
+		private IDomElement createDisplay(EmfLogFeedItem<R, ?> item) {
 
 			return item.getAttribute().createDisplay(item.getTableRow());
 		}
