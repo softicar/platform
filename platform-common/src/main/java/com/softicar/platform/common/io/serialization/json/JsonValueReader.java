@@ -23,6 +23,9 @@ public class JsonValueReader {
 
 	/**
 	 * Constructs a new {@link JsonValueReader}.
+	 * <p>
+	 * If the given JSON {@link String} is blank, a logically-empty JSON
+	 * {@link String} will be assumed, to avoid a parsing error.
 	 *
 	 * @param json
 	 *            the JSON {@link String} to process (never <i>null</i>)
@@ -30,8 +33,9 @@ public class JsonValueReader {
 	public JsonValueReader(String json) {
 
 		Objects.requireNonNull(json);
+		json = assumeMinimalJsonIfBlank(json);
 		var configuration = Configuration.defaultConfiguration().setOptions(Option.SUPPRESS_EXCEPTIONS);
-		this.context = JsonPath.using(configuration).parse(json);
+		this.context = JsonPath.using(configuration).parse(assumeMinimalJsonIfBlank(json));
 	}
 
 	/**
@@ -84,5 +88,10 @@ public class JsonValueReader {
 
 		Objects.requireNonNull(path);
 		return context.read(path);
+	}
+
+	private String assumeMinimalJsonIfBlank(String json) {
+
+		return json.isBlank()? "{}" : json;
 	}
 }
