@@ -165,6 +165,17 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 
 	// ------------------------------ Predicate Convenience ------------------------------ //
 
+	/**
+	 * Makes this {@link IEmfAttribute} visible and editable under the given
+	 * {@link IEmfPredicate} and forces the given value otherwise.
+	 *
+	 * @param predicate
+	 *            the {@link IEmfPredicate} (never <i>null</i>)
+	 * @param fallbackValue
+	 *            the value to assign to this {@link IEmfAttribute} if the
+	 *            {@link IEmfPredicate} is <b>not</b> <i>true</i> (may be null)
+	 * @return this
+	 */
 	public AbstractEmfAttribute<R, V> setConditionallyAvailable(IEmfPredicate<R> predicate, V fallbackValue) {
 
 		setPredicateVisibleEditable(predicate);
@@ -172,7 +183,18 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		return this;
 	}
 
-	public AbstractEmfAttribute<R, V> setConditionallyAvailableAndMandatory(IEmfPredicate<R> predicate, V fallbackValue) {
+	/**
+	 * Makes this {@link IEmfAttribute} visible, editable and mandatory under
+	 * the given {@link IEmfPredicate} and forces the given value otherwise.
+	 *
+	 * @param predicate
+	 *            the {@link IEmfPredicate} (never <i>null</i>)
+	 * @param fallbackValue
+	 *            the value to assign to this {@link IEmfAttribute} if the
+	 *            {@link IEmfPredicate} is <b>not</b> <i>true</i> (may be null)
+	 * @return this
+	 */
+	public AbstractEmfAttribute<R, V> setConditionallyRequired(IEmfPredicate<R> predicate, V fallbackValue) {
 
 		setPredicateVisibleEditableMandatory(predicate);
 		setValueDeducer(predicate.not(), fallbackValue);

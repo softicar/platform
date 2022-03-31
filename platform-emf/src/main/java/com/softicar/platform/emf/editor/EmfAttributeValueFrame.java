@@ -7,6 +7,11 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.result.IEmfDiagnostic;
 import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 
+/**
+ * Shows display or input elements for an {@link IEmfAttribute}.
+ *
+ * @author Oliver Richers
+ */
 public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends AbstractEmfAttributeValueFrame<R, V> {
 
 	private final INullaryVoidFunction changeCallback;

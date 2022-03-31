@@ -36,10 +36,10 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		attributes//
 			.editAttribute(AGDemoInvoice.CREDITOR)
-			.setConditionallyAvailableAndMandatory(DemoInvoicePredicates.INBOUND, "");
+			.setConditionallyRequired(DemoInvoicePredicates.INBOUND, "");
 
 		attributes//
 			.editAttribute(AGDemoInvoice.DEBTOR)
-			.setConditionallyAvailableAndMandatory(DemoInvoicePredicates.OUTBOUND, "");
+			.setConditionallyRequired(DemoInvoicePredicates.OUTBOUND, "");
 	}
 }
