@@ -9,7 +9,7 @@ CREATE TABLE `Core`.`Localization` (
 	`name` VARCHAR(255) NOT NULL,
 	`language` INT NOT NULL,
 	`decimalSeparator` VARCHAR(255) NOT NULL,
-	`digitGroupSeparator` VARCHAR(255) NOT NULL,
+	`digitGroupSeparator` VARCHAR(255) NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `name` (`name`),
 	CONSTRAINT FOREIGN KEY (`language`) REFERENCES `Core`.`CoreLanguage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
