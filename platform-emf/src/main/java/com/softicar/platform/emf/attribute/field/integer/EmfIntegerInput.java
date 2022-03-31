@@ -12,6 +12,13 @@ public class EmfIntegerInput extends DomIntegerInput implements IEmfInput<Intege
 	private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
 
 	@Override
+	public void setValueAndHandleChangeCallback(Integer value) {
+
+		setValue(value);
+		callback.apply();
+	}
+
+	@Override
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		this.callback = Objects.requireNonNull(callback);
