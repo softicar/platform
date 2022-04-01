@@ -33,7 +33,6 @@ public class JsonValueReader {
 	public JsonValueReader(String json) {
 
 		Objects.requireNonNull(json);
-		json = assumeMinimalJsonIfBlank(json);
 		var configuration = Configuration.defaultConfiguration().setOptions(Option.SUPPRESS_EXCEPTIONS);
 		this.context = JsonPath.using(configuration).parse(assumeMinimalJsonIfBlank(json));
 	}
