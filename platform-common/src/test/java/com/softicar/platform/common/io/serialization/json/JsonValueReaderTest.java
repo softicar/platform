@@ -10,7 +10,9 @@ public class JsonValueReaderTest extends AbstractTest {
 	@Test
 	public void testReadValueWithEmptyJsonString() {
 
-		assertException(IllegalArgumentException.class, () -> new JsonValueReader(""));
+		var reader = new JsonValueReader("");
+		Optional<String> value = reader.readValue("$.foo");
+		assertFalse(value.isPresent());
 	}
 
 	@Test
