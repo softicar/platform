@@ -2,14 +2,17 @@ package com.softicar.platform.emf.management.importing.variable.find;
 
 import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmfImportVariablesFinder {
 
-	private static final String VARIABLE_PATTERN = "\\$\\$[a-z]+\\$\\$";
+	private static final String VARIABLE_PATTERN = "\\$\\$[a-zA-Z0-9_]+\\$\\$";
 
 	private final List<List<String>> rows;
-	private final SetMap<String, EmfImportVariableCoordinates> variableCoordinates = new SetMap<>();
+	private final Map<String, String> variableToDisplayNameMap = new HashMap<>();
+	private final SetMap<String, EmfImportVariableCoordinates> variableDisplayNameToCoordinatesMap = new SetMap<>();
 
 	public EmfImportVariablesFinder(List<List<String>> rows) {
 
@@ -18,11 +21,13 @@ public class EmfImportVariablesFinder {
 
 	public SetMap<String, EmfImportVariableCoordinates> find() {
 
-		variableCoordinates.clear();
+		variableToDisplayNameMap.clear();
+		variableDisplayNameToCoordinatesMap.clear();
+
 		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
 			findCoordinatesOfRowIndex(rowIndex);
 		}
-		return variableCoordinates;
+		return variableDisplayNameToCoordinatesMap;
 	}
 
 	private void findCoordinatesOfRowIndex(int rowIndex) {
@@ -36,8 +41,14 @@ public class EmfImportVariablesFinder {
 	private void addVariableCoordinatesIfPatternFound(String cell, int columnIndex, int rowIndex) {
 
 		if (cell.matches(VARIABLE_PATTERN)) {
-			String variable = cell.substring(2, cell.length() - 2);
-			variableCoordinates.addToSet(variable, new EmfImportVariableCoordinates(columnIndex, rowIndex));
+			String variableDisplayName = cell.substring(2, cell.length() - 2);
+			String variable = variableDisplayName.toLowerCase();
+			if (variableToDisplayNameMap.containsKey(variable)) {
+				variableDisplayName = variableToDisplayNameMap.get(variable);
+			} else {
+				variableToDisplayNameMap.put(variable, variableDisplayName);
+			}
+			variableDisplayNameToCoordinatesMap.addToSet(variableDisplayName, new EmfImportVariableCoordinates(columnIndex, rowIndex));
 		}
 	}
 }
