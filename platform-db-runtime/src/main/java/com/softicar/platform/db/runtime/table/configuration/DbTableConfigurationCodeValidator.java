@@ -2,8 +2,11 @@ package com.softicar.platform.db.runtime.table.configuration;
 
 import com.softicar.platform.common.code.classpath.iterable.ClasspathFileIterable;
 import com.softicar.platform.common.code.classpath.metadata.ClasspathFilesMetadata;
+import com.softicar.platform.common.core.java.classpath.JavaClasspath;
+import com.softicar.platform.common.core.java.classpath.JavaClasspathRootFolder;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
+import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import com.softicar.platform.db.core.test.DbTestDatabase;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -13,25 +16,33 @@ import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.runtime.test.DbRandomAutoIncrementSupplier;
 import java.io.File;
 import java.util.Collection;
-import java.util.function.Predicate;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Validates the configuration of every {@link IDbTable} in this repository.
- * <p>
- * FIXME This is too inefficient. The same tables are checked over and over
- * again. (PLAT-754).
  *
  * @author Alexander Schmidt
  */
-//@JavaCodeValidator // FIXME Fix and re-enable this. (PLAT-754)
+@JavaCodeValidator
 public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
+
+	private static final String INTEGRATION_PROJECT_NAME_JSON_PATH = "$.integrationProjectName";
+	private static final String TABLE_PACKAGE_PREFIX_JSON_PATH = "$.tablePackagePrefix";
 
 	@Override
 	public void validate(JavaCodeValidationEnvironment environment) {
 
-		try (var databaseScope = new DbDatabaseScope(createTestDatabase())) {
-			for (IDbTable<?, ?> table: findAllTables(IDbTable.class, IDbTableRow.class)) {
-				table.assertValidConfigurationOrThrow();
+		var reader = environment.getConfigurationJsonValueReader();
+		JavaClasspath classPath = environment.getClassPath();
+		Optional<String> integrationProjectName = reader.readValue(INTEGRATION_PROJECT_NAME_JSON_PATH);
+		Optional<String> tablePackagePrefix = reader.readValue(TABLE_PACKAGE_PREFIX_JSON_PATH);
+
+		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix)) {
+			try (var databaseScope = new DbDatabaseScope(createTestDatabase())) {
+				for (IDbTable<?, ?> table: findAllTables(IDbTable.class, IDbTableRow.class, tablePackagePrefix.get())) {
+					table.assertValidConfigurationOrThrow();
+				}
 			}
 		}
 	}
@@ -43,15 +54,35 @@ public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
 		return testDatabase;
 	}
 
-	private <T, R> Collection<T> findAllTables(Class<T> tableClass, Class<R> tableRowClass) {
+	private boolean isEnabled(JavaClasspath classPath, Optional<String> integrationProjectName, Optional<String> tablePackagePrefix) {
 
-		ClasspathFilesMetadata metadata = new ClasspathFilesMetadata(new ClasspathFileIterable().setJarFileFilter(isRelevantJarFile()));
-		return new DbTableFinder<>(metadata, tableClass, tableRowClass).findAllTables();
+		return integrationProjectName.isPresent()//
+				&& tablePackagePrefix.isPresent()//
+				&& getClasspathDirectories(classPath).contains("/" + integrationProjectName.get() + "/");
 	}
 
-	private Predicate<File> isRelevantJarFile() {
+	private String getClasspathDirectories(JavaClasspath classPath) {
 
-		// TODO Find a better solution to determine the JAR file that contains IDbTable and IDbTableRow. (PLAT-754)
-		return jarFile -> jarFile.getName().equals("platform-db-runtime.jar");
+		return classPath//
+			.getRootFolders()
+			.stream()
+			.map(JavaClasspathRootFolder::getFile)
+			.map(File::getPath)
+			.collect(Collectors.joining(","));
+	}
+
+	private <T, R> Collection<T> findAllTables(Class<T> tableClass, Class<R> tableRowClass, String tablePackagePrefix) {
+
+		ClasspathFilesMetadata metadata = new ClasspathFilesMetadata(new ClasspathFileIterable());
+		return new DbTableFinder<>(metadata, tableClass, tableRowClass)//
+			.findAllTables()
+			.stream()
+			.filter(table -> isRelevant(table, tablePackagePrefix))
+			.collect(Collectors.toList());
+	}
+
+	private <T> boolean isRelevant(T table, String tablePackagePrefix) {
+
+		return table.getClass().getCanonicalName().startsWith(tablePackagePrefix + ".");
 	}
 }
