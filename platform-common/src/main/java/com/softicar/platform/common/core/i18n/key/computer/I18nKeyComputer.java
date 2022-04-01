@@ -104,4 +104,11 @@ public class I18nKeyComputer {
 		}
 		return string.toUpperCase();
 	}
+
+	public static void main(String[] args) {
+
+		String originalIdentifierString = "Variable identifiers may consist of ASCII letters, numbers from 0 to 9 and the underscore.";
+
+		System.out.println(new I18nKeyComputer(originalIdentifierString).compute());
+	}
 }

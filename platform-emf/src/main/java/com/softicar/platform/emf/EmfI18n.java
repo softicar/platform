@@ -274,9 +274,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Plural-Titel");
 	I18n1 POINT_IN_TIME_ARG1_DOES_NOT_EXIST = new I18n1("Point in time '%s' does not exist")//
 		.de("Zeitpunkt '%s' existiert nicht");
-	I18n0 POSSIBLE_VARIABLE_IDENTIFIERS_ARE_ALL_ASCII_LOWERCASE_LETTERS_FROM_A_TO_Z =
-			new I18n0("Possible variable identifiers are all ASCII lowercase letters from a to z.")//
-				.de("Mögliche Variablenbezeichner sind alle ASCII-Kleinbuchenstaben von a bis z.");
 	I18n0 PRECONDITION = new I18n0("Precondition")//
 		.de("Vorbedingung");
 	I18n0 PREFILTER = new I18n0("Prefilter")//
@@ -420,6 +417,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Wert '%s' liegt außerhalb des Wertebereichs");
 	I18n0 VALUE_CLASS = new I18n0("Value Class")//
 		.de("Klasse des Werts");
+	I18n0 VARIABLE_IDENTIFIERS_MAY_CONSIST_OF_ASCII_LETTERS_NUMBERS_FROM_0_TO_9_AND_THE_UNDERSCORE =
+			new I18n0("Variable identifiers may consist of ASCII letters, numbers from 0 to 9 and the underscore.")//
+				.de("Variablenbezeichner dürfen aus ASCII-Buchstaben, Zahlen von 0 bis 9 und dem Unterstrich bestehen.");
 	I18n0 VIEW = new I18n0("View")//
 		.de("Ansehen");
 	I18n0 VIEW_HISTORY_ENTRY = new I18n0("View History Entry")//
