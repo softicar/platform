@@ -56,18 +56,18 @@ public class ClasspathResourcesValidator implements IJavaCodeValidator {
 	private static class ResourceLocationFromClasspathLoader {
 
 		// TODO This blacklist should be configurable... somehow.
-		private static final Collection<String> FILENAME_BLACKLIST_REGEXES = List
+		private static final Collection<String> FILE_PATH_BLACKLIST_REGEXES = List
 			.of(//
-				".*\\.sqml",
-				"logback\\.xml");
+				".*/[^/]*\\.sqml",
+				".*/logback\\.xml");
 
 		private final JavaClasspath classPath;
-		private final Collection<Pattern> filenameBlacklistPatterns;
+		private final Collection<Pattern> filePathBlacklistPatterns;
 
 		public ResourceLocationFromClasspathLoader(JavaClasspath classPath) {
 
 			this.classPath = classPath;
-			this.filenameBlacklistPatterns = createFilenameBlacklistPatterns();
+			this.filePathBlacklistPatterns = createFilePathBlacklistPatterns();
 		}
 
 		public Set<ResourceLocation> load() {
@@ -106,12 +106,12 @@ public class ClasspathResourcesValidator implements IJavaCodeValidator {
 
 		private boolean isNotBlacklisted(File file) {
 
-			return Patterns.noneMatch(file.getName(), filenameBlacklistPatterns);
+			return Patterns.noneMatch(file.getPath(), filePathBlacklistPatterns);
 		}
 
-		private Collection<Pattern> createFilenameBlacklistPatterns() {
+		private Collection<Pattern> createFilePathBlacklistPatterns() {
 
-			return FILENAME_BLACKLIST_REGEXES//
+			return FILE_PATH_BLACKLIST_REGEXES//
 				.stream()
 				.map(Pattern::compile)
 				.collect(Collectors.toList());

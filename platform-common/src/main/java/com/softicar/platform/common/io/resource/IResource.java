@@ -1,8 +1,12 @@
 package com.softicar.platform.common.io.resource;
 
+import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
+import com.softicar.platform.common.string.charset.Charsets;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -84,4 +88,20 @@ public interface IResource {
 	 * @return the optional {@link ResourceHash} over the content
 	 */
 	Optional<ResourceHash> getContentHash();
+
+	/**
+	 * Returns the content of this {@link IResource} as UTF-8 encoded text.
+	 * <p>
+	 * May only be called on textual resources.
+	 *
+	 * @return the content as UTF-8 encoded text (never <i>null</i>)
+	 */
+	default String getContentTextUtf8() {
+
+		try (var inputStream = getResourceAsStream()) {
+			return StreamUtils.toString(inputStream, Charsets.UTF8);
+		} catch (IOException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
 }

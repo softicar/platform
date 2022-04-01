@@ -1,0 +1,4 @@
+dependencies {
+	implementation project(':platform-core-module')
+	implementation "com.google.code.gson:gson:$versions.gson"
+}

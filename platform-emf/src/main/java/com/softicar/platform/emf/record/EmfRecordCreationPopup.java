@@ -9,7 +9,6 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.EmfMarker;
-import com.softicar.platform.emf.editor.EmfAttributeValueInputFrame;
 import com.softicar.platform.emf.editor.EmfAttributesDiv;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.record.table.IEmfRecordTable;
@@ -26,14 +25,14 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 		this.table = table;
 		this.scope = scope;
 		this.dummy = createDummy();
-		this.attributesDiv = new EmfAttributesDiv<>(dummy);
+		this.attributesDiv = new EmfAttributesDiv<>(dummy, true);
 
 		table//
 			.getPrimaryKey()
 			.getFields()
 			.stream()
 			.filter(this::isNotScopeField)
-			.forEach(attributesDiv::appendInputRow);
+			.forEach(attributesDiv::addAttribute);
 
 		appendChild(attributesDiv);
 
@@ -74,9 +73,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 
 	private R getOrCreateRecord() {
 
-		attributesDiv//
-			.getInputRows()
-			.forEach(EmfAttributeValueInputFrame::applyToTableRow);
+		attributesDiv.applyToTableRow();
 		R record = table.getOrCreate(table.getPrimaryKey().getFromRow(dummy));
 		setScope(record);
 		return record;
