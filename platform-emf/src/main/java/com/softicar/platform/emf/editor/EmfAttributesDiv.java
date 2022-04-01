@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.editor;
 
-import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.db.core.transaction.DbLazyTransaction;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -105,8 +106,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 				try {
 					valueFrame.applyToTableRow();
 				} catch (Exception exception) {
-					// any failure to read the input value shall be ignored
-					DevNull.swallow(exception);
+					Log.fwarning("Failed to apply value: %s", StackTraceFormatting.getStackTraceAsString(exception));
 				}
 			}
 
