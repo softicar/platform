@@ -1,3 +1,4 @@
+import groovy.json.*;
 
 // -------------------- plug-ins -------------------- //
 
@@ -14,7 +15,7 @@ plugins {
 // The identifiers below correspond to artifact names in camelCase.
 project.ext {
 	versions = [
-		asm: "9.0",
+		asm: "9.1",
 		byteBuddy: "1.12.7",
 		classgraph: "4.8.138",
 		commonsCodec: "1.15",
@@ -31,13 +32,14 @@ project.ext {
 		jcifsNg: "2.1.7",
 		jetty: "9.4.44.v20210927",
 		jsch: "0.1.55",
+		jsonPath: "2.7.0",
 		junit: "4.13.2",
 		mockito: "4.3.1",
 		netty: "4.1.73.Final",
 		pdfbox: "2.0.25",
 		poi: "5.2.0",
 		selenium: "4.1.2",
-		slf4j: "1.7.32",
+		slf4j: "1.7.33",
 		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
 	]
@@ -140,7 +142,12 @@ subprojects {
 
 	softicarCodeValidationSettings {
 		validationEntryPointClass = "com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint"
-		arguments = [ "--mandatoryTranslations", "de" ]
+		def configurationJson = [
+			mandatoryTranslations: ["de"],
+			integrationProjectName: "platform-integration",
+			tablePackagePrefix: "com.softicar.platform"
+		]
+		arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
 	}
 
 	check.dependsOn softicarCodeValidation

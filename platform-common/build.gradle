@@ -3,8 +3,11 @@ dependencies {
 	api "junit:junit:$versions.junit"
 	api "org.mockito:mockito-core:$versions.mockito"
 
+	implementation "com.jayway.jsonpath:json-path:$versions.jsonPath"
 	implementation "commons-codec:commons-codec:$versions.commonsCodec"
 	implementation "commons-net:commons-net:$versions.commonsNet"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
 	implementation "org.ow2.asm:asm:$versions.asm"
+	// Required to avoid SLF4J warnings during Gradle based builds.
+	implementation "org.slf4j:slf4j-simple:$versions.slf4j"
 }

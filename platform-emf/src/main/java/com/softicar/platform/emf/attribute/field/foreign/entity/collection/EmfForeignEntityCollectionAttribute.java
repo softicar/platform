@@ -63,7 +63,7 @@ public class EmfForeignEntityCollectionAttribute<R extends IEmfTableRow<R, ?>, S
 		@Override
 		public void buildCell(IEmfDataTableCell<R, S> cell, R tableRow) {
 
-			createTabularDisplay(tableRow).ifPresent(cell::appendChild);
+			cell.appendChild(createTabularDisplay(tableRow));
 		}
 	}
 }

@@ -101,6 +101,11 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 		return getWebDriver().getCurrentUrl();
 	}
 
+	public boolean isDisplayed(IDomNode node) {
+
+		return getWebElement(node).isDisplayed();
+	}
+
 	protected WebElement getWebElement(IDomNode node) {
 
 		return getWebDriver().findElement(By.id(node.getNodeIdString()));

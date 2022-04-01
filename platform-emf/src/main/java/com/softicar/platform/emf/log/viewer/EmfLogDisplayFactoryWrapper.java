@@ -8,18 +8,17 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public class EmfLogDisplayFactoryWrapper {
 
-	public <R extends IEmfTableRow<R, ?>> Optional<IDomElement> createDisplay(Supplier<Optional<IDomElement>> displaySupplier) {
+	public <R extends IEmfTableRow<R, ?>> IDomElement createDisplay(Supplier<IDomElement> displaySupplier) {
 
 		try {
 			return displaySupplier.get();
 		} catch (Exception e) {
 			Log.ferror("Suppressed Exception: %s", StackTraceFormatting.getStackTraceAsString(e));
-			return Optional.of(new ExceptionDisplayElement());
+			return new ExceptionDisplayElement();
 		}
 	}
 

@@ -50,6 +50,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/json-path/JsonPath/blob/master/LICENSE
+		addLibrary("json-path", ".*", License.APACHE_2_0);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/findbugsproject/findbugs/blob/master/findbugs/licenses/LICENSE-jsr305.txt
 		addLibrary("jsr305", ".*", License.BSD_3_CLAUSE);
 
@@ -60,7 +65,7 @@ public class ExternalComponentLicensePredefinedRules {
 		// http://www.leptonica.org/about-the-license.html (Leptonica library; BSD 2-Clause)
 		addLibrary("leptonica(-platform)?", ".*", License.APACHE_2_0);
 
-		// Artifacts do not contain license information.
+		// Artifact does not contain license information.
 		// License defined at:
 		// https://github.com/open-telemetry/opentelemetry-java/blob/main/LICENSE
 		addLibrary("opentelemetry-.*", ".*", License.APACHE_2_0);
@@ -70,7 +75,7 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/reactive-streams/reactive-streams-jvm/blob/master/LICENSE
 		addLibrary("reactive-streams", ".*", License.MIT_0);
 
-		// Artifacts do not contain license information.
+		// Artifact does not contain license information.
 		// License defined at:
 		// https://github.com/SeleniumHQ/selenium/blob/trunk/LICENSE
 		addLibrary("selenium-.*", ".*", License.APACHE_2_0);
@@ -78,7 +83,7 @@ public class ExternalComponentLicensePredefinedRules {
 		// Artifact does not contain license information.
 		// License defined at:
 		// https://github.com/qos-ch/slf4j/blob/master/LICENSE.txt
-		addLibrary("slf4j-api", ".*", License.MIT);
+		addLibrary("slf4j-(api|simple)", ".*", License.MIT);
 
 		// Tesseract library, in a C++-to-Java wrapper.
 		// License defined at:

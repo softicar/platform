@@ -2,22 +2,19 @@ package com.softicar.platform.common.core.java.code.validation;
 
 import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.classpath.JavaClasspathLoader;
+import com.softicar.platform.common.io.serialization.json.JsonValueReader;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class JavaCodeValidationEnvironment {
 
 	private final JavaClasspath classPath;
-	private final Set<String> mandatoryTranslations;
 	private final boolean verbose;
+	private final JsonValueReader jsonValueReader;
 
 	public JavaCodeValidationEnvironment(String[] arguments) {
 
 		this.classPath = new JavaClasspathLoader().load();
-		this.mandatoryTranslations = parseMandatoryTranslationsParameter(arguments);
+		this.jsonValueReader = new JsonValueReader(getConfigurationJsonParameter(arguments));
 		this.verbose = parseVerboseParameter(arguments);
 	}
 
@@ -26,9 +23,9 @@ public class JavaCodeValidationEnvironment {
 		return classPath;
 	}
 
-	public Set<String> getMandatoryTranslations() {
+	public JsonValueReader getConfigurationJsonValueReader() {
 
-		return mandatoryTranslations;
+		return jsonValueReader;
 	}
 
 	public void logVerbose(String message, Object...arguments) {
@@ -38,21 +35,16 @@ public class JavaCodeValidationEnvironment {
 		}
 	}
 
-	private Set<String> parseMandatoryTranslationsParameter(String[] arguments) {
+	private String getConfigurationJsonParameter(String[] arguments) {
 
 		for (int i = 0; i < arguments.length; i++) {
-			if (arguments[i].equals("--mandatoryTranslations")) {
+			if (arguments[i].equals("--configurationJson")) {
 				if (i + 1 < arguments.length) {
-					return Arrays//
-						.asList(arguments[i + 1].split(","))
-						.stream()
-						.map(String::trim)
-						.filter(language -> !language.isEmpty())
-						.collect(Collectors.toCollection(TreeSet::new));
+					return arguments[i + 1];
 				}
 			}
 		}
-		return Collections.emptySet();
+		return "";
 	}
 
 	private boolean parseVerboseParameter(String[] arguments) {
