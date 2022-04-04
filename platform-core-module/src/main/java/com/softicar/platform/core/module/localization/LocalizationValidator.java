@@ -1,42 +1,38 @@
-package com.softicar.platform.common.core.locale;
+package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.emf.validation.AbstractEmfValidator;
 
-public class LocaleValidator {
+public class LocalizationValidator extends AbstractEmfValidator<AGLocalization> {
 
 	private final static String ILLEGAL_SEPARATOR_CHARACTERS = "+-eE";
-	private final ILocale locale;
 
-	public LocaleValidator(ILocale locale) {
+	@Override
+	protected void validate() {
 
-		this.locale = locale;
-	}
-
-	public void validate() {
-
-		if (locale.getDecimalSeparator().isEmpty()) {
+		if (tableRow.getDecimalSeparator().isEmpty()) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MAY_NOT_BE_EMPTY);
 		}
 
-		if (locale.getDecimalSeparator().equals(locale.getDigitGroupSeparator())) {
+		if (tableRow.getDecimalSeparator().equals(tableRow.getDigitGroupSeparator())) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_BE_DIFFERENT_FROM_THE_DIGIT_GROUP_SEPARATOR);
 		}
 
-		if (containsNumbers(locale.getDecimalSeparator())) {
+		if (containsNumbers(tableRow.getDecimalSeparator())) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_DIGITS);
 		}
 
-		if (containsNumbers(locale.getDigitGroupSeparator())) {
+		if (containsNumbers(tableRow.getDigitGroupSeparator())) {
 			throw new SofticarUserException(CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_DIGITS);
 		}
 
-		if (containsIllegalCharacters(locale.getDecimalSeparator())) {
+		if (containsIllegalCharacters(tableRow.getDecimalSeparator())) {
 			throw new SofticarUserException(
 				CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay(ILLEGAL_SEPARATOR_CHARACTERS));
 		}
 
-		if (containsIllegalCharacters(locale.getDigitGroupSeparator())) {
+		if (containsIllegalCharacters(tableRow.getDigitGroupSeparator())) {
 			throw new SofticarUserException(
 				CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay(ILLEGAL_SEPARATOR_CHARACTERS));
 		}

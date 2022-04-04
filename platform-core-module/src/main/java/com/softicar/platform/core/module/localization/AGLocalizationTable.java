@@ -4,12 +4,19 @@ import com.softicar.platform.core.module.module.instance.system.SystemModuleInst
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGLocalizationTable extends EmfObjectTable<AGLocalization, SystemModuleInstance> {
 
 	public AGLocalizationTable(IDbObjectTableBuilder<AGLocalization> builder) {
 
 		super(builder);
+	}
+
+	@Override
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGLocalization, Integer, SystemModuleInstance> configuration) {
+
+		configuration.addValidator(LocalizationValidator::new);
 	}
 
 	@Override
