@@ -6,6 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Finds variables by a defined pattern in a matrix of {@link String} tokens.
+ * <p>
+ * The variables are case insensitive. The first occurrence of a variable in the
+ * matrix determines its display name in terms of upper and lower case letters.
+ *
+ * @author Thees Köster
+ */
 public class EmfImportVariablesFinder {
 
 	private static final String VARIABLE_PATTERN = "\\$\\$[a-zA-Z0-9_]+\\$\\$";
@@ -19,6 +27,12 @@ public class EmfImportVariablesFinder {
 		this.rows = rows;
 	}
 
+	/**
+	 * Finds variables and their coordinates in the given matrix of
+	 * {@link String} tokens.
+	 *
+	 * @return A map from variable display name to its coordinates.
+	 */
 	public SetMap<String, EmfImportVariableCoordinates> find() {
 
 		variableToDisplayNameMap.clear();
