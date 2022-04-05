@@ -417,9 +417,9 @@ public interface EmfI18n extends DomI18n {
 		.de("Wert '%s' liegt außerhalb des Wertebereichs");
 	I18n0 VALUE_CLASS = new I18n0("Value Class")//
 		.de("Klasse des Werts");
-	I18n0 VARIABLE_IDENTIFIERS_MAY_CONSIST_OF_ASCII_LETTERS_NUMBERS_FROM_0_TO_9_AND_THE_UNDERSCORE =
-			new I18n0("Variable identifiers may consist of ASCII letters, numbers from 0 to 9 and the underscore.")//
-				.de("Variablenbezeichner dürfen aus ASCII-Buchstaben, Zahlen von 0 bis 9 und dem Unterstrich bestehen.");
+	I18n0 VARIABLE_IDENTIFIERS_MAY_CONSIST_OF_ASCII_LETTERS_DIGITS_AND_THE_UNDERSCORE =
+			new I18n0("Variable identifiers may consist of ASCII letters, digits and the underscore.")//
+				.de("Variablenbezeichner dürfen aus ASCII-Buchstaben, Ziffern und dem Unterstrich bestehen.");
 	I18n0 VIEW = new I18n0("View")//
 		.de("Ansehen");
 	I18n0 VIEW_HISTORY_ENTRY = new I18n0("View History Entry")//
