@@ -1,31 +1,32 @@
-package com.softicar.platform.common.core.locale;
+package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import com.softicar.platform.emf.validation.result.EmfValidationResult;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LocaleValidatorTest extends Assert {
+public class LocalizationValidatorTest extends AbstractDbTest {
 
 	@Test
 	public void testEmptyDecimalSeparator() {
 
-		Locale locale = new Locale().setDecimalSeparator("");
+		var localization = new AGLocalization().setDecimalSeparator("");
 
-		assertValidationException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MAY_NOT_BE_EMPTY, locale);
+		assertValidationException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MAY_NOT_BE_EMPTY, localization);
 	}
 
 	@Test
 	public void testEqualDecimalSeparatorAndDigitGroupSeparator() {
 
-		Locale locale = new Locale()//
+		var localization = new AGLocalization()//
 			.setDecimalSeparator(".")
 			.setDigitGroupSeparator(".");
 
-		assertValidationException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_BE_DIFFERENT_FROM_THE_DIGIT_GROUP_SEPARATOR, locale);
+		assertValidationException(CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_BE_DIFFERENT_FROM_THE_DIGIT_GROUP_SEPARATOR, localization);
 	}
 
 	@Test
@@ -33,10 +34,10 @@ public class LocaleValidatorTest extends Assert {
 
 		assertValidationException(//
 			CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_DIGITS,
-			new Locale().setDecimalSeparator("123"));
+			new AGLocalization().setDecimalSeparator("123"));
 		assertValidationException(//
 			CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_DIGITS,
-			new Locale().setDigitGroupSeparator("123"));
+			new AGLocalization().setDecimalSeparator(".").setDigitGroupSeparator("123"));
 	}
 
 	@Test
@@ -45,16 +46,16 @@ public class LocaleValidatorTest extends Assert {
 		for (var character: List.of("+", "-", "e", "E")) {
 			assertValidationException(//
 				CommonCoreI18n.THE_DECIMAL_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay("+-eE"),
-				new Locale().setDecimalSeparator(character));
+				new AGLocalization().setDecimalSeparator(character));
 			assertValidationException(//
 				CommonCoreI18n.THE_DIGIT_GROUP_SEPARATOR_MUST_NOT_CONTAIN_ANY_OF_THE_FOLLOWING_CHARACTERS_ARG1.toDisplay("+-eE"),
-				new Locale().setDigitGroupSeparator(character));
+				new AGLocalization().setDecimalSeparator(".").setDigitGroupSeparator(character));
 		}
 	}
 
-	private static void assertValidationException(IDisplayString expectedMessage, Locale locale) {
+	private static void assertValidationException(IDisplayString expectedMessage, AGLocalization localization) {
 
-		assertException(expectedMessage, () -> new LocaleValidator(locale).validate());
+		assertException(expectedMessage, () -> new LocalizationValidator().validate(localization, new EmfValidationResult()));
 	}
 
 	private static void assertException(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
