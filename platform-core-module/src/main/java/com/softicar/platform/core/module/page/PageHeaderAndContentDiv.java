@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -29,6 +31,7 @@ public class PageHeaderAndContentDiv extends DomDiv {
 		closeRemainingPopupFrames();
 
 		DbTableRowCaches.invalidateAll();
+		CurrentLocale.set(CurrentUser.get().getLocale());
 
 		changeBrowserUrl(link);
 		appendChild(new PageHeaderDiv<>(link, navigationToggleFunction));
