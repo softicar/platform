@@ -14,8 +14,10 @@ import com.softicar.platform.emf.management.importing.variable.replace.EmfImport
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -117,9 +119,32 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public Collection<IDbField<R, ?>> getFieldsToImport() {
 
-		for (EmfImportItem importField: new EmfImportItemsCollector<>(table).getCsvFileItems()) {
-			System.out.println(importField);
+//		Rechnung:Modulinstanz:Modulinstanz:ID
+//		Rechnung:Rechnungsnummer
+//		Position	- String item [MAXLENGTH=255]
+//		Menge		- Integer quantity
+//		Bruttobetrag	- Decimal grossAmount [PRECISION=20,4]
+//		Nettobetrag		- Decimal netAmount [PRECISION=20,4]
+
+		Iterator<String> valueIterator = Arrays.asList("1", "00001", "Piano", "2", "9000.00", "4500.00").iterator();
+
+		EmfImportItemsCollector<R, P, S> collector = new EmfImportItemsCollector<>(table);
+
+		for (EmfImportItem importField: collector.getCsvFileItems()) {
+			System.err.println(importField);
+			importField.setValue(valueIterator.next());
 		}
+
+		// TODO remove next two lines
+		System.err.println("####################################################################");
+		com.softicar.platform.common.core.logging.LogLevel.VERBOSE.set();
+
+		for (EmfImportItem tableItem: collector.getTableItems()) {
+			System.err.println(tableItem + ":\t" + tableItem.getValue());
+		}
+
+		// TODO remove next line
+		com.softicar.platform.common.core.logging.LogLevel.INFO.set();
 
 		return table//
 			.getAllFields()

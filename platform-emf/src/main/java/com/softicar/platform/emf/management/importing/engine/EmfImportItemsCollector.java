@@ -22,6 +22,8 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 	private final IEmfTable<R, P, S> table;
 	private final Set<ISqlField<?, ?>> ignoredFields;
 	private final Optional<S> scope;
+	private List<EmfImportItem> csvItems;
+	private List<EmfImportItem> tableItems;
 
 	public EmfImportItemsCollector(IEmfTable<R, P, S> table) {
 
@@ -38,28 +40,33 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	public List<EmfImportItem> getCsvFileItems() {
 
-		List<EmfImportItem> csvItems = new ArrayList<>();
+		csvItems = new ArrayList<>();
 		for (EmfImportItem item: collect()) {
 			csvItems.addAll(resolveCsvItems(item));
 		}
 		return csvItems;
 	}
 
+	public List<EmfImportItem> getTableItems() {
+
+		return tableItems;
+	}
+
 	private List<EmfImportItem> collect() {
 
-		List<EmfImportItem> items = new ArrayList<>();
+		tableItems = new ArrayList<>();
 
 		for (IDbField<R, ?> field: getFieldsToImport()) {
 
 			EmfImportItem item = new EmfImportItem(field);
-			items.add(item);
+			tableItems.add(item);
 
 			IEmfAttribute<R, ?> attribute = table.getAttribute(field);
 			if (attribute instanceof EmfForeignRowAttribute) {
 				collectBusinessKeyItems(item, attribute);
 			}
 		}
-		return items;
+		return tableItems;
 	}
 
 	private void collectBusinessKeyItems(EmfImportItem item, IEmfAttribute<R, ?> attribute) {
