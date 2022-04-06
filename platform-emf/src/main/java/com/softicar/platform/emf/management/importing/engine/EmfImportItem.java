@@ -46,7 +46,7 @@ public class EmfImportItem {
 		this.value = Optional.of(value);
 	}
 
-	public <R> Object getValue() {
+	public Object getValue() {
 
 		return value.orElse(load());
 	}

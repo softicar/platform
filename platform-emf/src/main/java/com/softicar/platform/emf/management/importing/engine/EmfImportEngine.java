@@ -3,6 +3,7 @@ package com.softicar.platform.emf.management.importing.engine;
 import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.emf.EmfI18n;
@@ -131,16 +132,16 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		EmfImportItemsCollector<R, P, S> collector = new EmfImportItemsCollector<>(table);
 
 		for (EmfImportItem importField: collector.getCsvFileItems()) {
-			System.err.println(importField);
+			Log.finfo(importField);
 			importField.setValue(valueIterator.next());
 		}
 
 		// TODO remove next two lines
-		System.err.println("####################################################################");
+		Log.finfo("####################################################################");
 		com.softicar.platform.common.core.logging.LogLevel.VERBOSE.set();
 
 		for (EmfImportItem tableItem: collector.getTableItems()) {
-			System.err.println(tableItem + ":\t" + tableItem.getValue());
+			Log.finfo(tableItem + ":\t" + tableItem.getValue());
 		}
 
 		// TODO remove next line
