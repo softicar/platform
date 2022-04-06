@@ -4,16 +4,16 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
+import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class EmfImportItem {
 
 	private final IDbField<?, ?> field;
 	private final List<EmfImportItem> constituents;
 	private EmfImportItem parentItem;
-	private Optional<Object> value = Optional.empty();
+	private Object value;
 
 	public EmfImportItem(IDbField<?, ?> field) {
 
@@ -43,33 +43,35 @@ public class EmfImportItem {
 
 	public void setValue(Object value) {
 
-		this.value = Optional.of(value);
+		this.value = value;
 	}
 
 	public Object getValue() {
 
-		return value.orElse(load());
+		if (value != null || constituents.isEmpty()) {
+			return value;
+		} else {
+			return createSelectAndLoadValue();
+		}
 	}
 
-	private <R> Object load() {
+	// TODO Works with simple R, too, maybe change it!
+	private <R extends IEmfTableRow<R, P>, P> Object createSelectAndLoadValue() {
 
 		ISqlSelect<R> select = null;
-
 		for (EmfImportItem constituent: constituents) {
-
 			if (select == null) {
 				select = CastUtils.cast(constituent.field.getTable().createSelect());
 			}
-
 			IDbField<R, Object> constituentField = CastUtils.cast(constituent.field);
 			select = select.where(constituentField.isEqual(constituent.getValue()));
 		}
+		return loadSetAndGetValue(select);
+	}
 
-		Object value = null;
-		if (select != null) {
-			value = CastUtils.cast(select.getOne());
-			setValue(value);
-		}
+	private <R> Object loadSetAndGetValue(ISqlSelect<R> select) {
+
+		this.value = select.getOne();
 		return value;
 	}
 
