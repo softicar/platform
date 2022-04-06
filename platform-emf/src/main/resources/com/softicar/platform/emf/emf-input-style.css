@@ -1,4 +1,8 @@
 
+.EmfEntityInputFilterPopoverCell {
+	cursor: pointer;
+}
+
 .EmfInputDiv {
 	display: grid;
 	grid-auto-flow: column;

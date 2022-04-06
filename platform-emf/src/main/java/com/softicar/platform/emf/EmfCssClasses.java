@@ -32,6 +32,8 @@ public interface EmfCssClasses {
 	ICssClass EMF_DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT =
 			new CssClass("EmfDataTableConfigurationPageSizeInput", EmfCssFiles.EMF_DATA_TABLE_CONFIGURATION_STYLE);
 
+	ICssClass EMF_ENTITY_INPUT_FILTER_POPOVER_CELL = new CssClass("EmfEntityInputFilterPopoverCell", EmfCssFiles.EMF_INPUT_STYLE);
+
 	ICssClass EMF_EXTERNAL_PAGE_FRAME = new CssClass("EmfExternalPageFrame", EmfCssFiles.EMF_EXTERNAL_PAGE_STYLE);
 	ICssClass EMF_EXTERNAL_PAGE_FRAME_CONTAINER = new CssClass("EmfExternalPageFrameContainer", EmfCssFiles.EMF_EXTERNAL_PAGE_STYLE);
 

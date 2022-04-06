@@ -62,6 +62,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Base64-codierte Binärdaten");
 	I18n0 BOOLEAN = new I18n0("Boolean")//
 		.de("Boolesch");
+	I18n0 BROWSE = new I18n0("Browse")//
+		.de("Durchsuchen");
 	I18n1 BUSINESS_KEY_CONFLICT_WITH_AN_EXISTING_ENTRY_ARG1 = new I18n1("Business key conflict with an existing entry: %s")//
 		.de("Business-Key-Konflikt mit einem existierenden Eintrag: %s");
 	I18n1 CALENDAR_DAY_ARG1_DOES_NOT_EXIST = new I18n1("Calendar day '%s' does not exist")//

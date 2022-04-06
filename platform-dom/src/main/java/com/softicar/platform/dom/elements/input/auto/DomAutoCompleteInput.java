@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
 import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStringInput;
 import com.softicar.platform.dom.event.DomEventType;
@@ -41,6 +42,7 @@ import java.util.Optional;
  */
 public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T>, IDomInputNode {
 
+	protected DomBar inputBar;
 	private IDomAutoCompleteInputEngine<T> inputEngine;
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
@@ -52,13 +54,14 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 
 		this.inputEngine = inputEngine;
 		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
+		this.inputBar = new DomBar();
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
-		this.inputField = new InputField();
+		this.inputField = inputBar.appendChild(new InputField());
 		this.changeCallback = null;
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
-		appendChild(inputField);
+		appendChild(inputBar);
 		appendChild(filterDisplay);
 
 		refreshFilters();
@@ -261,6 +264,11 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	}
 
 	private class InputField extends DomTextInput implements IDomEventHandler {
+
+		public InputField() {
+
+			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
+		}
 
 		@Override
 		public void handleDOMEvent(IDomEvent event) {

@@ -1,5 +1,7 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
+import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
+import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.user.EmfTestUser;
@@ -33,6 +35,14 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		assertSame(user, getInputValue());
 	}
 
+	@Test
+	public void testGetValueWithBrowsePopover() {
+
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(user.toDisplayWithoutId());
+		assertSame(user, getInputValue());
+	}
+
 	private Object getInputValue() {
 
 		return findBody()//
@@ -47,5 +57,12 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		findBody()//
 			.findNode(DomTextInput.class)
 			.setInputValue(value);
+	}
+
+	private void openBrowsePopover() {
+
+		findBody()//
+			.findNode(DomPopupButton.class)
+			.click();
 	}
 }
