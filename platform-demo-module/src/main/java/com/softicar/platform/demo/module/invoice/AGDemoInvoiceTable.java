@@ -62,9 +62,12 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 //		new FkResolver<>(AGDemoInvoice.TABLE).resolve(0);
 
-		for (EmfImportItem importField: new EmfImportItemsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileItems()) {
+		for (EmfImportItem<?> importField: new EmfImportItemsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileItems()) {
 			System.out.println(importField);
 		}
+
+//		AGDemoInvoice.createSelect().where(AGDemoInvoice.CREDITOR.isEqual(""));
+//		AGDemoInvoice.createSelect().where(AGDemoInvoice.LOCKED_ITEMS.isEqual(true));
 	}
 
 }

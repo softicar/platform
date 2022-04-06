@@ -9,9 +9,9 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 class EmfImportBusinessKeyItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
-	private final EmfImportItem item;
+	private final EmfImportItem<R> item;
 
-	public EmfImportBusinessKeyItemsCollector(IEmfTable<R, P, S> table, EmfImportItem item) {
+	public EmfImportBusinessKeyItemsCollector(IEmfTable<R, P, S> table, EmfImportItem<R> item) {
 
 		this.table = table;
 		this.item = item;
@@ -19,12 +19,16 @@ class EmfImportBusinessKeyItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	public void collect() {
 
-		for (IDbField<R, ?> field: table.getBusinessKey().getFields()) {
+		for (IDbField<?, ?> field: table.getBusinessKey().getFields()) {
 
-			EmfImportItem constituent = new EmfImportItem(field);
-			item.addConstituent(constituent);
+//			var s = table.createSelect();
+//			s = s.where(field.equal(null));
+//			s.getOne();
 
-			IEmfAttribute<R, ?> attribute = table.getAttribute(field);
+			EmfImportItem<?> constituent = new EmfImportItem<>(field);
+			item.addConstituent((EmfImportItem<R>) constituent);
+
+			IEmfAttribute<?, ?> attribute = table.getAttribute((IDbField<R, ?>) field);
 
 			if (attribute instanceof EmfForeignRowAttribute) {
 				IEmfTable<?, ?, ?> emfTable = ((EmfForeignRowAttribute<R, ?>) attribute).getTargetTable();
