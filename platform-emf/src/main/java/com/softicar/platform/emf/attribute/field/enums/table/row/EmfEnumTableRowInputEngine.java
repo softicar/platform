@@ -60,7 +60,7 @@ public class EmfEnumTableRowInputEngine<R extends IDbEnumTableRow<R, E>, E exten
 	private boolean matches(EmfEnumTableRowEntityWrapper<R, E> item, String pattern) {
 
 		return Optional//
-			.ofNullable(getDisplayString(item))
+			.ofNullable(getDisplayStringWithoutId(item))
 			.map(Object::toString)
 			.orElse("")
 			.toLowerCase()
