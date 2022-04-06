@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.attribute.field.foreign.row;
 
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
-import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -26,11 +25,6 @@ public class EmfForeignRowAttribute<R extends IEmfTableRow<R, ?>, F extends IEmf
 
 		// FIXME this cast is ugly
 		return (IEmfTable<F, ?, ?>) entityField.getTargetTable();
-	}
-
-	public IDbTable<F, ?> getTargetTable2() {
-
-		return entityField.getTargetTable();
 	}
 
 	private IDomElement createForeignDisplay(F value) {

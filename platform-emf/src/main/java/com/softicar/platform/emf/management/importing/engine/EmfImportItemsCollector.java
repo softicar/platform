@@ -36,22 +36,22 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 //		ignoreScopeField();
 	}
 
-	public List<EmfImportItem<R>> getCsvFileItems() {
+	public List<EmfImportItem> getCsvFileItems() {
 
-		List<EmfImportItem<R>> csvItems = new ArrayList<>();
-		for (EmfImportItem<R> item: collect()) {
+		List<EmfImportItem> csvItems = new ArrayList<>();
+		for (EmfImportItem item: collect()) {
 			csvItems.addAll(resolveCsvItems(item));
 		}
 		return csvItems;
 	}
 
-	private List<EmfImportItem<R>> collect() {
+	private List<EmfImportItem> collect() {
 
-		List<EmfImportItem<R>> items = new ArrayList<>();
+		List<EmfImportItem> items = new ArrayList<>();
 
 		for (IDbField<R, ?> field: getFieldsToImport()) {
 
-			EmfImportItem<R> item = new EmfImportItem<>(field);
+			EmfImportItem item = new EmfImportItem(field);
 			items.add(item);
 
 			IEmfAttribute<R, ?> attribute = table.getAttribute(field);
@@ -62,20 +62,20 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		return items;
 	}
 
-	private void collectBusinessKeyItems(EmfImportItem<R> item, IEmfAttribute<R, ?> attribute) {
+	private void collectBusinessKeyItems(EmfImportItem item, IEmfAttribute<R, ?> attribute) {
 
 		IEmfTable<?, ?, ?> emfTable = ((EmfForeignRowAttribute<R, ?>) attribute).getTargetTable();
 		new EmfImportBusinessKeyItemsCollector<>(emfTable, item).collect();
 	}
 
-	private List<EmfImportItem<R>> resolveCsvItems(EmfImportItem<R> item) {
+	private List<EmfImportItem> resolveCsvItems(EmfImportItem item) {
 
-		List<EmfImportItem<R>> constituents = item.getConstituents();
+		List<EmfImportItem> constituents = item.getConstituents();
 		if (constituents.isEmpty()) {
 			return Arrays.asList(item);
 		} else {
-			List<EmfImportItem<R>> csvItems = new ArrayList<>();
-			for (EmfImportItem<R> constituent: constituents) {
+			List<EmfImportItem> csvItems = new ArrayList<>();
+			for (EmfImportItem constituent: constituents) {
 				csvItems.addAll(resolveCsvItems(constituent));
 			}
 			return csvItems;

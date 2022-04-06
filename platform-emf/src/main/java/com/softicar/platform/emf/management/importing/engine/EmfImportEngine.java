@@ -117,7 +117,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public Collection<IDbField<R, ?>> getFieldsToImport() {
 
-		for (EmfImportItem<?> importField: new EmfImportItemsCollector<>(table).getCsvFileItems()) {
+		for (EmfImportItem importField: new EmfImportItemsCollector<>(table).getCsvFileItems()) {
 			System.out.println(importField);
 		}
 
