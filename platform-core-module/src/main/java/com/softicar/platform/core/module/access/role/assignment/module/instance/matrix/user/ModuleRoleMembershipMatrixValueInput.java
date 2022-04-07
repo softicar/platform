@@ -59,11 +59,9 @@ class ModuleRoleMembershipMatrixValueInput extends DomDiv implements IEmfSetting
 					StyleUpdater styleUpdater = new StyleUpdater(role, container);
 					container
 						.appendChild(
-							new DomCheckbox()//
-								.setChecked(checked)
+							new DomCheckbox(checked, new ChangeHandler(role, styleUpdater)::handle)//
 								.setLabel(role.getTitle())
-								.setEnabled(enabled)
-								.setChangeCallback(new ChangeHandler(role, styleUpdater)::handle));
+								.setEnabled(enabled));
 					styleUpdater.update(checked);
 				}
 			} else {

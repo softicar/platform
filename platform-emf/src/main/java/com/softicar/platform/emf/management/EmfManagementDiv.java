@@ -248,10 +248,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		private void appendActiveCheckbox() {
 
 			appendChild(
-				new DomCheckbox()//
+				new DomCheckbox(showInactive, EmfManagementDiv.this::toggleShowInactive)//
 					.setLabel(EmfI18n.SHOW_INACTIVE)
-					.setChecked(showInactive)
-					.setChangeCallback(showInactive -> toggleShowInactive(showInactive))
 					.setMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX));
 		}
 	}

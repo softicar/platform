@@ -46,12 +46,10 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(WorkflowI18n.ADD_NEW_MESSAGE)
 					.setEnabled(WorkflowRoles.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
-		this.showTransitionsCheckbox = actionBar
+		this.showTransitionsCheckbox = actionBar//
 			.appendChild(
-				new DomCheckbox()
-					.setChecked(true)//
-					.setLabel(WorkflowI18n.SHOW_TRANSITIONS)
-					.setChangeCallback(showTransitions -> refresh(null)));
+				new DomCheckbox(true, it -> refresh(null))//
+					.setLabel(WorkflowI18n.SHOW_TRANSITIONS));
 		refresh(null);
 	}
 

@@ -41,9 +41,8 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.user = CurrentUser.get();
 		this.userPasswordPolicy = user.getPasswordPolicy();
 		this.hasNoValidPassword = !user.hasValidPassword();
-		this.visiblePasswordCheckbox = new DomCheckbox()//
-			.setLabel(CoreI18n.SHOW_PASSWORD)
-			.setChangeCallback(this::setPasswordVisible);
+		this.visiblePasswordCheckbox = new DomCheckbox(this::setPasswordVisible)//
+			.setLabel(CoreI18n.SHOW_PASSWORD);
 		this.inputTable = new PasswordInputStack();
 		this.qualityMessageDiv = new QualityMessageDiv();
 		this.securePasswordMessageDiv = new SecurePasswordMessageDiv();
@@ -117,7 +116,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		inputTable.setPassword(new UserPasswordGenerator().generatePassword());
 		inputTable.setPasswordVisible(true);
-		visiblePasswordCheckbox.setChecked(true);
+		visiblePasswordCheckbox.setValue(true);
 		checkPassword();
 	}
 

@@ -305,7 +305,7 @@ public class TableExportComplexTestTable extends DomDataTable {
 
 	public static IDomNode generate_8x1_IDomNode() {
 
-		return new DomCheckbox().setChecked(true);
+		return new DomCheckbox(true);
 	}
 
 	public static String generate_8x1_validationString() {
