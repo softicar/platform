@@ -51,12 +51,12 @@ public class EmfImportItem {
 		if (value != null || constituents.isEmpty()) {
 			return value;
 		} else {
-			return createSelectAndLoadValue();
+			return loadValue();
 		}
 	}
 
 	// TODO Works with simple R, too, maybe change it!
-	private <R extends IEmfTableRow<R, P>, P> Object createSelectAndLoadValue() {
+	private <R extends IEmfTableRow<R, P>, P> Object loadValue() {
 
 		ISqlSelect<R> select = null;
 		for (EmfImportItem constituent: constituents) {
@@ -82,4 +82,8 @@ public class EmfImportItem {
 		return getName().toString();
 	}
 
+	public <R> IDbField<R, ?> getField() {
+
+		return CastUtils.cast(field);
+	}
 }
