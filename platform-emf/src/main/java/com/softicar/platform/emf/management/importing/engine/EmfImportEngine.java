@@ -120,6 +120,8 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public Collection<IDbField<R, ?>> getFieldsToImport() {
 
+		// TODO remove demo stuff
+
 //		Rechnung:Modulinstanz:Modulinstanz:ID
 //		Rechnung:Rechnungsnummer
 //		Position	- String item [MAXLENGTH=255]
@@ -131,20 +133,18 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		EmfImportItemsCollector<R, P, S> collector = new EmfImportItemsCollector<>(table);
 
-		for (EmfImportItem importField: collector.getCsvFileItems()) {
+		for (EmfImportItem<R, ?> importField: collector.getCsvFileItems()) {
 			Log.finfo(importField);
 			importField.setValue(valueIterator.next());
 		}
 
-		// TODO remove next two lines
 		Log.finfo("####################################################################");
 		com.softicar.platform.common.core.logging.LogLevel.VERBOSE.set();
 
-		for (EmfImportItem tableItem: collector.getTableItems()) {
+		for (EmfImportItem<R, ?> tableItem: collector.getTableItems()) {
 			Log.finfo(tableItem + ":\t" + tableItem.getValue());
 		}
 
-		// TODO remove next line
 		com.softicar.platform.common.core.logging.LogLevel.INFO.set();
 
 		return table//

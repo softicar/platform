@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
+import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
@@ -8,28 +9,35 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 class EmfImportBusinessKeyItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
-	private final IEmfTable<R, P, S> table;
-	private final EmfImportItem item;
+	private final EmfImportItem<R, ?> item;
+	private final IEmfAttribute<R, ?> fieldAttribute;
 
-	public EmfImportBusinessKeyItemsCollector(IEmfTable<R, P, S> table, EmfImportItem item) {
+	public EmfImportBusinessKeyItemsCollector(IEmfAttribute<R, ?> fieldAttribute, EmfImportItem<R, ?> item) {
 
-		this.table = table;
+		this.fieldAttribute = fieldAttribute;
 		this.item = item;
 	}
 
 	public void collect() {
 
-		for (IDbField<R, ?> field: table.getBusinessKey().getFields()) {
+		IEmfTable<R, P, S> targetTable = fetchTargetTable();
 
-			EmfImportItem constituent = new EmfImportItem(field);
+		for (IDbField<R, ?> targetTableField: targetTable.getBusinessKey().getFields()) {
+
+			EmfImportItem<R, ?> constituent = new EmfImportItem<>(targetTableField);
 			item.addConstituent(constituent);
 
-			IEmfAttribute<R, ?> attribute = table.getAttribute(field);
+			IEmfAttribute<R, ?> targetTableFieldAttribute = targetTable.getAttribute(targetTableField);
 
-			if (attribute instanceof EmfForeignRowAttribute) {
-				IEmfTable<?, ?, ?> emfTable = ((EmfForeignRowAttribute<R, ?>) attribute).getTargetTable();
-				new EmfImportBusinessKeyItemsCollector<>(emfTable, constituent).collect();
+			if (targetTableFieldAttribute instanceof EmfForeignRowAttribute) {
+				new EmfImportBusinessKeyItemsCollector<>(targetTableFieldAttribute, constituent).collect();
 			}
 		}
+	}
+
+	private IEmfTable<R, P, S> fetchTargetTable() {
+
+		IEmfTable<?, ?, ?> targetTable = ((EmfForeignRowAttribute<R, ?>) fieldAttribute).getTargetTable();
+		return CastUtils.cast(targetTable);
 	}
 }

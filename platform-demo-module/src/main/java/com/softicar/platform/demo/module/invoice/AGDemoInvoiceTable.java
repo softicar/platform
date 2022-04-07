@@ -62,7 +62,7 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 //		new FkResolver<>(AGDemoInvoice.TABLE).resolve(0);
 
-		for (EmfImportItem importField: new EmfImportItemsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileItems()) {
+		for (EmfImportItem<?, ?> importField: new EmfImportItemsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileItems()) {
 			System.out.println(importField);
 		}
 	}

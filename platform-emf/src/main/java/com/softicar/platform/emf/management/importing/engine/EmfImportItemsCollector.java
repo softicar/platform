@@ -22,8 +22,8 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 	private final IEmfTable<R, P, S> table;
 	private final Set<ISqlField<?, ?>> ignoredFields;
 	private final Optional<S> scope;
-	private List<EmfImportItem> csvItems;
-	private List<EmfImportItem> tableItems;
+	private List<EmfImportItem<R, ?>> csvItems;
+	private List<EmfImportItem<R, P>> tableItems;
 
 	public EmfImportItemsCollector(IEmfTable<R, P, S> table) {
 
@@ -38,51 +38,45 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 //		ignoreScopeField();
 	}
 
-	public List<EmfImportItem> getCsvFileItems() {
+	public List<EmfImportItem<R, ?>> getCsvFileItems() {
 
 		csvItems = new ArrayList<>();
-		for (EmfImportItem item: collect()) {
+		for (EmfImportItem<R, P> item: collect()) {
 			csvItems.addAll(resolveCsvItems(item));
 		}
 		return csvItems;
 	}
 
-	public List<EmfImportItem> getTableItems() {
+	public List<EmfImportItem<R, P>> getTableItems() {
 
 		return tableItems;
 	}
 
-	private List<EmfImportItem> collect() {
+	private List<EmfImportItem<R, P>> collect() {
 
 		tableItems = new ArrayList<>();
 
 		for (IDbField<R, ?> field: getFieldsToImport()) {
 
-			EmfImportItem item = new EmfImportItem(field);
+			EmfImportItem<R, P> item = new EmfImportItem<>(field);
 			tableItems.add(item);
 
-			IEmfAttribute<R, ?> attribute = table.getAttribute(field);
-			if (attribute instanceof EmfForeignRowAttribute) {
-				collectBusinessKeyItems(item, attribute);
+			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
+			if (fieldAttribute instanceof EmfForeignRowAttribute) {
+				new EmfImportBusinessKeyItemsCollector<>(fieldAttribute, item).collect();
 			}
 		}
 		return tableItems;
 	}
 
-	private void collectBusinessKeyItems(EmfImportItem item, IEmfAttribute<R, ?> attribute) {
+	private List<EmfImportItem<R, ?>> resolveCsvItems(EmfImportItem<R, ?> item) {
 
-		IEmfTable<?, ?, ?> emfTable = ((EmfForeignRowAttribute<R, ?>) attribute).getTargetTable();
-		new EmfImportBusinessKeyItemsCollector<>(emfTable, item).collect();
-	}
-
-	private List<EmfImportItem> resolveCsvItems(EmfImportItem item) {
-
-		List<EmfImportItem> constituents = item.getConstituents();
+		List<EmfImportItem<R, ?>> constituents = item.getConstituents();
 		if (constituents.isEmpty()) {
 			return Arrays.asList(item);
 		} else {
-			List<EmfImportItem> csvItems = new ArrayList<>();
-			for (EmfImportItem constituent: constituents) {
+			List<EmfImportItem<R, ?>> csvItems = new ArrayList<>();
+			for (EmfImportItem<R, ?> constituent: constituents) {
 				csvItems.addAll(resolveCsvItems(constituent));
 			}
 			return csvItems;

@@ -8,26 +8,26 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmfImportItem {
+public class EmfImportItem<R extends IEmfTableRow<R, P>, P> {
 
-	private final IDbField<?, ?> field;
-	private final List<EmfImportItem> constituents;
-	private EmfImportItem parentItem;
+	private final IDbField<R, ?> field;
+	private final List<EmfImportItem<R, ?>> constituents;
+	private EmfImportItem<R, ?> parentItem;
 	private Object value;
 
-	public EmfImportItem(IDbField<?, ?> field) {
+	public EmfImportItem(IDbField<R, ?> field) {
 
 		this.field = field;
 		this.constituents = new ArrayList<>();
 	}
 
-	public void addConstituent(EmfImportItem constituent) {
+	public void addConstituent(EmfImportItem<R, ?> constituent) {
 
 		constituents.add(constituent);
 		constituent.parentItem = this;
 	}
 
-	public List<EmfImportItem> getConstituents() {
+	public List<EmfImportItem<R, ?>> getConstituents() {
 
 		return constituents;
 	}
@@ -55,13 +55,12 @@ public class EmfImportItem {
 		}
 	}
 
-	// TODO Works with simple R, too, maybe change it!
-	private <R extends IEmfTableRow<R, P>, P> Object loadValue() {
+	private Object loadValue() {
 
 		ISqlSelect<R> select = null;
-		for (EmfImportItem constituent: constituents) {
+		for (EmfImportItem<R, ?> constituent: constituents) {
 			if (select == null) {
-				select = CastUtils.cast(constituent.field.getTable().createSelect());
+				select = constituent.field.getTable().createSelect();
 			}
 			IDbField<R, Object> constituentField = CastUtils.cast(constituent.field);
 			select = select.where(constituentField.isEqual(constituent.getValue()));
@@ -69,7 +68,7 @@ public class EmfImportItem {
 		return loadSetAndGetValue(select);
 	}
 
-	private <R> Object loadSetAndGetValue(ISqlSelect<R> select) {
+	private Object loadSetAndGetValue(ISqlSelect<R> select) {
 
 		this.value = select.getOne();
 		return value;
@@ -78,12 +77,6 @@ public class EmfImportItem {
 	@Override
 	public String toString() {
 
-//		return "EmfImportField [field=" + field + ", constituents=" + constituents + "]";
 		return getName().toString();
-	}
-
-	public <R> IDbField<R, ?> getField() {
-
-		return CastUtils.cast(field);
 	}
 }
