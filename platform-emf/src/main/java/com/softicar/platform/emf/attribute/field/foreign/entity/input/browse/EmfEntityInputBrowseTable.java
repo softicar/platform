@@ -28,7 +28,6 @@ class EmfEntityInputBrowseTable<E extends IEmfEntity<E, ?>> extends AbstractInMe
 	@Override
 	protected Iterable<E> getTableRows() {
 
-		// FIXME We might need a method that is not limited
-		return inputEngine.findMatches("", 5000);
+		return inputEngine.findMatches("", Integer.MAX_VALUE);
 	}
 }
