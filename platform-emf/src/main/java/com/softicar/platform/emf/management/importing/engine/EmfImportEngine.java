@@ -133,9 +133,9 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		EmfImportColumnsCollector<R, P, S> collector = new EmfImportColumnsCollector<>(table);
 
-		for (EmfImportColumn<R, ?> importField: collector.getCsvFileColumnsToImport()) {
-			Log.finfo(importField);
-			importField.setValue(valueIterator.next());
+		for (EmfImportColumn<R, ?> csvFileColumn: collector.getCsvFileColumnsToImport()) {
+			Log.finfo(csvFileColumn);
+			csvFileColumn.setValue(valueIterator.next());
 		}
 
 		Log.finfo("####################################################################");
