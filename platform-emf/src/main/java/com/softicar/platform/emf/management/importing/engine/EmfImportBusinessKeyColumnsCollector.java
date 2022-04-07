@@ -22,12 +22,12 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		IEmfTable<R, P, S> targetTable = fetchTargetTable();
 
-		for (IDbField<R, ?> targetTableField: targetTable.getBusinessKey().getFields()) {
+		for (IDbField<R, ?> targetTableBusinessKeyField: targetTable.getBusinessKey().getFields()) {
 
-			EmfImportColumn<R, ?> foreignKeyColumn = new EmfImportColumn<>(targetTableField);
+			EmfImportColumn<R, ?> foreignKeyColumn = new EmfImportColumn<>(targetTableBusinessKeyField);
 			column.addForeignKeyColumn(foreignKeyColumn);
 
-			IEmfAttribute<R, ?> targetTableFieldAttribute = targetTable.getAttribute(targetTableField);
+			IEmfAttribute<R, ?> targetTableFieldAttribute = targetTable.getAttribute(targetTableBusinessKeyField);
 
 			if (targetTableFieldAttribute instanceof EmfForeignRowAttribute) {
 				new EmfImportBusinessKeyColumnsCollector<>(targetTableFieldAttribute, foreignKeyColumn).collect();
