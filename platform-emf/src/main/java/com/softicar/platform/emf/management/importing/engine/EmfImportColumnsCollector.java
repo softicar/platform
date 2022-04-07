@@ -17,15 +17,15 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
+public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
 	private final Set<ISqlField<?, ?>> ignoredFields;
 	private final Optional<S> scope;
-	private List<EmfImportItem<R, ?>> csvItems;
-	private List<EmfImportItem<R, P>> tableItems;
+	private List<EmfImportColumn<R, ?>> csvFileColumns;
+	private List<EmfImportColumn<R, P>> tableColumns;
 
-	public EmfImportItemsCollector(IEmfTable<R, P, S> table) {
+	public EmfImportColumnsCollector(IEmfTable<R, P, S> table) {
 
 		this.table = table;
 		this.ignoredFields = new HashSet<>();
@@ -38,48 +38,48 @@ public class EmfImportItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 //		ignoreScopeField();
 	}
 
-	public List<EmfImportItem<R, ?>> getCsvFileItems() {
+	public List<EmfImportColumn<R, ?>> getCsvFileColumnsToImport() {
 
-		csvItems = new ArrayList<>();
-		for (EmfImportItem<R, P> item: collect()) {
-			csvItems.addAll(resolveCsvItems(item));
+		csvFileColumns = new ArrayList<>();
+		for (EmfImportColumn<R, P> column: collectTableColumns()) {
+			csvFileColumns.addAll(resolveCsvFileColumns(column));
 		}
-		return csvItems;
+		return csvFileColumns;
 	}
 
-	public List<EmfImportItem<R, P>> getTableItems() {
+	public List<EmfImportColumn<R, P>> getTableColumns() {
 
-		return tableItems;
+		return tableColumns;
 	}
 
-	private List<EmfImportItem<R, P>> collect() {
+	private List<EmfImportColumn<R, P>> collectTableColumns() {
 
-		tableItems = new ArrayList<>();
+		tableColumns = new ArrayList<>();
 
 		for (IDbField<R, ?> field: getFieldsToImport()) {
 
-			EmfImportItem<R, P> item = new EmfImportItem<>(field);
-			tableItems.add(item);
+			EmfImportColumn<R, P> column = new EmfImportColumn<>(field);
+			tableColumns.add(column);
 
 			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
 			if (fieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyItemsCollector<>(fieldAttribute, item).collect();
+				new EmfImportBusinessKeyColumnsCollector<>(fieldAttribute, column).collect();
 			}
 		}
-		return tableItems;
+		return tableColumns;
 	}
 
-	private List<EmfImportItem<R, ?>> resolveCsvItems(EmfImportItem<R, ?> item) {
+	private List<EmfImportColumn<R, ?>> resolveCsvFileColumns(EmfImportColumn<R, ?> tableColumn) {
 
-		List<EmfImportItem<R, ?>> constituents = item.getConstituents();
-		if (constituents.isEmpty()) {
-			return Arrays.asList(item);
+		List<EmfImportColumn<R, ?>> foreignKeyColumns = tableColumn.getForeignKeyColumns();
+		if (foreignKeyColumns.isEmpty()) {
+			return Arrays.asList(tableColumn);
 		} else {
-			List<EmfImportItem<R, ?>> csvItems = new ArrayList<>();
-			for (EmfImportItem<R, ?> constituent: constituents) {
-				csvItems.addAll(resolveCsvItems(constituent));
+			List<EmfImportColumn<R, ?>> csvFileColumns = new ArrayList<>();
+			for (EmfImportColumn<R, ?> foreignKeyColumn: foreignKeyColumns) {
+				csvFileColumns.addAll(resolveCsvFileColumns(foreignKeyColumn));
 			}
-			return csvItems;
+			return csvFileColumns;
 		}
 	}
 

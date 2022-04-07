@@ -131,9 +131,9 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		Iterator<String> valueIterator = Arrays.asList("1", "00001", "Piano", "2", "9000.00", "4500.00").iterator();
 
-		EmfImportItemsCollector<R, P, S> collector = new EmfImportItemsCollector<>(table);
+		EmfImportColumnsCollector<R, P, S> collector = new EmfImportColumnsCollector<>(table);
 
-		for (EmfImportItem<R, ?> importField: collector.getCsvFileItems()) {
+		for (EmfImportColumn<R, ?> importField: collector.getCsvFileColumnsToImport()) {
 			Log.finfo(importField);
 			importField.setValue(valueIterator.next());
 		}
@@ -141,8 +141,8 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		Log.finfo("####################################################################");
 		com.softicar.platform.common.core.logging.LogLevel.VERBOSE.set();
 
-		for (EmfImportItem<R, ?> tableItem: collector.getTableItems()) {
-			Log.finfo(tableItem + ":\t" + tableItem.getValue());
+		for (EmfImportColumn<R, ?> tableColumn: collector.getTableColumns()) {
+			Log.finfo(tableColumn + ":\t" + tableColumn.getValue());
 		}
 
 		com.softicar.platform.common.core.logging.LogLevel.INFO.set();

@@ -7,15 +7,15 @@ import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttrib
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-class EmfImportBusinessKeyItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
+class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
-	private final EmfImportItem<R, ?> item;
+	private final EmfImportColumn<R, ?> column;
 	private final IEmfAttribute<R, ?> fieldAttribute;
 
-	public EmfImportBusinessKeyItemsCollector(IEmfAttribute<R, ?> fieldAttribute, EmfImportItem<R, ?> item) {
+	public EmfImportBusinessKeyColumnsCollector(IEmfAttribute<R, ?> fieldAttribute, EmfImportColumn<R, ?> column) {
 
 		this.fieldAttribute = fieldAttribute;
-		this.item = item;
+		this.column = column;
 	}
 
 	public void collect() {
@@ -24,13 +24,13 @@ class EmfImportBusinessKeyItemsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (IDbField<R, ?> targetTableField: targetTable.getBusinessKey().getFields()) {
 
-			EmfImportItem<R, ?> constituent = new EmfImportItem<>(targetTableField);
-			item.addConstituent(constituent);
+			EmfImportColumn<R, ?> foreignKeyColumn = new EmfImportColumn<>(targetTableField);
+			column.addForeignKeyColumn(foreignKeyColumn);
 
 			IEmfAttribute<R, ?> targetTableFieldAttribute = targetTable.getAttribute(targetTableField);
 
 			if (targetTableFieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyItemsCollector<>(targetTableFieldAttribute, constituent).collect();
+				new EmfImportBusinessKeyColumnsCollector<>(targetTableFieldAttribute, foreignKeyColumn).collect();
 			}
 		}
 	}

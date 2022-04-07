@@ -5,8 +5,8 @@ import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
-import com.softicar.platform.emf.management.importing.engine.EmfImportItem;
-import com.softicar.platform.emf.management.importing.engine.EmfImportItemsCollector;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsCollector;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
@@ -62,8 +62,8 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 //		new FkResolver<>(AGDemoInvoice.TABLE).resolve(0);
 
-		for (EmfImportItem<?, ?> importField: new EmfImportItemsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileItems()) {
-			System.out.println(importField);
+		for (EmfImportColumn<?, ?> importColumn: new EmfImportColumnsCollector<>(AGDemoInvoiceItem.TABLE).getCsvFileColumnsToImport()) {
+			System.out.println(importColumn);
 		}
 	}
 
