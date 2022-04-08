@@ -21,7 +21,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
 	private final Set<ISqlField<?, ?>> ignoredFields;
-	private final Optional<S> scope;
+	private Optional<S> scope;
 	private List<EmfImportColumn<R, P>> tableColumns;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
 
@@ -35,7 +35,13 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		ignoreGeneratedFields();
 		ignoreTransactionFields();
 //		ignoreConcealedFields();
-//		ignoreScopeField();
+	}
+
+	public EmfImportColumnsCollector<R, P, S> setScope(S scope) {
+
+		this.scope = Optional.of(scope);
+		ignoreScopeField();
+		return this;
 	}
 
 	public EmfImportColumnsCollector<R, P, S> collect() {
@@ -48,14 +54,16 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 	}
 
 	private List<EmfImportColumn<R, P>> collectTableColumns() {
-	
+
+		table.getScopeField().orElse(null);
+
 		tableColumns = new ArrayList<>();
-	
+
 		for (IDbField<R, ?> field: getFieldsToImport()) {
-	
+
 			EmfImportColumn<R, P> tableColumn = new EmfImportColumn<>(field);
 			tableColumns.add(tableColumn);
-	
+
 			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
 			if (fieldAttribute instanceof EmfForeignRowAttribute) {
 				new EmfImportBusinessKeyColumnsCollector<>(fieldAttribute, tableColumn).collect();
@@ -65,7 +73,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 	}
 
 	private List<EmfImportColumn<R, ?>> resolveCsvFileColumns(EmfImportColumn<R, ?> tableColumn) {
-	
+
 		List<EmfImportColumn<R, ?>> foreignKeyColumns = tableColumn.getForeignKeyColumns();
 		if (foreignKeyColumns.isEmpty()) {
 			return Arrays.asList(tableColumn);
@@ -94,7 +102,10 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		return tableColumns;
 	}
 
-	
+	public List<IDbField<R, ?>> getTableFields() {
+
+		return getTableColumns().stream().map(EmfImportColumn::getField).collect(Collectors.toList());
+	}
 
 	//////////////////////////////////////
 	//

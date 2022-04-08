@@ -132,7 +132,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		Iterator<String> valueIterator = Arrays.asList("1", "00001", "Piano", "2", "9000.00", "4500.00").iterator();
 
-		EmfImportColumnsCollector<R, P, S> collector = new EmfImportColumnsCollector<>(table);
+		EmfImportColumnsCollector<R, P, S> collector = new EmfImportColumnsCollector<>(table).setScope(scope.get());
 
 		// Für jede Zeile von textualRowsWithReplacements:
 		for (EmfImportColumn<R, ?> csvFileColumn: collector.getCsvFileColumnsToImport()) {
@@ -149,9 +149,10 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 //		}
 
 		textualRowsWithReplacements = new ArrayList<>();
-		textualRowsWithReplacements.add(Arrays.asList("1", "00001", "Piano", "2", "9000.00", "4500.00"));
+		textualRowsWithReplacements.add(Arrays.asList(/*"1", "00001",*/ "Piano", "2", "9000.00", "4500.00"));
 
 		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(collector).parseColumns(textualRowsWithReplacements);
+		scope.ifPresent(this::setScopeValues);
 		table.saveAll(parsedRows);
 
 		com.softicar.platform.common.core.logging.LogLevel.INFO.set();
