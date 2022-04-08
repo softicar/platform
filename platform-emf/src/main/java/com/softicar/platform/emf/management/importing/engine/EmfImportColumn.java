@@ -27,6 +27,16 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		foreignKeyColumn.sourceColumn = this;
 	}
 
+	public boolean isForeignKeyColumn() {
+
+		return !foreignKeyColumns.isEmpty();
+	}
+
+	public IDbField<R, ?> getField() {
+
+		return field;
+	}
+
 	public List<EmfImportColumn<R, ?>> getForeignKeyColumns() {
 
 		return foreignKeyColumns;

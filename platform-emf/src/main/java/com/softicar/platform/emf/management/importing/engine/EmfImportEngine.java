@@ -15,6 +15,7 @@ import com.softicar.platform.emf.management.importing.variable.replace.EmfImport
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParser;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -133,17 +134,25 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		EmfImportColumnsCollector<R, P, S> collector = new EmfImportColumnsCollector<>(table);
 
+		// Für jede Zeile von textualRowsWithReplacements:
 		for (EmfImportColumn<R, ?> csvFileColumn: collector.getCsvFileColumnsToImport()) {
 			Log.finfo(csvFileColumn);
 			csvFileColumn.setValue(valueIterator.next());
 		}
+		// .. danach dann gleich die Liste von "tableColumns" (= TableRow) inserten
 
 		Log.finfo("####################################################################");
 		com.softicar.platform.common.core.logging.LogLevel.VERBOSE.set();
 
-		for (EmfImportColumn<R, ?> tableColumn: collector.getTableColumns()) {
-			Log.finfo(tableColumn + ":\t" + tableColumn.getValue());
-		}
+//		for (EmfImportColumn<R, ?> tableColumn: collector.getTableColumns()) {
+//			Log.finfo(tableColumn + ":\t" + tableColumn.getValue());
+//		}
+
+		textualRowsWithReplacements = new ArrayList<>();
+		textualRowsWithReplacements.add(Arrays.asList("1", "00001", "Piano", "2", "9000.00", "4500.00"));
+
+		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(collector).parseColumns(textualRowsWithReplacements);
+		table.saveAll(parsedRows);
 
 		com.softicar.platform.common.core.logging.LogLevel.INFO.set();
 
