@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Creates an {@link IEmfTableRow} from a matrix of {@link String} based tokens.
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final EmfTokenConverters converters;
-	private final IEmfTable<R, P, ?> table;
+	private final IEmfTable<R, P, S> table;
 	private List<? extends IDbField<R, ?>> fields;
 	private Integer currentRowIndex;
 	private List<String> currentRow;
@@ -37,7 +36,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	 * @param table
 	 *            the target {@link IEmfTable} (never <i>null</i>)
 	 */
-	public EmfTokenMatrixParser(IEmfTable<R, P, ?> table) {
+	public EmfTokenMatrixParser(IEmfTable<R, P, S> table) {
 
 		this.table = Objects.requireNonNull(table);
 		this.fields = table.getAllFields();
@@ -113,11 +112,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		List<EmfImportColumn<R, ?>> csvFileColumns = collector.getCsvFileColumnsToImport();
 		List<EmfImportColumn<R, P>> tableColumns = collector.getTableColumns();
 
-		List<IDbField<R, ?>> tableFields = tableColumns.stream().map(EmfImportColumn::getField).collect(Collectors.toList());
-		fields = new ArrayList<>(tableFields);
-
-		// TODO activate(?):
-//		assertColumnCount(fields, tableColumns);
+		fields = new ArrayList<>(collector.getTableFields());
 
 		List<R> result = new ArrayList<>();
 
