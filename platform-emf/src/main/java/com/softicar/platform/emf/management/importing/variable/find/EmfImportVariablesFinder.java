@@ -30,6 +30,10 @@ public class EmfImportVariablesFinder {
 	/**
 	 * Finds variables and their coordinates in the given matrix of
 	 * {@link String} tokens.
+	 * <p>
+	 * Invalid variable names will be silently ignored; they will not be added
+	 * to the return value, and no exception will occur. Valid variable names
+	 * match the following pattern: {@value #VARIABLE_PATTERN}
 	 *
 	 * @return A map from variable display name to its coordinates.
 	 */
