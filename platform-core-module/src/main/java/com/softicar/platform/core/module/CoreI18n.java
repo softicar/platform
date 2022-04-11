@@ -130,6 +130,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klicken, um die Programm-Logs anzuzeigen.");
 	I18n0 CLIENT_IP_ADDRESS = new I18n0("Client IP Address")//
 		.de("Client IP Adresse");
+	I18n0 COLLAPSE_NAVIGATION_FOLDERS = new I18n0("Collapse Navigation Folders")//
+		.de("Navigationsordner einklappen");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
@@ -471,6 +473,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Module");
 	I18n0 MONTH = new I18n0("Month")//
 		.de("Monat");
+	I18n0 NAVIGATION = new I18n0("Navigation")//
+		.de("Navigation");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NO = new I18n0("No")//

@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.page.navigation;
 import com.softicar.platform.common.container.set.Sets;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.core.module.page.navigation.link.display.PageNavigationFolderDiv;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +39,9 @@ public class PageNavigationFolderController {
 		while (folderDiv != null) {
 			desiredFolderDivs.add(folderDiv);
 			folderDiv = folderDiv.getParentFolderDiv();
+		}
+		if (CurrentUser.get().isCollapseNavigationFolders()) {
+			Sets.difference(openFolderDivs, desiredFolderDivs).forEach(this::close);
 		}
 		Sets.difference(desiredFolderDivs, openFolderDivs).forEach(this::open);
 	}

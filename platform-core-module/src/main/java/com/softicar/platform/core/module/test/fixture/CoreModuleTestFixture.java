@@ -33,14 +33,17 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 
 		this.viewUser = insertUser("View", "User")//
 			.setEmailAddress("view.user@example.com")
+			.setCollapseNavigationFolders(false)
 			.save();
 
 		this.normalUser = insertUser("Normal", "User")//
 			.setEmailAddress("normal.user@example.com")
+			.setCollapseNavigationFolders(false)
 			.save();
 
 		this.adminUser = insertUser("Admin", "User")//
 			.setEmailAddress("admin.user@example.com")
+			.setCollapseNavigationFolders(false)
 			.save();
 
 		insertPassword(viewUser, "test");
