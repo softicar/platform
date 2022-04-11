@@ -6,6 +6,10 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.IDomClickEventHandler;
+import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
+import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -15,7 +19,7 @@ import java.util.Objects;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomCheckbox extends DomDiv {
+public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
 	private boolean enabled;
 	private boolean checked;
@@ -60,6 +64,24 @@ public class DomCheckbox extends DomDiv {
 		return this;
 	}
 
+	@Override
+	public void handleClick(IDomEvent event) {
+
+		handleEvent();
+	}
+
+	@Override
+	public void handleEnterKey(IDomEvent event) {
+
+		handleEvent();
+	}
+
+	@Override
+	public void handleSpaceKey(IDomEvent event) {
+
+		handleEvent();
+	}
+
 	public boolean isEnabled() {
 
 		return enabled;
@@ -94,6 +116,13 @@ public class DomCheckbox extends DomDiv {
 	public void setValue(Boolean checked) {
 
 		setCheckedState(Objects.requireNonNull(checked));
+	}
+
+	protected void handleEvent() {
+
+		if (enabled) {
+			setValue(!checked);
+		}
 	}
 
 	private void setCheckedState(boolean checked) {
