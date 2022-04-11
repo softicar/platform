@@ -6,10 +6,10 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusListener {
 
 	private final AGWorkflowItem item;
-	private final DomCheckbox showTransitionsCheckbox;
+	private final EmfBooleanInput showTransitionsCheckbox;
 	private IEmfDataTableDiv<WorkflowItemMessageRow> tableDiv;
 
 	public WorkflowItemMessageDiv(AGWorkflowItem item) {
@@ -47,9 +47,8 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 					.setLabel(WorkflowI18n.ADD_NEW_MESSAGE)
 					.setEnabled(WorkflowRoles.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
 		this.showTransitionsCheckbox = actionBar//
-			.appendChild(
-				new DomCheckbox(true, it -> refresh(null))//
-					.setLabel(WorkflowI18n.SHOW_TRANSITIONS));
+			.appendChild(new EmfBooleanInput(true).setLabel(WorkflowI18n.SHOW_TRANSITIONS));
+		showTransitionsCheckbox.setChangeCallback(() -> refresh(null));
 		refresh(null);
 	}
 

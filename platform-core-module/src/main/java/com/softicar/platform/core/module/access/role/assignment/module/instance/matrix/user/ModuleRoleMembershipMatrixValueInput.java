@@ -4,10 +4,10 @@ import com.softicar.platform.core.module.access.role.EmfModuleRoleStateContainer
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomColorEnum;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.matrix.IEmfSettingMatrixModelEntryInput;
 import com.softicar.platform.emf.module.role.IEmfModuleRole;
 import java.util.Collection;
@@ -57,11 +57,12 @@ class ModuleRoleMembershipMatrixValueInput extends DomDiv implements IEmfSetting
 					boolean checked = currentValue.get().isActive(role);
 					DomDiv container = appendChild(new DomDiv());
 					StyleUpdater styleUpdater = new StyleUpdater(role, container);
-					container
+					EmfBooleanInput input = container
 						.appendChild(
-							new DomCheckbox(checked, new ChangeHandler(role, styleUpdater)::handle)//
-								.setLabel(role.getTitle())
-								.setEnabled(enabled));
+							new EmfBooleanInput(checked)//
+								.setLabel(role.getTitle()));
+					input.setEnabled(enabled);
+					input.setChangeCallback(new ChangeHandler(role, styleUpdater)::handle);
 					styleUpdater.update(checked);
 				}
 			} else {

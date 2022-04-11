@@ -9,6 +9,7 @@ public class NotifyInput extends EmfBooleanInput {
 	public NotifyInput(AGWorkflowTransition transition) {
 
 		this.transition = transition;
+		refreshInputConstraints();
 	}
 
 	@Override

@@ -14,7 +14,6 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
@@ -22,6 +21,7 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 
 public class UserPasswordChangeDiv extends DomDiv {
 
@@ -32,7 +32,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 	private final PasswordInputStack inputTable;
 	private final QualityMessageDiv qualityMessageDiv;
 	private final PasswordSaveButton saveButton;
-	private final DomCheckbox visiblePasswordCheckbox;
+	private final EmfBooleanInput visiblePasswordCheckbox;
 	private boolean hasNoValidPassword;
 
 	public UserPasswordChangeDiv(IPasswordPolicy passwordPolicy) {
@@ -41,8 +41,8 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.user = CurrentUser.get();
 		this.userPasswordPolicy = user.getPasswordPolicy();
 		this.hasNoValidPassword = !user.hasValidPassword();
-		this.visiblePasswordCheckbox = new DomCheckbox(this::setPasswordVisible)//
-			.setLabel(CoreI18n.SHOW_PASSWORD);
+		this.visiblePasswordCheckbox = new EmfBooleanInput().setLabel(CoreI18n.SHOW_PASSWORD);
+		this.visiblePasswordCheckbox.setChangeCallback(this::setPasswordVisible);
 		this.inputTable = new PasswordInputStack();
 		this.qualityMessageDiv = new QualityMessageDiv();
 		this.securePasswordMessageDiv = new SecurePasswordMessageDiv();

@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.data.table;
 
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 
-class EmfDataTableRowSelectionCheckbox<R> extends DomCheckbox {
+class EmfDataTableRowSelectionCheckbox<R> extends EmfBooleanInput {
 
 	private final EmfDataTableRow<R> tableRow;
 
@@ -20,6 +20,20 @@ class EmfDataTableRowSelectionCheckbox<R> extends DomCheckbox {
 	public void handleClick(IDomEvent event) {
 
 		super.handleClick(event);
+		tableRow.setSelected(isChecked(), true);
+	}
+
+	@Override
+	public void handleEnterKey(IDomEvent event) {
+
+		super.handleEnterKey(event);
+		tableRow.setSelected(isChecked(), true);
+	}
+
+	@Override
+	public void handleSpaceKey(IDomEvent event) {
+
+		super.handleSpaceKey(event);
 		tableRow.setSelected(isChecked(), true);
 	}
 }
