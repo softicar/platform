@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.management.importing.upload;
 
-import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.ui.wiki.element.tag.WikiBoxType;
@@ -10,12 +9,10 @@ import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
-import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
+import com.softicar.platform.emf.management.importing.engine.EmfImportCsvFileTable;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv {
 
@@ -45,7 +42,7 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				.build());
 
 		appendChild(
-			new EmfDataTableDivBuilder<>(new UploadTable())//
+			new EmfDataTableDivBuilder<>(new EmfImportCsvFileTable<>(engine, Collections.emptyList()))//
 				.setEmptyTablePlaceholderFactory(UploadTriggerDiv::new)
 				.build());
 	}
@@ -71,28 +68,6 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				popup.resetVariableInputDiv();
 				popup.showUploadedDataDiv();
 			}
-		}
-	}
-
-	private class UploadTable extends AbstractInMemoryDataTable<List<String>> {
-
-		public UploadTable() {
-
-			engine.getCvsFileColumnsToImport().forEach(this::addColumn);
-		}
-
-		@Override
-		protected Collection<List<String>> getTableRows() {
-
-			return Collections.emptyList();
-		}
-
-		private void addColumn(EmfImportColumn<R, ?> column) {
-
-			newColumn(String.class)//
-				.setGetter(row -> "")
-				.setTitle(column.getTitle())
-				.addColumn();
 		}
 	}
 }

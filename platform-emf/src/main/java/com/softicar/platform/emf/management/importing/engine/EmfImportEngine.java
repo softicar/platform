@@ -42,7 +42,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public void addCsvRows(String csv) {
 
-		textualRows = new EmfImportCsvReader(csv).parse(getCvsFileColumnsToImport().size());
+		textualRows = new EmfImportCsvReader(csv).parse(getCsvFileColumnsToImport().size());
 		variableCoordinates = new EmfImportVariablesFinder(textualRows).find();
 		textualRowsWithReplacements = textualRows;
 	}
@@ -105,7 +105,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		return table.getAttribute(field).getTitle();
 	}
 
-	public List<EmfImportColumn<R, ?>> getCvsFileColumnsToImport() {
+	public List<EmfImportColumn<R, ?>> getCsvFileColumnsToImport() {
 
 		return columnsCollector.getCsvFileColumnsToImport();
 	}
