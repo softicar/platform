@@ -5,8 +5,6 @@ import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
-import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
-import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsCollector;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
@@ -46,25 +44,4 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 			.editAttribute(AGDemoInvoice.DEBTOR)
 			.setConditionallyRequired(DemoInvoicePredicates.OUTBOUND, "");
 	}
-
-	public static void main(String[] args) {
-
-//		System.out.println(AGDemoInvoice.class);
-//
-//		EmfTableConfiguration<AGDemoInvoice, ?, ?> configuration = new EmfTableConfiguration<>(AGDemoInvoice.TABLE);
-//
-//		System.out.println(configuration.getBusinessKey().getFields());
-
-//		new ColumnPrinter<>(AGDemoInvoiceItem.TABLE).printImportColumnNames();
-
-		// Funktioniert:
-//		new FkResolver<>(AGModuleInstance.TABLE, CoreModule.getModuleInstance()).resolve();
-
-//		new FkResolver<>(AGDemoInvoice.TABLE).resolve(0);
-
-		for (EmfImportColumn<?, ?> importColumn: new EmfImportColumnsCollector<>(AGDemoInvoiceItem.TABLE, false).getCsvFileColumnsToImport()) {
-			System.out.println(importColumn);
-		}
-	}
-
 }
