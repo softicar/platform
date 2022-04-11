@@ -27,7 +27,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private Integer currentRowIndex;
 	private List<String> currentRow;
 	private Integer currentColumnIndex;
-	private String currentToken;
 	private EmfImportColumnsCollector<R, P, ?> collector;
 
 	/**
@@ -44,7 +43,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		this.currentRowIndex = null;
 		this.currentRow = null;
 		this.currentColumnIndex = null;
-		this.currentToken = null;
 	}
 
 	/**
@@ -96,13 +94,15 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 			R object = table.getRowFactory().get();
 			for (this.currentColumnIndex = 0; currentColumnIndex < fields.size(); currentColumnIndex++) {
-				this.currentToken = tokenRow.get(currentColumnIndex);
+				String token = tokenRow.get(currentColumnIndex);
 				IDbField<R, ?> field = fields.get(currentColumnIndex);
-				field.setValue(object, convertTokenToValue(field, currentToken));
+				field.setValue(object, convertTokenToValue(field, token));
 			}
 			result.add(object);
 		}
 		return result;
+
+//		return parseColumns(tokenMatrix);
 	}
 
 	public List<R> parseColumns(List<List<String>> tokenMatrix) {
@@ -112,38 +112,44 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		List<EmfImportColumn<R, ?>> csvFileColumns = collector.getCsvFileColumnsToImport();
 		List<EmfImportColumn<R, P>> tableColumns = collector.getTableColumns();
 
-		fields = new ArrayList<>(collector.getTableFields());
+		fields = new ArrayList<>(collector.getFieldsOfTableColumns());
 
-		List<R> result = new ArrayList<>();
+		List<R> rows = new ArrayList<>();
 
 		for (this.currentRowIndex = 0; this.currentRowIndex < tokenMatrix.size(); this.currentRowIndex++) {
-			List<String> tokenRow = tokenMatrix.get(currentRowIndex);
-			this.currentRow = Objects.requireNonNull(tokenRow);
-
-			assertColumnCount(csvFileColumns, currentRow);
-
-			for (this.currentColumnIndex = 0; currentColumnIndex < currentRow.size(); currentColumnIndex++) {
-				this.currentToken = tokenRow.get(currentColumnIndex);
-				EmfImportColumn<R, ?> csvFileColumn = csvFileColumns.get(currentColumnIndex);
-				csvFileColumn.setValue(currentToken);
-			}
-
-			R object = table.getRowFactory().get();
-			for (this.currentColumnIndex = 0; currentColumnIndex < fields.size(); currentColumnIndex++) {
-
-				IDbField<R, ?> field = fields.get(currentColumnIndex);
-				EmfImportColumn<R, P> tableColumn = tableColumns.get(currentColumnIndex);
-				if (tableColumn.isForeignKeyColumn()) {
-					field.setValue(object, CastUtils.cast(tableColumn.getValue()));
-				} else {
-					this.currentToken = CastUtils.cast(tableColumn.getValue());
-					field.setValue(object, convertTokenToValue(field, currentToken));
-				}
-			}
-			result.add(object);
+			this.currentRow = Objects.requireNonNull(tokenMatrix.get(currentRowIndex));
+			setValuesToCsvFileColumns(csvFileColumns);
+			rows.add(createRow(tableColumns));
 		}
 
-		return result;
+		return rows;
+	}
+
+	private void setValuesToCsvFileColumns(List<EmfImportColumn<R, ?>> csvFileColumns) {
+
+		assertColumnCount(csvFileColumns, currentRow);
+
+		for (int columnIndex = 0; columnIndex < csvFileColumns.size(); columnIndex++) {
+			EmfImportColumn<R, ?> csvFileColumn = csvFileColumns.get(columnIndex);
+			csvFileColumn.setValue(currentRow.get(columnIndex));
+		}
+	}
+
+	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
+
+		R row = table.getRowFactory().get();
+		for (this.currentColumnIndex = 0; currentColumnIndex < fields.size(); currentColumnIndex++) {
+
+			IDbField<R, ?> field = fields.get(currentColumnIndex);
+			EmfImportColumn<R, P> tableColumn = tableColumns.get(currentColumnIndex);
+			if (tableColumn.isForeignKeyColumn()) {
+				field.setValue(row, CastUtils.cast(tableColumn.getValue()));
+			} else {
+				String token = currentRow.get(currentColumnIndex);
+				field.setValue(row, convertTokenToValue(field, token));
+			}
+		}
+		return row;
 	}
 
 	private <V> V convertTokenToValue(IDbField<R, ?> field, String token) {
@@ -153,7 +159,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 			return CastUtils.cast(result.getValue());
 		} else {
 			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
-				.setCurrentToken(currentToken, currentColumnIndex)
+				.setCurrentToken(token, currentColumnIndex)
 				.setCause(result.getFailureCause())
 				.setReason(result.getFailureReason())
 				.build();

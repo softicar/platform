@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.management.importing.upload;
 
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
-import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -10,6 +9,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.management.importing.EmfImportBackButton;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
@@ -63,8 +63,8 @@ public class EmfImportViewUploadedDataDiv<R extends IEmfTableRow<R, P>, P, S> ex
 		public UploadedDataTable() {
 
 			var index = 0;
-			for (IDbField<R, ?> field: engine.getFieldsToImport()) {
-				addColumn(field, index);
+			for (EmfImportColumn<R, ?> column: engine.getCvsFileColumnsToImport()) {
+				addColumn(column, index);
 				index++;
 			}
 		}
@@ -75,11 +75,11 @@ public class EmfImportViewUploadedDataDiv<R extends IEmfTableRow<R, P>, P, S> ex
 			return engine.getTextualRows();
 		}
 
-		private void addColumn(IDbField<R, ?> field, int index) {
+		private void addColumn(EmfImportColumn<R, ?> column, int index) {
 
 			newColumn(String.class)//
 				.setGetter(row -> row.get(index))
-				.setTitle(engine.getFieldTitle(field))
+				.setTitle(column.getTitle())
 				.addColumn();
 		}
 	}

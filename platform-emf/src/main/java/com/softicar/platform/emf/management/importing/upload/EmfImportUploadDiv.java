@@ -4,13 +4,13 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.ui.wiki.element.tag.WikiBoxType;
-import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
@@ -35,7 +35,8 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 				.addUnorderedListItem(EmfI18n.COLUMN_VALUES_MUST_BE_SEPARATED_BY_COMMAS)
 				.addUnorderedListItem(EmfI18n.INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE)
 				.addUnorderedListItem(
-					EmfI18n.YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSING_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2.toDisplay("$$a$$", "a"))
+					EmfI18n.YOU_CAN_DEFINE_VARIABLES_BY_ENCLOSING_THEM_WITH_DOUBLE_DOLLAR_SIGNS_FOR_EXAMPLE_ARG1_TO_DEFINE_VARIABLE_ARG2
+						.toDisplay("$$a$$", "a"))
 				.addUnorderedListItem(EmfI18n.POSSIBLE_VARIABLE_IDENTIFIERS_ARE_ALL_ASCII_LOWERCASE_LETTERS_FROM_A_TO_Z)
 				.addUnorderedListItem(
 					EmfI18n.IN_THE_NEXT_STEP_THE_CONTENT_OF_THE_FILE_WILL_BE_DISPLAYED//
@@ -77,7 +78,7 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 		public UploadTable() {
 
-			engine.getFieldsToImport().forEach(this::addColumn);
+			engine.getCvsFileColumnsToImport().forEach(this::addColumn);
 		}
 
 		@Override
@@ -86,11 +87,11 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 			return Collections.emptyList();
 		}
 
-		private void addColumn(IDbField<R, ?> field) {
+		private void addColumn(EmfImportColumn<R, ?> column) {
 
 			newColumn(String.class)//
 				.setGetter(row -> "")
-				.setTitle(engine.getFieldTitle(field))
+				.setTitle(column.getTitle())
 				.addColumn();
 		}
 	}
