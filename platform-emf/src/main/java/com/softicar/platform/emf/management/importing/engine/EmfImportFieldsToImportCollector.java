@@ -21,16 +21,14 @@ public class EmfImportFieldsToImportCollector<R extends IEmfTableRow<R, P>, P> {
 		this.table = table;
 	}
 
-	public List<IDbField<R, ?>> collect(boolean ignoreScopeField) {
+	public List<IDbField<R, ?>> collect() {
 
 		ignoredFields = new HashSet<>();
 		ignoreActiveField();
 		ignoreGeneratedFields();
 		ignoreTransactionFields();
 		ignoreConcealedFieldsWithDefaultValue();
-		if (ignoreScopeField) {
-			ignoreScopeField();
-		}
+		ignoreScopeField();
 
 		return table//
 			.getAllFields()

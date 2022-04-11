@@ -13,14 +13,19 @@ import java.util.stream.Collectors;
 public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
-	private final boolean ignoreScopeField;
+	private final List<IDbField<R, ?>> fieldsToImport;
 	private List<EmfImportColumn<R, P>> tableColumns;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
 
-	public EmfImportColumnsCollector(IEmfTable<R, P, S> table, boolean ignoreScopeField) {
+	public EmfImportColumnsCollector(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
 
 		this.table = table;
-		this.ignoreScopeField = ignoreScopeField;
+		this.fieldsToImport = fieldsToImport;
+	}
+
+	public EmfImportColumnsCollector(IEmfTable<R, P, S> table) {
+
+		this(table, new ArrayList<>(table.getAllFields()));
 	}
 
 	private void collect() {
@@ -35,7 +40,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		tableColumns = new ArrayList<>();
 
-		for (IDbField<R, ?> field: new EmfImportFieldsToImportCollector<>(table).collect(ignoreScopeField)) {
+		for (IDbField<R, ?> field: fieldsToImport) {
 
 			EmfImportColumn<R, P> tableColumn = new EmfImportColumn<>(field);
 			tableColumns.add(tableColumn);

@@ -32,7 +32,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 		this.table = Objects.requireNonNull(table);
 		this.scope = Optional.empty();
-		this.columnsCollector = new EmfImportColumnsCollector<>(table, false);
+		this.columnsCollector = new EmfImportColumnsCollector<>(table);
 	}
 
 	public IEmfTable<R, P, S> getTable() {
@@ -96,7 +96,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 	public EmfImportEngine<R, P, S> setScope(S scope) {
 
 		this.scope = Optional.of(scope);
-		this.columnsCollector = new EmfImportColumnsCollector<>(table, true);
+		this.columnsCollector = new EmfImportColumnsCollector<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
 		return this;
 	}
 

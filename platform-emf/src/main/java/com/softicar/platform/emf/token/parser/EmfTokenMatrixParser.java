@@ -24,10 +24,9 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private final EmfTokenConverters converters;
 	private final IEmfTable<R, P, S> table;
 	private List<? extends IDbField<R, ?>> fields;
+	private EmfImportColumnsCollector<R, P, ?> collector;
 	private Integer currentRowIndex;
 	private List<String> currentRow;
-	private Integer currentColumnIndex;
-	private EmfImportColumnsCollector<R, P, ?> collector;
 
 	/**
 	 * Constructs a new {@link EmfTokenMatrixParser}.
@@ -42,7 +41,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		this.converters = new EmfTokenConverters();
 		this.currentRowIndex = null;
 		this.currentRow = null;
-		this.currentColumnIndex = null;
 	}
 
 	/**
@@ -93,10 +91,10 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 			assertColumnCount(fields, tokenRow);
 
 			R object = table.getRowFactory().get();
-			for (this.currentColumnIndex = 0; currentColumnIndex < fields.size(); currentColumnIndex++) {
-				String token = tokenRow.get(currentColumnIndex);
-				IDbField<R, ?> field = fields.get(currentColumnIndex);
-				field.setValue(object, convertTokenToValue(field, token));
+			for (int columnIndex = 0; columnIndex < fields.size(); columnIndex++) {
+				String token = tokenRow.get(columnIndex);
+				IDbField<R, ?> field = fields.get(columnIndex);
+				field.setValue(object, convertTokenToValue(field, token, columnIndex));
 			}
 			result.add(object);
 		}
@@ -138,28 +136,28 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
 
 		R row = table.getRowFactory().get();
-		for (this.currentColumnIndex = 0; currentColumnIndex < fields.size(); currentColumnIndex++) {
+		for (int columnIndex = 0; columnIndex < fields.size(); columnIndex++) {
 
-			IDbField<R, ?> field = fields.get(currentColumnIndex);
-			EmfImportColumn<R, P> tableColumn = tableColumns.get(currentColumnIndex);
+			IDbField<R, ?> field = fields.get(columnIndex);
+			EmfImportColumn<R, P> tableColumn = tableColumns.get(columnIndex);
 			if (tableColumn.isForeignKeyColumn()) {
 				field.setValue(row, CastUtils.cast(tableColumn.getValue()));
 			} else {
-				String token = currentRow.get(currentColumnIndex);
-				field.setValue(row, convertTokenToValue(field, token));
+				String token = currentRow.get(columnIndex);
+				field.setValue(row, convertTokenToValue(field, token, columnIndex));
 			}
 		}
 		return row;
 	}
 
-	private <V> V convertTokenToValue(IDbField<R, ?> field, String token) {
+	private <V> V convertTokenToValue(IDbField<R, ?> field, String token, int columnIndex) {
 
 		EmfTokenConverterResult<?> result = converters.convert(field, token);
 		if (result.isOkay()) {
 			return CastUtils.cast(result.getValue());
 		} else {
 			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
-				.setCurrentToken(token, currentColumnIndex)
+				.setCurrentToken(token, columnIndex)
 				.setCause(result.getFailureCause())
 				.setReason(result.getFailureReason())
 				.build();
