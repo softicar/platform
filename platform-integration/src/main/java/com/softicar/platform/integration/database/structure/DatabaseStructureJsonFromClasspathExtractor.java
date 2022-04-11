@@ -17,6 +17,11 @@ public class DatabaseStructureJsonFromClasspathExtractor {
 
 	private final String tablePackagePrefix;
 
+//	public static void main(String[] args) {
+//
+//		Log.finfo(new DatabaseStructureJsonFromClasspathExtractor("com.softicar.platform").extractJson());
+//	}
+
 	public DatabaseStructureJsonFromClasspathExtractor(String tablePackagePrefix) {
 
 		this.tablePackagePrefix = Objects.requireNonNull(tablePackagePrefix);
