@@ -1,5 +1,13 @@
 
-.EmfEntityInputFilterPopoverCell {
+.DomPopup.DomPopover.EmfEntityInputBrowsePopover {
+	padding: 0px;
+}
+
+.EmfEntityInputBrowsePopover > .EmfDataTableDiv {
+	box-shadow: none;
+}
+
+.EmfEntityInputBrowsePopoverCell {
 	cursor: pointer;
 }
 
