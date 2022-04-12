@@ -14,8 +14,9 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
 	private final List<IDbField<R, ?>> fieldsToImport;
-	private List<EmfImportColumn<R, P>> tableColumns;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
+	private List<EmfImportColumn<R, P>> tableColumns;
+	private List<IDbField<R, ?>> fieldsOfTableColumns;
 
 	public EmfImportColumnsCollector(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
 
@@ -85,6 +86,19 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	public List<IDbField<R, ?>> getFieldsOfTableColumns() {
 
-		return getTableColumns().stream().map(EmfImportColumn::getField).collect(Collectors.toList());
+		if (fieldsOfTableColumns == null) {
+			fieldsOfTableColumns = getTableColumns().stream().map(EmfImportColumn::getField).collect(Collectors.toList());
+		}
+		return fieldsOfTableColumns;
+	}
+
+	public IDbField<R, ?> getFieldOfTableColumnByIndex(int index) {
+
+		return getFieldsOfTableColumns().get(index);
+	}
+
+	public IEmfTable<R, P, S> getTable() {
+
+		return table;
 	}
 }

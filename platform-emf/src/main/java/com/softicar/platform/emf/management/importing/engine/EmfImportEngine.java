@@ -60,7 +60,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 	public void parseRows() {
 
 		// parsedRows = new EmfTokenMatrixParser<>(table).setFields(getFieldsToImport()).parse(textualRowsWithReplacements);
-		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(columnsCollector).parseColumns(textualRowsWithReplacements);
+		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(columnsCollector).parse(textualRowsWithReplacements);
 		scope.ifPresent(this::setScopeValues);
 	}
 
