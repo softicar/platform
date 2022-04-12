@@ -2,7 +2,6 @@ package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
@@ -35,9 +34,11 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		this.columnsCollector = new EmfImportColumnsCollector<>(table);
 	}
 
-	public IEmfTable<R, P, S> getTable() {
+	public EmfImportEngine<R, P, S> setScope(S scope) {
 
-		return table;
+		this.scope = Optional.of(scope);
+		this.columnsCollector = new EmfImportColumnsCollector<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
+		return this;
 	}
 
 	public void addCsvRows(String csv) {
@@ -59,9 +60,13 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public void parseRows() {
 
-		// parsedRows = new EmfTokenMatrixParser<>(table).setFields(getFieldsToImport()).parse(textualRowsWithReplacements);
 		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(columnsCollector).parse(textualRowsWithReplacements);
 		scope.ifPresent(this::setScopeValues);
+	}
+
+	private void setScopeValues(S scope) {
+
+		table.getScopeField().ifPresent(scopeField -> parsedRows.forEach(row -> scopeField.setValue(row, scope)));
 	}
 
 	public void insertRows() {
@@ -93,25 +98,13 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 		return parsedRows;
 	}
 
-	public EmfImportEngine<R, P, S> setScope(S scope) {
-
-		this.scope = Optional.of(scope);
-		this.columnsCollector = new EmfImportColumnsCollector<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
-		return this;
-	}
-
-	public IDisplayString getFieldTitle(IDbField<R, ?> field) {
-
-		return table.getAttribute(field).getTitle();
-	}
-
 	public List<EmfImportColumn<R, ?>> getCsvFileColumnsToImport() {
 
 		return columnsCollector.getCsvFileColumnsToImport();
 	}
 
-	private void setScopeValues(S scope) {
+	public List<? extends IDbField<R, ?>> getAllTableFields() {
 
-		table.getScopeField().ifPresent(scopeField -> parsedRows.forEach(row -> scopeField.setValue(row, scope)));
+		return table.getAllFields();
 	}
 }

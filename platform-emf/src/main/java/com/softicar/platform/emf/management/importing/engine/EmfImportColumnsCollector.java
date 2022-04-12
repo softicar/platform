@@ -6,7 +6,6 @@ import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttrib
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +57,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		List<EmfImportColumn<R, ?>> foreignKeyColumns = tableColumn.getForeignKeyColumns();
 		if (foreignKeyColumns.isEmpty()) {
-			return Arrays.asList(tableColumn);
+			return List.of(tableColumn);
 		} else {
 			List<EmfImportColumn<R, ?>> csvFileColumns = new ArrayList<>();
 			for (EmfImportColumn<R, ?> foreignKeyColumn: foreignKeyColumns) {
