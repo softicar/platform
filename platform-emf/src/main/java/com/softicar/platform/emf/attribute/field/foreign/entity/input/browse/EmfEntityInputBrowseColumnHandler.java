@@ -32,7 +32,7 @@ class EmfEntityInputBrowseColumnHandler<E extends IEmfEntity<E, ?>> extends EmfD
 
 			this.entity = entity;
 			addCssClass(EmfCssClasses.EMF_ENTITY_INPUT_BROWSE_POPOVER_CELL);
-			appendText(entity.toDisplayWithoutId());
+			appendText(entity.toDisplay());
 		}
 
 		@Override

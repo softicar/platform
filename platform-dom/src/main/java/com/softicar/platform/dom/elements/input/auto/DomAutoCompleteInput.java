@@ -42,13 +42,13 @@ import java.util.Optional;
  */
 public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T>, IDomInputNode {
 
-	protected DomBar inputBar;
-	private IDomAutoCompleteInputEngine<T> inputEngine;
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final InputField inputField;
 	private INullaryVoidFunction changeCallback;
 	private final IDomAutoCompleteInputConfiguration configuration;
+	protected final IDomAutoCompleteInputEngine<T> inputEngine;
+	protected final DomBar inputBar;
 
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode defaultMode) {
 
@@ -178,12 +178,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 
 		inputField.setMaxLength(maxLength);
 		return this;
-	}
-
-	protected void setInputEngine(IDomAutoCompleteInputEngine<T> inputEngine) {
-
-		this.inputEngine = inputEngine;
-		refreshFilters();
 	}
 
 	/**

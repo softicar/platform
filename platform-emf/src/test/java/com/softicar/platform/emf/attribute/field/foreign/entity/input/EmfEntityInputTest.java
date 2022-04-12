@@ -39,7 +39,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	public void testGetValueWithBrowsePopover() {
 
 		openBrowsePopover();
-		findNode(DomPopover.class).clickNode(user.toDisplayWithoutId());
+		findNode(DomPopover.class).clickNode(user.toDisplay());
 		assertSame(user, getInputValue());
 	}
 

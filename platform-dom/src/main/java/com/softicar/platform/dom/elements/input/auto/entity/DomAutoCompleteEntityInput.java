@@ -49,14 +49,4 @@ public class DomAutoCompleteEntityInput<T extends IEntity> extends DomAutoComple
 
 		this(new DomAutoCompleteEntityInMemoryInputEngine<>(items));
 	}
-
-	public DomAutoCompleteEntityInput() {
-
-		this(new DomAutoCompleteEntityDummyInputEngine<>());
-	}
-
-	protected void setItems(Collection<T> items) {
-
-		setInputEngine(new DomAutoCompleteEntityInMemoryInputEngine<>(items));
-	}
 }

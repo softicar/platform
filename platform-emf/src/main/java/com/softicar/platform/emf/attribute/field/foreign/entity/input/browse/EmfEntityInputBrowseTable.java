@@ -5,6 +5,7 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.entity.IEmfEntity;
+import java.util.Objects;
 
 class EmfEntityInputBrowseTable<E extends IEmfEntity<E, ?>> extends AbstractInMemoryDataTable<E> {
 
@@ -13,9 +14,9 @@ class EmfEntityInputBrowseTable<E extends IEmfEntity<E, ?>> extends AbstractInMe
 
 	public EmfEntityInputBrowseTable(IDomAutoCompleteInputEngine<E> inputEngine) {
 
-		this.inputEngine = inputEngine;
+		this.inputEngine = Objects.requireNonNull(inputEngine);
 		this.nameColumn = newColumn(String.class)//
-			.setGetter(it -> it.toDisplayWithoutId().toString())
+			.setGetter(it -> it.toDisplay().toString())
 			.setTitle(EmfI18n.NAME)
 			.addColumn();
 	}

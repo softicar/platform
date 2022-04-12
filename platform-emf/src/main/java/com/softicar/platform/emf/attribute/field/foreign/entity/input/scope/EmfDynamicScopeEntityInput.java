@@ -15,19 +15,10 @@ import java.util.function.Supplier;
 
 public class EmfDynamicScopeEntityInput<E extends IEmfObject<E>, S> extends EmfEntityInput<E> {
 
-	private final IEmfTable<E, ?, S> table;
-	private final Supplier<Optional<S>> scopeSupplier;
-	private final Function<S, Collection<E>> itemLoader;
-	private final InputEngine inputEngine;
-
 	public EmfDynamicScopeEntityInput(IEmfTable<E, ?, S> table, Supplier<Optional<S>> scopeSupplier, Function<S, Collection<E>> itemLoader) {
 
-		this.table = table;
-		this.itemLoader = itemLoader;
-		this.scopeSupplier = scopeSupplier;
-		this.inputEngine = new InputEngine();
+		super(new InputEngine<>(table, scopeSupplier, itemLoader));
 		setPlaceholder(table.getTitle());
-		setInputEngine(inputEngine);
 	}
 
 	@Override
@@ -37,20 +28,22 @@ public class EmfDynamicScopeEntityInput<E extends IEmfObject<E>, S> extends EmfE
 
 		// auto-fill input if suitable
 		if (getSelection().isBlankPattern()) {
-			Collection<E> items = inputEngine.getItems();
+			Collection<E> items = inputEngine.findMatches("", 2);
 			if (items.size() == 1) {
 				setValue(items.iterator().next());
 			}
 		}
 	}
 
-	private class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<E> {
+	private static class InputEngine<E extends IEmfObject<E>, S> extends AbstractEmfDependentAutoCompleteInputEngine<E> {
 
+		private final Function<S, Collection<E>> itemLoader;
 		private final DomAutoCompleteEntityInputFilter<S> scopeFilter;
 
-		public InputEngine() {
+		public InputEngine(IEmfTable<E, ?, S> table, Supplier<Optional<S>> scopeSupplier, Function<S, Collection<E>> itemLoader) {
 
 			super(table);
+			this.itemLoader = itemLoader;
 			this.scopeFilter = addFilter(scopeSupplier)
 				.setFilterTitle(
 					table//

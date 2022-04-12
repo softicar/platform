@@ -17,11 +17,11 @@ class ModuleInstanceRoleAssignmentRoleInput extends EmfEntityInput<AGUuid> {
 
 	public ModuleInstanceRoleAssignmentRoleInput(AGModuleInstanceRoleAssignment assignment) {
 
-		setInputEngine(new InputEngine(assignment));
+		super(new InputEngine(assignment));
 		setPlaceholder(CoreI18n.ROLE);
 	}
 
-	private class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
+	private static class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
 
 		private final DomAutoCompleteEntityInputFilter<AGModuleInstance> filter;
 

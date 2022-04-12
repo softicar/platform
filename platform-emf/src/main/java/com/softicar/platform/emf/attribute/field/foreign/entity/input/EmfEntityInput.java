@@ -10,11 +10,6 @@ import com.softicar.platform.emf.entity.table.IEmfEntityTable;
 
 public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteEntityInput<E> implements IEmfInput<E> {
 
-	public EmfEntityInput() {
-
-		super();
-	}
-
 	public EmfEntityInput(IDomAutoCompleteInputEngine<E> inputEngine) {
 
 		super(inputEngine);
