@@ -15,7 +15,7 @@ class UserProfileConfigureNavigationDiv extends DomDiv {
 	public UserProfileConfigureNavigationDiv() {
 
 		this.attributesDiv = new EmfAttributesDiv<>(CurrentUser.get(), true);
-		attributesDiv.addAttribute(AGUser.COLLAPSE_NAVIGATION_FOLDERS);
+		attributesDiv.addAttribute(AGUser.AUTOMATICALLY_COLLAPSE_FOLDERS);
 
 		appendChild(attributesDiv);
 		appendChild(

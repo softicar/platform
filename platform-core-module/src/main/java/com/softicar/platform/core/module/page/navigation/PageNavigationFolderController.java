@@ -40,7 +40,7 @@ public class PageNavigationFolderController {
 			desiredFolderDivs.add(folderDiv);
 			folderDiv = folderDiv.getParentFolderDiv();
 		}
-		if (CurrentUser.get().isCollapseNavigationFolders()) {
+		if (CurrentUser.get().isAutomaticallyCollapseFolders()) {
 			Sets.difference(openFolderDivs, desiredFolderDivs).forEach(this::close);
 		}
 		Sets.difference(desiredFolderDivs, openFolderDivs).forEach(this::open);
