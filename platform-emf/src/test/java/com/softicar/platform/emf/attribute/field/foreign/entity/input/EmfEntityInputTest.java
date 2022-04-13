@@ -9,9 +9,12 @@ import org.junit.Test;
 
 public class EmfEntityInputTest extends AbstractEmfTest {
 
+	private boolean changed;
+
 	public EmfEntityInputTest() {
 
 		setNodeSupplier(() -> new EmfEntityInput<>(new EmfEntityInputEngine<>(EmfTestUser.TABLE)));
+		this.changed = false;
 	}
 
 	@Test
@@ -43,11 +46,26 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		assertSame(user, getInputValue());
 	}
 
-	private Object getInputValue() {
+	@Test
+	public void testGetValueAndVerifyChangeCallback() {
+
+		getEntityInput().setChangeCallback(this::setChanged);
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(user.toDisplay());
+		assertSame(user, getInputValue());
+		assertSame(changed, true);
+	}
+
+	private EmfEntityInput<EmfTestUser> getEntityInput() {
 
 		return findBody()//
 			.findNode(EmfEntityInput.class)
-			.assertType(EmfEntityInput.class)
+			.assertType(EmfEntityInput.class);
+	}
+
+	private Object getInputValue() {
+
+		return getEntityInput()//
 			.getValue()
 			.orElse(null);
 	}
@@ -64,5 +82,10 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		findBody()//
 			.findNode(DomPopupButton.class)
 			.click();
+	}
+
+	private void setChanged() {
+
+		this.changed = true;
 	}
 }
