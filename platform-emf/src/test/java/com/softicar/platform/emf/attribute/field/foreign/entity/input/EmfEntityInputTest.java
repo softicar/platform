@@ -8,64 +8,71 @@ import org.junit.Test;
 
 public class EmfEntityInputTest extends AbstractEmfTest {
 
-	private final EmfTestObject testObject1;
-	private final EmfTestObject testObject23;
+	private final EmfTestObject object1;
+	private final EmfTestObject object23;
 
 	public EmfEntityInputTest() {
 
 		setNodeSupplier(() -> new EmfEntityInput<>(new EmfEntityInputEngine<>(EmfTestObject.TABLE)));
-		this.testObject1 = insertTestObject(1, "one");
-		this.testObject23 = insertTestObject(23, "twentythree");
+		this.object1 = insertTestObject(1, "one");
+		this.object23 = insertTestObject(23, "twentythree");
 	}
 
 	@Test
-	public void testGetValueWithId() {
+	public void testGetValueWithObject1AndId() {
 
 		setInputValue("1");
-		assertSame(testObject1, getValue());
+		assertSame(object1, getValue());
 	}
 
 	@Test
-	public void testGetValueWithOtherObjectId() {
+	public void testGetValueWithObject1AndName() {
+
+		setInputValue("one");
+		assertSame(object1, getValue());
+	}
+
+	@Test
+	public void testGetValueWithObject1AndNameAndId() {
+
+		setInputValue("one [1]");
+		assertSame(object1, getValue());
+	}
+
+	@Test
+	public void testGetValueWithObject1AndNameAndIdIncomplete() {
+
+		setInputValue("one [1");
+		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
+	}
+
+	@Test
+	public void testGetValueWithObject23AndId() {
 
 		setInputValue("23");
-		assertSame(testObject23, getValue());
+		assertSame(object23, getValue());
 	}
 
 	/**
-	 * Assert that we do <b>not</b> infer ID "23" from a leading substring ("2")
-	 * of that ID.
+	 * Assert that we do <b>not</b> infer ID "23" from the head (leading
+	 * substring) "2" of that ID.
 	 */
 	@Test
-	public void testGetValueWithOtherObjectIdLeadingSubstring() {
+	public void testGetValueWithObject23AndIdHead() {
 
 		setInputValue("2");
 		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
 	}
 
 	/**
-	 * Assert that we do <b>not</b> infer ID "23" from a tailing substring ("3")
-	 * of that ID.
+	 * Assert that we do <b>not</b> infer ID "23" from the tail (tailing
+	 * substring) "3" of that ID.
 	 */
 	@Test
-	public void testGetValueWithOtherObjectIdTailingSubstring() {
+	public void testGetValueWithObject23AndIdTail() {
 
 		setInputValue("3");
 		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
-	}
-
-	@Test
-	public void testGetValueWithName() {
-
-		setInputValue("one");
-		assertSame(testObject1, getValue());
-	}
-
-	@Test
-	public void testGetValueWithNameAndId() {
-
-		setInputValue("one [1]");
-		assertSame(testObject1, getValue());
 	}
 
 	private Object getValue() {
