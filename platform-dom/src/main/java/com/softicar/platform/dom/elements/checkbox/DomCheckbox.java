@@ -26,11 +26,6 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 	private final DomCheckboxBox checkboxBox;
 	private final DomCheckboxLabel checkboxLabel;
 
-	public DomCheckbox() {
-
-		this(false);
-	}
-
 	public DomCheckbox(boolean checked) {
 
 		this.enabled = false;
@@ -67,19 +62,19 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 	@Override
 	public void handleClick(IDomEvent event) {
 
-		handleEvent();
+		toggleCheckedState();
 	}
 
 	@Override
 	public void handleEnterKey(IDomEvent event) {
 
-		handleEvent();
+		toggleCheckedState();
 	}
 
 	@Override
 	public void handleSpaceKey(IDomEvent event) {
 
-		handleEvent();
+		toggleCheckedState();
 	}
 
 	public boolean isEnabled() {
@@ -115,21 +110,16 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 
 	public void setValue(Boolean checked) {
 
-		setCheckedState(Objects.requireNonNull(checked));
-	}
-
-	protected void handleEvent() {
-
-		if (enabled) {
-			setValue(!checked);
+		if (Objects.requireNonNull(checked) != this.checked) {
+			this.checkboxBox.setChecked(checked);
+			this.checked = checked;
 		}
 	}
 
-	private void setCheckedState(boolean checked) {
+	protected void toggleCheckedState() {
 
-		if (checked != this.checked) {
-			this.checkboxBox.setChecked(checked);
-			this.checked = checked;
+		if (enabled) {
+			setValue(!checked);
 		}
 	}
 

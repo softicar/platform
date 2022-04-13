@@ -10,6 +10,7 @@ class EmfDataTableRowSelectionCheckbox<R> extends EmfBooleanInput {
 
 	public EmfDataTableRowSelectionCheckbox(EmfDataTableRow<R> tableRow) {
 
+		super(false);
 		this.tableRow = tableRow;
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_ROW_SELECTION_CHECKBOX);
 		setTitle(EmfDataTableI18n.SELECTION);

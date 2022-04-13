@@ -11,7 +11,7 @@ public class EmfBooleanAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldA
 		super(field);
 
 		setDisplayFactory(EmfBooleanDisplay::new);
-		setInputFactory(EmfBooleanInput::new);
+		setInputFactory(() -> new EmfBooleanInput(false));
 		setColumnHandlerFactory(() -> new EmfBooleanAttributeColumnHandler<>(this));
 	}
 }

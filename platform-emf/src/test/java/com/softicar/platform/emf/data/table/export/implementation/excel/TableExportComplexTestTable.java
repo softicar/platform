@@ -292,7 +292,7 @@ public class TableExportComplexTestTable extends DomDataTable {
 
 		List<IDomNode> nodes = new ArrayList<>();
 
-		nodes.add(new DomCheckbox());
+		nodes.add(new DomCheckbox(false));
 		nodes.add(DomTextNode.create("test"));
 
 		return nodes;
