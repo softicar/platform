@@ -76,6 +76,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Anhänge");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
+	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
+		.de("Ordner automatisch einklappen");
 	I18n1 BACK_TO_ARG1_PROCESSES = new I18n1("Back to %s Processes")//
 		.de("Zurück zu %s-Prozessen");
 	I18n0 BACK_TO_OVERVIEW = new I18n0("Back to Overview")//
@@ -471,6 +473,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Module");
 	I18n0 MONTH = new I18n0("Month")//
 		.de("Monat");
+	I18n0 NAVIGATION = new I18n0("Navigation")//
+		.de("Navigation");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NO = new I18n0("No")//

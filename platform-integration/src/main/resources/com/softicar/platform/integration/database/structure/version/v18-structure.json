@@ -1,0 +1,238 @@
+[
+  {
+    "tableName": "`Core`.`AjaxException`",
+    "createStatement": "CREATE TABLE `Core`.`AjaxException` (`id` INT NOT NULL AUTO_INCREMENT,`session` INT NOT NULL,`user` INT DEFAULT NULL,`exceptionDate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',`exceptionType` VARCHAR(255) NOT NULL,`exceptionText` TEXT,`exceptionStackTrace` TEXT NOT NULL,PRIMARY KEY (`id`),KEY `exceptionDate` (`exceptionDate`),KEY `session` (`session`),KEY `user` (`user`),FOREIGN KEY (`session`) REFERENCES `Core`.`AjaxSession` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`AjaxSessionRevision`",
+    "createStatement": "CREATE TABLE `Core`.`AjaxSessionRevision` (`session` INT NOT NULL,`revision` VARCHAR(255) NOT NULL DEFAULT '',PRIMARY KEY (`session`),FOREIGN KEY (`session`) REFERENCES `Core`.`AjaxSession` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION);"
+  },
+  {
+    "tableName": "`Core`.`AjaxSession`",
+    "createStatement": "CREATE TABLE `Core`.`AjaxSession` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT DEFAULT NULL,`clientIpAddress` VARCHAR(255) DEFAULT NULL,`localName` VARCHAR(255) DEFAULT NULL,`localAddress` VARCHAR(255) DEFAULT NULL,`localPort` INT NOT NULL DEFAULT '0',`accessDate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',PRIMARY KEY (`id`),KEY `user` (`user`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`BufferedEmailAttachment`",
+    "createStatement": "CREATE TABLE `Core`.`BufferedEmailAttachment` (`id` INT NOT NULL AUTO_INCREMENT,`email` INT NOT NULL,`index` INT NOT NULL,`name` TEXT NOT NULL,`type` TEXT NOT NULL,`data` LONGBLOB NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `emailIndex` (`email`, `index`),FOREIGN KEY (`email`) REFERENCES `Core`.`BufferedEmail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`BufferedEmail`",
+    "createStatement": "CREATE TABLE `Core`.`BufferedEmail` (`id` INT NOT NULL AUTO_INCREMENT,`emailServer` INT NOT NULL,`createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,`createdBy` INT NOT NULL,`sentAt` TIMESTAMP NULL DEFAULT NULL,`from` TEXT NOT NULL,`sender` TEXT NOT NULL DEFAULT '',`replyTo` TEXT NOT NULL DEFAULT '',`to` TEXT NOT NULL DEFAULT '',`cc` TEXT NOT NULL DEFAULT '',`bcc` TEXT NOT NULL DEFAULT '',`messageId` TEXT,`inReplyTo` TEXT,`references` TEXT,`subject` TEXT NOT NULL DEFAULT '',`content` MEDIUMTEXT,`contentType` VARCHAR(255) DEFAULT NULL,`autoSubmitted` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`id`),KEY `createdBy` (`createdBy`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`createdBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`CoreLanguage`",
+    "createStatement": "CREATE TABLE `Core`.`CoreLanguage` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,`iso6391` VARCHAR(2) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`),UNIQUE KEY `iso6391` (`iso6391`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Core`.`CoreModuleInstanceLog`",
+    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstanceLog` (`coreModuleInstance` INT NOT NULL,`transaction` BIGINT NOT NULL,`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL,`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) DEFAULT NULL,`noReplyEmailAddress` VARCHAR(255) DEFAULT NULL,`portalProtocol` VARCHAR(255) DEFAULT NULL,`portalHost` VARCHAR(255) DEFAULT NULL,`portalApplication` VARCHAR(255) DEFAULT NULL,`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT DEFAULT NULL,`testSystem` BOOL DEFAULT NULL,PRIMARY KEY (`coreModuleInstance`, `transaction`),KEY `transaction` (`transaction`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`coreModuleInstance`) REFERENCES `Core`.`CoreModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`CoreModuleInstance`",
+    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstance` (`id` INT NOT NULL AUTO_INCREMENT,`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL COMMENT 'Server used for uploading files',`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'support@example.com',`noReplyEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'no-reply@example.com',`portalProtocol` VARCHAR(255) NOT NULL DEFAULT 'https',`portalHost` VARCHAR(255) NOT NULL DEFAULT 'www.example.com',`portalApplication` VARCHAR(255) NOT NULL DEFAULT 'portal',`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT NOT NULL,`testSystem` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`id`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`EmailRecipientType`",
+    "createStatement": "CREATE TABLE `Core`.`EmailRecipientType` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Core`.`LiveSystemConfigurationLog`",
+    "createStatement": "CREATE TABLE `Core`.`LiveSystemConfigurationLog` (`liveSystemConfiguration` INT NOT NULL,`transaction` BIGINT NOT NULL,`systemName` VARCHAR(255) DEFAULT NULL,`dbmsDownTimeWeekday` INT DEFAULT NULL,`dbmsDownTimeBegin` TIME DEFAULT NULL,`dbmsDownTimeEnd` TIME DEFAULT NULL,PRIMARY KEY (`liveSystemConfiguration`, `transaction`),KEY `transaction` (`transaction`),KEY `dbmsDownTimeWeekday` (`dbmsDownTimeWeekday`),FOREIGN KEY (`liveSystemConfiguration`) REFERENCES `Core`.`LiveSystemConfiguration` (`coreModuleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`dbmsDownTimeWeekday`) REFERENCES `Core`.`Weekday` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`LiveSystemConfiguration`",
+    "createStatement": "CREATE TABLE `Core`.`LiveSystemConfiguration` (`coreModuleInstance` INT NOT NULL,`systemName` VARCHAR(255) NOT NULL DEFAULT 'SoftiCAR',`dbmsDownTimeWeekday` INT DEFAULT NULL,`dbmsDownTimeBegin` TIME DEFAULT NULL,`dbmsDownTimeEnd` TIME DEFAULT NULL,PRIMARY KEY (`coreModuleInstance`),KEY `dbmsDownTimeWeekday` (`dbmsDownTimeWeekday`),FOREIGN KEY (`coreModuleInstance`) REFERENCES `Core`.`CoreModuleInstance` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`dbmsDownTimeWeekday`) REFERENCES `Core`.`Weekday` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`LocalizationLog`",
+    "createStatement": "CREATE TABLE `Core`.`LocalizationLog` (`user` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`language` INT DEFAULT NULL,`decimalSeparator` VARCHAR(255) DEFAULT NULL,`digitGroupSeparator` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`user`, `transaction`),FOREIGN KEY (`user`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`language`) REFERENCES `Core`.`CoreLanguage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`Localization`",
+    "createStatement": "CREATE TABLE `Core`.`Localization` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,`language` INT NOT NULL,`decimalSeparator` VARCHAR(255) NOT NULL,`digitGroupSeparator` VARCHAR(255) NOT NULL DEFAULT '',PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`),FOREIGN KEY (`language`) REFERENCES `Core`.`CoreLanguage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`LogLevel`",
+    "createStatement": "CREATE TABLE `Core`.`LogLevel` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Core`.`LogMessage`",
+    "createStatement": "CREATE TABLE `Core`.`LogMessage` (`id` INT NOT NULL AUTO_INCREMENT,`process` INT NOT NULL,`level` INT DEFAULT NULL,`logText` TEXT NOT NULL,`logTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,`notificationTime` DATETIME DEFAULT NULL,PRIMARY KEY (`id`),KEY `process` (`process`),KEY `level` (`level`),FOREIGN KEY (`process`) REFERENCES `Core`.`LogProcess` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,FOREIGN KEY (`level`) REFERENCES `Core`.`LogLevel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`LogProcess`",
+    "createStatement": "CREATE TABLE `Core`.`LogProcess` (`id` INT NOT NULL AUTO_INCREMENT,`serverIp` VARCHAR(255) NOT NULL DEFAULT '',`className` VARCHAR(255) NOT NULL,`startTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,`worstLevel` INT DEFAULT NULL,PRIMARY KEY (`id`),KEY `startTime` (`startTime`),KEY `className` (`className`),KEY `worstLevel` (`worstLevel`),FOREIGN KEY (`worstLevel`) REFERENCES `Core`.`LogLevel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ModuleInstanceLog`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceLog` (`moduleInstance` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`moduleInstance`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`ModuleInstanceRoleAssignmentLog`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceRoleAssignmentLog` (`assignment` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`role` INT DEFAULT NULL,PRIMARY KEY (`assignment`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`assignment`) REFERENCES `Core`.`ModuleInstanceRoleAssignment` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`role`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ModuleInstanceRoleAssignment`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceRoleAssignment` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`user` INT NOT NULL,`moduleInstance` INT NOT NULL,`role` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userModuleInstanceRole` (`user`, `moduleInstance`, `role`),KEY `moduleInstance` (`moduleInstance`),KEY `role` (`role`),KEY `transaction` (`transaction`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`role`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ModuleInstance`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstance` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`moduleUuid` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`moduleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ModulePanicReceiverLog`",
+    "createStatement": "CREATE TABLE `Core`.`ModulePanicReceiverLog` (`modulePanicReceiver` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`modulePanicReceiver`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`modulePanicReceiver`) REFERENCES `Core`.`ModulePanicReceiver` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ModulePanicReceiver`",
+    "createStatement": "CREATE TABLE `Core`.`ModulePanicReceiver` (`id` INT NOT NULL AUTO_INCREMENT,`moduleUuid` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`user` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleUuidUser` (`moduleUuid`, `user`),KEY `user` (`user`),FOREIGN KEY (`moduleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`PasswordPolicyLog`",
+    "createStatement": "CREATE TABLE `Core`.`PasswordPolicyLog` (`passwordPolicy` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`name` VARCHAR(255) DEFAULT NULL,`maximumPasswordReuse` INT DEFAULT NULL,`maximumPasswordAge` INT DEFAULT NULL,`twoFactorAuthentication` BOOL DEFAULT NULL,PRIMARY KEY (`passwordPolicy`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`passwordPolicy`) REFERENCES `Core`.`PasswordPolicy` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`PasswordPolicy`",
+    "createStatement": "CREATE TABLE `Core`.`PasswordPolicy` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`maximumPasswordReuse` INT DEFAULT NULL,`maximumPasswordAge` INT DEFAULT NULL,`twoFactorAuthentication` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`id`));"
+  },
+  {
+    "tableName": "`Core`.`ProgramExecutionLog`",
+    "createStatement": "CREATE TABLE `Core`.`ProgramExecutionLog` (`programExecution` BIGINT NOT NULL,`transaction` BIGINT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL DEFAULT NULL,`output` LONGTEXT DEFAULT NULL,`queuedBy` INT DEFAULT NULL,PRIMARY KEY (`programExecution`, `transaction`),FOREIGN KEY (`programExecution`) REFERENCES `Core`.`ProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ProgramExecution`",
+    "createStatement": "CREATE TABLE `Core`.`ProgramExecution` (`id` BIGINT NOT NULL AUTO_INCREMENT,`programUuid` INT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL NOT NULL DEFAULT '0',`output` LONGTEXT NOT NULL DEFAULT '',`queuedBy` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ProgramLog`",
+    "createStatement": "CREATE TABLE `Core`.`ProgramLog` (`program` BIGINT NOT NULL,`transaction` BIGINT NOT NULL,`executionRetentionDays` INT DEFAULT NULL,PRIMARY KEY (`program`, `transaction`),FOREIGN KEY (`program`) REFERENCES `Core`.`Program` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ProgramState`",
+    "createStatement": "CREATE TABLE `Core`.`ProgramState` (`program` BIGINT NOT NULL,`queuedAt` DATETIME DEFAULT NULL,`queuedBy` INT DEFAULT NULL,`abortRequested` BOOL NOT NULL DEFAULT '0',`currentExecution` BIGINT DEFAULT NULL,PRIMARY KEY (`program`),FOREIGN KEY (`program`) REFERENCES `Core`.`Program` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`currentExecution`) REFERENCES `Core`.`ProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`Program`",
+    "createStatement": "CREATE TABLE `Core`.`Program` (`id` BIGINT NOT NULL AUTO_INCREMENT,`programUuid` INT NOT NULL,`executionRetentionDays` INT NOT NULL DEFAULT '28',PRIMARY KEY (`id`),UNIQUE KEY `programUuid` (`programUuid`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ReplicationChecksum`",
+    "createStatement": "CREATE TABLE `Core`.`ReplicationChecksum` (`db` VARCHAR(64) NOT NULL,`tbl` VARCHAR(64) NOT NULL,`chunk` INT NOT NULL,`chunk_time` FLOAT DEFAULT NULL,`chunk_index` VARCHAR(200) DEFAULT NULL,`lower_boundary` TEXT,`upper_boundary` TEXT,`this_crc` VARCHAR(40) NOT NULL,`this_cnt` INT NOT NULL,`master_crc` VARCHAR(40) DEFAULT NULL,`master_cnt` INT DEFAULT NULL,`ts` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,PRIMARY KEY (`db`, `tbl`, `chunk`),KEY `timestampDatabaseNameTableName` (`ts`, `db`, `tbl`));"
+  },
+  {
+    "tableName": "`Core`.`ScheduledProgramExecutionLog`",
+    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecutionLog` (`scheduledProgramExecution` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`cronExpression` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`scheduledProgramExecution`, `transaction`),FOREIGN KEY (`scheduledProgramExecution`) REFERENCES `Core`.`ScheduledProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ScheduledProgramExecution`",
+    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecution` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`cronExpression` VARCHAR(255) NOT NULL,`programUuid` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `programUuid` (`programUuid`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`ServerLog`",
+    "createStatement": "CREATE TABLE `Core`.`ServerLog` (`server` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`name` VARCHAR(255) DEFAULT NULL,`address` VARCHAR(255) DEFAULT NULL,`port` INT DEFAULT NULL,`username` VARCHAR(255) DEFAULT NULL,`password` VARCHAR(255) DEFAULT NULL,`domain` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`server`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`server`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`Server`",
+    "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`id`));"
+  },
+  {
+    "tableName": "`Core`.`StoredFileAccessLog`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileAccessLog` (`id` INT NOT NULL AUTO_INCREMENT,`file` INT NOT NULL,`accessedBy` INT NOT NULL,`accessedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`id`),KEY `file` (`file`),KEY `accessedBy` (`accessedBy`),FOREIGN KEY (`file`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`accessedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`StoredFileChunk`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileChunk` (`id` INT NOT NULL AUTO_INCREMENT,`file` INT NOT NULL,`chunkIndex` INT NOT NULL DEFAULT '0',`chunkData` BLOB NOT NULL,`chunkSize` INT NOT NULL DEFAULT '0',PRIMARY KEY (`id`),UNIQUE KEY `fileChunkIndex` (`file`, `chunkIndex`),FOREIGN KEY (`file`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`StoredFileLog`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileLog` (`id` INT NOT NULL AUTO_INCREMENT,`file` INT NOT NULL,`removeAt` DATETIME DEFAULT NULL,`loggedAt` DATETIME NOT NULL,`loggedBy` INT NOT NULL,PRIMARY KEY (`id`),KEY `file` (`file`),KEY `loggedBy` (`loggedBy`),KEY `loggedAt` (`loggedAt`),FOREIGN KEY (`file`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`loggedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`StoredFileServerLog`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileServerLog` (`storedFileServer` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`url` VARCHAR(255) DEFAULT NULL,`domain` VARCHAR(255) DEFAULT NULL,`username` VARCHAR(255) DEFAULT NULL,`password` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`storedFileServer`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`storedFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`StoredFileServer`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileServer` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`url` VARCHAR(255) NOT NULL,`domain` VARCHAR(255) NOT NULL,`username` VARCHAR(255) NOT NULL,`password` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`));"
+  },
+  {
+    "tableName": "`Core`.`StoredFileSetItem`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileSetItem` (`fileSet` INT NOT NULL,`file` INT NOT NULL,PRIMARY KEY (`fileSet`, `file`),KEY `file` (`file`),FOREIGN KEY (`fileSet`) REFERENCES `Core`.`StoredFileSet` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`file`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`StoredFileSet`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileSet` (`id` INT NOT NULL AUTO_INCREMENT,`hash` VARBINARY(16) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `hash` (`hash`));"
+  },
+  {
+    "tableName": "`Core`.`StoredFileSha1`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFileSha1` (`id` INT NOT NULL AUTO_INCREMENT,`hash` VARBINARY(20) NOT NULL,`size` BIGINT NOT NULL DEFAULT '0',PRIMARY KEY (`id`),UNIQUE KEY `hash` (`hash`));"
+  },
+  {
+    "tableName": "`Core`.`StoredFile`",
+    "createStatement": "CREATE TABLE `Core`.`StoredFile` (`id` INT NOT NULL AUTO_INCREMENT,`fileName` VARCHAR(255) NOT NULL,`contentType` VARCHAR(255) NOT NULL DEFAULT '',`sha1` INT DEFAULT NULL,`createdBy` INT NOT NULL,`createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,`removeAt` DATETIME DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`sha1`) REFERENCES `Core`.`StoredFileSha1` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`createdBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`SystemModuleRoleAssignmentLog`",
+    "createStatement": "CREATE TABLE `Core`.`SystemModuleRoleAssignmentLog` (`assignment` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`assignment`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`assignment`) REFERENCES `Core`.`SystemModuleRoleAssignment` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`SystemModuleRoleAssignment`",
+    "createStatement": "CREATE TABLE `Core`.`SystemModuleRoleAssignment` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`user` INT NOT NULL,`module` INT NOT NULL,`role` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userModuleRole` (`user`, `module`, `role`),KEY `module` (`module`),KEY `role` (`role`),KEY `transaction` (`transaction`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`module`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`role`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`Transaction`",
+    "createStatement": "CREATE TABLE `Core`.`Transaction` (`id` BIGINT NOT NULL AUTO_INCREMENT,`at` TIMESTAMP NOT NULL,`by` INT NOT NULL,PRIMARY KEY (`id`),KEY `by` (`by`),FOREIGN KEY (`by`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserAllowedIpRuleLog`",
+    "createStatement": "CREATE TABLE `Core`.`UserAllowedIpRuleLog` (`userAllowedIpRule` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`name` VARCHAR(255) DEFAULT NULL,`addresses` TEXT,PRIMARY KEY (`userAllowedIpRule`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`userAllowedIpRule`) REFERENCES `Core`.`UserAllowedIpRule` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserAllowedIpRule`",
+    "createStatement": "CREATE TABLE `Core`.`UserAllowedIpRule` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`addresses` TEXT NOT NULL COMMENT 'each line contains an ip or network address',PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`));"
+  },
+  {
+    "tableName": "`Core`.`UserImpersonationState`",
+    "createStatement": "CREATE TABLE `Core`.`UserImpersonationState` (`id` INT NOT NULL AUTO_INCREMENT,`sourceUser` INT NOT NULL,`targetUser` INT NOT NULL,`reason` TEXT NOT NULL,`startedAt` DATETIME NOT NULL,`finishedAt` DATETIME DEFAULT NULL,PRIMARY KEY (`id`),KEY `sourceUser` (`sourceUser`),KEY `targetUser` (`targetUser`),FOREIGN KEY (`sourceUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`targetUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserLog`",
+    "createStatement": "CREATE TABLE `Core`.`UserLog` (`user` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`loginName` VARCHAR(255) DEFAULT NULL,`firstName` VARCHAR(255) DEFAULT NULL,`lastName` VARCHAR(255) DEFAULT NULL,`emailAddress` VARCHAR(255) DEFAULT NULL,`localization` INT DEFAULT NULL,`automaticallyCollapseFolders` BOOL DEFAULT NULL,`passwordPolicy` INT DEFAULT NULL,`allowedIpRule` INT DEFAULT NULL,PRIMARY KEY (`user`, `transaction`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`localization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`passwordPolicy`) REFERENCES `Core`.`PasswordPolicy` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`allowedIpRule`) REFERENCES `Core`.`UserAllowedIpRule` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserLoginFailureLog`",
+    "createStatement": "CREATE TABLE `Core`.`UserLoginFailureLog` (`id` INT NOT NULL AUTO_INCREMENT,`type` INT DEFAULT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`serverIpAddress` VARCHAR(255) DEFAULT NULL,`loginAt` DATETIME NOT NULL,PRIMARY KEY (`id`),KEY `usernameLoginAt` (`username`, `loginAt`),KEY `type` (`type`),FOREIGN KEY (`type`) REFERENCES `Core`.`UserLoginFailureType` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserLoginFailureType`",
+    "createStatement": "CREATE TABLE `Core`.`UserLoginFailureType` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Core`.`UserLoginLog`",
+    "createStatement": "CREATE TABLE `Core`.`UserLoginLog` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT NOT NULL,`password` INT NOT NULL,`loginAt` DATETIME NOT NULL,PRIMARY KEY (`id`),KEY `password` (`password`),KEY `loginAt` (`loginAt`),KEY `userLoginAt` (`user`, `loginAt`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`password`) REFERENCES `Core`.`UserPassword` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserPasswordAlgorithm`",
+    "createStatement": "CREATE TABLE `Core`.`UserPasswordAlgorithm` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Core`.`UserPassword`",
+    "createStatement": "CREATE TABLE `Core`.`UserPassword` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`algorithm` INT DEFAULT NULL,`encryptedPassword` TEXT NOT NULL,`createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,`policyFulfilled` BOOL NOT NULL DEFAULT '1',`compromised` BOOL NOT NULL DEFAULT '0',`lastLoginAt` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',PRIMARY KEY (`id`),KEY `user` (`user`),KEY `algorithm` (`algorithm`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`algorithm`) REFERENCES `Core`.`UserPasswordAlgorithm` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`UserSpecificTableConfiguration`",
+    "createStatement": "CREATE TABLE `Core`.`UserSpecificTableConfiguration` (`id` INT NOT NULL AUTO_INCREMENT,`tableIdentifierHash` VARCHAR(255) NOT NULL DEFAULT '',`user` INT DEFAULT NULL,`columnTitlesHash` VARCHAR(255) NOT NULL DEFAULT '',`serialization` TEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),UNIQUE KEY `tableIdentifierHashUser` (`tableIdentifierHash`, `user`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`User`",
+    "createStatement": "CREATE TABLE `Core`.`User` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`loginName` VARCHAR(255) NOT NULL,`firstName` VARCHAR(255) NOT NULL,`lastName` VARCHAR(255) NOT NULL,`emailAddress` VARCHAR(255) NOT NULL DEFAULT '',`systemUser` BOOL NOT NULL DEFAULT '0',`localization` INT NOT NULL,`automaticallyCollapseFolders` BOOL NOT NULL DEFAULT '1',`passwordPolicy` INT DEFAULT NULL,`allowedIpRule` INT DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `loginName` (`loginName`),FOREIGN KEY (`localization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`passwordPolicy`) REFERENCES `Core`.`PasswordPolicy` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`allowedIpRule`) REFERENCES `Core`.`UserAllowedIpRule` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Core`.`Uuid`",
+    "createStatement": "CREATE TABLE `Core`.`Uuid` (`id` INT NOT NULL AUTO_INCREMENT,`uuidBytes` VARBINARY(16) NOT NULL,`uuidString` VARCHAR(36) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `uuidString` (`uuidString`),UNIQUE KEY `uuidBytes` (`uuidBytes`));"
+  },
+  {
+    "tableName": "`Core`.`Weekday`",
+    "createStatement": "CREATE TABLE `Core`.`Weekday` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`)) COMMENT='@enum@';"
+  }
+]

@@ -11,7 +11,7 @@ import com.softicar.platform.db.runtime.test.AbstractDbTest;
 
 public abstract class AbstractPageDivTest extends AbstractDbTest implements CoreModuleTestFixtureMethods {
 
-	private final AGUser testUser;
+	protected final AGUser testUser;
 
 	public AbstractPageDivTest() {
 
