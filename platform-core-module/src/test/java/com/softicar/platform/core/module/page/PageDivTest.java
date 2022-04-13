@@ -85,8 +85,22 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFolder() {
+	public void testMultipleOpenFolderWithCollapsing() {
 
+		testUser.setAutomaticallyCollapseFolders(true).save();
+		clickFolderLink("[System]");
+		clickFolderLink("Core");
+		clickFolderLink("Email");
+		assertLinkPresent("Buffered Emails");
+		clickFolderLink("Logging");
+		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
+		assertNoLinkPresent("Buffered Emails");
+	}
+
+	@Test
+	public void testMultipleOpenFolderWithoutCollapsing() {
+
+		testUser.setAutomaticallyCollapseFolders(false).save();
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
 		clickFolderLink("Email");
