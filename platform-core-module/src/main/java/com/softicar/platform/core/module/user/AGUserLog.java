@@ -41,7 +41,7 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 	public static final IDbStringField<AGUserLog> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(CoreI18n.LAST_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> EMAIL_ADDRESS = BUILDER.addStringField("emailAddress", o->o.m_emailAddress, (o,v)->o.m_emailAddress=v).setTitle(CoreI18n.EMAIL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbForeignField<AGUserLog, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION).setNullable().setDefault(null);
-	public static final IDbBooleanField<AGUserLog> COLLAPSE_NAVIGATION_FOLDERS = BUILDER.addBooleanField("collapseNavigationFolders", o->o.m_collapseNavigationFolders, (o,v)->o.m_collapseNavigationFolders=v).setTitle(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGUserLog> AUTOMATICALLY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("automaticallyCollapseFolders", o->o.m_automaticallyCollapseFolders, (o,v)->o.m_automaticallyCollapseFolders=v).setTitle(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS).setNullable().setDefault(null);
 	public static final IDbForeignField<AGUserLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null);
 	public static final IDbForeignField<AGUserLog, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGUserLog, Tuple2<AGUser, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(USER, TRANSACTION));
@@ -142,14 +142,14 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 		return setValue(LOCALIZATION, value);
 	}
 
-	public final Boolean isCollapseNavigationFolders() {
+	public final Boolean isAutomaticallyCollapseFolders() {
 
-		return getValue(COLLAPSE_NAVIGATION_FOLDERS);
+		return getValue(AUTOMATICALLY_COLLAPSE_FOLDERS);
 	}
 
-	public final AGUserLog setCollapseNavigationFolders(Boolean value) {
+	public final AGUserLog setAutomaticallyCollapseFolders(Boolean value) {
 
-		return setValue(COLLAPSE_NAVIGATION_FOLDERS, value);
+		return setValue(AUTOMATICALLY_COLLAPSE_FOLDERS, value);
 	}
 
 	public final Integer getPasswordPolicyID() {
@@ -200,7 +200,7 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 	private String m_lastName;
 	private String m_emailAddress;
 	private AGLocalization m_localization;
-	private Boolean m_collapseNavigationFolders;
+	private Boolean m_automaticallyCollapseFolders;
 	private AGPasswordPolicy m_passwordPolicy;
 	private AGUserAllowedIpRule m_allowedIpRule;
 }

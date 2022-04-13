@@ -76,6 +76,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Anhänge");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
+	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
+		.de("Ordner automatisch einklappen");
 	I18n1 BACK_TO_ARG1_PROCESSES = new I18n1("Back to %s Processes")//
 		.de("Zurück zu %s-Prozessen");
 	I18n0 BACK_TO_OVERVIEW = new I18n0("Back to Overview")//
@@ -130,8 +132,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klicken, um die Programm-Logs anzuzeigen.");
 	I18n0 CLIENT_IP_ADDRESS = new I18n0("Client IP Address")//
 		.de("Client IP Adresse");
-	I18n0 COLLAPSE_NAVIGATION_FOLDERS = new I18n0("Collapse Navigation Folders")//
-		.de("Navigationsordner einklappen");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//

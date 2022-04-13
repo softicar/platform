@@ -13,9 +13,9 @@ TABLE AGUser 'Core.User' {
 	String emailAddress = '' [MAXLENGTH=255]
 	Boolean systemUser = FALSE
 	AGLocalization localization
-	Boolean collapseNavigationFolders = TRUE
+	Boolean automaticallyCollapseFolders = TRUE
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
 
 	UK loginName
-}
+} 

@@ -39,7 +39,7 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 	public static final IDbStringField<AGUser> EMAIL_ADDRESS = BUILDER.addStringField("emailAddress", o->o.m_emailAddress, (o,v)->o.m_emailAddress=v).setTitle(CoreI18n.EMAIL_ADDRESS).setDefault("").setMaximumLength(255);
 	public static final IDbBooleanField<AGUser> SYSTEM_USER = BUILDER.addBooleanField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v).setTitle(CoreI18n.SYSTEM_USER).setDefault(false);
 	public static final IDbForeignField<AGUser, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION);
-	public static final IDbBooleanField<AGUser> COLLAPSE_NAVIGATION_FOLDERS = BUILDER.addBooleanField("collapseNavigationFolders", o->o.m_collapseNavigationFolders, (o,v)->o.m_collapseNavigationFolders=v).setTitle(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS).setDefault(true);
+	public static final IDbBooleanField<AGUser> AUTOMATICALLY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("automaticallyCollapseFolders", o->o.m_automaticallyCollapseFolders, (o,v)->o.m_automaticallyCollapseFolders=v).setTitle(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS).setDefault(true);
 	public static final IDbForeignField<AGUser, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null);
 	public static final IDbForeignField<AGUser, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null);
 	public static final IDbKey<AGUser> UK_LOGIN_NAME = BUILDER.addUniqueKey("loginName", LOGIN_NAME);
@@ -143,14 +143,14 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 		return setValue(LOCALIZATION, value);
 	}
 
-	public final Boolean isCollapseNavigationFolders() {
+	public final Boolean isAutomaticallyCollapseFolders() {
 
-		return getValue(COLLAPSE_NAVIGATION_FOLDERS);
+		return getValue(AUTOMATICALLY_COLLAPSE_FOLDERS);
 	}
 
-	public final AGUser setCollapseNavigationFolders(Boolean value) {
+	public final AGUser setAutomaticallyCollapseFolders(Boolean value) {
 
-		return setValue(COLLAPSE_NAVIGATION_FOLDERS, value);
+		return setValue(AUTOMATICALLY_COLLAPSE_FOLDERS, value);
 	}
 
 	public final Integer getPasswordPolicyID() {
@@ -201,7 +201,7 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 	private String m_emailAddress;
 	private Boolean m_systemUser;
 	private AGLocalization m_localization;
-	private Boolean m_collapseNavigationFolders;
+	private Boolean m_automaticallyCollapseFolders;
 	private AGPasswordPolicy m_passwordPolicy;
 	private AGUserAllowedIpRule m_allowedIpRule;
 }
