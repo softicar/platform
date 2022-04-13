@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.demo.module.tmp
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE EmfTestModuleInstance 'Test.ModuleInstance' {
+	PK Integer id = SERIAL
+	AGTransaction transaction [ON UPDATE CASCADE]
+	Boolean active = TRUE
+	AGUuid moduleUuid
+}
