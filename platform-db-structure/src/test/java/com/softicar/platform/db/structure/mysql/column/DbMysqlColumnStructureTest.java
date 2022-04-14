@@ -1,14 +1,14 @@
 package com.softicar.platform.db.structure.mysql.column;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.column.DbColumnDefaultType;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbMysqlColumnStructureTest extends Assert {
+public class DbMysqlColumnStructureTest extends AbstractTest {
 
 	@Test
 	public void testAutoIncrement() {

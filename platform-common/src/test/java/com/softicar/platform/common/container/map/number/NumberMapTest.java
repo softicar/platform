@@ -1,11 +1,11 @@
 package com.softicar.platform.common.container.map.number;
 
 import com.softicar.platform.common.math.arithmetic.Arithmetics;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class NumberMapTest extends Assert {
+public class NumberMapTest extends AbstractTest {
 
 	@Test
 	public void testPutBigDecimal() {

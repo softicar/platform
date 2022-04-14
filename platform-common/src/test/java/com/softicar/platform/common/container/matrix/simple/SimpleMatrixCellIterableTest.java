@@ -1,16 +1,14 @@
 package com.softicar.platform.common.container.matrix.simple;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.container.matrix.IMatrix;
 import com.softicar.platform.common.container.matrix.IMatrixCell;
 import com.softicar.platform.common.container.matrix.MatrixFactory;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SimpleMatrixCellIterableTest {
+public class SimpleMatrixCellIterableTest extends AbstractTest {
 
 	private IMatrix<String, Integer, Double> matrix;
 

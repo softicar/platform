@@ -1,7 +1,6 @@
 package com.softicar.platform.common.string.hexadecimal;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -10,7 +9,7 @@ import org.junit.Test;
  * @author Robert Kühne
  * @author Oliver Richers
  */
-public class HexadecimalTest {
+public class HexadecimalTest extends AbstractTest {
 
 	@Test
 	public void getHexEmpty() {

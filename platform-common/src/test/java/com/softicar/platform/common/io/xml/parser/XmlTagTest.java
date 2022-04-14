@@ -1,10 +1,10 @@
 package com.softicar.platform.common.io.xml.parser;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class XmlTagTest extends Assert {
+public class XmlTagTest extends AbstractTest {
 
 	@Test
 	public void testCreateWithoutIndex() {

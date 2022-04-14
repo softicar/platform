@@ -1,11 +1,11 @@
 package com.softicar.platform.integration.database.structure.version;
 
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
-public class DatabaseStructureVersionResourcesTest extends Asserts {
+public class DatabaseStructureVersionResourcesTest extends AbstractTest {
 
 	@Test
 	public void testGetLatestStructureResourceSupplier() {

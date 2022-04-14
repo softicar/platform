@@ -2,13 +2,13 @@ package com.softicar.platform.db.core.connection.tracker;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbConnectionTrackerTest extends Assert {
+public class DbConnectionTrackerTest extends AbstractTest {
 
 	private final TestClock clock;
 	private final List<DbConnectionTrack> tracks;

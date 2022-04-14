@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.java.classes.name.matcher;
 
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class JavaClassNameGlobPatternMatcherTest extends Assert {
+public class JavaClassNameGlobPatternMatcherTest extends AbstractTest {
 
 	@Test
 	public void testWithoutAsterisk() {

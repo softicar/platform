@@ -1,10 +1,10 @@
 package com.softicar.platform.common.io.resource.key;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ResourceKeyTest extends Assert {
+public class ResourceKeyTest extends AbstractTest {
 
 	private static final Class<?> ANCHOR_CLASS = Object.class;
 

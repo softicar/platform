@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.refresh.bus;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomRefreshBusEventTest extends Assert {
+public class DomRefreshBusEventTest extends AbstractTest {
 
 	private final DomRefreshBusEvent event;
 

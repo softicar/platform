@@ -1,12 +1,10 @@
 package com.softicar.platform.common.container.pair;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Objects;
 import org.junit.Test;
 
-public class PairTest {
+public class PairTest extends AbstractTest {
 
 	private final Pair<String, Integer> pair = PairFactory.create("foo", 1337);
 	private final Pair<?, ?> nullPair = PairFactory.create(null, null);

@@ -1,13 +1,13 @@
 package com.softicar.platform.db.core;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.connection.IDbConnection;
 import com.softicar.platform.db.core.database.DbDatabases;
 import com.softicar.platform.db.core.statement.DbStatement;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class H2Test extends Assert {
+public class H2Test extends AbstractTest {
 
 	@Test
 	public void test() {

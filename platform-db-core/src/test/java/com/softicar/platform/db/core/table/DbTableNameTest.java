@@ -1,15 +1,13 @@
 package com.softicar.platform.db.core.table;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.database.DbDatabaseBuilder;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import org.junit.Test;
 
-public class DbTableNameTest {
+public class DbTableNameTest extends AbstractTest {
 
 	private static final DbTableName TABLE_NAME = new DbTableName("database", "table");
 

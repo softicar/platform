@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.user.password.quality.criteria;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class PasswordLowercaseLetterCriterionTest extends Assert {
+public class PasswordLowercaseLetterCriterionTest extends AbstractTest {
 
 	@Test
 	public void testWithMinimumOne() {

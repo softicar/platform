@@ -1,10 +1,7 @@
 package com.softicar.platform.common.container.set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.container.map.MapFactory;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,7 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import org.junit.Test;
 
-public class SetFactoryTest {
+public class SetFactoryTest extends AbstractTest {
 
 	private static final Comparator<Integer> COMPARATOR = (a, b) -> a - b;
 

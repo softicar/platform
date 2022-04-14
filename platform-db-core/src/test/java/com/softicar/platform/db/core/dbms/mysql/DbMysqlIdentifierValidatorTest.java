@@ -1,9 +1,9 @@
 package com.softicar.platform.db.core.dbms.mysql;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DbMysqlIdentifierValidatorTest extends Assert {
+public class DbMysqlIdentifierValidatorTest extends AbstractTest {
 
 	@Test
 	public void testAssertValidDatabaseName() {

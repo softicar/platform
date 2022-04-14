@@ -1,11 +1,11 @@
 package com.softicar.platform.db.sql.choosers;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.db.sql.example.SqlExampleDelivery;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SqlTableChooserTest extends Assert {
+public class SqlTableChooserTest extends AbstractTest {
 
 	@Test
 	public void testChooserOnSingleTable() {

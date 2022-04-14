@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.thread.utils;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ThreadSafeLazySupplierTest extends Assert {
+public class ThreadSafeLazySupplierTest extends AbstractTest {
 
 	private static final String A = "A";
 

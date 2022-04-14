@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.cron;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.cron.CronExpression.Part;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class CronParserTest extends Assert {
+public class CronParserTest extends AbstractTest {
 
 	private interface Expression {
 

@@ -1,5 +1,6 @@
 package com.softicar.platform.common.code.classpath.metadata;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -8,10 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.Vector;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TransitivelyExtendingClassesFinderTest extends Assert {
+public class TransitivelyExtendingClassesFinderTest extends AbstractTest {
 
 	private final ClasspathFilesTestMetadata metadata;
 

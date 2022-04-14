@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.email.address;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EmailAddressComparatorTest extends Assert {
+public class EmailAddressComparatorTest extends AbstractTest {
 
 	@Test
 	public void test() {

@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.request;
 
-import static org.junit.Assert.assertSame;
 import com.softicar.platform.ajax.document.action.AjaxDocumentActionType;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class AjaxRequestTypeTest {
+public class AjaxRequestTypeTest extends AbstractTest {
 
 	@Test
 	public void testMapping() {

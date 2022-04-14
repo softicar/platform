@@ -1,16 +1,14 @@
 package com.softicar.platform.common.string.parameter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
  * Test cases for {@link IntegerParameter}.
- * 
+ *
  * @author Oliver Richers
  */
-public class IntegerParameterTest {
+public class IntegerParameterTest extends AbstractTest {
 
 	private static final int SOME_NUMBER = 1337;
 	private static final int SOME_OTHER_NUMBER = 13;

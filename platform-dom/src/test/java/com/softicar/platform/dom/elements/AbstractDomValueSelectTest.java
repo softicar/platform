@@ -1,14 +1,10 @@
 package com.softicar.platform.dom.elements;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.pair.Pair;
 import com.softicar.platform.common.container.pair.PairFactory;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.input.DomOption;
@@ -21,7 +17,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class AbstractDomValueSelectTest {
+public class AbstractDomValueSelectTest extends AbstractTest {
 
 	private TestSelect select;
 	private Pair<Integer, IDisplayString> value;

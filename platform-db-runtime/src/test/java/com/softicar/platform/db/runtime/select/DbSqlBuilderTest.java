@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.select;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.token.SqlKeyword;
 import com.softicar.platform.db.sql.token.SqlSymbol;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class DbSqlBuilderTest {
+public class DbSqlBuilderTest extends AbstractTest {
 
 	private final DbSqlBuilder builder;
 

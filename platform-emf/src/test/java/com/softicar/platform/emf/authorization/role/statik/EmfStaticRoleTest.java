@@ -2,14 +2,14 @@ package com.softicar.platform.emf.authorization.role.statik;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.authorization.role.IEmfRolePredicate;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import java.util.UUID;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class EmfStaticRoleTest extends Assert {
+public class EmfStaticRoleTest extends AbstractTest {
 
 	private final IBasicUser user;
 	private final TestModuleInstance moduleInstance;

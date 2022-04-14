@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.java.classes.name;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class JavaClassNameDeterminerTest extends Assert {
+public class JavaClassNameDeterminerTest extends AbstractTest {
 
 	private final JavaClassNameDeterminer determiner;
 

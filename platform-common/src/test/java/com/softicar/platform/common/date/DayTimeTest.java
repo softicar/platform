@@ -2,12 +2,12 @@ package com.softicar.platform.common.date;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ import org.junit.Test;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DayTimeTest extends Assert {
+public class DayTimeTest extends AbstractTest {
 
 	private static final Day SOME_DAY = Day.fromYMD(2014, 1, 1);
 

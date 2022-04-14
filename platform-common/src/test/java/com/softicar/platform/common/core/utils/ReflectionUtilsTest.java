@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.reflect.Constructor;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ReflectionUtilsTest extends Assert {
+public class ReflectionUtilsTest extends AbstractTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testException() {

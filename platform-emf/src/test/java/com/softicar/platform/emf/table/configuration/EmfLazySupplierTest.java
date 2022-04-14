@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.table.configuration;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EmfLazySupplierTest extends Assert {
+public class EmfLazySupplierTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

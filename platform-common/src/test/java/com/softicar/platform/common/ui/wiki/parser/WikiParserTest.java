@@ -1,10 +1,10 @@
 package com.softicar.platform.common.ui.wiki.parser;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.ui.wiki.element.block.WikiDocument;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class WikiParserTest extends Assert {
+public class WikiParserTest extends AbstractTest {
 
 	// -------------------- formatting -------------------- //
 

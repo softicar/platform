@@ -6,8 +6,8 @@ import com.softicar.platform.emf.data.table.export.element.TableExportChildEleme
 import com.softicar.platform.emf.data.table.export.engine.factory.AbstractTableExportEngineFactory;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult;
-import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult.Level;
+import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
 import java.util.Collection;
 
 /**

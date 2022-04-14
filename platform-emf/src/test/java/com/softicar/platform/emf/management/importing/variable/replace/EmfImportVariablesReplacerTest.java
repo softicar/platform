@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.management.importing.variable.replace;
 
 import com.softicar.platform.common.container.map.set.SetMap;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfImportVariablesReplacerTest extends Assert {
+public class EmfImportVariablesReplacerTest extends AbstractTest {
 
 	@Test
 	public void testExecute() {

@@ -1,15 +1,12 @@
 package com.softicar.platform.common.io.serialization;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SerializerDeserializerTest {
+public class SerializerDeserializerTest extends AbstractTest {
 
 	private static final byte[] BYTES = { -128, -127, -1, 0, 1, 127 };
 	private ByteArrayOutputStream outputStream;

@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.user.password.policy;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.user.password.quality.criteria.PasswordDigitCharacterCriterion;
 import com.softicar.platform.core.module.user.password.quality.criteria.PasswordLengthCriterion;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class PasswordPolicyTest extends Assert {
+public class PasswordPolicyTest extends AbstractTest {
 
 	private final PasswordPolicy policy = new PasswordPolicy();
 

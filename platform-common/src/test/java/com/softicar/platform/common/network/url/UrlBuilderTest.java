@@ -1,6 +1,6 @@
 package com.softicar.platform.common.network.url;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class UrlBuilderTest extends Assert {
+public class UrlBuilderTest extends AbstractTest {
 
 	@Test(expected = NullPointerException.class)
 	public void testWithoutScheme() {

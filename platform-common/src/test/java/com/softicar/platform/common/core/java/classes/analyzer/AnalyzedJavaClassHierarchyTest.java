@@ -3,10 +3,10 @@ package com.softicar.platform.common.core.java.classes.analyzer;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.classpath.JavaClasspathLoader;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AnalyzedJavaClassHierarchyTest extends Assert {
+public class AnalyzedJavaClassHierarchyTest extends AbstractTest {
 
 	private static final String TEST_SUPER = "com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClassHierarchyTestSuperClass";
 	private static final String TEST_INTERMEDIATE = "com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClassHierarchyTestClass";

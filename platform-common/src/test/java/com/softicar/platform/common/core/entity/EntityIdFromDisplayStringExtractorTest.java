@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.entity;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EntityIdFromDisplayStringExtractorTest extends Assert {
+public class EntityIdFromDisplayStringExtractorTest extends AbstractTest {
 
 	@Test
 	public void test() {

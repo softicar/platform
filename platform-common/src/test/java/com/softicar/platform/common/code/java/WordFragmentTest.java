@@ -1,11 +1,11 @@
 package com.softicar.platform.common.code.java;
 
 import com.softicar.platform.common.code.java.WordFragment.Type;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class WordFragmentTest extends Assert {
+public class WordFragmentTest extends AbstractTest {
 
 	@Test
 	public void testParse() {

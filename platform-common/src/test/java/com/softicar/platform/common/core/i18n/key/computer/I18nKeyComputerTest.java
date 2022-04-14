@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.i18n.key.computer;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class I18nKeyComputerTest extends Assert {
+public class I18nKeyComputerTest extends AbstractTest {
 
 	@Test
 	public void testSimpleStringWithoutArguments() {

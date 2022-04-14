@@ -1,14 +1,14 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfAttributeReordererTest extends Assert {
+public class EmfAttributeReordererTest extends AbstractTest {
 
 	private final EmfAttributeList<EmfTestSubObject, EmfTestObject> attributeList;
 

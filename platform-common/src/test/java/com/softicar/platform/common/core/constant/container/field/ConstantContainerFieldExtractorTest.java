@@ -1,14 +1,14 @@
 package com.softicar.platform.common.core.constant.container.field;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ConstantContainerFieldExtractorTest extends Assert {
+public class ConstantContainerFieldExtractorTest extends AbstractTest {
 
 	@Test
 	public void testWithStringSeveralMatches() {

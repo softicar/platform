@@ -1,15 +1,15 @@
 package com.softicar.platform.db.runtime.key;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.sql.ISqlTable;
 import com.softicar.platform.db.sql.statement.builder.SqlStatementBuilder;
 import com.softicar.platform.db.sql.statement.builder.clause.ISqlClauseBuildable;
 import com.softicar.platform.db.sql.statement.builder.clause.SqlClauseBuilder;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.mockito.Mockito;
 
-public class AbstractDbCompoundKeyTest extends Assert {
+public class AbstractDbCompoundKeyTest extends AbstractTest {
 
 	private final SqlStatementBuilder statementBuilder;
 	private final SqlClauseBuilder clauseBuilder;

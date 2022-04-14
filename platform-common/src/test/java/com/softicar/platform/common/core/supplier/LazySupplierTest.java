@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.supplier;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class LazySupplierTest extends Assert {
+public class LazySupplierTest extends AbstractTest {
 
 	@Test
 	public void testGet() {

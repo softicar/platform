@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.predicate;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.mockito.Mockito;
 
-public abstract class AbstractEmfPredicateTest extends Assert {
+public abstract class AbstractEmfPredicateTest extends AbstractTest {
 
 	protected final IEmfPredicate<String> predicate1 = Mockito.mock(IEmfPredicate.class);
 	protected final IEmfPredicate<String> predicate2 = Mockito.mock(IEmfPredicate.class);

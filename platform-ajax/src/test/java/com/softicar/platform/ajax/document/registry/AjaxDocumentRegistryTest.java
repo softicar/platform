@@ -1,13 +1,13 @@
 package com.softicar.platform.ajax.document.registry;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxDocumentRegistryTest extends Asserts {
+public class AjaxDocumentRegistryTest extends AbstractTest {
 
 	private final AjaxDocumentRegistry registry;
 

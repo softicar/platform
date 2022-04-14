@@ -1,10 +1,10 @@
 package com.softicar.platform.common.io.classpath.file;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ZipClasspathFileTest extends Assert {
+public class ZipClasspathFileTest extends AbstractTest {
 
 	private final ZipClasspathFile classpathFile;
 	private final ZipClasspathFile classpathFolder;

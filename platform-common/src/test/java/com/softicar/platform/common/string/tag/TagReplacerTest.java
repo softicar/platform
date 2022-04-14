@@ -1,11 +1,11 @@
 package com.softicar.platform.common.string.tag;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.common.core.exceptions.SofticarException;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TagReplacerTest {
+public class TagReplacerTest extends AbstractTest {
 
 	private TagReplacer replacer;
 

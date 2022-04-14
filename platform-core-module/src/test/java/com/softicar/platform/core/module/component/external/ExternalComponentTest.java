@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.component.external;
 
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.component.external.key.ExternalComponentKey;
 import com.softicar.platform.core.module.component.external.type.ExternalComponentType;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ExternalComponentTest extends Assert {
+public class ExternalComponentTest extends AbstractTest {
 
 	@Test
 	public void testConstructor() {

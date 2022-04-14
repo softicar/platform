@@ -1,15 +1,15 @@
 package com.softicar.platform.db.core;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbConnectionCache;
 import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.connection.IDbConnection;
 import com.softicar.platform.db.core.database.DbDatabaseKey;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 @SuppressWarnings("resource")
-public class DbConnectionCacheTest extends Assert {
+public class DbConnectionCacheTest extends AbstractTest {
 
 	private final DbConnectionCache connectionCache;
 	private final DbDatabaseKey someDatabaseKey;

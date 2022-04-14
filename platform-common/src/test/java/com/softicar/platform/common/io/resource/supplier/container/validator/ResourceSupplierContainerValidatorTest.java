@@ -17,10 +17,10 @@ import com.softicar.platform.common.io.resource.supplier.container.validator.err
 import com.softicar.platform.common.io.resource.supplier.container.validator.error.ResourceSupplierContainerFieldResourceKeyIllegalBasenameError;
 import com.softicar.platform.common.io.resource.supplier.container.validator.error.ResourceSupplierContainerFieldResourceKeyUnexpectedPackageError;
 import com.softicar.platform.common.io.resource.supplier.container.validator.error.ResourceSupplierContainerResourceKeyAmbiguousError;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ResourceSupplierContainerValidatorTest extends Assert {
+public class ResourceSupplierContainerValidatorTest extends AbstractTest {
 
 	@Test
 	public void testWithValidResourceSupplierContainerClass() {

@@ -1,10 +1,9 @@
 package com.softicar.platform.common.core.logging;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class LogLevelTest {
+public class LogLevelTest extends AbstractTest {
 
 	@Test
 	public void returnsCorrectPrioritiesOfLogLevels() {

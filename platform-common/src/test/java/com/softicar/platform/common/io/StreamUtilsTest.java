@@ -1,11 +1,11 @@
 package com.softicar.platform.common.io;
 
 import com.softicar.platform.common.string.charset.Charsets;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayInputStream;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class StreamUtilsTest extends Assert {
+public class StreamUtilsTest extends AbstractTest {
 
 	@Test
 	public void testToString() {

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.network.address;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class Ipv4NetworkAddressTest extends Assert {
+public class Ipv4NetworkAddressTest extends AbstractTest {
 
 	@Test
 	public void testToString() {

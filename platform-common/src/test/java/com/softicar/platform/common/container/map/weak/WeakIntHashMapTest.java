@@ -3,6 +3,7 @@ package com.softicar.platform.common.container.map.weak;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class WeakIntHashMapTest {
+public class WeakIntHashMapTest extends AbstractTest {
 
 	private static final int MAX_COLLECT_LOOP = 100;
 	private static final int COLLECT_SLEEP_MILLIS = 10;

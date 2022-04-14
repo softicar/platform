@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.java.identifier.declaration.JavaIdentif
 import com.softicar.platform.common.core.java.identifier.key.JavaIdentifierKey;
 import com.softicar.platform.common.core.java.method.reference.JavaLambdaMethodReferenceFilter;
 import com.softicar.platform.common.core.java.method.reference.JavaMethodReference;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.invoke.CallSite;
 import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandle;
@@ -25,11 +26,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.junit.Assert;
 import org.junit.Test;
 import org.objectweb.asm.Opcodes;
 
-public class JavaClassAnalyzerTest extends Assert {
+public class JavaClassAnalyzerTest extends AbstractTest {
 
 	private AnalyzedJavaClass javaClass;
 

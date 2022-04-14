@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.array;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CharSequenceArrayTest extends Assert {
+public class CharSequenceArrayTest extends AbstractTest {
 
 	private static final char[] ARRAY = "FooBarBaz".toCharArray();
 

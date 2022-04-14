@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.data.table.util;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.data.table.TestDataTable;
 import com.softicar.platform.emf.data.table.TestDataTableRow;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfDataTableRowKeyTest extends Assert {
+public class EmfDataTableRowKeyTest extends AbstractTest {
 
 	private final TestDataTable table;
 

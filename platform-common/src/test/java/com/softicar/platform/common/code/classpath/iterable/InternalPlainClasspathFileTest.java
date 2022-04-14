@@ -1,10 +1,10 @@
 package com.softicar.platform.common.code.classpath.iterable;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InternalPlainClasspathFileTest extends Assert {
+public class InternalPlainClasspathFileTest extends AbstractTest {
 
 	private final InternalPlainClasspathFile classpathFile;
 

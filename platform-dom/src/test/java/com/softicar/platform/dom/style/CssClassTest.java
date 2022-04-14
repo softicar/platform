@@ -2,14 +2,14 @@ package com.softicar.platform.dom.style;
 
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.engine.IDomEngine;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class CssClassTest extends Asserts {
+public class CssClassTest extends AbstractTest {
 
 	private static final String FOO = "foo";
 	private final IDomDocument document;

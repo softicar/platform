@@ -1,12 +1,12 @@
 package com.softicar.platform.common.container.list;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ListElementsMoverTest extends Assert {
+public class ListElementsMoverTest extends AbstractTest {
 
 	private final List<Integer> list;
 

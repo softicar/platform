@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.table.logic;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import java.lang.ref.WeakReference;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbTableRowBackupMapTest extends Assert {
+public class DbTableRowBackupMapTest extends AbstractTest {
 
 	private final DbTableRowBackupMap backupMap;
 

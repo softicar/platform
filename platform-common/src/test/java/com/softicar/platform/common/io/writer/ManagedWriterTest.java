@@ -3,14 +3,14 @@ package com.softicar.platform.common.io.writer;
 import com.softicar.platform.common.io.reader.ManagedReader;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.string.charset.Charsets;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class ManagedWriterTest extends Assert {
+public class ManagedWriterTest extends AbstractTest {
 
 	private static final String NON_ASCII_TEXT = "äöü";
 	private final StringBuilder output;

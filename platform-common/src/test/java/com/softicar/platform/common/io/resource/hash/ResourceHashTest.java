@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.resource.hash;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ResourceHashTest extends Assert {
+public class ResourceHashTest extends AbstractTest {
 
 	@Test
 	public void testEquals() {

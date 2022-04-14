@@ -1,10 +1,10 @@
 package com.softicar.platform.db.runtime.field;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DbFieldsTest extends Assert {
+public class DbFieldsTest extends AbstractTest {
 
 	@Test
 	public void testGetFallbackTitle() {

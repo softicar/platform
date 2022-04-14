@@ -1,12 +1,12 @@
 package com.softicar.platform.common.io.reader;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class BufferedReadersTest extends Assert {
+public class BufferedReadersTest extends AbstractTest {
 
 	@Test
 	public void testReadLines() {

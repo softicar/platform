@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.item.IBasicItem;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.string.Imploder;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class DomSimpleValueSelectTest extends Asserts implements IDomTestEngineMethods {
+public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEngineMethods {
 
 	private static final String NIL = "[none]";
 

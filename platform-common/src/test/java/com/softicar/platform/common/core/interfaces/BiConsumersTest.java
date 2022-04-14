@@ -1,11 +1,11 @@
 package com.softicar.platform.common.core.interfaces;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class BiConsumersTest extends Assert {
+public class BiConsumersTest extends AbstractTest {
 
 	private static final String A = "A";
 	private final ArrayList<String> someList;

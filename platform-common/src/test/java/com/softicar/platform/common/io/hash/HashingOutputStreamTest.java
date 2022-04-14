@@ -1,18 +1,17 @@
 package com.softicar.platform.common.io.hash;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import com.softicar.platform.common.io.stream.test.TestOutputStream;
 import com.softicar.platform.common.string.hash.Hash;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.IOException;
 import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HashingOutputStreamTest {
+public class HashingOutputStreamTest extends AbstractTest {
 
 	private static final byte[] SOME_BYTES = new byte[] { 33, -15, 127, 1 };
 	private static final byte[] EXPECTED_BYTES = new byte[] { 42, -128, 33, -15, 127, 1, -15, 127 };

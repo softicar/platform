@@ -3,13 +3,13 @@ package com.softicar.platform.common.io.classpath;
 import com.softicar.platform.common.core.java.classpath.finder.JavaClasspathFinder;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.classpath.file.IClasspathFile;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ClasspathFileFetcherTest extends Assert {
+public class ClasspathFileFetcherTest extends AbstractTest {
 
 	private final Class<?> classInMainSourceFolderFromPlainFilesystem;
 	private final Class<?> classInTestSourceFolderFromPlainFilesystem;

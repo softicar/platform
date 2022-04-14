@@ -1,11 +1,11 @@
 package com.softicar.platform.common.date;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collections;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DateItemTest extends Assert {
+public class DateItemTest extends AbstractTest {
 
 	@Test
 	public void testMaxWithCollection() {

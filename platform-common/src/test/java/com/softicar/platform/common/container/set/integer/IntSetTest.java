@@ -1,9 +1,6 @@
 package com.softicar.platform.common.container.set.integer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +9,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class IntSetTest {
+public class IntSetTest extends AbstractTest {
 
 	private IntSet set;
 

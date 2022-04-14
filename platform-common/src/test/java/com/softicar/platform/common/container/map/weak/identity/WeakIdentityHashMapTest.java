@@ -1,15 +1,11 @@
 package com.softicar.platform.common.container.map.weak.identity;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WeakIdentityHashMapTest {
+public class WeakIdentityHashMapTest extends AbstractTest {
 
 	private WeakIdentityHashMap<Object, Integer> map;
 	private TestKey key1;

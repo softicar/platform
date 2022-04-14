@@ -1,12 +1,12 @@
 package com.softicar.platform.common.container.map.dependency;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.TreeSet;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class WeakDependencyMapTest extends Assert {
+public class WeakDependencyMapTest extends AbstractTest {
 
 	private final String A = "A";
 	private final String B = "B";

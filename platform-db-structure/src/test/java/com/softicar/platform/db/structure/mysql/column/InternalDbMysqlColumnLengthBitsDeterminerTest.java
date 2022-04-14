@@ -1,9 +1,9 @@
 package com.softicar.platform.db.structure.mysql.column;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class InternalDbMysqlColumnLengthBitsDeterminerTest extends Assert {
+public class InternalDbMysqlColumnLengthBitsDeterminerTest extends AbstractTest {
 
 	@Test
 	public void testBlobTypes() {

@@ -1,11 +1,11 @@
 package com.softicar.platform.common.code.classpath.iterable;
 
 import com.softicar.platform.common.io.zip.entry.ZipFileEntry;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.zip.ZipEntry;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InternalZipClasspathFileTest extends Assert {
+public class InternalZipClasspathFileTest extends AbstractTest {
 
 	private final InternalZipClasspathFile file;
 

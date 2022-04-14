@@ -1,13 +1,13 @@
 package com.softicar.platform.common.code.java;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JavaCodePrinterTest {
+public class JavaCodePrinterTest extends AbstractTest {
 
 	private JavaCodePrinter printer;
 	private JavaCodePrinter fileHeader;

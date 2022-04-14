@@ -1,11 +1,11 @@
 package com.softicar.platform.common.core.java.classpath.finder;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class JavaClasspathFinderTest extends Assert {
+public class JavaClasspathFinderTest extends AbstractTest {
 
 	@Test
 	public void test() {

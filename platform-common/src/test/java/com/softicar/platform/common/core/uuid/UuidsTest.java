@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.uuid;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class UuidsTest extends Assert {
+public class UuidsTest extends AbstractTest {
 
 	@Test
 	public void isUuid() {
