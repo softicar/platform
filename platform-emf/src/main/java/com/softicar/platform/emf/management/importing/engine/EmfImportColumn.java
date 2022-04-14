@@ -7,6 +7,7 @@ import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
@@ -89,5 +90,24 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	public String toString() {
 
 		return getTitle().toString();
+	}
+
+	@Override
+	public boolean equals(Object object) {
+
+		if (object instanceof EmfImportColumn) {
+
+			EmfImportColumn<R, ?> otherEmfImportColumn = CastUtils.cast(object);
+			// TODO it has to ignore sourceColumn because otherwise it goes eternal loop!
+			return Objects.equals(foreignKeyColumns, otherEmfImportColumn.foreignKeyColumns);
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+
+		return Objects.hash(foreignKeyColumns);
 	}
 }
