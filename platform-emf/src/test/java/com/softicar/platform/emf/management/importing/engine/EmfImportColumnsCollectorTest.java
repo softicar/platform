@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import org.junit.Test;
 
@@ -8,7 +9,8 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 	@Test
 	public void testGetCsvFileColumnsToImport() {
 
-		// TODO implement
+		EmfImportColumnsCollector<?, ?, ?> collector = new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE);
+		collector.getCsvFileColumnsToImport().stream().forEach(column -> Log.finfo(column.getTitle()));
 	}
 
 	@Test
@@ -32,7 +34,6 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 	@Test
 	public void testGetTable() {
 
-		// TODO implement
+		assertSame(EmfTestInvoiceItem.TABLE, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTable());
 	}
-
 }
