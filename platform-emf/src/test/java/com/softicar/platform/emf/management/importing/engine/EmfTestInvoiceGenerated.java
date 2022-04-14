@@ -19,16 +19,16 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 //	}
 	public static final IDbIdField<EmfTestInvoice> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestInvoice, EmfTestInvoiceModuleInstance> INVOICE_MODULE_INSTANCE = BUILDER.addForeignField("invoiceModuleInstance", o->o.invoiceModuleInstance, (o,v)->o.invoiceModuleInstance=v, EmfTestInvoiceModuleInstance.ID);
-	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> BUSINESS_PARTNER = BUILDER.addForeignField("businessPartner", o->o.businessPartner, (o,v)->o.businessPartner=v, EmfTestBusinessPartner.ID);
+	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> PARTNER = BUILDER.addForeignField("partner", o->o.partner, (o,v)->o.partner=v, EmfTestBusinessPartner.ID);
 	public static final IDbStringField<EmfTestInvoice> NUMBER = BUILDER.addStringField("number", o -> o.number, (o, v) -> o.number = v).setNullable().setDefault(null);
 	public static final IDbDayField<EmfTestInvoice> DATE = BUILDER.addDayField("date", o -> o.date, (o, v) -> o.date = v).setNullable().setDefault(null);
-	public static final IDbKey<EmfTestInvoice> UK_BUSINESS_MODULE_INSTANCE_BUSINESS_PARTNER_NAME = BUILDER.addUniqueKey("nameDay", INVOICE_MODULE_INSTANCE, BUSINESS_PARTNER, NUMBER);
+	public static final IDbKey<EmfTestInvoice> UK_BUSINESS_MODULE_INSTANCE_PARTNER_NAME = BUILDER.addUniqueKey("nameDay", INVOICE_MODULE_INSTANCE, PARTNER, NUMBER);
 	public static final EmfTestInvoiceTable TABLE = new EmfTestInvoiceTable(BUILDER);
 	// @formatter:on
 
 	private Integer id;
 	private EmfTestInvoiceModuleInstance invoiceModuleInstance;
-	private EmfTestBusinessPartner businessPartner;
+	private EmfTestBusinessPartner partner;
 	private String number;
 	private Day date;
 
@@ -42,14 +42,14 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 		return setValue(INVOICE_MODULE_INSTANCE, invoiceModuleInstance);
 	}
 
-	public EmfTestBusinessPartner getBusinessPartner() {
+	public EmfTestBusinessPartner getPartner() {
 
-		return getValue(BUSINESS_PARTNER);
+		return getValue(PARTNER);
 	}
 
-	public EmfTestInvoice setBusinessPartner(EmfTestBusinessPartner businessPartner) {
+	public EmfTestInvoice setPartner(EmfTestBusinessPartner partner) {
 
-		return setValue(BUSINESS_PARTNER, businessPartner);
+		return setValue(PARTNER, partner);
 	}
 
 	public EmfTestInvoice setNumber(String name) {

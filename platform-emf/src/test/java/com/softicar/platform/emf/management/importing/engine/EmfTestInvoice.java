@@ -8,6 +8,6 @@ public class EmfTestInvoice extends EmfTestInvoiceGenerated implements IEmfObjec
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return IDisplayString.create(getInvoiceModuleInstance().toDisplay() + "::" + getBusinessPartner().toDisplay() + "::" + getNumber());
+		return IDisplayString.create(getInvoiceModuleInstance().toDisplay() + "::" + getPartner().toDisplay() + "::" + getNumber());
 	}
 }
