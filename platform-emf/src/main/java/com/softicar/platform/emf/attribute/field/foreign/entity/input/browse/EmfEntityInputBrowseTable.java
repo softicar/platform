@@ -16,8 +16,8 @@ class EmfEntityInputBrowseTable<E extends IEmfEntity<E, ?>> extends AbstractInMe
 
 		this.inputEngine = Objects.requireNonNull(inputEngine);
 		this.nameColumn = newColumn(String.class)//
-			.setGetter(it -> it.toDisplay().toString())
-			.setTitle(EmfI18n.NAME)
+			.setGetter(entity -> entity.toDisplay().toString())
+			.setTitle(EmfI18n.ENTRY)
 			.addColumn();
 	}
 
