@@ -7,6 +7,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.dom.node.DomNode;
 
 /**
@@ -73,7 +74,7 @@ public class DomHelpPopupButton extends DomButton {
 		return popup;
 	}
 
-	private class HelpPopup extends DomPopup {
+	private class HelpPopup extends DomDismissablePopup {
 
 		public HelpPopup() {
 
