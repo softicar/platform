@@ -7,8 +7,8 @@
 	padding: 0 1em 1em 1em;
 }
 
-.DomPageableTableNavigationGoToPagePopup .DomNumberInput {
-	width: 4em;
+.DomPageableTableNavigationGoToPagePopover input {
+	width: 8em;
 }
 
 .DomPageableTableNavigationPageList {
