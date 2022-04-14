@@ -7,8 +7,13 @@
 	box-shadow: none;
 }
 
-.EmfEntityInputBrowsePopoverCell {
+.EmfEntityInputBrowsePopover > .EmfDataTableDiv .DomDataTable tr > td {
+	padding: 0;
+}
+
+.EmfEntityInputBrowsePopoverCellContent {
 	cursor: pointer;
+	padding: 0.5em 1em;
 }
 
 .EmfInputDiv {

@@ -21,17 +21,17 @@ class EmfEntityInputBrowseColumnHandler<E extends IEmfEntity<E, ?>> extends EmfD
 	@Override
 	public void buildCell(IEmfDataTableCell<E, String> cell, E entity) {
 
-		cell.appendChild(new NameDiv(entity));
+		cell.appendChild(new ContentDiv(entity));
 	}
 
-	private class NameDiv extends DomDiv implements IDomClickEventHandler {
+	private class ContentDiv extends DomDiv implements IDomClickEventHandler {
 
 		private final E entity;
 
-		public NameDiv(E entity) {
+		public ContentDiv(E entity) {
 
 			this.entity = entity;
-			addCssClass(EmfCssClasses.EMF_ENTITY_INPUT_BROWSE_POPOVER_CELL);
+			addCssClass(EmfCssClasses.EMF_ENTITY_INPUT_BROWSE_POPOVER_CELL_CONTENT);
 			appendText(entity.toDisplay());
 		}
 
