@@ -13,6 +13,6 @@ class GoToPageButton extends DomPopupButton {
 		setIcon(DomElementsImages.TABLE_PAGE_GO_TO.getResource());
 		setTitle(DomI18n.GO_TO_PAGE);
 		setMarker(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_BUTTON);
-		setPopupFactory(() -> new GoToPagePopover(table));
+		setPopupFactory(() -> new GoToPagePopup(table));
 	}
 }

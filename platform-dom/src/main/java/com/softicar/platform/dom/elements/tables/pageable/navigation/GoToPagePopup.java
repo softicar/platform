@@ -19,15 +19,17 @@ import com.softicar.platform.dom.event.IDomEvent;
  *
  * @author Alexander Schmidt
  */
-class GoToPagePopover extends DomPopover {
+class GoToPagePopup extends DomPopover {
 
 	private final DomPageableTable table;
 	private PageNumberInput pageNumberInput;
 
-	public GoToPagePopover(DomPageableTable table) {
+	public GoToPagePopup(DomPageableTable table) {
 
 		this.table = table;
-		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION_GO_TO_PAGE_POPOVER);
+		setDisplayHeader(true);
+		setCaption(DomI18n.GO_TO_PAGE);
+		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION_GO_TO_PAGE_POPUP);
 	}
 
 	@Override

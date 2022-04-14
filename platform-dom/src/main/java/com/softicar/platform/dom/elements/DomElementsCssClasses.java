@@ -42,8 +42,8 @@ public interface DomElementsCssClasses {
 	ICssClass DOM_MODAL_DIALOG_BACKDROP = new CssClass("DomModalDialogBackdrop", DomElementsCssFiles.DOM_MODAL_DIALOG_STYLE);
 
 	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION = new CssClass("DomPageableTableNavigation", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
-	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION_GO_TO_PAGE_POPOVER =
-			new CssClass("DomPageableTableNavigationGoToPagePopover", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
+	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION_GO_TO_PAGE_POPUP =
+			new CssClass("DomPageableTableNavigationGoToPagePopup", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
 	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION_PAGE_LIST = new CssClass("DomPageableTableNavigationPageList", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
 
 	ICssClass DOM_PERCENTAGE = new CssClass("DomPercentage", DomElementsCssFiles.DOM_PERCENTAGE_BAR_STYLE);
