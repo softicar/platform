@@ -1,10 +1,10 @@
 package com.softicar.platform.common.string.regex;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.regex.Pattern;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class PatternsTest extends Assert {
+public class PatternsTest extends AbstractTest {
 
 	private static final Pattern LETTERS = Pattern.compile("[a-z]+");
 	private static final Pattern NUMBERS = Pattern.compile("[0-9]+");

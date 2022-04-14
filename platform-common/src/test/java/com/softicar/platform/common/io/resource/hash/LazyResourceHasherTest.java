@@ -4,12 +4,12 @@ import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.string.hash.Hash;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayInputStream;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class LazyResourceHasherTest extends Assert {
+public class LazyResourceHasherTest extends AbstractTest {
 
 	private static final String SAMPLE_DATA = "foo";
 	private static final byte[] SAMPLE_DATA_BYTES = SAMPLE_DATA.getBytes(Charsets.UTF8);

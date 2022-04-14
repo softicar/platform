@@ -1,5 +1,6 @@
 package com.softicar.platform.db.structure.mysql;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.db.core.dbms.h2.DbH2Database;
@@ -8,10 +9,9 @@ import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStateme
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import java.util.Arrays;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InternalDbMysqlEnumTableRowsLoaderTest extends Assert {
+public class InternalDbMysqlEnumTableRowsLoaderTest extends AbstractTest {
 
 	private static final String CREATE_TABLE_STATEMENT = new StringBuilder()//
 		.append("CREATE TABLE `db`.`foo` (")

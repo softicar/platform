@@ -3,11 +3,11 @@ package com.softicar.platform.common.date;
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class DayTest extends Assert {
+public class DayTest extends AbstractTest {
 
 	private Date zeroDate;
 	private Day today;

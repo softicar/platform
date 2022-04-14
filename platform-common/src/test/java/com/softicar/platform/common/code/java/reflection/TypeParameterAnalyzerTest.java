@@ -1,15 +1,15 @@
 package com.softicar.platform.common.code.java.reflection;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TypeParameterAnalyzerTest extends Assert {
+public class TypeParameterAnalyzerTest extends AbstractTest {
 
 	// -------------------------------- test non-parameterized types -------------------------------- //
 

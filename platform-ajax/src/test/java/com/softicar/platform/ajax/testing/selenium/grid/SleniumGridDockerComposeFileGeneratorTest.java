@@ -4,11 +4,11 @@ import com.softicar.platform.ajax.testing.selenium.grid.configuration.grid.Selen
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.hub.SeleniumHubConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.network.SeleniumNetworkConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.node.SeleniumNodeConfiguration;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SleniumGridDockerComposeFileGeneratorTest extends Assert {
+public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 
 	private final SleniumGridDockerComposeFileGenerator generator;
 

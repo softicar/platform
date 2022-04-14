@@ -1,9 +1,9 @@
 package com.softicar.platform.common.date;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DurationTest extends Assert {
+public class DurationTest extends AbstractTest {
 
 	private static final int SECONDS_PER_HOUR = 3600;
 	private static final int SECONDS_PER_DAY = 24 * SECONDS_PER_HOUR;

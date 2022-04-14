@@ -1,10 +1,11 @@
 package com.softicar.platform.common.code;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
-public class QualifiedNameParserTest extends org.junit.Assert {
+public class QualifiedNameParserTest extends AbstractTest {
 
 	@Test
 	public void testNormal() {

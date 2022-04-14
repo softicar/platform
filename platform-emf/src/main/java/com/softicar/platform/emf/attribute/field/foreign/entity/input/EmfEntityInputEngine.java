@@ -2,8 +2,11 @@ package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.interfaces.Predicates;
+import com.softicar.platform.common.core.transaction.ITransaction;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
+import com.softicar.platform.dom.elements.input.auto.entity.AbstractDomAutoCompleteTransactionalEntityInputEngine;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.entity.table.IEmfEntityTable;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -18,7 +21,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractEmfEntityInputEngine<T> {
+public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDomAutoCompleteTransactionalEntityInputEngine<T> {
 
 	private final IEmfEntityTable<T, ?, ?> targetTable;
 	private final Predicate<T> validator;
@@ -89,6 +92,12 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractEm
 			.collect(Collectors.toList());
 	}
 
+	@Override
+	protected ITransaction createTransaction() {
+
+		return new DbTransaction();
+	}
+
 	@SuppressWarnings("unchecked")
 	public EmfEntityInputEngine<T> addOrderBy(IDbField<T, ?>...fields) {
 
@@ -137,7 +146,7 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractEm
 	private boolean matches(T item, String pattern) {
 
 		return Optional//
-			.ofNullable(getDisplayString(item))
+			.ofNullable(getDisplayStringWithoutId(item))
 			.map(Object::toString)
 			.orElse("")
 			.toLowerCase()

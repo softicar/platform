@@ -1,11 +1,11 @@
 package com.softicar.platform.common.io.stream;
 
 import com.softicar.platform.common.io.stream.test.TestOutputStream;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.IOException;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SwitchingOutputStreamTest extends Assert {
+public class SwitchingOutputStreamTest extends AbstractTest {
 
 	private static final int LIMIT = 3;
 	private final TestOutputStream initalStream;

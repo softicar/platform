@@ -1,11 +1,11 @@
 package com.softicar.platform.db.runtime.transients;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbTransientValueCacheTest extends Assert {
+public class DbTransientValueCacheTest extends AbstractTest {
 
 	private static final Attribute ATTRIBUTE = new Attribute();
 	private static final String A = "A";

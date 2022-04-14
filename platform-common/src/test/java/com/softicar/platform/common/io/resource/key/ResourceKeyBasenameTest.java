@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.resource.key;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ResourceKeyBasenameTest extends Assert {
+public class ResourceKeyBasenameTest extends AbstractTest {
 
 	// -------------------------------- From Filename -------------------------------- //
 

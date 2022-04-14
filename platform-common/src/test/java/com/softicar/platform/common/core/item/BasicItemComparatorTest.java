@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.item;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class BasicItemComparatorTest extends Assert {
+public class BasicItemComparatorTest extends AbstractTest {
 
 	private static final ItemId _23 = new ItemId(23);
 	private static final ItemId _34 = new ItemId(34);

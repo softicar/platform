@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class SubstringCounterTest extends Assert {
+public class SubstringCounterTest extends AbstractTest {
 
 	@Test
 	public void testCountOccurrences() {

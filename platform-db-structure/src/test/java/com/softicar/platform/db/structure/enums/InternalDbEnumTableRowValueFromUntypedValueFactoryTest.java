@@ -1,6 +1,7 @@
 package com.softicar.platform.db.structure.enums;
 
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.enums.value.DbEnumTableRowBigDecimalValue;
 import com.softicar.platform.db.structure.enums.value.DbEnumTableRowBooleanValue;
 import com.softicar.platform.db.structure.enums.value.DbEnumTableRowDoubleValue;
@@ -10,10 +11,9 @@ import com.softicar.platform.db.structure.enums.value.DbEnumTableRowLongValue;
 import com.softicar.platform.db.structure.enums.value.DbEnumTableRowNullValue;
 import com.softicar.platform.db.structure.enums.value.DbEnumTableRowStringValue;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InternalDbEnumTableRowValueFromUntypedValueFactoryTest extends Assert {
+public class InternalDbEnumTableRowValueFromUntypedValueFactoryTest extends AbstractTest {
 
 	@Test
 	public void testWithAllSupportedTypes() {

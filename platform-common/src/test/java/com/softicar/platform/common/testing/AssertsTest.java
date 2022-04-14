@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class AssertsTest {
+public class AssertsTest extends AbstractTest {
 
 	@Test
 	public void testAssertException() {

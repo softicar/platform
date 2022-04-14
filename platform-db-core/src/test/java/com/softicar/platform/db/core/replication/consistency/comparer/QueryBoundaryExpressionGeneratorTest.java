@@ -1,14 +1,14 @@
 package com.softicar.platform.db.core.replication.consistency.comparer;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.replication.consistency.comparer.QueryBoundaryExpressionGenerator.Mode;
 import com.softicar.platform.db.core.statement.DbStatement;
 import com.softicar.platform.db.core.table.definition.DbTableKeyDefinition;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class QueryBoundaryExpressionGeneratorTest extends Assert {
+public class QueryBoundaryExpressionGeneratorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

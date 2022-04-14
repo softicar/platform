@@ -1,11 +1,11 @@
 package com.softicar.platform.common.io.writer;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.PrintWriter;
 import java.io.Writer;
 import org.junit.Test;
 
-public class PrintWriterTest {
+public class PrintWriterTest extends AbstractTest {
 
 	protected static class MyWriter extends Writer {
 

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.formatting;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DoubleFormatterTest extends Assert {
+public class DoubleFormatterTest extends AbstractTest {
 
 	@Test
 	public void testFormatWithGroupSeparator() {

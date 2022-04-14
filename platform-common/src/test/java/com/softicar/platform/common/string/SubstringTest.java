@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class SubstringTest extends Assert {
+public class SubstringTest extends AbstractTest {
 
 	@Test
 	public void testBetween() {

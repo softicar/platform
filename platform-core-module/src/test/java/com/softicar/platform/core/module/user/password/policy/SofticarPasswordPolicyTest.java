@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.user.password.policy;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class SofticarPasswordPolicyTest extends Assert {
+public class SofticarPasswordPolicyTest extends AbstractTest {
 
 	private final SofticarPasswordPolicy policy;
 

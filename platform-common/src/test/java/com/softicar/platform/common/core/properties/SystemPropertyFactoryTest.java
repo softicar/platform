@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.properties;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SystemPropertyFactoryTest extends Assert {
+public class SystemPropertyFactoryTest extends AbstractTest {
 
 	// ---------------- Property Name ---------------- //
 

@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.high;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
@@ -10,7 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxSeleniumTestEngineTest implements IDomTestEngineMethods {
+public class AjaxSeleniumTestEngineTest extends AbstractTest implements IDomTestEngineMethods {
 
 	@Rule public final IDomTestEngine engine = new AjaxSeleniumTestEngine();
 	private static final IStaticObject BUTTON = Mockito.mock(IStaticObject.class);

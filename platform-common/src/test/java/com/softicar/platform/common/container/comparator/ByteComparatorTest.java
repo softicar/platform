@@ -1,7 +1,6 @@
 package com.softicar.platform.common.container.comparator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -9,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class ByteComparatorTest {
+public class ByteComparatorTest extends AbstractTest {
 
 	@Test
 	public void returnsZeroForEqualBytes() {

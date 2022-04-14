@@ -1,11 +1,11 @@
 package com.softicar.platform.db.core.sql.parser;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbSqlTokenizerTest extends Assert {
+public class DbSqlTokenizerTest extends AbstractTest {
 
 	@Test
 	public void testWithSimpleCreateTableStatement() {

@@ -1,10 +1,10 @@
 package com.softicar.platform.db.runtime.structure;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.utils.DbComplexTestObject;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbRuntimeTableStructureTest extends Assert {
+public class DbRuntimeTableStructureTest extends AbstractTest {
 
 	private final DbRuntimeTableStructure tableStructure;
 

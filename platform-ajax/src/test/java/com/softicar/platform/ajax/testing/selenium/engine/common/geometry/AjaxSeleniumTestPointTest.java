@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.testing.selenium.engine.common.geometry;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AjaxSeleniumTestPointTest extends Assert {
+public class AjaxSeleniumTestPointTest extends AbstractTest {
 
 	private final AjaxSeleniumTestPoint point;
 

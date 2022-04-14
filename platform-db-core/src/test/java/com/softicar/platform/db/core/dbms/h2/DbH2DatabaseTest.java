@@ -1,11 +1,11 @@
 package com.softicar.platform.db.core.dbms.h2;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbConnections;
 import java.security.SecureRandom;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbH2DatabaseTest extends Assert {
+public class DbH2DatabaseTest extends AbstractTest {
 
 	private static final String SCHEMA_NAME = "foo";
 

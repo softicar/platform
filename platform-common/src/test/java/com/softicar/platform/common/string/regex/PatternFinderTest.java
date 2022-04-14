@@ -1,10 +1,10 @@
 package com.softicar.platform.common.string.regex;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.regex.Pattern;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class PatternFinderTest extends Assert {
+public class PatternFinderTest extends AbstractTest {
 
 	/**
 	 * {@link PatternFinder#indexOfPattern(String, String)}

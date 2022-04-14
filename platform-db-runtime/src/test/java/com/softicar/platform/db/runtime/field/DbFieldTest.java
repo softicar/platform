@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.field;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbFieldTest extends Assert {
+public class DbFieldTest extends AbstractTest {
 
 	@Test
 	public void testFieldsOfTestTable() {

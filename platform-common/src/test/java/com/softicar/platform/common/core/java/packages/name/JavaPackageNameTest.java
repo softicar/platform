@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.java.packages.name;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class JavaPackageNameTest extends Assert {
+public class JavaPackageNameTest extends AbstractTest {
 
 	@Test
 	public void testGetName() {

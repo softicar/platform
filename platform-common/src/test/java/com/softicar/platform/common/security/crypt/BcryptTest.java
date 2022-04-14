@@ -1,9 +1,9 @@
 package com.softicar.platform.common.security.crypt;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class BcryptTest extends Assert {
+public class BcryptTest extends AbstractTest {
 
 	private static final String PASSWORD = "password";
 	private static final String ENCRYPTED_1 = "$2a$05$SlbuZ9bDYvS2pIz/dJNVROZVoHN/R9wyC8qNo7k88ptGKo5sRi3YG";

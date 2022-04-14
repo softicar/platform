@@ -1,12 +1,12 @@
 package com.softicar.platform.common.code.java.reflection;
 
 import com.softicar.platform.common.core.utils.ReflectionUtils;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.reflect.Field;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DeclaredFieldFinderTest extends Assert {
+public class DeclaredFieldFinderTest extends AbstractTest {
 
 	private final DeclaredFieldFinder finder;
 

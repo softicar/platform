@@ -1,15 +1,15 @@
 package com.softicar.platform.core.module.email.message;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.Asserts;
 import java.util.List;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmailMessageUtilsTest extends Assert {
+public class EmailMessageUtilsTest extends AbstractTest {
 
 	@Test
 	public void testGetReferencedMessageIds() throws MessagingException {

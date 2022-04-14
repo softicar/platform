@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.data.table.filter.string;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class FilterTextNormalizerTest extends Assert {
+public class FilterTextNormalizerTest extends AbstractTest {
 
 	@Test
 	public void test() {

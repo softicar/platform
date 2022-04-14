@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.regex;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class PatternFinderResultTest extends Assert {
+public class PatternFinderResultTest extends AbstractTest {
 
 	@Test
 	public void testConstructor() {

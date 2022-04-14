@@ -10,13 +10,13 @@ import static org.mockito.Mockito.when;
 import com.softicar.platform.common.container.iterable.Iterables;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.attribute.DomAttribute;
 import com.softicar.platform.dom.attribute.DomAttributeRegistry;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.engine.IDomEngine;
 import java.util.function.Consumer;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -26,7 +26,7 @@ import org.mockito.Mockito;
  *
  * @author Oliver Richers
  */
-public class AbstractDomNodeTest extends Assert {
+public class AbstractDomNodeTest extends AbstractTest {
 
 	private final IDomDocument document;
 	private final IDomEngine domEngine;

@@ -3,12 +3,12 @@ package com.softicar.platform.ajax.resource.registry;
 import com.softicar.platform.ajax.resource.AjaxResourceUrl;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxHashBasedResourceRegistryTest extends Assert {
+public class AjaxHashBasedResourceRegistryTest extends AbstractTest {
 
 	private static final ResourceHash HASH = new ResourceHash("abc");
 	private final AjaxHashBasedResourceRegistry registry;

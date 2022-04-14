@@ -1,11 +1,11 @@
 package com.softicar.platform.db.runtime.field;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import com.softicar.platform.db.sql.type.SqlFieldType;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbFieldTypeTest extends Assert {
+public class DbFieldTypeTest extends AbstractTest {
 
 	@Test
 	public void testFieldType() {

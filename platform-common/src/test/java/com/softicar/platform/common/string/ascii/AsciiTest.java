@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.ascii;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AsciiTest extends Assert {
+public class AsciiTest extends AbstractTest {
 
 	@Test
 	public void testIsAsciiWithAsciiCharacter() {

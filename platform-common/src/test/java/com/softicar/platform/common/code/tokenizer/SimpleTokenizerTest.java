@@ -1,11 +1,11 @@
 package com.softicar.platform.common.code.tokenizer;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SimpleTokenizerTest extends Assert {
+public class SimpleTokenizerTest extends AbstractTest {
 
 	@Test
 	public void testEmptySequence() {

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.exception;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ExceptionsCollectorTest extends Assert {
+public class ExceptionsCollectorTest extends AbstractTest {
 
 	private final ExceptionsCollector collector;
 

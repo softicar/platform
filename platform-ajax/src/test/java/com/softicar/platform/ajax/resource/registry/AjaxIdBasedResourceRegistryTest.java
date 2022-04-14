@@ -2,12 +2,12 @@ package com.softicar.platform.ajax.resource.registry;
 
 import com.softicar.platform.ajax.resource.AjaxResourceUrl;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxIdBasedResourceRegistryTest extends Assert {
+public class AjaxIdBasedResourceRegistryTest extends AbstractTest {
 
 	private final AjaxIdBasedResourceRegistry registry;
 	private final IResource resource1;

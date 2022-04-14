@@ -1,13 +1,13 @@
 package com.softicar.platform.db.runtime.query.builder;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.query.sorters.IDbQuerySorter;
 import com.softicar.platform.db.runtime.select.DbSqlFormatter;
 import com.softicar.platform.db.runtime.select.IDbSqlBuilder;
 import java.util.Collections;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbQueryOrderByApplierTest extends Assert {
+public class DbQueryOrderByApplierTest extends AbstractTest {
 
 	private final Builder builder;
 

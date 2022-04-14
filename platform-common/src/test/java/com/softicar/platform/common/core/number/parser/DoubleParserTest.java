@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.number.parser;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DoubleParserTest extends Assert {
+public class DoubleParserTest extends AbstractTest {
 
 	@Test
 	public void isDouble() {

@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.ajax.login;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class OneTimePasswordGeneratorTest extends Assert {
+public class OneTimePasswordGeneratorTest extends AbstractTest {
 
 	@Test
 	public void testGeneratePassword() {

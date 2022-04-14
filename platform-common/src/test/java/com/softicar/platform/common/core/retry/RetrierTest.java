@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.retry;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class RetrierTest extends Assert {
+public class RetrierTest extends AbstractTest {
 
 	@Test
 	public void testApplyWithoutFailure() {

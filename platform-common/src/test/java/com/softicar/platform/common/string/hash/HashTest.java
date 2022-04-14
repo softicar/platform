@@ -1,6 +1,6 @@
 package com.softicar.platform.common.string.hash;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class HashTest {
+public class HashTest extends AbstractTest {
 
 	@Test
 	public void testMd5() {

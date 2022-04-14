@@ -1,10 +1,10 @@
 package com.softicar.platform.db.structure.view;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbAliasViewParserTest extends Assert {
+public class DbAliasViewParserTest extends AbstractTest {
 
 	private static final DbTableName VIEW_NAME = new DbTableName("db", "view");
 

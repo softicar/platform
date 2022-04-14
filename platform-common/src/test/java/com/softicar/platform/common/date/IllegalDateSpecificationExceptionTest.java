@@ -1,9 +1,9 @@
 package com.softicar.platform.common.date;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class IllegalDateSpecificationExceptionTest extends Assert {
+public class IllegalDateSpecificationExceptionTest extends AbstractTest {
 
 	@Test
 	public void testFormatting() {

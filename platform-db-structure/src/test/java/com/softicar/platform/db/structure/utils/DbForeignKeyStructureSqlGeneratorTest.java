@@ -1,15 +1,15 @@
 package com.softicar.platform.db.structure.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.structure.foreign.key.DbForeignKeyAction;
 import com.softicar.platform.db.structure.foreign.key.DbForeignKeyStructure;
 import com.softicar.platform.db.structure.foreign.key.IDbForeignKeyStructure;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import com.softicar.platform.db.structure.table.IDbTableStructure;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbForeignKeyStructureSqlGeneratorTest extends Assert {
+public class DbForeignKeyStructureSqlGeneratorTest extends AbstractTest {
 
 	@Test
 	public void test() {

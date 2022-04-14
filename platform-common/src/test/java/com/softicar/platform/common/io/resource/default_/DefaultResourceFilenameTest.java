@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.resource.default_;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DefaultResourceFilenameTest extends Assert {
+public class DefaultResourceFilenameTest extends AbstractTest {
 
 	@Test
 	public void testWithSoleLetter() {

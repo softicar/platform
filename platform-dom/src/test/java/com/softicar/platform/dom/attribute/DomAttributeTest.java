@@ -1,10 +1,9 @@
 package com.softicar.platform.dom.attribute;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomAttributeTest {
+public class DomAttributeTest extends AbstractTest {
 
 	@Test
 	public void ctorConvertsNameToLowerCase() {

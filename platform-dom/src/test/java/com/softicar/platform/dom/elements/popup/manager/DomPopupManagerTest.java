@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.popup.manager;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DomPopupManagerTest extends Assert {
+public class DomPopupManagerTest extends AbstractTest {
 
 	public DomPopupManagerTest() {
 

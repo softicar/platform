@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.unicode;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class UtfNonBmpCharacterReplacerTest extends Assert {
+public class UtfNonBmpCharacterReplacerTest extends AbstractTest {
 
 	@Test
 	public void testAscii() {

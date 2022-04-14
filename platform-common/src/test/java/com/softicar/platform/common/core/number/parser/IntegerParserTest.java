@@ -1,6 +1,6 @@
 package com.softicar.platform.common.core.number.parser;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class IntegerParserTest extends Assert {
+public class IntegerParserTest extends AbstractTest {
 
 	@Test
 	public void isInteger() {

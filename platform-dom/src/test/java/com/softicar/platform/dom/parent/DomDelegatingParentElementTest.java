@@ -1,15 +1,15 @@
 package com.softicar.platform.dom.parent;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.IDomTextNode;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DomDelegatingParentElementTest extends Assert {
+public class DomDelegatingParentElementTest extends AbstractTest {
 
 	public DomDelegatingParentElementTest() {
 

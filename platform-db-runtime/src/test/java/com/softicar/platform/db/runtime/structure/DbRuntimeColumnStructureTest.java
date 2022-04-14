@@ -1,5 +1,6 @@
 package com.softicar.platform.db.runtime.structure;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.DbBaseField;
 import com.softicar.platform.db.runtime.field.DbBigDecimalField;
 import com.softicar.platform.db.runtime.field.DbByteArrayField;
@@ -19,11 +20,10 @@ import com.softicar.platform.db.structure.table.IDbTableStructure;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DbRuntimeColumnStructureTest extends Assert {
+public class DbRuntimeColumnStructureTest extends AbstractTest {
 
 	@Test
 	public void testAutoIncrement() {

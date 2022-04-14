@@ -1,12 +1,12 @@
 package com.softicar.platform.ajax.document;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class AjaxDocumentParametersTest extends Assert {
+public class AjaxDocumentParametersTest extends AbstractTest {
 
 	private static final String STRING_DEFAULT = "defaultValue";
 	private static final String STRING_VALUE = "stringValue";
