@@ -1,6 +1,6 @@
 package com.softicar.platform.common.string.scanning;
 
-import static org.junit.Assert.assertArrayEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class SimpleTextScannerTest {
+public class SimpleTextScannerTest extends AbstractTest {
 
 	private final SimpleTextScanner scanner;
 	private final Callback callback;

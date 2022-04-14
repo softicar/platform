@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.module.registry;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.module.IEmfModule;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfAnnotationBasedModuleRegistryTest extends Assert {
+public class EmfAnnotationBasedModuleRegistryTest extends AbstractTest {
 
 	@Test
 	public void test() {

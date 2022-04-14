@@ -1,8 +1,8 @@
 package com.softicar.platform.db.core.database;
 
-import java.util.Map.Entry;
 import com.softicar.platform.db.core.connection.DbConnectionProperties;
 import com.softicar.platform.db.core.connection.IDbServerType;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Properties;
 

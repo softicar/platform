@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.field;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.db.sql.type.SqlFieldType;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AbstractDbPrimitiveFieldTest extends Assert {
+public class AbstractDbPrimitiveFieldTest extends AbstractTest {
 
 	private static final String A = "A";
 	private final Field field;

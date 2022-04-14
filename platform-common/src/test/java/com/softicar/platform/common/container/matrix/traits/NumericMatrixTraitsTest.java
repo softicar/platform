@@ -1,8 +1,8 @@
 package com.softicar.platform.common.container.matrix.traits;
 
 import com.softicar.platform.common.math.arithmetic.Arithmetics;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class NumericMatrixTraitsTest extends Assert {
+public class NumericMatrixTraitsTest extends AbstractTest {
 
 	@Test
 	public void testBigDecimal() {

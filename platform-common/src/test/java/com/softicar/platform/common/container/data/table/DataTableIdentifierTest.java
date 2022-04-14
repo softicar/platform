@@ -1,11 +1,9 @@
 package com.softicar.platform.common.container.data.table;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DataTableIdentifierTest {
+public class DataTableIdentifierTest extends AbstractTest {
 
 	@Test
 	public void testIsPresent() {

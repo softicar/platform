@@ -1,14 +1,13 @@
 package com.softicar.platform.db.structure.mysql.column;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
 import org.junit.Test;
 
-public class InternalDbMysqlColumnFieldTypeDeterminerTest {
+public class InternalDbMysqlColumnFieldTypeDeterminerTest extends AbstractTest {
 
 	private static final DbTableName TABLE_NAME = new DbTableName("db", "tab");
 

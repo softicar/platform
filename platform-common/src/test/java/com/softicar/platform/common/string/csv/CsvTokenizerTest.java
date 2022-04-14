@@ -1,11 +1,11 @@
 package com.softicar.platform.common.string.csv;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class CsvTokenizerTest extends Assert {
+public class CsvTokenizerTest extends AbstractTest {
 
 	private List<List<String>> tokenMatrix;
 

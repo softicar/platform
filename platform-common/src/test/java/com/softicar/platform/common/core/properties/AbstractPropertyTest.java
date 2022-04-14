@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.properties;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.function.Function;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class AbstractPropertyTest extends Assert {
+public class AbstractPropertyTest extends AbstractTest {
 
 	private static final String NORMAL = "normal";
 	private static final String WHITESPACED = "  whitespaced  ";

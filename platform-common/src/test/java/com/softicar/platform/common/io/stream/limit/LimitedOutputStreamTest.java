@@ -1,11 +1,11 @@
 package com.softicar.platform.common.io.stream.limit;
 
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayOutputStream;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LimitedOutputStreamTest extends Assert {
+public class LimitedOutputStreamTest extends AbstractTest {
 
 	private static final char A = 'A';
 	private static final char B = 'B';

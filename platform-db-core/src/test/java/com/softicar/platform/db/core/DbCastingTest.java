@@ -1,11 +1,11 @@
 package com.softicar.platform.db.core;
 
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.sql.Timestamp;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbCastingTest extends Assert {
+public class DbCastingTest extends AbstractTest {
 
 	@Test
 	public void testGetTimeWithNull() {

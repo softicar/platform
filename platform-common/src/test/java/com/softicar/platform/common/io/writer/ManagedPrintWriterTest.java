@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.writer;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ManagedPrintWriterTest extends Assert {
+public class ManagedPrintWriterTest extends AbstractTest {
 
 	private final StringBuilder output;
 

@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.file.size;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class FileSizeCalculatorTest extends Assert {
+public class FileSizeCalculatorTest extends AbstractTest {
 
 	private static final double DELTA_MILLI = 0.0001;
 	private static final double DELTA_MICRO = 0.0000001;

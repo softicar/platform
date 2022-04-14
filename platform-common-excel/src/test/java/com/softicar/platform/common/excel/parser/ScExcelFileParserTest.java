@@ -2,10 +2,10 @@ package com.softicar.platform.common.excel.parser;
 
 import com.softicar.platform.common.container.map.list.ListTreeMap;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -15,7 +15,7 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public class ScExcelFileParserTest extends Assert {
+public class ScExcelFileParserTest extends AbstractTest {
 
 	private static final Date EXPECTED_DATE = Day.fromYMD(2020, 5, 1).toDate();
 

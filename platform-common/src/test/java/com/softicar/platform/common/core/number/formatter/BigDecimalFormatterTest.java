@@ -3,11 +3,11 @@ package com.softicar.platform.common.core.number.formatter;
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class BigDecimalFormatterTest extends Assert {
+public class BigDecimalFormatterTest extends AbstractTest {
 
 	private ILocale locale;
 

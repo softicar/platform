@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.source.code.reference.point;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map;
 import java.util.UUID;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfSourceCodeReferencePointsLoaderTest extends Assert {
+public class EmfSourceCodeReferencePointsLoaderTest extends AbstractTest {
 
 	private final UUID referencePointUuid;
 

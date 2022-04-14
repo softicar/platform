@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.button;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomButtonTest extends Asserts implements IDomTestEngineMethods {
+public class DomButtonTest extends AbstractTest implements IDomTestEngineMethods {
 
 	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
 

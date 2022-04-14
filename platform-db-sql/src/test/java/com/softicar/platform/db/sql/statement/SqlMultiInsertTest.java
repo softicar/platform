@@ -1,9 +1,10 @@
 package com.softicar.platform.db.sql.statement;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.test.SqlTestEntity;
 import org.junit.Test;
 
-public class SqlMultiInsertTest {
+public class SqlMultiInsertTest extends AbstractTest {
 
 	@Test
 	public void testSingleMultiInsert() {

@@ -1,14 +1,14 @@
 package com.softicar.platform.emf.table.validator;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfTableActivationFieldsCollectorTest extends Assert {
+public class EmfTableActivationFieldsCollectorTest extends AbstractTest {
 
 	@Test
 	public void testWithNativeField() {

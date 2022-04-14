@@ -2,13 +2,13 @@ package com.softicar.platform.emf.data.table.column.handler.building;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import java.math.BigDecimal;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfDataTableCellDefaultsProviderTest extends Assert {
+public class EmfDataTableCellDefaultsProviderTest extends AbstractTest {
 
 	private final EmfDataTableCellDefaultsProvider provider;
 

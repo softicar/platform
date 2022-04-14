@@ -1,6 +1,6 @@
 package com.softicar.platform.common.string.charset;
 
-import static org.junit.Assert.assertNotNull;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class CharsetsTest {
+public class CharsetsTest extends AbstractTest {
 
 	@Test
 	public void allCharsetsAreValid() {

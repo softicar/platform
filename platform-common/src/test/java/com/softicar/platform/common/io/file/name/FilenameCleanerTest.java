@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.file.name;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class FilenameCleanerTest extends Assert {
+public class FilenameCleanerTest extends AbstractTest {
 
 	@Test
 	public void test() {

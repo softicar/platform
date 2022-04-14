@@ -25,8 +25,8 @@ import com.softicar.platform.emf.data.table.export.file.name.TableExportFileTime
 import com.softicar.platform.emf.data.table.export.model.TableExportColumnModel;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
-import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult.Level;
+import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
 import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

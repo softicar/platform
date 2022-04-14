@@ -1,5 +1,6 @@
 package com.softicar.platform.db.structure.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.column.DbColumnDefaultType;
@@ -11,10 +12,9 @@ import com.softicar.platform.db.structure.key.DbKeyType;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import com.softicar.platform.db.structure.test.DbComplexTestObjectTableLiteral;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbTableStructureSqlGeneratorTest extends Assert {
+public class DbTableStructureSqlGeneratorTest extends AbstractTest {
 
 	private static final int AUTO_INCREMENT = 252;
 

@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.select;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.quirks.IDbServerQuirks;
 import com.softicar.platform.db.core.dbms.microsoft.sqlserver.DbMicrosoftSqlServer2000Quirks;
 import com.softicar.platform.db.core.dbms.mysql.DbMysqlQuirks;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbSqlIdentifierTest extends Assert {
+public class DbSqlIdentifierTest extends AbstractTest {
 
 	@Test
 	public void testToStringWithSqlServer2000() {

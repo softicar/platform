@@ -2,7 +2,7 @@ package com.softicar.platform.common.core.thread.collection;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class ThreadKillerTest extends Assert {
+public class ThreadKillerTest extends AbstractTest {
 
 	public static class BadRunnable implements Runnable {
 

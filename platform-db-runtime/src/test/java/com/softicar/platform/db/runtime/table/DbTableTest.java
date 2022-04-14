@@ -1,15 +1,15 @@
 package com.softicar.platform.db.runtime.table;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.table.configuration.DbTableConfiguration;
 import com.softicar.platform.db.runtime.table.configuration.IDbTableDataInitializer;
 import com.softicar.platform.db.runtime.table.row.AbstractDbTableRow;
 import com.softicar.platform.db.runtime.table.row.getter.IDbTableRowGetterStrategy;
 import java.util.function.Consumer;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DbTableTest extends Assert {
+public class DbTableTest extends AbstractTest {
 
 	private final TestTable table;
 	private Consumer<DbTableConfiguration<TestObject, Integer>> configurationCustomizer;

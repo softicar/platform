@@ -4,16 +4,16 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.string.hash.Hash;
 import com.softicar.platform.common.string.hexadecimal.Hexadecimal;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 // FIXME: this should not really connect to the database
-public class StoredFileInputStreamCreatorSystemTest extends Assert {
+public class StoredFileInputStreamCreatorSystemTest extends AbstractTest {
 
 	public StoredFileInputStreamCreatorSystemTest() {
 

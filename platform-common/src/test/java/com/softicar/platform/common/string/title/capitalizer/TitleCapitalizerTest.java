@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.title.capitalizer;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class TitleCapitalizerTest extends Assert {
+public class TitleCapitalizerTest extends AbstractTest {
 
 	@Test
 	public void testWithPreposition() {

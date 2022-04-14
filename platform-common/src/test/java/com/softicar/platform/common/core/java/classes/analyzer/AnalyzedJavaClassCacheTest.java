@@ -3,10 +3,10 @@ package com.softicar.platform.common.core.java.classes.analyzer;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.classpath.JavaClasspathLoader;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AnalyzedJavaClassCacheTest extends Assert {
+public class AnalyzedJavaClassCacheTest extends AbstractTest {
 
 	private static final JavaClasspath JAVA_CLASSPATH = new JavaClasspathLoader().load();
 	private final AnalyzedJavaClassCache cache;

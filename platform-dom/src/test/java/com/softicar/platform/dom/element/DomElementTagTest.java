@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.element;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomElementTagTest extends Assert {
+public class DomElementTagTest extends AbstractTest {
 
 	@Test
 	public void testNames() {

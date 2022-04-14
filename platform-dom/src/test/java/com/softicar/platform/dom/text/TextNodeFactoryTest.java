@@ -1,11 +1,12 @@
 package com.softicar.platform.dom.text;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TextNodeFactoryTest {
+public class TextNodeFactoryTest extends AbstractTest {
 
 	@Test
 	public void test() {

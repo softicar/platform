@@ -2,7 +2,7 @@ package com.softicar.platform.integration.database.structure.version;
 
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.string.regex.Patterns;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinitionsConverter;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public class DatabaseStructureVersionResourceTest extends Asserts {
+public class DatabaseStructureVersionResourceTest extends AbstractTest {
 
 	@Test
 	public void testValidResourceSupplierFieldNames() {

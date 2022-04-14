@@ -1,15 +1,15 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.validation.result.EmfValidationResult;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class EmfStringAttributeTest extends Assert {
+public class EmfStringAttributeTest extends AbstractTest {
 
 	private static final String EMPTY_STRING = "";
 	private static final String ABC = "abc";

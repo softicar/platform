@@ -1,12 +1,12 @@
 package com.softicar.platform.common.io.classpath;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ClasspathFileUtilsTest extends Assert {
+public class ClasspathFileUtilsTest extends AbstractTest {
 
 	@Test
 	public void testGetExtension() {

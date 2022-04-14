@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.i18n;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DisplayStringTest extends Assert {
+public class DisplayStringTest extends AbstractTest {
 
 	@Test
 	public void testAppendWithOptional() {

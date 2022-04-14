@@ -1,11 +1,11 @@
 package com.softicar.platform.common.io.reader;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.StringReader;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ManagedReaderTest extends Assert {
+public class ManagedReaderTest extends AbstractTest {
 
 	@Test
 	public void testRead() {

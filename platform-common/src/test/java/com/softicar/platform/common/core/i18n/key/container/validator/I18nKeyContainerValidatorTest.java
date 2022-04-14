@@ -15,10 +15,10 @@ import com.softicar.platform.common.core.constant.container.validator.result.Con
 import com.softicar.platform.common.core.i18n.key.II18nKey;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldIllegalEnglishStringError;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldWrongTypeError;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class I18nKeyContainerValidatorTest extends Assert {
+public class I18nKeyContainerValidatorTest extends AbstractTest {
 
 	@Test
 	public void testWithValidI18nKeyContainerClass() {

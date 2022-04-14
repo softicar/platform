@@ -1,10 +1,10 @@
 package com.softicar.platform.common.security.crypt;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class UnixCryptTest extends Assert {
+public class UnixCryptTest extends AbstractTest {
 
 	private static final String PASSWORD = "password";
 	private static final String ENCRYPTED_1 = "pqlgA189RApBg";

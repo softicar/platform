@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.utils.equals;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EqualsKeyExtractorTest extends Assert {
+public class EqualsKeyExtractorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.uuid;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.UUID;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class UuidBytesTest extends Assert {
+public class UuidBytesTest extends AbstractTest {
 
 	private static final UUID TEST_UUID = UUID.fromString("0e9d6d53-036e-471f-9114-e994714d4479");
 	private static final byte[] UUID_BYTES = //

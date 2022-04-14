@@ -1,10 +1,11 @@
 package com.softicar.platform.common.core.java.code.validator;
 
 import com.softicar.platform.common.core.java.code.validation.output.JavaCodeValidationOutputForTesting;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.function.Function;
 import org.junit.Test;
 
-public class JavaClassValidatorTest {
+public class JavaClassValidatorTest extends AbstractTest {
 
 	private final JavaCodeValidationOutputForTesting output;
 

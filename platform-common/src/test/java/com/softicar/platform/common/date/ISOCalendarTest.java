@@ -1,6 +1,6 @@
 package com.softicar.platform.common.date;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class ISOCalendarTest extends Assert {
+public class ISOCalendarTest extends AbstractTest {
 
 	@Test
 	public void getFirstDayOfYearReturnsCorrectDay() {

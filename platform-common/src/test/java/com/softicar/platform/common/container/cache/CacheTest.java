@@ -1,9 +1,9 @@
 package com.softicar.platform.common.container.cache;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CacheTest extends Assert {
+public class CacheTest extends AbstractTest {
 
 	@Test
 	public void test() {

@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.testing.selenium.engine.common.geometry;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AjaxSeleniumTestSegmentTest extends Assert {
+public class AjaxSeleniumTestSegmentTest extends AbstractTest {
 
 	private final AjaxSeleniumTestSegment extent;
 

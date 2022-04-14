@@ -1,7 +1,7 @@
 package com.softicar.platform.common.core.logging;
 
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class IgnoredPackagesForLoggingTest {
+public class IgnoredPackagesForLoggingTest extends AbstractTest {
 
 	private final LogBuffer buffer;
 

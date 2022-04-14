@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.email.message;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmailMessageIdExtractorTest extends Assert {
+public class EmailMessageIdExtractorTest extends AbstractTest {
 
 	private static final String FIRST_ID = "<aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa.spm@example.com>";
 	private static final String SECOND_ID = "<bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb@example.com>";

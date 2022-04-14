@@ -1,12 +1,12 @@
 package com.softicar.platform.emf.management;
 
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.test.module.EmfTestModuleInstance;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfManagementDataTableTest extends Assert {
+public class EmfManagementDataTableTest extends AbstractTest {
 
 	@Test
 	public void testGetIdentifier() {

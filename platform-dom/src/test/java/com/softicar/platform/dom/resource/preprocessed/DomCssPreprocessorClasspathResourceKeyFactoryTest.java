@@ -1,10 +1,10 @@
 package com.softicar.platform.dom.resource.preprocessed;
 
 import com.softicar.platform.common.io.resource.key.IResourceKey;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomCssPreprocessorClasspathResourceKeyFactoryTest extends Asserts {
+public class DomCssPreprocessorClasspathResourceKeyFactoryTest extends AbstractTest {
 
 	private final DomCssPreprocessorClasspathResourceKeyFactory factory;
 

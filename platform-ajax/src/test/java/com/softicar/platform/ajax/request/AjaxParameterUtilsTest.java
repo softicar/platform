@@ -1,12 +1,9 @@
 package com.softicar.platform.ajax.request;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import com.softicar.platform.ajax.exceptions.AjaxHttpBadRequestError;
+import com.softicar.platform.common.testing.AbstractTest;
 import javax.servlet.ServletRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +14,7 @@ import org.junit.Test;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class AjaxParameterUtilsTest {
+public class AjaxParameterUtilsTest extends AbstractTest {
 
 	private static final double EPSILON = 0.0001d;
 	private ServletRequest request;

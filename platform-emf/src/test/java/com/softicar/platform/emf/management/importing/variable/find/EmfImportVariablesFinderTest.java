@@ -1,15 +1,15 @@
 package com.softicar.platform.emf.management.importing.variable.find;
 
 import com.softicar.platform.common.container.map.set.SetMap;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.management.importing.variable.EmfImportVariableCoordinates;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfImportVariablesFinderTest extends Assert {
+public class EmfImportVariablesFinderTest extends AbstractTest {
 
 	@Test
 	public void testFind() {

@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.input;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DomInputTest extends Assert {
+public class DomInputTest extends AbstractTest {
 
 	private final DomInput input;
 

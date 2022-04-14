@@ -1,17 +1,17 @@
 package com.softicar.platform.db.runtime.table.logic;
 
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.logic.IDbObjectTable;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import com.softicar.platform.db.runtime.table.row.DbTableRowFlag;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DbTableRowFlagLogicTest extends Assert {
+public class DbTableRowFlagLogicTest extends AbstractTest {
 
 	@Test
 	public void testFlagArraySize() {

@@ -3,16 +3,16 @@ package com.softicar.platform.core.module.component.external.type.library;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.string.regex.Patterns;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.component.external.IExternalComponent;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ExternalLibrariesFromClasspathFetcherTest extends Assert {
+public class ExternalLibrariesFromClasspathFetcherTest extends AbstractTest {
 
 	private final ExternalLibrariesFromClasspathFetcher fetcher;
 

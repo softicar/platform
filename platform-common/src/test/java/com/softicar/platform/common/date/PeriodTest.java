@@ -1,6 +1,6 @@
 package com.softicar.platform.common.date;
 
-import static org.junit.Assert.assertTrue;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class PeriodTest {
+public class PeriodTest extends AbstractTest {
 
 	@Test
 	public void equalPeriodsContainEachOther() {

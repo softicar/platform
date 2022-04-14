@@ -1,10 +1,10 @@
 package com.softicar.platform.dom.resource.preprocessed;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomCssPreprocessorTest extends Asserts {
+public class DomCssPreprocessorTest extends AbstractTest {
 
 	private final DomCssPreprocessor preprocessor;
 

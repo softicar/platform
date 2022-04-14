@@ -5,11 +5,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
 import org.junit.Test;
 
-public class BigDecimalParserTest extends Asserts {
+public class BigDecimalParserTest extends AbstractTest {
 
 	private final ILocale locale;
 

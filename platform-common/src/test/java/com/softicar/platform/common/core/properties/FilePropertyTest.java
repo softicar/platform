@@ -1,12 +1,12 @@
 package com.softicar.platform.common.core.properties;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class FilePropertyTest extends Assert {
+public class FilePropertyTest extends AbstractTest {
 
 	private static final String HOME = SystemPropertyEnum.USER_HOME.get();
 	private static final String SEPARATOR = SystemPropertyEnum.FILE_SEPARATOR.get();

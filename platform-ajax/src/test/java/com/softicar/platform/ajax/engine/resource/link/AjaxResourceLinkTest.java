@@ -1,12 +1,12 @@
 package com.softicar.platform.ajax.engine.resource.link;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.ResourceUrl;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import org.junit.Test;
 
-public class AjaxResourceLinkTest {
+public class AjaxResourceLinkTest extends AbstractTest {
 
 	@Test
 	public void testToHtml() {

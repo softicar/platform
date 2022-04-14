@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.user;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class BasicUsersTest extends Assert {
+public class BasicUsersTest extends AbstractTest {
 
 	@Test
 	public void testIsSame() {

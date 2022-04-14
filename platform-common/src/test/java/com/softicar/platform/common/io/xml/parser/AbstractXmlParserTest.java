@@ -1,7 +1,7 @@
 package com.softicar.platform.common.io.xml.parser;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.nio.charset.StandardCharsets;
-import org.junit.Assert;
 
 /**
  * Base class of XML parser tests.
@@ -11,7 +11,7 @@ import org.junit.Assert;
  *
  * @author Alexander Schmidt
  */
-abstract class AbstractXmlParserTest extends Assert {
+abstract class AbstractXmlParserTest extends AbstractTest {
 
 	protected static final String XML = """
 			<?xml version="1.0" encoding="UTF-8"?>

@@ -1,15 +1,15 @@
 package com.softicar.platform.db.sql.selects;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.db.sql.example.SqlExampleArticle;
 import com.softicar.platform.db.sql.example.SqlExampleDelivery;
 import com.softicar.platform.db.sql.example.SqlExampleDeliveryItem;
 import com.softicar.platform.db.sql.example.SqlExampleSupplier;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SqlSelectJoinTest extends Assert {
+public class SqlSelectJoinTest extends AbstractTest {
 
 	@Test
 	public void testSelectLock() {

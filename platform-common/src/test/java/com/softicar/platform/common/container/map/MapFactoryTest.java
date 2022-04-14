@@ -1,14 +1,12 @@
 package com.softicar.platform.common.container.map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
 import org.junit.Test;
 
-public class MapFactoryTest {
+public class MapFactoryTest extends AbstractTest {
 
 	private static final Comparator<Integer> COMPARATOR = (a, b) -> a - b;
 

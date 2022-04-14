@@ -1,9 +1,9 @@
 package com.softicar.platform.common.ui.wiki;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class SimpleWikiParserHtmlCallbackTest {
+public class SimpleWikiParserHtmlCallbackTest extends AbstractTest {
 
 	private final SimpleWikiParserHtmlCallback callback;
 	private final SimpleWikiParser parser;

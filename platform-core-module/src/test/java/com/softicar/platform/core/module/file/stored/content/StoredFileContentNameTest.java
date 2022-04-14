@@ -1,10 +1,11 @@
 package com.softicar.platform.core.module.file.stored.content;
 
 import com.softicar.platform.common.string.hexadecimal.Hexadecimal;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class StoredFileContentNameTest {
+public class StoredFileContentNameTest extends AbstractTest {
 
 	private final static String hashString = "0123456789ABCDEF0123456789ABCDEF01234567";
 	private final static byte[] hash = Hexadecimal.getBytesFromHexString(hashString);

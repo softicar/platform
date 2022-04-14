@@ -1,6 +1,6 @@
 package com.softicar.platform.common.math.rounding;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class RoundingTest extends Assert {
+public class RoundingTest extends AbstractTest {
 
 	@Test
 	public void testEquals() {

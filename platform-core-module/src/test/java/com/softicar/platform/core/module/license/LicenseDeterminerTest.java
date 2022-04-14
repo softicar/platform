@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.license;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Objects;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LicenseDeterminerTest extends Assert {
+public class LicenseDeterminerTest extends AbstractTest {
 
 	private License expectedLicense;
 

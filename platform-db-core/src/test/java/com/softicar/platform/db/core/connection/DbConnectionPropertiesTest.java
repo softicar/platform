@@ -1,10 +1,10 @@
 package com.softicar.platform.db.core.connection;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Properties;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbConnectionPropertiesTest extends Assert {
+public class DbConnectionPropertiesTest extends AbstractTest {
 
 	@Test
 	public void testCopyProperties() {

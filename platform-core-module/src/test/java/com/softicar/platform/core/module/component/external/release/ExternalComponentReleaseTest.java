@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.component.external.release;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.component.external.key.ExternalComponentKey;
 import com.softicar.platform.core.module.component.external.type.ExternalComponentType;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ExternalComponentReleaseTest extends Assert {
+public class ExternalComponentReleaseTest extends AbstractTest {
 
 	@Test
 	public void test() {

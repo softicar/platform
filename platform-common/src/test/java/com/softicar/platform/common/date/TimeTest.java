@@ -2,10 +2,10 @@ package com.softicar.platform.common.date;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class TimeTest extends Assert {
+public class TimeTest extends AbstractTest {
 
 	private final Time time;
 
@@ -32,15 +32,15 @@ public class TimeTest extends Assert {
 		DevNull.swallow(new Time(23, 59, 59));
 
 		// test out of limit
-		assertException(IllegalArgumentException.class, () -> new Time(-1, 0, 0));
-		assertException(IllegalArgumentException.class, () -> new Time(24, 0, 0));
-		assertException(IllegalArgumentException.class, () -> new Time(0, -1, 0));
-		assertException(IllegalArgumentException.class, () -> new Time(0, 60, 0));
-		assertException(IllegalArgumentException.class, () -> new Time(0, -1, 0));
-		assertException(IllegalArgumentException.class, () -> new Time(0, 60, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(-1, 0, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(24, 0, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(0, -1, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(0, 60, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(0, -1, 0));
+		assertExceptionCustom(IllegalArgumentException.class, () -> new Time(0, 60, 0));
 	}
 
-	private void assertException(Class<? extends Exception> expectedExceptionClass, INullaryVoidFunction action) {
+	private void assertExceptionCustom(Class<? extends Exception> expectedExceptionClass, INullaryVoidFunction action) {
 
 		try {
 			action.apply();

@@ -1,11 +1,12 @@
 package com.softicar.platform.core.module.email.address;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class EmailAddressValidatorTest {
+public class EmailAddressValidatorTest extends AbstractTest {
 
 	@Test
 	public void testValidAddresses() {

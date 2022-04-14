@@ -1,10 +1,10 @@
 package com.softicar.platform.common.container.pair;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map.Entry;
 import org.junit.Test;
 
-public class PairFactoryTest {
+public class PairFactoryTest extends AbstractTest {
 
 	@Test
 	public void createsPairFromElements() {

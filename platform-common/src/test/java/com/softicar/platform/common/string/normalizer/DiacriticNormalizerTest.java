@@ -1,12 +1,12 @@
 package com.softicar.platform.common.string.normalizer;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
  * For required test cases, see https://en.wikipedia.org/wiki/Diacritic
  */
-public class DiacriticNormalizerTest extends Assert {
+public class DiacriticNormalizerTest extends AbstractTest {
 
 	/**
 	 * https://en.wikipedia.org/wiki/Acute_accent

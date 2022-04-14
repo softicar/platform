@@ -1,9 +1,7 @@
 package com.softicar.platform.dom.attribute;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.container.set.SetFactory;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.DomDocument;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +11,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class DomAttributeMapAdapterTest {
+public class DomAttributeMapAdapterTest extends AbstractTest {
 
 	private DomAttributeMapComparator comparator;
 	private IDomAttribute attribute1a;

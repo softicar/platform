@@ -1,14 +1,14 @@
 package com.softicar.platform.common.ui.wiki.tokenizer;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.ui.wiki.token.WikiToken;
 import com.softicar.platform.common.ui.wiki.token.WikiTokenType;
 import java.util.Collection;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class WikiTokenizerTest extends Assert {
+public class WikiTokenizerTest extends AbstractTest {
 
 	@Test
 	public void testBold() {
