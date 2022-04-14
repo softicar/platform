@@ -30,6 +30,7 @@ class EmfEntityInputBrowsePopover<E extends IEmfEntity<E, ?>> extends DomPopover
 		new EmfDataTableDivBuilder<>(table)//
 			.setColumnHandler(table.getNameColumn(), new EmfEntityInputBrowseColumnHandler<>(this::setInputValueAndHide))
 			.setPageSize(DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY)
+			.setHideNavigationActionButtons(true)
 			.buildAndAppendTo(this);
 	}
 
