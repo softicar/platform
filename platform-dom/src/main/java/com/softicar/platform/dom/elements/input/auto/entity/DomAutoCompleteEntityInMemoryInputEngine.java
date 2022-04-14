@@ -63,6 +63,15 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 	}
 
 	@Override
+	public Collection<T> filterMatchingItems(String pattern, Collection<T> matchingItems) {
+
+		return matchingItems//
+			.stream()
+			.filter(item -> matches(item, pattern))
+			.collect(Collectors.toList());
+	}
+
+	@Override
 	protected ITransaction createTransaction() {
 
 		return ITransaction.noOperation();
@@ -99,6 +108,16 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 	private String getNormalizedDisplayNameWithoutId(T item) {
 
 		return getDisplayStringWithoutId(item).toString().toLowerCase();
+	}
+
+	private boolean matches(T item, String pattern) {
+
+		return Optional//
+			.ofNullable(getDisplayStringWithoutId(item))
+			.map(Object::toString)
+			.orElse("")
+			.toLowerCase()
+			.contains(pattern.toLowerCase());
 	}
 
 	private class ItemLoader {
