@@ -9,7 +9,7 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.dom.elements.text.DomListeningTextInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.EmfCssClasses;
@@ -18,7 +18,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.IEmfDataTableController;
 
-class EmfDataTableConfigurationPopup<R> extends DomPopup {
+class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 	private final IEmfDataTableController<R> controller;
 	private final EmfDataTableConfigurationModel<R> model;

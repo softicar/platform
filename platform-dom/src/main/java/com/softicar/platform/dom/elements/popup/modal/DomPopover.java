@@ -1,30 +1,22 @@
 package com.softicar.platform.dom.elements.popup.modal;
 
-import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogBackdrop;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 
-public class DomPopover extends DomPopup {
+/**
+ * A modal variant of {@link DomPopup} that is dismissed when the user clicks
+ * elsewhere, or hits ESC.
+ * <p>
+ * In contrast to {@link DomPopup}, it does not have a header (i.e. captions),
+ * and it generally looks more compact.
+ *
+ * @author Alexander Schmidt
+ */
+public class DomPopover extends DomDismissablePopup {
 
 	public DomPopover() {
 
 		addCssClass(DomElementsCssClasses.DOM_POPOVER);
-		setPositionByEvent();
 		setDisplayHeader(false);
-		setCallbackBeforeShow(this::beforeShow);
-	}
-
-	private void beforeShow() {
-
-		showBackdrop(this::createBackdrop);
-		trapTabFocus();
-	}
-
-	private DomModalDialogBackdrop createBackdrop() {
-
-		DomModalDialogBackdrop backdrop = new DomModalDialogBackdrop(getCloseManager()::closePopupNonInteractive);
-		backdrop.addCssClass(DomCssPseudoClasses.INVISIBLE);
-		return backdrop;
 	}
 }

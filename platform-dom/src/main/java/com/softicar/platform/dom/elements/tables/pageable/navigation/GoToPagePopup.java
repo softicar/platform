@@ -7,6 +7,7 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
@@ -19,7 +20,7 @@ import com.softicar.platform.dom.event.IDomEvent;
  *
  * @author Alexander Schmidt
  */
-class GoToPagePopup extends DomPopover {
+class GoToPagePopup extends DomDismissablePopup {
 
 	private final DomPageableTable table;
 	private PageNumberInput pageNumberInput;
@@ -27,7 +28,6 @@ class GoToPagePopup extends DomPopover {
 	public GoToPagePopup(DomPageableTable table) {
 
 		this.table = table;
-		setDisplayHeader(true);
 		setCaption(DomI18n.GO_TO_PAGE);
 		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION_GO_TO_PAGE_POPUP);
 	}
