@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-public class EmfImportColumnsCollectorTest extends AbstractDbTest {
+public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> extends AbstractDbTest {
 
 	@Test
-	public <R extends IEmfTableRow<R, P>, P> void testGetCsvFileColumnsToImport() {
+	public void testGetCsvFileColumnsToImport() {
 
 		List<EmfImportColumn<R, ?>> csvFileColumns = new ArrayList<>();
 		csvFileColumns.add(createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME));
@@ -26,7 +26,12 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 	}
 
 	@Test
-	public <R extends IEmfTableRow<R, P>, P> void testGetTableColumns() {
+	public void testGetTableColumns() {
+
+		assertEquals(createExpectedTableColumns(), new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTableColumns());
+	}
+
+	private List<EmfImportColumn<R, ?>> createExpectedTableColumns() {
 
 		List<EmfImportColumn<R, ?>> tableColumns = new ArrayList<>();
 
@@ -57,11 +62,10 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 		tableColumns.add(createEmfImportColumn(EmfTestInvoiceItem.POSITION));
 		tableColumns.add(createEmfImportColumn(EmfTestInvoiceItem.NAME));
 		tableColumns.add(createEmfImportColumn(EmfTestInvoiceItem.QUANTITY));
-
-		assertEquals(tableColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTableColumns());
+		return tableColumns;
 	}
 
-	private <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
+	private static <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
 
 		return CastUtils.cast(new EmfImportColumn<>(field));
 	}
@@ -69,7 +73,10 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 	@Test
 	public void testGetFieldsOfTableColumns() {
 
-		// TODO implement
+//		List<IDbField<R, ?>> expectedTableColumnFields = createExpectedTableColumns().stream().map(EmfImportColumn::getField).collect(Collectors.toList());
+
+		assertEquals(new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getFieldsOfTableColumns(), EmfTestInvoiceItem.TABLE.getAllFields());
+
 	}
 
 	@Test
