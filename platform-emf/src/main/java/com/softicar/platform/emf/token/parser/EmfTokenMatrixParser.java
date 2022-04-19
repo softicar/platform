@@ -130,7 +130,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
 
 		R row = collector.getTable().getRowFactory().get();
-		for (int columnIndex = 0; columnIndex < collector.getFieldsOfTableColumns().size(); columnIndex++) {
+		for (int columnIndex = 0; columnIndex < collector.getTableColumns().size(); columnIndex++) {
 
 			IDbField<R, ?> field = collector.getFieldOfTableColumnByIndex(columnIndex);
 			EmfImportColumn<R, P> tableColumn = tableColumns.get(columnIndex);
