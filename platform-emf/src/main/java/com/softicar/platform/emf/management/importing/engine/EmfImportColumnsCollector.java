@@ -25,7 +25,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	public EmfImportColumnsCollector(IEmfTable<R, P, S> table) {
 
-		this(table, getAllFieldsButNotGeneratedPrimaryKeyFields(table));
+		this(table, new ArrayList<>(table.getAllFields()));
 	}
 
 	private void collect() {
@@ -83,35 +83,16 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		return tableColumns;
 	}
 
-	public List<IDbField<R, ?>> getFieldsOfTableColumns() {
+	public IDbField<R, ?> getFieldOfTableColumnByIndex(int index) {
 
 		if (fieldsOfTableColumns == null) {
 			fieldsOfTableColumns = getTableColumns().stream().map(EmfImportColumn::getField).collect(Collectors.toList());
 		}
-		return fieldsOfTableColumns;
-	}
-
-	public IDbField<R, ?> getFieldOfTableColumnByIndex(int index) {
-
-		return getFieldsOfTableColumns().get(index);
+		return fieldsOfTableColumns.get(index);
 	}
 
 	public IEmfTable<R, P, S> getTable() {
 
 		return table;
-	}
-
-	private static <R extends IEmfTableRow<R, P>, P, S> List<IDbField<R, ?>> getAllFieldsButNotGeneratedPrimaryKeyFields(IEmfTable<R, P, S> table) {
-
-		if (table.getPrimaryKey().isGenerated()) {
-			List<IDbField<R, ?>> primaryKeyFields = table.getPrimaryKey().getFields();
-			return table//
-				.getAllFields()
-				.stream()
-				.filter(field -> !primaryKeyFields.contains(field))
-				.collect(Collectors.toList());
-		} else {
-			return new ArrayList<>(table.getAllFields());
-		}
 	}
 }
