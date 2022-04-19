@@ -9,13 +9,13 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
-	private final EmfImportColumn<R, ?> column;
-	private final IEmfAttribute<R, ?> fieldAttribute;
+	private final EmfImportColumn<R, ?> foreignKeyColumn;
+	private final IEmfAttribute<R, ?> foreignKeyColumnAttribute;
 
-	public EmfImportBusinessKeyColumnsCollector(EmfImportColumn<R, ?> column, IEmfAttribute<R, ?> fieldAttribute) {
+	public EmfImportBusinessKeyColumnsCollector(EmfImportColumn<R, ?> foreignKeyColumn, IEmfAttribute<R, ?> foreignKeyColumnAttribute) {
 
-		this.fieldAttribute = fieldAttribute;
-		this.column = column;
+		this.foreignKeyColumnAttribute = foreignKeyColumnAttribute;
+		this.foreignKeyColumn = foreignKeyColumn;
 	}
 
 	public void collect() {
@@ -24,20 +24,20 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (IDbField<R, ?> targetTableBusinessKeyField: targetTable.getBusinessKey().getFields()) {
 
-			EmfImportColumn<R, ?> parentColumn = new EmfImportColumn<>(targetTableBusinessKeyField);
-			column.addParentColumn(parentColumn);
+			EmfImportColumn<R, ?> column = new EmfImportColumn<>(targetTableBusinessKeyField);
+			foreignKeyColumn.addParentColumn(column);
 
-			IEmfAttribute<R, ?> parentFieldAttribute = targetTable.getAttribute(targetTableBusinessKeyField);
+			IEmfAttribute<R, ?> attribute = targetTable.getAttribute(targetTableBusinessKeyField);
 
-			if (parentFieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyColumnsCollector<>(parentColumn, parentFieldAttribute).collect();
+			if (attribute instanceof EmfForeignRowAttribute) {
+				new EmfImportBusinessKeyColumnsCollector<>(column, attribute).collect();
 			}
 		}
 	}
 
 	private IEmfTable<R, P, S> fetchTargetTable() {
 
-		IEmfTable<?, ?, ?> targetTable = ((EmfForeignRowAttribute<R, ?>) fieldAttribute).getTargetTable();
+		IEmfTable<?, ?, ?> targetTable = ((EmfForeignRowAttribute<R, ?>) foreignKeyColumnAttribute).getTargetTable();
 		return CastUtils.cast(targetTable);
 	}
 }
