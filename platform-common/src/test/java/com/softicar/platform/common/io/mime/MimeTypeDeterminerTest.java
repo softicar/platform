@@ -1,10 +1,10 @@
 package com.softicar.platform.common.io.mime;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class MimeTypeDeterminerTest extends Assert {
+public class MimeTypeDeterminerTest extends AbstractTest {
 
 	@Test
 	public void test() {

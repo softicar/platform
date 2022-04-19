@@ -1,13 +1,13 @@
 package com.softicar.platform.db.structure.view;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import com.softicar.platform.db.structure.utils.DbTableStructureSqlGenerator;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbAliasViewTableStructureTest extends Assert {
+public class DbAliasViewTableStructureTest extends AbstractTest {
 
 	private static final DbTableName VIEW_NAME = new DbTableName("db", "view");
 

@@ -1,14 +1,14 @@
 package com.softicar.platform.dom.refresh.bus;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.parent.DomParentElement;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DomRefreshBusTest extends Assert {
+public class DomRefreshBusTest extends AbstractTest {
 
 	private final DomRefreshBus refreshBus;
 	private ListeningElement elementA;

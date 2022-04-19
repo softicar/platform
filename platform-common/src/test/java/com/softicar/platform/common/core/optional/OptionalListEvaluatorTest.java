@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.optional;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class OptionalListEvaluatorTest extends Assert {
+public class OptionalListEvaluatorTest extends AbstractTest {
 
 	private static final String DEFAULT = "DEFAULT";
 	private static final String A = "A";

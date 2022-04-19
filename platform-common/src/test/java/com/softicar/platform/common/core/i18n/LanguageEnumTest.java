@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.i18n;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class LanguageEnumTest extends Assert {
+public class LanguageEnumTest extends AbstractTest {
 
 	@Test
 	public void testByIso6391() {

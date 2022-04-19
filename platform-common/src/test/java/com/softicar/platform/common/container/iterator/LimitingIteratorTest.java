@@ -1,13 +1,13 @@
 package com.softicar.platform.common.container.iterator;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LimitingIteratorTest extends Assert {
+public class LimitingIteratorTest extends AbstractTest {
 
 	private final List<Integer> list;
 

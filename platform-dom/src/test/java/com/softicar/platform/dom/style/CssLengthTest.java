@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.style;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CssLengthTest extends Assert {
+public class CssLengthTest extends AbstractTest {
 
 	@Test
 	public void testToStringWithPixel() {

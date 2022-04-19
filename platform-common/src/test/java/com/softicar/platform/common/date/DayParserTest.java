@@ -1,13 +1,13 @@
 package com.softicar.platform.common.date;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DayParserTest extends Assert {
+public class DayParserTest extends AbstractTest {
 
 	private final Collection<String> formats;
 	private final Collection<String> yearlessFormats;

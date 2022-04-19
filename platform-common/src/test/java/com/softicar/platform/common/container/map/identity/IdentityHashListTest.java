@@ -1,9 +1,9 @@
 package com.softicar.platform.common.container.map.identity;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class IdentityHashListTest extends Assert {
+public class IdentityHashListTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

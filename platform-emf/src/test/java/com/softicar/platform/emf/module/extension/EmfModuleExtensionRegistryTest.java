@@ -1,13 +1,13 @@
 package com.softicar.platform.emf.module.extension;
 
 import com.softicar.platform.common.core.java.reflection.ClassHierarchyValidationException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Collection;
 import java.util.Iterator;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class EmfModuleExtensionRegistryTest extends Assert {
+public class EmfModuleExtensionRegistryTest extends AbstractTest {
 
 	private final EmfModuleExtensionRegistry registry;
 

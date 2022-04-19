@@ -3,7 +3,7 @@ package com.softicar.platform.common.testing;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import org.junit.Test;
 
-public class AssertionErrorMessageCollectorTest extends Asserts {
+public class AssertionErrorMessageCollectorTest extends AbstractTest {
 
 	private final AssertionErrorMessageCollector collector;
 

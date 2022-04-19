@@ -2,17 +2,17 @@ package com.softicar.platform.common.io.zip.file;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.buffer.ByteBuffer;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ZipFileReaderTest extends Assert {
+public class ZipFileReaderTest extends AbstractTest {
 
 	private Path zipFile;
 	private ZipFileReader zipReader;

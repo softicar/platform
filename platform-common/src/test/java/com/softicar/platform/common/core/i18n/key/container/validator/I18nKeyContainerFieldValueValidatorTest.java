@@ -10,10 +10,11 @@ import com.softicar.platform.common.core.i18n.key.II18nKey;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldIllegalEnglishStringError;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldWrongFormatSpecifierCountError;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldWrongTypeError;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Collections;
 import org.junit.Test;
 
-public class I18nKeyContainerFieldValueValidatorTest {
+public class I18nKeyContainerFieldValueValidatorTest extends AbstractTest {
 
 	@Test
 	public void test() {

@@ -3,15 +3,15 @@ package com.softicar.platform.common.container.data.table.in.memory;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.IBasicItem;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InMemoryDataTableColumnInternalValueComparatorFactoryTest extends Assert {
+public class InMemoryDataTableColumnInternalValueComparatorFactoryTest extends AbstractTest {
 
 	@Test
 	public void testCreateWithEntity() {

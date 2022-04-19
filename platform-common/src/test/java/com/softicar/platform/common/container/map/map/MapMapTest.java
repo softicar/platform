@@ -1,9 +1,9 @@
 package com.softicar.platform.common.container.map.map;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class MapMapTest extends Assert {
+public class MapMapTest extends AbstractTest {
 
 	private final IMapMap<Integer, Integer, Integer> mapMap;
 

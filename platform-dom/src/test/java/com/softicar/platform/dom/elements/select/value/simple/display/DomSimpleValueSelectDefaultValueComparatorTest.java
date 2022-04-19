@@ -3,12 +3,12 @@ package com.softicar.platform.dom.elements.select.value.simple.display;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.item.IBasicItem;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Comparator;
 import java.util.Objects;
 import org.junit.Test;
 
-public class DomSimpleValueSelectDefaultValueComparatorTest extends Asserts {
+public class DomSimpleValueSelectDefaultValueComparatorTest extends AbstractTest {
 
 	@Test
 	public void testWithStrings() {

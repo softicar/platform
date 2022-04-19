@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.i18n.key.computer;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class I18nFormatSpecifierExtractorTest extends Assert {
+public class I18nFormatSpecifierExtractorTest extends AbstractTest {
 
 	private final I18nFormatSpecifierExtractor extractor;
 

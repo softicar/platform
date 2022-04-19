@@ -1,14 +1,14 @@
 package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class EmfPasswordDisplayTest extends Assert implements IDomTestEngineMethods {
+public class EmfPasswordDisplayTest extends AbstractTest implements IDomTestEngineMethods {
 
 	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
 

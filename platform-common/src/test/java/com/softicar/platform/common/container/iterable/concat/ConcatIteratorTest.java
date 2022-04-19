@@ -1,15 +1,15 @@
 package com.softicar.platform.common.container.iterable.concat;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-public class ConcatIteratorTest extends Assert {
+public class ConcatIteratorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

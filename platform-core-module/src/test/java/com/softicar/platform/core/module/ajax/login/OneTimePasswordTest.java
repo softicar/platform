@@ -3,13 +3,13 @@ package com.softicar.platform.core.module.ajax.login;
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.time.Duration;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OneTimePasswordTest extends Assert {
+public class OneTimePasswordTest extends AbstractTest {
 
 	private final TestClock clock;
 

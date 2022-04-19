@@ -1,14 +1,14 @@
 package com.softicar.platform.db.sql.statement.builder.clause;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.sql.ISqlTable;
 import com.softicar.platform.db.sql.statement.builder.SqlStatementBuilder;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class SqlInsertValuesClauseBuilderTest extends Assert {
+public class SqlInsertValuesClauseBuilderTest extends AbstractTest {
 
 	private static final String FOO = "foo";
 	private static final String BAR = "bar";

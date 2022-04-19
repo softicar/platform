@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.cron.element;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CronRangeElementTest extends Assert {
+public class CronRangeElementTest extends AbstractTest {
 
 	@Test
 	public void testTest() {

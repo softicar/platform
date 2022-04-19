@@ -2,9 +2,9 @@ package com.softicar.platform.emf.data.table.persistence;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.map.index.IndexHashMap;
+import com.softicar.platform.emf.data.table.EmfDataTableOrdering.OrderingEntry;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableController;
-import com.softicar.platform.emf.data.table.EmfDataTableOrdering.OrderingEntry;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;

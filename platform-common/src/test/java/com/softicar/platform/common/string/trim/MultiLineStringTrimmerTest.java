@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.trim;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class MultiLineStringTrimmerTest extends Assert {
+public class MultiLineStringTrimmerTest extends AbstractTest {
 
 	@Test
 	public void test() {

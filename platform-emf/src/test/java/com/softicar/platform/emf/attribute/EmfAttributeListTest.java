@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfAttributeListTest extends Assert {
+public class EmfAttributeListTest extends AbstractTest {
 
 	private final EmfAttributeList<EmfTestSubObject, EmfTestObject> attributeList;
 

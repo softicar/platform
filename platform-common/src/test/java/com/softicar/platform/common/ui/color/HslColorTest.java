@@ -1,9 +1,9 @@
 package com.softicar.platform.common.ui.color;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class HslColorTest extends Assert {
+public class HslColorTest extends AbstractTest {
 
 	@Test
 	public void testConstructorWithRgbColor() {

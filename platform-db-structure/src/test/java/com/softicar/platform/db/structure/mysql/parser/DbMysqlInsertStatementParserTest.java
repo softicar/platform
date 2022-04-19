@@ -1,15 +1,15 @@
 package com.softicar.platform.db.structure.mysql.parser;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbMysqlInsertStatementParserTest extends Assert {
+public class DbMysqlInsertStatementParserTest extends AbstractTest {
 
 	private final IDbColumnStructure idColumnStructure;
 	private final IDbColumnStructure stringColumnStructure;

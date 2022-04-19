@@ -1,11 +1,11 @@
 package com.softicar.platform.db.runtime.data.table;
 
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbTableBasedDataTableTest extends Assert {
+public class DbTableBasedDataTableTest extends AbstractTest {
 
 	@Test
 	public void testGetIdentifier() {

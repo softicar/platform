@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.token.parser;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class EmfTokenMatrixParserExceptionBuilderTest extends Asserts {
+public class EmfTokenMatrixParserExceptionBuilderTest extends AbstractTest {
 
 	@Test
 	public void test() {

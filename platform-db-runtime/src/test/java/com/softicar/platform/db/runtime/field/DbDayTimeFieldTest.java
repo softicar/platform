@@ -3,15 +3,15 @@ package com.softicar.platform.db.runtime.field;
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.logic.DbObjectTable;
 import com.softicar.platform.db.runtime.logic.IDbObjectTable;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbDayTimeFieldTest extends Assert {
+public class DbDayTimeFieldTest extends AbstractTest {
 
 	private final DayTime then;
 

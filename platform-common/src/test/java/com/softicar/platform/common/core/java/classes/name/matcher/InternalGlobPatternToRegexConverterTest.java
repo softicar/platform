@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.java.classes.name.matcher;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class InternalGlobPatternToRegexConverterTest extends Assert {
+public class InternalGlobPatternToRegexConverterTest extends AbstractTest {
 
 	@Test
 	public void testWithoutAsterisk() {

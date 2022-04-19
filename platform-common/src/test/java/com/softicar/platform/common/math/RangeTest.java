@@ -1,9 +1,9 @@
 package com.softicar.platform.common.math;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class RangeTest extends Assert {
+public class RangeTest extends AbstractTest {
 
 	@Test
 	public void testInvalidRange() {

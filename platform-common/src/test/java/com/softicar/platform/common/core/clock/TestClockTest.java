@@ -1,12 +1,12 @@
 package com.softicar.platform.common.core.clock;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TestClockTest extends Assert {
+public class TestClockTest extends AbstractTest {
 
 	private static final ZoneId BERLIN_ZONE = ZoneId.of("Europe/Berlin");
 	private static final ZoneId SYDNEY_ZONE = ZoneId.of("Australia/Sydney");

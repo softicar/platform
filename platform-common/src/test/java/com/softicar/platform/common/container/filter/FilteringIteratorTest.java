@@ -1,12 +1,12 @@
 package com.softicar.platform.common.container.filter;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.function.Predicate;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class FilteringIteratorTest extends Assert {
+public class FilteringIteratorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

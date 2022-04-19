@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.elements.wiki;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.element.IDomElement;
 import java.io.IOException;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -13,7 +13,7 @@ import org.junit.Test;
  * <p>
  * TODO highly incomplete. implement more test cases.
  */
-public class DomWikiDivBuilderTest extends Assert {
+public class DomWikiDivBuilderTest extends AbstractTest {
 
 	private final DomWikiDivBuilder builder;
 

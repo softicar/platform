@@ -1,12 +1,13 @@
 package com.softicar.platform.common.code.string;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public class ClassStringLiteralAnalyzerTest {
+public class ClassStringLiteralAnalyzerTest extends AbstractTest {
 
 	private Set<String> stringLiterals;
 

@@ -1,7 +1,6 @@
 package com.softicar.platform.common.string;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -9,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class PaddingTest {
+public class PaddingTest extends AbstractTest {
 
 	// -------------------- generate -------------------- //
 

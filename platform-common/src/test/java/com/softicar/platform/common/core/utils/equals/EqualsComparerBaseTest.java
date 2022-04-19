@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.utils.equals;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EqualsComparerBaseTest extends Assert {
+public class EqualsComparerBaseTest extends AbstractTest {
 
 	@Test
 	public void testWithDerivedObject() {

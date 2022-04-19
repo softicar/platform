@@ -1,12 +1,12 @@
 package com.softicar.platform.common.core.java.classes.analyzer;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class JavaClassAnalyzerTestForAccessFlags extends Assert {
+public class JavaClassAnalyzerTestForAccessFlags extends AbstractTest {
 
 	private AnalyzedJavaClass javaClass;
 

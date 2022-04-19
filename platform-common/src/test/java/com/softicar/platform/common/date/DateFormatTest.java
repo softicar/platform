@@ -1,6 +1,6 @@
 package com.softicar.platform.common.date;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class DateFormatTest {
+public class DateFormatTest extends AbstractTest {
 
 	@Test
 	public void parsesYYYY_MM_DD() {

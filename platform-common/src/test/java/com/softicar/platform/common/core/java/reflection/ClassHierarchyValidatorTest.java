@@ -1,5 +1,6 @@
 package com.softicar.platform.common.core.java.reflection;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.Closeable;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
 
-public class ClassHierarchyValidatorTest {
+public class ClassHierarchyValidatorTest extends AbstractTest {
 
 	// -------------------- assertNoInterfaces -------------------- //
 

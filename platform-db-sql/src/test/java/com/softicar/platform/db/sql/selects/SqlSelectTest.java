@@ -5,12 +5,12 @@ import static com.softicar.platform.db.sql.Sql.literal;
 import static com.softicar.platform.db.sql.Sql.now;
 import static com.softicar.platform.db.sql.Sql.select;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.db.sql.test.SqlTestEntity;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class SqlSelectTest extends Assert {
+public class SqlSelectTest extends AbstractTest {
 
 	@Test
 	public void selectNow() {

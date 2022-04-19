@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.mime;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class MimeTypeTest extends Assert {
+public class MimeTypeTest extends AbstractTest {
 
 	@Test
 	public void testGetIdentifier() {

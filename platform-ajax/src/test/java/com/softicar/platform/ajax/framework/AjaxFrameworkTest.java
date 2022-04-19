@@ -8,11 +8,12 @@ import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.simple.SimpleHttpSession;
 import com.softicar.platform.ajax.simple.SimpleServletRequest;
 import com.softicar.platform.ajax.simple.SimpleServletResponse;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-public class AjaxFrameworkTest {
+public class AjaxFrameworkTest extends AbstractTest {
 
 	private final SimpleServletResponse response;
 	private final SimpleServletRequest request;

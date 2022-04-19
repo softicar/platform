@@ -1,6 +1,7 @@
 package com.softicar.platform.db.runtime.query;
 
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import com.softicar.platform.db.runtime.query.builder.AbstractDbQuerySqlBuilder;
@@ -8,10 +9,9 @@ import com.softicar.platform.db.runtime.query.builder.IDbQuerySqlBuilder;
 import com.softicar.platform.db.runtime.select.IDbSqlSelect;
 import com.softicar.platform.db.sql.token.SqlKeyword;
 import com.softicar.platform.db.sql.token.SqlSymbol;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class AbstractDbQueryTest extends Assert {
+public class AbstractDbQueryTest extends AbstractTest {
 
 	@Test
 	public void testGetIdentifier() {

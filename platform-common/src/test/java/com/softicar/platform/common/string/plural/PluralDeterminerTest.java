@@ -1,9 +1,9 @@
 package com.softicar.platform.common.string.plural;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class PluralDeterminerTest extends Assert {
+public class PluralDeterminerTest extends AbstractTest {
 
 	@Test
 	public void testWithNormalCases() {

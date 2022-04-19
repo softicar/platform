@@ -1,5 +1,6 @@
 package com.softicar.platform.db.structure.mysql.parser;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.column.DbColumnDefaultType;
@@ -14,10 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbMysqlCreateTableStatementParserTest extends Assert {
+public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 
 	private final String createTableStatement;
 	private final DbTableName tableName;

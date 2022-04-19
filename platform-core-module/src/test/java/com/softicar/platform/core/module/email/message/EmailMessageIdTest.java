@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.email.message;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EmailMessageIdTest extends Assert {
+public class EmailMessageIdTest extends AbstractTest {
 
 	@Test
 	public void testWithNormalId() {

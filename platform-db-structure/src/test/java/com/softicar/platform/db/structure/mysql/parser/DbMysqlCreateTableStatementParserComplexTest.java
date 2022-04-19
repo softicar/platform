@@ -1,6 +1,6 @@
 package com.softicar.platform.db.structure.mysql.parser;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.key.IDbKeyStructure;
 import com.softicar.platform.db.structure.table.IDbTableStructure;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public class DbMysqlCreateTableStatementParserComplexTest {
+public class DbMysqlCreateTableStatementParserComplexTest extends AbstractTest {
 
 	private static final String CREATE_TABLE_STATEMENT = new StringBuilder()//
 		.append("CREATE TABLE `db`.`Foo` (")

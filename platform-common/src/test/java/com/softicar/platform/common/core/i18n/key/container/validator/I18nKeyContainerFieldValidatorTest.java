@@ -6,11 +6,12 @@ import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.i18n.key.II18nKey;
 import com.softicar.platform.common.core.i18n.key.container.validator.error.I18nKeyContainerFieldMissingMandatoryTranslationError;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collection;
 import org.junit.Test;
 
-public class I18nKeyContainerFieldValidatorTest {
+public class I18nKeyContainerFieldValidatorTest extends AbstractTest {
 
 	@Test
 	public void testWithMissingGermanTranslation() {

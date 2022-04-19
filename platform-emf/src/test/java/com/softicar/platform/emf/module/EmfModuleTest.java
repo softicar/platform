@@ -1,13 +1,13 @@
 package com.softicar.platform.emf.module;
 
 import com.softicar.platform.common.core.annotations.TestingOnly;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.test.module.AbstractEmfTestModule;
 import java.util.UUID;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfModuleTest extends Assert {
+public class EmfModuleTest extends AbstractTest {
 
 	private static final String SOME_UUID_STRING = "7bf69cea-cd11-4008-8d4a-36b76c47a091";
 	private static final UUID SOME_UUID = UUID.fromString(SOME_UUID_STRING);

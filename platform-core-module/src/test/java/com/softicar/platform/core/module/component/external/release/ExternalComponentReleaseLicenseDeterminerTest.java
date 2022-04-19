@@ -1,15 +1,15 @@
 package com.softicar.platform.core.module.component.external.release;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.component.external.key.ExternalComponentKey;
 import com.softicar.platform.core.module.component.external.license.rule.ExternalComponentLicenseRule;
 import com.softicar.platform.core.module.component.external.type.ExternalComponentType;
 import com.softicar.platform.core.module.license.License;
 import java.util.Arrays;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ExternalComponentReleaseLicenseDeterminerTest extends Assert {
+public class ExternalComponentReleaseLicenseDeterminerTest extends AbstractTest {
 
 	private final ExternalComponentReleaseLicenseDeterminer determiner;
 

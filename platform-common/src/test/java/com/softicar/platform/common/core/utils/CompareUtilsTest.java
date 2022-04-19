@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.utils;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CompareUtilsTest extends Assert {
+public class CompareUtilsTest extends AbstractTest {
 
 	private static final int SOME_NUMBER = 1337;
 

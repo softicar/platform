@@ -1,11 +1,11 @@
 package com.softicar.platform.db.structure.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbColumnStructureSqlGeneratorTest extends Assert {
+public class DbColumnStructureSqlGeneratorTest extends AbstractTest {
 
 	private static final Integer AUTO_INCREMENT_START = 666;
 	private Integer autoIncrementCounter;

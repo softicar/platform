@@ -1,12 +1,12 @@
 package com.softicar.platform.db.runtime.field;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import com.softicar.platform.db.runtime.object.DbTestObjectFlag;
 import com.softicar.platform.db.sql.statement.builder.SqlSelectBuilder;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbEnumFieldTest extends Assert {
+public class DbEnumFieldTest extends AbstractTest {
 
 	@Test
 	public void testInExpression() {

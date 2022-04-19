@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.interfaces;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class IRefreshableTest extends Assert {
+public class IRefreshableTest extends AbstractTest {
 
 	@Test
 	public void testOfNullableWithNull() {

@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.cron;
 
 import com.softicar.platform.common.date.DayTime;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CronExpressionTest extends Assert {
+public class CronExpressionTest extends AbstractTest {
 
 	@Test
 	public void testMatches() {

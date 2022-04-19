@@ -1,14 +1,14 @@
 package com.softicar.platform.common.io;
 
 import com.softicar.platform.common.io.stream.hexadecimal.UnexpectedEndOfHexadecimalStreamException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class HexDecoderStreamTest extends Assert {
+public class HexDecoderStreamTest extends AbstractTest {
 
 	@Test
 	public void testReadOnEmptyStream() {

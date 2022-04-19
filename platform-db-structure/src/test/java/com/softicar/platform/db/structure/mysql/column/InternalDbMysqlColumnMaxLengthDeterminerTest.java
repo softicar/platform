@@ -1,11 +1,11 @@
 package com.softicar.platform.db.structure.mysql.column;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.column.IDbColumnStructure;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class InternalDbMysqlColumnMaxLengthDeterminerTest extends Assert {
+public class InternalDbMysqlColumnMaxLengthDeterminerTest extends AbstractTest {
 
 	@Test
 	public void testWithMaximumLength() {

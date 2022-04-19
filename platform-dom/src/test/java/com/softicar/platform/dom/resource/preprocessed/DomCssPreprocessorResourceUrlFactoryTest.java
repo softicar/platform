@@ -4,7 +4,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.common.io.resource.key.ResourceKey;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.engine.DomNullEngine;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomCssPreprocessorResourceUrlFactoryTest extends Asserts {
+public class DomCssPreprocessorResourceUrlFactoryTest extends AbstractTest {
 
 	private final DomCssPreprocessorResourceUrlFactory factory;
 

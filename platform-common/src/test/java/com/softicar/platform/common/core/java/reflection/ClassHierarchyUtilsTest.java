@@ -1,12 +1,12 @@
 package com.softicar.platform.common.core.java.reflection;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ClassHierarchyUtilsTest extends Assert {
+public class ClassHierarchyUtilsTest extends AbstractTest {
 
 	@Test
 	public void testGetAllInterfaces() {
