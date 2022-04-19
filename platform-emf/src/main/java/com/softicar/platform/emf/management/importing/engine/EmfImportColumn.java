@@ -98,7 +98,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		if (object instanceof EmfImportColumn) {
 
 			EmfImportColumn<R, ?> otherEmfImportColumn = CastUtils.cast(object);
-			// We must ignore childColumn because otherwise we will get eternal loop!
 			return Objects.equals(parentColumns, otherEmfImportColumn.parentColumns);
 		} else {
 			return false;
