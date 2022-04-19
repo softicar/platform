@@ -99,18 +99,9 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 			EmfImportColumn<R, ?> otherEmfImportColumn = CastUtils.cast(object);
 			// We must ignore childColumn because otherwise we will get eternal loop!
-			return isSameColumn(childColumn, otherEmfImportColumn.childColumn) && Objects.equals(parentColumns, otherEmfImportColumn.parentColumns);
+			return Objects.equals(parentColumns, otherEmfImportColumn.parentColumns);
 		} else {
 			return false;
-		}
-	}
-
-	private static <R extends IEmfTableRow<R, P>, P> boolean isSameColumn(EmfImportColumn<R, ?> columnOne, EmfImportColumn<R, ?> columnTwo) {
-
-		if (columnOne == null && columnTwo == null) {
-			return true;
-		} else {
-			return columnOne == columnTwo;
 		}
 	}
 
