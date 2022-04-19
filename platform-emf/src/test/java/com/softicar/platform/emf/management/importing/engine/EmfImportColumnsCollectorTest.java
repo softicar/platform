@@ -33,25 +33,25 @@ public class EmfImportColumnsCollectorTest extends AbstractDbTest {
 		EmfImportColumn<R, ?> itemInvoiceColumn = createEmfImportColumn(EmfTestInvoiceItem.INVOICE);
 
 		EmfImportColumn<R, ?> invoiceInvoiceModuleInstanceColumn = createEmfImportColumn(EmfTestInvoice.INVOICE_MODULE_INSTANCE);
-		itemInvoiceColumn.addForeignKeyColumn(invoiceInvoiceModuleInstanceColumn);
+		itemInvoiceColumn.addParentColumn(invoiceInvoiceModuleInstanceColumn);
 
 		EmfImportColumn<R, ?> invoiceModuleInstanceNameColumn = createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME);
-		invoiceInvoiceModuleInstanceColumn.addForeignKeyColumn(invoiceModuleInstanceNameColumn);
+		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
 
 		EmfImportColumn<R, ?> invoicePartnerColumn = createEmfImportColumn(EmfTestInvoice.PARTNER);
-		itemInvoiceColumn.addForeignKeyColumn(invoicePartnerColumn);
+		itemInvoiceColumn.addParentColumn(invoicePartnerColumn);
 
 		EmfImportColumn<R, ?> businessPartnerBusinessUnitModuleInstanceColumn = createEmfImportColumn(EmfTestBusinessPartner.BUSINESS_UNIT_MODULE_INSTANCE);
-		invoicePartnerColumn.addForeignKeyColumn(businessPartnerBusinessUnitModuleInstanceColumn);
+		invoicePartnerColumn.addParentColumn(businessPartnerBusinessUnitModuleInstanceColumn);
 
 		EmfImportColumn<R, ?> businessUnitModuleInstanceNameColumn = createEmfImportColumn(EmfTestBusinessUnitModuleInstance.NAME);
-		businessPartnerBusinessUnitModuleInstanceColumn.addForeignKeyColumn(businessUnitModuleInstanceNameColumn);
+		businessPartnerBusinessUnitModuleInstanceColumn.addParentColumn(businessUnitModuleInstanceNameColumn);
 
 		EmfImportColumn<R, ?> businessPartnerNameColumn = createEmfImportColumn(EmfTestBusinessPartner.NAME);
-		invoicePartnerColumn.addForeignKeyColumn(businessPartnerNameColumn);
+		invoicePartnerColumn.addParentColumn(businessPartnerNameColumn);
 
 		EmfImportColumn<R, ?> invoiceNumberColumn = createEmfImportColumn(EmfTestInvoice.NUMBER);
-		itemInvoiceColumn.addForeignKeyColumn(invoiceNumberColumn);
+		itemInvoiceColumn.addParentColumn(invoiceNumberColumn);
 
 		tableColumns.add(itemInvoiceColumn);
 		tableColumns.add(createEmfImportColumn(EmfTestInvoiceItem.POSITION));

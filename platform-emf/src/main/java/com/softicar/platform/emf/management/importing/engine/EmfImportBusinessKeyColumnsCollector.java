@@ -12,7 +12,7 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 	private final EmfImportColumn<R, ?> column;
 	private final IEmfAttribute<R, ?> fieldAttribute;
 
-	public EmfImportBusinessKeyColumnsCollector(IEmfAttribute<R, ?> fieldAttribute, EmfImportColumn<R, ?> column) {
+	public EmfImportBusinessKeyColumnsCollector(EmfImportColumn<R, ?> column, IEmfAttribute<R, ?> fieldAttribute) {
 
 		this.fieldAttribute = fieldAttribute;
 		this.column = column;
@@ -24,13 +24,13 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (IDbField<R, ?> targetTableBusinessKeyField: targetTable.getBusinessKey().getFields()) {
 
-			EmfImportColumn<R, ?> foreignKeyColumn = new EmfImportColumn<>(targetTableBusinessKeyField);
-			column.addForeignKeyColumn(foreignKeyColumn);
+			EmfImportColumn<R, ?> parentColumn = new EmfImportColumn<>(targetTableBusinessKeyField);
+			column.addParentColumn(parentColumn);
 
-			IEmfAttribute<R, ?> targetTableFieldAttribute = targetTable.getAttribute(targetTableBusinessKeyField);
+			IEmfAttribute<R, ?> parentFieldAttribute = targetTable.getAttribute(targetTableBusinessKeyField);
 
-			if (targetTableFieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyColumnsCollector<>(targetTableFieldAttribute, foreignKeyColumn).collect();
+			if (parentFieldAttribute instanceof EmfForeignRowAttribute) {
+				new EmfImportBusinessKeyColumnsCollector<>(parentColumn, parentFieldAttribute).collect();
 			}
 		}
 	}

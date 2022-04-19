@@ -47,7 +47,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
 			if (fieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyColumnsCollector<>(fieldAttribute, tableColumn).collect();
+				new EmfImportBusinessKeyColumnsCollector<>(tableColumn, fieldAttribute).collect();
 			}
 		}
 		return tableColumns;
@@ -55,13 +55,13 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private List<EmfImportColumn<R, ?>> resolveToCsvFileColumns(EmfImportColumn<R, ?> tableColumn) {
 
-		List<EmfImportColumn<R, ?>> foreignKeyColumns = tableColumn.getForeignKeyColumns();
-		if (foreignKeyColumns.isEmpty()) {
+		List<EmfImportColumn<R, ?>> parentColumns = tableColumn.getParentColumns();
+		if (parentColumns.isEmpty()) {
 			return List.of(tableColumn);
 		} else {
 			List<EmfImportColumn<R, ?>> csvFileColumns = new ArrayList<>();
-			for (EmfImportColumn<R, ?> foreignKeyColumn: foreignKeyColumns) {
-				csvFileColumns.addAll(resolveToCsvFileColumns(foreignKeyColumn));
+			for (EmfImportColumn<R, ?> parentColumn: parentColumns) {
+				csvFileColumns.addAll(resolveToCsvFileColumns(parentColumn));
 			}
 			return csvFileColumns;
 		}

@@ -12,25 +12,25 @@ import java.util.Objects;
 public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	private final IDbField<R, ?> field;
-	private final List<EmfImportColumn<R, ?>> foreignKeyColumns;
-	private EmfImportColumn<R, ?> sourceColumn;
+	private final List<EmfImportColumn<R, ?>> parentColumns;
+	private EmfImportColumn<R, ?> childColumn;
 	private Object value;
 
 	public EmfImportColumn(IDbField<R, ?> field) {
 
 		this.field = field;
-		this.foreignKeyColumns = new ArrayList<>();
+		this.parentColumns = new ArrayList<>();
 	}
 
-	public void addForeignKeyColumn(EmfImportColumn<R, ?> foreignKeyColumn) {
+	public void addParentColumn(EmfImportColumn<R, ?> parentColumn) {
 
-		foreignKeyColumns.add(foreignKeyColumn);
-		foreignKeyColumn.sourceColumn = this;
+		parentColumns.add(parentColumn);
+		parentColumn.childColumn = this;
 	}
 
 	public boolean isForeignKeyColumn() {
 
-		return !foreignKeyColumns.isEmpty();
+		return !parentColumns.isEmpty();
 	}
 
 	public IDbField<R, ?> getField() {
@@ -38,17 +38,17 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		return field;
 	}
 
-	public List<EmfImportColumn<R, ?>> getForeignKeyColumns() {
+	public List<EmfImportColumn<R, ?>> getParentColumns() {
 
-		return foreignKeyColumns;
+		return parentColumns;
 	}
 
 	public IDisplayString getTitle() {
 
-		if (sourceColumn == null) {
+		if (childColumn == null) {
 			return field.getTitle();
 		} else {
-			return sourceColumn.getTitle().concat(":").concat(field.getTitle());
+			return childColumn.getTitle().concat(":").concat(field.getTitle());
 		}
 	}
 
@@ -59,7 +59,7 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	public Object getValue() {
 
-		if (value != null || foreignKeyColumns.isEmpty()) {
+		if (value != null || parentColumns.isEmpty()) {
 			return value;
 		} else {
 			return loadValue();
@@ -69,12 +69,12 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	private Object loadValue() {
 
 		ISqlSelect<R> select = null;
-		for (EmfImportColumn<R, ?> foreignKeyColumn: foreignKeyColumns) {
-			IDbField<R, Object> foreignKeyColumnField = CastUtils.cast(foreignKeyColumn.field);
+		for (EmfImportColumn<R, ?> parentColumn: parentColumns) {
+			IDbField<R, Object> parentColumnField = CastUtils.cast(parentColumn.field);
 			if (select == null) {
-				select = foreignKeyColumnField.getTable().createSelect();
+				select = parentColumnField.getTable().createSelect();
 			} else {
-				select = select.where(foreignKeyColumnField.isEqual(foreignKeyColumn.getValue()));
+				select = select.where(parentColumnField.isEqual(parentColumn.getValue()));
 			}
 		}
 		return loadSetAndGetValue(select);
@@ -98,8 +98,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		if (object instanceof EmfImportColumn) {
 
 			EmfImportColumn<R, ?> otherEmfImportColumn = CastUtils.cast(object);
-			// TODO it has to ignore sourceColumn because otherwise it goes eternal loop!
-			return Objects.equals(foreignKeyColumns, otherEmfImportColumn.foreignKeyColumns);
+			// We must ignore childColumn because otherwise we will get eternal loop!
+			return Objects.equals(parentColumns, otherEmfImportColumn.parentColumns);
 		} else {
 			return false;
 		}
@@ -108,6 +108,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(foreignKeyColumns);
+		return Objects.hash(parentColumns);
 	}
 }
