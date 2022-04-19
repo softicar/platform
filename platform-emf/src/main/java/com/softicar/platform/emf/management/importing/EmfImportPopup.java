@@ -25,7 +25,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		this.table = table;
 		this.scope = scope;
-		this.engine = new EmfImportEngine<>(table).setScope(scope);
+		this.engine = new EmfImportEngine<>(table, scope);
 
 		setCaption();
 		setSubCaption();

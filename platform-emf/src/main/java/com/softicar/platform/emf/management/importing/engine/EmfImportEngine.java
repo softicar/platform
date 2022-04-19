@@ -20,25 +20,18 @@ import java.util.Set;
 public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
-	private Optional<S> scope;
+	private final Optional<S> scope;
 	private List<List<String>> textualRows;
 	private List<List<String>> textualRowsWithReplacements;
 	private SetMap<String, EmfImportVariableCoordinates> variableCoordinates;
 	private List<R> parsedRows;
-	private EmfImportColumnsCollector<R, P, S> columnsCollector;
+	private final EmfImportColumnsCollector<R, P, S> columnsCollector;
 
-	public EmfImportEngine(IEmfTable<R, P, S> table) {
+	public EmfImportEngine(IEmfTable<R, P, S> table, S scope) {
 
 		this.table = Objects.requireNonNull(table);
-		this.scope = Optional.empty();
-		this.columnsCollector = new EmfImportColumnsCollector<>(table);
-	}
-
-	public EmfImportEngine<R, P, S> setScope(S scope) {
-
 		this.scope = Optional.of(scope);
 		this.columnsCollector = new EmfImportColumnsCollector<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
-		return this;
 	}
 
 	public void addCsvRows(String csv) {
