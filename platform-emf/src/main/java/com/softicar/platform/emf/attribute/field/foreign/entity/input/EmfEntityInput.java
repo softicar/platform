@@ -13,7 +13,9 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteE
 	public EmfEntityInput(IDomAutoCompleteInputEngine<E> inputEngine) {
 
 		super(inputEngine);
-		inputBar.appendChild(new EmfEntityInputBrowseButton(this, inputEngine));
+		var browseButton = new EmfEntityInputBrowseButton(this, inputEngine);
+		browseButton.setTabIndex(-1);
+		inputBar.appendChild(browseButton);
 	}
 
 	public EmfEntityInput(IEmfEntityTable<E, ?, ?> table) {
