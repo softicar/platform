@@ -23,7 +23,7 @@ public class UserProfilePage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return CoreI18n.USER_PROFILE;
 	}

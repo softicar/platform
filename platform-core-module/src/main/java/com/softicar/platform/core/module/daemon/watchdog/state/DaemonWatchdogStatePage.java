@@ -21,7 +21,7 @@ public class DaemonWatchdogStatePage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return CoreI18n.DAEMON_WATCHDOG_STATE;
 	}

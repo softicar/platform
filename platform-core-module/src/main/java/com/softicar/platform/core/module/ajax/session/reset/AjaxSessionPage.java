@@ -23,7 +23,7 @@ public class AjaxSessionPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return CoreI18n.SESSION;
 	}

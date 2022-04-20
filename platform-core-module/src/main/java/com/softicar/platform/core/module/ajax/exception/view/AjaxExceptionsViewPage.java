@@ -29,7 +29,7 @@ public class AjaxExceptionsViewPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return CoreI18n.AJAX_EXCEPTIONS;
 	}
