@@ -4,7 +4,7 @@ import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
-import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -13,7 +13,7 @@ import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.list.EmfDataTableFilterListDiv;
 import com.softicar.platform.emf.data.table.filter.nop.EmfDataTableNopFilter;
 
-public class EmfDataTableFilterPopup<R> extends DomPopup implements IDomEnterKeyEventHandler {
+public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements IDomEnterKeyEventHandler {
 
 	private final IEmfDataTableColumn<R, ?> column;
 	private final EmfDataTableFilterListDiv<R> filterListDiv;

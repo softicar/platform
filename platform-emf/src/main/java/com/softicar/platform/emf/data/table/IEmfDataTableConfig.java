@@ -41,6 +41,8 @@ public interface IEmfDataTableConfig<R> {
 
 	Optional<IDataTablePrefetcher<R>> getCallbackBeforePrefetch();
 
+	boolean isHideNavigationActionButtions();
+
 	boolean isHideNavigationAtBottom();
 
 	boolean isHideNavigationAtTop();

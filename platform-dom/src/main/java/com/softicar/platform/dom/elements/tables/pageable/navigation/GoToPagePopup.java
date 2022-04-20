@@ -7,19 +7,20 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
-import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
+import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 
 /**
- * A {@link DomPopup} allowing for direct navigation to a specific page of a
+ * A {@link DomPopover} to jump to a specific page of a
  * {@link DomPageableTable}.
  *
  * @author Alexander Schmidt
  */
-class GoToPagePopup extends DomPopup {
+class GoToPagePopup extends DomDismissablePopup {
 
 	private final DomPageableTable table;
 	private PageNumberInput pageNumberInput;

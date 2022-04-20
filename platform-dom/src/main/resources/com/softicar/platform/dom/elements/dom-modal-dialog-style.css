@@ -5,7 +5,10 @@
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: #0008;
+}
+
+.DomModalDialogBackdrop:last-child {
+	background-color: #0001;
 }
 
 .DomModalDialogBackdrop.invisible {

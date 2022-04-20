@@ -89,7 +89,7 @@ public class EmfDataTableDivBuilder<R> {
 	 * @param column
 	 *            the column to conceal
 	 * @param concealed
-	 *            <i>true</i> to conceal the column, <i>false</i> otherwise
+	 *            <i>true</i> to conceal the column; <i>false</i> otherwise
 	 * @return this builder
 	 */
 	public <T> EmfDataTableDivBuilder<R> setConcealed(IDataTableColumn<R, T> column, boolean concealed) {
@@ -107,7 +107,7 @@ public class EmfDataTableDivBuilder<R> {
 	 * @param column
 	 *            the column to hide (never <i>null</i>)
 	 * @param hidden
-	 *            <i>true</i> to hide the column, <i>false</i> otherwise
+	 *            <i>true</i> to hide the column; <i>false</i> otherwise
 	 * @return this builder
 	 */
 	public <T> EmfDataTableDivBuilder<R> setHidden(IDataTableColumn<R, T> column, boolean hidden) {
@@ -155,7 +155,7 @@ public class EmfDataTableDivBuilder<R> {
 	 * @param column
 	 *            the column
 	 * @param showIds
-	 *            <i>true</i> to show the ID, <i>false</i> otherwise
+	 *            <i>true</i> to show the ID; <i>false</i> otherwise
 	 * @return this builder
 	 */
 	public <T extends IEntity> EmfDataTableDivBuilder<R> setShowIds(IDataTableColumn<R, T> column, boolean showIds) {
@@ -320,6 +320,23 @@ public class EmfDataTableDivBuilder<R> {
 	}
 
 	/**
+	 * Defines whether action buttons (like "table settings" and "export") shall
+	 * be displayed in table navigation elements.
+	 * <p>
+	 * Navigation action buttons are displayed by default.
+	 *
+	 * @param hideNavigationActionButtons
+	 *            <i>true</i> to hide the navigation action buttons,
+	 *            <i>false</i> otherwise
+	 * @return this builder
+	 */
+	public EmfDataTableDivBuilder<R> setHideNavigationActionButtons(boolean hideNavigationActionButtons) {
+
+		this.config.setHideNavigationActionButtons(hideNavigationActionButtons);
+		return this;
+	}
+
+	/**
 	 * Enabled or disables the table navigation.
 	 * <p>
 	 * The table navigation is enabled by default. For very tiny tables that
@@ -327,7 +344,7 @@ public class EmfDataTableDivBuilder<R> {
 	 * disabled, using this method.
 	 *
 	 * @param hideNavigation
-	 *            <i>true</i> to hide the navigation, <i>false</i> otherwise
+	 *            <i>true</i> to hide the navigation; <i>false</i> otherwise
 	 * @return this builder
 	 */
 	public EmfDataTableDivBuilder<R> setHideNavigation(boolean hideNavigation) {

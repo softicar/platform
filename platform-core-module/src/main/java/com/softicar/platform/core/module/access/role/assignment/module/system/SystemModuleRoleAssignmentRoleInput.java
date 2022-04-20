@@ -16,11 +16,11 @@ class SystemModuleRoleAssignmentRoleInput extends EmfEntityInput<AGUuid> {
 
 	public SystemModuleRoleAssignmentRoleInput() {
 
-		setInputEngine(new InputEngine());
+		super(new InputEngine());
 		setPlaceholder(CoreI18n.ROLE);
 	}
 
-	private class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
+	private static class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
 
 		public InputEngine() {
 

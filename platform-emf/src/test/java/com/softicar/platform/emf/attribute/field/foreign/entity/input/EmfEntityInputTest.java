@@ -1,5 +1,8 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
+import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfI18n;
@@ -10,12 +13,14 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 
 	private final EmfTestObject object1;
 	private final EmfTestObject object23;
+	private int changeCallbackCounter;
 
 	public EmfEntityInputTest() {
 
 		setNodeSupplier(() -> new EmfEntityInput<>(new EmfEntityInputEngine<>(EmfTestObject.TABLE)));
 		this.object1 = insertTestObject(1, "one");
 		this.object23 = insertTestObject(23, "twentythree");
+		this.changeCallbackCounter = 0;
 	}
 
 	@Test
@@ -75,11 +80,35 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
 	}
 
-	private Object getValue() {
+	@Test
+	public void testGetValueWithObject23AndClickInBrowsePopover() {
+
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
+		assertSame(object23, getValue());
+		assertEquals(0, changeCallbackCounter);
+	}
+
+	@Test
+	public void testGetValueWithObject23AndClickInBrowsePopoverAndChangeCallback() {
+
+		getInput().setChangeCallback(this::handleChangeCallback);
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
+		assertSame(object23, getValue());
+		assertEquals(1, changeCallbackCounter);
+	}
+
+	private EmfEntityInput<EmfTestObject> getInput() {
 
 		return findBody()//
 			.findNode(EmfEntityInput.class)
-			.assertType(EmfEntityInput.class)
+			.assertType(EmfEntityInput.class);
+	}
+
+	private Object getValue() {
+
+		return getInput()//
 			.getValue()
 			.orElse(null);
 	}
@@ -89,6 +118,18 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		findBody()//
 			.findNode(DomTextInput.class)
 			.setInputValue(value);
+	}
+
+	private void openBrowsePopover() {
+
+		findBody()//
+			.findNode(DomPopupButton.class)
+			.click();
+	}
+
+	private void handleChangeCallback() {
+
+		this.changeCallbackCounter++;
 	}
 
 	private EmfTestObject insertTestObject(int id, String name) {

@@ -9,6 +9,7 @@ public interface DomElementsCssClasses {
 	ICssClass DOM_ACTION_BAR = new CssClass("DomActionBar", DomElementsCssFiles.DOM_ACTION_BAR_STYLE);
 
 	ICssClass DOM_AUTO_COMPLETE_INPUT = new CssClass("DomAutoCompleteInput", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INPUT_FIELD = new CssClass("DomAutoCompleteInputField", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY = new CssClass("DomAutoCompleteInputFilterDisplay", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 
 	ICssClass DOM_BAR = new CssClass("DomBar", DomElementsCssFiles.DOM_BAR_STYLE);

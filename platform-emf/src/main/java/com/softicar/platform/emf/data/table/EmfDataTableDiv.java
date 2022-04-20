@@ -35,7 +35,7 @@ class EmfDataTableDiv<R> extends DomDiv implements IEmfDataTableDiv<R> {
 		this.table = new EmfDataTable<>(config, this::getRowSelectionDiv);
 
 		if (!config.isHideNavigationAtTop()) {
-			appendChild(createNavigation(table));
+			appendChild(createNavigation(table, config.isHideNavigationActionButtions()));
 		}
 
 		appendChild(table);
@@ -54,7 +54,7 @@ class EmfDataTableDiv<R> extends DomDiv implements IEmfDataTableDiv<R> {
 		}
 
 		if (!config.isHideNavigationAtBottom()) {
-			appendChild(createNavigation(table));
+			appendChild(createNavigation(table, config.isHideNavigationActionButtions()));
 		}
 
 		config.getTableDivMarkers().forEach(this::setMarker);
@@ -74,12 +74,16 @@ class EmfDataTableDiv<R> extends DomDiv implements IEmfDataTableDiv<R> {
 		return rowSelectionDiv;
 	}
 
-	private IDomElement createNavigation(EmfDataTable<R> table) {
+	private IDomElement createNavigation(EmfDataTable<R> table, boolean hideNavigationActionButtons) {
 
-		return table
-			.createNavigation(//
-				new EmfDataTableConfigurationButtonBuilder<>(table.getController()),
-				new EmfDataTableExportButtonBuilder(table));
+		if (hideNavigationActionButtons) {
+			return table.createNavigation();
+		} else {
+			return table
+				.createNavigation(//
+					new EmfDataTableConfigurationButtonBuilder<>(table.getController()),
+					new EmfDataTableExportButtonBuilder(table));
+		}
 	}
 
 	// -------------------- rows -------------------- //
