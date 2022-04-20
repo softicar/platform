@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.data.table;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.Asserts;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfDataTableTestUtilTest extends Assert {
+public class EmfDataTableTestUtilTest extends AbstractTest {
 
 	@Test
 	public void testCalculateTotalPageCount() {

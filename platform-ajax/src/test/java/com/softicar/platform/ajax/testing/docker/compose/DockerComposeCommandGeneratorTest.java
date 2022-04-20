@@ -1,10 +1,10 @@
 package com.softicar.platform.ajax.testing.docker.compose;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DockerComposeCommandGeneratorTest extends Assert {
+public class DockerComposeCommandGeneratorTest extends AbstractTest {
 
 	private final DockerComposeCommandGenerator generator;
 

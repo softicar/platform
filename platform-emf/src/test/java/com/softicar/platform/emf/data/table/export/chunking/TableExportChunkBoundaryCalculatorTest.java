@@ -1,12 +1,12 @@
 package com.softicar.platform.emf.data.table.export.chunking;
 
 import com.softicar.platform.common.container.pair.Pair;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TableExportChunkBoundaryCalculatorTest extends Assert {
+public class TableExportChunkBoundaryCalculatorTest extends AbstractTest {
 
 	@Test
 	public void test() {

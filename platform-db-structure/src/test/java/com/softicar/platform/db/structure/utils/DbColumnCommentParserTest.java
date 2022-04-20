@@ -1,9 +1,9 @@
 package com.softicar.platform.db.structure.utils;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DbColumnCommentParserTest extends Assert {
+public class DbColumnCommentParserTest extends AbstractTest {
 
 	private static final String NAME_OVERRIDE = "someStupidName";
 

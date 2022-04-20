@@ -14,13 +14,13 @@ import com.softicar.platform.emf.table.IEmfTable;
 public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>> implements IEmfPage<I> {
 
 	@Override
-	public final IResource getIcon() {
+	public IResource getIcon() {
 
 		return getTable().getIcon();
 	}
 
 	@Override
-	public final IDisplayString getTitle() {
+	public IDisplayString getTitle(I moduleInstance) {
 
 		return getTable().getPluralTitle();
 	}

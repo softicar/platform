@@ -12,7 +12,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import org.mockito.Mockito;
 
-class AbstractAjaxDocumentRemoverTest extends AbstractTest {
+abstract class AbstractAjaxDocumentRemoverTest extends AbstractTest {
 
 	protected final Map<UUID, IAjaxDocument> documents;
 	private final IAjaxRequest request;

@@ -1,10 +1,7 @@
 package com.softicar.platform.common.container.iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.annotations.Nullable;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Test;
@@ -14,7 +11,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class SkipIteratorTest {
+public class SkipIteratorTest extends AbstractTest {
 
 	@Test
 	public void supportsEmptyCollections() {

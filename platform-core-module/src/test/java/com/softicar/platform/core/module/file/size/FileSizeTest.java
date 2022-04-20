@@ -1,13 +1,13 @@
 package com.softicar.platform.core.module.file.size;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
  * TODO: test compareTo, equals and hashCode?
  */
-public class FileSizeTest extends Assert {
+public class FileSizeTest extends AbstractTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructorThrowsExceptionForNegativeValues() {

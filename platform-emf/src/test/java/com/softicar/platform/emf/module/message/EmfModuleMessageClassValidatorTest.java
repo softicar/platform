@@ -2,10 +2,10 @@ package com.softicar.platform.emf.module.message;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.java.reflection.ClassHierarchyValidationException;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EmfModuleMessageClassValidatorTest extends Assert {
+public class EmfModuleMessageClassValidatorTest extends AbstractTest {
 
 	@Test
 	public void testValidMessageClass() {

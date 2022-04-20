@@ -1,15 +1,15 @@
 package com.softicar.platform.db.core.connection;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.connector.IDbConnector;
 import com.softicar.platform.db.core.database.DbDatabase;
 import com.softicar.platform.db.core.database.DbDatabaseBuilder;
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DbConnectionIsValidTest extends Assert {
+public class DbConnectionIsValidTest extends AbstractTest {
 
 	private final IDbServerType serverType;
 	private final IDbConnector connector;

@@ -2,10 +2,10 @@ package com.softicar.platform.common.io.hash;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.string.hexadecimal.Hexadecimal;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class Sha1HashTest extends Assert {
+public class Sha1HashTest extends AbstractTest {
 
 	private static final String HASH = "abcdef0123456789abcdef0123456789abcdef01";
 	private static final String OTHER_HASH = "abcdef0123456789abcdef0123456789abcdef02";

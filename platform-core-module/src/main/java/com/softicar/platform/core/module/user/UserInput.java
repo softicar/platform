@@ -19,7 +19,7 @@ public class UserInput extends EmfEntityInput<AGUser> {
 
 	public UserInput(Collection<AGUser> users) {
 
-		setInputEngine(new DomAutoCompleteEntityInMemoryInputEngine<>(users));
+		super(new DomAutoCompleteEntityInMemoryInputEngine<>(users));
 		setPlaceholder(CoreI18n.USER_NAME_OR_USER_ID);
 	}
 }

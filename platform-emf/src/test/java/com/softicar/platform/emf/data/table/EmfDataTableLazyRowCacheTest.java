@@ -1,12 +1,12 @@
 package com.softicar.platform.emf.data.table;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfDataTableLazyRowCacheTest extends Assert {
+public class EmfDataTableLazyRowCacheTest extends AbstractTest {
 
 	private final TestRow row1;
 	private final TestRow row2;

@@ -1,8 +1,6 @@
 package com.softicar.platform.dom.attribute;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import org.junit.Before;
@@ -13,7 +11,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class DomAttributeRegistryTest {
+public class DomAttributeRegistryTest extends AbstractTest {
 
 	private IDomDocument document;
 	private IDomAttribute alignRightAttribute;

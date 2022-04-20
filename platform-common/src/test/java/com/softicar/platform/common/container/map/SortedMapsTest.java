@@ -1,16 +1,14 @@
 package com.softicar.platform.common.container.map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import com.softicar.platform.common.container.comparator.ReverseComparator;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import org.junit.Test;
 
-public class SortedMapsTest {
+public class SortedMapsTest extends AbstractTest {
 
 	private final Comparator<Integer> comparator;
 	private final SortedMap<Integer, String> sortedMap;

@@ -1,6 +1,6 @@
 package com.softicar.platform.common.container.map.number;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class IntegerMapTest {
+public class IntegerMapTest extends AbstractTest {
 
 	private IntegerMap<String> map;
 

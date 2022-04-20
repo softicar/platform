@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.java.classes.name;
 
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class JavaClassNameTest extends Assert {
+public class JavaClassNameTest extends AbstractTest {
 
 	// ------------------------------ String Constructor ------------------------------ //
 

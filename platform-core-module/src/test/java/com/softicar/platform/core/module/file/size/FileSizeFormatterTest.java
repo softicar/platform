@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.file.size;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
  * TODO: add precision tests?
  */
-public class FileSizeFormatterTest extends Assert {
+public class FileSizeFormatterTest extends AbstractTest {
 
 	@Test
 	public void testFormatToHumanReadableBaseFromByteToByte() {

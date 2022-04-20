@@ -1,14 +1,14 @@
 package com.softicar.platform.common.container.map.instance;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ClassInstanceMapTest extends Assert {
+public class ClassInstanceMapTest extends AbstractTest {
 
 	private final ClassInstanceMap<Object> map;
 

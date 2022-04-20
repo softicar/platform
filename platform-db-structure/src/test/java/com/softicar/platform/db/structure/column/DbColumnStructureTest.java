@@ -1,13 +1,13 @@
 package com.softicar.platform.db.structure.column;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import com.softicar.platform.db.structure.table.IDbTableStructure;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbColumnStructureTest extends Assert {
+public class DbColumnStructureTest extends AbstractTest {
 
 	private final DbTableName tableName;
 	private final IDbTableStructure tableStructure;

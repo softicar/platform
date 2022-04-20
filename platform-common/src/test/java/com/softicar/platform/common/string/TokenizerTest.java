@@ -1,10 +1,10 @@
 package com.softicar.platform.common.string;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TokenizerTest extends Assert {
+public class TokenizerTest extends AbstractTest {
 
 	@Test
 	public void test() {

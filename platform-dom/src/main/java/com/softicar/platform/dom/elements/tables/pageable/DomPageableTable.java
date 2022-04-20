@@ -76,7 +76,7 @@ public abstract class DomPageableTable extends DomScrollableTable {
 	 */
 	public DomElement createNavigation() {
 
-		return createNavigation((IDomPageableTableNavigationButtonBuilder[]) null);
+		return createNavigation(new IDomPageableTableNavigationButtonBuilder[0]);
 	}
 
 	public DomElement createNavigation(IDomPageableTableNavigationButtonBuilder...customButtonBuilders) {

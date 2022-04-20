@@ -35,7 +35,7 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 		this.moduleInstance = moduleInstance;
 		this.path = page//
 			.getPagePath(moduleFolderPath)
-			.append(page.getTitle());
+			.append(page.getTitle(moduleInstance));
 	}
 
 	public PageNavigationLink<I> setIcon(IResource icon) {
@@ -48,7 +48,7 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 
 		return Optional//
 			.ofNullable(page)
-			.map(IEmfPage::getTitle)
+			.map(it -> it.getTitle(moduleInstance))
 			.map(IDisplayString::toString)
 			.orElseGet(this::getLastSegmentOrEmpty);
 	}

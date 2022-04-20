@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.file.stored.cleanup;
 
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.string.hash.Hash;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentName;
 import com.softicar.platform.core.module.file.stored.content.database.IStoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
@@ -13,7 +14,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-public class StoredFileStoreGarbageCollectorTest {
+public class StoredFileStoreGarbageCollectorTest extends AbstractTest {
 
 	private static final byte[] CONTENT_HASH = Hash.SHA1.getHash("foo");
 	private static final String CONTENT_FILENAME = new StoredFileContentName(CONTENT_HASH).getFullFilename();

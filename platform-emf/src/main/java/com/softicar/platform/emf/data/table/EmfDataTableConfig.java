@@ -35,6 +35,7 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	private Supplier<IDbDatabaseScope> databaseScopeSupplier;
 	private final IDataTable<R> dataTable;
 	private Supplier<IDomNode> emptyTablePlaceholderFactory;
+	private boolean hideNavigationActionButtons;
 	private boolean hideNavigationAtBottom;
 	private boolean hideNavigationAtTop;
 	private final Collection<IStaticObject> tableMarkers;
@@ -58,6 +59,7 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 		this.databaseScopeSupplier = NoOperationDatabaseScope::new;
 		this.dataTable = dataTable;
 		this.emptyTablePlaceholderFactory = EmfDataTableEmptyTablePlaceholderDiv::new;
+		this.hideNavigationActionButtons = false;
 		this.hideNavigationAtBottom = false;
 		this.hideNavigationAtTop = true;
 		this.tableMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE));
@@ -152,6 +154,17 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	public Supplier<IDomNode> getEmptyTablePlaceholderFactory() {
 
 		return emptyTablePlaceholderFactory;
+	}
+
+	public void setHideNavigationActionButtons(boolean hideNavigationActionButtons) {
+
+		this.hideNavigationActionButtons = hideNavigationActionButtons;
+	}
+
+	@Override
+	public boolean isHideNavigationActionButtions() {
+
+		return hideNavigationActionButtons;
 	}
 
 	public void setHideNavigation(boolean hideNavigation) {

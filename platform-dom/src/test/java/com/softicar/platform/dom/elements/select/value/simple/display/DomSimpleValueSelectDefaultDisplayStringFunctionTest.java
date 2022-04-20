@@ -2,10 +2,10 @@ package com.softicar.platform.dom.elements.select.value.simple.display;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DomSimpleValueSelectDefaultDisplayStringFunctionTest extends Assert {
+public class DomSimpleValueSelectDefaultDisplayStringFunctionTest extends AbstractTest {
 
 	private final DomSimpleValueSelectDefaultDisplayStringFunction<Object> function;
 

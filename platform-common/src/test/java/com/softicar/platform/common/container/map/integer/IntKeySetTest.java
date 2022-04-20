@@ -1,11 +1,11 @@
 package com.softicar.platform.common.container.map.integer;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class IntKeySetTest extends Assert {
+public class IntKeySetTest extends AbstractTest {
 
 	private static final int TEST_COUNT = 2 * AbstractIntKeySet.MIN_CAPACITY;
 	private final TestMap map;

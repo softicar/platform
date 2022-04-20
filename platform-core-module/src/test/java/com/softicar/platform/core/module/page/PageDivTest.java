@@ -85,14 +85,81 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFolder() {
+	public void testMultipleOpenFoldersWithAutomaticAndNonRecursiveCollapse() {
+
+		testUser.setAutomaticallyCollapseFolders(true).save();
+		testUser.setRecursivelyCollapseFolders(false).save();
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
 		clickFolderLink("Email");
 		assertLinkPresent("Buffered Emails");
+
+		clickFolderLink("Logging");
+		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
+		assertNoLinkPresent("Buffered Emails");
+	}
+
+	@Test
+	public void testMultipleOpenFoldersWithNonAutomaticAndNonRecursiveCollapse() {
+
+		testUser.setAutomaticallyCollapseFolders(false).save();
+		testUser.setRecursivelyCollapseFolders(false).save();
+
+		clickFolderLink("[System]");
+		clickFolderLink("Core");
+		clickFolderLink("Email");
+		assertLinkPresent("Buffered Emails");
+
 		clickFolderLink("Logging");
 		assertLinksPresent("Buffered Emails", "Current Panic Entries", "Log Messages", "Log View");
+
+		clickFolderLink("[System]");
+		assertNoLinkPresent("Core");
+
+		clickFolderLink("[System]");
+		assertLinksPresent("Buffered Emails", "Current Panic Entries", "Log Messages", "Log View");
+	}
+
+	@Test
+	public void testMultipleOpenFoldersWithNonAutomaticAndRecursiveCollapse() {
+
+		testUser.setAutomaticallyCollapseFolders(false).save();
+		testUser.setRecursivelyCollapseFolders(true).save();
+
+		clickFolderLink("[System]");
+		clickFolderLink("Core");
+		clickFolderLink("Email");
+		assertLinkPresent("Buffered Emails");
+
+		clickFolderLink("[System]");
+		assertNoLinkPresent("Core");
+
+		clickFolderLink("[System]");
+		assertLinksPresent("[System]", "Core");
+		assertNoLinkPresent("Email");
+	}
+
+	@Test
+	public void testMultipleOpenFoldersWithAutomaticAndRecursiveCollapse() {
+
+		testUser.setAutomaticallyCollapseFolders(true).save();
+		testUser.setRecursivelyCollapseFolders(true).save();
+
+		clickFolderLink("[System]");
+		clickFolderLink("Core");
+		clickFolderLink("Users");
+		clickFolderLink("Password");
+		assertLinkPresent("User Passwords");
+
+		clickFolderLink("Email");
+		assertNoLinkPresent("Password");
+		assertLinkPresent("Buffered Emails");
+
+		clickFolderLink("Users");
+		assertNoLinkPresent("Buffered Emails");
+		assertNoLinkPresent("User Passwords");
+		assertLinkPresent("Password");
 	}
 
 	private void assertTestPageIsShown() {

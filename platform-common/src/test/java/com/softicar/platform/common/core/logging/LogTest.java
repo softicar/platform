@@ -1,11 +1,11 @@
 package com.softicar.platform.common.core.logging;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LogTest {
+public class LogTest extends AbstractTest {
 
 	private static final int SOME_NUMBER = 100;
 	private final LogBuffer buffer;

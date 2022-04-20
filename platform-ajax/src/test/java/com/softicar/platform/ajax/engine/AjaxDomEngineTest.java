@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.engine;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.ajax.customization.AbstractAjaxStrategy;
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.document.IAjaxDocument;
@@ -12,11 +11,12 @@ import com.softicar.platform.ajax.simple.SimpleServletResponse;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Optional;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxDomEngineTest {
+public class AjaxDomEngineTest extends AbstractTest {
 
 	private final AjaxDomEngine engine;
 

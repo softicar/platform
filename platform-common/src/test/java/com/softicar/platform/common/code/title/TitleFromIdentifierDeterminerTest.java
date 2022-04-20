@@ -1,9 +1,9 @@
 package com.softicar.platform.common.code.title;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class TitleFromIdentifierDeterminerTest extends Assert {
+public class TitleFromIdentifierDeterminerTest extends AbstractTest {
 
 	@Test
 	public void test() {

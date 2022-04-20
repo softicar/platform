@@ -21,11 +21,11 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 
 		this.module = module;
 		newColumn(String.class)//
-			.setGetter(definition -> definition.getClass().getSimpleName())
+			.setGetter(page -> page.getClass().getSimpleName())
 			.setTitle(EmfI18n.NAME)
 			.addColumn();
 		newColumn(IDisplayString.class)//
-			.setGetter(IEmfPage::getTitle)
+			.setGetter(page -> page.getTitle(null))
 			.setTitle(EmfI18n.TITLE)
 			.addColumn();
 		authorizedRoleColumn = newColumn(EmfRoleWrapper.class)//

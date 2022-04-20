@@ -1,13 +1,13 @@
 package com.softicar.platform.common.io.file.lock;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LockFileTest extends Assert {
+public class LockFileTest extends AbstractTest {
 
 	private final String baseDirectory;
 	private final Path basePath;

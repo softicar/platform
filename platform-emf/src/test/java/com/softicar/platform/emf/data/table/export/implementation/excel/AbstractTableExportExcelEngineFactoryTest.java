@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.excel.parser.ScExcelFileParser;
 import com.softicar.platform.common.excel.parser.ScExcelRow;
 import com.softicar.platform.common.io.buffer.ByteBuffer;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.DomRow;
@@ -33,7 +34,7 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public abstract class AbstractTableExportExcelEngineFactoryTest<F extends AbstractTableExportExcelEngineFactory> {
+public abstract class AbstractTableExportExcelEngineFactoryTest<F extends AbstractTableExportExcelEngineFactory> extends AbstractTest {
 
 	private static final int EMPTY_ROWS_AFTER_LAST_TABLE = 1;
 	private static final int EMPTY_ROWS_BETWEEN_TABLES = 2;

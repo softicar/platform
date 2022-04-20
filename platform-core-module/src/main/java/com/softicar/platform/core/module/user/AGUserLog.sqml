@@ -14,6 +14,8 @@ TABLE AGUserLog 'Core.UserLog' {
 	String lastName = NULL [NULLABLE MAXLENGTH=255]
 	String emailAddress = NULL [NULLABLE MAXLENGTH=255]
 	AGLocalization localization = NULL [NULLABLE]
+	Boolean automaticallyCollapseFolders = NULL [NULLABLE]
+	Boolean recursivelyCollapseFolders = NULL [NULLABLE]
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
-}
+} 

@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.style;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class CssEmTest extends Assert {
+public class CssEmTest extends AbstractTest {
 
 	@Test
 	public void testToString() {

@@ -3,10 +3,10 @@ package com.softicar.platform.ajax.resource;
 import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
 import com.softicar.platform.common.string.hash.Hash;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class AjaxResourceUrlTest extends Assert {
+public class AjaxResourceUrlTest extends AbstractTest {
 
 	private static final ResourceHash HASH = new ResourceHash(Hash.SHA1.getHashStringLC("foo"));
 

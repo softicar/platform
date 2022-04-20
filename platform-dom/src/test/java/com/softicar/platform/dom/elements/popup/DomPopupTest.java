@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomDocument;
@@ -8,11 +9,10 @@ import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.parent.IDomParentElement;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomPopupTest extends Assert {
+public class DomPopupTest extends AbstractTest {
 
 	private final DomBody body;
 	private final DomDocument document;

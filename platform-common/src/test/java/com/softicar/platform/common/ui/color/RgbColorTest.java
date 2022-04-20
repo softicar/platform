@@ -1,10 +1,10 @@
 package com.softicar.platform.common.ui.color;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class RgbColorTest {
+public class RgbColorTest extends AbstractTest {
 
 	@Test
 	public void parseHtmlCode() {

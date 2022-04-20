@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.data.table.column.title;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.List;
 import org.junit.Test;
 
-public class EmfDataTableColumnTitlesHashFactoryTest extends Asserts {
+public class EmfDataTableColumnTitlesHashFactoryTest extends AbstractTest {
 
 	private final EmfDataTableColumnTitlesHashFactory factory;
 

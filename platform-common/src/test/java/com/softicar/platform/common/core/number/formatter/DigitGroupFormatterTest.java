@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.number.formatter;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class DigitGroupFormatterTest extends Assert {
+public class DigitGroupFormatterTest extends AbstractTest {
 
 	@Test
 	public void test() {

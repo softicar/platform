@@ -3,12 +3,12 @@ package com.softicar.platform.common.core.java.classpath.linking;
 import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.classes.analyzer.JavaClassAnalyzer;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map;
 import java.util.TreeMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class JavaClasspathLinkingValidatorTest extends Assert {
+public class JavaClasspathLinkingValidatorTest extends AbstractTest {
 
 	private final Map<JavaClassName, AnalyzedJavaClass> classes;
 

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.code.java;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class IdentifierReaderTest {
+public class IdentifierReaderTest extends AbstractTest {
 
 	@Test
 	public void stopsAtEndOfString() {

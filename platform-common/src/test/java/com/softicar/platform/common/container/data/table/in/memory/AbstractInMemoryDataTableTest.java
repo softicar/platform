@@ -1,13 +1,13 @@
 package com.softicar.platform.common.container.data.table.in.memory;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class AbstractInMemoryDataTableTest extends Assert {
+public class AbstractInMemoryDataTableTest extends AbstractTest {
 
 	private final Set<String> rows = new TreeSet<>();
 

@@ -2,10 +2,10 @@ package com.softicar.platform.common.code.java;
 
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class JavaPackageTreeTest extends Assert {
+public class JavaPackageTreeTest extends AbstractTest {
 
 	@Test
 	public void test() {

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.resource.key;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ResourceKeySuperMimeTypeTest extends Assert {
+public class ResourceKeySuperMimeTypeTest extends AbstractTest {
 
 	@Test
 	public void testFromFilenameWithPng() {

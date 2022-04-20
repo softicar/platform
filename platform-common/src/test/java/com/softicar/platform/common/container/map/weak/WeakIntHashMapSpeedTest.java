@@ -2,6 +2,7 @@ package com.softicar.platform.common.container.map.weak;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class WeakIntHashMapSpeedTest {
+public class WeakIntHashMapSpeedTest extends AbstractTest {
 
 	private static TestList testList = new TestList();
 

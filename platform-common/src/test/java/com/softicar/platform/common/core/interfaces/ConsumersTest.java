@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.interfaces;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.function.Consumer;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ConsumersTest extends Assert {
+public class ConsumersTest extends AbstractTest {
 
 	private static final String X = "X";
 	private static final String RESULT = "RESULT";

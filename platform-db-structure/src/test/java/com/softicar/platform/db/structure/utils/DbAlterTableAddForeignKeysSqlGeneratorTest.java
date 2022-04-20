@@ -1,11 +1,11 @@
 package com.softicar.platform.db.structure.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.structure.mysql.parser.DbMysqlCreateTableStatementParser;
 import com.softicar.platform.db.structure.table.IDbTableStructure;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbAlterTableAddForeignKeysSqlGeneratorTest extends Assert {
+public class DbAlterTableAddForeignKeysSqlGeneratorTest extends AbstractTest {
 
 	private final IDbTableStructure tableStructure;
 

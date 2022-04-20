@@ -1,6 +1,6 @@
 package com.softicar.platform.common.math;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class ClampingTest {
+public class ClampingTest extends AbstractTest {
 
 	@Test
 	public void clampLower() {

@@ -1,12 +1,12 @@
 package com.softicar.platform.common.string;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
 /**
  * @author Robert Kühne
  */
-public class ImploderTest {
+public class ImploderTest extends AbstractTest {
 
 	@Test
 	public void implodeEmptyArray() {

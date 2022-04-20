@@ -4,6 +4,10 @@
 	gap: 5px;
 }
 
+.DomAutoCompleteInputField {
+	flex-grow: 1;	
+}
+
 .DomAutoCompleteInputFilterDisplay {
 	opacity: 0.33;
 }

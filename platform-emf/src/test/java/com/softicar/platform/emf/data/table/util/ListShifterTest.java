@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.data.table.util;
 
-import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-public class ListShifterTest extends Asserts {
+public class ListShifterTest extends AbstractTest {
 
 	@Test
 	public void testShiftList() {

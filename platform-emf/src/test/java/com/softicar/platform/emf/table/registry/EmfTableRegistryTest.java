@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.table.registry;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -10,10 +11,9 @@ import com.softicar.platform.emf.test.simple.EmfTestObject;
 import com.softicar.platform.emf.trait.EmfTestTrait;
 import com.softicar.platform.emf.trait.table.IEmfTraitTable;
 import java.util.Collection;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class EmfTableRegistryTest extends Assert {
+public class EmfTableRegistryTest extends AbstractTest {
 
 	@Test
 	public void testGetTraitTables() {

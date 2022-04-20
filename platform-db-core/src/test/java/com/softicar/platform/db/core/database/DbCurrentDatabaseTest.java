@@ -1,11 +1,11 @@
 package com.softicar.platform.db.core.database;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.connection.DbServerType;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbCurrentDatabaseTest extends Assert {
+public class DbCurrentDatabaseTest extends AbstractTest {
 
 	private final DbDatabase database;
 

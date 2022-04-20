@@ -1,12 +1,12 @@
 package com.softicar.platform.common.core.i18n;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DisplayStringJoiningCollectorTest extends Assert {
+public class DisplayStringJoiningCollectorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

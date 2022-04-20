@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.logging;
 
-import static org.junit.Assert.assertSame;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.After;
 import org.junit.Test;
 
-public class CurrentLogLevelTest {
+public class CurrentLogLevelTest extends AbstractTest {
 
 	@After
 	public void after() {

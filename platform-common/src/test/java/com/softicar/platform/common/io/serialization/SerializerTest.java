@@ -1,10 +1,10 @@
 package com.softicar.platform.common.io.serialization;
 
-import static org.junit.Assert.assertArrayEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.io.ByteArrayOutputStream;
 import org.junit.Test;
 
-public class SerializerTest {
+public class SerializerTest extends AbstractTest {
 
 	@Test
 	public void serializesIntsCorrectly() {

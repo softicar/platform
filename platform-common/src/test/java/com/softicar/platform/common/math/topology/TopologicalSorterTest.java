@@ -1,13 +1,13 @@
 package com.softicar.platform.common.math.topology;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class TopologicalSorterTest extends Assert {
+public class TopologicalSorterTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

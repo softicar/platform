@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.styles;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.ui.color.RgbColor;
 import com.softicar.platform.dom.style.CssPixel;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class CssBorderTest extends Assert {
+public class CssBorderTest extends AbstractTest {
 
 	@Test
 	public void test() {

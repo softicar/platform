@@ -1,11 +1,11 @@
 package com.softicar.platform.common.core.number.formatter;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class BigDecimalScaleApplierTest extends Assert {
+public class BigDecimalScaleApplierTest extends AbstractTest {
 
 	private BigDecimalScaleApplier applier;
 

@@ -1,9 +1,9 @@
 package com.softicar.platform.common.io.serialization.json;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class JsonBlockTest extends Assert {
+public class JsonBlockTest extends AbstractTest {
 
 	private final JsonBlock block;
 

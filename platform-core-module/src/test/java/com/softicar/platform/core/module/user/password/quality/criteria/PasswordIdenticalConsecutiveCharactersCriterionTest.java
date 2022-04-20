@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.user.password.quality.criteria;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class PasswordIdenticalConsecutiveCharactersCriterionTest extends Assert {
+public class PasswordIdenticalConsecutiveCharactersCriterionTest extends AbstractTest {
 
 	@Test(expected = Exception.class)
 	public void testWithMaximumZero() {

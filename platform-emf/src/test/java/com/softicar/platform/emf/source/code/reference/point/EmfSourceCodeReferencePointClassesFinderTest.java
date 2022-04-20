@@ -1,11 +1,10 @@
 package com.softicar.platform.emf.source.code.reference.point;
 
-
-import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class EmfSourceCodeReferencePointClassesFinderTest {
+public class EmfSourceCodeReferencePointClassesFinderTest extends AbstractTest {
 
 	@Test
 	public void test() {

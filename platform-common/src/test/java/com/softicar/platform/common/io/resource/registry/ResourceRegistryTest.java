@@ -1,17 +1,13 @@
 package com.softicar.platform.common.io.resource.registry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ResourceRegistryTest {
+public class ResourceRegistryTest extends AbstractTest {
 
 	private ResourceRegistry resourceRegistry;
 	private IResource resource1;

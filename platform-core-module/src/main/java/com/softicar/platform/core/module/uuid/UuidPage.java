@@ -21,7 +21,7 @@ public class UuidPage extends AbstractEmfManagementPage<SystemModuleInstance> {
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(getTitle());
+		return modulePath.append(AGUuid.TABLE.getPluralTitle());
 	}
 
 	@Override

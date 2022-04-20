@@ -1,11 +1,11 @@
 package com.softicar.platform.common.core.clock;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.time.Clock;
 import java.time.ZoneId;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class CurrentClockTest extends Assert {
+public class CurrentClockTest extends AbstractTest {
 
 	@Test
 	public void testGet() {

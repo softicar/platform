@@ -1,11 +1,11 @@
 package com.softicar.platform.common.container.list;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class ListFactoryTest {
+public class ListFactoryTest extends AbstractTest {
 
 	@Test
 	public void createEmptyArrayList() {

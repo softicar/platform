@@ -25,7 +25,7 @@ public class EmfTestPage implements IEmfPage<EmfTestModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(EmfTestModuleInstance moduleInstance) {
 
 		return IDisplayString.create("Test Page");
 	}

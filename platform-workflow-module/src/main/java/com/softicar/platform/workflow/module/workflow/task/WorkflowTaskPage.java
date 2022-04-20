@@ -21,7 +21,7 @@ public class WorkflowTaskPage implements IEmfPage<AGWorkflowModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(AGWorkflowModuleInstance moduleInstance) {
 
 		return WorkflowI18n.MY_TASKS;
 	}

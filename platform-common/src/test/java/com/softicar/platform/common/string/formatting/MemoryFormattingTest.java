@@ -1,11 +1,11 @@
 package com.softicar.platform.common.string.formatting;
 
-import static org.junit.Assert.assertEquals;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import org.junit.Test;
 
-public class MemoryFormattingTest {
+public class MemoryFormattingTest extends AbstractTest {
 
 	private static final int VALUE_1234 = 1234;
 	private final char decimalSeparator;

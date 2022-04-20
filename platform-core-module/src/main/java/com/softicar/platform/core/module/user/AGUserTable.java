@@ -64,6 +64,8 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 			.addMapping(AGUser.LAST_NAME, AGUserLog.LAST_NAME)
 			.addMapping(AGUser.EMAIL_ADDRESS, AGUserLog.EMAIL_ADDRESS)
 			.addMapping(AGUser.LOCALIZATION, AGUserLog.LOCALIZATION)
+			.addMapping(AGUser.AUTOMATICALLY_COLLAPSE_FOLDERS, AGUserLog.AUTOMATICALLY_COLLAPSE_FOLDERS)
+			.addMapping(AGUser.RECURSIVELY_COLLAPSE_FOLDERS, AGUserLog.RECURSIVELY_COLLAPSE_FOLDERS)
 			.addMapping(AGUser.PASSWORD_POLICY, AGUserLog.PASSWORD_POLICY)
 			.addMapping(AGUser.ALLOWED_IP_RULE, AGUserLog.ALLOWED_IP_RULE);
 	}

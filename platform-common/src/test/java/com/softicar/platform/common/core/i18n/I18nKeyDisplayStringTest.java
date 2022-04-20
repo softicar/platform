@@ -5,12 +5,12 @@ import com.softicar.platform.common.core.i18n.key.II18nKey;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.math.BigDecimal;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class I18nKeyDisplayStringTest extends Assert {
+public class I18nKeyDisplayStringTest extends AbstractTest {
 
 	private static final LanguageEnum LANGUAGE = LanguageEnum.GERMAN;
 	private static final LanguageEnum UNSUPPORTED_LANGUAGE = LanguageEnum.ESPERANTO;

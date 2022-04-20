@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.item;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class ItemIdTest extends Assert {
+public class ItemIdTest extends AbstractTest {
 
 	@Test
 	public void testCompareTo() {

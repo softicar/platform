@@ -1,9 +1,9 @@
 package com.softicar.platform.common.core.string;
 
-import org.junit.Assert;
+import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Test;
 
-public class StringsTest extends Assert {
+public class StringsTest extends AbstractTest {
 
 	@Test
 	public void testReversed() {

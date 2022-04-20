@@ -21,8 +21,8 @@ import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValu
 import com.softicar.platform.emf.data.table.export.node.style.TableExportNodeStyle;
 import com.softicar.platform.emf.data.table.export.spanning.TableExportSpanFetcher;
 import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementColumnFilterer;
-import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementFilterResult;
 import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementColumnFilterer.TableExportSpanningElementList;
+import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementFilterResult;
 import com.softicar.platform.emf.data.table.export.spanning.element.TableExportSpanningCell;
 import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.io.IOException;

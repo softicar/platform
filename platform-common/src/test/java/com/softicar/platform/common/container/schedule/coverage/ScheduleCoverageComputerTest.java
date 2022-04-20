@@ -4,12 +4,12 @@ import com.softicar.platform.common.container.matrix.IMatrix;
 import com.softicar.platform.common.container.matrix.MatrixFactory;
 import com.softicar.platform.common.math.arithmetic.Arithmetics;
 import com.softicar.platform.common.string.Imploder;
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class ScheduleCoverageComputerTest extends Assert {
+public class ScheduleCoverageComputerTest extends AbstractTest {
 
 	private static final String ROW = "x";
 	private ScheduleCoverageComputer<String, String, Integer> computer;

@@ -1,11 +1,11 @@
 package com.softicar.platform.common.container.map.weak.map.adapter;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import java.util.HashMap;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class WeakValueMapAdapterTest extends Assert {
+public class WeakValueMapAdapterTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

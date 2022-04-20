@@ -1,5 +1,6 @@
 package com.softicar.platform.db.structure.utils;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.sql.type.SqlFieldType;
 import com.softicar.platform.db.structure.column.DbColumnStructure;
@@ -8,10 +9,9 @@ import com.softicar.platform.db.structure.key.DbKeyType;
 import com.softicar.platform.db.structure.key.IDbKeyStructure;
 import com.softicar.platform.db.structure.table.DbTableStructure;
 import java.util.Arrays;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class DbKeyStructureSqlGeneratorTest extends Assert {
+public class DbKeyStructureSqlGeneratorTest extends AbstractTest {
 
 	private static final String A = "A";
 	private static final String B = "B";

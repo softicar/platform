@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.attribute.field.integer.EmfIntegerAttribute;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.test.EmfTestSubObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -16,7 +16,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class AbstractEmfAttributeTest extends Assert {
+public class AbstractEmfAttributeTest extends AbstractTest {
 
 	private final EmfTestSubObject subObject;
 	private final EmfIntegerAttribute<EmfTestSubObject> attribute;
