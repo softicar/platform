@@ -4,7 +4,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
-import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
@@ -20,7 +20,7 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 	public static final IDbIdField<EmfTestInvoice> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestInvoice, EmfTestInvoiceModuleInstance> INVOICE_MODULE_INSTANCE = BUILDER.addForeignField("invoiceModuleInstance", o->o.invoiceModuleInstance, (o,v)->o.invoiceModuleInstance=v, EmfTestInvoiceModuleInstance.ID);
 	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> PARTNER = BUILDER.addForeignField("partner", o->o.partner, (o,v)->o.partner=v, EmfTestBusinessPartner.ID);
-	public static final IDbStringField<EmfTestInvoice> NUMBER = BUILDER.addStringField("number", o -> o.number, (o, v) -> o.number = v);
+	public static final IDbIntegerField<EmfTestInvoice> NUMBER = BUILDER.addIntegerField("number", o -> o.number, (o, v) -> o.number = v);
 	public static final IDbDayField<EmfTestInvoice> DATE = BUILDER.addDayField("date", o -> o.date, (o, v) -> o.date = v).setNullable().setDefault(null);
 	public static final IDbKey<EmfTestInvoice> UK_INVOICE_MODULE_INSTANCE_PARTNER_NUMBER = BUILDER.addUniqueKey("invoiceModuleInstancePartnerNumber", INVOICE_MODULE_INSTANCE, PARTNER, NUMBER);
 	public static final EmfTestInvoiceTable TABLE = new EmfTestInvoiceTable(BUILDER);
@@ -29,7 +29,7 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 	private Integer id;
 	private EmfTestInvoiceModuleInstance invoiceModuleInstance;
 	private EmfTestBusinessPartner partner;
-	private String number;
+	private Integer number;
 	private Day date;
 
 	public EmfTestInvoiceModuleInstance getInvoiceModuleInstance() {
@@ -52,12 +52,12 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 		return setValue(PARTNER, partner);
 	}
 
-	public EmfTestInvoice setNumber(String name) {
+	public EmfTestInvoice setNumber(Integer number) {
 
-		return setValue(NUMBER, name);
+		return setValue(NUMBER, number);
 	}
 
-	public String getNumber() {
+	public Integer getNumber() {
 
 		return getValue(NUMBER);
 	}

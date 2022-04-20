@@ -99,7 +99,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 		EmfTestInvoice invoice = new EmfTestInvoice()//
 			.setInvoiceModuleInstance(invoiceModuleInstance)
 			.setPartner(businessPartner)
-			.setNumber("number")
+			.setNumber(12345)
 			.setDate(Day.today())
 			.save();
 
@@ -107,7 +107,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
 			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
 			.setBusinessPartnerVatIdColumnValue("vatId")
-			.setInvoiceNumberColumnValue("number")
+			.setInvoiceNumberColumnValue("12345")
 			.getInvoiceItemInvoiceColumn();
 
 		assertSame(invoice, invoiceItemInvoiceColumn.getValue());
