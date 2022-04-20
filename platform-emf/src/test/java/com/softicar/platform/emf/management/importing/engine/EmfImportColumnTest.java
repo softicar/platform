@@ -1,11 +1,13 @@
 package com.softicar.platform.emf.management.importing.engine;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
+import java.util.List;
 import org.junit.Test;
 
 public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends AbstractEmfTest {
@@ -13,25 +15,48 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 	@Test
 	public void testIsForeignKeyColumn() {
 
-		// implement
+		EmfImportColumn<EmfTestBusinessPartner, ?> businessUnitModuleInstanceColumn =
+				new EmfImportColumn<>(EmfTestBusinessPartner.BUSINESS_UNIT_MODULE_INSTANCE);
+		assertFalse(businessUnitModuleInstanceColumn.isForeignKeyColumn());
+
+		businessUnitModuleInstanceColumn.addParentColumn(createEmfImportColumn(EmfTestBusinessUnitModuleInstance.ID));
+		assertTrue(businessUnitModuleInstanceColumn.isForeignKeyColumn());
 	}
 
 	@Test
 	public void testGetField() {
 
-		// implement
+		EmfImportColumn<EmfTestInvoice, ?> invoiceNumberColumn = new EmfImportColumn<>(EmfTestInvoice.NUMBER);
+		assertEquals(EmfTestInvoice.NUMBER, invoiceNumberColumn.getField());
 	}
 
 	@Test
 	public void testGetParentColumns() {
 
-		// implement
+		EmfImportColumn<R, ?> column = createEmfImportColumn(EmfTestInvoice.DATE);
+
+		EmfImportColumn<R, ?> numberColumn = createEmfImportColumn(EmfTestInvoice.NUMBER);
+		column.addParentColumn(numberColumn);
+
+		EmfImportColumn<R, ?> quantityColumn = createEmfImportColumn(EmfTestInvoiceItem.QUANTITY);
+		column.addParentColumn(quantityColumn);
+
+		assertEquals(List.of(numberColumn, quantityColumn), column.getParentColumns());
 	}
 
 	@Test
 	public void testGetTitle() {
 
-		// implement
+		EmfImportColumn<R, ?> column = createEmfImportColumn(EmfTestInvoiceItem.INVOICE);
+		EmfImportColumn<R, ?> parentColumn = createEmfImportColumn(EmfTestInvoiceItem.DESCRIPTION);
+		EmfImportColumn<R, ?> grandParentColumn = createEmfImportColumn(EmfTestInvoiceItem.QUANTITY);
+
+		column.addParentColumn(parentColumn);
+		parentColumn.addParentColumn(grandParentColumn);
+
+		assertEquals(IDisplayString.create("Invoice"), column.getTitle());
+		assertEquals(IDisplayString.create("Invoice:Description"), parentColumn.getTitle());
+		assertEquals(IDisplayString.create("Invoice:Description:Quantity"), grandParentColumn.getTitle());
 	}
 
 	@Test
@@ -43,15 +68,16 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 			.save();
 
 		EmfImportColumn<EmfTestInvoice, ?> invoiceInvoiceModuleInstanceColumn = new EmfImportColumn<>(EmfTestInvoice.INVOICE_MODULE_INSTANCE);
+
 		EmfImportColumn<EmfTestInvoice, ?> invoiceModuleInstanceNameColumn = createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME);
-		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
 		invoiceModuleInstanceNameColumn.setValue("test");
+		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
 
 		assertSame(invoiceModuleInstance, invoiceInvoiceModuleInstanceColumn.getValue());
 	}
 
 	@Test
-	public void testGetValue2() {
+	public void testGetValueWithComplexTableStructure() {
 
 		EmfTestObject moduleInstance = new EmfTestObject().save();
 

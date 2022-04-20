@@ -7,7 +7,6 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 
 	private final EmfImportColumn<R, ?> invoiceItemInvoiceColumn;
-
 	private final EmfImportColumn<R, ?> invoiceModuleInstanceNameColumn;
 	private final EmfImportColumn<R, ?> businessUnitModuleInstanceNameColumn;
 	private final EmfImportColumn<R, ?> businessPartnerVatIdColumn;
