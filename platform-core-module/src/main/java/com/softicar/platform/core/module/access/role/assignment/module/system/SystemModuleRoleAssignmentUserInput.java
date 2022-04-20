@@ -19,11 +19,11 @@ public class SystemModuleRoleAssignmentUserInput extends EmfEntityInput<AGUser> 
 
 	public SystemModuleRoleAssignmentUserInput() {
 
-		setInputEngine(new InputEngine(AGUser.TABLE));
+		super(new InputEngine(AGUser.TABLE));
 		setPlaceholder(CoreI18n.USER);
 	}
 
-	private class InputEngine extends EmfEntityInputEngine<AGUser> {
+	private static class InputEngine extends EmfEntityInputEngine<AGUser> {
 
 		public InputEngine(IEmfEntityTable<AGUser, ?, ?> table) {
 

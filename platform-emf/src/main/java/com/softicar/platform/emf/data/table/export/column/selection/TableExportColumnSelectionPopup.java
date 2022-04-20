@@ -4,11 +4,11 @@ import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 
-public class TableExportColumnSelectionPopup extends DomPopup {
+public class TableExportColumnSelectionPopup extends DomDismissablePopup {
 
 	private final IRefreshable refreshable;
 	private final TableExportTableModel tableModel;

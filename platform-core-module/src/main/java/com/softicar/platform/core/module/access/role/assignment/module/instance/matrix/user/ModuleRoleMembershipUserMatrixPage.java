@@ -29,7 +29,7 @@ public class ModuleRoleMembershipUserMatrixPage implements IEmfPage<SystemModule
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return CoreI18n.MODULE_INSTANCE_ROLE_ASSIGNMENT_MATRIX;
 	}

@@ -49,10 +49,16 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends IEmfSourceCod
 
 	/**
 	 * Returns the title of this {@link IEmfPage}.
+	 * <p>
+	 * The parameter will be <i>null</i> if the page title shall be determined
+	 * for an unspecified module instance. Any implementation must either handle
+	 * a <i>null</i> parameter, or ignore the parameter altogether.
 	 *
+	 * @param moduleInstance
+	 *            the {@link IEmfModuleInstance} (may be <i>null</i>)
 	 * @return the title (never <i>null</i>)
 	 */
-	IDisplayString getTitle();
+	IDisplayString getTitle(I moduleInstance);
 
 	/**
 	 * Returns the {@link EmfPagePath} of this {@link IEmfPage}.

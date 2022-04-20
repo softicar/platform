@@ -1,4 +1,21 @@
 
+.DomPopup.DomPopover.EmfEntityInputBrowsePopover {
+	padding: 0px;
+}
+
+.EmfEntityInputBrowsePopover > .EmfDataTableDiv {
+	box-shadow: none;
+}
+
+.EmfEntityInputBrowsePopover > .EmfDataTableDiv .DomDataTable tr > td {
+	padding: 0;
+}
+
+.EmfEntityInputBrowsePopoverCellContent {
+	cursor: pointer;
+	padding: 0.5em 1em;
+}
+
 .EmfInputDiv {
 	display: grid;
 	grid-auto-flow: column;

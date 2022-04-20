@@ -31,7 +31,7 @@ public class TestPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
 		return IDisplayString.create("Test Page");
 	}

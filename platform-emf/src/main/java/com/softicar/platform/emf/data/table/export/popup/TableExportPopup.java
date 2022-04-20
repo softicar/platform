@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table.export.popup;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.emf.data.table.export.engine.factory.TableExportEngineFactoryEnum;
 import com.softicar.platform.emf.data.table.export.file.name.ITableExportFileNameSuffixCreator;
 import com.softicar.platform.emf.data.table.export.file.name.TableExportDefaultFileNameSuffixCreator;
@@ -17,7 +18,7 @@ import java.util.function.Supplier;
  *
  * @author Alexander Schmidt
  */
-public class TableExportPopup extends DomPopup {
+public class TableExportPopup extends DomDismissablePopup {
 
 	public TableExportPopup(TableExportTableModelListFactory tableSupplierContainer, Supplier<String> fileNamePrefixFunction, boolean appendTimestamp,
 			boolean enableDeflateCompression) {
