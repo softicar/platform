@@ -51,7 +51,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 				appendChild(DomTextNode.create(segment));
 				appendChild(new Separator());
 			}
-			appendChild(new PageName(page.getTitle().toString()));
+			appendChild(new PageName(page.getTitle(moduleInstance).toString()));
 		}
 	}
 

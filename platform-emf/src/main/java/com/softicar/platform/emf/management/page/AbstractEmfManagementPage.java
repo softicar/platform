@@ -20,7 +20,7 @@ public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>>
 	}
 
 	@Override
-	public IDisplayString getTitle() {
+	public IDisplayString getTitle(I moduleInstance) {
 
 		return getTable().getPluralTitle();
 	}
