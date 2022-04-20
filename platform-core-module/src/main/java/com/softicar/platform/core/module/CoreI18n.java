@@ -552,6 +552,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Portal-Logo");
 	I18n0 PORTAL_PROTOCOL = new I18n0("Portal Protocol")//
 		.de("Portal-Protokoll");
+	I18n0 PREFERENCES_SAVED = new I18n0("Preferences saved.")//
+		.de("Einstellungen gespeichert.");
 	I18n0 PREFERRED_LANGUAGE = new I18n0("Preferred Language")//
 		.de("Bevorzugte Sprache");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
@@ -608,6 +610,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Begründung muss mindestens %s Zeichen lang sein.");
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
+	I18n0 RECURSIVELY_COLLAPSE_FOLDERS = new I18n0("Recursively Collapse Folders")//
+		.de("Ordner rekursiv einklappen");
 	I18n0 REFERENCES = new I18n0("References")//
 		.de("References");
 	I18n0 REMOTE_ADDRESS = new I18n0("Remote address")//
@@ -999,6 +1003,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ihr aktuelles Passwort ist zu alt.");
 	I18n0 YOUR_CURRENT_PASSWORD_MIGHT_HAVE_BEEN_COMPROMISED = new I18n0("Your current password might have been compromised.")//
 		.de("Ihr aktuelles Passwort wurde möglicherweise kompromittiert.");
-	I18n0 YOUR_LOCALIZATION_HAS_BEEN_CHANGED = new I18n0("Your localization has been changed.")//
+	I18n0 YOUR_LOCALIZATION_HAS_CHANGED = new I18n0("Your localization has changed.")//
 		.de("Ihre Lokalisierung wurde geändert.");
 }

@@ -36,7 +36,7 @@ class UserProfileChangeLocalizationDiv extends DomDiv {
 			if (attributesDiv.tryToApplyValidateAndSave()) {
 				CurrentLocale.set(CurrentUser.get().getLocale());
 				executeAlert(
-					CoreI18n.YOUR_LOCALIZATION_HAS_BEEN_CHANGED//
+					CoreI18n.YOUR_LOCALIZATION_HAS_CHANGED//
 						.concatSentence(CoreI18n.PLEASE_PRESS_F5_TO_REFRESH));
 			}
 		}

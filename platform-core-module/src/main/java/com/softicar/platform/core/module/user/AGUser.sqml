@@ -14,6 +14,7 @@ TABLE AGUser 'Core.User' {
 	Boolean systemUser = FALSE
 	AGLocalization localization
 	Boolean automaticallyCollapseFolders = TRUE
+	Boolean recursivelyCollapseFolders = FALSE
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
 
