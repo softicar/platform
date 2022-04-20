@@ -15,6 +15,6 @@ public class EmfTestBusinessPartnerTable extends EmfObjectTable<EmfTestBusinessP
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<EmfTestBusinessPartner, Integer, EmfTestBusinessUnitModuleInstance> configuration) {
 
 		configuration.setScopeField(EmfTestBusinessPartner.BUSINESS_UNIT_MODULE_INSTANCE);
-		configuration.setBusinessKey(EmfTestBusinessPartner.UK_BUSINESS_UNIT_MODULE_INSTANCE_NAME);
+		configuration.setBusinessKey(EmfTestBusinessPartner.UK_BUSINESS_UNIT_MODULE_INSTANCE_VAT_ID);
 	}
 }

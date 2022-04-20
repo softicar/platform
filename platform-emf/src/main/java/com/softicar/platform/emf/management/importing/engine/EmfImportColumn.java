@@ -52,9 +52,10 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		}
 	}
 
-	public void setValue(Object value) {
+	public EmfImportColumn<R, P> setValue(Object value) {
 
 		this.value = value;
+		return this;
 	}
 
 	public Object getValue() {
@@ -73,9 +74,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 			IDbField<R, Object> parentColumnField = CastUtils.cast(parentColumn.field);
 			if (select == null) {
 				select = parentColumnField.getTable().createSelect();
-			} else {
-				select = select.where(parentColumnField.isEqual(parentColumn.getValue()));
 			}
+			select = select.where(parentColumnField.isEqual(parentColumn.getValue()));
 		}
 		return loadSetAndGetValue(select);
 	}

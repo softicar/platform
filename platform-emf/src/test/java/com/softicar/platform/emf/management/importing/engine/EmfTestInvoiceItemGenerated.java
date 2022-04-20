@@ -20,8 +20,8 @@ public class EmfTestInvoiceItemGenerated extends AbstractDbObject<EmfTestInvoice
 //	}
 	public static final IDbIdField<EmfTestInvoiceItem> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestInvoiceItem, EmfTestInvoice> INVOICE = BUILDER.addForeignField("invoice", o->o.invoice, (o,v)->o.invoice=v, EmfTestInvoice.ID);
-	public static final IDbIntegerField<EmfTestInvoiceItem> POSITION = BUILDER.addIntegerField("position", o -> o.position, (o, v) -> o.position = v).setNullable().setDefault(null);
-	public static final IDbStringField<EmfTestInvoiceItem> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable().setDefault(null);
+	public static final IDbIntegerField<EmfTestInvoiceItem> POSITION = BUILDER.addIntegerField("position", o -> o.position, (o, v) -> o.position = v);
+	public static final IDbStringField<EmfTestInvoiceItem> DESCRIPTION = BUILDER.addStringField("description", o -> o.description, (o, v) -> o.description = v).setNullable().setDefault(null);
 	public static final IDbBigDecimalField<EmfTestInvoiceItem> QUANTITY = BUILDER.addBigDecimalField("quantity", o -> o.quantity, (o, v) -> o.quantity = v).setNullable().setDefault(null);
 	public static final IDbKey<EmfTestInvoiceItem> UK_INVOICE_POSITION = BUILDER.addUniqueKey("invoicePosition", INVOICE, POSITION);
 	public static final EmfTestInvoiceItemTable TABLE = new EmfTestInvoiceItemTable(BUILDER);
@@ -30,7 +30,7 @@ public class EmfTestInvoiceItemGenerated extends AbstractDbObject<EmfTestInvoice
 	private Integer id;
 	private EmfTestInvoice invoice;
 	private Integer position;
-	private String name;
+	private String description;
 	private BigDecimal quantity;
 
 	public EmfTestInvoice getInvoice() {
@@ -53,14 +53,14 @@ public class EmfTestInvoiceItemGenerated extends AbstractDbObject<EmfTestInvoice
 		return getValue(POSITION);
 	}
 
-	public EmfTestInvoiceItem setName(String name) {
+	public EmfTestInvoiceItem setDescription(String description) {
 
-		return setValue(NAME, name);
+		return setValue(DESCRIPTION, description);
 	}
 
-	public String getName() {
+	public String getDescription() {
 
-		return getValue(NAME);
+		return getValue(DESCRIPTION);
 	}
 
 	public EmfTestInvoiceItem setDate(BigDecimal quantity) {

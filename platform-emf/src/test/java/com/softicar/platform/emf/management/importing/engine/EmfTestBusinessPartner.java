@@ -8,6 +8,6 @@ public class EmfTestBusinessPartner extends EmfTestBusinessPartnerGenerated impl
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return IDisplayString.create(getBusinessUnitModuleInstance().toDisplay() + "::" + getName());
+		return IDisplayString.create(getBusinessUnitModuleInstance().toDisplay() + "::" + getVatId());
 	}
 }

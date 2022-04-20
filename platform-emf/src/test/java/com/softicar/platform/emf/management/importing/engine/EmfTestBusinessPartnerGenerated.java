@@ -17,16 +17,18 @@ public class EmfTestBusinessPartnerGenerated extends AbstractDbObject<EmfTestBus
 //	}
 	public static final IDbIdField<EmfTestBusinessPartner> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestBusinessPartner, EmfTestBusinessUnitModuleInstance> BUSINESS_UNIT_MODULE_INSTANCE = BUILDER.addForeignField("businessUnitModuleInstance", o->o.businessUnitModuleInstance, (o,v)->o.businessUnitModuleInstance=v, EmfTestBusinessUnitModuleInstance.ID);
+	public static final IDbStringField<EmfTestBusinessPartner> VAT_ID = BUILDER.addStringField("vatId", o -> o.vatId, (o, v) -> o.vatId = v);
 	public static final IDbStringField<EmfTestBusinessPartner> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable().setDefault(null);
-	public static final IDbKey<EmfTestBusinessPartner> UK_BUSINESS_UNIT_MODULE_INSTANCE_NAME = BUILDER.addUniqueKey("nameDay", BUSINESS_UNIT_MODULE_INSTANCE, NAME);
+	public static final IDbKey<EmfTestBusinessPartner> UK_BUSINESS_UNIT_MODULE_INSTANCE_VAT_ID = BUILDER.addUniqueKey("name", BUSINESS_UNIT_MODULE_INSTANCE, VAT_ID);
 	public static final EmfTestBusinessPartnerTable TABLE = new EmfTestBusinessPartnerTable(BUILDER);
 	// @formatter:on
 
 	private Integer id;
 	private EmfTestBusinessUnitModuleInstance businessUnitModuleInstance;
+	private String vatId;
 	private String name;
 
-	public EmfTestBusinessPartner setName(EmfTestBusinessUnitModuleInstance businessUnitModuleInstance) {
+	public EmfTestBusinessPartner setBusinessUnitModuleInstance(EmfTestBusinessUnitModuleInstance businessUnitModuleInstance) {
 
 		return setValue(BUSINESS_UNIT_MODULE_INSTANCE, businessUnitModuleInstance);
 	}
@@ -34,6 +36,16 @@ public class EmfTestBusinessPartnerGenerated extends AbstractDbObject<EmfTestBus
 	public EmfTestBusinessUnitModuleInstance getBusinessUnitModuleInstance() {
 
 		return getValue(BUSINESS_UNIT_MODULE_INSTANCE);
+	}
+
+	public EmfTestBusinessPartner setVatId(String vatId) {
+
+		return setValue(VAT_ID, vatId);
+	}
+
+	public String getVatId() {
+
+		return getValue(VAT_ID);
 	}
 
 	public EmfTestBusinessPartner setName(String name) {

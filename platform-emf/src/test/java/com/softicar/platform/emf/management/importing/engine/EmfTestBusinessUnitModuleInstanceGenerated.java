@@ -17,24 +17,24 @@ public class EmfTestBusinessUnitModuleInstanceGenerated extends AbstractDbObject
 //		BUILDER.setTitle(IDisplayString.create("BusinessUnitModuleInstances"));
 //	}
 	public static final IDbIdField<EmfTestBusinessUnitModuleInstance> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
-	public static final IDbForeignField<EmfTestBusinessUnitModuleInstance, EmfTestObject> SCOPE_OBJECT = BUILDER.addForeignField("scopeObject", o->o.scopeObject, (o,v)->o.scopeObject=v, EmfTestObject.ID);
-	public static final IDbStringField<EmfTestBusinessUnitModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable().setDefault(null);
-	public static final IDbKey<EmfTestBusinessUnitModuleInstance> UK_NAME = BUILDER.addUniqueKey("nameDay", NAME);
+	public static final IDbForeignField<EmfTestBusinessUnitModuleInstance, EmfTestObject> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, EmfTestObject.ID);
+	public static final IDbStringField<EmfTestBusinessUnitModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v);
+	public static final IDbKey<EmfTestBusinessUnitModuleInstance> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final EmfTestBusinessUnitModuleInstanceTable TABLE = new EmfTestBusinessUnitModuleInstanceTable(BUILDER);
 	// @formatter:on
 
 	private Integer id;
-	private EmfTestObject scopeObject;
+	private EmfTestObject moduleInstance;
 	private String name;
 
-	public EmfTestBusinessUnitModuleInstance setName(EmfTestObject scopeObject) {
+	public EmfTestBusinessUnitModuleInstance setModuleInstance(EmfTestObject moduleInstance) {
 
-		return setValue(SCOPE_OBJECT, scopeObject);
+		return setValue(MODULE_INSTANCE, moduleInstance);
 	}
 
-	public EmfTestObject getScopeObject() {
+	public EmfTestObject getModuleInstance() {
 
-		return getValue(SCOPE_OBJECT);
+		return getValue(MODULE_INSTANCE);
 	}
 
 	public EmfTestBusinessUnitModuleInstance setName(String name) {

@@ -16,9 +16,9 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		List<EmfImportColumn<EmfTestInvoiceItem, ?>> expectedTableColumns = new ArrayList<>();
 
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.ID));
-		expectedTableColumns.add(CastUtils.cast(createInvoiceColumn()));
+		expectedTableColumns.add(new InvoiceItemInvoiceColumnCreator<>().getInvoiceItemInvoiceColumn());
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.POSITION));
-		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.NAME));
+		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.DESCRIPTION));
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.QUANTITY));
 
 		assertEquals(expectedTableColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTableColumns());
@@ -30,7 +30,7 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		List<EmfImportColumn<EmfTestInvoiceItem, ?>> expectedTableColumns = new ArrayList<>();
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.POSITION));
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.QUANTITY));
-		expectedTableColumns.add(CastUtils.cast(createInvoiceColumn()));
+		expectedTableColumns.add(new InvoiceItemInvoiceColumnCreator<>().getInvoiceItemInvoiceColumn());
 
 		List<IDbField<EmfTestInvoiceItem, ?>> fieldsToImport = new ArrayList<>();
 		fieldsToImport.add(EmfTestInvoiceItem.POSITION);
@@ -40,34 +40,6 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		assertEquals(expectedTableColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getTableColumns());
 	}
 
-	private EmfImportColumn<R, ?> createInvoiceColumn() {
-
-		EmfImportColumn<R, ?> itemInvoiceColumn = createEmfImportColumn(EmfTestInvoiceItem.INVOICE);
-
-		EmfImportColumn<R, ?> invoiceInvoiceModuleInstanceColumn = createEmfImportColumn(EmfTestInvoice.INVOICE_MODULE_INSTANCE);
-		itemInvoiceColumn.addParentColumn(invoiceInvoiceModuleInstanceColumn);
-
-		EmfImportColumn<R, ?> invoiceModuleInstanceNameColumn = createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME);
-		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
-
-		EmfImportColumn<R, ?> invoicePartnerColumn = createEmfImportColumn(EmfTestInvoice.PARTNER);
-		itemInvoiceColumn.addParentColumn(invoicePartnerColumn);
-
-		EmfImportColumn<R, ?> businessPartnerBusinessUnitModuleInstanceColumn = createEmfImportColumn(EmfTestBusinessPartner.BUSINESS_UNIT_MODULE_INSTANCE);
-		invoicePartnerColumn.addParentColumn(businessPartnerBusinessUnitModuleInstanceColumn);
-
-		EmfImportColumn<R, ?> businessUnitModuleInstanceNameColumn = createEmfImportColumn(EmfTestBusinessUnitModuleInstance.NAME);
-		businessPartnerBusinessUnitModuleInstanceColumn.addParentColumn(businessUnitModuleInstanceNameColumn);
-
-		EmfImportColumn<R, ?> businessPartnerNameColumn = createEmfImportColumn(EmfTestBusinessPartner.NAME);
-		invoicePartnerColumn.addParentColumn(businessPartnerNameColumn);
-
-		EmfImportColumn<R, ?> invoiceNumberColumn = createEmfImportColumn(EmfTestInvoice.NUMBER);
-		itemInvoiceColumn.addParentColumn(invoiceNumberColumn);
-
-		return itemInvoiceColumn;
-	}
-
 	@Test
 	public void testGetCsvFileColumnsToImport() {
 
@@ -75,10 +47,10 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.ID));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME));
 		expectedColumns.add(createEmfImportColumn(EmfTestBusinessUnitModuleInstance.NAME));
-		expectedColumns.add(createEmfImportColumn(EmfTestBusinessPartner.NAME));
+		expectedColumns.add(createEmfImportColumn(EmfTestBusinessPartner.VAT_ID));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoice.NUMBER));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.POSITION));
-		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.NAME));
+		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.DESCRIPTION));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.QUANTITY));
 
 		assertEquals(expectedColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getCsvFileColumnsToImport());
@@ -90,13 +62,13 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		List<EmfImportColumn<R, ?>> expectedColumns = new ArrayList<>();
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.ID));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.POSITION));
-		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.NAME));
+		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.DESCRIPTION));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.QUANTITY));
 
 		List<IDbField<EmfTestInvoiceItem, ?>> fieldsToImport = new ArrayList<>();
 		fieldsToImport.add(EmfTestInvoiceItem.ID);
 		fieldsToImport.add(EmfTestInvoiceItem.POSITION);
-		fieldsToImport.add(EmfTestInvoiceItem.NAME);
+		fieldsToImport.add(EmfTestInvoiceItem.DESCRIPTION);
 		fieldsToImport.add(EmfTestInvoiceItem.QUANTITY);
 
 		assertEquals(expectedColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getCsvFileColumnsToImport());
@@ -123,13 +95,13 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 	public void testGetFieldOfTableColumnByIndexWithFieldSubSet() {
 
 		List<IDbField<EmfTestInvoiceItem, ?>> fieldsToImport = new ArrayList<>();
-		fieldsToImport.add(EmfTestInvoiceItem.NAME);
+		fieldsToImport.add(EmfTestInvoiceItem.DESCRIPTION);
 		fieldsToImport.add(EmfTestInvoiceItem.POSITION);
 		fieldsToImport.add(EmfTestInvoiceItem.QUANTITY);
 
 		var collector = new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport);
 
-		assertSame(EmfTestInvoiceItem.NAME, collector.getFieldOfTableColumnByIndex(0));
+		assertSame(EmfTestInvoiceItem.DESCRIPTION, collector.getFieldOfTableColumnByIndex(0));
 		assertSame(EmfTestInvoiceItem.POSITION, collector.getFieldOfTableColumnByIndex(1));
 		assertSame(EmfTestInvoiceItem.QUANTITY, collector.getFieldOfTableColumnByIndex(2));
 	}
