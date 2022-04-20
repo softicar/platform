@@ -6,12 +6,12 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.popup.help.DomHelpPopupButton;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.DomTextNode;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.data.table.export.column.selection.TableExportColumnSelectionButton;
 import com.softicar.platform.emf.data.table.export.column.selection.TableExportColumnSelectionPopup;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
@@ -40,8 +40,8 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	private final ITableExportFileNameSuffixCreator fileNameSuffixCreator;
 
 	private final DomTextInput inputFileName;
-	private final DomCheckbox inputAppendTimestamp;
-	private final DomCheckbox inputEnableDeflateCompression;
+	private final EmfBooleanInput inputAppendTimestamp;
+	private final EmfBooleanInput inputEnableDeflateCompression;
 	private final FileNameSuffixDiv fileNameSuffixDiv;
 	private final DomSimpleValueSelect<ITableExportEngineFactory<?>> inputEngineFactorySelect;
 	private final Map<String, ITableExportEngine<?>> engineByFactoryClassName = new TreeMap<>();
@@ -58,8 +58,10 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 		this.lowerMessageDiv = lowerMessageDiv;
 		this.inputFileName = new DomTextInput(mainTableModel.getTableName().orElse(""));
 		this.fileNameSuffixDiv = new FileNameSuffixDiv();
-		this.inputAppendTimestamp = new DomCheckbox().setChecked(appendTimestamp).setChangeCallback(fileNameSuffixDiv::refresh);
-		this.inputEnableDeflateCompression = new DomCheckbox().setChecked(enableDeflateCompression).setChangeCallback(fileNameSuffixDiv::refresh);
+		this.inputAppendTimestamp = new EmfBooleanInput(appendTimestamp);
+		this.inputAppendTimestamp.setChangeCallback(fileNameSuffixDiv::refresh);
+		this.inputEnableDeflateCompression = new EmfBooleanInput(enableDeflateCompression);
+		this.inputEnableDeflateCompression.setChangeCallback(fileNameSuffixDiv::refresh);
 
 		List<ITableExportEngineFactory<?>> factories = TableExportEngineFactories.getAllFactories();
 
@@ -144,7 +146,7 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 
 			configurationDivBuilder.addButton(columnSelectionButton);
 
-			this.inputEnableDeflateCompression.setChecked(factory.getEngineConfiguration().isCompressed());
+			this.inputEnableDeflateCompression.setValue(factory.getEngineConfiguration().isCompressed());
 
 			if (!configurationDivBuilder.getButtons().isEmpty()) {
 				add(DomI18n.CONFIGURATION, configurationDivBuilder.build());

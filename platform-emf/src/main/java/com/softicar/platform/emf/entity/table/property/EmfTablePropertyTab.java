@@ -47,15 +47,13 @@ public class EmfTablePropertyTab extends DomTab {
 		detailsDisplay
 			.add(
 				EmfI18n.ACTIVE_FIELD_EXISTS,
-				new DomCheckbox()//
-					.setEnabled(false)
-					.setChecked(table.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()));
+				new DomCheckbox(table.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported())//
+					.setEnabled(false));
 		detailsDisplay
 			.add(
 				EmfI18n.CHANGE_LOGGERS_EXIST,
-				new DomCheckbox()//
-					.setEnabled(false)
-					.setChecked(!table.getChangeLoggers().isEmpty()));
+				new DomCheckbox(!table.getChangeLoggers().isEmpty())//
+					.setEnabled(false));
 		appendChild(detailsDisplay);
 	}
 

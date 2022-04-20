@@ -12,7 +12,6 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
@@ -23,6 +22,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
@@ -247,12 +247,11 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 		private void appendActiveCheckbox() {
 
-			appendChild(
-				new DomCheckbox()//
-					.setLabel(EmfI18n.SHOW_INACTIVE)
-					.setChecked(showInactive)
-					.setChangeCallback(showInactive -> toggleShowInactive(showInactive))
-					.setMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX));
+			EmfBooleanInput input = appendChild(
+				new EmfBooleanInput(showInactive)//
+					.setLabel(EmfI18n.SHOW_INACTIVE));
+			input.setChangeCallback(EmfManagementDiv.this::toggleShowInactive);
+			input.setMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX);
 		}
 	}
 }

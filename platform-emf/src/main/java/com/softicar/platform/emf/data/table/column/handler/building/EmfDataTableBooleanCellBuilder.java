@@ -9,7 +9,7 @@ class EmfDataTableBooleanCellBuilder implements IEmfDataTableCellBuilder<Boolean
 	public void buildCell(IEmfDataTableCell<?, Boolean> cell, Boolean value) {
 
 		if (value != null) {
-			cell.appendChild(new DomCheckbox().setEnabled(false).setChecked(value));
+			cell.appendChild(new DomCheckbox(value).setEnabled(false));
 		}
 	}
 }
