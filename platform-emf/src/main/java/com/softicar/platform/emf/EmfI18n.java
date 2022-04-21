@@ -140,8 +140,6 @@ public interface EmfI18n extends DomI18n {
 		.de("%s Spalten erwartet.");
 	I18n2 EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2 = new I18n2("Expected %s columns but encountered %s")//
 		.de("Es wurden %s Spalten erwartet, aber %s gefunden");
-	I18n0 FAILED_TO_CREATE_THE_INPUT_ELEMENT = new I18n0("Failed to create the input element.")//
-		.de("Erstellung des Eingabe-Elements fehlgeschlagen.");
 	I18n1 FAILED_TO_DETERMINE_THE_MODULE_FOR_UUID_ARG1 = new I18n1("Failed to determine the module for UUID %s.")//
 		.de("Bestimmung des Moduls mit UUID %s fehlgeschlagen.");
 	I18n0 FEED = new I18n0("Feed")//
@@ -184,8 +182,6 @@ public interface EmfI18n extends DomI18n {
 				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, zum Beispiel \"Wert\".");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
-	I18n1 INVALID_DECIMAL_NUMBER_ARG1 = new I18n1("Invalid decimal number: '%s'")//
-		.de("Ungültige Dezimalzahl: '%s'");
 	I18n0 INVALID_PRECONDITION = new I18n0("Invalid precondition")//
 		.de("Ungültige Vorbedingung");
 	I18n0 LONG_INTEGER = new I18n0("Long-Integer")//

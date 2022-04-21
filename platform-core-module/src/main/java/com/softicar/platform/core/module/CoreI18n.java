@@ -30,16 +30,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Adressen");
 	I18n0 AJAX = new I18n0("AJAX")//
 		.de("AJAX");
-	I18n0 AJAX_EVENT = new I18n0("AJAX Event")//
-		.de("AJAX-Ereignis");
-	I18n2 AJAX_EVENT_ARG1_ON_ARG2 = new I18n2("AJAX Event '%s' on '%s'")//
-		.de("AJAX-Ereignis '%s' am '%s'");
-	I18n0 AJAX_EVENT_TYPE = new I18n0("AJAX Event Type")//
-		.de("AJAX-Ereignistyp");
-	I18n0 AJAX_EVENT_TYPES = new I18n0("AJAX Event Types")//
-		.de("AJAX-Ereignistypen");
-	I18n0 AJAX_EVENTS = new I18n0("AJAX Events")//
-		.de("AJAX-Ereignisse");
 	I18n0 AJAX_EXCEPTION = new I18n0("AJAX Exception")//
 		.de("AJAX-Ausnahme");
 	I18n0 AJAX_EXCEPTIONS = new I18n0("AJAX Exceptions")//
@@ -98,8 +88,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Durch");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
-	I18n1 CHANGE_LANGUAGE_TO_ARG1 = new I18n1("Change language to '%s'")//
-		.de("Sprache ändern auf '%s'");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
 		.de("Passwort überprüfen");
 	I18n0 CHECKSUM = new I18n0("Checksum")//
@@ -202,8 +190,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wochentag des DBMS-Wartungsfensters");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
-	I18n0 DEFAULT_LANGUAGE = new I18n0("Default Language")//
-		.de("Standardsprache");
 	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
 		.de("Standard-Lokalisierung");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
@@ -242,8 +228,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
-	I18n0 EVENT_DATE = new I18n0("Event Date")//
-		.de("Ereignisdatum");
 	I18n0 EVERY_DAY_AT_MIDNIGHT = new I18n0("Every day at midnight.")//
 		.de("Jeden Tag um Mitternacht.");
 	I18n0 EVERY_FIVE_MINUTES = new I18n0("Every five minutes.")//
@@ -280,8 +264,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Dateiname");
 	I18n0 FILE_SET = new I18n0("File Set")//
 		.de("Datei-Satz");
-	I18n0 FILE_UPLOAD = new I18n0("File Upload")//
-		.de("Dateien hochladen");
 	I18n0 FINISHED_AT = new I18n0("Finished At")//
 		.de("Abgeschlossen am");
 	I18n0 FIRST_NAME = new I18n0("First Name")//
@@ -302,8 +284,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Neues Passwort generieren");
 	I18n0 GERMAN = new I18n0("German")//
 		.de("Deutsch");
-	I18n0 GUEST = new I18n0("Guest")//
-		.de("Gast");
 	I18n0 HASH = new I18n0("Hash")//
 		.de("Hash");
 	I18n0 HELLO = new I18n0("Hello")//
@@ -499,8 +479,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Seiten-Definitionen");
 	I18n0 PAGE_OVERVIEW = new I18n0("Page Overview")//
 		.de("Seiten-Übersicht");
-	I18n0 PAGE_UUID = new I18n0("Page UUID")//
-		.de("Seiten-UUID");
 	I18n0 PANIC_RECEIVERS = new I18n0("Panic Receivers")//
 		.de("Panik-Empfänger");
 	I18n0 PASSWORD = new I18n0("Password")//
@@ -554,8 +532,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Portal-Protokoll");
 	I18n0 PREFERENCES_SAVED = new I18n0("Preferences saved.")//
 		.de("Einstellungen gespeichert.");
-	I18n0 PREFERRED_LANGUAGE = new I18n0("Preferred Language")//
-		.de("Bevorzugte Sprache");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
 		.de("Haupt-Datei-Server");
 	I18n0 PROCESS = new I18n0("Process")//
@@ -644,8 +620,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Laufzeit");
 	I18n0 SAVE_PASSWORD = new I18n0("Save Password")//
 		.de("Password speichern");
-	I18n0 SCHEDULE = new I18n0("Schedule")//
-		.de("Zeitplan");
 	I18n0 SCHEDULED_PROGRAM_EXECUTION = new I18n0("Scheduled Program Execution")//
 		.de("Geplante Programmausführung");
 	I18n0 SCHEDULED_PROGRAM_EXECUTION_LOG = new I18n0("Scheduled Program Execution Log")//
@@ -698,8 +672,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort anzeigen");
 	I18n0 SHOW_STACK_TRACE = new I18n0("Show Stack Trace")//
 		.de("Stacktrace anzeigen");
-	I18n0 SINGLE_FILE_UPLOAD = new I18n0("Single File Upload")//
-		.de("Einzelner Datei-Upload");
 	I18n0 SOURCE_USER = new I18n0("Source User")//
 		.de("Quell-Benutzer");
 	I18n0 STACK_TRACE = new I18n0("Stack Trace")//
@@ -863,8 +835,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zeitstempel");
 	I18n0 TO = new I18n0("To")//
 		.de("An");
-	I18n0 TO_SELECT_A_DIFFERENT_LANGUAGE_CLICK_ON_THE_RESPECTIVE_FLAG_BELOW = new I18n0("To select a different language, click on the respective flag below.")//
-		.de("Um eine andere Sprache auszuwählen, klicken Sie unten auf die entsprechende Flagge.");
 	I18n0 TOO_MANY_FAILED_LOGIN_ATTEMPTS = new I18n0("Too many failed login attempts.")//
 		.de("Zuviele fehlgeschlagene Login-Versuche.");
 	I18n0 TOO_MANY_LOGIN_ATTEMPTS = new I18n0("Too many login attempts.")//
@@ -899,8 +869,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer kann keine Benachrichtigungs-E-Mails erhalten.");
 	I18n0 USER_IMPERSONATION = new I18n0("User Impersonation")//
 		.de("Benutzer-Verkörperung");
-	I18n1 USER_IMPERSONATION_IS_FORBIDDEN_FOR_PAGE_ARG1 = new I18n1("User impersonation is forbidden for page '%s'.")//
-		.de("Benutzer-Verkörperung ist verboten für Seite '%s'.");
 	I18n0 USER_IMPERSONATION_STATE = new I18n0("User Impersonation State")//
 		.de("Benutzer-Verkörperungs-Status");
 	I18n0 USER_IMPERSONATION_STATES = new I18n0("User Impersonation States")//
@@ -955,10 +923,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("UUID-String");
 	I18n0 UUIDS = new I18n0("UUIDs")//
 		.de("UUIDs");
-	I18n0 VALID_FROM = new I18n0("Valid From")//
-		.de("Gültig ab");
-	I18n0 VALID_TO = new I18n0("Valid To")//
-		.de("Gültig bis");
 	I18n3 VALUE_OUT_OF_RANGE_ARG1_ARG2_ARG3 = new I18n3("Value out of range [%s-%s]: '%s'")//
 		.de("Wert außerhalb des Bereichs [%s-%s]: '%s'.");
 	I18n0 VERSION = new I18n0("Version")//
@@ -985,18 +949,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sie dürfen keinen anderen Benutzer verkörpern.");
 	I18n1 YOU_ARE_NOT_ALLOWED_TO_LOG_IN_FROM_THE_FOLLOWING_IP_ADDRESS_ARG1 = new I18n1("You are not allowed to log in from the following IP address: '%s'")//
 		.de("Sie dürfen sich nicht von der folgenden IP-Adresse einloggen: '%s'");
-	I18n1 YOU_DO_NOT_HAVE_THE_PERMISSION_TO_ACCESS_PAGE_ARG1 = new I18n1("You do not have the permission to access page '%s'.")//
-		.de("Sie haben nicht die Berechtigung zum Zugriff auf Seite '%s'.");
-	I18n0 YOU_DO_NOT_HAVE_THE_PERMISSION_TO_ACCESS_THIS_PAGE = new I18n0("You do not have the permission to access this page.")//
-		.de("Sie haben nicht die Berechtigung zum Zugriff auf diese Seite.");
 	I18n2 YOUR_ARG1_ACCOUNT_ARG2 = new I18n2("Your %s account %s")//
 		.de("Ihr %s Account %s");
 	I18n1 YOUR_ARG1_PREVIOUSLY_USED_PASSWORDS_CANNOT_BE_USED = new I18n1("Your %s previously used passwords cannot be used.")//
 		.de("Ihre %s zuletzt benutzten Passwörter können nicht benutzt werden.");
 	I18n1 YOUR_ARG1_SUPPORT_TEAM = new I18n1("Your %s Support Team")//
 		.de("Ihr %s Support-Team");
-	I18n1 YOUR_CURRENT_LANGUAGE_IS_ARG1 = new I18n1("Your current language is '%s'.")//
-		.de("Ihre aktuelle Sprache ist '%s'.");
 	I18n0 YOUR_CURRENT_PASSWORD_DOES_NOT_FULFILL_THE_PASSWORD_POLICY = new I18n0("Your current password does not fulfill the password policy.")//
 		.de("Ihr aktuelles Passwort erfüllt nicht die Passwort-Richtlinie.");
 	I18n0 YOUR_CURRENT_PASSWORD_IS_TOO_OLD = new I18n0("Your current password is too old.")//

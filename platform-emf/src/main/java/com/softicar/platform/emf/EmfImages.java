@@ -19,7 +19,6 @@ public interface EmfImages {
 	IResourceSupplier ENTITY_LOG = FACTORY.create("entity-log.svg");
 	IResourceSupplier ENTITY_OUTDATED = FACTORY.create("entity-outdated.svg");
 	IResourceSupplier ENTITY_PREFILTER_DOTS_T = FACTORY.create("entity-prefilter-dots-t.svg");
-	IResourceSupplier ENTITY_PROPERTIES = FACTORY.create("entity-properties.svg");
 	IResourceSupplier ENTITY_SAVE = FACTORY.create("entity-save.svg");
 	IResourceSupplier ENTITY_SAVE_AND_CLOSE = FACTORY.create("entity-save-and-close.svg");
 	IResourceSupplier ENTITY_TRAIT_CONFIGURE = FACTORY.create("entity-trait-configure.svg");
