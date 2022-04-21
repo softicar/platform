@@ -71,8 +71,6 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n1 FOR_AN_EXPORT_IN_THE_SELECTED_FORMAT_THE_MAXIMUM_NUMBER_OF_TABLE_ROWS_MUST_NOT_EXCEED_ARG1 =//
 			new I18n1("For an export in the selected format, the maximum number of table rows must not exceed %s.")//
 				.de("Für einen Export im ausgewählten Format darf die Anzahl der Tabellen-Zeilen %s nicht übersteigen.");
-	I18n0 GO_TO_PAGE = new I18n0("Go to Page")//
-		.de("Gehe zu Seite");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
 	I18n0 HOURS = new I18n0("Hours")//
@@ -114,8 +112,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//
 		.de("nur Text");
-	I18n0 PAGE = new I18n0("Page")//
-		.de("Seite");
 	I18n0 PLEASE_CONTACT_THE_SUPPORT_TEAM = new I18n0("Please contact the support team.")//
 		.de("Bitte kontaktieren Sie das Support-Team.");
 	I18n1 PLEASE_ENTER_A_LOWER_VALUE_FOR_THE_NUMBER_OF_ROWS_PER_PAGE_MAXIMUM_ARG1 =//
