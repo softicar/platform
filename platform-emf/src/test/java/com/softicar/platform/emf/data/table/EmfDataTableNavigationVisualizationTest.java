@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import java.util.ArrayList;
@@ -130,7 +129,6 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 
 	private void assertPageNavigationButtonsExist(DomNodeTester navigation, boolean existenceExpected) {
 
-		navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_BUTTON).assertSize(existenceExpected? 1 : 0);
 		navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON).assertSize(existenceExpected? 1 : 0);
 		navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON).assertSize(existenceExpected? 1 : 0);
 	}

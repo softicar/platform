@@ -55,7 +55,6 @@ public class DomPageableTableNavigation extends DomBar implements IDomPageableTa
 
 	private void appendPageNavigationButtons() {
 
-		appendChild(new GoToPageButton(table));
 		appendChild(new TurnPageButton(table, PagingDirection.BACKWARD));
 		appendChild(new DomPageableTableNavigationPageList(table));
 		appendChild(new TurnPageButton(table, PagingDirection.FORWARD));

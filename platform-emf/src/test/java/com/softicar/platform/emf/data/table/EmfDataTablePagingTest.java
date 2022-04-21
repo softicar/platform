@@ -1,12 +1,9 @@
 package com.softicar.platform.emf.data.table;
 
-
-
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.dom.event.DomEventType;
 import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
@@ -75,65 +72,6 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 		assertTrue("Wrong page was displayed.", dataTableDiv.getCurrentPage() > 1);
 	}
 
-	@Test
-	public void testPagingWithGoToPageAndEnterPress() {
-
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
-
-		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithEnterKey(1);
-		assertSecondPageDisplayed(dataTableDiv);
-	}
-
-	@Test
-	public void testPagingWithGoToPageAndButtonClick() {
-
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
-
-		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithButtonClick(1);
-		assertSecondPageDisplayed(dataTableDiv);
-	}
-
-	@Test
-	public void testPagingWithGoToPageAndTargetPageUnderflow() {
-
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
-
-		assertFirstPageDisplayed(dataTableDiv);
-		goToPageWithEnterKey(-1);
-		assertFirstPageDisplayed(dataTableDiv);
-	}
-
-	@Test
-	public void testPagingWithGoToPageAndTargetPageOverflow() {
-
-		final int pageSize = 18;
-		builder.setPageSize(pageSize);
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
-
-		assertFirstPageDisplayed(dataTableDiv);
-		final int maxPageIndex = EmfDataTableTestUtil.calculateTotalPageCount(numTotalRows, pageSize) - 1;
-		goToPageWithEnterKey(maxPageIndex + 1);
-		assertEquals(maxPageIndex, dataTableDiv.getCurrentPage());
-	}
-
-	@Test
-	public void testPagingToPartialLastPage() {
-
-		final int pageSize = 18;
-		// make sure the last page will have a number of rows that is smaller than the page size
-		assertTrue(numTotalRows % pageSize > 0);
-
-		builder.setPageSize(pageSize);
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
-
-		assertFirstPageDisplayed(dataTableDiv);
-		final int maxPageIndex = EmfDataTableTestUtil.calculateTotalPageCount(numTotalRows, pageSize) - 1;
-		goToPageWithEnterKey(maxPageIndex + 1);
-		assertExpectedPageDisplayed(dataTableDiv, maxPageIndex);
-	}
-
 	private void clickNextPageButton() {
 
 		findFirstButton(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON).click();
@@ -166,41 +104,6 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 			.iterator()
 			.next()
 			.click();
-	}
-
-	private void goToPageWithEnterKey(int targetPageIndex) {
-
-		clickGotoPageButton();
-		inputTagetPageNumber(targetPageIndex);
-		pressEnterOnTagetPageNumberInput();
-	}
-
-	private void goToPageWithButtonClick(int targetPageIndex) {
-
-		clickGotoPageButton();
-		inputTagetPageNumber(targetPageIndex);
-		clickGotoPageExecuteButton();
-	}
-
-	private void clickGotoPageButton() {
-
-		findFirstButton(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_BUTTON).click();
-	}
-
-	private void inputTagetPageNumber(int targetPageIndex) {
-
-		String targetPageNumberString = targetPageIndex + 1 + "";
-		findInput(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_INPUT_ELEMENT).setInputValue(targetPageNumberString);
-	}
-
-	private void clickGotoPageExecuteButton() {
-
-		findButton(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_EXECUTE_BUTTON).click();
-	}
-
-	private void pressEnterOnTagetPageNumberInput() {
-
-		findInput(DomPageableTableMarker.NAVIGATION_PAGE_GOTO_INPUT_ELEMENT).sendEvent(DomEventType.ENTER);
 	}
 
 	private void assertFirstPageDisplayed(IEmfDataTableDiv<TestTableRow> dataTableDiv) {
