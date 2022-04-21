@@ -103,13 +103,13 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		}
 	}
 
-	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
-
-		R row = collector.getTable().getRowFactory().get();
-		for (EmfImportColumn<R, P> tableColumn: tableColumns) {
-			tableColumn.getField().setValue(row, CastUtils.cast(tableColumn.getValue()));
+	private void assertColumnCount(List<?> fields, List<?> tokens) {
+	
+		if (fields.size() != tokens.size()) {
+			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
+				.setReason(EmfI18n.EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2.toDisplay(fields.size(), tokens.size()))
+				.build();
 		}
-		return row;
 	}
 
 	private <V> V convertTokenToValue(IDbField<R, ?> field, String token, int columnIndex) {
@@ -126,12 +126,12 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		}
 	}
 
-	private void assertColumnCount(List<?> fields, List<?> tokens) {
-
-		if (fields.size() != tokens.size()) {
-			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
-				.setReason(EmfI18n.EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2.toDisplay(fields.size(), tokens.size()))
-				.build();
+	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
+	
+		R row = collector.getTable().getRowFactory().get();
+		for (EmfImportColumn<R, P> tableColumn: tableColumns) {
+			tableColumn.getField().setValue(row, CastUtils.cast(tableColumn.getValue()));
 		}
+		return row;
 	}
 }
