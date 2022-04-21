@@ -254,6 +254,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Externe Komponenten");
 	I18n0 FAILED = new I18n0("Failed")//
 		.de("Fehlgeschlagen");
+	I18n0 FAILED_TO_DETERMINE_PAGE_TITLE = new I18n0("Failed to determine page title")//
+		.de("Seitentitel konnte nicht bestimmt werden");
 	I18n0 FAILED_TO_GENERATE_PASSWORD = new I18n0("Failed to generate password.")//
 		.de("Generierung eines Passworts fehlgeschlagen.");
 	I18n1 FAILED_TO_LOAD_THE_CONTENT_OF_THE_FILE_ARG1 = new I18n1("Failed to load the content of the file '%s'.")//
