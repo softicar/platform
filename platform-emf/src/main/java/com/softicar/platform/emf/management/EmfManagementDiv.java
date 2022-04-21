@@ -203,6 +203,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 		}
 
+		// Tabelle hat mind. einen FK, der nicht concealed und nicht nullable
 		private boolean isNonConcealedNonNullableForeignAttributePresent() {
 
 			return entityTable//
