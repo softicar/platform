@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasse
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.PageNavigationFolderController;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 
 public class PageNavigationFolderDiv extends DomDiv {
@@ -19,7 +20,7 @@ public class PageNavigationFolderDiv extends DomDiv {
 		this.contentDiv = new PageNavigationFolderContentDiv(navigationDiv, this, link);
 
 		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_DIV);
-		appendChild(new PageNavigationFolderTitleDiv(link, this::toggleFolder));
+		appendChild(new PageNavigationFolderTitleDiv(link, this::toggle));
 	}
 
 	public PageNavigationFolderDiv getParentFolderDiv() {
@@ -27,17 +28,21 @@ public class PageNavigationFolderDiv extends DomDiv {
 		return parentFolderDiv;
 	}
 
-	public void appendContentDiv() {
+	public void open() {
 
+		addCssClass(DomCssPseudoClasses.SELECTED);
 		appendChild(contentDiv);
 	}
 
-	public void removeContentDiv() {
+	public void close() {
 
-		removeChild(contentDiv);
+		removeCssClass(DomCssPseudoClasses.SELECTED);
+		if (hasChild(contentDiv)) {
+			removeChild(contentDiv);
+		}
 	}
 
-	private void toggleFolder() {
+	private void toggle() {
 
 		folderController.toggleFolder(this);
 	}

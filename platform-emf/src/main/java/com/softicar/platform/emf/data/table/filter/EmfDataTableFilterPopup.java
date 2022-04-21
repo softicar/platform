@@ -24,7 +24,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 		this.column = column;
 		this.filterListDiv = new EmfDataTableFilterListDiv<>(column);
-		this.removeOtherFiltersCheckbox = new DomCheckbox()//
+		this.removeOtherFiltersCheckbox = new DomCheckbox(false)//
 			.setLabel(EmfDataTableI18n.REMOVE_FILTERS_FROM_OTHER_COLUMNS);
 
 		setCaption(EmfDataTableI18n.FILTER_BY_COLUMN);

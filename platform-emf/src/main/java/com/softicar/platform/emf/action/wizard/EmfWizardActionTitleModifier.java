@@ -38,8 +38,7 @@ class EmfWizardActionTitleModifier<R extends IEmfTableRow<R, ?>> extends EmfWiza
 		// append "done" indicator
 		content
 			.appendChild(
-				new DomCheckbox()//
-					.setChecked(done)
+				new DomCheckbox(done)//
 					.setEnabled(false));
 
 		// make (non-)clickable

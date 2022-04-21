@@ -1,53 +1,58 @@
 package com.softicar.platform.emf.attribute.field.bool;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
-import com.softicar.platform.emf.EmfCssClasses;
-import com.softicar.platform.emf.attribute.input.AbstractEmfChangeListeningInputDiv;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
-public class EmfBooleanInput extends AbstractEmfChangeListeningInputDiv<Boolean> {
+public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 
-	private final DomCheckbox checkBox;
+	private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
 
-	public EmfBooleanInput() {
+	public EmfBooleanInput(boolean checked) {
 
-		this.checkBox = new DomCheckbox();
-		addCssClass(EmfCssClasses.EMF_BOOLEAN_DISPLAY);
-		appendChild(checkBox);
+		super(checked);
 	}
 
 	@Override
 	public Optional<Boolean> getValue() {
 
-		return Optional.of(checkBox.isChecked());
-	}
-
-	@Override
-	public void setValue(Boolean value) {
-
-		checkBox.setChecked(value);
+		return Optional.of(isChecked());
 	}
 
 	@Override
 	public void setValueAndHandleChangeCallback(Boolean value) {
 
-		// FIXME PLAT-756 Should change this behavior
-		// DomCheckbox#setChecked already executes a callback
-		checkBox.setChecked(value);
+		setValue(value);
+		callback.apply();
 	}
 
 	@Override
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
-		checkBox.setChangeCallback(callback);
+		this.callback = Objects.requireNonNull(callback);
 	}
 
 	@Override
-	public IDomElement setEnabled(boolean enabled) {
+	public EmfBooleanInput setLabel(IDisplayString label) {
 
-		checkBox.setEnabled(enabled);
+		super.setLabel(label);
 		return this;
+	}
+
+	@Override
+	protected void toggleCheckedState() {
+
+		if (isEnabled()) {
+			setValueAndHandleChangeCallback(!isChecked());
+		}
+	}
+
+	public void setChangeCallback(Consumer<Boolean> consumer) {
+
+		this.callback = () -> Objects.requireNonNull(consumer).accept(isChecked());
 	}
 }

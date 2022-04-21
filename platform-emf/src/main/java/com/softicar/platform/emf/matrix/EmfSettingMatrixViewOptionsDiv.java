@@ -35,9 +35,9 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 		this.rowFilterInput.setMarker(EmfSettingMatrixMarker.ROW_FILTER_INPUT);
 		this.columnFilterInput = new TextFilterInput();
 		this.columnFilterInput.setMarker(EmfSettingMatrixMarker.COLUMN_FILTER_INPUT);
-		this.hideRowsWithDefaultValuesCheckbox = new DomCheckbox();
-		this.hideColumnsWithDefaultValuesCheckbox = new DomCheckbox();
-		this.flipRowsAndColumnsCheckbox = new DomCheckbox();
+		this.hideRowsWithDefaultValuesCheckbox = new DomCheckbox(false);
+		this.hideColumnsWithDefaultValuesCheckbox = new DomCheckbox(false);
+		this.flipRowsAndColumnsCheckbox = new DomCheckbox(false);
 		this.flipRowsAndColumnsCheckbox.setMarker(EmfSettingMatrixMarker.FLIP_CHECKBOX);
 
 		DomFieldset fieldset = appendChild(new OptionsFieldset());

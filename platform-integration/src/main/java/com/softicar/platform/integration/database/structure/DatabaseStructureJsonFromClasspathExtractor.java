@@ -17,7 +17,7 @@ public class DatabaseStructureJsonFromClasspathExtractor {
 
 	private final String tablePackagePrefix;
 
-	//Use this method to print the current db-table state to the console
+//	// Use this method to print the current db-table state to the console
 //	public static void main(String[] args) {
 //
 //		Log.finfo(new DatabaseStructureJsonFromClasspathExtractor("com.softicar.platform").extractJson());

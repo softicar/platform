@@ -9,6 +9,7 @@ class RequiredVotesInput extends EmfStringInput {
 	public RequiredVotesInput(AGWorkflowTransition transition) {
 
 		this.transition = transition;
+		refreshInputConstraints();
 	}
 
 	@Override

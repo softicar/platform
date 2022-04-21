@@ -42,7 +42,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 	@Override
 	public void showAsSelected(boolean selected) {
 
-		selectionCheckbox.setChecked(selected);
+		selectionCheckbox.setValue(selected);
 
 		if (selected) {
 			addCssClass(DomCssPseudoClasses.SELECTED);

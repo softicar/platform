@@ -71,8 +71,6 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n1 FOR_AN_EXPORT_IN_THE_SELECTED_FORMAT_THE_MAXIMUM_NUMBER_OF_TABLE_ROWS_MUST_NOT_EXCEED_ARG1 =//
 			new I18n1("For an export in the selected format, the maximum number of table rows must not exceed %s.")//
 				.de("Für einen Export im ausgewählten Format darf die Anzahl der Tabellen-Zeilen %s nicht übersteigen.");
-	I18n0 GO_TO_PAGE = new I18n0("Go to Page")//
-		.de("Gehe zu Seite");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
 	I18n0 HOURS = new I18n0("Hours")//
@@ -114,8 +112,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//
 		.de("nur Text");
-	I18n0 PAGE = new I18n0("Page")//
-		.de("Seite");
 	I18n0 PLEASE_CONTACT_THE_SUPPORT_TEAM = new I18n0("Please contact the support team.")//
 		.de("Bitte kontaktieren Sie das Support-Team.");
 	I18n1 PLEASE_ENTER_A_LOWER_VALUE_FOR_THE_NUMBER_OF_ROWS_PER_PAGE_MAXIMUM_ARG1 =//
@@ -165,8 +161,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Die Tabelle kann aus den folgenden Gründen nicht exportiert werden");
 	I18n1 THE_TABLE_TO_BE_EXPORTED_COMPRISES_ARG1_ROWS_INCLUDING_HEADER_ROWS = new I18n1("The table to be exported comprises %s rows (including header rows).")//
 		.de("Die zu exportierende Tabelle umfasst %s Zeilen (inklusive Kopfzeilen).");
-	I18n1 THE_TEXT_ARG1_DOES_NOT_REPRESENT_A_VALID_DATE = new I18n1("The text '%s' does not represent a valid date.")//
-		.de("Der Text '%s' repräsentiert kein gültiges Datum.");
 	I18n0 THIS_CAN_CAUSE_PROBLEMS_WHEN_TRYING_TO_SUM_UP_TEXTUAL_NUMERICAL_VALUES_IN_AN_EXCEL_FILE = //
 			new I18n0("This can cause problems when trying to sum up textual, numerical values in an Excel file.")//
 				.de("Dies kann Probleme verursachen, wenn versucht wird textuelle, numerische Werte in einer Excel-Datei zu summieren.");
@@ -179,8 +173,6 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Eine Option wurde gewählt, die nicht in der Liste der verfügbaren Optionen enthalten ist.");
 	I18n0 UNTITLED_EXPORT_ENGINE = new I18n0("Untitled Export Engine")//
 		.de("Unbenannte Export-Engine");
-	I18n0 VALID_FORMATS = new I18n0("Valid formats:")//
-		.de("Gültige Formate:");
 	I18n0 WEEK = new I18n0("Week")//
 		.de("Woche");
 	I18n0 YES = new I18n0("Yes")//

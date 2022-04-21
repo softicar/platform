@@ -1,9 +1,6 @@
 package com.softicar.platform.dom.elements.checkbox;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.Consumers;
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
@@ -14,7 +11,7 @@ import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
 import java.util.Collections;
-import java.util.function.Consumer;
+import java.util.Objects;
 
 /**
  * A non-native check-box similar to {@link DomButton}.
@@ -26,17 +23,16 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 
 	private boolean enabled;
 	private boolean checked;
-	private Consumer<Boolean> changeCallback;
 	private final DomCheckboxBox checkboxBox;
 	private final DomCheckboxLabel checkboxLabel;
 
-	public DomCheckbox() {
+	public DomCheckbox(boolean checked) {
 
 		this.enabled = false;
-		this.checked = false;
-		this.changeCallback = Consumers.noOperation();
+		this.checked = checked;
 
 		this.checkboxBox = appendChild(new DomCheckboxBox());
+		this.checkboxBox.setChecked(checked);
 		this.checkboxLabel = new DomCheckboxLabel();
 
 		setEnabled(true);
@@ -47,24 +43,6 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 		getDomEngine().setFireOnKeyUp(this, DomEventType.SPACE, true);
 		getDomEngine().setCssClassOnKeyDown(this, DomEventType.ENTER, Collections.singleton(DomCssPseudoClasses.ACTIVE));
 		getDomEngine().setCssClassOnKeyDown(this, DomEventType.SPACE, Collections.singleton(DomCssPseudoClasses.ACTIVE));
-	}
-
-	@Override
-	public void handleClick(IDomEvent event) {
-
-		handleEvent();
-	}
-
-	@Override
-	public void handleEnterKey(IDomEvent event) {
-
-		handleEvent();
-	}
-
-	@Override
-	public void handleSpaceKey(IDomEvent event) {
-
-		handleEvent();
 	}
 
 	public DomCheckbox setLabel(IDisplayString label) {
@@ -81,40 +59,22 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 		return this;
 	}
 
-	/**
-	 * Sets the callback to be triggered when the state of this object is
-	 * changed.
-	 * <p>
-	 *
-	 * @param changeCallback
-	 *            the change callback to trigger (never null)
-	 */
-	public DomCheckbox setChangeCallback(INullaryVoidFunction changeCallback) {
+	@Override
+	public void handleClick(IDomEvent event) {
 
-		return setChangeCallback(dummy -> changeCallback.apply());
+		toggleCheckedState();
 	}
 
-	/**
-	 * Sets the callback to be triggered when the checked state of the object is
-	 * changed.
-	 * <p>
-	 *
-	 * @param changeCallback
-	 *            the change callback to trigger (never null)
-	 */
-	public DomCheckbox setChangeCallback(Consumer<Boolean> changeCallback) {
+	@Override
+	public void handleEnterKey(IDomEvent event) {
 
-		if (!hasCustomChangeCallback()) {
-			this.changeCallback = changeCallback;
-			return this;
-		} else {
-			throw new SofticarDeveloperException("Tried to overwrite the change callback.");
-		}
+		toggleCheckedState();
 	}
 
-	public boolean hasCustomChangeCallback() {
+	@Override
+	public void handleSpaceKey(IDomEvent event) {
 
-		return !Consumers.isNoOperation(changeCallback);
+		toggleCheckedState();
 	}
 
 	public boolean isEnabled() {
@@ -148,32 +108,19 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 		return checked;
 	}
 
-	public DomCheckbox setChecked(boolean checked) {
+	public void setValue(Boolean checked) {
 
-		setCheckedState(checked);
-		executeCallback();
-		return this;
-	}
-
-	private void setCheckedState(boolean checked) {
-
-		if (checked != this.checked) {
+		if (Objects.requireNonNull(checked) != this.checked) {
 			this.checkboxBox.setChecked(checked);
 			this.checked = checked;
 		}
 	}
 
-	private void handleEvent() {
+	protected void toggleCheckedState() {
 
 		if (enabled) {
-			setCheckedState(!checked);
-			executeCallback();
+			setValue(!checked);
 		}
-	}
-
-	private void executeCallback() {
-
-		changeCallback.accept(checked);
 	}
 
 	private class DomCheckboxBox extends DomDiv {
