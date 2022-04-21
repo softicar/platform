@@ -78,8 +78,6 @@ public interface WorkflowI18n extends CoreI18n {
 				.de("Ungültige Workflow-Definition in Übergang '%s': Der Quorum-Prozentsatz muss größer als 0 und kleiner gleich 100 sein.");
 	I18n0 IS_CONSISTENT = new I18n0("Is Consistent")//
 		.de("Ist konsistent");
-	I18n0 IS_FURTHER_APPROVAL_REQUIRED_QUESTION = new I18n0("Is further approval required?")//
-		.de("Ist weitere Genehmiung notwendig?");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
 		.de("Ist Workflow gestartet?");
 	I18n0 MANAGE_WORKFLOW = new I18n0("Manage Workflow")//
