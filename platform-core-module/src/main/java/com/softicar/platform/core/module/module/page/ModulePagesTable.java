@@ -3,6 +3,8 @@ package com.softicar.platform.core.module.module.page;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.authorization.role.EmfRoleWrapper;
 import com.softicar.platform.emf.module.IEmfModule;
@@ -25,7 +27,7 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 			.setTitle(EmfI18n.NAME)
 			.addColumn();
 		newColumn(IDisplayString.class)//
-			.setGetter(page -> page.getTitle(null))
+			.setGetter(this::getPageTitle)
 			.setTitle(EmfI18n.TITLE)
 			.addColumn();
 		authorizedRoleColumn = newColumn(EmfRoleWrapper.class)//
@@ -63,5 +65,18 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 		return definition//
 			.getPagePath(new EmfPagePath().append("...").append(module.toDisplay()))
 			.getCanonicalPath(" -> ");
+	}
+
+	private IDisplayString getPageTitle(IEmfPage<?> page) {
+
+		try {
+			return page.getTitle(null);
+		} catch (NullPointerException exception) {
+			DevNull.swallow(exception);
+			return IDisplayString//
+				.create(page.getClass().getSimpleName())
+				.concatSpace()
+				.concatInParentheses(CoreI18n.FAILED_TO_DETERMINE_PAGE_TITLE);
+		}
 	}
 }
