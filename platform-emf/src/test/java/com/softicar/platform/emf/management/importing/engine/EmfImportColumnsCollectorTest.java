@@ -80,33 +80,6 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 	}
 
 	@Test
-	public void testGetFieldOfTableColumnByIndex() {
-
-		var collector = new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE);
-
-		assertEquals(EmfTestInvoiceItem.TABLE.getAllFields().size(), collector.getTableColumns().size());
-
-		for (int index = 0; index < collector.getTableColumns().size(); index++) {
-			assertSame(EmfTestInvoiceItem.TABLE.getAllFields().get(index), collector.getFieldOfTableColumnByIndex(index));
-		}
-	}
-
-	@Test
-	public void testGetFieldOfTableColumnByIndexWithFieldSubSet() {
-
-		List<IDbField<EmfTestInvoiceItem, ?>> fieldsToImport = new ArrayList<>();
-		fieldsToImport.add(EmfTestInvoiceItem.DESCRIPTION);
-		fieldsToImport.add(EmfTestInvoiceItem.POSITION);
-		fieldsToImport.add(EmfTestInvoiceItem.QUANTITY);
-
-		var collector = new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport);
-
-		assertSame(EmfTestInvoiceItem.DESCRIPTION, collector.getFieldOfTableColumnByIndex(0));
-		assertSame(EmfTestInvoiceItem.POSITION, collector.getFieldOfTableColumnByIndex(1));
-		assertSame(EmfTestInvoiceItem.QUANTITY, collector.getFieldOfTableColumnByIndex(2));
-	}
-
-	@Test
 	public void testGetTable() {
 
 		assertSame(EmfTestInvoiceItem.TABLE, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTable());

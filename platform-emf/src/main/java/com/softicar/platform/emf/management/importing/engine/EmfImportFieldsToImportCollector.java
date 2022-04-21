@@ -78,4 +78,15 @@ public class EmfImportFieldsToImportCollector<R extends IEmfTableRow<R, P>, P> {
 			}
 		}
 	}
+	
+	// TODO loading could be simplified...
+	private void ignore() {
+
+		table//
+			.getAllFields()
+			.stream()
+			.filter(field -> !(field.hasDefault() && table.getAttribute(field).isConcealed()))
+			.filter(field -> !(table.getAttribute(field) instanceof EmfTransactionAttribute))
+			.filter(field -> !(table.getAttribute(field) instanceof EmfTransactionAttribute));
+	}
 }

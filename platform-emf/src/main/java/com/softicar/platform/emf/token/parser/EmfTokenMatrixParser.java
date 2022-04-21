@@ -76,31 +76,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	 */
 	public List<R> parse(List<List<String>> tokenMatrix) {
 
-//		Objects.requireNonNull(tokenMatrix);
-//		List<R> result = new ArrayList<>();
-//
-//		for (this.currentRowIndex = 0; this.currentRowIndex < tokenMatrix.size(); this.currentRowIndex++) {
-//			List<String> tokenRow = tokenMatrix.get(currentRowIndex);
-//
-//			this.currentRow = Objects.requireNonNull(tokenRow);
-//
-//			assertColumnCount(fields, tokenRow);
-//
-//			R object = table.getRowFactory().get();
-//			for (int columnIndex = 0; columnIndex < fields.size(); columnIndex++) {
-//				String token = tokenRow.get(columnIndex);
-//				IDbField<R, ?> field = fields.get(columnIndex);
-//				field.setValue(object, convertTokenToValue(field, token, columnIndex));
-//			}
-//			result.add(object);
-//		}
-//		return result;
-//
-////		return parseColumns(tokenMatrix);
-//	}
-//
-//	public List<R> parseColumns(List<List<String>> tokenMatrix) {
-
 		Objects.requireNonNull(tokenMatrix);
 
 		List<EmfImportColumn<R, ?>> csvFileColumns = collector.getCsvFileColumnsToImport();
@@ -123,23 +98,16 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (int columnIndex = 0; columnIndex < csvFileColumns.size(); columnIndex++) {
 			EmfImportColumn<R, ?> csvFileColumn = csvFileColumns.get(columnIndex);
-			csvFileColumn.setValue(currentRow.get(columnIndex));
+			Object value = convertTokenToValue(csvFileColumn.getField(), currentRow.get(columnIndex), columnIndex);
+			csvFileColumn.setValue(value);
 		}
 	}
 
 	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
 
 		R row = collector.getTable().getRowFactory().get();
-		for (int columnIndex = 0; columnIndex < collector.getTableColumns().size(); columnIndex++) {
-
-			IDbField<R, ?> field = collector.getFieldOfTableColumnByIndex(columnIndex);
-			EmfImportColumn<R, P> tableColumn = tableColumns.get(columnIndex);
-			if (tableColumn.isForeignKeyColumn()) {
-				field.setValue(row, CastUtils.cast(tableColumn.getValue()));
-			} else {
-				String token = currentRow.get(columnIndex);
-				field.setValue(row, convertTokenToValue(field, token, columnIndex));
-			}
+		for (EmfImportColumn<R, P> tableColumn: tableColumns) {
+			tableColumn.getField().setValue(row, CastUtils.cast(tableColumn.getValue()));
 		}
 		return row;
 	}

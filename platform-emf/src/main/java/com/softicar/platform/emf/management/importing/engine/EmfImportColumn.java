@@ -82,7 +82,12 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	private Object loadSetAndGetValue(ISqlSelect<R> select) {
 
-		this.value = select.getOne();
+		value = select.getOne();
+
+		if (value == null) {
+			// TODO throw SofticarUserException
+		}
+
 		return value;
 	}
 
