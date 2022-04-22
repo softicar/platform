@@ -7,6 +7,7 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 
 	private final EmfImportColumn<R, ?> invoiceItemInvoiceColumn;
+	private final EmfImportColumn<R, ?> invoiceInvoiceModuleInstanceColumn;
 	private final EmfImportColumn<R, ?> invoiceModuleInstanceNameColumn;
 	private final EmfImportColumn<R, ?> invoicePartnerColumn;
 	private final EmfImportColumn<R, ?> businessUnitModuleInstanceNameColumn;
@@ -17,7 +18,7 @@ class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 
 		invoiceItemInvoiceColumn = createEmfImportColumn(EmfTestInvoiceItem.INVOICE);
 
-		EmfImportColumn<R, ?> invoiceInvoiceModuleInstanceColumn = createEmfImportColumn(EmfTestInvoice.INVOICE_MODULE_INSTANCE);
+		invoiceInvoiceModuleInstanceColumn = createEmfImportColumn(EmfTestInvoice.INVOICE_MODULE_INSTANCE);
 		invoiceItemInvoiceColumn.addParentColumn(invoiceInvoiceModuleInstanceColumn);
 
 		invoiceModuleInstanceNameColumn = createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME);
@@ -71,6 +72,11 @@ class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 	public <T> T getInvoiceItemInvoiceColumn() {
 
 		return CastUtils.cast(invoiceItemInvoiceColumn);
+	}
+
+	public EmfImportColumn<R, ?> getInvoiceInvoiceModuleInstanceColumn() {
+
+		return invoiceInvoiceModuleInstanceColumn;
 	}
 
 	public EmfImportColumn<R, ?> getInvoicePartnerColumn() {

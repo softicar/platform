@@ -59,7 +59,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 	}
 
 	@Test
-	public void testGetValue() {
+	public void testGetOrLoadValue() {
 
 		EmfTestInvoiceModuleInstance invoiceModuleInstance = new EmfTestInvoiceModuleInstance()//
 			.setModuleInstance(new EmfTestObject().save())
@@ -72,7 +72,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 		invoiceModuleInstanceNameColumn.setValue("test");
 		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
 
-		assertSame(invoiceModuleInstance, invoiceInvoiceModuleInstanceColumn.getValue());
+		assertSame(invoiceModuleInstance, invoiceInvoiceModuleInstanceColumn.getOrLoadValue());
 	}
 
 	private static <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
@@ -81,7 +81,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 	}
 
 	@Test
-	public void testGetValueWithComplexTableStructure() {
+	public void testGetOrLoadValueWithComplexTableStructure() {
 
 		EmfTestInvoice invoice = insertInvoice();
 
@@ -92,11 +92,11 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 			.setInvoiceNumberColumnValue("12345")
 			.getInvoiceItemInvoiceColumn();
 
-		assertSame(invoice, invoiceItemInvoiceColumn.getValue());
+		assertSame(invoice, invoiceItemInvoiceColumn.getOrLoadValue());
 	}
 
 	@Test
-	public void testGetValueWithWrongValue() {
+	public void testGetOrLoadValueWithWrongValue() {
 
 		insertInvoice();
 
@@ -108,12 +108,58 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 
 		EmfImportColumn<R, ?> invoiceItemInvoiceColumn = invoiceItemInvoiceColumnCreator.getInvoiceItemInvoiceColumn();
 
-		assertException(EmfImportColumnLoadException.class, () -> invoiceItemInvoiceColumn.getValue());
+		assertException(EmfImportColumnLoadException.class, () -> invoiceItemInvoiceColumn.getOrLoadValue());
 		try {
-			invoiceItemInvoiceColumn.getValue();
+			invoiceItemInvoiceColumn.getOrLoadValue();
 		} catch (EmfImportColumnLoadException exception) {
 			assertEquals(invoiceItemInvoiceColumnCreator.getInvoicePartnerColumn(), exception.getColumn());
 		}
+	}
+
+	@Test
+	public void testGetOrLoadValueWithNullValue() {
+
+		var invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue(null)
+			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
+			.setBusinessPartnerVatIdColumnValue("vatId")
+			.setInvoiceNumberColumnValue("12345");
+
+		assertNull(invoiceItemInvoiceColumnCreator.getInvoiceInvoiceModuleInstanceColumn().getOrLoadValue());
+
+		insertInvoice();
+
+		invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
+			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
+			.setBusinessPartnerVatIdColumnValue("vatId")
+			.setInvoiceNumberColumnValue("12345");
+
+		assertNotNull(invoiceItemInvoiceColumnCreator.getInvoiceInvoiceModuleInstanceColumn().getOrLoadValue());
+	}
+
+	@Test
+	public void testGetOrLoadValueWithNullValueInSeveralColumns() {
+
+		var invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
+			.setBusinessUnitModuleInstanceNameColumnValue(null)
+			.setBusinessPartnerVatIdColumnValue(null)
+			.setInvoiceNumberColumnValue("12345");
+
+		assertNull(invoiceItemInvoiceColumnCreator.getInvoicePartnerColumn().getOrLoadValue());
+
+		insertInvoice();
+
+		invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
+			.setBusinessUnitModuleInstanceNameColumnValue(null)
+			.setBusinessPartnerVatIdColumnValue("vatId")
+			.setInvoiceNumberColumnValue("12345");
+
+		var invoicePartnerColumn = invoiceItemInvoiceColumnCreator.getInvoicePartnerColumn();
+
+		assertException(EmfImportColumnLoadException.class, () -> invoicePartnerColumn.getOrLoadValue());
 	}
 
 	private EmfTestInvoice insertInvoice() {

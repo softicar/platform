@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -14,6 +15,7 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	private final IDbField<R, ?> field;
 	private final List<EmfImportColumn<R, ?>> parentColumns;
 	private EmfImportColumn<R, ?> childColumn;
+	private boolean isValueSet;
 	private Object value;
 
 	public EmfImportColumn(IDbField<R, ?> field) {
@@ -54,38 +56,81 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	public EmfImportColumn<R, P> setValue(Object value) {
 
+		this.isValueSet = true;
 		this.value = value;
 		return this;
 	}
 
-	public Object getValue() {
+	/**
+	 * Returns the value if it has been set or loads it recursively by the
+	 * values of its parents.
+	 * <p>
+	 * Note that after loading the value is marked as "set".
+	 *
+	 * @return the value
+	 */
+	public Object getOrLoadValue() {
 
-		if (value != null || parentColumns.isEmpty()) {
+		// TODO
+		Log.finfo(getTitle());
+
+		if (isValueSet) {
 			return value;
-		} else {
+		} else if (!parentColumns.isEmpty()) {
 			return loadValue();
+		} else {
+			throw new IllegalStateException("Neither the value has been set nor any parentColumns are available.");
 		}
 	}
 
 	private Object loadValue() {
 
 		ISqlSelect<R> select = null;
+		boolean allParentsValuesAreSet = true;
+		boolean allParentsValuesAreNull = true;
+
 		for (EmfImportColumn<R, ?> parentColumn: parentColumns) {
 			IDbField<R, Object> parentColumnField = CastUtils.cast(parentColumn.field);
 			if (select == null) {
 				select = parentColumnField.getTable().createSelect();
 			}
-			select = select.where(parentColumnField.isEqual(parentColumn.getValue()));
+
+			Object parentValue = parentColumn.getOrLoadValue();
+
+			// TODO
+			Log.finfo(parentColumn.getTitle() + " [" + parentColumn.isValueSet + "], value " + (parentColumn.value == null? "IS NULL" : "IS NOT NULL"));
+
+			if (!parentColumn.isValueSet) {
+				allParentsValuesAreSet = false;
+			}
+			if (parentColumn.value != null) {
+				allParentsValuesAreNull = false;
+			}
+			select = select.where(parentColumnField.isEqual(parentValue));
 		}
-		return loadSetAndGetValue(select);
+
+		// TODO
+		Log.finfo("allParentsValuesAreSet " + allParentsValuesAreSet);
+		Log.finfo("allParentsValuesAreNull " + allParentsValuesAreNull);
+
+		if (allParentsValuesAreSet && allParentsValuesAreNull) {
+			setValue(null);
+			return null;
+		} else {
+			return loadAndSetValue(select);
+		}
 	}
 
-	private Object loadSetAndGetValue(ISqlSelect<R> select) {
+	private Object loadAndSetValue(ISqlSelect<R> select) {
 
-		value = select.getOne();
+		// TODO
+		Log.finfo("EXECUTE loadSetAndGetValue()");
+
+		Object value = select.getOne();
 		if (value == null) {
 			throw new EmfImportColumnLoadException(this);
 		}
+		setValue(value);
 		return value;
 	}
 

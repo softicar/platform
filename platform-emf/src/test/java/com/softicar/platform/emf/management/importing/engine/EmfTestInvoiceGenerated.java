@@ -18,8 +18,8 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 //		BUILDER.setTitle(IDisplayString.create("Invoices"));
 //	}
 	public static final IDbIdField<EmfTestInvoice> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
-	public static final IDbForeignField<EmfTestInvoice, EmfTestInvoiceModuleInstance> INVOICE_MODULE_INSTANCE = BUILDER.addForeignField("invoiceModuleInstance", o->o.invoiceModuleInstance, (o,v)->o.invoiceModuleInstance=v, EmfTestInvoiceModuleInstance.ID);
-	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> PARTNER = BUILDER.addForeignField("partner", o->o.partner, (o,v)->o.partner=v, EmfTestBusinessPartner.ID);
+	public static final IDbForeignField<EmfTestInvoice, EmfTestInvoiceModuleInstance> INVOICE_MODULE_INSTANCE = BUILDER.addForeignField("invoiceModuleInstance", o->o.invoiceModuleInstance, (o,v)->o.invoiceModuleInstance=v, EmfTestInvoiceModuleInstance.ID).setNullable();
+	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> PARTNER = BUILDER.addForeignField("partner", o->o.partner, (o,v)->o.partner=v, EmfTestBusinessPartner.ID).setNullable();
 	public static final IDbIntegerField<EmfTestInvoice> NUMBER = BUILDER.addIntegerField("number", o -> o.number, (o, v) -> o.number = v);
 	public static final IDbDayField<EmfTestInvoice> DATE = BUILDER.addDayField("date", o -> o.date, (o, v) -> o.date = v).setNullable().setDefault(null);
 	public static final IDbKey<EmfTestInvoice> UK_INVOICE_MODULE_INSTANCE_PARTNER_NUMBER = BUILDER.addUniqueKey("invoiceModuleInstancePartnerNumber", INVOICE_MODULE_INSTANCE, PARTNER, NUMBER);

@@ -142,7 +142,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private <V> V loadTableColumnValueOrThrow(EmfImportColumn<R, P> tableColumn) {
 
 		try {
-			return CastUtils.cast(tableColumn.getValue());
+			return CastUtils.cast(tableColumn.getOrLoadValue());
 		} catch (EmfImportColumnLoadException exception) {
 			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
 				.setReason(buildReason(exception.getColumn()))
@@ -153,7 +153,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	private IDisplayString buildReason(EmfImportColumn<?, ?> column) {
 
 		IDisplayString columnTitle = column.getTitle();
-		List<Object> columnParentsValues = column.getParentColumns().stream().map(EmfImportColumn::getValue).collect(Collectors.toList());
+		List<Object> columnParentsValues = column.getParentColumns().stream().map(EmfImportColumn::getOrLoadValue).collect(Collectors.toList());
 		return EmfI18n.ARG1_CANNOT_BE_LOADED_BY_ARG2.toDisplay(columnTitle, Imploder.implode(columnParentsValues, ", "));
 	}
 }

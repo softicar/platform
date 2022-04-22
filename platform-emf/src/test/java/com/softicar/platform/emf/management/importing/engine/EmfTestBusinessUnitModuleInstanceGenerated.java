@@ -18,7 +18,7 @@ public class EmfTestBusinessUnitModuleInstanceGenerated extends AbstractDbObject
 //	}
 	public static final IDbIdField<EmfTestBusinessUnitModuleInstance> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestBusinessUnitModuleInstance, EmfTestObject> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, EmfTestObject.ID);
-	public static final IDbStringField<EmfTestBusinessUnitModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v);
+	public static final IDbStringField<EmfTestBusinessUnitModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable();
 	public static final IDbKey<EmfTestBusinessUnitModuleInstance> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final EmfTestBusinessUnitModuleInstanceTable TABLE = new EmfTestBusinessUnitModuleInstanceTable(BUILDER);
 	// @formatter:on

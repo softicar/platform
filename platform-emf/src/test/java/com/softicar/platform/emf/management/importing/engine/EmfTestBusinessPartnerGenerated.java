@@ -17,7 +17,7 @@ public class EmfTestBusinessPartnerGenerated extends AbstractDbObject<EmfTestBus
 //	}
 	public static final IDbIdField<EmfTestBusinessPartner> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestBusinessPartner, EmfTestBusinessUnitModuleInstance> BUSINESS_UNIT_MODULE_INSTANCE = BUILDER.addForeignField("businessUnitModuleInstance", o->o.businessUnitModuleInstance, (o,v)->o.businessUnitModuleInstance=v, EmfTestBusinessUnitModuleInstance.ID);
-	public static final IDbStringField<EmfTestBusinessPartner> VAT_ID = BUILDER.addStringField("vatId", o -> o.vatId, (o, v) -> o.vatId = v);
+	public static final IDbStringField<EmfTestBusinessPartner> VAT_ID = BUILDER.addStringField("vatId", o -> o.vatId, (o, v) -> o.vatId = v).setNullable();
 	public static final IDbStringField<EmfTestBusinessPartner> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable().setDefault(null);
 	public static final IDbKey<EmfTestBusinessPartner> UK_BUSINESS_UNIT_MODULE_INSTANCE_VAT_ID = BUILDER.addUniqueKey("name", BUSINESS_UNIT_MODULE_INSTANCE, VAT_ID);
 	public static final EmfTestBusinessPartnerTable TABLE = new EmfTestBusinessPartnerTable(BUILDER);
