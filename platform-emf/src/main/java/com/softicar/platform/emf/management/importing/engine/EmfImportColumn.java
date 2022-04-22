@@ -65,7 +65,7 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	 * Returns the value if it has been set or loads it recursively by the
 	 * values of its parents.
 	 * <p>
-	 * Note that after loading the value is marked as "set".
+	 * Note that after this method the value is marked as "set".
 	 *
 	 * @return the value
 	 */
@@ -86,7 +86,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	private Object loadValue() {
 
 		ISqlSelect<R> select = null;
-		boolean allParentsValuesAreSet = true;
 		boolean allParentsValuesAreNull = true;
 
 		for (EmfImportColumn<R, ?> parentColumn: parentColumns) {
@@ -98,11 +97,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 			Object parentValue = parentColumn.getOrLoadValue();
 
 			// TODO
-			Log.finfo(parentColumn.getTitle() + " [" + parentColumn.isValueSet + "], value " + (parentColumn.value == null? "IS NULL" : "IS NOT NULL"));
+			Log.finfo(parentColumn.getTitle() + ", value " + (parentColumn.value == null? "IS NULL" : "IS NOT NULL"));
 
-			if (!parentColumn.isValueSet) {
-				allParentsValuesAreSet = false;
-			}
 			if (parentColumn.value != null) {
 				allParentsValuesAreNull = false;
 			}
@@ -110,27 +106,26 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		}
 
 		// TODO
-		Log.finfo("allParentsValuesAreSet " + allParentsValuesAreSet);
 		Log.finfo("allParentsValuesAreNull " + allParentsValuesAreNull);
 
-		if (allParentsValuesAreSet && allParentsValuesAreNull) {
+		if (allParentsValuesAreNull) {
 			setValue(null);
 			return null;
 		} else {
-			return loadAndSetValue(select);
+			return loadValue(select);
 		}
 	}
 
-	private Object loadAndSetValue(ISqlSelect<R> select) {
+	private Object loadValue(ISqlSelect<R> select) {
 
 		// TODO
-		Log.finfo("EXECUTE loadSetAndGetValue()");
+		Log.finfo("EXECUTE SELECT");
 
 		Object value = select.getOne();
 		if (value == null) {
 			throw new EmfImportColumnLoadException(this);
 		}
-		setValue(value);
+//		setValue(value);
 		return value;
 	}
 
