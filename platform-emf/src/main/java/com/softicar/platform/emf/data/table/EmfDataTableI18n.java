@@ -34,10 +34,6 @@ public interface EmfDataTableI18n {
 		.de("enthält Text");
 	I18n0 CONTAINS_WORDS = new I18n0("contains words")//
 		.de("enthält Wörter");
-	I18n0 DATA_SOURCE_INFORMATION = new I18n0("Data Source Information")//
-		.de("Datenquellen-Informationen");
-	I18n0 DETAILED_INFORMATION = new I18n0("Detailed information:")//
-		.de("Detaillierte Informationen:");
 	I18n0 EQUALS_TEXT = new I18n0("equals text")//
 		.de("entspricht Text");
 	I18n0 FILTER = new I18n0("Filter")//
@@ -82,22 +78,12 @@ public interface EmfDataTableI18n {
 		.de("Zeilen pro Seite");
 	I18n0 SELECTION = new I18n0("Selection")//
 		.de("Auswahl");
-	I18n0 SHOW_DATA_SOURCE_INFORMATION = new I18n0("Show data source information.")//
-		.de("Datenquellen-Informationen anzeigen.");
 	I18n1 SORT_VALUES_OF_COLUMN_ARG1_IN_ASCENDING_ORDER = new I18n1("Sort values of column '%s' in ascending order.")//
 		.de("Sortiere Werte in Spalte '%s' in aufsteigender Reihenfolge.");
 	I18n1 SORT_VALUES_OF_COLUMN_ARG1_IN_DESCENDING_ORDER = new I18n1("Sort values of column '%s' in descending order.")//
 		.de("Sortiere Werte in Spalte '%s' in absteigender Reihenfolge.");
-	I18n0 SUPER_USER_ONLY = new I18n0("Super User Only")//
-		.de("Nur Super-User");
 	I18n0 TABLE_CONFIGURATION = new I18n0("Table Configuration")//
 		.de("Tabellen-Konfiguration");
-	I18n1 TABLE_PAGE_CREATED_IN_ARG1_MS = new I18n1("Table page created in %s ms.")//
-		.de("Tabellenseite erstellt in %s ms.");
-	I18n0 THIS_TABLE_IS_BASED_UPON = new I18n0("This table is based upon:")//
-		.de("Diese Tabelle basiert auf:");
-	I18n0 TIMING = new I18n0("Timing:")//
-		.de("Zeitfenster:");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
 }
