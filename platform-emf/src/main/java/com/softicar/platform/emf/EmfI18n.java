@@ -44,6 +44,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Übernehmen");
 	I18n0 ARE_YOU_SURE_QUESTION = new I18n0("Are you sure?")//
 		.de("Sind Sie sicher?");
+	I18n2 ARG1_CANNOT_BE_LOADED_BY_ARG2 = new I18n2("%s cannot be loaded by %s.")//
+		.de("%s kann nicht durch %s geladen werden.");
 	I18n1 ARG1_DOES_NOT_APPLY = new I18n1("'%s' does not apply")//
 		.de("'%s' trifft nicht zu");
 	I18n2 ARG1_IS_NOT_OF_TYPE_ARG2 = new I18n2("'%s' is not of type '%s'")//

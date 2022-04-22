@@ -1,9 +1,12 @@
 package com.softicar.platform.emf.token.parser;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumnLoadException;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsCollector;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -12,6 +15,7 @@ import com.softicar.platform.emf.token.parser.converter.EmfTokenConverters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Creates an {@link IEmfTableRow} from a matrix of {@link String} based tokens.
@@ -104,7 +108,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	}
 
 	private void assertColumnCount(List<?> fields, List<?> tokens) {
-	
+
 		if (fields.size() != tokens.size()) {
 			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
 				.setReason(EmfI18n.EXPECTED_ARG1_COLUMNS_BUT_ENCOUNTERED_ARG2.toDisplay(fields.size(), tokens.size()))
@@ -127,11 +131,29 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	}
 
 	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
-	
+
 		R row = collector.getTable().getRowFactory().get();
 		for (EmfImportColumn<R, P> tableColumn: tableColumns) {
-			tableColumn.getField().setValue(row, CastUtils.cast(tableColumn.getValue()));
+			tableColumn.getField().setValue(row, loadTableColumnValueOrThrow(tableColumn));
 		}
 		return row;
+	}
+
+	private <V> V loadTableColumnValueOrThrow(EmfImportColumn<R, P> tableColumn) {
+
+		try {
+			return CastUtils.cast(tableColumn.getValue());
+		} catch (EmfImportColumnLoadException exception) {
+			throw new EmfTokenMatrixParserExceptionBuilder(currentRowIndex, currentRow)//
+				.setReason(buildReason(exception.getColumn()))
+				.build();
+		}
+	}
+
+	private IDisplayString buildReason(EmfImportColumn<?, ?> column) {
+
+		IDisplayString columnTitle = column.getTitle();
+		List<Object> columnParentsValues = column.getParentColumns().stream().map(EmfImportColumn::getValue).collect(Collectors.toList());
+		return EmfI18n.ARG1_CANNOT_BE_LOADED_BY_ARG2.toDisplay(columnTitle, Imploder.implode(columnParentsValues, ", "));
 	}
 }

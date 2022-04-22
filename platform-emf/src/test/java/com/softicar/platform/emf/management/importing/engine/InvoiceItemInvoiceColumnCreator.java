@@ -8,6 +8,7 @@ class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 
 	private final EmfImportColumn<R, ?> invoiceItemInvoiceColumn;
 	private final EmfImportColumn<R, ?> invoiceModuleInstanceNameColumn;
+	private final EmfImportColumn<R, ?> invoicePartnerColumn;
 	private final EmfImportColumn<R, ?> businessUnitModuleInstanceNameColumn;
 	private final EmfImportColumn<R, ?> businessPartnerVatIdColumn;
 	private final EmfImportColumn<R, ?> invoiceNumberColumn;
@@ -22,7 +23,7 @@ class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 		invoiceModuleInstanceNameColumn = createEmfImportColumn(EmfTestInvoiceModuleInstance.NAME);
 		invoiceInvoiceModuleInstanceColumn.addParentColumn(invoiceModuleInstanceNameColumn);
 
-		EmfImportColumn<R, ?> invoicePartnerColumn = createEmfImportColumn(EmfTestInvoice.PARTNER);
+		invoicePartnerColumn = createEmfImportColumn(EmfTestInvoice.PARTNER);
 		invoiceItemInvoiceColumn.addParentColumn(invoicePartnerColumn);
 
 		EmfImportColumn<R, ?> businessPartnerBusinessUnitModuleInstanceColumn = createEmfImportColumn(EmfTestBusinessPartner.BUSINESS_UNIT_MODULE_INSTANCE);
@@ -70,5 +71,10 @@ class InvoiceItemInvoiceColumnCreator<R extends IEmfTableRow<R, P>, P> {
 	public <T> T getInvoiceItemInvoiceColumn() {
 
 		return CastUtils.cast(invoiceItemInvoiceColumn);
+	}
+
+	public EmfImportColumn<R, ?> getInvoicePartnerColumn() {
+
+		return invoicePartnerColumn;
 	}
 }

@@ -2,7 +2,6 @@ package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.date.Day;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -76,8 +75,48 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 		assertSame(invoiceModuleInstance, invoiceInvoiceModuleInstanceColumn.getValue());
 	}
 
+	private static <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
+
+		return CastUtils.cast(new EmfImportColumn<>(field));
+	}
+
 	@Test
 	public void testGetValueWithComplexTableStructure() {
+
+		EmfTestInvoice invoice = insertInvoice();
+
+		EmfImportColumn<R, ?> invoiceItemInvoiceColumn = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
+			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
+			.setBusinessPartnerVatIdColumnValue("vatId")
+			.setInvoiceNumberColumnValue("12345")
+			.getInvoiceItemInvoiceColumn();
+
+		assertSame(invoice, invoiceItemInvoiceColumn.getValue());
+	}
+
+	@Test
+	public void testGetValueWithWrongValue() {
+
+		insertInvoice();
+
+		var invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
+			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
+			.setBusinessPartnerVatIdColumnValue("WRONG vatId")
+			.setInvoiceNumberColumnValue("12345");
+
+		EmfImportColumn<R, ?> invoiceItemInvoiceColumn = invoiceItemInvoiceColumnCreator.getInvoiceItemInvoiceColumn();
+
+		assertException(EmfImportColumnLoadException.class, () -> invoiceItemInvoiceColumn.getValue());
+		try {
+			invoiceItemInvoiceColumn.getValue();
+		} catch (EmfImportColumnLoadException exception) {
+			assertEquals(invoiceItemInvoiceColumnCreator.getInvoicePartnerColumn(), exception.getColumn());
+		}
+	}
+
+	private EmfTestInvoice insertInvoice() {
 
 		EmfTestObject moduleInstance = new EmfTestObject().save();
 
@@ -96,26 +135,10 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 			.setVatId("vatId")
 			.save();
 
-		EmfTestInvoice invoice = new EmfTestInvoice()//
+		return new EmfTestInvoice()//
 			.setInvoiceModuleInstance(invoiceModuleInstance)
 			.setPartner(businessPartner)
 			.setNumber(12345)
-			.setDate(Day.today())
 			.save();
-
-		EmfImportColumn<R, ?> invoiceItemInvoiceColumn = new InvoiceItemInvoiceColumnCreator<>()//
-			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
-			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
-			.setBusinessPartnerVatIdColumnValue("vatId")
-			.setInvoiceNumberColumnValue("12345")
-			.getInvoiceItemInvoiceColumn();
-
-		assertSame(invoice, invoiceItemInvoiceColumn.getValue());
 	}
-
-	private static <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
-
-		return CastUtils.cast(new EmfImportColumn<>(field));
-	}
-
 }
