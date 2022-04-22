@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -71,9 +70,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	 */
 	public Object getOrLoadValue() {
 
-		// TODO
-		Log.finfo(getTitle());
-
 		if (isValueSet) {
 			return value;
 		} else if (!parentColumns.isEmpty()) {
@@ -93,20 +89,12 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 			if (select == null) {
 				select = parentColumnField.getTable().createSelect();
 			}
-
 			Object parentValue = parentColumn.getOrLoadValue();
-
-			// TODO
-			Log.finfo(parentColumn.getTitle() + ", value " + (parentColumn.value == null? "IS NULL" : "IS NOT NULL"));
-
-			if (parentColumn.value != null) {
+			if (parentValue != null) {
 				allParentsValuesAreNull = false;
 			}
 			select = select.where(parentColumnField.isEqual(parentValue));
 		}
-
-		// TODO
-		Log.finfo("allParentsValuesAreNull " + allParentsValuesAreNull);
 
 		if (allParentsValuesAreNull) {
 			setValue(null);
@@ -118,15 +106,12 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	private Object loadValue(ISqlSelect<R> select) {
 
-		// TODO
-		Log.finfo("EXECUTE SELECT");
-
 		Object value = select.getOne();
 		if (value == null) {
 			throw new EmfImportColumnLoadException(this);
+		} else {
+			return value;
 		}
-//		setValue(value);
-		return value;
 	}
 
 	@Override
