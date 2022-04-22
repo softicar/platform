@@ -14,7 +14,6 @@ public interface CoreImages {
 	IResourceSupplier EMAIL_ATTACHMENT = FACTORY.create("email-attachment.svg");
 	IResourceSupplier EMAIL_BUFFER = FACTORY.create("email-buffer.svg");
 	IResourceSupplier EMAIL_SERVER = FACTORY.create("email-server.svg");
-	IResourceSupplier EVENT_HISTORY = FACTORY.create("event-history.svg");
 	IResourceSupplier EVENT_LEVEL_PANIC = FACTORY.create("event-level-panic.svg");
 	IResourceSupplier EVENT_LEVEL_PANIC_RECEIVERS = FACTORY.create("event-level-panic-receivers.svg");
 	IResourceSupplier EXCEPTION = FACTORY.create("exception.svg");

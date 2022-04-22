@@ -42,7 +42,6 @@ public interface DomElementsImages {
 	IResourceSupplier POPUP_TITLE_BAR_CLOSE = FACTORY.create("popup-title-bar-close.svg");
 	IResourceSupplier TABLE_COLUMN_SELECTION = FACTORY.create("table-column-selection.svg");
 	IResourceSupplier TABLE_EXPORT = FACTORY.create("table-export.svg");
-	IResourceSupplier TABLE_PAGE_GO_TO = FACTORY.create("table-page-go-to.svg");
 	IResourceSupplier TABLE_ROW_SELECTION_INVERT_CURRENT_PAGE = FACTORY.create("table-row-selection-invert-current-page.svg");
 	IResourceSupplier TABLE_ROW_SELECTION_SELECT_CURRENT_PAGE = FACTORY.create("table-row-selection-select-current-page.svg");
 	IResourceSupplier TABLE_ROW_SELECTION_UNSELECT_ALL_PAGES = FACTORY.create("table-row-selection-unselect-all-pages.svg");
