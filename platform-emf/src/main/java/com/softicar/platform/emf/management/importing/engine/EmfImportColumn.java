@@ -63,8 +63,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	/**
 	 * Returns the value if it has been set or loads it recursively by the
 	 * values of its parents.
-	 * <p>
-	 * Note that after this method the value is marked as "set".
 	 *
 	 * @return the value
 	 */
