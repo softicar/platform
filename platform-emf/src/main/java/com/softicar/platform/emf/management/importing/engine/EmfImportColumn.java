@@ -97,7 +97,6 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		}
 
 		if (allParentsValuesAreNull) {
-			setValue(null);
 			return null;
 		} else {
 			return loadValue(select);
