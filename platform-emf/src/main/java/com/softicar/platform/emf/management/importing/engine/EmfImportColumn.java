@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -57,11 +56,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	public EmfImportColumn<R, P> setValue(Object value) {
 
-		if (this.value.isEmpty()) {
-			this.value.push(value);
-		} else {
-			throw new IllegalStateException("The value has already been set.");
-		}
+		this.value.clear();
+		this.value.push(value);
 		return this;
 	}
 
@@ -73,14 +69,12 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	 */
 	public Object getOrLoadValue() {
 
-		Log.finfo(getTitle() + " " + value);
-
 		if (!value.isEmpty()) {
-			return value.pop();
+			return value.peek();
 		} else if (!parentColumns.isEmpty()) {
 			return loadValue();
 		} else {
-			throw new IllegalStateException("'" + getTitle() + "': Neither the value has been set nor any parentColumns are available.");
+			throw new IllegalStateException("'" + getTitle() + "': The value has neither been set nor any parentColumns to load the value are available.");
 		}
 	}
 
