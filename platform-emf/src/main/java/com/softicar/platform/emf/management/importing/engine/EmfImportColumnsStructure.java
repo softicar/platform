@@ -26,7 +26,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 		this(table, new ArrayList<>(table.getAllFields()));
 	}
 
-	private void collect() {
+	private void collectAllColumns() {
 
 		csvFileColumns = new ArrayList<>();
 		for (EmfImportColumn<R, P> tableColumn: collectTableColumns()) {
@@ -68,7 +68,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	public List<EmfImportColumn<R, ?>> getCsvFileColumns() {
 
 		if (csvFileColumns == null) {
-			collect();
+			collectAllColumns();
 		}
 		return csvFileColumns;
 	}
@@ -76,7 +76,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	public List<EmfImportColumn<R, P>> getTableColumns() {
 
 		if (tableColumns == null) {
-			collect();
+			collectAllColumns();
 		}
 		return tableColumns;
 	}
