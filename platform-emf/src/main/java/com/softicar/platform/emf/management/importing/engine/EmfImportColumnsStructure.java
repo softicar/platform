@@ -8,20 +8,20 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
+public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final IEmfTable<R, P, S> table;
 	private final List<IDbField<R, ?>> fieldsToImport;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
 	private List<EmfImportColumn<R, P>> tableColumns;
 
-	public EmfImportColumnsCollector(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
+	public EmfImportColumnsStructure(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
 
 		this.table = table;
 		this.fieldsToImport = fieldsToImport;
 	}
 
-	public EmfImportColumnsCollector(IEmfTable<R, P, S> table) {
+	public EmfImportColumnsStructure(IEmfTable<R, P, S> table) {
 
 		this(table, new ArrayList<>(table.getAllFields()));
 	}
@@ -65,7 +65,7 @@ public class EmfImportColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		}
 	}
 
-	public List<EmfImportColumn<R, ?>> getCsvFileColumnsToImport() {
+	public List<EmfImportColumn<R, ?>> getCsvFileColumns() {
 
 		if (csvFileColumns == null) {
 			collect();

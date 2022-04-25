@@ -7,7 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumnLoadException;
-import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsCollector;
+import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsStructure;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.token.parser.converter.EmfTokenConverterResult;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final EmfTokenConverters converters;
-	private EmfImportColumnsCollector<R, P, ?> collector;
+	private EmfImportColumnsStructure<R, P, ?> columnsStructure;
 	private Integer currentRowIndex;
 	private List<String> currentRow;
 
@@ -38,7 +38,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 	public EmfTokenMatrixParser(IEmfTable<R, P, S> table) {
 
 		this.converters = new EmfTokenConverters();
-		this.collector = new EmfImportColumnsCollector<>(table);
+		this.columnsStructure = new EmfImportColumnsStructure<>(table);
 		this.currentRowIndex = null;
 		this.currentRow = null;
 	}
@@ -59,9 +59,9 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 //		return this;
 //	}
 
-	public EmfTokenMatrixParser<R, P, S> setColumnsCollector(EmfImportColumnsCollector<R, P, ?> collector) {
+	public EmfTokenMatrixParser<R, P, S> setColumnsCollector(EmfImportColumnsStructure<R, P, ?> columnsStructure) {
 
-		this.collector = collector;
+		this.columnsStructure = columnsStructure;
 		return this;
 	}
 
@@ -82,8 +82,8 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 		Objects.requireNonNull(tokenMatrix);
 
-		List<EmfImportColumn<R, ?>> csvFileColumns = collector.getCsvFileColumnsToImport();
-		List<EmfImportColumn<R, P>> tableColumns = collector.getTableColumns();
+		List<EmfImportColumn<R, ?>> csvFileColumns = columnsStructure.getCsvFileColumns();
+		List<EmfImportColumn<R, P>> tableColumns = columnsStructure.getTableColumns();
 
 		List<R> rows = new ArrayList<>();
 
@@ -132,7 +132,7 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 
 	private R createRow(List<EmfImportColumn<R, P>> tableColumns) {
 
-		R row = collector.getTable().getRowFactory().get();
+		R row = columnsStructure.getTable().getRowFactory().get();
 		for (EmfImportColumn<R, P> tableColumn: tableColumns) {
 			tableColumn.getField().setValue(row, loadTableColumnValueOrThrow(tableColumn));
 		}

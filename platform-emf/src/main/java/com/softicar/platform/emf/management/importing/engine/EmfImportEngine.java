@@ -25,13 +25,13 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 	private List<List<String>> textualRowsWithReplacements;
 	private SetMap<String, EmfImportVariableCoordinates> variableCoordinates;
 	private List<R> parsedRows;
-	private final EmfImportColumnsCollector<R, P, S> columnsCollector;
+	private final EmfImportColumnsStructure<R, P, S> columnsStructure;
 
 	public EmfImportEngine(IEmfTable<R, P, S> table, S scope) {
 
 		this.table = Objects.requireNonNull(table);
 		this.scope = Optional.of(scope);
-		this.columnsCollector = new EmfImportColumnsCollector<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
+		this.columnsStructure = new EmfImportColumnsStructure<>(table, new EmfImportFieldsToImportCollector<>(table).collect());
 	}
 
 	public void addCsvRows(String csv) {
@@ -53,7 +53,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public void parseRows() {
 
-		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(columnsCollector).parse(textualRowsWithReplacements);
+		parsedRows = new EmfTokenMatrixParser<>(table).setColumnsCollector(columnsStructure).parse(textualRowsWithReplacements);
 		scope.ifPresent(this::setScopeValues);
 	}
 
@@ -93,7 +93,7 @@ public class EmfImportEngine<R extends IEmfTableRow<R, P>, P, S> {
 
 	public List<EmfImportColumn<R, ?>> getCsvFileColumnsToImport() {
 
-		return columnsCollector.getCsvFileColumnsToImport();
+		return columnsStructure.getCsvFileColumns();
 	}
 
 	public List<? extends IDbField<R, ?>> getAllTableFields() {

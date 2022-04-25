@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> extends AbstractDbTest {
+public class EmfImportColumnsStructureTest<R extends IEmfTableRow<R, P>, P> extends AbstractDbTest {
 
 	@Test
 	public void testGetTableColumns() {
@@ -21,7 +21,7 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.DESCRIPTION));
 		expectedTableColumns.add(new EmfImportColumn<>(EmfTestInvoiceItem.QUANTITY));
 
-		assertEquals(expectedTableColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTableColumns());
+		assertEquals(expectedTableColumns, new EmfImportColumnsStructure<>(EmfTestInvoiceItem.TABLE).getTableColumns());
 	}
 
 	@Test
@@ -37,11 +37,11 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		fieldsToImport.add(EmfTestInvoiceItem.QUANTITY);
 		fieldsToImport.add(EmfTestInvoiceItem.INVOICE);
 
-		assertEquals(expectedTableColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getTableColumns());
+		assertEquals(expectedTableColumns, new EmfImportColumnsStructure<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getTableColumns());
 	}
 
 	@Test
-	public void testGetCsvFileColumnsToImport() {
+	public void testGetCsvFileColumns() {
 
 		List<EmfImportColumn<R, ?>> expectedColumns = new ArrayList<>();
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.ID));
@@ -53,11 +53,11 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.DESCRIPTION));
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.QUANTITY));
 
-		assertEquals(expectedColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getCsvFileColumnsToImport());
+		assertEquals(expectedColumns, new EmfImportColumnsStructure<>(EmfTestInvoiceItem.TABLE).getCsvFileColumns());
 	}
 
 	@Test
-	public void testGetCsvFileColumnsToImportWithFieldSubSet() {
+	public void testGetCsvFileColumnsWithFieldSubSet() {
 
 		List<EmfImportColumn<R, ?>> expectedColumns = new ArrayList<>();
 		expectedColumns.add(createEmfImportColumn(EmfTestInvoiceItem.ID));
@@ -71,7 +71,7 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 		fieldsToImport.add(EmfTestInvoiceItem.DESCRIPTION);
 		fieldsToImport.add(EmfTestInvoiceItem.QUANTITY);
 
-		assertEquals(expectedColumns, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getCsvFileColumnsToImport());
+		assertEquals(expectedColumns, new EmfImportColumnsStructure<>(EmfTestInvoiceItem.TABLE, fieldsToImport).getCsvFileColumns());
 	}
 
 	private static <T, R extends IEmfTableRow<R, P>, P> T createEmfImportColumn(IDbField<R, ?> field) {
@@ -82,6 +82,6 @@ public class EmfImportColumnsCollectorTest<R extends IEmfTableRow<R, P>, P> exte
 	@Test
 	public void testGetTable() {
 
-		assertSame(EmfTestInvoiceItem.TABLE, new EmfImportColumnsCollector<>(EmfTestInvoiceItem.TABLE).getTable());
+		assertSame(EmfTestInvoiceItem.TABLE, new EmfImportColumnsStructure<>(EmfTestInvoiceItem.TABLE).getTable());
 	}
 }
