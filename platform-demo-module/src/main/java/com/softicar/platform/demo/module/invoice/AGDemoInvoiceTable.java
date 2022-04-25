@@ -21,8 +21,6 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 		configuration.setScopeField(AGDemoInvoice.MODULE_INSTANCE);
 		configuration.addValidator(DemoInvoiceValidator::new);
 		configuration.setFormFactory(DemoInvoiceForm::new);
-
-		configuration.setBusinessKey(AGDemoInvoice.UK_MODULE_INSTANCE_INVOICE_NUMBER);
 	}
 
 	@Override
