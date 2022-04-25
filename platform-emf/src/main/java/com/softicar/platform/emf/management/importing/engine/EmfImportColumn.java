@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.management.importing.engine;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -8,19 +9,20 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	private final IDbField<R, ?> field;
 	private final List<EmfImportColumn<R, ?>> parentColumns;
+	private final Stack<Object> value;
 	private EmfImportColumn<R, ?> childColumn;
-	private boolean isValueSet;
-	private Object value;
 
 	public EmfImportColumn(IDbField<R, ?> field) {
 
 		this.field = field;
 		this.parentColumns = new ArrayList<>();
+		this.value = new Stack<>();
 	}
 
 	public void addParentColumn(EmfImportColumn<R, ?> parentColumn) {
@@ -55,8 +57,11 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	public EmfImportColumn<R, P> setValue(Object value) {
 
-		this.isValueSet = true;
-		this.value = value;
+		if (this.value.isEmpty()) {
+			this.value.push(value);
+		} else {
+			throw new IllegalStateException("The value has already been set.");
+		}
 		return this;
 	}
 
@@ -68,12 +73,14 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 	 */
 	public Object getOrLoadValue() {
 
-		if (isValueSet) {
-			return value;
+		Log.finfo(getTitle() + " " + value);
+
+		if (!value.isEmpty()) {
+			return value.pop();
 		} else if (!parentColumns.isEmpty()) {
 			return loadValue();
 		} else {
-			throw new IllegalStateException("Neither the value has been set nor any parentColumns are available.");
+			throw new IllegalStateException("'" + getTitle() + "': Neither the value has been set nor any parentColumns are available.");
 		}
 	}
 
