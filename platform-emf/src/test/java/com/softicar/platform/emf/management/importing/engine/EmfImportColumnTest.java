@@ -129,7 +129,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 
 		insertInvoice();
 
-		invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+		invoiceItemInvoiceColumnCreator//
 			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
 			.setBusinessUnitModuleInstanceNameColumnValue("businessUnitModuleInstance")
 			.setBusinessPartnerVatIdColumnValue("vatId")
@@ -151,7 +151,7 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 
 		insertInvoice();
 
-		invoiceItemInvoiceColumnCreator = new InvoiceItemInvoiceColumnCreator<>()//
+		invoiceItemInvoiceColumnCreator//
 			.setInvoiceModuleInstanceNameColumnValue("invoiceModuleInstance")
 			.setBusinessUnitModuleInstanceNameColumnValue(null)
 			.setBusinessPartnerVatIdColumnValue("vatId")
