@@ -5,7 +5,7 @@ import com.softicar.platform.common.container.iterable.CastingIterable;
 import com.softicar.platform.common.container.iterable.MappingIterable;
 import com.softicar.platform.common.container.iterable.concat.ConcatIterable;
 import com.softicar.platform.common.string.Imploder;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
@@ -22,27 +22,27 @@ import java.util.stream.Collectors;
 
 public class DomNodeIterable<N extends IDomNode> implements IDomNodeIterable<N> {
 
-	private final IDomTestEngine engine;
+	private final IDomTestExecutionEngine engine;
 	private final Iterable<N> iterable;
 
-	public DomNodeIterable(IDomTestEngine engine, Iterable<N> iterable) {
+	public DomNodeIterable(IDomTestExecutionEngine engine, Iterable<N> iterable) {
 
 		this.engine = engine;
 		this.iterable = iterable;
 	}
 
-	public static DomNodeIterable<IDomNode> createWithRoot(IDomTestEngine engine, IDomNode root) {
+	public static DomNodeIterable<IDomNode> createWithRoot(IDomTestExecutionEngine engine, IDomNode root) {
 
 		return new DomNodeIterable<>(engine, new ConcatIterable<>(Collections.singletonList(root), new DomNodeRecursiveIterable(root)));
 	}
 
-	public static DomNodeIterable<IDomNode> createWithoutRoot(IDomTestEngine engine, IDomNode root) {
+	public static DomNodeIterable<IDomNode> createWithoutRoot(IDomTestExecutionEngine engine, IDomNode root) {
 
 		return new DomNodeIterable<>(engine, new DomNodeRecursiveIterable(root));
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

@@ -3,15 +3,15 @@ package com.softicar.platform.dom.input;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import java.util.function.Supplier;
 import org.junit.Rule;
 
-public abstract class AbstractDomValueInputTest<V> extends AbstractTest implements IDomTestEngineMethods {
+public abstract class AbstractDomValueInputTest<V> extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 	protected final IDomValueInput<V> input;
 
 	public AbstractDomValueInputTest(Supplier<IDomValueInput<V>> inputFactory) {
@@ -22,7 +22,7 @@ public abstract class AbstractDomValueInputTest<V> extends AbstractTest implemen
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

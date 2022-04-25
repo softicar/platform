@@ -8,11 +8,11 @@ import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
 
 /**
- * Provides methods which are commonly used by {@link IDomTestEngine} based UI
+ * Provides methods which are commonly used by {@link IDomTestExecutionEngine} based UI
  * test classes.
  * <p>
  * A test class may implement this interface, to provide convenient access to
- * the functionality of an {@link IDomTestEngine}:
+ * the functionality of an {@link IDomTestExecutionEngine}:
  *
  * <pre>
  * public class MyTest extends Assert implements IDomTestEngineMethods {
@@ -48,14 +48,14 @@ import java.util.function.Supplier;
  *
  * @author Alexander Schmidt
  */
-public interface IDomTestEngineMethods extends IDomNodeTesterFindMethods {
+public interface IDomTestExecutionEngineMethods extends IDomNodeTesterFindMethods {
 
 	/**
 	 * A default implementation that returns the {@link DomBody} of the
-	 * {@link IDomTestEngine} as the reference node to use when searching for
+	 * {@link IDomTestExecutionEngine} as the reference node to use when searching for
 	 * children with other methods.
 	 *
-	 * @return the {@link DomBody} of the {@link IDomTestEngine} (never
+	 * @return the {@link DomBody} of the {@link IDomTestExecutionEngine} (never
 	 *         <i>null</i>)
 	 */
 	@Override

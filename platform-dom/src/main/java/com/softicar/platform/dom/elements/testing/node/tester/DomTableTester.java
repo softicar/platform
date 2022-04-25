@@ -7,13 +7,13 @@ import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTBody;
 import com.softicar.platform.dom.elements.DomTHead;
 import com.softicar.platform.dom.elements.DomTable;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import java.util.stream.Collectors;
 
 public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 
-	public DomTableTester(IDomTestEngine engine, DomTable node) {
+	public DomTableTester(IDomTestExecutionEngine engine, DomTable node) {
 
 		super(engine, node);
 	}

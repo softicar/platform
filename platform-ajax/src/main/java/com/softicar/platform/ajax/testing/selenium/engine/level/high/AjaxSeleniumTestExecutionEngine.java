@@ -2,9 +2,9 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.high;
 
 import com.softicar.platform.ajax.testing.selenium.engine.common.AbstractAjaxSeleniumTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineLazySetup;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineLazySetup;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 /**
- * An {@link IDomTestEngine} based upon the Selenium framework. Allows for the
+ * An {@link IDomTestExecutionEngine} based upon the Selenium framework. Allows for the
  * definition and execution of high-level UI tests which mimic the interactions
  * and observations of a human user.
  * <p>
@@ -35,7 +35,7 @@ import org.openqa.selenium.interactions.Actions;
  * The engine extends {@link TestRule}, so that it can be added to a test class
  * as a JUnit4 {@link Rule}.
  * <p>
- * {@link DomDocumentTestEngine} and {@link AjaxSeleniumTestEngine} have
+ * {@link DomDocumentTestExecutionEngine} and {@link AjaxSeleniumTestExecutionEngine} have
  * individual advantages and disadvantages, when compared with one another:
  *
  * <pre>
@@ -60,13 +60,13 @@ import org.openqa.selenium.interactions.Actions;
  * internal test engine instead.
  *
  * @author Alexander Schmidt
- * @see DomDocumentTestEngine
+ * @see DomDocumentTestExecutionEngine
  */
-public class AjaxSeleniumTestEngine extends AbstractAjaxSeleniumTestEngine implements IDomTestEngine {
+public class AjaxSeleniumTestExecutionEngine extends AbstractAjaxSeleniumTestEngine implements IDomTestExecutionEngine {
 
-	private final IDomTestEngineLazySetup setup;
+	private final IDomTestExecutionEngineLazySetup setup;
 
-	public AjaxSeleniumTestEngine() {
+	public AjaxSeleniumTestExecutionEngine() {
 
 		this.setup = AjaxSeleniumTestEngineLazySetup.createAndRegister(testEnvironment::openTestNode);
 	}

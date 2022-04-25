@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.input.AbstractDomValueInputTest;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import java.math.BigDecimal;
@@ -22,7 +22,7 @@ public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

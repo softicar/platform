@@ -2,7 +2,7 @@ package com.softicar.platform.emf.test;
 
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEventHandler;
@@ -13,12 +13,12 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 public class EmfNodeTester extends DomNodeTester {
 
-	public EmfNodeTester(IDomTestEngine engine, IDomNode node) {
+	public EmfNodeTester(IDomTestExecutionEngine engine, IDomNode node) {
 
 		super(engine, node);
 	}
 
-	public EmfNodeTester(IDomTestEngine engine, DomNodeTester tester) {
+	public EmfNodeTester(IDomTestExecutionEngine engine, DomNodeTester tester) {
 
 		super(engine, tester.getNode());
 	}

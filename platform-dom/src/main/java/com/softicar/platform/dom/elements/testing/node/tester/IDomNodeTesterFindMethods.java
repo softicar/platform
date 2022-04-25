@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -30,11 +30,11 @@ public interface IDomNodeTesterFindMethods {
 	// ------------------------------ basic methods ------------------------------ //
 
 	/**
-	 * Returns the currently employed {@link IDomTestEngine} instance.
+	 * Returns the currently employed {@link IDomTestExecutionEngine} instance.
 	 *
-	 * @return the {@link IDomTestEngine} instance (never <i>null</i>)
+	 * @return the {@link IDomTestExecutionEngine} instance (never <i>null</i>)
 	 */
-	IDomTestEngine getEngine();
+	IDomTestExecutionEngine getEngine();
 
 	/**
 	 * Returns the reference {@link IDomNode} which is used as root when
@@ -163,7 +163,7 @@ public interface IDomNodeTesterFindMethods {
 	// ------------------------------ find methods for special nodes ------------------------------ //
 
 	/**
-	 * Retrieves the {@link DomBody} node from the {@link IDomTestEngine}, and
+	 * Retrieves the {@link DomBody} node from the {@link IDomTestExecutionEngine}, and
 	 * returns it as a {@link DomNodeTester}.
 	 *
 	 * @return a {@link DomNodeTester} of the {@link DomBody} node (never

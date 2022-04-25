@@ -9,18 +9,18 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 /**
- * Common interface of UI test engines.
+ * Common engine interface to execute UI test.
  * <p>
  * Extends {@link TestRule}, so that it can be used as a JUnit4 {@link Rule} in
  * a test class:
  *
  * <pre>
- * &#64;Rule public IDomTestEngine engine = ...
+ * &#64;Rule public IDomTestExecutionEngine engine = ...
  * </pre>
  *
  * @author Alexander Schmidt
  */
-public interface IDomTestEngine extends TestRule {
+public interface IDomTestExecutionEngine extends TestRule {
 
 	/**
 	 * Specifies a {@link Supplier} that provides the node-under-test.

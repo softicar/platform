@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Common interface of {@link IDomTestEngine} helper classes which set up an
+ * Common interface of {@link IDomTestExecutionEngine} helper classes which set up an
  * {@link IDomNode} under test, on demand.
  * <p>
  * The {@link IDomNode} under test is retrieved from a {@link Supplier} (as
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  *
  * @author Alexander Schmidt
  */
-public interface IDomTestEngineLazySetup {
+public interface IDomTestExecutionEngineLazySetup {
 
 	/**
 	 * Returns a {@link DomBody} to which the supplied {@link IDomNode} is

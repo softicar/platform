@@ -6,7 +6,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.tab.DomTab;
 import com.softicar.platform.dom.elements.tab.DomTabBar;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.EmfMarker;
@@ -22,7 +22,7 @@ import com.softicar.platform.emf.management.EmfManagementMarker;
 
 public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
-	public EmfFormPopupTester(IDomTestEngine engine, EmfFormPopup<?> node) {
+	public EmfFormPopupTester(IDomTestExecutionEngine engine, EmfFormPopup<?> node) {
 
 		super(engine, node);
 	}

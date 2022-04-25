@@ -14,7 +14,7 @@ public class DomDocument extends AbstractDomDocument {
 
 	public DomDocument() {
 
-		this(DomNullEngine.get());
+		this(new DomNullEngine());
 	}
 
 	public DomDocument(IDomEngine engine) {

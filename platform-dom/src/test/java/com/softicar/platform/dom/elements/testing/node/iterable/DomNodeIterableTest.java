@@ -8,7 +8,7 @@ import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomFieldset;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.stream.Collectors;
@@ -39,9 +39,9 @@ public class DomNodeIterableTest extends AbstractTest {
 		assertEquals("Some Button|Some Fieldset", text);
 	}
 
-	private IDomTestEngine createDummyEngine() {
+	private IDomTestExecutionEngine createDummyEngine() {
 
-		return Mockito.mock(IDomTestEngine.class);
+		return Mockito.mock(IDomTestExecutionEngine.class);
 	}
 
 	private DomDiv createSampleDiv() {
