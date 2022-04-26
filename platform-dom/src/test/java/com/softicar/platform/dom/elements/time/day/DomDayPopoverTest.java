@@ -11,17 +11,17 @@ import com.softicar.platform.dom.elements.DomValueOption;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.DomTextInput;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMethods {
+public class DomDayPopoverTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	private final IDomTestEngine engine = new DomDocumentTestEngine();
+	private final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	private final Day testDay = Day.fromYMD(2022, 3, 10);
 
@@ -32,7 +32,7 @@ public class DomDayPopoverTest extends AbstractTest implements IDomTestEngineMet
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

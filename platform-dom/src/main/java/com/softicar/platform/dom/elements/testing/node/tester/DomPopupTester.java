@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import org.junit.Assert;
 
 public class DomPopupTester extends AbstractDomNodeTester<DomPopup> {
 
-	public DomPopupTester(IDomTestEngine engine, DomPopup node) {
+	public DomPopupTester(IDomTestExecutionEngine engine, DomPopup node) {
 
 		super(engine, node);
 	}

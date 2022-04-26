@@ -4,16 +4,16 @@ import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.core.number.BigDecimalMapper;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import java.math.BigDecimal;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class DomDecimalDisplayTest extends AbstractTest implements IDomTestEngineMethods {
+public class DomDecimalDisplayTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 	private final DomDecimalDisplay<BigDecimal> display;
 	private final Locale locale;
 
@@ -28,7 +28,7 @@ public class DomDecimalDisplayTest extends AbstractTest implements IDomTestEngin
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

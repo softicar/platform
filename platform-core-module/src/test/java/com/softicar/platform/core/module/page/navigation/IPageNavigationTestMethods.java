@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.page.navigation;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.List;
 
-public interface IPageNavigationTestMethods extends IDomTestEngineMethods {
+public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMethods {
 
 	default <T extends IDomNode> IDomNodeIterable<T> findPageNode(Class<T> pageNodeClass) {
 

@@ -3,18 +3,18 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.high;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
-import com.softicar.platform.dom.elements.testing.engine.AbstractDomTestEngineLazySetup;
+import com.softicar.platform.dom.elements.testing.engine.AbstractDomTestExecutionEngineLazySetup;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
  * Facilitates setting up an {@link IDomNode} under test, for
- * {@link AjaxSeleniumTestEngine}.
+ * {@link AjaxSeleniumTestExecutionEngine}.
  *
  * @author Alexander Schmidt
  */
-public class AjaxSeleniumTestEngineLazySetup extends AbstractDomTestEngineLazySetup {
+public class AjaxSeleniumTestEngineLazySetup extends AbstractDomTestExecutionEngineLazySetup {
 
 	/**
 	 * Returns a new {@link AjaxSeleniumTestEngineLazySetup}, using the given

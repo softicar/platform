@@ -3,7 +3,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.engine.common.AbstractAjaxSeleniumTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestEngine;
+import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineEventSimulator;
@@ -11,7 +11,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineOutput;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineViewport;
 import com.softicar.platform.dom.DomProperties;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -30,12 +30,12 @@ import org.openqa.selenium.WebElement;
  * by the framework.
  * <p>
  * This engine can <b>not</b> be used as a drop-in replacement for
- * {@link AjaxSeleniumTestEngine}, since it does not implement
- * {@link IDomTestEngine}. In any project beyond the AJAX framework itself,
- * {@link AjaxSeleniumTestEngine} should be used instead of this engine.
+ * {@link AjaxSeleniumTestExecutionEngine}, since it does not implement
+ * {@link IDomTestExecutionEngine}. In any project beyond the AJAX framework itself,
+ * {@link AjaxSeleniumTestExecutionEngine} should be used instead of this engine.
  *
  * @author Alexander Schmidt
- * @see AjaxSeleniumTestEngine
+ * @see AjaxSeleniumTestExecutionEngine
  */
 public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngine implements IAjaxSeleniumLowLevelTestEngine {
 

@@ -1,14 +1,14 @@
 package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import org.junit.Rule;
 import org.junit.Test;
 
 public class DomTextInputTest extends AbstractTest {
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 	private final DomTextInput input;
 
 	public DomTextInputTest() {

@@ -4,25 +4,26 @@ import com.softicar.platform.dom.DomProperties;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
+import com.softicar.platform.dom.engine.DomTestEngine;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Common base class of {@link IDomTestEngine} helper classes which set up an
- * {@link IDomNode} under test, on demand.
+ * Common base class of {@link IDomTestExecutionEngine} helper classes which set
+ * up an {@link IDomNode} under test, on demand.
  *
  * @author Alexander Schmidt
  */
-public abstract class AbstractDomTestEngineLazySetup implements IDomTestEngineLazySetup {
+public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTestExecutionEngineLazySetup {
 
 	private IDomNode node;
 	private Supplier<IDomNode> nodeSupplier;
 	private Function<Supplier<IDomNode>, IDomNode> nodeInitializer;
 
 	/**
-	 * Constructs a new {@link AbstractDomTestEngineLazySetup}.
+	 * Constructs a new {@link AbstractDomTestExecutionEngineLazySetup}.
 	 * <p>
 	 * The initializer allows for the customization of the retrieval of the
 	 * {@link IDomNode} under test from a {@link Supplier} (as defined via
@@ -32,10 +33,10 @@ public abstract class AbstractDomTestEngineLazySetup implements IDomTestEngineLa
 	 * {@link CurrentDomDocument#set(IDomDocument)} with a new
 	 * {@link DomDocument}.
 	 */
-	protected AbstractDomTestEngineLazySetup() {
+	protected AbstractDomTestExecutionEngineLazySetup() {
 
 		System.setProperty(DomProperties.TEST_MODE.getPropertyName().toString(), "true");
-		CurrentDomDocument.set(new DomDocument());
+		CurrentDomDocument.set(new DomDocument(new DomTestEngine()));
 		this.node = null;
 		this.nodeSupplier = null;
 		this.nodeInitializer = Supplier::get;

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import com.softicar.platform.dom.elements.DomValueOption;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomSelect;
@@ -14,7 +14,7 @@ public class DomSelectTester<T> extends AbstractDomNodeTester<DomSelect<?>> {
 
 	private final DomSelect<?> select;
 
-	public DomSelectTester(IDomTestEngine engine, DomSelect<?> select) {
+	public DomSelectTester(IDomTestExecutionEngine engine, DomSelect<?> select) {
 
 		super(engine, select);
 		this.select = select;
