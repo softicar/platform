@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.attribute.field.enums;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -50,13 +49,6 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfInputDiv<E> {
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		enumInput.setChangeCallback(callback);
-	}
-
-	@Override
-	public IDomElement setEnabled(boolean enabled) {
-
-		enumInput.setEnabled(enabled);
-		return this;
 	}
 
 	private static class ChangeListeningEnumSelect<E extends Enum<E>> extends DomEnumSelect<E> implements IDomChangeEventHandler {

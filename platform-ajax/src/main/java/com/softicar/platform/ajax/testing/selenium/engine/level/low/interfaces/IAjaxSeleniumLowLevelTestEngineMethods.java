@@ -12,7 +12,7 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.time.Duration;
 import java.util.NoSuchElementException;
@@ -356,19 +356,19 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	}
 
 	/**
-	 * Clears the content of the given {@link IDomInputNode}.
+	 * Clears the content of the given {@link IDomTextualInput}.
 	 * <p>
 	 * FIXME This is probably bad design. The current Selenium implementation
 	 * would not fire events (and could hence be considered bugged). If we can't
 	 * fix it, this method should be considered dangerous and therefore be
 	 * removed. Possible alternative: repeated BACKSPACE presses.
 	 *
-	 * @param inputNode
-	 *            the {@link IDomInputNode} to clear (never <i>null</i>)
+	 * @param input
+	 *            the {@link IDomTextualInput} to clear (never <i>null</i>)
 	 */
-	default void clear(IDomInputNode inputNode) {
+	default void clear(IDomTextualInput input) {
 
-		getTestEngine().getInput().clear(inputNode);
+		getTestEngine().getInput().clear(input);
 	}
 
 	// -------------------- waiter -------------------- //

@@ -226,7 +226,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			input.setEnabledRecursively(enabled);
+			input.setEnabled(enabled);
 		}
 	}
 }

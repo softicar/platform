@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.db.runtime.enums.IDbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
 import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
 import java.util.Optional;
@@ -53,13 +52,6 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 	public void setChangeCallback(INullaryVoidFunction callback) {
 
 		input.setChangeCallback(callback);
-	}
-
-	@Override
-	public IDomElement setEnabled(boolean enabled) {
-
-		input.setEnabled(enabled);
-		return this;
 	}
 
 	private class EntityInput extends DomAutoCompleteEntityInput<EmfEnumTableRowEntityWrapper<R, E>> {

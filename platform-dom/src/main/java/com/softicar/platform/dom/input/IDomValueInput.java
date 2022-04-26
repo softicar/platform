@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.element.IDomElement;
 import java.util.Optional;
 
 /**
@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public interface IDomValueInput<V> extends IDomNode {
+public interface IDomValueInput<V> extends IDomElement {
 
 	/**
 	 * Assigns a value to this input element.

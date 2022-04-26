@@ -1,10 +1,11 @@
 package com.softicar.platform.dom.input;
 
+import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 
-public interface IDomTextualInput extends IDomInputNode {
+public interface IDomTextualInput extends IDomElement {
 
 	// -------------------------------- value -------------------------------- //
 
@@ -116,8 +117,8 @@ public interface IDomTextualInput extends IDomInputNode {
 
 	static boolean focusFirstTextualInput(IDomNode root) {
 
-		if (root instanceof IDomTextualInput) {
-			((IDomTextualInput) root).focus();
+		if (root instanceof IDomTextualInput && root instanceof IDomFocusable) {
+			((IDomFocusable) root).focus();
 			return true;
 		} else if (root instanceof IDomParentElement) {
 			for (IDomNode child: ((IDomParentElement) root).getChildren()) {
