@@ -63,61 +63,19 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public IDomExport createExport() {
+
+		return new DomNullExport();
+	}
+
+	@Override
 	public void createTextNode(int nodeId, String text) {
 
 		// nothing to do
 	}
 
 	@Override
-	public void unsetClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType) {
-
-		// nothing to do
-	}
-
-	@Override
 	public void enableAutoComplete(IDomAutoCompleteInput<?> input) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteInputInvalid(IDomAutoCompleteInput<?> input) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteInputMandatory(IDomAutoCompleteInput<?> input, boolean mandatory) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteValidationMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteIndicatorMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputIndicatorMode indicatorMode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteEnabled(IDomAutoCompleteInput<?> input, boolean enabled) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType, IDomNode targetNode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setWorkingIndicatorEnabled(boolean enabled) {
 
 		// nothing to do
 	}
@@ -141,19 +99,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void setDocumentTitle(String pageTitle) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void pushBrowserHistoryState(String pageName, String pageUrl) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void reloadPage() {
+	public void hidePopup(IDomNode popup) {
 
 		// nothing to do
 	}
@@ -195,6 +141,24 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void pushBrowserHistoryState(String pageName, String pageUrl) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void registerResourceLink(IResource resource, Relationship relationship, MimeType mimeType) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void reloadPage() {
+
+		// nothing to do
+	}
+
+	@Override
 	public void removeChild(IDomNode parent, IDomNode child) {
 
 		// nothing to do
@@ -225,13 +189,61 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setAutoCompleteEnabled(IDomAutoCompleteInput<?> input, boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setAutoCompleteIndicatorMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputIndicatorMode indicatorMode) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setAutoCompleteInputInvalid(IDomAutoCompleteInput<?> input) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setAutoCompleteInputMandatory(IDomAutoCompleteInput<?> input, boolean mandatory) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setAutoCompleteValidationMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType, IDomNode targetNode) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setCssClassOnKeyDown(IDomNode eventTarget, DomEventType eventType, IDomNode cssTargetNode, Collection<ICssClass> cssClasses) {
 
 		// nothing to do
 	}
 
 	@Override
+	public void setDocumentTitle(String pageTitle) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setMaximumZIndex(IDomNode node) {
 
 		// nothing to do
 	}
@@ -255,7 +267,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void stopPropagation(IDomNode node, String eventName) {
+	public void setReloadPageOnClick(IDomNode node) {
 
 		// nothing to do
 	}
@@ -267,13 +279,19 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setWorkingIndicatorEnabled(boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void showPopup(IDomNode popup, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
 		// nothing to do
 	}
 
 	@Override
-	public void hidePopup(IDomNode popup) {
+	public void stopPropagation(IDomNode node, String eventName) {
 
 		// nothing to do
 	}
@@ -303,6 +321,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void unsetClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void unsetNodeAttribute(IDomNode node, String name) {
 
 		// nothing to do
@@ -310,30 +334,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void unsetNodeStyle(IDomNode node, String name) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setMaximumZIndex(IDomNode node) {
-
-		// nothing to do
-	}
-
-	@Override
-	public IDomExport createExport() {
-
-		return new DomNullExport();
-	}
-
-	@Override
-	public void registerResourceLink(IResource resource, Relationship relationship, MimeType mimeType) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setReloadPageOnClick(IDomNode node) {
 
 		// nothing to do
 	}
