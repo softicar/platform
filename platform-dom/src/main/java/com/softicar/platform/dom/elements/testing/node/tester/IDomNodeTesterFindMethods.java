@@ -13,7 +13,7 @@ import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -236,8 +236,8 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link IDomInputNode} with the given {@link IStaticObject}
-	 * marker.
+	 * Searches for a {@link IDomTextualInput} with the given
+	 * {@link IStaticObject} marker.
 	 *
 	 * @param marker
 	 *            the {@link IStaticObject} marker to search for (never
@@ -251,7 +251,7 @@ public interface IDomNodeTesterFindMethods {
 	default DomNodeTester findInput(IStaticObject marker) {
 
 		return findNodes(marker)//
-			.withType(IDomInputNode.class)
+			.withType(IDomTextualInput.class)
 			.assertOne();
 	}
 

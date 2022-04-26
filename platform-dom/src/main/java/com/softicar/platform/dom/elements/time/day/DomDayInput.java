@@ -54,10 +54,10 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		}
 	}
 
-	public void disable() {
+	public void setEnabled(boolean enabled) {
 
-		dayInput.setDisabled(true);
-		dayButton.unlistenToEvent(DomEventType.CLICK);
+		dayInput.setEnabled(enabled);
+		dayButton.setEnabled(enabled);
 	}
 
 	@Override

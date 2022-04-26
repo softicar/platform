@@ -12,7 +12,7 @@ import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -161,9 +161,9 @@ public interface IDomEngine {
 
 	void select(IDomNode inputNode);
 
-	void insertAtCaret(IDomInputNode inputNode, String text);
+	void insertAtCaret(IDomTextualInput input, String text);
 
-	void moveCaretToPosition(IDomInputNode inputNode, int position);
+	void moveCaretToPosition(IDomTextualInput input, int position);
 
 	// -------------------------------- pop-ups -------------------------------- //
 

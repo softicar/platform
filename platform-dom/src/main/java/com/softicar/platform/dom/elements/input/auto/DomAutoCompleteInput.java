@@ -13,7 +13,6 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomInputNode;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
@@ -40,7 +39,7 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T>, IDomInputNode {
+public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T> {
 
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
@@ -154,14 +153,12 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		return this;
 	}
 
-	@Override
 	public DomAutoCompleteInput<T> setFocus(boolean focus) {
 
 		inputField.setFocus(focus);
 		return this;
 	}
 
-	@Override
 	public IDomElement setEnabled(boolean enabled) {
 
 		getConfiguration().setEnabled(enabled);
