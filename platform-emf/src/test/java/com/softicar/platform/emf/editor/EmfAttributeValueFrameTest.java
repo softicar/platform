@@ -5,9 +5,9 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomTabKeyEventHandler;
@@ -19,9 +19,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTestEngineMethods {
+public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	@Rule public IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	private static final String AAA = "AAA";
 	private static final String BBB = "BBB";
@@ -48,7 +48,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

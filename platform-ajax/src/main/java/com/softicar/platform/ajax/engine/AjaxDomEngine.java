@@ -39,6 +39,7 @@ import com.softicar.platform.dom.utils.JavascriptEscaping;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -220,6 +221,12 @@ public class AjaxDomEngine implements IDomEngine {
 	public void unsetNodeStyle(IDomNode node, String name) {
 
 		JS_setNodeMember(node, "style." + name, "''");
+	}
+
+	@Override
+	public Optional<String> getNodeStyle(IDomNode node, String name) {
+
+		throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support reading node styles.");
 	}
 
 	@Override

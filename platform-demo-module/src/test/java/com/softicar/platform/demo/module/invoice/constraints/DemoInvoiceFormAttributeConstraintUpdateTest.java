@@ -1,6 +1,5 @@
 package com.softicar.platform.demo.module.invoice.constraints;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestEngine;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.module.AbstractDemoModuleTest;
@@ -32,8 +31,6 @@ public class DemoInvoiceFormAttributeConstraintUpdateTest extends AbstractDemoMo
 	private EmfFormPopupTester popup;
 
 	public DemoInvoiceFormAttributeConstraintUpdateTest() {
-
-		this.engine = new AjaxSeleniumTestEngine();
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGDemoInvoice.TABLE, moduleInstance).build());
 	}

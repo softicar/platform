@@ -3,22 +3,22 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import org.junit.Rule;
 import org.mockito.Mockito;
 
-public abstract class AbstractDomModalDialogPopupTest extends AbstractTest implements IDomTestEngineMethods {
+public abstract class AbstractDomModalDialogPopupTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
 	protected static final IStaticObject OUTPUT_ELEMENT = Mockito.mock(IStaticObject.class);
 	protected static final IStaticObject SHOW_BUTTON = Mockito.mock(IStaticObject.class);
 	protected static final IDisplayString MESSAGE = IDisplayString.create("some message");
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

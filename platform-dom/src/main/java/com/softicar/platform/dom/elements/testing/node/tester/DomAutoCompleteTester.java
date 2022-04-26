@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -10,7 +10,7 @@ public class DomAutoCompleteTester<T> extends AbstractDomNodeTester<IDomAutoComp
 
 	private final IDomAutoCompleteInput<?> select;
 
-	public DomAutoCompleteTester(IDomTestEngine engine, IDomAutoCompleteInput<?> select) {
+	public DomAutoCompleteTester(IDomTestExecutionEngine engine, IDomAutoCompleteInput<?> select) {
 
 		super(engine, select);
 		this.select = select;

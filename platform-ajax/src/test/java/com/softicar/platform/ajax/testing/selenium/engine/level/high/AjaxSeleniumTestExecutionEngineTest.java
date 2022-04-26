@@ -5,18 +5,18 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class AjaxSeleniumTestEngineTest extends AbstractTest implements IDomTestEngineMethods {
+public class AjaxSeleniumTestExecutionEngineTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	@Rule public final IDomTestEngine engine = new AjaxSeleniumTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new AjaxSeleniumTestExecutionEngine();
 	private static final IStaticObject BUTTON = Mockito.mock(IStaticObject.class);
 
-	public AjaxSeleniumTestEngineTest() {
+	public AjaxSeleniumTestExecutionEngineTest() {
 
 		setNodeSupplier(TestDiv::new);
 	}
@@ -30,7 +30,7 @@ public class AjaxSeleniumTestEngineTest extends AbstractTest implements IDomTest
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

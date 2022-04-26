@@ -5,14 +5,14 @@ import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMetho
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import org.junit.Rule;
 
-public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTestEngineMethods, CoreModuleTestFixtureMethods {
+public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTestExecutionEngineMethods, CoreModuleTestFixtureMethods {
 
-	@Rule public IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	public AbstractCoreTest() {
 
@@ -21,7 +21,7 @@ public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTes
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

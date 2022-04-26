@@ -9,7 +9,7 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
@@ -25,17 +25,17 @@ import org.junit.Assert;
 
 public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTesterFindMethods {
 
-	private final IDomTestEngine engine;
+	private final IDomTestExecutionEngine engine;
 	protected final N node;
 
-	public AbstractDomNodeTester(IDomTestEngine engine, N node) {
+	public AbstractDomNodeTester(IDomTestExecutionEngine engine, N node) {
 
 		this.engine = engine;
 		this.node = node;
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

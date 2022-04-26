@@ -17,6 +17,7 @@ import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * This is implementation of {@link IDomEngine} simply ignores all requests.
@@ -24,13 +25,6 @@ import java.util.Collection;
  * @author Oliver Richers
  */
 public class DomNullEngine implements IDomEngine {
-
-	private static final DomNullEngine singleton = new DomNullEngine();
-
-	public static DomNullEngine get() {
-
-		return singleton;
-	}
 
 	@Override
 	public void appendChild(IDomNode parent, IDomNode child) {
@@ -90,6 +84,12 @@ public class DomNullEngine implements IDomEngine {
 	public void focus(IDomNode inputNode) {
 
 		// nothing to do
+	}
+
+	@Override
+	public Optional<String> getNodeStyle(IDomNode node, String name) {
+
+		return Optional.empty();
 	}
 
 	@Override
