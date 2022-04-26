@@ -3,7 +3,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -154,9 +154,9 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 	}
 
 	@Override
-	public void clear(IDomInputNode inputNode) {
+	public void clear(IDomTextualInput input) {
 
-		webElementResolver.apply(inputNode).clear();
+		webElementResolver.apply(input).clear();
 	}
 
 	private Keys getKeysFromModifier(Modifier modifier) {

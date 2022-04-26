@@ -11,7 +11,7 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.matrix.EmfSettingMatrixMarker;
 import com.softicar.platform.emf.module.role.IEmfModuleRole;
 import java.util.List;
@@ -124,7 +124,7 @@ public class ModuleRoleMembershipUserMatrixPageDivTest extends AbstractModuleRol
 		public Executor inputUser(AGUser user) {
 
 			findNode(EmfSettingMatrixMarker.ENTITY_INPUT)//
-				.findNode(IDomInputNode.class)
+				.findNode(IDomTextualInput.class)
 				.setInputValue(user.toDisplay().toString());
 			return this;
 		}

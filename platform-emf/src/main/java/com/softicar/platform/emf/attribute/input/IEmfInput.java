@@ -2,10 +2,9 @@ package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.input.IDomInputNode;
 import com.softicar.platform.dom.input.IDomValueInput;
 
-public interface IEmfInput<V> extends IDomValueInput<V>, IDomInputNode {
+public interface IEmfInput<V> extends IDomValueInput<V> {
 
 	/**
 	 * Assigns a value to this input element and triggers the change callback,

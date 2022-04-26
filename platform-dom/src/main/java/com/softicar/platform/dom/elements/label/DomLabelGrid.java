@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomLabel;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.DomTextNode;
 import com.softicar.platform.dom.text.IDomTextNode;
@@ -25,7 +25,7 @@ public class DomLabelGrid extends DomDiv {
 	 * Appends the given {@link DomLabel} together with the {@link IDomNode}.
 	 * <p>
 	 * If the given {@link IDomNode} or one of its children is an
-	 * {@link IDomInputNode}, the <i>for</i> attribute of the {@link DomLabel}
+	 * {@link IDomFocusable}, the <i>for</i> attribute of the {@link DomLabel}
 	 * will be assigned respectively.
 	 *
 	 * @param label

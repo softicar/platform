@@ -145,18 +145,6 @@ public abstract class DomDelegatingParentElement extends DomDelegatingElement im
 	}
 
 	@Override
-	public void disableAllChildren() {
-
-		getTargetParentElement().disableAllChildren();
-	}
-
-	@Override
-	public void setEnabledRecursively(boolean enabled) {
-
-		getTargetParentElement().setEnabledRecursively(enabled);
-	}
-
-	@Override
 	public void listenToEvent(DomEventType type) {
 
 		getTargetParentElement().listenToEvent(type);

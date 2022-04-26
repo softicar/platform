@@ -8,7 +8,7 @@ import com.softicar.platform.dom.element.DomElementTag;
  *
  * @author Oliver Richers
  */
-public abstract class DomInput extends DomElement implements IDomInputNode {
+public abstract class DomInput extends DomElement implements IDomDisableable, IDomFocusable {
 
 	@Override
 	public DomElementTag getTag() {

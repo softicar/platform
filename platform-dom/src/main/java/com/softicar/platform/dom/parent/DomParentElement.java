@@ -297,20 +297,6 @@ public abstract class DomParentElement extends DomElement implements IDomParentE
 		}
 	}
 
-	// -------------------------------- RECURSIVE TREE METHODS -------------------------------- //
-
-	@Override
-	public void disableAllChildren() {
-
-		RecursiveEnabling.setEnabled(this, false);
-	}
-
-	@Override
-	public void setEnabledRecursively(boolean enabled) {
-
-		RecursiveEnabling.setEnabled(this, enabled);
-	}
-
 	// -------------------------------- HTML -------------------------------- //
 
 	protected void buildChildrenHTML(Appendable out) throws IOException {

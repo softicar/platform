@@ -3,8 +3,6 @@ package com.softicar.platform.dom.elements.select.value.simple;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEventHandler;
-import com.softicar.platform.dom.input.IDomEnableable;
-import com.softicar.platform.dom.input.IDomFocusable;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -18,7 +16,7 @@ import java.util.Optional;
  *            the type of the values which are available for selection
  * @author Alexander Schmidt
  */
-public interface IDomSimpleValueSelect<V> extends IDomEnableable, IDomFocusable, IDomEventHandler {
+public interface IDomSimpleValueSelect<V> extends IDomEventHandler {
 
 	/**
 	 * Defines the values for which options shall be available for selection.
