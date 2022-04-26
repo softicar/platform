@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.parent;
 
-import com.softicar.platform.dom.input.IDomEnableable;
+import com.softicar.platform.dom.input.IDomDisableable;
 import com.softicar.platform.dom.node.IDomNode;
 
 /**
@@ -12,8 +12,8 @@ class RecursiveEnabling {
 
 	public static void setEnabled(IDomNode node, boolean enabled) {
 
-		if (node instanceof IDomEnableable) {
-			((IDomEnableable) node).setEnabled(enabled);
+		if (node instanceof IDomDisableable) {
+			((IDomDisableable) node).setEnabled(enabled);
 		} else if (node instanceof IDomParentElement) {
 			for (IDomNode child: ((IDomParentElement) node).getChildren()) {
 				setEnabled(child, enabled);

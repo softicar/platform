@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.engine.IDomEngine;
-import com.softicar.platform.dom.input.IDomEnableable;
+import com.softicar.platform.dom.input.IDomDisableable;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -11,13 +11,13 @@ import java.util.Objects;
 public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputConfiguration {
 
 	private final IDomAutoCompleteInput<?> input;
-	private final IDomEnableable inputField;
+	private final IDomDisableable inputField;
 	private DomAutoCompleteInputIndicatorMode indicatorMode;
 	private DomAutoCompleteInputValidationMode validationMode;
 	private boolean mandatory;
 	private boolean enabled;
 
-	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomEnableable inputField) {
+	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomDisableable inputField) {
 
 		this.input = input;
 		this.inputField = inputField;
