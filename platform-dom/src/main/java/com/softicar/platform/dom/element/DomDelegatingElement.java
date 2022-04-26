@@ -18,7 +18,7 @@ public abstract class DomDelegatingElement extends DomDelegatingNode implements 
 		return getTargetElement().getTag();
 	}
 
-	// -------------------- CSS class methods -------------------- //
+	// -------------------- CSS class -------------------- //
 
 	@Override
 	public void setCssClasses(Collection<ICssClass> classes) {
@@ -44,7 +44,7 @@ public abstract class DomDelegatingElement extends DomDelegatingNode implements 
 		getTargetElement().unsetCssClass();
 	}
 
-	// -------------------- css style methods -------------------- //
+	// -------------------- CSS style -------------------- //
 
 	@Override
 	public IDomElement setStyle(ICssStyle style, String value) {
@@ -62,6 +62,20 @@ public abstract class DomDelegatingElement extends DomDelegatingNode implements 
 	public IDomElement unsetStyle(ICssStyle style) {
 
 		return getTargetElement().unsetStyle(style);
+	}
+
+	@Override
+	public IDomElement setDisplayNone(boolean displayNone) {
+
+		return getTargetElement().setDisplayNone(displayNone);
+	}
+
+	// -------------------- tab index -------------------- //
+
+	@Override
+	public IDomElement setTabIndex(Integer tabIndex) {
+
+		return getTargetElement().setTabIndex(tabIndex);
 	}
 
 	// -------------------- title -------------------- //

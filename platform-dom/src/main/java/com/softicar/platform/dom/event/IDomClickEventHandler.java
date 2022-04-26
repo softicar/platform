@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.event;
 
+import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.engine.IDomEngine;
-import com.softicar.platform.dom.node.DomNode;
 
 /**
  * Implement this interface if you want to handle {@link DomEventType#CLICK}.
  * <p>
- * If a {@link DomNode} implements this interface, the method
+ * If a {@link IDomElement} implements this interface, the method
  * {@link IDomEngine#listenToEvent} will be called automatically.
  *
  * @author Oliver Richers

@@ -1,17 +1,17 @@
 package com.softicar.platform.dom.element;
 
 import com.softicar.platform.common.container.collection.MappingCollection;
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomAutoEventHandler;
-import com.softicar.platform.dom.node.DomNode;
+import com.softicar.platform.dom.node.AbstractDomNode;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssClass;
 import com.softicar.platform.dom.style.ICssStyle;
-import com.softicar.platform.dom.style.ICssStyleAttribute;
+import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssPosition;
-import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -21,24 +21,16 @@ import java.util.Collection;
  *
  * @author Oliver Richers
  */
-public abstract class DomElement extends DomNode implements IDomElement {
-
-	public static enum HierarchyType {
-
-		PARENT,
-		LEAF
-	}
+public abstract class DomElement extends AbstractDomNode implements IDomElement {
 
 	protected DomElement() {
 
-		createElement();
+		this(true);
 	}
 
 	protected DomElement(boolean doCreate) {
 
-		if (doCreate) {
-			createElement();
-		}
+		this(CurrentDomDocument.get(), doCreate);
 	}
 
 	protected DomElement(IDomDocument document, boolean doCreate) {
@@ -79,7 +71,7 @@ public abstract class DomElement extends DomNode implements IDomElement {
 		getDomEngine().unlistenToEvent(this, type);
 	}
 
-	// -------------------- CSS CLASS -------------------- //
+	// -------------------- CSS class -------------------- //
 
 	@Override
 	public void setCssClasses(Collection<ICssClass> classes) {
@@ -107,7 +99,7 @@ public abstract class DomElement extends DomNode implements IDomElement {
 		setAttribute("class", null);
 	}
 
-	// -------------------- CSS STYLE -------------------- //
+	// -------------------- CSS style -------------------- //
 
 	@Override
 	public DomElement setStyle(ICssStyle style, String value) {
@@ -122,30 +114,42 @@ public abstract class DomElement extends DomNode implements IDomElement {
 	}
 
 	@Override
-	public DomElement setStyle(ICssStyleAttribute styleAttribute) {
-
-		return setStyle(styleAttribute.getStyle(), styleAttribute.getValue());
-	}
-
-	@Override
 	public DomElement unsetStyle(ICssStyle style) {
 
 		getDomEngine().unsetNodeStyle(this, style.getJavascriptName());
 		return this;
 	}
 
-	// -------------------- TITLE -------------------- //
-
 	@Override
-	public DomElement setTitle(final String title) {
+	public IDomElement setDisplayNone(boolean displayNone) {
 
-		if (title != null) {
-			setAttribute("title", title);
+		if (displayNone) {
+			setStyle(CssDisplay.NONE);
+		} else {
+			unsetStyle(CssStyle.DISPLAY);
 		}
 		return this;
 	}
 
-	// -------------------- DRAGGING -------------------- //
+	// -------------------- tab index -------------------- //
+
+	@Override
+	public IDomElement setTabIndex(Integer tabIndex) {
+
+		setAttribute("tabindex", tabIndex);
+		return this;
+	}
+
+	// -------------------- title -------------------- //
+
+	@Override
+	public IDomElement setTitle(String title) {
+
+		setAttribute("title", title);
+		return this;
+	}
+
+	// -------------------- dragging -------------------- //
 
 	@Override
 	public void makeDraggable(CssPosition position) {
@@ -159,43 +163,5 @@ public abstract class DomElement extends DomNode implements IDomElement {
 
 		setStyle(position);
 		getDomEngine().makeDraggable(this, initNode);
-	}
-
-	// -------------------------------- MISCELLANEOUS -------------------------------- //
-
-	/**
-	 * Replaces this node with the given one. This node must have a parent. The
-	 * replacing node must NOT have a parent.
-	 *
-	 * @param <T>
-	 *            the type of the replacing node
-	 * @param replacingNode
-	 *            the node to replace this one
-	 * @return The replacing node. NOTE: Most likely you might want to assign
-	 *         the return value to the object you called this method on.
-	 */
-	public <T extends IDomNode> T replaceWith(T replacingNode) {
-
-		if (getParent() != null) {
-			return getParent().replaceChild(replacingNode, this);
-		} else {
-			throw new SofticarDeveloperException("Trying to replace a node that has no parent.");
-		}
-	}
-
-	// -------------------------------- HTML -------------------------------- //
-
-	/**
-	 * Builds HTML code representing this DOMElement.
-	 *
-	 * @param out
-	 *            the {@link Appendable} object for outputting the HTML code
-	 */
-	@Override
-	public void buildHtml(Appendable out) throws IOException {
-
-		out.append("<" + getTag().getName());
-		buildAttributesHTML(out);
-		out.append("/>");
 	}
 }

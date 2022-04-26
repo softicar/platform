@@ -5,7 +5,6 @@ import com.softicar.platform.dom.attribute.IDomAttributeRegistry;
 import com.softicar.platform.dom.document.marker.IDomDocumentMarkerHolder;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.node.DomNode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
 import java.lang.ref.WeakReference;
@@ -46,10 +45,10 @@ public interface IDomDocument extends IDomDocumentMarkerHolder {
 	 * Registers the specified node with this {@link IDomDocument} and allocates
 	 * a unique ID.
 	 * <p>
-	 * This method is automatically called by the constructor of {@link DomNode}
-	 * and may only be called once per node instance. Each {@link IDomNode} must
-	 * be registered using this method before it may be used, e.g. inserted into
-	 * the node tree.
+	 * This method is automatically called by the constructor of
+	 * {@link IDomNode} and may only be called once per node instance. Each
+	 * {@link IDomNode} must be registered using this method before it may be
+	 * used, e.g. inserted into the node tree.
 	 *
 	 * @param node
 	 *            the node to register

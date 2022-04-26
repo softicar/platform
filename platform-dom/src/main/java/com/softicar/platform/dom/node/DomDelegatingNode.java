@@ -5,7 +5,6 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.parent.IDomParentElement;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -95,12 +94,6 @@ public abstract class DomDelegatingNode implements IDomNode {
 	public IDomNode unsetAttribute(String name) {
 
 		return getTargetNode().unsetAttribute(name);
-	}
-
-	@Override
-	public void buildHtml(Appendable out) throws IOException {
-
-		getTargetNode().buildHtml(out);
 	}
 
 	@Override
