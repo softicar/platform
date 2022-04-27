@@ -21,7 +21,6 @@ import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
-import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
@@ -201,14 +200,6 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
 			}
-		}
-
-		private boolean isNullable(IEmfAttribute<R, ?> attribute) {
-
-			if (attribute.getField().isPresent()) {
-				return attribute.getField().get().isNullable();
-			}
-			return false;
 		}
 
 		private void invalidateCachesAndRefreshAll() {
