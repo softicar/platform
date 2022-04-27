@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-abstract class AbstractDomNode implements IDomNode {
+public abstract class AbstractDomNode implements IDomNode {
 
 	private final int nodeId;
 	private IDomParentElement parent;

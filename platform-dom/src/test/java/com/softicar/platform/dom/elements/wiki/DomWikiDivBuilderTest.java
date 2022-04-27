@@ -2,46 +2,40 @@ package com.softicar.platform.dom.elements.wiki;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.document.CurrentDomDocument;
-import com.softicar.platform.dom.document.DomDocument;
-import com.softicar.platform.dom.element.IDomElement;
-import java.io.IOException;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
- * TODO should use DomNodeTester but that's not accessible
- * <p>
  * TODO highly incomplete. implement more test cases.
  */
-public class DomWikiDivBuilderTest extends AbstractTest {
+public class DomWikiDivBuilderTest extends AbstractTest implements IDomTestExecutionEngineMethods {
+
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	private final DomWikiDivBuilder builder;
 
 	public DomWikiDivBuilderTest() {
 
-		CurrentDomDocument.set(new DomDocument());
-		builder = new DomWikiDivBuilder();
+		this.builder = new DomWikiDivBuilder();
+
+		setNodeSupplier(() -> builder.build());
+	}
+
+	@Override
+	public IDomTestExecutionEngine getEngine() {
+
+		return engine;
 	}
 
 	@Test
 	public void testAddLine() {
 
-		final String payloadText = "payload text";
+		String payloadText = "payload text";
 		builder.addLine(IDisplayString.create(payloadText));
 
-		IDomElement element = builder.build();
-
-		assertTrue(getHtmlString(element).contains(payloadText));
-	}
-
-	private String getHtmlString(IDomElement element) {
-
-		try {
-			StringBuilder output = new StringBuilder();
-			element.buildHtml(output);
-			return output.toString();
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
-		}
+		findBody().assertContainsText(payloadText);
 	}
 }
