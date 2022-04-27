@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.IDomInputNode;
 
 /**
  * A click-able button that shows the date of a {@link DomDayChooserDiv} object.
@@ -15,7 +14,7 @@ import com.softicar.platform.dom.input.IDomInputNode;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-abstract class AbstractDomDayPopupButton extends DomButton implements IDomInputNode {
+abstract class AbstractDomDayPopupButton extends DomButton {
 
 	private final DomDayPopover popup;
 	private final DomDayChooserDiv chooser;

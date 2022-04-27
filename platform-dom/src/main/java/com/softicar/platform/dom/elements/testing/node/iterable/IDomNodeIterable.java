@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.testing.node.iterable;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.stream.StreamSupport;
 
 public interface IDomNodeIterable<N extends IDomNode> extends Iterable<N> {
 
-	IDomTestEngine getEngine();
+	IDomTestExecutionEngine getEngine();
 
 	// ------------------------------ element access ------------------------------ //
 

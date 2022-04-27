@@ -7,7 +7,7 @@ import com.softicar.platform.dom.element.IDomElement;
  *
  * @author Oliver Richers
  */
-public interface IDomEnableable extends IDomElement {
+public interface IDomDisableable extends IDomElement {
 
 	/**
 	 * Enables or disables this {@link IDomElement}.

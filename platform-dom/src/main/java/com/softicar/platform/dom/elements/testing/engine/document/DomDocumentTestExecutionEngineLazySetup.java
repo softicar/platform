@@ -5,34 +5,34 @@ import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.testing.engine.AbstractDomTestEngineLazySetup;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.AbstractDomTestExecutionEngineLazySetup;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
 
 /**
  * Facilitates setting up an {@link IDomElement} under test, for an
- * {@link IDomTestEngine}.
+ * {@link IDomTestExecutionEngine}.
  *
  * @author Alexander Schmidt
  */
-class DomDocumentTestEngineLazySetup extends AbstractDomTestEngineLazySetup {
+class DomDocumentTestExecutionEngineLazySetup extends AbstractDomTestExecutionEngineLazySetup {
 
 	/**
-	 * Returns a new {@link DomDocumentTestEngineLazySetup}.
+	 * Returns a new {@link DomDocumentTestExecutionEngineLazySetup}.
 	 * <p>
 	 * <b>Side effect warning:</b> Invokes
 	 * {@link CurrentDomDocument#set(IDomDocument)} with a new
 	 * {@link DomDocument}.
 	 */
-	public static DomDocumentTestEngineLazySetup createAndRegister() {
+	public static DomDocumentTestExecutionEngineLazySetup createAndRegister() {
 
-		return new DomDocumentTestEngineLazySetup();
+		return new DomDocumentTestExecutionEngineLazySetup();
 	}
 
-	private DomDocumentTestEngineLazySetup() {
+	private DomDocumentTestExecutionEngineLazySetup() {
 
-		setNodeInitializer(DomDocumentTestEngineLazySetup::initialize);
+		setNodeInitializer(DomDocumentTestExecutionEngineLazySetup::initialize);
 	}
 
 	/**

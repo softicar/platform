@@ -29,7 +29,7 @@ import com.softicar.platform.dom.event.IDomDropEventHandler;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -39,6 +39,7 @@ import com.softicar.platform.dom.utils.JavascriptEscaping;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -223,6 +224,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public Optional<String> getNodeStyle(IDomNode node, String name) {
+
+		throw new UnsupportedOperationException(getClass().getSimpleName() + " does not support reading node styles.");
+	}
+
+	@Override
 	public void setMaximumZIndex(IDomNode node) {
 
 		JS_call("c.setMaximumZIndex", node);
@@ -374,15 +381,15 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void insertAtCaret(IDomInputNode inputNode, String text) {
+	public void insertAtCaret(IDomTextualInput input, String text) {
 
-		JS_call("c.insertAtCaret", inputNode.getNodeId(), text);
+		JS_call("c.insertAtCaret", input.getNodeId(), text);
 	}
 
 	@Override
-	public void moveCaretToPosition(IDomInputNode inputNode, int position) {
+	public void moveCaretToPosition(IDomTextualInput input, int position) {
 
-		JS_call("c.moveCaretToPosition", inputNode.getNodeId(), position);
+		JS_call("c.moveCaretToPosition", input.getNodeId(), position);
 	}
 
 	// -------------------------------- pop-ups -------------------------------- //

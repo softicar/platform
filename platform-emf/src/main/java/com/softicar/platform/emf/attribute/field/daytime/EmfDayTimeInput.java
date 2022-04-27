@@ -2,29 +2,9 @@ package com.softicar.platform.emf.attribute.field.daytime;
 
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.dom.elements.time.daytime.DomDayTimeInput;
-import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
-import java.util.Optional;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
 
-public class EmfDayTimeInput extends AbstractEmfInputDiv<DayTime> {
+public class EmfDayTimeInput extends DomDayTimeInput implements IEmfInput<DayTime> {
 
-	private final DomDayTimeInput dayTimeInput;
-
-	public EmfDayTimeInput() {
-
-		this.dayTimeInput = new DomDayTimeInput();
-
-		appendChild(dayTimeInput);
-	}
-
-	@Override
-	public Optional<DayTime> getValue() {
-
-		return dayTimeInput.getValue();
-	}
-
-	@Override
-	public void setValue(DayTime value) {
-
-		dayTimeInput.setValue(value);
-	}
+	// nothing to add
 }

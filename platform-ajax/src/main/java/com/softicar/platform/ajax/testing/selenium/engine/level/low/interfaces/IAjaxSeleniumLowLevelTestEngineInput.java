@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces;
 
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 
 /**
@@ -39,7 +39,7 @@ public interface IAjaxSeleniumLowLevelTestEngineInput {
 
 	void send(IDomNode target, String keys);
 
-	void clear(IDomInputNode inputNode);
+	void clear(IDomTextualInput input);
 
 	/**
 	 * Represents a non-modifier key on a keyboard.

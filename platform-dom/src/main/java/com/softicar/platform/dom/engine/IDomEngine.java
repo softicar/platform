@@ -12,13 +12,14 @@ import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * This engine maps the manipulation of the {@link IDomDocument} to the actual
@@ -53,6 +54,8 @@ public interface IDomEngine {
 	void setNodeStyle(IDomNode node, String name, String value);
 
 	void unsetNodeStyle(IDomNode node, String name);
+
+	Optional<String> getNodeStyle(IDomNode node, String name);
 
 	void setMaximumZIndex(IDomNode node);
 
@@ -161,9 +164,9 @@ public interface IDomEngine {
 
 	void select(IDomNode inputNode);
 
-	void insertAtCaret(IDomInputNode inputNode, String text);
+	void insertAtCaret(IDomTextualInput input, String text);
 
-	void moveCaretToPosition(IDomInputNode inputNode, int position);
+	void moveCaretToPosition(IDomTextualInput input, int position);
 
 	// -------------------------------- pop-ups -------------------------------- //
 

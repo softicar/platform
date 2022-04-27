@@ -5,10 +5,12 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.IDomDocument;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalPromptPopup;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.parent.IDomParentElement;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -198,13 +200,18 @@ public interface IDomNode {
 
 	// -------------------------------- alert, confirm and prompt -------------------------------- //
 
+	// -------------------------------- modal dialogs -------------------------------- //
+
 	/**
 	 * Displays a custom modal alert dialog, for the given message.
 	 *
 	 * @param message
 	 *            the message to display (never <i>null</i>)
 	 */
-	void executeAlert(IDisplayString message);
+	default void executeAlert(IDisplayString message) {
+
+		new DomModalAlertPopup(message).show();
+	}
 
 	/**
 	 * Displays a custom modal confirm dialog, for the given handler and
@@ -216,7 +223,10 @@ public interface IDomNode {
 	 * @param message
 	 *            the message to display (never <i>null</i>)
 	 */
-	void executeConfirm(INullaryVoidFunction confirmHandler, IDisplayString message);
+	default void executeConfirm(INullaryVoidFunction confirmHandler, IDisplayString message) {
+
+		new DomModalConfirmPopup(confirmHandler, message).show();
+	}
 
 	/**
 	 * Displays a custom modal prompt dialog, for the given handler and message.
@@ -229,16 +239,8 @@ public interface IDomNode {
 	 * @param defaultValue
 	 *            the initial value of the input element (may be <i>null</i>)
 	 */
-	void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue);
+	default void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
-	// -------------------------------- HTML -------------------------------- //
-
-	/**
-	 * Builds an HTML representation of this node.
-	 *
-	 * @param output
-	 *            the {@link Appendable} to which the HTML shall be directed
-	 *            (never <i>null</i>)
-	 */
-	void buildHtml(Appendable output) throws IOException;
+		new DomModalPromptPopup(promptHandler, message, defaultValue).show();
+	}
 }

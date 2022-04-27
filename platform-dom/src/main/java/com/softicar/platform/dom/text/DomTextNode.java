@@ -1,8 +1,8 @@
 package com.softicar.platform.dom.text;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.node.DomNode;
-import java.io.IOException;
+import com.softicar.platform.dom.document.CurrentDomDocument;
+import com.softicar.platform.dom.node.AbstractDomNode;
 import java.util.Optional;
 
 /**
@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public abstract class DomTextNode extends DomNode implements IDomTextNode {
+public abstract class DomTextNode extends AbstractDomNode implements IDomTextNode {
 
 	/**
 	 * Creates a new {@link DomTextNode} from the given {@link IDisplayString}.
@@ -44,13 +44,9 @@ public abstract class DomTextNode extends DomNode implements IDomTextNode {
 
 	protected DomTextNode(String text) {
 
+		super(CurrentDomDocument.get());
+
 		getDomEngine().createTextNode(getNodeId(), text);
-	}
-
-	@Override
-	public final void buildHtml(Appendable out) throws IOException {
-
-		out.append(getText());
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementDiv<?, ?, ?>> {
 
-	public EmfManagementDivTester(IDomTestEngine engine, EmfManagementDiv<?, ?, ?> node) {
+	public EmfManagementDivTester(IDomTestExecutionEngine engine, EmfManagementDiv<?, ?, ?> node) {
 
 		super(engine, node);
 	}

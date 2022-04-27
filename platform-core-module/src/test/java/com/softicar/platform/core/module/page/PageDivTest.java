@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.AjaxDocumentParameters;
-import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestEngine;
+import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Map;
@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class PageDivTest extends AbstractPageDivTest implements IPageNavigationTestMethods {
 
-	@Rule public final AjaxSeleniumTestEngine engine = new AjaxSeleniumTestEngine();
+	@Rule public final AjaxSeleniumTestExecutionEngine engine = new AjaxSeleniumTestExecutionEngine();
 
 	public PageDivTest() {
 
@@ -24,7 +24,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

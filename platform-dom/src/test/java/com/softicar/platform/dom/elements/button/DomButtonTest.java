@@ -2,17 +2,17 @@ package com.softicar.platform.dom.elements.button;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomButtonTest extends AbstractTest implements IDomTestEngineMethods {
+public class DomButtonTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	private final Button button;
 	private final CallbackCounter callbackCounter;
@@ -25,7 +25,7 @@ public class DomButtonTest extends AbstractTest implements IDomTestEngineMethods
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}

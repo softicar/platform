@@ -8,9 +8,9 @@ import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngineMethods;
-import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomSelectTester;
 import com.softicar.platform.dom.input.DomOption;
@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEngineMethods {
+public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
 	private static final String NIL = "[none]";
 
-	@Rule public final IDomTestEngine engine = new DomDocumentTestEngine();
+	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 
 	private final CallbackCounter callbackCounter;
 	private final Asserter asserter;
@@ -41,7 +41,7 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEn
 	}
 
 	@Override
-	public IDomTestEngine getEngine() {
+	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
 	}
@@ -667,11 +667,11 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEn
 
 	private static class Asserter {
 
-		private final IDomTestEngine engine;
+		private final IDomTestExecutionEngine engine;
 		private final Supplier<DomSelectTester<?>> selectFinder;
 		private final Supplier<CallbackCounter> callbackCounterSupplier;
 
-		public Asserter(IDomTestEngine engine, Supplier<DomSelectTester<?>> selectFinder, Supplier<CallbackCounter> callbackCounterSupplier) {
+		public Asserter(IDomTestExecutionEngine engine, Supplier<DomSelectTester<?>> selectFinder, Supplier<CallbackCounter> callbackCounterSupplier) {
 
 			this.engine = engine;
 			this.selectFinder = selectFinder;

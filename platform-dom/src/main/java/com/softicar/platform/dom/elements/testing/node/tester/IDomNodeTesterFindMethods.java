@@ -8,12 +8,12 @@ import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -30,11 +30,11 @@ public interface IDomNodeTesterFindMethods {
 	// ------------------------------ basic methods ------------------------------ //
 
 	/**
-	 * Returns the currently employed {@link IDomTestEngine} instance.
+	 * Returns the currently employed {@link IDomTestExecutionEngine} instance.
 	 *
-	 * @return the {@link IDomTestEngine} instance (never <i>null</i>)
+	 * @return the {@link IDomTestExecutionEngine} instance (never <i>null</i>)
 	 */
-	IDomTestEngine getEngine();
+	IDomTestExecutionEngine getEngine();
 
 	/**
 	 * Returns the reference {@link IDomNode} which is used as root when
@@ -163,7 +163,7 @@ public interface IDomNodeTesterFindMethods {
 	// ------------------------------ find methods for special nodes ------------------------------ //
 
 	/**
-	 * Retrieves the {@link DomBody} node from the {@link IDomTestEngine}, and
+	 * Retrieves the {@link DomBody} node from the {@link IDomTestExecutionEngine}, and
 	 * returns it as a {@link DomNodeTester}.
 	 *
 	 * @return a {@link DomNodeTester} of the {@link DomBody} node (never
@@ -236,8 +236,8 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link IDomInputNode} with the given {@link IStaticObject}
-	 * marker.
+	 * Searches for a {@link IDomTextualInput} with the given
+	 * {@link IStaticObject} marker.
 	 *
 	 * @param marker
 	 *            the {@link IStaticObject} marker to search for (never
@@ -251,7 +251,7 @@ public interface IDomNodeTesterFindMethods {
 	default DomNodeTester findInput(IStaticObject marker) {
 
 		return findNodes(marker)//
-			.withType(IDomInputNode.class)
+			.withType(IDomTextualInput.class)
 			.assertOne();
 	}
 

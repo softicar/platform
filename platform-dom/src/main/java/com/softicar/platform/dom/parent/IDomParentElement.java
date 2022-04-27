@@ -258,16 +258,4 @@ public interface IDomParentElement extends IDomElement {
 	 * Returns a collection with all child nodes.
 	 */
 	List<IDomNode> getChildren();
-
-	// -------------------------------- RECURSIVE TREE METHODS -------------------------------- //
-
-	/**
-	 * Disables all input elements contained in this element.
-	 */
-	void disableAllChildren();
-
-	/**
-	 * Enables or disables all input elements contained in this element.
-	 */
-	void setEnabledRecursively(boolean enabled);
 }

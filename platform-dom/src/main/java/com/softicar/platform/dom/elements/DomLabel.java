@@ -2,18 +2,16 @@ package com.softicar.platform.dom.elements;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.input.IDomInputNode;
+import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.node.tree.DomNodeTree;
 import com.softicar.platform.dom.parent.DomParentElement;
 
 /**
- * This class represents an Html label element.
+ * This class represents an HTML label element.
  * <p>
- * A label element can be connected to an {@link IDomInputNode}. If the user
- * clicks on the label, the connected input node will be selected. If the input
- * node is a text input, the input will be focused. If the input is a check-box
- * or radio-button, the <i>checked</i> state of the input will be toggled.
+ * A label element can be connected to an {@link IDomFocusable}. If the user
+ * clicks on the label, the connected {@link IDomFocusable} will be focused.
  *
  * @author Oliver Richers
  */
@@ -25,9 +23,9 @@ public class DomLabel extends DomParentElement {
 	 * Constructs an empty label.
 	 * <p>
 	 * This label will not be connected to anything and will show no text. You
-	 * should call {@link #setFor(IDomInputNode)} to connect this label to an
-	 * input element, and call {@link #appendText(IDisplayString)} to define the
-	 * text to display.
+	 * should call {@link #setFor} to connect this label to an
+	 * {@link IDomFocusable}, and call {@link #appendText(IDisplayString)} to
+	 * define the text to display.
 	 */
 	public DomLabel() {
 
@@ -46,29 +44,29 @@ public class DomLabel extends DomParentElement {
 	}
 
 	/**
-	 * Constructs an empty label connected to the given input element.
+	 * Constructs an empty label connected to the given {@link IDomFocusable}.
 	 * <p>
 	 * This label will show no text. You should call
 	 * {@link #appendText(IDisplayString)} to define the text to display.
 	 *
-	 * @param inputNode
-	 *            the input note to connect this label to
+	 * @param target
+	 *            the {@link IDomFocusable} to connect this label to
 	 */
-	public DomLabel(IDomInputNode inputNode) {
+	public DomLabel(IDomFocusable target) {
 
-		setFor(inputNode);
+		setFor(target);
 	}
 
 	/**
-	 * Defines which input note this label points to.
+	 * Defines which {@link IDomFocusable} this label points to.
 	 *
-	 * @param inputNode
-	 *            the input note to connect this label to
+	 * @param target
+	 *            the {@link IDomFocusable} to connect this label to
 	 * @return this
 	 */
-	public DomLabel setFor(IDomInputNode inputNode) {
+	public DomLabel setFor(IDomFocusable target) {
 
-		setAttribute(FOR_ATTRIBUTE_NAME, inputNode.getNodeIdString());
+		setAttribute(FOR_ATTRIBUTE_NAME, target.getNodeIdString());
 		return this;
 	}
 
@@ -88,12 +86,12 @@ public class DomLabel extends DomParentElement {
 	 * the given {@link IDomNode}.
 	 * <p>
 	 * If the given {@link IDomNode} or one of its children implements
-	 * {@link IDomInputNode}, {@link #setFor(IDomInputNode)} is called with the
-	 * first {@link IDomInputNode} found.
+	 * {@link IDomFocusable}, {@link #setFor} is called with the first
+	 * {@link IDomFocusable} found.
 	 * <p>
 	 * If the given {@link IDomNode} is <i>null</i> or does not implement
-	 * {@link IDomInputNode} and none of its children implement
-	 * {@link IDomInputNode}, {@link #resetFor()} is called.
+	 * {@link IDomFocusable} and none of its children implement
+	 * {@link IDomFocusable}, {@link #resetFor()} is called.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} (may be <i>null</i>)
@@ -102,7 +100,7 @@ public class DomLabel extends DomParentElement {
 	public DomLabel updateFor(IDomNode node) {
 
 		new DomNodeTree(node)//
-			.stream(IDomInputNode.class)
+			.stream(IDomFocusable.class)
 			.findFirst()
 			.ifPresentOrElse(this::setFor, this::resetFor);
 		return this;
