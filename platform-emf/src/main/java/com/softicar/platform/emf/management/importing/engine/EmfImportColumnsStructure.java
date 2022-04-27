@@ -14,6 +14,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	private final List<IDbField<R, ?>> fieldsToImport;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
 	private List<EmfImportColumn<R, P>> tableColumns;
+	private boolean collectedBusinessKeysValidity = true;
 
 	public EmfImportColumnsStructure(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
 
@@ -45,7 +46,10 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 
 			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
 			if (fieldAttribute instanceof EmfForeignRowAttribute) {
-				new EmfImportBusinessKeyColumnsCollector<>(tableColumn, fieldAttribute).collect();
+				boolean isBusinessKeyValid = new EmfImportBusinessKeyColumnsCollector<>(tableColumn, fieldAttribute).collect();
+				if (!isBusinessKeyValid) {
+					collectedBusinessKeysValidity = false;
+				}
 			}
 		}
 		return tableColumns;
@@ -84,5 +88,13 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	public IEmfTable<R, P, S> getTable() {
 
 		return table;
+	}
+
+	public boolean getCollectedBusinessKeysValidity() {
+
+		if (csvFileColumns == null) {
+			collectAllColumns();
+		}
+		return collectedBusinessKeysValidity;
 	}
 }
