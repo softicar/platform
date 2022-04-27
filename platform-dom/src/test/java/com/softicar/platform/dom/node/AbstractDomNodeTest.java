@@ -45,12 +45,6 @@ public class AbstractDomNodeTest extends AbstractTest {
 		this.node = new AbstractDomNode(document) {
 
 			@Override
-			public void buildHtml(Appendable out) {
-
-				// nothing to do
-			}
-
-			@Override
 			public void executeAlert(IDisplayString message) {
 
 				throw new UnsupportedOperationException();

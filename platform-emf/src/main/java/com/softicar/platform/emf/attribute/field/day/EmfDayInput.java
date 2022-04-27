@@ -1,44 +1,15 @@
 package com.softicar.platform.emf.attribute.field.day;
 
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
-import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
-import java.util.Optional;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
 
-public class EmfDayInput extends AbstractEmfInputDiv<Day> {
-
-	private final DomDayInput dayInput;
-
-	public EmfDayInput() {
-
-		this.dayInput = new DomDayInput();
-
-		appendChild(dayInput);
-	}
-
-	@Override
-	public Optional<Day> getValue() {
-
-		return dayInput.getValue();
-	}
+public class EmfDayInput extends DomDayInput implements IEmfInput<Day> {
 
 	@Override
 	public void setValueAndHandleChangeCallback(Day value) {
 
 		setValue(value);
-		dayInput.applyCallback();
-	}
-
-	@Override
-	public void setValue(Day value) {
-
-		dayInput.setValue(value);
-	}
-
-	@Override
-	public void setChangeCallback(INullaryVoidFunction callback) {
-
-		dayInput.setCallback(callback);
+		applyCallback();
 	}
 }

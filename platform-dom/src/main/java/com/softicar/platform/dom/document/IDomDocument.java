@@ -5,7 +5,7 @@ import com.softicar.platform.dom.attribute.IDomAttributeRegistry;
 import com.softicar.platform.dom.document.marker.IDomDocumentMarkerHolder;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.node.DomNode;
+import com.softicar.platform.dom.node.AbstractDomNode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
 import java.lang.ref.WeakReference;
@@ -43,17 +43,18 @@ public interface IDomDocument extends IDomDocumentMarkerHolder {
 	IDomNode getNode(String nodeId);
 
 	/**
-	 * Registers the specified node with this {@link IDomDocument} and allocates
-	 * a unique ID.
+	 * Registers the given {@link IDomNode} with this {@link IDomDocument} and
+	 * allocates a unique ID for it.
 	 * <p>
-	 * This method is automatically called by the constructor of {@link DomNode}
-	 * and may only be called once per node instance. Each {@link IDomNode} must
-	 * be registered using this method before it may be used, e.g. inserted into
-	 * the node tree.
+	 * Each {@link IDomNode} instance must be registered by calling this method,
+	 * before it may be added to this {@link IDomDocument}, i.e. appended to the
+	 * {@link DomBody}, {@link DomHead} or one of their children. Usually, this
+	 * method needs not be called directly, because it is called by the
+	 * constructor of {@link AbstractDomNode} automatically.
 	 *
 	 * @param node
-	 *            the node to register
-	 * @return the allocated and unique ID of given node
+	 *            the {@link IDomNode} to register (never <i>null</i>)
+	 * @return the allocated and unique ID for the given {@link IDomNode}
 	 */
 	int registerNode(IDomNode node);
 

@@ -2,6 +2,7 @@ package com.softicar.platform.dom.element;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.ui.color.IColor;
+import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssStyle;
@@ -14,7 +15,6 @@ import com.softicar.platform.dom.styles.CssPosition;
 import com.softicar.platform.dom.text.DomTextNode;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interface of all DOM elements.
@@ -40,7 +40,7 @@ public interface IDomElement extends IDomNode {
 
 	void unlistenToEvent(DomEventType type);
 
-	// -------------------- CSS class methods -------------------- //
+	// -------------------- CSS class -------------------- //
 
 	default void setCssClass(ICssClass...cssClasses) {
 
@@ -65,7 +65,7 @@ public interface IDomElement extends IDomNode {
 
 	void unsetCssClass();
 
-	// -------------------- CSS style methods -------------------- //
+	// -------------------- CSS style -------------------- //
 
 	IDomElement setStyle(ICssStyle style, String value);
 
@@ -74,11 +74,12 @@ public interface IDomElement extends IDomNode {
 		return setStyle(style, value.toString());
 	}
 
-	IDomElement setStyle(ICssStyleAttribute styleAttribute);
+	default IDomElement setStyle(ICssStyleAttribute styleAttribute) {
+
+		return setStyle(styleAttribute.getStyle(), styleAttribute.getValue());
+	}
 
 	IDomElement unsetStyle(ICssStyle style);
-
-	// -------------------- convenience CSS style methods -------------------- //
 
 	/**
 	 * Toggles the {@link CssStyle#DISPLAY} between {@link CssDisplay#NONE} and
@@ -90,34 +91,29 @@ public interface IDomElement extends IDomNode {
 	 *            {@link #unsetStyle} with {@link CssStyle#DISPLAY}
 	 * @return this
 	 */
-	default IDomElement setDisplayNone(boolean displayNone) {
+	IDomElement setDisplayNone(boolean displayNone);
 
-		if (displayNone) {
-			setStyle(CssDisplay.NONE);
-		} else {
-			unsetStyle(CssStyle.DISPLAY);
-		}
-		return this;
-	}
+	// ------------------------------ color ------------------------------ //
 
 	/**
-	 * Defines the color to be used to draw the background of this element.
-	 * <p>
-	 * If the specified color is <i>null</i> the background of this element will
-	 * be transparent.
+	 * Defines the HTML background color of this {@link IDomElement}.
 	 *
 	 * @param color
-	 *            the background color to use, or null to make the background
-	 *            transparent
-	 * @return this element
+	 *            the background color to use (may be <i>null</i>)
+	 * @return this
 	 */
 	default IDomElement setBackgroundColor(IColor color) {
 
 		return setStyle(CssStyle.BACKGROUND_COLOR, color != null? color.toHtml() : null);
 	}
 
-	// ------------------------------ color ------------------------------ //
-
+	/**
+	 * Defines the HTML foreground color of this {@link IDomElement}.
+	 *
+	 * @param color
+	 *            the foreground color to use (may be <i>null</i>)
+	 * @return this
+	 */
 	default IDomElement setColor(IColor color) {
 
 		return setStyle(CssStyle.COLOR, color != null? color.toHtml() : null);
@@ -126,65 +122,63 @@ public interface IDomElement extends IDomNode {
 	// ------------------------------ tab-index ------------------------------ //
 
 	/**
-	 * Defines the value for the <i>tabindex</i> attribute.
+	 * Defines the value for the HTML <i>tabindex</i> attribute.
 	 *
 	 * @param tabIndex
-	 *            the tab-index (may be null to unset attribute)
-	 * @return this element
+	 *            the tab-index (may be null to clear the attribute)
+	 * @return this
 	 */
-	default IDomElement setTabIndex(Integer tabIndex) {
-
-		setAttribute("tabindex", tabIndex);
-		return this;
-	}
+	IDomElement setTabIndex(Integer tabIndex);
 
 	// -------------------- title -------------------- //
 
 	/**
-	 * Sets the title attribute (tool-tip), to display further information about
-	 * this element.
+	 * Sets the HTML <i>title</i> attribute, to display on hover.
 	 *
-	 * @param text
-	 *            the text to display (may be null)
+	 * @param title
+	 *            the text to display (may be <i>null</i>)
+	 * @return this
 	 */
-	IDomElement setTitle(String text);
+	IDomElement setTitle(String title);
 
 	/**
-	 * Sets the title attribute (tool-tip), to display further information about
-	 * this element.
+	 * Sets the HTML <i>title</i> attribute, to display on hover.
 	 *
-	 * @param displayString
-	 *            the {@link IDisplayString} to translate and display
+	 * @param title
+	 *            the {@link IDisplayString} to display (may be <i>null</i>)
+	 * @return this
 	 */
-	default IDomElement setTitle(IDisplayString displayString) {
+	default IDomElement setTitle(IDisplayString title) {
 
-		return setTitle(Optional.ofNullable(displayString).map(IDisplayString::toString).orElse(null));
+		return setTitle(title != null? title.toString() : null);
 	}
 
 	// -------------------- dragging -------------------- //
 
 	/**
-	 * Makes this node draggable.
+	 * Enables the user to drag this {@link IDomElement} around.
 	 *
 	 * @param position
 	 *            should be either {@link CssPosition#RELATIVE} or
-	 *            {@link CssPosition#ABSOLUTE}
+	 *            {@link CssPosition#ABSOLUTE} (never <i>null</i>)
 	 */
 	void makeDraggable(CssPosition position);
 
 	/**
-	 * Makes this node draggable.
+	 * Enables the user to drag this {@link IDomElement} around.
 	 * <p>
 	 * The difference to the {@link #makeDraggable(CssPosition)} method is that
-	 * you can specify another note that starts the dragging of this node. This
-	 * is important for pop-up menus, where the title bar and not the menu
-	 * itself starts the dragging of the whole menu.
+	 * you can specify another {@link IDomNode} that starts the dragging of this
+	 * {@link IDomElement}. This is important for {@link DomPopup}, where the
+	 * title bar and not the {@link DomPopup} itself starts the dragging of the
+	 * whole {@link DomPopup}.
 	 *
 	 * @param position
 	 *            should be either {@link CssPosition#RELATIVE} or
-	 *            {@link CssPosition#ABSOLUTE}
+	 *            {@link CssPosition#ABSOLUTE} (never <i>null</i>)
 	 * @param initNode
-	 *            the node that the user can click to start the dragging process
+	 *            the {@link IDomNode} that the user can click to start the
+	 *            dragging process (never <i>null</i>)
 	 */
 	void makeDraggable(CssPosition position, IDomNode initNode);
 }

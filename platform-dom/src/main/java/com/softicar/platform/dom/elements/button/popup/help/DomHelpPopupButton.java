@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
-import com.softicar.platform.dom.node.DomNode;
+import com.softicar.platform.dom.node.IDomNode;
 
 /**
  * Clicked to display a popup containing a help text.
@@ -20,7 +20,7 @@ public class DomHelpPopupButton extends DomButton {
 	private final IDisplayString popupCaption;
 	private final IDisplayString popupSubCaption;
 	private IDisplayString popupHelpText = null;
-	private DomNode popupHelpTextNode = null;
+	private IDomNode popupHelpTextNode = null;
 	private DomPopup popup = null;
 
 	/**
@@ -43,7 +43,7 @@ public class DomHelpPopupButton extends DomButton {
 	 * @param popupSubCaption
 	 * @param popupHelpTextNode
 	 */
-	public DomHelpPopupButton(IDisplayString popupCaption, IDisplayString popupSubCaption, DomNode popupHelpTextNode) {
+	public DomHelpPopupButton(IDisplayString popupCaption, IDisplayString popupSubCaption, IDomNode popupHelpTextNode) {
 
 		this(popupCaption, popupSubCaption);
 

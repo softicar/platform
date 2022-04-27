@@ -11,7 +11,6 @@ import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.DomTextNode;
 import com.softicar.platform.dom.text.IDomTextNode;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -294,38 +293,6 @@ public abstract class DomParentElement extends DomElement implements IDomParentE
 			return Collections.singletonList((IDomNode) children);
 		} else {
 			return castChildrenToList();
-		}
-	}
-
-	// -------------------------------- HTML -------------------------------- //
-
-	protected void buildChildrenHTML(Appendable out) throws IOException {
-
-		for (IDomNode child: getChildren()) {
-			child.buildHtml(out);
-		}
-	}
-
-	/**
-	 * Builds HTML code representing this {@link DomParentElement} and all its
-	 * child nodes.
-	 *
-	 * @param out
-	 *            the append-able object for outputting the HTML code
-	 */
-	@Override
-	public void buildHtml(Appendable out) throws IOException {
-
-		out.append("<" + getTag().getName());
-
-		buildAttributesHTML(out);
-
-		if (getTag().getBlockType() == HierarchyType.PARENT) {
-			out.append(">");
-			buildChildrenHTML(out);
-			out.append("</" + getTag().getName() + ">");
-		} else {
-			out.append("/>");
 		}
 	}
 
