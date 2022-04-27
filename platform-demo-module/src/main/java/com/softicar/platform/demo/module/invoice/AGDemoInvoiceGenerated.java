@@ -12,7 +12,6 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
-import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -48,7 +47,6 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static final IDbBooleanField<AGDemoInvoice> LOCKED_ITEMS = BUILDER.addBooleanField("lockedItems", o->o.m_lockedItems, (o,v)->o.m_lockedItems=v).setTitle(DemoI18n.LOCKED_ITEMS).setDefault(false);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFile> DOCUMENT = BUILDER.addForeignField("document", o->o.m_document, (o,v)->o.m_document=v, AGStoredFile.ID).setTitle(DemoI18n.DOCUMENT).setNullable().setDefault(null);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFileSet> ATTACHMENTS = BUILDER.addForeignField("attachments", o->o.m_attachments, (o,v)->o.m_attachments=v, AGStoredFileSet.ID).setTitle(DemoI18n.ATTACHMENTS).setNullable().setDefault(null);
-	public static final IDbKey<AGDemoInvoice> UK_MODULE_INSTANCE_INVOICE_NUMBER = BUILDER.addUniqueKey("moduleInstanceInvoiceNumber", MODULE_INSTANCE, INVOICE_NUMBER);
 	public static final AGDemoInvoiceTable TABLE = new AGDemoInvoiceTable(BUILDER);
 	// @formatter:on
 
@@ -62,15 +60,6 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static AGDemoInvoice get(Integer id) {
 
 		return TABLE.get(id);
-	}
-
-	public static AGDemoInvoice loadByModuleInstanceAndInvoiceNumber(AGDemoModuleInstance moduleInstance, String invoiceNumber) {
-
-		return TABLE//
-				.createSelect()
-				.where(MODULE_INSTANCE.equal(moduleInstance))
-				.where(INVOICE_NUMBER.equal(invoiceNumber))
-				.getOne();
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
