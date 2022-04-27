@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEscapeKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -22,7 +23,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 	private final DomPopup popup;
 	private boolean initialized;
 
-	DomPopupFrame(DomPopup popup) {
+	public DomPopupFrame(DomPopup popup) {
 
 		this.header = new DomPopupFrameHeader(this);
 		this.popup = popup;
@@ -42,7 +43,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 	@Override
 	public void closePopup() {
 
-		popup.getCloseManager().closePopupInteractive();
+		CurrentDomPopupCompositor.get().close(popup);
 	}
 
 	public void setCaption(IDisplayString text) {

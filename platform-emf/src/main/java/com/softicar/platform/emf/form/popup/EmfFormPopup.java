@@ -2,6 +2,7 @@ package com.softicar.platform.emf.form.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.emf.form.EmfForm;
 import com.softicar.platform.emf.form.IEmfForm;
 import com.softicar.platform.emf.form.IEmfFormFrame;
@@ -18,7 +19,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 
 		Objects.requireNonNull(tableRow);
 		this.form = tableRow.table().getFormFactory().createForm(this, tableRow);
-		setCallbackBeforeShow(form::peekAndRefresh);
+		configuration.setCallbackBeforeShow(form::peekAndRefresh);
 		appendChild(form);
 	}
 
@@ -32,13 +33,13 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 	@Override
 	public void focusFrame() {
 
-		focusFirstTextualInputOrFrame();
+		CurrentDomPopupCompositor.get().focus(this);
 	}
 
 	@Override
 	public void closeFrame() {
 
-		hide();
+		close();
 	}
 
 	public R getTableRow() {

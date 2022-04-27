@@ -34,15 +34,15 @@ public class DomPopupTest extends AbstractTest {
 	public void testShow() {
 
 		popup.show();
-		assertTrue(popup.isShown());
+		assertTrue(popup.isAppended());
 		assertSame(body, getRoot(popup));
 	}
 
 	@Test
 	public void testHide() {
 
-		popup.hide();
-		assertFalse(popup.isShown());
+		popup.close();
+		assertFalse(popup.isAppended());
 		assertNotSame(body, getRoot(popup));
 	}
 
@@ -50,18 +50,11 @@ public class DomPopupTest extends AbstractTest {
 	public void testHideWithCloseCallback() {
 
 		CloseCallback closeCallback = new CloseCallback();
-		popup.getCloseManager().setCloseCallback(closeCallback);
-		popup.hide();
+		popup.configure(settings -> settings.setCallbackBeforeClose(closeCallback));
+		popup.show();
+		assertEquals(0, closeCallback.getCount());
+		popup.close();
 		assertEquals(1, closeCallback.getCount());
-	}
-
-	@Test
-	public void testHideWithRemoveChildrenOnClose() {
-
-		assertEquals(1, popup.getChildCount());
-		popup.getCloseManager().setRemoveChildrenOnClose(true);
-		popup.hide();
-		assertEquals(0, popup.getChildCount());
 	}
 
 	private IDomElement getRoot(IDomElement node) {

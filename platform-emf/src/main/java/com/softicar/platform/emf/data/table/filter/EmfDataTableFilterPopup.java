@@ -76,7 +76,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 			column.setColumnFilter(filter);
 		}
 
-		hide();
+		close();
 	}
 
 	@Override

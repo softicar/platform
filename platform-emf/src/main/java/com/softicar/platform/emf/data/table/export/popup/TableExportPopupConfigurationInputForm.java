@@ -140,7 +140,7 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 
 			this.currentEngine = fetchOrCreateEngine(factory);
 			if (getColumnSelectionPopup() != null) {
-				getColumnSelectionPopup().hide();
+				getColumnSelectionPopup().close();
 			}
 			this.columnSelectionButton = new TableExportColumnSelectionButton(this.mainTableModel, currentEngine);
 

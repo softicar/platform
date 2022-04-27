@@ -11,6 +11,6 @@ class DomPopupCloseCancelButton extends DomButton {
 
 		setIcon(icon);
 		setLabel(label);
-		setClickCallback(popup.getCloseManager()::closePopupInteractive);
+		setClickCallback(popup::close);
 	}
 }

@@ -150,9 +150,9 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 		}
 
 		@Override
-		public void hide() {
+		public void close() {
 
-			super.hide();
+			super.close();
 			if (refreshCallback != null) {
 				refreshCallback.apply();
 			}

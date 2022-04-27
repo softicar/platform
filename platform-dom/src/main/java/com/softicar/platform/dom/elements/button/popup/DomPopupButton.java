@@ -32,7 +32,7 @@ public class DomPopupButton extends DomButton {
 	private void showPopup(Supplier<DomPopup> popupFactory) {
 
 		if (popup != null) {
-			popup.hide();
+			popup.close();
 			popup = null;
 		}
 		callbackBeforeShow.apply();

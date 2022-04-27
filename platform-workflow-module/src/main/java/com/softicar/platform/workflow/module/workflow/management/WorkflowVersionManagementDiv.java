@@ -153,9 +153,9 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 		}
 
 		@Override
-		public void hide() {
+		public void close() {
 
-			super.hide();
+			super.close();
 			repaint();
 		}
 	}

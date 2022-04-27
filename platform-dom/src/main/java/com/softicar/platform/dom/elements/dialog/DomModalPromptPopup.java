@@ -57,7 +57,7 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 
 	private void closeAndApplyInput() {
 
-		getCloseManager().closePopupNonInteractive();
+		closeWithoutConfirm();
 		promptHandler.accept(inputElement.getInputText());
 	}
 

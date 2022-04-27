@@ -96,9 +96,9 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 			}
 
 			@Override
-			public void hide() {
+			public void close() {
 
-				super.hide();
+				super.close();
 				refreshCallback.apply();
 			}
 		}

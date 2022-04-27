@@ -49,7 +49,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
 				.setMarker(EmfMarker.CANCEL)
-				.setClickCallback(this::hide));
+				.setClickCallback(this::close));
 
 		setCaption(table.getTitle());
 	}
@@ -68,7 +68,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 	private void showFormPopup() {
 
 		new EmfFormPopup<>(getOrCreateRecord()).setDirectEditing(true).show();
-		hide();
+		close();
 	}
 
 	private R getOrCreateRecord() {

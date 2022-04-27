@@ -149,7 +149,7 @@ public class EmfDataTableColumn<R, V> implements IEmfDataTableColumn<R, V> {
 	public void resetFilterPopup() {
 
 		if (filterPopup != null) {
-			filterPopup.hide();
+			filterPopup.close();
 		}
 		this.filterPopup = null;
 	}

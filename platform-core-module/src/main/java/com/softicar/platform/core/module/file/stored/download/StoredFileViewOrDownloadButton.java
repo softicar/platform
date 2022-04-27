@@ -15,6 +15,7 @@ import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfPr
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.configuration.DomPopupConfiguration;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.Arrays;
@@ -110,10 +111,14 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 				previewPopup.show();
 				break;
 			case CENTERED_ON_VIEWPORT:
-				previewPopup.setPositionByViewportCenter().show();
+				previewPopup//
+					.configure(DomPopupConfiguration::setPositionStrategyByViewportCenter)
+					.show();
 				break;
 			case UPPER_LEFT:
-				previewPopup.setPositionByViewportOrigin().show();
+				previewPopup//
+					.configure(DomPopupConfiguration::setPositionStrategyByViewportOrigin)
+					.show();
 				break;
 			}
 		} else {
