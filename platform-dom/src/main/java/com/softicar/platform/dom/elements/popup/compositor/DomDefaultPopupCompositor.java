@@ -46,16 +46,11 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		spawningNodeMap.put(popup, spawningNode);
 
 		var configuration = popup.getConfiguration();
-		var frame = new DomPopupFrame(popup);
-		frame.setCaption(configuration.getCaption());
-		frame.setSubCaption(configuration.getSubCaption());
-		configuration.getFrameMarkers().forEach(frame::setMarker);
-		frameMap.put(popup, frame);
-
-		getDomDocument().getBody().appendChild(frame);
-
 		var displayMode = configuration.getDisplayMode();
-		frame.initialize(displayMode.hasHeader());
+
+		var frame = new DomPopupFrame(popup);
+		frameMap.put(popup, frame);
+		getDomDocument().getBody().appendChild(frame);
 
 		if (displayMode.isModal()) {
 			showBackdrop(popup);
@@ -118,9 +113,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		Objects.requireNonNull(popup);
 
 		getFrame(popup).ifPresent(frame -> {
-			var configuration = popup.getConfiguration();
-			frame.setCaption(configuration.getCaption());
-			frame.setSubCaption(configuration.getSubCaption());
+			frame.refreshCaptions();
 		});
 	}
 

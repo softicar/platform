@@ -1,6 +1,5 @@
 package com.softicar.platform.dom.elements.popup;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
@@ -12,26 +11,33 @@ import com.softicar.platform.dom.styles.CssPosition;
 import java.util.Collections;
 
 /**
- * A frame for {@link DomPopup} objects.
+ * A frame for {@link DomPopup} elements.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeKeyEventHandler {
 
-	private final DomPopupFrameHeader header;
 	private final DomPopup popup;
-	private boolean initialized;
+	private final DomPopupFrameHeader header;
 
 	public DomPopupFrame(DomPopup popup) {
 
-		this.header = new DomPopupFrameHeader(this);
 		this.popup = popup;
-		this.initialized = false;
+		this.header = new DomPopupFrameHeader(this);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
-		makeDraggable(CssPosition.ABSOLUTE, header);
 		setupEscapeHandler();
+
+		var configuration = popup.getConfiguration();
+		if (configuration.getDisplayMode().hasHeader()) {
+			makeDraggable(CssPosition.ABSOLUTE, header);
+			appendChild(header);
+			refreshCaptions();
+		}
+		appendChild(popup);
+
+		configuration.getFrameMarkers().forEach(this::setMarker);
 	}
 
 	@Override
@@ -46,25 +52,11 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		CurrentDomPopupCompositor.get().close(popup);
 	}
 
-	public void setCaption(IDisplayString text) {
+	public void refreshCaptions() {
 
-		header.setCaption(text);
-	}
-
-	public void setSubCaption(IDisplayString text) {
-
-		header.setSubCaption(text);
-	}
-
-	public void initialize(boolean displayHeader) {
-
-		if (!initialized) {
-			if (displayHeader) {
-				appendChild(header);
-			}
-			appendChild(popup);
-			this.initialized = true;
-		}
+		var configuration = popup.getConfiguration();
+		header.setCaption(configuration.getCaption());
+		header.setSubCaption(configuration.getSubCaption());
 	}
 
 	private void setupEscapeHandler() {
