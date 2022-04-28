@@ -34,7 +34,7 @@ import java.util.function.Consumer;
  * Use convenience methods like {@link #appendCancelButton()} or
  * {@link #appendCloseButton()} to append standard elements, as required.
  * <p>
- * Use {@link #show()} to display this {@link DomPopup}. Use {@link #close()} to
+ * Use {@link #open()} to display this {@link DomPopup}. Use {@link #close()} to
  * hide it.
  *
  * @author Alexander Schmidt
@@ -48,7 +48,7 @@ public class DomPopup extends DomDiv {
 	/**
 	 * Constructs a new {@link DomPopup}.
 	 * <p>
-	 * Initially, this {@link DomPopup} is not displayed. Use {@link #show()} to
+	 * Initially, this {@link DomPopup} is not displayed. Use {@link #open()} to
 	 * display it.
 	 */
 	public DomPopup() {
@@ -65,7 +65,7 @@ public class DomPopup extends DomDiv {
 	 * {@link DomPopup}.
 	 *
 	 * @return the {@link IDomPopupConfiguration} (never <i>null</i>)
-	 * @see #show()
+	 * @see #open()
 	 */
 	public IDomPopupConfiguration getConfiguration() {
 
@@ -123,11 +123,20 @@ public class DomPopup extends DomDiv {
 	// -------------------------------- show and close -------------------------------- //
 
 	/**
-	 * Displays this {@link DomPopup}.
+	 * @deprecated use {@link #open()} instead
 	 */
+	@Deprecated
 	public void show() {
 
-		CurrentDomPopupCompositor.get().show(this);
+		CurrentDomPopupCompositor.get().open(this);
+	}
+
+	/**
+	 * Opens this {@link DomPopup}.
+	 */
+	public void open() {
+
+		CurrentDomPopupCompositor.get().open(this);
 	}
 
 	/**

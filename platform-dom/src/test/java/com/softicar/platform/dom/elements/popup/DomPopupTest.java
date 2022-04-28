@@ -31,15 +31,15 @@ public class DomPopupTest extends AbstractTest {
 	}
 
 	@Test
-	public void testShow() {
+	public void testOpen() {
 
-		popup.show();
+		popup.open();
 		assertTrue(popup.isAppended());
 		assertSame(body, getRoot(popup));
 	}
 
 	@Test
-	public void testHide() {
+	public void testClose() {
 
 		popup.close();
 		assertFalse(popup.isAppended());
@@ -47,11 +47,11 @@ public class DomPopupTest extends AbstractTest {
 	}
 
 	@Test
-	public void testHideWithCloseCallback() {
+	public void testCloseWithCloseCallback() {
 
 		CloseCallback closeCallback = new CloseCallback();
 		popup.configure(settings -> settings.setCallbackBeforeClose(closeCallback));
-		popup.show();
+		popup.open();
 		assertEquals(0, closeCallback.getCount());
 		popup.close();
 		assertEquals(1, closeCallback.getCount());

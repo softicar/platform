@@ -1,34 +1,36 @@
 package com.softicar.platform.dom.elements.popup.compositor;
 
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
+import com.softicar.platform.dom.input.IDomTextualInput;
 
 /**
  * A compositor that handles the visualization of {@link DomPopup} elements in
- * the current IDomDocument.
+ * the {@link CurrentDomDocument}.
  *
  * @author Alexander Schmidt
  */
 public interface IDomPopupCompositor {
 
 	/**
-	 * Displays the given {@link DomPopup}.
+	 * Opens the given {@link DomPopup}.
 	 * <p>
-	 * If the {@link DomPopup} is already displayed, nothing will happen.
+	 * If the {@link DomPopup} is already open, nothing will happen.
 	 *
 	 * @param popup
-	 *            the {@link DomPopup} to show (never <i>null</i>)
+	 *            the {@link DomPopup} to open (never <i>null</i>)
 	 */
-	void show(DomPopup popup);
+	void open(DomPopup popup);
 
 	/**
 	 * Closes the given {@link DomPopup}.
 	 * <p>
-	 * If the {@link DomPopup} is not displayed, nothing will happen.
+	 * If the {@link DomPopup} is not open, nothing will happen.
 	 *
 	 * @param popup
-	 *            the {@link DomPopup} to show (never <i>null</i>)
+	 *            the {@link DomPopup} to close (never <i>null</i>)
 	 */
 	void close(DomPopup popup);
 
@@ -38,19 +40,19 @@ public interface IDomPopupCompositor {
 	 * The user will <b>not</b> be prompted for confirmation, even if
 	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
 	 * <p>
-	 * If the {@link DomPopup} is not displayed, nothing will happen.
+	 * If the {@link DomPopup} is not open, nothing will happen.
 	 *
 	 * @param popup
-	 *            the {@link DomPopup} to show (never <i>null</i>)
+	 *            the {@link DomPopup} to close (never <i>null</i>)
 	 */
 	void closeWithoutConfirm(DomPopup popup);
 
 	/**
-	 * Focuses the first textual input element in the given {@link DomPopup}.
+	 * Focuses the first {@link IDomTextualInput} in the given {@link DomPopup}.
 	 * <p>
 	 * If no such element is found, the {@link DomPopupFrame} is focused.
 	 * <p>
-	 * If the {@link DomPopup} is not displayed, nothing will happen.
+	 * If the {@link DomPopup} is not open, nothing will happen.
 	 *
 	 * @param popup
 	 *            the {@link DomPopup} to focus (never <i>null</i>)

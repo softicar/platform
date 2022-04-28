@@ -10,8 +10,9 @@ import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewpo
 import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewportOriginPositionStrategy;
 import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
 import com.softicar.platform.dom.style.CssPercent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A mutable implementation of {@link IDomPopupConfiguration}.
@@ -24,10 +25,10 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	private IDisplayString subCaption;
 	private DomPopupDisplayMode displayMode;
 	private IDomPopupPositionStrategy positionStrategy;
-	private INullaryVoidFunction callbackBeforeShow;
+	private INullaryVoidFunction callbackBeforeOpen;
 	private INullaryVoidFunction callbackBeforeClose;
 	private boolean confirmBeforeClose;
-	private IStaticObject frameMarker;
+	private final List<IStaticObject> frameMarkers;
 
 	/**
 	 * Creates a new instance, with sane defaults.
@@ -38,10 +39,10 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 		this.subCaption = null;
 		this.displayMode = DomPopupDisplayMode.DRAGGABLE;
 		this.positionStrategy = new DomPopupEventCoordinatesPositionStrategy();
-		this.callbackBeforeShow = INullaryVoidFunction.NO_OPERATION;
+		this.callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
 		this.callbackBeforeClose = INullaryVoidFunction.NO_OPERATION;
 		this.confirmBeforeClose = false;
-		this.frameMarker = null;
+		this.frameMarkers = new ArrayList<>();
 	}
 
 	@Override
@@ -207,22 +208,22 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public INullaryVoidFunction getCallbackBeforeShow() {
+	public INullaryVoidFunction getCallbackBeforeOpen() {
 
-		return callbackBeforeShow;
+		return callbackBeforeOpen;
 	}
 
 	/**
 	 * Defines the callback to be executed directly before the {@link DomPopup}
-	 * is shown.
+	 * is opened.
 	 *
-	 * @param callbackBeforeShow
+	 * @param callbackBeforeOpen
 	 *            the callback (never <i>null</i>)
 	 * @return this {@link DomPopup}
 	 */
-	public DomPopupConfiguration setCallbackBeforeShow(INullaryVoidFunction callbackBeforeShow) {
+	public DomPopupConfiguration setCallbackBeforeOpen(INullaryVoidFunction callbackBeforeOpen) {
 
-		this.callbackBeforeShow = Objects.requireNonNull(callbackBeforeShow);
+		this.callbackBeforeOpen = Objects.requireNonNull(callbackBeforeOpen);
 		return this;
 	}
 
@@ -268,13 +269,13 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public Optional<IStaticObject> getFrameMarker() {
+	public List<IStaticObject> getFrameMarkers() {
 
-		return Optional.ofNullable(frameMarker);
+		return frameMarkers;
 	}
 
 	/**
-	 * Defines the {@link IStaticObject} marker to be set on the
+	 * Adds an {@link IStaticObject} marker to be set on the
 	 * {@link DomPopupFrame} of the {@link DomPopup}, upon creation of the
 	 * former.
 	 *
@@ -282,9 +283,9 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	 *            the {@link IStaticObject} marker for the {@link DomPopupFrame}
 	 * @return this {@link DomPopup}
 	 */
-	public DomPopupConfiguration setFrameMarker(IStaticObject frameMarker) {
+	public DomPopupConfiguration addFrameMarker(IStaticObject frameMarker) {
 
-		this.frameMarker = frameMarker;
+		this.frameMarkers.add(Objects.requireNonNull(frameMarker));
 		return this;
 	}
 }

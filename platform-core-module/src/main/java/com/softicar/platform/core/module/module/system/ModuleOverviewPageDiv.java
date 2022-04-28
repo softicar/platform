@@ -43,7 +43,7 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_BUTTON);
 			setIcon(EmfImages.MANAGEMENT_ACTIONS.getResource());
-			setClickCallback(() -> new ActionPopover(cell, module).show());
+			setClickCallback(() -> new ActionPopover(cell, module).open());
 		}
 	}
 

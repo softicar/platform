@@ -137,7 +137,7 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 			DomPopupManager//
 				.getInstance()
 				.getPopup(transition, EditTransitionPopup.class, EditTransitionPopup::new)
-				.show();
+				.open();
 		}
 	}
 

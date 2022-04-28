@@ -25,17 +25,17 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private final WeakIdentityHashMap<DomPopup, DomPopupFrame> frameMap;
 	private final WeakIdentityHashMap<DomPopup, IDomNode> spawningNodeMap;
-	private final WeakIdentityHashMap<DomPopup, IDomNode> backdropMap;
+	private final WeakIdentityHashMap<DomPopup, IDomNode> backdropNodeMap;
 
 	public DomDefaultPopupCompositor() {
 
 		this.frameMap = new WeakIdentityHashMap<>();
 		this.spawningNodeMap = new WeakIdentityHashMap<>();
-		this.backdropMap = new WeakIdentityHashMap<>();
+		this.backdropNodeMap = new WeakIdentityHashMap<>();
 	}
 
 	@Override
-	public void show(DomPopup popup) {
+	public void open(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
 		if (popup.isAppended()) {
@@ -49,12 +49,10 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		var frame = new DomPopupFrame(popup);
 		frame.setCaption(configuration.getCaption());
 		frame.setSubCaption(configuration.getSubCaption());
-		configuration.getFrameMarker().ifPresent(frame::setMarker);
+		configuration.getFrameMarkers().forEach(frame::setMarker);
 		frameMap.put(popup, frame);
 
-		if (frame.getParent() == null) {
-			getDomDocument().getBody().appendChild(frame);
-		}
+		getDomDocument().getBody().appendChild(frame);
 
 		var displayMode = configuration.getDisplayMode();
 		frame.initialize(displayMode.hasHeader());
@@ -63,7 +61,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			showBackdrop(popup);
 		}
 
-		configuration.getCallbackBeforeShow().apply();
+		configuration.getCallbackBeforeOpen().apply();
 
 		var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
 		getDomEngine().showPopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
@@ -110,7 +108,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 
 		if (!IDomTextualInput.focusFirstTextualInput(popup)) {
-			Optional.ofNullable(frameMap.get(popup)).ifPresent(getDomEngine()::focus);
+			getFrame(popup).ifPresent(getDomEngine()::focus);
 		}
 	}
 
@@ -119,52 +117,11 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 		Objects.requireNonNull(popup);
 
-		Optional.ofNullable(frameMap.get(popup)).ifPresent(frame -> {
+		getFrame(popup).ifPresent(frame -> {
 			var configuration = popup.getConfiguration();
 			frame.setCaption(configuration.getCaption());
 			frame.setSubCaption(configuration.getSubCaption());
 		});
-	}
-
-	private void showBackdrop(DomPopup popup) {
-
-		var backdrop = new DomModalDialogBackdrop(determineBackdropCallback(popup));
-		backdropMap.put(popup, backdrop);
-
-		getDomEngine().setMaximumZIndex(backdrop);
-		getDomDocument().getBody().appendChild(backdrop);
-	}
-
-	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
-
-		DomPopupModalMode modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
-		if (modalMode == DomPopupModalMode.MODAL_DISMISSABLE) {
-			return () -> closeWithoutConfirm(popup);
-		} else {
-			return () -> focus(popup);
-		}
-	}
-
-	private void hidePopup(DomPopup popup) {
-
-		popup.getConfiguration().getCallbackBeforeClose().apply();
-
-		Optional.ofNullable(frameMap.get(popup)).ifPresent(frame -> {
-			popup.disappend();
-			frame.disappend();
-			getDomEngine().hidePopup(frame);
-		});
-
-		Optional.ofNullable(backdropMap.get(popup)).ifPresent(backdrop -> {
-			backdrop.disappend();
-		});
-
-		Optional.ofNullable(spawningNodeMap.get(popup)).ifPresent(getDomEngine()::focus);
-	}
-
-	private IDomEngine getDomEngine() {
-
-		return getDomDocument().getEngine();
 	}
 
 	private IDomNode determineSpawningNode() {
@@ -173,6 +130,62 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			.ofNullable(getCurrentEvent())
 			.map(IDomEvent::getCurrentTarget)
 			.orElse(null);
+	}
+
+	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
+
+		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
+		if (modalMode == DomPopupModalMode.MODAL_DISMISSABLE) {
+			return () -> closeWithoutConfirm(popup);
+		} else {
+			return () -> focus(popup);
+		}
+	}
+
+	private void showBackdrop(DomPopup popup) {
+
+		var backdrop = new DomModalDialogBackdrop(determineBackdropCallback(popup));
+		backdropNodeMap.put(popup, backdrop);
+
+		getDomEngine().setMaximumZIndex(backdrop);
+		getDomDocument().getBody().appendChild(backdrop);
+	}
+
+	private void hidePopup(DomPopup popup) {
+
+		popup.getConfiguration().getCallbackBeforeClose().apply();
+
+		getFrame(popup).ifPresent(frame -> {
+			popup.disappend();
+			frame.disappend();
+			getDomEngine().hidePopup(frame);
+		});
+
+		getBackdropNode(popup).ifPresent(backdrop -> {
+			backdrop.disappend();
+		});
+
+		getSpawningNode(popup).ifPresent(getDomEngine()::focus);
+	}
+
+	private Optional<DomPopupFrame> getFrame(DomPopup popup) {
+
+		return Optional.ofNullable(frameMap.get(popup));
+	}
+
+	private Optional<IDomNode> getSpawningNode(DomPopup popup) {
+
+		return Optional.ofNullable(spawningNodeMap.get(popup));
+	}
+
+	private Optional<IDomNode> getBackdropNode(DomPopup popup) {
+
+		return Optional.ofNullable(backdropNodeMap.get(popup));
+	}
+
+	private IDomEngine getDomEngine() {
+
+		return getDomDocument().getEngine();
 	}
 
 	private IDomEvent getCurrentEvent() {

@@ -58,6 +58,6 @@ public class EmfViewAction<R extends IEmfTableRow<R, ?>> implements IEmfManageme
 		DomPopupManager//
 			.getInstance()
 			.getPopup(tableRow, EmfFormPopup.class, it -> new EmfFormPopup<>(it))
-			.show();
+			.open();
 	}
 }

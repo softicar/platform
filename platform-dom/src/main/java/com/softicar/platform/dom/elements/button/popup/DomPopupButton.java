@@ -37,7 +37,7 @@ public class DomPopupButton extends DomButton {
 		}
 		callbackBeforeShow.apply();
 		popup = popupFactory.get();
-		popup.show();
+		popup.open();
 
 		callbackAfterShow.apply();
 	}

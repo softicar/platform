@@ -74,7 +74,7 @@ public class DomModalDialogPopupTest extends AbstractDomModalDialogPopupTest {
 
 			appendChild(new DomButton())//
 				.setLabel("show dialog")
-				.setClickCallback(new DomModalDialogPopup()::show)
+				.setClickCallback(new DomModalDialogPopup()::open)
 				.setMarker(SHOW_BUTTON);
 		}
 	}

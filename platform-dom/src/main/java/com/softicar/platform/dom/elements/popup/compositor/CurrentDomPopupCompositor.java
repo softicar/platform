@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.popup.compositor;
 
 import com.softicar.platform.common.core.singleton.Singleton;
+import java.util.Objects;
 
 /**
  * A {@link Singleton} that holds the currently-used
@@ -15,7 +16,7 @@ public class CurrentDomPopupCompositor {
 	/**
 	 * Returns the currently-used {@link IDomPopupCompositor}.
 	 *
-	 * @return the current {@link IDomPopupCompositor} (may be <i>null</i>)
+	 * @return the current {@link IDomPopupCompositor} (never <i>null</i>)
 	 */
 	public static IDomPopupCompositor get() {
 
@@ -26,10 +27,11 @@ public class CurrentDomPopupCompositor {
 	 * Sets the currently-used {@link IDomPopupCompositor}.
 	 *
 	 * @param compositor
-	 *            the current {@link IDomPopupCompositor} (may be <i>null</i>)
+	 *            the current {@link IDomPopupCompositor} (never <i>null</i>)
 	 */
 	public static void set(IDomPopupCompositor compositor) {
 
+		Objects.requireNonNull(compositor);
 		INSTANCE.set(compositor);
 	}
 }

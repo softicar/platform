@@ -27,7 +27,7 @@ abstract class AbstractDomDayPopupButton extends DomButton {
 
 		setIcon(DomElementsImages.CALENDAR_DAY.getResource());
 		setLabel(IDisplayString.create(chooser.getDay().toString()));
-		setClickCallback(() -> popup.show());
+		setClickCallback(() -> popup.open());
 	}
 
 	public AbstractDomDayPopupButton() {
@@ -64,7 +64,7 @@ abstract class AbstractDomDayPopupButton extends DomButton {
 
 	protected void showPopup() {
 
-		popup.show();
+		popup.open();
 	}
 
 	public abstract void handleDayChange();

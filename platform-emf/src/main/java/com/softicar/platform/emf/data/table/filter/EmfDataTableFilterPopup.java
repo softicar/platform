@@ -84,6 +84,6 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 		filter.reset();
 		filterListDiv.updateAndRebuildFilterElements();
-		super.show();
+		super.open();
 	}
 }

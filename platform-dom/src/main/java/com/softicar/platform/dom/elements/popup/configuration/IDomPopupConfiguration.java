@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Holds configuration parameters for a {@link DomPopup}.
@@ -45,11 +45,11 @@ public interface IDomPopupConfiguration {
 
 	/**
 	 * Returns the callback to be executed directly before the {@link DomPopup}
-	 * is shown.
+	 * is opened.
 	 *
 	 * @return the callback (never <i>null</i>)
 	 */
-	INullaryVoidFunction getCallbackBeforeShow();
+	INullaryVoidFunction getCallbackBeforeOpen();
 
 	/**
 	 * Returns the callback to be executed directly before the {@link DomPopup}
@@ -69,11 +69,11 @@ public interface IDomPopupConfiguration {
 	boolean isConfirmBeforeClose();
 
 	/**
-	 * Returns the {@link IStaticObject} marker to be set on the
+	 * Returns a {@link List} of {@link IStaticObject} markers to be set on the
 	 * {@link DomPopupFrame} of the {@link DomPopup}, upon creation of the
 	 * former.
 	 *
-	 * @return the {@link IStaticObject} marker for the {@link DomPopupFrame}
+	 * @return the {@link IStaticObject} markers for the {@link DomPopupFrame}
 	 */
-	Optional<IStaticObject> getFrameMarker();
+	List<IStaticObject> getFrameMarkers();
 }
