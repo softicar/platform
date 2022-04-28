@@ -61,6 +61,8 @@ public interface IDomPopupCompositor {
 
 	/**
 	 * Refreshes the {@link DomPopupFrame} of the given {@link DomPopup}.
+	 * <p>
+	 * Does <b>not</b> refresh the content of the {@link DomPopup}.
 	 *
 	 * @param popup
 	 *            the {@link DomPopup} with the {@link DomPopupFrame} to refresh
