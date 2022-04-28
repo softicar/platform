@@ -15,7 +15,7 @@ public class EmfTestBusinessUnitModuleInstanceTable extends EmfObjectTable<EmfTe
 	@Override
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<EmfTestBusinessUnitModuleInstance, Integer, EmfTestObject> configuration) {
 
-//		configuration.setScopeField(EmfTestBusinessUnitModuleInstance.);
+		configuration.setScopeField(EmfTestBusinessUnitModuleInstance.MODULE_INSTANCE);
 		configuration.setBusinessKey(EmfTestBusinessUnitModuleInstance.UK_NAME);
 	}
 }

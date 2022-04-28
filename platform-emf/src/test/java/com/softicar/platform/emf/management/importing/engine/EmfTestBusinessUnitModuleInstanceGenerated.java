@@ -12,10 +12,6 @@ public class EmfTestBusinessUnitModuleInstanceGenerated extends AbstractDbObject
 
 	// @formatter:off
 	public static final DbObjectTableBuilder<EmfTestBusinessUnitModuleInstance, EmfTestBusinessUnitModuleInstanceGenerated> BUILDER = new DbObjectTableBuilder<>("Test", "BusinessUnitModuleInstance", EmfTestBusinessUnitModuleInstance::new, EmfTestBusinessUnitModuleInstance.class);
-//	static {
-//		BUILDER.setTitle(IDisplayString.create("BusinessUnitModuleInstance"));
-//		BUILDER.setTitle(IDisplayString.create("BusinessUnitModuleInstances"));
-//	}
 	public static final IDbIdField<EmfTestBusinessUnitModuleInstance> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestBusinessUnitModuleInstance, EmfTestObject> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, EmfTestObject.ID);
 	public static final IDbStringField<EmfTestBusinessUnitModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v).setNullable();

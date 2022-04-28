@@ -43,22 +43,6 @@ public class EmfTokenMatrixParser<R extends IEmfTableRow<R, P>, P, S> {
 		this.currentRow = null;
 	}
 
-//	/**
-//	 * Overrides the default list of expected {@link IDbField} objects.
-//	 * <p>
-//	 * By default, the list of expected {@link IDbField} objects equals
-//	 * {@link IEmfTable#getAllFields()}.
-//	 *
-//	 * @param fields
-//	 *            the list of {@link IDbField} objects (never <i>null</i>)
-//	 * @return this
-//	 */
-//	public EmfTokenMatrixParser<R, P, S> setFields(Collection<IDbField<R, ?>> fields) {
-//
-//		this.fields = new ArrayList<>(fields);
-//		return this;
-//	}
-
 	public EmfTokenMatrixParser<R, P, S> setColumnsCollector(EmfImportColumnsStructure<R, P, ?> columnsStructure) {
 
 		this.columnsStructure = columnsStructure;

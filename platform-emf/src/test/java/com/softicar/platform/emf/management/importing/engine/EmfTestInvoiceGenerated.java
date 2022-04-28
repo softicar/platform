@@ -13,10 +13,6 @@ public class EmfTestInvoiceGenerated extends AbstractDbObject<EmfTestInvoice> {
 
 	// @formatter:off
 	public static final DbObjectTableBuilder<EmfTestInvoice, EmfTestInvoiceGenerated> BUILDER = new DbObjectTableBuilder<>("Test", "Invoice", EmfTestInvoice::new, EmfTestInvoice.class);
-//	static {
-//		BUILDER.setTitle(IDisplayString.create("Invoice"));
-//		BUILDER.setTitle(IDisplayString.create("Invoices"));
-//	}
 	public static final IDbIdField<EmfTestInvoice> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestInvoice, EmfTestInvoiceModuleInstance> INVOICE_MODULE_INSTANCE = BUILDER.addForeignField("invoiceModuleInstance", o->o.invoiceModuleInstance, (o,v)->o.invoiceModuleInstance=v, EmfTestInvoiceModuleInstance.ID).setNullable();
 	public static final IDbForeignField<EmfTestInvoice, EmfTestBusinessPartner> PARTNER = BUILDER.addForeignField("partner", o->o.partner, (o,v)->o.partner=v, EmfTestBusinessPartner.ID).setNullable();

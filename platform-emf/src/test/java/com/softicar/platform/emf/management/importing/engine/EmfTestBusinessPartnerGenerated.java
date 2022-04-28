@@ -11,10 +11,6 @@ public class EmfTestBusinessPartnerGenerated extends AbstractDbObject<EmfTestBus
 
 	// @formatter:off
 	public static final DbObjectTableBuilder<EmfTestBusinessPartner, EmfTestBusinessPartnerGenerated> BUILDER = new DbObjectTableBuilder<>("Test", "BusinessPartner", EmfTestBusinessPartner::new, EmfTestBusinessPartner.class);
-//	static {
-//		BUILDER.setTitle(IDisplayString.create("BusinessPartner"));
-//		BUILDER.setTitle(IDisplayString.create("BusinessPartners"));
-//	}
 	public static final IDbIdField<EmfTestBusinessPartner> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestBusinessPartner, EmfTestBusinessUnitModuleInstance> BUSINESS_UNIT_MODULE_INSTANCE = BUILDER.addForeignField("businessUnitModuleInstance", o->o.businessUnitModuleInstance, (o,v)->o.businessUnitModuleInstance=v, EmfTestBusinessUnitModuleInstance.ID);
 	public static final IDbStringField<EmfTestBusinessPartner> VAT_ID = BUILDER.addStringField("vatId", o -> o.vatId, (o, v) -> o.vatId = v).setNullable();
