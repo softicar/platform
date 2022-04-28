@@ -70,7 +70,6 @@
 	
 	/* looks */
 	background: #fff;
-	box-shadow: var(--PAGE_BOX_SHADOW);
 	color: var(--PRIMARY_COLOR);
 }
 
