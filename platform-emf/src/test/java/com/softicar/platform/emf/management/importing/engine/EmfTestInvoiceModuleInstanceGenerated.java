@@ -12,10 +12,14 @@ public class EmfTestInvoiceModuleInstanceGenerated extends AbstractDbObject<EmfT
 
 	// @formatter:off
 	public static final DbObjectTableBuilder<EmfTestInvoiceModuleInstance, EmfTestInvoiceModuleInstanceGenerated> BUILDER = new DbObjectTableBuilder<>("Test", "InvoiceModuleInstance", EmfTestInvoiceModuleInstance::new, EmfTestInvoiceModuleInstance.class);
+//	static {
+//		BUILDER.setTitle(IDisplayString.create("InvoiceModuleInstance"));
+//		BUILDER.setTitle(IDisplayString.create("InvoiceModuleInstances"));
+//	}
 	public static final IDbIdField<EmfTestInvoiceModuleInstance> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
 	public static final IDbForeignField<EmfTestInvoiceModuleInstance, EmfTestObject> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, EmfTestObject.ID);
 	public static final IDbStringField<EmfTestInvoiceModuleInstance> NAME = BUILDER.addStringField("name", o -> o.name, (o, v) -> o.name = v);
-	public static final IDbKey<EmfTestInvoiceModuleInstance> UK_MODULE_INSTANCE_NAME = BUILDER.addUniqueKey("name", MODULE_INSTANCE, NAME);
+	public static final IDbKey<EmfTestInvoiceModuleInstance> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final EmfTestInvoiceModuleInstanceTable TABLE = new EmfTestInvoiceModuleInstanceTable(BUILDER);
 	// @formatter:on
 

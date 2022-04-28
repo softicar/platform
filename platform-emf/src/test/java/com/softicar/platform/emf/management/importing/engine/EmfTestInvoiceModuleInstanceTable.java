@@ -16,6 +16,6 @@ public class EmfTestInvoiceModuleInstanceTable extends EmfObjectTable<EmfTestInv
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<EmfTestInvoiceModuleInstance, Integer, EmfTestObject> configuration) {
 
 		configuration.setScopeField(EmfTestInvoiceModuleInstance.MODULE_INSTANCE);
-		configuration.setBusinessKey(EmfTestInvoiceModuleInstance.UK_MODULE_INSTANCE_NAME);
+		configuration.setBusinessKey(EmfTestInvoiceModuleInstance.UK_NAME);
 	}
 }
