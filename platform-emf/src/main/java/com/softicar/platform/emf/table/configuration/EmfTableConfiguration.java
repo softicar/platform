@@ -1,8 +1,10 @@
 package com.softicar.platform.emf.table.configuration;
 
+import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
@@ -503,7 +505,25 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 
 	public void setBusinessKey(IDbKey<R> businessKey) {
 
+		checkBusinessKey(businessKey);
 		this.businessKey = businessKey;
+	}
+
+	private void checkBusinessKey(IDbKey<R> businessKey) {
+
+		if (!businessKey.isUniqueKey()) {
+			throw new SofticarDeveloperException(
+				"The set business key (%s) of table %s must be a unique key.",
+				Imploder.implode(businessKey.getFields(), " & "),
+				table);
+		}
+
+		if (table.getPrimaryKey().isGenerated() && !Collections.disjoint(businessKey.getFields(), table.getPrimaryKey().getFields())) {
+			throw new SofticarDeveloperException(
+				"The set business key (%s) of table %s must not contain an autoincrement column.",
+				Imploder.implode(businessKey.getFields(), " & "),
+				table);
+		}
 	}
 
 	@Override
