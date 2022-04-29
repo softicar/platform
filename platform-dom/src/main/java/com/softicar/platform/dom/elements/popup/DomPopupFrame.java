@@ -16,7 +16,7 @@ import java.util.Collections;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeKeyEventHandler {
+public class DomPopupFrame extends DomDiv implements IDomEscapeKeyEventHandler {
 
 	private final DomPopup popup;
 	private final DomPopupFrameHeader header;
@@ -24,7 +24,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 	public DomPopupFrame(DomPopup popup) {
 
 		this.popup = popup;
-		this.header = new DomPopupFrameHeader(this);
+		this.header = new DomPopupFrameHeader(this::closePopup);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
 		setupEscapeHandler();
@@ -46,17 +46,11 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		closePopup();
 	}
 
-	@Override
-	public void closePopup() {
-
-		CurrentDomPopupCompositor.get().close(popup);
-	}
-
 	public void refreshCaptions() {
 
 		var configuration = popup.getConfiguration();
-		header.setCaption(configuration.getCaption());
-		header.setSubCaption(configuration.getSubCaption());
+		header.setCaption(configuration.getCaption().orElse(null));
+		header.setSubCaption(configuration.getSubCaption().orElse(null));
 	}
 
 	private void setupEscapeHandler() {
@@ -64,5 +58,10 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		setTabIndex(0);
 		getDomEngine().setFireOnKeyUp(this, DomEventType.ESCAPE, true);
 		getDomEngine().setCssClassOnKeyDown(this, DomEventType.ESCAPE, header.getCloseButton(), Collections.singleton(DomCssPseudoClasses.ACTIVE));
+	}
+
+	private void closePopup() {
+
+		CurrentDomPopupCompositor.get().closeInteractively(popup);
 	}
 }

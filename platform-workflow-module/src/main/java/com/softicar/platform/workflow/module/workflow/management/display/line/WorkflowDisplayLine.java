@@ -10,6 +10,7 @@ import com.softicar.platform.dom.styles.CssCursor;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowCssClasses;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import java.util.Optional;
 
 /**
  * Draws a line in the browser using a lot of DIV elements.
@@ -25,7 +26,7 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 	public WorkflowDisplayLine(AGWorkflowTransition transition, INullaryVoidFunction refreshCallback, int x1, int y1, int x2, int y2, String color, int width) {
 
 		this.transition = transition;
-		this.refreshCallback = refreshCallback;
+		this.refreshCallback = Optional.ofNullable(refreshCallback).orElse(INullaryVoidFunction.NO_OPERATION);
 		this.width = width;
 		if (transition != null) {
 			setStyle(CssCursor.POINTER);
@@ -147,15 +148,7 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 
 			super(transition);
 			setDirectEditing(false);
-		}
-
-		@Override
-		public void close() {
-
-			super.close();
-			if (refreshCallback != null) {
-				refreshCallback.apply();
-			}
+			configuration.setCallbackBeforeClose(refreshCallback);
 		}
 	}
 }

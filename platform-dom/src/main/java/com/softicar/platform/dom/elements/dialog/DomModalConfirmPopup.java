@@ -62,7 +62,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 
 		private void handleClick() {
 
-			closeWithoutConfirm();
+			close();
 			confirmHandler.apply();
 		}
 	}

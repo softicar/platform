@@ -27,16 +27,6 @@ public interface IDomPopupCompositor {
 	/**
 	 * Closes the given {@link DomPopup}.
 	 * <p>
-	 * If the {@link DomPopup} is not open, nothing will happen.
-	 *
-	 * @param popup
-	 *            the {@link DomPopup} to close (never <i>null</i>)
-	 */
-	void close(DomPopup popup);
-
-	/**
-	 * Closes the given {@link DomPopup}.
-	 * <p>
 	 * The user will <b>not</b> be prompted for confirmation, even if
 	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
 	 * <p>
@@ -45,7 +35,25 @@ public interface IDomPopupCompositor {
 	 * @param popup
 	 *            the {@link DomPopup} to close (never <i>null</i>)
 	 */
-	void closeWithoutConfirm(DomPopup popup);
+	void close(DomPopup popup);
+
+	/**
+	 * Calls {@link #close(DomPopup)} on all open {@link DomPopup} elements.
+	 */
+	void closeAll();
+
+	/**
+	 * Closes the given {@link DomPopup}.
+	 * <p>
+	 * The user will be prompted for confirmation if
+	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
+	 * <p>
+	 * If the {@link DomPopup} is not open, nothing will happen.
+	 *
+	 * @param popup
+	 *            the {@link DomPopup} to close (never <i>null</i>)
+	 */
+	void closeInteractively(DomPopup popup);
 
 	/**
 	 * Focuses the first {@link IDomTextualInput} in the given {@link DomPopup}.

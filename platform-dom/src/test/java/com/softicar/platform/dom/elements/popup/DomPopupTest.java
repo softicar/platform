@@ -55,6 +55,8 @@ public class DomPopupTest extends AbstractTest {
 		assertEquals(0, closeCallback.getCount());
 		popup.close();
 		assertEquals(1, closeCallback.getCount());
+		popup.close();
+		assertEquals(1, closeCallback.getCount());
 	}
 
 	private IDomElement getRoot(IDomElement node) {

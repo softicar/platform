@@ -150,13 +150,7 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 
 			super(table.createEntity(workflowVersion));
 			setDirectEditing(true);
-		}
-
-		@Override
-		public void close() {
-
-			super.close();
-			repaint();
+			configuration.setCallbackBeforeClose(WorkflowVersionManagementDiv.this::repaint);
 		}
 	}
 }

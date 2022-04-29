@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 
 class DomPopupCloseCancelButton extends DomButton {
 
@@ -11,6 +12,6 @@ class DomPopupCloseCancelButton extends DomButton {
 
 		setIcon(icon);
 		setLabel(label);
-		setClickCallback(popup::close);
+		setClickCallback(() -> CurrentDomPopupCompositor.get().closeInteractively(popup));
 	}
 }

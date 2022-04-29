@@ -39,7 +39,7 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 	@Override
 	public void closeFrame() {
 
-		close();
+		CurrentDomPopupCompositor.get().close(this);
 	}
 
 	public R getTableRow() {

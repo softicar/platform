@@ -13,6 +13,7 @@ import com.softicar.platform.dom.style.CssPercent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A mutable implementation of {@link IDomPopupConfiguration}.
@@ -46,9 +47,9 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public IDisplayString getCaption() {
+	public Optional<IDisplayString> getCaption() {
 
-		return caption;
+		return Optional.ofNullable(caption);
 	}
 
 	/**
@@ -65,9 +66,9 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public IDisplayString getSubCaption() {
+	public Optional<IDisplayString> getSubCaption() {
 
-		return subCaption;
+		return Optional.ofNullable(subCaption);
 	}
 
 	/**

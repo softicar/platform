@@ -93,13 +93,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 				super(workflowNode);
 				setDirectEditing(false);
-			}
-
-			@Override
-			public void close() {
-
-				super.close();
-				refreshCallback.apply();
+				configuration.setCallbackBeforeClose(refreshCallback);
 			}
 		}
 	}

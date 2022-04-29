@@ -34,8 +34,7 @@ import java.util.function.Consumer;
  * Use convenience methods like {@link #appendCancelButton()} or
  * {@link #appendCloseButton()} to append standard elements, as required.
  * <p>
- * Use {@link #open()} to display this {@link DomPopup}. Use {@link #close()} to
- * hide it.
+ * Use {@link #open()} to display this {@link DomPopup}.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
@@ -128,7 +127,7 @@ public class DomPopup extends DomDiv {
 	@Deprecated
 	public void show() {
 
-		CurrentDomPopupCompositor.get().open(this);
+		open();
 	}
 
 	/**
@@ -150,21 +149,13 @@ public class DomPopup extends DomDiv {
 
 	/**
 	 * Closes this {@link DomPopup}.
-	 */
-	public void close() {
-
-		CurrentDomPopupCompositor.get().close(this);
-	}
-
-	/**
-	 * Closes this {@link DomPopup}.
 	 * <p>
 	 * The user will <b>not</b> be prompted for confirmation, even if
 	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
 	 */
-	public void closeWithoutConfirm() {
+	public void close() {
 
-		CurrentDomPopupCompositor.get().closeWithoutConfirm(this);
+		CurrentDomPopupCompositor.get().close(this);
 	}
 
 	// ------------------------- content -------------------------- //

@@ -7,6 +7,7 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Holds configuration parameters for a {@link DomPopup}.
@@ -18,16 +19,16 @@ public interface IDomPopupConfiguration {
 	/**
 	 * Returns the caption of the {@link DomPopup}.
 	 *
-	 * @return the caption (may be <i>null</i>)
+	 * @return the caption
 	 */
-	IDisplayString getCaption();
+	Optional<IDisplayString> getCaption();
 
 	/**
 	 * Returns the sub caption of the {@link DomPopup}.
 	 *
-	 * @return the sub caption (may be <i>null</i>)
+	 * @return the sub caption
 	 */
-	IDisplayString getSubCaption();
+	Optional<IDisplayString> getSubCaption();
 
 	/**
 	 * Returns the {@link DomPopupDisplayMode} of the {@link DomPopup}.
