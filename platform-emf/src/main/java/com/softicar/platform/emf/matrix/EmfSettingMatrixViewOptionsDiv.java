@@ -32,13 +32,13 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 
 		this.applier = applier;
 		this.rowFilterInput = new TextFilterInput();
-		this.rowFilterInput.setMarker(EmfSettingMatrixMarker.ROW_FILTER_INPUT);
+		this.rowFilterInput.addMarker(EmfSettingMatrixMarker.ROW_FILTER_INPUT);
 		this.columnFilterInput = new TextFilterInput();
-		this.columnFilterInput.setMarker(EmfSettingMatrixMarker.COLUMN_FILTER_INPUT);
+		this.columnFilterInput.addMarker(EmfSettingMatrixMarker.COLUMN_FILTER_INPUT);
 		this.hideRowsWithDefaultValuesCheckbox = new DomCheckbox(false);
 		this.hideColumnsWithDefaultValuesCheckbox = new DomCheckbox(false);
 		this.flipRowsAndColumnsCheckbox = new DomCheckbox(false);
-		this.flipRowsAndColumnsCheckbox.setMarker(EmfSettingMatrixMarker.FLIP_CHECKBOX);
+		this.flipRowsAndColumnsCheckbox.addMarker(EmfSettingMatrixMarker.FLIP_CHECKBOX);
 
 		DomFieldset fieldset = appendChild(new OptionsFieldset());
 		fieldset//
@@ -54,7 +54,7 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
 					.setLabel(EmfI18n.APPLY)
 					.setClickCallback(this::applyOptions)
-					.setMarker(EmfSettingMatrixMarker.APPLY_BUTTON));
+					.addMarker(EmfSettingMatrixMarker.APPLY_BUTTON));
 	}
 
 	@Override

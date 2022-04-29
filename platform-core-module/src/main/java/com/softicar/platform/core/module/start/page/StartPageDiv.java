@@ -20,7 +20,7 @@ class StartPageDiv extends DomDiv {
 		createUserImpersonationTerminationNode().ifPresent(nodes::add);
 		appendSeparatedByHr(nodes);
 		
-		setMarker(StartPageMarker.MAIN_ELEMENT);
+		addMarker(StartPageMarker.MAIN_ELEMENT);
 	}
 
 	private Optional<IDomNode> createPasswordChangeNode() {

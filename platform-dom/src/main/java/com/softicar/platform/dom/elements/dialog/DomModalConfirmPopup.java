@@ -36,7 +36,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 
 		getContent().appendText(message);
 		appendActionNode(okayButton = new OkayButton(confirmHandler));
-		appendCancelButton().setMarker(DomModalConfirmMarker.CANCEL_BUTTON);
+		appendCancelButton().addMarker(DomModalConfirmMarker.CANCEL_BUTTON);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 			setLabel(DomI18n.OK);
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setClickCallback(this::handleClick);
-			setMarker(DomModalConfirmMarker.OKAY_BUTTON);
+			addMarker(DomModalConfirmMarker.OKAY_BUTTON);
 		}
 
 		private void handleClick() {

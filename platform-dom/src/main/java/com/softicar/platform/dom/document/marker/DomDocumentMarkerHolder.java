@@ -43,7 +43,7 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public void setMarker(IDomNode node, IStaticObject marker) {
+	public void addMarker(IDomNode node, IStaticObject marker) {
 
 		if (testMode) {
 			markerToNodes//

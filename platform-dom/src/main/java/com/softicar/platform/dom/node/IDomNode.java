@@ -180,18 +180,16 @@ public interface IDomNode {
 	// -------------------------------- marker -------------------------------- //
 
 	/**
-	 * Defines the {@link IStaticObject} marker for this node.
-	 * <p>
-	 * TODO This method should be rather called <i>addMarker</i>.
+	 * Adds an {@link IStaticObject} marker to this {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the marker to set (never null)
+	 *            the marker to add (never <i>null</i>)
 	 * @throws UnsupportedOperationException
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
-	default IDomNode setMarker(IStaticObject marker) {
+	default IDomNode addMarker(IStaticObject marker) {
 
-		getDomDocument().setMarker(this, marker);
+		getDomDocument().addMarker(this, marker);
 		return this;
 	}
 

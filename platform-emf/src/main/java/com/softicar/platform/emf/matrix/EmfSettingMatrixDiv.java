@@ -57,7 +57,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 			setLabel(EmfI18n.SAVE);
 			setEnabled(editable);
 			setClickCallback(() -> saveAndReload());
-			setMarker(EmfSettingMatrixMarker.SAVE_BUTTON);
+			addMarker(EmfSettingMatrixMarker.SAVE_BUTTON);
 		}
 	}
 
@@ -69,7 +69,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 			setLabel(EmfI18n.RELOAD);
 			setEnabled(editable);
 			setClickCallback(() -> load());
-			setMarker(EmfSettingMatrixMarker.RELOAD_BUTTON);
+			addMarker(EmfSettingMatrixMarker.RELOAD_BUTTON);
 		}
 	}
 }

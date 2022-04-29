@@ -18,7 +18,7 @@ class EmfDataTableExtraRowCell<R> extends DomHeaderCell {
 		Objects.requireNonNull(columnSpan);
 		Objects.requireNonNull(rowProvider);
 
-		setMarker(EmfDataTableDivMarker.EXTRA_ROW_CELL);
+		addMarker(EmfDataTableDivMarker.EXTRA_ROW_CELL);
 		setColSpan(columnSpan.getColumnCount());
 		columnSpan.getColumnGroup().ifPresent(columnGroup -> {
 			columnGroup.getCellBuilder().buildCell(this, rowProvider);

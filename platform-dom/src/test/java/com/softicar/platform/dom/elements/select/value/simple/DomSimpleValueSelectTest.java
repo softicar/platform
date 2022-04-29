@@ -656,7 +656,7 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEx
 		public TestNode(Consumer<DomSimpleValueSelectBuilder<V>> configurator) {
 
 			this.select = configurator != null? new DomSimpleValueSelect<>(configurator) : new DomSimpleValueSelect<>();
-			appendChild(select).setMarker(Marker.SELECT);
+			appendChild(select).addMarker(Marker.SELECT);
 		}
 
 		public DomSimpleValueSelect<V> getSelect() {

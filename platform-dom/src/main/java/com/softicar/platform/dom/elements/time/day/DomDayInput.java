@@ -108,7 +108,7 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		public DayInput() {
 
 			setMaxLength(10);
-			setMarker(DomTestMarker.DAY_INPUT);
+			addMarker(DomTestMarker.DAY_INPUT);
 		}
 
 		@Override

@@ -66,7 +66,7 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 			appendChild(new DomButton())//
 				.setLabel("spawn alert")
 				.setClickCallback(new DomModalAlertPopup(MESSAGE)::show)
-				.setMarker(SHOW_BUTTON);
+				.addMarker(SHOW_BUTTON);
 		}
 	}
 }

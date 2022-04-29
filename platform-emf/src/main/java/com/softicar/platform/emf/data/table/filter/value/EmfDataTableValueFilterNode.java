@@ -22,7 +22,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 		this.column = column;
 		this.filterOperatorSelect = new EmfDataTableValueFilterOperatorSelect(this);
 		this.valueFilterInput = inputFactory.get();
-		this.valueFilterInput.setMarker(EmfDataTableDivMarker.FILTER_INPUT_VALUE);
+		this.valueFilterInput.addMarker(EmfDataTableDivMarker.FILTER_INPUT_VALUE);
 
 		refresh();
 	}

@@ -51,7 +51,7 @@ public class TableExportPopupButton extends DomButton {
 		this.generalTableExportPreconditions = generalTableExportPreconditions;
 
 		setIcon(DomElementsImages.TABLE_EXPORT.getResource());
-		setMarker(DomPageableTableMarker.NAVIGATION_EXPORT_BUTTON);
+		addMarker(DomPageableTableMarker.NAVIGATION_EXPORT_BUTTON);
 
 		if (showLabel) {
 			setLabel(label);

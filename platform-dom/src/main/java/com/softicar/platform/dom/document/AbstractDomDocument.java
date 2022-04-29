@@ -128,9 +128,9 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	// -------------------------------- marker -------------------------------- //
 
 	@Override
-	public void setMarker(IDomNode node, IStaticObject marker) {
+	public void addMarker(IDomNode node, IStaticObject marker) {
 
-		markerHolder.setMarker(node, marker);
+		markerHolder.addMarker(node, marker);
 	}
 
 	@Override

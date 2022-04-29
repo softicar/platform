@@ -15,7 +15,7 @@ public class EmfDataTableFilterButton<R> extends DomButton {
 
 		setLabel(column.getTitle());
 		setTitle(EmfDataTableI18n.CLICK_TO_FILTER_IN_THIS_COLUMN);
-		setMarker(EmfDataTableDivMarker.FILTER_POPUP_BUTTON);
+		addMarker(EmfDataTableDivMarker.FILTER_POPUP_BUTTON);
 		setClickCallback(this::showFilterPopup);
 	}
 
