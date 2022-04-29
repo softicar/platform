@@ -34,7 +34,7 @@ public abstract class DomPageableTable extends DomScrollableTable {
 	 */
 	public DomPageableTable() {
 
-		setMarker(DomPageableTableMarker.TABLE);
+		addMarker(DomPageableTableMarker.TABLE);
 	}
 
 	/**

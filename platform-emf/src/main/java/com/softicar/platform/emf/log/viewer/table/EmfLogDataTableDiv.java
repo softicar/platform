@@ -16,7 +16,7 @@ public class EmfLogDataTableDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 	public EmfLogDataTableDiv(R tableRow) {
 
-		setMarker(EmfLogMarker.TABLE_MAIN);
+		addMarker(EmfLogMarker.TABLE_MAIN);
 		EmfLogDataTable<R> dataTable = new EmfLogDataTable<>(tableRow);
 		EmfDataTableDivBuilder<EmfLogDataTableRow<R>> divBuilder = new EmfDataTableDivBuilder<>(dataTable);
 		try (DbLazyTransaction lazyTransaction = new DbLazyTransaction()) {

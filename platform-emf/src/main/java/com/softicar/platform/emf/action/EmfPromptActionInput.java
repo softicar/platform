@@ -44,7 +44,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(EmfImages.ENTITY_SAVE.getResource())
 					.setLabel(EmfI18n.SAVE)
 					.setClickCallback(() -> save())
-					.setMarker(EmfMarker.SAVE));
+					.addMarker(EmfMarker.SAVE));
 
 		buttonContainer
 			.appendChild(
@@ -52,7 +52,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(EmfImages.ENTITY_SAVE_AND_CLOSE.getResource())
 					.setLabel(EmfI18n.SAVE_AND_CLOSE)
 					.setClickCallback(() -> saveAndClose())
-					.setMarker(EmfMarker.SAVE_AND_CLOSE));
+					.addMarker(EmfMarker.SAVE_AND_CLOSE));
 
 		buttonContainer
 			.appendChild(
@@ -60,7 +60,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 					.setLabel(EmfI18n.CANCEL)
 					.setClickCallback(() -> formBody.showStandardSectionContainer())
-					.setMarker(EmfMarker.CANCEL));
+					.addMarker(EmfMarker.CANCEL));
 
 		appendChild(contentContainer);
 		appendNewChild(DomElementTag.HR);

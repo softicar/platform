@@ -23,7 +23,7 @@ public class DomTabHeader extends DomDiv implements IDomClickEventHandler {
 		}
 		appendText(tab.getLabel());
 
-		tab.getHeaderMarker().ifPresent(this::setMarker);
+		tab.getHeaderMarker().ifPresent(this::addMarker);
 	}
 
 	@Override

@@ -23,11 +23,11 @@ class TurnPageButton extends DomButton {
 		if (pageTurnDirection == PagingDirection.BACKWARD) {
 			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
 			setTitle(DomI18n.PREVIOUS_PAGE);
-			setMarker(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON);
+			addMarker(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON);
 		} else if (pageTurnDirection == PagingDirection.FORWARD) {
 			setIcon(DomElementsImages.PAGE_NEXT.getResource());
 			setTitle(DomI18n.NEXT_PAGE);
-			setMarker(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON);
+			addMarker(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON);
 		} else {
 			throw new SofticarUnknownEnumConstantException(pageTurnDirection);
 		}

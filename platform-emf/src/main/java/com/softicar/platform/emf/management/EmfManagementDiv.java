@@ -164,7 +164,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 				.setClickCallback(() -> action.handleClick(scopeEntity))
 				.setIcon(action.getIcon())
 				.setLabel(action.getTitle())
-				.setMarker(new EmfScopeActionMarker(action));
+				.addMarker(new EmfScopeActionMarker(action));
 			action.getConfirmationMessageSupplier(scopeEntity).ifPresent(button::setConfirmationMessageSupplier);
 			appendChild(button);
 		}
@@ -179,13 +179,13 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setClickCallback(this::invalidateCachesAndRefreshAll)
 					.setIcon(EmfImages.REFRESH.getResource())
 					.setLabel(EmfI18n.REFRESH)
-					.setMarker(EmfManagementMarker.REFRESH_BUTTON));
+					.addMarker(EmfManagementMarker.REFRESH_BUTTON));
 			appendChild(
 				new DomPopupButton()//
 					.setPopupFactory(() -> createNewEntityPopup())
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(EmfI18n.CREATE)
-					.setMarker(EmfManagementMarker.CREATE_BUTTON)
+					.addMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
 			if (!isNonConcealedNonNullableForeignAttributePresent()) {
@@ -194,7 +194,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 						.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
 						.setIcon(EmfImages.ENTITY_IMPORT.getResource())
 						.setLabel(EmfI18n.IMPORT)
-						.setMarker(EmfManagementMarker.IMPORT_BUTTON)
+						.addMarker(EmfManagementMarker.IMPORT_BUTTON)
 						.setEnabled(isCreationAllowed())
 						.setTitle(getCreationPredicateTitle()));
 			}
@@ -251,7 +251,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 				new EmfBooleanInput(showInactive)//
 					.setLabel(EmfI18n.SHOW_INACTIVE));
 			input.setChangeCallback(EmfManagementDiv.this::toggleShowInactive);
-			input.setMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX);
+			input.addMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX);
 		}
 	}
 }

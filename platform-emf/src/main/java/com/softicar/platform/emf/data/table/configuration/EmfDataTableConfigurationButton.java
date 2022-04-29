@@ -11,7 +11,7 @@ class EmfDataTableConfigurationButton<R> extends DomPopupButton {
 
 		setIcon(EmfImages.TABLE_CONFIGURATION.getResource());
 		setTitle(EmfDataTableI18n.TABLE_CONFIGURATION);
-		setMarker(EmfDataTableConfigurationMarker.TABLE_CONFIGURATION_BUTTON);
+		addMarker(EmfDataTableConfigurationMarker.TABLE_CONFIGURATION_BUTTON);
 		setPopupFactory(() -> new EmfDataTableConfigurationPopup<>(controller));
 	}
 }

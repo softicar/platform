@@ -33,17 +33,17 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 
 		hourInput = new DomIntegerInput();
 		hourInput.setTitle(DomI18n.HOURS);
-		hourInput.setMarker(DomTestMarker.HOURS_INPUT);
+		hourInput.addMarker(DomTestMarker.HOURS_INPUT);
 		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
 		minuteInput = new DomIntegerInput();
 		minuteInput.setTitle(DomI18n.MINUTES);
-		minuteInput.setMarker(DomTestMarker.MINUTES_INPUT);
+		minuteInput.addMarker(DomTestMarker.MINUTES_INPUT);
 		minuteInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
 		secondInput = new DomIntegerInput();
 		secondInput.setTitle(DomI18n.SECONDS);
-		secondInput.setMarker(DomTestMarker.SECONDS_INPUT);
+		secondInput.addMarker(DomTestMarker.SECONDS_INPUT);
 		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
 		if (showLabels) {

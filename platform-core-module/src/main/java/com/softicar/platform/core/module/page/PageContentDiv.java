@@ -17,7 +17,7 @@ class PageContentDiv extends DomDiv {
 	public PageContentDiv(PageNavigationLink<?> link) {
 
 		addCssClass(PageCssClasses.PAGE_CONTENT_DIV);
-		setMarker(PageNavigationMarker.PAGE_CONTENT_DIV);
+		addMarker(PageNavigationMarker.PAGE_CONTENT_DIV);
 		appendChild(link.createContentNode());
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
 			addCssClass(PageCssClasses.TEST_SYSTEM);

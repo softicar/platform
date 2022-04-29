@@ -9,7 +9,7 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 		super("");
 
-		setMarker(EmfDataTableDivMarker.FILTER_INPUT_STRING);
+		addMarker(EmfDataTableDivMarker.FILTER_INPUT_STRING);
 	}
 
 	public String getNormalizedFilterText() {

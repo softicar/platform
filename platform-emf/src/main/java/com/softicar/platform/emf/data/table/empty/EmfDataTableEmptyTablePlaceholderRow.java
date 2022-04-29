@@ -8,7 +8,7 @@ public class EmfDataTableEmptyTablePlaceholderRow extends DomRow {
 
 	public EmfDataTableEmptyTablePlaceholderRow(IEmfDataTableConfig<?> configuration, int columnCount) {
 
-		setMarker(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_ROW);
+		addMarker(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_ROW);
 		appendChild(new EmfDataTableEmptyTablePlaceholderCell(configuration, columnCount));
 	}
 }

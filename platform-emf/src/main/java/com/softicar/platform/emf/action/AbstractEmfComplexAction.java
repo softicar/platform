@@ -26,7 +26,7 @@ public abstract class AbstractEmfComplexAction<R extends IEmfTableRow<R, ?>> imp
 	private DomDiv createActionDiv(R tableRow, IEmfFormSectionDiv<R> actionContainer) {
 
 		DomDiv actionDiv = createActionDiv(tableRow, actionContainer.getFormBody()::queueEntityForRefresh);
-		actionDiv.setMarker(new EmfActionMarker(this));
+		actionDiv.addMarker(new EmfActionMarker(this));
 		return actionDiv;
 	}
 }

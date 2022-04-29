@@ -13,7 +13,7 @@ class BooleanSelect extends AbstractDomValueSelect<Boolean> {
 		addNilValue(DomI18n.PLEASE_SELECT.encloseInBrackets());
 		addValue(true);
 		addValue(false);
-		setMarker(EmfDataTableDivMarker.FILTER_INPUT_BOOLEAN);
+		addMarker(EmfDataTableDivMarker.FILTER_INPUT_BOOLEAN);
 	}
 
 	@Override

@@ -13,6 +13,6 @@ public class EmfLogItemPopupButton<R extends IEmfTableRow<R, ?>> extends DomPopu
 		setIcon(EmfImages.ENTITY_VIEW.getResource());
 		setTitle(EmfI18n.VIEW_HISTORY_ENTRY);
 		setPopupFactory(() -> new EmfLogItemPopup<>(logItem));
-		setMarker(EmfLogMarker.FEED_ITEM_POPUP_BUTTON);
+		addMarker(EmfLogMarker.FEED_ITEM_POPUP_BUTTON);
 	}
 }

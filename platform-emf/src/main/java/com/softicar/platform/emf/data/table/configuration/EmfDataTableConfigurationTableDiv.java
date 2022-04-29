@@ -119,7 +119,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 				setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 				selectValue(position);
 				setCallbackOnChange(this::handleChange);
-				setMarker(EmfDataTableConfigurationMarker.POSITION_SELECT);
+				addMarker(EmfDataTableConfigurationMarker.POSITION_SELECT);
 			}
 
 			private void handleChange() {
@@ -145,11 +145,11 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 				if (down) {
 					setIcon(DomElementsImages.MOVE_DOWN.getResource());
 					setTitle(EmfDataTableI18n.MOVE_DOWN);
-					setMarker(EmfDataTableConfigurationMarker.MOVE_DOWN_BUTTON);
+					addMarker(EmfDataTableConfigurationMarker.MOVE_DOWN_BUTTON);
 				} else {
 					setIcon(DomElementsImages.MOVE_UP.getResource());
 					setTitle(EmfDataTableI18n.MOVE_UP);
-					setMarker(EmfDataTableConfigurationMarker.MOVE_UP_BUTTON);
+					addMarker(EmfDataTableConfigurationMarker.MOVE_UP_BUTTON);
 				}
 			}
 
@@ -166,7 +166,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 		@Override
 		public void buildCell(IEmfDataTableCell<EmfDataTableConfigurationTableRow<R>, Object> cell, EmfDataTableConfigurationTableRow<R> row) {
 
-			cell.setMarker(EmfDataTableConfigurationMarker.TITLE_CELL);
+			cell.addMarker(EmfDataTableConfigurationMarker.TITLE_CELL);
 			cell.appendText(row.getColumn().getTitle());
 		}
 	}
@@ -233,7 +233,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 					addValue(OrderDirection.ASCENDING);
 					addValue(OrderDirection.DESCENDING);
 					listenToEvent(DomEventType.CHANGE);
-					setMarker(EmfDataTableConfigurationMarker.ORDER_DIRECTION_SELECT);
+					addMarker(EmfDataTableConfigurationMarker.ORDER_DIRECTION_SELECT);
 				}
 
 				@Override
@@ -260,7 +260,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 					setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 					setCallbackOnChange(this::handleChange);
-					setMarker(EmfDataTableConfigurationMarker.ORDER_PRIORITY_SELECT);
+					addMarker(EmfDataTableConfigurationMarker.ORDER_PRIORITY_SELECT);
 				}
 
 				private void handleChange() {

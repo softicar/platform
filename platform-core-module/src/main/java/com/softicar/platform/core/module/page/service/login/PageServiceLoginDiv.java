@@ -93,7 +93,7 @@ public class PageServiceLoginDiv extends DomDiv {
 
 				setIcon(CoreImages.LOGIN.getResource());
 				setLabel(CoreI18n.LOGIN);
-				setMarker(PageServiceLoginDivMarker.LOGIN_BUTTON);
+				addMarker(PageServiceLoginDivMarker.LOGIN_BUTTON);
 
 				HiddenSubmitInput submitInput = new HiddenSubmitInput();
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.CLICK, submitInput);
@@ -125,7 +125,7 @@ public class PageServiceLoginDiv extends DomDiv {
 				setAttribute("name", "username");
 				setAttribute("autocomplete", "username");
 
-				setMarker(PageServiceLoginDivMarker.USER_INPUT);
+				addMarker(PageServiceLoginDivMarker.USER_INPUT);
 
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
 			}
@@ -138,7 +138,7 @@ public class PageServiceLoginDiv extends DomDiv {
 				setAttribute("name", "current-password");
 				setAttribute("autocomplete", "current-password");
 
-				setMarker(PageServiceLoginDivMarker.PASSWORD_INPUT);
+				addMarker(PageServiceLoginDivMarker.PASSWORD_INPUT);
 
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
 			}
@@ -149,7 +149,7 @@ public class PageServiceLoginDiv extends DomDiv {
 			public LoginErrorElement() {
 
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_ERROR_DIV);
-				setMarker(PageServiceLoginDivMarker.ERROR_MESSAGE_ELEMENT);
+				addMarker(PageServiceLoginDivMarker.ERROR_MESSAGE_ELEMENT);
 			}
 
 			public void showError(String message) {
