@@ -42,8 +42,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			return;
 		}
 
-		IDomNode spawningNode = determineSpawningNode();
-		spawningNodeMap.put(popup, spawningNode);
+		determineSpawningNode().ifPresent(it -> spawningNodeMap.put(popup, it));
 
 		var configuration = popup.getConfiguration();
 		var displayMode = configuration.getDisplayMode();
@@ -117,12 +116,11 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		});
 	}
 
-	private IDomNode determineSpawningNode() {
+	private Optional<IDomNode> determineSpawningNode() {
 
 		return Optional//
 			.ofNullable(getCurrentEvent())
-			.map(IDomEvent::getCurrentTarget)
-			.orElse(null);
+			.map(IDomEvent::getCurrentTarget);
 	}
 
 	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
