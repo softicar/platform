@@ -520,7 +520,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 
 		if (table.getPrimaryKey().isGenerated() && !Collections.disjoint(businessKey.getFields(), table.getPrimaryKey().getFields())) {
 			throw new SofticarDeveloperException(
-				"The set business key (%s) of table %s must not contain an autoincrement column.",
+				"The set business key (%s) of table %s must not contain an autoincrement field.",
 				Imploder.implode(businessKey.getFields(), " & "),
 				table);
 		}
