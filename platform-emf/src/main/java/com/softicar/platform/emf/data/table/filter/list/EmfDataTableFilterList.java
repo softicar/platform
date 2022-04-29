@@ -62,7 +62,7 @@ public class EmfDataTableFilterList<R> implements IEmfDataTableFilter<R> {
 
 	private IDisplayString getDisplayString(DataTableFilterListOperator operator, List<IEmfDataTableFilter<R>> filters) {
 
-		IDisplayString delimiter = operator.toDisplay().enclose(" ");
+		IDisplayString delimiter = operator.toDisplay().enclose(" ", "\n");
 		return filters
 			.stream()//
 			.map(filter -> filter.getDisplayString())
