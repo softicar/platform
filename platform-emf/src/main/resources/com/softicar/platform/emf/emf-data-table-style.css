@@ -1,6 +1,7 @@
 
 .EmfDataTableHeaderCellDiv {
 	gap: 2px;
+	white-space: break-spaces;
 }
 
 .EmfDataTableHeaderCellDiv .DomBar {
