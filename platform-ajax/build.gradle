@@ -1,3 +1,5 @@
+import org.gradle.plugins.ide.eclipse.model.SourceFolder
+
 dependencies {
 	api project(':platform-common')
 	api project(':platform-dom')
@@ -11,4 +13,8 @@ dependencies {
 	// Explicitly depend on a transitive dependency of Selenium, in order to avoid a false-positive in the Sonatype Lift report:
 	// We already enforce a guava version without vulnerabilities but Lift does not recognize that unless the dependency is explicit.
 	implementation "com.google.guava:guava:$versions.guava"
+}
+
+eclipse.classpath.file.whenMerged {
+	entries << new SourceFolder('src/main/typescript', null)
 }
