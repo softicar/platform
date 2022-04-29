@@ -35,6 +35,11 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		return !parentColumns.isEmpty();
 	}
 
+	public boolean isAutoIncrementColumn() {
+
+		return field.getTable().getPrimaryKey().isGenerated() && field.getTable().getPrimaryKey().getFields().contains(field);
+	}
+
 	public IDbField<R, ?> getField() {
 
 		return field;

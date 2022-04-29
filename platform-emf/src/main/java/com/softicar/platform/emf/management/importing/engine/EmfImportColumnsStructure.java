@@ -90,11 +90,22 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 		return table;
 	}
 
+	// TODO JUnit test is missing
 	public boolean getCollectedBusinessKeysValidity() {
 
 		if (csvFileColumns == null) {
 			collectAllColumns();
 		}
 		return collectedBusinessKeysValidity;
+	}
+
+	public boolean csvFileColumnsContainAutoIncrementColumn() {
+
+		for (EmfImportColumn<R, ?> column: getCsvFileColumns()) {
+			if (column.isAutoIncrementColumn()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

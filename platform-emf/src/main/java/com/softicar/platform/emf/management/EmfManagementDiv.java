@@ -26,6 +26,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumnsStructure;
+import com.softicar.platform.emf.management.importing.engine.EmfImportFieldsToImportCollector;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -187,7 +188,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setMarker(EmfManagementMarker.CREATE_BUTTON)
 					.setEnabled(isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
-			if (new EmfImportColumnsStructure<>(entityTable).getCollectedBusinessKeysValidity()) {
+
+			if (withImportButton()) {
 				appendChild(
 					new DomPopupButton()//
 						.setPopupFactory(() -> new EmfImportPopup<>(entityTable, scopeEntity))
@@ -199,6 +201,18 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			}
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
+			}
+		}
+
+		private boolean withImportButton() {
+
+			var columnsStructure = new EmfImportColumnsStructure<>(entityTable, new EmfImportFieldsToImportCollector<>(entityTable).collect());
+			if (!columnsStructure.getCollectedBusinessKeysValidity()) {
+				return false;
+			} else if (columnsStructure.csvFileColumnsContainAutoIncrementColumn()) {
+				return false;
+			} else {
+				return true;
 			}
 		}
 

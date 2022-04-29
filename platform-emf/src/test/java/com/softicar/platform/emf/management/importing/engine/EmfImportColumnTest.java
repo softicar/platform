@@ -23,6 +23,17 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 	}
 
 	@Test
+	public void testIsAutoIncrementColumn() {
+
+		assertTrue(new EmfImportColumn<>(EmfTestInvoice.ID).isAutoIncrementColumn());
+		assertTrue(new EmfImportColumn<>(EmfTestInvoiceItem.ID).isAutoIncrementColumn());
+
+		assertFalse(new EmfImportColumn<>(EmfTestInvoice.PARTNER).isAutoIncrementColumn());
+		assertFalse(new EmfImportColumn<>(EmfTestInvoiceItem.INVOICE).isAutoIncrementColumn());
+		assertFalse(new EmfImportColumn<>(EmfTestInvoiceModuleInstance.MODULE_INSTANCE).isAutoIncrementColumn());
+	}
+
+	@Test
 	public void testGetField() {
 
 		EmfImportColumn<EmfTestInvoice, ?> invoiceNumberColumn = new EmfImportColumn<>(EmfTestInvoice.NUMBER);
