@@ -32,12 +32,13 @@ public class DomPopupButton extends DomButton {
 	private void showPopup(Supplier<DomPopup> popupFactory) {
 
 		if (popup != null) {
-			popup.hide();
+			// FIXME PLAT-819 This effectively bypasses the "confirm" prompt (if any) when the button is clicked again.
+			popup.close();
 			popup = null;
 		}
 		callbackBeforeShow.apply();
 		popup = popupFactory.get();
-		popup.show();
+		popup.open();
 
 		callbackAfterShow.apply();
 	}

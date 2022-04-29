@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 
@@ -17,10 +18,10 @@ class DomPopupFrameHeader extends DomDiv {
 	private final CaptionHolder captionHolder;
 	private final DomPopupFrameCloseButton closeButton;
 
-	public DomPopupFrameHeader(DomPopupFrame frame) {
+	public DomPopupFrameHeader(INullaryVoidFunction closeCallback) {
 
 		this.captionHolder = new CaptionHolder();
-		this.closeButton = new DomPopupFrameCloseButton(frame);
+		this.closeButton = new DomPopupFrameCloseButton(closeCallback);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME_HEADER);
 		appendChild(captionHolder);

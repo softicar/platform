@@ -17,6 +17,6 @@ class DomDayPopover extends DomPopover {
 
 		button.setDay(day);
 		button.handleDayChange();
-		getCloseManager().closePopupNonInteractive();
+		close();
 	}
 }

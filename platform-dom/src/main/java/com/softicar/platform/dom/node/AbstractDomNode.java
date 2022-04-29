@@ -51,6 +51,15 @@ public abstract class AbstractDomNode implements IDomNode {
 	}
 
 	@Override
+	public boolean isAppended() {
+
+		return Optional//
+			.ofNullable(getParent())
+			.map(IDomParentElement::isAppended)
+			.orElse(false);
+	}
+
+	@Override
 	public final IDomDocument getDomDocument() {
 
 		return attributeMap.getDomDocument();

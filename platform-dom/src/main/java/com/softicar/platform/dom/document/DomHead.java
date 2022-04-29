@@ -25,4 +25,10 @@ public class DomHead extends DomParentElement {
 
 		return DomElementTag.HEAD;
 	}
+
+	@Override
+	public boolean isAppended() {
+
+		return true;
+	}
 }

@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.attribute.IDomAttribute;
+import com.softicar.platform.dom.document.DomBody;
+import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
 import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
@@ -48,7 +50,7 @@ public interface IDomNode {
 	/**
 	 * Returns the parent node of this node.
 	 *
-	 * @return the parent node or null
+	 * @return the parent node or <i>null</i>
 	 */
 	IDomParentElement getParent();
 
@@ -58,6 +60,14 @@ public interface IDomNode {
 	 * If this node has no parent, this method does nothing.
 	 */
 	void disappend();
+
+	/**
+	 * Determines whether this node is appended to the {@link DomBody} or
+	 * {@link DomHead} of its {@link IDomDocument}.
+	 *
+	 * @return <i>true</i> if this node is appended; <i>false</i> otherwise
+	 */
+	boolean isAppended();
 
 	/**
 	 * Returns the {@link IDomDocument} that this node belongs to.

@@ -42,7 +42,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	@Override
 	public void show() {
 
-		super.show();
+		super.open();
 		getDomEngine().focus(okayButton);
 	}
 
@@ -62,7 +62,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 
 		private void handleClick() {
 
-			getCloseManager().closePopupNonInteractive();
+			close();
 			confirmHandler.apply();
 		}
 	}

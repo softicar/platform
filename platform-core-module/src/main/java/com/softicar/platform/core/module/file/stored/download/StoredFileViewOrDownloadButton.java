@@ -107,13 +107,17 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 		if (previewPopup != null) {
 			switch (popupPosition) {
 			case AT_MOUSE_CURSOR:
-				previewPopup.show();
+				previewPopup.open();
 				break;
 			case CENTERED_ON_VIEWPORT:
-				previewPopup.setPositionByViewportCenter().show();
+				previewPopup//
+					.configure(it -> it.setPositionStrategyByViewportCenter())
+					.open();
 				break;
 			case UPPER_LEFT:
-				previewPopup.setPositionByViewportOrigin().show();
+				previewPopup//
+					.configure(it -> it.setPositionStrategyByViewportOrigin())
+					.open();
 				break;
 			}
 		} else {

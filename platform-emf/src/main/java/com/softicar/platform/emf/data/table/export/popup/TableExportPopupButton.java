@@ -72,6 +72,6 @@ public class TableExportPopupButton extends DomButton {
 			tableSupplierContainer,
 			fileNamePrefixFunction,
 			appendTimestamp,
-			enableDeflateCompression).show();
+			enableDeflateCompression).open();
 	}
 }

@@ -49,7 +49,7 @@ class TableExportPopupExecuteExportButton extends DomButton {
 				engine.setEnableDeflateCompression(enableDeflateCompression);
 				engine.export(tableModels);
 
-				this.popup.hide();
+				this.popup.close();
 			}
 		} else {
 			throw new SofticarUserException(DomI18n.PLEASE_SELECT_AN_EXPORT_FORMAT);

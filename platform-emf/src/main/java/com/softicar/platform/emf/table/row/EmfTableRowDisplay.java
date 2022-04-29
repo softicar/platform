@@ -34,7 +34,7 @@ public class EmfTableRowDisplay<R extends IEmfTableRow<R, ?>> extends DomDiv {
 			DomPopupManager//
 				.getInstance()
 				.getPopup(row, EmfFormPopup.class, EmfFormPopup::new)
-				.show();
+				.open();
 		}
 	}
 }

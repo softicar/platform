@@ -17,7 +17,7 @@ public interface IDomFocusable extends IDomElement {
 	 * Please note that an {@link IDomElement} can only gain the focus if it is
 	 * appended to the {@link DomDocument}. For example, if this method is
 	 * called on an {@link IDomElement} appended to a {@link DomPopup}, the
-	 * {@link DomPopup#show()} method must be called before this method is
+	 * {@link DomPopup#open()} method must be called before this method is
 	 * called. Otherwise, the call has no effect.
 	 *
 	 * @param focus

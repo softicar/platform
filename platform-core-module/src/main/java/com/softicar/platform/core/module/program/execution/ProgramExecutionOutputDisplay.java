@@ -34,7 +34,7 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 			DomPopupManager//
 				.getInstance()
 				.getPopup(output, OutputPopup.class, OutputPopup::new)
-				.show();
+				.open();
 		}
 	}
 
