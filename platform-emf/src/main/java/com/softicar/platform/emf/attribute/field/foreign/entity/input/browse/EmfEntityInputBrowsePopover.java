@@ -37,6 +37,6 @@ class EmfEntityInputBrowsePopover<E extends IEmfEntity<E, ?>> extends DomPopover
 	private void setInputValueAndHide(E entity) {
 
 		input.setValueAndHandleChangeCallback(entity);
-		hide();
+		close();
 	}
 }

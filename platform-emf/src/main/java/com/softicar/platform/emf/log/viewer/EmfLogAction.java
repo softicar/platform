@@ -61,7 +61,7 @@ public class EmfLogAction<R extends IEmfTableRow<R, ?>> implements IEmfCommonAct
 	@Override
 	public void handleClick(R tableRow) {
 
-		new EmfLogPopup<>(tableRow).show();
+		new EmfLogPopup<>(tableRow).open();
 	}
 
 	private boolean hasChangeLoggers(R tableRow) {

@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.elements.popup;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEscapeKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -11,26 +11,33 @@ import com.softicar.platform.dom.styles.CssPosition;
 import java.util.Collections;
 
 /**
- * A frame for {@link DomPopup} objects.
+ * A frame for {@link DomPopup} elements.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeKeyEventHandler {
+public class DomPopupFrame extends DomDiv implements IDomEscapeKeyEventHandler {
 
-	private final DomPopupFrameHeader header;
 	private final DomPopup popup;
-	private boolean initialized;
+	private final DomPopupFrameHeader header;
 
-	DomPopupFrame(DomPopup popup) {
+	public DomPopupFrame(DomPopup popup) {
 
-		this.header = new DomPopupFrameHeader(this);
 		this.popup = popup;
-		this.initialized = false;
+		this.header = new DomPopupFrameHeader(this::closePopup);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
-		makeDraggable(CssPosition.ABSOLUTE, header);
 		setupEscapeHandler();
+
+		var configuration = popup.getConfiguration();
+		if (configuration.getDisplayMode().hasHeader()) {
+			makeDraggable(CssPosition.ABSOLUTE, header);
+			appendChild(header);
+			refreshCaptions();
+		}
+		appendChild(popup);
+
+		configuration.getFrameMarkers().forEach(this::setMarker);
 	}
 
 	@Override
@@ -39,31 +46,11 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		closePopup();
 	}
 
-	@Override
-	public void closePopup() {
+	public void refreshCaptions() {
 
-		popup.getCloseManager().closePopupInteractive();
-	}
-
-	public void setCaption(IDisplayString text) {
-
-		header.setCaption(text);
-	}
-
-	public void setSubCaption(IDisplayString text) {
-
-		header.setSubCaption(text);
-	}
-
-	public void initialize(boolean displayHeader) {
-
-		if (!initialized) {
-			if (displayHeader) {
-				appendChild(header);
-			}
-			appendChild(popup);
-			this.initialized = true;
-		}
+		var configuration = popup.getConfiguration();
+		header.setCaption(configuration.getCaption().orElse(null));
+		header.setSubCaption(configuration.getSubCaption().orElse(null));
 	}
 
 	private void setupEscapeHandler() {
@@ -71,5 +58,10 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		setTabIndex(0);
 		getDomEngine().setFireOnKeyUp(this, DomEventType.ESCAPE, true);
 		getDomEngine().setCssClassOnKeyDown(this, DomEventType.ESCAPE, header.getCloseButton(), Collections.singleton(DomCssPseudoClasses.ACTIVE));
+	}
+
+	private void closePopup() {
+
+		CurrentDomPopupCompositor.get().closeInteractively(popup);
 	}
 }

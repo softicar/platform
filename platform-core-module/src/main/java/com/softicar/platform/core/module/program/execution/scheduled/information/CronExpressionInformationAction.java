@@ -44,6 +44,6 @@ public class CronExpressionInformationAction implements IEmfScopeAction<SystemMo
 		DomPopupManager//
 			.getInstance()
 			.getPopup(scope, CronSyntaxPopup.class, it -> new CronSyntaxPopup())
-			.show();
+			.open();
 	}
 }

@@ -31,6 +31,12 @@ public abstract class DomDelegatingNode implements IDomNode {
 	}
 
 	@Override
+	public boolean isAppended() {
+
+		return getTargetNode().isAppended();
+	}
+
+	@Override
 	public IDomDocument getDomDocument() {
 
 		return getTargetNode().getDomDocument();

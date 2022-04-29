@@ -62,6 +62,6 @@ public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<
 	private <I extends IStandardModuleInstance<I>> void createInstanceAndShowPopup(IStandardModule<I> standadModule, AGModuleInstance moduleInstance) {
 
 		I newModuleInstance = standadModule.getModuleInstanceTable().createObject(moduleInstance);
-		new EmfFormPopup<>(newModuleInstance).show();
+		new EmfFormPopup<>(newModuleInstance).open();
 	}
 }

@@ -36,7 +36,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		setMarker(EmfManagementMarker.ACTIONS_POPOVER);
 
 		addManagementActions();
-		new ButtonsForChildTableAppender<>(this, entityTable, tableRow, this::hide).appendButtons();
+		new ButtonsForChildTableAppender<>(this, entityTable, tableRow, this::close).appendButtons();
 
 		// add error message element if exceptions were suppressed
 		if (!collector.isEmpty()) {
@@ -52,7 +52,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 				if (action.isAvailable(tableRow, CurrentBasicUser.get())) {
 					var button = new DomButton()//
 						.setClickCallback(() -> {
-							hide();
+							close();
 							action.handleClick(tableRow);
 						})
 						.setIcon(action.getIcon())

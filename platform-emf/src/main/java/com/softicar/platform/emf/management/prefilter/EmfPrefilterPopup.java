@@ -58,7 +58,7 @@ public class EmfPrefilterPopup<T extends IEmfTableRow<T, ?>> extends DomPopup {
 
 		Set<T> filteredItems = getFilteredItems();
 		this.callback.accept(filteredItems);
-		hide();
+		close();
 	}
 
 	protected Set<T> getFilteredItems() {

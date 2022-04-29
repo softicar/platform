@@ -6,6 +6,7 @@ import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.EmfMarker;
@@ -49,7 +50,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
 				.setMarker(EmfMarker.CANCEL)
-				.setClickCallback(this::hide));
+				.setClickCallback(() -> CurrentDomPopupCompositor.get().closeInteractively(this)));
 
 		setCaption(table.getTitle());
 	}
@@ -67,8 +68,8 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 
 	private void showFormPopup() {
 
-		new EmfFormPopup<>(getOrCreateRecord()).setDirectEditing(true).show();
-		hide();
+		new EmfFormPopup<>(getOrCreateRecord()).setDirectEditing(true).open();
+		close();
 	}
 
 	private R getOrCreateRecord() {

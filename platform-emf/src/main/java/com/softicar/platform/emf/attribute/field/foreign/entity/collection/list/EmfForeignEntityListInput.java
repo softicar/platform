@@ -306,7 +306,7 @@ public class EmfForeignEntityListInput<R extends IEmfTableRow<R, ?>, L extends I
 			}
 
 			table.addEntity(index, entity);
-			hide();
+			close();
 		}
 	}
 }

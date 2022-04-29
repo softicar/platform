@@ -36,7 +36,7 @@ public class TableExportColumnSelectionPopup extends DomDismissablePopup {
 		private void applySelectedColumnsToTableModel() {
 
 			tableModel.setSelectedColumnIndexes(tableDiv.getSelectedColumnIndexesOrThrow());
-			hide();
+			close();
 			if (refreshable != null) {
 				refreshable.refresh();
 			}

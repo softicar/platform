@@ -44,6 +44,6 @@ public class WorkflowVersionManagementAction implements IEmfManagementAction<AGW
 		DomPopupManager//
 			.getInstance()
 			.getPopup(workflow, WorkflowVersionManagementPopup.class, WorkflowVersionManagementPopup::new)
-			.show();
+			.open();
 	}
 }
