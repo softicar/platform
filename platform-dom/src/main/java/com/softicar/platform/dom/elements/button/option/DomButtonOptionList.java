@@ -63,7 +63,7 @@ public class DomButtonOptionList<T> extends DomActionBar {
 
 	public DomButtonOptionList<T> setOptionMarker(T option, IStaticObject marker) {
 
-		optionButtonMap.get(option).setMarker(marker);
+		optionButtonMap.get(option).addMarker(marker);
 		return this;
 	}
 

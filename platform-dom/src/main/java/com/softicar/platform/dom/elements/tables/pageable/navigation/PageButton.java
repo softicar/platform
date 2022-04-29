@@ -21,7 +21,7 @@ class PageButton extends DomButton {
 	public PageButton(DomPageableTable table, int pageIndex, String label) {
 
 		setLabel(label);
-		setMarker(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON);
+		addMarker(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON);
 		setClickCallback(() -> table.setCurrentPage(pageIndex));
 
 		if (pageIndex == table.getCurrentPage()) {

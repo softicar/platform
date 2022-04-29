@@ -32,7 +32,7 @@ public class DomModalDialogBackdrop extends DomDiv implements IDomClickEventHand
 
 		this.clickHandler = Objects.requireNonNull(clickHandler);
 		setCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_BACKDROP);
-		setMarker(DomModalDialogMarker.BACKDROP);
+		addMarker(DomModalDialogMarker.BACKDROP);
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class DomButtonTest extends AbstractTest implements IDomTestExecutionEngi
 		public Button() {
 
 			setLabel("click me");
-			setMarker(MARKER);
+			addMarker(MARKER);
 		}
 	}
 

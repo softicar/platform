@@ -23,7 +23,7 @@ public class EmfDataTableExtraRow<R> extends DomRow {
 		this.dataTable = Objects.requireNonNull(dataTable);
 		this.rowProvider = Objects.requireNonNull(rowProvider);
 		this.columnGroupList = Objects.requireNonNull(columnGroupList);
-		setMarker(EmfDataTableDivMarker.EXTRA_ROW);
+		addMarker(EmfDataTableDivMarker.EXTRA_ROW);
 	}
 
 	public void refresh() {

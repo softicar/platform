@@ -84,7 +84,7 @@ public abstract class AbstractEmfAggregatingAction<R extends IEmfTableRow<R, ?>>
 			this.formBody = formBody;
 
 			integrateActions(action.getActions(), formBody);
-			setMarker(new EmfCommonActionMarker(action));
+			addMarker(new EmfCommonActionMarker(action));
 
 			addElement(CancelDiv::new);
 
