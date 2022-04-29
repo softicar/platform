@@ -13,7 +13,7 @@ class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>, P> imp
 
 		switch (CurrentDomDocument.get().getCurrentEvent().getType()) {
 		case CONTEXTMENU: {
-			new EmfManagementActionPopover<>(row).show();
+			new EmfManagementActionPopover<>(row).open();
 			break;
 		}
 		case DBLCLICK: {
@@ -31,6 +31,6 @@ class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>, P> imp
 		DomPopupManager//
 			.getInstance()
 			.getPopup(row, EmfFormPopup.class, EmfFormPopup::new)
-			.show();
+			.open();
 	}
 }

@@ -62,7 +62,7 @@ public class DomHelpPopupButton extends DomButton {
 
 	private void handleClick() {
 
-		getPopup().show();
+		getPopup().open();
 	}
 
 	private DomPopup getPopup() {

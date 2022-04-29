@@ -68,6 +68,6 @@ public class EmfEditAction<R extends IEmfTableRow<R, ?>> implements IEmfCommonAc
 			.getInstance()
 			.getPopup(tableRow, EmfFormPopup.class, EmfFormPopup::new)
 			.setDirectEditing(true)
-			.show();
+			.open();
 	}
 }

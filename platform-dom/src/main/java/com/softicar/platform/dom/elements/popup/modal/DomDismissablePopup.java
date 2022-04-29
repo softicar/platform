@@ -1,6 +1,5 @@
 package com.softicar.platform.dom.elements.popup.modal;
 
-import com.softicar.platform.dom.elements.dialog.DomModalDialogBackdrop;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 
 /**
@@ -17,18 +16,6 @@ public class DomDismissablePopup extends DomPopup {
 
 	public DomDismissablePopup() {
 
-		setPositionByEvent();
-		setCallbackBeforeShow(this::beforeShow);
-	}
-
-	private void beforeShow() {
-
-		showBackdrop(this::createBackdrop);
-		trapTabFocus();
-	}
-
-	private DomModalDialogBackdrop createBackdrop() {
-
-		return new DomModalDialogBackdrop(getCloseManager()::closePopupNonInteractive);
+		configuration.setDisplayModeDraggableModal();
 	}
 }

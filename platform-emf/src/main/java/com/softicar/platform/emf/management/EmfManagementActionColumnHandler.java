@@ -42,7 +42,7 @@ class EmfManagementActionColumnHandler<R extends IEmfTableRow<R, P>, P> implemen
 			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_BUTTON);
 			setIcon(EmfImages.MANAGEMENT_ACTIONS.getResource());
 			setTitle(EmfI18n.ACTIONS);
-			setClickCallback(() -> new EmfManagementActionPopover<>(tableRow).show());
+			setClickCallback(() -> new EmfManagementActionPopover<>(tableRow).open());
 		}
 	}
 }

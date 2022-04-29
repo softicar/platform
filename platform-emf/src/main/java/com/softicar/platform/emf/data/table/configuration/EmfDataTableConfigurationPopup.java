@@ -51,7 +51,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 		model.setPageSize(pageSizeInputElement.getPageSize());
 		model.apply();
 		controller.savePersistentTableConfiguration();
-		hide();
+		close();
 	}
 
 	private void resetToDefaults() {

@@ -13,11 +13,11 @@ public class DomPopupTester extends AbstractDomNodeTester<DomPopup> {
 
 	public void assertIsShown() {
 
-		Assert.assertTrue("Expected pop-up to be shown but is hidden.", node.isShown());
+		Assert.assertTrue("Expected pop-up to be shown but is hidden.", isDisplayed());
 	}
 
 	public void assertIsHidden() {
 
-		Assert.assertFalse("Expected pop-up to be hidden but is shown.", node.isShown());
+		Assert.assertFalse("Expected pop-up to be hidden but is shown.", isDisplayed());
 	}
 }

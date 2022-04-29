@@ -156,7 +156,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 		var popoverTester = clickActionsButtonAndGetPopover();
 		var popover = popoverTester.assertType(EmfManagementActionPopover.class);
 		assertion.accept(popoverTester);
-		popover.hide();
+		popover.close();
 	}
 
 	private IDomNodeIterable<IDomNode> findManageChildTableButtons(IEmfTable<?, ?, ?> table) {

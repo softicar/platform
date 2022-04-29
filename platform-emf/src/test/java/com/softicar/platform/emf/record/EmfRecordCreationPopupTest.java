@@ -79,7 +79,7 @@ public class EmfRecordCreationPopupTest extends AbstractEmfTest {
 
 		public TestDiv() {
 
-			new EmfRecordCreationPopup<>(EmfTestRecordWithObjectPk.TABLE, EmfTestScope.getInstance()).show();
+			new EmfRecordCreationPopup<>(EmfTestRecordWithObjectPk.TABLE, EmfTestScope.getInstance()).open();
 		}
 	}
 }

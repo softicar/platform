@@ -36,7 +36,7 @@ public class DomPopupManager {
 		if (popup == null) {
 			popup = factory.apply(entity);
 			// FIXME this might override custom callbacks
-			popup.getCloseManager().setCloseCallback(() -> popups.remove(key));
+			popup.configure(it -> it.setCallbackBeforeClose(() -> popups.remove(key)));
 			popups.put(key, popup);
 		}
 		return popup;
