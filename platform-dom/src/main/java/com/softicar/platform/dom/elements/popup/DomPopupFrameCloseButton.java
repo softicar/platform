@@ -13,7 +13,7 @@ class DomPopupFrameCloseButton extends DomButton {
 		setIcon(DomElementsImages.POPUP_TITLE_BAR_CLOSE.getResource());
 		setTitle(DomI18n.CLOSE);
 		setClickCallback(closeCallback);
-		setMarker(DomPopupMarker.FRAME_CLOSE_BUTTON);
+		addMarker(DomPopupMarker.FRAME_CLOSE_BUTTON);
 		CurrentDomDocument.get().getEngine().stopPropagation(this, "mousedown");
 	}
 }

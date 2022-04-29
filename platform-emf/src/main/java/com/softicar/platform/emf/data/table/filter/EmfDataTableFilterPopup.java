@@ -29,8 +29,8 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 		setCaption(EmfDataTableI18n.FILTER_BY_COLUMN);
 		setSubCaption(column.getTitle());
-		setMarker(EmfDataTableDivMarker.FILTER_POPUP);
-		column.getSettings().getMarkers().forEach(this::setMarker);
+		addMarker(EmfDataTableDivMarker.FILTER_POPUP);
+		column.getSettings().getMarkers().forEach(this::addMarker);
 
 		appendChild(filterListDiv);
 		appendChild(new DomActionBar(removeOtherFiltersCheckbox));
@@ -44,7 +44,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 			setIcon(DomElementsImages.FILTER.getResource());
 			setLabel(EmfDataTableI18n.FILTER);
-			setMarker(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON);
+			addMarker(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON);
 			setClickCallback(() -> submitFilter());
 		}
 	}

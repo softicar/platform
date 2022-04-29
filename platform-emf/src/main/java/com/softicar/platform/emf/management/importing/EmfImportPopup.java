@@ -29,7 +29,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		setCaption();
 		setSubCaption();
-		setMarker(EmfManagementMarker.IMPORT_POPUP);
+		addMarker(EmfManagementMarker.IMPORT_POPUP);
 
 		showUploadDiv();
 	}

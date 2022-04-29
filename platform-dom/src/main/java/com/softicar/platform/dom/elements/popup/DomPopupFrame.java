@@ -37,7 +37,7 @@ public class DomPopupFrame extends DomDiv implements IDomEscapeKeyEventHandler {
 		}
 		appendChild(popup);
 
-		configuration.getFrameMarkers().forEach(this::setMarker);
+		configuration.getFrameMarkers().forEach(this::addMarker);
 	}
 
 	@Override

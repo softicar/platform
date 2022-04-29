@@ -17,7 +17,7 @@ public class DomPageableTableNavigation extends DomBar implements IDomPageableTa
 		this.table = table;
 		this.customButtonBuilders = customButtonBuilders;
 
-		setMarker(DomPageableTableMarker.NAVIGATION);
+		addMarker(DomPageableTableMarker.NAVIGATION);
 		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
 	}
 

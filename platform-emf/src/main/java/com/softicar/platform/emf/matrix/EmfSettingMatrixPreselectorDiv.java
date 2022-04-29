@@ -63,13 +63,13 @@ public class EmfSettingMatrixPreselectorDiv<E extends IEmfEntity<E, ?>> extends 
 		public Form(Supplier<EmfEntityInput<E>> inputSupplier) {
 
 			this.input = appendChild(inputSupplier.get());
-			this.input.setMarker(EmfSettingMatrixMarker.ENTITY_INPUT);
+			this.input.addMarker(EmfSettingMatrixMarker.ENTITY_INPUT);
 			appendChild(
 				new DomButton()//
 					.setLabel(EmfI18n.SELECT)
 					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
 					.setClickCallback(() -> refresh())
-					.setMarker(EmfSettingMatrixMarker.ENTITY_SELECT_BUTTON));
+					.addMarker(EmfSettingMatrixMarker.ENTITY_SELECT_BUTTON));
 		}
 
 		@Override

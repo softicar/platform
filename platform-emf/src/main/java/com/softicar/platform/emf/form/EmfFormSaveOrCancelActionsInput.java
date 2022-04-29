@@ -30,21 +30,21 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 				new DomButton()//
 					.setIcon(EmfImages.ENTITY_SAVE.getResource())
 					.setLabel(EmfI18n.SAVE)
-					.setMarker(EmfMarker.SAVE)
+					.addMarker(EmfMarker.SAVE)
 					.setClickCallback(() -> save(false)));
 		buttonContainer
 			.appendChild(
 				new DomButton()//
 					.setIcon(EmfImages.ENTITY_SAVE_AND_CLOSE.getResource())
 					.setLabel(EmfI18n.SAVE_AND_CLOSE)
-					.setMarker(EmfMarker.SAVE_AND_CLOSE)
+					.addMarker(EmfMarker.SAVE_AND_CLOSE)
 					.setClickCallback(() -> save(true)));
 		buttonContainer
 			.appendChild(
 				new DomButton()//
 					.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 					.setLabel(EmfI18n.CANCEL)
-					.setMarker(EmfMarker.CANCEL)
+					.addMarker(EmfMarker.CANCEL)
 					.setClickCallback(() -> formBody.cancelEditMode()));
 
 		appendChild(buttonContainer);

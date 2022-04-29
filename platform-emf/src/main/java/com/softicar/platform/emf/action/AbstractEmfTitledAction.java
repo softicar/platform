@@ -29,7 +29,7 @@ public abstract class AbstractEmfTitledAction<R extends IEmfTableRow<R, ?>> impl
 					.setIcon(getIcon())
 					.setLabel(getTitle().concat("..."))
 					.setClickCallback(() -> showPrompt(actionContainer.getFormBody()))
-					.setMarker(new EmfActionMarker(this)));
+					.addMarker(new EmfActionMarker(this)));
 	}
 
 	protected void showPrompt(IEmfFormBody<R> formBody) {

@@ -16,7 +16,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 
 		this.dataTable = dataTable;
 		this.headerCellMap = new HashMap<>();
-		setMarker(EmfDataTableDivMarker.HEADER_PRIMARY_ROW);
+		addMarker(EmfDataTableDivMarker.HEADER_PRIMARY_ROW);
 		refresh();
 	}
 
@@ -52,7 +52,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 
 		public ActionHeaderCell() {
 
-			setMarker(EmfDataTableDivMarker.ACTION_HEADER_CELL);
+			addMarker(EmfDataTableDivMarker.ACTION_HEADER_CELL);
 		}
 	}
 }

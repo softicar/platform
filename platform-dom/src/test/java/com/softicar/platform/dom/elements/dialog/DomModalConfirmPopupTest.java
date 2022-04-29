@@ -130,13 +130,13 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 		public TestDiv() {
 
 			var outputElement = appendChild(new DomDiv());
-			outputElement.setMarker(OUTPUT_ELEMENT);
+			outputElement.addMarker(OUTPUT_ELEMENT);
 
 			appendChild(
 				new DomButton()//
 					.setLabel("spawn confirm")
 					.setClickCallback(new DomModalConfirmPopup(() -> outputElement.appendText(CONFIRMATION_TEXT), MESSAGE)::show)
-					.setMarker(SHOW_BUTTON));
+					.addMarker(SHOW_BUTTON));
 		}
 	}
 }

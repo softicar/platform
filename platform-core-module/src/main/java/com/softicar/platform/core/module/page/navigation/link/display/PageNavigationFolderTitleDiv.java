@@ -19,7 +19,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 		this.link = link;
 		this.clickCallback = clickCallback;
 
-		setMarker(PageNavigationMarker.FOLDER_TITLE_DIV);
+		addMarker(PageNavigationMarker.FOLDER_TITLE_DIV);
 		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
 		appendModuleIconIfPresent();
 		appendChild(new TitleSpan());
