@@ -44,7 +44,6 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public IEmfTable<R, ?, ?> getTable() {
 
 		// TODO remove or improve cast (i54622)
