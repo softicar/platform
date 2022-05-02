@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.dialog.testing;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.elements.dialog.DomModalDialogMarker;
+import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import java.util.function.Function;
 
 public class DomModalDialogNodes<T> implements IDomModalDialogNodes<T> {
@@ -34,6 +35,6 @@ public class DomModalDialogNodes<T> implements IDomModalDialogNodes<T> {
 	@Override
 	public T getBackdrop() {
 
-		return extractor.apply(DomModalDialogMarker.BACKDROP);
+		return extractor.apply(DomPopupMarker.BACKDROP);
 	}
 }

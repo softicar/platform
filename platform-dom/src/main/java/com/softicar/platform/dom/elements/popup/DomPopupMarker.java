@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 
 public enum DomPopupMarker implements IStaticObject {
 
+	BACKDROP,
 	FRAME_CLOSE_BUTTON,
 	//
 	;
