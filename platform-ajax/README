@@ -1,4 +1,0 @@
-To compile the TypeScript files, you need to install the YARN tool and then install the TypeScript compiler.
-
-On Ubuntu, execute `sudo apt install yarnpkg` and then execute `yarnpkg` in the root folder of this project to install the TypeScript compiler.
- 
