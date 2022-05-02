@@ -10,7 +10,8 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 public enum DomPopupDisplayMode {
 
 	/**
-	 * A modal, non-dismissable, non-draggable {@link DomPopup} without header.
+	 * A modal, dismissable, non-draggable {@link DomPopup} without header.
+	 * Provides a visual clue to its modality.
 	 */
 	DIALOG(false, DomPopupModalMode.MODAL_DISMISSABLE),
 
@@ -22,9 +23,15 @@ public enum DomPopupDisplayMode {
 
 	/**
 	 * A modal, dismissable, draggable {@link DomPopup} with header (captions
-	 * and close-button).
+	 * and close-button). Provides a visual clue to its modality.
 	 */
-	DRAGGABLE_MODAL(true, DomPopupModalMode.MODAL_DISMISSABLE);
+	DRAGGABLE_MODAL(true, DomPopupModalMode.MODAL_DISMISSABLE),
+
+	/**
+	 * A modal, dismissable, non-draggable {@link DomPopup} without header.
+	 * Provides <b>no</b> visual clue to its modality.
+	 */
+	POPOVER(false, DomPopupModalMode.MODAL_DISMISSABLE_INVISIBLE_BACKDROP);
 
 	private final boolean header;
 	private final DomPopupModalMode modalMode;
@@ -43,10 +50,5 @@ public enum DomPopupDisplayMode {
 	public DomPopupModalMode getModalMode() {
 
 		return modalMode;
-	}
-
-	public boolean isModal() {
-
-		return modalMode.isModal();
 	}
 }

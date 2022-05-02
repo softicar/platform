@@ -16,5 +16,6 @@ public interface DomCssPseudoClasses {
 	ICssClass ROTATED = new CssClass("rotated");
 	ICssClass SELECTED = new CssClass("selected");
 	ICssClass SUCCESS = new CssClass("success");
+	ICssClass VISIBLE = new CssClass("visible");
 	ICssClass WARNING = new CssClass("warning");
 }
