@@ -26,6 +26,7 @@ public interface AjaxDomEngineJavascriptContainer {
 	IResourceSupplier MUTEX = FACTORY.create("Mutex.js");
 	IResourceSupplier PUSH_BROWSER_HISTORY_STATE = FACTORY.create("PushBrowserHistoryState.js");
 	IResourceSupplier SERVER_REQUEST = FACTORY.create("ServerRequest.js");
+	IResourceSupplier TYPE_SCRIPT_GENERATED = FACTORY.create("TypeScriptGenerated.js");
 	IResourceSupplier UTILS = FACTORY.create("Utils.js");
 	IResourceSupplier VALUE_NODE_MAP = FACTORY.create("ValueNodeMap.js");
 }

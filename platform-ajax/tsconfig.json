@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "system",
+    "outFile": "src/main/resources/com/softicar/platform/ajax/engine/TypeScriptGenerated.js",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/main/typescript/**/*.ts"]
+}
