@@ -202,7 +202,7 @@ public class AjaxModalConfirmPopupTest extends AbstractAjaxSeleniumLowLevelTest 
 			this.outputElement = new DomDiv();
 			this.button = new DomButton()//
 				.setLabel("spawn confirm")
-				.setClickCallback(new DomModalConfirmPopup(() -> outputElement.appendText(CONFIRMATION_TEXT), MESSAGE)::show);
+				.setClickCallback(new DomModalConfirmPopup(() -> outputElement.appendText(CONFIRMATION_TEXT), MESSAGE)::open);
 			appendChild(button);
 			appendChild(outputElement);
 		}

@@ -1,4 +1,8 @@
 
+:root {
+	--DOM_POPUP_FRAME_HIGHLIGHTED_COLOR: #f00;
+}
+
 .DomPopup {
 	border-radius: 0 0 var(--BORDER_RADIUS) var(--BORDER_RADIUS);
 	display: flex;
@@ -23,6 +27,10 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 	outline-style: none;
 	width: max-content;
+}
+
+.DomPopupFrame.highlighted {
+	border: 1px solid var(--DOM_POPUP_FRAME_HIGHLIGHTED_COLOR);
 }
 
 .DomPopupFrameHeader {

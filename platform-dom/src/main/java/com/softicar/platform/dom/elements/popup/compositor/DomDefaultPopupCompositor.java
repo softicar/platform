@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.popup.compositor;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
@@ -12,13 +11,10 @@ import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.WeakHashMap;
-import java.util.stream.Collectors;
 
 /**
  * The default implementation of an {@link IDomPopupCompositor}.
@@ -30,14 +26,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private final Map<DomPopup, DomPopupFrame> frameMap;
 	private final Map<DomPopup, IDomNode> spawningNodeMap;
 	private final Map<DomPopup, DomModalPopupBackdrop> backdropMap;
-	private List<DomModalPopupBackdrop> backdropStack;
+	private final DomPopupHierarchyGraph hierarchyGraph;
+	private final DomPopupFrameHighlighting highlighting;
+	private final DomModalPopupBackdropStack backdropStack;
 
 	public DomDefaultPopupCompositor() {
 
 		this.frameMap = new WeakHashMap<>();
 		this.spawningNodeMap = new WeakHashMap<>();
 		this.backdropMap = new WeakHashMap<>();
-		this.backdropStack = new ArrayList<>();
+		this.backdropStack = new DomModalPopupBackdropStack();
+		this.hierarchyGraph = new DomPopupHierarchyGraph();
+		this.highlighting = new DomPopupFrameHighlighting();
 	}
 
 	@Override
@@ -55,10 +55,16 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 			if (displayMode.getModalMode().isModal()) {
 				showBackdrop(popup);
-				refreshBackdropVisibility();
+				backdropStack.refreshVisibility();
 			}
 
 			configuration.getCallbackBeforeOpen().apply();
+
+			getSpawningNode(popup).ifPresent(it -> {
+				new DomParentNodeFetcher<>(DomPopup.class).getClosestParent(it).ifPresent(parent -> {
+					hierarchyGraph.add(parent, popup);
+				});
+			});
 
 			var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
 			getDomEngine().showPopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
@@ -75,8 +81,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void close(DomPopup popup) {
 
 		if (popup.isAppended()) {
-			hidePopup(popup);
-			refreshBackdropVisibility();
+			closePopup(popup);
 		}
 	}
 
@@ -90,10 +95,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void closeInteractively(DomPopup popup) {
 
 		if (popup.isAppended()) {
-			if (popup.getConfiguration().isConfirmBeforeClose()) {
-				popup.executeConfirm(() -> hidePopup(popup), DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION);
+			var childPopups = hierarchyGraph.getAllChildPopups(popup);
+			if (!childPopups.isEmpty()) {
+				highlighting.add(popup, childPopups);
+				popup
+					.executeConfirm(//
+						() -> closePopup(popup),
+						() -> highlighting.remove(popup, childPopups),
+						DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION);
+			} else if (popup.getConfiguration().isConfirmBeforeClose()) {
+				popup.executeConfirm(() -> closePopup(popup), DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION);
 			} else {
-				hidePopup(popup);
+				closePopup(popup);
 			}
 		}
 	}
@@ -123,16 +136,6 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			.map(IDomEvent::getCurrentTarget);
 	}
 
-	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
-
-		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
-		if (modalMode.isDismissable()) {
-			return () -> close(popup);
-		} else {
-			return () -> focus(popup);
-		}
-	}
-
 	private void showBackdrop(DomPopup popup) {
 
 		boolean backdropVisible = popup.getConfiguration().getDisplayMode().getModalMode().isBackdropVisible();
@@ -144,28 +147,21 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		getDomDocument().getBody().appendChild(backdrop);
 	}
 
-	private void refreshBackdropVisibility() {
+	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
 
-		refreshBackdropStack();
-
-		backdropStack.forEach(it -> it.removeCssClass(DomCssPseudoClasses.VISIBLE));
-		backdropStack//
-			.stream()
-			.filter(DomModalPopupBackdrop::isAppended)
-			.filter(DomModalPopupBackdrop::isVisible)
-			.findFirst()
-			.ifPresent(it -> it.addCssClass(DomCssPseudoClasses.VISIBLE));
+		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
+		if (modalMode.isDismissable()) {
+			return () -> close(popup);
+		} else {
+			return () -> focus(popup);
+		}
 	}
 
-	private void refreshBackdropStack() {
+	private void closePopup(DomPopup popup) {
 
-		this.backdropStack = backdropStack//
-			.stream()
-			.filter(DomModalPopupBackdrop::isAppended)
-			.collect(Collectors.toList());
-	}
-
-	private void hidePopup(DomPopup popup) {
+		var childPopups = hierarchyGraph.getAllChildPopups(popup);
+		childPopups.forEach(child -> closePopup(child));
+		highlighting.remove(popup, childPopups);
 
 		popup.getConfiguration().getCallbackBeforeClose().apply();
 
@@ -175,11 +171,14 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			getDomEngine().hidePopup(frame);
 		});
 
-		getBackdropNode(popup).ifPresent(backdrop -> {
+		getBackdrop(popup).ifPresent(backdrop -> {
 			backdrop.disappend();
 		});
 
 		getSpawningNode(popup).ifPresent(getDomEngine()::focus);
+
+		backdropStack.refreshVisibility();
+		hierarchyGraph.cleanup();
 	}
 
 	private Optional<DomPopupFrame> getFrame(DomPopup popup) {
@@ -194,7 +193,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		return Optional.ofNullable(spawningNodeMap.get(popup));
 	}
 
-	private Optional<IDomNode> getBackdropNode(DomPopup popup) {
+	private Optional<IDomNode> getBackdrop(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
 		return Optional.ofNullable(backdropMap.get(popup));

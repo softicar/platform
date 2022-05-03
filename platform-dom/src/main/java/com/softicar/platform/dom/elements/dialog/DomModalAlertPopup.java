@@ -32,7 +32,7 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
 		super.open();
 		getDomEngine().focus(closeButton);
