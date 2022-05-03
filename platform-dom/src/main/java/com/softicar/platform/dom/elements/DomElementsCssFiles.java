@@ -24,7 +24,7 @@ public interface DomElementsCssFiles {
 	IResourceSupplier DOM_INPUT_DIAGNOSTICS_STYLE = FACTORY.create("dom-input-diagnostics-style.css");
 	IResourceSupplier DOM_LABEL_GRID_STYLE = FACTORY.create("dom-label-grid-style.css");
 	IResourceSupplier DOM_MESSAGE_DIV_STYLE = FACTORY.create("dom-message-div-style.css");
-	IResourceSupplier DOM_MODAL_DIALOG_STYLE = FACTORY.create("dom-modal-dialog-style.css");
+	IResourceSupplier DOM_MODAL_POPUP_STYLE = FACTORY.create("dom-modal-popup-style.css");
 	IResourceSupplier DOM_PAGEABLE_TABLE_STYLE = FACTORY.create("dom-pageable-table-style.css");
 	IResourceSupplier DOM_PERCENTAGE_BAR_STYLE = FACTORY.create("dom-percentage-bar-style.css");
 	IResourceSupplier DOM_POPOVER_STYLE = FACTORY.create("dom-popover-style.css");

@@ -134,6 +134,16 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 		return setDisplayMode(DomPopupDisplayMode.DRAGGABLE_MODAL);
 	}
 
+	/**
+	 * Sets {@link DomPopupDisplayMode#POPOVER} for the {@link DomPopup}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setDisplayModePopover() {
+
+		return setDisplayMode(DomPopupDisplayMode.POPOVER);
+	}
+
 	@Override
 	public IDomPopupPositionStrategy getPositionStrategy() {
 

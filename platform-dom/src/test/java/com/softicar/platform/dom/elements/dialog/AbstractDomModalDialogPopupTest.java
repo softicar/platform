@@ -3,6 +3,7 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
@@ -28,6 +29,6 @@ public abstract class AbstractDomModalDialogPopupTest extends AbstractTest imple
 		findNodes(DomModalDialogMarker.FRAME).assertNone();
 		findNodes(DomModalDialogMarker.POPUP).assertNone();
 		findNodes(DomModalDialogMarker.CONTENT).assertNone();
-		findNodes(DomModalDialogMarker.BACKDROP).assertNone();
+		findNodes(DomPopupMarker.BACKDROP).assertNone();
 	}
 }
