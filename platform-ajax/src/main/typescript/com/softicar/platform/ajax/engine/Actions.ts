@@ -1,16 +1,18 @@
 
+/**
+ * An executable object that can be put into an {@link ActionQueue}.
+ */
 interface Action {
+
+	/**
+	 * Executes this {@link Action} object.
+	 */
 	execute(): void;
 }
 
-// This action represents a server request. When executed, this
-// sends a request to the server with the specified parameters. 
-// After the server has replied, a new JavascriptAction with the 
-// returned javascript code of the server is enqueue and the next 
-// action of the action queue is executed.
-//
-// If you leave form undefined, this will send an ajax request via
-// XMLHttpRequest, else the specified form is submitted.
+/**
+ * This {@link Action} represents a server request.
+ */
 class ServerRequestAction implements Action {
 	private parameters: any;
 	private form: any;
@@ -20,23 +22,36 @@ class ServerRequestAction implements Action {
 		this.form = form;
 	}
 
+    /**
+	 * Sends a request to the server with the specified request parameters.
+	 * After the server has replied, a new {@link JavaScriptAction} with the 
+	 * returned JavaScript code from the server is enqueue and the next 
+	 * {@link Action} of the {@link ActionQueue} is executed automatically.
+	 *
+	 * If you leave the form parameter undefined, this will send the request
+	 * via XMLHttpRequest, else, the specified form is submitted.
+	 */
 	execute() {
 		SR_sendAjaxRequest(this.parameters, this.form);
 	}
 }
 
-// This action represents a javascipt action. When executed, this
-// executes the specified javascript code and afterwards executes 
-// the next action of the action queue.
-class JavascriptAction implements Action {
-	private javascriptCode: string;
+/**
+ * This {@link Action} executes JavaScript code.
+ */
+class JavaScriptAction implements Action {
+	private javaScriptCode: string;
 	
-	constructor(javascriptCode: string) {
-		this.javascriptCode = javascriptCode;
+	constructor(javaScriptCode: string) {
+		this.javaScriptCode = javaScriptCode;
 	}
 
+	/**
+	 * Executes the JavaScript code and then executes the next {@link Action}
+	 * of the {@link ActionQueue}.
+	 */
 	execute() {
-		eval(this.javascriptCode);
+		eval(this.javaScriptCode);
 		ACTION_QUEUE.executeNextAction();
 	}
 }

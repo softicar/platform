@@ -63,7 +63,7 @@ function SR_AjaxRequest(form)
 			SR_ajaxRequest = null;
 			SR_requestIndex += 1;
 		
-			// execute returned Javascript code
+			// execute returned JavaScript code
 			ACTION_QUEUE.executeNextAction();
 		}
 	};
@@ -74,10 +74,10 @@ function SR_AjaxRequest(form)
 		{
 			if(success)
 			{
-				// enqueue returned Javascript code
+				// enqueue returned JavaScript code
 				if(request.responseText)
 				{
-					ACTION_QUEUE.enqueueAction(new JavascriptAction(request.responseText));
+					ACTION_QUEUE.enqueueAction(new JavaScriptAction(request.responseText));
 				}
 			}
 			else if(request.status == HTTP_STATUS_GONE)
@@ -145,7 +145,7 @@ function SR_AjaxRequest(form)
 		var frame = GLOBAL.context.getDocument().getElementById('ajaxFrame');
 		frame.parentNode.removeChild(frame);
 	
-		ACTION_QUEUE.enqueueAction(new JavascriptAction(responseText));
+		ACTION_QUEUE.enqueueAction(new JavaScriptAction(responseText));
 		m_quit();
 	};
 	

@@ -1,25 +1,29 @@
-
 /**
- * This class takes care that no session timeout occurs
- * by sending a keep-alive message to the server.
- * <p>
- * @param delay the number of milliseconds between every 
- *              keep-alive message sent to the server
+ * The purpose of this class is to keep the HTTP session of the user alive.
+ * 
+ * As long as the client browser is open and working, this sends a keep-alive
+ * request to the server on a regular basis.
  */
 class KeepAlive {
 	private delay: number;
 	private handlerId: number;
 
+	/**
+	 * Constructs this {@link KeepAlive} object.
+	 *
+	 * @param delay the number of milliseconds between every 
+	 *              keep-alive request sent to the server
+	 */
 	constructor(delay: number) {
 		this.delay = delay;
 		this.handlerId = -1;
 	}
 
 	/**
-	 * This will schedule a new keep-alive message.
-	 * <p>
-	 * Any keep-alive message that was scheduled before the
-	 * call to this function will be canceled.
+	 * Schedules a new keep-alive request.
+	 * 
+	 * Any keep-alive request that was scheduled before the call to this
+	 * function will be canceled.
 	 */
 	schedule() {
 		// clear any previously scheduled timeout
@@ -31,7 +35,7 @@ class KeepAlive {
 		this.handlerId = setTimeout(this.handleKeepAliveTimeout, this.delay);
 	}
 
-	handleKeepAliveTimeout() {
+	private handleKeepAliveTimeout() {
 		// ignore if the session timed out
 		if(SESSION_TIMED_OUT) {
 			return;
@@ -54,4 +58,4 @@ class KeepAlive {
 	}
 }
 
-let KEEP_ALIVE = new KeepAlive(3*60*1000);
+let KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);

@@ -1,4 +1,7 @@
 
+/**
+ * An execution queue for {@link Action} objects.
+ */
 class ActionQueue {
 	private actions: Action[];
 	private begin: number;
@@ -10,15 +13,18 @@ class ActionQueue {
 		this.end = 0;
 	}
 	
-	// This adds the specified action to the end of the action queue.
+	/**
+	 * Adds the specified {@link Action} to the end of this {@link ActionQueue}.
+	 */
 	enqueueAction(action: Action) {
 		this.actions[this.end] = action;
 		this.end++;
 	}
 
-	// This removes the action at the begin of the action queue
-	// and returns it. If the action queue is empty, this returns
-	// null.
+	/**
+	 * Removes the {@link Action} at the begin of this {@link ActionQueue}
+	 * and returns it. If this {@link ActionQueue} is empty, this returns null.
+	 */
 	dequeueAction() {
 		if(this.begin < this.end) {
 			let action = this.actions[this.begin];
@@ -30,10 +36,12 @@ class ActionQueue {
 		}
 	}
 
-	// This removes the first action from the action queue and 
-	// calls execute() on it. When there are no more actions in 
-	// the queue, a new keep-alive timeout is scheduled and the
-	// global event lock is released.
+	/**
+	 * Removes the first {@link Action} from this {@link ActionQueue} and calls
+	 * {@link Action#execute()} on it. If this {@link ActionQueue} is empty, a
+	 * {@link KeepAlive} timeout is scheduled instead, and the global event lock
+	 * is released.
+	 */
 	executeNextAction() {
 		let action = this.dequeueAction();
 		if(action) {
