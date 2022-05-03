@@ -204,7 +204,7 @@ _DOMContext_.prototype.submitForm = function(formNodeID)
 		GLOBAL.copyNodeValues(parameters);
 
 		var form = GLOBAL.context.getNode(formNodeID);
-		ACTION_QUEUE.enqueueAction(new ServerRequestAction(parameters, form));
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters, form));
 		ACTION_QUEUE.executeNextAction();
 	}
 	else
@@ -242,7 +242,7 @@ _DOMContext_.prototype.handleTimeout = function(timeoutNodeID)
 
 		GLOBAL.copyNodeValues(parameters);
 
-		ACTION_QUEUE.enqueueAction(new ServerRequestAction(parameters));
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
 		ACTION_QUEUE.executeNextAction();
 	}
 	else
@@ -430,7 +430,7 @@ function sendEventToServer(event, eventType) {
 
 		GLOBAL.copyNodeValues(parameters);
 
-		ACTION_QUEUE.enqueueAction(new ServerRequestAction(parameters));
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
 		ACTION_QUEUE.executeNextAction();
 	} else {
 		alert(LOCK_MESSAGE);

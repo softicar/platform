@@ -16,12 +16,10 @@ public interface AjaxDomEngineJavascriptContainer {
 	IResourceSupplier DOM_EVENT_ENGINE = FACTORY.create("DomEventEngine.js");
 	IResourceSupplier DOM_POPUP_ENGINE = FACTORY.create("DomPopupEngine.js");
 	IResourceSupplier DRAG_AND_DROP = FACTORY.create("DragAndDrop.js");
-	IResourceSupplier ENCODER = FACTORY.create("Encoder.js");
 	IResourceSupplier EVENT_DELEGATION = FACTORY.create("EventDelegation.js");
 	IResourceSupplier FOCUS_TRAP = FACTORY.create("FocusTrap.js");
 	IResourceSupplier GLOBAL = FACTORY.create("Global.js");
 	IResourceSupplier PUSH_BROWSER_HISTORY_STATE = FACTORY.create("PushBrowserHistoryState.js");
-	IResourceSupplier SERVER_REQUEST = FACTORY.create("ServerRequest.js");
 	IResourceSupplier TYPE_SCRIPT_GENERATED = FACTORY.create("TypeScriptGenerated.js");
 	IResourceSupplier UTILS = FACTORY.create("Utils.js");
 	IResourceSupplier VALUE_NODE_MAP = FACTORY.create("ValueNodeMap.js");

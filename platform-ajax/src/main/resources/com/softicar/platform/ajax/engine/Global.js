@@ -5,7 +5,6 @@
  */
 function Global()
 {
-	this.encoder = new Encoder();
 	this.context = _DOM_CONTEXT_;
 
 	this.addValueNode = function(nodeID, node) { m_valueNodeMap.addValueNode(nodeID, node); };

@@ -47,7 +47,7 @@ class KeepAlive {
 				'a': AJAX_REQUEST_KEEP_ALIVE
 			};
 
-			ACTION_QUEUE.enqueueAction(new ServerRequestAction(parameters, null));
+			ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
 			ACTION_QUEUE.executeNextAction();
 		} else {
 			// Since the global event lock was active there was no point
