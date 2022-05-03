@@ -48,13 +48,6 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 		appendCancelButton().addMarker(DomModalPromptMarker.CANCEL_BUTTON);
 	}
 
-	@Override
-	public void open() {
-
-		super.open();
-		getDomEngine().focus(inputElement);
-	}
-
 	private void closeAndApplyInput() {
 
 		close();

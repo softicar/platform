@@ -4,6 +4,7 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
+import com.softicar.platform.dom.elements.popup.modal.DomModalPopupBackdrop;
 import com.softicar.platform.dom.input.IDomTextualInput;
 
 /**
@@ -27,8 +28,8 @@ public interface IDomPopupCompositor {
 	/**
 	 * Closes the given {@link DomPopup}.
 	 * <p>
-	 * The user will <b>not</b> be prompted for confirmation, even if
-	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
+	 * The user will <b>not</b> be prompted if closing the {@link DomPopup}
+	 * requires interaction, according to the {@link IDomPopupConfiguration}.
 	 * <p>
 	 * If the {@link DomPopup} is not open, nothing will happen.
 	 *
@@ -38,15 +39,24 @@ public interface IDomPopupCompositor {
 	void close(DomPopup popup);
 
 	/**
-	 * Calls {@link #close(DomPopup)} on all open {@link DomPopup} elements.
+	 * Closes all {@link DomPopup} elements.
+	 * <p>
+	 * The user will <b>not</b> be prompted if closing any of the
+	 * {@link DomPopup} elements requires interaction, according to the
+	 * respective {@link IDomPopupConfiguration}.
+	 * <p>
+	 * Also resets the internal state of the {@link IDomPopupCompositor}. After
+	 * this method was called, the {@link IDomPopupCompositor} no longer holds
+	 * strong references to any {@link DomPopup}, {@link DomPopupFrame},
+	 * {@link DomModalPopupBackdrop}, or related elements.
 	 */
 	void closeAll();
 
 	/**
 	 * Closes the given {@link DomPopup}.
 	 * <p>
-	 * The user will be prompted for confirmation if
-	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
+	 * The user will be prompted if closing the {@link DomPopup} requires
+	 * interaction, according to the {@link IDomPopupConfiguration}.
 	 * <p>
 	 * If the {@link DomPopup} is not open, nothing will happen.
 	 *

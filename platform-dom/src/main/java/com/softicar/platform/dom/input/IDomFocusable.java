@@ -3,6 +3,8 @@ package com.softicar.platform.dom.input;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.IDomParentElement;
 
 /**
  * Interface to focus or blur {@link IDomElement} instances.
@@ -41,5 +43,31 @@ public interface IDomFocusable extends IDomElement {
 	default void focus() {
 
 		setFocus(true);
+	}
+
+	/**
+	 * Finds the first {@link IDomNode} with the given class, starting from (and
+	 * including) the given root node, and focuses it.
+	 *
+	 * @param focusableClass
+	 *            the focusable {@link IDomNode} class to find (never
+	 *            <i>null</i>)
+	 * @param rootNode
+	 *            the {@link IDomNode} to start searching at (never <i>null</i>)
+	 * @return <i>true</i> if a node was focused; <i>false</i> otherwise
+	 */
+	static boolean focusFirst(Class<? extends IDomFocusable> focusableClass, IDomNode rootNode) {
+
+		if (focusableClass.isInstance(rootNode)) {
+			((IDomFocusable) rootNode).focus();
+			return true;
+		} else if (rootNode instanceof IDomParentElement) {
+			for (IDomNode child: ((IDomParentElement) rootNode).getChildren()) {
+				if (focusFirst(focusableClass, child)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

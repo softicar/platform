@@ -9,6 +9,8 @@ import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
+import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
@@ -169,9 +171,27 @@ public interface IDomEngine {
 
 	// -------------------------------- pop-ups -------------------------------- //
 
-	void showPopup(IDomNode popup, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign);
+	/**
+	 * Moves the {@link DomPopup} with the given {@link IDomPopupFrame},
+	 * according to the given parameters.
+	 * <p>
+	 * The {@link DomPopup} shall be appended when this method is called.
+	 * Otherwise, its position might be unexpected.
+	 *
+	 * @param popupFrame
+	 *            the frame of the {@link DomPopup} (never <i>null</i>)
+	 * @param x
+	 *            the horizontal position of the {@link DomPopup}
+	 * @param y
+	 *            the vertical position of the {@link DomPopup}
+	 * @param xAlign
+	 *            the horizontal alignment of the {@link DomPopup}
+	 * @param yAlign
+	 *            the vertical alignment of the {@link DomPopup}
+	 */
+	void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign);
 
-	void hidePopup(IDomNode popup);
+	void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise);
 
 	// -------------------------------- scripting -------------------------------- //
 

@@ -24,6 +24,7 @@ class DomPopupFrameHeader extends DomDiv {
 		this.closeButton = new DomPopupFrameCloseButton(closeCallback);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME_HEADER);
+		addMarker(DomPopupMarker.FRAME_HEADER);
 		appendChild(captionHolder);
 		appendChild(closeButton);
 	}

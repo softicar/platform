@@ -2,32 +2,37 @@ package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.document.CurrentDomDocument;
-import com.softicar.platform.dom.document.DomBody;
-import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
+import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
+import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
+import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-public class DomPopupTest extends AbstractTest {
+public class DomPopupTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	private final DomBody body;
-	private final DomDocument document;
+	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
+
 	private final TestPopup popup;
 
 	public DomPopupTest() {
 
-		this.document = new DomDocument();
-		CurrentDomDocument.set(document);
-
-		this.body = document.getBody();
 		this.popup = new TestPopup();
+		setNodeSupplier(DomDiv::new);
+	}
 
-		IDomEvent event = Mockito.mock(IDomEvent.class);
-		document.setCurrentEvent(event);
+	private IDomNode getBody() {
+
+		return getEngine().getBodyNode();
+	}
+
+	@Override
+	public IDomTestExecutionEngine getEngine() {
+
+		return engine;
 	}
 
 	@Test
@@ -35,7 +40,7 @@ public class DomPopupTest extends AbstractTest {
 
 		popup.open();
 		assertTrue(popup.isAppended());
-		assertSame(body, getRoot(popup));
+		assertSame(getBody(), getRoot(popup));
 	}
 
 	@Test
@@ -43,7 +48,7 @@ public class DomPopupTest extends AbstractTest {
 
 		popup.close();
 		assertFalse(popup.isAppended());
-		assertNotSame(body, getRoot(popup));
+		assertNotSame(getBody(), getRoot(popup));
 	}
 
 	@Test

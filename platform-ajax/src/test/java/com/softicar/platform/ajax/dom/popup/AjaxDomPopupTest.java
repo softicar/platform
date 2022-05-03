@@ -4,10 +4,18 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.utils.TestButton;
+import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.DomPopupFrame;
+import com.softicar.platform.dom.elements.popup.DomPopupMarker;
+import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
+import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
@@ -22,8 +30,8 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 	private static final ICssLength HEIGHT = new CssPixel(50);
 	private PopupButton button1;
 	private PopupButton button2;
-	private final PopupDiv popup1;
-	private final PopupDiv popup2;
+	private final Popup popup1;
+	private final Popup popup2;
 
 	public AjaxDomPopupTest() {
 
@@ -44,9 +52,9 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// assert popup is shown at desired location
 		assertTrue(isDisplayed(popup1));
-		AjaxSeleniumTestPoint location = getLocation(popup1);
-		Assert.assertEquals(X, location.getX());
-		Assert.assertEquals(Y, location.getY());
+		AjaxSeleniumTestPoint frameLocation = getLocation(getFrame(popup1));
+		Assert.assertEquals(X, frameLocation.getX());
+		Assert.assertEquals(Y, frameLocation.getY());
 
 		// click to hide popup
 		click(button1);
@@ -79,17 +87,38 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// assert clicking foreground pop-up does not change z-index
 		int zIndex = getZIndex(popup2);
-		click(popup2);
+		click(getHeader(popup2));
 		assertEquals(zIndex, getZIndex(popup2));
 
 		// assert clicking background pop-up allocates z-index
-		click(popup1);
+		click(getHeader(popup1));
 		assertEquals(getZIndex(popup2) + 1, getZIndex(popup1));
 	}
 
-	private int getZIndex(IDomNode node) {
+	private int getZIndex(DomPopup popup) {
 
-		return Integer.parseInt(getCssAttributeValue(node, "z-index"));
+		return Integer.parseInt(getCssAttributeValue(getFrame(popup), "z-index"));
+	}
+
+	private DomPopupFrame getFrame(DomPopup popup) {
+
+		IDomParentElement parent = popup.getParent();
+		if (parent.hasMarker(DomPopupMarker.FRAME)) {
+			return CastUtils.cast(popup.getParent());
+		} else {
+			throw new AssertionError();
+		}
+	}
+
+	private IDomNode getHeader(DomPopup popup) {
+
+		DomPopupFrame frame = getFrame(popup);
+		for (IDomNode node: frame.getChildren()) {
+			if (node.hasMarker(DomPopupMarker.FRAME_HEADER)) {
+				return node;
+			}
+		}
+		throw new AssertionError();
 	}
 
 	private class TestDiv extends DomDiv {
@@ -103,19 +132,20 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private class PopupButton extends TestButton {
 
-		private final PopupDiv popupDiv;
-		private boolean hidden;
+		private final Popup popup;
+		private boolean closed;
 		private int x;
 		private int y;
 
 		public PopupButton() {
 
-			this.popupDiv = new PopupDiv();
-			this.hidden = true;
+			this.popup = new Popup();
+			this.popup.configure(it -> it.setPositionStrategy(this::createPosision));
+			this.closed = true;
 			this.x = X;
 			this.y = Y;
 
-			setClickCallback(this::openPopup);
+			setClickCallback(this::togglePopup);
 		}
 
 		public void setPosition(int x, int y) {
@@ -124,28 +154,32 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 			this.y = y;
 		}
 
-		public PopupDiv getPopup() {
+		public Popup getPopup() {
 
-			return popupDiv;
+			return popup;
 		}
 
-		private void openPopup() {
+		private DomPopupPosition createPosision(IDomEvent dummy) {
 
-			if (hidden) {
-				getDomDocument().getBody().appendChild(popupDiv);
-				getDomEngine().showPopup(popupDiv, x, y, DomPopupXAlign.LEFT, DomPopupYAlign.TOP);
-				this.hidden = false;
+			DevNull.swallow(dummy);
+			return new DomPopupPosition(x, y, DomPopupXAlign.LEFT, DomPopupYAlign.TOP);
+		}
+
+		private void togglePopup() {
+
+			if (closed) {
+				popup.open();
+				this.closed = false;
 			} else {
-				getDomEngine().hidePopup(popupDiv);
-				getDomDocument().getBody().removeChild(popupDiv);
-				this.hidden = true;
+				popup.close();
+				this.closed = true;
 			}
 		}
 	}
 
-	private class PopupDiv extends DomDiv {
+	private class Popup extends DomPopup {
 
-		public PopupDiv() {
+		public Popup() {
 
 			setStyle(CssStyle.WIDTH, WIDTH);
 			setStyle(CssStyle.HEIGHT, HEIGHT);

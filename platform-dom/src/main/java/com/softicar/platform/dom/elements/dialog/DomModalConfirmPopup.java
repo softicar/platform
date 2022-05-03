@@ -6,6 +6,7 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.input.IDomFocusable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -16,7 +17,6 @@ import java.util.Optional;
  */
 public class DomModalConfirmPopup extends DomModalDialogPopup {
 
-	private final OkayButton okayButton;
 	private final INullaryVoidFunction confirmHandler;
 	private final INullaryVoidFunction cancelHandler;
 	private boolean confirmed;
@@ -61,7 +61,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 		this.configuration.setCallbackBeforeClose(this::executeCancelCallback);
 
 		getContent().appendText(message);
-		appendActionNode(okayButton = new OkayButton());
+		appendActionNode(new OkayButton());
 		appendCancelButton().addMarker(DomModalConfirmMarker.CANCEL_BUTTON);
 	}
 
@@ -69,7 +69,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	public void open() {
 
 		super.open();
-		getDomEngine().focus(okayButton);
+		IDomFocusable.focusFirst(DomButton.class, this);
 	}
 
 	private void executeCancelCallback() {

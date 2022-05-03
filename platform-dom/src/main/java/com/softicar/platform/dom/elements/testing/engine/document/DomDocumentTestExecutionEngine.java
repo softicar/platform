@@ -43,7 +43,7 @@ public class DomDocumentTestExecutionEngine extends TestWatcher implements IDomT
 	@Override
 	public void sendEvent(IDomNode node, DomEventType type) {
 
-		new DomEventHandlerNodeCaller(node, new DomTestEvent(type)).call();
+		new DomEventHandlerNodeCaller(node, new DomTestEvent(node, type)).call();
 
 		node.getDomDocument().getRefreshBus().submitEvent();
 	}

@@ -13,6 +13,7 @@ import com.softicar.platform.dom.elements.dialog.DomModalPromptPopup;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.parent.IDomParentElement;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -190,6 +191,20 @@ public interface IDomNode {
 	default IDomNode addMarker(IStaticObject marker) {
 
 		getDomDocument().addMarker(this, marker);
+		return this;
+	}
+
+	/**
+	 * Adds {@link IStaticObject} markers to this {@link IDomNode}.
+	 *
+	 * @param markers
+	 *            the markers to add (never <i>null</i>)
+	 * @throws UnsupportedOperationException
+	 *             if the {@link IDomDocument} does not support marking of nodes
+	 */
+	default IDomNode addMarkers(Collection<IStaticObject> markers) {
+
+		markers.forEach(this::addMarker);
 		return this;
 	}
 

@@ -2,7 +2,8 @@ package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.input.IDomFocusable;
 import java.util.Objects;
 
 /**
@@ -11,8 +12,6 @@ import java.util.Objects;
  * @author Alexander Schmidt
  */
 public class DomModalAlertPopup extends DomModalDialogPopup {
-
-	private final IDomNode closeButton;
 
 	/**
 	 * Constructs a new {@link DomModalAlertPopup} that displays the given
@@ -28,13 +27,13 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 		Objects.requireNonNull(message);
 
 		getContent().appendText(message);
-		closeButton = appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
+		appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
 	}
 
 	@Override
 	public void open() {
 
 		super.open();
-		getDomEngine().focus(closeButton);
+		IDomFocusable.focusFirst(DomButton.class, this);
 	}
 }

@@ -52,8 +52,8 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 				if (action.isAvailable(tableRow, CurrentBasicUser.get())) {
 					var button = new DomButton()//
 						.setClickCallback(() -> {
-							close();
 							action.handleClick(tableRow);
+							close();
 						})
 						.setIcon(action.getIcon())
 						.addMarker(new EmfManagementActionMarker(action));

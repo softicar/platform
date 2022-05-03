@@ -10,10 +10,12 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.popup.button.DomPopupCancelButton;
 import com.softicar.platform.dom.elements.popup.button.DomPopupCloseButton;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
+import com.softicar.platform.dom.elements.popup.configuration.DomPopupChildClosingMode;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupConfiguration;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupDisplayMode;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -21,15 +23,16 @@ import java.util.function.Consumer;
  * A pop-up element that is displayed on top of the regular {@link IDomDocument}
  * content.
  * <p>
- * Provides various display modes. The default display mode is
- * {@link DomPopupDisplayMode#DRAGGABLE}.
+ * The default display mode is {@link DomPopupDisplayMode#DRAGGABLE}.
+ * <p>
+ * The default child-closing mode is
+ * {@link DomPopupChildClosingMode#AUTOMATIC_NONE}.
  * <p>
  * Use {@link #setCaption(IDisplayString)} and
  * {@link #setSubCaption(IDisplayString)} to set caption and sub-caption,
  * respectively.
  * <p>
- * Use {@link #configure(Consumer)} to further customize display settings and
- * behavior.
+ * Use {@link #configure} to further customize display settings and behavior.
  * <p>
  * Use convenience methods like {@link #appendCancelButton()} or
  * {@link #appendCloseButton()} to append standard elements, as required.
@@ -76,16 +79,33 @@ public class DomPopup extends DomDiv {
 	 * <p>
 	 * Must be called before this {@link DomPopup} is shown.
 	 *
-	 * @param configurator
-	 *            a {@link Consumer} to customize the
-	 *            {@link DomPopupConfiguration} of this {@link DomPopup} (never
+	 * @param configurationConsumers
+	 *            any number of {@link IDomPopupConfiguration} {@link Consumer}
+	 *            instances to configure this {@link DomPopup} (never
 	 *            <i>null</i>)
 	 * @return this {@link DomPopup}
 	 */
-	public DomPopup configure(Consumer<DomPopupConfiguration> configurator) {
+	@SafeVarargs
+	public final DomPopup configure(Consumer<DomPopupConfiguration>...configurationConsumers) {
 
-		Objects.requireNonNull(configurator);
-		configurator.accept(configuration);
+		Objects.requireNonNull(configurationConsumers);
+		Arrays.asList(configurationConsumers).forEach(it -> it.accept(configuration));
+		return this;
+	}
+
+	/**
+	 * Replaces the {@link DomPopupConfiguration} of this {@link DomPopup}.
+	 * <p>
+	 * Must be called before this {@link DomPopup} is shown.
+	 *
+	 * @param configuration
+	 *            the replacement {@link DomPopupConfiguration} (never
+	 *            <i>null</i>)
+	 * @return this {@link DomPopup}
+	 */
+	public DomPopup setConfiguration(DomPopupConfiguration configuration) {
+
+		this.configuration = Objects.requireNonNull(configuration);
 		return this;
 	}
 
@@ -98,11 +118,13 @@ public class DomPopup extends DomDiv {
 	 *
 	 * @param caption
 	 *            the caption text (may be <i>null</i>)
+	 * @return this {@link DomPopup}
 	 */
-	public void setCaption(IDisplayString caption) {
+	public DomPopup setCaption(IDisplayString caption) {
 
 		configuration.setCaption(caption);
 		CurrentDomPopupCompositor.get().refreshFrame(this);
+		return this;
 	}
 
 	/**
@@ -112,14 +134,16 @@ public class DomPopup extends DomDiv {
 	 *
 	 * @param subCaption
 	 *            the sub caption text (may be <i>null</i>)
+	 * @return this {@link DomPopup}
 	 */
-	public void setSubCaption(IDisplayString subCaption) {
+	public DomPopup setSubCaption(IDisplayString subCaption) {
 
 		configuration.setSubCaption(subCaption);
 		CurrentDomPopupCompositor.get().refreshFrame(this);
+		return this;
 	}
 
-	// -------------------------------- show and close -------------------------------- //
+	// -------------------------------- open and close -------------------------------- //
 
 	/**
 	 * @deprecated use {@link #open()} instead

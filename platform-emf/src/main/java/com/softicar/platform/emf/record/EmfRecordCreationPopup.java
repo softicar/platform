@@ -27,6 +27,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 		this.scope = scope;
 		this.dummy = createDummy();
 		this.attributesDiv = new EmfAttributesDiv<>(dummy, true);
+		this.configuration.setChildClosingModeAutomaticNone();
 
 		table//
 			.getPrimaryKey()
@@ -39,13 +40,13 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 
 		appendNewChild(DomElementTag.HR);
 
-		appendChild(
+		appendActionNode(
 			new DomButton()//
 				.setIcon(EmfImages.ENTITY_CREATE_NEXT_STEP.getResource())
 				.setLabel(EmfI18n.NEXT)
 				.addMarker(EmfMarker.NEXT)
 				.setClickCallback(this::showFormPopup));
-		appendChild(
+		appendActionNode(
 			new DomButton()//
 				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
