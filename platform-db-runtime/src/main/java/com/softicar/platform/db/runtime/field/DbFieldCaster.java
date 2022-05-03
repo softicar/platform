@@ -17,7 +17,6 @@ public class DbFieldCaster<R, V> {
 		this.field = Objects.requireNonNull(field);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Optional<IDbBaseField<R, ?, ?>> toBaseField() {
 
 		if (field instanceof IDbBaseField<?, ?, ?>) {
@@ -115,7 +114,6 @@ public class DbFieldCaster<R, V> {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public Optional<IDbForeignRowField<R, ?, ?>> toForeignRowField() {
 
 		if (field instanceof IDbForeignRowField<?, ?, ?>) {

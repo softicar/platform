@@ -253,7 +253,6 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		new EmfRoleToStringVisitor<>(role).toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void validateLoggedFields() {
 
 		Set<IDbField<R, ?>> loggedFields = new HashSet<>();

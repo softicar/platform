@@ -20,7 +20,6 @@ public class EmfForeignRowAttribute<R extends IEmfTableRow<R, ?>, F extends IEmf
 		setDisplayFactory(this::createForeignDisplay);
 	}
 
-	@SuppressWarnings("unchecked")
 	public IEmfTable<F, ?, ?> getTargetTable() {
 
 		// FIXME this cast is ugly
