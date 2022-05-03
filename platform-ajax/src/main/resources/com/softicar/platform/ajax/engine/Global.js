@@ -19,14 +19,8 @@ function Global()
 	this.setSelectedOptions = function(node, optionIDs) { m_valueNodeMap.setSelectedOptions(node, optionIDs); };
 
 	this.getNode = function(nodeID) { return _DOM_CONTEXT_.getNode(nodeID); };
-
-	this.fade = function(node, target) { m_fadingContext.fade(node, target); };
-
-	this.scheduleKeepAlive = function() { m_keepAlive.schedule(); };
 	
 	var m_valueNodeMap = new ValueNodeMap();
-	var m_keepAlive = new KeepAlive(3*60*1000);
-	var m_fadingContext = new FadingContext();
 }
 
 var GLOBAL;
@@ -34,5 +28,5 @@ var GLOBAL;
 function GLOBAL_init()
 {
 	GLOBAL = new Global();
-	GLOBAL.scheduleKeepAlive();
+	KEEP_ALIVE.schedule();
 }

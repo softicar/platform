@@ -50,7 +50,6 @@ function DomPopupEngine() {
 		popup.style.left = popupLeft + 'px';
 		popup.style.top = popupTop + 'px';
 		_DOM_CONTEXT_.setMaximumZIndex(popup);
-		fadeIn(popup);
 		addEventListeners(popup);
 		markAsPopup(popup);
 	}
@@ -58,8 +57,7 @@ function DomPopupEngine() {
 	// Hides the popup with the specified node id.
 	function hidePopup(popup) {
 
-		// TODO: fading out does not work correctly because the popup is removed form the body
-		fadeOut(popup);
+		// nothing to do
 	}
 
 	// -------------------- private -------------------- //

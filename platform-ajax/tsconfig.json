@@ -5,8 +5,9 @@
     "outFile": "src/main/resources/com/softicar/platform/ajax/engine/TypeScriptGenerated.js",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    "removeComments": true,
+    "skipLibCheck": true,
+    "strict": true
   },
   "include": ["src/main/typescript/**/*.ts"]
 }
