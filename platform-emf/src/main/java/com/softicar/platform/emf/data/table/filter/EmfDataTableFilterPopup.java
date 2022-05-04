@@ -80,7 +80,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
 		filter.reset();
 		filterListDiv.updateAndRebuildFilterElements();

@@ -249,20 +249,20 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		return this;
 	}
 
-	public AbstractDomNodeTester<N> assertDoesNotContainText(IDisplayString expectedText) {
+	public AbstractDomNodeTester<N> assertDoesNotContainText(IDisplayString unexpectedText) {
 
-		return assertDoesNotContainText(expectedText.toString());
+		return assertDoesNotContainText(unexpectedText.toString());
 	}
 
-	public AbstractDomNodeTester<N> assertDoesNotContainText(String expectedText) {
+	public AbstractDomNodeTester<N> assertDoesNotContainText(String unexpectedText) {
 
-		if (containsText(expectedText)) {
+		if (containsText(unexpectedText)) {
 			Assert
 				.fail(
 					String
 						.format(//
 							"Unexpectedly found the text '%s' in the following: '%s'",
-							expectedText,
+							unexpectedText,
 							getAllTextInDocument("|")));
 		}
 		return this;
