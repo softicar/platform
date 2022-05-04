@@ -47,7 +47,7 @@ class AjaxDocumentJavascriptWriter {
 
 		if (!buffer.isEmpty()) {
 			writer.println("<script type=text/javascript>");
-			writer.write("parent.SR_handleAjaxResponse('");
+			writer.write("parent.handleFormRequestResponse('");
 			writer.write(JavascriptEscaping.getEscaped(buffer.toString()));
 			writer.println("');");
 			writer.println("</script>");

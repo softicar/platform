@@ -1,4 +1,3 @@
-
 /**
  * An executable object that can be put into an {@link ActionQueue}.
  */
@@ -11,13 +10,13 @@ interface Action {
 }
 
 /**
- * This {@link Action} represents a server request.
+ * This {@link Action} represents an {@link AjaxRequest} action.
  */
-class ServerRequestAction implements Action {
+class AjaxRequestAction implements Action {
 	private parameters: any;
-	private form: any;
+	private form: HTMLFormElement | null;
 
-	constructor(parameters: any, form: any) {
+	public constructor(parameters: any, form: HTMLFormElement | null = null) {
 		this.parameters = parameters;
 		this.form = form;
 	}
@@ -27,12 +26,9 @@ class ServerRequestAction implements Action {
 	 * After the server has replied, a new {@link JavaScriptAction} with the 
 	 * returned JavaScript code from the server is enqueue and the next 
 	 * {@link Action} of the {@link ActionQueue} is executed automatically.
-	 *
-	 * If you leave the form parameter undefined, this will send the request
-	 * via XMLHttpRequest, else, the specified form is submitted.
 	 */
-	execute() {
-		SR_sendAjaxRequest(this.parameters, this.form);
+	public execute() {
+		new AjaxRequest(this.parameters, this.form).send();
 	}
 }
 
@@ -42,7 +38,7 @@ class ServerRequestAction implements Action {
 class JavaScriptAction implements Action {
 	private javaScriptCode: string;
 	
-	constructor(javaScriptCode: string) {
+	public constructor(javaScriptCode: string) {
 		this.javaScriptCode = javaScriptCode;
 	}
 
@@ -50,7 +46,7 @@ class JavaScriptAction implements Action {
 	 * Executes the JavaScript code and then executes the next {@link Action}
 	 * of the {@link ActionQueue}.
 	 */
-	execute() {
+	public execute() {
 		eval(this.javaScriptCode);
 		ACTION_QUEUE.executeNextAction();
 	}

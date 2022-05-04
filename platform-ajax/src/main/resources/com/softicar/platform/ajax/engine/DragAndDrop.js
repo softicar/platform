@@ -106,7 +106,7 @@ function DragContext(draggedNode, notifyOnDrop)
 
 				GLOBAL.copyNodeValues(parameters);
 
-				ACTION_QUEUE.enqueueAction(new ServerRequestAction(parameters));
+				ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
 				ACTION_QUEUE.executeNextAction();
 			}
 	};
