@@ -22,8 +22,20 @@ class AjaxUploadTestForm extends DomForm implements IDomFileUploadHandler {
 		super(true);
 
 		this.fileInput = appendChild(new DomFileInput());
-		this.submitAnchor = appendChild(new SubmitAnchor(this));
+		this.submitAnchor = appendChild(new SubmitAnchor());
 		this.uploads = new ArrayList<>();
+	}
+
+	public AjaxUploadTestForm setupOnChangeTrigger() {
+
+		triggerUploadOnChange(fileInput);
+		return this;
+	}
+
+	public AjaxUploadTestForm setupOnClickTrigger() {
+
+		triggerUploadOnClick(submitAnchor);
+		return this;
 	}
 
 	public DomFileInput getFileInput() {
@@ -82,15 +94,10 @@ class AjaxUploadTestForm extends DomForm implements IDomFileUploadHandler {
 
 	private static class SubmitAnchor extends DomAnchor {
 
-		public SubmitAnchor(DomForm form) {
+		public SubmitAnchor() {
 
 			appendText("Submit");
-			setAttribute("href", getHRef(form));
-		}
-
-		private String getHRef(DomForm form) {
-
-			return new StringBuilder().append("javascript:GLOBAL.context.submitForm(").append(form.getNodeId()).append(");").toString();
+			setAttribute("href", "#");
 		}
 	}
 }

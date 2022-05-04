@@ -42,7 +42,7 @@ class KeepAlive {
 		}
 	
 		// try to get the global event lock
-		if(lock(LOCK_REASON_KEEP_ALIVE)) {
+		if(AJAX_REQUEST_LOCK.lock()) {
 			let parameters = {
 				'a': AJAX_REQUEST_KEEP_ALIVE
 			};

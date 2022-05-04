@@ -138,13 +138,13 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 	}
 
 	@Test
-	public void testInsertAtCaret() {
+	public void testInsertTextAtCaret() {
 
 		openTestDiv((input, button) -> {
 			button.setClickCallback(() -> {
 				IDomEngine engine = input.getDomEngine();
 				engine.moveCaretToPosition(input, 3);
-				engine.insertAtCaret(input, "bar");
+				engine.insertTextAtCaret(input, "bar");
 			});
 		});
 
