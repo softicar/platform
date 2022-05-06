@@ -1,10 +1,8 @@
 
+declare let _DOM_CONTEXT_: any;
+declare let AUTO_COMPLETE_ENGINE: any;
 declare let DEBUG: boolean;
 declare let DOCUMENT_INSTANCE_UUID: string;
-declare let SESSION_TIMED_OUT: boolean;
+declare let GLOBAL: any;
+declare let LOCK_MESSAGE: string;
 declare let VERBOSE: boolean;
-
-declare function lock(reason: number): boolean;
-declare function unlock(): void;
-
-declare function handleSessionTimeout(): void;

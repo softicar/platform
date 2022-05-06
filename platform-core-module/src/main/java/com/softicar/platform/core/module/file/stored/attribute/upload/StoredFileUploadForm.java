@@ -97,7 +97,7 @@ class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 			setTabIndex(-1);
 			setMultiple(true);
 
-			form.submitOnChange(this);
+			form.triggerUploadOnChange(this);
 		}
 	}
 }
