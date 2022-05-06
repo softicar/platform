@@ -10,7 +10,9 @@ function AutoCompleteRequest(inputContext, pattern, callback) {
 		message.i = DOCUMENT_INSTANCE_UUID;
 		message.n = inputContext.getInput().id;
 		message.p = pattern;
-		SR_sendAsyncHTTPMessage('', SR_encodeHTTPMessage(message), handleResponse);
+		new HttpRequest()
+			.setMessage(new AjaxMessageEncoder(message).encode())
+			.sendAsync(handleResponse);
 	}
 
 	function getPattern() {
@@ -18,9 +20,9 @@ function AutoCompleteRequest(inputContext, pattern, callback) {
 		return pattern;
 	}
 
-	function handleResponse(request, success) {
+	function handleResponse(request) {
 
-		if(success && request.responseText) {
+		if(request.status == HTTP_STATUS_SUCCESS && request.responseText) {
 			callback(pattern, eval(request.responseText));
 		}
 	}

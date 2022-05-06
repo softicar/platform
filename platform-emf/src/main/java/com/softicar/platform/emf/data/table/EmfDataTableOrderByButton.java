@@ -21,7 +21,7 @@ public class EmfDataTableOrderByButton<R> extends DomButton {
 		this.column = column;
 		this.direction = column.getOrderByDirection();
 		this.countElement = null;
-		setMarker(EmfDataTableDivMarker.ORDER_BY_BUTTON);
+		addMarker(EmfDataTableDivMarker.ORDER_BY_BUTTON);
 		setClickCallback(this::changeOrder);
 		refresh();
 	}

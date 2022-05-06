@@ -28,11 +28,11 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 		Objects.requireNonNull(message);
 
 		getContent().appendText(message);
-		closeButton = appendCloseButton().setMarker(DomModalAlertMarker.CLOSE_BUTTON);
+		closeButton = appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
 		super.open();
 		getDomEngine().focus(closeButton);

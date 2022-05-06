@@ -17,6 +17,7 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
+import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Collection;
@@ -193,7 +194,7 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		assertNoNode(DomModalDialogMarker.FRAME);
 		assertNoNode(DomModalDialogMarker.POPUP);
 		assertNoNode(DomModalDialogMarker.CONTENT);
-		assertNoNode(DomModalDialogMarker.BACKDROP);
+		assertNoNode(DomPopupMarker.BACKDROP);
 	}
 
 	@Override

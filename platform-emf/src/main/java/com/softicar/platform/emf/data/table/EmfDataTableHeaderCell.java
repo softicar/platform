@@ -20,8 +20,8 @@ public class EmfDataTableHeaderCell<R, T> extends DomHeaderCell implements IRefr
 	public EmfDataTableHeaderCell(IEmfDataTableColumn<R, T> column) {
 
 		this.column = column;
-		setMarker(EmfDataTableDivMarker.HEADER_PRIMARY_CELL);
-		column.getSettings().getMarkers().forEach(this::setMarker);
+		addMarker(EmfDataTableDivMarker.HEADER_PRIMARY_CELL);
+		column.getSettings().getMarkers().forEach(this::addMarker);
 		refresh();
 	}
 
@@ -60,7 +60,7 @@ public class EmfDataTableHeaderCell<R, T> extends DomHeaderCell implements IRefr
 			DomBar bar = new DomBar();
 			// caption node or button
 			IDomNode captionNode = createCaptionNode();
-			captionNode.setMarker(EmfDataTableDivMarker.HEADER_CAPTION);
+			captionNode.addMarker(EmfDataTableDivMarker.HEADER_CAPTION);
 			bar.appendChild(captionNode);
 
 			// sort buttons

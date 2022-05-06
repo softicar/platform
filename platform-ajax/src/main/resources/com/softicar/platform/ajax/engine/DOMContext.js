@@ -1,28 +1,4 @@
 
-// enumerations
-var AJAX_REQUEST_LOGIN           = 0;
-var AJAX_REQUEST_CREATE_DOCUMENT = 1;
-var AJAX_REQUEST_KEEP_ALIVE      = 2;
-var AJAX_REQUEST_TIMEOUT         = 5;
-var AJAX_REQUEST_DOM_EVENT       = 6;
-var AJAX_REQUEST_DRAG_AND_DROP   = 7;
-var AJAX_REQUEST_UPLOAD          = 8;
-var AJAX_REQUEST_RESOURCE        = 9;
-var AJAX_REQUEST_AUTO_COMPLETE   = 10;
-
-var DOM_VK_TAB    = 9;
-var DOM_VK_ENTER  = 13;
-var DOM_VK_ESCAPE = 27;
-var DOM_VK_SPACE  = 32;
-var DOM_VK_UP     = 38;
-var DOM_VK_DOWN   = 40;
-
-var LOCK_REASON_DOM_EVENT     = 0;
-var LOCK_REASON_TIMEOUT       = 1;
-var LOCK_REASON_KEEP_ALIVE    = 2;
-var LOCK_REASON_DRAG_AND_DROP = 3;
-var LOCK_REASON_UPLOAD        = 4;
-
 // constants
 var AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
 var TIMEOUT_RETRY_DELAY = 500;
@@ -166,20 +142,6 @@ function getNode(id)
 }
 
 // ******************************************************************************** //
-// * Functions for fading                                                         * //
-// ******************************************************************************** //
-
-function fadeIn(node)
-{
-	GLOBAL.fade(node, 1);
-}
-
-function fadeOut(node)
-{
-	GLOBAL.fade(node, 0);
-}
-
-// ******************************************************************************** //
 // * Input functions                                                              * //
 // ******************************************************************************** //
 
@@ -227,34 +189,6 @@ _DOMContext_.prototype.moveCaretToPosition = function(inputNodeId, position) {
 	}
 };
 
-
-// ******************************************************************************** //
-// * Special functions                                                            * //
-// ******************************************************************************** //
-
-var DISABLING_DIV = null;
-
-function enableInput(doEnable)
-{
-	if(doEnable && DISABLING_DIV != null)
-	{
-		document.removeChild(DISABLING_DIV);
-		DISABLING_DIV = null;
-	}
-	else if(!doEnable && DISABLING_DIV == null)
-	{
-		DISABLING_DIV = document.createElement("div");
-		DISABLING_DIV.style.position = "absolute";
-		DISABLING_DIV.style.left = "0px";
-		DISABLING_DIV.style.right = "0px";
-		DISABLING_DIV.style.top = "0px";
-		DISABLING_DIV.style.bottom = "0px";
-		DISABLING_DIV.style.backgroundImage = "url('images/utility/transparent-50.png')";
-		DISABLING_DIV.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
-		getBody().appendChild(DISABLING_DIV);
-	}
-}
-
 // ******************************************************************************** //
 // * Form submit                                                                  * //
 // ******************************************************************************** //
@@ -270,8 +204,8 @@ _DOMContext_.prototype.submitForm = function(formNodeID)
 		GLOBAL.copyNodeValues(parameters);
 
 		var form = GLOBAL.context.getNode(formNodeID);
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters, form));
-		AQ_executeNextAction();
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters, form));
+		ACTION_QUEUE.executeNextAction();
 	}
 	else
 		alert(LOCK_MESSAGE);
@@ -308,8 +242,8 @@ _DOMContext_.prototype.handleTimeout = function(timeoutNodeID)
 
 		GLOBAL.copyNodeValues(parameters);
 
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters));
-		AQ_executeNextAction();
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+		ACTION_QUEUE.executeNextAction();
 	}
 	else
 		// re-schedule timeout
@@ -496,8 +430,8 @@ function sendEventToServer(event, eventType) {
 
 		GLOBAL.copyNodeValues(parameters);
 
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters));
-		AQ_executeNextAction();
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+		ACTION_QUEUE.executeNextAction();
 	} else {
 		alert(LOCK_MESSAGE);
 	}

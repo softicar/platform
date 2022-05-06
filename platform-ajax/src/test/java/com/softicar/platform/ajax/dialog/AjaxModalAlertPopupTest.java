@@ -107,7 +107,7 @@ public class AjaxModalAlertPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			this.button = appendChild(new DomButton())//
 				.setLabel("spawn alert")
-				.setClickCallback(new DomModalAlertPopup(MESSAGE)::show);
+				.setClickCallback(new DomModalAlertPopup(MESSAGE)::open);
 		}
 
 		public DomButton getButton() {

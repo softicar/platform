@@ -12,7 +12,7 @@ public abstract class AbstractEmfAttributeValueFrame<R extends IEmfTableRow<R, ?
 
 		this.attribute = attribute;
 
-		setMarker(attribute.getTestMarker());
+		addMarker(attribute.getTestMarker());
 	}
 
 	public IEmfAttribute<R, V> getAttribute() {

@@ -20,6 +20,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Zeitstempel anhängen");
 	I18n0 APPLY = new I18n0("Apply")//
 		.de("Übernehmen");
+	I18n0 ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION = new I18n0("Are you sure to close this window and all sub windows?")//
+		.de("Sollen dieses Fenster und alle Unterfenster wirklich geschlossen werden?");
 	I18n0 ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION = new I18n0("Are you sure to close this window?")//
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
 	I18n0 CANCEL = new I18n0("Cancel")//

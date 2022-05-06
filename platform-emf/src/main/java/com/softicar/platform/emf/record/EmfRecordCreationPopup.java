@@ -43,13 +43,13 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 			new DomButton()//
 				.setIcon(EmfImages.ENTITY_CREATE_NEXT_STEP.getResource())
 				.setLabel(EmfI18n.NEXT)
-				.setMarker(EmfMarker.NEXT)
+				.addMarker(EmfMarker.NEXT)
 				.setClickCallback(this::showFormPopup));
 		appendChild(
 			new DomButton()//
 				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
-				.setMarker(EmfMarker.CANCEL)
+				.addMarker(EmfMarker.CANCEL)
 				.setClickCallback(() -> CurrentDomPopupCompositor.get().closeInteractively(this)));
 
 		setCaption(table.getTitle());

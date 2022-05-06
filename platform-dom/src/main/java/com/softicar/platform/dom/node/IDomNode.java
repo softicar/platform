@@ -180,18 +180,16 @@ public interface IDomNode {
 	// -------------------------------- marker -------------------------------- //
 
 	/**
-	 * Defines the {@link IStaticObject} marker for this node.
-	 * <p>
-	 * TODO This method should be rather called <i>addMarker</i>.
+	 * Adds an {@link IStaticObject} marker to this {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the marker to set (never null)
+	 *            the marker to add (never <i>null</i>)
 	 * @throws UnsupportedOperationException
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
-	default IDomNode setMarker(IStaticObject marker) {
+	default IDomNode addMarker(IStaticObject marker) {
 
-		getDomDocument().setMarker(this, marker);
+		getDomDocument().addMarker(this, marker);
 		return this;
 	}
 
@@ -210,8 +208,6 @@ public interface IDomNode {
 
 	// -------------------------------- alert, confirm and prompt -------------------------------- //
 
-	// -------------------------------- modal dialogs -------------------------------- //
-
 	/**
 	 * Displays a custom modal alert dialog, for the given message.
 	 *
@@ -220,7 +216,7 @@ public interface IDomNode {
 	 */
 	default void executeAlert(IDisplayString message) {
 
-		new DomModalAlertPopup(message).show();
+		new DomModalAlertPopup(message).open();
 	}
 
 	/**
@@ -235,7 +231,25 @@ public interface IDomNode {
 	 */
 	default void executeConfirm(INullaryVoidFunction confirmHandler, IDisplayString message) {
 
-		new DomModalConfirmPopup(confirmHandler, message).show();
+		executeConfirm(confirmHandler, null, message);
+	}
+
+	/**
+	 * Displays a custom modal confirm dialog, for the given handlers and
+	 * message.
+	 *
+	 * @param confirmHandler
+	 *            the handler to be processed in case the user clicks "OK"
+	 *            (never <i>null</i>)
+	 * @param cancelHandler
+	 *            the handler to be processed in case the user clicks "Cancel"
+	 *            (may be <i>null</i>)
+	 * @param message
+	 *            the message to display (never <i>null</i>)
+	 */
+	default void executeConfirm(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
+
+		new DomModalConfirmPopup(confirmHandler, cancelHandler, message).open();
 	}
 
 	/**
@@ -251,6 +265,6 @@ public interface IDomNode {
 	 */
 	default void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
-		new DomModalPromptPopup(promptHandler, message, defaultValue).show();
+		new DomModalPromptPopup(promptHandler, message, defaultValue).open();
 	}
 }

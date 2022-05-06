@@ -32,7 +32,7 @@ public class DomModalDialogPopup extends DomPopup {
 	public DomModalDialogPopup() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
-		setMarker(DomModalDialogMarker.POPUP);
+		addMarker(DomModalDialogMarker.POPUP);
 
 		this.content = appendChild(new Content());
 
@@ -59,7 +59,7 @@ public class DomModalDialogPopup extends DomPopup {
 		public Content() {
 
 			addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_CONTENT);
-			setMarker(DomModalDialogMarker.CONTENT);
+			addMarker(DomModalDialogMarker.CONTENT);
 		}
 	}
 }
