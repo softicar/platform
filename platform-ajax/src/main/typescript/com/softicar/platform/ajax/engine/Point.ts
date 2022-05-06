@@ -1,4 +1,6 @@
-
+/**
+ * An immutable 2-dimensional point.
+ */
 class Point {
 	private _x: number;
 	private _y: number;

@@ -28,8 +28,7 @@ class AjaxRequestLock {
 			
 			// FIXME this ad-hoc call looks like a hack
 			AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
-		}
-		else {
+		} else {
 			alert("Internal error: AJAX request lock already released.");
 		}
 	}
