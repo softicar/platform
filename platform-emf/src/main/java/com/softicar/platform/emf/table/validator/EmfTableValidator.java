@@ -54,7 +54,6 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		assertNoUniqueKeysInLogTable();
 		validateDayFields();
 		validateStaticRoleFields();
-		validateBusinessKey();
 	}
 
 	private void validateScopeFields() {
@@ -422,12 +421,5 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 			.stream()
 			.filter(key -> !key.isPrimaryKey())
 			.collect(Collectors.toList());
-	}
-
-	private void validateBusinessKey() {
-
-		assertTrue(//
-			String.format("Table %s has a business key that is not a unique key.", table.toString()),
-			table.getBusinessKey().isUniqueKey());
 	}
 }

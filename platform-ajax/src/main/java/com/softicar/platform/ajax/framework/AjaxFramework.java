@@ -2,8 +2,10 @@ package com.softicar.platform.ajax.framework;
 
 import com.softicar.platform.ajax.customization.AjaxSettings;
 import com.softicar.platform.ajax.customization.IAjaxStrategy;
+import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
 import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.ajax.service.AjaxServiceDelegator;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,7 @@ public class AjaxFramework implements IAjaxFramework {
 
 	private final AjaxSettings settings;
 	private final IAjaxStrategy strategy;
+	private volatile boolean initialized;
 
 	/**
 	 * Constructs this instance of {@link AjaxFramework}.
@@ -32,6 +35,7 @@ public class AjaxFramework implements IAjaxFramework {
 
 		this.settings = new AjaxSettings();
 		this.strategy = strategy;
+		this.initialized = false;
 	}
 
 	@Override
@@ -47,9 +51,20 @@ public class AjaxFramework implements IAjaxFramework {
 	}
 
 	@Override
+	public IAjaxFramework initialize(ServletContext servletContext) {
+
+		servletContext.addListener(AjaxSessionListener.class);
+		initialized = true;
+		return this;
+	}
+
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) {
 
 		try {
+			if (!initialized) {
+				throw new IllegalStateException("Framework was not completely initialized.");
+			}
 			new AjaxServiceDelegator(new AjaxRequest(this, request, response)).service();
 		} catch (Throwable throwable) {
 			new AjaxServiceExceptionHandler(this, request, response).handleException(throwable);

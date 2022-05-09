@@ -1,7 +1,7 @@
-package com.softicar.platform.core.module.ajax.listener;
+package com.softicar.platform.ajax.framework.listener;
 
 import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.core.module.log.LogDb;
+import com.softicar.platform.common.core.utils.CastUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
@@ -15,16 +15,12 @@ import javax.servlet.http.HttpSessionListener;
 /**
  * This class listens to session events and puts the session on creation and/or
  * activation into a map. This map is saved as attribute of the ServletContext.
- * <p>
- * WARNING: DO NOT RENAME OR MOVE THIS FILE.
  *
  * @author Oliver Richers
  */
 public class AjaxSessionListener implements HttpSessionListener, HttpSessionActivationListener, Serializable {
 
 	private static final String ATTRIBUTE_NAME = AjaxSessionListener.class.getCanonicalName();
-	private static final int PANIC_SESSION_COUNT = 1000;
-	private boolean sessionCountPanicSent = false;
 
 	// ******************************************************************************** //
 	// * event functions * //
@@ -37,8 +33,6 @@ public class AjaxSessionListener implements HttpSessionListener, HttpSessionActi
 		Log.finfo("SESSION CREATED: %s", session.getId());
 		putSessionIntoMap(session);
 		addThisToSession(session);
-
-		checkForPanicSessionCount(session);
 	}
 
 	@Override
@@ -88,25 +82,9 @@ public class AjaxSessionListener implements HttpSessionListener, HttpSessionActi
 	// * private functions * //
 	// ******************************************************************************** //
 
-	private void checkForPanicSessionCount(HttpSession session) {
-
-		ServletContext context = session.getServletContext();
-		synchronized (context) {
-			if (!sessionCountPanicSent) {
-				int sessionCount = getSessionMap(context).size();
-				if (sessionCount >= PANIC_SESSION_COUNT) {
-					LogDb.setProcessClass(getClass());
-					LogDb.panic("There are %d sessions on the tomcat now.", sessionCount);
-					sessionCountPanicSent = true;
-				}
-			}
-		}
-	}
-
-	@SuppressWarnings("unchecked")
 	private static Map<String, HttpSession> getSessionMap(ServletContext context) {
 
-		Map<String, HttpSession> sessionMap = (Map<String, HttpSession>) context.getAttribute(ATTRIBUTE_NAME);
+		Map<String, HttpSession> sessionMap = CastUtils.cast(context.getAttribute(ATTRIBUTE_NAME));
 		if (sessionMap == null) {
 			context.setAttribute(ATTRIBUTE_NAME, sessionMap = new TreeMap<>());
 		}

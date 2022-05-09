@@ -24,6 +24,12 @@ class AjaxDevelopmentServerServlet extends HttpServlet {
 	}
 
 	@Override
+	public void init() {
+
+		ajaxFramework.initialize(getServletContext());
+	}
+
+	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) {
 
 		ajaxFramework.service(request, response);
