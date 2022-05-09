@@ -7,6 +7,7 @@ import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A custom modal dialog that replaces a native "confirm" dialog.
@@ -16,6 +17,9 @@ import java.util.Objects;
 public class DomModalConfirmPopup extends DomModalDialogPopup {
 
 	private final OkayButton okayButton;
+	private final INullaryVoidFunction confirmHandler;
+	private final INullaryVoidFunction cancelHandler;
+	private boolean confirmed;
 
 	/**
 	 * Constructs a new {@link DomModalConfirmPopup} that displays the given
@@ -29,40 +33,66 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	 */
 	public DomModalConfirmPopup(INullaryVoidFunction confirmHandler, IDisplayString message) {
 
+		this(confirmHandler, null, message);
+	}
+
+	/**
+	 * Constructs a new {@link DomModalConfirmPopup} that displays the given
+	 * message, and "OK" / "Cancel" buttons.
+	 *
+	 * @param confirmHandler
+	 *            the handler to be processed in case the user clicks "OK"
+	 *            (never <i>null</i>)
+	 * @param cancelHandler
+	 *            the handler to be processed in case the user clicks "Cancel"
+	 *            (may be <i>null</i>)
+	 * @param message
+	 *            the message to display (never <i>null</i>)
+	 */
+	public DomModalConfirmPopup(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
+
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 
-		Objects.requireNonNull(confirmHandler);
+		this.confirmHandler = Objects.requireNonNull(confirmHandler);
+		this.cancelHandler = cancelHandler;
 		Objects.requireNonNull(message);
 
+		this.confirmed = false;
+		this.configuration.setCallbackBeforeClose(this::executeCancelCallback);
+
 		getContent().appendText(message);
-		appendActionNode(okayButton = new OkayButton(confirmHandler));
-		appendCancelButton().setMarker(DomModalConfirmMarker.CANCEL_BUTTON);
+		appendActionNode(okayButton = new OkayButton());
+		appendCancelButton().addMarker(DomModalConfirmMarker.CANCEL_BUTTON);
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
-		super.show();
+		super.open();
 		getDomEngine().focus(okayButton);
+	}
+
+	private void executeCancelCallback() {
+
+		if (!confirmed) {
+			Optional.ofNullable(cancelHandler).ifPresent(INullaryVoidFunction::apply);
+		}
 	}
 
 	private class OkayButton extends DomButton {
 
-		private final INullaryVoidFunction confirmHandler;
-
-		public OkayButton(INullaryVoidFunction confirmHandler) {
-
-			this.confirmHandler = confirmHandler;
+		public OkayButton() {
 
 			setLabel(DomI18n.OK);
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setClickCallback(this::handleClick);
-			setMarker(DomModalConfirmMarker.OKAY_BUTTON);
+			addMarker(DomModalConfirmMarker.OKAY_BUTTON);
 		}
 
 		private void handleClick() {
 
-			getCloseManager().closePopupNonInteractive();
+			confirmed = true;
+			close();
 			confirmHandler.apply();
 		}
 	}

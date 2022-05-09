@@ -2,6 +2,7 @@ package com.softicar.platform.emf.form;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 public class EmfFormFramePopupAdapter<R extends IEmfTableRow<R, ?>> implements IEmfFormFrame<R> {
@@ -23,12 +24,12 @@ public class EmfFormFramePopupAdapter<R extends IEmfTableRow<R, ?>> implements I
 	@Override
 	public void closeFrame() {
 
-		popup.hide();
+		popup.close();
 	}
 
 	@Override
 	public void focusFrame() {
 
-		popup.focusFirstTextualInputOrFrame();
+		CurrentDomPopupCompositor.get().focus(popup);
 	}
 }

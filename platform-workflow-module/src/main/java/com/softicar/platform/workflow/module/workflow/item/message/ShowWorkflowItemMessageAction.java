@@ -39,6 +39,6 @@ public class ShowWorkflowItemMessageAction<R extends IWorkflowableObject<R>> imp
 	@Override
 	public void handleClick(R tableRow) {
 
-		new WorkflowItemMessagePopup(tableRow.getWorkflowItem()).show();
+		new WorkflowItemMessagePopup(tableRow.getWorkflowItem()).open();
 	}
 }

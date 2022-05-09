@@ -42,7 +42,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 		appendActionNode(new ApplyButton());
 		appendActionNode(new ResetButton());
-		appendCancelButton().setMarker(EmfDataTableConfigurationMarker.CANCEL_BUTTON);
+		appendCancelButton().addMarker(EmfDataTableConfigurationMarker.CANCEL_BUTTON);
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_CONFIGURATION_POPUP);
 	}
 
@@ -51,7 +51,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 		model.setPageSize(pageSizeInputElement.getPageSize());
 		model.apply();
 		controller.savePersistentTableConfiguration();
-		hide();
+		close();
 	}
 
 	private void resetToDefaults() {
@@ -69,7 +69,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			this.input = new DomListeningTextInput(() -> applyAndHide());
 			this.input.setInputText("" + controller.getPageSize());
-			this.input.setMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_INPUT);
+			this.input.addMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_INPUT);
 
 			addCssClass(EmfCssClasses.EMF_DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT);
 			appendText(EmfDataTableI18n.ROWS_PER_PAGE.concatColon());
@@ -95,7 +95,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 				setIcon(DomElementsImages.TABLE_SHOW_ALL_ROWS.getResource());
 				setLabel(DomI18n.ALL);
 				setClickCallback(this::handleClick);
-				setMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_ALL_BUTTON);
+				addMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_ALL_BUTTON);
 			}
 
 			private void handleClick() {
@@ -112,7 +112,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setLabel(EmfDataTableI18n.APPLY);
-			setMarker(EmfDataTableConfigurationMarker.APPLY_BUTTON);
+			addMarker(EmfDataTableConfigurationMarker.APPLY_BUTTON);
 			setClickCallback(this::handleClick);
 		}
 
@@ -128,7 +128,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			setLabel(EmfDataTableI18n.RESET);
 			setIcon(EmfImages.RESET.getResource());
-			setMarker(EmfDataTableConfigurationMarker.RESET_BUTTON);
+			addMarker(EmfDataTableConfigurationMarker.RESET_BUTTON);
 			setClickCallback(this::handleClick);
 		}
 

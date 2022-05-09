@@ -40,7 +40,6 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public IEmfTable<O, ?, ?> getTable() {
 
 		return (IEmfTable<O, ?, ?>) baseField.getTable();

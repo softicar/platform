@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.attribute.IDomAttribute;
+import com.softicar.platform.dom.document.DomBody;
+import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
 import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
@@ -48,7 +50,7 @@ public interface IDomNode {
 	/**
 	 * Returns the parent node of this node.
 	 *
-	 * @return the parent node or null
+	 * @return the parent node or <i>null</i>
 	 */
 	IDomParentElement getParent();
 
@@ -58,6 +60,14 @@ public interface IDomNode {
 	 * If this node has no parent, this method does nothing.
 	 */
 	void disappend();
+
+	/**
+	 * Determines whether this node is appended to the {@link DomBody} or
+	 * {@link DomHead} of its {@link IDomDocument}.
+	 *
+	 * @return <i>true</i> if this node is appended; <i>false</i> otherwise
+	 */
+	boolean isAppended();
 
 	/**
 	 * Returns the {@link IDomDocument} that this node belongs to.
@@ -170,18 +180,16 @@ public interface IDomNode {
 	// -------------------------------- marker -------------------------------- //
 
 	/**
-	 * Defines the {@link IStaticObject} marker for this node.
-	 * <p>
-	 * TODO This method should be rather called <i>addMarker</i>.
+	 * Adds an {@link IStaticObject} marker to this {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the marker to set (never null)
+	 *            the marker to add (never <i>null</i>)
 	 * @throws UnsupportedOperationException
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
-	default IDomNode setMarker(IStaticObject marker) {
+	default IDomNode addMarker(IStaticObject marker) {
 
-		getDomDocument().setMarker(this, marker);
+		getDomDocument().addMarker(this, marker);
 		return this;
 	}
 
@@ -200,8 +208,6 @@ public interface IDomNode {
 
 	// -------------------------------- alert, confirm and prompt -------------------------------- //
 
-	// -------------------------------- modal dialogs -------------------------------- //
-
 	/**
 	 * Displays a custom modal alert dialog, for the given message.
 	 *
@@ -210,7 +216,7 @@ public interface IDomNode {
 	 */
 	default void executeAlert(IDisplayString message) {
 
-		new DomModalAlertPopup(message).show();
+		new DomModalAlertPopup(message).open();
 	}
 
 	/**
@@ -225,7 +231,25 @@ public interface IDomNode {
 	 */
 	default void executeConfirm(INullaryVoidFunction confirmHandler, IDisplayString message) {
 
-		new DomModalConfirmPopup(confirmHandler, message).show();
+		executeConfirm(confirmHandler, null, message);
+	}
+
+	/**
+	 * Displays a custom modal confirm dialog, for the given handlers and
+	 * message.
+	 *
+	 * @param confirmHandler
+	 *            the handler to be processed in case the user clicks "OK"
+	 *            (never <i>null</i>)
+	 * @param cancelHandler
+	 *            the handler to be processed in case the user clicks "Cancel"
+	 *            (may be <i>null</i>)
+	 * @param message
+	 *            the message to display (never <i>null</i>)
+	 */
+	default void executeConfirm(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
+
+		new DomModalConfirmPopup(confirmHandler, cancelHandler, message).open();
 	}
 
 	/**
@@ -241,6 +265,6 @@ public interface IDomNode {
 	 */
 	default void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
-		new DomModalPromptPopup(promptHandler, message, defaultValue).show();
+		new DomModalPromptPopup(promptHandler, message, defaultValue).open();
 	}
 }

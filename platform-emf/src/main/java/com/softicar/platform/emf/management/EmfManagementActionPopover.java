@@ -33,10 +33,10 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		this.collector = new ExceptionsCollector();
 
 		addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_POPOVER);
-		setMarker(EmfManagementMarker.ACTIONS_POPOVER);
+		addMarker(EmfManagementMarker.ACTIONS_POPOVER);
 
 		addManagementActions();
-		new ButtonsForChildTableAppender<>(this, entityTable, tableRow, this::hide).appendButtons();
+		new ButtonsForChildTableAppender<>(this, entityTable, tableRow, this::close).appendButtons();
 
 		// add error message element if exceptions were suppressed
 		if (!collector.isEmpty()) {
@@ -52,11 +52,11 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 				if (action.isAvailable(tableRow, CurrentBasicUser.get())) {
 					var button = new DomButton()//
 						.setClickCallback(() -> {
-							hide();
+							close();
 							action.handleClick(tableRow);
 						})
 						.setIcon(action.getIcon())
-						.setMarker(new EmfManagementActionMarker(action));
+						.addMarker(new EmfManagementActionMarker(action));
 
 					IDisplayString actionTitle = action.getTitle();
 					if (action.getConfirmationMessageSupplier(tableRow).isPresent()) {
@@ -118,7 +118,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 					new EmfManagementButton<>(childTable, tableRow)
 						.setCallbackAfterShow(callbackAfterShow)
 						.setLabel(childTable.getPluralTitle())
-						.setMarker(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON));
+						.addMarker(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON));
 		}
 	}
 

@@ -19,6 +19,6 @@ public class DomPopover extends DomDismissablePopup {
 	public DomPopover() {
 
 		addCssClass(DomElementsCssClasses.DOM_POPOVER);
-		setDisplayHeader(false);
+		configuration.setDisplayModePopover();
 	}
 }

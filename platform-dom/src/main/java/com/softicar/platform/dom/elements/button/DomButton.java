@@ -181,9 +181,9 @@ public class DomButton extends DomParentElement
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
 	@Override
-	public DomButton setMarker(IStaticObject marker) {
+	public DomButton addMarker(IStaticObject marker) {
 
-		super.setMarker(marker);
+		super.addMarker(marker);
 		return this;
 	}
 

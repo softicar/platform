@@ -225,7 +225,7 @@ public class EmfForeignEntitySetInput<R extends IEmfTableRow<R, ?>, S extends IE
 			}
 
 			table.addEntity(entity);
-			hide();
+			close();
 		}
 	}
 }

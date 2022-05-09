@@ -1,8 +1,10 @@
-package com.softicar.platform.dom.elements.dialog;
+package com.softicar.platform.dom.elements.popup.modal;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomContextMenuEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -10,29 +12,34 @@ import java.util.Objects;
 
 /**
  * A background element that is displayed directly below (in terms of z-index) a
- * custom modal dialog.
+ * modal {@link DomPopup}.
  * <p>
- * Can be used to intercept mouse clicks on nodes outside of the custom modal
- * dialog.
+ * Can be used to intercept mouse clicks on nodes outside of a modal
+ * {@link DomPopup}.
  *
  * @author Alexander Schmidt
  */
-public class DomModalDialogBackdrop extends DomDiv implements IDomClickEventHandler, IDomContextMenuEventHandler {
+public class DomModalPopupBackdrop extends DomDiv implements IDomClickEventHandler, IDomContextMenuEventHandler {
 
 	private final INullaryVoidFunction clickHandler;
+	private final boolean visible;
 
 	/**
-	 * Constructs a new {@link DomModalDialogBackdrop}.
+	 * Constructs a new {@link DomModalPopupBackdrop}.
 	 *
 	 * @param clickHandler
 	 *            the callback to be executed when this element is clicked
 	 *            (never <i>null</i>)
+	 * @param visible
+	 *            <i>true</i> if this element shall be visible; <i>false</i>
+	 *            otherwise
 	 */
-	public DomModalDialogBackdrop(INullaryVoidFunction clickHandler) {
+	public DomModalPopupBackdrop(INullaryVoidFunction clickHandler, boolean visible) {
 
 		this.clickHandler = Objects.requireNonNull(clickHandler);
-		setCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_BACKDROP);
-		setMarker(DomModalDialogMarker.BACKDROP);
+		this.visible = visible;
+		setCssClass(DomElementsCssClasses.DOM_MODAL_POPUP_BACKDROP);
+		addMarker(DomPopupMarker.BACKDROP);
 	}
 
 	@Override
@@ -45,5 +52,10 @@ public class DomModalDialogBackdrop extends DomDiv implements IDomClickEventHand
 	public void handleContextMenu(IDomEvent event) {
 
 		clickHandler.apply();
+	}
+
+	public boolean isVisible() {
+
+		return visible;
 	}
 }

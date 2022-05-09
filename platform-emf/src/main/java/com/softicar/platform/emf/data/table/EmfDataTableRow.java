@@ -26,7 +26,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 		this.dataRow = dataRow;
 		this.selectionCheckbox = dataTable.getConfig().isRowSelectionEnabled()? new EmfDataTableRowSelectionCheckbox<>(this) : null;
 		this.eventHandler = DevNull::swallow;
-		setMarker(EmfDataTableDivMarker.BODY_ROW);
+		addMarker(EmfDataTableDivMarker.BODY_ROW);
 		customize();
 		appendCells();
 	}
@@ -139,7 +139,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 				.getConfig()
 				.getActionColumnHandler()
 				.ifPresent(it -> it.buildCell(this, dataRow));
-			setMarker(EmfDataTableDivMarker.ACTION_CELL);
+			addMarker(EmfDataTableDivMarker.ACTION_CELL);
 		}
 
 		@Override

@@ -7,9 +7,8 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
+import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.dom.engine.IDomEngine;
-import java.util.stream.Collectors;
 
 /**
  * Container for the {@link PageHeaderDiv} and {@link PageContentDiv}.
@@ -28,7 +27,7 @@ public class PageHeaderAndContentDiv extends DomDiv {
 	public void setContent(PageNavigationLink<?> link) {
 
 		removeChildren();
-		closeRemainingPopupFrames();
+		CurrentDomPopupCompositor.get().closeAll();
 
 		DbTableRowCaches.invalidateAll();
 		CurrentLocale.set(CurrentUser.get().getLocale());
@@ -36,20 +35,6 @@ public class PageHeaderAndContentDiv extends DomDiv {
 		changeBrowserUrl(link);
 		appendChild(new PageHeaderDiv<>(link, navigationToggleFunction));
 		appendChild(new PageContentDiv(link));
-	}
-
-	private void closeRemainingPopupFrames() {
-
-		CurrentDomDocument//
-			.get()
-			.getBody()
-			.getChildren()
-			.stream()
-			.filter(IDomPopupFrame.class::isInstance)
-			.map(IDomPopupFrame.class::cast)
-			// do not remove this call - it avoids a ConcurrentModificationException when changing pages while a popup is open
-			.collect(Collectors.toList())
-			.forEach(IDomPopupFrame::closePopup);
 	}
 
 	private void changeBrowserUrl(PageNavigationLink<?> link) {

@@ -62,7 +62,7 @@ public class EmfFormInteractiveRefreshSpan<R extends IEmfTableRow<R, ?>> extends
 			}
 			setIcon(EmfImages.REFRESH.getResource());
 			setClickCallback(this::queueEntityForRefreshAndCancelEditMode);
-			setMarker(EmfMarker.INTERACTIVE_REFRESH_BUTTON);
+			addMarker(EmfMarker.INTERACTIVE_REFRESH_BUTTON);
 		}
 
 		private void queueEntityForRefreshAndCancelEditMode() {

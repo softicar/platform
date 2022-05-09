@@ -30,7 +30,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 		this.column = column;
 		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect();
 		this.entityInput = new EntityInput<>(column);
-		this.entityInput.setMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
+		this.entityInput.addMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
 
 		refresh();
 	}

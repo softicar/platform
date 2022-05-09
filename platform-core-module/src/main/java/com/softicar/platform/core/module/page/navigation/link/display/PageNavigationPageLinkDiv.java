@@ -24,7 +24,7 @@ public class PageNavigationPageLinkDiv extends DomDiv {
 		this.folderDiv = folderDiv;
 		this.link = link;
 
-		setMarker(PageNavigationMarker.PAGE_LINK_DIV);
+		addMarker(PageNavigationMarker.PAGE_LINK_DIV);
 		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_PAGE_LINK_DIV);
 		appendChild(new Title());
 		appendChild(new OpenInNewTabButton());

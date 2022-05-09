@@ -53,7 +53,7 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 
 			engine.insertRows();
 			getDomDocument().getRefreshBus().setAllChanged();
-			popup.hide();
+			popup.close();
 		}
 	}
 

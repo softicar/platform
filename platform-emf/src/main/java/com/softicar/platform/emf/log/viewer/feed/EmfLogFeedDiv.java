@@ -35,7 +35,7 @@ public class EmfLogFeedDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 	public EmfLogFeedDiv(R tableRow) {
 
 		addCssClass(EmfCssClasses.EMF_LOG_FEED);
-		setMarker(EmfLogMarker.FEED_MAIN);
+		addMarker(EmfLogMarker.FEED_MAIN);
 
 		EmfLogFeedCalculator<R> calculator = new EmfLogFeedCalculator<R>().calculate(tableRow);
 		ListTreeMap<IEmfTransactionObject<?>, EmfLogFeedItem<R, ?>> feedItemMap = calculator.getFeedItemMap();
@@ -65,7 +65,7 @@ public class EmfLogFeedDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 		public Fieldset(EmfLogItem<R> logItem, List<EmfLogFeedItem<R, ?>> feedItems) {
 
-			setMarker(EmfLogMarker.FEED_ITEM);
+			addMarker(EmfLogMarker.FEED_ITEM);
 			DomLegend legend = new DomLegend();
 			legend.addCssClass(EmfCssClasses.EMF_LOG_FEED_TRANSACTION_LEGEND);
 			legend.appendChild(new EmfTransactionObjectInfoDiv(logItem.getTransactionObject()));

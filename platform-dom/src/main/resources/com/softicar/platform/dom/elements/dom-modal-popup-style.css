@@ -1,20 +1,4 @@
 
-.DomModalDialogBackdrop {
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-
-.DomModalDialogBackdrop:last-child {
-	background-color: #0001;
-}
-
-.DomModalDialogBackdrop.invisible {
-	background-color: transparent;
-}
-
 .DomModalDialogPopup {
 	display: grid;
 	gap: var(--COLUMN_GAP);
@@ -38,4 +22,16 @@
 
 .DomModalDialogPopup .DomActionBar {
 	justify-content: center;
+}
+
+.DomModalPopupBackdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.DomModalPopupBackdrop.visible {
+	background-color: #0001;
 }

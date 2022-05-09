@@ -39,7 +39,7 @@ public abstract class AbstractEmfWizardAction<R extends IEmfTableRow<R, ?>> impl
 	private DomDiv createActionDiv(R tableRow, IEmfFormSectionDiv<R> actionContainer) {
 
 		EmfWizardActionDiv<R> actionDiv = new EmfWizardActionDiv<>(this, tableRow, actionContainer.getFormBody());
-		actionDiv.setMarker(new EmfActionMarker(this));
+		actionDiv.addMarker(new EmfActionMarker(this));
 		return actionDiv;
 	}
 }

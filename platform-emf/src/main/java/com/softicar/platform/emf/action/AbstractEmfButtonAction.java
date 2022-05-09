@@ -33,7 +33,7 @@ public abstract class AbstractEmfButtonAction<R extends IEmfTableRow<R, ?>> impl
 			.setIcon(getIcon())
 			.setLabel(getTitle())
 			.setClickCallback(() -> handleClick(formBody))
-			.setMarker(new EmfActionMarker(this));
+			.addMarker(new EmfActionMarker(this));
 		getConfirmationMessageSupplier(formBody.getTableRow()).map(Supplier::get).ifPresent(button::setConfirmationMessage);
 		return button;
 	}

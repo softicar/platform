@@ -12,6 +12,6 @@ public class EmfTableViewButton extends DomButton {
 		setLabel(table.getTitle());
 		setIcon(EmfImages.TABLE_DETAILS.getResource());
 		setTitle(EmfI18n.SHOW_TABLE_INFORMATION);
-		setClickCallback(() -> new EmfTableViewPopup(table).show());
+		setClickCallback(() -> new EmfTableViewPopup(table).open());
 	}
 }

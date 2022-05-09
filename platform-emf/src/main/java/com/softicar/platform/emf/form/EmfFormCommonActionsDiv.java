@@ -28,7 +28,7 @@ class EmfFormCommonActionsDiv<R extends IEmfTableRow<R, ?>> extends DomActionBar
 		this.tableRow = formBody.getTableRow();
 
 		addCssClass(EmfCssClasses.EMF_FORM_COMMON_ACTIONS_DIV);
-		setMarker(EmfFormMarker.COMMON_ACTIONS_DIV);
+		addMarker(EmfFormMarker.COMMON_ACTIONS_DIV);
 		integrateActions();
 	}
 
@@ -55,6 +55,6 @@ class EmfFormCommonActionsDiv<R extends IEmfTableRow<R, ?>> extends DomActionBar
 				.setClickCallback(() -> action.handleClick(formBody))
 				.setIcon(action.getIcon())
 				.setTitle(action.getTitle().concat("..."))
-				.setMarker(new EmfCommonActionMarker(action)));
+				.addMarker(new EmfCommonActionMarker(action)));
 	}
 }

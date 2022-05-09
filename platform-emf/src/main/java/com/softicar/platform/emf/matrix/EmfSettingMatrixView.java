@@ -342,7 +342,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 			}
 			for (B beta: betas) {
 				BottomAlignedHeaderCell headerCell = new BottomAlignedHeaderCell(betaDisplayNamer.apply(beta).toString());
-				headerCell.setMarker(EmfSettingMatrixMarker.COLUMN_NAME_CELL);
+				headerCell.addMarker(EmfSettingMatrixMarker.COLUMN_NAME_CELL);
 				headerRow.appendChild(headerCell);
 			}
 		}
@@ -378,7 +378,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 				for (A alpha: alphas) {
 					DomRow domRow = getBody().appendChild(new DomRow());
 					LeftAlignedHeaderCell headerCell = new LeftAlignedHeaderCell(alphaDisplayNamer.apply(alpha).toString());
-					headerCell.setMarker(EmfSettingMatrixMarker.ROW_NAME_CELL);
+					headerCell.addMarker(EmfSettingMatrixMarker.ROW_NAME_CELL);
 					domRow.appendChild(headerCell);
 					if (isDisplayWildcard(alphas)) {
 						C column = getColumn(alpha, null);
@@ -425,7 +425,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 
 			if (appendedRowCount <= 0 || betas.isEmpty()) {
 				DomCell cell = getBody().appendChild(new DomRow()).appendCell();
-				cell.setMarker(EmfSettingMatrixMarker.DUMMY_CELL);
+				cell.addMarker(EmfSettingMatrixMarker.DUMMY_CELL);
 				cell.setColSpan(betas.size() + 1);
 				cell.setStyle(CssFontStyle.ITALIC);
 				cell.appendText(createEmptyTableMessage());

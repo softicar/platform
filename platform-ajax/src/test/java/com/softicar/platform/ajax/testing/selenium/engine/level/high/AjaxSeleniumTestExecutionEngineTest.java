@@ -44,7 +44,7 @@ public class AjaxSeleniumTestExecutionEngineTest extends AbstractTest implements
 				new DomButton()//
 					.setLabel(IDisplayString.create("click me"))
 					.setClickCallback(() -> appendText("bar"))
-					.setMarker(BUTTON));
+					.addMarker(BUTTON));
 		}
 	}
 }

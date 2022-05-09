@@ -42,7 +42,7 @@ public class EmfDataTableEnumFilterNode<R, T extends Enum<T>> extends AbstractEm
 					.stream()
 					.filter(value -> value != null)
 					.collect(Collectors.toList()));
-		this.enumSelect.setMarker(EmfDataTableDivMarker.FILTER_INPUT_ENUM);
+		this.enumSelect.addMarker(EmfDataTableDivMarker.FILTER_INPUT_ENUM);
 		refresh();
 	}
 

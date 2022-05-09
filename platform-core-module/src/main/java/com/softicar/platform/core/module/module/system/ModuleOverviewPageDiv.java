@@ -43,7 +43,7 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_BUTTON);
 			setIcon(EmfImages.MANAGEMENT_ACTIONS.getResource());
-			setClickCallback(() -> new ActionPopover(cell, module).show());
+			setClickCallback(() -> new ActionPopover(cell, module).open());
 		}
 	}
 
@@ -55,20 +55,20 @@ public class ModuleOverviewPageDiv extends DomDiv {
 			appendChild(
 				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
 					.setRefreshable(cell.getTableRow())
-					.setCallbackBeforeShow(this::hide)
+					.setCallbackBeforeShow(this::close)
 					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle()));
 			appendChild(
 				new DomPopupButton()//
 					.setPopupFactory(() -> new EmfTableOverviewPopup(module))
-					.setCallbackBeforeShow(this::hide)
+					.setCallbackBeforeShow(this::close)
 					.setIcon(CoreImages.MODULES.getResource())
 					.setLabel(EmfI18n.SHOW_TABLES));
 			appendChild(
 				new EmfModuleRoleViewButton(module)//
-					.setCallbackBeforeShow(this::hide));
+					.setCallbackBeforeShow(this::close));
 			appendChild(
 				new ModulePageOverviewButton(module)//
-					.setCallbackBeforeShow(this::hide));
+					.setCallbackBeforeShow(this::close));
 		}
 	}
 }

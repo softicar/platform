@@ -32,15 +32,13 @@ public class DomModalDialogPopup extends DomPopup {
 	public DomModalDialogPopup() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
-
-		setPositionByViewportCenter(CssPercent._50, CssPercent._25);
-		setDisplayHeader(false);
-		setCallbackBeforeShow(this::beforeShow);
+		addMarker(DomModalDialogMarker.POPUP);
 
 		this.content = appendChild(new Content());
 
-		setMarker(DomModalDialogMarker.POPUP);
-		frame.setMarker(DomModalDialogMarker.FRAME);
+		this.configuration.setPositionStrategyByViewportCenter(CssPercent._50, CssPercent._25);
+		this.configuration.setDisplayModeDialog();
+		this.configuration.addFrameMarker(DomModalDialogMarker.FRAME);
 	}
 
 	/**
@@ -56,18 +54,12 @@ public class DomModalDialogPopup extends DomPopup {
 		return content;
 	}
 
-	private void beforeShow() {
-
-		showBackdrop(() -> new DomModalDialogBackdrop(getCloseManager()::closePopupNonInteractive));
-		trapTabFocus();
-	}
-
 	private class Content extends DomDiv {
 
 		public Content() {
 
 			addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_CONTENT);
-			setMarker(DomModalDialogMarker.CONTENT);
+			addMarker(DomModalDialogMarker.CONTENT);
 		}
 	}
 }

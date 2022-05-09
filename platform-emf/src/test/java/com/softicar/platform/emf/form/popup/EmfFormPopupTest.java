@@ -3,6 +3,7 @@ package com.softicar.platform.emf.form.popup;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.popup.configuration.DomPopupConfiguration;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
@@ -73,7 +74,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 		DomPopupManager//
 			.getInstance()
 			.getPopup(entity, EmfFormPopup.class, it -> new EmfFormPopup<>(it))
-			.setPositionByViewportCenter()
-			.show();
+			.configure(DomPopupConfiguration::setPositionStrategyByViewportCenter)
+			.open();
 	}
 }

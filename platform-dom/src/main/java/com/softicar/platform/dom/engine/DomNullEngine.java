@@ -45,12 +45,6 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void clearLastScheduledTimeout() {
-
-		// nothing to do
-	}
-
-	@Override
 	public void createElement(int nodeId, DomElementTag elementTag) {
 
 		// nothing to do
@@ -105,13 +99,13 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void insertAtCaret(IDomTextualInput input, String text) {
+	public void insertBefore(IDomNode parent, IDomNode child, IDomNode otherChild) {
 
 		// nothing to do
 	}
 
 	@Override
-	public void insertBefore(IDomNode parent, IDomNode child, IDomNode otherChild) {
+	public void insertTextAtCaret(IDomTextualInput input, String text) {
 
 		// nothing to do
 	}
@@ -166,12 +160,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void replaceChild(IDomNode parent, IDomNode newChild, IDomNode oldChild) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void resetForm(IDomNode form) {
 
 		// nothing to do
 	}
@@ -297,21 +285,23 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void submitForm(IDomNode form) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void submitFormOnChange(IDomNode form, IDomNode triggerNode) {
-
-		// nothing to do
-	}
-
-	@Override
 	public void trapTabFocus(IDomNode node) {
 
 		// nothing to do
+	}
+
+	@Override
+	public void triggerUploadOnChange(IDomNode form, IDomNode triggerNode) {
+
+		// nothing to do
+
+	}
+
+	@Override
+	public void triggerUploadOnClick(IDomNode form, IDomNode triggerNode) {
+
+		// nothing to do
+
 	}
 
 	@Override

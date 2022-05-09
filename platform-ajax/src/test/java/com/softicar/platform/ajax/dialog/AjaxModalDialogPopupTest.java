@@ -109,7 +109,7 @@ public class AjaxModalDialogPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			this.button = appendChild(new DomButton())//
 				.setLabel("spawn dialog")
-				.setClickCallback(new DomModalDialogPopup()::show);
+				.setClickCallback(new DomModalDialogPopup()::open);
 		}
 
 		public DomButton getButton() {

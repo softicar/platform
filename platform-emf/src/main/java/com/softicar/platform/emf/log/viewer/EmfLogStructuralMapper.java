@@ -110,7 +110,6 @@ public class EmfLogStructuralMapper<R extends IEmfTableRow<R, ?>> {
 	 * @return the given {@link IEmfChangeLogger} as an
 	 *         {@link EmfPlainChangeLogger}
 	 */
-	@SuppressWarnings("unchecked")
 	public <F extends IEmfTableRow<F, ?>> Optional<EmfPlainChangeLogger<?, F, ?>> getAsPlainChangeLogger(IEmfChangeLogger<F> logger) {
 
 		if (logger instanceof EmfPlainChangeLogger) {
@@ -125,12 +124,12 @@ public class EmfLogStructuralMapper<R extends IEmfTableRow<R, ?>> {
 	 * the given table.
 	 * <p>
 	 * Returns {@link Optional#empty()} if no such attribute can be identified
-	 * for the given {@link IEmfTable}, or if the given
-	 * {@link IEmfTable} is null.
+	 * for the given {@link IEmfTable}, or if the given {@link IEmfTable} is
+	 * null.
 	 *
 	 * @param table
-	 *            the {@link IEmfTable} for which the base
-	 *            {@link IEmfAttribute} should be looked up
+	 *            the {@link IEmfTable} for which the base {@link IEmfAttribute}
+	 *            should be looked up
 	 * @return the {@link IEmfAttribute} that corresponds to the base field of
 	 *         the given {@link IEmfTable}
 	 */

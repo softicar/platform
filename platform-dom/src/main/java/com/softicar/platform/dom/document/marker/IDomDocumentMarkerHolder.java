@@ -3,6 +3,7 @@ package com.softicar.platform.dom.document.marker;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomDocument;
+import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Collection;
 
@@ -19,18 +20,16 @@ import java.util.Collection;
 public interface IDomDocumentMarkerHolder {
 
 	/**
-	 * Defines the marker for the given {@link IDomNode}.
-	 * <p>
-	 * TODO PLAT-568 This method should be rather called <i>addMarker</i>.
+	 * Adds an {@link IStaticObject} marker to the given {@link IDomNode}.
 	 *
 	 * @param node
 	 *            the node (never <i>null</i>)
 	 * @param marker
-	 *            the marker to set (never <i>null</i>)
+	 *            the marker to add (never <i>null</i>)
 	 * @throws UnsupportedOperationException
-	 *             if this tree does not support marking of nodes
+	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
-	void setMarker(IDomNode node, IStaticObject marker);
+	void addMarker(IDomNode node, IStaticObject marker);
 
 	/**
 	 * Checks whether the given {@link IDomNode} has all given

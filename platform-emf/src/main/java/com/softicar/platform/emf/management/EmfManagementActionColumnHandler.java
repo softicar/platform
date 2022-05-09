@@ -38,11 +38,11 @@ class EmfManagementActionColumnHandler<R extends IEmfTableRow<R, P>, P> implemen
 
 		public ActionsPopoverButton(R tableRow) {
 
-			setMarker(EmfManagementMarker.ACTIONS_POPOVER_BUTTON);
+			addMarker(EmfManagementMarker.ACTIONS_POPOVER_BUTTON);
 			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_BUTTON);
 			setIcon(EmfImages.MANAGEMENT_ACTIONS.getResource());
 			setTitle(EmfI18n.ACTIONS);
-			setClickCallback(() -> new EmfManagementActionPopover<>(tableRow).show());
+			setClickCallback(() -> new EmfManagementActionPopover<>(tableRow).open());
 		}
 	}
 }

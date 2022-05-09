@@ -26,4 +26,10 @@ public class DomBody extends DomParentElement {
 
 		return DomElementTag.BODY;
 	}
+
+	@Override
+	public boolean isAppended() {
+
+		return true;
+	}
 }

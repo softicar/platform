@@ -45,19 +45,19 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 		getContent().appendChild(inputElement);
 
 		appendActionNode(new OkayButton());
-		appendCancelButton().setMarker(DomModalPromptMarker.CANCEL_BUTTON);
+		appendCancelButton().addMarker(DomModalPromptMarker.CANCEL_BUTTON);
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
-		super.show();
+		super.open();
 		getDomEngine().focus(inputElement);
 	}
 
 	private void closeAndApplyInput() {
 
-		getCloseManager().closePopupNonInteractive();
+		close();
 		promptHandler.accept(inputElement.getInputText());
 	}
 
@@ -67,7 +67,7 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 
 			setInputText(defaultValue);
 			select();
-			setMarker(DomModalPromptMarker.INPUT_ELEMENT);
+			addMarker(DomModalPromptMarker.INPUT_ELEMENT);
 		}
 
 		@Override
@@ -84,7 +84,7 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 			setLabel(DomI18n.OK);
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setClickCallback(() -> closeAndApplyInput());
-			setMarker(DomModalPromptMarker.OKAY_BUTTON);
+			addMarker(DomModalPromptMarker.OKAY_BUTTON);
 		}
 	}
 }

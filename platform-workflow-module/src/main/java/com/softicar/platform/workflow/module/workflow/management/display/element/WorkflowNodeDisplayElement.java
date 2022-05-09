@@ -84,7 +84,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 			setIcon(EmfImages.ENTITY_EDIT.getResource());
 			setLabel(IDisplayString.format("%s", workflowNode.getId()));
 			setTitle(WorkflowI18n.EDIT.concatEllipsis());
-			setClickCallback(() -> new WorkflowNodeEditPopup(workflowNode).show());
+			setClickCallback(() -> new WorkflowNodeEditPopup(workflowNode).open());
 		}
 
 		private class WorkflowNodeEditPopup extends EmfFormPopup<AGWorkflowNode> {
@@ -93,13 +93,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 				super(workflowNode);
 				setDirectEditing(false);
-			}
-
-			@Override
-			public void hide() {
-
-				super.hide();
-				refreshCallback.apply();
+				configuration.setCallbackBeforeClose(refreshCallback);
 			}
 		}
 	}

@@ -39,7 +39,7 @@ public class TableExportPopup extends DomDismissablePopup {
 			appendTimestamp,
 			enableDeflateCompression);
 
-		getCloseManager().setCloseCallback(() -> handleClose(inputForm));
+		configuration.setCallbackBeforeClose(() -> handleClose(inputForm));
 
 		appendChild(inputForm);
 		appendChild(lowerMessageDiv);
@@ -62,7 +62,7 @@ public class TableExportPopup extends DomDismissablePopup {
 
 		DomPopup columnSelectionPopup = exportOptionsProvider.getColumnSelectionPopup();
 		if (columnSelectionPopup != null) {
-			columnSelectionPopup.hide();
+			columnSelectionPopup.close();
 		}
 	}
 }

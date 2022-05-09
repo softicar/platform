@@ -303,7 +303,7 @@ public class AjaxModalPromptPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 			this.outputElement = new DomDiv();
 			this.button = new DomButton()//
 				.setLabel("spawn prompt")
-				.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::show);
+				.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open);
 			appendChild(button);
 			appendChild(outputElement);
 		}
