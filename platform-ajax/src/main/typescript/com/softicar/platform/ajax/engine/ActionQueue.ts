@@ -52,4 +52,4 @@ class ActionQueue {
 	}
 }
 
-let ACTION_QUEUE = new ActionQueue();
+const ACTION_QUEUE = new ActionQueue();

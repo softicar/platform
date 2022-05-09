@@ -31,8 +31,9 @@ import org.openqa.selenium.WebElement;
  * <p>
  * This engine can <b>not</b> be used as a drop-in replacement for
  * {@link AjaxSeleniumTestExecutionEngine}, since it does not implement
- * {@link IDomTestExecutionEngine}. In any project beyond the AJAX framework itself,
- * {@link AjaxSeleniumTestExecutionEngine} should be used instead of this engine.
+ * {@link IDomTestExecutionEngine}. In any project beyond the AJAX framework
+ * itself, {@link AjaxSeleniumTestExecutionEngine} should be used instead of
+ * this engine.
  *
  * @author Alexander Schmidt
  * @see AjaxSeleniumTestExecutionEngine

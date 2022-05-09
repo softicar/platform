@@ -7,8 +7,7 @@ function sendUploadRequestThroughForm(form: HTMLFormElement) {
 			a: AJAX_REQUEST_UPLOAD,
 			n: form.id
 		};
-		GLOBAL.copyNodeValues(parameters);
-
+		VALUE_NODE_MAP.copyNodeValues(parameters);
 		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters, form));
 		ACTION_QUEUE.executeNextAction();
 	} else {

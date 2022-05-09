@@ -14,8 +14,7 @@ function handleTimeout(timeoutNode: HTMLElement) {
 			a: AJAX_REQUEST_TIMEOUT,
 			n: timeoutNode.id
 		};
-		GLOBAL.copyNodeValues(parameters);
-
+		VALUE_NODE_MAP.copyNodeValues(parameters);
 		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
 		ACTION_QUEUE.executeNextAction();
 	} else {

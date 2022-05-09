@@ -41,4 +41,4 @@ class AjaxRequestLock {
 	}
 }
 
-let AJAX_REQUEST_LOCK = new AjaxRequestLock();
+const AJAX_REQUEST_LOCK = new AjaxRequestLock();
