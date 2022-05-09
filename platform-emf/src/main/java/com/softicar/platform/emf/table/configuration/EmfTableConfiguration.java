@@ -513,7 +513,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 
 		if (!businessKey.isUniqueKey()) {
 			throw new SofticarDeveloperException(
-				"The set business key (%s) of table %s must be a unique key.",
+				"The business key (%s) of table %s must be a unique key.",
 				Imploder.implode(businessKey.getFields(), " & "),
 				table);
 		}
