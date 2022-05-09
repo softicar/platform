@@ -47,7 +47,7 @@ class ActionQueue {
 			action.execute();
 		} else {
 			KEEP_ALIVE.schedule();
-			unlock();
+			AJAX_REQUEST_LOCK.release();
 		}
 	}
 }

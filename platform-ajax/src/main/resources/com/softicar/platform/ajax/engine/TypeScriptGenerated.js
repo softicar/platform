@@ -27,7 +27,7 @@ class ActionQueue {
         }
         else {
             KEEP_ALIVE.schedule();
-            unlock();
+            AJAX_REQUEST_LOCK.release();
         }
     }
 }
@@ -164,6 +164,35 @@ class AjaxRequest {
         }
     }
 }
+class AjaxRequestLock {
+    constructor() {
+        this.locked = false;
+    }
+    lock() {
+        if (!this.locked) {
+            this.locked = true;
+            showWorkingIndicator();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    release() {
+        if (this.locked) {
+            this.locked = false;
+            hideWorkingIndicator();
+            AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
+        }
+        else {
+            alert("Internal error: AJAX request lock already released.");
+        }
+    }
+    isLocked() {
+        return this.locked;
+    }
+}
+let AJAX_REQUEST_LOCK = new AjaxRequestLock();
 class AjaxRequestManager {
     constructor() {
         this.currentRequest = null;
@@ -192,34 +221,119 @@ class AjaxRequestManager {
     }
 }
 let AJAX_REQUEST_MANAGER = new AjaxRequestManager();
-let AJAX_REQUEST_LOGIN = 0;
-let AJAX_REQUEST_CREATE_DOCUMENT = 1;
-let AJAX_REQUEST_KEEP_ALIVE = 2;
-let AJAX_REQUEST_TIMEOUT = 5;
-let AJAX_REQUEST_DOM_EVENT = 6;
-let AJAX_REQUEST_DRAG_AND_DROP = 7;
-let AJAX_REQUEST_UPLOAD = 8;
-let AJAX_REQUEST_RESOURCE = 9;
-let AJAX_REQUEST_AUTO_COMPLETE = 10;
-let DOM_VK_TAB = 9;
-let DOM_VK_ENTER = 13;
-let DOM_VK_ESCAPE = 27;
-let DOM_VK_SPACE = 32;
-let DOM_VK_UP = 38;
-let DOM_VK_DOWN = 40;
-let LOCK_REASON_DOM_EVENT = 0;
-let LOCK_REASON_TIMEOUT = 1;
-let LOCK_REASON_KEEP_ALIVE = 2;
-let LOCK_REASON_DRAG_AND_DROP = 3;
-let LOCK_REASON_UPLOAD = 4;
-let KEEP_ALIVE_REQUEST_DELAY = 3 * 60 * 1000;
-let HTTP_REQUEST_STATE_UNSET = 0;
-let HTTP_REQUEST_STATE_OPENED = 1;
-let HTTP_REQUEST_STATE_HEADERS_RECEIVED = 2;
-let HTTP_REQUEST_STATE_LOADING = 3;
-let HTTP_REQUEST_STATE_DONE = 4;
-let HTTP_STATUS_SUCCESS = 200;
-let HTTP_STATUS_GONE = 410;
+const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
+const AJAX_REQUEST_LOGIN = 0;
+const AJAX_REQUEST_CREATE_DOCUMENT = 1;
+const AJAX_REQUEST_KEEP_ALIVE = 2;
+const AJAX_REQUEST_TIMEOUT = 5;
+const AJAX_REQUEST_DOM_EVENT = 6;
+const AJAX_REQUEST_DRAG_AND_DROP = 7;
+const AJAX_REQUEST_UPLOAD = 8;
+const AJAX_REQUEST_RESOURCE = 9;
+const AJAX_REQUEST_AUTO_COMPLETE = 10;
+const DOM_VK_TAB = 9;
+const DOM_VK_ENTER = 13;
+const DOM_VK_ESCAPE = 27;
+const DOM_VK_SPACE = 32;
+const DOM_VK_UP = 38;
+const DOM_VK_DOWN = 40;
+const KEEP_ALIVE_REQUEST_DELAY = 3 * 60 * 1000;
+const HTTP_REQUEST_STATE_UNSET = 0;
+const HTTP_REQUEST_STATE_OPENED = 1;
+const HTTP_REQUEST_STATE_HEADERS_RECEIVED = 2;
+const HTTP_REQUEST_STATE_LOADING = 3;
+const HTTP_REQUEST_STATE_DONE = 4;
+const HTTP_STATUS_SUCCESS = 200;
+const HTTP_STATUS_GONE = 410;
+const TIMEOUT_RETRY_DELAY = 500;
+function makeDraggable(draggedNode, initNode, notifyOnDrop) {
+    new DragContext(draggedNode, notifyOnDrop).setup(initNode);
+}
+class DragContext {
+    constructor(draggedNode, notifyOnDrop) {
+        this.cursorStart = new Point();
+        this.dragStart = new Point();
+        this.dragPosition = new Point();
+        this.moveHandler = (event) => this.onMove(event);
+        this.dropHandler = (event) => this.onDrop(event);
+        this.draggedNode = draggedNode;
+        this.notifyOnDrop = notifyOnDrop;
+    }
+    setup(initNode) {
+        initNode.addEventListener("mousedown", event => this.onDragStart(event));
+        initNode.addEventListener("touchstart", event => this.onDragStart(event));
+        initNode.style.userSelect = "none";
+        initNode.style.touchAction = "none";
+    }
+    onDragStart(event) {
+        this.addDragListener();
+        this.setDocumentTextSelection(false);
+        this.cursorStart = this.getCursorPosition(event);
+        this.dragStart = this.getDraggedNodePosition();
+        this.dragPosition = this.dragStart;
+        _DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
+    }
+    onMove(event) {
+        let cursor = this.getCursorPosition(event);
+        if (cursor.x >= 0 && cursor.y >= 0) {
+            this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
+            this.draggedNode.style.left = this.dragPosition.x + "px";
+            this.draggedNode.style.top = this.dragPosition.y + "px";
+        }
+    }
+    onDrop(event) {
+        this.removeDragListener();
+        this.setDocumentTextSelection(true);
+        if (this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
+            if (AJAX_REQUEST_LOCK.lock()) {
+                let parameters = {
+                    'a': AJAX_REQUEST_DRAG_AND_DROP,
+                    'n': this.draggedNode.id,
+                    'sx': this.dragStart.x,
+                    'sy': this.dragStart.y,
+                    'dx': this.dragPosition.x,
+                    'dy': this.dragPosition.y
+                };
+                GLOBAL.copyNodeValues(parameters);
+                ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+                ACTION_QUEUE.executeNextAction();
+            }
+        }
+    }
+    getCursorPosition(event) {
+        if (event instanceof MouseEvent) {
+            return new Point(event.clientX, event.clientY);
+        }
+        else if (event instanceof TouchEvent) {
+            let firstTouch = event.touches[0];
+            return new Point(Math.round(firstTouch.clientX), Math.round(firstTouch.clientY));
+        }
+        else {
+            return new Point();
+        }
+    }
+    getDraggedNodePosition() {
+        let style = this.draggedNode.style;
+        let x = style.left ? parseInt(style.left) : 0;
+        let y = style.top ? parseInt(style.top) : 0;
+        return new Point(x, y);
+    }
+    setDocumentTextSelection(enabled) {
+        document.onselectstart = function () { return enabled; };
+    }
+    addDragListener() {
+        document.addEventListener("mousemove", this.moveHandler, true);
+        document.addEventListener("touchmove", this.moveHandler, true);
+        document.addEventListener("mouseup", this.dropHandler, true);
+        document.addEventListener("touchend", this.dropHandler, true);
+    }
+    removeDragListener() {
+        document.removeEventListener("mousemove", this.moveHandler, true);
+        document.removeEventListener("touchmove", this.moveHandler, true);
+        document.removeEventListener("mouseup", this.dropHandler, true);
+        document.removeEventListener("touchend", this.dropHandler, true);
+    }
+}
 class FormRequest {
     constructor(form) {
         this.form = form;
@@ -330,7 +444,7 @@ class KeepAlive {
         if (SESSION_TIMED_OUT) {
             return;
         }
-        if (lock(LOCK_REASON_KEEP_ALIVE)) {
+        if (AJAX_REQUEST_LOCK.lock()) {
             let parameters = {
                 'a': AJAX_REQUEST_KEEP_ALIVE
             };
@@ -343,3 +457,100 @@ class KeepAlive {
     }
 }
 let KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
+class Point {
+    constructor(x = 0, y = 0) {
+        this._x = x;
+        this._y = y;
+    }
+    get x() {
+        return this._x;
+    }
+    get y() {
+        return this._y;
+    }
+    plus(point) {
+        return new Point(this.x + point.x, this.y + point.y);
+    }
+    minus(point) {
+        return new Point(this.x - point.x, this.y - point.y);
+    }
+}
+let SESSION_TIMED_OUT = false;
+let SESSION_TIMEOUT_DIALOG;
+function setSessionTimeoutDialog(dialog) {
+    SESSION_TIMEOUT_DIALOG = dialog;
+}
+function handleSessionTimeout() {
+    SESSION_TIMED_OUT = true;
+    if (SESSION_TIMEOUT_DIALOG) {
+        SESSION_TIMEOUT_DIALOG.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
+        SESSION_TIMEOUT_DIALOG.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+    }
+}
+function insertTextAtCaret(input, text) {
+    let selectionStart = input.selectionStart;
+    if (selectionStart !== null) {
+        let value = input.value;
+        let front = value.substring(0, selectionStart);
+        let back = value.substring(selectionStart, value.length);
+        let scrollTop = input.scrollTop;
+        input.value = front + text + back;
+        input.selectionStart = selectionStart;
+        input.selectionEnd = selectionStart;
+        input.scrollTop = scrollTop;
+        input.focus();
+    }
+}
+function moveCaretToPosition(input, position) {
+    input.selectionStart = input.selectionEnd = position;
+}
+function scheduleTimeout(timeoutNode, milliseconds) {
+    setTimeout(() => handleTimeout(timeoutNode), milliseconds);
+}
+function handleTimeout(timeoutNode) {
+    if (AJAX_REQUEST_LOCK.lock()) {
+        let parameters = {
+            a: AJAX_REQUEST_TIMEOUT,
+            n: timeoutNode.id
+        };
+        GLOBAL.copyNodeValues(parameters);
+        ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+        ACTION_QUEUE.executeNextAction();
+    }
+    else {
+        scheduleTimeout(timeoutNode, TIMEOUT_RETRY_DELAY);
+    }
+}
+function sendUploadRequestThroughForm(form) {
+    if (AJAX_REQUEST_LOCK.lock()) {
+        let parameters = {
+            a: AJAX_REQUEST_UPLOAD,
+            n: form.id
+        };
+        GLOBAL.copyNodeValues(parameters);
+        ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters, form));
+        ACTION_QUEUE.executeNextAction();
+    }
+    else {
+        alert(LOCK_MESSAGE);
+    }
+}
+let WORKING_INDICATOR_ENABLED = true;
+let WORKING_INDICATOR;
+function setWorkingIndicator(indicator) {
+    WORKING_INDICATOR = indicator;
+}
+function showWorkingIndicator() {
+    if (WORKING_INDICATOR && WORKING_INDICATOR_ENABLED) {
+        WORKING_INDICATOR.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
+        WORKING_INDICATOR.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+    }
+}
+function hideWorkingIndicator() {
+    if (WORKING_INDICATOR) {
+        WORKING_INDICATOR.classList.add(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+    }
+}
+function setWorkingIndicatorEnabled(enabled) {
+    WORKING_INDICATOR_ENABLED = enabled;
+}

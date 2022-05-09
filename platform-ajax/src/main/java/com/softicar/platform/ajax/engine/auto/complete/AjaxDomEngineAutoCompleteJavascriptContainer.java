@@ -11,6 +11,7 @@ public interface AjaxDomEngineAutoCompleteJavascriptContainer {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(AjaxDomEngineAutoCompleteJavascriptContainer.class, Charsets.UTF8);
 
+	IResourceSupplier DOM_ELEMENT_BUILDER = FACTORY.create("DomElementBuilder.js");
 	IResourceSupplier ENGINE = FACTORY.create("AutoCompleteEngine.js");
 	IResourceSupplier IMAGE_INDICATOR = FACTORY.create("AutoCompleteImageIndicator.js");
 	IResourceSupplier INPUT_CONFIGURATION = FACTORY.create("AutoCompleteInputConfiguration.js");
@@ -24,5 +25,6 @@ public interface AjaxDomEngineAutoCompleteJavascriptContainer {
 	IResourceSupplier STATE = FACTORY.create("AutoCompleteState.js");
 	IResourceSupplier STATUS_HANDLER = FACTORY.create("AutoCompleteStatusHandler.js");
 	IResourceSupplier STATUS_INDICATOR = FACTORY.create("AutoCompleteStatusIndicator.js");
+	IResourceSupplier UTILS = FACTORY.create("Utils.js");
 	IResourceSupplier VALUE_STATE = FACTORY.create("AutoCompleteValueState.js");
 }

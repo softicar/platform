@@ -33,21 +33,15 @@ public class DomForm extends DomParentElement {
 		return DomElementTag.FORM;
 	}
 
-	public DomForm reset() {
+	public DomForm triggerUploadOnChange(IDomNode triggerNode) {
 
-		getDomEngine().resetForm(this);
+		getDomEngine().triggerUploadOnChange(this, triggerNode);
 		return this;
 	}
 
-	public DomForm submit() {
+	public DomForm triggerUploadOnClick(IDomNode triggerNode) {
 
-		getDomEngine().submitForm(this);
-		return this;
-	}
-
-	public DomForm submitOnChange(IDomNode triggerNode) {
-
-		getDomEngine().submitFormOnChange(this, triggerNode);
+		getDomEngine().triggerUploadOnClick(this, triggerNode);
 		return this;
 	}
 }

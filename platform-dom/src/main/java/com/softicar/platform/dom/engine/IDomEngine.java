@@ -136,8 +136,6 @@ public interface IDomEngine {
 
 	void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds);
 
-	void clearLastScheduledTimeout();
-
 	void makeDraggable(IDomNode draggedNode, IDomNode initNode);
 
 	void enableAutoComplete(IDomAutoCompleteInput<?> input);
@@ -164,7 +162,7 @@ public interface IDomEngine {
 
 	void select(IDomNode inputNode);
 
-	void insertAtCaret(IDomTextualInput input, String text);
+	void insertTextAtCaret(IDomTextualInput input, String text);
 
 	void moveCaretToPosition(IDomTextualInput input, int position);
 
@@ -182,11 +180,9 @@ public interface IDomEngine {
 
 	// -------------------------------- forms -------------------------------- //
 
-	void resetForm(IDomNode form);
+	void triggerUploadOnChange(IDomNode form, IDomNode triggerNode);
 
-	void submitForm(IDomNode form);
-
-	void submitFormOnChange(IDomNode form, IDomNode triggerNode);
+	void triggerUploadOnClick(IDomNode form, IDomNode triggerNode);
 
 	// -------------------------------- focus trap -------------------------------- //
 

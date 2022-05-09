@@ -300,20 +300,14 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds) {
 
-		JS_call("c.scheduleTimeout", timeoutNode.getNodeId(), Math.round(seconds * 1000));
-	}
-
-	@Override
-	public void clearLastScheduledTimeout() {
-
-		JS_call("c.clearLastScheduledTimeout");
+		JS_call("scheduleTimeout", timeoutNode, Math.round(seconds * 1000));
 	}
 
 	@Override
 	public void makeDraggable(IDomNode draggedNode, IDomNode initNode) {
 
-		boolean notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
-		JS_call("makeDraggable", draggedNode.getNodeId(), initNode.getNodeId(), notifyOnDrop);
+		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
+		JS_call("makeDraggable", draggedNode, initNode, notifyOnDrop);
 	}
 
 	@Override
@@ -381,15 +375,15 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void insertAtCaret(IDomTextualInput input, String text) {
+	public void insertTextAtCaret(IDomTextualInput input, String text) {
 
-		JS_call("c.insertAtCaret", input.getNodeId(), text);
+		JS_call("insertTextAtCaret", input, text);
 	}
 
 	@Override
 	public void moveCaretToPosition(IDomTextualInput input, int position) {
 
-		JS_call("c.moveCaretToPosition", input.getNodeId(), position);
+		JS_call("moveCaretToPosition", input, position);
 	}
 
 	// -------------------------------- pop-ups -------------------------------- //
@@ -427,22 +421,21 @@ public class AjaxDomEngine implements IDomEngine {
 	// -------------------------------- forms -------------------------------- //
 
 	@Override
-	public void resetForm(IDomNode form) {
+	public void triggerUploadOnChange(IDomNode form, IDomNode triggerNode) {
 
-		JS_callNodeFunction(form, "reset");
+		triggerUploadOnEvent(form, triggerNode, "onchange");
 	}
 
 	@Override
-	public void submitForm(IDomNode form) {
+	public void triggerUploadOnClick(IDomNode form, IDomNode triggerNode) {
 
-		JS_call("c.submitForm", form.getNodeId());
+		triggerUploadOnEvent(form, triggerNode, "onclick");
 	}
 
-	@Override
-	public void submitFormOnChange(IDomNode form, IDomNode triggerNode) {
+	private void triggerUploadOnEvent(IDomNode form, IDomNode triggerNode, String event) {
 
-		String submit = String.format("function() { c.submitForm(%s); }", form.getNodeId());
-		JS_setNodeMember(triggerNode, "onchange", submit);
+		String submit = String.format("function() { sendUploadRequestThroughForm(n(%s)); }", form.getNodeId());
+		JS_setNodeMember(triggerNode, event, submit);
 	}
 
 	// -------------------------------- focus trap -------------------------------- //
