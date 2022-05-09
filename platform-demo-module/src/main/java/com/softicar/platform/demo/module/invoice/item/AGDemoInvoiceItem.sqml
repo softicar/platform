@@ -9,4 +9,6 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	Integer quantity
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
+	
+	UK invoice item
 }

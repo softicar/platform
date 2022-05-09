@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -36,6 +37,7 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 	public static final IDbIntegerField<AGDemoInvoiceItem> QUANTITY = BUILDER.addIntegerField("quantity", o->o.m_quantity, (o,v)->o.m_quantity=v).setTitle(DemoI18n.QUANTITY);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> GROSS_AMOUNT = BUILDER.addBigDecimalField("grossAmount", o->o.m_grossAmount, (o,v)->o.m_grossAmount=v).setTitle(DemoI18n.GROSS_AMOUNT).setSize(20, 4);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> NET_AMOUNT = BUILDER.addBigDecimalField("netAmount", o->o.m_netAmount, (o,v)->o.m_netAmount=v).setTitle(DemoI18n.NET_AMOUNT).setSize(20, 4);
+	public static final IDbKey<AGDemoInvoiceItem> UK_INVOICE_ITEM = BUILDER.addUniqueKey("invoiceItem", INVOICE, ITEM);
 	public static final AGDemoInvoiceItemTable TABLE = new AGDemoInvoiceItemTable(BUILDER);
 	// @formatter:on
 
@@ -49,6 +51,15 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 	public static AGDemoInvoiceItem get(Integer id) {
 
 		return TABLE.get(id);
+	}
+
+	public static AGDemoInvoiceItem loadByInvoiceAndItem(AGDemoInvoice invoice, String item) {
+
+		return TABLE//
+				.createSelect()
+				.where(INVOICE.equal(invoice))
+				.where(ITEM.equal(item))
+				.getOne();
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
