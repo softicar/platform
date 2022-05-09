@@ -24,6 +24,8 @@ public class EmfTestObjectGenerated extends AbstractDbObject<EmfTestObject> {
 	public static final IDbBooleanField<EmfTestObject> ACTIVE = BUILDER.addBooleanField("active", o -> o.active, (o, v) -> o.active = v).setDefault(true);
 	public static final EmfTestObjectTable TABLE = new EmfTestObjectTable(BUILDER);
 	public static final IDbKey<EmfTestObject> UK_NAME_DAY = BUILDER.addUniqueKey("nameDay", NAME, DAY);
+	public static final IDbKey<EmfTestObject> UK_ID_NAME = BUILDER.addUniqueKey("idNameDay", ID, NAME);
+	public static final IDbKey<EmfTestObject> KEY_DAY_ACTIVE = BUILDER.addIndexKey("dayActive", DAY, ACTIVE);
 	// @formatter:on
 
 	private Integer id;
