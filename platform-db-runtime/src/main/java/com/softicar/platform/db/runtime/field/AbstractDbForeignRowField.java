@@ -71,7 +71,6 @@ public abstract class AbstractDbForeignRowField<R, F extends IDbTableRow<F, FP>,
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public IDbTable<R, ?> getTable() {
 
 		return (IDbTable<R, ?>) super.getTable();

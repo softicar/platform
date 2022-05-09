@@ -187,7 +187,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 			appendChild(
 				new DomButton()//
 					.setLabel("spawn prompt")
-					.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::show)
+					.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open)
 					.addMarker(SHOW_BUTTON));
 		}
 	}

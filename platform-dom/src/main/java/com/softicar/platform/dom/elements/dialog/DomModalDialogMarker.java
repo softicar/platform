@@ -9,7 +9,6 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
  */
 public enum DomModalDialogMarker implements IStaticObject {
 
-	BACKDROP,
 	CONTENT,
 	FRAME,
 	POPUP

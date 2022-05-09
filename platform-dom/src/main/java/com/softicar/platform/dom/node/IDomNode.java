@@ -208,8 +208,6 @@ public interface IDomNode {
 
 	// -------------------------------- alert, confirm and prompt -------------------------------- //
 
-	// -------------------------------- modal dialogs -------------------------------- //
-
 	/**
 	 * Displays a custom modal alert dialog, for the given message.
 	 *
@@ -218,7 +216,7 @@ public interface IDomNode {
 	 */
 	default void executeAlert(IDisplayString message) {
 
-		new DomModalAlertPopup(message).show();
+		new DomModalAlertPopup(message).open();
 	}
 
 	/**
@@ -233,7 +231,25 @@ public interface IDomNode {
 	 */
 	default void executeConfirm(INullaryVoidFunction confirmHandler, IDisplayString message) {
 
-		new DomModalConfirmPopup(confirmHandler, message).show();
+		executeConfirm(confirmHandler, null, message);
+	}
+
+	/**
+	 * Displays a custom modal confirm dialog, for the given handlers and
+	 * message.
+	 *
+	 * @param confirmHandler
+	 *            the handler to be processed in case the user clicks "OK"
+	 *            (never <i>null</i>)
+	 * @param cancelHandler
+	 *            the handler to be processed in case the user clicks "Cancel"
+	 *            (may be <i>null</i>)
+	 * @param message
+	 *            the message to display (never <i>null</i>)
+	 */
+	default void executeConfirm(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
+
+		new DomModalConfirmPopup(confirmHandler, cancelHandler, message).open();
 	}
 
 	/**
@@ -249,6 +265,6 @@ public interface IDomNode {
 	 */
 	default void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
-		new DomModalPromptPopup(promptHandler, message, defaultValue).show();
+		new DomModalPromptPopup(promptHandler, message, defaultValue).open();
 	}
 }

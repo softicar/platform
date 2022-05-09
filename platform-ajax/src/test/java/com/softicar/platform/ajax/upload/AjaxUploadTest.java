@@ -1,61 +1,80 @@
 package com.softicar.platform.ajax.upload;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.upload.AjaxUploadTestForm.UploadData;
 import com.softicar.platform.common.io.StreamUtils;
-import com.softicar.platform.dom.elements.DomAnchor;
-import com.softicar.platform.dom.elements.DomFileInput;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class AjaxUploadTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final byte[] DATA = { 21, 0, -20, 12 };
-	private final AjaxUploadTestForm testForm;
-	private final DomFileInput fileInput;
-	private final DomAnchor submitAnchor;
+	private File file;
 
 	public AjaxUploadTest() {
 
-		this.testForm = openTestNode(AjaxUploadTestForm::new);
-		this.fileInput = testForm.getFileInput();
-		this.submitAnchor = testForm.getSubmitAnchor();
+		this.file = null;
+	}
+
+	@Before
+	public void before() throws IOException {
+
+		file = File.createTempFile("test-", ".dat");
+	}
+
+	@After
+	public void after() {
+
+		file.delete();
 	}
 
 	@Test
-	public void test() throws IOException {
+	public void testBySubmitAnchor() {
 
-		File file = File.createTempFile("test-", ".dat");
-		try {
-			// prepare file content
-			writeDataToFile(file, DATA);
+		var form = openTestNode(() -> new AjaxUploadTestForm().setupOnClickTrigger());
+		writeDataToFile(file, DATA);
 
-			// upload file
-			send(fileInput, file.getAbsolutePath());
-			click(submitAnchor);
-			waitForServer();
+		send(form.getFileInput(), file.getAbsolutePath());
+		click(form.getSubmitAnchor());
+		waitForServer();
 
-			// assert upload finished
-			Collection<UploadData> uploads = testForm.getUploads();
-			assertEquals(1, uploads.size());
-
-			// assert correct upload data
-			UploadData upload = uploads.iterator().next();
-			assertEquals(file.getName(), upload.getFilename());
-			assertArrayEquals(DATA, upload.getContent());
-		} finally {
-			file.delete();
-		}
+		assertUpload(form);
 	}
 
-	private void writeDataToFile(File file, byte[] data) throws IOException {
+	@Test
+	public void testByChangeEvent() {
 
-		try (FileOutputStream outputStream = new FileOutputStream(file)) {
+		var form = openTestNode(() -> new AjaxUploadTestForm().setupOnChangeTrigger());
+		writeDataToFile(file, DATA);
+
+		send(form.getFileInput(), file.getAbsolutePath());
+		waitForServer();
+
+		assertUpload(form);
+	}
+
+	private void assertUpload(AjaxUploadTestForm form) {
+
+		// assert upload finished
+		var uploads = form.getUploads();
+		assertEquals(1, uploads.size());
+
+		// assert correct upload data
+		var upload = uploads.iterator().next();
+		assertEquals(file.getName(), upload.getFilename());
+		assertArrayEquals(DATA, upload.getContent());
+	}
+
+	private void writeDataToFile(File file, byte[] data) {
+
+		try (var outputStream = new FileOutputStream(file)) {
 			StreamUtils.copy(new ByteArrayInputStream(data), outputStream);
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 }

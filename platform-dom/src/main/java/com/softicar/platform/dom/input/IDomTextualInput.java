@@ -66,7 +66,7 @@ public interface IDomTextualInput extends IDomElement {
 	 */
 	default void insertAtCaret(String text) {
 
-		getDomEngine().insertAtCaret(this, text);
+		getDomEngine().insertTextAtCaret(this, text);
 	}
 
 	/**

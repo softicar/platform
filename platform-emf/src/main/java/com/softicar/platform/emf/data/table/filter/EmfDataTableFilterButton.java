@@ -16,11 +16,11 @@ public class EmfDataTableFilterButton<R> extends DomButton {
 		setLabel(column.getTitle());
 		setTitle(EmfDataTableI18n.CLICK_TO_FILTER_IN_THIS_COLUMN);
 		addMarker(EmfDataTableDivMarker.FILTER_POPUP_BUTTON);
-		setClickCallback(this::showFilterPopup);
+		setClickCallback(this::openFilterPopup);
 	}
 
-	private void showFilterPopup() {
+	private void openFilterPopup() {
 
-		column.getFilterPopup().show();
+		column.getFilterPopup().open();
 	}
 }

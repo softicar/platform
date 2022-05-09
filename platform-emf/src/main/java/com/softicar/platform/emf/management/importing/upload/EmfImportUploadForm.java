@@ -43,7 +43,7 @@ class EmfImportUploadForm extends DomForm implements IDomFileUploadHandler {
 			setStyle(CssDisplay.NONE);
 			setMultiple(false);
 
-			getDomEngine().submitFormOnChange(EmfImportUploadForm.this, this);
+			triggerUploadOnChange(fileInput);
 		}
 	}
 }

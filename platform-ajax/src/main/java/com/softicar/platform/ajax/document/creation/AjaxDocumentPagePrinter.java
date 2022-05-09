@@ -118,8 +118,6 @@ class AjaxDocumentPagePrinter {
 		println("<script>");
 		println("GLOBAL_init();");
 		updateCodeWriter.apply();
-		println("lock(LOCK_REASON_DOM_EVENT);");
-		println("AQ_executeNextAction();");
 		println("</script>");
 	}
 

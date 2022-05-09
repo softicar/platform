@@ -1,32 +1,3 @@
-
-// enumerations
-var AJAX_REQUEST_LOGIN           = 0;
-var AJAX_REQUEST_CREATE_DOCUMENT = 1;
-var AJAX_REQUEST_KEEP_ALIVE      = 2;
-var AJAX_REQUEST_TIMEOUT         = 5;
-var AJAX_REQUEST_DOM_EVENT       = 6;
-var AJAX_REQUEST_DRAG_AND_DROP   = 7;
-var AJAX_REQUEST_UPLOAD          = 8;
-var AJAX_REQUEST_RESOURCE        = 9;
-var AJAX_REQUEST_AUTO_COMPLETE   = 10;
-
-var DOM_VK_TAB    = 9;
-var DOM_VK_ENTER  = 13;
-var DOM_VK_ESCAPE = 27;
-var DOM_VK_SPACE  = 32;
-var DOM_VK_UP     = 38;
-var DOM_VK_DOWN   = 40;
-
-var LOCK_REASON_DOM_EVENT     = 0;
-var LOCK_REASON_TIMEOUT       = 1;
-var LOCK_REASON_KEEP_ALIVE    = 2;
-var LOCK_REASON_DRAG_AND_DROP = 3;
-var LOCK_REASON_UPLOAD        = 4;
-
-// constants
-var AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
-var TIMEOUT_RETRY_DELAY = 500;
-
 // class definition of DOMContext.
 function _DOMContext_()
 {
@@ -38,7 +9,6 @@ function _DOMContext_()
 	var m_locked = false;
 	var m_lockTime = null;
 	var m_zIndex = 100;
-	var m_lastScheduledTimeout = null;
 
 	this.getDocument = function()
 	{
@@ -166,155 +136,8 @@ function getNode(id)
 }
 
 // ******************************************************************************** //
-// * Functions for fading                                                         * //
-// ******************************************************************************** //
-
-function fadeIn(node)
-{
-	GLOBAL.fade(node, 1);
-}
-
-function fadeOut(node)
-{
-	GLOBAL.fade(node, 0);
-}
-
-// ******************************************************************************** //
-// * Input functions                                                              * //
-// ******************************************************************************** //
-
-// implementation taken from here: http://web.archive.org/web/20110102112946/http://www.scottklarr.com/topic/425/how-to-insert-text-into-a-textarea-where-the-cursor-is/
-_DOMContext_.prototype.insertAtCaret = function(inputNodeId, text) {
-	var inputNode = GLOBAL.context.getNode(inputNodeId);
-	var scrollPos = inputNode.scrollTop;
-	var strPos = 0;
-	var browser = (inputNode.selectionStart || inputNode.selectionStart == '0') ? "nonie" : (document.selection ? "ie" : false);
-
-	if (browser == "nonie") {
-		strPos = inputNode.selectionStart;
-	} else if (browser == "ie") {
-		inputNode.focus();
-		var range = document.selection.createRange();
-		range.moveStart('character', -inputNode.value.length);
-		strPos = range.text.length;
-	}
-
-	var front = inputNode.value.substring(0, strPos);
-	var back = inputNode.value.substring(strPos, inputNode.value.length);
-	inputNode.value = front + text + back;
-	strPos = strPos + text.length;
-
-	if (browser == "nonie") {
-		inputNode.selectionStart = strPos;
-		inputNode.selectionEnd = strPos;
-		inputNode.focus();
-	} else if (browser == "ie") {
-		inputNode.focus();
-		var range = document.selection.createRange();
-		range.moveStart('character', -inputNode.value.length);
-		range.moveStart('character', strPos);
-		range.moveEnd('character', 0);
-		range.select();
-	}
-
-	inputNode.scrollTop = scrollPos;
-};
-
-_DOMContext_.prototype.moveCaretToPosition = function(inputNodeId, position) {
-	var inputNode = GLOBAL.context.getNode(inputNodeId);
-	if (typeof inputNode.selectionStart == "number") {
-		inputNode.selectionStart = inputNode.selectionEnd = position;
-	}
-};
-
-
-// ******************************************************************************** //
-// * Special functions                                                            * //
-// ******************************************************************************** //
-
-var DISABLING_DIV = null;
-
-function enableInput(doEnable)
-{
-	if(doEnable && DISABLING_DIV != null)
-	{
-		document.removeChild(DISABLING_DIV);
-		DISABLING_DIV = null;
-	}
-	else if(!doEnable && DISABLING_DIV == null)
-	{
-		DISABLING_DIV = document.createElement("div");
-		DISABLING_DIV.style.position = "absolute";
-		DISABLING_DIV.style.left = "0px";
-		DISABLING_DIV.style.right = "0px";
-		DISABLING_DIV.style.top = "0px";
-		DISABLING_DIV.style.bottom = "0px";
-		DISABLING_DIV.style.backgroundImage = "url('images/utility/transparent-50.png')";
-		DISABLING_DIV.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
-		getBody().appendChild(DISABLING_DIV);
-	}
-}
-
-// ******************************************************************************** //
-// * Form submit                                                                  * //
-// ******************************************************************************** //
-
-// formNodeID: the node ID of the form to submit
-_DOMContext_.prototype.submitForm = function(formNodeID)
-{
-	if(lock(LOCK_REASON_UPLOAD))
-	{
-		var parameters = {};
-		parameters.a = AJAX_REQUEST_UPLOAD;
-		parameters.n = 'n' + formNodeID;
-		GLOBAL.copyNodeValues(parameters);
-
-		var form = GLOBAL.context.getNode(formNodeID);
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters, form));
-		AQ_executeNextAction();
-	}
-	else
-		alert(LOCK_MESSAGE);
-};
-
-// ******************************************************************************** //
 // * Events                                                                       * //
 // ******************************************************************************** //
-
-// schedule a timeout.
-_DOMContext_.prototype.scheduleTimeout = function(timeoutNodeID, milliseconds)
-{
-	m_lastScheduledTimeout = setTimeout("_DOM_CONTEXT_.handleTimeout(" + timeoutNodeID + ");", milliseconds);
-};
-
-// clear a previously scheduled timeout
-_DOMContext_.prototype.clearLastScheduledTimeout = function()
-{
-	if(!(typeof m_lastScheduledTimeout === 'undefined'))
-	{
-		clearTimeout(m_lastScheduledTimeout);
-	}
-};
-
-_DOMContext_.prototype.handleTimeout = function(timeoutNodeID)
-{
-	if(lock(LOCK_REASON_TIMEOUT))
-	{
-		var parameters =
-		{
-			'a': AJAX_REQUEST_TIMEOUT,
-			'n': 'n' + timeoutNodeID
-		};
-
-		GLOBAL.copyNodeValues(parameters);
-
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters));
-		AQ_executeNextAction();
-	}
-	else
-		// re-schedule timeout
-		_DOM_CONTEXT_.scheduleTimeout(timeoutNodeID, TIMEOUT_RETRY_DELAY);
-};
 
 _DOMContext_.prototype.listenToEvent = function(nodeID, event, doListen)
 {
@@ -472,7 +295,7 @@ function handleDomEvent(event) {
 }
 
 function sendEventToServer(event, eventType) {
-	if(lock(LOCK_REASON_DOM_EVENT)) {
+	if(AJAX_REQUEST_LOCK.lock()) {
 		var boundingRect = event.currentTarget.getBoundingClientRect();
 		var parameters = {
 			'a' : AJAX_REQUEST_DOM_EVENT,
@@ -496,8 +319,8 @@ function sendEventToServer(event, eventType) {
 
 		GLOBAL.copyNodeValues(parameters);
 
-		AQ_enqueueAction(new AQ_ServerRequestAction(parameters));
-		AQ_executeNextAction();
+		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+		ACTION_QUEUE.executeNextAction();
 	} else {
 		alert(LOCK_MESSAGE);
 	}
@@ -507,112 +330,6 @@ function addOptionalFlag(parameters, name, flag) {
 	if(flag) {
 		parameters[name] = 1;
 	}
-}
-
-// ******************************************************************************** //
-// * Session Timeout                                                              * //
-// ******************************************************************************** //
-
-var SESSION_TIMED_OUT = false;
-var SESSION_TIMEOUT_DIALOG;
-
-function setSessionTimeoutDialog(dialog)
-{
-	SESSION_TIMEOUT_DIALOG = dialog;
-}
-
-function handleSessionTimeout()
-{
-	SESSION_TIMED_OUT = true;
-
-	if(SESSION_TIMEOUT_DIALOG)
-	{
-		SESSION_TIMEOUT_DIALOG.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
-		SESSION_TIMEOUT_DIALOG.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
-	}
-}
-
-// ******************************************************************************** //
-// * Working Indicator                                                            * //
-// ******************************************************************************** //
-
-var WORKING_INDICATOR_ENABLED = true;
-var WORKING_INDICATOR;
-
-function setWorkingIndicator(indicator)
-{
-	WORKING_INDICATOR = indicator;
-}
-
-function showWorkingIndicator()
-{
-	if(WORKING_INDICATOR && WORKING_INDICATOR_ENABLED)
-	{
-		WORKING_INDICATOR.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
-		WORKING_INDICATOR.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
-	}
-}
-
-function hideWorkingIndicator()
-{
-	if(WORKING_INDICATOR)
-	{
-		WORKING_INDICATOR.classList.add(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
-	}
-}
-
-function setWorkingIndicatorEnabled(enabled)
-{
-	WORKING_INDICATOR_ENABLED = enabled;
-}
-
-// ******************************************************************************** //
-// * Global event lock                                                            * //
-// ******************************************************************************** //
-
-var GLOBAL_LOCK_COUNTER = 0;
-var LOCK_REASON = null;
-
-// This allocates the global lock. This function returns true
-// if the lock could be successfully allocated, false otherwise.
-function lock(lockReason)
-{
-	// NOTE: Assuming that incrementation is an atomic operation.
-	++GLOBAL_LOCK_COUNTER;
-
-	if(GLOBAL_LOCK_COUNTER == 1)
-	{
-		LOCK_REASON = lockReason;
-		showWorkingIndicator();
-		return true;
-	}
-	else
-	{
-		--GLOBAL_LOCK_COUNTER;
-		return false;
-	}
-}
-
-// This releases the global lock.
-function unlock()
-{
-	// NOTE: Lock counter may be greater than one if right
-	//       now some one else is trying to get the lock.
-	if(GLOBAL_LOCK_COUNTER > 0)
-	{
-		hideWorkingIndicator();
-		LOCK_REASON = null;
-		--GLOBAL_LOCK_COUNTER;
-		AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
-	}
-	else
-		alert("Internal program error. Global lock counter may never become less than zero.");
-}
-
-// This returns true if the global lock is allocated.
-function isLocked()
-{
-	return GLOBAL_LOCK_COUNTER > 0;
 }
 
 // ******************************************************************************** //

@@ -4,10 +4,9 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogBackdrop;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.configuration.DomPopupModalMode;
+import com.softicar.platform.dom.elements.popup.modal.DomModalPopupBackdrop;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.IDomTextualInput;
@@ -26,13 +25,19 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private final Map<DomPopup, DomPopupFrame> frameMap;
 	private final Map<DomPopup, IDomNode> spawningNodeMap;
-	private final Map<DomPopup, IDomNode> backdropNodeMap;
+	private final Map<DomPopup, DomModalPopupBackdrop> backdropMap;
+	private final DomPopupHierarchyGraph hierarchyGraph;
+	private final DomPopupFrameHighlighting highlighting;
+	private final DomModalPopupBackdropStack backdropStack;
 
 	public DomDefaultPopupCompositor() {
 
 		this.frameMap = new WeakHashMap<>();
 		this.spawningNodeMap = new WeakHashMap<>();
-		this.backdropNodeMap = new WeakHashMap<>();
+		this.backdropMap = new WeakHashMap<>();
+		this.backdropStack = new DomModalPopupBackdropStack();
+		this.hierarchyGraph = new DomPopupHierarchyGraph();
+		this.highlighting = new DomPopupFrameHighlighting();
 	}
 
 	@Override
@@ -48,16 +53,23 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			frameMap.put(popup, frame);
 			getDomDocument().getBody().appendChild(frame);
 
-			if (displayMode.isModal()) {
+			if (displayMode.getModalMode().isModal()) {
 				showBackdrop(popup);
+				backdropStack.refreshVisibility();
 			}
 
 			configuration.getCallbackBeforeOpen().apply();
 
+			getSpawningNode(popup).ifPresent(it -> {
+				new DomParentNodeFetcher<>(DomPopup.class).getClosestParent(it).ifPresent(parent -> {
+					hierarchyGraph.add(parent, popup);
+				});
+			});
+
 			var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
 			getDomEngine().showPopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
 
-			if (displayMode.isModal()) {
+			if (displayMode.getModalMode().isModal()) {
 				getDomEngine().trapTabFocus(frame);
 			}
 
@@ -69,7 +81,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void close(DomPopup popup) {
 
 		if (popup.isAppended()) {
-			hidePopup(popup);
+			closePopup(popup);
 		}
 	}
 
@@ -83,10 +95,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void closeInteractively(DomPopup popup) {
 
 		if (popup.isAppended()) {
-			if (popup.getConfiguration().isConfirmBeforeClose()) {
-				popup.executeConfirm(() -> hidePopup(popup), DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION);
+			var childPopups = hierarchyGraph.getAllChildPopups(popup);
+			if (!childPopups.isEmpty()) {
+				highlighting.add(popup, childPopups);
+				popup
+					.executeConfirm(//
+						() -> closePopup(popup),
+						() -> highlighting.remove(popup, childPopups),
+						DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION);
+			} else if (popup.getConfiguration().isConfirmBeforeClose()) {
+				popup.executeConfirm(() -> closePopup(popup), DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION);
 			} else {
-				hidePopup(popup);
+				closePopup(popup);
 			}
 		}
 	}
@@ -116,26 +136,32 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			.map(IDomEvent::getCurrentTarget);
 	}
 
+	private void showBackdrop(DomPopup popup) {
+
+		boolean backdropVisible = popup.getConfiguration().getDisplayMode().getModalMode().isBackdropVisible();
+		var backdrop = new DomModalPopupBackdrop(determineBackdropCallback(popup), backdropVisible);
+		backdropMap.put(popup, backdrop);
+		backdropStack.add(backdrop);
+
+		getDomEngine().setMaximumZIndex(backdrop);
+		getDomDocument().getBody().appendChild(backdrop);
+	}
+
 	private INullaryVoidFunction determineBackdropCallback(DomPopup popup) {
 
 		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
-		if (modalMode == DomPopupModalMode.MODAL_DISMISSABLE) {
+		if (modalMode.isDismissable()) {
 			return () -> close(popup);
 		} else {
 			return () -> focus(popup);
 		}
 	}
 
-	private void showBackdrop(DomPopup popup) {
+	private void closePopup(DomPopup popup) {
 
-		var backdrop = new DomModalDialogBackdrop(determineBackdropCallback(popup));
-		backdropNodeMap.put(popup, backdrop);
-
-		getDomEngine().setMaximumZIndex(backdrop);
-		getDomDocument().getBody().appendChild(backdrop);
-	}
-
-	private void hidePopup(DomPopup popup) {
+		var childPopups = hierarchyGraph.getAllChildPopups(popup);
+		childPopups.forEach(child -> closePopup(child));
+		highlighting.remove(popup, childPopups);
 
 		popup.getConfiguration().getCallbackBeforeClose().apply();
 
@@ -145,11 +171,14 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			getDomEngine().hidePopup(frame);
 		});
 
-		getBackdropNode(popup).ifPresent(backdrop -> {
+		getBackdrop(popup).ifPresent(backdrop -> {
 			backdrop.disappend();
 		});
 
 		getSpawningNode(popup).ifPresent(getDomEngine()::focus);
+
+		backdropStack.refreshVisibility();
+		hierarchyGraph.cleanup();
 	}
 
 	private Optional<DomPopupFrame> getFrame(DomPopup popup) {
@@ -164,10 +193,10 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		return Optional.ofNullable(spawningNodeMap.get(popup));
 	}
 
-	private Optional<IDomNode> getBackdropNode(DomPopup popup) {
+	private Optional<IDomNode> getBackdrop(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
-		return Optional.ofNullable(backdropNodeMap.get(popup));
+		return Optional.ofNullable(backdropMap.get(popup));
 	}
 
 	private IDomEngine getDomEngine() {

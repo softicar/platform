@@ -125,7 +125,7 @@ public class DomPopup extends DomDiv {
 	 * @deprecated use {@link #open()} instead
 	 */
 	@Deprecated
-	public void show() {
+	public final void show() {
 
 		open();
 	}
@@ -142,7 +142,7 @@ public class DomPopup extends DomDiv {
 	 * @deprecated use {@link #close()} instead
 	 */
 	@Deprecated
-	public void hide() {
+	public final void hide() {
 
 		close();
 	}

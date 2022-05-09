@@ -49,7 +49,7 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 	}
 
 	@Override
-	public void show() {
+	public void open() {
 
 		super.open();
 		getDomEngine().focus(inputElement);
