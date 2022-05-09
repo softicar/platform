@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.page.service;
 
 import com.softicar.platform.ajax.framework.AjaxFramework;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
 import com.softicar.platform.core.module.web.service.IWebService;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import javax.servlet.ServletContext;
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 @EmfSourceCodeReferencePointUuid("95cf1a1b-c12e-4594-9d20-783988fe32b9")
 public class PageService implements IWebService {
 
-	private static volatile IAjaxFramework ajaxFramework;
+	private static volatile AjaxFramework ajaxFramework;
 
 	@Override
 	public void initialize(ServletContext servletContext) {
 
-		ajaxFramework = new AjaxFramework(new PageServiceStrategy()).initialize(servletContext);
+		ajaxFramework = new AjaxFramework(new PageServiceStrategy());
 	}
 
 	@Override
