@@ -6,4 +6,6 @@ TABLE AGDemoModuleInstance 'Demo.DemoModuleInstance' {
 	
 	PK AGModuleInstance moduleInstance = BASE
 	String title = "" [MAXLENGTH=255]
+	
+	UK title
 }

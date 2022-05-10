@@ -19,5 +19,5 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	AGStoredFile document = NULL [NULLABLE]
 	AGStoredFileSet attachments = NULL [NULLABLE]
 	
-	UK moduleInstance creditor debtor type invoiceNumber invoiceDate
+	UK moduleInstance creditor debtor invoiceNumber invoiceDate
 }

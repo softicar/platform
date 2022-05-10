@@ -48,7 +48,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static final IDbBooleanField<AGDemoInvoice> LOCKED_ITEMS = BUILDER.addBooleanField("lockedItems", o->o.m_lockedItems, (o,v)->o.m_lockedItems=v).setTitle(DemoI18n.LOCKED_ITEMS).setDefault(false);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFile> DOCUMENT = BUILDER.addForeignField("document", o->o.m_document, (o,v)->o.m_document=v, AGStoredFile.ID).setTitle(DemoI18n.DOCUMENT).setNullable().setDefault(null);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFileSet> ATTACHMENTS = BUILDER.addForeignField("attachments", o->o.m_attachments, (o,v)->o.m_attachments=v, AGStoredFileSet.ID).setTitle(DemoI18n.ATTACHMENTS).setNullable().setDefault(null);
-	public static final IDbKey<AGDemoInvoice> UK_MODULE_INSTANCE_CREDITOR_DEBTOR_TYPE_INVOICE_NUMBER_INVOICE_DATE = BUILDER.addUniqueKey("moduleInstanceCreditorDebtorTypeInvoiceNumberInvoiceDate", MODULE_INSTANCE, CREDITOR, DEBTOR, TYPE, INVOICE_NUMBER, INVOICE_DATE);
+	public static final IDbKey<AGDemoInvoice> UK_MODULE_INSTANCE_CREDITOR_DEBTOR_INVOICE_NUMBER_INVOICE_DATE = BUILDER.addUniqueKey("moduleInstanceCreditorDebtorInvoiceNumberInvoiceDate", MODULE_INSTANCE, CREDITOR, DEBTOR, INVOICE_NUMBER, INVOICE_DATE);
 	public static final AGDemoInvoiceTable TABLE = new AGDemoInvoiceTable(BUILDER);
 	// @formatter:on
 
@@ -64,14 +64,13 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return TABLE.get(id);
 	}
 
-	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndTypeAndInvoiceNumberAndInvoiceDate(AGDemoModuleInstance moduleInstance, String creditor, String debtor, AGDemoInvoiceType type, String invoiceNumber, Day invoiceDate) {
+	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndInvoiceNumberAndInvoiceDate(AGDemoModuleInstance moduleInstance, String creditor, String debtor, String invoiceNumber, Day invoiceDate) {
 
 		return TABLE//
 				.createSelect()
 				.where(MODULE_INSTANCE.equal(moduleInstance))
 				.where(CREDITOR.equal(creditor))
 				.where(DEBTOR.equal(debtor))
-				.where(TYPE.equal(type))
 				.where(INVOICE_NUMBER.equal(invoiceNumber))
 				.where(INVOICE_DATE.equal(invoiceDate))
 				.getOne();

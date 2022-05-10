@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbBaseField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
 import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
 
@@ -26,6 +27,7 @@ public class AGDemoModuleInstanceGenerated extends AbstractDbSubObject<AGDemoMod
 
 	public static final IDbBaseField<AGDemoModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoModuleInstance> TITLE = BUILDER.addStringField("title", o->o.m_title, (o,v)->o.m_title=v).setTitle(DemoI18n.TITLE).setDefault("").setMaximumLength(255);
+	public static final IDbKey<AGDemoModuleInstance> UK_TITLE = BUILDER.addUniqueKey("title", TITLE);
 	public static final AGDemoModuleInstanceTable TABLE = new AGDemoModuleInstanceTable(BUILDER);
 	// @formatter:on
 
