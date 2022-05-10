@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.user;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.user.navigation.RecursivelyCollapseFoldersInput;
 import com.softicar.platform.core.module.user.password.UserResetPasswordAction;
 import com.softicar.platform.core.module.user.pseudonymization.UserPseudonymizationAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
@@ -45,6 +46,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 
 		attributes.editAttribute(AGUser.SYSTEM_USER).setImmutable(true);
 		attributes.addTransientAttribute(AGUser.LAST_LOGIN);
+		attributes.editAttribute(AGUser.RECURSIVELY_COLLAPSE_FOLDERS).setInputFactoryByEntity(RecursivelyCollapseFoldersInput::new);
 	}
 
 	@Override
