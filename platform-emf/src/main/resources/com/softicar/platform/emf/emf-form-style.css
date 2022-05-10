@@ -1,4 +1,8 @@
 
+.EmfAdjacentNodeForm > .DomBar {
+	align-items: flex-start;
+}
+
 .EmfForm {
 	display: grid;
 	flex-grow: 1;
