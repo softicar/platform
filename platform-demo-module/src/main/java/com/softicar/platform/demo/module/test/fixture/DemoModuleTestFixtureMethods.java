@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.module.test.fixture;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.AGDemoInvoiceModuleInstance;
+import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 
 public interface DemoModuleTestFixtureMethods extends WorkflowModuleTestFixtureMethods {
 
-	default AGDemoInvoiceModuleInstance insertDemoModuleInstance() {
+	default AGDemoModuleInstance insertDemoModuleInstance() {
 
-		return insertStandardModuleInstance(AGDemoInvoiceModuleInstance.TABLE);
+		return insertStandardModuleInstance(AGDemoModuleInstance.TABLE);
 	}
 
-	default AGDemoInvoice insertDemoInvoice(AGDemoInvoiceModuleInstance moduleInstance, AGDemoInvoiceTypeEnum type, String number, Day invoiceDate) {
+	default AGDemoInvoice insertDemoInvoice(AGDemoModuleInstance moduleInstance, AGDemoInvoiceTypeEnum type, String number, Day invoiceDate) {
 
 		return new AGDemoInvoice()//
 			.setModuleInstance(moduleInstance)

@@ -16,7 +16,7 @@ import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
-import com.softicar.platform.demo.module.AGDemoInvoiceModuleInstance;
+import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceType;
 
@@ -39,7 +39,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 
 	public static final IDbIdField<AGDemoInvoice> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
 	public static final IDbForeignField<AGDemoInvoice, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(DemoI18n.TRANSACTION);
-	public static final IDbForeignRowField<AGDemoInvoice, AGDemoInvoiceModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoInvoiceModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoInvoice, AGDemoModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbForeignField<AGDemoInvoice, AGDemoInvoiceType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGDemoInvoiceType.ID).setTitle(DemoI18n.TYPE);
 	public static final IDbStringField<AGDemoInvoice> CREDITOR = BUILDER.addStringField("creditor", o->o.m_creditor, (o,v)->o.m_creditor=v).setTitle(DemoI18n.CREDITOR).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGDemoInvoice> DEBTOR = BUILDER.addStringField("debtor", o->o.m_debtor, (o,v)->o.m_debtor=v).setTitle(DemoI18n.DEBTOR).setDefault("").setMaximumLength(255);
@@ -64,7 +64,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return TABLE.get(id);
 	}
 
-	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndInvoiceNumberAndInvoiceDate(AGDemoInvoiceModuleInstance moduleInstance, String creditor, String debtor, String invoiceNumber, Day invoiceDate) {
+	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndInvoiceNumberAndInvoiceDate(AGDemoModuleInstance moduleInstance, String creditor, String debtor, String invoiceNumber, Day invoiceDate) {
 
 		return TABLE//
 				.createSelect()
@@ -93,12 +93,12 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return setValue(TRANSACTION, value);
 	}
 
-	public final AGDemoInvoiceModuleInstance getModuleInstance() {
+	public final AGDemoModuleInstance getModuleInstance() {
 
 		return getValue(MODULE_INSTANCE);
 	}
 
-	public final AGDemoInvoice setModuleInstance(AGDemoInvoiceModuleInstance value) {
+	public final AGDemoInvoice setModuleInstance(AGDemoModuleInstance value) {
 
 		return setValue(MODULE_INSTANCE, value);
 	}
@@ -210,7 +210,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 
 	private Integer m_id;
 	private AGTransaction m_transaction;
-	private AGDemoInvoiceModuleInstance m_moduleInstance;
+	private AGDemoModuleInstance m_moduleInstance;
 	private AGDemoInvoiceType m_type;
 	private String m_creditor;
 	private String m_debtor;

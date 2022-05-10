@@ -13,7 +13,7 @@ import com.softicar.platform.db.runtime.field.IDbTimeField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
-import com.softicar.platform.demo.module.AGDemoInvoiceModuleInstance;
+import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
 
 /**
@@ -34,7 +34,7 @@ public class AGDemoMomentGenerated extends AbstractDbObject<AGDemoMoment> {
 	}
 
 	public static final IDbIdField<AGDemoMoment> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
-	public static final IDbForeignRowField<AGDemoMoment, AGDemoInvoiceModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoInvoiceModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoMoment, AGDemoModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbDayField<AGDemoMoment> DAY = BUILDER.addDayField("day", o->o.m_day, (o,v)->o.m_day=v).setTitle(DemoI18n.DAY);
 	public static final IDbTimeField<AGDemoMoment> TIME = BUILDER.addTimeField("time", o->o.m_time, (o,v)->o.m_time=v).setTitle(DemoI18n.TIME);
 	public static final IDbDayTimeField<AGDemoMoment> POINT_IN_TIME = BUILDER.addDayTimeField("pointInTime", o->o.m_pointInTime, (o,v)->o.m_pointInTime=v).setTitle(DemoI18n.POINT_IN_TIME);
@@ -55,12 +55,12 @@ public class AGDemoMomentGenerated extends AbstractDbObject<AGDemoMoment> {
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
 
-	public final AGDemoInvoiceModuleInstance getModuleInstance() {
+	public final AGDemoModuleInstance getModuleInstance() {
 
 		return getValue(MODULE_INSTANCE);
 	}
 
-	public final AGDemoMoment setModuleInstance(AGDemoInvoiceModuleInstance value) {
+	public final AGDemoMoment setModuleInstance(AGDemoModuleInstance value) {
 
 		return setValue(MODULE_INSTANCE, value);
 	}
@@ -106,7 +106,7 @@ public class AGDemoMomentGenerated extends AbstractDbObject<AGDemoMoment> {
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private Integer m_id;
-	private AGDemoInvoiceModuleInstance m_moduleInstance;
+	private AGDemoModuleInstance m_moduleInstance;
 	private Day m_day;
 	private Time m_time;
 	private DayTime m_pointInTime;
