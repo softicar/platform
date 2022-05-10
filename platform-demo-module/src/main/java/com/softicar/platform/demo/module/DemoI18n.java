@@ -13,6 +13,14 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Debitor");
 	I18n0 DEMO = new I18n0("Demo")//
 		.de("Demo");
+	I18n0 DEMO_BUSINESS_UNIT_MODULE = new I18n0("Demo Business Module")//
+		.de("Demo-Geschäftseinheits-Modul");
+	I18n0 DEMO_BUSINESS_UNIT_MODULE_INSTANCE = new I18n0("Demo Business Module Instance")//
+		.de("Demo-Geschäftseinheits-Modulinstanz");
+	I18n0 DEMO_BUSINESS_UNIT_MODULES = new I18n0("Demo Business Modules")//
+		.de("Demo-Geschäftseinheits-Module");
+	I18n0 DEMO_BUSINESS_UNIT_MODULE_INSTANCES = new I18n0("Demo Business Module Instances")//
+		.de("Demo-Geschäftseinheits-Modulinstanzen");
 	I18n0 DEMO_INVOICE = new I18n0("Demo Invoice")//
 		.de("Demo-Rechnung");
 	I18n0 DEMO_INVOICE_ITEM = new I18n0("Demo Invoice Item")//
