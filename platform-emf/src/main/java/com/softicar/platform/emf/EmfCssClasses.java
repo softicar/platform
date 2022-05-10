@@ -38,6 +38,7 @@ public interface EmfCssClasses {
 	ICssClass EMF_EXTERNAL_PAGE_FRAME = new CssClass("EmfExternalPageFrame", EmfCssFiles.EMF_EXTERNAL_PAGE_STYLE);
 	ICssClass EMF_EXTERNAL_PAGE_FRAME_CONTAINER = new CssClass("EmfExternalPageFrameContainer", EmfCssFiles.EMF_EXTERNAL_PAGE_STYLE);
 
+	ICssClass EMF_ADJACENT_NODE_FORM = new CssClass("EmfAdjacentNodeForm", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM = new CssClass("EmfForm", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_COMMON_ACTIONS_DIV = new CssClass("EmfFormCommonActionsDiv", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_DELEGATOR = new CssClass("EmfFormDelegator", EmfCssFiles.EMF_FORM_STYLE);
