@@ -8,22 +8,22 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("2a477df7-2004-4f59-b6c6-1c8cfb07baa8")
-public class DemoModule extends AbstractStandardModule<AGDemoModuleInstance> {
+public class DemoInvoiceModule extends AbstractStandardModule<AGDemoInvoiceModuleInstance> {
 
 	@Override
-	public IStandardModuleInstanceTable<AGDemoModuleInstance> getModuleInstanceTable() {
+	public IStandardModuleInstanceTable<AGDemoInvoiceModuleInstance> getModuleInstanceTable() {
 
-		return AGDemoModuleInstance.TABLE;
+		return AGDemoInvoiceModuleInstance.TABLE;
 	}
 
 	@Override
 	public IDisplayString toDisplay() {
 
-		return DemoI18n.DEMO;
+		return DemoI18n.DEMO_INVOICE_MODULE;
 	}
 
 	@Override
-	public EmfPagePath getDefaultPagePath(AGDemoModuleInstance moduleInstance) {
+	public EmfPagePath getDefaultPagePath(AGDemoInvoiceModuleInstance moduleInstance) {
 
 		return CoreModule.getParentPagePath().append(toDisplay());
 	}

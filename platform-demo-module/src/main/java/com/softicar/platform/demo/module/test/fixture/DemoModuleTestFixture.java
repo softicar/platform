@@ -2,13 +2,13 @@ package com.softicar.platform.demo.module.test.fixture;
 
 import com.softicar.platform.core.module.test.instance.registry.IStandardModuleTestFixture;
 import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.emf.table.IEmfTable;
 
-public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, IStandardModuleTestFixture<AGDemoModuleInstance> {
+public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, IStandardModuleTestFixture<AGDemoInvoiceModuleInstance> {
 
 	private final TestFixtureRegistry registry;
-	private AGDemoModuleInstance moduleInstance;
+	private AGDemoInvoiceModuleInstance moduleInstance;
 
 	public DemoModuleTestFixture(TestFixtureRegistry registry) {
 
@@ -16,7 +16,7 @@ public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, ISta
 	}
 
 	@Override
-	public AGDemoModuleInstance getInstance() {
+	public AGDemoInvoiceModuleInstance getInstance() {
 
 		return moduleInstance;
 	}
@@ -24,11 +24,11 @@ public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, ISta
 	@Override
 	public IEmfTable<?, ?, ?> getTable() {
 
-		return AGDemoModuleInstance.TABLE;
+		return AGDemoInvoiceModuleInstance.TABLE;
 	}
 
 	@Override
-	public IStandardModuleTestFixture<AGDemoModuleInstance> apply() {
+	public IStandardModuleTestFixture<AGDemoInvoiceModuleInstance> apply() {
 
 		this.moduleInstance = insertDemoModuleInstance();
 		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);

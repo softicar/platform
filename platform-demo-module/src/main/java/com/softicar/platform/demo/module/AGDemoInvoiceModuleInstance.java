@@ -3,7 +3,7 @@ package com.softicar.platform.demo.module;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 
-public class AGDemoModuleInstance extends AGDemoModuleInstanceGenerated implements IStandardModuleInstance<AGDemoModuleInstance> {
+public class AGDemoInvoiceModuleInstance extends AGDemoInvoiceModuleInstanceGenerated implements IStandardModuleInstance<AGDemoInvoiceModuleInstance> {
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {

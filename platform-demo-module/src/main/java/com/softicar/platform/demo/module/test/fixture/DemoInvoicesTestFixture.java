@@ -1,16 +1,16 @@
 package com.softicar.platform.demo.module.test.fixture;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
 import java.math.BigDecimal;
 
 public class DemoInvoicesTestFixture implements DemoModuleTestFixtureMethods {
 
-	private final AGDemoModuleInstance moduleInstance;
+	private final AGDemoInvoiceModuleInstance moduleInstance;
 
-	public DemoInvoicesTestFixture(AGDemoModuleInstance moduleInstance) {
+	public DemoInvoicesTestFixture(AGDemoInvoiceModuleInstance moduleInstance) {
 
 		this.moduleInstance = moduleInstance;
 	}

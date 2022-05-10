@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 public abstract class AbstractDemoModuleTest extends AbstractCoreTest implements DemoModuleTestFixtureMethods, IEmfTestEngineMethods {
 
-	protected final AGDemoModuleInstance moduleInstance;
+	protected final AGDemoInvoiceModuleInstance moduleInstance;
 
 	public AbstractDemoModuleTest() {
 
