@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.maintenance
+
+IMPORT com.softicar.platform.core.module.maintenance.status.AGMaintenanceStatus
+
+TABLE AGMaintenance "Core.Maintenance" {
+	PK Integer id = SERIAL
+	DayTime expectedStart
+	DayTime expectedEnd
+	AGMaintenanceStatus status
+	String comment = NULL [NULLABLE]
+}

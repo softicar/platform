@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance;
+package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;

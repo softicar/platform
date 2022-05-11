@@ -8,6 +8,8 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 FINISH_MAINTENANCE = new I18n0("Finish Maintenance")//
+		.de("Wartung beenden");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -86,6 +88,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gepufferte E-Mails");
 	I18n0 BY = new I18n0("By")//
 		.de("Durch");
+	I18n0 CANCELED = new I18n0("Canceled")//
+		.de("Abgebrochen");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
@@ -124,6 +128,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
 		.de("Spaltenüberschriften-Hash");
+	I18n0 COMMENT = new I18n0("Comment")//
+		.de("Kommentar");
 	I18n0 COMPROMISED = new I18n0("Compromised")//
 		.de("kompromittiert");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
@@ -250,6 +256,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Speicherungstage für Ausführungen");
 	I18n0 EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0 = new I18n0("Execution retention days must be at least 0.")//
 		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
+	I18n0 EXPECTED_END = new I18n0("Expected End")//
+		.de("Erwartetes Ende");
+	I18n0 EXPECTED_START = new I18n0("Expected Start")//
+		.de("Erwarteter Beginn");
 	I18n0 EXTERNAL_COMPONENTS = new I18n0("External Components")//
 		.de("Externe Komponenten");
 	I18n0 FAILED = new I18n0("Failed")//
@@ -266,6 +276,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Dateiname");
 	I18n0 FILE_SET = new I18n0("File Set")//
 		.de("Datei-Satz");
+	I18n0 FINISHED = new I18n0("Finished")//
+		.de("Beendet");
 	I18n0 FINISHED_AT = new I18n0("Finished At")//
 		.de("Abgeschlossen am");
 	I18n0 FIRST_NAME = new I18n0("First Name")//
@@ -307,6 +319,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer verkörpern");
 	I18n0 IMPERSONATED_USER = new I18n0("Impersonated User")//
 		.de("Verkörperter Benutzer");
+	I18n0 IN_PROGRESS = new I18n0("In Progress")//
+		.de("In Bearbeitung");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
@@ -395,8 +409,22 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maschinen-IP");
 	I18n0 MAINTENANCE = new I18n0("Maintenance")//
 		.de("Wartung");
+	I18n0 MAINTENANCE_ACTIVE = new I18n0("Maintenance Active")//
+		.de("Wartung aktiv");
 	I18n0 MAINTENANCE_ADMINISTRATOR = new I18n0("Maintenance Administrator")//
 		.de("Wartungs-Administrator");
+	I18n2 MAINTENANCE_FROM_ARG1_TO_ARG2 = new I18n2("Maintenance from %s to %s")//
+		.de("Wartung von %s bis %s");
+	I18n0 MAINTENANCE_LOG = new I18n0("Maintenance Log")//
+		.de("Wartungs-Log");
+	I18n0 MAINTENANCE_LOGS = new I18n0("Maintenance Logs")//
+		.de("Wartungs-Logs");
+	I18n0 MAINTENANCE_STATUS = new I18n0("Maintenance Status")//
+		.de("Wartungs-Status");
+	I18n0 MAINTENANCE_STATUSES = new I18n0("Maintenance Statuses")//
+		.de("Wartungs-Status");
+	I18n0 MAINTENANCES = new I18n0("Maintenances")//
+		.de("Wartungen");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//
@@ -463,6 +491,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Navigation");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
+	I18n0 NEXT_IN_LINE = new I18n0("Next in Line")//
+		.de("Nächstfolgende");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
@@ -499,6 +529,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort-Richtlinien-Log");
 	I18n0 PASSWORD_POLICY_LOGS = new I18n0("Password Policy Logs")//
 		.de("Passwort-Richtlinien-Logs");
+	I18n0 PENDING = new I18n0("Pending")//
+		.de("Ausstehend");
 	I18n0 PLEASE_DEFINE_A_NEW_PASSWORD_BELOW = new I18n0("Please define a new password below.")//
 		.de("Bitte unten ein neues Password definieren.");
 	I18n1 PLEASE_DOUBLE_CHECK_ALL_INPUTS_BEFORE_CLICKING_ARG1 = new I18n1("Please double check all inputs before clicking '%s'.")//
@@ -684,6 +716,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Quell-Benutzer");
 	I18n0 STACK_TRACE = new I18n0("Stack Trace")//
 		.de("Stacktrace");
+	I18n0 START_MAINTENANCE = new I18n0("Start Maintenance")//
+		.de("Wartung starten");
 	I18n0 START_PAGE = new I18n0("Start Page")//
 		.de("Startseite");
 	I18n0 START_TIME = new I18n0("Start Time")//
@@ -692,6 +726,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Watchdog starten");
 	I18n0 STARTED_AT = new I18n0("Started At")//
 		.de("Gestartet am");
+	I18n0 STATUS = new I18n0("Status")//
+		.de("Status");
 	I18n0 STOP_WATCHDOG = new I18n0("Stop Watchdog")//
 		.de("Watchdog stoppen");
 	I18n0 STOPPED_AT = new I18n0("Stopped At")//

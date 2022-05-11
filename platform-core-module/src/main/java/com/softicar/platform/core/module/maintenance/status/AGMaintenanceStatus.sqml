@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.maintenance.status
+
+ENUM TABLE AGMaintenanceStatus 'Core.MaintenanceStatus' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+	
+	ROW (1, 'Pending')
+	ROW (2, 'In Progress')
+	ROW (3, 'Finished')
+	ROW (4, 'Canceled')
+}
