@@ -5,6 +5,8 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 
 public interface DemoI18n extends WorkflowI18n {
 
+	I18n0 BUSINESS_PARTNER = new I18n0("Business Partner")//
+		.de("Geschäftspartner");
 	I18n0 CREATE_TRAIT = new I18n0("Create Trait")//
 		.de("Merkmal erstellen");
 	I18n0 CREDITOR = new I18n0("Creditor")//
@@ -15,6 +17,10 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo");
 	I18n0 DEMO_BUSINESS_PARTNER = new I18n0("Demo Business Partner")//
 		.de("Demo-Geschäftspartner");
+	I18n0 DEMO_BUSINESS_PARTNER_CONTACT = new I18n0("Demo Business Partner Contact")//
+		.de("Demo-Geschäftspartner-Kontakt");
+	I18n0 DEMO_BUSINESS_PARTNER_CONTACTS = new I18n0("Demo Business Partner Contacts")//
+		.de("Demo-Geschäftspartner-Kontakte");
 	I18n0 DEMO_BUSINESS_PARTNERS = new I18n0("Demo Business Partners")//
 		.de("Demo-Geschäftspartner");
 	I18n0 DEMO_BUSINESS_UNIT_MODULE = new I18n0("Demo Business Module")//
@@ -53,6 +59,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Dokument");
 	I18n0 EDIT_TRAIT = new I18n0("Edit Trait")//
 		.de("Merkmal bearbeiten");
+	I18n0 EMPLOYEE_ID = new I18n0("Employee ID")//
+		.de("Mitarbeiterkennung");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
 	I18n0 INBOUND = new I18n0("Inbound")//
