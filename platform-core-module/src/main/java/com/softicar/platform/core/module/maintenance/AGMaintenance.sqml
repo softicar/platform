@@ -7,5 +7,5 @@ TABLE AGMaintenance "Core.Maintenance" {
 	DayTime expectedStart
 	DayTime expectedEnd
 	AGMaintenanceStatus status
-	String comment = NULL [NULLABLE]
+	String comment = NULL [MAXLENGTH=255 NULLABLE]
 }

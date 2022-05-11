@@ -65,7 +65,7 @@
   },
   {
     "tableName": "`Core`.`MaintenanceLog`",
-    "createStatement": "CREATE TABLE `Core`.`MaintenanceLog` (`maintenance` INT NOT NULL,`transaction` BIGINT NOT NULL,`expectedStart` DATETIME DEFAULT NULL,`expectedEnd` DATETIME DEFAULT NULL,`status` INT DEFAULT NULL,`comment` VARCHAR(0) DEFAULT NULL,PRIMARY KEY (`maintenance`, `transaction`),FOREIGN KEY (`maintenance`) REFERENCES `Core`.`Maintenance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`MaintenanceLog` (`maintenance` INT NOT NULL,`transaction` BIGINT NOT NULL,`expectedStart` DATETIME DEFAULT NULL,`expectedEnd` DATETIME DEFAULT NULL,`status` INT DEFAULT NULL,`comment` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`maintenance`, `transaction`),FOREIGN KEY (`maintenance`) REFERENCES `Core`.`Maintenance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`MaintenanceStatus`",
@@ -73,7 +73,7 @@
   },
   {
     "tableName": "`Core`.`Maintenance`",
-    "createStatement": "CREATE TABLE `Core`.`Maintenance` (`id` INT NOT NULL AUTO_INCREMENT,`expectedStart` DATETIME NOT NULL,`expectedEnd` DATETIME NOT NULL,`status` INT NOT NULL,`comment` VARCHAR(0) DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`Maintenance` (`id` INT NOT NULL AUTO_INCREMENT,`expectedStart` DATETIME NOT NULL,`expectedEnd` DATETIME NOT NULL,`status` INT NOT NULL,`comment` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ModuleInstanceLog`",

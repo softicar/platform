@@ -37,7 +37,7 @@ public class AGMaintenanceLog extends AbstractDbRecord<AGMaintenanceLog, Tuple2<
 	public static final IDbDayTimeField<AGMaintenanceLog> EXPECTED_START = BUILDER.addDayTimeField("expectedStart", o->o.m_expectedStart, (o,v)->o.m_expectedStart=v).setTitle(CoreI18n.EXPECTED_START).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGMaintenanceLog> EXPECTED_END = BUILDER.addDayTimeField("expectedEnd", o->o.m_expectedEnd, (o,v)->o.m_expectedEnd=v).setTitle(CoreI18n.EXPECTED_END).setNullable().setDefault(null);
 	public static final IDbForeignField<AGMaintenanceLog, AGMaintenanceStatus> STATUS = BUILDER.addForeignField("status", o->o.m_status, (o,v)->o.m_status=v, AGMaintenanceStatus.ID).setTitle(CoreI18n.STATUS).setNullable().setDefault(null);
-	public static final IDbStringField<AGMaintenanceLog> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null);
+	public static final IDbStringField<AGMaintenanceLog> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbTableKey<AGMaintenanceLog, Tuple2<AGMaintenance, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(MAINTENANCE, TRANSACTION));
 	public static final DbRecordTable<AGMaintenanceLog, Tuple2<AGMaintenance, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on

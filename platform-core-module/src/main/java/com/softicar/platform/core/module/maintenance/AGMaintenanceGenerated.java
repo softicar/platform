@@ -33,7 +33,7 @@ public class AGMaintenanceGenerated extends AbstractDbObject<AGMaintenance> {
 	public static final IDbDayTimeField<AGMaintenance> EXPECTED_START = BUILDER.addDayTimeField("expectedStart", o->o.m_expectedStart, (o,v)->o.m_expectedStart=v).setTitle(CoreI18n.EXPECTED_START);
 	public static final IDbDayTimeField<AGMaintenance> EXPECTED_END = BUILDER.addDayTimeField("expectedEnd", o->o.m_expectedEnd, (o,v)->o.m_expectedEnd=v).setTitle(CoreI18n.EXPECTED_END);
 	public static final IDbForeignField<AGMaintenance, AGMaintenanceStatus> STATUS = BUILDER.addForeignField("status", o->o.m_status, (o,v)->o.m_status=v, AGMaintenanceStatus.ID).setTitle(CoreI18n.STATUS);
-	public static final IDbStringField<AGMaintenance> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null);
+	public static final IDbStringField<AGMaintenance> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null).setMaximumLength(255);
 	public static final AGMaintenanceTable TABLE = new AGMaintenanceTable(BUILDER);
 	// @formatter:on
 
