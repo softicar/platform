@@ -393,6 +393,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Untere Grenze");
 	I18n0 MACHINE_IP = new I18n0("Machine IP")//
 		.de("Maschinen-IP");
+	I18n0 MAINTENANCE = new I18n0("Maintenance")//
+		.de("Wartung");
+	I18n0 MAINTENANCE_ADMINISTRATOR = new I18n0("Maintenance Administrator")//
+		.de("Wartungs-Administrator");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//
@@ -664,6 +668,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sitzungs-ID");
 	I18n0 SESSION_INFORMATION = new I18n0("Session Information")//
 		.de("Sitzungs-Informationen");
+	I18n0 SESSION_OVERVIEW = new I18n0("Session Overview")//
+		.de("Sitzungs-Übersicht");
 	I18n0 SHA_1 = new I18n0("SHA-1")//
 		.de("SHA-1");
 	I18n0 SHOW_OUTPUT = new I18n0("Show Output")//
