@@ -8,4 +8,5 @@ public interface CoreRoles {
 
 	final EmfSystemModuleRole ACCESS_MANAGER = new EmfSystemModuleRole("c0b0e2ea-7475-4e39-addf-f977f5eb8986", CoreI18n.ACCESS_MANAGER);
 
+	final EmfSystemModuleRole MAINTENANCE_ADMINISTRATOR = new EmfSystemModuleRole("e1bb654c-4a85-4c2f-b0a2-1116b2fca657", CoreI18n.MAINTENANCE_ADMINISTRATOR);
 }

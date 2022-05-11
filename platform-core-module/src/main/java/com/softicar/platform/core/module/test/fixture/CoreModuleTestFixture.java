@@ -52,6 +52,7 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 
 		insertRoleMembership(adminUser, CoreRoles.ACCESS_MANAGER, CoreModule.class);
 		insertRoleMembership(adminUser, CoreRoles.SUPER_USER, CoreModule.class);
+		insertRoleMembership(adminUser, CoreRoles.MAINTENANCE_ADMINISTRATOR, CoreModule.class);
 
 		new ProgramStandardConfiguration().createAndSaveAll();
 	}
