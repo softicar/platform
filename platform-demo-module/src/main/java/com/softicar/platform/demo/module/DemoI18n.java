@@ -7,6 +7,8 @@ public interface DemoI18n extends WorkflowI18n {
 
 	I18n0 BUSINESS_PARTNER = new I18n0("Business Partner")//
 		.de("Geschäftspartner");
+	I18n0 CONTACTS = new I18n0("Contacts")//
+		.de("Kontakte");
 	I18n0 CREATE_TRAIT = new I18n0("Create Trait")//
 		.de("Merkmal erstellen");
 	I18n0 CREDITOR = new I18n0("Creditor")//
