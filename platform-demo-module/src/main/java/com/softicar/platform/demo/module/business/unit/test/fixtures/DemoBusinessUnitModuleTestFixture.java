@@ -33,7 +33,7 @@ public class DemoBusinessUnitModuleTestFixture
 
 		this.moduleInstance = insertDemoBusinessUnitModuleInstance();
 		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
-//		new DemoInvoicesTestFixture(moduleInstance).apply();
+		new DemoBusinessPartnerTestFixtures(moduleInstance).apply();
 		return this;
 	}
 }
