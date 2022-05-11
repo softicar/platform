@@ -692,7 +692,7 @@ class ValueNodeMap {
             }
         }
         else {
-            alert("Unknown select type " + type + ".");
+            throw new Error(`Internal error: Unknown select type '${type}' on node ${select.id}.`);
         }
         this.getState(select).assumeValue(this.getState(select).getCurrentValue());
     }
@@ -702,7 +702,7 @@ class ValueNodeMap {
             return state;
         }
         else {
-            throw new Error("Internal error: Unexpected value node.");
+            throw new Error(`Internal error: Missing value state for node ${node.id}.`);
         }
     }
 }
@@ -926,7 +926,7 @@ class KeyboardEventHandler {
             this.node.onkeyup = event => this.handleKeyUp(event);
         }
         else {
-            console.log('warning: skipped installation of keyboard event listeners');
+            console.log('Warning: Skipped installation of keyboard event listeners.');
         }
         return this;
     }

@@ -61,7 +61,7 @@ class KeyboardEventHandler {
 			this.node.onkeydown = event => this.handleKeyDown(event);
 			this.node.onkeyup = event => this.handleKeyUp(event);
 		} else {
-			console.log('warning: skipped installation of keyboard event listeners');
+			console.log('Warning: Skipped installation of keyboard event listeners.');
 		}
 		return this;
 	}

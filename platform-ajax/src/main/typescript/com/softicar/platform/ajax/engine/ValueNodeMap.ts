@@ -33,7 +33,7 @@ class ValueNodeMap {
 		node.value = value;
 		this.getState(node).assumeValue(value);
 
-		// FIXME this ad-hoc call looks like a hack
+		// FIXME this ad-hoc call looks like a hack (PLAT-853)
 		AUTO_COMPLETE_ENGINE.setCommittedValue(node, value);
 	}
 
@@ -46,7 +46,7 @@ class ValueNodeMap {
 				option.selected = options.includes(option);
 			}
 		} else {
-			alert("Unknown select type " + type + ".");
+			throw new Error(`Internal error: Unknown select type '${type}' on node ${select.id}.`);
 		}
 
 		this.getState(select).assumeValue(this.getState(select).getCurrentValue());
@@ -57,7 +57,7 @@ class ValueNodeMap {
 		if(state) {
 			return state;
 		} else {
-			throw new Error("Internal error: Unexpected value node.");
+			throw new Error(`Internal error: Missing value state for node ${node.id}.`);
 		}
 	}
 }

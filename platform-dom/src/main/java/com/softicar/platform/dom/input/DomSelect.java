@@ -63,7 +63,7 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	}
 
 	/**
-	 * Returns a list of all selected option objects.
+	 * Returns all selected option objects.
 	 *
 	 * @return collection of selected options
 	 */

@@ -1,4 +1,3 @@
-// class definition of DOMContext.
 class AjaxEngine {
 	private readonly nodes = new Map<number, Node>();
 	private zIndex = 100;
@@ -22,22 +21,30 @@ class AjaxEngine {
 		return this.nodes.get(nodeId) as HTMLElement;
 	}
 
-	// initializes the head object of this document
+	/**
+	 * Initializes the head object of this document.
+	 */
 	public initializeHead(nodeId: number) {
 		this.initializeNode(nodeId, document.head);
 	}
 
-	// initializes the body object of this document
+	/**
+	 * Initializes the body object of this document.
+	 */
 	public initializeBody(nodeId: number) {
 		this.initializeNode(nodeId, document.body);
 	}
 
-	// executes the given Javascript code
+	/**
+	 * Executes the given Javascript code.
+	 */
 	public executeScriptCode(scriptCode: string) {
 		eval(scriptCode);
 	}
 
-	// creates a new HTML element
+	/**
+	 * Creates a new HTML element with the given HTML tag.
+	 */
 	public createElement(nodeId: number, tag: string) {
 		let node = document.createElement(tag);
 		this.initializeNode(nodeId, node);
@@ -51,28 +58,38 @@ class AjaxEngine {
 		}
 	}
 
-	// creates a new text node
+	/**
+	 * Creates a new text element with the given text.
+	 */
 	public createTextNode(nodeId: number, text: string) {
 		let node = document.createTextNode(text);
 		this.nodes.set(nodeId, node);
 	}
 
-	// appends the specified child to the parent
+	/**
+	 * Appends the given child node to the parent element.
+	 */
 	public appendChild(parentId: number, childId: number) {
 		this.getElement(parentId).appendChild(this.getNode(childId));
 	}
 
-	// appends the specified child to the parent
+	/**
+	 * Inserts the given child node to the parent element before the other child.
+	 */
 	public insertBefore(parentId: number, childId: number, otherChildId: number) {
 		this.getElement(parentId).insertBefore(this.getNode(childId), this.getNode(otherChildId));
 	}
 
-	// removes the specified child from the parent
+	/**
+	 * Removes the given child node from the parent element.
+	 */
 	public removeChild(parentId: number, childId: number) {
 		this.getElement(parentId).removeChild(this.getNode(childId));
 	}
 
-	// replaces the old child of the parent with the new child
+	/**
+	 * Inserts the given child node with the new child node.
+	 */
 	public replaceChild(parentId: number, newChildId: number, oldChildId: number) {
 		this.getElement(parentId).replaceChild(this.getNode(newChildId), this.getNode(oldChildId));
 	}
