@@ -26,7 +26,7 @@ class AjaxRequestLock {
 			this.locked = false;
 			hideWorkingIndicator();
 			
-			// FIXME this ad-hoc call looks like a hack
+			// FIXME this ad-hoc call looks like a hack (PLAT-853)
 			AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
 		} else {
 			alert("Internal error: AJAX request lock already released.");
@@ -41,4 +41,4 @@ class AjaxRequestLock {
 	}
 }
 
-let AJAX_REQUEST_LOCK = new AjaxRequestLock();
+const AJAX_REQUEST_LOCK = new AjaxRequestLock();

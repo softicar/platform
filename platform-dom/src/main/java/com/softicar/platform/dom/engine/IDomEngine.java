@@ -11,6 +11,7 @@ import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
+import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
@@ -208,7 +209,7 @@ public interface IDomEngine {
 
 	void approveNodeValues();
 
-	void setSelectedOptions(DomSelect<?> select, Collection<Integer> selectedOptionIDs);
+	<O extends DomOption> void setSelectedOptions(DomSelect<O> select, Collection<O> selectedOptions);
 
 	/**
 	 * Generates an {@link IResourceUrl} to access the specified
