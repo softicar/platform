@@ -8,8 +8,6 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
-	I18n0 FINISH_MAINTENANCE = new I18n0("Finish Maintenance")//
-		.de("Wartung beenden");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -276,6 +274,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Dateiname");
 	I18n0 FILE_SET = new I18n0("File Set")//
 		.de("Datei-Satz");
+	I18n0 FINISH_MAINTENANCE = new I18n0("Finish Maintenance")//
+		.de("Wartung beenden");
 	I18n0 FINISHED = new I18n0("Finished")//
 		.de("Beendet");
 	I18n0 FINISHED_AT = new I18n0("Finished At")//

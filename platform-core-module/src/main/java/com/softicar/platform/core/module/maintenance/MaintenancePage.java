@@ -1,9 +1,8 @@
-package com.softicar.platform.core.module.maintenance.status;
+package com.softicar.platform.core.module.maintenance;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CoreRoles;
-import com.softicar.platform.core.module.maintenance.AGMaintenance;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.role.IEmfModuleRole;
