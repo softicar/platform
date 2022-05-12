@@ -64,16 +64,16 @@
     "createStatement": "CREATE TABLE `Core`.`LogProcess` (`id` INT NOT NULL AUTO_INCREMENT,`serverIp` VARCHAR(255) NOT NULL DEFAULT '',`className` VARCHAR(255) NOT NULL,`startTime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,`worstLevel` INT DEFAULT NULL,PRIMARY KEY (`id`),KEY `startTime` (`startTime`),KEY `className` (`className`),KEY `worstLevel` (`worstLevel`),FOREIGN KEY (`worstLevel`) REFERENCES `Core`.`LogLevel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
-    "tableName": "`Core`.`MaintenanceLog`",
-    "createStatement": "CREATE TABLE `Core`.`MaintenanceLog` (`maintenance` INT NOT NULL,`transaction` BIGINT NOT NULL,`expectedStart` DATETIME DEFAULT NULL,`expectedEnd` DATETIME DEFAULT NULL,`status` INT DEFAULT NULL,`comment` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`maintenance`, `transaction`),FOREIGN KEY (`maintenance`) REFERENCES `Core`.`Maintenance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "tableName": "`Core`.`MaintenanceState`",
+    "createStatement": "CREATE TABLE `Core`.`MaintenanceState` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
   },
   {
-    "tableName": "`Core`.`MaintenanceStatus`",
-    "createStatement": "CREATE TABLE `Core`.`MaintenanceStatus` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+    "tableName": "`Core`.`MaintenanceWindowLog`",
+    "createStatement": "CREATE TABLE `Core`.`MaintenanceWindowLog` (`maintenanceWindow` INT NOT NULL,`transaction` BIGINT NOT NULL,`expectedStart` DATETIME DEFAULT NULL,`expectedEnd` DATETIME DEFAULT NULL,`state` INT DEFAULT NULL,`comment` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`maintenanceWindow`, `transaction`),FOREIGN KEY (`maintenanceWindow`) REFERENCES `Core`.`MaintenanceWindow` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`state`) REFERENCES `Core`.`MaintenanceState` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
-    "tableName": "`Core`.`Maintenance`",
-    "createStatement": "CREATE TABLE `Core`.`Maintenance` (`id` INT NOT NULL AUTO_INCREMENT,`expectedStart` DATETIME NOT NULL,`expectedEnd` DATETIME NOT NULL,`status` INT NOT NULL,`comment` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`status`) REFERENCES `Core`.`MaintenanceStatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "tableName": "`Core`.`MaintenanceWindow`",
+    "createStatement": "CREATE TABLE `Core`.`MaintenanceWindow` (`id` INT NOT NULL AUTO_INCREMENT,`expectedStart` DATETIME NOT NULL,`expectedEnd` DATETIME NOT NULL,`state` INT NOT NULL,`comment` TINYTEXT DEFAULT '',PRIMARY KEY (`id`),FOREIGN KEY (`state`) REFERENCES `Core`.`MaintenanceState` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ModuleInstanceLog`",
