@@ -1,15 +1,18 @@
 package com.softicar.platform.demo.module.business.unit.test.fixtures;
 
+import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
+import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.business.unit.AGDemoBusinessUnitModuleInstance;
 import com.softicar.platform.demo.module.business.unit.partner.AGDemoBusinessPartner;
 import com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact;
-import com.softicar.platform.workflow.module.test.fixture.WorkflowModuleTestFixtureMethods;
 
-public interface DemoBusinessUnitModuleTestFixtureMethods extends WorkflowModuleTestFixtureMethods {
+public interface DemoBusinessUnitModuleTestFixtureMethods extends CoreModuleTestFixtureMethods {
 
-	default AGDemoBusinessUnitModuleInstance insertDemoBusinessUnitModuleInstance() {
+	default AGDemoBusinessUnitModuleInstance insertDemoBusinessUnitModuleInstance(AGDemoModuleInstance demoModuleInstance) {
 
-		return insertStandardModuleInstance(AGDemoBusinessUnitModuleInstance.TABLE);
+		return createStandardModuleInstance(AGDemoBusinessUnitModuleInstance.TABLE)//
+			.setDemoModuleInstance(demoModuleInstance)
+			.save();
 	}
 
 	default AGDemoBusinessPartner insertDemoBusinessPartner(AGDemoBusinessUnitModuleInstance moduleInstance, String name, String vatId) {

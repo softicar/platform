@@ -4,6 +4,7 @@ IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.core.module.file.stored.set.AGStoredFileSet
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.demo.module.AGDemoModuleInstance
+IMPORT com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact
 IMPORT com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceType
 
 TABLE AGDemoInvoice 'Demo.DemoInvoice' {
@@ -18,6 +19,7 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	Boolean lockedItems = FALSE
 	AGStoredFile document = NULL [NULLABLE]
 	AGStoredFileSet attachments = NULL [NULLABLE]
+	AGDemoBusinessPartnerContact contact = NULL [NULLABLE]
 	
 	UK moduleInstance creditor debtor invoiceNumber invoiceDate
 }

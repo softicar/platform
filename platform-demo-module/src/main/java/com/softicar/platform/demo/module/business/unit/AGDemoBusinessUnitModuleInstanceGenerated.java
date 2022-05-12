@@ -3,10 +3,12 @@ package com.softicar.platform.demo.module.business.unit;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbBaseField;
+import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
 import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
+import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
 
 /**
@@ -27,7 +29,9 @@ public class AGDemoBusinessUnitModuleInstanceGenerated extends AbstractDbSubObje
 	}
 
 	public static final IDbBaseField<AGDemoBusinessUnitModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoBusinessUnitModuleInstance, AGDemoModuleInstance, AGModuleInstance> DEMO_MODULE_INSTANCE = BUILDER.addForeignRowField("demoModuleInstance", o->o.m_demoModuleInstance, (o,v)->o.m_demoModuleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.DEMO_MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoBusinessUnitModuleInstance> TITLE = BUILDER.addStringField("title", o->o.m_title, (o,v)->o.m_title=v).setTitle(DemoI18n.TITLE).setDefault("").setMaximumLength(255);
+	public static final IDbKey<AGDemoBusinessUnitModuleInstance> UK_DEMO_MODULE_INSTANCE = BUILDER.addUniqueKey("demoModuleInstance", DEMO_MODULE_INSTANCE);
 	public static final IDbKey<AGDemoBusinessUnitModuleInstance> UK_TITLE = BUILDER.addUniqueKey("title", TITLE);
 	public static final AGDemoBusinessUnitModuleInstanceTable TABLE = new AGDemoBusinessUnitModuleInstanceTable(BUILDER);
 	// @formatter:on
@@ -37,6 +41,16 @@ public class AGDemoBusinessUnitModuleInstanceGenerated extends AbstractDbSubObje
 	public final AGModuleInstance getModuleInstance() {
 
 		return pk();
+	}
+
+	public final AGDemoModuleInstance getDemoModuleInstance() {
+
+		return getValue(DEMO_MODULE_INSTANCE);
+	}
+
+	public final AGDemoBusinessUnitModuleInstance setDemoModuleInstance(AGDemoModuleInstance value) {
+
+		return setValue(DEMO_MODULE_INSTANCE, value);
 	}
 
 	public final String getTitle() {
@@ -60,6 +74,7 @@ public class AGDemoBusinessUnitModuleInstanceGenerated extends AbstractDbSubObje
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private AGModuleInstance m_moduleInstance;
+	private AGDemoModuleInstance m_demoModuleInstance;
 	private String m_title;
 }
 

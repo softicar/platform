@@ -11,6 +11,7 @@ import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import java.math.BigDecimal;
 
@@ -37,6 +38,7 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 	public static final IDbIntegerField<AGDemoInvoiceItem> QUANTITY = BUILDER.addIntegerField("quantity", o->o.m_quantity, (o,v)->o.m_quantity=v).setTitle(DemoI18n.QUANTITY);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> GROSS_AMOUNT = BUILDER.addBigDecimalField("grossAmount", o->o.m_grossAmount, (o,v)->o.m_grossAmount=v).setTitle(DemoI18n.GROSS_AMOUNT).setSize(20, 4);
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> NET_AMOUNT = BUILDER.addBigDecimalField("netAmount", o->o.m_netAmount, (o,v)->o.m_netAmount=v).setTitle(DemoI18n.NET_AMOUNT).setSize(20, 4);
+	public static final IDbForeignField<AGDemoInvoiceItem, AGDemoBusinessPartnerContact> CLERK = BUILDER.addForeignField("clerk", o->o.m_clerk, (o,v)->o.m_clerk=v, AGDemoBusinessPartnerContact.ID).setTitle(DemoI18n.CLERK).setNullable().setDefault(null);
 	public static final IDbKey<AGDemoInvoiceItem> UK_INVOICE_ITEM = BUILDER.addUniqueKey("invoiceItem", INVOICE, ITEM);
 	public static final AGDemoInvoiceItemTable TABLE = new AGDemoInvoiceItemTable(BUILDER);
 	// @formatter:on
@@ -119,6 +121,21 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 		return setValue(NET_AMOUNT, value);
 	}
 
+	public final Integer getClerkID() {
+
+		return getValueId(CLERK);
+	}
+
+	public final AGDemoBusinessPartnerContact getClerk() {
+
+		return getValue(CLERK);
+	}
+
+	public final AGDemoInvoiceItem setClerk(AGDemoBusinessPartnerContact value) {
+
+		return setValue(CLERK, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -135,5 +152,6 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 	private Integer m_quantity;
 	private BigDecimal m_grossAmount;
 	private BigDecimal m_netAmount;
+	private AGDemoBusinessPartnerContact m_clerk;
 }
 

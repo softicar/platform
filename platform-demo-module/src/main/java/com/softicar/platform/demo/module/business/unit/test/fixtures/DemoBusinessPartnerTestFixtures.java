@@ -20,7 +20,7 @@ public class DemoBusinessPartnerTestFixtures implements DemoBusinessUnitModuleTe
 		insertDemoBusinessPartnerContact(partner1, 3, "Ceasar", "C");
 
 		AGDemoBusinessPartner partner2 = insertDemoBusinessPartner(moduleInstance, "Company B", "456");
-		insertDemoBusinessPartnerContact(partner2, 4, "Dolly", "D");
+		insertDemoBusinessPartnerContact(partner2, 4, "Dixie", "D");
 		insertDemoBusinessPartnerContact(partner2, 5, "Edward", "E");
 	}
 }

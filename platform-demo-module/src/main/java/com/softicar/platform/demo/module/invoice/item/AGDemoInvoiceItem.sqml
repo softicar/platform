@@ -1,5 +1,6 @@
 PACKAGE com.softicar.platform.demo.module.invoice.item
 
+IMPORT com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact
 IMPORT com.softicar.platform.demo.module.invoice.AGDemoInvoice
 
 TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
@@ -9,6 +10,7 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	Integer quantity
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
+	AGDemoBusinessPartnerContact clerk = NULL [NULLABLE] 
 	
 	UK invoice item
 }
