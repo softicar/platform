@@ -60,7 +60,7 @@ public class StartMaintenanceAction implements IEmfManagementAction<AGMaintenanc
 		// TODO Display Maintenance Info to Users
 		try (DbTransaction transaction = new DbTransaction()) {
 			if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-				throw new SofticarUserException(CoreI18n.A_MAINTENANCE_IS_ALREADY_IN_PROGRESS);
+				throw new SofticarUserException(CoreI18n.MAINTENANCE_IS_ALREADY_IN_PROGRESS);
 			}
 			maintenance//
 				.setState(AGMaintenanceStateEnum.IN_PROGRESS.getRecord())

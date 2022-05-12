@@ -8,8 +8,6 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
-	I18n0 A_MAINTENANCE_IS_ALREADY_IN_PROGRESS = new I18n0("A maintenance is already in progress.")//
-		.de("Eine Wartung is bereits im Gange.");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -411,8 +409,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maschinen-IP");
 	I18n0 MAINTENANCE = new I18n0("Maintenance")//
 		.de("Wartung");
-	I18n0 MAINTENANCE_ACTIVE = new I18n0("Maintenance Active")//
-		.de("Wartung aktiv");
+	I18n0 MAINTENANCE_IS_ALREADY_IN_PROGRESS = new I18n0("Maintenance is already in progress.")//
+		.de("Wartungsarbeiten sind bereits im Gange.");
 	I18n0 MAINTENANCE_STATE = new I18n0("Maintenance State")//
 		.de("Wartungs-Zustand");
 	I18n0 MAINTENANCE_STATES = new I18n0("Maintenance States")//
