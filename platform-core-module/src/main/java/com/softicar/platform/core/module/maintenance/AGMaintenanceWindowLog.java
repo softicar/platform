@@ -37,7 +37,7 @@ public class AGMaintenanceWindowLog extends AbstractDbRecord<AGMaintenanceWindow
 	public static final IDbDayTimeField<AGMaintenanceWindowLog> EXPECTED_START = BUILDER.addDayTimeField("expectedStart", o->o.m_expectedStart, (o,v)->o.m_expectedStart=v).setTitle(CoreI18n.EXPECTED_START).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGMaintenanceWindowLog> EXPECTED_END = BUILDER.addDayTimeField("expectedEnd", o->o.m_expectedEnd, (o,v)->o.m_expectedEnd=v).setTitle(CoreI18n.EXPECTED_END).setNullable().setDefault(null);
 	public static final IDbForeignField<AGMaintenanceWindowLog, AGMaintenanceState> STATE = BUILDER.addForeignField("state", o->o.m_state, (o,v)->o.m_state=v, AGMaintenanceState.ID).setTitle(CoreI18n.STATE).setNullable().setDefault(null);
-	public static final IDbStringField<AGMaintenanceWindowLog> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbStringField<AGMaintenanceWindowLog> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault(null).setLengthBits(8);
 	public static final IDbTableKey<AGMaintenanceWindowLog, Tuple2<AGMaintenanceWindow, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(MAINTENANCE_WINDOW, TRANSACTION));
 	public static final DbRecordTable<AGMaintenanceWindowLog, Tuple2<AGMaintenanceWindow, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on

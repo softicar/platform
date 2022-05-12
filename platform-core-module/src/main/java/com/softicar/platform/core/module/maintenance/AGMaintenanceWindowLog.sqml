@@ -9,5 +9,5 @@ TABLE AGMaintenanceWindowLog "Core.MaintenanceWindowLog" {
 	DayTime expectedStart = NULL [NULLABLE]
 	DayTime expectedEnd = NULL [NULLABLE]
 	AGMaintenanceState state = NULL [NULLABLE] 
-	String comment = NULL [MAXLENGTH=255 NULLABLE] 
+	String comment = NULL [LENGTHBITS=8 NULLABLE] 
 } 
