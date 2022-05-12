@@ -63,6 +63,16 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	}
 
 	/**
+	 * Returns all selected option objects.
+	 *
+	 * @return collection of selected options
+	 */
+	public final Collection<O> getSelectedOptions() {
+
+		return selectedOptions.values();
+	}
+
+	/**
 	 * Selects the specified option and un-selects all other options.
 	 *
 	 * @param option
@@ -75,6 +85,22 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 		}
 
 		setSelectedOptions(Collections.singletonList(option));
+	}
+
+	/**
+	 * Selects the specified options and un-selects all other options.
+	 *
+	 * @param selectedOptions
+	 *            a collection with all option to be selected
+	 */
+	public final void setSelectedOptions(Collection<O> selectedOptions) {
+
+		// reset selected options map
+		this.selectedOptions.clear();
+		for (O option: selectedOptions.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
+			this.selectedOptions.put(option.getNodeId(), option);
+		}
+		getDomEngine().setSelectedOptions(this, this.selectedOptions.values());
 	}
 
 	/**
@@ -110,31 +136,5 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	protected final O getOption(int index) {
 
 		return (O) getChild(index);
-	}
-
-	/**
-	 * Returns a list of all selected option objects.
-	 *
-	 * @return collection of selected options
-	 */
-	protected final Collection<O> getSelectedOptions() {
-
-		return selectedOptions.values();
-	}
-
-	/**
-	 * Selects the specified options and un-selects all other options.
-	 *
-	 * @param selectedOptions
-	 *            a collection with all option to be selected
-	 */
-	protected final void setSelectedOptions(Collection<O> selectedOptions) {
-
-		// reset selected options map
-		this.selectedOptions.clear();
-		for (O option: selectedOptions.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
-			this.selectedOptions.put(option.getNodeId(), option);
-		}
-		getDomEngine().setSelectedOptions(this, this.selectedOptions.keySet());
 	}
 }

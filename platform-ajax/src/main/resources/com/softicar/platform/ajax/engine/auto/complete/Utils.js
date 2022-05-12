@@ -44,7 +44,7 @@ function showAtAbsolutePosition(element, left, top, width) {
 	element.style.top = top + 'px';
 	element.style.width = width + 'px';
 	element.style.boxSizing = 'border-box';
-	getBody().appendChild(element);
+	document.body.appendChild(element);
 	_DOM_CONTEXT_.setMaximumZIndex(element);
 }
 

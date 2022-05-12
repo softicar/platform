@@ -24,7 +24,7 @@ public class JavascriptStripper {
 		"==", ">=", "<=", "<", ">",
 		"=", "+=", "-=", "*=", "/=", "%=", "&=", "|=", "~=", "!=", ">>=", "<<=",
 		"+", "-", "*", "/", "%", "&", "|", "~", "!", ">>", "<<", ".", ":", "?", "++", "--",
-		";", ",", "//", "/*", "*/", "'", "\""
+		";", ",", "//", "/*", "*/", "'", "\"", "`"
 	};
 	// @formatter:on
 
@@ -47,7 +47,7 @@ public class JavascriptStripper {
 				} else if (token.getText().equals("//")) {
 					skipLineComment();
 					token = previousToken;
-				} else if (token.getText().equals("'") || token.getText().equals("\"")) {
+				} else if (token.getText().equals("'") || token.getText().equals("`") || token.getText().equals("\"")) {
 					m_writer.write(token.getText());
 					copyStringLiteral(token);
 				} else {

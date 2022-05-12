@@ -11,13 +11,7 @@ public interface AjaxDomEngineJavascriptContainer {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(AjaxDomEngineJavascriptContainer.class, Charsets.UTF8);
 
-	IResourceSupplier DOM_CONTENT = FACTORY.create("DOMContext.js");
-	IResourceSupplier DOM_EVENT_ENGINE = FACTORY.create("DomEventEngine.js");
 	IResourceSupplier DOM_POPUP_ENGINE = FACTORY.create("DomPopupEngine.js");
-	IResourceSupplier EVENT_DELEGATION = FACTORY.create("EventDelegation.js");
 	IResourceSupplier FOCUS_TRAP = FACTORY.create("FocusTrap.js");
-	IResourceSupplier GLOBAL = FACTORY.create("Global.js");
-	IResourceSupplier PUSH_BROWSER_HISTORY_STATE = FACTORY.create("PushBrowserHistoryState.js");
 	IResourceSupplier TYPE_SCRIPT_GENERATED = FACTORY.create("TypeScriptGenerated.js");
-	IResourceSupplier VALUE_NODE_MAP = FACTORY.create("ValueNodeMap.js");
 }
