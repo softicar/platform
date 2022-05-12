@@ -11,7 +11,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.emf.table.IEmfTable;
 
 @EmfSourceCodeReferencePointUuid("3e68157b-990c-4148-a4e8-8c804104adb6")
-public class MaintenancePage extends AbstractEmfManagementPage<SystemModuleInstance> {
+public class MaintenanceWindowPage extends AbstractEmfManagementPage<SystemModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -22,7 +22,7 @@ public class MaintenancePage extends AbstractEmfManagementPage<SystemModuleInsta
 	@Override
 	protected IEmfTable<?, ?, SystemModuleInstance> getTable() {
 
-		return AGMaintenance.TABLE;
+		return AGMaintenanceWindow.TABLE;
 	}
 
 	@Override

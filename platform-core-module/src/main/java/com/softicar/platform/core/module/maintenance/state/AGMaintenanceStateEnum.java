@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance.status;
+package com.softicar.platform.core.module.maintenance.state;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.db.runtime.enums.DbEnumTable;
@@ -6,7 +6,7 @@ import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
 
 @Generated
-public enum AGMaintenanceStatusEnum implements IDbEnumTableRowEnum<AGMaintenanceStatusEnum, AGMaintenanceStatus> {
+public enum AGMaintenanceStateEnum implements IDbEnumTableRowEnum<AGMaintenanceStateEnum, AGMaintenanceState> {
 
 	PENDING(1, "Pending"),
 	IN_PROGRESS(2, "In Progress"),
@@ -18,16 +18,16 @@ public enum AGMaintenanceStatusEnum implements IDbEnumTableRowEnum<AGMaintenance
 	private Integer id;
 	private String name;
 
-	private AGMaintenanceStatusEnum(Integer id, String name) {
+	private AGMaintenanceStateEnum(Integer id, String name) {
 
 		this.id = id;
 		this.name = name;
 	}
 
 	@Override
-	public DbEnumTable<AGMaintenanceStatus, AGMaintenanceStatusEnum> getTable() {
+	public DbEnumTable<AGMaintenanceState, AGMaintenanceStateEnum> getTable() {
 
-		return AGMaintenanceStatus.TABLE;
+		return AGMaintenanceState.TABLE;
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public enum AGMaintenanceStatusEnum implements IDbEnumTableRowEnum<AGMaintenance
 	}
 
 	@Override
-	public void setFields(ISqlFieldValueConsumer<AGMaintenanceStatus> consumer) {
+	public void setFields(ISqlFieldValueConsumer<AGMaintenanceState> consumer) {
 
-		consumer.consumeFieldValue(AGMaintenanceStatus.ID, id);
-		consumer.consumeFieldValue(AGMaintenanceStatus.NAME, name);
+		consumer.consumeFieldValue(AGMaintenanceState.ID, id);
+		consumer.consumeFieldValue(AGMaintenanceState.NAME, name);
 	}
 }
 

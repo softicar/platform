@@ -1,11 +1,11 @@
-package com.softicar.platform.core.module.maintenance.status;
+package com.softicar.platform.core.module.maintenance.state;
 
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 
-public class AGMaintenanceStatus extends AGMaintenanceStatusGenerated implements IEntity {
+public class AGMaintenanceState extends AGMaintenanceStateGenerated implements IEntity {
 
 	@Override
 	public IDisplayString toDisplay() {
@@ -19,9 +19,9 @@ public class AGMaintenanceStatus extends AGMaintenanceStatusGenerated implements
 		return getDisplayString(getEnum());
 	}
 
-	private static IDisplayString getDisplayString(AGMaintenanceStatusEnum maintenanceStatusEnum) {
+	private static IDisplayString getDisplayString(AGMaintenanceStateEnum maintenanceStateEnum) {
 
-		switch (maintenanceStatusEnum) {
+		switch (maintenanceStateEnum) {
 		case PENDING:
 			return CoreI18n.PENDING;
 		case IN_PROGRESS:
@@ -32,6 +32,6 @@ public class AGMaintenanceStatus extends AGMaintenanceStatusGenerated implements
 			return CoreI18n.CANCELED;
 		}
 
-		throw new SofticarUnknownEnumConstantException(maintenanceStatusEnum);
+		throw new SofticarUnknownEnumConstantException(maintenanceStateEnum);
 	}
 }

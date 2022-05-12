@@ -29,7 +29,7 @@ public class SessionOverviewPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
 
-		return CoreRoles.MAINTENANCE_ADMINISTRATOR;
+		return CoreRoles.SYSTEM_ADMINISTRATOR;
 	}
 
 	@Override

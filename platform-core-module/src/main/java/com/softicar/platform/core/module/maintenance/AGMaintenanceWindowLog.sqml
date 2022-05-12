@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.maintenance
+
+IMPORT com.softicar.platform.core.module.maintenance.state.AGMaintenanceState
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGMaintenanceWindowLog "Core.MaintenanceWindowLog" {
+	PK AGMaintenanceWindow maintenanceWindow
+	PK AGTransaction transaction
+	DayTime expectedStart = NULL [NULLABLE]
+	DayTime expectedEnd = NULL [NULLABLE]
+	AGMaintenanceState state = NULL [NULLABLE] 
+	String comment = NULL [MAXLENGTH=255 NULLABLE] 
+} 

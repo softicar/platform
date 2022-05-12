@@ -8,6 +8,8 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 A_MAINTENANCE_IS_ALREADY_IN_PROGRESS = new I18n0("A maintenance is already in progress.")//
+		.de("Eine Wartung is bereits im Gange.");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -411,20 +413,20 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartung");
 	I18n0 MAINTENANCE_ACTIVE = new I18n0("Maintenance Active")//
 		.de("Wartung aktiv");
-	I18n0 MAINTENANCE_ADMINISTRATOR = new I18n0("Maintenance Administrator")//
-		.de("Wartungs-Administrator");
-	I18n2 MAINTENANCE_FROM_ARG1_TO_ARG2 = new I18n2("Maintenance from %s to %s")//
-		.de("Wartung von %s bis %s");
-	I18n0 MAINTENANCE_LOG = new I18n0("Maintenance Log")//
-		.de("Wartungs-Log");
-	I18n0 MAINTENANCE_LOGS = new I18n0("Maintenance Logs")//
-		.de("Wartungs-Logs");
-	I18n0 MAINTENANCE_STATUS = new I18n0("Maintenance Status")//
-		.de("Wartungs-Status");
-	I18n0 MAINTENANCE_STATUSES = new I18n0("Maintenance Statuses")//
-		.de("Wartungs-Status");
-	I18n0 MAINTENANCES = new I18n0("Maintenances")//
-		.de("Wartungen");
+	I18n0 MAINTENANCE_STATE = new I18n0("Maintenance State")//
+		.de("Wartungs-Zustand");
+	I18n0 MAINTENANCE_STATES = new I18n0("Maintenance States")//
+		.de("Wartungs-Zustände");
+	I18n0 MAINTENANCE_WINDOW = new I18n0("Maintenance Window")//
+		.de("Wartungsfenster");
+	I18n2 MAINTENANCE_WINDOW_FROM_ARG1_TO_ARG2 = new I18n2("Maintenance window from %s to %s")//
+		.de("Wartungsfenster von %s bis %s");
+	I18n0 MAINTENANCE_WINDOW_LOG = new I18n0("Maintenance Window Log")//
+		.de("Wartungsfenster-Log");
+	I18n0 MAINTENANCE_WINDOW_LOGS = new I18n0("Maintenance Window Logs")//
+		.de("Wartungsfenster-Logs");
+	I18n0 MAINTENANCE_WINDOWS = new I18n0("Maintenance Windows")//
+		.de("Wartungsfenster");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//
@@ -726,8 +728,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Watchdog starten");
 	I18n0 STARTED_AT = new I18n0("Started At")//
 		.de("Gestartet am");
-	I18n0 STATUS = new I18n0("Status")//
-		.de("Status");
+	I18n0 STATE = new I18n0("State")//
+		.de("Zustand");
 	I18n0 STOP_WATCHDOG = new I18n0("Stop Watchdog")//
 		.de("Watchdog stoppen");
 	I18n0 STOPPED_AT = new I18n0("Stopped At")//
@@ -782,6 +784,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Überschüssige Zeichen");
 	I18n0 SYSTEM = new I18n0("System")//
 		.de("System");
+	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
+		.de("System-Administrator");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT = new I18n0("System Module Role Assignment")//
 		.de("System-Modul-Rollen-Zuweisung");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT_LOG = new I18n0("System Module Role Assignment Log")//
