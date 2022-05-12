@@ -23,4 +23,10 @@ public abstract class AbstractAjaxRequestParameters implements IAjaxRequestParam
 
 		return getMap().get(key);
 	}
+
+	@Override
+	public String toString() {
+
+		return map.toString();
+	}
 }
