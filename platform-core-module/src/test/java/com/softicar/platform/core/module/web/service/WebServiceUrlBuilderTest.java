@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.network.url.Url;
-import com.softicar.platform.core.module.page.service.PageService;
 import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
@@ -9,7 +8,7 @@ import org.junit.Test;
 
 public class WebServiceUrlBuilderTest extends AbstractDbTest {
 
-	private final String NAVIGATION_SERVICE_UUID = EmfSourceCodeReferencePoints.getUuidOrThrow(PageService.class).toString();
+	private static final String NAVIGATION_SERVICE_UUID = EmfSourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class).toString();
 
 	@Test
 	public void test() {
