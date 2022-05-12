@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.document;
 
 import com.softicar.platform.ajax.engine.AjaxDomEngine;
 import com.softicar.platform.ajax.engine.JavascriptStatementList;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.common.core.singleton.SingletonSet;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.IDomDocument;
@@ -35,13 +35,13 @@ public interface IAjaxDocument extends IDomDocument {
 	AjaxDomEngine getEngine();
 
 	/**
-	 * Returns the {@link IAjaxFramework} instance that this
+	 * Returns the {@link AjaxFramework} instance that this
 	 * {@link IAjaxDocument} was created from.
 	 *
-	 * @return the {@link IAjaxFramework} of this {@link IAjaxDocument} (never
+	 * @return the {@link AjaxFramework} of this {@link IAjaxDocument} (never
 	 *         <i>null</i>)
 	 */
-	IAjaxFramework getAjaxFramework();
+	AjaxFramework getAjaxFramework();
 
 	/**
 	 * Returns the {@link HttpSession} that this {@link IAjaxDocument} instance
