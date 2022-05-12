@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance;
+package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
