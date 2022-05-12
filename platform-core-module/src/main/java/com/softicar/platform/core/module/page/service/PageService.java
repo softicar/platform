@@ -1,22 +1,25 @@
 package com.softicar.platform.core.module.page.service;
 
 import com.softicar.platform.ajax.framework.AjaxFramework;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
-import com.softicar.platform.core.module.web.service.IWebService;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import javax.servlet.ServletContext;
+import com.softicar.platform.common.servlet.service.IHttpService;
+import java.util.EventListener;
+import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@EmfSourceCodeReferencePointUuid("95cf1a1b-c12e-4594-9d20-783988fe32b9")
-public class PageService implements IWebService {
+public class PageService implements IHttpService {
 
-	private static volatile IAjaxFramework ajaxFramework;
+	private AjaxFramework ajaxFramework;
+
+	public PageService() {
+
+		this.ajaxFramework = new AjaxFramework(new PageServiceStrategy());
+	}
 
 	@Override
-	public void initialize(ServletContext servletContext) {
+	public void initialize(Consumer<EventListener> listeners) {
 
-		ajaxFramework = new AjaxFramework(new PageServiceStrategy()).initialize(servletContext);
+		ajaxFramework.initialize(listeners);
 	}
 
 	@Override

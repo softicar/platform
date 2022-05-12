@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AjaxServiceExceptionHandler {
 
-	private final IAjaxFramework framework;
+	private final AjaxFramework framework;
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 
-	public AjaxServiceExceptionHandler(IAjaxFramework framework, HttpServletRequest request, HttpServletResponse response) {
+	public AjaxServiceExceptionHandler(AjaxFramework framework, HttpServletRequest request, HttpServletResponse response) {
 
 		this.framework = framework;
 		this.request = request;

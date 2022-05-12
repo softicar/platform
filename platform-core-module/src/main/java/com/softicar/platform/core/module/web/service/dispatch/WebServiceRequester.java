@@ -4,9 +4,9 @@ import com.softicar.platform.ajax.simple.SimpleHttpSession;
 import com.softicar.platform.ajax.simple.SimpleServletRequest;
 import com.softicar.platform.ajax.simple.SimpleServletResponse;
 import com.softicar.platform.common.io.StreamUtils;
+import com.softicar.platform.common.servlet.service.IHttpService;
 import com.softicar.platform.common.string.unicode.Utf8Convering;
-import com.softicar.platform.core.module.web.service.IWebService;
-import com.softicar.platform.core.module.web.service.WebServiceServlet;
+import com.softicar.platform.core.module.web.service.WebServiceIdFetcher;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ public class WebServiceRequester {
 
 	private final SimpleServletRequest request;
 
-	public WebServiceRequester(Class<? extends IWebService> serviceClass) {
+	public WebServiceRequester(Class<? extends IHttpService> serviceClass) {
 
 		this(EmfSourceCodeReferencePoints.getUuidOrThrow(serviceClass));
 	}
@@ -29,7 +29,7 @@ public class WebServiceRequester {
 	public WebServiceRequester(UUID serviceUuid) {
 
 		this.request = new SimpleServletRequest();
-		this.request.setParameter(WebServiceServlet.getIdParameterName(), serviceUuid.toString());
+		this.request.setParameter(WebServiceIdFetcher.getIdParameterName(), serviceUuid.toString());
 		this.request.setRequestUrl(getServiceUrl(serviceUuid));
 		this.request.setSession(new SimpleHttpSession(""));
 	}

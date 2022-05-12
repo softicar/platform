@@ -1,11 +1,15 @@
 package com.softicar.platform.ajax.framework;
 
 import com.softicar.platform.ajax.customization.AjaxSettings;
+import com.softicar.platform.ajax.customization.IAjaxSettings;
 import com.softicar.platform.ajax.customization.IAjaxStrategy;
 import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
 import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.ajax.service.AjaxServiceDelegator;
+import java.util.EventListener;
+import java.util.function.Consumer;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Oliver Richers
  */
-public class AjaxFramework implements IAjaxFramework {
+public class AjaxFramework {
 
 	private final AjaxSettings settings;
 	private final IAjaxStrategy strategy;
@@ -38,27 +42,51 @@ public class AjaxFramework implements IAjaxFramework {
 		this.initialized = false;
 	}
 
-	@Override
+	/**
+	 * Returns the {@link IAjaxSettings} of this {@link AjaxFramework} instance.
+	 *
+	 * @return the {@link IAjaxSettings} (never <i>null</i>)
+	 */
 	public AjaxSettings getSettings() {
 
 		return settings;
 	}
 
-	@Override
+	/**
+	 * Returns the {@link IAjaxStrategy} employed by this {@link AjaxFramework}
+	 * instance.
+	 *
+	 * @return the {@link IAjaxStrategy} (never <i>null</i>)
+	 */
 	public IAjaxStrategy getAjaxStrategy() {
 
 		return strategy;
 	}
 
-	@Override
-	public IAjaxFramework initialize(ServletContext servletContext) {
+	/**
+	 * Initializes this {@link AjaxFramework}.
+	 * <p>
+	 * This method must be called once for this {@link AjaxFramework} instance
+	 * before any call to the {@link #service} method.
+	 *
+	 * @param contextListeners
+	 *            a {@link Consumer} to install {@link EventListener} instances
+	 *            into the {@link ServletContext} (never <i>null</i>)
+	 * @return this
+	 */
+	public AjaxFramework initialize(Consumer<EventListener> contextListeners) {
 
-		servletContext.addListener(AjaxSessionListener.class);
+		contextListeners.accept(new AjaxSessionListener());
 		initialized = true;
 		return this;
 	}
 
-	@Override
+	/**
+	 * Handles an {@link HttpServletRequest}.
+	 * <p>
+	 * This method should be called from the service method of an
+	 * {@link HttpServlet}.
+	 */
 	public void service(HttpServletRequest request, HttpServletResponse response) {
 
 		try {

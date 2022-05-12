@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.file.name.FilenameCleaner;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.servlet.service.IHttpService;
 import com.softicar.platform.core.module.ajax.login.SofticarAjaxLoginExecutor;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Base class for {@link IWebService} request handlers.
+ * Base class for {@link IHttpService} request handlers.
  * <p>
  * If you need to verify user permissions in your service, you should inherit
  * your service from this class. This class will ensure that the user has been

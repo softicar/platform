@@ -1,10 +1,10 @@
 package com.softicar.platform.ajax.testing.server;
 
-import com.softicar.platform.ajax.server.standalone.AbstractStandAloneServletServer;
-import com.softicar.platform.ajax.server.standalone.StandAloneServletServerConfiguration;
 import com.softicar.platform.ajax.testing.AjaxTestingServlet;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.threading.InterruptedRuntimeException;
+import com.softicar.platform.common.servlet.server.AbstractHttpServletServer;
+import com.softicar.platform.common.servlet.server.HttpServletServerConfiguration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -14,9 +14,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
  *
  * @author Alexander Schmidt
  */
-public class AjaxTestingServer extends AbstractStandAloneServletServer<AjaxTestingServer> implements AutoCloseable {
+public class AjaxTestingServer extends AbstractHttpServletServer<AjaxTestingServer> implements AutoCloseable {
 
-	public AjaxTestingServer(StandAloneServletServerConfiguration configuration) {
+	public AjaxTestingServer(HttpServletServerConfiguration configuration) {
 
 		super(configuration);
 	}
@@ -66,7 +66,7 @@ public class AjaxTestingServer extends AbstractStandAloneServletServer<AjaxTesti
 
 	public static void main(String[] args) {
 
-		var configuration = new StandAloneServletServerConfiguration().setPort(9000).setContextName("");
+		var configuration = new HttpServletServerConfiguration().setPort(9000).setContextName("");
 		try (AjaxTestingServer server = new AjaxTestingServer(configuration)) {
 			try (var handle = server.start()) {
 				Log.finfo("Server started: http://localhost:%s/", server.getLocalPort());

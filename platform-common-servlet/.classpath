@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin/main" path="src/main/java">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15/">
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="com/sun/**"/>
+			<accessrule kind="nonaccessible" pattern="java/awt/List"/>
+			<accessrule kind="nonaccessible" pattern="jdk/**"/>
+			<accessrule kind="nonaccessible" pattern="sun/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer">
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="**/Collection"/>
+			<accessrule kind="nonaccessible" pattern="**/Function"/>
+			<accessrule kind="nonaccessible" pattern="**/Predicate"/>
+			<accessrule kind="nonaccessible" pattern="**/Supplier"/>
+			<accessrule kind="nonaccessible" pattern="**/Objects"/>
+			<accessrule kind="nonaccessible" pattern="**/Optional"/>
+			<accessrule kind="nonaccessible" pattern="junit/**"/>
+			<accessrule kind="nonaccessible" pattern="org/apache/commons/logging/**"/>
+			<accessrule kind="nonaccessible" pattern="org/apache/poi/ss/formula/functions/T"/>
+			<accessrule kind="nonaccessible" pattern="org/apache/xmlbeans/impl/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="output" path="bin/default"/>
+</classpath>
