@@ -1,14 +1,11 @@
 package com.softicar.platform.core.module.maintenance.session;
 
-import com.softicar.platform.ajax.document.AjaxDocument;
-import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.Date;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession> {
@@ -36,7 +33,7 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 	@Override
 	protected Iterable<HttpSession> getTableRows() {
 
-		return AjaxSessionListener.getSessions(getServletContext());
+		return new SessionManager().getAllSessions();
 	}
 
 	private AGUser getUserFromSession(HttpSession session) {
@@ -50,15 +47,6 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 	private DayTime convertToDayTime(long time) {
 
 		return DayTime.fromDate(new Date(time));
-	}
-
-	private ServletContext getServletContext() {
-
-		return AjaxDocument//
-			.getCurrentDocument()
-			.get()
-			.getHttpSession()
-			.getServletContext();
 	}
 
 }
