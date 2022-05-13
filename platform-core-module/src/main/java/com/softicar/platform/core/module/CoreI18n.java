@@ -403,6 +403,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Login-Name");
 	I18n0 LOGOUT = new I18n0("Logout")//
 		.de("Ausloggen");
+	I18n0 LOGOUT_ALL = new I18n0("Logout All")//
+		.de("Alle ausloggen");
 	I18n0 LOWER_BOUNDARY = new I18n0("Lower Boundary")//
 		.de("Untere Grenze");
 	I18n0 MACHINE_IP = new I18n0("Machine IP")//
