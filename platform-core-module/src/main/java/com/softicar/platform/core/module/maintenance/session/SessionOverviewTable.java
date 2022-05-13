@@ -33,7 +33,7 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 	@Override
 	protected Iterable<HttpSession> getTableRows() {
 
-		return SessionManager.getAllSessions();
+		return new SessionManager().getAllSessions();
 	}
 
 	private AGUser getUserFromSession(HttpSession session) {

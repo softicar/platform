@@ -20,8 +20,9 @@ public class SessionOverviewPageDiv extends DomDiv {
 		appendChild(
 			new DomActionBar(
 				new DomButton()//
-					.setClickCallback(SessionManager::invalidateAllSessions)
+					.setClickCallback(new SessionManager()::invalidateAllSessions)
 					.setLabel(CoreI18n.LOGOUT_ALL)
+					.setIcon(CoreImages.LOGOUT.getResource())
 					.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION)));
 		this.table = new EmfDataTableDivBuilder<>(new SessionOverviewTable())//
 			.setActionColumnHandler(new ActionColumnHandler())

@@ -9,36 +9,43 @@ import javax.servlet.http.HttpSession;
 
 public class SessionManager {
 
-	public static Iterable<HttpSession> getAllSessions() {
+	private final ServletContext context;
 
-		return AjaxSessionListener.getSessions(getServletContext());
+	public SessionManager() {
+
+		this.context = getServletContext();
 	}
 
-	public static void invalidateAllSessions() {
+	public Iterable<HttpSession> getAllSessions() {
+
+		return AjaxSessionListener.getSessions(context);
+	}
+
+	public void invalidateAllSessions() {
 
 		getAllSessions().forEach(HttpSession::invalidate);
 	}
 
-	public static void invalidateAllNonAdministratorSessions() {
+	public void invalidateAllNonAdministratorSessions() {
 
-		getAllSessions().forEach(SessionManager::invalidateSessionIfNotAdministrator);
+		getAllSessions().forEach(this::invalidateSessionIfNotAdministrator);
 	}
 
-	private static void invalidateSessionIfNotAdministrator(HttpSession session) {
+	private void invalidateSessionIfNotAdministrator(HttpSession session) {
 
 		SofticarAjaxSession//
 			.getInstance(session)
-			.ifPresentOrElse(SessionManager::checkUserAndInvalidateIfNotAdministrator, () -> session.invalidate());
+			.ifPresentOrElse(this::checkUserAndInvalidateIfNotAdministrator, () -> session.invalidate());
 	}
 
-	private static void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession) {
+	private void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession) {
 
 		if (!ajaxSession.getUser().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
 			ajaxSession.getSession().invalidate();
 		}
 	}
 
-	private static ServletContext getServletContext() {
+	private ServletContext getServletContext() {
 
 		return AjaxDocument//
 			.getCurrentDocument()
