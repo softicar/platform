@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.business.unit;
+package com.softicar.platform.demo.module.person;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreModule;
@@ -8,23 +8,23 @@ import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("d8a2e5d7-0a4e-4548-ad9c-01d0d502b6bc")
-public class DemoBusinessUnitModule extends AbstractStandardModule<AGDemoBusinessUnitModuleInstance> {
+@EmfSourceCodeReferencePointUuid("907545c0-a852-4c8d-ba98-b483d38a71ec")
+public class DemoPersonModule extends AbstractStandardModule<AGDemoPersonModuleInstance> {
 
 	@Override
-	public IStandardModuleInstanceTable<AGDemoBusinessUnitModuleInstance> getModuleInstanceTable() {
+	public IStandardModuleInstanceTable<AGDemoPersonModuleInstance> getModuleInstanceTable() {
 
-		return AGDemoBusinessUnitModuleInstance.TABLE;
+		return AGDemoPersonModuleInstance.TABLE;
 	}
 
 	@Override
 	public IDisplayString toDisplay() {
 
-		return DemoI18n.DEMO_BUSINESS_UNIT_MODULE;
+		return DemoI18n.DEMO_PERSONS;
 	}
 
 	@Override
-	public EmfPagePath getDefaultPagePath(AGDemoBusinessUnitModuleInstance moduleInstance) {
+	public EmfPagePath getDefaultPagePath(AGDemoPersonModuleInstance moduleInstance) {
 
 		return CoreModule.getParentPagePath().append(toDisplay());
 	}

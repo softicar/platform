@@ -2,7 +2,7 @@ package com.softicar.platform.demo.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
-import com.softicar.platform.demo.module.business.unit.AGDemoBusinessUnitModuleInstance;
+import com.softicar.platform.demo.module.person.AGDemoPersonModuleInstance;
 
 public class AGDemoModuleInstance extends AGDemoModuleInstanceGenerated implements IStandardModuleInstance<AGDemoModuleInstance> {
 
@@ -17,11 +17,11 @@ public class AGDemoModuleInstance extends AGDemoModuleInstanceGenerated implemen
 		}
 	}
 
-	public AGDemoBusinessUnitModuleInstance getDemoBusinessUnitModuleInstance() {
+	public AGDemoPersonModuleInstance getDemoPersonModuleInstance() {
 
-		return AGDemoBusinessUnitModuleInstance.TABLE//
+		return AGDemoPersonModuleInstance.TABLE//
 			.createSelect()
-			.where(AGDemoBusinessUnitModuleInstance.DEMO_MODULE_INSTANCE.equal(getThis()))
+			.where(AGDemoPersonModuleInstance.DEMO_MODULE_INSTANCE.equal(getThis()))
 			.getOne();
 	}
 }

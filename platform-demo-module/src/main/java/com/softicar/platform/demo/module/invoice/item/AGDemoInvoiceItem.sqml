@@ -1,7 +1,7 @@
 PACKAGE com.softicar.platform.demo.module.invoice.item
 
-IMPORT com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact
 IMPORT com.softicar.platform.demo.module.invoice.AGDemoInvoice
+IMPORT com.softicar.platform.demo.module.person.AGDemoPerson
 
 TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	PK Integer id = SERIAL
@@ -10,7 +10,8 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	Integer quantity
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
-	AGDemoBusinessPartnerContact clerk = NULL [NULLABLE] 
+//	AGDemoBusinessPartnerContact clerk = NULL [NULLABLE]
+	AGDemoPerson clerk  = NULL [NULLABLE]
 	
 	UK invoice item
 }

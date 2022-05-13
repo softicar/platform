@@ -18,8 +18,8 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
-import com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceType;
+import com.softicar.platform.demo.module.person.AGDemoPerson;
 
 /**
  * This is the automatically generated class AGDemoInvoice for
@@ -49,7 +49,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	public static final IDbBooleanField<AGDemoInvoice> LOCKED_ITEMS = BUILDER.addBooleanField("lockedItems", o->o.m_lockedItems, (o,v)->o.m_lockedItems=v).setTitle(DemoI18n.LOCKED_ITEMS).setDefault(false);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFile> DOCUMENT = BUILDER.addForeignField("document", o->o.m_document, (o,v)->o.m_document=v, AGStoredFile.ID).setTitle(DemoI18n.DOCUMENT).setNullable().setDefault(null);
 	public static final IDbForeignField<AGDemoInvoice, AGStoredFileSet> ATTACHMENTS = BUILDER.addForeignField("attachments", o->o.m_attachments, (o,v)->o.m_attachments=v, AGStoredFileSet.ID).setTitle(DemoI18n.ATTACHMENTS).setNullable().setDefault(null);
-	public static final IDbForeignField<AGDemoInvoice, AGDemoBusinessPartnerContact> CONTACT = BUILDER.addForeignField("contact", o->o.m_contact, (o,v)->o.m_contact=v, AGDemoBusinessPartnerContact.ID).setTitle(DemoI18n.CONTACT).setNullable().setDefault(null);
+	public static final IDbForeignField<AGDemoInvoice, AGDemoPerson> CONTACT = BUILDER.addForeignField("contact", o->o.m_contact, (o,v)->o.m_contact=v, AGDemoPerson.ID).setTitle(DemoI18n.CONTACT).setNullable().setDefault(null);
 	public static final IDbKey<AGDemoInvoice> UK_MODULE_INSTANCE_CREDITOR_DEBTOR_INVOICE_NUMBER_INVOICE_DATE = BUILDER.addUniqueKey("moduleInstanceCreditorDebtorInvoiceNumberInvoiceDate", MODULE_INSTANCE, CREDITOR, DEBTOR, INVOICE_NUMBER, INVOICE_DATE);
 	public static final AGDemoInvoiceTable TABLE = new AGDemoInvoiceTable(BUILDER);
 	// @formatter:on
@@ -205,12 +205,12 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return getValueId(CONTACT);
 	}
 
-	public final AGDemoBusinessPartnerContact getContact() {
+	public final AGDemoPerson getContact() {
 
 		return getValue(CONTACT);
 	}
 
-	public final AGDemoInvoice setContact(AGDemoBusinessPartnerContact value) {
+	public final AGDemoInvoice setContact(AGDemoPerson value) {
 
 		return setValue(CONTACT, value);
 	}
@@ -236,6 +236,6 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	private Boolean m_lockedItems;
 	private AGStoredFile m_document;
 	private AGStoredFileSet m_attachments;
-	private AGDemoBusinessPartnerContact m_contact;
+	private AGDemoPerson m_contact;
 }
 

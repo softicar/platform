@@ -1,8 +1,8 @@
 package com.softicar.platform.demo.module.invoice;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.demo.module.business.unit.AGDemoBusinessUnitModuleInstance;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.demo.module.person.AGDemoPersonModuleInstance;
 import com.softicar.platform.emf.object.IEmfObject;
 
 public class AGDemoInvoice extends AGDemoInvoiceGenerated implements IEmfObject<AGDemoInvoice> {
@@ -25,9 +25,8 @@ public class AGDemoInvoice extends AGDemoInvoiceGenerated implements IEmfObject<
 		return getType() == AGDemoInvoiceTypeEnum.OUTBOUND.getRecord();
 	}
 
-	public AGDemoBusinessUnitModuleInstance getDemoBusinessUnitModuleInstance() {
+	public AGDemoPersonModuleInstance getDemoPersonModuleInstance() {
 
-		return getModuleInstance().getDemoBusinessUnitModuleInstance();
+		return getModuleInstance().getDemoPersonModuleInstance();
 	}
-
 }

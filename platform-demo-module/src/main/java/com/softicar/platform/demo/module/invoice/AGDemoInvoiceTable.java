@@ -2,8 +2,8 @@ package com.softicar.platform.demo.module.invoice;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.demo.module.AGDemoModuleInstance;
-import com.softicar.platform.demo.module.business.unit.partner.contact.AGDemoBusinessPartnerContact;
 import com.softicar.platform.demo.module.invoice.item.AGDemoInvoiceItem;
+import com.softicar.platform.demo.module.person.AGDemoPerson;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -46,6 +46,6 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoModu
 
 		attributes//
 			.editEntityAttribute(AGDemoInvoice.CONTACT)
-			.setScope(it -> it.getDemoBusinessUnitModuleInstance(), AGDemoBusinessPartnerContact::getModuleInstance);
+			.setScope(it -> it.getDemoPersonModuleInstance(), AGDemoPerson::getModuleInstance);
 	}
 }

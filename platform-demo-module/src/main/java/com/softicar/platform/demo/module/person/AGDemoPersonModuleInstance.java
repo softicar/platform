@@ -1,9 +1,9 @@
-package com.softicar.platform.demo.module.business.unit;
+package com.softicar.platform.demo.module.person;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 
-public class AGDemoBusinessUnitModuleInstance extends AGDemoBusinessUnitModuleInstanceGenerated implements IStandardModuleInstance<AGDemoBusinessUnitModuleInstance> {
+public class AGDemoPersonModuleInstance extends AGDemoPersonModuleInstanceGenerated implements IStandardModuleInstance<AGDemoPersonModuleInstance> {
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {

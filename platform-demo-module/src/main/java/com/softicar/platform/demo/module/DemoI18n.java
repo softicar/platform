@@ -5,6 +5,8 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 
 public interface DemoI18n extends WorkflowI18n {
 
+	I18n0 BIRTH_DATE = new I18n0("Birth Date")//
+		.de("Geburtsdatum");
 	I18n0 BUSINESS_PARTNER = new I18n0("Business Partner")//
 		.de("Geschäftspartner");
 	I18n0 CLERK = new I18n0("Clerk")//
@@ -41,10 +43,12 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Rechnung");
 	I18n0 DEMO_INVOICE_ITEM = new I18n0("Demo Invoice Item")//
 		.de("Demo-Rechnungsposition");
+
 	I18n0 DEMO_INVOICE_ITEMS = new I18n0("Demo Invoice Items")//
 		.de("Demo-Rechnungspositionen");
 	I18n0 DEMO_INVOICE_PAYMENT = new I18n0("Demo Invoice Payment")//
 		.de("Demo-Rechnungsbezahlung");
+
 	I18n0 DEMO_INVOICE_PAYMENTS = new I18n0("Demo Invoice Payments")//
 		.de("Demo-Rechnungsbezahlungen");
 	I18n0 DEMO_INVOICE_TYPE = new I18n0("Demo Invoice Type")//
@@ -61,6 +65,14 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Moment");
 	I18n0 DEMO_MOMENTS = new I18n0("Demo Moments")//
 		.de("Demo-Momente");
+	I18n0 DEMO_PERSON = new I18n0("Demo Person")//
+		.de("Demo-Person");
+	I18n0 DEMO_PERSON_MODULE_INSTANCE = new I18n0("Demo Person Module Instance")//
+		.de("Demo-Personen-Modulinstanz");
+	I18n0 DEMO_PERSON_MODULE_INSTANCES = new I18n0("Demo Person Module Instances")//
+		.de("Demo-Personen-Modulinstanzen");
+	I18n0 DEMO_PERSONS = new I18n0("Demo Persons")//
+		.de("Demo-Personen");
 	I18n0 DOCUMENT = new I18n0("Document")//
 		.de("Dokument");
 	I18n0 EDIT_TRAIT = new I18n0("Edit Trait")//
@@ -69,6 +81,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Mitarbeiterkennung");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
+	I18n0 IDENTITY_CARD_NUMBER = new I18n0("Identity Card Number")//
+		.de("Personalausweisnummer");
 	I18n0 INBOUND = new I18n0("Inbound")//
 		.de("Eingehend");
 	I18n0 INVOICE = new I18n0("Invoice")//

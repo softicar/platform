@@ -1,0 +1,16 @@
+PACKAGE com.softicar.platform.demo.module.person
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGDemoPerson 'Demo.DemoPerson' {
+	
+	PK Integer id = SERIAL
+	AGTransaction transaction
+	AGDemoPersonModuleInstance moduleInstance
+	String firstName
+	String lastName
+	Integer identityCardNumber
+	Day birthDate = NULL [NULLABLE]
+	
+	UK moduleInstance identityCardNumber	
+}

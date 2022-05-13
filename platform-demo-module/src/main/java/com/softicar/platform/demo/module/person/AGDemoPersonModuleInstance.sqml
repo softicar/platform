@@ -1,9 +1,9 @@
-PACKAGE com.softicar.platform.demo.module.business.unit
+PACKAGE com.softicar.platform.demo.module.person
 
 IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 IMPORT com.softicar.platform.demo.module.AGDemoModuleInstance
 
-TABLE AGDemoBusinessUnitModuleInstance 'Demo.DemoBusinessUnitModuleInstance' {
+TABLE AGDemoPersonModuleInstance 'Demo.DemoPersonModuleInstance' {
 	
 	PK AGModuleInstance moduleInstance = BASE
 	AGDemoModuleInstance demoModuleInstance
