@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.common.network.url.Url;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
-import com.softicar.platform.core.module.page.service.PageService;
+import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.page.IEmfPage;
@@ -28,7 +28,7 @@ public class PageUrlBuilder<I extends IEmfModuleInstance<I>> {
 
 	public Url build() {
 
-		return new WebServiceUrlBuilder(PageService.class)//
+		return new WebServiceUrlBuilder(PageServiceFactory.class)//
 			.addParameter(PageParameterParser.getPageParameter(), page.getAnnotatedUuid().toString())
 			.addParameter("moduleInstance", moduleInstance.getItemId().toString())
 			.build();

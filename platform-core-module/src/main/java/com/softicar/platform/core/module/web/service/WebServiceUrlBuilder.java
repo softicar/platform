@@ -16,11 +16,11 @@ public class WebServiceUrlBuilder extends UrlBuilder {
 		setScheme(coreModuleInstance.getPortalProtocol());
 		setDomainName(coreModuleInstance.getPortalHost());
 		setPath(coreModuleInstance.getPortalApplicationPath() + WEB_SERVICE_SERVLET_NAME);
-		addParameter(WebServiceServlet.getIdParameterName(), serviceUuid.toString());
+		addParameter(WebServiceIdFetcher.getIdParameterName(), serviceUuid.toString());
 	}
 
-	public WebServiceUrlBuilder(Class<? extends IWebService> serviceClass) {
+	public WebServiceUrlBuilder(Class<? extends IWebServiceFactory> factoryClass) {
 
-		this(EmfSourceCodeReferencePoints.getUuidOrThrow(serviceClass));
+		this(EmfSourceCodeReferencePoints.getUuidOrThrow(factoryClass));
 	}
 }
