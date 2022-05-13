@@ -21,8 +21,7 @@ public class SessionOverviewPageDiv extends DomDiv {
 			new DomActionBar(
 				new DomButton()//
 					.setClickCallback(new SessionManager()::invalidateAllSessions)
-					.setLabel(CoreI18n.LOGOUT_ALL)
-					.setIcon(CoreImages.LOGOUT.getResource())
+					.setLabel(CoreI18n.TERMINATE_ALL_SESSIONS)
 					.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION)));
 		this.table = new EmfDataTableDivBuilder<>(new SessionOverviewTable())//
 			.setActionColumnHandler(new ActionColumnHandler())
@@ -39,8 +38,8 @@ public class SessionOverviewPageDiv extends DomDiv {
 					new DomActionBar(
 						new DomButton()//
 							.setClickCallback(() -> invalidateSessionAndRefresh(session))
-							.setLabel(CoreI18n.LOGOUT)
-							.setIcon(CoreImages.LOGOUT.getResource())
+							.setTitle(CoreI18n.TERMINATE_SESSION)
+							.setIcon(CoreImages.TERMINATE.getResource())
 							.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION)));
 		}
 	}

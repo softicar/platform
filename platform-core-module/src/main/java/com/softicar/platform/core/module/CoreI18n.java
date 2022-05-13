@@ -403,8 +403,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Login-Name");
 	I18n0 LOGOUT = new I18n0("Logout")//
 		.de("Ausloggen");
-	I18n0 LOGOUT_ALL = new I18n0("Logout All")//
-		.de("Alle ausloggen");
 	I18n0 LOWER_BOUNDARY = new I18n0("Lower Boundary")//
 		.de("Untere Grenze");
 	I18n0 MACHINE_IP = new I18n0("Machine IP")//
@@ -806,6 +804,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tabellenname");
 	I18n0 TARGET_USER = new I18n0("Target User")//
 		.de("Ziel-Benutzer");
+	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate all sessions")//
+		.de("Alle Sitzungen beenden");
+	I18n0 TERMINATE_SESSION = new I18n0("Terminate Session")//
+		.de("Sitzung beenden");
 	I18n0 TERMINATED_AT = new I18n0("Terminated At")//
 		.de("Terminiert um");
 	I18n0 TEST_SYSTEM = new I18n0("Test System")//
