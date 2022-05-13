@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.thread.collection.ThreadKiller;
 import com.softicar.platform.common.core.threading.InterruptedRuntimeException;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.core.module.web.service.WebServiceMasterService;
+import com.softicar.platform.core.module.web.service.WebServiceBrokerService;
 import com.softicar.platform.core.module.web.service.dispatch.IWebServiceDispatcher;
 import java.lang.Thread.State;
 import java.util.Objects;
@@ -60,7 +60,7 @@ public class EmulatedWebServiceDispatcher implements IWebServiceDispatcher {
 			try {
 				dispatcherEnvironment.setupDispatcherEnvironment();
 				try {
-					WebServiceMasterService compositeService = new WebServiceMasterService();
+					WebServiceBrokerService compositeService = new WebServiceBrokerService();
 					compositeService.setEnvironment(dispatcherEnvironment.createRequestEnvironment());
 					compositeService.initialize(Consumers.noOperation());
 					try {

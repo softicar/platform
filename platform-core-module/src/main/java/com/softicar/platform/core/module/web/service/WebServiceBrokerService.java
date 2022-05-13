@@ -17,18 +17,18 @@ import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WebServiceMasterService implements IWebService {
+public class WebServiceBrokerService implements IWebService {
 
 	private final Map<UUID, IWebService> serviceMap;
 	private IWebServiceEnvironment environment;
 
-	public WebServiceMasterService() {
+	public WebServiceBrokerService() {
 
 		this.serviceMap = new TreeMap<>();
 		this.environment = new WebServiceDefaultEnvironment();
 	}
 
-	public WebServiceMasterService setEnvironment(IWebServiceEnvironment environment) {
+	public WebServiceBrokerService setEnvironment(IWebServiceEnvironment environment) {
 
 		this.environment = environment;
 		return this;

@@ -45,11 +45,6 @@ public class HotWebServiceWrapper implements IWebService {
 		this.service = null;
 	}
 
-	public boolean isReloadNecessary(HttpServletRequest request) {
-
-		return request.getSession(false) == null;
-	}
-
 	@Override
 	public void initialize(Consumer<EventListener> listeners) {
 

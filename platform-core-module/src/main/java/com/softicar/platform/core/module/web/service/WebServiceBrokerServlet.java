@@ -18,36 +18,36 @@ import javax.servlet.http.HttpServletResponse;
  * @author Oliver Richers
  */
 @MultipartConfig
-public class WebServiceServlet extends HttpServlet {
+public class WebServiceBrokerServlet extends HttpServlet {
 
-	private final WebServiceMasterService compositeService;
+	private final WebServiceBrokerService service;
 
-	public WebServiceServlet() {
+	public WebServiceBrokerServlet() {
 
-		this.compositeService = new WebServiceMasterService();
+		this.service = new WebServiceBrokerService();
 	}
 
-	public WebServiceServlet setEnvironment(IWebServiceEnvironment environment) {
+	public WebServiceBrokerServlet setEnvironment(IWebServiceEnvironment environment) {
 
-		compositeService.setEnvironment(environment);
+		service.setEnvironment(environment);
 		return this;
 	}
 
 	@Override
 	public void init() {
 
-		compositeService.initialize(getServletContext()::addListener);
+		service.initialize(getServletContext()::addListener);
 	}
 
 	@Override
 	public void destroy() {
 
-		compositeService.destroy();
+		service.destroy();
 	}
 
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) {
 
-		compositeService.service(request, response);
+		service.service(request, response);
 	}
 }

@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.web.service.test;
 
 import com.softicar.platform.core.module.test.SofticarTestDatabase;
-import com.softicar.platform.core.module.web.service.WebServiceMasterService;
+import com.softicar.platform.core.module.web.service.WebServiceBrokerService;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WebServiceTestService extends WebServiceMasterService {
+public class WebServiceTestService extends WebServiceBrokerService {
 
 	protected final SofticarTestDatabase database;
 
