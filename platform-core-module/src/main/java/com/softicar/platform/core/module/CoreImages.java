@@ -47,6 +47,7 @@ public interface CoreImages {
 	IResourceSupplier STORED_FILE_SERVER = FACTORY.create("stored-file-server.svg");
 	IResourceSupplier STORED_FILE_UPLOAD = FACTORY.create("stored-file-upload.svg");
 	IResourceSupplier SYSTEM = FACTORY.create("system.svg");
+	IResourceSupplier TERMINATE = FACTORY.create("terminate.svg");
 	IResourceSupplier USER_IMPERSONATION = FACTORY.create("user-impersonation.svg");
 	IResourceSupplier USER_IMPERSONATION_TERMINATE = FACTORY.create("user-impersonation-terminate.svg");
 	IResourceSupplier USER_PROFILE = FACTORY.create("user-profile.svg");
