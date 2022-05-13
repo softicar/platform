@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.engine.elements.AjaxSessionTimeoutDialog;
 import com.softicar.platform.ajax.engine.elements.AjaxWorkingIndicator;
 import com.softicar.platform.ajax.engine.resource.link.AjaxResourceLinkRegistry;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.resource.registry.AjaxResourceRegistry;
 import com.softicar.platform.common.container.iterable.Iterables;
 import com.softicar.platform.common.container.list.ListFactory;
@@ -28,6 +28,7 @@ import com.softicar.platform.dom.event.IDomAutoEventHandler;
 import com.softicar.platform.dom.event.IDomDropEventHandler;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
+import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
@@ -75,7 +76,7 @@ public class AjaxDomEngine implements IDomEngine {
 	private final JavascriptStatementList updateCodeJS;
 	private final Set<String> loadedScriptLibraries;
 	private final AjaxDocument document;
-	private final IAjaxFramework ajaxFramework;
+	private final AjaxFramework ajaxFramework;
 	private final AjaxResourceLinkRegistry resourceLinkRegistry;
 
 	public AjaxDomEngine(AjaxDocument document) {
@@ -191,9 +192,7 @@ public class AjaxDomEngine implements IDomEngine {
 	public void setNodeAttribute(IDomNode node, IDomAttribute attribute) {
 
 		if (attribute.getName().equals("value")) {
-			JS_call("GLOBAL.setValue", node, attribute);
-		} else if (attribute.getName().equals("checked")) {
-			JS_call("GLOBAL.setChecked", node, attribute);
+			JS_call("VALUE_NODE_MAP.setValue", node, attribute);
 		} else {
 			if (attribute.getValue() == null || isResettingDisabledOrReadOnly(attribute)) {
 				JS_removeNodeAttribute(node, attribute.getName());
@@ -235,7 +234,7 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_call("c.setMaximumZIndex", node);
 	}
 
-	// -------------------------------- node events -------------------------------- //
+	// -------------------------------- DOM events -------------------------------- //
 
 	@Override
 	public void listenToEvent(IDomNode node, DomEventType type) {
@@ -257,21 +256,23 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void stopPropagation(IDomNode node, String eventName) {
+
+		JS_callNodeFunction(node, "addEventListener", "\"" + eventName + "\"", "function(event){event.stopPropagation();}");
+	}
+
+	// -------------------------------- key events -------------------------------- //
+
+	@Override
 	public void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled) {
 
-		JS_call("setFireOnKeyUp", node, type, enabled);
+		JS_call("KEYBOARD_EVENT_MANAGER.setFireOnKeyUp", node, type, enabled);
 	}
 
 	@Override
 	public void setPreventDefaultBehavior(IDomNode node, DomEventType type, boolean enabled) {
 
-		JS_call("setPreventDefaultBehavior", node, type, enabled);
-	}
-
-	@Override
-	public void stopPropagation(IDomNode node, String eventName) {
-
-		JS_callNodeFunction(node, "addEventListener", "\"" + eventName + "\"", "function(event){event.stopPropagation();}");
+		JS_call("KEYBOARD_EVENT_MANAGER.setPreventDefaultBehavior", node, type, enabled);
 	}
 
 	@Override
@@ -282,8 +283,10 @@ public class AjaxDomEngine implements IDomEngine {
 			.stream()
 			.map(ICssClass::getName)
 			.collect(Collectors.joining(" "));
-		JS_call("setCssClassOnKeyDown", eventTarget, eventType, cssTargetNode, cssClassNames);
+		JS_call("KEYBOARD_EVENT_MANAGER.setCssClassOnKeyDown", eventTarget, eventType, cssTargetNode, cssClassNames);
 	}
+
+	// -------------------------------- event delegation -------------------------------- //
 
 	@Override
 	public void setClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType, IDomNode targetNode) {
@@ -297,6 +300,8 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_call("setClickTargetForEventDelegation", sourceNode, eventType, false);
 	}
 
+	// -------------------------------- timeout event -------------------------------- //
+
 	@Override
 	public void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds) {
 
@@ -309,6 +314,8 @@ public class AjaxDomEngine implements IDomEngine {
 		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
 		JS_call("makeDraggable", draggedNode, initNode, notifyOnDrop);
 	}
+
+	// -------------------------------- auto-complete -------------------------------- //
 
 	@Override
 	public void enableAutoComplete(IDomAutoCompleteInput<?> input) {
@@ -457,13 +464,13 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void approveNodeValues() {
 
-		JS_call("GLOBAL.approveNodeValues");
+		JS_call("VALUE_NODE_MAP.approveNodeValues");
 	}
 
 	@Override
-	public void setSelectedOptions(DomSelect<?> select, Collection<Integer> selectedOptionIDs) {
+	public <O extends DomOption> void setSelectedOptions(DomSelect<O> select, Collection<O> selectedOptions) {
 
-		JS_call("GLOBAL.setSelectedOptions", select, selectedOptionIDs);
+		JS_call("VALUE_NODE_MAP.setSelectedOptions", select, selectedOptions);
 	}
 
 	@Override

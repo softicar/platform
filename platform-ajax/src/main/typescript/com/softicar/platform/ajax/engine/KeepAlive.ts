@@ -58,4 +58,4 @@ class KeepAlive {
 	}
 }
 
-let KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
+const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);

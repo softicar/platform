@@ -1,10 +1,8 @@
 import org.gradle.plugins.ide.eclipse.model.SourceFolder
 
 dependencies {
-	api project(':platform-common')
+	api project(':platform-common-web')
 	api project(':platform-dom')
-	api "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
-	api "org.eclipse.jetty:jetty-servlet:$versions.jetty"
 	
 	implementation "org.seleniumhq.selenium:selenium-chrome-driver:$versions.selenium"
 	implementation "org.seleniumhq.selenium:selenium-firefox-driver:$versions.selenium"

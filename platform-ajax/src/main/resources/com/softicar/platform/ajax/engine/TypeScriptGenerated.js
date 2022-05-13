@@ -31,7 +31,7 @@ class ActionQueue {
         }
     }
 }
-let ACTION_QUEUE = new ActionQueue();
+const ACTION_QUEUE = new ActionQueue();
 class AjaxRequestAction {
     constructor(parameters, form = null) {
         this.parameters = parameters;
@@ -49,6 +49,145 @@ class JavaScriptAction {
         eval(this.javaScriptCode);
         ACTION_QUEUE.executeNextAction();
     }
+}
+class AjaxEngine {
+    constructor() {
+        this.nodes = new Map();
+        this.zIndex = 100;
+    }
+    allocateZIndex() {
+        this.zIndex += 1;
+        return '' + this.zIndex;
+    }
+    setMaximumZIndex(node) {
+        if (node.style.zIndex != '' + this.zIndex) {
+            node.style.zIndex = this.allocateZIndex();
+        }
+    }
+    getNode(nodeId) {
+        return this.nodes.get(nodeId);
+    }
+    getElement(nodeId) {
+        return this.nodes.get(nodeId);
+    }
+    initializeHead(nodeId) {
+        this.initializeNode(nodeId, document.head);
+    }
+    initializeBody(nodeId) {
+        this.initializeNode(nodeId, document.body);
+    }
+    executeScriptCode(scriptCode) {
+        eval(scriptCode);
+    }
+    createElement(nodeId, tag) {
+        let node = document.createElement(tag);
+        this.initializeNode(nodeId, node);
+        switch (tag.toUpperCase()) {
+            case 'INPUT':
+            case 'TEXTAREA':
+            case 'SELECT':
+                VALUE_NODE_MAP.addNode(node);
+        }
+    }
+    createTextNode(nodeId, text) {
+        let node = document.createTextNode(text);
+        this.nodes.set(nodeId, node);
+    }
+    appendChild(parentId, childId) {
+        this.getElement(parentId).appendChild(this.getNode(childId));
+    }
+    insertBefore(parentId, childId, otherChildId) {
+        this.getElement(parentId).insertBefore(this.getNode(childId), this.getNode(otherChildId));
+    }
+    removeChild(parentId, childId) {
+        this.getElement(parentId).removeChild(this.getNode(childId));
+    }
+    replaceChild(parentId, newChildId, oldChildId) {
+        this.getElement(parentId).replaceChild(this.getNode(newChildId), this.getNode(oldChildId));
+    }
+    setAttribute(nodeId, attribute, value) {
+        this.getElement(nodeId).setAttribute(attribute, value);
+    }
+    listenToEvent(nodeID, event, doListen) {
+        let element = this.getElement(nodeID);
+        if (element == null)
+            return;
+        let handler = doListen ? handleDomEvent : null;
+        switch (event) {
+            case 'CLICK':
+                element.onclick = handler;
+                break;
+            case 'CHANGE':
+                CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen);
+                break;
+            case 'CONTEXTMENU':
+                element.oncontextmenu = doListen ? (event => { handleDomEvent(event); event.preventDefault(); }) : null;
+                break;
+            case 'DBLCLICK':
+                element.ondblclick = handler;
+                break;
+            case 'ENTER':
+                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+                break;
+            case 'ESCAPE':
+                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+                break;
+            case 'KEYPRESS':
+                element.onkeypress = handler;
+                break;
+            case 'SPACE':
+                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+                break;
+            case 'TAB':
+                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+                break;
+            default: alert('Unknown event ' + event + '.');
+        }
+    }
+    initializeNode(nodeId, node) {
+        node.id = 'n' + nodeId;
+        this.nodes.set(nodeId, node);
+    }
+}
+const _DOM_CONTEXT_ = new AjaxEngine();
+const c = _DOM_CONTEXT_;
+function n(nodeId) {
+    return c.getNode(nodeId);
+}
+function e(nodeId, tag) {
+    return c.createElement(nodeId, tag);
+}
+function t(nodeId, text) {
+    return c.createTextNode(nodeId, text);
+}
+function l(nodeId, eventType) {
+    c.listenToEvent(nodeId, eventType, true);
+}
+function u(nodeId, eventType) {
+    c.listenToEvent(nodeId, eventType, false);
+}
+function a(parentId, childId) {
+    c.appendChild(parentId, childId);
+}
+function i(parentId, childId, oherChildId) {
+    c.insertBefore(parentId, childId, oherChildId);
+}
+function r(parentId, childId) {
+    c.removeChild(parentId, childId);
+}
+function p(parentId, newChildId, oldChldId) {
+    c.replaceChild(parentId, newChildId, oldChldId);
+}
+function E(parentId, childId, tag) {
+    e(childId, tag);
+    a(parentId, childId);
+}
+function T(parentId, childId, text) {
+    t(childId, text);
+    a(parentId, childId);
+}
+function s(elementId, attribute, value) {
+    c.setAttribute(elementId, attribute, value);
 }
 class AjaxMessageEncoder {
     constructor(parameters) {
@@ -192,7 +331,7 @@ class AjaxRequestLock {
         return this.locked;
     }
 }
-let AJAX_REQUEST_LOCK = new AjaxRequestLock();
+const AJAX_REQUEST_LOCK = new AjaxRequestLock();
 class AjaxRequestManager {
     constructor() {
         this.currentRequest = null;
@@ -220,7 +359,7 @@ class AjaxRequestManager {
         return this.currentRequest;
     }
 }
-let AJAX_REQUEST_MANAGER = new AjaxRequestManager();
+const AJAX_REQUEST_MANAGER = new AjaxRequestManager();
 const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
 const AJAX_REQUEST_LOGIN = 0;
 const AJAX_REQUEST_CREATE_DOCUMENT = 1;
@@ -294,7 +433,7 @@ class DragContext {
                     'dx': this.dragPosition.x,
                     'dy': this.dragPosition.y
                 };
-                GLOBAL.copyNodeValues(parameters);
+                VALUE_NODE_MAP.copyNodeValues(parameters);
                 ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
                 ACTION_QUEUE.executeNextAction();
             }
@@ -456,7 +595,7 @@ class KeepAlive {
         }
     }
 }
-let KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
+const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
 class Point {
     constructor(x = 0, y = 0) {
         this._x = x;
@@ -504,30 +643,13 @@ function insertTextAtCaret(input, text) {
 function moveCaretToPosition(input, position) {
     input.selectionStart = input.selectionEnd = position;
 }
-function scheduleTimeout(timeoutNode, milliseconds) {
-    setTimeout(() => handleTimeout(timeoutNode), milliseconds);
-}
-function handleTimeout(timeoutNode) {
-    if (AJAX_REQUEST_LOCK.lock()) {
-        let parameters = {
-            a: AJAX_REQUEST_TIMEOUT,
-            n: timeoutNode.id
-        };
-        GLOBAL.copyNodeValues(parameters);
-        ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
-        ACTION_QUEUE.executeNextAction();
-    }
-    else {
-        scheduleTimeout(timeoutNode, TIMEOUT_RETRY_DELAY);
-    }
-}
 function sendUploadRequestThroughForm(form) {
     if (AJAX_REQUEST_LOCK.lock()) {
         let parameters = {
             a: AJAX_REQUEST_UPLOAD,
             n: form.id
         };
-        GLOBAL.copyNodeValues(parameters);
+        VALUE_NODE_MAP.copyNodeValues(parameters);
         ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters, form));
         ACTION_QUEUE.executeNextAction();
     }
@@ -535,6 +657,95 @@ function sendUploadRequestThroughForm(form) {
         alert(LOCK_MESSAGE);
     }
 }
+function pushBrowserHistoryState(page, url) {
+    history.pushState({ page: page }, "", url);
+}
+class ValueNodeMap {
+    constructor() {
+        this.states = new Map();
+    }
+    addNode(node) {
+        this.states.set(node, new ValueNodeState(node));
+    }
+    approveNodeValues() {
+        this.states.forEach((state, node) => state.approveValue());
+    }
+    copyNodeValues(data) {
+        this.states.forEach((state, node) => state.updatePendingValue(data));
+    }
+    isValueChanged(node) {
+        return this.getState(node).isValueChanged();
+    }
+    setValue(node, value) {
+        node.value = value;
+        this.getState(node).assumeValue(value);
+        AUTO_COMPLETE_ENGINE.setCommittedValue(node, value);
+    }
+    setSelectedOptions(select, options) {
+        let type = select.type;
+        if (type == "select-one") {
+            options[0].selected = true;
+        }
+        else if (type == "select-multiple") {
+            for (let option of select.options) {
+                option.selected = options.includes(option);
+            }
+        }
+        else {
+            throw new Error(`Internal error: Unknown select type '${type}' on node ${select.id}.`);
+        }
+        this.getState(select).assumeValue(this.getState(select).getCurrentValue());
+    }
+    getState(node) {
+        let state = this.states.get(node);
+        if (state) {
+            return state;
+        }
+        else {
+            throw new Error(`Internal error: Missing value state for node ${node.id}.`);
+        }
+    }
+}
+class ValueNodeState {
+    constructor(node) {
+        this.node = node;
+        this.approvedValue = this.pendingValue = this.getCurrentValue();
+    }
+    approveValue() {
+        this.approvedValue = this.pendingValue;
+    }
+    isValueChanged() {
+        return this.getCurrentValue() != this.approvedValue;
+    }
+    assumeValue(value) {
+        this.approvedValue = this.pendingValue = value;
+    }
+    updatePendingValue(data) {
+        this.pendingValue = this.getCurrentValue();
+        if (this.pendingValue != this.approvedValue) {
+            data['V' + this.node.id.substr(1)] = this.pendingValue;
+        }
+    }
+    getCurrentValue() {
+        switch (this.node.tagName.toUpperCase()) {
+            case 'INPUT':
+                let input = this.node;
+                return '' + input.value;
+            case 'TEXTAREA':
+                let textArea = this.node;
+                return '' + textArea.value;
+            case 'SELECT':
+                let value = [];
+                let select = this.node;
+                for (let option of select.selectedOptions) {
+                    value.push(option.id);
+                }
+                return value.join(',');
+        }
+        return '';
+    }
+}
+const VALUE_NODE_MAP = new ValueNodeMap();
 let WORKING_INDICATOR_ENABLED = true;
 let WORKING_INDICATOR;
 function setWorkingIndicator(indicator) {
@@ -553,4 +764,251 @@ function hideWorkingIndicator() {
 }
 function setWorkingIndicatorEnabled(enabled) {
     WORKING_INDICATOR_ENABLED = enabled;
+}
+class ChangeEventManager {
+    setListenToChangeEvent(node, listen) {
+        if (listen) {
+            node.onchange = event => this.handleChangeEvent(event);
+        }
+        else {
+            node.onchange = null;
+        }
+    }
+    handleChangeEvent(event) {
+        let node = event.currentTarget;
+        if (event.isTrusted && AUTO_COMPLETE_ENGINE.isEnabledForInput(node)) {
+            return;
+        }
+        if (VALUE_NODE_MAP.isValueChanged(node)) {
+            sendOrDelegateEvent(node, event, event.type);
+        }
+    }
+}
+const CHANGE_EVENT_MANAGER = new ChangeEventManager();
+function handleDomEvent(event) {
+    sendOrDelegateEvent(event.currentTarget, event, event.type);
+}
+function sendEventToServer(event, eventType) {
+    if (AJAX_REQUEST_LOCK.lock()) {
+        let element = event.currentTarget;
+        let boundingRect = element.getBoundingClientRect();
+        let parameters = {
+            'a': AJAX_REQUEST_DOM_EVENT,
+            'n': element.id,
+            'e': eventType,
+            'sx': window.pageXOffset,
+            'sy': window.pageYOffset,
+            'ww': window.innerWidth,
+            'wh': window.innerHeight,
+        };
+        if (event instanceof MouseEvent) {
+            parameters['cx'] = event.clientX;
+            parameters['cy'] = event.clientY;
+            parameters['rx'] = event.clientX - boundingRect.left;
+            parameters['ry'] = event.clientY - boundingRect.top;
+        }
+        else {
+            parameters['cx'] = boundingRect.x + boundingRect.width / 2;
+            parameters['cy'] = boundingRect.y + boundingRect.height / 2;
+        }
+        if (event instanceof KeyboardEvent) {
+            parameters['k'] = event.keyCode;
+        }
+        if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
+            addOptionalFlag(parameters, 'altKey', event.altKey);
+            addOptionalFlag(parameters, 'ctrlKey', event.ctrlKey);
+            addOptionalFlag(parameters, 'metaKey', event.metaKey);
+            addOptionalFlag(parameters, 'shiftKey', event.shiftKey);
+        }
+        VALUE_NODE_MAP.copyNodeValues(parameters);
+        ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+        ACTION_QUEUE.executeNextAction();
+    }
+    else {
+        alert(LOCK_MESSAGE);
+    }
+}
+function addOptionalFlag(parameters, name, flag) {
+    if (flag) {
+        parameters[name] = 1;
+    }
+}
+const EVENT_DELEGATIONS = new Map();
+function getOrCreateEventDelegator(element) {
+    let delegator = EVENT_DELEGATIONS.get(element);
+    if (!delegator) {
+        delegator = new EventToClickDelegator();
+        EVENT_DELEGATIONS.set(element, delegator);
+    }
+    return delegator;
+}
+function setClickTargetForEventDelegation(element, eventType, targetNode) {
+    getOrCreateEventDelegator(element).setDelegation(eventType, targetNode);
+}
+function sendOrDelegateEvent(element, event, eventType) {
+    let delegator = EVENT_DELEGATIONS.get(element);
+    if (delegator && delegator.isDelegated(eventType)) {
+        delegator.delegateEvent(eventType);
+    }
+    else {
+        sendEventToServer(event, eventType);
+    }
+    event.stopPropagation();
+}
+class EventToClickDelegator {
+    constructor() {
+        this.targets = new Map();
+    }
+    setDelegation(eventType, targetElement) {
+        this.targets.set(eventType.toLowerCase(), targetElement);
+    }
+    isDelegated(eventType) {
+        return this.getTargetNode(eventType) ? true : false;
+    }
+    delegateEvent(eventType) {
+        this.getTargetNode(eventType).click();
+    }
+    getTargetNode(eventType) {
+        return this.targets.get(eventType.toLowerCase());
+    }
+}
+class KeyboardEventManager {
+    constructor() {
+        this.handlers = new Map();
+    }
+    setListenToKey(node, eventName, enabled) {
+        let key = this.getKey(eventName);
+        this.getKeyHandler(node).setListenTo(key, eventName, enabled);
+    }
+    setFireOnKeyUp(node, eventName, enabled) {
+        let key = this.getKey(eventName);
+        this.getKeyHandler(node).setFireOnKeyUp(key, enabled);
+    }
+    setPreventDefaultBehavior(node, eventName, enabled) {
+        let key = this.getKey(eventName);
+        this.getKeyHandler(node).setPreventDefault(key, enabled);
+    }
+    setCssClassOnKeyDown(node, eventName, cssTargetNode, cssClassNames) {
+        let key = this.getKey(eventName);
+        this.getKeyHandler(node).setCssClassApplier(key, new CssClassApplier(cssTargetNode, cssClassNames));
+    }
+    getKeyHandler(node) {
+        let handler = this.handlers.get(node.id);
+        if (!handler) {
+            handler = new KeyboardEventHandler(node).install();
+            this.handlers.set(node.id, handler);
+        }
+        return handler;
+    }
+    getKey(eventName) {
+        switch (eventName) {
+            case 'ENTER': return DOM_VK_ENTER;
+            case 'ESCAPE': return DOM_VK_ESCAPE;
+            case 'SPACE': return DOM_VK_SPACE;
+            case 'TAB': return DOM_VK_TAB;
+        }
+        throw new Error("Internal error: Unsupported keyboard event name.");
+    }
+}
+const KEYBOARD_EVENT_MANAGER = new KeyboardEventManager();
+class KeyboardEventHandler {
+    constructor(node) {
+        this.keyCodes = new Map();
+        this.fireOnKeyUp = new Map();
+        this.preventDefault = new Map();
+        this.cssClassApplier = new Map();
+        this.lastKeyDown = 0;
+        this.node = node;
+    }
+    install() {
+        if (!this.node.onkeydown && !this.node.onkeyup) {
+            this.node.onkeydown = event => this.handleKeyDown(event);
+            this.node.onkeyup = event => this.handleKeyUp(event);
+        }
+        else {
+            console.log('Warning: Skipped installation of keyboard event listeners.');
+        }
+        return this;
+    }
+    setListenTo(key, eventName, enabled) {
+        if (enabled) {
+            this.keyCodes.set(key, eventName);
+            this.preventDefault.set(key, true);
+        }
+        else {
+            this.keyCodes.delete(key);
+        }
+    }
+    setFireOnKeyUp(key, enabled) {
+        this.fireOnKeyUp.set(key, enabled);
+    }
+    setPreventDefault(key, enabled) {
+        this.preventDefault.set(key, enabled);
+    }
+    setCssClassApplier(key, applier) {
+        this.cssClassApplier.set(key, applier);
+    }
+    handleKeyDown(event) {
+        let eventName = this.keyCodes.get(event.keyCode);
+        if (eventName) {
+            if (!this.fireOnKeyUp.get(event.keyCode) && !event.repeat) {
+                sendOrDelegateEvent(this.node, event, eventName);
+            }
+            let applier = this.cssClassApplier.get(event.keyCode);
+            if (applier) {
+                applier.addClasses();
+            }
+            this.stopFurtherHandling(event);
+        }
+        this.lastKeyDown = event.keyCode;
+    }
+    handleKeyUp(event) {
+        var eventName = this.keyCodes.get(event.keyCode);
+        if (eventName) {
+            if (this.fireOnKeyUp.get(event.keyCode) && this.lastKeyDown == event.keyCode) {
+                sendOrDelegateEvent(this.node, event, eventName);
+            }
+            let applier = this.cssClassApplier.get(event.keyCode);
+            if (applier) {
+                applier.removeClasses();
+            }
+            this.stopFurtherHandling(event);
+        }
+        this.lastKeyDown = 0;
+    }
+    stopFurtherHandling(event) {
+        event.stopPropagation();
+        if (this.preventDefault.get(event.keyCode)) {
+            event.preventDefault();
+        }
+    }
+}
+class CssClassApplier {
+    constructor(node, classes) {
+        this.node = node;
+        this.classes = classes != "" ? classes.split(" ") : [];
+    }
+    addClasses() {
+        this.classes.forEach(c => this.node.classList.add(c));
+    }
+    removeClasses() {
+        this.classes.forEach(c => this.node.classList.remove(c));
+    }
+}
+function scheduleTimeout(timeoutNode, milliseconds) {
+    setTimeout(() => handleTimeout(timeoutNode), milliseconds);
+}
+function handleTimeout(timeoutNode) {
+    if (AJAX_REQUEST_LOCK.lock()) {
+        let parameters = {
+            a: AJAX_REQUEST_TIMEOUT,
+            n: timeoutNode.id
+        };
+        VALUE_NODE_MAP.copyNodeValues(parameters);
+        ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
+        ACTION_QUEUE.executeNextAction();
+    }
+    else {
+        scheduleTimeout(timeoutNode, TIMEOUT_RETRY_DELAY);
+    }
 }

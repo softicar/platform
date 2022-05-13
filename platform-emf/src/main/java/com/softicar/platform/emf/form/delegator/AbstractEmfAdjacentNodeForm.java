@@ -4,6 +4,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
+import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.form.EmfForm;
 import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.form.IEmfForm;
@@ -25,6 +26,7 @@ public abstract class AbstractEmfAdjacentNodeForm<R extends IEmfTableRow<R, ?>> 
 		super(frame, tableRow);
 		this.container = appendChild(createContainer());
 		this.form.setModeChangeCallback(this::handleModeChange);
+		addCssClass(EmfCssClasses.EMF_ADJACENT_NODE_FORM);
 	}
 
 	/**

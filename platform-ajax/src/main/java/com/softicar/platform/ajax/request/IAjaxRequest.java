@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.request;
 
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.request.parameters.IAjaxRequestParameters;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  */
 public interface IAjaxRequest extends HttpServletRequest {
 
-	IAjaxFramework getAjaxFramework();
+	AjaxFramework getAjaxFramework();
 
 	IAjaxRequestParameters getParameters();
 

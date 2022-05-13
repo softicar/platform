@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.export;
 
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.common.io.resource.IResource;
@@ -28,7 +28,7 @@ public class AjaxDomExportNode extends DomIFrame implements IResource {
 	private final Charset charset;
 	private Closeable closeable;
 
-	public AjaxDomExportNode(IAjaxFramework ajaxFramework, String filename, IMimeType mimeType, Charset charset) {
+	public AjaxDomExportNode(AjaxFramework ajaxFramework, String filename, IMimeType mimeType, Charset charset) {
 
 		this.ajaxBuffer = ajaxFramework.getAjaxStrategy().createExportBuffer();
 		this.filename = filename;

@@ -31,4 +31,4 @@ class AjaxRequestManager {
 	}
 }
 
-let AJAX_REQUEST_MANAGER = new AjaxRequestManager();
+const AJAX_REQUEST_MANAGER = new AjaxRequestManager();

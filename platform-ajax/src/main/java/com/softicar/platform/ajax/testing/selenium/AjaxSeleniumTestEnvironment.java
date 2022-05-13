@@ -1,8 +1,9 @@
 package com.softicar.platform.ajax.testing.selenium;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.ajax.server.standalone.StandAloneServletServerConfiguration;
-import com.softicar.platform.ajax.testing.server.AjaxTestingServer;
+import com.softicar.platform.ajax.testing.AjaxTestingServlet;
+import com.softicar.platform.common.web.servlet.HttpServletServer;
+import com.softicar.platform.common.web.servlet.HttpServletServerHandle;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.node.IDomNode;
@@ -13,13 +14,14 @@ import java.util.function.Supplier;
 public class AjaxSeleniumTestEnvironment {
 
 	private final Consumer<String> urlConsumer;
-	private final Supplier<AjaxTestingServer> serverFactory;
-	private AjaxTestingServer server;
+	private final AjaxTestingServlet servlet;
+	private HttpServletServerHandle serverHandle;
 
 	public AjaxSeleniumTestEnvironment(Consumer<String> urlConsumer) {
 
 		this.urlConsumer = urlConsumer;
-		this.serverFactory = () -> new AjaxTestingServer(new StandAloneServletServerConfiguration().setContextName(""));
+		this.servlet = new AjaxTestingServlet();
+		this.serverHandle = null;
 	}
 
 	public <T extends IDomNode> T openTestNode(Supplier<T> factory) {
@@ -31,27 +33,25 @@ public class AjaxSeleniumTestEnvironment {
 	public <T extends IDomNode> T openTestNode(Function<IAjaxDocument, T> factory) {
 
 		BufferedFactory<T> bufferedFactory = new BufferedFactory<>(factory);
-		getServer().getServlet().getStrategy().setNodeFactory(bufferedFactory);
-		urlConsumer.accept(getPageUrl(getServer().getLocalPort()));
+		servlet.getStrategy().setNodeFactory(bufferedFactory);
+		urlConsumer.accept(getPageUrl(getServerHandle().getConnector().getLocalPort()));
 		CurrentDomDocument.set(bufferedFactory.getDocument());
 		return bufferedFactory.getContentNode();
 	}
 
 	public void executeAfterTest() {
 
-		if (server != null) {
-			server.close();
+		if (serverHandle != null) {
+			serverHandle.close();
 		}
 	}
 
-	@SuppressWarnings("resource")
-	private AjaxTestingServer getServer() {
+	private HttpServletServerHandle getServerHandle() {
 
-		if (server == null) {
-			this.server = serverFactory.get();
-			this.server.start();
+		if (serverHandle == null) {
+			this.serverHandle = new HttpServletServer(servlet).setContextName("").start();
 		}
-		return server;
+		return serverHandle;
 	}
 
 	private static String getPageUrl(int port) {
