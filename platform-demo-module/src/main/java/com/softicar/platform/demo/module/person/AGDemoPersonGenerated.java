@@ -3,9 +3,7 @@ package com.softicar.platform.demo.module.person;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbDayField;
-import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
@@ -34,7 +32,6 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 	}
 
 	public static final IDbIdField<AGDemoPerson> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
-	public static final IDbForeignField<AGDemoPerson, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(DemoI18n.TRANSACTION);
 	public static final IDbForeignRowField<AGDemoPerson, AGDemoPersonModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoPersonModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoPerson> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(DemoI18n.FIRST_NAME);
 	public static final IDbStringField<AGDemoPerson> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(DemoI18n.LAST_NAME);
@@ -66,21 +63,6 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
-
-	public final Integer getTransactionID() {
-
-		return getValueId(TRANSACTION);
-	}
-
-	public final AGTransaction getTransaction() {
-
-		return getValue(TRANSACTION);
-	}
-
-	public final AGDemoPerson setTransaction(AGTransaction value) {
-
-		return setValue(TRANSACTION, value);
-	}
 
 	public final AGDemoPersonModuleInstance getModuleInstance() {
 
@@ -143,7 +125,6 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private Integer m_id;
-	private AGTransaction m_transaction;
 	private AGDemoPersonModuleInstance m_moduleInstance;
 	private String m_firstName;
 	private String m_lastName;
