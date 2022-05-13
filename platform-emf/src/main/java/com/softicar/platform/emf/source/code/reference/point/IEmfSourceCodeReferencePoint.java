@@ -9,6 +9,8 @@ import java.util.UUID;
  * <p>
  * Classes implementing this interface need to define a {@link UUID} by using
  * the annotation {@link EmfSourceCodeReferencePointUuid}.
+ * <p>
+ * TODO Extract this class (PLAT-861).
  *
  * @author Oliver Richers
  */

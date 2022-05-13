@@ -56,7 +56,7 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	@Override
 	public String getResourceUrlSuffix() {
 
-		return "&id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageService.class);
+		return "&id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class);
 	}
 
 	@Override

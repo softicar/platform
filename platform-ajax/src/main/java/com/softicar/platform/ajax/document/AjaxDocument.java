@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.document.registry.AjaxDocumentRegistry;
 import com.softicar.platform.ajax.engine.AjaxDomEngine;
 import com.softicar.platform.ajax.engine.JavascriptStatementList;
 import com.softicar.platform.ajax.export.AjaxDomExportManager;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.core.singleton.CurrentSingletonSet;
 import com.softicar.platform.common.core.singleton.SingletonSet;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  */
 public class AjaxDocument extends AbstractDomDocument implements IAjaxDocument {
 
-	private final IAjaxFramework ajaxFramework;
+	private final AjaxFramework ajaxFramework;
 	private final HttpSession httpSession;
 	private final IAjaxDocumentParameters documentParameters;
 	private final SingletonSet singletonSet;
@@ -82,7 +82,7 @@ public class AjaxDocument extends AbstractDomDocument implements IAjaxDocument {
 	}
 
 	@Override
-	public IAjaxFramework getAjaxFramework() {
+	public AjaxFramework getAjaxFramework() {
 
 		return ajaxFramework;
 	}

@@ -1,0 +1,6 @@
+dependencies {
+	api project(':platform-common')
+
+	api "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
+	api "org.eclipse.jetty:jetty-servlet:$versions.jetty"
+}

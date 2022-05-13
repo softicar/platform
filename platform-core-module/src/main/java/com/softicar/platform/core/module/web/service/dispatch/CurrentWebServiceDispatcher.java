@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.web.service.dispatch;
 import com.softicar.platform.common.core.singleton.Singleton;
 import com.softicar.platform.core.module.web.service.dispatch.http.HttpWebServiceDispatcher;
 
+// TODO rename to CurrentWebServiceRequestDispatcher
 public class CurrentWebServiceDispatcher {
 
 	private static final Singleton<IWebServiceDispatcher> INSTANCE = new Singleton<>(HttpWebServiceDispatcher::new);
