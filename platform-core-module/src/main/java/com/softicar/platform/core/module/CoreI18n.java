@@ -804,7 +804,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tabellenname");
 	I18n0 TARGET_USER = new I18n0("Target User")//
 		.de("Ziel-Benutzer");
-	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate all sessions")//
+	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate All Sessions")//
 		.de("Alle Sitzungen beenden");
 	I18n0 TERMINATE_SESSION = new I18n0("Terminate Session")//
 		.de("Sitzung beenden");
