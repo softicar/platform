@@ -9,6 +9,7 @@ import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
+import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
@@ -261,7 +262,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void setSelectedOptions(DomSelect<?> select, Collection<Integer> selectedOptionIDs) {
+	public <O extends DomOption> void setSelectedOptions(DomSelect<O> select, Collection<O> selectedOptions) {
 
 		// nothing to do
 	}

@@ -11,7 +11,7 @@ class ActionQueue {
 		this.begin = 0;
 		this.end = 0;
 	}
-	
+
 	/**
 	 * Adds the specified {@link Action} to the end of this {@link ActionQueue}.
 	 */
@@ -52,4 +52,4 @@ class ActionQueue {
 	}
 }
 
-let ACTION_QUEUE = new ActionQueue();
+const ACTION_QUEUE = new ActionQueue();

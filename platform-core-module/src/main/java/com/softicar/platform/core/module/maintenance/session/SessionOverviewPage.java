@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance;
+package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
@@ -29,7 +29,7 @@ public class SessionOverviewPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
 
-		return CoreRoles.MAINTENANCE_ADMINISTRATOR;
+		return CoreRoles.SYSTEM_ADMINISTRATOR;
 	}
 
 	@Override

@@ -187,7 +187,7 @@ function AutoCompleteInputContext(input, inputField) {
 	
 	function sendChangeEvent() {
 		
-		if(GLOBAL.isValueChanged(inputField)) {
+		if(VALUE_NODE_MAP.isValueChanged(inputField)) {
 			AUTO_COMPLETE_ENGINE.sendChangeEvent(self);
 		}
 	}

@@ -116,8 +116,8 @@ class AjaxDocumentPagePrinter {
 	private void printJavascriptUpdateCode() {
 
 		println("<script>");
-		println("GLOBAL_init();");
 		updateCodeWriter.apply();
+		println("KEEP_ALIVE.schedule();");
 		println("</script>");
 	}
 

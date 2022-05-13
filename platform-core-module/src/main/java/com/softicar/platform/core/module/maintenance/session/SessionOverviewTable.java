@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance;
+package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
