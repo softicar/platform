@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.file.name.FilenameCleaner;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.core.module.ajax.login.SofticarAjaxLoginExecutor;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;

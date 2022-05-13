@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.engine.elements.AjaxSessionTimeoutDialog;
 import com.softicar.platform.ajax.engine.elements.AjaxWorkingIndicator;
 import com.softicar.platform.ajax.engine.resource.link.AjaxResourceLinkRegistry;
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.resource.registry.AjaxResourceRegistry;
 import com.softicar.platform.common.container.iterable.Iterables;
 import com.softicar.platform.common.container.list.ListFactory;
@@ -76,7 +76,7 @@ public class AjaxDomEngine implements IDomEngine {
 	private final JavascriptStatementList updateCodeJS;
 	private final Set<String> loadedScriptLibraries;
 	private final AjaxDocument document;
-	private final IAjaxFramework ajaxFramework;
+	private final AjaxFramework ajaxFramework;
 	private final AjaxResourceLinkRegistry resourceLinkRegistry;
 
 	public AjaxDomEngine(AjaxDocument document) {

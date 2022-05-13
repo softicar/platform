@@ -8,8 +8,8 @@ import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.simple.SimpleHttpSession;
 import com.softicar.platform.ajax.simple.SimpleServletRequest;
 import com.softicar.platform.ajax.simple.SimpleServletResponse;
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.testing.AbstractTest;
-import javax.servlet.ServletContext;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -41,7 +41,7 @@ public class AjaxFrameworkTest extends AbstractTest {
 	@Test
 	public void testServiceWithDocumentCreation() {
 
-		ajaxFramework.initialize(Mockito.mock(ServletContext.class));
+		ajaxFramework.initialize(Consumers.noOperation());
 		ajaxFramework.service(request, response);
 
 		InOrder inOrder = inOrder(ajaxStrategy);

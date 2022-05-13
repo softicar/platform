@@ -2,10 +2,11 @@ package com.softicar.platform.core.module.web.service.dispatch.emulation;
 
 import com.softicar.platform.ajax.simple.SimpleServletRequest;
 import com.softicar.platform.ajax.simple.SimpleServletResponse;
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.thread.collection.ThreadKiller;
 import com.softicar.platform.common.core.threading.InterruptedRuntimeException;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.core.module.web.service.WebServiceServlet;
+import com.softicar.platform.core.module.web.service.WebServiceBrokerService;
 import com.softicar.platform.core.module.web.service.dispatch.IWebServiceDispatcher;
 import java.lang.Thread.State;
 import java.util.Objects;
@@ -59,18 +60,18 @@ public class EmulatedWebServiceDispatcher implements IWebServiceDispatcher {
 			try {
 				dispatcherEnvironment.setupDispatcherEnvironment();
 				try {
-					WebServiceServlet webServiceServlet = new WebServiceServlet();
-					webServiceServlet.setEnvironment(dispatcherEnvironment.createRequestEnvironment());
-					webServiceServlet.init(new EmulatedServletConfig());
+					WebServiceBrokerService compositeService = new WebServiceBrokerService();
+					compositeService.setEnvironment(dispatcherEnvironment.createRequestEnvironment());
+					compositeService.initialize(Consumers.noOperation());
 					try {
 						while (true) {
 							HttpServletRequest request = buffer.readRequest();
 							SimpleServletResponse response = new SimpleServletResponse();
-							webServiceServlet.service(request, response);
+							compositeService.service(request, response);
 							buffer.sendResponse(response);
 						}
 					} finally {
-						webServiceServlet.destroy();
+						compositeService.destroy();
 					}
 				} finally {
 					dispatcherEnvironment.cleanupDispatcherEnvironment();

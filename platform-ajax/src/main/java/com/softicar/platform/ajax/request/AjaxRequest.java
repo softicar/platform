@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.request;
 
-import com.softicar.platform.ajax.framework.IAjaxFramework;
+import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.request.parameters.AjaxRequestParametersFetcher;
 import com.softicar.platform.ajax.request.parameters.IAjaxRequestParameters;
 import com.softicar.platform.ajax.resource.AjaxResourceUrl;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  */
 public final class AjaxRequest extends HttpServletRequestWrapper implements IAjaxRequest {
 
-	private final IAjaxFramework ajaxFramework;
+	private final AjaxFramework ajaxFramework;
 	private final HttpServletResponse response;
 	private final HttpSession httpSession;
 	private final IAjaxRequestParameters parameters;
@@ -37,7 +37,7 @@ public final class AjaxRequest extends HttpServletRequestWrapper implements IAja
 	 * @param request
 	 * @param response
 	 */
-	public AjaxRequest(IAjaxFramework ajaxFramework, HttpServletRequest request, HttpServletResponse response) {
+	public AjaxRequest(AjaxFramework ajaxFramework, HttpServletRequest request, HttpServletResponse response) {
 
 		super(request);
 
@@ -65,7 +65,7 @@ public final class AjaxRequest extends HttpServletRequestWrapper implements IAja
 	// ******************************************************************************** //
 
 	@Override
-	public IAjaxFramework getAjaxFramework() {
+	public AjaxFramework getAjaxFramework() {
 
 		return ajaxFramework;
 	}
