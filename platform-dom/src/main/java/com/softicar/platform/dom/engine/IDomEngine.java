@@ -4,6 +4,7 @@ import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.dom.attribute.IDomAttribute;
+import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
@@ -175,19 +176,20 @@ public interface IDomEngine {
 	 * Moves the {@link DomPopup} with the given {@link IDomPopupFrame},
 	 * according to the given parameters.
 	 * <p>
-	 * The {@link DomPopup} shall be appended when this method is called.
-	 * Otherwise, its position might be unexpected.
+	 * The {@link IDomPopupFrame} must be appended to the {@link DomBody} or one
+	 * of its children before this method is called. Otherwise, the position
+	 * might be unexpected.
 	 *
 	 * @param popupFrame
-	 *            the frame of the {@link DomPopup} (never <i>null</i>)
+	 *            the {@link IDomPopupFrame} to move (never <i>null</i>)
 	 * @param x
-	 *            the horizontal position of the {@link DomPopup}
+	 *            the horizontal position of the {@link IDomPopupFrame}
 	 * @param y
-	 *            the vertical position of the {@link DomPopup}
+	 *            the vertical position of the {@link IDomPopupFrame}
 	 * @param xAlign
-	 *            the horizontal alignment of the {@link DomPopup}
+	 *            the horizontal alignment of the {@link IDomPopupFrame}
 	 * @param yAlign
-	 *            the vertical alignment of the {@link DomPopup}
+	 *            the vertical alignment of the {@link IDomPopupFrame}
 	 */
 	void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign);
 

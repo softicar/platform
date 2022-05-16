@@ -195,12 +195,8 @@ public interface IDomNode {
 	}
 
 	/**
-	 * Adds {@link IStaticObject} markers to this {@link IDomNode}.
-	 *
-	 * @param markers
-	 *            the markers to add (never <i>null</i>)
-	 * @throws UnsupportedOperationException
-	 *             if the {@link IDomDocument} does not support marking of nodes
+	 * Calls {@link #addMarker(IStaticObject)} for all given
+	 * {@link IStaticObject} markers.
 	 */
 	default IDomNode addMarkers(Collection<IStaticObject> markers) {
 
