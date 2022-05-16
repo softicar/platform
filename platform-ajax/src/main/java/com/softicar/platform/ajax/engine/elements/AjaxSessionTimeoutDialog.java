@@ -10,6 +10,5 @@ public class AjaxSessionTimeoutDialog extends DomDiv {
 		addCssClass(AjaxCssClasses.AJAX_SESSION_TIMEOUT_DIALOG);
 		addCssClass(AjaxCssClasses.HIDDEN);
 		appendChild(new AjaxSessionTimeoutDialogMessage());
-		getDomEngine().setReloadPageOnClick(this);
 	}
 }
