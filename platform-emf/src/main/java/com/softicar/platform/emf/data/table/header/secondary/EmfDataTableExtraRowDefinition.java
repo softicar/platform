@@ -8,20 +8,16 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableRowProvider;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
-import java.util.Optional;
 
 public class EmfDataTableExtraRowDefinition<R> {
 
 	private final EmfDataTableDivBuilder<R> divBuilder;
 	private final IEmfDataTableExtraRowColumnGroupList<R> columnGroupList;
-	private Optional<CssTextAlign> textAlign;
 
 	public EmfDataTableExtraRowDefinition(EmfDataTableDivBuilder<R> divBuilder, IEmfDataTableExtraRowColumnGroupList<R> columnGroupList) {
 
 		this.divBuilder = divBuilder;
 		this.columnGroupList = columnGroupList;
-		this.textAlign = Optional.empty();
 	}
 
 	public ColumnSetter addEmptyCell() {
@@ -34,15 +30,14 @@ public class EmfDataTableExtraRowDefinition<R> {
 		return addCell(new DisplayStringCellBuilder(label));
 	}
 
+	public ColumnSetter addNumericCell(Number number) {
+
+		return addCell(new NumericCellBuilder(number));
+	}
+
 	public ColumnSetter addCell(IEmfDataTableExtraRowCellBuilder<R> cellBuilder) {
 
 		return new ColumnSetter(cellBuilder);
-	}
-
-	public EmfDataTableExtraRowDefinition<R> setTextAlign(CssTextAlign cssTextAlign) {
-
-		this.textAlign = Optional.of(cssTextAlign);
-		return this;
 	}
 
 	public EmfDataTableDivBuilder<R> endRow() {
@@ -56,7 +51,7 @@ public class EmfDataTableExtraRowDefinition<R> {
 
 		private ColumnSetter(IEmfDataTableExtraRowCellBuilder<R> cellBuilder) {
 
-			this.cellBuilder = new StyledCellBuilder(cellBuilder);
+			this.cellBuilder = cellBuilder;
 		}
 
 		public EmfDataTableExtraRowDefinition<R> setColumns(IDataTableColumn<?, ?>...columns) {
@@ -89,20 +84,22 @@ public class EmfDataTableExtraRowDefinition<R> {
 		}
 	}
 
-	private class StyledCellBuilder implements IEmfDataTableExtraRowCellBuilder<R> {
+	private class NumericCellBuilder implements IEmfDataTableExtraRowCellBuilder<R> {
 
-		private final IEmfDataTableExtraRowCellBuilder<R> other;
+		private final Number number;
 
-		public StyledCellBuilder(IEmfDataTableExtraRowCellBuilder<R> other) {
+		public NumericCellBuilder(Number number) {
 
-			this.other = Objects.requireNonNull(other);
+			this.number = number;
 		}
 
 		@Override
 		public void buildCell(IDomParentElement cell, IEmfDataTableRowProvider<R> rowProvider) {
 
-			textAlign.ifPresent(cell::setStyle);
-			other.buildCell(cell, rowProvider);
+			if (number != null) {
+				cell.setStyle(CssTextAlign.RIGHT);
+				cell.appendChild(number);
+			}
 		}
 	}
 }
