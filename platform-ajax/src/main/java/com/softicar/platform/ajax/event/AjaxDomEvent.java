@@ -53,8 +53,8 @@ public class AjaxDomEvent implements IDomEvent {
 		this.scrollX = AjaxParameterUtils.getDouble(ajaxRequest, "sx");
 		this.scrollY = AjaxParameterUtils.getDouble(ajaxRequest, "sy");
 		this.keyCode = AjaxParameterUtils.getInteger(ajaxRequest, "k");
-		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "ww");
-		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wh");
+		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "wx");
+		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wy");
 		this.altKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "altKey", 0) != 0;
 		this.ctrlKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "ctrlKey", 0) != 0;
 		this.metaKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "metaKey", 0) != 0;

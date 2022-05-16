@@ -43,12 +43,8 @@ class KeepAlive {
 	
 		// try to get the global event lock
 		if(AJAX_REQUEST_LOCK.lock()) {
-			let parameters = {
-				'a': AJAX_REQUEST_KEEP_ALIVE
-			};
-
-			ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
-			ACTION_QUEUE.executeNextAction();
+			let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
+			new AjaxRequest(message).send();
 		} else {
 			// Since the global event lock was active there was no point
 			// in sending a keep-alive, anyway. So, just reschedule a new

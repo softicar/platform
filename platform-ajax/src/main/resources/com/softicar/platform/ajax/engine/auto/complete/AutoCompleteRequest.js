@@ -5,13 +5,12 @@ function AutoCompleteRequest(inputContext, pattern, callback) {
 
 	function send() {
 
-		var message = {};
-		message.a = AJAX_REQUEST_AUTO_COMPLETE;
-		message.i = DOCUMENT_INSTANCE_UUID;
-		message.n = inputContext.getInput().id;
-		message.p = pattern;
+		let message = new AjaxRequestMessage()
+			.setAction(AJAX_REQUEST_AUTO_COMPLETE)
+			.setNode(inputContext.getInput())
+			.setAutoCompletePattern(pattern);
 		new HttpRequest()
-			.setMessage(new AjaxMessageEncoder(message).encode())
+			.setMessage(message.encode())
 			.sendAsync(handleResponse);
 	}
 
