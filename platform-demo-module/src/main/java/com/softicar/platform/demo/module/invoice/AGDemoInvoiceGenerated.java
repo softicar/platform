@@ -19,7 +19,7 @@ import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.demo.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceType;
-import com.softicar.platform.demo.module.person.AGDemoPerson;
+import com.softicar.platform.demo.module.person.module.AGDemoPerson;
 
 /**
  * This is the automatically generated class AGDemoInvoice for

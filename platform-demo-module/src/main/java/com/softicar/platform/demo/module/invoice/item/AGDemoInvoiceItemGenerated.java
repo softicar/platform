@@ -12,7 +12,7 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.person.AGDemoPerson;
+import com.softicar.platform.demo.module.person.module.AGDemoPerson;
 import java.math.BigDecimal;
 
 /**

@@ -1,7 +1,7 @@
-package com.softicar.platform.demo.module.person.test.fixtures;
+package com.softicar.platform.demo.module.person.module.test.fixtures;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.person.AGDemoPersonModuleInstance;
+import com.softicar.platform.demo.module.person.module.AGDemoPersonModuleInstance;
 
 public class DemoPersonTestFixtures implements DemoPersonModuleTestFixtureMethods {
 

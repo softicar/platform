@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.person;
+package com.softicar.platform.demo.module.person.module;
 
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.IEmfModule;

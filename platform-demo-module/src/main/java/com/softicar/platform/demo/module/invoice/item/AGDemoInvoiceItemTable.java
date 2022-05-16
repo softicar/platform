@@ -3,7 +3,7 @@ package com.softicar.platform.demo.module.invoice.item;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.DemoInvoicePredicates;
-import com.softicar.platform.demo.module.person.AGDemoPerson;
+import com.softicar.platform.demo.module.person.module.AGDemoPerson;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;

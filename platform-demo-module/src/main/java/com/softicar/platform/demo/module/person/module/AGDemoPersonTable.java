@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.person;
+package com.softicar.platform.demo.module.person.module;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.object.table.EmfObjectTable;

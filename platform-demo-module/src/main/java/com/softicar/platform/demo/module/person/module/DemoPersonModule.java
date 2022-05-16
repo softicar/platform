@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.person;
+package com.softicar.platform.demo.module.person.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreModule;

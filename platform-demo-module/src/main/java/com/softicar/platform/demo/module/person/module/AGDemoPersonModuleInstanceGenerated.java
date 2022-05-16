@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.person;
+package com.softicar.platform.demo.module.person.module;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;

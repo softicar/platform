@@ -1,4 +1,4 @@
-PACKAGE com.softicar.platform.demo.module.person
+PACKAGE com.softicar.platform.demo.module.person.module
 
 TABLE AGDemoPerson 'Demo.DemoPerson' {
 	

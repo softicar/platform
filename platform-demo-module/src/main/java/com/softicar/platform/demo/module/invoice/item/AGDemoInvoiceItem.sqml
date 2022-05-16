@@ -1,7 +1,7 @@
 PACKAGE com.softicar.platform.demo.module.invoice.item
 
 IMPORT com.softicar.platform.demo.module.invoice.AGDemoInvoice
-IMPORT com.softicar.platform.demo.module.person.AGDemoPerson
+IMPORT com.softicar.platform.demo.module.person.module.AGDemoPerson
 
 TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	PK Integer id = SERIAL
