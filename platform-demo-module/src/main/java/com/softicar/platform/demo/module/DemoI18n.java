@@ -31,24 +31,14 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Geschäftspartner-Kontakte");
 	I18n0 DEMO_BUSINESS_PARTNERS = new I18n0("Demo Business Partners")//
 		.de("Demo-Geschäftspartner");
-	I18n0 DEMO_BUSINESS_UNIT_MODULE = new I18n0("Demo Business Module")//
-		.de("Demo-Geschäftseinheits-Modul");
-	I18n0 DEMO_BUSINESS_UNIT_MODULE_INSTANCE = new I18n0("Demo Business Module Instance")//
-		.de("Demo-Geschäftseinheits-Modulinstanz");
-	I18n0 DEMO_BUSINESS_UNIT_MODULE_INSTANCES = new I18n0("Demo Business Module Instances")//
-		.de("Demo-Geschäftseinheits-Modulinstanzen");
-	I18n0 DEMO_BUSINESS_UNIT_MODULES = new I18n0("Demo Business Modules")//
-		.de("Demo-Geschäftseinheits-Module");
 	I18n0 DEMO_INVOICE = new I18n0("Demo Invoice")//
 		.de("Demo-Rechnung");
 	I18n0 DEMO_INVOICE_ITEM = new I18n0("Demo Invoice Item")//
 		.de("Demo-Rechnungsposition");
-
 	I18n0 DEMO_INVOICE_ITEMS = new I18n0("Demo Invoice Items")//
 		.de("Demo-Rechnungspositionen");
 	I18n0 DEMO_INVOICE_PAYMENT = new I18n0("Demo Invoice Payment")//
 		.de("Demo-Rechnungsbezahlung");
-
 	I18n0 DEMO_INVOICE_PAYMENTS = new I18n0("Demo Invoice Payments")//
 		.de("Demo-Rechnungsbezahlungen");
 	I18n0 DEMO_INVOICE_TYPE = new I18n0("Demo Invoice Type")//
