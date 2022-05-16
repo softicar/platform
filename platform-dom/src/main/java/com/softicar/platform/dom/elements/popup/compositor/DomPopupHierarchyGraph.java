@@ -77,7 +77,7 @@ class DomPopupHierarchyGraph {
 	 * Removes all {@link DomPopup} elements from this
 	 * {@link DomPopupHierarchyGraph}.
 	 */
-	public void removeAll() {
+	public void clear() {
 
 		graph.clear();
 	}

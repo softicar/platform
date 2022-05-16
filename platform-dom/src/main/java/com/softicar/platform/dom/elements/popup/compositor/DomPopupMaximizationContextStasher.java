@@ -63,7 +63,7 @@ class DomPopupMaximizationContextStasher {
 	/**
 	 * Discards the entire content of the stash.
 	 */
-	public void removeAll() {
+	public void clear() {
 
 		stash.clear();
 	}

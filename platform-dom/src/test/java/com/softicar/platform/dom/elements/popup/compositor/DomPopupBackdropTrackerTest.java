@@ -64,21 +64,21 @@ public class DomPopupBackdropTrackerTest extends AbstractTest {
 	}
 
 	@Test
-	public void testRemoveAll() {
+	public void testClear() {
 
 		backdropTracker.add(createPopup(), createBackdrop());
 		backdropTracker.add(createPopup(), createBackdrop());
 
-		backdropTracker.removeAll();
+		backdropTracker.clear();
 
 		assertFalse(backdropTracker.isAnyBackdropPresent());
 		assertEquals(0, backdropTracker.getAllBackdrops().size());
 	}
 
 	@Test
-	public void testRemoveAllWithoutBackdrops() {
+	public void testClearWithoutBackdrops() {
 
-		backdropTracker.removeAll();
+		backdropTracker.clear();
 
 		assertFalse(backdropTracker.isAnyBackdropPresent());
 		assertEquals(0, backdropTracker.getAllBackdrops().size());

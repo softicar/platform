@@ -110,9 +110,9 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void closeAll() {
 
 		frameMap.keySet().forEach(this::close);
-		backdropTracker.removeAll().forEach(DomModalPopupBackdrop::disappend);
-		hierarchyGraph.removeAll();
-		maximizationContextStasher.removeAll();
+		backdropTracker.clear().forEach(DomModalPopupBackdrop::disappend);
+		hierarchyGraph.clear();
+		maximizationContextStasher.clear();
 	}
 
 	@Override

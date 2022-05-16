@@ -79,7 +79,7 @@ public class DomPopupMaximizationContextStasherTest extends AbstractTest {
 	}
 
 	@Test
-	public void testRemoveAll() {
+	public void testClear() {
 
 		// setup
 		var firstContext = appendChild(createContext(2));
@@ -88,16 +88,16 @@ public class DomPopupMaximizationContextStasherTest extends AbstractTest {
 		stasher.stash(secondContext);
 
 		// execute
-		stasher.removeAll();
+		stasher.clear();
 
 		// assert result
 		assertException(NoSuchElementException.class, () -> stasher.unstash(secondContext));
 	}
 
 	@Test
-	public void testRemoveAllWithEmptyStash() {
+	public void testClearWithEmptyStash() {
 
-		stasher.removeAll();
+		stasher.clear();
 		// expect no Exception
 	}
 

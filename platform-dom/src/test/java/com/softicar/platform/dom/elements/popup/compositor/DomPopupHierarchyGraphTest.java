@@ -86,7 +86,7 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 	}
 
 	@Test
-	public void testRemoveAll() {
+	public void testClear() {
 
 		// setup
 		var alpha = new DomPopup();
@@ -106,7 +106,7 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 		assertSame(betaChild, betaChildren.get(0));
 
 		// execute
-		graph.removeAll();
+		graph.clear();
 
 		// assert result
 		alphaChildren = graph.getAllChildPopups(alpha);
@@ -116,14 +116,14 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 	}
 
 	@Test
-	public void testRemoveAllWithEmptyGraph() {
+	public void testClearWithEmptyGraph() {
 
-		graph.removeAll();
+		graph.clear();
 		// expect no Exception
 	}
 
 	@Test
-	public void testRemoveAllNonMatching() {
+	public void testClearNonMatching() {
 
 		// setup
 		var alpha = new DomPopup();
@@ -168,7 +168,7 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 	}
 
 	@Test
-	public void testRemoveAllNonMatchingWithEmptyGraph() {
+	public void testClearNonMatchingWithEmptyGraph() {
 
 		graph.removeAllNonMatching(it -> true);
 		graph.removeAllNonMatching(it -> false);
@@ -176,7 +176,7 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testRemoveAllNonMatchingWithNull() {
+	public void testClearNonMatchingWithNull() {
 
 		graph.removeAllNonMatching(null);
 	}

@@ -86,7 +86,7 @@ class DomPopupBackdropTracker {
 	 * @return the removed {@link DomModalPopupBackdrop} elements (never
 	 *         <i>null</i>)
 	 */
-	public List<DomModalPopupBackdrop> removeAll() {
+	public List<DomModalPopupBackdrop> clear() {
 
 		var backdrops = new ArrayList<>(getAllBackdrops());
 		stack.clear();
