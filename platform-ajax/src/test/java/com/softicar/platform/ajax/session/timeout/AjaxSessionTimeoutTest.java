@@ -27,7 +27,7 @@ public class AjaxSessionTimeoutTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertTrue(isSessionTimeoutDivDisplayed());
 
 		// click to reload
-		clickSessionTimeoutDiv();
+		clickSessionTimeoutDivReturnToLoginButton();
 		waitWhile(() -> isSessionTimeoutDivDisplayed());
 
 		// assert timeout-div is hidden
