@@ -14,7 +14,6 @@ function DomPopupEngine() {
 		if(autoRaise) {
 			addEventListeners(popupFrame);
 		}
-		markAsPopup(popupFrame);
 	}
 
 	/**
@@ -97,16 +96,6 @@ function DomPopupEngine() {
 	function raise(popupFrame) {
 
 		_DOM_CONTEXT_.setMaximumZIndex(popupFrame);
-	}
-
-	function markAsPopup(popupFrame) {
-
-		popupFrame['data-is-popup'] = true;
-	}
-
-	function isPopup(popupFrame) {
-
-		return popupFrame['data-is-popup'];
 	}
 }
 
