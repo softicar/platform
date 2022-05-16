@@ -853,12 +853,7 @@ class AjaxRequestMessageEncoder {
         let data = [];
         for (let [key, value] of this.data) {
             data.push(key.length + "\n" + key);
-            if (value !== null && value !== undefined) {
-                data.push(value.length + "\n" + value);
-            }
-            else {
-                data.push("-1\n");
-            }
+            data.push(value.length + "\n" + value);
         }
         return data.join("");
     }

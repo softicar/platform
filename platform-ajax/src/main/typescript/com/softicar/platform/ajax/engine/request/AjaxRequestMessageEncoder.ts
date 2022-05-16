@@ -17,16 +17,8 @@ class AjaxRequestMessageEncoder {
 		let data = [];
 
 		for(let [key, value] of this.data) {
-			// push key
 			data.push(key.length+"\n"+key);
-	
-			// push value
-			// FIXME this check should be not needed!!!!!!!!!!!!!!!
-			if(value !== null && value !== undefined) {
-				data.push(value.length+"\n"+value);
-			} else {
-				data.push("-1\n");
-			}
+			data.push(value.length+"\n"+value);
 		}
 
 		return data.join("");
