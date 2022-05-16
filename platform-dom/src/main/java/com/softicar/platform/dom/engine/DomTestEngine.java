@@ -42,6 +42,6 @@ public class DomTestEngine extends DomNullEngine {
 	@Override
 	public void setMaximumZIndex(IDomNode node) {
 
-		setNodeStyle(node, "z-index", "" + maxZIndex++);
+		setNodeStyle(node, "zIndex", "" + maxZIndex++);
 	}
 }

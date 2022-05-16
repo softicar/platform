@@ -1100,7 +1100,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		if (node instanceof DomPopup) {
 			node = new DomParentNodeFinder<>(DomPopupFrame.class).findClosestParent(node).get();
 		}
-		String zIndexValue = CurrentDomDocument.get().getEngine().getNodeStyle(node, "z-index").orElseThrow();
+		String zIndexValue = CurrentDomDocument.get().getEngine().getNodeStyle(node, "zIndex").orElseThrow();
 		return Integer.parseInt(zIndexValue);
 	}
 
