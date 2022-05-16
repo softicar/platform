@@ -39,11 +39,7 @@ public interface IDomPopupCompositor {
 	void close(DomPopup popup);
 
 	/**
-	 * Closes all {@link DomPopup} elements.
-	 * <p>
-	 * The user will <b>not</b> be prompted if closing any of the
-	 * {@link DomPopup} elements requires interaction, according to the
-	 * respective {@link IDomPopupConfiguration}.
+	 * Calls {@link #close(DomPopup)} on all open {@link DomPopup} elements.
 	 * <p>
 	 * Also resets the internal state of the {@link IDomPopupCompositor}. After
 	 * this method was called, the {@link IDomPopupCompositor} no longer holds
