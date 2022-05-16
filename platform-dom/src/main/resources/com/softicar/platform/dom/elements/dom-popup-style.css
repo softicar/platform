@@ -59,7 +59,7 @@
 	background-color: var(--LABEL_BACKGROUND_COLOR);
 }
 
-.DomPopupFrameHeader.maximized {
+.DomPopupFrame.maximized > .DomPopupFrameHeader {
 	position: sticky;
 	top: 0;
 	left: 0;
