@@ -401,7 +401,7 @@ public class EmfDataTableDivBuilder<R> {
 	public EmfDataTableExtraRowDefinition<R> addSecondaryHeaderRow() {
 
 		IEmfDataTableExtraRowColumnGroupList<R> columnGroupList = config.getSecondaryHeaderRowAccumulator().addNewColumnGroupList();
-		return new EmfDataTableExtraRowDefinition<>(this, columnGroupList).setTextAlign(CssTextAlign.CENTER);
+		return new EmfDataTableExtraRowDefinition<>(this, columnGroupList);
 	}
 
 	/**
@@ -446,7 +446,7 @@ public class EmfDataTableDivBuilder<R> {
 	public EmfDataTableExtraRowDefinition<R> addFooterRow() {
 
 		IEmfDataTableExtraRowColumnGroupList<R> columnGroupList = config.getFooterRowAccumulator().addNewColumnGroupList();
-		return new EmfDataTableExtraRowDefinition<>(this, columnGroupList).setTextAlign(CssTextAlign.RIGHT);
+		return new EmfDataTableExtraRowDefinition<>(this, columnGroupList);
 	}
 
 	/**
