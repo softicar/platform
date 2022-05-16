@@ -30,8 +30,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Schließen");
 	I18n0 CLOSE_ALL = new I18n0("Close All")//
 		.de("Alle schließen");
-	I18n0 CLOSE_THIS = new I18n0("Close This")//
-		.de("Dieses schließen");
+	I18n0 CLOSE_ONLY_THIS = new I18n0("Close Only This")//
+		.de("Nur dieses schließen");
 	I18n0 COLUMN_NAME = new I18n0("Column Name")//
 		.de("Spaltenname");
 	I18n0 COMMA_SEPARATED_VALUES = new I18n0("Comma-separated values")//
