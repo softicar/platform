@@ -11,7 +11,7 @@ class AjaxRequestMessageEncoder {
 	}
 
 	/**
-	 * Encodes the {@link AjaxRequest} data into a string.
+	 * Encodes the {@link AjaxRequestMessage} data into a string.
 	 */
 	public encode(): string {
 		let data = [];
@@ -25,7 +25,7 @@ class AjaxRequestMessageEncoder {
 	}
 
 	/**
-	 * Encodes the {@link AjaxRequest} data into a hexadecimal string.
+	 * Encodes the {@link AjaxRequestMessage} data into a hexadecimal string.
 	 */
 	public encodeToHex(): string {
 		return this.encodeTextCharsToHex(this.encode());
