@@ -1,29 +1,28 @@
 
 /**
- * This class encodes the {@link AjaxRequest} parameters.
+ * This class encodes the {@link AjaxRequestMessage} data.
  */
-class AjaxMessageEncoder {
+class AjaxRequestMessageEncoder {
 	private static HEX_DIGITS = "0123456789ABCDEF";
-	private parameters: any;
+	private data: Map<string, string>;
 	
-	public constructor(parameters: any) {
-		this.parameters = parameters;
+	public constructor(data: Map<string, string>) {
+		this.data = data;
 	}
 
 	/**
-	 * Encodes the {@link AjaxRequest} parameters into a string.
+	 * Encodes the {@link AjaxRequest} data into a string.
 	 */
 	public encode(): string {
 		let data = [];
 
-		for(let key in this.parameters) {
+		for(let [key, value] of this.data) {
 			// push key
 			data.push(key.length+"\n"+key);
 	
 			// push value
-			let value = this.parameters[key];
+			// FIXME this check should be not needed!!!!!!!!!!!!!!!
 			if(value !== null && value !== undefined) {
-				value = ""+value;
 				data.push(value.length+"\n"+value);
 			} else {
 				data.push("-1\n");
@@ -34,7 +33,7 @@ class AjaxMessageEncoder {
 	}
 
 	/**
-	 * Encodes the {@link AjaxRequest} parameters into a hexadecimal string.
+	 * Encodes the {@link AjaxRequest} data into a hexadecimal string.
 	 */
 	public encodeToHex(): string {
 		return this.encodeTextCharsToHex(this.encode());
@@ -83,6 +82,6 @@ class AjaxMessageEncoder {
 	}
 
 	private hexNibble(nibble: number): string {
-		return AjaxMessageEncoder.HEX_DIGITS.charAt(nibble);
+		return AjaxRequestMessageEncoder.HEX_DIGITS.charAt(nibble);
 	}
 }

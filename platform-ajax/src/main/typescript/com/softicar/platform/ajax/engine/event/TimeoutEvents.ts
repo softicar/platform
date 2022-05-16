@@ -10,13 +10,10 @@ function scheduleTimeout(timeoutNode: HTMLElement, milliseconds: number) {
  */
 function handleTimeout(timeoutNode: HTMLElement) {
 	if(AJAX_REQUEST_LOCK.lock()) {
-		let parameters = {
-			a: AJAX_REQUEST_TIMEOUT,
-			n: timeoutNode.id
-		};
-		VALUE_NODE_MAP.copyNodeValues(parameters);
-		ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
-		ACTION_QUEUE.executeNextAction();
+		let message = new AjaxRequestMessage()
+			.setAction(AJAX_REQUEST_TIMEOUT)
+			.setNode(timeoutNode);
+		new AjaxRequest(message).send();
 	} else {
 		scheduleTimeout(timeoutNode, TIMEOUT_RETRY_DELAY);
 	}

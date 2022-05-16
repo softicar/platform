@@ -8,7 +8,7 @@ class AjaxRequestManager {
 		this.requestIndex = 0;
 	}
 
-	public registerRequest(request: AjaxRequest): number {
+	public openRequest(request: AjaxRequest): number {
 		if(this.currentRequest == null) {
 			this.currentRequest = request;
 			return this.requestIndex;
@@ -17,7 +17,7 @@ class AjaxRequestManager {
 		}
 	}
 
-	public finishRequest(request: AjaxRequest) {
+	public closeRequest(request: AjaxRequest) {
 		if(request === this.currentRequest) {
 			this.currentRequest = null;
 			this.requestIndex += 1;

@@ -95,6 +95,7 @@ public class AjaxFramework {
 			}
 			new AjaxServiceDelegator(new AjaxRequest(this, request, response)).service();
 		} catch (Throwable throwable) {
+			throwable.printStackTrace();
 			new AjaxServiceExceptionHandler(this, request, response).handleException(throwable);
 		}
 	}
