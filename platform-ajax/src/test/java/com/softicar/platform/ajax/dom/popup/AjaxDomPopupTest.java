@@ -13,6 +13,7 @@ import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -91,6 +92,26 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 		// assert clicking background pop-up allocates z-index
 		clickAt(popup1, 0, 0);
 		assertEquals(getZIndex(popup2) + 1, getZIndex(popup1));
+	}
+
+	@Test
+	public void testTextInputFocusedAfterOpen() {
+
+		// preparation
+		var textInput1 = new DomTextInput();
+		var textInput2 = new DomTextInput();
+		popup1.appendChild(textInput1);
+		popup1.appendChild(textInput2);
+
+		// precondition: popup is not in tree
+		assertFalse(findNode(popup1).isPresent());
+
+		// click to show popup
+		click(button1);
+		waitForServer();
+
+		// assert focus
+		assertFocused(textInput1);
 	}
 
 	private int getZIndex(DomPopup popup) {
