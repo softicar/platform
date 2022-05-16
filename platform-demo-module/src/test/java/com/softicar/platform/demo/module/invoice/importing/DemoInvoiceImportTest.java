@@ -17,8 +17,8 @@ import org.junit.Test;
 public class DemoInvoiceImportTest extends AbstractDemoModuleTest {
 
 	private static final String CSV_CONTENT = """
-			%s,ACME,,123,2022-02-02,0,,
-			%s,,ACME,234,2022-02-10,1,,
+			%s,ACME,,123,2022-02-02,0,,,
+			%s,,ACME,234,2022-02-10,1,,,
 			"""
 		.formatted(//
 			AGDemoInvoiceTypeEnum.INBOUND.getId(),
