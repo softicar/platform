@@ -78,10 +78,10 @@
 	
 	display: grid;
 	align-content: center;
+	justify-items: center;
 	position: fixed;
 	top: 30%;
 	left: 44%;
-	height: 30px;
 	padding: 10px 15px;
 	background-color: var(--ERROR_BACKGROUND_COLOR);
 	border: 1px solid var(--ERROR_BORDER_COLOR);
