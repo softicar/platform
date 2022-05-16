@@ -79,17 +79,17 @@ public class DomPopup extends DomDiv {
 	 * <p>
 	 * Must be called before this {@link DomPopup} is shown.
 	 *
-	 * @param configurationConsumers
+	 * @param configurators
 	 *            any number of {@link IDomPopupConfiguration} {@link Consumer}
 	 *            instances to configure this {@link DomPopup} (never
 	 *            <i>null</i>)
 	 * @return this {@link DomPopup}
 	 */
 	@SafeVarargs
-	public final DomPopup configure(Consumer<DomPopupConfiguration>...configurationConsumers) {
+	public final DomPopup configure(Consumer<DomPopupConfiguration>...configurators) {
 
-		Objects.requireNonNull(configurationConsumers);
-		Arrays.asList(configurationConsumers).forEach(it -> it.accept(configuration));
+		Objects.requireNonNull(configurators);
+		Arrays.asList(configurators).forEach(it -> it.accept(configuration));
 		return this;
 	}
 
