@@ -91,6 +91,10 @@
 	user-select: none;
 }
 
+.AjaxSessionTimeoutDialogMessage > hr{
+	background-color: var(--FONT_COLOR);
+}
+
 /* -------------------- working indicator -------------------- */
 
 .AjaxWorkingIndicator {
