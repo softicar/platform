@@ -140,10 +140,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public void focus(DomPopup popup) {
 
 		if (stateTracker.isOpen(popup)) {
-			boolean focused = false;
-			if (popup.getConfiguration().getDisplayMode().isFocusFirst()) {
-				focused = IDomFocusable.focusFirst(IDomTextualInput.class, popup);
-			}
+			boolean focused = IDomFocusable.focusFirst(IDomTextualInput.class, popup);
 			if (!focused) {
 				getFrame(popup).ifPresent(getDomEngine()::focus);
 			}
