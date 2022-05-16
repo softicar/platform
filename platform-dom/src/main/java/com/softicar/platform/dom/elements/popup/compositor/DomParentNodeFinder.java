@@ -5,64 +5,57 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Facilitates finding parents of a specific type for a given {@link IDomNode}.
+ * Finds parents of a specific class for a given {@link IDomNode}.
  *
  * @author Alexander Schmidt
  */
 class DomParentNodeFinder<T extends IDomNode> {
 
-	private final Class<T> parentNodeClass;
+	private final Class<T> parentClass;
 
 	/**
 	 * Constructs a new {@link DomParentNodeFinder}.
 	 *
-	 * @param nodeClass
+	 * @param parentClass
 	 *            the expected parent {@link IDomNode} class (never <i>null</i>)
 	 */
-	public DomParentNodeFinder(Class<T> nodeClass) {
+	public DomParentNodeFinder(Class<T> parentClass) {
 
-		this.parentNodeClass = Objects.requireNonNull(nodeClass);
+		this.parentClass = Objects.requireNonNull(parentClass);
 	}
 
 	/**
-	 * Finds the closest transitive parent of the specified class for the given
-	 * {@link IDomNode}.
-	 * <p>
-	 * Returns {@link Optional#empty()} if the given {@link IDomNode} has no
-	 * such transitive parent.
-	 *
-	 * @param root
-	 *            the {@link IDomNode} to search a parent for (never
-	 *            <i>null</i>)
-	 * @return the closest transitive parent of the specified class
+	 * Same as {@link #findClosestParent(IDomNode, boolean)} but never includes
+	 * the given child {@link IDomNode} itself.
 	 */
-	public Optional<T> findClosestParent(IDomNode root) {
+	public Optional<T> findClosestParent(IDomNode child) {
 
-		return findClosestParent(root, false);
+		return findClosestParent(child, false);
 	}
 
 	/**
-	 * Finds the closest transitive parent of the specified class for the given
-	 * {@link IDomNode}.
+	 * For the given child {@link IDomNode}, finds the closest transitive parent
+	 * of the type given to {@link #DomParentNodeFinder(Class)}.
 	 * <p>
 	 * Returns {@link Optional#empty()} if the given {@link IDomNode} has no
 	 * such transitive parent.
 	 * <p>
-	 * Returns the given {@link IDomNode} if {@code includeRoot} is <i>true</i>
-	 * and the given node is of the specified class.
+	 * Returns the given {@link IDomNode} itself if {@code includeChild} is
+	 * <i>true</i> and the given {@link IDomNode} is of the specified class.
 	 *
-	 * @param root
+	 * @param child
 	 *            the {@link IDomNode} to search a parent for (never
 	 *            <i>null</i>)
-	 * @return the closest transitive parent of the specified class
+	 * @return the closest transitive parent {@link IDomNode} that matches the
+	 *         specified class
 	 */
-	public Optional<T> findClosestParent(IDomNode root, boolean includeRoot) {
+	public Optional<T> findClosestParent(IDomNode child, boolean includeChild) {
 
-		Objects.requireNonNull(root);
-		IDomNode node = includeRoot? root : root.getParent();
+		Objects.requireNonNull(child);
+		IDomNode node = includeChild? child : child.getParent();
 		while (node != null) {
-			if (parentNodeClass.isInstance(node)) {
-				return Optional.ofNullable(parentNodeClass.cast(node));
+			if (parentClass.isInstance(node)) {
+				return Optional.of(parentClass.cast(node));
 			}
 			node = node.getParent();
 		}
