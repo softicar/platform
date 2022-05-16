@@ -169,9 +169,9 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 * @throws RuntimeException
 	 *             if the element is not displayed
 	 */
-	default void clickSessionTimeoutDiv() {
+	default void clickSessionTimeoutDivReturnToLoginButton() {
 
-		getTestEngine().getInput().clickSessionTimeoutDiv();
+		getTestEngine().getInput().clickSessionTimeoutDivReturnToLoginButton();
 	}
 
 	/**
