@@ -23,14 +23,14 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 	}
 
 	@Test
-	public void testIsAutoIncrementColumn() {
+	public void testIsGeneratedPrimaryKeyColumn() {
 
-		assertTrue(new EmfImportColumn<>(EmfTestInvoice.ID).isAutoIncrementColumn());
-		assertTrue(new EmfImportColumn<>(EmfTestInvoiceItem.ID).isAutoIncrementColumn());
+		assertTrue(new EmfImportColumn<>(EmfTestInvoice.ID).isGeneratedPrimaryKeyColumn());
+		assertTrue(new EmfImportColumn<>(EmfTestInvoiceItem.ID).isGeneratedPrimaryKeyColumn());
 
-		assertFalse(new EmfImportColumn<>(EmfTestInvoice.PARTNER).isAutoIncrementColumn());
-		assertFalse(new EmfImportColumn<>(EmfTestInvoiceItem.INVOICE).isAutoIncrementColumn());
-		assertFalse(new EmfImportColumn<>(EmfTestInvoiceModuleInstance.MODULE_INSTANCE).isAutoIncrementColumn());
+		assertFalse(new EmfImportColumn<>(EmfTestInvoice.PARTNER).isGeneratedPrimaryKeyColumn());
+		assertFalse(new EmfImportColumn<>(EmfTestInvoiceItem.INVOICE).isGeneratedPrimaryKeyColumn());
+		assertFalse(new EmfImportColumn<>(EmfTestInvoiceModuleInstance.MODULE_INSTANCE).isGeneratedPrimaryKeyColumn());
 	}
 
 	@Test

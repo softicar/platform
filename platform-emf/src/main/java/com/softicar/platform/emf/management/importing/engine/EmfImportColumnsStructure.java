@@ -102,7 +102,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	public boolean csvFileColumnsContainAutoIncrementColumn() {
 
 		for (EmfImportColumn<R, ?> column: getCsvFileColumns()) {
-			if (column.isAutoIncrementColumn()) {
+			if (column.isGeneratedPrimaryKeyColumn()) {
 				return true;
 			}
 		}
