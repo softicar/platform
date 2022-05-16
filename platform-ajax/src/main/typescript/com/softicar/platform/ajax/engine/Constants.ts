@@ -1,14 +1,11 @@
 
 const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
 
-const AJAX_REQUEST_LOGIN           = 0;
-const AJAX_REQUEST_CREATE_DOCUMENT = 1;
 const AJAX_REQUEST_KEEP_ALIVE      = 2;
 const AJAX_REQUEST_TIMEOUT         = 5;
 const AJAX_REQUEST_DOM_EVENT       = 6;
 const AJAX_REQUEST_DRAG_AND_DROP   = 7;
 const AJAX_REQUEST_UPLOAD          = 8;
-const AJAX_REQUEST_RESOURCE        = 9;
 const AJAX_REQUEST_AUTO_COMPLETE   = 10;
 
 const DOM_VK_TAB    = 9;

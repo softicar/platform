@@ -14,7 +14,7 @@ import javax.servlet.http.Part;
 
 class MultipartRequestParameters extends AbstractAjaxRequestParameters {
 
-	private static final String AJAX_INPUT_REQUEST_PARAMETER = "ajaxInput";
+	private static final String FORM_REQUEST_INPUT_NAME = "form-request-input";
 	private Iterable<IDomFileUpload> fileUploads = Collections.emptyList();
 
 	public MultipartRequestParameters(HttpServletRequest request) {
@@ -37,7 +37,7 @@ class MultipartRequestParameters extends AbstractAjaxRequestParameters {
 
 	private void setRequestParameters(HttpServletRequest request) throws IOException, ServletException {
 
-		try (InputStream stream = request.getPart(AJAX_INPUT_REQUEST_PARAMETER).getInputStream()) {
+		try (InputStream stream = request.getPart(FORM_REQUEST_INPUT_NAME).getInputStream()) {
 			setMap(AjaxUtils.parseHexParameterMap(stream));
 		}
 	}
@@ -47,7 +47,7 @@ class MultipartRequestParameters extends AbstractAjaxRequestParameters {
 		Iterator<Part> iterator = request.getParts().iterator();
 		while (iterator.hasNext()) {
 			Part part = iterator.next();
-			if (!part.getName().equals(AJAX_INPUT_REQUEST_PARAMETER)) {
+			if (!part.getName().equals(FORM_REQUEST_INPUT_NAME)) {
 				fileUploads = new AjaxFileUploadList(part, iterator);
 				break;
 			}
