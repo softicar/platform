@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.WeakHashMap;
 
 /**
- * Keeps track of {@link DomModalPopupBackdrop} elements, and the association
+ * Keeps track of {@link DomModalPopupBackdrop} elements and their association
  * with the respective {@link DomPopup}.
  *
  * @author Alexander Schmidt
@@ -37,9 +37,6 @@ class DomPopupBackdropTracker {
 	 * <p>
 	 * Does <b>not</b> append the {@link DomModalPopupBackdrop} to the
 	 * {@link CurrentDomDocument}.
-	 * <p>
-	 * Recalculates the visibilities of all known {@link DomModalPopupBackdrop}
-	 * elements.
 	 *
 	 * @param popup
 	 *            the {@link DomPopup} to which the
@@ -64,9 +61,6 @@ class DomPopupBackdropTracker {
 	 * If there is no known {@link DomModalPopupBackdrop} for the given
 	 * {@link DomPopup}, nothing will happen, and {@link Optional#empty()} will
 	 * be returned.
-	 * <p>
-	 * If a {@link DomModalPopupBackdrop} was removed, the visibility of all
-	 * known {@link DomModalPopupBackdrop} elements is recalculated.
 	 *
 	 * @param popup
 	 *            the {@link DomPopup} to which the
@@ -76,24 +70,25 @@ class DomPopupBackdropTracker {
 	public Optional<DomModalPopupBackdrop> remove(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
-		var backdrop = map.remove(popup);
-		if (backdrop != null) {
-			removeFromStack(backdrop);
-		}
-		return Optional.ofNullable(backdrop);
+		var backdrop = Optional.ofNullable(map.remove(popup));
+		backdrop.ifPresent(this::removeFromStack);
+		return backdrop;
 	}
 
 	/**
 	 * Removes all {@link DomModalPopupBackdrop} elements.
 	 * <p>
 	 * Does <b>not</b> disappend them from the {@link CurrentDomDocument}.
+	 * <p>
+	 * The most recently-added {@link DomModalPopupBackdrop} will be the first
+	 * element in the returned {@link List}.
 	 *
 	 * @return the removed {@link DomModalPopupBackdrop} elements (never
 	 *         <i>null</i>)
 	 */
 	public List<DomModalPopupBackdrop> removeAll() {
 
-		var backdrops = new ArrayList<>(stack);
+		var backdrops = new ArrayList<>(getAllBackdrops());
 		stack.clear();
 		map.clear();
 		return backdrops;
@@ -131,13 +126,10 @@ class DomPopupBackdropTracker {
 		stack.add(backdrop);
 	}
 
-	private DomModalPopupBackdrop removeFromStack(DomModalPopupBackdrop backdrop) {
+	private void removeFromStack(DomModalPopupBackdrop backdrop) {
 
-		int index = stack.indexOf(backdrop);
-		if (index < 0) {
-			throw new IllegalStateException();
-		} else {
-			return stack.remove(index);
+		if (!stack.remove(backdrop)) {
+			throw new IllegalStateException("Backdrop not found.");
 		}
 	}
 }
