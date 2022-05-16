@@ -1,9 +1,9 @@
 package com.softicar.platform.demo.module.invoice.importing;
 
 import com.softicar.platform.common.string.charset.Charsets;
-import com.softicar.platform.demo.module.AbstractDemoModuleTest;
-import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.emf.EmfI18n;
@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 import org.junit.Test;
 
-public class DemoInvoiceImportTest extends AbstractDemoModuleTest {
+public class DemoInvoiceImportTest extends AbstractDemoInvoiceModuleTest {
 
 	private static final String CSV_CONTENT = """
 			%s,ACME,,123,2022-02-02,0,,,

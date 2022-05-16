@@ -4,16 +4,16 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.demo.module.AbstractDemoModuleTest;
-import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
-public class StaleDemoInvoiceRefreshTest extends AbstractDemoModuleTest {
+public class StaleDemoInvoiceRefreshTest extends AbstractDemoInvoiceModuleTest {
 
 	private static final String OLD = "OLD";
 	private static final String NEW = "NEW";

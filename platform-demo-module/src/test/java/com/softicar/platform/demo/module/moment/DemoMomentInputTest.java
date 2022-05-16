@@ -4,7 +4,6 @@ import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
-import com.softicar.platform.demo.module.AbstractDemoModuleTest;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;

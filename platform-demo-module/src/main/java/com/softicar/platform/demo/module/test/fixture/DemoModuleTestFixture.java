@@ -32,7 +32,6 @@ public class DemoModuleTestFixture implements DemoModuleTestFixtureMethods, ISta
 
 		this.moduleInstance = insertDemoModuleInstance();
 		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
-		new DemoInvoicesTestFixture(moduleInstance).apply();
 		return this;
 	}
 }

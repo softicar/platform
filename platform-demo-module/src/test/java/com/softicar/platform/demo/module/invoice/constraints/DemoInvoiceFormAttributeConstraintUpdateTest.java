@@ -2,10 +2,10 @@ package com.softicar.platform.demo.module.invoice.constraints;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.AbstractDemoModuleTest;
-import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.invoice.AGDemoInvoiceGenerated;
-import com.softicar.platform.demo.module.invoice.type.AGDemoInvoiceTypeEnum;
+import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoiceGenerated;
+import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
@@ -24,7 +24,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class DemoInvoiceFormAttributeConstraintUpdateTest extends AbstractDemoModuleTest {
+public class DemoInvoiceFormAttributeConstraintUpdateTest extends AbstractDemoInvoiceModuleTest {
 
 	private static final String CREDITOR_NAME = "MY CREDITOR";
 	private static final String DEBTOR_NAME = "MY DEBTOR";

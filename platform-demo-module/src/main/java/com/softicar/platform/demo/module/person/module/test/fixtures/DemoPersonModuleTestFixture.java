@@ -15,6 +15,7 @@ public class DemoPersonModuleTestFixture implements DemoPersonModuleTestFixtureM
 	public DemoPersonModuleTestFixture(TestFixtureRegistry registry) {
 
 		this.registry = registry;
+		this.registry.registerIfMissing(DemoModuleTestFixture::new);
 	}
 
 	@Override
@@ -32,10 +33,9 @@ public class DemoPersonModuleTestFixture implements DemoPersonModuleTestFixtureM
 	@Override
 	public IStandardModuleTestFixture<AGDemoPersonModuleInstance> apply() {
 
-		registry.registerIfMissing(DemoModuleTestFixture::new);
 		moduleInstance = insertDemoPersonModuleInstance(registry.getModuleInstance(AGDemoModuleInstance.TABLE));
 		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
-		new DemoPersonTestFixtures(moduleInstance).apply();
+		new DemoPersonsTestFixtures(moduleInstance).apply();
 		return this;
 	}
 }

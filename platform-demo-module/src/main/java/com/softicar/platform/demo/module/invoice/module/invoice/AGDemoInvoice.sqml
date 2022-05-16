@@ -1,0 +1,25 @@
+PACKAGE com.softicar.platform.demo.module.invoice.module.invoice
+
+IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
+IMPORT com.softicar.platform.core.module.file.stored.set.AGStoredFileSet
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.demo.module.invoice.module.AGDemoInvoiceModuleInstance
+IMPORT com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceType
+IMPORT com.softicar.platform.demo.module.person.module.AGDemoPerson
+
+TABLE AGDemoInvoice 'Demo.DemoInvoice' {	
+	PK Integer id = SERIAL
+	AGTransaction transaction
+	AGDemoInvoiceModuleInstance moduleInstance
+	AGDemoInvoiceType type
+	String creditor = '' [MAXLENGTH=255]
+	String debtor = '' [MAXLENGTH=255]
+	String invoiceNumber [MAXLENGTH=255]
+	Day invoiceDate
+	Boolean lockedItems = FALSE
+	AGStoredFile document = NULL [NULLABLE]
+	AGStoredFileSet attachments = NULL [NULLABLE]
+	AGDemoPerson contact = NULL [NULLABLE]
+	
+	UK moduleInstance creditor debtor invoiceNumber invoiceDate
+}

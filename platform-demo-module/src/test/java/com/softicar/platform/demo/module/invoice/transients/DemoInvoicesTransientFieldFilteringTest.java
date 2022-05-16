@@ -1,9 +1,9 @@
 package com.softicar.platform.demo.module.invoice.transients;
 
-import com.softicar.platform.demo.module.AbstractDemoModuleTest;
+import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
-import com.softicar.platform.demo.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.test.fixture.DemoInvoicesTestFixture;
+import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.module.invoice.module.test.fixture.DemoInvoicesTestFixture;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.data.table.testing.EmfDataTableTester;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import org.junit.Test;
 
-public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoModuleTest {
+public class DemoInvoicesTransientFieldFilteringTest extends AbstractDemoInvoiceModuleTest {
 
 	public DemoInvoicesTransientFieldFilteringTest() {
 
