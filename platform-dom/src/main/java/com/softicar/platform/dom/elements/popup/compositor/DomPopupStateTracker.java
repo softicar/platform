@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.popup.compositor;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -30,7 +31,7 @@ class DomPopupStateTracker {
 
 	public Collection<DomPopup> getAllOpen() {
 
-		return Collections.unmodifiableCollection(openPopups);
+		return Collections.unmodifiableCollection(new ArrayList<>(openPopups));
 	}
 
 	public boolean isOpen(DomPopup popup) {
