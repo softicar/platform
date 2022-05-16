@@ -24,7 +24,8 @@
 	border-right: 1px solid var(--INPUT_BORDER_COLOR);
 }
 
-.DomDataTable tr > td {
+.DomDataTable tr > td,
+.DomDataTable > tfoot > tr > th {
 	padding: 0.5em 1em;
 }
 

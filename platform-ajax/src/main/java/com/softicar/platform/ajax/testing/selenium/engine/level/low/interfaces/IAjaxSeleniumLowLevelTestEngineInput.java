@@ -19,7 +19,7 @@ public interface IAjaxSeleniumLowLevelTestEngineInput {
 
 	void clickBodyNode();
 
-	void clickSessionTimeoutDiv();
+	void clickSessionTimeoutDivReturnToLoginButton();
 
 	void doubleClickAt(IDomNode node, int xOffset, int yOffset);
 
