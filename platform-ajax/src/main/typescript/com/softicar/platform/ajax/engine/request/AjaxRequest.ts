@@ -1,5 +1,5 @@
 /**
- * A request send to the server site of the AJAX engine.
+ * A request sent to the server side of the AJAX engine.
  * <p>
  * This class should not be used directly but only through {@link AjaxRequestQueue}.
  */
