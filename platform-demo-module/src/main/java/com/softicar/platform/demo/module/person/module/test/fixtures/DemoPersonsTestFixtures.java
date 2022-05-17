@@ -14,9 +14,9 @@ public class DemoPersonsTestFixtures implements DemoPersonModuleTestFixtureMetho
 
 	public void apply() {
 
-		insertDemoPerson(moduleInstance, "Anton", "A.", 123, Day.fromYMD(1970, 1, 1));
-		insertDemoPerson(moduleInstance, "Bill", "B.", 124, null);
-		insertDemoPerson(moduleInstance, "Ceasar", "C.", 125, Day.fromYMD(1973, 3, 3));
-		insertDemoPerson(moduleInstance, "Dixie", "D.", 126, Day.fromYMD(1978, 8, 8));
+		insertDemoPerson(moduleInstance, "Anton", "Alligator", 123, Day.fromYMD(1970, 1, 1));
+		insertDemoPerson(moduleInstance, "Bob", "Bear", 124, null);
+		insertDemoPerson(moduleInstance, "Charlie", "Crocodile", 125, Day.fromYMD(1973, 3, 3));
+		insertDemoPerson(moduleInstance, "Dixie", "Dog", 126, Day.fromYMD(1978, 8, 8));
 	}
 }

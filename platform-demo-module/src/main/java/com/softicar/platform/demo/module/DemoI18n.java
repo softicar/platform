@@ -7,14 +7,10 @@ public interface DemoI18n extends WorkflowI18n {
 
 	I18n0 BIRTH_DATE = new I18n0("Birth Date")//
 		.de("Geburtsdatum");
-	I18n0 BUSINESS_PARTNER = new I18n0("Business Partner")//
-		.de("Geschäftspartner");
 	I18n0 CLERK = new I18n0("Clerk")//
 		.de("Sachbearbeiter");
 	I18n0 CONTACT = new I18n0("Contact")//
 		.de("Kontakt");
-	I18n0 CONTACTS = new I18n0("Contacts")//
-		.de("Kontakte");
 	I18n0 CREATE_TRAIT = new I18n0("Create Trait")//
 		.de("Merkmal erstellen");
 	I18n0 CREDITOR = new I18n0("Creditor")//
@@ -23,14 +19,6 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Debitor");
 	I18n0 DEMO = new I18n0("Demo")//
 		.de("Demo");
-	I18n0 DEMO_BUSINESS_PARTNER = new I18n0("Demo Business Partner")//
-		.de("Demo-Geschäftspartner");
-	I18n0 DEMO_BUSINESS_PARTNER_CONTACT = new I18n0("Demo Business Partner Contact")//
-		.de("Demo-Geschäftspartner-Kontakt");
-	I18n0 DEMO_BUSINESS_PARTNER_CONTACTS = new I18n0("Demo Business Partner Contacts")//
-		.de("Demo-Geschäftspartner-Kontakte");
-	I18n0 DEMO_BUSINESS_PARTNERS = new I18n0("Demo Business Partners")//
-		.de("Demo-Geschäftspartner");
 	I18n0 DEMO_INVOICE = new I18n0("Demo Invoice")//
 		.de("Demo-Rechnung");
 	I18n0 DEMO_INVOICE_ITEM = new I18n0("Demo Invoice Item")//
@@ -71,8 +59,6 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Dokument");
 	I18n0 EDIT_TRAIT = new I18n0("Edit Trait")//
 		.de("Merkmal bearbeiten");
-	I18n0 EMPLOYEE_ID = new I18n0("Employee ID")//
-		.de("Mitarbeiterkennung");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
 	I18n0 IDENTITY_CARD_NUMBER = new I18n0("Identity Card Number")//
@@ -103,8 +89,6 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//
 		.de("Menge");
-	I18n0 VAT_ID = new I18n0("VAT ID")//
-		.de("USt-ID");
 	I18n0 VIEW_TRAIT = new I18n0("View Trait")//
 		.de("Merkmal anschauen");
 }

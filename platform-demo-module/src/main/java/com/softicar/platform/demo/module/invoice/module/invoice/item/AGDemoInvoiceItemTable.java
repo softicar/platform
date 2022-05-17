@@ -31,5 +31,4 @@ public class AGDemoInvoiceItemTable extends EmfObjectTable<AGDemoInvoiceItem, AG
 			.editEntityAttribute(AGDemoInvoiceItem.CLERK)
 			.setScope(it -> it.getDemoPersonModuleInstance(), AGDemoPerson::getModuleInstance);
 	}
-
 }

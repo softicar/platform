@@ -2,7 +2,7 @@ package com.softicar.platform.demo.module.invoice.constraints;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoiceGenerated;
 import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;

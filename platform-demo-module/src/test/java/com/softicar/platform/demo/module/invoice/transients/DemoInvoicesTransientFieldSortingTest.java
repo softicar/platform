@@ -1,6 +1,6 @@
 package com.softicar.platform.demo.module.invoice.transients;
 
-import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.module.test.fixture.DemoInvoicesTestFixture;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;

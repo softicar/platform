@@ -1,8 +1,8 @@
 package com.softicar.platform.demo.module.invoice.item.lock;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.invoice.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;

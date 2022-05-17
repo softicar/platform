@@ -4,7 +4,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.demo.module.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.module.invoice.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
