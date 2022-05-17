@@ -144,6 +144,10 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 }
 
+.PageServiceLoginMaintenanceDiv {
+	padding-bottom: 5px;
+}
+
 .PageServiceLoginErrorDiv {
 	
 	display: grid;

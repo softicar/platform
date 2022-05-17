@@ -35,13 +35,13 @@ public class SessionManager {
 
 		SofticarAjaxSession//
 			.getInstance(session)
-			.ifPresentOrElse(this::checkUserAndInvalidateIfNotAdministrator, () -> session.invalidate());
+			.ifPresentOrElse(it -> checkUserAndInvalidateIfNotAdministrator(it, session), () -> session.invalidate());
 	}
 
-	private void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession) {
+	private void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession, HttpSession session) {
 
 		if (!ajaxSession.getUser().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
-			ajaxSession.getSession().invalidate();
+			session.invalidate();
 		}
 	}
 
