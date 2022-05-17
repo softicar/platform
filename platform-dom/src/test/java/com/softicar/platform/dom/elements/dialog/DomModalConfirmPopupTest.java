@@ -16,9 +16,9 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	// ---------------- basics ---------------- //
 
 	@Test
-	public void testShowMessage() {
+	public void testContainsMessage() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getContent().assertContainsText(MESSAGE);
 	}
 
@@ -27,7 +27,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnOkayButtonWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getOkayButton().click();
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -37,7 +37,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnOkayButtonWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getOkayButton().click();
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -47,7 +47,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnOkayButtonWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getOkayButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -57,7 +57,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnOkayButtonWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getOkayButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -67,7 +67,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnOkayButtoWithoutCancelCallbackn() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getOkayButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -77,7 +77,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnOkayButtoWithCancelCallbackn() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getOkayButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertConfirmed();
@@ -89,7 +89,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnCancelButtonWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getCancelButton().click();
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -99,7 +99,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnCancelButtonWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getCancelButton().click();
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -109,7 +109,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnCancelButtonWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getCancelButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -119,7 +119,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnCancelButtonWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getCancelButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -129,7 +129,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnCancelButtonWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getCancelButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -139,7 +139,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnCancelButtonWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getCancelButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -151,7 +151,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEscapeOnFrameWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getFrame().sendEvent(DomEventType.ESCAPE);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -161,7 +161,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEscapeOnFrameWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getFrame().sendEvent(DomEventType.ESCAPE);
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -173,7 +173,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnBackdropWithoutCancelCallback() {
 
-		var confirm = showConfirm(false);
+		var confirm = openConfirm(false);
 		confirm.getBackdrop().click();
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -183,7 +183,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnBackdropWithCancelCallback() {
 
-		var confirm = showConfirm(true);
+		var confirm = openConfirm(true);
 		confirm.getBackdrop().click();
 		assertNoDisplayedModalDialog();
 		assertNotConfirmed();
@@ -192,10 +192,10 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 
 	// ---------------- private ---------------- //
 
-	private IDomModalConfirmNodes<DomNodeTester> showConfirm(boolean withCancelCallback) {
+	private IDomModalConfirmNodes<DomNodeTester> openConfirm(boolean withCancelCallback) {
 
 		setNodeSupplier(() -> new TestDiv(withCancelCallback));
-		findButton(SHOW_BUTTON).click();
+		findButton(OPEN_BUTTON).click();
 		return findDisplayedModalConfirmOrFail();
 	}
 
@@ -239,9 +239,9 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 				MESSAGE);
 			appendChild(
 				new DomButton()//
-					.setLabel("spawn confirm")
+					.setLabel("open confirm")
 					.setClickCallback(confirmPopup::open)
-					.addMarker(SHOW_BUTTON));
+					.addMarker(OPEN_BUTTON));
 		}
 
 		private void handleConfirm() {

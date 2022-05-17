@@ -25,6 +25,7 @@ public interface DomElementsImages {
 	IResourceSupplier DIALOG_CANCEL = FACTORY.create("dialog-cancel.svg");
 	IResourceSupplier DIALOG_CLOSE = FACTORY.create("dialog-close.svg");
 	IResourceSupplier DIALOG_OKAY = FACTORY.create("dialog-okay.svg");
+	IResourceSupplier DIALOG_OKAY_ALL = FACTORY.create("dialog-okay-all.svg");
 	IResourceSupplier ENTRY_ADD = FACTORY.create("entry-add.svg");
 	IResourceSupplier ENTRY_REMOVE = FACTORY.create("entry-remove.svg");
 	IResourceSupplier FILTER = FACTORY.create("filter.svg");

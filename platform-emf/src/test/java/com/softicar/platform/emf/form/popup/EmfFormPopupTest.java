@@ -22,7 +22,8 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 	@Test
 	public void testDisplaysAttributeNames() {
 
-		showPopup(insertEntity("foobar", Day.today()));
+		EmfTestObject entity = insertEntity("foobar", Day.today());
+		openPopup(entity);
 
 		findBody()//
 			.findNode(DomPopup.class)
@@ -41,7 +42,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 	public void testDisplaysAttributeValues() {
 
 		EmfTestObject entity = insertEntity("foobar", Day.today());
-		showPopup(entity);
+		openPopup(entity);
 
 		findBody()//
 			.findNode(DomPopup.class)
@@ -65,11 +66,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 		return entity;
 	}
 
-	private void showPopup(EmfTestObject entity) {
-
-		// Ensure initialization of the element under test.
-		// FIXME This hack should not be necessary.
-		findBody();
+	private void openPopup(EmfTestObject entity) {
 
 		DomPopupManager//
 			.getInstance()

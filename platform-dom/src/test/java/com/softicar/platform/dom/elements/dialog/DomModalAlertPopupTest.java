@@ -13,9 +13,9 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 	// ---------------- basics ---------------- //
 
 	@Test
-	public void testShowMessage() {
+	public void testContainsMessage() {
 
-		var alert = showAlert();
+		var alert = openAlert();
 		alert.getContent().assertContainsText(MESSAGE);
 	}
 
@@ -24,7 +24,7 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnCloseButton() {
 
-		var alert = showAlert();
+		var alert = openAlert();
 		alert.getCloseButton().click();
 		assertNoDisplayedModalDialog();
 	}
@@ -32,7 +32,7 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnCloseButton() {
 
-		var alert = showAlert();
+		var alert = openAlert();
 		alert.getCloseButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 	}
@@ -40,17 +40,17 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnCloseButton() {
 
-		var alert = showAlert();
+		var alert = openAlert();
 		alert.getCloseButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 	}
 
 	// ---------------- private ---------------- //
 
-	private IDomModalAlertNodes<DomNodeTester> showAlert() {
+	private IDomModalAlertNodes<DomNodeTester> openAlert() {
 
 		setNodeSupplier(TestDiv::new);
-		findButton(SHOW_BUTTON).click();
+		findButton(OPEN_BUTTON).click();
 		return findDisplayedModalAlertOrFail();
 	}
 
@@ -64,9 +64,9 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 		public TestDiv() {
 
 			appendChild(new DomButton())//
-				.setLabel("spawn alert")
+				.setLabel("open alert")
 				.setClickCallback(new DomModalAlertPopup(MESSAGE)::open)
-				.addMarker(SHOW_BUTTON);
+				.addMarker(OPEN_BUTTON);
 		}
 	}
 }

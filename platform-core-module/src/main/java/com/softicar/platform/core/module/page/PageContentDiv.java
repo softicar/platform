@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.popup.compositor.IDomPopupMaximizationContext;
 import com.softicar.platform.emf.page.IEmfPage;
 
 /**
@@ -12,7 +13,7 @@ import com.softicar.platform.emf.page.IEmfPage;
  *
  * @author Oliver Richers
  */
-class PageContentDiv extends DomDiv {
+class PageContentDiv extends DomDiv implements IDomPopupMaximizationContext {
 
 	public PageContentDiv(PageNavigationLink<?> link) {
 
