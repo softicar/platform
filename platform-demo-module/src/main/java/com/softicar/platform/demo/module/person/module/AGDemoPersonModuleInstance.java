@@ -2,6 +2,7 @@ package com.softicar.platform.demo.module.person.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
+import com.softicar.platform.emf.page.EmfPagePath;
 
 public class AGDemoPersonModuleInstance extends AGDemoPersonModuleInstanceGenerated implements IStandardModuleInstance<AGDemoPersonModuleInstance> {
 
@@ -14,5 +15,10 @@ public class AGDemoPersonModuleInstance extends AGDemoPersonModuleInstanceGenera
 		} else {
 			return IDisplayString.create(title);
 		}
+	}
+
+	public EmfPagePath getDefaultPagePathOfDemoModuleInstance() {
+
+		return getDemoModuleInstance().getDefaultPagePath();
 	}
 }

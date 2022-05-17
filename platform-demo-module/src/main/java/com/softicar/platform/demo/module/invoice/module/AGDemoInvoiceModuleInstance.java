@@ -2,6 +2,7 @@ package com.softicar.platform.demo.module.invoice.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
+import com.softicar.platform.emf.page.EmfPagePath;
 
 public class AGDemoInvoiceModuleInstance extends AGDemoInvoiceModuleInstanceGenerated implements IStandardModuleInstance<AGDemoInvoiceModuleInstance> {
 
@@ -14,5 +15,10 @@ public class AGDemoInvoiceModuleInstance extends AGDemoInvoiceModuleInstanceGene
 		} else {
 			return IDisplayString.create(title);
 		}
+	}
+
+	public EmfPagePath getDefaultPagePathOfDemoModuleInstance() {
+
+		return getDemoPersonModuleInstance().getDefaultPagePathOfDemoModuleInstance();
 	}
 }
