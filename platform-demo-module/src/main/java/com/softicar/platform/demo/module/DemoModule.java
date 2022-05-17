@@ -1,5 +1,6 @@
 package com.softicar.platform.demo.module;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.AbstractStandardModule;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -13,6 +14,12 @@ public class DemoModule extends AbstractStandardModule<AGDemoModuleInstance> {
 	public IStandardModuleInstanceTable<AGDemoModuleInstance> getModuleInstanceTable() {
 
 		return AGDemoModuleInstance.TABLE;
+	}
+
+	@Override
+	public IDisplayString toDisplay() {
+
+		return DemoI18n.DEMO;
 	}
 
 	@Override
