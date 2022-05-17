@@ -5,7 +5,6 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.IDomFocusable;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -58,13 +57,6 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 		appendContent(message);
 		appendActionNode(new OkayButton());
 		appendCancelButton().addMarker(DomModalConfirmMarker.CANCEL_BUTTON);
-	}
-
-	@Override
-	public void open() {
-
-		super.open();
-		IDomFocusable.focusFirst(DomButton.class, this);
 	}
 
 	private void executeCancelCallback() {

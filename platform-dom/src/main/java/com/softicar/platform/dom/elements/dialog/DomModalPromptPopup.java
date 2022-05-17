@@ -7,6 +7,8 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.dom.input.IDomFocusable;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -42,6 +44,13 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 
 		appendActionNode(new OkayButton());
 		appendCancelButton().addMarker(DomModalPromptMarker.CANCEL_BUTTON);
+	}
+
+	@Override
+	public void open() {
+
+		super.open();
+		IDomFocusable.focusFirst(IDomTextualInput.class, this);
 	}
 
 	private void closeAndApplyInput() {

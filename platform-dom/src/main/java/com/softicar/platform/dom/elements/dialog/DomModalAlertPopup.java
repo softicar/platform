@@ -1,8 +1,6 @@
 package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.IDomFocusable;
 
 /**
  * A custom modal dialog that replaces a native "alert" dialog.
@@ -22,12 +20,5 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 
 		appendContent(message);
 		appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
-	}
-
-	@Override
-	public void open() {
-
-		super.open();
-		IDomFocusable.focusFirst(DomButton.class, this);
 	}
 }
