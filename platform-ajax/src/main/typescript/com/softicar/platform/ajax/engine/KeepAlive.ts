@@ -36,21 +36,12 @@ class KeepAlive {
 	}
 
 	private handleKeepAliveTimeout() {
-		// ignore if the session timed out
 		if(SESSION_TIMED_OUT) {
 			return;
 		}
-	
-		// try to get the global event lock
-		if(AJAX_REQUEST_LOCK.lock()) {
-			let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
-			new AjaxRequest(message).send();
-		} else {
-			// Since the global event lock was active there was no point
-			// in sending a keep-alive, anyway. So, just reschedule a new
-			// timeout.
-			KEEP_ALIVE.schedule();
-		}
+
+		let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
+		AJAX_REQUEST_QUEUE.submit(message);
 	}
 }
 
