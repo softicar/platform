@@ -13,7 +13,7 @@ public class DomPopupButton extends DomButton {
 
 	public DomPopupButton setPopupFactory(Supplier<DomPopup> popupFactory) {
 
-		setClickCallback(() -> showPopup(popupFactory));
+		setClickCallback(() -> openPopup(popupFactory));
 		return this;
 	}
 
@@ -29,7 +29,7 @@ public class DomPopupButton extends DomButton {
 		return this;
 	}
 
-	private void showPopup(Supplier<DomPopup> popupFactory) {
+	private void openPopup(Supplier<DomPopup> popupFactory) {
 
 		if (popup != null) {
 			// FIXME PLAT-819 This effectively bypasses the "confirm" prompt (if any) when the button is clicked again.

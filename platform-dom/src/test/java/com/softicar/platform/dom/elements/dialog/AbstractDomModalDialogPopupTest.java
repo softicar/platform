@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 
 public abstract class AbstractDomModalDialogPopupTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
+	protected static final IStaticObject OPEN_BUTTON = Mockito.mock(IStaticObject.class);
 	protected static final IStaticObject OUTPUT_ELEMENT = Mockito.mock(IStaticObject.class);
-	protected static final IStaticObject SHOW_BUTTON = Mockito.mock(IStaticObject.class);
 	protected static final IDisplayString MESSAGE = IDisplayString.create("some message");
 
 	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();

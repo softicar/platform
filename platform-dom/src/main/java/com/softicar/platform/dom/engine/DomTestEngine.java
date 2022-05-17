@@ -9,10 +9,12 @@ import java.util.WeakHashMap;
 public class DomTestEngine extends DomNullEngine {
 
 	private final Map<IDomNode, Map<String, String>> styleValues;
+	private int maxZIndex;
 
 	public DomTestEngine() {
 
 		this.styleValues = new WeakHashMap<>();
+		this.maxZIndex = 1;
 	}
 
 	@Override
@@ -35,5 +37,11 @@ public class DomTestEngine extends DomNullEngine {
 		return Optional//
 			.ofNullable(styleValues.get(node))
 			.map(map -> map.get(name));
+	}
+
+	@Override
+	public void setMaximumZIndex(IDomNode node) {
+
+		setNodeStyle(node, "zIndex", "" + maxZIndex++);
 	}
 }
