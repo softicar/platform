@@ -1,7 +1,5 @@
 package com.softicar.platform.emf.record;
 
-
-
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.dom.elements.DomDiv;

@@ -12,6 +12,7 @@ import com.softicar.platform.core.module.page.navigation.PageNavigationResources
 import com.softicar.platform.core.module.page.service.login.PageServiceLoginDiv;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
+import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class PageServiceDocumentBuilder {
 			CurrentLocale.set(AGCoreModuleInstance.getInstance().getDefaultLocalization().getLocale());
 			document.getEngine().setDocumentTitle(CoreI18n.LOGIN.toString());
 			document.appendToBody(new PageServiceLoginDiv(this));
-			IDomTextualInput.focusFirstTextualInput(document.getBody());
+			IDomFocusable.focusFirst(IDomTextualInput.class, document.getBody());
 		}
 	}
 

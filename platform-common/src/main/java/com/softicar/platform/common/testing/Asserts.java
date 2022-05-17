@@ -86,16 +86,6 @@ public class Asserts extends Assert {
 		}
 	}
 
-	/**
-	 * @deprecated use {@link #assertException(Class, INullaryVoidFunction)}
-	 *             instead
-	 */
-	@Deprecated
-	public static void assertThrows(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
-
-		assertException(expectedThrowableClass, thrower);
-	}
-
 	public static void assertException(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
 
 		try {
@@ -104,17 +94,6 @@ public class Asserts extends Assert {
 		} catch (Exception exception) {
 			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(exception));
 		}
-	}
-
-	/**
-	 * @deprecated use
-	 *             {@link #assertException(INullaryVoidFunction, IDisplayString)}
-	 *             instead
-	 */
-	@Deprecated
-	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
-
-		assertException(thrower, expectedMessage);
 	}
 
 	public static void assertExceptionMessageContains(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
@@ -128,17 +107,6 @@ public class Asserts extends Assert {
 				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
 				exception.getMessage().contains(expectedMessage.toString()));
 		}
-	}
-
-	/**
-	 * @deprecated use
-	 *             {@link #assertExceptionMessageContains(INullaryVoidFunction, IDisplayString)}
-	 *             instead
-	 */
-	@Deprecated
-	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
-
-		assertExceptionMessageContains(thrower, expectedMessage);
 	}
 
 	// --------------------------- assertCount --------------------------- //

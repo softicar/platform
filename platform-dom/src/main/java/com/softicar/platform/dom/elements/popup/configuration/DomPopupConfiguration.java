@@ -25,6 +25,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	private IDisplayString caption;
 	private IDisplayString subCaption;
 	private DomPopupDisplayMode displayMode;
+	private DomPopupChildClosingMode childClosingMode;
 	private IDomPopupPositionStrategy positionStrategy;
 	private INullaryVoidFunction callbackBeforeOpen;
 	private INullaryVoidFunction callbackBeforeClose;
@@ -39,6 +40,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 		this.caption = null;
 		this.subCaption = null;
 		this.displayMode = DomPopupDisplayMode.DRAGGABLE;
+		this.childClosingMode = null;
 		this.positionStrategy = new DomPopupEventCoordinatesPositionStrategy();
 		this.callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
 		this.callbackBeforeClose = INullaryVoidFunction.NO_OPERATION;
@@ -135,6 +137,19 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	/**
+	 * Sets {@link DomPopupDisplayMode#MAXIMIZED} for the {@link DomPopup}.
+	 * <p>
+	 * When using this mode, {@link #setChildClosingModeInteractiveAll()} or
+	 * {@link #setChildClosingModeAutomaticAll()} is recommended.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setDisplayModeMaximized() {
+
+		return setDisplayMode(DomPopupDisplayMode.MAXIMIZED);
+	}
+
+	/**
 	 * Sets {@link DomPopupDisplayMode#POPOVER} for the {@link DomPopup}.
 	 *
 	 * @return this {@link DomPopupConfiguration}
@@ -148,6 +163,80 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	public IDomPopupPositionStrategy getPositionStrategy() {
 
 		return positionStrategy;
+	}
+
+	/**
+	 * Defines the {@link DomPopupChildClosingMode} for the {@link DomPopup}.
+	 * <p>
+	 * If <i>null</i> is given, {@link #getChildClosingMode()} will default to
+	 * {@link DomPopupDisplayMode#getDefaultChildClosingMode()}.
+	 *
+	 * @param childClosingMode
+	 *            the {@link DomPopupChildClosingMode} (may be <i>null</i>)
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setChildClosingMode(DomPopupChildClosingMode childClosingMode) {
+
+		this.childClosingMode = Objects.requireNonNull(childClosingMode);
+		return this;
+	}
+
+	/**
+	 * Sets {@link DomPopupChildClosingMode#AUTOMATIC_ALL} for the
+	 * {@link DomPopup}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setChildClosingModeAutomaticAll() {
+
+		return setChildClosingMode(DomPopupChildClosingMode.AUTOMATIC_ALL);
+	}
+
+	/**
+	 * Sets {@link DomPopupChildClosingMode#AUTOMATIC_NONE} for the
+	 * {@link DomPopup}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setChildClosingModeAutomaticNone() {
+
+		return setChildClosingMode(DomPopupChildClosingMode.AUTOMATIC_NONE);
+	}
+
+	/**
+	 * Sets {@link DomPopupChildClosingMode#INTERACTIVE_ALL} for the
+	 * {@link DomPopup}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setChildClosingModeInteractiveAll() {
+
+		return setChildClosingMode(DomPopupChildClosingMode.INTERACTIVE_ALL);
+	}
+
+	/**
+	 * Sets {@link DomPopupChildClosingMode#INTERACTIVE_OPTIONAL} for the
+	 * {@link DomPopup}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setChildClosingModeInteractiveOptional() {
+
+		return setChildClosingMode(DomPopupChildClosingMode.INTERACTIVE_OPTIONAL);
+	}
+
+	/**
+	 * Returns the {@link DomPopupChildClosingMode} of the {@link DomPopup}.
+	 * <p>
+	 * If no such mode was defined,
+	 * {@link DomPopupDisplayMode#getDefaultChildClosingMode()} will be used.
+	 *
+	 * @return the {@link DomPopupChildClosingMode} (never <i>null</i>)
+	 */
+	@Override
+	public DomPopupChildClosingMode getChildClosingMode() {
+
+		return Optional.ofNullable(childClosingMode).orElse(displayMode.getDefaultChildClosingMode());
 	}
 
 	/**

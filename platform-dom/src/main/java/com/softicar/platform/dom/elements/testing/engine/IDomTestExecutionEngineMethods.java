@@ -5,11 +5,12 @@ import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.IDomNodeTesterFindMethods;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * Provides methods which are commonly used by {@link IDomTestExecutionEngine} based UI
- * test classes.
+ * Provides methods which are commonly used by {@link IDomTestExecutionEngine}
+ * based UI test classes.
  * <p>
  * A test class may implement this interface, to provide convenient access to
  * the functionality of an {@link IDomTestExecutionEngine}:
@@ -52,8 +53,8 @@ public interface IDomTestExecutionEngineMethods extends IDomNodeTesterFindMethod
 
 	/**
 	 * A default implementation that returns the {@link DomBody} of the
-	 * {@link IDomTestExecutionEngine} as the reference node to use when searching for
-	 * children with other methods.
+	 * {@link IDomTestExecutionEngine} as the reference node to use when
+	 * searching for children with other methods.
 	 *
 	 * @return the {@link DomBody} of the {@link IDomTestExecutionEngine} (never
 	 *         <i>null</i>)
@@ -85,5 +86,18 @@ public interface IDomTestExecutionEngineMethods extends IDomNodeTesterFindMethod
 	default void setNodeSupplier(Supplier<IDomNode> nodeSupplier) {
 
 		getEngine().setNodeSupplier(nodeSupplier);
+	}
+
+	/**
+	 * Creates a {@link DomNodeTester} to test the given {@link IDomNode}.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to test (never <i>null</i>)
+	 * @return a {@link DomNodeTester} for the given {@link IDomNode} (never
+	 *         <i>null</i>)
+	 */
+	default DomNodeTester asTester(IDomNode node) {
+
+		return new DomNodeTester(getEngine(), Objects.requireNonNull(node));
 	}
 }

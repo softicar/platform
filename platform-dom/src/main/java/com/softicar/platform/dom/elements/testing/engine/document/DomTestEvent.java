@@ -11,10 +11,12 @@ import com.softicar.platform.dom.node.IDomNode;
  */
 class DomTestEvent implements IDomEvent {
 
+	private final IDomNode target;
 	private final DomEventType eventType;
 
-	public DomTestEvent(DomEventType eventType) {
+	public DomTestEvent(IDomNode target, DomEventType eventType) {
 
+		this.target = target;
 		this.eventType = eventType;
 	}
 
@@ -27,7 +29,7 @@ class DomTestEvent implements IDomEvent {
 	@Override
 	public IDomNode getCurrentTarget() {
 
-		return null;
+		return target;
 	}
 
 	@Override
