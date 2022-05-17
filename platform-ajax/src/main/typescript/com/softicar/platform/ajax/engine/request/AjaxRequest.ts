@@ -48,7 +48,7 @@ class AjaxRequest {
 			} else if(request.status != 0) {
 				alert("HTTP Error " + request.status + ": " + request.statusText);
 			} else {
-				// ignore this error, request was probably canceled by client
+				// ignore this error
 			}
 			AJAX_REQUEST_QUEUE.onRequestResponse("");
 		}
