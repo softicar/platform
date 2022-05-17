@@ -51,18 +51,12 @@ class DragContext {
 		// let the server handle the drop
 		if(this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
 			if(AJAX_REQUEST_LOCK.lock()) {
-				let parameters = {
-					'a' : AJAX_REQUEST_DRAG_AND_DROP,
-					'n' : this.draggedNode.id,
-					'sx': this.dragStart.x,
-					'sy': this.dragStart.y,
-					'dx': this.dragPosition.x,
-					'dy': this.dragPosition.y
-				};
-
-				VALUE_NODE_MAP.copyNodeValues(parameters);
-				ACTION_QUEUE.enqueueAction(new AjaxRequestAction(parameters));
-				ACTION_QUEUE.executeNextAction();
+				let message = new AjaxRequestMessage()
+					.setAction(AJAX_REQUEST_DRAG_AND_DROP)
+					.setNode(this.draggedNode)
+					.setDragStart(this.dragStart)
+					.setDragPosition(this.dragPosition);
+				new AjaxRequest(message).send();
 			}
 		}
 	}

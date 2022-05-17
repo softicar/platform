@@ -1,15 +1,17 @@
 
 class FormRequest {
-	private static TARGET_FRAME_NAME = 'ajaxFrame';
-	private static MESSAGE_INPUT_NAME = 'ajaxInput';
+	private static TARGET_FRAME_NAME = 'form-request-frame';
+	private static MESSAGE_INPUT_NAME = 'form-request-input';
 	private form: HTMLFormElement;
 	private frame: HTMLIFrameElement;
 	private input: HTMLInputElement;
+	private responseHandler: (response: string) => void;
 
-	public constructor(form: HTMLFormElement) {
+	public constructor(form: HTMLFormElement, responseHandler: (response: string) => void) {
 		this.form = form;
 		this.frame = this.createTargetFrame();
 		this.input = this.createMessageInput();
+		this.responseHandler = responseHandler;
 	}
 
 	public setMessage(message: string) {
@@ -37,7 +39,12 @@ class FormRequest {
 		CURRENT_FORM_REQUEST = this;
 	}
 	
-	public finish() {
+	public handleResponse(response: string) {
+		this.finish();
+		this.responseHandler(response);
+	}
+
+	private finish() {
 		document.body.removeChild(this.frame);
 		this.form.removeChild(this.input);
 		CURRENT_FORM_REQUEST = null;
@@ -59,14 +66,9 @@ class FormRequest {
 	}
 }
 
-function handleFormRequestResponse(responseText: string) {
+function handleFormRequestResponse(response: string) {
 	if(CURRENT_FORM_REQUEST) {
-		CURRENT_FORM_REQUEST.finish();
-	}
-
-	let ajaxRequest = AJAX_REQUEST_MANAGER.getCurrentRequest();
-	if(ajaxRequest) {
-		ajaxRequest.handleFormRequestResponse(responseText);
+		CURRENT_FORM_REQUEST.handleResponse(response);
 	}
 }
 
