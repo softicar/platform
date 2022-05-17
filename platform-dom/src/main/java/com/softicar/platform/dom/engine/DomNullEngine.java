@@ -119,7 +119,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void makeDraggable(IDomNode draggedNode, IDomNode initNode) {
+	public void makeDraggable(IDomNode draggedNode, IDomNode initNode, IDomNode parentNode) {
 
 		// nothing to do
 	}

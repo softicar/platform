@@ -1,10 +1,11 @@
 
-function makeDraggable(draggedNode: HTMLElement, initNode: HTMLElement, notifyOnDrop: boolean) {
-	new DragContext(draggedNode, notifyOnDrop).setup(initNode);
+function makeDraggable(movedNode: HTMLElement, draggedNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
+	new DragContext(movedNode, limitingNode, notifyOnDrop).setup(draggedNode);
 }
 
 class DragContext {
-	private draggedNode: HTMLElement;
+	private movedNode: HTMLElement;
+	private limitingNode: HTMLElement | null;
 	private notifyOnDrop: boolean;
 	private cursorStart = new Point();
 	private dragStart = new Point();
@@ -12,16 +13,17 @@ class DragContext {
 	private moveHandler = (event: Event) => this.onMove(event);
 	private dropHandler = (event: Event) => this.onDrop(event);
 
-	public constructor(draggedNode: HTMLElement, notifyOnDrop: boolean) {
-		this.draggedNode = draggedNode;
+	public constructor(movedNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
+		this.movedNode = movedNode;
+		this.limitingNode = limitingNode;
 		this.notifyOnDrop = notifyOnDrop;
 	}
 
-	public setup(initNode: HTMLElement) {
-		initNode.addEventListener("mousedown", event => this.onDragStart(event));
-		initNode.addEventListener("touchstart", event => this.onDragStart(event));
-		initNode.style.userSelect = "none"; // disable text selection while dragging
-		initNode.style.touchAction = "none"; // disable touch panning to avoid weird interaction with dragging
+	public setup(draggedNode: HTMLElement) {
+		draggedNode.addEventListener("mousedown", event => this.onDragStart(event));
+		draggedNode.addEventListener("touchstart", event => this.onDragStart(event));
+		draggedNode.style.userSelect = "none"; // disable text selection while dragging
+		draggedNode.style.touchAction = "none"; // disable touch panning to avoid weird interaction with dragging
 	}
 	
 	public onDragStart(event: Event) {
@@ -29,18 +31,20 @@ class DragContext {
 		this.setDocumentTextSelection(false);
 
 		this.cursorStart = this.getCursorPosition(event);
-		this.dragStart = this.getDraggedNodePosition();
+		this.dragStart = this.getMovedNodePosition();
 		this.dragPosition = this.dragStart;
 
-		_DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
+		_DOM_CONTEXT_.setMaximumZIndex(this.movedNode);
 	}
 
 	public onMove(event: Event) {
 		let cursor = this.getCursorPosition(event);
-		if(cursor.x >= 0 && cursor.y >= 0) {
+		let minX = this.limitingNode? this.limitingNode.getBoundingClientRect().left : 0;
+		let minY = this.limitingNode? this.limitingNode.getBoundingClientRect().top : 0;
+		if(cursor.x >= minX && cursor.y >= minY) {
 			this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart))
-			this.draggedNode.style.left = this.dragPosition.x + "px";
-			this.draggedNode.style.top = this.dragPosition.y + "px";
+			this.movedNode.style.left = this.dragPosition.x + "px";
+			this.movedNode.style.top = this.dragPosition.y + "px";
 		}
 	}
 
@@ -53,7 +57,7 @@ class DragContext {
 			if(AJAX_REQUEST_LOCK.lock()) {
 				let message = new AjaxRequestMessage()
 					.setAction(AJAX_REQUEST_DRAG_AND_DROP)
-					.setNode(this.draggedNode)
+					.setNode(this.movedNode)
 					.setDragStart(this.dragStart)
 					.setDragPosition(this.dragPosition);
 				new AjaxRequest(message).send();
@@ -72,8 +76,8 @@ class DragContext {
 		}
 	}
 	
-	private getDraggedNodePosition() {
-		let style = this.draggedNode.style;
+	private getMovedNodePosition() {
+		let style = this.movedNode.style;
 		let x = style.left? parseInt(style.left) : 0;
 		let y = style.top? parseInt(style.top) : 0;
 		return new Point(x, y);

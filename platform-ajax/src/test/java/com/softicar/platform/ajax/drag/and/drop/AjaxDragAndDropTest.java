@@ -43,7 +43,7 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 			this.dragTargetDiv = appendChild(new Div(200, 100));
 			this.dragAnchorDiv = dragTargetDiv.appendChild(new Div(50, 50));
 
-			getDomEngine().makeDraggable(dragTargetDiv, dragAnchorDiv);
+			getDomEngine().makeDraggable(dragTargetDiv, dragAnchorDiv, null);
 			dragTargetDiv.setStyle(CssPosition.RELATIVE);
 		}
 

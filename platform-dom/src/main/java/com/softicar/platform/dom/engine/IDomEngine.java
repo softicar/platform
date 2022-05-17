@@ -140,7 +140,30 @@ public interface IDomEngine {
 
 	void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds);
 
-	void makeDraggable(IDomNode draggedNode, IDomNode initNode);
+	/**
+	 * Makes an {@link IDomNode} movable via drag-and-drop.
+	 * <p>
+	 * The given moved {@link IDomNode} needs to have CSS style
+	 * {@code "position: absolute"}.
+	 * <p>
+	 * The given moved {@link IDomNode} may or may not be the same as the given
+	 * dragged {@link IDomNode}.
+	 * <p>
+	 * If a limiting {@link IDomNode} is given, the top and left edges of its
+	 * bounding box will serve as boundaries when dragging. If no limiting
+	 * {@link IDomNode} is given, the top and left edges of the viewport will
+	 * serve as boundaries.
+	 *
+	 * @param movedNode
+	 *            the {@link IDomNode} to move when dragging (never <i>null</i>)
+	 * @param draggedNode
+	 *            the {@link IDomNode} that must be dragged, in order to
+	 *            reposition the moved node (never <i>null</i>)
+	 * @param limitingNode
+	 *            an {@link IDomNode} that limits the area in which the moved
+	 *            {@link IDomNode} can be dragged (may be <i>null</i>)
+	 */
+	void makeDraggable(IDomNode movedNode, IDomNode draggedNode, IDomNode limitingNode);
 
 	void enableAutoComplete(IDomAutoCompleteInput<?> input);
 

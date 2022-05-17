@@ -6,12 +6,10 @@ import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomAutoEventHandler;
 import com.softicar.platform.dom.node.AbstractDomNode;
-import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssClass;
 import com.softicar.platform.dom.style.ICssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
-import com.softicar.platform.dom.styles.CssPosition;
 import java.util.Collection;
 
 /**
@@ -147,21 +145,5 @@ public abstract class DomElement extends AbstractDomNode implements IDomElement 
 
 		setAttribute("title", title);
 		return this;
-	}
-
-	// -------------------- dragging -------------------- //
-
-	@Override
-	public void makeDraggable(CssPosition position) {
-
-		setStyle(position);
-		getDomEngine().makeDraggable(this, this);
-	}
-
-	@Override
-	public void makeDraggable(CssPosition position, IDomNode initNode) {
-
-		setStyle(position);
-		getDomEngine().makeDraggable(this, initNode);
 	}
 }
