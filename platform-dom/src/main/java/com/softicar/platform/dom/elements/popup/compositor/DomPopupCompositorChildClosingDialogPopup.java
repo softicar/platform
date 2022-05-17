@@ -3,36 +3,36 @@ package com.softicar.platform.dom.elements.popup.compositor;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsImages;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogBuilder;
+import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
 
-class DomPopupCompositorChildClosingDialogBuilder extends DomModalDialogBuilder {
+class DomPopupCompositorChildClosingDialogPopup extends DomModalDialogPopup {
 
-	public DomPopupCompositorChildClosingDialogBuilder() {
+	public DomPopupCompositorChildClosingDialogPopup() {
 
-		setMessage(DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION);
+		appendContent(DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION);
 	}
 
-	public void addCloseParentOnlyOption(INullaryVoidFunction callback) {
+	public void appendCloseOnlyThisButton(INullaryVoidFunction callback) {
 
-		addOption(//
+		appendActionButton(//
 			DomElementsImages.DIALOG_OKAY.getResource(),
 			DomI18n.CLOSE_ONLY_THIS,
 			callback,
 			DomPopupCompositorDialogMarker.BUTTON_CLOSE_PARENT_ONLY);
 	}
 
-	public void addCloseAllOption(INullaryVoidFunction callback) {
+	public void appendCloseAllButton(INullaryVoidFunction callback) {
 
-		addOption(//
+		appendActionButton(//
 			DomElementsImages.DIALOG_OKAY_ALL.getResource(),
 			DomI18n.CLOSE_ALL,
 			callback,
 			DomPopupCompositorDialogMarker.BUTTON_CLOSE_ALL);
 	}
 
-	public void addCancelOption(INullaryVoidFunction callback) {
+	public void appendCancelButton(INullaryVoidFunction callback) {
 
-		addOption(//
+		appendActionButton(//
 			DomElementsImages.DIALOG_CANCEL.getResource(),
 			DomI18n.CANCEL,
 			callback,

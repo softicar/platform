@@ -15,9 +15,9 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	// ---------------- basics ---------------- //
 
 	@Test
-	public void testShowMessage() {
+	public void testContainsMessage() {
 
-		var prompt = showPrompt("");
+		var prompt = openPrompt("");
 		prompt.getContent().assertContainsText(MESSAGE);
 	}
 
@@ -26,7 +26,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnOkayButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getOkayButton().click();
 		assertNoDisplayedModalDialog();
 		assertPromptInputApplied();
@@ -35,7 +35,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnOkayButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getOkayButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertPromptInputApplied();
@@ -44,7 +44,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnOkayButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getOkayButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertPromptInputApplied();
@@ -55,7 +55,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnCancelButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getCancelButton().click();
 		assertNoDisplayedModalDialog();
 		assertPromptInputNotApplied();
@@ -64,7 +64,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnCancelButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getCancelButton().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertPromptInputNotApplied();
@@ -73,7 +73,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testSpaceOnCancelButton() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getCancelButton().sendEvent(DomEventType.SPACE);
 		assertNoDisplayedModalDialog();
 		assertPromptInputNotApplied();
@@ -84,7 +84,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEnterOnInputElement() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getInputElement().sendEvent(DomEventType.ENTER);
 		assertNoDisplayedModalDialog();
 		assertPromptInputApplied();
@@ -95,28 +95,28 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testInputElementWithDefaultValue() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		assertEquals(PROMPT_INPUT_DEFAULT_VALUE, prompt.getInputElement().getInputValue());
 	}
 
 	@Test
 	public void testInputElementWithDifferentDefaultValue() {
 
-		var prompt = showPrompt("different default value");
+		var prompt = openPrompt("different default value");
 		assertEquals("different default value", prompt.getInputElement().getInputValue());
 	}
 
 	@Test
 	public void testInputElementWithEmptyDefaultValue() {
 
-		var prompt = showPrompt("");
+		var prompt = openPrompt("");
 		assertEquals("", prompt.getInputElement().getInputValue());
 	}
 
 	@Test
 	public void testInputElementWithNullDefaultValue() {
 
-		var prompt = showPrompt(null);
+		var prompt = openPrompt(null);
 		assertEquals("", prompt.getInputElement().getInputValue());
 	}
 
@@ -125,7 +125,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testEscapeOnFrame() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getFrame().sendEvent(DomEventType.ESCAPE);
 		assertNoDisplayedModalDialog();
 		assertPromptInputNotApplied();
@@ -136,7 +136,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 	@Test
 	public void testClickOnBackdrop() {
 
-		var prompt = showPrompt();
+		var prompt = openPrompt();
 		prompt.getBackdrop().click();
 		assertNoDisplayedModalDialog();
 		assertPromptInputNotApplied();
@@ -144,16 +144,16 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 
 	// ---------------- private ---------------- //
 
-	private IDomModalPromptNodes<DomNodeTester> showPrompt() {
+	private IDomModalPromptNodes<DomNodeTester> openPrompt() {
 
-		return showPrompt(PROMPT_INPUT_DEFAULT_VALUE);
+		return openPrompt(PROMPT_INPUT_DEFAULT_VALUE);
 	}
 
-	private IDomModalPromptNodes<DomNodeTester> showPrompt(String defaultPromptInputValue) {
+	private IDomModalPromptNodes<DomNodeTester> openPrompt(String defaultPromptInputValue) {
 
 		setNodeSupplier(() -> new TestDiv(defaultPromptInputValue));
 
-		findButton(SHOW_BUTTON).click();
+		findButton(OPEN_BUTTON).click();
 		return findDisplayedModalPromptOrFail();
 	}
 
@@ -186,9 +186,9 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 
 			appendChild(
 				new DomButton()//
-					.setLabel("spawn prompt")
+					.setLabel("open prompt")
 					.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open)
-					.addMarker(SHOW_BUTTON));
+					.addMarker(OPEN_BUTTON));
 		}
 	}
 }

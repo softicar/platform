@@ -1,10 +1,8 @@
 package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.IDomFocusable;
-import java.util.Objects;
 
 /**
  * A custom modal dialog that replaces a native "alert" dialog.
@@ -22,11 +20,7 @@ public class DomModalAlertPopup extends DomModalDialogPopup {
 	 */
 	public DomModalAlertPopup(IDisplayString message) {
 
-		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
-
-		Objects.requireNonNull(message);
-
-		getContent().appendText(message);
+		appendContent(message);
 		appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
 	}
 

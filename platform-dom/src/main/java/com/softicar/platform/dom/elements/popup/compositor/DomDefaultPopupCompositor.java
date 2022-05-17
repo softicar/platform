@@ -197,14 +197,14 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private DomModalDialogPopup buildChildClosingDialog(DomPopup popup, List<DomPopup> childPopups, DomPopupChildClosingMode childClosingMode) {
 
-		var dialogBuilder = new DomPopupCompositorChildClosingDialogBuilder();
-		dialogBuilder.setCallbackBeforeOpen(() -> frameHighlighter.highlight(popup).highlight(childPopups));
+		var dialog = new DomPopupCompositorChildClosingDialogPopup();
+		dialog.setCallbackBeforeOpen(() -> frameHighlighter.highlight(popup).highlight(childPopups));
 		if (!childClosingMode.isCloseAll()) {
-			dialogBuilder.addCloseParentOnlyOption(() -> closePopup(popup, false));
+			dialog.appendCloseOnlyThisButton(() -> closePopup(popup, false));
 		}
-		dialogBuilder.addCloseAllOption(() -> closePopup(popup, true));
-		dialogBuilder.addCancelOption(() -> frameHighlighter.unhighlight(popup).unhighlight(childPopups));
-		return dialogBuilder.build();
+		dialog.appendCloseAllButton(() -> closePopup(popup, true));
+		dialog.appendCancelButton(() -> frameHighlighter.unhighlight(popup).unhighlight(childPopups));
+		return dialog;
 	}
 
 	private void movePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
