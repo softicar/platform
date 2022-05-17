@@ -16,7 +16,7 @@ import java.util.Collections;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomPopupFrame extends DomDiv implements IDomEscapeKeyEventHandler {
+public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeKeyEventHandler {
 
 	private final DomPopup popup;
 	private final DomPopupFrameHeader header;
@@ -27,11 +27,18 @@ public class DomPopupFrame extends DomDiv implements IDomEscapeKeyEventHandler {
 		this.header = new DomPopupFrameHeader(this::closePopup);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
+		addMarker(DomPopupMarker.FRAME);
 		setupEscapeHandler();
 
 		var configuration = popup.getConfiguration();
-		if (configuration.getDisplayMode().hasHeader()) {
+
+		if (configuration.getDisplayMode().isMaximized()) {
+			addCssClass(DomCssPseudoClasses.MAXIMIZED);
+		} else {
 			makeDraggable(CssPosition.ABSOLUTE, header);
+		}
+
+		if (configuration.getDisplayMode().hasHeader()) {
 			appendChild(header);
 			refreshCaptions();
 		}

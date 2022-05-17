@@ -69,9 +69,9 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 	}
 
 	@Override
-	public void clickSessionTimeoutDiv() {
+	public void clickSessionTimeoutDivReturnToLoginButton() {
 
-		sessionTimeoutDivSupplier.get().click();
+		sessionTimeoutDivSupplier.get().findElement(By.tagName("button")).click();
 	}
 
 	@Override

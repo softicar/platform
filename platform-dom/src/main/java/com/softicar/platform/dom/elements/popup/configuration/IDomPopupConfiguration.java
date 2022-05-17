@@ -38,6 +38,13 @@ public interface IDomPopupConfiguration {
 	DomPopupDisplayMode getDisplayMode();
 
 	/**
+	 * Returns the {@link DomPopupChildClosingMode} of the {@link DomPopup}.
+	 *
+	 * @return the {@link DomPopupChildClosingMode} (never <i>null</i>)
+	 */
+	DomPopupChildClosingMode getChildClosingMode();
+
+	/**
 	 * Returns the {@link IDomPopupPositionStrategy} of the {@link DomPopup}.
 	 *
 	 * @return the {@link IDomPopupPositionStrategy} (never <i>null</i>)

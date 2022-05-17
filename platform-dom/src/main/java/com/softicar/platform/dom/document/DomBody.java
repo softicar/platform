@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.document;
 
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.elements.popup.compositor.IDomPopupMaximizationContext;
 import com.softicar.platform.dom.parent.DomParentElement;
 
 /**
@@ -11,7 +12,7 @@ import com.softicar.platform.dom.parent.DomParentElement;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomBody extends DomParentElement {
+public class DomBody extends DomParentElement implements IDomPopupMaximizationContext {
 
 	/**
 	 * Constructs the document head for the given {@link IDomDocument}.

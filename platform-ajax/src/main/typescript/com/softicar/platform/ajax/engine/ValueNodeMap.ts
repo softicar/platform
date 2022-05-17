@@ -15,14 +15,14 @@ class ValueNodeMap {
 	 * Approves all pending values.
 	 */
 	public approveNodeValues() {
-		this.states.forEach((state, node) => state.approveValue());
+		this.states.forEach((state, _) => state.approveValue());
 	}
 
 	/**
 	 * Transfers all changed values of value nodes to the specified data structure.
 	 */
-	public copyNodeValues(data: any) {
-		this.states.forEach((state, node) => state.updatePendingValue(data));
+	public copyNodeValues(message: AjaxRequestMessage) {
+		this.states.forEach((state, _) => state.updatePendingValue(message));
 	}
 
 	public isValueChanged(node: HTMLElement) {
@@ -84,10 +84,10 @@ class ValueNodeState {
 		this.approvedValue = this.pendingValue = value;
 	}
 
-	public updatePendingValue(data: any) {
+	public updatePendingValue(message: AjaxRequestMessage) {
 		this.pendingValue = this.getCurrentValue();
 		if(this.pendingValue != this.approvedValue) {
-			data['V' + this.node.id.substr(1)] = this.pendingValue;
+			message.setNodeValue(this.node, this.pendingValue);
 		}
 	} 
 

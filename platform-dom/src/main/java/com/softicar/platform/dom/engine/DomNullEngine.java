@@ -7,6 +7,7 @@ import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
+import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
@@ -91,12 +92,6 @@ public class DomNullEngine implements IDomEngine {
 	public IResourceUrl getResourceUrl(IResource resource) {
 
 		return new ResourceUrl("" + resource);
-	}
-
-	@Override
-	public void hidePopup(IDomNode popup) {
-
-		// nothing to do
 	}
 
 	@Override
@@ -274,7 +269,13 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void showPopup(IDomNode popup, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
+	public void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
 		// nothing to do
 	}

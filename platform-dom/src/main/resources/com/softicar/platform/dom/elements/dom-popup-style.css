@@ -21,6 +21,8 @@
 }
 
 .DomPopupFrame {
+	display: block;
+	position: absolute;
 	background-color: #fff;
 	border: 1px solid var(--LABEL_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
@@ -33,6 +35,18 @@
 	border: 1px solid var(--DOM_POPUP_FRAME_HIGHLIGHTED_COLOR);
 }
 
+.DomPopupFrame.maximized {
+	border-radius: 0;
+	border-right: 0;
+	border-bottom: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: initial;
+	overflow: auto;
+}
+
 .DomPopupFrameHeader {
 	cursor: move;
 	
@@ -43,6 +57,14 @@
 	
 	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
 	background-color: var(--LABEL_BACKGROUND_COLOR);
+}
+
+.DomPopupFrame.maximized > .DomPopupFrameHeader {
+	position: sticky;
+	top: 0;
+	left: 0;
+	cursor: default;
+	border-radius: 0;
 }
 
 .DomPopupFrameHeader .DomButton img {

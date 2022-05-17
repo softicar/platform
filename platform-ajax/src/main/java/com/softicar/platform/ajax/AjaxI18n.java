@@ -48,7 +48,7 @@ public interface AjaxI18n extends DomI18n {
 		.de("Gültige Eingabe");
 	I18n0 YOUR_REQUEST_IS_TIME_CONSUMING = new I18n0("Your request is time-consuming.")//
 		.de("Ihre Anfrage ist aufwendig.");
-	I18n0 YOUR_SESSION_TIMED_OUT = new I18n0("Your session timed out.")//
+	I18n0 YOUR_SESSION_HAS_EXPIRED = new I18n0("Your session has expired.")//
 		.de("Ihre Sitzung ist abgelaufen.");
 	I18n1 YOUR_WEB_BROWSER_ARG1_IS_NOT_SUPPORTED = new I18n1("Your web browser '%s' is not supported.")//
 		.de("Ihr Webbrowser '%s' wird nicht unterstützt.");

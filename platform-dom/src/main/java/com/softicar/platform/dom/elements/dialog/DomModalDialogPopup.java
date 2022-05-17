@@ -1,10 +1,20 @@
 package com.softicar.platform.dom.elements.dialog;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.input.IDomFocusable;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssPercent;
+import com.softicar.platform.dom.text.IDomTextNode;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A basic, custom modal dialog.
@@ -24,7 +34,7 @@ import com.softicar.platform.dom.style.CssPercent;
  */
 public class DomModalDialogPopup extends DomPopup {
 
-	private final IDomParentElement content;
+	private final IDomParentElement contentContainer;
 
 	/**
 	 * Constructs a new {@link DomModalAlertPopup}
@@ -32,26 +42,99 @@ public class DomModalDialogPopup extends DomPopup {
 	public DomModalDialogPopup() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
+		// TODO this should not be a separate class
+		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 		addMarker(DomModalDialogMarker.POPUP);
 
-		this.content = appendChild(new Content());
+		this.contentContainer = appendChild(new Content());
 
 		this.configuration.setPositionStrategyByViewportCenter(CssPercent._50, CssPercent._25);
 		this.configuration.setDisplayModeDialog();
 		this.configuration.addFrameMarker(DomModalDialogMarker.FRAME);
 	}
 
-	/**
-	 * Returns the content container element.
-	 * <p>
-	 * Usually, text labels or input elements are appended to the content
-	 * container.
-	 *
-	 * @return the content container (never <i>null</i>)
-	 */
-	public IDomParentElement getContent() {
+	@Override
+	public void open() {
 
-		return content;
+		super.open();
+		IDomFocusable.focusFirst(DomButton.class, this);
+	}
+
+	/**
+	 * Appends the given {@link IDomNode} to the content container.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to append (never <i>null</i>)
+	 * @return the given {@link IDomNode} (never <i>null</i>)
+	 */
+	public <T extends IDomNode> T appendContent(T node) {
+
+		Objects.requireNonNull(node);
+		return contentContainer.appendChild(node);
+	}
+
+	/**
+	 * Appends the given {@link IDisplayString} to the content container.
+	 *
+	 * @param text
+	 *            the {@link IDisplayString} to append (never <i>null</i>)
+	 * @return the appended {@link IDomTextNode} (never <i>null</i>)
+	 */
+	public IDomTextNode appendContent(IDisplayString text) {
+
+		Objects.requireNonNull(text);
+		return contentContainer.appendText(text);
+	}
+
+	/**
+	 * Convenience for
+	 * {@link #appendActionButton(IResource, IDisplayString, INullaryVoidFunction, IStaticObject...)}
+	 * without variable arguments.
+	 */
+	public DomModalDialogPopup appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback) {
+
+		return appendActionButton(icon, label, callback, new IStaticObject[0]);
+	}
+
+	/**
+	 * Appends a button to the action-node container.
+	 *
+	 * @param icon
+	 *            the icon of the button (never <i>null</i>)
+	 * @param label
+	 *            the label of the button (never <i>null</i>)
+	 * @param callback
+	 *            the callback of the button (never <i>null</i>)
+	 * @param markers
+	 *            the markers of the button (never <i>null</i>)
+	 * @return this {@link DomModalDialogPopup}
+	 */
+	public DomModalDialogPopup appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback, IStaticObject...markers) {
+
+		IDomNode button = new DomButton()//
+			.setIcon(icon)
+			.setLabel(label)
+			.setClickCallback(() -> {
+				callback.apply();
+				close();
+			})
+			.addMarkers(Arrays.asList(markers));
+		appendActionNode(button);
+		return this;
+	}
+
+	/**
+	 * Defines the callback to be executed directly before the {@link DomPopup}
+	 * is opened.
+	 *
+	 * @param callbackBeforeOpen
+	 *            the callback (never <i>null</i>)
+	 * @return this {@link DomModalDialogPopup}
+	 */
+	public DomModalDialogPopup setCallbackBeforeOpen(INullaryVoidFunction callbackBeforeOpen) {
+
+		configuration.setCallbackBeforeOpen(callbackBeforeOpen);
+		return this;
 	}
 
 	private class Content extends DomDiv {
