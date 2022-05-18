@@ -39,8 +39,9 @@ class DragContext {
 
 	public onMove(event: Event) {
 		let cursor = this.getCursorPosition(event);
-		let minX = this.limitingNode? this.limitingNode.getBoundingClientRect().left : 0;
-		let minY = this.limitingNode? this.limitingNode.getBoundingClientRect().top : 0;
+		let rect = this.limitingNode?.getBoundingClientRect();
+		let minX = rect?.left ?? 0;
+		let minY = rect?.top ?? 0;
 		if(cursor.x >= minX && cursor.y >= minY) {
 			this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart))
 			this.movedNode.style.left = this.dragPosition.x + "px";

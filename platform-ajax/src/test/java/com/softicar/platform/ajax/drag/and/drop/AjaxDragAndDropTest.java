@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.drag.and.drop;
 import com.softicar.platform.ajax.engine.AjaxDomEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.dom.elements.DomColorEnum;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -26,7 +27,9 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 		AjaxSeleniumTestPoint initialPosition = getRectangle(targetDiv).getLocation();
 		final int xOffset = 13;
 		final int yOffset = 17;
+
 		dragAndDrop(anchorDiv, xOffset, yOffset);
+
 		AjaxSeleniumTestPoint finalPosition = getRectangle(targetDiv).getLocation();
 
 		assertEquals(initialPosition.getX() + xOffset, finalPosition.getX());
@@ -40,11 +43,15 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		public TestDiv() {
 
+			setStyle(CssPosition.RELATIVE);
+
 			this.dragTargetDiv = appendChild(new Div(200, 100));
+			this.dragTargetDiv.setBackgroundColor(DomColorEnum.RED);
+			this.dragTargetDiv.setStyle(CssPosition.ABSOLUTE);
 			this.dragAnchorDiv = dragTargetDiv.appendChild(new Div(50, 50));
+			this.dragAnchorDiv.setBackgroundColor(DomColorEnum.YELLOW);
 
 			getDomEngine().makeDraggable(dragTargetDiv, dragAnchorDiv, null);
-			dragTargetDiv.setStyle(CssPosition.RELATIVE);
 		}
 
 		public DomDiv getDragTargetDiv() {

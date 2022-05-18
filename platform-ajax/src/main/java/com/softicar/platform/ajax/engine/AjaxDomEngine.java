@@ -578,7 +578,7 @@ public class AjaxDomEngine implements IDomEngine {
 	private String getArgumentString(Object argument) {
 
 		if (argument == null) {
-			return "'null'";
+			return "null";
 		} else if (argument instanceof Number || argument instanceof Boolean) {
 			return argument.toString();
 		} else if (argument instanceof IDomNode) {

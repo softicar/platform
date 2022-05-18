@@ -189,9 +189,11 @@ class DragContext {
         _DOM_CONTEXT_.setMaximumZIndex(this.movedNode);
     }
     onMove(event) {
+        var _a, _b, _c;
         let cursor = this.getCursorPosition(event);
-        let minX = this.limitingNode ? this.limitingNode.getBoundingClientRect().left : 0;
-        let minY = this.limitingNode ? this.limitingNode.getBoundingClientRect().top : 0;
+        let rect = (_a = this.limitingNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
+        let minX = (_b = rect === null || rect === void 0 ? void 0 : rect.left) !== null && _b !== void 0 ? _b : 0;
+        let minY = (_c = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _c !== void 0 ? _c : 0;
         if (cursor.x >= minX && cursor.y >= minY) {
             this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
             this.movedNode.style.left = this.dragPosition.x + "px";
