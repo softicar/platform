@@ -159,7 +159,6 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
-const TIMEOUT_RETRY_DELAY = 500;
 function makeDraggable(draggedNode, initNode, notifyOnDrop) {
     new DragContext(draggedNode, notifyOnDrop).setup(initNode);
 }
@@ -199,14 +198,12 @@ class DragContext {
         this.removeDragListener();
         this.setDocumentTextSelection(true);
         if (this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
-            if (AJAX_REQUEST_LOCK.lock()) {
-                let message = new AjaxRequestMessage()
-                    .setAction(AJAX_REQUEST_DRAG_AND_DROP)
-                    .setNode(this.draggedNode)
-                    .setDragStart(this.dragStart)
-                    .setDragPosition(this.dragPosition);
-                new AjaxRequest(message).send();
-            }
+            let message = new AjaxRequestMessage()
+                .setAction(AJAX_REQUEST_DRAG_AND_DROP)
+                .setNode(this.draggedNode)
+                .setDragStart(this.dragStart)
+                .setDragPosition(this.dragPosition);
+            AJAX_REQUEST_QUEUE.submit(message);
         }
     }
     getCursorPosition(event) {
@@ -258,13 +255,8 @@ class KeepAlive {
         if (SESSION_TIMED_OUT) {
             return;
         }
-        if (AJAX_REQUEST_LOCK.lock()) {
-            let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
-            new AjaxRequest(message).send();
-        }
-        else {
-            KEEP_ALIVE.schedule();
-        }
+        let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
+        AJAX_REQUEST_QUEUE.submit(message);
     }
 }
 const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
@@ -316,15 +308,10 @@ function moveCaretToPosition(input, position) {
     input.selectionStart = input.selectionEnd = position;
 }
 function sendUploadRequestThroughForm(form) {
-    if (AJAX_REQUEST_LOCK.lock()) {
-        let message = new AjaxRequestMessage()
-            .setAction(AJAX_REQUEST_UPLOAD)
-            .setNode(form);
-        new AjaxRequest(message, form).send();
-    }
-    else {
-        alert(LOCK_MESSAGE);
-    }
+    let message = new AjaxRequestMessage()
+        .setAction(AJAX_REQUEST_UPLOAD)
+        .setNode(form);
+    AJAX_REQUEST_QUEUE.submit(message, form);
 }
 function pushBrowserHistoryState(page, url) {
     history.pushState({ page: page }, "", url);
@@ -458,36 +445,31 @@ function handleDomEvent(event) {
     sendOrDelegateEvent(event.currentTarget, event, event.type);
 }
 function sendEventToServer(event, eventType) {
-    if (AJAX_REQUEST_LOCK.lock()) {
-        let element = event.currentTarget;
-        let boundingRect = element.getBoundingClientRect();
-        let message = new AjaxRequestMessage()
-            .setAction(AJAX_REQUEST_DOM_EVENT)
-            .setNode(element)
-            .setEventType(eventType)
-            .setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
-            .setWindowInnerSize(new Point(window.innerWidth, window.innerHeight));
-        if (event instanceof MouseEvent) {
-            message.setMousePosition(new Point(event.clientX, event.clientY));
-            message.setMouseRelativePosition(new Point(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
-        }
-        else {
-            message.setMousePosition(new Point(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
-        }
-        if (event instanceof KeyboardEvent) {
-            message.setKeyCode(event.keyCode);
-        }
-        if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
-            message.setModifierKey('altKey', event.altKey);
-            message.setModifierKey('ctrlKey', event.ctrlKey);
-            message.setModifierKey('metaKey', event.metaKey);
-            message.setModifierKey('shiftKey', event.shiftKey);
-        }
-        new AjaxRequest(message).send();
+    let element = event.currentTarget;
+    let boundingRect = element.getBoundingClientRect();
+    let message = new AjaxRequestMessage()
+        .setAction(AJAX_REQUEST_DOM_EVENT)
+        .setNode(element)
+        .setEventType(eventType)
+        .setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
+        .setWindowInnerSize(new Point(window.innerWidth, window.innerHeight));
+    if (event instanceof MouseEvent) {
+        message.setMousePosition(new Point(event.clientX, event.clientY));
+        message.setMouseRelativePosition(new Point(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
     }
     else {
-        alert(LOCK_MESSAGE);
+        message.setMousePosition(new Point(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
     }
+    if (event instanceof KeyboardEvent) {
+        message.setKeyCode(event.keyCode);
+    }
+    if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
+        message.setModifierKey('altKey', event.altKey);
+        message.setModifierKey('ctrlKey', event.ctrlKey);
+        message.setModifierKey('metaKey', event.metaKey);
+        message.setModifierKey('shiftKey', event.shiftKey);
+    }
+    AJAX_REQUEST_QUEUE.submit(message);
 }
 const EVENT_DELEGATIONS = new Map();
 function getOrCreateEventDelegator(element) {
@@ -655,24 +637,19 @@ function scheduleTimeout(timeoutNode, milliseconds) {
     setTimeout(() => handleTimeout(timeoutNode), milliseconds);
 }
 function handleTimeout(timeoutNode) {
-    if (AJAX_REQUEST_LOCK.lock()) {
-        let message = new AjaxRequestMessage()
-            .setAction(AJAX_REQUEST_TIMEOUT)
-            .setNode(timeoutNode);
-        new AjaxRequest(message).send();
-    }
-    else {
-        scheduleTimeout(timeoutNode, TIMEOUT_RETRY_DELAY);
-    }
+    let message = new AjaxRequestMessage()
+        .setAction(AJAX_REQUEST_TIMEOUT)
+        .setNode(timeoutNode);
+    AJAX_REQUEST_QUEUE.submit(message);
 }
 class AjaxRequest {
-    constructor(message, form = null) {
+    constructor(message, form) {
         this.message = message;
         this.form = form;
     }
-    send() {
+    send(requestIndex) {
         this.message.copyNodeValues();
-        this.message.setRequestIndex(AJAX_REQUEST_MANAGER.openRequest(this));
+        this.message.setRequestIndex(requestIndex);
         if (this.form) {
             new FormRequest(this.form, response => this.handleFormRequestResponse(response))
                 .setMessage(this.message.encodeToHex())
@@ -684,90 +661,32 @@ class AjaxRequest {
                 .sendAsync(request => this.handleHttpRequestResponse(request));
         }
     }
+    isRedundant(message) {
+        return this.message.isRedundantTo(message);
+    }
+    isObsolete() {
+        return this.message.isObsolete();
+    }
     handleFormRequestResponse(response) {
-        this.close();
-        this.executeJavaScript(response);
+        AJAX_REQUEST_QUEUE.onRequestResponse(response);
     }
     handleHttpRequestResponse(request) {
-        this.close();
         if (request.status == HTTP_STATUS_SUCCESS) {
-            this.executeJavaScript(request.responseText);
-        }
-        else if (request.status == HTTP_STATUS_GONE) {
-            handleSessionTimeout();
-        }
-        else if (request.status != 0) {
-            alert("HTTP Error " + request.status + ": " + request.statusText);
+            AJAX_REQUEST_QUEUE.onRequestResponse(request.responseText);
         }
         else {
+            if (request.status == HTTP_STATUS_GONE) {
+                handleSessionTimeout();
+            }
+            else if (request.status != 0) {
+                alert("HTTP Error " + request.status + ": " + request.statusText);
+            }
+            else {
+            }
+            AJAX_REQUEST_QUEUE.onRequestResponse("");
         }
-    }
-    close() {
-        AJAX_REQUEST_MANAGER.closeRequest(this);
-        AJAX_REQUEST_LOCK.release();
-        KEEP_ALIVE.schedule();
-    }
-    executeJavaScript(javaScriptCode) {
-        eval(javaScriptCode);
     }
 }
-class AjaxRequestLock {
-    constructor() {
-        this.locked = false;
-    }
-    lock() {
-        if (!this.locked) {
-            this.locked = true;
-            showWorkingIndicator();
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    release() {
-        if (this.locked) {
-            this.locked = false;
-            hideWorkingIndicator();
-            AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
-        }
-        else {
-            alert("Internal error: AJAX request lock already released.");
-        }
-    }
-    isLocked() {
-        return this.locked;
-    }
-}
-const AJAX_REQUEST_LOCK = new AjaxRequestLock();
-class AjaxRequestManager {
-    constructor() {
-        this.currentRequest = null;
-        this.requestIndex = 0;
-    }
-    openRequest(request) {
-        if (this.currentRequest == null) {
-            this.currentRequest = request;
-            return this.requestIndex;
-        }
-        else {
-            throw new Error("Internal error: Tried to send two server request at the same time.");
-        }
-    }
-    closeRequest(request) {
-        if (request === this.currentRequest) {
-            this.currentRequest = null;
-            this.requestIndex += 1;
-        }
-        else {
-            throw new Error("Internal error: Given request does not match current request.");
-        }
-    }
-    getCurrentRequest() {
-        return this.currentRequest;
-    }
-}
-const AJAX_REQUEST_MANAGER = new AjaxRequestManager();
 class AjaxRequestMessage {
     constructor() {
         this.data = new Map();
@@ -825,6 +744,44 @@ class AjaxRequestMessage {
     }
     encodeToHex() {
         return new AjaxRequestMessageEncoder(this.data).encodeToHex();
+    }
+    isRedundantTo(other) {
+        if (this.isKeepAlive()) {
+            return true;
+        }
+        else if (this.isSameAction(other) && this.isOnSameNode(other)) {
+            if (this.isDomEvent()) {
+                return this.isSameEventType(other);
+            }
+            else {
+                return true;
+            }
+        }
+        return false;
+    }
+    isObsolete() {
+        let nodeId = this.data.get('n');
+        if (nodeId) {
+            return document.getElementById(nodeId) === null;
+        }
+        else {
+            return false;
+        }
+    }
+    isKeepAlive() {
+        return this.data.get('a') === '' + AJAX_REQUEST_KEEP_ALIVE;
+    }
+    isDomEvent() {
+        return this.data.get('a') === '' + AJAX_REQUEST_DOM_EVENT;
+    }
+    isSameAction(other) {
+        return this.data.get('a') === other.data.get('a');
+    }
+    isOnSameNode(other) {
+        return this.data.get('n') === other.data.get('n');
+    }
+    isSameEventType(other) {
+        return this.data.get('e') === other.data.get('e');
     }
     setString(key, value) {
         this.data.set(key, value);
@@ -906,6 +863,81 @@ class AjaxRequestMessageEncoder {
     }
 }
 AjaxRequestMessageEncoder.HEX_DIGITS = "0123456789ABCDEF";
+class AjaxRequestQueue {
+    constructor() {
+        this.requests = new Array();
+        this.requestIndex = 0;
+        this.waitingForServer = false;
+    }
+    submit(message, form = null) {
+        if (!this.isRedundant(message)) {
+            this.push(new AjaxRequest(message, form));
+        }
+    }
+    onRequestResponse(javaScript) {
+        this.finishRequest();
+        this.executeJavaScript(javaScript);
+        this.process();
+    }
+    finishRequest() {
+        this.requests.shift();
+        this.requestIndex += 1;
+        this.waitingForServer = false;
+        AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
+        KEEP_ALIVE.schedule();
+    }
+    executeJavaScript(javaScript) {
+        if (javaScript) {
+            eval(javaScript);
+        }
+    }
+    push(request) {
+        this.requests.push(request);
+        this.process();
+    }
+    process() {
+        if (!this.waitingForServer) {
+            this.dropObsoleteRequests();
+            if (this.hasRequests()) {
+                this.sendNextRequest();
+                this.waitingForServer = true;
+                showWorkingIndicator();
+            }
+            else {
+                hideWorkingIndicator();
+            }
+        }
+    }
+    dropObsoleteRequests() {
+        while (this.hasRequests() && this.getNextRequest().isObsolete()) {
+            this.requests.shift();
+        }
+    }
+    hasRequests() {
+        return this.requests.length > 0;
+    }
+    getNextRequest() {
+        return this.requests[0];
+    }
+    sendNextRequest() {
+        let request = this.getNextRequest();
+        if (request) {
+            request.send(this.requestIndex);
+        }
+        else {
+            throw new Error("Internal error: Undefined request object in request queue.");
+        }
+    }
+    isRedundant(message) {
+        for (let request of this.requests) {
+            if (request.isRedundant(message)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+const AJAX_REQUEST_QUEUE = new AjaxRequestQueue();
 class FormRequest {
     constructor(form, responseHandler) {
         this.form = form;

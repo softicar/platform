@@ -55,7 +55,7 @@ public class AjaxResourceService extends AbstractAjaxService {
 		try (InputStream inputStream = resource.getResourceAsStream(); OutputStream outputStream = getOutputStream(response)) {
 			StreamUtils.copy(inputStream, outputStream);
 		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
+			throw new SofticarIOException(exception, "Failed to transfer resource '%s'.".formatted(filename));
 		} finally {
 			if (resource instanceof AjaxDomExportNode) {
 				((AjaxDomExportNode) resource).dispose();
