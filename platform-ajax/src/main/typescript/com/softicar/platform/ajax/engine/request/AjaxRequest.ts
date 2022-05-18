@@ -1,16 +1,20 @@
-
+/**
+ * A request sent to the server side of the AJAX engine.
+ * <p>
+ * This class should not be used directly but only through {@link AjaxRequestQueue}.
+ */
 class AjaxRequest {
 	private message: AjaxRequestMessage;
 	private form: HTMLFormElement | null;
 
-	public constructor(message: AjaxRequestMessage, form: HTMLFormElement | null = null) {
+	public constructor(message: AjaxRequestMessage, form: HTMLFormElement | null) {
 		this.message = message;
 		this.form = form;
 	}
 
-	public send() {
+	public send(requestIndex: number) {
 		this.message.copyNodeValues();
-		this.message.setRequestIndex(AJAX_REQUEST_MANAGER.openRequest(this));
+		this.message.setRequestIndex(requestIndex);
 	
 		if(this.form) {
 			new FormRequest(this.form, response => this.handleFormRequestResponse(response))
@@ -23,32 +27,30 @@ class AjaxRequest {
 		}
 	}
 
+	public isRedundant(message: AjaxRequestMessage) {
+		return this.message.isRedundantTo(message);
+	}
+
+	public isObsolete() {
+		return this.message.isObsolete();
+	}
+
 	private handleFormRequestResponse(response: string) {
-		this.close();
-		this.executeJavaScript(response);
+		AJAX_REQUEST_QUEUE.onRequestResponse(response);
 	}
 
 	private handleHttpRequestResponse(request: XMLHttpRequest) {
-		this.close();
-
 		if(request.status == HTTP_STATUS_SUCCESS) {
-			this.executeJavaScript(request.responseText);
-		} else if(request.status == HTTP_STATUS_GONE) {
-			handleSessionTimeout();
-		} else if(request.status != 0) {
-			alert("HTTP Error " + request.status + ": " + request.statusText);
+			AJAX_REQUEST_QUEUE.onRequestResponse(request.responseText);
 		} else {
-			// ignore this error, request was probably canceled by client
+			if(request.status == HTTP_STATUS_GONE) {
+				handleSessionTimeout();
+			} else if(request.status != 0) {
+				alert("HTTP Error " + request.status + ": " + request.statusText);
+			} else {
+				// ignore this error
+			}
+			AJAX_REQUEST_QUEUE.onRequestResponse("");
 		}
-	}
-	
-	private close() {
-		AJAX_REQUEST_MANAGER.closeRequest(this);
-		AJAX_REQUEST_LOCK.release();
-		KEEP_ALIVE.schedule();
-	}
-	
-	private executeJavaScript(javaScriptCode: string) {
-		eval(javaScriptCode);
 	}
 }

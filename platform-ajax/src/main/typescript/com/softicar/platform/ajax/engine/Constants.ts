@@ -25,5 +25,3 @@ const HTTP_REQUEST_STATE_DONE             = 4;
 
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
-
-const TIMEOUT_RETRY_DELAY = 500;
