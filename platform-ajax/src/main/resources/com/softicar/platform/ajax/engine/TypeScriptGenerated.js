@@ -159,24 +159,25 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
-function makeDraggable(draggedNode, initNode, notifyOnDrop) {
-    new DragContext(draggedNode, notifyOnDrop).setup(initNode);
+function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
+    new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
 }
 class DragContext {
-    constructor(draggedNode, notifyOnDrop) {
+    constructor(draggedNode, limitingNode, notifyOnDrop) {
         this.cursorStart = new Point();
         this.dragStart = new Point();
         this.dragPosition = new Point();
-        this.moveHandler = (event) => this.onMove(event);
+        this.dragHandler = (event) => this.onDrag(event);
         this.dropHandler = (event) => this.onDrop(event);
         this.draggedNode = draggedNode;
+        this.limitingNode = limitingNode;
         this.notifyOnDrop = notifyOnDrop;
     }
-    setup(initNode) {
-        initNode.addEventListener("mousedown", event => this.onDragStart(event));
-        initNode.addEventListener("touchstart", event => this.onDragStart(event));
-        initNode.style.userSelect = "none";
-        initNode.style.touchAction = "none";
+    setup(dragHandleNode) {
+        dragHandleNode.addEventListener("mousedown", event => this.onDragStart(event));
+        dragHandleNode.addEventListener("touchstart", event => this.onDragStart(event));
+        dragHandleNode.style.userSelect = "none";
+        dragHandleNode.style.touchAction = "none";
     }
     onDragStart(event) {
         this.addDragListener();
@@ -186,9 +187,13 @@ class DragContext {
         this.dragPosition = this.dragStart;
         _DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
     }
-    onMove(event) {
+    onDrag(event) {
+        var _a, _b, _c;
         let cursor = this.getCursorPosition(event);
-        if (cursor.x >= 0 && cursor.y >= 0) {
+        let rect = (_a = this.limitingNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
+        let minX = (_b = rect === null || rect === void 0 ? void 0 : rect.left) !== null && _b !== void 0 ? _b : 0;
+        let minY = (_c = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _c !== void 0 ? _c : 0;
+        if (cursor.x >= minX && cursor.y >= minY) {
             this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
             this.draggedNode.style.left = this.dragPosition.x + "px";
             this.draggedNode.style.top = this.dragPosition.y + "px";
@@ -228,14 +233,14 @@ class DragContext {
         document.onselectstart = function () { return enabled; };
     }
     addDragListener() {
-        document.addEventListener("mousemove", this.moveHandler, true);
-        document.addEventListener("touchmove", this.moveHandler, true);
+        document.addEventListener("mousemove", this.dragHandler, true);
+        document.addEventListener("touchmove", this.dragHandler, true);
         document.addEventListener("mouseup", this.dropHandler, true);
         document.addEventListener("touchend", this.dropHandler, true);
     }
     removeDragListener() {
-        document.removeEventListener("mousemove", this.moveHandler, true);
-        document.removeEventListener("touchmove", this.moveHandler, true);
+        document.removeEventListener("mousemove", this.dragHandler, true);
+        document.removeEventListener("touchmove", this.dragHandler, true);
         document.removeEventListener("mouseup", this.dropHandler, true);
         document.removeEventListener("touchend", this.dropHandler, true);
     }
