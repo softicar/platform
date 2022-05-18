@@ -12,4 +12,5 @@ ENUM TABLE AGUserLoginFailureType 'Core.UserLoginFailureType' {
 	ROW (6, 'TOO_MANY_FAILURES')
 	ROW (7, 'ILLEGAL_IP')
 	ROW (8, 'TOO_MANY_LOGINS')
+	ROW (9, 'MAINTENANCE_IN_PROGRESS')
 }

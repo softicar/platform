@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.test.fixture;
 
 import com.softicar.platform.common.core.i18n.LanguageEnum;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
@@ -8,6 +9,8 @@ import com.softicar.platform.core.module.access.role.assignment.module.instance.
 import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
+import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
@@ -133,6 +136,15 @@ public interface CoreModuleTestFixtureMethods {
 			.setPassword(password)
 			.setPort(port)
 			.setUsername(username)
+			.save();
+	}
+
+	default AGMaintenanceWindow insertMaintenanceWindow(DayTime expectedStart, DayTime expectedEnd, AGMaintenanceStateEnum state) {
+
+		return new AGMaintenanceWindow()//
+			.setExpectedStart(expectedStart)
+			.setExpectedEnd(expectedEnd)
+			.setState(state.getRecord())
 			.save();
 	}
 }

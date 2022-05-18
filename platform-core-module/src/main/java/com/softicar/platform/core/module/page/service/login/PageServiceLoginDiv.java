@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
+import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.PageCssClasses;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
@@ -48,6 +49,7 @@ public class PageServiceLoginDiv extends DomDiv {
 		private final LoginButton loginButton;
 		private final UserInput userInput;
 		private final PasswordInput passwordInput;
+		private final MaintenanceElement maintenanceDiv;
 		private final LoginErrorElement errorDiv;
 
 		public LoginForm() {
@@ -55,6 +57,7 @@ public class PageServiceLoginDiv extends DomDiv {
 			this.loginButton = new LoginButton();
 			this.userInput = new UserInput();
 			this.passwordInput = new PasswordInput();
+			this.maintenanceDiv = new MaintenanceElement();
 			this.errorDiv = new LoginErrorElement();
 
 			Optional//
@@ -65,6 +68,8 @@ public class PageServiceLoginDiv extends DomDiv {
 			DomLabelGrid display = new DomLabelGrid();
 			display.add(CoreI18n.USER, userInput);
 			display.add(CoreI18n.PASSWORD, passwordInput);
+
+			loginFormDiv.appendChild(maintenanceDiv);
 			loginFormDiv.appendChild(display);
 			loginFormDiv.appendChild(errorDiv);
 
@@ -141,6 +146,17 @@ public class PageServiceLoginDiv extends DomDiv {
 				addMarker(PageServiceLoginDivMarker.PASSWORD_INPUT);
 
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
+			}
+		}
+
+		private class MaintenanceElement extends DomDiv {
+
+			public MaintenanceElement() {
+
+				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
+				if (AGMaintenanceWindow.isMaintenanceInProgress()) {
+					appendChild(new DomMessageDiv(DomMessageType.WARNING, CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS));
+				}
 			}
 		}
 
