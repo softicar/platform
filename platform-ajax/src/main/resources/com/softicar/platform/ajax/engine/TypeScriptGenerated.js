@@ -159,6 +159,73 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
+class DomPopupEngine {
+    initializePopup(popupFrame, autoRaise) {
+        if (autoRaise) {
+            this.addEventListeners(popupFrame);
+        }
+    }
+    movePopup(popupFrame, x, y, xAlign, yAlign) {
+        let sizeX = window.innerWidth;
+        let sizeY = window.innerHeight;
+        let scrollX = window.pageXOffset;
+        let scrollY = window.pageYOffset;
+        let popupWidth = popupFrame.offsetWidth;
+        let popupLeft = 0;
+        switch (xAlign) {
+            default:
+            case "LEFT":
+                popupLeft = scrollX + x;
+                break;
+            case "CENTER":
+                popupLeft = scrollX + x - popupWidth / 2;
+                break;
+            case "RIGHT":
+                popupLeft = scrollX + x - popupWidth + 1;
+                break;
+        }
+        popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
+        popupLeft = Math.max(popupLeft, scrollX);
+        let popupHeight = popupFrame.offsetHeight;
+        let popupTop = 0;
+        switch (yAlign) {
+            default:
+            case "TOP":
+                popupTop = scrollY + y;
+                break;
+            case "CENTER":
+                popupTop = scrollY + y - popupHeight / 2;
+                break;
+            case "BOTTOM":
+                popupTop = scrollY + y - popupHeight + 1;
+                break;
+        }
+        popupTop = Math.min(popupTop, scrollY + sizeY - popupHeight);
+        popupTop = Math.max(popupTop, scrollY);
+        let parent = popupFrame.parentElement;
+        if (parent != null) {
+            if (parent != document.body) {
+                let parentRect = parent.getBoundingClientRect();
+                popupLeft -= parentRect.left;
+                popupTop -= parentRect.top;
+            }
+        }
+        else {
+            console.log("Warning: Tried to move a popup that was not appended. Its position might be unexpected.");
+        }
+        popupFrame.style.left = popupLeft + 'px';
+        popupFrame.style.top = popupTop + 'px';
+    }
+    addEventListeners(popupFrame) {
+        let options = { capture: true, passive: true };
+        popupFrame.addEventListener('mousedown', _ => this.raise(popupFrame), options);
+        popupFrame.addEventListener('focus', _ => this.raise(popupFrame), options);
+    }
+    raise(popupFrame) {
+        _DOM_CONTEXT_.setMaximumZIndex(popupFrame);
+    }
+}
+const DOM_POPUP_ENGINE = new DomPopupEngine();
 function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
     new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
 }
@@ -244,6 +311,49 @@ class DragContext {
         document.removeEventListener("mouseup", this.dropHandler, true);
         document.removeEventListener("touchend", this.dropHandler, true);
     }
+}
+class FocusTrap {
+    constructor(root) {
+        this.root = root;
+        this.firstFocusableNode = root;
+        this.lastFocusableNode = root;
+    }
+    install() {
+        let focusableNodes = this.root.querySelectorAll(FocusTrap.FOCUSABLE_SELECTORS);
+        let focusableRoot = this.root.matches(FocusTrap.FOCUSABLE_SELECTORS);
+        if (focusableNodes.length == 0 && !focusableRoot) {
+            console.log("Failed to trap focus: Neither the given node nor one of its children are focusable.");
+            return;
+        }
+        this.firstFocusableNode = focusableRoot ? this.root : focusableNodes[0];
+        this.lastFocusableNode = focusableNodes.length == 0 ? this.root : focusableNodes[focusableNodes.length - 1];
+        this.focusElement(this.firstFocusableNode);
+        this.root.addEventListener('keydown', event => this.handleKeyDown(event));
+    }
+    handleKeyDown(event) {
+        let tabPressed = event.key === 'Tab' || event.code === 'Tab';
+        if (tabPressed) {
+            if (event.shiftKey) {
+                if (document.activeElement === this.firstFocusableNode) {
+                    this.focusElement(this.lastFocusableNode);
+                    event.preventDefault();
+                }
+            }
+            else {
+                if (document.activeElement === this.lastFocusableNode) {
+                    this.focusElement(this.firstFocusableNode);
+                    event.preventDefault();
+                }
+            }
+        }
+    }
+    focusElement(element) {
+        element.focus();
+    }
+}
+FocusTrap.FOCUSABLE_SELECTORS = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+function trapTabFocus(root) {
+    new FocusTrap(root).install();
 }
 class KeepAlive {
     constructor(delay) {
