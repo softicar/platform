@@ -1,29 +1,29 @@
 
-function makeDraggable(movedNode: HTMLElement, draggedNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
-	new DragContext(movedNode, limitingNode, notifyOnDrop).setup(draggedNode);
+function makeDraggable(draggedNode: HTMLElement, dragHandleNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
+	new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
 }
 
 class DragContext {
-	private movedNode: HTMLElement;
+	private draggedNode: HTMLElement;
 	private limitingNode: HTMLElement | null;
 	private notifyOnDrop: boolean;
 	private cursorStart = new Point();
 	private dragStart = new Point();
 	private dragPosition = new Point();
-	private moveHandler = (event: Event) => this.onMove(event);
+	private dragHandler = (event: Event) => this.onDrag(event);
 	private dropHandler = (event: Event) => this.onDrop(event);
 
-	public constructor(movedNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
-		this.movedNode = movedNode;
+	public constructor(draggedNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
+		this.draggedNode = draggedNode;
 		this.limitingNode = limitingNode;
 		this.notifyOnDrop = notifyOnDrop;
 	}
 
-	public setup(draggedNode: HTMLElement) {
-		draggedNode.addEventListener("mousedown", event => this.onDragStart(event));
-		draggedNode.addEventListener("touchstart", event => this.onDragStart(event));
-		draggedNode.style.userSelect = "none"; // disable text selection while dragging
-		draggedNode.style.touchAction = "none"; // disable touch panning to avoid weird interaction with dragging
+	public setup(dragHandleNode: HTMLElement) {
+		dragHandleNode.addEventListener("mousedown", event => this.onDragStart(event));
+		dragHandleNode.addEventListener("touchstart", event => this.onDragStart(event));
+		dragHandleNode.style.userSelect = "none"; // disable text selection while dragging
+		dragHandleNode.style.touchAction = "none"; // disable touch panning to avoid weird interaction with dragging
 	}
 	
 	public onDragStart(event: Event) {
@@ -31,21 +31,21 @@ class DragContext {
 		this.setDocumentTextSelection(false);
 
 		this.cursorStart = this.getCursorPosition(event);
-		this.dragStart = this.getMovedNodePosition();
+		this.dragStart = this.getDraggedNodePosition();
 		this.dragPosition = this.dragStart;
 
-		_DOM_CONTEXT_.setMaximumZIndex(this.movedNode);
+		_DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
 	}
 
-	public onMove(event: Event) {
+	public onDrag(event: Event) {
 		let cursor = this.getCursorPosition(event);
 		let rect = this.limitingNode?.getBoundingClientRect();
 		let minX = rect?.left ?? 0;
 		let minY = rect?.top ?? 0;
 		if(cursor.x >= minX && cursor.y >= minY) {
 			this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart))
-			this.movedNode.style.left = this.dragPosition.x + "px";
-			this.movedNode.style.top = this.dragPosition.y + "px";
+			this.draggedNode.style.left = this.dragPosition.x + "px";
+			this.draggedNode.style.top = this.dragPosition.y + "px";
 		}
 	}
 
@@ -58,7 +58,7 @@ class DragContext {
 			if(AJAX_REQUEST_LOCK.lock()) {
 				let message = new AjaxRequestMessage()
 					.setAction(AJAX_REQUEST_DRAG_AND_DROP)
-					.setNode(this.movedNode)
+					.setNode(this.draggedNode)
 					.setDragStart(this.dragStart)
 					.setDragPosition(this.dragPosition);
 				new AjaxRequest(message).send();
@@ -77,8 +77,8 @@ class DragContext {
 		}
 	}
 	
-	private getMovedNodePosition() {
-		let style = this.movedNode.style;
+	private getDraggedNodePosition() {
+		let style = this.draggedNode.style;
 		let x = style.left? parseInt(style.left) : 0;
 		let y = style.top? parseInt(style.top) : 0;
 		return new Point(x, y);
@@ -89,15 +89,15 @@ class DragContext {
 	}
 
 	private addDragListener() {
-		document.addEventListener("mousemove", this.moveHandler, true);
-		document.addEventListener("touchmove", this.moveHandler, true);
+		document.addEventListener("mousemove", this.dragHandler, true);
+		document.addEventListener("touchmove", this.dragHandler, true);
 		document.addEventListener("mouseup", this.dropHandler, true);
 		document.addEventListener("touchend", this.dropHandler, true);
 	}
 	
 	private removeDragListener() {
-		document.removeEventListener("mousemove", this.moveHandler, true);
-		document.removeEventListener("touchmove", this.moveHandler, true);
+		document.removeEventListener("mousemove", this.dragHandler, true);
+		document.removeEventListener("touchmove", this.dragHandler, true);
 		document.removeEventListener("mouseup", this.dropHandler, true);
 		document.removeEventListener("touchend", this.dropHandler, true);
 	}

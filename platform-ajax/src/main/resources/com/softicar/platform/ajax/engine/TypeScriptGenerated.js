@@ -160,35 +160,35 @@ const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
 const TIMEOUT_RETRY_DELAY = 500;
-function makeDraggable(movedNode, draggedNode, limitingNode, notifyOnDrop) {
-    new DragContext(movedNode, limitingNode, notifyOnDrop).setup(draggedNode);
+function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
+    new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
 }
 class DragContext {
-    constructor(movedNode, limitingNode, notifyOnDrop) {
+    constructor(draggedNode, limitingNode, notifyOnDrop) {
         this.cursorStart = new Point();
         this.dragStart = new Point();
         this.dragPosition = new Point();
-        this.moveHandler = (event) => this.onMove(event);
+        this.moveHandler = (event) => this.onDrag(event);
         this.dropHandler = (event) => this.onDrop(event);
-        this.movedNode = movedNode;
+        this.draggedNode = draggedNode;
         this.limitingNode = limitingNode;
         this.notifyOnDrop = notifyOnDrop;
     }
-    setup(draggedNode) {
-        draggedNode.addEventListener("mousedown", event => this.onDragStart(event));
-        draggedNode.addEventListener("touchstart", event => this.onDragStart(event));
-        draggedNode.style.userSelect = "none";
-        draggedNode.style.touchAction = "none";
+    setup(dragHandleNode) {
+        dragHandleNode.addEventListener("mousedown", event => this.onDragStart(event));
+        dragHandleNode.addEventListener("touchstart", event => this.onDragStart(event));
+        dragHandleNode.style.userSelect = "none";
+        dragHandleNode.style.touchAction = "none";
     }
     onDragStart(event) {
         this.addDragListener();
         this.setDocumentTextSelection(false);
         this.cursorStart = this.getCursorPosition(event);
-        this.dragStart = this.getMovedNodePosition();
+        this.dragStart = this.getDraggedNodePosition();
         this.dragPosition = this.dragStart;
-        _DOM_CONTEXT_.setMaximumZIndex(this.movedNode);
+        _DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
     }
-    onMove(event) {
+    onDrag(event) {
         var _a, _b, _c;
         let cursor = this.getCursorPosition(event);
         let rect = (_a = this.limitingNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
@@ -196,8 +196,8 @@ class DragContext {
         let minY = (_c = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _c !== void 0 ? _c : 0;
         if (cursor.x >= minX && cursor.y >= minY) {
             this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
-            this.movedNode.style.left = this.dragPosition.x + "px";
-            this.movedNode.style.top = this.dragPosition.y + "px";
+            this.draggedNode.style.left = this.dragPosition.x + "px";
+            this.draggedNode.style.top = this.dragPosition.y + "px";
         }
     }
     onDrop(event) {
@@ -207,7 +207,7 @@ class DragContext {
             if (AJAX_REQUEST_LOCK.lock()) {
                 let message = new AjaxRequestMessage()
                     .setAction(AJAX_REQUEST_DRAG_AND_DROP)
-                    .setNode(this.movedNode)
+                    .setNode(this.draggedNode)
                     .setDragStart(this.dragStart)
                     .setDragPosition(this.dragPosition);
                 new AjaxRequest(message).send();
@@ -226,8 +226,8 @@ class DragContext {
             return new Point();
         }
     }
-    getMovedNodePosition() {
-        let style = this.movedNode.style;
+    getDraggedNodePosition() {
+        let style = this.draggedNode.style;
         let x = style.left ? parseInt(style.left) : 0;
         let y = style.top ? parseInt(style.top) : 0;
         return new Point(x, y);

@@ -310,10 +310,10 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void makeDraggable(IDomNode movedNode, IDomNode draggedNode, IDomNode limitingNode) {
+	public void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode) {
 
-		var notifyOnDrop = movedNode instanceof IDomDropEventHandler;
-		JS_call("makeDraggable", movedNode, draggedNode, limitingNode, notifyOnDrop);
+		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
+		JS_call("makeDraggable", draggedNode, dragHandleNode, limitingNode, notifyOnDrop);
 	}
 
 	// -------------------------------- auto-complete -------------------------------- //
