@@ -13,8 +13,8 @@ import com.softicar.platform.db.runtime.field.IDbTimeField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 
 /**
  * This is the automatically generated class AGDemoMoment for

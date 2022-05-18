@@ -1,4 +1,4 @@
-PACKAGE com.softicar.platform.demo.module
+PACKAGE com.softicar.platform.demo.module.core.module
 
 IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 

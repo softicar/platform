@@ -2,7 +2,7 @@ package com.softicar.platform.demo.module.person.module.test.fixtures;
 
 import com.softicar.platform.core.module.test.instance.registry.IStandardModuleTestFixture;
 import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
 import com.softicar.platform.demo.module.person.module.AGDemoPersonModuleInstance;
 import com.softicar.platform.demo.module.test.fixture.DemoModuleTestFixture;
 import com.softicar.platform.emf.table.IEmfTable;

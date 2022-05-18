@@ -1,6 +1,6 @@
 package com.softicar.platform.demo.module.invoice.module.invoice;
 
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 

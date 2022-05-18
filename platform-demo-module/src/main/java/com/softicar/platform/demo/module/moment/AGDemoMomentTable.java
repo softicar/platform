@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.module.moment;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.object.table.EmfObjectTable;

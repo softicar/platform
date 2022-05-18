@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.module.moment;
 
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
-import com.softicar.platform.demo.module.DemoModule;
+import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.DemoModule;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;

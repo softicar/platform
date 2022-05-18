@@ -1,7 +1,7 @@
 PACKAGE com.softicar.platform.demo.module.person.module
 
 IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
-IMPORT com.softicar.platform.demo.module.AGDemoModuleInstance
+IMPORT com.softicar.platform.demo.module.core.module.AGDemoModuleInstance
 
 TABLE AGDemoPersonModuleInstance 'Demo.DemoPersonModuleInstance' {
 	

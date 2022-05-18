@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.module.moment;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.attribute.field.day.EmfDayInput;
 

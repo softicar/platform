@@ -1,6 +1,6 @@
 package com.softicar.platform.demo.module.invoice.module.invoice;
 
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 
 public class DemoInvoiceValidator extends AbstractEmfValidator<AGDemoInvoice> {

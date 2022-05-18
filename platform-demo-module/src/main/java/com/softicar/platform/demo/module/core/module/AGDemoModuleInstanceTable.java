@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module;
+package com.softicar.platform.demo.module.core.module;
 
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.StandardModuleInstanceTable;

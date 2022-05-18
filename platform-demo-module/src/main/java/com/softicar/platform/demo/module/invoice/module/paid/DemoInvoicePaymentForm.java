@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.module.invoice.module.paid;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.node.IDomNode;

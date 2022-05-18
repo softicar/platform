@@ -8,8 +8,8 @@ import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
 import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
-import com.softicar.platform.demo.module.AGDemoModuleInstance;
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 
 /**
  * This is the automatically generated class AGDemoPersonModuleInstance for

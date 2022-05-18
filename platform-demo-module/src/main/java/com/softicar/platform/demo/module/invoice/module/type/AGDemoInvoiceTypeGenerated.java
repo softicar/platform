@@ -7,7 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
-import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.DemoI18n;
 
 /**
  * This is the automatically generated class AGDemoInvoiceType for

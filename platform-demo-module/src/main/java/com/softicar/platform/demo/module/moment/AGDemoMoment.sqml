@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.demo.module.moment
 
-IMPORT com.softicar.platform.demo.module.AGDemoModuleInstance
+IMPORT com.softicar.platform.demo.module.core.module.AGDemoModuleInstance
 
 TABLE AGDemoMoment 'Demo.DemoMoment' {
 	PK Integer id = SERIAL
