@@ -1,4 +1,3 @@
-
 /**
  * This class encodes the {@link AjaxRequestMessage} data.
  */

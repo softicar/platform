@@ -10,7 +10,6 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.IDomDropEvent;
 import com.softicar.platform.dom.event.IDomDropEventHandler;
 import com.softicar.platform.dom.style.CssStyle;
-import com.softicar.platform.dom.styles.CssPosition;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowCssClasses;
@@ -60,7 +59,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 	private void applyDraggableStyle() {
 
-		makeDraggable(CssPosition.ABSOLUTE);
+		getDomEngine().makeDraggable(this, this, null);
 		addCssClass(DomCssPseudoClasses.DRAGGABLE);
 	}
 

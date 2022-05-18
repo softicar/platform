@@ -30,6 +30,7 @@
 }
 
 .WorkflowNode {
+	position: absolute;
 	width: 150px;
 	height: 70px;
 	color: var(--LABEL_FONT_COLOR);

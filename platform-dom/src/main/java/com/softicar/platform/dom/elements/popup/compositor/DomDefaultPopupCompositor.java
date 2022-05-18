@@ -68,11 +68,11 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			appendBackdrop(popup);
 
 			// -------- create frame -------- //
-			var frame = new DomPopupFrame(popup);
+			var frameParent = getFrameParent(configuration, spawningNode);
+			var frame = new DomPopupFrame(popup, frameParent);
 			frameMap.put(popup, frame);
 
 			// -------- append frame -------- //
-			IDomPopupMaximizationContext frameParent = getFrameParent(configuration, spawningNode);
 			if (displayMode.isMaximized()) {
 				maximizationContextStasher.stash(frameParent);
 			}

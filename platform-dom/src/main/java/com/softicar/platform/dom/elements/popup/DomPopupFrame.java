@@ -7,7 +7,7 @@ import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompos
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEscapeKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.styles.CssPosition;
+import com.softicar.platform.dom.node.IDomNode;
 import java.util.Collections;
 
 /**
@@ -21,7 +21,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 	private final DomPopup popup;
 	private final DomPopupFrameHeader header;
 
-	public DomPopupFrame(DomPopup popup) {
+	public DomPopupFrame(DomPopup popup, IDomNode parent) {
 
 		this.popup = popup;
 		this.header = new DomPopupFrameHeader(this::closePopup);
@@ -35,7 +35,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		if (configuration.getDisplayMode().isMaximized()) {
 			addCssClass(DomCssPseudoClasses.MAXIMIZED);
 		} else {
-			makeDraggable(CssPosition.ABSOLUTE, header);
+			getDomEngine().makeDraggable(this, header, parent);
 		}
 
 		if (configuration.getDisplayMode().hasHeader()) {
