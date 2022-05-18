@@ -2,7 +2,6 @@ package com.softicar.platform.dom.element;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.ui.color.IColor;
-import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssStyle;
@@ -11,7 +10,6 @@ import com.softicar.platform.dom.style.ICssStyle;
 import com.softicar.platform.dom.style.ICssStyleAttribute;
 import com.softicar.platform.dom.style.ICssStyleValue;
 import com.softicar.platform.dom.styles.CssDisplay;
-import com.softicar.platform.dom.styles.CssPosition;
 import com.softicar.platform.dom.text.DomTextNode;
 import java.util.Collection;
 import java.util.List;
@@ -152,33 +150,4 @@ public interface IDomElement extends IDomNode {
 
 		return setTitle(title != null? title.toString() : null);
 	}
-
-	// -------------------- dragging -------------------- //
-
-	/**
-	 * Enables the user to drag this {@link IDomElement} around.
-	 *
-	 * @param position
-	 *            should be either {@link CssPosition#RELATIVE} or
-	 *            {@link CssPosition#ABSOLUTE} (never <i>null</i>)
-	 */
-	void makeDraggable(CssPosition position);
-
-	/**
-	 * Enables the user to drag this {@link IDomElement} around.
-	 * <p>
-	 * The difference to the {@link #makeDraggable(CssPosition)} method is that
-	 * you can specify another {@link IDomNode} that starts the dragging of this
-	 * {@link IDomElement}. This is important for {@link DomPopup}, where the
-	 * title bar and not the {@link DomPopup} itself starts the dragging of the
-	 * whole {@link DomPopup}.
-	 *
-	 * @param position
-	 *            should be either {@link CssPosition#RELATIVE} or
-	 *            {@link CssPosition#ABSOLUTE} (never <i>null</i>)
-	 * @param initNode
-	 *            the {@link IDomNode} that the user can click to start the
-	 *            dragging process (never <i>null</i>)
-	 */
-	void makeDraggable(CssPosition position, IDomNode initNode);
 }

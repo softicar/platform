@@ -90,7 +90,55 @@ class AjaxRequestMessage {
 		return new AjaxRequestMessageEncoder(this.data).encodeToHex();
 	}
 
-	// ------------------------------ private ------------------------------ //
+	// ------------------------------ redundancy ------------------------------ //
+
+	public isRedundantTo(other: AjaxRequestMessage) {
+		if(this.isKeepAlive()) {
+			return true; // keep-alive is redundant to any other message
+		} else if(this.isSameAction(other) && this.isOnSameNode(other)) {
+			if(this.isDomEvent()) {
+				return this.isSameEventType(other);
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// ------------------------------ obsolete ------------------------------ //
+
+	public isObsolete() {
+		let nodeId = this.data.get('n');
+		if(nodeId) {
+			return document.getElementById(nodeId) === null;
+		} else {
+			return false;
+		}
+	}
+	
+	// ------------------------------ getter ------------------------------ //
+
+	private isKeepAlive() {
+		return this.data.get('a') === '' + AJAX_REQUEST_KEEP_ALIVE;
+	}
+
+	private isDomEvent() {
+		return this.data.get('a') === '' + AJAX_REQUEST_DOM_EVENT;
+	}
+
+	private isSameAction(other: AjaxRequestMessage) {
+		return this.data.get('a') === other.data.get('a');
+	}
+
+	private isOnSameNode(other: AjaxRequestMessage) {
+		return this.data.get('n') === other.data.get('n');
+	}
+
+	private isSameEventType(other: AjaxRequestMessage) {
+		return this.data.get('e') === other.data.get('e');
+	}
+
+	// ------------------------------ setter ------------------------------ //
 
 	private setString(key: string, value: string) {
 		this.data.set(key, value);
