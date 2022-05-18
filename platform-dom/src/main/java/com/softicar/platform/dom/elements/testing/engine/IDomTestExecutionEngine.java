@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.testing.engine;
 
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
@@ -57,8 +56,7 @@ public interface IDomTestExecutionEngine extends TestRule {
 	void sendEvent(IDomNode node, DomEventType eventType);
 
 	/**
-	 * Inputs the specified text into the given {@link IDomTextualInput} and
-	 * triggers an {@link IDomEvent} of type {@link DomEventType#TAB}.
+	 * Inputs the specified text into the given {@link IDomTextualInput}.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to receive the text (never <i>null</i>)

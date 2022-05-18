@@ -52,7 +52,6 @@ public class DomDocumentTestExecutionEngine extends TestWatcher implements IDomT
 	public void setInputValue(IDomTextualInput node, String text) {
 
 		node.setInputText(text);
-		sendEvent(node, DomEventType.TAB);
 	}
 
 	@Override

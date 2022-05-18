@@ -18,9 +18,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 /**
- * An {@link IDomTestExecutionEngine} based upon the Selenium framework. Allows for the
- * definition and execution of high-level UI tests which mimic the interactions
- * and observations of a human user.
+ * An {@link IDomTestExecutionEngine} based upon the Selenium framework. Allows
+ * for the definition and execution of high-level UI tests which mimic the
+ * interactions and observations of a human user.
  * <p>
  * Uses a web server, and remote-controlled web browsers, which are started on
  * the machine that runs the tests. The web server is created on the fly, and
@@ -35,8 +35,9 @@ import org.openqa.selenium.interactions.Actions;
  * The engine extends {@link TestRule}, so that it can be added to a test class
  * as a JUnit4 {@link Rule}.
  * <p>
- * {@link DomDocumentTestExecutionEngine} and {@link AjaxSeleniumTestExecutionEngine} have
- * individual advantages and disadvantages, when compared with one another:
+ * {@link DomDocumentTestExecutionEngine} and
+ * {@link AjaxSeleniumTestExecutionEngine} have individual advantages and
+ * disadvantages, when compared with one another:
  *
  * <pre>
  * +------------------------+-------+-----------+
@@ -112,7 +113,6 @@ public class AjaxSeleniumTestExecutionEngine extends AbstractAjaxSeleniumTestEng
 		var webElement = getWebElement(node);
 		webElement.clear();
 		webElement.sendKeys(text);
-		webElement.sendKeys(Keys.TAB);
 
 		screenshotQueue.addNewScreenshot("setInputValue-wait");
 		waitForServer();
