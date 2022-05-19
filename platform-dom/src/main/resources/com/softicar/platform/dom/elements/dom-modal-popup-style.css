@@ -4,9 +4,6 @@
 	gap: var(--COLUMN_GAP);
 	min-width: 256px;
 	max-width: 512px;
-}
-
-.DomModalDialogPopupWrapped {
 	white-space: pre-wrap;
 }
 
