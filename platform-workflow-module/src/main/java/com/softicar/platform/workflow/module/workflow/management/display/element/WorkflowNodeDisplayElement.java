@@ -43,7 +43,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 		int x = (dropParameters.getDropX() + 5) / 10 * 10;
 		int y = (dropParameters.getDropY() + 5) / 10 * 10;
-		if (x >= 0) {
+		if (x >= 0 && y >= 0) {
 			workflowNode.setXCoordinate(x);
 			workflowNode.setYCoordinate(y);
 			workflowNode.save();
