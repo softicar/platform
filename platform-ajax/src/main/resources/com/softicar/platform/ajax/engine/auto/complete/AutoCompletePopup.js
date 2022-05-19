@@ -14,7 +14,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 	this.show = show;
 	this.hide = hide;
 	this.isShown = isShown;
-	this.setMaximumZIndex = setMaximumZIndex;
+	this.raise = raise;
 	this.getPattern = getPattern;
 	this.moveSelection = moveSelection;
 	this.initializeSelection = initializeSelection;
@@ -117,10 +117,10 @@ function AutoCompletePopup(inputContext, applySelection) {
 		return !!div.parentNode;
 	}
 	
-	function setMaximumZIndex() {
+	function raise() {
 		
 		if(isShown()) {
-			_DOM_CONTEXT_.setMaximumZIndex(div);
+			AJAX_ENGINE.raise(div);
 		}
 	}
 

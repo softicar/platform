@@ -9,7 +9,7 @@ function handleSessionTimeout() {
 	SESSION_TIMED_OUT = true;
 
 	if(SESSION_TIMEOUT_DIALOG) {
-		SESSION_TIMEOUT_DIALOG.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
 		SESSION_TIMEOUT_DIALOG.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+		AJAX_ENGINE.raise(SESSION_TIMEOUT_DIALOG);
 	}
 }

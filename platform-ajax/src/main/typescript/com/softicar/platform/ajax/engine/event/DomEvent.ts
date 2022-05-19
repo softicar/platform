@@ -1,8 +1,31 @@
+	
+function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
+	let element = AJAX_ENGINE.getElement(nodeId);
+	if(element == null)
+		return;
+
+	let handler = doListen? handleDomEvent : null;
+
+	switch(event)
+	{
+	case 'CLICK':       element.onclick = handler; break;
+	case 'CHANGE':      CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen); break;
+	case 'CONTEXTMENU': element.oncontextmenu = doListen? (event => {handleDomEvent(event); event.preventDefault();}) : null; break;
+	case 'DBLCLICK':    element.ondblclick = handler; break;
+	case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	case 'ESCAPE':      KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	case 'KEYPRESS':    element.onkeypress = handler; break;
+	case 'SPACE':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	case 'TAB':         KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	default: alert('Unknown event ' + event + '.');
+	}
+}
+
 function handleDomEvent(event: Event) {
 	sendOrDelegateEvent(event.currentTarget as HTMLElement, event, event.type);
 }
 
-function sendEventToServer(event: Event, eventType: string) {
+function sendDomEventToServer(event: Event, eventType: string) {
 	let element = event.currentTarget as HTMLElement;
 	let boundingRect = element.getBoundingClientRect();
 	let message = new AjaxRequestMessage()
