@@ -62,5 +62,4 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 
 		return convertToDayTime(millis).getDuration(DayTime.now());
 	}
-
 }
