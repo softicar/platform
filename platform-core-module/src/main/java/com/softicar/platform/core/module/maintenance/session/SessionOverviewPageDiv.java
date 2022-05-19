@@ -5,6 +5,8 @@ import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
@@ -17,15 +19,25 @@ public class SessionOverviewPageDiv extends DomDiv {
 
 	public SessionOverviewPageDiv() {
 
-		appendChild(
-			new DomActionBar(
-				new DomButton()//
-					.setClickCallback(new SessionManager()::invalidateAllSessions)
-					.setLabel(CoreI18n.TERMINATE_ALL_SESSIONS)
-					.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION)));
+		var actionBar = appendChild(new DomActionBar());
 		this.table = new EmfDataTableDivBuilder<>(new SessionOverviewTable())//
 			.setActionColumnHandler(new ActionColumnHandler())
 			.buildAndAppendTo(this);
+
+		actionBar
+			.appendChild(
+				new DomButton()//
+					.setClickCallback(table::refresh)
+					.setIcon(EmfImages.REFRESH.getResource())
+					.setLabel(EmfI18n.REFRESH));
+
+		actionBar
+			.appendChild(
+				new DomButton()//
+					.setClickCallback(new SessionManager()::invalidateAllSessions)
+					.setIcon(CoreImages.TERMINATE.getResource())
+					.setLabel(CoreI18n.TERMINATE_ALL_SESSIONS)
+					.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION));
 	}
 
 	private class ActionColumnHandler implements IEmfDataTableActionColumnHandler<HttpSession> {
