@@ -17,7 +17,6 @@ public class DemoPersonsTestFixtures implements DemoPersonModuleTestFixtureMetho
 		insertDemoPerson(moduleInstance, "Arthur", "Dent", 123, Day.fromYMD(1952, 3, 11));
 		insertDemoPerson(moduleInstance, "Ford", "Prefect", 124, null);
 		insertDemoPerson(moduleInstance, "Zaphod", "Beeblebrox", 125, null);
-		insertDemoPerson(moduleInstance, "Marvin", "P.A.", 126, null);
 		insertDemoPerson(moduleInstance, "Tricia", "McMillan", 127, null);
 	}
 }
