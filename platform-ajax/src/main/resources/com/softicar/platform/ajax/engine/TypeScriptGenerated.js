@@ -166,6 +166,7 @@ class DomPopupEngine {
         }
     }
     movePopup(popupFrame, x, y, xAlign, yAlign) {
+        popupFrame.style.position = 'absolute';
         let sizeX = window.innerWidth;
         let sizeY = window.innerHeight;
         let scrollX = window.pageXOffset;
@@ -173,7 +174,6 @@ class DomPopupEngine {
         let popupWidth = popupFrame.offsetWidth;
         let popupLeft = 0;
         switch (xAlign) {
-            default:
             case "LEFT":
                 popupLeft = scrollX + x;
                 break;
@@ -189,7 +189,6 @@ class DomPopupEngine {
         let popupHeight = popupFrame.offsetHeight;
         let popupTop = 0;
         switch (yAlign) {
-            default:
             case "TOP":
                 popupTop = scrollY + y;
                 break;
