@@ -13,8 +13,6 @@ import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupChildClosingMode;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
 import com.softicar.platform.dom.elements.popup.modal.DomModalPopupBackdrop;
-import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
-import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupEventCoordinatesPositionStrategy;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.IDomFocusable;
@@ -83,33 +81,15 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 			// -------- set up popup -------- //
 			initializePopup(configuration, frame);
-			raisePopup(frame);
 
 			// -------- maintain hierarchy -------- //
 			new DomParentNodeFinder<>(DomPopup.class).findClosestParent(spawningNode).ifPresent(parent -> {
 				hierarchyGraph.add(parent, popup);
 			});
-
-			// -------- move popup -------- //
-			movePopup(configuration, frame);
-
-			// -------- trap focus -------- //
-			trapTabFocus(configuration, frame);
-
-			// -------- set focus -------- //
-			focus(popup);
 		}
 
-		// already open
-		// TODO unit test coverage
-		else {
-			getFrame(popup).ifPresent(frame -> {
-				var position = new DomPopupEventCoordinatesPositionStrategy().getPosition(getCurrentEvent());
-				movePopup(frame, position);
-				raisePopup(frame);
-			});
-			focus(popup);
-		}
+		// TODO unit test coverage if already open
+		showPopup(popup);
 	}
 
 	@Override
@@ -221,17 +201,23 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		return dialog;
 	}
 
+	private void showPopup(DomPopup popup) {
+
+		var configuration = popup.getConfiguration();
+		getFrame(popup).ifPresent(frame -> {
+			movePopup(configuration, frame);
+			raisePopup(frame);
+			trapTabFocus(configuration, frame);
+			focus(popup);
+		});
+	}
+
 	private void movePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		if (!configuration.getDisplayMode().isMaximized()) {
 			var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
-			movePopup(frame, position);
+			getDomEngine().movePopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
 		}
-	}
-
-	private void movePopup(DomPopupFrame frame, DomPopupPosition position) {
-
-		getDomEngine().movePopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
 	}
 
 	private void trapTabFocus(IDomPopupConfiguration configuration, DomPopupFrame frame) {

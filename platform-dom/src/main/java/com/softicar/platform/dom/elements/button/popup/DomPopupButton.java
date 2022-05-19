@@ -75,18 +75,18 @@ public class DomPopupButton extends DomButton {
 
 	private void openPopup(Supplier<DomPopup> popupFactory) {
 
-		boolean alreadyDisplayed = isDisplayed();
-		if (!alreadyDisplayed) {
+		boolean alreadyOpen = isOpen();
+		if (!alreadyOpen) {
 			popup = popupFactory.get();
 			callbackBeforeOpen.apply();
 		}
 		popup.open();
-		if (!alreadyDisplayed) {
+		if (!alreadyOpen) {
 			callbackAfterOpen.apply();
 		}
 	}
 
-	private boolean isDisplayed() {
+	private boolean isOpen() {
 
 		return popup != null && popup.isAppended();
 	}
