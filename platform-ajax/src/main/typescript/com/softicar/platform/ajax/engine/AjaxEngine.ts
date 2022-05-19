@@ -104,7 +104,6 @@ class AjaxEngine {
 	    history.pushState({page: page}, "", url);
 	}
 
-
 	private initializeNode(nodeId: number, node: HTMLElement) {
 		node.id = 'n' + nodeId;
 		this.nodes.set(nodeId, node);
