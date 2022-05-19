@@ -15,6 +15,11 @@ class DomPopupEngine {
 	 * Moves the popup with the specified popup frame node ID to the specified coordinates.
 	 */
 	public movePopup(popupFrame: HTMLElement, x: number, y: number, xAlign: string, yAlign: string) {
+		// This exiplicit position assignment seems to be very important.
+		// Without it, the computation of the offset-width of the frame
+		// seems to be nondeterministic.
+		popupFrame.style.position = 'absolute';
+		
 		// get window size and scrolling position
 		let sizeX = window.innerWidth;
 		let sizeY = window.innerHeight;
@@ -25,7 +30,6 @@ class DomPopupEngine {
 		let popupWidth = popupFrame.offsetWidth;
 		let popupLeft = 0;
 		switch(xAlign) {
-		default:
 		case "LEFT": popupLeft = scrollX+x; break;
 		case "CENTER": popupLeft = scrollX+x - popupWidth/2; break;
 		case "RIGHT": popupLeft = scrollX+x - popupWidth+1; break;
@@ -39,7 +43,6 @@ class DomPopupEngine {
 		let popupHeight = popupFrame.offsetHeight;
 		let popupTop = 0;
 		switch(yAlign) {
-		default:
 		case "TOP": popupTop = scrollY+y; break;
 		case "CENTER": popupTop = scrollY+y - popupHeight/2; break;
 		case "BOTTOM": popupTop = scrollY+y - popupHeight+1; break;
@@ -52,7 +55,7 @@ class DomPopupEngine {
 		// compensate for position of parent
 		let parent = popupFrame.parentElement;
 		if(parent != null) {
-			if(parent !=  document.body) {
+			if(parent != document.body) {
 				let parentRect = parent.getBoundingClientRect();
 				popupLeft -= parentRect.left;
 				popupTop -= parentRect.top;
