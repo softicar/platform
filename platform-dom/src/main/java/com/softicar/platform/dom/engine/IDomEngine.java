@@ -61,7 +61,7 @@ public interface IDomEngine {
 
 	Optional<String> getNodeStyle(IDomNode node, String name);
 
-	void setMaximumZIndex(IDomNode node);
+	void raise(IDomNode node);
 
 	// -------------------------------- node events -------------------------------- //
 

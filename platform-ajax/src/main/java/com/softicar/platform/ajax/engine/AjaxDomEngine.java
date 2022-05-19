@@ -106,8 +106,8 @@ public class AjaxDomEngine implements IDomEngine {
 
 	private void initialize() {
 
-		JS_call("c.initializeHead", document.getHead().getNodeId());
-		JS_call("c.initializeBody", document.getBody().getNodeId());
+		JS_call("AJAX_ENGINE.initializeHead", document.getHead().getNodeId());
+		JS_call("AJAX_ENGINE.initializeBody", document.getBody().getNodeId());
 
 		document.setMaximumExistingNodeCount(ajaxFramework.getSettings().getMaximumExistingNodeCount());
 	}
@@ -230,9 +230,9 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void setMaximumZIndex(IDomNode node) {
+	public void raise(IDomNode node) {
 
-		JS_call("c.setMaximumZIndex", node);
+		JS_call("AJAX_ENGINE.raise", node);
 	}
 
 	// -------------------------------- DOM events -------------------------------- //
@@ -399,13 +399,13 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise) {
 
-		JS_call("DOM_POPUP_ENGINE.initializePopup", popupFrame, autoRaise);
+		JS_call("POPUP_ENGINE.initializePopup", popupFrame, autoRaise);
 	}
 
 	@Override
 	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
-		JS_call("DOM_POPUP_ENGINE.movePopup", popupFrame, x, y, xAlign, yAlign);
+		JS_call("POPUP_ENGINE.movePopup", popupFrame, x, y, xAlign, yAlign);
 	}
 
 	// -------------------------------- scripting -------------------------------- //
@@ -423,7 +423,7 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void executeScriptCode(String scriptCode) {
 
-		JS_call("c.executeScriptCode", scriptCode);
+		JS_call("AJAX_ENGINE.executeScriptCode", scriptCode);
 	}
 
 	// -------------------------------- forms -------------------------------- //
@@ -506,7 +506,7 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void pushBrowserHistoryState(String pageName, String pageUrl) {
 
-		JS_call("pushBrowserHistoryState", pageName, pageUrl);
+		JS_call("AJAX_ENGINE.pushBrowserHistoryState", pageName, pageUrl);
 	}
 
 	@Override

@@ -6,10 +6,9 @@ function setWorkingIndicator(indicator: HTMLElement) {
 }
 
 function showWorkingIndicator() {
-	if(WORKING_INDICATOR && WORKING_INDICATOR_ENABLED)
-	{
-		WORKING_INDICATOR.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
+	if(WORKING_INDICATOR && WORKING_INDICATOR_ENABLED) {
 		WORKING_INDICATOR.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+		AJAX_ENGINE.raise(WORKING_INDICATOR);
 	}
 }
 

@@ -239,7 +239,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private void initializePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		getDomEngine().initializePopup(frame, !configuration.getDisplayMode().isMaximized());
-		getDomEngine().setMaximumZIndex(frame);
+		getDomEngine().raise(frame);
 	}
 
 	private void appendBackdrop(DomPopup popup) {
@@ -250,7 +250,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			var backdrop = new DomModalPopupBackdrop(determineBackdropCallback(popup), visible);
 			backdropTracker.add(popup, backdrop);
 			refreshBackdropVisibility();
-			getDomEngine().setMaximumZIndex(backdrop);
+			getDomEngine().raise(backdrop);
 			getBody().appendChild(backdrop);
 		}
 	}

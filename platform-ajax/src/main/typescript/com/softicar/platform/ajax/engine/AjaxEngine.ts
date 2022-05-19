@@ -2,14 +2,13 @@ class AjaxEngine {
 	private readonly nodes = new Map<number, Node>();
 	private zIndex = 100;
 
-	public allocateZIndex() {
-		this.zIndex += 1;
-		return '' + this.zIndex;
-	}
-
-	public setMaximumZIndex(node: HTMLElement) {
-		if(node.style.zIndex != '' + this.zIndex) {
-			node.style.zIndex = this.allocateZIndex();
+	/**
+	 * Raises the z-index of the given element to the maximum.
+	 */
+	public raise(element: HTMLElement) {
+		if(element.style.zIndex != '' + this.zIndex) {
+			this.zIndex += 1;
+			element.style.zIndex = '' + this.zIndex;
 		}
 	}
 
@@ -97,28 +96,14 @@ class AjaxEngine {
 	public setAttribute(nodeId: number, attribute: string, value: string) {
 		this.getElement(nodeId).setAttribute(attribute, value);
 	}
-	
-	public listenToEvent(nodeID: number, event: string, doListen: boolean) {
-		let element = this.getElement(nodeID);
-		if(element == null)
-			return;
-	
-		let handler = doListen? handleDomEvent : null;
-	
-		switch(event)
-		{
-		case 'CLICK':       element.onclick = handler; break;
-		case 'CHANGE':      CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen); break;
-		case 'CONTEXTMENU': element.oncontextmenu = doListen? (event => {handleDomEvent(event); event.preventDefault();}) : null; break;
-		case 'DBLCLICK':    element.ondblclick = handler; break;
-		case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
-		case 'ESCAPE':      KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
-		case 'KEYPRESS':    element.onkeypress = handler; break;
-		case 'SPACE':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
-		case 'TAB':         KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
-		default: alert('Unknown event ' + event + '.');
-		}
+
+	/**
+	 * Pushes the given URL into the history of the browser.
+	 */
+	public pushBrowserHistoryState(page: string, url: string) {
+	    history.pushState({page: page}, "", url);
 	}
+
 
 	private initializeNode(nodeId: number, node: HTMLElement) {
 		node.id = 'n' + nodeId;
@@ -126,58 +111,4 @@ class AjaxEngine {
 	}
 }
 
-const _DOM_CONTEXT_ = new AjaxEngine();
-
-// -------------------- abbreviations -------------------- //
-
-const c = _DOM_CONTEXT_;
-
-function n(nodeId: number) {
-	return c.getNode(nodeId);
-}
-
-function e(nodeId: number, tag: string) {
-	return c.createElement(nodeId, tag);
-}
-
-function t(nodeId: number, text: string) {
-	return c.createTextNode(nodeId, text);
-}
-
-function l(nodeId: number, eventType: string) {
-	c.listenToEvent(nodeId, eventType, true);
-}
-
-function u(nodeId: number, eventType: string) {
-	c.listenToEvent(nodeId, eventType, false);
-}
-
-function a(parentId: number, childId: number) {
-	c.appendChild(parentId, childId);
-}
-
-function i(parentId: number, childId: number, oherChildId: number) {
-	c.insertBefore(parentId, childId, oherChildId);
-}
-
-function r(parentId: number, childId: number) {
-	c.removeChild(parentId, childId);
-}
-
-function p(parentId: number, newChildId: number, oldChldId: number) {
-	c.replaceChild(parentId, newChildId, oldChldId);
-}
-
-function E(parentId: number, childId: number, tag: string) {
-	e(childId, tag);
-	a(parentId, childId);
-}
-
-function T(parentId: number, childId: number, text: string) {
-	t(childId, text);
-	a(parentId, childId);
-}
-
-function s(elementId: number, attribute: string, value: string) {
-	c.setAttribute(elementId, attribute, value);
-}
+const AJAX_ENGINE = new AjaxEngine();

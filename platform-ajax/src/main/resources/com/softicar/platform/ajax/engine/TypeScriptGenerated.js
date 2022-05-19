@@ -4,13 +4,10 @@ class AjaxEngine {
         this.nodes = new Map();
         this.zIndex = 100;
     }
-    allocateZIndex() {
-        this.zIndex += 1;
-        return '' + this.zIndex;
-    }
-    setMaximumZIndex(node) {
-        if (node.style.zIndex != '' + this.zIndex) {
-            node.style.zIndex = this.allocateZIndex();
+    raise(element) {
+        if (element.style.zIndex != '' + this.zIndex) {
+            this.zIndex += 1;
+            element.style.zIndex = '' + this.zIndex;
         }
     }
     getNode(nodeId) {
@@ -57,87 +54,15 @@ class AjaxEngine {
     setAttribute(nodeId, attribute, value) {
         this.getElement(nodeId).setAttribute(attribute, value);
     }
-    listenToEvent(nodeID, event, doListen) {
-        let element = this.getElement(nodeID);
-        if (element == null)
-            return;
-        let handler = doListen ? handleDomEvent : null;
-        switch (event) {
-            case 'CLICK':
-                element.onclick = handler;
-                break;
-            case 'CHANGE':
-                CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen);
-                break;
-            case 'CONTEXTMENU':
-                element.oncontextmenu = doListen ? (event => { handleDomEvent(event); event.preventDefault(); }) : null;
-                break;
-            case 'DBLCLICK':
-                element.ondblclick = handler;
-                break;
-            case 'ENTER':
-                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
-                break;
-            case 'ESCAPE':
-                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
-                break;
-            case 'KEYPRESS':
-                element.onkeypress = handler;
-                break;
-            case 'SPACE':
-                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
-                break;
-            case 'TAB':
-                KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
-                break;
-            default: alert('Unknown event ' + event + '.');
-        }
+    pushBrowserHistoryState(page, url) {
+        history.pushState({ page: page }, "", url);
     }
     initializeNode(nodeId, node) {
         node.id = 'n' + nodeId;
         this.nodes.set(nodeId, node);
     }
 }
-const _DOM_CONTEXT_ = new AjaxEngine();
-const c = _DOM_CONTEXT_;
-function n(nodeId) {
-    return c.getNode(nodeId);
-}
-function e(nodeId, tag) {
-    return c.createElement(nodeId, tag);
-}
-function t(nodeId, text) {
-    return c.createTextNode(nodeId, text);
-}
-function l(nodeId, eventType) {
-    c.listenToEvent(nodeId, eventType, true);
-}
-function u(nodeId, eventType) {
-    c.listenToEvent(nodeId, eventType, false);
-}
-function a(parentId, childId) {
-    c.appendChild(parentId, childId);
-}
-function i(parentId, childId, oherChildId) {
-    c.insertBefore(parentId, childId, oherChildId);
-}
-function r(parentId, childId) {
-    c.removeChild(parentId, childId);
-}
-function p(parentId, newChildId, oldChldId) {
-    c.replaceChild(parentId, newChildId, oldChldId);
-}
-function E(parentId, childId, tag) {
-    e(childId, tag);
-    a(parentId, childId);
-}
-function T(parentId, childId, text) {
-    t(childId, text);
-    a(parentId, childId);
-}
-function s(elementId, attribute, value) {
-    c.setAttribute(elementId, attribute, value);
-}
+const AJAX_ENGINE = new AjaxEngine();
 const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
 const AJAX_REQUEST_KEEP_ALIVE = 2;
 const AJAX_REQUEST_TIMEOUT = 5;
@@ -159,72 +84,6 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
-class DomPopupEngine {
-    initializePopup(popupFrame, autoRaise) {
-        if (autoRaise) {
-            this.addEventListeners(popupFrame);
-        }
-    }
-    movePopup(popupFrame, x, y, xAlign, yAlign) {
-        popupFrame.style.position = 'absolute';
-        let sizeX = window.innerWidth;
-        let sizeY = window.innerHeight;
-        let scrollX = window.pageXOffset;
-        let scrollY = window.pageYOffset;
-        let popupWidth = popupFrame.offsetWidth;
-        let popupLeft = 0;
-        switch (xAlign) {
-            case "LEFT":
-                popupLeft = scrollX + x;
-                break;
-            case "CENTER":
-                popupLeft = scrollX + x - popupWidth / 2;
-                break;
-            case "RIGHT":
-                popupLeft = scrollX + x - popupWidth + 1;
-                break;
-        }
-        popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
-        popupLeft = Math.max(popupLeft, scrollX);
-        let popupHeight = popupFrame.offsetHeight;
-        let popupTop = 0;
-        switch (yAlign) {
-            case "TOP":
-                popupTop = scrollY + y;
-                break;
-            case "CENTER":
-                popupTop = scrollY + y - popupHeight / 2;
-                break;
-            case "BOTTOM":
-                popupTop = scrollY + y - popupHeight + 1;
-                break;
-        }
-        popupTop = Math.min(popupTop, scrollY + sizeY - popupHeight);
-        popupTop = Math.max(popupTop, scrollY);
-        let parent = popupFrame.parentElement;
-        if (parent != null) {
-            if (parent != document.body) {
-                let parentRect = parent.getBoundingClientRect();
-                popupLeft -= parentRect.left;
-                popupTop -= parentRect.top;
-            }
-        }
-        else {
-            console.log("Warning: Tried to move a popup that was not appended. Its position might be unexpected.");
-        }
-        popupFrame.style.left = popupLeft + 'px';
-        popupFrame.style.top = popupTop + 'px';
-    }
-    addEventListeners(popupFrame) {
-        let options = { capture: true, passive: true };
-        popupFrame.addEventListener('mousedown', _ => this.raise(popupFrame), options);
-        popupFrame.addEventListener('focus', _ => this.raise(popupFrame), options);
-    }
-    raise(popupFrame) {
-        _DOM_CONTEXT_.setMaximumZIndex(popupFrame);
-    }
-}
-const DOM_POPUP_ENGINE = new DomPopupEngine();
 function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
     new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
 }
@@ -251,7 +110,7 @@ class DragContext {
         this.cursorStart = this.getCursorPosition(event);
         this.dragStart = this.getDraggedNodePosition();
         this.dragPosition = this.dragStart;
-        _DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
+        AJAX_ENGINE.raise(this.draggedNode);
     }
     onDrag(event) {
         var _a, _b, _c;
@@ -310,6 +169,44 @@ class DragContext {
         document.removeEventListener("mouseup", this.dropHandler, true);
         document.removeEventListener("touchend", this.dropHandler, true);
     }
+}
+function n(nodeId) {
+    return AJAX_ENGINE.getNode(nodeId);
+}
+function e(nodeId, tag) {
+    return AJAX_ENGINE.createElement(nodeId, tag);
+}
+function t(nodeId, text) {
+    return AJAX_ENGINE.createTextNode(nodeId, text);
+}
+function l(nodeId, eventType) {
+    listenToDomEvent(nodeId, eventType, true);
+}
+function u(nodeId, eventType) {
+    listenToDomEvent(nodeId, eventType, false);
+}
+function a(parentId, childId) {
+    AJAX_ENGINE.appendChild(parentId, childId);
+}
+function i(parentId, childId, oherChildId) {
+    AJAX_ENGINE.insertBefore(parentId, childId, oherChildId);
+}
+function r(parentId, childId) {
+    AJAX_ENGINE.removeChild(parentId, childId);
+}
+function p(parentId, newChildId, oldChldId) {
+    AJAX_ENGINE.replaceChild(parentId, newChildId, oldChldId);
+}
+function E(parentId, childId, tag) {
+    e(childId, tag);
+    a(parentId, childId);
+}
+function T(parentId, childId, text) {
+    t(childId, text);
+    a(parentId, childId);
+}
+function s(elementId, attribute, value) {
+    AJAX_ENGINE.setAttribute(elementId, attribute, value);
 }
 class FocusTrap {
     constructor(root) {
@@ -392,6 +289,72 @@ class Point {
         return new Point(this.x - point.x, this.y - point.y);
     }
 }
+class DomPopupEngine {
+    initializePopup(popupFrame, autoRaise) {
+        if (autoRaise) {
+            this.addEventListeners(popupFrame);
+        }
+    }
+    movePopup(popupFrame, x, y, xAlign, yAlign) {
+        popupFrame.style.position = 'absolute';
+        let sizeX = window.innerWidth;
+        let sizeY = window.innerHeight;
+        let scrollX = window.pageXOffset;
+        let scrollY = window.pageYOffset;
+        let popupWidth = popupFrame.offsetWidth;
+        let popupLeft = 0;
+        switch (xAlign) {
+            case "LEFT":
+                popupLeft = scrollX + x;
+                break;
+            case "CENTER":
+                popupLeft = scrollX + x - popupWidth / 2;
+                break;
+            case "RIGHT":
+                popupLeft = scrollX + x - popupWidth + 1;
+                break;
+        }
+        popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
+        popupLeft = Math.max(popupLeft, scrollX);
+        let popupHeight = popupFrame.offsetHeight;
+        let popupTop = 0;
+        switch (yAlign) {
+            case "TOP":
+                popupTop = scrollY + y;
+                break;
+            case "CENTER":
+                popupTop = scrollY + y - popupHeight / 2;
+                break;
+            case "BOTTOM":
+                popupTop = scrollY + y - popupHeight + 1;
+                break;
+        }
+        popupTop = Math.min(popupTop, scrollY + sizeY - popupHeight);
+        popupTop = Math.max(popupTop, scrollY);
+        let parent = popupFrame.parentElement;
+        if (parent != null) {
+            if (parent != document.body) {
+                let parentRect = parent.getBoundingClientRect();
+                popupLeft -= parentRect.left;
+                popupTop -= parentRect.top;
+            }
+        }
+        else {
+            console.log("Warning: Tried to move a popup that was not appended. Its position might be unexpected.");
+        }
+        popupFrame.style.left = popupLeft + 'px';
+        popupFrame.style.top = popupTop + 'px';
+    }
+    addEventListeners(popupFrame) {
+        let options = { capture: true, passive: true };
+        popupFrame.addEventListener('mousedown', _ => this.raise(popupFrame), options);
+        popupFrame.addEventListener('focus', _ => this.raise(popupFrame), options);
+    }
+    raise(popupFrame) {
+        AJAX_ENGINE.raise(popupFrame);
+    }
+}
+const POPUP_ENGINE = new DomPopupEngine();
 let SESSION_TIMED_OUT = false;
 let SESSION_TIMEOUT_DIALOG;
 function setSessionTimeoutDialog(dialog) {
@@ -400,8 +363,8 @@ function setSessionTimeoutDialog(dialog) {
 function handleSessionTimeout() {
     SESSION_TIMED_OUT = true;
     if (SESSION_TIMEOUT_DIALOG) {
-        SESSION_TIMEOUT_DIALOG.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
         SESSION_TIMEOUT_DIALOG.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+        AJAX_ENGINE.raise(SESSION_TIMEOUT_DIALOG);
     }
 }
 function insertTextAtCaret(input, text) {
@@ -421,14 +384,20 @@ function insertTextAtCaret(input, text) {
 function moveCaretToPosition(input, position) {
     input.selectionStart = input.selectionEnd = position;
 }
+function scheduleTimeout(timeoutNode, milliseconds) {
+    setTimeout(() => handleTimeout(timeoutNode), milliseconds);
+}
+function handleTimeout(timeoutNode) {
+    let message = new AjaxRequestMessage()
+        .setAction(AJAX_REQUEST_TIMEOUT)
+        .setNode(timeoutNode);
+    AJAX_REQUEST_QUEUE.submit(message);
+}
 function sendUploadRequestThroughForm(form) {
     let message = new AjaxRequestMessage()
         .setAction(AJAX_REQUEST_UPLOAD)
         .setNode(form);
     AJAX_REQUEST_QUEUE.submit(message, form);
-}
-function pushBrowserHistoryState(page, url) {
-    history.pushState({ page: page }, "", url);
 }
 class ValueNodeMap {
     constructor() {
@@ -523,8 +492,8 @@ function setWorkingIndicator(indicator) {
 }
 function showWorkingIndicator() {
     if (WORKING_INDICATOR && WORKING_INDICATOR_ENABLED) {
-        WORKING_INDICATOR.style.zIndex = _DOM_CONTEXT_.allocateZIndex();
         WORKING_INDICATOR.classList.remove(AJAX_CSS_PSEUDO_CLASS_HIDDEN);
+        AJAX_ENGINE.raise(WORKING_INDICATOR);
     }
 }
 function hideWorkingIndicator() {
@@ -555,10 +524,46 @@ class ChangeEventManager {
     }
 }
 const CHANGE_EVENT_MANAGER = new ChangeEventManager();
+function listenToDomEvent(nodeID, event, doListen) {
+    let element = AJAX_ENGINE.getElement(nodeID);
+    if (element == null)
+        return;
+    let handler = doListen ? handleDomEvent : null;
+    switch (event) {
+        case 'CLICK':
+            element.onclick = handler;
+            break;
+        case 'CHANGE':
+            CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen);
+            break;
+        case 'CONTEXTMENU':
+            element.oncontextmenu = doListen ? (event => { handleDomEvent(event); event.preventDefault(); }) : null;
+            break;
+        case 'DBLCLICK':
+            element.ondblclick = handler;
+            break;
+        case 'ENTER':
+            KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+            break;
+        case 'ESCAPE':
+            KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+            break;
+        case 'KEYPRESS':
+            element.onkeypress = handler;
+            break;
+        case 'SPACE':
+            KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+            break;
+        case 'TAB':
+            KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+            break;
+        default: alert('Unknown event ' + event + '.');
+    }
+}
 function handleDomEvent(event) {
     sendOrDelegateEvent(event.currentTarget, event, event.type);
 }
-function sendEventToServer(event, eventType) {
+function sendDomEventToServer(event, eventType) {
     let element = event.currentTarget;
     let boundingRect = element.getBoundingClientRect();
     let message = new AjaxRequestMessage()
@@ -603,7 +608,7 @@ function sendOrDelegateEvent(element, event, eventType) {
         delegator.delegateEvent(eventType);
     }
     else {
-        sendEventToServer(event, eventType);
+        sendDomEventToServer(event, eventType);
     }
     event.stopPropagation();
 }
@@ -746,15 +751,6 @@ class CssClassApplier {
     removeClasses() {
         this.classes.forEach(c => this.node.classList.remove(c));
     }
-}
-function scheduleTimeout(timeoutNode, milliseconds) {
-    setTimeout(() => handleTimeout(timeoutNode), milliseconds);
-}
-function handleTimeout(timeoutNode) {
-    let message = new AjaxRequestMessage()
-        .setAction(AJAX_REQUEST_TIMEOUT)
-        .setNode(timeoutNode);
-    AJAX_REQUEST_QUEUE.submit(message);
 }
 class AjaxRequest {
     constructor(message, form) {
