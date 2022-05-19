@@ -56,11 +56,16 @@ public class AGMaintenanceWindow extends AGMaintenanceWindowGenerated implements
 			.list();
 	}
 
-	public static boolean isMaintenanceInProgress() {
+	public static Optional<AGMaintenanceWindow> getMaintenanceInProgress() {
 
 		return AGMaintenanceWindow.TABLE//
 			.createSelect()
 			.where(AGMaintenanceWindow.STATE.equal(AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
-			.exists();
+			.getOneAsOptional();
+	}
+
+	public static boolean isMaintenanceInProgress() {
+
+		return getMaintenanceInProgress().isPresent();
 	}
 }
