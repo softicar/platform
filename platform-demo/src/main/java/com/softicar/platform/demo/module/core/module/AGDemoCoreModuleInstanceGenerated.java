@@ -20,7 +20,7 @@ public class AGDemoCoreModuleInstanceGenerated extends AbstractDbSubObject<AGDem
 	// -------------------------------- STATIC CONSTANTS -------------------------------- //
 
 	// @formatter:off
-	private static final DbSubObjectTableBuilder<AGDemoCoreModuleInstance, AGDemoCoreModuleInstanceGenerated, AGModuleInstance, Integer> BUILDER = new DbSubObjectTableBuilder<>("Demo", "DemoModuleInstance", AGDemoCoreModuleInstance::new, AGDemoCoreModuleInstance.class);
+	private static final DbSubObjectTableBuilder<AGDemoCoreModuleInstance, AGDemoCoreModuleInstanceGenerated, AGModuleInstance, Integer> BUILDER = new DbSubObjectTableBuilder<>("Demo", "DemoCoreModuleInstance", AGDemoCoreModuleInstance::new, AGDemoCoreModuleInstance.class);
 	static {
 		BUILDER.setTitle(DemoI18n.DEMO_CORE_MODULE_INSTANCE);
 		BUILDER.setPluralTitle(DemoI18n.DEMO_CORE_MODULE_INSTANCES);
@@ -62,3 +62,4 @@ public class AGDemoCoreModuleInstanceGenerated extends AbstractDbSubObject<AGDem
 	private AGModuleInstance m_moduleInstance;
 	private String m_title;
 }
+
