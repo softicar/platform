@@ -3,7 +3,7 @@ package com.softicar.platform.demo.module.invoice.module.type;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.demo.module.core.module.DemoI18n;
+import com.softicar.platform.demo.module.DemoI18n;
 
 public class AGDemoInvoiceType extends AGDemoInvoiceTypeGenerated implements IEntity {
 

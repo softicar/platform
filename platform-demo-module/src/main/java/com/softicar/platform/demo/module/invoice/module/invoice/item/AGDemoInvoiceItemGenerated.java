@@ -10,7 +10,7 @@ import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
-import com.softicar.platform.demo.module.core.module.DemoI18n;
+import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.module.person.module.AGDemoPerson;
 import java.math.BigDecimal;

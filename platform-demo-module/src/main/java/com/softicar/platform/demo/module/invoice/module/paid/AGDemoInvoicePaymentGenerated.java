@@ -9,7 +9,7 @@ import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.table.DbTableBuilder;
-import com.softicar.platform.demo.module.core.module.DemoI18n;
+import com.softicar.platform.demo.module.DemoI18n;
 import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
 import java.math.BigDecimal;
 

@@ -8,8 +8,8 @@ import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
 import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
-import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
-import com.softicar.platform.demo.module.core.module.DemoI18n;
+import com.softicar.platform.demo.module.DemoI18n;
+import com.softicar.platform.demo.module.core.module.AGDemoCoreModuleInstance;
 
 /**
  * This is the automatically generated class AGDemoPersonModuleInstance for
@@ -29,9 +29,9 @@ public class AGDemoPersonModuleInstanceGenerated extends AbstractDbSubObject<AGD
 	}
 
 	public static final IDbBaseField<AGDemoPersonModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(DemoI18n.MODULE_INSTANCE);
-	public static final IDbForeignRowField<AGDemoPersonModuleInstance, AGDemoModuleInstance, AGModuleInstance> DEMO_MODULE_INSTANCE = BUILDER.addForeignRowField("demoModuleInstance", o->o.m_demoModuleInstance, (o,v)->o.m_demoModuleInstance=v, AGDemoModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.DEMO_MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoPersonModuleInstance, AGDemoCoreModuleInstance, AGModuleInstance> DEMO_CORE_MODULE_INSTANCE = BUILDER.addForeignRowField("demoCoreModuleInstance", o->o.m_demoCoreModuleInstance, (o,v)->o.m_demoCoreModuleInstance=v, AGDemoCoreModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.DEMO_CORE_MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoPersonModuleInstance> TITLE = BUILDER.addStringField("title", o->o.m_title, (o,v)->o.m_title=v).setTitle(DemoI18n.TITLE).setDefault("").setMaximumLength(255);
-	public static final IDbKey<AGDemoPersonModuleInstance> UK_DEMO_MODULE_INSTANCE = BUILDER.addUniqueKey("demoModuleInstance", DEMO_MODULE_INSTANCE);
+	public static final IDbKey<AGDemoPersonModuleInstance> UK_DEMO_CORE_MODULE_INSTANCE = BUILDER.addUniqueKey("demoCoreModuleInstance", DEMO_CORE_MODULE_INSTANCE);
 	public static final IDbKey<AGDemoPersonModuleInstance> UK_TITLE = BUILDER.addUniqueKey("title", TITLE);
 	public static final AGDemoPersonModuleInstanceTable TABLE = new AGDemoPersonModuleInstanceTable(BUILDER);
 	// @formatter:on
@@ -43,14 +43,14 @@ public class AGDemoPersonModuleInstanceGenerated extends AbstractDbSubObject<AGD
 		return pk();
 	}
 
-	public final AGDemoModuleInstance getDemoModuleInstance() {
+	public final AGDemoCoreModuleInstance getDemoCoreModuleInstance() {
 
-		return getValue(DEMO_MODULE_INSTANCE);
+		return getValue(DEMO_CORE_MODULE_INSTANCE);
 	}
 
-	public final AGDemoPersonModuleInstance setDemoModuleInstance(AGDemoModuleInstance value) {
+	public final AGDemoPersonModuleInstance setDemoCoreModuleInstance(AGDemoCoreModuleInstance value) {
 
-		return setValue(DEMO_MODULE_INSTANCE, value);
+		return setValue(DEMO_CORE_MODULE_INSTANCE, value);
 	}
 
 	public final String getTitle() {
@@ -74,7 +74,7 @@ public class AGDemoPersonModuleInstanceGenerated extends AbstractDbSubObject<AGD
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private AGModuleInstance m_moduleInstance;
-	private AGDemoModuleInstance m_demoModuleInstance;
+	private AGDemoCoreModuleInstance m_demoCoreModuleInstance;
 	private String m_title;
 }
 

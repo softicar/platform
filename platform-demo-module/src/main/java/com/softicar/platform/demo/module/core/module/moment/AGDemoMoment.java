@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.moment;
+package com.softicar.platform.demo.module.core.module.moment;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;

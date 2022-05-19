@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
@@ -32,8 +32,8 @@ public class DemoModuleInstanceCreationTest extends AbstractCoreTest implements 
 		popup.clickSaveButton();
 		popup.clickActionButton(ModuleInstanceInitializationAction.class);
 
-		EmfFormPopupTester demoPopup = findFormPopup(AGDemoModuleInstance.class);
-		demoPopup.setInputValue(AGDemoModuleInstance.TITLE, "FooBar");
+		EmfFormPopupTester demoPopup = findFormPopup(AGDemoCoreModuleInstance.class);
+		demoPopup.setInputValue(AGDemoCoreModuleInstance.TITLE, "FooBar");
 		demoPopup.clickSaveButton();
 
 		assertEquals("FooBar", findEmfDataTable(AGModuleInstance.TABLE).getTextInCells(AGModuleInstance.TITLE_FIELD));

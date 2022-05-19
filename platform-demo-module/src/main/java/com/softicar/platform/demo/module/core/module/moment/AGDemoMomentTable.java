@@ -1,13 +1,13 @@
-package com.softicar.platform.demo.module.moment;
+package com.softicar.platform.demo.module.core.module.moment;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
-import com.softicar.platform.demo.module.core.module.AGDemoModuleInstance;
+import com.softicar.platform.demo.module.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGDemoMomentTable extends EmfObjectTable<AGDemoMoment, AGDemoModuleInstance> {
+public class AGDemoMomentTable extends EmfObjectTable<AGDemoMoment, AGDemoCoreModuleInstance> {
 
 	public AGDemoMomentTable(IDbObjectTableBuilder<AGDemoMoment> builder) {
 
@@ -15,7 +15,7 @@ public class AGDemoMomentTable extends EmfObjectTable<AGDemoMoment, AGDemoModule
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGDemoMoment, Integer, AGDemoModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGDemoMoment, Integer, AGDemoCoreModuleInstance> configuration) {
 
 		configuration.setScopeField(AGDemoMoment.MODULE_INSTANCE);
 	}

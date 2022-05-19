@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.emf.page.EmfPagePath;
 
-public class AGDemoModuleInstance extends AGDemoModuleInstanceGenerated implements IStandardModuleInstance<AGDemoModuleInstance> {
+public class AGDemoCoreModuleInstance extends AGDemoCoreModuleInstanceGenerated implements IStandardModuleInstance<AGDemoCoreModuleInstance> {
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
@@ -19,6 +19,6 @@ public class AGDemoModuleInstance extends AGDemoModuleInstanceGenerated implemen
 
 	public EmfPagePath getDefaultPagePath() {
 
-		return DemoModule.getDefaultPagePath();
+		return DemoCoreModule.getDefaultPagePath();
 	}
 }

@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.core.module;
+package com.softicar.platform.demo.module;
 
 import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -19,6 +19,10 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Debitor");
 	I18n0 DEMO = new I18n0("Demo")//
 		.de("Demo");
+	I18n0 DEMO_CORE_MODULE_INSTANCE = new I18n0("Demo Core Module Instance")//
+		.de("Demo-Kernmodulinstanz");
+	I18n0 DEMO_CORE_MODULE_INSTANCES = new I18n0("Demo Core Module Instances")//
+		.de("Demo-Kernmodulinstanzen");
 	I18n0 DEMO_INVOICE = new I18n0("Demo Invoice")//
 		.de("Demo-Rechnung");
 	I18n0 DEMO_INVOICE_ITEM = new I18n0("Demo Invoice Item")//
@@ -39,10 +43,6 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Demo-Rechnungstypen");
 	I18n0 DEMO_INVOICES = new I18n0("Demo Invoices")//
 		.de("Demo-Rechnungen");
-	I18n0 DEMO_MODULE_INSTANCE = new I18n0("Demo Module Instance")//
-		.de("Demo-Modulinstanz");
-	I18n0 DEMO_MODULE_INSTANCES = new I18n0("Demo Module Instances")//
-		.de("Demo-Modulinstanzen");
 	I18n0 DEMO_MOMENT = new I18n0("Demo Moment")//
 		.de("Demo-Moment");
 	I18n0 DEMO_MOMENTS = new I18n0("Demo Moments")//

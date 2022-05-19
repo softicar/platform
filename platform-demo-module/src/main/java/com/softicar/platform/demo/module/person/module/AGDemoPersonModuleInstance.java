@@ -19,6 +19,6 @@ public class AGDemoPersonModuleInstance extends AGDemoPersonModuleInstanceGenera
 
 	public EmfPagePath getDefaultPagePathOfDemoModuleInstance() {
 
-		return getDemoModuleInstance().getDefaultPagePath();
+		return getDemoCoreModuleInstance().getDefaultPagePath();
 	}
 }

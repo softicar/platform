@@ -6,16 +6,16 @@ import com.softicar.platform.core.module.module.instance.system.SystemModuleInst
 import com.softicar.platform.db.runtime.object.sub.IDbSubObjectTableBuilder;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGDemoModuleInstanceTable extends StandardModuleInstanceTable<AGDemoModuleInstance> {
+public class AGDemoCoreModuleInstanceTable extends StandardModuleInstanceTable<AGDemoCoreModuleInstance> {
 
-	public AGDemoModuleInstanceTable(IDbSubObjectTableBuilder<AGDemoModuleInstance, AGModuleInstance, Integer> builder) {
+	public AGDemoCoreModuleInstanceTable(IDbSubObjectTableBuilder<AGDemoCoreModuleInstance, AGModuleInstance, Integer> builder) {
 
-		super(builder, DemoModule.class);
+		super(builder, DemoCoreModule.class);
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGDemoModuleInstance, AGModuleInstance, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGDemoCoreModuleInstance, AGModuleInstance, SystemModuleInstance> configuration) {
 
-		configuration.setBusinessKey(AGDemoModuleInstance.UK_TITLE);
+		configuration.setBusinessKey(AGDemoCoreModuleInstance.UK_TITLE);
 	}
 }
