@@ -115,7 +115,7 @@ public class DomPopupButton extends DomButton {
 
 	private void raise(DomPopupFrame frame) {
 
-		getDomEngine().setMaximumZIndex(frame);
+		getDomEngine().raise(frame);
 	}
 
 	private Optional<DomPopupFrame> findFrame(DomPopup popup) {
