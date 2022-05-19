@@ -8,7 +8,6 @@ import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
-import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.PageCssClasses;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
@@ -157,10 +156,9 @@ public class PageServiceLoginDiv extends DomDiv {
 
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
 				if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-					DayTime expectedEnd = AGMaintenanceWindow.TABLE//
-						.createSelect()
-						.where(AGMaintenanceWindow.STATE.equal(AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
-						.getOne()
+					DayTime expectedEnd = AGMaintenanceWindow//
+						.getMaintenanceInProgress()
+						.get()
 						.getExpectedEnd();
 					appendChild(
 						new DomMessageDiv(
