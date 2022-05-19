@@ -42,8 +42,6 @@ public class DomModalDialogPopup extends DomPopup {
 	public DomModalDialogPopup() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
-		// TODO this should not be a separate class
-		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_WRAPPED);
 		addMarker(DomModalDialogMarker.POPUP);
 
 		this.contentContainer = appendChild(new Content());
