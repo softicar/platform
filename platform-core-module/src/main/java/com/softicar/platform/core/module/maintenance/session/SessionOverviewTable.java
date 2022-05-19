@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.date.Duration;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
@@ -24,9 +25,17 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 			.setGetter(session -> convertToDayTime(session.getCreationTime()))
 			.setTitle(CoreI18n.CREATED_AT)
 			.addColumn();
+		newColumn(Duration.class)//
+			.setGetter(session -> getElapsedTime(session.getCreationTime()))
+			.setTitle(CoreI18n.AGE)
+			.addColumn();
 		newColumn(DayTime.class)//
 			.setGetter(session -> convertToDayTime(session.getLastAccessedTime()))
 			.setTitle(CoreI18n.LAST_ACCESS)
+			.addColumn();
+		newColumn(Duration.class)//
+			.setGetter(session -> getElapsedTime(session.getLastAccessedTime()))
+			.setTitle(CoreI18n.INACTIVE_FOR)
 			.addColumn();
 	}
 
@@ -47,6 +56,11 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 	private DayTime convertToDayTime(long time) {
 
 		return DayTime.fromDate(new Date(time));
+	}
+
+	private Duration getElapsedTime(long millis) {
+
+		return convertToDayTime(millis).getDuration(DayTime.now());
 	}
 
 }

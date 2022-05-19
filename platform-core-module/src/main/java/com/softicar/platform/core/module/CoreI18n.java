@@ -28,6 +28,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Adresse");
 	I18n0 ADDRESSES = new I18n0("Addresses")//
 		.de("Adressen");
+	I18n0 AGE = new I18n0("Age")//
+		.de("Alter");
 	I18n0 AJAX = new I18n0("AJAX")//
 		.de("AJAX");
 	I18n0 AJAX_EXCEPTION = new I18n0("AJAX Exception")//
@@ -327,6 +329,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("In Bearbeitung");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
+	I18n0 INACTIVE_FOR = new I18n0("Inactive For")//
+		.de("Inaktiv für");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
 		.de("Modulinstanz initialisieren");
 	I18n0 INITIALIZED = new I18n0("Initialized")//
