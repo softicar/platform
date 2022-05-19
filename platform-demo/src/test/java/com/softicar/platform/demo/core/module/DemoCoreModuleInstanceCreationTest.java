@@ -1,4 +1,4 @@
-package com.softicar.platform.demo.module.instance.creation;
+package com.softicar.platform.demo.core.module;
 
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CoreRoles;
@@ -6,15 +6,14 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
-public class DemoModuleInstanceCreationTest extends AbstractCoreTest implements IEmfTestEngineMethods {
+public class DemoCoreModuleInstanceCreationTest extends AbstractCoreTest implements IEmfTestEngineMethods {
 
-	public DemoModuleInstanceCreationTest() {
+	public DemoCoreModuleInstanceCreationTest() {
 
 		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGModuleInstance.TABLE, CoreModule.getModuleInstance()).build());
 	}

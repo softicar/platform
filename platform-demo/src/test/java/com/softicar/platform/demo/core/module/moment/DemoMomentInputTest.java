@@ -1,16 +1,15 @@
-package com.softicar.platform.demo.module.moment;
+package com.softicar.platform.demo.core.module.moment;
 
 import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
-import com.softicar.platform.demo.core.module.moment.AGDemoMoment;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
 
-public class DemoMomentInputTest extends AbstractDemoModuleTest {
+public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 
 	public DemoMomentInputTest() {
 

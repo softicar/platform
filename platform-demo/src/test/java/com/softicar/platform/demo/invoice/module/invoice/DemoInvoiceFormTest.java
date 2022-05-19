@@ -2,7 +2,7 @@ package com.softicar.platform.demo.invoice.module.invoice;
 
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.DemoI18n;
-import com.softicar.platform.demo.invoice.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.emf.form.EmfFormMode;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;

@@ -1,9 +1,8 @@
-package com.softicar.platform.demo.invoice;
+package com.softicar.platform.demo.invoice.module;
 
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
-import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.paid.AGDemoInvoicePayment;
 import com.softicar.platform.demo.invoice.module.test.fixture.DemoInvoiceModuleTestFixtureMethods;

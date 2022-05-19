@@ -1,7 +1,7 @@
-package com.softicar.platform.demo.module.invoice.importing;
+package com.softicar.platform.demo.invoice.module.invoice.importing;
 
 import com.softicar.platform.common.string.charset.Charsets;
-import com.softicar.platform.demo.invoice.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;

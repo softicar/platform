@@ -1,8 +1,7 @@
-package com.softicar.platform.demo.module.invoice.transients;
+package com.softicar.platform.demo.invoice.module.invoice.transients;
 
-import static org.junit.Assert.assertEquals;
 import com.softicar.platform.demo.DemoI18n;
-import com.softicar.platform.demo.invoice.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.test.fixture.DemoInvoicesTestFixture;
 import com.softicar.platform.dom.DomI18n;

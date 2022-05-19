@@ -1,15 +1,15 @@
-package com.softicar.platform.demo.module.moment;
+package com.softicar.platform.demo.core.module.moment;
 
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.demo.invoice.module.test.fixture.DemoInvoiceModuleTestFixtureMethods;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 
-public class AbstractDemoModuleTest extends AbstractCoreTest implements DemoInvoiceModuleTestFixtureMethods, IEmfTestEngineMethods {
+public class AbstractDemoCoreModuleTest extends AbstractCoreTest implements DemoInvoiceModuleTestFixtureMethods, IEmfTestEngineMethods {
 
 	protected final AGDemoCoreModuleInstance moduleInstance;
 
-	public AbstractDemoModuleTest() {
+	public AbstractDemoCoreModuleTest() {
 
 		this.moduleInstance = insertStandardModuleInstance(AGDemoCoreModuleInstance.TABLE);
 	}
