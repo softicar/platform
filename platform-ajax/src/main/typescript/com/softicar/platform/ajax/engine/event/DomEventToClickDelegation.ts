@@ -18,7 +18,7 @@ function sendOrDelegateEvent(element: HTMLElement, event: Event, eventType: stri
 	if(delegator && delegator.isDelegated(eventType)) {
 		delegator.delegateEvent(eventType);
 	} else {
-		sendEventToServer(event, eventType);
+		sendDomEventToServer(event, eventType);
 	}
 	event.stopPropagation();
 }

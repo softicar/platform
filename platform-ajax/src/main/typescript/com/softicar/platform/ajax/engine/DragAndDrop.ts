@@ -34,7 +34,7 @@ class DragContext {
 		this.dragStart = this.getDraggedNodePosition();
 		this.dragPosition = this.dragStart;
 
-		_DOM_CONTEXT_.setMaximumZIndex(this.draggedNode);
+		AJAX_ENGINE.raise(this.draggedNode);
 	}
 
 	public onDrag(event: Event) {

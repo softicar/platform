@@ -78,8 +78,8 @@ class DomPopupEngine {
 	}
 
 	private raise(popupFrame: HTMLElement) {
-		_DOM_CONTEXT_.setMaximumZIndex(popupFrame);
+		AJAX_ENGINE.raise(popupFrame);
 	}
 }
 
-const DOM_POPUP_ENGINE = new DomPopupEngine();
+const POPUP_ENGINE = new DomPopupEngine();
