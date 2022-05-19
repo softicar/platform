@@ -310,10 +310,10 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void makeDraggable(IDomNode draggedNode, IDomNode initNode) {
+	public void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode) {
 
 		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
-		JS_call("makeDraggable", draggedNode, initNode, notifyOnDrop);
+		JS_call("makeDraggable", draggedNode, dragHandleNode, limitingNode, notifyOnDrop);
 	}
 
 	// -------------------------------- auto-complete -------------------------------- //
@@ -451,7 +451,7 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void trapTabFocus(IDomNode node) {
 
-		JS_call("FOCUS_TRAP.trapTabFocus", node);
+		JS_call("trapTabFocus", node);
 	}
 
 	// -------------------------------- special -------------------------------- //
@@ -578,7 +578,7 @@ public class AjaxDomEngine implements IDomEngine {
 	private String getArgumentString(Object argument) {
 
 		if (argument == null) {
-			return "'null'";
+			return "null";
 		} else if (argument instanceof Number || argument instanceof Boolean) {
 			return argument.toString();
 		} else if (argument instanceof IDomNode) {
