@@ -147,7 +147,7 @@ function AutoCompleteInputContext(input, inputField) {
 		filterItems = items;
 		if(hasFocus() && !isChangeEventActive()) {
 			popup.show(pattern, items);
-			popup.setMaximumZIndex();
+			popup.raise();
 		}
 		if(isPopupUpToDate()) {
 			requestManager.cancelAll();
@@ -400,9 +400,9 @@ function AutoCompleteInputContext(input, inputField) {
 			// position input
 			inputField.style.position = 'relative';
 
-			_DOM_CONTEXT_.setMaximumZIndex(overlayDiv);
-			_DOM_CONTEXT_.setMaximumZIndex(input);
-			popup.setMaximumZIndex();
+			AJAX_ENGINE.raise(overlayDiv);
+			AJAX_ENGINE.raise(input);
+			popup.raise();
 		}
 	}
 

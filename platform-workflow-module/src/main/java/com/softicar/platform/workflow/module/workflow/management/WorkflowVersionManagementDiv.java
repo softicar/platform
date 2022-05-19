@@ -39,6 +39,12 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 
 		this.workflowVersion = workflowVersion;
 		addCssClass(WorkflowCssClasses.WORKFLOW_MANAGEMENT_DIV);
+		repaint();
+	}
+
+	private void repaint() {
+
+		removeChildren();
 		if (!WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.test(workflowVersion)
 				&& WorkflowRoles.ADMINISTRATOR.test(workflowVersion.getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
 			var actionBar = appendChild(new DomActionBar());
@@ -46,11 +52,6 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 			actionBar.appendChild(new CreateEntityButton<>(AGWorkflowTransition.TABLE, WorkflowI18n.ADD_NEW_TRANSITION));
 			appendNewChild(DomElementTag.HR);
 		}
-		repaint();
-	}
-
-	private void repaint() {
-
 		workflowNodes = workflowVersion//
 			.getAllActiveWorkflowNodes();
 		resizeManagementDiv();

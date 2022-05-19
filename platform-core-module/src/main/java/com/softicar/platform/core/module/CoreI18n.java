@@ -28,6 +28,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Adresse");
 	I18n0 ADDRESSES = new I18n0("Addresses")//
 		.de("Adressen");
+	I18n0 AGE = new I18n0("Age")//
+		.de("Alter");
 	I18n0 AJAX = new I18n0("AJAX")//
 		.de("AJAX");
 	I18n0 AJAX_EXCEPTION = new I18n0("AJAX Exception")//
@@ -88,6 +90,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Durch");
 	I18n0 CANCELED = new I18n0("Canceled")//
 		.de("Abgebrochen");
+	I18n0 CANNOT_LOGIN_DURING_MAINTENANCE = new I18n0("Cannot login during maintenance.")//
+		.de("Login ist während Wartungsarbeiten nicht möglich.");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
@@ -256,6 +260,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
 	I18n0 EXPECTED_END = new I18n0("Expected End")//
 		.de("Erwartetes Ende");
+	I18n1 EXPECTED_END_ARG1 = new I18n1("Expected end: %s")//
+		.de("Erwartetes Ende: %s");
 	I18n0 EXPECTED_START = new I18n0("Expected Start")//
 		.de("Erwarteter Beginn");
 	I18n0 EXTERNAL_COMPONENTS = new I18n0("External Components")//
@@ -323,6 +329,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("In Bearbeitung");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
 		.de("In-Reply-To");
+	I18n0 INACTIVE_FOR = new I18n0("Inactive For")//
+		.de("Inaktiv für");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
 		.de("Modulinstanz initialisieren");
 	I18n0 INITIALIZED = new I18n0("Initialized")//
@@ -411,6 +419,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartung");
 	I18n0 MAINTENANCE_IS_ALREADY_IN_PROGRESS = new I18n0("Maintenance is already in progress.")//
 		.de("Wartungsarbeiten sind bereits im Gange.");
+	I18n0 MAINTENANCE_IS_CURRENTLY_IN_PROGRESS = new I18n0("Maintenance is currently in progress.")//
+		.de("Wartungsarbeiten sind zurzeit im Gange.");
 	I18n0 MAINTENANCE_STATE = new I18n0("Maintenance State")//
 		.de("Wartungs-Zustand");
 	I18n0 MAINTENANCE_STATES = new I18n0("Maintenance States")//
@@ -531,6 +541,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort-Richtlinien-Logs");
 	I18n0 PENDING = new I18n0("Pending")//
 		.de("Ausstehend");
+	I18n0 PENDING_MAINTENANCE_INFO = new I18n0("Pending Maintenance Info")//
+		.de("Info zu bevorstehenden Wartungsarbeiten");
 	I18n0 PLEASE_DEFINE_A_NEW_PASSWORD_BELOW = new I18n0("Please define a new password below.")//
 		.de("Bitte unten ein neues Password definieren.");
 	I18n1 PLEASE_DOUBLE_CHECK_ALL_INPUTS_BEFORE_CLICKING_ARG1 = new I18n1("Please double check all inputs before clicking '%s'.")//
