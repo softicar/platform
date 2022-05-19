@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.page.service.login;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
@@ -155,18 +154,19 @@ public class PageServiceLoginDiv extends DomDiv {
 			public MaintenanceElement() {
 
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
-				if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-					DayTime expectedEnd = AGMaintenanceWindow//
-						.getMaintenanceInProgress()
-						.get()
-						.getExpectedEnd();
-					appendChild(
-						new DomMessageDiv(
-							DomMessageType.WARNING,
-							CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS
-								.concat("\n")
-								.concat(CoreI18n.EXPECTED_END_IS_AT_ARG1.toDisplay(expectedEnd.getTime()))));
-				}
+				AGMaintenanceWindow//
+					.getMaintenanceInProgress()
+					.ifPresent(this::appendMaintenanceInfo);
+			}
+
+			private void appendMaintenanceInfo(AGMaintenanceWindow maintenanceWindow) {
+
+				appendChild(
+					new DomMessageDiv(
+						DomMessageType.WARNING,
+						CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS
+							.concat("\n")
+							.concat(CoreI18n.EXPECTED_END_IS_AT_ARG1.toDisplay(maintenanceWindow.getExpectedEnd().getTime()))));
 			}
 		}
 
