@@ -451,7 +451,7 @@ public class AjaxDomEngine implements IDomEngine {
 	@Override
 	public void trapTabFocus(IDomNode node) {
 
-		JS_call("FOCUS_TRAP.trapTabFocus", node);
+		JS_call("trapTabFocus", node);
 	}
 
 	// -------------------------------- special -------------------------------- //
