@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.demo.module.core.module.AGDemoCoreModuleInstance;
+import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;

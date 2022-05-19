@@ -1,8 +1,9 @@
 package com.softicar.platform.demo.module.invoice.transients;
 
-import com.softicar.platform.demo.module.invoice.AbstractDemoInvoiceModuleTest;
-import com.softicar.platform.demo.module.invoice.module.invoice.AGDemoInvoice;
-import com.softicar.platform.demo.module.invoice.module.test.fixture.DemoInvoicesTestFixture;
+import static org.junit.Assert.assertEquals;
+import com.softicar.platform.demo.invoice.AbstractDemoInvoiceModuleTest;
+import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
+import com.softicar.platform.demo.invoice.module.test.fixture.DemoInvoicesTestFixture;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomTableTester;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
