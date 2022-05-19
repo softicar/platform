@@ -62,3 +62,4 @@ public class AGDemoCoreModuleInstanceGenerated extends AbstractDbSubObject<AGDem
 	private AGModuleInstance m_moduleInstance;
 	private String m_title;
 }
+

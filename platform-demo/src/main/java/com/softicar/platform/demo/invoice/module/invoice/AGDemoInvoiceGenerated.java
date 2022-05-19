@@ -22,8 +22,8 @@ import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceType;
 import com.softicar.platform.demo.person.module.AGDemoPerson;
 
 /**
- * This is the automatically generated class AGDemoInvoice for database table
- * <i>Demo.DemoInvoice</i>.
+ * This is the automatically generated class AGDemoInvoice for
+ * database table <i>Demo.DemoInvoice</i>.
  */
 @Generated
 @SuppressWarnings("all")
@@ -66,17 +66,16 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 		return TABLE.get(id);
 	}
 
-	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndInvoiceNumberAndInvoiceDate(AGDemoInvoiceModuleInstance moduleInstance,
-			String creditor, String debtor, String invoiceNumber, Day invoiceDate) {
+	public static AGDemoInvoice loadByModuleInstanceAndCreditorAndDebtorAndInvoiceNumberAndInvoiceDate(AGDemoInvoiceModuleInstance moduleInstance, String creditor, String debtor, String invoiceNumber, Day invoiceDate) {
 
 		return TABLE//
-			.createSelect()
-			.where(MODULE_INSTANCE.equal(moduleInstance))
-			.where(CREDITOR.equal(creditor))
-			.where(DEBTOR.equal(debtor))
-			.where(INVOICE_NUMBER.equal(invoiceNumber))
-			.where(INVOICE_DATE.equal(invoiceDate))
-			.getOne();
+				.createSelect()
+				.where(MODULE_INSTANCE.equal(moduleInstance))
+				.where(CREDITOR.equal(creditor))
+				.where(DEBTOR.equal(debtor))
+				.where(INVOICE_NUMBER.equal(invoiceNumber))
+				.where(INVOICE_DATE.equal(invoiceDate))
+				.getOne();
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
@@ -239,3 +238,4 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 	private AGStoredFileSet m_attachments;
 	private AGDemoPerson m_contact;
 }
+
