@@ -166,7 +166,7 @@ public class PageServiceLoginDiv extends DomDiv {
 						DomMessageType.WARNING,
 						CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS
 							.concat("\n")
-							.concat(CoreI18n.EXPECTED_END_IS_AT_ARG1.toDisplay(maintenanceWindow.getExpectedEnd().getTime()))));
+							.concat(CoreI18n.EXPECTED_END_ARG1.toDisplay(maintenanceWindow.getExpectedEnd().toHumanString()))));
 			}
 		}
 

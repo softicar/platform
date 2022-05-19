@@ -258,8 +258,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
 	I18n0 EXPECTED_END = new I18n0("Expected End")//
 		.de("Erwartetes Ende");
-	I18n1 EXPECTED_END_IS_AT_ARG1 = new I18n1("Expected end is at '%s'.")//
-		.de("Erwartetes Ende ist um '%s'.");
+	I18n1 EXPECTED_END_ARG1 = new I18n1("Expected end: %s.")//
+		.de("Erwartetes Ende: %s.");
 	I18n0 EXPECTED_START = new I18n0("Expected Start")//
 		.de("Erwarteter Beginn");
 	I18n0 EXTERNAL_COMPONENTS = new I18n0("External Components")//
