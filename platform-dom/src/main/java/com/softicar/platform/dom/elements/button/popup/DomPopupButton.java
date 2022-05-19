@@ -3,16 +3,13 @@ package com.softicar.platform.dom.elements.button.popup;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.compositor.DomParentNodeFinder;
-import com.softicar.platform.dom.engine.DomPopupXAlign;
-import com.softicar.platform.dom.engine.DomPopupYAlign;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
  * A {@link DomButton} to open a {@link DomPopup}.
+ * <p>
+ * TODO write a Selenium test to ensure x and y repositioning
  *
  * @author Alexander Schmidt
  */
@@ -44,7 +41,7 @@ public class DomPopupButton extends DomButton {
 	public DomPopupButton setPopupFactory(Supplier<DomPopup> popupFactory) {
 
 		Objects.requireNonNull(popupFactory);
-		setClickCallback(() -> openOrRepositionPopup(popupFactory));
+		setClickCallback(() -> openPopup(popupFactory));
 		return this;
 	}
 
@@ -76,50 +73,21 @@ public class DomPopupButton extends DomButton {
 		return this;
 	}
 
-	private void openOrRepositionPopup(Supplier<DomPopup> popupFactory) {
+	private void openPopup(Supplier<DomPopup> popupFactory) {
 
-		if (popup == null || !popup.isAppended()) {
-			openPopup(popupFactory);
-		} else {
-			repositionPopup();
+		boolean alreadyDisplayed = isDisplayed();
+		if (!alreadyDisplayed) {
+			popup = popupFactory.get();
+			callbackBeforeOpen.apply();
+		}
+		popup.open();
+		if (!alreadyDisplayed) {
+			callbackAfterOpen.apply();
 		}
 	}
 
-	private void openPopup(Supplier<DomPopup> popupFactory) {
+	private boolean isDisplayed() {
 
-		callbackBeforeOpen.apply();
-		popup = popupFactory.get();
-		popup.open();
-		callbackAfterOpen.apply();
-	}
-
-	private void repositionPopup() {
-
-		findFrame(popup).ifPresent(frame -> {
-			move(frame);
-			raise(frame);
-		});
-	}
-
-	private void move(DomPopupFrame frame) {
-
-		var event = getDomDocument().getCurrentEvent();
-		getDomEngine()
-			.movePopup(//
-				frame,
-				event.getClientX(),
-				event.getClientY(),
-				DomPopupXAlign.LEFT,
-				DomPopupYAlign.TOP);
-	}
-
-	private void raise(DomPopupFrame frame) {
-
-		getDomEngine().raise(frame);
-	}
-
-	private Optional<DomPopupFrame> findFrame(DomPopup popup) {
-
-		return new DomParentNodeFinder<>(DomPopupFrame.class).findClosestParent(popup);
+		return popup != null && popup.isAppended();
 	}
 }

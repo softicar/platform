@@ -13,6 +13,8 @@ import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupChildClosingMode;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
 import com.softicar.platform.dom.elements.popup.modal.DomModalPopupBackdrop;
+import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
+import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupEventCoordinatesPositionStrategy;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.IDomFocusable;
@@ -79,8 +81,9 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			frameParent.appendChild(frame);
 			stateTracker.setOpen(popup);
 
-			// -------- initialize popup -------- //
+			// -------- set up popup -------- //
 			initializePopup(configuration, frame);
+			raisePopup(frame);
 
 			// -------- maintain hierarchy -------- //
 			new DomParentNodeFinder<>(DomPopup.class).findClosestParent(spawningNode).ifPresent(parent -> {
@@ -94,6 +97,17 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			trapTabFocus(configuration, frame);
 
 			// -------- set focus -------- //
+			focus(popup);
+		}
+
+		// already open
+		// TODO unit test coverage
+		else {
+			getFrame(popup).ifPresent(frame -> {
+				var position = new DomPopupEventCoordinatesPositionStrategy().getPosition(getCurrentEvent());
+				movePopup(frame, position);
+				raisePopup(frame);
+			});
 			focus(popup);
 		}
 	}
@@ -211,8 +225,13 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 		if (!configuration.getDisplayMode().isMaximized()) {
 			var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
-			getDomEngine().movePopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
+			movePopup(frame, position);
 		}
+	}
+
+	private void movePopup(DomPopupFrame frame, DomPopupPosition position) {
+
+		getDomEngine().movePopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
 	}
 
 	private void trapTabFocus(IDomPopupConfiguration configuration, DomPopupFrame frame) {
@@ -239,6 +258,10 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private void initializePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		getDomEngine().initializePopup(frame, !configuration.getDisplayMode().isMaximized());
+	}
+
+	private void raisePopup(DomPopupFrame frame) {
+
 		getDomEngine().raise(frame);
 	}
 
