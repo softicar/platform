@@ -524,8 +524,8 @@ class ChangeEventManager {
     }
 }
 const CHANGE_EVENT_MANAGER = new ChangeEventManager();
-function listenToDomEvent(nodeID, event, doListen) {
-    let element = AJAX_ENGINE.getElement(nodeID);
+function listenToDomEvent(nodeId, event, doListen) {
+    let element = AJAX_ENGINE.getElement(nodeId);
     if (element == null)
         return;
     let handler = doListen ? handleDomEvent : null;

@@ -1,6 +1,6 @@
 	
-function listenToDomEvent(nodeID: number, event: string, doListen: boolean) {
-	let element = AJAX_ENGINE.getElement(nodeID);
+function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
+	let element = AJAX_ENGINE.getElement(nodeId);
 	if(element == null)
 		return;
 
