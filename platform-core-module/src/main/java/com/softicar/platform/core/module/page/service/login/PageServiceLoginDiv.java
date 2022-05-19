@@ -154,9 +154,19 @@ public class PageServiceLoginDiv extends DomDiv {
 			public MaintenanceElement() {
 
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
-				if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-					appendChild(new DomMessageDiv(DomMessageType.WARNING, CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS));
-				}
+				AGMaintenanceWindow//
+					.getMaintenanceInProgress()
+					.ifPresent(this::appendMaintenanceInfo);
+			}
+
+			private void appendMaintenanceInfo(AGMaintenanceWindow maintenanceWindow) {
+
+				appendChild(
+					new DomMessageDiv(
+						DomMessageType.WARNING,
+						CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS
+							.concat("\n")
+							.concat(CoreI18n.EXPECTED_END_IS_AT_ARG1.toDisplay(maintenanceWindow.getExpectedEnd().getTime()))));
 			}
 		}
 
