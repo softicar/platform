@@ -17,6 +17,6 @@ public class DemoPersonModule extends AbstractStandardModule<AGDemoPersonModuleI
 	@Override
 	public EmfPagePath getDefaultPagePath(AGDemoPersonModuleInstance moduleInstance) {
 
-		return moduleInstance.getDefaultPagePathOfDemoModuleInstance();
+		return moduleInstance.getDefaultPagePathOfDemoCoreModule();
 	}
 }

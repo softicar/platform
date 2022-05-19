@@ -17,6 +17,6 @@ public class DemoInvoiceModule extends AbstractStandardModule<AGDemoInvoiceModul
 	@Override
 	public EmfPagePath getDefaultPagePath(AGDemoInvoiceModuleInstance moduleInstance) {
 
-		return moduleInstance.getDefaultPagePathOfDemoModuleInstance();
+		return moduleInstance.getDefaultPagePathOfDemoCoreModule();
 	}
 }

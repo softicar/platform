@@ -17,8 +17,8 @@ public class AGDemoInvoiceModuleInstance extends AGDemoInvoiceModuleInstanceGene
 		}
 	}
 
-	public EmfPagePath getDefaultPagePathOfDemoModuleInstance() {
+	public EmfPagePath getDefaultPagePathOfDemoCoreModule() {
 
-		return getDemoPersonModuleInstance().getDefaultPagePathOfDemoModuleInstance();
+		return getDemoPersonModuleInstance().getDefaultPagePathOfDemoCoreModule();
 	}
 }
