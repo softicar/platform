@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.demo.core.module
+
+IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
+
+TABLE AGDemoCoreModuleInstance 'Demo.DemoCoreModuleInstance' {
+	
+	PK AGModuleInstance moduleInstance = BASE
+	String title = "" [MAXLENGTH=255]
+	
+	UK title
+}

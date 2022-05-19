@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.demo.person.module
+
+TABLE AGDemoPerson 'Demo.DemoPerson' {
+	
+	PK Integer id = SERIAL
+	AGDemoPersonModuleInstance moduleInstance
+	String firstName
+	String lastName
+	Integer identityCardNumber
+	Day birthDate = NULL [NULLABLE]
+	
+	UK moduleInstance identityCardNumber	
+}
