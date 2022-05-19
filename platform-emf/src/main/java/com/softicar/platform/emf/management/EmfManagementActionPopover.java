@@ -78,14 +78,14 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		private final IDomParentElement parent;
 		private final IEmfTable<R, ?, ?> table;
 		private final R tableRow;
-		private final INullaryVoidFunction callbackAfterShow;
+		private final INullaryVoidFunction callbackAfterOpen;
 
-		public ButtonsForChildTableAppender(IDomParentElement parent, IEmfTable<R, ?, ?> table, R tableRow, INullaryVoidFunction callbackAfterShow) {
+		public ButtonsForChildTableAppender(IDomParentElement parent, IEmfTable<R, ?, ?> table, R tableRow, INullaryVoidFunction callbackAfterOpen) {
 
 			this.parent = parent;
 			this.table = table;
 			this.tableRow = tableRow;
-			this.callbackAfterShow = callbackAfterShow;
+			this.callbackAfterOpen = callbackAfterOpen;
 		}
 
 		public void appendButtons() {
@@ -108,7 +108,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		private <B extends IEmfTableRow<B, ?>> void doRecurse(B base) {
 
 			IEmfTable<B, ?, ?> baseTable = base.table();
-			new ButtonsForChildTableAppender<>(parent, baseTable, base.getThis(), callbackAfterShow).appendButtons();
+			new ButtonsForChildTableAppender<>(parent, baseTable, base.getThis(), callbackAfterOpen).appendButtons();
 		}
 
 		private <C extends IEmfTableRow<C, CP>, CP> void addButtonForChildTable(IEmfTable<C, CP, R> childTable) {
@@ -116,7 +116,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 			parent
 				.appendChild(
 					new EmfManagementButton<>(childTable, tableRow)
-						.setCallbackAfterShow(callbackAfterShow)
+						.setCallbackAfterOpen(callbackAfterOpen)
 						.setLabel(childTable.getPluralTitle())
 						.addMarker(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON));
 		}

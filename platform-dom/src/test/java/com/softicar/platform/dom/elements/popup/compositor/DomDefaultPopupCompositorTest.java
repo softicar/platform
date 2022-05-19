@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -1100,8 +1099,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		if (node instanceof DomPopup) {
 			node = new DomParentNodeFinder<>(DomPopupFrame.class).findClosestParent(node).get();
 		}
-		String zIndexValue = CurrentDomDocument.get().getEngine().getNodeStyle(node, "zIndex").orElseThrow();
-		return Integer.parseInt(zIndexValue);
+		return asTester(node).getZIndex();
 	}
 
 	private static class TestDiv extends DomDiv implements IDomPopupMaximizationContext {
