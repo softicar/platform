@@ -8,8 +8,6 @@ import java.util.function.Supplier;
 
 /**
  * A {@link DomButton} to open a {@link DomPopup}.
- * <p>
- * TODO write a Selenium test to ensure x and y repositioning
  *
  * @author Alexander Schmidt
  */

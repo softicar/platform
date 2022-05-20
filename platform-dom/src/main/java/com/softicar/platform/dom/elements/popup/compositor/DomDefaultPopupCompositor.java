@@ -88,7 +88,6 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			});
 		}
 
-		// TODO unit test coverage if already open
 		showPopup(popup);
 	}
 

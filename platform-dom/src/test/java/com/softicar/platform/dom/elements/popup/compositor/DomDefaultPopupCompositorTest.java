@@ -200,6 +200,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertBackdrop();
 		assertBodyText();
 		assertAscendingZIndexes(popup1, findBackdrop(), popup2);
+		// TODO PLAT-847 assert focus
 	}
 
 	@Test
@@ -261,6 +262,33 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertOne(POPUP2);
 		assertBackdrops(true, false);
 		assertBodyText();
+	}
+
+	@Test
+	public void testOpenWithOpenPopup() {
+
+		// setup
+		var openPopup1Button = appendButton(() -> compositor.open(popup1));
+
+		var openPopup2Button = appendButton(popup1, () -> compositor.open(popup2));
+
+		// assert initial state
+		assertNone(POPUP1);
+		assertNone(POPUP2);
+		assertNoBackdrop();
+		assertBodyText();
+
+		// execute
+		openPopup1Button.click();
+		openPopup2Button.click();
+		openPopup1Button.click();
+
+		// assert result
+		assertOne(POPUP1);
+		assertOne(POPUP2);
+		assertNoBackdrop();
+		assertBodyText();
+		assertAscendingZIndexes(popup2, popup1);
 	}
 
 	// -------------------------------- close -------------------------------- //
