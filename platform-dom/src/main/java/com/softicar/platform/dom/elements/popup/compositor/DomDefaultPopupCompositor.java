@@ -197,7 +197,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private DomModalDialog buildChildClosingDialog(DomPopup popup, List<DomPopup> childPopups, DomPopupChildClosingMode childClosingMode) {
 
-		var dialog = new DomPopupCompositorChildClosingDialogPopup();
+		var dialog = new DomPopupCompositorChildClosingDialog();
 		dialog.setCallbackBeforeOpen(() -> frameHighlighter.highlight(popup).highlight(childPopups));
 		if (!childClosingMode.isCloseAll()) {
 			dialog.appendCloseOnlyThisButton(() -> closePopup(popup, false));
