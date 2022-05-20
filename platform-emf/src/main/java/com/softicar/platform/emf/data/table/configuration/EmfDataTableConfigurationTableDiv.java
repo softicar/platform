@@ -113,7 +113,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 			public ColumnPositionSelect(IDataTableColumn<R, ?> column, int position) {
 
-				super(builder -> builder.setNilOptionAvailable(false).setValueComparator(Integer::compareTo));
+				super(builder -> builder.setNilOptionAvailable(false));
 				this.column = column;
 				setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 				selectValue(position);
@@ -252,10 +252,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 				public OrderPrioritySelect() {
 
-					super(
-						builder -> builder//
-							.setNilOptionDisplayString(IDisplayString.create("-"))
-							.setValueComparator(Integer::compareTo));
+					super(builder -> builder.setNilOptionDisplayString(IDisplayString.create("-")));
 
 					setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 					setCallbackOnChange(this::handleChange);

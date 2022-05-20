@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.item.BasicItemComparator;
 import com.softicar.platform.common.core.item.IBasicItem;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
@@ -73,6 +74,17 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 		}
 
 		else {
+			if (isArgumentsCastableTo(first, second, Integer.class)) {
+				return Comparator.nullsFirst(Integer::compareTo).compare((Integer) first, (Integer) second);
+			} else if (isArgumentsCastableTo(first, second, Float.class)) {
+				return Comparator.nullsFirst(Float::compareTo).compare((Float) first, (Float) second);
+			} else if (isArgumentsCastableTo(first, second, Double.class)) {
+				return Comparator.nullsFirst(Double::compareTo).compare((Double) first, (Double) second);
+			} else if (isArgumentsCastableTo(first, second, BigDecimal.class)) {
+				return Comparator.nullsFirst(BigDecimal::compareTo).compare((BigDecimal) first, (BigDecimal) second);
+			} else if (isArgumentsCastableTo(first, second, Long.class)) {
+				return Comparator.nullsFirst(Long::compareTo).compare((Long) first, (Long) second);
+			}
 			var comparator = Comparator.comparing(Object::toString);
 			return Comparator.nullsFirst(comparator).compare(first, second);
 		}
