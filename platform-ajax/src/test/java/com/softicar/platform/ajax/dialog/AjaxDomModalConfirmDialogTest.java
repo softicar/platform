@@ -5,25 +5,25 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalConfirmDialog;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DomModalConfirmPopup}, based upon Selenium.
+ * Unit test for {@link DomModalConfirmDialog}, based upon Selenium.
  *
  * @author Alexander Schmidt
  */
-public class AjaxModalConfirmPopupTest extends AbstractAjaxSeleniumLowLevelTest {
+public class AjaxDomModalConfirmDialogTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final int BACKDROP_DISMISS_CLICK_OFFSET = 20;
 	private static final String CONFIRMATION_TEXT = "confirmed";
 	private static final IDisplayString MESSAGE = IDisplayString.create("some message");
 	private final TestDiv testDiv;
 
-	public AjaxModalConfirmPopupTest() {
+	public AjaxDomModalConfirmDialogTest() {
 
 		this.testDiv = openTestNode(TestDiv::new);
 	}
@@ -202,7 +202,7 @@ public class AjaxModalConfirmPopupTest extends AbstractAjaxSeleniumLowLevelTest 
 			this.outputElement = new DomDiv();
 			this.button = new DomButton()//
 				.setLabel("spawn confirm")
-				.setClickCallback(new DomModalConfirmPopup(() -> outputElement.appendText(CONFIRMATION_TEXT), MESSAGE)::open);
+				.setClickCallback(new DomModalConfirmDialog(() -> outputElement.appendText(CONFIRMATION_TEXT), MESSAGE)::open);
 			appendChild(button);
 			appendChild(outputElement);
 		}

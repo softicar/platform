@@ -13,19 +13,19 @@ import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomModalDialogPopupTest extends AbstractDomModalDialogPopupTest {
+public class DomModalDialogTest extends AbstractDomModalDialogPopupTest {
 
 	private static final IStaticObject CANCEL_BUTTON = Mockito.mock(IStaticObject.class);
 	private static final IDisplayString CANCEL_LABEL = IDisplayString.create("cancel");
 	private static final IStaticObject OKAY_BUTTON = Mockito.mock(IStaticObject.class);
 	private static final IDisplayString OKAY_LABEL = IDisplayString.create("okay");
 
-	private final DomModalDialogPopup dialogPopup;
+	private final DomModalDialog dialogPopup;
 	private final DomDiv testDiv;
 
-	public DomModalDialogPopupTest() {
+	public DomModalDialogTest() {
 
-		this.dialogPopup = new DomModalDialogPopup();
+		this.dialogPopup = new DomModalDialog();
 		this.testDiv = new DomDiv();
 		this.testDiv
 			.appendChild(new DomButton())//

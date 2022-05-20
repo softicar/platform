@@ -7,16 +7,16 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
  *
  * @author Alexander Schmidt
  */
-public class DomModalAlertPopup extends DomModalDialogPopup {
+public class DomModalAlertDialog extends DomModalDialog {
 
 	/**
-	 * Constructs a new {@link DomModalAlertPopup} that displays the given
+	 * Constructs a new {@link DomModalAlertDialog} that displays the given
 	 * message, and a "Close" button.
 	 *
 	 * @param message
 	 *            the message to display (never <i>null</i>)
 	 */
-	public DomModalAlertPopup(IDisplayString message) {
+	public DomModalAlertDialog(IDisplayString message) {
 
 		appendContent(message);
 		appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);

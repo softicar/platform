@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransaction;
-import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
@@ -67,7 +67,7 @@ class WorkflowDemoObjectStartWorkflowAction implements IEmfManagementAction<AGWo
 
 		if (workflow.getCurrentVersion() != null) {
 			workflow.startWorkflow(object);
-			new DomModalAlertPopup(WorkflowI18n.WORKFLOW_STARTED).open();
+			new DomModalAlertDialog(WorkflowI18n.WORKFLOW_STARTED).open();
 		} else {
 			throw new SofticarUserException(WorkflowI18n.NO_ACTIVE_WORKFLOW_VERSION_FOUND);
 		}

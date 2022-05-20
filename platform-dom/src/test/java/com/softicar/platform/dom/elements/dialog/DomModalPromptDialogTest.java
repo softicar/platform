@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 
-public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
+public class DomModalPromptDialogTest extends AbstractDomModalDialogPopupTest {
 
 	private static final String PROMPT_INPUT_DEFAULT_VALUE = "default value";
 
@@ -187,7 +187,7 @@ public class DomModalPromptPopupTest extends AbstractDomModalDialogPopupTest {
 			appendChild(
 				new DomButton()//
 					.setLabel("open prompt")
-					.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open)
+					.setClickCallback(new DomModalPromptDialog(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open)
 					.addMarker(OPEN_BUTTON));
 		}
 	}
