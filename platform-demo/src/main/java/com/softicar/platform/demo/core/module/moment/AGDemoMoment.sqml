@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.demo.core.module.moment
+
+IMPORT com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance
+
+TABLE AGDemoMoment 'Demo.DemoMoment' {
+	PK Integer id = SERIAL
+	AGDemoCoreModuleInstance moduleInstance
+	Day day
+	Time time
+	DayTime pointInTime
+}

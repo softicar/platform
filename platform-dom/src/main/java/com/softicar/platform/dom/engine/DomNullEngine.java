@@ -227,7 +227,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void setMaximumZIndex(IDomNode node) {
+	public void raise(IDomNode node) {
 
 		// nothing to do
 	}
