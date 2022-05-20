@@ -65,18 +65,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			applyCallbackBeforeOpen(configuration);
 
 			// -------- append backdrop -------- //
-			appendBackdrop(popup);
+			var maximizationContext = getClosestMaximizationContext(spawningNode);
+			appendBackdrop(popup, maximizationContext);
 
 			// -------- create frame -------- //
-			var frameParent = getFrameParent(configuration, spawningNode);
-			var frame = new DomPopupFrame(popup, frameParent);
+			var frame = new DomPopupFrame(popup, maximizationContext);
 			frameMap.put(popup, frame);
 
 			// -------- append frame -------- //
 			if (displayMode.isMaximized()) {
-				maximizationContextStasher.stash(frameParent);
+				maximizationContextStasher.stash(maximizationContext);
 			}
-			frameParent.appendChild(frame);
+			maximizationContext.appendChild(frame);
 			stateTracker.setOpen(popup);
 
 			// -------- set up popup -------- //
@@ -226,15 +226,6 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 	}
 
-	private IDomPopupMaximizationContext getFrameParent(IDomPopupConfiguration configuration, IDomNode spawningNode) {
-
-		if (configuration.getDisplayMode().getModalMode().isModal() || backdropTracker.isAnyBackdropPresent()) {
-			return getBody();
-		} else {
-			return getClosestMaximizationContext(spawningNode);
-		}
-	}
-
 	private void applyCallbackBeforeOpen(IDomPopupConfiguration configuration) {
 
 		configuration.getCallbackBeforeOpen().apply();
@@ -250,7 +241,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		getDomEngine().raise(frame);
 	}
 
-	private void appendBackdrop(DomPopup popup) {
+	private void appendBackdrop(DomPopup popup, IDomPopupMaximizationContext maximizationContext) {
 
 		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
 		if (modalMode.isModal()) {
@@ -259,7 +250,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			backdropTracker.add(popup, backdrop);
 			refreshBackdropVisibility();
 			getDomEngine().raise(backdrop);
-			getBody().appendChild(backdrop);
+			maximizationContext.appendChild(backdrop);
 		}
 	}
 
