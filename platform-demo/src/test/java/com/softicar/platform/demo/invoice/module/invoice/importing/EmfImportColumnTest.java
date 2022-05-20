@@ -215,10 +215,8 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 
 	private AGDemoInvoice insertInvoice() {
 
-		AGDemoInvoiceModuleInstance invoiceModuleInstance = insertInvoiceModuleInstance();
-
 		return new AGDemoInvoice()//
-			.setModuleInstance(invoiceModuleInstance)
+			.setModuleInstance(insertInvoiceModuleInstance())
 			.setCreditor("creditor")
 			.setDebtor("debtor")
 			.setInvoiceNumber("invoiceNumber")
