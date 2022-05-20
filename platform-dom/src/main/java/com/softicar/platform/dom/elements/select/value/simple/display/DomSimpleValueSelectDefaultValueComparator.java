@@ -60,13 +60,13 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 
 			if (isArgumentsCastableTo(first, second, IDisplayable.class)) {
 				var comparator = new CollatingDisplayStringFunctionBasedComparator<>(displayStringFunctionSupplier.get());
-				result = Comparator.nullsFirst(comparator).compare(first, second);
+				result = compareNullsFirst(comparator, first, second);
 			}
 
 			if (result == 0) {
 				if (isArgumentsCastableTo(first, second, IBasicItem.class)) {
 					var comparator = BasicItemComparator.get();
-					result = Comparator.nullsFirst(comparator).compare((IBasicItem) first, (IBasicItem) second);
+					result = compareNullsFirst(comparator, (IBasicItem) first, (IBasicItem) second);
 				}
 			}
 
@@ -75,18 +75,18 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 
 		else {
 			if (isArgumentsCastableTo(first, second, Integer.class)) {
-				return Comparator.nullsFirst(Integer::compareTo).compare((Integer) first, (Integer) second);
+				return compareNullsFirst(Integer::compareTo, (Integer) first, (Integer) second);
 			} else if (isArgumentsCastableTo(first, second, Float.class)) {
-				return Comparator.nullsFirst(Float::compareTo).compare((Float) first, (Float) second);
+				return compareNullsFirst(Float::compareTo, (Float) first, (Float) second);
 			} else if (isArgumentsCastableTo(first, second, Double.class)) {
-				return Comparator.nullsFirst(Double::compareTo).compare((Double) first, (Double) second);
+				return compareNullsFirst(Double::compareTo, (Double) first, (Double) second);
 			} else if (isArgumentsCastableTo(first, second, BigDecimal.class)) {
-				return Comparator.nullsFirst(BigDecimal::compareTo).compare((BigDecimal) first, (BigDecimal) second);
+				return compareNullsFirst(BigDecimal::compareTo, (BigDecimal) first, (BigDecimal) second);
 			} else if (isArgumentsCastableTo(first, second, Long.class)) {
-				return Comparator.nullsFirst(Long::compareTo).compare((Long) first, (Long) second);
+				return compareNullsFirst(Long::compareTo, (Long) first, (Long) second);
 			}
 			var comparator = Comparator.comparing(Object::toString);
-			return Comparator.nullsFirst(comparator).compare(first, second);
+			return compareNullsFirst(comparator, first, second);
 		}
 	}
 
@@ -114,5 +114,10 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 	private boolean isArgumentCastableTo(V argument, Class<?> targetClass) {
 
 		return argument != null && targetClass.isAssignableFrom(argument.getClass());
+	}
+
+	private <T> int compareNullsFirst(Comparator<T> valueComparator, T first, T second) {
+
+		return Comparator.nullsFirst(valueComparator).compare(first, second);
 	}
 }
