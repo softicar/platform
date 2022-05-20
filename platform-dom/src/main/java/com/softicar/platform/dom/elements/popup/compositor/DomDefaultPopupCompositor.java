@@ -202,8 +202,8 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private void showPopup(DomPopup popup) {
 
-		var configuration = popup.getConfiguration();
 		getFrame(popup).ifPresent(frame -> {
+			var configuration = popup.getConfiguration();
 			movePopup(configuration, frame);
 			raisePopup(frame);
 			trapTabFocus(configuration, frame);
