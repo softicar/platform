@@ -6,10 +6,10 @@ import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance;
-import com.softicar.platform.workflow.module.test.fixture.WorkflowModuleTestFixtureMethods;
+import com.softicar.platform.demo.person.module.test.fixtures.DemoPersonModuleTestFixtureMethods;
 import java.math.BigDecimal;
 
-public interface DemoInvoiceModuleTestFixtureMethods extends WorkflowModuleTestFixtureMethods {
+public interface DemoInvoiceModuleTestFixtureMethods extends DemoPersonModuleTestFixtureMethods {
 
 	default AGDemoInvoiceModuleInstance insertDemoInvoiceModuleInstance(AGDemoPersonModuleInstance demoPersonModuleInstance) {
 
