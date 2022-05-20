@@ -113,8 +113,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 			public ColumnPositionSelect(IDataTableColumn<R, ?> column, int position) {
 
-				super(builder -> builder.setNilOptionAvailable(false));
-
+				super(builder -> builder.setNilOptionAvailable(false).setValueComparator(Integer::compareTo));
 				this.column = column;
 				setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 				selectValue(position);
