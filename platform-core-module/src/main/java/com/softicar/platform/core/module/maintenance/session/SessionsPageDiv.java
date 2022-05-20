@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.maintenance.session;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -10,24 +11,29 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
+import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
+import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBasedColumnHandler;
+import com.softicar.platform.emf.table.row.EmfTableRowDisplay;
 import javax.servlet.http.HttpSession;
 
-public class SessionOverviewPageDiv extends DomDiv {
+public class SessionsPageDiv extends DomDiv {
 
-	private final IEmfDataTableDiv<HttpSession> table;
+	private final IEmfDataTableDiv<HttpSession> tableDiv;
 
-	public SessionOverviewPageDiv() {
+	public SessionsPageDiv() {
 
 		var actionBar = appendChild(new DomActionBar());
-		this.table = new EmfDataTableDivBuilder<>(new SessionOverviewTable())//
+		var table = new SessionsTable();
+		this.tableDiv = new EmfDataTableDivBuilder<>(table)//
 			.setActionColumnHandler(new ActionColumnHandler())
+			.setColumnHandler(table.getUserColumn(), new UserColumnHandler())
 			.buildAndAppendTo(this);
 
 		actionBar
 			.appendChild(
 				new DomButton()//
-					.setClickCallback(table::refresh)
+					.setClickCallback(tableDiv::refresh)
 					.setIcon(EmfImages.REFRESH.getResource())
 					.setLabel(EmfI18n.REFRESH));
 
@@ -56,9 +62,22 @@ public class SessionOverviewPageDiv extends DomDiv {
 		}
 	}
 
+	private class UserColumnHandler extends EmfDataTableValueBasedColumnHandler<AGUser> {
+
+		@Override
+		public void buildCell(IEmfDataTableCell<?, AGUser> cell, AGUser user) {
+
+			if (user != null) {
+				cell.appendChild(new EmfTableRowDisplay<>(user));
+			} else {
+				cell.appendText(CoreI18n.UNKNOWN.encloseInParentheses());
+			}
+		}
+	}
+
 	private void invalidateSessionAndRefresh(HttpSession session) {
 
 		session.invalidate();
-		table.refresh();
+		tableDiv.refresh();
 	}
 }

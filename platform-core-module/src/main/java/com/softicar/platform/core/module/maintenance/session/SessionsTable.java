@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.maintenance.session;
 
+import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Duration;
@@ -9,11 +10,13 @@ import com.softicar.platform.core.module.user.AGUser;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 
-public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession> {
+public class SessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 
-	public SessionOverviewTable() {
+	private final IDataTableColumn<HttpSession, AGUser> userColumn;
 
-		newColumn(AGUser.class)//
+	public SessionsTable() {
+
+		this.userColumn = newColumn(AGUser.class)//
 			.setGetter(this::getUserFromSession)
 			.setTitle(CoreI18n.USER)
 			.addColumn();
@@ -37,6 +40,11 @@ public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession>
 			.setGetter(session -> getElapsedTime(session.getLastAccessedTime()))
 			.setTitle(CoreI18n.INACTIVE_FOR)
 			.addColumn();
+	}
+
+	public IDataTableColumn<HttpSession, AGUser> getUserColumn() {
+
+		return userColumn;
 	}
 
 	@Override
