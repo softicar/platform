@@ -79,23 +79,16 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			frameParent.appendChild(frame);
 			stateTracker.setOpen(popup);
 
-			// -------- initialize popup -------- //
+			// -------- set up popup -------- //
 			initializePopup(configuration, frame);
 
 			// -------- maintain hierarchy -------- //
 			new DomParentNodeFinder<>(DomPopup.class).findClosestParent(spawningNode).ifPresent(parent -> {
 				hierarchyGraph.add(parent, popup);
 			});
-
-			// -------- move popup -------- //
-			movePopup(configuration, frame);
-
-			// -------- trap focus -------- //
-			trapTabFocus(configuration, frame);
-
-			// -------- set focus -------- //
-			focus(popup);
 		}
+
+		showPopup(popup);
 	}
 
 	@Override
@@ -207,6 +200,17 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		return dialog;
 	}
 
+	private void showPopup(DomPopup popup) {
+
+		getFrame(popup).ifPresent(frame -> {
+			var configuration = popup.getConfiguration();
+			movePopup(configuration, frame);
+			raisePopup(frame);
+			trapTabFocus(configuration, frame);
+			focus(popup);
+		});
+	}
+
 	private void movePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		if (!configuration.getDisplayMode().isMaximized()) {
@@ -239,6 +243,10 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private void initializePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		getDomEngine().initializePopup(frame, !configuration.getDisplayMode().isMaximized());
+	}
+
+	private void raisePopup(DomPopupFrame frame) {
+
 		getDomEngine().raise(frame);
 	}
 
