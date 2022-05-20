@@ -34,7 +34,7 @@ public interface IDataTable<R> extends IDataTableRowMethods<R> {
 	 *
 	 * @param column
 	 *            the table column to check
-	 * @return all distinct values
+	 * @return all distinct values, excluding <i>null</i> values
 	 */
 	default <V> Collection<V> getDistinctColumnValues(IDataTableColumn<R, V> column) {
 
@@ -49,7 +49,7 @@ public interface IDataTable<R> extends IDataTableRowMethods<R> {
 	 * @param limit
 	 *            the maximum number of distinct values to return or <i>zero</i>
 	 *            or negative for no limit
-	 * @return limited list of all distinct values
+	 * @return limited list of all distinct values, excluding <i>null</i> values
 	 */
 	<V> Collection<V> getDistinctColumnValues(IDataTableColumn<R, V> column, int limit);
 

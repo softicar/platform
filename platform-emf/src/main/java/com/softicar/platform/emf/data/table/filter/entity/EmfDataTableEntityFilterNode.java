@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table.filter.entity;
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -79,8 +80,16 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 			column.getDataColumn().prefetchData(columnValues);
 			return columnValues//
 				.stream()
-				.sorted(Comparator.comparing(IEntity::toDisplay))
+				.sorted(Comparator.comparing(EntityInput::toDisplayStringSafely))
 				.collect(Collectors.toList());
+		}
+
+		private static IDisplayString toDisplayStringSafely(IEntity entity) {
+
+			return Optional//
+				.ofNullable(entity)
+				.map(IEntity::toDisplay)
+				.orElse(IDisplayString.EMPTY);
 		}
 	}
 

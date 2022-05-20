@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.demo.invoice.module.contact
+
+IMPORT com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance
+IMPORT com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice
+
+QUERY DemoInvoiceContactReportQuery {
+	AGDemoInvoiceModuleInstance moduleInstance
+	
+	FROM AGDemoInvoice AS invoice
+	SELECT invoice.invoiceNumber
+	SELECT invoice.contact
+	WHERE invoice.moduleInstance = $moduleInstance
+}

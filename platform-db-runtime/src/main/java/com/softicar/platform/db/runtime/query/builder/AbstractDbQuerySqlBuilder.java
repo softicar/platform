@@ -98,6 +98,14 @@ public abstract class AbstractDbQuerySqlBuilder extends DbSqlBuilder implements 
 		addToken(SqlSymbol.RIGHT_PARENTHESIS);
 		addIdentifier("x");
 
+		if (!column.isTable() || column.isStub()) {
+			WHERE();
+			addIdentifier("x", column.getName());
+			addToken(SqlKeyword.IS);
+			addToken(SqlKeyword.NOT);
+			addToken(SqlKeyword.NULL);
+		}
+
 		if (limit > 0) {
 			LIMIT();
 			addLiteral(limit);
