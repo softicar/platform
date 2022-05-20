@@ -712,8 +712,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sitzungs-ID");
 	I18n0 SESSION_INFORMATION = new I18n0("Session Information")//
 		.de("Sitzungs-Informationen");
-	I18n0 SESSION_OVERVIEW = new I18n0("Session Overview")//
-		.de("Sitzungs-Übersicht");
+	I18n0 SESSIONS = new I18n0("Sessions")//
+		.de("Sitzungen");
 	I18n0 SHA_1 = new I18n0("SHA-1")//
 		.de("SHA-1");
 	I18n0 SHOW_OUTPUT = new I18n0("Show Output")//

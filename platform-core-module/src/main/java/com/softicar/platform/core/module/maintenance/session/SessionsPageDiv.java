@@ -13,14 +13,14 @@ import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import javax.servlet.http.HttpSession;
 
-public class SessionOverviewPageDiv extends DomDiv {
+public class SessionsPageDiv extends DomDiv {
 
 	private final IEmfDataTableDiv<HttpSession> table;
 
-	public SessionOverviewPageDiv() {
+	public SessionsPageDiv() {
 
 		var actionBar = appendChild(new DomActionBar());
-		this.table = new EmfDataTableDivBuilder<>(new SessionOverviewTable())//
+		this.table = new EmfDataTableDivBuilder<>(new SessionsTable())//
 			.setActionColumnHandler(new ActionColumnHandler())
 			.buildAndAppendTo(this);
 

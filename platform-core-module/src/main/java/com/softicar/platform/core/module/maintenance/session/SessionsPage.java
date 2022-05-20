@@ -12,7 +12,7 @@ import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("2834bfc9-724b-4b30-9283-7c06660cf643")
-public class SessionOverviewPage implements IEmfPage<SystemModuleInstance> {
+public class SessionsPage implements IEmfPage<SystemModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -23,7 +23,7 @@ public class SessionOverviewPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
 
-		return CoreI18n.SESSION_OVERVIEW;
+		return CoreI18n.SESSIONS;
 	}
 
 	@Override
@@ -41,6 +41,6 @@ public class SessionOverviewPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IDomNode createContentNode(SystemModuleInstance moduleInstance) {
 
-		return new SessionOverviewPageDiv();
+		return new SessionsPageDiv();
 	}
 }
