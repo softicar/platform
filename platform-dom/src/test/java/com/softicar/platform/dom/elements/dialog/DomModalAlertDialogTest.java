@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 
-public class DomModalAlertDialogTest extends AbstractDomModalDialogPopupTest {
+public class DomModalAlertDialogTest extends AbstractDomModalDialogTest {
 
 	// ---------------- basics ---------------- //
 

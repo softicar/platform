@@ -13,7 +13,7 @@ import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class DomModalDialogTest extends AbstractDomModalDialogPopupTest {
+public class DomModalDialogTest extends AbstractDomModalDialogTest {
 
 	private static final IStaticObject CANCEL_BUTTON = Mockito.mock(IStaticObject.class);
 	private static final IDisplayString CANCEL_LABEL = IDisplayString.create("cancel");

@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 
-public class DomModalPromptDialogTest extends AbstractDomModalDialogPopupTest {
+public class DomModalPromptDialogTest extends AbstractDomModalDialogTest {
 
 	private static final String PROMPT_INPUT_DEFAULT_VALUE = "default value";
 
