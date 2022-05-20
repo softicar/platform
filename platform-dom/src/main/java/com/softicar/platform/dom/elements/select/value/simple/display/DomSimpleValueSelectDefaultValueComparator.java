@@ -5,9 +5,11 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.item.BasicItemComparator;
 import com.softicar.platform.common.core.item.IBasicItem;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -59,13 +61,13 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 
 			if (isArgumentsCastableTo(first, second, IDisplayable.class)) {
 				var comparator = new CollatingDisplayStringFunctionBasedComparator<>(displayStringFunctionSupplier.get());
-				result = Comparator.nullsFirst(comparator).compare(first, second);
+				result = compareNullsFirst(comparator, first, second);
 			}
 
 			if (result == 0) {
 				if (isArgumentsCastableTo(first, second, IBasicItem.class)) {
 					var comparator = BasicItemComparator.get();
-					result = Comparator.nullsFirst(comparator).compare((IBasicItem) first, (IBasicItem) second);
+					result = compareNullsFirst(comparator, (IBasicItem) first, (IBasicItem) second);
 				}
 			}
 
@@ -73,8 +75,18 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 		}
 
 		else {
+			if (isArgumentsCastableTo(first, second, BigDecimal.class)) {
+				return compareNullsFirst(BigDecimal::compareTo, (BigDecimal) first, (BigDecimal) second);
+			} else if (isArgumentsCastableTo(first, second, Number.class)) {
+				Number firstNumber = (Number) first;
+				Number secondNumber = (Number) second;
+				return compareNullsFirst(
+					Double::compareTo,
+					Optional.ofNullable(firstNumber).map(Number::doubleValue).orElse(null),
+					Optional.ofNullable(secondNumber).map(Number::doubleValue).orElse(null));
+			}
 			var comparator = Comparator.comparing(Object::toString);
-			return Comparator.nullsFirst(comparator).compare(first, second);
+			return compareNullsFirst(comparator, first, second);
 		}
 	}
 
@@ -102,5 +114,10 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 	private boolean isArgumentCastableTo(V argument, Class<?> targetClass) {
 
 		return argument != null && targetClass.isAssignableFrom(argument.getClass());
+	}
+
+	private <T> int compareNullsFirst(Comparator<T> valueComparator, T first, T second) {
+
+		return Comparator.nullsFirst(valueComparator).compare(first, second);
 	}
 }
