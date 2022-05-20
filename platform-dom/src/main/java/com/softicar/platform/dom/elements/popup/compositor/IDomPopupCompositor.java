@@ -18,7 +18,8 @@ public interface IDomPopupCompositor {
 	/**
 	 * Opens the given {@link DomPopup}.
 	 * <p>
-	 * If the {@link DomPopup} is already open, nothing will happen.
+	 * If the {@link DomPopup} is already open, it will be re-positioned, raised
+	 * and focused.
 	 *
 	 * @param popup
 	 *            the {@link DomPopup} to open (never <i>null</i>)

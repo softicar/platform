@@ -55,20 +55,20 @@ public class ModuleOverviewPageDiv extends DomDiv {
 			appendChild(
 				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
 					.setRefreshable(cell.getTableRow())
-					.setCallbackBeforeShow(this::close)
+					.setCallbackBeforeOpen(this::close)
 					.setLabel(AGModulePanicReceiver.TABLE.getPluralTitle()));
 			appendChild(
 				new DomPopupButton()//
 					.setPopupFactory(() -> new EmfTableOverviewPopup(module))
-					.setCallbackBeforeShow(this::close)
+					.setCallbackBeforeOpen(this::close)
 					.setIcon(CoreImages.MODULES.getResource())
 					.setLabel(EmfI18n.SHOW_TABLES));
 			appendChild(
 				new EmfModuleRoleViewButton(module)//
-					.setCallbackBeforeShow(this::close));
+					.setCallbackBeforeOpen(this::close));
 			appendChild(
 				new ModulePageOverviewButton(module)//
-					.setCallbackBeforeShow(this::close));
+					.setCallbackBeforeOpen(this::close));
 		}
 	}
 }

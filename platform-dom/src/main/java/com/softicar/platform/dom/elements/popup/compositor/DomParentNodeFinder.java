@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-class DomParentNodeFinder<T extends IDomNode> {
+public class DomParentNodeFinder<T extends IDomNode> {
 
 	private final Class<T> parentClass;
 
