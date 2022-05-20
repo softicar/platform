@@ -11,21 +11,18 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 class InvoiceItemClerkColumnCreator<R extends IEmfTableRow<R, P>, P> {
 
 	private final EmfImportColumn<R, ?> invoiceItemClerkColumn;
-	private final EmfImportColumn<R, ?> personModuleInstanceColumn;
-	private final EmfImportColumn<R, ?> personModuleInstanceTitleColumn;
-	private final EmfImportColumn<R, ?> personIdentityCardNumberColumn;
 
 	public InvoiceItemClerkColumnCreator() {
 
 		invoiceItemClerkColumn = createEmfImportColumn(AGDemoInvoiceItem.CLERK);
 
-		personModuleInstanceColumn = createEmfImportColumn(AGDemoPerson.MODULE_INSTANCE);
+		EmfImportColumn<R, ?> personModuleInstanceColumn = createEmfImportColumn(AGDemoPerson.MODULE_INSTANCE);
 		invoiceItemClerkColumn.addParentColumn(personModuleInstanceColumn);
 
-		personModuleInstanceTitleColumn = createEmfImportColumn(AGDemoPersonModuleInstance.TITLE);
+		EmfImportColumn<R, ?> personModuleInstanceTitleColumn = createEmfImportColumn(AGDemoPersonModuleInstance.TITLE);
 		personModuleInstanceColumn.addParentColumn(personModuleInstanceTitleColumn);
 
-		personIdentityCardNumberColumn = createEmfImportColumn(AGDemoPerson.IDENTITY_CARD_NUMBER);
+		EmfImportColumn<R, ?> personIdentityCardNumberColumn = createEmfImportColumn(AGDemoPerson.IDENTITY_CARD_NUMBER);
 		invoiceItemClerkColumn.addParentColumn(personIdentityCardNumberColumn);
 	}
 
@@ -34,30 +31,8 @@ class InvoiceItemClerkColumnCreator<R extends IEmfTableRow<R, P>, P> {
 		return CastUtils.cast(new EmfImportColumn<>(field));
 	}
 
-	public InvoiceItemClerkColumnCreator<R, P> setInvoiceModuleInstanceTitleColumnValue(String value) {
-
-		personModuleInstanceTitleColumn.setValue(value);
-		return this;
-	}
-
-	public InvoiceItemClerkColumnCreator<R, P> setPersonIdentityCardNumberColumnValue(String value) {
-
-		personIdentityCardNumberColumn.setValue(value);
-		return this;
-	}
-
 	public <T> T getInvoiceItemClerkColumn() {
 
 		return CastUtils.cast(invoiceItemClerkColumn);
 	}
-
-//	public EmfImportColumn<R, ?> getInvoiceInvoiceModuleInstanceColumn() {
-//
-//		return personModuleInstanceColumn;
-//	}
-
-//	public EmfImportColumn<R, ?> getInvoicePartnerColumn() {
-//
-//		return invoiceCreditorColumn;
-//	}
 }
