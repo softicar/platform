@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -74,16 +75,15 @@ public class DomSimpleValueSelectDefaultValueComparator<V> implements Comparator
 		}
 
 		else {
-			if (isArgumentsCastableTo(first, second, Integer.class)) {
-				return compareNullsFirst(Integer::compareTo, (Integer) first, (Integer) second);
-			} else if (isArgumentsCastableTo(first, second, Float.class)) {
-				return compareNullsFirst(Float::compareTo, (Float) first, (Float) second);
-			} else if (isArgumentsCastableTo(first, second, Double.class)) {
-				return compareNullsFirst(Double::compareTo, (Double) first, (Double) second);
-			} else if (isArgumentsCastableTo(first, second, BigDecimal.class)) {
+			if (isArgumentsCastableTo(first, second, BigDecimal.class)) {
 				return compareNullsFirst(BigDecimal::compareTo, (BigDecimal) first, (BigDecimal) second);
-			} else if (isArgumentsCastableTo(first, second, Long.class)) {
-				return compareNullsFirst(Long::compareTo, (Long) first, (Long) second);
+			} else if (isArgumentsCastableTo(first, second, Number.class)) {
+				Number firstNumber = (Number) first;
+				Number secondNumber = (Number) second;
+				return compareNullsFirst(
+					Double::compareTo,
+					Optional.ofNullable(firstNumber).map(Number::doubleValue).orElse(null),
+					Optional.ofNullable(secondNumber).map(Number::doubleValue).orElse(null));
 			}
 			var comparator = Comparator.comparing(Object::toString);
 			return compareNullsFirst(comparator, first, second);
