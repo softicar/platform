@@ -9,9 +9,9 @@ import com.softicar.platform.core.module.user.AGUser;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 
-public class SessionOverviewTable extends AbstractInMemoryDataTable<HttpSession> {
+public class SessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 
-	public SessionOverviewTable() {
+	public SessionsTable() {
 
 		newColumn(AGUser.class)//
 			.setGetter(this::getUserFromSession)
