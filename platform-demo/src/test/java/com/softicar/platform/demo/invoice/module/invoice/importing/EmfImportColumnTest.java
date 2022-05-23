@@ -74,8 +74,8 @@ public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends Abstra
 		parentColumn.addParentColumn(grandParentColumn);
 
 		assertEquals(IDisplayString.create("Invoice"), column.getTitle());
-		assertEquals(IDisplayString.create("Invoice:Gross Amount"), parentColumn.getTitle());
-		assertEquals(IDisplayString.create("Invoice:Gross Amount:Clerk"), grandParentColumn.getTitle());
+		assertEquals(IDisplayString.create("Invoice:[Demo Invoice Item] Gross Amount"), parentColumn.getTitle());
+		assertEquals(IDisplayString.create("Invoice:[Demo Invoice Item] Gross Amount:[Demo Invoice Item] Clerk"), grandParentColumn.getTitle());
 	}
 
 	@Test

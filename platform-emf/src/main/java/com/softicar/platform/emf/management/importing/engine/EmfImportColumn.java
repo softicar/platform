@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
+import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 		if (childColumn == null) {
 			return field.getTitle();
 		} else {
-			return childColumn.getTitle().concat(":").concat(field.getTitle());
+			IEmfTable<?, ?, ?> emfTable = (IEmfTable<?, ?, ?>) field.getTable();
+			return childColumn.getTitle().concat(":").concat("[" + emfTable.getTitle() + "] " + field.getTitle());
 		}
 	}
 
