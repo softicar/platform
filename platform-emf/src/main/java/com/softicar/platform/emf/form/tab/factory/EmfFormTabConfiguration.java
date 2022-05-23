@@ -14,6 +14,7 @@ import com.softicar.platform.emf.trait.IEmfTrait;
 import com.softicar.platform.emf.trait.table.IEmfTraitTable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class EmfFormTabConfiguration<R extends IEmfTableRow<R, ?>> implements IE
 			.getInstance()
 			.getTraitTables(table)
 			.stream()
+			.sorted(Comparator.comparing(IEmfTable::getTitle))
 			.forEach(this::addTraitTabFactory);
 	}
 
