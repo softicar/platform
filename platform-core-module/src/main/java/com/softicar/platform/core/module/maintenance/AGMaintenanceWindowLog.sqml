@@ -8,6 +8,6 @@ TABLE AGMaintenanceWindowLog "Core.MaintenanceWindowLog" {
 	PK AGTransaction transaction
 	DayTime expectedStart = NULL [NULLABLE]
 	DayTime expectedEnd = NULL [NULLABLE]
-	AGMaintenanceState state = NULL [NULLABLE] 
-	String comment = NULL [LENGTHBITS=8 NULLABLE] 
-} 
+	AGMaintenanceState state = NULL [NULLABLE]
+	String comment = NULL [LENGTHBITS=8 NULLABLE]
+}

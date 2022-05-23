@@ -7,7 +7,7 @@ IMPORT com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance
 IMPORT com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceType
 IMPORT com.softicar.platform.demo.person.module.AGDemoPerson
 
-TABLE AGDemoInvoice 'Demo.DemoInvoice' {	
+TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	PK Integer id = SERIAL
 	AGTransaction transaction
 	AGDemoInvoiceModuleInstance moduleInstance
@@ -20,6 +20,6 @@ TABLE AGDemoInvoice 'Demo.DemoInvoice' {
 	AGStoredFile document = NULL [NULLABLE]
 	AGStoredFileSet attachments = NULL [NULLABLE]
 	AGDemoPerson contact = NULL [NULLABLE]
-	
+
 	UK moduleInstance creditor debtor invoiceNumber invoiceDate
 }
