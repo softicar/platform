@@ -3,7 +3,7 @@ package com.softicar.platform.emf.test.tester;
 import static org.junit.Assert.assertEquals;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalDialog;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
@@ -64,7 +64,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 	public void clickDeactivateButtonAndConfirm() {
 
 		clickActionButton(EmfDeactivateAction.class);
-		findBody().findNode(DomModalDialogPopup.class).clickNode(EmfI18n.OK);
+		findBody().findNode(DomModalDialog.class).clickNode(EmfI18n.OK);
 	}
 
 	public void clickManageChildTableButton(IEmfTable<?, ?, ?> table) {

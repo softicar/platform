@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 
-public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
+public class DomModalConfirmDialogTest extends AbstractDomModalDialogTest {
 
 	private static final String CANCEL_TEXT = "cancelled";
 	private static final String CONFIRMATION_TEXT = "confirmed";
@@ -233,7 +233,7 @@ public class DomModalConfirmPopupTest extends AbstractDomModalDialogPopupTest {
 			outputElement = appendChild(new DomDiv());
 			outputElement.addMarker(OUTPUT_ELEMENT);
 
-			var confirmPopup = new DomModalConfirmPopup(//
+			var confirmPopup = new DomModalConfirmDialog(//
 				this::handleConfirm,
 				withCancelCallback? this::handleCancel : null,
 				MESSAGE);

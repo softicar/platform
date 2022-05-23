@@ -32,14 +32,14 @@ import java.util.Objects;
  *
  * @author Alexander Schmidt
  */
-public class DomModalDialogPopup extends DomPopup {
+public class DomModalDialog extends DomPopup {
 
 	private final IDomParentElement contentContainer;
 
 	/**
-	 * Constructs a new {@link DomModalAlertPopup}
+	 * Constructs a new {@link DomModalAlertDialog}
 	 */
-	public DomModalDialogPopup() {
+	public DomModalDialog() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
 		addMarker(DomModalDialogMarker.POPUP);
@@ -89,7 +89,7 @@ public class DomModalDialogPopup extends DomPopup {
 	 * {@link #appendActionButton(IResource, IDisplayString, INullaryVoidFunction, IStaticObject...)}
 	 * without variable arguments.
 	 */
-	public DomModalDialogPopup appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback) {
+	public DomModalDialog appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback) {
 
 		return appendActionButton(icon, label, callback, new IStaticObject[0]);
 	}
@@ -105,9 +105,9 @@ public class DomModalDialogPopup extends DomPopup {
 	 *            the callback of the button (never <i>null</i>)
 	 * @param markers
 	 *            the markers of the button (never <i>null</i>)
-	 * @return this {@link DomModalDialogPopup}
+	 * @return this {@link DomModalDialog}
 	 */
-	public DomModalDialogPopup appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback, IStaticObject...markers) {
+	public DomModalDialog appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback, IStaticObject...markers) {
 
 		IDomNode button = new DomButton()//
 			.setIcon(icon)
@@ -127,9 +127,9 @@ public class DomModalDialogPopup extends DomPopup {
 	 *
 	 * @param callbackBeforeOpen
 	 *            the callback (never <i>null</i>)
-	 * @return this {@link DomModalDialogPopup}
+	 * @return this {@link DomModalDialog}
 	 */
-	public DomModalDialogPopup setCallbackBeforeOpen(INullaryVoidFunction callbackBeforeOpen) {
+	public DomModalDialog setCallbackBeforeOpen(INullaryVoidFunction callbackBeforeOpen) {
 
 		configuration.setCallbackBeforeOpen(callbackBeforeOpen);
 		return this;

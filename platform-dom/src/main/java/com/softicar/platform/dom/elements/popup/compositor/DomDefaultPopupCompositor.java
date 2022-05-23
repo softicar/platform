@@ -7,7 +7,7 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.IDomDocument;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalDialog;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupChildClosingMode;
@@ -188,9 +188,9 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 	}
 
-	private DomModalDialogPopup buildChildClosingDialog(DomPopup popup, List<DomPopup> childPopups, DomPopupChildClosingMode childClosingMode) {
+	private DomModalDialog buildChildClosingDialog(DomPopup popup, List<DomPopup> childPopups, DomPopupChildClosingMode childClosingMode) {
 
-		var dialog = new DomPopupCompositorChildClosingDialogPopup();
+		var dialog = new DomPopupCompositorChildClosingDialog();
 		dialog.setCallbackBeforeOpen(() -> frameHighlighter.highlight(popup).highlight(childPopups));
 		if (!childClosingMode.isCloseAll()) {
 			dialog.appendCloseOnlyThisButton(() -> closePopup(popup, false));

@@ -3,7 +3,7 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 
 /**
- * Provides markers for elements related to {@link DomModalAlertPopup}.
+ * Provides markers for elements related to {@link DomModalAlertDialog}.
  * <p>
  * For common modal dialog markers, refer to {@link DomModalDialogMarker}.
  *
