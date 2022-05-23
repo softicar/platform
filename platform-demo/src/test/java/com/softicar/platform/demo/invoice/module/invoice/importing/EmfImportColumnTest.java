@@ -9,17 +9,17 @@ import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
 import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.invoice.item.AGDemoInvoiceItem;
+import com.softicar.platform.demo.invoice.module.test.fixture.DemoInvoiceModuleTestFixtureMethods;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.demo.person.module.AGDemoPerson;
 import com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance;
-import com.softicar.platform.demo.person.module.test.fixtures.DemoPersonModuleTestFixtureMethods;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumn;
 import com.softicar.platform.emf.management.importing.engine.EmfImportColumnLoadException;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.List;
 import org.junit.Test;
 
-public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends AbstractDbTest implements DemoPersonModuleTestFixtureMethods {
+public class EmfImportColumnTest<R extends IEmfTableRow<R, P>, P> extends AbstractDbTest implements DemoInvoiceModuleTestFixtureMethods {
 
 	@Test
 	public void testIsForeignKeyColumn() {
