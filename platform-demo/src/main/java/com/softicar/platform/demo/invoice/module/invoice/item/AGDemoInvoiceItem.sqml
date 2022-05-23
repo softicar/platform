@@ -13,5 +13,4 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	AGDemoPerson clerk  = NULL [NULLABLE]
 	
 	UK invoice item
-	UK item quantity grossAmount
 }

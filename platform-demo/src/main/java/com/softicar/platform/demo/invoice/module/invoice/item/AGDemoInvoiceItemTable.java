@@ -21,8 +21,7 @@ public class AGDemoInvoiceItemTable extends EmfObjectTable<AGDemoInvoiceItem, AG
 		configuration.setScopeField(AGDemoInvoiceItem.INVOICE);
 		configuration.setCreationPredicate(DemoInvoicePredicates.NOT_LOCKED_ITEMS);
 		configuration.setEditPredicate(DemoInvoiceItemPredicates.NOT_LOCKED_ITEMS);
-//		configuration.setBusinessKey(AGDemoInvoiceItem.UK_INVOICE_ITEM);
-		configuration.setBusinessKey(AGDemoInvoiceItem.UK_ITEM_QUANTITY_GROSS_AMOUNT);
+		configuration.setBusinessKey(AGDemoInvoiceItem.UK_INVOICE_ITEM);
 	}
 
 	@Override

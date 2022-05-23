@@ -40,7 +40,6 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 	public static final IDbBigDecimalField<AGDemoInvoiceItem> NET_AMOUNT = BUILDER.addBigDecimalField("netAmount", o->o.m_netAmount, (o,v)->o.m_netAmount=v).setTitle(DemoI18n.NET_AMOUNT).setSize(20, 4);
 	public static final IDbForeignField<AGDemoInvoiceItem, AGDemoPerson> CLERK = BUILDER.addForeignField("clerk", o->o.m_clerk, (o,v)->o.m_clerk=v, AGDemoPerson.ID).setTitle(DemoI18n.CLERK).setNullable().setDefault(null);
 	public static final IDbKey<AGDemoInvoiceItem> UK_INVOICE_ITEM = BUILDER.addUniqueKey("invoiceItem", INVOICE, ITEM);
-	public static final IDbKey<AGDemoInvoiceItem> UK_ITEM_QUANTITY_GROSS_AMOUNT = BUILDER.addUniqueKey("itemQuantityGrossAmount", ITEM, QUANTITY, GROSS_AMOUNT);
 	public static final AGDemoInvoiceItemTable TABLE = new AGDemoInvoiceItemTable(BUILDER);
 	// @formatter:on
 
@@ -62,16 +61,6 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 				.createSelect()
 				.where(INVOICE.equal(invoice))
 				.where(ITEM.equal(item))
-				.getOne();
-	}
-
-	public static AGDemoInvoiceItem loadByItemAndQuantityAndGrossAmount(String item, Integer quantity, BigDecimal grossAmount) {
-
-		return TABLE//
-				.createSelect()
-				.where(ITEM.equal(item))
-				.where(QUANTITY.equal(quantity))
-				.where(GROSS_AMOUNT.equal(grossAmount))
 				.getOne();
 	}
 
