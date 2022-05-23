@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.dom.document.CurrentDomDocument;
+import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -235,6 +237,28 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertBodyText();
 		List<IDomNode> backdrops = findBackdrops();
 		assertAscendingZIndexes(backdrops.get(0), popup1, backdrops.get(1), popup2, popup3);
+	}
+
+	@Test
+	public void testOpenWithModalPopupFromBody() {
+
+		// setup
+		popup1Config.setDisplayModeDraggableModal();
+		DomBody body = CurrentDomDocument.get().getBody();
+		DomNodeTester openPopup1Button = asTester(body.appendChild(new DomButton().setClickCallback(() -> compositor.open(popup1))));
+
+		// assert initial state
+		assertNone(POPUP1);
+		assertNoBackdrop();
+		assertBodyText();
+
+		// execute
+		openPopup1Button.click();
+
+		// assert result
+		assertOne(POPUP1);
+		assertBackdropOnBody();
+		assertBodyText();
 	}
 
 	@Test
@@ -1037,9 +1061,9 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		findNodes(marker).assertNone();
 	}
 
-	private void assertOne(IStaticObject marker) {
+	private DomNodeTester assertOne(IStaticObject marker) {
 
-		findNodes(marker).assertOne();
+		return findNodes(marker).assertOne();
 	}
 
 	private List<DomNodeTester> assertCount(IStaticObject marker, int count) {
@@ -1054,12 +1078,28 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 	private void assertBackdrop() {
 
-		assertOne(DomPopupMarker.BACKDROP);
+		var backdrop = assertOne(DomPopupMarker.BACKDROP);
+		assertBackdropParent(backdrop, testDiv);
+	}
+
+	private void assertBackdropOnBody() {
+
+		var backdrop = assertOne(DomPopupMarker.BACKDROP);
+		assertBackdropParent(backdrop, CurrentDomDocument.get().getBody());
 	}
 
 	private void assertBackdrops(int count) {
 
-		assertCount(DomPopupMarker.BACKDROP, count);
+		assertCount(DomPopupMarker.BACKDROP, count).forEach(it -> assertBackdropParent(it, testDiv));
+	}
+
+	private void assertBackdropParent(DomNodeTester backdropTester, IDomNode expectedParent) {
+
+		var backdropNode = backdropTester.getNode();
+		assertSame(//
+			"Expected backdrop node %s to have a parent of type %s.".formatted(backdropNode.getNodeIdString(), expectedParent.getClass().getSimpleName()),
+			expectedParent,
+			backdropNode.getParent());
 	}
 
 	private void assertBackdrops(Boolean...visible) {
