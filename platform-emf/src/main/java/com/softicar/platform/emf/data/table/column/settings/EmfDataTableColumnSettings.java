@@ -41,6 +41,7 @@ public class EmfDataTableColumnSettings implements IEmfDataTableColumnSettings {
 		this.alignment = other.getAlignmentOrDefault(null);
 		this.showIds = other.isShowIds();
 		this.titleOverride = other.getTitleOverride();
+		this.markers = new ArrayList<>(other.getMarkers());
 	}
 
 	@Override

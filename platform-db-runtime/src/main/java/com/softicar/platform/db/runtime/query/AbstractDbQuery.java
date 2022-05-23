@@ -179,7 +179,9 @@ public abstract class AbstractDbQuery<R extends IDbQueryRow<R>> implements IDbQu
 		try (DbResultSet resultSet = execute(sqlSelect)) {
 			while (resultSet.next()) {
 				T value = queryColumn.loadValue(sqlSelect, resultSet);
-				values.add(value);
+				if (value != null) {
+					values.add(value);
+				}
 			}
 		}
 		return values;

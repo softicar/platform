@@ -326,6 +326,13 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		}
 	}
 
+	// ------------------------------ z-index ------------------------------ //
+
+	public int getZIndex() {
+
+		return node.getDomEngine().getNodeStyle(node, "zIndex").map(Integer::parseInt).orElseThrow();
+	}
+
 	// ------------------------------ retrieve textual content ------------------------------ //
 
 	// TODO PLAT-568 This method should be renamed to getAllText (or similar).
