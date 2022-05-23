@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.string.Imploder;
+import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
@@ -25,6 +26,7 @@ import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
 import com.softicar.platform.emf.attribute.EmfAttributeList;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
+import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttributeFactory;
 import com.softicar.platform.emf.authorizer.EmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -524,6 +526,25 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 				Imploder.implode(businessKey.getFields(), " & "),
 				table);
 		}
+
+		if (table.getScopeField().isPresent() && !businessKeyComprisesScopeField(businessKey)) {
+			throw new SofticarDeveloperException(
+				"The business key (%s) of table %s must comprise the scope field (%s).",
+				Imploder.implode(businessKey.getFields(), " & "),
+				table,
+				table.getScopeField().get());
+		}
+	}
+
+	private boolean businessKeyComprisesScopeField(IDbKey<R> businessKey) {
+
+		for (IDbField<R, ?> field: businessKey.getFields()) {
+			EmfFieldAttribute<R, ?> emfFieldAttribute = (EmfFieldAttribute<R, ?>) table.getAttribute(field);
+			if (emfFieldAttribute.isScopeAttribute(table)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

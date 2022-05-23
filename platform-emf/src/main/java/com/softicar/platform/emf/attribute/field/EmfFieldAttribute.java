@@ -223,7 +223,7 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 		return isScopeAttribute(getTable());
 	}
 
-	private <S> boolean isScopeAttribute(IEmfTable<R, ?, S> table) {
+	public <S> boolean isScopeAttribute(IEmfTable<R, ?, S> table) {
 
 		return table//
 			.getScopeField()
