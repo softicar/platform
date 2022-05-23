@@ -18,6 +18,7 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
+import com.softicar.platform.dom.input.IDomDisableable;
 import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Collections;
@@ -35,14 +36,14 @@ import java.util.function.Supplier;
  * @author Oliver Richers
  */
 public class DomButton extends DomParentElement
-		implements IDomFocusable, IDomLabeledElement<DomButton>, IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
+		implements IDomFocusable, IDomDisableable, IDomLabeledElement<DomButton>, IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
 	private Icon icon;
 	private Label label;
 	private DomAnchor linkAnchor;
 	private INullaryVoidFunction clickCallback;
 	private Supplier<Optional<IDisplayString>> confirmationMessageSupplier;
-	private boolean enabled;
+	private boolean disabled;
 
 	/**
 	 * Constructs a new {@link DomButton}.
@@ -60,7 +61,7 @@ public class DomButton extends DomParentElement
 		this.linkAnchor = null;
 		this.clickCallback = INullaryVoidFunction.NO_OPERATION;
 		this.confirmationMessageSupplier = Optional::empty;
-		this.enabled = true;
+		this.disabled = false;
 
 		setAttribute("type", "button");
 		setTabIndex(0);
@@ -244,47 +245,51 @@ public class DomButton extends DomParentElement
 
 	// -------------------- Enabled / Disabled -------------------- //
 
-	/**
-	 * Enables or disables this {@link DomButton}.
-	 * <p>
-	 * {@link DomButton} is enabled by default.
-	 *
-	 * @param enabled
-	 *            <i>true</i> if it shall be enabled; <i>false</i> if it shall
-	 *            be disabled.
-	 * @return this {@link DomButton}
-	 */
-	public DomButton setEnabled(boolean enabled) {
+	@Override
+	public DomButton setDisabled(boolean disabled) {
 
-		if (enabled != this.enabled) {
-			this.enabled = enabled;
+		if (disabled != this.disabled) {
+			this.disabled = disabled;
 
-			if (enabled) {
-				setTabIndex(0);
-				listenToEvent(DomEventType.CLICK);
-				listenToEvent(DomEventType.ENTER);
-				listenToEvent(DomEventType.SPACE);
-				removeCssClass(DomCssPseudoClasses.DISABLED);
-			} else {
+			if (disabled) {
 				setTabIndex(-1);
 				unlistenToEvent(DomEventType.CLICK);
 				unlistenToEvent(DomEventType.ENTER);
 				unlistenToEvent(DomEventType.SPACE);
 				addCssClass(DomCssPseudoClasses.DISABLED);
+			} else {
+				setTabIndex(0);
+				listenToEvent(DomEventType.CLICK);
+				listenToEvent(DomEventType.ENTER);
+				listenToEvent(DomEventType.SPACE);
+				removeCssClass(DomCssPseudoClasses.DISABLED);
 			}
 		}
 		return this;
 	}
 
 	/**
-	 * Determines whether this {@link DomButton} is enabled.
-	 *
-	 * @return <i>true</i> if this {@link DomButton} is enabled; <i>false</i>
-	 *         otherwise
+	 * @deprecated use {@link #setDisabled(boolean)} instead
 	 */
+	@Deprecated
+	public final DomButton setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
 	public final boolean isEnabled() {
 
-		return enabled;
+		return !isDisabled();
 	}
 
 	// -------------------- Confirmation -------------------- //
@@ -359,7 +364,7 @@ public class DomButton extends DomParentElement
 
 	private void triggerButton() {
 
-		if (enabled) {
+		if (!disabled) {
 			Optional<IDisplayString> confirmationMessage = confirmationMessageSupplier.get();
 			if (confirmationMessage.isPresent()) {
 				executeConfirm(clickCallback::apply, confirmationMessage.get());

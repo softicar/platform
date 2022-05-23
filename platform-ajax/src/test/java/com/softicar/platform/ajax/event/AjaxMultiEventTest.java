@@ -47,7 +47,7 @@ public class AjaxMultiEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testSimultaneousChangeEventAndClickEventOnDisabledButton() {
 
-		testDiv.getInput().setOnChange(() -> testDiv.getButton1().setEnabled(false));
+		testDiv.getInput().setOnChange(() -> testDiv.getButton1().setDisabled(true));
 		testDiv.getInput().setBlocking(true);
 		testDiv.sendInputText("hello");
 		testDiv.clickButton1();

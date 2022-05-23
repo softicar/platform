@@ -186,7 +186,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(EmfI18n.CREATE)
 					.addMarker(EmfManagementMarker.CREATE_BUTTON)
-					.setEnabled(isCreationAllowed())
+					.setDisabled(!isCreationAllowed())
 					.setTitle(getCreationPredicateTitle()));
 			if (!isNonConcealedNonNullableForeignAttributePresent()) {
 				appendChild(
@@ -195,7 +195,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 						.setIcon(EmfImages.ENTITY_IMPORT.getResource())
 						.setLabel(EmfI18n.IMPORT)
 						.addMarker(EmfManagementMarker.IMPORT_BUTTON)
-						.setEnabled(isCreationAllowed())
+						.setDisabled(!isCreationAllowed())
 						.setTitle(getCreationPredicateTitle()));
 			}
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {

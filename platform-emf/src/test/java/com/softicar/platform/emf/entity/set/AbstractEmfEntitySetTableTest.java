@@ -1,9 +1,10 @@
-package com.softicar.platform.emf.collection.set;
+package com.softicar.platform.emf.entity.set;
 
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.field.foreign.entity.collection.set.EmfForeignEntitySetAttribute;
+import com.softicar.platform.emf.attribute.field.foreign.entity.set.EmfForeignEntitySetAttribute;
+import com.softicar.platform.emf.collection.set.EmfTestObjectWithEntitySetField;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import com.softicar.platform.emf.test.simple.set.EmfTestObjectSet;
 import java.util.Arrays;

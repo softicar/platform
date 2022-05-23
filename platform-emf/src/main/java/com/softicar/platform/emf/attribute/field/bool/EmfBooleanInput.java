@@ -46,7 +46,7 @@ public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 	@Override
 	protected void toggleCheckedState() {
 
-		if (isEnabled()) {
+		if (!isDisabled()) {
 			setValueAndHandleChangeCallback(!isChecked());
 		}
 	}

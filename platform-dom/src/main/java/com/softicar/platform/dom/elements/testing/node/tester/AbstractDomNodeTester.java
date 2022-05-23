@@ -19,11 +19,12 @@ import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.Assert;
 
-public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTesterFindMethods {
+public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTesterFindMethods {
 
 	private final IDomTestExecutionEngine engine;
 	protected final N node;
@@ -170,7 +171,7 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 
 		return CastUtils//
 			.tryCast(node, DomButton.class)
-			.map(button -> !button.isEnabled())
+			.map(button -> button.isDisabled())
 			.orElse(false);
 	}
 
@@ -324,6 +325,21 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		} else {
 			return getAllTextsInTree().collect(Collectors.joining()).equals("");
 		}
+	}
+
+	// ------------------------------ DOM tree ------------------------------ //
+
+	public Optional<DomNodeTester> getParent() {
+
+		return Optional//
+			.ofNullable(node)
+			.map(N::getParent)
+			.map(it -> new DomNodeTester(engine, it));
+	}
+
+	public DomNodeTester getParentOrThrow() {
+
+		return getParent().get();
 	}
 
 	// ------------------------------ z-index ------------------------------ //

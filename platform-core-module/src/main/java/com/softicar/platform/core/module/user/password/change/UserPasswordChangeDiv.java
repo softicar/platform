@@ -47,7 +47,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.qualityMessageDiv = new QualityMessageDiv();
 		this.securePasswordMessageDiv = new SecurePasswordMessageDiv();
 		this.saveButton = new PasswordSaveButton();
-		this.saveButton.setEnabled(false);
+		this.saveButton.setDisabled(true);
 
 		appendChild(securePasswordMessageDiv);
 		appendChild(new DomActionBar(new GeneratePasswordButton(), visiblePasswordCheckbox));
@@ -68,24 +68,24 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		if (!AGUserPassword.getActive(user).verifyPassword(currentPassword)) {
 			qualityMessageDiv.showCurrentPasswordMismatch();
-			saveButton.setEnabled(false);
+			saveButton.setDisabled(true);
 			return false;
 		} else if (!newPassword.equals(repeatedPassword)) {
 			qualityMessageDiv.showPasswordMismatch();
-			saveButton.setEnabled(false);
+			saveButton.setDisabled(true);
 			return false;
 		} else if (!passwordPolicy.isFulfilled(newPassword)) {
 			qualityMessageDiv.showPasswordQuality(newPassword);
-			saveButton.setEnabled(false);
+			saveButton.setDisabled(true);
 			return false;
 		} else {
 			if (checkIfPasswordIsRepeated(newPassword)) {
 				qualityMessageDiv.showPasswordRepeated();
-				saveButton.setEnabled(false);
+				saveButton.setDisabled(true);
 				return false;
 			} else {
 				qualityMessageDiv.showPasswordQuality(newPassword);
-				saveButton.setEnabled(true);
+				saveButton.setDisabled(false);
 				return true;
 			}
 		}

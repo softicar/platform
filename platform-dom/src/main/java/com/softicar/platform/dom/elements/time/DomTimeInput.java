@@ -66,6 +66,39 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 	}
 
 	@Override
+	public DomTimeInput setDisabled(boolean disabled) {
+
+		hourInput.setDisabled(disabled);
+		minuteInput.setDisabled(disabled);
+		secondInput.setDisabled(disabled);
+		return this;
+	}
+
+	/**
+	 * @deprecated use {@link #setDisabled(boolean)} instead
+	 */
+	@Deprecated
+	public final DomTimeInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return hourInput.isDisabled() && minuteInput.isDisabled() && secondInput.isDisabled();
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
+
+	@Override
 	public Optional<Time> getValue() {
 
 		try {
@@ -102,12 +135,6 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 		hourInput.setValue(null);
 		minuteInput.setValue(null);
 		secondInput.setValue(null);
-	}
-
-	public void disableSeconds() {
-
-		secondInput.setValue(0);
-		secondInput.setDisabled(true);
 	}
 
 	private String getValueAsString() {

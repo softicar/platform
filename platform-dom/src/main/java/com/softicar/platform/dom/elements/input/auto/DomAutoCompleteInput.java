@@ -3,7 +3,6 @@ package com.softicar.platform.dom.elements.input.auto;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -124,6 +123,21 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 	}
 
 	@Override
+	public boolean isDisabled() {
+
+		return getConfiguration().isDisabled();
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
+
+	@Override
 	public Optional<T> getValue() {
 
 		return getSelection().getValue();
@@ -159,10 +173,20 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		return this;
 	}
 
-	public IDomElement setEnabled(boolean enabled) {
+	@Override
+	public DomAutoCompleteInput<T> setDisabled(boolean disabled) {
 
-		getConfiguration().setEnabled(enabled);
-		return inputField;
+		getConfiguration().setDisabled(disabled);
+		return this;
+	}
+
+	/**
+	 * @deprecated use {@link #setDisabled(boolean)} instead
+	 */
+	@Deprecated
+	public final DomAutoCompleteInput<T> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
 	}
 
 	public DomAutoCompleteInput<T> select() {

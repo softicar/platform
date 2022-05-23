@@ -1,38 +1,38 @@
-package com.softicar.platform.emf.attribute.field.foreign.entity.collection;
+package com.softicar.platform.emf.attribute.field.foreign.entity.set;
 
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.emf.attribute.field.foreign.entity.EmfForeignEntityAttributeValidator;
 import com.softicar.platform.emf.attribute.field.foreign.entity.scope.IEmfForeignEntityScope;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
-import com.softicar.platform.emf.collection.IEmfEntityCollection;
-import com.softicar.platform.emf.collection.IEmfEntityCollectionTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.entity.IEmfEntity;
+import com.softicar.platform.emf.entity.set.IEmfEntitySet;
+import com.softicar.platform.emf.entity.set.IEmfEntitySetTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class EmfForeignEntityCollectionAttribute<R extends IEmfTableRow<R, ?>, S extends IEmfEntityCollection<S, F, FC>, F extends IEmfEntity<F, ?>, FC extends Collection<F>>
+public class EmfForeignEntitySetAttribute<R extends IEmfTableRow<R, ?>, S extends IEmfEntitySet<S, F>, F extends IEmfEntity<F, ?>>
 		extends EmfForeignRowAttribute<R, S> {
 
-	private final IEmfEntityCollectionTable<S, F, FC, ?> collectionTable;
+	private final IEmfEntitySetTable<S, F, ?> setTable;
 	private final EmfForeignEntityAttributeValidator<R, F> validator;
 
-	public EmfForeignEntityCollectionAttribute(IDbForeignRowField<R, S, ?> field, IEmfEntityCollectionTable<S, F, FC, ?> collectionTable) {
+	public EmfForeignEntitySetAttribute(IDbForeignRowField<R, S, ?> field, IEmfEntitySetTable<S, F, ?> setTable) {
 
 		super(field);
 
-		this.collectionTable = collectionTable;
+		this.setTable = setTable;
 		this.validator = new EmfForeignEntityAttributeValidator<>();
 
 		setColumnHandlerFactory(ColumnHandler::new);
 	}
 
-	public IEmfEntityCollectionTable<S, F, FC, ?> getCollectionTable() {
+	public IEmfEntitySetTable<S, F, ?> getSetTable() {
 
-		return collectionTable;
+		return setTable;
 	}
 
 	public EmfForeignEntityAttributeValidator<R, F> getValidator() {
@@ -40,7 +40,7 @@ public class EmfForeignEntityCollectionAttribute<R extends IEmfTableRow<R, ?>, S
 		return validator;
 	}
 
-	public EmfForeignEntityCollectionAttribute<R, S, F, FC> setScope(IEmfForeignEntityScope<R, F> scope) {
+	public EmfForeignEntitySetAttribute<R, S, F> setScope(IEmfForeignEntityScope<R, F> scope) {
 
 		validator.setScope(scope);
 		return this;
@@ -51,7 +51,7 @@ public class EmfForeignEntityCollectionAttribute<R extends IEmfTableRow<R, ?>, S
 		@Override
 		public void prefetchData(IEmfDataTableColumn<R, S> column, Collection<R> entities) {
 
-			collectionTable
+			setTable
 				.prefetchElements(
 					field//
 						.getValues(entities)

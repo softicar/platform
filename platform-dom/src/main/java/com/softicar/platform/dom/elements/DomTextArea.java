@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.input.IDomDisableable;
 import com.softicar.platform.dom.input.IDomTextualInput;
+import com.softicar.platform.dom.node.DomNodes;
 import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Optional;
 
@@ -32,6 +33,42 @@ public class DomTextArea extends DomParentElement implements IDomTextualInput, I
 	}
 
 	@Override
+	public DomElementTag getTag() {
+
+		return DomElementTag.TEXTAREA;
+	}
+
+	@Override
+	public DomTextArea setDisabled(boolean disabled) {
+
+		return DomNodes.setDisabled(this, disabled);
+	}
+
+	/**
+	 * @deprecated use {@link #setDisabled(boolean)} instead
+	 */
+	@Deprecated
+	public final DomTextArea setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return DomNodes.isDisabled(this);
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
+
+	@Override
 	public DomTextArea setInputText(String inputText) {
 
 		setAttribute("value", Optional.ofNullable(inputText).orElse(""));
@@ -42,12 +79,6 @@ public class DomTextArea extends DomParentElement implements IDomTextualInput, I
 	public String getInputText() {
 
 		return getAttributeValue("value").orElse("");
-	}
-
-	@Override
-	public DomElementTag getTag() {
-
-		return DomElementTag.TEXTAREA;
 	}
 
 	/**

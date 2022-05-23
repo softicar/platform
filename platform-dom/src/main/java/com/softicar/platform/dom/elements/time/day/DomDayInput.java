@@ -54,10 +54,36 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		}
 	}
 
-	public void setEnabled(boolean enabled) {
+	@Override
+	public DomDayInput setDisabled(boolean disabled) {
 
-		dayInput.setEnabled(enabled);
-		dayButton.setEnabled(enabled);
+		dayInput.setDisabled(disabled);
+		dayButton.setDisabled(disabled);
+		return this;
+	}
+
+	/**
+	 * @deprecated use {@link #setDisabled(boolean)} instead
+	 */
+	@Deprecated
+	public final DomDayInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return dayInput.isDisabled() && dayButton.isDisabled();
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 
 	@Override

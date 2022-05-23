@@ -460,16 +460,18 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		@Override
 		public void setValue(TestValue value) {
 
-			input.setValue(Optional//
-				.ofNullable(value)
-				.map(it -> it.getQuantity())
-				.orElse(null));
+			input
+				.setValue(
+					Optional//
+						.ofNullable(value)
+						.map(it -> it.getQuantity())
+						.orElse(null));
 		}
 
 		@Override
-		public void setInputEnabled(boolean enabled) {
+		public void setInputDisabled(boolean disabled) {
 
-			input.setEnabled(enabled);
+			input.setDisabled(disabled);
 		}
 
 		@Override

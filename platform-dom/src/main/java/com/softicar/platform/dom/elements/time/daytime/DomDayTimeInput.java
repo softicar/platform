@@ -25,10 +25,36 @@ public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
 		addCssClass(DomElementsCssClasses.DOM_DAY_TIME_INPUT);
 	}
 
-	public DomDayTimeInput disableSeconds() {
+	@Override
+	public DomDayTimeInput setDisabled(boolean disabled) {
 
-		timeInput.disableSeconds();
+		dayInput.setDisabled(disabled);
+		timeInput.setDisabled(disabled);
 		return this;
+	}
+
+	/**
+	 * @deprecated use {@link #setDisabled(boolean)} instead
+	 */
+	@Deprecated
+	public final DomDayTimeInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return dayInput.isDisabled() && timeInput.isDisabled();
+	}
+
+	/**
+	 * @deprecated use {@link #isDisabled()} instead
+	 */
+	@Deprecated
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 
 	// TODO remove this method, it reveals internal details

@@ -8,6 +8,13 @@ import java.util.Optional;
 public class EmfReadOnlyBasicEntityInput<V extends IEntity> extends DomDiv implements IEmfInput<V> {
 
 	private V value;
+	private boolean disabled;
+
+	public EmfReadOnlyBasicEntityInput() {
+
+		this.value = null;
+		this.disabled = false;
+	}
 
 	@Override
 	public Optional<V> getValue() {
@@ -24,5 +31,18 @@ public class EmfReadOnlyBasicEntityInput<V extends IEntity> extends DomDiv imple
 		if (value != null) {
 			appendChild(value.toDisplay());
 		}
+	}
+
+	@Override
+	public EmfReadOnlyBasicEntityInput<V> setDisabled(boolean disabled) {
+
+		this.disabled = disabled;
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
 	}
 }

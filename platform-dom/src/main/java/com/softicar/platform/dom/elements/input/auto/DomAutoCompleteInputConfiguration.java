@@ -15,7 +15,7 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	private DomAutoCompleteInputIndicatorMode indicatorMode;
 	private DomAutoCompleteInputValidationMode validationMode;
 	private boolean mandatory;
-	private boolean enabled;
+	private boolean disabled;
 
 	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomDisableable inputField) {
 
@@ -24,7 +24,7 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 		this.validationMode = DomAutoCompleteInputValidationMode.DEDUCTIVE;
 		this.indicatorMode = DomAutoCompleteInputIndicatorMode.VALIDATION;
 		this.mandatory = false;
-		this.enabled = true;
+		this.disabled = false;
 	}
 
 	@Override
@@ -72,17 +72,17 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	}
 
 	@Override
-	public boolean isEnabled() {
+	public boolean isDisabled() {
 
-		return enabled;
+		return disabled;
 	}
 
 	@Override
-	public IDomAutoCompleteInputConfiguration setEnabled(boolean enabled) {
+	public IDomAutoCompleteInputConfiguration setDisabled(boolean disabled) {
 
-		getDomEngine().setAutoCompleteEnabled(input, enabled);
-		this.inputField.setEnabled(enabled);
-		this.enabled = enabled;
+		getDomEngine().setAutoCompleteEnabled(input, !disabled);
+		this.inputField.setDisabled(disabled);
+		this.disabled = disabled;
 		return this;
 	}
 

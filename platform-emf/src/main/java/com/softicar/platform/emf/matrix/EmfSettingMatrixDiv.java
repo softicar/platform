@@ -55,7 +55,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 
 			setIcon(EmfImages.ENTITY_SAVE.getResource());
 			setLabel(EmfI18n.SAVE);
-			setEnabled(editable);
+			setDisabled(!editable);
 			setClickCallback(() -> saveAndReload());
 			addMarker(EmfSettingMatrixMarker.SAVE_BUTTON);
 		}
@@ -67,7 +67,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 
 			setIcon(EmfImages.REFRESH.getResource());
 			setLabel(EmfI18n.RELOAD);
-			setEnabled(editable);
+			setDisabled(!editable);
 			setClickCallback(() -> load());
 			addMarker(EmfSettingMatrixMarker.RELOAD_BUTTON);
 		}

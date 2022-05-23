@@ -43,7 +43,7 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		openTestDiv((input, button) -> {
 			button.setClickCallback(() -> {
-				input.setEnabled(false);
+				input.setDisabled(true);
 			});
 		});
 
@@ -60,9 +60,9 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testEnable() {
 
 		openTestDiv((input, button) -> {
-			input.setEnabled(false);
+			input.setDisabled(true);
 			button.setClickCallback(() -> {
-				input.setEnabled(true);
+				input.setDisabled(false);
 			});
 		});
 
