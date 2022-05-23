@@ -26,7 +26,6 @@ import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
 import com.softicar.platform.emf.attribute.EmfAttributeList;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
-import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttributeFactory;
 import com.softicar.platform.emf.authorizer.EmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -527,24 +526,29 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 				table);
 		}
 
-		if (table.getScopeField().isPresent() && !businessKeyComprisesScopeField(businessKey)) {
+		if (scopeField.isPresent() && !businessKeyComprisesScopeField(businessKey)) {
 			throw new SofticarDeveloperException(
 				"The business key (%s) of table %s must comprise the scope field (%s).",
 				Imploder.implode(businessKey.getFields(), " & "),
 				table,
-				table.getScopeField().get());
+				scopeField);
 		}
 	}
 
 	private boolean businessKeyComprisesScopeField(IDbKey<R> businessKey) {
 
 		for (IDbField<R, ?> field: businessKey.getFields()) {
-			EmfFieldAttribute<R, ?> emfFieldAttribute = (EmfFieldAttribute<R, ?>) table.getAttribute(field);
-			if (emfFieldAttribute.isScopeAttribute(table)) {
+			IDbField<R, ?> f = (IDbField<R, ?>) scopeField.get();
+			if (f.equals(field)) {
 				return true;
 			}
+
+//			EmfFieldAttribute<R, ?> emfFieldAttribute = (EmfFieldAttribute<R, ?>) getAttribute(field);
+//			if (emfFieldAttribute.isScopeAttribute(table)) {
+//				return true;
+//			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override
