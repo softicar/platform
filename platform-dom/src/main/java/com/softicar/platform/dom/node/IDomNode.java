@@ -7,9 +7,9 @@ import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
-import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
-import com.softicar.platform.dom.elements.dialog.DomModalConfirmPopup;
-import com.softicar.platform.dom.elements.dialog.DomModalPromptPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
+import com.softicar.platform.dom.elements.dialog.DomModalConfirmDialog;
+import com.softicar.platform.dom.elements.dialog.DomModalPromptDialog;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -227,7 +227,7 @@ public interface IDomNode {
 	 */
 	default void executeAlert(IDisplayString message) {
 
-		new DomModalAlertPopup(message).open();
+		new DomModalAlertDialog(message).open();
 	}
 
 	/**
@@ -260,7 +260,7 @@ public interface IDomNode {
 	 */
 	default void executeConfirm(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
 
-		new DomModalConfirmPopup(confirmHandler, cancelHandler, message).open();
+		new DomModalConfirmDialog(confirmHandler, cancelHandler, message).open();
 	}
 
 	/**
@@ -276,6 +276,6 @@ public interface IDomNode {
 	 */
 	default void executePrompt(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
-		new DomModalPromptPopup(promptHandler, message, defaultValue).open();
+		new DomModalPromptDialog(promptHandler, message, defaultValue).open();
 	}
 }

@@ -5,22 +5,22 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.dialog.DomModalAlertPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DomModalAlertPopup}, based upon Selenium.
+ * Unit test for {@link DomModalAlertDialog}, based upon Selenium.
  *
  * @author Alexander Schmidt
  */
-public class AjaxModalAlertPopupTest extends AbstractAjaxSeleniumLowLevelTest {
+public class AjaxDomModalAlertDialogTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final IDisplayString MESSAGE = IDisplayString.create("some message");
 	private final TestDiv testDiv;
 
-	public AjaxModalAlertPopupTest() {
+	public AjaxDomModalAlertDialogTest() {
 
 		this.testDiv = openTestNode(TestDiv::new);
 	}
@@ -107,7 +107,7 @@ public class AjaxModalAlertPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			this.button = appendChild(new DomButton())//
 				.setLabel("spawn alert")
-				.setClickCallback(new DomModalAlertPopup(MESSAGE)::open);
+				.setClickCallback(new DomModalAlertDialog(MESSAGE)::open);
 		}
 
 		public DomButton getButton() {

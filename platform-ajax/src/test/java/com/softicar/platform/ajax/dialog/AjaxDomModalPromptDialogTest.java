@@ -5,25 +5,25 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.dialog.DomModalPromptPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalPromptDialog;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DomModalPromptPopup}, based upon Selenium.
+ * Unit test for {@link DomModalPromptDialog}, based upon Selenium.
  *
  * @author Alexander Schmidt
  */
-public class AjaxModalPromptPopupTest extends AbstractAjaxSeleniumLowLevelTest {
+public class AjaxDomModalPromptDialogTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final int BACKDROP_DISMISS_CLICK_OFFSET = 20;
 	private static final IDisplayString MESSAGE = IDisplayString.create("some message");
 	private static final String PROMPT_INPUT_DEFAULT_VALUE = "default value";
 	private TestDiv testDiv;
 
-	public AjaxModalPromptPopupTest() {
+	public AjaxDomModalPromptDialogTest() {
 
 		this.testDiv = null;
 	}
@@ -303,7 +303,7 @@ public class AjaxModalPromptPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 			this.outputElement = new DomDiv();
 			this.button = new DomButton()//
 				.setLabel("spawn prompt")
-				.setClickCallback(new DomModalPromptPopup(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open);
+				.setClickCallback(new DomModalPromptDialog(outputElement::appendText, MESSAGE, promptInputDefaultValue)::open);
 			appendChild(button);
 			appendChild(outputElement);
 		}
