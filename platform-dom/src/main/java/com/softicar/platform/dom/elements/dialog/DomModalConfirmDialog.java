@@ -13,14 +13,14 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class DomModalConfirmPopup extends DomModalDialogPopup {
+public class DomModalConfirmDialog extends DomModalDialog {
 
 	private final INullaryVoidFunction confirmHandler;
 	private final INullaryVoidFunction cancelHandler;
 	private boolean confirmed;
 
 	/**
-	 * Constructs a new {@link DomModalConfirmPopup} that displays the given
+	 * Constructs a new {@link DomModalConfirmDialog} that displays the given
 	 * message, and "OK" / "Cancel" buttons.
 	 *
 	 * @param confirmHandler
@@ -29,13 +29,13 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	 * @param message
 	 *            the message to display (never <i>null</i>)
 	 */
-	public DomModalConfirmPopup(INullaryVoidFunction confirmHandler, IDisplayString message) {
+	public DomModalConfirmDialog(INullaryVoidFunction confirmHandler, IDisplayString message) {
 
 		this(confirmHandler, null, message);
 	}
 
 	/**
-	 * Constructs a new {@link DomModalConfirmPopup} that displays the given
+	 * Constructs a new {@link DomModalConfirmDialog} that displays the given
 	 * message, and "OK" / "Cancel" buttons.
 	 *
 	 * @param confirmHandler
@@ -47,7 +47,7 @@ public class DomModalConfirmPopup extends DomModalDialogPopup {
 	 * @param message
 	 *            the message to display (never <i>null</i>)
 	 */
-	public DomModalConfirmPopup(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
+	public DomModalConfirmDialog(INullaryVoidFunction confirmHandler, INullaryVoidFunction cancelHandler, IDisplayString message) {
 
 		this.confirmHandler = Objects.requireNonNull(confirmHandler);
 		this.cancelHandler = cancelHandler;

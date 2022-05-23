@@ -3,11 +3,11 @@ package com.softicar.platform.dom.elements.popup.compositor;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsImages;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalDialog;
 
-class DomPopupCompositorChildClosingDialogPopup extends DomModalDialogPopup {
+class DomPopupCompositorChildClosingDialog extends DomModalDialog {
 
-	public DomPopupCompositorChildClosingDialogPopup() {
+	public DomPopupCompositorChildClosingDialog() {
 
 		appendContent(DomI18n.ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_AND_ALL_SUB_WINDOWS_QUESTION);
 	}

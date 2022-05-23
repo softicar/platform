@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.event.DomEventType;
 import org.junit.Test;
 
-public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
+public class DomModalAlertDialogTest extends AbstractDomModalDialogTest {
 
 	// ---------------- basics ---------------- //
 
@@ -65,7 +65,7 @@ public class DomModalAlertPopupTest extends AbstractDomModalDialogPopupTest {
 
 			appendChild(new DomButton())//
 				.setLabel("open alert")
-				.setClickCallback(new DomModalAlertPopup(MESSAGE)::open)
+				.setClickCallback(new DomModalAlertDialog(MESSAGE)::open)
 				.addMarker(OPEN_BUTTON);
 		}
 	}

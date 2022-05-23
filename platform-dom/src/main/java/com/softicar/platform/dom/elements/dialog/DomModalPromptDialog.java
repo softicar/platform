@@ -17,13 +17,13 @@ import java.util.function.Consumer;
  *
  * @author Alexander Schmidt
  */
-public class DomModalPromptPopup extends DomModalDialogPopup {
+public class DomModalPromptDialog extends DomModalDialog {
 
 	private final InputElement inputElement;
 	private final Consumer<String> promptHandler;
 
 	/**
-	 * Constructs a new {@link DomModalConfirmPopup} that displays the given
+	 * Constructs a new {@link DomModalConfirmDialog} that displays the given
 	 * message, an input element, and "OK" / "Cancel" buttons.
 	 *
 	 * @param promptHandler
@@ -34,7 +34,7 @@ public class DomModalPromptPopup extends DomModalDialogPopup {
 	 * @param defaultValue
 	 *            the initial value of the input element (may be <i>null</i>)
 	 */
-	public DomModalPromptPopup(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
+	public DomModalPromptDialog(Consumer<String> promptHandler, IDisplayString message, String defaultValue) {
 
 		this.promptHandler = Objects.requireNonNull(promptHandler);
 		this.inputElement = new InputElement(defaultValue);

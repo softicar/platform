@@ -4,22 +4,22 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogPopup;
+import com.softicar.platform.dom.elements.dialog.DomModalDialog;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DomModalDialogPopup}, based upon Selenium.
+ * Unit test for {@link DomModalDialog}, based upon Selenium.
  *
  * @author Alexander Schmidt
  */
-public class AjaxModalDialogPopupTest extends AbstractAjaxSeleniumLowLevelTest {
+public class AjaxDomModalDialogTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final int BACKDROP_DISMISS_CLICK_OFFSET = 20;
 	private final TestDiv testDiv;
 
-	public AjaxModalDialogPopupTest() {
+	public AjaxDomModalDialogTest() {
 
 		this.testDiv = openTestNode(TestDiv::new);
 	}
@@ -109,7 +109,7 @@ public class AjaxModalDialogPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			this.button = appendChild(new DomButton())//
 				.setLabel("spawn dialog")
-				.setClickCallback(new DomModalDialogPopup()::open);
+				.setClickCallback(new DomModalDialog()::open);
 		}
 
 		public DomButton getButton() {
