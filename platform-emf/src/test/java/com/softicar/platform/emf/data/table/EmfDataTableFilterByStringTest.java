@@ -133,11 +133,46 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(rows.size());
 	}
 
+	@Test
+	public void testFilteringWithEmptyFilter() {
+
+		applyFilterWithoutText(EmfDataTableStringFilterType.EMPTY);
+
+		assertNumberOfTableBodyRows(2);
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void testFilteringWithEmptyFilterAndInputText() {
+
+		applyFilter(EmfDataTableStringFilterType.EMPTY, "invalid");
+	}
+
+	@Test
+	public void testFilteringWithNotEmptyFilter() {
+
+		applyFilterWithoutText(EmfDataTableStringFilterType.NOT_EMPTY);
+
+		assertNumberOfTableBodyRows(5);
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void testFilteringWithNotEmptyFilterAndInputText() {
+
+		applyFilter(EmfDataTableStringFilterType.NOT_EMPTY, "invalid");
+	}
+
 	private void applyFilter(EmfDataTableStringFilterType filterType, String filterString) {
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
 		findInput(EmfDataTableDivMarker.FILTER_INPUT_STRING).setInputValue(filterString);
+		confirmFilterPopup();
+	}
+
+	private void applyFilterWithoutText(EmfDataTableStringFilterType filterType) {
+
+		openFilterPopup(column);
+		selectFilterType(filterType);
 		confirmFilterPopup();
 	}
 

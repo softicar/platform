@@ -40,12 +40,27 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 				return new EqualsTextFilter<>(column.getDataColumn(), filterText, resetter);
 			case MATCHES_REGEXP:
 				return new MatchesRegexpFilter<>(column.getDataColumn(), filterText, resetter);
+			case EMPTY:
+				throw new UnsupportedOperationException();
+			case NOT_EMPTY:
+				throw new UnsupportedOperationException();
 			}
-
 			throw new SofticarUnknownEnumConstantException(filterType);
 		} else {
+			if (filterType.equals(EmfDataTableStringFilterType.EMPTY)) {
+				return new EmptyTextFilter<>(column.getDataColumn(), resetter);
+			} else if (filterType.equals(EmfDataTableStringFilterType.NOT_EMPTY)) {
+				return new NotEmptyTextFilter<>(column.getDataColumn(), resetter);
+			}
 			return new EmfDataTableNopFilter<>(resetter);
 		}
+	}
+
+	@Override
+	public void refresh() {
+
+		super.refresh();
+		filterInput.refresh(filterTypeSelect.getSelectedValue());
 	}
 
 	@Override
