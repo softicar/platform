@@ -16,4 +16,14 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 		return new FilterTextNormalizer(getInputTextTrimmed()).getNormalized();
 	}
+
+	public void refresh(EmfDataTableStringFilterType filterType) {
+
+		if (filterType.isEmpty() || filterType.isNotEmpty()) {
+			setEnabled(false);
+			setInputText("");
+		} else {
+			setEnabled(true);
+		}
+	}
 }
