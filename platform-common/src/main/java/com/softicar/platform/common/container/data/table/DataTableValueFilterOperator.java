@@ -32,4 +32,15 @@ public enum DataTableValueFilterOperator {
 
 		return operatorSymbol;
 	}
+
+	public boolean isEmpty() {
+
+		return equals(EMPTY);
+	}
+
+	public boolean isNotEmpty() {
+
+		return equals(NOT_EMPTY);
+	}
+
 }
