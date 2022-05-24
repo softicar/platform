@@ -44,8 +44,10 @@ public class DbQueryValueFilter<V> implements IDbQueryFilter {
 
 		switch (operator) {
 		case EQUAL:
+		case EMPTY:
 			return SqlSymbol.EQUAL;
 		case NOT_EQUAL:
+		case NOT_EMPTY:
 			return SqlSymbol.NOT_EQUAL;
 		case GREATER:
 			return SqlSymbol.GREATER;

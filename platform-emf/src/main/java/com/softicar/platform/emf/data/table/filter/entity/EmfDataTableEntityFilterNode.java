@@ -14,6 +14,8 @@ import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiType
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilterTypeSelect;
 import com.softicar.platform.emf.data.table.filter.nop.EmfDataTableNopFilter;
+import com.softicar.platform.emf.data.table.filter.value.EmfDataTableEmptyValueFilter;
+import com.softicar.platform.emf.data.table.filter.value.EmfDataTableNotEmptyValueFilter;
 import com.softicar.platform.emf.data.table.filter.value.EmfDataTableValueFilter;
 import java.util.Collection;
 import java.util.Comparator;
@@ -29,10 +31,9 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	public EmfDataTableEntityFilterNode(IEmfDataTableColumn<R, T> column) {
 
 		this.column = column;
-		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect();
+		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect(this);
 		this.entityInput = new EntityInput<>(column);
 		this.entityInput.addMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
-
 		refresh();
 	}
 
@@ -48,10 +49,31 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 				return new EmfDataTableValueFilter<>(column, DataTableValueFilterOperator.EQUAL, filterValue.get(), resetter);
 			case IS_NOT:
 				return new EmfDataTableValueFilter<>(column, DataTableValueFilterOperator.NOT_EQUAL, filterValue.get(), resetter);
+			case EMPTY:
+				throw new UnsupportedOperationException();
+			case NOT_EMPTY:
+				throw new UnsupportedOperationException();
 			}
 			throw new SofticarUnknownEnumConstantException(filterType);
 		} else {
+			if (filterType.isEmpty()) {
+				return new EmfDataTableEmptyValueFilter<>(column.getDataColumn(), resetter);
+			} else if (filterType.isNotEmpty()) {
+				return new EmfDataTableNotEmptyValueFilter<>(column.getDataColumn(), resetter);
+			}
 			return new EmfDataTableNopFilter<>(resetter);
+		}
+	}
+
+	@Override
+	public void refresh() {
+
+		super.refresh();
+		if (filterTypeSelect.getSelectedValue().isEmpty() || filterTypeSelect.getSelectedValue().isNotEmpty()) {
+			entityInput.setDisplayNone(true);
+			entityInput.setValue(null);
+		} else {
+			entityInput.setDisplayNone(false);
 		}
 	}
 
