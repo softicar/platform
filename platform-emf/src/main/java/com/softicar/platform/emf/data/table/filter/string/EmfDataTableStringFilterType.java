@@ -8,8 +8,10 @@ public enum EmfDataTableStringFilterType implements IDisplayable {
 
 	CONTAINS_WORDS(EmfDataTableI18n.CONTAINS_WORDS),
 	CONTAINS_TEXT(EmfDataTableI18n.CONTAINS_TEXT),
+	EMPTY(EmfDataTableI18n.EMPTY),
 	EQUALS_TEXT(EmfDataTableI18n.EQUALS_TEXT),
-	MATCHES_REGEXP(EmfDataTableI18n.MATCHES_REGULAR_EXPRESSION);
+	MATCHES_REGEXP(EmfDataTableI18n.MATCHES_REGULAR_EXPRESSION),
+	NOT_EMPTY(EmfDataTableI18n.NOT_EMPTY);
 
 	private final IDisplayString label;
 
@@ -22,5 +24,15 @@ public enum EmfDataTableStringFilterType implements IDisplayable {
 	public IDisplayString toDisplay() {
 
 		return label;
+	}
+
+	public boolean isEmpty() {
+
+		return equals(EMPTY);
+	}
+
+	public boolean isNotEmpty() {
+
+		return equals(NOT_EMPTY);
 	}
 }
