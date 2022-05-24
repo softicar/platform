@@ -83,8 +83,6 @@ public interface EmfCssClasses {
 	ICssClass EMF_MANAGEMENT_ACTIONS_POPOVER = new CssClass("EmfManagementActionsPopover", EmfCssFiles.EMF_MANAGEMENT_STYLE);
 	ICssClass EMF_MANAGEMENT_DIV = new CssClass("EmfManagementDiv", EmfCssFiles.EMF_MANAGEMENT_STYLE);
 
-	ICssClass EMF_MULTILINE_STRING_DISPLAY = new CssClass("EmfMultilineStringDisplay", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
-
 	ICssClass EMF_PREFILTER_ELEMENT = new CssClass("EmfPrefilterElement", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);
 	ICssClass EMF_PREFILTER_ROW_CONTENT = new CssClass("EmfPrefilterRowContent", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);
 	ICssClass EMF_PREFILTER_ADD_FILTER_BAR = new CssClass("EmfPrefilterAddFilterBar", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);

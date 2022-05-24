@@ -445,6 +445,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maximales Passwort-Alter");
 	I18n0 MAXIMUM_PASSWORD_REUSE = new I18n0("Maximum Password Reuse")//
 		.de("Maximale Passwort-Wiederverwendung");
+	I18n0 MESSAGE = new I18n0("Message")//
+		.de("Nachricht");
 	I18n0 MESSAGE_ID = new I18n0("Message ID")//
 		.de("Nachrichten-ID");
 	I18n0 MINUTE = new I18n0("Minute")//
@@ -499,6 +501,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Monat");
 	I18n0 NAVIGATION = new I18n0("Navigation")//
 		.de("Navigation");
+	I18n0 NEEDS_ATTENTION = new I18n0("Needs Attention")//
+		.de("Benötigt Aufmerksamkeit");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NEXT_IN_LINE = new I18n0("Next in Line")//
@@ -714,6 +718,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sitzungs-Informationen");
 	I18n0 SESSIONS = new I18n0("Sessions")//
 		.de("Sitzungen");
+	I18n0 SEVERITY = new I18n0("Severity")//
+		.de("Schweregrad");
 	I18n0 SHA_1 = new I18n0("SHA-1")//
 		.de("SHA-1");
 	I18n0 SHOW_OUTPUT = new I18n0("Show Output")//
@@ -796,6 +802,18 @@ public interface CoreI18n extends EmfI18n {
 		.de("System");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
 		.de("System-Administrator");
+	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
+		.de("Systemereignis");
+	I18n0 SYSTEM_EVENT_LOG = new I18n0("System Event Log")//
+		.de("Systemereignis-Log");
+	I18n0 SYSTEM_EVENT_LOGS = new I18n0("System Event Logs")//
+		.de("Systemereignis-Logs");
+	I18n0 SYSTEM_EVENT_SEVERITIES = new I18n0("System Event Severities")//
+		.de("Systemereignis-Schweregrad");
+	I18n0 SYSTEM_EVENT_SEVERITY = new I18n0("System Event Severity")//
+		.de("Systemereignis-Schweregrad");
+	I18n0 SYSTEM_EVENTS = new I18n0("System Events")//
+		.de("Systemereignisse");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT = new I18n0("System Module Role Assignment")//
 		.de("System-Modul-Rollen-Zuweisung");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT_LOG = new I18n0("System Module Role Assignment Log")//

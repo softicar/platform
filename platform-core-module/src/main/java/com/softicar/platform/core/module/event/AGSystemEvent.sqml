@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.event
+
+IMPORT com.softicar.platform.core.module.event.severity.AGSystemEventSeverity
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGSystemEvent "Core.SystemEvent" {
+	PK Integer id = SERIAL
+	AGTransaction transaction
+	AGSystemEventSeverity severity
+	String message [LENGTHBITS=16]
+	Boolean needsAttention
+	String properties [LENGTHBITS=16]
+}

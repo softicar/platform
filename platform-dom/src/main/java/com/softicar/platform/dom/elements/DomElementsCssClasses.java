@@ -41,6 +41,8 @@ public interface DomElementsCssClasses {
 
 	ICssClass DOM_MODAL_POPUP_BACKDROP = new CssClass("DomModalPopupBackdrop", DomElementsCssFiles.DOM_MODAL_POPUP_STYLE);
 
+	ICssClass DOM_MULTILINE_STRING_DISPLAY = new CssClass("DomMultilineStringDisplay", DomElementsCssFiles.DOM_MULTI_LINE_STRING_DISPLAY_STYLE);
+
 	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION = new CssClass("DomPageableTableNavigation", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
 	ICssClass DOM_PAGEABLE_TABLE_NAVIGATION_PAGE_LIST = new CssClass("DomPageableTableNavigationPageList", DomElementsCssFiles.DOM_PAGEABLE_TABLE_STYLE);
 

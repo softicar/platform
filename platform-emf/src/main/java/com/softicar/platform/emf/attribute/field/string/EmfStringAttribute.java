@@ -3,6 +3,7 @@ package com.softicar.platform.emf.attribute.field.string;
 import com.softicar.platform.common.string.trim.MultiLineStringTrimmer;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -150,7 +151,7 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 		if (passwordMode) {
 			return new EmfPasswordDisplay(value);
 		} else if (multiline) {
-			return new EmfMultilineStringDisplay(value);
+			return new DomMultilineStringDisplay(value);
 		} else {
 			return new EmfStringDisplay(value);
 		}
