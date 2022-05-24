@@ -47,9 +47,9 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 			}
 			throw new SofticarUnknownEnumConstantException(filterType);
 		} else {
-			if (filterType.equals(EmfDataTableStringFilterType.EMPTY)) {
+			if (filterType.isEmpty()) {
 				return new EmptyTextFilter<>(column.getDataColumn(), resetter);
-			} else if (filterType.equals(EmfDataTableStringFilterType.NOT_EMPTY)) {
+			} else if (filterType.isNotEmpty()) {
 				return new NotEmptyTextFilter<>(column.getDataColumn(), resetter);
 			}
 			return new EmfDataTableNopFilter<>(resetter);

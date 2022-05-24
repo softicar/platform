@@ -19,7 +19,7 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 	public void refresh(EmfDataTableStringFilterType filterType) {
 
-		if (filterType.equals(EmfDataTableStringFilterType.EMPTY) || filterType.equals(EmfDataTableStringFilterType.NOT_EMPTY)) {
+		if (filterType.isEmpty() || filterType.isNotEmpty()) {
 			setEnabled(false);
 			setInputText("");
 		} else {

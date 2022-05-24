@@ -25,4 +25,14 @@ public enum EmfDataTableStringFilterType implements IDisplayable {
 
 		return label;
 	}
+
+	public boolean isEmpty() {
+
+		return equals(EMPTY);
+	}
+
+	public boolean isNotEmpty() {
+
+		return equals(NOT_EMPTY);
+	}
 }
