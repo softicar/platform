@@ -34,6 +34,6 @@ public class EmptyTextFilter<R> implements IEmfDataTableFilter<R> {
 	@Override
 	public IDisplayString getDisplayString() {
 
-		return EmfDataTableI18n.EMPTY;
+		return EmfDataTableI18n.IS_EMPTY;
 	}
 }

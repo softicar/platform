@@ -76,7 +76,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 	@Test
 	public void testFilteringWithEmptyFilter() {
 
-		applyFilterWithoutValue(EmfDataTableEntityFilterType.EMPTY);
+		applyFilterWithoutValue(EmfDataTableEntityFilterType.IS_EMPTY);
 
 		assertNumberOfTableBodyRows(1);
 	}
@@ -84,13 +84,13 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 	@Test(expected = UnsupportedOperationException.class)
 	public void testFilteringWithEmptyFilterAndValue() {
 
-		applyFilter(EmfDataTableEntityFilterType.EMPTY, entity2);
+		applyFilter(EmfDataTableEntityFilterType.IS_EMPTY, entity2);
 	}
 
 	@Test
 	public void testFilteringWithNotEmptyFilter() {
 
-		applyFilterWithoutValue(EmfDataTableEntityFilterType.NOT_EMPTY);
+		applyFilterWithoutValue(EmfDataTableEntityFilterType.IS_NOT_EMPTY);
 
 		assertNumberOfTableBodyRows(4);
 	}
@@ -98,7 +98,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 	@Test(expected = UnsupportedOperationException.class)
 	public void testFilteringWithNotEmptyFilterAndValue() {
 
-		applyFilter(EmfDataTableEntityFilterType.NOT_EMPTY, entity2);
+		applyFilter(EmfDataTableEntityFilterType.IS_NOT_EMPTY, entity2);
 	}
 
 	private void applyFilter(EmfDataTableEntityFilterType filterType, TestEntity item) {

@@ -49,9 +49,9 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 				return new EmfDataTableValueFilter<>(column, DataTableValueFilterOperator.EQUAL, filterValue.get(), resetter);
 			case IS_NOT:
 				return new EmfDataTableValueFilter<>(column, DataTableValueFilterOperator.NOT_EQUAL, filterValue.get(), resetter);
-			case EMPTY:
+			case IS_EMPTY:
 				throw new UnsupportedOperationException();
-			case NOT_EMPTY:
+			case IS_NOT_EMPTY:
 				throw new UnsupportedOperationException();
 			}
 			throw new SofticarUnknownEnumConstantException(filterType);

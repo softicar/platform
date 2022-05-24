@@ -40,9 +40,9 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 				return new EqualsTextFilter<>(column.getDataColumn(), filterText, resetter);
 			case MATCHES_REGEXP:
 				return new MatchesRegexpFilter<>(column.getDataColumn(), filterText, resetter);
-			case EMPTY:
+			case IS_EMPTY:
 				throw new UnsupportedOperationException();
-			case NOT_EMPTY:
+			case IS_NOT_EMPTY:
 				throw new UnsupportedOperationException();
 			}
 			throw new SofticarUnknownEnumConstantException(filterType);
