@@ -11,6 +11,7 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
 
 public class EmfTransientAttribute<R extends IEmfTableRow<R, ?>, V> extends AbstractEmfAttribute<R, V> {
@@ -20,8 +21,8 @@ public class EmfTransientAttribute<R extends IEmfTableRow<R, ?>, V> extends Abst
 
 	public EmfTransientAttribute(IEmfTable<R, ?, ?> table, ITransientField<R, V> field) {
 
-		this.table = table;
-		this.field = field;
+		this.table = Objects.requireNonNull(table);
+		this.field = Objects.requireNonNull(field);
 
 		setDisplayFactory(EmfTransientAttributeDisplay::new);
 	}
