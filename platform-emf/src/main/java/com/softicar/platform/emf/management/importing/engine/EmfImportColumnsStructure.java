@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.engine;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
@@ -103,6 +104,8 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 
 		for (EmfImportColumn<R, ?> column: getCsvFileColumns()) {
 			if (column.isGeneratedPrimaryKeyColumn()) {
+				// TODO
+				Log.finfo(column.getTitle());
 				return true;
 			}
 		}
