@@ -14,7 +14,7 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 
 	private final EmfImportColumn<R, ?> foreignKeyColumn;
 	private final IEmfAttribute<R, ?> foreignKeyColumnAttribute;
-	private boolean collectedBusinessKeysValidity;
+	private Boolean businessKeysValidity;
 
 	public EmfImportBusinessKeyColumnsCollector(EmfImportColumn<R, ?> foreignKeyColumn, IEmfAttribute<R, ?> foreignKeyColumnAttribute) {
 
@@ -22,11 +22,11 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 		this.foreignKeyColumn = foreignKeyColumn;
 	}
 
-	public boolean collect() {
+	public EmfImportBusinessKeyColumnsCollector<R, P, S> collect() {
 
 		IEmfTable<R, P, S> targetTable = fetchTargetTable();
 
-		collectedBusinessKeysValidity = withoutScopeFieldOrBusinessKeyComprisesScopeField(targetTable);
+		businessKeysValidity = withoutScopeFieldOrBusinessKeyComprisesScopeField(targetTable);
 
 		for (IDbField<R, ?> targetTableBusinessKeyField: targetTable.getBusinessKey().getFields()) {
 
@@ -36,13 +36,15 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 			IEmfAttribute<R, ?> attribute = targetTable.getAttribute(targetTableBusinessKeyField);
 
 			if (attribute instanceof EmfForeignRowAttribute) {
-				boolean businessKeyValidityResult = new EmfImportBusinessKeyColumnsCollector<>(column, attribute).collect();
-				if (!businessKeyValidityResult) {
-					collectedBusinessKeysValidity = false;
+				boolean superTablesBusinessKeysValidity = new EmfImportBusinessKeyColumnsCollector<>(column, attribute)//
+					.collect()
+					.getBusinessKeysValidity();
+				if (!superTablesBusinessKeysValidity) {
+					businessKeysValidity = false;
 				}
 			}
 		}
-		return collectedBusinessKeysValidity;
+		return this;
 	}
 
 	private IEmfTable<R, P, S> fetchTargetTable() {
@@ -83,5 +85,13 @@ class EmfImportBusinessKeyColumnsCollector<R extends IEmfTableRow<R, P>, P, S> {
 				table.getScopeField().get());
 
 		return false;
+	}
+
+	public boolean getBusinessKeysValidity() {
+
+		if (businessKeysValidity == null) {
+			collect();
+		}
+		return businessKeysValidity;
 	}
 }

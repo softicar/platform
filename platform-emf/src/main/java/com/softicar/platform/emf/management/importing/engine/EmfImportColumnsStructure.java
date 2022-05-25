@@ -15,7 +15,7 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	private final List<IDbField<R, ?>> fieldsToImport;
 	private List<EmfImportColumn<R, ?>> csvFileColumns;
 	private List<EmfImportColumn<R, P>> tableColumns;
-	private boolean collectedBusinessKeysValidity = true;
+	private boolean businessKeysValidity = true;
 
 	public EmfImportColumnsStructure(IEmfTable<R, P, S> table, List<IDbField<R, ?>> fieldsToImport) {
 
@@ -47,9 +47,11 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 
 			IEmfAttribute<R, ?> fieldAttribute = table.getAttribute(field);
 			if (fieldAttribute instanceof EmfForeignRowAttribute) {
-				boolean isBusinessKeyValid = new EmfImportBusinessKeyColumnsCollector<>(tableColumn, fieldAttribute).collect();
-				if (!isBusinessKeyValid) {
-					collectedBusinessKeysValidity = false;
+				boolean superTablesBusinessKeysValidity = new EmfImportBusinessKeyColumnsCollector<>(tableColumn, fieldAttribute)//
+					.collect()
+					.getBusinessKeysValidity();
+				if (!superTablesBusinessKeysValidity) {
+					businessKeysValidity = false;
 				}
 			}
 		}
@@ -92,20 +94,19 @@ public class EmfImportColumnsStructure<R extends IEmfTableRow<R, P>, P, S> {
 	}
 
 	// TODO JUnit test is missing
-	public boolean getCollectedBusinessKeysValidity() {
+	public boolean getBusinessKeysValidity() {
 
 		if (csvFileColumns == null) {
 			collectAllColumns();
 		}
-		return collectedBusinessKeysValidity;
+		return businessKeysValidity;
 	}
 
-	public boolean csvFileColumnsContainAutoIncrementColumn() {
+	public boolean csvFileColumnsContainGeneratedPrimaryKeyColumn() {
 
 		for (EmfImportColumn<R, ?> column: getCsvFileColumns()) {
 			if (column.isGeneratedPrimaryKeyColumn()) {
-				// TODO
-				Log.finfo(column.getTitle());
+				Log.finfo("Csv file column '%s' is a generated primary key column.", column.getTitle());
 				return true;
 			}
 		}

@@ -2,6 +2,7 @@ package com.softicar.platform.emf.management;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
@@ -207,9 +208,11 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 		private boolean withImportButton() {
 
 			var columnsStructure = new EmfImportColumnsStructure<>(entityTable, new EmfImportFieldsToImportCollector<>(entityTable).collect());
-			if (!columnsStructure.getCollectedBusinessKeysValidity()) {
+			if (!columnsStructure.getBusinessKeysValidity()) {
+				Log.finfo("=> No import button for table %s because of non valid business keys.", entityTable);
 				return false;
-			} else if (columnsStructure.csvFileColumnsContainAutoIncrementColumn()) {
+			} else if (columnsStructure.csvFileColumnsContainGeneratedPrimaryKeyColumn()) {
+				Log.finfo("=> No import button for table %s because a .csv file column would be a generated primary key column.", entityTable);
 				return false;
 			} else {
 				return true;

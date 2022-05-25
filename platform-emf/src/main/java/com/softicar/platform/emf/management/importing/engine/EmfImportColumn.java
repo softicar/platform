@@ -3,6 +3,7 @@ package com.softicar.platform.emf.management.importing.engine;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -38,7 +39,8 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 
 	public boolean isGeneratedPrimaryKeyColumn() {
 
-		return field.getTable().getPrimaryKey().isGenerated() && field.getTable().getPrimaryKey().getFields().contains(field);
+		IDbTableKey<R, ?> primaryKey = field.getTable().getPrimaryKey();
+		return primaryKey.isGenerated() && primaryKey.getFields().contains(field);
 	}
 
 	public IDbField<R, ?> getField() {
@@ -57,7 +59,7 @@ public class EmfImportColumn<R extends IEmfTableRow<R, P>, P> {
 			return field.getTitle();
 		} else {
 			IEmfTable<?, ?, ?> emfTable = (IEmfTable<?, ?, ?>) field.getTable();
-			return childColumn.getTitle().concat(":").concat("[" + emfTable.getTitle() + "] " + field.getTitle());
+			return childColumn.getTitle().concat(":").concat("[" + emfTable.getPluralTitle() + "] " + field.getTitle());
 		}
 	}
 
