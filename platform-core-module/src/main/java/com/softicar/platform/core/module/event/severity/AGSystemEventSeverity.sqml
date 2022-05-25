@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.core.module.event.severity
 
 ENUM TABLE AGSystemEventSeverity 'Core.SystemEventSeverity' {
 	PK Integer id = SERIAL
-	String name
+	String name [MAXLENGTH=255]
 	Boolean needsAttention
 	
 	ROW (1, 'ERROR', TRUE)

@@ -27,7 +27,7 @@ public class AGSystemEventSeverityGenerated extends AbstractDbEnumTableRow<AGSys
 	}
 
 	public static final IDbIdField<AGSystemEventSeverity> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbStringField<AGSystemEventSeverity> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME);
+	public static final IDbStringField<AGSystemEventSeverity> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setMaximumLength(255);
 	public static final IDbBooleanField<AGSystemEventSeverity> NEEDS_ATTENTION = BUILDER.addBooleanField("needsAttention", o->o.m_needsAttention, (o,v)->o.m_needsAttention=v).setTitle(CoreI18n.NEEDS_ATTENTION);
 	public static final DbEnumTable<AGSystemEventSeverity, AGSystemEventSeverityEnum> TABLE = new DbEnumTable<>(BUILDER, AGSystemEventSeverityEnum.values());
 	// @formatter:on
