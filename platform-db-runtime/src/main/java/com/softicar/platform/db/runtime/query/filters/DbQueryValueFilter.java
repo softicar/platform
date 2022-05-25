@@ -7,6 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.query.IDbQueryColumn;
 import com.softicar.platform.db.runtime.select.IDbSqlBuilder;
 import com.softicar.platform.db.sql.token.ISqlToken;
+import com.softicar.platform.db.sql.token.SqlKeyword;
 import com.softicar.platform.db.sql.token.SqlSymbol;
 import java.util.List;
 
@@ -36,8 +37,16 @@ public class DbQueryValueFilter<V> implements IDbQueryFilter {
 		} else {
 			builder.addIdentifier(column.getName());
 		}
-		builder.addToken(getOperatorToken());
-		builder.addParameter(value);
+		if (operator.isEmpty() || operator.isNotEmpty()) {
+			builder.addToken(SqlKeyword.IS);
+			if (operator.isNotEmpty()) {
+				builder.addToken(SqlKeyword.NOT);
+			}
+			builder.addToken(SqlKeyword.NULL);
+		} else {
+			builder.addToken(getOperatorToken());
+			builder.addParameter(value);
+		}
 	}
 
 	private ISqlToken getOperatorToken() {
@@ -55,6 +64,9 @@ public class DbQueryValueFilter<V> implements IDbQueryFilter {
 			return SqlSymbol.LESS;
 		case LESS_EQUAL:
 			return SqlSymbol.LESS_EQUAL;
+		case EMPTY:
+		case NOT_EMPTY:
+			throw new UnsupportedOperationException();
 		}
 		throw new SofticarUnknownEnumConstantException(operator);
 	}
