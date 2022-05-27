@@ -40,7 +40,14 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	public void customizeAttributeProperties(IEmfAttributeList<AGSystemEvent> attributes) {
 
 		attributes//
+			.editAttribute(AGSystemEvent.SEVERITY)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGSystemEvent.MESSAGE)
+			.setImmutable(true);
+		attributes//
 			.editAttribute(AGSystemEvent.PROPERTIES)
+			.setImmutable(true)
 			.setDisplayFactory(SystemEventPropertiesDisplay::new);
 	}
 
