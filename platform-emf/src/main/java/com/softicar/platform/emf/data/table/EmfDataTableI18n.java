@@ -34,8 +34,6 @@ public interface EmfDataTableI18n {
 		.de("enthält Text");
 	I18n0 CONTAINS_WORDS = new I18n0("contains words")//
 		.de("enthält Wörter");
-	I18n0 EMPTY = new I18n0("empty")//
-		.de("leer");
 	I18n0 EQUALS_TEXT = new I18n0("equals text")//
 		.de("entspricht Text");
 	I18n0 FILTER = new I18n0("Filter")//
@@ -48,8 +46,12 @@ public interface EmfDataTableI18n {
 		.de("Umkehren");
 	I18n0 IS = new I18n0("is")//
 		.de("ist");
+	I18n0 IS_EMPTY = new I18n0("is empty")//
+		.de("ist leer");
 	I18n0 IS_NOT = new I18n0("is not")//
 		.de("ist nicht");
+	I18n0 IS_NOT_EMPTY = new I18n0("is not empty")//
+		.de("ist nicht leer");
 	I18n0 MATCHES_REGULAR_EXPRESSION = new I18n0("matches regular expression")//
 		.de("entspricht regulärem Ausdruck");
 	I18n0 MOVE_DOWN = new I18n0("move down")//
@@ -66,8 +68,6 @@ public interface EmfDataTableI18n {
 		.de("Nichts");
 	I18n0 NONE_ALL_PAGES = new I18n0("None (All Pages)")//
 		.de("Nichts (alle Seiten)");
-	I18n0 NOT_EMPTY = new I18n0("not empty")//
-		.de("nicht leer");
 	I18n0 ORDERING_PRIORITY = new I18n0("Ordering / Priority")//
 		.de("Sortierung / Priorität");
 	I18n0 POSITION = new I18n0("Position")//

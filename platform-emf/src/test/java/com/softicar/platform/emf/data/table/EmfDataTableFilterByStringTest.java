@@ -136,7 +136,7 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 	@Test
 	public void testFilteringWithEmptyFilter() {
 
-		applyFilterWithoutText(EmfDataTableStringFilterType.EMPTY);
+		applyFilterWithoutText(EmfDataTableStringFilterType.IS_EMPTY);
 
 		assertNumberOfTableBodyRows(2);
 	}
@@ -144,13 +144,13 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 	@Test(expected = UnsupportedOperationException.class)
 	public void testFilteringWithEmptyFilterAndInputText() {
 
-		applyFilter(EmfDataTableStringFilterType.EMPTY, "invalid");
+		applyFilter(EmfDataTableStringFilterType.IS_EMPTY, "invalid");
 	}
 
 	@Test
 	public void testFilteringWithNotEmptyFilter() {
 
-		applyFilterWithoutText(EmfDataTableStringFilterType.NOT_EMPTY);
+		applyFilterWithoutText(EmfDataTableStringFilterType.IS_NOT_EMPTY);
 
 		assertNumberOfTableBodyRows(5);
 	}
@@ -158,7 +158,7 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 	@Test(expected = UnsupportedOperationException.class)
 	public void testFilteringWithNotEmptyFilterAndInputText() {
 
-		applyFilter(EmfDataTableStringFilterType.NOT_EMPTY, "invalid");
+		applyFilter(EmfDataTableStringFilterType.IS_NOT_EMPTY, "invalid");
 	}
 
 	private void applyFilter(EmfDataTableStringFilterType filterType, String filterString) {

@@ -7,7 +7,9 @@ import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 public enum EmfDataTableEntityFilterType implements IDisplayable {
 
 	IS(EmfDataTableI18n.IS),
-	IS_NOT(EmfDataTableI18n.IS_NOT);
+	IS_EMPTY(EmfDataTableI18n.IS_EMPTY),
+	IS_NOT(EmfDataTableI18n.IS_NOT),
+	IS_NOT_EMPTY(EmfDataTableI18n.IS_NOT_EMPTY);
 
 	private final IDisplayString label;
 
@@ -20,5 +22,15 @@ public enum EmfDataTableEntityFilterType implements IDisplayable {
 	public IDisplayString toDisplay() {
 
 		return label;
+	}
+
+	public boolean isEmpty() {
+
+		return equals(IS_EMPTY);
+	}
+
+	public boolean isNotEmpty() {
+
+		return equals(IS_NOT_EMPTY);
 	}
 }

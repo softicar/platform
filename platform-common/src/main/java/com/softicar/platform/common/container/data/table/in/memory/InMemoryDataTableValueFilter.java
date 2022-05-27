@@ -43,6 +43,10 @@ class InMemoryDataTableValueFilter<R, V> implements IInMemoryDataTableFilter<R> 
 			return compareValues(row) < 0;
 		case LESS_EQUAL:
 			return compareValues(row) <= 0;
+		case EMPTY:
+			return column.getValue(row) == null;
+		case NOT_EMPTY:
+			return column.getValue(row) != null;
 		default:
 			throw new SofticarUnknownEnumConstantException(operator);
 		}
