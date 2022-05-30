@@ -60,6 +60,7 @@ public class StoredFileInput extends AbstractEmfInputDiv<AGStoredFile> {
 		return uploadDiv.isDisabled();
 	}
 
+	// TODO simplify code with PLAT-887
 	private void handleAdd(Collection<AGStoredFile> existingFiles, Collection<AGStoredFile> addedFiles) {
 
 		if (addedFiles.size() + existingFiles.size() > 1) {
