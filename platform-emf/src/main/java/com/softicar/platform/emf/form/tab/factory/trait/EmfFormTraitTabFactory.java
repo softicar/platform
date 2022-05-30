@@ -24,8 +24,8 @@ public class EmfFormTraitTabFactory<T extends IEmfTrait<T, R>, R extends IEmfTab
 		if (tableRow.impermanent()) {
 			return false;
 		} else {
-			T trait = traitTable.get(tableRow);
-			if (trait != null) {
+			T trait = traitTable.load(tableRow);
+			if (trait != null && !trait.impermanent()) {
 				return traitTable.getAuthorizer().getViewRole().test(trait, CurrentBasicUser.get());
 			} else {
 				return traitTable.isCreationPossible(tableRow) && traitTable.isCreationAllowed(tableRow);
