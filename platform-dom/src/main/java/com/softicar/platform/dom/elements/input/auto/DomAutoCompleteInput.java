@@ -128,10 +128,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		return getConfiguration().isDisabled();
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();
@@ -180,10 +177,7 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		return this;
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
+	@Override
 	public final DomAutoCompleteInput<T> setEnabled(boolean enabled) {
 
 		return setDisabled(!enabled);

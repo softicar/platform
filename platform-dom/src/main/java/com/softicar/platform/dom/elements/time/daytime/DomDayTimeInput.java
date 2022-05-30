@@ -16,11 +16,13 @@ public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
 
 	private final DomDayInput dayInput;
 	private final DomTimeInput timeInput;
+	private boolean disabled;
 
 	public DomDayTimeInput() {
 
 		this.dayInput = appendChild(new DomDayInput());
 		this.timeInput = appendChild(new DomTimeInput());
+		this.disabled = false;
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_TIME_INPUT);
 	}
@@ -28,30 +30,25 @@ public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
 	@Override
 	public DomDayTimeInput setDisabled(boolean disabled) {
 
-		dayInput.setDisabled(disabled);
-		timeInput.setDisabled(disabled);
+		this.dayInput.setDisabled(disabled);
+		this.timeInput.setDisabled(disabled);
+		this.disabled = disabled;
 		return this;
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
+	}
+
+	@Override
 	public final DomDayTimeInput setEnabled(boolean enabled) {
 
 		return setDisabled(!enabled);
 	}
 
 	@Override
-	public boolean isDisabled() {
-
-		return dayInput.isDisabled() && timeInput.isDisabled();
-	}
-
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
 	public final boolean isEnabled() {
 
 		return !isDisabled();

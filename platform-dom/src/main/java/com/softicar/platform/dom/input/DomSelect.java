@@ -36,25 +36,19 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 		return DomNodes.setDisabled(this, disabled);
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
-	public final DomSelect<O> setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
 	@Override
 	public boolean isDisabled() {
 
 		return DomNodes.isDisabled(this);
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
+	public final DomSelect<O> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();

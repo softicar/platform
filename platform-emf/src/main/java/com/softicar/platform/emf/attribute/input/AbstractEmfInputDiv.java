@@ -11,19 +11,13 @@ public abstract class AbstractEmfInputDiv<T> extends DomDiv implements IEmfInput
 		addCssClass(EmfCssClasses.EMF_INPUT_DIV);
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
+	@Override
 	public final IDomInput setEnabled(boolean enabled) {
 
 		return setDisabled(!enabled);
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();

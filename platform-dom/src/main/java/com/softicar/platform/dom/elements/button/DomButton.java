@@ -18,8 +18,8 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
-import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.IDomFocusable;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Collections;
 import java.util.Objects;
@@ -268,25 +268,19 @@ public class DomButton extends DomParentElement
 		return this;
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
-	public final DomButton setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
 	@Override
 	public boolean isDisabled() {
 
 		return disabled;
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
+	public final DomButton setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();

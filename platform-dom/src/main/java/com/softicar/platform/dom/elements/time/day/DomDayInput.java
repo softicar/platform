@@ -65,25 +65,19 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		return this;
 	}
 
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
-	public final DomDayInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
 	@Override
 	public boolean isDisabled() {
 
 		return disabled;
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
+	public final DomDayInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();
