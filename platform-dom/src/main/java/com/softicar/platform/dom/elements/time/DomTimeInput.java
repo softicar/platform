@@ -18,6 +18,7 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 	private final DomIntegerInput hourInput;
 	private final DomIntegerInput minuteInput;
 	private final DomIntegerInput secondInput;
+	private boolean disabled;
 
 	public DomTimeInput() {
 
@@ -46,6 +47,8 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 		secondInput.addMarker(DomTestMarker.SECONDS_INPUT);
 		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
 
+		disabled = false;
+
 		if (showLabels) {
 			DomDataTable table = new DomDataTable();
 			table
@@ -68,9 +71,10 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 	@Override
 	public DomTimeInput setDisabled(boolean disabled) {
 
-		hourInput.setDisabled(disabled);
-		minuteInput.setDisabled(disabled);
-		secondInput.setDisabled(disabled);
+		this.hourInput.setDisabled(disabled);
+		this.minuteInput.setDisabled(disabled);
+		this.secondInput.setDisabled(disabled);
+		this.disabled = disabled;
 		return this;
 	}
 
@@ -86,7 +90,7 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 	@Override
 	public boolean isDisabled() {
 
-		return hourInput.isDisabled() && minuteInput.isDisabled() && secondInput.isDisabled();
+		return disabled;
 	}
 
 	/**
