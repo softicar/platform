@@ -101,7 +101,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 		assertEquals(//
 			"new entry button %s be available".formatted(present? "*should*" : "should *not*"),
 			present,
-			!findNewEntryButton().isDisabled());
+			findNewEntryButton().isEnabled());
 		return this;
 	}
 
