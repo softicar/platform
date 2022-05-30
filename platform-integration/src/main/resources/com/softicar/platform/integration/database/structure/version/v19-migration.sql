@@ -20,7 +20,7 @@ CREATE TABLE `Core`.`MaintenanceWindow` (
 	`state` INT NOT NULL,
 	`comment` TINYTEXT DEFAULT '',
 	PRIMARY KEY (`id`),
-	CONSTRAINT `state` FOREIGN KEY (`state`) REFERENCES `Core`.`MaintenanceState` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+	CONSTRAINT `Core_MaintenanceWindow_state` FOREIGN KEY (`state`) REFERENCES `Core`.`MaintenanceState` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
 CREATE TABLE `Core`.`MaintenanceWindowLog` (
