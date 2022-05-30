@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.emf.EmfCssClasses;
 
 public abstract class AbstractEmfInputDiv<T> extends DomDiv implements IEmfInput<T> {
@@ -15,7 +15,7 @@ public abstract class AbstractEmfInputDiv<T> extends DomDiv implements IEmfInput
 	 * @deprecated use {@link #setDisabled(boolean)} instead
 	 */
 	@Deprecated
-	public final IDomDisableable setEnabled(boolean enabled) {
+	public final IDomInput setEnabled(boolean enabled) {
 
 		return setDisabled(!enabled);
 	}

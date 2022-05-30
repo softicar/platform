@@ -46,4 +46,16 @@ public class EmfDummyInput<V> extends DomDiv implements IEmfInput<V> {
 
 		return disabled;
 	}
+
+	@Override
+	public final EmfDummyInput<V> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
 }

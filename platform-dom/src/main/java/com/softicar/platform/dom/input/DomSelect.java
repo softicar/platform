@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author Oliver Richers
  */
-public class DomSelect<O extends DomOption> extends DomParentElement implements IDomDisableable, IDomFocusable {
+public class DomSelect<O extends DomOption> extends DomParentElement implements IDomInput, IDomFocusable {
 
 	private final Map<Integer, O> selectedOptions = MapFactory.createTreeMap();
 

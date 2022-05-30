@@ -10,7 +10,7 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -22,7 +22,7 @@ import java.util.Objects;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomDisableable, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
+public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomInput, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
 	private boolean disabled;
 	private boolean checked;

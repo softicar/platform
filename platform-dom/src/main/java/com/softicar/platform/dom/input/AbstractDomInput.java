@@ -9,27 +9,18 @@ import com.softicar.platform.dom.node.DomNodes;
  *
  * @author Oliver Richers
  */
-public abstract class DomInput extends DomElement implements IDomDisableable, IDomFocusable {
+public abstract class AbstractDomInput extends DomElement implements IDomInput, IDomFocusable {
 
 	@Override
-	public DomElementTag getTag() {
+	public final DomElementTag getTag() {
 
 		return DomElementTag.INPUT;
 	}
 
 	@Override
-	public DomInput setDisabled(boolean disabled) {
+	public AbstractDomInput setDisabled(boolean disabled) {
 
 		return DomNodes.setDisabled(this, disabled);
-	}
-
-	/**
-	 * @deprecated use {@link #setDisabled(boolean)} instead
-	 */
-	@Deprecated
-	public final DomInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
 	}
 
 	@Override
@@ -38,10 +29,13 @@ public abstract class DomInput extends DomElement implements IDomDisableable, ID
 		return DomNodes.isDisabled(this);
 	}
 
-	/**
-	 * @deprecated use {@link #isDisabled()} instead
-	 */
-	@Deprecated
+	@Override
+	public final AbstractDomInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
 	public final boolean isEnabled() {
 
 		return !isDisabled();

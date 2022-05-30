@@ -5,14 +5,14 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.ajax.utils.TestConstants;
 import com.softicar.platform.dom.engine.IDomEngine;
-import com.softicar.platform.dom.input.DomInput;
+import com.softicar.platform.dom.input.AbstractDomInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.function.BiConsumer;
 import org.junit.Test;
 
 /**
  * This class tests various feature of the {@link AjaxDomEngine} related to
- * {@link DomInput}.
+ * {@link AbstractDomInput}.
  *
  * @author Oliver Richers
  */

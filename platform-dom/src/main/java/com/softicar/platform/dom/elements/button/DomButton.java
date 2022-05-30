@@ -18,7 +18,7 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Collections;
@@ -36,7 +36,7 @@ import java.util.function.Supplier;
  * @author Oliver Richers
  */
 public class DomButton extends DomParentElement
-		implements IDomFocusable, IDomDisableable, IDomLabeledElement<DomButton>, IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
+		implements IDomFocusable, IDomInput, IDomLabeledElement<DomButton>, IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
 	private Icon icon;
 	private Label label;

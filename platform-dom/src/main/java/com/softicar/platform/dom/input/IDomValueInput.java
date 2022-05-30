@@ -8,7 +8,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public interface IDomValueInput<V> extends IDomDisableable {
+public interface IDomValueInput<V> extends IDomInput {
 
 	/**
 	 * Assigns a value to this input element.

@@ -45,4 +45,16 @@ public class EmfReadOnlyBasicEntityInput<V extends IEntity> extends DomDiv imple
 
 		return disabled;
 	}
+
+	@Override
+	public final EmfReadOnlyBasicEntityInput<V> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
 }

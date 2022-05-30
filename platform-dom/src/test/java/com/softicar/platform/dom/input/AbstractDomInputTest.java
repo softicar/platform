@@ -5,15 +5,15 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import org.junit.Test;
 
-public class DomInputTest extends AbstractTest {
+public class AbstractDomInputTest extends AbstractTest {
 
-	private final DomInput input;
+	private final AbstractDomInput input;
 
-	public DomInputTest() {
+	public AbstractDomInputTest() {
 
 		CurrentDomDocument.set(new DomDocument());
 
-		this.input = new DomInput() {
+		this.input = new AbstractDomInput() {
 			// nothing to add
 		};
 	}

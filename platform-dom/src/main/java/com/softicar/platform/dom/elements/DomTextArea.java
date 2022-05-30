@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.DomNodes;
 import com.softicar.platform.dom.parent.DomParentElement;
@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public class DomTextArea extends DomParentElement implements IDomTextualInput, IDomDisableable {
+public class DomTextArea extends DomParentElement implements IDomTextualInput, IDomInput {
 
 	public DomTextArea() {
 

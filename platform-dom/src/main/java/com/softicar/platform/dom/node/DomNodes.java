@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.node;
 
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 
 /**
  * Provides utility functions for {@link IDomNode} instances.
@@ -12,30 +12,30 @@ import com.softicar.platform.dom.input.IDomDisableable;
 public class DomNodes {
 
 	/**
-	 * Enables or disables the given {@link IDomDisableable}.
+	 * Enables or disables the given {@link IDomInput}.
 	 *
 	 * @param element
-	 *            the {@link IDomDisableable} to enable or disable (never
+	 *            the {@link IDomInput} to enable or disable (never
 	 *            <i>null</i>)
 	 * @param disabled
 	 *            <i>true</i> to disable; <i>false</i> to enable
-	 * @return the given {@link IDomDisableable} (never <i>null</i>)
+	 * @return the given {@link IDomInput} (never <i>null</i>)
 	 */
-	public static <E extends IDomDisableable> E setDisabled(E element, boolean disabled) {
+	public static <E extends IDomInput> E setDisabled(E element, boolean disabled) {
 
 		element.setAttribute("disabled", disabled? "" : null);
 		return element;
 	}
 
 	/**
-	 * Tests whether the given {@link IDomDisableable} is disabled.
+	 * Tests whether the given {@link IDomInput} is disabled.
 	 *
 	 * @param element
-	 *            the {@link IDomDisableable} to check (never <i>null</i>)
-	 * @return <i>true</i> if the given {@link IDomDisableable} is disabled;
+	 *            the {@link IDomInput} to check (never <i>null</i>)
+	 * @return <i>true</i> if the given {@link IDomInput} is disabled;
 	 *         <i>false</i> otherwise
 	 */
-	public static boolean isDisabled(IDomDisableable element) {
+	public static boolean isDisabled(IDomInput element) {
 
 		return element.getAttributeValue("disabled").isPresent();
 	}
