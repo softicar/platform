@@ -2,10 +2,10 @@ PACKAGE com.softicar.platform.demo.invoice.module.type
 
 ENUM TABLE AGDemoInvoiceType 'Demo.DemoInvoiceType' {
 	PK Integer id = SERIAL
-	String name [MAXLENGTH=255]	
+	String name [MAXLENGTH=255]
 
 	UK name
-	
+
 	ROW (1, 'Inbound')
 	ROW (2, 'Outbound')
 }
