@@ -7,11 +7,11 @@ import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
 
 class DomJsonStringDisplay extends DomDiv {
 
-	public DomJsonStringDisplay(JsonPrimitive primtive) {
+	public DomJsonStringDisplay(JsonPrimitive primitive) {
 
 		addCssClass(DomCssClasses.DOM_JSON_STRING_DISPLAY);
 
-		var text = primtive.getAsString();
+		var text = primitive.getAsString();
 		if (text.contains("\n")) {
 			appendChild(new DomMultilineStringDisplay(text));
 		} else {

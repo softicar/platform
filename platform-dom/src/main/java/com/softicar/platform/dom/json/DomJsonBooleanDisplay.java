@@ -6,9 +6,9 @@ import com.softicar.platform.dom.elements.DomDiv;
 
 class DomJsonBooleanDisplay extends DomDiv {
 
-	public DomJsonBooleanDisplay(JsonPrimitive primtive) {
+	public DomJsonBooleanDisplay(JsonPrimitive primitive) {
 
 		addCssClass(DomCssClasses.DOM_JSON_BOOLEAN_DISPLAY);
-		appendText(primtive.getAsString());
+		appendText(primitive.getAsString());
 	}
 }

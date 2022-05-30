@@ -6,9 +6,9 @@ import com.softicar.platform.dom.elements.DomDiv;
 
 class DomJsonNumberDisplay extends DomDiv {
 
-	public DomJsonNumberDisplay(JsonPrimitive primtive) {
+	public DomJsonNumberDisplay(JsonPrimitive primitive) {
 
 		addCssClass(DomCssClasses.DOM_JSON_NUMBER_DISPLAY);
-		appendText(primtive.getAsString());
+		appendText(primitive.getAsString());
 	}
 }
