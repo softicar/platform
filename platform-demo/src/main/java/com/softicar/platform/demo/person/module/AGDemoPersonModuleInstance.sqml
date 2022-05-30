@@ -4,11 +4,11 @@ IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 IMPORT com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance
 
 TABLE AGDemoPersonModuleInstance 'Demo.DemoPersonModuleInstance' {
-	
+
 	PK AGModuleInstance moduleInstance = BASE
 	AGDemoCoreModuleInstance demoCoreModuleInstance
 	String title = "" [MAXLENGTH=255]
 
-	UK demoCoreModuleInstance	
+	UK demoCoreModuleInstance
 	UK title
 }

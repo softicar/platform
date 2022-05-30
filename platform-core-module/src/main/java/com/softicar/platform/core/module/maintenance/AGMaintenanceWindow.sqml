@@ -7,5 +7,5 @@ TABLE AGMaintenanceWindow "Core.MaintenanceWindow" {
 	DayTime expectedStart
 	DayTime expectedEnd
 	AGMaintenanceState state
-	String comment = '' [LENGTHBITS=8 NULLABLE] 
+	String comment = '' [LENGTHBITS=8 NULLABLE]
 }

@@ -38,10 +38,11 @@ public interface IEmfSettingMatrixModelEntryInput<V> extends IDomElement {
 	}
 
 	/**
-	 * Specifies if the input element is enabled.
+	 * Specifies if the input element is disabled.
 	 *
-	 * @param enabled
-	 *            true if the input element is enabled; false otherwise
+	 * @param disabled
+	 *            <i>true</i> if the input element is disabled; <i>false</i>
+	 *            otherwise
 	 */
-	void setInputEnabled(boolean enabled);
+	void setInputDisabled(boolean disabled);
 }

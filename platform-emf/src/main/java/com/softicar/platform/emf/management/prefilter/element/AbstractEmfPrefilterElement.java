@@ -81,7 +81,7 @@ public abstract class AbstractEmfPrefilterElement<S, E extends IEmfTableRow<E, ?
 
 		R row = rowFactory.apply(scope);
 		row.appendContent();
-		appendRemoveRowButton(row, false);
+		appendRemoveRowButton(row, true);
 		registerRow(row);
 	}
 
@@ -96,11 +96,11 @@ public abstract class AbstractEmfPrefilterElement<S, E extends IEmfTableRow<E, ?
 		addFilterBar.addCssClass(EmfCssClasses.EMF_PREFILTER_ADD_FILTER_BAR);
 	}
 
-	private void appendRemoveRowButton(R targetRow, boolean enabled) {
+	private void appendRemoveRowButton(R targetRow, boolean disabled) {
 
 		DomButton removeFilterButton = new DomButton()//
 			.setIcon(DomElementsImages.FILTER_REMOVE.getResource())//
-			.setEnabled(enabled)
+			.setDisabled(disabled)
 			.setClickCallback(() -> removeRow(targetRow));
 		targetRow.appendRemoveRowButton(removeFilterButton);
 	}
@@ -116,7 +116,7 @@ public abstract class AbstractEmfPrefilterElement<S, E extends IEmfTableRow<E, ?
 	private void addRow(R row) {
 
 		appendFilterTypeButton(row);
-		appendRemoveRowButton(row, true);
+		appendRemoveRowButton(row, false);
 		registerRow(row);
 	}
 

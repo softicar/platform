@@ -1,13 +1,13 @@
 package com.softicar.platform.dom.elements;
 
-import com.softicar.platform.dom.input.DomInput;
+import com.softicar.platform.dom.input.AbstractDomInput;
 
 /**
  * This class represents an Html file input element.
  *
  * @author Oliver Richers
  */
-public class DomFileInput extends DomInput {
+public class DomFileInput extends AbstractDomInput {
 
 	public DomFileInput() {
 

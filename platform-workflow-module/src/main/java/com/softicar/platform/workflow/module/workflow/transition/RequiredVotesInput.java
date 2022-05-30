@@ -17,9 +17,9 @@ class RequiredVotesInput extends EmfStringInput {
 
 		if (transition.isAutoTransition()) {
 			setValue("0");
-			setEnabled(false);
+			setDisabled(true);
 		} else {
-			setEnabled(true);
+			setDisabled(false);
 		}
 	}
 }

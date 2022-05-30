@@ -24,12 +24,14 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 	private final DayInput dayInput;
 	private final DayButton dayButton;
 	private INullaryVoidFunction callback;
+	private boolean disabled;
 
 	public DomDayInput() {
 
 		this.dayInput = appendChild(new DayInput());
 		this.dayButton = appendChild(new DayButton());
 		this.callback = null;
+		this.disabled = false;
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
 	}
@@ -54,10 +56,31 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		}
 	}
 
-	public void setEnabled(boolean enabled) {
+	@Override
+	public DomDayInput setDisabled(boolean disabled) {
 
-		dayInput.setEnabled(enabled);
-		dayButton.setEnabled(enabled);
+		this.dayInput.setDisabled(disabled);
+		this.dayButton.setDisabled(disabled);
+		this.disabled = disabled;
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
+	}
+
+	@Override
+	public final DomDayInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 
 	@Override

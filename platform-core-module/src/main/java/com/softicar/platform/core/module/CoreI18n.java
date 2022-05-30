@@ -523,6 +523,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einmal-Passwort");
 	I18n3 ONE_TIME_PASSWORD_ARG1_TO_LOG_IN_TO_YOUR_ARG2_ACCOUNT_ARG3 = new I18n3("One-time password %s to log in to your %s account: '%s'.")//
 		.de("Einmal-Passwort %s für den Login in Ihr %s Benutzerkonto: '%s'.");
+	I18n0 ONLY_A_SINGLE_FILE_MAY_BE_UPLOADED = new I18n0("Only a single file may be uploaded.")//
+		.de("Es darf nur eine einzige Datei hochgeladen werden.");
 	I18n0 OUTPUT = new I18n0("Output")//
 		.de("Ausgabe");
 	I18n0 PAGE_DEFINITIONS = new I18n0("Page Definitions")//

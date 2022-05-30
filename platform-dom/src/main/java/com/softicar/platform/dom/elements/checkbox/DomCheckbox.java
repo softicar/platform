@@ -10,32 +10,35 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
+import com.softicar.platform.dom.input.IDomInput;
 import java.util.Collections;
 import java.util.Objects;
 
 /**
  * A non-native check-box similar to {@link DomButton}.
+ * <p>
+ * TODO merge common code with {@link DomButton}
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
+public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomInput, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
-	private boolean enabled;
+	private boolean disabled;
 	private boolean checked;
 	private final DomCheckboxBox checkboxBox;
 	private final DomCheckboxLabel checkboxLabel;
 
 	public DomCheckbox(boolean checked) {
 
-		this.enabled = false;
+		this.disabled = false;
 		this.checked = checked;
 
 		this.checkboxBox = appendChild(new DomCheckboxBox());
 		this.checkboxBox.setChecked(checked);
 		this.checkboxLabel = new DomCheckboxLabel();
 
-		setEnabled(true);
+		setTabIndex(0);
 
 		setCssClass(DomElementsCssClasses.DOM_CHECKBOX);
 
@@ -77,30 +80,44 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 		toggleCheckedState();
 	}
 
-	public boolean isEnabled() {
+	@Override
+	public DomCheckbox setDisabled(boolean disabled) {
 
-		return enabled;
-	}
-
-	public DomCheckbox setEnabled(boolean enabled) {
-
-		if (enabled != this.enabled) {
-			this.enabled = enabled;
-			if (enabled) {
-				setTabIndex(0);
-				listenToEvent(DomEventType.CLICK);
-				listenToEvent(DomEventType.ENTER);
-				listenToEvent(DomEventType.SPACE);
-				removeCssClass(DomCssPseudoClasses.DISABLED);
-			} else {
+		if (disabled != this.disabled) {
+			this.disabled = disabled;
+			if (disabled) {
 				setTabIndex(-1);
 				unlistenToEvent(DomEventType.CLICK);
 				unlistenToEvent(DomEventType.ENTER);
 				unlistenToEvent(DomEventType.SPACE);
 				addCssClass(DomCssPseudoClasses.DISABLED);
+			} else {
+				setTabIndex(0);
+				listenToEvent(DomEventType.CLICK);
+				listenToEvent(DomEventType.ENTER);
+				listenToEvent(DomEventType.SPACE);
+				removeCssClass(DomCssPseudoClasses.DISABLED);
 			}
 		}
 		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
+	}
+
+	@Override
+	public final DomCheckbox setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 
 	public boolean isChecked() {
@@ -118,7 +135,7 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomEn
 
 	protected void toggleCheckedState() {
 
-		if (enabled) {
+		if (!disabled) {
 			setValue(!checked);
 		}
 	}

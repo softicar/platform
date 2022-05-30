@@ -61,17 +61,17 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 	private void checkCurrentPageIndex() {
 
 		if (currentPage + 1 == allPages) {
-			nextImageButton.setEnabled(false);
+			nextImageButton.setDisabled(true);
 			nextImageButton.setIcon(DomElementsImages.PAGE_NEXT_DISABLED.getResource());
 		} else {
-			nextImageButton.setEnabled(true);
+			nextImageButton.setDisabled(false);
 			nextImageButton.setIcon(DomElementsImages.PAGE_NEXT.getResource());
 		}
 		if (currentPage == 0) {
-			previousImageButton.setEnabled(false);
+			previousImageButton.setDisabled(true);
 			previousImageButton.setIcon(DomElementsImages.PAGE_PREVIOUS_DISABLED.getResource());
 		} else {
-			previousImageButton.setEnabled(true);
+			previousImageButton.setDisabled(false);
 			previousImageButton.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
 		}
 	}

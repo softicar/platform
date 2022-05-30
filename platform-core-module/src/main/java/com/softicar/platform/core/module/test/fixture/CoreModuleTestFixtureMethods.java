@@ -10,6 +10,7 @@ import com.softicar.platform.core.module.access.role.assignment.module.system.AG
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
+import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
@@ -19,6 +20,7 @@ import com.softicar.platform.core.module.module.instance.standard.IStandardModul
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -164,5 +166,14 @@ public interface CoreModuleTestFixtureMethods {
 	default AGSystemEvent insertSystemInformationEvent(String message) {
 
 		return new SystemEventBuilder(AGSystemEventSeverityEnum.INFORMATION, message).save();
+	}
+
+	default AGStoredFile insertStoredFile(String filename) {
+
+		return new AGStoredFile()//
+			.setFileName(filename)
+			.setCreatedBy(CurrentUser.get())
+			.setRemoveAt(null)
+			.save();
 	}
 }

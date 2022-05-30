@@ -51,6 +51,19 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfInputDiv<E> {
 		enumInput.setChangeCallback(callback);
 	}
 
+	@Override
+	public EmfEnumInput<E> setDisabled(boolean disabled) {
+
+		enumInput.setDisabled(disabled);
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return enumInput.isDisabled();
+	}
+
 	private static class ChangeListeningEnumSelect<E extends Enum<E>> extends DomEnumSelect<E> implements IDomChangeEventHandler {
 
 		private INullaryVoidFunction callback;

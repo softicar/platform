@@ -8,7 +8,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public class DomTextInput extends DomInput implements IDomTextualInput {
+public class DomTextInput extends AbstractDomInput implements IDomTextualInput {
 
 	/**
 	 * Creates an empty text input.

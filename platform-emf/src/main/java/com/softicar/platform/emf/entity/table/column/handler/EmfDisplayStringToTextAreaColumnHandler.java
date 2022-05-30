@@ -15,7 +15,7 @@ public class EmfDisplayStringToTextAreaColumnHandler extends EmfDataTableValueBa
 		DomDiv content = new DomDiv();
 		content.addCssClass(EmfCssClasses.EMF_DISPLAY_STRING_TO_TEXT_AREA_COLUMN_HANDLER);
 		DomTextArea textArea = new DomTextArea(value.toString(), 3, 40);
-		textArea.setEnabled(false);
+		textArea.setDisabled(true);
 		content.appendChild(textArea);
 		cell.appendChild(content);
 	}
