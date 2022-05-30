@@ -39,7 +39,7 @@ class EmfWizardActionTitleModifier<R extends IEmfTableRow<R, ?>> extends EmfWiza
 		content
 			.appendChild(
 				new DomCheckbox(done)//
-					.setEnabled(false));
+					.setDisabled(true));
 
 		// make (non-)clickable
 		if (doable && !done) {

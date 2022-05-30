@@ -19,9 +19,9 @@ public class RecursivelyCollapseFoldersInput extends EmfBooleanInput {
 
 		if (user.isAutomaticallyCollapseFolders()) {
 			setValue(true);
-			setEnabled(false);
+			setDisabled(true);
 		} else {
-			setEnabled(true);
+			setDisabled(false);
 		}
 	}
 }

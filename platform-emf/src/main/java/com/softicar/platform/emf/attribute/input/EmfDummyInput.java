@@ -13,10 +13,13 @@ import java.util.Optional;
 public class EmfDummyInput<V> extends DomDiv implements IEmfInput<V> {
 
 	private V value;
+	private boolean disabled;
 
 	public EmfDummyInput(IEmfTableRow<?, ?> row) {
 
 		DevNull.swallow(row);
+		this.value = null;
+		this.disabled = false;
 	}
 
 	@Override
@@ -29,5 +32,30 @@ public class EmfDummyInput<V> extends DomDiv implements IEmfInput<V> {
 	public Optional<V> getValue() {
 
 		return Optional.ofNullable(value);
+	}
+
+	@Override
+	public EmfDummyInput<V> setDisabled(boolean disabled) {
+
+		this.disabled = disabled;
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return disabled;
+	}
+
+	@Override
+	public final EmfDummyInput<V> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 }

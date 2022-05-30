@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.engine.IDomEngine;
-import com.softicar.platform.dom.input.IDomDisableable;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
@@ -11,20 +11,20 @@ import java.util.Objects;
 public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputConfiguration {
 
 	private final IDomAutoCompleteInput<?> input;
-	private final IDomDisableable inputField;
+	private final IDomInput inputField;
 	private DomAutoCompleteInputIndicatorMode indicatorMode;
 	private DomAutoCompleteInputValidationMode validationMode;
 	private boolean mandatory;
-	private boolean enabled;
+	private boolean disabled;
 
-	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomDisableable inputField) {
+	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomInput inputField) {
 
 		this.input = input;
 		this.inputField = inputField;
 		this.validationMode = DomAutoCompleteInputValidationMode.DEDUCTIVE;
 		this.indicatorMode = DomAutoCompleteInputIndicatorMode.VALIDATION;
 		this.mandatory = false;
-		this.enabled = true;
+		this.disabled = false;
 	}
 
 	@Override
@@ -72,17 +72,17 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	}
 
 	@Override
-	public boolean isEnabled() {
+	public boolean isDisabled() {
 
-		return enabled;
+		return disabled;
 	}
 
 	@Override
-	public IDomAutoCompleteInputConfiguration setEnabled(boolean enabled) {
+	public IDomAutoCompleteInputConfiguration setDisabled(boolean disabled) {
 
-		getDomEngine().setAutoCompleteEnabled(input, enabled);
-		this.inputField.setEnabled(enabled);
-		this.enabled = enabled;
+		getDomEngine().setAutoCompleteEnabled(input, !disabled);
+		this.inputField.setDisabled(disabled);
+		this.disabled = disabled;
 		return this;
 	}
 

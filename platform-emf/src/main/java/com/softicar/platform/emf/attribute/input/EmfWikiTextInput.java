@@ -47,6 +47,19 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 		input.setValue(value);
 	}
 
+	@Override
+	public EmfWikiTextInput setDisabled(boolean disabled) {
+
+		input.setDisabled(disabled);
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return input.isDisabled();
+	}
+
 	public EmfWikiTextInput setPlaceholder(IDisplayString placeholder) {
 
 		input.setPlaceholder(placeholder);

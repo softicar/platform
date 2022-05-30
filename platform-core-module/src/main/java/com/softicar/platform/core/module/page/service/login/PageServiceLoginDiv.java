@@ -22,7 +22,7 @@ import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.DomInput;
+import com.softicar.platform.dom.input.AbstractDomInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.util.Optional;
@@ -108,7 +108,7 @@ public class PageServiceLoginDiv extends DomDiv {
 			}
 		}
 
-		private class HiddenSubmitInput extends DomInput implements IDomClickEventHandler {
+		private class HiddenSubmitInput extends AbstractDomInput implements IDomClickEventHandler {
 
 			public HiddenSubmitInput() {
 

@@ -278,7 +278,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 		private IEmfSettingMatrixModelEntryInput<V> initialize(IEmfSettingMatrixModelEntryInput<V> input) {
 
 			input.setValue(configuration.getDefaultValueSupplier().get());
-			input.setInputEnabled(configuration.isEditable());
+			input.setInputDisabled(!configuration.isEditable());
 			return input;
 		}
 	}

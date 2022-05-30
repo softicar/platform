@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
 import com.softicar.platform.emf.data.table.configuration.EmfDataTableConfigurationMarker;
