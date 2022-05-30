@@ -16,6 +16,8 @@ import java.util.Objects;
 
 /**
  * A non-native check-box similar to {@link DomButton}.
+ * <p>
+ * TODO merge common code with {@link DomButton}
  *
  * @author Alexander Schmidt
  * @author Oliver Richers

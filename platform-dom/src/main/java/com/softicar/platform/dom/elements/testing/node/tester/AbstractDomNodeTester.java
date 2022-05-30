@@ -8,11 +8,11 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
+import com.softicar.platform.dom.input.IDomDisableable;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -170,8 +170,8 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	private boolean isNodeDisabled() {
 
 		return CastUtils//
-			.tryCast(node, DomButton.class)
-			.map(button -> button.isDisabled())
+			.tryCast(node, IDomDisableable.class)
+			.map(IDomDisableable::isDisabled)
 			.orElse(false);
 	}
 
