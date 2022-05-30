@@ -332,7 +332,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	public Optional<DomNodeTester> getParent() {
 
 		return Optional//
-			.ofNullable(node)
+			.of(node)
 			.map(N::getParent)
 			.map(it -> new DomNodeTester(engine, it));
 	}
