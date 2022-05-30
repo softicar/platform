@@ -16,14 +16,14 @@ import java.util.function.Supplier;
 
 class ModuleRoleMembershipMatrixValueInput extends DomDiv implements IEmfSettingMatrixModelEntryInput<EmfModuleRoleStateContainer> {
 
-	private boolean enabled;
+	private boolean disabled;
 	private Optional<EmfModuleRoleStateContainer> currentValue;
 	private final Supplier<Optional<EmfModuleRoleStateContainer>> originalValueSupplier;
 
 	public ModuleRoleMembershipMatrixValueInput(Supplier<Optional<EmfModuleRoleStateContainer>> originalValueSupplier) {
 
 		this.originalValueSupplier = originalValueSupplier;
-		this.enabled = true;
+		this.disabled = false;
 		this.currentValue = Optional.empty();
 	}
 
@@ -41,9 +41,9 @@ class ModuleRoleMembershipMatrixValueInput extends DomDiv implements IEmfSetting
 	}
 
 	@Override
-	public void setInputEnabled(boolean enabled) {
+	public void setInputDisabled(boolean disabled) {
 
-		this.enabled = enabled;
+		this.disabled = disabled;
 		refresh();
 	}
 
@@ -61,7 +61,7 @@ class ModuleRoleMembershipMatrixValueInput extends DomDiv implements IEmfSetting
 						.appendChild(
 							new EmfBooleanInput(checked)//
 								.setLabel(role.getTitle()));
-					input.setEnabled(enabled);
+					input.setDisabled(disabled);
 					input.setChangeCallback(new ChangeHandler(role, styleUpdater)::handle);
 					styleUpdater.update(checked);
 				}

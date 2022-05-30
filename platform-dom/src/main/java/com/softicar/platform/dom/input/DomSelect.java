@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.engine.IDomEngine;
+import com.softicar.platform.dom.node.DomNodes;
 import com.softicar.platform.dom.parent.DomParentElement;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  *
  * @author Oliver Richers
  */
-public class DomSelect<O extends DomOption> extends DomParentElement implements IDomDisableable, IDomFocusable {
+public class DomSelect<O extends DomOption> extends DomParentElement implements IDomInput, IDomFocusable {
 
 	private final Map<Integer, O> selectedOptions = MapFactory.createTreeMap();
 
@@ -27,6 +28,30 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	public final DomElementTag getTag() {
 
 		return DomElementTag.SELECT;
+	}
+
+	@Override
+	public DomSelect<O> setDisabled(boolean disabled) {
+
+		return DomNodes.setDisabled(this, disabled);
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return DomNodes.isDisabled(this);
+	}
+
+	@Override
+	public final DomSelect<O> setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
 	}
 
 	public final void setMultiple(boolean multiple) {

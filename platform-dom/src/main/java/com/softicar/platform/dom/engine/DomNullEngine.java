@@ -95,6 +95,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void insertBefore(IDomNode parent, IDomNode child, IDomNode otherChild) {
 
 		// nothing to do
@@ -131,7 +137,19 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void pushBrowserHistoryState(String pageName, String pageUrl) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void raise(IDomNode node) {
 
 		// nothing to do
 	}
@@ -227,12 +245,6 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void raise(IDomNode node) {
-
-		// nothing to do
-	}
-
-	@Override
 	public void setNodeAttribute(IDomNode node, IDomAttribute attribute) {
 
 		// nothing to do
@@ -264,18 +276,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void setWorkingIndicatorEnabled(boolean enabled) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
 		// nothing to do
 	}

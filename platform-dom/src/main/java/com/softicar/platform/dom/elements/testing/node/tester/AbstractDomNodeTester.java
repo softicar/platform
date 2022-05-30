@@ -8,22 +8,23 @@ import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
+import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.Assert;
 
-public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTesterFindMethods {
+public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTesterFindMethods {
 
 	private final IDomTestExecutionEngine engine;
 	protected final N node;
@@ -169,8 +170,8 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 	private boolean isNodeDisabled() {
 
 		return CastUtils//
-			.tryCast(node, DomButton.class)
-			.map(button -> !button.isEnabled())
+			.tryCast(node, IDomInput.class)
+			.map(IDomInput::isDisabled)
 			.orElse(false);
 	}
 
@@ -324,6 +325,21 @@ public class AbstractDomNodeTester<N extends IDomNode> implements IDomNodeTester
 		} else {
 			return getAllTextsInTree().collect(Collectors.joining()).equals("");
 		}
+	}
+
+	// ------------------------------ DOM tree ------------------------------ //
+
+	public Optional<DomNodeTester> getParent() {
+
+		return Optional//
+			.of(node)
+			.map(N::getParent)
+			.map(it -> new DomNodeTester(engine, it));
+	}
+
+	public DomNodeTester getParentOrThrow() {
+
+		return getParent().get();
 	}
 
 	// ------------------------------ z-index ------------------------------ //

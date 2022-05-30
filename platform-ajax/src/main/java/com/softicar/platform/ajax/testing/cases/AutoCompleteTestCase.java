@@ -45,8 +45,8 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 				new FireAssertionButton()));
 		appendChild(
 			new DomActionBar(//
-				new SetEnabledButton(true),
-				new SetEnabledButton(false)));
+				new SetDisabledButton(false),
+				new SetDisabledButton(true)));
 	}
 
 	private class MarkAsInvalidButton extends DomButton {
@@ -212,21 +212,21 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		}
 	}
 
-	private class SetEnabledButton extends DomButton {
+	private class SetDisabledButton extends DomButton {
 
-		private final boolean enabled;
+		private final boolean disabled;
 
-		public SetEnabledButton(boolean enabled) {
+		public SetDisabledButton(boolean disabled) {
 
-			this.enabled = enabled;
+			this.disabled = disabled;
 			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("set enabled: " + enabled));
+			setLabel(IDisplayString.create("set disabled: " + disabled));
 			setClickCallback(this::handleClick);
 		}
 
 		private void handleClick() {
 
-			input.setEnabled(enabled);
+			input.setDisabled(disabled);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
+import com.softicar.platform.emf.entity.set.IEmfEntitySet;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.test.simple.set.EmfTestObjectSet;
 import java.util.Optional;

@@ -54,6 +54,19 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 		input.setChangeCallback(callback);
 	}
 
+	@Override
+	public EmfEnumTableRowInput<R, E> setDisabled(boolean disabled) {
+
+		input.setDisabled(disabled);
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return input.isDisabled();
+	}
+
 	private class EntityInput extends DomAutoCompleteEntityInput<EmfEnumTableRowEntityWrapper<R, E>> {
 
 		public EntityInput(IDbEnumTable<R, E> targetTable) {

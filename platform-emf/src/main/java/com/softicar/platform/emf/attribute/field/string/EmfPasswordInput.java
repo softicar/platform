@@ -37,6 +37,31 @@ public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 		return Optional.of(passwordInput.getInputText());
 	}
 
+	@Override
+	public EmfPasswordInput setDisabled(boolean disabled) {
+
+		passwordInput.setDisabled(disabled);
+		return this;
+	}
+
+	@Override
+	public boolean isDisabled() {
+
+		return passwordInput.isDisabled();
+	}
+
+	@Override
+	public final EmfPasswordInput setEnabled(boolean enabled) {
+
+		return setDisabled(!enabled);
+	}
+
+	@Override
+	public final boolean isEnabled() {
+
+		return !isDisabled();
+	}
+
 	public void showText() {
 
 		passwordInput.setAttribute("type", "text");
