@@ -12,8 +12,6 @@ import javax.servlet.annotation.WebListener;
 
 /**
  * Keeps track of the shared {@link ServletContext}.
- * <p>
- * WARNING: DO NOT RENAME OR MOVE THIS FILE.
  *
  * @author Oliver Richers
  */
