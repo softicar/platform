@@ -4,8 +4,6 @@ import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.dom.node.IDomNode;
-import java.util.EventListener;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +20,6 @@ class AjaxDomNodeService implements IWebService {
 	public AjaxDomNodeService(Supplier<IDomNode> nodeFactory) {
 
 		this.ajaxFramework = new AjaxFramework(new AjaxDomNodeServiceAjaxStrategy(nodeFactory));
-	}
-
-	@Override
-	public void initialize(Consumer<EventListener> listeners) {
-
-		ajaxFramework.initialize(listeners);
 	}
 
 	@Override

@@ -27,12 +27,6 @@ public class AjaxTestingServlet extends HttpServlet {
 	}
 
 	@Override
-	public void init() {
-
-		ajaxFramework.initialize(getServletContext()::addListener);
-	}
-
-	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) {
 
 		ajaxFramework.service(request, response);

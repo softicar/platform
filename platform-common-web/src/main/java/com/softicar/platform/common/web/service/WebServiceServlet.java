@@ -17,7 +17,7 @@ class WebServiceServlet extends HttpServlet {
 	@Override
 	public void init() {
 
-		service.initialize(getServletContext()::addListener);
+		service.initialize();
 	}
 
 	@Override
