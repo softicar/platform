@@ -12,9 +12,7 @@ public class UnmovableClassesIntegrationTest extends AbstractTest {
 	@Test
 	public void testUnmovableClasses() {
 
-		assertClassExists("com.softicar.platform.core.module.ajax.listener.AjaxContextListener");
 		assertClassExists("com.softicar.platform.core.module.program.ProgramStarter");
-		assertClassExists("com.softicar.platform.core.module.web.service.WebServiceBrokerServlet");
 	}
 
 	private static void assertClassExists(String canonicalName) {

@@ -3,10 +3,8 @@ package com.softicar.platform.common.web.service.hot;
 import com.softicar.platform.common.web.service.IWebService;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.EventListener;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +23,6 @@ import javax.servlet.http.HttpSession;
  */
 public class HotWebServiceWrapper implements IWebService {
 
-	private final HotWebServiceEventDelegator eventDelegator;
 	private final IHotWebServiceLoader serviceLoader;
 	private HotWebServiceClassLoader classLoader;
 	private IWebService service;
@@ -39,16 +36,9 @@ public class HotWebServiceWrapper implements IWebService {
 	 */
 	public HotWebServiceWrapper(IHotWebServiceLoader serviceLoader) {
 
-		this.eventDelegator = new HotWebServiceEventDelegator();
 		this.serviceLoader = Objects.requireNonNull(serviceLoader);
 		this.classLoader = null;
 		this.service = null;
-	}
-
-	@Override
-	public void initialize(Consumer<EventListener> listeners) {
-
-		listeners.accept(eventDelegator);
 	}
 
 	@Override
@@ -83,7 +73,7 @@ public class HotWebServiceWrapper implements IWebService {
 		this.classLoader = new HotWebServiceClassLoader();
 		this.classLoader.addIgnoredClass(IWebService.class);
 		this.service = serviceLoader.loadService(classLoader);
-		this.service.initialize(eventDelegator::addListener);
+		this.service.initialize();
 
 		Optional.ofNullable(request.getSession(false)).ifPresent(this::clearSession);
 	}
@@ -99,7 +89,6 @@ public class HotWebServiceWrapper implements IWebService {
 	private void destroyService() {
 
 		if (service != null) {
-			this.eventDelegator.clear();
 			this.service.destroy();
 			this.service = null;
 		}
