@@ -11,6 +11,7 @@ import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomValueInput;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -30,30 +31,10 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 
 		this.dayInput = appendChild(new DayInput());
 		this.dayButton = appendChild(new DayButton());
-		this.callback = null;
+		this.callback = INullaryVoidFunction.NO_OPERATION;
 		this.disabled = false;
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
-	}
-
-	public DomDayInput setCallback(INullaryVoidFunction callback) {
-
-		this.callback = callback;
-
-		if (callback != null) {
-			dayInput.listenToEvent(DomEventType.CHANGE);
-		} else {
-			dayInput.unlistenToEvent(DomEventType.CHANGE);
-		}
-
-		return this;
-	}
-
-	public void applyCallback() {
-
-		if (callback != null) {
-			callback.apply();
-		}
 	}
 
 	@Override
@@ -101,9 +82,16 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		dayButton.setDay(day);
 	}
 
-	public DomTextInput getTextBoxInput() {
+	protected DomDayInput setCallback(INullaryVoidFunction callback) {
 
-		return dayInput;
+		this.callback = Objects.requireNonNull(callback);
+		this.dayInput.listenToEvent(DomEventType.CHANGE);
+		return this;
+	}
+
+	protected void applyCallback() {
+
+		callback.apply();
 	}
 
 	private class DayButton extends AbstractDomDayPopupButton {
@@ -114,7 +102,7 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 			setTabIndex(-1);
 			setClickCallback(() -> {
 				getValueNoThrow().ifPresent(this::setDay);
-				showPopup();
+				openPopup();
 			});
 		}
 
