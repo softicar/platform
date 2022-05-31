@@ -8,12 +8,10 @@ import com.softicar.platform.core.module.web.service.environment.IWebServiceEnvi
 import com.softicar.platform.core.module.web.service.environment.WebServiceDefaultEnvironment;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Collection;
-import java.util.EventListener;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
-import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,7 +33,7 @@ public class WebServiceBrokerService implements IWebService {
 	}
 
 	@Override
-	public void initialize(Consumer<EventListener> listeners) {
+	public void initialize() {
 
 		for (IWebServiceFactory factory: getAllServiceFactories()) {
 			var uuid = factory.getAnnotatedUuid();
@@ -43,7 +41,7 @@ public class WebServiceBrokerService implements IWebService {
 			serviceMap.put(uuid, service);
 		}
 
-		serviceMap.values().forEach(service -> service.initialize(listeners));
+		serviceMap.values().forEach(service -> service.initialize());
 	}
 
 	@Override

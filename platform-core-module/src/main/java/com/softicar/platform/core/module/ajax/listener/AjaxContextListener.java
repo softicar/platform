@@ -8,6 +8,7 @@ import com.softicar.platform.db.core.utils.DbDriverManagers;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  * Keeps track of the shared {@link ServletContext}.
@@ -16,6 +17,7 @@ import javax.servlet.ServletContextListener;
  *
  * @author Oliver Richers
  */
+@WebListener
 public class AjaxContextListener implements ServletContextListener {
 
 	private static ServletContext servletContext;

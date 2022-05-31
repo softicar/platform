@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.web.service.dispatch.emulation;
 
 import com.softicar.platform.ajax.simple.SimpleServletRequest;
 import com.softicar.platform.ajax.simple.SimpleServletResponse;
-import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.thread.collection.ThreadKiller;
 import com.softicar.platform.common.core.threading.InterruptedRuntimeException;
 import com.softicar.platform.common.core.utils.DevNull;
@@ -62,7 +61,7 @@ public class EmulatedWebServiceDispatcher implements IWebServiceDispatcher {
 				try {
 					WebServiceBrokerService compositeService = new WebServiceBrokerService();
 					compositeService.setEnvironment(dispatcherEnvironment.createRequestEnvironment());
-					compositeService.initialize(Consumers.noOperation());
+					compositeService.initialize();
 					try {
 						while (true) {
 							HttpServletRequest request = buffer.readRequest();
