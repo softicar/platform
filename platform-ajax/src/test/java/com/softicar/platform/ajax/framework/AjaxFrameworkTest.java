@@ -31,13 +31,6 @@ public class AjaxFrameworkTest extends AbstractTest {
 	}
 
 	@Test
-	public void testServiceWithoutInitialize() {
-
-		ajaxFramework.service(request, response);
-		assertEquals(500, response.getStatus());
-	}
-
-	@Test
 	public void testServiceWithDocumentCreation() {
 
 		ajaxFramework.service(request, response);
