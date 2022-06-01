@@ -138,6 +138,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Kommentar");
 	I18n0 COMPROMISED = new I18n0("Compromised")//
 		.de("kompromittiert");
+	I18n0 CONFIRM_ALL = new I18n0("Confirm All")//
+		.de("Alle bestätigen");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
 		.de("Bestätigung");
 	I18n0 CONTENT = new I18n0("Content")//
