@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.event;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.event.properties.SystemEventPropertiesDisplay;
+import com.softicar.platform.core.module.event.severity.SystemEventSeverityDisplay;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.dom.DomCssPseudoClasses;
@@ -42,7 +43,8 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 
 		attributes//
 			.editAttribute(AGSystemEvent.SEVERITY)
-			.setImmutable(true);
+			.setImmutable(true)
+			.setDisplayFactory(SystemEventSeverityDisplay::new);
 		attributes//
 			.editAttribute(AGSystemEvent.MESSAGE)
 			.setImmutable(true);
