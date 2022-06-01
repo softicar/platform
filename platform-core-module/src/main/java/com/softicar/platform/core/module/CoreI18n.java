@@ -903,7 +903,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_AN_INTEGER_BUT_WAS_ARG2 =
 			new I18n2("The value of the servlet parameter '%s' must be an integer but was '%s'.")//
 				.de("Der Wert des Servlet-Parameters '%s' muss eine Ganzzahl sein, doch er war '%s'.");
-	I18n1 THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOU_ATTENTION = new I18n1("There are %s system events that need your attention.")//
+	I18n1 THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION = new I18n1("There are %s system events that need your attention.")//
 		.de("Es gibt %s Systemereignisse, die Ihre Aufmerksamkeit erfordern.");
 	I18n0 THIS_ACTION_CANNOT_BE_UNDONE = new I18n0("This action cannot be undone.")//
 		.de("Diese Aktion kann nicht rückgängig gemacht werden.");

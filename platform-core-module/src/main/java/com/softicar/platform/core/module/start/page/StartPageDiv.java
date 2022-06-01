@@ -44,7 +44,7 @@ class StartPageDiv extends DomDiv {
 		if (CurrentUser.get().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
 			var count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_ATTENTION).count();
 			if (count > 0) {
-				var message = CoreI18n.THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOU_ATTENTION.toDisplay(count);
+				var message = CoreI18n.THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION.toDisplay(count);
 				var pageButton = new PageButton<>(SystemEventPage.class, CoreModule.getModuleInstance())//
 					.setLabel(CoreI18n.OPEN);
 				var messageBar = new DomBar();
