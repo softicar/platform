@@ -4,8 +4,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.event.AGSystemEvent;
+import com.softicar.platform.core.module.event.SystemEventPage;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.page.PageButton;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.impersonation.UserImpersonationSessionManager;
 import com.softicar.platform.core.module.user.impersonation.UserImpersonationTerminationDiv;
@@ -14,9 +17,9 @@ import com.softicar.platform.core.module.user.password.policy.SofticarPasswordPo
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,8 +41,17 @@ class StartPageDiv extends DomDiv {
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {
 
-		if (AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_ATTENTION).exists()) {
-			sections.add(new EmfManagementDivBuilder<>(AGSystemEvent.TABLE, CoreModule.getModuleInstance()).build());
+		if (CurrentUser.get().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
+			var count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_ATTENTION).count();
+			if (count > 0) {
+				var message = CoreI18n.THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOU_ATTENTION.toDisplay(count);
+				var pageButton = new PageButton<>(SystemEventPage.class, CoreModule.getModuleInstance())//
+					.setLabel(CoreI18n.OPEN);
+				var messageBar = new DomBar();
+				messageBar.appendText(message);
+				messageBar.appendChild(pageButton);
+				sections.add(new DomMessageDiv(DomMessageType.ERROR, messageBar));
+			}
 		}
 	}
 

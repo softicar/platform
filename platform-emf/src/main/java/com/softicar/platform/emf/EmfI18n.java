@@ -248,6 +248,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Eine der folgenden Rollen:");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
 		.de("Es darf nur eine einzelne Datei angehängt werden.");
+	I18n0 OPEN = new I18n0("Open")//
+		.de("Öffnen");
 	I18n0 OPENS_THE_HISTORY_WINDOW_FOR_THE_GIVEN_ENTRY = new I18n0("Opens the history window for the given entry.")//
 		.de("Öffnet das Historien-Fenster für den gegebenen Eintrag.");
 	I18n0 OPERATOR = new I18n0("Operator")//
