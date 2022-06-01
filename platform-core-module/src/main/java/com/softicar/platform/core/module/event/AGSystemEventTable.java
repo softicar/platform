@@ -46,6 +46,12 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 			.setImmutable(true)
 			.setDisplayFactory(SystemEventSeverityDisplay::new);
 		attributes//
+			.editAttribute(AGSystemEvent.CAUSED_BY)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGSystemEvent.CAUSED_AT)
+			.setImmutable(true);
+		attributes//
 			.editAttribute(AGSystemEvent.MESSAGE)
 			.setImmutable(true);
 		attributes//
