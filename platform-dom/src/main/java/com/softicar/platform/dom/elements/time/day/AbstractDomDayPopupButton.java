@@ -62,7 +62,7 @@ abstract class AbstractDomDayPopupButton extends DomButton {
 		}
 	}
 
-	protected void showPopup() {
+	protected void openPopup() {
 
 		popup.open();
 	}
