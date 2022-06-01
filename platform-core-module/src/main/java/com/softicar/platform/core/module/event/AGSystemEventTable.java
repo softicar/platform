@@ -59,6 +59,7 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 
 		actionSet.addPrimaryAction(new SystemEventConfirmAction());
 		actionSet.addManagementAction(new SystemEventConfirmAction());
+		actionSet.addScopeAction(new SystemEventConfirmAllAction());
 	}
 
 	@Override

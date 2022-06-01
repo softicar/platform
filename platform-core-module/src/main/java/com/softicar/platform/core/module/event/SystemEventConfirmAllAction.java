@@ -5,6 +5,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.authorization.role.IEmfRole;
@@ -53,5 +54,6 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModule
 			.set(AGSystemEvent.NEEDS_ATTENTION, false)
 			.where(AGSystemEvent.NEEDS_ATTENTION)
 			.execute();
+		CurrentDomDocument.get().getRefreshBus().setAllChanged(AGSystemEvent.class);
 	}
 }
