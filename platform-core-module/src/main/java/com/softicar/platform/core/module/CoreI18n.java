@@ -92,6 +92,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Abgebrochen");
 	I18n0 CANNOT_LOGIN_DURING_MAINTENANCE = new I18n0("Cannot login during maintenance.")//
 		.de("Login ist während Wartungsarbeiten nicht möglich.");
+	I18n0 CAUSED_AT = new I18n0("Caused At")//
+		.de("Verursacht am");
+	I18n0 CAUSED_BY = new I18n0("Caused By")//
+		.de("Verursacht durch");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//

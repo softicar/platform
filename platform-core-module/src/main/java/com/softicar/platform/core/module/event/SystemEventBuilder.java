@@ -2,9 +2,12 @@ package com.softicar.platform.core.module.event;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverity;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
+import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 
 public class SystemEventBuilder {
@@ -12,12 +15,16 @@ public class SystemEventBuilder {
 	private static final String KEY_MODULE_INSTANCE_ID = "moduleInstanceId";
 	private static final String KEY_STACK_TRACE = "stackTrace";
 	private final AGSystemEventSeverity severity;
+	private final AGUser causedBy;
+	private final DayTime causedAt;
 	private final String message;
 	private final JsonObject properties;
 
 	public SystemEventBuilder(AGSystemEventSeverityEnum severityEnum, String message) {
 
 		this.severity = severityEnum.getRecord();
+		this.causedBy = CurrentUser.get();
+		this.causedAt = DayTime.now();
 		this.message = message;
 		this.properties = new JsonObject();
 	}
@@ -32,6 +39,8 @@ public class SystemEventBuilder {
 
 		return new AGSystemEvent()//
 			.setSeverity(severity)
+			.setCausedBy(causedBy)
+			.setCausedAt(causedAt)
 			.setMessage(message)
 			.setNeedsAttention(severity.isNeedsAttention())
 			.setProperties(properties.toString())

@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.event;
 
+import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.event.properties.SystemEventPropertiesDisplay;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
@@ -60,6 +61,10 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 
 	@Override
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGSystemEvent> configuration) {
+
+		configuration.addOrderBy(AGSystemEvent.NEEDS_ATTENTION, OrderDirection.DESCENDING);
+		configuration.addOrderBy(AGSystemEvent.CAUSED_AT, OrderDirection.DESCENDING);
+		configuration.addOrderBy(AGSystemEvent.ID, OrderDirection.DESCENDING);
 
 		configuration.setRowCustomizer(row -> {
 			var dataRow = row.getDataRow();
