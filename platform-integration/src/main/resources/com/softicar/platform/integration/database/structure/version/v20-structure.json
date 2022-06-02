@@ -185,15 +185,15 @@
   },
   {
     "tableName": "`Core`.`SystemEventLog`",
-    "createStatement": "CREATE TABLE `Core`.`SystemEventLog` (`systemEvent` INT NOT NULL,`transaction` BIGINT NOT NULL,`needsAttention` BOOL NOT NULL,PRIMARY KEY (`systemEvent`, `transaction`),FOREIGN KEY (`systemEvent`) REFERENCES `Core`.`SystemEvent` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`SystemEventLog` (`systemEvent` INT NOT NULL,`transaction` BIGINT NOT NULL,`needsConfirmation` BOOL NOT NULL,PRIMARY KEY (`systemEvent`, `transaction`),FOREIGN KEY (`systemEvent`) REFERENCES `Core`.`SystemEvent` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`SystemEventSeverity`",
-    "createStatement": "CREATE TABLE `Core`.`SystemEventSeverity` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,`needsAttention` BOOL NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
+    "createStatement": "CREATE TABLE `Core`.`SystemEventSeverity` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,`needsConfirmation` BOOL NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
   },
   {
     "tableName": "`Core`.`SystemEvent`",
-    "createStatement": "CREATE TABLE `Core`.`SystemEvent` (`id` INT NOT NULL AUTO_INCREMENT,`needsAttention` BOOL NOT NULL,`severity` INT NOT NULL,`causedBy` INT NOT NULL,`causedAt` DATETIME NOT NULL,`message` TEXT NOT NULL,`properties` TEXT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`severity`) REFERENCES `Core`.`SystemEventSeverity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`causedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`SystemEvent` (`id` INT NOT NULL AUTO_INCREMENT,`needsConfirmation` BOOL NOT NULL,`severity` INT NOT NULL,`causedAt` DATETIME NOT NULL,`causedBy` INT NOT NULL,`message` TEXT NOT NULL,`properties` TEXT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`severity`) REFERENCES `Core`.`SystemEventSeverity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`causedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`SystemModuleRoleAssignmentLog`",
