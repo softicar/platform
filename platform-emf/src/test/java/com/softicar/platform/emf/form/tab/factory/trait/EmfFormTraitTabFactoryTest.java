@@ -16,40 +16,39 @@ import com.softicar.platform.emf.trait.EmfTestTrait;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-@SuppressWarnings("unused")
 public class EmfFormTraitTabFactoryTest extends AbstractEmfTest {
 
-	private static final IStaticObject TRANSACTION = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject NO_TRANSACTION = Mockito.mock(IStaticObject.class);
+	private static final IStaticObject WITH_TRANSACTION = Mockito.mock(IStaticObject.class);
+	private static final IStaticObject WITHOUT_TRANSACTION = Mockito.mock(IStaticObject.class);
 	private final EmfTestObject testObject;
-	private EmfTestTrait testTrait;
 
 	public EmfFormTraitTabFactoryTest() {
 
 		setNodeSupplier(() -> new TestDiv());
 		this.testObject = new EmfTestObject().setDay(Day.fromYMD(2000, 2, 2)).save();
 		this.testObject.addAuthorizedUser(user);
-		this.testTrait = null;
 	}
 
 	@Test
-	public void testWithImpermanentObjectInTransaction() {
+	public void testWithTraitCachePoisoningWithTransaction() {
 
-		findNode(TRANSACTION).click();
-		assertInputValue(openFormPopupAndSwitchToTraitTab(), "");
+		findNode(WITH_TRANSACTION).click();
+		var formPopup = openFormPopupAndSwitchToTraitTab();
+		assertInputValue(formPopup, "");
 	}
 
 	@Test
-	public void testWithImpermanentObjectWithoutTransaction() {
+	public void testWithTraitCachePoisoningWithoutTransaction() {
 
-		findNode(NO_TRANSACTION).click();
-		assertInputValue(openFormPopupAndSwitchToTraitTab(), "15");
+		findNode(WITHOUT_TRANSACTION).click();
+		var formPopup = openFormPopupAndSwitchToTraitTab();
+		assertInputValue(formPopup, "15");
 	}
 
 	private EmfFormPopupTester openFormPopupAndSwitchToTraitTab() {
 
 		findManagementDiv().clickShowFormButton();
-		EmfFormPopupTester formPopup = findFormPopup(EmfTestObject.class);
+		var formPopup = findFormPopup(EmfTestObject.class);
 		formPopup.clickTab(EmfTestTrait.TABLE.getTitle());
 		formPopup.clickNode(EmfI18n.CONFIGURE_TRAIT);
 		return formPopup;
@@ -65,8 +64,12 @@ public class EmfFormTraitTabFactoryTest extends AbstractEmfTest {
 
 	private class TestDiv extends DomDiv {
 
+		// Please note, we need to ensure that the trait object is not garbage collected and thus evicted from the cache.
+		@SuppressWarnings("unused") private EmfTestTrait testTrait;
+
 		public TestDiv() {
 
+			this.testTrait = null;
 			appendChild(
 				new DomButton()//
 					.setLabel(IDisplayString.create("With Transaction"))
@@ -75,12 +78,12 @@ public class EmfFormTraitTabFactoryTest extends AbstractEmfTest {
 							createTrait();
 						}
 					})
-					.addMarker(TRANSACTION));
+					.addMarker(WITH_TRANSACTION));
 			appendChild(
 				new DomButton()//
 					.setClickCallback(this::createTrait)
 					.setLabel(IDisplayString.create("Without Transaction"))
-					.addMarker(NO_TRANSACTION));
+					.addMarker(WITHOUT_TRANSACTION));
 			appendChild(new EmfManagementDiv<>(EmfTestObject.TABLE, moduleInstance));
 		}
 
