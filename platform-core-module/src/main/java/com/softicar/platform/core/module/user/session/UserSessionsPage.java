@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance.session;
+package com.softicar.platform.core.module.user.session;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
@@ -12,7 +12,7 @@ import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("2834bfc9-724b-4b30-9283-7c06660cf643")
-public class SessionsPage implements IEmfPage<SystemModuleInstance> {
+public class UserSessionsPage implements IEmfPage<SystemModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -35,12 +35,12 @@ public class SessionsPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(CoreI18n.MAINTENANCE);
+		return modulePath.append(CoreI18n.USER);
 	}
 
 	@Override
 	public IDomNode createContentNode(SystemModuleInstance moduleInstance) {
 
-		return new SessionsPageDiv();
+		return new UserSessionsPageDiv();
 	}
 }

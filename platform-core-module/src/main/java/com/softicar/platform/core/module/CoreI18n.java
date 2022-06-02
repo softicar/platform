@@ -242,6 +242,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
+	I18n0 EVENTS = new I18n0("Events")//
+		.de("Ereignisse");
 	I18n0 EVERY_DAY_AT_MIDNIGHT = new I18n0("Every day at midnight.")//
 		.de("Jeden Tag um Mitternacht.");
 	I18n0 EVERY_FIVE_MINUTES = new I18n0("Every five minutes.")//

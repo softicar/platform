@@ -22,7 +22,7 @@ public class SystemEventPage extends AbstractEmfManagementPage<SystemModuleInsta
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(CoreI18n.MAINTENANCE);
+		return modulePath.append(CoreI18n.EVENTS);
 	}
 
 	@Override

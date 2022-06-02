@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance.session;
+package com.softicar.platform.core.module.user.session;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
@@ -10,11 +10,11 @@ import com.softicar.platform.core.module.user.AGUser;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 
-public class SessionsTable extends AbstractInMemoryDataTable<HttpSession> {
+public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 
 	private final IDataTableColumn<HttpSession, AGUser> userColumn;
 
-	public SessionsTable() {
+	public UserSessionsTable() {
 
 		this.userColumn = newColumn(AGUser.class)//
 			.setGetter(this::getUserFromSession)
@@ -50,7 +50,7 @@ public class SessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 	@Override
 	protected Iterable<HttpSession> getTableRows() {
 
-		return new SessionManager().getAllSessions();
+		return new UserSessionManager().getAllSessions();
 	}
 
 	private AGUser getUserFromSession(HttpSession session) {

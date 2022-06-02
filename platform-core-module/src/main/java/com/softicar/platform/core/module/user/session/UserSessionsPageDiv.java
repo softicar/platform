@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance.session;
+package com.softicar.platform.core.module.user.session;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
@@ -17,14 +17,14 @@ import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBase
 import com.softicar.platform.emf.table.row.EmfTableRowDisplay;
 import javax.servlet.http.HttpSession;
 
-public class SessionsPageDiv extends DomDiv {
+public class UserSessionsPageDiv extends DomDiv {
 
 	private final IEmfDataTableDiv<HttpSession> tableDiv;
 
-	public SessionsPageDiv() {
+	public UserSessionsPageDiv() {
 
 		var actionBar = appendChild(new DomActionBar());
-		var table = new SessionsTable();
+		var table = new UserSessionsTable();
 		this.tableDiv = new EmfDataTableDivBuilder<>(table)//
 			.setActionColumnHandler(new ActionColumnHandler())
 			.setColumnHandler(table.getUserColumn(), new UserColumnHandler())
@@ -40,7 +40,7 @@ public class SessionsPageDiv extends DomDiv {
 		actionBar
 			.appendChild(
 				new DomButton()//
-					.setClickCallback(new SessionManager()::invalidateAllSessions)
+					.setClickCallback(new UserSessionManager()::invalidateAllSessions)
 					.setIcon(CoreImages.TERMINATE.getResource())
 					.setLabel(CoreI18n.TERMINATE_ALL_SESSIONS)
 					.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION));
