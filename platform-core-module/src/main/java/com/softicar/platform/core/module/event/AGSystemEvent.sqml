@@ -5,10 +5,10 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGSystemEvent "Core.SystemEvent" {
 	PK Integer id = SERIAL
-	Boolean needsAttention
+	Boolean needsConfirmation
 	AGSystemEventSeverity severity
-	AGUser causedBy
 	DayTime causedAt
+	AGUser causedBy
 	String message [LENGTHBITS=16]
 	String properties [LENGTHBITS=16]
 }

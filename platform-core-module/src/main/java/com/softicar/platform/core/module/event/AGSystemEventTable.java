@@ -71,13 +71,13 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	@Override
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGSystemEvent> configuration) {
 
-		configuration.addOrderBy(AGSystemEvent.NEEDS_ATTENTION, OrderDirection.DESCENDING);
+		configuration.addOrderBy(AGSystemEvent.NEEDS_CONFIRMATION, OrderDirection.DESCENDING);
 		configuration.addOrderBy(AGSystemEvent.CAUSED_AT, OrderDirection.DESCENDING);
 		configuration.addOrderBy(AGSystemEvent.ID, OrderDirection.DESCENDING);
 
 		configuration.setRowCustomizer(row -> {
 			var dataRow = row.getDataRow();
-			if (dataRow.isNeedsAttention()) {
+			if (dataRow.isNeedsConfirmation()) {
 				if (dataRow.getSeverity().isError()) {
 					row.addCssClass(DomCssPseudoClasses.ERROR);
 				} else if (dataRow.getSeverity().isWarning()) {
@@ -92,6 +92,6 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 
 		loggerSet//
 			.addPlainChangeLogger(AGSystemEventLog.SYSTEM_EVENT, AGSystemEventLog.TRANSACTION)
-			.addMapping(AGSystemEvent.NEEDS_ATTENTION, AGSystemEventLog.NEEDS_ATTENTION);
+			.addMapping(AGSystemEvent.NEEDS_CONFIRMATION, AGSystemEventLog.NEEDS_CONFIRMATION);
 	}
 }

@@ -42,7 +42,7 @@ public class SystemEventBuilder {
 			.setCausedBy(causedBy)
 			.setCausedAt(causedAt)
 			.setMessage(message)
-			.setNeedsAttention(severity.isNeedsAttention())
+			.setNeedsConfirmation(severity.isNeedsConfirmation())
 			.setProperties(properties.toString())
 			.save();
 	}

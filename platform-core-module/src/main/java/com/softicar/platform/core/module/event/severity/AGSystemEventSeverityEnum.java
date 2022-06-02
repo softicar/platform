@@ -16,13 +16,13 @@ public enum AGSystemEventSeverityEnum implements IDbEnumTableRowEnum<AGSystemEve
 
 	private Integer id;
 	private String name;
-	private Boolean needsAttention;
+	private Boolean needsConfirmation;
 
-	private AGSystemEventSeverityEnum(Integer id, String name, Boolean needsAttention) {
+	private AGSystemEventSeverityEnum(Integer id, String name, Boolean needsConfirmation) {
 
 		this.id = id;
 		this.name = name;
-		this.needsAttention = needsAttention;
+		this.needsConfirmation = needsConfirmation;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public enum AGSystemEventSeverityEnum implements IDbEnumTableRowEnum<AGSystemEve
 
 		consumer.consumeFieldValue(AGSystemEventSeverity.ID, id);
 		consumer.consumeFieldValue(AGSystemEventSeverity.NAME, name);
-		consumer.consumeFieldValue(AGSystemEventSeverity.NEEDS_ATTENTION, needsAttention);
+		consumer.consumeFieldValue(AGSystemEventSeverity.NEEDS_CONFIRMATION, needsConfirmation);
 	}
 }
 

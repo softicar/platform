@@ -6,5 +6,5 @@ import com.softicar.platform.emf.predicate.IEmfPredicate;
 
 public interface SystemEventPredicates {
 
-	IEmfPredicate<AGSystemEvent> NEEDS_ATTENTION = new EmfPredicate<>(CoreI18n.NEEDS_ATTENTION, AGSystemEvent::isNeedsAttention);
+	IEmfPredicate<AGSystemEvent> NEEDS_CONFIRMATION = new EmfPredicate<>(CoreI18n.NEEDS_CONFIRMATION, AGSystemEvent::isNeedsConfirmation);
 }

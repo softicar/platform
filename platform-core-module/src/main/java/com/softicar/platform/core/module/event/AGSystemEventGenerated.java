@@ -32,10 +32,10 @@ public class AGSystemEventGenerated extends AbstractDbObject<AGSystemEvent> {
 	}
 
 	public static final IDbIdField<AGSystemEvent> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbBooleanField<AGSystemEvent> NEEDS_ATTENTION = BUILDER.addBooleanField("needsAttention", o->o.m_needsAttention, (o,v)->o.m_needsAttention=v).setTitle(CoreI18n.NEEDS_ATTENTION);
+	public static final IDbBooleanField<AGSystemEvent> NEEDS_CONFIRMATION = BUILDER.addBooleanField("needsConfirmation", o->o.m_needsConfirmation, (o,v)->o.m_needsConfirmation=v).setTitle(CoreI18n.NEEDS_CONFIRMATION);
 	public static final IDbForeignField<AGSystemEvent, AGSystemEventSeverity> SEVERITY = BUILDER.addForeignField("severity", o->o.m_severity, (o,v)->o.m_severity=v, AGSystemEventSeverity.ID).setTitle(CoreI18n.SEVERITY);
-	public static final IDbForeignField<AGSystemEvent, AGUser> CAUSED_BY = BUILDER.addForeignField("causedBy", o->o.m_causedBy, (o,v)->o.m_causedBy=v, AGUser.ID).setTitle(CoreI18n.CAUSED_BY);
 	public static final IDbDayTimeField<AGSystemEvent> CAUSED_AT = BUILDER.addDayTimeField("causedAt", o->o.m_causedAt, (o,v)->o.m_causedAt=v).setTitle(CoreI18n.CAUSED_AT);
+	public static final IDbForeignField<AGSystemEvent, AGUser> CAUSED_BY = BUILDER.addForeignField("causedBy", o->o.m_causedBy, (o,v)->o.m_causedBy=v, AGUser.ID).setTitle(CoreI18n.CAUSED_BY);
 	public static final IDbStringField<AGSystemEvent> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setLengthBits(16);
 	public static final IDbStringField<AGSystemEvent> PROPERTIES = BUILDER.addStringField("properties", o->o.m_properties, (o,v)->o.m_properties=v).setTitle(CoreI18n.PROPERTIES).setLengthBits(16);
 	public static final AGSystemEventTable TABLE = new AGSystemEventTable(BUILDER);
@@ -55,14 +55,14 @@ public class AGSystemEventGenerated extends AbstractDbObject<AGSystemEvent> {
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
 
-	public final Boolean isNeedsAttention() {
+	public final Boolean isNeedsConfirmation() {
 
-		return getValue(NEEDS_ATTENTION);
+		return getValue(NEEDS_CONFIRMATION);
 	}
 
-	public final AGSystemEvent setNeedsAttention(Boolean value) {
+	public final AGSystemEvent setNeedsConfirmation(Boolean value) {
 
-		return setValue(NEEDS_ATTENTION, value);
+		return setValue(NEEDS_CONFIRMATION, value);
 	}
 
 	public final Integer getSeverityID() {
@@ -80,6 +80,16 @@ public class AGSystemEventGenerated extends AbstractDbObject<AGSystemEvent> {
 		return setValue(SEVERITY, value);
 	}
 
+	public final DayTime getCausedAt() {
+
+		return getValue(CAUSED_AT);
+	}
+
+	public final AGSystemEvent setCausedAt(DayTime value) {
+
+		return setValue(CAUSED_AT, value);
+	}
+
 	public final Integer getCausedByID() {
 
 		return getValueId(CAUSED_BY);
@@ -93,16 +103,6 @@ public class AGSystemEventGenerated extends AbstractDbObject<AGSystemEvent> {
 	public final AGSystemEvent setCausedBy(AGUser value) {
 
 		return setValue(CAUSED_BY, value);
-	}
-
-	public final DayTime getCausedAt() {
-
-		return getValue(CAUSED_AT);
-	}
-
-	public final AGSystemEvent setCausedAt(DayTime value) {
-
-		return setValue(CAUSED_AT, value);
 	}
 
 	public final String getMessage() {
@@ -136,10 +136,10 @@ public class AGSystemEventGenerated extends AbstractDbObject<AGSystemEvent> {
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private Integer m_id;
-	private Boolean m_needsAttention;
+	private Boolean m_needsConfirmation;
 	private AGSystemEventSeverity m_severity;
-	private AGUser m_causedBy;
 	private DayTime m_causedAt;
+	private AGUser m_causedBy;
 	private String m_message;
 	private String m_properties;
 }

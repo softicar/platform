@@ -28,7 +28,7 @@ public class AGSystemEventSeverityGenerated extends AbstractDbEnumTableRow<AGSys
 
 	public static final IDbIdField<AGSystemEventSeverity> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbStringField<AGSystemEventSeverity> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setMaximumLength(255);
-	public static final IDbBooleanField<AGSystemEventSeverity> NEEDS_ATTENTION = BUILDER.addBooleanField("needsAttention", o->o.m_needsAttention, (o,v)->o.m_needsAttention=v).setTitle(CoreI18n.NEEDS_ATTENTION);
+	public static final IDbBooleanField<AGSystemEventSeverity> NEEDS_CONFIRMATION = BUILDER.addBooleanField("needsConfirmation", o->o.m_needsConfirmation, (o,v)->o.m_needsConfirmation=v).setTitle(CoreI18n.NEEDS_CONFIRMATION);
 	public static final DbEnumTable<AGSystemEventSeverity, AGSystemEventSeverityEnum> TABLE = new DbEnumTable<>(BUILDER, AGSystemEventSeverityEnum.values());
 	// @formatter:on
 
@@ -44,14 +44,14 @@ public class AGSystemEventSeverityGenerated extends AbstractDbEnumTableRow<AGSys
 		return setValue(NAME, value);
 	}
 
-	public final Boolean isNeedsAttention() {
+	public final Boolean isNeedsConfirmation() {
 
-		return getValue(NEEDS_ATTENTION);
+		return getValue(NEEDS_CONFIRMATION);
 	}
 
-	public final AGSystemEventSeverity setNeedsAttention(Boolean value) {
+	public final AGSystemEventSeverity setNeedsConfirmation(Boolean value) {
 
-		return setValue(NEEDS_ATTENTION, value);
+		return setValue(NEEDS_CONFIRMATION, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -66,6 +66,6 @@ public class AGSystemEventSeverityGenerated extends AbstractDbEnumTableRow<AGSys
 
 	private Integer m_id;
 	private String m_name;
-	private Boolean m_needsAttention;
+	private Boolean m_needsConfirmation;
 }
 

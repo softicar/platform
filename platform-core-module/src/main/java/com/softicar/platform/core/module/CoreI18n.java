@@ -507,8 +507,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Monat");
 	I18n0 NAVIGATION = new I18n0("Navigation")//
 		.de("Navigation");
-	I18n0 NEEDS_ATTENTION = new I18n0("Needs Attention")//
-		.de("Benötigt Aufmerksamkeit");
+	I18n0 NEEDS_CONFIRMATION = new I18n0("Needs Confirmation")//
+		.de("Benötigt Bestätigung");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NEXT_IN_LINE = new I18n0("Next in Line")//

@@ -51,8 +51,8 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModule
 
 		AGSystemEvent.TABLE//
 			.createUpdate()
-			.set(AGSystemEvent.NEEDS_ATTENTION, false)
-			.where(AGSystemEvent.NEEDS_ATTENTION)
+			.set(AGSystemEvent.NEEDS_CONFIRMATION, false)
+			.where(AGSystemEvent.NEEDS_CONFIRMATION)
 			.execute();
 		CurrentDomDocument.get().getRefreshBus().setAllChanged(AGSystemEvent.class);
 	}

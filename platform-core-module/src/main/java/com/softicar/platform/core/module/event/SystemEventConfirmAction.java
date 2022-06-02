@@ -18,7 +18,7 @@ public class SystemEventConfirmAction extends AbstractEmfButtonAction<AGSystemEv
 	@Override
 	public IEmfPredicate<AGSystemEvent> getPrecondition() {
 
-		return SystemEventPredicates.NEEDS_ATTENTION;
+		return SystemEventPredicates.NEEDS_CONFIRMATION;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class SystemEventConfirmAction extends AbstractEmfButtonAction<AGSystemEv
 	public void handleClick(AGSystemEvent tableRow) {
 
 		tableRow//
-			.setNeedsAttention(false)
+			.setNeedsConfirmation(false)
 			.save();
 	}
 }

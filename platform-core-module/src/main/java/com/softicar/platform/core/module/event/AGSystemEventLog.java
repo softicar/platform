@@ -31,7 +31,7 @@ public class AGSystemEventLog extends AbstractDbRecord<AGSystemEventLog, Tuple2<
 
 	public static final IDbForeignField<AGSystemEventLog, AGSystemEvent> SYSTEM_EVENT = BUILDER.addForeignField("systemEvent", o->o.m_systemEvent, (o,v)->o.m_systemEvent=v, AGSystemEvent.ID).setTitle(CoreI18n.SYSTEM_EVENT);
 	public static final IDbForeignField<AGSystemEventLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
-	public static final IDbBooleanField<AGSystemEventLog> NEEDS_ATTENTION = BUILDER.addBooleanField("needsAttention", o->o.m_needsAttention, (o,v)->o.m_needsAttention=v).setTitle(CoreI18n.NEEDS_ATTENTION);
+	public static final IDbBooleanField<AGSystemEventLog> NEEDS_CONFIRMATION = BUILDER.addBooleanField("needsConfirmation", o->o.m_needsConfirmation, (o,v)->o.m_needsConfirmation=v).setTitle(CoreI18n.NEEDS_CONFIRMATION);
 	public static final IDbTableKey<AGSystemEventLog, Tuple2<AGSystemEvent, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SYSTEM_EVENT, TRANSACTION));
 	public static final DbRecordTable<AGSystemEventLog, Tuple2<AGSystemEvent, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -65,14 +65,14 @@ public class AGSystemEventLog extends AbstractDbRecord<AGSystemEventLog, Tuple2<
 		return getValue(TRANSACTION);
 	}
 
-	public final Boolean isNeedsAttention() {
+	public final Boolean isNeedsConfirmation() {
 
-		return getValue(NEEDS_ATTENTION);
+		return getValue(NEEDS_CONFIRMATION);
 	}
 
-	public final AGSystemEventLog setNeedsAttention(Boolean value) {
+	public final AGSystemEventLog setNeedsConfirmation(Boolean value) {
 
-		return setValue(NEEDS_ATTENTION, value);
+		return setValue(NEEDS_CONFIRMATION, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -87,6 +87,6 @@ public class AGSystemEventLog extends AbstractDbRecord<AGSystemEventLog, Tuple2<
 
 	private AGSystemEvent m_systemEvent;
 	private AGTransaction m_transaction;
-	private Boolean m_needsAttention;
+	private Boolean m_needsConfirmation;
 }
 
