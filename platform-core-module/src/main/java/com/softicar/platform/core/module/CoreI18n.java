@@ -92,6 +92,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Abgebrochen");
 	I18n0 CANNOT_LOGIN_DURING_MAINTENANCE = new I18n0("Cannot login during maintenance.")//
 		.de("Login ist während Wartungsarbeiten nicht möglich.");
+	I18n0 CAUSED_AT = new I18n0("Caused At")//
+		.de("Verursacht am");
+	I18n0 CAUSED_BY = new I18n0("Caused By")//
+		.de("Verursacht durch");
 	I18n0 CC = new I18n0("CC")//
 		.de("CC");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
@@ -134,6 +138,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Kommentar");
 	I18n0 COMPROMISED = new I18n0("Compromised")//
 		.de("kompromittiert");
+	I18n0 CONFIRM_ALL = new I18n0("Confirm All")//
+		.de("Alle bestätigen");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
 		.de("Bestätigung");
 	I18n0 CONTENT = new I18n0("Content")//
@@ -236,6 +242,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einreihen");
 	I18n1 ENTER_THIS_TEXT_AS_CONFIRMATION_ARG1 = new I18n1("Enter this text as confirmation: %s")//
 		.de("Geben Sie diesen Text als Bestätigung ein: %s");
+	I18n0 EVENTS = new I18n0("Events")//
+		.de("Ereignisse");
 	I18n0 EVERY_DAY_AT_MIDNIGHT = new I18n0("Every day at midnight.")//
 		.de("Jeden Tag um Mitternacht.");
 	I18n0 EVERY_FIVE_MINUTES = new I18n0("Every five minutes.")//
@@ -445,6 +453,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maximales Passwort-Alter");
 	I18n0 MAXIMUM_PASSWORD_REUSE = new I18n0("Maximum Password Reuse")//
 		.de("Maximale Passwort-Wiederverwendung");
+	I18n0 MESSAGE = new I18n0("Message")//
+		.de("Nachricht");
 	I18n0 MESSAGE_ID = new I18n0("Message ID")//
 		.de("Nachrichten-ID");
 	I18n0 MINUTE = new I18n0("Minute")//
@@ -499,6 +509,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Monat");
 	I18n0 NAVIGATION = new I18n0("Navigation")//
 		.de("Navigation");
+	I18n0 NEEDS_CONFIRMATION = new I18n0("Needs Confirmation")//
+		.de("Benötigt Bestätigung");
 	I18n1 NEW_PASSWORD_ARG1 = new I18n1("New password: %s")//
 		.de("Neues Passwort: %s");
 	I18n0 NEXT_IN_LINE = new I18n0("Next in Line")//
@@ -716,6 +728,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sitzungs-Informationen");
 	I18n0 SESSIONS = new I18n0("Sessions")//
 		.de("Sitzungen");
+	I18n0 SEVERITY = new I18n0("Severity")//
+		.de("Schweregrad");
 	I18n0 SHA_1 = new I18n0("SHA-1")//
 		.de("SHA-1");
 	I18n0 SHOW_OUTPUT = new I18n0("Show Output")//
@@ -798,6 +812,18 @@ public interface CoreI18n extends EmfI18n {
 		.de("System");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
 		.de("System-Administrator");
+	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
+		.de("Systemereignis");
+	I18n0 SYSTEM_EVENT_LOG = new I18n0("System Event Log")//
+		.de("Systemereignis-Log");
+	I18n0 SYSTEM_EVENT_LOGS = new I18n0("System Event Logs")//
+		.de("Systemereignis-Logs");
+	I18n0 SYSTEM_EVENT_SEVERITIES = new I18n0("System Event Severities")//
+		.de("Systemereignis-Schweregrad");
+	I18n0 SYSTEM_EVENT_SEVERITY = new I18n0("System Event Severity")//
+		.de("Systemereignis-Schweregrad");
+	I18n0 SYSTEM_EVENTS = new I18n0("System Events")//
+		.de("Systemereignisse");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT = new I18n0("System Module Role Assignment")//
 		.de("System-Modul-Rollen-Zuweisung");
 	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT_LOG = new I18n0("System Module Role Assignment Log")//
@@ -879,6 +905,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_AN_INTEGER_BUT_WAS_ARG2 =
 			new I18n2("The value of the servlet parameter '%s' must be an integer but was '%s'.")//
 				.de("Der Wert des Servlet-Parameters '%s' muss eine Ganzzahl sein, doch er war '%s'.");
+	I18n1 THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION = new I18n1("There are %s system events that need your attention.")//
+		.de("Es gibt %s Systemereignisse, die Ihre Aufmerksamkeit erfordern.");
 	I18n0 THIS_ACTION_CANNOT_BE_UNDONE = new I18n0("This action cannot be undone.")//
 		.de("Diese Aktion kann nicht rückgängig gemacht werden.");
 	I18n0 THREAD_ACTIVE = new I18n0("Thread Active")//

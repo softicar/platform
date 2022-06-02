@@ -5,7 +5,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
-import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringDisplay;
+import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
 
 public class ProgramExecutionOutputDisplay extends DomDiv {
 
@@ -43,7 +43,7 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 		public OutputPopup(String output) {
 
 			setCaption(CoreI18n.OUTPUT);
-			appendChild(new EmfMultilineStringDisplay(output));
+			appendChild(new DomMultilineStringDisplay(output));
 			appendCloseButton();
 		}
 	}

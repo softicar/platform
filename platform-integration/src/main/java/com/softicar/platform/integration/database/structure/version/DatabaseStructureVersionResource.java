@@ -34,4 +34,5 @@ public interface DatabaseStructureVersionResource {
 	IResourceSupplier V18_STRUCTURE = FACTORY.create("v18-structure.json");
 	IResourceSupplier V19_MIGRATION = FACTORY.create("v19-migration.sql");
 	IResourceSupplier V19_STRUCTURE = FACTORY.create("v19-structure.json");
+	IResourceSupplier V20_STRUCTURE = FACTORY.create("v20-structure.json");
 }
