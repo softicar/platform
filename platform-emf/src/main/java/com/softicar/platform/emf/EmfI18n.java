@@ -180,6 +180,8 @@ public interface EmfI18n extends DomI18n {
 	I18n0 INDIVIDUAL_COLUMN_VALUES_CAN_BE_ENCLOSED_BY_QUOTATION_MARKS_FOR_EXAMPLE_VALUE =
 			new I18n0("Individual column values can be enclosed by quotation marks, for example \"value\".")//
 				.de("Einzelne Spaltenwerte können durch Anführungszeichen eingeklammert werden, zum Beispiel \"Wert\".");
+	I18n0 INFORMATION = new I18n0("Information")//
+		.de("Information");
 	I18n0 INTEGER = new I18n0("Integer")//
 		.de("Ganzzahl");
 	I18n0 INVALID_PRECONDITION = new I18n0("Invalid precondition")//
@@ -246,6 +248,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Eine der folgenden Rollen:");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
 		.de("Es darf nur eine einzelne Datei angehängt werden.");
+	I18n0 OPEN = new I18n0("Open")//
+		.de("Öffnen");
 	I18n0 OPENS_THE_HISTORY_WINDOW_FOR_THE_GIVEN_ENTRY = new I18n0("Opens the history window for the given entry.")//
 		.de("Öffnet das Historien-Fenster für den gegebenen Eintrag.");
 	I18n0 OPERATOR = new I18n0("Operator")//
@@ -428,6 +432,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Betrachter");
 	I18n0 VISIBILITY_PREDICATE = new I18n0("Visibility Predicate")//
 		.de("Sichtbarkeits-Prädikat");
+	I18n0 WARNING = new I18n0("Warning")//
+		.de("Warnung");
 	I18n0 WRONG_NUMBER_OF_COLUMNS = new I18n0("Wrong number of columns.")//
 		.de("Falsche Spaltenanzahl.");
 	I18n0 YES = new I18n0("Yes")//

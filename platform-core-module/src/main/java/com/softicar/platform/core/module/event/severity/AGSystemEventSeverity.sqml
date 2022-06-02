@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.event.severity
+
+ENUM TABLE AGSystemEventSeverity 'Core.SystemEventSeverity' {
+	PK Integer id = SERIAL
+	String name [MAXLENGTH=255]
+	Boolean needsConfirmation
+	
+	ROW (1, 'ERROR', TRUE)
+	ROW (2, 'WARNING', TRUE)
+	ROW (3, 'INFORMATION', FALSE)
+}

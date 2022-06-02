@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.maintenance.session;
+package com.softicar.platform.core.module.user.session;
 
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
@@ -7,11 +7,11 @@ import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-public class SessionManager {
+public class UserSessionManager {
 
 	private final ServletContext context;
 
-	public SessionManager() {
+	public UserSessionManager() {
 
 		this.context = getServletContext();
 	}

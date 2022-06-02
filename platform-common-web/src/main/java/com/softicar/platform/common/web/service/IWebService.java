@@ -1,9 +1,5 @@
 package com.softicar.platform.common.web.service;
 
-import com.softicar.platform.common.core.utils.DevNull;
-import java.util.EventListener;
-import java.util.function.Consumer;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,14 +19,10 @@ public interface IWebService {
 	 * The implementation of this method does <b>not</b> have be thread-safe,
 	 * since it is guaranteed to be only called once per {@link IWebService}
 	 * instance.
-	 *
-	 * @param listeners
-	 *            a {@link Consumer} to install {@link EventListener} objects
-	 *            into the {@link ServletContext} (never <i>null</i>)
 	 */
-	default void initialize(Consumer<EventListener> listeners) {
+	default void initialize() {
 
-		DevNull.swallow(listeners);
+		// nothing to do by default
 	}
 
 	/**
