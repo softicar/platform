@@ -40,7 +40,7 @@ public class EmfFormTraitTabFactoryTest extends AbstractEmfTest {
 	@Test
 	public void testWithTraitCachePoisoningWithoutTransaction() {
 
-		//TODO Omitting a transaction should not change the behavior.
+		// TODO Omitting a transaction should not change the behavior (PLAT-902).
 		findNode(WITHOUT_TRANSACTION).click();
 		var formPopup = openFormPopupAndSwitchToTraitTab();
 		assertInputValue(formPopup, "15");
