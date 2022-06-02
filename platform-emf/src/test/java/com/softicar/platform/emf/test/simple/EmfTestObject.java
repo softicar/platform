@@ -4,12 +4,10 @@ import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.emf.object.IEmfObject;
-import java.util.Set;
-import java.util.TreeSet;
+import com.softicar.platform.emf.test.simple.authorization.EmfTestObjectAuthorizedUser;
+import com.softicar.platform.emf.test.user.EmfTestUser;
 
 public class EmfTestObject extends EmfTestObjectGenerated implements IEmfObject<EmfTestObject> {
-
-	private final Set<IBasicUser> authorizedUsers = new TreeSet<>();
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
@@ -17,13 +15,17 @@ public class EmfTestObject extends EmfTestObjectGenerated implements IEmfObject<
 		return new DisplayString().append(getName());
 	}
 
-	public void addAuthorizedUser(IBasicUser user) {
+	public void addAuthorizedUser(EmfTestUser user) {
 
-		this.authorizedUsers.add(user);
+		new EmfTestObjectAuthorizedUser().setObject(this).setUser(user).save();
 	}
 
 	public boolean isAuthorizedUser(IBasicUser user) {
 
-		return authorizedUsers.contains(user);
+		return EmfTestObjectAuthorizedUser.TABLE//
+			.createSelect()
+			.where(EmfTestObjectAuthorizedUser.OBJECT.equal(this))
+			.where(EmfTestObjectAuthorizedUser.USER.isEqualId(user.getId()))
+			.exists();
 	}
 }
