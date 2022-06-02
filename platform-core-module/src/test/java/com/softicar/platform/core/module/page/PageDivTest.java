@@ -48,8 +48,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
 		assertLinksPresent(//
-			"AJAX",
 			"Email",
+			"Events",
 			"Logging",
 			"Modules",
 			"Programs",

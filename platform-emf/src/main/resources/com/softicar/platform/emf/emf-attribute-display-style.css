@@ -2,12 +2,3 @@
 td > .EmfBooleanDisplay {
 	justify-content: center;
 }
-
-.EmfMultilineStringDisplay {
-	overflow: auto;
-	white-space: pre-wrap;
-	overflow-wrap: break-word;
-	line-height: 1.2;
-	resize: vertical;
-	height: auto;
-}

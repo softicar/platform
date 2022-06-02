@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.day;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
@@ -11,5 +12,11 @@ public class EmfDayInput extends DomDayInput implements IEmfInput<Day> {
 
 		setValue(value);
 		applyCallback();
+	}
+
+	@Override
+	public void setChangeCallback(INullaryVoidFunction callback) {
+
+		setCallback(callback);
 	}
 }

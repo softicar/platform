@@ -2,21 +2,18 @@ package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.core.module.web.service.environment.IWebServiceEnvironment;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Central {@link HttpServlet} for all web-services.
- * <p>
- * WARNING: DO NOT RENAME OR MOVE THIS CLASS.
- * <p>
- * This class is referenced via canonical name, from the {@code web.xml} files
- * of consuming projects.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
+@WebServlet("/service")
 @MultipartConfig
 public class WebServiceBrokerServlet extends HttpServlet {
 
@@ -36,7 +33,7 @@ public class WebServiceBrokerServlet extends HttpServlet {
 	@Override
 	public void init() {
 
-		service.initialize(getServletContext()::addListener);
+		service.initialize();
 	}
 
 	@Override

@@ -7,6 +7,9 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
 import com.softicar.platform.core.module.access.role.assignment.module.instance.AGModuleInstanceRoleAssignment;
 import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
+import com.softicar.platform.core.module.event.AGSystemEvent;
+import com.softicar.platform.core.module.event.SystemEventBuilder;
+import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
@@ -148,6 +151,21 @@ public interface CoreModuleTestFixtureMethods {
 			.setExpectedEnd(expectedEnd)
 			.setState(state.getRecord())
 			.save();
+	}
+
+	default AGSystemEvent insertSystemErrorEvent(String message) {
+
+		return new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, message).save();
+	}
+
+	default AGSystemEvent insertSystemWarningEvent(String message) {
+
+		return new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, message).save();
+	}
+
+	default AGSystemEvent insertSystemInformationEvent(String message) {
+
+		return new SystemEventBuilder(AGSystemEventSeverityEnum.INFORMATION, message).save();
 	}
 
 	default AGStoredFile insertStoredFile(String filename) {

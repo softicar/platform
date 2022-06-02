@@ -1,6 +1,7 @@
 dependencies {
 	api project(':platform-common')
 	api "junit:junit:$versions.junit"
+	api "com.google.code.gson:gson:$versions.gson"
 	
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
 	

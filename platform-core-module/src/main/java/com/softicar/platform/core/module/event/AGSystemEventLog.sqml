@@ -1,0 +1,9 @@
+PACKAGE com.softicar.platform.core.module.event
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGSystemEventLog "Core.SystemEventLog" {
+	PK AGSystemEvent systemEvent
+	PK AGTransaction transaction
+	Boolean needsConfirmation
+}
