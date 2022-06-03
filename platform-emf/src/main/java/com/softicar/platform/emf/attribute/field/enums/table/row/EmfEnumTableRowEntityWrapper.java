@@ -47,6 +47,8 @@ public class EmfEnumTableRowEntityWrapper<R extends IDbEnumTableRow<R, V>, V ext
 		if (row instanceof IEntity) {
 			// respect the entity to decide if IDs shall be shown
 			return ((IEntity) row).toDisplay();
+		} else if (row instanceof IDisplayable) {
+			return ((IDisplayable) row).toDisplay();
 		} else {
 			return IEntity.super.toDisplay();
 		}

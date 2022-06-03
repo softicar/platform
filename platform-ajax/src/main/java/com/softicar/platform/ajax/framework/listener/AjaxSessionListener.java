@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSessionListener;
  *
  * @author Oliver Richers
  */
+@WebListener
 public class AjaxSessionListener implements HttpSessionListener, HttpSessionActivationListener, Serializable {
 
 	private static final String ATTRIBUTE_NAME = AjaxSessionListener.class.getCanonicalName();

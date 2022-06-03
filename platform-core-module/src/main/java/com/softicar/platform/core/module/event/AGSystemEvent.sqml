@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.event
+
+IMPORT com.softicar.platform.core.module.event.severity.AGSystemEventSeverity
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+TABLE AGSystemEvent "Core.SystemEvent" {
+	PK Integer id = SERIAL
+	Boolean needsConfirmation
+	AGSystemEventSeverity severity
+	DayTime causedAt
+	AGUser causedBy
+	String message [LENGTHBITS=16]
+	String properties [LENGTHBITS=16]
+}

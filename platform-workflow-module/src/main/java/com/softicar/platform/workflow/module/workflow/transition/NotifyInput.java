@@ -18,9 +18,9 @@ public class NotifyInput extends EmfBooleanInput {
 
 		if (transition.isAutoTransition()) {
 			setValue(false);
-			setEnabled(false);
+			setDisabled(true);
 		} else {
-			setEnabled(true);
+			setDisabled(false);
 		}
 	}
 }

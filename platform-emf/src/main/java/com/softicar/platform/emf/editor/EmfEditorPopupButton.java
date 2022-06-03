@@ -12,7 +12,7 @@ public class EmfEditorPopupButton<R extends IEmfTableRow<R, ?>> extends DomPopup
 	public EmfEditorPopupButton(R tableRow) {
 
 		setPopupFactory(() -> new EmfFormPopup<>(tableRow).setDirectEditing(true));
-		setEnabled(isEditAllowed(tableRow));
+		setDisabled(!isEditAllowed(tableRow));
 		setIcon(EmfImages.ENTITY_EDIT.getResource());
 		setTitle(EmfI18n.EDIT_ENTRY);
 	}

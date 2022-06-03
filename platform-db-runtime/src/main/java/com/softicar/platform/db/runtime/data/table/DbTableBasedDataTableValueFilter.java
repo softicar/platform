@@ -35,6 +35,10 @@ public class DbTableBasedDataTableValueFilter<R, V> implements IDbTableBasedData
 			return toPrimitiveFieldOrThrow().isGreater(value);
 		case GREATER_EQUAL:
 			return toPrimitiveFieldOrThrow().isGreaterEqual(value);
+		case EMPTY:
+			return field.isNull();
+		case NOT_EMPTY:
+			return field.isNotNull();
 		}
 		throw new SofticarUnknownEnumConstantException(operator);
 	}

@@ -43,7 +43,7 @@ public class AjaxExceptionsViewPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(CoreI18n.AJAX);
+		return modulePath.append(CoreI18n.EVENTS);
 	}
 
 	@Override

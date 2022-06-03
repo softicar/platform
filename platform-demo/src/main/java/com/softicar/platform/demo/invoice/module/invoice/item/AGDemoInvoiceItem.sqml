@@ -11,6 +11,6 @@ TABLE AGDemoInvoiceItem 'Demo.DemoInvoiceItem' {
 	Decimal grossAmount [PRECISION=20,4]
 	Decimal netAmount [PRECISION=20,4]
 	AGDemoPerson clerk  = NULL [NULLABLE]
-	
+
 	UK invoice item
 }

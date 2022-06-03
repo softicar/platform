@@ -11,5 +11,6 @@ public interface DomCssFiles {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(DomCssFiles.class, Charsets.UTF8);
 
+	IResourceSupplier DOM_JSON_DISPLAY_STYLE = FACTORY.create("dom-json-display-style.css");
 	IResourceSupplier DOM_STYLE = FACTORY.create("dom-style.css");
 }

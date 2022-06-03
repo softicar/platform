@@ -15,13 +15,13 @@ public class EmfManagementConfiguration<R extends IEmfTableRow<R, ?>> implements
 
 	private final IEmfTable<R, ?, ?> table;
 	private final List<Pair<IEmfAttribute<R, ?>, OrderDirection>> orderBy;
-	private Optional<IEmfDataTableRowCustomizer<R>> rowStyler;
+	private Optional<IEmfDataTableRowCustomizer<R>> rowCustomizer;
 
 	public EmfManagementConfiguration(IEmfTable<R, ?, ?> table) {
 
 		this.table = table;
 		this.orderBy = new ArrayList<>();
-		this.rowStyler = Optional.empty();
+		this.rowCustomizer = Optional.empty();
 	}
 
 	@Override
@@ -44,11 +44,20 @@ public class EmfManagementConfiguration<R extends IEmfTableRow<R, ?>> implements
 	@Override
 	public Optional<IEmfDataTableRowCustomizer<R>> getRowCustomizer() {
 
-		return rowStyler;
+		return rowCustomizer;
 	}
 
-	public void setRowStyler(IEmfDataTableRowCustomizer<R> rowStyler) {
+	public void setRowCustomizer(IEmfDataTableRowCustomizer<R> rowCustomizer) {
 
-		this.rowStyler = Optional.of(rowStyler);
+		this.rowCustomizer = Optional.of(rowCustomizer);
+	}
+
+	/**
+	 * @deprecated use {@link #setRowCustomizer}
+	 */
+	@Deprecated
+	public void setRowStyler(IEmfDataTableRowCustomizer<R> rowCustomizer) {
+
+		setRowCustomizer(rowCustomizer);
 	}
 }

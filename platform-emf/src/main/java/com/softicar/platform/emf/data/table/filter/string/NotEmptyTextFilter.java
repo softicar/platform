@@ -34,6 +34,6 @@ public class NotEmptyTextFilter<R> implements IEmfDataTableFilter<R> {
 	@Override
 	public IDisplayString getDisplayString() {
 
-		return EmfDataTableI18n.NOT_EMPTY;
+		return EmfDataTableI18n.IS_NOT_EMPTY;
 	}
 }

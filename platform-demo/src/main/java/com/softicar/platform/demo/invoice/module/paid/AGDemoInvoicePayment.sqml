@@ -3,7 +3,7 @@ PACKAGE com.softicar.platform.demo.invoice.module.paid
 IMPORT com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice
 
 TABLE AGDemoInvoicePayment "Demo.DemoInvoicePayment" {
-	
+
 	PK AGDemoInvoice demoInvoice
 	Day paidAt
 	Decimal paidAmount [PRECISION=6,2]

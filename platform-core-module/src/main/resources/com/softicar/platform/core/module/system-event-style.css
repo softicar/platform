@@ -1,0 +1,9 @@
+.SystemEventSeverityDisplay.error {
+	color: var(--ERROR_FONT_COLOR);
+	font-weight: bold;
+}
+
+.SystemEventSeverityDisplay.warning {
+	color: var(--WARNING_FONT_COLOR);
+	font-weight: bold;
+}

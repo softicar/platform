@@ -104,15 +104,19 @@ public interface IDomAutoCompleteInputConfiguration {
 	IDomAutoCompleteInputConfiguration setMandatory(boolean mandatory);
 
 	/**
-	 * @return true if the input element is enabled. false otherwise.
+	 * Determines whether the input element is disabled.
+	 *
+	 * @return <i>true</i> if the input element is disabled; <i>false</i>
+	 *         otherwise
 	 */
-	boolean isEnabled();
+	boolean isDisabled();
 
 	/**
-	 * Toggles the enabled state of the input element.
+	 * Defines whether the input element is disabled.
 	 *
-	 * @param enabled
-	 *            true if the input element should be enabled. false otherwise.
+	 * @param disabled
+	 *            <i>true</i> to disable the input element; <i>false</i> to
+	 *            enable it
 	 */
-	IDomAutoCompleteInputConfiguration setEnabled(boolean enabled);
+	IDomAutoCompleteInputConfiguration setDisabled(boolean disabled);
 }
