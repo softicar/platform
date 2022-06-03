@@ -2,12 +2,12 @@ package com.softicar.platform.core.module.maintenance;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.page.EmfPagePath;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
@@ -27,9 +27,9 @@ public class MaintenanceWindowPage extends AbstractEmfManagementPage<SystemModul
 	}
 
 	@Override
-	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfRoles.any(CoreRoles.SUPER_USER, CoreRoles.SYSTEM_ADMINISTRATOR);
+		return EmfPermissions.any(CorePermissions.SUPER_USER, CorePermissions.SYSTEM_ADMINISTRATOR);
 	}
 
 	@Override

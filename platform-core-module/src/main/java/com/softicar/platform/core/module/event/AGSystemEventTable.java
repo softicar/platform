@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.event.properties.SystemEventPropertiesDisplay;
 import com.softicar.platform.core.module.event.severity.SystemEventSeverityDisplay;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
@@ -10,11 +10,11 @@ import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.management.EmfManagementConfiguration;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModuleInstance> {
@@ -33,9 +33,9 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGSystemEvent, SystemModuleInstance> authorizer) {
 
-		authorizer.setCreationRole(EmfRoles.nobody());
-		authorizer.setEditRole(EmfRoles.nobody());
-		authorizer.setViewRole(CoreRoles.SYSTEM_ADMINISTRATOR.toOtherEntityRole());
+		authorizer.setCreationPermission(EmfPermissions.nobody());
+		authorizer.setEditPermission(EmfPermissions.nobody());
+		authorizer.setViewPermission(CorePermissions.SYSTEM_ADMINISTRATOR.toOtherEntityPermission());
 	}
 
 	@Override

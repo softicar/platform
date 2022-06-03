@@ -1,15 +1,15 @@
 package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.db.runtime.table.configuration.DbTableConfiguration;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
@@ -36,10 +36,10 @@ public class AGCoreModuleInstanceTable extends EmfObjectTable<AGCoreModuleInstan
 	public void customizeAuthorizer(EmfAuthorizer<AGCoreModuleInstance, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(EmfRoles.nobody())
-			.setDeleteRole(EmfRoles.nobody())
-			.setEditRole(CoreRoles.SUPER_USER.toOtherEntityRole())
-			.setViewRole(CoreRoles.SUPER_USER.toOtherEntityRole());
+			.setCreationPermission(EmfPermissions.nobody())
+			.setDeletePermission(EmfPermissions.nobody())
+			.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission())
+			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 	}
 
 	@Override

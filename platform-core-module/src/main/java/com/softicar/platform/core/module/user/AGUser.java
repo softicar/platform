@@ -9,10 +9,10 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
-import com.softicar.platform.core.module.access.role.assignment.EmfModuleRoleAssignmentCache;
+import com.softicar.platform.core.module.access.permission.EmfSystemModulePermission;
+import com.softicar.platform.core.module.access.permission.assignment.EmfModulePermissionAssignmentCache;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
@@ -25,7 +25,7 @@ import com.softicar.platform.core.module.user.password.UserPasswordLoader;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
 import com.softicar.platform.db.core.transaction.DbTransaction;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.Collection;
 import java.util.List;
@@ -35,11 +35,11 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public static final UserLastLoginField LAST_LOGIN = new UserLastLoginField();
 
-	private final EmfModuleRoleAssignmentCache roleMembershipCache;
+	private final EmfModulePermissionAssignmentCache permissionCache;
 
 	public AGUser() {
 
-		this.roleMembershipCache = new EmfModuleRoleAssignmentCache(getThis());
+		this.permissionCache = new EmfModulePermissionAssignmentCache(getThis());
 	}
 
 	public static AGUser get(IBasicUser basicUser) {
@@ -47,14 +47,14 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		return AGUser.TABLE.get(basicUser.getId());
 	}
 
-	public boolean hasModuleRole(IEmfModuleRole<?> role, AGModuleInstance moduleInstance) {
+	public boolean hasModulePermission(IEmfModulePermission<?> permission, AGModuleInstance moduleInstance) {
 
-		return roleMembershipCache.hasModuleRole(role.getAnnotatedUuid(), moduleInstance);
+		return permissionCache.hasModulePermission(permission.getAnnotatedUuid(), moduleInstance);
 	}
 
-	public boolean hasModuleRole(EmfSystemModuleRole moduleRole) {
+	public boolean hasModulePermission(EmfSystemModulePermission modulePermission) {
 
-		return roleMembershipCache.hasModuleRole(moduleRole);
+		return permissionCache.hasModulePermission(modulePermission);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	@Override
 	public Boolean isSuperUser() {
 
-		return CoreRoles.SUPER_USER.test(CoreModule.getModuleInstance(), getThis());
+		return CorePermissions.SUPER_USER.test(CoreModule.getModuleInstance(), getThis());
 	}
 
 	public boolean isPasswordPolicyFulfilled() {

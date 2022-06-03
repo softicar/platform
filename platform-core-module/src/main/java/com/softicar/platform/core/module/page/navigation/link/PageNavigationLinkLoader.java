@@ -55,7 +55,7 @@ public class PageNavigationLinkLoader<I extends IEmfModuleInstance<I>> {
 
 	private boolean isAccessGranted(IEmfPage<I> page, I moduleInstance) {
 
-		return page.getPrecondition().test(moduleInstance) & page.getAuthorizedRole().test(moduleInstance, CurrentUser.get());
+		return page.getPrecondition().test(moduleInstance) & page.getRequiredPermission().test(moduleInstance, CurrentUser.get());
 	}
 
 	private PageNavigationLink<I> registerNewLink(IEmfModule<I> module, PageNavigationLink<I> link) {

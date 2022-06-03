@@ -10,7 +10,7 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
@@ -54,7 +54,7 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 	}
 
 	@Override
-	public boolean hasRole(IEmfModuleRole<AGCoreModuleInstance> role, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<AGCoreModuleInstance> permission, IBasicUser user) {
 
 		throw new UnsupportedOperationException("Core module is not a standard module, yet.");
 	}

@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.page.service.login;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.core.module.user.AGUser;
@@ -126,7 +126,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 	public void testAsSystemAdminDuringMaintenance() {
 
 		insertMaintenanceWindow(DayTime.now(), DayTime.now(), AGMaintenanceStateEnum.IN_PROGRESS);
-		insertRoleMembership(user, CoreRoles.SYSTEM_ADMINISTRATOR, CoreModule.class);
+		insertPermissionAssignment(user, CorePermissions.SYSTEM_ADMINISTRATOR, CoreModule.class);
 
 		AGUser authenticatedUser = authenticate(USERNAME, PASSWORD);
 		assertSame(user, authenticatedUser);

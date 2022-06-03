@@ -8,14 +8,14 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.table.IDbTable;
-import com.softicar.platform.emf.authorization.role.CurrentEmfRoleRegistry;
-import com.softicar.platform.emf.authorization.role.EmfRoleToStringVisitor;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
-import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
 import com.softicar.platform.emf.log.EmfDummyLogger;
 import com.softicar.platform.emf.log.EmfPlainChangeLogger;
 import com.softicar.platform.emf.log.IEmfChangeLogger;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
+import com.softicar.platform.emf.permission.CurrentEmfPermissionRegistry;
+import com.softicar.platform.emf.permission.EmfPermissionToStringVisitor;
+import com.softicar.platform.emf.permission.IEmfPermission;
+import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.table.validator.fields.EmfTableDayFieldChecker;
@@ -48,12 +48,12 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		validateScopeFields();
 		validateLogging();
 		assertSingleTransactionField();
-		assertNoCyclicRoles();
+		assertNoCyclicPermissions();
 		assertValidActiveField();
 		assertNoUniqueKeysWithActiveColumn();
 		assertNoUniqueKeysInLogTable();
 		validateDayFields();
-		validateStaticRoleFields();
+		validateStaticPermissionFields();
 	}
 
 	private void validateScopeFields() {
@@ -196,37 +196,37 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		collector.throwIfNecessary();
 	}
 
-	private void validateStaticRoleFields() {
+	private void validateStaticPermissionFields() {
 
 		var collector = new AssertionErrorMessageCollector();
 		for (Field field: new DeclaredFieldFinder(table.getClass()).findDeclaredFields()) {
-			collector.addAll(validateRoleField(field, IEmfModuleRole.class));
-			collector.addAll(validateRoleField(field, IEmfStaticRole.class));
+			collector.addAll(validatePermissionField(field, IEmfModulePermission.class));
+			collector.addAll(validatePermissionField(field, IEmfStaticPermission.class));
 		}
 		collector.throwIfNecessary();
 	}
 
-	private AssertionErrorMessageCollector validateRoleField(Field roleField, Class<?> expectedRoleType) {
+	private AssertionErrorMessageCollector validatePermissionField(Field permissionField, Class<?> expectedPermissionType) {
 
 		var collector = new AssertionErrorMessageCollector();
-		if (ReflectionUtils.isDeclaredType(roleField, expectedRoleType)) {
-			if (!ReflectionUtils.isPublicStaticFinal(roleField)) {
+		if (ReflectionUtils.isDeclaredType(permissionField, expectedPermissionType)) {
+			if (!ReflectionUtils.isPublicStaticFinal(permissionField)) {
 				collector
 					.add(//
 						"%s field %s.%s must be 'public static final'.",
-						expectedRoleType.getSimpleName(),
+						expectedPermissionType.getSimpleName(),
 						table.getClass().getCanonicalName(),
-						roleField.getName());
+						permissionField.getName());
 			}
 
-			var analyzer = new TypeParameterAnalyzer(roleField);
+			var analyzer = new TypeParameterAnalyzer(permissionField);
 			if (!analyzer.hasExpectedTypeParameter(table.getValueClass())) {
 				collector
 					.add(//
 						"%s field %s.%s has an unexpected type parameter. Expected [%s], encountered [%s].",
-						expectedRoleType.getSimpleName(),
+						expectedPermissionType.getSimpleName(),
 						table.getClass().getCanonicalName(),
-						roleField.getName(),
+						permissionField.getName(),
 						table.getValueClass().getCanonicalName(),
 						analyzer.getTypeParameterName());
 			}
@@ -235,21 +235,23 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 	}
 
 	/**
-	 * This method tries to build a String for each role used in the table.<br>
-	 * If there is a cyclic call, a StackOverflow should happen.<br>
-	 * If nothing happens (method finishes without errors) everything is fine.
+	 * This method tries to build a String for each {@link IEmfPermission} used
+	 * in the table.
+	 * <p>
+	 * If there is a cyclic call, a StackOverflow should happen. If nothing
+	 * happens (method finishes without errors) everything is fine.
 	 */
-	private void assertNoCyclicRoles() {
+	private void assertNoCyclicPermissions() {
 
-		CurrentEmfRoleRegistry//
+		CurrentEmfPermissionRegistry//
 			.get()
-			.getRoles(table)
-			.forEach(role -> testRoleStringBuilder(role));
+			.getPermissions(table)
+			.forEach(permission -> testPermissionStringBuilder(permission));
 	}
 
-	private void testRoleStringBuilder(IEmfRole<?> role) {
+	private void testPermissionStringBuilder(IEmfPermission<?> permission) {
 
-		new EmfRoleToStringVisitor<>(role).toString();
+		new EmfPermissionToStringVisitor<>(permission).toString();
 	}
 
 	private void validateLoggedFields() {

@@ -4,11 +4,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
-import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.IEmfTable;
 
 public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>> implements IEmfPage<I> {
@@ -34,9 +34,9 @@ public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>>
 	}
 
 	@Override
-	public IEmfRole<I> getAuthorizedRole() {
+	public IEmfPermission<I> getRequiredPermission() {
 
-		return EmfDefaultModuleRoles.getModuleViewer();
+		return EmfDefaultModulePermissions.getModuleViewer();
 	}
 
 	/**

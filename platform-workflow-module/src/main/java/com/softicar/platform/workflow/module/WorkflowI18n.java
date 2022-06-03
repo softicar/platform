@@ -33,10 +33,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatischer Übergang: %s -> %s");
 	I18n0 AUTO_TRANSITIONS_CANNOT_NOTIFY_ANYONE = new I18n0("Auto transitions cannot notify anyone.")//
 		.de("Automatische Übergänge können niemanden informieren.");
+	I18n0 AUTO_TRANSITIONS_MAY_NOT_DEFINE_PERMISSIONS = new I18n0("Auto transitions may not define permissions.")//
+		.de("Automatische Übergänge dürfen keine Berechtigungen definieren.");
 	I18n0 AUTO_TRANSITIONS_MAY_NOT_DEFINE_REQUIRED_VOTES = new I18n0("Auto transitions may not define required votes.")//
 		.de("Automatische Übergänge dürfen keine benötigten Stimmen definieren.");
-	I18n0 AUTO_TRANSITIONS_MAY_NOT_DEFINE_ROLES = new I18n0("Auto transitions may not define roles.")//
-		.de("Automatische Übergänge dürfen keine Rollen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
 	I18n0 CONFIGURE = new I18n0("Configure")//
@@ -156,8 +156,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergang");
 	I18n0 TRANSITION_ICON = new I18n0("Transition Icon")//
 		.de("Übergangs-Icon");
-	I18n0 TRANSITION_ROLE = new I18n0("Transition Role")//
-		.de("Übergangs-Rolle");
+	I18n0 TRANSITION_PERMISSION = new I18n0("Transition Permission")//
+		.de("Übergangsberechtigung");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
 	I18n0 VERSIONS = new I18n0("Versions")//
@@ -231,14 +231,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Knoten-Aktion-Log");
 	I18n0 WORKFLOW_NODE_ACTION_LOGS = new I18n0("Workflow Node Action Logs")//
 		.de("Arbeitsablauf-Knoten-Aktion-Logs");
-	I18n0 WORKFLOW_NODE_ACTION_ROLE = new I18n0("Workflow Node Action Role")//
-		.de("Arbeitsablauf-Knoten-Aktions-Rolle");
-	I18n0 WORKFLOW_NODE_ACTION_ROLE_LOG = new I18n0("Workflow Node Action Role Log")//
-		.de("Arbeitsablauf-Knoten-Aktions-Rolle-Log");
-	I18n0 WORKFLOW_NODE_ACTION_ROLE_LOGS = new I18n0("Workflow Node Action Role Logs")//
-		.de("Arbeitsablauf-Knoten-Aktions-Rolle-Logs");
-	I18n0 WORKFLOW_NODE_ACTION_ROLES = new I18n0("Workflow Node Action Roles")//
-		.de("Arbeitsablauf-Knoten-Aktions-Rollen");
+	I18n0 WORKFLOW_NODE_ACTION_PERMISSION = new I18n0("Workflow Node Action Permission")//
+		.de("Arbeitsablauf-Knoten-Aktionsberechtigung");
+	I18n0 WORKFLOW_NODE_ACTION_PERMISSION_LOG = new I18n0("Workflow Node Action Permission Log")//
+		.de("Arbeitsablauf-Knoten-Aktionsberechtigungs-Log");
+	I18n0 WORKFLOW_NODE_ACTION_PERMISSION_LOGS = new I18n0("Workflow Node Action Permission Logs")//
+		.de("Arbeitsablauf-Knoten-Aktionsberechtigungs-Logs");
+	I18n0 WORKFLOW_NODE_ACTION_PERMISSIONS = new I18n0("Workflow Node Action Permissions")//
+		.de("Arbeitsablauf-Knoten-Aktionsberechtigungen");
 	I18n0 WORKFLOW_NODE_ACTIONS = new I18n0("Workflow Node Actions")//
 		.de("Arbeitsablauf-Knoten-Aktionen");
 	I18n0 WORKFLOW_NODE_LOG = new I18n0("Workflow Node Log")//
@@ -277,8 +277,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Aufgaben");
 	I18n0 WORKFLOW_TRANSITION = new I18n0("Workflow Transition")//
 		.de("Arbeitsablauf-Übergang");
-	I18n0 WORKFLOW_TRANSITION_ACTION_ROLE = new I18n0("Workflow Transition Action Role")//
-		.de("Arbeitsablauf-Übergangs-Aktionen-Rolle");
+	I18n0 WORKFLOW_TRANSITION_ACTION_PERMISSION = new I18n0("Workflow Transition Action Permission")//
+		.de("Arbeitsablauf-Übergangs-Aktionenberechtigung");
 	I18n0 WORKFLOW_TRANSITION_EXECUTION = new I18n0("Workflow Transition Execution")//
 		.de("Ausführung eines Arbeitsablauf-Übergangs");
 	I18n0 WORKFLOW_TRANSITION_EXECUTIONS = new I18n0("Workflow Transition Executions")//
@@ -287,14 +287,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Übergang-Log");
 	I18n0 WORKFLOW_TRANSITION_LOGS = new I18n0("Workflow Transition Logs")//
 		.de("Arbeitsablauf-Übergang-Logs");
-	I18n0 WORKFLOW_TRANSITION_ROLE = new I18n0("Workflow Transition Role")//
-		.de("Arbeitsablauf-Übergangs-Rolle");
-	I18n0 WORKFLOW_TRANSITION_ROLE_LOG = new I18n0("Workflow Transition Role Log")//
-		.de("Arbeitsablauf-Übergangs-Rolle-Log");
-	I18n0 WORKFLOW_TRANSITION_ROLE_LOGS = new I18n0("Workflow Transition Role Logs")//
-		.de("Arbeitsablauf-Übergangs-Rolle-Logs");
-	I18n0 WORKFLOW_TRANSITION_ROLES = new I18n0("Workflow Transition Roles")//
-		.de("Arbeitsablauf-Übergangs-Rollen");
+	I18n0 WORKFLOW_TRANSITION_PERMISSION = new I18n0("Workflow Transition Permission")//
+		.de("Arbeitsablauf-Übergangsberechtigung");
+	I18n0 WORKFLOW_TRANSITION_PERMISSION_LOG = new I18n0("Workflow Transition Permission Log")//
+		.de("Arbeitsablauf-Übergangsberechtigungs-Log");
+	I18n0 WORKFLOW_TRANSITION_PERMISSION_LOGS = new I18n0("Workflow Transition Permission Logs")//
+		.de("Arbeitsablauf-Übergangsberechtigungs-Logs");
+	I18n0 WORKFLOW_TRANSITION_PERMISSIONS = new I18n0("Workflow Transition Permissions")//
+		.de("Arbeitsablauf-Übergangsberechtigungen");
 	I18n0 WORKFLOW_TRANSITIONS = new I18n0("Workflow Transitions")//
 		.de("Arbeitsablauf-Übergänge");
 	I18n0 WORKFLOW_USER_CONFIGURATION = new I18n0("Workflow User Configuration")//

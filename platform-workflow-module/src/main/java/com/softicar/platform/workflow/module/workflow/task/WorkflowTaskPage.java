@@ -2,10 +2,10 @@ package com.softicar.platform.workflow.module.workflow.task;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
-import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -27,9 +27,9 @@ public class WorkflowTaskPage implements IEmfPage<AGWorkflowModuleInstance> {
 	}
 
 	@Override
-	public IEmfRole<AGWorkflowModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<AGWorkflowModuleInstance> getRequiredPermission() {
 
-		return EmfDefaultModuleRoles.getModuleOperator();
+		return EmfDefaultModulePermissions.getModuleOperator();
 	}
 
 	@Override

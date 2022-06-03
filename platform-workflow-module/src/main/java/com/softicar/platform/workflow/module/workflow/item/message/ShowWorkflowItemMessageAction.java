@@ -3,8 +3,8 @@ package com.softicar.platform.workflow.module.workflow.item.message;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -19,9 +19,9 @@ public class ShowWorkflowItemMessageAction<R extends IWorkflowableObject<R>> imp
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.anybody();
 	}
 
 	@Override

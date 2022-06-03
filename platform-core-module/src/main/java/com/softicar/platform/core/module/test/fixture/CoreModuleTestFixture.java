@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.test.fixture;
 
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 
 /**
  * Basic test fixture for the {@link CoreModule}.
@@ -50,9 +50,9 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertRoleMembership(adminUser, CoreRoles.ACCESS_MANAGER, CoreModule.class);
-		insertRoleMembership(adminUser, CoreRoles.SUPER_USER, CoreModule.class);
-		insertRoleMembership(adminUser, CoreRoles.SYSTEM_ADMINISTRATOR, CoreModule.class);
+		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGER, CoreModule.class);
+		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER, CoreModule.class);
+		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATOR, CoreModule.class);
 
 		new ProgramStandardConfiguration().createAndSaveAll();
 	}
@@ -72,10 +72,10 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		return adminUser;
 	}
 
-	public <I extends IStandardModuleInstance<I>> void insertStandardRoleMemberships(I moduleInstance) {
+	public <I extends IStandardModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
 
-		insertRoleMembership(getViewUser(), EmfDefaultModuleRoles.getModuleViewer(), moduleInstance);
-		insertRoleMembership(getNormalUser(), EmfDefaultModuleRoles.getModuleOperator(), moduleInstance);
-		insertRoleMembership(getAdminUser(), EmfDefaultModuleRoles.getModuleAdministator(), moduleInstance);
+		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleViewer(), moduleInstance);
+		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperator(), moduleInstance);
+		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministator(), moduleInstance);
 	}
 }

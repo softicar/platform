@@ -2,11 +2,11 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.page.EmfPagePath;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
@@ -26,9 +26,9 @@ public class SystemEventPage extends AbstractEmfManagementPage<SystemModuleInsta
 	}
 
 	@Override
-	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return CoreRoles.SYSTEM_ADMINISTRATOR;
+		return CorePermissions.SYSTEM_ADMINISTRATOR;
 	}
 
 	@Override

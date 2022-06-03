@@ -10,11 +10,11 @@ import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeDisplay;
 import com.softicar.platform.emf.attribute.field.duration.EmfDurationDisplay;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.management.EmfManagementConfiguration;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 
 public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, SystemModuleInstance> {
 
@@ -59,9 +59,9 @@ public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, 
 	public void customizeAuthorizer(EmfAuthorizer<AGProgramExecution, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(EmfRoles.nobody())
-			.setEditRole(EmfRoles.nobody())
-			.setDeleteRole(EmfRoles.nobody());
+			.setCreationPermission(EmfPermissions.nobody())
+			.setEditPermission(EmfPermissions.nobody())
+			.setDeletePermission(EmfPermissions.nobody());
 	}
 
 	@Override

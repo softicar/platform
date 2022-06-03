@@ -27,7 +27,7 @@ public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMetho
 	public IStandardModuleTestFixture<AGWorkflowModuleInstance> apply() {
 
 		this.workflowModuleInstance = insertWorkflowModuleInstance();
-		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(workflowModuleInstance);
+		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(workflowModuleInstance);
 		new WorkflowIconStandardConfiguration(workflowModuleInstance).createAndSaveAll();
 		new WorkflowDemoConfiguration(workflowModuleInstance, registry.getCoreModuleTestFixture()).createAndSaveAll();
 		return this;

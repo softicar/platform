@@ -9,7 +9,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.entity.table.column.handler.EmfIconColumnHandler;
 import com.softicar.platform.emf.entity.table.column.handler.EmfPredicateColumnHandler;
-import com.softicar.platform.emf.entity.table.column.handler.EmfRoleColumnHandler;
+import com.softicar.platform.emf.entity.table.column.handler.EmfPermissionColumnHandler;
 import com.softicar.platform.emf.table.IEmfTable;
 
 public class EmfTableActionOverviewTab extends DomTab {
@@ -23,7 +23,7 @@ public class EmfTableActionOverviewTab extends DomTab {
 				.setActionColumnHandler((cell, row) -> buildActionCell(cell, row))
 				.setColumnHandler(overviewTable.getIconColumn(), new EmfIconColumnHandler())
 				.setColumnHandler(overviewTable.getPreconditionColumn(), new EmfPredicateColumnHandler())
-				.setColumnHandler(overviewTable.getAuthorizedRoleColumn(), new EmfRoleColumnHandler())
+				.setColumnHandler(overviewTable.getRequiredPermissionColumn(), new EmfPermissionColumnHandler())
 				.setOrderBy(overviewTable.getTitleColumn(), OrderDirection.ASCENDING)
 				.build());
 	}

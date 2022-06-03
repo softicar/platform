@@ -14,7 +14,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 
 public class WorkflowNodeDisplayElement extends AbstractDisplayElement implements IDomDropEventHandler {
@@ -27,7 +27,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 		this.workflowNode = workflowNode;
 		this.refreshCallback = refreshCallback;
 		addCssClass(WorkflowCssClasses.WORKFLOW_NODE);
-		if (WorkflowRoles.ADMINISTRATOR.test(workflowNode.getWorkflowVersion().getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
+		if (WorkflowPermissions.ADMINISTRATOR.test(workflowNode.getWorkflowVersion().getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
 			applyDraggableStyle();
 		}
 		setPositionStyle();

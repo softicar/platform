@@ -479,16 +479,16 @@ public interface CoreI18n extends EmfI18n {
 		.de("Modulinstanz-Log");
 	I18n0 MODULE_INSTANCE_LOGS = new I18n0("Module Instance Logs")//
 		.de("Modulinstanz-Logs");
-	I18n0 MODULE_INSTANCE_ROLE_ASSIGNMENT = new I18n0("Module Instance Role Assignment")//
-		.de("Modulinstanz-Rollen-Zuweisung");
-	I18n0 MODULE_INSTANCE_ROLE_ASSIGNMENT_LOG = new I18n0("Module Instance Role Assignment Log")//
-		.de("Modulinstanz-Rollen-Zuweisungs-Log");
-	I18n0 MODULE_INSTANCE_ROLE_ASSIGNMENT_LOGS = new I18n0("Module Instance Role Assignment Logs")//
-		.de("Modulinstanz-Rollen-Zuweisungs-Logs");
-	I18n0 MODULE_INSTANCE_ROLE_ASSIGNMENT_MATRIX = new I18n0("Module Instance Role Assignment Matrix")//
-		.de("Modulinstanz-Rollen-Zuweisungs-Matrix");
-	I18n0 MODULE_INSTANCE_ROLE_ASSIGNMENTS = new I18n0("Module Instance Role Assignments")//
-		.de("Modulinstanz-Rollen-Zuweisungen");
+	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT = new I18n0("Module Instance Permission Assignment")//
+		.de("Modulinstanz-Berechtigungszuweisung");
+	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT_LOG = new I18n0("Module Instance Permission Assignment Log")//
+		.de("Modulinstanz-Berechtigungszuweisungs-Log");
+	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT_LOGS = new I18n0("Module Instance Permission Assignment Logs")//
+		.de("Modulinstanz-Berechtigungszuweisungs-Logs");
+	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT_MATRIX = new I18n0("Module Instance Permission Assignment Matrix")//
+		.de("Modulinstanz-Berechtigungszuweisungs-Matrix");
+	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENTS = new I18n0("Module Instance Permission Assignments")//
+		.de("Modulinstanz-Berechtigungszuweisungen");
 	I18n0 MODULE_INSTANCE_WAS_NOT_INITIALIZED = new I18n0("Module instance was not initialized.")//
 		.de("Modulinstanz wurde nicht initialisiert.");
 	I18n0 MODULE_INSTANCES = new I18n0("Module Instances")//
@@ -557,6 +557,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausstehend");
 	I18n0 PENDING_MAINTENANCE_INFO = new I18n0("Pending Maintenance Info")//
 		.de("Info zu bevorstehenden Wartungsarbeiten");
+	I18n0 PERMISSION_UUID = new I18n0("Permission UUID")//
+		.de("Berechtigungs-UUID");
+	I18n0 PERMISSIONS = new I18n0("Permissions")//
+		.de("Berechtigungen");
 	I18n0 PLEASE_DEFINE_A_NEW_PASSWORD_BELOW = new I18n0("Please define a new password below.")//
 		.de("Bitte unten ein neues Password definieren.");
 	I18n1 PLEASE_DOUBLE_CHECK_ALL_INPUTS_BEFORE_CLICKING_ARG1 = new I18n1("Please double check all inputs before clicking '%s'.")//
@@ -674,10 +678,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zurückkehren zu Benuter: %s");
 	I18n0 REVISION = new I18n0("Revision")//
 		.de("Revision");
-	I18n0 ROLE_UUID = new I18n0("Role UUID")//
-		.de("Rollen-UUID");
-	I18n0 ROLES = new I18n0("Roles")//
-		.de("Rollen");
 	I18n0 ROW_COUNT = new I18n0("Row Count")//
 		.de("Zeilenanzahl");
 	I18n0 RUNTIME = new I18n0("Runtime")//
@@ -824,14 +824,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Systemereignis-Schweregrad");
 	I18n0 SYSTEM_EVENTS = new I18n0("System Events")//
 		.de("Systemereignisse");
-	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT = new I18n0("System Module Role Assignment")//
-		.de("System-Modul-Rollen-Zuweisung");
-	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT_LOG = new I18n0("System Module Role Assignment Log")//
-		.de("System-Modul-Rollen-Zuweisungs-Log");
-	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENT_LOGS = new I18n0("System Module Role Assignment Logs")//
-		.de("System-Modul-Rollen-Zuweisungs-Logs");
-	I18n0 SYSTEM_MODULE_ROLE_ASSIGNMENTS = new I18n0("System Module Role Assignments")//
-		.de("System-Modul-Rollen-Zuweisungen");
+	I18n0 SYSTEM_MODULE_PERMISSION_ASSIGNMENT = new I18n0("System Module Permission Assignment")//
+		.de("System-Modul-Berechtigungszuweisung");
+	I18n0 SYSTEM_MODULE_PERMISSION_ASSIGNMENT_LOG = new I18n0("System Module Permission Assignment Log")//
+		.de("System-Modul-Berechtigungszuweisung-Log");
+	I18n0 SYSTEM_MODULE_PERMISSION_ASSIGNMENT_LOGS = new I18n0("System Module Permission Assignment Logs")//
+		.de("System-Modul-Berechtigungszuweisung-Logs");
+	I18n0 SYSTEM_MODULE_PERMISSION_ASSIGNMENTS = new I18n0("System Module Permission Assignments")//
+		.de("System-Modul-Berechtigungszuweisungen");
 	I18n0 SYSTEM_NAME = new I18n0("System Name")//
 		.de("System-Name");
 	I18n0 SYSTEM_REVISION = new I18n0("System Revision")//

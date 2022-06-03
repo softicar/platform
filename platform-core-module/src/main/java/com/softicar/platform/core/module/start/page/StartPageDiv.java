@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventPage;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
@@ -41,7 +41,7 @@ class StartPageDiv extends DomDiv {
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {
 
-		if (CurrentUser.get().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
+		if (CurrentUser.get().hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATOR)) {
 			var count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_CONFIRMATION).count();
 			if (count > 0) {
 				var message = CoreI18n.THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION.toDisplay(count);

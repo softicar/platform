@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.action.permission
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGWorkflowNodeActionPermissionLog 'Workflow.WorkflowNodeActionPermissionLog' {
+	
+	PK AGWorkflowNodeActionPermission workflowNodeActionPermission
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	AGUuid permissionUuid = NULL [NULLABLE]
+}

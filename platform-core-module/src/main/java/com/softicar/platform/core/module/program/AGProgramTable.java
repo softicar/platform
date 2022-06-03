@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
@@ -13,10 +13,10 @@ import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanDisplay;
 import com.softicar.platform.emf.attribute.field.daytime.EmfDayTimeDisplay;
 import com.softicar.platform.emf.attribute.field.item.EmfBasicEntityDisplay;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
@@ -79,9 +79,9 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	public void customizeAuthorizer(EmfAuthorizer<AGProgram, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(EmfRoles.nobody())
-			.setEditRole(CoreRoles.SUPER_USER.toOtherEntityRole())
-			.setDeleteRole(EmfRoles.nobody());
+			.setCreationPermission(EmfPermissions.nobody())
+			.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission())
+			.setDeletePermission(EmfPermissions.nobody());
 	}
 
 	@Override

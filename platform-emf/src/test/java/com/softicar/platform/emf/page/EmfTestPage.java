@@ -2,9 +2,9 @@ package com.softicar.platform.emf.page;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.module.IEmfModule;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.test.module.EmfTestModule;
 import com.softicar.platform.emf.test.module.EmfTestModuleInstance;
@@ -31,8 +31,8 @@ public class EmfTestPage implements IEmfPage<EmfTestModuleInstance> {
 	}
 
 	@Override
-	public IEmfRole<EmfTestModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<EmfTestModuleInstance> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.anybody();
 	}
 }

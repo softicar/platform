@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.email.buffer.attachment;
 
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGBufferedEmailAttachmentTable extends EmfObjectTable<AGBufferedEmailAttachment, AGBufferedEmail> {
@@ -24,8 +24,8 @@ public class AGBufferedEmailAttachmentTable extends EmfObjectTable<AGBufferedEma
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmailAttachment, AGBufferedEmail> authorizer) {
 
-		authorizer.setViewRole(CoreRoles.SUPER_USER.toOtherEntityRole());
-		authorizer.setEditRole(EmfRoles.nobody());
-		authorizer.setCreationRole(EmfRoles.nobody());
+		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setEditPermission(EmfPermissions.nobody());
+		authorizer.setCreationPermission(EmfPermissions.nobody());
 	}
 }

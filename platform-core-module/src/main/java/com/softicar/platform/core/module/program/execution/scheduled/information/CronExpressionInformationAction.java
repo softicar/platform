@@ -7,8 +7,8 @@ import com.softicar.platform.core.module.module.instance.system.SystemModuleInst
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.action.IEmfScopeAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
@@ -21,9 +21,9 @@ public class CronExpressionInformationAction implements IEmfScopeAction<SystemMo
 	}
 
 	@Override
-	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.anybody();
 	}
 
 	@Override

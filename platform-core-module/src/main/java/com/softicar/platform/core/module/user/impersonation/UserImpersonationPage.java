@@ -7,10 +7,10 @@ import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("cff17c44-2186-40d1-8dca-5d82e2836918")
@@ -41,9 +41,9 @@ public class UserImpersonationPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfRoles.nobody();
+		return EmfPermissions.nobody();
 	}
 
 	@Override

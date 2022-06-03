@@ -7,8 +7,8 @@ import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.action.AbstractEmfButtonAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.IEmfFormBody;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
@@ -37,10 +37,10 @@ public class WorkflowTransitionAction<R extends IWorkflowableObject<R>> extends 
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		//TODO add roles for all transitions
-		return new WorkflowTransitionActionRole<>(transition.getAllActiveWorkflowTransitionRoles());
+		//TODO add permissions for all transitions
+		return new WorkflowTransitionActionPermission<>(transition.getAllActiveWorkflowTransitionPermissions());
 	}
 
 	@Override

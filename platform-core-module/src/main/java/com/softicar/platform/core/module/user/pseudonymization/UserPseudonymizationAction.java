@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.UserPredicates;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -14,7 +14,7 @@ import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.action.AbstractEmfPromptAction;
 import com.softicar.platform.emf.action.IEmfPromptActionInput;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Objects;
 
@@ -27,9 +27,9 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 	}
 
 	@Override
-	public IEmfRole<AGUser> getAuthorizedRole() {
+	public IEmfPermission<AGUser> getRequiredPermission() {
 
-		return CoreRoles.ACCESS_MANAGER.toOtherEntityRole();
+		return CorePermissions.ACCESS_MANAGER.toOtherEntityPermission();
 	}
 
 	@Override

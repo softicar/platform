@@ -9,7 +9,7 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowImages;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 
 public class AGWorkflowIconTable extends EmfObjectTable<AGWorkflowIcon, AGWorkflowModuleInstance> {
 
@@ -40,9 +40,9 @@ public class AGWorkflowIconTable extends EmfObjectTable<AGWorkflowIcon, AGWorkfl
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowIcon, AGWorkflowModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(WorkflowRoles.ADMINISTRATOR)
-			.setEditRole(WorkflowRoles.ADMINISTRATOR.of(AGWorkflowIcon.MODULE_INSTANCE))
-			.setViewRole(WorkflowRoles.VIEWER.of(AGWorkflowIcon.MODULE_INSTANCE));
+			.setCreationPermission(WorkflowPermissions.ADMINISTRATOR)
+			.setEditPermission(WorkflowPermissions.ADMINISTRATOR.of(AGWorkflowIcon.MODULE_INSTANCE))
+			.setViewPermission(WorkflowPermissions.VIEWER.of(AGWorkflowIcon.MODULE_INSTANCE));
 	}
 
 	@Override

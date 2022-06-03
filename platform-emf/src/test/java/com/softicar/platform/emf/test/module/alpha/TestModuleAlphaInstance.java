@@ -8,7 +8,7 @@ import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 
 public class TestModuleAlphaInstance extends AbstractDbObject<TestModuleAlphaInstance>
@@ -47,7 +47,7 @@ public class TestModuleAlphaInstance extends AbstractDbObject<TestModuleAlphaIns
 	}
 
 	@Override
-	public boolean hasRole(IEmfModuleRole<TestModuleAlphaInstance> role, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<TestModuleAlphaInstance> permission, IBasicUser user) {
 
 		throw new UnsupportedOperationException();
 	}

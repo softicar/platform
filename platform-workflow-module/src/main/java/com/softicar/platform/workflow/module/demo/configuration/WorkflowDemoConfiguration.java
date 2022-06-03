@@ -4,7 +4,7 @@ import com.softicar.platform.core.module.configuration.AbstractStandardConfigura
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.demo.AGWorkflowDemoObject;
 import com.softicar.platform.workflow.module.demo.AGWorkflowDemoObjectTable;
@@ -90,7 +90,7 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 			.setEmailAddress("demo.user@example.com")
 			.save();
 		insertPassword(demoUser, "test");
-		insertRoleMembership(demoUser, EmfDefaultModuleRoles.getModuleOperator(), moduleInstance);
+		insertPermissionAssignment(demoUser, EmfDefaultModulePermissions.getModuleOperator(), moduleInstance);
 		AGWorkflowDemoObject demoObject = new AGWorkflowDemoObject().setName("Test Object").setModuleInstance(moduleInstance).save();
 		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getAdminUser(), 1);
 		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getNormalUser(), 1);

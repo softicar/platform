@@ -4,17 +4,17 @@ import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.management.EmfManagementConfiguration;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.management.WorkflowVersionManagementAction;
@@ -32,12 +32,12 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowVersion, AGWorkflow> authorizer) {
 
 		authorizer//
-			.setCreationRole(
-				WorkflowRoles.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
-			.setViewRole(
-				WorkflowRoles.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
-			.setEditRole(
-				WorkflowRoles.ADMINISTRATOR
+			.setCreationPermission(
+				WorkflowPermissions.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+			.setViewPermission(
+				WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
+			.setEditPermission(
+				WorkflowPermissions.ADMINISTRATOR
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())));
 	}
 

@@ -10,7 +10,7 @@ import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 import com.softicar.platform.emf.validation.EmfValidationException;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.side.effect.IWorkflowTransitionSideEffect;
 import java.util.Optional;
 
@@ -39,12 +39,12 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 			if (tableRow.isNotify()) {
 				addError(AGWorkflowTransition.NOTIFY, WorkflowI18n.AUTO_TRANSITIONS_CANNOT_NOTIFY_ANYONE);
 			}
-			if (!tableRow.impermanent() && AGWorkflowTransitionRole
+			if (!tableRow.impermanent() && AGWorkflowTransitionPermission
 				.createSelect()
-				.where(AGWorkflowTransitionRole.TRANSITION.equal(tableRow))
-				.where(AGWorkflowTransitionRole.ACTIVE)
+				.where(AGWorkflowTransitionPermission.TRANSITION.equal(tableRow))
+				.where(AGWorkflowTransitionPermission.ACTIVE)
 				.exists()) {
-				addError(AGWorkflowTransition.AUTO_TRANSITION, WorkflowI18n.AUTO_TRANSITIONS_MAY_NOT_DEFINE_ROLES);
+				addError(AGWorkflowTransition.AUTO_TRANSITION, WorkflowI18n.AUTO_TRANSITIONS_MAY_NOT_DEFINE_PERMISSIONS);
 			}
 		}
 

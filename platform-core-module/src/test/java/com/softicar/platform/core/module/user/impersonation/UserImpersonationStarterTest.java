@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.user.impersonation;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
-import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
+import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -46,10 +46,10 @@ public class UserImpersonationStarterTest extends AbstractUserImpersonationTest 
 
 	private void makeSuperUser(AGUser user) {
 
-		new AGSystemModuleRoleAssignment()//
+		new AGSystemModulePermissionAssignment()//
 			.setActive(true)
 			.setModule(AGUuid.getOrCreate(CoreModule.class))
-			.setRole(CoreRoles.SUPER_USER.getAnnotatedUuid())
+			.setPermission(CorePermissions.SUPER_USER.getAnnotatedUuid())
 			.setUser(user)
 			.save();
 	}

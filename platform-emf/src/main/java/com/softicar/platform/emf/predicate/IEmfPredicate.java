@@ -3,8 +3,8 @@ package com.softicar.platform.emf.predicate;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
-import com.softicar.platform.emf.authorization.EmfTableRowFieldMapper;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
+import com.softicar.platform.emf.mapper.EmfTableRowFieldMapper;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import java.util.Collection;
 
 public interface IEmfPredicate<R> {

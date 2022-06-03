@@ -6,9 +6,9 @@ import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfCommonAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.IEmfFormBody;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -40,9 +40,9 @@ public class EmfFormRefreshAction<R extends IEmfTableRow<R, ?>> implements IEmfC
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.anybody();
 	}
 
 	@Override

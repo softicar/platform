@@ -17,7 +17,7 @@ import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.entity.table.overview.EmfTableOverviewPopup;
 import com.softicar.platform.emf.management.EmfManagementButton;
 import com.softicar.platform.emf.module.IEmfModule;
-import com.softicar.platform.emf.module.role.EmfModuleRoleViewButton;
+import com.softicar.platform.emf.module.permission.EmfModulePermissionViewButton;
 
 public class ModuleOverviewPageDiv extends DomDiv {
 
@@ -64,7 +64,7 @@ public class ModuleOverviewPageDiv extends DomDiv {
 					.setIcon(CoreImages.MODULES.getResource())
 					.setLabel(EmfI18n.SHOW_TABLES));
 			appendChild(
-				new EmfModuleRoleViewButton(module)//
+				new EmfModulePermissionViewButton(module)//
 					.setCallbackBeforeOpen(this::close));
 			appendChild(
 				new ModulePageOverviewButton(module)//

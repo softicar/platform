@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.transition.permission
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition
+
+TABLE AGWorkflowTransitionPermission 'Workflow.WorkflowTransitionPermission' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowTransition transition
+	AGUuid permission
+	Boolean active = TRUE
+}

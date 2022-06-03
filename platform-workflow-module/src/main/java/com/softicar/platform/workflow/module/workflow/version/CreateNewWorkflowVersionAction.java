@@ -5,19 +5,19 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
-import com.softicar.platform.workflow.module.workflow.node.action.role.AGWorkflowNodeActionRole;
+import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,9 +30,9 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 	}
 
 	@Override
-	public IEmfRole<AGWorkflowVersion> getAuthorizedRole() {
+	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return WorkflowRoles.ADMINISTRATOR
+		return WorkflowPermissions.ADMINISTRATOR
 			.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance()));
 	}
 
@@ -66,11 +66,11 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 			for (AGWorkflowNode oldNode: oldNodeToNewNodeMap.keySet()) {
 				final AGWorkflowNode newNode = oldNodeToNewNodeMap.get(oldNode);
 
-				// Copy Workflow Node Actions+Action Roles
+				// Copy Workflow Node Actions+Action Permissions
 				for (AGWorkflowNodeAction oldAction: oldNode.getAllActiveWorkflowNodeActions()) {
 					final AGWorkflowNodeAction newAction = oldAction.copy().setWorkflowNode(newNode).save();
-					for (AGWorkflowNodeActionRole oldActionRole: oldAction.getAllActiveWorkflowNodeActionRoles()) {
-						oldActionRole.copy().setWorkflowNodeAction(newAction).save();
+					for (AGWorkflowNodeActionPermission oldActionPermission: oldAction.getAllActiveWorkflowNodeActionPermissions()) {
+						oldActionPermission.copy().setWorkflowNodeAction(newAction).save();
 					}
 				}
 
@@ -89,9 +89,9 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 				newTransition.setTargetNode(oldNodeToNewNodeMap.get(oldTransition.getTargetNode()));
 				newTransition.save();
 
-				// Copy Workflow Transition Roles
-				for (AGWorkflowTransitionRole oldRole: oldTransition.getAllActiveWorkflowTransitionRoles()) {
-					oldRole.copy().setTransition(newTransition).save();
+				// Copy Workflow Transition Permissions
+				for (AGWorkflowTransitionPermission oldPermission: oldTransition.getAllActiveWorkflowTransitionPermissions()) {
+					oldPermission.copy().setTransition(newTransition).save();
 				}
 			}
 

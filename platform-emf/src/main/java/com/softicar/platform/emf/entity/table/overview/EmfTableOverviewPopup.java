@@ -10,7 +10,7 @@ import com.softicar.platform.emf.entity.table.column.handler.EmfChildTablesColum
 import com.softicar.platform.emf.entity.table.column.handler.EmfIconColumnHandler;
 import com.softicar.platform.emf.entity.table.column.handler.EmfNotSortableColumnHandler;
 import com.softicar.platform.emf.entity.table.column.handler.EmfScopeFieldColumnHandler;
-import com.softicar.platform.emf.entity.table.column.handler.EmfUsedRolesColumnHandler;
+import com.softicar.platform.emf.entity.table.column.handler.EmfUsedPermissionsColumnHandler;
 import com.softicar.platform.emf.entity.table.view.EmfTableViewButton;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -25,7 +25,7 @@ public class EmfTableOverviewPopup extends DomPopup {
 			new EmfDataTableDivBuilder<>(table)//
 				.setActionColumnHandler((cell, row) -> buildActionCell(cell, row))
 				.setColumnHandler(table.getIconColumn(), new EmfIconColumnHandler())
-				.setColumnHandler(table.getUsedRolesColumn(), new EmfUsedRolesColumnHandler())
+				.setColumnHandler(table.getUsedPermissionsColumn(), new EmfUsedPermissionsColumnHandler())
 				.setColumnHandler(table.getChildTablesColumn(), new EmfChildTablesColumnHandler())
 				.setColumnHandler(table.getScopeFieldColumn(), new EmfScopeFieldColumnHandler())
 				.setColumnHandler(table.getHasChangeLoggersColumn(), new EmfNotSortableColumnHandler())

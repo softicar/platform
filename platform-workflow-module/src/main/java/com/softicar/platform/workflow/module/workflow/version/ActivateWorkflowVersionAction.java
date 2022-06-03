@@ -6,11 +6,11 @@ import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.management.WorkflowVersionManagementPopup;
@@ -24,9 +24,9 @@ public class ActivateWorkflowVersionAction implements IEmfManagementAction<AGWor
 	}
 
 	@Override
-	public IEmfRole<AGWorkflowVersion> getAuthorizedRole() {
+	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return WorkflowRoles.ADMINISTRATOR
+		return WorkflowPermissions.ADMINISTRATOR
 			.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance()));
 	}
 

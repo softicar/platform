@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.user.session;
 
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -40,7 +40,7 @@ public class UserSessionManager {
 
 	private void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession, HttpSession session) {
 
-		if (!ajaxSession.getUser().hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
+		if (!ajaxSession.getUser().hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATOR)) {
 			session.invalidate();
 		}
 	}

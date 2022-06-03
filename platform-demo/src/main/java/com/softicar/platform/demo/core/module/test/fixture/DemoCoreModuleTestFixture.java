@@ -31,7 +31,7 @@ public class DemoCoreModuleTestFixture implements DemoCoreModuleTestFixtureMetho
 	public IStandardModuleTestFixture<AGDemoCoreModuleInstance> apply() {
 
 		this.moduleInstance = insertDemoModuleInstance();
-		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
+		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
 		return this;
 	}
 }

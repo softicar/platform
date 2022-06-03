@@ -3,7 +3,7 @@ package com.softicar.platform.workflow.module.test.fixture;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
+import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.entity.table.IWorkflowTableReferencePoint;
@@ -12,14 +12,14 @@ import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowIte
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.action.IWorkflowAction;
-import com.softicar.platform.workflow.module.workflow.node.action.role.AGWorkflowNodeActionRole;
+import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.node.precondition.IWorkflowPrecondition;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureMethods {
@@ -98,7 +98,7 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 	}
 
 	default AGWorkflowTransition insertWorkflowTransition(String name, AGWorkflowNode sourceNode, AGWorkflowNode targetNode, String requiredVotes,
-			boolean notify, IEmfStaticRole<?> role) {
+			boolean notify, IEmfStaticPermission<?> permission) {
 
 		AGWorkflowTransition transition = new AGWorkflowTransition()//
 			.setWorkflowVersion(sourceNode.getWorkflowVersion())
@@ -109,9 +109,9 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.setNotify(notify)
 			.save();
 
-		new AGWorkflowTransitionRole()//
+		new AGWorkflowTransitionPermission()//
 			.setTransition(transition)
-			.setRole(AGUuid.getOrCreate(role.getAnnotatedUuid()))
+			.setPermission(AGUuid.getOrCreate(permission.getAnnotatedUuid()))
 			.save();
 
 		return transition;
@@ -133,16 +133,16 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.save();
 	}
 
-	default AGWorkflowNodeAction insertWorkflowNodeAction(AGWorkflowNode node, Class<? extends IWorkflowAction<?>> actionClass, IEmfStaticRole<?> role) {
+	default AGWorkflowNodeAction insertWorkflowNodeAction(AGWorkflowNode node, Class<? extends IWorkflowAction<?>> actionClass, IEmfStaticPermission<?> permission) {
 
 		AGWorkflowNodeAction action = new AGWorkflowNodeAction()//
 			.setWorkflowNode(node)
 			.setAction(AGUuid.getOrCreate(actionClass))
 			.save();
 
-		new AGWorkflowNodeActionRole()//
+		new AGWorkflowNodeActionPermission()//
 			.setWorkflowNodeAction(action)
-			.setRoleUuid(AGUuid.getOrCreate(role.getAnnotatedUuid()))
+			.setPermissionUuid(AGUuid.getOrCreate(permission.getAnnotatedUuid()))
 			.save();
 
 		return action;

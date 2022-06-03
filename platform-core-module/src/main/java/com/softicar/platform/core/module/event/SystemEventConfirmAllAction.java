@@ -3,12 +3,12 @@ package com.softicar.platform.core.module.event;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Optional;
@@ -23,9 +23,9 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModule
 	}
 
 	@Override
-	public IEmfRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return CoreRoles.SYSTEM_ADMINISTRATOR;
+		return CorePermissions.SYSTEM_ADMINISTRATOR;
 	}
 
 	@Override

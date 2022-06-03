@@ -22,7 +22,7 @@ public class EmfEditorPopupButton<R extends IEmfTableRow<R, ?>> extends DomPopup
 		return tableRow//
 			.table()
 			.getAuthorizer()
-			.getEditRole()
+			.getEditPermission()
 			.test(tableRow, CurrentBasicUser.get());
 	}
 }

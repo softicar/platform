@@ -1,0 +1,27 @@
+PACKAGE com.softicar.platform.core.module.access.permission.assignment.module.instance.matrix.user
+
+IMPORT com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+QUERY ModulePermissionOwnershipQuery {
+
+	OPTIONAL Boolean onlyActive
+	OPTIONAL AGUser user
+	OPTIONAL AGUuid moduleUuid
+
+	SELECT ownership.*
+	SELECT instance.*
+	FROM AGModuleInstancePermissionAssignment AS ownership
+	JOIN ownership.moduleInstance AS instance
+	#IF $onlyActive IS NULL OR $onlyActive {
+		WHERE ownership.active
+		WHERE instance.active
+	}
+	#IF $user IS NOT NULL {
+		WHERE ownership.user = $user
+	}
+	#IF $moduleUuid IS NOT NULL {
+		WHERE instance.moduleUuid = $moduleUuid
+	}
+}

@@ -3,12 +3,12 @@ package com.softicar.platform.core.module.event;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.AbstractEmfButtonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.IEmfFormBody;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -22,9 +22,9 @@ public class SystemEventConfirmAction extends AbstractEmfButtonAction<AGSystemEv
 	}
 
 	@Override
-	public IEmfRole<AGSystemEvent> getAuthorizedRole() {
+	public IEmfPermission<AGSystemEvent> getRequiredPermission() {
 
-		return CoreRoles.SYSTEM_ADMINISTRATOR.toOtherEntityRole();
+		return CorePermissions.SYSTEM_ADMINISTRATOR.toOtherEntityPermission();
 	}
 
 	@Override
