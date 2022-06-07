@@ -17,6 +17,7 @@ import com.softicar.platform.dom.attribute.DomAttribute;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
@@ -426,26 +427,6 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_call("AJAX_ENGINE.executeScriptCode", scriptCode);
 	}
 
-	// -------------------------------- forms -------------------------------- //
-
-	@Override
-	public void triggerUploadOnChange(IDomNode form, IDomNode triggerNode) {
-
-		triggerUploadOnEvent(form, triggerNode, "onchange");
-	}
-
-	@Override
-	public void triggerUploadOnClick(IDomNode form, IDomNode triggerNode) {
-
-		triggerUploadOnEvent(form, triggerNode, "onclick");
-	}
-
-	private void triggerUploadOnEvent(IDomNode form, IDomNode triggerNode, String event) {
-
-		String submit = String.format("function() { sendUploadRequestThroughForm(n(%s)); }", form.getNodeId());
-		JS_setNodeMember(triggerNode, event, submit);
-	}
-
 	// -------------------------------- focus trap -------------------------------- //
 
 	@Override
@@ -455,6 +436,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	// -------------------------------- special -------------------------------- //
+
+	@Override
+	public void uploadFiles(DomForm form) {
+
+		JS_call("sendUploadRequestThroughForm", form);
+	}
 
 	@Override
 	public void setWorkingIndicatorEnabled(boolean enabled) {

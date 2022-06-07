@@ -1,5 +1,8 @@
 package com.softicar.platform.dom.elements;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.event.IDomChangeEventHandler;
+import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomInput;
 
 /**
@@ -7,7 +10,9 @@ import com.softicar.platform.dom.input.AbstractDomInput;
  *
  * @author Oliver Richers
  */
-public class DomFileInput extends AbstractDomInput {
+public class DomFileInput extends AbstractDomInput implements IDomChangeEventHandler {
+
+	private INullaryVoidFunction onChangeHandler;
 
 	public DomFileInput() {
 
@@ -16,9 +21,17 @@ public class DomFileInput extends AbstractDomInput {
 
 	public DomFileInput(boolean multipleFile) {
 
+		this.onChangeHandler = INullaryVoidFunction.NO_OPERATION;
+
 		setAttribute("type", "file");
 		setAttribute("name", "file");
 		setMultiple(multipleFile);
+	}
+
+	public DomFileInput setOnChangeHandler(INullaryVoidFunction onChangeHandler) {
+
+		this.onChangeHandler = onChangeHandler;
+		return this;
 	}
 
 	/**
@@ -34,5 +47,11 @@ public class DomFileInput extends AbstractDomInput {
 		} else {
 			setAttribute("multiple", "");
 		}
+	}
+
+	@Override
+	public void handleChange(IDomEvent event) {
+
+		onChangeHandler.apply();
 	}
 }

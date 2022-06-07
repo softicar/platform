@@ -67,8 +67,7 @@ public class HiddenFileInputTestCase extends AbstractTestCaseDiv {
 
 			setStyle(CssDisplay.NONE);
 			setMultiple(true);
-
-			form.triggerUploadOnChange(this);
+			setOnChangeHandler(() -> form.uploadFiles());
 		}
 	}
 }

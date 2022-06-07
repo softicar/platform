@@ -94,7 +94,7 @@ class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 			addCssClass(CoreCssClasses.STORED_FILE_UPLOAD_INPUT);
 			setTabIndex(-1);
 			setMultiple(multiple);
-			triggerUploadOnChange(this);
+			setOnChangeHandler(() -> uploadFiles());
 		}
 	}
 }

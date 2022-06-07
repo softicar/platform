@@ -6,6 +6,7 @@ import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
@@ -293,20 +294,6 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void triggerUploadOnChange(IDomNode form, IDomNode triggerNode) {
-
-		// nothing to do
-
-	}
-
-	@Override
-	public void triggerUploadOnClick(IDomNode form, IDomNode triggerNode) {
-
-		// nothing to do
-
-	}
-
-	@Override
 	public void unlistenToEvent(IDomNode node, DomEventType type) {
 
 		// nothing to do
@@ -328,5 +315,12 @@ public class DomNullEngine implements IDomEngine {
 	public void unsetNodeStyle(IDomNode node, String name) {
 
 		// nothing to do
+	}
+
+	@Override
+	public void uploadFiles(DomForm form) {
+
+		// TODO Auto-generated method stub
+
 	}
 }

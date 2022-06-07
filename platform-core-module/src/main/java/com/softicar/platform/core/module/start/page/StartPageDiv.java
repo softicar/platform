@@ -1,12 +1,14 @@
 package com.softicar.platform.core.module.start.page;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CoreRoles;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventPage;
+import com.softicar.platform.core.module.file.stored.upload.StoredFileUploadDiv;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.page.PageButton;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -37,6 +39,8 @@ class StartPageDiv extends DomDiv {
 		appendSectionsSeparatedByHr(sections);
 
 		addMarker(StartPageMarker.MAIN_ELEMENT);
+
+		appendChild(new StoredFileUploadDiv((e, c) -> Log.finfo("added"), (e, c) -> Log.finfo("removed"), true));
 	}
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {
