@@ -286,6 +286,6 @@ public class EmfPermissionRegistry implements IEmfPermissionRegistry {
 
 	private boolean isTrivialPermission(IEmfPermission<?> permission) {
 
-		return permission.equals(EmfPermissions.nobody()) || permission.equals(EmfPermissions.anybody());
+		return permission.equals(EmfPermissions.never()) || permission.equals(EmfPermissions.always());
 	}
 }

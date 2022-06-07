@@ -23,8 +23,8 @@ public class AGStoredFileAccessLogTable extends EmfObjectTable<AGStoredFileAcces
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGStoredFileAccessLog, AGStoredFile> authorizer) {
 
-		authorizer.setCreationPermission(EmfPermissions.nobody());
-		authorizer.setDeletePermission(EmfPermissions.nobody());
-		authorizer.setEditPermission(EmfPermissions.nobody());
+		authorizer.setCreationPermission(EmfPermissions.never());
+		authorizer.setDeletePermission(EmfPermissions.never());
+		authorizer.setEditPermission(EmfPermissions.never());
 	}
 }

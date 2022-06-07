@@ -25,7 +25,7 @@ public class AGBufferedEmailAttachmentTable extends EmfObjectTable<AGBufferedEma
 	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmailAttachment, AGBufferedEmail> authorizer) {
 
 		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
-		authorizer.setEditPermission(EmfPermissions.nobody());
-		authorizer.setCreationPermission(EmfPermissions.nobody());
+		authorizer.setEditPermission(EmfPermissions.never());
+		authorizer.setCreationPermission(EmfPermissions.never());
 	}
 }

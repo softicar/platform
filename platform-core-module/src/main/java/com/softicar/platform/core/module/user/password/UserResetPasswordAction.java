@@ -28,7 +28,7 @@ public class UserResetPasswordAction implements IEmfManagementAction<AGUser> {
 		 * TODO: change to CorePermissions.SUPER_USER.of(AGUser.MODULE_INSTANCE)
 		 * once CoreModule is StandardModule and AGUser is scoped
 		 */
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

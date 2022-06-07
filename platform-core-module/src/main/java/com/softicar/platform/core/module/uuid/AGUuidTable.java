@@ -37,6 +37,6 @@ public class AGUuidTable extends EmfObjectTable<AGUuid, SystemModuleInstance> {
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGUuid, SystemModuleInstance> authorizer) {
 
-		authorizer.setCreationPermission(EmfPermissions.nobody());
+		authorizer.setCreationPermission(EmfPermissions.never());
 	}
 }

@@ -43,7 +43,7 @@ public class UserImpersonationPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.nobody();
+		return EmfPermissions.never();
 	}
 
 	@Override

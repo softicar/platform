@@ -18,7 +18,7 @@ public interface IEmfAuthorizer<R extends IEmfTableRow<R, ?>, S> {
 
 	default IEmfPermission<R> getDeletePermission() {
 
-		return EmfPermissions.nobody();
+		return EmfPermissions.never();
 	}
 
 	IEmfAccessDeniedDisplayCreator<R> getAccessDeniedDisplayCreator();

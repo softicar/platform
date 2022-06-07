@@ -51,6 +51,6 @@ public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<SystemM
 
 		// TODO re-enable this page as soon as it's fixed
 //		return CorePermissions.SUPER_USER;
-		return EmfPermissions.nobody();
+		return EmfPermissions.never();
 	}
 }

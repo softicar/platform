@@ -6,8 +6,8 @@ import com.softicar.platform.emf.EmfI18n;
 
 public class EmfPermissions {
 
-	private static final IEmfPermission<?> ANYBODY = new EmfPermission<>(EmfI18n.ANYBODY, IEmfPermissionPredicate.always());
-	private static final IEmfPermission<?> NOBODY = new EmfPermission<>(EmfI18n.NOBODY, IEmfPermissionPredicate.never());
+	private static final IEmfPermission<?> ALWAYS = new EmfPermission<>(EmfI18n.ALWAYS, IEmfPermissionPredicate.always());
+	private static final IEmfPermission<?> NEVER = new EmfPermission<>(EmfI18n.NEVER, IEmfPermissionPredicate.never());
 
 	@SafeVarargs
 	public static <E> IEmfPermission<E> any(IEmfPermission<E>...permissions) {
@@ -27,14 +27,14 @@ public class EmfPermissions {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> IEmfPermission<E> anybody() {
+	public static <E> IEmfPermission<E> always() {
 
-		return (IEmfPermission<E>) ANYBODY;
+		return (IEmfPermission<E>) ALWAYS;
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> IEmfPermission<E> nobody() {
+	public static <E> IEmfPermission<E> never() {
 
-		return (IEmfPermission<E>) NOBODY;
+		return (IEmfPermission<E>) NEVER;
 	}
 }

@@ -21,7 +21,7 @@ public class ShowWorkflowItemMessageAction<R extends IWorkflowableObject<R>> imp
 	@Override
 	public IEmfPermission<R> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

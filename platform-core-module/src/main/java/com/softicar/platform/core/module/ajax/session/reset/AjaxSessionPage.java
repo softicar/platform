@@ -37,7 +37,7 @@ public class AjaxSessionPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

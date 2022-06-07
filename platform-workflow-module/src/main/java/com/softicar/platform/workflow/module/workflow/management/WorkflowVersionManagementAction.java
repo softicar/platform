@@ -23,7 +23,7 @@ public class WorkflowVersionManagementAction implements IEmfManagementAction<AGW
 	@Override
 	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

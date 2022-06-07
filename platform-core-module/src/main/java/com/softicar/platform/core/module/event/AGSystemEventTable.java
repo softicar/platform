@@ -33,8 +33,8 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGSystemEvent, SystemModuleInstance> authorizer) {
 
-		authorizer.setCreationPermission(EmfPermissions.nobody());
-		authorizer.setEditPermission(EmfPermissions.nobody());
+		authorizer.setCreationPermission(EmfPermissions.never());
+		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setViewPermission(CorePermissions.SYSTEM_ADMINISTRATOR.toOtherEntityPermission());
 	}
 

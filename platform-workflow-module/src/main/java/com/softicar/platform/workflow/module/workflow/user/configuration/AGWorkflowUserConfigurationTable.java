@@ -24,9 +24,9 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowUserConfiguration, AGUser> authorizer) {
 
 		authorizer//
-			.setCreationPermission(EmfPermissions.anybody())
-			.setViewPermission(EmfPermissions.anybody())
-			.setEditPermission(EmfPermissions.anybody());
+			.setCreationPermission(EmfPermissions.always())
+			.setViewPermission(EmfPermissions.always())
+			.setEditPermission(EmfPermissions.always());
 	}
 
 	@Override

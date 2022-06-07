@@ -41,7 +41,7 @@ public class AGUserLoginFailureLogTable extends EmfObjectTable<AGUserLoginFailur
 	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginFailureLog, SystemModuleInstance> authorizer) {
 
 		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
-		authorizer.setEditPermission(EmfPermissions.nobody());
-		authorizer.setCreationPermission(EmfPermissions.nobody());
+		authorizer.setEditPermission(EmfPermissions.never());
+		authorizer.setCreationPermission(EmfPermissions.never());
 	}
 }

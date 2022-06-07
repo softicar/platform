@@ -26,9 +26,9 @@ public class AGStoredFileLogTable extends EmfObjectTable<AGStoredFileLog, System
 	public void customizeAuthorizer(EmfAuthorizer<AGStoredFileLog, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(EmfPermissions.nobody())
-			.setEditPermission(EmfPermissions.nobody())
-			.setDeletePermission(EmfPermissions.nobody())
+			.setCreationPermission(EmfPermissions.never())
+			.setEditPermission(EmfPermissions.never())
+			.setDeletePermission(EmfPermissions.never())
 			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 	}
 }

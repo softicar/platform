@@ -33,6 +33,6 @@ public class EmfTestPage implements IEmfPage<EmfTestModuleInstance> {
 	@Override
 	public IEmfPermission<EmfTestModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 }

@@ -42,7 +42,7 @@ public class AGUserLoginLogTable extends EmfObjectTable<AGUserLoginLog, SystemMo
 	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginLog, SystemModuleInstance> authorizer) {
 
 		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
-		authorizer.setEditPermission(EmfPermissions.nobody());
-		authorizer.setCreationPermission(EmfPermissions.nobody());
+		authorizer.setEditPermission(EmfPermissions.never());
+		authorizer.setCreationPermission(EmfPermissions.never());
 	}
 }

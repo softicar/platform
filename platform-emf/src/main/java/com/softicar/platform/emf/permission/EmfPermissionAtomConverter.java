@@ -25,13 +25,13 @@ public class EmfPermissionAtomConverter<E> implements IEmfPermissionVisitor<E> {
 	@Override
 	public void visitNobody() {
 
-		permissions.add(EmfPermissions.nobody());
+		permissions.add(EmfPermissions.never());
 	}
 
 	@Override
 	public void visitAnybody() {
 
-		permissions.add(EmfPermissions.anybody());
+		permissions.add(EmfPermissions.always());
 	}
 
 	@Override

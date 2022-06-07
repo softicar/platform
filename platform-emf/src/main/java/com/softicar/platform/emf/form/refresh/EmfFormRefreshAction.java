@@ -42,7 +42,7 @@ public class EmfFormRefreshAction<R extends IEmfTableRow<R, ?>> implements IEmfC
 	@Override
 	public IEmfPermission<R> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

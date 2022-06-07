@@ -25,7 +25,7 @@ class WorkflowDemoObjectStartWorkflowAction implements IEmfManagementAction<AGWo
 	@Override
 	public IEmfPermission<AGWorkflowDemoObject> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

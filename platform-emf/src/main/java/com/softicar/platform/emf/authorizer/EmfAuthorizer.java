@@ -17,10 +17,10 @@ public class EmfAuthorizer<R extends IEmfTableRow<R, ?>, S> implements IEmfAutho
 
 	public EmfAuthorizer() {
 
-		this.creationPermission = EmfPermissions.anybody();
-		this.viewPermission = EmfPermissions.anybody();
-		this.editPermission = EmfPermissions.anybody();
-		this.deletePermission = EmfPermissions.nobody();
+		this.creationPermission = EmfPermissions.always();
+		this.viewPermission = EmfPermissions.always();
+		this.editPermission = EmfPermissions.always();
+		this.deletePermission = EmfPermissions.never();
 		this.accessDeniedDisplayCreator = new EmfDefaultAccessDeniedDisplayCreator<>();
 	}
 

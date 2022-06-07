@@ -36,8 +36,8 @@ public class AGCoreModuleInstanceTable extends EmfObjectTable<AGCoreModuleInstan
 	public void customizeAuthorizer(EmfAuthorizer<AGCoreModuleInstance, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(EmfPermissions.nobody())
-			.setDeletePermission(EmfPermissions.nobody())
+			.setCreationPermission(EmfPermissions.never())
+			.setDeletePermission(EmfPermissions.never())
 			.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission())
 			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 	}

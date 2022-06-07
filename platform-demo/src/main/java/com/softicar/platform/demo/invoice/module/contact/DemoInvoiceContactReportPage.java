@@ -52,6 +52,6 @@ public class DemoInvoiceContactReportPage implements IEmfPage<AGDemoInvoiceModul
 	@Override
 	public IEmfPermission<AGDemoInvoiceModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 }

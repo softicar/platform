@@ -97,7 +97,7 @@ public class AbstractEmfPromptActionTest extends AbstractEmfTest {
 		@Override
 		public IEmfPermission<R> getRequiredPermission() {
 
-			return EmfPermissions.anybody();
+			return EmfPermissions.always();
 		}
 
 		@Override

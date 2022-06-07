@@ -23,7 +23,7 @@ public class CronExpressionInformationAction implements IEmfScopeAction<SystemMo
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

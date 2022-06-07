@@ -79,9 +79,9 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, SystemModuleInstan
 	public void customizeAuthorizer(EmfAuthorizer<AGProgram, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(EmfPermissions.nobody())
+			.setCreationPermission(EmfPermissions.never())
 			.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission())
-			.setDeletePermission(EmfPermissions.nobody());
+			.setDeletePermission(EmfPermissions.never());
 	}
 
 	@Override

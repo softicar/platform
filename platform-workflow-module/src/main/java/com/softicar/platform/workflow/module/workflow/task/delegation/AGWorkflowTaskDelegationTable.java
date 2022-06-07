@@ -59,7 +59,7 @@ public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskD
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowTaskDelegation, AGWorkflowTask> authorizer) {
 
 		authorizer//
-			.setCreationPermission(EmfPermissions.anybody())
+			.setCreationPermission(EmfPermissions.always())
 			.setViewPermission(
 				WorkflowPermissions.VIEWER
 					.of(
@@ -67,7 +67,7 @@ public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskD
 							.nonOptional(
 								WorkflowI18n.WORKFLOW_MODULE_INSTANCE,
 								it -> it.getWorkflowTask().getWorkflowItem().getWorkflow().getModuleInstance())))
-			.setEditPermission(EmfPermissions.anybody());
+			.setEditPermission(EmfPermissions.always());
 	}
 
 	@Override
