@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import java.util.UUID;
 
 public class EmfTestModuleInstance implements IEmfModuleInstance<EmfTestModuleInstance> {
@@ -29,7 +29,7 @@ public class EmfTestModuleInstance implements IEmfModuleInstance<EmfTestModuleIn
 	}
 
 	@Override
-	public boolean hasRole(IEmfModuleRole<EmfTestModuleInstance> role, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<EmfTestModuleInstance> permission, IBasicUser user) {
 
 		throw new UnsupportedOperationException();
 	}

@@ -2,7 +2,7 @@ package com.softicar.platform.emf.predicate;
 
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import java.util.Collection;
 
 public class EmfPredicateToStringVisitor<E> implements IEmfPredicateVisitor<E> {

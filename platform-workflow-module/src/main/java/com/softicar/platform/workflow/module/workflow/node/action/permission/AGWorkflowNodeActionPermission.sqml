@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.node.action.permission
+
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+IMPORT com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction
+
+TABLE AGWorkflowNodeActionPermission 'Workflow.WorkflowNodeActionPermission' {
+	
+	PK Integer id = SERIAL
+	AGWorkflowNodeAction workflowNodeAction
+	Boolean active = TRUE
+	AGUuid permissionUuid
+}

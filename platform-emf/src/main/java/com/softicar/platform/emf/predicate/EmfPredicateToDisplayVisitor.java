@@ -3,7 +3,7 @@ package com.softicar.platform.emf.predicate;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import java.util.Collection;
 
 public class EmfPredicateToDisplayVisitor<E> implements IEmfPredicateVisitor<E> {

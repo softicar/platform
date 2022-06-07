@@ -1,13 +1,13 @@
 package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, SystemModuleInstance> {
@@ -38,9 +38,9 @@ public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, SystemMo
 	public void customizeAuthorizer(EmfAuthorizer<AGUserPassword, SystemModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(EmfRoles.nobody())
-			.setEditRole(EmfRoles.nobody())
-			.setDeleteRole(EmfRoles.nobody())
-			.setViewRole(CoreRoles.SUPER_USER.toOtherEntityRole());
+			.setCreationPermission(EmfPermissions.never())
+			.setEditPermission(EmfPermissions.never())
+			.setDeletePermission(EmfPermissions.never())
+			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 	}
 }

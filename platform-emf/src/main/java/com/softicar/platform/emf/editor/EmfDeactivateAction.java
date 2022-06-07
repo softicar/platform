@@ -6,8 +6,8 @@ import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
@@ -59,9 +59,9 @@ public class EmfDeactivateAction<R extends IEmfTableRow<R, ?>> implements IEmfMa
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		return table.getAuthorizer().getEditRole();
+		return table.getAuthorizer().getEditPermission();
 	}
 
 	@Override

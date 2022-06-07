@@ -14,7 +14,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegationLog;
@@ -45,7 +45,7 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 					.setPopupFactory(() -> new EmfFormPopup<>(new AGWorkflowItemMessage().setWorkflowItem(item)))
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(WorkflowI18n.ADD_NEW_MESSAGE)
-					.setEnabled(WorkflowRoles.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
+					.setEnabled(WorkflowPermissions.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
 		this.showTransitionsCheckbox = actionBar//
 			.appendChild(new EmfBooleanInput(true).setLabel(WorkflowI18n.SHOW_TRANSITIONS));
 		showTransitionsCheckbox.setChangeCallback(() -> refresh(null));

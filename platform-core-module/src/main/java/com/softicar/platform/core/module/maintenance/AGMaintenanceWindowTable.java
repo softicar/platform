@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.maintenance;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.action.CancelMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.action.FinishMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.action.StartMaintenanceAction;
@@ -26,9 +26,9 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGMaintenanceWindow, SystemModuleInstance> authorizer) {
 
-		authorizer.setCreationRole(CoreRoles.SYSTEM_ADMINISTRATOR);
-		authorizer.setEditRole(CoreRoles.SYSTEM_ADMINISTRATOR.toOtherEntityRole());
-		authorizer.setViewRole(CoreRoles.SUPER_USER.toOtherEntityRole());
+		authorizer.setCreationPermission(CorePermissions.SYSTEM_ADMINISTRATION);
+		authorizer.setEditPermission(CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission());
+		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 	}
 
 	@Override

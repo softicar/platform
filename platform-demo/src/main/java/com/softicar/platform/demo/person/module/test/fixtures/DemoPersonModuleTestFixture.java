@@ -34,7 +34,7 @@ public class DemoPersonModuleTestFixture implements DemoPersonModuleTestFixtureM
 	public IStandardModuleTestFixture<AGDemoPersonModuleInstance> apply() {
 
 		moduleInstance = insertDemoPersonModuleInstance(registry.getModuleInstance(AGDemoCoreModuleInstance.TABLE));
-		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
+		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
 		new DemoPersonsTestFixtures(moduleInstance).apply();
 		return this;
 	}

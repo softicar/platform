@@ -19,7 +19,7 @@ public class EmfTableOverviewTable extends AbstractInMemoryDataTable<IEmfTable<?
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, IDisplayString> titleColumn;
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, IDisplayString> pluralTitleColumn;
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, String> databaseTableColumn;
-	private final IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> usedRolesColumn;
+	private final IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> usedPermissionsColumn;
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> scopeFieldColumn;
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> childTablesColumn;
 	private final IDataTableColumn<IEmfTable<?, ?, ?>, Boolean> hasActiveFieldColumn;
@@ -48,9 +48,9 @@ public class EmfTableOverviewTable extends AbstractInMemoryDataTable<IEmfTable<?
 			.setGetter(table -> table.getFullName().getCanonicalName())
 			.setTitle(EmfI18n.DATABASE_TABLE)
 			.addColumn();
-		this.usedRolesColumn = newColumn(EmfTableWrapper.class)//
+		this.usedPermissionsColumn = newColumn(EmfTableWrapper.class)//
 			.setGetter(EmfTableWrapper::new)
-			.setTitle(EmfI18n.USED_ROLES)
+			.setTitle(EmfI18n.USED_PERMISSIONS)
 			.addColumn();
 		this.scopeFieldColumn = newColumn(EmfTableWrapper.class)//
 			.setGetter(EmfTableWrapper::new)
@@ -95,9 +95,9 @@ public class EmfTableOverviewTable extends AbstractInMemoryDataTable<IEmfTable<?
 		return databaseTableColumn;
 	}
 
-	public IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> getUsedRolesColumn() {
+	public IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> getUsedPermissionsColumn() {
 
-		return usedRolesColumn;
+		return usedPermissionsColumn;
 	}
 
 	public IDataTableColumn<IEmfTable<?, ?, ?>, EmfTableWrapper> getScopeFieldColumn() {

@@ -2,7 +2,7 @@ package com.softicar.platform.emf.predicate;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import java.util.Optional;
 import org.junit.Test;
 

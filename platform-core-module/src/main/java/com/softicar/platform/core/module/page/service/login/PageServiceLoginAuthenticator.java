@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.page.service.login;
 
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.login.AGUserLoginLog;
@@ -111,9 +111,9 @@ class PageServiceLoginAuthenticator {
 			throw new PageServiceLoginExceptionTooManyLogins(MAXIMUM_LOGINS_PERIOD);
 		}
 
-		// check for maintenance
+		// check for maintenance windows
 		if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-			if (!user.hasModuleRole(CoreRoles.SYSTEM_ADMINISTRATOR)) {
+			if (!user.hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATION)) {
 				logFailure(AGUserLoginFailureTypeEnum.MAINTENANCE_IN_PROGRESS, username);
 				throw new PageServiceLoginExceptionMaintenanceInProgress();
 			}

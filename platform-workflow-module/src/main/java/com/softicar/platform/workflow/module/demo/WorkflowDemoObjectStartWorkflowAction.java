@@ -7,8 +7,8 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
@@ -23,9 +23,9 @@ class WorkflowDemoObjectStartWorkflowAction implements IEmfManagementAction<AGWo
 	}
 
 	@Override
-	public IEmfRole<AGWorkflowDemoObject> getAuthorizedRole() {
+	public IEmfPermission<AGWorkflowDemoObject> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

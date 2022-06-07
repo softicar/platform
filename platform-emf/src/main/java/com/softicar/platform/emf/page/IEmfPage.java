@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
@@ -122,12 +122,12 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends IEmfSourceCod
 	}
 
 	/**
-	 * Returns the necessary {@link IEmfRole} to access this {@link IEmfPage}.
+	 * Returns the necessary {@link IEmfPermission} to access this {@link IEmfPage}.
 	 * <p>
-	 * Only users matching the {@link IEmfRole} will be able to access this
+	 * Only users matching the {@link IEmfPermission} will be able to access this
 	 * {@link IEmfPage}.
 	 *
-	 * @return the {@link IEmfRole} (never <i>null</i>)
+	 * @return the {@link IEmfPermission} (never <i>null</i>)
 	 */
-	IEmfRole<I> getAuthorizedRole();
+	IEmfPermission<I> getRequiredPermission();
 }

@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.predicate;
 
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import java.util.Collection;
 
 public interface IEmfPredicateVisitor<E> {

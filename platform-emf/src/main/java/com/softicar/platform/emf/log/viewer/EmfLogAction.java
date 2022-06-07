@@ -6,8 +6,8 @@ import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.action.IEmfCommonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.IEmfFormBody;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -47,9 +47,9 @@ public class EmfLogAction<R extends IEmfTableRow<R, ?>> implements IEmfCommonAct
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		return table.getAuthorizer().getViewRole();
+		return table.getAuthorizer().getViewPermission();
 	}
 
 	@Override

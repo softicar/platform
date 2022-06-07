@@ -4,21 +4,21 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
-import com.softicar.platform.emf.authorization.role.EmfAnyRole;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.section.IEmfFormSectionDiv;
+import com.softicar.platform.emf.permission.EmfAnyPermission;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
-import com.softicar.platform.emf.test.module.alpha.TestModuleAlphaRoles;
+import com.softicar.platform.emf.test.module.alpha.TestModuleAlphaPermissions;
 
 public class TestModuleAlphaEntityAction implements IEmfPrimaryAction<TestModuleAlphaEntity> {
 
 	@Override
-	public IEmfRole<TestModuleAlphaEntity> getAuthorizedRole() {
+	public IEmfPermission<TestModuleAlphaEntity> getRequiredPermission() {
 
-		return new EmfAnyRole<>(//
-			TestModuleAlphaRoles.ROLE_ONE.of(TestModuleAlphaEntity.MODULE_INSTANCE),
-			TestModuleAlphaRoles.ROLE_TWO.of(TestModuleAlphaEntity.MODULE_INSTANCE));
+		return new EmfAnyPermission<>(//
+			TestModuleAlphaPermissions.PERMISSION_ONE.of(TestModuleAlphaEntity.MODULE_INSTANCE),
+			TestModuleAlphaPermissions.PERMISSION_TWO.of(TestModuleAlphaEntity.MODULE_INSTANCE));
 	}
 
 	@Override

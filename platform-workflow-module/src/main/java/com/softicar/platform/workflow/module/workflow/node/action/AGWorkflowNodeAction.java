@@ -2,7 +2,7 @@ package com.softicar.platform.workflow.module.workflow.node.action;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;
-import com.softicar.platform.workflow.module.workflow.node.action.role.AGWorkflowNodeActionRole;
+import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
 import java.util.List;
 
 public class AGWorkflowNodeAction extends AGWorkflowNodeActionGenerated implements IEmfObject<AGWorkflowNodeAction> {
@@ -13,12 +13,12 @@ public class AGWorkflowNodeAction extends AGWorkflowNodeActionGenerated implemen
 		return IDisplayString.create(getWorkflowNode().getName() + " ;; " + getAction().toDisplay());
 	}
 
-	public List<AGWorkflowNodeActionRole> getAllActiveWorkflowNodeActionRoles() {
+	public List<AGWorkflowNodeActionPermission> getAllActiveWorkflowNodeActionPermissions() {
 
-		return AGWorkflowNodeActionRole.TABLE//
+		return AGWorkflowNodeActionPermission.TABLE//
 			.createSelect()
-			.where(AGWorkflowNodeActionRole.ACTIVE)
-			.where(AGWorkflowNodeActionRole.WORKFLOW_NODE_ACTION.equal(this))
+			.where(AGWorkflowNodeActionPermission.ACTIVE)
+			.where(AGWorkflowNodeActionPermission.WORKFLOW_NODE_ACTION.equal(this))
 			.list();
 	}
 }

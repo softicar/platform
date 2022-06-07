@@ -9,10 +9,10 @@ import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
-import com.softicar.platform.emf.authorization.role.CurrentEmfRoleRegistry;
-import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
 import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.object.IEmfObject;
+import com.softicar.platform.emf.permission.CurrentEmfPermissionRegistry;
+import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Collection;
@@ -31,7 +31,7 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		return EmfSourceCodeReferencePoints//
 			.getReferencePoint(getUuid())
 			.map(IEmfSourceCodeReferencePoint::toDisplay)
-			.orElse(getStaticRoleTitle(getUuid()));
+			.orElse(getStaticPermissionTitle(getUuid()));
 	}
 
 	@Override
@@ -128,13 +128,13 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		}
 	}
 
-	// FIXME Should be replaced when roles can be created at runtime
-	private IDisplayString getStaticRoleTitle(UUID uuid) {
+	// FIXME Should be replaced when permissions can be created at runtime
+	private IDisplayString getStaticPermissionTitle(UUID uuid) {
 
-		return CurrentEmfRoleRegistry//
+		return CurrentEmfPermissionRegistry//
 			.get()
-			.getStaticRole(uuid)
-			.map(IEmfStaticRole::getTitle)
+			.getStaticPermission(uuid)
+			.map(IEmfStaticPermission::getTitle)
 			.orElse(IDisplayString.create(getUuidString()));
 	}
 

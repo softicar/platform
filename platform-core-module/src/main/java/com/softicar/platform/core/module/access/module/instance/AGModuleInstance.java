@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.module.IStandardModule;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.List;
 import java.util.Optional;
@@ -41,9 +41,9 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	}
 
 	@Override
-	public boolean hasRole(IEmfModuleRole<AGModuleInstance> role, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<AGModuleInstance> permission, IBasicUser user) {
 
-		return AGUser.get(user).hasModuleRole(role, this);
+		return AGUser.get(user).hasModulePermission(permission, this);
 	}
 
 	/**

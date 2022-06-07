@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.role.EmfSystemModuleRole;
-import com.softicar.platform.core.module.access.role.assignment.module.instance.AGModuleInstanceRoleAssignment;
-import com.softicar.platform.core.module.access.role.assignment.module.system.AGSystemModuleRoleAssignment;
+import com.softicar.platform.core.module.access.permission.EmfSystemModulePermission;
+import com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment;
+import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
@@ -25,7 +25,7 @@ import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.module.IEmfModule;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 
 /**
  * Provides various test fixture methods for the {@link CoreModule}.
@@ -86,22 +86,23 @@ public interface CoreModuleTestFixtureMethods {
 		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}
 
-	default AGSystemModuleRoleAssignment insertRoleMembership(AGUser user, EmfSystemModuleRole role, Class<? extends IEmfModule<?>> moduleClass) {
+	default AGSystemModulePermissionAssignment insertPermissionAssignment(AGUser user, EmfSystemModulePermission permission, Class<? extends IEmfModule<?>> moduleClass) {
 
-		return new AGSystemModuleRoleAssignment()
+		return new AGSystemModulePermissionAssignment()
 			.setActive(true)
 			.setModule(AGUuid.getOrCreate(moduleClass))
-			.setRole(role.getAnnotatedUuid())
+			.setPermission(permission.getAnnotatedUuid())
 			.setUser(user)
 			.save();
 	}
 
-	default <I extends IStandardModuleInstance<I>> AGModuleInstanceRoleAssignment insertRoleMembership(AGUser user, IEmfModuleRole<I> role, I moduleInstance) {
+	default <I extends IStandardModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, IEmfModulePermission<I> permission,
+			I moduleInstance) {
 
-		return new AGModuleInstanceRoleAssignment()//
+		return new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
 			.setModuleInstance(moduleInstance.pk())
-			.setRole(role.getAnnotatedUuid())
+			.setPermission(permission.getAnnotatedUuid())
 			.setUser(user)
 			.save();
 	}

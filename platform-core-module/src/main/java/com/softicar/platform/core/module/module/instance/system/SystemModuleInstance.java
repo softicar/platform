@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.core.module.module.AbstractSystemModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.UUID;
 
@@ -37,8 +37,8 @@ public class SystemModuleInstance implements IEmfModuleInstance<SystemModuleInst
 	}
 
 	@Override
-	public boolean hasRole(IEmfModuleRole<SystemModuleInstance> role, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<SystemModuleInstance> permission, IBasicUser user) {
 
-		throw new UnsupportedOperationException("System modules do not support module roles.");
+		throw new UnsupportedOperationException("System modules do not support module permissions.");
 	}
 }

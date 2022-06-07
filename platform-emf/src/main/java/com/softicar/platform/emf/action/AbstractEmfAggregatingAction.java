@@ -8,11 +8,11 @@ import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
-import com.softicar.platform.emf.authorization.role.EmfAnyRole;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.IEmfFormBody;
 import com.softicar.platform.emf.form.section.EmfFormSectionDiv;
 import com.softicar.platform.emf.form.section.header.EmfFormSectionHeader;
+import com.softicar.platform.emf.permission.EmfAnyPermission;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -46,12 +46,12 @@ public abstract class AbstractEmfAggregatingAction<R extends IEmfTableRow<R, ?>>
 	}
 
 	@Override
-	public IEmfRole<R> getAuthorizedRole() {
+	public IEmfPermission<R> getRequiredPermission() {
 
-		return new EmfAnyRole<>(
+		return new EmfAnyPermission<>(
 			actions//
 				.stream()
-				.map(action -> action.getAuthorizedRole())
+				.map(action -> action.getRequiredPermission())
 				.collect(Collectors.toList()));
 	}
 

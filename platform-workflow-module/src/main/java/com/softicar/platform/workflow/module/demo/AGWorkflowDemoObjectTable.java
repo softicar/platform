@@ -3,11 +3,11 @@ package com.softicar.platform.workflow.module.demo;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.role.statik.EmfStaticRoleBuilder;
-import com.softicar.platform.emf.authorization.role.statik.IEmfStaticRole;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.statik.EmfStaticPermissionBuilder;
+import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -17,8 +17,8 @@ import com.softicar.platform.workflow.module.workflow.transition.WorkflowTransit
 
 public class AGWorkflowDemoObjectTable extends EmfObjectTable<AGWorkflowDemoObject, AGWorkflowModuleInstance> {
 
-	public final static IEmfStaticRole<AGWorkflowDemoObject> APPROVER =//
-			new EmfStaticRoleBuilder<AGWorkflowDemoObject>((object, user) -> object.isApprover(user))//
+	public final static IEmfStaticPermission<AGWorkflowDemoObject> APPROVER =//
+			new EmfStaticPermissionBuilder<AGWorkflowDemoObject>((object, user) -> object.isApprover(user))//
 				.setTitle(WorkflowI18n.APPROVER)
 				.setUuid("e20b819f-1c0c-43af-a433-68d15556ac80")
 				.build();

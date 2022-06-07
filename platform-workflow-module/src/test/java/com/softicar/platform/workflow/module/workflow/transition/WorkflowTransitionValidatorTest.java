@@ -18,7 +18,7 @@ public class WorkflowTransitionValidatorTest extends AbstractTestObjectWorkflowT
 
 	public WorkflowTransitionValidatorTest() {
 
-		this.transition = insertWorkflowTransition("Transition", rootNode, rootNode, "1", false, WorkflowTestObjectTable.ROLE_A);
+		this.transition = insertWorkflowTransition("Transition", rootNode, rootNode, "1", false, WorkflowTestObjectTable.PERMISSION_A);
 		this.result = new EmfValidationResult();
 	}
 

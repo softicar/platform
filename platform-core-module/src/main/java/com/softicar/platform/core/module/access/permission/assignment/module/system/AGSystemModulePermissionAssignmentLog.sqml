@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.core.module.access.permission.assignment.module.system
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGSystemModulePermissionAssignmentLog 'Core.SystemModulePermissionAssignmentLog' {
+	PK AGSystemModulePermissionAssignment assignment
+	PK AGTransaction transaction [ON UPDATE CASCADE]
+	Boolean active = NULL [NULLABLE]
+
+	IK transaction
+}
