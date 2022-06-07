@@ -13,7 +13,7 @@ public class DomTimeInputTest extends AbstractDomValueInputTest<Time> {
 
 	public DomTimeInputTest() {
 
-		super(() -> new DomTimeInput(null));
+		super(() -> new DomTimeInput());
 	}
 
 	@Test

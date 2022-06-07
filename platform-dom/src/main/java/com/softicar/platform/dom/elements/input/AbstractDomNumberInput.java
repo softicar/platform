@@ -2,9 +2,11 @@ package com.softicar.platform.dom.elements.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.dom.event.IDomChangeEventHandler;
+import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Optional;
 
 /**
@@ -12,21 +14,21 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public abstract class AbstractDomNumberInput<T extends Number> extends DomTextInput implements IDomValueInput<T> {
+public abstract class AbstractDomNumberInput<T extends Number> extends AbstractDomValueInput<T> {
+
+	private final TextInput input;
 
 	protected AbstractDomNumberInput() {
 
-		// nothing to do
+		this.input = new TextInput();
+
+		appendChild(input);
 	}
 
 	@Override
 	public void setValue(T value) {
 
-		if (value != null) {
-			setInputText(formatValue(value));
-		} else {
-			setInputText("");
-		}
+		input.setInputText(formatNullableValue(value));
 	}
 
 	/**
@@ -43,7 +45,7 @@ public abstract class AbstractDomNumberInput<T extends Number> extends DomTextIn
 	@Override
 	public Optional<T> getValue() throws DomInputException {
 
-		String text = getInputTextTrimmed();
+		String text = input.getInputTextTrimmed();
 		if (!text.isBlank()) {
 			return Optional.of(parseValue(text));
 		} else {
@@ -69,6 +71,17 @@ public abstract class AbstractDomNumberInput<T extends Number> extends DomTextIn
 		}
 	}
 
+	public String getInputText() {
+
+		return input.getInputText();
+	}
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		input.setDisabled(disabled);
+	}
+
 	/**
 	 * Converts the value into a textual representation.
 	 *
@@ -89,4 +102,18 @@ public abstract class AbstractDomNumberInput<T extends Number> extends DomTextIn
 	 * @return the value (never <i>null</i>)
 	 */
 	protected abstract T parseValue(String inputText);
+
+	private String formatNullableValue(T value) {
+
+		return value != null? formatValue(value) : "";
+	}
+
+	private class TextInput extends DomTextInput implements IDomChangeEventHandler {
+
+		@Override
+		public void handleChange(IDomEvent event) {
+
+			executeChangeCallbacks();
+		}
+	}
 }

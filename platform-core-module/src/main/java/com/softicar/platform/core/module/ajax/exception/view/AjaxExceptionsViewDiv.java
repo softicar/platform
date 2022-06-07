@@ -23,7 +23,7 @@ public class AjaxExceptionsViewDiv extends DomDiv implements IRefreshable {
 
 		customExceptionCheckbox = new EmfBooleanInput(false)//
 			.setLabel(CoreI18n.IGNORE_ARG1_EXCEPTIONS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()));
-		customExceptionCheckbox.setChangeCallback(this::refresh);
+		customExceptionCheckbox.addChangeCallback(this::refresh);
 		checkBoxActionBar = new DomActionBar(customExceptionCheckbox);
 
 		refresh();

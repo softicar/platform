@@ -1,17 +1,13 @@
 package com.softicar.platform.dom.elements.time.day;
 
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.bar.DomBar;
-import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomEventHandler;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomValueInput;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -20,48 +16,25 @@ import java.util.Optional;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public class DomDayInput extends DomBar implements IDomValueInput<Day> {
+public class DomDayInput extends AbstractDomValueInput<Day> {
 
 	private final DayInput dayInput;
 	private final DayButton dayButton;
-	private INullaryVoidFunction callback;
-	private boolean disabled;
 
 	public DomDayInput() {
 
-		this.dayInput = appendChild(new DayInput());
-		this.dayButton = appendChild(new DayButton());
-		this.callback = INullaryVoidFunction.NO_OPERATION;
-		this.disabled = false;
+		this.dayInput = new DayInput();
+		this.dayButton = new DayButton();
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
+		appendChildren(dayInput, dayButton);
 	}
 
 	@Override
-	public DomDayInput setDisabled(boolean disabled) {
+	protected void doSetDisabled(boolean disabled) {
 
 		this.dayInput.setDisabled(disabled);
 		this.dayButton.setDisabled(disabled);
-		this.disabled = disabled;
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return disabled;
-	}
-
-	@Override
-	public final DomDayInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
 	}
 
 	@Override
@@ -82,18 +55,6 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		dayButton.setDay(day);
 	}
 
-	protected DomDayInput setCallback(INullaryVoidFunction callback) {
-
-		this.callback = Objects.requireNonNull(callback);
-		this.dayInput.listenToEvent(DomEventType.CHANGE);
-		return this;
-	}
-
-	protected void applyCallback() {
-
-		callback.apply();
-	}
-
 	private class DayButton extends AbstractDomDayPopupButton {
 
 		public DayButton() {
@@ -110,11 +71,11 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		public void handleDayChange() {
 
 			dayInput.setInputText(getDay().toISOString());
-			applyCallback();
+			executeChangeCallbacks();
 		}
 	}
 
-	private class DayInput extends DomTextInput implements IDomEventHandler {
+	private class DayInput extends DomTextInput implements IDomChangeEventHandler {
 
 		public DayInput() {
 
@@ -123,9 +84,9 @@ public class DomDayInput extends DomBar implements IDomValueInput<Day> {
 		}
 
 		@Override
-		public void handleDOMEvent(IDomEvent event) {
+		public void handleChange(IDomEvent event) {
 
-			applyCallback();
+			executeChangeCallbacks();
 		}
 	}
 }

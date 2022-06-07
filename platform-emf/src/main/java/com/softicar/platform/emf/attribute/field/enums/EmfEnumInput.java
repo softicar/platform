@@ -1,16 +1,16 @@
 package com.softicar.platform.emf.attribute.field.enums;
 
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.input.AbstractEmfInputDiv;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
-public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfInputDiv<E> {
+public class EmfEnumInput<E extends Enum<E>> extends AbstractDomValueInput<E> implements IEmfInput<E> {
 
-	private final ChangeListeningEnumSelect<E> enumInput;
+	private final Select select;
 
 	public EmfEnumInput(Class<E> enumClass) {
 
@@ -20,72 +20,36 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractEmfInputDiv<E> {
 	@SafeVarargs
 	public EmfEnumInput(E...enums) {
 
-		this.enumInput = new ChangeListeningEnumSelect<>();
-		this.enumInput.addNilValue(EmfI18n.NONE.encloseInBrackets());
-		this.enumInput.addValues(enums);
-		appendChild(enumInput);
+		this.select = new Select();
+		this.select.addNilValue(EmfI18n.NONE.encloseInBrackets());
+		this.select.addValues(enums);
+		appendChild(select);
 	}
 
 	@Override
 	public Optional<E> getValue() {
 
-		return Optional.ofNullable(enumInput.getSelectedValue());
-	}
-
-	@Override
-	public void setValueAndHandleChangeCallback(E value) {
-
-		setValue(value);
-		enumInput.applyChangeCallback();
+		return Optional.ofNullable(select.getSelectedValue());
 	}
 
 	@Override
 	public void setValue(E value) {
 
-		enumInput.setSelectedValue(value);
+		select.setSelectedValue(value);
 	}
 
 	@Override
-	public void setChangeCallback(INullaryVoidFunction callback) {
+	protected void doSetDisabled(boolean disabled) {
 
-		enumInput.setChangeCallback(callback);
+		select.setDisabled(disabled);
 	}
 
-	@Override
-	public EmfEnumInput<E> setDisabled(boolean disabled) {
-
-		enumInput.setDisabled(disabled);
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return enumInput.isDisabled();
-	}
-
-	private static class ChangeListeningEnumSelect<E extends Enum<E>> extends DomEnumSelect<E> implements IDomChangeEventHandler {
-
-		private INullaryVoidFunction callback;
-
-		public void setChangeCallback(INullaryVoidFunction callback) {
-
-			this.callback = callback;
-		}
-
-		public void applyChangeCallback() {
-
-			Optional//
-				.ofNullable(callback)
-				.ifPresent(INullaryVoidFunction::apply);
-		}
+	private class Select extends DomEnumSelect<E> implements IDomChangeEventHandler {
 
 		@Override
 		public void handleChange(IDomEvent event) {
 
-			if (callback != null) {
-				callback.apply();
-			}
+			executeChangeCallbacks();
 		}
 	}
 }

@@ -16,11 +16,6 @@
 	padding: 0.5em 1em;
 }
 
-.EmfInputDiv {
-	display: grid;
-	grid-auto-flow: column;
-}
-
 .EmfWikiTextInput {
 	display: grid;
 }

@@ -2,15 +2,14 @@ package com.softicar.platform.emf.attribute.field.bool;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.core.interfaces.NullaryVoidFunctionList;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 
-	private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
+	private final NullaryVoidFunctionList callbacks = new NullaryVoidFunctionList();
 
 	public EmfBooleanInput(boolean checked) {
 
@@ -27,13 +26,13 @@ public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 	public void setValueAndHandleChangeCallback(Boolean value) {
 
 		setValue(value);
-		callback.apply();
+		callbacks.apply();
 	}
 
 	@Override
-	public void setChangeCallback(INullaryVoidFunction callback) {
+	public void addChangeCallback(INullaryVoidFunction callback) {
 
-		this.callback = Objects.requireNonNull(callback);
+		this.callbacks.add(callback);
 	}
 
 	@Override
@@ -49,10 +48,5 @@ public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 		if (isEnabled()) {
 			setValueAndHandleChangeCallback(!isChecked());
 		}
-	}
-
-	public void setChangeCallback(Consumer<Boolean> consumer) {
-
-		this.callback = () -> Objects.requireNonNull(consumer).accept(isChecked());
 	}
 }

@@ -58,7 +58,8 @@ public interface IDomTestExecutionEngine extends TestRule {
 
 	/**
 	 * Inputs the specified text into the given {@link IDomTextualInput} and
-	 * triggers an {@link IDomEvent} of type {@link DomEventType#TAB}.
+	 * triggers an {@link IDomEvent} of type {@link DomEventType#TAB} and
+	 * {@link DomEventType#CHANGE}.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to receive the text (never <i>null</i>)

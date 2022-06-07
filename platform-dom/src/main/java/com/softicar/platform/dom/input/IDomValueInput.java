@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.input;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
 import java.util.Optional;
 
@@ -17,6 +18,15 @@ public interface IDomValueInput<V> extends IDomInput {
 	 *            the value to assign or <i>null</i>
 	 */
 	void setValue(V value);
+
+	/**
+	 * Assigns a value to this input element and calls all registered change
+	 * callback functions.
+	 *
+	 * @param value
+	 *            the value to assign or <i>null</i>
+	 */
+	void setValueAndHandleChangeCallback(V value);
 
 	/**
 	 * Returns the optional value of this input element, as follows:
@@ -67,4 +77,14 @@ public interface IDomValueInput<V> extends IDomInput {
 			return Optional.empty();
 		}
 	}
+
+	/**
+	 * Registers the given callback to be notified when the value changes.
+	 * <p>
+	 * All callback functions are called in the order that they where added.
+	 *
+	 * @param callback
+	 *            the callback (never <i>null</i>)
+	 */
+	void addChangeCallback(INullaryVoidFunction callback);
 }

@@ -62,7 +62,7 @@ class ModulePermissionOwnershipMatrixValueInput extends DomDiv implements IEmfSe
 							new EmfBooleanInput(checked)//
 								.setLabel(permission.getTitle()));
 					input.setDisabled(disabled);
-					input.setChangeCallback(new ChangeHandler(permission, styleUpdater)::handle);
+					input.addChangeCallback(() -> new ChangeHandler(permission, styleUpdater).handle(input.isChecked()));
 					styleUpdater.update(checked);
 				}
 			} else {

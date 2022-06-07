@@ -1,99 +1,39 @@
 package com.softicar.platform.dom.elements.time;
 
-import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.IllegalTimeSpecificationException;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
-import com.softicar.platform.dom.elements.tables.DomDataTable;
-import com.softicar.platform.dom.input.IDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import java.util.Optional;
 
-public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
+public class DomTimeInput extends AbstractDomValueInput<Time> {
 
 	private final DomIntegerInput hourInput;
 	private final DomIntegerInput minuteInput;
 	private final DomIntegerInput secondInput;
-	private boolean disabled;
 
 	public DomTimeInput() {
 
-		this(DayTime.now().getTime());
-	}
-
-	public DomTimeInput(Time time) {
-
-		this(time, false);
-	}
-
-	public DomTimeInput(Time time, boolean showLabels) {
-
-		hourInput = new DomIntegerInput();
-		hourInput.setTitle(DomI18n.HOURS);
-		hourInput.addMarker(DomTestMarker.HOURS_INPUT);
-		hourInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
-
-		minuteInput = new DomIntegerInput();
-		minuteInput.setTitle(DomI18n.MINUTES);
-		minuteInput.addMarker(DomTestMarker.MINUTES_INPUT);
-		minuteInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
-
-		secondInput = new DomIntegerInput();
-		secondInput.setTitle(DomI18n.SECONDS);
-		secondInput.addMarker(DomTestMarker.SECONDS_INPUT);
-		secondInput.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
-
-		disabled = false;
-
-		if (showLabels) {
-			DomDataTable table = new DomDataTable();
-			table
-				.getHead()
-				.appendRow()
-				.appendHeaderCells(//
-					DomI18n.HOURS,
-					DomI18n.MINUTES,
-					DomI18n.SECONDS);
-			table.getBody().appendRow().appendCells(hourInput, minuteInput, secondInput);
-			appendChild(table);
-		} else {
-			appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
-		}
-		setValue(time);
+		this.hourInput = new Input(DomI18n.HOURS, DomTestMarker.HOURS_INPUT);
+		this.minuteInput = new Input(DomI18n.MINUTES, DomTestMarker.MINUTES_INPUT);
+		this.secondInput = new Input(DomI18n.SECONDS, DomTestMarker.SECONDS_INPUT);
 
 		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
+		appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
 	}
 
 	@Override
-	public DomTimeInput setDisabled(boolean disabled) {
+	protected void doSetDisabled(boolean disabled) {
 
 		this.hourInput.setDisabled(disabled);
 		this.minuteInput.setDisabled(disabled);
 		this.secondInput.setDisabled(disabled);
-		this.disabled = disabled;
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return disabled;
-	}
-
-	@Override
-	public final DomTimeInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
 	}
 
 	@Override
@@ -124,15 +64,10 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 			minuteInput.setValue(time.getMinute());
 			secondInput.setValue(time.getSecond());
 		} else {
-			clear();
+			hourInput.setValue(null);
+			minuteInput.setValue(null);
+			secondInput.setValue(null);
 		}
-	}
-
-	public void clear() {
-
-		hourInput.setValue(null);
-		minuteInput.setValue(null);
-		secondInput.setValue(null);
 	}
 
 	private String getValueAsString() {
@@ -142,5 +77,16 @@ public class DomTimeInput extends DomBar implements IDomValueInput<Time> {
 				hourInput.getInputText(),
 				minuteInput.getInputText(),
 				secondInput.getInputText());
+	}
+
+	private class Input extends DomIntegerInput {
+
+		public Input(IDisplayString title, IStaticObject testMarker) {
+
+			setTitle(title);
+			addMarker(testMarker);
+			addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
+			addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
+		}
 	}
 }

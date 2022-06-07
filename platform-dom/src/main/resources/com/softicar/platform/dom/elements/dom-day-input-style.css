@@ -1,5 +1,6 @@
 
 .DomDayInput {
-	display: inline-grid;
-	grid-auto-columns: auto max-content;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }

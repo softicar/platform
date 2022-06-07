@@ -1,28 +1,30 @@
 package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.dom.DomCssPseudoClasses;
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomPasswordInput;
+import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
-public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
+public class EmfPasswordInput extends AbstractDomValueInput<String> implements IEmfInput<String> {
 
-	private final DomPasswordInput passwordInput;
+	private final PasswordInput passwordInput;
 	private final PasswordVisibilityButton passwordVisibilityButton;
 	private boolean passwordShown;
 
 	public EmfPasswordInput() {
 
-		this.passwordInput = appendChild(new DomPasswordInput());
-		this.passwordVisibilityButton = appendChild(new PasswordVisibilityButton());
+		this.passwordInput = new PasswordInput();
+		this.passwordVisibilityButton = new PasswordVisibilityButton();
 		hideText();
-		setCssClass(EmfCssClasses.EMF_PASSWORD_INPUT);
+		addCssClass(EmfCssClasses.EMF_PASSWORD_INPUT);
+		appendChildren(passwordInput, passwordVisibilityButton);
 	}
 
 	@Override
@@ -35,31 +37,6 @@ public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 	public Optional<String> getValue() {
 
 		return Optional.of(passwordInput.getInputText());
-	}
-
-	@Override
-	public EmfPasswordInput setDisabled(boolean disabled) {
-
-		passwordInput.setDisabled(disabled);
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return passwordInput.isDisabled();
-	}
-
-	@Override
-	public final EmfPasswordInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
 	}
 
 	public void showText() {
@@ -79,6 +56,21 @@ public class EmfPasswordInput extends DomDiv implements IEmfInput<String> {
 		passwordShown = false;
 
 		passwordVisibilityButton.removeCssClass(DomCssPseudoClasses.ACTIVE);
+	}
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		passwordInput.setDisabled(disabled);
+	}
+
+	private class PasswordInput extends DomPasswordInput implements IDomChangeEventHandler {
+
+		@Override
+		public void handleChange(IDomEvent event) {
+
+			executeChangeCallbacks();
+		}
 	}
 
 	private class PasswordVisibilityButton extends DomImage implements IDomClickEventHandler {

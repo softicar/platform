@@ -12,13 +12,13 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.notification.INotificationTargetUsersQuery.IRow;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class UsersNotificationPageDiv extends DomDiv {
 	private static final int USER_BURST_SIZE = 100;
 	private final DomTextInput fromInput;
 	private final DomTextInput subjectInput;
-	private final EmfMultilineStringInput contentInput;
+	private final DomTextArea contentInput;
 	private final IEmfDataTableDiv<IRow> targetUsersTable;
 
 	public UsersNotificationPageDiv() {
@@ -41,7 +41,7 @@ public class UsersNotificationPageDiv extends DomDiv {
 			new DomLabelGrid()//
 				.add(CoreI18n.FROM, fromInput = new DomTextInput(AGCoreModuleInstance.getInstance().getNoReplyEmailAddress()))
 				.add(CoreI18n.SUBJECT, subjectInput = new DomTextInput())
-				.add(CoreI18n.CONTENT, contentInput = new EmfMultilineStringInput()));
+				.add(CoreI18n.CONTENT, contentInput = new DomTextArea().setRowCount(5)));
 		appendChild(new DomMessageDiv(DomMessageType.WARNING, CoreI18n.PLEASE_DOUBLE_CHECK_ALL_INPUTS_BEFORE_CLICKING_ARG1.toDisplay(CoreI18n.SEND)));
 		appendChild(
 			new DomActionBar(

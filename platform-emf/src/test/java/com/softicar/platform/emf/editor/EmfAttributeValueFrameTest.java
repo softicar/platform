@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.editor;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
@@ -9,8 +8,6 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomTabKeyEventHandler;
 import com.softicar.platform.emf.attribute.field.string.EmfStringAttribute;
 import com.softicar.platform.emf.attribute.field.string.EmfStringInput;
 import com.softicar.platform.emf.object.IEmfObject;
@@ -327,9 +324,8 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 		}
 	}
 
-	private static class TestInput extends EmfStringInput implements IDomTabKeyEventHandler {
+	private static class TestInput extends EmfStringInput {
 
-		private INullaryVoidFunction callback = INullaryVoidFunction.NO_OPERATION;
 		private boolean mandatory = false;
 		private int refreshCalls = 0;
 
@@ -343,18 +339,6 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 		public void refreshInputConstraints() {
 
 			refreshCalls++;
-		}
-
-		@Override
-		public void setChangeCallback(INullaryVoidFunction callback) {
-
-			this.callback = callback;
-		}
-
-		@Override
-		public void handleTabKey(IDomEvent event) {
-
-			callback.apply();
 		}
 
 		public void assertMandatory(boolean expectedMandatory) {

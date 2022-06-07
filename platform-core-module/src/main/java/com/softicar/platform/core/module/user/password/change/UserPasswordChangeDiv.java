@@ -42,7 +42,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.userPasswordPolicy = user.getPasswordPolicy();
 		this.hasNoValidPassword = !user.hasValidPassword();
 		this.visiblePasswordCheckbox = new EmfBooleanInput(false).setLabel(CoreI18n.SHOW_PASSWORD);
-		this.visiblePasswordCheckbox.setChangeCallback(this::setPasswordVisible);
+		this.visiblePasswordCheckbox.addChangeCallback(() -> setPasswordVisible(visiblePasswordCheckbox.isChecked()));
 		this.inputTable = new PasswordInputStack();
 		this.qualityMessageDiv = new QualityMessageDiv();
 		this.securePasswordMessageDiv = new SecurePasswordMessageDiv();

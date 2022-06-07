@@ -6,58 +6,32 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.time.DomTimeInput;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
-import com.softicar.platform.dom.input.IDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import java.util.Optional;
 
-public class DomDayTimeInput extends DomBar implements IDomValueInput<DayTime> {
+public class DomDayTimeInput extends AbstractDomValueInput<DayTime> {
 
 	private final DomDayInput dayInput;
 	private final DomTimeInput timeInput;
-	private boolean disabled;
 
 	public DomDayTimeInput() {
 
-		this.dayInput = appendChild(new DomDayInput());
-		this.timeInput = appendChild(new DomTimeInput());
-		this.disabled = false;
+		this.dayInput = new DomDayInput();
+		this.dayInput.addChangeCallback(this::executeChangeCallbacks);
+		this.timeInput = new DomTimeInput();
+		this.timeInput.addChangeCallback(this::executeChangeCallbacks);
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_TIME_INPUT);
+		appendChildren(dayInput, timeInput);
 	}
 
 	@Override
-	public DomDayTimeInput setDisabled(boolean disabled) {
+	protected void doSetDisabled(boolean disabled) {
 
 		this.dayInput.setDisabled(disabled);
 		this.timeInput.setDisabled(disabled);
-		this.disabled = disabled;
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return disabled;
-	}
-
-	@Override
-	public final DomDayTimeInput setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
-	}
-
-	// TODO remove this method, it reveals internal details
-	public DomDayInput getDayInput() {
-
-		return dayInput;
 	}
 
 	@Override

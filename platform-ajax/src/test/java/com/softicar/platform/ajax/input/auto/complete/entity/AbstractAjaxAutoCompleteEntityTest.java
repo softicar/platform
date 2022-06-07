@@ -182,7 +182,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public Setup setListenToChange() {
 
-			return add((input, engine) -> input.setChangeCallback(changeCallback));
+			return add((input, engine) -> input.addChangeCallback(changeCallback));
 		}
 
 		public Setup setSelectedEntityNone() {

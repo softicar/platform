@@ -2,8 +2,6 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
@@ -11,6 +9,7 @@ import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStrin
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
+import com.softicar.platform.dom.input.AbstractDomValueInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
@@ -18,11 +17,8 @@ import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -38,12 +34,11 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteInput<T> {
+public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements IDomAutoCompleteInput<T> {
 
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final InputField inputField;
-	private INullaryVoidFunction changeCallback;
 	private final IDomAutoCompleteInputConfiguration configuration;
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
 	protected final DomBar inputBar;
@@ -55,7 +50,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		this.inputBar = new DomBar();
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
 		this.inputField = inputBar.appendChild(new InputField());
-		this.changeCallback = null;
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
@@ -72,25 +66,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		inputEngine.refresh();
 		filterDisplay.refresh(inputEngine);
 		refreshInputValidity();
-	}
-
-	// TODO change argument to Consumer<IDomAutoCompleteInputSelection> ?
-	public void setChangeCallback(INullaryVoidFunction changeCallback) {
-
-		if (changeCallback != null) {
-			this.changeCallback = new CompositeCallback(this::refreshInputValidity, changeCallback)::apply;
-			this.inputField.listenToEvent(DomEventType.CHANGE);
-		} else {
-			this.changeCallback = null;
-			this.inputField.unlistenToEvent(DomEventType.CHANGE);
-		}
-	}
-
-	public void applyChangeCallback() {
-
-		Optional//
-			.ofNullable(changeCallback)
-			.ifPresent(INullaryVoidFunction::apply);
 	}
 
 	@Override
@@ -120,18 +95,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 			configuration,
 			this::getMatchingItems,
 			inputField.getInputTextTrimmed());
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return getConfiguration().isDisabled();
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
 	}
 
 	@Override
@@ -170,19 +133,6 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		return this;
 	}
 
-	@Override
-	public DomAutoCompleteInput<T> setDisabled(boolean disabled) {
-
-		getConfiguration().setDisabled(disabled);
-		return this;
-	}
-
-	@Override
-	public final DomAutoCompleteInput<T> setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
 	public DomAutoCompleteInput<T> select() {
 
 		inputField.select();
@@ -193,6 +143,18 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 
 		inputField.setMaxLength(maxLength);
 		return this;
+	}
+
+	@Override
+	protected void onChangeCallbackAdded() {
+
+		this.inputField.listenToEvent(DomEventType.CHANGE);
+	}
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		getConfiguration().setDisabled(disabled);
 	}
 
 	/**
@@ -282,28 +244,8 @@ public class DomAutoCompleteInput<T> extends DomDiv implements IDomAutoCompleteI
 		@Override
 		public void handleDOMEvent(IDomEvent event) {
 
-			if (changeCallback != null) {
-				changeCallback.apply();
-			}
-		}
-	}
-
-	private class CompositeCallback implements INullaryVoidFunction {
-
-		private final List<INullaryVoidFunction> callbacks;
-
-		public CompositeCallback(INullaryVoidFunction...callbacks) {
-
-			this.callbacks = Arrays.asList(callbacks);
-		}
-
-		@Override
-		public void apply() {
-
-			callbacks//
-				.stream()
-				.filter(Objects::nonNull)
-				.forEach(INullaryVoidFunction::apply);
+			refreshInputValidity();
+			executeChangeCallbacks();
 		}
 	}
 }
