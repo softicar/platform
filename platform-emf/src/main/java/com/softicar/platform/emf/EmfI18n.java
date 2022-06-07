@@ -52,8 +52,6 @@ public interface EmfI18n extends DomI18n {
 		.de("%s von %s");
 	I18n0 ATTRIBUTES_OVERVIEW = new I18n0("Attributes Overview")//
 		.de("Attributs-Übersicht");
-	I18n0 AUTHORIZED_ROLE = new I18n0("Authorized Role")//
-		.de("Autorisierte Rolle");
 	I18n0 AVAILABLE_VALUES = new I18n0("Available values")//
 		.de("Verfügbare Werte");
 	I18n0 BACK = new I18n0("Back")//
@@ -222,8 +220,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Es werden noch keine Daten gespeichert.");
 	I18n1 NO_IMAGE_FOUND_FOR_ARG1 = new I18n1("No image found for: %s")//
 		.de("Kein Bild gefunden für: %s");
-	I18n0 NO_ROLES = new I18n0("no roles")//
-		.de("keine Rollen");
+	I18n0 NO_PERMISSIONS = new I18n0("no permissions")//
+		.de("keine Berechtigungen");
 	I18n0 NOBODY = new I18n0("Nobody")//
 		.de("Niemand");
 	I18n0 NONE = new I18n0("None")//
@@ -244,8 +242,8 @@ public interface EmfI18n extends DomI18n {
 		.de("von");
 	I18n0 OK = new I18n0("OK")//
 		.de("OK");
-	I18n0 ONE_OF_THE_FOLLOWING_ROLES = new I18n0("One of the following roles:")//
-		.de("Eine der folgenden Rollen:");
+	I18n0 ONE_OF_THE_FOLLOWING_PERMISSIONS = new I18n0("One of the following permissions:")//
+		.de("Eine der folgenden Berechtigungen:");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
 		.de("Es darf nur eine einzelne Datei angehängt werden.");
 	I18n0 OPEN = new I18n0("Open")//
@@ -266,6 +264,16 @@ public interface EmfI18n extends DomI18n {
 		.de("Seiten-Pfad");
 	I18n0 PAGES = new I18n0("Pages")//
 		.de("Seiten");
+	I18n0 PERMISSION = new I18n0("Permission")//
+		.de("Berechtigung");
+	I18n0 PERMISSION_TO_CREATE = new I18n0("Permission to Create")//
+		.de("Berechtigung zum Erstellen");
+	I18n0 PERMISSION_TO_DELETE = new I18n0("Permission to Delete")//
+		.de("Berechtigung zum Löschen");
+	I18n0 PERMISSION_TO_EDIT = new I18n0("Permission to Edit")//
+		.de("Berechtigung zum Bearbeiten");
+	I18n0 PERMISSION_TO_VIEW = new I18n0("Permission to View")//
+		.de("Berechtigung zum Ansehen");
 	I18n0 PERSISTENT = new I18n0("Persistent")//
 		.de("Persistent");
 	I18n0 PLEASE_SELECT_A_VALID_ENTRY = new I18n0("Please select a valid entry.")//
@@ -302,18 +310,10 @@ public interface EmfI18n extends DomI18n {
 		.de("Datei entfernen");
 	I18n0 REPLACE_VARIABLES = new I18n0("Replace Variables")//
 		.de("Variablen ersetzen");
+	I18n0 REQUIRED_PERMISSION = new I18n0("Required Permission")//
+		.de("Erforderliche Berechtigung");
 	I18n0 RESET = new I18n0("Reset")//
 		.de("Zurücksetzen");
-	I18n0 ROLE = new I18n0("Role")//
-		.de("Rolle");
-	I18n0 ROLE_TO_CREATE = new I18n0("Role to Create")//
-		.de("Rolle zum Erstellen");
-	I18n0 ROLE_TO_DELETE = new I18n0("Role to Delete")//
-		.de("Rolle zum Löschen");
-	I18n0 ROLE_TO_EDIT = new I18n0("Role to Edit")//
-		.de("Rolle zum Bearbeiten");
-	I18n0 ROLE_TO_VIEW = new I18n0("Role to View")//
-		.de("Rolle zum Ansehen");
 	I18n3 ROW_ARG1_COLUMN_ARG2_FAILED_TO_PROCESS_TOKEN_ARG3 = new I18n3("Row #%s, Column #%s: Failed to process token %s")//
 		.de("Zeile #%s, Spalte #%s: Token %s konnte nicht verarbeitet werden");
 	I18n1 ROW_ARG1_COULD_NOT_BE_PROCESSED = new I18n1("Row #%s could not be processed")//
@@ -344,8 +344,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Tabellenzeilen-Details und Aktionen anzeigen");
 	I18n0 SHOW_TABLES = new I18n0("Show Tables")//
 		.de("Tabellen anzeigen");
-	I18n0 SHOW_USED_ROLES = new I18n0("Show Used roles")//
-		.de("Benutzte Rolen anzeigen");
+	I18n0 SHOW_USED_PERMISSIONS = new I18n0("Show Used Permissions")//
+		.de("Benutzte Berechtigungen anzeigen");
 	I18n0 SIZE = new I18n0("Size")//
 		.de("Größe");
 	I18n0 SOME_SETTINGS_ARE_HIDDEN_DUE_TO_FILTER_SETTINGS_THOSE_WILL_BE_SAVED_ANYWAY =
@@ -371,8 +371,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Das Attribut '%s' darf nicht definiert sein, es war jedoch '%s'.");
 	I18n0 THE_CONFIGURATION_OF_THIS_TABLE_IS_NOT_STORED_PERSISTENTLY = new I18n0("The configuration of this table is not stored persistently.")//
 		.de("Die Konfiguration dieser Tabelle wird nicht persistent gespeichert.");
-	I18n1 THE_CURRENT_USER_DOES_NOT_POSSESS_THE_ROLE_ARG1 = new I18n1("The current user does not possess the role '%s'.")//
-		.de("Der aktuelle Benutzer besitzt nicht die Rolle '%s'.");
+	I18n1 THE_CURRENT_USER_DOES_NOT_POSSESS_THE_PERMISSION_ARG1 = new I18n1("The current user does not possess the permission '%s'.")//
+		.de("Der aktuelle Benutzer besitzt nicht die Berechtigung '%s'.");
 	I18n0 THE_ENTRY_IS_OUTDATED = new I18n0("The entry is outdated.")//
 		.de("Der Eintrag ist veraltet.");
 	I18n0 THE_FILE_FORMAT_MUST_BE_PDF = new I18n0("The file format must be 'PDF'.")//
@@ -405,14 +405,14 @@ public interface EmfI18n extends DomI18n {
 		.de("Rückgängig");
 	I18n0 UNKNOWN_MODULE = new I18n0("Unknown Module")//
 		.de("Unbekanntes Modul");
-	I18n1 UNSUPPORTED_ROLE_CLASS_ARG1 = new I18n1("Unsupported role class: %s")//
-		.de("Nichtunterstützte Rollen-Klasse: %s");
+	I18n1 UNSUPPORTED_PERMISSION_CLASS_ARG1 = new I18n1("Unsupported permission class: %s")//
+		.de("Nichtunterstützte Berechtigungsklasse: %s");
 	I18n0 UPDATED_AT = new I18n0("Updated At")//
 		.de("Aktualisiert am");
 	I18n0 UPDATED_BY = new I18n0("Updated By")//
 		.de("Aktualisiert von");
-	I18n0 USED_ROLES = new I18n0("Used Roles")//
-		.de("Benutzte Rollen");
+	I18n0 USED_PERMISSIONS = new I18n0("Used Permissions")//
+		.de("Benutzte Berechtigungen");
 	I18n0 UUID = new I18n0("UUID")//
 		.de("UUID");
 	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//

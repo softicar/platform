@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.core.module.user.AGUser;
@@ -22,6 +22,6 @@ public abstract class AbstractPageDivTest extends AbstractDbTest implements Core
 		insertCoreModuleInstance(localization);
 
 		CurrentUser.set(testUser);
-		insertRoleMembership(testUser, CoreRoles.SUPER_USER, CoreModule.class);
+		insertPermissionAssignment(testUser, CorePermissions.SUPER_USER, CoreModule.class);
 	}
 }

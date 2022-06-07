@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -21,11 +21,12 @@ public interface IEmfAction<T> {
 	IEmfPredicate<T> getPrecondition();
 
 	/**
-	 * Returns the necessary role for this action to be available.
+	 * Returns the necessary {@link IEmfPermission} for this action to be
+	 * available.
 	 *
-	 * @return the role (never null)
+	 * @return the {@link IEmfPermission} (never null)
 	 */
-	IEmfRole<T> getAuthorizedRole();
+	IEmfPermission<T> getRequiredPermission();
 
 	/**
 	 * Returns the icon of this action.
@@ -52,7 +53,7 @@ public interface IEmfAction<T> {
 	 */
 	default boolean isAvailable(T object, IBasicUser user) {
 
-		return getPrecondition().test(object) && getAuthorizedRole().test(object, user);
+		return getPrecondition().test(object) && getRequiredPermission().test(object, user);
 	}
 
 	/**
@@ -86,11 +87,11 @@ public interface IEmfAction<T> {
 					.concatSentence(EmfI18n.ARG1_DOES_NOT_APPLY.toDisplay(getPrecondition().getTitle())));
 		}
 
-		if (!getAuthorizedRole().test(object, user)) {
+		if (!getRequiredPermission().test(object, user)) {
 			throw new SofticarUserException(
 				EmfI18n.MISSING_AUTHORIZATION//
 					.concatColon()
-					.concatSentence(EmfI18n.THE_CURRENT_USER_DOES_NOT_POSSESS_THE_ROLE_ARG1.toDisplay(getAuthorizedRole().getTitle())));
+					.concatSentence(EmfI18n.THE_CURRENT_USER_DOES_NOT_POSSESS_THE_PERMISSION_ARG1.toDisplay(getRequiredPermission().getTitle())));
 		}
 	}
 

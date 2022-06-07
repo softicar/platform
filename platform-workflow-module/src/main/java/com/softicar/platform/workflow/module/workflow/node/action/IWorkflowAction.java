@@ -3,13 +3,13 @@ package com.softicar.platform.workflow.module.workflow.node.action;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.action.IEmfAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
-import com.softicar.platform.workflow.module.workflow.node.action.role.AGWorkflowNodeActionRole;
-import com.softicar.platform.workflow.module.workflow.node.action.role.WorkflowNodeActionRole;
+import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
+import com.softicar.platform.workflow.module.workflow.node.action.permission.WorkflowNodeActionPermission;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -41,20 +41,20 @@ public interface IWorkflowAction<R extends IWorkflowableObject<R>> extends IEmfA
 	}
 
 	@Override
-	default IEmfRole<R> getAuthorizedRole() {
+	default IEmfPermission<R> getRequiredPermission() {
 
-		return new WorkflowNodeActionRole<>(getNodesToRolesMap());
+		return new WorkflowNodeActionPermission<>(getNodesToPermissionsMap());
 	}
 
-	private Map<AGWorkflowNode, Collection<AGWorkflowNodeActionRole>> getNodesToRolesMap() {
+	private Map<AGWorkflowNode, Collection<AGWorkflowNodeActionPermission>> getNodesToPermissionsMap() {
 
-		Map<AGWorkflowNode, Collection<AGWorkflowNodeActionRole>> nodesToRolesMap = new TreeMap<>();
+		Map<AGWorkflowNode, Collection<AGWorkflowNodeActionPermission>> nodesToPermissionsMap = new TreeMap<>();
 		AGWorkflowNodeAction
 			.createSelect()
 			.where(AGWorkflowNodeAction.ACTION.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.where(AGWorkflowNodeAction.ACTIVE)
-			.forEach(action -> nodesToRolesMap.put(action.getWorkflowNode(), action.getAllActiveWorkflowNodeActionRoles()));
+			.forEach(action -> nodesToPermissionsMap.put(action.getWorkflowNode(), action.getAllActiveWorkflowNodeActionPermissions()));
 
-		return nodesToRolesMap;
+		return nodesToPermissionsMap;
 	}
 }

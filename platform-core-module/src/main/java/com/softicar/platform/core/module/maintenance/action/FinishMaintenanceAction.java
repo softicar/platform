@@ -4,13 +4,13 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.MaintenancePredicates;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
 public class FinishMaintenanceAction implements IEmfManagementAction<AGMaintenanceWindow> {
@@ -22,9 +22,9 @@ public class FinishMaintenanceAction implements IEmfManagementAction<AGMaintenan
 	}
 
 	@Override
-	public IEmfRole<AGMaintenanceWindow> getAuthorizedRole() {
+	public IEmfPermission<AGMaintenanceWindow> getRequiredPermission() {
 
-		return CoreRoles.SYSTEM_ADMINISTRATOR.toOtherEntityRole();
+		return CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission();
 	}
 
 	@Override

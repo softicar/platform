@@ -18,8 +18,8 @@ import com.softicar.platform.workflow.module.test.WorkflowTestObject;
 import com.softicar.platform.workflow.module.test.WorkflowTestObjectTable;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.After;
@@ -57,14 +57,14 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 
 		// setup user transitions for task notifications
 		AGWorkflowNode nodeC = insertWorkflowNode(workflowVersion, "C");
-		insertWorkflowTransition("User Transition with Notify", nodeA, nodeB, "1", true, WorkflowTestObjectTable.ROLE_A);
-		insertWorkflowTransition("User Transition without Notify", nodeA, nodeC, "1", false, WorkflowTestObjectTable.ROLE_B);
+		insertWorkflowTransition("User Transition with Notify", nodeA, nodeB, "1", true, WorkflowTestObjectTable.PERMISSION_A);
+		insertWorkflowTransition("User Transition without Notify", nodeA, nodeC, "1", false, WorkflowTestObjectTable.PERMISSION_B);
 
-		// setup object and role membership
+		// setup object and permission ownership
 		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		testObject.addRoleMember(user, "A");
-		testObject.addRoleMember(user, "B");
-		testObject.addRoleMember(otherUser, "B");
+		testObject.addPermissionAssignment(user, "A");
+		testObject.addPermissionAssignment(user, "B");
+		testObject.addPermissionAssignment(otherUser, "B");
 
 		waitForProgramExecutions(1);
 		DbTableRowCaches.invalidateAll();
@@ -183,13 +183,13 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	}
 
 	@Test(expected = EmfValidationException.class)
-	public void testErrorWithAutoTransitionAndRoles() {
+	public void testErrorWithAutoTransitionAndPermissions() {
 
 		autoTransition.setAutoTransition(false).save();
 
-		new AGWorkflowTransitionRole()//
+		new AGWorkflowTransitionPermission()//
 			.setTransition(autoTransition)
-			.setRole(AGUuid.getOrCreate(WorkflowTestObjectTable.ROLE_A.getAnnotatedUuid()))
+			.setPermission(AGUuid.getOrCreate(WorkflowTestObjectTable.PERMISSION_A.getAnnotatedUuid()))
 			.save();
 		autoTransition.setAutoTransition(true).save();
 	}

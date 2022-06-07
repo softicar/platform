@@ -1,24 +1,24 @@
 package com.softicar.platform.emf.authorizer;
 
 import com.softicar.platform.common.core.user.IBasicUser;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.error.IEmfAccessDeniedDisplayCreator;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 public interface IEmfAuthorizer<R extends IEmfTableRow<R, ?>, S> {
 
 	void assertIsVisible(R tableRow, IBasicUser user) throws EmfTableRowNotVisibleToUserException;
 
-	IEmfRole<S> getCreationRole();
+	IEmfPermission<S> getCreationPermission();
 
-	IEmfRole<R> getViewRole();
+	IEmfPermission<R> getViewPermission();
 
-	IEmfRole<R> getEditRole();
+	IEmfPermission<R> getEditPermission();
 
-	default IEmfRole<R> getDeleteRole() {
+	default IEmfPermission<R> getDeletePermission() {
 
-		return EmfRoles.nobody();
+		return EmfPermissions.never();
 	}
 
 	IEmfAccessDeniedDisplayCreator<R> getAccessDeniedDisplayCreator();

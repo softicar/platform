@@ -10,7 +10,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.workflow.module.workflow.image.AGWorkflowIcon;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.side.effect.IWorkflowTransitionSideEffect;
 import java.util.List;
 import java.util.Optional;
@@ -23,20 +23,20 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 		return IDisplayString.create(getName());
 	}
 
-	public List<AGWorkflowTransitionRole> getAllActiveWorkflowTransitionRoles() {
+	public List<AGWorkflowTransitionPermission> getAllActiveWorkflowTransitionPermissions() {
 
-		return AGWorkflowTransitionRole.TABLE//
+		return AGWorkflowTransitionPermission.TABLE//
 			.createSelect()
-			.where(AGWorkflowTransitionRole.ACTIVE)
-			.where(AGWorkflowTransitionRole.TRANSITION.equal(this))
+			.where(AGWorkflowTransitionPermission.ACTIVE)
+			.where(AGWorkflowTransitionPermission.TRANSITION.equal(this))
 			.list();
 	}
 
 	public boolean isUserAllowedToSeeTransition(AGUser user, AGWorkflowItem item) {
 
-		return getAllActiveWorkflowTransitionRoles()//
+		return getAllActiveWorkflowTransitionPermissions()//
 			.stream()
-			.anyMatch(role -> role.testUserAssignmentForItem(user, item));
+			.anyMatch(permission -> permission.testUserAssignmentForItem(user, item));
 	}
 
 	public IResource getIcon() {

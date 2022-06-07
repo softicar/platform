@@ -1,0 +1,19 @@
+PACKAGE com.softicar.platform.core.module.access.permission.assignment.module.system
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGSystemModulePermissionAssignment 'Core.SystemModulePermissionAssignment' {
+	PK Integer id = SERIAL
+	AGTransaction transaction [ON UPDATE CASCADE]
+	AGUser user
+	AGUuid module
+	AGUuid permission
+	Boolean active = TRUE
+
+	UK user module permission
+	IK module
+	IK permission
+	IK transaction
+}

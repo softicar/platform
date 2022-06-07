@@ -1,15 +1,15 @@
 package com.softicar.platform.core.module.email.buffer;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.buffer.attachment.BufferedEmailAttachmentSectionDiv;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, SystemModuleInstance> {
@@ -28,9 +28,9 @@ public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, System
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmail, SystemModuleInstance> authorizer) {
 
-		authorizer.setViewRole(CoreRoles.SUPER_USER.toOtherEntityRole());
-		authorizer.setEditRole(EmfRoles.nobody());
-		authorizer.setCreationRole(EmfRoles.nobody());
+		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setEditPermission(EmfPermissions.never());
+		authorizer.setCreationPermission(EmfPermissions.never());
 	}
 
 	@Override

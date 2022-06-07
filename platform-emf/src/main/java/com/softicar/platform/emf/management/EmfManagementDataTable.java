@@ -10,8 +10,8 @@ import com.softicar.platform.db.sql.ISqlBooleanExpression;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collections;
@@ -117,9 +117,9 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 
 		IBasicUser currentUser = CurrentBasicUser.get();
 		List<R> allEntities = select.list();
-		IEmfRole<R> viewRole = entityTable.getAuthorizer().getViewRole().prefetchData(allEntities);
+		IEmfPermission<R> viewPermission = entityTable.getAuthorizer().getViewPermission().prefetchData(allEntities);
 
-		return allEntities.stream().filter(entity -> viewRole.test(entity, currentUser)).collect(Collectors.toList());
+		return allEntities.stream().filter(entity -> viewPermission.test(entity, currentUser)).collect(Collectors.toList());
 	}
 
 	void setColumnHandlers(EmfDataTableDivBuilder<R> builder) {

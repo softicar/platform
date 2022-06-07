@@ -6,18 +6,18 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.authorization.role.EmfRoleWrapper;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.EmfPages;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.EmfPermissionWrapper;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 
 	private final IEmfModule<?> module;
-	private final IDataTableColumn<IEmfPage<?>, EmfRoleWrapper> authorizedRoleColumn;
+	private final IDataTableColumn<IEmfPage<?>, EmfPermissionWrapper> requiredPermissionColumn;
 
 	public ModulePagesTable(IEmfModule<?> module) {
 
@@ -30,9 +30,9 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 			.setGetter(this::getPageTitle)
 			.setTitle(EmfI18n.TITLE)
 			.addColumn();
-		authorizedRoleColumn = newColumn(EmfRoleWrapper.class)//
-			.setGetter(page -> getRoleFromPage(page))
-			.setTitle(EmfI18n.AUTHORIZED_ROLE)
+		requiredPermissionColumn = newColumn(EmfPermissionWrapper.class)//
+			.setGetter(page -> getPermissionFromPage(page))
+			.setTitle(EmfI18n.REQUIRED_PERMISSION)
 			.addColumn();
 		newColumn(String.class)//
 			.setGetter(this::getPagePath)
@@ -44,9 +44,9 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 			.addColumn();
 	}
 
-	public IDataTableColumn<IEmfPage<?>, EmfRoleWrapper> getAuthorizedRoleColumn() {
+	public IDataTableColumn<IEmfPage<?>, EmfPermissionWrapper> getRequiredPermissionColumn() {
 
-		return authorizedRoleColumn;
+		return requiredPermissionColumn;
 	}
 
 	@Override
@@ -55,9 +55,9 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 		return new ArrayList<>(EmfPages.getPages(module));
 	}
 
-	private EmfRoleWrapper getRoleFromPage(IEmfPage<?> page) {
+	private EmfPermissionWrapper getPermissionFromPage(IEmfPage<?> page) {
 
-		return new EmfRoleWrapper(page.getAuthorizedRole());
+		return new EmfPermissionWrapper(page.getRequiredPermission());
 	}
 
 	private String getPagePath(IEmfPage<?> definition) {

@@ -1,5 +1,5 @@
 dependencies {
-	implementation project(':platform-core-module')
+	implementation project(':platform-workflow-module')
 	implementation "com.google.code.gson:gson:$versions.gson"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
 }

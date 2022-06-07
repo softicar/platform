@@ -9,11 +9,11 @@ import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.tab.DomTab;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.field.string.EmfStringDisplay;
-import com.softicar.platform.emf.authorization.role.EmfRoleToDisplayVisitor;
 import com.softicar.platform.emf.authorizer.IEmfAuthorizer;
-import com.softicar.platform.emf.entity.table.role.EmfTableRoleOverviewDiv;
+import com.softicar.platform.emf.entity.table.permission.EmfTablePermissionOverviewDiv;
 import com.softicar.platform.emf.entity.table.view.EmfTableViewButton;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.permission.EmfPermissionToDisplayVisitor;
 import com.softicar.platform.emf.table.IEmfTable;
 
 public class EmfTablePropertyTab extends DomTab {
@@ -37,11 +37,11 @@ public class EmfTablePropertyTab extends DomTab {
 		detailsDisplay.add(EmfI18n.TITLE, new EmfStringDisplay(table.getTitle()));
 		detailsDisplay.add(EmfI18n.PLURAL_TITLE, new EmfStringDisplay(table.getPluralTitle()));
 		detailsDisplay.add(EmfI18n.DATABASE_TABLE, new EmfStringDisplay(table.getFullName().getCanonicalName()));
-		detailsDisplay.add(EmfI18n.ROLE_TO_CREATE, new EmfRoleToDisplayVisitor<>(authorizer.getCreationRole()).toDisplay());
-		detailsDisplay.add(EmfI18n.ROLE_TO_VIEW, new EmfRoleToDisplayVisitor<>(authorizer.getViewRole()).toDisplay());
-		detailsDisplay.add(EmfI18n.ROLE_TO_EDIT, new EmfRoleToDisplayVisitor<>(authorizer.getEditRole()).toDisplay());
-		detailsDisplay.add(EmfI18n.ROLE_TO_DELETE, new EmfRoleToDisplayVisitor<>(authorizer.getDeleteRole()).toDisplay());
-		detailsDisplay.add(EmfI18n.USED_ROLES, new EmfTableRoleOverviewDiv(table));
+		detailsDisplay.add(EmfI18n.PERMISSION_TO_CREATE, new EmfPermissionToDisplayVisitor<>(authorizer.getCreationPermission()).toDisplay());
+		detailsDisplay.add(EmfI18n.PERMISSION_TO_VIEW, new EmfPermissionToDisplayVisitor<>(authorizer.getViewPermission()).toDisplay());
+		detailsDisplay.add(EmfI18n.PERMISSION_TO_EDIT, new EmfPermissionToDisplayVisitor<>(authorizer.getEditPermission()).toDisplay());
+		detailsDisplay.add(EmfI18n.PERMISSION_TO_DELETE, new EmfPermissionToDisplayVisitor<>(authorizer.getDeletePermission()).toDisplay());
+		detailsDisplay.add(EmfI18n.USED_PERMISSIONS, new EmfTablePermissionOverviewDiv(table));
 		table.getScopeField().ifPresent(scopeField -> buildScopeTableRow(detailsDisplay, scopeField.getTargetTable()));
 		detailsDisplay.add(EmfI18n.CHILD_TABLES, buildChildTablesRow());
 		detailsDisplay

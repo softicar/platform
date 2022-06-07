@@ -5,8 +5,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.module.registry.IEmfModuleRegistry;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -98,14 +98,15 @@ public interface IEmfModuleInstance<I extends IEmfModuleInstance<I>> {
 	}
 
 	/**
-	 * Tests if the given user possesses the specified {@link IEmfModuleRole}.
+	 * Tests if the given user possesses the specified
+	 * {@link IEmfModulePermission}.
 	 *
-	 * @param role
-	 *            the role to test (never <i>null</i>)
+	 * @param permission
+	 *            the {@link IEmfModulePermission} to test (never <i>null</i>)
 	 * @param user
 	 *            the user to test (never <i>null</i>)
 	 * @return <i>true</i> if the user possesses the specified
-	 *         {@link IEmfModuleRole}; <i>false</i> otherwise
+	 *         {@link IEmfModulePermission}; <i>false</i> otherwise
 	 */
-	boolean hasRole(IEmfModuleRole<I> role, IBasicUser user);
+	boolean hasPermission(IEmfModulePermission<I> permission, IBasicUser user);
 }

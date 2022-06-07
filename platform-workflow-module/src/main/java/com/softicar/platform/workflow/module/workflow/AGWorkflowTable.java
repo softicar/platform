@@ -3,16 +3,16 @@ package com.softicar.platform.workflow.module.workflow;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoints;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.entity.table.IWorkflowTableReferencePoint;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
@@ -27,9 +27,9 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflow, AGWorkflowModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationRole(WorkflowRoles.ADMINISTRATOR)
-			.setViewRole(WorkflowRoles.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
-			.setEditRole(WorkflowRoles.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
+			.setCreationPermission(WorkflowPermissions.ADMINISTRATOR)
+			.setViewPermission(WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+			.setEditPermission(WorkflowPermissions.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
 	}
 
 	@Override

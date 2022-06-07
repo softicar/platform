@@ -20,7 +20,7 @@ public class DatabaseStructureJsonFromClasspathExtractor {
 	// Use this method to print the current db-table state to the console
 //	public static void main(String[] args) {
 //
-//		Log.finfo(new DatabaseStructureJsonFromClasspathExtractor("com.softicar.platform").extractJson());
+//		System.out.println(new DatabaseStructureJsonFromClasspathExtractor("com.softicar.platform").extractJson());
 //	}
 
 	public DatabaseStructureJsonFromClasspathExtractor(String tablePackagePrefix) {

@@ -3,17 +3,17 @@ package com.softicar.platform.workflow.module.workflow.task.delegation;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.authorization.IEmfTableRowMapper;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
+import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.emf.trait.table.EmfTraitTable;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
-import com.softicar.platform.workflow.module.WorkflowRoles;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 
 public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskDelegation, AGWorkflowTask> {
@@ -59,15 +59,15 @@ public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskD
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowTaskDelegation, AGWorkflowTask> authorizer) {
 
 		authorizer//
-			.setCreationRole(EmfRoles.anybody())
-			.setViewRole(
-				WorkflowRoles.VIEWER
+			.setCreationPermission(EmfPermissions.always())
+			.setViewPermission(
+				WorkflowPermissions.VIEWER
 					.of(
 						IEmfTableRowMapper
 							.nonOptional(
 								WorkflowI18n.WORKFLOW_MODULE_INSTANCE,
 								it -> it.getWorkflowTask().getWorkflowItem().getWorkflow().getModuleInstance())))
-			.setEditRole(EmfRoles.anybody());
+			.setEditPermission(EmfPermissions.always());
 	}
 
 	@Override

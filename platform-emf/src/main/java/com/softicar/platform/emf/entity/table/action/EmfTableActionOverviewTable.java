@@ -8,7 +8,7 @@ import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.action.AbstractEmfAggregatingAction;
 import com.softicar.platform.emf.action.IEmfAction;
 import com.softicar.platform.emf.action.IEmfCommonAction;
-import com.softicar.platform.emf.authorization.role.EmfRoleWrapper;
+import com.softicar.platform.emf.permission.EmfPermissionWrapper;
 import com.softicar.platform.emf.predicate.EmfPredicateWrapper;
 import com.softicar.platform.emf.table.IEmfTable;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class EmfTableActionOverviewTable extends AbstractInMemoryDataTable<IEmfA
 	private final IDataTableColumn<IEmfAction<?>, String> titleColumn;
 	private final IDataTableColumn<IEmfAction<?>, IDisplayString> descriptionColumn;
 	private final IDataTableColumn<IEmfAction<?>, EmfPredicateWrapper> preconditionColumn;
-	private final IDataTableColumn<IEmfAction<?>, EmfRoleWrapper> authorizedRoleColumn;
+	private final IDataTableColumn<IEmfAction<?>, EmfPermissionWrapper> requiredPermissionColumn;
 
 	public EmfTableActionOverviewTable(IEmfTable<?, ?, ?> table) {
 
@@ -42,9 +42,9 @@ public class EmfTableActionOverviewTable extends AbstractInMemoryDataTable<IEmfA
 			.setGetter(action -> new EmfPredicateWrapper(action.getPrecondition()))
 			.setTitle(EmfI18n.PRECONDITION)
 			.addColumn();
-		this.authorizedRoleColumn = newColumn(EmfRoleWrapper.class)//
-			.setGetter(action -> new EmfRoleWrapper(action.getAuthorizedRole()))
-			.setTitle(EmfI18n.AUTHORIZED_ROLE)
+		this.requiredPermissionColumn = newColumn(EmfPermissionWrapper.class)//
+			.setGetter(action -> new EmfPermissionWrapper(action.getRequiredPermission()))
+			.setTitle(EmfI18n.REQUIRED_PERMISSION)
 			.addColumn();
 	}
 
@@ -68,9 +68,9 @@ public class EmfTableActionOverviewTable extends AbstractInMemoryDataTable<IEmfA
 		return preconditionColumn;
 	}
 
-	public IDataTableColumn<IEmfAction<?>, EmfRoleWrapper> getAuthorizedRoleColumn() {
+	public IDataTableColumn<IEmfAction<?>, EmfPermissionWrapper> getRequiredPermissionColumn() {
 
-		return authorizedRoleColumn;
+		return requiredPermissionColumn;
 	}
 
 	@Override

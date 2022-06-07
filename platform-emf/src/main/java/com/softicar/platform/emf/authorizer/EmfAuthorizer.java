@@ -1,59 +1,59 @@
 package com.softicar.platform.emf.authorizer;
 
 import com.softicar.platform.common.core.user.IBasicUser;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.error.EmfDefaultAccessDeniedDisplayCreator;
 import com.softicar.platform.emf.form.error.IEmfAccessDeniedDisplayCreator;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 public class EmfAuthorizer<R extends IEmfTableRow<R, ?>, S> implements IEmfAuthorizer<R, S> {
 
-	private IEmfRole<S> creationRole;
-	private IEmfRole<R> viewRole;
-	private IEmfRole<R> editRole;
-	private IEmfRole<R> deleteRole;
+	private IEmfPermission<S> creationPermission;
+	private IEmfPermission<R> viewPermission;
+	private IEmfPermission<R> editPermission;
+	private IEmfPermission<R> deletePermission;
 	private IEmfAccessDeniedDisplayCreator<R> accessDeniedDisplayCreator;
 
 	public EmfAuthorizer() {
 
-		this.creationRole = EmfRoles.anybody();
-		this.viewRole = EmfRoles.anybody();
-		this.editRole = EmfRoles.anybody();
-		this.deleteRole = EmfRoles.nobody();
+		this.creationPermission = EmfPermissions.always();
+		this.viewPermission = EmfPermissions.always();
+		this.editPermission = EmfPermissions.always();
+		this.deletePermission = EmfPermissions.never();
 		this.accessDeniedDisplayCreator = new EmfDefaultAccessDeniedDisplayCreator<>();
 	}
 
 	@Override
 	public void assertIsVisible(R tableRow, IBasicUser user) throws EmfTableRowNotVisibleToUserException {
 
-		if (!viewRole.test(tableRow, user)) {
+		if (!viewPermission.test(tableRow, user)) {
 			throw new EmfTableRowNotVisibleToUserException();
 		}
 	}
 
 	@Override
-	public IEmfRole<S> getCreationRole() {
+	public IEmfPermission<S> getCreationPermission() {
 
-		return creationRole;
+		return creationPermission;
 	}
 
 	@Override
-	public IEmfRole<R> getViewRole() {
+	public IEmfPermission<R> getViewPermission() {
 
-		return viewRole;
+		return viewPermission;
 	}
 
 	@Override
-	public IEmfRole<R> getEditRole() {
+	public IEmfPermission<R> getEditPermission() {
 
-		return editRole;
+		return editPermission;
 	}
 
 	@Override
-	public IEmfRole<R> getDeleteRole() {
+	public IEmfPermission<R> getDeletePermission() {
 
-		return deleteRole;
+		return deletePermission;
 	}
 
 	@Override
@@ -62,27 +62,27 @@ public class EmfAuthorizer<R extends IEmfTableRow<R, ?>, S> implements IEmfAutho
 		return accessDeniedDisplayCreator;
 	}
 
-	public EmfAuthorizer<R, S> setCreationRole(IEmfRole<S> creationRole) {
+	public EmfAuthorizer<R, S> setCreationPermission(IEmfPermission<S> creationPermission) {
 
-		this.creationRole = creationRole;
+		this.creationPermission = creationPermission;
 		return this;
 	}
 
-	public EmfAuthorizer<R, S> setViewRole(IEmfRole<R> viewRole) {
+	public EmfAuthorizer<R, S> setViewPermission(IEmfPermission<R> viewPermission) {
 
-		this.viewRole = viewRole;
+		this.viewPermission = viewPermission;
 		return this;
 	}
 
-	public EmfAuthorizer<R, S> setEditRole(IEmfRole<R> editRole) {
+	public EmfAuthorizer<R, S> setEditPermission(IEmfPermission<R> editPermission) {
 
-		this.editRole = editRole;
+		this.editPermission = editPermission;
 		return this;
 	}
 
-	public EmfAuthorizer<R, S> setDeleteRole(IEmfRole<R> deleteRole) {
+	public EmfAuthorizer<R, S> setDeletePermission(IEmfPermission<R> deletePermission) {
 
-		this.deleteRole = deleteRole;
+		this.deletePermission = deletePermission;
 		return this;
 	}
 

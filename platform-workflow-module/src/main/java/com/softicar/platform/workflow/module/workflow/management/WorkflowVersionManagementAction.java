@@ -4,8 +4,8 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -21,9 +21,9 @@ public class WorkflowVersionManagementAction implements IEmfManagementAction<AGW
 	}
 
 	@Override
-	public IEmfRole<AGWorkflowVersion> getAuthorizedRole() {
+	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

@@ -328,7 +328,7 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 
 	default Boolean isCreationAllowed(S scopeEntity) {
 
-		return getAuthorizer().getCreationRole().test(scopeEntity, CurrentBasicUser.get());
+		return getAuthorizer().getCreationPermission().test(scopeEntity, CurrentBasicUser.get());
 	}
 
 	default Boolean isCreationPossible(S scopeEntity) {

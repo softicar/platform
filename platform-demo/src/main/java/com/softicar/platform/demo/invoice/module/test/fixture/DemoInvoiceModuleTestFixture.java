@@ -34,7 +34,7 @@ public class DemoInvoiceModuleTestFixture implements DemoInvoiceModuleTestFixtur
 	public IStandardModuleTestFixture<AGDemoInvoiceModuleInstance> apply() {
 
 		this.moduleInstance = insertDemoInvoiceModuleInstance(registry.getModuleInstance(AGDemoPersonModuleInstance.TABLE));
-		registry.getCoreModuleTestFixture().insertStandardRoleMemberships(moduleInstance);
+		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
 		new DemoInvoicesTestFixture(moduleInstance).apply();
 		return this;
 	}

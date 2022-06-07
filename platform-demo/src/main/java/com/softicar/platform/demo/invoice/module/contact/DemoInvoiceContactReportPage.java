@@ -7,12 +7,12 @@ import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.invoice.module.DemoInvoiceModule;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 /**
@@ -50,8 +50,8 @@ public class DemoInvoiceContactReportPage implements IEmfPage<AGDemoInvoiceModul
 	}
 
 	@Override
-	public IEmfRole<AGDemoInvoiceModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<AGDemoInvoiceModuleInstance> getRequiredPermission() {
 
-		return EmfRoles.anybody();
+		return EmfPermissions.always();
 	}
 }

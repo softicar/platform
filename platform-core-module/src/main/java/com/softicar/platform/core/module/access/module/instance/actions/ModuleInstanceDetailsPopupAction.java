@@ -11,10 +11,10 @@ import com.softicar.platform.core.module.access.module.instance.ModuleNotStandar
 import com.softicar.platform.core.module.module.IStandardModule;
 import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.module.IEmfModule;
-import com.softicar.platform.emf.module.role.EmfDefaultModuleRoles;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
 public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AGModuleInstance> {
@@ -26,9 +26,9 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 	}
 
 	@Override
-	public IEmfRole<AGModuleInstance> getAuthorizedRole() {
+	public IEmfPermission<AGModuleInstance> getRequiredPermission() {
 
-		return EmfDefaultModuleRoles.getModuleAdministator();
+		return EmfDefaultModulePermissions.getModuleAdministator();
 	}
 
 	@Override

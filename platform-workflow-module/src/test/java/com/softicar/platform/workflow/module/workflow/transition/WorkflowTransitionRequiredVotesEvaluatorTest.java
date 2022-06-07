@@ -18,10 +18,10 @@ public class WorkflowTransitionRequiredVotesEvaluatorTest extends AbstractTestOb
 	public WorkflowTransitionRequiredVotesEvaluatorTest() {
 
 		this.nextNode = insertWorkflowNode(workflowVersion, "Next Node");
-		this.transition = insertWorkflowTransition("Transition", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.ROLE_A);
+		this.transition = insertWorkflowTransition("Transition", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
 		this.item = insertWorkflowItem(rootNode);
 		this.testObject = insertWorkflowTestObject("Workflow Test Object", item);
-		testObject.addRoleMember(user, "A");
+		testObject.addPermissionAssignment(user, "A");
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public class WorkflowTransitionRequiredVotesEvaluatorTest extends AbstractTestOb
 		assertNotEnoughVotes();
 
 		// add task with transition execution on other transition
-		AGWorkflowTransition otherTransition = insertWorkflowTransition("Other", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.ROLE_A);
+		AGWorkflowTransition otherTransition = insertWorkflowTransition("Other", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
 		insertOpenTaskWithTransitionExecution(otherTransition);
 		assertNotEnoughVotes();
 

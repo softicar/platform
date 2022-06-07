@@ -69,22 +69,22 @@ public class WorkflowTestObject extends AbstractDbObject<WorkflowTestObject> imp
 		return setValue(ITEM, item);
 	}
 
-	public void addRoleMember(IBasicUser user, String role) {
+	public void addPermissionAssignment(IBasicUser user, String permission) {
 
-		new WorkflowTestObjectRoleMember()//
-			.setRole(role)
+		new WorkflowTestObjectPermissionAssignment()//
+			.setPermission(permission)
 			.setObject(this)
 			.setUser(AGUser.get(user))
 			.save();
 	}
 
-	public boolean isRoleMember(IBasicUser user, String role) {
+	public boolean hasPermission(IBasicUser user, String permission) {
 
-		return WorkflowTestObjectRoleMember.TABLE//
+		return WorkflowTestObjectPermissionAssignment.TABLE//
 			.createSelect()
-			.where(WorkflowTestObjectRoleMember.ROLE.isEqual(role))
-			.where(WorkflowTestObjectRoleMember.OBJECT.isEqual(this))
-			.where(WorkflowTestObjectRoleMember.USER.isEqual(AGUser.get(user)))
+			.where(WorkflowTestObjectPermissionAssignment.PERMISSION.isEqual(permission))
+			.where(WorkflowTestObjectPermissionAssignment.OBJECT.isEqual(this))
+			.where(WorkflowTestObjectPermissionAssignment.USER.isEqual(AGUser.get(user)))
 			.exists();
 	}
 }

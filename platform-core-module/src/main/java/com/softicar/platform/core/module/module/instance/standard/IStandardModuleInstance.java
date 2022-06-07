@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.sub.object.IEmfSubObject;
 
@@ -38,9 +38,9 @@ public interface IStandardModuleInstance<I extends IStandardModuleInstance<I>> e
 	}
 
 	@Override
-	default boolean hasRole(IEmfModuleRole<I> role, IBasicUser user) {
+	default boolean hasPermission(IEmfModulePermission<I> permission, IBasicUser user) {
 
-		return AGUser.get(user).hasModuleRole(role, pk());
+		return AGUser.get(user).hasModulePermission(permission, pk());
 	}
 
 	@Override

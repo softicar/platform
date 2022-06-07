@@ -2,10 +2,10 @@ package com.softicar.platform.core.module.user.password.policy;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CoreRoles;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
-import com.softicar.platform.emf.module.role.IEmfModuleRole;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -32,8 +32,8 @@ public class PasswordPolicyPage extends AbstractEmfManagementPage<SystemModuleIn
 	}
 
 	@Override
-	public IEmfModuleRole<SystemModuleInstance> getAuthorizedRole() {
+	public IEmfModulePermission<SystemModuleInstance> getRequiredPermission() {
 
-		return CoreRoles.SUPER_USER;
+		return CorePermissions.SUPER_USER;
 	}
 }

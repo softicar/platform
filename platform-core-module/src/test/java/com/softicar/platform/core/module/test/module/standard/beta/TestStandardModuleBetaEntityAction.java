@@ -4,18 +4,18 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
-import com.softicar.platform.emf.authorization.role.EmfAnyRole;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
 import com.softicar.platform.emf.form.section.IEmfFormSectionDiv;
+import com.softicar.platform.emf.permission.EmfAnyPermission;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
 public class TestStandardModuleBetaEntityAction implements IEmfPrimaryAction<TestStandardModuleBetaEntity> {
 
 	@Override
-	public IEmfRole<TestStandardModuleBetaEntity> getAuthorizedRole() {
+	public IEmfPermission<TestStandardModuleBetaEntity> getRequiredPermission() {
 
-		return new EmfAnyRole<>(TestStandardModuleBetaRoles.ROLE_ONE.of(TestStandardModuleBetaEntity.MODULE_INSTANCE));
+		return new EmfAnyPermission<>(TestStandardModuleBetaPermissions.PERMISSION_ONE.of(TestStandardModuleBetaEntity.MODULE_INSTANCE));
 	}
 
 	@Override

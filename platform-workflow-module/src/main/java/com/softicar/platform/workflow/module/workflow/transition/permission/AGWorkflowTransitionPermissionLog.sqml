@@ -1,0 +1,12 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.transition.permission
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGWorkflowTransitionPermissionLog 'Workflow.WorkflowTransitionPermissionLog' {
+
+	PK AGWorkflowTransitionPermission transitionPermission
+	PK AGTransaction transaction
+	AGUuid permission = NULL [NULLABLE]
+	Boolean active = NULL [NULLABLE]
+}

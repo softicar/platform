@@ -6,8 +6,8 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.action.IEmfManagementAction;
-import com.softicar.platform.emf.authorization.role.EmfRoles;
-import com.softicar.platform.emf.authorization.role.IEmfRole;
+import com.softicar.platform.emf.permission.EmfPermissions;
+import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Optional;
@@ -22,13 +22,13 @@ public class UserResetPasswordAction implements IEmfManagementAction<AGUser> {
 	}
 
 	@Override
-	public IEmfRole<AGUser> getAuthorizedRole() {
+	public IEmfPermission<AGUser> getRequiredPermission() {
 
 		/*
-		 * TODO: change to CoreRoles.SUPER_USER.of(AGUser.MODULE_INSTANCE)
+		 * TODO: change to CorePermissions.SUPER_USER.of(AGUser.MODULE_INSTANCE)
 		 * once CoreModule is StandardModule and AGUser is scoped
 		 */
-		return EmfRoles.anybody();
+		return EmfPermissions.always();
 	}
 
 	@Override

@@ -10,8 +10,8 @@ import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
-import com.softicar.platform.workflow.module.workflow.transition.role.AGWorkflowTransitionRole;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.List;
 import java.util.Map;
@@ -81,12 +81,12 @@ public class WorkflowTaskManager {
 			.createSelect()
 			.where(AGWorkflowTransition.ACTIVE)
 			.where(AGWorkflowTransition.SOURCE_NODE.equal(item.getWorkflowNode()))) {
-			for (AGWorkflowTransitionRole role: AGWorkflowTransitionRole
+			for (AGWorkflowTransitionPermission permission: AGWorkflowTransitionPermission
 				.createSelect()
-				.where(AGWorkflowTransitionRole.ACTIVE)
-				.where(AGWorkflowTransitionRole.TRANSITION.equal(transition))) {
+				.where(AGWorkflowTransitionPermission.ACTIVE)
+				.where(AGWorkflowTransitionPermission.TRANSITION.equal(transition))) {
 				for (AGUser user: AGUser.getAllActive()) {
-					if (role.testUserAssignmentForItem(user, item)) {
+					if (permission.testUserAssignmentForItem(user, item)) {
 						userMap.merge(user, transition.isNotify(), (a, b) -> a || b);
 					}
 				}
