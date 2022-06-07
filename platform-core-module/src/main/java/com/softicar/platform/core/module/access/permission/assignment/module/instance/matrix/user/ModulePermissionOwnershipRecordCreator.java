@@ -101,7 +101,7 @@ class ModulePermissionOwnershipRecordCreator {
 
 			return query//
 				.stream()
-				.map(row -> row.getOwnership())
+				.map(row -> row.getAssignment())
 				.collect(Collectors.toSet());
 		}
 	}

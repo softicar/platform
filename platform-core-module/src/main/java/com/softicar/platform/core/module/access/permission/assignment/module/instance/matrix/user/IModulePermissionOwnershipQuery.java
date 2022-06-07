@@ -27,7 +27,7 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 
 	// -------------------------------- CONSTANTS -------------------------------- //
 
-	IDbQueryTableColumn<IRow, AGModuleInstancePermissionAssignment> OWNERSHIP_COLUMN = new DbQueryTableColumn<>(IRow::getOwnership, "ownership", AGModuleInstancePermissionAssignment.TABLE);
+	IDbQueryTableColumn<IRow, AGModuleInstancePermissionAssignment> ASSIGNMENT_COLUMN = new DbQueryTableColumn<>(IRow::getAssignment, "assignment", AGModuleInstancePermissionAssignment.TABLE);
 	IDbQueryTableColumn<IRow, AGModuleInstance> INSTANCE_COLUMN = new DbQueryTableColumn<>(IRow::getInstance, "instance", AGModuleInstance.TABLE);
 	IFactory FACTORY = new Implementation.Factory();
 
@@ -41,7 +41,7 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 
 	interface IRow extends IDbQueryRow<IRow> {
 
-		AGModuleInstancePermissionAssignment getOwnership();
+		AGModuleInstancePermissionAssignment getAssignment();
 		AGModuleInstance getInstance();
 	}
 
@@ -60,7 +60,7 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 
 			public Factory() {
 
-				this.columns.add(OWNERSHIP_COLUMN);
+				this.columns.add(ASSIGNMENT_COLUMN);
 				this.columns.add(INSTANCE_COLUMN);
 			}
 
@@ -128,32 +128,32 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 
 				public void buildOriginalSelect() {
 
-					SELECT(OWNERSHIP_COLUMN);
-					addTableColumns("ownership", AGModuleInstancePermissionAssignment.TABLE, "ownership");
+					SELECT(ASSIGNMENT_COLUMN);
+					addTableColumns("assignment", AGModuleInstancePermissionAssignment.TABLE, "assignment");
 					SELECT(INSTANCE_COLUMN);
 					addTableColumns("instance", AGModuleInstance.TABLE, "instance");
 					FROM();
 					addIdentifier(AGModuleInstancePermissionAssignment.TABLE);
 					addToken(SqlKeyword.AS);
-					addIdentifier("ownership");
+					addIdentifier("assignment");
 					JOIN(null);
 					addIdentifier(AGModuleInstance.TABLE);
 					addToken(SqlKeyword.AS);
 					addIdentifier("instance");
 					ON();
-					addIdentifier("ownership", AGModuleInstancePermissionAssignment.MODULE_INSTANCE);
+					addIdentifier("assignment", AGModuleInstancePermissionAssignment.MODULE_INSTANCE);
 					addToken(SqlSymbol.EQUAL);
 					addIdentifier("instance", AGModuleInstance.ID);
 					if(parameters.onlyActive == null || parameters.onlyActive) {
 						WHERE();
-						addIdentifier("ownership", AGModuleInstancePermissionAssignment.ACTIVE);
+						addIdentifier("assignment", AGModuleInstancePermissionAssignment.ACTIVE);
 						WHERE();
 						addIdentifier("instance", AGModuleInstance.ACTIVE);
 					}
 
 					if(parameters.user != null) {
 						WHERE();
-						addIdentifier("ownership", AGModuleInstancePermissionAssignment.USER);
+						addIdentifier("assignment", AGModuleInstancePermissionAssignment.USER);
 						addToken(SqlSymbol.EQUAL);
 						addParameter(parameters.user);
 					}
@@ -170,14 +170,14 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 
 		private static class Row extends AbstractDbQueryRow<IRow> implements IRow {
 
-			private final AGModuleInstancePermissionAssignment ownership;
+			private final AGModuleInstancePermissionAssignment assignment;
 			private final AGModuleInstance instance;
 
 			private Row(IModulePermissionOwnershipQuery query, IDbSqlSelect select, DbResultSet resultSet) {
 
 				super(query);
 
-				this.ownership = OWNERSHIP_COLUMN.loadValue(select, resultSet);
+				this.assignment = ASSIGNMENT_COLUMN.loadValue(select, resultSet);
 				this.instance = INSTANCE_COLUMN.loadValue(select, resultSet);
 			}
 
@@ -188,9 +188,9 @@ public interface IModulePermissionOwnershipQuery extends IDbQuery<IModulePermiss
 			}
 
 			@Override
-			public AGModuleInstancePermissionAssignment getOwnership() {
+			public AGModuleInstancePermissionAssignment getAssignment() {
 
-				return this.ownership;
+				return this.assignment;
 			}
 
 			@Override
