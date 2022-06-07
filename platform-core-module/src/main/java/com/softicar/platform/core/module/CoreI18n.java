@@ -8,6 +8,8 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 A_MAINTENANCE_WINDOW_IS_CONFIGURED_FOR_TODAY = new I18n0("A maintenance window is configured for today.")//
+		.de("FÜr heute ist ein Wartungsfenster konfiguriert.");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
@@ -268,6 +270,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Speicherungstage für Ausführungen");
 	I18n0 EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0 = new I18n0("Execution retention days must be at least 0.")//
 		.de("Speicherungstage für Ausführungen muss mindestens 0 sein.");
+	I18n2 EXPECTED_DURATION_IS_FROM_ARG1_TO_ARG2 = new I18n2("Expected duration is from %s to %s.")//
+		.de("Erwartetes Zeitfenster ist von %s bis %s.");
 	I18n0 EXPECTED_END = new I18n0("Expected End")//
 		.de("Erwartetes Ende");
 	I18n1 EXPECTED_END_ARG1 = new I18n1("Expected end: %s")//
@@ -616,6 +620,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm");
 	I18n0 PROGRAM_EXECUTION = new I18n0("Program Execution")//
 		.de("Programm-Ausführung");
+	I18n0 PROGRAM_EXECUTION_FAILED = new I18n0("Program execution failed.")//
+		.de("Programmausführung fehlgeschlagen.");
 	I18n0 PROGRAM_EXECUTION_LOG = new I18n0("Program Execution Log")//
 		.de("Programm-Ausführungs-Log");
 	I18n0 PROGRAM_EXECUTION_LOGS = new I18n0("Program Execution Logs")//
