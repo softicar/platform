@@ -610,6 +610,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm");
 	I18n0 PROGRAM_EXECUTION = new I18n0("Program Execution")//
 		.de("Programm-Ausführung");
+	I18n0 PROGRAM_EXECUTION_FAILED = new I18n0("Program execution failed.")//
+		.de("Programmausführung fehlgeschlagen.");
 	I18n0 PROGRAM_EXECUTION_LOG = new I18n0("Program Execution Log")//
 		.de("Programm-Ausführungs-Log");
 	I18n0 PROGRAM_EXECUTION_LOGS = new I18n0("Program Execution Logs")//
