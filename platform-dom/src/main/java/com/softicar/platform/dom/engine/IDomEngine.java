@@ -8,6 +8,7 @@ import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -225,12 +226,6 @@ public interface IDomEngine {
 
 	void executeScriptCode(String scriptCode);
 
-	// -------------------------------- forms -------------------------------- //
-
-	void triggerUploadOnChange(IDomNode form, IDomNode triggerNode);
-
-	void triggerUploadOnClick(IDomNode form, IDomNode triggerNode);
-
 	// -------------------------------- focus trap -------------------------------- //
 
 	/**
@@ -250,6 +245,8 @@ public interface IDomEngine {
 	void trapTabFocus(IDomNode node);
 
 	// -------------------------------- special -------------------------------- //
+
+	void uploadFiles(DomForm form);
 
 	void setWorkingIndicatorEnabled(boolean enabled);
 

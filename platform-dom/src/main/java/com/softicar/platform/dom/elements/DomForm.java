@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements;
 
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.DomParentElement;
 
 /**
@@ -33,15 +32,12 @@ public class DomForm extends DomParentElement {
 		return DomElementTag.FORM;
 	}
 
-	public DomForm triggerUploadOnChange(IDomNode triggerNode) {
+	/**
+	 * Triggers the upload of all files, selected in the contained
+	 * {@link DomFileInput} elements.
+	 */
+	public void uploadFiles() {
 
-		getDomEngine().triggerUploadOnChange(this, triggerNode);
-		return this;
-	}
-
-	public DomForm triggerUploadOnClick(IDomNode triggerNode) {
-
-		getDomEngine().triggerUploadOnClick(this, triggerNode);
-		return this;
+		getDomEngine().uploadFiles(this);
 	}
 }

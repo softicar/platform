@@ -42,8 +42,7 @@ class EmfImportUploadForm extends DomForm implements IDomFileUploadHandler {
 
 			setStyle(CssDisplay.NONE);
 			setMultiple(false);
-
-			triggerUploadOnChange(this);
+			setOnChangeHandler(() -> uploadFiles());
 		}
 	}
 }

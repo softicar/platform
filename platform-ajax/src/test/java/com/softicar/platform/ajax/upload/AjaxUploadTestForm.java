@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.upload;
 
 import com.softicar.platform.common.io.StreamUtils;
-import com.softicar.platform.dom.elements.DomAnchor;
 import com.softicar.platform.dom.elements.DomFileInput;
 import com.softicar.platform.dom.elements.DomForm;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import java.io.IOException;
@@ -14,27 +14,26 @@ import java.util.Collection;
 class AjaxUploadTestForm extends DomForm implements IDomFileUploadHandler {
 
 	private final DomFileInput fileInput;
-	private final SubmitAnchor submitAnchor;
+	private final DomButton uploadButton;
 	private final Collection<UploadData> uploads;
 
 	public AjaxUploadTestForm() {
 
 		super(true);
 
-		this.fileInput = appendChild(new DomFileInput());
-		this.submitAnchor = appendChild(new SubmitAnchor());
+		this.fileInput = new DomFileInput();
+		this.uploadButton = new DomButton()//
+			.setLabel("Upload")
+			.setClickCallback(this::uploadFiles);
 		this.uploads = new ArrayList<>();
+
+		appendChild(fileInput);
+		appendChild(uploadButton);
 	}
 
 	public AjaxUploadTestForm setupOnChangeTrigger() {
 
-		triggerUploadOnChange(fileInput);
-		return this;
-	}
-
-	public AjaxUploadTestForm setupOnClickTrigger() {
-
-		triggerUploadOnClick(submitAnchor);
+		fileInput.setOnChangeHandler(this::uploadFiles);
 		return this;
 	}
 
@@ -43,9 +42,9 @@ class AjaxUploadTestForm extends DomForm implements IDomFileUploadHandler {
 		return fileInput;
 	}
 
-	public SubmitAnchor getSubmitAnchor() {
+	public DomButton getUploadButton() {
 
-		return submitAnchor;
+		return uploadButton;
 	}
 
 	public Collection<UploadData> getUploads() {
@@ -89,15 +88,6 @@ class AjaxUploadTestForm extends DomForm implements IDomFileUploadHandler {
 		public byte[] getContent() {
 
 			return content;
-		}
-	}
-
-	private static class SubmitAnchor extends DomAnchor {
-
-		public SubmitAnchor() {
-
-			appendText("Submit");
-			setAttribute("href", "#");
 		}
 	}
 }

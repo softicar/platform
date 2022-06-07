@@ -35,11 +35,11 @@ public class AjaxUploadTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testBySubmitAnchor() {
 
-		var form = openTestNode(() -> new AjaxUploadTestForm().setupOnClickTrigger());
+		var form = openTestNode(() -> new AjaxUploadTestForm());
 		writeDataToFile(file, DATA);
 
 		send(form.getFileInput(), file.getAbsolutePath());
-		click(form.getSubmitAnchor());
+		click(form.getUploadButton());
 		waitForServer();
 
 		assertUpload(form);
