@@ -2,6 +2,8 @@ package com.softicar.platform.core.module.page.service.login;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
@@ -156,10 +158,10 @@ public class PageServiceLoginDiv extends DomDiv {
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
 				AGMaintenanceWindow//
 					.getMaintenanceInProgress()
-					.ifPresent(this::appendMaintenanceInfo);
+					.ifPresentOrElse(this::appendMaintenanceInProgressInfo, this::checkIfMaintenanceIsConfiguredForToday);
 			}
 
-			private void appendMaintenanceInfo(AGMaintenanceWindow maintenanceWindow) {
+			private void appendMaintenanceInProgressInfo(AGMaintenanceWindow maintenanceWindow) {
 
 				appendChild(
 					new DomMessageDiv(
@@ -167,6 +169,33 @@ public class PageServiceLoginDiv extends DomDiv {
 						CoreI18n.MAINTENANCE_IS_CURRENTLY_IN_PROGRESS
 							.concat("\n")
 							.concat(CoreI18n.EXPECTED_END_ARG1.toDisplay(maintenanceWindow.getExpectedEnd().toHumanString()))));
+			}
+
+			private void checkIfMaintenanceIsConfiguredForToday() {
+
+				var today = Day.today();
+				AGMaintenanceWindow.TABLE//
+					.createSelect()
+					.where(AGMaintenanceWindow.EXPECTED_START.isGreater(today.getBegin()))
+					.where(AGMaintenanceWindow.EXPECTED_START.isLess(today.getEnd()))
+					.where(AGMaintenanceWindow.EXPECTED_END.isGreater(DayTime.now()))
+					.orderBy(AGMaintenanceWindow.EXPECTED_START)
+					.getFirstAsOptional()
+					.ifPresent(this::appendPendingMaintenanceInfo);
+			}
+
+			private void appendPendingMaintenanceInfo(AGMaintenanceWindow maintenanceWindow) {
+
+				appendChild(
+					new DomMessageDiv(
+						DomMessageType.INFO,
+						CoreI18n.A_MAINTENANCE_WINDOW_IS_CONFIGURED_FOR_TODAY
+							.concat("\n")
+							.concat(
+								CoreI18n.EXPECTED_DURATION_IS_FROM_ARG1_TO_ARG2
+									.toDisplay(//
+										maintenanceWindow.getExpectedStart().getTimeAsStringHM(),
+										maintenanceWindow.getExpectedEnd().getTimeAsStringHM()))));
 			}
 		}
 

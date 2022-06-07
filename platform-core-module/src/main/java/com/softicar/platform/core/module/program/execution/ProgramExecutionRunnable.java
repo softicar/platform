@@ -4,7 +4,11 @@ import com.softicar.platform.common.core.logging.LogBuffer;
 import com.softicar.platform.common.core.logging.LogOutputScope;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
+import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.event.SystemEventBuilder;
+import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.ProgramStarter;
+import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
 import java.util.UUID;
@@ -33,6 +37,11 @@ public class ProgramExecutionRunnable implements Runnable {
 				executeProgram();
 			} finally {
 				updateOutputAndTerminatedAt();
+				if (failed) {
+					new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_FAILED.toString())//
+						.addProperty("program", Programs.getProgramName(getProgramUuid()).toString())
+						.save();
+				}
 			}
 		} catch (Throwable throwable) {
 			throwable.printStackTrace();
