@@ -54,11 +54,11 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	 * @param tableRow
 	 *            the IWorkflowableObject in question (never <i>null</i>)
 	 * @param user
-	 *            the user that want to execute the transition (never
+	 *            the user who wants to execute the transition (never
 	 *            <i>null</i>)
-	 * @return true if the current user is in one of the permissions or if a
-	 *         user that delegated to him is in one of the permissions (or has
-	 *         set him as substitute)
+	 * @return <i>true</i> if the given user has this permissions or if a user
+	 *         that delegated the task to the user (or defined the user as
+	 *         substitute) has this permission
 	 */
 	protected boolean testWithInheritedPermissions(R tableRow, IBasicUser user) {
 

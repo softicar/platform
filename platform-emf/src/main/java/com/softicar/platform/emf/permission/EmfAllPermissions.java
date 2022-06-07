@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Aggregates several {@link IEmfPermission} objects into a conjunction.
  * <p>
- * This {@link IEmfPermission} only applies to a user if all contained
+ * This {@link IEmfPermission} only applies if all contained
  * {@link IEmfPermission} objects apply.
  *
  * @author Oliver Richers

@@ -107,7 +107,7 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 		assertTrue(container.isAllInactive());
 	}
 
-	// -------- TODO testMerge --------
+	// -------------------- merge -------------------- //
 
 	@Test
 	public void testMergeWithEmptyContainers() {

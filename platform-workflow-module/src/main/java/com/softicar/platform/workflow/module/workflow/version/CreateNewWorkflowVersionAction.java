@@ -15,9 +15,6 @@ import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
-import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
-import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,23 +48,23 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 	@Override
 	public void handleClick(AGWorkflowVersion oldWorkflowVersion) {
 
-		try (DbTransaction transaction = new DbTransaction()) {
-			AGWorkflowVersion newWorkflowVersion = oldWorkflowVersion//
+		try (var transaction = new DbTransaction()) {
+			var newWorkflowVersion = oldWorkflowVersion//
 				.copy()
 				.setDraft(true)
 				.setRootNode(null)
 				.save();
 
 			// Copy Workflow Nodes + Child Tables
-			Map<AGWorkflowNode, AGWorkflowNode> oldNodeToNewNodeMap = createOldToNewNodeMap(//
+			var oldNodeToNewNodeMap = createOldToNewNodeMap(//
 				oldWorkflowVersion,
 				newWorkflowVersion);
 
-			for (AGWorkflowNode oldNode: oldNodeToNewNodeMap.keySet()) {
-				final AGWorkflowNode newNode = oldNodeToNewNodeMap.get(oldNode);
+			for (var oldNode: oldNodeToNewNodeMap.keySet()) {
+				var newNode = oldNodeToNewNodeMap.get(oldNode);
 
 				// Copy Workflow Node Actions+Action Permissions
-				for (AGWorkflowNodeAction oldAction: oldNode.getAllActiveWorkflowNodeActions()) {
+				for (var oldAction: oldNode.getAllActiveWorkflowNodeActions()) {
 					final AGWorkflowNodeAction newAction = oldAction.copy().setWorkflowNode(newNode).save();
 					for (AGWorkflowNodeActionPermission oldActionPermission: oldAction.getAllActiveWorkflowNodeActionPermissions()) {
 						oldActionPermission.copy().setWorkflowNodeAction(newAction).save();
@@ -75,22 +72,22 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 				}
 
 				// Copy Workflow Node Preconditions
-				for (AGWorkflowNodePrecondition oldPrecondition: oldNode.getAllActiveWorkflowNodePreconditions()) {
+				for (var oldPrecondition: oldNode.getAllActiveWorkflowNodePreconditions()) {
 					oldPrecondition.copy().setWorkflowNode(newNode).save();
 				}
 			}
 
 			// Copy Workflow Transitions + Child Tables
 
-			for (AGWorkflowTransition oldTransition: oldWorkflowVersion.getAllActiveTransitions()) {
-				final AGWorkflowTransition newTransition = oldTransition.copy();
+			for (var oldTransition: oldWorkflowVersion.getAllActiveTransitions()) {
+				var newTransition = oldTransition.copy();
 				newTransition.setWorkflowVersion(newWorkflowVersion);
 				newTransition.setSourceNode(oldNodeToNewNodeMap.get(oldTransition.getSourceNode()));
 				newTransition.setTargetNode(oldNodeToNewNodeMap.get(oldTransition.getTargetNode()));
 				newTransition.save();
 
 				// Copy Workflow Transition Permissions
-				for (AGWorkflowTransitionPermission oldPermission: oldTransition.getAllActiveWorkflowTransitionPermissions()) {
+				for (var oldPermission: oldTransition.getAllActiveWorkflowTransitionPermissions()) {
 					oldPermission.copy().setTransition(newTransition).save();
 				}
 			}

@@ -111,7 +111,7 @@ class PageServiceLoginAuthenticator {
 			throw new PageServiceLoginExceptionTooManyLogins(MAXIMUM_LOGINS_PERIOD);
 		}
 
-		// check for maintenance
+		// check for maintenance windows
 		if (AGMaintenanceWindow.isMaintenanceInProgress()) {
 			if (!user.hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATION)) {
 				logFailure(AGUserLoginFailureTypeEnum.MAINTENANCE_IN_PROGRESS, username);
