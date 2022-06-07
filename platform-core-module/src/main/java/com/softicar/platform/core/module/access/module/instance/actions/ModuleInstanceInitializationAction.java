@@ -27,7 +27,7 @@ public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<
 	@Override
 	public IEmfPermission<AGModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.ACCESS_MANAGER.toOtherEntityPermission();
+		return CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission();
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class StartMaintenanceAction implements IEmfManagementAction<AGMaintenanc
 	@Override
 	public IEmfPermission<AGMaintenanceWindow> getRequiredPermission() {
 
-		return CorePermissions.SYSTEM_ADMINISTRATOR.toOtherEntityPermission();
+		return CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission();
 	}
 
 	@Override

@@ -14,6 +14,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Abbruch angefragt");
 	I18n0 ACCESS_DATE = new I18n0("Access Date")//
 		.de("Zugriffsdatum");
+	I18n0 ACCESS_MANAGEMENT = new I18n0("Access Management")//
+		.de("Zugriffsverwaltung");
 	I18n0 ACCESS_MANAGER = new I18n0("Access Manager")//
 		.de("Zugriffsmanager");
 	I18n0 ACCESSED_AT = new I18n0("Accessed At")//
@@ -810,8 +812,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Überschüssige Zeichen");
 	I18n0 SYSTEM = new I18n0("System")//
 		.de("System");
+	I18n0 SYSTEM_ADMINISTRATION = new I18n0("System Administration")//
+		.de("Systemverwaltung");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
-		.de("System-Administrator");
+		.de("Systemadministrator");
 	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
 		.de("Systemereignis");
 	I18n0 SYSTEM_EVENT_LOG = new I18n0("System Event Log")//

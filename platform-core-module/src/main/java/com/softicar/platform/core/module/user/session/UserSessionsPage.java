@@ -29,7 +29,7 @@ public class UserSessionsPage implements IEmfPage<SystemModuleInstance> {
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SYSTEM_ADMINISTRATOR;
+		return CorePermissions.SYSTEM_ADMINISTRATION;
 	}
 
 	@Override

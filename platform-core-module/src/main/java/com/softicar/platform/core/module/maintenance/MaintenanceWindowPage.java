@@ -29,7 +29,7 @@ public class MaintenanceWindowPage extends AbstractEmfManagementPage<SystemModul
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return EmfPermissions.any(CorePermissions.SUPER_USER, CorePermissions.SYSTEM_ADMINISTRATOR);
+		return EmfPermissions.any(CorePermissions.SUPER_USER, CorePermissions.SYSTEM_ADMINISTRATION);
 	}
 
 	@Override

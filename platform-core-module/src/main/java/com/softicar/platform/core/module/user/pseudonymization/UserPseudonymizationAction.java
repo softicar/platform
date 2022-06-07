@@ -29,7 +29,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 	@Override
 	public IEmfPermission<AGUser> getRequiredPermission() {
 
-		return CorePermissions.ACCESS_MANAGER.toOtherEntityPermission();
+		return CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission();
 	}
 
 	@Override

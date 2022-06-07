@@ -35,7 +35,7 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 
 		authorizer.setCreationPermission(EmfPermissions.never());
 		authorizer.setEditPermission(EmfPermissions.never());
-		authorizer.setViewPermission(CorePermissions.SYSTEM_ADMINISTRATOR.toOtherEntityPermission());
+		authorizer.setViewPermission(CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission());
 	}
 
 	@Override

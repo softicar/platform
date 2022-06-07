@@ -40,7 +40,7 @@ public class UserSessionManager {
 
 	private void checkUserAndInvalidateIfNotAdministrator(SofticarAjaxSession ajaxSession, HttpSession session) {
 
-		if (!ajaxSession.getUser().hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATOR)) {
+		if (!ajaxSession.getUser().hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATION)) {
 			session.invalidate();
 		}
 	}

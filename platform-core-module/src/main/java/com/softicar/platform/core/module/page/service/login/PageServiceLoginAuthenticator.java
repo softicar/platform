@@ -113,7 +113,7 @@ class PageServiceLoginAuthenticator {
 
 		// check for maintenance
 		if (AGMaintenanceWindow.isMaintenanceInProgress()) {
-			if (!user.hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATOR)) {
+			if (!user.hasModulePermission(CorePermissions.SYSTEM_ADMINISTRATION)) {
 				logFailure(AGUserLoginFailureTypeEnum.MAINTENANCE_IN_PROGRESS, username);
 				throw new PageServiceLoginExceptionMaintenanceInProgress();
 			}

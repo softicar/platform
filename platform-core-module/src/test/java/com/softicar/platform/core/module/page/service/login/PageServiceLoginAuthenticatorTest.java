@@ -126,7 +126,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 	public void testAsSystemAdminDuringMaintenance() {
 
 		insertMaintenanceWindow(DayTime.now(), DayTime.now(), AGMaintenanceStateEnum.IN_PROGRESS);
-		insertPermissionAssignment(user, CorePermissions.SYSTEM_ADMINISTRATOR, CoreModule.class);
+		insertPermissionAssignment(user, CorePermissions.SYSTEM_ADMINISTRATION, CoreModule.class);
 
 		AGUser authenticatedUser = authenticate(USERNAME, PASSWORD);
 		assertSame(user, authenticatedUser);

@@ -99,7 +99,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 		new AGSystemModulePermissionAssignment()
 			.setActive(true)
 			.setModule(AGUuid.getOrCreate(CoreModule.class))
-			.setPermission(CorePermissions.ACCESS_MANAGER.getAnnotatedUuid())
+			.setPermission(CorePermissions.ACCESS_MANAGEMENT.getAnnotatedUuid())
 			.setUser(user)
 			.save();
 	}

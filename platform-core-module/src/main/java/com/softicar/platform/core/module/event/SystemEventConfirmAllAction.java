@@ -25,7 +25,7 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModule
 	@Override
 	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SYSTEM_ADMINISTRATOR;
+		return CorePermissions.SYSTEM_ADMINISTRATION;
 	}
 
 	@Override

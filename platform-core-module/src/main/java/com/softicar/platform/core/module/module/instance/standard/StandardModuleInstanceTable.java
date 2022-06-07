@@ -32,7 +32,7 @@ public class StandardModuleInstanceTable<I extends IStandardModuleInstance<I>> e
 
 		authorizer//
 			.setCreationPermission(EmfDefaultModulePermissions.getModuleAdministator())
-			.setEditPermission(EmfPermissions.any(CorePermissions.ACCESS_MANAGER.<I> toOtherEntityPermission(), EmfDefaultModulePermissions.getModuleAdministator()))
-			.setViewPermission(EmfPermissions.any(CorePermissions.ACCESS_MANAGER.<I> toOtherEntityPermission(), EmfDefaultModulePermissions.getModuleAdministator()));
+			.setEditPermission(EmfPermissions.any(CorePermissions.ACCESS_MANAGEMENT.<I> toOtherEntityPermission(), EmfDefaultModulePermissions.getModuleAdministator()))
+			.setViewPermission(EmfPermissions.any(CorePermissions.ACCESS_MANAGEMENT.<I> toOtherEntityPermission(), EmfDefaultModulePermissions.getModuleAdministator()));
 	}
 }

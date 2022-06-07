@@ -29,9 +29,9 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstancePermissionAssignment, SystemModuleInstance> authorizer) {
 
-		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGER);
-		authorizer.setEditPermission(CorePermissions.ACCESS_MANAGER.toOtherEntityPermission());
-		authorizer.setViewPermission(CorePermissions.ACCESS_MANAGER.toOtherEntityPermission());
+		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
+		authorizer.setEditPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());
+		authorizer.setViewPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());
 	}
 
 	@Override

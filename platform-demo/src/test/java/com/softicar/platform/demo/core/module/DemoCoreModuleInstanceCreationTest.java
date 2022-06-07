@@ -21,7 +21,7 @@ public class DemoCoreModuleInstanceCreationTest extends AbstractCoreTest impleme
 	@Test
 	public void testCreation() {
 
-		insertPermissionAssignment(CurrentUser.get(), CorePermissions.ACCESS_MANAGER, CoreModule.class);
+		insertPermissionAssignment(CurrentUser.get(), CorePermissions.ACCESS_MANAGEMENT, CoreModule.class);
 		insertPermissionAssignment(CurrentUser.get(), CorePermissions.SUPER_USER, CoreModule.class);
 
 		findManagementDiv(AGModuleInstance.TABLE).clickCreateButton();
