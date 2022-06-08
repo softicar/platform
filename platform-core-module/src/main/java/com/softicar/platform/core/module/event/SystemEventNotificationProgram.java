@@ -28,15 +28,15 @@ public class SystemEventNotificationProgram implements IProgram {
 			.stream()
 			.map(AGSystemEventEmailRecipient::getRecipient)
 			.collect(Collectors.toList());
-		if (emailRecipients.isEmpty()) {
+		AGCoreModuleInstance moduleInstance = AGCoreModuleInstance.getInstance();
+		if (emailRecipients.isEmpty() && !moduleInstance.isTestSystem()) {
 			throw new SofticarUserException(CoreI18n.NO_EMAIL_RECIPIENTS_DEFINED);
 		}
 		int count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_CONFIRMATION).count();
 		if (count > 0) {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
-				.setSubject(
-					CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION.toDisplay(AGCoreModuleInstance.getInstance().getSystemName(), count))
+				.setSubject(CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION.toDisplay(moduleInstance.getSystemName(), count))
 				.setPlainTextContent(new PageUrlBuilder<>(SystemEventPage.class, new SystemModuleInstance(CoreModule.class)).build().toString())
 				.addAGUsersToRecipients(emailRecipients)
 				.submit();
