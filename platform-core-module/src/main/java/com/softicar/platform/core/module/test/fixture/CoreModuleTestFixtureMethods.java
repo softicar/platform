@@ -86,7 +86,8 @@ public interface CoreModuleTestFixtureMethods {
 		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}
 
-	default AGSystemModulePermissionAssignment insertPermissionAssignment(AGUser user, EmfSystemModulePermission permission, Class<? extends IEmfModule<?>> moduleClass) {
+	default AGSystemModulePermissionAssignment insertPermissionAssignment(AGUser user, EmfSystemModulePermission permission,
+			Class<? extends IEmfModule<?>> moduleClass) {
 
 		return new AGSystemModulePermissionAssignment()
 			.setActive(true)
@@ -96,8 +97,8 @@ public interface CoreModuleTestFixtureMethods {
 			.save();
 	}
 
-	default <I extends IStandardModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, IEmfModulePermission<I> permission,
-			I moduleInstance) {
+	default <I extends IStandardModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user,
+			IEmfModulePermission<I> permission, I moduleInstance) {
 
 		return new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
@@ -124,12 +125,6 @@ public interface CoreModuleTestFixtureMethods {
 	default <I extends IStandardModuleInstance<I>> I insertStandardModuleInstance(IStandardModuleInstanceTable<I> moduleInstanceTable) {
 
 		return createStandardModuleInstance(moduleInstanceTable).save();
-	}
-
-	// TODO: CoreModule is currently SystemModuleInstance and this needs to be adjusted
-	default AGCoreModuleInstance insertCoreModuleInstance(AGLocalization defaultLocalization) {
-
-		return new AGCoreModuleInstance().setDefaultLocalization(defaultLocalization).save();
 	}
 
 	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {

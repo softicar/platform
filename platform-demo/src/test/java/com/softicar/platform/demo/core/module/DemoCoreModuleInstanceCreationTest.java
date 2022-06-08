@@ -36,6 +36,6 @@ public class DemoCoreModuleInstanceCreationTest extends AbstractCoreTest impleme
 		demoPopup.setInputValue(AGDemoCoreModuleInstance.TITLE, "FooBar");
 		demoPopup.clickSaveButton();
 
-		assertEquals("FooBar", findEmfDataTable(AGModuleInstance.TABLE).getTextInCells(AGModuleInstance.TITLE_FIELD));
+		assertEquals("Core Module Instance|FooBar", findEmfDataTable(AGModuleInstance.TABLE).getTextInCells(AGModuleInstance.TITLE_FIELD));
 	}
 }
