@@ -345,8 +345,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("In-Reply-To");
 	I18n0 INACTIVE_FOR = new I18n0("Inactive For")//
 		.de("Inaktiv für");
-	I18n0 INFORMS_USERS_ABOUT_SYSTEM_EVENTS_THAT_NEED_ATTENTION = new I18n0("Informs users about system events that need attention.")//
-		.de("Informiert Benutzer über Systemereignisse die Aufmerksamkeit benötigen.");
+	I18n0 INFORMS_USERS_ABOUT_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION = new I18n0("Informs users about system events that need confirmation.")//
+		.de("Informiert Benutzer über Systemereignisse die Bestätigung benötigen.");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
 		.de("Modulinstanz initialisieren");
 	I18n0 INITIALIZED = new I18n0("Initialized")//
@@ -828,8 +828,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Systemverwaltung");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
 		.de("Systemadministrator");
-	I18n2 SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_ATTENTION = new I18n2("System '%s' has %s system events that need attention.")//
-		.de("System '%s' hat %s System-Ereignisse die Aufmerksamkeit benötigen.");
+	I18n2 SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION = new I18n2("System '%s' has %s system events that need confirmation.")//
+		.de("System '%s' hat %s System-Ereignisse die Bestätigung benötigen.");
 	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
 		.de("Systemereignis");
 	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENT = new I18n0("System Event Email Recipient")//

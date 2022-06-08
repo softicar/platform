@@ -36,7 +36,7 @@ public class SystemEventNotificationProgram implements IProgram {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
 				.setSubject(
-					CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_ATTENTION.toDisplay(AGCoreModuleInstance.getInstance().getSystemName(), count))
+					CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION.toDisplay(AGCoreModuleInstance.getInstance().getSystemName(), count))
 				.setPlainTextContent(new PageUrlBuilder<>(SystemEventPage.class, new SystemModuleInstance(CoreModule.class)).build().toString())
 				.addAGUsersToRecipients(emailRecipients)
 				.submit();
@@ -52,6 +52,6 @@ public class SystemEventNotificationProgram implements IProgram {
 	@Override
 	public Optional<IDisplayString> getDescription() {
 
-		return Optional.of(CoreI18n.INFORMS_USERS_ABOUT_SYSTEM_EVENTS_THAT_NEED_ATTENTION);
+		return Optional.of(CoreI18n.INFORMS_USERS_ABOUT_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION);
 	}
 }
