@@ -46,6 +46,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	public static final IDbStringField<AGCoreModuleInstanceLog> PORTAL_PROTOCOL = BUILDER.addStringField("portalProtocol", o->o.m_portalProtocol, (o,v)->o.m_portalProtocol=v).setTitle(CoreI18n.PORTAL_PROTOCOL).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstanceLog> PORTAL_HOST = BUILDER.addStringField("portalHost", o->o.m_portalHost, (o,v)->o.m_portalHost=v).setTitle(CoreI18n.PORTAL_HOST).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstanceLog> PORTAL_APPLICATION = BUILDER.addStringField("portalApplication", o->o.m_portalApplication, (o,v)->o.m_portalApplication=v).setTitle(CoreI18n.PORTAL_APPLICATION).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbStringField<AGCoreModuleInstanceLog> SYSTEM_NAME = BUILDER.addStringField("systemName", o->o.m_systemName, (o,v)->o.m_systemName=v).setTitle(CoreI18n.SYSTEM_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null);
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGLocalization> DEFAULT_LOCALIZATION = BUILDER.addForeignField("defaultLocalization", o->o.m_defaultLocalization, (o,v)->o.m_defaultLocalization=v, AGLocalization.ID).setTitle(CoreI18n.DEFAULT_LOCALIZATION).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGCoreModuleInstanceLog> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setNullable().setDefault(null);
@@ -181,6 +182,16 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 		return setValue(PORTAL_APPLICATION, value);
 	}
 
+	public final String getSystemName() {
+
+		return getValue(SYSTEM_NAME);
+	}
+
+	public final AGCoreModuleInstanceLog setSystemName(String value) {
+
+		return setValue(SYSTEM_NAME, value);
+	}
+
 	public final Integer getPortalLogoID() {
 
 		return getValueId(PORTAL_LOGO);
@@ -241,6 +252,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	private String m_portalProtocol;
 	private String m_portalHost;
 	private String m_portalApplication;
+	private String m_systemName;
 	private AGStoredFile m_portalLogo;
 	private AGLocalization m_defaultLocalization;
 	private Boolean m_testSystem;

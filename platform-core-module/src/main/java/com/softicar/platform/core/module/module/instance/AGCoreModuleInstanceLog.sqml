@@ -18,6 +18,7 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	String portalProtocol = NULL [NULLABLE MAXLENGTH=255]
 	String portalHost = NULL [NULLABLE MAXLENGTH=255]
 	String portalApplication = NULL [NULLABLE MAXLENGTH=255]
+	String systemName = NULL [NULLABLE MAXLENGTH=255]
 	AGStoredFile portalLogo = NULL [NULLABLE]
 	AGLocalization defaultLocalization = NULL [NULLABLE]
 	Boolean testSystem = NULL [NULLABLE]
