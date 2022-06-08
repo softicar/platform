@@ -1,5 +1,6 @@
 PACKAGE com.softicar.platform.core.module.module.instance
 
+IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
 IMPORT com.softicar.platform.core.module.localization.AGLocalization
@@ -7,7 +8,7 @@ IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
-	PK Integer id = SERIAL
+	PK AGModuleInstance moduleInstance = BASE
 	AGUser systemUser = NULL [NULLABLE]
 	AGStoredFileServer primaryFileServer = NULL [NULLABLE COMMENT='Server used for uploading files']
 	AGServer emailServer = NULL [NULLABLE]

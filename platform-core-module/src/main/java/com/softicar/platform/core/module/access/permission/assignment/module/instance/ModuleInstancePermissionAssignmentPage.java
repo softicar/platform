@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.access.permission.assignment.module.in
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.emf.table.IEmfTable;
 
 @EmfSourceCodeReferencePointUuid("75e4e284-2256-4fcf-9b94-e2a4bfccb4c4")
-public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagementPage<SystemModuleInstance> {
+public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -20,7 +20,7 @@ public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagemen
 	}
 
 	@Override
-	protected IEmfTable<?, ?, SystemModuleInstance> getTable() {
+	protected IEmfTable<?, ?, AGCoreModuleInstance> getTable() {
 
 		return AGModuleInstancePermissionAssignment.TABLE;
 	}
@@ -32,7 +32,7 @@ public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagemen
 	}
 
 	@Override
-	public IEmfModulePermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return CorePermissions.ACCESS_MANAGEMENT;
 	}

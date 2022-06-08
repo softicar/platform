@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.page.EmfPagePath;
@@ -14,7 +14,7 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("5e258795-6c07-4a4c-9694-b41124271a2d")
-public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<SystemModuleInstance> {
+public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -29,13 +29,13 @@ public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<SystemM
 	}
 
 	@Override
-	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
+	public IDisplayString getTitle(AGCoreModuleInstance moduleInstance) {
 
 		return CoreI18n.MODULE_INSTANCE_PERMISSION_ASSIGNMENT_MATRIX;
 	}
 
 	@Override
-	public IDomNode createContentNode(SystemModuleInstance moduleInstance) {
+	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
 		return new ModulePermissionOwnershipUserMatrixPageDiv();
 	}
@@ -47,7 +47,7 @@ public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<SystemM
 	}
 
 	@Override
-	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		// TODO re-enable this page as soon as it's fixed
 //		return CorePermissions.SUPER_USER;

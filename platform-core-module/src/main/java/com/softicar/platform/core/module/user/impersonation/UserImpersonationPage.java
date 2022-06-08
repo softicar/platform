@@ -5,7 +5,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
@@ -14,7 +14,7 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("cff17c44-2186-40d1-8dca-5d82e2836918")
-public class UserImpersonationPage implements IEmfPage<SystemModuleInstance> {
+public class UserImpersonationPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -29,19 +29,19 @@ public class UserImpersonationPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
+	public IDisplayString getTitle(AGCoreModuleInstance moduleInstance) {
 
 		return CoreI18n.IMPERSONATE_USER;
 	}
 
 	@Override
-	public IDomNode createContentNode(SystemModuleInstance moduleInstance) {
+	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
 		return new UserImpersonationPageDiv();
 	}
 
 	@Override
-	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return EmfPermissions.never();
 	}

@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.access.permission.assignment.module.system;
 
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.AbstractSystemModule;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.engine.AbstractEmfDependentAutoCompleteInputEngine;
@@ -31,7 +31,7 @@ class SystemModulePermissionAssignmentSystemModuleInput extends EmfEntityInput<A
 				.get()
 				.getAllModules()
 				.stream()
-				.filter(module -> AbstractSystemModule.class.isAssignableFrom(module.getClass()))
+				.filter(module -> CoreModule.class.isInstance(module))
 				.map(module -> module.getAnnotatedUuid())
 				.map(AGUuid::getOrCreate)
 				.collect(Collectors.toList());

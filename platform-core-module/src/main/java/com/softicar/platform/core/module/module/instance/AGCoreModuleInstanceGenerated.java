@@ -2,19 +2,19 @@ package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.db.runtime.field.IDbBaseField;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
-import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
-import com.softicar.platform.db.runtime.logic.AbstractDbObject;
-import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
-import com.softicar.platform.db.sql.statement.ISqlSelect;
+import com.softicar.platform.db.runtime.object.sub.AbstractDbSubObject;
+import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
 
 /**
  * This is the automatically generated class AGCoreModuleInstance for
@@ -22,18 +22,18 @@ import com.softicar.platform.db.sql.statement.ISqlSelect;
  */
 @Generated
 @SuppressWarnings("all")
-public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModuleInstance> {
+public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreModuleInstance, AGModuleInstance> {
 
 	// -------------------------------- STATIC CONSTANTS -------------------------------- //
 
 	// @formatter:off
-	private static final DbObjectTableBuilder<AGCoreModuleInstance, AGCoreModuleInstanceGenerated> BUILDER = new DbObjectTableBuilder<>("Core", "CoreModuleInstance", AGCoreModuleInstance::new, AGCoreModuleInstance.class);
+	private static final DbSubObjectTableBuilder<AGCoreModuleInstance, AGCoreModuleInstanceGenerated, AGModuleInstance, Integer> BUILDER = new DbSubObjectTableBuilder<>("Core", "CoreModuleInstance", AGCoreModuleInstance::new, AGCoreModuleInstance.class);
 	static {
 		BUILDER.setTitle(CoreI18n.CORE_MODULE_INSTANCE);
 		BUILDER.setPluralTitle(CoreI18n.CORE_MODULE_INSTANCES);
 	}
 
-	public static final IDbIdField<AGCoreModuleInstance> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
+	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(CoreI18n.MODULE_INSTANCE);
 	public static final IDbForeignField<AGCoreModuleInstance, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null);
 	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setComment("Server used for uploading files");
 	public static final IDbForeignField<AGCoreModuleInstance, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null);
@@ -51,19 +51,12 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModule
 	public static final AGCoreModuleInstanceTable TABLE = new AGCoreModuleInstanceTable(BUILDER);
 	// @formatter:on
 
-	// -------------------------------- STATIC FUNCTIONS -------------------------------- //
-
-	public static ISqlSelect<AGCoreModuleInstance> createSelect() {
-
-		return TABLE.createSelect();
-	}
-
-	public static AGCoreModuleInstance get(Integer id) {
-
-		return TABLE.get(id);
-	}
-
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
+
+	public final AGModuleInstance getModuleInstance() {
+
+		return pk();
+	}
 
 	public final Integer getSystemUserID() {
 
@@ -210,7 +203,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbObject<AGCoreModule
 
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
-	private Integer m_id;
+	private AGModuleInstance m_moduleInstance;
 	private AGUser m_systemUser;
 	private AGStoredFileServer m_primaryFileServer;
 	private AGServer m_emailServer;

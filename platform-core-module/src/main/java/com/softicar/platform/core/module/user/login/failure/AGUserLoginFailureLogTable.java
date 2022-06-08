@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.user.login.failure;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -12,7 +12,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGUserLoginFailureLogTable extends EmfObjectTable<AGUserLoginFailureLog, SystemModuleInstance> {
+public class AGUserLoginFailureLogTable extends EmfObjectTable<AGUserLoginFailureLog, AGCoreModuleInstance> {
 
 	public AGUserLoginFailureLogTable(IDbObjectTableBuilder<AGUserLoginFailureLog> builder) {
 
@@ -20,7 +20,7 @@ public class AGUserLoginFailureLogTable extends EmfObjectTable<AGUserLoginFailur
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserLoginFailureLog, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserLoginFailureLog, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.LOGIN_FAILURE);
 	}
@@ -38,7 +38,7 @@ public class AGUserLoginFailureLogTable extends EmfObjectTable<AGUserLoginFailur
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginFailureLog, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginFailureLog, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 		authorizer.setEditPermission(EmfPermissions.never());

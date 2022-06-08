@@ -4,8 +4,7 @@ import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.io.serialization.json.JsonBlock;
-import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.field.IDbDayField;
@@ -397,7 +396,7 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 		// -------------------------------- UTILS -------------------------------- //
 
 		@Override
-		public final EmfObjectTable<TestObject, SystemModuleInstance> table() {
+		public final EmfObjectTable<TestObject, AGCoreModuleInstance> table() {
 
 			return TABLE;
 		}
@@ -411,7 +410,7 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 		private Day m_date;
 	}
 
-	private static class TestObjectTable extends EmfObjectTable<TestObject, SystemModuleInstance> {
+	private static class TestObjectTable extends EmfObjectTable<TestObject, AGCoreModuleInstance> {
 
 		public static final String TABLE_IDENTIFIER_HASH = "c3b5c16bb6166dbbc01324914d8f7c64b6cf51c7";
 		public static final String COLUMN_TITLES_HASH = "789f49d9beba2f498328db8d3dd2ff40a2084dd8";
@@ -429,7 +428,7 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 
 		public static IDomNode createManagementDiv() {
 
-			return new EmfManagementDiv<>(TestObject.TABLE, CoreModule.getModuleInstance());
+			return new EmfManagementDiv<>(TestObject.TABLE, AGCoreModuleInstance.getInstance());
 		}
 
 		public static AGUserSpecificTableConfiguration insertConfiguration(String json) {

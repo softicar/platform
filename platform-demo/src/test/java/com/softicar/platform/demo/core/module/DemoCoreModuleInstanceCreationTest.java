@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
@@ -15,7 +16,7 @@ public class DemoCoreModuleInstanceCreationTest extends AbstractCoreTest impleme
 
 	public DemoCoreModuleInstanceCreationTest() {
 
-		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGModuleInstance.TABLE, CoreModule.getModuleInstance()).build());
+		setNodeSupplier(() -> new EmfManagementDivBuilder<>(AGModuleInstance.TABLE, AGCoreModuleInstance.getInstance()).build());
 	}
 
 	@Test

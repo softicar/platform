@@ -2,27 +2,16 @@ package com.softicar.platform.core.module;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.core.module.module.AbstractSystemModule;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.AbstractStandardModule;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("a8b076bd-582d-446d-9bce-85a8a180afd5")
-public class CoreModule extends AbstractSystemModule {
+public class CoreModule extends AbstractStandardModule<AGCoreModuleInstance> {
 
 	private static final IDisplayString PARENT_FOLDER_TITLE = CoreI18n.SYSTEM.encloseInBrackets();
-	private static final SystemModuleInstance MODULE_INSTANCE = new SystemModuleInstance(CoreModule.class);
-
-	@Override
-	public SystemModuleInstance getSystemModuleInstance() {
-
-		return getModuleInstance();
-	}
-
-	public static SystemModuleInstance getModuleInstance() {
-
-		return MODULE_INSTANCE;
-	}
 
 	@Override
 	public IResource getIcon() {
@@ -37,7 +26,13 @@ public class CoreModule extends AbstractSystemModule {
 	}
 
 	@Override
-	public EmfPagePath getDefaultPagePath(SystemModuleInstance moduleInstance) {
+	public IStandardModuleInstanceTable<AGCoreModuleInstance> getModuleInstanceTable() {
+
+		return AGCoreModuleInstance.TABLE;
+	}
+
+	@Override
+	public EmfPagePath getDefaultPagePath(AGCoreModuleInstance moduleInstance) {
 
 		return getParentPagePath().append(toDisplay());
 	}

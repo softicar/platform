@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.localization;
 
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGLocalizationTable extends EmfObjectTable<AGLocalization, SystemModuleInstance> {
+public class AGLocalizationTable extends EmfObjectTable<AGLocalization, AGCoreModuleInstance> {
 
 	public AGLocalizationTable(IDbObjectTableBuilder<AGLocalization> builder) {
 
@@ -14,7 +14,7 @@ public class AGLocalizationTable extends EmfObjectTable<AGLocalization, SystemMo
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGLocalization, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGLocalization, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.addValidator(LocalizationValidator::new);
 	}

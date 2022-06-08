@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.access.permission.assignment.module.in
 
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.permission.assignment.module.system.SystemModulePermissionAssignmentUserInput;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
@@ -13,7 +13,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AGModuleInstancePermissionAssignment, SystemModuleInstance> {
+public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AGModuleInstancePermissionAssignment, AGCoreModuleInstance> {
 
 	public AGModuleInstancePermissionAssignmentTable(IDbObjectTableBuilder<AGModuleInstancePermissionAssignment> builder) {
 
@@ -21,13 +21,13 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstancePermissionAssignment, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstancePermissionAssignment, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(EmfImages.USER_PERMISSION_ASSIGNMENT);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstancePermissionAssignment, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstancePermissionAssignment, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
 		authorizer.setEditPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());

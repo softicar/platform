@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.maintenance.action.CancelMaintenanceAct
 import com.softicar.platform.core.module.maintenance.action.FinishMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.action.StartMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
@@ -16,7 +16,7 @@ import com.softicar.platform.emf.management.EmfManagementConfiguration;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 
-public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow, SystemModuleInstance> {
+public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow, AGCoreModuleInstance> {
 
 	public AGMaintenanceWindowTable(IDbObjectTableBuilder<AGMaintenanceWindow> builder) {
 
@@ -24,7 +24,7 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGMaintenanceWindow, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGMaintenanceWindow, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.SYSTEM_ADMINISTRATION);
 		authorizer.setEditPermission(CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission());
@@ -40,13 +40,13 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	}
 
 	@Override
-	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGMaintenanceWindow, SystemModuleInstance> defaultValueSet) {
+	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGMaintenanceWindow, AGCoreModuleInstance> defaultValueSet) {
 
 		defaultValueSet.setSupplier(AGMaintenanceWindow.STATE, AGMaintenanceStateEnum.PENDING::getRecord);
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGMaintenanceWindow, SystemModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGMaintenanceWindow, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addManagementAction(new StartMaintenanceAction());
 		actionSet.addManagementAction(new FinishMaintenanceAction());

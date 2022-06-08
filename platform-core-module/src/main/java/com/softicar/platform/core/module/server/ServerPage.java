@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.server;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.emf.table.IEmfTable;
 
 @EmfSourceCodeReferencePointUuid("b7f0b589-acd3-428b-b8d8-d956fa72e2c4")
-public class ServerPage extends AbstractEmfManagementPage<SystemModuleInstance> {
+public class ServerPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -26,13 +26,13 @@ public class ServerPage extends AbstractEmfManagementPage<SystemModuleInstance> 
 	}
 
 	@Override
-	protected IEmfTable<?, ?, SystemModuleInstance> getTable() {
+	protected IEmfTable<?, ?, AGCoreModuleInstance> getTable() {
 
 		return AGServer.TABLE;
 	}
 
 	@Override
-	public IEmfModulePermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return CorePermissions.SUPER_USER;
 	}

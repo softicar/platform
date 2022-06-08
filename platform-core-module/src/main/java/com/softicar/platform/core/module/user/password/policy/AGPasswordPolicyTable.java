@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.user.password.policy;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
@@ -10,7 +10,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGPasswordPolicyTable extends EmfObjectTable<AGPasswordPolicy, SystemModuleInstance> {
+public class AGPasswordPolicyTable extends EmfObjectTable<AGPasswordPolicy, AGCoreModuleInstance> {
 
 	public AGPasswordPolicyTable(IDbObjectTableBuilder<AGPasswordPolicy> structure) {
 
@@ -18,7 +18,7 @@ public class AGPasswordPolicyTable extends EmfObjectTable<AGPasswordPolicy, Syst
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGPasswordPolicy, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGPasswordPolicy, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.PASSWORD_POLICY);
 	}

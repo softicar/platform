@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.access.permission.assignment.module.system;
 
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGSystemModulePermissionAssignmentTable extends EmfObjectTable<AGSystemModulePermissionAssignment, SystemModuleInstance> {
+public class AGSystemModulePermissionAssignmentTable extends EmfObjectTable<AGSystemModulePermissionAssignment, AGCoreModuleInstance> {
 
 	public AGSystemModulePermissionAssignmentTable(IDbObjectTableBuilder<AGSystemModulePermissionAssignment> builder) {
 
@@ -19,13 +19,13 @@ public class AGSystemModulePermissionAssignmentTable extends EmfObjectTable<AGSy
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGSystemModulePermissionAssignment, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGSystemModulePermissionAssignment, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(EmfImages.USER_PERMISSION_ASSIGNMENT);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGSystemModulePermissionAssignment, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGSystemModulePermissionAssignment, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
 		authorizer.setEditPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());

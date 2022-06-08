@@ -5,13 +5,9 @@ import com.softicar.platform.common.core.java.classes.name.matcher.IJavaClassNam
 import com.softicar.platform.common.core.java.classes.name.matcher.JavaClassNameGlobPatternMatcher;
 import com.softicar.platform.common.core.java.code.validator.AbstractJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
-import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.module.AbstractStandardModule;
-import com.softicar.platform.core.module.module.AbstractSystemModule;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * Ensures a valid source layout and a valid structural composition of extracted
@@ -23,10 +19,6 @@ import java.util.Collection;
 @JavaCodeValidator
 public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 
-	private static final Collection<Class<?>> LEGAL_SUPER_TYPES = Arrays
-		.asList(//
-			AbstractStandardModule.class,
-			AbstractSystemModule.class);
 	private static final IJavaClassNameMatcher VALID_CLASS_NAME = new JavaClassNameGlobPatternMatcher("**.module.*Module");
 
 	public ModuleClassesValidator() {
@@ -40,17 +32,12 @@ public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 
 	private void validateModuleSuperType(Class<?> javaClass) {
 
-		if (isModuleClass(javaClass) && !hasLegalSuperType(javaClass)) {
-			formatViolation(
-				"Module '%s' needs to extend one of the following types: %s",
+		if (isModuleClass(javaClass) && !AbstractStandardModule.class.isAssignableFrom(javaClass)) {
+			formatViolation(//
+				"Module '%s' needs to extend the type: %s",
 				javaClass.getCanonicalName(),
-				Imploder.implode(LEGAL_SUPER_TYPES, it -> it.getSimpleName(), ", "));
+				AbstractStandardModule.class.getSimpleName());
 		}
-	}
-
-	private boolean hasLegalSuperType(Class<?> moduleClass) {
-
-		return LEGAL_SUPER_TYPES.stream().anyMatch(superType -> superType.isAssignableFrom(moduleClass));
 	}
 
 	// -------------------------------- class name -------------------------------- //
