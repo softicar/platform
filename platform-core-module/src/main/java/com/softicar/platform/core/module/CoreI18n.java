@@ -828,8 +828,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Systemverwaltung");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
 		.de("Systemadministrator");
-	I18n2 SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_ATTENTION = new I18n2("System '%s' has %d system events that need attention.")//
-		.de("System '%s' hat %d System-Ereignisse die Aufmerksamkeit benötigen.");
+	I18n2 SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_ATTENTION = new I18n2("System '%s' has %s system events that need attention.")//
+		.de("System '%s' hat %s System-Ereignisse die Aufmerksamkeit benötigen.");
 	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
 		.de("Systemereignis");
 	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENT = new I18n0("System Event Email Recipient")//
