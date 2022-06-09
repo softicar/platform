@@ -37,6 +37,7 @@ public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTes
 			.set(AGUser.LOGIN_NAME, "current.user")
 			.set(AGUser.FIRST_NAME, "Current")
 			.set(AGUser.LAST_NAME, "User")
+			.set(AGUser.EMAIL_ADDRESS, "current.user@email.de")
 			.set(AGUser.LOCALIZATION, AGCoreModuleInstance.getInstance().getDefaultLocalization())
 			.execute();
 		return AGUser.get(userId);

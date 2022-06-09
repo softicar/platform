@@ -74,6 +74,7 @@ public class AGCoreModuleInstanceTable extends StandardModuleInstanceTable<AGCor
 			.addMapping(AGCoreModuleInstance.PORTAL_HOST, AGCoreModuleInstanceLog.PORTAL_HOST)
 			.addMapping(AGCoreModuleInstance.PORTAL_APPLICATION, AGCoreModuleInstanceLog.PORTAL_APPLICATION)
 			.addMapping(AGCoreModuleInstance.PORTAL_LOGO, AGCoreModuleInstanceLog.PORTAL_LOGO)
+			.addMapping(AGCoreModuleInstance.SYSTEM_NAME, AGCoreModuleInstanceLog.SYSTEM_NAME)
 			.addMapping(AGCoreModuleInstance.DEFAULT_LOCALIZATION, AGCoreModuleInstanceLog.DEFAULT_LOCALIZATION)
 			.addMapping(AGCoreModuleInstance.TEST_SYSTEM, AGCoreModuleInstanceLog.TEST_SYSTEM);
 	}

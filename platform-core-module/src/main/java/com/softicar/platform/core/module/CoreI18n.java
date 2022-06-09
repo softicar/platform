@@ -345,6 +345,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("In-Reply-To");
 	I18n0 INACTIVE_FOR = new I18n0("Inactive For")//
 		.de("Inaktiv für");
+	I18n0 INFORMS_USERS_ABOUT_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION = new I18n0("Informs users about system events that need confirmation.")//
+		.de("Informiert Benutzer über Systemereignisse die Bestätigung benötigen.");
 	I18n0 INITIALIZE_MODULE_INSTANCE = new I18n0("Initialize Module Instance")//
 		.de("Modulinstanz initialisieren");
 	I18n0 INITIALIZED = new I18n0("Initialized")//
@@ -523,6 +525,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Nächstfolgende");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
+	I18n0 NO_EMAIL_RECIPIENTS_DEFINED = new I18n0("No email recipients defined.")//
+		.de("Keine Email-Empfänger definiert.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NOT_QUEUED = new I18n0("Not queued")//
@@ -662,6 +666,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Begründung muss mindestens %s Zeichen lang sein.");
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
+	I18n0 RECIPIENT = new I18n0("Recipient")//
+		.de("Empfänger");
 	I18n0 RECURSIVELY_COLLAPSE_FOLDERS = new I18n0("Recursively Collapse Folders")//
 		.de("Ordner rekursiv einklappen");
 	I18n0 REFERENCES = new I18n0("References")//
@@ -822,8 +828,18 @@ public interface CoreI18n extends EmfI18n {
 		.de("Systemverwaltung");
 	I18n0 SYSTEM_ADMINISTRATOR = new I18n0("System Administrator")//
 		.de("Systemadministrator");
+	I18n2 SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION = new I18n2("System '%s' has %s system events that need confirmation.")//
+		.de("System '%s' hat %s System-Ereignisse die Bestätigung benötigen.");
 	I18n0 SYSTEM_EVENT = new I18n0("System Event")//
 		.de("Systemereignis");
+	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENT = new I18n0("System Event Email Recipient")//
+		.de("Systemereignis-Email-Empfänger");
+	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENT_LOG = new I18n0("System Event Email Recipient Log")//
+		.de("Systemereignis-Email-Empfänger-Log");
+	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENT_LOGS = new I18n0("System Event Email Recipient Logs")//
+		.de("Systemereignis-Email-Empfänger-Logs");
+	I18n0 SYSTEM_EVENT_EMAIL_RECIPIENTS = new I18n0("System Event Email Recipients")//
+		.de("Systemereignis-Email-Empfänger");
 	I18n0 SYSTEM_EVENT_LOG = new I18n0("System Event Log")//
 		.de("Systemereignis-Log");
 	I18n0 SYSTEM_EVENT_LOGS = new I18n0("System Event Logs")//
