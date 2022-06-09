@@ -60,13 +60,13 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 	@Override
 	public String getRowFilterString() {
 
-		return rowFilterInput.getValueTrimmed();
+		return rowFilterInput.getValueTextTrimmed();
 	}
 
 	@Override
 	public String getColumnFilterString() {
 
-		return columnFilterInput.getValueTrimmed();
+		return columnFilterInput.getValueTextTrimmed();
 	}
 
 	@Override

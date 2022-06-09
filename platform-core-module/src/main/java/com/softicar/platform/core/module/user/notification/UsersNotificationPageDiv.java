@@ -76,9 +76,9 @@ public class UsersNotificationPageDiv extends DomDiv {
 			Collection<List<AGUser>> userSplices = splice(users, USER_BURST_SIZE);
 			for (List<AGUser> userSplice: userSplices) {
 				BufferedEmail email = new BufferedEmail();
-				email.setFrom(fromInput.getValueTrimmed());
-				email.setSubject(IDisplayString.create(subjectInput.getValueTrimmed()));
-				email.setContent(contentInput.getValueTrimmed(), EmailContentType.PLAIN);
+				email.setFrom(fromInput.getValueTextTrimmed());
+				email.setSubject(IDisplayString.create(subjectInput.getValueTextTrimmed()));
+				email.setContent(contentInput.getValueTextTrimmed(), EmailContentType.PLAIN);
 				for (AGUser user: userSplice) {
 					email.addBccRecipient(user.getEmailAddress());
 				}

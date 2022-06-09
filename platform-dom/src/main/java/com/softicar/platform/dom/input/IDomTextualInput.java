@@ -35,18 +35,18 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	Optional<String> getValue();
 
 	/**
-	 * Returns the value of this {@link IDomTextualInput}.
+	 * Returns the value text of this {@link IDomTextualInput}.
 	 *
-	 * @return the value (never <i>null</i>)
+	 * @return the value text (never <i>null</i>)
 	 */
 	String getValueText();
 
 	/**
 	 * Same as {@link #getValueText()} but trims the returned value.
 	 *
-	 * @return the trimmed value (never <i>null</i>)
+	 * @return the trimmed value text (never <i>null</i>)
 	 */
-	String getValueTrimmed();
+	String getValueTextTrimmed();
 
 	/**
 	 * Tests whether the textual value of this input is blank, in the sense of

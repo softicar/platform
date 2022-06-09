@@ -97,7 +97,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 			inputEngine,
 			configuration,
 			this::getMatchingItems,
-			inputField.getValueTrimmed());
+			inputField.getValueTextTrimmed());
 	}
 
 	@Override

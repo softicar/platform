@@ -285,12 +285,12 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 
 		else if (node instanceof DomTextArea) {
 			debugPrint(currentDepth, "DomTextArea");
-			values.add(createStringExportNodeValue(((DomTextArea) node).getValueTrimmed()));
+			values.add(createStringExportNodeValue(((DomTextArea) node).getValueTextTrimmed()));
 		}
 
 		else if (node instanceof DomTextInput) {
 			debugPrint(currentDepth, DomTextInput.class.getSimpleName());
-			values.add(autoConvert(((DomTextInput) node).getValueTrimmed(), currentDepth + 1));
+			values.add(autoConvert(((DomTextInput) node).getValueTextTrimmed(), currentDepth + 1));
 		}
 
 		else if (node instanceof DomPreformattedLabel) {

@@ -14,7 +14,7 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 	public String getNormalizedFilterText() {
 
-		return new FilterTextNormalizer(getValueTrimmed()).getNormalized();
+		return new FilterTextNormalizer(getValueTextTrimmed()).getNormalized();
 	}
 
 	public void refresh(EmfDataTableStringFilterType filterType) {

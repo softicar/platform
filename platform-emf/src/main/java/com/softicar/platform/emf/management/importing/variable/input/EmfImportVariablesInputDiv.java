@@ -58,7 +58,7 @@ public class EmfImportVariablesInputDiv<R extends IEmfTableRow<R, P>, P, S> exte
 
 		Map<String, String> variableValueMap = new HashMap<>();
 		for (Map.Entry<String, DomTextInput> entry: variableInputMap.entrySet()) {
-			variableValueMap.put(entry.getKey(), entry.getValue().getValueTrimmed());
+			variableValueMap.put(entry.getKey(), entry.getValue().getValueTextTrimmed());
 		}
 		return variableValueMap;
 	}

@@ -38,7 +38,7 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 	@Override
 	public Optional<Day> getValue() {
 
-		var text = dayInput.getValueTrimmed();
+		var text = dayInput.getValueTextTrimmed();
 		if (!text.isBlank()) {
 			return Optional.of(new DayParser(text).parseOrThrow());
 		} else {

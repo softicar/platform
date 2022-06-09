@@ -44,7 +44,7 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 	@Override
 	public Optional<T> getValue() throws DomInputException {
 
-		String text = input.getValueTrimmed();
+		String text = input.getValueTextTrimmed();
 		if (!text.isBlank()) {
 			return Optional.of(parseValue(text));
 		} else {
@@ -72,7 +72,7 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 
 	public String getTextualValue() {
 
-		return input.getValueTrimmed();
+		return input.getValueTextTrimmed();
 	}
 
 	@Override

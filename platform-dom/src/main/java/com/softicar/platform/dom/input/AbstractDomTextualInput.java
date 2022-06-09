@@ -29,7 +29,7 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 	}
 
 	@Override
-	public String getValueTrimmed() {
+	public String getValueTextTrimmed() {
 
 		return getValueText().trim();
 	}

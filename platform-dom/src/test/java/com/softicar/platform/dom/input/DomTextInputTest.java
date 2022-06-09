@@ -30,7 +30,7 @@ public class DomTextInputTest extends AbstractTest {
 		input.setValue(null);
 
 		assertEquals("", input.getValueText());
-		assertEquals("", input.getValueTrimmed());
+		assertEquals("", input.getValueTextTrimmed());
 		assertTrue(input.isBlank());
 	}
 
@@ -40,7 +40,7 @@ public class DomTextInputTest extends AbstractTest {
 		input.setValue("");
 
 		assertEquals("", input.getValueText());
-		assertEquals("", input.getValueTrimmed());
+		assertEquals("", input.getValueTextTrimmed());
 		assertTrue(input.isBlank());
 	}
 
@@ -50,7 +50,7 @@ public class DomTextInputTest extends AbstractTest {
 		input.setValue("\t\r\n ");
 
 		assertEquals("\t\r\n ", input.getValueText());
-		assertEquals("", input.getValueTrimmed());
+		assertEquals("", input.getValueTextTrimmed());
 		assertTrue(input.isBlank());
 	}
 
@@ -60,7 +60,7 @@ public class DomTextInputTest extends AbstractTest {
 		input.setValue(" foo ");
 
 		assertEquals(" foo ", input.getValueText());
-		assertEquals("foo", input.getValueTrimmed());
+		assertEquals("foo", input.getValueTextTrimmed());
 		assertFalse(input.isBlank());
 	}
 }

@@ -80,7 +80,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 		public Integer getPageSize() {
 
-			return IntegerParser.parseInteger(input.getValueTrimmed());
+			return IntegerParser.parseInteger(input.getValueTextTrimmed());
 		}
 
 		public void setPageSize(int pageSize) {
