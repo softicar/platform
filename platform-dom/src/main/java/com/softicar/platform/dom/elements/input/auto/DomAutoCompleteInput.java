@@ -7,9 +7,7 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
 import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStringInput;
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomEventHandler;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
@@ -34,11 +32,11 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements IDomAutoCompleteInput<T> {
+public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
 
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
-	private final InputField inputField;
+	private final DomTextInput inputField;
 	private final IDomAutoCompleteInputConfiguration configuration;
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
 	protected final DomBar inputBar;
@@ -49,12 +47,17 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
 		this.inputBar = new DomBar();
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
-		this.inputField = inputBar.appendChild(new InputField());
+		this.inputField = new DomTextInput();
+		this.inputField.addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
+		this.inputField.addChangeCallback(this::refreshInputValidity);
+		this.inputField.addChangeCallback(this::executeChangeCallbacks);
+		this.inputField.unlistenToEvent(DomEventType.CHANGE);
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
 		appendChild(filterDisplay);
+		inputBar.appendChild(inputField);
 
 		refreshFilters();
 
@@ -94,7 +97,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 			inputEngine,
 			configuration,
 			this::getMatchingItems,
-			inputField.getInputTextTrimmed());
+			inputField.getValueTrimmed());
 	}
 
 	@Override
@@ -111,7 +114,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 			.map(inputEngine::getDisplayString)
 			.map(IDisplayString::toString)
 			.orElse("");
-		inputField.setInputText(valueString);
+		inputField.setValue(valueString);
 	}
 
 	@Override
@@ -135,7 +138,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 
 	public DomAutoCompleteInput<T> select() {
 
-		inputField.select();
+		inputField.selectText();
 		return this;
 	}
 
@@ -167,7 +170,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 	 */
 	protected String getRawValueString() {
 
-		return inputField.getInputText();
+		return inputField.getValueText();
 	}
 
 	private Collection<T> getMatchingItems(String pattern) {
@@ -203,7 +206,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 
 	private void refreshInputValidity() {
 
-		inputField.setInputText(inputField.getInputText());
+		inputField.setValue(inputField.getValueText());
 		if (!getSelection().isValid()) {
 			getDomEngine().setAutoCompleteInputInvalid(this);
 		}
@@ -231,21 +234,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInput<T> implements
 
 		if (configuration.getValidationMode() != defaultMode) {
 			configuration.setValidationMode(defaultMode);
-		}
-	}
-
-	private class InputField extends DomTextInput implements IDomEventHandler {
-
-		public InputField() {
-
-			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
-		}
-
-		@Override
-		public void handleDOMEvent(IDomEvent event) {
-
-			refreshInputValidity();
-			executeChangeCallbacks();
 		}
 	}
 }

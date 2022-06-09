@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.file.stored.set.attribute;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
 import com.softicar.platform.core.module.file.stored.upload.StoredFileUploadDiv;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class StoredFileSetInput extends AbstractDomValueInput<AGStoredFileSet> implements IEmfInput<AGStoredFileSet> {
+public class StoredFileSetInput extends AbstractDomValueInputDiv<AGStoredFileSet> implements IEmfInput<AGStoredFileSet> {
 
 	private final StoredFileUploadDiv uploadDiv;
 	private AGStoredFileSet fileSet;

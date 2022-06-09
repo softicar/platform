@@ -9,10 +9,10 @@ import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import java.util.Optional;
 
-public class DomTimeInput extends AbstractDomValueInput<Time> {
+public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 
 	private final DomIntegerInput hourInput;
 	private final DomIntegerInput minuteInput;
@@ -20,9 +20,9 @@ public class DomTimeInput extends AbstractDomValueInput<Time> {
 
 	public DomTimeInput() {
 
-		this.hourInput = new Input(DomI18n.HOURS, DomTestMarker.HOURS_INPUT);
-		this.minuteInput = new Input(DomI18n.MINUTES, DomTestMarker.MINUTES_INPUT);
-		this.secondInput = new Input(DomI18n.SECONDS, DomTestMarker.SECONDS_INPUT);
+		this.hourInput = createInput(DomI18n.HOURS, DomTestMarker.HOURS_INPUT);
+		this.minuteInput = createInput(DomI18n.MINUTES, DomTestMarker.MINUTES_INPUT);
+		this.secondInput = createInput(DomI18n.SECONDS, DomTestMarker.SECONDS_INPUT);
 
 		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
 		appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
@@ -74,19 +74,18 @@ public class DomTimeInput extends AbstractDomValueInput<Time> {
 
 		return "%s:%s:%s"
 			.formatted(//
-				hourInput.getInputText(),
-				minuteInput.getInputText(),
-				secondInput.getInputText());
+				hourInput.getTextualValue(),
+				minuteInput.getTextualValue(),
+				secondInput.getTextualValue());
 	}
 
-	private class Input extends DomIntegerInput {
+	private DomIntegerInput createInput(IDisplayString title, IStaticObject testMarker) {
 
-		public Input(IDisplayString title, IStaticObject testMarker) {
-
-			setTitle(title);
-			addMarker(testMarker);
-			addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
-			addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
-		}
+		var input = new DomIntegerInput();
+		input.setTitle(title);
+		input.addMarker(testMarker);
+		input.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
+		input.addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
+		return input;
 	}
 }

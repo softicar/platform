@@ -3,12 +3,12 @@ package com.softicar.platform.emf.attribute.field.enums;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
-public class EmfEnumInput<E extends Enum<E>> extends AbstractDomValueInput<E> implements IEmfInput<E> {
+public class EmfEnumInput<E extends Enum<E>> extends AbstractDomValueInputDiv<E> implements IEmfInput<E> {
 
 	private final Select select;
 

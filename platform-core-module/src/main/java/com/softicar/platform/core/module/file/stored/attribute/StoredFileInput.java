@@ -4,14 +4,14 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.upload.StoredFileUploadDiv;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class StoredFileInput extends AbstractDomValueInput<AGStoredFile> implements IEmfInput<AGStoredFile> {
+public class StoredFileInput extends AbstractDomValueInputDiv<AGStoredFile> implements IEmfInput<AGStoredFile> {
 
 	private final StoredFileUploadDiv uploadDiv;
 	private AGStoredFile file;

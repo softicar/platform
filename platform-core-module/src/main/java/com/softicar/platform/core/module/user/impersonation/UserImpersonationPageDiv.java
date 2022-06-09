@@ -56,7 +56,7 @@ public class UserImpersonationPageDiv extends DomDiv {
 				.setValues(AGUser.TABLE.loadAll())
 				.setValueDisplayStringFunction(this::getUserDisplayString)
 				.build();
-			this.rationaleInput = new DomTextArea("", 3, 60);
+			this.rationaleInput = new DomTextArea().setSize(3, 60);
 
 			add(CoreI18n.IMPERSONATED_USER, userSelect);
 			add(CoreI18n.RATIONALE, rationaleInput);
@@ -74,7 +74,7 @@ public class UserImpersonationPageDiv extends DomDiv {
 
 		public String getRationale() {
 
-			String rationale = rationaleInput.getInputTextTrimmed();
+			String rationale = rationaleInput.getValueTrimmed();
 			//FIXME Arbitrary check for rationale length, decide for better check later
 			if (rationale.length() > 25) {
 				return rationale;

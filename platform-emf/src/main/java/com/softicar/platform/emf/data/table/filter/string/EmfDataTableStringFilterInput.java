@@ -14,14 +14,14 @@ class EmfDataTableStringFilterInput extends DomTextInput {
 
 	public String getNormalizedFilterText() {
 
-		return new FilterTextNormalizer(getInputTextTrimmed()).getNormalized();
+		return new FilterTextNormalizer(getValueTrimmed()).getNormalized();
 	}
 
 	public void refresh(EmfDataTableStringFilterType filterType) {
 
 		if (filterType.isEmpty() || filterType.isNotEmpty()) {
 			setDisplayNone(true);
-			setInputText("");
+			setValue("");
 		} else {
 			setDisplayNone(false);
 		}

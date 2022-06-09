@@ -5,14 +5,14 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import java.util.Optional;
 
-public class EmfWikiTextInput extends AbstractDomValueInput<String> {
+public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> {
 
 	private final EmfMultilineStringInput input;
 	private PreviewDiv preview;

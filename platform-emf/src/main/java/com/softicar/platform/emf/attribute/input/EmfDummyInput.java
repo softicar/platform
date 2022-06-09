@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public class EmfDummyInput<V> extends AbstractDomValueInput<V> implements IEmfInput<V> {
+public class EmfDummyInput<V> extends AbstractDomValueInputDiv<V> implements IEmfInput<V> {
 
 	private V value;
 

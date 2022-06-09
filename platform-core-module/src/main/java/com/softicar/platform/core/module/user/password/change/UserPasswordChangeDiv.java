@@ -236,23 +236,23 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public void setPassword(String password) {
 
-			passwordInput.setPassword(password);
-			repeatedPasswordInput.setPassword(password);
+			passwordInput.setValue(password);
+			repeatedPasswordInput.setValue(password);
 		}
 
 		public String getPassword() {
 
-			return passwordInput.getPassword();
+			return passwordInput.getValue().orElse("");
 		}
 
 		public String getCurrentPassword() {
 
-			return currentPasswordInput.getInputText();
+			return currentPasswordInput.getValue().orElse("");
 		}
 
 		public String getRepeatedPassword() {
 
-			return repeatedPasswordInput.getPassword();
+			return repeatedPasswordInput.getValue().orElse("");
 		}
 
 		public void setPasswordVisible(boolean visible) {
@@ -322,16 +322,6 @@ public class UserPasswordChangeDiv extends DomDiv {
 			} else {
 				setAttribute("type", "password");
 			}
-		}
-
-		public String getPassword() {
-
-			return getInputText();
-		}
-
-		public void setPassword(String password) {
-
-			setInputText(password);
 		}
 	}
 

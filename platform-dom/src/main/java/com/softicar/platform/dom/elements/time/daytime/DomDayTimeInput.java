@@ -8,10 +8,10 @@ import com.softicar.platform.common.date.Time;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.time.DomTimeInput;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import java.util.Optional;
 
-public class DomDayTimeInput extends AbstractDomValueInput<DayTime> {
+public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 
 	private final DomDayInput dayInput;
 	private final DomTimeInput timeInput;

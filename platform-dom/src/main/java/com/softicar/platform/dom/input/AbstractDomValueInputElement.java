@@ -2,14 +2,14 @@ package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.NullaryVoidFunctionList;
-import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.parent.DomParentElement;
 
-public abstract class AbstractDomValueInput<V> extends DomDiv implements IDomValueInput<V> {
+public abstract class AbstractDomValueInputElement<V> extends DomParentElement implements IDomValueInput<V> {
 
 	private final NullaryVoidFunctionList changeCallbacks;
 	private boolean disabled;
 
-	public AbstractDomValueInput() {
+	public AbstractDomValueInputElement() {
 
 		this.changeCallbacks = new NullaryVoidFunctionList();
 		this.disabled = false;

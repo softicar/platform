@@ -4,11 +4,11 @@ import com.softicar.platform.db.runtime.enums.IDbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
-public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDbEnumTableRowEnum<E, R>> extends AbstractDomValueInput<R>
+public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDbEnumTableRowEnum<E, R>> extends AbstractDomValueInputDiv<R>
 		implements IEmfInput<R> {
 
 	private final EntityInput input;

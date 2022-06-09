@@ -20,47 +20,47 @@ public class DomTextInputTest extends AbstractTest {
 	public void testDefaultConstructor() {
 
 		assertEquals("text", input.getAttributeValue("type").get());
-		assertEquals("", input.getInputText());
+		assertEquals("", input.getValueText());
 		assertTrue(input.isBlank());
 	}
 
 	@Test
-	public void testSetInputTextWithNull() {
+	public void testSetValueWithNull() {
 
-		input.setInputText(null);
+		input.setValue(null);
 
-		assertEquals("", input.getInputText());
-		assertEquals("", input.getInputTextTrimmed());
+		assertEquals("", input.getValueText());
+		assertEquals("", input.getValueTrimmed());
 		assertTrue(input.isBlank());
 	}
 
 	@Test
-	public void testSetInputTextWithEmptyString() {
+	public void testSetValueWithEmptyString() {
 
-		input.setInputText("");
+		input.setValue("");
 
-		assertEquals("", input.getInputText());
-		assertEquals("", input.getInputTextTrimmed());
+		assertEquals("", input.getValueText());
+		assertEquals("", input.getValueTrimmed());
 		assertTrue(input.isBlank());
 	}
 
 	@Test
-	public void testSetInputTextWithBlankString() {
+	public void testSetValueWithBlankString() {
 
-		input.setInputText("\t\r\n ");
+		input.setValue("\t\r\n ");
 
-		assertEquals("\t\r\n ", input.getInputText());
-		assertEquals("", input.getInputTextTrimmed());
+		assertEquals("\t\r\n ", input.getValueText());
+		assertEquals("", input.getValueTrimmed());
 		assertTrue(input.isBlank());
 	}
 
 	@Test
-	public void testSetInputTextWithNonEmptyString() {
+	public void testSetValueWithNonEmptyString() {
 
-		input.setInputText(" foo ");
+		input.setValue(" foo ");
 
-		assertEquals(" foo ", input.getInputText());
-		assertEquals("foo", input.getInputTextTrimmed());
+		assertEquals(" foo ", input.getValueText());
+		assertEquals("foo", input.getValueTrimmed());
 		assertFalse(input.isBlank());
 	}
 }

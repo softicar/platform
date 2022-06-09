@@ -1,14 +1,13 @@
 package com.softicar.platform.dom.input;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
-import java.util.Optional;
+import com.softicar.platform.dom.element.DomElementTag;
 
 /**
- * A simple text input element.
+ * A single-line text input.
  *
  * @author Oliver Richers
  */
-public class DomTextInput extends AbstractDomInput implements IDomTextualInput {
+public class DomTextInput extends AbstractDomTextualInput {
 
 	/**
 	 * Creates an empty text input.
@@ -22,26 +21,19 @@ public class DomTextInput extends AbstractDomInput implements IDomTextualInput {
 	/**
 	 * Creates the text input, initialized with the specified text.
 	 *
-	 * @param inputText
-	 *            the input text to assign (may be <i>null</i>>)
+	 * @param value
+	 *            the value to assign (may be <i>null</i>>)
 	 */
-	public DomTextInput(String inputText) {
+	public DomTextInput(String value) {
 
 		this();
-		setInputText(inputText);
+		setValue(value);
 	}
 
 	@Override
-	public DomTextInput setInputText(String inputText) {
+	public DomElementTag getTag() {
 
-		setAttribute("value", Optional.ofNullable(inputText).orElse(""));
-		return this;
-	}
-
-	@Override
-	public String getInputText() {
-
-		return getAttributeValue("value").orElse("");
+		return DomElementTag.INPUT;
 	}
 
 	/**
@@ -54,18 +46,5 @@ public class DomTextInput extends AbstractDomInput implements IDomTextualInput {
 	public void setMaxLength(int maxLength) {
 
 		setAttribute("maxlength", "" + maxLength);
-	}
-
-	/**
-	 * Defines the HTML placeholder attribute.
-	 *
-	 * @param placeholder
-	 *            the placeholder text to display (never <i>null</i>)
-	 * @return this
-	 */
-	public DomTextInput setPlaceholder(IDisplayString placeholder) {
-
-		setAttribute("placeholder", placeholder.toString());
-		return this;
 	}
 }

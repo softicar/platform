@@ -4,9 +4,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.event.IDomChangeEventHandler;
-import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.AbstractDomValueInput;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.Optional;
 
@@ -16,14 +14,14 @@ import java.util.Optional;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-public class DomDayInput extends AbstractDomValueInput<Day> {
+public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 
-	private final DayInput dayInput;
+	private final DomTextInput dayInput;
 	private final DayButton dayButton;
 
 	public DomDayInput() {
 
-		this.dayInput = new DayInput();
+		this.dayInput = createDayInput();
 		this.dayButton = new DayButton();
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
@@ -40,9 +38,9 @@ public class DomDayInput extends AbstractDomValueInput<Day> {
 	@Override
 	public Optional<Day> getValue() {
 
-		String inputText = dayInput.getInputTextTrimmed();
-		if (!inputText.isBlank()) {
-			return Optional.of(new DayParser(inputText).parseOrThrow());
+		var text = dayInput.getValueTrimmed();
+		if (!text.isBlank()) {
+			return Optional.of(new DayParser(text).parseOrThrow());
 		} else {
 			return Optional.empty();
 		}
@@ -51,8 +49,17 @@ public class DomDayInput extends AbstractDomValueInput<Day> {
 	@Override
 	public void setValue(Day day) {
 
-		dayInput.setInputText(day != null? day.toISOString() : "");
+		dayInput.setValue(day != null? day.toISOString() : "");
 		dayButton.setDay(day);
+	}
+
+	private DomTextInput createDayInput() {
+
+		var input = new DomTextInput();
+		input.setMaxLength(10);
+		input.addChangeCallback(DomDayInput.this::executeChangeCallbacks);
+		input.addMarker(DomTestMarker.DAY_INPUT);
+		return input;
 	}
 
 	private class DayButton extends AbstractDomDayPopupButton {
@@ -70,22 +77,7 @@ public class DomDayInput extends AbstractDomValueInput<Day> {
 		@Override
 		public void handleDayChange() {
 
-			dayInput.setInputText(getDay().toISOString());
-			executeChangeCallbacks();
-		}
-	}
-
-	private class DayInput extends DomTextInput implements IDomChangeEventHandler {
-
-		public DayInput() {
-
-			setMaxLength(10);
-			addMarker(DomTestMarker.DAY_INPUT);
-		}
-
-		@Override
-		public void handleChange(IDomEvent event) {
-
+			dayInput.setValue(getDay().toISOString());
 			executeChangeCallbacks();
 		}
 	}

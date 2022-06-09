@@ -86,7 +86,7 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	@Override
 	public String getFileNamePrefixOrNull() {
 
-		String fileName = this.inputFileName.getInputTextTrimmed();
+		String fileName = this.inputFileName.getValueTrimmed();
 
 		if (!fileName.isBlank() && TableExportLib.validateFileName(fileName)) {
 			return fileName;

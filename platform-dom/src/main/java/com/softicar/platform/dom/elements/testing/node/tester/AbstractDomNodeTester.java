@@ -105,7 +105,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 			.withType(IDomTextualInput.class)
 			.assertOne()
 			.assertType(IDomTextualInput.class);
-		engine.setInputValue(input, text);
+		engine.setValueText(input, text);
 		return this;
 	}
 
@@ -115,7 +115,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 			.withType(IDomTextualInput.class)
 			.assertOne()
 			.assertType(IDomTextualInput.class);
-		return engine.getInputValue(input);
+		return engine.getValueText(input);
 	}
 
 	public AbstractDomNodeTester<N> assertInputValue(String expectedValue) {
