@@ -1,13 +1,13 @@
 package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.event.recipient.AGSystemEventEmailRecipient;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import java.util.List;
 import org.junit.Test;
 
 public class SystemEventNotifierTest extends AbstractCoreTest {
@@ -19,10 +19,13 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 		this.moduleInstance = AGCoreModuleInstance.getInstance();
 	}
 
-	@Test(expected = SofticarUserException.class)
+	@Test
 	public void testWithoutRecipients() {
 
-		SystemEventNotifier.notifyAboutEvents();
+		assertException(//
+			SofticarUserException.class,
+			SystemEventNotifier::notifyAboutEvents,
+			CoreI18n.NO_EMAIL_RECIPIENTS_DEFINED.toString());
 	}
 
 	@Test
@@ -42,18 +45,52 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testWithEvents() {
+	public void testWithError() {
 
 		insertSystemEventEmailRecipient();
-		new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, "Test").save();
+		insetSystemEvent(AGSystemEventSeverityEnum.ERROR);
+
 		SystemEventNotifier.notifyAboutEvents();
-		List<AGBufferedEmail> bufferedMails = AGBufferedEmail.TABLE.loadAll();
-		assertEquals(1, bufferedMails.size());
-		assertEquals(CurrentUser.get().getEmailAddress(), bufferedMails.get(0).getTo());
+
+		assertEmailSent();
+	}
+
+	@Test
+	public void testWithWarning() {
+
+		insertSystemEventEmailRecipient();
+		insetSystemEvent(AGSystemEventSeverityEnum.WARNING);
+
+		SystemEventNotifier.notifyAboutEvents();
+
+		assertEmailSent();
+	}
+
+	@Test
+	public void testWithInfo() {
+
+		insertSystemEventEmailRecipient();
+		insetSystemEvent(AGSystemEventSeverityEnum.INFORMATION);
+
+		SystemEventNotifier.notifyAboutEvents();
+
+		assertEquals(0, AGBufferedEmail.TABLE.countAll());
 	}
 
 	private void insertSystemEventEmailRecipient() {
 
 		new AGSystemEventEmailRecipient().setRecipient(CurrentUser.get()).save();
+	}
+
+	private void insetSystemEvent(AGSystemEventSeverityEnum severity) {
+
+		new SystemEventBuilder(severity, "Test").save();
+	}
+
+	private void assertEmailSent() {
+
+		var bufferedMails = AGBufferedEmail.TABLE.loadAll();
+		assertEquals(1, bufferedMails.size());
+		assertEquals(CurrentUser.get().getEmailAddress(), bufferedMails.get(0).getTo());
 	}
 }
