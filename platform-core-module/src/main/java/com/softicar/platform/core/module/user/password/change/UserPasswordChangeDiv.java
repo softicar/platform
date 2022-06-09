@@ -242,17 +242,17 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public String getPassword() {
 
-			return passwordInput.getValue().orElse("");
+			return passwordInput.getValueText();
 		}
 
 		public String getCurrentPassword() {
 
-			return currentPasswordInput.getValue().orElse("");
+			return currentPasswordInput.getValueText();
 		}
 
 		public String getRepeatedPassword() {
 
-			return repeatedPasswordInput.getValue().orElse("");
+			return repeatedPasswordInput.getValueText();
 		}
 
 		public void setPasswordVisible(boolean visible) {

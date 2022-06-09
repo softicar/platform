@@ -68,7 +68,7 @@ public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> {
 			preview = null;
 		}
 
-		this.preview = new PreviewDiv(input.getValue().orElse(""));
+		this.preview = new PreviewDiv(input.getValueText());
 		appendChild(preview);
 	}
 
