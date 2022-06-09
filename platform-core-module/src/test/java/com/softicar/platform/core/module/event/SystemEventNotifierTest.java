@@ -37,6 +37,15 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 	}
 
 	@Test
+	public void testWithoutRecipientsAndEventAndTestSystem() {
+
+		moduleInstance.setTestSystem(true).save();
+		insetSystemEvent(AGSystemEventSeverityEnum.ERROR);
+		SystemEventNotifier.notifyAboutEvents();
+		assertEquals(0, AGBufferedEmail.TABLE.countAll());
+	}
+
+	@Test
 	public void testWithoutEvents() {
 
 		insertSystemEventEmailRecipient();

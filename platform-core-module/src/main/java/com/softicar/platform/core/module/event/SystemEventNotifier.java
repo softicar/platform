@@ -27,7 +27,7 @@ public class SystemEventNotifier {
 			throw new SofticarUserException(CoreI18n.NO_EMAIL_RECIPIENTS_DEFINED);
 		}
 		int count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_CONFIRMATION).count();
-		if (count > 0) {
+		if (count > 0 && !emailRecipients.isEmpty()) {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
 				.setSubject(CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION.toDisplay(moduleInstance.getSystemName(), count))
