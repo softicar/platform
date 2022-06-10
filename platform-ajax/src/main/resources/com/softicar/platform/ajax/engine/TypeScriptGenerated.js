@@ -338,6 +338,8 @@ class DomPopupEngine {
                 popupLeft -= parentRect.left;
                 popupTop -= parentRect.top;
             }
+            popupLeft = Math.max(popupLeft, 0);
+            popupTop = Math.max(popupTop, 0);
         }
         else {
             console.log("Warning: Tried to move a popup that was not appended. Its position might be unexpected.");
