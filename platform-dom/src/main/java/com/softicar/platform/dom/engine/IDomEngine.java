@@ -150,7 +150,7 @@ public interface IDomEngine {
 	 * given dragged {@link IDomNode}.
 	 * <p>
 	 * If a limiting {@link IDomNode} is given, the top and left edges of its
-	 * bounding box will serve as boundaries when dragging. If no limiting
+	 * bounding box will serve as boundaries for dragging. If no limiting
 	 * {@link IDomNode} is given, the top and left edges of the viewport will
 	 * serve as boundaries.
 	 *
@@ -161,8 +161,9 @@ public interface IDomEngine {
 	 *            the {@link IDomNode} that the user needs to drag (never
 	 *            <i>null</i>)
 	 * @param limitingNode
-	 *            an {@link IDomNode} that limits the area in which the dragged
-	 *            {@link IDomNode} can be moved (may be <i>null</i>)
+	 *            an {@link IDomNode} that defines top and left boundaries below
+	 *            which the dragged {@link IDomNode} cannot be moved (may be
+	 *            <i>null</i>)
 	 */
 	void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode);
 
