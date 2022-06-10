@@ -56,10 +56,12 @@
 	
 	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
 	background-color: var(--LABEL_BACKGROUND_COLOR);
+	box-shadow: var(--BOX_SHADOW_TABLE_HEADER);
 }
 
 .DomPopupFrame.maximized > .DomPopupFrameHeader {
 	position: sticky;
+	z-index: 1;
 	top: 0;
 	left: 0;
 	cursor: default;
