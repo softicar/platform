@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user.configuration.table;
 
 import com.google.gson.Gson;
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
@@ -30,9 +29,6 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 
 		String configurationJson = new Gson().toJson(configuration);
 
-		// TODO remove
-		Log.finfo("saving: %s", configurationJson);
-
 		try (var transaction = new DbTransaction()) {
 			loadConfigurationRecord(tableIdentifier)//
 				.orElse(new AGUserSpecificTableConfiguration())
@@ -42,18 +38,12 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 				.setSerialization(configurationJson)
 				.save();
 			transaction.commit();
-
-			// TODO remove
-			Log.finfo("saved.");
 		}
 	}
 
 	@Override
 	public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(DataTableIdentifier tableIdentifier,
 			EmfDataTableColumnTitlesHash columnTitlesHash) {
-
-		// TODO remove
-		Log.finfo("loading...");
 
 		validateIdentifier(tableIdentifier);
 		validateColumnTitlesHash(columnTitlesHash);
@@ -68,11 +58,7 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 				configurationRecord.delete();
 				configuration = Optional.empty();
 			} else {
-				String json = configurationRecord.getSerialization();
-
-				// TODO remove
-				Log.finfo("loaded: %s", json);
-				configuration = Optional.of(createUserSpecificTableConfiguration(json));
+				configuration = Optional.of(createUserSpecificTableConfiguration(configurationRecord.getSerialization()));
 			}
 
 			transaction.commit();

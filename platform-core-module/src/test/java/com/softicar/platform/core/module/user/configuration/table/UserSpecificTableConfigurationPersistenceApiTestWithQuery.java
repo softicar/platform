@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.user.configuration.table;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.query.IDbQuery;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -16,12 +15,11 @@ import org.junit.Test;
 public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
 
 	private final IUserSpecificTableConfigurationPersistenceTestQuery query;
-	private final String queryTableIdentifierHash;
 
 	public UserSpecificTableConfigurationPersistenceApiTestWithQuery() {
 
 		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
-		this.queryTableIdentifierHash = query.getIdentifier().getHash();
+		this.extectedTableIdentifierHash = query.getIdentifier().getHash();
 	}
 
 	@Test
@@ -96,16 +94,5 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 			.findHeaderCell(column)
 			.findButton(EmfDataTableDivMarker.ORDER_BY_BUTTON)
 			.click();
-	}
-
-	private void assertOneConfiguration(String expectedColumnTitlesHash, String expectedSerialization) {
-
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(queryTableIdentifierHash)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(expectedColumnTitlesHash)
-			.assertSerialization(expectedSerialization.replace("\n", "").formatted(expectedColumnTitlesHash))
-			.assertNoMoreRecords();
 	}
 }

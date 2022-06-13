@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.user.configuration.table;
 
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.List;
+import org.junit.Assert;
 
 class UserSpecificTableConfigurationRecordAsserter {
 
@@ -25,19 +26,19 @@ class UserSpecificTableConfigurationRecordAsserter {
 
 	public UserSpecificTableConfigurationRecordAsserter assertTableIdentifierHash(String expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getTableIdentifierHash());
+		Assert.assertEquals(expected, record.getTableIdentifierHash());
 		return this;
 	}
 
 	public UserSpecificTableConfigurationRecordAsserter assertUser(AGUser expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getUser());
+		Assert.assertEquals(expected, record.getUser());
 		return this;
 	}
 
 	public UserSpecificTableConfigurationRecordAsserter assertColumnTitlesHash(String expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getColumnTitlesHash());
+		Assert.assertEquals(expected, record.getColumnTitlesHash());
 		return this;
 	}
 
@@ -55,6 +56,6 @@ class UserSpecificTableConfigurationRecordAsserter {
 
 	public void assertNoMoreRecords() {
 
-		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertTrue(records.size() <= index);
+		Assert.assertTrue(records.size() <= index);
 	}
 }

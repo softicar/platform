@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user.configuration.table;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
@@ -21,7 +20,6 @@ import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableCo
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
-import java.util.function.Consumer;
 import org.junit.Test;
 
 /**
@@ -67,8 +65,9 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 
 	public UserSpecificTableConfigurationPersistenceApiTestWithTable() {
 
-		insertTestRecords();
+		this.extectedTableIdentifierHash = TestObjectTable.TABLE_IDENTIFIER_HASH;
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, TestObject.TABLE);
+		insertTestRecords();
 	}
 
 	@Test
@@ -80,31 +79,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 			.openConfiguration()
 			.clickApply();
 
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
-			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
-			.assertNoMoreRecords();
-	}
-
-	@Test
-	public void testInsertionWithManagementTableAndConcealedColumn() {
-
-		setNodeSupplier(() -> TestObjectTable.createManagementDiv(builder -> builder.setDataTableDivCustomizer(it -> it.setConcealed(null, false))));
-
-		interactor//
-			.openConfiguration()
-			.clickApply();
-
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
-			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
-			.assertNoMoreRecords();
+		assertOneConfiguration(TestObjectTable.COLUMN_TITLES_HASH, TEST_OBJECT_JSON_DEFAULT);
 	}
 
 	@Test
@@ -124,13 +99,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 			.selectOrderPriority("Amount", 1)
 			.clickApply();
 
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
-			.assertSerialization(TEST_OBJECT_JSON_ALTERED)
-			.assertNoMoreRecords();
+		assertOneConfiguration(TestObjectTable.COLUMN_TITLES_HASH, TEST_OBJECT_JSON_ALTERED);
 	}
 
 	@Test
@@ -274,13 +243,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 		tableAsserter//
 			.assertDisplayedColumns("ID", "Name", "Amount", "Date");
 
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
-			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
-			.assertNoMoreRecords();
+		assertOneConfiguration(TestObjectTable.COLUMN_TITLES_HASH, TEST_OBJECT_JSON_DEFAULT);
 	}
 
 	@Test
@@ -305,13 +268,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 		tableAsserter//
 			.assertDisplayedColumns("ID", "Amount", "Name");
 
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
-			.assertSerialization(TEST_OBJECT_JSON_ALTERED)
-			.assertNoMoreRecords();
+		assertOneConfiguration(TestObjectTable.COLUMN_TITLES_HASH, TEST_OBJECT_JSON_ALTERED);
 	}
 
 	private void insertTestRecords() {
@@ -438,14 +395,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 
 		public static IDomNode createManagementDiv() {
 
-			return createManagementDiv(Consumers.noOperation());
-		}
-
-		public static IDomNode createManagementDiv(Consumer<EmfManagementDivBuilder<TestObject, Integer, SystemModuleInstance>> customizer) {
-
-			var builder = new EmfManagementDivBuilder<>(TestObject.TABLE, CoreModule.getModuleInstance());
-			customizer.accept(builder);
-			return builder.build();
+			return new EmfManagementDivBuilder<>(TestObject.TABLE, CoreModule.getModuleInstance()).build();
 		}
 
 		public static AGUserSpecificTableConfiguration insertConfiguration(String json) {

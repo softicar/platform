@@ -40,8 +40,6 @@ public class DemoInvoiceContactReportPage implements IEmfPage<AGDemoInvoiceModul
 		return new EmfDataTableDivBuilder<>(query)//
 			.addTableMarker(AGDemoInvoice.TABLE)
 			.addColumnMarker(IDemoInvoiceContactReportQuery.CONTACT_COLUMN, IDemoInvoiceContactReportQuery.CONTACT_COLUMN)
-			// TODO remove
-			.setConcealed(IDemoInvoiceContactReportQuery.CONTACT_COLUMN, true)
 			.build();
 	}
 

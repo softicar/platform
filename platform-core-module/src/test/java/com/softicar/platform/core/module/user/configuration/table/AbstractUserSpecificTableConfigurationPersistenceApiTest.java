@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.user.configuration.table;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHashFactory;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupAsserter;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupTestInteractor;
@@ -19,6 +20,7 @@ public class AbstractUserSpecificTableConfigurationPersistenceApiTest extends Ab
 
 	protected final EmfDataTableConfigurationPopupTestInteractor interactor;
 	protected final EmfDataTableConfigurationPopupAsserter popupAsserter;
+	protected String extectedTableIdentifierHash;
 
 	public AbstractUserSpecificTableConfigurationPersistenceApiTest() {
 
@@ -43,5 +45,21 @@ public class AbstractUserSpecificTableConfigurationPersistenceApiTest extends Ab
 			.createSelect()
 			.orderBy(AGUserSpecificTableConfiguration.ID)
 			.list();
+	}
+
+	protected void assertOneConfiguration(String expectedColumnTitlesHash, String expectedConfigurationString) {
+
+		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
+			.nextRecord()
+			.assertTableIdentifierHash(extectedTableIdentifierHash)
+			.assertUser(CurrentUser.get())
+			.assertColumnTitlesHash(expectedColumnTitlesHash)
+			.assertSerialization(formatConfigurationString(expectedConfigurationString, expectedColumnTitlesHash))
+			.assertNoMoreRecords();
+	}
+
+	protected String formatConfigurationString(String configurationString, String columnTitlesHash) {
+
+		return configurationString.replace("\n", "").formatted(columnTitlesHash);
 	}
 }
