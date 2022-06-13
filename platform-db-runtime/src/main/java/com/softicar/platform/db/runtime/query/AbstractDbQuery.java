@@ -22,15 +22,21 @@ import java.util.List;
 
 public abstract class AbstractDbQuery<R extends IDbQueryRow<R>> implements IDbQuery<R> {
 
+	private final DataTableIdentifier identifier;
 	private final DbQueryFilterList<R> filters = new DbQueryFilterList<>(DataTableFilterListOperator.AND);
 	private final DbQuerySorterList<R> sorters = new DbQuerySorterList<>();
 	private boolean straightJoin;
 
+	public AbstractDbQuery() {
+
+		var sql = new DbSqlFormatter(createSelect()).setExpandParameters(false).format();
+		this.identifier = new DataTableIdentifier(sql);
+	}
+
 	@Override
 	public DataTableIdentifier getIdentifier() {
 
-		String sql = new DbSqlFormatter(createSelect()).setExpandParameters(false).format();
-		return new DataTableIdentifier(sql);
+		return identifier;
 	}
 
 	@Override

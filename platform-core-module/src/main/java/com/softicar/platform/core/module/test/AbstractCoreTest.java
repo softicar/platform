@@ -6,11 +6,11 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
-import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
+import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import org.junit.Rule;
 
-public abstract class AbstractCoreTest extends AbstractDbTest implements IDomTestExecutionEngineMethods, CoreModuleTestFixtureMethods {
+public abstract class AbstractCoreTest extends AbstractDbTest implements IEmfTestEngineMethods, CoreModuleTestFixtureMethods {
 
 	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 

@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.user.configuration.table;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.query.IDbQuery;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHashFactory;
 import org.junit.Test;
 
@@ -48,30 +49,38 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 	@Test
 	public void testInsertionWithSqmlTableAndConcealedColumn() {
 
-		// TODO
-
 		var query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
 		var queryTableIdentifierHash = query.getIdentifier().getHash();
-//		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()
-//				.createHashFromColumns(
-//					IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
-//					IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN);
+		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()//
+			.createHashFromColumns(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
 
 		var dataTableDiv = new EmfDataTableDivBuilder<>(query)//
 			.setConcealed(IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN, true)
+			.addColumnMarker(
+				IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
+				IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN)
 			.build();
 		setNodeSupplier(() -> dataTableDiv);
 
-		interactor//
-			.openConfiguration()
-			.clickApply();
+		findTable()//
+			.findHeaderCell(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN)
+			.findButton(EmfDataTableDivMarker.ORDER_BY_BUTTON)
+			.click();
 
 		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
 			.nextRecord()
 			.assertTableIdentifierHash(queryTableIdentifierHash)
 			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash("")
-			.assertSerialization("")
+			.assertColumnTitlesHash(queryColumnTitlesHash)
+			.assertSerialization("""
+					{
+					"columnTitlesHash":"%s",
+					"hiddenColumnIndexes":[],
+					"columnPositions":[0,null],
+					"columnOrderBys":[{"columnIndex":0,"direction":"ASCENDING"}],
+					"pageSize":20
+					}
+					""".replace("\n", "").formatted(queryColumnTitlesHash))
 			.assertNoMoreRecords();
 	}
 }

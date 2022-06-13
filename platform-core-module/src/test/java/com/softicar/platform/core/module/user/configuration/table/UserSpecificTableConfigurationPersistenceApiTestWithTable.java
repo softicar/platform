@@ -39,9 +39,7 @@ import org.junit.Test;
  */
 public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
 
-	//@formatter:off
-	private static final String TEST_OBJECT_JSON_DEFAULT =
-			"""
+	private static final String TEST_OBJECT_JSON_DEFAULT = """
 			{
 			"columnTitlesHash":"%s",
 			"hiddenColumnIndexes":[],
@@ -49,12 +47,11 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 			"columnOrderBys":[],
 			"pageSize":20
 			}
-			"""
-			.formatted(TestObjectTable.COLUMN_TITLES_HASH)
-			.replaceAll("\n", "");
+			"""//
+		.formatted(TestObjectTable.COLUMN_TITLES_HASH)
+		.replaceAll("\n", "");
 
-	private static final String TEST_OBJECT_JSON_ALTERED =
-			"""
+	private static final String TEST_OBJECT_JSON_ALTERED = """
 			{
 			"columnTitlesHash":"%s",
 			"hiddenColumnIndexes":[3],
@@ -62,10 +59,9 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 			"columnOrderBys":[{"columnIndex":2,"direction":"ASCENDING"},{"columnIndex":0,"direction":"DESCENDING"}],
 			"pageSize":10
 			}
-			"""
-			.formatted(TestObjectTable.COLUMN_TITLES_HASH)
-			.replaceAll("\n", "");
-	//@formatter:on
+			"""//
+		.formatted(TestObjectTable.COLUMN_TITLES_HASH)
+		.replaceAll("\n", "");
 
 	private final EmfDataTableConfigurationTableAsserter tableAsserter;
 
