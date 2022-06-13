@@ -1,10 +1,13 @@
 package com.softicar.platform.core.module.user.configuration.table;
 
+import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHashFactory;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupAsserter;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupTestInteractor;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Base class for tests of {@link UserSpecificTableConfigurationPersistenceApi}.
@@ -24,8 +27,21 @@ public class AbstractUserSpecificTableConfigurationPersistenceApiTest extends Ab
 		this.popupAsserter = new EmfDataTableConfigurationPopupAsserter(this);
 	}
 
+	protected String getColumnTitlesHash(IDataTableColumn<?, ?>...columns) {
+
+		var titles = List//
+			.of(columns)
+			.stream()
+			.map(IDataTableColumn::getTitle)
+			.collect(Collectors.toList());
+		return new EmfDataTableColumnTitlesHashFactory().createHash(titles);
+	}
+
 	protected List<AGUserSpecificTableConfiguration> loadAllConfigurations() {
 
-		return AGUserSpecificTableConfiguration.createSelect().orderBy(AGUserSpecificTableConfiguration.ID).list();
+		return AGUserSpecificTableConfiguration.TABLE//
+			.createSelect()
+			.orderBy(AGUserSpecificTableConfiguration.ID)
+			.list();
 	}
 }

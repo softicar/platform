@@ -1,12 +1,10 @@
 package com.softicar.platform.emf.data.table.column.title;
 
-import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.string.hash.Hash;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -20,10 +18,5 @@ public class EmfDataTableColumnTitlesHashFactory {
 			List<String> translatedColumnTitles = columnTitles.stream().map(IDisplayString::toString).collect(Collectors.toList());
 			return Hash.SHA1.getHashStringLC(String.join(";", translatedColumnTitles));
 		}
-	}
-
-	public String createHashFromColumns(IDataTableColumn<?, ?>...columns) {
-
-		return createHash(Arrays.asList(columns).stream().map(IDataTableColumn::getTitle).collect(Collectors.toList()));
 	}
 }

@@ -16,7 +16,6 @@ import com.softicar.platform.db.sql.type.SqlValueTypes;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("all")
 public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDbQuery<IUserSpecificTableConfigurationPersistenceTestQuery.IRow> {
 
 	// -------------------------------- CONSTANTS -------------------------------- //
