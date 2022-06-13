@@ -95,17 +95,20 @@ public interface IEmfDataTableController<R> extends IPostPagingHook {
 
 	IEmfDataTableColumn<R, ?> getEmfColumn(IDataTableColumn<R, ?> dataColumn);
 
-	List<IEmfDataTableColumn<R, ?>> getColumnsInCustomOrder();
-
-	List<IEmfDataTableColumn<R, ?>> getColumnsInOriginalOrder();
-
 	/**
-	 * Returns all available (i.e. non-concealed) columns, corresponding to the
-	 * column order in the underlying data table.
+	 * Returns all non-concealed columns in the order of the underlying data
+	 * table.
 	 *
 	 * @return the available columns, in default order (never <i>null</i>)
 	 */
-	List<IEmfDataTableColumn<R, ?>> getAvailableColumnsInDefaultOrder();
+	List<IEmfDataTableColumn<R, ?>> getColumnsInDefaultOrder();
+
+	/**
+	 * Returns all non-concealed columns in the order that the user configured.
+	 *
+	 * @return the available columns, in custom order (never <i>null</i>)
+	 */
+	List<IEmfDataTableColumn<R, ?>> getColumnsInCustomOrder();
 
 	// -------------------- column hiding -------------------- //
 

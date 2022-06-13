@@ -29,8 +29,7 @@ public abstract class AbstractDbQuery<R extends IDbQueryRow<R>> implements IDbQu
 	@Override
 	public DataTableIdentifier getIdentifier() {
 
-		String sql = new DbSqlFormatter(createSelect()).setExpandParameters(false).format();
-		return new DataTableIdentifier(sql);
+		return new DataTableIdentifier(getClass().getCanonicalName());
 	}
 
 	@Override
