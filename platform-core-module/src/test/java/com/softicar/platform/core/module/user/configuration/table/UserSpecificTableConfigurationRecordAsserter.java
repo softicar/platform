@@ -25,19 +25,19 @@ class UserSpecificTableConfigurationRecordAsserter {
 
 	public UserSpecificTableConfigurationRecordAsserter assertTableIdentifierHash(String expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTest.assertEquals(expected, record.getTableIdentifierHash());
+		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getTableIdentifierHash());
 		return this;
 	}
 
 	public UserSpecificTableConfigurationRecordAsserter assertUser(AGUser expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTest.assertEquals(expected, record.getUser());
+		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getUser());
 		return this;
 	}
 
 	public UserSpecificTableConfigurationRecordAsserter assertColumnTitlesHash(String expected) {
 
-		UserSpecificTableConfigurationPersistenceApiTest.assertEquals(expected, record.getColumnTitlesHash());
+		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertEquals(expected, record.getColumnTitlesHash());
 		return this;
 	}
 
@@ -55,6 +55,6 @@ class UserSpecificTableConfigurationRecordAsserter {
 
 	public void assertNoMoreRecords() {
 
-		UserSpecificTableConfigurationPersistenceApiTest.assertTrue(records.size() <= index);
+		UserSpecificTableConfigurationPersistenceApiTestWithTable.assertTrue(records.size() <= index);
 	}
 }

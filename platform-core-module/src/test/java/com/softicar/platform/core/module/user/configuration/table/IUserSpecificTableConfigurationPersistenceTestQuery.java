@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.user.configuration.table;
 
-import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.runtime.query.AbstractDbQuery;
@@ -17,7 +16,6 @@ import com.softicar.platform.db.sql.type.SqlValueTypes;
 import java.util.ArrayList;
 import java.util.List;
 
-@Generated
 @SuppressWarnings("all")
 public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDbQuery<IUserSpecificTableConfigurationPersistenceTestQuery.IRow> {
 
@@ -32,6 +30,7 @@ public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDb
 	interface IRow extends IDbQueryRow<IRow> {
 
 		String getLoginName();
+
 		String getEmailAddress();
 	}
 
@@ -46,7 +45,7 @@ public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDb
 
 		private static class Factory implements IFactory {
 
-			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(2);
+			private final List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(2);
 
 			public Factory() {
 
@@ -89,6 +88,7 @@ public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDb
 
 			private class QuerySqlBuilder extends AbstractDbQuerySqlBuilder {
 
+				@Override
 				public void buildOriginalSelect() {
 
 					SELECT(LOGIN_NAME_COLUMN);
@@ -140,4 +140,3 @@ public interface IUserSpecificTableConfigurationPersistenceTestQuery extends IDb
 		}
 	}
 }
-

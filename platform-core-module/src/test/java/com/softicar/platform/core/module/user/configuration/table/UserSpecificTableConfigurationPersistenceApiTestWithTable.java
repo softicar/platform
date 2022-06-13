@@ -6,7 +6,6 @@ import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
-import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
@@ -18,16 +17,10 @@ import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
-import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHashFactory;
-import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupAsserter;
-import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupTestInteractor;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationTableAsserter;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
-import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
-import java.util.List;
 import java.util.function.Consumer;
 import org.junit.Test;
 
@@ -44,7 +37,7 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCoreTest {
+public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
 
 	//@formatter:off
 	private static final String TEST_OBJECT_JSON_DEFAULT =
@@ -74,16 +67,11 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 			.replaceAll("\n", "");
 	//@formatter:on
 
-	private final EmfDataTableConfigurationPopupTestInteractor interactor;
-	private final EmfDataTableConfigurationPopupAsserter popupAsserter;
 	private final EmfDataTableConfigurationTableAsserter tableAsserter;
 
-	public UserSpecificTableConfigurationPersistenceApiTest() {
+	public UserSpecificTableConfigurationPersistenceApiTestWithTable() {
 
-		CurrentEmfPersistenceApi.set(new UserSpecificTableConfigurationPersistenceApi());
 		insertTestRecords();
-		this.interactor = new EmfDataTableConfigurationPopupTestInteractor(this);
-		this.popupAsserter = new EmfDataTableConfigurationPopupAsserter(this);
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, TestObject.TABLE);
 	}
 
@@ -120,63 +108,6 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 			.assertUser(CurrentUser.get())
 			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
 			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
-			.assertNoMoreRecords();
-	}
-
-	@Test
-	public void testInsertionWithSqmlTable() {
-
-		var query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
-		var queryTableIdentifierHash = query.getIdentifier().getHash();
-		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()
-			.createHashFromColumns(
-				IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
-				IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN);
-
-		setNodeSupplier(() -> new EmfDataTableDivBuilder<>(query).build());
-
-		interactor//
-			.openConfiguration()
-			.clickApply();
-
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(queryTableIdentifierHash)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash(queryColumnTitlesHash)
-			.assertSerialization("""
-					{"columnTitlesHash":"%s","hiddenColumnIndexes":[],"columnPositions":[0,1],"columnOrderBys":[],"pageSize":20}
-					""".formatted(queryColumnTitlesHash).trim())
-			.assertNoMoreRecords();
-	}
-
-	@Test
-	public void testInsertionWithSqmlTableAndConcealedColumn() {
-
-		// TODO
-
-		var query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
-		var queryTableIdentifierHash = query.getIdentifier().getHash();
-//		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()
-//				.createHashFromColumns(
-//					IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
-//					IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN);
-
-		var dataTableDiv = new EmfDataTableDivBuilder<>(query)//
-			.setConcealed(IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN, true)
-			.build();
-		setNodeSupplier(() -> dataTableDiv);
-
-		interactor//
-			.openConfiguration()
-			.clickApply();
-
-		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
-			.nextRecord()
-			.assertTableIdentifierHash(queryTableIdentifierHash)
-			.assertUser(CurrentUser.get())
-			.assertColumnTitlesHash("")
-			.assertSerialization("")
 			.assertNoMoreRecords();
 	}
 
@@ -392,11 +323,6 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 		new TestObject().setName("foo").setAmount(10).setDate(Day.fromYMD(2021, 1, 1)).save();
 		new TestObject().setName("bar").setAmount(20).setDate(Day.fromYMD(2021, 2, 1)).save();
 		new TestObject().setName("baz").setAmount(30).setDate(Day.fromYMD(2021, 3, 1)).save();
-	}
-
-	private List<AGUserSpecificTableConfiguration> loadAllConfigurations() {
-
-		return AGUserSpecificTableConfiguration.createSelect().orderBy(AGUserSpecificTableConfiguration.ID).list();
 	}
 
 	@SuppressWarnings("all")
