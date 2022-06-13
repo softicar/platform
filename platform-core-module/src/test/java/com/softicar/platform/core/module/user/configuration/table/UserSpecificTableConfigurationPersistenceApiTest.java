@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.user.configuration.table;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.common.io.serialization.json.JsonBlock;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
@@ -18,14 +18,17 @@ import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
+import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHashFactory;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupAsserter;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationPopupTestInteractor;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationTableAsserter;
-import com.softicar.platform.emf.management.EmfManagementDiv;
+import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import java.util.List;
+import java.util.function.Consumer;
 import org.junit.Test;
 
 /**
@@ -43,24 +46,33 @@ import org.junit.Test;
  */
 public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCoreTest {
 
-	private static final String TEST_OBJECT_JSON_DEFAULT = new JsonBlock()//
-		.add("columnTitlesHash", TestObjectTable.COLUMN_TITLES_HASH)
-		.addAll("hiddenColumnIndexes")
-		.addAll("columnPositions", 0, 1, 2, 3)
-		.addAll("columnOrderBys")
-		.add("pageSize", 20)
-		.toString();
+	//@formatter:off
+	private static final String TEST_OBJECT_JSON_DEFAULT =
+			"""
+			{
+			"columnTitlesHash":"%s",
+			"hiddenColumnIndexes":[],
+			"columnPositions":[0,1,2,3],
+			"columnOrderBys":[],
+			"pageSize":20
+			}
+			"""
+			.formatted(TestObjectTable.COLUMN_TITLES_HASH)
+			.replaceAll("\n", "");
 
-	private static final String TEST_OBJECT_JSON_ALTERED = new JsonBlock()//
-		.add("columnTitlesHash", TestObjectTable.COLUMN_TITLES_HASH)
-		.addAll("hiddenColumnIndexes", 3)
-		.addAll("columnPositions", 0, 2, 1, 3)
-		.addAll(//
-			"columnOrderBys",
-			new JsonBlock().add("columnIndex", 2).add("direction", "ASCENDING"),
-			new JsonBlock().add("columnIndex", 0).add("direction", "DESCENDING"))
-		.add("pageSize", 10)
-		.toString();
+	private static final String TEST_OBJECT_JSON_ALTERED =
+			"""
+			{
+			"columnTitlesHash":"%s",
+			"hiddenColumnIndexes":[3],
+			"columnPositions":[0,2,1,3],
+			"columnOrderBys":[{"columnIndex":2,"direction":"ASCENDING"},{"columnIndex":0,"direction":"DESCENDING"}],
+			"pageSize":10
+			}
+			"""
+			.formatted(TestObjectTable.COLUMN_TITLES_HASH)
+			.replaceAll("\n", "");
+	//@formatter:on
 
 	private final EmfDataTableConfigurationPopupTestInteractor interactor;
 	private final EmfDataTableConfigurationPopupAsserter popupAsserter;
@@ -90,6 +102,81 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 			.assertUser(CurrentUser.get())
 			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
 			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
+			.assertNoMoreRecords();
+	}
+
+	@Test
+	public void testInsertionWithManagementTableAndConcealedColumn() {
+
+		setNodeSupplier(() -> TestObjectTable.createManagementDiv(builder -> builder.setDataTableDivCustomizer(it -> it.setConcealed(null, false))));
+
+		interactor//
+			.openConfiguration()
+			.clickApply();
+
+		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
+			.nextRecord()
+			.assertTableIdentifierHash(TestObjectTable.TABLE_IDENTIFIER_HASH)
+			.assertUser(CurrentUser.get())
+			.assertColumnTitlesHash(TestObjectTable.COLUMN_TITLES_HASH)
+			.assertSerialization(TEST_OBJECT_JSON_DEFAULT)
+			.assertNoMoreRecords();
+	}
+
+	@Test
+	public void testInsertionWithSqmlTable() {
+
+		var query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
+		var queryTableIdentifierHash = query.getIdentifier().getHash();
+		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()
+			.createHashFromColumns(
+				IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
+				IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN);
+
+		setNodeSupplier(() -> new EmfDataTableDivBuilder<>(query).build());
+
+		interactor//
+			.openConfiguration()
+			.clickApply();
+
+		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
+			.nextRecord()
+			.assertTableIdentifierHash(queryTableIdentifierHash)
+			.assertUser(CurrentUser.get())
+			.assertColumnTitlesHash(queryColumnTitlesHash)
+			.assertSerialization("""
+					{"columnTitlesHash":"%s","hiddenColumnIndexes":[],"columnPositions":[0,1],"columnOrderBys":[],"pageSize":20}
+					""".formatted(queryColumnTitlesHash).trim())
+			.assertNoMoreRecords();
+	}
+
+	@Test
+	public void testInsertionWithSqmlTableAndConcealedColumn() {
+
+		// TODO
+
+		var query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
+		var queryTableIdentifierHash = query.getIdentifier().getHash();
+//		var queryColumnTitlesHash = new EmfDataTableColumnTitlesHashFactory()
+//				.createHashFromColumns(
+//					IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
+//					IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN);
+
+		var dataTableDiv = new EmfDataTableDivBuilder<>(query)//
+			.setConcealed(IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN, true)
+			.build();
+		setNodeSupplier(() -> dataTableDiv);
+
+		interactor//
+			.openConfiguration()
+			.clickApply();
+
+		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
+			.nextRecord()
+			.assertTableIdentifierHash(queryTableIdentifierHash)
+			.assertUser(CurrentUser.get())
+			.assertColumnTitlesHash("")
+			.assertSerialization("")
 			.assertNoMoreRecords();
 	}
 
@@ -429,7 +516,14 @@ public class UserSpecificTableConfigurationPersistenceApiTest extends AbstractCo
 
 		public static IDomNode createManagementDiv() {
 
-			return new EmfManagementDiv<>(TestObject.TABLE, CoreModule.getModuleInstance());
+			return createManagementDiv(Consumers.noOperation());
+		}
+
+		public static IDomNode createManagementDiv(Consumer<EmfManagementDivBuilder<TestObject, Integer, SystemModuleInstance>> customizer) {
+
+			var builder = new EmfManagementDivBuilder<>(TestObject.TABLE, CoreModule.getModuleInstance());
+			customizer.accept(builder);
+			return builder.build();
 		}
 
 		public static AGUserSpecificTableConfiguration insertConfiguration(String json) {

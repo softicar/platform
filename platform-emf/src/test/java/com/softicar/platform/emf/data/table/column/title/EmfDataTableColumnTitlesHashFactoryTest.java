@@ -44,6 +44,6 @@ public class EmfDataTableColumnTitlesHashFactoryTest extends AbstractTest {
 	@Test(expected = NullPointerException.class)
 	public void testCreateHashWithNullList() {
 
-		factory.createHash(null);
+		factory.createHash((List<IDisplayString>) null);
 	}
 }
