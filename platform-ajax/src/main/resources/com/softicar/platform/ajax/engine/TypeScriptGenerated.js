@@ -296,54 +296,53 @@ class DomPopupEngine {
         }
     }
     movePopup(popupFrame, x, y, xAlign, yAlign) {
-        popupFrame.style.position = 'absolute';
-        let sizeX = window.innerWidth;
-        let sizeY = window.innerHeight;
-        let scrollX = window.pageXOffset;
-        let scrollY = window.pageYOffset;
-        let popupWidth = popupFrame.offsetWidth;
-        let popupLeft = 0;
-        switch (xAlign) {
-            case "LEFT":
-                popupLeft = scrollX + x;
-                break;
-            case "CENTER":
-                popupLeft = scrollX + x - popupWidth / 2;
-                break;
-            case "RIGHT":
-                popupLeft = scrollX + x - popupWidth + 1;
-                break;
-        }
-        popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
-        popupLeft = Math.max(popupLeft, scrollX);
-        let popupHeight = popupFrame.offsetHeight;
-        let popupTop = 0;
-        switch (yAlign) {
-            case "TOP":
-                popupTop = scrollY + y;
-                break;
-            case "CENTER":
-                popupTop = scrollY + y - popupHeight / 2;
-                break;
-            case "BOTTOM":
-                popupTop = scrollY + y - popupHeight + 1;
-                break;
-        }
-        popupTop = Math.min(popupTop, scrollY + sizeY - popupHeight);
-        popupTop = Math.max(popupTop, scrollY);
         let parent = popupFrame.parentElement;
         if (parent != null) {
+            popupFrame.style.position = 'absolute';
+            let scrollX = window.scrollX + parent.scrollLeft;
+            let scrollY = window.scrollY + parent.scrollTop;
+            let sizeX = window.innerWidth;
+            let popupWidth = popupFrame.offsetWidth;
+            let popupLeft = 0;
+            switch (xAlign) {
+                case "LEFT":
+                    popupLeft = scrollX + x;
+                    break;
+                case "CENTER":
+                    popupLeft = scrollX + x - popupWidth / 2;
+                    break;
+                case "RIGHT":
+                    popupLeft = scrollX + x - popupWidth + 1;
+                    break;
+            }
+            popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
+            popupLeft = Math.max(popupLeft, scrollX);
+            let popupHeight = popupFrame.offsetHeight;
+            let popupTop = 0;
+            switch (yAlign) {
+                case "TOP":
+                    popupTop = scrollY + y;
+                    break;
+                case "CENTER":
+                    popupTop = scrollY + y - popupHeight / 2;
+                    break;
+                case "BOTTOM":
+                    popupTop = scrollY + y - popupHeight + 1;
+                    break;
+            }
             if (parent != document.body) {
                 let parentRect = parent.getBoundingClientRect();
                 popupLeft -= parentRect.left;
                 popupTop -= parentRect.top;
             }
+            popupLeft = Math.max(popupLeft, 0);
+            popupTop = Math.max(popupTop, 0);
+            popupFrame.style.left = popupLeft + 'px';
+            popupFrame.style.top = popupTop + 'px';
         }
         else {
-            console.log("Warning: Tried to move a popup that was not appended. Its position might be unexpected.");
+            console.log("Warning: Ignored an attempt to move a non-appended popup. Popup frame ID: " + popupFrame.id);
         }
-        popupFrame.style.left = popupLeft + 'px';
-        popupFrame.style.top = popupTop + 'px';
     }
     addEventListeners(popupFrame) {
         let options = { capture: true, passive: true };

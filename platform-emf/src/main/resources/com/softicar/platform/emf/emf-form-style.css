@@ -7,11 +7,6 @@
 	display: grid;
 	flex-grow: 1;
 	min-width: 320px;
-	width: 100%;
-}
-
-.EmfFormDelegator {
-	width: 100%;
 }
 
 .EmfFormFrame {
