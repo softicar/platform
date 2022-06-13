@@ -271,12 +271,9 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 		// prefetch data for action column
 		config.getActionColumnHandler().ifPresent(it -> it.prefetchData(dataRows));
 
-		// Note: Do not restrict to visible columns because even non-visible columns will contribute to row comparisons,
-		// hence we want the data from non-visible columns pre-fetched as well.
-		for (IEmfDataTableColumn<R, ?> tableColumn: getColumnsOrderedByCustomIndex()) {
-			if (!tableColumn.isConcealed()) {
-				prefetchData(dataRows, tableColumn);
-			}
+		// prefetch data for non-concealed columns
+		for (IEmfDataTableColumn<R, ?> tableColumn: controller.getAvailableColumnsInDefaultOrder()) {
+			prefetchData(dataRows, tableColumn);
 		}
 	}
 

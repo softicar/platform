@@ -71,7 +71,7 @@ public class EmfDataTableConfigurationModel<R> {
 	 */
 	public EmfDataTableConfigurationModel<R> loadDefaults() {
 
-		reloadColumnList(controller::getColumnsInOriginalOrder);
+		reloadColumnList(controller::getAvailableColumnsInDefaultOrder);
 		this.columnList.forEach(column -> this.stateMap.put(column, createDefaultState()));
 		this.pageSize = controller.getDefaultPageSize();
 		return this;

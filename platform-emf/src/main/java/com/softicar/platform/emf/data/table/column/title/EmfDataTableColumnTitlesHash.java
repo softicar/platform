@@ -32,7 +32,7 @@ public class EmfDataTableColumnTitlesHash {
 	private <R> List<IDisplayString> getColumnTitles(IEmfDataTableController<R> controller) {
 
 		return controller//
-			.getColumnsInOriginalOrder()
+			.getAvailableColumnsInDefaultOrder()
 			.stream()
 			.map(IEmfDataTableColumn::getDataColumn)
 			.filter(column -> !controller.getColumnSettings(column).isConcealed())

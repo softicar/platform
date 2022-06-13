@@ -24,4 +24,11 @@ public class EmfDataTableTester extends DomTableTester {
 
 		return findBody().findPopup(EmfDataTableDivMarker.FILTER_POPUP, columnMarker);
 	}
+
+	public void clickOrderByButton(IStaticObject column) {
+
+		findHeaderCell(column)//
+			.findButton(EmfDataTableDivMarker.ORDER_BY_BUTTON)
+			.click();
+	}
 }

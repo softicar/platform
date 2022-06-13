@@ -16,7 +16,7 @@ public class AbstractDbQueryTest extends AbstractTest {
 	@Test
 	public void testGetIdentifier() {
 
-		String expectedIdentifier = "SELECT x.string AS text FROM `database`.`table` AS x WHERE x.id = ?";
+		String expectedIdentifier = TestQuery.class.getCanonicalName();
 
 		TestQuery query = new TestQuery();
 		DataTableIdentifier identifier = query.getIdentifier();

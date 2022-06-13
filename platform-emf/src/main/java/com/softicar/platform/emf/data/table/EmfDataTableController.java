@@ -46,8 +46,8 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 		this.config = config;
 		this.rowSelectionControlElementSupplier = rowSelectionControlElementSupplier;
 		this.columnFilters = new HashMap<>();
-		this.columnMap = new EmfDataTableColumnMap<>(this, config.getDataTable());
-		this.selectedRows = new EmfDataTableRowSet<>(getDataTable().getTableColumns());
+		this.columnMap = new EmfDataTableColumnMap<>(this, config);
+		this.selectedRows = new EmfDataTableRowSet<>(columnMap.getDataColumnsInDefaultOrder());
 		this.ordering = config.getOrdering();
 	}
 
@@ -97,16 +97,6 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	public <T> IEmfDataTableRowBasedColumnHandler<R, T> getColumnHandler(IDataTableColumn<R, T> column) {
 
 		return config.getColumnHandler(column);
-	}
-
-	@Override
-	public List<IEmfDataTableColumn<R, ?>> getColumnsInOriginalOrder() {
-
-		return getDataTable()//
-			.getTableColumns()
-			.stream()
-			.map(columnMap::getEmfColumn)
-			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -161,10 +151,15 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	@Override
 	public List<IEmfDataTableColumn<R, ?>> getColumnsInCustomOrder() {
 
-		return columnMap//
-			.getDataColumns()
+		return columnMap.getEmfColumnsInCustomOrder();
+	}
+
+	@Override
+	public List<IEmfDataTableColumn<R, ?>> getColumnsInOriginalOrder() {
+
+		return getDataTable()//
+			.getTableColumns()
 			.stream()
-			.sorted(columnMap.getCustomIndexMap())
 			.map(columnMap::getEmfColumn)
 			.collect(Collectors.toList());
 	}
@@ -172,12 +167,7 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	@Override
 	public List<IEmfDataTableColumn<R, ?>> getAvailableColumnsInDefaultOrder() {
 
-		return getDataTable()//
-			.getTableColumns()
-			.stream()
-			.map(this::getEmfColumn)
-			.filter(column -> !column.isConcealed())
-			.collect(Collectors.toList());
+		return columnMap.getEmfColumnsInDefaultOrder();
 	}
 
 	// -------------------- column hiding -------------------- //
