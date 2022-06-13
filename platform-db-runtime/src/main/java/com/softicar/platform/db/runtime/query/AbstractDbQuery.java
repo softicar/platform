@@ -29,6 +29,7 @@ public abstract class AbstractDbQuery<R extends IDbQueryRow<R>> implements IDbQu
 	@Override
 	public DataTableIdentifier getIdentifier() {
 
+		// TODO solve PLAT-925
 		return new DataTableIdentifier(getClass().getCanonicalName());
 	}
 

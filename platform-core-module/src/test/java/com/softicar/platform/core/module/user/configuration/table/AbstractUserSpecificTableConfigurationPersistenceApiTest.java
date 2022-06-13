@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class AbstractUserSpecificTableConfigurationPersistenceApiTest extends AbstractCoreTest {
+public abstract class AbstractUserSpecificTableConfigurationPersistenceApiTest extends AbstractCoreTest {
 
 	protected final EmfDataTableConfigurationPopupTestInteractor interactor;
 	protected final EmfDataTableConfigurationPopupAsserter popupAsserter;
-	protected String extectedTableIdentifierHash;
+	protected String expectedTableIdentifierHash;
 
 	public AbstractUserSpecificTableConfigurationPersistenceApiTest() {
 
@@ -51,7 +51,7 @@ public class AbstractUserSpecificTableConfigurationPersistenceApiTest extends Ab
 
 		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
 			.nextRecord()
-			.assertTableIdentifierHash(extectedTableIdentifierHash)
+			.assertTableIdentifierHash(expectedTableIdentifierHash)
 			.assertUser(CurrentUser.get())
 			.assertColumnTitlesHash(expectedColumnTitlesHash)
 			.assertSerialization(formatConfigurationString(expectedConfigurationString, expectedColumnTitlesHash))

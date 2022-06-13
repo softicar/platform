@@ -1,9 +1,8 @@
 package com.softicar.platform.core.module.user.configuration.table;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.query.IDbQuery;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.test.IEmfTestEngineMethods;
 import org.junit.Test;
 
 /**
@@ -12,14 +11,15 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
+public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends AbstractUserSpecificTableConfigurationPersistenceApiTest
+		implements IEmfTestEngineMethods {
 
 	private final IUserSpecificTableConfigurationPersistenceTestQuery query;
 
-	public UserSpecificTableConfigurationPersistenceApiTestWithQuery() {
+	public UserSpecificTableConfigurationPersistenceApiWithQueryTest() {
 
 		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
-		this.extectedTableIdentifierHash = query.getIdentifier().getHash();
+		this.expectedTableIdentifierHash = query.getIdentifier().getHash();
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 				.build();
 		});
 
-		clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
+		findEmfDataTable().clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
 
 		assertOneConfiguration(expectedColumnTitlesHash, """
 				{
@@ -73,7 +73,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 				}
 				""");
 
-		clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
+		findEmfDataTable().clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
 
 		assertOneConfiguration(expectedColumnTitlesHash, """
 				{
@@ -84,13 +84,5 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 				"pageSize":20
 				}
 				""");
-	}
-
-	private void clickOrderByButton(IStaticObject column) {
-
-		findTable()//
-			.findHeaderCell(column)
-			.findButton(EmfDataTableDivMarker.ORDER_BY_BUTTON)
-			.click();
 	}
 }

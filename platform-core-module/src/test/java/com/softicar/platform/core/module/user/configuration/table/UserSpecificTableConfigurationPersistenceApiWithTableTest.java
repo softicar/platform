@@ -35,7 +35,7 @@ import org.junit.Test;
  *
  * @author Alexander Schmidt
  */
-public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
+public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends AbstractUserSpecificTableConfigurationPersistenceApiTest {
 
 	private static final String TEST_OBJECT_JSON_DEFAULT = """
 			{
@@ -63,9 +63,9 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 
 	private final EmfDataTableConfigurationTableAsserter tableAsserter;
 
-	public UserSpecificTableConfigurationPersistenceApiTestWithTable() {
+	public UserSpecificTableConfigurationPersistenceApiWithTableTest() {
 
-		this.extectedTableIdentifierHash = TestObjectTable.TABLE_IDENTIFIER_HASH;
+		this.expectedTableIdentifierHash = TestObjectTable.TABLE_IDENTIFIER_HASH;
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, TestObject.TABLE);
 		insertTestRecords();
 	}

@@ -273,9 +273,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 
 		// prefetch data for non-concealed columns
 		for (IEmfDataTableColumn<R, ?> tableColumn: controller.getColumnsInDefaultOrder()) {
-			if (!tableColumn.isConcealed()) {
-				prefetchData(dataRows, tableColumn);
-			}
+			prefetchData(dataRows, tableColumn);
 		}
 	}
 
