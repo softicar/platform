@@ -62,7 +62,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 			column.getController().removeAllColumnFiltersWithoutRefresh();
 			column//
 				.getController()
-				.getColumnsInOriginalOrder()
+				.getColumnsInDefaultOrder()
 				.stream()
 				.filter(column -> column != this.column)
 				.forEach(column -> column.resetFilterPopup());

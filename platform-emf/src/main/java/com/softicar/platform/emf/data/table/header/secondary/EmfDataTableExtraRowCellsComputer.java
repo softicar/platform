@@ -26,7 +26,7 @@ class EmfDataTableExtraRowCellsComputer<R> {
 		}
 
 		// data columns
-		for (IEmfDataTableColumn<?, ?> column: table.getColumnsOrderedByCustomIndex()) {
+		for (IEmfDataTableColumn<?, ?> column: table.getColumnsInCustomOrder()) {
 			if (!column.isConcealed() && !column.isHidden()) {
 				addColumn(Optional.ofNullable(columnToGroupMap.get(column.getDataColumn())));
 			}

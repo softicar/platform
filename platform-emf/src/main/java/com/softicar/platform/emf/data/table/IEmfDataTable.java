@@ -20,7 +20,7 @@ public interface IEmfDataTable<R> extends IDomElement, IRefreshable {
 
 	IEmfDataTableController<R> getController();
 
-	Collection<IEmfDataTableColumn<R, ?>> getColumnsOrderedByCustomIndex();
+	Collection<IEmfDataTableColumn<R, ?>> getColumnsInCustomOrder();
 
 	Collection<IEmfDataTableRow<R>> getDisplayedTableRows();
 
