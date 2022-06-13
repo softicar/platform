@@ -46,7 +46,7 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 		this.rowSelectionControlElementSupplier = rowSelectionControlElementSupplier;
 		this.columnFilters = new HashMap<>();
 		this.columnMap = new EmfDataTableColumnMap<>(this, config);
-		this.selectedRows = new EmfDataTableRowSet<>(getDataTable().getTableColumns());
+		this.selectedRows = new EmfDataTableRowSet<>(columnMap.getDataColumnsInDefaultOrder());
 		this.ordering = config.getOrdering();
 	}
 
