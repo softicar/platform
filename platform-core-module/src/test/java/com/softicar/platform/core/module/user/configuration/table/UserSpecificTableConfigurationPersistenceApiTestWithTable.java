@@ -17,7 +17,7 @@ import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.data.table.configuration.testing.EmfDataTableConfigurationTableAsserter;
-import com.softicar.platform.emf.management.EmfManagementDivBuilder;
+import com.softicar.platform.emf.management.EmfManagementDiv;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import org.junit.Test;
@@ -395,7 +395,7 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithTable extends A
 
 		public static IDomNode createManagementDiv() {
 
-			return new EmfManagementDivBuilder<>(TestObject.TABLE, CoreModule.getModuleInstance()).build();
+			return new EmfManagementDiv<>(TestObject.TABLE, CoreModule.getModuleInstance());
 		}
 
 		public static AGUserSpecificTableConfiguration insertConfiguration(String json) {
