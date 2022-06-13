@@ -100,7 +100,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 	}
 
 	@Override
-	public Collection<IEmfDataTableColumn<R, ?>> getColumnsOrderedByCustomIndex() {
+	public Collection<IEmfDataTableColumn<R, ?>> getColumnsInCustomOrder() {
 
 		return controller.getColumnsInCustomOrder();
 	}
@@ -273,7 +273,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 
 		// Note: Do not restrict to visible columns because even non-visible columns will contribute to row comparisons,
 		// hence we want the data from non-visible columns pre-fetched as well.
-		for (IEmfDataTableColumn<R, ?> tableColumn: getColumnsOrderedByCustomIndex()) {
+		for (IEmfDataTableColumn<R, ?> tableColumn: getColumnsInCustomOrder()) {
 			if (!tableColumn.isConcealed()) {
 				prefetchData(dataRows, tableColumn);
 			}

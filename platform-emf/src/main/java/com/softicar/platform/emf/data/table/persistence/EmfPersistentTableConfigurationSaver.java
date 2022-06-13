@@ -70,7 +70,7 @@ public class EmfPersistentTableConfigurationSaver<R> {
 
 	private List<Integer> determineColumnPositions() {
 
-		var indexMap = new IndexHashMap<>(controller.getAvailableColumnsInDefaultOrder());
+		var indexMap = new IndexHashMap<>(controller.getColumnsInDefaultOrder());
 		return controller//
 			.getColumnsInCustomOrder()
 			.stream()
@@ -80,7 +80,7 @@ public class EmfPersistentTableConfigurationSaver<R> {
 
 	private Set<Integer> determineHiddenColumnIndexes() {
 
-		var columns = controller.getAvailableColumnsInDefaultOrder();
+		var columns = controller.getColumnsInDefaultOrder();
 		Set<Integer> hiddenIndexes = new TreeSet<>();
 		for (int index = 0; index < columns.size(); index++) {
 			if (columns.get(index).isHidden()) {
@@ -93,7 +93,7 @@ public class EmfPersistentTableConfigurationSaver<R> {
 	private List<OrderBy> determineColumnOrderBys() {
 
 		var orderBys = new ArrayList<OrderBy>();
-		var dataColumns = controller.getAvailableColumnsInDefaultOrder().stream().map(IEmfDataTableColumn::getDataColumn).collect(Collectors.toList());
+		var dataColumns = controller.getColumnsInDefaultOrder().stream().map(IEmfDataTableColumn::getDataColumn).collect(Collectors.toList());
 		var columnIndexMap = new IndexHashMap<IDataTableColumn<R, ?>>(dataColumns);
 		for (OrderingEntry<R> entry: controller.getOrdering().getEntries()) {
 			var orderBy = new OrderBy();

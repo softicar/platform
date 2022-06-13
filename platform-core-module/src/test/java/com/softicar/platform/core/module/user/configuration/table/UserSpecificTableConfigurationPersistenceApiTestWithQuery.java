@@ -63,12 +63,11 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 
 		clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
 
-		// FIXME remove the 'null' from the columnPositions
 		assertOneConfiguration(expectedColumnTitlesHash, """
 				{
 				"columnTitlesHash":"%s",
 				"hiddenColumnIndexes":[],
-				"columnPositions":[0,null],
+				"columnPositions":[0],
 				"columnOrderBys":[{"columnIndex":0,"direction":"ASCENDING"}],
 				"pageSize":20
 				}
@@ -76,12 +75,11 @@ public class UserSpecificTableConfigurationPersistenceApiTestWithQuery extends A
 
 		clickOrderByButton(IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
 
-		// FIXME remove the 'null' from the columnPositions
 		assertOneConfiguration(expectedColumnTitlesHash, """
 				{
 				"columnTitlesHash":"%s",
 				"hiddenColumnIndexes":[],
-				"columnPositions":[0,null],
+				"columnPositions":[0],
 				"columnOrderBys":[{"columnIndex":0,"direction":"DESCENDING"}],
 				"pageSize":20
 				}
