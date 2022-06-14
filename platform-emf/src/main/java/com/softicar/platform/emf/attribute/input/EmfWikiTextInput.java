@@ -12,7 +12,7 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import java.util.Optional;
 
-public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> {
+public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> implements IEmfInput<String> {
 
 	private final EmfMultilineStringInput input;
 	private PreviewDiv preview;

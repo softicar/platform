@@ -12,6 +12,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
@@ -247,7 +248,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 		private void appendActiveCheckbox() {
 
-			EmfBooleanInput input = appendChild(
+			DomCheckbox input = appendChild(
 				new EmfBooleanInput(showInactive)//
 					.setLabel(EmfI18n.SHOW_INACTIVE));
 			input.addChangeCallback(() -> toggleShowInactive(input.isChecked()));
