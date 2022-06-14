@@ -19,7 +19,7 @@ public class AjaxAutoCompleteTestInput extends DomAutoCompleteInput<AjaxAutoComp
 
 	public void listenToChange() {
 
-		setChangeCallback(this::handleDOMEvent);
+		addChangeCallback(this::handleDOMEvent);
 	}
 
 	public AjaxAutoCompleteTestInputEngine getEngine() {

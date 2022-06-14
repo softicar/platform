@@ -4,16 +4,16 @@ import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.dom.input.AbstractDomValueInputTest;
+import com.softicar.platform.dom.input.AbstractDomValueInputDivTest;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.List;
 import org.junit.Test;
 
-public class DomTimeInputTest extends AbstractDomValueInputTest<Time> {
+public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
 
 	public DomTimeInputTest() {
 
-		super(() -> new DomTimeInput(null));
+		super(() -> new DomTimeInput());
 	}
 
 	@Test
@@ -36,19 +36,19 @@ public class DomTimeInputTest extends AbstractDomValueInputTest<Time> {
 	}
 
 	@Override
-	protected void enterValue(String inputText) {
+	protected void enterValue(String valueText) {
 
 		List<DomNodeTester> inputs = findNodes(IDomTextualInput.class).toList();
 
-		List<String> values = new Tokenizer(':', '\\').tokenize(inputText);
+		List<String> values = new Tokenizer(':', '\\').tokenize(valueText);
 		for (int i = 0; i < 3; i++) {
 			inputs.get(i).setInputValue(values.get(i));
 		}
 	}
 
-	private void assertResultForGetValue(String expectedValue, String inputValue) {
+	private void assertResultForGetValue(String expectedValue, String valueText) {
 
-		enterValue(inputValue);
+		enterValue(valueText);
 		assertEquals(expectedValue, input.getValue().get().toString());
 	}
 }

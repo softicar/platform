@@ -76,7 +76,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 
 		public String getValue() {
 
-			return input.getInputText();
+			return input.getValueTextTrimmed();
 		}
 	}
 
@@ -104,7 +104,7 @@ public class UserPseudonymizationAction extends AbstractEmfPromptAction<AGUser> 
 
 		private boolean isCorrectConfirmationText() {
 
-			return Objects.equals(input.getInputText(), getConfirmationText().toString());
+			return Objects.equals(input.getValueTextTrimmed(), getConfirmationText().toString());
 		}
 
 		private IDisplayString getConfirmationText() {

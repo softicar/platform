@@ -68,7 +68,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 		public PageSizeInputElement() {
 
 			this.input = new DomListeningTextInput(() -> applyAndHide());
-			this.input.setInputText("" + controller.getPageSize());
+			this.input.setValue("" + controller.getPageSize());
 			this.input.addMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_INPUT);
 
 			addCssClass(EmfCssClasses.EMF_DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT);
@@ -80,12 +80,12 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 		public Integer getPageSize() {
 
-			return IntegerParser.parseInteger(input.getInputText());
+			return IntegerParser.parseInteger(input.getValueTextTrimmed());
 		}
 
 		public void setPageSize(int pageSize) {
 
-			input.setInputText("" + pageSize);
+			input.setValue("" + pageSize);
 		}
 
 		private class ShowAllButton extends DomButton {
@@ -100,7 +100,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			private void handleClick() {
 
-				input.setInputText("" + Math.max(controller.getTotalRowCount(), controller.getDefaultPageSize()));
+				input.setValue("" + Math.max(controller.getTotalRowCount(), controller.getDefaultPageSize()));
 				input.focus();
 			}
 		}

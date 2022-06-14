@@ -28,10 +28,10 @@ public class DomLongInput extends AbstractDomNumberInput<Long> {
 	}
 
 	@Override
-	protected Long parseValue(String inputText) {
+	protected Long parseValue(String text) {
 
 		try {
-			return Long.valueOf(inputText);
+			return Long.valueOf(text);
 		} catch (Exception exception) {
 			throw new DomInputException(exception, DomI18n.INVALID_INTEGER);
 		}

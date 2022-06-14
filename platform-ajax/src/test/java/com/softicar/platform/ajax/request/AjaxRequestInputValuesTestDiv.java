@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
@@ -32,7 +33,9 @@ public class AjaxRequestInputValuesTestDiv extends DomDiv {
 	public AjaxRequestInputValuesTestDiv(Consumer<AjaxRequestInputValuesTestDiv> customizer) {
 
 		this.textInput = new DomTextInput();
+		this.textInput.unlistenToEvent(DomEventType.CHANGE);
 		this.textArea = new DomTextArea();
+		this.textArea.unlistenToEvent(DomEventType.CHANGE);
 		this.select = new DomSelect<>();
 		this.option1 = new DomOption();
 		this.option2 = new DomOption();

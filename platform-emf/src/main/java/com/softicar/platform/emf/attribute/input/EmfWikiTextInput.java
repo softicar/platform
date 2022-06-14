@@ -5,13 +5,14 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import java.util.Optional;
 
-public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
+public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> {
 
 	private final EmfMultilineStringInput input;
 	private PreviewDiv preview;
@@ -20,6 +21,7 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 
 		this.input = new EmfMultilineStringInput();
 		this.input.setPlaceholder(EmfI18n.ENTER_WIKI_TEXT_HERE);
+		this.input.addChangeCallback(this::executeChangeCallbacks);
 		this.preview = null;
 
 		addCssClass(EmfCssClasses.EMF_WIKI_TEXT_INPUT);
@@ -38,7 +40,7 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 	@Override
 	public Optional<String> getValue() {
 
-		return Optional.of(input.getInputText());
+		return input.getValue();
 	}
 
 	@Override
@@ -47,23 +49,16 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 		input.setValue(value);
 	}
 
-	@Override
-	public EmfWikiTextInput setDisabled(boolean disabled) {
-
-		input.setDisabled(disabled);
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return input.isDisabled();
-	}
-
 	public EmfWikiTextInput setPlaceholder(IDisplayString placeholder) {
 
 		input.setPlaceholder(placeholder);
 		return this;
+	}
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		input.setDisabled(disabled);
 	}
 
 	private void preview() {
@@ -73,7 +68,7 @@ public class EmfWikiTextInput extends AbstractEmfInputDiv<String> {
 			preview = null;
 		}
 
-		this.preview = new PreviewDiv(input.getInputText());
+		this.preview = new PreviewDiv(input.getValueText());
 		appendChild(preview);
 	}
 

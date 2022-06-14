@@ -9,12 +9,12 @@ import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTes
 import java.util.function.Supplier;
 import org.junit.Rule;
 
-public abstract class AbstractDomValueInputTest<V> extends AbstractTest implements IDomTestExecutionEngineMethods {
+public abstract class AbstractDomValueInputDivTest<V> extends AbstractTest implements IDomTestExecutionEngineMethods {
 
 	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 	protected final IDomValueInput<V> input;
 
-	public AbstractDomValueInputTest(Supplier<IDomValueInput<V>> inputFactory) {
+	public AbstractDomValueInputDivTest(Supplier<IDomValueInput<V>> inputFactory) {
 
 		this.input = inputFactory.get();
 
@@ -27,31 +27,31 @@ public abstract class AbstractDomValueInputTest<V> extends AbstractTest implemen
 		return engine;
 	}
 
-	protected void assertEmptyResultForGetValue(String inputText) {
+	protected void assertEmptyResultForGetValue(String valueText) {
 
-		enterValue(inputText);
+		enterValue(valueText);
 		assertEmpty(input.getValue());
 	}
 
-	protected void assertResultForGetValue(V expectedValue, String inputText) {
+	protected void assertResultForGetValue(V expectedValue, String valueText) {
 
-		enterValue(inputText);
+		enterValue(valueText);
 		assertEquals(expectedValue, input.getValue().get());
 	}
 
-	protected void assertExceptionForGetValue(IDisplayString expectedMessage, String inputText) {
+	protected void assertExceptionForGetValue(IDisplayString expectedMessage, String valueText) {
 
-		enterValue(inputText);
+		enterValue(valueText);
 		assertException(() -> input.getValue(), expectedMessage);
 	}
 
-	protected void assertExceptionForGetValue(I18n1 expectedMessage, String inputText) {
+	protected void assertExceptionForGetValue(I18n1 expectedMessage, String valueText) {
 
-		assertExceptionForGetValue(expectedMessage.toDisplay(inputText), inputText);
+		assertExceptionForGetValue(expectedMessage.toDisplay(valueText), valueText);
 	}
 
-	protected void enterValue(String inputText) {
+	protected void enterValue(String valueText) {
 
-		findNode(IDomTextualInput.class).setInputValue(inputText);
+		findNode(IDomTextualInput.class).setInputValue(valueText);
 	}
 }

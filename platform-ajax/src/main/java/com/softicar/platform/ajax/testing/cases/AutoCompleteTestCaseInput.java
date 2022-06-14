@@ -40,7 +40,7 @@ class AutoCompleteTestCaseInput extends DomAutoCompleteStringInput {
 
 	public AutoCompleteTestCaseInput listenToChange() {
 
-		setChangeCallback(() -> testCaseDiv.log("value: '%s'", getSelection().getValueOrNull()));
+		addChangeCallback(() -> testCaseDiv.log("value: '%s'", getSelection().getValueOrNull()));
 		return this;
 	}
 

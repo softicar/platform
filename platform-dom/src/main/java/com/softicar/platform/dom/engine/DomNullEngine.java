@@ -186,7 +186,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void select(IDomNode inputNode) {
+	public void selectText(IDomNode inputNode) {
 
 		// nothing to do
 	}

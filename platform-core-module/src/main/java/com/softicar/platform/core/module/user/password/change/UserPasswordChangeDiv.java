@@ -42,7 +42,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 		this.userPasswordPolicy = user.getPasswordPolicy();
 		this.hasNoValidPassword = !user.hasValidPassword();
 		this.visiblePasswordCheckbox = new EmfBooleanInput(false).setLabel(CoreI18n.SHOW_PASSWORD);
-		this.visiblePasswordCheckbox.setChangeCallback(this::setPasswordVisible);
+		this.visiblePasswordCheckbox.addChangeCallback(() -> setPasswordVisible(visiblePasswordCheckbox.isChecked()));
 		this.inputTable = new PasswordInputStack();
 		this.qualityMessageDiv = new QualityMessageDiv();
 		this.securePasswordMessageDiv = new SecurePasswordMessageDiv();
@@ -236,23 +236,23 @@ public class UserPasswordChangeDiv extends DomDiv {
 
 		public void setPassword(String password) {
 
-			passwordInput.setPassword(password);
-			repeatedPasswordInput.setPassword(password);
+			passwordInput.setValue(password);
+			repeatedPasswordInput.setValue(password);
 		}
 
 		public String getPassword() {
 
-			return passwordInput.getPassword();
+			return passwordInput.getValueText();
 		}
 
 		public String getCurrentPassword() {
 
-			return currentPasswordInput.getInputText();
+			return currentPasswordInput.getValueText();
 		}
 
 		public String getRepeatedPassword() {
 
-			return repeatedPasswordInput.getPassword();
+			return repeatedPasswordInput.getValueText();
 		}
 
 		public void setPasswordVisible(boolean visible) {
@@ -322,16 +322,6 @@ public class UserPasswordChangeDiv extends DomDiv {
 			} else {
 				setAttribute("type", "password");
 			}
-		}
-
-		public String getPassword() {
-
-			return getInputText();
-		}
-
-		public void setPassword(String password) {
-
-			setInputText(password);
 		}
 	}
 

@@ -6,5 +6,5 @@ import com.softicar.platform.emf.attribute.input.IEmfInput;
 
 public class EmfTimeInput extends DomTimeInput implements IEmfInput<Time> {
 
-	// TODO remove this class
+	// nothing to add
 }

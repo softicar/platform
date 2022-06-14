@@ -2,9 +2,9 @@ package com.softicar.platform.dom.elements.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Optional;
 
 /**
@@ -12,38 +12,39 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public abstract class AbstractDomNumberInput<T extends Number> extends DomTextInput implements IDomValueInput<T> {
+public abstract class AbstractDomNumberInput<T extends Number> extends AbstractDomValueInputDiv<T> {
+
+	private final DomTextInput input;
 
 	protected AbstractDomNumberInput() {
 
-		// nothing to do
+		this.input = new DomTextInput();
+		this.input.addChangeCallback(this::executeChangeCallbacks);
+
+		appendChild(input);
 	}
 
 	@Override
 	public void setValue(T value) {
 
-		if (value != null) {
-			setInputText(formatValue(value));
-		} else {
-			setInputText("");
-		}
+		input.setValue(formatNullableValue(value));
 	}
 
 	/**
-	 * Parses the input text into a proper value.
+	 * Parses the value text into a {@link Number}.
 	 * <p>
-	 * If the input text is empty or blank, an empty {@link Optional} is
-	 * returned. Otherwise, the input text is parsed into a value. If parsing
-	 * failed, an exception is thrown.
+	 * If the value text is empty or blank, an empty {@link Optional} is
+	 * returned. Otherwise, the value text is parsed into a {@link Number}. If
+	 * parsing failed, an exception is thrown.
 	 *
 	 * @return the optional value
 	 * @throws DomInputException
-	 *             if the input text cannot be parsed into a value
+	 *             if the value text cannot be parsed into a value
 	 */
 	@Override
 	public Optional<T> getValue() throws DomInputException {
 
-		String text = getInputTextTrimmed();
+		String text = input.getValueTextTrimmed();
 		if (!text.isBlank()) {
 			return Optional.of(parseValue(text));
 		} else {
@@ -69,6 +70,17 @@ public abstract class AbstractDomNumberInput<T extends Number> extends DomTextIn
 		}
 	}
 
+	public String getTextualValue() {
+
+		return input.getValueTextTrimmed();
+	}
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		input.setDisabled(disabled);
+	}
+
 	/**
 	 * Converts the value into a textual representation.
 	 *
@@ -79,14 +91,18 @@ public abstract class AbstractDomNumberInput<T extends Number> extends DomTextIn
 	protected abstract String formatValue(T value);
 
 	/**
-	 * Parses the input text into a value.
+	 * Parses the text into a value.
 	 * <p>
-	 * If parsing fails, a exception will be thrown.
+	 * If parsing fails, an exception will be thrown.
 	 *
-	 * @param inputText
-	 *            the trimmed input text to parse (never <i>null</i> and never
-	 *            empty)
+	 * @param text
+	 *            the trimmed text to parse (never <i>null</i> and never empty)
 	 * @return the value (never <i>null</i>)
 	 */
-	protected abstract T parseValue(String inputText);
+	protected abstract T parseValue(String text);
+
+	private String formatNullableValue(T value) {
+
+		return value != null? formatValue(value) : "";
+	}
 }

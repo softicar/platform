@@ -48,12 +48,17 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 					.setEnabled(WorkflowPermissions.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
 		this.showTransitionsCheckbox = actionBar//
 			.appendChild(new EmfBooleanInput(true).setLabel(WorkflowI18n.SHOW_TRANSITIONS));
-		showTransitionsCheckbox.setChangeCallback(() -> refresh(null));
+		showTransitionsCheckbox.addChangeCallback(this::refresh);
 		refresh(null);
 	}
 
 	@Override
 	public void refresh(IDomRefreshBusEvent event) {
+
+		refresh();
+	}
+
+	private void refresh() {
 
 		if (tableDiv != null) {
 			tableDiv.disappend();

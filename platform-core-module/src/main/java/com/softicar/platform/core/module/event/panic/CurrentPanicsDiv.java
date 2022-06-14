@@ -55,7 +55,7 @@ public class CurrentPanicsDiv extends DomDiv {
 		@Override
 		public void buildCell(IEmfDataTableCell<?, String> cell, String string) {
 
-			cell.appendChild(new DomTextArea(string, 4, 100));
+			cell.appendChild(new DomTextArea(string).setSize(4, 100));
 		}
 	}
 }

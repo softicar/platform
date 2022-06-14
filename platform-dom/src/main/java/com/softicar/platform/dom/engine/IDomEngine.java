@@ -189,7 +189,7 @@ public interface IDomEngine {
 
 	void focus(IDomNode inputNode);
 
-	void select(IDomNode inputNode);
+	void selectText(IDomNode inputNode);
 
 	void insertTextAtCaret(IDomTextualInput input, String text);
 

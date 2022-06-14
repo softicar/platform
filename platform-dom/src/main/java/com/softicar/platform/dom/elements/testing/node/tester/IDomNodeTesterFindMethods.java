@@ -163,8 +163,9 @@ public interface IDomNodeTesterFindMethods {
 	// ------------------------------ find methods for special nodes ------------------------------ //
 
 	/**
-	 * Retrieves the {@link DomBody} node from the {@link IDomTestExecutionEngine}, and
-	 * returns it as a {@link DomNodeTester}.
+	 * Retrieves the {@link DomBody} node from the
+	 * {@link IDomTestExecutionEngine}, and returns it as a
+	 * {@link DomNodeTester}.
 	 *
 	 * @return a {@link DomNodeTester} of the {@link DomBody} node (never
 	 *         <i>null</i>)
@@ -251,8 +252,9 @@ public interface IDomNodeTesterFindMethods {
 	default DomNodeTester findInput(IStaticObject marker) {
 
 		return findNodes(marker)//
-			.withType(IDomTextualInput.class)
-			.assertOne();
+			.filter(node -> new DomNodeTester(getEngine(), node).findNodes(IDomTextualInput.class).size() > 0)
+			.assertOne()
+			.findNode(IDomTextualInput.class);
 	}
 
 	/**

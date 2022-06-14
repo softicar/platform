@@ -7,8 +7,6 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.event.IDomChangeEventHandler;
-import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
 
 public class AjaxMultiEventTestDiv extends DomDiv {
@@ -82,10 +80,10 @@ public class AjaxMultiEventTestDiv extends DomDiv {
 
 	private void log(String text) {
 
-		logs.append("%s (%s)\n".formatted(text, input.getInputText()));
+		logs.append("%s (%s)\n".formatted(text, input.getValueText()));
 	}
 
-	public class Input extends DomTextInput implements IDomChangeEventHandler {
+	public class Input extends DomTextInput {
 
 		private volatile boolean blocking;
 		private volatile INullaryVoidFunction onChange;
@@ -94,15 +92,12 @@ public class AjaxMultiEventTestDiv extends DomDiv {
 
 			this.blocking = false;
 			this.onChange = INullaryVoidFunction.NO_OPERATION;
-		}
 
-		@Override
-		public void handleChange(IDomEvent event) {
-
-			log("input changed");
-
-			onChange.apply();
-			testEngineMethods.waitUntil(() -> !blocking);
+			addChangeCallback(() -> {
+				log("input changed");
+				onChange.apply();
+				testEngineMethods.waitUntil(() -> !blocking);
+			});
 		}
 
 		public void setBlocking(boolean blocking) {

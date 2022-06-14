@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
@@ -10,16 +10,14 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public class EmfDummyInput<V> extends DomDiv implements IEmfInput<V> {
+public class EmfDummyInput<V> extends AbstractDomValueInputDiv<V> implements IEmfInput<V> {
 
 	private V value;
-	private boolean disabled;
 
 	public EmfDummyInput(IEmfTableRow<?, ?> row) {
 
 		DevNull.swallow(row);
 		this.value = null;
-		this.disabled = false;
 	}
 
 	@Override
@@ -35,27 +33,8 @@ public class EmfDummyInput<V> extends DomDiv implements IEmfInput<V> {
 	}
 
 	@Override
-	public EmfDummyInput<V> setDisabled(boolean disabled) {
+	protected void doSetDisabled(boolean disabled) {
 
-		this.disabled = disabled;
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return disabled;
-	}
-
-	@Override
-	public final EmfDummyInput<V> setEnabled(boolean enabled) {
-
-		return setDisabled(!enabled);
-	}
-
-	@Override
-	public final boolean isEnabled() {
-
-		return !isDisabled();
+		// nothing to do
 	}
 }

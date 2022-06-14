@@ -12,9 +12,9 @@ public class EmfDisplayStringToTextAreaColumnHandler extends EmfDataTableValueBa
 	@Override
 	public void buildCell(IEmfDataTableCell<?, IDisplayString> cell, IDisplayString value) {
 
-		DomDiv content = new DomDiv();
+		var content = new DomDiv();
 		content.addCssClass(EmfCssClasses.EMF_DISPLAY_STRING_TO_TEXT_AREA_COLUMN_HANDLER);
-		DomTextArea textArea = new DomTextArea(value.toString(), 3, 40);
+		var textArea = new DomTextArea(value.toString()).setSize(3, 40);
 		textArea.setDisabled(true);
 		content.appendChild(textArea);
 		cell.appendChild(content);
