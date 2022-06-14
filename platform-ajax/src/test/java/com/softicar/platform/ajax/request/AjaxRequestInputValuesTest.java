@@ -33,7 +33,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertTextValue("foo");
 
 		// application changes value
-		testDiv.textInput.setInputText("X");
+		testDiv.textInput.setValue("X");
 		tester.clickButton();
 		tester.assertNoValueParameter();
 		tester.assertTextValue("X");
@@ -71,7 +71,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 	@Test
 	public void testWithTextInputWithInitialValueAndNoInitialInput() {
 
-		var testDiv = openTestNode(() -> new AjaxRequestInputValuesTestDiv(div -> div.textInput.setInputText("foo")));
+		var testDiv = openTestNode(() -> new AjaxRequestInputValuesTestDiv(div -> div.textInput.setValue("foo")));
 		var tester = new NodeTester(testDiv, testDiv.textInput);
 
 		tester.clickButton();
@@ -104,7 +104,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertTextValue("foo");
 
 		// application changes value
-		testDiv.textArea.setInputText("X");
+		testDiv.textArea.setValue("X");
 		tester.clickButton();
 		tester.assertNoValueParameter();
 		tester.assertTextValue("X");
@@ -221,7 +221,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 
 		public void assertTextValue(String expectedValue) {
 
-			assertEquals(expectedValue, ((IDomTextualInput) node).getInputText());
+			assertEquals(expectedValue, ((IDomTextualInput) node).getValueText());
 		}
 
 		public void assertSelectedOptions(DomOption...options) {

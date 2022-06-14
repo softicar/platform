@@ -14,7 +14,6 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.EmfMarker;
-import com.softicar.platform.emf.attribute.field.string.EmfMultilineStringInput;
 import com.softicar.platform.emf.form.IEmfFormBody;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
@@ -92,7 +91,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 	@Override
 	public DomTextArea appendTextArea(IDisplayString title) {
 
-		EmfMultilineStringInput textArea = new EmfMultilineStringInput();
+		DomTextArea textArea = new DomTextArea().setRowCount(5);
 		appendRow(title, textArea);
 		return textArea;
 	}

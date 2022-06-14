@@ -59,9 +59,9 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 		this.inputFileName = new DomTextInput(mainTableModel.getTableName().orElse(""));
 		this.fileNameSuffixDiv = new FileNameSuffixDiv();
 		this.inputAppendTimestamp = new EmfBooleanInput(appendTimestamp);
-		this.inputAppendTimestamp.setChangeCallback(fileNameSuffixDiv::refresh);
+		this.inputAppendTimestamp.addChangeCallback(fileNameSuffixDiv::refresh);
 		this.inputEnableDeflateCompression = new EmfBooleanInput(enableDeflateCompression);
-		this.inputEnableDeflateCompression.setChangeCallback(fileNameSuffixDiv::refresh);
+		this.inputEnableDeflateCompression.addChangeCallback(fileNameSuffixDiv::refresh);
 
 		List<ITableExportEngineFactory<?>> factories = TableExportEngineFactories.getAllFactories();
 
@@ -86,7 +86,7 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	@Override
 	public String getFileNamePrefixOrNull() {
 
-		String fileName = this.inputFileName.getInputTextTrimmed();
+		String fileName = this.inputFileName.getValueTextTrimmed();
 
 		if (!fileName.isBlank() && TableExportLib.validateFileName(fileName)) {
 			return fileName;

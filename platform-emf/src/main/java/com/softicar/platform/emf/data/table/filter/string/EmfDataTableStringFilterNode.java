@@ -90,7 +90,7 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 		public void apply() {
 
 			filterTypeSelect.setSelectedValue(filterType);
-			filterInput.setInputText(filterText);
+			filterInput.setValue(filterText);
 		}
 	}
 }

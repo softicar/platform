@@ -28,26 +28,26 @@ public class EmfDayInputTest extends AbstractTest implements IDomTestExecutionEn
 	}
 
 	@Test
-	public void testSetChangeCallback() {
+	public void testAddChangeCallback() {
 
 		var counter = new Counter();
-		input.setChangeCallback(counter::increment);
+		input.addChangeCallback(counter::increment);
 		input.setValue(DAY);
 
 		assertEquals(0, counter.count);
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testSetChangeCallbackWithNull() {
+	public void testAddChangeCallbackWithNull() {
 
-		input.setChangeCallback(null);
+		input.addChangeCallback(null);
 	}
 
 	@Test
 	public void testSetValueAndHandleChangeCallback() {
 
 		var counter = new Counter();
-		input.setChangeCallback(counter::increment);
+		input.addChangeCallback(counter::increment);
 
 		input.setValueAndHandleChangeCallback(DAY);
 
@@ -59,7 +59,7 @@ public class EmfDayInputTest extends AbstractTest implements IDomTestExecutionEn
 	public void testSetValueAndHandleChangeCallbackWithSameValue() {
 
 		var counter = new Counter();
-		input.setChangeCallback(counter::increment);
+		input.addChangeCallback(counter::increment);
 
 		input.setValueAndHandleChangeCallback(DAY);
 		input.setValueAndHandleChangeCallback(DAY);
@@ -81,7 +81,7 @@ public class EmfDayInputTest extends AbstractTest implements IDomTestExecutionEn
 	public void testSetValueAndHandleChangeCallbackWithNull() {
 
 		var counter = new Counter();
-		input.setChangeCallback(counter::increment);
+		input.addChangeCallback(counter::increment);
 		input.setValueAndHandleChangeCallback(null);
 
 		assertEquals(1, counter.count);

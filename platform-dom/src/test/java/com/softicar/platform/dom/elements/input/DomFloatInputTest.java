@@ -1,10 +1,10 @@
 package com.softicar.platform.dom.elements.input;
 
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.input.AbstractDomValueInputTest;
+import com.softicar.platform.dom.input.AbstractDomValueInputDivTest;
 import org.junit.Test;
 
-public class DomFloatInputTest extends AbstractDomValueInputTest<Float> {
+public class DomFloatInputTest extends AbstractDomValueInputDivTest<Float> {
 
 	public DomFloatInputTest() {
 

@@ -68,8 +68,6 @@ public interface EmfCssClasses {
 	ICssClass EMF_DISPLAY_STRING_TO_TEXT_AREA_COLUMN_HANDLER = new CssClass("EmfDisplayStringToTextAreaColumnHandler", EmfCssFiles.EMF_COLUMN_HANDLER_STYLE);
 	ICssClass EMF_PREDICATE_COLUMN_HANDLER = new CssClass("EmfPredicateColumnHandler", EmfCssFiles.EMF_COLUMN_HANDLER_STYLE);
 
-	ICssClass EMF_INPUT_DIV = new CssClass("EmfInputDiv", EmfCssFiles.EMF_INPUT_STYLE);
-
 	ICssClass EMF_PASSWORD_INPUT = new CssClass("EmfPasswordInput", EmfCssFiles.EMF_INPUT_STYLE);
 	ICssClass EMF_PASSWORD_VISIBILITY_BUTTON = new CssClass("EmfPasswordVisibilityButton", EmfCssFiles.EMF_INPUT_STYLE);
 

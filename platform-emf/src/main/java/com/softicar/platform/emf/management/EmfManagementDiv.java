@@ -250,7 +250,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			EmfBooleanInput input = appendChild(
 				new EmfBooleanInput(showInactive)//
 					.setLabel(EmfI18n.SHOW_INACTIVE));
-			input.setChangeCallback(EmfManagementDiv.this::toggleShowInactive);
+			input.addChangeCallback(() -> toggleShowInactive(input.isChecked()));
 			input.addMarker(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX);
 		}
 	}

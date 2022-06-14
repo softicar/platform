@@ -92,7 +92,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	@Test
 	public void testGetValueWithObject23AndClickInBrowsePopoverAndChangeCallback() {
 
-		getInput().setChangeCallback(this::handleChangeCallback);
+		getInput().addChangeCallback(this::handleChangeCallback);
 		openBrowsePopover();
 		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
 		assertSame(object23, getValue());

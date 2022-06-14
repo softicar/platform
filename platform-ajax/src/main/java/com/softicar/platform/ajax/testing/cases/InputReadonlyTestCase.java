@@ -11,7 +11,7 @@ public class InputReadonlyTestCase extends AbstractTestCaseDiv {
 
 	public InputReadonlyTestCase() {
 
-		this.input = new DomTextInput().setInputText("some input");
+		this.input = new DomTextInput("some input");
 
 		appendChild(input);
 		appendChild(

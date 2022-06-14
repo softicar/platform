@@ -1,16 +1,12 @@
 package com.softicar.platform.emf.attribute.field.decimal;
 
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.number.BigDecimalMapper;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.number.decimal.DomDecimalDisplay;
 import com.softicar.platform.dom.elements.number.decimal.DomDecimalInput;
-import com.softicar.platform.dom.event.IDomChangeEventHandler;
-import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.Objects;
 
 public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number> extends EmfFieldAttribute<R, V> {
 
@@ -56,35 +52,13 @@ public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number>
 		}
 	}
 
-	private class Input extends DomDecimalInput<V> implements IEmfInput<V>, IDomChangeEventHandler {
-
-		private INullaryVoidFunction callback;
+	private class Input extends DomDecimalInput<V> implements IEmfInput<V> {
 
 		public Input() {
 
 			super(mapper);
 
 			setScale(scale);
-			this.callback = INullaryVoidFunction.NO_OPERATION;
-		}
-
-		@Override
-		public void setValueAndHandleChangeCallback(V value) {
-
-			setValue(value);
-			callback.apply();
-		}
-
-		@Override
-		public void setChangeCallback(INullaryVoidFunction callback) {
-
-			this.callback = Objects.requireNonNull(callback);
-		}
-
-		@Override
-		public void handleChange(IDomEvent event) {
-
-			callback.apply();
 		}
 	}
 }

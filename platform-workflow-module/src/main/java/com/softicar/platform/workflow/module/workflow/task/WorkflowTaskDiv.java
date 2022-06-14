@@ -56,13 +56,18 @@ public class WorkflowTaskDiv extends DomDiv {
 
 			this.user = user;
 			this.showDelegatedTasksCheckbox = appendChild(new EmfBooleanInput(false).setLabel(WorkflowI18n.SHOW_TASKS_DELEGATED_BY_ME));
-			showDelegatedTasksCheckbox.setChangeCallback(() -> refresh(null));
+			showDelegatedTasksCheckbox.addChangeCallback(this::refresh);
 			appendChild(contentDiv = new DomDiv());
 			refresh(null);
 		}
 
 		@Override
 		public void refresh(IDomRefreshBusEvent event) {
+
+			refresh();
+		}
+
+		private void refresh() {
 
 			contentDiv.removeChildren();
 			contentDiv.appendChild(buildDiv());

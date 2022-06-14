@@ -58,14 +58,15 @@ public interface IDomTestExecutionEngine extends TestRule {
 
 	/**
 	 * Inputs the specified text into the given {@link IDomTextualInput} and
-	 * triggers an {@link IDomEvent} of type {@link DomEventType#TAB}.
+	 * triggers two {@link IDomEvent}s: one of type {@link DomEventType#TAB} and
+	 * one of type {@link DomEventType#CHANGE}.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to receive the text (never <i>null</i>)
 	 * @param text
 	 *            the text to send (never <i>null</i>)
 	 */
-	void setInputValue(IDomTextualInput node, String text);
+	void setValueText(IDomTextualInput node, String text);
 
 	/**
 	 * Retrieves the content of the given text input element.
@@ -75,7 +76,7 @@ public interface IDomTestExecutionEngine extends TestRule {
 	 *            <i>null</i>)
 	 * @return the the textual content (may be <i>null</i>)
 	 */
-	String getInputValue(IDomTextualInput node);
+	String getValueText(IDomTextualInput node);
 
 	/**
 	 * Tests whether the given {@link IDomNode} is displayed in the browser.

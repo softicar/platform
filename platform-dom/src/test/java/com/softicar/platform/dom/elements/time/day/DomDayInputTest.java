@@ -3,10 +3,10 @@ package com.softicar.platform.dom.elements.time.day;
 import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
-import com.softicar.platform.dom.input.AbstractDomValueInputTest;
+import com.softicar.platform.dom.input.AbstractDomValueInputDivTest;
 import org.junit.Test;
 
-public class DomDayInputTest extends AbstractDomValueInputTest<Day> {
+public class DomDayInputTest extends AbstractDomValueInputDivTest<Day> {
 
 	public DomDayInputTest() {
 

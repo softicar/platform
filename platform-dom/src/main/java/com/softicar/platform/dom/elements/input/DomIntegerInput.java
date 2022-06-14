@@ -28,10 +28,10 @@ public class DomIntegerInput extends AbstractDomNumberInput<Integer> {
 	}
 
 	@Override
-	protected Integer parseValue(String inputText) {
+	protected Integer parseValue(String text) {
 
 		try {
-			return Integer.valueOf(inputText);
+			return Integer.valueOf(text);
 		} catch (Exception exception) {
 			throw new DomInputException(exception, DomI18n.INVALID_INTEGER);
 		}

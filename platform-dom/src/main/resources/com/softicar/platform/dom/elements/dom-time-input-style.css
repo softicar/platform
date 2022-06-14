@@ -1,9 +1,11 @@
 
 .DomTimeInput {
-	display: inline-grid;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	gap: 0;
 }
 
-.DomTimeInputElement {
-	width: 25px;
+.DomTimeInputElement > input {
+	width: 2em;
 }
