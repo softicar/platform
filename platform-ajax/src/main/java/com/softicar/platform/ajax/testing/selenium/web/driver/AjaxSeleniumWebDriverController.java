@@ -1,8 +1,10 @@
 package com.softicar.platform.ajax.testing.selenium.web.driver;
 
+import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.common.core.logging.Log;
 import java.util.Collection;
 import org.junit.runner.Description;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -25,6 +27,7 @@ public class AjaxSeleniumWebDriverController {
 
 		if (webDriver == null) {
 			this.webDriver = AjaxSeleniumWebDriverPool.getInstance().allocateWebDriver();
+			this.webDriver.manage().window().setSize(getResolution());
 		}
 		return webDriver;
 	}
@@ -58,5 +61,12 @@ public class AjaxSeleniumWebDriverController {
 			Log.fwarning("Web driver was previously used by:");
 			descriptions.forEach(description -> Log.fwarning("\t- %s", description.getDisplayName()));
 		}
+	}
+
+	private Dimension getResolution() {
+
+		return new Dimension(
+			AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_X.getValue(),
+			AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_Y.getValue());
 	}
 }
