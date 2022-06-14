@@ -12,6 +12,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("FÜr heute ist ein Wartungsfenster konfiguriert.");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
+	I18n0 COPIES_MISSING_FILES_FROM_SECONDARY_FILE_SERVERS_TO_THE_PRIMARY_FILE_SERVER =
+			new I18n0("Copies missing files from secondary file servers to the primary file server.")//
+				.de("Kopiert fehlende Dateien von sekundären Dateiservern auf den primären Dateiserver.");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
 		.de("Abbruch angefragt");
 	I18n0 ACCESS_DATE = new I18n0("Access Date")//

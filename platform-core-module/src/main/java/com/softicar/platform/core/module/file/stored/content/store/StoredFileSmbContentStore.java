@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.file.stored.content.store;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
@@ -33,6 +34,15 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	public StoredFileSmbContentStore(Optional<AGStoredFileServer> server) {
 
 		this.server = server;
+	}
+
+	@Override
+	public String toString() {
+
+		return server//
+			.map(AGStoredFileServer::toDisplay)
+			.map(IDisplayString::toString)
+			.orElse("unkown file server");
 	}
 
 	@Override

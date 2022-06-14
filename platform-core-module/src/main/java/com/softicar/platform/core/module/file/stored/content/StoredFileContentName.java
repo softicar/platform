@@ -48,6 +48,12 @@ public class StoredFileContentName {
 		}
 	}
 
+	@Override
+	public String toString() {
+
+		return getFullFilename();
+	}
+
 	public byte[] getHash() {
 
 		return Hexadecimal.getBytesFromHexString(hashString);
