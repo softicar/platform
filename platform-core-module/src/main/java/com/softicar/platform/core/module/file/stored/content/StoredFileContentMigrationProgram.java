@@ -71,7 +71,7 @@ public class StoredFileContentMigrationProgram implements IProgram {
 				createFolder(contentName);
 				copyFile(contentName);
 			} catch (Exception exception) {
-				Log.ferror("Failed. See exceptions at the end of the output.");
+				Log.ferror("Failed to copy %s. See exceptions at the end of the output.", contentName);
 				exceptionsCollector.add(exception);
 			}
 		}
