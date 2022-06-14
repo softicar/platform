@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.access.permission.EmfModulePermissionSt
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomColorEnum;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.emf.EmfI18n;
@@ -57,7 +58,7 @@ class ModulePermissionOwnershipMatrixValueInput extends DomDiv implements IEmfSe
 					boolean checked = currentValue.get().isActive(permission);
 					DomDiv container = appendChild(new DomDiv());
 					StyleUpdater styleUpdater = new StyleUpdater(permission, container);
-					EmfBooleanInput input = container
+					DomCheckbox input = container
 						.appendChild(
 							new EmfBooleanInput(checked)//
 								.setLabel(permission.getTitle()));
