@@ -31,7 +31,6 @@ public class ModuleInstancePage extends AbstractEmfManagementPage<AGCoreModuleIn
 		return AGModuleInstance.TABLE;
 	}
 
-	// FIXME: remove once the scope is not SystemModuleInstance
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
