@@ -93,7 +93,7 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 	/**
 	 * Parses the text into a value.
 	 * <p>
-	 * If parsing fails, a exception will be thrown.
+	 * If parsing fails, an exception will be thrown.
 	 *
 	 * @param text
 	 *            the trimmed text to parse (never <i>null</i> and never empty)

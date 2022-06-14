@@ -9,11 +9,13 @@ import java.util.Optional;
 
 public class EmfBooleanInput extends DomCheckbox implements IEmfInput<Boolean> {
 
-	private final NullaryVoidFunctionList callbacks = new NullaryVoidFunctionList();
+	private final NullaryVoidFunctionList callbacks;
 
 	public EmfBooleanInput(boolean checked) {
 
 		super(checked);
+
+		this.callbacks = new NullaryVoidFunctionList();
 	}
 
 	@Override

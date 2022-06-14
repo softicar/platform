@@ -2,6 +2,8 @@ package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.IDomEvent;
 import java.util.Optional;
 
 /**
@@ -22,6 +24,8 @@ public interface IDomValueInput<V> extends IDomInput {
 	/**
 	 * Assigns a value to this input element and calls all registered change
 	 * callback functions.
+	 * <p>
+	 * The callback functions will be called in the order that they where added.
 	 *
 	 * @param value
 	 *            the value to assign or <i>null</i>
@@ -81,7 +85,10 @@ public interface IDomValueInput<V> extends IDomInput {
 	/**
 	 * Registers the given callback to be notified when the value changes.
 	 * <p>
-	 * All callback functions are called in the order that they where added.
+	 * All registered callback functions will be called when a {@link IDomEvent}
+	 * of type {@link DomEventType#CHANGE} occurs, or by manually calling
+	 * {@link #setValueAndHandleChangeCallback}. All callback functions will
+	 * then be called in the order that they were added.
 	 *
 	 * @param callback
 	 *            the callback (never <i>null</i>)

@@ -31,11 +31,22 @@ public abstract class AbstractDomValueInputElement<V> extends DomParentElement i
 		executeChangeCallbacks();
 	}
 
+	/**
+	 * Executes all registered callback functions in the other that they were
+	 * added.
+	 */
 	protected final void executeChangeCallbacks() {
 
 		changeCallbacks.apply();
 	}
 
+	/**
+	 * Override this method to be informed whenever a new callback functions is
+	 * added.
+	 * <p>
+	 * The default implementation does nothing, so there is not need to call
+	 * this super implementation.
+	 */
 	protected void onChangeCallbackAdded() {
 
 		// nothing to do by default
@@ -71,5 +82,14 @@ public abstract class AbstractDomValueInputElement<V> extends DomParentElement i
 		return !isDisabled();
 	}
 
+	/**
+	 * Does the actual work to disable or enable this input element.
+	 * <p>
+	 * Usually, an implementation will call {@link IDomValueInput#setDisabled}
+	 * on the contained input elements.
+	 *
+	 * @param disabled
+	 *            <i>true</i> to disable; <i>false</i> to enable
+	 */
 	protected abstract void doSetDisabled(boolean disabled);
 }

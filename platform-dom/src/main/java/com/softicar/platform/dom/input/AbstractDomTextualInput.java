@@ -71,21 +71,12 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 
 	// -------------------------------- read-only -------------------------------- //
 
-	/**
-	 * Makes this {@link IDomTextualInput} read-only.
-	 */
 	@Override
 	public void setReadonly(boolean readonly) {
 
 		setAttribute("readonly", readonly? "" : null);
 	}
 
-	/**
-	 * Tests whether this {@link IDomTextualInput} is read-only.
-	 *
-	 * @return <i>true</i> if this {@link IDomTextualInput} is read-only;
-	 *         <i>false</i> otherwise
-	 */
 	@Override
 	public boolean isReadonly() {
 

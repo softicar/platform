@@ -46,15 +46,4 @@ public class DomTextArea extends AbstractDomTextualInput {
 		setAttribute("cols", col);
 		return this;
 	}
-
-	/**
-	 * Toggles the wrapping behavior of this {@link DomTextArea}.
-	 * <p>
-	 * WARNING: This is a non-standard attribute but it works in most browsers.
-	 */
-	public DomTextArea setWrap(boolean doWrap) {
-
-		setAttribute("wrap", doWrap? "on" : "off");
-		return this;
-	}
 }
