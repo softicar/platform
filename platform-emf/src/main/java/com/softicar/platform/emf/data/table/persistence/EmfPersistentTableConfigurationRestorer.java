@@ -60,7 +60,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 
 	private void applyColumnPositions(EmfPersistentTableConfiguration configuration) {
 
-		var columns = controller.getAvailableColumnsInDefaultOrder();
+		var columns = controller.getColumnsInDefaultOrder();
 		List<IDataTableColumn<R, ?>> sortedColumns = configuration.columnPositions//
 			.stream()
 			.map(columns::get)
@@ -71,7 +71,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 
 	private void applyHiddenColumnIndexes(EmfPersistentTableConfiguration configuration) {
 
-		var columns = controller.getAvailableColumnsInDefaultOrder();
+		var columns = controller.getColumnsInDefaultOrder();
 		for (Integer index: configuration.hiddenColumnIndexes) {
 			columns.get(index).setHidden(true);
 		}
@@ -79,7 +79,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 
 	private void applyColumnOrderBys(EmfPersistentTableConfiguration configuration) {
 
-		var columns = controller.getAvailableColumnsInDefaultOrder();
+		var columns = controller.getColumnsInDefaultOrder();
 		var ordering = new EmfDataTableOrdering<R>();
 		for (var orderBy: configuration.columnOrderBys) {
 			IEmfDataTableColumn<R, ?> column = columns.get(orderBy.columnIndex);

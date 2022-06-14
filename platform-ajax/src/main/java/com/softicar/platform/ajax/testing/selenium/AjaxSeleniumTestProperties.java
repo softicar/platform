@@ -19,10 +19,12 @@ public class AjaxSeleniumTestProperties {
 	// Driver
 	public static final IProperty<Integer> DRIVER_CREATION_RETRY_COUNT = FACTORY.createIntegerProperty("driver.creation.retry.count", 5);
 	public static final IProperty<Integer> DRIVER_CREATION_RETRY_DELAY = FACTORY.createIntegerProperty("driver.creation.retry.delay", 1000);
-	public static final IProperty<Boolean> DRIVER_REUSE = FACTORY.createBooleanProperty("driver.reuse", true);
 	public static final IProperty<Integer> DRIVER_IMPLICIT_WAIT_TIMEOUT = FACTORY.createIntegerProperty("driver.implicit.wait.timeout", null);
 	public static final IProperty<Integer> DRIVER_PAGE_LOAD_TIMEOUT = FACTORY.createIntegerProperty("driver.page.load.timeout", null);
+	public static final IProperty<Boolean> DRIVER_REUSE = FACTORY.createBooleanProperty("driver.reuse", true);
 	public static final IProperty<Integer> DRIVER_SCRIPT_TIMEOUT = FACTORY.createIntegerProperty("driver.script.timeout", null);
+	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_X = FACTORY.createIntegerProperty("driver.window.resolution.x", 1920);
+	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_Y = FACTORY.createIntegerProperty("driver.window.resolution.y", 1080);
 
 	// Execution
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FAILURE = FACTORY.createBooleanProperty("execution.screenshot.on.failure", false);

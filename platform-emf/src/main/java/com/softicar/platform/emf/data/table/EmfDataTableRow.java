@@ -102,7 +102,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 			appendChild(new ActionCell());
 		}
 
-		for (IEmfDataTableColumn<R, ?> column: dataTable.getColumnsOrderedByCustomIndex()) {
+		for (IEmfDataTableColumn<R, ?> column: dataTable.getColumnsInCustomOrder()) {
 			if (!column.isConcealed() && !column.isHidden()) {
 				appendChild(createCell(column, dataRow));
 			}
