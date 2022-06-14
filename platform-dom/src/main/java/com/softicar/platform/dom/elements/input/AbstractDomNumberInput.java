@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
@@ -68,6 +69,11 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 			DevNull.swallow(exception);
 			return Optional.empty();
 		}
+	}
+
+	public void setPlaceholder(IDisplayString placeholder) {
+
+		input.setPlaceholder(placeholder);
 	}
 
 	public String getTextualValue() {
