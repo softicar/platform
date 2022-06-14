@@ -8,4 +8,6 @@ TABLE AGScheduledProgramExecutionLog 'Core.ScheduledProgramExecutionLog' {
 	PK AGTransaction transaction
 	Boolean active = NULL [NULLABLE]
 	String cronExpression = NULL [NULLABLE MAXLENGTH=255]
+	Integer maximumRuntime = NULL [NULLABLE]
+	Boolean autoKill = NULL [NULLABLE]
 }

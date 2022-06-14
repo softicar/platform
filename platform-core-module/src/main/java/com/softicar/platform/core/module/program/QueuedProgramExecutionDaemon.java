@@ -6,10 +6,15 @@ import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.daemon.DaemonProperties;
 import com.softicar.platform.core.module.daemon.IDaemon;
+import com.softicar.platform.core.module.event.SystemEventBuilder;
+import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
+import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
@@ -71,8 +76,11 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 		}
 
 		if (program.isAbortRequested()) {
-			terminate(getRunningRunnableThreads(program));
-			program.resetAll();
+			terminateProgram(program);
+		}
+
+		if (!currentExecution.isTerminated() && !program.isAbortRequested()) {
+			checkMaximumRuntime(program, currentExecution);
 		}
 	}
 
@@ -92,12 +100,39 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 		registeredThreadRunner.addRunnable(new ProgramExecutionRunnable(program.insertCurrentExecution()));
 	}
 
+	private void terminateProgram(AGProgram program) {
+
+		terminate(getRunningRunnableThreads(program));
+		program.resetAll();
+	}
+
 	private void terminate(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
 
 		for (IRunnableThread<ProgramExecutionRunnable> runnableThread: runnableThreads) {
 			boolean killed = runnableThread.kill();
 			if (!killed) {
 				Log.ferror("Timeout while trying to terminate a thread for program: %s", getProgramName(runnableThread));
+			}
+		}
+	}
+
+	private void checkMaximumRuntime(AGProgram program, AGProgramExecution currentExecution) {
+
+		var scheduledExecution = AGScheduledProgramExecution.getByAGUuid(program.getProgramUuid());
+		var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
+
+		if (maximumRuntimeInSeconds.isPresent()) {
+			boolean maximumRuntimeExceeded = DayTime.now().isAfter(currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
+			if (maximumRuntimeExceeded && !currentExecution.isExceededMaximumRuntime()) {
+				currentExecution.setExceededMaximumRuntime(true).save();
+				new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
+					.addProperty("program", program.toDisplay().toString())
+					.addProperty("start", currentExecution.getStartedAt().toGermanString())
+					.addProperty("maximumRuntimeSeconds", "" + maximumRuntimeInSeconds)
+					.save();
+				if (scheduledExecution.isAutoKill()) {
+					terminateProgram(program);
+				}
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.ProgramStarter;
 import com.softicar.platform.core.module.program.Programs;
+import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
 import java.util.UUID;
@@ -86,10 +87,16 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private AGProgramExecution updateOutputAndTerminatedAt() {
 
-		return getExecution()//
-			.setTerminatedAt(DayTime.now())
+		var execution = getExecution();
+		var now = DayTime.now();
+		var maximumRuntimeInSeconds = AGScheduledProgramExecution.getByAGUuid(getExecution().getProgramUuid()).getMaximumRuntimeInSeconds();
+		var maximumRuntimeExceeded = maximumRuntimeInSeconds.isPresent() && now.isAfter(execution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
+
+		return execution//
+			.setTerminatedAt(now)
 			.setFailed(failed)
 			.setOutput(logBuffer.toString())
+			.setExceededMaximumRuntime(maximumRuntimeExceeded)
 			.save();
 	}
 }

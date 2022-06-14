@@ -11,5 +11,6 @@ TABLE AGProgramExecutionLog 'Core.ProgramExecutionLog' {
 	DayTime terminatedAt = NULL [NULLABLE]
 	Boolean failed = NULL [NULLABLE]
 	String output = NULL [NULLABLE LENGTHBITS=32]
+	Boolean exceededMaximumRuntime = NULL [NULLABLE]
 	AGUser queuedBy = NULL [NULLABLE]
 }

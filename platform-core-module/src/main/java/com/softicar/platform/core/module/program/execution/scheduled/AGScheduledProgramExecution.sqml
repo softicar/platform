@@ -8,6 +8,8 @@ TABLE AGScheduledProgramExecution 'Core.ScheduledProgramExecution' {
 	Boolean active = TRUE
 	String cronExpression [MAXLENGTH=255]
 	AGUuid programUuid
+	Integer maximumRuntime = NULL [NULLABLE]
+	Boolean autoKill = FALSE
 
 	UK programUuid
 }

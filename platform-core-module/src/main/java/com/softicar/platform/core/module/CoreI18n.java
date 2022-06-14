@@ -70,6 +70,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Am");
 	I18n0 ATTACHMENTS = new I18n0("Attachments")//
 		.de("Anhänge");
+	I18n0 AUTO_KILL = new I18n0("Auto Kill")//
+		.de("Auto-Kill");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
 	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
@@ -258,6 +260,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Jeden Sonntag um 23:59 Uhr.");
 	I18n0 EXAMPLES = new I18n0("Examples")//
 		.de("Beispiele");
+	I18n0 EXCEEDED_MAXIMUM_RUNTIME = new I18n0("Exceeded Maximum Runtime")//
+		.de("Maximale Laufzeit überschritten");
 	I18n0 EXCEPTION_DATE = new I18n0("Exception Date")//
 		.de("Ausnahmedatum");
 	I18n0 EXCEPTION_STACK_TRACE = new I18n0("Exception Stack Trace")//
@@ -461,6 +465,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maximales Passwort-Alter");
 	I18n0 MAXIMUM_PASSWORD_REUSE = new I18n0("Maximum Password Reuse")//
 		.de("Maximale Passwort-Wiederverwendung");
+	I18n0 MAXIMUM_RUNTIME = new I18n0("Maximum Runtime")//
+		.de("Maximale Laufzeit");
 	I18n0 MESSAGE = new I18n0("Message")//
 		.de("Nachricht");
 	I18n0 MESSAGE_ID = new I18n0("Message ID")//
@@ -624,6 +630,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm");
 	I18n0 PROGRAM_EXECUTION = new I18n0("Program Execution")//
 		.de("Programm-Ausführung");
+	I18n0 PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME = new I18n0("Program execution exceeded maximum runtime.")//
+		.de("Programmausführung hat die maximale Laufzeit überschritten.");
 	I18n0 PROGRAM_EXECUTION_FAILED = new I18n0("Program execution failed.")//
 		.de("Programmausführung fehlgeschlagen.");
 	I18n0 PROGRAM_EXECUTION_LOG = new I18n0("Program Execution Log")//

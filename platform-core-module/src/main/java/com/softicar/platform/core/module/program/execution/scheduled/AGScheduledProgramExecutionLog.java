@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
+import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
@@ -34,6 +35,8 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 	public static final IDbForeignField<AGScheduledProgramExecutionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
 	public static final IDbBooleanField<AGScheduledProgramExecutionLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGScheduledProgramExecutionLog> CRON_EXPRESSION = BUILDER.addStringField("cronExpression", o->o.m_cronExpression, (o,v)->o.m_cronExpression=v).setTitle(CoreI18n.CRON_EXPRESSION).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbIntegerField<AGScheduledProgramExecutionLog> MAXIMUM_RUNTIME = BUILDER.addIntegerField("maximumRuntime", o->o.m_maximumRuntime, (o,v)->o.m_maximumRuntime=v).setTitle(CoreI18n.MAXIMUM_RUNTIME).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGScheduledProgramExecutionLog> AUTO_KILL = BUILDER.addBooleanField("autoKill", o->o.m_autoKill, (o,v)->o.m_autoKill=v).setTitle(CoreI18n.AUTO_KILL).setNullable().setDefault(null);
 	public static final IDbTableKey<AGScheduledProgramExecutionLog, Tuple2<AGScheduledProgramExecution, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SCHEDULED_PROGRAM_EXECUTION, TRANSACTION));
 	public static final DbRecordTable<AGScheduledProgramExecutionLog, Tuple2<AGScheduledProgramExecution, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -87,6 +90,26 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 		return setValue(CRON_EXPRESSION, value);
 	}
 
+	public final Integer getMaximumRuntime() {
+
+		return getValue(MAXIMUM_RUNTIME);
+	}
+
+	public final AGScheduledProgramExecutionLog setMaximumRuntime(Integer value) {
+
+		return setValue(MAXIMUM_RUNTIME, value);
+	}
+
+	public final Boolean isAutoKill() {
+
+		return getValue(AUTO_KILL);
+	}
+
+	public final AGScheduledProgramExecutionLog setAutoKill(Boolean value) {
+
+		return setValue(AUTO_KILL, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -101,5 +124,7 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 	private AGTransaction m_transaction;
 	private Boolean m_active;
 	private String m_cronExpression;
+	private Integer m_maximumRuntime;
+	private Boolean m_autoKill;
 }
 
