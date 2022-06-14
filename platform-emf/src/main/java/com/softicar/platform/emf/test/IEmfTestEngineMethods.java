@@ -16,9 +16,10 @@ import com.softicar.platform.emf.test.tester.EmfManagementPopupTester;
 
 public interface IEmfTestEngineMethods extends IDomTestExecutionEngineMethods {
 
-	default EmfDataTableTester findEmfDataTable(IStaticObject tableMarker) {
+	default EmfDataTableTester findEmfDataTable(IStaticObject...tableMarkers) {
 
-		return findNodes(EmfDataTableDivMarker.TABLE, tableMarker)//
+		return findNodes(EmfDataTableDivMarker.TABLE)//
+			.withMarker(tableMarkers)
 			.withType(DomTable.class)
 			.assertOne(node -> new EmfDataTableTester(getEngine(), node));
 	}

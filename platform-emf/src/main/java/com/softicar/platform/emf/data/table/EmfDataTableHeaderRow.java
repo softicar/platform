@@ -28,7 +28,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 			appendChild(new ActionHeaderCell());
 		}
 
-		for (IEmfDataTableColumn<R, ?> column: dataTable.getColumnsOrderedByCustomIndex()) {
+		for (IEmfDataTableColumn<R, ?> column: dataTable.getColumnsInCustomOrder()) {
 			if (!column.isConcealed() && !column.isHidden()) {
 				EmfDataTableHeaderCell<?, ?> headerCell = headerCellMap.get(column.getDataColumn());
 				if (headerCell == null) {

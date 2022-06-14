@@ -39,3 +39,6 @@ CREATE TABLE `Core`.`MaintenanceWindowLog` (
 INSERT INTO `Core`.`UserLoginFailureType` VALUES
 	(9, 'MAINTENANCE_IN_PROGRESS')
 ;
+
+-- Remove degenerated entries (PLAT-916)
+SELECT * FROM `Core`.`UserSpecificTableConfiguration` WHERE `serialization` LIKE '%columnPositions%null%';
