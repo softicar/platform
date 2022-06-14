@@ -67,9 +67,11 @@ public class StoredFileContentMigrationProgram implements IProgram {
 
 		if (!primaryStore.exists(contentName.getFullFilename())) {
 			try {
+				Log.finfo("Cannot find %s on primary file server. Will try to copy from secondary stores.", contentName);
 				createFolder(contentName);
 				copyFile(contentName);
 			} catch (Exception exception) {
+				Log.ferror("Failed. See exceptions at the end of the output.");
 				exceptionsCollector.add(exception);
 			}
 		}
@@ -82,7 +84,6 @@ public class StoredFileContentMigrationProgram implements IProgram {
 
 	private void copyFile(StoredFileContentName contentName) {
 
-		Log.finfo("Failed to find %s on primary file server. Will try to copy from secondary stores.", contentName);
 		for (StoredFileSmbContentStore store: secondaryStores) {
 			if (store.exists(contentName.getFullFilename())) {
 				copyFileFromStore(contentName, store);
