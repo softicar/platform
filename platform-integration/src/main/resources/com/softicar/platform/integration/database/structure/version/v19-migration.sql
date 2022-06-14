@@ -41,4 +41,4 @@ INSERT INTO `Core`.`UserLoginFailureType` VALUES
 ;
 
 -- Remove degenerated entries (PLAT-916)
-SELECT * FROM `Core`.`UserSpecificTableConfiguration` WHERE `serialization` LIKE '%columnPositions%null%';
+DELETE FROM `Core`.`UserSpecificTableConfiguration` WHERE `serialization` LIKE '%columnPositions%null%';
