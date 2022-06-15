@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.email.buffer;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.buffer.attachment.BufferedEmailAttachmentSectionDiv;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -12,7 +12,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, SystemModuleInstance> {
+public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, AGCoreModuleInstance> {
 
 	public AGBufferedEmailTable(IDbObjectTableBuilder<AGBufferedEmail> builder) {
 
@@ -20,13 +20,13 @@ public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, System
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGBufferedEmail, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGBufferedEmail, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.EMAIL_BUFFER);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmail, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmail, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 		authorizer.setEditPermission(EmfPermissions.never());

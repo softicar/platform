@@ -4,7 +4,7 @@ import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.event.properties.SystemEventPropertiesDisplay;
 import com.softicar.platform.core.module.event.severity.SystemEventSeverityDisplay;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.emf.EmfImages;
@@ -17,7 +17,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModuleInstance> {
+public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, AGCoreModuleInstance> {
 
 	public AGSystemEventTable(IDbObjectTableBuilder<AGSystemEvent> builder) {
 
@@ -25,13 +25,13 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGSystemEvent, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGSystemEvent, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(EmfImages.ENTITY_LOG);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGSystemEvent, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGSystemEvent, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(EmfPermissions.never());
 		authorizer.setEditPermission(EmfPermissions.never());
@@ -61,7 +61,7 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, SystemModu
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGSystemEvent, SystemModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGSystemEvent, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addPrimaryAction(new SystemEventConfirmAction());
 		actionSet.addManagementAction(new SystemEventConfirmAction());

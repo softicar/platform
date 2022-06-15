@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.program.execution.scheduled.informatio
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.action.IEmfScopeAction;
@@ -12,16 +12,16 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
-public class CronExpressionInformationAction implements IEmfScopeAction<SystemModuleInstance> {
+public class CronExpressionInformationAction implements IEmfScopeAction<AGCoreModuleInstance> {
 
 	@Override
-	public IEmfPredicate<SystemModuleInstance> getPrecondition() {
+	public IEmfPredicate<AGCoreModuleInstance> getPrecondition() {
 
 		return EmfPredicates.always();
 	}
 
 	@Override
-	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return EmfPermissions.always();
 	}
@@ -39,7 +39,7 @@ public class CronExpressionInformationAction implements IEmfScopeAction<SystemMo
 	}
 
 	@Override
-	public void handleClick(SystemModuleInstance scope) {
+	public void handleClick(AGCoreModuleInstance scope) {
 
 		DomPopupManager//
 			.getInstance()

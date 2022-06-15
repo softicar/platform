@@ -12,7 +12,7 @@ import com.softicar.platform.core.module.event.panic.AGModulePanicReceiver;
 import com.softicar.platform.core.module.event.panic.CurrentPanicsPage;
 import com.softicar.platform.core.module.log.level.AGLogLevelEnum;
 import com.softicar.platform.core.module.log.message.AGLogMessage;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.module.registry.IEmfModuleRegistry;
@@ -60,7 +60,7 @@ public class LogDbPanicNotificationProgram implements IProgram {
 						.format(
 							"There are more than %s panic messages: %s",
 							MAX_LOG_MESSAGES,
-							new PageUrlBuilder<>(CurrentPanicsPage.class, new SystemModuleInstance(CoreModule.class)).build()),
+							new PageUrlBuilder<>(CurrentPanicsPage.class, AGCoreModuleInstance.getInstance()).build()),
 					EmailContentType.HTML);
 			email.submit();
 			return Collections.emptyList();

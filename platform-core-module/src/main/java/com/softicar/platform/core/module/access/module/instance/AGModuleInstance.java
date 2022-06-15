@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.access.module.instance;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.module.IStandardModule;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.IEmfModule;
@@ -34,9 +35,8 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	public IStandardModule<?> getModuleOrThrow() {
 
 		IEmfModule<?> module = IEmfModuleInstance.super.getModuleOrThrow();
-		return Optional//
-			.ofNullable(module)
-			.map(IStandardModule::cast)
+		return CastUtils//
+			.tryCast(module, IStandardModule.class)
 			.orElseThrow(() -> new ModuleNotStandardModuleException(module));
 	}
 

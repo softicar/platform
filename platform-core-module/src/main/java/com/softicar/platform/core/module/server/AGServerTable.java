@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.server;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
@@ -9,7 +9,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGServerTable extends EmfObjectTable<AGServer, SystemModuleInstance> {
+public class AGServerTable extends EmfObjectTable<AGServer, AGCoreModuleInstance> {
 
 	public AGServerTable(IDbObjectTableBuilder<AGServer> builder) {
 
@@ -17,7 +17,7 @@ public class AGServerTable extends EmfObjectTable<AGServer, SystemModuleInstance
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGServer, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGServer, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.EMAIL_SERVER);
 	}

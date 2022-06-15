@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user;
 
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.user.navigation.RecursivelyCollapseFoldersInput;
 import com.softicar.platform.core.module.user.password.UserResetPasswordAction;
 import com.softicar.platform.core.module.user.pseudonymization.UserPseudonymizationAction;
@@ -15,7 +14,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
+public class AGUserTable extends EmfObjectTable<AGUser, AGCoreModuleInstance> {
 
 	public AGUserTable(IDbObjectTableBuilder<AGUser> builder) {
 
@@ -23,13 +22,13 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUser, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUser, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.USERS);
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGUser, SystemModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGUser, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addPrimaryAction(new UserPseudonymizationAction());
 		actionSet.addManagementAction(new UserResetPasswordAction());
@@ -50,7 +49,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, SystemModuleInstance> {
 	}
 
 	@Override
-	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGUser, SystemModuleInstance> defaultValueSet) {
+	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGUser, AGCoreModuleInstance> defaultValueSet) {
 
 		defaultValueSet.setSupplier(AGUser.LOCALIZATION, () -> AGCoreModuleInstance.getInstance().getDefaultLocalization());
 	}

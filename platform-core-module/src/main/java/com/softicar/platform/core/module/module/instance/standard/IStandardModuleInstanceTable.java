@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.module.instance.standard;
 
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.sub.object.table.IEmfSubObjectTable;
 
@@ -14,7 +14,7 @@ import com.softicar.platform.emf.sub.object.table.IEmfSubObjectTable;
  * @author Alexander Schmidt
  */
 public interface IStandardModuleInstanceTable<I extends IStandardModuleInstance<I>>
-		extends IEmfSubObjectTable<I, AGModuleInstance, Integer, SystemModuleInstance> {
+		extends IEmfSubObjectTable<I, AGModuleInstance, Integer, AGCoreModuleInstance> {
 
 	/**
 	 * Returns the {@link IEmfModule} class associated with this table.
