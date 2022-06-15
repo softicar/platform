@@ -119,19 +119,21 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	private void checkMaximumRuntime(AGProgram program, AGProgramExecution currentExecution) {
 
 		var scheduledExecution = AGScheduledProgramExecution.getByAGUuid(program.getProgramUuid());
-		var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
-
-		if (maximumRuntimeInSeconds.isPresent()) {
-			boolean maximumRuntimeExceeded = DayTime.now().isAfter(currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
-			if (maximumRuntimeExceeded && !currentExecution.isExceededMaximumRuntime()) {
-				currentExecution.setExceededMaximumRuntime(true).save();
-				new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
-					.addProperty("program", program.toDisplay().toString())
-					.addProperty("start", currentExecution.getStartedAt().toGermanString())
-					.addProperty("maximumRuntimeSeconds", "" + maximumRuntimeInSeconds)
-					.save();
-				if (scheduledExecution.isAutoKill()) {
-					terminateProgram(program);
+		if (scheduledExecution != null) {
+			var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
+			if (maximumRuntimeInSeconds.isPresent()) {
+				boolean maximumRuntimeExceeded = DayTime.now().isAfter(currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
+				if (maximumRuntimeExceeded && !currentExecution.isExceededMaximumRuntime()) {
+					new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
+						.addProperty("program", program.toDisplay().toString())
+						.addProperty("start", currentExecution.getStartedAt().toGermanString())
+						.addProperty("maximumRuntimeSeconds", "" + maximumRuntimeInSeconds)
+						.save();
+					if (scheduledExecution.isAutoKill()) {
+						terminateProgram(program);
+					}
+					currentExecution.reload();
+					currentExecution.setExceededMaximumRuntime(true).save();
 				}
 			}
 		}
