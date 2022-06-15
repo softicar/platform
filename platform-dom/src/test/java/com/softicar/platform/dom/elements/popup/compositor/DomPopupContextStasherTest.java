@@ -8,14 +8,14 @@ import com.softicar.platform.dom.node.IDomNode;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 
-public class DomPopupMaximizationContextStasherTest extends AbstractTest {
+public class DomPopupContextStasherTest extends AbstractTest {
 
-	private final DomPopupMaximizationContextStasher stasher;
+	private final DomPopupContextStasher stasher;
 	private final DomDocument document;
 
-	public DomPopupMaximizationContextStasherTest() {
+	public DomPopupContextStasherTest() {
 
-		this.stasher = new DomPopupMaximizationContextStasher();
+		this.stasher = new DomPopupContextStasher();
 		this.document = new DomDocument();
 		CurrentDomDocument.set(document);
 	}
@@ -101,9 +101,9 @@ public class DomPopupMaximizationContextStasherTest extends AbstractTest {
 		// expect no Exception
 	}
 
-	private IDomPopupMaximizationContext createContext(int children) {
+	private IDomPopupContext createContext(int children) {
 
-		var context = new TestMaximizationContext();
+		var context = new TestContext();
 		for (int i = 1; i <= children; i++) {
 			context.appendChild(createDiv(i + ""));
 		}
@@ -122,7 +122,7 @@ public class DomPopupMaximizationContextStasherTest extends AbstractTest {
 		return div;
 	}
 
-	private static class TestMaximizationContext extends DomDiv implements IDomPopupMaximizationContext {
+	private static class TestContext extends DomDiv implements IDomPopupContext {
 
 		// nothing
 	}
