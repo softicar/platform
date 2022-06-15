@@ -5,14 +5,14 @@ import com.softicar.platform.emf.module.IEmfModuleInstance;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class EmfSystemModulePermissionTest extends AbstractModulePermissionTestBase {
+public class CoreModulePermissionTest extends AbstractModulePermissionTestBase {
 
-	private final EmfSystemModulePermission permission;
+	private final CoreModulePermission permission;
 	private final IEmfModuleInstance<?> moduleInstance;
 
-	public EmfSystemModulePermissionTest() {
+	public CoreModulePermissionTest() {
 
-		this.permission = new EmfSystemModulePermission(PERMISSION_UUID, IDisplayString.create("TestPermission"));
+		this.permission = new CoreModulePermission(PERMISSION_UUID, IDisplayString.create("TestPermission"));
 		this.moduleInstance = Mockito.mock(IEmfModuleInstance.class);
 	}
 

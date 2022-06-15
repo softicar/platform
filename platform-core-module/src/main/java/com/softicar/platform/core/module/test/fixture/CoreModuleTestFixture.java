@@ -50,9 +50,9 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGEMENT, CoreModule.class);
-		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER, CoreModule.class);
-		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATION, CoreModule.class);
+		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGEMENT);
+		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER);
+		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATION);
 
 		new ProgramStandardConfiguration().createAndSaveAll();
 	}

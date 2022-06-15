@@ -5,11 +5,10 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.access.permission.AbstractModulePermissionUiTest;
 import com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment;
-import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.module.standard.alpha.TestStandardModuleAlphaPermissions;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.matrix.EmfSettingMatrixMarker;
@@ -96,9 +95,9 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 
 	private void insertAccessManagerPermission(AGUser user) {
 
-		new AGSystemModulePermissionAssignment()
+		new AGModuleInstancePermissionAssignment()
 			.setActive(true)
-			.setModule(AGUuid.getOrCreate(CoreModule.class))
+			.setModuleInstance(AGCoreModuleInstance.getInstance().pk())
 			.setPermission(CorePermissions.ACCESS_MANAGEMENT.getAnnotatedUuid())
 			.setUser(user)
 			.save();
