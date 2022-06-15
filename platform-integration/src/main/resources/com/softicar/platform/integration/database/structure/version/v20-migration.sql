@@ -7,9 +7,9 @@ INSERT INTO `Core`.`ModuleInstancePermissionAssigment`
 	(`transaction`, `user`, `moduleInstance`, `permission`, `active`)
 SELECT a.`transaction`, a.`user`, 0, a.`permission`, a.`active`
 FROM `Core`.`SystemModulePermissionAssignment` AS a
-JOIN `Core`.`Uuid` AS uuid
+JOIN `Core`.`Uuid` AS uuid ON uuid.`id` = a.`module`
 WHERE a.`active`
-AND uuid.`uuidString` = 'a8b076bd-582d-446d-9bce-85a8a180afd5'
+AND uuid.`uuidString` = 'a8b076bd-582d-446d-9bce-85a8a180afd5';
 
 DROP TABLE `Core`.`SystemModulePermissionAssignmentLog`;
 DROP TABLE `Core`.`SystemModulePermissionAssignment`;
