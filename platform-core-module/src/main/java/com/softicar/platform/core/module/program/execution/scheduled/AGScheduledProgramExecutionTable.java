@@ -48,6 +48,8 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 		loggerSet//
 			.addPlainChangeLogger(AGScheduledProgramExecutionLog.SCHEDULED_PROGRAM_EXECUTION, AGScheduledProgramExecutionLog.TRANSACTION)
 			.addMapping(AGScheduledProgramExecution.ACTIVE, AGScheduledProgramExecutionLog.ACTIVE)
-			.addMapping(AGScheduledProgramExecution.CRON_EXPRESSION, AGScheduledProgramExecutionLog.CRON_EXPRESSION);
+			.addMapping(AGScheduledProgramExecution.CRON_EXPRESSION, AGScheduledProgramExecutionLog.CRON_EXPRESSION)
+			.addMapping(AGScheduledProgramExecution.MAXIMUM_RUNTIME, AGScheduledProgramExecutionLog.MAXIMUM_RUNTIME)
+			.addMapping(AGScheduledProgramExecution.AUTO_KILL, AGScheduledProgramExecutionLog.AUTO_KILL);
 	}
 }
