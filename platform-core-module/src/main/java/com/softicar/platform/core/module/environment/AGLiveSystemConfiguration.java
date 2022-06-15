@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.environment;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.common.math.Range;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.emf.trait.IEmfTrait;
 import java.util.Optional;
 

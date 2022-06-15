@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.event.recipient.AGSystemEventEmailRecipient;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.List;

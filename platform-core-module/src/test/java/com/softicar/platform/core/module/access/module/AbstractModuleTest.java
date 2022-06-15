@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.access.module;
 
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import java.util.UUID;

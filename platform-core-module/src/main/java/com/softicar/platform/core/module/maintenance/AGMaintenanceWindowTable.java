@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.maintenance;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.action.CancelMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.action.FinishMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.action.StartMaintenanceAction;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;

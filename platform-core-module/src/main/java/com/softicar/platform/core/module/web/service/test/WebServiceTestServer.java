@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.web.service.test;
 
 import com.softicar.platform.common.web.service.WebServiceServer;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.SofticarTestDatabase;
 
 /**

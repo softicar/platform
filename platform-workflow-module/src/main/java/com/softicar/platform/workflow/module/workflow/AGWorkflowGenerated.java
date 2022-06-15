@@ -1,7 +1,7 @@
 package com.softicar.platform.workflow.module.workflow;
 
 import com.softicar.platform.common.core.annotations.Generated;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;

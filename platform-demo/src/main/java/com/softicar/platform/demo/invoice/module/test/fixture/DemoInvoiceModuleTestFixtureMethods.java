@@ -13,7 +13,7 @@ public interface DemoInvoiceModuleTestFixtureMethods extends DemoPersonModuleTes
 
 	default AGDemoInvoiceModuleInstance insertDemoInvoiceModuleInstance(AGDemoPersonModuleInstance demoPersonModuleInstance) {
 
-		return createStandardModuleInstance(AGDemoInvoiceModuleInstance.TABLE)//
+		return createModuleInstance(AGDemoInvoiceModuleInstance.TABLE)//
 			.setDemoPersonModuleInstance(demoPersonModuleInstance)
 			.save();
 	}

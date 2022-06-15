@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.network.url.UrlBuilder;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.UUID;
 

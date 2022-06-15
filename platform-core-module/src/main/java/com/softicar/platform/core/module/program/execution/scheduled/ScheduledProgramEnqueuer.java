@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.execution.scheduled;
 
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.uuid.AGUuid;

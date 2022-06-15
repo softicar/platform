@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.email.buffer;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.IEmail;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 
 public class BufferedEmailFactory {
 

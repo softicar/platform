@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
 

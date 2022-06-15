@@ -10,7 +10,7 @@ public interface DemoPersonModuleTestFixtureMethods extends CoreModuleTestFixtur
 
 	default AGDemoPersonModuleInstance insertDemoPersonModuleInstance(AGDemoCoreModuleInstance demoCoreModuleInstance) {
 
-		return createStandardModuleInstance(AGDemoPersonModuleInstance.TABLE)//
+		return createModuleInstance(AGDemoPersonModuleInstance.TABLE)//
 			.setDemoCoreModuleInstance(demoCoreModuleInstance)
 			.save();
 	}

@@ -2,10 +2,8 @@ package com.softicar.platform.core.module.test.fixture;
 
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.permission.CoreModulePermission;
-import com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
@@ -14,9 +12,11 @@ import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
-import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
-import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstanceTable;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.IModuleInstance;
+import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
+import com.softicar.platform.core.module.permission.CoreModulePermission;
+import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -90,7 +90,7 @@ public interface CoreModuleTestFixtureMethods {
 		return insertPermissionAssignment(user, permission, AGCoreModuleInstance.getInstance());
 	}
 
-	default <I extends IStandardModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user,
+	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user,
 			IEmfModulePermission<I> permission, I moduleInstance) {
 
 		return new AGModuleInstancePermissionAssignment()//
@@ -109,15 +109,15 @@ public interface CoreModuleTestFixtureMethods {
 			.save();
 	}
 
-	default <I extends IStandardModuleInstance<I>> I createStandardModuleInstance(IStandardModuleInstanceTable<I> moduleInstanceTable) {
+	default <I extends IModuleInstance<I>> I createModuleInstance(IModuleInstanceTable<I> moduleInstanceTable) {
 
 		AGModuleInstance moduleInstance = insertModuleInstance(moduleInstanceTable.getModuleClass());
 		return moduleInstanceTable.createObject(moduleInstance);
 	}
 
-	default <I extends IStandardModuleInstance<I>> I insertStandardModuleInstance(IStandardModuleInstanceTable<I> moduleInstanceTable) {
+	default <I extends IModuleInstance<I>> I insertModuleInstance(IModuleInstanceTable<I> moduleInstanceTable) {
 
-		return createStandardModuleInstance(moduleInstanceTable).save();
+		return createModuleInstance(moduleInstanceTable).save();
 	}
 
 	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {

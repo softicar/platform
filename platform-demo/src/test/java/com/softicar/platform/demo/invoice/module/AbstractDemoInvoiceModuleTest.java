@@ -17,8 +17,8 @@ public abstract class AbstractDemoInvoiceModuleTest extends AbstractCoreTest imp
 
 	public AbstractDemoInvoiceModuleTest() {
 
-		AGDemoCoreModuleInstance demoCoreModuleInstance = insertStandardModuleInstance(AGDemoCoreModuleInstance.TABLE);
-		AGDemoPersonModuleInstance demoPersonModuleInstance = createStandardModuleInstance(AGDemoPersonModuleInstance.TABLE)//
+		AGDemoCoreModuleInstance demoCoreModuleInstance = insertModuleInstance(AGDemoCoreModuleInstance.TABLE);
+		AGDemoPersonModuleInstance demoPersonModuleInstance = createModuleInstance(AGDemoPersonModuleInstance.TABLE)//
 			.setDemoCoreModuleInstance(demoCoreModuleInstance)
 			.save();
 		this.moduleInstance = insertDemoInvoiceModuleInstance(demoPersonModuleInstance);

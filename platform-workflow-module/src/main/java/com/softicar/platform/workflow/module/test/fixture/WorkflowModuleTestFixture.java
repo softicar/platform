@@ -1,13 +1,13 @@
 package com.softicar.platform.workflow.module.test.fixture;
 
-import com.softicar.platform.core.module.test.instance.registry.IStandardModuleTestFixture;
+import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
 import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.demo.configuration.WorkflowDemoConfiguration;
 import com.softicar.platform.workflow.module.standard.configuration.WorkflowIconStandardConfiguration;
 
-public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMethods, IStandardModuleTestFixture<AGWorkflowModuleInstance> {
+public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMethods, IModuleTestFixture<AGWorkflowModuleInstance> {
 
 	private AGWorkflowModuleInstance workflowModuleInstance;
 	private final TestFixtureRegistry registry;
@@ -24,7 +24,7 @@ public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMetho
 	}
 
 	@Override
-	public IStandardModuleTestFixture<AGWorkflowModuleInstance> apply() {
+	public IModuleTestFixture<AGWorkflowModuleInstance> apply() {
 
 		this.workflowModuleInstance = insertWorkflowModuleInstance();
 		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(workflowModuleInstance);

@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.IEmfPage;

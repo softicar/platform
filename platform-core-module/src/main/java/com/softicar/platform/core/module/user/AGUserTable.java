@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.user;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.navigation.RecursivelyCollapseFoldersInput;
 import com.softicar.platform.core.module.user.password.UserResetPasswordAction;
 import com.softicar.platform.core.module.user.pseudonymization.UserPseudonymizationAction;
