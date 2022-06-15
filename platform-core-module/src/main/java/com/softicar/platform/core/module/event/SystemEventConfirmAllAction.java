@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
@@ -14,16 +14,16 @@ import com.softicar.platform.emf.predicate.IEmfPredicate;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModuleInstance> {
+public class SystemEventConfirmAllAction implements IEmfScopeAction<AGCoreModuleInstance> {
 
 	@Override
-	public IEmfPredicate<SystemModuleInstance> getPrecondition() {
+	public IEmfPredicate<AGCoreModuleInstance> getPrecondition() {
 
 		return EmfPredicates.always();
 	}
 
 	@Override
-	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return CorePermissions.SYSTEM_ADMINISTRATION;
 	}
@@ -41,13 +41,13 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<SystemModule
 	}
 
 	@Override
-	public Optional<Supplier<IDisplayString>> getConfirmationMessageSupplier(SystemModuleInstance object) {
+	public Optional<Supplier<IDisplayString>> getConfirmationMessageSupplier(AGCoreModuleInstance object) {
 
 		return Optional.of(() -> CoreI18n.ARE_YOU_SURE_QUESTION);
 	}
 
 	@Override
-	public void handleClick(SystemModuleInstance scope) {
+	public void handleClick(AGCoreModuleInstance scope) {
 
 		AGSystemEvent.TABLE//
 			.createUpdate()

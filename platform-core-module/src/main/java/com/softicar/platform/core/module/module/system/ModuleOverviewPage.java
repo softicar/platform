@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
@@ -14,7 +14,7 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @EmfSourceCodeReferencePointUuid("eabae24f-5748-4c0b-9466-dbb609bf0dfe")
-public class ModuleOverviewPage implements IEmfPage<SystemModuleInstance> {
+public class ModuleOverviewPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -29,13 +29,13 @@ public class ModuleOverviewPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IDisplayString getTitle(SystemModuleInstance moduleInstance) {
+	public IDisplayString getTitle(AGCoreModuleInstance moduleInstance) {
 
 		return CoreI18n.MODULE_CLASSES;
 	}
 
 	@Override
-	public IDomNode createContentNode(SystemModuleInstance moduleInstance) {
+	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
 		return new ModuleOverviewPageDiv();
 	}
@@ -47,7 +47,7 @@ public class ModuleOverviewPage implements IEmfPage<SystemModuleInstance> {
 	}
 
 	@Override
-	public IEmfPermission<SystemModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return CorePermissions.SUPER_USER;
 	}

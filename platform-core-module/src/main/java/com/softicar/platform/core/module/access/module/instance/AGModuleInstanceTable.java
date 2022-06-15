@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceDetailsPopupAction;
 import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoints;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
@@ -19,7 +19,7 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, SystemModuleInstance> {
+public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, AGCoreModuleInstance> {
 
 	public AGModuleInstanceTable(IDbObjectTableBuilder<AGModuleInstance> builder) {
 
@@ -27,14 +27,14 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, Syst
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstance, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstance, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.MODULE_INSTANCE);
 		configuration.addValidator(ModuleInstanceValidator::new);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstance, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstance, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
 		authorizer.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
@@ -42,7 +42,7 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, Syst
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGModuleInstance, SystemModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGModuleInstance, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addManagementAction(new ModuleInstanceInitializationAction());
 		actionSet.addManagementAction(new ModuleInstanceDetailsPopupAction());
@@ -64,7 +64,7 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, Syst
 	}
 
 	@Override
-	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGModuleInstance, SystemModuleInstance> defaultValueSet) {
+	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGModuleInstance, AGCoreModuleInstance> defaultValueSet) {
 
 		defaultValueSet.setValue(AGModuleInstance.ACTIVE, true);
 	}

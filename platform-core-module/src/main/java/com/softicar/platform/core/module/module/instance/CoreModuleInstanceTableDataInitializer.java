@@ -1,9 +1,14 @@
 package com.softicar.platform.core.module.module.instance;
 
+import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.server.AGServer;
+import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.table.configuration.IDbTableDataInitializer;
 
 /**
@@ -22,9 +27,16 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 		var systemUser = insertSystemUser(localizationPreset);
 		var emailServer = insertEmailServer();
 
+		AGModuleInstance.TABLE//
+			.createInsert()
+			.set(AGModuleInstance.ID, AGCoreModuleInstance.SINGLETON_INSTANCE_ID)
+			.set(AGModuleInstance.TRANSACTION, insertTransaction(systemUser))
+			.set(AGModuleInstance.ACTIVE, true)
+			.set(AGModuleInstance.MODULE_UUID, AGUuid.getOrCreate(CoreModule.class))
+			.execute();
 		AGCoreModuleInstance.TABLE//
 			.createInsert()
-			.set(AGCoreModuleInstance.ID, AGCoreModuleInstance.SINGLETON_INSTANCE_ID)
+			.set(AGCoreModuleInstance.MODULE_INSTANCE, AGModuleInstance.TABLE.getStub(AGCoreModuleInstance.SINGLETON_INSTANCE_ID))
 			.set(AGCoreModuleInstance.DEFAULT_LOCALIZATION, localizationPreset)
 			.set(AGCoreModuleInstance.SYSTEM_USER, systemUser)
 			.set(AGCoreModuleInstance.EMAIL_SERVER, emailServer)
@@ -68,5 +80,15 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGServer.PASSWORD, "")
 			.execute();
 		return AGServer.TABLE.getStub(id);
+	}
+
+	private AGTransaction insertTransaction(AGUser user) {
+
+		var id = AGTransaction.TABLE//
+			.createInsert()
+			.set(AGTransaction.AT, DayTime.now())
+			.set(AGTransaction.BY, user)
+			.execute();
+		return AGTransaction.TABLE.getStub(id);
 	}
 }

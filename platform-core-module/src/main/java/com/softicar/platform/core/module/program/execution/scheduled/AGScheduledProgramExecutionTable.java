@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.execution.scheduled;
 
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.scheduled.information.CronExpressionInformationAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
@@ -12,7 +12,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduledProgramExecution, SystemModuleInstance> {
+public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduledProgramExecution, AGCoreModuleInstance> {
 
 	public AGScheduledProgramExecutionTable(IDbObjectTableBuilder<AGScheduledProgramExecution> builder) {
 
@@ -20,13 +20,13 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGScheduledProgramExecution, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGScheduledProgramExecution, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.addValidator(ScheduledProgramExecutionValidator::new);
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGScheduledProgramExecution, SystemModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGScheduledProgramExecution, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addScopeAction(new CronExpressionInformationAction());
 	}

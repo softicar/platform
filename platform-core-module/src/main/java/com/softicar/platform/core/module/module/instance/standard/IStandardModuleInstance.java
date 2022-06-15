@@ -45,5 +45,4 @@ public interface IStandardModuleInstance<I extends IStandardModuleInstance<I>> e
 
 	@Override
 	IStandardModuleInstanceTable<I> table();
-
 }

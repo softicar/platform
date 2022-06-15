@@ -6,11 +6,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.network.url.Url;
-import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.EmailFactory;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.log.message.AGLogMessage;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.module.system.ModuleOverviewPage;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
@@ -76,7 +76,7 @@ class LogDbPanicNotificationSender {
 
 		return new PageUrlBuilder<>(//
 			ModuleOverviewPage.class,
-			CoreModule.getModuleInstance()).build();
+			AGCoreModuleInstance.getInstance()).build();
 	}
 
 	private static void send(String subject, String message, Collection<String> receivers) {

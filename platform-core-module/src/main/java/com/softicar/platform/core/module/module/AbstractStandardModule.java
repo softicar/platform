@@ -17,19 +17,6 @@ import java.util.Optional;
 public abstract class AbstractStandardModule<I extends IStandardModuleInstance<I>> extends AbstractEmfModule<I> implements IStandardModule<I> {
 
 	@Override
-	public final Optional<I> getModuleInstance(AGModuleInstance moduleInstance) {
-
-		IStandardModuleInstanceTable<I> table = getModuleInstanceTable();
-		return table//
-			.createSelect()
-			.join(table.getPrimaryKeyField())
-			.where(AGModuleInstance.ID.isEqual(moduleInstance))
-			.where(AGModuleInstance.ACTIVE)
-			.where(AGModuleInstance.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
-			.getOneAsOptional();
-	}
-
-	@Override
 	public Optional<I> getModuleInstance(Integer moduleInstanceId) {
 
 		IStandardModuleInstanceTable<I> table = getModuleInstanceTable();
