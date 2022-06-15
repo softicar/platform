@@ -21,6 +21,7 @@ import com.softicar.platform.db.core.transaction.DbTransactions;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -77,10 +78,10 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 		if (program.isAbortRequested()) {
 			terminateProgram(program);
-		}
-		currentExecution.reload();
-		if (!currentExecution.isTerminated() && !program.isAbortRequested()) {
-			checkMaximumRuntime(program, currentExecution);
+		} else {
+			if (!currentExecution.isTerminated()) {
+				checkMaximumRuntime(program, currentExecution);
+			}
 		}
 	}
 
@@ -120,23 +121,34 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 		var scheduledExecution = AGScheduledProgramExecution.getByAGUuid(program.getProgramUuid());
 		if (scheduledExecution != null) {
-			var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
-			if (maximumRuntimeInSeconds.isPresent()) {
-				boolean maximumRuntimeExceeded = DayTime.now().isAfter(currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
-				if (maximumRuntimeExceeded && !currentExecution.isExceededMaximumRuntime()) {
-					new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
-						.addProperty("program", program.toDisplay().toString())
-						.addProperty("start", currentExecution.getStartedAt().toGermanString())
-						.addProperty("maximumRuntimeSeconds", "" + maximumRuntimeInSeconds)
-						.save();
-					if (scheduledExecution.isAutoKill()) {
-						terminateProgram(program);
-					}
-					currentExecution.reload();
-					currentExecution.setExceededMaximumRuntime(true).save();
-				}
+			checkIfExceeded(program, currentExecution, scheduledExecution);
+		}
+	}
+
+	private void checkIfExceeded(AGProgram program, AGProgramExecution currentExecution, AGScheduledProgramExecution scheduledExecution) {
+
+		var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
+		if (maximumRuntimeInSeconds.isPresent()) {
+			boolean maximumRuntimeExceeded = DayTime.now().isAfter(currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get()));
+			if (maximumRuntimeExceeded && !currentExecution.isExceededMaximumRuntime()) {
+				createEventAndTerminateIfConfigured(program, currentExecution, scheduledExecution, maximumRuntimeInSeconds);
 			}
 		}
+	}
+
+	private void createEventAndTerminateIfConfigured(AGProgram program, AGProgramExecution currentExecution, AGScheduledProgramExecution scheduledExecution,
+			Optional<Double> maximumRuntimeInSeconds) {
+
+		new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
+			.addProperty("program", program.toDisplay().toString())
+			.addProperty("start", currentExecution.getStartedAt().toGermanString())
+			.addProperty("maximumRuntimeSeconds", "" + maximumRuntimeInSeconds)
+			.save();
+		if (scheduledExecution.isAutoKill()) {
+			terminateProgram(program);
+		}
+		currentExecution.reload();
+		currentExecution.setExceededMaximumRuntime(true).save();
 	}
 
 	private void resetQueueEntries(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {

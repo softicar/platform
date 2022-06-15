@@ -13,6 +13,7 @@ class ScheduledProgramExecutionValidator extends AbstractEmfValidator<AGSchedule
 		Optional//
 			.ofNullable(tableRow.getCronExpression())
 			.ifPresent(this::validateCronString);
+		validateAutoKill();
 	}
 
 	private void validateCronString(String cronString) {
@@ -22,6 +23,13 @@ class ScheduledProgramExecutionValidator extends AbstractEmfValidator<AGSchedule
 			cronExpression//
 				.getErrorMessage(part)
 				.ifPresent(errorMessage -> addError(AGScheduledProgramExecution.CRON_EXPRESSION, errorMessage));
+		}
+	}
+
+	private void validateAutoKill() {
+
+		if (tableRow.isAutoKill()) {
+			assertNotNull(AGScheduledProgramExecution.MAXIMUM_RUNTIME);
 		}
 	}
 }
