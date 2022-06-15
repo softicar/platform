@@ -54,11 +54,11 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 		}
 	}
 
-	private <I extends IStandardModuleInstance<I>> void showPopup(IStandardModule<I> standadModule, AGModuleInstance moduleInstance) {
+	private <I extends IStandardModuleInstance<I>> void showPopup(IEmfModule<I> module, AGModuleInstance moduleInstance) {
 
-		I standardModuleInstance = standadModule//
-			.getModuleInstance(moduleInstance)
+		I actualModuleInstance = module//
+			.getModuleInstance(moduleInstance.getId())
 			.orElseThrow(() -> new SofticarUserException(CoreI18n.MODULE_INSTANCE_WAS_NOT_INITIALIZED));
-		new EmfFormPopup<>(standardModuleInstance).open();
+		new EmfFormPopup<>(actualModuleInstance).open();
 	}
 }

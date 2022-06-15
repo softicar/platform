@@ -8,7 +8,6 @@ import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.access.permission.EmfSystemModulePermission;
@@ -80,7 +79,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	@Override
 	public Boolean isSuperUser() {
 
-		return CorePermissions.SUPER_USER.test(CoreModule.getModuleInstance(), getThis());
+		return CorePermissions.SUPER_USER.test(AGCoreModuleInstance.getInstance(), getThis());
 	}
 
 	public boolean isPasswordPolicyFulfilled() {

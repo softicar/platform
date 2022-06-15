@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.file.stored.server;
 
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, SystemModuleInstance> {
+public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, AGCoreModuleInstance> {
 
 	public AGStoredFileServerTable(IDbObjectTableBuilder<AGStoredFileServer> builder) {
 
@@ -19,13 +19,13 @@ public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, 
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGStoredFileServer, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGStoredFileServer, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.STORED_FILE_SERVER);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGStoredFileServer, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGStoredFileServer, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
 		authorizer.setCreationPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());

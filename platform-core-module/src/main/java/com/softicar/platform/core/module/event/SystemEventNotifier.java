@@ -2,11 +2,9 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.event.recipient.AGSystemEventEmailRecipient;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.List;
@@ -31,7 +29,7 @@ public class SystemEventNotifier {
 			BufferedEmailFactory//
 				.createNoReplyEmail()
 				.setSubject(CoreI18n.SYSTEM_ARG1_HAS_ARG2_SYSTEM_EVENTS_THAT_NEED_CONFIRMATION.toDisplay(moduleInstance.getSystemName(), count))
-				.setPlainTextContent(new PageUrlBuilder<>(SystemEventPage.class, new SystemModuleInstance(CoreModule.class)).build().toString())
+				.setPlainTextContent(new PageUrlBuilder<>(SystemEventPage.class, AGCoreModuleInstance.getInstance()).build().toString())
 				.addAGUsersToRecipients(emailRecipients)
 				.submit();
 		}

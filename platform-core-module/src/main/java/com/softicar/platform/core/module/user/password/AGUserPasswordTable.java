@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -10,7 +10,7 @@ import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, SystemModuleInstance> {
+public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, AGCoreModuleInstance> {
 
 	public AGUserPasswordTable(IDbObjectTableBuilder<AGUserPassword> builder) {
 
@@ -18,7 +18,7 @@ public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, SystemMo
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserPassword, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserPassword, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.PASSWORD);
 	}
@@ -35,7 +35,7 @@ public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, SystemMo
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGUserPassword, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGUserPassword, AGCoreModuleInstance> authorizer) {
 
 		authorizer//
 			.setCreationPermission(EmfPermissions.never())

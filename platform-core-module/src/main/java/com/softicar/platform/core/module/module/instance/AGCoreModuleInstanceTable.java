@@ -1,39 +1,40 @@
 package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
-import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.standard.StandardModuleInstanceTable;
+import com.softicar.platform.db.runtime.object.sub.IDbSubObjectTableBuilder;
 import com.softicar.platform.db.runtime.table.configuration.DbTableConfiguration;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
-import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGCoreModuleInstanceTable extends EmfObjectTable<AGCoreModuleInstance, SystemModuleInstance> {
+public class AGCoreModuleInstanceTable extends StandardModuleInstanceTable<AGCoreModuleInstance> {
 
-	public AGCoreModuleInstanceTable(IDbObjectTableBuilder<AGCoreModuleInstance> builder) {
+	public AGCoreModuleInstanceTable(IDbSubObjectTableBuilder<AGCoreModuleInstance, AGModuleInstance, Integer> builder) {
 
-		super(builder);
+		super(builder, CoreModule.class);
 	}
 
 	@Override
-	protected void customizeTableConfiguration(DbTableConfiguration<AGCoreModuleInstance, Integer> configuration) {
+	protected void customizeTableConfiguration(DbTableConfiguration<AGCoreModuleInstance, AGModuleInstance> configuration) {
 
 		configuration.setDataInitializer(new CoreModuleInstanceTableDataInitializer());
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGCoreModuleInstance, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGCoreModuleInstance, AGModuleInstance, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.MODULE_INSTANCE);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGCoreModuleInstance, SystemModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGCoreModuleInstance, AGCoreModuleInstance> authorizer) {
 
 		authorizer//
 			.setCreationPermission(EmfPermissions.never())

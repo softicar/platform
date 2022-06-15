@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.access.permission;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.permission.IEmfPermission;
@@ -19,7 +19,7 @@ import java.util.UUID;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class EmfSystemModulePermission extends AbstractEmfStaticPermission<SystemModuleInstance> implements IEmfModulePermission<SystemModuleInstance> {
+public class EmfSystemModulePermission extends AbstractEmfStaticPermission<AGCoreModuleInstance> implements IEmfModulePermission<AGCoreModuleInstance> {
 
 	public EmfSystemModulePermission(String permissionUuid, IDisplayString title) {
 
@@ -28,11 +28,11 @@ public class EmfSystemModulePermission extends AbstractEmfStaticPermission<Syste
 
 	public EmfSystemModulePermission(UUID permissionUuid, IDisplayString title) {
 
-		super(new EmfStaticPermissionConfiguration<SystemModuleInstance>().setUuid(permissionUuid).setTitle(title));
+		super(new EmfStaticPermissionConfiguration<AGCoreModuleInstance>().setUuid(permissionUuid).setTitle(title));
 	}
 
 	@Override
-	public boolean test(SystemModuleInstance moduleInstance, IBasicUser user) {
+	public boolean test(AGCoreModuleInstance moduleInstance, IBasicUser user) {
 
 		return AGUser.get(user).hasModulePermission(this);
 	}

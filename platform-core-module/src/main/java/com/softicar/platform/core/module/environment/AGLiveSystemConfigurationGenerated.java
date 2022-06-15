@@ -3,9 +3,11 @@ package com.softicar.platform.core.module.environment;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.date.weekday.AGWeekday;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
+import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.field.IDbTimeField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
@@ -31,7 +33,7 @@ public class AGLiveSystemConfigurationGenerated extends AbstractDbRecord<AGLiveS
 		BUILDER.setPluralTitle(CoreI18n.LIVE_SYSTEM_CONFIGURATIONS);
 	}
 
-	public static final IDbForeignField<AGLiveSystemConfiguration, AGCoreModuleInstance> CORE_MODULE_INSTANCE = BUILDER.addForeignField("coreModuleInstance", o->o.m_coreModuleInstance, (o,v)->o.m_coreModuleInstance=v, AGCoreModuleInstance.ID).setTitle(CoreI18n.CORE_MODULE_INSTANCE).setCascade(true, true);
+	public static final IDbForeignRowField<AGLiveSystemConfiguration, AGCoreModuleInstance, AGModuleInstance> CORE_MODULE_INSTANCE = BUILDER.addForeignRowField("coreModuleInstance", o->o.m_coreModuleInstance, (o,v)->o.m_coreModuleInstance=v, AGCoreModuleInstance.MODULE_INSTANCE).setTitle(CoreI18n.CORE_MODULE_INSTANCE).setCascade(true, true);
 	public static final IDbStringField<AGLiveSystemConfiguration> SYSTEM_NAME = BUILDER.addStringField("systemName", o->o.m_systemName, (o,v)->o.m_systemName=v).setTitle(CoreI18n.SYSTEM_NAME).setDefault("SoftiCAR").setMaximumLength(255);
 	public static final IDbForeignField<AGLiveSystemConfiguration, AGWeekday> DBMS_DOWN_TIME_WEEKDAY = BUILDER.addForeignField("dbmsDownTimeWeekday", o->o.m_dbmsDownTimeWeekday, (o,v)->o.m_dbmsDownTimeWeekday=v, AGWeekday.ID).setTitle(CoreI18n.DBMS_DOWN_TIME_WEEKDAY).setNullable().setDefault(null);
 	public static final IDbTimeField<AGLiveSystemConfiguration> DBMS_DOWN_TIME_BEGIN = BUILDER.addTimeField("dbmsDownTimeBegin", o->o.m_dbmsDownTimeBegin, (o,v)->o.m_dbmsDownTimeBegin=v).setTitle(CoreI18n.DBMS_DOWN_TIME_BEGIN).setNullable().setDefault(null);
@@ -49,11 +51,6 @@ public class AGLiveSystemConfigurationGenerated extends AbstractDbRecord<AGLiveS
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
-
-	public final Integer getCoreModuleInstanceID() {
-
-		return getValueId(CORE_MODULE_INSTANCE);
-	}
 
 	public final AGCoreModuleInstance getCoreModuleInstance() {
 

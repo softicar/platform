@@ -7,25 +7,24 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
 import com.softicar.platform.core.module.server.AGServer;
-import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
-import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
 
-public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implements IEmfObject<AGCoreModuleInstance>, IEmfModuleInstance<AGCoreModuleInstance> {
+public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implements IStandardModuleInstance<AGCoreModuleInstance> {
 
 	/**
 	 * Bootstrapping assumption: {@link AGCoreModuleInstanceTable} must always
 	 * contain exactly one record, with the ID which is specified here.
 	 */
-	protected static final int SINGLETON_INSTANCE_ID = 1;
+	protected static final int SINGLETON_INSTANCE_ID = 0;
 
 	public static AGCoreModuleInstance getInstance() {
 
-		return AGCoreModuleInstance.get(SINGLETON_INSTANCE_ID);
+		return AGCoreModuleInstance.TABLE.get(SINGLETON_INSTANCE_ID);
 	}
 
 	public AGServer getEmailServerOrThrow() {

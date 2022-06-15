@@ -1,14 +1,14 @@
 package com.softicar.platform.core.module.user.rule.ip;
 
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.module.instance.system.SystemModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGUserAllowedIpRuleTable extends EmfObjectTable<AGUserAllowedIpRule, SystemModuleInstance> {
+public class AGUserAllowedIpRuleTable extends EmfObjectTable<AGUserAllowedIpRule, AGCoreModuleInstance> {
 
 	public AGUserAllowedIpRuleTable(IDbObjectTableBuilder<AGUserAllowedIpRule> builder) {
 
@@ -16,7 +16,7 @@ public class AGUserAllowedIpRuleTable extends EmfObjectTable<AGUserAllowedIpRule
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserAllowedIpRule, Integer, SystemModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGUserAllowedIpRule, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.NETWORK);
 		configuration.addValidator(UserAllowedIpRuleValidator::new);
