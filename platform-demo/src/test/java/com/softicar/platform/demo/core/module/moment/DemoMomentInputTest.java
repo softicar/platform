@@ -30,7 +30,8 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		AGDemoMoment moment = assertOne(AGDemoMoment.TABLE.loadAll());
 		assertEquals(Day.fromYMD(2022, 1, 1), moment.getDay());
 		assertEquals(new Time(1, 2, 3), moment.getTime());
-		assertEquals(DayTime.fromYMD_HMS(1970, 12, 31, 23, 59, 59), moment.getPointInTime());
+		assertEquals(DayTime.fromYMD_HMS(2022, 1, 1, 0, 0, 0), moment.getPointInTime());
+		// note that the point-in-time value is derived from the day input, see DemoMomentPointInTimeInput
 	}
 
 	@Test

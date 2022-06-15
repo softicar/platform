@@ -26,7 +26,7 @@ public class AutoCompleteEntityWithChangeHandlerTestCase extends AbstractTestCas
 				"bazinga");
 		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(items);
 		this.input = new DomAutoCompleteEntityInput<>(engine);
-		this.input.setChangeCallback(this::handleChange);
+		this.input.addChangeCallback(this::handleChange);
 		this.otherInput = new DomAutoCompleteEntityInput<>(new DomAutoCompleteEntityInMemoryInputEngine<>());
 
 		DomDiv container = appendChild(new DomDiv());

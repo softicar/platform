@@ -7,11 +7,6 @@ import java.util.stream.Stream;
 
 public class DomBar extends DomDiv {
 
-	public DomBar() {
-
-		this(new IDomNode[0]);
-	}
-
 	public DomBar(IDomNode...children) {
 
 		addCssClass(DomElementsCssClasses.DOM_BAR);

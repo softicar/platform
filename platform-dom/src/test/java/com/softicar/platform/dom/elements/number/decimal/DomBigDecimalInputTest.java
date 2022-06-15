@@ -5,12 +5,12 @@ import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
-import com.softicar.platform.dom.input.AbstractDomValueInputTest;
+import com.softicar.platform.dom.input.AbstractDomValueInputDivTest;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import java.math.BigDecimal;
 import org.junit.Test;
 
-public class DomBigDecimalInputTest extends AbstractDomValueInputTest<BigDecimal> {
+public class DomBigDecimalInputTest extends AbstractDomValueInputDivTest<BigDecimal> {
 
 	private static final Locale SPECIAL_LOCALE = new Locale()//
 		.setDecimalSeparator(",")

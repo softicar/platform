@@ -378,7 +378,7 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void select(IDomNode inputNode) {
+	public void selectText(IDomNode inputNode) {
 
 		JS_callNodeFunction(inputNode, "select");
 	}

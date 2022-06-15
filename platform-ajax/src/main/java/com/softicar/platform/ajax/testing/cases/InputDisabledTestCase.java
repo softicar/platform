@@ -11,7 +11,7 @@ public class InputDisabledTestCase extends AbstractTestCaseDiv {
 
 	public InputDisabledTestCase() {
 
-		this.input = new DomTextInput().setInputText("some input");
+		this.input = new DomTextInput("some input");
 
 		appendChild(input);
 		appendChild(

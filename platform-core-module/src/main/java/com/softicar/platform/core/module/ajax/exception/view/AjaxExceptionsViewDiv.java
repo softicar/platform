@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
@@ -16,14 +17,14 @@ import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBase
 
 public class AjaxExceptionsViewDiv extends DomDiv implements IRefreshable {
 
-	private final EmfBooleanInput customExceptionCheckbox;
+	private final DomCheckbox customExceptionCheckbox;
 	private final DomActionBar checkBoxActionBar;
 
 	public AjaxExceptionsViewDiv() {
 
 		customExceptionCheckbox = new EmfBooleanInput(false)//
 			.setLabel(CoreI18n.IGNORE_ARG1_EXCEPTIONS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()));
-		customExceptionCheckbox.setChangeCallback(this::refresh);
+		customExceptionCheckbox.addChangeCallback(this::refresh);
 		checkBoxActionBar = new DomActionBar(customExceptionCheckbox);
 
 		refresh();

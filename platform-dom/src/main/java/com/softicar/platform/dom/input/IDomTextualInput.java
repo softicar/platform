@@ -1,70 +1,67 @@
 package com.softicar.platform.dom.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import java.util.Optional;
 
-public interface IDomTextualInput extends IDomFocusable {
+/**
+ * A specialization of {@link IDomValueInput} for {@link String}.
+ *
+ * @author Oliver Richers
+ */
+public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> {
 
 	// -------------------------------- value -------------------------------- //
 
 	/**
-	 * Assigns the input text of this {@link IDomTextualInput}.
+	 * Sets the value of this {@link IDomTextualInput}.
 	 * <p>
-	 * If the provided text is <i>null</i>, an empty {@link String} will be
-	 * assigned.
+	 * If the value is <i>null</i>, the empty string will be assigned.
 	 *
-	 * @param inputText
-	 *            the input text or <i>null</i>
-	 * @return this
+	 * @param value
+	 *            the value or <i>null</i>
 	 */
-	IDomTextualInput setInputText(String inputText);
+	@Override
+	void setValue(String value);
 
 	/**
-	 * Returns the current input text of this {@link IDomTextualInput}.
-	 *
-	 * @return the input text (never <i>null</i>)
-	 */
-	String getInputText();
-
-	/**
-	 * Same as {@link #getInputText()} but trims the returned value.
-	 *
-	 * @return the trimmed input text (never <i>null</i>)
-	 */
-	default String getInputTextTrimmed() {
-
-		return getInputText().trim();
-	}
-
-	/**
-	 * Trims the input text of this {@link IDomTextualInput}.
+	 * Returns the value of this {@link IDomValueInput}.
 	 * <p>
-	 * Leading and trailing whitespace will be discarded.
+	 * The returned {@link Optional} value is never empty.
+	 *
+	 * @return the value as {@link Optional} (never empty)
 	 */
-	default void trimInputText() {
-
-		setInputText(getInputTextTrimmed());
-	}
+	@Override
+	Optional<String> getValue();
 
 	/**
-	 * Tests whether the input text is blank, in the sense of
+	 * Returns the value text of this {@link IDomTextualInput}.
+	 *
+	 * @return the value text (never <i>null</i>)
+	 */
+	String getValueText();
+
+	/**
+	 * Same as {@link #getValueText()} but trims the returned value.
+	 *
+	 * @return the trimmed value text (never <i>null</i>)
+	 */
+	String getValueTextTrimmed();
+
+	/**
+	 * Tests whether the textual value of this input is blank, in the sense of
 	 * {@link String#isBlank()}.
 	 *
-	 * @return <i>true</i> if the input text is blank; <i>false</i> otherwise
+	 * @return <i>true</i> if the value is blank; <i>false</i> otherwise
 	 */
-	default boolean isBlank() {
-
-		return getInputText().isBlank();
-	}
+	boolean isBlank();
 
 	// -------------------------------- caret & selection -------------------------------- //
 
 	/**
 	 * Inserts the given text at the current caret position.
 	 */
-	default void insertAtCaret(String text) {
-
-		getDomEngine().insertTextAtCaret(this, text);
-	}
+	void insertTextAtCaret(String text);
 
 	/**
 	 * Moves the caret to the given position.
@@ -72,10 +69,7 @@ public interface IDomTextualInput extends IDomFocusable {
 	 * @param position
 	 *            the index of the desired position
 	 */
-	default void moveCaretToPosition(int position) {
-
-		getDomEngine().moveCaretToPosition(this, position);
-	}
+	void moveCaretToPosition(int position);
 
 	/**
 	 * Selects the text in this {@link IDomTextualInput}.
@@ -84,20 +78,25 @@ public interface IDomTextualInput extends IDomFocusable {
 	 * {@link DomPopup}, make sure that the {@link DomPopup} is visible, because
 	 * only visible elements can get the focus.
 	 */
-	default void select() {
+	void selectText();
 
-		getDomEngine().select(this);
-	}
+	// -------------------------------- placeholder -------------------------------- //
+
+	/**
+	 * Defines the HTML placeholder attribute.
+	 *
+	 * @param placeholder
+	 *            the placeholder text to display (never <i>null</i>)
+	 * @return this
+	 */
+	IDomTextualInput setPlaceholder(IDisplayString placeholder);
 
 	// -------------------------------- read-only -------------------------------- //
 
 	/**
 	 * Makes this {@link IDomTextualInput} read-only.
 	 */
-	default void setReadonly(boolean readonly) {
-
-		setAttribute("readonly", readonly? "" : null);
-	}
+	void setReadonly(boolean readonly);
 
 	/**
 	 * Tests whether this {@link IDomTextualInput} is read-only.
@@ -105,8 +104,5 @@ public interface IDomTextualInput extends IDomFocusable {
 	 * @return <i>true</i> if this {@link IDomTextualInput} is read-only;
 	 *         <i>false</i> otherwise
 	 */
-	default boolean isReadonly() {
-
-		return getAttributeValue("readonly").isPresent();
-	}
+	boolean isReadonly();
 }

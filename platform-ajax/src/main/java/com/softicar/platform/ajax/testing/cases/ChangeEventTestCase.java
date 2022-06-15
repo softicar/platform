@@ -1,7 +1,5 @@
 package com.softicar.platform.ajax.testing.cases;
 
-import com.softicar.platform.dom.event.IDomChangeEventHandler;
-import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
 
 public class ChangeEventTestCase extends AbstractTestCaseDiv {
@@ -11,12 +9,13 @@ public class ChangeEventTestCase extends AbstractTestCaseDiv {
 		appendChild(new Input());
 	}
 
-	private class Input extends DomTextInput implements IDomChangeEventHandler {
+	private class Input extends DomTextInput {
 
-		@Override
-		public void handleChange(IDomEvent event) {
+		public Input() {
 
-			log("got %s event, value = '%s'", event.getType(), getInputText());
+			addChangeCallback(() -> {
+				log("got %s event, value = '%s'", getCurrentEvent().getType(), getValueText());
+			});
 		}
 	}
 }

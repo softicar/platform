@@ -3,7 +3,6 @@ package com.softicar.platform.ajax.dom.event.change;
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
 import org.junit.Test;
@@ -70,30 +69,22 @@ public class AjaxDomChangeEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(DomEventType.CHANGE, event.getType());
 		assertSame(testDiv.getInput(), event.getCurrentTarget());
 
-		assertEquals(expectedValue, testDiv.getInput().getInputText());
+		assertEquals(expectedValue, testDiv.getInput().getValueText());
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv {
 
-		private final ChangeListeningInput input;
+		private final DomTextInput input;
 
 		public TestDiv() {
 
-			this.input = appendChild(new ChangeListeningInput());
+			this.input = appendChild(new DomTextInput());
+			this.input.addChangeCallback(() -> addEvent(getCurrentEvent()));
 		}
 
-		public ChangeListeningInput getInput() {
+		public DomTextInput getInput() {
 
 			return input;
-		}
-
-		private class ChangeListeningInput extends DomTextInput implements IDomChangeEventHandler {
-
-			@Override
-			public void handleChange(IDomEvent event) {
-
-				addEvent(event);
-			}
 		}
 	}
 }

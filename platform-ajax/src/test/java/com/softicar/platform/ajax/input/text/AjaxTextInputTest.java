@@ -24,7 +24,7 @@ public class AjaxTextInputTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testInitialDefaultValue() {
 
 		assertEquals("", getAttributeValue(input, "value"));
-		assertEquals("", testDiv.getInput().getInputText());
+		assertEquals("", testDiv.getInput().getValueText());
 	}
 
 	@Test
@@ -34,7 +34,7 @@ public class AjaxTextInputTest extends AbstractAjaxSeleniumLowLevelTest {
 		click(button);
 
 		waitForServer();
-		assertEquals(SOME_TEXT, testDiv.getInput().getInputText());
+		assertEquals(SOME_TEXT, testDiv.getInput().getValueText());
 	}
 
 	@Test
@@ -44,6 +44,6 @@ public class AjaxTextInputTest extends AbstractAjaxSeleniumLowLevelTest {
 		click(button);
 
 		waitForServer();
-		assertEquals(SOME_SPECIAL_TEXT, testDiv.getInput().getInputText());
+		assertEquals(SOME_SPECIAL_TEXT, testDiv.getInput().getValueText());
 	}
 }

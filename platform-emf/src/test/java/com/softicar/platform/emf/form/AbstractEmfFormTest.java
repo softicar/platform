@@ -2,8 +2,6 @@ package com.softicar.platform.emf.form;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.dom.elements.input.DomIntegerInput;
-import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.test.EmfTestSubObject;
@@ -42,18 +40,12 @@ public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 
 	protected void setInputValue(IStaticObject marker, String value) {
 
-		findBody()//
-			.findNode(marker)
-			.findNode(DomTextInput.class)
-			.setInputValue(value);
+		findBody().setInputValue(marker, value);
 	}
 
 	protected void setInputValue(IStaticObject marker, Integer value) {
 
-		findBody()//
-			.findNode(marker)
-			.findNode(DomIntegerInput.class)
-			.setInputValue("" + value);
+		findBody().setInputValue(marker, "" + value);
 	}
 
 	protected void clickButton(IStaticObject marker) {

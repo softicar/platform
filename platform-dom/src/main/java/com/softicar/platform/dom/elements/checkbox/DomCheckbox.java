@@ -1,6 +1,8 @@
 package com.softicar.platform.dom.elements.checkbox;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.common.core.interfaces.NullaryVoidFunctionList;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
@@ -10,9 +12,10 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomSpaceKeyEventHandler;
-import com.softicar.platform.dom.input.IDomInput;
+import com.softicar.platform.dom.input.IDomValueInput;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A non-native check-box similar to {@link DomButton}.
@@ -22,8 +25,9 @@ import java.util.Objects;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomInput, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
+public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDomClickEventHandler, IDomEnterKeyEventHandler, IDomSpaceKeyEventHandler {
 
+	private final NullaryVoidFunctionList callbacks;
 	private boolean disabled;
 	private boolean checked;
 	private final DomCheckboxBox checkboxBox;
@@ -31,6 +35,7 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomIn
 
 	public DomCheckbox(boolean checked) {
 
+		this.callbacks = new NullaryVoidFunctionList();
 		this.disabled = false;
 		this.checked = checked;
 
@@ -125,6 +130,13 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomIn
 		return checked;
 	}
 
+	@Override
+	public Optional<Boolean> getValue() {
+
+		return Optional.of(isChecked());
+	}
+
+	@Override
 	public void setValue(Boolean checked) {
 
 		if (Objects.requireNonNull(checked) != this.checked) {
@@ -133,10 +145,23 @@ public class DomCheckbox extends DomDiv implements IDomClickEventHandler, IDomIn
 		}
 	}
 
-	protected void toggleCheckedState() {
+	@Override
+	public void setValueAndHandleChangeCallback(Boolean value) {
+
+		setValue(value);
+		callbacks.apply();
+	}
+
+	@Override
+	public void addChangeCallback(INullaryVoidFunction callback) {
+
+		this.callbacks.add(callback);
+	}
+
+	protected final void toggleCheckedState() {
 
 		if (!disabled) {
-			setValue(!checked);
+			setValueAndHandleChangeCallback(!checked);
 		}
 	}
 

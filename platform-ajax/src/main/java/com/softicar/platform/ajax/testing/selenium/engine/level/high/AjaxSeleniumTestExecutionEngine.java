@@ -105,7 +105,7 @@ public class AjaxSeleniumTestExecutionEngine extends AbstractAjaxSeleniumTestEng
 	}
 
 	@Override
-	public void setInputValue(IDomTextualInput node, String text) {
+	public void setValueText(IDomTextualInput node, String text) {
 
 		screenshotQueue.addNewScreenshot("setInputValue-call");
 
@@ -121,7 +121,7 @@ public class AjaxSeleniumTestExecutionEngine extends AbstractAjaxSeleniumTestEng
 	}
 
 	@Override
-	public String getInputValue(IDomTextualInput node) {
+	public String getValueText(IDomTextualInput node) {
 
 		WebElement webElement = getWebElement(node);
 		return webElement.getAttribute("value");

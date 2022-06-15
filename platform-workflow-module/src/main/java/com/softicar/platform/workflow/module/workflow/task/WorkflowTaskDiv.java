@@ -7,9 +7,9 @@ import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
-import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
@@ -48,21 +48,26 @@ public class WorkflowTaskDiv extends DomDiv {
 
 	private class WorkflowTaskForUserDiv extends DomDiv implements IDomRefreshBusListener {
 
-		private final EmfBooleanInput showDelegatedTasksCheckbox;
+		private final DomCheckbox showDelegatedTasksCheckbox;
 		private final DomDiv contentDiv;
 		private final AGUser user;
 
 		public WorkflowTaskForUserDiv(AGUser user) {
 
 			this.user = user;
-			this.showDelegatedTasksCheckbox = appendChild(new EmfBooleanInput(false).setLabel(WorkflowI18n.SHOW_TASKS_DELEGATED_BY_ME));
-			showDelegatedTasksCheckbox.setChangeCallback(() -> refresh(null));
+			this.showDelegatedTasksCheckbox = appendChild(new DomCheckbox(false).setLabel(WorkflowI18n.SHOW_TASKS_DELEGATED_BY_ME));
+			showDelegatedTasksCheckbox.addChangeCallback(this::refresh);
 			appendChild(contentDiv = new DomDiv());
 			refresh(null);
 		}
 
 		@Override
 		public void refresh(IDomRefreshBusEvent event) {
+
+			refresh();
+		}
+
+		private void refresh() {
 
 			contentDiv.removeChildren();
 			contentDiv.appendChild(buildDiv());

@@ -51,12 +51,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 
 	public AbstractDomNodeTester<N> setInputValue(IStaticObject marker, String value) {
 
-		this//
-			.findNodes(marker)
-			.filter(this::hasStringInputNode)
-			.assertOne()
-			.findNode(IDomTextualInput.class)
-			.setInputValue(value);
+		findInput(marker).setInputValue(value);
 		return this;
 	}
 
@@ -106,21 +101,21 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 
 	public AbstractDomNodeTester<N> setInputValue(String text) {
 
-		if (node instanceof IDomTextualInput) {
-			engine.setInputValue((IDomTextualInput) node, text);
-		} else {
-			throw new AssertionError(String.format("The node must be of type %s.", IDomTextualInput.class.getSimpleName()));
-		}
+		var input = findNodes()//
+			.withType(IDomTextualInput.class)
+			.assertOne()
+			.assertType(IDomTextualInput.class);
+		engine.setValueText(input, text);
 		return this;
 	}
 
 	public String getInputValue() {
 
-		if (node instanceof IDomTextualInput) {
-			return engine.getInputValue((IDomTextualInput) node);
-		} else {
-			throw new AssertionError(String.format("The node must be of type %s.", IDomTextualInput.class.getSimpleName()));
-		}
+		var input = findNodes()//
+			.withType(IDomTextualInput.class)
+			.assertOne()
+			.assertType(IDomTextualInput.class);
+		return engine.getValueText(input);
 	}
 
 	public AbstractDomNodeTester<N> assertInputValue(String expectedValue) {
@@ -369,10 +364,5 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 				.map(IDomTextNode.class::cast)
 				.map(IDomTextNode::getText);
 		}
-	}
-
-	private boolean hasStringInputNode(IDomNode node) {
-
-		return new DomNodeTester(engine, node).findNodes(IDomTextualInput.class).size() > 0;
 	}
 }

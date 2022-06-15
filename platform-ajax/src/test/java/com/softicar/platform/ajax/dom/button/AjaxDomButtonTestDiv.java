@@ -15,7 +15,7 @@ class AjaxDomButtonTestDiv extends DomDiv {
 
 		this.input = new DomTextInput();
 		this.output = new DomDiv();
-		this.button = new TestButton(() -> output.appendChild(input.getInputText()));
+		this.button = new TestButton(() -> output.appendChild(input.getValueText()));
 
 		appendChild(input);
 		appendChild(output);

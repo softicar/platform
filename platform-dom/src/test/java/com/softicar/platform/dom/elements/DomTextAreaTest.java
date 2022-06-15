@@ -19,22 +19,22 @@ public class DomTextAreaTest extends AbstractTest {
 	@Test
 	public void testGetValueAfterConstruction() {
 
-		assertEquals("", textArea.getInputText());
+		assertEquals("", textArea.getValueText());
 	}
 
 	@Test
 	public void testGetValueAfterSetValue() {
 
-		textArea.setInputText("foo");
+		textArea.setValue("foo");
 
-		assertEquals("foo", textArea.getInputText());
+		assertEquals("foo", textArea.getValueText());
 	}
 
 	@Test
 	public void testGetValueAfterSetValueWithNull() {
 
-		textArea.setInputText(null);
+		textArea.setValue(null);
 
-		assertEquals("", textArea.getInputText());
+		assertEquals("", textArea.getValueText());
 	}
 }
