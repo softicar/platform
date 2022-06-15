@@ -4,9 +4,8 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.permission.EmfSystemModulePermission;
+import com.softicar.platform.core.module.access.permission.CoreModulePermission;
 import com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment;
-import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
@@ -86,15 +85,9 @@ public interface CoreModuleTestFixtureMethods {
 		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}
 
-	default AGSystemModulePermissionAssignment insertPermissionAssignment(AGUser user, EmfSystemModulePermission permission,
-			Class<? extends IEmfModule<?>> moduleClass) {
+	default AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, CoreModulePermission permission) {
 
-		return new AGSystemModulePermissionAssignment()
-			.setActive(true)
-			.setModule(AGUuid.getOrCreate(moduleClass))
-			.setPermission(permission.getAnnotatedUuid())
-			.setUser(user)
-			.save();
+		return insertPermissionAssignment(user, permission, AGCoreModuleInstance.getInstance());
 	}
 
 	default <I extends IStandardModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user,

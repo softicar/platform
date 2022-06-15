@@ -10,7 +10,6 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.permission.EmfSystemModulePermission;
 import com.softicar.platform.core.module.access.permission.assignment.EmfModulePermissionAssignmentCache;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
@@ -49,11 +48,6 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	public boolean hasModulePermission(IEmfModulePermission<?> permission, AGModuleInstance moduleInstance) {
 
 		return permissionCache.hasModulePermission(permission.getAnnotatedUuid(), moduleInstance);
-	}
-
-	public boolean hasModulePermission(EmfSystemModulePermission modulePermission) {
-
-		return permissionCache.hasModulePermission(modulePermission);
 	}
 
 	@Override
