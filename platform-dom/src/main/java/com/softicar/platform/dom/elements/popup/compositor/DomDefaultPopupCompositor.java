@@ -37,7 +37,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private final DomPopupBackdropTracker backdropTracker;
 	private final DomPopupHierarchyGraph hierarchyGraph;
 	private final DomPopupFrameHighlighter frameHighlighter;
-	private final DomPopupMaximizationContextStasher maximizationContextStasher;
+	private final DomPopupContextStasher contextStasher;
 
 	public DomDefaultPopupCompositor() {
 
@@ -47,7 +47,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		this.backdropTracker = new DomPopupBackdropTracker();
 		this.hierarchyGraph = new DomPopupHierarchyGraph();
 		this.frameHighlighter = new DomPopupFrameHighlighter();
-		this.maximizationContextStasher = new DomPopupMaximizationContextStasher();
+		this.contextStasher = new DomPopupContextStasher();
 	}
 
 	@Override
@@ -65,18 +65,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			applyCallbackBeforeOpen(configuration);
 
 			// -------- append backdrop -------- //
-			var maximizationContext = getClosestMaximizationContext(spawningNode);
-			appendBackdrop(popup, maximizationContext);
+			var context = getClosestPopupContext(spawningNode);
+			appendBackdrop(popup, context);
 
 			// -------- create frame -------- //
-			var frame = new DomPopupFrame(popup, maximizationContext);
+			var frame = new DomPopupFrame(popup, context);
 			frameMap.put(popup, frame);
 
 			// -------- append frame -------- //
 			if (displayMode.isMaximized()) {
-				maximizationContextStasher.stash(maximizationContext);
+				contextStasher.stash(context);
 			}
-			maximizationContext.appendChild(frame);
+			context.appendChild(frame);
 			stateTracker.setOpen(popup);
 
 			// -------- set up popup -------- //
@@ -105,7 +105,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		frameMap.keySet().forEach(this::close);
 		backdropTracker.clear().forEach(DomModalPopupBackdrop::disappend);
 		hierarchyGraph.clear();
-		maximizationContextStasher.clear();
+		contextStasher.clear();
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 			// -------- unstash content -------- //
 			if (popup.getConfiguration().getDisplayMode().isMaximized()) {
-				var context = getClosestMaximizationContext(popup);
-				maximizationContextStasher.unstash(context);
+				var context = getClosestPopupContext(popup);
+				contextStasher.unstash(context);
 			}
 
 			// -------- execute before-close callback -------- //
@@ -241,7 +241,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		getDomEngine().raise(frame);
 	}
 
-	private void appendBackdrop(DomPopup popup, IDomPopupMaximizationContext maximizationContext) {
+	private void appendBackdrop(DomPopup popup, IDomPopupContext popupContext) {
 
 		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
 		if (modalMode.isModal()) {
@@ -250,7 +250,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			backdropTracker.add(popup, backdrop);
 			refreshBackdropVisibility();
 			getDomEngine().raise(backdrop);
-			maximizationContext.appendChild(backdrop);
+			popupContext.appendChild(backdrop);
 		}
 	}
 
@@ -283,14 +283,14 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 	}
 
-	private IDomPopupMaximizationContext getClosestMaximizationContext(IDomNode node) {
+	private IDomPopupContext getClosestPopupContext(IDomNode node) {
 
-		return new DomParentNodeFinder<>(IDomPopupMaximizationContext.class)//
+		return new DomParentNodeFinder<>(IDomPopupContext.class)//
 			.findClosestParent(node, true)
 			.orElseGet(() -> {
-				String message = "Warning: Failed to determine the %s for node %s (%s). Using <body> instead."
+				String message = "Warning: Failed to determine the closest %s for node %s (%s). Using the document body instead."
 					.formatted(//
-						IDomPopupMaximizationContext.class.getSimpleName(),
+						IDomPopupContext.class.getSimpleName(),
 						node.getNodeIdString(),
 						node.getClass().getCanonicalName());
 				Log.fwarning(message);

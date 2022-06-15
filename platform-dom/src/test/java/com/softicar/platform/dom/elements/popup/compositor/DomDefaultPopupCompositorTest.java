@@ -1170,7 +1170,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		return asTester(node).getZIndex();
 	}
 
-	private static class TestDiv extends DomDiv implements IDomPopupMaximizationContext {
+	private static class TestDiv extends DomDiv implements IDomPopupContext {
 
 		// nothing
 	}
