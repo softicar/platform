@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.access.permission.assignment.module.system;
+package com.softicar.platform.core.module.access.permission.assignment.module.instance;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
  *
  * @author Alexander Schmidt
  */
-public class SystemModulePermissionAssignmentUserInput extends EmfEntityInput<AGUser> {
+public class ModuleInstancePermissionAssignmentUserInput extends EmfEntityInput<AGUser> {
 
-	public SystemModulePermissionAssignmentUserInput() {
+	public ModuleInstancePermissionAssignmentUserInput() {
 
 		super(new InputEngine(AGUser.TABLE));
 		setPlaceholder(CoreI18n.USER);

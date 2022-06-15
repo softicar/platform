@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.access.permission.assignment.module.instance;
 
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.access.permission.assignment.module.system.SystemModulePermissionAssignmentUserInput;
 import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
@@ -41,7 +40,7 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 			.editAttribute(AGModuleInstancePermissionAssignment.USER)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always())
-			.setInputFactory(SystemModulePermissionAssignmentUserInput::new);
+			.setInputFactory(ModuleInstancePermissionAssignmentUserInput::new);
 
 		attributes//
 			.editAttribute(AGModuleInstancePermissionAssignment.MODULE_INSTANCE)
