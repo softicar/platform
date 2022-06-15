@@ -78,7 +78,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 		if (program.isAbortRequested()) {
 			terminateProgram(program);
 		}
-
+		currentExecution.reload();
 		if (!currentExecution.isTerminated() && !program.isAbortRequested()) {
 			checkMaximumRuntime(program, currentExecution);
 		}
