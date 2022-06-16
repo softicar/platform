@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.module.instance;
 
 import com.softicar.platform.core.module.access.module.AbstractModuleTest;
-import com.softicar.platform.core.module.test.module.standard.alpha.TestModuleAlpha;
-import com.softicar.platform.core.module.test.module.standard.alpha.TestModuleAlphaInstance;
+import com.softicar.platform.core.module.test.module.alpha.TestModuleAlpha;
+import com.softicar.platform.core.module.test.module.alpha.TestModuleAlphaInstance;
 import com.softicar.platform.db.runtime.test.utils.DbTestTableRowInserter;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
 import com.softicar.platform.emf.test.module.EmfTestModule;

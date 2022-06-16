@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.test.module.standard.alpha;
+package com.softicar.platform.core.module.test.module.alpha;
 
 import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.core.module.module.AbstractModule;

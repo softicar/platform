@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.test.module.standard.beta;
+package com.softicar.platform.core.module.test.module.beta;
 
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;

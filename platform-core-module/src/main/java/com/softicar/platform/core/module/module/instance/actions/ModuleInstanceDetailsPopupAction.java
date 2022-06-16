@@ -9,7 +9,7 @@ import com.softicar.platform.core.module.module.IModule;
 import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.ModuleInstancePredicates;
-import com.softicar.platform.core.module.module.instance.ModuleClassNotImplementingModuleInterfaceException;
+import com.softicar.platform.core.module.module.instance.ModuleClassDoesNotImplementModuleInterfaceException;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.module.IEmfModule;
@@ -50,7 +50,7 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 		if (module instanceof IModule) {
 			showPopup((IModule<?>) module, moduleInstance);
 		} else {
-			throw new ModuleClassNotImplementingModuleInterfaceException(module);
+			throw new ModuleClassDoesNotImplementModuleInterfaceException(module);
 		}
 	}
 

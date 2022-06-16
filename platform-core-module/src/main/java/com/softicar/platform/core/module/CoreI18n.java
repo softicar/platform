@@ -476,7 +476,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 MODULE_CLASS = new I18n0("Module Class")//
 		.de("Modulklasse");
 	I18n2 MODULE_CLASS_ARG1_MUST_IMPLEMENT_INTERFACE_ARG2 = new I18n2("Module class '%s' must implement interface '%s'.")//
-		.de("Modulklasse '%s' muss das Inerface '%s' implementieren.");
+		.de("Modulklasse '%s' muss das Interface '%s' implementieren.");
 	I18n0 MODULE_CLASSES = new I18n0("Module Classes")//
 		.de("Modulklassen");
 	I18n0 MODULE_INSTANCE = new I18n0("Module Instance")//

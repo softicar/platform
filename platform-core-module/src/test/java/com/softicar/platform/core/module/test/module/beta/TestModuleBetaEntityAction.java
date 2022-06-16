@@ -1,8 +1,8 @@
-package com.softicar.platform.core.module.test.module.standard.alpha;
+package com.softicar.platform.core.module.test.module.beta;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
 import com.softicar.platform.emf.form.section.IEmfFormSectionDiv;
 import com.softicar.platform.emf.permission.EmfAnyPermission;
@@ -10,18 +10,16 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
-public class TestModuleAlphaEntityAction implements IEmfPrimaryAction<TestModuleAlphaEntity> {
+public class TestModuleBetaEntityAction implements IEmfPrimaryAction<TestModuleBetaEntity> {
 
 	@Override
-	public IEmfPermission<TestModuleAlphaEntity> getRequiredPermission() {
+	public IEmfPermission<TestModuleBetaEntity> getRequiredPermission() {
 
-		return new EmfAnyPermission<>(//
-			TestModuleAlphaPermissions.PERMISSION_ONE.of(TestModuleAlphaEntity.MODULE_INSTANCE),
-			TestModuleAlphaPermissions.PERMISSION_TWO.of(TestModuleAlphaEntity.MODULE_INSTANCE));
+		return new EmfAnyPermission<>(TestModuleBetaPermissions.PERMISSION_ONE.of(TestModuleBetaEntity.MODULE_INSTANCE));
 	}
 
 	@Override
-	public IEmfPredicate<TestModuleAlphaEntity> getPrecondition() {
+	public IEmfPredicate<TestModuleBetaEntity> getPrecondition() {
 
 		return EmfPredicates.always();
 	}
@@ -29,7 +27,7 @@ public class TestModuleAlphaEntityAction implements IEmfPrimaryAction<TestModule
 	@Override
 	public IResource getIcon() {
 
-		return CoreImages.EXECUTE.getResource();
+		return DomElementsImages.DIALOG_OKAY.getResource();
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class TestModuleAlphaEntityAction implements IEmfPrimaryAction<TestModule
 	}
 
 	@Override
-	public void integrate(TestModuleAlphaEntity entity, IEmfFormSectionDiv<TestModuleAlphaEntity> actionContainer) {
+	public void integrate(TestModuleBetaEntity entity, IEmfFormSectionDiv<TestModuleBetaEntity> actionContainer) {
 
 		// nothing to do
 	}

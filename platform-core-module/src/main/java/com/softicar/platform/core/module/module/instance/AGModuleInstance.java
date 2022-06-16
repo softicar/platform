@@ -37,7 +37,7 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 		IEmfModule<?> module = IEmfModuleInstance.super.getModuleOrThrow();
 		return CastUtils//
 			.tryCast(module, IModule.class)
-			.orElseThrow(() -> new ModuleClassNotImplementingModuleInterfaceException(module));
+			.orElseThrow(() -> new ModuleClassDoesNotImplementModuleInterfaceException(module));
 	}
 
 	@Override

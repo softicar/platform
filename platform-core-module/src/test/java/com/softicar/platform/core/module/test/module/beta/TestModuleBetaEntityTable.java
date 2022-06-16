@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.test.module.standard.beta;
+package com.softicar.platform.core.module.test.module.beta;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;

@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.permission.AbstractModulePermissionUiTest;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
-import com.softicar.platform.core.module.test.module.standard.alpha.TestModuleAlphaPermissions;
+import com.softicar.platform.core.module.test.module.alpha.TestModuleAlphaPermissions;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
