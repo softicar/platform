@@ -2,9 +2,9 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;

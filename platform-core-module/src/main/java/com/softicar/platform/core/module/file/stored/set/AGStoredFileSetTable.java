@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.file.stored.set;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.set.attribute.StoredFileSetAttribute;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.entity.set.AbstractEmfEntitySetTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;

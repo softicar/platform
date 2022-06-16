@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.user.pseudonymization;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.AGUserLog;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;

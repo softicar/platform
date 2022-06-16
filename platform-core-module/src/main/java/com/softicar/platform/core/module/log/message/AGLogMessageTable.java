@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.log.message;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;

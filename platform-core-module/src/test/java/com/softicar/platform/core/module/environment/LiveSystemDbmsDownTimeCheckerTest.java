@@ -3,8 +3,8 @@ package com.softicar.platform.core.module.environment;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.date.weekday.AGWeekday;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractSofticarDbTest;
 import org.junit.Test;
 

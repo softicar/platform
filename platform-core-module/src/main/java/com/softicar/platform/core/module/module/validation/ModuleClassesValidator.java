@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.java.classes.name.matcher.IJavaClassNam
 import com.softicar.platform.common.core.java.classes.name.matcher.JavaClassNameGlobPatternMatcher;
 import com.softicar.platform.common.core.java.code.validator.AbstractJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
-import com.softicar.platform.core.module.module.AbstractStandardModule;
+import com.softicar.platform.core.module.module.AbstractModule;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
@@ -32,11 +32,11 @@ public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 
 	private void validateModuleSuperType(Class<?> javaClass) {
 
-		if (isModuleClass(javaClass) && !AbstractStandardModule.class.isAssignableFrom(javaClass)) {
+		if (isModuleClass(javaClass) && !AbstractModule.class.isAssignableFrom(javaClass)) {
 			formatViolation(//
 				"Module '%s' needs to extend the type: %s",
 				javaClass.getCanonicalName(),
-				AbstractStandardModule.class.getSimpleName());
+				AbstractModule.class.getSimpleName());
 		}
 	}
 

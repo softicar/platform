@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.email;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.buffer.BufferedEmail;
 import com.softicar.platform.core.module.email.transport.EmailTransport;
 import com.softicar.platform.core.module.email.transport.IEmailTransportServer;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import java.util.Properties;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;

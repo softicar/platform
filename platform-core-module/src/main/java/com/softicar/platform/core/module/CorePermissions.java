@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module;
 
-import com.softicar.platform.core.module.access.permission.CoreModulePermission;
+import com.softicar.platform.core.module.permission.CoreModulePermission;
 
 public interface CorePermissions {
 

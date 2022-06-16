@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.user.impersonation;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.access.permission.assignment.module.instance.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import org.junit.Test;

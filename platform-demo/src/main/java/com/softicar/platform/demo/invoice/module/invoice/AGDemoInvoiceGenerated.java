@@ -2,9 +2,9 @@ package com.softicar.platform.demo.invoice.module.invoice;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayField;

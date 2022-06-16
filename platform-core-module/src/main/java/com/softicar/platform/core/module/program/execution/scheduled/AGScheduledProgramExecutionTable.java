@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.program.execution.scheduled;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.scheduled.information.CronExpressionInformationAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;

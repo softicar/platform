@@ -1,8 +1,8 @@
 package com.softicar.platform.workflow.module;
 
-import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
+import com.softicar.platform.core.module.module.instance.IModuleInstance;
 
-public class AGWorkflowModuleInstance extends AGWorkflowModuleInstanceGenerated implements IStandardModuleInstance<AGWorkflowModuleInstance> {
+public class AGWorkflowModuleInstance extends AGWorkflowModuleInstanceGenerated implements IModuleInstance<AGWorkflowModuleInstance> {
 
 	// add custom code here
 }

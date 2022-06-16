@@ -24,6 +24,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Eintrag hinzufügen");
 	I18n0 ADD_FILTER = new I18n0("Add Filter")//
 		.de("Filter hinzufügen");
+	I18n0 ADMINISTRATION = new I18n0("Administration")//
+		.de("Administration");
 	I18n0 ADMINISTRATOR = new I18n0("Administrator")//
 		.de("Administrator");
 	I18n0 ALL = new I18n0("All")//
@@ -250,6 +252,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Öffnen");
 	I18n0 OPENS_THE_HISTORY_WINDOW_FOR_THE_GIVEN_ENTRY = new I18n0("Opens the history window for the given entry.")//
 		.de("Öffnet das Historien-Fenster für den gegebenen Eintrag.");
+	I18n0 OPERATION = new I18n0("Operation")//
+		.de("Betrieb");
 	I18n0 OPERATOR = new I18n0("Operator")//
 		.de("Anwender");
 	I18n0 OPTIONS = new I18n0("Options")//

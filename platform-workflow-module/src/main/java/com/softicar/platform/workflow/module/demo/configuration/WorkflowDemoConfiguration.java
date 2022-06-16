@@ -90,7 +90,7 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 			.setEmailAddress("demo.user@example.com")
 			.save();
 		insertPassword(demoUser, "test");
-		insertPermissionAssignment(demoUser, EmfDefaultModulePermissions.getModuleOperator(), moduleInstance);
+		insertPermissionAssignment(demoUser, EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
 		AGWorkflowDemoObject demoObject = new AGWorkflowDemoObject().setName("Test Object").setModuleInstance(moduleInstance).save();
 		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getAdminUser(), 1);
 		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getNormalUser(), 1);

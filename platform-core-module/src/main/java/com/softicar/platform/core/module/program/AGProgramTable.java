@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.abort.ProgramAbortAction;
 import com.softicar.platform.core.module.program.enqueue.ProgramEnqueueAction;
 import com.softicar.platform.core.module.program.unqueue.ProgramUnqueueAction;

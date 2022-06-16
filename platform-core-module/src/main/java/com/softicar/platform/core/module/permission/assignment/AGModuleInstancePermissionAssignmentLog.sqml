@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.permission.assignment
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
+TABLE AGModuleInstancePermissionAssignmentLog 'Core.ModuleInstancePermissionAssignmentLog' {
+	PK AGModuleInstancePermissionAssignment assignment
+	PK AGTransaction transaction [ON UPDATE CASCADE]
+	Boolean active = NULL [NULLABLE]
+	AGUuid permission = NULL [NULLABLE]
+
+	IK transaction
+}
