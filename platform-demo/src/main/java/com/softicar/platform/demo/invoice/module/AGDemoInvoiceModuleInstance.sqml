@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.demo.invoice.module
 
-IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
 IMPORT com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance
 
 TABLE AGDemoInvoiceModuleInstance  'Demo.DemoInvoiceModuleInstance' {

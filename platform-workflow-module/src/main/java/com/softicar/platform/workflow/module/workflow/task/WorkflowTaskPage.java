@@ -29,7 +29,7 @@ public class WorkflowTaskPage implements IEmfPage<AGWorkflowModuleInstance> {
 	@Override
 	public IEmfPermission<AGWorkflowModuleInstance> getRequiredPermission() {
 
-		return EmfDefaultModulePermissions.getModuleOperator();
+		return EmfDefaultModulePermissions.getModuleOperation();
 	}
 
 	@Override

@@ -1,10 +1,9 @@
 package com.softicar.platform.demo.core.module;
 
-import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.access.module.instance.actions.ModuleInstanceInitializationAction;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.actions.ModuleInstanceInitializationAction;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
@@ -22,8 +21,8 @@ public class DemoCoreModuleInstanceCreationTest extends AbstractCoreTest impleme
 	@Test
 	public void testCreation() {
 
-		insertPermissionAssignment(CurrentUser.get(), CorePermissions.ACCESS_MANAGEMENT, CoreModule.class);
-		insertPermissionAssignment(CurrentUser.get(), CorePermissions.SUPER_USER, CoreModule.class);
+		insertPermissionAssignment(CurrentUser.get(), CorePermissions.ACCESS_MANAGEMENT);
+		insertPermissionAssignment(CurrentUser.get(), CorePermissions.SUPER_USER);
 
 		findManagementDiv(AGModuleInstance.TABLE).clickCreateButton();
 

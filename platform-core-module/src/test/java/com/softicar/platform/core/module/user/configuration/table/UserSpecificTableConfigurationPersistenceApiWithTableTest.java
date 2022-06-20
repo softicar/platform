@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.user.configuration.table;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbIdField;

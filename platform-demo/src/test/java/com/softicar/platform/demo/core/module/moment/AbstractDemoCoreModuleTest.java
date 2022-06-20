@@ -11,6 +11,6 @@ public class AbstractDemoCoreModuleTest extends AbstractCoreTest implements Demo
 
 	public AbstractDemoCoreModuleTest() {
 
-		this.moduleInstance = insertStandardModuleInstance(AGDemoCoreModuleInstance.TABLE);
+		this.moduleInstance = insertModuleInstance(AGDemoCoreModuleInstance.TABLE);
 	}
 }

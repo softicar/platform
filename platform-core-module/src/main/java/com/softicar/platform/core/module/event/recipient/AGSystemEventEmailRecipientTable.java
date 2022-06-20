@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.event.recipient;
 
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;

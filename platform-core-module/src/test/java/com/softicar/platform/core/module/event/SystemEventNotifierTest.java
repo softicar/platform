@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.event.recipient.AGSystemEventEmailRecipient;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import org.junit.Test;

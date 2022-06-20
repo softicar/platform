@@ -7,6 +7,6 @@ public interface DemoCoreModuleTestFixtureMethods extends WorkflowModuleTestFixt
 
 	default AGDemoCoreModuleInstance insertDemoModuleInstance() {
 
-		return insertStandardModuleInstance(AGDemoCoreModuleInstance.TABLE);
+		return insertModuleInstance(AGDemoCoreModuleInstance.TABLE);
 	}
 }

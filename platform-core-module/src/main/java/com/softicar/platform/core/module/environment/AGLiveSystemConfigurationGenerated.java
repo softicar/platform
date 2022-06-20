@@ -2,10 +2,10 @@ package com.softicar.platform.core.module.environment;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.date.weekday.AGWeekday;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbStringField;

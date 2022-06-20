@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.test.fixture;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
-import com.softicar.platform.core.module.module.instance.standard.IStandardModuleInstance;
+import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
@@ -50,9 +50,9 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGEMENT, CoreModule.class);
-		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER, CoreModule.class);
-		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATION, CoreModule.class);
+		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGEMENT);
+		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER);
+		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATION);
 
 		new ProgramStandardConfiguration().createAndSaveAll();
 	}
@@ -72,10 +72,10 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		return adminUser;
 	}
 
-	public <I extends IStandardModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
+	public <I extends IModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
 
-		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleViewer(), moduleInstance);
-		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperator(), moduleInstance);
-		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministator(), moduleInstance);
+		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
+		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
+		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministation(), moduleInstance);
 	}
 }

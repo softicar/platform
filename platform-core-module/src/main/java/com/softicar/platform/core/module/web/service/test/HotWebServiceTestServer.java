@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.web.service.test;
 
 import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.common.web.service.hot.HotWebServiceServer;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 
 /**
  * A {@link HotWebServiceServer} for {@link WebServiceTestService}.

@@ -1,10 +1,9 @@
 package com.softicar.platform.core.module.user;
 
-import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.access.permission.assignment.module.system.AGSystemModulePermissionAssignment;
+import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
-import com.softicar.platform.core.module.uuid.AGUuid;
 import org.junit.Test;
 
 public class AGUserTest extends AbstractCoreTest {
@@ -19,9 +18,9 @@ public class AGUserTest extends AbstractCoreTest {
 	@Test
 	public void testIsSuperUserWithSuperUserPermissionOwnership() {
 
-		new AGSystemModulePermissionAssignment()//
+		new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
-			.setModule(AGUuid.getOrCreate(CoreModule.class))
+			.setModuleInstance(AGCoreModuleInstance.getInstance().pk())
 			.setPermission(CorePermissions.SUPER_USER.getAnnotatedUuid())
 			.setUser(user)
 			.save();

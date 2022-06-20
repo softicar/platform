@@ -1,7 +1,7 @@
 package com.softicar.platform.demo.core.module;
 
 import com.softicar.platform.common.core.annotations.Generated;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbBaseField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;

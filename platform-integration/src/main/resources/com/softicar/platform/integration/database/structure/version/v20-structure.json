@@ -204,14 +204,6 @@
     "createStatement": "CREATE TABLE `Core`.`SystemEvent` (`id` INT NOT NULL AUTO_INCREMENT,`needsConfirmation` BOOL NOT NULL,`severity` INT NOT NULL,`causedAt` DATETIME NOT NULL,`causedBy` INT NOT NULL,`message` TEXT NOT NULL,`properties` TEXT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`severity`) REFERENCES `Core`.`SystemEventSeverity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`causedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
-    "tableName": "`Core`.`SystemModulePermissionAssignmentLog`",
-    "createStatement": "CREATE TABLE `Core`.`SystemModulePermissionAssignmentLog` (`assignment` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`assignment`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`assignment`) REFERENCES `Core`.`SystemModulePermissionAssignment` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
-  },
-  {
-    "tableName": "`Core`.`SystemModulePermissionAssignment`",
-    "createStatement": "CREATE TABLE `Core`.`SystemModulePermissionAssignment` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`user` INT NOT NULL,`module` INT NOT NULL,`permission` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userModulePermission` (`user`, `module`, `permission`),KEY `module` (`module`),KEY `permission` (`permission`),KEY `transaction` (`transaction`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`module`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`permission`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
-  },
-  {
     "tableName": "`Core`.`Transaction`",
     "createStatement": "CREATE TABLE `Core`.`Transaction` (`id` BIGINT NOT NULL AUTO_INCREMENT,`at` TIMESTAMP NOT NULL,`by` INT NOT NULL,PRIMARY KEY (`id`),KEY `by` (`by`),FOREIGN KEY (`by`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },

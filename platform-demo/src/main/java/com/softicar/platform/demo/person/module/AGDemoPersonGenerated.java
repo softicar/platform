@@ -2,7 +2,7 @@ package com.softicar.platform.demo.person.module;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.core.module.access.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;

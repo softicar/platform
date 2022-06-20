@@ -26,7 +26,7 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 
 	default AGWorkflowModuleInstance insertWorkflowModuleInstance() {
 
-		return insertStandardModuleInstance(AGWorkflowModuleInstance.TABLE);
+		return insertModuleInstance(AGWorkflowModuleInstance.TABLE);
 	}
 
 	default AGWorkflow insertWorkflow(AGWorkflowModuleInstance moduleInstance, String name,

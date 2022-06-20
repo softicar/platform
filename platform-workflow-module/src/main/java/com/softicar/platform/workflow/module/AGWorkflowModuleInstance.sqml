@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.workflow.module
 
-IMPORT com.softicar.platform.core.module.access.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
 
 TABLE AGWorkflowModuleInstance 'Workflow.WorkflowModuleInstance' {
 	

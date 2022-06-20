@@ -479,10 +479,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Program-UUID fehlt.");
 	I18n0 MODULE = new I18n0("Module")//
 		.de("Modul");
-	I18n1 MODULE_ARG1_IS_NOT_A_STANDARD_MODULE = new I18n1("Module '%s' is not a standard module.")//
-		.de("Modul '%s' ist kein Standard-Modul.");
 	I18n0 MODULE_CLASS = new I18n0("Module Class")//
 		.de("Modulklasse");
+	I18n2 MODULE_CLASS_ARG1_MUST_IMPLEMENT_INTERFACE_ARG2 = new I18n2("Module class '%s' must implement interface '%s'.")//
+		.de("Modulklasse '%s' muss das Interface '%s' implementieren.");
 	I18n0 MODULE_CLASSES = new I18n0("Module Classes")//
 		.de("Modulklassen");
 	I18n0 MODULE_INSTANCE = new I18n0("Module Instance")//

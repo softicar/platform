@@ -36,7 +36,7 @@ public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>>
 	@Override
 	public IEmfPermission<I> getRequiredPermission() {
 
-		return EmfDefaultModulePermissions.getModuleViewer();
+		return EmfDefaultModulePermissions.getModuleView();
 	}
 
 	/**

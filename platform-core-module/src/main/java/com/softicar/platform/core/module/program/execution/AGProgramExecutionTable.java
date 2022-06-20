@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGCoreModuleInstance;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
