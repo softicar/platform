@@ -10,6 +10,7 @@ import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnu
 import com.softicar.platform.core.module.program.ProgramStarter;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.db.core.connection.DbConnections;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -32,7 +33,6 @@ public class ProgramExecutionRunnable implements Runnable {
 
 		try {
 			updateStartedAt();
-
 			try {
 				executeProgram();
 			} finally {
@@ -84,14 +84,17 @@ public class ProgramExecutionRunnable implements Runnable {
 		logBuffer.logLine(StackTraceFormatting.getStackTraceAsString(throwable));
 	}
 
-	private AGProgramExecution updateOutputAndTerminatedAt() {
+	private void updateOutputAndTerminatedAt() {
 
 		var execution = getExecution();
-		execution.reload();
-		return execution//
-			.setTerminatedAt(DayTime.now())
-			.setFailed(failed)
-			.setOutput(logBuffer.toString())
-			.save();
+		try (var transaction = new DbTransaction()) {
+			execution.reloadForUpdate();
+			execution//
+				.setTerminatedAt(DayTime.now())
+				.setFailed(failed)
+				.setOutput(logBuffer.toString())
+				.save();
+			transaction.commit();
+		}
 	}
 }
