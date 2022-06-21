@@ -113,8 +113,8 @@ public class DomModalDialog extends DomPopup {
 			.setIcon(icon)
 			.setLabel(label)
 			.setClickCallback(() -> {
-				callback.apply();
 				close();
+				callback.apply();
 			})
 			.addMarkers(Arrays.asList(markers));
 		appendActionNode(button);
