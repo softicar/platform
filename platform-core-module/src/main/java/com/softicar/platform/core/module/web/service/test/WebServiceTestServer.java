@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.web.service.test;
 
 import com.softicar.platform.common.web.service.WebServiceServer;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
-import com.softicar.platform.core.module.test.SofticarTestDatabase;
+import com.softicar.platform.db.core.database.IDbDatabase;
 
 /**
  * A {@link WebServiceServer} for {@link WebServiceTestService}.
@@ -17,7 +17,7 @@ import com.softicar.platform.core.module.test.SofticarTestDatabase;
  *
  *         SofticarTestDatabase database = new SofticarTestDatabase();
  *
- *         database.applyFixture(() -> {...});
+ *         database.apply(() -> {...});
  *
  *         new WebServiceTestServer(database)//
  *             .setRequestString(...)
@@ -31,7 +31,7 @@ import com.softicar.platform.core.module.test.SofticarTestDatabase;
  */
 public class WebServiceTestServer extends WebServiceServer {
 
-	public WebServiceTestServer(SofticarTestDatabase database) {
+	public WebServiceTestServer(IDbDatabase database) {
 
 		super(new WebServiceTestService(database));
 

@@ -1,10 +1,9 @@
 package com.softicar.platform.core.module.test;
 
-import com.softicar.platform.core.module.test.fixture.IDatabaseTestFixtureApplier;
-import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
-import com.softicar.platform.db.core.database.DbDatabaseScope;
+import com.softicar.platform.db.core.database.IDbDatabase;
 import com.softicar.platform.db.core.test.DbTestDatabase;
 import com.softicar.platform.db.runtime.table.creator.DbAutomaticTableCreator;
+import java.util.function.Supplier;
 
 /**
  * Extension of the {@link DbTestDatabase}.
@@ -21,19 +20,11 @@ public class SofticarTestDatabase extends DbTestDatabase {
 	}
 
 	/**
-	 * Executes the given {@link IDatabaseTestFixtureApplier} to the internal
-	 * {@link DbTestDatabase}.
-	 *
-	 * @param fixtureApplier
-	 *            a {@link IDatabaseTestFixtureApplier} (never null)
-	 * @return the applied test fixture
+	 * @deprecated use {@link IDbDatabase#apply}
 	 */
-	public <T> T applyFixture(IDatabaseTestFixtureApplier<T> fixtureApplier) {
+	@Deprecated
+	public <T> T applyFixture(Supplier<T> supplier) {
 
-		try (DbDatabaseScope databaseScope = new DbDatabaseScope(this)) {
-			try (DbConnectionOverrideScope connectionScope = new DbConnectionOverrideScope(this)) {
-				return fixtureApplier.apply();
-			}
-		}
+		return super.apply(supplier);
 	}
 }
