@@ -19,16 +19,23 @@ import java.io.OutputStream;
 public class StoredFileContentOutputStreamCreator {
 
 	private final AGStoredFile storedFile;
+	private final IStoredFileDatabase database;
+	private IStoredFileContentStore store;
 
 	public StoredFileContentOutputStreamCreator(AGStoredFile storedFile) {
 
 		this.storedFile = storedFile;
+		this.database = new StoredFileDatabase();
+		this.store = new StoredFileSmbContentStore();
+	}
+
+	public StoredFileContentOutputStreamCreator setStore(IStoredFileContentStore store) {
+
+		this.store = store;
+		return this;
 	}
 
 	public OutputStream create() {
-
-		IStoredFileDatabase database = new StoredFileDatabase();
-		IStoredFileContentStore store = new StoredFileSmbContentStore();
 
 		return new StoredFileContentUploader(database, store, storedFile).createOutputStream();
 	}
