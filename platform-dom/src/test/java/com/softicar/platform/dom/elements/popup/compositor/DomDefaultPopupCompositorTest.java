@@ -1174,9 +1174,9 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertSame(findContext(first), findContext(second));
 	}
 
-	private IDomPopupContext findContext(DomPopup popup) {
+	private IDomPopupMaximizationContext findContext(DomPopup popup) {
 
-		return new DomParentNodeFinder<>(IDomPopupContext.class).findClosestParent(popup).get();
+		return new DomParentNodeFinder<>(IDomPopupMaximizationContext.class).findClosestParent(popup).get();
 	}
 
 	private String toString(IDomNode node) {
@@ -1212,7 +1212,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		return asTester(node).getZIndex();
 	}
 
-	private static class TestDiv extends DomDiv implements IDomPopupContext {
+	private static class TestDiv extends DomDiv implements IDomPopupMaximizationContext {
 
 		// nothing
 	}

@@ -13,7 +13,7 @@ import com.softicar.platform.dom.parent.IDomParentElement;
  *
  * @author Alexander Schmidt
  */
-public interface IDomPopupContext extends IDomParentElement {
+public interface IDomPopupMaximizationContext extends IDomParentElement {
 
 	// nothing
 }

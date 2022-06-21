@@ -33,7 +33,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private final DomPopupStateTracker stateTracker;
 	private final Map<DomPopup, IDomNode> spawningNodeMap;
-	private final Map<DomPopup, IDomPopupContext> contextMap;
+	private final Map<DomPopup, IDomPopupMaximizationContext> contextMap;
 	private final DomPopupBackdropTracker backdropTracker;
 	private final DomPopupHierarchyGraph hierarchyGraph;
 	private final DomPopupFrameHighlighter frameHighlighter;
@@ -242,7 +242,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		getDomEngine().raise(frame);
 	}
 
-	private void appendBackdrop(DomPopup popup, IDomPopupContext popupContext) {
+	private void appendBackdrop(DomPopup popup, IDomPopupMaximizationContext popupContext) {
 
 		var modalMode = popup.getConfiguration().getDisplayMode().getModalMode();
 		if (modalMode.isModal()) {
@@ -284,15 +284,15 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 	}
 
-	private IDomPopupContext findContainingContext(IDomNode node) {
+	private IDomPopupMaximizationContext findContainingContext(IDomNode node) {
 
-		Optional<IDomPopupContext> context = findContextByParentFrame(node)//
+		Optional<IDomPopupMaximizationContext> context = findContextByParentFrame(node)//
 			.or(() -> findClosestContext(node));
 
 		return context.orElseGet(() -> {
 			String message = "Warning: Failed to determine the %s for node %s (%s). Using the document body instead."
 				.formatted(//
-					IDomPopupContext.class.getSimpleName(),
+					IDomPopupMaximizationContext.class.getSimpleName(),
 					node.getNodeIdString(),
 					node.getClass().getCanonicalName());
 			Log.fwarning(message);
@@ -300,16 +300,16 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		});
 	}
 
-	private Optional<IDomPopupContext> findContextByParentFrame(IDomNode node) {
+	private Optional<IDomPopupMaximizationContext> findContextByParentFrame(IDomNode node) {
 
 		return new DomParentNodeFinder<>(DomPopup.class)//
 			.findClosestParent(node, true)
 			.map(contextMap::get);
 	}
 
-	private Optional<IDomPopupContext> findClosestContext(IDomNode node) {
+	private Optional<IDomPopupMaximizationContext> findClosestContext(IDomNode node) {
 
-		return new DomParentNodeFinder<>(IDomPopupContext.class)//
+		return new DomParentNodeFinder<>(IDomPopupMaximizationContext.class)//
 			.findClosestParent(node, true);
 	}
 

@@ -101,7 +101,7 @@ public class DomPopupContextStasherTest extends AbstractTest {
 		// expect no Exception
 	}
 
-	private IDomPopupContext createContext(int children) {
+	private IDomPopupMaximizationContext createContext(int children) {
 
 		var context = new TestContext();
 		for (int i = 1; i <= children; i++) {
@@ -122,7 +122,7 @@ public class DomPopupContextStasherTest extends AbstractTest {
 		return div;
 	}
 
-	private static class TestContext extends DomDiv implements IDomPopupContext {
+	private static class TestContext extends DomDiv implements IDomPopupMaximizationContext {
 
 		// nothing
 	}

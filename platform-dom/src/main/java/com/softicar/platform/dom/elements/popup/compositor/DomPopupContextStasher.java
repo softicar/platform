@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
- * Temporarily removes the children from an {@link IDomPopupContext}, keeps
+ * Temporarily removes the children from an {@link IDomPopupMaximizationContext}, keeps
  * references to them, and allows to re-append them later-on.
  *
  * @author Alexander Schmidt
@@ -27,17 +27,17 @@ class DomPopupContextStasher {
 	}
 
 	/**
-	 * Disappends all children from the given {@link IDomPopupContext}, and
+	 * Disappends all children from the given {@link IDomPopupMaximizationContext}, and
 	 * pushes them to an internal stash.
 	 * <p>
 	 * The children can be restored later-on, via
-	 * {@link #unstash(IDomPopupContext)}.
+	 * {@link #unstash(IDomPopupMaximizationContext)}.
 	 *
 	 * @param context
 	 *            the parent element to temporarily remove children from (never
 	 *            <i>null</i>)
 	 */
-	public void stash(IDomPopupContext context) {
+	public void stash(IDomPopupMaximizationContext context) {
 
 		Objects.requireNonNull(context);
 		stash.push(new ArrayList<>(context.getChildren()));
@@ -46,14 +46,14 @@ class DomPopupContextStasher {
 
 	/**
 	 * Re-appends the most recently stashed children to the given
-	 * {@link IDomPopupContext}.
+	 * {@link IDomPopupMaximizationContext}.
 	 *
 	 * @param context
 	 *            the parent element to restore children to (never <i>null</i>)
 	 * @throws NoSuchElementException
 	 *             if the internal stash is empty
 	 */
-	public void unstash(IDomPopupContext context) {
+	public void unstash(IDomPopupMaximizationContext context) {
 
 		Objects.requireNonNull(context);
 		stash.pop().forEach(context::appendChild);

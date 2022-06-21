@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.popup.configuration;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.popup.compositor.IDomPopupContext;
+import com.softicar.platform.dom.elements.popup.compositor.IDomPopupMaximizationContext;
 
 /**
  * Enumerates possible display modes of a {@link DomPopup}.
@@ -31,7 +31,7 @@ public enum DomPopupDisplayMode {
 	/**
 	 * A {@link DomPopup} with header (captions and close-button) that occupies
 	 * all available space in the hierarchically closest
-	 * {@link IDomPopupContext}.
+	 * {@link IDomPopupMaximizationContext}.
 	 */
 	MAXIMIZED(true, true, DomPopupModalMode.NON_MODAL, DomPopupChildClosingMode.INTERACTIVE_ALL),
 

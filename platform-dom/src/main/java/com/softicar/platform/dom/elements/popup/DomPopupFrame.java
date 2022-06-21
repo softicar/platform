@@ -4,7 +4,7 @@ import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
-import com.softicar.platform.dom.elements.popup.compositor.IDomPopupContext;
+import com.softicar.platform.dom.elements.popup.compositor.IDomPopupMaximizationContext;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEscapeKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -22,7 +22,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 	private final DomPopup popup;
 	private final DomPopupFrameHeader header;
 
-	public DomPopupFrame(DomPopup popup, IDomPopupContext context) {
+	public DomPopupFrame(DomPopup popup, IDomPopupMaximizationContext context) {
 
 		Objects.requireNonNull(popup);
 		Objects.requireNonNull(context);
