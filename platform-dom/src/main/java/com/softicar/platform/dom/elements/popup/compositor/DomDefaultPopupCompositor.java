@@ -32,8 +32,8 @@ import java.util.WeakHashMap;
 public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 	private final DomPopupStateTracker stateTracker;
-	private final Map<DomPopup, DomPopupFrame> frameMap;
 	private final Map<DomPopup, IDomNode> spawningNodeMap;
+	private final Map<DomPopup, IDomPopupContext> contextMap;
 	private final DomPopupBackdropTracker backdropTracker;
 	private final DomPopupHierarchyGraph hierarchyGraph;
 	private final DomPopupFrameHighlighter frameHighlighter;
@@ -42,8 +42,8 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	public DomDefaultPopupCompositor() {
 
 		this.stateTracker = new DomPopupStateTracker();
-		this.frameMap = new WeakHashMap<>();
 		this.spawningNodeMap = new WeakHashMap<>();
+		this.contextMap = new WeakHashMap<>();
 		this.backdropTracker = new DomPopupBackdropTracker();
 		this.hierarchyGraph = new DomPopupHierarchyGraph();
 		this.frameHighlighter = new DomPopupFrameHighlighter();
@@ -61,16 +61,18 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			IDomNode spawningNode = getCurrentEventTarget().orElse(getBody());
 			spawningNodeMap.put(popup, spawningNode);
 
+			// -------- determine context -------- //
+			var context = findContainingContext(spawningNode);
+			contextMap.put(popup, context);
+
 			// -------- execute before-open callback -------- //
 			applyCallbackBeforeOpen(configuration);
 
 			// -------- append backdrop -------- //
-			var context = getClosestPopupContext(spawningNode);
 			appendBackdrop(popup, context);
 
 			// -------- create frame -------- //
 			var frame = new DomPopupFrame(popup, context);
-			frameMap.put(popup, frame);
 
 			// -------- append frame -------- //
 			if (displayMode.isMaximized()) {
@@ -102,10 +104,11 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	@Override
 	public void closeAll() {
 
-		frameMap.keySet().forEach(this::close);
+		stateTracker.getAllOpenInReverseOrder().forEach(this::close);
 		backdropTracker.clear().forEach(DomModalPopupBackdrop::disappend);
 		hierarchyGraph.clear();
 		contextStasher.clear();
+		stateTracker.clear();
 	}
 
 	@Override
@@ -163,7 +166,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 			// -------- unstash content -------- //
 			if (popup.getConfiguration().getDisplayMode().isMaximized()) {
-				var context = getClosestPopupContext(popup);
+				var context = findContainingContext(popup);
 				contextStasher.unstash(context);
 			}
 
@@ -171,9 +174,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			popup.getConfiguration().getCallbackBeforeClose().apply();
 
 			// -------- disappend frame -------- //
-			getFrame(popup).ifPresent(frame -> {
-				frame.disappend();
-			});
+			getFrame(popup).ifPresent(DomPopupFrame::disappend);
 			popup.disappend();
 			stateTracker.setClosed(popup);
 
@@ -283,25 +284,39 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		}
 	}
 
-	private IDomPopupContext getClosestPopupContext(IDomNode node) {
+	private IDomPopupContext findContainingContext(IDomNode node) {
+
+		Optional<IDomPopupContext> context = findContextByParentFrame(node)//
+			.or(() -> findClosestContext(node));
+
+		return context.orElseGet(() -> {
+			String message = "Warning: Failed to determine the %s for node %s (%s). Using the document body instead."
+				.formatted(//
+					IDomPopupContext.class.getSimpleName(),
+					node.getNodeIdString(),
+					node.getClass().getCanonicalName());
+			Log.fwarning(message);
+			return getBody();
+		});
+	}
+
+	private Optional<IDomPopupContext> findContextByParentFrame(IDomNode node) {
+
+		return new DomParentNodeFinder<>(DomPopup.class)//
+			.findClosestParent(node, true)
+			.map(contextMap::get);
+	}
+
+	private Optional<IDomPopupContext> findClosestContext(IDomNode node) {
 
 		return new DomParentNodeFinder<>(IDomPopupContext.class)//
-			.findClosestParent(node, true)
-			.orElseGet(() -> {
-				String message = "Warning: Failed to determine the closest %s for node %s (%s). Using the document body instead."
-					.formatted(//
-						IDomPopupContext.class.getSimpleName(),
-						node.getNodeIdString(),
-						node.getClass().getCanonicalName());
-				Log.fwarning(message);
-				return getBody();
-			});
+			.findClosestParent(node, true);
 	}
 
 	private Optional<DomPopupFrame> getFrame(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
-		return Optional.ofNullable(frameMap.get(popup));
+		return new DomParentNodeFinder<>(DomPopupFrame.class).findClosestParent(popup);
 	}
 
 	private Optional<IDomNode> getSpawningNode(DomPopup popup) {
