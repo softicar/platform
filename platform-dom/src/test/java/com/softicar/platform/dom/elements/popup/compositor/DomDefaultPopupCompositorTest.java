@@ -124,6 +124,38 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 	}
 
 	@Test
+	public void testOpenWithDraggablePopupFromPopoverFromPopup() {
+
+		// setup
+		var openPopup1Button = appendButton(() -> compositor.open(popup1));
+		openPopup1Button.click();
+
+		popup2Config.setDisplayModePopover();
+		var openPopup2Button = appendButton(popup1, () -> compositor.open(popup2));
+		openPopup2Button.click();
+
+		var openPopup3Button = appendButton(popup2, () -> {
+			compositor.close(popup2);
+			compositor.open(popup3);
+		});
+
+		// assert initial state
+		assertOne(POPUP1);
+		assertOne(POPUP2);
+		assertNone(POPUP3);
+
+		// execute
+		openPopup3Button.click();
+
+		// assert result
+		assertOne(POPUP1);
+		assertNone(POPUP2);
+		assertOne(POPUP3);
+		assertAscendingZIndexes(popup1, popup3);
+		assertSameContext(popup1, popup3);
+	}
+
+	@Test
 	public void testOpenWithDraggablePopupReplacingDraggablePopup() {
 
 		// setup
@@ -245,7 +277,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		// setup
 		popup1Config.setDisplayModeDraggableModal();
 		DomBody body = CurrentDomDocument.get().getBody();
-		DomNodeTester openPopup1Button = asTester(body.appendChild(new DomButton().setClickCallback(() -> compositor.open(popup1))));
+		DomNodeTester openPopup1Button = appendButton(body, () -> compositor.open(popup1));
 
 		// assert initial state
 		assertNone(POPUP1);
@@ -1135,6 +1167,16 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 				"Expected node %s to be below node %s.".formatted(toString(current), toString(next)),
 				getZIndex(current) < getZIndex(next));
 		}
+	}
+
+	private void assertSameContext(DomPopup first, DomPopup second) {
+
+		assertSame(findContext(first), findContext(second));
+	}
+
+	private IDomPopupContext findContext(DomPopup popup) {
+
+		return new DomParentNodeFinder<>(IDomPopupContext.class).findClosestParent(popup).get();
 	}
 
 	private String toString(IDomNode node) {

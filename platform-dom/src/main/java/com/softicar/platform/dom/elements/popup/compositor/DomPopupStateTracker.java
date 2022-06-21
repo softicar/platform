@@ -1,20 +1,19 @@
 package com.softicar.platform.dom.elements.popup.compositor;
 
+import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.WeakHashMap;
 
 class DomPopupStateTracker {
 
-	private final Set<DomPopup> openPopups;
+	private final List<DomPopup> openPopups;
 
 	public DomPopupStateTracker() {
 
-		this.openPopups = Collections.newSetFromMap(new WeakHashMap<>());
+		this.openPopups = new HashList<>();
 	}
 
 	public void setOpen(DomPopup popup) {
@@ -29,14 +28,21 @@ class DomPopupStateTracker {
 		this.openPopups.remove(popup);
 	}
 
-	public Collection<DomPopup> getAllOpen() {
+	public List<DomPopup> getAllOpenInReverseOrder() {
 
-		return Collections.unmodifiableCollection(new ArrayList<>(openPopups));
+		var popups = new ArrayList<>(openPopups);
+		Collections.reverse(popups);
+		return popups;
 	}
 
 	public boolean isOpen(DomPopup popup) {
 
 		Objects.requireNonNull(popup);
 		return openPopups.contains(popup);
+	}
+
+	public void clear() {
+
+		openPopups.clear();
 	}
 }
