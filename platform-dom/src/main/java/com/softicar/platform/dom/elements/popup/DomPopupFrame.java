@@ -24,9 +24,10 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 
 	public DomPopupFrame(DomPopup popup, IDomPopupContext context) {
 
-		this.popup = Objects.requireNonNull(popup);
+		Objects.requireNonNull(popup);
 		Objects.requireNonNull(context);
 
+		this.popup = popup;
 		this.header = new DomPopupFrameHeader(this::closePopup);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
