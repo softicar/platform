@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import java.util.Collection;
+import java.util.function.Supplier;
 
 /**
  * {@link IEntity} based standard implementation of
@@ -45,8 +46,8 @@ public class DomAutoCompleteEntityInput<T extends IEntity> extends DomAutoComple
 		super(inputEngine, true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
 	}
 
-	public DomAutoCompleteEntityInput(Collection<T> items) {
+	public DomAutoCompleteEntityInput(Supplier<Collection<T>> loader) {
 
-		this(new DomAutoCompleteEntityInMemoryInputEngine<>(items));
+		this(new DomAutoCompleteEntityInMemoryInputEngine<>(loader));
 	}
 }

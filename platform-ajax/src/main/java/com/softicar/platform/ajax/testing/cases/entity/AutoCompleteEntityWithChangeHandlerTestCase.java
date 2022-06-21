@@ -24,7 +24,7 @@ public class AutoCompleteEntityWithChangeHandlerTestCase extends AbstractTestCas
 				"bar",
 				"baz",
 				"bazinga");
-		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(items);
+		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(() -> items);
 		this.input = new DomAutoCompleteEntityInput<>(engine);
 		this.input.addChangeCallback(this::handleChange);
 		this.otherInput = new DomAutoCompleteEntityInput<>(new DomAutoCompleteEntityInMemoryInputEngine<>());

@@ -39,6 +39,9 @@ public abstract class AbstractEmfDependentAutoCompleteInputEngine<I extends IEnt
 
 		this.table = Objects.requireNonNull(table);
 		this.filters = new ArrayList<>();
+
+		setLoader(this::unstubAndPrefetchItems);
+		addDependsOn(table);
 	}
 
 	/**
@@ -62,7 +65,7 @@ public abstract class AbstractEmfDependentAutoCompleteInputEngine<I extends IEnt
 	public void refresh() {
 
 		filters.forEach(IDomAutoCompleteInputFilter::refresh);
-		unstubAndPrefetchAndSetItems();
+		invalidateCache();
 	}
 
 	@Override
@@ -94,12 +97,12 @@ public abstract class AbstractEmfDependentAutoCompleteInputEngine<I extends IEnt
 		DevNull.swallow(items);
 	}
 
-	private void unstubAndPrefetchAndSetItems() {
+	private Collection<I> unstubAndPrefetchItems() {
 
 		Collection<I> items = loadItems();
 		unstubLoadedItems(items);
 		unstubAndPrefetchMore(items);
-		setItems(items);
+		return items;
 	}
 
 	private void unstubLoadedItems(Collection<I> items) {
