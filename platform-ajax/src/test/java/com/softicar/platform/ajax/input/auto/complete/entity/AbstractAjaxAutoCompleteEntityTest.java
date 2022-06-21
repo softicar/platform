@@ -227,7 +227,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public Setup setEntities(Collection<AjaxTestEntity> items) {
 
-			return add((input, engine) -> engine.setItems(items));
+			return add((input, engine) -> engine.setLoader(() -> items));
 		}
 
 		public Setup add(ISetupInstruction instruction) {
@@ -247,7 +247,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				// create engine and input
 				inputEngine = new TestInputEngine();
 				DomAutoCompleteEntityInput<AjaxTestEntity> input = new DomAutoCompleteEntityInput<>(inputEngine);
-				inputEngine.setItems(ENTITIES);
+				inputEngine.setLoader(() -> ENTITIES);
 				this.instructions.forEach(it -> it.accept(input, inputEngine));
 				return new Container(input);
 			});

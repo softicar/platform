@@ -30,6 +30,6 @@ public abstract class AbstractEmfDataTableEntityCollectionColumnHandler<C, E ext
 	@Override
 	public IDomAutoCompleteInput<E> createInputNode(Supplier<Collection<E>> validElementsSupplier) {
 
-		return new DomAutoCompleteEntityInput<>(validElementsSupplier.get());
+		return new DomAutoCompleteEntityInput<>(validElementsSupplier);
 	}
 }

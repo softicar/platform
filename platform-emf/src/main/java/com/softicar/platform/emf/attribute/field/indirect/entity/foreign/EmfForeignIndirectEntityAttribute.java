@@ -123,7 +123,7 @@ public class EmfForeignIndirectEntityAttribute<R extends IEmfTableRow<R, ?>, F e
 
 			public InputEngine() {
 
-				setItems(loadItems());
+				setLoader(this::loadItems);
 			}
 
 			@Override

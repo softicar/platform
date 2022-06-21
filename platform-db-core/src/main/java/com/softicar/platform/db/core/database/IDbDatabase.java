@@ -1,8 +1,11 @@
 package com.softicar.platform.db.core.database;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.connection.IDbConnectionProperties;
 import com.softicar.platform.db.core.connection.IDbServerType;
 import com.softicar.platform.db.core.statement.IDbStatementExecutionListener;
+import java.util.function.Supplier;
 
 /**
  * Defines the database server and the name of the database.
@@ -39,4 +42,38 @@ public interface IDbDatabase extends IDbStatementExecutionListener {
 	 * @return the connection properties (never null)
 	 */
 	IDbConnectionProperties getConnectionProperties();
+
+	/**
+	 * Executes the given {@link INullaryVoidFunction} in the
+	 * {@link DbDatabaseScope} of this {@link IDbDatabase}.
+	 *
+	 * @param function
+	 *            the {@link INullaryVoidFunction} to execute (never
+	 *            <i>null</i>)
+	 */
+	default void apply(INullaryVoidFunction function) {
+
+		try (var databaseScope = new DbDatabaseScope(this)) {
+			try (var connectionScope = new DbConnectionOverrideScope(this)) {
+				function.apply();
+			}
+		}
+	}
+
+	/**
+	 * Executes the given {@link Supplier} in the {@link DbDatabaseScope} of
+	 * this {@link IDbDatabase}.
+	 *
+	 * @param supplier
+	 *            the {@link Supplier} to execute (never <i>null</i>)
+	 * @return the return value of the {@link Supplier}
+	 */
+	default <T> T apply(Supplier<T> supplier) {
+
+		try (var databaseScope = new DbDatabaseScope(this)) {
+			try (var connectionScope = new DbConnectionOverrideScope(this)) {
+				return supplier.get();
+			}
+		}
+	}
 }
