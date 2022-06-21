@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.role
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGRoleLog 'Core.RoleLog' {
+	PK AGRole role
+	PK AGTransaction transaction
+	Boolean active = NULL [NULLABLE]
+	String name = NULL [NULLABLE MAXLENGTH=255]
+}

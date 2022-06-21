@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.permission;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.access.module.AbstractModuleTest;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -16,16 +15,6 @@ public abstract class AbstractModulePermissionTestBase extends AbstractModuleTes
 	public AbstractModulePermissionTestBase() {
 
 		this.user = insertTestUser();
-	}
-
-	protected AGModuleInstancePermissionAssignment insertModulePermissionAssignment(AGModuleInstance moduleInstance, boolean active) {
-
-		return new AGModuleInstancePermissionAssignment()//
-			.setModuleInstance(moduleInstance)
-			.setUser(user)
-			.setPermission(AGUuid.getOrCreate(PERMISSION_UUID))
-			.setActive(active)
-			.save();
 	}
 
 	protected AGModuleInstancePermissionAssignment insertPermissionAssignment(boolean active) {

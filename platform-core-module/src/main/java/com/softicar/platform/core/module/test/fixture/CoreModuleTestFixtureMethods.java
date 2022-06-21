@@ -17,6 +17,9 @@ import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.core.module.permission.CoreModulePermission;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
+import com.softicar.platform.core.module.role.AGRole;
+import com.softicar.platform.core.module.role.permission.AGRolePermission;
+import com.softicar.platform.core.module.role.user.AGRoleUser;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -25,6 +28,7 @@ import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
+import java.util.UUID;
 
 /**
  * Provides various test fixture methods for the {@link CoreModule}.
@@ -32,6 +36,8 @@ import com.softicar.platform.emf.module.permission.IEmfModulePermission;
  * @author Oliver Richers
  */
 public interface CoreModuleTestFixtureMethods {
+
+	// ------------------------------ user ------------------------------ //
 
 	default AGUser insertTestUser() {
 
@@ -60,10 +66,14 @@ public interface CoreModuleTestFixtureMethods {
 			.save();
 	}
 
+	// ------------------------------ password ------------------------------ //
+
 	default AGUserPassword insertPassword(AGUser user, String password) {
 
 		return new UserPasswordUpdater(user, password).updatePasswordInDatabase();
 	}
+
+	// ------------------------------ localization ------------------------------ //
 
 	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator) {
 
@@ -85,21 +95,30 @@ public interface CoreModuleTestFixtureMethods {
 		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
 	}
 
+	// ------------------------------ module permission ------------------------------ //
+
 	default AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, CoreModulePermission permission) {
 
 		return insertPermissionAssignment(user, permission, AGCoreModuleInstance.getInstance());
 	}
 
-	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user,
-			IEmfModulePermission<I> permission, I moduleInstance) {
+	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(//
+			AGUser user, IEmfModulePermission<I> permission, I moduleInstance) {
+
+		return insertPermissionAssignment(user, permission.getAnnotatedUuid(), moduleInstance);
+	}
+
+	default AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, UUID permissionUuid, IModuleInstance<?> moduleInstance) {
 
 		return new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
 			.setModuleInstance(moduleInstance.pk())
-			.setPermission(permission.getAnnotatedUuid())
+			.setPermission(permissionUuid)
 			.setUser(user)
 			.save();
 	}
+
+	// ------------------------------ module instance ------------------------------ //
 
 	default AGModuleInstance insertModuleInstance(Class<? extends IEmfModule<?>> moduleClass) {
 
@@ -120,6 +139,37 @@ public interface CoreModuleTestFixtureMethods {
 		return createModuleInstance(moduleInstanceTable).save();
 	}
 
+	// ------------------------------ role ------------------------------ //
+
+	default AGRole insertRole(String name) {
+
+		return new AGRole()//
+			.setActive(true)
+			.setName(name)
+			.save();
+	}
+
+	default AGRoleUser insertRoleUser(AGRole role, AGUser user) {
+
+		return new AGRoleUser()//
+			.setActive(true)
+			.setRole(role)
+			.setUser(user)
+			.save();
+	}
+
+	default AGRolePermission insertRolePermission(AGRole role, UUID permissionUuid, IModuleInstance<?> moduleInstance) {
+
+		return new AGRolePermission()//
+			.setActive(true)
+			.setRole(role)
+			.setModuleInstance(moduleInstance.pk())
+			.setPermissionUuid(AGUuid.getOrCreate(permissionUuid))
+			.save();
+	}
+
+	// ------------------------------ server ------------------------------ //
+
 	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {
 
 		return new AGServer()
@@ -133,6 +183,8 @@ public interface CoreModuleTestFixtureMethods {
 			.save();
 	}
 
+	// ------------------------------ maintenance window ------------------------------ //
+
 	default AGMaintenanceWindow insertMaintenanceWindow(DayTime expectedStart, DayTime expectedEnd, AGMaintenanceStateEnum state) {
 
 		return new AGMaintenanceWindow()//
@@ -141,6 +193,8 @@ public interface CoreModuleTestFixtureMethods {
 			.setState(state.getRecord())
 			.save();
 	}
+
+	// ------------------------------ system event ------------------------------ //
 
 	default AGSystemEvent insertSystemErrorEvent(String message) {
 
@@ -156,6 +210,8 @@ public interface CoreModuleTestFixtureMethods {
 
 		return new SystemEventBuilder(AGSystemEventSeverityEnum.INFORMATION, message).save();
 	}
+
+	// ------------------------------ stored file ------------------------------ //
 
 	default AGStoredFile insertStoredFile(String filename) {
 
