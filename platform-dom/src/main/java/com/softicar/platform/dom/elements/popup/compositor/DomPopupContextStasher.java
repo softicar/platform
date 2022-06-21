@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.popup.compositor;
 
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -39,7 +40,7 @@ class DomPopupContextStasher {
 	public void stash(IDomPopupContext context) {
 
 		Objects.requireNonNull(context);
-		stash.push(context.getChildren());
+		stash.push(new ArrayList<>(context.getChildren()));
 		context.removeChildren();
 	}
 

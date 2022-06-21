@@ -10,6 +10,14 @@ package com.softicar.platform.common.core.interfaces;
 public interface INullaryVoidFunction {
 
 	/**
+	 * Returns a default implementation that does nothing.
+	 */
+	static INullaryVoidFunction noOperation() {
+
+		return NO_OPERATION;
+	}
+
+	/**
 	 * A default implementation that does nothing.
 	 */
 	INullaryVoidFunction NO_OPERATION = () -> {

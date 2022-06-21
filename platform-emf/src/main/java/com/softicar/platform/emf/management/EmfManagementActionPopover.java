@@ -52,8 +52,8 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 				if (action.isAvailable(tableRow, CurrentBasicUser.get())) {
 					var button = new DomButton()//
 						.setClickCallback(() -> {
-							action.handleClick(tableRow);
 							close();
+							action.handleClick(tableRow);
 						})
 						.setIcon(action.getIcon())
 						.addMarker(new EmfManagementActionMarker(action));
@@ -78,14 +78,14 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		private final IDomParentElement parent;
 		private final IEmfTable<R, ?, ?> table;
 		private final R tableRow;
-		private final INullaryVoidFunction callbackAfterOpen;
+		private final INullaryVoidFunction callbackBeforeOpen;
 
-		public ButtonsForChildTableAppender(IDomParentElement parent, IEmfTable<R, ?, ?> table, R tableRow, INullaryVoidFunction callbackAfterOpen) {
+		public ButtonsForChildTableAppender(IDomParentElement parent, IEmfTable<R, ?, ?> table, R tableRow, INullaryVoidFunction callbackBeforeOpen) {
 
 			this.parent = parent;
 			this.table = table;
 			this.tableRow = tableRow;
-			this.callbackAfterOpen = callbackAfterOpen;
+			this.callbackBeforeOpen = callbackBeforeOpen;
 		}
 
 		public void appendButtons() {
@@ -108,7 +108,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		private <B extends IEmfTableRow<B, ?>> void doRecurse(B base) {
 
 			IEmfTable<B, ?, ?> baseTable = base.table();
-			new ButtonsForChildTableAppender<>(parent, baseTable, base.getThis(), callbackAfterOpen).appendButtons();
+			new ButtonsForChildTableAppender<>(parent, baseTable, base.getThis(), callbackBeforeOpen).appendButtons();
 		}
 
 		private <C extends IEmfTableRow<C, CP>, CP> void addButtonForChildTable(IEmfTable<C, CP, R> childTable) {
@@ -116,7 +116,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 			parent
 				.appendChild(
 					new EmfManagementButton<>(childTable, tableRow)
-						.setCallbackAfterOpen(callbackAfterOpen)
+						.setCallbackBeforeOpen(callbackBeforeOpen)
 						.setLabel(childTable.getPluralTitle())
 						.addMarker(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON));
 		}
