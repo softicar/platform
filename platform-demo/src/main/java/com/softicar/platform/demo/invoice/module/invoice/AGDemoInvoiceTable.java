@@ -51,7 +51,11 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoInvo
 
 		attributes//
 			.editAttribute(AGDemoInvoice.DOCUMENT)
-			.setHelpDisplay(DemoI18n.THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD);
+			.setHelpDisplayByWikiText(DemoI18n.THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD);
+
+		attributes//
+			.editAttribute(AGDemoInvoice.ATTACHMENTS)
+			.setHelpDisplayFactory(DemoInvoiceAttachmentsHelpElement::new);
 
 		attributes//
 			.editEntityAttribute(AGDemoInvoice.CONTACT)

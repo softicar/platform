@@ -26,3 +26,7 @@ td > .EmfBooleanDisplay {
 .EmfAttributeValueHelpTextElement {
 	max-width: 512px;
 }
+
+.EmfAttributeValueHelpTextElement > * > p {
+	margin: 0;
+}

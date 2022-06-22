@@ -280,6 +280,12 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		return this;
 	}
 
+	public final AbstractEmfAttribute<R, V> setHelpDisplayByWikiText(IDisplayString helpText) {
+
+		configuration.setHelpDisplayByWikiText(helpText);
+		return this;
+	}
+
 	// -------------------------------- Protected -------------------------------- //
 
 	protected boolean isUserInputMandatory(R tableRow) {
