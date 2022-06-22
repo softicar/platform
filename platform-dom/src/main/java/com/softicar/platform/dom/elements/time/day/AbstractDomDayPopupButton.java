@@ -37,7 +37,11 @@ abstract class AbstractDomDayPopupButton extends DomButton {
 
 	private void updateLabel() {
 
-		setLabel(IDisplayString.create(showLabel? chooser.getDay().toISOString() : ""));
+		if (showLabel) {
+			setLabel(IDisplayString.create(chooser.getDay().toISOString()));
+		} else {
+			removeLabel();
+		}
 	}
 
 	/**
