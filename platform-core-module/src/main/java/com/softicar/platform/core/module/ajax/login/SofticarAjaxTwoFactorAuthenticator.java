@@ -3,10 +3,10 @@ package com.softicar.platform.core.module.ajax.login;
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
 import com.softicar.platform.core.module.user.AGUser;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -87,7 +87,7 @@ class SofticarAjaxTwoFactorAuthenticator {
 				new DisplayString()
 					.append(
 						CoreI18n.ONE_TIME_PASSWORD_ARG1_TO_LOG_IN_TO_YOUR_ARG2_ACCOUNT_ARG3
-							.toDisplay("#" + password.getIndex(), AGLiveSystemConfiguration.getSystemIdentifier(), user.getLoginName()))
+							.toDisplay("#" + password.getIndex(), AGCoreModuleInstance.getSystemIdentifier(), user.getLoginName()))
 					.append("\r\n\r\n")
 					.append(password.getText())
 					.toString(),
@@ -111,7 +111,7 @@ class SofticarAjaxTwoFactorAuthenticator {
 		return new DisplayString()//
 			.setSeparator("\r\n")
 			.append(CoreI18n.TWO_FACTOR_AUTHENTICATION_IS_ACTIVE)
-			.append(CoreI18n.ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()))
+			.append(CoreI18n.ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS.toDisplay(AGCoreModuleInstance.getSystemIdentifier()))
 			.append("<br>")
 			.append("<form method='post'>")
 			.append(CoreI18n.ONE_TIME_PASSWORD.concat(" #" + passwordCounter + ":"))

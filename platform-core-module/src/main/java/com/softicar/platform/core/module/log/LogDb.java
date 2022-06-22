@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
+import com.softicar.platform.core.module.environment.AGDbmsConfiguration;
 import com.softicar.platform.core.module.environment.LiveSystemRevision;
 import com.softicar.platform.core.module.log.configuration.CurrentLogDbConfiguration;
 import com.softicar.platform.core.module.log.entry.point.CurrentLogDbEntryPoint;
@@ -176,7 +176,7 @@ public class LogDb {
 
 	private static boolean isLiveSystemDownTime() {
 
-		return AGLiveSystemConfiguration//
+		return AGDbmsConfiguration//
 			.getInstance()
 			.map(configuration -> configuration.isDbmsDownTime(DayTime.now()))
 			.orElse(false);

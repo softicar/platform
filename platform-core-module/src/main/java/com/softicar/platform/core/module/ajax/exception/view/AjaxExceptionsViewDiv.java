@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.ajax.exception.view;
 
 import com.softicar.platform.common.core.interfaces.IRefreshable;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.AGAjaxSession;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
@@ -23,7 +23,7 @@ public class AjaxExceptionsViewDiv extends DomDiv implements IRefreshable {
 	public AjaxExceptionsViewDiv() {
 
 		customExceptionCheckbox = new EmfBooleanInput(false)//
-			.setLabel(CoreI18n.IGNORE_ARG1_EXCEPTIONS.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()));
+			.setLabel(CoreI18n.IGNORE_ARG1_EXCEPTIONS.toDisplay(AGCoreModuleInstance.getSystemIdentifier()));
 		customExceptionCheckbox.addChangeCallback(this::refresh);
 		checkBoxActionBar = new DomActionBar(customExceptionCheckbox);
 
