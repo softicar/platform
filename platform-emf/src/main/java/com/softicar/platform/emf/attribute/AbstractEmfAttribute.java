@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.configuration.EmfAttributeConfiguration;
@@ -13,6 +14,7 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -97,6 +99,12 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 	public final IEmfDataTableRowBasedColumnHandler<R, V> createColumnHandler() {
 
 		return configuration.getColumnHandlerFactory().get();
+	}
+
+	@Override
+	public Optional<Supplier<IDomElement>> getHelpDisplayFactory() {
+
+		return configuration.getHelpDisplayFactory();
 	}
 
 	// ------------------------------ Predicate ------------------------------ //
@@ -257,6 +265,28 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		configuration.setColumnHandlerFactory(columnHandlerFactory);
 		return this;
 	}
+
+	// -------------------------------- Help Display Factory -------------------------------- //
+
+	public final AbstractEmfAttribute<R, V> setHelpDisplayFactory(Supplier<IDomElement> helpDisplayFactory) {
+
+		configuration.setHelpDisplayFactory(helpDisplayFactory);
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setHelpDisplay(IDisplayString helpText) {
+
+		configuration.setHelpDisplay(helpText);
+		return this;
+	}
+
+	public final AbstractEmfAttribute<R, V> setHelpDisplayByWikiText(IDisplayString helpText) {
+
+		configuration.setHelpDisplayByWikiText(helpText);
+		return this;
+	}
+
+	// -------------------------------- Protected -------------------------------- //
 
 	protected boolean isUserInputMandatory(R tableRow) {
 
