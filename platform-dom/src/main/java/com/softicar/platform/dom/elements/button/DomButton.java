@@ -138,7 +138,9 @@ public class DomButton extends DomParentElement
 	public DomButton setLabel(IDisplayString labelString) {
 
 		removeLabel();
-		this.label = appendChild(new Label(labelString));
+		if (!labelString.toString().isBlank()) {
+			this.label = appendChild(new Label(labelString));
+		}
 		return this;
 	}
 

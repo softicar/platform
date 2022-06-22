@@ -217,7 +217,7 @@
   },
   {
     "tableName": "`Core`.`SystemEventLog`",
-    "createStatement": "CREATE TABLE `Core`.`SystemEventLog` (`systemEvent` INT NOT NULL,`transaction` BIGINT NOT NULL,`needsConfirmation` BOOL NOT NULL,PRIMARY KEY (`systemEvent`, `transaction`),FOREIGN KEY (`systemEvent`) REFERENCES `Core`.`SystemEvent` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`SystemEventLog` (`systemEvent` INT NOT NULL,`transaction` BIGINT NOT NULL,`needsConfirmation` BOOL DEFAULT NULL,PRIMARY KEY (`systemEvent`, `transaction`),FOREIGN KEY (`systemEvent`) REFERENCES `Core`.`SystemEvent` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`SystemEventSeverity`",
