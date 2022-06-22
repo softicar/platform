@@ -7,8 +7,8 @@ import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.string.hash.Hash;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.chunk.AGStoredFileChunk;
-import com.softicar.platform.core.module.file.stored.cleanup.IStoredFileIdFromChunksQuery.IRow;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentName;
+import com.softicar.platform.core.module.file.stored.content.StoredFileContentOutputStreamCreator;
 import com.softicar.platform.core.module.file.stored.content.database.IStoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.database.StoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
@@ -17,7 +17,6 @@ import com.softicar.platform.core.module.file.stored.hash.IStoredFileHash;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,10 +35,13 @@ class StoredFileChunksToFileStoreMigrator {
 
 	public static void migrateAll() {
 
+		migrateAll(new StoredFileDatabase(), new StoredFileSmbContentStore());
+	}
+
+	public static void migrateAll(IStoredFileDatabase database, IStoredFileContentStore store) {
+
 		try {
-			IStoredFileDatabase database = new StoredFileDatabase();
-			IStoredFileContentStore store = new StoredFileSmbContentStore();
-			for (AGStoredFile file: getFiles()) {
+			for (AGStoredFile file: getFilesWithChunks()) {
 				new StoredFileChunksToFileStoreMigrator(database, store, file).migrate();
 			}
 		} catch (IOException exception) {
@@ -47,13 +49,13 @@ class StoredFileChunksToFileStoreMigrator {
 		}
 	}
 
-	private static List<AGStoredFile> getFiles() {
+	private static List<AGStoredFile> getFilesWithChunks() {
 
-		List<AGStoredFile> files = new ArrayList<>();
-		for (IRow row: IStoredFileIdFromChunksQuery.FACTORY.createQuery()) {
-			files.add(row.getFile());
-		}
-		return files;
+		return AGStoredFile.TABLE//
+			.createSelect()
+			.groupBy(AGStoredFile.ID)
+			.joinReverse(AGStoredFileChunk.FILE)
+			.list();
 	}
 
 	private void migrate() throws IOException {
@@ -64,7 +66,9 @@ class StoredFileChunksToFileStoreMigrator {
 			if (hash == null) {
 				Log.finfo("file %s has chunk content but no hash", storedFile.getId());
 				try (InputStream inputStream = database.createChunksInputStream(storedFile)) {
-					storedFile.uploadFileContent(inputStream);
+					new StoredFileContentOutputStreamCreator(storedFile)//
+						.setStore(store)
+						.upload(inputStream);
 				}
 				removeChunks();
 			} else {

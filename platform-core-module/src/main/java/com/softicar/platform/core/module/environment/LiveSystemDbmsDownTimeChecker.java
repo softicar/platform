@@ -10,10 +10,10 @@ import com.softicar.platform.common.date.DayTime;
  */
 public class LiveSystemDbmsDownTimeChecker {
 
-	private final AGLiveSystemConfiguration configuration;
+	private final AGDbmsConfiguration configuration;
 	private final DayTime dayTime;
 
-	public LiveSystemDbmsDownTimeChecker(AGLiveSystemConfiguration configuration, DayTime dayTime) {
+	public LiveSystemDbmsDownTimeChecker(AGDbmsConfiguration configuration, DayTime dayTime) {
 
 		this.configuration = configuration;
 		this.dayTime = dayTime;

@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.logging.LogOutputScope;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.date.weekday.AGWeekday;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
+import com.softicar.platform.core.module.environment.AGDbmsConfiguration;
 import com.softicar.platform.core.module.log.configuration.CurrentLogDbConfiguration;
 import com.softicar.platform.core.module.log.message.AGLogMessage;
 import com.softicar.platform.core.module.test.AbstractSofticarDbTest;
@@ -114,7 +114,7 @@ public class LogDbTest extends AbstractSofticarDbTest {
 
 	private void insertLiveSystemConfiguration(DayTime downTime) {
 
-		AGLiveSystemConfiguration.TABLE//
+		AGDbmsConfiguration.TABLE//
 			.getOrCreate(AGCoreModuleInstance.getInstance())
 			.setDbmsDownTimeBegin(downTime.getTime())
 			.setDbmsDownTimeEnd(downTime.getTime())
