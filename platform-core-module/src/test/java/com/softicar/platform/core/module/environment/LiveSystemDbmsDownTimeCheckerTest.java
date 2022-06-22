@@ -14,11 +14,11 @@ public class LiveSystemDbmsDownTimeCheckerTest extends AbstractSofticarDbTest {
 	private static final Day NON_DOWN_TIME_DAY = DOWN_TIME_DAY.getNext();
 	private static final Time DOWN_TIME_BEGIN = new Time(2, 5, 0);
 	private static final Time DOWN_TIME_END = new Time(2, 15, 0);
-	private final AGLiveSystemConfiguration configuration;
+	private final AGDbmsConfiguration configuration;
 
 	public LiveSystemDbmsDownTimeCheckerTest() {
 
-		this.configuration = AGLiveSystemConfiguration.TABLE//
+		this.configuration = AGDbmsConfiguration.TABLE//
 			.getOrCreate(AGCoreModuleInstance.getInstance())
 			.setDbmsDownTimeWeekday(AGWeekday.getByWeekday(DOWN_TIME_DAY.getWeekday()))
 			.setDbmsDownTimeBegin(DOWN_TIME_BEGIN)
