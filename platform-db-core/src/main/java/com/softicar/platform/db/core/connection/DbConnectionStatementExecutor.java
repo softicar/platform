@@ -1,5 +1,6 @@
 package com.softicar.platform.db.core.connection;
 
+import com.softicar.platform.common.container.derived.CurrentDerivedObjectRegistry;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.core.SofticarSqlException;
 import com.softicar.platform.db.core.statement.DbStatement;
@@ -58,6 +59,7 @@ class DbConnectionStatementExecutor {
 		} catch (SQLException exception) {
 			throw new SofticarSqlException(exception);
 		} finally {
+			notifyDerivedObjectRegistry(statement);
 			connection.notifyStatementFinished(statement);
 		}
 	}
@@ -80,6 +82,12 @@ class DbConnectionStatementExecutor {
 		} finally {
 			connection.notifyStatementFinished(statement);
 		}
+	}
+
+	private static void notifyDerivedObjectRegistry(DbStatement statement) {
+
+		var registry = CurrentDerivedObjectRegistry.getInstance();
+		statement.getTables().forEach(registry::invalidateDerivedObjects);
 	}
 
 	private Statement getStatement() throws SQLException {

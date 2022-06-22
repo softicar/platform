@@ -32,7 +32,7 @@ public class AutoCompleteEntityTestCase extends AbstractTestCaseDiv {
 				"ten",
 				"eleven",
 				"twelve");
-		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(items);
+		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(() -> items);
 		this.input = new DomAutoCompleteEntityInput<>(engine);
 
 		DomDiv container = appendChild(new DomDiv());

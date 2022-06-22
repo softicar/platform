@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto.entity;
 
+import com.softicar.platform.common.container.derived.DerivedObject;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.transaction.ITransaction;
@@ -11,35 +12,52 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends AbstractDomAutoCompleteTransactionalEntityInputEngine<T> {
 
-	private final Map<ItemId, T> itemMap;
-	private final List<T> itemList;
+	private final DerivedObject<Cache> cache;
+	private Supplier<Collection<T>> loader;
 
 	public DomAutoCompleteEntityInMemoryInputEngine() {
 
-		this(Collections.emptySet());
+		this(Collections::emptyList);
 	}
 
-	public DomAutoCompleteEntityInMemoryInputEngine(Collection<T> items) {
+	public DomAutoCompleteEntityInMemoryInputEngine(Supplier<Collection<T>> loader) {
 
-		this.itemMap = new TreeMap<>();
-		this.itemList = new ArrayList<>();
-		setItems(items);
+		this.cache = new DerivedObject<>(Cache::new);
+		this.loader = loader;
+	}
+
+	public void setLoader(Supplier<Collection<T>> loader) {
+
+		this.loader = loader;
+		this.cache.invalidate();
+	}
+
+	public DomAutoCompleteEntityInMemoryInputEngine<T> addDependsOn(Object sourceObject) {
+
+		cache.addDependsOn(sourceObject);
+		return this;
+	}
+
+	public void invalidateCache() {
+
+		cache.invalidate();
 	}
 
 	@Override
 	public T getById(Integer id) {
 
-		return itemMap.get(new ItemId(id));
+		return cache.get().getItem(new ItemId(id));
 	}
 
 	@Override
 	public Collection<T> findMatchingItems(String pattern, int fetchOffset, int fetchSize) {
 
-		return new ItemLoader(fetchOffset, fetchSize).load(item -> getNormalizedDisplayName(item).contains(pattern));
+		return new Sequence(fetchOffset, fetchSize).filter(item -> getNormalizedDisplayName(item).contains(pattern));
 	}
 
 	@Override
@@ -49,10 +67,10 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 		if (perfectMatch.isPresent()) {
 			return perfectMatch;
 		} else {
-			ItemLoader loader = new ItemLoader(0, 2);
-			List<T> items = loader.load(item -> getNormalizedDisplayName(item).equals(pattern));
+			Sequence sequence = new Sequence(0, 2);
+			List<T> items = sequence.filter(item -> getNormalizedDisplayName(item).equals(pattern));
 			if (items.size() != 1) {
-				items = loader.load(item -> getNormalizedDisplayNameWithoutId(item).equals(pattern));
+				items = sequence.filter(item -> getNormalizedDisplayNameWithoutId(item).equals(pattern));
 			}
 			if (items.size() == 1) {
 				return Optional.ofNullable(items.iterator().next());
@@ -77,29 +95,6 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 		return ITransaction.noOperation();
 	}
 
-	public void setItems(Collection<T> items) {
-
-		clearItems();
-		items.forEach(this::addItem);
-	}
-
-	public Collection<T> getItems() {
-
-		return Collections.unmodifiableCollection(itemList);
-	}
-
-	private void clearItems() {
-
-		this.itemMap.clear();
-		this.itemList.clear();
-	}
-
-	private void addItem(T item) {
-
-		this.itemMap.put(item.getItemId(), item);
-		this.itemList.add(item);
-	}
-
 	private String getNormalizedDisplayName(T item) {
 
 		return getDisplayString(item).toString().toLowerCase();
@@ -120,25 +115,57 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 			.contains(pattern.toLowerCase());
 	}
 
-	private class ItemLoader {
+	private class Sequence {
 
 		private final int offset;
 		private final int limit;
 
-		public ItemLoader(int offset, int limit) {
+		public Sequence(int offset, int limit) {
 
 			this.offset = offset;
 			this.limit = limit;
 		}
 
-		public List<T> load(Predicate<T> filterPredicate) {
+		public List<T> filter(Predicate<T> filterPredicate) {
 
-			return itemList//
+			return cache//
+				.get()
+				.getItemList()
 				.stream()
 				.filter(filterPredicate)
 				.skip(offset)
 				.limit(limit)
 				.collect(Collectors.toList());
+		}
+	}
+
+	private class Cache {
+
+		private final Map<ItemId, T> itemMap;
+		private final List<T> itemList;
+
+		public Cache() {
+
+			this.itemMap = new TreeMap<>();
+			this.itemList = new ArrayList<>();
+
+			loader.get().forEach(this::addItem);
+		}
+
+		public void addItem(T item) {
+
+			this.itemMap.put(item.getItemId(), item);
+			this.itemList.add(item);
+		}
+
+		public T getItem(ItemId id) {
+
+			return itemMap.get(id);
+		}
+
+		public List<T> getItemList() {
+
+			return itemList;
 		}
 	}
 }

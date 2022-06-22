@@ -69,8 +69,8 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 
 	private void showFormPopup() {
 
-		new EmfFormPopup<>(getOrCreateRecord()).setDirectEditing(true).open();
 		close();
+		new EmfFormPopup<>(getOrCreateRecord()).setDirectEditing(true).open();
 	}
 
 	private R getOrCreateRecord() {

@@ -93,7 +93,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 
 		public EntityInput(IEmfDataTableColumn<?, T> column) {
 
-			super(getSortedColumnValues(column));
+			super(() -> getSortedColumnValues(column));
 		}
 
 		private static <T extends IEntity> Collection<T> getSortedColumnValues(IEmfDataTableColumn<?, T> column) {

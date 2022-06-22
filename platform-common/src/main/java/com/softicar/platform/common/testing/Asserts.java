@@ -188,6 +188,13 @@ public class Asserts extends Assert {
 		}
 	}
 
+	public static void assertEmpty(Collection<?> collection) {
+
+		if (!collection.isEmpty()) {
+			throw new AssertionError("Expected collection to be empty.");
+		}
+	}
+
 	// --------------------------- assertStartsWith --------------------------- //
 
 	public static void assertStartsWith(String start, String fullText) {

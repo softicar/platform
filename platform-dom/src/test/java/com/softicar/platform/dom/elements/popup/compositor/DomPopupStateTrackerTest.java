@@ -25,7 +25,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setOpen(popup);
 
 		assertTrue(stateTracker.isOpen(popup));
-		assertEquals(1, stateTracker.getAllOpen().size());
+		assertEquals(1, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setOpen(popup);
 
 		assertTrue(stateTracker.isOpen(popup));
-		assertEquals(1, stateTracker.getAllOpen().size());
+		assertEquals(1, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setOpen(popup);
 
 		assertTrue(stateTracker.isOpen(popup));
-		assertEquals(1, stateTracker.getAllOpen().size());
+		assertEquals(1, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -67,7 +67,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setClosed(popup);
 
 		assertFalse(stateTracker.isOpen(popup));
-		assertEquals(0, stateTracker.getAllOpen().size());
+		assertEquals(0, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setClosed(popup);
 
 		assertFalse(stateTracker.isOpen(popup));
-		assertEquals(0, stateTracker.getAllOpen().size());
+		assertEquals(0, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setClosed(popup);
 
 		assertFalse(stateTracker.isOpen(popup));
-		assertEquals(0, stateTracker.getAllOpen().size());
+		assertEquals(0, stateTracker.getAllOpenInReverseOrder().size());
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -101,7 +101,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 	}
 
 	@Test
-	public void testGetAllOpen() {
+	public void testGetAllOpenInReverseOrder() {
 
 		var popup1 = new DomPopup();
 		var popup2 = new DomPopup();
@@ -111,7 +111,7 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 		stateTracker.setClosed(popup2);
 		stateTracker.setOpen(popup3);
 
-		var allOpen = stateTracker.getAllOpen();
+		var allOpen = stateTracker.getAllOpenInReverseOrder();
 
 		assertEquals(2, allOpen.size());
 		assertTrue(allOpen.contains(popup1));
@@ -119,9 +119,9 @@ public class DomPopupStateTrackerTest extends AbstractTest {
 	}
 
 	@Test
-	public void testGetAllOpenWithoutPopups() {
+	public void testGetAllOpenInReverseOrderWithoutPopups() {
 
-		var popups = stateTracker.getAllOpen();
+		var popups = stateTracker.getAllOpenInReverseOrder();
 		assertTrue(popups.isEmpty());
 	}
 
