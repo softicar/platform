@@ -200,6 +200,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tage");
 	I18n0 DAYS_SINCE_LAST_LOGIN = new I18n0("Days Since Last Login")//
 		.de("Tage seit letzten Einloggen");
+	I18n0 DBMS_CONFIGURATION = new I18n0("Dbms Configuration")//
+		.de("Dbms-Konfiguration");
+	I18n0 DBMS_CONFIGURATION_LOG = new I18n0("Dbms Configuration Log")//
+		.de("Dbms-Konfigurations-Log");
+	I18n0 DBMS_CONFIGURATION_LOGS = new I18n0("Dbms Configuration Logs")//
+		.de("Dbms-Konfigurations-Logs");
+	I18n0 DBMS_CONFIGURATIONS = new I18n0("Dbms Configurations")//
+		.de("Dbms-Konfigurationen");
 	I18n0 DBMS_DOWN_TIME_BEGIN = new I18n0("DBMS Down Time Begin")//
 		.de("Begin des DBMS-Wartungsfensters");
 	I18n0 DBMS_DOWN_TIME_END = new I18n0("DBMS Down Time End")//
@@ -371,14 +379,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bibliothek");
 	I18n0 LICENSE = new I18n0("License")//
 		.de("Lizenz");
-	I18n0 LIVE_SYSTEM_CONFIGURATION = new I18n0("Live System Configuration")//
-		.de("Live-System-Konfiguration");
-	I18n0 LIVE_SYSTEM_CONFIGURATION_LOG = new I18n0("Live System Configuration Log")//
-		.de("Live-System-Konfigurations-Log");
-	I18n0 LIVE_SYSTEM_CONFIGURATION_LOGS = new I18n0("Live System Configuration Logs")//
-		.de("Live-System-Konfigurations-Logs");
-	I18n0 LIVE_SYSTEM_CONFIGURATIONS = new I18n0("Live System Configurations")//
-		.de("Live-System-Konfigurationen");
 	I18n0 LOCAL_ADDRESS = new I18n0("Local Address")//
 		.de("Lokale Adresse");
 	I18n0 LOCAL_NAME = new I18n0("Local Name")//

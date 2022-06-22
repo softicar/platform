@@ -7,11 +7,11 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.emf.trait.IEmfTrait;
 import java.util.Optional;
 
-public class AGLiveSystemConfiguration extends AGLiveSystemConfigurationGenerated implements IEmfTrait<AGLiveSystemConfiguration, AGCoreModuleInstance> {
+public class AGDbmsConfiguration extends AGDbmsConfigurationGenerated implements IEmfTrait<AGDbmsConfiguration, AGCoreModuleInstance> {
 
-	public static Optional<AGLiveSystemConfiguration> getInstance() {
+	public static Optional<AGDbmsConfiguration> getInstance() {
 
-		return Optional.ofNullable(AGLiveSystemConfiguration.TABLE.get(AGCoreModuleInstance.getInstance()));
+		return Optional.ofNullable(AGDbmsConfiguration.TABLE.get(AGCoreModuleInstance.getInstance()));
 	}
 
 	public Range<Time> getDbmsDownTimeRange() {
@@ -22,10 +22,5 @@ public class AGLiveSystemConfiguration extends AGLiveSystemConfigurationGenerate
 	public boolean isDbmsDownTime(DayTime dayTime) {
 
 		return new LiveSystemDbmsDownTimeChecker(this, dayTime).isDownTime();
-	}
-
-	public static String getSystemIdentifier() {
-
-		return AGLiveSystemConfiguration.getInstance().map(AGLiveSystemConfiguration::getSystemName).orElse("");
 	}
 }
