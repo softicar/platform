@@ -27,15 +27,11 @@
 }
 
 .EmfPasswordInput {
-	position: relative;
-	justify-content: center;
+	flex-grow: 1;
 }
 
 .EmfPasswordVisibilityButton {
 	opacity: 0.25;
-	position: absolute;
-	align-self: end;
-	padding-right: 5px;
 }
 
 .EmfPasswordVisibilityButton:hover {
@@ -44,8 +40,8 @@
 }
 
 .EmfPasswordVisibilityButton.active {
-  opacity: 100;
-  transition: opacity 0.3s;
+	opacity: 100;
+	transition: opacity 0.3s;
 }
 
 .EmfPasswordVisibilityButton.active:hover {
