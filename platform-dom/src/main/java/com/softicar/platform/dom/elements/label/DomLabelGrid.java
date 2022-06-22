@@ -36,8 +36,8 @@ public class DomLabelGrid extends DomDiv {
 	 */
 	public DomLabelGrid add(DomLabel label, IDomNode node) {
 
-		appendChild(label.updateFor(node));
 		appendChild(node);
+		appendChild(label.updateFor(node));
 		return this;
 	}
 

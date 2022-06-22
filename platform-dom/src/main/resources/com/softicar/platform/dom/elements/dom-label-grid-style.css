@@ -1,25 +1,41 @@
 
 .DomLabelGrid {
-	/* layout */
 	display: grid;
 	align-items: center;
-	grid-template-columns: fit-content(50%) auto;
+	/**
+	 * Set right-to-left layout for the grid itself, to later use the "Adjacent Sibling Selector (+)"
+	 * to select the label in the same row as the input element. Note that, at the time of this writing,
+	 * there is no "Previous Sibling Selector".
+	 */
+	direction: rtl;
+	grid-template-columns: auto fit-content(50%);
+}
+
+.DomLabelGrid > * {
+	/* Revert all grid children to use regular left-to-right layout. */
+	direction: ltr;
 }
 
 .DomLabelGrid > label {
-	/* layout */
 	align-items: center;
 	align-self: stretch;
 	display: flex;
-	justify-content: flex-end;
 	padding: 0 0.5em;
 	min-height: 24px;
-	text-align: right;
 
-	/* looks */	
 	background-color: var(--LABEL_BACKGROUND_COLOR);
 	border: solid 1px var(--LABEL_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS) 0 0 var(--BORDER_RADIUS);
 	color: var(--LABEL_FONT_COLOR);
 	font-weight: var(--LABEL_FONT_WEIGHT);
+}
+
+.DomLabelGrid > .DomInputDiagnosticsDisplay {
+	align-content: center;
+	height: 100%;
+}
+
+.DomLabelGrid > label:hover,
+.DomLabelGrid > .DomInputDiagnosticsDisplay:hover + label {
+	background-color: var(--SELECTION_BACKGROUND_ALTERNATE_COLOR);
 }

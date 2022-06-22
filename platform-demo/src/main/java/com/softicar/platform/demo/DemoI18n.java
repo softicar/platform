@@ -5,6 +5,8 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 
 public interface DemoI18n extends WorkflowI18n {
 
+	I18n0 ALPHANUMERICAL_CHARACTERS_AND_DASHES = new I18n0("Alphanumerical characters and dashes.")//
+		.de("Alphanumerische Zeichen und Bindestriche.");
 	I18n0 BIRTH_DATE = new I18n0("Birth Date")//
 		.de("Geburtsdatum");
 	I18n0 CLERK = new I18n0("Clerk")//
@@ -91,6 +93,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//
 		.de("Menge");
+	I18n0 THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD = new I18n0("The document that is represented by this record.")//
+		.de("Das Dokument das von diesem Datensatz repräsentiert wird.");
 	I18n0 VIEW_TRAIT = new I18n0("View Trait")//
 		.de("Merkmal anschauen");
 }

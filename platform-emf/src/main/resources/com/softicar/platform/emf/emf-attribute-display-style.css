@@ -2,3 +2,27 @@
 td > .EmfBooleanDisplay {
 	justify-content: center;
 }
+
+.EmfAttributeValueMandatoryIndicator {
+	color: var(--SECONDARY_COLOR);
+	font-size: 16px;
+	padding-left: 2px;
+}
+
+.EmfAttributeValueHelpIndicator {
+	flex-grow: 1;
+	align-items: end;
+	padding-left: 8px;
+}
+
+.EmfAttributeValueHelpIndicator > .DomButton {
+	opacity: 0.3;
+}
+
+.EmfAttributeValueHelpIndicator > .DomButton:hover {
+	opacity: 1.0;
+}
+
+.EmfAttributeValueHelpTextElement {
+	max-width: 512px;
+}

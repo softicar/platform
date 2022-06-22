@@ -1,6 +1,7 @@
 package com.softicar.platform.demo.invoice.module.invoice;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.demo.DemoI18n;
 import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.invoice.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.demo.person.module.AGDemoPerson;
@@ -43,6 +44,14 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoInvo
 		attributes//
 			.editAttribute(AGDemoInvoice.DEBTOR)
 			.setConditionallyRequired(DemoInvoicePredicates.OUTBOUND, "");
+
+		attributes//
+			.editAttribute(AGDemoInvoice.INVOICE_NUMBER)
+			.setHelpDisplayFactory(DemoI18n.ALPHANUMERICAL_CHARACTERS_AND_DASHES);
+
+		attributes//
+			.editAttribute(AGDemoInvoice.DOCUMENT)
+			.setHelpDisplayFactory(DemoI18n.THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD);
 
 		attributes//
 			.editEntityAttribute(AGDemoInvoice.CONTACT)
