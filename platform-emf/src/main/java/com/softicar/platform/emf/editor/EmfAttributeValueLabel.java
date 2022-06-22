@@ -62,7 +62,7 @@ public class EmfAttributeValueLabel<R extends IEmfTableRow<R, ?>, V> extends Dom
 
 		removeChildren();
 		appendChild(new EmfAttributeValueTitle(attribute.getTitle()));
-		if (showMandatoryIndicator()) {
+		if (isShowMandatoryIndicator()) {
 			appendChild(new EmfAttributeValueMandatoryIndicator());
 		}
 		attribute//
@@ -71,7 +71,7 @@ public class EmfAttributeValueLabel<R extends IEmfTableRow<R, ?>, V> extends Dom
 			.ifPresent(this::appendChild);
 	}
 
-	private boolean showMandatoryIndicator() {
+	private boolean isShowMandatoryIndicator() {
 
 		return valueMode.isMandatory() && !EmfBooleanAttribute.class.isInstance(attribute);
 	}
