@@ -3,6 +3,7 @@ package com.softicar.platform.emf.attribute.field.string;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomPasswordInput;
+import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
@@ -21,10 +22,10 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 
 		this.passwordInput = new DomPasswordInput();
 		this.passwordInput.addChangeCallback(this::executeChangeCallbacks);
+		this.passwordInput.addCssClass(EmfCssClasses.EMF_PASSWORD_INPUT);
 		this.passwordVisibilityButton = new PasswordVisibilityButton();
 		hideText();
-		addCssClass(EmfCssClasses.EMF_PASSWORD_INPUT);
-		appendChildren(passwordInput, passwordVisibilityButton);
+		appendChild(new DomBar(passwordInput, passwordVisibilityButton));
 	}
 
 	@Override
