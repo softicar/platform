@@ -2,7 +2,6 @@ package com.softicar.platform.emf.attribute.configuration;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.display.EmfDummyDisplay;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
@@ -100,11 +99,6 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	public void setHelpDisplay(IDisplayString text) {
 
 		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(text, false));
-	}
-
-	public void setHelpDisplay(Supplier<DomWikiDivBuilder> wikiDivBuilderFactory) {
-
-		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(wikiDivBuilderFactory));
 	}
 
 	public void setHelpDisplayByWikiText(IDisplayString wikiText) {
