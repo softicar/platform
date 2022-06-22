@@ -1,5 +1,7 @@
 package com.softicar.platform.emf.attribute.configuration;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.display.EmfDummyDisplay;
 import com.softicar.platform.emf.attribute.display.IEmfAttributeFieldValueDisplayFactory;
@@ -11,6 +13,7 @@ import com.softicar.platform.emf.attribute.input.IEmfInputFactory;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
@@ -19,6 +22,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	private IEmfInputFactory<R, V> inputFactory;
 	private IEmfAttributeTableRowDisplayFactory<R> displayFactory;
 	private Supplier<IEmfDataTableRowBasedColumnHandler<R, V>> columnHandlerFactory;
+	private Supplier<IDomElement> helpDisplayFactory;
 
 	public EmfAttributeConfiguration(IEmfAttribute<R, V> attribute) {
 
@@ -26,6 +30,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 		this.inputFactory = EmfDummyInput::new;
 		this.displayFactory = EmfDummyDisplay::new;
 		this.columnHandlerFactory = () -> new EmfAttributeColumnHandler<>(attribute);
+		this.helpDisplayFactory = null;
 	}
 
 	// ------------------------------ input factory ------------------------------ //
@@ -77,5 +82,27 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 	public void setColumnHandlerFactory(Supplier<IEmfDataTableRowBasedColumnHandler<R, V>> columnHandlerFactory) {
 
 		this.columnHandlerFactory = columnHandlerFactory;
+	}
+
+	// ------------------------------ help display factory ------------------------------ //
+
+	public Optional<Supplier<IDomElement>> getHelpDisplayFactory() {
+
+		return Optional.ofNullable(helpDisplayFactory);
+	}
+
+	public void setHelpDisplayFactory(Supplier<IDomElement> helpDisplayFactory) {
+
+		this.helpDisplayFactory = helpDisplayFactory;
+	}
+
+	public void setHelpDisplay(IDisplayString text) {
+
+		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(text, false));
+	}
+
+	public void setHelpDisplayByWikiText(IDisplayString wikiText) {
+
+		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(wikiText, true));
 	}
 }

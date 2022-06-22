@@ -20,6 +20,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmfEntity<B, ?>, V> implements IEmfAttribute<O, V> {
@@ -186,6 +187,12 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 
 		// TODO probably need here a special implementation
 		return new EmfAttributeColumnHandler<>(this);
+	}
+
+	@Override
+	public Optional<Supplier<IDomElement>> getHelpDisplayFactory() {
+
+		return originalAttribute.getHelpDisplayFactory();
 	}
 
 	@Override

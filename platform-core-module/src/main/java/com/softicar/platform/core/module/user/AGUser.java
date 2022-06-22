@@ -13,7 +13,6 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
-import com.softicar.platform.core.module.environment.AGLiveSystemConfiguration;
 import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.permission.UserModulePermissionCache;
 import com.softicar.platform.core.module.user.login.UserLastLoginField;
@@ -129,18 +128,18 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		String text = new DisplayString()//
 			.append(CoreI18n.HELLO)
 			.append(",\n\n")
-			.append(CoreI18n.THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()))
+			.append(CoreI18n.THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU.toDisplay(AGCoreModuleInstance.getSystemIdentifier()))
 			.append("\n\n")
 			.append(
 				CoreI18n.ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS
-					.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier())
+					.toDisplay(AGCoreModuleInstance.getSystemIdentifier())
 					.concatFormat(": %s", AGCoreModuleInstance.getInstance().getPortalUrl()))
 			.append(CoreI18n.LOGIN_NAME.concatFormat(": %s \n", userName))
 			.append(CoreI18n.PASSWORD.concatFormat(": %s \n", password))
 			.append("\n")
 			.append(CoreI18n.BEST_REGARDS)
 			.append(",\n")
-			.append(CoreI18n.YOUR_ARG1_SUPPORT_TEAM.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier()))
+			.append(CoreI18n.YOUR_ARG1_SUPPORT_TEAM.toDisplay(AGCoreModuleInstance.getSystemIdentifier()))
 			.append("\n")
 			.toString();
 
@@ -148,7 +147,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		// so that we can be sure that the password will not be screwed!
 		IEmail email = BufferedEmailFactory.createNoReplyEmail();
 		email.addToRecipient(emailAddress);
-		email.setSubject(CoreI18n.YOUR_ARG1_ACCOUNT_ARG2.toDisplay(AGLiveSystemConfiguration.getSystemIdentifier(), userName));
+		email.setSubject(CoreI18n.YOUR_ARG1_ACCOUNT_ARG2.toDisplay(AGCoreModuleInstance.getSystemIdentifier(), userName));
 		email.setContent(text, EmailContentType.PLAIN);
 		email.submit();
 	}

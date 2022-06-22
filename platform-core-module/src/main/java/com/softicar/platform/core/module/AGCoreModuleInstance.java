@@ -25,6 +25,11 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 		return AGCoreModuleInstance.TABLE.get(SINGLETON_INSTANCE_ID);
 	}
 
+	public static String getSystemIdentifier() {
+
+		return AGCoreModuleInstance.getInstance().getSystemName();
+	}
+
 	public AGServer getEmailServerOrThrow() {
 
 		return Optional//

@@ -3,14 +3,13 @@ PACKAGE com.softicar.platform.core.module.environment
 IMPORT com.softicar.platform.core.module.date.weekday.AGWeekday
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
-TABLE AGLiveSystemConfigurationLog 'Core.LiveSystemConfigurationLog' {
-	PK AGLiveSystemConfiguration liveSystemConfiguration
+TABLE AGDbmsConfigurationLog 'Core.DbmsConfigurationLog' {
+	PK AGDbmsConfiguration dbmsConfiguration
 	PK AGTransaction transaction
-	String systemName = NULL [NULLABLE MAXLENGTH=255]
 	AGWeekday dbmsDownTimeWeekday = NULL [NULLABLE]
 	Time dbmsDownTimeBegin = NULL [NULLABLE]
 	Time dbmsDownTimeEnd = NULL [NULLABLE]
 
 	IK transaction
-	IK dbmsDownTimeWeekday
+	IK dbmsDownTimeWeekday 
 }

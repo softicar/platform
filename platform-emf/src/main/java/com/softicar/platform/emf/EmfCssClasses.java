@@ -8,6 +8,10 @@ public interface EmfCssClasses {
 	ICssClass OPEN = new CssClass("open");
 	ICssClass INVISIBLE = new CssClass("invisible");
 
+	ICssClass EMF_ATTRIBUTE_VALUE_HELP_INDICATOR = new CssClass("EmfAttributeValueHelpIndicator", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
+	ICssClass EMF_ATTRIBUTE_VALUE_HELP_TEXT_ELEMENT = new CssClass("EmfAttributeValueHelpTextElement", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
+	ICssClass EMF_ATTRIBUTE_VALUE_MANDATORY_INDICATOR = new CssClass("EmfAttributeValueMandatoryIndicator", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
+	ICssClass EMF_ATTRIBUTE_VALUE_TITLE = new CssClass("EmfAttributeValueTitle", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
 	ICssClass EMF_BOOLEAN_DISPLAY = new CssClass("EmfBooleanDisplay", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
 	ICssClass EMF_BOOLEAN_DISPLAY_TRUE = new CssClass("EmfBooleanDisplayTrue", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);
 	ICssClass EMF_BOOLEAN_DISPLAY_FALSE = new CssClass("EmfBooleanDisplayFalse", EmfCssFiles.EMF_ATTRIBUTE_DISPLAY_STYLE);

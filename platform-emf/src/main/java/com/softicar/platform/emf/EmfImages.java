@@ -10,6 +10,7 @@ public interface EmfImages {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(EmfImages.class);
 
+	IResourceSupplier ATTRIBUTE_HELP = FACTORY.create("attribute-help.svg");
 	IResourceSupplier ENTITY_ACTIONS = FACTORY.create("entity-actions.svg");
 	IResourceSupplier ENTITY_CREATE = FACTORY.create("entity-create.svg");
 	IResourceSupplier ENTITY_CREATE_NEXT_STEP = FACTORY.create("entity-create-next-step.svg");
