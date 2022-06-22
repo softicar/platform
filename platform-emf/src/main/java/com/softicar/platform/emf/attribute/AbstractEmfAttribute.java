@@ -274,9 +274,9 @@ public abstract class AbstractEmfAttribute<R extends IEmfTableRow<R, ?>, V> impl
 		return this;
 	}
 
-	public final AbstractEmfAttribute<R, V> setHelpDisplayFactory(IDisplayString helpText) {
+	public final AbstractEmfAttribute<R, V> setHelpDisplay(IDisplayString helpText) {
 
-		configuration.setHelpDisplayFactory(helpText);
+		configuration.setHelpDisplay(helpText);
 		return this;
 	}
 

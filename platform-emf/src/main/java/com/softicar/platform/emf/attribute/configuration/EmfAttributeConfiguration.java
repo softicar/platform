@@ -96,7 +96,7 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 		this.helpDisplayFactory = helpDisplayFactory;
 	}
 
-	public void setHelpDisplayFactory(IDisplayString helpText) {
+	public void setHelpDisplay(IDisplayString helpText) {
 
 		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(helpText));
 	}

@@ -229,7 +229,7 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	IDomElement createTabularDisplay(R tableRow);
 
 	/**
-	 * Returns a factory of display elements that contain help text for this
+	 * Returns an optional factory for a display element that describes this
 	 * {@link IEmfAttribute}.
 	 *
 	 * @return a factory of help text display elements

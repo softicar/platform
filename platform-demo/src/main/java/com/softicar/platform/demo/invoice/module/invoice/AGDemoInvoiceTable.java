@@ -47,11 +47,11 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoInvo
 
 		attributes//
 			.editAttribute(AGDemoInvoice.INVOICE_NUMBER)
-			.setHelpDisplayFactory(DemoI18n.ALPHANUMERICAL_CHARACTERS_AND_DASHES);
+			.setHelpDisplay(DemoI18n.ALPHANUMERICAL_CHARACTERS_AND_DASHES);
 
 		attributes//
 			.editAttribute(AGDemoInvoice.DOCUMENT)
-			.setHelpDisplayFactory(DemoI18n.THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD);
+			.setHelpDisplay(DemoI18n.THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD);
 
 		attributes//
 			.editEntityAttribute(AGDemoInvoice.CONTACT)
