@@ -338,6 +338,8 @@ public interface EmfI18n extends DomI18n {
 		.de("SHA-1 Hash");
 	I18n0 SHOW_FILES = new I18n0("Show Files")//
 		.de("Dateien anzeigen");
+	I18n0 SHOW_HELP = new I18n0("Show Help")//
+		.de("Hilfe anzeigen");
 	I18n0 SHOW_HISTORY = new I18n0("Show History")//
 		.de("Historie anzeigen");
 	I18n0 SHOW_INACTIVE = new I18n0("Show inactive")//

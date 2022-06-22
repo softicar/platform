@@ -100,4 +100,9 @@ public class EmfAttributeConfiguration<R extends IEmfTableRow<R, ?>, V> {
 
 		setHelpDisplayFactory(() -> new EmfAttributeHelpTextElement(helpText));
 	}
+
+//	public void setHelpDisplayByWikiText(IDisplayString helpText) {
+//
+//		// TODO
+//	}
 }

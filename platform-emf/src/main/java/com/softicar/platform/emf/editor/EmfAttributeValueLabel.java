@@ -9,6 +9,7 @@ import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanAttribute;
@@ -113,6 +114,7 @@ public class EmfAttributeValueLabel<R extends IEmfTableRow<R, ?>, V> extends Dom
 
 			setPopupFactory(() -> new HelpPopover(factory));
 			setIcon(EmfImages.ATTRIBUTE_HELP.getResource());
+			setTitle(EmfI18n.SHOW_HELP.concatEllipsis());
 		}
 	}
 
