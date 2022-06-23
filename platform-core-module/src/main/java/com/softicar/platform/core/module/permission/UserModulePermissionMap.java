@@ -19,13 +19,18 @@ class UserModulePermissionMap {
 	private final AGUser user;
 	private final Map<AGModuleInstance, Set<UUID>> permissions;
 
-	public UserModulePermissionMap(AGUser user) {
+	private UserModulePermissionMap(AGUser user) {
 
 		this.user = user;
 		this.permissions = new TreeMap<>();
+	}
 
-		loadDirectAssignments();
-		loadRolePermissions();
+	public static UserModulePermissionMap load(AGUser user) {
+
+		var map = new UserModulePermissionMap(user);
+		map.loadDirectAssignments();
+		map.loadRolePermissions();
+		return map;
 	}
 
 	public boolean hasPermission(AGModuleInstance moduleInstance, UUID permissionUuid) {

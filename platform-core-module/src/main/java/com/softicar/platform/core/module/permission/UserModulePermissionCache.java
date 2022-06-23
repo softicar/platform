@@ -18,7 +18,7 @@ public class UserModulePermissionCache {
 
 		Objects.requireNonNull(user);
 
-		this.permissions = new DerivedObject<>(() -> new UserModulePermissionMap(user))//
+		this.permissions = new DerivedObject<>(() -> UserModulePermissionMap.load(user))//
 			.addDependsOn(AGModuleInstancePermissionAssignment.TABLE)
 			.addDependsOn(AGRolePermission.TABLE)
 			.addDependsOn(AGRoleUser.TABLE)
