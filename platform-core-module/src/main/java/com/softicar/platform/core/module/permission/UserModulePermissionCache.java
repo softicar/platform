@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
 import com.softicar.platform.core.module.role.user.AGRoleUser;
 import com.softicar.platform.core.module.user.AGUser;
+import java.util.Objects;
 import java.util.UUID;
 
 public class UserModulePermissionCache {
@@ -14,6 +15,8 @@ public class UserModulePermissionCache {
 	private final DerivedObject<UserModulePermissionMap> permissions;
 
 	public UserModulePermissionCache(AGUser user) {
+
+		Objects.requireNonNull(user);
 
 		this.permissions = new DerivedObject<>(() -> new UserModulePermissionMap(user))//
 			.addDependsOn(AGModuleInstancePermissionAssignment.TABLE)

@@ -8,6 +8,6 @@ public class AGRoleUser extends AGRoleUserGenerated implements IEmfObject<AGRole
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return IDisplayString.format("%s - %s", getRole().toDisplayWithoutId(), getUser().toDisplayWithoutId());
+		return IDisplayString.format("%s: %s", getRole().toDisplayWithoutId(), getUser().toDisplayWithoutId());
 	}
 }

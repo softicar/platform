@@ -14,7 +14,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.UUID;
 
-public class UserModulePermissionMap {
+class UserModulePermissionMap {
 
 	private final AGUser user;
 	private final Map<AGModuleInstance, Set<UUID>> permissions;
@@ -40,24 +40,20 @@ public class UserModulePermissionMap {
 		AGModuleInstancePermissionAssignment.TABLE//
 			.createSelect()
 			.where(AGModuleInstancePermissionAssignment.USER.isEqual(user))
-			.where(AGModuleInstancePermissionAssignment.ACTIVE.isTrue())
+			.where(AGModuleInstancePermissionAssignment.ACTIVE)
 			.forEach(this::addPermission);
 	}
 
 	private void loadRolePermissions() {
 
-		var roles = AGRole.TABLE//
+		AGRolePermission.TABLE//
 			.createSelect()
+			.where(AGRolePermission.ACTIVE)
+			.join(AGRolePermission.ROLE)
 			.where(AGRole.ACTIVE)
 			.joinReverse(AGRoleUser.ROLE)
 			.where(AGRoleUser.ACTIVE)
 			.where(AGRoleUser.USER.isEqual(user))
-			.list();
-
-		AGRolePermission.TABLE//
-			.createSelect()
-			.where(AGRolePermission.ACTIVE)
-			.where(AGRolePermission.ROLE.isIn(roles))
 			.forEach(this::addPermission);
 	}
 

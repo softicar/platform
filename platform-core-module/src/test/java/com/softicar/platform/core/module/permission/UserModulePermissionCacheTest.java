@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.permission.assignment.AGModuleInstanceP
 import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
 import com.softicar.platform.core.module.role.user.AGRoleUser;
+import com.softicar.platform.core.module.test.module.alpha.TestModuleAlphaInstance;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 	private final UserModulePermissionCache cacheAlice;
 	private final AGUser bob;
 	private final UserModulePermissionCache cacheBob;
-	private final IModuleInstance<?> moduleInstance;
+	private final IModuleInstance<?> defaultModuleInstance;
 
 	public UserModulePermissionCacheTest() {
 
@@ -32,46 +33,62 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 		this.cacheAlice = new UserModulePermissionCache(alice);
 		this.bob = insertUser("bob");
 		this.cacheBob = new UserModulePermissionCache(bob);
-		this.moduleInstance = AGCoreModuleInstance.getInstance();
+		this.defaultModuleInstance = AGCoreModuleInstance.getInstance();
 	}
 
 	@Test
 	public void testWithModulePermissionAssignments() {
 
 		// assign permissions: Alice=A+C Bob=B+C
-		insertPermissionAssignment(alice, A, moduleInstance);
-		insertPermissionAssignment(alice, C, moduleInstance);
-		insertPermissionAssignment(bob, B, moduleInstance);
-		insertPermissionAssignment(bob, C, moduleInstance);
+		insertPermissionAssignment(alice, A, defaultModuleInstance);
+		insertPermissionAssignment(alice, C, defaultModuleInstance);
+		insertPermissionAssignment(bob, B, defaultModuleInstance);
+		insertPermissionAssignment(bob, C, defaultModuleInstance);
 
 		// assert permissions
 		assertAlicesPermissions(A, C);
 		assertBobsPermissions(B, C);
 
 		// deactivate Alice's permission A
-		deactivateModulePermission(alice, A, moduleInstance);
+		deactivateModulePermission(alice, A, defaultModuleInstance);
 		assertAlicesPermissions(C);
 		assertBobsPermissions(B, C);
 	}
 
 	@Test
-	public void testWithRolePermissions() {
+	public void testWithModulePermissionAssignmentsAndDistinctModuleInstances() {
+
+		var alphaModuleInstance = insertModuleInstance(TestModuleAlphaInstance.TABLE);
+		var betaModuleInstance = insertModuleInstance(TestModuleAlphaInstance.TABLE);
+
+		insertPermissionAssignment(alice, A, alphaModuleInstance);
+		insertPermissionAssignment(bob, B, betaModuleInstance);
+
+		assertPermissions(cacheAlice, alphaModuleInstance, Set.of(A));
+		assertPermissions(cacheAlice, betaModuleInstance, Set.of());
+
+		assertPermissions(cacheBob, alphaModuleInstance, Set.of());
+		assertPermissions(cacheBob, betaModuleInstance, Set.of(B));
+	}
+
+	@Test
+	public void testWithRolePermissionsAndDeactivation() {
 
 		// dedicated role for Alice with permission A
 		var aliceOnly = insertRole("Alice Only");
 		insertRoleUser(aliceOnly, alice);
-		insertRolePermission(aliceOnly, A, moduleInstance);
+		insertRolePermission(aliceOnly, A, defaultModuleInstance);
 
 		// dedicated role for Bob with permission B
 		var bobOnly = insertRole("Bob Only");
 		insertRoleUser(bobOnly, bob);
-		insertRolePermission(bobOnly, B, moduleInstance);
+		insertRolePermission(bobOnly, B, defaultModuleInstance);
 
 		// common role for Alice and Bob with permission C
 		var common = insertRole("Common");
 		insertRoleUser(common, alice);
 		insertRoleUser(common, bob);
-		insertRolePermission(common, C, moduleInstance);
+		insertRolePermission(common, C, defaultModuleInstance);
 
 		// assert permissions
 		assertAlicesPermissions(A, C);
@@ -88,9 +105,39 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 		assertBobsPermissions(C);
 
 		// deactivate permission C in common role
-		deactivateRolePermission(common, C, moduleInstance);
+		deactivateRolePermission(common, C, defaultModuleInstance);
 		assertAlicesPermissions();
 		assertBobsPermissions();
+	}
+
+	@Test
+	public void testWithRolePermissionsAndDistinctModuleInstances() {
+
+		var alphaModuleInstance = insertModuleInstance(TestModuleAlphaInstance.TABLE);
+		var betaModuleInstance = insertModuleInstance(TestModuleAlphaInstance.TABLE);
+
+		// dedicated role for Alice with permission A and module Alpha
+		var aliceOnly = insertRole("Alice Only");
+		insertRoleUser(aliceOnly, alice);
+		insertRolePermission(aliceOnly, A, alphaModuleInstance);
+
+		// dedicated role for Bob with permission B and module Beta
+		var bobOnly = insertRole("Bob Only");
+		insertRoleUser(bobOnly, bob);
+		insertRolePermission(bobOnly, B, betaModuleInstance);
+
+		// common role for Alice and Bob with permission C and both modules
+		var common = insertRole("Common");
+		insertRoleUser(common, alice);
+		insertRoleUser(common, bob);
+		insertRolePermission(common, C, alphaModuleInstance);
+		insertRolePermission(common, C, betaModuleInstance);
+
+		assertPermissions(cacheAlice, alphaModuleInstance, Set.of(A, C));
+		assertPermissions(cacheAlice, betaModuleInstance, Set.of(C));
+
+		assertPermissions(cacheBob, alphaModuleInstance, Set.of(C));
+		assertPermissions(cacheBob, betaModuleInstance, Set.of(B, C));
 	}
 
 	// ------------------------------ utilities ------------------------------ //
@@ -137,15 +184,15 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 
 	private void assertAlicesPermissions(UUID...expectedPermissions) {
 
-		assertPermissions(cacheAlice, Set.of(expectedPermissions));
+		assertPermissions(cacheAlice, defaultModuleInstance, Set.of(expectedPermissions));
 	}
 
 	private void assertBobsPermissions(UUID...expectedPermissions) {
 
-		assertPermissions(cacheBob, Set.of(expectedPermissions));
+		assertPermissions(cacheBob, defaultModuleInstance, Set.of(expectedPermissions));
 	}
 
-	private void assertPermissions(UserModulePermissionCache cache, Set<UUID> expectedPermissions) {
+	private static void assertPermissions(UserModulePermissionCache cache, IModuleInstance<?> moduleInstance, Set<UUID> expectedPermissions) {
 
 		for (UUID uuid: List.of(A, B, C)) {
 			var actuallyHasPermission = cache.hasModulePermission(moduleInstance.pk(), uuid);

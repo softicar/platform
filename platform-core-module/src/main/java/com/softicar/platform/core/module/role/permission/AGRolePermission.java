@@ -8,6 +8,6 @@ public class AGRolePermission extends AGRolePermissionGenerated implements IEmfO
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return IDisplayString.format("%s - %s", getRole().toDisplayWithoutId(), getPermissionUuid().toDisplayWithoutId());
+		return IDisplayString.format("%s: %s", getRole().toDisplayWithoutId(), getPermissionUuid().toDisplayWithoutId());
 	}
 }
