@@ -14,7 +14,7 @@ import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.module.instance.AGModuleInstance;
-import com.softicar.platform.core.module.permission.assignment.EmfModulePermissionAssignmentCache;
+import com.softicar.platform.core.module.permission.UserModulePermissionCache;
 import com.softicar.platform.core.module.user.login.UserLastLoginField;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordGenerator;
@@ -32,11 +32,11 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public static final UserLastLoginField LAST_LOGIN = new UserLastLoginField();
 
-	private final EmfModulePermissionAssignmentCache permissionCache;
+	private final UserModulePermissionCache permissionCache;
 
 	public AGUser() {
 
-		this.permissionCache = new EmfModulePermissionAssignmentCache(getThis());
+		this.permissionCache = new UserModulePermissionCache(getThis());
 	}
 
 	public static AGUser get(IBasicUser basicUser) {
@@ -46,7 +46,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 
 	public boolean hasModulePermission(IEmfModulePermission<?> permission, AGModuleInstance moduleInstance) {
 
-		return permissionCache.hasModulePermission(permission.getAnnotatedUuid(), moduleInstance);
+		return permissionCache.hasModulePermission(moduleInstance, permission.getAnnotatedUuid());
 	}
 
 	@Override

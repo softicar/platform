@@ -692,6 +692,30 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zurückkehren zu Benuter: %s");
 	I18n0 REVISION = new I18n0("Revision")//
 		.de("Revision");
+	I18n0 ROLE = new I18n0("Role")//
+		.de("Rolle");
+	I18n0 ROLE_LOG = new I18n0("Role Log")//
+		.de("Rollen-Log");
+	I18n0 ROLE_LOGS = new I18n0("Role Logs")//
+		.de("Rollen-Logs");
+	I18n0 ROLE_PERMISSION = new I18n0("Role Permission")//
+		.de("Rollenberechtigung");
+	I18n0 ROLE_PERMISSION_LOG = new I18n0("Role Permission Log")//
+		.de("Rollenberechtigungs-Log");
+	I18n0 ROLE_PERMISSION_LOGS = new I18n0("Role Permission Logs")//
+		.de("Rollenberechtigungs-Logs");
+	I18n0 ROLE_PERMISSIONS = new I18n0("Role Permissions")//
+		.de("Rollenberechtigungen");
+	I18n0 ROLE_USER = new I18n0("Role User")//
+		.de("Rollenbenutzer");
+	I18n0 ROLE_USER_LOG = new I18n0("Role User Log")//
+		.de("Rollenbenutzer-Log");
+	I18n0 ROLE_USER_LOGS = new I18n0("Role User Logs")//
+		.de("Rollenbenutzer-Logs");
+	I18n0 ROLE_USERS = new I18n0("Role Users")//
+		.de("Rollenbenutzer");
+	I18n0 ROLES = new I18n0("Roles")//
+		.de("Rollen");
 	I18n0 ROW_COUNT = new I18n0("Row Count")//
 		.de("Zeilenanzahl");
 	I18n0 RUNTIME = new I18n0("Runtime")//
