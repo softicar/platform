@@ -1,7 +1,7 @@
 [
   {
     "tableName": "`Core`.`AjaxException`",
-    "createStatement": "CREATE TABLE `Core`.`AjaxException` (`id` INT NOT NULL AUTO_INCREMENT,`session` INT NOT NULL,`user` INT DEFAULT NULL,`exceptionDate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',`exceptionType` VARCHAR(255) NOT NULL,`exceptionText` TEXT,`exceptionStackTrace` TEXT NOT NULL,PRIMARY KEY (`id`),KEY `exceptionDate` (`exceptionDate`),KEY `session` (`session`),KEY `user` (`user`),FOREIGN KEY (`session`) REFERENCES `Core`.`AjaxSession` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`AjaxException` (`id` INT NOT NULL AUTO_INCREMENT,`session` INT NOT NULL,`user` INT DEFAULT NULL,`exceptionDate` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',`exceptionType` VARCHAR(255) NOT NULL,`exceptionText` TEXT,`exceptionStackTrace` TEXT NOT NULL,PRIMARY KEY (`id`),KEY `exceptionDate` (`exceptionDate`),KEY `session` (`session`),KEY `user` (`user`),FOREIGN KEY (`session`) REFERENCES `Core`.`AjaxSession` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`AjaxSessionRevision`",
