@@ -34,7 +34,7 @@ public class AGAjaxException extends AbstractDbObject<AGAjaxException> {
 	}
 
 	public static final IDbIdField<AGAjaxException> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGAjaxException, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION);
+	public static final IDbForeignField<AGAjaxException, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION).setCascade(true, true);
 	public static final IDbForeignField<AGAjaxException, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGAjaxException> EXCEPTION_DATE = BUILDER.addDayTimeField("exceptionDate", o->o.m_exceptionDate, (o,v)->o.m_exceptionDate=v).setTitle(CoreI18n.EXCEPTION_DATE).setDefault(new DayTime(Day.get(719528), 0, 0, 0));
 	public static final IDbStringField<AGAjaxException> EXCEPTION_TYPE = BUILDER.addStringField("exceptionType", o->o.m_exceptionType, (o,v)->o.m_exceptionType=v).setTitle(CoreI18n.EXCEPTION_TYPE).setMaximumLength(255);
