@@ -5,7 +5,7 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGAjaxException 'Core.AjaxException' {
 	PK Integer id = SERIAL
-	AGAjaxSession session
+	AGAjaxSession session [ON DELETE CASCADE ON UPDATE NO_ACTION]
 	AGUser user = NULL [NULLABLE]
 	DayTime exceptionDate = '1970-01-01 00:00:00'
 	String exceptionType [MAXLENGTH=255]
