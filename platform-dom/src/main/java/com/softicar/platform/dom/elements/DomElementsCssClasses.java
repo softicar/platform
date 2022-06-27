@@ -33,6 +33,7 @@ public interface DomElementsCssClasses {
 	ICssClass DOM_ICON = new CssClass("DomIcon", DomElementsCssFiles.DOM_ICON_STYLE);
 	ICssClass DOM_INPUT_DIAGNOSTICS_DISPLAY = new CssClass("DomInputDiagnosticsDisplay", DomElementsCssFiles.DOM_INPUT_DIAGNOSTICS_STYLE);
 	ICssClass DOM_LABEL_GRID = new CssClass("DomLabelGrid", DomElementsCssFiles.DOM_LABEL_GRID_STYLE);
+	ICssClass DOM_LABEL_GRID_ROW = new CssClass("DomLabelGridRow", DomElementsCssFiles.DOM_LABEL_GRID_STYLE);
 
 	ICssClass DOM_MESSAGE_DIV = new CssClass("DomMessageDiv", DomElementsCssFiles.DOM_MESSAGE_DIV_STYLE);
 
