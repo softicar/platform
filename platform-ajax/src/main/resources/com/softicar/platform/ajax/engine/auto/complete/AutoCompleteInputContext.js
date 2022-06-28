@@ -29,7 +29,6 @@ function AutoCompleteInputContext(input, inputField) {
 	this.onChangeEventReturned = onChangeEventReturned;
 
 	this.hasFocus = hasFocus;
-	this.getInputFieldAbsolutePosition = getInputFieldAbsolutePosition;
 	this.getInputFieldClientHeight = getInputFieldClientHeight;
 	this.getInputFieldOffsetHeight = getInputFieldOffsetHeight;
 	this.getInputFieldBoundingRect = getInputFieldBoundingRect; 
@@ -423,11 +422,6 @@ function AutoCompleteInputContext(input, inputField) {
 		return UTILS.hasFocus(inputField);
 	}
 
-	function getInputFieldAbsolutePosition() {
-
-		return UTILS.getAbsolutePosition(inputField);
-	}
-	
 	function getInputFieldBoundingRect() {
 		
 		return UTILS.getBoundingRect(inputField);
