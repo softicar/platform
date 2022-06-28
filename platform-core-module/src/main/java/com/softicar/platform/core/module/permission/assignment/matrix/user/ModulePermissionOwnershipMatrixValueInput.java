@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.permission.assignment.matrix.user;
 
-import com.softicar.platform.core.module.permission.EmfModulePermissionStateContainer;
+import com.softicar.platform.core.module.permission.ModulePermissionStateContainer;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomColorEnum;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -15,13 +15,13 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-class ModulePermissionOwnershipMatrixValueInput extends DomDiv implements IEmfSettingMatrixModelEntryInput<EmfModulePermissionStateContainer> {
+class ModulePermissionOwnershipMatrixValueInput extends DomDiv implements IEmfSettingMatrixModelEntryInput<ModulePermissionStateContainer> {
 
 	private boolean disabled;
-	private Optional<EmfModulePermissionStateContainer> currentValue;
-	private final Supplier<Optional<EmfModulePermissionStateContainer>> originalValueSupplier;
+	private Optional<ModulePermissionStateContainer> currentValue;
+	private final Supplier<Optional<ModulePermissionStateContainer>> originalValueSupplier;
 
-	public ModulePermissionOwnershipMatrixValueInput(Supplier<Optional<EmfModulePermissionStateContainer>> originalValueSupplier) {
+	public ModulePermissionOwnershipMatrixValueInput(Supplier<Optional<ModulePermissionStateContainer>> originalValueSupplier) {
 
 		this.originalValueSupplier = originalValueSupplier;
 		this.disabled = false;
@@ -29,13 +29,13 @@ class ModulePermissionOwnershipMatrixValueInput extends DomDiv implements IEmfSe
 	}
 
 	@Override
-	public Optional<EmfModulePermissionStateContainer> getValue() {
+	public Optional<ModulePermissionStateContainer> getValue() {
 
 		return currentValue;
 	}
 
 	@Override
-	public void setValue(EmfModulePermissionStateContainer value) {
+	public void setValue(ModulePermissionStateContainer value) {
 
 		this.currentValue = Optional.ofNullable(value);
 		refresh();

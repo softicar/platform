@@ -12,11 +12,11 @@ import java.util.TreeMap;
  *
  * @author Alexander Schmidt
  */
-public class EmfModulePermissionStateContainer {
+public class ModulePermissionStateContainer {
 
 	private final Map<IEmfModulePermission<?>, Boolean> map;
 
-	public EmfModulePermissionStateContainer() {
+	public ModulePermissionStateContainer() {
 
 		this.map = new TreeMap<>();
 	}
@@ -30,9 +30,9 @@ public class EmfModulePermissionStateContainer {
 	 *            (non-null)
 	 * @param active
 	 *            the "active" state flag of the {@link IEmfModulePermission}
-	 * @return this {@link EmfModulePermissionStateContainer}
+	 * @return this {@link ModulePermissionStateContainer}
 	 */
-	public EmfModulePermissionStateContainer put(IEmfModulePermission<?> permission, boolean active) {
+	public ModulePermissionStateContainer put(IEmfModulePermission<?> permission, boolean active) {
 
 		map.put(permission, active);
 		return this;
@@ -92,19 +92,19 @@ public class EmfModulePermissionStateContainer {
 
 	/**
 	 * Adds the elements from the given
-	 * {@link EmfModulePermissionStateContainer} to this
-	 * {@link EmfModulePermissionStateContainer}.
+	 * {@link ModulePermissionStateContainer} to this
+	 * {@link ModulePermissionStateContainer}.
 	 * <p>
-	 * If both {@link EmfModulePermissionStateContainer} instances contain an
+	 * If both {@link ModulePermissionStateContainer} instances contain an
 	 * entry for the same {@link IEmfModulePermission}, the state from the given
-	 * {@link EmfModulePermissionStateContainer} will overwrite the state in
-	 * this {@link EmfModulePermissionStateContainer}.
+	 * {@link ModulePermissionStateContainer} will overwrite the state in
+	 * this {@link ModulePermissionStateContainer}.
 	 *
 	 * @param other
-	 *            the other {@link EmfModulePermissionStateContainer} (non-null)
-	 * @return this {@link EmfModulePermissionStateContainer}
+	 *            the other {@link ModulePermissionStateContainer} (non-null)
+	 * @return this {@link ModulePermissionStateContainer}
 	 */
-	public EmfModulePermissionStateContainer merge(EmfModulePermissionStateContainer other) {
+	public ModulePermissionStateContainer merge(ModulePermissionStateContainer other) {
 
 		for (IEmfModulePermission<?> permission: other.getPermissions()) {
 			map.put(permission, other.isActive(permission));

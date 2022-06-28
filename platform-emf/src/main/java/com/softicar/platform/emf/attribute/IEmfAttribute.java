@@ -14,6 +14,7 @@ import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * Represents an attribute of an {@link IEmfTableRow}.
@@ -226,6 +227,14 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 * @see EmfManagementDiv
 	 */
 	IDomElement createTabularDisplay(R tableRow);
+
+	/**
+	 * Returns an optional factory for a display element that describes this
+	 * {@link IEmfAttribute}.
+	 *
+	 * @return a factory of help text display elements
+	 */
+	Optional<Supplier<IDomElement>> getHelpDisplayFactory();
 
 	/**
 	 * Returns a new {@link IEmfInput} element to enter the value of this

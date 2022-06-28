@@ -5,6 +5,10 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 
 public interface DemoI18n extends WorkflowI18n {
 
+	I18n0 ADDITIONAL_DOCUMENTS_THAT_ARE_RELATED_TO_THIS_INVOICE = new I18n0("Additional documents that are related to this invoice.")//
+		.de("Zusätzliche Dokumente die mit dieser Rechnung zu tun haben.");
+	I18n0 ALPHANUMERICAL_CHARACTERS_AND_DASHES = new I18n0("Alphanumerical characters and dashes.")//
+		.de("Alphanumerische Zeichen und Bindestriche.");
 	I18n0 BIRTH_DATE = new I18n0("Birth Date")//
 		.de("Geburtsdatum");
 	I18n0 CLERK = new I18n0("Clerk")//
@@ -61,6 +65,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Dokument");
 	I18n0 EDIT_TRAIT = new I18n0("Edit Trait")//
 		.de("Merkmal bearbeiten");
+	I18n0 FURTHER_INFORMATION = new I18n0("Further information")//
+		.de("Weitere Informationen");
 	I18n0 GROSS_AMOUNT = new I18n0("Gross Amount")//
 		.de("Bruttobetrag");
 	I18n0 IDENTITY_CARD_NUMBER = new I18n0("Identity Card Number")//
@@ -79,6 +85,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Position");
 	I18n0 LOCKED_ITEMS = new I18n0("Locked Items")//
 		.de("Gesperrte Positionen");
+	I18n0 MORE = new I18n0("More")//
+		.de("Mehr");
 	I18n0 NET_AMOUNT = new I18n0("Net Amount")//
 		.de("Nettobetrag");
 	I18n0 OUTBOUND = new I18n0("Outbound")//
@@ -91,6 +99,8 @@ public interface DemoI18n extends WorkflowI18n {
 		.de("Zeitpunkt");
 	I18n0 QUANTITY = new I18n0("Quantity")//
 		.de("Menge");
+	I18n0 THE_DOCUMENT_THAT_IS_REPRESENTED_BY_THIS_RECORD = new I18n0("The **document** that is represented by this **record**.")//
+		.de("Das **Dokument** das von diesem **Datensatz** repräsentiert wird.");
 	I18n0 VIEW_TRAIT = new I18n0("View Trait")//
 		.de("Merkmal anschauen");
 }

@@ -7,7 +7,7 @@ import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import java.util.Collection;
 import org.junit.Test;
 
-public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
+public class ModulePermissionStateContainerTest extends AbstractDbTest {
 
 	private static final IEmfModulePermission<TestModuleInstance> PERMISSION_ONE =//
 			new TestModulePermission<>("e9f3ef4e-7eec-43ef-abd2-52d231161b4e", "permissionOne");
@@ -15,11 +15,11 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 			new TestModulePermission<>("ff1324db-e419-44b1-ac3b-1a20f27dcb66", "permissionTwo");
 	private static final IEmfModulePermission<TestModuleInstance> PERMISSION_THREE =//
 			new TestModulePermission<>("acdc5653-441b-4d2e-8ca3-a7cff8f71d0f", "permissionThree");
-	private final EmfModulePermissionStateContainer container;
+	private final ModulePermissionStateContainer container;
 
-	public EmfModulePermissionStateContainerTest() {
+	public ModulePermissionStateContainerTest() {
 
-		this.container = new EmfModulePermissionStateContainer();
+		this.container = new ModulePermissionStateContainer();
 	}
 
 	@Test
@@ -112,8 +112,8 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 	@Test
 	public void testMergeWithEmptyContainers() {
 
-		EmfModulePermissionStateContainer other = new EmfModulePermissionStateContainer();
-		EmfModulePermissionStateContainer merged = container.merge(other);
+		ModulePermissionStateContainer other = new ModulePermissionStateContainer();
+		ModulePermissionStateContainer merged = container.merge(other);
 
 		assertSame(container, merged);
 		assertTrue(merged.getPermissions().isEmpty());
@@ -123,8 +123,8 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 	public void testMergeWithEmptyOtherContainer() {
 
 		container.put(PERMISSION_ONE, true);
-		EmfModulePermissionStateContainer other = new EmfModulePermissionStateContainer();
-		EmfModulePermissionStateContainer merged = container.merge(other);
+		ModulePermissionStateContainer other = new ModulePermissionStateContainer();
+		ModulePermissionStateContainer merged = container.merge(other);
 
 		assertSame(container, merged);
 		Collection<IEmfModulePermission<?>> permissions = container.getPermissions();
@@ -135,9 +135,9 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 	@Test
 	public void testMergeWithEmptyOriginalContainer() {
 
-		EmfModulePermissionStateContainer other = new EmfModulePermissionStateContainer();
+		ModulePermissionStateContainer other = new ModulePermissionStateContainer();
 		other.put(PERMISSION_ONE, true);
-		EmfModulePermissionStateContainer merged = container.merge(other);
+		ModulePermissionStateContainer merged = container.merge(other);
 
 		assertSame(container, merged);
 		Collection<IEmfModulePermission<?>> permissions = container.getPermissions();
@@ -149,9 +149,9 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 	public void testMergeWithDisjunctElements() {
 
 		container.put(PERMISSION_ONE, true);
-		EmfModulePermissionStateContainer other = new EmfModulePermissionStateContainer();
+		ModulePermissionStateContainer other = new ModulePermissionStateContainer();
 		other.put(PERMISSION_TWO, false);
-		EmfModulePermissionStateContainer merged = container.merge(other);
+		ModulePermissionStateContainer merged = container.merge(other);
 
 		assertSame(container, merged);
 		Collection<IEmfModulePermission<?>> permissions = container.getPermissions();
@@ -165,10 +165,10 @@ public class EmfModulePermissionStateContainerTest extends AbstractDbTest {
 
 		container.put(PERMISSION_ONE, true);
 		container.put(PERMISSION_THREE, false);
-		EmfModulePermissionStateContainer other = new EmfModulePermissionStateContainer();
+		ModulePermissionStateContainer other = new ModulePermissionStateContainer();
 		other.put(PERMISSION_TWO, false);
 		other.put(PERMISSION_THREE, true);
-		EmfModulePermissionStateContainer merged = container.merge(other);
+		ModulePermissionStateContainer merged = container.merge(other);
 
 		assertSame(container, merged);
 		Collection<IEmfModulePermission<?>> permissions = container.getPermissions();

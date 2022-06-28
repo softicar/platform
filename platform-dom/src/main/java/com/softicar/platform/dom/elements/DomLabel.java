@@ -17,7 +17,7 @@ import com.softicar.platform.dom.parent.DomParentElement;
  */
 public class DomLabel extends DomParentElement {
 
-	private static final String FOR_ATTRIBUTE_NAME = "for";
+	protected static final String FOR_ATTRIBUTE_NAME = "for";
 
 	/**
 	 * Constructs an empty label.

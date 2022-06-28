@@ -202,6 +202,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tage");
 	I18n0 DAYS_SINCE_LAST_LOGIN = new I18n0("Days Since Last Login")//
 		.de("Tage seit letzten Einloggen");
+	I18n0 DBMS_CONFIGURATION = new I18n0("DBMS Configuration")//
+		.de("DBMS-Konfiguration");
+	I18n0 DBMS_CONFIGURATION_LOG = new I18n0("DBMS Configuration Log")//
+		.de("DBMS-Konfigurations-Log");
+	I18n0 DBMS_CONFIGURATION_LOGS = new I18n0("DBMS Configuration Logs")//
+		.de("DBMS-Konfigurations-Logs");
+	I18n0 DBMS_CONFIGURATIONS = new I18n0("DBMS Configurations")//
+		.de("DBMS-Konfigurationen");
 	I18n0 DBMS_DOWN_TIME_BEGIN = new I18n0("DBMS Down Time Begin")//
 		.de("Begin des DBMS-Wartungsfensters");
 	I18n0 DBMS_DOWN_TIME_END = new I18n0("DBMS Down Time End")//
@@ -375,14 +383,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bibliothek");
 	I18n0 LICENSE = new I18n0("License")//
 		.de("Lizenz");
-	I18n0 LIVE_SYSTEM_CONFIGURATION = new I18n0("Live System Configuration")//
-		.de("Live-System-Konfiguration");
-	I18n0 LIVE_SYSTEM_CONFIGURATION_LOG = new I18n0("Live System Configuration Log")//
-		.de("Live-System-Konfigurations-Log");
-	I18n0 LIVE_SYSTEM_CONFIGURATION_LOGS = new I18n0("Live System Configuration Logs")//
-		.de("Live-System-Konfigurations-Logs");
-	I18n0 LIVE_SYSTEM_CONFIGURATIONS = new I18n0("Live System Configurations")//
-		.de("Live-System-Konfigurationen");
 	I18n0 LOCAL_ADDRESS = new I18n0("Local Address")//
 		.de("Lokale Adresse");
 	I18n0 LOCAL_NAME = new I18n0("Local Name")//
@@ -700,6 +700,30 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zurückkehren zu Benuter: %s");
 	I18n0 REVISION = new I18n0("Revision")//
 		.de("Revision");
+	I18n0 ROLE = new I18n0("Role")//
+		.de("Rolle");
+	I18n0 ROLE_LOG = new I18n0("Role Log")//
+		.de("Rollen-Log");
+	I18n0 ROLE_LOGS = new I18n0("Role Logs")//
+		.de("Rollen-Logs");
+	I18n0 ROLE_PERMISSION = new I18n0("Role Permission")//
+		.de("Rollenberechtigung");
+	I18n0 ROLE_PERMISSION_LOG = new I18n0("Role Permission Log")//
+		.de("Rollenberechtigungs-Log");
+	I18n0 ROLE_PERMISSION_LOGS = new I18n0("Role Permission Logs")//
+		.de("Rollenberechtigungs-Logs");
+	I18n0 ROLE_PERMISSIONS = new I18n0("Role Permissions")//
+		.de("Rollenberechtigungen");
+	I18n0 ROLE_USER = new I18n0("Role User")//
+		.de("Rollenbenutzer");
+	I18n0 ROLE_USER_LOG = new I18n0("Role User Log")//
+		.de("Rollenbenutzer-Log");
+	I18n0 ROLE_USER_LOGS = new I18n0("Role User Logs")//
+		.de("Rollenbenutzer-Logs");
+	I18n0 ROLE_USERS = new I18n0("Role Users")//
+		.de("Rollenbenutzer");
+	I18n0 ROLES = new I18n0("Roles")//
+		.de("Rollen");
 	I18n0 ROW_COUNT = new I18n0("Row Count")//
 		.de("Zeilenanzahl");
 	I18n0 RUNTIME = new I18n0("Runtime")//
