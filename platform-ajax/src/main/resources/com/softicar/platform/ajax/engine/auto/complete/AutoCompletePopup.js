@@ -37,7 +37,7 @@ function AutoCompletePopup(inputContext, applySelection) {
 		}
 
 		if(!isShown()) {
-			showDiv();
+			showAtAbsolutePosition(div, inputContext);
 		}
 	}
 
@@ -96,13 +96,6 @@ function AutoCompletePopup(inputContext, applySelection) {
 			.appendTo(div)
 			.appendText(message)
 			.setClassName('AjaxAutoCompleteNoItems');
-	}
-
-	function showDiv() {
-
-		var position = inputContext.getInputFieldAbsolutePosition();
-		var boundingRect = inputContext.getInputFieldBoundingRect();
-		showAtAbsolutePosition(div, position.x, position.y + inputContext.getInputFieldOffsetHeight(), boundingRect.width);
 	}
 
 	function hide() {

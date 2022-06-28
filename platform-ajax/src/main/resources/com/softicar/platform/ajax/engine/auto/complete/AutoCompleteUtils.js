@@ -1,15 +1,4 @@
 
-function getAbsolutePosition(node) {
-	var position = {x: node.offsetLeft, y: node.offsetTop};
-	if(node.offsetParent)
-	{
-		var positionParent = getAbsolutePosition(node.offsetParent);
-		position.x += positionParent.x;
-		position.y += positionParent.y;
-	}
-	return position;
-}
-
 function isVisible(node) {
 	return node.offsetWidth > 0 && node.offsetHeight > 0;
 }
@@ -38,19 +27,17 @@ function getBoundingRect(element) {
 	};
 }
 
-function showAtAbsolutePosition(element, left, top, width) {
+function showAtAbsolutePosition(element, inputContext) {
 
-	element.style.left = left + 'px';
-	element.style.top = top + 'px';
-	element.style.width = width + 'px';
+	element.style.top = inputContext.getInputFieldOffsetHeight() + 'px';
+	element.style.width = inputContext.getInputFieldBoundingRect().width + 'px';
 	element.style.boxSizing = 'border-box';
-	document.body.appendChild(element);
+	inputContext.getInput().appendChild(element);
 	AJAX_ENGINE.raise(element);
 }
 
 function Utils() {
 
-	this.getAbsolutePosition = getAbsolutePosition;
 	this.isVisible = isVisible;
 	this.hasFocus = hasFocus;
 	this.getBoundingRect = getBoundingRect;
