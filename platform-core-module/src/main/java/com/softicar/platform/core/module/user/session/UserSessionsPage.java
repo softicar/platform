@@ -35,7 +35,7 @@ public class UserSessionsPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(CoreI18n.USER);
+		return modulePath.append(CoreI18n.USERS);
 	}
 
 	@Override
