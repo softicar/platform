@@ -47,7 +47,9 @@ public class StoredFilePdfToZoomableImagesConverter {
 		try (InputStream stream = file.getFileContentInputStream()) {
 			try (PDDocument pdDocument = PDDocument.load(stream)) {
 				for (int index = 0; index < pdDocument.getNumberOfPages(); index++) {
-					BufferedImage image = new PDFRenderer(pdDocument).renderImageWithDPI(index, PREVIEW_DPI);
+					var renderer = new PDFRenderer(pdDocument);
+					renderer.setSubsamplingAllowed(true);
+					BufferedImage image = renderer.renderImageWithDPI(index, PREVIEW_DPI);
 					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 					ImageIO.write(image, THUMBNAIL_IMAGE_TYPE, outputStream);
 					String fileName = file//
