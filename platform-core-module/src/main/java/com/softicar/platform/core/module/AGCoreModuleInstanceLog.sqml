@@ -8,7 +8,7 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
-	PK AGCoreModuleInstance coreModuleInstance
+	PK AGCoreModuleInstance coreModuleInstance [ON DELETE CASCADE ON UPDATE CASCADE]
 	PK AGTransaction transaction
 	AGUser systemUser = NULL [NULLABLE]
 	AGStoredFileServer primaryFileServer = NULL [NULLABLE]
