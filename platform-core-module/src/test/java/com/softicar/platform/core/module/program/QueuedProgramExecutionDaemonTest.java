@@ -523,7 +523,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		// validate system error event
 		var systemEvent = assertOne(AGSystemEvent.TABLE.loadAll());
 		assertContains(TestProgram.class.getSimpleName(), systemEvent.getProperties());
-		assertEquals(AGSystemEventSeverityEnum.WARNING, systemEvent.getSeverity().getEnum());
+		assertEquals(AGSystemEventSeverityEnum.ERROR, systemEvent.getSeverity().getEnum());
 
 		// iteration after program was aborted
 		daemon.runIteration();
