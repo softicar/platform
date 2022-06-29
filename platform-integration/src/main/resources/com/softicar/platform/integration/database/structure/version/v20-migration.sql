@@ -201,23 +201,6 @@ FOREIGN KEY (`systemEvent`) REFERENCES `Core`.`SystemEvent` (`id`) ON DELETE RES
 FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
-CREATE TABLE `Core`.`SystemEventEmailRecipient` (
-`id` INT NOT NULL AUTO_INCREMENT,
-`recipient` INT NOT NULL,
-`active` BOOL NOT NULL DEFAULT '1',
-PRIMARY KEY (`id`),
-FOREIGN KEY (`recipient`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
-CREATE TABLE `Core`.`SystemEventEmailRecipientLog` (
-`recipient` INT NOT NULL,
-`transaction` BIGINT NOT NULL,
-`active` BOOL DEFAULT NULL,
-PRIMARY KEY (`recipient`, `transaction`),
-FOREIGN KEY (`recipient`) REFERENCES `Core`.`SystemEventEmailRecipient` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
 
 -- rename workflow tables --
 
