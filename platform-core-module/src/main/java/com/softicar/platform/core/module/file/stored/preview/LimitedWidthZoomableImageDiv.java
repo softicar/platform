@@ -32,8 +32,12 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 		this.navigationBar = new DomBar();
 		this.imageDiv = new DomDiv();
 		this.rotationDiv = new RotationDiv();
-		this.nextImageButton = new DomButton().setClickCallback(this::nextImage);
-		this.previousImageButton = new DomButton().setClickCallback(this::previousImage);
+		this.nextImageButton = new DomButton()//
+			.setIcon(DomElementsImages.PAGE_NEXT.getResource())
+			.setClickCallback(this::nextImage);
+		this.previousImageButton = new DomButton()//
+			.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
+			.setClickCallback(this::previousImage);
 		addCssClass(CoreCssClasses.STORED_FILE_PREVIEW_IMAGE_DIV);
 		refresh();
 	}
@@ -62,17 +66,17 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 		if (currentPage + 1 == allPages) {
 			nextImageButton.setDisabled(true);
-			nextImageButton.setIcon(DomElementsImages.PAGE_NEXT_DISABLED.getResource());
+			nextImageButton.addCssClass(DomCssPseudoClasses.DISABLED);
 		} else {
 			nextImageButton.setDisabled(false);
-			nextImageButton.setIcon(DomElementsImages.PAGE_NEXT.getResource());
+			nextImageButton.removeCssClass(DomCssPseudoClasses.DISABLED);
 		}
 		if (currentPage == 0) {
 			previousImageButton.setDisabled(true);
-			previousImageButton.setIcon(DomElementsImages.PAGE_PREVIOUS_DISABLED.getResource());
+			previousImageButton.addCssClass(DomCssPseudoClasses.DISABLED);
 		} else {
 			previousImageButton.setDisabled(false);
-			previousImageButton.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
+			previousImageButton.removeCssClass(DomCssPseudoClasses.DISABLED);
 		}
 	}
 

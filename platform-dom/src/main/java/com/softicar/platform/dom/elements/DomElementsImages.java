@@ -37,9 +37,7 @@ public interface DomElementsImages {
 	IResourceSupplier MOVE_UP = FACTORY.create("move-up.svg");
 	IResourceSupplier MOVE_VERTICAL = FACTORY.create("move-vertical.svg");
 	IResourceSupplier PAGE_NEXT = FACTORY.create("page-next.svg");
-	IResourceSupplier PAGE_NEXT_DISABLED = FACTORY.create("page-next-disabled.svg");
 	IResourceSupplier PAGE_PREVIOUS = FACTORY.create("page-previous.svg");
-	IResourceSupplier PAGE_PREVIOUS_DISABLED = FACTORY.create("page-previous-disabled.svg");
 	IResourceSupplier POPUP_TITLE_BAR_CLOSE = FACTORY.create("popup-title-bar-close.svg");
 	IResourceSupplier TABLE_COLUMN_SELECTION = FACTORY.create("table-column-selection.svg");
 	IResourceSupplier TABLE_EXPORT = FACTORY.create("table-export.svg");
