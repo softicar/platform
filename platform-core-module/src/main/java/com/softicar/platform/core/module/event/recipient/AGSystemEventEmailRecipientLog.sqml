@@ -1,9 +1,0 @@
-PACKAGE com.softicar.platform.core.module.event.recipient
-
-IMPORT com.softicar.platform.core.module.transaction.AGTransaction
-
-TABLE AGSystemEventEmailRecipientLog "Core.SystemEventEmailRecipientLog" {
-	PK AGSystemEventEmailRecipient recipient
-	PK AGTransaction transaction
-	Boolean active = NULL [NULLABLE]
-}
