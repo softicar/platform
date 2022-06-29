@@ -1,9 +1,0 @@
-PACKAGE com.softicar.platform.core.module.event.recipient
-
-IMPORT com.softicar.platform.core.module.user.AGUser
-
-TABLE AGSystemEventEmailRecipient "Core.SystemEventEmailRecipient" {
-	PK Integer id = SERIAL
-	AGUser recipient
-	Boolean active = TRUE 
-}
