@@ -1,13 +1,12 @@
 package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.dom.DomCssPseudoClasses;
-import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.elements.bar.DomBar;
-import com.softicar.platform.dom.event.IDomClickEventHandler;
-import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
@@ -40,16 +39,17 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 		return passwordInput.getValue();
 	}
 
-	public void showText() {
+	private void showText() {
 
 		passwordInput.setAttribute("type", "text");
 		passwordInput.setAttribute("autocomplete", "");
 		passwordShown = true;
 
 		passwordVisibilityButton.addCssClass(DomCssPseudoClasses.ACTIVE);
+		passwordVisibilityButton.setTitle(EmfI18n.HIDE_PASSWORD);
 	}
 
-	public void hideText() {
+	private void hideText() {
 
 		passwordInput.setAttribute("type", "password");
 		//Setting 'one-time-code' to prevent the browser of autofilling this input
@@ -57,6 +57,7 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 		passwordShown = false;
 
 		passwordVisibilityButton.removeCssClass(DomCssPseudoClasses.ACTIVE);
+		passwordVisibilityButton.setTitle(EmfI18n.SHOW_PASSWORD);
 	}
 
 	@Override
@@ -65,16 +66,16 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 		passwordInput.setDisabled(disabled);
 	}
 
-	private class PasswordVisibilityButton extends DomImage implements IDomClickEventHandler {
+	private class PasswordVisibilityButton extends DomButton {
 
 		public PasswordVisibilityButton() {
 
-			super(EmfImages.SHOW_PASSWORD.getResource());
 			addCssClass(EmfCssClasses.EMF_PASSWORD_VISIBILITY_BUTTON);
+			setIcon(EmfImages.SHOW_PASSWORD.getResource());
+			setClickCallback(this::handleClick);
 		}
 
-		@Override
-		public void handleClick(IDomEvent event) {
+		private void handleClick() {
 
 			if (passwordShown) {
 				hideText();
