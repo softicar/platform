@@ -2,10 +2,14 @@ package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
+import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
+import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +31,7 @@ import org.junit.Test;
  */
 public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
-	private static final UUID SOME_UUID = UUID.fromString("2e2c901b-1a64-4690-8f0e-757e1206612f");
+	private static final UUID TEST_PROGRAM_UUID = EmfSourceCodeReferencePoints.getUuidOrThrow(TestProgram.class);
 	private final FakeLimitedThreadRunner threadRunner;
 	private final QueuedProgramExecutionDaemon daemon;
 	private final DayTime now;
@@ -230,8 +234,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		threadRunner.assertStartedThread();
 
 		AGProgramExecution execution = threadRunner.assertOneExecution();
-		assertEquals(SOME_UUID, execution.getProgramUuid().getUuid());
-		assertNull(execution.getStartedAt());
+		assertEquals(TEST_PROGRAM_UUID, execution.getProgramUuid().getUuid());
+		assertEquals(now, execution.getStartedAt());
 		assertNull(execution.getTerminatedAt());
 		assertEquals("", execution.getOutput());
 
@@ -466,12 +470,65 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		assertNull(program.getQueuedBy());
 	}
 
+	// ------------------------------ Exceeded Runtime ------------------------------ //
+
+	@Test
+	public void testExceededRuntime() {
+
+		AGProgram program = insertProgram(null, now, user, false);
+		new AGScheduledProgramExecution()//
+			.setActive(true)
+			.setAutomaticAbort(true)
+			.setCronExpression("* * * * *")
+			.setMaximumRuntime(5)
+			.setProgramUuid(program.getProgramUuid())
+			.save();
+
+		// initial iteration; should start thread
+		daemon.runIteration();
+		threadRunner.assertStartedThread();
+		threadRunner.assertOneExecution();
+		assertNotNull(program.getCurrentExecution());
+		assertFalse(program.isAbortRequested());
+		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
+
+		// iteration before maximum runtime is exceeded
+		Sleep.sleep(Duration.ofMinutes(3));
+		daemon.runIteration();
+		threadRunner.assertStartedThread();
+		threadRunner.assertOneExecution();
+		assertNotNull(program.getCurrentExecution());
+		assertFalse(program.isAbortRequested());
+		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
+
+		// iteration after maximum runtime is exceeded
+		Sleep.sleep(Duration.ofMinutes(2));
+		daemon.runIteration();
+		threadRunner.assertStartedThread();
+		threadRunner.assertOneExecution();
+		assertNotNull(program.getCurrentExecution());
+		assertTrue(program.isAbortRequested());
+		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
+
+		// iteration after program was aborted
+		daemon.runIteration();
+		threadRunner.assertNoStartedThread();
+		threadRunner.assertOneExecution();
+		assertNull(program.getCurrentExecution());
+		assertFalse(program.isAbortRequested());
+		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
+	}
+
 	// ------------------------------ auxiliary methods ------------------------------ //
 
 	private static AGProgramExecution insertCurrentExecution(AGUser user) {
 
 		return new AGProgramExecution()//
-			.setProgramUuid(SOME_UUID)
+			.setProgramUuid(TEST_PROGRAM_UUID)
 			.setQueuedBy(user)
 			.save();
 	}
@@ -479,7 +536,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 	private static AGProgram insertProgram(AGProgramExecution currentExecution, DayTime queuedAt, AGUser user, boolean abortRequested) {
 
 		AGProgram program = new AGProgram()//
-			.setProgramUuid(SOME_UUID)
+			.setProgramUuid(TEST_PROGRAM_UUID)
 			.save();
 		program//
 			.getState()

@@ -36,7 +36,7 @@ public class ProgramExecutionInserterTest extends AbstractProgramTest {
 
 		AGProgramExecution currentExecution = program.getCurrentExecution();
 		assertEquals(program.getProgramUuid(), currentExecution.getProgramUuid());
-		assertNull(currentExecution.getStartedAt());
+		assertEquals(DayTime.now(), currentExecution.getStartedAt());
 		assertNull(currentExecution.getTerminatedAt());
 		assertEquals("", currentExecution.getOutput());
 		assertEquals(user, currentExecution.getQueuedBy());

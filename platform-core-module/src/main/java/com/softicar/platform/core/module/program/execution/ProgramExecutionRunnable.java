@@ -32,7 +32,6 @@ public class ProgramExecutionRunnable implements Runnable {
 	public void run() {
 
 		try {
-			updateStartedAt();
 			try {
 				executeProgram();
 			} finally {
@@ -60,13 +59,6 @@ public class ProgramExecutionRunnable implements Runnable {
 		return getExecution()//
 			.getProgramUuid()
 			.getUuid();
-	}
-
-	private AGProgramExecution updateStartedAt() {
-
-		return getExecution()//
-			.setStartedAt(DayTime.now())
-			.save();
 	}
 
 	private void executeProgram() {

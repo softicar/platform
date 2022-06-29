@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.program.execution;
 
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.core.transaction.DbTransactions;
@@ -41,7 +42,7 @@ public class ProgramExecutionInserter {
 		return new AGProgramExecution()//
 			.setProgramUuid(program.getProgramUuid())
 			.setQueuedBy(queuedBy)
-			.setStartedAt(null)
+			.setStartedAt(DayTime.now())
 			.setTerminatedAt(null)
 			.save();
 	}
