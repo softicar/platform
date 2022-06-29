@@ -8,7 +8,7 @@ IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
-	PK AGModuleInstance moduleInstance = BASE
+	PK AGModuleInstance moduleInstance = BASE [ON DELETE CASCADE ON UPDATE CASCADE]
 	AGUser systemUser = NULL [NULLABLE]
 	AGStoredFileServer primaryFileServer = NULL [NULLABLE COMMENT='Server used for uploading files']
 	AGServer emailServer = NULL [NULLABLE]

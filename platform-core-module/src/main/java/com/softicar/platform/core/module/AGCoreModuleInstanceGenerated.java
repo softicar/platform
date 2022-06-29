@@ -32,7 +32,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 		BUILDER.setPluralTitle(CoreI18n.CORE_MODULE_INSTANCES);
 	}
 
-	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(CoreI18n.MODULE_INSTANCE);
+	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(CoreI18n.MODULE_INSTANCE).setCascade(true, true);
 	public static final IDbForeignField<AGCoreModuleInstance, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null);
 	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setComment("Server used for uploading files");
 	public static final IDbForeignField<AGCoreModuleInstance, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null);
