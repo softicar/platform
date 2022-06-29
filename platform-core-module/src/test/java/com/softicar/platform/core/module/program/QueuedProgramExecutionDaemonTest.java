@@ -4,6 +4,8 @@ import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.event.AGSystemEvent;
+import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
@@ -489,9 +491,11 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		threadRunner.assertStartedThread();
 		threadRunner.assertOneExecution();
 		assertNotNull(program.getCurrentExecution());
+		assertFalse(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
 		assertNull(program.getQueuedBy());
+		assertNone(AGSystemEvent.TABLE.loadAll());
 
 		// iteration before maximum runtime is exceeded
 		Sleep.sleep(Duration.ofMinutes(3));
@@ -499,9 +503,11 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		threadRunner.assertStartedThread();
 		threadRunner.assertOneExecution();
 		assertNotNull(program.getCurrentExecution());
+		assertFalse(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
 		assertNull(program.getQueuedBy());
+		assertNone(AGSystemEvent.TABLE.loadAll());
 
 		// iteration after maximum runtime is exceeded
 		Sleep.sleep(Duration.ofMinutes(2));
@@ -509,18 +515,26 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		threadRunner.assertStartedThread();
 		threadRunner.assertOneExecution();
 		assertNotNull(program.getCurrentExecution());
+		assertTrue(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertTrue(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
 		assertNull(program.getQueuedBy());
+
+		// validate system error event
+		var systemEvent = assertOne(AGSystemEvent.TABLE.loadAll());
+		assertContains(TestProgram.class.getSimpleName(), systemEvent.getProperties());
+		assertEquals(AGSystemEventSeverityEnum.WARNING, systemEvent.getSeverity().getEnum());
 
 		// iteration after program was aborted
 		daemon.runIteration();
 		threadRunner.assertNoStartedThread();
 		threadRunner.assertOneExecution();
 		assertNull(program.getCurrentExecution());
+		assertTrue(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
 		assertNull(program.getQueuedBy());
+		assertOne(AGSystemEvent.TABLE.loadAll());
 	}
 
 	// ------------------------------ auxiliary methods ------------------------------ //
