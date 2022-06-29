@@ -40,6 +40,16 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
+
+		attributes//
+			.editAttribute(AGScheduledProgramExecution.MAXIMUM_RUNTIME)
+			.setHelpDisplay(
+				CoreI18n.DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES//
+					.concatSentence(CoreI18n.A_SYSTEM_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED));
+
+		attributes//
+			.editAttribute(AGScheduledProgramExecution.AUTOMATIC_ABORT)
+			.setHelpDisplay(CoreI18n.ABORTS_THE_PROGRAM_WHEN_THE_MAXIMUM_RUNTIME_HAS_BEEN_EXCEEDED);
 	}
 
 	@Override

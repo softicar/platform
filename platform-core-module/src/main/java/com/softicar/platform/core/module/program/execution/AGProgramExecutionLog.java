@@ -39,7 +39,7 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 	public static final IDbDayTimeField<AGProgramExecutionLog> TERMINATED_AT = BUILDER.addDayTimeField("terminatedAt", o->o.m_terminatedAt, (o,v)->o.m_terminatedAt=v).setTitle(CoreI18n.TERMINATED_AT).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgramExecutionLog> FAILED = BUILDER.addBooleanField("failed", o->o.m_failed, (o,v)->o.m_failed=v).setTitle(CoreI18n.FAILED).setNullable().setDefault(null);
 	public static final IDbStringField<AGProgramExecutionLog> OUTPUT = BUILDER.addStringField("output", o->o.m_output, (o,v)->o.m_output=v).setTitle(CoreI18n.OUTPUT).setNullable().setDefault(null).setLengthBits(32);
-	public static final IDbBooleanField<AGProgramExecutionLog> EXCEEDED_MAXIMUM_RUNTIME = BUILDER.addBooleanField("exceededMaximumRuntime", o->o.m_exceededMaximumRuntime, (o,v)->o.m_exceededMaximumRuntime=v).setTitle(CoreI18n.EXCEEDED_MAXIMUM_RUNTIME).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGProgramExecutionLog> MAXIMUM_RUNTIME_EXCEEDED = BUILDER.addBooleanField("maximumRuntimeExceeded", o->o.m_maximumRuntimeExceeded, (o,v)->o.m_maximumRuntimeExceeded=v).setTitle(CoreI18n.MAXIMUM_RUNTIME_EXCEEDED).setNullable().setDefault(null);
 	public static final IDbForeignField<AGProgramExecutionLog, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null);
 	public static final IDbTableKey<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM_EXECUTION, TRANSACTION));
 	public static final DbRecordTable<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
@@ -114,14 +114,14 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 		return setValue(OUTPUT, value);
 	}
 
-	public final Boolean isExceededMaximumRuntime() {
+	public final Boolean isMaximumRuntimeExceeded() {
 
-		return getValue(EXCEEDED_MAXIMUM_RUNTIME);
+		return getValue(MAXIMUM_RUNTIME_EXCEEDED);
 	}
 
-	public final AGProgramExecutionLog setExceededMaximumRuntime(Boolean value) {
+	public final AGProgramExecutionLog setMaximumRuntimeExceeded(Boolean value) {
 
-		return setValue(EXCEEDED_MAXIMUM_RUNTIME, value);
+		return setValue(MAXIMUM_RUNTIME_EXCEEDED, value);
 	}
 
 	public final Integer getQueuedByID() {
@@ -155,7 +155,7 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 	private DayTime m_terminatedAt;
 	private Boolean m_failed;
 	private String m_output;
-	private Boolean m_exceededMaximumRuntime;
+	private Boolean m_maximumRuntimeExceeded;
 	private AGUser m_queuedBy;
 }
 

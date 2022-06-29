@@ -6,7 +6,6 @@ import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
-import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.daemon.DaemonProperties;
 import com.softicar.platform.core.module.daemon.IDaemon;
@@ -118,25 +117,16 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void handleMaximumRuntime(AGProgram program, AGProgramExecution currentExecution) {
 
-		var scheduledExecution = AGScheduledProgramExecution.getByAGUuid(program.getProgramUuid());
-		if (scheduledExecution != null && isRuntimeExceeded(currentExecution, scheduledExecution)) {
+		var scheduledExecution = AGScheduledProgramExecution.loadByProgramUuid(program.getProgramUuid());
+		if (scheduledExecution != null && scheduledExecution.isMaximumRuntimeExceeded(currentExecution)) {
 			if (scheduledExecution.isAutomaticAbort()) {
 				program.saveAbortRequested(true);
 			}
-			createRuntimeExceededEvent(program, currentExecution);
+			if (!currentExecution.isMaximumRuntimeExceeded()) {
+				createRuntimeExceededEvent(program, currentExecution);
+				currentExecution.setMaximumRuntimeExceeded(true).save();
+			}
 		}
-	}
-
-	private boolean isRuntimeExceeded(AGProgramExecution currentExecution, AGScheduledProgramExecution scheduledExecution) {
-
-		var maximumRuntimeInSeconds = scheduledExecution.getMaximumRuntimeInSeconds();
-		if (maximumRuntimeInSeconds.isPresent()) {
-			DayTime maximumRuntime = currentExecution.getStartedAt().plusSeconds(maximumRuntimeInSeconds.get());
-			boolean maximumRuntimeExceeded = DayTime.now().isAfterOrEqual(maximumRuntime);
-			boolean maximumRuntimeAlreadyExceeded = currentExecution.isExceededMaximumRuntime();
-			return maximumRuntimeExceeded && !maximumRuntimeAlreadyExceeded;
-		}
-		return false;
 	}
 
 	private void createRuntimeExceededEvent(AGProgram program, AGProgramExecution currentExecution) {
@@ -145,7 +135,6 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 			.addProperty("program", program.toDisplay().toString())
 			.addProperty("start", currentExecution.getStartedAt().toGermanString())
 			.save();
-		currentExecution.setExceededMaximumRuntime(true).save();
 	}
 
 	private void resetQueueEntries(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {

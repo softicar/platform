@@ -10,10 +10,16 @@ public interface CoreI18n extends EmfI18n {
 
 	I18n0 A_MAINTENANCE_WINDOW_IS_CONFIGURED_FOR_TODAY = new I18n0("A maintenance window is configured for today.")//
 		.de("FÜr heute ist ein Wartungsfenster konfiguriert.");
+	I18n0 A_SYSTEM_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED =//
+			new I18n0("A system error event is triggered when the maximum runtime is exceeded.")//
+				.de("Ein Systemfehlerereignis wird ausgelöst, wenn die maximale Laufzeit überschritten wird. ");
 	I18n0 ABORT = new I18n0("Abort")//
 		.de("Abbrechen");
 	I18n0 ABORT_REQUESTED = new I18n0("Abort Requested")//
 		.de("Abbruch angefragt");
+	I18n0 ABORTS_THE_PROGRAM_WHEN_THE_MAXIMUM_RUNTIME_HAS_BEEN_EXCEEDED =//
+			new I18n0("Aborts the program when the maximum runtime has been exceeded.")//
+				.de("Bricht das Programm ab, wenn die maximale Laufzeit überschritten wurde.");
 	I18n0 ACCESS_DATE = new I18n0("Access Date")//
 		.de("Zugriffsdatum");
 	I18n0 ACCESS_MANAGEMENT = new I18n0("Access Management")//
@@ -220,6 +226,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("deaktiviert");
 	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
 		.de("Standard-Lokalisierung");
+	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
+			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
+				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
@@ -268,8 +277,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Jeden Sonntag um 23:59 Uhr.");
 	I18n0 EXAMPLES = new I18n0("Examples")//
 		.de("Beispiele");
-	I18n0 EXCEEDED_MAXIMUM_RUNTIME = new I18n0("Exceeded Maximum Runtime")//
-		.de("Maximale Laufzeit überschritten");
 	I18n0 EXCEPTION_DATE = new I18n0("Exception Date")//
 		.de("Ausnahmedatum");
 	I18n0 EXCEPTION_STACK_TRACE = new I18n0("Exception Stack Trace")//
@@ -467,6 +474,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Maximale Passwort-Wiederverwendung");
 	I18n0 MAXIMUM_RUNTIME = new I18n0("Maximum Runtime")//
 		.de("Maximale Laufzeit");
+	I18n0 MAXIMUM_RUNTIME_EXCEEDED = new I18n0("Maximum Runtime Exceeded")//
+		.de("Maximale Laufzeit überschritten");
 	I18n0 MESSAGE = new I18n0("Message")//
 		.de("Nachricht");
 	I18n0 MESSAGE_ID = new I18n0("Message ID")//

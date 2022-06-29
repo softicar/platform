@@ -4,20 +4,14 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.cron.CronParser;
 import com.softicar.platform.core.module.program.Programs;
+import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.object.IEmfObject;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.UUID;
 
 public class AGScheduledProgramExecution extends AGScheduledProgramExecutionGenerated implements IEmfObject<AGScheduledProgramExecution> {
-
-	public static AGScheduledProgramExecution getByAGUuid(AGUuid uuid) {
-
-		return AGScheduledProgramExecution.TABLE//
-			.createSelect()
-			.where(AGScheduledProgramExecution.PROGRAM_UUID.equal(uuid))
-			.getOne();
-	}
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
@@ -39,14 +33,18 @@ public class AGScheduledProgramExecution extends AGScheduledProgramExecutionGene
 		return CronParser.parse(getCronExpression()).matches(dayTime);
 	}
 
-	public Optional<Double> getMaximumRuntimeInSeconds() {
+	public Optional<Duration> getMaximumRuntimeDuration() {
 
-		Double runtimeInSeconds = Optional//
+		return Optional//
 			.ofNullable(getMaximumRuntime())
-			.map(it -> Integer.valueOf(it * 60))
-			.map(Integer::doubleValue)
-			.orElse(null);
-		return Optional.ofNullable(runtimeInSeconds);
+			.map(Duration::ofMinutes);
+	}
+
+	public boolean isMaximumRuntimeExceeded(AGProgramExecution execution) {
+
+		return getMaximumRuntimeDuration()//
+			.map(maximum -> execution.isRuntimeExceeded(maximum))
+			.orElse(false);
 	}
 
 	public void enqueueExecutionIfScheduleMatches(DayTime dayTime) {
