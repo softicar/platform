@@ -10,7 +10,7 @@ public interface CoreI18n extends EmfI18n {
 
 	I18n0 A_MAINTENANCE_WINDOW_IS_CONFIGURED_FOR_TODAY = new I18n0("A maintenance window is configured for today.")//
 		.de("FÜr heute ist ein Wartungsfenster konfiguriert.");
-	I18n0 A_SYSTEM_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED =//
+	I18n0 A_SYSTEM_ERROR_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED =//
 			new I18n0("A system error event is triggered when the maximum runtime is exceeded.")//
 				.de("Ein Systemfehlerereignis wird ausgelöst, wenn die maximale Laufzeit überschritten wird. ");
 	I18n0 ABORT = new I18n0("Abort")//

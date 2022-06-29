@@ -45,7 +45,7 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 			.editAttribute(AGScheduledProgramExecution.MAXIMUM_RUNTIME)
 			.setHelpDisplay(
 				CoreI18n.DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES//
-					.concatSentence(CoreI18n.A_SYSTEM_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED));
+					.concatSentence(CoreI18n.A_SYSTEM_ERROR_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED));
 
 		attributes//
 			.editAttribute(AGScheduledProgramExecution.AUTOMATIC_ABORT)
