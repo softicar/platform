@@ -5,7 +5,6 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogLevel;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
-import com.softicar.platform.core.module.environment.AGDbmsConfiguration;
 import com.softicar.platform.core.module.environment.LiveSystemRevision;
 import com.softicar.platform.core.module.log.configuration.CurrentLogDbConfiguration;
 import com.softicar.platform.core.module.log.entry.point.CurrentLogDbEntryPoint;
@@ -15,7 +14,6 @@ import com.softicar.platform.core.module.log.process.CurrentLogProcess;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
-import com.softicar.platform.db.core.connection.connector.DbConnectionFailureException;
 import java.sql.Timestamp;
 import java.util.Optional;
 
@@ -127,7 +125,7 @@ public class LogDb {
 
 	private static void log(LogLevel logLevel, Throwable throwable, String message) {
 
-		if (shouldLogToDatabase(throwable)) {
+		if (shouldLogToDatabase()) {
 			try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
 
 				if (logLevel != LogLevel.INFO) {
@@ -160,26 +158,9 @@ public class LogDb {
 		}
 	}
 
-	private static boolean shouldLogToDatabase(Throwable throwable) {
-
-		if (isConnectionFailureDuringDownTime(throwable)) {
-			return false;
-		}
+	private static boolean shouldLogToDatabase() {
 
 		return CurrentLogDbConfiguration.get().isEnabled();
-	}
-
-	private static boolean isConnectionFailureDuringDownTime(Throwable throwable) {
-
-		return throwable instanceof DbConnectionFailureException && isLiveSystemDownTime();
-	}
-
-	private static boolean isLiveSystemDownTime() {
-
-		return AGDbmsConfiguration//
-			.getInstance()
-			.map(configuration -> configuration.isDbmsDownTime(DayTime.now()))
-			.orElse(false);
 	}
 
 	private static void log(LogLevel logLevel, Throwable throwable, String message, Object...args) {
