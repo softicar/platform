@@ -2,10 +2,6 @@ package com.softicar.platform.core.module.log;
 
 import com.softicar.platform.common.core.logging.LogBuffer;
 import com.softicar.platform.common.core.logging.LogOutputScope;
-import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.AGCoreModuleInstance;
-import com.softicar.platform.core.module.date.weekday.AGWeekday;
-import com.softicar.platform.core.module.environment.AGDbmsConfiguration;
 import com.softicar.platform.core.module.log.configuration.CurrentLogDbConfiguration;
 import com.softicar.platform.core.module.log.message.AGLogMessage;
 import com.softicar.platform.core.module.test.AbstractSofticarDbTest;
@@ -23,7 +19,6 @@ public class LogDbTest extends AbstractSofticarDbTest {
 	@Test
 	public void testPanicWithConnectionFailureExceptionDuringUpTime() {
 
-		insertLiveSystemConfiguration(DayTime.now());
 		clock.add(Duration.ofSeconds(1));
 
 		LogDb.panic(new DbConnectionFailureException(new SQLException()));
@@ -32,15 +27,15 @@ public class LogDbTest extends AbstractSofticarDbTest {
 	}
 
 	@Test
-	public void testPanicWithConnectionFailureExceptionDuringDownTime() {
+	public void testPanicWithConnectionFailureException() {
 
-		insertLiveSystemConfiguration(DayTime.now());
-
+		var throwable = new DbConnectionFailureException(new SQLException());
 		try (LogOutputScope scope = new LogOutputScope(new LogBuffer())) {
-			LogDb.panic(new DbConnectionFailureException(new SQLException()));
+			LogDb.panic(throwable);
 		}
 
-		assertNoLogMessage();
+		String logText = assertLogMessage().getLogText();
+		assertTrue(logText.contains(throwable.getClass().getCanonicalName()));
 	}
 
 	@Test
@@ -105,20 +100,5 @@ public class LogDbTest extends AbstractSofticarDbTest {
 	private AGLogMessage assertLogMessage() {
 
 		return DbAssertUtils.assertOne(AGLogMessage.TABLE);
-	}
-
-	private void assertNoLogMessage() {
-
-		DbAssertUtils.assertNone(AGLogMessage.TABLE);
-	}
-
-	private void insertLiveSystemConfiguration(DayTime downTime) {
-
-		AGDbmsConfiguration.TABLE//
-			.getOrCreate(AGCoreModuleInstance.getInstance())
-			.setDbmsDownTimeBegin(downTime.getTime())
-			.setDbmsDownTimeEnd(downTime.getTime())
-			.setDbmsDownTimeWeekday(AGWeekday.getByWeekday(downTime.getDay().getWeekday()))
-			.save();
 	}
 }
