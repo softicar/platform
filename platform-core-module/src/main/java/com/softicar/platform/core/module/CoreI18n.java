@@ -789,8 +789,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausgabe anzeigen");
 	I18n0 SHOW_PAGES = new I18n0("Show Pages")//
 		.de("Seiten anzeigen");
-	I18n0 SHOW_PASSWORD = new I18n0("Show Password")//
-		.de("Passwort anzeigen");
 	I18n0 SHOW_STACK_TRACE = new I18n0("Show Stack Trace")//
 		.de("Stacktrace anzeigen");
 	I18n0 SOURCE_USER = new I18n0("Source User")//
