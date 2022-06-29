@@ -158,6 +158,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Fremde ID");
 	I18n0 HIDE_DEFAULT_VALUES = new I18n0("Hide default values")//
 		.de("Standard-Werte ausblenden");
+	I18n0 HIDE_PASSWORD = new I18n0("Hide Password")//
+		.de("Passwort ausblenden");
 	I18n0 HISTORY = new I18n0("History")//
 		.de("Historie");
 	I18n0 HISTORY_ENTRY = new I18n0("History Entry")//
@@ -344,6 +346,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Historie anzeigen");
 	I18n0 SHOW_INACTIVE = new I18n0("Show inactive")//
 		.de("Inaktive anzeigen");
+	I18n0 SHOW_PASSWORD = new I18n0("Show Password")//
+		.de("Passwort anzeigen");
 	I18n0 SHOW_TABLE_INFORMATION = new I18n0("Show table information")//
 		.de("Tabellen-Informationen anzeigen");
 	I18n0 SHOW_TABLE_ROW_DETAILS_AND_ACTIONS = new I18n0("Show Table Row Details and Actions")//

@@ -44,6 +44,7 @@
 	transition: opacity 0.3s;
 }
 
-.EmfPasswordVisibilityButton.active:hover {
-	filter: drop-shadow(var(--TEXT_SHADOW_FOCUS));
+.EmfPasswordVisibilityButton img {
+	width: 24px;
+	height: auto;
 }
