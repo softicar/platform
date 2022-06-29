@@ -66,17 +66,13 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 		if (currentPage + 1 == allPages) {
 			nextImageButton.setDisabled(true);
-			nextImageButton.addCssClass(DomCssPseudoClasses.DISABLED);
 		} else {
 			nextImageButton.setDisabled(false);
-			nextImageButton.removeCssClass(DomCssPseudoClasses.DISABLED);
 		}
 		if (currentPage == 0) {
 			previousImageButton.setDisabled(true);
-			previousImageButton.addCssClass(DomCssPseudoClasses.DISABLED);
 		} else {
 			previousImageButton.setDisabled(false);
-			previousImageButton.removeCssClass(DomCssPseudoClasses.DISABLED);
 		}
 	}
 
