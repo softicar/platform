@@ -70,10 +70,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Am");
 	I18n0 ATTACHMENTS = new I18n0("Attachments")//
 		.de("Anhänge");
-	I18n0 AUTO_KILL = new I18n0("Auto Kill")//
-		.de("Auto-Kill");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
+	I18n0 AUTOMATIC_ABORT = new I18n0("Automatic Abort")//
+		.de("Automatischer Abbruch");
 	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
 		.de("Ordner automatisch einklappen");
 	I18n1 BACK_TO_ARG1_PROCESSES = new I18n1("Back to %s Processes")//

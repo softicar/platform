@@ -120,7 +120,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 		var scheduledExecution = AGScheduledProgramExecution.getByAGUuid(program.getProgramUuid());
 		if (scheduledExecution != null && isRuntimeExceeded(currentExecution, scheduledExecution)) {
-			if (scheduledExecution.isAutoKill()) {
+			if (scheduledExecution.isAutomaticAbort()) {
 				program.saveAbortRequested(true);
 			}
 			createRuntimeExceededEvent(program, currentExecution);

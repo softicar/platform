@@ -36,7 +36,7 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 	public static final IDbBooleanField<AGScheduledProgramExecutionLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGScheduledProgramExecutionLog> CRON_EXPRESSION = BUILDER.addStringField("cronExpression", o->o.m_cronExpression, (o,v)->o.m_cronExpression=v).setTitle(CoreI18n.CRON_EXPRESSION).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbIntegerField<AGScheduledProgramExecutionLog> MAXIMUM_RUNTIME = BUILDER.addIntegerField("maximumRuntime", o->o.m_maximumRuntime, (o,v)->o.m_maximumRuntime=v).setTitle(CoreI18n.MAXIMUM_RUNTIME).setNullable().setDefault(null);
-	public static final IDbBooleanField<AGScheduledProgramExecutionLog> AUTO_KILL = BUILDER.addBooleanField("autoKill", o->o.m_autoKill, (o,v)->o.m_autoKill=v).setTitle(CoreI18n.AUTO_KILL).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGScheduledProgramExecutionLog> AUTOMATIC_ABORT = BUILDER.addBooleanField("automaticAbort", o->o.m_automaticAbort, (o,v)->o.m_automaticAbort=v).setTitle(CoreI18n.AUTOMATIC_ABORT).setNullable().setDefault(null);
 	public static final IDbTableKey<AGScheduledProgramExecutionLog, Tuple2<AGScheduledProgramExecution, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SCHEDULED_PROGRAM_EXECUTION, TRANSACTION));
 	public static final DbRecordTable<AGScheduledProgramExecutionLog, Tuple2<AGScheduledProgramExecution, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -100,14 +100,14 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 		return setValue(MAXIMUM_RUNTIME, value);
 	}
 
-	public final Boolean isAutoKill() {
+	public final Boolean isAutomaticAbort() {
 
-		return getValue(AUTO_KILL);
+		return getValue(AUTOMATIC_ABORT);
 	}
 
-	public final AGScheduledProgramExecutionLog setAutoKill(Boolean value) {
+	public final AGScheduledProgramExecutionLog setAutomaticAbort(Boolean value) {
 
-		return setValue(AUTO_KILL, value);
+		return setValue(AUTOMATIC_ABORT, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -125,6 +125,6 @@ public class AGScheduledProgramExecutionLog extends AbstractDbRecord<AGScheduled
 	private Boolean m_active;
 	private String m_cronExpression;
 	private Integer m_maximumRuntime;
-	private Boolean m_autoKill;
+	private Boolean m_automaticAbort;
 }
 

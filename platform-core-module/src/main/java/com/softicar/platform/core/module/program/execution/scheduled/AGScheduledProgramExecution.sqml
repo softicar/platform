@@ -9,7 +9,7 @@ TABLE AGScheduledProgramExecution 'Core.ScheduledProgramExecution' {
 	String cronExpression [MAXLENGTH=255]
 	AGUuid programUuid
 	Integer maximumRuntime = NULL [NULLABLE]
-	Boolean autoKill = FALSE
+	Boolean automaticAbort = FALSE
 
 	UK programUuid
 }

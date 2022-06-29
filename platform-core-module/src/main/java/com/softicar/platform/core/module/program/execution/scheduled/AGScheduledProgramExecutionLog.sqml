@@ -9,5 +9,5 @@ TABLE AGScheduledProgramExecutionLog 'Core.ScheduledProgramExecutionLog' {
 	Boolean active = NULL [NULLABLE]
 	String cronExpression = NULL [NULLABLE MAXLENGTH=255]
 	Integer maximumRuntime = NULL [NULLABLE]
-	Boolean autoKill = NULL [NULLABLE]
+	Boolean automaticAbort = NULL [NULLABLE]
 }

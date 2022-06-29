@@ -35,7 +35,7 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 	public static final IDbStringField<AGScheduledProgramExecution> CRON_EXPRESSION = BUILDER.addStringField("cronExpression", o->o.m_cronExpression, (o,v)->o.m_cronExpression=v).setTitle(CoreI18n.CRON_EXPRESSION).setMaximumLength(255);
 	public static final IDbForeignField<AGScheduledProgramExecution, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID);
 	public static final IDbIntegerField<AGScheduledProgramExecution> MAXIMUM_RUNTIME = BUILDER.addIntegerField("maximumRuntime", o->o.m_maximumRuntime, (o,v)->o.m_maximumRuntime=v).setTitle(CoreI18n.MAXIMUM_RUNTIME).setNullable().setDefault(null);
-	public static final IDbBooleanField<AGScheduledProgramExecution> AUTO_KILL = BUILDER.addBooleanField("autoKill", o->o.m_autoKill, (o,v)->o.m_autoKill=v).setTitle(CoreI18n.AUTO_KILL).setDefault(false);
+	public static final IDbBooleanField<AGScheduledProgramExecution> AUTOMATIC_ABORT = BUILDER.addBooleanField("automaticAbort", o->o.m_automaticAbort, (o,v)->o.m_automaticAbort=v).setTitle(CoreI18n.AUTOMATIC_ABORT).setDefault(false);
 	public static final IDbKey<AGScheduledProgramExecution> UK_PROGRAM_UUID = BUILDER.addUniqueKey("programUuid", PROGRAM_UUID);
 	public static final AGScheduledProgramExecutionTable TABLE = new AGScheduledProgramExecutionTable(BUILDER);
 	// @formatter:on
@@ -107,14 +107,14 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 		return setValue(MAXIMUM_RUNTIME, value);
 	}
 
-	public final Boolean isAutoKill() {
+	public final Boolean isAutomaticAbort() {
 
-		return getValue(AUTO_KILL);
+		return getValue(AUTOMATIC_ABORT);
 	}
 
-	public final AGScheduledProgramExecution setAutoKill(Boolean value) {
+	public final AGScheduledProgramExecution setAutomaticAbort(Boolean value) {
 
-		return setValue(AUTO_KILL, value);
+		return setValue(AUTOMATIC_ABORT, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -132,6 +132,6 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 	private String m_cronExpression;
 	private AGUuid m_programUuid;
 	private Integer m_maximumRuntime;
-	private Boolean m_autoKill;
+	private Boolean m_automaticAbort;
 }
 
