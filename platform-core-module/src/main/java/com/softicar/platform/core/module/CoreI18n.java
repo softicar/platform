@@ -525,8 +525,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Nächstfolgende");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
-	I18n0 NO_EMAIL_RECIPIENTS_DEFINED = new I18n0("No email recipients defined.")//
-		.de("Keine Email-Empfänger definiert.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NOT_QUEUED = new I18n0("Not queued")//
