@@ -32,7 +32,7 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGModuleInstance.TRANSACTION, insertTransaction(systemUser))
 			.set(AGModuleInstance.ACTIVE, true)
 			.set(AGModuleInstance.MODULE_UUID, AGUuid.getOrCreate(CoreModule.class))
-			.execute();
+			.executeWithoutIdGeneration();
 		AGCoreModuleInstance.TABLE//
 			.createInsert()
 			.set(AGCoreModuleInstance.MODULE_INSTANCE, AGModuleInstance.TABLE.getStub(AGCoreModuleInstance.SINGLETON_INSTANCE_ID))
