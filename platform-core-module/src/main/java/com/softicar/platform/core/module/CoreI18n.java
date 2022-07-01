@@ -545,6 +545,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausgabe");
 	I18n0 PAGE_DEFINITIONS = new I18n0("Page Definitions")//
 		.de("Seiten-Definitionen");
+	I18n0 PAGE_DOES_NOT_EXIST = new I18n0("Page does not exist.")//
+		.de("Seite existiert nicht.");
 	I18n0 PAGE_NOT_ACCESSIBLE = new I18n0("Page not accessible.")//
 		.de("Seite nicht zugreifbar.");
 	I18n0 PAGE_OVERVIEW = new I18n0("Page Overview")//
