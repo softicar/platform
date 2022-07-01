@@ -184,6 +184,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			appendChild(
 				new DomPopupButton()//
 					.setPopupFactory(() -> createNewEntityPopup())
+					.setRetainOpen(false)
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(EmfI18n.CREATE)
 					.addMarker(EmfManagementMarker.CREATE_BUTTON)
