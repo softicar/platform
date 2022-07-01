@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.page.navigation;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.page.PageHeaderAndContentDiv;
@@ -40,13 +41,23 @@ public class PageNavigationPageController {
 
 		pageLinkDivMap//
 			.getLinkDiv(page, moduleInstanceId)
-			.ifPresentOrElse(this::showPage, this::showStartPage);
+			.ifPresentOrElse(this::showPage, this::showStartPageForInaccessiblePage);
 	}
 
-	private void showStartPage() {
+	public void showStartPageForInaccessiblePage() {
+
+		showStartPageWithAlert(CoreI18n.PAGE_NOT_ACCESSIBLE);
+	}
+
+	public void showStartPageForNonExistingPage() {
+
+		showStartPageWithAlert(CoreI18n.PAGE_DOES_NOT_EXIST);
+	}
+
+	private void showStartPageWithAlert(IDisplayString message) {
 
 		showPage(EmfSourceCodeReferencePoints.getReferencePoint(StartPage.class), AGCoreModuleInstance.getInstance().getId());
-		new DomModalAlertDialog(CoreI18n.PAGE_NOT_ACCESSIBLE.concatSentence(CoreI18n.RETURNING_TO_START_PAGE)).open();
+		new DomModalAlertDialog(message).open();
 	}
 
 	public void showPage(PageNavigationPageLinkDiv pageLinkDiv) {
