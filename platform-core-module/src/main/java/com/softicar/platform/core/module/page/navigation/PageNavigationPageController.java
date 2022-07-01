@@ -46,12 +46,12 @@ public class PageNavigationPageController {
 
 	public void showStartPageForInaccessiblePage() {
 
-		showStartPageWithAlert(CoreI18n.PAGE_NOT_ACCESSIBLE.concatSentence(CoreI18n.RETURNING_TO_START_PAGE));
+		showStartPageWithAlert(CoreI18n.PAGE_NOT_ACCESSIBLE);
 	}
 
 	public void showStartPageForNonExistingPage() {
 
-		showStartPageWithAlert(CoreI18n.PAGE_DOES_NOT_EXIST.concatSentence(CoreI18n.RETURNING_TO_START_PAGE));
+		showStartPageWithAlert(CoreI18n.PAGE_DOES_NOT_EXIST);
 	}
 
 	private void showStartPageWithAlert(IDisplayString message) {

@@ -692,8 +692,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort zurücksetzen");
 	I18n1 RETURN_TO_USER_ARG1 = new I18n1("Return to user: %s")//
 		.de("Zurückkehren zu Benuter: %s");
-	I18n0 RETURNING_TO_START_PAGE = new I18n0("Returning to start page.")//
-		.de("Kehre zur Start-Seite zurück.");
 	I18n0 REVISION = new I18n0("Revision")//
 		.de("Revision");
 	I18n0 ROLE = new I18n0("Role")//
