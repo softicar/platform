@@ -48,6 +48,12 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 		cache.invalidate();
 	}
 
+	public void refreshCache() {
+
+		cache.invalidate();
+		cache.get();
+	}
+
 	@Override
 	public T getById(Integer id) {
 
