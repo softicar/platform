@@ -1,12 +1,17 @@
 package com.softicar.platform.core.module.page.navigation;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.page.PageHeaderAndContentDiv;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.core.module.page.navigation.link.display.PageNavigationFolderDiv;
 import com.softicar.platform.core.module.page.navigation.link.display.PageNavigationPageLinkDiv;
 import com.softicar.platform.core.module.page.navigation.link.display.PageNavigationPageLinkDivMap;
+import com.softicar.platform.core.module.start.page.StartPage;
 import com.softicar.platform.dom.DomCssPseudoClasses;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
 
 public class PageNavigationPageController {
@@ -33,7 +38,15 @@ public class PageNavigationPageController {
 
 	public void showPage(IEmfPage<?> page, Integer moduleInstanceId) {
 
-		pageLinkDivMap.getLinkDiv(page, moduleInstanceId).ifPresent(this::showPage);
+		pageLinkDivMap//
+			.getLinkDiv(page, moduleInstanceId)
+			.ifPresentOrElse(this::showPage, this::showStartPage);
+	}
+
+	private void showStartPage() {
+
+		showPage(EmfSourceCodeReferencePoints.getReferencePoint(StartPage.class), AGCoreModuleInstance.getInstance().getId());
+		new DomModalAlertDialog(CoreI18n.PAGE_NOT_ACCESSIBLE.concatSentence(CoreI18n.RETURNING_TO_START_PAGE)).open();
 	}
 
 	public void showPage(PageNavigationPageLinkDiv pageLinkDiv) {
