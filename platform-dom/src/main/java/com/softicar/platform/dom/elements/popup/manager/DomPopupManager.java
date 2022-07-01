@@ -19,7 +19,7 @@ public class DomPopupManager {
 
 	private final Map<DomPopupManagerKey, DomPopup> popups;
 
-	public DomPopupManager() {
+	private DomPopupManager() {
 
 		this.popups = new HashMap<>();
 	}
