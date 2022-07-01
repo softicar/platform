@@ -14,8 +14,9 @@ import java.util.function.Supplier;
 public class DomPopupButton extends DomButton {
 
 	private DomPopup popup;
-	private INullaryVoidFunction callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
-	private INullaryVoidFunction callbackAfterOpen = INullaryVoidFunction.NO_OPERATION;
+	private boolean retainOpen;
+	private INullaryVoidFunction callbackBeforeOpen;
+	private INullaryVoidFunction callbackAfterOpen;
 
 	/**
 	 * Constructs a new {@link DomPopupButton}.
@@ -26,6 +27,9 @@ public class DomPopupButton extends DomButton {
 	public DomPopupButton() {
 
 		this.popup = null;
+		this.retainOpen = true;
+		this.callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
+		this.callbackAfterOpen = INullaryVoidFunction.NO_OPERATION;
 	}
 
 	/**
@@ -71,15 +75,30 @@ public class DomPopupButton extends DomButton {
 		return this;
 	}
 
+	/**
+	 * Specifies whether an already-open {@link DomPopup} shall be retained if
+	 * this {@link DomPopupButton} is clicked again.
+	 *
+	 * @param retainOpen
+	 *            <i>true</i> if the {@link DomPopup} shall be retained on
+	 *            click; <i>false</i> if an additional {@link DomPopup} shall be
+	 *            opened on click
+	 * @return this {@link DomPopupButton}
+	 */
+	public DomPopupButton setRetainOpen(boolean retainOpen) {
+
+		this.retainOpen = retainOpen;
+		return this;
+	}
+
 	private void openPopup(Supplier<DomPopup> popupFactory) {
 
-		boolean alreadyOpen = isOpen();
-		if (!alreadyOpen) {
+		if (isOpen() && retainOpen) {
+			popup.open();
+		} else {
 			popup = popupFactory.get();
 			callbackBeforeOpen.apply();
-		}
-		popup.open();
-		if (!alreadyOpen) {
+			popup.open();
 			callbackAfterOpen.apply();
 		}
 	}
