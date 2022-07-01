@@ -2,7 +2,6 @@ package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
@@ -86,15 +85,6 @@ public class AGWorkflowTransitionTable extends EmfObjectTable<AGWorkflowTransiti
 		attributes//
 			.editAttribute(AGWorkflowTransition.NOTIFY)
 			.setInputFactoryByEntity(NotifyInput::new);
-	}
-
-	@Override
-	public void customizeAttributeDependencies(EmfAttributeDependencyMap<AGWorkflowTransition> dependencyMap) {
-
-		dependencyMap//
-			.editAttribute(AGWorkflowTransition.AUTO_TRANSITION)
-			.addDepender(AGWorkflowTransition.REQUIRED_VOTES)
-			.addDepender(AGWorkflowTransition.NOTIFY);
 	}
 
 	@Override
