@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.module.IModule;
 import com.softicar.platform.core.module.module.instance.AGModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.ModuleInstancePredicates;
+import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.action.AbstractEmfButtonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.IEmfFormBody;
@@ -61,7 +62,15 @@ public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<
 
 	private <I extends IModuleInstance<I>> void createInstanceAndShowPopup(IModule<I> standadModule, AGModuleInstance moduleInstance) {
 
+		DomPopupManager//
+			.getInstance()
+			.getPopup(moduleInstance, EmfFormPopup.class, dummy -> createPopup(standadModule, moduleInstance))
+			.open();
+	}
+
+	private <I extends IModuleInstance<I>> EmfFormPopup<I> createPopup(IModule<I> standadModule, AGModuleInstance moduleInstance) {
+
 		I newModuleInstance = standadModule.getModuleInstanceTable().createObject(moduleInstance);
-		new EmfFormPopup<>(newModuleInstance).open();
+		return new EmfFormPopup<>(newModuleInstance);
 	}
 }
