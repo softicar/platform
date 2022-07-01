@@ -14,6 +14,7 @@ import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTes
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -93,6 +94,27 @@ public class DomPopupButtonTest extends AbstractTest implements IDomTestExecutio
 		assertEquals("foo", findTextInput().getInputValue());
 		callbackBeforeOpen.assertCalled(1);
 		callbackAfterOpen.assertCalled(1);
+	}
+
+	@Test
+	public void testOpenAndOpenWithRetainOpenFalse() {
+
+		button.setPopupFactory(TestPopup::new);
+		button.setCallbackBeforeOpen(callbackBeforeOpen);
+		button.setCallbackAfterOpen(callbackAfterOpen);
+		button.setRetainOpen(false);
+		openPopup();
+		findTextInput().setInputValue("foo");
+
+		openPopup();
+
+		List<DomNodeTester> popups = assertPopupsPresent(2);
+
+		// Ensure that the input value was retained.
+		assertEquals("foo", popups.get(0).findInput(TEXT_INPUT).getInputValue());
+		assertEquals("", popups.get(1).findInput(TEXT_INPUT).getInputValue());
+		callbackBeforeOpen.assertCalled(2);
+		callbackAfterOpen.assertCalled(2);
 	}
 
 	@Test
@@ -184,6 +206,11 @@ public class DomPopupButtonTest extends AbstractTest implements IDomTestExecutio
 	private DomNodeTester assertPopupPresent() {
 
 		return findNodes(POPUP).assertOne();
+	}
+
+	private List<DomNodeTester> assertPopupsPresent(int size) {
+
+		return findNodes(POPUP).assertSize(size);
 	}
 
 	private DomNodeTester assertOtherPopupPresent() {
