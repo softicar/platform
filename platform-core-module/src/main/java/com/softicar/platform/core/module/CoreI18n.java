@@ -361,6 +361,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Initialisiert");
 	I18n1 INVALID_IP_ADDRESSES_ARG1 = new I18n1("Invalid IP addresses: %s")//
 		.de("Ungültige IP-Addressen: %s");
+	I18n0 INVALID_PAGE_URL = new I18n0("Invalid Page URL")//
+		.de("Ungültige Seiten-URL");
 	I18n0 ISO_6391 = new I18n0("ISO 6391")//
 		.de("ISO 6391");
 	I18n0 LANGUAGE = new I18n0("Language")//
@@ -943,6 +945,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Die Portal-Navigation wird dann wieder aktiviert.");
 	I18n0 THE_PSEUDONYM_WILL_BE_USED_AS_THE_LAST_NAME = new I18n0("The pseudonym will be used as the last name.")//
 		.de("Das Pseudonym wird als Nachname verwendet.");
+	I18n0 THE_REQUESTED_PAGE_DOES_NOT_EXIST = new I18n0("The requested page does not exist.")//
+		.de("Die angeforderte Seite existiert nicht.");
 	I18n0 THE_USER_MUST_NOT_BE_ACTIVE = new I18n0("The user must not be active.")//
 		.de("Der Benutzer darf nicht aktiv sein.");
 	I18n2 THE_VALUE_OF_THE_SERVLET_PARAMETER_ARG1_MUST_BE_A_DAY_TIME_SPECIFICATION_BUT_WAS_ARG2 =

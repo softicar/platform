@@ -21,10 +21,19 @@ public class PageNavigationFolderContentDiv extends DomDiv {
 
 	private void appendChild(PageNavigationLink<?> link) {
 
+		var linkDiv = createLinkDiv(link);
+
+		if (link.isVisible()) {
+			appendChild(linkDiv);
+		}
+	}
+
+	private DomDiv createLinkDiv(PageNavigationLink<?> link) {
+
 		if (link.isFolder()) {
-			appendChild(navigationDiv.getFolderController().createFolderDiv(parentLinkDiv, link));
+			return navigationDiv.getFolderController().createFolderDiv(parentLinkDiv, link);
 		} else {
-			appendChild(navigationDiv.getPageController().createPageLinkDiv(parentLinkDiv, link));
+			return navigationDiv.getPageController().createPageLinkDiv(parentLinkDiv, link);
 		}
 	}
 }

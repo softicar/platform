@@ -122,10 +122,23 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends IEmfSourceCod
 	}
 
 	/**
-	 * Returns the necessary {@link IEmfPermission} to access this {@link IEmfPage}.
-	 * <p>
-	 * Only users matching the {@link IEmfPermission} will be able to access this
+	 * Returns whether the user is able to directly navigate to this
 	 * {@link IEmfPage}.
+	 *
+	 * @return whether this {@link IEmfPage} is navigatable (<i>true</i> by
+	 *         default)
+	 */
+	default boolean isNavigatable() {
+
+		return true;
+	}
+
+	/**
+	 * Returns the necessary {@link IEmfPermission} to access this
+	 * {@link IEmfPage}.
+	 * <p>
+	 * Only users matching the {@link IEmfPermission} will be able to access
+	 * this {@link IEmfPage}.
 	 *
 	 * @return the {@link IEmfPermission} (never <i>null</i>)
 	 */

@@ -2,10 +2,12 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.IAjaxDocumentParameters;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.core.uuid.Uuids;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.start.page.StartPage;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointMissingException;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +51,12 @@ class PageParameterParser {
 			if (pageUuid.isEmpty()) {
 				throw new SofticarUserException(CoreI18n.ILLEGAL_UUID_FOR_REQUEST_PARAMETER_ARG1_ARG2.toDisplay(PAGE_PARAMETER, pageUuidText));
 			}
-			return EmfSourceCodeReferencePoints.getReferencePointOrThrow(pageUuid.get(), IEmfPage.class);
+			try {
+				return EmfSourceCodeReferencePoints.getReferencePointOrThrow(pageUuid.get(), IEmfPage.class);
+			} catch (EmfSourceCodeReferencePointMissingException exception) {
+				DevNull.swallow(exception);
+				return EmfSourceCodeReferencePoints.getReferencePoint(InvalidPageUrlPage.class);
+			}
 		} else {
 			//FIXME This should maybe also manipulate the Url.
 			return EmfSourceCodeReferencePoints.getReferencePoint(StartPage.class);

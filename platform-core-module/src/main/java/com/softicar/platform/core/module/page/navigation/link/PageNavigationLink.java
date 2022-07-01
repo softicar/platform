@@ -73,6 +73,14 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 		return icon;
 	}
 
+	public boolean isVisible() {
+
+		return Optional//
+			.ofNullable(page)
+			.map(IEmfPage::isNavigatable)
+			.orElse(true);
+	}
+
 	public IDomNode createContentNode() {
 
 		return page.createContentNode(moduleInstance);
