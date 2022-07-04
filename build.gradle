@@ -16,6 +16,7 @@ plugins {
 project.ext {
 	versions = [
 		asm: "9.1",
+		bcprov: "1.70",
 		byteBuddy: "1.12.7",
 		classgraph: "4.8.138",
 		commonsCodec: "1.15",
@@ -24,7 +25,7 @@ project.ext {
 		commonsNet: "3.7.2",
 		commonsText: "1.9",
 		gson: "2.8.9",
-		guava: "31.0.1-jre",
+		guava: "31.1-jre",
 		h2: "2.1.214",
 		hikariCp: "5.0.1",
 		jakartaActivation: "1.2.2",
@@ -36,7 +37,7 @@ project.ext {
 		junit: "4.13.2",
 		log4j: "2.17.2",
 		mockito: "4.3.1",
-		netty: "4.1.73.Final",
+		netty: "4.1.78.Final",
 		pdfbox: "2.0.25",
 		poi: "5.2.2",
 		selenium: "4.1.2",
@@ -77,6 +78,7 @@ subprojects {
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
 			force "org.apache.logging.log4j:log4j-api:$versions.log4j"
+			force "org.bouncycastle:bcprov-jdk15on:$versions.bcprov"
 			force "org.slf4j:slf4j-api:$versions.slf4j"
 
 			eachDependency { details ->
