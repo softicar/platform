@@ -111,5 +111,6 @@ public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, AGCore
 		loggerSet
 			.addPlainChangeLogger(AGBufferedEmailLog.BUFFERED_EMAIL, AGBufferedEmailLog.TRANSACTION)
 			.addMapping(AGBufferedEmail.ACTIVE, AGBufferedEmailLog.ACTIVE);
+		loggerSet.addDummyLogger().addField(AGBufferedEmail.SENT_AT);
 	}
 }
