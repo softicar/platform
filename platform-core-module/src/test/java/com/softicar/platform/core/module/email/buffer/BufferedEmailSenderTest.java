@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.email.buffer;
 
+import com.softicar.platform.core.module.email.EmailSystemProperties;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.db.runtime.utils.DbAssertUtils;
@@ -12,6 +13,8 @@ public class BufferedEmailSenderTest extends AbstractCoreTest {
 	public BufferedEmailSenderTest() {
 
 		this.testServer = insertServer("Server", "1.1.1.1", 25, "domain", "username", "password");
+		System.setProperty(EmailSystemProperties.SENDING_ENABLED.getPropertyName().toString(), "false");
+		System.setProperty(EmailSystemProperties.DUMPING_ENABLED.getPropertyName().toString(), "false");
 	}
 
 	@Test
