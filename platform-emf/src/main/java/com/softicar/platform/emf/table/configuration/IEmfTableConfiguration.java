@@ -15,7 +15,6 @@ import com.softicar.platform.emf.action.factory.IEmfCommonActionFactory;
 import com.softicar.platform.emf.action.factory.IEmfManagementActionFactory;
 import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttributeFactory;
 import com.softicar.platform.emf.authorizer.IEmfAttributeAuthorizer;
@@ -66,8 +65,6 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	IEmfAttributeAuthorizer<R> getAttributeAuthorizer(R row, IBasicUser user);
 
 	IEmfAttributeDefaultValueSet<R, S> getAttributeDefaultValueSet();
-
-	EmfAttributeDependencyMap<R> getAttributeDependencies();
 
 	// ------------------------------ actions ------------------------------ //
 
