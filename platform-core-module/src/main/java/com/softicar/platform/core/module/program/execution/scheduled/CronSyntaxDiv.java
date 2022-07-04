@@ -1,18 +1,15 @@
-package com.softicar.platform.core.module.program.execution.scheduled.information;
+package com.softicar.platform.core.module.program.execution.scheduled;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.dom.element.DomElementTag;
+import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomPre;
-import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.tables.DomDataTable;
 
-public class CronSyntaxPopup extends DomPopup {
+public class CronSyntaxDiv extends DomDiv {
 
-	public CronSyntaxPopup() {
-
-		setCaption(CoreI18n.HELP);
-		setSubCaption(CoreI18n.CRON_SYNTAX);
+	public CronSyntaxDiv() {
 
 		appendNewChild(DomElementTag.H4).appendText(CoreI18n.GENERAL_STRUCTURE);
 		appendChild(new StructureBox());
@@ -20,7 +17,6 @@ public class CronSyntaxPopup extends DomPopup {
 		appendChild(new AllowedValuesTable());
 		appendNewChild(DomElementTag.H4).appendText(CoreI18n.EXAMPLES);
 		appendChild(new ExamplesTable());
-		appendCloseButton();
 	}
 
 	private static class StructureBox extends DomPre {
