@@ -14,7 +14,6 @@ public class BufferedEmailSenderTest extends AbstractCoreTest {
 	public BufferedEmailSenderTest() {
 
 		this.testServer = insertServer("Server", "1.1.1.1", 25, "domain", "username", "password");
-		insertServer("Server", "1.1.1.1", 25, "domain", "username", "password");
 	}
 
 	@Ignore
