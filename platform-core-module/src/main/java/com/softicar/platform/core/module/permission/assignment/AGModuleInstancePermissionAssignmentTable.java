@@ -6,7 +6,6 @@ import com.softicar.platform.core.module.permission.ModulePermissionInput;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -52,14 +51,6 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 			.editAttribute(AGModuleInstancePermissionAssignment.PERMISSION)
 			.setPredicateMandatory(EmfPredicates.always())
 			.setInputFactoryByEntity(ModulePermissionInput::new);
-	}
-
-	@Override
-	public void customizeAttributeDependencies(EmfAttributeDependencyMap<AGModuleInstancePermissionAssignment> dependencyMap) {
-
-		dependencyMap//
-			.editAttribute(AGModuleInstancePermissionAssignment.PERMISSION)
-			.setDependsOn(AGModuleInstancePermissionAssignment.MODULE_INSTANCE);
 	}
 
 	@Override
