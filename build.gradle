@@ -16,6 +16,7 @@ plugins {
 project.ext {
 	versions = [
 		asm: "9.1",
+		bcprov: "1.70",
 		byteBuddy: "1.12.7",
 		classgraph: "4.8.138",
 		commonsCodec: "1.15",
@@ -77,6 +78,7 @@ subprojects {
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
 			force "org.apache.logging.log4j:log4j-api:$versions.log4j"
+			force "org.bouncycastle:bcprov-jdk15on:$versions.bcprov"
 			force "org.slf4j:slf4j-api:$versions.slf4j"
 
 			eachDependency { details ->
