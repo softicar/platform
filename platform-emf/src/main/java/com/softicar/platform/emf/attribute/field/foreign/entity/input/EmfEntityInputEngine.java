@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.interfaces.Predicates;
 import com.softicar.platform.common.core.transaction.ITransaction;
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.dom.elements.input.auto.entity.AbstractDomAutoCompleteTransactionalEntityInputEngine;
 import com.softicar.platform.emf.entity.IEmfEntity;
@@ -61,8 +62,9 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 
 		ISqlSelect<T> select = targetTable.createSelect();
 
-		// order by primary key fields to ensure determinism
-		targetTable.getPrimaryKey().getFields().forEach(select::orderBy);
+		for (IDbField<T, ?> field: targetTable.getPrimaryKey().getFields()) {
+			select = select.orderBy(field);
+		}
 
 		return select.list(fetchOffset, fetchSize);
 	}

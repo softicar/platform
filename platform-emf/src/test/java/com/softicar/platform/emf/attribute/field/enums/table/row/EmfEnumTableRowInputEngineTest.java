@@ -18,7 +18,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testFindMatchesWithEmptyPattern() {
+	public void testWithEmptyPattern() {
 
 		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("", 0)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("", 1)));
@@ -28,7 +28,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testFindMatchesWithOneLetterPattern() {
+	public void testWithOneLetterPattern() {
 
 		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("f", 0)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("f", 1)));
@@ -37,7 +37,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testFindMatchesWithTwoLetterPattern() {
+	public void testWithTwoLetterPattern() {
 
 		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("fi", 0)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("fi", 1)));
@@ -45,7 +45,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testFindMatchesWithOneLetterPatternAndTranslation() {
+	public void testWithOneLetterPatternAndTranslation() {
 
 		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
 
@@ -58,7 +58,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	}
 
 	@Test
-	public void testFindMatchesWithTwoLetterPatternAndTranslation() {
+	public void testWithTwoLetterPatternAndTranslation() {
 
 		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
 
