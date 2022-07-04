@@ -24,7 +24,7 @@ project.ext {
 		commonsNet: "3.7.2",
 		commonsText: "1.9",
 		gson: "2.8.9",
-		guava: "31.0.1-jre",
+		guava: "31.1-jre",
 		h2: "2.1.214",
 		hikariCp: "5.0.1",
 		jakartaActivation: "1.2.2",
