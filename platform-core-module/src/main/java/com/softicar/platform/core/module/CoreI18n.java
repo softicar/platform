@@ -174,8 +174,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Erstellt von");
 	I18n0 CRON_EXPRESSION = new I18n0("Cron Expression")///
 		.de("Cron-Ausdruck");
-	I18n0 CRON_SYNTAX = new I18n0("Cron Syntax")//
-		.de("Cron-Syntax");
 	I18n0 CURRENT_EXECUTION = new I18n0("Current Execution")//
 		.de("Aktuelle Ausführung");
 	I18n0 CURRENT_PANIC_ENTRIES = new I18n0("Current Panic Entries")//
