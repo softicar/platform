@@ -43,6 +43,7 @@ public class BufferedEmailSender {
 		Log.finfo("Sending e-mails...");
 		AGBufferedEmail.TABLE//
 			.createSelect()
+			.where(AGBufferedEmail.ACTIVE)
 			.where(AGBufferedEmail.SENT_AT.isNull())
 			.where(AGBufferedEmail.EMAIL_SERVER.equal(emailServer))
 			.orderBy(AGBufferedEmail.ID)
