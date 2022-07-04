@@ -44,6 +44,7 @@ public class BufferedEmailSendProgram implements IProgram {
 				.createSelect()
 				.where(AGServer.ACTIVE)
 				.joinReverse(AGBufferedEmail.EMAIL_SERVER)
+				.groupBy(AGBufferedEmail.EMAIL_SERVER)
 				.where(AGBufferedEmail.ACTIVE)
 				.where(AGBufferedEmail.SENT_AT.isNull())
 				.forEach(this::sendEmails);

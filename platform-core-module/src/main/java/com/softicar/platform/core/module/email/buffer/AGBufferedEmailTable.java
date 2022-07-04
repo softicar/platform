@@ -44,8 +44,59 @@ public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, AGCore
 	@Override
 	public void customizeAttributeProperties(IEmfAttributeList<AGBufferedEmail> attributes) {
 
-		attributes.editAttribute(AGBufferedEmail.CONTENT).setConcealed(true);
-		attributes.editAttribute(AGBufferedEmail.SUBJECT).setConcealed(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.EMAIL_SERVER)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.CREATED_AT)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.CREATED_BY)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.SENT_AT)
+			.setEditable(false);
+		attributes//
+			.editAttribute(AGBufferedEmail.FROM)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.SENDER)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.REPLY_TO)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.TO)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.CC)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.BCC)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.MESSAGE_ID)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.IN_REPLY_TO)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.REFERENCES)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.SUBJECT)
+			.setConcealed(true)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.CONTENT)
+			.setConcealed(true)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.CONTENT_TYPE)
+			.setImmutable(true);
+		attributes//
+			.editAttribute(AGBufferedEmail.AUTO_SUBMITTED)
+			.setImmutable(true);
 	}
 
 	@Override
