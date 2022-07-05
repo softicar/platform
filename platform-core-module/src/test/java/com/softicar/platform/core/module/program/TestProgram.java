@@ -11,6 +11,7 @@ public class TestProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
+		// intentionally not using CurrentSleeper
 		new DefaultSleeper().sleep(10000);
 	}
 }

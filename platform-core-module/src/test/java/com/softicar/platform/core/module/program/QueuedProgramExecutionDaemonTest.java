@@ -627,10 +627,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		@Override
 		public void run() {
 
-			while (true) {
-				// intentionally not using CurrentSleeper
-				new DefaultSleeper().sleep(1000);
-			}
+			// intentionally not using CurrentSleeper
+			new DefaultSleeper().sleep(10000);
 		}
 	}
 }
