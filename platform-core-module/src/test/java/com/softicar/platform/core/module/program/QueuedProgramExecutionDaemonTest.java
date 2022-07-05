@@ -1,20 +1,19 @@
 package com.softicar.platform.core.module.program;
 
-import com.softicar.platform.common.core.thread.IRunnableThread;
-import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
+import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.core.thread.sleeper.DefaultSleeper;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.UUID;
 import org.junit.Test;
 
@@ -30,20 +29,23 @@ import org.junit.Test;
  * </ol>
  *
  * @author Alexander Schmidt
+ * @author Oliver Richers
  */
 public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
+	private static final int THREAD_LIMIT = 2;
 	private static final UUID TEST_PROGRAM_UUID = EmfSourceCodeReferencePoints.getUuidOrThrow(TestProgram.class);
-	private final FakeLimitedThreadRunner threadRunner;
+	private final TestThreadRunner threadRunner;
 	private final QueuedProgramExecutionDaemon daemon;
 	private final DayTime now;
 
 	public QueuedProgramExecutionDaemonTest() {
 
-		this.threadRunner = new FakeLimitedThreadRunner();
+		setupTestSleeper();
+
+		this.threadRunner = new TestThreadRunner();
 		this.daemon = new QueuedProgramExecutionDaemon(threadRunner);
 		this.now = DayTime.now();
-		setupTestSleeper();
 	}
 
 	@Test
@@ -52,7 +54,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 	}
 
 	// -------------------------------- Queued-Execution Property Permutations -------------------------------- //
@@ -65,7 +67,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -81,8 +83,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -99,7 +101,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -116,8 +118,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -133,7 +135,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -149,8 +151,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -167,7 +169,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -184,8 +186,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertSame(currentExecution, program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -201,7 +203,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -217,8 +219,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(2);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -233,11 +235,11 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertStartedThread();
+		threadRunner.assertStartedThreads(1);
 
-		AGProgramExecution execution = threadRunner.assertOneExecution();
+		AGProgramExecution execution = assertOneExecution();
 		assertEquals(TEST_PROGRAM_UUID, execution.getProgramUuid().getUuid());
-		assertEquals(now, execution.getStartedAt());
+		assertNull(execution.getStartedAt());
 		assertNull(execution.getTerminatedAt());
 		assertEquals("", execution.getOutput());
 
@@ -255,8 +257,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -272,7 +274,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -288,8 +290,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -305,7 +307,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -321,8 +323,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -341,7 +343,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -358,8 +360,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -376,7 +378,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -393,8 +395,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -411,7 +413,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -428,8 +430,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -446,7 +448,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -463,8 +465,8 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
-		threadRunner.assertNoStartedThread();
-		threadRunner.assertNoExecutions();
+		threadRunner.assertStartedThreads(THREAD_LIMIT);
+		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
 		assertFalse(program.isAbortRequested());
@@ -474,9 +476,11 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	// ------------------------------ Exceeded Runtime ------------------------------ //
 
-	@Test
+	// do not use test timeouts; it will break this test
+	@Test//(timeout = 3000)
 	public void testExceededRuntime() {
 
+		// create program and schedule
 		AGProgram program = insertProgram(null, now, user, false);
 		new AGScheduledProgramExecution()//
 			.setActive(true)
@@ -488,53 +492,58 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		// initial iteration; should start thread
 		daemon.runIteration();
-		threadRunner.assertStartedThread();
-		threadRunner.assertOneExecution();
+		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
 		assertNotNull(program.getCurrentExecution());
-		assertFalse(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
 		assertNull(program.getQueuedAt());
 		assertNull(program.getQueuedBy());
+		assertFalse(assertOneExecution().isMaximumRuntimeExceeded());
+		assertNull(assertOneExecution().getTerminatedAt());
 		assertNone(AGSystemEvent.TABLE.loadAll());
 
 		// iteration before maximum runtime is exceeded
 		Sleep.sleep(Duration.ofMinutes(3));
 		daemon.runIteration();
-		threadRunner.assertStartedThread();
-		threadRunner.assertOneExecution();
+		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
 		assertNotNull(program.getCurrentExecution());
-		assertFalse(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
-		assertNull(program.getQueuedAt());
-		assertNull(program.getQueuedBy());
+		assertFalse(assertOneExecution().isMaximumRuntimeExceeded());
+		assertNull(assertOneExecution().getTerminatedAt());
 		assertNone(AGSystemEvent.TABLE.loadAll());
 
 		// iteration after maximum runtime is exceeded
-		Sleep.sleep(Duration.ofMinutes(2));
+		Sleep.sleep(Duration.ofMinutes(3));
 		daemon.runIteration();
-		threadRunner.assertStartedThread();
-		threadRunner.assertOneExecution();
+		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
 		assertNotNull(program.getCurrentExecution());
-		assertTrue(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertTrue(program.isAbortRequested());
-		assertNull(program.getQueuedAt());
-		assertNull(program.getQueuedBy());
+		assertTrue(assertOneExecution().isMaximumRuntimeExceeded());
 
 		// validate system error event
 		var systemEvent = assertOne(AGSystemEvent.TABLE.loadAll());
 		assertContains(TestProgram.class.getSimpleName(), systemEvent.getProperties());
 		assertEquals(AGSystemEventSeverityEnum.ERROR, systemEvent.getSeverity().getEnum());
 
+		try (DbTransaction transaction = new DbTransaction()) {
+			transaction.assertIsRootTransaction();
+		}
+
+		// wait for program to be aborted
+		daemon.runIteration();
+		threadRunner.waitForTerminationOfStartedThreads();
+
 		// iteration after program was aborted
 		daemon.runIteration();
 		threadRunner.assertNoStartedThread();
-		threadRunner.assertOneExecution();
+		threadRunner.assertNoQueuedRunnables();
+		assertOneExecution();
 		assertNull(program.getCurrentExecution());
 		assertTrue(assertOne(AGProgramExecution.TABLE.loadAll()).isMaximumRuntimeExceeded());
 		assertFalse(program.isAbortRequested());
-		assertNull(program.getQueuedAt());
-		assertNull(program.getQueuedBy());
-		assertOne(AGSystemEvent.TABLE.loadAll());
+		assertCount(2, AGSystemEvent.TABLE.loadAll());
 	}
 
 	// ------------------------------ auxiliary methods ------------------------------ //
@@ -562,147 +571,66 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		return program;
 	}
 
-	// TODO generalize this class into a LimitedThreadTestRunner
-	private static class FakeLimitedThreadRunner implements ILimitedThreadRunner<ProgramExecutionRunnable> {
+	public AGProgramExecution assertOneExecution() {
 
-		private final Collection<AGProgramExecution> executions;
-		private ProgramExecutionRunnable queuedRunnable;
-		private FakeRunnableThread startedThread;
-		private boolean noAvailableSlots;
+		return Asserts.assertOne(AGProgramExecution.TABLE.loadAll());
+	}
 
-		public FakeLimitedThreadRunner() {
+	private static class TestThreadRunner extends LimitedThreadRunner<ProgramExecutionRunnable> {
 
-			this.executions = new ArrayList<>();
-			this.queuedRunnable = null;
-			this.startedThread = null;
-			this.noAvailableSlots = false;
+		public TestThreadRunner() {
+
+			super(THREAD_LIMIT);
 		}
 
-		@Override
-		public Collection<IRunnableThread<ProgramExecutionRunnable>> startThreads() {
+		public void waitForTerminationOfStartedThreads() {
 
-			if (hasAvailableSlots() && queuedRunnable != null) {
-				var runnableThread = new FakeRunnableThread(queuedRunnable);
-				runnableThread.start();
-				this.startedThread = runnableThread;
-				this.queuedRunnable = null;
-				return Collections.singleton(runnableThread);
-			} else {
-				return Collections.emptyList();
+			while (getStartedThreadsCount() > 0) {
+				Thread.yield();
 			}
-		}
-
-		@Override
-		public void addRunnable(ProgramExecutionRunnable runnable) {
-
-			if (queuedRunnable == null) {
-				this.queuedRunnable = runnable;
-				this.executions.add(runnable.getExecution());
-			} else {
-				throw new UnsupportedOperationException();
-			}
-		}
-
-		@Override
-		public boolean hasAvailableSlots() {
-
-			removeThreadIfTerminated();
-			return !noAvailableSlots && startedThread == null;
 		}
 
 		public void simulateNoAvailableSlots() {
 
-			this.noAvailableSlots = true;
+			while (hasAvailableSlots()) {
+				if (getQueueRunnablesCount() > 0) {
+					startThreads();
+				} else {
+					addRunnable(new DummyRunnable());
+				}
+			}
 		}
 
-		public AGProgramExecution assertOneExecution() {
+		public void assertStartedThreads(int expectedCount) {
 
-			return assertOne(executions);
-		}
-
-		public void assertNoExecutions() {
-
-			assertTrue(executions.isEmpty());
-		}
-
-		public void assertStartedThread() {
-
-			assertNotNull(startedThread);
-			assertTrue(startedThread.isStarted());
+			assertEquals("started threads", expectedCount, getStartedThreadsCount());
 		}
 
 		public void assertNoStartedThread() {
 
-			assertNull(startedThread);
+			assertStartedThreads(0);
 		}
 
-		private void removeThreadIfTerminated() {
+		public void assertNoQueuedRunnables() {
 
-			if (startedThread != null && startedThread.isTerminated()) {
-				this.startedThread = null;
-			}
-		}
-
-		@Override
-		public boolean isFinished() {
-
-			removeThreadIfTerminated();
-			return this.startedThread == null && queuedRunnable == null;
+			assertEquals("queued runnables", 0, getQueueRunnablesCount());
 		}
 	}
 
-	private static class FakeRunnableThread implements IRunnableThread<ProgramExecutionRunnable> {
+	private static class DummyRunnable extends ProgramExecutionRunnable {
 
-		private final ProgramExecutionRunnable runnable;
-		private boolean terminated;
-		private boolean started;
+		public DummyRunnable() {
 
-		public FakeRunnableThread(ProgramExecutionRunnable runnable) {
-
-			this.runnable = runnable;
-			this.terminated = false;
-			this.started = false;
+			super(new AGProgramExecution());
 		}
 
 		@Override
-		public ProgramExecutionRunnable getRunnable() {
+		public void run() {
 
-			return runnable;
-		}
-
-		@Override
-		public void start() {
-
-			this.started = true;
-		}
-
-		@Override
-		public void interrupt() {
-
-			throw new UnsupportedOperationException();
-		}
-
-		@Override
-		public boolean kill() {
-
-			setTerminated(true);
-			return true;
-		}
-
-		@Override
-		public boolean isTerminated() {
-
-			return terminated;
-		}
-
-		public boolean isStarted() {
-
-			return started;
-		}
-
-		public void setTerminated(boolean terminated) {
-
-			this.terminated = terminated;
+			while (true) {
+				// intentionally not using CurrentSleeper
+				new DefaultSleeper().sleep(1000);
+			}
 		}
 	}
 }

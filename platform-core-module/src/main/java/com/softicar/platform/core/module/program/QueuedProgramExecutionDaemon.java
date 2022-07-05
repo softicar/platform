@@ -67,17 +67,15 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void handleRunningProgram(AGProgram program) {
 
-		AGProgramExecution currentExecution = program.getCurrentExecution();
-		currentExecution.reloadForUpdate();
-
-		if (currentExecution.isTerminated()) {
-			program.resetCurrentExecution();
-		}
-
 		if (program.isAbortRequested()) {
+			// when terminating a program, the current execution may not be locked
 			terminateProgram(program);
 		} else {
-			if (!currentExecution.isTerminated()) {
+			var currentExecution = program.getCurrentExecution();
+			currentExecution.reloadForUpdate();
+			if (currentExecution.isTerminated()) {
+				program.resetCurrentExecution();
+			} else {
 				handleMaximumRuntime(program, currentExecution);
 			}
 		}

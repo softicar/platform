@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.core.annotations.TestingOnly;
+import com.softicar.platform.common.core.thread.sleeper.DefaultSleeper;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 @TestingOnly
@@ -10,6 +11,6 @@ public class TestProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		// nothing to do
+		new DefaultSleeper().sleep(10000);
 	}
 }

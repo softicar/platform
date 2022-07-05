@@ -8,8 +8,8 @@ package com.softicar.platform.common.core.thread.collection;
  */
 public class ThreadKiller<T extends Thread> {
 
-	private static final long DEFAULT_TIMEOUT = 100;
-	private static final int DEFAULT_TRY_COUNT = 10;
+	private static final int DEFAULT_TRY_COUNT = 5;
+	private static final long DEFAULT_TIMEOUT = DEFAULT_TRY_COUNT * 1000;
 	private final ThreadCollection<T> threads;
 	private long timeout;
 	private int tryCount;

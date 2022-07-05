@@ -99,6 +99,16 @@ public class LimitedThreadRunner<R extends Runnable> implements ILimitedThreadRu
 		return this;
 	}
 
+	protected int getStartedThreadsCount() {
+
+		return startedThreads.size();
+	}
+
+	protected int getQueueRunnablesCount() {
+
+		return runnables.size();
+	}
+
 	private int getAvailableSlots() {
 
 		return Math.max(0, limit - getStartedThreadCount());

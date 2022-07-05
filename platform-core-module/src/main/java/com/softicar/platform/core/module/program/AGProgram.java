@@ -94,9 +94,9 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 * Inserts a new {@link AGProgramExecution} as current execution of this
 	 * {@link AGProgram}.
 	 * <p>
-	 * The field {@link AGProgramExecutionGenerated#STARTED_AT} will be set to
-	 * {@link DayTime#now} and {@link AGProgramExecutionGenerated#TERMINATED_AT}
-	 * will be set to <i>null</i>.
+	 * The fields {@link AGProgramExecutionGenerated#STARTED_AT} and
+	 * {@link AGProgramExecutionGenerated#TERMINATED_AT} will be inserted with
+	 * <i>null</i> values.
 	 * <p>
 	 * The {@link AGProgramState#QUEUED_AT} field will be updated to
 	 * <i>null</i>.

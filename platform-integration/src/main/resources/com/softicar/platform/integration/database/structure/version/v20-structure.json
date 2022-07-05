@@ -101,11 +101,11 @@
   },
   {
     "tableName": "`Core`.`ProgramExecutionLog`",
-    "createStatement": "CREATE TABLE `Core`.`ProgramExecutionLog` (`programExecution` BIGINT NOT NULL,`transaction` BIGINT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL DEFAULT NULL,`output` LONGTEXT DEFAULT NULL,`maximumRuntimeExceeded` BOOL DEFAULT NULL,`queuedBy` INT DEFAULT NULL,PRIMARY KEY (`programExecution`, `transaction`),FOREIGN KEY (`programExecution`) REFERENCES `Core`.`ProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`ProgramExecutionLog` (`programExecution` BIGINT NOT NULL,`transaction` BIGINT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL DEFAULT NULL,`output` LONGTEXT DEFAULT NULL,`queuedBy` INT DEFAULT NULL,PRIMARY KEY (`programExecution`, `transaction`),FOREIGN KEY (`programExecution`) REFERENCES `Core`.`ProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ProgramExecution`",
-    "createStatement": "CREATE TABLE `Core`.`ProgramExecution` (`id` BIGINT NOT NULL AUTO_INCREMENT,`programUuid` INT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL NOT NULL DEFAULT '0',`output` LONGTEXT NOT NULL DEFAULT '',`maximumRuntimeExceeded` BOOL NOT NULL DEFAULT '0',`queuedBy` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`ProgramExecution` (`id` BIGINT NOT NULL AUTO_INCREMENT,`programUuid` INT NOT NULL,`startedAt` DATETIME DEFAULT NULL,`terminatedAt` DATETIME DEFAULT NULL,`failed` BOOL NOT NULL DEFAULT '0',`output` LONGTEXT NOT NULL DEFAULT '',`queuedBy` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`queuedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ProgramLog`",
@@ -149,11 +149,11 @@
   },
   {
     "tableName": "`Core`.`ScheduledProgramExecutionLog`",
-    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecutionLog` (`scheduledProgramExecution` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`cronExpression` VARCHAR(255) DEFAULT NULL,`maximumRuntime` INT DEFAULT NULL,`automaticAbort` BOOL DEFAULT NULL,PRIMARY KEY (`scheduledProgramExecution`, `transaction`),FOREIGN KEY (`scheduledProgramExecution`) REFERENCES `Core`.`ScheduledProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecutionLog` (`scheduledProgramExecution` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`cronExpression` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`scheduledProgramExecution`, `transaction`),FOREIGN KEY (`scheduledProgramExecution`) REFERENCES `Core`.`ScheduledProgramExecution` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ScheduledProgramExecution`",
-    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecution` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`cronExpression` VARCHAR(255) NOT NULL,`programUuid` INT NOT NULL,`maximumRuntime` INT DEFAULT NULL,`automaticAbort` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`id`),UNIQUE KEY `programUuid` (`programUuid`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`ScheduledProgramExecution` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`cronExpression` VARCHAR(255) NOT NULL,`programUuid` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `programUuid` (`programUuid`),FOREIGN KEY (`programUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ServerLog`",

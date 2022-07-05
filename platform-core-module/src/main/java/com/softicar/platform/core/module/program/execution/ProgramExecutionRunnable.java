@@ -31,6 +31,7 @@ public class ProgramExecutionRunnable implements Runnable {
 	@Override
 	public void run() {
 
+		updateStartedAt();
 		try {
 			try {
 				executeProgram();
@@ -61,6 +62,13 @@ public class ProgramExecutionRunnable implements Runnable {
 			.getUuid();
 	}
 
+	private AGProgramExecution updateStartedAt() {
+
+		return getExecution()//
+			.setStartedAt(DayTime.now())
+			.save();
+	}
+
 	private void executeProgram() {
 
 		try (LogOutputScope scope = new LogOutputScope(logBuffer)) {
@@ -78,8 +86,8 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private void updateOutputAndTerminatedAt() {
 
-		var execution = getExecution();
 		try (var transaction = new DbTransaction()) {
+			var execution = getExecution();
 			execution.reloadForUpdate();
 			execution//
 				.setTerminatedAt(DayTime.now())
