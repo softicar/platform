@@ -14,6 +14,7 @@ public enum License {
 	CDDL_1_0("CDDL v1.0"),
 	EPL_1_0("EPL v1.0"),
 	EPL_2_0("EPL v2.0"),
+	JJ_2000("JJ2000"),
 	LGPL_2_1("LGPL v2.1"),
 	MIT("MIT"),
 	MIT_0("MIT-0"),
