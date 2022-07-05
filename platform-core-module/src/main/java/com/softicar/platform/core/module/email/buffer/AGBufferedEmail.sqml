@@ -5,6 +5,7 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGBufferedEmail 'Core.BufferedEmail' {
 	PK Integer id = SERIAL
+	Boolean active = TRUE
 	AGServer emailServer [ON UPDATE CASCADE]
 	DayTime createdAt = NOW [TIMESTAMP]
 	AGUser createdBy

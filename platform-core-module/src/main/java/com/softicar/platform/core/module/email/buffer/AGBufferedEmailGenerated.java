@@ -5,6 +5,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
@@ -32,6 +33,7 @@ public class AGBufferedEmailGenerated extends AbstractDbObject<AGBufferedEmail> 
 	}
 
 	public static final IDbIdField<AGBufferedEmail> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
+	public static final IDbBooleanField<AGBufferedEmail> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
 	public static final IDbForeignField<AGBufferedEmail, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setCascade(false, true);
 	public static final IDbDayTimeField<AGBufferedEmail> CREATED_AT = BUILDER.addDayTimeField("createdAt", o->o.m_createdAt, (o,v)->o.m_createdAt=v).setTitle(CoreI18n.CREATED_AT).setDefaultNow().setTimestamp();
 	public static final IDbForeignField<AGBufferedEmail, AGUser> CREATED_BY = BUILDER.addForeignField("createdBy", o->o.m_createdBy, (o,v)->o.m_createdBy=v, AGUser.ID).setTitle(CoreI18n.CREATED_BY);
@@ -67,6 +69,16 @@ public class AGBufferedEmailGenerated extends AbstractDbObject<AGBufferedEmail> 
 	}
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
+
+	public final Boolean isActive() {
+
+		return getValue(ACTIVE);
+	}
+
+	public final AGBufferedEmail setActive(Boolean value) {
+
+		return setValue(ACTIVE, value);
+	}
 
 	public final Integer getEmailServerID() {
 
@@ -259,6 +271,7 @@ public class AGBufferedEmailGenerated extends AbstractDbObject<AGBufferedEmail> 
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private Integer m_id;
+	private Boolean m_active;
 	private AGServer m_emailServer;
 	private DayTime m_createdAt;
 	private AGUser m_createdBy;
