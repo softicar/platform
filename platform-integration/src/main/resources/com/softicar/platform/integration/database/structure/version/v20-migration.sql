@@ -58,14 +58,10 @@ UPDATE `Core`.`CoreModuleInstance` SET `systemName` = IFNULL(@systemName, 'Forsp
 ALTER TABLE `Core`.`CoreModuleInstanceLog` ADD COLUMN `systemName` VARCHAR(255) DEFAULT NULL AFTER `portalApplication`;
 
 
--- rename and change system configuration tables --
+-- drop live system configuration tables --
 
-ALTER TABLE `Core`.`LiveSystemConfigurationLog` RENAME COLUMN `liveSystemConfiguration` TO `dbmsConfiguration`;
-ALTER TABLE `Core`.`LiveSystemConfigurationLog` DROP COLUMN `systemName`;
-RENAME TABLE `Core`.`LiveSystemConfigurationLog` TO `Core`.`DbmsConfigurationLog`;
-
-ALTER TABLE `Core`.`LiveSystemConfiguration` DROP COLUMN `systemName`;
-RENAME TABLE `Core`.`LiveSystemConfiguration` TO `Core`.`DbmsConfiguration`;
+DROP TABLE `Core`.`LiveSystemConfigurationLog`;
+DROP TABLE `Core`.`LiveSystemConfiguration`;
 
 
 -- rename old role tables --

@@ -65,7 +65,7 @@ public abstract class AbstractEmfDependentAutoCompleteInputEngine<I extends IEnt
 	public void refresh() {
 
 		filters.forEach(IDomAutoCompleteInputFilter::refresh);
-		invalidateCache();
+		refreshCache();
 	}
 
 	@Override

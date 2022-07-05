@@ -56,9 +56,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 			"Server",
 			"Stored File",
 			"Test Page",
-			"Users",
-			"UUIDs",
-			"Core Module Instances");
+			"Users");
 		clickFolderLink("Logging");
 		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
 	}

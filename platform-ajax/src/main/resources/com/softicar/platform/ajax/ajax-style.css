@@ -9,6 +9,7 @@
 	border-radius: var(--BORDER_RADIUS);
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 
+	color: var(--FONT_COLOR);
 	background-color: var(--INPUT_BACKGROUND_COLOR); 
 	overflow:hidden;
 	gap: 0;

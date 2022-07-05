@@ -37,7 +37,7 @@ public class ProgramExecutionRunnable implements Runnable {
 			} finally {
 				updateOutputAndTerminatedAt();
 				if (failed) {
-					new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.PROGRAM_EXECUTION_FAILED.toString())//
+					new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, CoreI18n.PROGRAM_EXECUTION_FAILED.toString())//
 						.addProperty("program", Programs.getProgramName(getProgramUuid()).toString())
 						.save();
 				}

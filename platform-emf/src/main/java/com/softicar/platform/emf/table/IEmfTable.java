@@ -24,7 +24,6 @@ import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
 import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.attribute.field.transaction.EmfTransactionAttribute;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAttributeAuthorizer;
@@ -241,11 +240,6 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 		return getEmfTableConfiguration().getAttributeDefaultValueSet();
 	}
 
-	default EmfAttributeDependencyMap<R> getAttributeDependencies() {
-
-		return getEmfTableConfiguration().getAttributeDependencies();
-	}
-
 	default Collection<IEmfScopeAction<S>> getScopeActions() {
 
 		return getEmfTableConfiguration().getScopeActions();
@@ -385,11 +379,6 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	default void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<R, S> defaultValueSet) {
 
 		DevNull.swallow(defaultValueSet);
-	}
-
-	default void customizeAttributeDependencies(EmfAttributeDependencyMap<R> dependencyMap) {
-
-		DevNull.swallow(dependencyMap);
 	}
 
 	default void customizeActionSet(EmfActionSet<R, S> actionSet) {

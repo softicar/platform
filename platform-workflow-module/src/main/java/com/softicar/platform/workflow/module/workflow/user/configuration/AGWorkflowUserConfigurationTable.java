@@ -4,7 +4,6 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.UserInput;
 import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.permission.EmfPermissions;
@@ -62,14 +61,5 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE_TO)
 			.setInputFactoryByEntity(WorkflowUserConfigurationDayInput::new)
 			.setPredicateMandatory(WorkflowUserConfigurationPredicates.SUBSTITUTE_DEFINED);
-	}
-
-	@Override
-	public void customizeAttributeDependencies(EmfAttributeDependencyMap<AGWorkflowUserConfiguration> dependencyMap) {
-
-		dependencyMap//
-			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE)
-			.addDepender(AGWorkflowUserConfiguration.SUBSTITUTE_FROM)
-			.addDepender(AGWorkflowUserConfiguration.SUBSTITUTE_TO);
 	}
 }

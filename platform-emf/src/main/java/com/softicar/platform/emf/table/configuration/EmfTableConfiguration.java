@@ -24,7 +24,6 @@ import com.softicar.platform.emf.action.factory.IEmfManagementActionFactory;
 import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
 import com.softicar.platform.emf.attribute.EmfAttributeList;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.attribute.dependency.EmfAttributeDependencyMap;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttributeFactory;
 import com.softicar.platform.emf.authorizer.EmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -79,7 +78,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final IEmfTable<R, P, S> table;
 	private final Supplier<EmfActionSet<R, S>> actionSetSupplier;
 	private final Supplier<EmfAttributeList<R, P>> attributeListSupplier;
-	private final Supplier<EmfAttributeDependencyMap<R>> attributeDependencyMapSupplier;
 	private final Supplier<EmfAttributeDefaultValueSet<R, S>> attributeDefaultValueSetSupplier;
 	private final Supplier<EmfFormIndicatorConfiguration<R>> indicatorConfigurationSupplier;
 	private final Supplier<EmfFormSectionConfiguration<R>> sectionConfigurationSupplier;
@@ -111,7 +109,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.table = table;
 		this.actionSetSupplier = new EmfLazySupplier<>(table, EmfActionSet::new, table::customizeActionSet);
 		this.attributeListSupplier = new EmfLazySupplier<>(table, EmfAttributeList::new, this::customizeAttributesAndOrder);
-		this.attributeDependencyMapSupplier = new EmfLazySupplier<>(table, EmfAttributeDependencyMap::new, table::customizeAttributeDependencies);
 		this.attributeDefaultValueSetSupplier = new EmfLazySupplier<>(table, EmfAttributeDefaultValueSet::new, table::customizeAttributeDefaultValues);
 		this.indicatorConfigurationSupplier = new EmfLazySupplier<>(EmfFormIndicatorConfiguration::new, table::customizeFormIndicators);
 		this.sectionConfigurationSupplier = new EmfLazySupplier<>(EmfFormSectionConfiguration::new, table::customizeFormSections);
@@ -314,12 +311,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfAttributeDefaultValueSet<R, S> getAttributeDefaultValueSet() {
 
 		return attributeDefaultValueSetSupplier.get();
-	}
-
-	@Override
-	public final EmfAttributeDependencyMap<R> getAttributeDependencies() {
-
-		return attributeDependencyMapSupplier.get();
 	}
 
 	// ------------------------------ actions ------------------------------ //

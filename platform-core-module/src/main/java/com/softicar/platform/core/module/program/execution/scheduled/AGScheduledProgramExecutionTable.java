@@ -3,9 +3,7 @@ package com.softicar.platform.core.module.program.execution.scheduled;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.Programs;
-import com.softicar.platform.core.module.program.execution.scheduled.information.CronExpressionInformationAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
-import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -26,12 +24,6 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGScheduledProgramExecution, AGCoreModuleInstance> actionSet) {
-
-		actionSet.addScopeAction(new CronExpressionInformationAction());
-	}
-
-	@Override
 	public void customizeAttributeProperties(IEmfAttributeList<AGScheduledProgramExecution> attributes) {
 
 		attributes//
@@ -40,6 +32,10 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
+
+		attributes//
+			.editAttribute(AGScheduledProgramExecution.CRON_EXPRESSION)
+			.setHelpDisplayFactory(CronSyntaxDiv::new);
 
 		attributes//
 			.editAttribute(AGScheduledProgramExecution.MAXIMUM_RUNTIME)
