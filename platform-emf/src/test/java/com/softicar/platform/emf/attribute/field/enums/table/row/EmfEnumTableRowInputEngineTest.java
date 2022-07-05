@@ -30,18 +30,19 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	@Test
 	public void testWithOneLetterPattern() {
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("f", 0)));
-		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("f", 1)));
-		assertEquals("[Five, Four]", toDisplayStrings(inputEngine.findMatches("f", 2)));
-		assertEquals("[Five, Four]", toDisplayStrings(inputEngine.findMatches("f", 3)));
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Five, One]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 4)));
 	}
 
 	@Test
 	public void testWithTwoLetterPattern() {
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("fi", 0)));
-		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("fi", 1)));
-		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("fi", 2)));
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("iv", 0)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 1)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 2)));
 	}
 
 	@Test

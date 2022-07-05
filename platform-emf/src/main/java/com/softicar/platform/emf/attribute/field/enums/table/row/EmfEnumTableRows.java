@@ -12,6 +12,18 @@ import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
  */
 public class EmfEnumTableRows {
 
+	/**
+	 * Determines the {@link IDisplayString} for the given
+	 * {@link IDbEnumTableRow}.
+	 * <p>
+	 * This first tries to call {@link IEntity#toDisplayWithoutId()}. If that
+	 * does not work, {@link IDisplayable#toDisplay()} is tried. If this also
+	 * fails, the {@link Enum#name()} is used without translating.
+	 *
+	 * @param row
+	 *            the {@link IDbEnumTableRow} (never <i>null</i>)
+	 * @return an {@link IDisplayString} (never <i>null</i>)
+	 */
 	public static IDisplayString toDisplay(IDbEnumTableRow<?, ?> row) {
 
 		if (row instanceof IEntity) {
