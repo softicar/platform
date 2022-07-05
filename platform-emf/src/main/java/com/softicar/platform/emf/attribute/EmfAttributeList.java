@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
+import com.softicar.platform.emf.attribute.field.EmfFieldAttributeList;
 import com.softicar.platform.emf.attribute.field.foreign.entity.EmfForeignEntityAttribute;
 import com.softicar.platform.emf.attribute.field.indirect.entity.foreign.EmfForeignIndirectEntityAttribute;
 import com.softicar.platform.emf.attribute.field.indirect.entity.foreign.EmfForeignIndirectEntityAttributeCastException;
@@ -15,9 +16,11 @@ import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Default implementation of {@link IEmfAttributeList}.
@@ -79,6 +82,13 @@ public class EmfAttributeList<R extends IEmfTableRow<R, P>, P> implements IEmfAt
 		} else {
 			throw new SofticarException("No matching attribute found for transient field.");
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public EmfFieldAttributeList<R> editAttributes(ISqlField<R, ?>...fields) {
+
+		return new EmfFieldAttributeList<>(Arrays.asList(fields).stream().map(this::editAttribute).collect(Collectors.toList()));
 	}
 
 	@Override

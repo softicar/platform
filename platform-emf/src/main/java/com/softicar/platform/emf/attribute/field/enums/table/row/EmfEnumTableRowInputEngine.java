@@ -1,69 +1,49 @@
 package com.softicar.platform.emf.attribute.field.enums.table.row;
 
-import com.softicar.platform.common.core.transaction.ITransaction;
-import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.common.container.derived.DerivedObject;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.enums.IDbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
-import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
-import com.softicar.platform.db.sql.statement.ISqlSelect;
-import com.softicar.platform.dom.elements.input.auto.entity.AbstractDomAutoCompleteTransactionalEntityInputEngine;
+import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class EmfEnumTableRowInputEngine<R extends IDbEnumTableRow<R, E>, E extends IDbEnumTableRowEnum<E, R>>
-		extends AbstractDomAutoCompleteTransactionalEntityInputEngine<EmfEnumTableRowEntityWrapper<R, E>> {
+public class EmfEnumTableRowInputEngine<R extends IDbEnumTableRow<R, ?>> implements IDomAutoCompleteInputEngine<R> {
 
-	private final IDbEnumTable<R, E> targetTable;
+	private final IDbEnumTable<R, ?> targetTable;
+	private final DerivedObject<Map<String, R>> rows;
 
-	public EmfEnumTableRowInputEngine(IDbEnumTable<R, E> targetTable) {
+	public EmfEnumTableRowInputEngine(IDbEnumTable<R, ?> table) {
 
-		this.targetTable = targetTable;
+		this.targetTable = table;
+		this.rows = new DerivedObject<>(this::loadRows).addDependsOn(table);
 	}
 
 	@Override
-	protected ITransaction createTransaction() {
+	public IDisplayString getDisplayString(R row) {
 
-		return new DbTransaction();
+		return EmfEnumTableRows.toDisplay(row);
 	}
 
 	@Override
-	protected EmfEnumTableRowEntityWrapper<R, E> getById(Integer id) {
+	public Collection<R> findMatches(String pattern, int limit) {
 
-		return EmfEnumTableRowEntityWrapper.wrap(targetTable.get(id));
-	}
-
-	/**
-	 * Note: Ignores the pattern, so far. It is only considered in
-	 * {@link #filterMatchingItems(String, Collection)}.
-	 */
-	@Override
-	public Collection<EmfEnumTableRowEntityWrapper<R, E>> findMatchingItems(String pattern, int fetchOffset, int fetchSize) {
-
-		ISqlSelect<R> select = targetTable.createSelect();
-
-		// enforce ordering by all primary key fields
-		targetTable.getPrimaryKey().getFields().forEach(select::orderBy);
-
-		return select.stream(fetchOffset, fetchSize).map(EmfEnumTableRowEntityWrapper::wrap).collect(Collectors.toList());
-	}
-
-	@Override
-	public Collection<EmfEnumTableRowEntityWrapper<R, E>> filterMatchingItems(String pattern, Collection<EmfEnumTableRowEntityWrapper<R, E>> matchingItems) {
-
-		return matchingItems//
+		return rows//
+			.get()
+			.entrySet()
 			.stream()
-			.filter(item -> matches(item, pattern))
+			.filter(entry -> entry.getKey().contains(pattern))
+			.map(entry -> entry.getValue())
+			.limit(limit)
 			.collect(Collectors.toList());
 	}
 
-	private boolean matches(EmfEnumTableRowEntityWrapper<R, E> item, String pattern) {
+	private Map<String, R> loadRows() {
 
-		return Optional//
-			.ofNullable(getDisplayStringWithoutId(item))
-			.map(Object::toString)
-			.orElse("")
-			.toLowerCase()
-			.contains(pattern.toLowerCase());
+		Map<String, R> rows = new TreeMap<>();
+		targetTable.createSelect().forEach(row -> rows.put(getDisplayString(row).toString().toLowerCase(), row));
+		return rows;
 	}
 }

@@ -96,6 +96,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gepufferter E-Mail-Anhang");
 	I18n0 BUFFERED_EMAIL_ATTACHMENTS = new I18n0("Buffered Email Attachments")//
 		.de("Gepufferte E-Mail-Anhänge");
+	I18n0 BUFFERED_EMAIL_LOG = new I18n0("Buffered Email Log")//
+		.de("Gepufferte-E-Mail-Log");
+	I18n0 BUFFERED_EMAIL_LOGS = new I18n0("Buffered Email Logs")//
+		.de("Gepufferte-E-Mail-Logs");
 	I18n0 BUFFERED_EMAILS = new I18n0("Buffered Emails")//
 		.de("Gepufferte E-Mails");
 	I18n0 BY = new I18n0("By")//
