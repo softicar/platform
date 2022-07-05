@@ -11,10 +11,7 @@ import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.entity.table.IEmfEntityTable;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiPredicate;
@@ -25,7 +22,6 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 
 	private final IEmfEntityTable<T, ?, ?> targetTable;
 	private final Predicate<T> validator;
-	private final List<Ordering> orderingList;
 
 	public <S extends IEmfTableRow<S, ?>> EmfEntityInputEngine(S sourceEntity, IEmfEntityTable<T, ?, ?> targetTable, BiPredicate<S, T> validator) {
 
@@ -46,7 +42,6 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 
 		this.targetTable = targetTable;
 		this.validator = validator;
-		this.orderingList = new ArrayList<>();
 	}
 
 	@Override
@@ -67,17 +62,9 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 
 		ISqlSelect<T> select = targetTable.createSelect();
 
-		// apply explicit ordering
-		for (Ordering ordering: orderingList) {
-			if (ordering.isAscending()) {
-				select.orderBy(ordering.getField());
-			} else {
-				select.orderDescendingBy(ordering.getField());
-			}
+		for (IDbField<T, ?> field: targetTable.getPrimaryKey().getFields()) {
+			select = select.orderBy(field);
 		}
-
-		// enforce supplemented ordering by all primary key fields (though any unique field would do)
-		targetTable.getPrimaryKey().getFields().forEach(select::orderBy);
 
 		return select.list(fetchOffset, fetchSize);
 	}
@@ -98,51 +85,6 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 		return new DbTransaction();
 	}
 
-	@SuppressWarnings("unchecked")
-	public EmfEntityInputEngine<T> addOrderBy(IDbField<T, ?>...fields) {
-
-		return addOrderBy(Arrays.asList(fields));
-	}
-
-	public EmfEntityInputEngine<T> addOrderBy(Collection<IDbField<T, ?>> fields) {
-
-		for (IDbField<T, ?> field: fields) {
-			addOrderBy(field);
-		}
-		return this;
-	}
-
-	public EmfEntityInputEngine<T> addOrderBy(IDbField<T, ?> field) {
-
-		return addOrderBy(field, true);
-	}
-
-	@SuppressWarnings("unchecked")
-	public EmfEntityInputEngine<T> addOrderDescendingBy(IDbField<T, ?>...fields) {
-
-		return addOrderDescendingBy(Arrays.asList(fields));
-	}
-
-	public EmfEntityInputEngine<T> addOrderDescendingBy(Collection<IDbField<T, ?>> fields) {
-
-		for (IDbField<T, ?> field: fields) {
-			addOrderDescendingBy(field);
-		}
-		return this;
-	}
-
-	public EmfEntityInputEngine<T> addOrderDescendingBy(IDbField<T, ?> field) {
-
-		return addOrderBy(field, false);
-	}
-
-	private EmfEntityInputEngine<T> addOrderBy(IDbField<T, ?> field, boolean ascending) {
-
-		Objects.requireNonNull(field);
-		this.orderingList.add(new Ordering(field, ascending));
-		return this;
-	}
-
 	private boolean matches(T item, String pattern) {
 
 		return Optional//
@@ -156,28 +98,6 @@ public class EmfEntityInputEngine<T extends IEmfEntity<T, ?>> extends AbstractDo
 	private boolean isValid(T targetEntity) {
 
 		return validator.test(targetEntity);
-	}
-
-	private class Ordering {
-
-		private final IDbField<T, ?> field;
-		private final boolean ascending;
-
-		public Ordering(IDbField<T, ?> field, boolean ascending) {
-
-			this.field = field;
-			this.ascending = ascending;
-		}
-
-		public IDbField<T, ?> getField() {
-
-			return field;
-		}
-
-		public boolean isAscending() {
-
-			return ascending;
-		}
 	}
 
 	private static <T extends IEmfTableRow<T, ?>, S extends IEntity> boolean hasScope(IEmfTable<T, ?, S> targetTable, T targetEntity, S scope) {
