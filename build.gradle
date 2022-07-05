@@ -27,6 +27,8 @@ project.ext {
 		guava: "31.0.1-jre",
 		h2: "2.1.210",
 		hikariCp: "5.0.1",
+		// optional dependency of pdfbox; enables rendering of jpeg2000-encoded embedded images
+		jaiImageioJpeg2000: "1.4.0",
 		jakartaActivation: "1.2.2",
 		javaxServletApi: "4.0.1",
 		jcifsNg: "2.1.7",
