@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.thread.utils.ThreadSafeLazySupplier;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.dom.element.IDomElement;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInMemoryInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.attribute.field.foreign.row.EmfForeignRowAttribute;
@@ -15,7 +15,6 @@ import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -119,17 +118,12 @@ public class EmfForeignIndirectEntityAttribute<R extends IEmfTableRow<R, ?>, F e
 			return indirectEntity.getRepresentedEntity().getItemId();
 		}
 
-		private class InputEngine extends DomAutoCompleteEntityInMemoryInputEngine<F> {
+		private class InputEngine extends DomAutoCompleteDefaultInputEngine<F> {
 
 			public InputEngine() {
 
 				setLoader(this::loadItems);
-			}
-
-			@Override
-			public IDisplayString getDisplayString(F entity) {
-
-				return UiElementFactory.this.getDisplayString(entity);
+				setDisplayFunction(UiElementFactory.this::getDisplayString);
 			}
 
 			private List<F> loadItems() {
@@ -139,7 +133,6 @@ public class EmfForeignIndirectEntityAttribute<R extends IEmfTableRow<R, ?>, F e
 					.values()
 					.stream()
 					.map(IEmfIndirectEntity::getRepresentedEntity)
-					.sorted(Comparator.comparing(this::getDisplayString))
 					.collect(Collectors.toList());
 			}
 		}

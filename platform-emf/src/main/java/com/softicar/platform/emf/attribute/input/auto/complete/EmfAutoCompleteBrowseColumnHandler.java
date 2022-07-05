@@ -1,38 +1,40 @@
-package com.softicar.platform.emf.attribute.field.foreign.entity.input.browse;
+package com.softicar.platform.emf.attribute.input.auto.complete;
 
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableRowBasedColumnHandler;
-import com.softicar.platform.emf.entity.IEmfEntity;
 import java.util.function.Consumer;
 
-class EmfEntityInputBrowseColumnHandler<E extends IEmfEntity<E, ?>> extends EmfDataTableRowBasedColumnHandler<E, String> {
+class EmfAutoCompleteBrowseColumnHandler<T> extends EmfDataTableRowBasedColumnHandler<T, String> {
 
-	private final Consumer<E> clickConsumer;
+	private final IDomAutoCompleteInputEngine<T> inputEngine;
+	private final Consumer<T> clickConsumer;
 
-	public EmfEntityInputBrowseColumnHandler(Consumer<E> clickConsumer) {
+	public EmfAutoCompleteBrowseColumnHandler(IDomAutoCompleteInputEngine<T> inputEngine, Consumer<T> clickConsumer) {
 
+		this.inputEngine = inputEngine;
 		this.clickConsumer = clickConsumer;
 	}
 
 	@Override
-	public void buildCell(IEmfDataTableCell<E, String> cell, E entity) {
+	public void buildCell(IEmfDataTableCell<T, String> cell, T entity) {
 
 		cell.appendChild(new ContentDiv(entity));
 	}
 
 	private class ContentDiv extends DomDiv implements IDomClickEventHandler {
 
-		private final E entity;
+		private final T entity;
 
-		public ContentDiv(E entity) {
+		public ContentDiv(T entity) {
 
 			this.entity = entity;
 			addCssClass(EmfCssClasses.EMF_ENTITY_INPUT_BROWSE_POPOVER_CELL_CONTENT);
-			appendText(entity.toDisplay());
+			appendText(inputEngine.getDisplayString(entity));
 		}
 
 		@Override
