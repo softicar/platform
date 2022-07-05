@@ -1,5 +1,6 @@
 dependencies {
 	api project(':platform-common')
 
+	implementation "com.github.jai-imageio:jai-imageio-jpeg2000:$versions.jaiImageioJpeg2000"
 	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
 }

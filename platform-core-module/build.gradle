@@ -7,7 +7,8 @@ dependencies {
 	api "com.sun.mail:mailapi:$versions.sunMail"
 	api "com.sun.mail:smtp:$versions.sunMail"
 
-	implementation("eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg")
+	implementation "com.github.jai-imageio:jai-imageio-jpeg2000:$versions.jaiImageioJpeg2000"
+	implementation "eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
 	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
 }
