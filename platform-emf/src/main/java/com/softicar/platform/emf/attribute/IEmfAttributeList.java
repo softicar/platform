@@ -5,6 +5,7 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
+import com.softicar.platform.emf.attribute.field.EmfFieldAttributeList;
 import com.softicar.platform.emf.attribute.field.foreign.entity.EmfForeignEntityAttribute;
 import com.softicar.platform.emf.attribute.field.indirect.entity.foreign.EmfForeignIndirectEntityAttribute;
 import com.softicar.platform.emf.attribute.field.indirect.entity.foreign.EmfForeignIndirectEntityAttributeCastException;
@@ -24,7 +25,7 @@ public interface IEmfAttributeList<R extends IEmfTableRow<R, ?>> {
 	// ------------------------------ getting ------------------------------ //
 
 	/**
-	 * Returns the attribute for the given {@link IDbField}.
+	 * Returns the attribute for the given {@link ISqlField}.
 	 *
 	 * @param field
 	 *            the field (never <i>null</i>)
@@ -45,7 +46,7 @@ public interface IEmfAttributeList<R extends IEmfTableRow<R, ?>> {
 	// ------------------------------ editing ------------------------------ //
 
 	/**
-	 * Returns the editable attribute for the given {@link IDbField}.
+	 * Returns the editable attribute for the given {@link ISqlField}.
 	 *
 	 * @param field
 	 *            the field (never <i>null</i>)
@@ -54,8 +55,20 @@ public interface IEmfAttributeList<R extends IEmfTableRow<R, ?>> {
 	<V> EmfFieldAttribute<R, V> editAttribute(ISqlField<R, V> field);
 
 	/**
+	 * Returns an {@link EmfFieldAttributeList} for the given {@link ISqlField}
+	 * references.
+	 *
+	 * @param fields
+	 *            the fields
+	 * @return an {@link EmfFieldAttributeList} of the given fields (never
+	 *         <i>null</i>)
+	 */
+	@SuppressWarnings("unchecked")
+	EmfFieldAttributeList<R> editAttributes(ISqlField<R, ?>...fields);
+
+	/**
 	 * Returns the editable {@link EmfForeignEntityAttribute} for the given
-	 * {@link IDbField}.
+	 * {@link ISqlForeignRowField}.
 	 * <p>
 	 * FIXME Return type and method name should correspond to each other.
 	 *
