@@ -20,7 +20,7 @@ public abstract class AbstractModulePermissionTestBase extends AbstractModuleTes
 	protected AGModuleInstancePermissionAssignment insertPermissionAssignment(boolean active) {
 
 		return new AGModuleInstancePermissionAssignment()//
-			.setModuleInstance(AGCoreModuleInstance.getInstance().pk())
+			.setModuleInstanceBase(AGCoreModuleInstance.getInstance().pk())
 			.setUser(user)
 			.setPermission(AGUuid.getOrCreate(PERMISSION_UUID))
 			.setActive(active)

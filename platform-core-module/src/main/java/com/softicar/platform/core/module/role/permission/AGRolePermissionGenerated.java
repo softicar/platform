@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.role.permission;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
@@ -33,9 +33,9 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 	public static final IDbIdField<AGRolePermission> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGRolePermission> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
 	public static final IDbForeignField<AGRolePermission, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE);
-	public static final IDbForeignField<AGRolePermission, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.ID).setTitle(CoreI18n.MODULE_INSTANCE);
+	public static final IDbForeignField<AGRolePermission, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE);
 	public static final IDbForeignField<AGRolePermission, AGUuid> PERMISSION_UUID = BUILDER.addForeignField("permissionUuid", o->o.m_permissionUuid, (o,v)->o.m_permissionUuid=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION_UUID);
-	public static final IDbKey<AGRolePermission> UK_ROLE_PERMISSION_UUID_MODULE_INSTANCE = BUILDER.addUniqueKey("rolePermissionUuidModuleInstance", ROLE, PERMISSION_UUID, MODULE_INSTANCE);
+	public static final IDbKey<AGRolePermission> UK_ROLE_PERMISSION_UUID_MODULE_INSTANCE_BASE = BUILDER.addUniqueKey("rolePermissionUuidModuleInstanceBase", ROLE, PERMISSION_UUID, MODULE_INSTANCE_BASE);
 	public static final AGRolePermissionTable TABLE = new AGRolePermissionTable(BUILDER);
 	// @formatter:on
 
@@ -51,13 +51,13 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 		return TABLE.get(id);
 	}
 
-	public static AGRolePermission loadByRoleAndPermissionUuidAndModuleInstance(AGRole role, AGUuid permissionUuid, AGModuleInstance moduleInstance) {
+	public static AGRolePermission loadByRoleAndPermissionUuidAndModuleInstanceBase(AGRole role, AGUuid permissionUuid, AGModuleInstanceBase moduleInstanceBase) {
 
 		return TABLE//
 				.createSelect()
 				.where(ROLE.equal(role))
 				.where(PERMISSION_UUID.equal(permissionUuid))
-				.where(MODULE_INSTANCE.equal(moduleInstance))
+				.where(MODULE_INSTANCE_BASE.equal(moduleInstanceBase))
 				.getOne();
 	}
 
@@ -88,19 +88,19 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 		return setValue(ROLE, value);
 	}
 
-	public final Integer getModuleInstanceID() {
+	public final Integer getModuleInstanceBaseID() {
 
-		return getValueId(MODULE_INSTANCE);
+		return getValueId(MODULE_INSTANCE_BASE);
 	}
 
-	public final AGModuleInstance getModuleInstance() {
+	public final AGModuleInstanceBase getModuleInstanceBase() {
 
-		return getValue(MODULE_INSTANCE);
+		return getValue(MODULE_INSTANCE_BASE);
 	}
 
-	public final AGRolePermission setModuleInstance(AGModuleInstance value) {
+	public final AGRolePermission setModuleInstanceBase(AGModuleInstanceBase value) {
 
-		return setValue(MODULE_INSTANCE, value);
+		return setValue(MODULE_INSTANCE_BASE, value);
 	}
 
 	public final Integer getPermissionUuidID() {
@@ -131,7 +131,7 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 	private Integer m_id;
 	private Boolean m_active;
 	private AGRole m_role;
-	private AGModuleInstance m_moduleInstance;
+	private AGModuleInstanceBase m_moduleInstanceBase;
 	private AGUuid m_permissionUuid;
 }
 

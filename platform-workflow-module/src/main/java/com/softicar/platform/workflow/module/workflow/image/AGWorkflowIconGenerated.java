@@ -2,7 +2,7 @@ package com.softicar.platform.workflow.module.workflow.image;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
@@ -32,7 +32,7 @@ public class AGWorkflowIconGenerated extends AbstractDbObject<AGWorkflowIcon> {
 	}
 
 	public static final IDbIdField<AGWorkflowIcon> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignRowField<AGWorkflowIcon, AGWorkflowModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.MODULE_INSTANCE).setTitle(WorkflowI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGWorkflowIcon, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGWorkflowIcon> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
 	public static final IDbForeignField<AGWorkflowIcon, AGStoredFile> ICON = BUILDER.addForeignField("icon", o->o.m_icon, (o,v)->o.m_icon=v, AGStoredFile.ID).setTitle(WorkflowI18n.ICON);
 	public static final IDbKey<AGWorkflowIcon> UK_MODULE_INSTANCE_NAME = BUILDER.addUniqueKey("moduleInstanceName", MODULE_INSTANCE, NAME);

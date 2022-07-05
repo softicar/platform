@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.core.module.role.permission
 
-IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 IMPORT com.softicar.platform.core.module.role.AGRole
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
@@ -8,8 +8,8 @@ TABLE AGRolePermission 'Core.RolePermission' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
 	AGRole role
-	AGModuleInstance moduleInstance
+	AGModuleInstanceBase moduleInstanceBase
 	AGUuid permissionUuid
 	
-	UK role permissionUuid moduleInstance
+	UK role permissionUuid moduleInstanceBase
 }

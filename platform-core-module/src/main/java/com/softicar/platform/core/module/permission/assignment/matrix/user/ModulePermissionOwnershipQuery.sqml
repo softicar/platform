@@ -11,17 +11,17 @@ QUERY ModulePermissionOwnershipQuery {
 	OPTIONAL AGUuid moduleUuid
 
 	SELECT assignment.*
-	SELECT instance.*
+	SELECT instanceBase.*
 	FROM AGModuleInstancePermissionAssignment AS assignment
-	JOIN assignment.moduleInstance AS instance
+	JOIN assignment.moduleInstanceBase AS instanceBase
 	#IF $onlyActive IS NULL OR $onlyActive {
 		WHERE assignment.active
-		WHERE instance.active
+		WHERE instanceBase.active
 	}
 	#IF $user IS NOT NULL {
 		WHERE assignment.user = $user
 	}
 	#IF $moduleUuid IS NOT NULL {
-		WHERE instance.moduleUuid = $moduleUuid
+		WHERE instanceBase.moduleUuid = $moduleUuid
 	}
 }

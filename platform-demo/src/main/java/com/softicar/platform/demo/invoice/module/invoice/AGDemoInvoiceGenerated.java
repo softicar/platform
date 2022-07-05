@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayField;
@@ -40,7 +40,7 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 
 	public static final IDbIdField<AGDemoInvoice> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
 	public static final IDbForeignField<AGDemoInvoice, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(DemoI18n.TRANSACTION);
-	public static final IDbForeignRowField<AGDemoInvoice, AGDemoInvoiceModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoInvoiceModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoInvoice, AGDemoInvoiceModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoInvoiceModuleInstance.BASE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbForeignField<AGDemoInvoice, AGDemoInvoiceType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGDemoInvoiceType.ID).setTitle(DemoI18n.TYPE);
 	public static final IDbStringField<AGDemoInvoice> CREDITOR = BUILDER.addStringField("creditor", o->o.m_creditor, (o,v)->o.m_creditor=v).setTitle(DemoI18n.CREDITOR).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGDemoInvoice> DEBTOR = BUILDER.addStringField("debtor", o->o.m_debtor, (o,v)->o.m_debtor=v).setTitle(DemoI18n.DEBTOR).setDefault("").setMaximumLength(255);

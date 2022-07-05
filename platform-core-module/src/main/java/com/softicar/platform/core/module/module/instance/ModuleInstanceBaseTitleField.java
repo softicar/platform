@@ -6,9 +6,9 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientObjectField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;
 import java.util.Set;
 
-public class ModuleInstanceTitleField extends AbstractTransientObjectField<AGModuleInstance, String> {
+public class ModuleInstanceBaseTitleField extends AbstractTransientObjectField<AGModuleInstanceBase, String> {
 
-	public ModuleInstanceTitleField() {
+	public ModuleInstanceBaseTitleField() {
 
 		super(String.class);
 	}
@@ -20,7 +20,7 @@ public class ModuleInstanceTitleField extends AbstractTransientObjectField<AGMod
 	}
 
 	@Override
-	protected void loadValues(Set<AGModuleInstance> instances, IValueSetter<AGModuleInstance, String> setter) {
+	protected void loadValues(Set<AGModuleInstanceBase> instances, IValueSetter<AGModuleInstanceBase, String> setter) {
 
 		instances.forEach(instance -> setter.set(instance, instance.toDisplayWithoutId().toString()));
 	}

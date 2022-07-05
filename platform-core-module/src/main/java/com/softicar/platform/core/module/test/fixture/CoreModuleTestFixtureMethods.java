@@ -12,7 +12,7 @@ import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.core.module.permission.CoreModulePermission;
@@ -112,7 +112,7 @@ public interface CoreModuleTestFixtureMethods {
 
 		return new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
-			.setModuleInstance(moduleInstance.pk())
+			.setModuleInstanceBase(moduleInstance.pk())
 			.setPermission(permissionUuid)
 			.setUser(user)
 			.save();
@@ -120,9 +120,9 @@ public interface CoreModuleTestFixtureMethods {
 
 	// ------------------------------ module instance ------------------------------ //
 
-	default AGModuleInstance insertModuleInstance(Class<? extends IEmfModule<?>> moduleClass) {
+	default AGModuleInstanceBase insertModuleInstanceBase(Class<? extends IEmfModule<?>> moduleClass) {
 
-		return new AGModuleInstance()//
+		return new AGModuleInstanceBase()//
 			.setActive(true)
 			.setModuleUuid(AGUuid.getOrCreate(moduleClass))
 			.save();
@@ -130,8 +130,8 @@ public interface CoreModuleTestFixtureMethods {
 
 	default <I extends IModuleInstance<I>> I createModuleInstance(IModuleInstanceTable<I> moduleInstanceTable) {
 
-		AGModuleInstance moduleInstance = insertModuleInstance(moduleInstanceTable.getModuleClass());
-		return moduleInstanceTable.createObject(moduleInstance);
+		AGModuleInstanceBase moduleInstanceBase = insertModuleInstanceBase(moduleInstanceTable.getModuleClass());
+		return moduleInstanceTable.createObject(moduleInstanceBase);
 	}
 
 	default <I extends IModuleInstance<I>> I insertModuleInstance(IModuleInstanceTable<I> moduleInstanceTable) {
@@ -163,7 +163,7 @@ public interface CoreModuleTestFixtureMethods {
 		return new AGRolePermission()//
 			.setActive(true)
 			.setRole(role)
-			.setModuleInstance(moduleInstance.pk())
+			.setModuleInstanceBase(moduleInstance.pk())
 			.setPermissionUuid(AGUuid.getOrCreate(permissionUuid))
 			.save();
 	}

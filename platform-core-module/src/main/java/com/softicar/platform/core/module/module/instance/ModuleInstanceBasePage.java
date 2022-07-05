@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.module.instance;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -11,7 +12,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
 import com.softicar.platform.emf.table.IEmfTable;
 
 @EmfSourceCodeReferencePointUuid("b443a8f9-d72f-483b-aa90-3482d192e29d")
-public class ModuleInstancePage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
+public class ModuleInstanceBasePage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -28,12 +29,18 @@ public class ModuleInstancePage extends AbstractEmfManagementPage<AGCoreModuleIn
 	@Override
 	protected IEmfTable<?, ?, AGCoreModuleInstance> getTable() {
 
-		return AGModuleInstance.TABLE;
+		return AGModuleInstanceBase.TABLE;
 	}
 
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
 		return CorePermissions.SUPER_USER;
+	}
+
+	@Override
+	public IDisplayString getTitle(AGCoreModuleInstance moduleInstance) {
+
+		return CoreI18n.MODULE_INSTANCES;
 	}
 }

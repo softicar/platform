@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.permission.assignment.matrix.user;
 
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.Comparator;
@@ -11,15 +11,15 @@ class ModulePermissionOwnershipEntry implements Comparable<ModulePermissionOwner
 	private final ModulePermissionOwnershipEntryKey key;
 	private final boolean active;
 
-	public ModulePermissionOwnershipEntry(AGModuleInstance moduleInstance, AGUser user, UUID permissionUuid, boolean active) {
+	public ModulePermissionOwnershipEntry(AGModuleInstanceBase moduleInstanceBase, AGUser user, UUID permissionUuid, boolean active) {
 
-		this.key = new ModulePermissionOwnershipEntryKey(moduleInstance, user, permissionUuid);
+		this.key = new ModulePermissionOwnershipEntryKey(moduleInstanceBase, user, permissionUuid);
 		this.active = active;
 	}
 
-	public AGModuleInstance getModuleInstance() {
+	public AGModuleInstanceBase getModuleInstanceBase() {
 
-		return key.getModuleInstance();
+		return key.getModuleInstanceBase();
 	}
 
 	public AGUser getUser() {
@@ -44,7 +44,7 @@ class ModulePermissionOwnershipEntry implements Comparable<ModulePermissionOwner
 
 	public AGModuleInstancePermissionAssignment applyValuesTo(AGModuleInstancePermissionAssignment record) {
 
-		record.setModuleInstance(key.getModuleInstance());
+		record.setModuleInstanceBase(key.getModuleInstanceBase());
 		record.setUser(key.getUser());
 		record.setPermission(key.getPermissionUuid());
 		record.setActive(active);

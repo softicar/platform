@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.permission;
 
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
@@ -17,7 +17,7 @@ import java.util.UUID;
 class UserModulePermissionMap {
 
 	private final AGUser user;
-	private final Map<AGModuleInstance, Set<UUID>> permissions;
+	private final Map<AGModuleInstanceBase, Set<UUID>> permissions;
 
 	private UserModulePermissionMap(AGUser user) {
 
@@ -33,10 +33,10 @@ class UserModulePermissionMap {
 		return map;
 	}
 
-	public boolean hasPermission(AGModuleInstance moduleInstance, UUID permissionUuid) {
+	public boolean hasPermission(AGModuleInstanceBase moduleInstanceBase, UUID permissionUuid) {
 
 		return permissions//
-			.getOrDefault(moduleInstance, Collections.emptySet())
+			.getOrDefault(moduleInstanceBase, Collections.emptySet())
 			.contains(permissionUuid);
 	}
 
@@ -64,18 +64,18 @@ class UserModulePermissionMap {
 
 	private void addPermission(AGModuleInstancePermissionAssignment assignment) {
 
-		addPermission(assignment.getModuleInstance(), assignment.getPermission());
+		addPermission(assignment.getModuleInstanceBase(), assignment.getPermission());
 	}
 
 	private void addPermission(AGRolePermission permission) {
 
-		addPermission(permission.getModuleInstance(), permission.getPermissionUuid());
+		addPermission(permission.getModuleInstanceBase(), permission.getPermissionUuid());
 	}
 
-	private void addPermission(AGModuleInstance moduleInstance, AGUuid permissionUuid) {
+	private void addPermission(AGModuleInstanceBase moduleInstanceBase, AGUuid permissionUuid) {
 
 		permissions//
-			.computeIfAbsent(moduleInstance, dummy -> new TreeSet<>())
+			.computeIfAbsent(moduleInstanceBase, dummy -> new TreeSet<>())
 			.add(permissionUuid.getUuid());
 	}
 }

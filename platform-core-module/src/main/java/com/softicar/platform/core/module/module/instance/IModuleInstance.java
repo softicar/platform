@@ -16,7 +16,7 @@ import com.softicar.platform.emf.sub.object.IEmfSubObject;
  * @author Alexander Schmidt
  * @see IModuleInstanceTable
  */
-public interface IModuleInstance<I extends IModuleInstance<I>> extends IEmfModuleInstance<I>, IEmfSubObject<I, AGModuleInstance> {
+public interface IModuleInstance<I extends IModuleInstance<I>> extends IEmfModuleInstance<I>, IEmfSubObject<I, AGModuleInstanceBase> {
 
 	@Override
 	default IUuid getModuleUuid() {

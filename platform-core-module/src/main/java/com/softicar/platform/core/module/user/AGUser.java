@@ -13,7 +13,7 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.UserModulePermissionCache;
 import com.softicar.platform.core.module.user.login.UserLastLoginField;
 import com.softicar.platform.core.module.user.password.AGUserPassword;
@@ -44,9 +44,9 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		return AGUser.TABLE.get(basicUser.getId());
 	}
 
-	public boolean hasModulePermission(IEmfModulePermission<?> permission, AGModuleInstance moduleInstance) {
+	public boolean hasModulePermission(IEmfModulePermission<?> permission, AGModuleInstanceBase moduleInstanceBase) {
 
-		return permissionCache.hasModulePermission(moduleInstance, permission.getAnnotatedUuid());
+		return permissionCache.hasModulePermission(moduleInstanceBase, permission.getAnnotatedUuid());
 	}
 
 	@Override

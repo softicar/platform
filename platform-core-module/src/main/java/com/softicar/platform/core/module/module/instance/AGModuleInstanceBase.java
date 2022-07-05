@@ -13,9 +13,9 @@ import com.softicar.platform.emf.object.IEmfObject;
 import java.util.List;
 import java.util.Optional;
 
-public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfObject<AGModuleInstance>, IEmfModuleInstance<AGModuleInstance> {
+public class AGModuleInstanceBase extends AGModuleInstanceBaseGenerated implements IEmfObject<AGModuleInstanceBase>, IEmfModuleInstance<AGModuleInstanceBase> {
 
-	public static final ModuleInstanceTitleField TITLE_FIELD = new ModuleInstanceTitleField();
+	public static final ModuleInstanceBaseTitleField TITLE_FIELD = new ModuleInstanceBaseTitleField();
 
 	@Override
 	public ItemId getItemId() {
@@ -41,14 +41,14 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	}
 
 	@Override
-	public boolean hasPermission(IEmfModulePermission<AGModuleInstance> permission, IBasicUser user) {
+	public boolean hasPermission(IEmfModulePermission<AGModuleInstanceBase> permission, IBasicUser user) {
 
 		return AGUser.get(user).hasModulePermission(permission, this);
 	}
 
 	/**
 	 * Returns the actual {@link IEmfModuleInstance} that derives from this
-	 * {@link AGModuleInstance}.
+	 * {@link AGModuleInstanceBase}.
 	 *
 	 * @return the optional {@link IEmfModuleInstance}.
 	 */
@@ -67,14 +67,14 @@ public class AGModuleInstance extends AGModuleInstanceGenerated implements IEmfO
 	 */
 	public boolean isInitialized() {
 
-		return new ModuleInstanceStateChecker(this).isInitialized();
+		return new ModuleInstanceBaseStateChecker(this).isInitialized();
 	}
 
-	public static List<AGModuleInstance> loadAllActive() {
+	public static List<AGModuleInstanceBase> loadAllActive() {
 
-		return AGModuleInstance//
+		return AGModuleInstanceBase//
 			.createSelect()
-			.where(AGModuleInstance.ACTIVE)
+			.where(AGModuleInstanceBase.ACTIVE)
 			.list();
 	}
 }

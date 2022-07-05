@@ -20,7 +20,7 @@ public class AGUserTest extends AbstractCoreTest {
 
 		new AGModuleInstancePermissionAssignment()//
 			.setActive(true)
-			.setModuleInstance(AGCoreModuleInstance.getInstance().pk())
+			.setModuleInstanceBase(AGCoreModuleInstance.getInstance().pk())
 			.setPermission(CorePermissions.SUPER_USER.getAnnotatedUuid())
 			.setUser(user)
 			.save();

@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import com.softicar.platform.core.module.localization.AGLocalization;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;
@@ -37,7 +37,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 		BUILDER.setPluralTitle(CoreI18n.CORE_MODULE_INSTANCE_LOGS);
 	}
 
-	public static final IDbForeignRowField<AGCoreModuleInstanceLog, AGCoreModuleInstance, AGModuleInstance> CORE_MODULE_INSTANCE = BUILDER.addForeignRowField("coreModuleInstance", o->o.m_coreModuleInstance, (o,v)->o.m_coreModuleInstance=v, AGCoreModuleInstance.MODULE_INSTANCE).setTitle(CoreI18n.CORE_MODULE_INSTANCE).setCascade(true, true);
+	public static final IDbForeignRowField<AGCoreModuleInstanceLog, AGCoreModuleInstance, AGModuleInstanceBase> CORE_MODULE_INSTANCE = BUILDER.addForeignRowField("coreModuleInstance", o->o.m_coreModuleInstance, (o,v)->o.m_coreModuleInstance=v, AGCoreModuleInstance.BASE).setTitle(CoreI18n.CORE_MODULE_INSTANCE).setCascade(true, true);
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null);
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null);

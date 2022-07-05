@@ -2,10 +2,10 @@ PACKAGE com.softicar.platform.core.module.module.instance
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
-TABLE AGModuleInstanceLog 'Core.ModuleInstanceLog' {
-	PK AGModuleInstance moduleInstance [ON UPDATE CASCADE]
+TABLE AGModuleInstanceBaseLog 'Core.ModuleInstanceBaseLog' {
+	PK AGModuleInstanceBase moduleInstanceBase [ON UPDATE CASCADE]
 	PK AGTransaction transaction [ON UPDATE CASCADE]
 	Boolean active = NULL [NULLABLE]
 
 	IK transaction
-}
+} 

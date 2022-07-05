@@ -12,37 +12,37 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 
 /**
- * This is the automatically generated class AGModuleInstance for
- * database table <i>Core.ModuleInstance</i>.
+ * This is the automatically generated class AGModuleInstanceBase for
+ * database table <i>Core.ModuleInstanceBase</i>.
  */
 @Generated
 @SuppressWarnings("all")
-public class AGModuleInstanceGenerated extends AbstractDbObject<AGModuleInstance> {
+public class AGModuleInstanceBaseGenerated extends AbstractDbObject<AGModuleInstanceBase> {
 
 	// -------------------------------- STATIC CONSTANTS -------------------------------- //
 
 	// @formatter:off
-	private static final DbObjectTableBuilder<AGModuleInstance, AGModuleInstanceGenerated> BUILDER = new DbObjectTableBuilder<>("Core", "ModuleInstance", AGModuleInstance::new, AGModuleInstance.class);
+	private static final DbObjectTableBuilder<AGModuleInstanceBase, AGModuleInstanceBaseGenerated> BUILDER = new DbObjectTableBuilder<>("Core", "ModuleInstanceBase", AGModuleInstanceBase::new, AGModuleInstanceBase.class);
 	static {
-		BUILDER.setTitle(CoreI18n.MODULE_INSTANCE);
-		BUILDER.setPluralTitle(CoreI18n.MODULE_INSTANCES);
+		BUILDER.setTitle(CoreI18n.MODULE_INSTANCE_BASE);
+		BUILDER.setPluralTitle(CoreI18n.MODULE_INSTANCE_BASES);
 	}
 
-	public static final IDbIdField<AGModuleInstance> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGModuleInstance, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
-	public static final IDbBooleanField<AGModuleInstance> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGModuleInstance, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID);
-	public static final AGModuleInstanceTable TABLE = new AGModuleInstanceTable(BUILDER);
+	public static final IDbIdField<AGModuleInstanceBase> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
+	public static final IDbForeignField<AGModuleInstanceBase, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
+	public static final IDbBooleanField<AGModuleInstanceBase> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
+	public static final IDbForeignField<AGModuleInstanceBase, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID);
+	public static final AGModuleInstanceBaseTable TABLE = new AGModuleInstanceBaseTable(BUILDER);
 	// @formatter:on
 
 	// -------------------------------- STATIC FUNCTIONS -------------------------------- //
 
-	public static ISqlSelect<AGModuleInstance> createSelect() {
+	public static ISqlSelect<AGModuleInstanceBase> createSelect() {
 
 		return TABLE.createSelect();
 	}
 
-	public static AGModuleInstance get(Integer id) {
+	public static AGModuleInstanceBase get(Integer id) {
 
 		return TABLE.get(id);
 	}
@@ -59,7 +59,7 @@ public class AGModuleInstanceGenerated extends AbstractDbObject<AGModuleInstance
 		return getValue(TRANSACTION);
 	}
 
-	public final AGModuleInstance setTransaction(AGTransaction value) {
+	public final AGModuleInstanceBase setTransaction(AGTransaction value) {
 
 		return setValue(TRANSACTION, value);
 	}
@@ -69,7 +69,7 @@ public class AGModuleInstanceGenerated extends AbstractDbObject<AGModuleInstance
 		return getValue(ACTIVE);
 	}
 
-	public final AGModuleInstance setActive(Boolean value) {
+	public final AGModuleInstanceBase setActive(Boolean value) {
 
 		return setValue(ACTIVE, value);
 	}
@@ -84,7 +84,7 @@ public class AGModuleInstanceGenerated extends AbstractDbObject<AGModuleInstance
 		return getValue(MODULE_UUID);
 	}
 
-	public final AGModuleInstance setModuleUuid(AGUuid value) {
+	public final AGModuleInstanceBase setModuleUuid(AGUuid value) {
 
 		return setValue(MODULE_UUID, value);
 	}
@@ -92,7 +92,7 @@ public class AGModuleInstanceGenerated extends AbstractDbObject<AGModuleInstance
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
-	public final AGModuleInstanceTable table() {
+	public final AGModuleInstanceBaseTable table() {
 
 		return TABLE;
 	}

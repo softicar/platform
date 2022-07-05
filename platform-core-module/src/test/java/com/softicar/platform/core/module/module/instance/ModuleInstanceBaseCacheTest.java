@@ -7,18 +7,18 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 // FIXME reactivate all tests
-public class ModuleInstanceCacheTest extends AbstractModuleTest {
+public class ModuleInstanceBaseCacheTest extends AbstractModuleTest {
 
 	private static final UUID MODULE_UUID = UUID.fromString("f4595b70-e413-4d4b-bbdb-a080d625c9b3");
 	private static final UUID OTHER_MODULE_UUID = UUID.fromString("c57912a8-7e26-48c7-bfbb-f8119b57ead9");
-	private final ModuleInstanceCache cache;
-	private final AGModuleInstance firstModuleInstance;
+	private final ModuleInstanceBaseCache cache;
+	private final AGModuleInstanceBase firstModuleInstanceBase;
 
-	public ModuleInstanceCacheTest() {
+	public ModuleInstanceBaseCacheTest() {
 
-		this.cache = new ModuleInstanceCache();
-		this.firstModuleInstance = insertModuleInstance(MODULE_UUID);
-		insertModuleInstance(MODULE_UUID).setActive(false).save();
+		this.cache = new ModuleInstanceBaseCache();
+		this.firstModuleInstanceBase = insertModuleInstanceBase(MODULE_UUID);
+		insertModuleInstanceBase(MODULE_UUID).setActive(false).save();
 	}
 
 	@Test
@@ -43,23 +43,23 @@ public class ModuleInstanceCacheTest extends AbstractModuleTest {
 	@Test
 	public void testGetActiveWithActiveInstance() {
 
-		Optional<AGModuleInstance> moduleInstance = cache.getActive(MODULE_UUID);
+		Optional<AGModuleInstanceBase> moduleInstance = cache.getActive(MODULE_UUID);
 		assertTrue(moduleInstance.isPresent());
-		assertSame(firstModuleInstance, moduleInstance.get());
+		assertSame(firstModuleInstanceBase, moduleInstance.get());
 	}
 
 	@Test
 	@Ignore
 	public void testGetActiveWithInactiveInstance() {
 
-		Optional<AGModuleInstance> moduleInstance = cache.getActive(MODULE_UUID);
+		Optional<AGModuleInstanceBase> moduleInstance = cache.getActive(MODULE_UUID);
 		assertFalse(moduleInstance.isPresent());
 	}
 
 	@Test
 	public void testGetActiveWithOtherModule() {
 
-		Optional<AGModuleInstance> moduleInstance = cache.getActive(OTHER_MODULE_UUID);
+		Optional<AGModuleInstanceBase> moduleInstance = cache.getActive(OTHER_MODULE_UUID);
 		assertFalse(moduleInstance.isPresent());
 	}
 }
