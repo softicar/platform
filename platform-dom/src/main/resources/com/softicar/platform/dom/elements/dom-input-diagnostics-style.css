@@ -2,6 +2,8 @@
 .DomInputDiagnosticsDisplay {
 	display: grid;
 	gap: 1px;
+	align-self: stretch;
+	align-items: center;
 }
 
 .DomInputDiagnosticsDisplay.error {

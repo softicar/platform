@@ -36,8 +36,10 @@ public class DomLabelGrid extends DomDiv {
 	 */
 	public DomLabelGrid add(DomLabel label, IDomNode node) {
 
-		appendChild(label.updateFor(node));
-		appendChild(node);
+		var row = new DomLabelGridRow();
+		row.appendChild(label.updateFor(node));
+		row.appendChild(node);
+		appendChild(row);
 		return this;
 	}
 
@@ -86,5 +88,13 @@ public class DomLabelGrid extends DomDiv {
 	public DomLabelGrid add(IDisplayString labelText, String valueText) {
 
 		return add(labelText, DomTextNode.create(valueText));
+	}
+
+	private class DomLabelGridRow extends DomDiv {
+
+		public DomLabelGridRow() {
+
+			addCssClass(DomElementsCssClasses.DOM_LABEL_GRID_ROW);
+		}
 	}
 }
