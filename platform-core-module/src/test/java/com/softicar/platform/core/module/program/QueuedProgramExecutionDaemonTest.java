@@ -11,7 +11,6 @@ import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.time.Duration;
 import java.util.UUID;
@@ -526,10 +525,6 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		var systemEvent = assertOne(AGSystemEvent.TABLE.loadAll());
 		assertContains(TestProgram.class.getSimpleName(), systemEvent.getProperties());
 		assertEquals(AGSystemEventSeverityEnum.ERROR, systemEvent.getSeverity().getEnum());
-
-		try (DbTransaction transaction = new DbTransaction()) {
-			transaction.assertIsRootTransaction();
-		}
 
 		// wait for program to be aborted
 		daemon.runIteration();

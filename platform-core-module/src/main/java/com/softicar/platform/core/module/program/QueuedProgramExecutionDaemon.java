@@ -131,7 +131,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 		new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
 			.addProperty("program", program.toDisplay().toString())
-			.addProperty("start", currentExecution.getStartedAt().toGermanString())
+			.addProperty("start", currentExecution.getStartedAt().toString())
 			.save();
 	}
 
