@@ -120,6 +120,12 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	}
 
 	@Override
+	public void unsetCurrentEvent() {
+
+		this.currentEvent = null;
+	}
+
+	@Override
 	public IDomEvent getCurrentEvent() {
 
 		return currentEvent;

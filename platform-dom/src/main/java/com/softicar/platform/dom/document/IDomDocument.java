@@ -92,6 +92,11 @@ public interface IDomDocument extends IDomDocumentMarkerHolder {
 	void setCurrentEvent(IDomEvent event);
 
 	/**
+	 * Sets the current event to be undefined.
+	 */
+	void unsetCurrentEvent();
+
+	/**
 	 * Returns the current event.
 	 *
 	 * @return the current event object or <i>null</i>
