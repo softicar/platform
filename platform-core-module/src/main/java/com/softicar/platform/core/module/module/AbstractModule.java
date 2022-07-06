@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.module;
 
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -23,9 +23,9 @@ public abstract class AbstractModule<I extends IModuleInstance<I>> extends Abstr
 		return table//
 			.createSelect()
 			.join(table.getPrimaryKeyField())
-			.where(AGModuleInstance.ID.isEqual(moduleInstanceId))
-			.where(AGModuleInstance.ACTIVE)
-			.where(AGModuleInstance.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
+			.where(AGModuleInstanceBase.ID.isEqual(moduleInstanceId))
+			.where(AGModuleInstanceBase.ACTIVE)
+			.where(AGModuleInstanceBase.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.getOneAsOptional();
 	}
 
@@ -35,7 +35,7 @@ public abstract class AbstractModule<I extends IModuleInstance<I>> extends Abstr
 		return getModuleInstanceTable()//
 			.createSelect()
 			.join(getModuleInstanceTable().getPrimaryKeyField())
-			.where(AGModuleInstance.ACTIVE)
+			.where(AGModuleInstanceBase.ACTIVE)
 			.list();
 	}
 }

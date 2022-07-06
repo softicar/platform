@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.permission.assignment.matrix.user;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.AbstractModulePermissionUiTest;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.test.module.alpha.TestModuleAlphaPermissions;
@@ -23,7 +23,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 	private final Executor executor;
 	private final Asserter asserter;
 	private final AGUser user;
-	private final AGModuleInstance moduleInstance;
+	private final AGModuleInstanceBase moduleInstanceBase;
 
 	public ModulePermissionOwnershipUserMatrixPageDivTest() {
 
@@ -33,7 +33,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 		this.asserter = new Asserter();
 		this.user = insertTestUser();
 
-		this.moduleInstance = insertModuleInstance(getTestModuleAlpha().getAnnotatedUuid());
+		this.moduleInstanceBase = insertModuleInstanceBase(getTestModuleAlpha().getAnnotatedUuid());
 		engine.setNodeSupplier(() -> new ModulePermissionOwnershipUserMatrixPageDiv());
 	}
 
@@ -61,7 +61,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 			.clickSaveButton();
 
 		AGModuleInstancePermissionAssignment record = getSingleOwnershipRecord();
-		assertEquals(moduleInstance, record.getModuleInstance());
+		assertEquals(moduleInstanceBase, record.getModuleInstanceBase());
 		assertEquals(TestModuleAlphaPermissions.PERMISSION_ONE.getAnnotatedUuid(), record.getPermissionUuid());
 		assertEquals(user, record.getUser());
 		assertTrue(record.isActive());
@@ -71,7 +71,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 	@Ignore
 	public void testRemovePermission() {
 
-		insertOrUpdateOwnership(moduleInstance, TestModuleAlphaPermissions.PERMISSION_ONE.getAnnotatedUuid(), user, true);
+		insertOrUpdateOwnership(moduleInstanceBase, TestModuleAlphaPermissions.PERMISSION_ONE.getAnnotatedUuid(), user, true);
 
 		executor//
 			.inputUser(user)
@@ -80,7 +80,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 			.clickSaveButton();
 
 		AGModuleInstancePermissionAssignment record = getSingleOwnershipRecord();
-		assertEquals(moduleInstance, record.getModuleInstance());
+		assertEquals(moduleInstanceBase, record.getModuleInstanceBase());
 		assertEquals(TestModuleAlphaPermissions.PERMISSION_ONE.getAnnotatedUuid(), record.getPermissionUuid());
 		assertEquals(user, record.getUser());
 		assertFalse(record.isActive());
@@ -97,7 +97,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 
 		new AGModuleInstancePermissionAssignment()
 			.setActive(true)
-			.setModuleInstance(AGCoreModuleInstance.getInstance().pk())
+			.setModuleInstanceBase(AGCoreModuleInstance.getInstance().pk())
 			.setPermission(CorePermissions.ACCESS_MANAGEMENT.getAnnotatedUuid())
 			.setUser(user)
 			.save();

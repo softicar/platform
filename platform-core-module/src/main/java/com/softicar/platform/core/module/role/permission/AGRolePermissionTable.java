@@ -22,7 +22,7 @@ public class AGRolePermissionTable extends EmfObjectTable<AGRolePermission, AGCo
 			.addPlainChangeLogger(AGRolePermissionLog.ROLE_USER, AGRolePermissionLog.TRANSACTION)
 			.addMapping(AGRolePermission.ACTIVE, AGRolePermissionLog.ACTIVE)
 			.addMapping(AGRolePermission.ROLE, AGRolePermissionLog.ROLE)
-			.addMapping(AGRolePermission.MODULE_INSTANCE, AGRolePermissionLog.MODULE_INSTANCE)
+			.addMapping(AGRolePermission.MODULE_INSTANCE_BASE, AGRolePermissionLog.MODULE_INSTANCE_BASE)
 			.addMapping(AGRolePermission.PERMISSION_UUID, AGRolePermissionLog.PERMISSION_UUID);
 	}
 

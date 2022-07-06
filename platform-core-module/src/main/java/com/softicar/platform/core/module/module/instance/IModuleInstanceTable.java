@@ -13,7 +13,7 @@ import com.softicar.platform.emf.sub.object.table.IEmfSubObjectTable;
  * @author Alexander Schmidt
  */
 public interface IModuleInstanceTable<I extends IModuleInstance<I>>
-		extends IEmfSubObjectTable<I, AGModuleInstance, Integer, AGCoreModuleInstance> {
+		extends IEmfSubObjectTable<I, AGModuleInstanceBase, Integer, AGCoreModuleInstance> {
 
 	/**
 	 * Returns the {@link IEmfModule} class associated with this table.

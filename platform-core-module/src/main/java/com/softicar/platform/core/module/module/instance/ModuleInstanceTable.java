@@ -9,12 +9,12 @@ import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.sub.object.table.EmfSubObjectTable;
 
-public class ModuleInstanceTable<I extends IModuleInstance<I>> extends EmfSubObjectTable<I, AGModuleInstance, Integer, AGCoreModuleInstance>
+public class ModuleInstanceTable<I extends IModuleInstance<I>> extends EmfSubObjectTable<I, AGModuleInstanceBase, Integer, AGCoreModuleInstance>
 		implements IModuleInstanceTable<I> {
 
 	private final Class<? extends IEmfModule<I>> moduleClass;
 
-	public ModuleInstanceTable(IDbSubObjectTableBuilder<I, AGModuleInstance, Integer> builder, Class<? extends IEmfModule<I>> moduleClass) {
+	public ModuleInstanceTable(IDbSubObjectTableBuilder<I, AGModuleInstanceBase, Integer> builder, Class<? extends IEmfModule<I>> moduleClass) {
 
 		super(builder);
 		this.moduleClass = moduleClass;

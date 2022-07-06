@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.test.module.alpha;
 
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
@@ -14,7 +14,7 @@ public class TestModuleAlphaEntity extends AbstractEmfObject<TestModuleAlphaEnti
 	// @formatter:off
 	public static final DbObjectTableBuilder<TestModuleAlphaEntity, TestModuleAlphaEntity> BUILDER = new DbObjectTableBuilder<>("Core", TestModuleAlphaEntity.class.getSimpleName(), TestModuleAlphaEntity::new, TestModuleAlphaEntity.class);
 	public static final IDbIdField<TestModuleAlphaEntity> ID = BUILDER.addIdField("id", o->o.id, (o,v)->o.id=v);
-	public static final IDbForeignRowField<TestModuleAlphaEntity, TestModuleAlphaInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, TestModuleAlphaInstance.MODULE_INSTANCE).setNullable().setDefault(null);
+	public static final IDbForeignRowField<TestModuleAlphaEntity, TestModuleAlphaInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.moduleInstance, (o,v)->o.moduleInstance=v, TestModuleAlphaInstance.BASE).setNullable().setDefault(null);
 	public static final IDbStringField<TestModuleAlphaEntity> NAME = BUILDER.addStringField("name", o->o.name, (o,v)->o.name=v).setMaximumLength(255).setNullable().setDefault(null);
 	public static final TestModuleAlphaEntityTable TABLE = new TestModuleAlphaEntityTable(BUILDER);
 	// @formatter:on

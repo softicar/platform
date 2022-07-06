@@ -1,11 +1,11 @@
 PACKAGE com.softicar.platform.demo.invoice.module
 
-IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 IMPORT com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance
 
 TABLE AGDemoInvoiceModuleInstance  'Demo.DemoInvoiceModuleInstance' {
 
-	PK AGModuleInstance moduleInstance = BASE
+	PK AGModuleInstanceBase base = BASE
 	AGDemoPersonModuleInstance demoPersonModuleInstance
 	String title = "" [MAXLENGTH=255]
 

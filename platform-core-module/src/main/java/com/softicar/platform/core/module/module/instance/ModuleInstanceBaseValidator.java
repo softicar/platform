@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.module.IModule;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 
-public class ModuleInstanceValidator extends AbstractEmfValidator<AGModuleInstance> {
+public class ModuleInstanceBaseValidator extends AbstractEmfValidator<AGModuleInstanceBase> {
 
 	@Override
 	public void validate() {
@@ -17,7 +17,7 @@ public class ModuleInstanceValidator extends AbstractEmfValidator<AGModuleInstan
 
 		if (!IModule.class.isInstance(module)) {
 			addError(//
-				AGModuleInstance.MODULE_UUID,
+				AGModuleInstanceBase.MODULE_UUID,
 				CoreI18n.MODULE_CLASS_ARG1_MUST_IMPLEMENT_INTERFACE_ARG2.toDisplay(module.getClassName(), IModule.class.getSimpleName()));
 		}
 	}

@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.permission;
 
 import com.softicar.platform.core.module.access.module.AbstractModuleTest;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.test.module.alpha.TestModuleAlpha;
 import com.softicar.platform.core.module.test.module.beta.TestModuleBeta;
@@ -52,13 +52,14 @@ public abstract class AbstractModulePermissionUiTest extends AbstractModuleTest 
 		return CurrentEmfModuleRegistry.get().getModule(moduleClass);
 	}
 
-	protected AGModuleInstancePermissionAssignment insertOrUpdateOwnership(AGModuleInstance moduleInstance, UUID permissionUuid, AGUser user, boolean active) {
+	protected AGModuleInstancePermissionAssignment insertOrUpdateOwnership(AGModuleInstanceBase moduleInstanceBase, UUID permissionUuid, AGUser user,
+			boolean active) {
 
 		AGModuleInstancePermissionAssignment assignment = AGModuleInstancePermissionAssignment//
-			.loadByUserAndModuleInstanceAndPermission(user, moduleInstance, AGUuid.getOrCreate(permissionUuid));
+			.loadByUserAndModuleInstanceBaseAndPermission(user, moduleInstanceBase, AGUuid.getOrCreate(permissionUuid));
 		if (assignment == null) {
 			assignment = new AGModuleInstancePermissionAssignment()//
-				.setModuleInstance(moduleInstance)
+				.setModuleInstanceBase(moduleInstanceBase)
 				.setPermission(permissionUuid)
 				.setUser(user);
 		}

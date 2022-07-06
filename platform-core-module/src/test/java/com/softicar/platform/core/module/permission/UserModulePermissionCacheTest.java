@@ -163,7 +163,7 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 		AGRolePermission.TABLE//
 			.createSelect()
 			.where(AGRolePermission.ROLE.isEqual(role))
-			.where(AGRolePermission.MODULE_INSTANCE.isEqual(moduleInstance.pk()))
+			.where(AGRolePermission.MODULE_INSTANCE_BASE.isEqual(moduleInstance.pk()))
 			.where(AGRolePermission.PERMISSION_UUID.isEqual(AGUuid.getOrCreate(permission)))
 			.getOne()
 			.setActive(false)
@@ -175,7 +175,7 @@ public class UserModulePermissionCacheTest extends AbstractModuleTest {
 		AGModuleInstancePermissionAssignment.TABLE//
 			.createSelect()
 			.where(AGModuleInstancePermissionAssignment.USER.isEqual(user))
-			.where(AGModuleInstancePermissionAssignment.MODULE_INSTANCE.isEqual(moduleInstance.pk()))
+			.where(AGModuleInstancePermissionAssignment.MODULE_INSTANCE_BASE.isEqual(moduleInstance.pk()))
 			.where(AGModuleInstancePermissionAssignment.PERMISSION.isEqual(AGUuid.getOrCreate(permission)))
 			.getOne()
 			.setActive(false)

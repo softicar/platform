@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.permission;
 
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -18,30 +18,30 @@ import java.util.stream.Collectors;
 
 public class ModulePermissionInput extends EmfEntityInput<AGUuid> {
 
-	public ModulePermissionInput(Supplier<Optional<AGModuleInstance>> moduleInstanceSupplier) {
+	public ModulePermissionInput(Supplier<Optional<AGModuleInstanceBase>> moduleInstanceBaseSupplier) {
 
-		super(new InputEngine(moduleInstanceSupplier));
+		super(new InputEngine(moduleInstanceBaseSupplier));
 		setPlaceholder(CoreI18n.PERMISSION);
 	}
 
 	public ModulePermissionInput(AGModuleInstancePermissionAssignment assignment) {
 
-		this(() -> Optional.ofNullable(assignment.getModuleInstance()));
+		this(() -> Optional.ofNullable(assignment.getModuleInstanceBase()));
 	}
 
 	public ModulePermissionInput(AGRolePermission rolePermission) {
 
-		this(() -> Optional.ofNullable(rolePermission.getModuleInstance()));
+		this(() -> Optional.ofNullable(rolePermission.getModuleInstanceBase()));
 	}
 
 	private static class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
 
-		private final DomAutoCompleteEntityInputFilter<AGModuleInstance> filter;
+		private final DomAutoCompleteEntityInputFilter<AGModuleInstanceBase> filter;
 
-		public InputEngine(Supplier<Optional<AGModuleInstance>> moduleInstanceSupplier) {
+		public InputEngine(Supplier<Optional<AGModuleInstanceBase>> moduleInstanceBaseSupplier) {
 
 			super(AGUuid.TABLE);
-			this.filter = addFilter(() -> moduleInstanceSupplier.get()).setFilterTitle(CoreI18n.MODULE_INSTANCE);
+			this.filter = addFilter(() -> moduleInstanceBaseSupplier.get()).setFilterTitle(CoreI18n.MODULE_INSTANCE);
 		}
 
 		@Override
@@ -49,7 +49,7 @@ public class ModulePermissionInput extends EmfEntityInput<AGUuid> {
 
 			return filter//
 				.getValue()
-				.flatMap(AGModuleInstance::getModule)
+				.flatMap(AGModuleInstanceBase::getModule)
 				.map(CurrentEmfPermissionRegistry.get()::getStaticPermissions)
 				.stream()
 				.flatMap(Collection::stream)

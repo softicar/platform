@@ -2,7 +2,7 @@ package com.softicar.platform.demo.person.module;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.db.runtime.field.IDbDayField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
@@ -32,7 +32,7 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 	}
 
 	public static final IDbIdField<AGDemoPerson> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(DemoI18n.ID);
-	public static final IDbForeignRowField<AGDemoPerson, AGDemoPersonModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoPersonModuleInstance.MODULE_INSTANCE).setTitle(DemoI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGDemoPerson, AGDemoPersonModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoPersonModuleInstance.BASE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoPerson> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(DemoI18n.FIRST_NAME);
 	public static final IDbStringField<AGDemoPerson> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(DemoI18n.LAST_NAME);
 	public static final IDbIntegerField<AGDemoPerson> IDENTITY_CARD_NUMBER = BUILDER.addIntegerField("identityCardNumber", o->o.m_identityCardNumber, (o,v)->o.m_identityCardNumber=v).setTitle(DemoI18n.IDENTITY_CARD_NUMBER);

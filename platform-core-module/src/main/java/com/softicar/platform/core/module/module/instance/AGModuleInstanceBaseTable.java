@@ -19,22 +19,22 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfAttributeDefaultValueSet;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
-public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, AGCoreModuleInstance> {
+public class AGModuleInstanceBaseTable extends EmfObjectTable<AGModuleInstanceBase, AGCoreModuleInstance> {
 
-	public AGModuleInstanceTable(IDbObjectTableBuilder<AGModuleInstance> builder) {
+	public AGModuleInstanceBaseTable(IDbObjectTableBuilder<AGModuleInstanceBase> builder) {
 
 		super(builder);
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstance, Integer, AGCoreModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGModuleInstanceBase, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.MODULE_INSTANCE);
-		configuration.addValidator(ModuleInstanceValidator::new);
+		configuration.addValidator(ModuleInstanceBaseValidator::new);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstance, AGCoreModuleInstance> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstanceBase, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
 		authorizer.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
@@ -42,7 +42,7 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, AGCo
 	}
 
 	@Override
-	public void customizeActionSet(EmfActionSet<AGModuleInstance, AGCoreModuleInstance> actionSet) {
+	public void customizeActionSet(EmfActionSet<AGModuleInstanceBase, AGCoreModuleInstance> actionSet) {
 
 		actionSet.addManagementAction(new ModuleInstanceInitializationAction());
 		actionSet.addManagementAction(new ModuleInstanceDetailsPopupAction());
@@ -50,30 +50,30 @@ public class AGModuleInstanceTable extends EmfObjectTable<AGModuleInstance, AGCo
 	}
 
 	@Override
-	public void customizeAttributeProperties(IEmfAttributeList<AGModuleInstance> attributes) {
+	public void customizeAttributeProperties(IEmfAttributeList<AGModuleInstanceBase> attributes) {
 
 		attributes//
-			.editIndirectEntityAttribute(AGModuleInstance.MODULE_UUID)
+			.editIndirectEntityAttribute(AGModuleInstanceBase.MODULE_UUID)
 			.setEntityLoader(() -> AGUuidBasedSourceCodeReferencePoints.getAll(IEmfModule.class))
 			.setTitle(CoreI18n.MODULE_CLASS)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always())
 			.setColumnHandlerFactory(EmfDataTableNonSortableColumnHandler::new);
 		attributes//
-			.addTransientAttribute(AGModuleInstance.TITLE_FIELD);
+			.addTransientAttribute(AGModuleInstanceBase.TITLE_FIELD);
 	}
 
 	@Override
-	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGModuleInstance, AGCoreModuleInstance> defaultValueSet) {
+	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGModuleInstanceBase, AGCoreModuleInstance> defaultValueSet) {
 
-		defaultValueSet.setValue(AGModuleInstance.ACTIVE, true);
+		defaultValueSet.setValue(AGModuleInstanceBase.ACTIVE, true);
 	}
 
 	@Override
-	public void customizeLoggers(EmfChangeLoggerSet<AGModuleInstance> loggerSet) {
+	public void customizeLoggers(EmfChangeLoggerSet<AGModuleInstanceBase> loggerSet) {
 
 		loggerSet//
-			.addPlainChangeLogger(AGModuleInstanceLog.MODULE_INSTANCE, AGModuleInstanceLog.TRANSACTION)
-			.addMapping(AGModuleInstance.ACTIVE, AGModuleInstanceLog.ACTIVE);
+			.addPlainChangeLogger(AGModuleInstanceBaseLog.MODULE_INSTANCE_BASE, AGModuleInstanceBaseLog.TRANSACTION)
+			.addMapping(AGModuleInstanceBase.ACTIVE, AGModuleInstanceBaseLog.ACTIVE);
 	}
 }
