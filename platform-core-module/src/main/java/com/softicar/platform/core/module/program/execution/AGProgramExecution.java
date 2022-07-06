@@ -38,6 +38,11 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 		return getTerminatedAt() != null;
 	}
 
+	public boolean isRuntimeExceeded(Duration duration) {
+
+		return getDuration().compareTo(duration) > 0;
+	}
+
 	public Duration getDuration() {
 
 		return Optional//

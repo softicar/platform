@@ -6,6 +6,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
@@ -33,6 +34,8 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 	public static final IDbBooleanField<AGScheduledProgramExecution> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
 	public static final IDbStringField<AGScheduledProgramExecution> CRON_EXPRESSION = BUILDER.addStringField("cronExpression", o->o.m_cronExpression, (o,v)->o.m_cronExpression=v).setTitle(CoreI18n.CRON_EXPRESSION).setMaximumLength(255);
 	public static final IDbForeignField<AGScheduledProgramExecution, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID);
+	public static final IDbIntegerField<AGScheduledProgramExecution> MAXIMUM_RUNTIME = BUILDER.addIntegerField("maximumRuntime", o->o.m_maximumRuntime, (o,v)->o.m_maximumRuntime=v).setTitle(CoreI18n.MAXIMUM_RUNTIME).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGScheduledProgramExecution> AUTOMATIC_ABORT = BUILDER.addBooleanField("automaticAbort", o->o.m_automaticAbort, (o,v)->o.m_automaticAbort=v).setTitle(CoreI18n.AUTOMATIC_ABORT).setDefault(false);
 	public static final IDbKey<AGScheduledProgramExecution> UK_PROGRAM_UUID = BUILDER.addUniqueKey("programUuid", PROGRAM_UUID);
 	public static final AGScheduledProgramExecutionTable TABLE = new AGScheduledProgramExecutionTable(BUILDER);
 	// @formatter:on
@@ -94,6 +97,26 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 		return setValue(PROGRAM_UUID, value);
 	}
 
+	public final Integer getMaximumRuntime() {
+
+		return getValue(MAXIMUM_RUNTIME);
+	}
+
+	public final AGScheduledProgramExecution setMaximumRuntime(Integer value) {
+
+		return setValue(MAXIMUM_RUNTIME, value);
+	}
+
+	public final Boolean isAutomaticAbort() {
+
+		return getValue(AUTOMATIC_ABORT);
+	}
+
+	public final AGScheduledProgramExecution setAutomaticAbort(Boolean value) {
+
+		return setValue(AUTOMATIC_ABORT, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -108,5 +131,7 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 	private Boolean m_active;
 	private String m_cronExpression;
 	private AGUuid m_programUuid;
+	private Integer m_maximumRuntime;
+	private Boolean m_automaticAbort;
 }
 

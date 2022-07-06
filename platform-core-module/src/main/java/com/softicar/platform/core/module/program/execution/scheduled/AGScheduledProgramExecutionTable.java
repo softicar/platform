@@ -32,9 +32,20 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 			.setTitle(CoreI18n.PROGRAM)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
+
 		attributes//
 			.editAttribute(AGScheduledProgramExecution.CRON_EXPRESSION)
 			.setHelpDisplayFactory(CronSyntaxDiv::new);
+
+		attributes//
+			.editAttribute(AGScheduledProgramExecution.MAXIMUM_RUNTIME)
+			.setHelpDisplay(
+				CoreI18n.DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES//
+					.concatSentence(CoreI18n.A_SYSTEM_ERROR_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED));
+
+		attributes//
+			.editAttribute(AGScheduledProgramExecution.AUTOMATIC_ABORT)
+			.setHelpDisplay(CoreI18n.ABORTS_THE_PROGRAM_WHEN_THE_MAXIMUM_RUNTIME_HAS_BEEN_EXCEEDED);
 	}
 
 	@Override
@@ -43,6 +54,8 @@ public class AGScheduledProgramExecutionTable extends EmfObjectTable<AGScheduled
 		loggerSet//
 			.addPlainChangeLogger(AGScheduledProgramExecutionLog.SCHEDULED_PROGRAM_EXECUTION, AGScheduledProgramExecutionLog.TRANSACTION)
 			.addMapping(AGScheduledProgramExecution.ACTIVE, AGScheduledProgramExecutionLog.ACTIVE)
-			.addMapping(AGScheduledProgramExecution.CRON_EXPRESSION, AGScheduledProgramExecutionLog.CRON_EXPRESSION);
+			.addMapping(AGScheduledProgramExecution.CRON_EXPRESSION, AGScheduledProgramExecutionLog.CRON_EXPRESSION)
+			.addMapping(AGScheduledProgramExecution.MAXIMUM_RUNTIME, AGScheduledProgramExecutionLog.MAXIMUM_RUNTIME)
+			.addMapping(AGScheduledProgramExecution.AUTOMATIC_ABORT, AGScheduledProgramExecutionLog.AUTOMATIC_ABORT);
 	}
 }
