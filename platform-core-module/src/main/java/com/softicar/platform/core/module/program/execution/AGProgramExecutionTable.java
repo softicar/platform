@@ -79,6 +79,7 @@ public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, 
 			.addMapping(AGProgramExecution.TERMINATED_AT, AGProgramExecutionLog.TERMINATED_AT)
 			.addMapping(AGProgramExecution.FAILED, AGProgramExecutionLog.FAILED)
 			.addMapping(AGProgramExecution.OUTPUT, AGProgramExecutionLog.OUTPUT)
+			.addMapping(AGProgramExecution.MAXIMUM_RUNTIME_EXCEEDED, AGProgramExecutionLog.MAXIMUM_RUNTIME_EXCEEDED)
 			.addMapping(AGProgramExecution.QUEUED_BY, AGProgramExecutionLog.QUEUED_BY);
 	}
 }

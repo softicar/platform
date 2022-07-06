@@ -6,10 +6,14 @@ import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.daemon.DaemonProperties;
 import com.softicar.platform.core.module.daemon.IDaemon;
+import com.softicar.platform.core.module.event.SystemEventBuilder;
+import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
+import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.transaction.DbTransactions;
@@ -63,16 +67,17 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void handleRunningProgram(AGProgram program) {
 
-		AGProgramExecution currentExecution = program.getCurrentExecution();
-		currentExecution.reload();
-
-		if (currentExecution.isTerminated()) {
-			program.resetCurrentExecution();
-		}
-
 		if (program.isAbortRequested()) {
-			terminate(getRunningRunnableThreads(program));
-			program.resetAll();
+			// when terminating a program, the current execution may not be locked
+			terminateProgram(program);
+		} else {
+			var currentExecution = program.getCurrentExecution();
+			currentExecution.reloadForUpdate();
+			if (currentExecution.isTerminated()) {
+				program.resetCurrentExecution();
+			} else {
+				handleMaximumRuntime(program, currentExecution);
+			}
 		}
 	}
 
@@ -92,6 +97,12 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 		registeredThreadRunner.addRunnable(new ProgramExecutionRunnable(program.insertCurrentExecution()));
 	}
 
+	private void terminateProgram(AGProgram program) {
+
+		terminate(getRunningRunnableThreads(program));
+		program.resetAll();
+	}
+
 	private void terminate(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
 
 		for (IRunnableThread<ProgramExecutionRunnable> runnableThread: runnableThreads) {
@@ -100,6 +111,28 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 				Log.ferror("Timeout while trying to terminate a thread for program: %s", getProgramName(runnableThread));
 			}
 		}
+	}
+
+	private void handleMaximumRuntime(AGProgram program, AGProgramExecution currentExecution) {
+
+		var scheduledExecution = AGScheduledProgramExecution.loadByProgramUuid(program.getProgramUuid());
+		if (scheduledExecution != null && scheduledExecution.isMaximumRuntimeExceeded(currentExecution)) {
+			if (scheduledExecution.isAutomaticAbort()) {
+				program.saveAbortRequested(true);
+			}
+			if (!currentExecution.isMaximumRuntimeExceeded()) {
+				createRuntimeExceededEvent(program, currentExecution);
+				currentExecution.setMaximumRuntimeExceeded(true).save();
+			}
+		}
+	}
+
+	private void createRuntimeExceededEvent(AGProgram program, AGProgramExecution currentExecution) {
+
+		new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, CoreI18n.PROGRAM_EXECUTION_EXCEEDED_MAXIMUM_RUNTIME.toString())//
+			.addProperty("program", program.toDisplay().toString())
+			.addProperty("start", currentExecution.getStartedAt().toString())
+			.save();
 	}
 
 	private void resetQueueEntries(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
