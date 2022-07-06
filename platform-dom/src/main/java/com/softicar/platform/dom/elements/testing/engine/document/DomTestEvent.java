@@ -9,7 +9,7 @@ import com.softicar.platform.dom.node.IDomNode;
  *
  * @author Oliver Richers
  */
-class DomTestEvent implements IDomEvent {
+public class DomTestEvent implements IDomEvent {
 
 	private final IDomNode target;
 	private final DomEventType eventType;
