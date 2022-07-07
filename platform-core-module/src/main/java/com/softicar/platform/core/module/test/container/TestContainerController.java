@@ -87,16 +87,16 @@ public class TestContainerController {
 	private void assertValidContainerNamePrefix(String containerNamePrefix) {
 
 		Objects.requireNonNull(containerNamePrefix);
-		if (!containerNamePrefix.matches("[a-zA-Z].*")) {
-			throw new IllegalArgumentException("Invalid container name prefix.");
+		if (containerNamePrefix.isBlank()) {
+			throw new IllegalArgumentException();
 		}
 	}
 
 	private void assertValidImageName(String imageName) {
 
 		Objects.requireNonNull(imageName);
-		if (!imageName.matches("[a-zA-Z0-9].*/[a-zA-Z0-9].*")) {
-			throw new IllegalArgumentException("Invalid docker image name.");
+		if (imageName.isBlank()) {
+			throw new IllegalArgumentException();
 		}
 	}
 
