@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.test.container;
+package com.softicar.platform.core.module.container.docker;
 
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.command.ShellCommandExecutor;
@@ -7,12 +7,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Manages startup and shutdown of a docker-containerized service for unit
- * tests.
+ * Manages startup and shutdown of a docker-containerized service.
  *
  * @author Alexander Schmidt
  */
-public class TestContainerController {
+public class DockerContainerController {
 
 	private final String containerName;
 	private final DockerCommandExecutor commandExecutor;
@@ -20,7 +19,7 @@ public class TestContainerController {
 	private String containerIpAddress;
 
 	/**
-	 * Constructs a new {@link TestContainerController}.
+	 * Constructs a new {@link DockerContainerController}.
 	 *
 	 * @param containerNamePrefix
 	 *            a prefix for the names of the managed Docker containers; e.g.
@@ -31,7 +30,7 @@ public class TestContainerController {
 	 *            {@code "myvendor/myservice"} (assuming {@code ":latest"})
 	 *            (never <i>null</i>)
 	 */
-	public TestContainerController(String containerNamePrefix, String dockerImage) {
+	public DockerContainerController(String containerNamePrefix, String dockerImage) {
 
 		assertValidContainerNamePrefix(containerNamePrefix);
 		assertValidImageName(dockerImage);

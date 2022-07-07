@@ -7,11 +7,11 @@ import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.core.module.container.docker.DockerContainerController;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
-import com.softicar.platform.core.module.test.container.TestContainerController;
 import java.io.IOException;
 import java.util.List;
 import jcifs.CIFSContext;
@@ -31,7 +31,7 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 	private static final String TEST_SHARE = "testshare";
 	private static final String TEST_USER = "testuser";
 	private static final String TEST_WORKGROUP = "WORKGROUP";
-	private static final TestContainerController CONTAINER_CONTROLLER = createController();
+	private static final DockerContainerController CONTAINER_CONTROLLER = createController();
 
 	protected SmbCredentials credentials;
 	protected DayTime startTime;
@@ -178,8 +178,8 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 		}
 	}
 
-	private static TestContainerController createController() {
+	private static DockerContainerController createController() {
 
-		return new TestContainerController("smb-test", "softicar/samba-testing-server");
+		return new DockerContainerController("smb-test", "softicar/samba-testing-server");
 	}
 }
