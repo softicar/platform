@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AbstractDomAutoCompleteDefaultInputEngineTest extends AbstractTest {
+public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends AbstractTest {
 
 	protected final Collection<TestElement> elements;
 

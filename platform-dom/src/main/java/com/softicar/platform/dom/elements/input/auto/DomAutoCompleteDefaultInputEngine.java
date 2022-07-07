@@ -8,8 +8,8 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
  * The comparator supplied to {@link #setComparator} will <b>not</b> be used to
  * order the elements returned by {@link #findMatches}. Instead,
  * {@link #findMatches} always returns elements order by their translated
- * {@link IDisplayString} in a lexicographical manner. Thus, the order depends
+ * {@link IDisplayString}, in a lexicographical manner. Thus, the order depends
  * on {@link CurrentLocale}.
  *
  * @author Oliver Richers
@@ -156,7 +156,11 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		public Cache() {
 
 			this.stringToElementMap = new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(loader.get());
-			this.elementToStringMap = stringToElementMap.entrySet().stream().collect(Collectors.toMap(Entry::getValue, Entry::getKey));
+			this.elementToStringMap = new HashMap<>();
+
+			stringToElementMap//
+				.entrySet()
+				.forEach(entry -> elementToStringMap.put(entry.getValue(), entry.getKey()));
 		}
 
 		public IDisplayString getDisplayString(T element) {
