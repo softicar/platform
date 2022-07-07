@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.page;
 
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
@@ -9,7 +10,6 @@ import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 
 /**
  * Common interface of all EMF web pages.
@@ -27,7 +27,7 @@ import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeRefer
  *
  * @author Oliver Richers
  */
-public interface IEmfPage<I extends IEmfModuleInstance<I>> extends IEmfSourceCodeReferencePoint {
+public interface IEmfPage<I extends IEmfModuleInstance<I>> extends ISourceCodeReferencePoint {
 
 	/**
 	 * Returns the {@link Class} of the associated {@link IEmfModule}.

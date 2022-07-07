@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.source.code.reference.point;
+package com.softicar.platform.common.code.reference.point;
 
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import io.github.classgraph.ClassGraph;
@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 
 /**
  * Finds all classes on the class path that have a
- * {@link EmfSourceCodeReferencePointUuid} annotation.
+ * {@link SourceCodeReferencePointUuid} annotation.
  *
  * @author Oliver Richers
  */
-class EmfSourceCodeReferencePointClassesFinder {
+class SourceCodeReferencePointClassesFinder {
 
-	private static final String ANNOTATION_NAME = EmfSourceCodeReferencePointUuid.class.getCanonicalName();
+	private static final String ANNOTATION_NAME = SourceCodeReferencePointUuid.class.getCanonicalName();
 
 	public Collection<JavaClassName> findClasses() {
 

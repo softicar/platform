@@ -1,5 +1,6 @@
 package com.softicar.platform.demo.invoice.module.contact;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
@@ -7,7 +8,6 @@ import com.softicar.platform.demo.person.module.AGDemoPerson;
 import com.softicar.platform.dom.elements.testing.node.tester.DomAutoCompleteTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
 import com.softicar.platform.emf.data.table.testing.EmfDataTableTester;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import org.junit.Test;
 
 public class DemoInvoiceContactReportPageTest extends AbstractDemoInvoiceModuleTest {
@@ -23,7 +23,7 @@ public class DemoInvoiceContactReportPageTest extends AbstractDemoInvoiceModuleT
 			.save();
 		insertDemoInvoice("bbb", Day.today());
 
-		setNodeSupplier(() -> EmfSourceCodeReferencePoints.getReferencePoint(DemoInvoiceContactReportPage.class).createContentNode(moduleInstance));
+		setNodeSupplier(() -> SourceCodeReferencePoints.getReferencePoint(DemoInvoiceContactReportPage.class).createContentNode(moduleInstance));
 	}
 
 	@Test

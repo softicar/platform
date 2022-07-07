@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.page;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -32,7 +32,7 @@ public class EmfPages {
 	 */
 	public static <I extends IEmfModuleInstance<I>> IEmfModule<I> getModule(Class<? extends IEmfPage<I>> pageClass) {
 
-		return getModule(EmfSourceCodeReferencePoints.getReferencePoint(pageClass));
+		return getModule(SourceCodeReferencePoints.getReferencePoint(pageClass));
 	}
 
 	// ------------------------------ module to page ------------------------------ //
@@ -48,7 +48,7 @@ public class EmfPages {
 
 		EmfPageCaster<I> pageCaster = new EmfPageCaster<>(module);
 
-		return EmfSourceCodeReferencePoints//
+		return SourceCodeReferencePoints//
 			.getReferencePoints(IEmfPage.class)
 			.stream()
 			.filter(pageCaster::test)

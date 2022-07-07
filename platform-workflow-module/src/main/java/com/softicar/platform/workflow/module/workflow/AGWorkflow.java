@@ -1,8 +1,8 @@
 package com.softicar.platform.workflow.module.workflow;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.workflow.module.workflow.entity.table.IWorkflowTableReferencePoint;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
@@ -28,7 +28,7 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 
 	public IWorkflowTableReferencePoint<?> getTableReferencePointOrThrow() {
 
-		return EmfSourceCodeReferencePoints//
+		return SourceCodeReferencePoints//
 			.getReferencePointOrThrow(getEntityTable().getUuid(), IWorkflowTableReferencePoint.class);
 	}
 

@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.source.code.reference.point;
+package com.softicar.platform.common.code.reference.point;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
@@ -8,13 +8,11 @@ import java.util.UUID;
  * Implemented by classes representing reference points in the source code.
  * <p>
  * Classes implementing this interface need to define a {@link UUID} by using
- * the annotation {@link EmfSourceCodeReferencePointUuid}.
- * <p>
- * TODO Extract this class (PLAT-861).
+ * the annotation {@link SourceCodeReferencePointUuid}.
  *
  * @author Oliver Richers
  */
-public interface IEmfSourceCodeReferencePoint extends IDisplayable {
+public interface ISourceCodeReferencePoint extends IDisplayable {
 
 	/**
 	 * The default implementation returns the canonical name of this class.
@@ -29,15 +27,15 @@ public interface IEmfSourceCodeReferencePoint extends IDisplayable {
 
 	/**
 	 * Returns the {@link UUID} that uniquely identifies this
-	 * {@link IEmfSourceCodeReferencePoint}.
+	 * {@link ISourceCodeReferencePoint}.
 	 * <p>
 	 * Throws an {@link Exception} if this class has no valid
-	 * {@link EmfSourceCodeReferencePointUuid} annotation.
+	 * {@link SourceCodeReferencePointUuid} annotation.
 	 *
 	 * @return the {@link UUID} (never <i>null</i>)
 	 */
 	default UUID getAnnotatedUuid() {
 
-		return EmfSourceCodeReferencePoints.getUuidOrThrow(getClass());
+		return SourceCodeReferencePoints.getUuidOrThrow(getClass());
 	}
 }

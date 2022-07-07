@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.source.code.reference.point;
+package com.softicar.platform.common.code.reference.point;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
@@ -8,27 +8,27 @@ import java.util.UUID;
 
 /**
  * Searches, loads and instantiates all classes with an
- * {@link EmfSourceCodeReferencePointUuid} annotation.
+ * {@link SourceCodeReferencePointUuid} annotation.
  *
  * @author Oliver Richers
  */
-class EmfSourceCodeReferencePointsLoader {
+class SourceCodeReferencePointsLoader {
 
-	private final Map<UUID, IEmfSourceCodeReferencePoint> referencePoints;
+	private final Map<UUID, ISourceCodeReferencePoint> referencePoints;
 	private final ExceptionsCollector exceptionsCollector;
 	private boolean loaded;
 
-	public EmfSourceCodeReferencePointsLoader() {
+	public SourceCodeReferencePointsLoader() {
 
 		this.referencePoints = new TreeMap<>();
 		this.exceptionsCollector = new ExceptionsCollector();
 		this.loaded = false;
 	}
 
-	public Map<UUID, IEmfSourceCodeReferencePoint> loadAll() {
+	public Map<UUID, ISourceCodeReferencePoint> loadAll() {
 
 		if (!loaded) {
-			new EmfSourceCodeReferencePointClassesFinder()//
+			new SourceCodeReferencePointClassesFinder()//
 				.findClasses()
 				.forEach(this::loadReferencePoint);
 			this.loaded = true;
@@ -44,17 +44,17 @@ class EmfSourceCodeReferencePointsLoader {
 			Class<?> referencePointClass = Class.forName(className.getName());
 			referencePoints.put(getUuid(referencePointClass), createInstance(referencePointClass));
 		} catch (Exception exception) {
-			exceptionsCollector.add(new EmfSourceCodeReferencePointLoadingException(className, exception));
+			exceptionsCollector.add(new SourceCodeReferencePointLoadingException(className, exception));
 		}
 	}
 
 	private UUID getUuid(Class<?> referencePointClass) {
 
-		return EmfSourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
+		return SourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
 	}
 
-	private IEmfSourceCodeReferencePoint createInstance(Class<?> referencePointClass) throws ReflectiveOperationException {
+	private ISourceCodeReferencePoint createInstance(Class<?> referencePointClass) throws ReflectiveOperationException {
 
-		return (IEmfSourceCodeReferencePoint) referencePointClass.getConstructor().newInstance();
+		return (ISourceCodeReferencePoint) referencePointClass.getConstructor().newInstance();
 	}
 }

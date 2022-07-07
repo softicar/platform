@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.source.code.reference.point;
+package com.softicar.platform.common.code.reference.point;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,13 +8,13 @@ import java.util.UUID;
 
 /**
  * This annotation is used to define {@link UUID}s for classes implementing
- * {@link IEmfSourceCodeReferencePoint}.
+ * {@link ISourceCodeReferencePoint}.
  * <p>
  * Classes with this annotation have these restrictions:
  * <ul>
  * <li>must not be abstract</li>
  * <li>must not be interfaces</li>
- * <li>must implement the interface {@link IEmfSourceCodeReferencePoint}</li>
+ * <li>must implement the interface {@link ISourceCodeReferencePoint}</li>
  * <li>must not define constructors (including all base classes)</li>
  * <li>must not define non-static fields (including all base classes)</li>
  * </ul>
@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface EmfSourceCodeReferencePointUuid {
+public @interface SourceCodeReferencePointUuid {
 
 	String value();
 }

@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.impersonation;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
@@ -11,9 +12,8 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("cff17c44-2186-40d1-8dca-5d82e2836918")
+@SourceCodeReferencePointUuid("cff17c44-2186-40d1-8dca-5d82e2836918")
 public class UserImpersonationPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override

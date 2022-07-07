@@ -1,11 +1,11 @@
 package com.softicar.platform.workflow.module.workflow.node.action;
 
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.action.IEmfAction;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public interface IWorkflowAction<R extends IWorkflowableObject<R>> extends IEmfAction<R>, IEmfSourceCodeReferencePoint {
+public interface IWorkflowAction<R extends IWorkflowableObject<R>> extends IEmfAction<R>, ISourceCodeReferencePoint {
 
 	@Override
 	default IDisplayString toDisplay() {

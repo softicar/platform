@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.standard.configuration;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.configuration.AbstractStandardConfiguration;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.IProgram;
@@ -8,7 +9,6 @@ import com.softicar.platform.core.module.program.execution.scheduled.AGScheduled
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoint;
 import com.softicar.platform.db.core.transaction.DbTransactions;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 
 public class ProgramStandardConfiguration extends AbstractStandardConfiguration {
 
@@ -33,7 +33,7 @@ public class ProgramStandardConfiguration extends AbstractStandardConfiguration 
 
 	private void registerDefaultScheduleIfPossible(AGUuid uuid) {
 
-		EmfSourceCodeReferencePoints
+		SourceCodeReferencePoints
 			.getReferencePointOrThrow(uuid.getUuid(), IProgram.class)//
 			.getDefaultCronExpression()
 			.ifPresent(cronExpression -> insertScheduledProgramExecution(cronExpression, uuid));

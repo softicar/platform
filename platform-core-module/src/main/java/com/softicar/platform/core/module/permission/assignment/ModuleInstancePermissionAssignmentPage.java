@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.permission.assignment;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -7,10 +8,9 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
-@EmfSourceCodeReferencePointUuid("75e4e284-2256-4fcf-9b94-e2a4bfccb4c4")
+@SourceCodeReferencePointUuid("75e4e284-2256-4fcf-9b94-e2a4bfccb4c4")
 public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override

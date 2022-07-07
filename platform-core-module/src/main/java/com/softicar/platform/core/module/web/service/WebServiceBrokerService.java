@@ -1,12 +1,13 @@
 package com.softicar.platform.core.module.web.service;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.singleton.SingletonSetScope;
 import com.softicar.platform.common.web.service.IWebService;
+import com.softicar.platform.common.web.service.IWebServiceFactory;
 import com.softicar.platform.core.module.log.LogDb;
 import com.softicar.platform.core.module.web.service.environment.IWebServiceEnvironment;
 import com.softicar.platform.core.module.web.service.environment.WebServiceDefaultEnvironment;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -77,6 +78,6 @@ public class WebServiceBrokerService implements IWebService {
 
 	private static Collection<IWebServiceFactory> getAllServiceFactories() {
 
-		return EmfSourceCodeReferencePoints.getReferencePoints(IWebServiceFactory.class);
+		return SourceCodeReferencePoints.getReferencePoints(IWebServiceFactory.class);
 	}
 }

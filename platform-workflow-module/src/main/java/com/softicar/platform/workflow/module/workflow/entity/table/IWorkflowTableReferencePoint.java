@@ -1,21 +1,21 @@
 package com.softicar.platform.workflow.module.workflow.entity.table;
 
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.entity.table.IEmfEntityTable;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import java.util.Optional;
 
 /**
- * A special {@link IEmfSourceCodeReferencePoint} referring to an
+ * A special {@link ISourceCodeReferencePoint} referring to an
  * {@link IEmfEntityTable} used in workflows.
  *
  * @author Oliver Richers
  */
-public interface IWorkflowTableReferencePoint<E extends IEmfEntity<E, ?>> extends IEmfSourceCodeReferencePoint {
+public interface IWorkflowTableReferencePoint<E extends IEmfEntity<E, ?>> extends ISourceCodeReferencePoint {
 
 	@Override
 	default IDisplayString toDisplay() {

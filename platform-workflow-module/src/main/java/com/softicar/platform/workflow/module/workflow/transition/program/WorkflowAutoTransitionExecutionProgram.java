@@ -1,11 +1,11 @@
 package com.softicar.platform.workflow.module.workflow.transition.program;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.db.sql.Sql;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
@@ -19,7 +19,7 @@ import java.util.TreeMap;
 /**
  * TODO add javadoc
  */
-@EmfSourceCodeReferencePointUuid("6e79dc47-e910-4726-b789-a570d2ce4b61")
+@SourceCodeReferencePointUuid("6e79dc47-e910-4726-b789-a570d2ce4b61")
 public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 
 	@Override

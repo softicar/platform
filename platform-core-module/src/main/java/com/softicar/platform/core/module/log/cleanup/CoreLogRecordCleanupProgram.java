@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.log.cleanup;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.core.module.CoreI18n;
@@ -9,13 +10,12 @@ import com.softicar.platform.core.module.log.process.AGLogProcess;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.user.login.AGUserLoginLog;
 import com.softicar.platform.core.module.user.login.failure.AGUserLoginFailureLog;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Optional;
 
 /**
  * TODO add javadoc
  */
-@EmfSourceCodeReferencePointUuid("1b4ca844-39b6-41a1-9afa-0863c92d1e94")
+@SourceCodeReferencePointUuid("1b4ca844-39b6-41a1-9afa-0863c92d1e94")
 public class CoreLogRecordCleanupProgram implements IProgram {
 
 	private static final int LOG_RETENTION_DAYS = 180;

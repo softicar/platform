@@ -6,6 +6,7 @@ import com.softicar.platform.ajax.export.AjaxInMemoryExportBuffer;
 import com.softicar.platform.ajax.export.IAjaxExportBuffer;
 import com.softicar.platform.ajax.request.CurrentAjaxRequest;
 import com.softicar.platform.ajax.request.IAjaxRequest;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.ajax.logging.AjaxLogging;
@@ -15,7 +16,6 @@ import com.softicar.platform.core.module.user.configuration.table.UserSpecificTa
 import com.softicar.platform.dom.resource.set.CurrentDomResourceSet;
 import com.softicar.platform.dom.resource.set.DomResourceSet;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -56,7 +56,7 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	@Override
 	public String getResourceUrlSuffix() {
 
-		return "&id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class);
+		return "&id=" + SourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class);
 	}
 
 	@Override

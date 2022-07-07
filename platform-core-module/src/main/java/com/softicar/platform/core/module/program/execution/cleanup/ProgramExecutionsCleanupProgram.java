@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.program.execution.cleanup;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Optional;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Optional;
  *
  * @author Thees Köster
  */
-@EmfSourceCodeReferencePointUuid("3cf637ec-952d-455d-a1be-7a324fff02a6")
+@SourceCodeReferencePointUuid("3cf637ec-952d-455d-a1be-7a324fff02a6")
 public class ProgramExecutionsCleanupProgram implements IProgram {
 
 	private static final int THROTTLING_MILLISECONDS = 3000;

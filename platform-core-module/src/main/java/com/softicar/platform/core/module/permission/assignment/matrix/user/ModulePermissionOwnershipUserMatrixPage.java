@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.permission.assignment.matrix.user;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
@@ -11,9 +12,8 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("5e258795-6c07-4a4c-9694-b41124271a2d")
+@SourceCodeReferencePointUuid("5e258795-6c07-4a4c-9694-b41124271a2d")
 public class ModulePermissionOwnershipUserMatrixPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override
