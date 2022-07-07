@@ -5,10 +5,10 @@ import com.softicar.platform.common.testing.Asserts;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.Test;
 
+@SuppressWarnings("resource")
 public class StreamCopyTest extends Asserts {
 
 	private static final String TEST_DATA = "Hello, world!";
@@ -23,6 +23,7 @@ public class StreamCopyTest extends Asserts {
 
 		outputStream.assertContent(TEST_DATA);
 		inputStream.assertReadCalls(2);
+		assertAllClosed(inputStream, outputStream);
 	}
 
 	@Test
@@ -36,45 +37,120 @@ public class StreamCopyTest extends Asserts {
 
 		outputStream.assertContent(TEST_DATA);
 		inputStream.assertReadCalls(6);
+		assertAllClosed(inputStream, outputStream);
 	}
 
 	@Test
 	public void testWithThrowOnRead() {
 
+		var inputStream = new TestInputStream(TEST_DATA).setThrowOnRead(true);
 		var outputStream = new TestOutputStream();
 
-		assertException(StreamCopyInputException.class, () -> new StreamCopy(new ThrowingInputputStream(), outputStream).copyAndClose());
+		assertException(StreamCopyInputException.class, () -> new StreamCopy(inputStream, outputStream).copyAndClose());
 
+		inputStream.assertReadCalls(1);
 		outputStream.assertContent("");
+		assertAllClosed(inputStream, outputStream);
 	}
 
 	@Test
 	public void testWithThrowOnWrite() {
 
 		var inputStream = new TestInputStream(TEST_DATA);
+		var outputStream = new TestOutputStream().setThrowOnWrite(true);
 
-		assertException(StreamCopyOutputException.class, () -> new StreamCopy(inputStream, new ThrowingOutputputStream()).copyAndClose());
+		assertException(StreamCopyOutputException.class, () -> new StreamCopy(inputStream, outputStream).copyAndClose());
 
 		inputStream.assertReadCalls(1);
+		outputStream.assertContent("");
+		assertAllClosed(inputStream, outputStream);
 	}
 
-	// ------------------------------ utility classes ------------------------------ //
+	@Test
+	public void testWithExceptionWhenClosingInput() {
+
+		var inputStream = new TestInputStream(TEST_DATA).setThrowOnClose(true);
+		var outputStream = new TestOutputStream();
+
+		assertException(StreamCopyInputException.class, () -> new StreamCopy(inputStream, outputStream).copyAndClose());
+
+		inputStream.assertReadCalls(2);
+		outputStream.assertContent(TEST_DATA);
+		assertAllClosed(inputStream, outputStream);
+	}
+
+	@Test
+	public void testWithExceptionWhenClosingOutput() {
+
+		var inputStream = new TestInputStream(TEST_DATA);
+		var outputStream = new TestOutputStream().setThrowOnClose(true);
+
+		assertException(StreamCopyOutputException.class, () -> new StreamCopy(inputStream, outputStream).copyAndClose());
+
+		inputStream.assertReadCalls(2);
+		outputStream.assertContent(TEST_DATA);
+		assertAllClosed(inputStream, outputStream);
+	}
+
+	// ------------------------------ utility  ------------------------------ //
+
+	private void assertAllClosed(TestInputStream inputStream, TestOutputStream outputStream) {
+
+		inputStream.assertClosed();
+		outputStream.assertClosed();
+	}
 
 	private static class TestInputStream extends ByteArrayInputStream {
 
+		private boolean throwOnRead;
+		private boolean throwOnClose;
+		private boolean closed;
 		private int readCalls;
 
 		public TestInputStream(String content) {
 
 			super(Utf8Convering.toUtf8(content));
-			this.readCalls = 0;
 		}
 
 		@Override
 		public int read(byte[] buffer) throws IOException {
 
 			readCalls++;
-			return super.read(buffer);
+
+			if (throwOnRead) {
+				throw new IOException();
+			} else {
+				return super.read(buffer);
+			}
+		}
+
+		@Override
+		public void close() throws IOException {
+
+			this.closed = true;
+
+			if (throwOnClose) {
+				throw new IOException();
+			} else {
+				super.close();
+			}
+		}
+
+		public TestInputStream setThrowOnRead(boolean throwOnRead) {
+
+			this.throwOnRead = throwOnRead;
+			return this;
+		}
+
+		public TestInputStream setThrowOnClose(boolean throwOnClose) {
+
+			this.throwOnClose = throwOnClose;
+			return this;
+		}
+
+		public void assertClosed() {
+
+			assertTrue("closed", closed);
 		}
 
 		public void assertReadCalls(int expectedCalls) {
@@ -83,29 +159,53 @@ public class StreamCopyTest extends Asserts {
 		}
 	}
 
-	private static class TestOutputStream extends ByteArrayOutputStream {
+	private static class TestOutputStream extends OutputStream {
 
-		public void assertContent(String expectedContent) {
-
-			assertEquals(expectedContent, Utf8Convering.fromUtf8(toByteArray()));
-		}
-	}
-
-	private static class ThrowingInputputStream extends InputStream {
-
-		@Override
-		public int read() throws IOException {
-
-			throw new IOException();
-		}
-	}
-
-	private static class ThrowingOutputputStream extends OutputStream {
+		private final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		private boolean throwOnWrite;
+		private boolean throwOnClose;
+		private boolean closed;
 
 		@Override
 		public void write(int buffer) throws IOException {
 
-			throw new IOException();
+			if (throwOnWrite) {
+				throw new IOException();
+			} else {
+				stream.write(buffer);
+			}
+		}
+
+		@Override
+		public void close() throws IOException {
+
+			this.closed = true;
+
+			if (throwOnClose) {
+				throw new IOException();
+			}
+		}
+
+		public TestOutputStream setThrowOnWrite(boolean throwOnWrite) {
+
+			this.throwOnWrite = throwOnWrite;
+			return this;
+		}
+
+		public TestOutputStream setThrowOnClose(boolean throwOnClose) {
+
+			this.throwOnClose = throwOnClose;
+			return this;
+		}
+
+		public void assertClosed() {
+
+			assertTrue("closed", closed);
+		}
+
+		public void assertContent(String expectedContent) {
+
+			assertEquals(expectedContent, Utf8Convering.fromUtf8(stream.toByteArray()));
 		}
 	}
 }

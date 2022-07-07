@@ -45,11 +45,9 @@ public class StreamCopy {
 
 	public void copyAndClose() {
 
-		new Copier().copy();
-
-		// closing output first, because that is more important
-		closeOutput();
-		closeInput();
+		try (var inputCloser = new InputCloser(); var outputCloser = new OutputCloser()) {
+			new Copier().copy();
+		}
 	}
 
 	private void closeInput() {
@@ -114,6 +112,24 @@ public class StreamCopy {
 			} catch (IOException exception) {
 				throw new StreamCopyOutputException(exception);
 			}
+		}
+	}
+
+	private class InputCloser implements AutoCloseable {
+
+		@Override
+		public void close() {
+
+			closeInput();
+		}
+	}
+
+	private class OutputCloser implements AutoCloseable {
+
+		@Override
+		public void close() {
+
+			closeOutput();
 		}
 	}
 }
