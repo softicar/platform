@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import com.softicar.platform.core.module.localization.AGLocalization;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBaseField;
@@ -21,18 +21,18 @@ import com.softicar.platform.db.runtime.object.sub.DbSubObjectTableBuilder;
  */
 @Generated
 @SuppressWarnings("all")
-public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreModuleInstance, AGModuleInstance> {
+public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreModuleInstance, AGModuleInstanceBase> {
 
 	// -------------------------------- STATIC CONSTANTS -------------------------------- //
 
 	// @formatter:off
-	private static final DbSubObjectTableBuilder<AGCoreModuleInstance, AGCoreModuleInstanceGenerated, AGModuleInstance, Integer> BUILDER = new DbSubObjectTableBuilder<>("Core", "CoreModuleInstance", AGCoreModuleInstance::new, AGCoreModuleInstance.class);
+	private static final DbSubObjectTableBuilder<AGCoreModuleInstance, AGCoreModuleInstanceGenerated, AGModuleInstanceBase, Integer> BUILDER = new DbSubObjectTableBuilder<>("Core", "CoreModuleInstance", AGCoreModuleInstance::new, AGCoreModuleInstance.class);
 	static {
 		BUILDER.setTitle(CoreI18n.CORE_MODULE_INSTANCE);
 		BUILDER.setPluralTitle(CoreI18n.CORE_MODULE_INSTANCES);
 	}
 
-	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstance, Integer> MODULE_INSTANCE = BUILDER.addBaseField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.TABLE).setTitle(CoreI18n.MODULE_INSTANCE).setCascade(true, true);
+	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstanceBase, Integer> BASE = BUILDER.addBaseField("base", o->o.m_base, (o,v)->o.m_base=v, AGModuleInstanceBase.TABLE).setTitle(CoreI18n.BASE).setCascade(true, true);
 	public static final IDbForeignField<AGCoreModuleInstance, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null);
 	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setComment("Server used for uploading files");
 	public static final IDbForeignField<AGCoreModuleInstance, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null);
@@ -53,7 +53,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
 
-	public final AGModuleInstance getModuleInstance() {
+	public final AGModuleInstanceBase getBase() {
 
 		return pk();
 	}
@@ -213,7 +213,7 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
-	private AGModuleInstance m_moduleInstance;
+	private AGModuleInstanceBase m_base;
 	private AGUser m_systemUser;
 	private AGStoredFileServer m_primaryFileServer;
 	private AGServer m_emailServer;

@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.core.module.permission.assignment
 
-IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
@@ -9,12 +9,12 @@ TABLE AGModuleInstancePermissionAssignment 'Core.ModuleInstancePermissionAssignm
 	PK Integer id = SERIAL
 	AGTransaction transaction [ON UPDATE CASCADE]
 	AGUser user
-	AGModuleInstance moduleInstance [ON UPDATE CASCADE]
+	AGModuleInstanceBase moduleInstanceBase [ON UPDATE CASCADE]
 	AGUuid permission
 	Boolean active = TRUE
 
-	UK user moduleInstance permission
-	IK moduleInstance
+	UK user moduleInstanceBase permission
+	IK moduleInstanceBase
 	IK permission
 	IK transaction
 }

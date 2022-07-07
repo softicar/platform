@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.permission;
 
 import com.softicar.platform.common.container.derived.DerivedObject;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
@@ -25,8 +25,8 @@ public class UserModulePermissionCache {
 			.addDependsOn(AGRole.TABLE);
 	}
 
-	public boolean hasModulePermission(AGModuleInstance moduleInstance, UUID permissionUuid) {
+	public boolean hasModulePermission(AGModuleInstanceBase moduleInstanceBase, UUID permissionUuid) {
 
-		return permissions.get().hasPermission(moduleInstance, permissionUuid);
+		return permissions.get().hasPermission(moduleInstanceBase, permissionUuid);
 	}
 }

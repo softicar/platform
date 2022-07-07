@@ -29,11 +29,11 @@
   },
   {
     "tableName": "`Core`.`CoreModuleInstanceLog`",
-    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstanceLog` (`coreModuleInstance` INT NOT NULL,`transaction` BIGINT NOT NULL,`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL,`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) DEFAULT NULL,`noReplyEmailAddress` VARCHAR(255) DEFAULT NULL,`portalProtocol` VARCHAR(255) DEFAULT NULL,`portalHost` VARCHAR(255) DEFAULT NULL,`portalApplication` VARCHAR(255) DEFAULT NULL,`systemName` VARCHAR(255) DEFAULT NULL,`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT DEFAULT NULL,`testSystem` BOOL DEFAULT NULL,PRIMARY KEY (`coreModuleInstance`, `transaction`),KEY `transaction` (`transaction`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`coreModuleInstance`) REFERENCES `Core`.`CoreModuleInstance` (`moduleInstance`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstanceLog` (`coreModuleInstance` INT NOT NULL,`transaction` BIGINT NOT NULL,`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL,`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) DEFAULT NULL,`noReplyEmailAddress` VARCHAR(255) DEFAULT NULL,`portalProtocol` VARCHAR(255) DEFAULT NULL,`portalHost` VARCHAR(255) DEFAULT NULL,`portalApplication` VARCHAR(255) DEFAULT NULL,`systemName` VARCHAR(255) DEFAULT NULL,`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT DEFAULT NULL,`testSystem` BOOL DEFAULT NULL,PRIMARY KEY (`coreModuleInstance`, `transaction`),KEY `transaction` (`transaction`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`coreModuleInstance`) REFERENCES `Core`.`CoreModuleInstance` (`base`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`CoreModuleInstance`",
-    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstance` (`moduleInstance` INT NOT NULL COMMENT '@base@',`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL COMMENT 'Server used for uploading files',`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'support@example.com',`noReplyEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'no-reply@example.com',`portalProtocol` VARCHAR(255) NOT NULL DEFAULT 'https',`portalHost` VARCHAR(255) NOT NULL DEFAULT 'www.example.com',`portalApplication` VARCHAR(255) NOT NULL DEFAULT 'portal',`systemName` VARCHAR(255) NOT NULL DEFAULT 'Forspace',`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT NOT NULL,`testSystem` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`moduleInstance`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`CoreModuleInstance` (`base` INT NOT NULL COMMENT '@base@',`systemUser` INT DEFAULT NULL,`primaryFileServer` INT DEFAULT NULL COMMENT 'Server used for uploading files',`emailServer` INT DEFAULT NULL,`supportEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'support@example.com',`noReplyEmailAddress` VARCHAR(255) NOT NULL DEFAULT 'no-reply@example.com',`portalProtocol` VARCHAR(255) NOT NULL DEFAULT 'https',`portalHost` VARCHAR(255) NOT NULL DEFAULT 'www.example.com',`portalApplication` VARCHAR(255) NOT NULL DEFAULT 'portal',`systemName` VARCHAR(255) NOT NULL DEFAULT 'Forspace',`portalLogo` INT DEFAULT NULL,`defaultLocalization` INT NOT NULL,`testSystem` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`base`),KEY `primaryFileServer` (`primaryFileServer`),KEY `systemUser` (`systemUser`),KEY `emailServer` (`emailServer`),FOREIGN KEY (`base`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,FOREIGN KEY (`systemUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`primaryFileServer`) REFERENCES `Core`.`StoredFileServer` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`emailServer`) REFERENCES `Core`.`Server` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`portalLogo`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`defaultLocalization`) REFERENCES `Core`.`Localization` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`EmailRecipientType`",
@@ -72,8 +72,12 @@
     "createStatement": "CREATE TABLE `Core`.`MaintenanceWindow` (`id` INT NOT NULL AUTO_INCREMENT,`expectedStart` DATETIME NOT NULL,`expectedEnd` DATETIME NOT NULL,`state` INT NOT NULL,`comment` TINYTEXT DEFAULT '',PRIMARY KEY (`id`),FOREIGN KEY (`state`) REFERENCES `Core`.`MaintenanceState` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
-    "tableName": "`Core`.`ModuleInstanceLog`",
-    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceLog` (`moduleInstance` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`moduleInstance`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
+    "tableName": "`Core`.`ModuleInstanceBaseLog`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceBaseLog` (`moduleInstanceBase` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`moduleInstanceBase`, `transaction`),KEY `transaction` (`transaction`),FOREIGN KEY (`moduleInstanceBase`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Core`.`ModuleInstanceBase`",
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstanceBase` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`moduleUuid` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`moduleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ModuleInstancePermissionAssignmentLog`",
@@ -81,11 +85,7 @@
   },
   {
     "tableName": "`Core`.`ModuleInstancePermissionAssignment`",
-    "createStatement": "CREATE TABLE `Core`.`ModuleInstancePermissionAssignment` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`user` INT NOT NULL,`moduleInstance` INT NOT NULL,`permission` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userModuleInstancePermission` (`user`, `moduleInstance`, `permission`),KEY `moduleInstance` (`moduleInstance`),KEY `permission` (`permission`),KEY `transaction` (`transaction`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`permission`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
-  },
-  {
-    "tableName": "`Core`.`ModuleInstance`",
-    "createStatement": "CREATE TABLE `Core`.`ModuleInstance` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`moduleUuid` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`moduleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`ModuleInstancePermissionAssignment` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`user` INT NOT NULL,`moduleInstanceBase` INT NOT NULL,`permission` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userModuleInstanceBasePermission` (`user`, `moduleInstanceBase`, `permission`),KEY `moduleInstanceBase` (`moduleInstanceBase`),KEY `permission` (`permission`),KEY `transaction` (`transaction`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstanceBase`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,FOREIGN KEY (`permission`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`ModulePanicReceiverLog`",
@@ -133,11 +133,11 @@
   },
   {
     "tableName": "`Core`.`RolePermissionLog`",
-    "createStatement": "CREATE TABLE `Core`.`RolePermissionLog` (`roleUser` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`role` INT DEFAULT NULL,`moduleInstance` INT DEFAULT NULL,`permissionUuid` INT DEFAULT NULL,PRIMARY KEY (`roleUser`, `transaction`),FOREIGN KEY (`roleUser`) REFERENCES `Core`.`RolePermission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`role`) REFERENCES `Core`.`Role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`permissionUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`RolePermissionLog` (`roleUser` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`role` INT DEFAULT NULL,`moduleInstanceBase` INT DEFAULT NULL,`permissionUuid` INT DEFAULT NULL,PRIMARY KEY (`roleUser`, `transaction`),FOREIGN KEY (`roleUser`) REFERENCES `Core`.`RolePermission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`role`) REFERENCES `Core`.`Role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstanceBase`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`permissionUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`RolePermission`",
-    "createStatement": "CREATE TABLE `Core`.`RolePermission` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`role` INT NOT NULL,`moduleInstance` INT NOT NULL,`permissionUuid` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `rolePermissionUuidModuleInstance` (`role`, `permissionUuid`, `moduleInstance`),FOREIGN KEY (`role`) REFERENCES `Core`.`Role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`permissionUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`RolePermission` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`role` INT NOT NULL,`moduleInstanceBase` INT NOT NULL,`permissionUuid` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `rolePermissionUuidModuleInstanceBase` (`role`, `permissionUuid`, `moduleInstanceBase`),FOREIGN KEY (`role`) REFERENCES `Core`.`Role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`moduleInstanceBase`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`permissionUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`RoleUserLog`",
@@ -289,7 +289,7 @@
   },
   {
     "tableName": "`Workflow`.`WorkflowDemoObject`",
-    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObject` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(50) NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`workflowItem` INT DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObject` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(50) NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`workflowItem` INT DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`base`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Workflow`.`WorkflowIconLog`",
@@ -297,7 +297,7 @@
   },
   {
     "tableName": "`Workflow`.`WorkflowIcon`",
-    "createStatement": "CREATE TABLE `Workflow`.`WorkflowIcon` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`icon` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`icon`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowIcon` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`icon` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`base`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`icon`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Workflow`.`WorkflowItemLog`",
@@ -317,7 +317,7 @@
   },
   {
     "tableName": "`Workflow`.`WorkflowModuleInstance`",
-    "createStatement": "CREATE TABLE `Workflow`.`WorkflowModuleInstance` (`moduleInstance` INT NOT NULL COMMENT '@base@',PRIMARY KEY (`moduleInstance`),FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowModuleInstance` (`base` INT NOT NULL COMMENT '@base@',PRIMARY KEY (`base`),FOREIGN KEY (`base`) REFERENCES `Core`.`ModuleInstanceBase` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Workflow`.`WorkflowNodeActionLog`",
@@ -405,6 +405,6 @@
   },
   {
     "tableName": "`Workflow`.`Workflow`",
-    "createStatement": "CREATE TABLE `Workflow`.`Workflow` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`entityTable` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`currentVersion` INT DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`entityTable`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`currentVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`Workflow` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`entityTable` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`currentVersion` INT DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`base`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`entityTable`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`currentVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   }
 ]

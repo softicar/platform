@@ -6,10 +6,10 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.module.IModule;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
-import com.softicar.platform.core.module.module.instance.ModuleInstancePredicates;
 import com.softicar.platform.core.module.module.instance.ModuleClassDoesNotImplementModuleInterfaceException;
+import com.softicar.platform.core.module.module.instance.ModuleInstanceBasePredicates;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.module.IEmfModule;
@@ -17,16 +17,16 @@ import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
-public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AGModuleInstance> {
+public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AGModuleInstanceBase> {
 
 	@Override
-	public IEmfPredicate<AGModuleInstance> getPrecondition() {
+	public IEmfPredicate<AGModuleInstanceBase> getPrecondition() {
 
-		return ModuleInstancePredicates.INITIALIZED;
+		return ModuleInstanceBasePredicates.INITIALIZED;
 	}
 
 	@Override
-	public IEmfPermission<AGModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGModuleInstanceBase> getRequiredPermission() {
 
 		return EmfDefaultModulePermissions.getModuleAdministation();
 	}
@@ -44,20 +44,20 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 	}
 
 	@Override
-	public void handleClick(AGModuleInstance moduleInstance) {
+	public void handleClick(AGModuleInstanceBase moduleInstanceBase) {
 
-		IEmfModule<?> module = moduleInstance.getModuleOrThrow();
+		IEmfModule<?> module = moduleInstanceBase.getModuleOrThrow();
 		if (module instanceof IModule) {
-			showPopup((IModule<?>) module, moduleInstance);
+			showPopup((IModule<?>) module, moduleInstanceBase);
 		} else {
 			throw new ModuleClassDoesNotImplementModuleInterfaceException(module);
 		}
 	}
 
-	private <I extends IModuleInstance<I>> void showPopup(IEmfModule<I> module, AGModuleInstance moduleInstance) {
+	private <I extends IModuleInstance<I>> void showPopup(IEmfModule<I> module, AGModuleInstanceBase moduleInstanceBase) {
 
 		I actualModuleInstance = module//
-			.getModuleInstance(moduleInstance.getId())
+			.getModuleInstance(moduleInstanceBase.getId())
 			.orElseThrow(() -> new SofticarUserException(CoreI18n.MODULE_INSTANCE_WAS_NOT_INITIALIZED));
 		new EmfFormPopup<>(actualModuleInstance).open();
 	}

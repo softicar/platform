@@ -12,9 +12,9 @@ import java.util.UUID;
 import org.junit.After;
 import org.junit.Test;
 
-public class ModuleInstanceStateCheckerTest extends AbstractModuleTest {
+public class ModuleInstanceBaseStateCheckerTest extends AbstractModuleTest {
 
-	public ModuleInstanceStateCheckerTest() {
+	public ModuleInstanceBaseStateCheckerTest() {
 
 		EmfTestModuleRegistry registry = new EmfTestModuleRegistry();
 		registry.registerModule(new TestModuleAlpha());
@@ -32,9 +32,9 @@ public class ModuleInstanceStateCheckerTest extends AbstractModuleTest {
 	public void testIsInitializedWithMissingImplementationOfModuleInterface() {
 
 		UUID moduleUuid = UUID.fromString(EmfTestModule.UUID);
-		AGModuleInstance moduleInstance = insertModuleInstance(moduleUuid);
+		AGModuleInstanceBase moduleInstanceBase = insertModuleInstanceBase(moduleUuid);
 
-		ModuleInstanceStateChecker checker = createChecker(moduleInstance);
+		ModuleInstanceBaseStateChecker checker = createChecker(moduleInstanceBase);
 
 		assertFalse(checker.isInitialized());
 	}
@@ -43,10 +43,10 @@ public class ModuleInstanceStateCheckerTest extends AbstractModuleTest {
 	public void testIsInitializedWithInitializedModule() {
 
 		UUID moduleUuid = UUID.fromString(TestModuleAlpha.UUID);
-		AGModuleInstance moduleInstance = insertModuleInstance(moduleUuid);
-		insertModuleInstance(moduleInstance);
+		AGModuleInstanceBase moduleInstanceBase = insertModuleInstanceBase(moduleUuid);
+		insertModuleInstance(moduleInstanceBase);
 
-		ModuleInstanceStateChecker checker = createChecker(moduleInstance);
+		ModuleInstanceBaseStateChecker checker = createChecker(moduleInstanceBase);
 
 		assertTrue(checker.isInitialized());
 	}
@@ -55,22 +55,22 @@ public class ModuleInstanceStateCheckerTest extends AbstractModuleTest {
 	public void testIsInitializedWithNonInitializedModule() {
 
 		UUID moduleUuid = UUID.fromString(TestModuleAlpha.UUID);
-		AGModuleInstance moduleInstance = insertModuleInstance(moduleUuid);
+		AGModuleInstanceBase moduleInstanceBase = insertModuleInstanceBase(moduleUuid);
 
-		ModuleInstanceStateChecker checker = createChecker(moduleInstance);
+		ModuleInstanceBaseStateChecker checker = createChecker(moduleInstanceBase);
 
 		assertFalse(checker.isInitialized());
 	}
 
-	private void insertModuleInstance(AGModuleInstance moduleInstance) {
+	private void insertModuleInstance(AGModuleInstanceBase moduleInstanceBase) {
 
 		new DbTestTableRowInserter<>(TestModuleAlphaInstance.TABLE)//
-			.set(TestModuleAlphaInstance.MODULE_INSTANCE, moduleInstance)
+			.set(TestModuleAlphaInstance.BASE, moduleInstanceBase)
 			.insert();
 	}
 
-	private ModuleInstanceStateChecker createChecker(AGModuleInstance moduleInstance) {
+	private ModuleInstanceBaseStateChecker createChecker(AGModuleInstanceBase moduleInstance) {
 
-		return new ModuleInstanceStateChecker(moduleInstance);
+		return new ModuleInstanceBaseStateChecker(moduleInstance);
 	}
 }

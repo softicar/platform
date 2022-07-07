@@ -3,9 +3,9 @@ PACKAGE com.softicar.platform.core.module.module.instance
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
-TABLE AGModuleInstance 'Core.ModuleInstance' {
+TABLE AGModuleInstanceBase 'Core.ModuleInstanceBase' {
 	PK Integer id = SERIAL
 	AGTransaction transaction [ON UPDATE CASCADE]
 	Boolean active = TRUE
-	AGUuid moduleUuid
+	AGUuid moduleUuid 
 }

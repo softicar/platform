@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.permission.assignment;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -34,11 +34,11 @@ public class AGModuleInstancePermissionAssignmentGenerated extends AbstractDbObj
 	public static final IDbIdField<AGModuleInstancePermissionAssignment> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbForeignField<AGModuleInstancePermissionAssignment, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
 	public static final IDbForeignField<AGModuleInstancePermissionAssignment, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
-	public static final IDbForeignField<AGModuleInstancePermissionAssignment, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGModuleInstance.ID).setTitle(CoreI18n.MODULE_INSTANCE).setCascade(false, true);
+	public static final IDbForeignField<AGModuleInstancePermissionAssignment, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE).setCascade(false, true);
 	public static final IDbForeignField<AGModuleInstancePermissionAssignment, AGUuid> PERMISSION = BUILDER.addForeignField("permission", o->o.m_permission, (o,v)->o.m_permission=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION);
 	public static final IDbBooleanField<AGModuleInstancePermissionAssignment> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbKey<AGModuleInstancePermissionAssignment> UK_USER_MODULE_INSTANCE_PERMISSION = BUILDER.addUniqueKey("userModuleInstancePermission", USER, MODULE_INSTANCE, PERMISSION);
-	public static final IDbKey<AGModuleInstancePermissionAssignment> IK_MODULE_INSTANCE = BUILDER.addIndexKey("moduleInstance", MODULE_INSTANCE);
+	public static final IDbKey<AGModuleInstancePermissionAssignment> UK_USER_MODULE_INSTANCE_BASE_PERMISSION = BUILDER.addUniqueKey("userModuleInstanceBasePermission", USER, MODULE_INSTANCE_BASE, PERMISSION);
+	public static final IDbKey<AGModuleInstancePermissionAssignment> IK_MODULE_INSTANCE_BASE = BUILDER.addIndexKey("moduleInstanceBase", MODULE_INSTANCE_BASE);
 	public static final IDbKey<AGModuleInstancePermissionAssignment> IK_PERMISSION = BUILDER.addIndexKey("permission", PERMISSION);
 	public static final IDbKey<AGModuleInstancePermissionAssignment> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final AGModuleInstancePermissionAssignmentTable TABLE = new AGModuleInstancePermissionAssignmentTable(BUILDER);
@@ -56,12 +56,12 @@ public class AGModuleInstancePermissionAssignmentGenerated extends AbstractDbObj
 		return TABLE.get(id);
 	}
 
-	public static AGModuleInstancePermissionAssignment loadByUserAndModuleInstanceAndPermission(AGUser user, AGModuleInstance moduleInstance, AGUuid permission) {
+	public static AGModuleInstancePermissionAssignment loadByUserAndModuleInstanceBaseAndPermission(AGUser user, AGModuleInstanceBase moduleInstanceBase, AGUuid permission) {
 
 		return TABLE//
 				.createSelect()
 				.where(USER.equal(user))
-				.where(MODULE_INSTANCE.equal(moduleInstance))
+				.where(MODULE_INSTANCE_BASE.equal(moduleInstanceBase))
 				.where(PERMISSION.equal(permission))
 				.getOne();
 	}
@@ -98,19 +98,19 @@ public class AGModuleInstancePermissionAssignmentGenerated extends AbstractDbObj
 		return setValue(USER, value);
 	}
 
-	public final Integer getModuleInstanceID() {
+	public final Integer getModuleInstanceBaseID() {
 
-		return getValueId(MODULE_INSTANCE);
+		return getValueId(MODULE_INSTANCE_BASE);
 	}
 
-	public final AGModuleInstance getModuleInstance() {
+	public final AGModuleInstanceBase getModuleInstanceBase() {
 
-		return getValue(MODULE_INSTANCE);
+		return getValue(MODULE_INSTANCE_BASE);
 	}
 
-	public final AGModuleInstancePermissionAssignment setModuleInstance(AGModuleInstance value) {
+	public final AGModuleInstancePermissionAssignment setModuleInstanceBase(AGModuleInstanceBase value) {
 
-		return setValue(MODULE_INSTANCE, value);
+		return setValue(MODULE_INSTANCE_BASE, value);
 	}
 
 	public final Integer getPermissionID() {
@@ -151,7 +151,7 @@ public class AGModuleInstancePermissionAssignmentGenerated extends AbstractDbObj
 	private Integer m_id;
 	private AGTransaction m_transaction;
 	private AGUser m_user;
-	private AGModuleInstance m_moduleInstance;
+	private AGModuleInstanceBase m_moduleInstanceBase;
 	private AGUuid m_permission;
 	private Boolean m_active;
 }

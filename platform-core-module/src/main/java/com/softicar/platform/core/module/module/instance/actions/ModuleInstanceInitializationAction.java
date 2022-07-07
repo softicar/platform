@@ -6,9 +6,9 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.IModule;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
-import com.softicar.platform.core.module.module.instance.ModuleInstancePredicates;
+import com.softicar.platform.core.module.module.instance.ModuleInstanceBasePredicates;
 import com.softicar.platform.emf.action.AbstractEmfButtonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.IEmfFormBody;
@@ -16,16 +16,16 @@ import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
-public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<AGModuleInstance> implements IEmfManagementAction<AGModuleInstance> {
+public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<AGModuleInstanceBase> implements IEmfManagementAction<AGModuleInstanceBase> {
 
 	@Override
-	public IEmfPredicate<AGModuleInstance> getPrecondition() {
+	public IEmfPredicate<AGModuleInstanceBase> getPrecondition() {
 
-		return ModuleInstancePredicates.NOT_INITIALIZED.and(ModuleInstancePredicates.ACTIVE);
+		return ModuleInstanceBasePredicates.NOT_INITIALIZED.and(ModuleInstanceBasePredicates.ACTIVE);
 	}
 
 	@Override
-	public IEmfPermission<AGModuleInstance> getRequiredPermission() {
+	public IEmfPermission<AGModuleInstanceBase> getRequiredPermission() {
 
 		return CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission();
 	}
@@ -43,25 +43,25 @@ public class ModuleInstanceInitializationAction extends AbstractEmfButtonAction<
 	}
 
 	@Override
-	public void handleClick(IEmfFormBody<AGModuleInstance> formBody) {
+	public void handleClick(IEmfFormBody<AGModuleInstanceBase> formBody) {
 
 		createInstanceAndShowPopup(formBody.getTableRow());
 	}
 
 	@Override
-	public void handleClick(AGModuleInstance moduleInstance) {
+	public void handleClick(AGModuleInstanceBase moduleInstanceBase) {
 
-		createInstanceAndShowPopup(moduleInstance);
+		createInstanceAndShowPopup(moduleInstanceBase);
 	}
 
-	private <I extends IModuleInstance<I>> void createInstanceAndShowPopup(AGModuleInstance moduleInstance) {
+	private <I extends IModuleInstance<I>> void createInstanceAndShowPopup(AGModuleInstanceBase moduleInstanceBase) {
 
-		createInstanceAndShowPopup(moduleInstance.getModuleOrThrow(), moduleInstance);
+		createInstanceAndShowPopup(moduleInstanceBase.getModuleOrThrow(), moduleInstanceBase);
 	}
 
-	private <I extends IModuleInstance<I>> void createInstanceAndShowPopup(IModule<I> module, AGModuleInstance moduleInstance) {
+	private <I extends IModuleInstance<I>> void createInstanceAndShowPopup(IModule<I> module, AGModuleInstanceBase moduleInstanceBase) {
 
-		I newModuleInstance = module.getModuleInstanceTable().createObject(moduleInstance);
-		new EmfFormPopup<>(newModuleInstance).open();
+		I moduleInstance = module.getModuleInstanceTable().createObject(moduleInstanceBase);
+		new EmfFormPopup<>(moduleInstance).open();
 	}
 }

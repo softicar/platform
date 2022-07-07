@@ -86,6 +86,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zurück zu %s-Prozessen");
 	I18n0 BACK_TO_OVERVIEW = new I18n0("Back to Overview")//
 		.de("Zurück zur Übersicht");
+	I18n0 BASE = new I18n0("Base")//
+		.de("Basis");
 	I18n0 BCC = new I18n0("BCC")//
 		.de("BCC");
 	I18n0 BEST_REGARDS = new I18n0("Best regards")//
@@ -498,12 +500,16 @@ public interface CoreI18n extends EmfI18n {
 		.de("Modulklassen");
 	I18n0 MODULE_INSTANCE = new I18n0("Module Instance")//
 		.de("Modulinstanz");
+	I18n0 MODULE_INSTANCE_BASE = new I18n0("Module Instance Base")//
+		.de("Modulinstanzbasis");
+	I18n0 MODULE_INSTANCE_BASE_LOG = new I18n0("Module Instance Base Log")//
+		.de("Modulinstanz-Basis-Log");
+	I18n0 MODULE_INSTANCE_BASE_LOGS = new I18n0("Module Instance Base Logs")//
+		.de("Modulinstanz-Basis-Logs");
+	I18n0 MODULE_INSTANCE_BASES = new I18n0("Module Instance Bases")//
+		.de("Modulinstanzbasen");
 	I18n0 MODULE_INSTANCE_DETAILS = new I18n0("Module Instance Details")//
 		.de("Modulinstanz-Details");
-	I18n0 MODULE_INSTANCE_LOG = new I18n0("Module Instance Log")//
-		.de("Modulinstanz-Log");
-	I18n0 MODULE_INSTANCE_LOGS = new I18n0("Module Instance Logs")//
-		.de("Modulinstanz-Logs");
 	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT = new I18n0("Module Instance Permission Assignment")//
 		.de("Modulinstanz-Berechtigungszuweisung");
 	I18n0 MODULE_INSTANCE_PERMISSION_ASSIGNMENT_LOG = new I18n0("Module Instance Permission Assignment Log")//

@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module;
 
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.ModuleInstanceTable;
 import com.softicar.platform.db.runtime.object.sub.IDbSubObjectTableBuilder;
 import com.softicar.platform.db.runtime.table.configuration.DbTableConfiguration;
@@ -13,19 +13,19 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
 public class AGCoreModuleInstanceTable extends ModuleInstanceTable<AGCoreModuleInstance> {
 
-	public AGCoreModuleInstanceTable(IDbSubObjectTableBuilder<AGCoreModuleInstance, AGModuleInstance, Integer> builder) {
+	public AGCoreModuleInstanceTable(IDbSubObjectTableBuilder<AGCoreModuleInstance, AGModuleInstanceBase, Integer> builder) {
 
 		super(builder, CoreModule.class);
 	}
 
 	@Override
-	protected void customizeTableConfiguration(DbTableConfiguration<AGCoreModuleInstance, AGModuleInstance> configuration) {
+	protected void customizeTableConfiguration(DbTableConfiguration<AGCoreModuleInstance, AGModuleInstanceBase> configuration) {
 
 		configuration.setDataInitializer(new CoreModuleInstanceTableDataInitializer());
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGCoreModuleInstance, AGModuleInstance, AGCoreModuleInstance> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGCoreModuleInstance, AGModuleInstanceBase, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.MODULE_INSTANCE);
 	}

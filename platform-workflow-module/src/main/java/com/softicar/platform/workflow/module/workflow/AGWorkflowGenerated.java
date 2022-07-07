@@ -1,7 +1,7 @@
 package com.softicar.platform.workflow.module.workflow;
 
 import com.softicar.platform.common.core.annotations.Generated;
-import com.softicar.platform.core.module.module.instance.AGModuleInstance;
+import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
@@ -33,7 +33,7 @@ public class AGWorkflowGenerated extends AbstractDbObject<AGWorkflow> {
 	}
 
 	public static final IDbIdField<AGWorkflow> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignRowField<AGWorkflow, AGWorkflowModuleInstance, AGModuleInstance> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.MODULE_INSTANCE).setTitle(WorkflowI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGWorkflow, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGWorkflow> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
 	public static final IDbForeignField<AGWorkflow, AGUuid> ENTITY_TABLE = BUILDER.addForeignField("entityTable", o->o.m_entityTable, (o,v)->o.m_entityTable=v, AGUuid.ID).setTitle(WorkflowI18n.ENTITY_TABLE);
 	public static final IDbBooleanField<AGWorkflow> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);

@@ -1,6 +1,6 @@
 PACKAGE com.softicar.platform.core.module.role.permission
 
-IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstance
+IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 IMPORT com.softicar.platform.core.module.role.AGRole
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
@@ -10,6 +10,6 @@ TABLE AGRolePermissionLog 'Core.RolePermissionLog' {
 	PK AGTransaction transaction
 	Boolean active = NULL [NULLABLE]
 	AGRole role = NULL [NULLABLE]
-	AGModuleInstance moduleInstance = NULL [NULLABLE]
+	AGModuleInstanceBase moduleInstanceBase = NULL [NULLABLE]
 	AGUuid permissionUuid = NULL [NULLABLE]
 }

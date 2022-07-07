@@ -25,7 +25,7 @@ public class AGModuleInstancePermissionAssignment extends AGModuleInstancePermis
 		return new DisplayString()
 			.append(//
 				"[%s - %s - %s]",
-				getModuleInstance().toDisplayWithoutId(),
+				getModuleInstanceBase().toDisplayWithoutId(),
 				getPermission().toDisplayWithoutId(),
 				getUser().toDisplayWithoutId());
 	}

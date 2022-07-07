@@ -17,7 +17,8 @@ public class DomEventHandlerNodeCaller {
 
 	public void call() {
 
-		eventNode.getDomDocument().setCurrentEvent(event);
+		var document = eventNode.getDomDocument();
+		document.setCurrentEvent(event);
 
 		try {
 			if (eventNode instanceof IDomEventHandler) {
@@ -32,6 +33,8 @@ public class DomEventHandlerNodeCaller {
 			} else {
 				throw exception;
 			}
+		} finally {
+			document.unsetCurrentEvent();
 		}
 	}
 
