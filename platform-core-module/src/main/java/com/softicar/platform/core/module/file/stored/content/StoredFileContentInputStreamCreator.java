@@ -37,10 +37,8 @@ public class StoredFileContentInputStreamCreator {
 		this.database = new StoredFileDatabase();
 		this.contentStores = new ArrayList<>();
 
-		AGStoredFileServer.TABLE//
-			.createSelect()
-			.where(AGStoredFileServer.ACTIVE)
-			.orderBy(AGStoredFileServer.ID)
+		AGStoredFileServer//
+			.getAllActiveWithPrimaryFirst()
 			.forEach(server -> addContentStore(new StoredFileSmbContentStore(server)));
 	}
 
