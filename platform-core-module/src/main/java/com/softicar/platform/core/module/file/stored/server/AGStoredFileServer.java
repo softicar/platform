@@ -15,11 +15,18 @@ public class AGStoredFileServer extends AGStoredFileServerGenerated implements I
 		return IDisplayString.create(getUrl());
 	}
 
+	public boolean isPrimaryServer() {
+
+		return getPrimary()//
+			.map(it -> it.equals(this))
+			.orElse(false);
+	}
+
 	public static List<AGStoredFileServer> getAllActiveWithPrimaryFirst() {
 
 		List<AGStoredFileServer> servers = new ArrayList<>();
-		Optional<AGStoredFileServer> primaryServer = getInstance();
-		getInstance().ifPresent(servers::add);
+		Optional<AGStoredFileServer> primaryServer = getPrimary();
+		primaryServer.ifPresent(servers::add);
 		AGStoredFileServer.TABLE//
 			.createSelect()
 			.where(AGStoredFileServer.ACTIVE)
@@ -29,7 +36,7 @@ public class AGStoredFileServer extends AGStoredFileServerGenerated implements I
 		return servers;
 	}
 
-	public static Optional<AGStoredFileServer> getInstance() {
+	public static Optional<AGStoredFileServer> getPrimary() {
 
 		return Optional//
 			.ofNullable(AGCoreModuleInstance.getInstance())

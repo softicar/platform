@@ -22,6 +22,7 @@ public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, 
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGStoredFileServer, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.setIcon(CoreImages.STORED_FILE_SERVER);
+		configuration.addValidator(StoredFileServerValidator::new);
 	}
 
 	@Override
