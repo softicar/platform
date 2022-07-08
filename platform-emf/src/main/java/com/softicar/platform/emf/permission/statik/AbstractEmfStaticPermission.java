@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.permission.statik;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +33,7 @@ public abstract class AbstractEmfStaticPermission<T> implements IEmfStaticPermis
 	/**
 	 * FIXME i80598 This override should not be necessary because the UUID of
 	 * any static permission should be determined from an
-	 * {@link EmfSourceCodeReferencePointUuid} annotation.
+	 * {@link SourceCodeReferencePointUuid} annotation.
 	 */
 	@Override
 	public UUID getAnnotatedUuid() {

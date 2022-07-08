@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
@@ -9,7 +10,6 @@ import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
 
 public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implements IModuleInstance<AGCoreModuleInstance> {
@@ -52,7 +52,7 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 	@Override
 	public IUuid getModuleUuid() {
 
-		return () -> EmfSourceCodeReferencePoints.getUuidOrThrow(CoreModule.class);
+		return () -> SourceCodeReferencePoints.getUuidOrThrow(CoreModule.class);
 	}
 
 	@Override

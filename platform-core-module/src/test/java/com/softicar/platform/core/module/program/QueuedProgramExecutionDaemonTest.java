@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.core.thread.sleeper.DefaultSleeper;
@@ -11,7 +12,6 @@ import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.time.Duration;
 import java.util.UUID;
 import org.junit.Test;
@@ -33,7 +33,7 @@ import org.junit.Test;
 public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static final int THREAD_LIMIT = 2;
-	private static final UUID TEST_PROGRAM_UUID = EmfSourceCodeReferencePoints.getUuidOrThrow(TestProgram.class);
+	private static final UUID TEST_PROGRAM_UUID = SourceCodeReferencePoints.getUuidOrThrow(TestProgram.class);
 	private final TestThreadRunner threadRunner;
 	private final QueuedProgramExecutionDaemon daemon;
 	private final DayTime now;

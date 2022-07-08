@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.password;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -7,10 +8,9 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
-@EmfSourceCodeReferencePointUuid("813e9c8d-3c06-4ff8-8fed-aaffc05503b4")
+@SourceCodeReferencePointUuid("813e9c8d-3c06-4ff8-8fed-aaffc05503b4")
 public class UserPasswordPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override

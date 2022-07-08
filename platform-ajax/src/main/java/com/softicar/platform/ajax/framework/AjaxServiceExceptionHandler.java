@@ -2,9 +2,9 @@ package com.softicar.platform.ajax.framework;
 
 import com.softicar.platform.ajax.exceptions.AjaxHttpError;
 import com.softicar.platform.ajax.exceptions.AjaxHttpInternalServerError;
-import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
-import java.io.IOException;
+import com.softicar.platform.common.core.utils.DevNull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,8 +43,9 @@ public class AjaxServiceExceptionHandler {
 
 		try {
 			response.sendError(errorCode);
-		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
+		} catch (Exception exception) {
+			DevNull.swallow(exception);
+			Log.ferror("Failed to send HTTP error to client. The HTTP client probably closed the connection prematurely.");
 		}
 	}
 }

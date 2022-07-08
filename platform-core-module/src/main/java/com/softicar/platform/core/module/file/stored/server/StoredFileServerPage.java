@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.file.stored.server;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -7,10 +8,9 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
-@EmfSourceCodeReferencePointUuid("08a801ac-1d24-4e9f-8e03-030c3411ec66")
+@SourceCodeReferencePointUuid("08a801ac-1d24-4e9f-8e03-030c3411ec66")
 public class StoredFileServerPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override

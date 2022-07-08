@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.reader.InputStreamReaderFactory;
 import com.softicar.platform.common.io.reader.ManagedReader;
+import com.softicar.platform.common.io.stream.copy.StreamCopy;
 import com.softicar.platform.common.io.writer.ManagedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -53,25 +54,12 @@ public class StreamUtils {
 
 	public static void copy(InputStream input, OutputStream output) {
 
-		try {
-			int n;
-			byte[] buffer = new byte[BUFFER_SIZE];
-			while ((n = input.read(buffer)) != -1) {
-				output.write(buffer, 0, n);
-			}
-			output.flush();
-		} catch (IOException exception) {
-			throw new SofticarIOException(exception);
-		}
+		new StreamCopy(input, output).copyAndFlush();
 	}
 
 	public static void copyAndClose(InputStream input, OutputStream output) {
 
-		copy(input, output);
-
-		// closing output first, because that is more important
-		close(output);
-		close(input);
+		new StreamCopy(input, output).copyAndClose();
 	}
 
 	/**

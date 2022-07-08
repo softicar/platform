@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.profile;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
@@ -11,9 +12,8 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("5d317385-4f95-4f9b-a919-29a69bac2d0b")
+@SourceCodeReferencePointUuid("5d317385-4f95-4f9b-a919-29a69bac2d0b")
 public class UserProfilePage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override

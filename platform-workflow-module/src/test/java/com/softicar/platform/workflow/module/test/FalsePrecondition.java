@@ -1,10 +1,10 @@
 package com.softicar.platform.workflow.module.test;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.workflow.module.workflow.node.precondition.IWorkflowPrecondition;
 
-@EmfSourceCodeReferencePointUuid("bfb13fb4-b354-4fa7-838c-109f3befcf77")
+@SourceCodeReferencePointUuid("bfb13fb4-b354-4fa7-838c-109f3befcf77")
 public class FalsePrecondition implements IWorkflowPrecondition<WorkflowTestObject> {
 
 	@Override

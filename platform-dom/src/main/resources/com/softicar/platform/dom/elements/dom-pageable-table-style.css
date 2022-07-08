@@ -7,6 +7,10 @@
 	padding: 0 1em 1em 1em;
 }
 
+.DomPageableTableNavigation:empty {
+	display: none;
+}
+
 .DomPageableTableNavigationPageList {
 	display: flex;
 	flex-direction: row;

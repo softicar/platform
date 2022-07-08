@@ -1,5 +1,7 @@
 package com.softicar.platform.emf.module;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
@@ -10,8 +12,6 @@ import com.softicar.platform.emf.module.extension.IEmfModuleExtensionRegistry;
 import com.softicar.platform.emf.module.message.bus.IEmfModuleMessageBus;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -20,14 +20,14 @@ import java.util.Optional;
  * <p>
  * Non-abstract implementations are expected to
  * <ul>
- * <li>be annotated with {@link EmfSourceCodeReferencePointUuid}</li>
+ * <li>be annotated with {@link SourceCodeReferencePointUuid}</li>
  * <li>have a parameter-less constructor</li>
  * </ul>
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public interface IEmfModule<I extends IEmfModuleInstance<I>> extends IEmfSourceCodeReferencePoint {
+public interface IEmfModule<I extends IEmfModuleInstance<I>> extends ISourceCodeReferencePoint {
 
 	/**
 	 * Returns the class name of this module.

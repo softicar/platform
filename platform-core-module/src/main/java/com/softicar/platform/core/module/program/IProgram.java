@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Optional;
 
-public interface IProgram extends IEmfSourceCodeReferencePoint {
+public interface IProgram extends ISourceCodeReferencePoint {
 
 	@Override
 	default IDisplayString toDisplay() {

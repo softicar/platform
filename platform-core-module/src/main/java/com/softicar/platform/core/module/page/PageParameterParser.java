@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.IAjaxDocumentParameters;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.uuid.Uuids;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.start.page.StartPage;
 import com.softicar.platform.emf.page.IEmfPage;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,10 +49,10 @@ class PageParameterParser {
 			if (pageUuid.isEmpty()) {
 				throw new SofticarUserException(CoreI18n.ILLEGAL_UUID_FOR_REQUEST_PARAMETER_ARG1_ARG2.toDisplay(PAGE_PARAMETER, pageUuidText));
 			}
-			return EmfSourceCodeReferencePoints.getReferencePointOrThrow(pageUuid.get(), IEmfPage.class);
+			return SourceCodeReferencePoints.getReferencePointOrThrow(pageUuid.get(), IEmfPage.class);
 		} else {
 			//FIXME This should maybe also manipulate the Url.
-			return EmfSourceCodeReferencePoints.getReferencePoint(StartPage.class);
+			return SourceCodeReferencePoints.getReferencePoint(StartPage.class);
 		}
 	}
 }

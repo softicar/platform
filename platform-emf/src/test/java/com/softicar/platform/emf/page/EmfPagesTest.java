@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.page;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.container.iterable.Iterables;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.test.module.EmfTestModule;
 import com.softicar.platform.emf.test.module.EmfTestModuleInstance;
 import java.util.Collection;
@@ -18,7 +18,7 @@ public class EmfPagesTest extends AbstractTest {
 	public EmfPagesTest() {
 
 		this.testModule = CurrentEmfModuleRegistry.get().getModule(EmfTestModule.class);
-		this.testPage = EmfSourceCodeReferencePoints.getReferencePoint(EmfTestPage.class);
+		this.testPage = SourceCodeReferencePoints.getReferencePoint(EmfTestPage.class);
 	}
 
 	@Test

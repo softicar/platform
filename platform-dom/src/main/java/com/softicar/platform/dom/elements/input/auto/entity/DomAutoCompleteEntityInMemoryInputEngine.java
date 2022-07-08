@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.input.auto.entity;
 
 import com.softicar.platform.common.container.derived.DerivedObject;
 import com.softicar.platform.common.core.entity.IEntity;
+import com.softicar.platform.common.core.interfaces.Consumers;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.transaction.ITransaction;
 import java.util.ArrayList;
@@ -9,8 +10,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -19,6 +22,7 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 
 	private final DerivedObject<Cache> cache;
 	private Supplier<Collection<T>> loader;
+	private Consumer<Collection<T>> prefetcher;
 
 	public DomAutoCompleteEntityInMemoryInputEngine() {
 
@@ -29,12 +33,18 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 
 		this.cache = new DerivedObject<>(Cache::new);
 		this.loader = loader;
+		this.prefetcher = Consumers.noOperation();
 	}
 
 	public void setLoader(Supplier<Collection<T>> loader) {
 
-		this.loader = loader;
+		this.loader = Objects.requireNonNull(loader);
 		this.cache.invalidate();
+	}
+
+	public void setPrefetcher(Consumer<Collection<T>> prefetcher) {
+
+		this.prefetcher = Objects.requireNonNull(prefetcher);
 	}
 
 	public DomAutoCompleteEntityInMemoryInputEngine<T> addDependsOn(Object sourceObject) {
@@ -155,7 +165,9 @@ public class DomAutoCompleteEntityInMemoryInputEngine<T extends IEntity> extends
 			this.itemMap = new TreeMap<>();
 			this.itemList = new ArrayList<>();
 
-			loader.get().forEach(this::addItem);
+			var items = loader.get();
+			prefetcher.accept(items);
+			items.forEach(this::addItem);
 		}
 
 		public void addItem(T item) {

@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.module.overview;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
@@ -11,9 +12,8 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("eabae24f-5748-4c0b-9466-dbb609bf0dfe")
+@SourceCodeReferencePointUuid("eabae24f-5748-4c0b-9466-dbb609bf0dfe")
 public class ModuleOverviewPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override

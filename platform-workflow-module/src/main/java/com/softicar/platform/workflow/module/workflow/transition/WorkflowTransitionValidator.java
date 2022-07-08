@@ -1,11 +1,11 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 import com.softicar.platform.emf.validation.EmfValidationException;
@@ -84,14 +84,14 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 
 	private void assertValidSideEffect(AGUuid sideEffectUuid) {
 
-		EmfSourceCodeReferencePoints//
+		SourceCodeReferencePoints//
 			.getReferencePoint(sideEffectUuid.getUuid())
 			.ifPresentOrElse(//
 				this::assertValidSideEffect,
 				() -> addError(AGWorkflowTransition.SIDE_EFFECT, WorkflowI18n.MISSING_SOURCE_CODE_REFERENCE_POINT));
 	}
 
-	private void assertValidSideEffect(IEmfSourceCodeReferencePoint sideEffect) {
+	private void assertValidSideEffect(ISourceCodeReferencePoint sideEffect) {
 
 		CastUtils//
 			.tryCast(sideEffect, IWorkflowTransitionSideEffect.class)
