@@ -1,0 +1,138 @@
+package com.softicar.platform.dom.elements.input.auto;
+
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.LanguageEnum;
+import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.dom.DomI18n;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import org.junit.Test;
+
+public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoCompleteDefaultInputEngineTest {
+
+	private final DomAutoCompleteDefaultInputEngine<TestElement> inputEngine;
+
+	public DomAutoCompleteDefaultInputEngineTest() {
+
+		this.inputEngine = new DomAutoCompleteDefaultInputEngine<>();
+		inputEngine.setLoader(() -> elements);
+
+		addTestElement(DomI18n.ONE, 1);
+		addTestElement(DomI18n.TWO, 2);
+		addTestElement(DomI18n.THREE, 3);
+		addTestElement(DomI18n.FOUR, 4);
+		addTestElement(DomI18n.FIVE, 5);
+	}
+
+	// ------------------------------ unique display strings ------------------------------ //
+
+	@Test
+	public void testWithEmptyPattern() {
+
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("", 0)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("", 1)));
+		assertEquals("[Five, Four, One]", toDisplayStrings(inputEngine.findMatches("", 3)));
+		assertEquals("[Five, Four, One, Three, Two]", toDisplayStrings(inputEngine.findMatches("", 5)));
+		assertEquals("[Five, Four, One, Three, Two]", toDisplayStrings(inputEngine.findMatches("", 10)));
+	}
+
+	@Test
+	public void testWithOneLetterPattern() {
+
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Five, One]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+	}
+
+	@Test
+	public void testWithTwoLetterPattern() {
+
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("iv", 0)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 1)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 2)));
+	}
+
+	// ------------------------------ unique display strings with translation ------------------------------ //
+
+	@Test
+	public void testWithOneLetterPatternAndTranslation() {
+
+		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
+
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
+		assertEquals("[Drei]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Drei, Eins]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Drei, Eins, Vier]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Drei, Eins, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+		assertEquals("[Drei, Eins, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 5)));
+	}
+
+	@Test
+	public void testWithTwoLetterPatternAndTranslation() {
+
+		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
+
+		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("ei", 0)));
+		assertEquals("[Drei]", toDisplayStrings(inputEngine.findMatches("ei", 1)));
+		assertEquals("[Drei, Eins]", toDisplayStrings(inputEngine.findMatches("ei", 2)));
+		assertEquals("[Drei, Eins, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 3)));
+		assertEquals("[Drei, Eins, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 4)));
+	}
+
+	// ------------------------------ redundant display strings ------------------------------ //
+
+	@Test
+	public void testWithRedundantDisplayStrings() {
+
+		addTestElement("four", 44);
+		addTestElement("five", 55);
+
+		assertEquals("[Five (1), five (2), Four (1), four (2)]", toDisplayStrings(inputEngine.findMatches("f", 9)));
+		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
+		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("five", 9)));
+		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1", 9)));
+		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1)", 9)));
+	}
+
+	@Test
+	public void testWithRedundantSubStrings() {
+
+		addTestElement("FourA", 6);
+		addTestElement("AFour", 7);
+
+		assertEquals("[AFour, Five, Four, FourA]", toDisplayStrings(inputEngine.findMatches("f", 9)));
+		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("fo", 9)));
+		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("four", 9)));
+	}
+
+	// ------------------------------ with custom display function ------------------------------ //
+
+	@Test
+	public void testWithRedundantDisplayStringsAndCustomDisplayFunction() {
+
+		inputEngine.setDisplayFunction(element -> IDisplayString.create("%s [%s]".formatted(element.toDisplay(), element.getValue())));
+
+		addTestElement("four", 44);
+		addTestElement("five", 55);
+
+		assertEquals("[five [55], Five [5], four [44], Four [4]]", toDisplayStrings(inputEngine.findMatches("f", 9)));
+		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
+		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five", 9)));
+		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5", 9)));
+		assertEquals("[Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
+	}
+
+	// ------------------------------ private ------------------------------ //
+
+	private String toDisplayStrings(Collection<TestElement> matches) {
+
+		return matches//
+			.stream()
+			.map(inputEngine::getDisplayString)
+			.collect(Collectors.toList())
+			.toString();
+	}
+}

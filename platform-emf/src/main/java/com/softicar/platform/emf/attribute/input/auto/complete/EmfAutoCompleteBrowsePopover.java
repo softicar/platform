@@ -1,5 +1,6 @@
-package com.softicar.platform.emf.attribute.field.foreign.entity.input.browse;
+package com.softicar.platform.emf.attribute.input.auto.complete;
 
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
@@ -18,23 +19,23 @@ import java.util.Objects;
  *
  * @author Daniel Klose
  */
-class EmfEntityInputBrowsePopover<E extends IEmfEntity<E, ?>> extends DomPopover {
+class EmfAutoCompleteBrowsePopover<T> extends DomPopover {
 
-	private final EmfEntityInput<E> input;
+	private final DomAutoCompleteInput<T> input;
 
-	public EmfEntityInputBrowsePopover(EmfEntityInput<E> input, IDomAutoCompleteInputEngine<E> inputEngine) {
+	public EmfAutoCompleteBrowsePopover(DomAutoCompleteInput<T> input, IDomAutoCompleteInputEngine<T> inputEngine) {
 
 		this.input = Objects.requireNonNull(input);
 		addCssClass(EmfCssClasses.EMF_ENTITY_INPUT_BROWSE_POPOVER);
-		var table = new EmfEntityInputBrowseTable<>(Objects.requireNonNull(inputEngine));
+		var table = new EmfAutoCompleteBrowseTable<>(Objects.requireNonNull(inputEngine));
 		new EmfDataTableDivBuilder<>(table)//
-			.setColumnHandler(table.getNameColumn(), new EmfEntityInputBrowseColumnHandler<>(this::setInputValueAndHide))
+			.setColumnHandler(table.getNameColumn(), new EmfAutoCompleteBrowseColumnHandler<>(inputEngine, this::setInputValueAndHide))
 			.setPageSize(DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY)
 			.setHideNavigationActionButtons(true)
 			.buildAndAppendTo(this);
 	}
 
-	private void setInputValueAndHide(E entity) {
+	private void setInputValueAndHide(T entity) {
 
 		input.setValueAndHandleChangeCallback(entity);
 		close();
