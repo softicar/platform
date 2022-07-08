@@ -1,33 +1,32 @@
-package com.softicar.platform.emf.attribute.field.foreign.entity.input.browse;
+package com.softicar.platform.emf.attribute.input.auto.complete;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.entity.IEmfEntity;
 import java.util.Objects;
 
-class EmfEntityInputBrowseTable<E extends IEmfEntity<E, ?>> extends AbstractInMemoryDataTable<E> {
+class EmfAutoCompleteBrowseTable<T> extends AbstractInMemoryDataTable<T> {
 
-	private final IDomAutoCompleteInputEngine<E> inputEngine;
-	private final IDataTableColumn<E, String> nameColumn;
+	private final IDomAutoCompleteInputEngine<T> inputEngine;
+	private final IDataTableColumn<T, String> nameColumn;
 
-	public EmfEntityInputBrowseTable(IDomAutoCompleteInputEngine<E> inputEngine) {
+	public EmfAutoCompleteBrowseTable(IDomAutoCompleteInputEngine<T> inputEngine) {
 
 		this.inputEngine = Objects.requireNonNull(inputEngine);
 		this.nameColumn = newColumn(String.class)//
-			.setGetter(entity -> entity.toDisplay().toString())
+			.setGetter(entity -> inputEngine.getDisplayString(entity).toString())
 			.setTitle(EmfI18n.ENTRY)
 			.addColumn();
 	}
 
-	public IDataTableColumn<E, String> getNameColumn() {
+	public IDataTableColumn<T, String> getNameColumn() {
 
 		return nameColumn;
 	}
 
 	@Override
-	protected Iterable<E> getTableRows() {
+	protected Iterable<T> getTableRows() {
 
 		return inputEngine.findMatches("", Integer.MAX_VALUE);
 	}
