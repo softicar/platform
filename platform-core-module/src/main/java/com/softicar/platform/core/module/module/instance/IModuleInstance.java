@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.module.instance;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.core.user.IBasicUser;
@@ -7,7 +8,6 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.sub.object.IEmfSubObject;
 
 /**
@@ -21,7 +21,7 @@ public interface IModuleInstance<I extends IModuleInstance<I>> extends IEmfModul
 	@Override
 	default IUuid getModuleUuid() {
 
-		return () -> EmfSourceCodeReferencePoints.getUuidOrThrow(table().getModuleClass());
+		return () -> SourceCodeReferencePoints.getUuidOrThrow(table().getModuleClass());
 	}
 
 	@Override

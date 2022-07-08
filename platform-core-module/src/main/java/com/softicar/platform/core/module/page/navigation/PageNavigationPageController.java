@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.page.navigation;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
@@ -12,7 +13,6 @@ import com.softicar.platform.core.module.start.page.StartPage;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.emf.page.IEmfPage;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Optional;
 
 public class PageNavigationPageController {
@@ -56,7 +56,7 @@ public class PageNavigationPageController {
 
 	private void showStartPageWithAlert(IDisplayString message) {
 
-		showPage(EmfSourceCodeReferencePoints.getReferencePoint(StartPage.class), AGCoreModuleInstance.getInstance().getId());
+		showPage(SourceCodeReferencePoints.getReferencePoint(StartPage.class), AGCoreModuleInstance.getInstance().getId());
 		new DomModalAlertDialog(message).open();
 	}
 

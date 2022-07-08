@@ -1,14 +1,14 @@
 package com.softicar.platform.demo.core.module;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.AbstractModule;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.demo.DemoI18n;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("2a477df7-2004-4f59-b6c6-1c8cfb07baa8")
+@SourceCodeReferencePointUuid("2a477df7-2004-4f59-b6c6-1c8cfb07baa8")
 public class DemoCoreModule extends AbstractModule<AGDemoCoreModuleInstance> {
 
 	@Override

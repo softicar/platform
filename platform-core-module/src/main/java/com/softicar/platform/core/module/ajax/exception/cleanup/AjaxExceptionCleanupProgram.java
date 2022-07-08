@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.ajax.exception.cleanup;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.Day;
@@ -7,13 +8,12 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.exception.AGAjaxException;
 import com.softicar.platform.core.module.program.IProgram;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Optional;
 
 /**
  * TODO add javadoc
  */
-@EmfSourceCodeReferencePointUuid("f32a65ea-c410-47d2-b752-f7d5961eab40")
+@SourceCodeReferencePointUuid("f32a65ea-c410-47d2-b752-f7d5961eab40")
 public class AjaxExceptionCleanupProgram implements IProgram {
 
 	private static final int DAYS_TO_KEEP = 14;

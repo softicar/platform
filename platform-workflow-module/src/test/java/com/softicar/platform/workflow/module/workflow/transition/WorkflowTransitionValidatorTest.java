@@ -1,7 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.validation.result.EmfValidationResult;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.demo.sideeffect.WorkflowDemoObjectApproveSideEffect;
@@ -44,7 +44,7 @@ public class WorkflowTransitionValidatorTest extends AbstractTestObjectWorkflowT
 	@Test
 	public void testValidateWithSideEffectThatIsReferencePointButNotSideEffect() {
 
-		AGUuid uuid = AGUuid.getOrCreate(EmfSourceCodeReferencePoints.getUuidOrThrow(DummySourceCodeReferencePoint.class));
+		AGUuid uuid = AGUuid.getOrCreate(SourceCodeReferencePoints.getUuidOrThrow(DummySourceCodeReferencePoint.class));
 		transition.setSideEffect(uuid);
 
 		new WorkflowTransitionValidator().validate(transition, result);
@@ -55,7 +55,7 @@ public class WorkflowTransitionValidatorTest extends AbstractTestObjectWorkflowT
 	@Test
 	public void testValidateWithSideEffectWithIncompatibleWorkflowableItem() {
 
-		AGUuid uuid = AGUuid.getOrCreate(EmfSourceCodeReferencePoints.getUuidOrThrow(WorkflowDemoObjectApproveSideEffect.class));
+		AGUuid uuid = AGUuid.getOrCreate(SourceCodeReferencePoints.getUuidOrThrow(WorkflowDemoObjectApproveSideEffect.class));
 		transition.setSideEffect(uuid);
 
 		new WorkflowTransitionValidator().validate(transition, result);

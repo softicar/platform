@@ -1,5 +1,7 @@
 package com.softicar.platform.core.module.program.execution.cleanup;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.logging.LogLevel;
@@ -15,8 +17,6 @@ import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.utils.DbAssertUtils;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -197,7 +197,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 	private AGUuid insertUuid(Class<?> referencePointClass) {
 
-		UUID uuid = EmfSourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
+		UUID uuid = SourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
 		byte[] uuidBytes = UuidBytes.asBytes(uuid);
 
 		return new AGUuid()//
@@ -238,19 +238,19 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	}
 
 	@TestingOnly
-	@EmfSourceCodeReferencePointUuid("c977d6ed-ad3d-4748-a7fc-1a64be5c4728")
+	@SourceCodeReferencePointUuid("c977d6ed-ad3d-4748-a7fc-1a64be5c4728")
 	public static class TestProgram1 extends AbstractTestProgram {
 		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}
 
 	@TestingOnly
-	@EmfSourceCodeReferencePointUuid("fc4033f8-3130-4542-bb03-0b3948c87ff1")
+	@SourceCodeReferencePointUuid("fc4033f8-3130-4542-bb03-0b3948c87ff1")
 	public static class TestProgram2 extends AbstractTestProgram {
 		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}
 
 	@TestingOnly
-	@EmfSourceCodeReferencePointUuid("73b18606-65b0-4cb0-8e7b-26b3530d403c")
+	@SourceCodeReferencePointUuid("73b18606-65b0-4cb0-8e7b-26b3530d403c")
 	public static class TestProgram3 extends AbstractTestProgram {
 		// Exists only to mock a real program with a sourceCodeReferencePoint
 	}

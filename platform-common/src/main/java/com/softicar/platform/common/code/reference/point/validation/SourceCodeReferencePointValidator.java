@@ -1,22 +1,22 @@
-package com.softicar.platform.emf.source.code.reference.point.validation;
+package com.softicar.platform.common.code.reference.point.validation;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.code.validator.AbstractJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaClassValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 
 /**
- * Validates all classes with an {@link EmfSourceCodeReferencePointUuid}
+ * Validates all classes with an {@link SourceCodeReferencePointUuid}
  * annotation.
  *
  * @author Oliver Richers
  */
 @JavaCodeValidator
-public class EmfSourceCodeReferencePointValidator extends AbstractJavaCodeValidator {
+public class SourceCodeReferencePointValidator extends AbstractJavaCodeValidator {
 
-	public EmfSourceCodeReferencePointValidator() {
+	public SourceCodeReferencePointValidator() {
 
 		setClassFilter(this::isReferencePointClass);
 		addClassValidator(this::validateClass);
@@ -29,13 +29,13 @@ public class EmfSourceCodeReferencePointValidator extends AbstractJavaCodeValida
 
 	private boolean hasReferencePointAnnotation(AnalyzedJavaClass javaClass) {
 
-		return javaClass.hasAnnotation(EmfSourceCodeReferencePointUuid.class);
+		return javaClass.hasAnnotation(SourceCodeReferencePointUuid.class);
 	}
 
 	private boolean implementsReferencePointInterface(AnalyzedJavaClass javaClass) {
 
 		// TODO check transitively implemented interfaces
-		return javaClass.implementsInterface(IEmfSourceCodeReferencePoint.class) && !javaClass.isAbstract() && !javaClass.isInterface();
+		return javaClass.implementsInterface(ISourceCodeReferencePoint.class) && !javaClass.isAbstract() && !javaClass.isInterface();
 	}
 
 	private void validateClass(Class<?> referencePointClass) {
@@ -43,8 +43,8 @@ public class EmfSourceCodeReferencePointValidator extends AbstractJavaCodeValida
 		new JavaClassValidator(this, referencePointClass)//
 			.assertIsNotAbstract()
 			.assertIsNotInterface()
-			.assertImplementsInterface(IEmfSourceCodeReferencePoint.class)
-			.assertHasAnnotation(EmfSourceCodeReferencePointUuid.class)
+			.assertImplementsInterface(ISourceCodeReferencePoint.class)
+			.assertHasAnnotation(SourceCodeReferencePointUuid.class)
 			.assertHasParameterlessConstructor()
 			.assertHasNoNonStaticFieldsDeep();
 	}

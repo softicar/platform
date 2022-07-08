@@ -1,4 +1,4 @@
-package com.softicar.platform.emf.source.code.reference.point;
+package com.softicar.platform.common.code.reference.point;
 
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import java.util.Collection;
@@ -9,47 +9,47 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
- * Holds all existing {@link IEmfSourceCodeReferencePoint} instances.
+ * Holds all existing {@link ISourceCodeReferencePoint} instances.
  *
  * @author Oliver Richers
  */
-class EmfSourceCodeReferencePointRegistry {
+class SourceCodeReferencePointRegistry {
 
-	private static final EmfSourceCodeReferencePointRegistry INSTANCE = new EmfSourceCodeReferencePointRegistry();
-	private final Map<UUID, IEmfSourceCodeReferencePoint> referencePoints;
+	private static final SourceCodeReferencePointRegistry INSTANCE = new SourceCodeReferencePointRegistry();
+	private final Map<UUID, ISourceCodeReferencePoint> referencePoints;
 
-	public static EmfSourceCodeReferencePointRegistry getInstance() {
+	public static SourceCodeReferencePointRegistry getInstance() {
 
 		return INSTANCE;
 	}
 
-	public EmfSourceCodeReferencePointRegistry() {
+	public SourceCodeReferencePointRegistry() {
 
-		this.referencePoints = new EmfSourceCodeReferencePointsLoader().loadAll();
+		this.referencePoints = new SourceCodeReferencePointsLoader().loadAll();
 	}
 
 	/**
-	 * Returns the matching {@link IEmfSourceCodeReferencePoint} for the given
+	 * Returns the matching {@link ISourceCodeReferencePoint} for the given
 	 * {@link UUID}.
 	 *
 	 * @param uuid
 	 *            the {@link UUID} (never <i>null</i>)
-	 * @return the {@link IEmfSourceCodeReferencePoint} as {@link Optional}
+	 * @return the {@link ISourceCodeReferencePoint} as {@link Optional}
 	 */
-	public Optional<IEmfSourceCodeReferencePoint> getReferencePoint(UUID uuid) {
+	public Optional<ISourceCodeReferencePoint> getReferencePoint(UUID uuid) {
 
 		return Optional.ofNullable(referencePoints.get(uuid));
 	}
 
 	/**
-	 * Returns all instances of {@link IEmfSourceCodeReferencePoint},
+	 * Returns all instances of {@link ISourceCodeReferencePoint},
 	 * implementing the given class.
 	 *
 	 * @param <T>
 	 *            the type of class to filter for
 	 * @param targetClass
 	 *            the class to filter for
-	 * @return all matching instances of {@link IEmfSourceCodeReferencePoint}
+	 * @return all matching instances of {@link ISourceCodeReferencePoint}
 	 *         (never <i>null</i>)
 	 */
 	public <T> Collection<T> getReferencePoints(Class<T> targetClass) {
