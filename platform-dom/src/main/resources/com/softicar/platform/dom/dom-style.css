@@ -120,6 +120,7 @@ textarea {
 input[type=text],
 input[type=password],
 textarea {
+	height: 14px;
 	border: 1px solid var(--INPUT_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
 	outline: none;
