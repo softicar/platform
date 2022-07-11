@@ -8,7 +8,7 @@ public class StoredFileServerValidator extends AbstractEmfValidator<AGStoredFile
 	@Override
 	protected void validate() {
 
-		if (tableRow.isPrimaryServer() && !tableRow.isActive()) {
+		if (tableRow.isPrimary() && !tableRow.isActive()) {
 			addError(AGStoredFileServer.ACTIVE, CoreI18n.CANNOT_DEACTIVATE_PRIMARY_FILE_SERVER);
 		}
 	}

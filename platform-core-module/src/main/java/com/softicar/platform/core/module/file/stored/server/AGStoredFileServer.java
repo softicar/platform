@@ -15,7 +15,7 @@ public class AGStoredFileServer extends AGStoredFileServerGenerated implements I
 		return IDisplayString.create(getUrl());
 	}
 
-	public boolean isPrimaryServer() {
+	public boolean isPrimary() {
 
 		return getPrimary()//
 			.map(it -> it.equals(this))
@@ -40,6 +40,7 @@ public class AGStoredFileServer extends AGStoredFileServerGenerated implements I
 
 		return Optional//
 			.ofNullable(AGCoreModuleInstance.getInstance())
-			.map(AGCoreModuleInstance::getPrimaryFileServer);
+			.map(AGCoreModuleInstance::getPrimaryFileServer)
+			.map(it -> it.isActive()? it : null);
 	}
 }
