@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.component.external;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
@@ -8,7 +9,6 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 /**
  * A page that provides an overview of utilized external components (e.g.
@@ -16,7 +16,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
  *
  * @author Alexander Schmidt
  */
-@EmfSourceCodeReferencePointUuid("7061b293-2a3c-4df8-a386-66432511afb1")
+@SourceCodeReferencePointUuid("7061b293-2a3c-4df8-a386-66432511afb1")
 public class ExternalComponentsPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override

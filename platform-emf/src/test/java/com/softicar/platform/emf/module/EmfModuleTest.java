@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.module;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.test.module.AbstractEmfTestModule;
 import java.util.UUID;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class EmfModuleTest extends AbstractTest {
 	}
 
 	@TestingOnly
-	@EmfSourceCodeReferencePointUuid(SOME_UUID_STRING)
+	@SourceCodeReferencePointUuid(SOME_UUID_STRING)
 	private static class TestModule extends AbstractEmfTestModule {
 
 		// nothing to add

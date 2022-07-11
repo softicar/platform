@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.file.stored.cleanup;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Optional;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-@EmfSourceCodeReferencePointUuid("04e5d280-83a1-4464-b376-3a2fa0ab5473")
+@SourceCodeReferencePointUuid("04e5d280-83a1-4464-b376-3a2fa0ab5473")
 public class UnreferencedStoredFileCleanerProgram implements IProgram {
 
 	@Override

@@ -1,10 +1,10 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 
-@EmfSourceCodeReferencePointUuid("9f12772f-a244-4ea7-a441-0762a221b2e4")
-public class DummySourceCodeReferencePoint implements IEmfSourceCodeReferencePoint {
+@SourceCodeReferencePointUuid("9f12772f-a244-4ea7-a441-0762a221b2e4")
+public class DummySourceCodeReferencePoint implements ISourceCodeReferencePoint {
 
 	// nothing to add
 }

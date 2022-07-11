@@ -1,25 +1,25 @@
 package com.softicar.platform.core.module.uuid;
 
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class AGUuidBasedSourceCodeReferencePoints {
 
 	/**
-	 * Returns all existing {@link IEmfSourceCodeReferencePoint} instances that
+	 * Returns all existing {@link ISourceCodeReferencePoint} instances that
 	 * implement or extend the given {@link Class}.
 	 *
 	 * @param referencePointClass
 	 *            the {@link Class} (never <i>null</i>)
 	 * @return a {@link Collection} of all existing
-	 *         {@link IEmfSourceCodeReferencePoint} instances (never
+	 *         {@link ISourceCodeReferencePoint} instances (never
 	 *         <i>null</i>)
 	 */
-	public static Collection<AGUuidBasedSourceCodeReferencePoint> getAll(Class<? extends IEmfSourceCodeReferencePoint> referencePointClass) {
+	public static Collection<AGUuidBasedSourceCodeReferencePoint> getAll(Class<? extends ISourceCodeReferencePoint> referencePointClass) {
 
-		return EmfSourceCodeReferencePoints
+		return SourceCodeReferencePoints
 			.getReferencePoints(referencePointClass)
 			.stream()
 			.map(AGUuidBasedSourceCodeReferencePoint::new)

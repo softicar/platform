@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.permission;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.emf.action.IEmfCommonAction;
@@ -12,7 +13,6 @@ import com.softicar.platform.emf.page.EmfPages;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.finder.EmfStaticPermissionFinder;
 import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.registry.EmfTableRegistry;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -172,7 +172,7 @@ public class EmfPermissionRegistry implements IEmfPermissionRegistry {
 
 	private void registerPagePermissions() {
 
-		for (IEmfPage<?> page: EmfSourceCodeReferencePoints.getReferencePoints(IEmfPage.class)) {
+		for (IEmfPage<?> page: SourceCodeReferencePoints.getReferencePoints(IEmfPage.class)) {
 			IEmfPermission<?> pagePermission = page.getRequiredPermission();
 			IEmfModule<?> module = EmfPages.getModule(page);
 			registerPermission(module, pagePermission);

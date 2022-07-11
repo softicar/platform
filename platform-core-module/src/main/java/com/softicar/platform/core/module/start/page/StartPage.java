@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.start.page;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
@@ -9,14 +10,13 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 /**
  * This is the home page which is displayed to a user after logging in.
  *
  * @author Oliver Richers
  */
-@EmfSourceCodeReferencePointUuid("8411ad24-8ffe-45c8-aa7a-07812a1a5de0")
+@SourceCodeReferencePointUuid("8411ad24-8ffe-45c8-aa7a-07812a1a5de0")
 public class StartPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override

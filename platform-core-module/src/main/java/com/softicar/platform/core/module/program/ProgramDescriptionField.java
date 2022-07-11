@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.db.runtime.transients.AbstractTransientObjectField;
 import com.softicar.platform.db.runtime.transients.IValueSetter;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Set;
 
 class ProgramDescriptionField extends AbstractTransientObjectField<AGProgram, IDisplayString> {
@@ -34,7 +34,7 @@ class ProgramDescriptionField extends AbstractTransientObjectField<AGProgram, ID
 
 	private IDisplayString fetchDescription(AGProgram program) {
 
-		return EmfSourceCodeReferencePoints
+		return SourceCodeReferencePoints
 			.getReferencePointOrThrow(program.getProgramUuid().getUuid(), IProgram.class)//
 			.getDescription()
 			.orElse(getDefaultValue());

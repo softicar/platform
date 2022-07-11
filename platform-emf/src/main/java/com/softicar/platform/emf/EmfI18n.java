@@ -150,16 +150,12 @@ public interface EmfI18n extends DomI18n {
 		.de("Dateien");
 	I18n0 FILTER = new I18n0("Filter")//
 		.de("Filter");
-	I18n0 FIVE = new I18n0("Five")//
-		.de("Fünf");
 	I18n0 FLIP_ROWS_AND_COLUMNS = new I18n0("Flip Rows and Columns")//
 		.de("Zeilen und Spalten tauschen");
 	I18n0 FLOATING_POINT_NUMBER = new I18n0("Floating-Point Number")//
 		.de("Gleitkommazahl");
 	I18n0 FOREIGN_ID = new I18n0("Foreign ID")//
 		.de("Fremde ID");
-	I18n0 FOUR = new I18n0("Four")//
-		.de("Vier");
 	I18n0 HIDE_DEFAULT_VALUES = new I18n0("Hide default values")//
 		.de("Standard-Werte ausblenden");
 	I18n0 HIDE_PASSWORD = new I18n0("Hide Password")//
@@ -250,8 +246,6 @@ public interface EmfI18n extends DomI18n {
 		.de("von");
 	I18n0 OK = new I18n0("OK")//
 		.de("OK");
-	I18n0 ONE = new I18n0("One")//
-		.de("Eins");
 	I18n0 ONE_OF_THE_FOLLOWING_PERMISSIONS = new I18n0("One of the following permissions:")//
 		.de("Eine der folgenden Berechtigungen:");
 	I18n0 ONLY_ONE_SINGLE_FILE_MAY_BE_ATTACHED = new I18n0("Only one single file may be attached.")//
@@ -405,8 +399,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Dieser Eintrag ist bereits in der Liste enthalten.");
 	I18n0 THIS_TRAIT_WAS_NOT_CONFIGURED_YET = new I18n0("This trait was not configured, yet.")//
 		.de("Dieses Merkmal wurde noch nicht konfiguriert.");
-	I18n0 THREE = new I18n0("Three")//
-		.de("Drei");
 	I18n0 TIME = new I18n0("Time")//
 		.de("Zeit");
 	I18n0 TITLE = new I18n0("Title")//
@@ -419,8 +411,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Transaktion");
 	I18n0 TRANSIENT = new I18n0("Transient")//
 		.de("Flüchtig");
-	I18n0 TWO = new I18n0("Two")//
-		.de("Zwei");
 	I18n0 UNDO = new I18n0("Undo")//
 		.de("Rückgängig");
 	I18n0 UNKNOWN_MODULE = new I18n0("Unknown Module")//

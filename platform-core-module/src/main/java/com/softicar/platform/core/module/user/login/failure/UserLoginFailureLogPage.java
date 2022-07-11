@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.login.failure;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
@@ -7,10 +8,9 @@ import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import com.softicar.platform.emf.table.IEmfTable;
 
-@EmfSourceCodeReferencePointUuid("505523be-b061-4001-a64c-3ce323a780b6")
+@SourceCodeReferencePointUuid("505523be-b061-4001-a64c-3ce323a780b6")
 public class UserLoginFailureLogPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override

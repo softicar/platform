@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.log.notification;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
@@ -16,7 +17,6 @@ import com.softicar.platform.core.module.log.message.AGLogMessage;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.emf.module.registry.IEmfModuleRegistry;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.Optional;
  * @author Marco Pilipovic
  * @author Oliver Richers
  */
-@EmfSourceCodeReferencePointUuid("011df8e1-1f16-42c2-8902-cf426403d910")
+@SourceCodeReferencePointUuid("011df8e1-1f16-42c2-8902-cf426403d910")
 public class LogDbPanicNotificationProgram implements IProgram {
 
 	private static final int MAX_LOG_MESSAGES = 250;

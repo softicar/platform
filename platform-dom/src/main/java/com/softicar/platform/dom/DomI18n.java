@@ -74,9 +74,13 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Dateiname");
 	I18n0 FILTER = new I18n0("Filter")//
 		.de("Filtern");
+	I18n0 FIVE = new I18n0("Five")//
+		.de("Fünf");
 	I18n1 FOR_AN_EXPORT_IN_THE_SELECTED_FORMAT_THE_MAXIMUM_NUMBER_OF_TABLE_ROWS_MUST_NOT_EXCEED_ARG1 =//
 			new I18n1("For an export in the selected format, the maximum number of table rows must not exceed %s.")//
 				.de("Für einen Export im ausgewählten Format darf die Anzahl der Tabellen-Zeilen %s nicht übersteigen.");
+	I18n0 FOUR = new I18n0("Four")//
+		.de("Vier");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
 	I18n0 HOURS = new I18n0("Hours")//
@@ -114,6 +118,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("nichts");
 	I18n0 OK = new I18n0("OK")//
 		.de("OK");
+	I18n0 ONE = new I18n0("One")//
+		.de("Eins");
 	I18n0 ONLY_ONE_OPTION_MAY_BE_SELECTED = new I18n0("Only one option may be selected.")//
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//
@@ -170,6 +176,8 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 THIS_CAN_CAUSE_PROBLEMS_WHEN_TRYING_TO_SUM_UP_TEXTUAL_NUMERICAL_VALUES_IN_AN_EXCEL_FILE = //
 			new I18n0("This can cause problems when trying to sum up textual, numerical values in an Excel file.")//
 				.de("Dies kann Probleme verursachen, wenn versucht wird textuelle, numerische Werte in einer Excel-Datei zu summieren.");
+	I18n0 THREE = new I18n0("Three")//
+		.de("Drei");
 	I18n0 TIMESTAMP = new I18n0("Timestamp")//
 		.de("Zeitstempel");
 	I18n0 TODAY = new I18n0("Today")//
@@ -177,6 +185,8 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 TRIED_TO_SELECT_AN_OPTION_THAT_WAS_NOT_CONTAINED_IN_THE_LIST_OF_AVAILABLE_OPTIONS =//
 			new I18n0("Tried to select an option that was not contained in the list of available options.")//
 				.de("Eine Option wurde gewählt, die nicht in der Liste der verfügbaren Optionen enthalten ist.");
+	I18n0 TWO = new I18n0("Two")//
+		.de("Zwei");
 	I18n0 UNTITLED_EXPORT_ENGINE = new I18n0("Untitled Export Engine")//
 		.de("Unbenannte Export-Engine");
 	I18n0 WEEK = new I18n0("Week")//

@@ -1,5 +1,6 @@
 package com.softicar.platform.demo.invoice.module.contact;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.db.runtime.query.IDbQuery;
 import com.softicar.platform.demo.DemoI18n;
@@ -13,7 +14,6 @@ import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
 /**
  * The purpose of this class is to show an {@link IEmfDataTableDiv} which is
@@ -21,7 +21,7 @@ import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeRefere
  *
  * @author Oliver Richers
  */
-@EmfSourceCodeReferencePointUuid("adb2b956-1397-4b3d-a9bc-c3683221d66b")
+@SourceCodeReferencePointUuid("adb2b956-1397-4b3d-a9bc-c3683221d66b")
 public class DemoInvoiceContactReportPage implements IEmfPage<AGDemoInvoiceModuleInstance> {
 
 	@Override

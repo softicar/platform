@@ -1,12 +1,12 @@
 package com.softicar.platform.emf.module.registry;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.emf.module.IEmfModule;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 
 /**
  * Locates all {@link IEmfModule} classes, annotated with
- * {@link EmfSourceCodeReferencePointUuid}.
+ * {@link SourceCodeReferencePointUuid}.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
@@ -33,7 +33,7 @@ public class EmfAnnotationBasedModuleRegistry extends AbstractEmfModuleRegistry 
 	private EmfAnnotationBasedModuleRegistry() {
 
 		try {
-			for (IEmfModule<?> module: EmfSourceCodeReferencePoints.getReferencePoints(IEmfModule.class)) {
+			for (IEmfModule<?> module: SourceCodeReferencePoints.getReferencePoints(IEmfModule.class)) {
 				registerModule(module);
 			}
 		} catch (Exception exception) {

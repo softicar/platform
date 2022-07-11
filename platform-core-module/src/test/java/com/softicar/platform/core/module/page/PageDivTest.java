@@ -2,12 +2,12 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.AjaxDocumentParameters;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -75,7 +75,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testOpeningPageWithParameters() {
 
 		String[] moduleInstance = { "0" };
-		String[] page = { EmfSourceCodeReferencePoints.getUuidOrThrow(TestPage.class).toString() };
+		String[] page = { SourceCodeReferencePoints.getUuidOrThrow(TestPage.class).toString() };
 		AjaxDocumentParameters parameters = new AjaxDocumentParameters(Map.of("moduleInstance", moduleInstance, "page", page));
 		setNodeSupplier(() -> new PageDiv(parameters));
 		assertLinksPresent("[System]", "Core", "Test Page");

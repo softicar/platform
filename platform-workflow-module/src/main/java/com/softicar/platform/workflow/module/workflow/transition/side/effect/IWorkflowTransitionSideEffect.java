@@ -1,6 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.transition.side.effect;
 
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 
@@ -10,7 +10,7 @@ import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
  *
  * @author Oliver Richers
  */
-public interface IWorkflowTransitionSideEffect<T extends IWorkflowableObject<T>> extends IEmfSourceCodeReferencePoint {
+public interface IWorkflowTransitionSideEffect<T extends IWorkflowableObject<T>> extends ISourceCodeReferencePoint {
 
 	void execute(T object, AGWorkflowTransition transition);
 

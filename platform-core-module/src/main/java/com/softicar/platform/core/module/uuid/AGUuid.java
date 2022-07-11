@@ -1,5 +1,7 @@
 package com.softicar.platform.core.module.uuid;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
+import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
@@ -13,8 +15,6 @@ import com.softicar.platform.emf.module.IUuid;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.permission.CurrentEmfPermissionRegistry;
 import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
-import com.softicar.platform.emf.source.code.reference.point.IEmfSourceCodeReferencePoint;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
@@ -28,9 +28,9 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return EmfSourceCodeReferencePoints//
+		return SourceCodeReferencePoints//
 			.getReferencePoint(getUuid())
-			.map(IEmfSourceCodeReferencePoint::toDisplay)
+			.map(ISourceCodeReferencePoint::toDisplay)
 			.orElse(getStaticPermissionTitle(getUuid()));
 	}
 
@@ -61,31 +61,31 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 
 	/**
 	 * Converts this {@link AGUuid} into the
-	 * {@link IEmfSourceCodeReferencePoint} of the given {@link Class}.
+	 * {@link ISourceCodeReferencePoint} of the given {@link Class}.
 	 *
 	 * @param <T>
-	 *            the type of {@link IEmfSourceCodeReferencePoint}
+	 *            the type of {@link ISourceCodeReferencePoint}
 	 * @param referencePointClass
-	 *            the {@link Class} of the {@link IEmfSourceCodeReferencePoint}
+	 *            the {@link Class} of the {@link ISourceCodeReferencePoint}
 	 *            (never <i>null</i>)
-	 * @return the converted {@link IEmfSourceCodeReferencePoint} (never
+	 * @return the converted {@link ISourceCodeReferencePoint} (never
 	 *         <i>null</i>)
 	 * @throws RuntimeException
 	 *             if the conversion failed
 	 */
-	public <T extends IEmfSourceCodeReferencePoint> T toReferencePoint(Class<T> referencePointClass) {
+	public <T extends ISourceCodeReferencePoint> T toReferencePoint(Class<T> referencePointClass) {
 
-		return EmfSourceCodeReferencePoints.getReferencePointOrThrow(getUuid(), referencePointClass);
+		return SourceCodeReferencePoints.getReferencePointOrThrow(getUuid(), referencePointClass);
 	}
 
-	public static AGUuid getOrCreate(IEmfSourceCodeReferencePoint referencePoint) {
+	public static AGUuid getOrCreate(ISourceCodeReferencePoint referencePoint) {
 
 		return getOrCreate(referencePoint.getAnnotatedUuid());
 	}
 
-	public static AGUuid getOrCreate(Class<? extends IEmfSourceCodeReferencePoint> referencePointClass) {
+	public static AGUuid getOrCreate(Class<? extends ISourceCodeReferencePoint> referencePointClass) {
 
-		return getOrCreate(EmfSourceCodeReferencePoints.getUuidOrThrow(referencePointClass));
+		return getOrCreate(SourceCodeReferencePoints.getUuidOrThrow(referencePointClass));
 	}
 
 	public static <T extends IDisplayable & IUuidAnnotated> UuidIndirectEntityCollection<T> createIndirectEntityCollection(Collection<T> elements) {

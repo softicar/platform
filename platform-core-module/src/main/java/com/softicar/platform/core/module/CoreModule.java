@@ -1,13 +1,13 @@
 package com.softicar.platform.core.module;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.module.AbstractModule;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.emf.page.EmfPagePath;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 
-@EmfSourceCodeReferencePointUuid("a8b076bd-582d-446d-9bce-85a8a180afd5")
+@SourceCodeReferencePointUuid("a8b076bd-582d-446d-9bce-85a8a180afd5")
 public class CoreModule extends AbstractModule<AGCoreModuleInstance> {
 
 	private static final IDisplayString PARENT_FOLDER_TITLE = CoreI18n.SYSTEM.encloseInBrackets();

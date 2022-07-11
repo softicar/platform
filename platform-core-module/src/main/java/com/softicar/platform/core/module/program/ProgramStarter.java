@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.ISOCalendar;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.log.LogDb;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUserScope;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePoints;
 import java.util.UUID;
 
 /**
@@ -23,7 +23,7 @@ public class ProgramStarter {
 
 	public ProgramStarter(UUID programUuid) {
 
-		this(EmfSourceCodeReferencePoints.getReferencePointOrThrow(programUuid, IProgram.class));
+		this(SourceCodeReferencePoints.getReferencePointOrThrow(programUuid, IProgram.class));
 	}
 
 	public ProgramStarter(IProgram program) {

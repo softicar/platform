@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.email.buffer;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.server.AGServer;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointUuid;
 import java.util.Optional;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Optional;
  * @see BufferedEmailSender
  * @author Oliver Richers
  */
-@EmfSourceCodeReferencePointUuid("0bec6bee-e588-47f7-81cc-ba4dfd9ca720")
+@SourceCodeReferencePointUuid("0bec6bee-e588-47f7-81cc-ba4dfd9ca720")
 public class BufferedEmailSendProgram implements IProgram {
 
 	@Override

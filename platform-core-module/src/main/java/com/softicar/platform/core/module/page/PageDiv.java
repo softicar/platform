@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.IAjaxDocumentParameters;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointMissingException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.emf.source.code.reference.point.EmfSourceCodeReferencePointMissingException;
 
 public class PageDiv extends DomDiv {
 
@@ -31,7 +31,7 @@ public class PageDiv extends DomDiv {
 
 		try {
 			pageController.showPage(parameterParser.getPage(), parameterParser.getModuleInstanceId());
-		} catch (EmfSourceCodeReferencePointMissingException exception) {
+		} catch (SourceCodeReferencePointMissingException exception) {
 			DevNull.swallow(exception);
 			pageController.showStartPageForNonExistingPage();
 		}
