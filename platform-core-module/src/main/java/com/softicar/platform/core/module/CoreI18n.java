@@ -108,6 +108,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Durch");
 	I18n0 CANCELED = new I18n0("Canceled")//
 		.de("Abgebrochen");
+	I18n0 CANNOT_DEACTIVATE_PRIMARY_FILE_SERVER = new I18n0("Cannot deactivate primary file server.")//
+		.de("Primärer Dateiserver kann nicht deaktiviert werden.");
 	I18n0 CANNOT_LOGIN_DURING_MAINTENANCE = new I18n0("Cannot login during maintenance.")//
 		.de("Login ist während Wartungsarbeiten nicht möglich.");
 	I18n0 CAUSED_AT = new I18n0("Caused At")//

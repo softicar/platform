@@ -22,7 +22,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	public StoredFileSmbContentStore() {
 
-		this(AGStoredFileServer.getInstance());
+		this(AGStoredFileServer.getPrimary());
 	}
 
 	public StoredFileSmbContentStore(AGStoredFileServer server) {
