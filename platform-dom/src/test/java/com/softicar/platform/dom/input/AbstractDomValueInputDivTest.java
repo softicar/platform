@@ -42,7 +42,7 @@ public abstract class AbstractDomValueInputDivTest<V> extends AbstractTest imple
 	protected void assertExceptionForGetValue(IDisplayString expectedMessage, String valueText) {
 
 		enterValue(valueText);
-		assertException(() -> input.getValue(), expectedMessage);
+		assertExceptionMessage(expectedMessage, () -> input.getValue());
 	}
 
 	protected void assertExceptionForGetValue(I18n1 expectedMessage, String valueText) {

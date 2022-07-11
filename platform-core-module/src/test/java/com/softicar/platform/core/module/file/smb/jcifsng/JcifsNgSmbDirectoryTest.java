@@ -98,8 +98,8 @@ public class JcifsNgSmbDirectoryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbDirectory("garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbDirectory("garbage-url", createContext()));
 	}
 
 	@Test
@@ -107,8 +107,8 @@ public class JcifsNgSmbDirectoryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbDirectory("http://garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbDirectory("http://garbage-url", createContext()));
 	}
 
 	@Test
@@ -116,8 +116,8 @@ public class JcifsNgSmbDirectoryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbDirectory("smb://somewhere//something", createContext()),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> new JcifsNgSmbDirectory("smb://somewhere//something", createContext()));
 	}
 
 	@Test
@@ -678,8 +678,8 @@ public class JcifsNgSmbDirectoryTest extends AbtractJcifsNgSmbTest {
 		ISmbDirectory directory = directory(shareUrlSlash);
 		assertException(//
 			IllegalArgumentException.class,
-			() -> directory.getFile("someFile//"),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> directory.getFile("someFile//"));
 	}
 
 	@Test
@@ -1127,8 +1127,8 @@ public class JcifsNgSmbDirectoryTest extends AbtractJcifsNgSmbTest {
 		source.makeDirectories();
 		assertException(//
 			IllegalArgumentException.class,
-			() -> source.renameTo("target//"),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> source.renameTo("target//"));
 		assertTrue(source.exists());
 	}
 }

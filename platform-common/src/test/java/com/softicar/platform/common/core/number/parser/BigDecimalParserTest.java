@@ -60,12 +60,12 @@ public class BigDecimalParserTest extends AbstractTest {
 
 		var input = "1.234.567,89";
 
-		assertException(//
+		assertExceptionMessage(//
+			CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("."),
 			() -> new BigDecimalParser(input)//
 				.setLocale(locale)
 				.setProhibitDigitGroupSeparators(true)
-				.parseOrThrow(),
-			CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("."));
+				.parseOrThrow());
 	}
 
 	@Test
@@ -84,6 +84,6 @@ public class BigDecimalParserTest extends AbstractTest {
 
 	private void assertException(String input, IDisplayString expectedMessage) {
 
-		assertException(() -> new BigDecimalParser(input).setLocale(locale).parseOrThrow(), expectedMessage);
+		assertExceptionMessage(expectedMessage, () -> new BigDecimalParser(input).setLocale(locale).parseOrThrow());
 	}
 }

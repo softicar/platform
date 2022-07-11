@@ -1,9 +1,7 @@
 package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.emf.validation.result.EmfValidationResult;
 import java.util.List;
@@ -55,16 +53,6 @@ public class LocalizationValidatorTest extends AbstractDbTest {
 
 	private static void assertValidationException(IDisplayString expectedMessage, AGLocalization localization) {
 
-		assertException(expectedMessage, () -> new LocalizationValidator().validate(localization, new EmfValidationResult()));
-	}
-
-	private static void assertException(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
-
-		try {
-			thrower.apply();
-			fail("Expected exception.");
-		} catch (SofticarUserException exception) {
-			assertEquals(expectedMessage.toString(), exception.getMessage());
-		}
+		assertExceptionMessage(expectedMessage, () -> new LocalizationValidator().validate(localization, new EmfValidationResult()));
 	}
 }

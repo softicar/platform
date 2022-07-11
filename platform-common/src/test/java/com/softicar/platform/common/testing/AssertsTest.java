@@ -7,10 +7,10 @@ import org.junit.Test;
 public class AssertsTest extends AbstractTest {
 
 	@Test
-	public void testAssertException() {
-
-		Asserts.assertException(NumberFormatException.class, () -> Integer.parseInt("foo"));
-	}
+		public void testAssertExceptionMessage() {
+	
+			Asserts.assertException(NumberFormatException.class, () -> Integer.parseInt("foo"));
+		}
 
 	@Test
 	public void assertAll() {
