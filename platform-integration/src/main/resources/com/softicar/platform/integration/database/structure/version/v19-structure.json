@@ -246,5 +246,141 @@
   {
     "tableName": "`Core`.`Weekday`",
     "createStatement": "CREATE TABLE `Core`.`Weekday` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `name` (`name`)) COMMENT='@enum@';"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowAutoTransitionExecution`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowAutoTransitionExecution` (`id` INT NOT NULL AUTO_INCREMENT,`workflowItem` INT NOT NULL,`workflowTransition` INT NOT NULL,`transaction` BIGINT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowTransition`) REFERENCES `Workflow`.`WorkflowTransition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowDemoObjectApproverLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObjectApproverLog` (`approver` INT NOT NULL,`transaction` BIGINT NOT NULL,`approvalTier` INT DEFAULT NULL,`user` INT DEFAULT NULL,`active` BOOL DEFAULT NULL,`approved` BOOL DEFAULT NULL,PRIMARY KEY (`approver`, `transaction`),FOREIGN KEY (`approver`) REFERENCES `Workflow`.`WorkflowDemoObjectApprover` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowDemoObjectApprover`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObjectApprover` (`id` INT NOT NULL AUTO_INCREMENT,`object` INT NOT NULL,`approvalTier` INT NOT NULL DEFAULT '0',`user` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`approved` BOOL DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`object`) REFERENCES `Workflow`.`WorkflowDemoObject` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowDemoObjectLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObjectLog` (`workflowDemoObject` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(50) DEFAULT NULL,`active` BOOL DEFAULT NULL,`workflowItem` INT DEFAULT NULL,PRIMARY KEY (`workflowDemoObject`, `transaction`),FOREIGN KEY (`workflowDemoObject`) REFERENCES `Workflow`.`WorkflowDemoObject` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowDemoObject`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowDemoObject` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(50) NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`workflowItem` INT DEFAULT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowIconLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowIconLog` (`workflowIcon` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`icon` INT DEFAULT NULL,PRIMARY KEY (`workflowIcon`, `transaction`),FOREIGN KEY (`workflowIcon`) REFERENCES `Workflow`.`WorkflowIcon` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`icon`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowIcon`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowIcon` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`icon` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `moduleInstanceName` (`moduleInstance`, `name`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`icon`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowItemLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowItemLog` (`workflowItem` INT NOT NULL,`transaction` BIGINT NOT NULL,`workflowNode` INT DEFAULT NULL,PRIMARY KEY (`workflowItem`, `transaction`),FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowItemMessage`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowItemMessage` (`id` INT NOT NULL AUTO_INCREMENT,`workflowItem` INT NOT NULL,`transaction` BIGINT NOT NULL,`text` TEXT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowItem`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowItem` (`id` INT NOT NULL AUTO_INCREMENT,`workflow` INT NOT NULL,`workflowNode` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflow`) REFERENCES `Workflow`.`Workflow` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowLog` (`workflow` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`active` BOOL DEFAULT NULL,`currentVersion` INT DEFAULT NULL,PRIMARY KEY (`workflow`, `transaction`),FOREIGN KEY (`workflow`) REFERENCES `Workflow`.`Workflow` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`currentVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowModuleInstance`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowModuleInstance` (`moduleInstance` INT NOT NULL COMMENT '@base@',PRIMARY KEY (`moduleInstance`),FOREIGN KEY (`moduleInstance`) REFERENCES `Core`.`ModuleInstance` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodeActionLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodeActionLog` (`workflowNodeAction` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`action` INT DEFAULT NULL,PRIMARY KEY (`workflowNodeAction`, `transaction`),FOREIGN KEY (`workflowNodeAction`) REFERENCES `Workflow`.`WorkflowNodeAction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`action`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodeActionRoleLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodeActionRoleLog` (`workflowNodeActionRole` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`roleUuid` INT DEFAULT NULL,PRIMARY KEY (`workflowNodeActionRole`, `transaction`),FOREIGN KEY (`workflowNodeActionRole`) REFERENCES `Workflow`.`WorkflowNodeActionRole` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`roleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodeActionRole`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodeActionRole` (`id` INT NOT NULL AUTO_INCREMENT,`workflowNodeAction` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`roleUuid` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflowNodeAction`) REFERENCES `Workflow`.`WorkflowNodeAction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`roleUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodeAction`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodeAction` (`id` INT NOT NULL AUTO_INCREMENT,`workflowNode` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`action` INT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `workflowNodeAction` (`workflowNode`, `action`),FOREIGN KEY (`workflowNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`action`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodeLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodeLog` (`workflowNode` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`XCoordinate` INT DEFAULT NULL,`YCoordinate` INT DEFAULT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`workflowNode`, `transaction`),FOREIGN KEY (`workflowNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodePreconditionLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodePreconditionLog` (`workflowNodePrecondition` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`function` INT DEFAULT NULL,PRIMARY KEY (`workflowNodePrecondition`, `transaction`),FOREIGN KEY (`workflowNodePrecondition`) REFERENCES `Workflow`.`WorkflowNodePrecondition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`function`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNodePrecondition`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNodePrecondition` (`id` INT NOT NULL AUTO_INCREMENT,`workflowNode` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`function` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflowNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`function`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowNode`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowNode` (`id` INT NOT NULL AUTO_INCREMENT,`workflowVersion` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`xCoordinate` INT NOT NULL DEFAULT '10',`yCoordinate` INT NOT NULL DEFAULT '150',`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),FOREIGN KEY (`workflowVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTaskDelegationLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTaskDelegationLog` (`workflowTaskDelegation` INT NOT NULL,`transaction` BIGINT NOT NULL,`targetUser` INT DEFAULT NULL,`delegatedBy` INT DEFAULT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`workflowTaskDelegation`, `transaction`),FOREIGN KEY (`workflowTaskDelegation`) REFERENCES `Workflow`.`WorkflowTaskDelegation` (`workflowTask`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`targetUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`delegatedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTaskDelegation`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTaskDelegation` (`workflowTask` INT NOT NULL,`targetUser` INT NOT NULL,`delegatedBy` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`workflowTask`),FOREIGN KEY (`workflowTask`) REFERENCES `Workflow`.`WorkflowTask` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`targetUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`delegatedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTaskLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTaskLog` (`workflowTask` INT NOT NULL,`transaction` BIGINT NOT NULL,`user` INT DEFAULT NULL,`closed` BOOL DEFAULT NULL,`notify` BOOL DEFAULT NULL,PRIMARY KEY (`workflowTask`, `transaction`),FOREIGN KEY (`workflowTask`) REFERENCES `Workflow`.`WorkflowTask` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTask`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTask` (`id` INT NOT NULL AUTO_INCREMENT,`transaction` BIGINT NOT NULL,`workflowItem` INT NOT NULL,`user` INT NOT NULL,`closed` BOOL NOT NULL DEFAULT '0',`notify` BOOL NOT NULL DEFAULT '0',PRIMARY KEY (`id`),FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTransitionExecution`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTransitionExecution` (`id` INT NOT NULL AUTO_INCREMENT,`workflowTask` INT NOT NULL,`workflowTransition` INT NOT NULL,`transaction` BIGINT NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `workflowTask` (`workflowTask`),FOREIGN KEY (`workflowTask`) REFERENCES `Workflow`.`WorkflowTask` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`workflowTransition`) REFERENCES `Workflow`.`WorkflowTransition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTransitionLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTransitionLog` (`workflowTransition` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`htmlColor` VARCHAR(7) DEFAULT NULL,`active` BOOL DEFAULT NULL,`sourceNode` INT DEFAULT NULL,`targetNode` INT DEFAULT NULL,`notify` BOOL DEFAULT NULL,`autoTransition` BOOL DEFAULT NULL,`requiredVotes` VARCHAR(255) DEFAULT NULL,`transitionIcon` INT DEFAULT NULL,`sideEffect` INT DEFAULT NULL,PRIMARY KEY (`workflowTransition`, `transaction`),FOREIGN KEY (`workflowTransition`) REFERENCES `Workflow`.`WorkflowTransition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`sourceNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`targetNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transitionIcon`) REFERENCES `Workflow`.`WorkflowIcon` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`sideEffect`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTransitionRoleLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTransitionRoleLog` (`transitionRole` INT NOT NULL,`transaction` BIGINT NOT NULL,`role` INT DEFAULT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`transitionRole`, `transaction`),FOREIGN KEY (`transitionRole`) REFERENCES `Workflow`.`WorkflowTransitionRole` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`role`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTransitionRole`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTransitionRole` (`id` INT NOT NULL AUTO_INCREMENT,`transition` INT NOT NULL,`role` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),FOREIGN KEY (`transition`) REFERENCES `Workflow`.`WorkflowTransition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`role`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowTransition`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowTransition` (`id` INT NOT NULL AUTO_INCREMENT,`workflowVersion` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`sourceNode` INT NOT NULL,`targetNode` INT NOT NULL,`notify` BOOL NOT NULL DEFAULT '1',`autoTransition` BOOL NOT NULL DEFAULT '0',`requiredVotes` VARCHAR(255) NOT NULL,`htmlColor` VARCHAR(7) DEFAULT NULL,`transitionIcon` INT DEFAULT NULL,`sideEffect` INT DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`workflowVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`sourceNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`targetNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transitionIcon`) REFERENCES `Workflow`.`WorkflowIcon` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`sideEffect`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowUserConfigurationLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowUserConfigurationLog` (`workflowUserConfiguration` INT NOT NULL,`transaction` BIGINT NOT NULL,`emailNotificationsForNewTasks` BOOL DEFAULT NULL,`substitute` INT DEFAULT NULL,`substituteFrom` DATE DEFAULT NULL,`substituteTo` DATE DEFAULT NULL,PRIMARY KEY (`workflowUserConfiguration`, `transaction`),FOREIGN KEY (`workflowUserConfiguration`) REFERENCES `Workflow`.`WorkflowUserConfiguration` (`user`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`substitute`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowUserConfiguration`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowUserConfiguration` (`user` INT NOT NULL,`emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '1',`substitute` INT DEFAULT NULL,`substituteFrom` DATE DEFAULT NULL,`substituteTo` DATE DEFAULT NULL,PRIMARY KEY (`user`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`substitute`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowVersionLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowVersionLog` (`workflowVersion` INT NOT NULL,`transaction` BIGINT NOT NULL,`rootNode` INT DEFAULT NULL,`draft` BOOL DEFAULT NULL,PRIMARY KEY (`workflowVersion`, `transaction`),FOREIGN KEY (`workflowVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`rootNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowVersion`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowVersion` (`id` INT NOT NULL AUTO_INCREMENT,`workflow` INT NOT NULL,`rootNode` INT DEFAULT NULL,`draft` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),FOREIGN KEY (`workflow`) REFERENCES `Workflow`.`Workflow` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`rootNode`) REFERENCES `Workflow`.`WorkflowNode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`Workflow`",
+    "createStatement": "CREATE TABLE `Workflow`.`Workflow` (`id` INT NOT NULL AUTO_INCREMENT,`moduleInstance` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`entityTable` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`currentVersion` INT DEFAULT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`moduleInstance`) REFERENCES `Workflow`.`WorkflowModuleInstance` (`moduleInstance`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`entityTable`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,FOREIGN KEY (`currentVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   }
 ]
