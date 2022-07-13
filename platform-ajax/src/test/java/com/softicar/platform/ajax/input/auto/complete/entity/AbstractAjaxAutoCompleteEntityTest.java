@@ -8,7 +8,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
-import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
@@ -854,7 +853,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertValues(IDisplayString expectedServerValueExceptionMessage, AjaxTestEntity expectedServerValue, String expectedClientValue) {
 
 			if (expectedServerValueExceptionMessage != null) {
-				Asserts.assertException(inputNode.getSelection()::getValueOrNull, expectedServerValueExceptionMessage);
+				assertExceptionMessage(expectedServerValueExceptionMessage, inputNode.getSelection()::getValueOrNull);
 				waitForServer();
 			} else {
 				AjaxTestEntity actualServerValue = inputNode.getSelection().getValueOrNull();

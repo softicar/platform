@@ -96,8 +96,8 @@ public class JcifsNgSmbEntryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbEntry("garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbEntry("garbage-url", createContext()));
 	}
 
 	@Test
@@ -105,8 +105,8 @@ public class JcifsNgSmbEntryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbEntry("http://garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbEntry("http://garbage-url", createContext()));
 	}
 
 	@Test
@@ -114,8 +114,8 @@ public class JcifsNgSmbEntryTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbEntry("smb://somewhere//something", createContext()),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> new JcifsNgSmbEntry("smb://somewhere//something", createContext()));
 	}
 
 	@Test

@@ -118,10 +118,10 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		// execute
 		assertException(//
 			SofticarUserException.class,
+			"Only a single file may be uploaded.",
 			() -> uploadFiles(//
 				new FileUpload("foo.txt", "this is foo"),
-				new FileUpload("bar.txt", "this is bar")),
-			"Only a single file may be uploaded.");
+				new FileUpload("bar.txt", "this is bar")));
 	}
 
 	@Test

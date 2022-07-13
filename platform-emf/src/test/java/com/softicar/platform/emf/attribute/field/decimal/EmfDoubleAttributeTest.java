@@ -64,7 +64,9 @@ public class EmfDoubleAttributeTest extends AbstractEmfTest {
 
 		inputTester.setInputValue("xxx");
 
-		assertException(() -> input.getValue(), CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("x"));
+		assertExceptionMessage(//
+			CommonCoreI18n.ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1.toDisplay("x"),
+			() -> input.getValue());
 	}
 
 	@Test

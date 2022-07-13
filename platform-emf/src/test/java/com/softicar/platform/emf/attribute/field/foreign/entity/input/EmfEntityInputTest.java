@@ -48,7 +48,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	public void testGetValueWithObject1AndNameAndIdIncomplete() {
 
 		setInputValue("one [1");
-		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
+		assertExceptionMessage(EmfI18n.PLEASE_SELECT_A_VALID_ENTRY, this::getValue);
 	}
 
 	@Test
@@ -66,7 +66,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	public void testGetValueWithObject23AndIdHead() {
 
 		setInputValue("2");
-		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
+		assertExceptionMessage(EmfI18n.PLEASE_SELECT_A_VALID_ENTRY, this::getValue);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	public void testGetValueWithObject23AndIdTail() {
 
 		setInputValue("3");
-		assertException(this::getValue, EmfI18n.PLEASE_SELECT_A_VALID_ENTRY);
+		assertExceptionMessage(EmfI18n.PLEASE_SELECT_A_VALID_ENTRY, this::getValue);
 	}
 
 	@Test

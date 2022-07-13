@@ -99,8 +99,8 @@ public class JcifsNgSmbFileTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbFile("garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbFile("garbage-url", createContext()));
 	}
 
 	@Test
@@ -108,8 +108,8 @@ public class JcifsNgSmbFileTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbFile("http://garbage-url", createContext()),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> new JcifsNgSmbFile("http://garbage-url", createContext()));
 	}
 
 	@Test
@@ -117,8 +117,8 @@ public class JcifsNgSmbFileTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> new JcifsNgSmbFile("smb://somewhere//something", createContext()),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> new JcifsNgSmbFile("smb://somewhere//something", createContext()));
 	}
 
 	@Test
@@ -537,8 +537,8 @@ public class JcifsNgSmbFileTest extends AbtractJcifsNgSmbTest {
 		ISmbFile source = writeFile(someFileUrl, "foo");
 		assertException(//
 			IllegalArgumentException.class,
-			() -> source.renameTo("someEntry//"),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> source.renameTo("someEntry//"));
 		assertTrue(source.exists());
 	}
 

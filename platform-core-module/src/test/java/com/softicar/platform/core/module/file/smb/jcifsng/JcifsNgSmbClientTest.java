@@ -120,8 +120,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 	public void testGetEntryWithNonexistentEntryAndInvalidCredentials() {
 
 		assertExceptionMessageContains(//
-			() -> client.getEntry(someEntryUrl, INVALID_CREDENTIALS),
-			IDisplayString.create("Logon failure"));
+			IDisplayString.create("Logon failure"),
+			() -> client.getEntry(someEntryUrl, INVALID_CREDENTIALS));
 	}
 
 	@Test
@@ -160,8 +160,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getEntry("garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getEntry("garbage-url", credentials));
 	}
 
 	@Test
@@ -169,8 +169,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getEntry("http://garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getEntry("http://garbage-url", credentials));
 	}
 
 	@Test
@@ -178,8 +178,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getEntry("smb://somewhere//something", credentials),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> client.getEntry("smb://somewhere//something", credentials));
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -276,8 +276,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 	public void testGetFileWithNonexistentEntryAndInvalidCredentials() {
 
 		assertExceptionMessageContains(//
-			() -> client.getFile(someEntryUrl, INVALID_CREDENTIALS),
-			IDisplayString.create("Logon failure"));
+			IDisplayString.create("Logon failure"),
+			() -> client.getFile(someEntryUrl, INVALID_CREDENTIALS));
 	}
 
 	@Test
@@ -297,8 +297,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getFile("garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getFile("garbage-url", credentials));
 	}
 
 	@Test
@@ -306,8 +306,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getFile("http://garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getFile("http://garbage-url", credentials));
 	}
 
 	@Test
@@ -315,8 +315,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getFile("smb://somewhere//something", credentials),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> client.getFile("smb://somewhere//something", credentials));
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -413,8 +413,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 	public void testGetDirectoryWithNonexistentEntryAndInvalidCredentials() {
 
 		assertExceptionMessageContains(//
-			() -> client.getDirectory(someEntryUrl, INVALID_CREDENTIALS),
-			IDisplayString.create("Logon failure"));
+			IDisplayString.create("Logon failure"),
+			() -> client.getDirectory(someEntryUrl, INVALID_CREDENTIALS));
 	}
 
 	@Test
@@ -453,8 +453,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getDirectory("garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getDirectory("garbage-url", credentials));
 	}
 
 	@Test
@@ -462,8 +462,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getDirectory("http://garbage-url", credentials),
-			"The URL must start with 'smb://'.");
+			"The URL must start with 'smb://'.",
+			() -> client.getDirectory("http://garbage-url", credentials));
 	}
 
 	@Test
@@ -471,8 +471,8 @@ public class JcifsNgSmbClientTest extends AbtractJcifsNgSmbTest {
 
 		assertException(//
 			IllegalArgumentException.class,
-			() -> client.getDirectory("smb://somewhere//something", credentials),
-			"The URL must not contain adjacent slashes after the protocol prefix.");
+			"The URL must not contain adjacent slashes after the protocol prefix.",
+			() -> client.getDirectory("smb://somewhere//something", credentials));
 	}
 
 	@Test(expected = NullPointerException.class)

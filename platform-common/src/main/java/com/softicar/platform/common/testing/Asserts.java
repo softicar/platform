@@ -46,7 +46,7 @@ public class Asserts extends Assert {
 	 */
 	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower) {
 
-		assertException(expectedThrowableClass, thrower, null);
+		assertException(expectedThrowableClass, null, thrower);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Asserts extends Assert {
 	 * @param expectedMessage
 	 *            the expected exception message (may be <i>null</i>)
 	 */
-	public static void assertException(Class<? extends Throwable> expectedThrowableClass, INullaryVoidFunction thrower, String expectedMessage) {
+	public static void assertException(Class<? extends Throwable> expectedThrowableClass, String expectedMessage, INullaryVoidFunction thrower) {
 
 		Objects.requireNonNull(expectedThrowableClass);
 		Objects.requireNonNull(thrower);
@@ -86,7 +86,7 @@ public class Asserts extends Assert {
 		}
 	}
 
-	public static void assertException(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
+	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
 		try {
 			thrower.apply();
@@ -96,7 +96,7 @@ public class Asserts extends Assert {
 		}
 	}
 
-	public static void assertExceptionMessageContains(INullaryVoidFunction thrower, IDisplayString expectedMessage) {
+	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
 		try {
 			thrower.apply();
