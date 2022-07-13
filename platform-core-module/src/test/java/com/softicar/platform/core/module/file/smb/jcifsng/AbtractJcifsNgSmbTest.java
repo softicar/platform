@@ -31,7 +31,11 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 	private static final String TEST_SHARE = "testshare";
 	private static final String TEST_USER = "testuser";
 	private static final String TEST_WORKGROUP = "WORKGROUP";
-	private static final DockerContainerController CONTAINER_CONTROLLER = createController();
+	private static final DockerContainerController CONTAINER_CONTROLLER = new DockerContainerController(//
+		"smb-test",
+		"softicar/samba-testing-server",
+		"-dit",
+		"--rm");
 
 	protected SmbCredentials credentials;
 	protected DayTime startTime;
@@ -176,10 +180,5 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 		} catch (Exception exception) {
 			throw new SofticarDeveloperException(exception, "Failed to list the entries in the share root.");
 		}
-	}
-
-	private static DockerContainerController createController() {
-
-		return new DockerContainerController("smb-test", "softicar/samba-testing-server");
 	}
 }
