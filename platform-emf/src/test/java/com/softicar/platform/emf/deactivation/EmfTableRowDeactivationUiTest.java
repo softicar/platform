@@ -92,9 +92,11 @@ public class EmfTableRowDeactivationUiTest extends AbstractEmfTest {
 
 	private EmfTestObject insertBaseEntity(String name, boolean active) {
 
-		return new EmfTestObject()//
+		EmfTestObject testObject = new EmfTestObject()//
 			.setName(name)
 			.setActive(active)
 			.save();
+		testObject.addAuthorizedUser(user);
+		return testObject;
 	}
 }

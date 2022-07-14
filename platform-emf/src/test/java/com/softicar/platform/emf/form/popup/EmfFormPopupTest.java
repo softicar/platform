@@ -23,6 +23,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 	public void testDisplaysAttributeNames() {
 
 		EmfTestObject entity = insertEntity("foobar", Day.today());
+		entity.addAuthorizedUser(user);
 		openPopup(entity);
 
 		findBody()//
@@ -42,6 +43,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 	public void testDisplaysAttributeValues() {
 
 		EmfTestObject entity = insertEntity("foobar", Day.today());
+		entity.addAuthorizedUser(user);
 		openPopup(entity);
 
 		findBody()//
