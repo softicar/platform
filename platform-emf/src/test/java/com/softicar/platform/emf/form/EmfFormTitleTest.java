@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.form;
 
-
+import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.test.EmfTestSubObject;
@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class EmfFormTitleTest extends AbstractEmfFormTest {
+public class EmfFormTitleTest extends AbstractEmfFormTest<EmfTestSubObject> {
 
 	@Test
 	public void testInitialTitleWithImpermanentEntity() {
@@ -49,5 +49,11 @@ public class EmfFormTitleTest extends AbstractEmfFormTest {
 		frame.assertIsNotClosed();
 		frame.assertTitle(EmfTestSubObject.TABLE.getTitle().toString());
 		frame.assertSubTitle("New Name [%s]", entity.getId());
+	}
+
+	private void enterNameAndClickSave(String name) {
+
+		setInputValue(EmfTestSubObject.NAME, name);
+		clickButton(EmfMarker.SAVE);
 	}
 }

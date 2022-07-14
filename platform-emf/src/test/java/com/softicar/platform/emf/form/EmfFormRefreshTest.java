@@ -5,7 +5,14 @@ import com.softicar.platform.emf.test.EmfTableRowCacheMapTestMethods;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import org.junit.Test;
 
-public class EmfFormRefreshTest extends AbstractEmfFormTest {
+public class EmfFormRefreshTest extends AbstractEmfFormTest<EmfTestSubObject> {
+
+	private final EmfTestSubObject testEntity;
+
+	public EmfFormRefreshTest() {
+
+		this.testEntity = insertTestSubObject("SubObject");
+	}
 
 	@Test
 	public void testPeekAndRefreshWithUpToDateEntity() {

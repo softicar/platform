@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.field.foreign.row;
 
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
+import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 /**
@@ -12,4 +13,5 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 public interface IEmfForeignRowAttribute<R extends IEmfTableRow<R, ?>, F extends IEmfTableRow<F, ?>> extends IEmfAttribute<R, F> {
 
 	// nothing to add
+	IEmfTable<F, ?, ?> getTargetTable();
 }
