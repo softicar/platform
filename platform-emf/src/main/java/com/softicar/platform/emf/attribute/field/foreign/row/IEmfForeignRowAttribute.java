@@ -12,6 +12,5 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
  */
 public interface IEmfForeignRowAttribute<R extends IEmfTableRow<R, ?>, F extends IEmfTableRow<F, ?>> extends IEmfAttribute<R, F> {
 
-	// nothing to add
 	IEmfTable<F, ?, ?> getTargetTable();
 }

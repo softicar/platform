@@ -241,6 +241,22 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 		findFormPopup(EmfTestObject.class).assertDisplayed();
 	}
 
+	@Test
+	public void testViewScopeOfEntityWithoutScope() {
+
+		// insert entity, create new frame
+		var testObject = insertTestObject("Test");
+		var otherFrame = new EmfFormTestFrame<EmfTestObject>();
+		setNodeSupplier(() -> otherFrame);
+
+		// show form
+		var otherForm = otherFrame.appendChild(new EmfForm<>(otherFrame, testObject));
+		otherForm.peekAndRefresh();
+
+		// assert that no view scope action is available
+		findNodes(new EmfCommonActionMarker(EmfFormViewScopeAction.class)).assertNone();
+	}
+
 	// ------------------------------ private ------------------------------ //
 
 	private EmfScopedTestObject createScopedTestObject() {

@@ -43,8 +43,9 @@ public class EmfFormViewScopeAction<R extends IEmfTableRow<R, ?>, F extends IEmf
 	@Override
 	public IDisplayString getTitle() {
 
-		IDisplayString title = scopeTable != null? scopeTable.getTitle() : IDisplayString.EMPTY;
-		return EmfI18n.VIEW_ARG1.toDisplay(title);
+		return scopeTable != null//
+				? EmfI18n.VIEW_ARG1.toDisplay(scopeTable.getTitle())
+				: EmfI18n.VIEW_SCOPE;
 	}
 
 	@Override
