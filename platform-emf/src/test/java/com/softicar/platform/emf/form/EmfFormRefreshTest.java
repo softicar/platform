@@ -1,17 +1,18 @@
 package com.softicar.platform.emf.form;
 
+import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.test.EmfTableRowCacheMapTestMethods;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import org.junit.Test;
 
-public class EmfFormRefreshTest extends AbstractEmfFormTest<EmfTestSubObject> {
+public class EmfFormRefreshTest extends AbstractEmfFormTest {
 
 	private final EmfTestSubObject testEntity;
 
 	public EmfFormRefreshTest() {
 
-		this.testEntity = insertTestSubObject("SubObject");
+		this.testEntity = insertTestSubObject("SubObject", Day.today());
 	}
 
 	@Test

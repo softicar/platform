@@ -3,33 +3,39 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.EmfMarker;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import com.softicar.platform.emf.test.simple.scoped.EmfScopedTestObject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
-public abstract class AbstractEmfFormTest<R extends IEmfTableRow<R, ?>> extends AbstractEmfTest {
+public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 
-	protected final EmfFormTestFrame<R> frame;
 	protected final Collection<Object> creationCallbacks;
-	protected EmfForm<R> form;
+	protected EmfFormTestFrame<?> frame;
+	protected EmfForm<? extends IEmfTableRow<?, ?>> form;
 
 	public AbstractEmfFormTest() {
 
-		this.frame = new EmfFormTestFrame<>();
+		this.frame = null;
 		this.creationCallbacks = new ArrayList<>();
 
-		setNodeSupplier(() -> frame);
+		setNodeSupplier(() -> Objects.requireNonNull(frame, "Frame was not initialized."));
 	}
 
-	protected EmfForm<R> appendEntityForm(R entity) {
+	protected <R extends IEmfTableRow<R, ?>> EmfForm<R> appendEntityForm(R entity) {
 
-		return frame.appendChild(new EmfForm<>(frame, entity));
+		var frame = new EmfFormTestFrame<R>();
+		this.frame = frame;
+
+		EmfForm<R> form = new EmfForm<>(frame, entity);
+		return frame.appendChild(form);
 	}
 
-	protected R showForm(R entity) {
+	protected <R extends IEmfTableRow<R, ?>> R showForm(R entity) {
 
 		this.form = appendEntityForm(entity);
 		form.setCallbackAfterCreation(creationCallbacks::add);
@@ -71,10 +77,11 @@ public abstract class AbstractEmfFormTest<R extends IEmfTableRow<R, ?>> extends 
 		return object;
 	}
 
-	protected EmfTestSubObject insertTestSubObject(String name) {
+	protected EmfTestSubObject insertTestSubObject(String name, Day day) {
 
 		EmfTestSubObject entity = new EmfTestSubObject();
 		entity.setName(name);
+		entity.setSimpleEntity(new EmfTestObject().setDay(day).save());
 		entity.setNotNullableValue(420);
 		entity.save();
 		return entity;
@@ -89,5 +96,19 @@ public abstract class AbstractEmfFormTest<R extends IEmfTableRow<R, ?>> extends 
 		object.setName(name);
 		object.save();
 		return object;
+	}
+
+	protected void enterNameAndDayAndClickSave(IStaticObject nameMarker, IStaticObject dayMarker, String name, Day day) {
+
+		setInputValue(dayMarker, day.toISOString());
+		setInputValue(nameMarker, name);
+		clickButton(EmfMarker.SAVE);
+	}
+
+	protected void enterNameAndDayAndClickSaveAndClose(IStaticObject nameMarker, IStaticObject dayMarker, String name, Day day) {
+
+		setInputValue(nameMarker, name);
+		setInputValue(dayMarker, day.toISOString());
+		clickButton(EmfMarker.SAVE_AND_CLOSE);
 	}
 }

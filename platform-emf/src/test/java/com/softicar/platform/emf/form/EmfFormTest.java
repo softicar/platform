@@ -13,7 +13,7 @@ import com.softicar.platform.emf.test.simple.EmfTestObject;
 import com.softicar.platform.emf.test.simple.scoped.EmfScopedTestObject;
 import org.junit.Test;
 
-public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
+public class EmfFormTest extends AbstractEmfFormTest {
 
 	private static final Day SOME_DAY = Day.fromYMD(2019, 4, 3);
 	private static final Day OTHER_DAY = Day.fromYMD(2019, 6, 7);
@@ -27,13 +27,13 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testCreationOfNewEntity() {
+	public void testCreationOfNewObject() {
 
 		// create entity and show form
 		EmfScopedTestObject entity = showForm(createScopedTestObject());
 
 		// enter input values and save entity
-		enterNameAndDayAndClickSaveAndClose(SOME_NAME, SOME_DAY);
+		enterNameAndDayAndClickSaveAndClose(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, SOME_NAME, SOME_DAY);
 
 		// verify entity
 		assertFalse(entity.impermanent());
@@ -51,7 +51,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testCreationOfNewEntityWithExceptionInAfterCreationCallback() {
+	public void testCreationOfNewObjectWithExceptionInAfterCreationCallback() {
 
 		// create entity and show form
 		EmfScopedTestObject entity = showForm(createScopedTestObject());
@@ -60,7 +60,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 		});
 
 		// enter input values and save entity
-		enterNameAndDayAndClickSaveAndClose(SOME_NAME, SOME_DAY);
+		enterNameAndDayAndClickSaveAndClose(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, SOME_NAME, SOME_DAY);
 
 		// verify entity
 		assertFalse(entity.impermanent());
@@ -75,7 +75,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testCreationOfNewEntityWithMissingMandatoryField() {
+	public void testCreationOfNewObjectWithMissingMandatoryField() {
 
 		// create entity and show form
 		// FIXME using createScopedTestObject() is not possible, results in wrong ROLLBACK state
@@ -98,13 +98,13 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testCreationOfNewEntityWithoutClosing() {
+	public void testCreationOfNewObjectWithoutClosing() {
 
 		// create entity and show form
 		EmfScopedTestObject entity = showForm(createScopedTestObject());
 
 		// enter input values and save entity
-		enterNameAndDayAndClickSave(SOME_NAME, SOME_DAY);
+		enterNameAndDayAndClickSave(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, SOME_NAME, SOME_DAY);
 
 		// verify entity
 		assertFalse(entity.impermanent());
@@ -122,14 +122,14 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testEditOfEntity() {
+	public void testEditOfObject() {
 
 		// insert entity and show form
 		EmfScopedTestObject entity = showForm(insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY));
 
 		// enter input values and save entity
 		clickButton(new EmfCommonActionMarker(EmfEditAction.class));
-		enterNameAndDayAndClickSaveAndClose(OTHER_NAME, OTHER_DAY);
+		enterNameAndDayAndClickSaveAndClose(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, OTHER_NAME, OTHER_DAY);
 
 		// verify entity
 		assertEquals(OTHER_NAME, entity.getName());
@@ -144,14 +144,14 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testEditOfEntityWithoutClosing() {
+	public void testEditOfObjectWithoutClosing() {
 
 		// insert entity and show form
 		EmfScopedTestObject entity = showForm(insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY));
 
 		// enter input values and save entity
 		clickButton(new EmfCommonActionMarker(EmfEditAction.class));
-		enterNameAndDayAndClickSave(OTHER_NAME, OTHER_DAY);
+		enterNameAndDayAndClickSave(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, OTHER_NAME, OTHER_DAY);
 
 		// verify entity
 		assertEquals(OTHER_NAME, entity.getName());
@@ -168,7 +168,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testDirectEditOfEntity() {
+	public void testDirectEditOfObject() {
 
 		// insert entity and show form
 		EmfScopedTestObject entity = insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY);
@@ -177,7 +177,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 		form.peekAndRefresh();
 
 		// enter input values and save entity
-		enterNameAndDayAndClickSaveAndClose(OTHER_NAME, OTHER_DAY);
+		enterNameAndDayAndClickSaveAndClose(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, OTHER_NAME, OTHER_DAY);
 
 		// verify entity
 		assertEquals(OTHER_NAME, entity.getName());
@@ -192,7 +192,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testDirectEditOfEntityWithoutClosing() {
+	public void testDirectEditOfObjectWithoutClosing() {
 
 		// insert entity and show form
 		EmfScopedTestObject entity = insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY);
@@ -201,7 +201,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 		form.peekAndRefresh();
 
 		// enter input values and save entity
-		enterNameAndDayAndClickSave(OTHER_NAME, OTHER_DAY);
+		enterNameAndDayAndClickSave(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, OTHER_NAME, OTHER_DAY);
 
 		// verify entity
 		assertEquals(OTHER_NAME, entity.getName());
@@ -217,8 +217,10 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 		frame.assertIsChangedOnRefreshBus(entity);
 	}
 
+	// ------------------------------ view scope ------------------------------ //
+
 	@Test
-	public void testViewScopeOfEntityWithoutPermission() {
+	public void testViewScopeOfObjectWithoutPermission() {
 
 		// insert entity and show form
 		showForm(insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY));
@@ -228,7 +230,7 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testViewScopeOfEntityWithPermission() {
+	public void testViewScopeOfObjectWithPermission() {
 
 		// add current user to view permission
 		scopeObject.addAuthorizedUser(user);
@@ -242,19 +244,14 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	}
 
 	@Test
-	public void testViewScopeOfEntityWithoutScope() {
+	public void testViewScopeOfObjectWithoutScope() {
 
-		// insert entity, create new frame
-		var testObject = insertTestObject("Test");
-		var otherFrame = new EmfFormTestFrame<EmfTestObject>();
-		setNodeSupplier(() -> otherFrame);
-
-		// show form
-		var otherForm = otherFrame.appendChild(new EmfForm<>(otherFrame, testObject));
-		otherForm.peekAndRefresh();
+		// insert entity and show form
+		showForm(insertTestObject("Test"));
 
 		// assert that no view scope action is available
 		findNodes(new EmfCommonActionMarker(EmfFormViewScopeAction.class)).assertNone();
+		assertFalse(EmfTestObject.TABLE.getScopeField().isPresent());
 	}
 
 	// ------------------------------ private ------------------------------ //
@@ -262,24 +259,5 @@ public class EmfFormTest extends AbstractEmfFormTest<EmfScopedTestObject> {
 	private EmfScopedTestObject createScopedTestObject() {
 
 		return EmfScopedTestObject.TABLE.createEntity(scopeObject);
-	}
-
-	private void enterNameAndClickSave(String name) {
-
-		setInputValue(EmfScopedTestObject.NAME, name);
-		clickButton(EmfMarker.SAVE);
-	}
-
-	private void enterNameAndDayAndClickSave(String name, Day day) {
-
-		setInputValue(EmfScopedTestObject.DAY, day.toISOString());
-		enterNameAndClickSave(name);
-	}
-
-	private void enterNameAndDayAndClickSaveAndClose(String name, Day day) {
-
-		setInputValue(EmfScopedTestObject.NAME, name);
-		setInputValue(EmfScopedTestObject.DAY, day.toISOString());
-		clickButton(EmfMarker.SAVE_AND_CLOSE);
 	}
 }

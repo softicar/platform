@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author Oliver Richers
  */
-public class EmfFormTitleTest extends AbstractEmfFormTest<EmfTestSubObject> {
+public class EmfFormTitleTest extends AbstractEmfFormTest {
 
 	@Test
 	public void testInitialTitleWithImpermanentEntity() {
