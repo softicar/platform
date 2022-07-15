@@ -8,9 +8,12 @@ SET SESSION SQL_MODE = CONCAT(@sqlMode, ',NO_AUTO_VALUE_ON_ZERO');
 
 
 -- create a transaction --
+
+-- BEGIN DML
 SELECT `systemUser` INTO @systemUser FROM `Core`.`CoreModuleInstance` LIMIT 1;
 INSERT INTO `Core`.`Transaction` SET `at` = NOW(), `by` = @systemUser;
 SELECT LAST_INSERT_ID() INTO @transactionId;
+-- END DML
 
 
 -- change referential action of FK in `Core`.`CoreModuleInstanceLog` --
@@ -29,8 +32,10 @@ UPDATE `Core`.`CoreModuleInstance` SET `id` = 0;
 
 -- insert new ModuleInstance record for the singleton core module instance --
 
+-- BEGIN DML
 SELECT `id` INTO @uuidId FROM `Core`.`Uuid` WHERE `uuidString` = 'a8b076bd-582d-446d-9bce-85a8a180afd5';
 INSERT INTO `Core`.`ModuleInstance` SET `id` = 0, `transaction` = @transactionId, `moduleUuid` = @uuidId;
+-- END DML
 
 
 -- change referential action of FK in `Core`.`AjaxException` --

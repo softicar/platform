@@ -2,4 +2,6 @@ dependencies {
 	implementation project(':platform-workflow-module')
 	implementation "com.google.code.gson:gson:$versions.gson"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
+
+	testRuntimeOnly "org.mariadb.jdbc:mariadb-java-client:$versions.mariadbJavaClient"
 }
