@@ -40,7 +40,6 @@ public class DbMySqlDatabasePurger {
 			while (resultSet.next()) {
 				String table = resultSet.getString("Name");
 				DbMysqlStatements.dropTable(new DbTableName(database, table));
-
 			}
 		}
 		DbMysqlStatements.dropDatabase(database);
