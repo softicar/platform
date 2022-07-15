@@ -286,6 +286,15 @@ public class DbMysqlStatements {
 		executeUncached("DROP TABLE %s", tableName.getQuoted());
 	}
 
+	/**
+	 * Adds SQL mode {@code NO_AUTO_VALUE_ON_ZERO} to the modes of the current
+	 * session.
+	 */
+	public static void addSqlModeNoAutoValueOnZero() {
+
+		new DbStatement("SET SESSION SQL_MODE = CONCAT((SELECT @@SESSION.SQL_MODE), ',NO_AUTO_VALUE_ON_ZERO');").executeUncached();
+	}
+
 	// ------------------------------ private ------------------------------ //
 
 	private static DbResultSet executeQuery(String query) {
