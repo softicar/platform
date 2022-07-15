@@ -217,6 +217,7 @@ public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends A
 			.assertDisplayedColumns("ID", "Name", "Amount", "Date");
 
 		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
+			.nextRecord()
 			.assertNoMoreRecords();
 	}
 

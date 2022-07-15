@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class EmfDataTableColumnTitlesHash {
+public class EmfDataTableColumnTitlesHasher {
 
 	private final String hash;
 
-	public EmfDataTableColumnTitlesHash(IEmfDataTableController<?> controller) {
+	public EmfDataTableColumnTitlesHasher(IEmfDataTableController<?> controller) {
 
 		Objects.requireNonNull(controller);
 		this.hash = new EmfDataTableColumnTitlesHashFactory().createHash(getColumnTitles(controller));

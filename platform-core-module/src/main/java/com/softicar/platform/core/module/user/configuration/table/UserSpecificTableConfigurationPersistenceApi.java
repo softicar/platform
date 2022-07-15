@@ -5,7 +5,7 @@ import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
-import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration;
 import com.softicar.platform.emf.persistence.IEmfPersistenceApi;
 import java.util.Objects;
@@ -30,7 +30,7 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 		String configurationJson = new Gson().toJson(configuration);
 
 		try (var transaction = new DbTransaction()) {
-			loadConfigurationRecord(tableIdentifier)//
+			loadConfigurationRecord(tableIdentifier.getHash(), configuration.columnTitlesHash)//
 				.orElse(new AGUserSpecificTableConfiguration())
 				.setTableIdentifierHash(tableIdentifier.getHash())
 				.setUser(CurrentUser.get())
@@ -43,19 +43,16 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 
 	@Override
 	public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(DataTableIdentifier tableIdentifier,
-			EmfDataTableColumnTitlesHash columnTitlesHash) {
+			EmfDataTableColumnTitlesHasher columnTitlesHasher) {
 
 		validateIdentifier(tableIdentifier);
-		validateColumnTitlesHash(columnTitlesHash);
+		validateColumnTitlesHash(columnTitlesHasher);
 
 		try (var transaction = new DbTransaction()) {
-			var configurationRecord = loadConfigurationRecord(tableIdentifier).orElse(null);
+			var configurationRecord = loadConfigurationRecord(tableIdentifier.getHash(), columnTitlesHasher.getHash()).orElse(null);
 
 			Optional<EmfPersistentTableConfiguration> configuration;
 			if (configurationRecord == null) {
-				configuration = Optional.empty();
-			} else if (!configurationRecord.getColumnTitlesHash().equals(columnTitlesHash.getHash())) {
-				configurationRecord.delete();
 				configuration = Optional.empty();
 			} else {
 				configuration = Optional.of(createUserSpecificTableConfiguration(configurationRecord.getSerialization()));
@@ -72,12 +69,13 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 		return new Gson().fromJson(configurationJson, EmfPersistentTableConfiguration.class);
 	}
 
-	private Optional<AGUserSpecificTableConfiguration> loadConfigurationRecord(DataTableIdentifier tableIdentifier) {
+	private Optional<AGUserSpecificTableConfiguration> loadConfigurationRecord(String tableIdentifierHash, String columnTitlesHash) {
 
 		return AGUserSpecificTableConfiguration.TABLE//
 			.createSelect(SqlSelectLock.FOR_UPDATE)
-			.where(AGUserSpecificTableConfiguration.TABLE_IDENTIFIER_HASH.equal(tableIdentifier.getHash()))
 			.where(AGUserSpecificTableConfiguration.USER.equal(CurrentUser.get()))
+			.where(AGUserSpecificTableConfiguration.TABLE_IDENTIFIER_HASH.equal(tableIdentifierHash))
+			.where(AGUserSpecificTableConfiguration.COLUMN_TITLES_HASH.equal(columnTitlesHash))
 			.getFirstAsOptional();
 	}
 
@@ -92,7 +90,7 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 		Objects.requireNonNull(configuration.columnTitlesHash);
 	}
 
-	private void validateColumnTitlesHash(EmfDataTableColumnTitlesHash columnTitlesHash) {
+	private void validateColumnTitlesHash(EmfDataTableColumnTitlesHasher columnTitlesHash) {
 
 		Objects.requireNonNull(columnTitlesHash);
 	}

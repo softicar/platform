@@ -14,16 +14,17 @@ import org.junit.Test;
 public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends AbstractUserSpecificTableConfigurationPersistenceApiTest
 		implements IEmfTestEngineMethods {
 
-	private final IUserSpecificTableConfigurationPersistenceTestQuery query;
+	private IUserSpecificTableConfigurationPersistenceTestQuery query;
 
 	public UserSpecificTableConfigurationPersistenceApiWithQueryTest() {
 
-		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery();
-		this.expectedTableIdentifierHash = query.getIdentifier().getHash();
+		this.query = null;
 	}
 
 	@Test
 	public void testInsertionWithQuery() {
+
+		setupQuery(false);
 
 		var expectedColumnTitlesHash = getColumnTitlesHash(//
 			IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
@@ -48,6 +49,8 @@ public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends A
 
 	@Test
 	public void testInsertionWithQueryAndConcealedColumn() {
+
+		setupQuery(false);
 
 		var expectedColumnTitlesHash = getColumnTitlesHash(//
 			IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN);
@@ -84,5 +87,38 @@ public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends A
 				"pageSize":20
 				}
 				""");
+	}
+
+	@Test
+	public void testInsertionWithQueryAndAdditionalColumn() {
+
+		setupQuery(true);
+
+		var expectedColumnTitlesHash = getColumnTitlesHash(//
+			IUserSpecificTableConfigurationPersistenceTestQuery.LOGIN_NAME_COLUMN,
+			IUserSpecificTableConfigurationPersistenceTestQuery.EMAIL_ADDRESS_COLUMN,
+			IUserSpecificTableConfigurationPersistenceTestQuery.LAST_NAME_COLUMN);
+
+		setNodeSupplier(() -> new EmfDataTableDivBuilder<>(query).build());
+
+		interactor//
+			.openConfiguration()
+			.clickApply();
+
+		assertOneConfiguration(expectedColumnTitlesHash, """
+				{
+				"columnTitlesHash":"%s",
+				"hiddenColumnIndexes":[],
+				"columnPositions":[0,1,2],
+				"columnOrderBys":[],
+				"pageSize":20
+				}
+				""");
+	}
+
+	private void setupQuery(boolean selectLastName) {
+
+		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery().setSelectLastName(selectLastName);
+		this.expectedTableIdentifierHash = query.getIdentifier().getHash();
 	}
 }

@@ -6,7 +6,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableOrdering.OrderingEntry;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableController;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
-import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration.OrderBy;
@@ -65,7 +65,7 @@ public class EmfPersistentTableConfigurationSaver<R> {
 
 	private String determineColumnTitlesHash() {
 
-		return new EmfDataTableColumnTitlesHash(controller).getHash();
+		return new EmfDataTableColumnTitlesHasher(controller).getHash();
 	}
 
 	private List<Integer> determineColumnPositions() {
