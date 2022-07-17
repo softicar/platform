@@ -26,6 +26,7 @@ public class DomEventHandlerNodeCaller {
 			} else {
 				event.getType().handleEvent(eventNode, event);
 			}
+			document.getDeferredInitializationController().handleAllAppended();
 		} catch (Exception exception) {
 			IDomExceptionDisplayElement displayElement = findExceptionDisplayElement(eventNode, exception);
 			if (displayElement != null) {

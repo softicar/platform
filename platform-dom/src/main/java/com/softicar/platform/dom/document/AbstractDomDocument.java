@@ -12,6 +12,8 @@ import com.softicar.platform.dom.document.marker.DomDocumentMarkerHolder;
 import com.softicar.platform.dom.document.marker.IDomDocumentMarkerHolder;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.node.initialization.DomDeferredInitializationController;
+import com.softicar.platform.dom.node.initialization.IDomDeferredInitializationController;
 import com.softicar.platform.dom.refresh.bus.DomRefreshBus;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
@@ -30,6 +32,7 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	private final IDomRefreshBus refreshBus;
 	private final ClassInstanceMap<Object> dataMap;
 	private final IDomDocumentMarkerHolder markerHolder;
+	private final IDomDeferredInitializationController deferredInitializationController;
 	private final DomHead head;
 	private final DomBody body;
 	private int maximumExistingNodeCount;
@@ -43,6 +46,7 @@ public abstract class AbstractDomDocument implements IDomDocument {
 		this.refreshBus = new DomRefreshBus();
 		this.dataMap = new ClassInstanceMap<>();
 		this.markerHolder = new DomDocumentMarkerHolder(this);
+		this.deferredInitializationController = new DomDeferredInitializationController(this);
 		this.head = new DomHead(this);
 		this.body = new DomBody(this);
 		this.maximumExistingNodeCount = 0;
@@ -109,6 +113,12 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	public final void removeCollectedNodes() {
 
 		activeNodes.collect();
+	}
+
+	@Override
+	public IDomDeferredInitializationController getDeferredInitializationController() {
+
+		return deferredInitializationController;
 	}
 
 	// -------------------------------- event -------------------------------- //

@@ -7,6 +7,7 @@ import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.AbstractDomNode;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.node.initialization.IDomDeferredInitializationController;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
 import java.lang.ref.WeakReference;
 
@@ -77,6 +78,14 @@ public interface IDomDocument extends IDomDocumentMarkerHolder {
 	 * this method removes the respective reference from the internal registry.
 	 */
 	void removeCollectedNodes();
+
+	/**
+	 * Returns the controller for deferred node initialization.
+	 *
+	 * @return the {@link IDomDeferredInitializationController} (never
+	 *         <i>null</i>)
+	 */
+	IDomDeferredInitializationController getDeferredInitializationController();
 
 	// -------------------------------- event -------------------------------- //
 

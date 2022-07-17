@@ -217,6 +217,25 @@ public interface IDomNode {
 		return getDomDocument().hasMarker(this, markers);
 	}
 
+	// -------------------------------- initializer -------------------------------- //
+
+	/**
+	 * Adds the given deferred initializer (i.e. an initialization callback) for
+	 * this {@link IDomNode}.
+	 * <p>
+	 * The initializer is executed when the {@link IDomNode} obtains a
+	 * transitive parent connection to the {@link DomBody}.
+	 *
+	 * @param initializer
+	 *            the initialization callback to execute as soon as this
+	 *            {@link IDomNode} is transitively appended to the
+	 *            {@link DomBody} (never <i>null</i>)
+	 */
+	default void addDeferredInitializer(INullaryVoidFunction initializer) {
+
+		getDomDocument().getDeferredInitializationController().addDeferredInitializer(this, initializer);
+	}
+
 	// -------------------------------- alert, confirm and prompt -------------------------------- //
 
 	/**

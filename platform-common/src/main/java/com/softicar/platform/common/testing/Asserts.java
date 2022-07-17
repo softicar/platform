@@ -68,7 +68,7 @@ public class Asserts extends Assert {
 		Throwable thrown = null;
 		try {
 			thrower.apply();
-		} catch (Exception throwable) {
+		} catch (Throwable throwable) {
 			thrown = throwable;
 		}
 		assertNotNull(String.format("Expected a Throwable of class %s but none was thrown.", expectedThrowableClass.getCanonicalName()), thrown);
@@ -82,7 +82,7 @@ public class Asserts extends Assert {
 					StackTraceFormatting.getStackTraceAsString(thrown)),
 			expectedThrowableClass.isAssignableFrom(thrownClass));
 		if (expectedMessage != null) {
-			assertEquals("Unexpected exception message.", expectedMessage, thrown.getMessage());
+			assertEquals("Unexpected message.", expectedMessage, thrown.getMessage());
 		}
 	}
 
@@ -91,8 +91,8 @@ public class Asserts extends Assert {
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
-		} catch (Exception exception) {
-			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(exception));
+		} catch (Throwable throwable) {
+			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(throwable));
 		}
 	}
 
@@ -101,11 +101,11 @@ public class Asserts extends Assert {
 		try {
 			thrower.apply();
 			fail("An expected exception failed to occur.");
-		} catch (Exception exception) {
-			String message = getNonNullMessageOrFail(exception);
+		} catch (Throwable throwable) {
+			String message = getNonNullMessageOrFail(throwable);
 			assertTrue(//
 				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
-				exception.getMessage().contains(expectedMessage.toString()));
+				throwable.getMessage().contains(expectedMessage.toString()));
 		}
 	}
 
@@ -214,13 +214,13 @@ public class Asserts extends Assert {
 			.collect(Collectors.toList());
 	}
 
-	private static String getNonNullMessageOrFail(Exception exception) {
+	private static String getNonNullMessageOrFail(Throwable throwable) {
 
-		String message = exception.getMessage();
+		String message = throwable.getMessage();
 		if (message != null) {
 			return message;
 		} else {
-			throw new AssertionError("The encountered %s does not have a message.".formatted(exception.getClass().getSimpleName()));
+			throw new AssertionError("The encountered %s does not have a message.".formatted(throwable.getClass().getSimpleName()));
 		}
 	}
 }
