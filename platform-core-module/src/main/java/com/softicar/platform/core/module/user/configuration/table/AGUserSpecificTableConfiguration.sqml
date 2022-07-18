@@ -5,10 +5,10 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 TABLE AGUserSpecificTableConfiguration 'Core.UserSpecificTableConfiguration' {
 
 	PK Integer id = SERIAL
-	String tableIdentifierHash = '' [MAXLENGTH=255]
 	AGUser user = NULL [NULLABLE]
+	String tableIdentifierHash = '' [MAXLENGTH=255]
 	String columnTitlesHash = '' [MAXLENGTH=255]
 	String serialization = '' [LENGTHBITS=16]
 
-	UK tableIdentifierHash user
+	UK user tableIdentifierHash columnTitlesHash
 }

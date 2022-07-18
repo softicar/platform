@@ -6,7 +6,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableOrdering;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableController;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
-import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration;
 import java.util.List;
@@ -45,7 +45,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 		if (identifier.isPresent()) {
 			CurrentEmfPersistenceApi//
 				.get()
-				.loadPersistentTableConfiguration(identifier, new EmfDataTableColumnTitlesHash(controller))
+				.loadPersistentTableConfiguration(identifier, new EmfDataTableColumnTitlesHasher(controller))
 				.ifPresent(this::apply);
 		}
 	}
