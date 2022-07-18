@@ -29,12 +29,16 @@ public class PageHeaderAndContentDiv extends DomDiv {
 		removeChildren();
 		CurrentDomPopupCompositor.get().closeAll();
 
+		CurrentDomDocument.get().getDeferredInitializationController().clear();
+
 		DbTableRowCaches.invalidateAll();
 		CurrentLocale.set(CurrentUser.get().getLocale());
 
 		changeBrowserUrl(link);
 		appendChild(new PageHeaderDiv<>(link, navigationToggleFunction));
 		appendChild(new PageContentDiv(link));
+
+		CurrentDomDocument.get().getDeferredInitializationController().handleAllAppended();
 	}
 
 	private void changeBrowserUrl(PageNavigationLink<?> link) {

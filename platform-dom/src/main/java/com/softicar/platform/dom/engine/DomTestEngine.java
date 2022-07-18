@@ -44,4 +44,18 @@ public class DomTestEngine extends DomNullEngine {
 
 		setNodeStyle(node, "zIndex", "" + maxZIndex++);
 	}
+
+	@Override
+	public void appendChild(IDomNode parent, IDomNode child) {
+
+		var document = child.getDomDocument();
+		document.getDeferredInitializationController().queueAppended(child);
+	}
+
+	@Override
+	public void insertBefore(IDomNode parent, IDomNode child, IDomNode otherChild) {
+
+		var document = child.getDomDocument();
+		document.getDeferredInitializationController().queueAppended(child);
+	}
 }

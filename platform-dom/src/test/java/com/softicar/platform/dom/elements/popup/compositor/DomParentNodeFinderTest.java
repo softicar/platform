@@ -86,6 +86,53 @@ public class DomParentNodeFinderTest extends AbstractTest {
 		createFetcher(IDomNode.class).findClosestParent(null);
 	}
 
+	@Test
+	public void testFindMostDistantParent() {
+
+		DomDiv top = appendChild(new DomDiv());
+		DomDiv upper = top.appendChild(new TestParent());
+		DomDiv middle = upper.appendChild(new DomDiv());
+		DomDiv lower = middle.appendChild(new TestParent());
+		DomDiv bottom = lower.appendChild(new DomDiv());
+
+		Optional<TestParent> parent = createFetcher(TestParent.class).findMostDistantParent(bottom);
+
+		assertTrue(parent.isPresent());
+		assertSame(upper, parent.get());
+	}
+
+	@Test
+	public void testFindMostDistantParentOfAnyType() {
+
+		DomDiv top = appendChild(new DomDiv());
+		DomDiv middle = top.appendChild(new TestParent());
+		DomDiv lower = middle.appendChild(new DomDiv());
+
+		Optional<IDomNode> parent = createFetcher(IDomNode.class).findMostDistantParent(lower);
+
+		assertTrue(parent.isPresent());
+		assertSame(document.getBody(), parent.get());
+	}
+
+	@Test
+	public void testFindMostDistantParentWithoutParent() {
+
+		Optional<TestParent> parent = createFetcher(TestParent.class).findMostDistantParent(new DomDiv());
+
+		assertFalse(parent.isPresent());
+	}
+
+	@Test
+	public void testFindMostDistantParentWithoutMatchingParent() {
+
+		DomDiv upper = appendChild(new DomDiv());
+		DomDiv lower = upper.appendChild(new DomDiv());
+
+		Optional<TestParent> parent = createFetcher(TestParent.class).findMostDistantParent(lower);
+
+		assertFalse(parent.isPresent());
+	}
+
 	private <T extends IDomNode> T appendChild(T node) {
 
 		return document.getBody().appendChild(node);
