@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.core.module.user.configuration.table
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+
+QUERY UserSpecificTableConfigurationPersistenceTestQuery {
+	Boolean selectLastName
+
+	SELECT user.loginName
+	SELECT user.emailAddress
+	#IF $selectLastName {
+		SELECT user.lastName
+	}
+	FROM AGUser AS user
+}

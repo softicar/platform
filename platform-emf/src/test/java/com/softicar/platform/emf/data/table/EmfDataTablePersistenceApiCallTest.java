@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
-import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHash;
+import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
 import com.softicar.platform.emf.data.table.configuration.EmfDataTableConfigurationMarker;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration;
@@ -140,7 +140,7 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		@Override
 		public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(DataTableIdentifier tableIdentifier,
-				EmfDataTableColumnTitlesHash columnTitlesHash) {
+				EmfDataTableColumnTitlesHasher columnTitlesHash) {
 
 			++loadCount;
 			return Optional.empty();
