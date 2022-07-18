@@ -163,6 +163,7 @@ public class AjaxDomEngine implements IDomEngine {
 		} else {
 			JS_call("a", parent.getNodeId(), child.getNodeId());
 		}
+		document.getDeferredInitializationController().queueAppended(child);
 
 		lastCreationNodeID = -1;
 	}
@@ -171,6 +172,7 @@ public class AjaxDomEngine implements IDomEngine {
 	public void insertBefore(IDomNode parent, IDomNode child, IDomNode otherChild) {
 
 		JS_call("i", parent.getNodeId(), child.getNodeId(), otherChild.getNodeId());
+		document.getDeferredInitializationController().queueAppended(child);
 		lastCreationNodeID = -1;
 	}
 

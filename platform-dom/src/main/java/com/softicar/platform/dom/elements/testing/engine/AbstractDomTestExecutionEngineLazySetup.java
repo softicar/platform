@@ -66,6 +66,8 @@ public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTes
 		if (node == null) {
 			flushRefreshBus();
 			this.node = createNode();
+			// Explicitly perform deferred initialization for appended nodes, because we have no DOM event that would have triggered this automatically.
+			CurrentDomDocument.get().getDeferredInitializationController().handleAllAppended();
 		}
 	}
 

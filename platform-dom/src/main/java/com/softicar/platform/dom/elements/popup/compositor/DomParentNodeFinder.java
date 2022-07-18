@@ -61,4 +61,32 @@ public class DomParentNodeFinder<T extends IDomNode> {
 		}
 		return Optional.empty();
 	}
+
+	/**
+	 * For the given child {@link IDomNode}, finds the most distant transitive
+	 * parent of the type given to {@link #DomParentNodeFinder(Class)}.
+	 * <p>
+	 * Returns {@link Optional#empty()} if the given {@link IDomNode} has no
+	 * such transitive parent, or no parent at all.
+	 *
+	 * @param child
+	 *            the {@link IDomNode} to search a parent for (never
+	 *            <i>null</i>)
+	 * @return the most distant transitive parent {@link IDomNode} that matches
+	 *         the specified class
+	 */
+	public Optional<T> findMostDistantParent(IDomNode child) {
+
+		Objects.requireNonNull(child);
+		IDomNode parent = null;
+		T typedParent = null;
+		do {
+			parent = child.getParent();
+			if (parentClass.isInstance(parent)) {
+				typedParent = parentClass.cast(parent);
+			}
+			child = parent;
+		} while (parent != null);
+		return Optional.ofNullable(typedParent);
+	}
 }
