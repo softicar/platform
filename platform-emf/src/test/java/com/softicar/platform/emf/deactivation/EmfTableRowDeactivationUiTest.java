@@ -22,8 +22,8 @@ public class EmfTableRowDeactivationUiTest extends AbstractEmfTest {
 	@Test
 	public void testWithActiveField() {
 
-		insertBaseEntity(A, true);
-		insertBaseEntity(B, false);
+		insertBaseObject(A, true);
+		insertBaseObject(B, false);
 		setNodeSupplier(() -> new EmfManagementDiv<>(EmfTestObject.TABLE, moduleInstance));
 
 		assertTableColumns("Active", 0);
@@ -38,8 +38,8 @@ public class EmfTableRowDeactivationUiTest extends AbstractEmfTest {
 	@Test
 	public void testWithInheritedActiveField() {
 
-		insertTestEntity(A, true);
-		insertTestEntity(B, false);
+		insertTestObject(A, true);
+		insertTestObject(B, false);
 		setNodeSupplier(() -> new EmfManagementDiv<>(EmfTestSubObject.TABLE, moduleInstance));
 
 		assertTableColumns("Active", 0);
@@ -81,16 +81,16 @@ public class EmfTableRowDeactivationUiTest extends AbstractEmfTest {
 		}
 	}
 
-	private EmfTestSubObject insertTestEntity(String name, boolean active) {
+	private EmfTestSubObject insertTestObject(String name, boolean active) {
 
 		return EmfTestSubObject.TABLE//
-			.createObject(insertBaseEntity(name, active))
+			.createObject(insertBaseObject(name, active))
 			.setName(name)
 			.setNotNullableValue(420)
 			.save();
 	}
 
-	private EmfTestObject insertBaseEntity(String name, boolean active) {
+	private EmfTestObject insertBaseObject(String name, boolean active) {
 
 		EmfTestObject testObject = new EmfTestObject()//
 			.setName(name)

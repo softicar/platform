@@ -282,6 +282,14 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 		return this;
 	}
 
+	/**
+	 * Tries to cast this {@link IEmfAttribute} into an
+	 * {@link IEmfForeignRowAttribute}.
+	 *
+	 * @param <F>
+	 *            the foreign {@link IEmfTableRow} type
+	 * @return the optional {@link IEmfForeignRowAttribute}
+	 */
 	@SuppressWarnings("unchecked")
 	default <F extends IEmfTableRow<F, ?>> Optional<IEmfForeignRowAttribute<R, F>> asForeignRowAttribute() {
 

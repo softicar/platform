@@ -16,6 +16,15 @@ import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
+/**
+ * An {@link IEmfCommonAction} to open an {@link EmfFormPopup} for the scope
+ * object of an {@link IEmfTableRow}.
+ * <p>
+ * This can only be instantiated for {@link IEmfTable} objects with of scope
+ * that implements {@link IEmfTableRow}.
+ *
+ * @author Oliver Richers
+ */
 public class EmfFormViewScopeAction<R extends IEmfTableRow<R, ?>, S extends IEmfTableRow<S, ?>> implements IEmfCommonAction<R> {
 
 	private final IEmfForeignRowAttribute<R, S> scopeAttribute;
@@ -25,6 +34,17 @@ public class EmfFormViewScopeAction<R extends IEmfTableRow<R, ?>, S extends IEmf
 		this.scopeAttribute = scopeAttribute;
 	}
 
+	/**
+	 * Tries to create an {@link EmfFormViewScopeAction} for the given
+	 * {@link IEmfTable}.
+	 *
+	 * @param <R>
+	 *            the {@link IEmfTableRow} type
+	 * @param table
+	 *            the {@link IEmfTable} (never <i>null</i>)
+	 * @return the optional {@link EmfFormViewScopeAction} as an
+	 *         {@link IEmfCommonAction}
+	 */
 	public static <R extends IEmfTableRow<R, ?>> Optional<IEmfCommonAction<R>> create(IEmfTable<R, ?, ?> table) {
 
 		return table//

@@ -103,7 +103,7 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	}
 
 	/**
-	 * Returns the optional scope attribute.
+	 * Returns the optional {@link IEmfAttribute} for the scope.
 	 *
 	 * @return the optional {@link IEmfAttribute} for the scope
 	 */

@@ -330,8 +330,6 @@ public interface EmfI18n extends DomI18n {
 		.de("Speichern und schließen");
 	I18n0 SCOPE = new I18n0("Scope")//
 		.de("Scope");
-	I18n0 SCOPE_PRESENT = new I18n0("Scope present")//
-		.de("Scope vorhanden");
 	I18n0 SELECT = new I18n0("Select")//
 		.de("Auswählen");
 	I18n0 SELECT_A_CSV_FILE_TO_IMPORT = new I18n0("Select a CSV file to import.")//
@@ -442,8 +440,6 @@ public interface EmfI18n extends DomI18n {
 		.de("%s ansehen");
 	I18n0 VIEW_HISTORY_ENTRY = new I18n0("View History Entry")//
 		.de("Historien-Eintrag anzeigen");
-	I18n0 VIEW_SCOPE = new I18n0("View Scope")//
-		.de("Scope ansehen");
 	I18n0 VISIBILITY_PREDICATE = new I18n0("Visibility Predicate")//
 		.de("Sichtbarkeits-Prädikat");
 	I18n0 WARNING = new I18n0("Warning")//

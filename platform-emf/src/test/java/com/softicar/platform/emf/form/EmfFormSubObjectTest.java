@@ -23,7 +23,7 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 	public EmfFormSubObjectTest() {
 
 		// FIXME remove this when PLAT-1050 was done
-		// trigger creation of table
+		// trigger early creation of table
 		EmfTestTransaction.TABLE.createSelect().list();
 	}
 

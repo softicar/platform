@@ -82,7 +82,7 @@ public class DbTableFinder<T, R> {
 			DevNull.swallow(exception);
 			if (tableRowClass.getAnnotation(TestingOnly.class) == null) {
 				Log
-					.fwarning(
+					.fwarning(//
 						"Missing %s field in table row class %s. Add annotation @%s to skip this warning.",
 						TABLE_FIELD_NAME,
 						tableRowClass.getCanonicalName(),
