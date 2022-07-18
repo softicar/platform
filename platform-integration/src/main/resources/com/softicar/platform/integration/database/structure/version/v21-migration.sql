@@ -41,3 +41,7 @@ ALTER TABLE `Core`.`ScheduledProgramExecutionLog` ADD COLUMN `automaticAbort` BO
 
 ALTER TABLE `Workflow`.`WorkflowModuleInstance` RENAME COLUMN `moduleInstance` to `base`;
 
+ALTER TABLE `Core`.`UserSpecificTableConfiguration` CHANGE COLUMN `tableIdentifierHash` `tableIdentifierHash` VARCHAR(255) NOT NULL DEFAULT '' AFTER `user`;
+ALTER TABLE `Core`.`UserSpecificTableConfiguration` DROP INDEX `tableIdentifierHashUser`;
+ALTER TABLE `Core`.`UserSpecificTableConfiguration` ADD UNIQUE INDEX `userTableIdentifierHashColumnTitlesHash` (`user`, `tableIdentifierHash`, `columnTitlesHash`);
+

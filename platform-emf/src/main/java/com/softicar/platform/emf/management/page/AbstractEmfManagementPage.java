@@ -26,7 +26,7 @@ public abstract class AbstractEmfManagementPage<I extends IEmfModuleInstance<I>>
 	}
 
 	@Override
-	public final IDomNode createContentNode(I moduleInstance) {
+	public IDomNode createContentNode(I moduleInstance) {
 
 		EmfManagementDivBuilder<?, ?, I> builder = new EmfManagementDivBuilder<>(getTable(), moduleInstance);
 		customize(builder);
