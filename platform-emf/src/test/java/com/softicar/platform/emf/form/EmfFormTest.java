@@ -24,6 +24,10 @@ public class EmfFormTest extends AbstractEmfFormTest {
 	public EmfFormTest() {
 
 		this.scopeObject = insertTestObject("Scope");
+
+		// FIXME remove this when PLAT-1050 was done
+		// trigger creation of table
+		EmfScopedTestObject.TABLE.createSelect().list();
 	}
 
 	@Test
@@ -78,8 +82,7 @@ public class EmfFormTest extends AbstractEmfFormTest {
 	public void testCreationOfNewObjectWithMissingMandatoryField() {
 
 		// create entity and show form
-		// FIXME using createScopedTestObject() is not possible, results in wrong ROLLBACK state
-		EmfScopedTestObject entity = showForm(new EmfScopedTestObject());
+		EmfScopedTestObject entity = showForm(createScopedTestObject());
 
 		// click save button without entering values
 		clickButton(EmfMarker.SAVE);

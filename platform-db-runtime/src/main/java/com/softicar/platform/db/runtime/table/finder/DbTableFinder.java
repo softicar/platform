@@ -1,6 +1,7 @@
 package com.softicar.platform.db.runtime.table.finder;
 
 import com.softicar.platform.common.code.classpath.metadata.IClasspathFilesMetadata;
+import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -78,8 +79,15 @@ public class DbTableFinder<T, R> {
 		try {
 			return tableRowClass.getField(TABLE_FIELD_NAME);
 		} catch (NoSuchFieldException exception) {
-			Log.ferror("Missing %s field in table row class: %s", TABLE_FIELD_NAME, tableRowClass.getCanonicalName());
-			exception.printStackTrace();
+			DevNull.swallow(exception);
+			if (tableRowClass.getAnnotation(TestingOnly.class) == null) {
+				Log
+					.fwarning(
+						"Missing %s field in table row class %s. Add annotation @%s to skip this warning.",
+						TABLE_FIELD_NAME,
+						tableRowClass.getCanonicalName(),
+						TestingOnly.class.getSimpleName());
+			}
 			return null;
 		}
 	}

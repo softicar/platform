@@ -39,7 +39,7 @@ public class EmfActionSet<R extends IEmfTableRow<R, ?>, S> {
 		addCommonAction(new EmfFormRefreshAction<>());
 		addCommonAction(new EmfEditAction<>(table));
 		addCommonAction(new EmfLogAction<>(table));
-		addCommonAction(new EmfFormViewScopeAction<>(table));
+		EmfFormViewScopeAction.create(table).ifPresent(this::addCommonAction);
 
 		// add standard management actions
 		addManagementAction(new EmfViewAction<>(table));

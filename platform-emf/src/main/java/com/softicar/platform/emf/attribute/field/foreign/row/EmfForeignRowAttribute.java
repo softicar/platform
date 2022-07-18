@@ -28,6 +28,12 @@ public class EmfForeignRowAttribute<R extends IEmfTableRow<R, ?>, F extends IEmf
 		return CastUtils.cast(entityField.getTargetTable());
 	}
 
+	@Override
+	public IDbForeignRowField<R, F, ?> getForeignRowField() {
+
+		return entityField;
+	}
+
 	private IDomElement createForeignDisplay(F value) {
 
 		return getTargetTable().getDisplayFactory().apply(value);

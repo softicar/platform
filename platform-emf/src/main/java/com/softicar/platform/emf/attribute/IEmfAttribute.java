@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.element.IDomElement;
+import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.management.EmfManagementDiv;
@@ -279,5 +280,15 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	default IEmfAttribute<?, V> getOriginalAttribute() {
 
 		return this;
+	}
+
+	@SuppressWarnings("unchecked")
+	default <F extends IEmfTableRow<F, ?>> Optional<IEmfForeignRowAttribute<R, F>> asForeignRowAttribute() {
+
+		if (this instanceof IEmfForeignRowAttribute) {
+			return Optional.of((IEmfForeignRowAttribute<R, F>) this);
+		} else {
+			return Optional.empty();
+		}
 	}
 }

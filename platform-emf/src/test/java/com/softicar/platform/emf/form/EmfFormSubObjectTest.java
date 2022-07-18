@@ -10,7 +10,7 @@ import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
-import org.junit.Ignore;
+import com.softicar.platform.emf.transaction.EmfTestTransaction;
 import org.junit.Test;
 
 public class EmfFormSubObjectTest extends AbstractEmfFormTest {
@@ -19,6 +19,13 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 	private static final Day OTHER_DAY = Day.fromYMD(2019, 6, 7);
 	private static final String SOME_NAME = "Foo";
 	private static final String OTHER_NAME = "Bar";
+
+	public EmfFormSubObjectTest() {
+
+		// FIXME remove this when PLAT-1050 was done
+		// trigger creation of table
+		EmfTestTransaction.TABLE.createSelect().list();
+	}
 
 	@Test
 	public void testCreationOfNewSubObject() {
@@ -68,8 +75,6 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 		frame.assertIsNotClosed();
 	}
 
-	//FIXME This test somehow results in a wrong rollback state, even though it originally worked
-	@Ignore
 	@Test
 	public void testCreationOfNewSubObjectWithMissingMandatoryField() {
 
