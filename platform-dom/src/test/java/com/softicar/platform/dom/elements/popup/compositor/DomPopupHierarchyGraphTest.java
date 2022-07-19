@@ -123,7 +123,7 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 	}
 
 	@Test
-	public void testClearNonMatching() {
+	public void testRemoveAllClosedLeaves() {
 
 		// setup
 		var alpha = new DomPopup();
@@ -132,6 +132,10 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 		var betaChild = new DomPopup();
 		var gamma = new DomPopup();
 		var gammaChild = new DomPopup();
+		var delta = new DomPopup();
+		var deltaChild = new DomPopup();
+		var deltaChildChild = new DomPopup();
+		var deltaChildChildChild = new DomPopup();
 
 		var stateMap = new HashMap<DomPopup, Boolean>();
 		stateMap.put(alpha, false);
@@ -140,44 +144,66 @@ public class DomPopupHierarchyGraphTest extends AbstractTest {
 		stateMap.put(betaChild, true);
 		stateMap.put(gamma, true);
 		stateMap.put(gammaChild, false);
+		stateMap.put(delta, false);
+		stateMap.put(deltaChild, true);
+		stateMap.put(deltaChildChild, false);
+		stateMap.put(deltaChildChildChild, false);
 		graph.add(alpha, alphaChild);
 		graph.add(beta, betaChild);
 		graph.add(gamma, gammaChild);
+		graph.add(delta, deltaChild);
+		graph.add(deltaChild, deltaChildChild);
+		graph.add(deltaChildChild, deltaChildChildChild);
 
 		// assert initial state
 		var alphaChildren = graph.getAllChildPopups(alpha);
 		assertEquals(1, alphaChildren.size());
 		assertSame(alphaChild, alphaChildren.get(0));
+
 		var betaChildren = graph.getAllChildPopups(beta);
 		assertEquals(1, betaChildren.size());
 		assertSame(betaChild, betaChildren.get(0));
+
 		var gammaChildren = graph.getAllChildPopups(gamma);
 		assertEquals(1, gammaChildren.size());
 		assertSame(gammaChild, gammaChildren.get(0));
 
+		var deltaChildren = graph.getAllChildPopups(delta);
+		assertEquals(3, deltaChildren.size());
+		assertSame(deltaChildChildChild, deltaChildren.get(0));
+		assertSame(deltaChildChild, deltaChildren.get(1));
+		assertSame(deltaChild, deltaChildren.get(2));
+
 		// execute
-		graph.removeAllNonMatching(stateMap::get);
+		graph.removeAllClosedLeaves(stateMap::get);
 
 		// assert result
 		alphaChildren = graph.getAllChildPopups(alpha);
 		assertEquals(0, alphaChildren.size());
+
 		betaChildren = graph.getAllChildPopups(beta);
 		assertEquals(1, betaChildren.size());
+		assertSame(betaChild, betaChildren.get(0));
+
 		gammaChildren = graph.getAllChildPopups(gamma);
 		assertEquals(0, gammaChildren.size());
+
+		deltaChildren = graph.getAllChildPopups(delta);
+		assertEquals(1, deltaChildren.size());
+		assertSame(deltaChild, deltaChildren.get(0));
 	}
 
 	@Test
-	public void testClearNonMatchingWithEmptyGraph() {
+	public void testRemoveAllClosedLeavesWithEmptyGraph() {
 
-		graph.removeAllNonMatching(it -> true);
-		graph.removeAllNonMatching(it -> false);
+		graph.removeAllClosedLeaves(it -> true);
+		graph.removeAllClosedLeaves(it -> false);
 		// expect no Exception
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testClearNonMatchingWithNull() {
+	public void testRemoveAllClosedLeavesWithNull() {
 
-		graph.removeAllNonMatching(null);
+		graph.removeAllClosedLeaves(null);
 	}
 }
