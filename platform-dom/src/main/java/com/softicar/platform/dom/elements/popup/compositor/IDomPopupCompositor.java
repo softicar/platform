@@ -84,4 +84,11 @@ public interface IDomPopupCompositor {
 	 *            (never <i>null</i>)
 	 */
 	void refreshFrame(DomPopup popup);
+
+	/**
+	 * Returns the current {@link IDomPopupHierarchyTree}.
+	 *
+	 * @return the current {@link IDomPopupHierarchyTree} (never <i>null</i>)
+	 */
+	IDomPopupHierarchyTree getHierarchyTree();
 }

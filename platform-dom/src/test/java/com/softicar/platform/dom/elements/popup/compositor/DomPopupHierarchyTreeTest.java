@@ -5,6 +5,7 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import java.util.HashMap;
+import java.util.Optional;
 import org.junit.Test;
 
 public class DomPopupHierarchyTreeTest extends AbstractTest {
@@ -15,33 +16,6 @@ public class DomPopupHierarchyTreeTest extends AbstractTest {
 
 		this.tree = new DomPopupHierarchyTree();
 		CurrentDomDocument.set(new DomDocument());
-	}
-
-	@Test
-	public void testAdd() {
-
-		var parent = new DomPopup();
-		var child = new DomPopup();
-		tree.add(parent, child);
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testAddWithNullParent() {
-
-		tree.add(null, new DomPopup());
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testAddWithNullChild() {
-
-		tree.add(new DomPopup(), null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testAddWithSameObject() {
-
-		var popup = new DomPopup();
-		tree.add(popup, popup);
 	}
 
 	@Test
@@ -86,40 +60,99 @@ public class DomPopupHierarchyTreeTest extends AbstractTest {
 	}
 
 	@Test
-	public void testClear() {
+	public void testGetParentPopup() {
 
 		// setup
 		var alpha = new DomPopup();
-		var alphaChild = new DomPopup();
 		var beta = new DomPopup();
-		var betaChild = new DomPopup();
-
-		tree.add(alpha, alphaChild);
-		tree.add(beta, betaChild);
-
-		// assert initial state
-		var alphaChildren = tree.getAllChildPopups(alpha);
-		assertEquals(1, alphaChildren.size());
-		assertSame(alphaChild, alphaChildren.get(0));
-		var betaChildren = tree.getAllChildPopups(beta);
-		assertEquals(1, betaChildren.size());
-		assertSame(betaChild, betaChildren.get(0));
+		tree.add(alpha, beta);
 
 		// execute
-		tree.clear();
+		Optional<DomPopup> parent = tree.getParentPopup(beta);
 
 		// assert result
-		alphaChildren = tree.getAllChildPopups(alpha);
-		assertEquals(0, alphaChildren.size());
-		betaChildren = tree.getAllChildPopups(beta);
-		assertEquals(0, betaChildren.size());
+		assertTrue(parent.isPresent());
+		assertSame(alpha, parent.get());
 	}
 
 	@Test
-	public void testClearWithEmptyTree() {
+	public void testGetParentPopupWithClosedParentPopup() {
 
-		tree.clear();
-		// expect no Exception
+		// setup
+		var alpha = new DomPopup();
+		var beta = new DomPopup();
+		tree.add(alpha, beta);
+
+		var stateMap = new HashMap<DomPopup, Boolean>();
+		stateMap.put(alpha, false);
+		stateMap.put(beta, true);
+
+		tree.removeAllClosedLeaves(stateMap::get);
+
+		// execute
+		Optional<DomPopup> parent = tree.getParentPopup(beta);
+
+		// assert result
+		assertTrue(parent.isPresent());
+		assertSame(alpha, parent.get());
+	}
+
+	@Test
+	public void testGetParentPopupWithTopLevelPopup() {
+
+		// setup
+		var alpha = new DomPopup();
+		var beta = new DomPopup();
+		tree.add(alpha, beta);
+
+		// execute
+		Optional<DomPopup> parent = tree.getParentPopup(alpha);
+
+		// assert result
+		assertFalse(parent.isPresent());
+	}
+
+	@Test
+	public void testGetParentPopupWithEmptyTree() {
+
+		// execute
+		Optional<DomPopup> parent = tree.getParentPopup(new DomPopup());
+
+		// assert result
+		assertFalse(parent.isPresent());
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testGetParentPopupWithNull() {
+
+		tree.getParentPopup(null);
+	}
+
+	@Test
+	public void testAdd() {
+
+		var parent = new DomPopup();
+		var child = new DomPopup();
+		tree.add(parent, child);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testAddWithNullParent() {
+
+		tree.add(null, new DomPopup());
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testAddWithNullChild() {
+
+		tree.add(new DomPopup(), null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAddWithSameObject() {
+
+		var popup = new DomPopup();
+		tree.add(popup, popup);
 	}
 
 	@Test
@@ -205,5 +238,42 @@ public class DomPopupHierarchyTreeTest extends AbstractTest {
 	public void testRemoveAllClosedLeavesWithNull() {
 
 		tree.removeAllClosedLeaves(null);
+	}
+
+	@Test
+	public void testClear() {
+
+		// setup
+		var alpha = new DomPopup();
+		var alphaChild = new DomPopup();
+		var beta = new DomPopup();
+		var betaChild = new DomPopup();
+
+		tree.add(alpha, alphaChild);
+		tree.add(beta, betaChild);
+
+		// assert initial state
+		var alphaChildren = tree.getAllChildPopups(alpha);
+		assertEquals(1, alphaChildren.size());
+		assertSame(alphaChild, alphaChildren.get(0));
+		var betaChildren = tree.getAllChildPopups(beta);
+		assertEquals(1, betaChildren.size());
+		assertSame(betaChild, betaChildren.get(0));
+
+		// execute
+		tree.clear();
+
+		// assert result
+		alphaChildren = tree.getAllChildPopups(alpha);
+		assertEquals(0, alphaChildren.size());
+		betaChildren = tree.getAllChildPopups(beta);
+		assertEquals(0, betaChildren.size());
+	}
+
+	@Test
+	public void testClearWithEmptyTree() {
+
+		tree.clear();
+		// expect no Exception
 	}
 }
