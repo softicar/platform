@@ -1,6 +1,7 @@
 package com.softicar.platform.common.core.locale;
 
 import com.softicar.platform.common.core.i18n.LanguageEnum;
+import java.text.SimpleDateFormat;
 
 /**
  * Interface for locale configuration.
@@ -40,4 +41,12 @@ public interface ILocale {
 	 * @return the decimal separator (never <i>null</i> but may be empty)
 	 */
 	String getDigitGroupSeparator();
+
+	/**
+	 * Returns the {@link String} to use as a date format, in
+	 * {@link SimpleDateFormat} compliant syntax.
+	 *
+	 * @return the date format (never <i>null</i> and not empty)
+	 */
+	String getDateFormat();
 }

@@ -1,6 +1,8 @@
 package com.softicar.platform.common.date;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.string.Padding;
 import java.time.Instant;
 import java.util.Arrays;
@@ -15,7 +17,7 @@ import java.util.Objects;
  *
  * @author Oliver Richers
  */
-public class DayTime implements Comparable<DayTime> {
+public class DayTime implements Comparable<DayTime>, IDisplayable {
 
 	private static final int MAXIMUM_SECONDS = 24 * 3600 - 1;
 	private Day day;
@@ -503,6 +505,12 @@ public class DayTime implements Comparable<DayTime> {
 
 	// -------------------- Formatting -------------------- //
 
+	@Override
+	public IDisplayString toDisplay() {
+
+		return IDisplayString.create(toLocalizedString());
+	}
+
 	public String format(String formatString) {
 
 		return DateUtils.format(this, formatString);
@@ -580,9 +588,9 @@ public class DayTime implements Comparable<DayTime> {
 		return day + " " + getTimeAsString();
 	}
 
-	public String toHumanString() {
+	public final String toLocalizedString() {
 
-		return day.toHumanString() + " " + getTimeAsStringHM();
+		return day.toLocalizedString() + " " + getTimeAsString();
 	}
 
 	public String toGermanString() {

@@ -10,4 +10,5 @@ TABLE AGLocalizationLog 'Core.LocalizationLog' {
 	AGCoreLanguage language = NULL [NULLABLE]
 	String decimalSeparator = NULL [NULLABLE MAXLENGTH=255]
 	String digitGroupSeparator = NULL [NULLABLE MAXLENGTH=255]
+	String dateFormat = NULL [NULLABLE MAXLENGTH=255]
 }

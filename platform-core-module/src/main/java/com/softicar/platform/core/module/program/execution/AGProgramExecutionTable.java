@@ -34,11 +34,11 @@ public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, 
 
 		attributes//
 			.editAttribute(AGProgramExecution.STARTED_AT)
-			.setDisplayFactory(value -> new EmfDayTimeDisplay(value, DayTime::toString));
+			.setDisplayFactory(value -> new EmfDayTimeDisplay(value, DayTime::toDisplay));
 
 		attributes//
 			.editAttribute(AGProgramExecution.TERMINATED_AT)
-			.setDisplayFactory(value -> new EmfDayTimeDisplay(value, DayTime::toString));
+			.setDisplayFactory(value -> new EmfDayTimeDisplay(value, DayTime::toDisplay));
 
 		attributes//
 			.editAttribute(AGProgramExecution.OUTPUT)

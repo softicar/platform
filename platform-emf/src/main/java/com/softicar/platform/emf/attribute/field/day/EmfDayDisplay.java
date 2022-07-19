@@ -7,6 +7,6 @@ public class EmfDayDisplay extends DomDiv {
 
 	public EmfDayDisplay(Day value) {
 
-		appendChild(value.toHumanString());
+		appendChild(value.toDisplay());
 	}
 }

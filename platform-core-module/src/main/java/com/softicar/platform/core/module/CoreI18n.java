@@ -206,6 +206,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Datenbankname");
 	I18n0 DATE = new I18n0("Date")//
 		.de("Datum");
+	I18n0 DATE_FORMAT = new I18n0("Date Format")//
+		.de("Datumsformat");
 	I18n0 DAY = new I18n0("Day")//
 		.de("Tag");
 	I18n0 DAY_OF_MONTH = new I18n0("Day of Month")//

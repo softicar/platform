@@ -45,3 +45,10 @@ ALTER TABLE `Core`.`UserSpecificTableConfiguration` CHANGE COLUMN `tableIdentifi
 ALTER TABLE `Core`.`UserSpecificTableConfiguration` DROP INDEX `tableIdentifierHashUser`;
 ALTER TABLE `Core`.`UserSpecificTableConfiguration` ADD UNIQUE INDEX `userTableIdentifierHashColumnTitlesHash` (`user`, `tableIdentifierHash`, `columnTitlesHash`);
 
+ALTER TABLE `Core`.`Localization` ADD COLUMN `dateFormat` VARCHAR(255) NOT NULL AFTER `digitGroupSeparator`;
+ALTER TABLE `Core`.`LocalizationLog` ADD COLUMN `dateFormat` VARCHAR(255) DEFAULT NULL AFTER `digitGroupSeparator`;
+
+-- BEGIN DML
+UPDATE `Core`.`Localization` SET `dateFormat` = "yyyy-MM-dd";
+UPDATE `Core`.`Localization` SET `dateFormat` = "dd.MM.yyyy" WHERE `name` LIKE '%eutsch%';
+-- END DML

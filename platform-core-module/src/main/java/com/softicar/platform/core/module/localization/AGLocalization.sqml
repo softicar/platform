@@ -9,6 +9,7 @@ TABLE AGLocalization 'Core.Localization' {
 	AGCoreLanguage language
 	String decimalSeparator [MAXLENGTH=255]
 	String digitGroupSeparator = '' [MAXLENGTH=255]
+	String dateFormat [MAXLENGTH=255]
 
 	UK name
 }

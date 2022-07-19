@@ -45,11 +45,11 @@ public class EmfDataTableCellDefaultsProvider {
 		set(Double.class, CssTextAlign.RIGHT, new EmfDataTableDoubleCellBuilder());
 		set(BigDecimal.class, CssTextAlign.RIGHT, new EmfDataTableBigDecimalCellBuilder());
 		set(Number.class, CssTextAlign.RIGHT, new EmfDataTableNumberCellBuilder());
-		set(Day.class, CssTextAlign.CENTER, new EmfDataTableObjectCellBuilder<>());
-		set(DayTime.class, CssTextAlign.CENTER, new EmfDataTableObjectCellBuilder<>());
+		set(Day.class, CssTextAlign.CENTER, new EmfDataTableDisplayableCellBuilder<>());
+		set(DayTime.class, CssTextAlign.CENTER, new EmfDataTableDisplayableCellBuilder<>());
 		set(String.class, CssTextAlign.LEFT, new EmfDataTableObjectCellBuilder<>());
 		set(IEntity.class, CssTextAlign.LEFT, new EmfDataTableEntityCellBuilder<>());
-		set(IDisplayable.class, CssTextAlign.LEFT, new EmfDataTableDisplayableCellBuilder());
+		set(IDisplayable.class, CssTextAlign.LEFT, new EmfDataTableDisplayableCellBuilder<>());
 	}
 
 	/**
