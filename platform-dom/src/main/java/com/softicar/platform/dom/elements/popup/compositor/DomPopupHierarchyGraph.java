@@ -4,7 +4,6 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -17,14 +16,14 @@ import java.util.function.Predicate;
  */
 class DomPopupHierarchyGraph {
 
-	private Map<DomPopup, List<DomPopup>> graph;
+	private ChildMap childMap;
 
 	/**
 	 * Constructs a new {@link DomPopupHierarchyGraph}.
 	 */
 	public DomPopupHierarchyGraph() {
 
-		this.graph = new HashMap<>();
+		this.childMap = new ChildMap();
 	}
 
 	/**
@@ -39,12 +38,7 @@ class DomPopupHierarchyGraph {
 	 */
 	public void add(DomPopup parent, DomPopup child) {
 
-		Objects.requireNonNull(parent);
-		Objects.requireNonNull(child);
-		if (parent == child) {
-			throw new IllegalArgumentException();
-		}
-		graph.computeIfAbsent(parent, dummy -> new ArrayList<>()).add(child);
+		childMap.add(parent, child);
 	}
 
 	/**
@@ -66,7 +60,7 @@ class DomPopupHierarchyGraph {
 
 		Objects.requireNonNull(parent);
 		var childPopups = new ArrayList<DomPopup>();
-		Optional.ofNullable(graph.get(parent)).ifPresent(children -> {
+		Optional.ofNullable(childMap.get(parent)).ifPresent(children -> {
 			children.stream().map(this::getAllChildPopups).forEach(childPopups::addAll);
 			childPopups.addAll(children);
 		});
@@ -79,28 +73,73 @@ class DomPopupHierarchyGraph {
 	 */
 	public void clear() {
 
-		graph.clear();
+		childMap.clear();
 	}
 
 	/**
-	 * Removes all {@link DomPopup} elements which do not fulfill the given
-	 * {@link Predicate}.
+	 * Removes all {@link DomPopup} elements which are not open according to the
+	 * given {@link Predicate}, and which also do not have child
+	 * {@link DomPopup} elements.
 	 *
-	 * @param filter
-	 *            the filter predicate (never <i>null</i>)
+	 * @param openStateFetcher
+	 *            a {@link Predicate} to determine whether a {@link DomPopup} is
+	 *            open (never <i>null</i>)
 	 */
-	public void removeAllNonMatching(Predicate<DomPopup> filter) {
+	public void removeAllClosedLeaves(Predicate<DomPopup> openStateFetcher) {
 
-		Objects.requireNonNull(filter);
-		var newGraph = new DomPopupHierarchyGraph();
-		for (var entry: graph.entrySet()) {
-			DomPopup parent = entry.getKey();
-			for (DomPopup child: entry.getValue()) {
-				if (filter.test(parent) && filter.test(child)) {
-					newGraph.add(parent, child);
+		Objects.requireNonNull(openStateFetcher);
+		var newChildMap = deepCopy(childMap);
+		boolean iterate = true;
+		while (iterate) {
+			iterate = false;
+			for (var entry: childMap.entrySet()) {
+				DomPopup parent = entry.getKey();
+				for (DomPopup child: entry.getValue()) {
+					if (isClosedLeaf(child, openStateFetcher, newChildMap)) {
+						List<DomPopup> newChildren = newChildMap.get(parent);
+						if (newChildren != null) {
+							newChildren.remove(child);
+							if (newChildren.isEmpty()) {
+								// At least one popup no longer has children, so we need another iteration.
+								newChildMap.remove(parent);
+								iterate = true;
+							}
+						}
+					}
 				}
 			}
 		}
-		this.graph = newGraph.graph;
+
+		this.childMap = newChildMap;
+	}
+
+	private boolean isClosedLeaf(DomPopup child, Predicate<DomPopup> openStateFetcher, ChildMap childMap) {
+
+		return !openStateFetcher.test(child) && !childMap.containsKey(child);
+	}
+
+	private ChildMap deepCopy(ChildMap original) {
+
+		var copy = new ChildMap();
+		for (var entry: original.entrySet()) {
+			DomPopup parent = entry.getKey();
+			for (DomPopup child: entry.getValue()) {
+				copy.add(parent, child);
+			}
+		}
+		return copy;
+	}
+
+	private static class ChildMap extends HashMap<DomPopup, List<DomPopup>> {
+
+		public void add(DomPopup parent, DomPopup child) {
+
+			Objects.requireNonNull(parent);
+			Objects.requireNonNull(child);
+			if (parent == child) {
+				throw new IllegalArgumentException();
+			}
+			computeIfAbsent(parent, dummy -> new ArrayList<>()).add(child);
+		}
 	}
 }

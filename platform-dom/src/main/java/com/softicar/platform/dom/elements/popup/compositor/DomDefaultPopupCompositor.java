@@ -179,7 +179,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			stateTracker.setClosed(popup);
 
 			// -------- maintain hierarchy -------- //
-			hierarchyGraph.removeAllNonMatching(stateTracker::isOpen);
+			hierarchyGraph.removeAllClosedLeaves(stateTracker::isOpen);
 
 			// -------- remove backdrop -------- //
 			removeBackdrop(popup);
