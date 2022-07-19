@@ -20,8 +20,8 @@ import java.util.Optional;
  * An {@link IEmfCommonAction} to open an {@link EmfFormPopup} for the scope
  * object of an {@link IEmfTableRow}.
  * <p>
- * This can only be instantiated for {@link IEmfTable} objects with of scope
- * that implements {@link IEmfTableRow}.
+ * This can only be instantiated for {@link IEmfTable} objects with a scope
+ * object that implements {@link IEmfTableRow}.
  *
  * @author Oliver Richers
  */
