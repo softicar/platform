@@ -1,6 +1,5 @@
 package com.softicar.platform.common.container.data.table;
 
-import com.softicar.platform.common.string.hash.Hash;
 import java.util.Objects;
 
 public class DataTableIdentifier {
@@ -15,11 +14,6 @@ public class DataTableIdentifier {
 	public boolean isPresent() {
 
 		return !text.isEmpty();
-	}
-
-	public String getHash() {
-
-		return Hash.SHA1.getHashStringLC(text);
 	}
 
 	@Override

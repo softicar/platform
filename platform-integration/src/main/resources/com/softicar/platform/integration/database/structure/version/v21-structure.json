@@ -257,7 +257,7 @@
   },
   {
     "tableName": "`Core`.`UserSpecificTableConfiguration`",
-    "createStatement": "CREATE TABLE `Core`.`UserSpecificTableConfiguration` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT DEFAULT NULL,`tableIdentifierHash` VARCHAR(255) NOT NULL DEFAULT '',`columnTitlesHash` VARCHAR(255) NOT NULL DEFAULT '',`serialization` TEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),UNIQUE KEY `userTableIdentifierHashColumnTitlesHash` (`user`, `tableIdentifierHash`, `columnTitlesHash`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`UserSpecificTableConfiguration` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT DEFAULT NULL,`tablePathHash` VARCHAR(255) NOT NULL DEFAULT '',`columnTitlesHash` VARCHAR(255) NOT NULL DEFAULT '',`serialization` TEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),UNIQUE KEY `userTablePathHashColumnTitlesHash` (`user`, `tablePathHash`, `columnTitlesHash`),FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`User`",

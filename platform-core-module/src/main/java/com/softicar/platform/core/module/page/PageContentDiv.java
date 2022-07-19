@@ -6,6 +6,8 @@ import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.compositor.IDomPopupContext;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.page.IEmfPageContentElement;
+import java.util.Optional;
 
 /**
  * Container element for the actual page content, as returned by
@@ -13,9 +15,13 @@ import com.softicar.platform.emf.page.IEmfPage;
  *
  * @author Oliver Richers
  */
-class PageContentDiv extends DomDiv implements IDomPopupContext {
+public class PageContentDiv extends DomDiv implements IEmfPageContentElement, IDomPopupContext {
+
+	private final Optional<IEmfPage<?>> page;
 
 	public PageContentDiv(PageNavigationLink<?> link) {
+
+		this.page = Optional.ofNullable(link.getPage());
 
 		addCssClass(PageCssClasses.PAGE_CONTENT_DIV);
 		addMarker(PageNavigationMarker.PAGE_CONTENT_DIV);
@@ -23,5 +29,11 @@ class PageContentDiv extends DomDiv implements IDomPopupContext {
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
 			addCssClass(PageCssClasses.TEST_SYSTEM);
 		}
+	}
+
+	@Override
+	public Optional<IEmfPage<?>> getPage() {
+
+		return page;
 	}
 }

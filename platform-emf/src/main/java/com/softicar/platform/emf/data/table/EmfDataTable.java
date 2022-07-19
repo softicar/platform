@@ -64,7 +64,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE);
 
-		controller.restorePersistentTableConfiguration();
+		addDeferredInitializer(controller::restorePersistentTableConfiguration);
 
 		refresh();
 	}

@@ -48,7 +48,7 @@ public class EmfPersistentTableConfigurationSaver<R> {
 		var identifier = controller.getDataTable().getIdentifier();
 		if (identifier.isPresent()) {
 			var configuration = createPersistentTableConfiguration();
-			CurrentEmfPersistenceApi.get().savePersistentTableConfiguration(identifier, configuration);
+			CurrentEmfPersistenceApi.get().savePersistentTableConfiguration(controller.getEmfDataTablePath(), configuration);
 		}
 	}
 

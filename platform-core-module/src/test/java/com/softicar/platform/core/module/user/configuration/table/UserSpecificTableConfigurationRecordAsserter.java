@@ -24,9 +24,9 @@ class UserSpecificTableConfigurationRecordAsserter extends Asserts {
 		return this;
 	}
 
-	public UserSpecificTableConfigurationRecordAsserter assertTableIdentifierHash(String expected) {
+	public UserSpecificTableConfigurationRecordAsserter assertTablePathHash(String expected) {
 
-		assertEquals(expected, record.getTableIdentifierHash());
+		assertEquals(expected, record.getTablePathHash());
 		return this;
 	}
 

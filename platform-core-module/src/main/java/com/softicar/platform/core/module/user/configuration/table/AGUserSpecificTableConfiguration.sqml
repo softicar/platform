@@ -6,9 +6,9 @@ TABLE AGUserSpecificTableConfiguration 'Core.UserSpecificTableConfiguration' {
 
 	PK Integer id = SERIAL
 	AGUser user = NULL [NULLABLE]
-	String tableIdentifierHash = '' [MAXLENGTH=255]
+	String tablePathHash = '' [MAXLENGTH=255]
 	String columnTitlesHash = '' [MAXLENGTH=255]
 	String serialization = '' [LENGTHBITS=16]
 
-	UK user tableIdentifierHash columnTitlesHash
+	UK user tablePathHash columnTitlesHash
 }

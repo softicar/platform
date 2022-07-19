@@ -20,7 +20,7 @@ public abstract class AbstractUserSpecificTableConfigurationPersistenceApiTest e
 
 	protected final EmfDataTableConfigurationPopupTestInteractor interactor;
 	protected final EmfDataTableConfigurationPopupAsserter popupAsserter;
-	protected String expectedTableIdentifierHash;
+	protected String expectedTablePathHash;
 
 	public AbstractUserSpecificTableConfigurationPersistenceApiTest() {
 
@@ -51,7 +51,7 @@ public abstract class AbstractUserSpecificTableConfigurationPersistenceApiTest e
 
 		new UserSpecificTableConfigurationRecordAsserter(loadAllConfigurations())//
 			.nextRecord()
-			.assertTableIdentifierHash(expectedTableIdentifierHash)
+			.assertTablePathHash(expectedTablePathHash)
 			.assertUser(CurrentUser.get())
 			.assertColumnTitlesHash(expectedColumnTitlesHash)
 			.assertSerialization(formatConfigurationString(expectedConfigurationString, expectedColumnTitlesHash))

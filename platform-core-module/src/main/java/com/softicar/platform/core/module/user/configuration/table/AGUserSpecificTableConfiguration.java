@@ -31,10 +31,10 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 
 	public static final IDbIdField<AGUserSpecificTableConfiguration> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbForeignField<AGUserSpecificTableConfiguration, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null);
-	public static final IDbStringField<AGUserSpecificTableConfiguration> TABLE_IDENTIFIER_HASH = BUILDER.addStringField("tableIdentifierHash", o->o.m_tableIdentifierHash, (o,v)->o.m_tableIdentifierHash=v).setTitle(CoreI18n.TABLE_IDENTIFIER_HASH).setDefault("").setMaximumLength(255);
+	public static final IDbStringField<AGUserSpecificTableConfiguration> TABLE_PATH_HASH = BUILDER.addStringField("tablePathHash", o->o.m_tablePathHash, (o,v)->o.m_tablePathHash=v).setTitle(CoreI18n.TABLE_PATH_HASH).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGUserSpecificTableConfiguration> COLUMN_TITLES_HASH = BUILDER.addStringField("columnTitlesHash", o->o.m_columnTitlesHash, (o,v)->o.m_columnTitlesHash=v).setTitle(CoreI18n.COLUMN_TITLES_HASH).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGUserSpecificTableConfiguration> SERIALIZATION = BUILDER.addStringField("serialization", o->o.m_serialization, (o,v)->o.m_serialization=v).setTitle(CoreI18n.SERIALIZATION).setDefault("").setLengthBits(16);
-	public static final IDbKey<AGUserSpecificTableConfiguration> UK_USER_TABLE_IDENTIFIER_HASH_COLUMN_TITLES_HASH = BUILDER.addUniqueKey("userTableIdentifierHashColumnTitlesHash", USER, TABLE_IDENTIFIER_HASH, COLUMN_TITLES_HASH);
+	public static final IDbKey<AGUserSpecificTableConfiguration> UK_USER_TABLE_PATH_HASH_COLUMN_TITLES_HASH = BUILDER.addUniqueKey("userTablePathHashColumnTitlesHash", USER, TABLE_PATH_HASH, COLUMN_TITLES_HASH);
 	public static final DbObjectTable<AGUserSpecificTableConfiguration> TABLE = new DbObjectTable<>(BUILDER);
 	// @formatter:on
 
@@ -50,12 +50,12 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 		return TABLE.get(id);
 	}
 
-	public static AGUserSpecificTableConfiguration loadByUserAndTableIdentifierHashAndColumnTitlesHash(AGUser user, String tableIdentifierHash, String columnTitlesHash) {
+	public static AGUserSpecificTableConfiguration loadByUserAndTablePathHashAndColumnTitlesHash(AGUser user, String tablePathHash, String columnTitlesHash) {
 
 		return TABLE//
 				.createSelect()
 				.where(USER.equal(user))
-				.where(TABLE_IDENTIFIER_HASH.equal(tableIdentifierHash))
+				.where(TABLE_PATH_HASH.equal(tablePathHash))
 				.where(COLUMN_TITLES_HASH.equal(columnTitlesHash))
 				.getOne();
 	}
@@ -77,14 +77,14 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 		return setValue(USER, value);
 	}
 
-	public final String getTableIdentifierHash() {
+	public final String getTablePathHash() {
 
-		return getValue(TABLE_IDENTIFIER_HASH);
+		return getValue(TABLE_PATH_HASH);
 	}
 
-	public final AGUserSpecificTableConfiguration setTableIdentifierHash(String value) {
+	public final AGUserSpecificTableConfiguration setTablePathHash(String value) {
 
-		return setValue(TABLE_IDENTIFIER_HASH, value);
+		return setValue(TABLE_PATH_HASH, value);
 	}
 
 	public final String getColumnTitlesHash() {
@@ -119,7 +119,7 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 
 	private Integer m_id;
 	private AGUser m_user;
-	private String m_tableIdentifierHash;
+	private String m_tablePathHash;
 	private String m_columnTitlesHash;
 	private String m_serialization;
 }

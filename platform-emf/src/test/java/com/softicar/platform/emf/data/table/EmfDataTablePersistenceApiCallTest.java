@@ -133,14 +133,14 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 		}
 
 		@Override
-		public void savePersistentTableConfiguration(DataTableIdentifier tableIdentifier, EmfPersistentTableConfiguration configuration) {
+		public void savePersistentTableConfiguration(EmfDataTablePath dataTablePath, EmfPersistentTableConfiguration configuration) {
 
 			++saveCount;
 		}
 
 		@Override
-		public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(DataTableIdentifier tableIdentifier,
-				EmfDataTableColumnTitlesHasher columnTitlesHash) {
+		public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(EmfDataTablePath dataTablePath,
+				EmfDataTableColumnTitlesHasher columnTitlesHasher) {
 
 			++loadCount;
 			return Optional.empty();

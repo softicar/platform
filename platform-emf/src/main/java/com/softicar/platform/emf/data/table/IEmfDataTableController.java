@@ -24,6 +24,14 @@ public interface IEmfDataTableController<R> extends IPostPagingHook {
 	// -------------------- table -------------------- //
 
 	/**
+	 * Returns the {@link EmfDataTablePath} of the {@link IEmfDataTable} to
+	 * which this {@link IEmfDataTableController} belongs.
+	 *
+	 * @return the {@link EmfDataTablePath} (never <i>null</i>)
+	 */
+	EmfDataTablePath getEmfDataTablePath();
+
+	/**
 	 * Returns the {@link IDataTable} underlying the {@link IEmfDataTable}.
 	 *
 	 * @return the underlying {@link IDataTable} (never <i>null</i>)

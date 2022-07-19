@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.user.configuration.table;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.string.hash.Hash;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.field.IDbDayField;
@@ -64,7 +65,7 @@ public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends A
 
 	public UserSpecificTableConfigurationPersistenceApiWithTableTest() {
 
-		this.expectedTableIdentifierHash = TestObjectTable.TABLE_IDENTIFIER_HASH;
+		this.expectedTablePathHash = TestObjectTable.TABLE_PATH_HASH;
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, TestObject.TABLE);
 		insertTestRecords();
 	}
@@ -170,11 +171,11 @@ public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends A
 	}
 
 	@Test
-	public void testLoadingWithManagementTableAndTableIdentifierHashMismatch() {
+	public void testLoadingWithManagementTableAndTablePathHashMismatch() {
 
 		TestObjectTable//
 			.insertConfiguration(TEST_OBJECT_JSON_ALTERED)
-			.setTableIdentifierHash("mismatching-identifier-hash")
+			.setTablePathHash("mismatching-identifier-hash")
 			.save();
 		setNodeSupplier(TestObjectTable::createManagementDiv);
 
@@ -379,7 +380,7 @@ public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends A
 
 	private static class TestObjectTable extends EmfObjectTable<TestObject, AGCoreModuleInstance> {
 
-		public static final String TABLE_IDENTIFIER_HASH = "c3b5c16bb6166dbbc01324914d8f7c64b6cf51c7";
+		public static final String TABLE_PATH_HASH = Hash.SHA1.getHashStringLC("table(Core.TestObject)");
 		public static final String COLUMN_TITLES_HASH = "789f49d9beba2f498328db8d3dd2ff40a2084dd8";
 
 		public TestObjectTable(IDbObjectTableBuilder<TestObject> builder) {
@@ -401,7 +402,7 @@ public class UserSpecificTableConfigurationPersistenceApiWithTableTest extends A
 		public static AGUserSpecificTableConfiguration insertConfiguration(String json) {
 
 			return new AGUserSpecificTableConfiguration()//
-				.setTableIdentifierHash(TABLE_IDENTIFIER_HASH)
+				.setTablePathHash(TABLE_PATH_HASH)
 				.setUser(CurrentUser.get())
 				.setColumnTitlesHash(COLUMN_TITLES_HASH)
 				.setSerialization(json)
