@@ -9,25 +9,25 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * A graph to track parent-child nesting relations between {@link DomPopup}
+ * A tree that contains parent-child nesting relations between {@link DomPopup}
  * elements.
  *
  * @author Alexander Schmidt
  */
-class DomPopupHierarchyGraph {
+class DomPopupHierarchyTree {
 
 	private ChildMap childMap;
 
 	/**
-	 * Constructs a new {@link DomPopupHierarchyGraph}.
+	 * Constructs a new {@link DomPopupHierarchyTree}.
 	 */
-	public DomPopupHierarchyGraph() {
+	public DomPopupHierarchyTree() {
 
 		this.childMap = new ChildMap();
 	}
 
 	/**
-	 * Adds the given parent-child relation to this graph.
+	 * Adds the given parent-child relation to this tree.
 	 *
 	 * @param parent
 	 *            the parent {@link DomPopup} (never <i>null</i>)
@@ -46,11 +46,11 @@ class DomPopupHierarchyGraph {
 	 * parent {@link DomPopup}.
 	 * <p>
 	 * The returned {@link List} will be ordered according to descending depth
-	 * in the hierarchy graph. That is, deeply-nested children will occur before
+	 * in the hierarchy tree. That is, deeply-nested children will occur before
 	 * less deeply-nested children.
 	 * <p>
 	 * Returns an empty {@link List} if the given {@link DomPopup} is not a
-	 * parent element in this graph.
+	 * parent element in this tree.
 	 *
 	 * @param parent
 	 *            the parent {@link DomPopup} (never <i>null</i>)
@@ -69,7 +69,7 @@ class DomPopupHierarchyGraph {
 
 	/**
 	 * Removes all {@link DomPopup} elements from this
-	 * {@link DomPopupHierarchyGraph}.
+	 * {@link DomPopupHierarchyTree}.
 	 */
 	public void clear() {
 

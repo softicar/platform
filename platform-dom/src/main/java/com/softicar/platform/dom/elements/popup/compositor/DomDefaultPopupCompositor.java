@@ -35,7 +35,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private final Map<DomPopup, IDomNode> spawningNodeMap;
 	private final Map<DomPopup, IDomPopupContext> contextMap;
 	private final DomPopupBackdropTracker backdropTracker;
-	private final DomPopupHierarchyGraph hierarchyGraph;
+	private final DomPopupHierarchyTree hierarchyTree;
 	private final DomPopupFrameHighlighter frameHighlighter;
 	private final DomPopupContextStasher contextStasher;
 
@@ -45,7 +45,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		this.spawningNodeMap = new WeakHashMap<>();
 		this.contextMap = new WeakHashMap<>();
 		this.backdropTracker = new DomPopupBackdropTracker();
-		this.hierarchyGraph = new DomPopupHierarchyGraph();
+		this.hierarchyTree = new DomPopupHierarchyTree();
 		this.frameHighlighter = new DomPopupFrameHighlighter();
 		this.contextStasher = new DomPopupContextStasher();
 	}
@@ -86,7 +86,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 			// -------- maintain hierarchy -------- //
 			new DomParentNodeFinder<>(DomPopup.class).findClosestParent(spawningNode).ifPresent(parent -> {
-				hierarchyGraph.add(parent, popup);
+				hierarchyTree.add(parent, popup);
 			});
 		}
 
@@ -106,7 +106,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 		stateTracker.getAllOpenInReverseOrder().forEach(this::close);
 		backdropTracker.clear().forEach(DomModalPopupBackdrop::disappend);
-		hierarchyGraph.clear();
+		hierarchyTree.clear();
 		contextStasher.clear();
 		stateTracker.clear();
 	}
@@ -116,7 +116,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 
 		if (stateTracker.isOpen(popup)) {
 			var childClosingMode = popup.getConfiguration().getChildClosingMode();
-			var childPopups = hierarchyGraph.getAllChildPopups(popup);
+			var childPopups = hierarchyTree.getAllChildPopups(popup);
 
 			if (childClosingMode.isInteractive() && !childPopups.isEmpty()) {
 				buildChildClosingDialog(popup, childPopups, childClosingMode).open();
@@ -154,7 +154,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private void closePopup(DomPopup popup, boolean closeChildren) {
 
 		if (stateTracker.isOpen(popup)) {
-			var childPopups = hierarchyGraph.getAllChildPopups(popup);
+			var childPopups = hierarchyTree.getAllChildPopups(popup);
 
 			// -------- close child popups -------- //
 			if (closeChildren) {
@@ -179,7 +179,7 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 			stateTracker.setClosed(popup);
 
 			// -------- maintain hierarchy -------- //
-			hierarchyGraph.removeAllClosedLeaves(stateTracker::isOpen);
+			hierarchyTree.removeAllClosedLeaves(stateTracker::isOpen);
 
 			// -------- remove backdrop -------- //
 			removeBackdrop(popup);
