@@ -36,6 +36,8 @@ class I18nFormatArgumentsLocalizer {
 			return new BigDecimalFormatter().format((Double) argument);
 		} else if (argument instanceof Float) {
 			return new BigDecimalFormatter().format((Float) argument);
+		} else if (argument instanceof IDisplayable) {
+			return ((IDisplayable) argument).toDisplay();
 		} else {
 			return argument;
 		}

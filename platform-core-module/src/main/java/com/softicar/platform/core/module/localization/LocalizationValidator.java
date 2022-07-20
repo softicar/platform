@@ -2,9 +2,9 @@ package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LocalizationValidator extends AbstractEmfValidator<AGLocalization> {
 
@@ -73,9 +73,8 @@ public class LocalizationValidator extends AbstractEmfValidator<AGLocalization> 
 			return true;
 		}
 
-		var date = Day.today().toDate();
 		try {
-			new SimpleDateFormat(dateFormat).format(date);
+			new SimpleDateFormat(dateFormat).format(new Date());
 			return false;
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
