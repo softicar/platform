@@ -7,6 +7,7 @@ import com.softicar.platform.emf.editor.EmfDeactivateAction;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.editor.EmfViewAction;
 import com.softicar.platform.emf.form.refresh.EmfFormRefreshAction;
+import com.softicar.platform.emf.form.scope.EmfFormViewScopeAction;
 import com.softicar.platform.emf.log.viewer.EmfLogAction;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -38,6 +39,7 @@ public class EmfActionSet<R extends IEmfTableRow<R, ?>, S> {
 		addCommonAction(new EmfFormRefreshAction<>());
 		addCommonAction(new EmfEditAction<>(table));
 		addCommonAction(new EmfLogAction<>(table));
+		EmfFormViewScopeAction.create(table).ifPresent(this::addCommonAction);
 
 		// add standard management actions
 		addManagementAction(new EmfViewAction<>(table));
