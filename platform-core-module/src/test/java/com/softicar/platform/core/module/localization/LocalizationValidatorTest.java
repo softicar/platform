@@ -11,7 +11,7 @@ public class LocalizationValidatorTest extends AbstractDbTest {
 
 	public LocalizationValidatorTest() {
 
-		// TODO this should not be necessary
+		// TODO Remove this workaround as soon as PLAT-1050 is done.
 		AGCoreLanguage language = AGCoreLanguageEnum.ENGLISH.getRecord();
 		language.reload();
 		language.save();
