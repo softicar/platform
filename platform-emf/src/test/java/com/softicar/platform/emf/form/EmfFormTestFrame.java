@@ -1,8 +1,5 @@
 package com.softicar.platform.emf.form;
 
-
-
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -11,10 +8,10 @@ import com.softicar.platform.common.string.formatting.Formatting;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
-import com.softicar.platform.emf.test.EmfTestSubObject;
+import com.softicar.platform.emf.table.row.IEmfTableRow;
 import org.junit.Assert;
 
-class EmfFormTestFrame extends DomDiv implements IEmfFormFrame<EmfTestSubObject>, IDomRefreshBusListener {
+class EmfFormTestFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFormFrame<R>, IDomRefreshBusListener {
 
 	private IDisplayString title;
 	private IDisplayString subTitle;

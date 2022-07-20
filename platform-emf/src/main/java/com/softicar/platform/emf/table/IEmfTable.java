@@ -103,6 +103,16 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	}
 
 	/**
+	 * Returns the optional {@link IEmfAttribute} for the scope.
+	 *
+	 * @return the optional {@link IEmfAttribute} for the scope
+	 */
+	default Optional<IEmfAttribute<R, S>> getScopeAttribute() {
+
+		return getScopeField().map(this::getAttribute);
+	}
+
+	/**
 	 * Validates the given {@link IEmfTableRow}.
 	 *
 	 * @param row
