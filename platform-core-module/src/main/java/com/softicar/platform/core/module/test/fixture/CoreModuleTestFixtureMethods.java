@@ -75,24 +75,26 @@ public interface CoreModuleTestFixtureMethods {
 
 	// ------------------------------ localization ------------------------------ //
 
-	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator) {
+	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator,
+			String dateFormat) {
 
 		return new AGLocalization()//
 			.setName(name)
 			.setLanguage(AGCoreLanguage.getByLanguageEnum(language).get())
 			.setDecimalSeparator(decimalSeparator)
 			.setDigitGroupSeparator(digitGroupSeparator)
+			.setDateFormat(dateFormat)
 			.save();
 	}
 
 	default AGLocalization insertLocalizationPresetGermany() {
 
-		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".");
+		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".", "dd.MM.yyyy");
 	}
 
-	default AGLocalization insertLocalizationPresetUsa() {
+	default AGLocalization insertLocalizationPresetInternational() {
 
-		return insertLocalizationPreset("USA", LanguageEnum.ENGLISH, ".", ",");
+		return insertLocalizationPreset("International", LanguageEnum.ENGLISH, ".", ",", "yyyy-MM-dd");
 	}
 
 	// ------------------------------ module permission ------------------------------ //

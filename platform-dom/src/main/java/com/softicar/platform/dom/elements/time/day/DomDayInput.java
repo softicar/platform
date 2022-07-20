@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.time.day;
 
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
@@ -17,12 +18,12 @@ import java.util.Optional;
 public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 
 	private final DomTextInput dayInput;
-	private final DayButton dayButton;
+	private final PickDayButton dayButton;
 
 	public DomDayInput() {
 
 		this.dayInput = createDayInput();
-		this.dayButton = new DayButton();
+		this.dayButton = new PickDayButton();
 
 		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
 		appendChildren(dayInput, dayButton);
@@ -49,7 +50,7 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 	@Override
 	public void setValue(Day day) {
 
-		dayInput.setValue(day != null? day.toISOString() : "");
+		dayInput.setValue(day != null? day.toLocalizedString() : "");
 		dayButton.setDay(day);
 	}
 
@@ -62,10 +63,11 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 		return input;
 	}
 
-	private class DayButton extends AbstractDomDayPopupButton {
+	private class PickDayButton extends AbstractDomDayPopupButton {
 
-		public DayButton() {
+		public PickDayButton() {
 
+			setTitle(DomI18n.PICK_A_DAY);
 			setShowLabel(false);
 			setTabIndex(-1);
 			setClickCallback(() -> {
@@ -77,7 +79,7 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 		@Override
 		public void handleDayChange() {
 
-			dayInput.setValue(getDay().toISOString());
+			dayInput.setValue(getDay().toLocalizedString());
 			executeChangeCallbacks();
 		}
 	}

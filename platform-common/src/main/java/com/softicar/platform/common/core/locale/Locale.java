@@ -12,12 +12,14 @@ public class Locale implements ILocale {
 	private LanguageEnum language;
 	private String decimalSeparator;
 	private String digitGroupSeparator;
+	private String dateFormat;
 
 	public Locale() {
 
 		this.language = LanguageEnum.ENGLISH;
 		this.decimalSeparator = ".";
 		this.digitGroupSeparator = "";
+		this.dateFormat = "yyyy-MM-dd";
 	}
 
 	@Override
@@ -53,6 +55,18 @@ public class Locale implements ILocale {
 	public Locale setDigitGroupSeparator(String digitGroupSeparator) {
 
 		this.digitGroupSeparator = digitGroupSeparator;
+		return this;
+	}
+
+	@Override
+	public String getDateFormat() {
+
+		return dateFormat;
+	}
+
+	public Locale setDateFormat(String dateFormat) {
+
+		this.dateFormat = dateFormat;
 		return this;
 	}
 }

@@ -50,6 +50,7 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGLocalization.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
 			.set(AGLocalization.DECIMAL_SEPARATOR, ".")
 			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, "")
+			.set(AGLocalization.DATE_FORMAT, "yyyy-MM-dd")
 			.execute();
 		return AGLocalization.TABLE.getStub(id);
 	}

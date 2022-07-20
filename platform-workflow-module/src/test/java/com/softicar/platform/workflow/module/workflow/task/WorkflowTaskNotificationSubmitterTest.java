@@ -21,7 +21,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	public void testWithEnglishLanguage() {
 
 		user//
-			.setLocalization(insertLocalizationPresetUsa())
+			.setLocalization(insertLocalizationPresetInternational())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).submit();

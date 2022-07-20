@@ -36,6 +36,7 @@ public class AGLocalizationLog extends AbstractDbRecord<AGLocalizationLog, Tuple
 	public static final IDbForeignField<AGLocalizationLog, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE).setNullable().setDefault(null);
 	public static final IDbStringField<AGLocalizationLog> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGLocalizationLog> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbStringField<AGLocalizationLog> DATE_FORMAT = BUILDER.addStringField("dateFormat", o->o.m_dateFormat, (o,v)->o.m_dateFormat=v).setTitle(CoreI18n.DATE_FORMAT).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbTableKey<AGLocalizationLog, Tuple2<AGLocalization, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(USER, TRANSACTION));
 	public static final DbRecordTable<AGLocalizationLog, Tuple2<AGLocalization, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -114,6 +115,16 @@ public class AGLocalizationLog extends AbstractDbRecord<AGLocalizationLog, Tuple
 		return setValue(DIGIT_GROUP_SEPARATOR, value);
 	}
 
+	public final String getDateFormat() {
+
+		return getValue(DATE_FORMAT);
+	}
+
+	public final AGLocalizationLog setDateFormat(String value) {
+
+		return setValue(DATE_FORMAT, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -130,5 +141,6 @@ public class AGLocalizationLog extends AbstractDbRecord<AGLocalizationLog, Tuple
 	private AGCoreLanguage m_language;
 	private String m_decimalSeparator;
 	private String m_digitGroupSeparator;
+	private String m_dateFormat;
 }
 

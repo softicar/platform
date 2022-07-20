@@ -33,6 +33,7 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	public static final IDbForeignField<AGLocalization, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE);
 	public static final IDbStringField<AGLocalization> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setMaximumLength(255);
 	public static final IDbStringField<AGLocalization> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setDefault("").setMaximumLength(255);
+	public static final IDbStringField<AGLocalization> DATE_FORMAT = BUILDER.addStringField("dateFormat", o->o.m_dateFormat, (o,v)->o.m_dateFormat=v).setTitle(CoreI18n.DATE_FORMAT).setMaximumLength(255);
 	public static final IDbKey<AGLocalization> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final AGLocalizationTable TABLE = new AGLocalizationTable(BUILDER);
 	// @formatter:on
@@ -104,6 +105,16 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 		return setValue(DIGIT_GROUP_SEPARATOR, value);
 	}
 
+	public final String getDateFormat() {
+
+		return getValue(DATE_FORMAT);
+	}
+
+	public final AGLocalization setDateFormat(String value) {
+
+		return setValue(DATE_FORMAT, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -119,5 +130,6 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	private AGCoreLanguage m_language;
 	private String m_decimalSeparator;
 	private String m_digitGroupSeparator;
+	private String m_dateFormat;
 }
 

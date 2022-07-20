@@ -1,7 +1,11 @@
 package com.softicar.platform.common.date;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
+import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.string.Padding;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,7 +14,7 @@ import java.util.Date;
  *
  * @author Oliver Richers
  */
-public final class Day extends DateItem<Day> {
+public final class Day extends DateItem<Day> implements IDisplayable {
 
 	// -------------------------------- INDEX FUNCTIONS -------------------------------- //
 
@@ -347,6 +351,12 @@ public final class Day extends DateItem<Day> {
 
 	// -------------------------------- TO STRING FUNCTIONS -------------------------------- //
 
+	@Override
+	public IDisplayString toDisplay() {
+
+		return IDisplayString.create(toLocalizedString());
+	}
+
 	public String format(String formatString) {
 
 		return DateUtils.format(this, formatString);
@@ -359,6 +369,12 @@ public final class Day extends DateItem<Day> {
 	public final String toString() {
 
 		return toISOString();
+	}
+
+	public final String toLocalizedString() {
+
+		String dateFormat = CurrentLocale.get().getDateFormat();
+		return new SimpleDateFormat(dateFormat).format(toDate());
 	}
 
 	/**
@@ -383,22 +399,6 @@ public final class Day extends DateItem<Day> {
 	public final String toDMString() {
 
 		return String.format("%d.%d.", getIndexWithinMonth(), getMonth().getIndexWithinYear());
-	}
-
-	public final String toHumanString() {
-
-		switch (Day.today().getDistance(this)) {
-		case -2:
-			return CommonDateI18n._2_DAYS_AGO.toString();
-		case -1:
-			return CommonDateI18n.YESTERDAY.toString();
-		case 0:
-			return CommonDateI18n.TODAY.toString();
-		case 1:
-			return CommonDateI18n.TOMORROW.toString();
-		default:
-			return toString();
-		}
 	}
 
 	/**

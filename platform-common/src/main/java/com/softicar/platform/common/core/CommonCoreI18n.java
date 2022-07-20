@@ -15,6 +15,8 @@ public interface CommonCoreI18n {
 		.de("Zifferngruppe zu kurz.");
 	I18n1 ILLEGAL_CHARACTERS_FOR_DECIMAL_NUMBER_ARG1 = new I18n1("Illegal characters for decimal number: %s")//
 		.de("Unzulässige Zeichen für Dezimalzahl: %s");
+	I18n0 INVALID_DATE_FORMAT = new I18n0("Invalid date format.")//
+		.de("Ungültiges Datumsformat.");
 	I18n0 RETURN_TO_LOGIN = new I18n0("Return to Login")//
 		.de("Zurück zum Login");
 	I18n0 THE_DECIMAL_PART_MUST_NOT_CONTAIN_DIGIT_GROUP_SEPARATORS = new I18n0("The decimal part must not contain digit group separators.")//

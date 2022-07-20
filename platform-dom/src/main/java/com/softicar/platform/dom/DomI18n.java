@@ -124,6 +124,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Nur eine Option darf ausgewählt werden.");
 	I18n0 ONLY_TEXT = new I18n0("only text")//
 		.de("nur Text");
+	I18n0 PICK_A_DAY = new I18n0("Pick a day")//
+		.de("Einen Tag auswählen");
 	I18n0 PLEASE_CONTACT_THE_SUPPORT_TEAM = new I18n0("Please contact the support team.")//
 		.de("Bitte kontaktieren Sie das Support-Team.");
 	I18n1 PLEASE_ENTER_A_LOWER_VALUE_FOR_THE_NUMBER_OF_ROWS_PER_PAGE_MAXIMUM_ARG1 =//

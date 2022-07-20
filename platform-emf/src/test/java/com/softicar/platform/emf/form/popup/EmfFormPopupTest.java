@@ -14,15 +14,18 @@ import org.junit.Test;
  */
 public class EmfFormPopupTest extends AbstractEmfTest {
 
+	private final Day day;
+
 	public EmfFormPopupTest() {
 
 		setNodeSupplier(DomDiv::new);
+		this.day = Day.fromYMD(2022, 12, 31);
 	}
 
 	@Test
 	public void testDisplaysAttributeNames() {
 
-		EmfTestObject entity = insertEntity("foobar", Day.today());
+		EmfTestObject entity = insertEntity("foobar", day);
 		entity.addAuthorizedUser(user);
 		openPopup(entity);
 
@@ -42,7 +45,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 	@Test
 	public void testDisplaysAttributeValues() {
 
-		EmfTestObject entity = insertEntity("foobar", Day.today());
+		EmfTestObject entity = insertEntity("foobar", day);
 		entity.addAuthorizedUser(user);
 		openPopup(entity);
 
@@ -56,7 +59,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 
 		findBody()//
 			.findNode(DomPopup.class)
-			.assertContainsText("Today");
+			.assertContainsText("2022-12-31");
 	}
 
 	private EmfTestObject insertEntity(String name, Day day) {

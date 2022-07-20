@@ -94,6 +94,14 @@ public class I18nKeyDisplayStringTest extends AbstractTest {
 		}
 	}
 
+	@Test
+	public void testWithDisplayableParameters() {
+
+		II18nKey key = new TestKey("foo %s!");
+
+		assertEquals("foo using-toDisplay()!", new I18nKeyDisplayString(key, new TestDisplayable()).toString());
+	}
+
 	// ------------------------------ private ------------------------------ //
 
 	private void addFallback(II18nKey key, String fallback) {
@@ -112,6 +120,21 @@ public class I18nKeyDisplayStringTest extends AbstractTest {
 		protected TestKey getThis() {
 
 			return this;
+		}
+	}
+
+	private static class TestDisplayable implements IDisplayable {
+
+		@Override
+		public IDisplayString toDisplay() {
+
+			return IDisplayString.create("using-toDisplay()");
+		}
+
+		@Override
+		public String toString() {
+
+			return "using-toString()";
 		}
 	}
 }

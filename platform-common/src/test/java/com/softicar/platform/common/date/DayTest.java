@@ -19,7 +19,6 @@ import org.junit.Test;
 public class DayTest extends AbstractTest {
 
 	private Date zeroDate;
-	private Day today;
 	private Day firstDay;
 	private Day firstOfJanuary1970;
 	private Day lastOfJanuary1970;
@@ -34,7 +33,6 @@ public class DayTest extends AbstractTest {
 
 		zeroDate = new Date(0);
 
-		today = Day.today();
 		firstDay = Day.fromYMD(0, 1, 1);
 		firstOfJanuary1970 = Day.fromYMD(1970, 1, 1);
 		lastOfJanuary1970 = Day.fromYMD(1970, 1, 31);
@@ -157,17 +155,6 @@ public class DayTest extends AbstractTest {
 	public void testToDMString() {
 
 		assertEquals(firstOfAugust2009.toDMString(), "1.8.");
-	}
-
-	@Test
-	public void testToHumanString() {
-
-		assertEquals(today.getRelative(-3).toHumanString(), Day.today().getRelative(-3).toString());
-		assertEquals(today.getRelative(-2).toHumanString(), CommonDateI18n._2_DAYS_AGO.toString());
-		assertEquals(today.getRelative(-1).toHumanString(), CommonDateI18n.YESTERDAY.toString());
-		assertEquals(today.getRelative(0).toHumanString(), CommonDateI18n.TODAY.toString());
-		assertEquals(today.getRelative(1).toHumanString(), CommonDateI18n.TOMORROW.toString());
-		assertEquals(today.getRelative(2).toHumanString(), Day.today().getRelative(2).toString());
 	}
 
 	@Test
