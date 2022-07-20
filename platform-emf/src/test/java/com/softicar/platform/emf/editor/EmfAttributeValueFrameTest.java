@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.editor;
 
+import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -309,6 +310,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 	// ------------------------------ test object ------------------------------ //
 
+	@TestingOnly
 	private static class TestObject extends AbstractDbObject<TestObject> implements IEmfObject<TestObject> {
 
 		@Override
