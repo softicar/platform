@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
@@ -17,6 +19,12 @@ public class AGLocalizationTable extends EmfObjectTable<AGLocalization, AGCoreMo
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGLocalization, Integer, AGCoreModuleInstance> configuration) {
 
 		configuration.addValidator(LocalizationValidator::new);
+	}
+
+	@Override
+	public void customizeAttributeProperties(IEmfAttributeList<AGLocalization> attributes) {
+
+		attributes.editAttribute(AGLocalization.DATE_FORMAT).setHelpDisplay(CoreI18n.DD_FOR_DAYS_MM_FOR_MONTHS_AND_YYYY_FOR_YEARS);
 	}
 
 	@Override

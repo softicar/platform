@@ -230,6 +230,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ende des DBMS-Wartungsfensters");
 	I18n0 DBMS_DOWN_TIME_WEEKDAY = new I18n0("DBMS Down Time Weekday")//
 		.de("Wochentag des DBMS-Wartungsfensters");
+	I18n0 DD_FOR_DAYS_MM_FOR_MONTHS_AND_YYYY_FOR_YEARS = new I18n0("'dd' for days, 'MM' for months, and 'yyyy' for years")//
+		.de("'dd' für Tage, 'MM' für Monate, und 'yyyy' für Jahre");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
 	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
