@@ -11,8 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * A tree that contains parent-child nesting relations between {@link DomPopup}
- * elements.
+ * Default implementation of {@link IDomPopupHierarchyTree}.
  *
  * @author Alexander Schmidt
  */
