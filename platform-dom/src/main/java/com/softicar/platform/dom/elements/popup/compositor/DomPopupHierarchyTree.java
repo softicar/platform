@@ -3,20 +3,22 @@ package com.softicar.platform.dom.elements.popup.compositor;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
- * A tree that contains parent-child nesting relations between {@link DomPopup}
- * elements.
+ * Default implementation of {@link IDomPopupHierarchyTree}.
  *
  * @author Alexander Schmidt
  */
-class DomPopupHierarchyTree {
+class DomPopupHierarchyTree implements IDomPopupHierarchyTree {
 
 	private ChildMap childMap;
+	private final ParentMap parentMap;
 
 	/**
 	 * Constructs a new {@link DomPopupHierarchyTree}.
@@ -24,6 +26,26 @@ class DomPopupHierarchyTree {
 	public DomPopupHierarchyTree() {
 
 		this.childMap = new ChildMap();
+		this.parentMap = new ParentMap();
+	}
+
+	@Override
+	public List<DomPopup> getAllChildPopups(DomPopup parent) {
+
+		Objects.requireNonNull(parent);
+		var childPopups = new ArrayList<DomPopup>();
+		Optional.ofNullable(childMap.get(parent)).ifPresent(children -> {
+			children.stream().map(this::getAllChildPopups).forEach(childPopups::addAll);
+			childPopups.addAll(children);
+		});
+		return childPopups;
+	}
+
+	@Override
+	public Optional<DomPopup> getParentPopup(DomPopup child) {
+
+		Objects.requireNonNull(child);
+		return Optional.ofNullable(parentMap.get(child));
 	}
 
 	/**
@@ -38,42 +60,8 @@ class DomPopupHierarchyTree {
 	 */
 	public void add(DomPopup parent, DomPopup child) {
 
-		childMap.add(parent, child);
-	}
-
-	/**
-	 * Determines the transitive child {@link DomPopup} elements of the given
-	 * parent {@link DomPopup}.
-	 * <p>
-	 * The returned {@link List} will be ordered according to descending depth
-	 * in the hierarchy tree. That is, deeply-nested children will occur before
-	 * less deeply-nested children.
-	 * <p>
-	 * Returns an empty {@link List} if the given {@link DomPopup} is not a
-	 * parent element in this tree.
-	 *
-	 * @param parent
-	 *            the parent {@link DomPopup} (never <i>null</i>)
-	 * @return all child {@link DomPopup} elements (never <i>null</i>)
-	 */
-	public List<DomPopup> getAllChildPopups(DomPopup parent) {
-
-		Objects.requireNonNull(parent);
-		var childPopups = new ArrayList<DomPopup>();
-		Optional.ofNullable(childMap.get(parent)).ifPresent(children -> {
-			children.stream().map(this::getAllChildPopups).forEach(childPopups::addAll);
-			childPopups.addAll(children);
-		});
-		return childPopups;
-	}
-
-	/**
-	 * Removes all {@link DomPopup} elements from this
-	 * {@link DomPopupHierarchyTree}.
-	 */
-	public void clear() {
-
-		childMap.clear();
+		childMap.put(parent, child);
+		parentMap.put(child, parent);
 	}
 
 	/**
@@ -109,8 +97,19 @@ class DomPopupHierarchyTree {
 				}
 			}
 		}
-
 		this.childMap = newChildMap;
+
+		updateParentMap();
+	}
+
+	/**
+	 * Removes all {@link DomPopup} elements from this
+	 * {@link DomPopupHierarchyTree}.
+	 */
+	public void clear() {
+
+		childMap.clear();
+		parentMap.clear();
 	}
 
 	private boolean isClosedLeaf(DomPopup child, Predicate<DomPopup> openStateFetcher, ChildMap childMap) {
@@ -124,15 +123,25 @@ class DomPopupHierarchyTree {
 		for (var entry: original.entrySet()) {
 			DomPopup parent = entry.getKey();
 			for (DomPopup child: entry.getValue()) {
-				copy.add(parent, child);
+				copy.put(parent, child);
 			}
 		}
 		return copy;
 	}
 
+	private void updateParentMap() {
+
+		HashSet<DomPopup> children = childMap//
+			.values()
+			.stream()
+			.flatMap(it -> it.stream())
+			.collect(Collectors.toCollection(() -> new HashSet<>()));
+		parentMap.keySet().retainAll(children);
+	}
+
 	private static class ChildMap extends HashMap<DomPopup, List<DomPopup>> {
 
-		public void add(DomPopup parent, DomPopup child) {
+		public void put(DomPopup parent, DomPopup child) {
 
 			Objects.requireNonNull(parent);
 			Objects.requireNonNull(child);
@@ -141,5 +150,10 @@ class DomPopupHierarchyTree {
 			}
 			computeIfAbsent(parent, dummy -> new ArrayList<>()).add(child);
 		}
+	}
+
+	private static class ParentMap extends HashMap<DomPopup, DomPopup> {
+
+		// nothing
 	}
 }
