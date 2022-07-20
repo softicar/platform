@@ -151,6 +151,12 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 		});
 	}
 
+	@Override
+	public IDomPopupHierarchyTree getHierarchyTree() {
+
+		return hierarchyTree;
+	}
+
 	private void closePopup(DomPopup popup, boolean closeChildren) {
 
 		if (stateTracker.isOpen(popup)) {
