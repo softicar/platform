@@ -1,23 +1,28 @@
-package com.softicar.platform.dom.elements.input.auto.entity;
+package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputFilter;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class DomAutoCompleteEntityInputFilter<V> implements IDomAutoCompleteInputFilter {
+/**
+ * Default implementation of {@link IDomAutoCompleteInputFilter}.
+ *
+ * @author Oliver Richers
+ */
+public class DomAutoCompleteInputFilter<V> implements IDomAutoCompleteInputFilter {
 
 	private final Supplier<Optional<V>> valueSupplier;
 	private IDisplayString filterTitle;
 	private Function<V, IDisplayString> valueTitleFunction;
 	private Optional<V> value;
 
-	public DomAutoCompleteEntityInputFilter(Supplier<Optional<V>> valueSupplier) {
+	public DomAutoCompleteInputFilter(Supplier<Optional<V>> valueSupplier) {
 
-		this.valueSupplier = valueSupplier;
+		this.valueSupplier = Objects.requireNonNull(valueSupplier);
 		this.filterTitle = DomI18n.FILTER;
 		this.valueTitleFunction = this::getDefaultValueTitle;
 		this.value = valueSupplier.get();
@@ -47,13 +52,13 @@ public class DomAutoCompleteEntityInputFilter<V> implements IDomAutoCompleteInpu
 		this.value = valueSupplier.get();
 	}
 
-	public DomAutoCompleteEntityInputFilter<V> setFilterTitle(IDisplayString filterTitle) {
+	public DomAutoCompleteInputFilter<V> setFilterTitle(IDisplayString filterTitle) {
 
 		this.filterTitle = filterTitle;
 		return this;
 	}
 
-	public DomAutoCompleteEntityInputFilter<V> setValueTitleFunction(Function<V, IDisplayString> valueTitleFunction) {
+	public DomAutoCompleteInputFilter<V> setValueTitleFunction(Function<V, IDisplayString> valueTitleFunction) {
 
 		this.valueTitleFunction = valueTitleFunction;
 		return this;
@@ -66,8 +71,8 @@ public class DomAutoCompleteEntityInputFilter<V> implements IDomAutoCompleteInpu
 
 	private IDisplayString getDefaultValueTitle(V value) {
 
-		if (value instanceof IEntity) {
-			return ((IEntity) value).toDisplay();
+		if (value instanceof IDisplayable) {
+			return ((IDisplayable) value).toDisplay();
 		} else {
 			return IDisplayString.create(value.toString());
 		}

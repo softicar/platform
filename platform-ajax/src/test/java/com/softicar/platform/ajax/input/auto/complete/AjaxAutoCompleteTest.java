@@ -71,7 +71,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 
-		assertPopupItems(ITEM3);
+		assertPopupItems(ITEM3, ITEM4);
 	}
 
 	@Test

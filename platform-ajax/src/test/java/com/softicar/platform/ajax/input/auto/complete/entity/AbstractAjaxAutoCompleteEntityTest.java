@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.input.auto.complete.AbstractAjaxAutoCompleteTe
 import com.softicar.platform.ajax.input.auto.complete.entity.AbstractAjaxAutoCompleteEntityTest.Asserter.AssertionExecutor;
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.thread.Locker;
@@ -13,8 +14,8 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInMemoryInputEngine;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
@@ -35,7 +36,8 @@ import java.util.function.BiConsumer;
 import org.junit.After;
 
 /**
- * Base class of unit tests for {@link DomAutoCompleteEntityInput}.
+ * Base class of unit tests for {@link DomAutoCompleteInput} with
+ * {@link IEntity} values.
  * <p>
  * Each of the test methods must contain an explicit call to
  * {@link Setup#execute()}. Otherwise, {@link AssertionExecutor#assertAll()}
@@ -47,14 +49,14 @@ import org.junit.After;
  * definition of the overall result state after each of the tests.
  * <p>
  * Implementations of this class correspond to various linear phases of user
- * interaction with a {@link DomAutoCompleteEntityInput} element. Focus state
- * and opened/closed state of the auto-complete popup serve as primary criteria
- * of distinction between the individual phases. Hence, the correct phase of the
- * a given interaction with the input element depends on the expected resulting
+ * interaction with a {@link DomAutoCompleteInput} element. Focus state and
+ * opened/closed state of the auto-complete popup serve as primary criteria of
+ * distinction between the individual phases. Hence, the correct phase of the a
+ * given interaction with the input element depends on the expected resulting
  * state, in terms of (a) focus, (b) popup visibility and (c) repetition count.
  * <p>
- * The linear phases of user interaction with a
- * {@link DomAutoCompleteEntityInput} element are assumed to be:
+ * The linear phases of user interaction with a {@link DomAutoCompleteInput}
+ * element are assumed to be:
  * <p>
  * <b>1 Created:</b> The element was created and displayed, and no user
  * interaction took place, yet. See
@@ -121,7 +123,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected static final AjaxTestEntity ENTITY2 = new AjaxTestEntity(2, "bar"); // name: contains combination of letters ("ba") that also appears in several other names
 	protected static final AjaxTestEntity ENTITY3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other item
 	protected static final AjaxTestEntity ENTITY4 = new AjaxTestEntity(4, "bazinga");
-	protected static final List<AjaxTestEntity> ENTITIES = Arrays.asList(ENTITY1, ENTITY2, ENTITY3, ENTITY4);
+	protected static final List<AjaxTestEntity> ENTITIES = Arrays.asList(ENTITY2, ENTITY3, ENTITY4, ENTITY1);
 	protected static final AjaxTestEntity UNAVAILABLE_ENTITY = new AjaxTestEntity(999, "zzz");
 	protected static final long DURATION_100 = 100;
 	protected static final long DURATION_250 = 250;
@@ -130,7 +132,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected static final long DURATION_2000 = 2000;
 
 	protected TestInputEngine inputEngine;
-	protected DomAutoCompleteEntityInput<AjaxTestEntity> inputNode;
+	protected DomAutoCompleteInput<AjaxTestEntity> inputNode;
 	protected DomButton eventTriggerButton;
 	protected IDomNode focusPredecessorElement;
 	protected IDomTextualInput inputFieldElement;
@@ -243,10 +245,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				body.setStyle(CssStyle.WIDTH, new CssPixel(300));
 				body.setStyle(CssStyle.HEIGHT, new CssPixel(300));
 
-				// create engine and input
+				// create engine
 				inputEngine = new TestInputEngine();
-				DomAutoCompleteEntityInput<AjaxTestEntity> input = new DomAutoCompleteEntityInput<>(inputEngine);
 				inputEngine.setLoader(() -> ENTITIES);
+
+				// create input
+				DomAutoCompleteInput<AjaxTestEntity> input = new DomAutoCompleteInput<>(inputEngine);
 				this.instructions.forEach(it -> it.accept(input, inputEngine));
 				return new Container(input);
 			});
@@ -265,7 +269,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 	}
 
-	protected class TestInputEngine extends DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> {
+	protected class TestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxTestEntity> {
 
 		private final Lock lock;
 
@@ -280,24 +284,15 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 
 		@Override
-		public Collection<AjaxTestEntity> findMatchingItems(String pattern, int fetchOffset, int fetchSize) {
+		public Collection<AjaxTestEntity> findMatches(String pattern, int limit) {
 
 			try (Locker locker = createLocker()) {
-				return super.findMatchingItems(pattern, fetchOffset, fetchSize);
-			}
-		}
-
-		@Override
-		public Optional<AjaxTestEntity> findPerfectMatch(String pattern) {
-
-			try (Locker locker = createLocker()) {
-				return super.findPerfectMatch(pattern);
+				return super.findMatches(pattern, limit);
 			}
 		}
 	}
 
-	protected interface ISetupInstruction
-			extends BiConsumer<DomAutoCompleteEntityInput<AjaxTestEntity>, DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity>> {
+	protected interface ISetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
 
 		// convenience interface
 	}
@@ -1059,10 +1054,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	private static class Container extends DomDiv {
 
 		private final IDomNode focusPredecessorNode;
-		private final DomAutoCompleteEntityInput<AjaxTestEntity> inputNode;
+		private final DomAutoCompleteInput<AjaxTestEntity> inputNode;
 		private final EventTrigger trigger;
 
-		public Container(DomAutoCompleteEntityInput<AjaxTestEntity> inputNode) {
+		public Container(DomAutoCompleteInput<AjaxTestEntity> inputNode) {
 
 			setStyle(CssDisplay.FLEX);
 			setStyle(CssFlexDirection.COLUMN);
@@ -1085,7 +1080,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return focusPredecessorNode;
 		}
 
-		public DomAutoCompleteEntityInput<AjaxTestEntity> getInputNode() {
+		public DomAutoCompleteInput<AjaxTestEntity> getInputNode() {
 
 			return inputNode;
 		}

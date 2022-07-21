@@ -90,23 +90,25 @@ public class Asserts extends Assert {
 
 		try {
 			thrower.apply();
-			fail("An expected exception failed to occur.");
 		} catch (Throwable throwable) {
 			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(throwable));
+			return;
 		}
+		fail("Missing expected exception: %s".formatted(expectedMessage));
 	}
 
 	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
 		try {
 			thrower.apply();
-			fail("An expected exception failed to occur.");
 		} catch (Throwable throwable) {
 			String message = getNonNullMessageOrFail(throwable);
 			assertTrue(//
 				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
 				throwable.getMessage().contains(expectedMessage.toString()));
+			return;
 		}
+		fail("Missing expected exception with message: %s".formatted(expectedMessage));
 	}
 
 	// --------------------------- assertCount --------------------------- //

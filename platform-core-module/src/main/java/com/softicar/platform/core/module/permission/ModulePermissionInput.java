@@ -5,9 +5,9 @@ import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInputFilter;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInputFilter;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
-import com.softicar.platform.emf.attribute.field.foreign.entity.input.engine.AbstractEmfDependentAutoCompleteInputEngine;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.permission.CurrentEmfPermissionRegistry;
 import com.softicar.platform.emf.permission.statik.IEmfStaticPermission;
@@ -34,18 +34,18 @@ public class ModulePermissionInput extends EmfEntityInput<AGUuid> {
 		this(() -> Optional.ofNullable(rolePermission.getModuleInstanceBase()));
 	}
 
-	private static class InputEngine extends AbstractEmfDependentAutoCompleteInputEngine<AGUuid> {
+	private static class InputEngine extends DomAutoCompleteDefaultInputEngine<AGUuid> {
 
-		private final DomAutoCompleteEntityInputFilter<AGModuleInstanceBase> filter;
+		private final DomAutoCompleteInputFilter<AGModuleInstanceBase> filter;
 
 		public InputEngine(Supplier<Optional<AGModuleInstanceBase>> moduleInstanceBaseSupplier) {
 
-			super(AGUuid.TABLE);
 			this.filter = addFilter(() -> moduleInstanceBaseSupplier.get()).setFilterTitle(CoreI18n.MODULE_INSTANCE);
+
+			setLoader(this::loadAll);
 		}
 
-		@Override
-		protected Collection<AGUuid> loadItems() {
+		private Collection<AGUuid> loadAll() {
 
 			return filter//
 				.getValue()

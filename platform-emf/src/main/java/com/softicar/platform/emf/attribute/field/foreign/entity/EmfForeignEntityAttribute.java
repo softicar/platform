@@ -60,7 +60,7 @@ public class EmfForeignEntityAttribute<R extends IEmfTableRow<R, ?>, F extends I
 
 	private IEmfInput<F> createForeignInput(R tableRow) {
 
-		EmfEntityInput<F> input = new EmfEntityInput<>(new EmfEntityInputEngine<>(tableRow, getTargetTable(), validator));
+		EmfEntityInput<F> input = new EmfEntityInput<>(new EmfEntityInputEngine<>(getTargetTable()).addValidator(value -> validator.test(tableRow, value)));
 		input.setPlaceholder(getTitle());
 		return input;
 	}

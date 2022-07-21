@@ -4,7 +4,6 @@ import com.softicar.platform.db.runtime.enums.IDbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRow;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.attribute.input.auto.complete.EmfAutoCompleteBrowseButton;
 
@@ -13,14 +12,8 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 
 	public EmfEnumTableRowInput(IDbEnumTable<R, ?> targetTable) {
 
-		super(new EmfEnumTableRowInputEngine<>(targetTable), true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
+		super(new EmfEnumTableRowInputEngine<>(targetTable));
 
 		inputBar.appendChild(new EmfAutoCompleteBrowseButton(this, inputEngine));
-	}
-
-	@Override
-	public void refreshInputConstraints() {
-
-		super.refreshFilters();
 	}
 }
