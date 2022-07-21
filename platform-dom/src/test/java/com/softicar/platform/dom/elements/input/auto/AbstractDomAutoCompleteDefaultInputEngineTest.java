@@ -11,24 +11,24 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends AbstractTest {
 
-	protected final Collection<TestElement> elements;
+	protected final Collection<TestValue> values;
 
 	public AbstractDomAutoCompleteDefaultInputEngineTest() {
 
-		this.elements = new ArrayList<>();
+		this.values = new ArrayList<>();
 	}
 
-	protected void addTestElement(String string, int value) {
+	protected void addTestValue(String string, int value) {
 
-		addTestElement(IDisplayString.create(string), value);
+		addTestValue(IDisplayString.create(string), value);
 	}
 
-	protected void addTestElement(IDisplayString displayString, int value) {
+	protected void addTestValue(IDisplayString displayString, int value) {
 
-		elements.add(new TestElement(displayString, value));
+		values.add(new TestValue(displayString, value));
 	}
 
-	protected void assertMap(String expected, Map<String, TestElement> map) {
+	protected void assertMap(String expected, Map<String, TestValue> map) {
 
 		var exptectedToString = List//
 			.of(expected.split("\n"))
@@ -37,12 +37,12 @@ public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends Abst
 		assertEquals("{" + exptectedToString + "}", map.toString());
 	}
 
-	protected static class TestElement implements IDisplayable, Comparable<TestElement> {
+	protected static class TestValue implements IDisplayable, Comparable<TestValue> {
 
 		private final IDisplayString displayString;
 		private final int value;
 
-		public TestElement(IDisplayString displayString, int value) {
+		public TestValue(IDisplayString displayString, int value) {
 
 			this.displayString = displayString;
 			this.value = value;
@@ -60,7 +60,7 @@ public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends Abst
 		}
 
 		@Override
-		public int compareTo(TestElement other) {
+		public int compareTo(TestValue other) {
 
 			return Integer.compare(value, other.value);
 		}

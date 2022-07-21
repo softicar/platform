@@ -7,35 +7,35 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 /**
- * Extract numeric identifiers (IDs) from the displayed strings of auto-complete
- * elements.
+ * Determines numeric identifiers (IDs) for the values of a
+ * {@link DomAutoCompleteInput}.
  * <p>
- * ID extraction is performed using {@link EntityIdFromDisplayStringExtractor}.
- * If ID extraction for one or more elements fails, or if the same ID is
- * extracted for different elements, the whole ID extraction is considered to
- * have failed.
+ * The IDs are determined by using {@link EntityIdFromDisplayStringExtractor} on
+ * the display strings of the values. If the ID determination for one or more
+ * values fails, or if the same ID is determined for different values, the whole
+ * ID determination process is considered to have failed.
  *
  * @author Oliver Richers
  */
 class DomAutoCompleteIdMapFactory<T> {
 
-	private final Map<String, T> stringToElementMap;
+	private final Map<String, T> stringToValueMap;
 
-	public DomAutoCompleteIdMapFactory(Map<String, T> stringToElementMap) {
+	public DomAutoCompleteIdMapFactory(Map<String, T> stringToValueMap) {
 
-		this.stringToElementMap = Objects.requireNonNull(stringToElementMap);
+		this.stringToValueMap = Objects.requireNonNull(stringToValueMap);
 	}
 
 	/**
-	 * Tries to extract a consistent ID-mapping for the auto-complete elements.
+	 * Tries to determine a consistent ID-mapping for the values.
 	 *
-	 * @return a {@link Map} which maps from ID to auto-complete element if all
-	 *         ID extractions were successful; {@link Optional#empty} otherwise
+	 * @return a {@link Map} which maps from ID to value if ID determination was
+	 *         successful; {@link Optional#empty} otherwise
 	 */
 	public Optional<Map<Integer, T>> create() {
 
 		var result = new TreeMap<Integer, T>();
-		for (var entry: stringToElementMap.entrySet()) {
+		for (var entry: stringToValueMap.entrySet()) {
 			var id = new EntityIdFromDisplayStringExtractor(entry.getKey()).extractId();
 			if (id.isPresent()) {
 				var previous = result.put(id.get(), entry.getValue());
