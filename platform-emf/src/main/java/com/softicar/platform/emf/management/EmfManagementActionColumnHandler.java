@@ -22,7 +22,7 @@ class EmfManagementActionColumnHandler<R extends IEmfTableRow<R, P>, P> implemen
 	@Override
 	public void buildCell(IEmfDataTableActionCell<R> cell, R tableRow) {
 
-		cell.getContentContainer().appendChild(new ActionsPopoverButton(tableRow));
+		cell.appendChild(new ActionsPopoverButton(tableRow));
 	}
 
 	@Override

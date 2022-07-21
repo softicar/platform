@@ -2,10 +2,13 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.DomCssPseudoClasses;
+import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomCell;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.DomDelegatingParentElement;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
@@ -125,33 +128,50 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 		cell.setStyle(cell.getColumn().getSettings().getAlignmentOrDefault(textAlign));
 	}
 
-	private class ActionCell extends DomCell implements IEmfDataTableActionCell<R> {
+	private class ActionCell extends DomDelegatingParentElement implements IEmfDataTableActionCell<R> {
 
+		private final DomCell cell;
 		private final DomBar container;
 
 		public ActionCell() {
 
-			this.container = appendChild(new DomBar());
+			this.cell = new DomCell();
+			this.cell.addMarker(EmfDataTableDivMarker.ACTION_CELL);
+			this.container = new DomBar();
+
+			cell.appendChild(container);
+
 			if (dataTable.getConfig().isRowSelectionEnabled()) {
-				container.appendChild(selectionCheckbox);
+				appendChild(selectionCheckbox);
 			}
 			dataTable//
 				.getConfig()
 				.getActionColumnHandler()
 				.ifPresent(it -> it.buildCell(this, dataRow));
-			addMarker(EmfDataTableDivMarker.ACTION_CELL);
+		}
+
+		@Override
+		protected IDomParentElement getTargetParentElement() {
+
+			return container;
+		}
+
+		@Override
+		protected IDomElement getTargetElement() {
+
+			return cell;
+		}
+
+		@Override
+		protected IDomNode getTargetNode() {
+
+			return cell;
 		}
 
 		@Override
 		public IEmfDataTableRow<R> getTableRow() {
 
 			return EmfDataTableRow.this;
-		}
-
-		@Override
-		public IDomParentElement getContentContainer() {
-
-			return container;
 		}
 	}
 }
