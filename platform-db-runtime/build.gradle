@@ -1,3 +1,5 @@
 dependencies {
 	api project(':platform-db-structure')
+
+	implementation "org.apache.commons:commons-collections4:$versions.commonsCollections4"
 }
