@@ -41,6 +41,10 @@ ALTER TABLE `Core`.`ScheduledProgramExecutionLog` ADD COLUMN `automaticAbort` BO
 
 ALTER TABLE `Workflow`.`WorkflowModuleInstance` RENAME COLUMN `moduleInstance` to `base`;
 
+-- BEGIN DML
+DELETE FROM `Core`.`UserSpecificTableConfiguration`;
+-- END DML
+
 ALTER TABLE `Core`.`UserSpecificTableConfiguration` CHANGE COLUMN `tableIdentifierHash` `tablePathHash` VARCHAR(255) NOT NULL DEFAULT '' AFTER `user`;
 ALTER TABLE `Core`.`UserSpecificTableConfiguration` DROP INDEX `tableIdentifierHashUser`;
 ALTER TABLE `Core`.`UserSpecificTableConfiguration` ADD UNIQUE INDEX `userTablePathHashColumnTitlesHash` (`user`, `tablePathHash`, `columnTitlesHash`);
