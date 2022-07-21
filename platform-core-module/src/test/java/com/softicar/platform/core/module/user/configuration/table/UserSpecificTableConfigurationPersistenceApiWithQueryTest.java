@@ -120,7 +120,8 @@ public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends A
 	private void setupQuery(boolean selectLastName) {
 
 		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery().setSelectLastName(selectLastName);
-		this.expectedTablePathHash = Hash.SHA1
-			.getHashStringLC("table(%s.Implementation.Query)".formatted(IUserSpecificTableConfigurationPersistenceTestQuery.class.getCanonicalName()));
+		String queryClassName = IUserSpecificTableConfigurationPersistenceTestQuery.class.getCanonicalName();
+		String formatted = "table(%s.Implementation.Query)".formatted(queryClassName);
+		this.expectedTablePathHash = Hash.SHA1.getHashStringLC(formatted);
 	}
 }
