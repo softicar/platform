@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.derived.DerivedObject;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,30 +20,30 @@ import java.util.stream.Collectors;
 /**
  * Default implementation of {@link IDomAutoCompleteInputEngine}.
  * <p>
- * To determine all valid elements, this implementation relies on a
- * {@link Supplier} defined by calling {@link #setLoader}. Internally, these
- * loaded elements are then cached together with their respective
- * {@link IDisplayString}, using {@link DerivedObject}. Call
- * {@link #addDependsOn} to define dependencies to control cache invalidation.
+ * To determine all allowed values, this implementation relies on a
+ * {@link Supplier} defined by calling {@link #setLoader}. After loading, the
+ * values are cached, together with their respective {@link IDisplayString},
+ * using {@link DerivedObject}. Call {@link #addDependsOn} to define
+ * dependencies to control cache invalidation.
  * <p>
- * By default, the {@link IDisplayString} for each element is determined by
- * testing if the element implements the interface {@link IDisplayable}. If this
+ * By default, the {@link IDisplayString} for each value is determined by
+ * testing if the value implements the interface {@link IDisplayable}. If this
  * fails, the {@link Object#toString} method is used as a fallback. This
- * mechanism can be overridden by calling {@link #setDisplayFunction(Function)}.
+ * mechanism can be overridden by calling {@link #setDisplayFunction}.
  * <p>
- * Elements evaluating to equal {@link IDisplayString} instances are
- * deduplicated by appending appropriate suffixes. The comparison is done
- * case-insensitive, although the letter cases of the respective
- * {@link IDisplayString} instances are retained, e.g. "foo" and "Foo" will
- * become "foo (1)" and "Foo (2)".
+ * Values evaluating to equivalent {@link IDisplayString} instances are
+ * deduplicated by appending appropriate suffixes to the {@link IDisplayString}.
+ * The comparison is done case-insensitive, although the letter cases of the
+ * respective {@link IDisplayString} instances are retained, e.g. "foo" and
+ * "Foo" will become "foo (1)" and "Foo (2)".
  * <p>
- * To ensure a deterministic order for deduplicated {@link IDisplayString}, the
- * elements should implement {@link Comparable}. This order can be customized by
- * calling {@link #setComparator}.
+ * To ensure a deterministic order for deduplicated {@link IDisplayString}
+ * instances, the values should implement {@link Comparable}. This order can be
+ * customized by calling {@link #setComparator}.
  * <p>
  * The comparator supplied to {@link #setComparator} will <b>not</b> be used to
- * order the elements returned by {@link #findMatches}. Instead,
- * {@link #findMatches} always returns elements order by their translated
+ * order the values returned by {@link #findMatches}. Instead,
+ * {@link #findMatches} always returns the values ordered by their localized
  * {@link IDisplayString}, in a lexicographical manner. Thus, the order depends
  * on {@link CurrentLocale}.
  *
@@ -64,16 +65,16 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	/**
-	 * Defines the {@link Supplier} for the elements.
+	 * Defines the {@link Supplier} for the values.
 	 * <p>
-	 * This {@link Supplier} should prefetch all necessary data so that calls to
-	 * {@link #getDisplayString} for the returned elements are efficient.
+	 * This {@link Supplier} should prefetch all necessary data, so that calls
+	 * to {@link #getDisplayString} for the returned values are efficient.
 	 * <p>
-	 * No deduplication of elements is performed, since this is deemed to be the
+	 * No deduplication of values is performed, since this is deemed to be the
 	 * obligation of the {@link Supplier}.
 	 *
 	 * @param loader
-	 *            the element {@link Supplier} (never <i>null</i>)
+	 *            the value {@link Supplier} (never <i>null</i>)
 	 * @return this
 	 */
 	public DomAutoCompleteDefaultInputEngine<T> setLoader(Supplier<Collection<T>> loader) {
@@ -84,7 +85,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 	/**
 	 * Adds the given {@link Objects} as a dependency to the internal
-	 * {@link DerivedObject}, which is used to cache the loaded elements.
+	 * {@link DerivedObject}, which is used to cache the loaded values.
 	 *
 	 * @param object
 	 *            the source object (never <i>null</i>)
@@ -98,9 +99,9 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 	/**
 	 * Overrides the default implementation to determine the
-	 * {@link IDisplayString} of an element.
+	 * {@link IDisplayString} of a value.
 	 * <p>
-	 * The default implementation relies on the elements implementing the
+	 * The default implementation relies on the values implementing the
 	 * {@link IDisplayable} interface.
 	 *
 	 * @param displayFunction
@@ -114,10 +115,10 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	/**
-	 * Overrides the {@link Comparator} to order elements with equal
+	 * Overrides the {@link Comparator} to order values with equivalent
 	 * {@link IDisplayString} instances.
 	 * <p>
-	 * The default implementation relies on the elements implementing the
+	 * The default implementation relies on the values implementing the
 	 * {@link Comparable} interface.
 	 *
 	 * @param comparator
@@ -131,9 +132,9 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	@Override
-	public final IDisplayString getDisplayString(T element) {
+	public final IDisplayString getDisplayString(T value) {
 
-		return cache.get().getDisplayString(element);
+		return cache.get().getDisplayString(value);
 	}
 
 	@Override
@@ -150,30 +151,45 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 	private class Cache {
 
-		private final Map<String, T> stringToElementMap;
-		private final Map<T, String> elementToStringMap;
+		private final Map<String, T> stringToValueMap;
+		private final Map<Integer, T> idToValueMap;
+		private final Map<T, String> valueToStringMap;
 
 		public Cache() {
 
-			this.stringToElementMap = new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(loader.get());
-			this.elementToStringMap = new HashMap<>();
+			this.stringToValueMap = new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(loader.get());
+			this.idToValueMap = new DomAutoCompleteIdMapFactory<>(stringToValueMap).create().orElse(Collections.emptyMap());
+			this.valueToStringMap = new HashMap<>();
 
-			stringToElementMap//
+			stringToValueMap//
 				.entrySet()
-				.forEach(entry -> elementToStringMap.put(entry.getValue(), entry.getKey()));
+				.forEach(entry -> valueToStringMap.put(entry.getValue(), entry.getKey()));
 		}
 
-		public IDisplayString getDisplayString(T element) {
+		public IDisplayString getDisplayString(T value) {
 
 			return Optional//
-				.ofNullable(elementToStringMap.get(element))
+				.ofNullable(valueToStringMap.get(value))
 				.map(IDisplayString::create)
 				.orElse(IDisplayString.EMPTY);
 		}
 
 		public Collection<T> findMatches(String pattern, int limit) {
 
-			return stringToElementMap//
+			return findIdMatch(pattern).orElse(findStringMatch(pattern, limit));
+		}
+
+		private Optional<Collection<T>> findIdMatch(String pattern) {
+
+			return IntegerParser//
+				.parse(pattern)
+				.map(id -> idToValueMap.get(id))
+				.map(Collections::singleton);
+		}
+
+		private Collection<T> findStringMatch(String pattern, int limit) {
+
+			return stringToValueMap//
 				.entrySet()
 				.stream()
 				.filter(entry -> entry.getKey().toLowerCase().contains(pattern))
@@ -186,12 +202,12 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	private class DefaultDisplayFunction implements Function<T, IDisplayString> {
 
 		@Override
-		public IDisplayString apply(T element) {
+		public IDisplayString apply(T value) {
 
-			if (element instanceof IDisplayable) {
-				return ((IDisplayable) element).toDisplay();
+			if (value instanceof IDisplayable) {
+				return ((IDisplayable) value).toDisplay();
 			} else {
-				return IDisplayString.create(element.toString());
+				return IDisplayString.create(value.toString());
 			}
 		}
 	}

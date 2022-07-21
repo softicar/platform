@@ -11,18 +11,18 @@ import org.junit.Test;
 
 public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoCompleteDefaultInputEngineTest {
 
-	private final DomAutoCompleteDefaultInputEngine<TestElement> inputEngine;
+	private final DomAutoCompleteDefaultInputEngine<TestValue> inputEngine;
 
 	public DomAutoCompleteDefaultInputEngineTest() {
 
 		this.inputEngine = new DomAutoCompleteDefaultInputEngine<>();
-		inputEngine.setLoader(() -> elements);
+		inputEngine.setLoader(() -> values);
 
-		addTestElement(DomI18n.ONE, 1);
-		addTestElement(DomI18n.TWO, 2);
-		addTestElement(DomI18n.THREE, 3);
-		addTestElement(DomI18n.FOUR, 4);
-		addTestElement(DomI18n.FIVE, 5);
+		addTestValue(DomI18n.ONE, 1);
+		addTestValue(DomI18n.TWO, 2);
+		addTestValue(DomI18n.THREE, 3);
+		addTestValue(DomI18n.FOUR, 4);
+		addTestValue(DomI18n.FIVE, 5);
 	}
 
 	// ------------------------------ unique display strings ------------------------------ //
@@ -87,8 +87,8 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	@Test
 	public void testWithRedundantDisplayStrings() {
 
-		addTestElement("four", 44);
-		addTestElement("five", 55);
+		addTestValue("four", 44);
+		addTestValue("five", 55);
 
 		assertEquals("[Five (1), five (2), Four (1), four (2)]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
@@ -100,8 +100,8 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	@Test
 	public void testWithRedundantSubStrings() {
 
-		addTestElement("FourA", 6);
-		addTestElement("AFour", 7);
+		addTestValue("FourA", 6);
+		addTestValue("AFour", 7);
 
 		assertEquals("[AFour, Five, Four, FourA]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("fo", 9)));
@@ -113,10 +113,10 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	@Test
 	public void testWithRedundantDisplayStringsAndCustomDisplayFunction() {
 
-		inputEngine.setDisplayFunction(element -> IDisplayString.create("%s [%s]".formatted(element.toDisplay(), element.getValue())));
+		inputEngine.setDisplayFunction(value -> IDisplayString.create("%s [%s]".formatted(value.toDisplay(), value.getValue())));
 
-		addTestElement("four", 44);
-		addTestElement("five", 55);
+		addTestValue("four", 44);
+		addTestValue("five", 55);
 
 		assertEquals("[five [55], Five [5], four [44], Four [4]]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
@@ -125,9 +125,31 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
 	}
 
+	// ------------------------------ with id match ------------------------------ //
+
+	@Test
+	public void testWithIdMatch() {
+
+		inputEngine.setDisplayFunction(value -> IDisplayString.create("%s [%s]".formatted(value.toDisplay(), value.getValue())));
+
+		addTestValue("Eleven", 11);
+		addTestValue("Twelve", 12);
+
+		assertEquals("[One [1]]", toDisplayStrings(inputEngine.findMatches("1", 9)));
+		assertEquals("[Two [2]]", toDisplayStrings(inputEngine.findMatches("2", 9)));
+		assertEquals("[Eleven [11]]", toDisplayStrings(inputEngine.findMatches("11", 9)));
+		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12", 9)));
+
+		assertEquals("[Eleven [11], One [1], Twelve [12]]", toDisplayStrings(inputEngine.findMatches("[1", 9)));
+		assertEquals("[Eleven [11]]", toDisplayStrings(inputEngine.findMatches("[11", 9)));
+
+		assertEquals("[Twelve [12], Two [2]]", toDisplayStrings(inputEngine.findMatches("2]", 9)));
+		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12]", 9)));
+	}
+
 	// ------------------------------ private ------------------------------ //
 
-	private String toDisplayStrings(Collection<TestElement> matches) {
+	private String toDisplayStrings(Collection<TestValue> matches) {
 
 		return matches//
 			.stream()

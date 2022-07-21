@@ -30,7 +30,7 @@ function getBoundingRect(element) {
 function showAtAbsolutePosition(element, inputContext) {
 
 	element.style.top = inputContext.getInputFieldOffsetHeight() + 'px';
-	element.style.width = inputContext.getInputFieldBoundingRect().width + 'px';
+	element.style.minWidth = inputContext.getInputFieldBoundingRect().width + 'px';
 	element.style.boxSizing = 'border-box';
 	inputContext.getInput().appendChild(element);
 	AJAX_ENGINE.raise(element);

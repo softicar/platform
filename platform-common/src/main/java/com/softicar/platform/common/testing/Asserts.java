@@ -152,6 +152,11 @@ public class Asserts extends Assert {
 		return assertCount(1, objects).get(0);
 	}
 
+	public static <T> T assertOne(Optional<T> optional) {
+
+		return optional.orElseThrow(() -> new AssertionError("Expected optional to not be empty."));
+	}
+
 	public static <T> void assertNone(Iterable<T> objects) {
 
 		assertCount(0, objects);

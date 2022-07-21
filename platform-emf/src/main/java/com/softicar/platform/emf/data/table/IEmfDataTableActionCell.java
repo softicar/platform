@@ -25,13 +25,4 @@ public interface IEmfDataTableActionCell<R> extends IDomParentElement {
 
 		return getTableRow().getTable();
 	}
-
-	/**
-	 * Returns the {@link IDomParentElement} where the content for this cell
-	 * should be appended to.
-	 *
-	 * @return the {@link IDomParentElement} (never null)
-	 */
-	IDomParentElement getContentContainer();
-
 }

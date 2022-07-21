@@ -3,6 +3,7 @@ package com.softicar.platform.common.core.entity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Extractor for the {@link IEntity} ID from a given {@link IDisplayString}.
@@ -11,6 +12,7 @@ import java.util.Optional;
  */
 public class EntityIdFromDisplayStringExtractor {
 
+	private static final Pattern PATTERN = Pattern.compile(".*\\[([0-9]+)\\]");
 	private final String displayString;
 
 	public EntityIdFromDisplayStringExtractor(IDisplayString displayString) {
@@ -32,10 +34,9 @@ public class EntityIdFromDisplayStringExtractor {
 	 */
 	public Optional<Integer> extractId() {
 
-		if (displayString.matches(".*\\[[0-9]+\\]")) {
-			int start = displayString.lastIndexOf('[') + 1;
-			int end = displayString.lastIndexOf(']');
-			return IntegerParser.parse(displayString.substring(start, end));
+		var matcher = PATTERN.matcher(displayString);
+		if (matcher.matches()) {
+			return IntegerParser.parse(matcher.group(1));
 		} else {
 			return Optional.empty();
 		}
