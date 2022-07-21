@@ -11,6 +11,7 @@ public interface CoreCssFiles {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(CoreCssFiles.class, Charsets.UTF8);
 
+	IResourceSupplier MAINTENANCE_WINDOW_STYLE = FACTORY.create("maintenance-window-style.css");
 	IResourceSupplier STORED_FILE_STYLE = FACTORY.create("stored-file-style.css");
 	IResourceSupplier SYSTEM_EVENT_STYLE = FACTORY.create("system-event-style.css");
 	IResourceSupplier USER_PASSWORD_QUALITY_STYLE = FACTORY.create("user-password-quality-style.css");
