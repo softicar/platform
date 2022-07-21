@@ -2,12 +2,13 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.entity.EntityIdFromDisplayStringExtractor;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 
 /**
- * Attempts to extract numeric identifiers (IDs) from the displayed strings of
- * auto-complete elements.
+ * Extract numeric identifiers (IDs) from the displayed strings of auto-complete
+ * elements.
  * <p>
  * ID extraction is performed using {@link EntityIdFromDisplayStringExtractor}.
  * If ID extraction for one or more elements fails, or if the same ID is
@@ -22,15 +23,14 @@ class DomAutoCompleteIdMapFactory<T> {
 
 	public DomAutoCompleteIdMapFactory(Map<String, T> stringToElementMap) {
 
-		this.stringToElementMap = stringToElementMap;
+		this.stringToElementMap = Objects.requireNonNull(stringToElementMap);
 	}
 
 	/**
 	 * Tries to extract a consistent ID-mapping for the auto-complete elements.
 	 *
-	 * @return a {@link Map} which maps from ID to auto-complete element if an
-	 *         ID extraction was successful; an empty {@link Optional} otherwise
-	 *         (never <i>null</i>)
+	 * @return a {@link Map} which maps from ID to auto-complete element if all
+	 *         ID extractions were successful; {@link Optional#empty} otherwise
 	 */
 	public Optional<Map<Integer, T>> create() {
 
