@@ -34,7 +34,7 @@ import org.mockito.Mockito;
 
 public class EmfDataTablePathTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	private static final String TABLE_IDENTIFIER = "my-data-table-identifier";
+	private static final String TABLE_IDENTIFIER = "my-table-identifier";
 	private static final String POPUP_CAPTION = "my-popup-caption";
 	private static final String POPUP_OTHER_CAPTION = "my-popup-other-caption";
 	private static final UUID PAGE_UUID = UUID.fromString("3abf80e6-b34d-4861-9828-43edbfcdb9ff");
