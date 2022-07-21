@@ -1,13 +1,12 @@
 package com.softicar.platform.core.module.start.page;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventPage;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.maintenance.MaintenanceWindowsInfoElement;
 import com.softicar.platform.core.module.page.PageButton;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.impersonation.UserImpersonationSessionManager;
@@ -22,8 +21,6 @@ import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 class StartPageDiv extends DomDiv {
 
@@ -59,14 +56,7 @@ class StartPageDiv extends DomDiv {
 
 		var maintenanceWindows = AGMaintenanceWindow.getAllPendingMaintenanceWindows();
 		if (!maintenanceWindows.isEmpty()) {
-			List<IDisplayString> displayStrings = maintenanceWindows//
-				.stream()
-				.map(AGMaintenanceWindow::toDisplayWithoutId)
-				.collect(Collectors.toList());
-			IDisplayString message = CoreI18n.PENDING_MAINTENANCE_INFO//
-				.concat("\n\n")
-				.concat(Imploder.implode(displayStrings, "\n"));
-			sections.add(new DomMessageDiv(DomMessageType.INFO, message));
+			sections.add(new MaintenanceWindowsInfoElement(maintenanceWindows));
 		}
 	}
 

@@ -596,8 +596,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort-Richtlinien-Logs");
 	I18n0 PENDING = new I18n0("Pending")//
 		.de("Ausstehend");
-	I18n0 PENDING_MAINTENANCE_INFO = new I18n0("Pending Maintenance Info")//
-		.de("Info zu bevorstehenden Wartungsarbeiten");
+	I18n0 PENDING_MAINTENANCE = new I18n0("Pending Maintenance")//
+		.de("Bevorstehende Wartungsarbeiten");
 	I18n0 PERMISSION_UUID = new I18n0("Permission UUID")//
 		.de("Berechtigungs-UUID");
 	I18n0 PERMISSIONS = new I18n0("Permissions")//
