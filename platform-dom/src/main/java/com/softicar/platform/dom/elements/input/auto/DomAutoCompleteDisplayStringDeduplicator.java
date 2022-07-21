@@ -11,19 +11,20 @@ import java.util.TreeMap;
 import java.util.function.Function;
 
 /**
- * Ensures that each auto-complete element has a unique display string.
+ * Ensures that each value of a {@link DomAutoCompleteInput} has a unique
+ * display string.
  * <p>
- * If two auto-complete elements translate to the same display string, a
- * deduplication is performed, by appending numeric suffixes to the respective
- * display strings, e.g. "Foo (1)", "Foo (2)", etc.
+ * If two values translate to equivalent display strings, a deduplication is
+ * performed, by appending numeric suffixes to the respective display strings,
+ * e.g. "Foo (1)", "Foo (2)", etc.
  * <p>
  * Comparison between display strings is case-insensitive, meaning that display
  * strings only varying in letter cases are also deduplicated, e.g. "foo" and
  * "Foo". However, letter cases are retained when suffixes are added, resulting
  * in "foo (1)" and "Foo (2)".
  * <p>
- * This class does not perform any deduplication of elements. If necessary, such
- * a removal of redundant elements should be performed elsewhere.
+ * This class does not perform any deduplication of values. If necessary, such a
+ * removal of redundant values should be performed elsewhere.
  *
  * @author Oliver Richers
  */
@@ -40,39 +41,39 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 		this.comparator = comparator;
 	}
 
-	public Map<String, T> apply(Collection<T> elements) {
+	public Map<String, T> apply(Collection<T> values) {
 
 		this.listMap = new TreeMap<>(String::compareToIgnoreCase);
 		this.resultMap = new TreeMap<>(String::compareToIgnoreCase);
 
-		for (var element: elements) {
-			var string = displayFunction.apply(element).toString();
-			listMap.computeIfAbsent(string, dummy -> new ArrayList<>()).add(element);
+		for (var value: values) {
+			var string = displayFunction.apply(value).toString();
+			listMap.computeIfAbsent(string, dummy -> new ArrayList<>()).add(value);
 		}
 
 		for (var entry: listMap.entrySet()) {
 			var key = entry.getKey();
 			var list = entry.getValue();
 			if (list.size() > 1) {
-				addConflictingElements(list);
+				addConflictingValues(list);
 			} else {
-				addElement(key, list.get(0));
+				addValue(key, list.get(0));
 			}
 		}
 
 		return resultMap;
 	}
 
-	private void addConflictingElements(List<T> elements) {
+	private void addConflictingValues(List<T> values) {
 
-		Collections.sort(elements, comparator);
+		Collections.sort(values, comparator);
 
 		var index = 1;
-		for (var element: elements) {
+		for (var value: values) {
 			for (;; index++) {
-				var substituteKey = displayFunction.apply(element) + " (" + index + ")";
+				var substituteKey = displayFunction.apply(value) + " (" + index + ")";
 				if (!listMap.containsKey(substituteKey)) {
-					addElement(substituteKey, element);
+					addValue(substituteKey, value);
 					index++;
 					break;
 				}
@@ -80,8 +81,8 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 		}
 	}
 
-	private void addElement(String key, T element) {
+	private void addValue(String key, T value) {
 
-		resultMap.put(key, element);
+		resultMap.put(key, value);
 	}
 }

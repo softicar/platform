@@ -13,6 +13,8 @@ public class EntityIdFromDisplayStringExtractorTest extends AbstractTest {
 		assertId(null, "123");
 		assertId(123, "[123]");
 		assertId(123, "abc [123]");
+		assertId(123, "321 [123]");
+		assertId(123, "abc [321] [123]");
 	}
 
 	private void assertId(Integer expectedId, String text) {
