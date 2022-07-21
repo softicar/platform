@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.configuration.table;
 
+import com.softicar.platform.common.string.hash.Hash;
 import com.softicar.platform.db.runtime.query.IDbQuery;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.test.IEmfTestEngineMethods;
@@ -119,6 +120,8 @@ public class UserSpecificTableConfigurationPersistenceApiWithQueryTest extends A
 	private void setupQuery(boolean selectLastName) {
 
 		this.query = IUserSpecificTableConfigurationPersistenceTestQuery.FACTORY.createQuery().setSelectLastName(selectLastName);
-		this.expectedTableIdentifierHash = query.getIdentifier().getHash();
+		String queryClassName = IUserSpecificTableConfigurationPersistenceTestQuery.class.getCanonicalName();
+		String formatted = "table(%s.Implementation.Query)".formatted(queryClassName);
+		this.expectedTablePathHash = Hash.SHA1.getHashStringLC(formatted);
 	}
 }

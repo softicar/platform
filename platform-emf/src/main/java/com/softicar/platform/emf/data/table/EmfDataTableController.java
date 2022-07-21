@@ -53,6 +53,12 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	// -------------------- table -------------------- //
 
 	@Override
+	public EmfDataTablePath getEmfDataTablePath() {
+
+		return new EmfDataTablePath(emfDataTable);
+	}
+
+	@Override
 	public IDataTable<R> getDataTable() {
 
 		return config.getDataTable();

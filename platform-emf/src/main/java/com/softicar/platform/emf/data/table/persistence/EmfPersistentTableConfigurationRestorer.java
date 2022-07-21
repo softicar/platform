@@ -45,7 +45,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 		if (identifier.isPresent()) {
 			CurrentEmfPersistenceApi//
 				.get()
-				.loadPersistentTableConfiguration(identifier, new EmfDataTableColumnTitlesHasher(controller))
+				.loadPersistentTableConfiguration(controller.getEmfDataTablePath(), new EmfDataTableColumnTitlesHasher(controller))
 				.ifPresent(this::apply);
 		}
 	}

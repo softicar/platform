@@ -919,10 +919,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("System-Revision");
 	I18n0 SYSTEM_USER = new I18n0("System User")//
 		.de("System-Benutzer");
-	I18n0 TABLE_IDENTIFIER_HASH = new I18n0("Table Identifier Hash")//
-		.de("Tabellen-Identifikator-Hash");
 	I18n0 TABLE_NAME = new I18n0("Table Name")//
 		.de("Tabellenname");
+	I18n0 TABLE_PATH_HASH = new I18n0("Table Path Hash")//
+		.de("Tabellen-Pfad-Hash");
 	I18n0 TARGET_USER = new I18n0("Target User")//
 		.de("Ziel-Benutzer");
 	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate All Sessions")//

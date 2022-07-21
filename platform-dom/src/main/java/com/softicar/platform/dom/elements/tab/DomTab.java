@@ -47,7 +47,7 @@ public class DomTab extends DomDiv {
 	 *
 	 * @return label
 	 */
-	protected IDisplayString getLabel() {
+	public IDisplayString getLabel() {
 
 		return label;
 	}

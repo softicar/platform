@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.persistence;
 
-import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.emf.data.table.EmfDataTablePath;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
 import java.util.Optional;
 
@@ -13,14 +13,14 @@ import java.util.Optional;
 public class EmfDummyPersistenceApi implements IEmfPersistenceApi {
 
 	@Override
-	public void savePersistentTableConfiguration(DataTableIdentifier tableIdentifier, EmfPersistentTableConfiguration dto) {
+	public void savePersistentTableConfiguration(EmfDataTablePath dataTablePath, EmfPersistentTableConfiguration configuration) {
 
 		// nothing to do
 	}
 
 	@Override
-	public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(DataTableIdentifier tableIdentifier,
-			EmfDataTableColumnTitlesHasher columnTitlesHash) {
+	public Optional<EmfPersistentTableConfiguration> loadPersistentTableConfiguration(EmfDataTablePath dataTablePath,
+			EmfDataTableColumnTitlesHasher columnTitlesHasher) {
 
 		return Optional.empty();
 	}
