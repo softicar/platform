@@ -125,6 +125,28 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
 	}
 
+	// ------------------------------ with id match ------------------------------ //
+
+	@Test
+	public void testWithIdMatch() {
+
+		inputEngine.setDisplayFunction(element -> IDisplayString.create("%s [%s]".formatted(element.toDisplay(), element.getValue())));
+
+		addTestElement("Eleven", 11);
+		addTestElement("Twelve", 12);
+
+		assertEquals("[One [1]]", toDisplayStrings(inputEngine.findMatches("1", 9)));
+		assertEquals("[Two [2]]", toDisplayStrings(inputEngine.findMatches("2", 9)));
+		assertEquals("[Eleven [11]]", toDisplayStrings(inputEngine.findMatches("11", 9)));
+		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12", 9)));
+
+		assertEquals("[Eleven [11], One [1], Twelve [12]]", toDisplayStrings(inputEngine.findMatches("[1", 9)));
+		assertEquals("[Eleven [11]]", toDisplayStrings(inputEngine.findMatches("[11", 9)));
+
+		assertEquals("[Twelve [12], Two [2]]", toDisplayStrings(inputEngine.findMatches("2]", 9)));
+		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12]", 9)));
+	}
+
 	// ------------------------------ private ------------------------------ //
 
 	private String toDisplayStrings(Collection<TestElement> matches) {

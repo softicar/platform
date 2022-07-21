@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.derived.DerivedObject;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import java.util.Collection;
 import java.util.Collections;
@@ -151,11 +152,13 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	private class Cache {
 
 		private final Map<String, T> stringToElementMap;
+		private final Map<Integer, T> idToElementMap;
 		private final Map<T, String> elementToStringMap;
 
 		public Cache() {
 
 			this.stringToElementMap = new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(loader.get());
+			this.idToElementMap = new DomAutoCompleteIdMapFactory<>(stringToElementMap).create().orElse(Collections.emptyMap());
 			this.elementToStringMap = new HashMap<>();
 
 			stringToElementMap//
@@ -172,6 +175,19 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		}
 
 		public Collection<T> findMatches(String pattern, int limit) {
+
+			return findIdMatch(pattern).orElse(findStringMatch(pattern, limit));
+		}
+
+		private Optional<Collection<T>> findIdMatch(String pattern) {
+
+			return IntegerParser//
+				.parse(pattern)
+				.map(id -> idToElementMap.get(id))
+				.map(Collections::singleton);
+		}
+
+		private Collection<T> findStringMatch(String pattern, int limit) {
 
 			return stringToElementMap//
 				.entrySet()
