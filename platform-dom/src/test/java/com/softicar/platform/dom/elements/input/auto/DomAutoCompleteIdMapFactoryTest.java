@@ -9,10 +9,10 @@ public class DomAutoCompleteIdMapFactoryTest extends AbstractDomAutoCompleteDefa
 	@Test
 	public void testWithProperIds() {
 
-		addTestElement("A [11]", 1);
-		addTestElement("B [12]", 2);
-		addTestElement("C [13]", 3);
-		addTestElement("D [14]", 4);
+		addTestValue("A [11]", 1);
+		addTestValue("B [12]", 2);
+		addTestValue("C [13]", 3);
+		addTestValue("D [14]", 4);
 
 		var idMap = new DomAutoCompleteIdMapFactory<>(createMap()).create();
 
@@ -22,10 +22,10 @@ public class DomAutoCompleteIdMapFactoryTest extends AbstractDomAutoCompleteDefa
 	@Test
 	public void testWithRedundantIds() {
 
-		addTestElement("A [11]", 1);
-		addTestElement("B [12]", 2);
-		addTestElement("C [13]", 3);
-		addTestElement("D [11]", 4);
+		addTestValue("A [11]", 1);
+		addTestValue("B [12]", 2);
+		addTestValue("C [13]", 3);
+		addTestValue("D [11]", 4);
 
 		var idMap = new DomAutoCompleteIdMapFactory<>(createMap()).create();
 
@@ -35,19 +35,19 @@ public class DomAutoCompleteIdMapFactoryTest extends AbstractDomAutoCompleteDefa
 	@Test
 	public void testWithMissingId() {
 
-		addTestElement("A [11]", 1);
-		addTestElement("B [  ]", 2);
-		addTestElement("C [13]", 3);
-		addTestElement("D [14]", 4);
+		addTestValue("A [11]", 1);
+		addTestValue("B [  ]", 2);
+		addTestValue("C [13]", 3);
+		addTestValue("D [14]", 4);
 
 		var idMap = new DomAutoCompleteIdMapFactory<>(createMap()).create();
 
 		assertEmpty(idMap);
 	}
 
-	private Map<String, TestElement> createMap() {
+	private Map<String, TestValue> createMap() {
 
-		return elements//
+		return values//
 			.stream()
 			.collect(Collectors.toMap(it -> it.toDisplay().toString(), it -> it));
 	}

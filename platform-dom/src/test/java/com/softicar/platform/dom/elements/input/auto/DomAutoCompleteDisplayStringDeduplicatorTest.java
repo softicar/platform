@@ -5,21 +5,21 @@ import org.junit.Test;
 
 public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAutoCompleteDefaultInputEngineTest {
 
-	private final DomAutoCompleteDisplayStringDeduplicator<TestElement> deduplicator;
+	private final DomAutoCompleteDisplayStringDeduplicator<TestValue> deduplicator;
 
 	public DomAutoCompleteDisplayStringDeduplicatorTest() {
 
-		this.deduplicator = new DomAutoCompleteDisplayStringDeduplicator<>(TestElement::toDisplay, TestElement::compareTo);
+		this.deduplicator = new DomAutoCompleteDisplayStringDeduplicator<>(TestValue::toDisplay, TestValue::compareTo);
 	}
 
 	@Test
-	public void testWithDistinctDisplayStringsAndDistinctElements() {
+	public void testWithDistinctDisplayStringsAndDistinctValues() {
 
-		addTestElement("FOO", 1);
-		addTestElement("baz", 2);
-		addTestElement("Bar", 3);
+		addTestValue("FOO", 1);
+		addTestValue("baz", 2);
+		addTestValue("Bar", 3);
 
-		Map<String, TestElement> map = deduplicator.apply(elements);
+		Map<String, TestValue> map = deduplicator.apply(values);
 
 		assertMap("""
 				Bar=3
@@ -28,14 +28,14 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 	}
 
 	@Test
-	public void testWithDistinctDisplayStringsAndRedundantElements() {
+	public void testWithDistinctDisplayStringsAndRedundantValues() {
 
 		// different strings but equal value
-		addTestElement("FOO", 3);
-		addTestElement("baz", 3);
-		addTestElement("Bar", 3);
+		addTestValue("FOO", 3);
+		addTestValue("baz", 3);
+		addTestValue("Bar", 3);
 
-		Map<String, TestElement> map = deduplicator.apply(elements);
+		Map<String, TestValue> map = deduplicator.apply(values);
 
 		assertMap("""
 				Bar=3
@@ -44,19 +44,19 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 	}
 
 	@Test
-	public void testWithRedundantDisplayStringsAndDistinctElements() {
+	public void testWithRedundantDisplayStringsAndDistinctValues() {
 
 		// ascending values
-		addTestElement("FOO", 1);
-		addTestElement("foo", 2);
-		addTestElement("Foo", 3);
+		addTestValue("FOO", 1);
+		addTestValue("foo", 2);
+		addTestValue("Foo", 3);
 
 		// descending values
-		addTestElement("FOO", 9);
-		addTestElement("foo", 8);
-		addTestElement("Foo", 7);
+		addTestValue("FOO", 9);
+		addTestValue("foo", 8);
+		addTestValue("Foo", 7);
 
-		Map<String, TestElement> map = deduplicator.apply(elements);
+		Map<String, TestValue> map = deduplicator.apply(values);
 
 		// assert ordered by value
 		assertMap("""
@@ -69,19 +69,19 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 	}
 
 	@Test
-	public void testWithRedundantDisplayStringsAndRedundantElements() {
+	public void testWithRedundantDisplayStringsAndRedundantValues() {
 
 		// initial order of display strings
-		addTestElement("FOO", 3);
-		addTestElement("foo", 3);
-		addTestElement("Foo", 3);
+		addTestValue("FOO", 3);
+		addTestValue("foo", 3);
+		addTestValue("Foo", 3);
 
 		// reverse order of display strings
-		addTestElement("Foo", 3);
-		addTestElement("foo", 3);
-		addTestElement("FOO", 3);
+		addTestValue("Foo", 3);
+		addTestValue("foo", 3);
+		addTestValue("FOO", 3);
 
-		Map<String, TestElement> map = deduplicator.apply(elements);
+		Map<String, TestValue> map = deduplicator.apply(values);
 
 		// assert insertion order
 		assertMap("""
@@ -94,18 +94,18 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 	}
 
 	@Test
-	public void testWithDeeplyRedundantDisplayStringsAndDistinctElements() {
+	public void testWithDeeplyRedundantDisplayStringsAndDistinctValues() {
 
-		addTestElement("foo", 3);
-		addTestElement("Foo", 2);
-		addTestElement("fOO", 7);
-		addTestElement("foo (1)", 4);
-		addTestElement("foo (1)", 9);
-		addTestElement("Foo (1)", 5);
-		addTestElement("foo (3)", 6);
-		addTestElement("foobar", 1);
+		addTestValue("foo", 3);
+		addTestValue("Foo", 2);
+		addTestValue("fOO", 7);
+		addTestValue("foo (1)", 4);
+		addTestValue("foo (1)", 9);
+		addTestValue("Foo (1)", 5);
+		addTestValue("foo (3)", 6);
+		addTestValue("foobar", 1);
 
-		Map<String, TestElement> map = deduplicator.apply(elements);
+		Map<String, TestValue> map = deduplicator.apply(values);
 
 		assertMap("""
 				foo (1) (1)=4
