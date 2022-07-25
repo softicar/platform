@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,16 +53,23 @@ import java.util.stream.Collectors;
 public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInputEngine<T> {
 
 	private final DerivedObject<Cache> cache;
+	private final Collection<IDomAutoCompleteInputFilter> filters;
 	private Supplier<Collection<T>> loader;
 	private Function<T, IDisplayString> displayFunction;
 	private Comparator<T> comparator;
 
-	public DomAutoCompleteDefaultInputEngine() {
+	public DomAutoCompleteDefaultInputEngine(Supplier<Collection<T>> loader) {
 
 		this.cache = new DerivedObject<>(Cache::new);
-		this.loader = Collections::emptyList;
+		this.filters = new ArrayList<>();
+		this.loader = Objects.requireNonNull(loader);
 		this.displayFunction = new DefaultDisplayFunction();
 		this.comparator = new DefaultComparator();
+	}
+
+	public DomAutoCompleteDefaultInputEngine() {
+
+		this(Collections::emptyList);
 	}
 
 	/**
@@ -95,6 +103,23 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 		cache.addDependsOn(object);
 		return this;
+	}
+
+	/**
+	 * Constructs and adds a new {@link DomAutoCompleteInputFilter} for the
+	 * given value supplier, and adds it to the internal list of filters.
+	 *
+	 * @param valueSupplier
+	 *            the value supplier from which a
+	 *            {@link DomAutoCompleteInputFilter} should be created (never
+	 *            <i>null</i>)
+	 * @return the new {@link DomAutoCompleteInputFilter} (never <i>null</i>)
+	 */
+	protected <V> DomAutoCompleteInputFilter<V> addFilter(Supplier<Optional<V>> valueSupplier) {
+
+		DomAutoCompleteInputFilter<V> filter = new DomAutoCompleteInputFilter<>(valueSupplier);
+		this.filters.add(filter);
+		return filter;
 	}
 
 	/**
@@ -138,15 +163,29 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	@Override
-	public final Collection<T> findMatches(String pattern, int limit) {
+	public Collection<T> findMatches(String pattern, int limit) {
 
 		return cache.get().findMatches(pattern, limit);
+	}
+
+	@Override
+	public Collection<IDomAutoCompleteInputFilter> getFilters() {
+
+		return filters;
 	}
 
 	@Override
 	public void refresh() {
 
 		cache.invalidate();
+		filters.forEach(IDomAutoCompleteInputFilter::refresh);
+	}
+
+	@Override
+	public void reloadCache() {
+
+		cache.invalidate();
+		cache.get();
 	}
 
 	private class Cache {
@@ -171,7 +210,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 			return Optional//
 				.ofNullable(valueToStringMap.get(value))
 				.map(IDisplayString::create)
-				.orElse(IDisplayString.EMPTY);
+				.orElse(displayFunction.apply(value));
 		}
 
 		public Collection<T> findMatches(String pattern, int limit) {

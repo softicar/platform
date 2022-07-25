@@ -25,7 +25,7 @@ public class AutoCompleteIndirectEventHandlingTestCase extends AbstractTestCaseD
 		@Override
 		public void handleEnterKey(IDomEvent event) {
 
-			log("[" + input.getValueStringOrEmpty() + "]");
+			log("[" + input.getValue().orElse("") + "]");
 		}
 	}
 }

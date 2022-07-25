@@ -1,11 +1,8 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
-import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStringInput;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomTextInput;
@@ -18,6 +15,7 @@ import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * A generic auto-complete input element. It supplements a single-line text
@@ -25,10 +23,6 @@ import java.util.Optional;
  * <p>
  * Supports different validation modes (see
  * {@link DomAutoCompleteInputValidationMode}).
- * <p>
- * There are standard implementations for the most common use cases:<br>
- * - String based input: {@link DomAutoCompleteStringInput}<br>
- * - {@link IEntity} based input: {@link DomAutoCompleteEntityInput}
  *
  * @author Alexander Schmidt
  */
@@ -40,6 +34,16 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private final IDomAutoCompleteInputConfiguration configuration;
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
 	protected final DomBar inputBar;
+
+	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
+
+		this(new DomAutoCompleteDefaultInputEngine<>(loader));
+	}
+
+	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine) {
+
+		this(inputEngine, true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
+	}
 
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode defaultMode) {
 
@@ -64,11 +68,23 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		initializeAutoComplete(defaultMode);
 	}
 
+	public void refreshInputConstraints() {
+
+		refreshFilters();
+
+		inputEngine.reloadCache();
+	}
+
 	public void refreshFilters() {
 
 		inputEngine.refresh();
 		filterDisplay.refresh(inputEngine);
 		refreshInputValidity();
+	}
+
+	public boolean isBlank() {
+
+		return inputField.isBlank();
 	}
 
 	@Override

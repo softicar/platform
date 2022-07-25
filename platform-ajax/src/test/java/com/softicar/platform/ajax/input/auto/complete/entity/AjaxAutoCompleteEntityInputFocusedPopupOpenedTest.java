@@ -2,12 +2,12 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
 import com.softicar.platform.common.core.thread.Locker;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Test;
 
 /**
- * Contains unit tests for {@link DomAutoCompleteEntityInput} interaction phase
+ * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
  * <b>"2.2 Popup Opened"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  *
  * @author Alexander Schmidt
@@ -256,9 +256,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		asserter//
 			.expectClientValue("foo [1")
 			.expectServerValue(ENTITY1)
-			.expectIndicatorValueIllegal()
+			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedItemFirst()
 			.expectFocus()
 			.expectOverlayDisplayed()
 			.expectCallbackNone()
@@ -595,6 +596,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	public void testTypePerfectMatchItemNameOnPassiveEmptyInput() {
 
 		setup//
+			.add((input, engine) -> engine.setDisplayFunction(item -> item.toDisplayWithoutId()))
 			.execute();
 
 		input//
@@ -607,7 +609,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectServerValueNone()
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY3)
+			.expectPopupEntities(ENTITY3, ENTITY4)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -619,6 +621,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	public void testTypePerfectMatchItemNameOnActiveEmptyInput() {
 
 		setup//
+			.add((input, engine) -> engine.setDisplayFunction(item -> item.toDisplayWithoutId()))
 			.setListenToChange()
 			.execute();
 
@@ -632,7 +635,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectServerValueNone()
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY3)
+			.expectPopupEntities(ENTITY3, ENTITY4)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
 			.expectOverlayDisplayed()
@@ -885,7 +888,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectServerValueNone()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedItemFirst()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
 			.expectCallbackNone()
@@ -907,9 +911,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		asserter//
 			.expectClientValue("foo [1")
 			.expectServerValueNone()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedItemFirst()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
 			.expectCallbackNone()

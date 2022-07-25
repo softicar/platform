@@ -1,11 +1,11 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import org.junit.Test;
 
 /**
- * Contains unit tests for {@link DomAutoCompleteEntityInput} interaction phase
- * <b>"2 Focused"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"2
+ * Focused"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  *
  * @author Alexander Schmidt
  */

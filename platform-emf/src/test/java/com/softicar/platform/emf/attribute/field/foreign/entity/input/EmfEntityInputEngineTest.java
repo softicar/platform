@@ -1,33 +1,36 @@
-package com.softicar.platform.emf.attribute.field.foreign.entity.input.engine;
+package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
+import com.softicar.platform.db.core.connection.DbConnections;
+import com.softicar.platform.db.core.connection.profiler.DbConnectionTestProfiler;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
-import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParserTest.TestObject;
-import java.util.Collection;
 import org.junit.Test;
 
-public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmfTest {
+public class EmfEntityInputEngineTest extends AbstractEmfTest {
 
 	private static final IStaticObject OBJECT_INPUT_MARKER = newMarker();
 	private static final IStaticObject DEPENDENT_INPUT_MARKER = newMarker();
 	private static final IStaticObject NEW_OBJECT_BUTTON_MARKER = newMarker();
-	private int loadCalls;
+	private final DbConnectionTestProfiler profiler;
 
-	public AbstractEmfDependentAutoCompleteInputEngineTest() {
+	public EmfEntityInputEngineTest() {
 
-		this.loadCalls = 0;
+		this.profiler = new DbConnectionTestProfiler();
 
 		setNodeSupplier(() -> new TestDiv());
 
 		insertTestObject(1, "one");
 		insertTestObject(2, "two");
 		insertTestObject(3, "three");
+
+		DbConnections.setProfiler(profiler);
 	}
 
 	@Test
@@ -71,6 +74,8 @@ public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmf
 		assertDependentInputValue("one [1]");
 	}
 
+	// TODO add tests with scope field and active flag
+
 	private void setObjectInputValue(String value) {
 
 		findBody()//
@@ -87,7 +92,7 @@ public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmf
 
 	private void assertLoadCalls(int expectedCount) {
 
-		assertEquals(expectedCount, loadCalls);
+		profiler.assertStatementCount(expectedCount);
 	}
 
 	private void assertDependentInputValue(String expectedValue) {
@@ -100,12 +105,15 @@ public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmf
 
 	private EmfTestObject insertTestObject(int id, String name) {
 
-		int insertedId = EmfTestObject.TABLE//
-			.createInsert()
-			.set(EmfTestObject.ID, id)
-			.set(EmfTestObject.NAME, name)
-			.execute();
-		return EmfTestObject.TABLE.load(insertedId);
+		// execute in dedicated connection to not interfere with profiler
+		try (var scope = new DbConnectionOverrideScope()) {
+			int insertedId = EmfTestObject.TABLE//
+				.createInsert()
+				.set(EmfTestObject.ID, id)
+				.set(EmfTestObject.NAME, name)
+				.execute();
+			return EmfTestObject.TABLE.load(insertedId);
+		}
 	}
 
 	private class TestDiv extends DomDiv {
@@ -137,7 +145,7 @@ public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmf
 
 			public TestObjectInput() {
 
-				super(new TestObjectInputEngine());
+				super(EmfTestObject.TABLE, null);
 
 				addChangeCallback(() -> {
 					var text = getValue()//
@@ -146,21 +154,6 @@ public class AbstractEmfDependentAutoCompleteInputEngineTest extends AbstractEmf
 					dependentInput.setValue(text);
 				});
 				addMarker(OBJECT_INPUT_MARKER);
-			}
-		}
-
-		private class TestObjectInputEngine extends AbstractEmfDependentAutoCompleteInputEngine<EmfTestObject> {
-
-			public TestObjectInputEngine() {
-
-				super(EmfTestObject.TABLE);
-			}
-
-			@Override
-			protected Collection<EmfTestObject> loadItems() {
-
-				loadCalls++;
-				return EmfTestObject.TABLE.loadAll();
 			}
 		}
 

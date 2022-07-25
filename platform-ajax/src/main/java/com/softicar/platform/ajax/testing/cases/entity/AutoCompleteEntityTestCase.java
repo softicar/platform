@@ -5,18 +5,18 @@ import com.softicar.platform.ajax.testing.cases.AbstractTestCaseDiv;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInMemoryInputEngine;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.util.Collection;
 
 public class AutoCompleteEntityTestCase extends AbstractTestCaseDiv {
 
-	private final DomAutoCompleteEntityInput<AjaxTestEntity> input;
+	private final DomAutoCompleteInput<AjaxTestEntity> input;
 
 	public AutoCompleteEntityTestCase() {
 
-		appendChild(new DomDiv()).appendText("IEntity auto complete without change handler:");
+		appendChild(new DomDiv()).appendText("Auto complete without change handler:");
 
 		Collection<AjaxTestEntity> items = AjaxTestEntity
 			.generate(//
@@ -32,8 +32,8 @@ public class AutoCompleteEntityTestCase extends AbstractTestCaseDiv {
 				"ten",
 				"eleven",
 				"twelve");
-		DomAutoCompleteEntityInMemoryInputEngine<AjaxTestEntity> engine = new DomAutoCompleteEntityInMemoryInputEngine<>(() -> items);
-		this.input = new DomAutoCompleteEntityInput<>(engine);
+		DomAutoCompleteDefaultInputEngine<AjaxTestEntity> engine = new DomAutoCompleteDefaultInputEngine<>(() -> items);
+		this.input = new DomAutoCompleteInput<>(engine);
 
 		DomDiv container = appendChild(new DomDiv());
 		container.setStyle(CssDisplay.INLINE_BLOCK);
