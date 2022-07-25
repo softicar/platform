@@ -162,7 +162,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("valueStringOrNull: [%s]", input.getValueStringOrNull()));
+			executeAlert(IDisplayString.format("valueOrNull: [%s]", input.getValueOrNull()));
 		}
 	}
 
@@ -177,7 +177,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("valueStringOrEmpty: [%s]", input.getValueStringOrEmpty()));
+			executeAlert(IDisplayString.format("valueOrEmpty: [%s]", input.getValue().orElse("")));
 		}
 	}
 
@@ -192,7 +192,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("rawValueString: [%s]", input.getRawValueString()));
+			executeAlert(IDisplayString.format("valueText: [%s]", input.getInputField().getValueText()));
 		}
 	}
 

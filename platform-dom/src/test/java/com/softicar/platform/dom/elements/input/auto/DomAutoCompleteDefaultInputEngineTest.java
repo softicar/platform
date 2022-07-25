@@ -147,6 +147,16 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12]", 9)));
 	}
 
+	// ------------------------------ with id match ------------------------------ //
+
+	@Test
+	public void testGetDisplayStringWithUnkownValue() {
+
+		IDisplayString unknown = IDisplayString.create("UNKNOWN");
+
+		assertEquals(unknown, inputEngine.getDisplayString(new TestValue(unknown, 999)));
+	}
+
 	// ------------------------------ private ------------------------------ //
 
 	private String toDisplayStrings(Collection<TestValue> matches) {

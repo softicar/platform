@@ -1,13 +1,13 @@
 package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.common.core.thread.sleep.Sleep;
-import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStringInMemoryInputEngine;
-import com.softicar.platform.dom.elements.input.auto.string.DomAutoCompleteStringInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import java.util.Arrays;
 import java.util.Collection;
 
-class AutoCompleteTestCaseInput extends DomAutoCompleteStringInput {
+class AutoCompleteTestCaseInput extends DomAutoCompleteInput<String> {
 
 	private static final Collection<String> ITEMS = Arrays
 		.asList(//
@@ -34,7 +34,7 @@ class AutoCompleteTestCaseInput extends DomAutoCompleteStringInput {
 
 	public AutoCompleteTestCaseInput(AbstractTestCaseDiv testCaseDiv) {
 
-		super(new DomAutoCompleteStringInMemoryInputEngine(ITEMS));
+		super(new DomAutoCompleteDefaultInputEngine<>(() -> ITEMS));
 		this.testCaseDiv = testCaseDiv;
 	}
 

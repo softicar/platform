@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
@@ -89,7 +89,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 		return entityInput;
 	}
 
-	private static class EntityInput<T extends IEntity> extends DomAutoCompleteEntityInput<T> {
+	private static class EntityInput<T extends IEntity> extends DomAutoCompleteInput<T> {
 
 		public EntityInput(IEmfDataTableColumn<?, T> column) {
 

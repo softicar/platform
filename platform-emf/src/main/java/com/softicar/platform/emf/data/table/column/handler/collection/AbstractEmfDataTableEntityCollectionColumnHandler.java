@@ -3,7 +3,7 @@ package com.softicar.platform.emf.data.table.column.handler.collection;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.elements.input.auto.entity.DomAutoCompleteEntityInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import java.util.Collection;
@@ -30,6 +30,6 @@ public abstract class AbstractEmfDataTableEntityCollectionColumnHandler<C, E ext
 	@Override
 	public IDomAutoCompleteInput<E> createInputNode(Supplier<Collection<E>> validElementsSupplier) {
 
-		return new DomAutoCompleteEntityInput<>(validElementsSupplier);
+		return new DomAutoCompleteInput<>(validElementsSupplier);
 	}
 }

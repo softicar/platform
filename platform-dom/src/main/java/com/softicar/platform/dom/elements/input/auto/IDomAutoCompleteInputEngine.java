@@ -48,4 +48,14 @@ public interface IDomAutoCompleteInputEngine<T> {
 
 		// nothing to do by default
 	}
+
+	/**
+	 * This method is called to reload possibly cached values.
+	 * <p>
+	 * See PLAT-1055 for more details.
+	 */
+	default void reloadCache() {
+
+		// nothing to do by default
+	}
 }
