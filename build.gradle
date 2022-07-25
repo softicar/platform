@@ -176,7 +176,7 @@ subprojects {
 				"com.softicar.platform.db"
 			],
 		]
-		arguments = [ "--verbose", "--configurationJson", JsonOutput.toJson(configurationJson) ]
+		arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
 	}
 
 	check.dependsOn softicarCodeValidation
