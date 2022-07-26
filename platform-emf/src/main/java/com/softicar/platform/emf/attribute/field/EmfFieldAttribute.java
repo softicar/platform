@@ -110,7 +110,7 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 	@Override
 	public boolean isConcealed() {
 
-		return concealed || isImplicitlyConcealed();
+		return concealed;
 	}
 
 	@Override
@@ -216,19 +216,5 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 
 		this.immutable = immutable;
 		return this;
-	}
-
-	private boolean isImplicitlyConcealed() {
-
-		return isScopeAttribute(getTable());
-	}
-
-	private <S> boolean isScopeAttribute(IEmfTable<R, ?, S> table) {
-
-		return table//
-			.getScopeField()
-			.map(getTable()::getAttribute)
-			.filter(this::equals)
-			.isPresent();
 	}
 }
