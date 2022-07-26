@@ -210,6 +210,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			return entityTable//
 				.getAttributes()
 				.stream()
+				.filter(it -> !isScope(it))
 				.filter(it -> !it.isConcealed())
 				.filter(it -> !isNullable(it))
 				.anyMatch(EmfForeignRowAttribute.class::isInstance);
@@ -221,6 +222,14 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 				return attribute.getField().get().isNullable();
 			}
 			return false;
+		}
+
+		private boolean isScope(IEmfAttribute<R, ?> attribute) {
+
+			return entityTable//
+				.getScopeAttribute()
+				.map(it -> it.equals(attribute))
+				.orElse(false);
 		}
 
 		private void invalidateCachesAndRefreshAll() {
