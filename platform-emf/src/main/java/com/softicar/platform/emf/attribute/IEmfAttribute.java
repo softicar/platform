@@ -102,7 +102,6 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	 *
 	 * @return true if this is the scope attribute, false otherwise
 	 */
-
 	boolean isScope();
 
 	/**

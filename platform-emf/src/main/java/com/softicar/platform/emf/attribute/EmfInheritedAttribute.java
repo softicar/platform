@@ -101,7 +101,7 @@ public class EmfInheritedAttribute<O extends IEmfSubObject<O, B>, B extends IEmf
 	@Override
 	public boolean isScope() {
 
-		return getTable().getScopeField().map(it -> it.equals(baseField)).orElse(false);
+		return originalAttribute.isScope();
 	}
 
 	@Override
