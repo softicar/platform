@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.program.execution.cleanup;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.AGProgramExecutionLog;
@@ -11,8 +12,10 @@ import java.util.Optional;
 /**
  * Deletes {@link AGProgramExecution} records and their corresponding
  * {@link AGProgramExecutionLog} records if they are older than the return value
- * of related method
- * {@link com.softicar.platform.core.module.program.AGProgram#getExecutionRetentionDays()}
+ * of {@link AGProgram#getExecutionRetentionDays()}.
+ * <p>
+ * Also cleans up any orphaned {@link AGProgramExecution} record that may be
+ * left behind.
  *
  * @author Thees Köster
  */
@@ -24,6 +27,7 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
+		new ProgramExecutionsCleaner().cleanupOrphanedRecords();
 		new ProgramExecutionsDeleter(THROTTLING_MILLISECONDS).delete();
 	}
 
@@ -36,6 +40,9 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 	@Override
 	public Optional<IDisplayString> getDescription() {
 
-		return Optional.of(CoreI18n.DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE);
+		return Optional
+			.of(
+				CoreI18n.DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE
+					.concatSentence(CoreI18n.ALSO_CLEANS_UP_ANY_ORPHANED_RECORDS));
 	}
 }
