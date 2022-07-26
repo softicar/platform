@@ -141,7 +141,7 @@ public class EmfManagementDataTable<R extends IEmfTableRow<R, P>, P, S> extends 
 
 	private <V> boolean showAttribute(IEmfAttribute<R, V> attribute) {
 
-		if (attribute.isConcealed()) {
+		if (attribute.isConcealed() || attribute.isScope()) {
 			return false;
 		} else if (!showInactive && isActiveAttribute(attribute)) {
 			return false;
