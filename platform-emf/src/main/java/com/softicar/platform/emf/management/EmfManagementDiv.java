@@ -210,6 +210,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			return entityTable//
 				.getAttributes()
 				.stream()
+				.filter(it -> !it.isScope())
 				.filter(it -> !it.isConcealed())
 				.filter(it -> !isNullable(it))
 				.anyMatch(EmfForeignRowAttribute.class::isInstance);

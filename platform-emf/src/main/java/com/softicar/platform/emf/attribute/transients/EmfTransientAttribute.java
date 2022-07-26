@@ -82,6 +82,12 @@ public class EmfTransientAttribute<R extends IEmfTableRow<R, ?>, V> extends Abst
 	}
 
 	@Override
+	public boolean isScope() {
+
+		return false;
+	}
+
+	@Override
 	public boolean isConcealed() {
 
 		return false;

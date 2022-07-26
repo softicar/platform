@@ -9,11 +9,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class DbMySqlDatabasePurger {
+public class DbMysqlDatabasePurger {
 
 	private final IDbDatabase database;
 
-	public DbMySqlDatabasePurger(IDbDatabase database) {
+	public DbMysqlDatabasePurger(IDbDatabase database) {
 
 		this.database = Objects.requireNonNull(database);
 	}

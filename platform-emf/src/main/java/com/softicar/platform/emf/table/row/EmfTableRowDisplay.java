@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.table.row;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
@@ -15,8 +16,21 @@ public class EmfTableRowDisplay<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		setCssClass(EmfCssClasses.EMF_TABLE_ROW_DISPLAY);
 
 		if (row != null) {
-			appendChild(new ViewButton(row));
+			if (hasViewPermission(row)) {
+				appendChild(new ViewButton(row));
+			} else {
+				appendChild(row.toDisplay());
+			}
 		}
+	}
+
+	private boolean hasViewPermission(R row) {
+
+		return row//
+			.table()
+			.getAuthorizer()
+			.getViewPermission()
+			.test(row, CurrentBasicUser.get());
 	}
 
 	private class ViewButton extends DomButton {
