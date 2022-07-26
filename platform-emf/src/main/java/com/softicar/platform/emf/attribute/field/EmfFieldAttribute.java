@@ -2,8 +2,10 @@ package com.softicar.platform.emf.attribute.field;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
+import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.emf.attribute.AbstractEmfAttribute;
 import com.softicar.platform.emf.attribute.validator.EmfAttributeMandatorynessValidator;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -105,6 +107,16 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 	public void setValue(R tableRow, V value) {
 
 		field.setValue(tableRow, value);
+	}
+
+	@Override
+	public boolean isScope() {
+
+		if (field instanceof IDbForeignRowField) {
+			IDbForeignRowField<R, ?, ?> scopeField = CastUtils.cast(field);
+			return getTable().getScopeField().map(it -> it.equals(scopeField)).orElse(false);
+		}
+		return false;
 	}
 
 	@Override

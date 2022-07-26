@@ -98,6 +98,14 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	IStaticObject getTestMarker();
 
 	/**
+	 * Returns true if this attribute is the scope, false otherwise.
+	 *
+	 * @return true if this is the scope attribute, false otherwise
+	 */
+
+	boolean isScope();
+
+	/**
 	 * Returns true if this attribute is concealed, false otherwise.
 	 *
 	 * @return true if this attribute is concealed, false otherwise
