@@ -572,6 +572,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einmal-Passwort %s für den Login in Ihr %s Benutzerkonto: '%s'.");
 	I18n0 ONLY_A_SINGLE_FILE_MAY_BE_UPLOADED = new I18n0("Only a single file may be uploaded.")//
 		.de("Es darf nur eine einzige Datei hochgeladen werden.");
+	I18n0 ORPHANED_PROGRAM_EXECUTION_CLEANUP = new I18n0("Orphaned program execution cleanup.")//
+		.de("Bereinigung verwaister Programmausführungen.");
 	I18n0 OUTPUT = new I18n0("Output")//
 		.de("Ausgabe");
 	I18n0 PAGE_DEFINITIONS = new I18n0("Page Definitions")//

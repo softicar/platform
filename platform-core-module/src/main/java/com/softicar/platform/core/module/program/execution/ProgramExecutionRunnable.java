@@ -8,7 +8,6 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.program.ProgramStarter;
-import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
@@ -39,7 +38,7 @@ public class ProgramExecutionRunnable implements Runnable {
 				updateOutputAndTerminatedAt();
 				if (failed) {
 					new SystemEventBuilder(AGSystemEventSeverityEnum.ERROR, CoreI18n.PROGRAM_EXECUTION_FAILED.toString())//
-						.addProperty("program", Programs.getProgramName(getProgramUuid()).toString())
+						.addProperty("program", getExecution().getProgram().toDisplay())
 						.save();
 				}
 			}
