@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.event;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverity;
@@ -70,6 +71,12 @@ public class SystemEventBuilder {
 	public SystemEventBuilder addProperty(String key, String value) {
 
 		properties.addProperty(key, value);
+		return this;
+	}
+
+	public SystemEventBuilder addProperty(String key, IDisplayString value) {
+
+		properties.addProperty(key, value.toString());
 		return this;
 	}
 

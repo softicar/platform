@@ -52,6 +52,11 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 			.orElse(Duration.ZERO);
 	}
 
+	public AGProgram getProgram() {
+
+		return AGProgram.loadByProgramUuid(getProgramUuid());
+	}
+
 	/**
 	 * Returns all executions of the given {@link AGProgram} that have started
 	 * since the given {@link DayTime}.

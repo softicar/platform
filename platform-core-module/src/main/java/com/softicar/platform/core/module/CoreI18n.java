@@ -62,6 +62,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Erlaubte-IP-Regel");
 	I18n0 ALLOWED_VALUES = new I18n0("Allowed Values")//
 		.de("Zulässige Werte");
+	I18n0 ALSO_CLEANS_UP_ANY_ORPHANED_RECORDS = new I18n0("Also cleans up any orphaned records.")//
+		.de("Bereinigt außerdem verwaiste Einträge.");
 	I18n1 ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS = new I18n1("%s is available at the following address")//
 		.de("%s steht unter der folgenden Adresse zur Verfügung");
 	I18n1 ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS = new I18n1("%s one-time password has been sent to your email address.")//
@@ -570,6 +572,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einmal-Passwort %s für den Login in Ihr %s Benutzerkonto: '%s'.");
 	I18n0 ONLY_A_SINGLE_FILE_MAY_BE_UPLOADED = new I18n0("Only a single file may be uploaded.")//
 		.de("Es darf nur eine einzige Datei hochgeladen werden.");
+	I18n0 ORPHANED_PROGRAM_EXECUTION_CLEANUP = new I18n0("Orphaned program execution cleanup.")//
+		.de("Bereinigung verwaister Programmausführungen.");
 	I18n0 OUTPUT = new I18n0("Output")//
 		.de("Ausgabe");
 	I18n0 PAGE_DEFINITIONS = new I18n0("Page Definitions")//
