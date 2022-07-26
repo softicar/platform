@@ -9,7 +9,7 @@ import com.softicar.platform.core.module.container.docker.DockerContainerControl
 import com.softicar.platform.db.core.connection.DbConnection;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.connection.DbServerType;
-import com.softicar.platform.db.core.dbms.mysql.DbMySqlDatabasePurger;
+import com.softicar.platform.db.core.dbms.mysql.DbMysqlDatabasePurger;
 import com.softicar.platform.db.core.dbms.mysql.DbMysqlStatements;
 import com.softicar.platform.db.core.statement.DbStatement;
 import com.softicar.platform.db.runtime.structure.comparison.DbDatabaseStructureComparer;
@@ -116,7 +116,7 @@ public class DatabaseStructureVersionMigrationsTest extends AbstractTest {
 
 	private void purgeDatabase(DbConnection connection) {
 
-		new DbMySqlDatabasePurger(connection.getDatabase()).purgeAll();
+		new DbMysqlDatabasePurger(connection.getDatabase()).purgeAll();
 		var structure = loadDatabaseStructure();
 		assertTrue(//
 			"Database purging was incomplete. Remaining tables: %s".formatted(Imploder.implode(structure.getTableNames(), ", ")),
