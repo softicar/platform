@@ -1,14 +1,14 @@
-package com.softicar.platform.core.module.module.validation;
+package com.softicar.platform.common.code.validator;
 
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ModuleCodeViolationCollection {
+class PlatformCodeViolationCollection {
 
 	private final Collection<String> violationMessages;
 
-	public ModuleCodeViolationCollection() {
+	public PlatformCodeViolationCollection() {
 
 		this.violationMessages = new ArrayList<>();
 	}

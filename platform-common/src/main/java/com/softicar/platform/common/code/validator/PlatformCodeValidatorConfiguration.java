@@ -1,36 +1,35 @@
-package com.softicar.platform.core.module.module.validation;
+package com.softicar.platform.common.code.validator;
 
 import com.softicar.platform.common.code.java.JavaPackageTree;
 import com.softicar.platform.common.code.java.JavaPackageTreeSet;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
+import com.softicar.platform.common.io.serialization.json.JsonValueReader;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ModuleCodeValidatorConfiguration {
+class PlatformCodeValidatorConfiguration {
 
 	private final Set<JavaClassName> classesAllowedToHaveMainMethod;
 	private final Set<JavaClassName> forbiddenClasses;
 	private final JavaPackageTreeSet packageTreesAllowedToUseForbiddenClasses;
 
-	// TODO the whole configuration must be extracted into the build configuration
-	public ModuleCodeValidatorConfiguration() {
+	public PlatformCodeValidatorConfiguration(JsonValueReader configurationReader) {
 
 		this.classesAllowedToHaveMainMethod = new TreeSet<>();
 		this.forbiddenClasses = new TreeSet<>();
 		this.packageTreesAllowedToUseForbiddenClasses = new JavaPackageTreeSet();
 
-		allowClassToHaveMainMethod("com.softicar.platform.core.module.program.ProgramStarter");
+		configurationReader//
+			.readList("classesAllowedToHaveMainMethod")
+			.forEach(this::allowClassToHaveMainMethod);
 
-		addForbiddenClass("com.softicar.platform.db.core.statement.DbStatement");
-		addForbiddenClass("java.sql.Connection");
-		addForbiddenClass("java.sql.Driver");
-		addForbiddenClass("java.sql.DriverManager");
-		addForbiddenClass("java.sql.ResultSet");
-		addForbiddenClass("java.sql.ResultSetMetaData");
-		addForbiddenClass("java.sql.Statement");
+		configurationReader//
+			.readList("forbiddenClasses")
+			.forEach(this::addForbiddenClass);
 
-		// FIXME this references code of a dependent project
-		allowPackageTreeToUseForbiddenClasses("com.softicar.eas.database.administration.module");
+		configurationReader//
+			.readList("packageTreesAllowedToUseForbiddenClasses")
+			.forEach(this::allowPackageTreeToUseForbiddenClasses);
 	}
 
 	public boolean isAllowedToHaveMainMethod(JavaClassName className) {
