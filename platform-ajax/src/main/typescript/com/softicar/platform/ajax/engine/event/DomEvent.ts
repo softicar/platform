@@ -14,6 +14,7 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	case 'DBLCLICK':    element.ondblclick = handler; break;
 	case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'ESCAPE':      KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	case 'INPUT':       element.oninput = handler; break;
 	case 'KEYPRESS':    element.onkeypress = handler; break;
 	case 'SPACE':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'TAB':         KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
