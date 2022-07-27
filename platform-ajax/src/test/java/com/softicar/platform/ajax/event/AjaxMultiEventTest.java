@@ -80,6 +80,7 @@ public class AjaxMultiEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		testDiv.assertLogs("""
 				input changed (hello)
 				button1 clicked (hello world!)
+				input changed (hello world!)
 				button2 clicked (hello world!)
 				""");
 	}
