@@ -58,3 +58,7 @@
 .StoredFilePreviewImage.rotated {
 	transform: rotate(180deg);
 }
+
+.StoredFileTextDisplay {
+	white-space: pre;
+}

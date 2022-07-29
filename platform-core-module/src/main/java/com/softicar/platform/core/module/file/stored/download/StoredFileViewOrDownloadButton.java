@@ -12,6 +12,7 @@ import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.file.stored.preview.image.StoredFileImagePreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfPreviewPopup;
+import com.softicar.platform.core.module.file.stored.preview.text.StoredFileTextPreviewPopup;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -133,6 +134,8 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 				return new StoredFileImagePreviewPopup(file, resource, IMAGE_INITIAL_MAX_WIDTH);
 			case PDF:
 				return new StoredFilePdfPreviewPopup(file, IMAGE_INITIAL_MAX_WIDTH);
+			case TEXT:
+				return new StoredFileTextPreviewPopup(file);
 			case UNKNOWN:
 			}
 		} catch (Exception exception) {
@@ -157,6 +160,8 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 		IMAGE(CoreImages.FILE_TYPE_IMAGE.getResource(), MimeType.IMAGE_JPEG, MimeType.IMAGE_PNG, MimeType.IMAGE_GIF, MimeType.IMAGE_BMP,
 				MimeType.IMAGE_SVG_XML),
 		PDF(CoreImages.FILE_TYPE_PDF.getResource(), MimeType.APPLICATION_PDF),
+		TEXT(CoreImages.FILE_TYPE_TEXT.getResource(), MimeType.TEXT_CSS, MimeType.TEXT_CSV, MimeType.TEXT_HTML, MimeType.TEXT_JAVASCRIPT, MimeType.TEXT_PLAIN,
+				MimeType.TEXT_XML),
 		UNKNOWN(CoreImages.FILE_TYPE_UNKNOWN.getResource());
 
 		private List<IMimeType> mimeTypes;
