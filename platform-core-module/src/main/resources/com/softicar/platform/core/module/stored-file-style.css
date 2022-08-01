@@ -60,5 +60,9 @@
 }
 
 .StoredFileTextDisplay {
+	max-height: 50em;
+	max-width: 120em;
+	overflow: auto;
+	resize: both;
 	white-space: pre;
 }
