@@ -6,14 +6,14 @@ import java.util.regex.Pattern;
 
 enum StoredFileViewType {
 
-	// IMPORTANT: keep order from most specific to least specific
+	// IMPORTANT: sort from most specific to least specific
 	PDF(CoreImages.FILE_TYPE_PDF.getResource(), "application/pdf"),
 	IMAGE(CoreImages.FILE_TYPE_IMAGE.getResource(), "image/.*"),
 	TEXT(CoreImages.FILE_TYPE_TEXT.getResource(), "text/.*"),
 	UNKNOWN(CoreImages.FILE_TYPE_UNKNOWN.getResource(), ".*");
 
 	private final IResource icon;
-	private Pattern pattern;
+	private final Pattern pattern;
 
 	private StoredFileViewType(IResource icon, String regex) {
 

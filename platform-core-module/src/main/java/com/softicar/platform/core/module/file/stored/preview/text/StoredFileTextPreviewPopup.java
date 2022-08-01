@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.file.stored.preview.text;
 
+import com.google.common.base.Charsets;
 import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.preview.AbstractStoredFilePreviewPopup;
@@ -18,7 +19,7 @@ public class StoredFileTextPreviewPopup extends AbstractStoredFilePreviewPopup {
 		public TextDisplayDiv(AGStoredFile file) {
 
 			setCssClass(CoreCssClasses.STORED_FILE_TEXT_DISPLAY);
-			appendChild(new String(file.getFileContentBytes()));
+			appendChild(new String(file.getFileContentBytes(), Charsets.UTF_8));
 		}
 	}
 }
