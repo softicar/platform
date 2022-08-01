@@ -23,8 +23,8 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 	private final AGStoredFile file;
 	private final StoredFileResource resource;
-	private IDisplayString buttonLabel;
 	private final StoredFileViewType fileType;
+	private IDisplayString buttonLabel;
 	private INullaryVoidFunction preClickCallback;
 
 	private PopupPosition popupPosition = PopupPosition.CENTERED_ON_VIEWPORT;
