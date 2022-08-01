@@ -31,7 +31,7 @@ class AjaxRequestMessage {
 	}
 
 	public setEventType(eventType: string) {
-		return this.setString('e', eventType);
+		return this.setString('e', eventType.toUpperCase());
 	}
 
 	// ------------------------------ keyboard ------------------------------ //
@@ -97,12 +97,25 @@ class AjaxRequestMessage {
 			return true; // keep-alive is redundant to any other message
 		} else if(this.isSameAction(other) && this.isOnSameNode(other)) {
 			if(this.isDomEvent()) {
-				return this.isSameEventType(other);
+				return this.isRedundantDomEvents(other);
 			} else {
 				return true;
 			}
+		} else {
+			return false;
 		}
-		return false;
+	}
+
+	private isRedundantDomEvents(other: AjaxRequestMessage) {
+		if(this.isSameEventType(other)) {
+			if(this.isPassiveEventType() && (this.isSent() || other.isSent())) {
+				return false; // allow new passive events, i.e. implicitly triggered events
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	// ------------------------------ obsolete ------------------------------ //
@@ -136,6 +149,14 @@ class AjaxRequestMessage {
 
 	private isSameEventType(other: AjaxRequestMessage) {
 		return this.data.get('e') === other.data.get('e');
+	}
+	
+	private isPassiveEventType() {
+		return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+	}
+	
+	private isSent() {
+		return this.data.has('x');
 	}
 
 	// ------------------------------ setter ------------------------------ //
