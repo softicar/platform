@@ -53,9 +53,11 @@
 			<accessrule kind="nonaccessible" pattern="**/Predicate"/>
 			<accessrule kind="nonaccessible" pattern="**/Set"/>
 			<accessrule kind="nonaccessible" pattern="**/Supplier"/>
+			<accessrule kind="nonaccessible" pattern="com/google/**/Charsets"/>
 			<accessrule kind="nonaccessible" pattern="junit/**"/>
 			<accessrule kind="nonaccessible" pattern="org/**/Log"/>
 			<accessrule kind="nonaccessible" pattern="org/**/Pair"/>
+			<accessrule kind="nonaccessible" pattern="org/apache/**/Charsets"/>
 			<accessrule kind="nonaccessible" pattern="org/apache/commons/logging/**"/>
 			<accessrule kind="nonaccessible" pattern="org/apache/poi/ss/formula/functions/T"/>
 			<accessrule kind="nonaccessible" pattern="org/apache/xmlbeans/impl/**"/>
