@@ -547,6 +547,9 @@ function listenToDomEvent(nodeId, event, doListen) {
         case 'ESCAPE':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
+        case 'INPUT':
+            element.oninput = handler;
+            break;
         case 'KEYPRESS':
             element.onkeypress = handler;
             break;
@@ -819,7 +822,7 @@ class AjaxRequestMessage {
         return this.setString('V' + node.id.substring(1), value);
     }
     setEventType(eventType) {
-        return this.setString('e', eventType);
+        return this.setString('e', eventType.toUpperCase());
     }
     setKeyCode(keyCode) {
         return this.setNumber('k', keyCode);
@@ -860,13 +863,28 @@ class AjaxRequestMessage {
         }
         else if (this.isSameAction(other) && this.isOnSameNode(other)) {
             if (this.isDomEvent()) {
-                return this.isSameEventType(other);
+                return this.isRedundantDomEvents(other);
             }
             else {
                 return true;
             }
         }
-        return false;
+        else {
+            return false;
+        }
+    }
+    isRedundantDomEvents(other) {
+        if (this.isSameEventType(other)) {
+            if (this.isPassiveEventType() && (this.isSent() || other.isSent())) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
     }
     isObsolete() {
         let nodeId = this.data.get('n');
@@ -891,6 +909,12 @@ class AjaxRequestMessage {
     }
     isSameEventType(other) {
         return this.data.get('e') === other.data.get('e');
+    }
+    isPassiveEventType() {
+        return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+    }
+    isSent() {
+        return this.data.has('x');
     }
     setString(key, value) {
         this.data.set(key, value);
