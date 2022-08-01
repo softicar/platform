@@ -128,8 +128,8 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 			case PDF:
 				return new StoredFilePdfPreviewPopup(file, IMAGE_INITIAL_MAX_WIDTH);
 			case TEXT:
-				return new StoredFileTextPreviewPopup(file);
 			case UNKNOWN:
+				return new StoredFileTextPreviewPopup(file);
 			}
 		} catch (Exception exception) {
 			Log
