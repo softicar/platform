@@ -17,7 +17,6 @@ public enum DomEventType {
 	ESCAPE(IDomEscapeKeyEventHandler.class, IDomEscapeKeyEventHandler::handleEscapeKey),
 	ENTER(IDomEnterKeyEventHandler.class, IDomEnterKeyEventHandler::handleEnterKey),
 	INPUT(IDomInputEventHandler.class, IDomInputEventHandler::handleInput),
-	KEYPRESS(IDomKeyPressEventHandler.class, IDomKeyPressEventHandler::handleKeyPress),
 	SPACE(IDomSpaceKeyEventHandler.class, IDomSpaceKeyEventHandler::handleSpaceKey),
 	TAB(IDomTabKeyEventHandler.class, IDomTabKeyEventHandler::handleTabKey);
 

@@ -550,9 +550,6 @@ function listenToDomEvent(nodeId, event, doListen) {
         case 'INPUT':
             element.oninput = handler;
             break;
-        case 'KEYPRESS':
-            element.onkeypress = handler;
-            break;
         case 'SPACE':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
