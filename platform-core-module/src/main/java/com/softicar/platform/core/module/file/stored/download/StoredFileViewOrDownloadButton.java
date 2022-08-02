@@ -3,7 +3,9 @@ package com.softicar.platform.core.module.file.stored.download;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.mime.IMimeType;
+import com.softicar.platform.common.string.binary.BinaryOrTextDiscriminator;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
@@ -15,6 +17,8 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.ICssLength;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class StoredFileViewOrDownloadButton extends DomButton {
@@ -128,8 +132,11 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 			case PDF:
 				return new StoredFilePdfPreviewPopup(file, IMAGE_INITIAL_MAX_WIDTH);
 			case TEXT:
-			case UNKNOWN:
 				return new StoredFileTextPreviewPopup(file);
+			case UNKNOWN:
+				if (isUnknownTextFormat()) {
+					return new StoredFileTextPreviewPopup(file);
+				}
 			}
 		} catch (Exception exception) {
 			Log
@@ -141,6 +148,18 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 			Log.ferror(StackTraceFormatting.getStackTraceAsString(exception));
 		}
 		return null;
+	}
+
+	private boolean isUnknownTextFormat() {
+
+		try (var stream = file.getFileContentInputStream()) {
+			var buffer = new byte[4096];
+			var size = stream.read(buffer);
+			return new BinaryOrTextDiscriminator(Arrays.copyOf(buffer, size)).isText();
+		} catch (IOException exception) {
+			DevNull.swallow(exception);
+			return false;
+		}
 	}
 
 	private void downloadFile() {
