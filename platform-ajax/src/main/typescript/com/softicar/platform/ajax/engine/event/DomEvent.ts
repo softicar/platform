@@ -15,10 +15,16 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'ESCAPE':      KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'INPUT':       element.oninput = handler; break;
+	case 'KEYDOWN':     KEYBOARD_EVENT_MANAGER.setListenToKeyDown(element, doListen); break;
+	case 'KEYUP':       KEYBOARD_EVENT_MANAGER.setListenToKeyUp(element, doListen); break;
 	case 'SPACE':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'TAB':         KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	default: alert('Unknown event ' + event + '.');
 	}
+}
+
+function setListenToKeys(element: HTMLElement, keys: string[]) {
+	KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }
 
 function handleDomEvent(event: Event) {
@@ -43,6 +49,7 @@ function sendDomEventToServer(event: Event, eventType: string) {
 	}
 
 	if(event instanceof KeyboardEvent) {
+		message.setKey(event.key);
 		message.setKeyCode(event.keyCode);
 	}
 

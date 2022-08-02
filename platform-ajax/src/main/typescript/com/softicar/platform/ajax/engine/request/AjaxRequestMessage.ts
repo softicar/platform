@@ -36,6 +36,10 @@ class AjaxRequestMessage {
 
 	// ------------------------------ keyboard ------------------------------ //
 
+	public setKey(key: string) {
+		return this.setString("key", key);
+	}
+
 	public setKeyCode(keyCode: number) {
 		return this.setNumber('k', keyCode);
 	}
@@ -110,6 +114,8 @@ class AjaxRequestMessage {
 		if(this.isSameEventType(other)) {
 			if(this.isPassiveEventType() && (this.isSent() || other.isSent())) {
 				return false; // allow new passive events, i.e. implicitly triggered events
+			} else if(this.isKeyEventType()) {
+				return false; // never drop key events
 			} else {
 				return true;
 			}
@@ -153,6 +159,10 @@ class AjaxRequestMessage {
 	
 	private isPassiveEventType() {
 		return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+	}
+	
+	private isKeyEventType() {
+		return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
 	}
 	
 	private isSent() {

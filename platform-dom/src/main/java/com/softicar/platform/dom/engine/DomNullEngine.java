@@ -246,6 +246,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setListenToKeys(IDomNode node, Collection<String> keys) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setNodeAttribute(IDomNode node, IDomAttribute attribute) {
 
 		// nothing to do

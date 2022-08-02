@@ -38,6 +38,12 @@ public interface IDomElement extends IDomNode {
 
 	void unlistenToEvent(DomEventType type);
 
+	default IDomElement setListenToKeys(Collection<String> keys) {
+
+		getDomEngine().setListenToKeys(this, keys);
+		return this;
+	}
+
 	// -------------------- CSS class -------------------- //
 
 	default void setCssClass(ICssClass...cssClasses) {

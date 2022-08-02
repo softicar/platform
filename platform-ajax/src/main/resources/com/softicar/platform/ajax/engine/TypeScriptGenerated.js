@@ -550,6 +550,12 @@ function listenToDomEvent(nodeId, event, doListen) {
         case 'INPUT':
             element.oninput = handler;
             break;
+        case 'KEYDOWN':
+            KEYBOARD_EVENT_MANAGER.setListenToKeyDown(element, doListen);
+            break;
+        case 'KEYUP':
+            KEYBOARD_EVENT_MANAGER.setListenToKeyUp(element, doListen);
+            break;
         case 'SPACE':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
@@ -558,6 +564,9 @@ function listenToDomEvent(nodeId, event, doListen) {
             break;
         default: alert('Unknown event ' + event + '.');
     }
+}
+function setListenToKeys(element, keys) {
+    KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }
 function handleDomEvent(event) {
     sendOrDelegateEvent(event.currentTarget, event, event.type);
@@ -579,6 +588,7 @@ function sendDomEventToServer(event, eventType) {
         message.setMousePosition(new Point(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
     }
     if (event instanceof KeyboardEvent) {
+        message.setKey(event.key);
         message.setKeyCode(event.keyCode);
     }
     if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
@@ -632,6 +642,15 @@ class KeyboardEventManager {
     constructor() {
         this.handlers = new Map();
     }
+    setListenToKeyDown(node, enabled) {
+        this.getKeyHandler(node).setListenToKeyDown(enabled);
+    }
+    setListenToKeyUp(node, enabled) {
+        this.getKeyHandler(node).setListenToKeyUp(enabled);
+    }
+    setListenToKeys(node, keys) {
+        this.getKeyHandler(node).setListenToKeys(keys);
+    }
     setListenToKey(node, eventName, enabled) {
         let key = this.getKey(eventName);
         this.getKeyHandler(node).setListenTo(key, eventName, enabled);
@@ -673,6 +692,9 @@ class KeyboardEventHandler {
         this.fireOnKeyUp = new Map();
         this.preventDefault = new Map();
         this.cssClassApplier = new Map();
+        this.listenToKeyDown = false;
+        this.listenToKeyUp = false;
+        this.listenToKeys = new Set();
         this.lastKeyDown = 0;
         this.node = node;
     }
@@ -685,6 +707,15 @@ class KeyboardEventHandler {
             console.log('Warning: Skipped installation of keyboard event listeners.');
         }
         return this;
+    }
+    setListenToKeyDown(enabled) {
+        this.listenToKeyDown = enabled;
+    }
+    setListenToKeyUp(enabled) {
+        this.listenToKeyUp = enabled;
+    }
+    setListenToKeys(keys) {
+        this.listenToKeys = new Set(keys);
     }
     setListenTo(key, eventName, enabled) {
         if (enabled) {
@@ -716,6 +747,9 @@ class KeyboardEventHandler {
             }
             this.stopFurtherHandling(event);
         }
+        if (this.listenToKeyDown && this.listenToKeys.has(event.key)) {
+            sendOrDelegateEvent(this.node, event, 'KEYDOWN');
+        }
         this.lastKeyDown = event.keyCode;
     }
     handleKeyUp(event) {
@@ -729,6 +763,9 @@ class KeyboardEventHandler {
                 applier.removeClasses();
             }
             this.stopFurtherHandling(event);
+        }
+        if (this.listenToKeyUp && this.listenToKeys.has(event.key)) {
+            sendOrDelegateEvent(this.node, event, 'KEYUP');
         }
         this.lastKeyDown = 0;
     }
@@ -821,6 +858,9 @@ class AjaxRequestMessage {
     setEventType(eventType) {
         return this.setString('e', eventType.toUpperCase());
     }
+    setKey(key) {
+        return this.setString("key", key);
+    }
     setKeyCode(keyCode) {
         return this.setNumber('k', keyCode);
     }
@@ -875,6 +915,9 @@ class AjaxRequestMessage {
             if (this.isPassiveEventType() && (this.isSent() || other.isSent())) {
                 return false;
             }
+            else if (this.isKeyEventType()) {
+                return false;
+            }
             else {
                 return true;
             }
@@ -909,6 +952,9 @@ class AjaxRequestMessage {
     }
     isPassiveEventType() {
         return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+    }
+    isKeyEventType() {
+        return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
     }
     isSent() {
         return this.data.has('x');
