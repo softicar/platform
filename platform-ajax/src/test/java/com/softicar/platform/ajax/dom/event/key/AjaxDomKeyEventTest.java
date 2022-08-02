@@ -32,6 +32,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		// press lower-case key
 		sendKeysAndWait("x");
 		assertKeyDownAndUpEvents("x");
+		assertNoFurtherEvents();
 
 		// press upper-case key
 		sendKeysAndWait("X");
