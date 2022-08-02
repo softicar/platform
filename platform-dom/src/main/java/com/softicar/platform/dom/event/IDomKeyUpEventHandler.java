@@ -9,8 +9,9 @@ import com.softicar.platform.dom.engine.IDomEngine;
  * If an {@link IDomElement} implements this interface, the method
  * {@link IDomEngine#listenToEvent} will be called automatically.
  * <p>
- * You must call {@link IDomEngine#setListenToKeys} to define for which keys to
- * receive events.
+ * <b>Important:</b> You must also call {@link IDomEngine#setListenToKeys} or
+ * {@link IDomElement#setListenToKeys} to define which keys shall trigger
+ * events.
  *
  * @author Oliver Richers
  */

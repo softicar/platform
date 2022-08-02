@@ -31,11 +31,11 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// press lower-case key
 		sendKeysAndWait("x");
-		assertKeyDownAndUp("x");
+		assertKeyDownAndUpEvents("x");
 
 		// press upper-case key
 		sendKeysAndWait("X");
-		assertNoEvents();
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -46,12 +46,12 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// press lower-case key
 		sendKeysAndWait("x");
-		assertNoEvents();
+		assertNoFurtherEvents();
 
 		// press upper-case key
 		sendKeysAndWait("X");
-		assertKeyDownAndUp("X");
-		assertNoEvents();
+		assertKeyDownAndUpEvents("X");
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -60,12 +60,12 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = openTestNode(() -> new TestInput("ArrowDown", "ArrowUp"));
 
 		sendKeysAndWait(IAjaxSeleniumLowLevelTestEngineInput.Key.DOWN);
-		assertKeyDownAndUp("ArrowDown");
-		assertNoEvents();
+		assertKeyDownAndUpEvents("ArrowDown");
+		assertNoFurtherEvents();
 
 		sendKeysAndWait(IAjaxSeleniumLowLevelTestEngineInput.Key.UP);
-		assertKeyDownAndUp("ArrowUp");
-		assertNoEvents();
+		assertKeyDownAndUpEvents("ArrowUp");
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = openTestNode(() -> new TestInput());
 
 		sendKeysAndWait("x");
-		assertNoEvents();
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -87,12 +87,12 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		input.setBlocked(false);
 		waitForServer();
 
-		assertKeyDownAndUp("a");
-		assertKeyDownAndUp("B");
-		assertKeyDownAndUp("B");
-		assertKeyDownAndUp("c");
-		assertKeyDownAndUp("c");
-		assertNoEvents();
+		assertKeyDownAndUpEvents("a");
+		assertKeyDownAndUpEvents("B");
+		assertKeyDownAndUpEvents("B");
+		assertKeyDownAndUpEvents("c");
+		assertKeyDownAndUpEvents("c");
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -100,14 +100,14 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = openTestNode(() -> {
 			var input = new TestInput("x");
-			// only listen to KEYDOWN
+			// don't listen to KEYUP
 			input.unlistenToEvent(DomEventType.KEYUP);
 			return input;
 		});
 
 		sendKeysAndWait("x");
-		assertKeyDown("x");
-		assertNoEvents();
+		assertKeyDownEvent("x");
+		assertNoFurtherEvents();
 	}
 
 	@Test
@@ -115,14 +115,14 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = openTestNode(() -> {
 			var input = new TestInput("x");
-			// only listen to KEYDOWN
+			// don't listen to KEYDOWN
 			input.unlistenToEvent(DomEventType.KEYDOWN);
 			return input;
 		});
 
 		sendKeysAndWait("x");
-		assertKeyUp("x");
-		assertNoEvents();
+		assertKeyUpEvent("x");
+		assertNoFurtherEvents();
 	}
 
 	// ------------------------------ utility ------------------------------ //
@@ -139,18 +139,18 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		waitForServer();
 	}
 
-	private void assertKeyDownAndUp(String expectedKey) {
+	private void assertKeyDownAndUpEvents(String expectedKey) {
 
-		assertKeyDown(expectedKey);
-		assertKeyUp(expectedKey);
+		assertKeyDownEvent(expectedKey);
+		assertKeyUpEvent(expectedKey);
 	}
 
-	private void assertKeyDown(String expectedKey) {
+	private void assertKeyDownEvent(String expectedKey) {
 
 		assertKeyEvent(DomEventType.KEYDOWN, expectedKey);
 	}
 
-	private void assertKeyUp(String expectedKey) {
+	private void assertKeyUpEvent(String expectedKey) {
 
 		assertKeyEvent(DomEventType.KEYUP, expectedKey);
 	}
@@ -170,7 +170,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		return event;
 	}
 
-	public void assertNoEvents() {
+	public void assertNoFurtherEvents() {
 
 		assertEventCount(0);
 	}
