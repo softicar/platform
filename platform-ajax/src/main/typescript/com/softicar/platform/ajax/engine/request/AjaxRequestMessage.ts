@@ -78,6 +78,16 @@ class AjaxRequestMessage {
 		return this.setPoint('w', innerSize);
 	}
 
+	// ------------------------------ bounding client rect ------------------------------ //
+
+	public setBoundingClientRect(rect: DOMRect) {
+		this.setNumber("bcrX", rect.x);
+		this.setNumber("bcrY", rect.y);
+		this.setNumber("bcrW", rect.width);
+		this.setNumber("bcrH", rect.height);
+		return this;
+	}
+
 	// ------------------------------ auto-complete ------------------------------ //
 
 	public setAutoCompletePattern(pattern: string) {

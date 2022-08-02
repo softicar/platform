@@ -1,4 +1,4 @@
-	
+
 function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	let element = AJAX_ENGINE.getElement(nodeId);
 	if(element == null)
@@ -39,7 +39,8 @@ function sendDomEventToServer(event: Event, eventType: string) {
 		.setNode(element)
 		.setEventType(eventType)
 		.setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
-		.setWindowInnerSize(new Point(window.innerWidth, window.innerHeight));
+		.setWindowInnerSize(new Point(window.innerWidth, window.innerHeight))
+		.setBoundingClientRect(boundingRect);
 	
 	if(event instanceof MouseEvent) {
 		message.setMousePosition(new Point(event.clientX, event.clientY));

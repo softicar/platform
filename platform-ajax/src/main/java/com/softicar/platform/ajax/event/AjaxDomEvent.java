@@ -5,6 +5,7 @@ import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomRect;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Optional;
@@ -28,6 +29,7 @@ public class AjaxDomEvent implements IDomEvent {
 	private final Integer keyCode;
 	private final Integer windowWidth;
 	private final Integer windowHeight;
+	private final DomRect boundingClientRect;
 	private final boolean altKey;
 	private final boolean ctrlKey;
 	private final boolean metaKey;
@@ -58,11 +60,21 @@ public class AjaxDomEvent implements IDomEvent {
 		this.keyCode = AjaxParameterUtils.getInteger(ajaxRequest, "k");
 		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "wx");
 		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wy");
+		this.boundingClientRect = readBoundingClientRect(ajaxRequest);
 		this.altKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "altKey", 0) != 0;
 		this.ctrlKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "ctrlKey", 0) != 0;
 		this.metaKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "metaKey", 0) != 0;
 		this.shiftKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "shiftKey", 0) != 0;
 		this.ajaxRequest = ajaxRequest;
+	}
+
+	private DomRect readBoundingClientRect(IAjaxRequest ajaxRequest) {
+
+		return new DomRect(//
+			AjaxParameterUtils.getDouble(ajaxRequest, "bcrX"),
+			AjaxParameterUtils.getDouble(ajaxRequest, "bcrY"),
+			AjaxParameterUtils.getDouble(ajaxRequest, "bcrW"),
+			AjaxParameterUtils.getDouble(ajaxRequest, "bcrH"));
 	}
 
 	/**
@@ -145,6 +157,12 @@ public class AjaxDomEvent implements IDomEvent {
 	public int getWindowHeight() {
 
 		return windowHeight;
+	}
+
+	@Override
+	public DomRect getBoundingClientRect() {
+
+		return boundingClientRect;
 	}
 
 	@Override

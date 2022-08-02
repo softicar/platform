@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.testing.engine.document;
 
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomRect;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
 
@@ -90,6 +91,12 @@ public class DomTestEvent implements IDomEvent {
 	public int getWindowHeight() {
 
 		return 0;
+	}
+
+	@Override
+	public DomRect getBoundingClientRect() {
+
+		return new DomRect();
 	}
 
 	@Override
