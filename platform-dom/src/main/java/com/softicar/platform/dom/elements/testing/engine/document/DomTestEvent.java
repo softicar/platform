@@ -69,6 +69,12 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
+	public String getKey() {
+
+		return "";
+	}
+
+	@Override
 	public Integer getKeyCode() {
 
 		return null;

@@ -7,6 +7,7 @@ import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.Optional;
 
 /**
  * The AJAX implementation of {@link IDomEvent}.
@@ -23,6 +24,7 @@ public class AjaxDomEvent implements IDomEvent {
 	private final Double relativeY;
 	private final Double scrollX;
 	private final Double scrollY;
+	private final String key;
 	private final Integer keyCode;
 	private final Integer windowWidth;
 	private final Integer windowHeight;
@@ -52,6 +54,7 @@ public class AjaxDomEvent implements IDomEvent {
 		this.relativeY = AjaxParameterUtils.getDouble(ajaxRequest, "ry");
 		this.scrollX = AjaxParameterUtils.getDouble(ajaxRequest, "sx");
 		this.scrollY = AjaxParameterUtils.getDouble(ajaxRequest, "sy");
+		this.key = Optional.ofNullable(ajaxRequest.getParameter("key")).orElse("");
 		this.keyCode = AjaxParameterUtils.getInteger(ajaxRequest, "k");
 		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "wx");
 		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wy");
@@ -121,6 +124,12 @@ public class AjaxDomEvent implements IDomEvent {
 	}
 
 	@Override
+	public String getKey() {
+
+		return key;
+	}
+
+	@Override
 	public Integer getKeyCode() {
 
 		return keyCode;
@@ -167,7 +176,7 @@ public class AjaxDomEvent implements IDomEvent {
 
 		return String
 			.format(
-				"type(%s) currentTarget(%s) client(%s,%s) scroll(%s,%s) relative(%s,%s) window(%s,%s) keyCode(%s)",
+				"type(%s) currentTarget(%s) client(%s,%s) scroll(%s,%s) relative(%s,%s) window(%s,%s) key(%s) keyCode(%s)",
 				type.toString(),
 				currentTarget.getNodeId(),
 				clientX,
@@ -178,6 +187,7 @@ public class AjaxDomEvent implements IDomEvent {
 				relativeY,
 				windowWidth,
 				windowHeight,
+				key,
 				keyCode);
 	}
 }

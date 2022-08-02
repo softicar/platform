@@ -70,6 +70,24 @@ public interface IDomEngine {
 	void unlistenToEvent(IDomNode node, DomEventType type);
 
 	/**
+	 * Defines for which keys the events {@link DomEventType#KEYDOWN} and/or
+	 * {@link DomEventType#KEYUP} are triggered.
+	 * <p>
+	 * Valid values are those defined by the HTML <i>KeyboardEvent.key</i>
+	 * field. The key names are <b>case-sensitive</b>, so <b>ArrowDown</b> is a
+	 * valid name while <b>arrowDown</b> is not, and the latter will not trigger
+	 * any event. Also, if you want to listen for example to the <b>x</b> key
+	 * while <i>shift</i> is down or up, you have to listen to lower-case
+	 * <b>x</b> as well as upper-case <b>X</b>.
+	 *
+	 * @param node
+	 *            the listening {@link IDomNode} (never <i>null</i>)
+	 * @param keys
+	 *            the names of keys to listen to (never <i>null</i>)
+	 */
+	void setListenToKeys(IDomNode node, Collection<String> keys);
+
+	/**
 	 * Defines that the given {@link IDomNode} does not fire while a key is
 	 * pressed down, but only when the key is released (on key-up).
 	 *

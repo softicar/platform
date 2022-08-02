@@ -260,6 +260,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setListenToKeys(IDomNode node, Collection<String> keys) {
+
+		JS_call("setListenToKeys", node, keys);
+	}
+
+	@Override
 	public void stopPropagation(IDomNode node, String eventName) {
 
 		JS_callNodeFunction(node, "addEventListener", "\"" + eventName + "\"", "function(event){event.stopPropagation();}");

@@ -82,6 +82,15 @@ public interface IDomEvent {
 	Double getScrollY();
 
 	/**
+	 * Returns the name of the key that triggered this event.
+	 * <p>
+	 * If no key triggered the event, the empty string is returned.
+	 *
+	 * @return the key name (never <i>null</i>)
+	 */
+	String getKey();
+
+	/**
 	 * Returns the key code of the key that triggered this event.
 	 *
 	 * @return the key code of the event
