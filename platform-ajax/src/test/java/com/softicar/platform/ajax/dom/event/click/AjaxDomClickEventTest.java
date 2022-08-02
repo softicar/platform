@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.dom.event.click;
 
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Modifier;
@@ -33,6 +34,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		// click at specific location
 		AjaxSeleniumTestSegment viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
+		AjaxSeleniumTestRectangle divRectangle = getRectangle(testDiv);
 		clickAt(testDiv, CLICK_X, CLICK_Y);
 		waitForServer();
 
@@ -48,6 +50,12 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(0, event.getScrollY(), 0.1);
 		assertEquals(viewportSize.getWidth(), event.getWindowWidth());
 		assertEquals(viewportSize.getHeight(), event.getWindowHeight());
+
+		var boundingClientRect = event.getBoundingClientRect();
+		assertEquals(divRectangle.getX(), boundingClientRect.getX(), 0.001);
+		assertEquals(divRectangle.getY(), boundingClientRect.getY(), 0.001);
+		assertEquals(divRectangle.getWidth(), boundingClientRect.getWidth(), 0.001);
+		assertEquals(divRectangle.getHeight(), boundingClientRect.getHeight(), 0.001);
 	}
 
 	@Test
@@ -63,6 +71,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		// click at specific location
 		AjaxSeleniumTestSegment viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
+		AjaxSeleniumTestRectangle divRectangle = getRectangle(testDiv);
 		clickAt(testDiv, CLICK_X, CLICK_Y);
 		waitForServer();
 
@@ -76,6 +85,12 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(SCROLL_Y, event.getScrollY(), 0.1);
 		assertEquals(viewportSize.getWidth(), event.getWindowWidth());
 		assertEquals(viewportSize.getHeight(), event.getWindowHeight());
+
+		var boundingClientRect = event.getBoundingClientRect();
+		assertEquals(divRectangle.getX() - SCROLL_X, boundingClientRect.getX(), 0.001);
+		assertEquals(divRectangle.getY() - SCROLL_Y, boundingClientRect.getY(), 0.001);
+		assertEquals(divRectangle.getWidth(), boundingClientRect.getWidth(), 0.001);
+		assertEquals(divRectangle.getHeight(), boundingClientRect.getHeight(), 0.001);
 	}
 
 	@Test

@@ -579,7 +579,8 @@ function sendDomEventToServer(event, eventType) {
         .setNode(element)
         .setEventType(eventType)
         .setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
-        .setWindowInnerSize(new Point(window.innerWidth, window.innerHeight));
+        .setWindowInnerSize(new Point(window.innerWidth, window.innerHeight))
+        .setBoundingClientRect(boundingRect);
     if (event instanceof MouseEvent) {
         message.setMousePosition(new Point(event.clientX, event.clientY));
         message.setMouseRelativePosition(new Point(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
@@ -884,6 +885,13 @@ class AjaxRequestMessage {
     }
     setWindowInnerSize(innerSize) {
         return this.setPoint('w', innerSize);
+    }
+    setBoundingClientRect(rect) {
+        this.setNumber("bcrX", rect.x);
+        this.setNumber("bcrY", rect.y);
+        this.setNumber("bcrW", rect.width);
+        this.setNumber("bcrH", rect.height);
+        return this;
     }
     setAutoCompletePattern(pattern) {
         return this.setString('p', pattern);

@@ -112,6 +112,13 @@ public interface IDomEvent {
 	int getWindowHeight();
 
 	/**
+	 * Returns the bounding client {@link DomRect} for the event node.
+	 *
+	 * @return the bounding client {@link DomRect} (never <i>null</i>)
+	 */
+	DomRect getBoundingClientRect();
+
+	/**
 	 * Returns whether the ALT key is pressed.
 	 *
 	 * @return true if ALT key is pressed
