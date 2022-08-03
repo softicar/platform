@@ -48,14 +48,15 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testChangeEventWithEscape() {
+	public void testNoChangeEventWithEscapeAfterIllegalInput() {
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
 		send(inputField, Key.ESCAPE);
 
-		assertEvent();
+		waitForServer();
+		inputDiv.assertNoEvent();
 		indicator.assertValueIllegal(true);
 	}
 
@@ -133,6 +134,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	// -------------------- modality -------------------- //
 
 	@Test
+	@Ignore("Unnecessary test.")
 	public void testNoModalityBeforeTyping() {
 
 		openPopup();

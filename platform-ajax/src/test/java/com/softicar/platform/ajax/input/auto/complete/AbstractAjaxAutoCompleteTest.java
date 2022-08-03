@@ -144,23 +144,25 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	public static enum Indicator implements IAjaxSeleniumTestDomAutoCompleteInputIndicator {
 
+		// TODO remove COMMITTING and LOADING
+		// TODO use DomAutoCompleteIndicatorType directly
 		COMMITTING("committing", "AutoCompleteIndicatorCommitting"),
 		LOADING("loading", "AutoCompleteIndicatorLoading"),
-		NOT_OKAY("not-okay", "AutoCompleteIndicatorNotOkay"),
-		VALUE_AMBIGUOUS("value-ambiguous", "AutoCompleteIndicatorValueAmbiguous"),
-		VALUE_ILLEGAL("value-illegal", "AutoCompleteIndicatorValueIllegal"),
-		VALUE_MISSING("value-missing", "AutoCompleteIndicatorValueMissing"),
-		VALUE_VALID("value-valid", "AutoCompleteIndicatorValueValid"),
+		NOT_OKAY("not-okay", "DomAutoCompleteIndicatorNotOkay"),
+		VALUE_AMBIGUOUS("value-ambiguous", "DomAutoCompleteIndicatorAmbiguous"),
+		VALUE_ILLEGAL("value-illegal", "DomAutoCompleteIndicatorIllegal"),
+		VALUE_MISSING("value-missing", "DomAutoCompleteIndicatorMissing"),
+		VALUE_VALID("value-valid", "DomAutoCompleteIndicatorValid"),
 		//
 		;
 
 		private final String name;
-		private final String idString;
+		private final String cssClass;
 
-		private Indicator(String name, String idString) {
+		private Indicator(String name, String cssClass) {
 
 			this.name = name;
-			this.idString = idString;
+			this.cssClass = cssClass;
 		}
 
 		@Override
@@ -170,23 +172,13 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		}
 
 		@Override
-		public String getIdString() {
+		public String getCssClass() {
 
-			return idString;
+			return cssClass;
 		}
 	}
 
 	protected class IndicatorProxy {
-
-		public void assertCommitting() {
-
-			assertCommitting(true);
-		}
-
-		public void assertCommitting(boolean displayed) {
-
-			assertIndicates(Indicator.COMMITTING, displayed);
-		}
 
 		public void assertLoading() {
 

@@ -70,7 +70,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
-			.expectCallbackCount(2)
+			.expectCallbackCount(1)
 			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
@@ -139,8 +139,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
-			.expectCallbackCount(2)
-			.expectCallbackValueNone()
+			.expectCallbackNone()
 			.assertAll();
 	}
 }

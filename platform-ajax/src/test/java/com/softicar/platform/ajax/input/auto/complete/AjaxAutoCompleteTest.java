@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
@@ -80,7 +81,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		click(inputField);
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-		send(inputField, Key.ENTER);
+		send(inputField, Key.ESCAPE);
 		waitForAutoCompletePopupToHide();
 
 		send(inputField, Key.DOWN);
@@ -227,9 +228,9 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.TAB);
 		waitForServer();
 
-		// assert popup is not closed but input keeps focus
-		assertTrue(isAutoCompletePopupDisplayed());
-		assertFocused(inputField);
+		// assert popup is closed
+		assertFalse(isAutoCompletePopupDisplayed());
+		assertFocused(inputDiv.getParent());
 	}
 
 	// -------------------- selection -------------------- //
@@ -297,6 +298,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	}
 
 	@Test
+	@Ignore("This test does not make sense anymore.")
 	public void testSelectionWhileLoading() {
 
 		send(inputField, AMBIGUOUS_INPUT);

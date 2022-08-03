@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteInputIndicator;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestItem;
+import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -16,13 +17,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
-
-	private static final String AUTO_COMPLETE_ID_MODAL_DIV = "AjaxAutoCompleteModalDiv";
-	private static final String AUTO_COMPLETE_ID_POPUP = "AjaxAutoCompletePopup";
-	private static final String AUTO_COMPLETE_CLASS_POPUP_ITEM = "AjaxAutoCompleteItem";
-	private static final String AUTO_COMPLETE_CLASS_POPUP_ITEM_PLACEHOLDER = "AjaxAutoCompleteNoItems";
-	private static final String AUTO_COMPLETE_CLASS_POPUP_MORE_ITEMS_INFO = "AjaxAutoCompleteMoreItems";
-	private static final String AUTO_COMPLETE_CLASS_POPUP_SELECTED_ITEM = "AjaxAutoCompleteSelectedItem";
 
 	private static final Duration AUTO_COMPLETE_TIMEOUT = Duration.ofSeconds(10);
 	private static final Duration INDICATOR_TIMEOUT = Duration.ofSeconds(10);
@@ -39,7 +33,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	@Override
 	public List<String> getAutoCompletePopupItemNames() {
 
-		return getAutoCompletePopupItemWebElements()//
+		return getAutoCompleteValueWebElements()//
 			.stream()
 			.map(WebElement::getText)
 			.collect(Collectors.toList());
@@ -48,10 +42,10 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	@Override
 	public Optional<Integer> getAutoCompletePopupSelectedItemIndex() {
 
-		List<WebElement> available = getAutoCompletePopupItemWebElements();
+		List<WebElement> available = getAutoCompleteValueWebElements();
 		List<WebElement> selected = getAutoCompletePopup()//
 			.filter(WebElement::isDisplayed)
-			.map(it -> it.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_SELECTED_ITEM)))
+			.map(it -> it.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE.getName())))
 			.orElse(Collections.emptyList());
 		if (selected.isEmpty()) {
 			return Optional.empty();
@@ -74,7 +68,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.id(indicator.getIdString()))
+			.findElements(By.className(indicator.getCssClass()))
 			.stream()
 			.findFirst()
 			.isPresent();
@@ -85,7 +79,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		return !webDriverSupplier//
 			.get()
-			.findElements(By.id(AUTO_COMPLETE_ID_MODAL_DIV))
+			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
 			.isEmpty();
 	}
 
@@ -108,7 +102,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	@Override
 	public void clickAutoCompletePopupItem(int index) {
 
-		getAutoCompletePopupItemWebElements().get(index).click();
+		getAutoCompleteValueWebElements().get(index).click();
 	}
 
 	@Override
@@ -122,7 +116,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		webDriverSupplier//
 			.get()
-			.findElements(By.id(AUTO_COMPLETE_ID_MODAL_DIV))
+			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
 			.stream()
 			.findFirst()
 			.ifPresent(WebElement::click);
@@ -160,19 +154,19 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 	private Optional<WebElement> findItem(IAjaxSeleniumTestDomAutoCompleteTestItem item) {
 
-		return getAutoCompletePopupItemWebElements()//
+		return getAutoCompleteValueWebElements()//
 			.stream()
 			.filter(it -> it.getText().contains(item.getName()))
 			.findFirst();
 	}
 
-	private List<WebElement> getAutoCompletePopupItemWebElements() {
+	private List<WebElement> getAutoCompleteValueWebElements() {
 
 		Optional<WebElement> popup = getAutoCompletePopup();
 		if (popup.isPresent()) {
 			return popup//
 				.get()
-				.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_ITEM))
+				.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_VALUE.getName()))
 				.stream()
 				.collect(Collectors.toList());
 		} else {
@@ -184,7 +178,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.id(AUTO_COMPLETE_ID_POPUP))
+			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_POPUP.getName()))
 			.stream()
 			.findFirst();
 	}
@@ -193,7 +187,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_ITEM_PLACEHOLDER))
+			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_NO_VALUES.getName()))
 			.stream()
 			.findFirst();
 	}
@@ -202,7 +196,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(AUTO_COMPLETE_CLASS_POPUP_MORE_ITEMS_INFO))
+			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_MORE_VALUES.getName()))
 			.stream()
 			.findFirst();
 	}

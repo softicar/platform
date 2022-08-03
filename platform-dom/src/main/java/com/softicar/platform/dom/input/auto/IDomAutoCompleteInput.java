@@ -47,13 +47,4 @@ public interface IDomAutoCompleteInput<T> extends IDomParentElement, IDomValueIn
 	 *         represents the current selection (never null)
 	 */
 	IDomAutoCompleteInputSelection<T> getSelection();
-
-	/**
-	 * Sets the selected value for this input element and triggers a
-	 * (re-)validation.
-	 *
-	 * @param value
-	 *            the value to be set for this input element (may be null)
-	 */
-	void setValueAndValidate(T value);
 }

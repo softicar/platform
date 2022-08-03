@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,7 +29,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
@@ -55,7 +56,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
@@ -81,7 +82,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
@@ -106,7 +107,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
@@ -188,6 +189,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testVisualizationWhileLoadingInOpenPopupWithTypingOnPassiveEmptyInput() {
 
 		setup//
@@ -235,7 +237,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectOverlayDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -460,7 +462,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
@@ -484,7 +486,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
@@ -507,7 +509,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(ENTITY1.getName())
-			.expectServerValueNone()
+			.expectServerValue(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)
@@ -532,7 +534,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(ENTITY1.getName())
-			.expectServerValueNone()
+			.expectServerValue(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)
@@ -556,7 +558,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
@@ -581,7 +583,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
@@ -606,7 +608,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(ENTITY3.getName())
-			.expectServerValueNone()
+			.expectServerValue(ENTITY3)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY3, ENTITY4)
@@ -632,7 +634,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(ENTITY3.getName())
-			.expectServerValueNone()
+			.expectServerValue(ENTITY3)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY3, ENTITY4)
@@ -659,8 +661,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue("foo [1]")
-			.expectServerValueNone()
+			.expectValues(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -688,7 +689,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("foo [1]")
-			.expectServerValueNone()
+			.expectServerValue(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -716,7 +717,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("FOO [1]")
-			.expectServerValueNone()
+			.expectServerValue(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -743,8 +744,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue("FOO [1]")
-			.expectServerValueNone()
+			.expectValues(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -772,8 +772,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue("foo [1]")
-			.expectServerValueNone()
+			.expectValues(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -802,7 +801,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("foo [1]")
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -831,7 +830,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("FOO [1]")
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -859,8 +858,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue("FOO [1]")
-			.expectServerValueNone()
+			.expectValues(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)
@@ -885,7 +883,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("foo [1")
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)
@@ -910,7 +908,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 
 		asserter//
 			.expectClientValue("foo [1")
-			.expectServerValueNone()
+			.expectServerValue(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)
@@ -938,8 +936,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.waitForPopupAndLoadingFinished();
 
 		asserter//
-			.expectClientValue(item1.toDisplayStringWithId())
-			.expectServerValueNone()
+			.expectValues(item1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(item1)

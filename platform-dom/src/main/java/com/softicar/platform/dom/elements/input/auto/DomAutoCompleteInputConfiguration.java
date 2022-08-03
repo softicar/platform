@@ -1,23 +1,21 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import java.util.Objects;
 
 public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputConfiguration {
 
-	private final IDomAutoCompleteInput<?> input;
+	private final DomAutoCompleteInput<?> input;
 	private final IDomInput inputField;
 	private DomAutoCompleteInputIndicatorMode indicatorMode;
 	private DomAutoCompleteInputValidationMode validationMode;
 	private boolean mandatory;
 	private boolean disabled;
 
-	public DomAutoCompleteInputConfiguration(IDomAutoCompleteInput<?> input, IDomInput inputField) {
+	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, IDomInput inputField) {
 
 		this.input = input;
 		this.inputField = inputField;
@@ -37,8 +35,8 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	public IDomAutoCompleteInputConfiguration setIndicatorMode(DomAutoCompleteInputIndicatorMode indicatorMode) {
 
 		Objects.requireNonNull(indicatorMode);
-		getDomEngine().setAutoCompleteIndicatorMode(input, indicatorMode);
 		this.indicatorMode = indicatorMode;
+		input.refreshInputValidity();
 		return this;
 	}
 
@@ -52,8 +50,8 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	public IDomAutoCompleteInputConfiguration setValidationMode(DomAutoCompleteInputValidationMode validationMode) {
 
 		Objects.requireNonNull(validationMode);
-		getDomEngine().setAutoCompleteValidationMode(input, validationMode);
 		this.validationMode = validationMode;
+		input.refreshInputValidity();
 		return this;
 	}
 
@@ -66,8 +64,8 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	@Override
 	public IDomAutoCompleteInputConfiguration setMandatory(boolean mandatory) {
 
-		getDomEngine().setAutoCompleteInputMandatory(input, mandatory);
 		this.mandatory = mandatory;
+		input.refreshInputValidity();
 		return this;
 	}
 
@@ -80,14 +78,8 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	@Override
 	public IDomAutoCompleteInputConfiguration setDisabled(boolean disabled) {
 
-		getDomEngine().setAutoCompleteEnabled(input, !disabled);
 		this.inputField.setDisabled(disabled);
 		this.disabled = disabled;
 		return this;
-	}
-
-	private IDomEngine getDomEngine() {
-
-		return this.input.getDomEngine();
 	}
 }

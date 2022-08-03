@@ -6,13 +6,14 @@ import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
+import com.softicar.platform.dom.style.CssPixel;
+import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,9 +36,15 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	protected final DomBar inputBar;
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
-	private final DomTextInput inputField;
+	private final DomAutoCompleteBackdrop backdrop;
+	private final DomAutoCompletePopup<T> popup;
+	private final DomAutoCompleteInputField inputField;
 	private final IDomAutoCompleteInputConfiguration configuration;
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
+	private boolean showBackdrop;
+	private DomAutoCompleteIndicator indicator;
+	private T committedValue;
+	private boolean focus;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
@@ -55,13 +62,16 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.inputBar = new DomBar();
 		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
-		this.inputField = new DomTextInput();
-		this.inputField.addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
-		this.inputField.addChangeCallback(this::refreshInputValidity);
-		this.inputField.addChangeCallback(this::executeChangeCallbacks);
-		this.inputField.unlistenToEvent(DomEventType.CHANGE);
+		this.backdrop = new DomAutoCompleteBackdrop(this);
+		this.popup = new DomAutoCompletePopup<>(this);
+		this.inputField = new DomAutoCompleteInputField(this);
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
+		this.configuration.setValidationMode(defaultMode);
+		this.showBackdrop = false;
+		this.indicator = null;
+		this.committedValue = null;
+		this.focus = false;
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
@@ -69,11 +79,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		inputBar.appendChild(inputField);
 
 		refreshFilters();
-
-		initializeAutoComplete(defaultMode);
+		refreshInputValidity();
 	}
 
-	public final void refreshInputConstraints() {
+	// TODO make final
+	public void refreshInputConstraints() {
 
 		refreshFilters();
 
@@ -89,11 +99,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		refreshInputValidity();
 	}
 
-	public boolean isBlank() {
-
-		return inputField.isBlank();
-	}
-
 	@Override
 	public IDomAutoCompleteInputConfiguration getConfiguration() {
 
@@ -101,16 +106,15 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	}
 
 	@Override
-	public IDomTextualInput getInputField() {
-
-		return inputField;
-	}
-
-	@Override
 	public DomAutoCompleteList getItemList(String pattern) {
 
+		var normalizedPattern = Optional//
+			.ofNullable(pattern)
+			.map(String::trim)
+			.map(String::toLowerCase)
+			.orElse("");
 		return new DomAutoCompleteListGenerator<>(inputEngine, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD)//
-			.generate(getTrimmedLowerCase(pattern));
+			.generate(normalizedPattern);
 	}
 
 	@Override
@@ -132,19 +136,21 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	@Override
 	public void setValue(T value) {
 
-		String valueString = Optional//
-			.ofNullable(value)
-			.map(inputEngine::getDisplayString)
-			.map(IDisplayString::toString)
-			.orElse("");
-		inputField.setValue(valueString);
+		setFieldValue(value);
+		this.committedValue = value;
 	}
 
-	@Override
-	public void setValueAndValidate(T value) {
+	// ------------------------------ input field methods ------------------------------ //
 
-		setValue(value);
-		refreshInputValidity();
+	@Override
+	public IDomTextualInput getInputField() {
+
+		return inputField;
+	}
+
+	public boolean isBlank() {
+
+		return inputField.isBlank();
 	}
 
 	public DomAutoCompleteInput<T> setPlaceholder(IDisplayString placeholder) {
@@ -159,17 +165,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		return this;
 	}
 
-	public DomAutoCompleteInput<T> select() {
+	public DomAutoCompleteInput<T> selectText() {
 
 		inputField.selectText();
 		return this;
 	}
 
-	public DomAutoCompleteInput<T> setMaxLength(int maxLength) {
-
-		inputField.setMaxLength(maxLength);
-		return this;
-	}
+	// ------------------------------ event handling ------------------------------ //
 
 	/**
 	 * Use this method to add functions that should be executed when this input
@@ -186,8 +188,81 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	@Override
 	protected void onChangeCallbackAdded() {
 
+		this.showBackdrop = true;
 		this.inputField.listenToEvent(DomEventType.CHANGE);
 	}
+
+	protected void onInput() {
+
+		refreshPopup();
+		refreshInputValidity();
+	}
+
+	protected void onChange() {
+
+		refreshInputValidity();
+
+		var value = getValueNoThrow().orElse(null);
+		if (!Objects.equals(value, committedValue)) {
+			this.committedValue = value;
+			executeChangeCallbacks();
+		}
+	}
+
+	protected void onArrowDown() {
+
+		if (popup.isAppended()) {
+			popup.moveSelectionDown();
+		} else {
+			refreshPopup();
+		}
+	}
+
+	protected void onArrowUp() {
+
+		if (popup.isAppended()) {
+			popup.moveSelectionUp();
+		} else {
+			refreshPopup();
+		}
+	}
+
+	protected void onEnterOrTab() {
+
+		if (popup.isAppended()) {
+			popup.applySelection();
+		}
+	}
+
+	protected void onSelection(T value) {
+
+		setFieldValue(value);
+		closePopup();
+		onChange();
+		inputField.focus();
+	}
+
+	protected void onFocus() {
+
+		this.focus = true;
+		refreshInputValidity();
+	}
+
+	protected void onBlur() {
+
+		this.focus = false;
+		closePopup();
+		onChange();
+	}
+
+	protected void onBackdropClickOrEscape() {
+
+		closePopup();
+		onChange();
+		inputField.focus();
+	}
+
+	// ------------------------------ internal ------------------------------ //
 
 	@Override
 	protected void doSetDisabled(boolean disabled) {
@@ -195,17 +270,107 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		getConfiguration().setDisabled(disabled);
 	}
 
-	/**
-	 * Fetches the current, textual content of the input element, exactly as it
-	 * was entered. No transformations like trimming or case-enforcement are
-	 * applied.
-	 *
-	 * @return the raw, non-transformed String value that the input element
-	 *         currently contains (never null)
-	 */
-	protected String getRawValueString() {
+	protected String getPattern() {
 
-		return inputField.getValueText();
+		return inputField.getValueTextTrimmed().toLowerCase();
+	}
+
+	protected void refreshInputValidity() {
+
+		if (inputField.isBlank()) {
+			if (configuration.isMandatory()) {
+				showIndicator(DomAutoCompleteIndicatorType.MISSING);
+			} else {
+				showIndicator(DomAutoCompleteIndicatorType.VALID);
+			}
+		} else if (configuration.getValidationMode().isPermissive()) {
+			showIndicator(DomAutoCompleteIndicatorType.VALID);
+		} else {
+			var pattern = getPattern();
+			var matches = inputEngine.findMatches(pattern, 2);
+			if (matches.size() == 0) {
+				showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
+			} else if (matches.size() == 1) {
+				var element = matches.iterator().next();
+				if (configuration.getValidationMode().isRestrictive()) {
+					if (matchesInput(element)) {
+						showIndicator(DomAutoCompleteIndicatorType.VALID);
+					} else {
+						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
+					}
+				} else {
+					showIndicator(DomAutoCompleteIndicatorType.VALID);
+				}
+			} else {
+				var firstElement = matches.iterator().next();
+				if (matchesInput(firstElement)) {
+					showIndicator(DomAutoCompleteIndicatorType.VALID);
+				} else {
+					if (focus) {
+						showIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
+					} else {
+						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
+					}
+				}
+			}
+		}
+	}
+
+	private void refreshPopup() {
+
+		if (!popup.isAppended()) {
+			if (showBackdrop) {
+				appendChild(backdrop);
+				getDomEngine().raise(backdrop);
+			}
+
+			appendChild(popup);
+			getDomEngine().raise(popup);
+
+			getDomEngine().raise(inputField);
+			getDomEngine().raise(indicator);
+		}
+
+		var rect = getCurrentEvent().getBoundingClientRect();
+		popup.setStyle(CssStyle.TOP, new CssPixel(rect.getHeight()));
+		popup.setStyle(CssStyle.MIN_WIDTH, new CssPixel(rect.getWidth()));
+		popup.refresh();
+	}
+
+	private void closePopup() {
+
+		if (popup.isAppended()) {
+			backdrop.disappend();
+			popup.disappend();
+
+			inputField.unsetStyle(CssStyle.Z_INDEX);
+			indicator.unsetStyle(CssStyle.Z_INDEX);
+		}
+	}
+
+	private boolean matchesInput(T element) {
+
+		var elementDisplayString = inputEngine.getDisplayString(element).toString();
+		return matchesInput(elementDisplayString);
+	}
+
+	private boolean matchesInput(String elementDisplayString) {
+
+		if (configuration.getValidationMode().isRestrictive()) {
+			return inputField.getValueText().equals(elementDisplayString);
+		} else {
+			return inputField.getValueText().trim().equalsIgnoreCase(elementDisplayString);
+		}
+	}
+
+	private void setFieldValue(T value) {
+
+		String valueString = Optional//
+			.ofNullable(value)
+			.map(inputEngine::getDisplayString)
+			.map(IDisplayString::toString)
+			.orElse("");
+		inputField.setValue(valueString);
 	}
 
 	private Collection<T> getMatchingItems(String pattern) {
@@ -229,46 +394,24 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		}
 	}
 
-	private String getTrimmed(String pattern) {
+	private void showIndicator(DomAutoCompleteIndicatorType type) {
 
-		return Optional.ofNullable(pattern).map(String::trim).orElse("");
-	}
-
-	private String getTrimmedLowerCase(String pattern) {
-
-		return Optional.ofNullable(getTrimmed(pattern)).map(String::toLowerCase).orElse("");
-	}
-
-	private void refreshInputValidity() {
-
-		inputField.setValue(inputField.getValueText());
-		if (!getSelection().isValid()) {
-			getDomEngine().setAutoCompleteInputInvalid(this);
+		if (indicator != null) {
+			removeChild(indicator);
+			this.indicator = null;
 		}
-	}
 
-	/**
-	 * Enables the auto-complete engine features and performs subsequent
-	 * initialization steps.
-	 * <p>
-	 * TODO Must be called as last step to ensure that indicators are shown. As
-	 * soon as CSS based indicators (#38798) are implemented, this can be
-	 * relaxed.
-	 */
-	private void initializeAutoComplete(DomAutoCompleteInputValidationMode defaultMode) {
+		if (!focus) {
+			if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
+				type = DomAutoCompleteIndicatorType.NOT_OKAY;
+			}
+		}
 
-		getDomEngine().enableAutoComplete(this);
-		initializeEnabledAutoComplete(defaultMode);
-	}
+		this.indicator = new DomAutoCompleteIndicator(type);
+		appendChild(indicator);
 
-	/**
-	 * Performs initialization steps that must happen after the auto-complete
-	 * engine feature was enabled.
-	 */
-	private void initializeEnabledAutoComplete(DomAutoCompleteInputValidationMode defaultMode) {
-
-		if (configuration.getValidationMode() != defaultMode) {
-			configuration.setValidationMode(defaultMode);
+		if (popup.isAppended()) {
+			getDomEngine().raise(indicator);
 		}
 	}
 }

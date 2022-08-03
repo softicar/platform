@@ -88,12 +88,6 @@ class AjaxRequestMessage {
 		return this;
 	}
 
-	// ------------------------------ auto-complete ------------------------------ //
-
-	public setAutoCompletePattern(pattern: string) {
-		return this.setString('p', pattern);
-	}
-
 	// ------------------------------ encoding ------------------------------ //
 
 	public encode() {

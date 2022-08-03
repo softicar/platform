@@ -1,7 +1,5 @@
 package com.softicar.platform.ajax.engine;
 
-import com.softicar.platform.ajax.engine.auto.complete.AjaxDomEngineAutoCompleteJavascriptContainer;
-import com.softicar.platform.ajax.engine.indicator.AjaxDomEngineIndicatorJavascriptContainer;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.reader.ManagedReader;
 import com.softicar.platform.common.io.resource.IResource;
@@ -36,8 +34,6 @@ public class AjaxJavascriptPrinter {
 
 		Collection<IResource> resources = new ArrayList<>();
 		addAllResourcesFromContainer(AjaxDomEngineJavascriptContainer.class, resources);
-		addAllResourcesFromContainer(AjaxDomEngineIndicatorJavascriptContainer.class, resources);
-		addAllResourcesFromContainer(AjaxDomEngineAutoCompleteJavascriptContainer.class, resources);
 		return resources;
 	}
 

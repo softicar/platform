@@ -34,7 +34,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 				new SetValueMandatoryButton(false)));
 		appendChild(
 			new DomActionBar(//
-				new MarkAsInvalidButton(),
 				new SetValueButton()));
 		appendChild(
 			new DomActionBar(//
@@ -47,21 +46,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 			new DomActionBar(//
 				new SetDisabledButton(false),
 				new SetDisabledButton(true)));
-	}
-
-	private class MarkAsInvalidButton extends DomButton {
-
-		public MarkAsInvalidButton() {
-
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("mark as invalid"));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			getDomEngine().setAutoCompleteInputInvalid(input);
-		}
 	}
 
 	private class SetValueButton extends DomButton {

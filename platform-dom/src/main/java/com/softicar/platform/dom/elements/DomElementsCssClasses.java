@@ -8,9 +8,22 @@ public interface DomElementsCssClasses {
 
 	ICssClass DOM_ACTION_BAR = new CssClass("DomActionBar", DomElementsCssFiles.DOM_ACTION_BAR_STYLE);
 
+	ICssClass DOM_AUTO_COMPLETE_BACKDROP = new CssClass("DomAutoCompleteBackdrop", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOS = new CssClass("DomAutoCompleteIndicatorAmbiguous", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_DEFAULT = new CssClass("DomAutoCompleteIndicatorDefault", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL = new CssClass("DomAutoCompleteIndicatorIllegal", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_MISSING = new CssClass("DomAutoCompleteIndicatorMissing", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_NOT_OKAY = new CssClass("DomAutoCompleteIndicatorNotOkay", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_VALID = new CssClass("DomAutoCompleteIndicatorValid", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT = new CssClass("DomAutoCompleteInput", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT_FIELD = new CssClass("DomAutoCompleteInputField", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY = new CssClass("DomAutoCompleteInputFilterDisplay", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_MATCH = new CssClass("DomAutoCompleteMatch", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_MORE_VALUES = new CssClass("DomAutoCompleteMoreValues", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_NO_VALUES = new CssClass("DomAutoCompleteNoValues", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_POPUP = new CssClass("DomAutoCompletePopup", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_SELECTED_VALUE = new CssClass("DomAutoCompleteSelectedValue", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_VALUE = new CssClass("DomAutoCompleteValue", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 
 	ICssClass DOM_BAR = new CssClass("DomBar", DomElementsCssFiles.DOM_BAR_STYLE);
 

@@ -14,9 +14,6 @@ import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
@@ -61,12 +58,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void createTextNode(int nodeId, String text) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void enableAutoComplete(IDomAutoCompleteInput<?> input) {
 
 		// nothing to do
 	}
@@ -187,36 +178,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void selectText(IDomNode inputNode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteEnabled(IDomAutoCompleteInput<?> input, boolean enabled) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteIndicatorMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputIndicatorMode indicatorMode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteInputInvalid(IDomAutoCompleteInput<?> input) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteInputMandatory(IDomAutoCompleteInput<?> input, boolean mandatory) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void setAutoCompleteValidationMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode) {
 
 		// nothing to do
 	}

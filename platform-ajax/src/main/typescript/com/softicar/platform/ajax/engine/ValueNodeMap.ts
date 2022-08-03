@@ -32,9 +32,6 @@ class ValueNodeMap {
 	public setValue(node: HTMLInputElement, value: string) {
 		node.value = value;
 		this.getState(node).assumeValue(value);
-
-		// FIXME this ad-hoc call looks like a hack (PLAT-853)
-		AUTO_COMPLETE_ENGINE.setCommittedValue(node, value);
 	}
 
 	public setSelectedOptions(select: HTMLSelectElement, options: HTMLOptionElement[]) {

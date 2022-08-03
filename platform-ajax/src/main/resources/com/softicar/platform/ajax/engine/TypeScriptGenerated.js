@@ -69,7 +69,6 @@ const AJAX_REQUEST_TIMEOUT = 5;
 const AJAX_REQUEST_DOM_EVENT = 6;
 const AJAX_REQUEST_DRAG_AND_DROP = 7;
 const AJAX_REQUEST_UPLOAD = 8;
-const AJAX_REQUEST_AUTO_COMPLETE = 10;
 const DOM_VK_TAB = 9;
 const DOM_VK_ENTER = 13;
 const DOM_VK_ESCAPE = 27;
@@ -417,7 +416,6 @@ class ValueNodeMap {
     setValue(node, value) {
         node.value = value;
         this.getState(node).assumeValue(value);
-        AUTO_COMPLETE_ENGINE.setCommittedValue(node, value);
     }
     setSelectedOptions(select, options) {
         let type = select.type;
@@ -514,9 +512,6 @@ class ChangeEventManager {
     }
     handleChangeEvent(event) {
         let node = event.currentTarget;
-        if (event.isTrusted && AUTO_COMPLETE_ENGINE.isEnabledForInput(node)) {
-            return;
-        }
         if (VALUE_NODE_MAP.isValueChanged(node)) {
             sendOrDelegateEvent(node, event, event.type);
         }
@@ -902,9 +897,6 @@ class AjaxRequestMessage {
         this.setNumber("bcrH", rect.height);
         return this;
     }
-    setAutoCompletePattern(pattern) {
-        return this.setString('p', pattern);
-    }
     encode() {
         return new AjaxRequestMessageEncoder(this.data).encode();
     }
@@ -1076,7 +1068,6 @@ class AjaxRequestQueue {
         this.requests.shift();
         this.requestIndex += 1;
         this.waitingForServer = false;
-        AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
         KEEP_ALIVE.schedule();
     }
     executeJavaScript(javaScript) {

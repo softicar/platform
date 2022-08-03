@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,6 +29,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 	// -------------------- loading -------------------- //
 
 	@Test
+	@Ignore("This test does not make sense anymore.")
 	public void testLoadingIndicator() {
 
 		try (Locker locker = inputDiv.getEngine().lock()) {

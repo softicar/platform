@@ -24,3 +24,42 @@
 .DomAutoCompleteInputFilterDisplay .DomBar {
 	gap: 0;
 }
+
+.DomAutoCompleteMatch {
+	font-weight: bold;
+}
+
+.DomAutoCompleteMoreValues,
+.DomAutoCompleteNoValues {
+	font-style: italic;
+	color: var(--GRAY_FONT_COLOR);
+	padding: 3px 4px;
+}
+
+.DomAutoCompletePopup {
+	position: absolute;
+
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	box-shadow: var(--BOX_SHADOW_OVERLAY);
+
+	color: var(--FONT_COLOR);
+	background-color: var(--INPUT_BACKGROUND_COLOR); 
+	overflow:hidden;
+	gap: 0;
+}
+
+.DomAutoCompleteSelectedValue {
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}
+
+.DomAutoCompleteValue {
+	
+	cursor: pointer;
+	padding: 3px 4px;
+}
+
+.DomAutoCompleteValue:hover {
+	
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+}

@@ -4,5 +4,5 @@ public interface IAjaxSeleniumTestDomAutoCompleteInputIndicator {
 
 	String getName();
 
-	String getIdString();
+	String getCssClass();
 }

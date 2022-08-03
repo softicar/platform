@@ -6,7 +6,6 @@ const AJAX_REQUEST_TIMEOUT         = 5;
 const AJAX_REQUEST_DOM_EVENT       = 6;
 const AJAX_REQUEST_DRAG_AND_DROP   = 7;
 const AJAX_REQUEST_UPLOAD          = 8;
-const AJAX_REQUEST_AUTO_COMPLETE   = 10;
 
 const DOM_VK_TAB    = 9;
 const DOM_VK_ENTER  = 13;

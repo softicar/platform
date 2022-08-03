@@ -14,6 +14,8 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 ALSO_TRIES_TO_AUTOMATICALLY_CONVERT_PURELY_TEXTUAL_VALUES_TO_NUMERICAL_VALUES =
 			new I18n0("Also tries to automatically convert purely textual values to numerical values.")//
 				.de("Außerdem wird versucht, rein-textuelle Werte automatisch in Zahlenwerte zu konvertieren.");
+	I18n0 AMBIGUOUS_INPUT = new I18n0("Ambiguous Input")//
+		.de("Mehrdeutige Eingabe");
 	I18n0 AN_NONEXISTENT_OPTION_WAS_SELECTED = new I18n0("An nonexistent option was selected.")//
 		.de("Eine nicht existierende Option wurde ausgewählt.");
 	I18n0 APPEND_TIMESTAMP = new I18n0("Append Timestamp")//
@@ -24,6 +26,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Sollen dieses Fenster und alle Unterfenster wirklich geschlossen werden?");
 	I18n0 ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION = new I18n0("Are you sure to close this window?")//
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
+	I18n0 AUTO_COMPLETE_INPUT_ELEMENT = new I18n0("Auto-Complete Input Element")//
+		.de("Eingabeelement mit Autovervollständigung");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
 	I18n0 CLOSE = new I18n0("Close")//
@@ -81,6 +85,8 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Für einen Export im ausgewählten Format darf die Anzahl der Tabellen-Zeilen %s nicht übersteigen.");
 	I18n0 FOUR = new I18n0("Four")//
 		.de("Vier");
+	I18n0 FURTHER_ENTRIES_AVAILABLE = new I18n0("further entries available")//
+		.de("weitere Einträge verfügbar");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
 	I18n0 HOURS = new I18n0("Hours")//
@@ -93,11 +99,17 @@ public interface DomI18n extends CommonCoreI18n {
 				"If this option is selected, the name of the exported file will contain a timestamp, indicating the point in time at which the file was exported.")//
 					.de(
 						"Wenn diese Option ausgewählt ist, wird der Name der exportierten Datei einen Zeitstempel beinhalten, der angibt, wann die Datei exportiert wurde.");
+	I18n0 ILLEGAL_INPUT = new I18n0("Illegal Input")//
+		.de("Ungültige Eingabe");
 	I18n0 IN_CASE_NO_EXPLICIT_FORMAT_WAS_DEFINED_A_CONVERSION_TO_A_PURELY_TEXTUAL_FORMAT_IS_APPLIED =
 			new I18n0("In case no explicit format was defined, a conversion to a purely textual format is applied.")//
 				.de("Falls kein explizites Format definiert wurde, wird eine rein-textuelle Konvertierung vorgenommen.");
+	I18n0 INPUT_REQUIRED = new I18n0("Input Required")//
+		.de("Eingabe erforderlich");
 	I18n0 INVALID_DECIMAL_NUMBER = new I18n0("Invalid decimal number.")//
 		.de("Ungültige Dezimalzahl.");
+	I18n0 INVALID_INPUT = new I18n0("Invalid Input")//
+		.de("Ungültige Eingabe");
 	I18n0 INVALID_INTEGER = new I18n0("Invalid integer.")//
 		.de("Ungültige Ganzzahl.");
 	I18n0 MEMORY_CONSUMPTION_IS_TOO_HIGH = new I18n0("Memory consumption is too high.")//
@@ -112,6 +124,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Nein");
 	I18n1 NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("No more than %s decimal places allowed.")//
 		.de("Nicht mehr als %s Dezimalstellen erlaubt.");
+	I18n0 NO_RECORDS_FOUND = new I18n0("No Records Found")//
+		.de("Keine Einträge gefunden");
 	I18n0 NO_TITLE = new I18n0("No Title")//
 		.de("kein Titel");
 	I18n0 NONE = new I18n0("none")//
@@ -191,6 +205,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Zwei");
 	I18n0 UNTITLED_EXPORT_ENGINE = new I18n0("Untitled Export Engine")//
 		.de("Unbenannte Export-Engine");
+	I18n0 VALID_INPUT = new I18n0("Valid Input")//
+		.de("Gültige Eingabe");
 	I18n0 WEEK = new I18n0("Week")//
 		.de("Woche");
 	I18n0 YES = new I18n0("Yes")//

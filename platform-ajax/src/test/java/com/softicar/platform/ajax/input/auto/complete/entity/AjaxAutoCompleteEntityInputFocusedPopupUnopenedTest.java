@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -118,6 +119,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeInvalidItemNameOnPassiveEmptyInput() {
 
 		setup//
@@ -141,6 +143,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeInvalidItemNameOnActiveEmptyInput() {
 
 		setup//
@@ -165,6 +168,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeUniqueItemNameOnPassiveEmptyInput() {
 
 		setup//
@@ -188,6 +192,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeUniqueItemNameOnActiveEmptyInput() {
 
 		setup//
@@ -212,6 +217,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeAmbiguousItemNameOnPassiveEmptyInput() {
 
 		setup//
@@ -235,6 +241,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypeAmbiguousItemNameOnPassiveActiveInput() {
 
 		setup//
@@ -259,6 +266,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypePerfectMatchItemNameOnPassiveEmptyInput() {
 
 		setup//
@@ -282,6 +290,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedBeforePopupWithTypePerfectMatchItemNameOnActiveEmptyInput() {
 
 		setup//

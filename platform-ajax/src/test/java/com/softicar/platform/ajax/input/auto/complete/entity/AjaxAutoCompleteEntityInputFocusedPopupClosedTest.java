@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -31,8 +32,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.pressEnter();
 
 		asserter//
-			.expectClientValue(ENTITY1)
-			.expectServerValueNone()
+			.expectValues(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -79,8 +79,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.pressEnter();
 
 		asserter//
-			.expectClientValue(ENTITY2)
-			.expectServerValueNone()
+			.expectValues(ENTITY2)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -128,8 +127,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.pressEnter();
 
 		asserter//
-			.expectClientValue(ENTITY3)
-			.expectServerValueNone()
+			.expectValues(ENTITY3)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -270,7 +268,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -296,12 +294,11 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorValueAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
+			.expectCallbackNone()
 			.assertAll();
 	}
 
@@ -319,7 +316,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -349,8 +346,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
+			.expectCallbackNone()
 			.assertAll();
 	}
 
@@ -465,7 +461,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValue(ENTITY3)
+			.expectServerValueExceptionMessage()
 			.expectIndicatorValueAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -492,7 +488,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorValueAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -515,8 +511,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.pressEsc();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValue(ENTITY1)
+			.expectValuesNone()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -567,8 +562,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.pressEsc();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValue(ENTITY1)
+			.expectValuesNone()
 			.expectIndicatorValueMissing()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -620,7 +614,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.click();
 
 		asserter//
-			.expectClientValue(ENTITY2.getName()) // TODO should this be expanded?
+			.expectClientValue(ENTITY2.getName())
 			.expectServerValue(ENTITY2)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
@@ -683,6 +677,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedWithAmbiguousItemNameOnPassiveEmptyInput() {
 
 		setup//
@@ -697,7 +692,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 			asserter//
 				.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-				.expectServerValueNone()
+				.expectServerValueExceptionMessage()
 				.expectIndicatorLoading()
 				.expectPopupNotDisplayed()
 				.expectFocus()
@@ -708,6 +703,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingDisplayedWithAmbiguousItemNameOnActiveEmptyInput() {
 
 		setup//
@@ -734,6 +730,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testOverlayNotDisplayedWhileLoadingFinishesAfterPopupClosedWithUniqueItemNameOnEmptyPassiveInput() {
 
 		setup//
@@ -761,6 +758,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("This test does not make sense anymore.")
 	public void testOverlayDisplayedWhileLoadingFinishesAfterPopupClosedWithUniqueItemNameOnEmptyActiveInput() {
 
 		setup//
@@ -789,6 +787,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyPassiveInput() {
 
 		setup//
@@ -816,6 +815,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
+	@Ignore("Does not make sense anymore.")
 	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyActiveInput() {
 
 		setup//
@@ -916,8 +916,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
+			.expectCallbackNone()
 			.assertAll();
 	}
 

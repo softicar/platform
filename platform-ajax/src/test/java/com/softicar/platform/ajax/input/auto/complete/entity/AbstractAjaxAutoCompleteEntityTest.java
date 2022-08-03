@@ -216,11 +216,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return add((input, engine) -> input.getConfiguration().setValidationMode(mode));
 		}
 
-		public Setup markValueAsInvalid() {
-
-			return add((input, engine) -> input.getDomEngine().setAutoCompleteInputInvalid(input));
-		}
-
 		public Setup setEntities(AjaxTestEntity...items) {
 
 			return setEntities(Arrays.asList(items));
@@ -1011,14 +1006,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertCalled(AjaxTestEntity value, int count) {
 
 			assertEquals(//
-				"Unexpected value for most recent callback.",
-				value,
-				changeCallback.getLastValue());
-
-			assertEquals(//
 				"Unexpected total number of callbacks.",
 				count,
 				changeCallback.getCount());
+
+			assertEquals(//
+				"Unexpected value for most recent callback.",
+				value,
+				changeCallback.getLastValue());
 		}
 	}
 
