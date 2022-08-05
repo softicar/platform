@@ -1,4 +1,4 @@
-package com.softicar.platform.ajax.image;
+package com.softicar.platform.dom;
 
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
@@ -6,15 +6,15 @@ import com.softicar.platform.common.io.resource.supplier.IResourceSupplierFactor
 import com.softicar.platform.dom.resource.supplier.DomResourceSupplierProxyFactory;
 
 /**
- * Provides icons for the AJAX framework.
+ * Provides images for the DOM framework.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
 @ResourceSupplierContainer
-public interface AjaxImages {
+public interface DomImages {
 
-	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(AjaxImages.class);
+	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(DomImages.class);
 
 	IResourceSupplier EMBLEM_AUTO_COMPLETE_GENERIC = FACTORY.create("emblem-auto-complete-generic.svg");
 	IResourceSupplier EMBLEM_AUTO_COMPLETE_NOT_OKAY = FACTORY.create("emblem-auto-complete-not-okay.svg");
