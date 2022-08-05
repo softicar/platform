@@ -25,6 +25,10 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	}
 }
 
+function setPreventDefaultOnMouseDown(element: HTMLElement, enabled: boolean) {
+	element.onmousedown = enabled? (event) => event.preventDefault() : null;
+}
+
 function setListenToKeys(element: HTMLElement, keys: string[]) {
 	KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }

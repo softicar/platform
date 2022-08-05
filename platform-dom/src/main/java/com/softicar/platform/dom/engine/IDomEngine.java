@@ -104,6 +104,8 @@ public interface IDomEngine {
 
 	void setPreventDefaultBehavior(IDomNode node, DomEventType type, boolean enabled);
 
+	void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled);
+
 	/**
 	 * Adds an event handler that stops propagation for the given
 	 * {@link IDomNode}, and the event with the given name (e.g.

@@ -571,6 +571,9 @@ function listenToDomEvent(nodeId, event, doListen) {
         default: alert('Unknown event ' + event + '.');
     }
 }
+function setPreventDefaultOnMouseDown(element, enabled) {
+    element.onmousedown = enabled ? (event) => event.preventDefault() : null;
+}
 function setListenToKeys(element, keys) {
     KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }
