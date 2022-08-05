@@ -10,12 +10,14 @@ import java.util.function.BiConsumer;
  */
 public enum DomEventType {
 
+	BLUR(IDomBlurEventHandler.class, IDomBlurEventHandler::handleBlur),
 	CHANGE(IDomChangeEventHandler.class, IDomChangeEventHandler::handleChange),
 	CLICK(IDomClickEventHandler.class, IDomClickEventHandler::handleClick),
 	CONTEXTMENU(IDomContextMenuEventHandler.class, IDomContextMenuEventHandler::handleContextMenu),
 	DBLCLICK(IDomDoubleClickEventHandler.class, IDomDoubleClickEventHandler::handleDoubleClick),
 	ESCAPE(IDomEscapeKeyEventHandler.class, IDomEscapeKeyEventHandler::handleEscapeKey),
 	ENTER(IDomEnterKeyEventHandler.class, IDomEnterKeyEventHandler::handleEnterKey),
+	FOCUS(IDomFocusEventHandler.class, IDomFocusEventHandler::handleFocus),
 	INPUT(IDomInputEventHandler.class, IDomInputEventHandler::handleInput),
 	KEYDOWN(IDomKeyDownEventHandler.class, IDomKeyDownEventHandler::handleKeyDown),
 	KEYUP(IDomKeyUpEventHandler.class, IDomKeyUpEventHandler::handleKeyUp),

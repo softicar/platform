@@ -529,6 +529,9 @@ function listenToDomEvent(nodeId, event, doListen) {
         return;
     let handler = doListen ? handleDomEvent : null;
     switch (event) {
+        case 'BLUR':
+            element.onblur = handler;
+            break;
         case 'CLICK':
             element.onclick = handler;
             break;
@@ -546,6 +549,9 @@ function listenToDomEvent(nodeId, event, doListen) {
             break;
         case 'ESCAPE':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
+            break;
+        case 'FOCUS':
+            element.onfocus = handler;
             break;
         case 'INPUT':
             element.oninput = handler;

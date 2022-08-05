@@ -8,12 +8,14 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 
 	switch(event)
 	{
+	case 'BLUR':        element.onblur = handler; break;
 	case 'CLICK':       element.onclick = handler; break;
 	case 'CHANGE':      CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen); break;
 	case 'CONTEXTMENU': element.oncontextmenu = doListen? (event => {handleDomEvent(event); event.preventDefault();}) : null; break;
 	case 'DBLCLICK':    element.ondblclick = handler; break;
 	case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'ESCAPE':      KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
+	case 'FOCUS':       element.onfocus = handler; break;
 	case 'INPUT':       element.oninput = handler; break;
 	case 'KEYDOWN':     KEYBOARD_EVENT_MANAGER.setListenToKeyDown(element, doListen); break;
 	case 'KEYUP':       KEYBOARD_EVENT_MANAGER.setListenToKeyUp(element, doListen); break;
