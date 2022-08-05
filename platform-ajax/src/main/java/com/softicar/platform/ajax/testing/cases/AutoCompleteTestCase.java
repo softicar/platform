@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.cases;
 
-import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -53,7 +53,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public MarkAsInvalidButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("mark as invalid"));
 			setClickCallback(this::handleClick);
 		}
@@ -68,7 +68,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public SetValueButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("set value..."));
 			setClickCallback(this::handleClick);
 		}
@@ -89,7 +89,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetValueMandatoryButton(boolean mandatory) {
 
 			this.mandatory = mandatory;
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("set mandatory: " + mandatory));
 			setClickCallback(this::handleClick);
 		}
@@ -107,7 +107,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetValidationModeButton(DomAutoCompleteInputValidationMode mode) {
 
 			this.mode = mode;
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("set validation mode: " + mode.name()));
 			setClickCallback(this::handleClick);
 		}
@@ -125,7 +125,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode mode) {
 
 			this.mode = mode;
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("set indicator mode: " + mode.name()));
 			setClickCallback(this::handleClick);
 		}
@@ -140,7 +140,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetSelectionValueButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("alert: value"));
 			setClickCallback(this::handleClick);
 		}
@@ -155,7 +155,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrNullButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrNull"));
 			setClickCallback(this::handleClick);
 		}
@@ -170,7 +170,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrEmptyButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrEmpty"));
 			setClickCallback(this::handleClick);
 		}
@@ -185,7 +185,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetRawValueStringButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("alert: rawValueString"));
 			setClickCallback(this::handleClick);
 		}
@@ -200,7 +200,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public FireAssertionButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("alert: assert"));
 			setClickCallback(this::handleClick);
 		}
@@ -219,7 +219,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetDisabledButton(boolean disabled) {
 
 			this.disabled = disabled;
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("set disabled: " + disabled));
 			setClickCallback(this::handleClick);
 		}

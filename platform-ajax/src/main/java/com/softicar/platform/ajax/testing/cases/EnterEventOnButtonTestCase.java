@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.cases;
 
-import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
@@ -54,7 +54,7 @@ public class EnterEventOnButtonTestCase extends AbstractTestCaseDiv {
 
 		public IconButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setClickCallback(this::handleClick);
 		}
 
@@ -68,7 +68,7 @@ public class EnterEventOnButtonTestCase extends AbstractTestCaseDiv {
 
 		public IconAndTextButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("Press enter on me."));
 			setClickCallback(this::handleClick);
 		}

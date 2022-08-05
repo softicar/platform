@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.testing.cases.entity;
 
-import com.softicar.platform.ajax.image.AjaxImages;
 import com.softicar.platform.ajax.testing.cases.AbstractTestCaseDiv;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
@@ -45,7 +45,7 @@ public class AutoCompleteEntityTestCase extends AbstractTestCaseDiv {
 
 		public GetValueButton() {
 
-			setIcon(AjaxImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
 			setLabel(IDisplayString.create("get value and show alert"));
 			setClickCallback(this::handleClick);
 		}
