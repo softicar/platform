@@ -286,6 +286,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled) {
+
+		JS_call("setPreventDefaultOnMouseDown", node, enabled);
+	}
+
+	@Override
 	public void setCssClassOnKeyDown(IDomNode eventTarget, DomEventType eventType, IDomNode cssTargetNode, Collection<ICssClass> cssClasses) {
 
 		cssClasses.forEach(ICssClass::beforeUse);

@@ -270,6 +270,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setReloadPageOnClick(IDomNode node) {
 
 		// nothing to do

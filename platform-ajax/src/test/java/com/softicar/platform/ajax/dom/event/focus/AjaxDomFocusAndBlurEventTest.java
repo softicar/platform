@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.dom.element.DomElement;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomBlurEventHandler;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
@@ -29,20 +30,51 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 	@Test
 	public void test() {
 
-		click(testDiv.input1);
-		send(testDiv.input1, "hello");
-		click(testDiv.input2);
-		waitForServer();
+		clickFirstInputAndEnterTextAndThenClickSecondInput("foo");
 
 		assertEquals("event count", 6, events.size());
-
 		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
 		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
 		assertEvent(events.get(2), testDiv.input1, DomEventType.CHANGE);
 		assertEvent(events.get(3), testDiv.input1, DomEventType.BLUR);
-
 		assertEvent(events.get(4), testDiv.input2, DomEventType.FOCUS);
 		assertEvent(events.get(5), testDiv.input2, DomEventType.CLICK);
+	}
+
+	@Test
+	public void testWithPreventDefaultOnMouseDown() {
+
+		// prevent default behavior for mouse down on second input
+		click(testDiv.preventButton);
+		clickFirstInputAndEnterTextAndThenClickSecondInput("foo");
+
+		// assert no focus change happened
+		assertEquals("event count", 3, events.size());
+		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
+		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
+		assertEvent(events.get(2), testDiv.input2, DomEventType.CLICK);
+
+		// reset default behavior for mouse down on second input
+		click(testDiv.resetButton);
+		events.clear();
+		clickFirstInputAndEnterTextAndThenClickSecondInput("bar");
+
+		// assert normal event sequence
+		assertEquals("event count", 6, events.size());
+		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
+		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
+		assertEvent(events.get(2), testDiv.input1, DomEventType.CHANGE);
+		assertEvent(events.get(3), testDiv.input1, DomEventType.BLUR);
+		assertEvent(events.get(4), testDiv.input2, DomEventType.FOCUS);
+		assertEvent(events.get(5), testDiv.input2, DomEventType.CLICK);
+	}
+
+	private void clickFirstInputAndEnterTextAndThenClickSecondInput(String text) {
+
+		click(testDiv.input1);
+		send(testDiv.input1, text);
+		click(testDiv.input2);
+		waitForServer();
 	}
 
 	private void assertEvent(IDomEvent event, IDomNode expectedNode, DomEventType expectedType) {
@@ -55,14 +87,24 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 
 		public final TestInput input1;
 		public final TestInput input2;
+		public final DomButton preventButton;
+		public final DomButton resetButton;
 
 		public TestDiv() {
 
 			this.input1 = new TestInput();
 			this.input2 = new TestInput();
+			this.preventButton = new DomButton()//
+				.setLabel("Prevent")
+				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, true));
+			this.resetButton = new DomButton()//
+				.setLabel("Reset")
+				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, false));
 
 			appendChild(input1);
 			appendChild(input2);
+			appendChild(preventButton);
+			appendChild(resetButton);
 		}
 	}
 
