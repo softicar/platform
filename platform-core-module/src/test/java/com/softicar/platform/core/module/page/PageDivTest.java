@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.page;
 import com.softicar.platform.ajax.document.AjaxDocumentParameters;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
@@ -20,6 +21,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 
 	public PageDivTest() {
 
+		insertPermissionAssignment(testUser, CorePermissions.SYSTEM_ADMINISTRATION);
 		setNodeSupplier(() -> new PageDiv(new AjaxDocumentParameters(new TreeMap<>())));
 	}
 
@@ -50,15 +52,14 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		assertLinksPresent(//
 			"Email",
 			"Events",
-			"Logging",
 			"Modules",
 			"Programs",
 			"Server",
 			"Stored File",
 			"Test Page",
 			"Users");
-		clickFolderLink("Logging");
-		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
+		clickFolderLink("Events");
+		assertEventsFolderLinksPresent();
 	}
 
 	@Test
@@ -93,8 +94,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		clickFolderLink("Email");
 		assertLinkPresent("Buffered Emails");
 
-		clickFolderLink("Logging");
-		assertLinksPresent("Current Panic Entries", "Log Messages", "Log View");
+		clickFolderLink("Events");
+		assertEventsFolderLinksPresent();
 		assertNoLinkPresent("Buffered Emails");
 	}
 
@@ -109,14 +110,14 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		clickFolderLink("Email");
 		assertLinkPresent("Buffered Emails");
 
-		clickFolderLink("Logging");
-		assertLinksPresent("Buffered Emails", "Current Panic Entries", "Log Messages", "Log View");
+		clickFolderLink("Events");
+		assertEventsFolderLinksPresent();
 
 		clickFolderLink("[System]");
 		assertNoLinkPresent("Core");
 
 		clickFolderLink("[System]");
-		assertLinksPresent("Buffered Emails", "Current Panic Entries", "Log Messages", "Log View");
+		assertEventsFolderLinksPresent();
 	}
 
 	@Test
@@ -170,5 +171,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		DomNodeTester contentDivTester = findPageNode(PageNavigationMarker.PAGE_CONTENT_DIV).assertOne();
 		contentDivTester.assertContainsText(TestPage.CONTENT_STRING);
 		assertTrue(engine.getCurrentUrl().contains("page=" + TestPage.UUID));
+	}
+
+	private void assertEventsFolderLinksPresent() {
+
+		assertLinksPresent("AJAX Exceptions", "Current Panic Entries", "Log Messages", "Log View", "System Events");
 	}
 }
