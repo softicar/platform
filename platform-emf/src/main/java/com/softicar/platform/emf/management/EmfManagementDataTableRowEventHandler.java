@@ -6,7 +6,7 @@ import com.softicar.platform.emf.data.table.IEmfDataTableRowEventHandler;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>, P> implements IEmfDataTableRowEventHandler<R> {
+public class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>, P> implements IEmfDataTableRowEventHandler<R> {
 
 	@Override
 	public void handleEvent(R row) {
