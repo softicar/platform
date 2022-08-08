@@ -99,6 +99,11 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 		return this;
 	}
 
+	public AbstractDomNodeTester<N> setInputValue(IDisplayString text) {
+
+		return setInputValue(text.toString());
+	}
+
 	public AbstractDomNodeTester<N> setInputValue(String text) {
 
 		var input = findNodes()//
