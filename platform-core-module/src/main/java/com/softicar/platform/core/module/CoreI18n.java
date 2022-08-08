@@ -440,8 +440,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Geloggt am");
 	I18n0 LOGGED_BY = new I18n0("Logged By")//
 		.de("Geloggt von");
-	I18n0 LOGGING = new I18n0("Logging")//
-		.de("Logging");
 	I18n0 LOGIN = new I18n0("Login")//
 		.de("Login");
 	I18n0 LOGIN_AT = new I18n0("Login At")//
