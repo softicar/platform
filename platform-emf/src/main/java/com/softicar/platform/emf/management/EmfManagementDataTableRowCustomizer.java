@@ -5,7 +5,7 @@ import com.softicar.platform.emf.data.table.IEmfDataTableRow;
 import com.softicar.platform.emf.data.table.IEmfDataTableRowCustomizer;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-class EmfManagementDataTableRowCustomizer<R extends IEmfTableRow<R, P>, P> implements IEmfDataTableRowCustomizer<R> {
+public class EmfManagementDataTableRowCustomizer<R extends IEmfTableRow<R, P>, P> implements IEmfDataTableRowCustomizer<R> {
 
 	@Override
 	public void customizeRow(IEmfDataTableRow<R> tableRow) {
