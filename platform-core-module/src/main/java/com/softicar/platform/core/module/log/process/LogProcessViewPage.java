@@ -49,6 +49,6 @@ public class LogProcessViewPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return modulePath.append(CoreI18n.LOGGING);
+		return modulePath.append(CoreI18n.EVENTS);
 	}
 }
