@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
+import com.softicar.platform.emf.test.simple.authorization.EmfTestObjectAuthorizedUser;
 import com.softicar.platform.emf.token.parser.EmfTokenMatrixParserTest.TestObject;
 import org.junit.Test;
 
@@ -29,6 +30,7 @@ public class EmfEntityInputEngineTest extends AbstractEmfTest {
 		insertTestObject(1, "one");
 		insertTestObject(2, "two");
 		insertTestObject(3, "three");
+		EmfTestObjectAuthorizedUser.TABLE.createTable();
 
 		DbConnections.setProfiler(profiler);
 	}
@@ -64,13 +66,14 @@ public class EmfEntityInputEngineTest extends AbstractEmfTest {
 		assertDependentInputValue("two [2]");
 
 		// create and select new object and assert new load call
+		// theres a new third call to check the availability of the edit action
 		clickNewObjectButton();
-		assertLoadCalls(2);
+		assertLoadCalls(3);
 		assertDependentInputValue("new [42]");
 
 		// select object #1 and assert no additional load call
 		setObjectInputValue("1");
-		assertLoadCalls(2);
+		assertLoadCalls(3);
 		assertDependentInputValue("one [1]");
 	}
 
