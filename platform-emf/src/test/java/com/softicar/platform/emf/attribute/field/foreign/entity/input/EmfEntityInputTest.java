@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.edit.EmfEntityInputEditButton;
@@ -95,11 +96,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	@Test
 	public void testEditButtonWithoutEntity() {
 
-		try {
-			clickEditButton();
-		} catch (AssertionError error) {
-			assertEquals("Trying to send CLICK event to disabled node.", error.getLocalizedMessage());
-		}
+		assertTrue(findEditButton().isNodeDisabled());
 	}
 
 	@Test
@@ -118,11 +115,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 
 		openBrowsePopover();
 		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
-		try {
-			clickEditButton();
-		} catch (AssertionError error) {
-			assertEquals("Trying to send CLICK event to disabled node.", error.getLocalizedMessage());
-		}
+		assertTrue(findEditButton().isNodeDisabled());
 	}
 
 	private EmfEntityInput<EmfTestObject> getInput() {
@@ -153,11 +146,15 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 			.click();
 	}
 
+	private DomNodeTester findEditButton() {
+
+		return findBody()//
+			.findNode(EmfEntityInputEditButton.class);
+	}
+
 	private void clickEditButton() {
 
-		findBody()//
-			.findNode(EmfEntityInputEditButton.class)
-			.click();
+		findEditButton().click();
 	}
 
 	private void handleChangeCallback() {
