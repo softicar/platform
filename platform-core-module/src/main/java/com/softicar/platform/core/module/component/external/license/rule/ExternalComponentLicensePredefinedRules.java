@@ -40,6 +40,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/haraldk/TwelveMonkeys/blob/master/imageio/imageio-jpeg/license.txt
+		addLibrary("imageio-jpeg", ".*", License.BSD_3_CLAUSE);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/jai-imageio/jai-imageio-jpeg2000/blob/master/LICENSE-JJ2000.txt
 		addLibrary("jai-imageio-jpeg2000", ".*", License.JJ_2000);
 
