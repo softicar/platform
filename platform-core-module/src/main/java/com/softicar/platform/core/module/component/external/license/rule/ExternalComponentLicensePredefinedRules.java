@@ -41,7 +41,7 @@ public class ExternalComponentLicensePredefinedRules {
 		// Artifact does not contain license information.
 		// License defined at:
 		// https://github.com/haraldk/TwelveMonkeys/blob/master/imageio/imageio-jpeg/license.txt
-		addLibrary("imageio-jpeg", ".*", License.BSD_3_CLAUSE);
+		addLibrary("imageio-(jpeg|metadata|core)", ".*", License.BSD_3_CLAUSE);
 
 		// Artifact does not contain license information.
 		// License defined at:
