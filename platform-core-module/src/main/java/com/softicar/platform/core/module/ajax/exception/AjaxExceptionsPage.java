@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.ajax.exception.view;
+package com.softicar.platform.core.module.ajax.exception;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -14,7 +14,7 @@ import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.permission.IEmfPermission;
 
 @SourceCodeReferencePointUuid("4e150ab4-bf63-41f9-9127-506a403e42c1")
-public class AjaxExceptionsViewPage implements IEmfPage<AGCoreModuleInstance> {
+public class AjaxExceptionsPage implements IEmfPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -37,7 +37,7 @@ public class AjaxExceptionsViewPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
-		return new AjaxExceptionsViewDiv();
+		return new AjaxExceptionsDiv();
 	}
 
 	@Override

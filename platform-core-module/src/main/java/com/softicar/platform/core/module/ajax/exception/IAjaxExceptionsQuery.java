@@ -1,8 +1,7 @@
-package com.softicar.platform.core.module.ajax.exception.view;
+package com.softicar.platform.core.module.ajax.exception;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.ajax.exception.AGAjaxException;
 import com.softicar.platform.core.module.ajax.session.AGAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.core.DbResultSet;
@@ -25,7 +24,7 @@ import java.util.List;
 
 @Generated
 @SuppressWarnings("all")
-public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuery.IRow> {
+public interface IAjaxExceptionsQuery extends IDbQuery<IAjaxExceptionsQuery.IRow> {
 
 	// -------------------------------- CONSTANTS -------------------------------- //
 
@@ -51,12 +50,7 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 
 	interface IFactory extends IDbQueryFactory<IRow> {
 
-		IIgnoreSofticarExSetter createQuery();
-	}
-
-	interface IIgnoreSofticarExSetter {
-
-		IAjaxExceptionViewQuery setIgnoreSofticarEx(Boolean ignoreSofticarEx);
+		IAjaxExceptionsQuery createQuery();
 	}
 
 	// -------------------------------- IMPLEMENTATION -------------------------------- //
@@ -78,9 +72,9 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 			}
 
 			@Override
-			public IIgnoreSofticarExSetter createQuery() {
+			public IAjaxExceptionsQuery createQuery() {
 
-				return new Query().new IgnoreSofticarExSetter();
+				return new Query();
 			}
 
 			@Override
@@ -90,14 +84,7 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 			}
 		}
 
-		private static class Parameters {
-
-			private Boolean ignoreSofticarEx;
-		}
-
-		private static class Query extends AbstractDbQuery<IRow> implements IAjaxExceptionViewQuery {
-
-			private final Parameters parameters = new Parameters();
+		private static class Query extends AbstractDbQuery<IRow> implements IAjaxExceptionsQuery {
 
 			@Override
 			public IRow createRow(IDbSqlSelect select, DbResultSet resultSet) {
@@ -115,16 +102,6 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 			public QuerySqlBuilder createSqlBuilder() {
 
 				return new QuerySqlBuilder();
-			}
-
-			public class IgnoreSofticarExSetter implements IIgnoreSofticarExSetter {
-
-				@Override
-				public final IAjaxExceptionViewQuery setIgnoreSofticarEx(Boolean ignoreSofticarEx) {
-
-					Query.this.parameters.ignoreSofticarEx = ignoreSofticarEx;
-					return Query.this;
-				}
 			}
 
 			private class QuerySqlBuilder extends AbstractDbQuerySqlBuilder {
@@ -157,14 +134,6 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 					addIdentifier(AGAjaxException.TABLE);
 					addToken(SqlKeyword.AS);
 					addIdentifier("exception");
-					if(parameters.ignoreSofticarEx) {
-						WHERE();
-						addIdentifier("exception", AGAjaxException.EXCEPTION_TYPE);
-						addToken(SqlKeyword.NOT);
-						addToken(SqlKeyword.LIKE);
-						addLiteral("%SofticarException%");
-					}
-
 					ORDER_BY();
 					addIdentifier("exception", AGAjaxException.ID);
 					addToken(SqlKeyword.DESC);
@@ -181,7 +150,7 @@ public interface IAjaxExceptionViewQuery extends IDbQuery<IAjaxExceptionViewQuer
 			private final AGAjaxException ajaxException;
 			private final AGAjaxSession session;
 
-			private Row(IAjaxExceptionViewQuery query, IDbSqlSelect select, DbResultSet resultSet) {
+			private Row(IAjaxExceptionsQuery query, IDbSqlSelect select, DbResultSet resultSet) {
 
 				super(query);
 
