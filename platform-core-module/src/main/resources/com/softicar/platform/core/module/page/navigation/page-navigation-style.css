@@ -110,6 +110,7 @@
 /* -------------------- PageNavigationLogoDiv -------------------- */
 
 .PageNavigationLogoDiv {
+	flex-direction: row;
 	align-content: center;
 	height: 50px;
 	padding: 5px 20px;
