@@ -30,6 +30,11 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
+		// https://github.com/haraldk/TwelveMonkeys/blob/master/LICENSE.txt
+		addLibrary("common-(lang|io|image)", ".*", License.BSD_3_CLAUSE);
+
+		// Artifact does not contain license information.
+		// License defined at:
 		// https://github.com/google/guava/blob/master/COPYING
 		addLibrary("listenablefuture", ".*", License.APACHE_2_0);
 
@@ -40,7 +45,7 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
-		// https://github.com/haraldk/TwelveMonkeys/blob/master/imageio/imageio-jpeg/license.txt
+		// https://github.com/haraldk/TwelveMonkeys/blob/master/LICENSE.txt
 		addLibrary("imageio-(jpeg|metadata|core)", ".*", License.BSD_3_CLAUSE);
 
 		// Artifact does not contain license information.
