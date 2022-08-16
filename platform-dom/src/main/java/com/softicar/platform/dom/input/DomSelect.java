@@ -14,9 +14,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Basic implementation of an Html select.
- * <p>
- * Note, this class should better be abstract.
+ * Basic implementation of an HTML select.
  *
  * @author Oliver Richers
  */
@@ -67,11 +65,13 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	}
 
 	/**
-	 * Returns the currently selected option object.
+	 * Returns the selected option.
 	 * <p>
-	 * If more than one option is selected, this throws an exception.
+	 * If no option is selected, <i>null</i> is returned.
+	 * <p>
+	 * If more than one option is selected, an {@link Exception} is thrown.
 	 *
-	 * @return selected option object or null if none selected
+	 * @return the selected option (may be <i>null</i>)
 	 */
 	public final O getSelectedOption() {
 
@@ -88,9 +88,9 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	}
 
 	/**
-	 * Returns all selected option objects.
+	 * Returns all selected options.
 	 *
-	 * @return collection of selected options
+	 * @return the selected options (never <i>null</i>)
 	 */
 	public final Collection<O> getSelectedOptions() {
 
@@ -98,10 +98,10 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	}
 
 	/**
-	 * Selects the specified option and un-selects all other options.
+	 * Selects the specified option, and un-selects all other options.
 	 *
 	 * @param option
-	 *            the option to be selected
+	 *            the option to select (never <i>null</i>)
 	 */
 	public final void setSelectedOption(O option) {
 
@@ -116,11 +116,10 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	 * Selects the specified options and un-selects all other options.
 	 *
 	 * @param selectedOptions
-	 *            a collection with all option to be selected
+	 *            the options to select (never <i>null</i>)
 	 */
 	public final void setSelectedOptions(Collection<O> selectedOptions) {
 
-		// reset selected options map
 		this.selectedOptions.clear();
 		for (O option: selectedOptions.stream().filter(Objects::nonNull).collect(Collectors.toList())) {
 			this.selectedOptions.put(option.getNodeId(), option);
@@ -138,14 +137,11 @@ public class DomSelect<O extends DomOption> extends DomParentElement implements 
 	@SuppressWarnings("unchecked")
 	public final void setSelectedOptions_noJS(String selectedOptions) {
 
-		// reset selected options map
 		this.selectedOptions.clear();
 		if (!selectedOptions.equals("")) {
 			for (String optionId: selectedOptions.split(",")) {
 				O option = (O) getDomDocument().getNode(optionId);
 				if (option == null) {
-					// Actually, it should not be possible that the selected option cannot be found,
-					// but i42633 and i48744 prove that it can.
 					throw new SofticarUserException(
 						DomI18n.THE_SELECTED_OPTION_ARG1_VANISHED//
 							.toDisplay(optionId)
