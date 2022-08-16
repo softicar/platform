@@ -4,13 +4,13 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupConfiguration;
 import com.softicar.platform.dom.elements.popup.modal.DomModalPopupBackdrop;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
@@ -776,7 +776,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup1Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CLOSE_ALL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CLOSE_ALL).click();
 
 		// assert result
 		assertNone(POPUP1);
@@ -804,7 +804,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup1Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CLOSE_PARENT_ONLY).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CLOSE_PARENT_ONLY).click();
 
 		// assert result
 		assertNone(POPUP1);
@@ -832,7 +832,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup1Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CANCEL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CANCEL).click();
 
 		// assert result
 		assertOne(POPUP1);
@@ -895,7 +895,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup2Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CLOSE_ALL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CLOSE_ALL).click();
 
 		// assert result
 		assertOne(POPUP1);
@@ -930,7 +930,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup2Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CANCEL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CANCEL).click();
 
 		// assert result
 		assertNone(POPUP1);
@@ -994,7 +994,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup2Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CLOSE_ALL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CLOSE_ALL).click();
 
 		// assert result
 		assertOne(POPUP1);
@@ -1029,7 +1029,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 		// execute
 		closePopup2Button.click();
-		findButton(DomPopupCompositorDialogMarker.BUTTON_CANCEL).click();
+		findButton(DomTestMarker.POPUP_COMPOSITOR_DIALOG_BUTTON_CANCEL).click();
 
 		// assert result
 		assertOne(POPUP1);
@@ -1070,8 +1070,8 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertOne(POPUP1);
 		assertNoBackdrop();
 		assertBodyText();
-		findNode(DomPopupMarker.FRAME_HEADER).assertContainsText("aaa");
-		findNode(DomPopupMarker.FRAME_HEADER).assertContainsText("bbb");
+		findNode(DomTestMarker.POPUP_FRAME_HEADER).assertContainsText("aaa");
+		findNode(DomTestMarker.POPUP_FRAME_HEADER).assertContainsText("bbb");
 		findBody().assertContainsText(TEST_TEXT);
 
 		// execute
@@ -1081,8 +1081,8 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertOne(POPUP1);
 		assertNoBackdrop();
 		assertBodyText();
-		findNode(DomPopupMarker.FRAME_HEADER).assertContainsText("xxx");
-		findNode(DomPopupMarker.FRAME_HEADER).assertContainsText("yyy");
+		findNode(DomTestMarker.POPUP_FRAME_HEADER).assertContainsText("xxx");
+		findNode(DomTestMarker.POPUP_FRAME_HEADER).assertContainsText("yyy");
 		findBody().assertContainsText(TEST_TEXT);
 	}
 
@@ -1105,24 +1105,24 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 	private void assertNoBackdrop() {
 
-		assertNone(DomPopupMarker.BACKDROP);
+		assertNone(DomTestMarker.POPUP_BACKDROP);
 	}
 
 	private void assertBackdrop() {
 
-		var backdrop = assertOne(DomPopupMarker.BACKDROP);
+		var backdrop = assertOne(DomTestMarker.POPUP_BACKDROP);
 		assertBackdropParent(backdrop, testDiv);
 	}
 
 	private void assertBackdropOnBody() {
 
-		var backdrop = assertOne(DomPopupMarker.BACKDROP);
+		var backdrop = assertOne(DomTestMarker.POPUP_BACKDROP);
 		assertBackdropParent(backdrop, CurrentDomDocument.get().getBody());
 	}
 
 	private void assertBackdrops(int count) {
 
-		assertCount(DomPopupMarker.BACKDROP, count).forEach(it -> assertBackdropParent(it, testDiv));
+		assertCount(DomTestMarker.POPUP_BACKDROP, count).forEach(it -> assertBackdropParent(it, testDiv));
 	}
 
 	private void assertBackdropParent(DomNodeTester backdropTester, IDomNode expectedParent) {
@@ -1136,7 +1136,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 	private void assertBackdrops(Boolean...visible) {
 
-		List<DomModalPopupBackdrop> backdrops = assertCount(DomPopupMarker.BACKDROP, visible.length)//
+		List<DomModalPopupBackdrop> backdrops = assertCount(DomTestMarker.POPUP_BACKDROP, visible.length)//
 			.stream()
 			.map(DomNodeTester::getNode)
 			.map(DomModalPopupBackdrop.class::cast)
@@ -1196,12 +1196,12 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 	private IDomNode findBackdrop() {
 
-		return findNodes(DomPopupMarker.BACKDROP).assertOne().getNode();
+		return findNodes(DomTestMarker.POPUP_BACKDROP).assertOne().getNode();
 	}
 
 	private List<IDomNode> findBackdrops() {
 
-		return findNodes(DomPopupMarker.BACKDROP).toList().stream().map(DomNodeTester::getNode).collect(Collectors.toList());
+		return findNodes(DomTestMarker.POPUP_BACKDROP).toList().stream().map(DomNodeTester::getNode).collect(Collectors.toList());
 	}
 
 	private int getZIndex(IDomNode node) {

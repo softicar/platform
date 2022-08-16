@@ -15,6 +15,7 @@ import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.IEmfDataTableController;
 
@@ -42,7 +43,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 		appendActionNode(new ApplyButton());
 		appendActionNode(new ResetButton());
-		appendCancelButton().addMarker(EmfDataTableConfigurationMarker.CANCEL_BUTTON);
+		appendCancelButton().addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_CANCEL_BUTTON);
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_CONFIGURATION_POPUP);
 	}
 
@@ -69,7 +70,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			this.input = new DomListeningTextInput(() -> applyAndHide());
 			this.input.setValue("" + controller.getPageSize());
-			this.input.addMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_INPUT);
+			this.input.addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT);
 
 			addCssClass(EmfCssClasses.EMF_DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT);
 			appendText(EmfDataTableI18n.ROWS_PER_PAGE.concatColon());
@@ -95,7 +96,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 				setIcon(DomElementsImages.TABLE_SHOW_ALL_ROWS.getResource());
 				setLabel(DomI18n.ALL);
 				setClickCallback(this::handleClick);
-				addMarker(EmfDataTableConfigurationMarker.PAGE_SIZE_ALL_BUTTON);
+				addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_PAGE_SIZE_ALL_BUTTON);
 			}
 
 			private void handleClick() {
@@ -112,7 +113,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setLabel(EmfDataTableI18n.APPLY);
-			addMarker(EmfDataTableConfigurationMarker.APPLY_BUTTON);
+			addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_APPLY_BUTTON);
 			setClickCallback(this::handleClick);
 		}
 
@@ -128,7 +129,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			setLabel(EmfDataTableI18n.RESET);
 			setIcon(EmfImages.RESET.getResource());
-			addMarker(EmfDataTableConfigurationMarker.RESET_BUTTON);
+			addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_RESET_BUTTON);
 			setClickCallback(this::handleClick);
 		}
 

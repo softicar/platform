@@ -5,8 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.supplier.LazySupplier;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.IDomNodeTesterFindMethods;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
-import com.softicar.platform.emf.data.table.configuration.EmfDataTableConfigurationMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Assert;
@@ -28,7 +27,7 @@ public class EmfDataTableConfigurationPopupAsserter {
 
 	public EmfDataTableConfigurationPopupAsserter assertPageSize(String expected) {
 
-		methods.findInput(EmfDataTableConfigurationMarker.PAGE_SIZE_INPUT).assertInputValue(expected);
+		methods.findInput(EmfTestMarker.DATA_TABLE_CONFIGURATION_PAGE_SIZE_INPUT).assertInputValue(expected);
 		return this;
 	}
 
@@ -41,16 +40,16 @@ public class EmfDataTableConfigurationPopupAsserter {
 
 		this.row = rows.get().get(index);
 		row//
-			.findCheckbox(EmfDataTableDivMarker.ROW_SELECTION_CHECKBOX)
+			.findCheckbox(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX)
 			.assertChecked(checked);
 		row//
-			.findNode(EmfDataTableConfigurationMarker.TITLE_CELL)
+			.findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_TITLE_CELL)
 			.assertContainsText(title);
 		row//
-			.findSelect(EmfDataTableConfigurationMarker.ORDER_DIRECTION_SELECT)
+			.findSelect(EmfTestMarker.DATA_TABLE_CONFIGURATION_ORDER_DIRECTION_SELECT)
 			.assertSelected(Optional.ofNullable(direction).map(OrderDirection::toDisplay).map(IDisplayString::toString).orElse("-"));
 		row//
-			.findSelect(EmfDataTableConfigurationMarker.ORDER_PRIORITY_SELECT)
+			.findSelect(EmfTestMarker.DATA_TABLE_CONFIGURATION_ORDER_PRIORITY_SELECT)
 			.assertSelected(Optional.ofNullable(priority).map(String::valueOf).orElse("-"));
 		this.index++;
 		return this;
@@ -64,8 +63,8 @@ public class EmfDataTableConfigurationPopupAsserter {
 	private List<DomNodeTester> findRows() {
 
 		return methods
-			.findNode(EmfDataTableConfigurationMarker.TABLE_DIV)//
-			.findNodes(EmfDataTableDivMarker.BODY_ROW)
+			.findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE_DIV)//
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_ROW)
 			.assertSome();
 	}
 }

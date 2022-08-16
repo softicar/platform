@@ -6,7 +6,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiTypeFilterDiv;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
@@ -42,7 +42,7 @@ public class EmfDataTableEnumFilterNode<R, T extends Enum<T>> extends AbstractEm
 					.stream()
 					.filter(value -> value != null)
 					.collect(Collectors.toList()));
-		this.enumSelect.addMarker(EmfDataTableDivMarker.FILTER_INPUT_ENUM);
+		this.enumSelect.addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENUM);
 		refresh();
 	}
 

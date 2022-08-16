@@ -8,7 +8,7 @@ import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
 import com.softicar.platform.emf.test.tester.EmfFormPopupTester;
 import org.junit.Test;
@@ -113,7 +113,7 @@ public class StaleDemoInvoiceRefreshTest extends AbstractDemoInvoiceModuleTest {
 
 	private void assertStaleDataRefreshButton() {
 
-		this.refreshButton = formPopup.findNode(EmfMarker.INTERACTIVE_REFRESH_BUTTON);
+		this.refreshButton = formPopup.findNode(EmfTestMarker.FORM_INTERACTIVE_REFRESH_BUTTON);
 	}
 
 	private void clickRefreshButtonAndAssertRecentData() {

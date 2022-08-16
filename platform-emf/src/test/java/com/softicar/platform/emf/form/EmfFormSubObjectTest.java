@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.test.EmfTestSubObject;
@@ -82,7 +82,7 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 		EmfTestSubObject entity = showForm(new EmfTestSubObject());
 
 		// click save button without entering values
-		clickButton(EmfMarker.SAVE);
+		clickButton(EmfTestMarker.FORM_SAVE);
 
 		// verify entity
 		assertTrue(entity.impermanent());

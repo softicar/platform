@@ -11,7 +11,7 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.emf.matrix.EmfSettingMatrixMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import java.util.List;
 import org.junit.Ignore;
@@ -114,7 +114,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 
 		public Executor clickSelect() {
 
-			findNodes(EmfSettingMatrixMarker.ENTITY_SELECT_BUTTON)//
+			findNodes(EmfTestMarker.SETTING_MATRIX_ENTITY_SELECT_BUTTON)//
 				.first()
 				.click();
 			return this;
@@ -122,7 +122,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 
 		public Executor inputUser(AGUser user) {
 
-			findNode(EmfSettingMatrixMarker.ENTITY_INPUT)//
+			findNode(EmfTestMarker.SETTING_MATRIX_ENTITY_INPUT)//
 				.findNode(IDomTextualInput.class)
 				.setInputValue(user.toDisplay().toString());
 			return this;
@@ -139,7 +139,7 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 
 		public Executor clickSaveButton() {
 
-			findNodes(EmfSettingMatrixMarker.SAVE_BUTTON)//
+			findNodes(EmfTestMarker.SETTING_MATRIX_SAVE_BUTTON)//
 				.first()
 				.click();
 			return this;

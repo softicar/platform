@@ -1,11 +1,9 @@
 package com.softicar.platform.emf.data.table;
 
-
-
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.emf.data.table.row.selection.EmfTableRowSelectionMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -64,27 +62,27 @@ abstract class AbstractEmfDataTableRowSelectionTest extends AbstractEmfDataTable
 
 	protected void clickSelectAllOnCurrentPageButton() {
 
-		findButton(EmfTableRowSelectionMarker.BUTTON_SELECT_ALL_ON_CURRENT_PAGE).click();
+		findButton(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_ALL_ON_CURRENT_PAGE).click();
 	}
 
 	protected void clickSelectInvertCurrentPageButton() {
 
-		findButton(EmfTableRowSelectionMarker.BUTTON_SELECT_INVERT_CURRENT_PAGE).click();
+		findButton(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_INVERT_CURRENT_PAGE).click();
 	}
 
 	protected void clickUnselectAllOnCurrentPageButton() {
 
-		findButton(EmfTableRowSelectionMarker.BUTTON_UNSELECT_ALL_ON_CURRENT_PAGE).click();
+		findButton(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_ON_CURRENT_PAGE).click();
 	}
 
 	protected void clickUnselectAllPagesButton() {
 
-		findButton(EmfTableRowSelectionMarker.BUTTON_UNSELECT_ALL_PAGES).click();
+		findButton(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_PAGES).click();
 	}
 
 	protected void clickRowSelectionCells(int...rowIndexes) {
 
-		List<DomNodeTester> rowSelectionCells = findNodes(EmfDataTableDivMarker.ROW_SELECTION_CHECKBOX).toList();
+		List<DomNodeTester> rowSelectionCells = findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX).toList();
 		for (int rowIndex: rowIndexes) {
 			rowSelectionCells.get(rowIndex).click();
 		}
@@ -92,9 +90,9 @@ abstract class AbstractEmfDataTableRowSelectionTest extends AbstractEmfDataTable
 
 	private DomNodeTester getStatusTextElement() {
 
-		return findNodes(EmfTableRowSelectionMarker.CONTROL_ELEMENT)//
+		return findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CONTROL_ELEMENT)//
 			.assertOne()
-			.findNodes(EmfTableRowSelectionMarker.STATUS_TEXT_ELEMENT)
+			.findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_STATUS_TEXT_ELEMENT)
 			.assertOne();
 	}
 }

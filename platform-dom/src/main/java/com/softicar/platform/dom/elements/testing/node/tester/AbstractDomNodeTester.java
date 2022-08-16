@@ -73,9 +73,9 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 			throw new IllegalArgumentException("Expected a time string in the form '<hours>:<minutes>:<seconds>' but got: %s".formatted(timeString));
 		}
 		findNode(marker)//
-			.setInputValue(DomTestMarker.HOURS_INPUT, elements.get(0))
-			.setInputValue(DomTestMarker.MINUTES_INPUT, elements.get(1))
-			.setInputValue(DomTestMarker.SECONDS_INPUT, elements.get(2));
+			.setInputValue(DomTestMarker.TIME_INPUT_HOURS_INPUT, elements.get(0))
+			.setInputValue(DomTestMarker.TIME_INPUT_MINUTES_INPUT, elements.get(1))
+			.setInputValue(DomTestMarker.TIME_INPUT_SECONDS_INPUT, elements.get(2));
 		return this;
 	}
 

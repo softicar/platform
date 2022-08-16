@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.List;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class EmfDataTableFooterVisualizationTest extends AbstractEmfDataTableExt
 
 		setup(builder);
 
-		tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertNone();
+		tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertNone();
 	}
 
 	@Test
@@ -21,7 +22,7 @@ public class EmfDataTableFooterVisualizationTest extends AbstractEmfDataTableExt
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
 	}
 
@@ -40,7 +41,7 @@ public class EmfDataTableFooterVisualizationTest extends AbstractEmfDataTableExt
 
 		setup(builder);
 
-		List<DomNodeTester> footerRows = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertSize(2);
+		List<DomNodeTester> footerRows = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertSize(2);
 
 		assertTotalColspan(footerRows.get(0), getDataTable().getTableColumns().size());
 		footerRows.get(0).assertContainsText(UPPER);

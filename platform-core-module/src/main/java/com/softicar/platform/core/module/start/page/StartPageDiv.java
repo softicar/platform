@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.start.page;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventPage;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
@@ -33,7 +34,7 @@ class StartPageDiv extends DomDiv {
 		addUserImpersonationTerminationSection(sections);
 		appendSectionsSeparatedByHr(sections);
 
-		addMarker(StartPageMarker.MAIN_ELEMENT);
+		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 	}
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {

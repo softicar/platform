@@ -4,6 +4,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -38,7 +39,7 @@ class EmfManagementActionColumnHandler<R extends IEmfTableRow<R, P>, P> implemen
 
 		public ActionsPopoverButton(R tableRow) {
 
-			addMarker(EmfManagementMarker.ACTIONS_POPOVER_BUTTON);
+			addMarker(EmfTestMarker.MANAGEMENT_TABLE_ACTIONS_POPOVER_BUTTON);
 			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_BUTTON);
 			setIcon(EmfImages.MANAGEMENT_ACTIONS.getResource());
 			setTitle(EmfI18n.ACTIONS);

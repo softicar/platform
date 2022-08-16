@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 	public void testWithoutConfiguration() {
 
 		setup(builder);
-		tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertNone();
+		tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertNone();
 	}
 
 	@Test
@@ -27,7 +27,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
 	}
 
@@ -39,7 +39,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size() + 1);
 	}
 
@@ -53,7 +53,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size() + 1);
 	}
 
@@ -68,7 +68,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size() + 1);
 	}
 
@@ -87,7 +87,7 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		List<DomNodeTester> headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertSize(2);
+		List<DomNodeTester> headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertSize(2);
 
 		assertTotalColspan(headerRow.get(0), getDataTable().getTableColumns().size());
 		headerRow.get(0).assertContainsText("upper");
@@ -106,9 +106,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), null, 9);
 	}
@@ -125,9 +125,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), FOO, 2);
 		assertCell(headerCells.get(1), null, 8);
 	}
@@ -142,9 +142,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), null, 1);
 		assertCell(headerCells.get(1), FOO, 1);
 		assertCell(headerCells.get(2), null, 8);
@@ -160,9 +160,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), null, 2);
 		assertCell(headerCells.get(1), FOO, 1);
 		assertCell(headerCells.get(2), null, 7);
@@ -178,9 +178,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), null, 9);
 		assertCell(headerCells.get(1), FOO, 1);
 	}
@@ -197,9 +197,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), null, 8);
 		assertCell(headerCells.get(1), FOO, 2);
 	}
@@ -214,9 +214,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), null, 8);
 		assertCell(headerCells.get(1), FOO, 1);
 		assertCell(headerCells.get(2), null, 1);
@@ -232,9 +232,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), null, 7);
 		assertCell(headerCells.get(1), FOO, 1);
 		assertCell(headerCells.get(2), null, 2);
@@ -252,9 +252,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(4);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(4);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), null, 1);
 		assertCell(headerCells.get(2), BAR, 1);
@@ -273,9 +273,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(4);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(4);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), null, 2);
 		assertCell(headerCells.get(2), BAR, 1);
@@ -296,9 +296,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getVisibleColumns(tableDiv).size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), FOO, 2);
 		assertCell(headerCells.get(1), null, 7);
 	}
@@ -317,9 +317,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size() - 1);
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), FOO, 2);
 		assertCell(headerCells.get(1), null, 7);
 	}
@@ -338,9 +338,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size() - 2);
-		headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertOne();
+		headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertOne();
 	}
 
 	@Test
@@ -360,9 +360,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), FOO, 2);
 		assertCell(headerCells.get(1), BAR, 2);
 		assertCell(headerCells.get(2), null, 6);
@@ -381,9 +381,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(4);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(4);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), null, 1);
 		assertCell(headerCells.get(2), FOO, 2);
@@ -402,9 +402,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(3);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(3);
 		assertCell(headerCells.get(0), FOO, 2);
 		assertCell(headerCells.get(1), FOO, 2);
 		assertCell(headerCells.get(2), null, 6);
@@ -422,9 +422,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(5);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(5);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), BAR, 1);
 		assertCell(headerCells.get(2), FOO, 1);
@@ -451,9 +451,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 		tableDiv.setCurrentPage(1);
 
 		assertEquals(1, tableDiv.getCurrentPage());
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(2);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(2);
 		assertCell(headerCells.get(0), FOO, 1);
 		assertCell(headerCells.get(1), null, 9);
 	}
@@ -476,9 +476,9 @@ public class EmfDataTableSecondaryHeaderVisualizationTest extends AbstractEmfDat
 
 		setup(builder);
 
-		DomNodeTester headerRow = tableDivNode.findNodes(EmfDataTableDivMarker.EXTRA_ROW).assertOne();
+		DomNodeTester headerRow = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW).assertOne();
 		assertTotalColspan(headerRow, getDataTable().getTableColumns().size());
-		List<DomNodeTester> headerCells = headerRow.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL).assertSize(7);
+		List<DomNodeTester> headerCells = headerRow.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL).assertSize(7);
 		assertCell(headerCells.get(0), null, 1);
 		assertCell(headerCells.get(1), FOO, 1);
 		assertCell(headerCells.get(2), null, 1);

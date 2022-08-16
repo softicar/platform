@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.data.table;
 
-import com.softicar.platform.emf.data.table.row.selection.EmfTableRowSelectionMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -84,6 +84,6 @@ public class EmfDataTableMultiRowSelectionSinglePageTest extends AbstractEmfData
 	@Test
 	public void testNoUnselectAllPagesButton() {
 
-		findNodes(EmfTableRowSelectionMarker.BUTTON_UNSELECT_ALL_PAGES).assertNone();
+		findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_PAGES).assertNone();
 	}
 }

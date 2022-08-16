@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.DomTBody;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -76,8 +77,8 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		updateDay(null);
 
 		List<DomNodeTester> feedItems = findBody()//
-			.findNode(EmfLogMarker.FEED_MAIN)
-			.findNodes(EmfLogMarker.FEED_ITEM)
+			.findNode(EmfTestMarker.LOG_FEED_MAIN)
+			.findNodes(EmfTestMarker.LOG_FEED_ITEM)
 			.assertSize(3);
 		feedItems//
 			.get(0)
@@ -110,7 +111,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		updateDay(null);
 
 		List<DomNodeTester> popupButtons = findBody()//
-			.findNodes(EmfLogMarker.FEED_ITEM_POPUP_BUTTON)
+			.findNodes(EmfTestMarker.LOG_FEED_ITEM_POPUP_BUTTON)
 			.assertSize(3);
 
 		popupButtons.get(0).click();
@@ -174,8 +175,8 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		updateDayAndValue(null, null);
 
 		List<DomNodeTester> feedItems = findBody()//
-			.findNode(EmfLogMarker.FEED_MAIN)
-			.findNodes(EmfLogMarker.FEED_ITEM)
+			.findNode(EmfTestMarker.LOG_FEED_MAIN)
+			.findNodes(EmfTestMarker.LOG_FEED_ITEM)
 			.assertSize(3);
 		feedItems//
 			.get(0)
@@ -217,7 +218,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		updateDayAndValue(null, null);
 
 		List<DomNodeTester> popupButtons = findBody()//
-			.findNodes(EmfLogMarker.FEED_ITEM_POPUP_BUTTON)
+			.findNodes(EmfTestMarker.LOG_FEED_ITEM_POPUP_BUTTON)
 			.assertSize(3);
 
 		popupButtons.get(0).click();
@@ -281,7 +282,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 
 		initializeWithDefaultSimpleEntityUnlogged();
 
-		findBody().findNode(EmfLogMarker.FEED_MAIN);
+		findBody().findNode(EmfTestMarker.LOG_FEED_MAIN);
 	}
 
 	@Test
@@ -290,7 +291,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		initializeWithDefaultSimpleEntityUnlogged();
 
 		findBody()//
-			.findNode(EmfLogMarker.FEED_MAIN)
+			.findNode(EmfTestMarker.LOG_FEED_MAIN)
 			.assertContainsText(EmfDataTableI18n.NO_ENTRIES_FOUND);
 	}
 
@@ -302,7 +303,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 		clickTableTab();
 
 		findBody()//
-			.findNode(EmfLogMarker.TABLE_MAIN)
+			.findNode(EmfTestMarker.LOG_TABLE_MAIN)
 			.assertContainsText(EmfDataTableI18n.NO_ENTRIES_FOUND);
 	}
 
@@ -377,7 +378,7 @@ public class EmfLogDivTest extends AbstractEmfTest {
 
 	private void clickTableTab() {
 
-		findBody().clickNode(EmfLogMarker.TABLE_TAB);
+		findBody().clickNode(EmfTestMarker.LOG_TABLE_TAB);
 	}
 
 	private void clickCloseSinglePopup() {

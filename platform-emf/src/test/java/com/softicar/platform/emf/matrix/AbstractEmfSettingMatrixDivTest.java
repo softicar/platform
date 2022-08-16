@@ -8,6 +8,7 @@ import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.matrix.dimension.IEmfSettingMatrixDimensionStrategy;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -158,7 +159,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction enterRowFilterText(String text) {
 
 			findBody()//
-				.findInput(EmfSettingMatrixMarker.ROW_FILTER_INPUT)
+				.findInput(EmfTestMarker.SETTING_MATRIX_ROW_FILTER_INPUT)
 				.setInputValue(text);
 			return this;
 		}
@@ -166,7 +167,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction enterColumnFilterText(String text) {
 
 			findBody()//
-				.findInput(EmfSettingMatrixMarker.COLUMN_FILTER_INPUT)
+				.findInput(EmfTestMarker.SETTING_MATRIX_COLUMN_FILTER_INPUT)
 				.setInputValue(text);
 			return this;
 		}
@@ -174,7 +175,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction clickFlipCheckbox() {
 
 			findBody()//
-				.findNode(EmfSettingMatrixMarker.FLIP_CHECKBOX)
+				.findNode(EmfTestMarker.SETTING_MATRIX_FLIP_CHECKBOX)
 				.click();
 			return this;
 		}
@@ -182,7 +183,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction clickApply() {
 
 			findBody()//
-				.findNode(EmfSettingMatrixMarker.APPLY_BUTTON)
+				.findNode(EmfTestMarker.SETTING_MATRIX_APPLY_BUTTON)
 				.click();
 			return this;
 		}
@@ -200,7 +201,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction clickSaveButton() {
 
 			findBody()//
-				.findNodes(EmfSettingMatrixMarker.SAVE_BUTTON)
+				.findNodes(EmfTestMarker.SETTING_MATRIX_SAVE_BUTTON)
 				.first()
 				.click();
 			return this;
@@ -209,7 +210,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 		public Interaction clickReloadButton() {
 
 			findBody()//
-				.findNodes(EmfSettingMatrixMarker.RELOAD_BUTTON)
+				.findNodes(EmfTestMarker.SETTING_MATRIX_RELOAD_BUTTON)
 				.first()
 				.click();
 			return this;
@@ -220,19 +221,19 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 
 		public Asserter assertRowNames(String...rowNames) {
 
-			assertTexts("row", EmfSettingMatrixMarker.ROW_NAME_CELL, rowNames);
+			assertTexts("row", EmfTestMarker.SETTING_MATRIX_ROW_NAME_CELL, rowNames);
 			return this;
 		}
 
 		public Asserter assertColumnNames(String...columnNames) {
 
-			assertTexts("column", EmfSettingMatrixMarker.COLUMN_NAME_CELL, columnNames);
+			assertTexts("column", EmfTestMarker.SETTING_MATRIX_COLUMN_NAME_CELL, columnNames);
 			return this;
 		}
 
 		public Asserter assertDummyRow() {
 
-			findBody().findNode(EmfSettingMatrixMarker.DUMMY_CELL);
+			findBody().findNode(EmfTestMarker.SETTING_MATRIX_DUMMY_CELL);
 			return this;
 		}
 

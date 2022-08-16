@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.IEmfCommonAction;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -28,7 +29,7 @@ class EmfFormCommonActionsDiv<R extends IEmfTableRow<R, ?>> extends DomActionBar
 		this.tableRow = formBody.getTableRow();
 
 		addCssClass(EmfCssClasses.EMF_FORM_COMMON_ACTIONS_DIV);
-		addMarker(EmfFormMarker.COMMON_ACTIONS_DIV);
+		addMarker(EmfTestMarker.FORM_COMMON_ACTIONS_DIV);
 		integrateActions();
 	}
 

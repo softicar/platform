@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -42,13 +43,13 @@ public class DomModalDialog extends DomPopup {
 	public DomModalDialog() {
 
 		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
-		addMarker(DomModalDialogMarker.POPUP);
+		addMarker(DomTestMarker.MODAL_DIALOG_POPUP);
 
 		this.contentContainer = appendChild(new Content());
 
 		this.configuration.setPositionStrategyByViewportCenter(CssPercent._50, CssPercent._25);
 		this.configuration.setDisplayModeDialog();
-		this.configuration.addFrameMarker(DomModalDialogMarker.FRAME);
+		this.configuration.addFrameMarker(DomTestMarker.MODAL_DIALOG_FRAME);
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class DomModalDialog extends DomPopup {
 		public Content() {
 
 			addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_CONTENT);
-			addMarker(DomModalDialogMarker.CONTENT);
+			addMarker(DomTestMarker.MODAL_DIALOG_CONTENT);
 		}
 	}
 }

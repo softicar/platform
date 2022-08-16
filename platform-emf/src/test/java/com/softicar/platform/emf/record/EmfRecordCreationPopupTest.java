@@ -5,7 +5,7 @@ import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.AbstractEmfTest;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.EmfTestScope;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
@@ -63,14 +63,14 @@ public class EmfRecordCreationPopupTest extends AbstractEmfTest {
 
 		DomNodeTester creationPopup = findBody().findNode(EmfRecordCreationPopup.class);
 		creationPopup.setInputValue(EmfTestRecordWithObjectPk.OBJECT, object.toDisplay().toString());
-		creationPopup.clickNode(EmfMarker.NEXT);
+		creationPopup.clickNode(EmfTestMarker.FORM_CREATE_NEXT);
 	}
 
 	private void inputValueAndClickSaveAndClose(Integer value) {
 
 		DomNodeTester formPopup = findBody().findNode(EmfFormPopup.class);
 		formPopup.setInputValue(EmfTestRecordWithObjectPk.VALUE, "" + value);
-		formPopup.clickNode(EmfMarker.SAVE_AND_CLOSE);
+		formPopup.clickNode(EmfTestMarker.FORM_SAVE_AND_CLOSE);
 	}
 
 	private static class TestDiv extends DomDiv {

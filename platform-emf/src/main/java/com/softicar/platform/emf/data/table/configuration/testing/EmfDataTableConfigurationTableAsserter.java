@@ -5,7 +5,7 @@ import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.tester.IDomNodeTesterFindMethods;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableOrdering;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
 import java.util.Arrays;
@@ -28,8 +28,8 @@ public class EmfDataTableConfigurationTableAsserter {
 	public EmfDataTableConfigurationTableAsserter assertRows(int expected) {
 
 		methods//
-			.findNode(EmfDataTableDivMarker.TABLE, tableMarker)
-			.findNodes(EmfDataTableDivMarker.BODY_ROW)
+			.findNode(EmfTestMarker.DATA_TABLE, tableMarker)
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_ROW)
 			.assertSize(expected);
 		return this;
 	}
@@ -87,7 +87,7 @@ public class EmfDataTableConfigurationTableAsserter {
 	private IEmfDataTable<?> getEmfDataTable() {
 
 		return methods//
-			.findNode(EmfDataTableDivMarker.TABLE, tableMarker)
+			.findNode(EmfTestMarker.DATA_TABLE, tableMarker)
 			.getNode(IEmfDataTable.class);
 	}
 }
