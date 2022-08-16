@@ -8,19 +8,17 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssColorEnum;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssFontWeight;
-import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.action.marker.EmfManagementActionMarker;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends DomPopover {
+public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends AbstractEmfManagementActionPopover {
 
 	private final IEmfTable<R, P, ?> entityTable;
 	private final R tableRow;
@@ -32,7 +30,6 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		this.tableRow = tableRow;
 		this.collector = new ExceptionsCollector();
 
-		addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_POPOVER);
 		addMarker(EmfManagementMarker.ACTIONS_POPOVER);
 
 		addManagementActions();

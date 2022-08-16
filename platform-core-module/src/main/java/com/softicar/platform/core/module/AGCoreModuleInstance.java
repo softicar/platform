@@ -22,7 +22,7 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 
 	public static AGCoreModuleInstance getInstance() {
 
-		return AGCoreModuleInstance.TABLE.get(SINGLETON_INSTANCE_ID);
+		return AGCoreModuleInstance.TABLE.getStub(SINGLETON_INSTANCE_ID);
 	}
 
 	public static String getSystemIdentifier() {
