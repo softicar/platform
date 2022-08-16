@@ -177,7 +177,7 @@ public class DomPopup extends DomDiv {
 	 * The user will <b>not</b> be prompted for confirmation, even if
 	 * {@link IDomPopupConfiguration#isConfirmBeforeClose()} is <i>true</i>.
 	 */
-	public void close() {
+	public final void close() {
 
 		CurrentDomPopupCompositor.get().close(this);
 	}

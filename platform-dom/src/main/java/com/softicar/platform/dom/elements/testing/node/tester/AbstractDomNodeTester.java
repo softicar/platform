@@ -167,7 +167,10 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 		return contextClick();
 	}
 
-	private boolean isNodeDisabled() {
+	/*
+	 * This method only works for IDomInput.
+	 */
+	public boolean isNodeDisabled() {
 
 		return CastUtils//
 			.tryCast(node, IDomInput.class)
