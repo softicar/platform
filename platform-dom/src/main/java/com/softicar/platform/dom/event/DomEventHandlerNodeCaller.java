@@ -34,8 +34,6 @@ public class DomEventHandlerNodeCaller {
 			} else {
 				throw exception;
 			}
-		} finally {
-			document.unsetCurrentEvent();
 		}
 	}
 
