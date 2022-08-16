@@ -10,7 +10,7 @@ public interface IDisplayable {
 	/**
 	 * Converts this object to {@link IDisplayString}.
 	 *
-	 * @return this object as {@link IDisplayString} (never null)
+	 * @return this object as {@link IDisplayString} (never <i>null</i>)
 	 */
 	IDisplayString toDisplay();
 }

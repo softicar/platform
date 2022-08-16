@@ -92,7 +92,7 @@ public class EmfLogFeedDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 			return feedItems//
 				.stream()
-				.sorted(Comparator.comparing(EmfLogFeedItem::getTitle))
+				.sorted(Comparator.comparing(item -> item.getTitle().toString()))
 				.collect(Collectors.toList());
 		}
 	}

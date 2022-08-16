@@ -26,6 +26,13 @@ public class Asserts extends Assert {
 		assertEquals(Integer.valueOf(expectedValue), actualValue);
 	}
 
+	public void assertEquals(IDisplayString expected, IDisplayString actual) {
+
+		String expectedString = Optional.ofNullable(expected).map(IDisplayString::toString).orElse(null);
+		String actualString = Optional.ofNullable(actual).map(IDisplayString::toString).orElse(null);
+		assertEquals(expectedString, actualString);
+	}
+
 	public <T> void assertSame(T expectedObject, Optional<T> optional) {
 
 		assertTrue(optional.isPresent());
