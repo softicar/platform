@@ -21,7 +21,7 @@ public interface IDisplayString {
 	/**
 	 * An empty {@link IDisplayString}.
 	 */
-	IDisplayString EMPTY = PlainDisplayString.getEmpty();
+	IDisplayString EMPTY = new PlainDisplayString("");
 
 	/**
 	 * Returns the string to be displayed, localized according to

@@ -19,15 +19,4 @@ class PlainDisplayString implements IDisplayString {
 
 		return string;
 	}
-
-	/**
-	 * Returns a {@link PlainDisplayString} which contains an empty
-	 * {@link String}.
-	 *
-	 * @return an empty {@link PlainDisplayString} (never null)
-	 */
-	public static PlainDisplayString getEmpty() {
-
-		return new PlainDisplayString("");
-	}
 }

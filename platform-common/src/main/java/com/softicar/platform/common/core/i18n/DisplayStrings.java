@@ -51,7 +51,7 @@ public class DisplayStrings {
 		return Optional//
 			.ofNullable(string)
 			.map(PlainDisplayString::new)
-			.orElse(PlainDisplayString.getEmpty());
+			.orElse(new PlainDisplayString(""));
 	}
 
 	/**
