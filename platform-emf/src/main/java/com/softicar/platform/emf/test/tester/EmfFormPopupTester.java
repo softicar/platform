@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.tab.DomTab;
 import com.softicar.platform.dom.elements.tab.DomTabBar;
+import com.softicar.platform.dom.elements.tab.DomTabBarHeader;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
@@ -69,7 +70,7 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	public DomTab findTab(IDisplayString tabName) {
 
-		return findNode(DomTabBar.class)//
+		return findNode(DomTabBarHeader.class)//
 			.findNodes(DomTab.class)
 			.withText(tabName)
 			.assertOne()
