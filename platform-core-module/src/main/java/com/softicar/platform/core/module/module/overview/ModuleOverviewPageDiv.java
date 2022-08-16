@@ -50,6 +50,7 @@ public class ModuleOverviewPageDiv extends DomDiv {
 
 		public <M extends IEmfModule<?>> ActionPopover(IEmfDataTableActionCell<M> cell, M module) {
 
+			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_POPOVER);
 			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
 			appendChild(
 				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
