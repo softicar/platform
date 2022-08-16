@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input.edit;
 
-import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.emf.EmfI18n;
@@ -8,7 +7,6 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
-import java.util.Optional;
 
 public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPopupButton {
 
@@ -21,20 +19,14 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 		this.entity = null;
 		setIcon(EmfImages.ENTITY_EDIT.getResource());
 		setTitle(EmfI18n.EDIT_ENTRY);
+		setPopupFactory(FormPopup::new);
 		setDisabled(true);
 	}
 
-	public void refresh(Optional<E> entityOptional) {
+	public void refresh(E entity) {
 
-		if (entityOptional.isPresent()) {
-			entity = entityOptional.get();
-			setPopupFactory(FormPopup::new);
-			setDisabled(!isEditAllowed(entity));
-		} else {
-			setPopupFactory(() -> null);
-			setClickCallback(INullaryVoidFunction.NO_OPERATION);
-			setDisabled(true);
-		}
+		this.entity = entity;
+		setEnabled(entity != null && isEditAllowed(entity));
 	}
 
 	private boolean isEditAllowed(E tableRow) {

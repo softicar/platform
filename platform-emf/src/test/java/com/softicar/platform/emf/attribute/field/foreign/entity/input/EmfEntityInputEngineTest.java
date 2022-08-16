@@ -66,7 +66,7 @@ public class EmfEntityInputEngineTest extends AbstractEmfTest {
 		assertDependentInputValue("two [2]");
 
 		// create and select new object and assert new load call
-		// theres a new third call to check the availability of the edit action
+		// there is a new third call to check the availability of the edit action
 		clickNewObjectButton();
 		assertLoadCalls(3);
 		assertDependentInputValue("new [42]");
