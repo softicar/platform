@@ -95,6 +95,7 @@ public class DomTabBar extends DomDiv {
 
 		public TabBarHeader() {
 
+			addMarker(DomTabMarker.TAB_BAR_HEADER);
 			setCssClass(DomElementsCssClasses.DOM_TAB_BAR_HEADER);
 		}
 
