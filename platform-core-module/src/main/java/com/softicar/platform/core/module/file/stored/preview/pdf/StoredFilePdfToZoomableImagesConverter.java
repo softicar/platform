@@ -1,8 +1,9 @@
 package com.softicar.platform.core.module.file.stored.preview.pdf;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.preview.LimitedWidthZoomableImage;
 import com.softicar.platform.dom.style.ICssLength;
@@ -65,8 +66,7 @@ public class StoredFilePdfToZoomableImagesConverter {
 				}
 			}
 		} catch (Throwable throwable) {
-			//FIXME i75168 Sometimes the server somehow can't load the JBIG2ImageReader class from pdfbox library, check and fix
-			DevNull.swallow(throwable);
+			Log.ferror(StackTraceFormatting.getStackTraceAsString(throwable));
 			return new ArrayList<>();
 		}
 		return imageList;
