@@ -9,10 +9,13 @@ public class SystemEventBuilderTest extends AbstractCoreTest {
 	@Test
 	public void testEventCreationInSeperateDBConnection() {
 
+		AGSystemEvent event;
 		try (var t = new DbTransaction()) {
-			insertSystemInformationEvent("Test");
+			event = insertSystemInformationEvent("Test");
 			t.rollback();
 		}
-		assertEquals(1, AGSystemEvent.TABLE.countAll());
+		var events = AGSystemEvent.TABLE.loadAll();
+		assertEquals(1, events.size());
+		assertSame(event, events.get(0));
 	}
 }

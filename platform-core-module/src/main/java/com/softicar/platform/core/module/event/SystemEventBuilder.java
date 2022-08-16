@@ -39,7 +39,7 @@ public class SystemEventBuilder {
 
 	public AGSystemEvent save() {
 
-		try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
+		try (var scope = new DbConnectionOverrideScope()) {
 			return new AGSystemEvent()//
 				.setSeverity(severity)
 				.setCausedBy(causedBy)
