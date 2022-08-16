@@ -360,8 +360,6 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL =
 			new I18n0("If an email server is configured, the user will receive this password via email.")//
 				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer dieses Passwort via E-Mail erhalten.");
-	I18n1 IGNORE_ARG1_EXCEPTIONS = new I18n1("Ignore %s Exceptions")//
-		.de("Ignoriere %s Ausnahmen");
 	I18n1 ILLEGAL_CRON_ELEMENT_FORMAT_ARG1 = new I18n1("Illegal Cron element format: '%s'")//
 		.de("Ungültiges Cron-Element-Format: %s.");
 	I18n2 ILLEGAL_UUID_FOR_REQUEST_PARAMETER_ARG1_ARG2 = new I18n2("Illegal UUID for request parameter '%s': '%s'")//
