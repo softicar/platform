@@ -7,13 +7,13 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.entity.table.overview.EmfTableOverviewPopup;
+import com.softicar.platform.emf.management.AbstractEmfManagementActionPopover;
 import com.softicar.platform.emf.management.EmfManagementButton;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.permission.EmfModulePermissionViewButton;
@@ -46,11 +46,10 @@ public class ModuleOverviewPageDiv extends DomDiv {
 		}
 	}
 
-	private class ActionPopover extends DomPopover {
+	private class ActionPopover extends AbstractEmfManagementActionPopover {
 
 		public <M extends IEmfModule<?>> ActionPopover(IEmfDataTableActionCell<M> cell, M module) {
 
-			addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_POPOVER);
 			AGUuid uuid = AGUuid.getOrCreate(module.getAnnotatedUuid());
 			appendChild(
 				new EmfManagementButton<>(AGModulePanicReceiver.TABLE, uuid)//
