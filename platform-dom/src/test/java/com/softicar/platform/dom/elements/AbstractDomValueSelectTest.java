@@ -126,7 +126,7 @@ public class AbstractDomValueSelectTest extends AbstractTest {
 			if (displayNames[i] != null) {
 				IDisplayString expected = IDisplayString.create(displayNames[i]);
 				IDisplayString actual = values.get(i).getSecond();
-				assertTrue(expected.compareTo(actual) == 0);
+				assertTrue(expected.toString().compareTo(actual.toString()) == 0);
 			} else {
 				assertNull(values.get(i));
 			}

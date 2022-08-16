@@ -15,7 +15,17 @@ public interface IDbTableConfiguration<R, P> {
 
 	IDbTableRowGetterStrategy<R, P> getTableRowGetterStrategy();
 
+	/**
+	 * Returns the title of the table.
+	 *
+	 * @return the title of the table (never <i>null</i>)
+	 */
 	IDisplayString getTitle();
 
+	/**
+	 * Returns the pluralized title of the table.
+	 *
+	 * @return the pluralized title of the table (never <i>null</i>)
+	 */
 	IDisplayString getPluralTitle();
 }

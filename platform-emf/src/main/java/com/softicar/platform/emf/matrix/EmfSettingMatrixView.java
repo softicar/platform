@@ -327,7 +327,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 
 			return collection//
 				.stream()
-				.sorted(Comparator.<X, IDisplayString> comparing(displayNamer::apply))
+				.sorted(Comparator.comparing(x -> displayNamer.apply(x).toString()))
 				.collect(Collectors.toList());
 		}
 

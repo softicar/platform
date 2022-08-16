@@ -102,7 +102,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 			column.getDataColumn().prefetchData(columnValues);
 			return columnValues//
 				.stream()
-				.sorted(Comparator.comparing(EntityInput::toDisplayStringSafely))
+				.sorted(Comparator.comparing(entity -> toDisplayStringSafely(entity).toString()))
 				.collect(Collectors.toList());
 		}
 

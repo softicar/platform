@@ -5,7 +5,7 @@ package com.softicar.platform.common.core.i18n;
  *
  * @author Alexander Schmidt
  */
-class PlainDisplayString extends AbstractDisplayString {
+class PlainDisplayString implements IDisplayString {
 
 	private final String string;
 

@@ -12,16 +12,14 @@ import java.util.Optional;
  * If a translatable text contains format specifiers (as in
  * {@link String#format(String, Object...)}), those are replaced with the
  * arguments given to the respective method.
- * <p>
- * FIXME i70184 should not implement {@link Comparable}
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public interface IDisplayString extends Comparable<IDisplayString> {
+public interface IDisplayString {
 
 	/**
-	 * An immutable, empty {@link IDisplayString}.
+	 * An empty {@link IDisplayString}.
 	 */
 	IDisplayString EMPTY = PlainDisplayString.getEmpty();
 
@@ -33,51 +31,6 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	@Override
 	String toString();
-
-	/**
-	 * Returns the hash code of this {@link IDisplayString}.
-	 * <p>
-	 * Must be implemented based upon {@link #toString()}.
-	 * <p>
-	 * FIXME i70184 this method should not be in here
-	 *
-	 * @return the hash code of this {@link IDisplayString}
-	 */
-	@Override
-	int hashCode();
-
-	/**
-	 * Compares this {@link IDisplayString} to the given one.
-	 * <p>
-	 * Must be implemented based upon {@link #toString()}.
-	 * <p>
-	 * FIXME i70184 this method should not be in here
-	 *
-	 * @param other
-	 *            the {@link IDisplayString} to which this one shall be compared
-	 *            (never null)
-	 * @return the result of the comparison
-	 */
-	@Override
-	default int compareTo(IDisplayString other) {
-
-		return toString().compareTo(other.toString());
-	}
-
-	/**
-	 * Compares this {@link IDisplayString} to the given one, ignoring case.
-	 * <p>
-	 * Must be implemented based upon {@link #toString()}.
-	 *
-	 * @param other
-	 *            the {@link IDisplayString} to which this one shall be compared
-	 *            (never null)
-	 * @return the result of the comparison
-	 */
-	default int compareToIgnoreCase(IDisplayString other) {
-
-		return toString().compareToIgnoreCase(other.toString());
-	}
 
 	// -------------------- creation -------------------- //
 
@@ -95,10 +48,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	static IDisplayString create(String string) {
 
-		return Optional//
-			.ofNullable(string)
-			.map(PlainDisplayString::new)
-			.orElse(PlainDisplayString.getEmpty());
+		return DisplayStrings.create(string);
 	}
 
 	/**
@@ -118,7 +68,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	static IDisplayString format(String formatString, Object...arguments) {
 
-		return formatAsOptional(formatString, arguments).orElse(EMPTY);
+		return DisplayStrings.format(formatString, arguments);
 	}
 
 	/**
@@ -138,7 +88,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	static Optional<IDisplayString> formatAsOptional(String formatString, Object...arguments) {
 
-		return Optional.ofNullable(formatString).map(it -> new FormattingDisplayString(it, arguments));
+		return DisplayStrings.formatAsOptional(formatString, arguments);
 	}
 
 	// -------------------- concatenation -------------------- //
@@ -155,7 +105,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	default IDisplayString concat(IDisplayString other) {
 
-		return new ConcatDisplayString(this, other);
+		return new DisplayString().append(this).append(other);
 	}
 
 	/**
@@ -175,7 +125,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	default IDisplayString concat(String string) {
 
-		return new ConcatDisplayString(this, create(string));
+		return concat(create(string));
 	}
 
 	/**
@@ -197,7 +147,7 @@ public interface IDisplayString extends Comparable<IDisplayString> {
 	 */
 	default IDisplayString concatFormat(String formatString, Object...arguments) {
 
-		return new ConcatDisplayString(this, format(formatString, arguments));
+		return concat(format(formatString, arguments));
 	}
 
 	/**

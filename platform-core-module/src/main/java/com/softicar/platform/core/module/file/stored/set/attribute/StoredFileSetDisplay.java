@@ -6,7 +6,6 @@ import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +36,7 @@ public class StoredFileSetDisplay extends DomDiv {
 			return fileSet//
 				.getElements()
 				.stream()
-				.sorted(Comparator.comparing(IEmfTableRow::toDisplay))
+				.sorted(Comparator.comparing(file -> file.toDisplay().toString()))
 				.collect(Collectors.toList());
 		} else {
 			return Collections.emptyList();
