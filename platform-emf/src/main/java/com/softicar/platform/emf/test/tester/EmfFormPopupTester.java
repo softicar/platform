@@ -70,8 +70,7 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	public DomTab findTab(IDisplayString tabName) {
 
-		return findNode(DomTabBar.class)//
-			.findNode(DomTabBarHeader.class)
+		return findNode(DomTabBarHeader.class)//
 			.findNodes(DomTab.class)
 			.withText(tabName)
 			.assertOne()

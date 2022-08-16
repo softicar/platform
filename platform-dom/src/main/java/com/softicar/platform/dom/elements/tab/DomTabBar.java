@@ -10,20 +10,20 @@ import java.util.List;
 public class DomTabBar extends DomDiv {
 
 	private final List<DomTab> tabs;
-	private final DomTabBarHeader tabBarHeaderContainer;
+	private final DomTabBarHeader tabBarHeader;
 	private final DomTabBarContentContainer tabContentContainer;
 	private DomTab currentTab;
 
 	public DomTabBar() {
 
 		this.tabs = new ArrayList<>();
-		this.tabBarHeaderContainer = new DomTabBarHeader(this);
+		this.tabBarHeader = new DomTabBarHeader(this);
 		this.tabContentContainer = new DomTabBarContentContainer(this);
 		this.currentTab = null;
 		setCssClass(DomElementsCssClasses.DOM_TAB_BAR);
 		addCssClass(DomElementsCssClasses.DOM_TAB_BAR_HORIZONTAL);
 
-		appendChild(tabBarHeaderContainer);
+		appendChild(tabBarHeader);
 		appendChild(tabContentContainer);
 	}
 
@@ -64,7 +64,7 @@ public class DomTabBar extends DomDiv {
 		if (currentTab == null) {
 			showTab(tab);
 		} else {
-			tabBarHeaderContainer.refresh(tabs);
+			tabBarHeader.refresh(tabs);
 		}
 		return tab;
 	}
@@ -80,7 +80,7 @@ public class DomTabBar extends DomDiv {
 		}
 
 		currentTab = tab;
-		tabBarHeaderContainer.refresh(tabs);
+		tabBarHeader.refresh(tabs);
 		tabContentContainer.refresh();
 
 		currentTab.executeOnShowRefreshable();
