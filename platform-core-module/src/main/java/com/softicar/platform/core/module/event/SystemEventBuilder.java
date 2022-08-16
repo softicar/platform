@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.event.severity.AGSystemEventSeverity;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
+import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 
 public class SystemEventBuilder {
@@ -38,14 +39,16 @@ public class SystemEventBuilder {
 
 	public AGSystemEvent save() {
 
-		return new AGSystemEvent()//
-			.setSeverity(severity)
-			.setCausedBy(causedBy)
-			.setCausedAt(causedAt)
-			.setMessage(message)
-			.setNeedsConfirmation(severity.isNeedsConfirmation())
-			.setProperties(properties.toString())
-			.save();
+		try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
+			return new AGSystemEvent()//
+				.setSeverity(severity)
+				.setCausedBy(causedBy)
+				.setCausedAt(causedAt)
+				.setMessage(message)
+				.setNeedsConfirmation(severity.isNeedsConfirmation())
+				.setProperties(properties.toString())
+				.save();
+		}
 	}
 
 	// ------------------------------ properties ------------------------------ //
