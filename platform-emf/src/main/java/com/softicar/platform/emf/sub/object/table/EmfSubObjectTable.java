@@ -35,12 +35,6 @@ public class EmfSubObjectTable<O extends IEmfSubObject<O, B>, B extends IEmfEnti
 	}
 
 	@Override
-	public O get(Integer id) {
-
-		return get(getBaseTable().getStub(id));
-	}
-
-	@Override
 	public IEmfTableConfiguration<O, B, S> getEmfTableConfiguration() {
 
 		return configuration;
