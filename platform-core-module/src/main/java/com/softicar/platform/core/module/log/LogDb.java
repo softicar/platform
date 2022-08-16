@@ -126,7 +126,7 @@ public class LogDb {
 	private static void log(LogLevel logLevel, Throwable throwable, String message) {
 
 		if (shouldLogToDatabase()) {
-			try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
+			try (var scope = new DbConnectionOverrideScope()) {
 
 				if (logLevel != LogLevel.INFO) {
 					message = getMessagePrefix() + "\n\n" + message + "\n\n" + getStackTrace(throwable);

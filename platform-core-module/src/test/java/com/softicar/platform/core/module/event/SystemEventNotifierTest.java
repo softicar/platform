@@ -2,11 +2,12 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
-import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import org.junit.Test;
 
 public class SystemEventNotifierTest extends AbstractCoreTest {
+
+	private static final String MESSAGE = "Test";
 
 	@Test
 	public void testWithoutEvents() {
@@ -18,7 +19,7 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 	@Test
 	public void testWithError() {
 
-		insetSystemEvent(AGSystemEventSeverityEnum.ERROR);
+		insertSystemErrorEvent(MESSAGE);
 
 		SystemEventNotifier.notifyAboutEvents();
 
@@ -28,7 +29,7 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 	@Test
 	public void testWithWarning() {
 
-		insetSystemEvent(AGSystemEventSeverityEnum.WARNING);
+		insertSystemWarningEvent(MESSAGE);
 
 		SystemEventNotifier.notifyAboutEvents();
 
@@ -38,16 +39,11 @@ public class SystemEventNotifierTest extends AbstractCoreTest {
 	@Test
 	public void testWithInfo() {
 
-		insetSystemEvent(AGSystemEventSeverityEnum.INFORMATION);
+		insertSystemInformationEvent(MESSAGE);
 
 		SystemEventNotifier.notifyAboutEvents();
 
 		assertEquals(0, AGBufferedEmail.TABLE.countAll());
-	}
-
-	private void insetSystemEvent(AGSystemEventSeverityEnum severity) {
-
-		new SystemEventBuilder(severity, "Test").save();
 	}
 
 	private void assertEmailSent() {
