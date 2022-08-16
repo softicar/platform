@@ -1,10 +1,13 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.attribute.field.foreign.entity.input.edit.EmfEntityInputEditButton;
+import com.softicar.platform.emf.attribute.input.auto.complete.EmfAutoCompleteBrowseButton;
+import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
 import org.junit.Test;
 
@@ -90,6 +93,31 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		assertEquals(1, changeCallbackCounter);
 	}
 
+	@Test
+	public void testEditButtonWithoutEntity() {
+
+		assertTrue(findEditButton().isNodeDisabled());
+	}
+
+	@Test
+	public void testEditButtonWithValidEntityAndRight() {
+
+		object23.addAuthorizedUser(user);
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
+		clickEditButton();
+		findNodes(EmfFormPopup.class).assertOne();
+		findFormPopup(EmfTestObject.class).assertDisplayed();
+	}
+
+	@Test
+	public void testEditButtonWithValidEntityButWithoutRight() {
+
+		openBrowsePopover();
+		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
+		assertTrue(findEditButton().isNodeDisabled());
+	}
+
 	private EmfEntityInput<EmfTestObject> getInput() {
 
 		return findBody()//
@@ -114,8 +142,19 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	private void openBrowsePopover() {
 
 		findBody()//
-			.findNode(DomPopupButton.class)
+			.findNode(EmfAutoCompleteBrowseButton.class)
 			.click();
+	}
+
+	private DomNodeTester findEditButton() {
+
+		return findBody()//
+			.findNode(EmfEntityInputEditButton.class);
+	}
+
+	private void clickEditButton() {
+
+		findEditButton().click();
 	}
 
 	private void handleChangeCallback() {

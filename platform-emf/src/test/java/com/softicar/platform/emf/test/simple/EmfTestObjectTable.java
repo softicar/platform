@@ -18,6 +18,7 @@ public class EmfTestObjectTable extends EmfObjectTable<EmfTestObject, EmfTestMod
 	public void customizeAuthorizer(EmfAuthorizer<EmfTestObject, EmfTestModuleInstance> authorizer) {
 
 		authorizer.setViewPermission(EmfTestPermissions.AUTHORIZED_USER);
+		authorizer.setEditPermission(EmfTestPermissions.AUTHORIZED_USER);
 	}
 
 	@Override

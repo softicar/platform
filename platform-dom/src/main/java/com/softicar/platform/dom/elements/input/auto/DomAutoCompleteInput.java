@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.DomEventType;
@@ -12,8 +13,10 @@ import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -28,12 +31,13 @@ import java.util.function.Supplier;
  */
 public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
 
+	protected final IDomAutoCompleteInputEngine<T> inputEngine;
+	protected final DomBar inputBar;
 	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final DomTextInput inputField;
 	private final IDomAutoCompleteInputConfiguration configuration;
-	protected final IDomAutoCompleteInputEngine<T> inputEngine;
-	protected final DomBar inputBar;
+	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
@@ -48,8 +52,8 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode defaultMode) {
 
 		this.inputEngine = inputEngine;
-		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
 		this.inputBar = new DomBar();
+		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
 		this.inputField = new DomTextInput();
 		this.inputField.addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
@@ -57,6 +61,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.inputField.addChangeCallback(this::executeChangeCallbacks);
 		this.inputField.unlistenToEvent(DomEventType.CHANGE);
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
+		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
@@ -68,11 +73,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		initializeAutoComplete(defaultMode);
 	}
 
-	public void refreshInputConstraints() {
+	public final void refreshInputConstraints() {
 
 		refreshFilters();
 
 		inputEngine.reloadCache();
+
+		inputConstraintRefreshCallbacks.forEach(INullaryVoidFunction::apply);
 	}
 
 	public void refreshFilters() {
@@ -162,6 +169,18 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 		inputField.setMaxLength(maxLength);
 		return this;
+	}
+
+	/**
+	 * Use this method to add functions that should be executed when this input
+	 * gets refreshed via {@link #refreshInputConstraints()}.
+	 *
+	 * @param refreshCallback
+	 *            the callback to be executed (never <i>null</i>)
+	 */
+	public void addInputConstraintRefreshCallback(INullaryVoidFunction refreshCallback) {
+
+		inputConstraintRefreshCallbacks.add(Objects.requireNonNull(refreshCallback));
 	}
 
 	@Override
