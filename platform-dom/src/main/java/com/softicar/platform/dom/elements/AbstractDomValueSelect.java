@@ -461,7 +461,9 @@ public abstract class AbstractDomValueSelect<T> extends DomSelect<DomValueOption
 		@Override
 		public int compare(T first, T second) {
 
-			int result = getValueDisplayString(first).compareToIgnoreCase(getValueDisplayString(second));
+			var firstString = getValueDisplayString(first).toString();
+			var secondString = getValueDisplayString(second).toString();
+			int result = firstString.compareToIgnoreCase(secondString);
 			return result != 0? result : getValueId(first) - getValueId(second);
 		}
 	}
