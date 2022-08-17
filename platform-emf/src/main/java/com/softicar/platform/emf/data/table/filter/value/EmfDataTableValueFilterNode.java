@@ -3,7 +3,7 @@ package com.softicar.platform.emf.data.table.filter.value;
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.input.IDomValueInput;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiTypeFilterDiv;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
@@ -22,7 +22,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 		this.column = column;
 		this.filterOperatorSelect = new EmfDataTableValueFilterOperatorSelect(this);
 		this.valueFilterInput = inputFactory.get();
-		this.valueFilterInput.addMarker(EmfDataTableDivMarker.FILTER_INPUT_VALUE);
+		this.valueFilterInput.addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE);
 
 		refresh();
 	}

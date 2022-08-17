@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomTestMarker;
 
 /**
  * A custom modal dialog that replaces a native "alert" dialog.
@@ -19,6 +20,6 @@ public class DomModalAlertDialog extends DomModalDialog {
 	public DomModalAlertDialog(IDisplayString message) {
 
 		appendContent(message);
-		appendCloseButton().addMarker(DomModalAlertMarker.CLOSE_BUTTON);
+		appendCloseButton().addMarker(DomTestMarker.MODAL_ALERT_CLOSE_BUTTON);
 	}
 }

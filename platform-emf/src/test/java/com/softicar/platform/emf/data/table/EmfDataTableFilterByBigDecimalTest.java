@@ -2,6 +2,7 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -132,23 +133,7 @@ public class EmfDataTableFilterByBigDecimalTest extends AbstractEmfDataTableFilt
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findInput(EmfDataTableDivMarker.FILTER_INPUT_VALUE).setInputValue(filterString != null? filterString : "");
+		findInput(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE).setInputValue(filterString != null? filterString : "");
 		confirmFilterPopup();
 	}
-
-//	private class RowSupplier implements Supplier<List<TestTableRow>> {
-//
-//		private final List<TestTableRow> rows = Lists.newArrayList(
-//				new TestTableRow().setBigDecimalValue(new BigDecimal("1.1")),
-//				new TestTableRow().setBigDecimalValue(new BigDecimal("2.2")),
-//				new TestTableRow().setBigDecimalValue(new BigDecimal("2.2")),
-//				new TestTableRow().setBigDecimalValue(new BigDecimal("3.3")),
-//				new TestTableRow().setBigDecimalValue(null));
-//
-//		@Override
-//		public List<TestTableRow> get() {
-//
-//			return rows;
-//		}
-//	}
 }

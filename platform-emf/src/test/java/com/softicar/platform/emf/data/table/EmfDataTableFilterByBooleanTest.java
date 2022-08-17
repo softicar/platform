@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -69,7 +70,7 @@ public class EmfDataTableFilterByBooleanTest extends AbstractEmfDataTableFilterT
 	private void applyFilter(Boolean value) {
 
 		openFilterPopup(column);
-		findSelect(EmfDataTableDivMarker.FILTER_INPUT_BOOLEAN).selectValue(value);
+		findSelect(EmfTestMarker.DATA_TABLE_FILTER_INPUT_BOOLEAN).selectValue(value);
 		confirmFilterPopup();
 	}
 }

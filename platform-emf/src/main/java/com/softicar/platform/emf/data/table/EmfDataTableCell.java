@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.dom.elements.DomCell;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 
 class EmfDataTableCell<R, T> extends DomCell implements IEmfDataTableCell<R, T> {
@@ -12,7 +13,7 @@ class EmfDataTableCell<R, T> extends DomCell implements IEmfDataTableCell<R, T> 
 
 		this.tableRow = tableRow;
 		this.column = column;
-		addMarker(EmfDataTableDivMarker.BODY_CELL);
+		addMarker(EmfTestMarker.DATA_TABLE_BODY_CELL);
 		column.getSettings().getMarkers().forEach(this::addMarker);
 	}
 

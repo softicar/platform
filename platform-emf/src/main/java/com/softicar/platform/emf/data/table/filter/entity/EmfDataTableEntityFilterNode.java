@@ -8,7 +8,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiTypeFilterDiv;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
@@ -33,7 +33,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 		this.column = column;
 		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect(this);
 		this.entityInput = new EntityInput<>(column);
-		this.entityInput.addMarker(EmfDataTableDivMarker.FILTER_INPUT_ENTITY);
+		this.entityInput.addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENTITY);
 		refresh();
 	}
 

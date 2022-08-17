@@ -3,10 +3,10 @@ package com.softicar.platform.dom.elements.button.popup;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.elements.popup.compositor.DomParentNodeFinder;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
@@ -200,7 +200,7 @@ public class DomPopupButtonTest extends AbstractTest implements IDomTestExecutio
 
 	private void closePopup() {
 
-		findButton(DomPopupMarker.FRAME_CLOSE_BUTTON).click();
+		findButton(DomTestMarker.POPUP_FRAME_CLOSE_BUTTON).click();
 	}
 
 	private DomNodeTester assertPopupPresent() {

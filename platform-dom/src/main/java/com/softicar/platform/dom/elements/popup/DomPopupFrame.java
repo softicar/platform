@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.dom.DomCssPseudoClasses;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
@@ -31,7 +32,7 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		this.header = new DomPopupFrameHeader(this::closePopup);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME);
-		addMarker(DomPopupMarker.FRAME);
+		addMarker(DomTestMarker.POPUP_FRAME);
 		setupEscapeHandler();
 
 		var configuration = popup.getConfiguration();

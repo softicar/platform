@@ -5,7 +5,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
@@ -40,7 +40,7 @@ public class AbstractEmfPromptActionTest extends AbstractEmfTest {
 		clickSaveButton();
 
 		findBody()//
-			.findNode(EmfMarker.INTERACTIVE_REFRESH_BUTTON);
+			.findNode(EmfTestMarker.FORM_INTERACTIVE_REFRESH_BUTTON);
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class AbstractEmfPromptActionTest extends AbstractEmfTest {
 		clickSaveButton();
 
 		findBody()//
-			.findNodes(EmfMarker.INTERACTIVE_REFRESH_BUTTON)
+			.findNodes(EmfTestMarker.FORM_INTERACTIVE_REFRESH_BUTTON)
 			.assertNone();
 	}
 

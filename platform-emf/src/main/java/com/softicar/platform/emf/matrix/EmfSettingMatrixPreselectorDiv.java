@@ -11,6 +11,7 @@ import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import java.util.Optional;
@@ -63,13 +64,13 @@ public class EmfSettingMatrixPreselectorDiv<E extends IEmfEntity<E, ?>> extends 
 		public Form(Supplier<EmfEntityInput<E>> inputSupplier) {
 
 			this.input = appendChild(inputSupplier.get());
-			this.input.addMarker(EmfSettingMatrixMarker.ENTITY_INPUT);
+			this.input.addMarker(EmfTestMarker.SETTING_MATRIX_ENTITY_INPUT);
 			appendChild(
 				new DomButton()//
 					.setLabel(EmfI18n.SELECT)
 					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
 					.setClickCallback(() -> refresh())
-					.addMarker(EmfSettingMatrixMarker.ENTITY_SELECT_BUTTON));
+					.addMarker(EmfTestMarker.SETTING_MATRIX_ENTITY_SELECT_BUTTON));
 		}
 
 		@Override

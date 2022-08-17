@@ -17,6 +17,7 @@ import com.softicar.platform.dom.styles.CssFontStyle;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import com.softicar.platform.dom.styles.CssVerticalAlign;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -342,7 +343,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 			}
 			for (B beta: betas) {
 				BottomAlignedHeaderCell headerCell = new BottomAlignedHeaderCell(betaDisplayNamer.apply(beta).toString());
-				headerCell.addMarker(EmfSettingMatrixMarker.COLUMN_NAME_CELL);
+				headerCell.addMarker(EmfTestMarker.SETTING_MATRIX_COLUMN_NAME_CELL);
 				headerRow.appendChild(headerCell);
 			}
 		}
@@ -378,7 +379,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 				for (A alpha: alphas) {
 					DomRow domRow = getBody().appendChild(new DomRow());
 					LeftAlignedHeaderCell headerCell = new LeftAlignedHeaderCell(alphaDisplayNamer.apply(alpha).toString());
-					headerCell.addMarker(EmfSettingMatrixMarker.ROW_NAME_CELL);
+					headerCell.addMarker(EmfTestMarker.SETTING_MATRIX_ROW_NAME_CELL);
 					domRow.appendChild(headerCell);
 					if (isDisplayWildcard(alphas)) {
 						C column = getColumn(alpha, null);
@@ -425,7 +426,7 @@ public class EmfSettingMatrixView<R, C, V> extends DomDiv implements IEmfSetting
 
 			if (appendedRowCount <= 0 || betas.isEmpty()) {
 				DomCell cell = getBody().appendChild(new DomRow()).appendCell();
-				cell.addMarker(EmfSettingMatrixMarker.DUMMY_CELL);
+				cell.addMarker(EmfTestMarker.SETTING_MATRIX_DUMMY_CELL);
 				cell.setColSpan(betas.size() + 1);
 				cell.setStyle(CssFontStyle.ITALIC);
 				cell.appendText(createEmptyTableMessage());

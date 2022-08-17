@@ -8,6 +8,7 @@ import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableColumnHandlerMap;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableRowBasedColumnHandler;
 import com.softicar.platform.emf.data.table.column.handler.IEmfDataTableValueBasedColumnHandler;
@@ -62,8 +63,8 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 		this.hideNavigationActionButtons = false;
 		this.hideNavigationAtBottom = false;
 		this.hideNavigationAtTop = true;
-		this.tableMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE));
-		this.tableDivMarkers = new ArrayList<>(List.of(EmfDataTableDivMarker.TABLE_DIV));
+		this.tableMarkers = new ArrayList<>(List.of(EmfTestMarker.DATA_TABLE));
+		this.tableDivMarkers = new ArrayList<>(List.of(EmfTestMarker.DATA_TABLE_TABLE_DIV));
 		this.ordering = new EmfDataTableOrdering<>();
 		this.pageSize = DomPageableTable.DEFAULT_PAGE_SIZE;
 		this.rowSelectionActionButtons = new ArrayList<>();

@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.data.table.export.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
-import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.emf.data.table.export.engine.factory.ITableExportEngineFactory;
 import com.softicar.platform.emf.data.table.export.engine.factory.TableExportEngineFactoryEnum;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModelListFactory;
@@ -51,7 +51,7 @@ public class TableExportPopupButton extends DomButton {
 		this.generalTableExportPreconditions = generalTableExportPreconditions;
 
 		setIcon(DomElementsImages.TABLE_EXPORT.getResource());
-		addMarker(DomPageableTableMarker.NAVIGATION_EXPORT_BUTTON);
+		addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_EXPORT_BUTTON);
 
 		if (showLabel) {
 			setLabel(label);

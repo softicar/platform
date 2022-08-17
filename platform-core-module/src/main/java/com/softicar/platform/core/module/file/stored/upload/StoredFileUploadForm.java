@@ -6,9 +6,9 @@ import com.softicar.platform.common.io.mime.CustomMimeType;
 import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileBuilder;
-import com.softicar.platform.core.module.file.stored.StoredFileMarker;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -34,7 +34,7 @@ class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 		this.multiple = multiple;
 
 		appendChild(new AddFileElement(multiple));
-		addMarker(StoredFileMarker.UPLOAD_FORM);
+		addMarker(CoreTestMarker.STORED_FILE_UPLOAD_FORM);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ class StoredFileUploadForm extends DomForm implements IDomFileUploadHandler {
 			addCssClass(CoreCssClasses.STORED_FILE_UPLOAD_DIV);
 			appendChild(new DomImage(CoreImages.STORED_FILE_UPLOAD.getResource()));
 			appendText(EmfI18n.CHOOSE_OR_DROP_FILE);
-			addMarker(StoredFileMarker.ADD_FILE_ELEMENT);
+			addMarker(CoreTestMarker.STORED_FILE_ADD_FILE_ELEMENT);
 			appendChild(new FileInput(multiple));
 		}
 	}

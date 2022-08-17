@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterNode;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterType;
 import java.util.Arrays;
@@ -105,7 +106,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findAutoCompleteInput(EmfDataTableDivMarker.FILTER_INPUT_ENTITY).selectValue(item);
+		findAutoCompleteInput(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENTITY).selectValue(item);
 		confirmFilterPopup();
 	}
 

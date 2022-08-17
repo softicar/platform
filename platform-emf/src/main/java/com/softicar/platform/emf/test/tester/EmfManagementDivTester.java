@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTes
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.action.marker.EmfManagementActionMarker;
 import com.softicar.platform.emf.editor.EmfDeactivateAction;
@@ -17,7 +18,6 @@ import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.editor.EmfViewAction;
 import com.softicar.platform.emf.management.EmfManagementActionPopover;
 import com.softicar.platform.emf.management.EmfManagementDiv;
-import com.softicar.platform.emf.management.EmfManagementMarker;
 import com.softicar.platform.emf.table.IEmfTable;
 import java.util.function.Consumer;
 
@@ -32,7 +32,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public void clickRefreshButton() {
 
-		clickNode(EmfManagementMarker.REFRESH_BUTTON);
+		clickNode(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON);
 	}
 
 	@Deprecated
@@ -43,12 +43,12 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public void clickCreateButton() {
 
-		clickNode(EmfManagementMarker.CREATE_BUTTON);
+		clickNode(EmfTestMarker.MANAGEMENT_TABLE_CREATE_BUTTON);
 	}
 
 	public void clickShowInactiveEntriesCheckbox() {
 
-		clickNode(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX);
+		clickNode(EmfTestMarker.MANAGEMENT_TABLE_SHOW_INACTIVE_CHECKBOX);
 	}
 
 	public void clickShowFormButton() {
@@ -81,17 +81,17 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public DomButton findRefreshButton() {
 
-		return findNodes(EmfManagementMarker.REFRESH_BUTTON).assertOne().assertType(DomButton.class);
+		return findNodes(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON).assertOne().assertType(DomButton.class);
 	}
 
 	public DomButton findNewEntryButton() {
 
-		return findNodes(EmfManagementMarker.CREATE_BUTTON).assertOne().assertType(DomButton.class);
+		return findNodes(EmfTestMarker.MANAGEMENT_TABLE_CREATE_BUTTON).assertOne().assertType(DomButton.class);
 	}
 
 	public DomCheckbox findShowInactiveEntriesCheckbox() {
 
-		return findNodes(EmfManagementMarker.SHOW_INACTIVE_CHECKBOX).assertOne().assertType(DomCheckbox.class);
+		return findNodes(EmfTestMarker.MANAGEMENT_TABLE_SHOW_INACTIVE_CHECKBOX).assertOne().assertType(DomCheckbox.class);
 	}
 
 	// ------------------------------ assert ------------------------------ //
@@ -141,7 +141,7 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 
 	public void assertNoActionButtons() {
 
-		findNodes(EmfManagementMarker.ACTIONS_POPOVER_BUTTON).assertNone();
+		findNodes(EmfTestMarker.MANAGEMENT_TABLE_ACTIONS_POPOVER_BUTTON).assertNone();
 	}
 
 	// ------------------------------ auxiliary ------------------------------ //
@@ -167,13 +167,13 @@ public class EmfManagementDivTester extends AbstractDomNodeTester<EmfManagementD
 	private IDomNodeIterable<IDomNode> findManageChildTableButtons(DomNodeTester popover, IEmfTable<?, ?, ?> table) {
 
 		return popover
-			.findNodes(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON)//
+			.findNodes(EmfTestMarker.MANAGEMENT_TABLE_MANAGE_CHILD_TABLE_BUTTON)//
 			.startingWithTooltip(EmfI18n.MANAGE_ARG1.toDisplay(table.getPluralTitle()));
 	}
 
 	private DomNodeTester clickActionsButtonAndGetPopover() {
 
-		clickNode(EmfManagementMarker.ACTIONS_POPOVER_BUTTON);
-		return findBody().findNode(EmfManagementMarker.ACTIONS_POPOVER);
+		clickNode(EmfTestMarker.MANAGEMENT_TABLE_ACTIONS_POPOVER_BUTTON);
+		return findBody().findNode(EmfTestMarker.MANAGEMENT_TABLE_ACTIONS_POPOVER);
 	}
 }

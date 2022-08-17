@@ -9,7 +9,7 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.editor.EmfAttributesDiv;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.record.table.IEmfRecordTable;
@@ -44,13 +44,13 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 			new DomButton()//
 				.setIcon(EmfImages.ENTITY_CREATE_NEXT_STEP.getResource())
 				.setLabel(EmfI18n.NEXT)
-				.addMarker(EmfMarker.NEXT)
+				.addMarker(EmfTestMarker.FORM_CREATE_NEXT)
 				.setClickCallback(this::showFormPopup));
 		appendActionNode(
 			new DomButton()//
 				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
-				.addMarker(EmfMarker.CANCEL)
+				.addMarker(EmfTestMarker.FORM_CANCEL)
 				.setClickCallback(() -> CurrentDomPopupCompositor.get().closeInteractively(this)));
 
 		setCaption(table.getTitle());

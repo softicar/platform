@@ -2,11 +2,11 @@ package com.softicar.platform.dom.elements.select.value.simple;
 
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.core.item.IBasicItem;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
@@ -589,7 +589,7 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEx
 
 	private <V> DomSelectTester<V> findSelect() {
 
-		return findSelect(Marker.SELECT);
+		return findSelect(DomTestMarker.SIMPLE_VALUE_SELECT);
 	}
 
 	private Setup<String> setupWithString() {
@@ -656,7 +656,7 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEx
 		public TestNode(Consumer<DomSimpleValueSelectBuilder<V>> configurator) {
 
 			this.select = configurator != null? new DomSimpleValueSelect<>(configurator) : new DomSimpleValueSelect<>();
-			appendChild(select).addMarker(Marker.SELECT);
+			appendChild(select).addMarker(DomTestMarker.SIMPLE_VALUE_SELECT);
 		}
 
 		public DomSimpleValueSelect<V> getSelect() {
@@ -826,10 +826,5 @@ public class DomSimpleValueSelectTest extends AbstractTest implements IDomTestEx
 				.comparing(Entity::getId)
 				.compare(this, (Entity) other);
 		}
-	}
-
-	private static enum Marker implements IStaticObject {
-
-		SELECT;
 	}
 }
