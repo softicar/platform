@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.data.table;
 
-import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 
 		for (DomNodeTester navigation: getAndAssertOneNavigationElement()) {
 			assertNavigationLayoutSinglePage(navigation);
-			navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON).assertNone();
+			navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON).assertNone();
 		}
 	}
 
@@ -57,7 +57,7 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 			// expectation will be wrong for big test tables, i.e. when page selection buttons are displayed with
 			// ellipsis (like "1 2 3 4 ... 999")
 			int expectedPageCount = EmfDataTableTestUtil.calculateTotalPageCount(rows.size(), pageSize);
-			navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON).assertSize(expectedPageCount);
+			navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON).assertSize(expectedPageCount);
 		}
 	}
 
@@ -98,13 +98,13 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 		dataTableDiv.setCurrentPage(targetPageIndex);
 		for (DomNodeTester navigation: getAndAssertOneNavigationElement()) {
 			assertNavigationLayoutMultiPage(navigation, dataTableDiv);
-			navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON).withText("...").assertSize(expectedNumberOfEllipsis);
+			navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON).withText("...").assertSize(expectedNumberOfEllipsis);
 		}
 	}
 
 	private List<DomNodeTester> getAndAssertOneNavigationElement() {
 
-		return findNodes(DomPageableTableMarker.NAVIGATION).assertSize(1);
+		return findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION).assertSize(1);
 	}
 
 	private DomNodeTester assertNavigationLayoutMultiPage(DomNodeTester navigation, IEmfDataTableDiv<TestTableRow> dataTableDiv) {
@@ -124,20 +124,20 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 
 	private void assertCommonNavigationButtonsExist(DomNodeTester navigation) {
 
-		navigation.findNodes(DomPageableTableMarker.NAVIGATION_EXPORT_BUTTON).assertOne();
+		navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_EXPORT_BUTTON).assertOne();
 	}
 
 	private void assertPageNavigationButtonsExist(DomNodeTester navigation, boolean existenceExpected) {
 
-		navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON).assertSize(existenceExpected? 1 : 0);
-		navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON).assertSize(existenceExpected? 1 : 0);
+		navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_PREV_BUTTON).assertSize(existenceExpected? 1 : 0);
+		navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NEXT_BUTTON).assertSize(existenceExpected? 1 : 0);
 	}
 
 	private void assertCurrentPageSelectButtonIsDisplayed(DomNodeTester navigation, IEmfDataTableDiv<TestTableRow> dataTableDiv) {
 
 		final String currentPageNumberString = dataTableDiv.getCurrentPage() + 1 + "";
 
-		for (DomNodeTester buttonTester: navigation.findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON).assertSome()) {
+		for (DomNodeTester buttonTester: navigation.findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON).assertSome()) {
 			if (buttonTester.containsText(currentPageNumberString)) {
 				return;
 			}

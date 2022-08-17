@@ -1,12 +1,12 @@
 package com.softicar.platform.ajax.dom.popup.button;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import org.junit.Test;
 
 public class AjaxDomPopupButtonTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -25,14 +25,14 @@ public class AjaxDomPopupButtonTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		clickAt(testDiv.getPopupButton(), 20, 5);
 		waitForServer();
-		var popupLocation = getLocation(findNode(DomPopupMarker.FRAME).get());
+		var popupLocation = getLocation(findNode(DomTestMarker.POPUP_FRAME).get());
 		assertEquals(20 + BODY_OFFSET, popupLocation.getX());
 		assertEquals(5 + BODY_OFFSET, popupLocation.getY());
 
 		clickAt(testDiv.getPopupButton(), 10, 10);
 		waitForServer();
 
-		popupLocation = getLocation(findNode(DomPopupMarker.FRAME).get());
+		popupLocation = getLocation(findNode(DomTestMarker.POPUP_FRAME).get());
 		assertEquals(10 + BODY_OFFSET, popupLocation.getX());
 		assertEquals(10 + BODY_OFFSET, popupLocation.getY());
 	}

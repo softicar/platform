@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.page.navigation.link.display;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
-import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomImage;
@@ -19,7 +19,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 		this.link = link;
 		this.clickCallback = clickCallback;
 
-		addMarker(PageNavigationMarker.FOLDER_TITLE_DIV);
+		addMarker(CoreTestMarker.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
 		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
 		appendModuleIconIfPresent();
 		appendChild(new TitleSpan());

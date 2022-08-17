@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.dom.elements.DomHeaderCell;
 import com.softicar.platform.dom.elements.DomRow;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +17,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 
 		this.dataTable = dataTable;
 		this.headerCellMap = new HashMap<>();
-		addMarker(EmfDataTableDivMarker.HEADER_PRIMARY_ROW);
+		addMarker(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_ROW);
 		refresh();
 	}
 
@@ -52,7 +53,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 
 		public ActionHeaderCell() {
 
-			addMarker(EmfDataTableDivMarker.ACTION_HEADER_CELL);
+			addMarker(EmfTestMarker.DATA_TABLE_ACTION_HEADER_CELL);
 		}
 	}
 }

@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.tab.DomTab;
 import com.softicar.platform.dom.elements.tab.DomTabBar;
 import com.softicar.platform.dom.elements.tab.DomTabBuilder;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.log.viewer.feed.EmfLogFeedDiv;
 import com.softicar.platform.emf.log.viewer.table.EmfLogDataTableDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -18,13 +19,13 @@ public class EmfLogDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 			.setContentSupplier(() -> createLogFeedElement(tableRow))
 			.setLabel(EmfI18n.FEED)
 			.build()
-			.setHeaderMarker(EmfLogMarker.FEED_TAB);
+			.setHeaderMarker(EmfTestMarker.LOG_FEED_TAB);
 
 		DomTab tableTab = new DomTabBuilder()//
 			.setContentSupplier(() -> createLogDataTableElement(tableRow))
 			.setLabel(EmfI18n.TABLE)
 			.build()
-			.setHeaderMarker(EmfLogMarker.TABLE_TAB);
+			.setHeaderMarker(EmfTestMarker.LOG_TABLE_TAB);
 
 		DomTabBar tabBar = appendChild(new DomTabBar());
 		tabBar.appendTab(feedTab);

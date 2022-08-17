@@ -12,6 +12,7 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.IEmfDataTable;
@@ -45,8 +46,8 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 			.setHideNavigation(true)
 			.setPageSize(model.getColumns().size())
 			.setRowSelectionCallback(this::handleRowSelection)
-			.addTableMarker(EmfDataTableConfigurationMarker.TABLE)
-			.addTableDivMarker(EmfDataTableConfigurationMarker.TABLE_DIV)
+			.addTableMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE)
+			.addTableDivMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE_DIV)
 			.build();
 		this.tableDiv = appendChild(tableDiv);
 
@@ -118,7 +119,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 				setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 				selectValue(position);
 				setCallbackOnChange(this::handleChange);
-				addMarker(EmfDataTableConfigurationMarker.POSITION_SELECT);
+				addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_POSITION_SELECT);
 			}
 
 			private void handleChange() {
@@ -144,11 +145,11 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 				if (down) {
 					setIcon(DomElementsImages.MOVE_DOWN.getResource());
 					setTitle(EmfDataTableI18n.MOVE_DOWN);
-					addMarker(EmfDataTableConfigurationMarker.MOVE_DOWN_BUTTON);
+					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_MOVE_DOWN_BUTTON);
 				} else {
 					setIcon(DomElementsImages.MOVE_UP.getResource());
 					setTitle(EmfDataTableI18n.MOVE_UP);
-					addMarker(EmfDataTableConfigurationMarker.MOVE_UP_BUTTON);
+					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_MOVE_UP_BUTTON);
 				}
 			}
 
@@ -165,7 +166,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 		@Override
 		public void buildCell(IEmfDataTableCell<EmfDataTableConfigurationTableRow<R>, Object> cell, EmfDataTableConfigurationTableRow<R> row) {
 
-			cell.addMarker(EmfDataTableConfigurationMarker.TITLE_CELL);
+			cell.addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_TITLE_CELL);
 			cell.appendText(row.getColumn().getTitle());
 		}
 	}
@@ -232,7 +233,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 					addValue(OrderDirection.ASCENDING);
 					addValue(OrderDirection.DESCENDING);
 					listenToEvent(DomEventType.CHANGE);
-					addMarker(EmfDataTableConfigurationMarker.ORDER_DIRECTION_SELECT);
+					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_ORDER_DIRECTION_SELECT);
 				}
 
 				@Override
@@ -256,7 +257,7 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 					setValues(IntStream.rangeClosed(1, model.getColumns().size()).boxed().collect(Collectors.toList()));
 					setCallbackOnChange(this::handleChange);
-					addMarker(EmfDataTableConfigurationMarker.ORDER_PRIORITY_SELECT);
+					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_ORDER_PRIORITY_SELECT);
 				}
 
 				private void handleChange() {

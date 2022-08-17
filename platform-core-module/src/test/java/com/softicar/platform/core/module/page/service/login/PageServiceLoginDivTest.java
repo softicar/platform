@@ -5,9 +5,8 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSelenium
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
-import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
-import com.softicar.platform.core.module.start.page.StartPageMarker;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import org.junit.Rule;
@@ -37,9 +36,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithValidUserAndPasswordAndClickOnLoginButton() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginSuccess();
@@ -48,9 +47,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithValidUserAndPasswordAndEnterOnLoginButton() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		send(PageServiceLoginDivMarker.LOGIN_BUTTON, Key.ENTER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON, Key.ENTER);
 		waitForServer();
 
 		assertLoginSuccess();
@@ -59,9 +58,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithValidUserAndPasswordAndEnterOnUserInput() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		send(PageServiceLoginDivMarker.USER_INPUT, Key.ENTER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, Key.ENTER);
 		waitForServer();
 
 		assertLoginSuccess();
@@ -70,9 +69,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithValidUserAndPasswordAndEnterOnPasswordInput() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, Key.ENTER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, Key.ENTER);
 		waitForServer();
 
 		assertLoginSuccess();
@@ -81,9 +80,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithInvalidUser() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, "invalid-user");
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, "invalid-user");
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginFailure();
@@ -92,9 +91,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithInvalidPassword() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, "invalid-password");
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, "invalid-password");
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginFailure();
@@ -103,9 +102,9 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithInvalidUserAndPassword() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, "invalid-user");
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, "invalid-password");
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, "invalid-user");
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, "invalid-password");
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginFailure();
@@ -114,7 +113,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithoutUserAndPassword() {
 
-		click(findNodeOrFail(PageServiceLoginDivMarker.LOGIN_BUTTON));
+		click(findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON));
 		waitForServer();
 
 		assertLoginFailure();
@@ -123,8 +122,8 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithoutUser() {
 
-		send(PageServiceLoginDivMarker.PASSWORD_INPUT, LOGIN_PASSWORD);
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginFailure();
@@ -133,8 +132,8 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithoutPassword() {
 
-		send(PageServiceLoginDivMarker.USER_INPUT, LOGIN_USER);
-		click(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 		waitForServer();
 
 		assertLoginFailure();
@@ -143,17 +142,17 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testWithTabOnUserInput() {
 
-		send(findNodeOrFail(PageServiceLoginDivMarker.USER_INPUT), Key.TAB);
+		send(findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT), Key.TAB);
 
-		assertFocused(PageServiceLoginDivMarker.PASSWORD_INPUT);
+		assertFocused(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT);
 	}
 
 	@Test
 	public void testWithTabOnPasswordInput() {
 
-		send(findNodeOrFail(PageServiceLoginDivMarker.PASSWORD_INPUT), Key.TAB);
+		send(findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT), Key.TAB);
 
-		assertFocused(PageServiceLoginDivMarker.LOGIN_BUTTON);
+		assertFocused(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 	}
 
 	private PageServiceLoginDiv createLoginDiv(IAjaxDocument document) {
@@ -163,14 +162,14 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 
 	private void assertLoginFailure() {
 
-		assertNodeWithText(PageServiceLoginDivMarker.ERROR_MESSAGE_ELEMENT, LOGIN_FAILURE_MESSAGE);
+		assertNodeWithText(CoreTestMarker.PAGE_SERVICE_LOGIN_ERROR_MESSAGE_ELEMENT, LOGIN_FAILURE_MESSAGE);
 		assertNoModalDialog();
 	}
 
 	private void assertLoginSuccess() {
 
-		findNodeOrFail(PageNavigationMarker.PAGE_CONTENT_DIV);
-		findNodeOrFail(StartPageMarker.MAIN_ELEMENT);
+		findNodeOrFail(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
+		findNodeOrFail(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 		assertNoModalDialog();
 	}
 }

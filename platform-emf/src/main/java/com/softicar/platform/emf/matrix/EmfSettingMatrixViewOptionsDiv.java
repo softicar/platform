@@ -12,6 +12,7 @@ import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 
 /**
  * The standard implementation of an option UI element for an
@@ -32,13 +33,13 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 
 		this.applier = applier;
 		this.rowFilterInput = new TextFilterInput();
-		this.rowFilterInput.addMarker(EmfSettingMatrixMarker.ROW_FILTER_INPUT);
+		this.rowFilterInput.addMarker(EmfTestMarker.SETTING_MATRIX_ROW_FILTER_INPUT);
 		this.columnFilterInput = new TextFilterInput();
-		this.columnFilterInput.addMarker(EmfSettingMatrixMarker.COLUMN_FILTER_INPUT);
+		this.columnFilterInput.addMarker(EmfTestMarker.SETTING_MATRIX_COLUMN_FILTER_INPUT);
 		this.hideRowsWithDefaultValuesCheckbox = new DomCheckbox(false);
 		this.hideColumnsWithDefaultValuesCheckbox = new DomCheckbox(false);
 		this.flipRowsAndColumnsCheckbox = new DomCheckbox(false);
-		this.flipRowsAndColumnsCheckbox.addMarker(EmfSettingMatrixMarker.FLIP_CHECKBOX);
+		this.flipRowsAndColumnsCheckbox.addMarker(EmfTestMarker.SETTING_MATRIX_FLIP_CHECKBOX);
 
 		DomFieldset fieldset = appendChild(new OptionsFieldset());
 		fieldset//
@@ -54,7 +55,7 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
 					.setLabel(EmfI18n.APPLY)
 					.setClickCallback(this::applyOptions)
-					.addMarker(EmfSettingMatrixMarker.APPLY_BUTTON));
+					.addMarker(EmfTestMarker.SETTING_MATRIX_APPLY_BUTTON));
 	}
 
 	@Override

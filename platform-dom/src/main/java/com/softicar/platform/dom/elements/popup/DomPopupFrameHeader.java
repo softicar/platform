@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 
@@ -24,7 +25,7 @@ class DomPopupFrameHeader extends DomDiv {
 		this.closeButton = new DomPopupFrameCloseButton(closeCallback);
 
 		setCssClass(DomElementsCssClasses.DOM_POPUP_FRAME_HEADER);
-		addMarker(DomPopupMarker.FRAME_HEADER);
+		addMarker(DomTestMarker.POPUP_FRAME_HEADER);
 		appendChild(captionHolder);
 		appendChild(closeButton);
 	}

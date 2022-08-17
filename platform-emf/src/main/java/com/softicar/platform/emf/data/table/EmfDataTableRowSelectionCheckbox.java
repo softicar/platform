@@ -2,6 +2,7 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 
 class EmfDataTableRowSelectionCheckbox<R> extends EmfBooleanInput {
@@ -14,7 +15,7 @@ class EmfDataTableRowSelectionCheckbox<R> extends EmfBooleanInput {
 		this.tableRow = tableRow;
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_ROW_SELECTION_CHECKBOX);
 		setTitle(EmfDataTableI18n.SELECTION);
-		addMarker(EmfDataTableDivMarker.ROW_SELECTION_CHECKBOX);
+		addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX);
 	}
 
 	@Override

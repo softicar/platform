@@ -11,6 +11,7 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.DomDelegatingParentElement;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.styles.CssTextAlign;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.column.handler.building.EmfDataTableCellDefaultsProvider;
 import java.util.Collections;
@@ -29,7 +30,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 		this.dataRow = dataRow;
 		this.selectionCheckbox = dataTable.getConfig().isRowSelectionEnabled()? new EmfDataTableRowSelectionCheckbox<>(this) : null;
 		this.eventHandler = DevNull::swallow;
-		addMarker(EmfDataTableDivMarker.BODY_ROW);
+		addMarker(EmfTestMarker.DATA_TABLE_BODY_ROW);
 		customize();
 		appendCells();
 	}
@@ -136,7 +137,7 @@ class EmfDataTableRow<R> extends DomRow implements IEmfDataTableRow<R> {
 		public ActionCell() {
 
 			this.cell = new DomCell();
-			this.cell.addMarker(EmfDataTableDivMarker.ACTION_CELL);
+			this.cell.addMarker(EmfTestMarker.DATA_TABLE_ACTION_CELL);
 			this.container = new DomBar();
 
 			cell.appendChild(container);

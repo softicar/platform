@@ -13,7 +13,7 @@ import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.form.IEmfFormBody;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(EmfImages.ENTITY_SAVE.getResource())
 					.setLabel(EmfI18n.SAVE)
 					.setClickCallback(() -> save())
-					.addMarker(EmfMarker.SAVE));
+					.addMarker(EmfTestMarker.FORM_SAVE));
 
 		buttonContainer
 			.appendChild(
@@ -51,7 +51,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(EmfImages.ENTITY_SAVE_AND_CLOSE.getResource())
 					.setLabel(EmfI18n.SAVE_AND_CLOSE)
 					.setClickCallback(() -> saveAndClose())
-					.addMarker(EmfMarker.SAVE_AND_CLOSE));
+					.addMarker(EmfTestMarker.FORM_SAVE_AND_CLOSE));
 
 		buttonContainer
 			.appendChild(
@@ -59,7 +59,7 @@ class EmfPromptActionInput<R extends IEmfTableRow<R, ?>> extends DomDiv implemen
 					.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 					.setLabel(EmfI18n.CANCEL)
 					.setClickCallback(() -> formBody.showStandardSectionContainer())
-					.addMarker(EmfMarker.CANCEL));
+					.addMarker(EmfTestMarker.FORM_CANCEL));
 
 		appendChild(contentContainer);
 		appendNewChild(DomElementTag.HR);

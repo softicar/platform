@@ -2,7 +2,6 @@ package com.softicar.platform.common.core.i18n;
 
 import com.softicar.platform.common.core.i18n.key.AbstractI18nKey;
 import com.softicar.platform.common.core.i18n.key.II18nKey;
-import java.util.Objects;
 
 /**
  * Represents an unparameterized {@link II18nKey}.
@@ -25,22 +24,6 @@ public final class I18n0 extends AbstractI18nKey<I18n0> implements IDisplayStrin
 	public String toString() {
 
 		return new I18nKeyDisplayString(this).toString();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-
-		if (other instanceof IDisplayString) {
-			return compareTo((IDisplayString) other) == 0;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-
-		return Objects.hash(toString());
 	}
 
 	@Override

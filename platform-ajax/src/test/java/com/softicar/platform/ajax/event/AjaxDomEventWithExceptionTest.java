@@ -3,8 +3,8 @@ package com.softicar.platform.ajax.event;
 import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.utils.TestButton;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.dialog.DomModalAlertMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import org.junit.Test;
@@ -68,7 +68,7 @@ public class AjaxDomEventWithExceptionTest extends AbstractAjaxSeleniumLowLevelT
 	private IDomModalAlertNodes<IDomNode> validateModalAlert(String expectedModalAlertMessage) {
 
 		IDomModalAlertNodes<IDomNode> alert = findModalAlertOrFail();
-		assertFocused(DomModalAlertMarker.CLOSE_BUTTON);
+		assertFocused(DomTestMarker.MODAL_ALERT_CLOSE_BUTTON);
 		assertEquals(expectedModalAlertMessage, getText(alert.getContent()));
 		return alert;
 	}
