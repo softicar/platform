@@ -365,11 +365,7 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertBodyText();
 
 		// execute
-		try {
-			throwExceptionButton.click();
-		} catch (Exception exception) {
-			engine.getBodyNode().executeAlert(IDisplayString.create(exception.getMessage()));
-		}
+		throwExceptionButton.click();
 
 		// assert result
 		var exceptionPopupClass = DomModalAlertDialog.class;
