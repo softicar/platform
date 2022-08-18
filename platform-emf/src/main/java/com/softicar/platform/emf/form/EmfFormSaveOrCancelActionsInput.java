@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomDiv {
@@ -30,21 +30,21 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 				new DomButton()//
 					.setIcon(EmfImages.ENTITY_SAVE.getResource())
 					.setLabel(EmfI18n.SAVE)
-					.addMarker(EmfMarker.SAVE)
+					.addMarker(EmfTestMarker.FORM_SAVE)
 					.setClickCallback(() -> save(false)));
 		buttonContainer
 			.appendChild(
 				new DomButton()//
 					.setIcon(EmfImages.ENTITY_SAVE_AND_CLOSE.getResource())
 					.setLabel(EmfI18n.SAVE_AND_CLOSE)
-					.addMarker(EmfMarker.SAVE_AND_CLOSE)
+					.addMarker(EmfTestMarker.FORM_SAVE_AND_CLOSE)
 					.setClickCallback(() -> save(true)));
 		buttonContainer
 			.appendChild(
 				new DomButton()//
 					.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
 					.setLabel(EmfI18n.CANCEL)
-					.addMarker(EmfMarker.CANCEL)
+					.addMarker(EmfTestMarker.FORM_CANCEL)
 					.setClickCallback(() -> formBody.cancelEditMode()));
 
 		appendChild(buttonContainer);

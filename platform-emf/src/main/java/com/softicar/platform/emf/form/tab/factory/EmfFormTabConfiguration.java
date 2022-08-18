@@ -31,7 +31,7 @@ public class EmfFormTabConfiguration<R extends IEmfTableRow<R, ?>> implements IE
 			.getInstance()
 			.getTraitTables(table)
 			.stream()
-			.sorted(Comparator.comparing(IEmfTable::getTitle))
+			.sorted(Comparator.comparing(it -> it.getTitle().toString()))
 			.forEach(this::addTraitTabFactory);
 	}
 

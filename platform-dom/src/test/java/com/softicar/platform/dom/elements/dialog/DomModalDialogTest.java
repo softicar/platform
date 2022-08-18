@@ -3,6 +3,7 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -45,7 +46,7 @@ public class DomModalDialogTest extends AbstractDomModalDialogTest {
 
 		dialogPopup.appendContent(MESSAGE);
 		dialogPopup.setCallbackBeforeOpen(beforeOpenCallback);
-		dialogPopup.addMarker(DomModalDialogMarker.POPUP);
+		dialogPopup.addMarker(DomTestMarker.MODAL_DIALOG_POPUP);
 		dialogPopup.appendActionButton(DomElementsImages.DIALOG_OKAY.getResource(), OKAY_LABEL, okayCallback, OKAY_BUTTON);
 		dialogPopup.appendActionButton(DomElementsImages.DIALOG_CANCEL.getResource(), CANCEL_LABEL, cancelCallback, CANCEL_BUTTON);
 
@@ -55,7 +56,7 @@ public class DomModalDialogTest extends AbstractDomModalDialogTest {
 		findButton(OPEN_BUTTON).click();
 		findDisplayedModalDialogOrFail();
 
-		var dialog = findPopup(DomModalDialogMarker.POPUP);
+		var dialog = findPopup(DomTestMarker.MODAL_DIALOG_POPUP);
 		dialog.assertContainsText(MESSAGE);
 
 		var okayButton = findButton(OKAY_BUTTON);

@@ -26,6 +26,6 @@ public class EmfAllPermissionsTest extends AbstractEmfPermissionTest {
 
 		EmfAllPermissions<PermissionEntity> permission = new EmfAllPermissions<>(OPERATOR, GUEST);
 
-		assertEquals("Operator AND Guest", permission.getTitle().toString());
+		assertEquals("Operator and Guest", permission.getTitle().toString());
 	}
 }

@@ -9,6 +9,7 @@ import com.softicar.platform.dom.elements.text.DomVerticalTextBox;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.DomTextNode;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.EmfDataTableFilterButton;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
@@ -20,7 +21,7 @@ public class EmfDataTableHeaderCell<R, T> extends DomHeaderCell implements IRefr
 	public EmfDataTableHeaderCell(IEmfDataTableColumn<R, T> column) {
 
 		this.column = column;
-		addMarker(EmfDataTableDivMarker.HEADER_PRIMARY_CELL);
+		addMarker(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_CELL);
 		column.getSettings().getMarkers().forEach(this::addMarker);
 		refresh();
 	}
@@ -60,7 +61,7 @@ public class EmfDataTableHeaderCell<R, T> extends DomHeaderCell implements IRefr
 			DomBar bar = new DomBar();
 			// caption node or button
 			IDomNode captionNode = createCaptionNode();
-			captionNode.addMarker(EmfDataTableDivMarker.HEADER_CAPTION);
+			captionNode.addMarker(EmfTestMarker.DATA_TABLE_HEADER_CAPTION);
 			bar.appendChild(captionNode);
 
 			// sort buttons

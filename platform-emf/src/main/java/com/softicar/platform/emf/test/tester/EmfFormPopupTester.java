@@ -10,16 +10,14 @@ import com.softicar.platform.dom.elements.tab.DomTabBarHeader;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.AbstractDomNodeTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
 import com.softicar.platform.emf.action.marker.EmfActionMarker;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
-import com.softicar.platform.emf.form.EmfFormMarker;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.log.viewer.EmfLogAction;
 import com.softicar.platform.emf.management.EmfManagementDiv;
-import com.softicar.platform.emf.management.EmfManagementMarker;
 
 public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
@@ -35,12 +33,12 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	public void clickSaveButton() {
 
-		clickNode(EmfMarker.SAVE);
+		clickNode(EmfTestMarker.FORM_SAVE);
 	}
 
 	public void clickSaveAndCloseButton() {
 
-		clickNode(EmfMarker.SAVE_AND_CLOSE);
+		clickNode(EmfTestMarker.FORM_SAVE_AND_CLOSE);
 	}
 
 	public void clickActionButton(Class<? extends IEmfPrimaryAction<?>> actionClass) {
@@ -50,7 +48,7 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	public void clickCommonActionRefreshButton() {
 
-		findCommonActionDiv().clickNode(EmfManagementMarker.REFRESH_BUTTON);
+		findCommonActionDiv().clickNode(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON);
 	}
 
 	public void clickCommonActionEditButton() {
@@ -79,18 +77,18 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	public DomButton findSaveButton() {
 
-		return findNode(EmfMarker.SAVE).assertType(DomButton.class);
+		return findNode(EmfTestMarker.FORM_SAVE).assertType(DomButton.class);
 	}
 
 	public DomButton findSaveAndCloseButton() {
 
-		return findNode(EmfMarker.SAVE_AND_CLOSE).assertType(DomButton.class);
+		return findNode(EmfTestMarker.FORM_SAVE_AND_CLOSE).assertType(DomButton.class);
 	}
 
 	public DomButton findCommonActionRefreshButton() {
 
 		return findCommonActionDiv()//
-			.findNode(EmfManagementMarker.REFRESH_BUTTON)
+			.findNode(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON)
 			.assertType(DomButton.class);
 	}
 
@@ -117,6 +115,6 @@ public class EmfFormPopupTester extends AbstractDomNodeTester<EmfFormPopup<?>> {
 
 	private DomNodeTester findCommonActionDiv() {
 
-		return findNode(EmfFormMarker.COMMON_ACTIONS_DIV);
+		return findNode(EmfTestMarker.FORM_COMMON_ACTIONS_DIV);
 	}
 }

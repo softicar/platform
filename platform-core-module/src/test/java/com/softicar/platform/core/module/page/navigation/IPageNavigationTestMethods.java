@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.page.navigation;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.node.IDomNode;
@@ -36,7 +37,7 @@ public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMetho
 	default void clickFolderLink(String linkName) {
 
 		findBody()//
-			.findNodes(PageNavigationMarker.FOLDER_TITLE_DIV)
+			.findNodes(CoreTestMarker.PAGE_NAVIGATION_FOLDER_TITLE_DIV)
 			.startingWithText(linkName)
 			.assertOne()
 			.click();
@@ -45,7 +46,7 @@ public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMetho
 	default void clickPageLink(String linkName) {
 
 		findBody()//
-			.findNodes(PageNavigationMarker.PAGE_LINK_DIV)
+			.findNodes(CoreTestMarker.PAGE_NAVIGATION_PAGE_LINK_DIV)
 			.startingWithText(linkName)
 			.assertOne()
 			.click();

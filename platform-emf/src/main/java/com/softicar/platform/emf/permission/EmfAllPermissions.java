@@ -43,7 +43,7 @@ public class EmfAllPermissions<R> implements IEmfPermission<R> {
 		return permissions//
 			.stream()
 			.map(IEmfPermission::getTitle)
-			.collect(new DisplayStringJoiningCollector(new DisplayString(EmfI18n.AND).setEnforceUpperCase().enclose(" ")));
+			.collect(new DisplayStringJoiningCollector(new DisplayString(EmfI18n.AND).enclose(" ")));
 	}
 
 	@Override

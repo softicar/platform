@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.filter.enums.EmfDataTableEnumFilterNode;
 import com.softicar.platform.emf.data.table.filter.enums.EmfDataTableEnumFilterType;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ public class EmfDataTableFilterByEnumTest extends AbstractEmfDataTableFilterTest
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findSelect(EmfDataTableDivMarker.FILTER_INPUT_ENUM).selectValue(selection);
+		findSelect(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENUM).selectValue(selection);
 		confirmFilterPopup();
 	}
 

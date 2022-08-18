@@ -8,7 +8,7 @@ import com.softicar.platform.common.core.locale.CurrentLocale;
  *
  * @author Oliver Richers
  */
-class I18nKeyDisplayString extends AbstractDisplayString {
+class I18nKeyDisplayString implements IDisplayString {
 
 	private final II18nKey key;
 	private final Object[] arguments;

@@ -10,7 +10,7 @@ import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.form.IEmfFormBody;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Objects;
@@ -62,7 +62,7 @@ public class EmfFormInteractiveRefreshSpan<R extends IEmfTableRow<R, ?>> extends
 			}
 			setIcon(EmfImages.REFRESH.getResource());
 			setClickCallback(this::queueEntityForRefreshAndCancelEditMode);
-			addMarker(EmfMarker.INTERACTIVE_REFRESH_BUTTON);
+			addMarker(EmfTestMarker.FORM_INTERACTIVE_REFRESH_BUTTON);
 		}
 
 		private void queueEntityForRefreshAndCancelEditMode() {

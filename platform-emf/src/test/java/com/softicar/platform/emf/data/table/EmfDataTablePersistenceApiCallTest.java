@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.DataTableIdentifier;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.title.EmfDataTableColumnTitlesHasher;
-import com.softicar.platform.emf.data.table.configuration.EmfDataTableConfigurationMarker;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import com.softicar.platform.emf.persistence.EmfPersistentTableConfiguration;
 import com.softicar.platform.emf.persistence.IEmfPersistenceApi;
@@ -31,7 +31,7 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		setup("foo");
 
-		findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).first().click();
+		findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).first().click();
 
 		assertSaveCalls(1);
 		assertLoadCalls(1);
@@ -42,8 +42,8 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		setup("foo");
 
-		findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).first().click();
-		findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).first().click();
+		findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).first().click();
+		findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).first().click();
 
 		assertSaveCalls(2);
 		assertLoadCalls(1);
@@ -54,7 +54,7 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		setup("");
 
-		findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).first().click();
+		findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).first().click();
 
 		assertSaveCalls(0);
 		assertLoadCalls(0);
@@ -65,8 +65,8 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		setup("foo");
 
-		findNode(EmfDataTableConfigurationMarker.TABLE_CONFIGURATION_BUTTON).click();
-		findNode(EmfDataTableConfigurationMarker.APPLY_BUTTON).click();
+		findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE_CONFIGURATION_BUTTON).click();
+		findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_APPLY_BUTTON).click();
 
 		assertSaveCalls(1);
 		assertLoadCalls(1);
@@ -77,8 +77,8 @@ public class EmfDataTablePersistenceApiCallTest extends AbstractEmfDataTableTest
 
 		setup("");
 
-		findNode(EmfDataTableConfigurationMarker.TABLE_CONFIGURATION_BUTTON).click();
-		findNode(EmfDataTableConfigurationMarker.APPLY_BUTTON).click();
+		findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE_CONFIGURATION_BUTTON).click();
+		findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_APPLY_BUTTON).click();
 
 		assertSaveCalls(0);
 		assertLoadCalls(0);

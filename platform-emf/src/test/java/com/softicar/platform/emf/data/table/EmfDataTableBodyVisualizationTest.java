@@ -1,15 +1,12 @@
 package com.softicar.platform.emf.data.table;
 
-
-
-
-
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.text.DomTextNode;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.settings.IEmfDataTableColumnSettings;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +30,11 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 
 		setNodeSupplier(createDataTableDivBuilder(ArrayList::new)::build);
 
-		findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_EMPTY_TABLE_PLACEHOLDER_ROW)
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.EMPTY_TABLE_PLACEHOLDER_CELL)
+			.findNodes(EmfTestMarker.DATA_TABLE_EMPTY_TABLE_PLACEHOLDER_CELL)
 			.assertOne()
 			.assertContainsText(EmfDataTableI18n.NO_ENTRIES_FOUND);
 	}
@@ -80,7 +77,7 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 			assertRowSelectionCell(dataTableDiv, tableBodyRowNode);
 
 			List<DomNodeTester> cellNodes = tableBodyRowNode//
-				.findNodes(EmfDataTableDivMarker.BODY_CELL)
+				.findNodes(EmfTestMarker.DATA_TABLE_BODY_CELL)
 				.assertSize(columns.size());
 			assertColumnValues(dataTableDiv, row, columns, cellNodes);
 		}
@@ -89,9 +86,9 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 	private void assertRowSelectionCell(IEmfDataTableDiv<TestTableRow> dataTableDiv, DomNodeTester tableBodyRowNode) {
 
 		if (dataTableDiv.isRowSelectionEnabled()) {
-			tableBodyRowNode.findNodes(EmfDataTableDivMarker.ROW_SELECTION_CHECKBOX).assertOne();
+			tableBodyRowNode.findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX).assertOne();
 		} else {
-			tableBodyRowNode.findNodes(EmfDataTableDivMarker.ROW_SELECTION_CHECKBOX).assertNone();
+			tableBodyRowNode.findNodes(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX).assertNone();
 		}
 	}
 
@@ -99,9 +96,9 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 
 		assertEquals("The row counts of the table and the list provided by the row supplier must match.", rows.size(), dataTableDiv.getTotalRowCount());
 
-		List<DomNodeTester> tableBodyRows = findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		List<DomNodeTester> tableBodyRows = findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.BODY_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_ROW)
 			.assertSize(rows.size());
 
 		return tableBodyRows;

@@ -21,6 +21,7 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 		setTitle(EmfI18n.EDIT_ENTRY);
 		setPopupFactory(FormPopup::new);
 		setDisabled(true);
+		setTabIndex(-1);
 	}
 
 	public void refresh(E entity) {
@@ -44,6 +45,7 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 
 			super(entity);
 			configuration.setCallbackBeforeClose(this::refreshInput);
+			setDirectEditing(true);
 		}
 
 		private void refreshInput() {

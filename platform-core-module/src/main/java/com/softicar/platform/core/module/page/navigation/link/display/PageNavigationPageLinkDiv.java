@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.page.navigation.link.display;
 
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
-import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.core.module.page.navigation.PageNavigationPageController;
 import com.softicar.platform.core.module.page.navigation.PageNavigationResources;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
@@ -24,7 +24,7 @@ public class PageNavigationPageLinkDiv extends DomDiv {
 		this.folderDiv = folderDiv;
 		this.link = link;
 
-		addMarker(PageNavigationMarker.PAGE_LINK_DIV);
+		addMarker(CoreTestMarker.PAGE_NAVIGATION_PAGE_LINK_DIV);
 		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_PAGE_LINK_DIV);
 		appendChild(new Title());
 		appendChild(new OpenInNewTabButton());

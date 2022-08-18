@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
-import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.compositor.IDomPopupContext;
@@ -24,7 +24,7 @@ public class PageContentDiv extends DomDiv implements IEmfPageContentElement, ID
 		this.page = Optional.ofNullable(link.getPage());
 
 		addCssClass(PageCssClasses.PAGE_CONTENT_DIV);
-		addMarker(PageNavigationMarker.PAGE_CONTENT_DIV);
+		addMarker(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
 		appendChild(link.createContentNode());
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
 			addCssClass(PageCssClasses.TEST_SYSTEM);

@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.dom.elements.DomHeaderCell;
@@ -8,6 +7,7 @@ import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.AbstractEmfTest;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -29,11 +29,11 @@ public abstract class AbstractEmfDataTableTest extends AbstractEmfTest {
 
 	protected List<DomNodeTester> assertTableHeaderCells(int...size) {
 
-		return findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		return findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.HEADER_PRIMARY_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_ROW)
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.HEADER_PRIMARY_CELL)
+			.findNodes(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_CELL)
 			.assertSize(size.length);
 	}
 
@@ -44,11 +44,11 @@ public abstract class AbstractEmfDataTableTest extends AbstractEmfTest {
 
 	protected DomNodeTester assertHeaderCaption(IDataTableColumn<TestTableRow, ?> column) {
 
-		return findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		return findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.HEADER_PRIMARY_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_ROW)
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.HEADER_CAPTION)
+			.findNodes(EmfTestMarker.DATA_TABLE_HEADER_CAPTION)
 			.withText(column.getTitle())
 			.assertOne();
 	}
@@ -61,9 +61,9 @@ public abstract class AbstractEmfDataTableTest extends AbstractEmfTest {
 
 	protected List<DomNodeTester> assertNumberOfTableBodyRows(int number) {
 
-		return findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		return findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.BODY_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_ROW)
 			.assertSize(number);
 	}
 
@@ -135,7 +135,7 @@ public abstract class AbstractEmfDataTableTest extends AbstractEmfTest {
 		// FIXME: index based column retrieval will break as soon as we totally remove collapsed columns
 //		return row.getChildrenInTree(EmfDataTableDivMarker.BODY_CELL).assertSome().get(column.getIndex());
 		return row//
-			.findNodes(EmfDataTableDivMarker.BODY_CELL)
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_CELL)
 			.assertSome()
 			.get(getIndexOfHeaderCell(column));
 	}

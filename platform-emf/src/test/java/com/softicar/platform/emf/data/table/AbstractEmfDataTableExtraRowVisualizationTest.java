@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.ArrayList;
 
 public abstract class AbstractEmfDataTableExtraRowVisualizationTest extends AbstractEmfDataTableTest {
@@ -26,7 +26,7 @@ public abstract class AbstractEmfDataTableExtraRowVisualizationTest extends Abst
 
 		tableDiv = builder.build();
 		setNodeSupplier(() -> tableDiv);
-		tableDivNode = findNodes(EmfDataTableDivMarker.TABLE_DIV).assertOne();
+		tableDivNode = findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV).assertOne();
 	}
 
 	protected void assertCell(DomNodeTester cell, IDisplayString expectedText, int expectedColspan) {
@@ -52,7 +52,7 @@ public abstract class AbstractEmfDataTableExtraRowVisualizationTest extends Abst
 	protected int getTotalColspan(DomNodeTester headerRow) {
 
 		return headerRow//
-			.findNodes(EmfDataTableDivMarker.EXTRA_ROW_CELL)
+			.findNodes(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL)
 			.assertSome()
 			.stream()
 			.mapToInt(it -> getColspanFromCell(it.getNode()))

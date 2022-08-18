@@ -20,9 +20,9 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 
 	public DomTimeInput() {
 
-		this.hourInput = createInput(DomI18n.HOURS, DomTestMarker.HOURS_INPUT);
-		this.minuteInput = createInput(DomI18n.MINUTES, DomTestMarker.MINUTES_INPUT);
-		this.secondInput = createInput(DomI18n.SECONDS, DomTestMarker.SECONDS_INPUT);
+		this.hourInput = createInput(DomI18n.HOURS, DomTestMarker.TIME_INPUT_HOURS_INPUT);
+		this.minuteInput = createInput(DomI18n.MINUTES, DomTestMarker.TIME_INPUT_MINUTES_INPUT);
+		this.secondInput = createInput(DomI18n.SECONDS, DomTestMarker.TIME_INPUT_SECONDS_INPUT);
 
 		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
 		appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);

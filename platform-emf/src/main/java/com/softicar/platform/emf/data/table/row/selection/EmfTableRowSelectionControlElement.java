@@ -12,6 +12,7 @@ import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.style.CssColorEnum;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 
 /**
@@ -30,7 +31,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 		this.rowSelectionProxy = rowSelectionProxy;
 		this.table = table;
 		this.statusTextSpan = new StatusTextSpan();
-		addMarker(EmfTableRowSelectionMarker.CONTROL_ELEMENT);
+		addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CONTROL_ELEMENT);
 		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_ROW_SELECTION_CONTROL_ELEMENT);
 		refresh();
@@ -58,7 +59,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 			setIcon(DomElementsImages.TABLE_ROW_SELECTION_SELECT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.ALL);
-			addMarker(EmfTableRowSelectionMarker.BUTTON_SELECT_ALL_ON_CURRENT_PAGE);
+			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_ALL_ON_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
 		}
 
@@ -74,7 +75,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 			setIcon(DomElementsImages.TABLE_ROW_SELECTION_INVERT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.INVERT);
-			addMarker(EmfTableRowSelectionMarker.BUTTON_SELECT_INVERT_CURRENT_PAGE);
+			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_INVERT_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
 		}
 
@@ -90,7 +91,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 			setIcon(DomElementsImages.TABLE_ROW_SELECTION_UNSELECT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.NONE);
-			addMarker(EmfTableRowSelectionMarker.BUTTON_UNSELECT_ALL_ON_CURRENT_PAGE);
+			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_ON_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
 		}
 
@@ -106,7 +107,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 			setIcon(DomElementsImages.TABLE_ROW_SELECTION_UNSELECT_ALL_PAGES.getResource());
 			setTitle(EmfDataTableI18n.NONE_ALL_PAGES);
-			addMarker(EmfTableRowSelectionMarker.BUTTON_UNSELECT_ALL_PAGES);
+			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_PAGES);
 			setClickCallback(this::handleClick);
 		}
 
@@ -120,7 +121,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 		public StatusTextSpan() {
 
-			addMarker(EmfTableRowSelectionMarker.STATUS_TEXT_ELEMENT);
+			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_STATUS_TEXT_ELEMENT);
 		}
 
 		@Override

@@ -1,9 +1,10 @@
 package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
@@ -74,19 +75,19 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 
 	private void clickNextPageButton() {
 
-		findFirstButton(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON).click();
+		findFirstButton(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NEXT_BUTTON).click();
 	}
 
 	private void clickPrevPageButton() {
 
-		findFirstButton(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON).click();
+		findFirstButton(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_PREV_BUTTON).click();
 	}
 
 	private void clickPageNumberButton(int targetPageIndex) {
 
 		String targetPageNumberString = targetPageIndex + 1 + "";
 
-		findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON)//
+		findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON)//
 			.withType(DomButton.class)
 			.withText(targetPageNumberString)
 			.assertSome()
@@ -97,7 +98,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 
 	private void clickEllipsisButton() {
 
-		findNodes(DomPageableTableMarker.NAVIGATION_PAGE_NUMBER_BUTTON)//
+		findNodes(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NUMBER_BUTTON)//
 			.withType(DomButton.class)
 			.withText("...")
 			.assertSome()
@@ -126,9 +127,9 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 
 		assertEquals("Wrong page was displayed.", expectedPageIndex, currentPageIndex);
 
-		List<DomNodeTester> tableBodyRows = findNodes(EmfDataTableDivMarker.TABLE_DIV)//
+		List<DomNodeTester> tableBodyRows = findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
-			.findNodes(EmfDataTableDivMarker.BODY_ROW)
+			.findNodes(EmfTestMarker.DATA_TABLE_BODY_ROW)
 			.assertSize(expectedRowCountOnPage);
 
 		Collection<? extends IDataTableColumn<TestTableRow, ?>> columns = getDataTable().getTableColumns();
@@ -141,7 +142,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 			DomNodeTester tableBodyRowNode = tableBodyRows.get(i);
 
 			List<DomNodeTester> cellNodesFromDomRow = tableBodyRowNode//
-				.findNodes(EmfDataTableDivMarker.BODY_CELL)
+				.findNodes(EmfTestMarker.DATA_TABLE_BODY_CELL)
 				.assertSize(columns.size());
 
 			assertExpectedRowDisplayed(integerColumn, row, cellNodesFromDomRow);

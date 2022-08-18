@@ -3,6 +3,7 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import java.util.Objects;
@@ -56,7 +57,7 @@ public class DomModalConfirmDialog extends DomModalDialog {
 
 		appendContent(message);
 		appendActionNode(new OkayButton());
-		appendCancelButton().addMarker(DomModalConfirmMarker.CANCEL_BUTTON);
+		appendCancelButton().addMarker(DomTestMarker.MODAL_CONFIRM_CANCEL_BUTTON);
 	}
 
 	private void executeCancelCallback() {
@@ -73,7 +74,7 @@ public class DomModalConfirmDialog extends DomModalDialog {
 			setLabel(DomI18n.OK);
 			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
 			setClickCallback(this::handleClick);
-			addMarker(DomModalConfirmMarker.OKAY_BUTTON);
+			addMarker(DomTestMarker.MODAL_CONFIRM_OKAY_BUTTON);
 		}
 
 		private void handleClick() {

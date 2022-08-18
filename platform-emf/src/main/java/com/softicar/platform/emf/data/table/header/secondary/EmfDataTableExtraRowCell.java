@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.data.table.header.secondary;
 
 import com.softicar.platform.dom.elements.DomHeaderCell;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.IEmfDataTableRowProvider;
 import java.util.Objects;
 
@@ -18,7 +18,7 @@ class EmfDataTableExtraRowCell<R> extends DomHeaderCell {
 		Objects.requireNonNull(columnSpan);
 		Objects.requireNonNull(rowProvider);
 
-		addMarker(EmfDataTableDivMarker.EXTRA_ROW_CELL);
+		addMarker(EmfTestMarker.DATA_TABLE_EXTRA_ROW_CELL);
 		setColSpan(columnSpan.getColumnCount());
 		columnSpan.getColumnGroup().ifPresent(columnGroup -> {
 			columnGroup.getCellBuilder().buildCell(this, rowProvider);

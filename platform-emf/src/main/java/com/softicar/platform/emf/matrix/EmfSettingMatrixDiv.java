@@ -4,6 +4,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.EmfTestMarker;
 
 /**
  * A matrix based input element for all kinds of settings.
@@ -57,7 +58,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 			setLabel(EmfI18n.SAVE);
 			setEnabled(editable);
 			setClickCallback(() -> saveAndReload());
-			addMarker(EmfSettingMatrixMarker.SAVE_BUTTON);
+			addMarker(EmfTestMarker.SETTING_MATRIX_SAVE_BUTTON);
 		}
 	}
 
@@ -69,7 +70,7 @@ public class EmfSettingMatrixDiv<R, C, V> extends DomDiv {
 			setLabel(EmfI18n.RELOAD);
 			setEnabled(editable);
 			setClickCallback(() -> load());
-			addMarker(EmfSettingMatrixMarker.RELOAD_BUTTON);
+			addMarker(EmfTestMarker.SETTING_MATRIX_RELOAD_BUTTON);
 		}
 	}
 }
