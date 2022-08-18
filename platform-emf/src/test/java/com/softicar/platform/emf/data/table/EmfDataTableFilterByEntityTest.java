@@ -82,24 +82,12 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(1);
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithEmptyFilterAndValue() {
-
-		applyFilter(EmfDataTableEntityFilterType.IS_EMPTY, entity2);
-	}
-
 	@Test
 	public void testFilteringWithNotEmptyFilter() {
 
 		applyFilterWithoutValue(EmfDataTableEntityFilterType.IS_NOT_EMPTY);
 
 		assertNumberOfTableBodyRows(4);
-	}
-
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithNotEmptyFilterAndValue() {
-
-		applyFilter(EmfDataTableEntityFilterType.IS_NOT_EMPTY, entity2);
 	}
 
 	private void applyFilter(EmfDataTableEntityFilterType filterType, TestEntity item) {

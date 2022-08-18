@@ -9,6 +9,7 @@ import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
+import com.softicar.platform.dom.utils.DomPayloadCodeExecutor;
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.junit.rules.TestWatcher;
@@ -43,8 +44,9 @@ public class DomDocumentTestExecutionEngine extends TestWatcher implements IDomT
 	@Override
 	public void sendEvent(IDomNode node, DomEventType type) {
 
-		new DomEventHandlerNodeCaller(node, new DomTestEvent(node, type)).call();
-
+		var event = new DomTestEvent(node, type);
+		var executor = new DomPayloadCodeExecutor().setEventNode(node);
+		new DomEventHandlerNodeCaller(executor, node, event).call();
 		node.getDomDocument().getRefreshBus().submitEvent();
 	}
 
