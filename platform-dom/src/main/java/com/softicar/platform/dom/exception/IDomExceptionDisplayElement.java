@@ -1,9 +1,8 @@
 package com.softicar.platform.dom.exception;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.dom.node.IDomNode;
 
-public interface IDomExceptionDisplayElement extends IDomNode {
+public interface IDomExceptionDisplayElement {
 
 	/**
 	 * Checks the given exception whether it can be displayed or not.
