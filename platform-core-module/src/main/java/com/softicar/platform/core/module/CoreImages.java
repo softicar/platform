@@ -51,6 +51,7 @@ public interface CoreImages extends DomImages {
 	IResourceSupplier STORED_FILE_UPLOAD = FACTORY.create("stored-file-upload.svg");
 	IResourceSupplier SYSTEM = FACTORY.create("system.svg");
 	IResourceSupplier TERMINATE = FACTORY.create("terminate.svg");
+	IResourceSupplier USER = FACTORY.create("user.svg");
 	IResourceSupplier USER_PROFILE = FACTORY.create("user-profile.svg");
 	IResourceSupplier USER_PSEUDONYMIZATION = FACTORY.create("user-pseudonymization.svg");
 	IResourceSupplier USERS = FACTORY.create("users.svg");
