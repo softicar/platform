@@ -52,13 +52,13 @@ class AjaxSeleniumTestServerWaiter {
 
 		return new StringBuilder()//
 			.append("%s = false;".formatted(FINISHED_VARIABLE))
-			.append("function waitForServer() {;")
+			.append("function waitForServer() {")
 			.append("	if(AJAX_REQUEST_QUEUE.hasRequests()) {")
 			.append("		setTimeout(waitForServer, 0);")
 			.append("	} else {")
 			.append("		%s = true;".formatted(FINISHED_VARIABLE))
 			.append("	}")
-			.append("};")
+			.append("}")
 			.append("setTimeout(waitForServer, 0);")
 			.toString();
 	}
