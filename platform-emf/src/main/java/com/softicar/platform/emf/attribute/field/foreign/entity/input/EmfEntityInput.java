@@ -18,7 +18,7 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteI
 		this.editButton = new EmfEntityInputEditButton<>(this);
 		inputBar.appendChild(new EmfAutoCompleteBrowseButton(this, inputEngine));
 		inputBar.appendChild(editButton);
-		addInputConstraintRefreshCallback(() -> editButton.refresh(getValueOrNull()));
+		addInputConstraintRefreshCallback(() -> editButton.refresh(getValueNoThrow().orElse(null)));
 	}
 
 	public <S> EmfEntityInput(IEmfEntityTable<E, ?, S> targetTable, S scope) {
@@ -30,7 +30,7 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteI
 	public void setValue(E value) {
 
 		super.setValue(value);
-		editButton.refresh(getValueOrNull());
+		editButton.refresh(value);
 	}
 
 	@Override
