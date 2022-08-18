@@ -8,7 +8,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.tab.DomTabBar;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.form.IEmfForm;
@@ -41,7 +41,7 @@ public class EmfTraitTabTest extends AbstractEmfTest {
 
 		findBody().clickNode(EmfI18n.CONFIGURE_TRAIT);
 		findBody().setInputValue(EmfTestTrait.VALUE, "" + SOME_VALUE);
-		findBody().clickNode(EmfMarker.SAVE_AND_CLOSE);
+		findBody().clickNode(EmfTestMarker.FORM_SAVE_AND_CLOSE);
 
 		EmfTestTrait trait = Asserts.assertOne(EmfTestTrait.TABLE.loadAll());
 		assertSame(object, trait.getObject());
@@ -58,7 +58,7 @@ public class EmfTraitTabTest extends AbstractEmfTest {
 
 		findBody().clickNode(new EmfCommonActionMarker(EmfEditAction.class));
 		findBody().setInputValue(EmfTestTrait.VALUE, "" + OTHER_VALUE);
-		findBody().clickNode(EmfMarker.SAVE_AND_CLOSE);
+		findBody().clickNode(EmfTestMarker.FORM_SAVE_AND_CLOSE);
 
 		trait.reload();
 		assertSame(object, trait.getObject());
@@ -69,7 +69,7 @@ public class EmfTraitTabTest extends AbstractEmfTest {
 	public void testCancelWithNewTrait() {
 
 		findBody().clickNode(EmfI18n.CONFIGURE_TRAIT);
-		findBody().clickNode(EmfMarker.CANCEL);
+		findBody().clickNode(EmfTestMarker.FORM_CANCEL);
 
 		Asserts.assertNone(EmfTestTrait.TABLE.loadAll());
 		Mockito.verify(frame).closeFrame();
@@ -84,7 +84,7 @@ public class EmfTraitTabTest extends AbstractEmfTest {
 			.save();
 
 		findBody().clickNode(new EmfCommonActionMarker(EmfEditAction.class));
-		findBody().clickNode(EmfMarker.CANCEL);
+		findBody().clickNode(EmfTestMarker.FORM_CANCEL);
 
 		Mockito.verify(frame, Mockito.never()).closeFrame();
 	}

@@ -8,8 +8,6 @@ public interface AjaxI18n extends DomI18n {
 
 	I18n0 AN_EXCEPTION_OCCURRED = new I18n0("An exception occurred:")//
 		.de("Ein Fehler ist aufgetreten:");
-	I18n0 AN_INTERNAL_PROGRAM_ERROR_OCCURRED = new I18n0("An internal program error occurred.")//
-		.de("Ein interner Programmfehler ist aufgetreten.");
 	I18n0 ANOTHER_ACTION_IS_STILL_EXECUTING = new I18n0("Another action is still executing.")//
 		.de("Eine andere Aktion wird noch ausgeführt.");
 	I18n0 APPLICATION_IS_WORKING = new I18n0("Application is working...")//

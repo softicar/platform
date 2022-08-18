@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.data.table.DataTableValueFilterOpe
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -137,7 +138,7 @@ public class EmfDataTableFilterByDayTimeTest extends AbstractEmfDataTableFilterB
 
 		DomNodeTester popup = openFilterPopup(column);
 		selectFilterType(filterType);
-		popup.setDayTimeInputValue(EmfDataTableDivMarker.FILTER_INPUT_VALUE, getDayString(dayTime), getTimeString(dayTime));
+		popup.setDayTimeInputValue(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE, getDayString(dayTime), getTimeString(dayTime));
 		confirmFilterPopup();
 	}
 

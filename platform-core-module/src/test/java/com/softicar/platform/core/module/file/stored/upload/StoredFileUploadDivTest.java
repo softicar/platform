@@ -3,12 +3,12 @@ package com.softicar.platform.core.module.file.stored.upload;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.core.module.file.stored.StoredFileMarker;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.dialog.DomModalConfirmMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
@@ -258,9 +258,9 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 
 		// assert results
 		assertAddFileElementAbsent();
-		findNodes(StoredFileMarker.REMOVE_FILE_BUTTON)//
+		findNodes(CoreTestMarker.STORED_FILE_REMOVE_FILE_BUTTON)//
 			.assertNone();
-		findNodes(StoredFileMarker.DOWNLOAD_FILE_BUTTON)//
+		findNodes(CoreTestMarker.STORED_FILE_DOWNLOAD_FILE_BUTTON)//
 			.assertSize(2);
 	}
 
@@ -298,35 +298,35 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 
 	/**
 	 * Performs file uploads by simulating a user interaction with
-	 * {@link StoredFileMarker#UPLOAD_FORM}. Since we cannot leverage native
-	 * windows while testing, this must be sufficient.
+	 * {@link CoreTestMarker#STORED_FILE_UPLOAD_FORM}. Since we cannot leverage
+	 * native windows while testing, this must be sufficient.
 	 */
 	private void uploadFiles(IDomFileUpload...fileUploads) {
 
-		var uploadHandlerNode = findNode(StoredFileMarker.UPLOAD_FORM).getNode();
+		var uploadHandlerNode = findNode(CoreTestMarker.STORED_FILE_UPLOAD_FORM).getNode();
 		var uploadHandler = (IDomFileUploadHandler) uploadHandlerNode;
 		uploadHandler.handleFileUploads(Arrays.asList(fileUploads));
 	}
 
 	private void removeFile(String filename) {
 
-		findNodes(StoredFileMarker.DOWNLOAD_FILE_BUTTON)
+		findNodes(CoreTestMarker.STORED_FILE_DOWNLOAD_FILE_BUTTON)
 			.withText(filename)
 			.assertOne()
 			.getParentOrThrow()
-			.findButton(StoredFileMarker.REMOVE_FILE_BUTTON)
+			.findButton(CoreTestMarker.STORED_FILE_REMOVE_FILE_BUTTON)
 			.click();
-		findNode(DomModalConfirmMarker.OKAY_BUTTON).click();
+		findNode(DomTestMarker.MODAL_CONFIRM_OKAY_BUTTON).click();
 	}
 
 	private void assertAddFileElementPresent() {
 
-		findNode(StoredFileMarker.ADD_FILE_ELEMENT).assertContainsText("Choose or drop file");
+		findNode(CoreTestMarker.STORED_FILE_ADD_FILE_ELEMENT).assertContainsText("Choose or drop file");
 	}
 
 	private void assertAddFileElementAbsent() {
 
-		findNodes(StoredFileMarker.ADD_FILE_ELEMENT).assertNone();
+		findNodes(CoreTestMarker.STORED_FILE_ADD_FILE_ELEMENT).assertNone();
 	}
 
 	private void assertFileTable(String...filenames) {
@@ -342,12 +342,12 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 
 	private List<DomNodeTester> assertRemoveFileButtons(int size) {
 
-		return findNodes(StoredFileMarker.REMOVE_FILE_BUTTON).assertSize(size);
+		return findNodes(CoreTestMarker.STORED_FILE_REMOVE_FILE_BUTTON).assertSize(size);
 	}
 
 	private List<DomNodeTester> assertDownloadFileButtons(int size) {
 
-		return findNodes(StoredFileMarker.DOWNLOAD_FILE_BUTTON).assertSize(size);
+		return findNodes(CoreTestMarker.STORED_FILE_DOWNLOAD_FILE_BUTTON).assertSize(size);
 	}
 
 	private void assertAddHandlerCalls(int size) {

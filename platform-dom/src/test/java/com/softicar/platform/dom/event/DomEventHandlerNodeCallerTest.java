@@ -6,29 +6,35 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.testing.engine.document.DomTestEvent;
+import com.softicar.platform.dom.utils.DomPayloadCodeExecutor;
 import org.junit.Test;
 
 public class DomEventHandlerNodeCallerTest extends AbstractTest {
 
+	private final DomButton button;
+
 	public DomEventHandlerNodeCallerTest() {
 
-		CurrentDomDocument.set(new DomDocument());
+		var document = new DomDocument();
+		CurrentDomDocument.set(document);
+
+		this.button = document.getBody().appendChild(new DomButton());
 	}
 
 	@Test
 	public void testCallSetsCurrentEvent() {
 
-		var button = new DomButton().setClickCallback(this::assertCurrentEventDefined);
+		button.setClickCallback(this::assertCurrentEventDefined);
+
 		var event = new DomTestEvent(button, DomEventType.CLICK);
-		new DomEventHandlerNodeCaller(button, event).call();
+		new DomEventHandlerNodeCaller(new DomPayloadCodeExecutor(), button, event).call();
 	}
 
 	@Test
 	public void testCallUnsetsCurrentEvent() {
 
-		var button = new DomButton();
 		var event = new DomTestEvent(button, DomEventType.CLICK);
-		new DomEventHandlerNodeCaller(button, event).call();
+		new DomEventHandlerNodeCaller(new DomPayloadCodeExecutor(), button, event).call();
 
 		assertCurrentEventUndefined();
 	}
@@ -37,11 +43,13 @@ public class DomEventHandlerNodeCallerTest extends AbstractTest {
 	public void testCallUnsetsCurrentEventWithException() {
 
 		try {
-			var button = new DomButton().setClickCallback(() -> {
+			button.setClickCallback(() -> {
 				throw new RuntimeException();
 			});
+
 			var event = new DomTestEvent(button, DomEventType.CLICK);
-			new DomEventHandlerNodeCaller(button, event).call();
+			var executor = new DomPayloadCodeExecutor().setEventNode(button);
+			new DomEventHandlerNodeCaller(executor, button, event).call();
 		} catch (RuntimeException exception) {
 			DevNull.swallow(exception);
 		}

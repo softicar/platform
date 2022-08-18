@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.dialog.testing;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.dom.elements.dialog.DomModalConfirmMarker;
+import com.softicar.platform.dom.DomTestMarker;
 import java.util.function.Function;
 
 public class DomModalConfirmNodes<T> extends DomModalDialogNodes<T> implements IDomModalConfirmNodes<T> {
@@ -14,12 +14,12 @@ public class DomModalConfirmNodes<T> extends DomModalDialogNodes<T> implements I
 	@Override
 	public T getOkayButton() {
 
-		return extractor.apply(DomModalConfirmMarker.OKAY_BUTTON);
+		return extractor.apply(DomTestMarker.MODAL_CONFIRM_OKAY_BUTTON);
 	}
 
 	@Override
 	public T getCancelButton() {
 
-		return extractor.apply(DomModalConfirmMarker.CANCEL_BUTTON);
+		return extractor.apply(DomTestMarker.MODAL_CONFIRM_CANCEL_BUTTON);
 	}
 }

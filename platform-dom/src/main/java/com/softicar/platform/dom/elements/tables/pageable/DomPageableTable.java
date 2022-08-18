@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.tables.pageable;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.element.DomElement;
 import com.softicar.platform.dom.elements.tables.pageable.navigation.DomPageableTableNavigation;
 import com.softicar.platform.dom.elements.tables.pageable.navigation.IDomPageableTableNavigation;
@@ -34,7 +35,7 @@ public abstract class DomPageableTable extends DomScrollableTable {
 	 */
 	public DomPageableTable() {
 
-		addMarker(DomPageableTableMarker.TABLE);
+		addMarker(DomTestMarker.PAGEABLE_TABLE);
 	}
 
 	/**

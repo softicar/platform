@@ -3,6 +3,7 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.filter.string.EmfDataTableStringFilterNode;
 import com.softicar.platform.emf.data.table.filter.string.EmfDataTableStringFilterType;
 import java.util.Arrays;
@@ -141,12 +142,6 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(2);
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithEmptyFilterAndInputText() {
-
-		applyFilter(EmfDataTableStringFilterType.IS_EMPTY, "invalid");
-	}
-
 	@Test
 	public void testFilteringWithNotEmptyFilter() {
 
@@ -155,17 +150,11 @@ public class EmfDataTableFilterByStringTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(5);
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithNotEmptyFilterAndInputText() {
-
-		applyFilter(EmfDataTableStringFilterType.IS_NOT_EMPTY, "invalid");
-	}
-
 	private void applyFilter(EmfDataTableStringFilterType filterType, String filterString) {
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findInput(EmfDataTableDivMarker.FILTER_INPUT_STRING).setInputValue(filterString);
+		findInput(EmfTestMarker.DATA_TABLE_FILTER_INPUT_STRING).setInputValue(filterString);
 		confirmFilterPopup();
 	}
 

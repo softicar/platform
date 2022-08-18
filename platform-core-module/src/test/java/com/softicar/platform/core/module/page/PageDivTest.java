@@ -4,9 +4,9 @@ import com.softicar.platform.ajax.document.AjaxDocumentParameters;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
-import com.softicar.platform.core.module.page.navigation.PageNavigationMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import java.util.Map;
@@ -38,7 +38,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		findPageNode(PageNavigationDiv.class).assertOne();
 		findPageNode(PageHeaderAndContentDiv.class).assertOne();
 		findPageNode(PageHeaderDiv.class).assertOne();
-		findPageNode(PageNavigationMarker.PAGE_CONTENT_DIV).assertOne();
+		findPageNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV).assertOne();
 		DomNodeTester headerDivTester = findPageNode(PageHeaderDiv.class).assertOne();
 		headerDivTester.assertContainsText("Start Page");
 	}
@@ -168,7 +168,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		String headerText = headerDivTester.getAllTextsInTree().collect(Collectors.joining("|"));
 		assertTrue(headerText.contains("[System]|>>|Core|>>|Test Page"));
 
-		DomNodeTester contentDivTester = findPageNode(PageNavigationMarker.PAGE_CONTENT_DIV).assertOne();
+		DomNodeTester contentDivTester = findPageNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV).assertOne();
 		contentDivTester.assertContainsText(TestPage.CONTENT_STRING);
 		assertTrue(engine.getCurrentUrl().contains("page=" + TestPage.UUID));
 	}

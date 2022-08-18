@@ -2,6 +2,7 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class EmfDataTableFilterByDoubleTest extends AbstractEmfDataTableFilterBy
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findInput(EmfDataTableDivMarker.FILTER_INPUT_VALUE).setInputValue(filterString != null? filterString : "");
+		findInput(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE).setInputValue(filterString != null? filterString : "");
 		confirmFilterPopup();
 	}
 }

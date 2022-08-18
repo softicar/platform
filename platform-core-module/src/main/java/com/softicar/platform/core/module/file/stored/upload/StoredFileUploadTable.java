@@ -2,10 +2,10 @@ package com.softicar.platform.core.module.file.stored.upload;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.core.module.CoreCssClasses;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.size.FileSize;
 import com.softicar.platform.core.module.file.size.FileSizeFormatter;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.core.module.file.stored.StoredFileMarker;
 import com.softicar.platform.core.module.file.stored.download.StoredFileDownloadButton;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
@@ -118,7 +118,7 @@ class StoredFileUploadTable extends DomDiv {
 				.setTitle(EmfI18n.REMOVE_FILE)
 				.setConfirmationMessage(EmfI18n.ARE_YOU_SURE_QUESTION)
 				.setClickCallback(() -> removeFile(file))
-				.addMarker(StoredFileMarker.REMOVE_FILE_BUTTON);
+				.addMarker(CoreTestMarker.STORED_FILE_REMOVE_FILE_BUTTON);
 
 			this.bar = appendChild(new DomActionBar());
 			this.bar.appendChild(removeButton);

@@ -5,10 +5,10 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
@@ -122,7 +122,7 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 	private DomPopupFrame getFrame(DomPopup popup) {
 
 		IDomParentElement parent = popup.getParent();
-		if (parent.hasMarker(DomPopupMarker.FRAME)) {
+		if (parent.hasMarker(DomTestMarker.POPUP_FRAME)) {
 			return (DomPopupFrame) popup.getParent();
 		} else {
 			throw new AssertionError();

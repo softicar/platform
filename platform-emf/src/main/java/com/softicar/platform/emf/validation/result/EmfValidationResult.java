@@ -71,7 +71,7 @@ public class EmfValidationResult implements IEmfValidationResult {
 		if (getDiagnostics()//
 			.stream()
 			.filter(it -> it.getDiagnosticLevel() == EmfDiagnosticLevel.ERROR)
-			.noneMatch(it -> it.getMessage().equals(expectedMessage))) {
+			.noneMatch(it -> it.getMessage().toString().equals(expectedMessage.toString()))) {
 			throw new AssertionError("Missing expected error message: %s".formatted(expectedMessage));
 		}
 	}

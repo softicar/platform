@@ -5,6 +5,7 @@ import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.runtime.table.row.getter.DbTableRowGetterStrategy;
 import com.softicar.platform.db.runtime.table.row.getter.IDbTableRowGetterStrategy;
+import java.util.Objects;
 
 /**
  * Default implementation of {@link IDbTableConfiguration}.
@@ -67,11 +68,11 @@ public class DbTableConfiguration<R extends IDbTableRow<R, P>, P> implements IDb
 
 	public void setTitle(IDisplayString title) {
 
-		this.title = title;
+		this.title = Objects.requireNonNull(title);
 	}
 
 	public void setPluralTitle(IDisplayString pluralTitle) {
 
-		this.pluralTitle = pluralTitle;
+		this.pluralTitle = Objects.requireNonNull(pluralTitle);
 	}
 }

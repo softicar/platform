@@ -7,6 +7,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
@@ -100,7 +101,7 @@ public class PageServiceLoginDiv extends DomDiv {
 
 				setIcon(CoreImages.LOGIN.getResource());
 				setLabel(CoreI18n.LOGIN);
-				addMarker(PageServiceLoginDivMarker.LOGIN_BUTTON);
+				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 
 				HiddenSubmitInput submitInput = new HiddenSubmitInput();
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.CLICK, submitInput);
@@ -132,7 +133,7 @@ public class PageServiceLoginDiv extends DomDiv {
 				setAttribute("name", "username");
 				setAttribute("autocomplete", "username");
 
-				addMarker(PageServiceLoginDivMarker.USER_INPUT);
+				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT);
 
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
 			}
@@ -145,7 +146,7 @@ public class PageServiceLoginDiv extends DomDiv {
 				setAttribute("name", "current-password");
 				setAttribute("autocomplete", "current-password");
 
-				addMarker(PageServiceLoginDivMarker.PASSWORD_INPUT);
+				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT);
 
 				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
 			}
@@ -204,7 +205,7 @@ public class PageServiceLoginDiv extends DomDiv {
 			public LoginErrorElement() {
 
 				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_ERROR_DIV);
-				addMarker(PageServiceLoginDivMarker.ERROR_MESSAGE_ELEMENT);
+				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_ERROR_MESSAGE_ELEMENT);
 			}
 
 			public void showError(String message) {

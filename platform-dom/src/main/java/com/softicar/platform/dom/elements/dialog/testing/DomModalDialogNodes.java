@@ -1,8 +1,7 @@
 package com.softicar.platform.dom.elements.dialog.testing;
 
 import com.softicar.platform.common.core.interfaces.IStaticObject;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogMarker;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
+import com.softicar.platform.dom.DomTestMarker;
 import java.util.function.Function;
 
 public class DomModalDialogNodes<T> implements IDomModalDialogNodes<T> {
@@ -17,24 +16,24 @@ public class DomModalDialogNodes<T> implements IDomModalDialogNodes<T> {
 	@Override
 	public T getFrame() {
 
-		return extractor.apply(DomModalDialogMarker.FRAME);
+		return extractor.apply(DomTestMarker.MODAL_DIALOG_FRAME);
 	}
 
 	@Override
 	public T getPopup() {
 
-		return extractor.apply(DomModalDialogMarker.POPUP);
+		return extractor.apply(DomTestMarker.MODAL_DIALOG_POPUP);
 	}
 
 	@Override
 	public T getContent() {
 
-		return extractor.apply(DomModalDialogMarker.CONTENT);
+		return extractor.apply(DomTestMarker.MODAL_DIALOG_CONTENT);
 	}
 
 	@Override
 	public T getBackdrop() {
 
-		return extractor.apply(DomPopupMarker.BACKDROP);
+		return extractor.apply(DomTestMarker.POPUP_BACKDROP);
 	}
 }

@@ -7,6 +7,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfImages;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class EmfDataTableOrderByButton<R> extends DomButton {
 		this.column = column;
 		this.direction = column.getOrderByDirection();
 		this.countElement = null;
-		addMarker(EmfDataTableDivMarker.ORDER_BY_BUTTON);
+		addMarker(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON);
 		setClickCallback(this::changeOrder);
 		refresh();
 	}

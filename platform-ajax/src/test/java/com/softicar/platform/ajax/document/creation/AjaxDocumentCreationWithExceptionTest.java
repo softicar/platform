@@ -3,10 +3,10 @@ package com.softicar.platform.ajax.document.creation;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.dialog.DomModalAlertMarker;
 import org.junit.Test;
 
 public class AjaxDocumentCreationWithExceptionTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -20,7 +20,7 @@ public class AjaxDocumentCreationWithExceptionTest extends AbstractAjaxSeleniumL
 
 		// assert modal alert is displayed
 		var alert = findModalAlertOrFail();
-		assertFocused(DomModalAlertMarker.CLOSE_BUTTON);
+		assertFocused(DomTestMarker.MODAL_ALERT_CLOSE_BUTTON);
 		assertEquals("Exception Text", getText(alert.getContent()));
 
 		// close modal alert

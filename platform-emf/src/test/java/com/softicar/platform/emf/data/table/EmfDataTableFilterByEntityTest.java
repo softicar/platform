@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterNode;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterType;
 import java.util.Arrays;
@@ -81,12 +82,6 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(1);
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithEmptyFilterAndValue() {
-
-		applyFilter(EmfDataTableEntityFilterType.IS_EMPTY, entity2);
-	}
-
 	@Test
 	public void testFilteringWithNotEmptyFilter() {
 
@@ -95,17 +90,11 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(4);
 	}
 
-	@Test(expected = UnsupportedOperationException.class)
-	public void testFilteringWithNotEmptyFilterAndValue() {
-
-		applyFilter(EmfDataTableEntityFilterType.IS_NOT_EMPTY, entity2);
-	}
-
 	private void applyFilter(EmfDataTableEntityFilterType filterType, TestEntity item) {
 
 		openFilterPopup(column);
 		selectFilterType(filterType);
-		findAutoCompleteInput(EmfDataTableDivMarker.FILTER_INPUT_ENTITY).selectValue(item);
+		findAutoCompleteInput(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENTITY).selectValue(item);
 		confirmFilterPopup();
 	}
 

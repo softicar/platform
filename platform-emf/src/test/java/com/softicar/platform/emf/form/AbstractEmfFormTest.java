@@ -3,7 +3,7 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
-import com.softicar.platform.emf.EmfMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
@@ -102,13 +102,13 @@ public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 
 		setInputValue(dayMarker, day.toISOString());
 		setInputValue(nameMarker, name);
-		clickButton(EmfMarker.SAVE);
+		clickButton(EmfTestMarker.FORM_SAVE);
 	}
 
 	protected void enterNameAndDayAndClickSaveAndClose(IStaticObject nameMarker, IStaticObject dayMarker, String name, Day day) {
 
 		setInputValue(nameMarker, name);
 		setInputValue(dayMarker, day.toISOString());
-		clickButton(EmfMarker.SAVE_AND_CLOSE);
+		clickButton(EmfTestMarker.FORM_SAVE_AND_CLOSE);
 	}
 }

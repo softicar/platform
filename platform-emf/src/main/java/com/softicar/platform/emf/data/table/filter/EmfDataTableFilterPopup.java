@@ -7,7 +7,7 @@ import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.popup.modal.DomDismissablePopup;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.list.EmfDataTableFilterListDiv;
@@ -29,7 +29,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 		setCaption(EmfDataTableI18n.FILTER_BY_COLUMN);
 		setSubCaption(column.getTitle());
-		addMarker(EmfDataTableDivMarker.FILTER_POPUP);
+		addMarker(EmfTestMarker.DATA_TABLE_FILTER_POPUP);
 		column.getSettings().getMarkers().forEach(this::addMarker);
 
 		appendChild(filterListDiv);
@@ -44,7 +44,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 			setIcon(DomElementsImages.FILTER.getResource());
 			setLabel(EmfDataTableI18n.FILTER);
-			addMarker(EmfDataTableDivMarker.FILTER_EXECUTE_BUTTON);
+			addMarker(EmfTestMarker.DATA_TABLE_FILTER_EXECUTE_BUTTON);
 			setClickCallback(() -> submitFilter());
 		}
 	}

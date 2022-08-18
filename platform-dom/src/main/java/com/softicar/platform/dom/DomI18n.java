@@ -16,6 +16,8 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Außerdem wird versucht, rein-textuelle Werte automatisch in Zahlenwerte zu konvertieren.");
 	I18n0 AMBIGUOUS_INPUT = new I18n0("Ambiguous Input")//
 		.de("Mehrdeutige Eingabe");
+	I18n0 AN_INTERNAL_PROGRAM_ERROR_OCCURRED = new I18n0("An internal program error occurred.")//
+		.de("Ein interner Programmfehler ist aufgetreten.");
 	I18n0 AN_NONEXISTENT_OPTION_WAS_SELECTED = new I18n0("An nonexistent option was selected.")//
 		.de("Eine nicht existierende Option wurde ausgewählt.");
 	I18n0 APPEND_TIMESTAMP = new I18n0("Append Timestamp")//

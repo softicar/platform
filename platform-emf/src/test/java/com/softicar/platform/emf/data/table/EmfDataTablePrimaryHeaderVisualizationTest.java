@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.data.table;
 
-
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfTestMarker;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -77,17 +77,17 @@ public class EmfDataTablePrimaryHeaderVisualizationTest extends AbstractEmfDataT
 
 	private void executeAssertions(IEmfDataTableDiv<TestTableRow> dataTableDiv) {
 
-		DomNodeTester tableDivNode = findNodes(EmfDataTableDivMarker.TABLE_DIV).assertOne();
-		DomNodeTester headerRowNode = tableDivNode.findNodes(EmfDataTableDivMarker.HEADER_PRIMARY_ROW).assertOne();
+		DomNodeTester tableDivNode = findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV).assertOne();
+		DomNodeTester headerRowNode = tableDivNode.findNodes(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_ROW).assertOne();
 
 		if (dataTableDiv.isRowSelectionEnabled()) {
-			headerRowNode.findNodes(EmfDataTableDivMarker.ACTION_HEADER_CELL).assertOne();
+			headerRowNode.findNodes(EmfTestMarker.DATA_TABLE_ACTION_HEADER_CELL).assertOne();
 		} else {
-			headerRowNode.findNodes(EmfDataTableDivMarker.ACTION_HEADER_CELL).assertNone();
+			headerRowNode.findNodes(EmfTestMarker.DATA_TABLE_ACTION_HEADER_CELL).assertNone();
 		}
 
 		List<IDataTableColumn<TestTableRow, ?>> columns = getVisibleColumns(dataTableDiv);
-		List<DomNodeTester> headerCells = headerRowNode.findNodes(EmfDataTableDivMarker.HEADER_PRIMARY_CELL).assertSize(columns.size());
+		List<DomNodeTester> headerCells = headerRowNode.findNodes(EmfTestMarker.DATA_TABLE_HEADER_PRIMARY_CELL).assertSize(columns.size());
 
 		for (int i = 0; i < columns.size(); i++) {
 			DomNodeTester headerCellNode = headerCells.get(i);
@@ -105,16 +105,16 @@ public class EmfDataTablePrimaryHeaderVisualizationTest extends AbstractEmfDataT
 		if (expectedCaption == null) {
 			expectedCaption = column.getTitle();
 		}
-		headerCellNode.findNodes(EmfDataTableDivMarker.HEADER_CAPTION).assertOne().assertContainsText(expectedCaption);
+		headerCellNode.findNodes(EmfTestMarker.DATA_TABLE_HEADER_CAPTION).assertOne().assertContainsText(expectedCaption);
 	}
 
 	private void assertHeaderClickableFilter(IEmfDataTableDiv<TestTableRow> dataTableDiv, DomNodeTester headerCellNode,
 			IDataTableColumn<TestTableRow, ?> column) {
 
 		if (dataTableDiv.isFilterable(column)) {
-			headerCellNode.findNodes(EmfDataTableDivMarker.FILTER_POPUP_BUTTON).assertOne();
+			headerCellNode.findNodes(EmfTestMarker.DATA_TABLE_FILTER_POPUP_BUTTON).assertOne();
 		} else {
-			headerCellNode.findNodes(EmfDataTableDivMarker.FILTER_POPUP_BUTTON).assertNone();
+			headerCellNode.findNodes(EmfTestMarker.DATA_TABLE_FILTER_POPUP_BUTTON).assertNone();
 		}
 	}
 
@@ -122,9 +122,9 @@ public class EmfDataTablePrimaryHeaderVisualizationTest extends AbstractEmfDataT
 			IDataTableColumn<TestTableRow, ?> column) {
 
 		if (dataTableDiv.isSortable(column)) {
-			headerCellNode.findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).assertOne();
+			headerCellNode.findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).assertOne();
 		} else {
-			headerCellNode.findNodes(EmfDataTableDivMarker.ORDER_BY_BUTTON).assertNone();
+			headerCellNode.findNodes(EmfTestMarker.DATA_TABLE_ORDER_BY_BUTTON).assertNone();
 		}
 	}
 }

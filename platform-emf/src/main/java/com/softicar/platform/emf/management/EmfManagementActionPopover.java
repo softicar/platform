@@ -13,6 +13,7 @@ import com.softicar.platform.dom.style.CssColorEnum;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.action.marker.EmfManagementActionMarker;
 import com.softicar.platform.emf.table.IEmfTable;
@@ -30,7 +31,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 		this.tableRow = tableRow;
 		this.collector = new ExceptionsCollector();
 
-		addMarker(EmfManagementMarker.ACTIONS_POPOVER);
+		addMarker(EmfTestMarker.MANAGEMENT_TABLE_ACTIONS_POPOVER);
 
 		addManagementActions();
 		new ButtonsForChildTableAppender<>(this, entityTable, tableRow, this::close).appendButtons();
@@ -115,7 +116,7 @@ public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends
 					new EmfManagementButton<>(childTable, tableRow)
 						.setCallbackBeforeOpen(callbackBeforeOpen)
 						.setLabel(childTable.getPluralTitle())
-						.addMarker(EmfManagementMarker.MANAGE_CHILD_TABLE_BUTTON));
+						.addMarker(EmfTestMarker.MANAGEMENT_TABLE_MANAGE_CHILD_TABLE_BUTTON));
 		}
 	}
 

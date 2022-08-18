@@ -2,10 +2,10 @@ package com.softicar.platform.dom.elements.tables.pageable.navigation;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
-import com.softicar.platform.dom.elements.tables.pageable.DomPageableTableMarker;
 import com.softicar.platform.dom.elements.tables.pageable.navigation.DomPageableTableNavigation.PagingDirection;
 
 class TurnPageButton extends DomButton {
@@ -23,11 +23,11 @@ class TurnPageButton extends DomButton {
 		if (pageTurnDirection == PagingDirection.BACKWARD) {
 			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
 			setTitle(DomI18n.PREVIOUS_PAGE);
-			addMarker(DomPageableTableMarker.NAVIGATION_PAGE_PREV_BUTTON);
+			addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_PREV_BUTTON);
 		} else if (pageTurnDirection == PagingDirection.FORWARD) {
 			setIcon(DomElementsImages.PAGE_NEXT.getResource());
 			setTitle(DomI18n.NEXT_PAGE);
-			addMarker(DomPageableTableMarker.NAVIGATION_PAGE_NEXT_BUTTON);
+			addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NEXT_BUTTON);
 		} else {
 			throw new SofticarUnknownEnumConstantException(pageTurnDirection);
 		}

@@ -7,8 +7,8 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineOutput;
 import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
-import com.softicar.platform.dom.elements.dialog.DomModalDialogMarker;
 import com.softicar.platform.dom.elements.dialog.testing.DomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.DomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.DomModalDialogNodes;
@@ -17,7 +17,6 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
-import com.softicar.platform.dom.elements.popup.DomPopupMarker;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Collection;
@@ -191,10 +190,10 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 	@Override
 	public void assertNoModalDialog() {
 
-		assertNoNode(DomModalDialogMarker.FRAME);
-		assertNoNode(DomModalDialogMarker.POPUP);
-		assertNoNode(DomModalDialogMarker.CONTENT);
-		assertNoNode(DomPopupMarker.BACKDROP);
+		assertNoNode(DomTestMarker.MODAL_DIALOG_FRAME);
+		assertNoNode(DomTestMarker.MODAL_DIALOG_POPUP);
+		assertNoNode(DomTestMarker.MODAL_DIALOG_CONTENT);
+		assertNoNode(DomTestMarker.POPUP_BACKDROP);
 	}
 
 	@Override

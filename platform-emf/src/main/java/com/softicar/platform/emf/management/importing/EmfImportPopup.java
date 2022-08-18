@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.management.EmfManagementMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.management.importing.engine.EmfImportEngine;
 import com.softicar.platform.emf.management.importing.submit.EmfImportSubmitDiv;
 import com.softicar.platform.emf.management.importing.upload.EmfImportUploadDiv;
@@ -29,7 +29,7 @@ public class EmfImportPopup<R extends IEmfTableRow<R, P>, P, S> extends DomPopup
 
 		setCaption();
 		setSubCaption();
-		addMarker(EmfManagementMarker.IMPORT_POPUP);
+		addMarker(EmfTestMarker.MANAGEMENT_TABLE_IMPORT_POPUP);
 
 		showUploadDiv();
 	}

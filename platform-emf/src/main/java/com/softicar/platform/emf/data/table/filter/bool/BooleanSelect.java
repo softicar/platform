@@ -3,7 +3,7 @@ package com.softicar.platform.emf.data.table.filter.bool;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.AbstractDomValueSelect;
-import com.softicar.platform.emf.data.table.EmfDataTableDivMarker;
+import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 
 class BooleanSelect extends AbstractDomValueSelect<Boolean> {
@@ -13,7 +13,7 @@ class BooleanSelect extends AbstractDomValueSelect<Boolean> {
 		addNilValue(DomI18n.PLEASE_SELECT.encloseInBrackets());
 		addValue(true);
 		addValue(false);
-		addMarker(EmfDataTableDivMarker.FILTER_INPUT_BOOLEAN);
+		addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_BOOLEAN);
 	}
 
 	@Override

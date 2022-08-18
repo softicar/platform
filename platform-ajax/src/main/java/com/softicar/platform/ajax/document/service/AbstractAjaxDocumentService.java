@@ -1,17 +1,15 @@
 package com.softicar.platform.ajax.document.service;
 
-import com.softicar.platform.ajax.AjaxI18n;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.engine.JavascriptStatementList;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.service.AbstractAjaxService;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.io.writer.IManagedPrintWriter;
 import com.softicar.platform.common.io.writer.ManagedPrintWriter;
 import com.softicar.platform.common.string.charset.Charsets;
+import com.softicar.platform.dom.utils.DomPayloadCodeExecutor;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -42,23 +40,14 @@ public abstract class AbstractAjaxDocumentService extends AbstractAjaxService {
 		this.hiddenFrame = false;
 	}
 
-	protected void executePayloadCode(INullaryVoidFunction payloadCode) {
+	protected DomPayloadCodeExecutor createPayloadCodeExecutor() {
 
-		try {
-			payloadCode.apply();
-		} catch (Exception exception) {
-			document.getBody().executeAlert(getDisplayMessage(exception));
-			framework.getAjaxStrategy().logException(exception, request);
-		}
+		return new DomPayloadCodeExecutor().addExceptionHandler(exception -> framework.getAjaxStrategy().logException(exception, request));
 	}
 
-	private IDisplayString getDisplayMessage(Exception exception) {
+	protected void executePayloadCode(INullaryVoidFunction payloadCode) {
 
-		if (exception instanceof SofticarUserException) {
-			return IDisplayString.create(exception.getLocalizedMessage());
-		} else {
-			return AjaxI18n.AN_INTERNAL_PROGRAM_ERROR_OCCURRED;
-		}
+		createPayloadCodeExecutor().execute(payloadCode);
 	}
 
 	protected void setHiddenFrame(boolean hiddenFrame) {
