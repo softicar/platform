@@ -35,14 +35,14 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	protected final AjaxSeleniumTestEnvironment testEnvironment;
 	protected final AjaxSeleniumWebDriverController webDriverController;
 	protected final AjaxSeleniumScreenshotQueue screenshotQueue;
-	private final AjaxSeleniumTestServerWaiter serverWait;
+	private final AjaxSeleniumTestServerWaiter serverWaiter;
 
 	public AbstractAjaxSeleniumTestEngine() {
 
 		this.testEnvironment = new AjaxSeleniumTestEnvironment(this::navigateTo);
 		this.webDriverController = new AjaxSeleniumWebDriverController();
 		this.screenshotQueue = new AjaxSeleniumScreenshotQueue(this::getWebDriver);
-		this.serverWait = new AjaxSeleniumTestServerWaiter(this::getWebDriver);
+		this.serverWaiter = new AjaxSeleniumTestServerWaiter(this::getWebDriver);
 
 		// "defaultLogLevel" refers to a system property of the employed logging library.
 		System.setProperty("defaultLogLevel", "ERROR");
@@ -58,7 +58,7 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	@Override
 	public void waitForServer(Duration timeout) {
 
-		serverWait.waitForServer();
+		serverWaiter.waitForServer();
 	}
 
 	@Override
