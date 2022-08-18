@@ -453,26 +453,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public class IndicatorExpectationSetter {
 
-			public PopupDisplayExpectationSetter expectIndicatorCommitting() {
-
-				return expectIndicatorCommitting(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorCommitting(boolean displayed) {
-
-				return expectIndicator(Indicator.COMMITTING, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorLoading() {
-
-				return expectIndicatorLoading(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorLoading(boolean displayed) {
-
-				return expectIndicator(Indicator.LOADING, displayed);
-			}
-
 			public PopupDisplayExpectationSetter expectIndicatorNotOkay() {
 
 				return expectIndicatorNotOkay(true);
@@ -802,15 +782,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy waitForLoadingFinished() {
+		public InputProxy waitForPopupAndServerFinished() {
 
-			waitForIndicatorToHide(Indicator.LOADING);
-			return this;
-		}
-
-		public InputProxy waitForPopupAndLoadingFinished() {
-
-			waitForIndicatorToHide(Indicator.LOADING);
+			waitForServer();
 			waitForPopup();
 			return this;
 		}

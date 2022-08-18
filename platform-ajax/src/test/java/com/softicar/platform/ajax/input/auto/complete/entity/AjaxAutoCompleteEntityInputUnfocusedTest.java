@@ -23,7 +23,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForLoadingFinished()
+			.waitForServer()
 			.pressEnter();
 
 		// server value is set after an arbitrary event handling was triggered
@@ -51,7 +51,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.pressBackspace(5)
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.pressEsc();
 
 		// server value is set after an arbitrary event handling was triggered
@@ -78,7 +78,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		body//
 			.click();
 
@@ -102,7 +102,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		popup//
 			.clickEntityNumber(2);
 
@@ -125,7 +125,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		popup//
 			.clickEntityNumber(1);
 
@@ -180,7 +180,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		}
 
 		input//
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(ENTITY1)
@@ -242,7 +242,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		}
 
 		input//
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(item2)
@@ -264,7 +264,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.toDisplayStringWithId())
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		eventTrigger//
 			.trigger()
@@ -291,7 +291,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString("fo")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		eventTrigger//
 			.trigger()
@@ -321,7 +321,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusWithClick()
 			.sendString(item1.toDisplayStringWithId())
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		eventTrigger//
 			.trigger()

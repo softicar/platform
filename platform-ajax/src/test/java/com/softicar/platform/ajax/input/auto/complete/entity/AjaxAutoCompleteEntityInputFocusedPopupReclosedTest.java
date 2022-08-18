@@ -21,13 +21,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
 		input//
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(ENTITY2.getName())
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
 
@@ -52,7 +52,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		overlay//
 			.click()
 			.waitForServer();
@@ -60,7 +60,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusWithClick()
 			.pressBackspace(INVALID_ITEM_NAME.length())
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
 
@@ -85,14 +85,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
 		input//
 			.focusWithClick()
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		overlay//
 			.click()
 			.waitForServer();
@@ -119,7 +119,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		overlay//
 			.click()
 			.waitForServer();
@@ -127,7 +127,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusWithClick()
 			.pressBackspace(INVALID_ITEM_NAME.length())
 			.sendString("other invalid item name")
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		overlay//
 			.click()
 			.waitForServer();

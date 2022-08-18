@@ -2,9 +2,7 @@ package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.utils.TestButton;
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -24,22 +22,6 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 
 			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
 		});
-	}
-
-	// -------------------- loading -------------------- //
-
-	@Test
-	@Ignore("This test does not make sense anymore.")
-	public void testLoadingIndicator() {
-
-		try (Locker locker = inputDiv.getEngine().lock()) {
-			indicator.assertLoading(false);
-			send(inputField, Key.DOWN);
-			indicator.assertLoading(true);
-		}
-
-		waitForAutoCompletePopup();
-		indicator.assertLoading(false);
 	}
 
 	// -------------------- ambiguous -> valid -------------------- //

@@ -144,10 +144,7 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	public static enum Indicator implements IAjaxSeleniumTestDomAutoCompleteInputIndicator {
 
-		// TODO remove COMMITTING and LOADING
 		// TODO use DomAutoCompleteIndicatorType directly
-		COMMITTING("committing", "AutoCompleteIndicatorCommitting"),
-		LOADING("loading", "AutoCompleteIndicatorLoading"),
 		NOT_OKAY("not-okay", "DomAutoCompleteIndicatorNotOkay"),
 		VALUE_AMBIGUOUS("value-ambiguous", "DomAutoCompleteIndicatorAmbiguous"),
 		VALUE_ILLEGAL("value-illegal", "DomAutoCompleteIndicatorIllegal"),
@@ -179,16 +176,6 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 	}
 
 	protected class IndicatorProxy {
-
-		public void assertLoading() {
-
-			assertLoading(true);
-		}
-
-		public void assertLoading(boolean displayed) {
-
-			assertIndicates(Indicator.LOADING, displayed);
-		}
 
 		public void assertNotOkay() {
 

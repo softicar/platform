@@ -1,10 +1,8 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -24,7 +22,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForLoadingFinished()
+			.waitForServer()
 			.pressDownArrow();
 
 		asserter//
@@ -49,7 +47,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForLoadingFinished()
+			.waitForServer()
 			.pressDownArrow()
 			.pressDownArrow()
 			.pressDownArrow();
@@ -76,7 +74,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForLoadingFinished()
+			.waitForServer()
 			.pressUpArrow()
 			.pressUpArrow();
 
@@ -102,7 +100,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
-			.waitForLoadingFinished()
+			.waitForServer()
 			.pressDownArrow();
 
 		asserter//
@@ -189,36 +187,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testVisualizationWhileLoadingInOpenPopupWithTypingOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString("zi");
-
-			asserter//
-				.expectClientValue("bazi")
-				.expectServerValueNone()
-				.expectIndicatorLoading()
-				.expectPopupDisplayed()
-				.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
-				.expectPopupSelectedItemNone()
-				.expectFocus()
-				.expectOverlayNotDisplayed()
-				.expectCallbackNone()
-				.assertAll();
-		}
-	}
-
-	@Test
 	public void testOverlayNotDisplayedWithDownArrowOnActiveFilledInput() {
 
 		setup//
@@ -253,7 +221,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.pressBackspace()
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		asserter//
 			.expectClientValue("foo [1")
@@ -458,7 +426,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
@@ -482,7 +450,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
@@ -505,7 +473,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(ENTITY1.getName())
@@ -530,7 +498,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		asserter//
 			.expectClientValue(ENTITY1.getName())
@@ -554,7 +522,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
@@ -579,7 +547,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
@@ -604,7 +572,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(ENTITY3.getName())
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(ENTITY3.getName())
@@ -630,7 +598,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(ENTITY3.getName())
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(ENTITY3.getName())
@@ -658,7 +626,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(item1)
@@ -685,7 +653,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("foo [1]")
@@ -713,7 +681,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("FOO [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("FOO [1]")
@@ -741,7 +709,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("FOO [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(item1)
@@ -769,7 +737,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(item1)
@@ -797,7 +765,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("foo [1]")
@@ -826,7 +794,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("FOO [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("FOO [1]")
@@ -855,7 +823,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("FOO [1]")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectValues(item1)
@@ -879,7 +847,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("foo [1")
@@ -904,7 +872,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString("foo [1")
-			.waitForLoadingFinished();
+			.waitForServer();
 
 		asserter//
 			.expectClientValue("foo [1")
@@ -933,7 +901,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.sendString(item1.toDisplayStringWithId())
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		asserter//
 			.expectValues(item1)

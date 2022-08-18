@@ -24,16 +24,16 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.sendString("fo")
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 		overlay//
 			.click();
 		input//
 			.waitForServer()
 			.focusWithClick()
 			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
+			.waitForPopupAndServerFinished()
 			.sendString("o")
-			.waitForPopupAndLoadingFinished();
+			.waitForPopupAndServerFinished();
 
 		asserter//
 			.expectValues(ENTITY1)
