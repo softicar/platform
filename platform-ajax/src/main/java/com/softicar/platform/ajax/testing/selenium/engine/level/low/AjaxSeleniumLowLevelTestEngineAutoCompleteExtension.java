@@ -60,7 +60,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	@Override
 	public boolean isAutoCompletePopupDisplayed() {
 
-		return getAutoCompletePopup().map(WebElement::isDisplayed).orElse(false);
+		return getAutoCompletePopup().isPresent();
 	}
 
 	@Override
