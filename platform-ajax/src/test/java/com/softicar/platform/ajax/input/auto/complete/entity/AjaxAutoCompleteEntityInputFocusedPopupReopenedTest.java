@@ -1,6 +1,7 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -13,6 +14,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
+	@Ignore("Does not make sense since auto-fill was implemented.")
 	public void testOverlayDisplayedWithUniqueItemNameOnActiveEmptyInputWhilePopupDisplayed() {
 
 		setup//
@@ -34,8 +36,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 			.waitForPopupAndLoadingFinished();
 
 		asserter//
-			.expectClientValue("foo")
-			.expectServerValue(ENTITY1)
+			.expectValues(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)

@@ -183,8 +183,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue(ENTITY1.getIdAsString())
-			.expectServerValue(ENTITY1)
+			.expectValues(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -246,8 +245,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForLoadingFinished();
 
 		asserter//
-			.expectClientValue(item2.getIdAsString())
-			.expectServerValue(item2)
+			.expectValues(item2)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -300,9 +298,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("fo")
-			.expectServerValueExceptionMessage()
-			.expectIndicatorNotOkay()
+			.expectValues(ENTITY1)
+			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()

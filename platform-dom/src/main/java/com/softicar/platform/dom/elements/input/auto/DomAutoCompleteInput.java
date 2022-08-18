@@ -252,17 +252,28 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 		this.focus = false;
 		closePopup();
+		deduceValue();
 		onChange();
 	}
 
 	protected void onBackdropClickOrEscape() {
 
 		closePopup();
+		deduceValue();
 		onChange();
 		inputField.focus();
 	}
 
 	// ------------------------------ internal ------------------------------ //
+
+	private void deduceValue() {
+
+		var matches = inputEngine.findMatches(getPattern(), 2);
+		if (matches.size() == 1) {
+			var value = matches.iterator().next();
+			inputField.setValue(inputEngine.getDisplayString(value).toString());
+		}
+	}
 
 	@Override
 	protected void doSetDisabled(boolean disabled) {

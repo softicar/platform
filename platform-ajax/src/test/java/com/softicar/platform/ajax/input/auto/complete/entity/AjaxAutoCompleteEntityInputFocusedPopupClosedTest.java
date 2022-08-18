@@ -614,8 +614,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.click();
 
 		asserter//
-			.expectClientValue(ENTITY2.getName())
-			.expectServerValue(ENTITY2)
+			.expectValues(ENTITY2)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -665,8 +664,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1.getName()) // TODO we could complete this with the server side value
-			.expectServerValue(ENTITY1)
+			.expectValues(ENTITY1)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectFocus()

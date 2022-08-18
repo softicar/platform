@@ -51,6 +51,6 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 		// assert popup is closed and input has full item name
 		assertFalse(isAutoCompletePopupDisplayed());
 		assertFocused(inputField);
-		assertEquals(INCOMPLETE_ITEM1_NAME, getAttributeValue(inputField, "value"));
+		assertEquals(ITEM1.getName(), getAttributeValue(inputField, "value"));
 	}
 }
