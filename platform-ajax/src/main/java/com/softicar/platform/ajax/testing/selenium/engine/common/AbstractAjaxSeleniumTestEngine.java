@@ -1,12 +1,10 @@
 package com.softicar.platform.ajax.testing.selenium.engine.common;
 
-import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestEnvironment;
 import com.softicar.platform.ajax.testing.selenium.grid.AjaxSeleniumGridController;
 import com.softicar.platform.ajax.testing.selenium.screenshot.AjaxSeleniumScreenshotQueue;
 import com.softicar.platform.ajax.testing.selenium.web.driver.AjaxSeleniumWebDriverController;
 import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.node.IDomNode;
 import java.time.Duration;
 import java.util.logging.Level;
@@ -34,16 +32,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher implements IAjaxSeleniumTestEngineWaitMethods {
 
-	private static final Duration WAIT_FOR_SERVER_MINIMUM_DURATION = Duration.ofMillis(20);
 	protected final AjaxSeleniumTestEnvironment testEnvironment;
 	protected final AjaxSeleniumWebDriverController webDriverController;
 	protected final AjaxSeleniumScreenshotQueue screenshotQueue;
+	private final AjaxSeleniumTestServerWaiter serverWait;
 
 	public AbstractAjaxSeleniumTestEngine() {
 
 		this.testEnvironment = new AjaxSeleniumTestEnvironment(this::navigateTo);
 		this.webDriverController = new AjaxSeleniumWebDriverController();
 		this.screenshotQueue = new AjaxSeleniumScreenshotQueue(this::getWebDriver);
+		this.serverWait = new AjaxSeleniumTestServerWaiter(this::getWebDriver);
 
 		// "defaultLogLevel" refers to a system property of the employed logging library.
 		System.setProperty("defaultLogLevel", "ERROR");
@@ -59,22 +58,7 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	@Override
 	public void waitForServer(Duration timeout) {
 
-		// HERE BE DRAGONS:
-		//
-		// This sleep call tries to manipulate an existing race in our favor, by assuming that it might
-		// take up to the given amount of time until the "application-is-working" indicator is displayed.
-		// Otherwise, this method might return too early - that is, before (!) the indicator is even displayed.
-		//
-		// TODO We should replace this with a proper synchronization mechanism, instead of relying on time.
-		// TODO For example, we could try to use a client-side mutex (or counter) which is set (or incremented)
-		// TODO at the very beginning of each event handling. We could then query that counter via the web driver.
-		// TODO Either way, we should NOT rely on the visibility of an element, since the rendering can be subject
-		// TODO to unpredictable delays.
-		Sleep.sleep(WAIT_FOR_SERVER_MINIMUM_DURATION);
-
-		waitUntil(//
-			() -> !getWebDriver().findElement(By.className(AjaxCssClasses.AJAX_WORKING_INDICATOR.getName())).isDisplayed(),
-			timeout);
+		serverWait.waitForServer();
 	}
 
 	@Override
