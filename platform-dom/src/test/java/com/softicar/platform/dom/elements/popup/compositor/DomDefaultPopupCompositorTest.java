@@ -8,6 +8,7 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.DomPopupMarker;
@@ -345,6 +346,40 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 		assertNoBackdrop();
 		assertBodyText();
 		assertAscendingZIndexes(popup2, popup1);
+	}
+
+	@Test
+	public void testOpenWithExceptionFromOpenPopup() {
+
+		// setup
+		var openPopup1Button = appendButton(() -> compositor.open(popup1));
+		openPopup1Button.click();
+
+		var throwExceptionButton = appendButton(popup1, () -> {
+			throw new RuntimeException();
+		});
+
+		// assert initial state
+		assertOne(POPUP1);
+		assertNoBackdrop();
+		assertBodyText();
+
+		// execute
+		throwExceptionButton.click();
+
+		// assert result
+		var exceptionPopupClass = DomModalAlertDialog.class;
+		var exceptionPopup = findNode(exceptionPopupClass).assertType(exceptionPopupClass);
+
+		assertOne(POPUP1);
+		assertBackdrop();
+		assertBodyText();
+		assertAscendingZIndexes(popup1, exceptionPopup);
+
+		var contextFinder = new DomParentNodeFinder<>(IDomPopupContext.class);
+		var popup1Context = contextFinder.findClosestParent(popup1).get();
+		var exceptionPopupContext = contextFinder.findClosestParent(exceptionPopup).get();
+		assertSame(popup1Context, exceptionPopupContext);
 	}
 
 	// -------------------------------- close -------------------------------- //

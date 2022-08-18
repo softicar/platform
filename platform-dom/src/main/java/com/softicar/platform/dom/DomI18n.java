@@ -14,6 +14,8 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 ALSO_TRIES_TO_AUTOMATICALLY_CONVERT_PURELY_TEXTUAL_VALUES_TO_NUMERICAL_VALUES =
 			new I18n0("Also tries to automatically convert purely textual values to numerical values.")//
 				.de("Außerdem wird versucht, rein-textuelle Werte automatisch in Zahlenwerte zu konvertieren.");
+	I18n0 AN_INTERNAL_PROGRAM_ERROR_OCCURRED = new I18n0("An internal program error occurred.")//
+		.de("Ein interner Programmfehler ist aufgetreten.");
 	I18n0 AN_NONEXISTENT_OPTION_WAS_SELECTED = new I18n0("An nonexistent option was selected.")//
 		.de("Eine nicht existierende Option wurde ausgewählt.");
 	I18n0 APPEND_TIMESTAMP = new I18n0("Append Timestamp")//
