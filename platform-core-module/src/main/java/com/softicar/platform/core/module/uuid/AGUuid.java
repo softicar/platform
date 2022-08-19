@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.uuid;
 
-import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
@@ -23,6 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
 // TODO rename AGUuid into AGSourceCodeReferencePoint
 public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid> {
 
+	// TODO PLAT-1093 Because this cache is static, we need to ignore it during unit test execution.
+	// TODO PLAT-1093 Reason: Static fields survive when a test finished, while the test database instance is lost and replaced by a new empty database.
+	// TODO PLAT-1093 This should rather be a ThreadLocal / Singleton or so.
 	private static final Map<UUID, Integer> CACHE = new ConcurrentHashMap<>();
 
 	@Override
@@ -60,8 +63,8 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 	}
 
 	/**
-	 * Converts this {@link AGUuid} into the
-	 * {@link ISourceCodeReferencePoint} of the given {@link Class}.
+	 * Converts this {@link AGUuid} into the {@link ISourceCodeReferencePoint}
+	 * of the given {@link Class}.
 	 *
 	 * @param <T>
 	 *            the type of {@link ISourceCodeReferencePoint}
@@ -93,11 +96,9 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		return new UuidIndirectEntityCollection<>(elements);
 	}
 
-	/**
-	 * TODO beautify this, see i50818
-	 */
 	private static AGUuid getFromCache(UUID uuid) {
 
+		// TODO PLAT-1093 This is a hackish way to force-disable the cache during test execution. Should not be necessary.
 		if (DbCurrentDatabase.get().getServerType() == DbServerType.H2_MEMORY) {
 			return null;
 		} else {

@@ -30,7 +30,6 @@ import java.util.function.Function;
  * @author Alexander Schmidt
  * @author Daniel Klose
  */
-// FIXME i60829: Find way to reduce amount of types, 4 are pretty much
 public class EmfPrefilterElement<S, E extends IEmfTableRow<E, ?>, T extends IEmfObject<T>, R extends AbstractEmfPrefilterRow<E>>
 		extends AbstractEmfPrefilterElement<S, E, T, R> {
 
