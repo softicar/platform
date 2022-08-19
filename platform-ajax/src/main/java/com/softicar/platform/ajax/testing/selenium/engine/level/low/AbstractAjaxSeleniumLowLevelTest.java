@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Rule;
@@ -15,7 +14,7 @@ import org.junit.runner.RunWith;
 @RunWith(AjaxSeleniumLowLevelTestRetryingRunner.class)
 public abstract class AbstractAjaxSeleniumLowLevelTest extends AbstractTest implements IAjaxSeleniumLowLevelTestEngineMethods {
 
-	@Rule public final IAjaxSeleniumLowLevelTestEngine testEngine;
+	@Rule public final AjaxSeleniumLowLevelTestEngine testEngine;
 
 	public AbstractAjaxSeleniumLowLevelTest() {
 
@@ -23,7 +22,7 @@ public abstract class AbstractAjaxSeleniumLowLevelTest extends AbstractTest impl
 	}
 
 	@Override
-	public IAjaxSeleniumLowLevelTestEngine getTestEngine() {
+	public AjaxSeleniumLowLevelTestEngine getTestEngine() {
 
 		return testEngine;
 	}
