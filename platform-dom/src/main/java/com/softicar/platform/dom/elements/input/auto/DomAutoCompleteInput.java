@@ -61,7 +61,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.inputEngine = inputEngine;
 		this.inputBar = new DomBar();
 		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
-		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
+		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.inputField = new DomAutoCompleteInputField(this);
@@ -77,26 +77,17 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		appendChild(filterDisplay);
 		appendChild(indicator);
 		inputBar.appendChild(inputField);
-
-		refreshFilters();
-		refreshInputValidity();
 	}
 
 	// TODO make final
 	public void refreshInputConstraints() {
 
-		refreshFilters();
-
+		inputEngine.refresh();
 		inputEngine.reloadCache();
+		indicator.refresh();
+		filterDisplay.refresh();
 
 		inputConstraintRefreshCallbacks.forEach(INullaryVoidFunction::apply);
-	}
-
-	public void refreshFilters() {
-
-		inputEngine.refresh();
-		filterDisplay.refresh(inputEngine);
-		refreshInputValidity();
 	}
 
 	@Override
@@ -138,7 +129,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 		setFieldValue(value);
 		this.committedValue = value;
-		refreshInputValidity();
+		refreshIndicator();
 	}
 
 	// ------------------------------ input field methods ------------------------------ //
@@ -196,12 +187,12 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	protected void onInput() {
 
 		refreshPopup();
-		refreshInputValidity();
+		refreshIndicator();
 	}
 
 	protected void onChange() {
 
-		refreshInputValidity();
+		refreshIndicator();
 
 		var value = getValueNoThrow().orElse(null);
 		if (!Objects.equals(value, committedValue)) {
@@ -246,7 +237,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	protected void onFocus() {
 
 		this.hasFocus = true;
-		refreshInputValidity();
+		refreshIndicator();
 	}
 
 	protected void onBlur() {
@@ -292,7 +283,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		return hasFocus;
 	}
 
-	protected void refreshInputValidity() {
+	protected void refreshIndicator() {
 
 		indicator.refresh();
 	}

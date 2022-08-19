@@ -21,6 +21,8 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 		this.inputField = input.getInputField();
 
 		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR);
+
+		refresh();
 	}
 
 	public void refresh() {

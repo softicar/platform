@@ -36,7 +36,7 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 
 		Objects.requireNonNull(indicatorMode);
 		this.indicatorMode = indicatorMode;
-		input.refreshInputValidity();
+		input.refreshIndicator();
 		return this;
 	}
 
@@ -51,7 +51,7 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 
 		Objects.requireNonNull(validationMode);
 		this.validationMode = validationMode;
-		input.refreshInputValidity();
+		input.refreshIndicator();
 		return this;
 	}
 
@@ -65,7 +65,7 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	public IDomAutoCompleteInputConfiguration setMandatory(boolean mandatory) {
 
 		this.mandatory = mandatory;
-		input.refreshInputValidity();
+		input.refreshIndicator();
 		return this;
 	}
 
