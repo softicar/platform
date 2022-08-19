@@ -9,7 +9,8 @@ public interface DomElementsCssClasses {
 	ICssClass DOM_ACTION_BAR = new CssClass("DomActionBar", DomElementsCssFiles.DOM_ACTION_BAR_STYLE);
 
 	ICssClass DOM_AUTO_COMPLETE_BACKDROP = new CssClass("DomAutoCompleteBackdrop", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
-	ICssClass DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOS = new CssClass("DomAutoCompleteIndicatorAmbiguous", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR = new CssClass("DomAutoCompleteIndicator", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOUS = new CssClass("DomAutoCompleteIndicatorAmbiguous", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR_DEFAULT = new CssClass("DomAutoCompleteIndicatorDefault", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL = new CssClass("DomAutoCompleteIndicatorIllegal", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR_MISSING = new CssClass("DomAutoCompleteIndicatorMissing", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
