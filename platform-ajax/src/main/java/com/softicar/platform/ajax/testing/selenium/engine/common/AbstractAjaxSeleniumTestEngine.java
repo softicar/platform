@@ -58,7 +58,7 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	@Override
 	public void waitForServer(Duration timeout) {
 
-		serverWaiter.waitForServer();
+		serverWaiter.waitForServer(timeout);
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 package com.softicar.platform.ajax.testing.selenium.engine.common;
 
+import java.time.Duration;
 import java.util.function.Supplier;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.ScriptKey;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
 
 /**
  * Ensures that the server finished executing all AJAX requests.
@@ -23,16 +25,20 @@ class AjaxSeleniumTestServerWaiter {
 		this.waitScriptKey = null;
 	}
 
-	public void waitForServer() {
+	public void waitForServer(Duration timeout) {
 
 		getJavascriptExecutor().executeScript(getWaitScriptKey());
 
-		while (true) {
-			String finished = (String) getJavascriptExecutor().executeScript("return %s;".formatted(FINISHED_VARIABLE));
-			if (Boolean.valueOf(finished)) {
-				break;
-			}
-		}
+		new FluentWait<>(this)//
+			.withTimeout(timeout)
+			.pollingEvery(Duration.ZERO)
+			.until(AjaxSeleniumTestServerWaiter::isFinished);
+	}
+
+	private boolean isFinished() {
+
+		String finished = (String) getJavascriptExecutor().executeScript("return %s;".formatted(FINISHED_VARIABLE));
+		return Boolean.valueOf(finished);
 	}
 
 	private JavascriptExecutor getJavascriptExecutor() {

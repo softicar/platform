@@ -28,7 +28,9 @@ public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLev
 
 		send(testDiv.input1, "a");
 		click(testDiv.input2);
-		waitForServer();
+
+		new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
+			.waitForServer(IAjaxSeleniumTestEngineWaitMethods.DEFAULT_TIMEOUT);
 
 		assertEquals("[FOCUS#1, INPUT#1, BLUR#1, FOCUS#2, CLICK#2]", events.toString());
 	}
