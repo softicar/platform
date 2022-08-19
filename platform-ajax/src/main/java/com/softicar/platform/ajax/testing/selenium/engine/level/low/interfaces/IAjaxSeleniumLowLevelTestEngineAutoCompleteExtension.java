@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteInputIndicator;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestItem;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	boolean isAutoCompletePopupDisplayed();
 
-	boolean isAutoCompleteIndicatorDisplayed(IAjaxSeleniumTestDomAutoCompleteInputIndicator indicator);
+	boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType);
 
 	boolean isAutoCompleteModalDivDisplayed();
 
@@ -31,5 +31,5 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	void waitForAutoCompletePopupToHide();
 
-	void waitForIndicatorToHide(IAjaxSeleniumTestDomAutoCompleteInputIndicator indicator);
+	void waitForIndicatorToHide(DomAutoCompleteIndicatorType indicatorType);
 }

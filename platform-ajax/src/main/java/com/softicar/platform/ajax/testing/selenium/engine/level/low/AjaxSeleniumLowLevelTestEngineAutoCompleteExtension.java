@@ -2,9 +2,9 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteInputIndicator;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestItem;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -64,11 +64,11 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public boolean isAutoCompleteIndicatorDisplayed(IAjaxSeleniumTestDomAutoCompleteInputIndicator indicator) {
+	public boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(indicator.getCssClass()))
+			.findElements(By.className(indicatorType.getCssClass().getName()))
 			.stream()
 			.findFirst()
 			.isPresent();
@@ -144,12 +144,12 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public void waitForIndicatorToHide(IAjaxSeleniumTestDomAutoCompleteInputIndicator indicator) {
+	public void waitForIndicatorToHide(DomAutoCompleteIndicatorType indicatorType) {
 
 		new FluentWait<>(0)//
 			.withTimeout(INDICATOR_TIMEOUT)
 			.withMessage("Timeout while waiting for auto complete indicator to disappear.")
-			.until(dummy -> !isAutoCompleteIndicatorDisplayed(indicator));
+			.until(dummy -> !isAutoCompleteIndicatorDisplayed(indicatorType));
 	}
 
 	private Optional<WebElement> findItem(IAjaxSeleniumTestDomAutoCompleteTestItem item) {

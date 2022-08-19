@@ -15,6 +15,7 @@ import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
@@ -298,7 +299,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private AjaxTestEntity expectedServerValue;
 		private IDisplayString expectedServerValueExceptionMessage;
 		private String expectedClientValue;
-		private Indicator expectedIndicator;
+		private DomAutoCompleteIndicatorType expectedIndicator;
 		private boolean expectedIndicatorPresence;
 		private boolean expectedPopupDisplayed;
 		private List<AjaxTestEntity> expectedPopupItems;
@@ -367,9 +368,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedClientValue = Optional.ofNullable(clientValue).orElse("");
 		}
 
-		private void setExpectedIndicator(Indicator indicator) {
+		private void setExpectedIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
-			this.expectedIndicator = indicator;
+			this.expectedIndicator = indicatorType;
 		}
 
 		private void setExpectedIndicatorPresence(boolean displayed) {
@@ -460,7 +461,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public PopupDisplayExpectationSetter expectIndicatorNotOkay(boolean displayed) {
 
-				return expectIndicator(Indicator.NOT_OKAY, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.NOT_OKAY, displayed);
 			}
 
 			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous() {
@@ -470,7 +471,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous(boolean displayed) {
 
-				return expectIndicator(Indicator.VALUE_AMBIGUOUS, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS, displayed);
 			}
 
 			public PopupDisplayExpectationSetter expectIndicatorValueIllegal() {
@@ -480,7 +481,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public PopupDisplayExpectationSetter expectIndicatorValueIllegal(boolean displayed) {
 
-				return expectIndicator(Indicator.VALUE_ILLEGAL, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.ILLEGAL, displayed);
 			}
 
 			public PopupDisplayExpectationSetter expectIndicatorValueMissing() {
@@ -490,7 +491,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public PopupDisplayExpectationSetter expectIndicatorValueMissing(boolean displayed) {
 
-				return expectIndicator(Indicator.VALUE_MISSING, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.MISSING, displayed);
 			}
 
 			public PopupDisplayExpectationSetter expectIndicatorValueValid() {
@@ -500,17 +501,17 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public PopupDisplayExpectationSetter expectIndicatorValueValid(boolean displayed) {
 
-				return expectIndicator(Indicator.VALUE_VALID, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.VALID, displayed);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicator(Indicator indicator) {
+			public PopupDisplayExpectationSetter expectIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
-				return expectIndicator(indicator, true);
+				return expectIndicator(indicatorType, true);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicator(Indicator indicator, boolean displayed) {
+			public PopupDisplayExpectationSetter expectIndicator(DomAutoCompleteIndicatorType indicatorType, boolean displayed) {
 
-				setExpectedIndicator(indicator);
+				setExpectedIndicator(indicatorType);
 				setExpectedIndicatorPresence(displayed);
 				return new PopupDisplayExpectationSetter();
 			}
