@@ -17,7 +17,6 @@ public class DomAutoCompleteIndicator extends DomImage {
 		setStyle(CssPosition.ABSOLUTE);
 		setStyle(CssCursor.DEFAULT);
 		setStyle(CssStyle.FILTER, "drop-shadow(0px 0px 1px #000)");
-		setStyle(CssStyle.FILTER, "drop-shadow(0px 0px 1px #000)");
 		setStyle(CssStyle.WIDTH, new CssPixel(10));
 		setStyle(CssStyle.HEIGHT, new CssPixel(10));
 		setStyle(CssStyle.LEFT, new CssPixel(-4));
