@@ -15,11 +15,11 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	private boolean mandatory;
 	private boolean disabled;
 
-	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, IDomInput inputField) {
+	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, IDomInput inputField, DomAutoCompleteInputValidationMode validationMode) {
 
 		this.input = input;
 		this.inputField = inputField;
-		this.validationMode = DomAutoCompleteInputValidationMode.DEDUCTIVE;
+		this.validationMode = validationMode;
 		this.indicatorMode = DomAutoCompleteInputIndicatorMode.VALIDATION;
 		this.mandatory = false;
 		this.disabled = false;

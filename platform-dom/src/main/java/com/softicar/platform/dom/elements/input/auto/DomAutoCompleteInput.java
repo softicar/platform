@@ -56,7 +56,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this(inputEngine, true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
 	}
 
-	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode defaultMode) {
+	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode validationMode) {
 
 		this.inputEngine = inputEngine;
 		this.inputBar = new DomBar();
@@ -65,9 +65,8 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.inputField = new DomAutoCompleteInputField(this);
-		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
+		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField, validationMode);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
-		this.configuration.setValidationMode(defaultMode);
 		this.showBackdrop = false;
 		this.indicator = null;
 		this.committedValue = null;
@@ -408,7 +407,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private void showIndicator(DomAutoCompleteIndicatorType type) {
 
 		if (indicator != null) {
-			removeChild(indicator);
+			this.indicator.disappend();
 			this.indicator = null;
 		}
 
