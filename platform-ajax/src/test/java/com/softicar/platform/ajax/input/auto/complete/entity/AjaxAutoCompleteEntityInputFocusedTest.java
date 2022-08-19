@@ -176,7 +176,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -196,7 +196,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -217,7 +217,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -238,7 +238,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

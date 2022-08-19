@@ -273,7 +273,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -340,7 +340,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()
@@ -408,7 +408,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueValid()
+			.expectIndicatorValueIllegal()
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()

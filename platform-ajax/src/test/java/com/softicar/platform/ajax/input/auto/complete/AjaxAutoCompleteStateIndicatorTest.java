@@ -58,17 +58,17 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous(true);
+		indicator.assertValueAmbiguous();
 
 		// press escape
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueAmbiguous(true);
+		indicator.assertValueAmbiguous();
 
 		// set input value
 		click(button);
 		waitForServer();
 		click(inputField);
-		indicator.assertValueValid(true);
+		indicator.assertValueIllegal();
 	}
 
 	// -------------------- invalid -> valid -------------------- //
@@ -80,12 +80,12 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		click(inputField);
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueIllegal(true);
+		indicator.assertValueIllegal();
 
 		// set input value
 		click(button);
 		waitForServer();
-		indicator.assertValueValid(true);
+		indicator.assertNotOkay();
 	}
 
 	// -------------------- invalid -------------------- //

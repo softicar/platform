@@ -42,7 +42,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private final IDomAutoCompleteInputConfiguration configuration;
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 	private boolean showBackdrop;
-	private DomAutoCompleteIndicator indicator;
+	private DomAutoCompleteIndicator<T> indicator;
 	private T committedValue;
 	private boolean hasFocus;
 
@@ -68,13 +68,14 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField, validationMode);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.showBackdrop = false;
-		this.indicator = null;
+		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
 		this.hasFocus = false;
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
 		appendChild(filterDisplay);
+		appendChild(indicator);
 		inputBar.appendChild(inputField);
 
 		refreshFilters();
@@ -137,6 +138,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 		setFieldValue(value);
 		this.committedValue = value;
+		refreshInputValidity();
 	}
 
 	// ------------------------------ input field methods ------------------------------ //
@@ -285,45 +287,14 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		return inputField.getValueTextTrimmed().toLowerCase();
 	}
 
+	protected boolean hasFocus() {
+
+		return hasFocus;
+	}
+
 	protected void refreshInputValidity() {
 
-		if (inputField.isBlank()) {
-			if (configuration.isMandatory()) {
-				showIndicator(DomAutoCompleteIndicatorType.MISSING);
-			} else {
-				showIndicator(DomAutoCompleteIndicatorType.VALID);
-			}
-		} else if (configuration.getValidationMode().isPermissive()) {
-			showIndicator(DomAutoCompleteIndicatorType.VALID);
-		} else {
-			var pattern = getPattern();
-			var matches = inputEngine.findMatches(pattern, 2);
-			if (matches.size() == 0) {
-				showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
-			} else if (matches.size() == 1) {
-				var element = matches.iterator().next();
-				if (configuration.getValidationMode().isRestrictive()) {
-					if (matchesInput(element)) {
-						showIndicator(DomAutoCompleteIndicatorType.VALID);
-					} else {
-						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
-					}
-				} else {
-					showIndicator(DomAutoCompleteIndicatorType.VALID);
-				}
-			} else {
-				var firstElement = matches.iterator().next();
-				if (matchesInput(firstElement)) {
-					showIndicator(DomAutoCompleteIndicatorType.VALID);
-				} else {
-					if (hasFocus) {
-						showIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
-					} else {
-						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
-					}
-				}
-			}
-		}
+		indicator.refresh();
 	}
 
 	private void refreshPopup() {
@@ -358,21 +329,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		}
 	}
 
-	private boolean matchesInput(T element) {
-
-		var elementDisplayString = inputEngine.getDisplayString(element).toString();
-		return matchesInput(elementDisplayString);
-	}
-
-	private boolean matchesInput(String elementDisplayString) {
-
-		if (configuration.getValidationMode().isRestrictive()) {
-			return inputField.getValueText().equals(elementDisplayString);
-		} else {
-			return inputField.getValueText().trim().equalsIgnoreCase(elementDisplayString);
-		}
-	}
-
 	private void setFieldValue(T value) {
 
 		String valueString = Optional//
@@ -401,27 +357,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 			return inputEngine.findMatches(pattern, limit);
 		} else {
 			return Collections.emptySet();
-		}
-	}
-
-	private void showIndicator(DomAutoCompleteIndicatorType type) {
-
-		if (indicator != null) {
-			this.indicator.disappend();
-			this.indicator = null;
-		}
-
-		if (!hasFocus) {
-			if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
-				type = DomAutoCompleteIndicatorType.NOT_OKAY;
-			}
-		}
-
-		this.indicator = new DomAutoCompleteIndicator(type);
-		appendChild(indicator);
-
-		if (popup.isAppended()) {
-			getDomEngine().raise(indicator);
 		}
 	}
 }
