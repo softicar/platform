@@ -44,7 +44,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private boolean showBackdrop;
 	private DomAutoCompleteIndicator indicator;
 	private T committedValue;
-	private boolean focus;
+	private boolean hasFocus;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
@@ -71,7 +71,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.showBackdrop = false;
 		this.indicator = null;
 		this.committedValue = null;
-		this.focus = false;
+		this.hasFocus = false;
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
@@ -244,13 +244,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	protected void onFocus() {
 
-		this.focus = true;
+		this.hasFocus = true;
 		refreshInputValidity();
 	}
 
 	protected void onBlur() {
 
-		this.focus = false;
+		this.hasFocus = false;
 		closePopup();
 		deduceValue();
 		onChange();
@@ -317,7 +317,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 				if (matchesInput(firstElement)) {
 					showIndicator(DomAutoCompleteIndicatorType.VALID);
 				} else {
-					if (focus) {
+					if (hasFocus) {
 						showIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
 					} else {
 						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
@@ -412,7 +412,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 			this.indicator = null;
 		}
 
-		if (!focus) {
+		if (!hasFocus) {
 			if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
 				type = DomAutoCompleteIndicatorType.NOT_OKAY;
 			}
