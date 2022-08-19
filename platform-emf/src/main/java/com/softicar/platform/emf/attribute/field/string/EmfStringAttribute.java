@@ -140,7 +140,7 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 	@Override
 	protected boolean isUserInputMandatory(R tableRow) {
 
-		// FIXME this method should not be necessary (i80947)
+		// TODO PLAT-1092 fix the issue to remove this override
 		return super.isUserInputMandatory(tableRow) && !Objects.equals(field.getDefault(), "");
 	}
 

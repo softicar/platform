@@ -28,6 +28,7 @@ public class DbComplexTestObjectTableLiteral {
 			.append("`enum` ENUM('BIG','MEDIUM','SMALL','TINY') " + getCharacterSet() + "NOT NULL,")
 			.append("`unsignedInteger` INT UNSIGNED DEFAULT NULL,")
 			.append("`dayTime` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,")
+			.append("`timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,")
 			.append("PRIMARY KEY (`id`),")
 			.append("UNIQUE KEY `database$table$uniqueStringLong` (`string`, `long`),")
 			.append(isH2Database? "" : "KEY `database$table$indexLong` (`long`),")

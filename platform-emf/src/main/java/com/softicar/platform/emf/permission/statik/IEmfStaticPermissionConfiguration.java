@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 
-// FIXME remove this interface (i80977)
 public interface IEmfStaticPermissionConfiguration<T> {
 
 	UUID getUuid();

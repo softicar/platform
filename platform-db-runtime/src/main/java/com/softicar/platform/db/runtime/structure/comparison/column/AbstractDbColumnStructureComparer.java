@@ -48,11 +48,7 @@ public abstract class AbstractDbColumnStructureComparer extends AbstractDbFeatur
 			} else if (columnStructure.getFieldType() == SqlFieldType.FLOAT) {
 				return Float.valueOf(defaultValue).toString();
 			} else if (columnStructure.getFieldType() == SqlFieldType.BIG_DECIMAL) {
-				//FIXME Should be removable after i67142
-				if (defaultValue.contains("E-")) {
-					return new BigDecimal(defaultValue).toPlainString();
-				}
-				return defaultValue;
+				return new BigDecimal(defaultValue).toPlainString();
 			} else {
 				return defaultValue;
 			}

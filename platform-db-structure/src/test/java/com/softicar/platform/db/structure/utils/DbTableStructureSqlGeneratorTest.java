@@ -184,7 +184,6 @@ public class DbTableStructureSqlGeneratorTest extends AbstractTest {
 					.setFieldType(SqlFieldType.INTEGER)
 					.setBits(32)
 					.setNullable(true));
-
 			addColumnStructure(
 				new DbColumnStructure(this)//
 					.setName("long")
@@ -222,13 +221,20 @@ public class DbTableStructureSqlGeneratorTest extends AbstractTest {
 					.setUnsigned(true)
 					.setDefaultType(DbColumnDefaultType.NULL)
 					.setNullable(true));
-
 			addColumnStructure(
 				new DbColumnStructure(this)//
 					.setName("dayTime")
 					.setFieldType(SqlFieldType.DAY_TIME)
 					.setDefaultType(DbColumnDefaultType.CURRENT_TIMESTAMP)
 					.setOnUpdateNow(true)
+					.setNullable(true));
+			addColumnStructure(
+				new DbColumnStructure(this)//
+					.setName("timestamp")
+					.setFieldType(SqlFieldType.DAY_TIME)
+					.setDefaultType(DbColumnDefaultType.CURRENT_TIMESTAMP)
+					.setOnUpdateNow(true)
+					.setTimestamp(true)
 					.setNullable(true));
 
 			// ---- keys ---- //

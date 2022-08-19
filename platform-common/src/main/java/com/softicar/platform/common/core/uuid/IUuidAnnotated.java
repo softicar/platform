@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Implemented by types which are annotated with a {@link UUID}.
  * <p>
- * TODO remove this interface (i80977)
+ * TODO PLAT-1087 remove this interface
  *
  * @author Alexander Schmidt
  */
