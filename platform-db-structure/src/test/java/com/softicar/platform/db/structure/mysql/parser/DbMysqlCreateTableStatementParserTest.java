@@ -50,6 +50,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(false)
 			.assertAutoIncrement(true)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -63,6 +64,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(true)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -76,6 +78,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(true)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -90,6 +93,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(true)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -104,6 +108,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(false)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet("someCharacterSet")
 			.assertCollation(null)
@@ -118,6 +123,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(false)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet("someCharacterSet")
 			.assertCollation(null)
@@ -131,6 +137,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(true)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(false)
+			.assertTimestamp(false)
 			.assertUnsigned(true)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -144,6 +151,7 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertNullable(true)
 			.assertAutoIncrement(false)
 			.assertOnUpdateNow(true)
+			.assertTimestamp(false)
 			.assertUnsigned(false)
 			.assertCharacterSet(null)
 			.assertCollation(null)
@@ -151,7 +159,19 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 			.assertDefaultValue(null)
 			.assertComment(null)
 
-			// TODO i61446 assert column as soon as the issue was resolved
+			.nextEntry()
+			.assertName("timestamp")
+			.assertFieldType(SqlFieldType.DAY_TIME)
+			.assertNullable(true)
+			.assertAutoIncrement(false)
+			.assertOnUpdateNow(true)
+			.assertTimestamp(true)
+			.assertUnsigned(false)
+			.assertCharacterSet(null)
+			.assertCollation(null)
+			.assertDefaultType(DbColumnDefaultType.CURRENT_TIMESTAMP)
+			.assertDefaultValue(null)
+			.assertComment(null)
 
 			.assertNoMoreEntries();
 	}
@@ -434,6 +454,12 @@ public class DbMysqlCreateTableStatementParserTest extends AbstractTest {
 		public ColumnAsserter assertOnUpdateNow(boolean onUpdateNow) {
 
 			assertEqual(onUpdateNow, columnStructure.isOnUpdateNow());
+			return this;
+		}
+
+		public ColumnAsserter assertTimestamp(boolean timestamp) {
+
+			assertEqual(timestamp, columnStructure.isTimestamp());
 			return this;
 		}
 

@@ -1064,6 +1064,9 @@ class AjaxRequestQueue {
         this.executeJavaScript(javaScript);
         this.process();
     }
+    hasRequests() {
+        return this.requests.length > 0;
+    }
     finishRequest() {
         this.requests.shift();
         this.requestIndex += 1;
@@ -1097,9 +1100,6 @@ class AjaxRequestQueue {
             this.requests.shift();
         }
     }
-    hasRequests() {
-        return this.requests.length > 0;
-    }
     getNextRequest() {
         return this.requests[0];
     }
@@ -1121,7 +1121,7 @@ class AjaxRequestQueue {
         return false;
     }
 }
-const AJAX_REQUEST_QUEUE = new AjaxRequestQueue();
+var AJAX_REQUEST_QUEUE = new AjaxRequestQueue();
 class FormRequest {
     constructor(form, responseHandler) {
         this.form = form;

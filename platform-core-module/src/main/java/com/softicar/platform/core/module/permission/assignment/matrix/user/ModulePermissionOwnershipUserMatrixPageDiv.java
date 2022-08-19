@@ -30,7 +30,7 @@ public class ModulePermissionOwnershipUserMatrixPageDiv extends DomDiv {
 //
 //	private boolean isEditable() {
 //
-//		// FIXME i53092 We won't be able to find this permission. Can we implement matrix save and matrix reset as EMF actions
+//		// FIXME We won't be able to find this permission. Can we implement matrix save and matrix reset as EMF actions
 //		// to fix that?
 //		return CorePermissions.ACCESS_MANAGER.test(getCoreModuleInstance(), CurrentUser.get());
 //	}

@@ -28,7 +28,6 @@ import java.util.function.Function;
  *            the type of the {@link AbstractEmfPrefilterRow}
  * @author Daniel Klose
  */
-// FIXME i60829: Find way to reduce amount of types, there is one more because of SubObject structure,
 public class EmfSubObjectPrefilterElement<S, E extends IEmfObject<E>, B extends IEmfObject<B>, T extends IEmfSubObject<T, B>, R extends AbstractEmfPrefilterRow<E>>
 		extends AbstractEmfPrefilterElement<S, E, T, R> {
 

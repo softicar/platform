@@ -42,7 +42,6 @@ public class EmfUniqueKeyValidator<R extends IEmfTableRow<R, ?>> {
 		this.validationResult = validationResult;
 	}
 
-	// TODO we should lock the selected rows to avoid race-conditions (i67717)
 	public void validate() {
 
 		if (!haveFieldsWithNullValue()) {

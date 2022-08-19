@@ -64,7 +64,7 @@ public class DbTableFinder<T, R> {
 		Field tableField = getTableField(tableRowClass);
 		if (tableField != null) {
 			try {
-				// TODO remove or improve cast (i54622)
+				// TODO PLAT-1090 this cast should not be necessary
 				return tableSuperClass.cast(tableField.get(null));
 			} catch (IllegalArgumentException | IllegalAccessException exception) {
 				Log.ferror("Failed to access %s field of table row class: %s", TABLE_FIELD_NAME, tableRowClass.getCanonicalName());
