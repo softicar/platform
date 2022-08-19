@@ -25,40 +25,53 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	public void refresh() {
 
+		removeChildren();
+		appendChild(new Image(getIndicatorType()));
+	}
+
+	private DomAutoCompleteIndicatorType getIndicatorType() {
+
+		var type = getFocusAgnosticIndicatorType();
+
+		if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
+			return input.hasFocus()? type : DomAutoCompleteIndicatorType.NOT_OKAY;
+		} else {
+			return type;
+		}
+	}
+
+	private DomAutoCompleteIndicatorType getFocusAgnosticIndicatorType() {
+
 		if (input.isBlank()) {
 			if (configuration.isMandatory()) {
-				showIndicator(DomAutoCompleteIndicatorType.MISSING);
+				return DomAutoCompleteIndicatorType.MISSING;
 			} else {
-				showIndicator(DomAutoCompleteIndicatorType.VALID);
+				return DomAutoCompleteIndicatorType.VALID;
 			}
 		} else if (configuration.getValidationMode().isPermissive()) {
-			showIndicator(DomAutoCompleteIndicatorType.VALID);
+			return DomAutoCompleteIndicatorType.VALID;
 		} else {
 			var pattern = input.getPattern();
 			var matches = input.inputEngine.findMatches(pattern, 2);
 			if (matches.size() == 0) {
-				showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
+				return DomAutoCompleteIndicatorType.ILLEGAL;
 			} else if (matches.size() == 1) {
 				var element = matches.iterator().next();
 				if (configuration.getValidationMode().isRestrictive()) {
 					if (matchesInput(element)) {
-						showIndicator(DomAutoCompleteIndicatorType.VALID);
+						return DomAutoCompleteIndicatorType.VALID;
 					} else {
-						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
+						return DomAutoCompleteIndicatorType.ILLEGAL;
 					}
 				} else {
-					showIndicator(DomAutoCompleteIndicatorType.VALID);
+					return DomAutoCompleteIndicatorType.VALID;
 				}
 			} else {
 				var firstElement = matches.iterator().next();
 				if (matchesInput(firstElement)) {
-					showIndicator(DomAutoCompleteIndicatorType.VALID);
+					return DomAutoCompleteIndicatorType.VALID;
 				} else {
-					if (input.hasFocus()) {
-						showIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
-					} else {
-						showIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
-					}
+					return DomAutoCompleteIndicatorType.AMBIGUOUS;
 				}
 			}
 		}
@@ -79,20 +92,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 		}
 	}
 
-	private void showIndicator(DomAutoCompleteIndicatorType type) {
-
-		removeChildren();
-
-		if (!input.hasFocus()) {
-			if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
-				type = DomAutoCompleteIndicatorType.NOT_OKAY;
-			}
-		}
-
-		appendChild(new Image(type));
-	}
-
-	private class Image extends DomImage {
+	private static class Image extends DomImage {
 
 		public Image(DomAutoCompleteIndicatorType type) {
 
