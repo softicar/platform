@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class DomAutoCompleteList implements Iterable<String> {
 
-	public static final int MAXIMUM_ELEMENT_TO_DISPLAY = 16;
-	public static final int MAXIMUM_ELEMENTS_TO_LOAD = MAXIMUM_ELEMENT_TO_DISPLAY + 1;
+	public static final int MAXIMUM_ELEMENTS_TO_DISPLAY = 16;
+	public static final int MAXIMUM_ELEMENTS_TO_LOAD = MAXIMUM_ELEMENTS_TO_DISPLAY + 1;
 	private final List<String> items;
 
 	public DomAutoCompleteList() {

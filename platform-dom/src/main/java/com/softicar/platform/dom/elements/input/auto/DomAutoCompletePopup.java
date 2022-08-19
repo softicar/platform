@@ -36,18 +36,18 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		clear();
 		updatePattern();
 
-		var values = inputEngine.findMatches(pattern, DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY + 1);
+		var values = inputEngine.findMatches(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY + 1);
 		if (values.isEmpty()) {
 			appendChild(new NoValuesDisplay());
 		} else {
 			values//
 				.stream()
-				.limit(DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY)
+				.limit(DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY)
 				.forEach(this::addValueDisplay);
 			if (!pattern.isEmpty()) {
 				setSelectionIndex(0);
 			}
-			if (values.size() >= DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY) {
+			if (values.size() >= DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY) {
 				appendChild(new MoreValuesDisplay());
 			}
 		}

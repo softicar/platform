@@ -30,7 +30,7 @@ class EmfAutoCompleteBrowsePopover<T> extends DomPopover {
 		var table = new EmfAutoCompleteBrowseTable<>(Objects.requireNonNull(inputEngine));
 		new EmfDataTableDivBuilder<>(table)//
 			.setColumnHandler(table.getNameColumn(), new EmfAutoCompleteBrowseColumnHandler<>(inputEngine, this::setInputValueAndHide))
-			.setPageSize(DomAutoCompleteList.MAXIMUM_ELEMENT_TO_DISPLAY)
+			.setPageSize(DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY)
 			.setHideNavigationActionButtons(true)
 			.buildAndAppendTo(this);
 	}
