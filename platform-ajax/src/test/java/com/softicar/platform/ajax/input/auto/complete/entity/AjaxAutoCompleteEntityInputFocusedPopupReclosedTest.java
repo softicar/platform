@@ -33,7 +33,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		asserter//
 			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -66,7 +66,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -100,7 +100,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -135,7 +135,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		asserter//
 			.expectClientValue("other invalid item name")
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

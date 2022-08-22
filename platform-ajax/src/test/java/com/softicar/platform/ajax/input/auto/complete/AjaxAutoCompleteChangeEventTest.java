@@ -57,7 +57,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		waitForServer();
 		inputDiv.assertNoEvent();
-		indicator.assertValueIllegal(true);
+		indicator.assertIndicatesIllegal();
 	}
 
 	@Test
@@ -102,7 +102,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		waitForAutoCompletePopup();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 		inputDiv.assertOneEvent();
 
 		// now try to submit empty value with ENTER
@@ -113,7 +113,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// assert that empty value was not re-submitted
 		inputDiv.assertNoEvent();
 		assertNull(inputDiv.getSelection().getValueOrNull());
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 	}
 
 	// -------------------- un-submitted -------------------- //

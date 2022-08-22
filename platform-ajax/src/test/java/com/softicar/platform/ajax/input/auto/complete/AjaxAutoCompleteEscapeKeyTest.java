@@ -18,7 +18,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		send(inputField, Key.ESCAPE);
 
 		assertFalse(isAutoCompletePopupDisplayed());
-		indicator.assertValueAmbiguous(false);
+		indicator.assertIndicatesNothing();
 		assertEquals("", getAttributeValue(inputField, "value"));
 	}
 
@@ -30,7 +30,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		send(inputField, Key.ESCAPE);
 
 		assertFalse(isAutoCompletePopupDisplayed());
-		indicator.assertValueAmbiguous(true);
+		indicator.assertIndicatesAmbiguous();
 		assertEquals(AMBIGUOUS_INPUT, getAttributeValue(inputField, "value"));
 	}
 
@@ -63,11 +63,11 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		// type ESCAPE
 		send(inputField, Key.ESCAPE);
 		waitForAutoCompletePopupToHide();
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 
 		// now leave and re-enter
 		clickBodyNode();
 		click(inputField);
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 	}
 }

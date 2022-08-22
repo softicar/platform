@@ -30,7 +30,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -55,7 +55,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

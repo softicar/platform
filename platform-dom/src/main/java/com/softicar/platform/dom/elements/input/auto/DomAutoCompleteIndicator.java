@@ -5,6 +5,7 @@ import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
+import java.util.Optional;
 
 public class DomAutoCompleteIndicator<T> extends DomDiv {
 
@@ -20,7 +21,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 		this.inputEngine = input.inputEngine;
 		this.inputField = input.getInputField();
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR);
+		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_PARENT);
 
 		refresh();
 	}
@@ -28,43 +29,28 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 	public void refresh() {
 
 		removeChildren();
-		appendChild(new Image(getIndicatorType()));
+		getIndicatorType().map(Image::new).ifPresent(this::appendChild);
 	}
 
-	private DomAutoCompleteIndicatorType getIndicatorType() {
-
-		var type = getFocusAgnosticIndicatorType();
-
-		if (type == DomAutoCompleteIndicatorType.ILLEGAL || type == DomAutoCompleteIndicatorType.AMBIGUOUS) {
-			return input.hasFocus()? type : DomAutoCompleteIndicatorType.NOT_OKAY;
-		} else {
-			return type;
-		}
-	}
-
-	private DomAutoCompleteIndicatorType getFocusAgnosticIndicatorType() {
+	private Optional<DomAutoCompleteIndicatorType> getIndicatorType() {
 
 		if (input.isBlank()) {
-			if (configuration.isMandatory()) {
-				return DomAutoCompleteIndicatorType.MISSING;
-			} else {
-				return DomAutoCompleteIndicatorType.VALID;
-			}
+			return Optional.empty();
 		} else if (configuration.getValidationMode().isPermissive()) {
-			return DomAutoCompleteIndicatorType.VALID;
+			return Optional.empty();
 		} else {
 			var pattern = input.getPattern();
 			var matches = input.inputEngine.findMatches(pattern, 2);
 			if (matches.size() == 0) {
-				return DomAutoCompleteIndicatorType.ILLEGAL;
+				return DomAutoCompleteIndicatorType.ILLEGAL.asOptional();
 			} else if (matches.size() == 1) {
-				return DomAutoCompleteIndicatorType.VALID;
+				return Optional.empty();
 			} else {
 				var firstElement = matches.iterator().next();
 				if (matchesInput(firstElement)) {
-					return DomAutoCompleteIndicatorType.VALID;
+					return Optional.empty();
 				} else {
-					return DomAutoCompleteIndicatorType.AMBIGUOUS;
+					return DomAutoCompleteIndicatorType.AMBIGUOUS.asOptional();
 				}
 			}
 		}
@@ -87,6 +73,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 			super(type.getImage());
 
+			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR);
 			addCssClass(type.getCssClass());
 			setTitle(type.getTitle());
 		}

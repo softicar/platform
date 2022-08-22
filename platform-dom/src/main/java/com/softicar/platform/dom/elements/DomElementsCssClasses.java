@@ -11,11 +11,8 @@ public interface DomElementsCssClasses {
 	ICssClass DOM_AUTO_COMPLETE_BACKDROP = new CssClass("DomAutoCompleteBackdrop", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR = new CssClass("DomAutoCompleteIndicator", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOUS = new CssClass("DomAutoCompleteIndicatorAmbiguous", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
-	ICssClass DOM_AUTO_COMPLETE_INDICATOR_DEFAULT = new CssClass("DomAutoCompleteIndicatorDefault", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
+	ICssClass DOM_AUTO_COMPLETE_INDICATOR_PARENT = new CssClass("DomAutoCompleteIndicatorParent", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL = new CssClass("DomAutoCompleteIndicatorIllegal", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
-	ICssClass DOM_AUTO_COMPLETE_INDICATOR_MISSING = new CssClass("DomAutoCompleteIndicatorMissing", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
-	ICssClass DOM_AUTO_COMPLETE_INDICATOR_NOT_OKAY = new CssClass("DomAutoCompleteIndicatorNotOkay", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
-	ICssClass DOM_AUTO_COMPLETE_INDICATOR_VALID = new CssClass("DomAutoCompleteIndicatorValid", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT = new CssClass("DomAutoCompleteInput", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT_FIELD = new CssClass("DomAutoCompleteInputField", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);
 	ICssClass DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY = new CssClass("DomAutoCompleteInputFilterDisplay", DomElementsCssFiles.DOM_AUTO_COMPLETE_STYLE);

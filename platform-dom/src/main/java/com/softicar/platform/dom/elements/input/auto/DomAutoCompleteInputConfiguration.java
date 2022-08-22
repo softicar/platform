@@ -10,7 +10,6 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 	private final DomAutoCompleteInput<?> input;
 	private final IDomInput inputField;
 	private DomAutoCompleteInputValidationMode validationMode;
-	private boolean mandatory;
 	private boolean disabled;
 
 	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, IDomInput inputField, DomAutoCompleteInputValidationMode validationMode) {
@@ -18,7 +17,6 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 		this.input = input;
 		this.inputField = inputField;
 		this.validationMode = validationMode;
-		this.mandatory = false;
 		this.disabled = false;
 	}
 
@@ -33,20 +31,6 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 
 		Objects.requireNonNull(validationMode);
 		this.validationMode = validationMode;
-		input.refreshIndicator();
-		return this;
-	}
-
-	@Override
-	public boolean isMandatory() {
-
-		return mandatory;
-	}
-
-	@Override
-	public IDomAutoCompleteInputConfiguration setMandatory(boolean mandatory) {
-
-		this.mandatory = mandatory;
 		input.refreshIndicator();
 		return this;
 	}

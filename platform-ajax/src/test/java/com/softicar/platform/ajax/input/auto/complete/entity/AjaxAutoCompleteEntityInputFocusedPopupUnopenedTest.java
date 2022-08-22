@@ -25,7 +25,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -45,7 +45,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -65,7 +65,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -86,7 +86,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -108,7 +108,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorNotOkay()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -129,7 +129,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

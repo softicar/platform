@@ -32,7 +32,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(ENTITY1)
 			.expectServerValue(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -60,7 +60,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorNotOkay()
+			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -88,7 +88,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorNotOkay()
+			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -111,7 +111,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectValues(ENTITY3)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -135,7 +135,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		asserter//
 			.expectClientValue(ENTITY1)
 			.expectServerValue(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -159,7 +159,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			asserter//
 				.expectClientValue(ENTITY1.getIdAsString())
 				.expectServerValue(ENTITY1)
-				.expectIndicatorValueValid()
+				.expectIndicatorNone()
 				.expectPopupNotDisplayed()
 				.expectNoFocus()
 				.expectOverlayNotDisplayed()
@@ -187,7 +187,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()
@@ -216,7 +216,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			asserter//
 				.expectClientValue(item2.getIdAsString())
 				.expectServerValue(item2)
-				.expectIndicatorValueValid()
+				.expectIndicatorNone()
 				.expectPopupNotDisplayed()
 				.expectNoFocus()
 				.expectOverlayNotDisplayed()
@@ -249,7 +249,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectValues(item2)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectOverlayNotDisplayed()

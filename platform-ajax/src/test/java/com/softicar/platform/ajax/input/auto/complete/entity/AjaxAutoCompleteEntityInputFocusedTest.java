@@ -23,7 +23,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -42,7 +42,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -62,7 +62,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -82,7 +82,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -103,7 +103,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -124,7 +124,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -144,7 +144,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -164,7 +164,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -186,7 +186,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -208,177 +208,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithClickFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithTabFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithTabFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithClickFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

@@ -32,10 +32,4 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteI
 		super.setValue(value);
 		editButton.refresh(value);
 	}
-
-	@Override
-	public void setMandatory(boolean mandatory) {
-
-		getConfiguration().setMandatory(mandatory);
-	}
 }

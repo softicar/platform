@@ -202,16 +202,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return add((input, engine) -> input.getInputField().setValue(stringValue));
 		}
 
-		public Setup setMandatory() {
-
-			return setMandatory(true);
-		}
-
-		public Setup setMandatory(boolean mandatory) {
-
-			return add((input, engine) -> input.getConfiguration().setMandatory(mandatory));
-		}
-
 		public Setup setMode(DomAutoCompleteInputValidationMode mode) {
 
 			return add((input, engine) -> input.getConfiguration().setValidationMode(mode));
@@ -300,7 +290,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private IDisplayString expectedServerValueExceptionMessage;
 		private String expectedClientValue;
 		private DomAutoCompleteIndicatorType expectedIndicator;
-		private boolean expectedIndicatorPresence;
 		private boolean expectedPopupDisplayed;
 		private List<AjaxTestEntity> expectedPopupItems;
 		private Integer expectedSelectedItemNumber;
@@ -371,11 +360,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private void setExpectedIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
 			this.expectedIndicator = indicatorType;
-		}
-
-		private void setExpectedIndicatorPresence(boolean displayed) {
-
-			this.expectedIndicatorPresence = displayed;
 		}
 
 		private void setExpectedPopupDisplayed(boolean displayed) {
@@ -454,65 +438,24 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public class IndicatorExpectationSetter {
 
-			public PopupDisplayExpectationSetter expectIndicatorNotOkay() {
+			public PopupDisplayExpectationSetter expectIndicatorAmbiguous() {
 
-				return expectIndicatorNotOkay(true);
+				return expectIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicatorNotOkay(boolean displayed) {
+			public PopupDisplayExpectationSetter expectIndicatorIllegal() {
 
-				return expectIndicator(DomAutoCompleteIndicatorType.NOT_OKAY, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous() {
+			public PopupDisplayExpectationSetter expectIndicatorNone() {
 
-				return expectIndicatorValueAmbiguous(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous(boolean displayed) {
-
-				return expectIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueIllegal() {
-
-				return expectIndicatorValueIllegal(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueIllegal(boolean displayed) {
-
-				return expectIndicator(DomAutoCompleteIndicatorType.ILLEGAL, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueMissing() {
-
-				return expectIndicatorValueMissing(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueMissing(boolean displayed) {
-
-				return expectIndicator(DomAutoCompleteIndicatorType.MISSING, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueValid() {
-
-				return expectIndicatorValueValid(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueValid(boolean displayed) {
-
-				return expectIndicator(DomAutoCompleteIndicatorType.VALID, displayed);
+				return expectIndicator(null);
 			}
 
 			public PopupDisplayExpectationSetter expectIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
-				return expectIndicator(indicatorType, true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicator(DomAutoCompleteIndicatorType indicatorType, boolean displayed) {
-
 				setExpectedIndicator(indicatorType);
-				setExpectedIndicatorPresence(displayed);
 				return new PopupDisplayExpectationSetter();
 			}
 		}
@@ -690,7 +633,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				executed = true;
 				setup.assertExecuted();
 				input.assertValues(expectedServerValueExceptionMessage, expectedServerValue, expectedClientValue);
-				indicator.assertIndicates(expectedIndicator, expectedIndicatorPresence);
+				indicator.assertIndicates(expectedIndicator);
 				popup.assertDisplayed(expectedPopupDisplayed);
 				input.assertFocusState(expectedFocusState);
 				if (expectedPopupDisplayed) {

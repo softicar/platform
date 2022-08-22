@@ -66,12 +66,21 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	@Override
 	public boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
-		return webDriverSupplier//
-			.get()
-			.findElements(By.className(indicatorType.getCssClass().getName()))
-			.stream()
-			.findFirst()
-			.isPresent();
+		if (indicatorType != null) {
+			return webDriverSupplier//
+				.get()
+				.findElements(By.className(indicatorType.getCssClass().getName()))
+				.stream()
+				.findFirst()
+				.isPresent();
+		} else {
+			return webDriverSupplier//
+				.get()
+				.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR.getName()))
+				.stream()
+				.findFirst()
+				.isEmpty();
+		}
 	}
 
 	@Override

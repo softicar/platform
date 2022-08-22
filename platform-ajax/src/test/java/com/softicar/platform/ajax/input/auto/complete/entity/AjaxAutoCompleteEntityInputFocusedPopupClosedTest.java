@@ -9,9 +9,6 @@ import org.junit.Test;
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
  * <b>"2.3 Popup Closed"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  * <p>
- * Note that, for passive input elements, the value is not transferred to the
- * server until the next arbitrary event is handled.
- * <p>
  * All assertions in here should expect a focused input element and a
  * non-displayed popup.
  *
@@ -35,7 +32,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -60,7 +57,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -86,7 +83,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY3)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -111,7 +108,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -135,7 +132,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValuesNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -160,7 +157,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueAmbiguous()
+			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -185,7 +182,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -210,7 +207,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -235,7 +232,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -261,7 +258,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueAmbiguous()
+			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -288,35 +285,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValueNone()
 			.expectServerValueNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndServerFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectClientValueNone()
-			.expectServerValueNone()
-			.expectIndicatorValueMissing()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -341,7 +310,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -366,7 +335,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -391,7 +360,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -421,7 +390,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(ENTITY1.getName())
 			.expectServerValueNone()
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -446,7 +415,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -471,7 +440,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -498,7 +467,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -524,7 +493,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()
@@ -553,7 +522,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		asserter//
 			.expectClientValue(INVALID_ITEM_NAME)
 			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectOverlayNotDisplayed()

@@ -37,7 +37,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectIndicatorNone()
 			.expectPopupDisplayed()
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()

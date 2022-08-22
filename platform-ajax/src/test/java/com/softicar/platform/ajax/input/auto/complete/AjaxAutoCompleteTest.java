@@ -33,7 +33,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		assertRequests("");
 		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		assertRequests("");
 		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 	}
 
 	@Test
@@ -165,7 +165,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForAutoCompletePopupToHide();
 
 		assertFalse(isAutoCompletePopupDisplayed());
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 		assertEquals("", getAttributeValue(inputField, "value"));
 	}
 
@@ -175,7 +175,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous(true);
+		indicator.assertIndicatesAmbiguous();
 
 		clickBodyNode();
 		waitForServer();
@@ -311,7 +311,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		}
 		waitForServer();
 
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 		assertFalse(isAutoCompletePopupDisplayed());
 		assertInputValue(ITEM1);
 	}

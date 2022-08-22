@@ -7,15 +7,12 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.style.ICssClass;
+import java.util.Optional;
 
 public enum DomAutoCompleteIndicatorType {
 
 	AMBIGUOUS(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_AMBIGUOUS, DomI18n.AMBIGUOUS_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOUS),
-	DEFAULT(DomImages.EMBLEM_AUTO_COMPLETE_GENERIC, DomI18n.AUTO_COMPLETE_INPUT_ELEMENT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_DEFAULT),
-	ILLEGAL(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_ILLEGAL, DomI18n.ILLEGAL_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL),
-	MISSING(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_MISSING, DomI18n.INPUT_REQUIRED, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_MISSING),
-	NOT_OKAY(DomImages.EMBLEM_AUTO_COMPLETE_NOT_OKAY, DomI18n.INVALID_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_NOT_OKAY),
-	VALID(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID, DomI18n.VALID_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_VALID);
+	ILLEGAL(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_ILLEGAL, DomI18n.ILLEGAL_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL);
 
 	private final IResourceSupplier image;
 	private final IDisplayString title;
@@ -41,5 +38,10 @@ public enum DomAutoCompleteIndicatorType {
 	public ICssClass getCssClass() {
 
 		return cssClass;
+	}
+
+	public Optional<DomAutoCompleteIndicatorType> asOptional() {
+
+		return Optional.of(this);
 	}
 }

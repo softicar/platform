@@ -37,18 +37,18 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		clear(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous(true);
+		indicator.assertIndicatesAmbiguous();
 
 		// press escape
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueAmbiguous(true);
+		indicator.assertIndicatesAmbiguous();
 
 		// remove text from input and close popup
 		clear(inputField);
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 	}
 
 	@Test
@@ -58,17 +58,17 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous();
+		indicator.assertIndicatesAmbiguous();
 
 		// press escape
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueAmbiguous();
+		indicator.assertIndicatesAmbiguous();
 
 		// set input value
 		click(button);
 		waitForServer();
 		click(inputField);
-		indicator.assertValueIllegal();
+		indicator.assertIndicatesIllegal();
 	}
 
 	// -------------------- invalid -> valid -------------------- //
@@ -80,13 +80,13 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		click(inputField);
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
-		indicator.assertValueIllegal();
+		indicator.assertIndicatesIllegal();
 
 		// set input value
 		send(inputField, Key.ESCAPE);
 		click(button);
 		waitForServer();
-		indicator.assertNotOkay();
+		indicator.assertIndicatesIllegal();
 	}
 
 	// -------------------- invalid -------------------- //
@@ -98,11 +98,11 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		click(inputField);
 		send(inputField, "x");
 		waitForAutoCompletePopup();
-		indicator.assertValueIllegal(true);
+		indicator.assertIndicatesIllegal();
 
 		// leave input
 		send(inputField, Key.ESCAPE);
 		clickBodyNode();
-		indicator.assertNotOkay(true);
+		indicator.assertIndicatesIllegal();
 	}
 }

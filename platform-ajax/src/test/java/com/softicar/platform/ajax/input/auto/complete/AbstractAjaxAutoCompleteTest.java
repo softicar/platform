@@ -116,6 +116,11 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(indicatorType);
 	}
 
+	protected boolean isAutoCompleteIndicatorNotDisplayed() {
+
+		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(null);
+	}
+
 	// -------------------- modality -------------------- //
 
 	protected boolean isAutoCompleteModalDivDisplayed() {
@@ -144,72 +149,31 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	protected class IndicatorProxy {
 
-		public void assertNotOkay() {
+		public void assertIndicatesAmbiguous() {
 
-			assertNotOkay(true);
+			assertIndicates(DomAutoCompleteIndicatorType.AMBIGUOUS);
 		}
 
-		public void assertNotOkay(boolean displayed) {
+		public void assertIndicatesIllegal() {
 
-			assertIndicates(DomAutoCompleteIndicatorType.NOT_OKAY, displayed);
-		}
-
-		public void assertValueAmbiguous() {
-
-			assertValueAmbiguous(true);
-		}
-
-		public void assertValueAmbiguous(boolean displayed) {
-
-			assertIndicates(DomAutoCompleteIndicatorType.AMBIGUOUS, displayed);
-		}
-
-		public void assertValueIllegal() {
-
-			assertValueIllegal(true);
-		}
-
-		public void assertValueIllegal(boolean displayed) {
-
-			assertIndicates(DomAutoCompleteIndicatorType.ILLEGAL, displayed);
-		}
-
-		public void assertValueMissing() {
-
-			assertValueMissing(true);
-		}
-
-		public void assertValueMissing(boolean displayed) {
-
-			assertIndicates(DomAutoCompleteIndicatorType.MISSING, displayed);
-		}
-
-		public void assertValueValid() {
-
-			assertValueValid(true);
-		}
-
-		public void assertValueValid(boolean displayed) {
-
-			assertIndicates(DomAutoCompleteIndicatorType.VALID, displayed);
+			assertIndicates(DomAutoCompleteIndicatorType.ILLEGAL);
 		}
 
 		public void assertIndicates(DomAutoCompleteIndicatorType indicatorType) {
 
-			assertIndicates(indicatorType, true);
-		}
-
-		public void assertIndicates(DomAutoCompleteIndicatorType indicatorType, boolean displayed) {
-
-			if (displayed) {
+			boolean actual = isAutoCompleteIndicatorDisplayed(indicatorType);
+			if (indicatorType != null) {
 				assertTrue(//
 					"Expected " + indicatorType.getTitle() + " indicator, but encountered " + getDisplayedIndicatorName() + " indicator.",
-					isAutoCompleteIndicatorDisplayed(indicatorType));
+					actual);
 			} else {
-				assertFalse(//
-					"Unexpectedly encountered " + indicatorType.getTitle() + " indicator.",
-					isAutoCompleteIndicatorDisplayed(indicatorType));
+				assertTrue("Unexpectedly encountered an indicator.", actual);
 			}
+		}
+
+		public void assertIndicatesNothing() {
+
+			assertIndicates(null);
 		}
 
 		private String getDisplayedIndicatorName() {

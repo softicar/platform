@@ -43,22 +43,6 @@ public interface IDomAutoCompleteInputConfiguration {
 	}
 
 	/**
-	 * @return true if the input element is flagged as mandatory. false
-	 *         otherwise.
-	 * @see #setMandatory(boolean)
-	 */
-	boolean isMandatory();
-
-	/**
-	 * Flags the input element as mandatory. When a mandatory input element is
-	 * empty, it indicates that a value is missing.
-	 *
-	 * @param mandatory
-	 *            true if input should be mandatory. false otherwise.
-	 */
-	IDomAutoCompleteInputConfiguration setMandatory(boolean mandatory);
-
-	/**
 	 * Determines whether the input element is disabled.
 	 *
 	 * @return <i>true</i> if the input element is disabled; <i>false</i>
