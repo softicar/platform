@@ -12,7 +12,24 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testValueSelectionWithFilledInput() {
+	public void testCreationWithEmptyInput() {
+
+		setup//
+			.setListenToChange()
+			.execute();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectNoFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testCreationWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -30,7 +47,26 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testValueRemovalWithFilledInput() {
+	public void testCreationWithFilledInputAndIllegalValue() {
+
+		setup//
+			.setListenToChange()
+			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.execute();
+
+		asserter//
+			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectNoFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testCreationWithFilledInputAndClearedValue() {
 
 		setup//
 			.setListenToChange()
@@ -49,7 +85,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testValueAlterationWithFilledInput() {
+	public void testCreationWithFilledInputAndChangedValue() {
 
 		setup//
 			.setListenToChange()
@@ -60,60 +96,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 		asserter//
 			.expectValues(ENTITY2)
 			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testFilledInputWithUnavailableValue() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()

@@ -24,6 +24,7 @@ import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssFlexDirection;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -125,11 +126,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected static final AjaxTestEntity ENTITY4 = new AjaxTestEntity(4, "bazinga");
 	protected static final List<AjaxTestEntity> ENTITIES = Arrays.asList(ENTITY2, ENTITY3, ENTITY4, ENTITY1);
 	protected static final AjaxTestEntity UNAVAILABLE_ENTITY = new AjaxTestEntity(999, "zzz");
-	protected static final long DURATION_100 = 100;
-	protected static final long DURATION_250 = 250;
-	protected static final long DURATION_500 = 500;
-	protected static final long DURATION_1000 = 1000;
-	protected static final long DURATION_2000 = 2000;
 
 	protected TestInputEngine inputEngine;
 	protected DomAutoCompleteInput<AjaxTestEntity> inputNode;
@@ -736,13 +732,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public InputProxy waitForNoPopup() {
 
 			// race assumption: this is the maximum amount of time after which the popup would appear
-			sleep500();
-			return this;
-		}
-
-		public InputProxy sleep500() {
-
-			Sleep.sleep(DURATION_500);
+			Sleep.sleep(Duration.ofMillis(500));
 			return this;
 		}
 
