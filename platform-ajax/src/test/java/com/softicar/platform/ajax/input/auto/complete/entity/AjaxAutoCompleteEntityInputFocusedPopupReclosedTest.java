@@ -36,7 +36,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCount(2)
 			.expectCallbackValue(ENTITY2)
 			.assertAll();
@@ -53,7 +53,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click()
 			.waitForServer();
 		input//
@@ -69,7 +69,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCount(1)
 			.expectCallbackValue(ENTITY1)
 			.assertAll();
@@ -93,7 +93,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(INVALID_ITEM_NAME)
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click()
 			.waitForServer();
 
@@ -103,7 +103,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCount(2)
 			.expectCallbackValueNone()
 			.assertAll();
@@ -120,7 +120,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusWithClick()
 			.sendString(INVALID_ITEM_NAME)
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click()
 			.waitForServer();
 		input//
@@ -128,7 +128,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.pressBackspace(INVALID_ITEM_NAME.length())
 			.sendString("other invalid item name")
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click()
 			.waitForServer();
 
@@ -138,7 +138,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}

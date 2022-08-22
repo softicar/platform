@@ -144,7 +144,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected final ChangeCallback changeCallback;
 	protected final BodyProxy body;
 	protected final PopupProyx popup;
-	protected final OverlayProxy overlay;
+	protected final BackdropProxy backdrop;
 	protected final CallbackProxy callback;
 
 	protected AbstractAjaxAutoCompleteEntityTest() {
@@ -154,7 +154,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		this.changeCallback = new ChangeCallback();
 		this.body = new BodyProxy();
 		this.popup = new PopupProyx();
-		this.overlay = new OverlayProxy();
+		this.backdrop = new BackdropProxy();
 		this.callback = new CallbackProxy();
 	}
 
@@ -294,7 +294,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private List<AjaxTestEntity> expectedPopupItems;
 		private Integer expectedSelectedItemNumber;
 		private boolean expectedFocusState;
-		private boolean expectedOverlayDisplayed;
+		private boolean expectedBackdropDisplayed;
 		private AjaxTestEntity expectedCallbackValue;
 		private int expectedCallbackCount;
 
@@ -382,9 +382,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedFocusState = focusState;
 		}
 
-		private void setExpectedOverlayDisplayed(boolean displayed) {
+		private void setExpectedBackdropDisplayed(boolean displayed) {
 
-			this.expectedOverlayDisplayed = displayed;
+			this.expectedBackdropDisplayed = displayed;
 		}
 
 		private void setExpectedCallbackValue(AjaxTestEntity value) {
@@ -530,38 +530,38 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public class FocusedStateExpectationSetter {
 
-			public OverlayExpectationSetter expectNoFocus() {
+			public BackdropExpectationSetter expectNoFocus() {
 
 				return expectFocusState(false);
 			}
 
-			public OverlayExpectationSetter expectFocus() {
+			public BackdropExpectationSetter expectFocus() {
 
 				return expectFocusState(true);
 			}
 
-			public OverlayExpectationSetter expectFocusState(boolean focusState) {
+			public BackdropExpectationSetter expectFocusState(boolean focusState) {
 
 				setExpectedFocusState(focusState);
-				return new OverlayExpectationSetter();
+				return new BackdropExpectationSetter();
 			}
 		}
 
-		public class OverlayExpectationSetter {
+		public class BackdropExpectationSetter {
 
-			public CallbackExpectationSetter expectOverlayDisplayed() {
+			public CallbackExpectationSetter expectBackdropDisplayed() {
 
-				return expectOverlayDisplayed(true);
+				return expectBackdropDisplayed(true);
 			}
 
-			public CallbackExpectationSetter expectOverlayNotDisplayed() {
+			public CallbackExpectationSetter expectBackdropNotDisplayed() {
 
-				return expectOverlayDisplayed(false);
+				return expectBackdropDisplayed(false);
 			}
 
-			public CallbackExpectationSetter expectOverlayDisplayed(boolean displayed) {
+			public CallbackExpectationSetter expectBackdropDisplayed(boolean displayed) {
 
-				setExpectedOverlayDisplayed(displayed);
+				setExpectedBackdropDisplayed(displayed);
 				return new CallbackExpectationSetter();
 			}
 		}
@@ -640,7 +640,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 					popup.assertEntities(expectedPopupItems);
 					popup.assertSelectedEntity(expectedSelectedItemNumber);
 				}
-				overlay.assertDisplayed(expectedOverlayDisplayed);
+				backdrop.assertDisplayed(expectedBackdropDisplayed);
 				callback.assertCalled(expectedCallbackValue, expectedCallbackCount);
 			}
 		}
@@ -694,7 +694,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public InputProxy focusWithTab() {
 
-			// TODO assert absence of overlay and popup here
+			// TODO assert absence of backdrop and popup here
 			send(focusPredecessorElement, Key.TAB);
 			// TODO assert focus in auto-complete input here
 			return this;
@@ -900,18 +900,18 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 	}
 
-	protected class OverlayProxy {
+	protected class BackdropProxy {
 
-		public OverlayProxy click() {
+		public BackdropProxy click() {
 
 			assertTrue(//
-				"Failed to find modal overlay.",
-				isAutoCompleteModalDivDisplayed());
-			clickAutoCompleteModalDiv();
+				"Failed to find backdrop.",
+				isAutoCompleteBackdropDisplayed());
+			clickAutoCompleteBackdrop();
 			return this;
 		}
 
-		public OverlayProxy waitForServer() {
+		public BackdropProxy waitForServer() {
 
 			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
 			return this;
@@ -920,9 +920,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertDisplayed(boolean displayed) {
 
 			assertEquals(//
-				"Unexpected display state of modal overlay.",
+				"Unexpected display state of backdrop.",
 				displayed,
-				isAutoCompleteModalDivDisplayed());
+				isAutoCompleteBackdropDisplayed());
 		}
 	}
 

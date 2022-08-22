@@ -15,7 +15,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 
 	@Test
 	@Ignore("Does not make sense since auto-fill was implemented.")
-	public void testOverlayDisplayedWithUniqueItemNameOnEmptyInputWhilePopupDisplayed() {
+	public void testBackdropDisplayedWithUniqueItemNameOnEmptyInputWhilePopupDisplayed() {
 
 		setup//
 			.setListenToChange()
@@ -25,7 +25,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 			.focusWithClick()
 			.sendString("fo")
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click();
 		input//
 			.waitForServer()
@@ -42,7 +42,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackCountOne()
 			.expectCallbackValue(ENTITY1)
 			.assertAll();

@@ -35,7 +35,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -63,7 +63,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -78,7 +78,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
-		overlay//
+		backdrop//
 			.click()
 			.waitForServer();
 		body//
@@ -91,7 +91,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -114,7 +114,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -138,7 +138,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -162,7 +162,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 				.expectIndicatorNone()
 				.expectPopupNotDisplayed()
 				.expectNoFocus()
-				.expectOverlayNotDisplayed()
+				.expectBackdropNotDisplayed()
 				.expectCallbackNone()
 				.assertAll();
 		}
@@ -190,7 +190,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -219,7 +219,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 				.expectIndicatorNone()
 				.expectPopupNotDisplayed()
 				.expectNoFocus()
-				.expectOverlayNotDisplayed()
+				.expectBackdropNotDisplayed()
 				.expectCallbackNone()
 				.assertAll();
 		}
@@ -252,7 +252,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}

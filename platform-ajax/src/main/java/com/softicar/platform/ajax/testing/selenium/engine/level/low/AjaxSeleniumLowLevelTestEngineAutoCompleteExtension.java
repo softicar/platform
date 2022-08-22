@@ -84,7 +84,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public boolean isAutoCompleteModalDivDisplayed() {
+	public boolean isAutoCompleteBackdropDisplayed() {
 
 		return !webDriverSupplier//
 			.get()
@@ -121,7 +121,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public void clickAutoCompleteModalDiv() {
+	public void clickAutoCompleteBackdrop() {
 
 		webDriverSupplier//
 			.get()

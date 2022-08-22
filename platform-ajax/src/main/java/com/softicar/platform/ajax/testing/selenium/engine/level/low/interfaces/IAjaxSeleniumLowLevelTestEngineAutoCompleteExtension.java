@@ -28,7 +28,7 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 	 */
 	boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType);
 
-	boolean isAutoCompleteModalDivDisplayed();
+	boolean isAutoCompleteBackdropDisplayed();
 
 	boolean isAutoCompleteItemPlaceholderDisplayed();
 
@@ -38,7 +38,7 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	void clickAutoCompleteItem(IAjaxSeleniumTestDomAutoCompleteTestItem item);
 
-	void clickAutoCompleteModalDiv();
+	void clickAutoCompleteBackdrop();
 
 	void waitForAutoCompletePopup();
 

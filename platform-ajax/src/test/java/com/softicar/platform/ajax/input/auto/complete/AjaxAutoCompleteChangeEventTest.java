@@ -139,7 +139,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -150,7 +150,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, ITEM1.getName());
 		waitForAutoCompletePopup();
 
-		assertTrue(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -165,7 +165,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-//		assertFalse(isAutoCompleteModalDivDisplayed()); // FIXME broken
+//		assertFalse(isAutoCompleteBackdropDisplayed()); // FIXME broken
 	}
 
 	@Test
@@ -179,7 +179,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// click the item
 		clickAutoCompleteItem(ITEM1);
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -216,7 +216,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// remove and regain focus
 		unfocusAndRefocusInput();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -237,7 +237,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// type something
 		send(inputField, "foo");
 
-		assertTrue(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -258,7 +258,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -272,7 +272,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		clickBodyNode();
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	// -------------------- private -------------------- //

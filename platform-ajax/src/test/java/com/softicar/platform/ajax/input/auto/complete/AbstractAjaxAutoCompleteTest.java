@@ -123,14 +123,14 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	// -------------------- modality -------------------- //
 
-	protected boolean isAutoCompleteModalDivDisplayed() {
+	protected boolean isAutoCompleteBackdropDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteModalDivDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteBackdropDisplayed();
 	}
 
-	protected void clickAutoCompleteModalDiv() {
+	protected void clickAutoCompleteBackdrop() {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteModalDiv();
+		testEngine.getAutoCompleteExtension().clickAutoCompleteBackdrop();
 	}
 
 	// -------------------- miscellaneous -------------------- //

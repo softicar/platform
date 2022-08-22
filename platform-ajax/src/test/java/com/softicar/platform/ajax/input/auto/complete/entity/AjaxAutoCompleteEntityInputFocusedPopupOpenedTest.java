@@ -33,7 +33,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
 			.expectPopupSelectedItem(2)
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -60,7 +60,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
 			.expectPopupSelectedItem(1)
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -86,7 +86,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
 			.expectPopupSelectedItem(2)
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -110,7 +110,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -132,7 +132,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -156,7 +156,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITIES)
 			.expectPopupSelectedItemNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -181,13 +181,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testOverlayNotDisplayedWithDownArrowOnFilledInput() {
+	public void testBackdropNotDisplayedWithDownArrowOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -205,13 +205,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testOverlayDisplayedWithBackspaceOnFilledInput() {
+	public void testBackdropDisplayedWithBackspaceOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -231,7 +231,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -253,7 +253,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -276,7 +276,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -298,7 +298,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITIES)
 			.expectPopupSelectedItemNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -321,7 +321,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -344,7 +344,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -366,7 +366,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITIES)
 			.expectPopupSelectedItemNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -389,7 +389,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemLast()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -412,7 +412,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -436,7 +436,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupDisplayed()
 			.expectPopupEntitiesNone()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -461,7 +461,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -486,7 +486,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY2, ENTITY3, ENTITY4)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -512,7 +512,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY3, ENTITY4)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -539,7 +539,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(item1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -567,7 +567,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(item1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -595,7 +595,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(item1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -622,7 +622,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(item1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -647,7 +647,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.expectPopupEntities(ENTITY1)
 			.expectPopupSelectedItemFirst()
 			.expectFocus()
-			.expectOverlayDisplayed()
+			.expectBackdropDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
