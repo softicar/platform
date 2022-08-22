@@ -34,26 +34,18 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	private Optional<DomAutoCompleteIndicatorType> getIndicatorType() {
 
-		if (input.isBlank()) {
-			return Optional.empty();
-		} else if (configuration.getValidationMode().isPermissive()) {
-			return Optional.empty();
-		} else {
-			var pattern = input.getPattern();
-			var matches = input.inputEngine.findMatches(pattern, 2);
-			if (matches.size() == 0) {
+		if (!input.isBlank() && !configuration.getValidationMode().isPermissive()) {
+			var matches = input.inputEngine.findMatches(input.getPattern(), 2);
+			if (matches.isEmpty()) {
 				return DomAutoCompleteIndicatorType.ILLEGAL.asOptional();
-			} else if (matches.size() == 1) {
-				return Optional.empty();
-			} else {
+			} else if (matches.size() >= 2) {
 				var firstElement = matches.iterator().next();
-				if (matchesInput(firstElement)) {
-					return Optional.empty();
-				} else {
+				if (!matchesInput(firstElement)) {
 					return DomAutoCompleteIndicatorType.AMBIGUOUS.asOptional();
 				}
 			}
 		}
+		return Optional.empty();
 	}
 
 	private boolean matchesInput(T element) {
