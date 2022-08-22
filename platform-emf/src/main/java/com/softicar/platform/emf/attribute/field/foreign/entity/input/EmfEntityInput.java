@@ -16,8 +16,8 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteI
 
 		super(inputEngine);
 		this.editButton = new EmfEntityInputEditButton<>(this);
-		inputBar.appendChild(new EmfAutoCompleteBrowseButton(this, inputEngine));
-		inputBar.appendChild(editButton);
+		getInputBar().appendChild(new EmfAutoCompleteBrowseButton(this, inputEngine));
+		getInputBar().appendChild(editButton);
 		addInputConstraintRefreshCallback(() -> editButton.refresh(getValueNoThrow().orElse(null)));
 	}
 

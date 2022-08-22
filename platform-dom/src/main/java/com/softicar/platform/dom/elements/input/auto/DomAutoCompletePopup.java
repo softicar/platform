@@ -22,7 +22,7 @@ class DomAutoCompletePopup<T> extends DomDiv {
 	public DomAutoCompletePopup(DomAutoCompleteInput<T> input) {
 
 		this.input = input;
-		this.inputEngine = input.inputEngine;
+		this.inputEngine = input.getInputEngine();
 		this.valueDisplays = new ArrayList<>();
 		this.selectionIndex = -1;
 		this.pattern = "";

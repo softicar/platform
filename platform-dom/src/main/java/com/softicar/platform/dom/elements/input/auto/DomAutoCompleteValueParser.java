@@ -15,11 +15,11 @@ class DomAutoCompleteValueParser<T> {
 
 		if (input.isBlank()) {
 			return createResult(DomAutoCompleteValueState.NONE);
-		} else if (input.validationMode.isPermissive()) {
+		} else if (input.getValidationMode().isPermissive()) {
 			// TODO PLAT-753 This cast should not be necessary. Permissive mode should not even be handled in the same auto-complete input implementation.
 			return createResult(CastUtils.<T> cast(input.getValueText()));
 		} else {
-			var matchingValues = input.inputEngine.findMatches(input.getPattern(), 2);
+			var matchingValues = input.getInputEngine().findMatches(input.getPattern(), 2);
 			if (matchingValues.isEmpty()) {
 				return createResult(DomAutoCompleteValueState.ILLEGAL);
 			} else {
@@ -45,7 +45,8 @@ class DomAutoCompleteValueParser<T> {
 
 	private boolean isPerfectMatch(T value) {
 
-		return input.inputEngine//
+		return input//
+			.getInputEngine()
 			.getDisplayString(value)
 			.toString()
 			.equalsIgnoreCase(input.getPattern());

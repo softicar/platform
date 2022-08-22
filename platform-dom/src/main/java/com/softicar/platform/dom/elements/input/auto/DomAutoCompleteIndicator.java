@@ -13,7 +13,6 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 		this.input = input;
 
 		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_PARENT);
-		refresh();
 	}
 
 	public void refresh() {

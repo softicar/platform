@@ -30,15 +30,15 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	public static final int MAXIMUM_ELEMENTS_TO_DISPLAY = 16;
 
-	protected final IDomAutoCompleteInputEngine<T> inputEngine;
-	protected final DomAutoCompleteInputValidationMode validationMode;
-	protected final DomBar inputBar;
+	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
+	private final IDomAutoCompleteInputEngine<T> inputEngine;
+	private final DomAutoCompleteInputValidationMode validationMode;
+	private final DomBar inputBar;
+	private final DomAutoCompleteInputField inputField;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
+	private final DomAutoCompleteIndicator<T> indicator;
 	private final DomAutoCompleteBackdrop backdrop;
 	private final DomAutoCompletePopup<T> popup;
-	private final DomAutoCompleteInputField inputField;
-	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
-	private final DomAutoCompleteIndicator<T> indicator;
 	private T committedValue;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
@@ -58,22 +58,32 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, DomAutoCompleteInputValidationMode validationMode) {
 
+		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.inputEngine = inputEngine;
 		this.validationMode = validationMode;
 		this.inputBar = new DomBar();
+		this.inputField = new DomAutoCompleteInputField(this);
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
+		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
-		this.inputField = new DomAutoCompleteInputField(this);
-		this.inputConstraintRefreshCallbacks = new ArrayList<>();
-		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
 
-		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
+		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
 		appendChild(filterDisplay);
 		appendChild(indicator);
 		inputBar.appendChild(inputField);
+	}
+
+	/**
+	 * Returns the {@link IDomAutoCompleteInputEngine} given to the constructor.
+	 *
+	 * @return the {@link IDomAutoCompleteInputEngine} (never <i>null</i>)
+	 */
+	public IDomAutoCompleteInputEngine<T> getInputEngine() {
+
+		return inputEngine;
 	}
 
 	// TODO make final
@@ -88,14 +98,18 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	}
 
 	/**
-	 * Returns the {@link IDomAutoCompleteInputEngine} given to the constructor.
+	 * Use this method to add functions that should be executed when this input
+	 * gets refreshed via {@link #refreshInputConstraints()}.
 	 *
-	 * @return the {@link IDomAutoCompleteInputEngine} (never <i>null</i>)
+	 * @param refreshCallback
+	 *            the callback to be executed (never <i>null</i>)
 	 */
-	public IDomAutoCompleteInputEngine<T> getInputEngine() {
+	public void addInputConstraintRefreshCallback(INullaryVoidFunction refreshCallback) {
 
-		return inputEngine;
+		inputConstraintRefreshCallbacks.add(Objects.requireNonNull(refreshCallback));
 	}
+
+	// ------------------------------ value methods ------------------------------ //
 
 	@Override
 	public Optional<T> getValue() {
@@ -157,18 +171,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	}
 
 	// ------------------------------ event handling ------------------------------ //
-
-	/**
-	 * Use this method to add functions that should be executed when this input
-	 * gets refreshed via {@link #refreshInputConstraints()}.
-	 *
-	 * @param refreshCallback
-	 *            the callback to be executed (never <i>null</i>)
-	 */
-	public void addInputConstraintRefreshCallback(INullaryVoidFunction refreshCallback) {
-
-		inputConstraintRefreshCallbacks.add(Objects.requireNonNull(refreshCallback));
-	}
 
 	@Override
 	protected void onChangeCallbackAdded() {
@@ -241,15 +243,24 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		inputField.focus();
 	}
 
-	// ------------------------------ internal ------------------------------ //
+	// ------------------------------ protected getters ------------------------------ //
 
-	private void deduceValue() {
+	protected String getPattern() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
-		if (valueAndState.isValid()) {
-			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
-		}
+		return inputField.getValueTextTrimmed().toLowerCase();
 	}
+
+	protected DomAutoCompleteInputValidationMode getValidationMode() {
+
+		return validationMode;
+	}
+
+	protected DomBar getInputBar() {
+
+		return inputBar;
+	}
+
+	// ------------------------------ internal ------------------------------ //
 
 	@Override
 	protected void doSetDisabled(boolean disabled) {
@@ -257,12 +268,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		inputField.setDisabled(disabled);
 	}
 
-	protected String getPattern() {
-
-		return inputField.getValueTextTrimmed().toLowerCase();
-	}
-
-	protected void refreshIndicator() {
+	private void refreshIndicator() {
 
 		indicator.refresh();
 	}
@@ -294,6 +300,14 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 			inputField.unsetStyle(CssStyle.Z_INDEX);
 			indicator.unsetStyle(CssStyle.Z_INDEX);
+		}
+	}
+
+	private void deduceValue() {
+
+		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		if (valueAndState.isValid()) {
+			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
 		}
 	}
 
