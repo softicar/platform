@@ -48,7 +48,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoChangeEventWithEscapeAfterIllegalInput() {
+	public void testChangeEventWithEscapeAfterIllegalInput() {
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
@@ -135,7 +135,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 	@Test
 	@Ignore("Unnecessary test.")
-	public void testNoBackdropBeforeTyping() {
+	public void testBackdropBeforeTyping() {
 
 		openPopup();
 
@@ -154,7 +154,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropAfterSelectionWithEnter() {
+	public void testBackdropAfterSelectionWithEnter() {
 
 		// input some valid text
 		click(inputField);
@@ -169,7 +169,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropAfterSelectionWithClickOnValue() {
+	public void testBackdropAfterSelectionWithClickOnValue() {
 
 		// input some valid text
 		click(inputField);
@@ -198,7 +198,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropAfterInvalidInputAndEscape() {
+	public void testBackdropAfterInvalidInputAndEscape() {
 
 		// input some invalid text
 		click(inputField);
@@ -213,7 +213,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropIfAlreadySubmitted() {
+	public void testBackdropIfAlreadySubmitted() {
 
 		// input some valid text
 		click(inputField);
@@ -252,7 +252,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropAfterConfirmationOfUniqueValidValue() {
+	public void testBackdropAfterConfirmationOfUniqueValidValue() {
 
 		// input some valid text
 		click(inputField);
@@ -273,7 +273,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoBackdropAfterInvalidValueAndFocusLoss() {
+	public void testBackdropAfterInvalidValueAndFocusLoss() {
 
 		// input some invalid text
 		click(inputField);
