@@ -4,7 +4,7 @@ import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Assert;
 
-public class AjaxAutoCompleteTestInput extends DomAutoCompleteInput<AjaxAutoCompleteTestItem> {
+public class AjaxAutoCompleteTestInput extends DomAutoCompleteInput<AjaxAutoCompleteTestValue> {
 
 	private int eventCount;
 	private final AjaxAutoCompleteTestInputEngine engine;

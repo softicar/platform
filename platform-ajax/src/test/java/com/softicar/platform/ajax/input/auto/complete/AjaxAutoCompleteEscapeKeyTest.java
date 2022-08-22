@@ -7,7 +7,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 
 	public AjaxAutoCompleteEscapeKeyTest() {
 
-		openTestInput(i -> i.getEngine().addItems(ITEM1, ITEM2, ITEM3));
+		openTestInput(i -> i.getEngine().addValues(VALUE1, VALUE2, VALUE3));
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 	@Test
 	public void testEscapeWithSelectedValue() {
 
-		// select specific item
+		// select specific value
 		click(inputField);
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
@@ -48,16 +48,16 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 
 		// now press escape
 		send(inputField, Key.ESCAPE);
-		assertEquals(ITEM1.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
 
 	// this is a test for #37476
 	@Test
 	public void testEscapeWithValidValue() {
 
-		// enter valid item name
+		// enter valid value name
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// type ESCAPE

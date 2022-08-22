@@ -15,7 +15,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	public AjaxAutoCompleteChangeEventTest() {
 
 		openTestInput(i -> {
-			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
+			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
 			i.listenToChange();
 		});
 	}
@@ -26,7 +26,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		openPopup();
 		send(inputField, Key.DOWN, Key.ENTER);
 
-		assertEventAndValue(ITEM1);
+		assertEventAndValue(VALUE1);
 	}
 
 	@Test
@@ -35,16 +35,16 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		openPopup();
 		send(inputField, Key.DOWN, Key.TAB);
 
-		assertEventAndValue(ITEM1);
+		assertEventAndValue(VALUE1);
 	}
 
 	@Test
 	public void testChangeEventWithClick() {
 
 		openPopup();
-		clickAutoCompleteItem(ITEM3);
+		clickAutoCompleteValue(VALUE3);
 
-		assertEventAndValue(ITEM3);
+		assertEventAndValue(VALUE3);
 	}
 
 	@Test
@@ -75,11 +75,11 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	public void testChangeEventWithValidValueAndBlur() {
 
 		openPopup();
-		send(inputField, ITEM3.getName());
+		send(inputField, VALUE3.getName());
 		waitForAutoCompletePopup();
 		clickBodyNode();
 
-		assertEventAndValue(ITEM3);
+		assertEventAndValue(VALUE3);
 	}
 
 	// -------------------- submit without popup -------------------- //
@@ -89,7 +89,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input and submit some value
 		openPopup();
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
 		waitForServer();
@@ -123,7 +123,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some invalid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// set input value
@@ -147,7 +147,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		assertTrue(isAutoCompleteBackdropDisplayed());
@@ -158,7 +158,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// press enter
@@ -169,15 +169,15 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityAfterSelectionWithClickOnItem() {
+	public void testNoModalityAfterSelectionWithClickOnValue() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
-		// click the item
-		clickAutoCompleteItem(ITEM1);
+		// click the value
+		clickAutoCompleteValue(VALUE1);
 
 		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
@@ -206,7 +206,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// press enter
@@ -224,7 +224,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// press enter
@@ -245,7 +245,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 
 		// close the popup
@@ -289,14 +289,14 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	/**
 	 * Asserts that a change event was triggered, and the value of the input.
 	 */
-	private void assertEventAndValue(AjaxAutoCompleteTestItem item) {
+	private void assertEventAndValue(AjaxAutoCompleteTestValue value) {
 
 		assertEvent();
-		assertSame(item, inputDiv.getValueOrNull());
+		assertSame(value, inputDiv.getValueOrNull());
 	}
 
 	/**
-	 * Enters the name of the given item and waits for the pop-up.
+	 * Enters the name of the given value and waits for the pop-up.
 	 */
 	private void openPopup() {
 

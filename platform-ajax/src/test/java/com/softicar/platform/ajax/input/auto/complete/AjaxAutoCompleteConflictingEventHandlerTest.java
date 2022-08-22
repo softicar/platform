@@ -10,7 +10,7 @@ public class AjaxAutoCompleteConflictingEventHandlerTest extends AbstractAjaxAut
 	public void testWithListenToCallAfterAutoComplete() {
 
 		openTestInput(i -> {
-			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
+			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
 			i.getInputField().listenToEvent(DomEventType.ENTER);
 		});
 
@@ -18,10 +18,11 @@ public class AjaxAutoCompleteConflictingEventHandlerTest extends AbstractAjaxAut
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
+		waitForServer();
 
 		// assert selection worked and no ENTER event was sent
 		assertPopupIsDisplayed(false);
-		assertInputValue(ITEM2);
+		assertInputValue(VALUE2);
 		inputDiv.assertNoEvent();
 	}
 }

@@ -19,7 +19,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		this.requests = new ArrayList<>();
 
-		openTestInput(i -> i.getEngine().addItems(ITEM1, ITEM2, ITEM3, ITEM4));
+		openTestInput(i -> i.getEngine().addValues(VALUE1, VALUE2, VALUE3, VALUE4));
 		inputDiv.getEngine().setRequestListener(requests::add);
 	}
 
@@ -32,7 +32,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForAutoCompletePopup();
 
 		assertRequests("");
-		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 		indicator.assertIndicatesNothing();
 	}
 
@@ -43,7 +43,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForAutoCompletePopup();
 
 		assertRequests("");
-		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 		indicator.assertIndicatesNothing();
 	}
 
@@ -55,16 +55,16 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForAutoCompletePopup();
 
 		assertRequests("");
-		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 	}
 
-	// -------------------- items -------------------- //
+	// -------------------- values -------------------- //
 
 	@Test
-	public void testDisplayPopupItemsWithoutFocusLossAndPerfectMatchWithReopeningAfterSelection() {
+	public void testDisplayPopupValuesWithoutFocusLossAndPerfectMatchWithReopeningAfterSelection() {
 
 		click(inputField);
-		send(inputField, ITEM3.getName());
+		send(inputField, VALUE3.getName());
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
 		waitForAutoCompletePopupToHide();
@@ -72,11 +72,11 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 
-		assertPopupItems(ITEM3, ITEM4);
+		assertPopupValues(VALUE3, VALUE4);
 	}
 
 	@Test
-	public void testDisplayPopupItemsWithoutFocusLossWithReopeningAfterEmptySelection() {
+	public void testDisplayPopupValuesWithoutFocusLossWithReopeningAfterEmptySelection() {
 
 		click(inputField);
 		send(inputField, Key.DOWN);
@@ -87,7 +87,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 
-		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 	}
 
 	// -------------------- reopen -------------------- //
@@ -96,40 +96,40 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testReopeningPopupAfterSelection() {
 
 		// open popup and close it
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
 		waitForAutoCompletePopupToHide();
 
-		assertEquals(ITEM1.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 
 		// try to open popup again
 		clear(inputField);
-		send(inputField, ITEM2.getName());
+		send(inputField, VALUE2.getName());
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
 		waitForAutoCompletePopupToHide();
 
-		assertEquals(ITEM2.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(VALUE2.getName(), getAttributeValue(inputField, "value"));
 	}
 
 	@Test
 	public void testReopeningPopupAfterFocusLost() {
 
 		// open popup and close it
-		send(inputField, ITEM1.getName());
+		send(inputField, VALUE1.getName());
 		waitForAutoCompletePopup();
 		clickBodyNode();
 		waitForAutoCompletePopupToHide();
 
 		// try to open popup again
 		clear(inputField);
-		send(inputField, ITEM2.getName());
+		send(inputField, VALUE2.getName());
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
 		waitForAutoCompletePopupToHide();
 
-		assertEquals(ITEM2.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(VALUE2.getName(), getAttributeValue(inputField, "value"));
 	}
 
 	// this is a test for #37204
@@ -149,7 +149,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.ENTER);
 		waitForAutoCompletePopupToHide();
 
-		assertEquals(ITEM1.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
 
 	// -------------------- blur -------------------- //
@@ -187,23 +187,23 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	// -------------------- filtering -------------------- //
 
 	@Test
-	public void testDisplayItemsWithoutFiltering() {
+	public void testDisplayValuesWithoutFiltering() {
 
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 
 		assertRequests("");
-		assertPopupItems(ITEM1, ITEM2, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 	}
 
 	@Test
-	public void testDisplayItemsWithFiltering() {
+	public void testDisplayValuesWithFiltering() {
 
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertPopupItems(ITEM1, ITEM3, ITEM4);
+		assertPopupValues(VALUE1, VALUE3, VALUE4);
 	}
 
 	// -------------------- tab -------------------- //
@@ -216,7 +216,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		send(inputField, Key.DOWN, Key.TAB);
 		waitForServer();
 
-		assertInputValue(ITEM1);
+		assertInputValue(VALUE1);
 	}
 
 	@Test
@@ -236,7 +236,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	// -------------------- selection -------------------- //
 
 	@Test
-	public void testSelectionAfterFilteringWithDefaultItem() {
+	public void testSelectionAfterFilteringWithDefaultValue() {
 
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
@@ -244,7 +244,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForServer();
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertInputValue(ITEM1);
+		assertInputValue(VALUE1);
 	}
 
 	@Test
@@ -256,7 +256,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForServer();
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertInputValue(ITEM3);
+		assertInputValue(VALUE3);
 	}
 
 	@Test
@@ -268,7 +268,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForServer();
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertInputValue(ITEM1);
+		assertInputValue(VALUE1);
 	}
 
 	@Test
@@ -280,20 +280,20 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 		waitForServer();
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertInputValue(ITEM4);
+		assertInputValue(VALUE4);
 	}
 
 	@Test
-	public void testItemSelectionWithClick() {
+	public void testValueSelectionWithClick() {
 
 		send(inputField, AMBIGUOUS_INPUT);
 		waitForAutoCompletePopup();
 
-		clickAutoCompleteItem(ITEM3);
+		clickAutoCompleteValue(VALUE3);
 		waitWhile(() -> isAutoCompletePopupDisplayed());
 
 		assertRequests(AMBIGUOUS_INPUT);
-		assertInputValue(ITEM3);
+		assertInputValue(VALUE3);
 		assertFalse(isAutoCompletePopupDisplayed());
 	}
 
@@ -313,44 +313,44 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		indicator.assertIndicatesNothing();
 		assertFalse(isAutoCompletePopupDisplayed());
-		assertInputValue(ITEM1);
+		assertInputValue(VALUE1);
 	}
 
 	@Test
-	public void testMoreItemsInfoDisplayed() {
+	public void testMoreValuesInfoDisplayed() {
 
 		for (int i = 0; i < 16; i++) {
-			AjaxAutoCompleteTestItem item = new AjaxAutoCompleteTestItem("" + i);
-			inputDiv.getEngine().addItem(item);
+			var value = new AjaxAutoCompleteTestValue("" + i);
+			inputDiv.getEngine().addValue(value);
 		}
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-		assertTrue(isAutoCompleteMoreItemsInfoElementDisplayed());
+		assertTrue(isAutoCompleteMoreValuesInfoElementDisplayed());
 	}
 
 	@Test
-	public void testMoreItemsInfoNotDisplayed() {
+	public void testMoreValuesInfoNotDisplayed() {
 
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-		assertFalse(isAutoCompleteMoreItemsInfoElementDisplayed());
+		assertFalse(isAutoCompleteMoreValuesInfoElementDisplayed());
 	}
 
 	@Test
-	public void testNoItemPlaceholderDisplayed() {
+	public void testNoValuePlaceholderDisplayed() {
 
-		inputDiv.getEngine().clearItems();
+		inputDiv.getEngine().clearValues();
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-		assertTrue(isAutoCompleteItemPlaceholderElementDisplayed());
+		assertTrue(isAutoCompleteValuePlaceholderElementDisplayed());
 	}
 
 	@Test
-	public void testNoItemPlaceholderNotDisplayed() {
+	public void testNoValuePlaceholderNotDisplayed() {
 
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-		assertFalse(isAutoCompleteItemPlaceholderElementDisplayed());
+		assertFalse(isAutoCompleteValuePlaceholderElementDisplayed());
 	}
 
 	// -------------------- private -------------------- //

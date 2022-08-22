@@ -100,7 +100,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		return new DomAutoCompleteInputSelection<>(//
 			inputEngine,
 			configuration,
-			this::getMatchingItems,
+			this::getMatchingValues,
 			inputField.getValueTextTrimmed());
 	}
 
@@ -315,19 +315,19 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		inputField.setValue(valueString);
 	}
 
-	private Collection<T> getMatchingItems(String pattern) {
+	private Collection<T> getMatchingValues(String pattern) {
 
 		if (sloppyAmbiguityCheck) {
-			return getMatchingItems(pattern, 2);
+			return getMatchingValues(pattern, 2);
 		} else {
 			// Assumes that the entered string is among the first DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT matches, respecting capitalization.
-			// FIXME This is still a problem in theory. However, it was neglected because the number of items which have names that only differ in
+			// FIXME This is still a problem in theory. However, it was neglected because the number of values which have names that only differ in
 			// FIXME capitalization was assumed to always be lower than DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT.
-			return getMatchingItems(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD);
+			return getMatchingValues(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD);
 		}
 	}
 
-	private Collection<T> getMatchingItems(String pattern, int limit) {
+	private Collection<T> getMatchingValues(String pattern, int limit) {
 
 		if (!pattern.isEmpty()) {
 			return inputEngine.findMatches(pattern, limit);

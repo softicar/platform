@@ -50,7 +50,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
@@ -75,7 +75,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
 			.pressDownArrow()
 			.pressEnter()
@@ -149,13 +149,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
@@ -174,13 +174,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
+			.expectClientValue(INVALID_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
@@ -256,7 +256,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
@@ -371,7 +371,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyInput() {
+	public void testLoadingFinishesAfterClosingPopupWithUniqueValueNameOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -400,7 +400,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnEmptyInput() {
+	public void testCallbackWithTypeUniqueValueNameAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -425,7 +425,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeAmbiguousItemNameAndEnterOnEmptyInput() {
+	public void testCallbackWithTypeAmbiguousValueNameAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -433,7 +433,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
@@ -450,7 +450,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeInvalidItemNameAndClosePopupOnEmptyInput() {
+	public void testCallbackWithTypeInvalidValueNameAndClosePopupOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -458,14 +458,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
+			.expectClientValue(INVALID_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
@@ -476,7 +476,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnFilledInput() {
+	public void testCallbackWithTypeUniqueValueNameAndEnterOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -503,7 +503,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeInvalidItemNameAndEnterOnFilledInput() {
+	public void testCallbackWithTypeInvalidValueNameAndEnterOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -513,14 +513,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		input//
 			.focusWithClick()
 			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
+			.expectClientValue(INVALID_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()

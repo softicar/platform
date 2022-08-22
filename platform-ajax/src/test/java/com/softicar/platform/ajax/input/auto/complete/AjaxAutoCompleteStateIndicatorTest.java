@@ -20,7 +20,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 			this.button = new TestButton(() -> i.getInputField().setValue(INVALID_INPUT));
 			CurrentDomDocument.get().getBody().appendChild(button);
 
-			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
+			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
 		});
 	}
 

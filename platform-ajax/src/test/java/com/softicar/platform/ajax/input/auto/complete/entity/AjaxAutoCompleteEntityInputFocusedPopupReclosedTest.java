@@ -12,7 +12,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testCallbacksWithValidAndValidItemNamesAndEnterOnEmptyInput() {
+	public void testCallbacksWithValidAndValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -43,7 +43,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndValidValidItemNamesAndEnterOnEmptyInput() {
+	public void testCallbacksWithInvalidAndValidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -51,14 +51,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		input//
 			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 		input//
 			.focusWithClick()
-			.pressBackspace(INVALID_ITEM_NAME.length())
+			.pressBackspace(INVALID_VALUE_NAME.length())
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
 			.pressEnter()
@@ -76,7 +76,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithValidAndInvalidValidItemNamesAndEnterOnEmptyInput() {
+	public void testCallbacksWithValidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -91,14 +91,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusWithClick()
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
+			.expectClientValue(INVALID_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
@@ -110,7 +110,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndInvalidValidItemNamesAndEnterOnEmptyInput() {
+	public void testCallbacksWithInvalidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -118,22 +118,22 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 
 		input//
 			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
+			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 		input//
 			.focusWithClick()
-			.pressBackspace(INVALID_ITEM_NAME.length())
-			.sendString("other invalid item name")
+			.pressBackspace(INVALID_VALUE_NAME.length())
+			.sendString("other invalid value name")
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("other invalid item name")
+			.expectClientValue("other invalid value name")
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()

@@ -58,7 +58,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.trigger();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
@@ -76,7 +76,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
@@ -86,7 +86,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
@@ -104,7 +104,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		input//
 			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
 		popup//
 			.clickEntityNumber(2);
@@ -198,24 +198,24 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	@Test
 	public void testLoadingIndicatorAfterFocusLossWithPartialIdOnEmptyInput() {
 
-		final AjaxTestEntity item1 = new AjaxTestEntity(1, "foo");
-		final AjaxTestEntity item2 = new AjaxTestEntity(2, "bar");
-		final AjaxTestEntity item3 = new AjaxTestEntity(32, "lol"); // the ID of this item contains the ID of another item
+		final AjaxTestEntity value1 = new AjaxTestEntity(1, "foo");
+		final AjaxTestEntity value2 = new AjaxTestEntity(2, "bar");
+		final AjaxTestEntity value3 = new AjaxTestEntity(32, "lol"); // the ID of this value contains the ID of another value
 
 		setup//
-			.setEntities(item1, item2, item3) // replace default items
+			.setEntities(value1, value2, value3) // replace default values
 			.execute();
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
 				.focusWithClick()
-				.sendString(item2.getIdAsString());
+				.sendString(value2.getIdAsString());
 			body//
 				.click();
 
 			asserter//
-				.expectClientValue(item2.getIdAsString())
-				.expectServerValue(item2)
+				.expectClientValue(value2.getIdAsString())
+				.expectServerValue(value2)
 				.expectIndicatorNone()
 				.expectPopupNotDisplayed()
 				.expectNoFocus()
@@ -228,18 +228,18 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	@Test
 	public void testDeferredIndicatorUpdateAfterFocusLossWithPartialIdOnEmptyInput() {
 
-		final AjaxTestEntity item1 = new AjaxTestEntity(1, "foo");
-		final AjaxTestEntity item2 = new AjaxTestEntity(2, "bar");
-		final AjaxTestEntity item3 = new AjaxTestEntity(32, "lol"); // the ID of this item literally contains the ID of another item
+		final AjaxTestEntity value1 = new AjaxTestEntity(1, "foo");
+		final AjaxTestEntity value2 = new AjaxTestEntity(2, "bar");
+		final AjaxTestEntity value3 = new AjaxTestEntity(32, "lol"); // the ID of this value literally contains the ID of another value
 
 		setup//
-			.setEntities(item1, item2, item3) // replace default items
+			.setEntities(value1, value2, value3) // replace default values
 			.execute();
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
 				.focusWithClick()
-				.sendString(item2.getIdAsString());
+				.sendString(value2.getIdAsString());
 			body//
 				.click();
 		}
@@ -248,7 +248,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectValues(item2)
+			.expectValues(value2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

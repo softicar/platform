@@ -1,15 +1,15 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestItem;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestValue;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.util.List;
 import java.util.Optional;
 
 public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
-	List<String> getAutoCompletePopupItemNames();
+	List<String> getAutoCompletePopupValueNames();
 
-	Optional<Integer> getAutoCompletePopupSelectedItemIndex();
+	Optional<Integer> getAutoCompletePopupSelectedValueIndex();
 
 	boolean isAutoCompletePopupDisplayed();
 
@@ -30,13 +30,13 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	boolean isAutoCompleteBackdropDisplayed();
 
-	boolean isAutoCompleteItemPlaceholderDisplayed();
+	boolean isAutoCompleteValuePlaceholderDisplayed();
 
-	boolean isAutoCompleteMoreItemsInfoDisplayed();
+	boolean isAutoCompleteMoreValuesInfoDisplayed();
 
-	void clickAutoCompletePopupItem(int index);
+	void clickAutoCompletePopupValue(int index);
 
-	void clickAutoCompleteItem(IAjaxSeleniumTestDomAutoCompleteTestItem item);
+	void clickAutoCompleteValue(IAjaxSeleniumTestDomAutoCompleteTestValue item);
 
 	void clickAutoCompleteBackdrop();
 

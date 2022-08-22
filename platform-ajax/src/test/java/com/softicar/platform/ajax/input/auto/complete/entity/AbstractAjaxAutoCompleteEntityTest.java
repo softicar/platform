@@ -118,11 +118,11 @@ import org.junit.After;
  */
 public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAutoCompleteTest {
 
-	protected static final String AMBIGUOUS_ITEM_NAME_CHUNK = "ba";
-	protected static final String INVALID_ITEM_NAME = "xxx";
+	protected static final String AMBIGUOUS_VALUE_NAME_CHUNK = "ba";
+	protected static final String INVALID_VALUE_NAME = "xxx";
 	protected static final AjaxTestEntity ENTITY1 = new AjaxTestEntity(1, "foo"); // name: unique
 	protected static final AjaxTestEntity ENTITY2 = new AjaxTestEntity(2, "bar"); // name: contains combination of letters ("ba") that also appears in several other names
-	protected static final AjaxTestEntity ENTITY3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other item
+	protected static final AjaxTestEntity ENTITY3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other value
 	protected static final AjaxTestEntity ENTITY4 = new AjaxTestEntity(4, "bazinga");
 	protected static final List<AjaxTestEntity> ENTITIES = Arrays.asList(ENTITY2, ENTITY3, ENTITY4, ENTITY1);
 	protected static final AjaxTestEntity UNAVAILABLE_ENTITY = new AjaxTestEntity(999, "zzz");
@@ -158,11 +158,11 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		this.callback = new CallbackProxy();
 	}
 
-	protected void assertPopupEntities(List<AjaxTestEntity> items) {
+	protected void assertPopupEntities(List<AjaxTestEntity> values) {
 
-		super.assertPopupItems(//
+		super.assertPopupValues(//
 			AjaxTestEntity::getName,
-			items);
+			values);
 	}
 
 	@After
@@ -207,14 +207,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return add((input, engine) -> input.getConfiguration().setValidationMode(mode));
 		}
 
-		public Setup setEntities(AjaxTestEntity...items) {
+		public Setup setEntities(AjaxTestEntity...values) {
 
-			return setEntities(Arrays.asList(items));
+			return setEntities(Arrays.asList(values));
 		}
 
-		public Setup setEntities(Collection<AjaxTestEntity> items) {
+		public Setup setEntities(Collection<AjaxTestEntity> values) {
 
-			return add((input, engine) -> engine.setLoader(() -> items));
+			return add((input, engine) -> engine.setLoader(() -> values));
 		}
 
 		public Setup add(ISetupInstruction instruction) {
@@ -291,8 +291,8 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private String expectedClientValue;
 		private DomAutoCompleteIndicatorType expectedIndicator;
 		private boolean expectedPopupDisplayed;
-		private List<AjaxTestEntity> expectedPopupItems;
-		private Integer expectedSelectedItemNumber;
+		private List<AjaxTestEntity> expectedPopupValues;
+		private Integer expectedSelectedValueNumber;
 		private boolean expectedFocusState;
 		private boolean expectedBackdropDisplayed;
 		private AjaxTestEntity expectedCallbackValue;
@@ -367,14 +367,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedPopupDisplayed = displayed;
 		}
 
-		private void setExpectedPopupEntities(List<AjaxTestEntity> items) {
+		private void setExpectedPopupEntities(List<AjaxTestEntity> values) {
 
-			this.expectedPopupItems = items;
+			this.expectedPopupValues = values;
 		}
 
-		private void setExpectedSelectedEntityNumber(Integer itemNumber) {
+		private void setExpectedSelectedEntityNumber(Integer valueNumber) {
 
-			this.expectedSelectedItemNumber = itemNumber;
+			this.expectedSelectedValueNumber = valueNumber;
 		}
 
 		private void setExpectedFocusState(boolean focusState) {
@@ -462,10 +462,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public class PopupDisplayExpectationSetter {
 
-			public PopupItemsExpectationSetter expectPopupDisplayed() {
+			public PopupValuesExpectationSetter expectPopupDisplayed() {
 
 				expectPopup(true);
-				return new PopupItemsExpectationSetter();
+				return new PopupValuesExpectationSetter();
 			}
 
 			public FocusedStateExpectationSetter expectPopupNotDisplayed() {
@@ -482,17 +482,17 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			}
 		}
 
-		public class PopupItemsExpectationSetter {
+		public class PopupValuesExpectationSetter {
 
-			public PopupSelectedItemExpectationSetter expectPopupEntities(AjaxTestEntity...items) {
+			public PopupSelectedValueExpectationSetter expectPopupEntities(AjaxTestEntity...values) {
 
-				return expectPopupEntities(Arrays.asList(items));
+				return expectPopupEntities(Arrays.asList(values));
 			}
 
-			public PopupSelectedItemExpectationSetter expectPopupEntities(List<AjaxTestEntity> items) {
+			public PopupSelectedValueExpectationSetter expectPopupEntities(List<AjaxTestEntity> values) {
 
-				setExpectedPopupEntities(items);
-				return new PopupSelectedItemExpectationSetter();
+				setExpectedPopupEntities(values);
+				return new PopupSelectedValueExpectationSetter();
 			}
 
 			public FocusedStateExpectationSetter expectPopupEntitiesNone() {
@@ -503,25 +503,25 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			}
 		}
 
-		public class PopupSelectedItemExpectationSetter {
+		public class PopupSelectedValueExpectationSetter {
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemFirst() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueFirst() {
 
-				return expectPopupSelectedItem(1);
+				return expectPopupSelectedValue(1);
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemLast() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueLast() {
 
-				return expectPopupSelectedItem(expectedPopupItems.size());
+				return expectPopupSelectedValue(expectedPopupValues.size());
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItem(int number) {
+			public FocusedStateExpectationSetter expectPopupSelectedValue(int number) {
 
 				setExpectedSelectedEntityNumber(number);
 				return new FocusedStateExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemNone() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueNone() {
 
 				setExpectedSelectedEntityNumber(null);
 				return new FocusedStateExpectationSetter();
@@ -637,8 +637,8 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				popup.assertDisplayed(expectedPopupDisplayed);
 				input.assertFocusState(expectedFocusState);
 				if (expectedPopupDisplayed) {
-					popup.assertEntities(expectedPopupItems);
-					popup.assertSelectedEntity(expectedSelectedItemNumber);
+					popup.assertEntities(expectedPopupValues);
+					popup.assertSelectedEntity(expectedSelectedValueNumber);
 				}
 				backdrop.assertDisplayed(expectedBackdropDisplayed);
 				callback.assertCalled(expectedCallbackValue, expectedCallbackCount);
@@ -829,12 +829,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				"The given entity number must not be lower than 1.",
 				number >= 1);
 
-			List<String> elementNames = getAutoCompletePopupItemNames();
+			List<String> elementNames = getAutoCompletePopupValueNames();
 			assertTrue(//
 				String.format("Tried to click on entity %s but the list only contained %s entities.", number, elementNames.size()),
 				number <= elementNames.size());
 
-			clickAutoCompletePopupItem(number - 1);
+			clickAutoCompletePopupValue(number - 1);
 		}
 
 		public void assertDisplayed(boolean displayed) {
@@ -850,7 +850,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			if (entities.isEmpty()) {
 				assertTrue(//
 					"Unexpected popup entity count: Expected placeholder entity but did not find it.",
-					isAutoCompleteItemPlaceholderElementDisplayed());
+					isAutoCompleteValuePlaceholderElementDisplayed());
 			} else {
 				assertPopupEntities(entities);
 			}
@@ -869,7 +869,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			assertFalse(//
 				"Unexpectedly encountered a selected entity.",
-				getAutoCompletePopupSelectedItemIndex().isPresent());
+				getAutoCompletePopupSelectedValueIndex().isPresent());
 		}
 
 		private void assertSelectedEntityNumber(int number) {
@@ -878,17 +878,17 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				"The given entity number must not be lower than 1.",
 				number >= 1);
 
-			Optional<Integer> selectedItemIndex = getAutoCompletePopupSelectedItemIndex();
+			Optional<Integer> selectedValueIndex = getAutoCompletePopupSelectedValueIndex();
 			assertTrue(//
 				"Failed to identify the selected entity.",
-				selectedItemIndex.isPresent());
+				selectedValueIndex.isPresent());
 
-			List<String> availableItemElementNames = getAutoCompletePopupItemNames();
+			List<String> availableValueElementNames = getAutoCompletePopupValueNames();
 			assertTrue(//
-				String.format("Expected entity number %s to be selected, but only %s entity/ies was/were available.", number, availableItemElementNames.size()),
-				availableItemElementNames.size() >= number);
+				String.format("Expected entity number %s to be selected, but only %s entity/ies was/were available.", number, availableValueElementNames.size()),
+				availableValueElementNames.size() >= number);
 
-			int selectedIndex = selectedItemIndex.get();
+			int selectedIndex = selectedValueIndex.get();
 			assertTrue(//
 				"Failed to find the selected entity in the list of available entities.",
 				selectedIndex >= 0);

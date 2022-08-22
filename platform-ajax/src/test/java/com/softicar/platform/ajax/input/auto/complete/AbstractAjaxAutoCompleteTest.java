@@ -19,19 +19,19 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	// -------------------- elements -------------------- //
 
-	protected List<String> getAutoCompletePopupItemNames() {
+	protected List<String> getAutoCompletePopupValueNames() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupItemNames();
+		return testEngine.getAutoCompleteExtension().getAutoCompletePopupValueNames();
 	}
 
-	protected void clickAutoCompletePopupItem(int index) {
+	protected void clickAutoCompletePopupValue(int index) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompletePopupItem(index);
+		testEngine.getAutoCompleteExtension().clickAutoCompletePopupValue(index);
 	}
 
-	protected Optional<Integer> getAutoCompletePopupSelectedItemIndex() {
+	protected Optional<Integer> getAutoCompletePopupSelectedValueIndex() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedItemIndex();
+		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedValueIndex();
 	}
 
 	// -------------------- waiting -------------------- //
@@ -58,19 +58,19 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().isAutoCompletePopupDisplayed();
 	}
 
-	protected boolean isAutoCompletePopupItemSelected() {
+	protected boolean isAutoCompletePopupValueSelected() {
 
-		return getAutoCompletePopupSelectedItemIndex().isPresent();
+		return getAutoCompletePopupSelectedValueIndex().isPresent();
 	}
 
-	protected boolean isAutoCompleteItemPlaceholderElementDisplayed() {
+	protected boolean isAutoCompleteValuePlaceholderElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteItemPlaceholderDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteValuePlaceholderDisplayed();
 	}
 
-	protected boolean isAutoCompleteMoreItemsInfoElementDisplayed() {
+	protected boolean isAutoCompleteMoreValuesInfoElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreItemsInfoDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreValuesInfoDisplayed();
 	}
 
 	// -------------------- asserts -------------------- //
@@ -85,21 +85,21 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, I...items) {
+	protected <I> void assertPopupValues(Function<I, String> nameGetter, I...values) {
 
-		assertPopupItems(nameGetter, Arrays.asList(items));
+		assertPopupValues(nameGetter, Arrays.asList(values));
 	}
 
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, List<I> items) {
+	protected <I> void assertPopupValues(Function<I, String> nameGetter, List<I> values) {
 
-		List<String> elementNames = getAutoCompletePopupItemNames();
+		List<String> elementNames = getAutoCompletePopupValueNames();
 		try {
 			assertEquals(//
-				"Unexpected number of items in the popup.",
-				items.size(),
+				"Unexpected number of values in the popup.",
+				values.size(),
 				elementNames.size());
-			for (int i = 0; i < items.size(); i++) {
-				assertContainsText(elementNames.get(i), nameGetter.apply(items.get(i)));
+			for (int i = 0; i < values.size(); i++) {
+				assertContainsText(elementNames.get(i), nameGetter.apply(values.get(i)));
 			}
 		} catch (AssertionError error) {
 			Log.finfo("elements {");
@@ -135,9 +135,9 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	// -------------------- miscellaneous -------------------- //
 
-	protected void clickAutoCompleteItem(AjaxAutoCompleteTestItem item) {
+	protected void clickAutoCompleteValue(AjaxAutoCompleteTestValue value) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteItem(item);
+		testEngine.getAutoCompleteExtension().clickAutoCompleteValue(value);
 	}
 
 	// -------------------- private -------------------- //

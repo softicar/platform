@@ -24,8 +24,8 @@ public class DomAutoCompleteListGenerator<T> {
 	public DomAutoCompleteList generate(String pattern) {
 
 		DomAutoCompleteList list = new DomAutoCompleteList();
-		for (T item: inputEngine.findMatches(pattern, limit)) {
-			String displayName = getDisplayName(item);
+		for (T value: inputEngine.findMatches(pattern, limit)) {
+			String displayName = getDisplayName(value);
 			if (isNotBlank(displayName)) {
 				list.add(displayName);
 			}
@@ -33,10 +33,10 @@ public class DomAutoCompleteListGenerator<T> {
 		return list;
 	}
 
-	private String getDisplayName(T item) {
+	private String getDisplayName(T value) {
 
 		return Optional//
-			.ofNullable(inputEngine.getDisplayString(item))
+			.ofNullable(inputEngine.getDisplayString(value))
 			.map(IDisplayString::toString)
 			.orElse("");
 	}

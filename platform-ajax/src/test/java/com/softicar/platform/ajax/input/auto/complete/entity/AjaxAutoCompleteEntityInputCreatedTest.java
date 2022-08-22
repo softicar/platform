@@ -103,7 +103,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testFilledInputWithUnavailableItem() {
+	public void testFilledInputWithUnavailableValue() {
 
 		setup//
 			.setListenToChange()

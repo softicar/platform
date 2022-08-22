@@ -91,7 +91,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testClickFocusOnFilledInputWithUnavailableItem() {
+	public void testClickFocusOnFilledInputWithUnavailableValue() {
 
 		setup//
 			.setListenToChange()
@@ -112,7 +112,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnFilledInputWithUnavailableItem() {
+	public void testTabFocusOnFilledInputWithUnavailableValue() {
 
 		setup//
 			.setListenToChange()

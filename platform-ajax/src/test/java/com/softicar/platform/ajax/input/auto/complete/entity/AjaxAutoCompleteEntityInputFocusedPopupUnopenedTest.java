@@ -74,7 +74,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnFilledInputContainingUniqueItem() {
+	public void testTabOnFilledInputContainingUniqueValue() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -95,7 +95,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnFilledInputContainingUnavailableItem() {
+	public void testTabOnFilledInputContainingUnavailableValue() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)

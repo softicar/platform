@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestItem;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestValue;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.time.Duration;
@@ -31,7 +31,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public List<String> getAutoCompletePopupItemNames() {
+	public List<String> getAutoCompletePopupValueNames() {
 
 		return getAutoCompleteValueWebElements()//
 			.stream()
@@ -40,7 +40,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public Optional<Integer> getAutoCompletePopupSelectedItemIndex() {
+	public Optional<Integer> getAutoCompletePopupSelectedValueIndex() {
 
 		List<WebElement> available = getAutoCompleteValueWebElements();
 		List<WebElement> selected = getAutoCompletePopup()//
@@ -53,7 +53,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			WebElement selectedElement = selected.iterator().next();
 			return Optional.of(available.indexOf(selectedElement));
 		} else {
-			throw new RuntimeException("Encountered more than one selected item.");
+			throw new RuntimeException("Encountered more than one selected value.");
 		}
 	}
 
@@ -93,31 +93,31 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 	}
 
 	@Override
-	public boolean isAutoCompleteItemPlaceholderDisplayed() {
+	public boolean isAutoCompleteValuePlaceholderDisplayed() {
 
-		return getAutoCompleteItemPlaceholderElement()//
+		return getAutoCompleteValuePlaceholderElement()//
 			.map(WebElement::isDisplayed)
 			.orElse(false);
 	}
 
 	@Override
-	public boolean isAutoCompleteMoreItemsInfoDisplayed() {
+	public boolean isAutoCompleteMoreValuesInfoDisplayed() {
 
-		return getAutoCompleteMoreItemsInfoElement()//
+		return getAutoCompleteMoreValuesInfoElement()//
 			.map(WebElement::isDisplayed)
 			.orElse(false);
 	}
 
 	@Override
-	public void clickAutoCompletePopupItem(int index) {
+	public void clickAutoCompletePopupValue(int index) {
 
 		getAutoCompleteValueWebElements().get(index).click();
 	}
 
 	@Override
-	public void clickAutoCompleteItem(IAjaxSeleniumTestDomAutoCompleteTestItem item) {
+	public void clickAutoCompleteValue(IAjaxSeleniumTestDomAutoCompleteTestValue value) {
 
-		findItem(item).get().click();
+		findValue(value).get().click();
 	}
 
 	@Override
@@ -161,11 +161,11 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.until(dummy -> !isAutoCompleteIndicatorDisplayed(indicatorType));
 	}
 
-	private Optional<WebElement> findItem(IAjaxSeleniumTestDomAutoCompleteTestItem item) {
+	private Optional<WebElement> findValue(IAjaxSeleniumTestDomAutoCompleteTestValue value) {
 
 		return getAutoCompleteValueWebElements()//
 			.stream()
-			.filter(it -> it.getText().contains(item.getName()))
+			.filter(it -> it.getText().contains(value.getName()))
 			.findFirst();
 	}
 
@@ -192,7 +192,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.findFirst();
 	}
 
-	private Optional<WebElement> getAutoCompleteItemPlaceholderElement() {
+	private Optional<WebElement> getAutoCompleteValuePlaceholderElement() {
 
 		return webDriverSupplier//
 			.get()
@@ -201,7 +201,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.findFirst();
 	}
 
-	private Optional<WebElement> getAutoCompleteMoreItemsInfoElement() {
+	private Optional<WebElement> getAutoCompleteMoreValuesInfoElement() {
 
 		return webDriverSupplier//
 			.get()
