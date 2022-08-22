@@ -7,6 +7,7 @@ import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.DomNodeAssertionError;
@@ -14,7 +15,6 @@ import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeIterable;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import java.util.NoSuchElementException;
@@ -326,8 +326,8 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Recursively searches for a single {@link IDomAutoCompleteInput} child
-	 * node with the given {@link IStaticObject} marker, and returns it as an
+	 * Recursively searches for a single {@link DomAutoCompleteInput} child node
+	 * with the given {@link IStaticObject} marker, and returns it as an
 	 * {@link DomAutoCompleteTester}.
 	 *
 	 * @param marker
@@ -340,7 +340,7 @@ public interface IDomNodeTesterFindMethods {
 	default <T> DomAutoCompleteTester<T> findAutoCompleteInput(IStaticObject marker) {
 
 		return findNode(marker)//
-			.findNodes(IDomAutoCompleteInput.class)
+			.findNodes(DomAutoCompleteInput.class)
 			.assertOne(node -> new DomAutoCompleteTester<>(getEngine(), node));
 	}
 

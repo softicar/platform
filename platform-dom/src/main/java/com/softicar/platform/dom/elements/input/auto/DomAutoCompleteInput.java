@@ -10,7 +10,6 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.function.Supplier;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
+public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	public static final int MAXIMUM_ELEMENTS_TO_DISPLAY = 16;
 
@@ -120,7 +119,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	// ------------------------------ input field methods ------------------------------ //
 
-	@Override
+	/**
+	 * Returns the native input field that is contained in the auto-complete
+	 * parent element.
+	 *
+	 * @return the native input field that is contained in the auto-complete
+	 *         parent element (never null)
+	 */
 	public IDomTextualInput getInputField() {
 
 		return inputField;

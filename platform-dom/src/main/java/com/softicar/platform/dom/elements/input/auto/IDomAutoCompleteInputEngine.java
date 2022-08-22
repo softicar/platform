@@ -1,12 +1,11 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Provides values available for selection in an {@link IDomAutoCompleteInput}.
+ * Provides values available for selection in an {@link DomAutoCompleteInput}.
  *
  * @author Alexander Schmidt
  * @author Daniel Klose

@@ -1,8 +1,10 @@
 package com.softicar.platform.dom.input.auto;
 
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+
 /**
  * Enumerates the available pattern validation modes for
- * {@link IDomAutoCompleteInput}.
+ * {@link DomAutoCompleteInput}.
  *
  * @author Alexander Schmidt
  */
@@ -29,7 +31,7 @@ public enum DomAutoCompleteInputValidationMode {
 	 * </pre>
 	 *
 	 * Deduced values are accessible via
-	 * {@link IDomAutoCompleteInput#getValue()}.
+	 * {@link DomAutoCompleteInput#getValue()}.
 	 */
 	DEDUCTIVE,
 
@@ -40,7 +42,7 @@ public enum DomAutoCompleteInputValidationMode {
 	 * auto-complete filter result items are mere suggestions.
 	 * <p>
 	 * Note that, even when the input element is permissive,
-	 * {@link IDomAutoCompleteInput#getValue()} only provides values that are
+	 * {@link DomAutoCompleteInput#getValue()} only provides values that are
 	 * available as auto-complete filter results. Hence, the raw value string
 	 * must be obtained and interpreted, if necessary.
 	 */
