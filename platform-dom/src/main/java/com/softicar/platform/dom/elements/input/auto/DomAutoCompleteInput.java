@@ -260,10 +260,12 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	private void deduceValue() {
 
-		var matches = inputEngine.findMatches(getPattern(), 2);
-		if (matches.size() == 1) {
-			var value = matches.iterator().next();
-			inputField.setValue(inputEngine.getDisplayString(value).toString());
+		if (!isBlank()) {
+			var matches = inputEngine.findMatches(getPattern(), 2);
+			if (matches.size() == 1) {
+				var value = matches.iterator().next();
+				inputField.setValue(inputEngine.getDisplayString(value).toString());
+			}
 		}
 	}
 
