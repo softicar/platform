@@ -1,7 +1,9 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.event.DomEventType;
@@ -13,7 +15,6 @@ import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -103,11 +104,12 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	@Override
 	public Optional<T> getValue() {
 
-		return new DomAutoCompleteInputSelection<>(//
-			inputEngine,
-			validationMode,
-			this::getMatchingValues,
-			inputField.getValueTextTrimmed()).getValue();
+		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		if (valueAndState.isAmbiguousOrIllegal()) {
+			throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+		} else {
+			return Optional.ofNullable(valueAndState.getValue());
+		}
 	}
 
 	@Override
@@ -124,6 +126,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	public IDomTextualInput getInputField() {
 
 		return inputField;
+	}
+
+	public String getValueText() {
+
+		return inputField.getValueText();
 	}
 
 	public boolean isBlank() {
@@ -245,12 +252,9 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	private void deduceValue() {
 
-		if (!isBlank()) {
-			var matches = inputEngine.findMatches(getPattern(), 2);
-			if (matches.size() == 1) {
-				var value = matches.iterator().next();
-				inputField.setValue(inputEngine.getDisplayString(value).toString());
-			}
+		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		if (valueAndState.isValid()) {
+			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
 		}
 	}
 
@@ -313,19 +317,5 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 			.map(IDisplayString::toString)
 			.orElse("");
 		inputField.setValue(valueString);
-	}
-
-	private Collection<T> getMatchingValues(String pattern) {
-
-		return getMatchingValues(pattern, 2);
-	}
-
-	private Collection<T> getMatchingValues(String pattern, int limit) {
-
-		if (!pattern.isEmpty()) {
-			return inputEngine.findMatches(pattern, limit);
-		} else {
-			return Collections.emptySet();
-		}
 	}
 }
