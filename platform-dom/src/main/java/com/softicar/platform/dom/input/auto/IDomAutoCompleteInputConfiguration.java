@@ -41,21 +41,4 @@ public interface IDomAutoCompleteInputConfiguration {
 
 		return setValidationMode(DomAutoCompleteInputValidationMode.PERMISSIVE);
 	}
-
-	/**
-	 * Determines whether the input element is disabled.
-	 *
-	 * @return <i>true</i> if the input element is disabled; <i>false</i>
-	 *         otherwise
-	 */
-	boolean isDisabled();
-
-	/**
-	 * Defines whether the input element is disabled.
-	 *
-	 * @param disabled
-	 *            <i>true</i> to disable the input element; <i>false</i> to
-	 *            enable it
-	 */
-	IDomAutoCompleteInputConfiguration setDisabled(boolean disabled);
 }

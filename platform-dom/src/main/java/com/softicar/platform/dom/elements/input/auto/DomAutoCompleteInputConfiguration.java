@@ -1,6 +1,5 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.dom.input.IDomInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import java.util.Objects;
@@ -8,16 +7,12 @@ import java.util.Objects;
 public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputConfiguration {
 
 	private final DomAutoCompleteInput<?> input;
-	private final IDomInput inputField;
 	private DomAutoCompleteInputValidationMode validationMode;
-	private boolean disabled;
 
-	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, IDomInput inputField, DomAutoCompleteInputValidationMode validationMode) {
+	public DomAutoCompleteInputConfiguration(DomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode) {
 
 		this.input = input;
-		this.inputField = inputField;
 		this.validationMode = validationMode;
-		this.disabled = false;
 	}
 
 	@Override
@@ -32,20 +27,6 @@ public class DomAutoCompleteInputConfiguration implements IDomAutoCompleteInputC
 		Objects.requireNonNull(validationMode);
 		this.validationMode = validationMode;
 		input.refreshIndicator();
-		return this;
-	}
-
-	@Override
-	public boolean isDisabled() {
-
-		return disabled;
-	}
-
-	@Override
-	public IDomAutoCompleteInputConfiguration setDisabled(boolean disabled) {
-
-		this.inputField.setDisabled(disabled);
-		this.disabled = disabled;
 		return this;
 	}
 }

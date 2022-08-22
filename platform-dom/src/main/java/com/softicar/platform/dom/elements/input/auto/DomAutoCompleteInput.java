@@ -61,7 +61,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.inputField = new DomAutoCompleteInputField(this);
-		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField, validationMode);
+		this.configuration = new DomAutoCompleteInputConfiguration(this, validationMode);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
@@ -254,7 +254,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	@Override
 	protected void doSetDisabled(boolean disabled) {
 
-		getConfiguration().setDisabled(disabled);
+		inputField.setDisabled(disabled);
 	}
 
 	protected String getPattern() {
