@@ -77,7 +77,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
-			.pressDownArrow()
+			.pressArrowDown()
 			.pressEnter()
 			.waitForServer();
 
@@ -101,7 +101,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.pressDownArrow()
+			.pressArrowDown()
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
@@ -125,7 +125,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.pressDownArrow()
+			.pressArrowDown()
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
@@ -174,13 +174,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(INVALID_VALUE_NAME)
+			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_VALUE_NAME)
+			.expectClientValue(ILLEGAL_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
@@ -200,7 +200,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.pressDownArrow()
+			.pressArrowDown()
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
@@ -225,7 +225,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.pressDownArrow()
+			.pressArrowDown()
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
@@ -458,14 +458,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(INVALID_VALUE_NAME)
+			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_VALUE_NAME)
+			.expectClientValue(ILLEGAL_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
@@ -513,14 +513,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 		input//
 			.focusByClick()
 			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(INVALID_VALUE_NAME)
+			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_VALUE_NAME)
+			.expectClientValue(ILLEGAL_VALUE_NAME)
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()

@@ -119,7 +119,7 @@ import org.junit.After;
 public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAutoCompleteTest {
 
 	protected static final String AMBIGUOUS_VALUE_NAME_CHUNK = "ba";
-	protected static final String INVALID_VALUE_NAME = "xxx";
+	protected static final String ILLEGAL_VALUE_NAME = "xxx";
 	protected static final AjaxTestEntity ENTITY1 = new AjaxTestEntity(1, "foo"); // name: unique
 	protected static final AjaxTestEntity ENTITY2 = new AjaxTestEntity(2, "bar"); // name: contains combination of letters ("ba") that also appears in several other names
 	protected static final AjaxTestEntity ENTITY3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other value
@@ -690,28 +690,28 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy pressDownArrow() {
+		public InputProxy pressArrowDown() {
 
 			send(inputFieldElement, Key.DOWN);
 			return this;
 		}
 
-		public InputProxy pressDownArrowAndWaitForPopup() {
+		public InputProxy pressArrowDownAndWaitForPopup() {
 
-			pressDownArrow();
+			pressArrowDown();
 			waitForPopup();
 			return this;
 		}
 
-		public InputProxy pressUpArrow() {
+		public InputProxy pressArrowUp() {
 
 			send(inputFieldElement, Key.UP);
 			return this;
 		}
 
-		public InputProxy pressUpArrowAndWaitForPopup() {
+		public InputProxy pressArrowUpAndWaitForPopup() {
 
-			pressUpArrow();
+			pressArrowUp();
 			waitForPopup();
 			return this;
 		}
