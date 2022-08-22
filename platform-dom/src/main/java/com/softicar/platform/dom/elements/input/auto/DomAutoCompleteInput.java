@@ -8,7 +8,6 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
@@ -34,7 +33,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
 	protected final DomBar inputBar;
-	private final boolean sloppyAmbiguityCheck;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final DomAutoCompleteBackdrop backdrop;
 	private final DomAutoCompletePopup<T> popup;
@@ -52,14 +50,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine) {
 
-		this(inputEngine, true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
+		this(inputEngine, DomAutoCompleteInputValidationMode.DEDUCTIVE);
 	}
 
-	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode validationMode) {
+	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, DomAutoCompleteInputValidationMode validationMode) {
 
 		this.inputEngine = inputEngine;
 		this.inputBar = new DomBar();
-		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
@@ -317,14 +314,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 
 	private Collection<T> getMatchingValues(String pattern) {
 
-		if (sloppyAmbiguityCheck) {
-			return getMatchingValues(pattern, 2);
-		} else {
-			// Assumes that the entered string is among the first DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT matches, respecting capitalization.
-			// FIXME This is still a problem in theory. However, it was neglected because the number of values which have names that only differ in
-			// FIXME capitalization was assumed to always be lower than DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT.
-			return getMatchingValues(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD);
-		}
+		return getMatchingValues(pattern, 2);
 	}
 
 	private Collection<T> getMatchingValues(String pattern, int limit) {

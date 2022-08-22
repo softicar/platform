@@ -11,7 +11,7 @@ public class AjaxAutoCompleteTestInput extends DomAutoCompleteInput<AjaxAutoComp
 
 	public AjaxAutoCompleteTestInput(AjaxAutoCompleteTestInputEngine engine) {
 
-		super(engine, false, DomAutoCompleteInputValidationMode.DEDUCTIVE);
+		super(engine, DomAutoCompleteInputValidationMode.DEDUCTIVE);
 		this.engine = engine;
 
 		this.eventCount = 0;
