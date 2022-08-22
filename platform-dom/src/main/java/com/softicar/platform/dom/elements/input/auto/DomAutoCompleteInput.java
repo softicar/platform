@@ -95,18 +95,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	}
 
 	@Override
-	public DomAutoCompleteList getItemList(String pattern) {
-
-		var normalizedPattern = Optional//
-			.ofNullable(pattern)
-			.map(String::trim)
-			.map(String::toLowerCase)
-			.orElse("");
-		return new DomAutoCompleteListGenerator<>(inputEngine, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD)//
-			.generate(normalizedPattern);
-	}
-
-	@Override
 	public IDomAutoCompleteInputSelection<T> getSelection() {
 
 		return new DomAutoCompleteInputSelection<>(//

@@ -29,16 +29,6 @@ public interface IDomAutoCompleteInput<T> extends IDomParentElement, IDomValueIn
 	IDomAutoCompleteInputConfiguration getConfiguration();
 
 	/**
-	 * Returns a limited list of valid items for the given pattern.
-	 *
-	 * @param pattern
-	 *            the normalized piece of text, the user entered (lower-case and
-	 *            trimmed)
-	 * @return a list of valid items for the given pattern (never null)
-	 */
-	DomAutoCompleteList getItemList(String pattern);
-
-	/**
 	 * Returns an {@link IDomAutoCompleteInputSelection} instance that
 	 * represents the current selection, and that provides access to the
 	 * selected value.
