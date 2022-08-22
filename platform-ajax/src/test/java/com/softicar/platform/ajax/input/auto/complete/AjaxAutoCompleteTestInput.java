@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Assert;
 
 public class AjaxAutoCompleteTestInput extends DomAutoCompleteInput<AjaxAutoCompleteTestValue> {

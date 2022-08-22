@@ -1,6 +1,4 @@
-package com.softicar.platform.dom.input.auto;
-
-import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+package com.softicar.platform.dom.elements.input.auto;
 
 /**
  * Enumerates the available pattern validation modes for
