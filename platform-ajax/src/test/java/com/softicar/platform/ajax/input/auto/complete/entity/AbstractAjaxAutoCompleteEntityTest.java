@@ -676,17 +676,17 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy focusWithClick() {
+		public InputProxy focusByClick() {
 
 			click(inputFieldElement);
 			return this;
 		}
 
-		public InputProxy focusWithTab() {
+		public InputProxy focusByTab() {
 
-			// TODO assert absence of backdrop and popup here
 			send(focusPredecessorElement, Key.TAB);
-			// TODO assert focus in auto-complete input here
+			waitForServer();
+			assertFocused(inputFieldElement);
 			return this;
 		}
 

@@ -19,7 +19,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
 			.pressEnter()
@@ -50,14 +50,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace(INVALID_VALUE_NAME.length())
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
@@ -83,13 +83,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
@@ -117,14 +117,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 		backdrop//
 			.click()
 			.waitForServer();
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace(INVALID_VALUE_NAME.length())
 			.sendString("other invalid value name")
 			.waitForPopupAndServerFinished();

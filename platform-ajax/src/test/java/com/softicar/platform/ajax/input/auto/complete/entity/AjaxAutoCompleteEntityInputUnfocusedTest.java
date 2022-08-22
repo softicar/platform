@@ -20,7 +20,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForServer()
 			.pressEnter();
@@ -48,7 +48,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace(5)
 			.waitForPopupAndServerFinished()
 			.pressEsc();
@@ -75,7 +75,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
 		backdrop//
@@ -103,7 +103,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
 		popup//
@@ -126,7 +126,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished();
 		popup//
@@ -151,7 +151,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
-				.focusWithClick()
+				.focusByClick()
 				.sendString(ENTITY1.getIdAsString());
 			body//
 				.click();
@@ -176,7 +176,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
-				.focusWithClick()
+				.focusByClick()
 				.sendString(ENTITY1.getIdAsString());
 			body//
 				.click();
@@ -208,7 +208,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
-				.focusWithClick()
+				.focusByClick()
 				.sendString(value2.getIdAsString());
 			body//
 				.click();
@@ -238,7 +238,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		try (Locker locker = inputEngine.createLocker()) {
 			input//
-				.focusWithClick()
+				.focusByClick()
 				.sendString(value2.getIdAsString());
 			body//
 				.click();

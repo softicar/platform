@@ -19,7 +19,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressDownArrow();
@@ -44,7 +44,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressDownArrow()
@@ -71,7 +71,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressUpArrow()
@@ -97,7 +97,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(INVALID_VALUE_NAME)
 			.waitForServer()
 			.pressDownArrow();
@@ -122,7 +122,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -143,10 +143,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrow()
 			.waitForPopup()
-			.focusWithClick();
+			.focusByClick();
 
 		asserter//
 			.expectValuesNone()
@@ -168,10 +168,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrow()
 			.waitForPopup()
-			.focusWithClick();
+			.focusByClick();
 
 		asserter//
 			.expectValues(ENTITY1)
@@ -194,7 +194,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrowAndWaitForPopup();
 
 		asserter//
@@ -218,7 +218,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace()
 			.waitForPopupAndServerFinished();
 
@@ -243,7 +243,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -265,7 +265,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -287,7 +287,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrowAndWaitForPopup();
 
 		asserter//
@@ -310,7 +310,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrowAndWaitForPopup();
 
 		asserter//
@@ -333,7 +333,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressDownArrowAndWaitForPopup();
 
 		asserter//
@@ -355,7 +355,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressUpArrowAndWaitForPopup();
 
 		asserter//
@@ -378,7 +378,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressUpArrowAndWaitForPopup();
 
 		asserter//
@@ -401,7 +401,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressUpArrowAndWaitForPopup();
 
 		asserter//
@@ -424,7 +424,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(INVALID_VALUE_NAME)
 			.waitForPopupAndServerFinished();
 
@@ -448,7 +448,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished();
 
@@ -473,7 +473,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer();
 
@@ -499,7 +499,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString(ENTITY3.getName())
 			.waitForServer();
 
@@ -527,7 +527,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString("foo [1]")
 			.waitForServer();
 
@@ -554,7 +554,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString("foo [1]")
 			.waitForServer();
 
@@ -582,7 +582,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString("FOO [1]")
 			.waitForServer();
 
@@ -610,7 +610,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString("FOO [1]")
 			.waitForServer();
 
@@ -633,7 +633,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusWithClick()
+			.focusByClick()
 			.sendString("foo [1")
 			.waitForServer();
 

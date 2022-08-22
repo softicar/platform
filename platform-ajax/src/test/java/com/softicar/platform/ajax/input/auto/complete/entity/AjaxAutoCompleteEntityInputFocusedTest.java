@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -13,13 +12,15 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testClickFocusOnEmptyInput() {
+	public void testFocusByClickOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
 			.execute();
 
-		input.focusWithClick();
+		input//
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
 			.expectValuesNone()
@@ -32,13 +33,15 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnEmptyInput() {
+	public void testFocusByTabOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
 			.execute();
 
-		input.focusWithTab();
+		input//
+			.focusByTab()
+			.waitForServer();
 
 		asserter//
 			.expectValuesNone()
@@ -51,14 +54,16 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testClickFocusOnFilledInput() {
+	public void testFocusByClickOnFilledInput() {
 
 		setup//
 			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.execute();
 
-		input.focusWithClick();
+		input//
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
 			.expectValues(ENTITY1)
@@ -71,14 +76,16 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnFilledInput() {
+	public void testFocusByTabOnFilledInput() {
 
 		setup//
 			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.execute();
 
-		input.focusWithTab();
+		input//
+			.focusByTab()
+			.waitForServer();
 
 		asserter//
 			.expectValues(ENTITY1)
@@ -91,14 +98,16 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testClickFocusOnFilledInputWithUnavailableValue() {
+	public void testFocusByClickWithIllegalValueOnFilledInput() {
 
 		setup//
 			.setListenToChange()
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
-		input.focusWithClick();
+		input//
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
@@ -112,102 +121,20 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnFilledInputWithUnavailableValue() {
+	public void testFocusByTabWithIllegalValueOnFilledInput() {
 
 		setup//
 			.setListenToChange()
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
-		input.focusWithTab();
+		input//
+			.focusByTab()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationWithClickFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationWithTabFocusOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithClickFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithTabFocusOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

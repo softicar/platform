@@ -47,7 +47,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationWithFilledInputAndIllegalValue() {
+	public void testCreationAndIllegalValueWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -66,7 +66,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationWithFilledInputAndClearedValue() {
+	public void testCreationAndClearedValueWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -85,7 +85,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationWithFilledInputAndChangedValue() {
+	public void testCreationAndChangedValueWithFilledInput() {
 
 		setup//
 			.setListenToChange()
