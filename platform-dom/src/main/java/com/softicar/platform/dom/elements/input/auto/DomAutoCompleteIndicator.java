@@ -4,20 +4,20 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
+import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import java.util.Optional;
 
 public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	private final DomAutoCompleteInput<T> input;
-	private final IDomAutoCompleteInputConfiguration configuration;
+	private final DomAutoCompleteInputValidationMode validationMode;
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
 	private final IDomTextualInput inputField;
 
 	public DomAutoCompleteIndicator(DomAutoCompleteInput<T> input) {
 
 		this.input = input;
-		this.configuration = input.getConfiguration();
+		this.validationMode = input.validationMode;
 		this.inputEngine = input.inputEngine;
 		this.inputField = input.getInputField();
 
@@ -34,7 +34,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	private Optional<DomAutoCompleteIndicatorType> getIndicatorType() {
 
-		if (!input.isBlank() && !configuration.getValidationMode().isPermissive()) {
+		if (!input.isBlank() && !validationMode.isPermissive()) {
 			var matches = input.inputEngine.findMatches(input.getPattern(), 2);
 			if (matches.isEmpty()) {
 				return DomAutoCompleteIndicatorType.ILLEGAL.asOptional();

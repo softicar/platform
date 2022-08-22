@@ -5,7 +5,6 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 
 public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
@@ -17,10 +16,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		this.input = appendChild(new AutoCompleteTestCaseInput(this));
 
-		appendChild(
-			new DomActionBar(//
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE),
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE)));
 		appendChild(
 			new DomActionBar(//
 				new SetValueButton()));
@@ -52,24 +47,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 				input::setValue,
 				IDisplayString.create("enter value"),
 				"");
-		}
-	}
-
-	private class SetValidationModeButton extends DomButton {
-
-		private final DomAutoCompleteInputValidationMode mode;
-
-		public SetValidationModeButton(DomAutoCompleteInputValidationMode mode) {
-
-			this.mode = mode;
-			setIcon(DomElementsImages.INFO.getResource());
-			setLabel(IDisplayString.create("set validation mode: " + mode.name()));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getConfiguration().setValidationMode(mode);
 		}
 	}
 

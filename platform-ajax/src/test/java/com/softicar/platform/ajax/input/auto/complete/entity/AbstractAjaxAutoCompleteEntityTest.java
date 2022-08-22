@@ -19,7 +19,6 @@ import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorTyp
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -200,11 +199,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public Setup setStringValue(String stringValue) {
 
 			return add((input, engine) -> input.getInputField().setValue(stringValue));
-		}
-
-		public Setup setMode(DomAutoCompleteInputValidationMode mode) {
-
-			return add((input, engine) -> input.getConfiguration().setValidationMode(mode));
 		}
 
 		public Setup setEntities(AjaxTestEntity...values) {
@@ -885,7 +879,8 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			List<String> availableValueElementNames = getAutoCompletePopupValueNames();
 			assertTrue(//
-				String.format("Expected entity number %s to be selected, but only %s entity/ies was/were available.", number, availableValueElementNames.size()),
+				String
+					.format("Expected entity number %s to be selected, but only %s entity/ies was/were available.", number, availableValueElementNames.size()),
 				availableValueElementNames.size() >= number);
 
 			int selectedIndex = selectedValueIndex.get();

@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
+import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
 import java.util.Collection;
 import java.util.Optional;
@@ -27,15 +27,15 @@ import java.util.function.Function;
 class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection<T> {
 
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
-	private final IDomAutoCompleteInputConfiguration configuration;
+	private final DomAutoCompleteInputValidationMode validationMode;
 	private final Collection<T> matchingValues;
 	private final String pattern;
 
-	public DomAutoCompleteInputSelection(IDomAutoCompleteInputEngine<T> inputEngine, IDomAutoCompleteInputConfiguration configuration,
+	public DomAutoCompleteInputSelection(IDomAutoCompleteInputEngine<T> inputEngine, DomAutoCompleteInputValidationMode validationMode,
 			Function<String, Collection<T>> matchingValuesFunction, String pattern) {
 
 		this.inputEngine = inputEngine;
-		this.configuration = configuration;
+		this.validationMode = validationMode;
 		this.matchingValues = matchingValuesFunction.apply(pattern.toLowerCase());
 		this.pattern = pattern;
 	}
@@ -90,7 +90,7 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 
 	private boolean isValueEmptyOrModePermissive() {
 
-		return isBlankPattern() || configuration.getValidationMode().isPermissive();
+		return isBlankPattern() || validationMode.isPermissive();
 	}
 
 	private boolean isValueUnique() {
@@ -105,15 +105,14 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 
 	private Optional<T> getMatchingValue() {
 
-		var mode = configuration.getValidationMode();
-		switch (mode) {
+		switch (validationMode) {
 		case DEDUCTIVE:
 			return getDeducedValue();
 		case PERMISSIVE:
 			// TODO PLAT-753 This cast should not be necessary. Permissive mode should not even be handled in the same auto-complete input implementation.
 			return Optional.of(CastUtils.cast(pattern));
 		}
-		throw new SofticarUnknownEnumConstantException(mode);
+		throw new SofticarUnknownEnumConstantException(validationMode);
 	}
 
 	/**

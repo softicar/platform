@@ -9,7 +9,6 @@ import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -32,20 +31,25 @@ import java.util.function.Supplier;
 public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
 
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
+	protected final DomAutoCompleteInputValidationMode validationMode;
 	protected final DomBar inputBar;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final DomAutoCompleteBackdrop backdrop;
 	private final DomAutoCompletePopup<T> popup;
 	private final DomAutoCompleteInputField inputField;
-	private final IDomAutoCompleteInputConfiguration configuration;
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
-	private DomAutoCompleteIndicator<T> indicator;
+	private final DomAutoCompleteIndicator<T> indicator;
 	private T committedValue;
 	private boolean hasFocus;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
 		this(new DomAutoCompleteDefaultInputEngine<>(loader));
+	}
+
+	public DomAutoCompleteInput(Supplier<Collection<T>> loader, DomAutoCompleteInputValidationMode validationMode) {
+
+		this(new DomAutoCompleteDefaultInputEngine<>(loader), validationMode);
 	}
 
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine) {
@@ -56,12 +60,12 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, DomAutoCompleteInputValidationMode validationMode) {
 
 		this.inputEngine = inputEngine;
+		this.validationMode = validationMode;
 		this.inputBar = new DomBar();
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.inputField = new DomAutoCompleteInputField(this);
-		this.configuration = new DomAutoCompleteInputConfiguration(this, validationMode);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
@@ -86,17 +90,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	}
 
 	@Override
-	public IDomAutoCompleteInputConfiguration getConfiguration() {
-
-		return configuration;
-	}
-
-	@Override
 	public IDomAutoCompleteInputSelection<T> getSelection() {
 
 		return new DomAutoCompleteInputSelection<>(//
 			inputEngine,
-			configuration,
+			validationMode,
 			this::getMatchingValues,
 			inputField.getValueTextTrimmed());
 	}

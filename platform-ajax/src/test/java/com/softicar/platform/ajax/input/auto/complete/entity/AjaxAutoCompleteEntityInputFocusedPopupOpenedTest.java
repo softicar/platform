@@ -2,7 +2,6 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Test;
 
 /**
@@ -631,7 +630,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	public void testValueValidWithPartialPatternOnDeductiveEmptyInput() {
 
 		setup//
-			.setMode(DomAutoCompleteInputValidationMode.DEDUCTIVE)
 			.execute();
 
 		input//
