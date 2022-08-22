@@ -112,6 +112,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Speicherverbrauch ist zu hoch.");
 	I18n0 MINUTES = new I18n0("Minutes")//
 		.de("Minuten");
+	I18n0 MISSING_INPUT_VALUE = new I18n0("Missing input value")//
+		.de("Fehlender Eingabewert");
 	I18n0 MULTIPLE_OPTIONS_WERE_SELECTED = new I18n0("Multiple options were selected.")//
 		.de("Mehrere Optionen wurden ausgewählt.");
 	I18n0 NEXT_PAGE = new I18n0("Next Page")//

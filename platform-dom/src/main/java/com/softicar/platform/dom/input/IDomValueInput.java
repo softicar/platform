@@ -2,6 +2,7 @@ package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.Optional;
@@ -63,6 +64,23 @@ public interface IDomValueInput<V> extends IDomInput {
 	default V getValueOrNull() {
 
 		return getValue().orElse(null);
+	}
+
+	/**
+	 * Returns the value of this input element, as follows:
+	 * <ul>
+	 * <li>If a valid value was entered, the value is returned.</li>
+	 * <li>If no value is entered, an exception is thrown.</li>
+	 * <li>If an invalid value is entered, an exception is thrown.</li>
+	 * </ul>
+	 *
+	 * @return the entered value (never <i>null</i>)
+	 * @throws DomInputException
+	 *             if the user entered an invalid value or no value at all
+	 */
+	default V getValueOrThrow() {
+
+		return getValue().orElseThrow(() -> new DomInputException(DomI18n.MISSING_INPUT_VALUE));
 	}
 
 	/**
