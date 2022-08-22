@@ -54,7 +54,7 @@ public class EmfSubObjectDeactivationStrategy<R extends IEmfSubObject<R, B>, B e
 		if (isActiveFieldAttribute(attribute)) {
 			return true;
 		} else if (attribute instanceof EmfInheritedAttribute) {
-			// FIXME this cast in unfortunate (can be fixed with i49510)
+			// TODO PLAT-1089 this cast should not be necessary
 			return isInheritedActiveAttribute((EmfInheritedAttribute<?, ?, ?>) attribute);
 		} else {
 			return false;

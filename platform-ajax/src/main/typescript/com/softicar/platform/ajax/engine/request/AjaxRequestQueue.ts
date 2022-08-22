@@ -22,6 +22,10 @@ class AjaxRequestQueue {
 		this.process();
 	}
 
+	public hasRequests() {
+		return this.requests.length > 0;
+	}
+
 	private finishRequest() {
 		this.requests.shift();
 		this.requestIndex += 1;
@@ -62,10 +66,6 @@ class AjaxRequestQueue {
 			this.requests.shift();
 		}
 	}
-
-	private hasRequests() {
-		return this.requests.length > 0;
-	}
 	
 	private getNextRequest() {
 		return this.requests[0];
@@ -90,4 +90,4 @@ class AjaxRequestQueue {
 	}
 }
 
-const AJAX_REQUEST_QUEUE = new AjaxRequestQueue();
+var AJAX_REQUEST_QUEUE = new AjaxRequestQueue();

@@ -50,7 +50,7 @@ public class EmfSubObjectTable<O extends IEmfSubObject<O, B>, B extends IEmfEnti
 	@SuppressWarnings("unchecked")
 	public IEmfEntityTable<B, P, S> getBaseTable() {
 
-		// TODO remove cast (i54622)
+		// TODO PLAT-1090 this cast should not be necessary
 		return (IEmfEntityTable<B, P, S>) super.getBaseTable();
 	}
 

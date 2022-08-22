@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 
 /**
- * FIXME This class has grown into a mess. It needs some cleanup and extraction.
+ * TODO This class has grown into a mess. It needs some cleanup and extraction.
  */
 public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 
@@ -60,7 +60,7 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 
 		Optional<?> parentField = table.getScopeField();
 		if (!parentField.isPresent()) {
-			// TODO test that table is reference data (i51749)
+			// TODO PLAT-1091 test that table is static reference data, unless it's in CoreModule (which is not visible here)
 		}
 	}
 

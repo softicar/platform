@@ -22,9 +22,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * TODO i67739 Test sheet titles with named and unnamed tables. Requires changes
- * to {@link ScExcelFileParser}, which currently does not extract sheet titles.
- * <p>
  * FIXME In single-sheet mode, a tailing empty row is always appended after the
  * last table. In multi-sheet mode, this does not happen. Reason is unclear.
  * Minor defect, but should be fixed. As soon as this is fixed, the distinction

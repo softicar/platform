@@ -31,7 +31,7 @@ public abstract class AbstractEmfStaticPermission<T> implements IEmfStaticPermis
 	}
 
 	/**
-	 * FIXME i80598 This override should not be necessary because the UUID of
+	 * TODO PLAT-1088 This override should not be necessary because the UUID of
 	 * any static permission should be determined from an
 	 * {@link SourceCodeReferencePointUuid} annotation.
 	 */

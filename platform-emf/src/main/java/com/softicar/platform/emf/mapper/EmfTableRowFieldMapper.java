@@ -22,7 +22,7 @@ public class EmfTableRowFieldMapper<S, T> implements IEmfTableRowMapper<S, T> {
 
 		ISqlTable<S> table = field.getTable();
 		if (table instanceof IEmfTable) {
-			// TODO remove or improve cast (i54622)
+			// TODO PLAT-1090 this cast should not be necessary
 			return getTitleFromEntityTable((IEmfTable<?, ?, ?>) table);
 		} else {
 			return getTitleFromPlainField();
