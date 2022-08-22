@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.input.auto.complete;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.dom.document.CurrentDomDocument;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -55,6 +56,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 	}
 
 	@Test
+	@Ignore("This test directly sets the textual field value. This is never going to happen in practice.")
 	public void testTransitionFromAmbiguousToValidIndicatorWithValueFromServer() {
 
 		// input some ambiguous text

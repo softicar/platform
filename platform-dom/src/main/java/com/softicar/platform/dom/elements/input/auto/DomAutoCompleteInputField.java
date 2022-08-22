@@ -5,13 +5,12 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomBlurEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomFocusEventHandler;
 import com.softicar.platform.dom.event.IDomInputEventHandler;
 import com.softicar.platform.dom.event.IDomKeyDownEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.List;
 
-class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomFocusEventHandler, IDomBlurEventHandler {
+class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomBlurEventHandler {
 
 	private final DomAutoCompleteInput<?> input;
 
@@ -45,12 +44,6 @@ class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHa
 		} else if (event.getKey().equals(DomKeys.ESCAPE)) {
 			input.onBackdropClickOrEscape();
 		}
-	}
-
-	@Override
-	public void handleFocus(IDomEvent event) {
-
-		input.onFocus();
 	}
 
 	@Override

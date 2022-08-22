@@ -42,7 +42,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 	private final DomAutoCompleteIndicator<T> indicator;
 	private T committedValue;
-	private boolean hasFocus;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
@@ -71,7 +70,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
-		this.hasFocus = false;
 
 		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
@@ -226,15 +224,8 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		inputField.focus();
 	}
 
-	protected void onFocus() {
-
-		this.hasFocus = true;
-		refreshIndicator();
-	}
-
 	protected void onBlur() {
 
-		this.hasFocus = false;
 		closePopup();
 		deduceValue();
 		onChange();
@@ -267,11 +258,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	protected String getPattern() {
 
 		return inputField.getValueTextTrimmed().toLowerCase();
-	}
-
-	protected boolean hasFocus() {
-
-		return hasFocus;
 	}
 
 	protected void refreshIndicator() {
