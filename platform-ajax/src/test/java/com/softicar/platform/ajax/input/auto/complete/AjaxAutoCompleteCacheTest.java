@@ -32,6 +32,7 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 		assertPopupItems(ITEM1, ITEM2);
 
 		// blur and change list of items
+		send(inputField, Key.ESCAPE);
 		click(button);
 
 		// open popup again

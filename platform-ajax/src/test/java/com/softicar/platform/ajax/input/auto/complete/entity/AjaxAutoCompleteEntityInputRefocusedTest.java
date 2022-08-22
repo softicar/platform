@@ -12,7 +12,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithClickAndClickOnPassiveEmptyInput() {
+	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithClickAndClickOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -39,7 +39,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithTabAndClickOnPassiveEmptyInput() {
+	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithTabAndClickOnEmptyInput() {
 
 		setup//
 			.execute();

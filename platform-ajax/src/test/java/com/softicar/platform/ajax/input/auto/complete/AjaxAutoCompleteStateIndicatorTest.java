@@ -83,6 +83,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		indicator.assertValueIllegal();
 
 		// set input value
+		send(inputField, Key.ESCAPE);
 		click(button);
 		waitForServer();
 		indicator.assertNotOkay();
@@ -100,6 +101,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		indicator.assertValueIllegal(true);
 
 		// leave input
+		send(inputField, Key.ESCAPE);
 		clickBodyNode();
 		indicator.assertNotOkay(true);
 	}

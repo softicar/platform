@@ -3,7 +3,6 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Test;
 
 /**
@@ -42,7 +41,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testServerValueTransferAfterAmbiguousFilteringAndClosePopupWithEscOnPassiveFilledInput() {
+	public void testServerValueTransferAfterAmbiguousFilteringAndClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setSelectedEntity(ENTITY3)
@@ -70,7 +69,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndSelectionWithClickNotOnPassiveEmptyInput() {
+	public void testAmbiguousFilteringAndSelectionWithClickNotOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -79,8 +78,12 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.focusWithClick()
 			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
 			.waitForPopupAndServerFinished();
+		overlay//
+			.click()
+			.waitForServer();
 		body//
-			.click();
+			.click()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
@@ -94,7 +97,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndShiftingAndSelectionWithClickOnPassiveEmptyInput() {
+	public void testAmbiguousFilteringAndShiftingAndSelectionWithClickOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -117,7 +120,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testUniqueFilteringAndSelectionWithClickOnPassiveEmptyInput() {
+	public void testUniqueFilteringAndSelectionWithClickOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -141,7 +144,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testLoadingIndicatorAfterFocusLossWithIdOnPassiveEmptyInput() {
+	public void testLoadingIndicatorAfterFocusLossWithIdOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -166,7 +169,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testDeferredIndicatorUpdateAfterFocusLossWithIdOnPassiveEmptyInput() {
+	public void testDeferredIndicatorUpdateAfterFocusLossWithIdOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -193,7 +196,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testLoadingIndicatorAfterFocusLossWithPartialIdOnPassiveEmptyInput() {
+	public void testLoadingIndicatorAfterFocusLossWithPartialIdOnEmptyInput() {
 
 		final AjaxTestEntity item1 = new AjaxTestEntity(1, "foo");
 		final AjaxTestEntity item2 = new AjaxTestEntity(2, "bar");
@@ -223,7 +226,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testDeferredIndicatorUpdateAfterFocusLossWithPartialIdOnPassiveEmptyInput() {
+	public void testDeferredIndicatorUpdateAfterFocusLossWithPartialIdOnEmptyInput() {
 
 		final AjaxTestEntity item1 = new AjaxTestEntity(1, "foo");
 		final AjaxTestEntity item2 = new AjaxTestEntity(2, "bar");
@@ -246,90 +249,6 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		asserter//
 			.expectValues(item2)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValidationWithMatchOnRestrictivePassiveEmptyInput() {
-
-		setup//
-			.setMode(DomAutoCompleteInputValidationMode.RESTRICTIVE)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(ENTITY1.toDisplayStringWithId())
-			.waitForServer();
-
-		eventTrigger//
-			.trigger()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(ENTITY1.toDisplayStringWithId())
-			.expectServerValue(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValidationWithMismatchOnRestrictivePassiveEmptyInput() {
-
-		setup//
-			.setMode(DomAutoCompleteInputValidationMode.RESTRICTIVE)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString("fo")
-			.waitForServer();
-
-		eventTrigger//
-			.trigger()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValidationWithIncludedUpperCaseItemNameOnRestrictivePassiveEmptyInput() {
-
-		final AjaxTestEntity item1 = new AjaxTestEntity(1, "FOO");
-		final AjaxTestEntity item2 = new AjaxTestEntity(2, "FOOO");
-
-		setup//
-			.setMode(DomAutoCompleteInputValidationMode.RESTRICTIVE)
-			.setEntities(item1, item2) // replace default items
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(item1.toDisplayStringWithId())
-			.waitForPopupAndServerFinished();
-
-		eventTrigger//
-			.trigger()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(item1.toDisplayStringWithId())
-			.expectServerValue(item1)
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

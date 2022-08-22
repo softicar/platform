@@ -20,29 +20,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testUniqueFilteringAndSelectionWithEnterOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
-			.pressEnter();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndSelectionWithEnterOnActiveEmptyInput() {
+	public void testUniqueFilteringAndSelectionWithEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -67,29 +45,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndSelectionWithEnterOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressEnter();
-
-		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndSelectionWithEnterOnActiveEmptyInput() {
+	public void testAmbiguousFilteringAndSelectionWithEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -114,30 +70,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndShiftingAndSelectionWithEnterOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressDownArrow()
-			.pressEnter();
-
-		asserter//
-			.expectValues(ENTITY3)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndShiftingAndSelectionWithEnterOnActiveEmptyInput() {
+	public void testAmbiguousFilteringAndShiftingAndSelectionWithEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -163,29 +96,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnActiveEmptyInput() {
+	public void testClosePopupWithEscOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -209,29 +120,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnActiveEmptyInput() {
+	public void testUniqueFilteringAndClosePopupWithEscOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -255,30 +144,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueAmbiguous()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnActiveEmptyInput() {
+	public void testAmbiguousFilteringAndClosePopupWithEscOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -303,30 +169,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testInvalidFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testInvalidFilteringAndClosePopupWithEscOnActiveEmptyInput() {
+	public void testInvalidFilteringAndClosePopupWithEscOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -351,30 +194,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnActiveFilledInput() {
+	public void testClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -399,30 +219,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnActiveFilledInput() {
+	public void testUniqueFilteringAndClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -447,31 +244,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY3)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(5)
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueAmbiguous()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnActiveFilledInput() {
+	public void testAmbiguousFilteringAndClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -498,30 +271,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testEmptyFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEmptyFilteringAndClosePopupWithEscOnActiveFilledInput() {
+	public void testEmptyFilteringAndClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -548,31 +298,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndServerFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnActiveFilledInput() {
+	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -600,7 +326,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCloseOverlayWithClickOnOverlayOfActiveEmptyInput() {
+	public void testCloseOverlayWithClickOnOverlayOfEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -625,7 +351,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testOverlayRemovedWithTabOnActiveEmptyInputWithOpenPopup() {
+	public void testOverlayRemovedWithTabOnEmptyInputWithOpenPopup() {
 
 		setup//
 			.setListenToChange()
@@ -650,7 +376,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testOverlayRemovedWithEscOnActiveEmptyInputWithOpenPopup() {
+	public void testOverlayRemovedWithEscOnEmptyInputWithOpenPopup() {
 
 		setup//
 			.setListenToChange()
@@ -676,35 +402,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyPassiveInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(ENTITY1.getName());
-			body//
-				.click();
-		}
-
-		asserter//
-			.expectClientValue(ENTITY1.getName())
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyActiveInput() {
+	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -733,7 +431,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnActiveEmptyInput() {
+	public void testCallbackWithTypeUniqueItemNameAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -758,7 +456,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeAmbiguousItemNameAndEnterOnActiveEmptyInput() {
+	public void testCallbackWithTypeAmbiguousItemNameAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -783,7 +481,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeInvalidItemNameAndClosePopupOnActiveEmptyInput() {
+	public void testCallbackWithTypeInvalidItemNameAndClosePopupOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -809,7 +507,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnActiveFilledInput() {
+	public void testCallbackWithTypeUniqueItemNameAndEnterOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -836,7 +534,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testCallbackWithTypeInvalidItemNameAndEnterOnActiveFilledInput() {
+	public void testCallbackWithTypeInvalidItemNameAndEnterOnFilledInput() {
 
 		setup//
 			.setListenToChange()

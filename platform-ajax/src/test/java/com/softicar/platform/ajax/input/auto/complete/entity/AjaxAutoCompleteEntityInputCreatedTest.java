@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import org.junit.Test;
 
 /**
@@ -13,24 +12,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testValueSelectionWithPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValueSelectionWithActiveFilledInput() {
+	public void testValueSelectionWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -48,25 +30,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testValueRemovalWithPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.setSelectedEntityNone()
-			.execute();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValueRemovalWithActiveFilledInput() {
+	public void testValueRemovalWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -85,25 +49,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testValueAlterationWithPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.setSelectedEntity(ENTITY2)
-			.execute();
-
-		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValueAlterationWithActiveFilledInput() {
+	public void testValueAlterationWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -122,23 +68,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testActiveEmptyInput() {
+	public void testEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -155,24 +85,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testActiveFilledInput() {
+	public void testFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -190,25 +103,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testPassiveFilledInputWithUnavailableItem() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
-			.expectIndicatorNotOkay()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testActiveFilledInputWithUnavailableItem() {
+	public void testFilledInputWithUnavailableItem() {
 
 		setup//
 			.setListenToChange()
@@ -227,24 +122,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithPassiveEmptyInput() {
-
-		setup//
-			.setMandatory()
-			.execute();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithActiveEmptyInput() {
+	public void testMandatoryWithEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -262,25 +140,7 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithActiveFilledInput() {
+	public void testMandatoryWithFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -290,25 +150,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 
 		asserter//
 			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testRestrictiveInputDisplaysValidIndicatorWithPassiveFilledInput() {
-
-		setup//
-			.setMode(DomAutoCompleteInputValidationMode.RESTRICTIVE)
-			.setStringValue(INVALID_ITEM_NAME)
-			.execute();
-
-		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
 			.expectIndicatorValueValid()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

@@ -13,7 +13,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testEnterOnPassiveEmptyInput() {
+	public void testEnterOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -34,7 +34,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testEscOnPassiveEmptyInput() {
+	public void testEscOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -54,7 +54,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnPassiveEmptyInput() {
+	public void testTabOnEmptyInput() {
 
 		setup//
 			.execute();
@@ -74,7 +74,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnPassiveFilledInputContainingUniqueItem() {
+	public void testTabOnFilledInputContainingUniqueItem() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -95,7 +95,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnPassiveFilledInputContainingUnavailableItem() {
+	public void testTabOnFilledInputContainingUnavailableItem() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -117,7 +117,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testDoNotOpenPopupWithEnterOnPassiveEmptyInput() {
+	public void testDoNotOpenPopupWithEnterOnEmptyInput() {
 
 		setup//
 			.execute();

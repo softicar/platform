@@ -15,7 +15,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 
 	@Test
 	@Ignore("Does not make sense since auto-fill was implemented.")
-	public void testOverlayDisplayedWithUniqueItemNameOnActiveEmptyInputWhilePopupDisplayed() {
+	public void testOverlayDisplayedWithUniqueItemNameOnEmptyInputWhilePopupDisplayed() {
 
 		setup//
 			.setListenToChange()

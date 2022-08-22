@@ -13,43 +13,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testClickFocusOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTabFocusOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClickFocusOnActiveEmptyInput() {
+	public void testClickFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -68,7 +32,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnActiveEmptyInput() {
+	public void testTabFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -87,45 +51,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testClickFocusOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTabFocusOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClickFocusOnActiveFilledInput() {
+	public void testClickFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -145,7 +71,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnActiveFilledInput() {
+	public void testTabFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -165,47 +91,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testClickFocusOnPassiveFilledInputWithUnavailableItem() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTabFocusOnPassiveFilledInputWithUnavailableItem() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClickFocusOnActiveFilledInputWithUnavailableItem() {
+	public void testClickFocusOnFilledInputWithUnavailableItem() {
 
 		setup//
 			.setListenToChange()
@@ -226,7 +112,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testTabFocusOnActiveFilledInputWithUnavailableItem() {
+	public void testTabFocusOnFilledInputWithUnavailableItem() {
 
 		setup//
 			.setListenToChange()
@@ -247,45 +133,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testExplicitInvalidationWithClickFocusOnPassiveEmptyInput() {
-
-		setup//
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationWithTabFocusOnPassiveEmptyInput() {
-
-		setup//
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationWithClickFocusOnActiveEmptyInput() {
+	public void testExplicitInvalidationWithClickFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -305,7 +153,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testExplicitInvalidationWithTabFocusOnActiveEmptyInput() {
+	public void testExplicitInvalidationWithTabFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -326,49 +174,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithClickFocusOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithTabFocusOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithClickFocusOnActiveFilledInput() {
+	public void testExplicitInvalidationWithClickFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -390,7 +196,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationWithTabFocusOnActiveFilledInput() {
+	public void testExplicitInvalidationWithTabFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -411,45 +217,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithClickFocusOnPassiveEmptyInput() {
-
-		setup//
-			.setMandatory()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithTabFocusOnPassiveEmptyInput() {
-
-		setup//
-			.setMandatory()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithClickFocusOnActiveEmptyInput() {
+	public void testMandatoryWithClickFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -469,7 +237,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithTabFocusOnActiveEmptyInput() {
+	public void testMandatoryWithTabFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -489,47 +257,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithTabFocusOnPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithClickFocusOnPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testMandatoryWithTabFocusOnActiveFilledInput() {
+	public void testMandatoryWithTabFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -550,7 +278,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testMandatoryWithClickFocusOnActiveFilledInput() {
+	public void testMandatoryWithClickFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -571,47 +299,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnPassiveEmptyInput() {
-
-		setup//
-			.setMandatory()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnPassiveEmptyInput() {
-
-		setup//
-			.setMandatory()
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueMissing()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnActiveEmptyInput() {
+	public void testExplicitInvalidationAndMandatoryWithClickFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -632,7 +320,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnActiveEmptyInput() {
+	public void testExplicitInvalidationAndMandatoryWithTabFocusOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -654,51 +342,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithClick();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnPassiveFilledInput() {
-
-		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
-//			.markValueAsInvalid()
-			.execute();
-
-		input.focusWithTab();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithClickFocusOnActiveFilledInput() {
+	public void testExplicitInvalidationAndMandatoryWithClickFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()
@@ -721,7 +365,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 
 	@Test
 	@Ignore("Does not make sense anymore.")
-	public void testExplicitInvalidationAndMandatoryWithTabFocusOnActiveFilledInput() {
+	public void testExplicitInvalidationAndMandatoryWithTabFocusOnFilledInput() {
 
 		setup//
 			.setListenToChange()

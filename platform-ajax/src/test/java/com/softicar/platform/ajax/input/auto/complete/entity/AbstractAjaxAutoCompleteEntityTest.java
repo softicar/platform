@@ -112,7 +112,7 @@ import org.junit.After;
  * <b>Test method name anatomy:</b><br>
  * "test[{FeatureOrFeatureCombination}With][{Interaction}On]{InputElementDescription}"<br>
  * definitions:<br>
- * - {InputElementDescription} := [Active|Passive][Empty|Filled]Input
+ * - {InputElementDescription} := [Empty|Filled]Input
  *
  * @author Alexander Schmidt
  */
@@ -865,9 +865,16 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 	protected class BodyProxy {
 
-		public void click() {
+		public BodyProxy click() {
 
 			clickBodyNode();
+			return this;
+		}
+
+		public BodyProxy waitForServer() {
+
+			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+			return this;
 		}
 	}
 

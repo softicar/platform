@@ -41,7 +41,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private final DomAutoCompleteInputField inputField;
 	private final IDomAutoCompleteInputConfiguration configuration;
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
-	private boolean showBackdrop;
 	private DomAutoCompleteIndicator<T> indicator;
 	private T committedValue;
 	private boolean hasFocus;
@@ -67,7 +66,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		this.inputField = new DomAutoCompleteInputField(this);
 		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField, validationMode);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
-		this.showBackdrop = false;
 		this.indicator = new DomAutoCompleteIndicator<>(this);
 		this.committedValue = null;
 		this.hasFocus = false;
@@ -180,7 +178,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	@Override
 	protected void onChangeCallbackAdded() {
 
-		this.showBackdrop = true;
 		this.inputField.listenToEvent(DomEventType.CHANGE);
 	}
 
@@ -293,10 +290,8 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	private void refreshPopup() {
 
 		if (!popup.isAppended()) {
-			if (showBackdrop) {
-				appendChild(backdrop);
-				getDomEngine().raise(backdrop);
-			}
+			appendChild(backdrop);
+			getDomEngine().raise(backdrop);
 
 			appendChild(popup);
 			getDomEngine().raise(popup);

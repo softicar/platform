@@ -12,7 +12,7 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testCallbacksWithValidAndValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testCallbacksWithValidAndValidItemNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -43,7 +43,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndValidValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testCallbacksWithInvalidAndValidValidItemNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -76,7 +76,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithValidAndInvalidValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testCallbacksWithValidAndInvalidValidItemNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
@@ -110,7 +110,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndInvalidValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testCallbacksWithInvalidAndInvalidValidItemNamesAndEnterOnEmptyInput() {
 
 		setup//
 			.setListenToChange()
