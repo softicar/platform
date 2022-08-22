@@ -131,11 +131,11 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 //		assertUnsubmittedIndicator(true); // FIXME decide behavior
 	}
 
-	// -------------------- modality -------------------- //
+	// -------------------- backdrop -------------------- //
 
 	@Test
 	@Ignore("Unnecessary test.")
-	public void testNoModalityBeforeTyping() {
+	public void testNoBackdropBeforeTyping() {
 
 		openPopup();
 
@@ -143,7 +143,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testModalityAfterTyping() {
+	public void testBackdropAfterTyping() {
 
 		// input some valid text
 		click(inputField);
@@ -154,7 +154,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityAfterSelectionWithEnter() {
+	public void testNoBackdropAfterSelectionWithEnter() {
 
 		// input some valid text
 		click(inputField);
@@ -169,7 +169,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityAfterSelectionWithClickOnValue() {
+	public void testNoBackdropAfterSelectionWithClickOnValue() {
 
 		// input some valid text
 		click(inputField);
@@ -187,7 +187,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	 */
 	@Test
 	@Ignore
-	public void testNoModalityAfterInvalidInputAndEnter() {
+	public void testNoBackdropAfterInvalidInputAndEnter() {
 
 		// input some invalid text
 		click(inputField);
@@ -202,7 +202,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityIfAlreadySubmitted() {
+	public void testNoBackdropIfAlreadySubmitted() {
 
 		// input some valid text
 		click(inputField);
@@ -220,7 +220,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testModalityIfSubmittedAndThenAltered() {
+	public void testBackdropIfSubmittedAndThenAltered() {
 
 		// input some valid text
 		click(inputField);
@@ -241,7 +241,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityAfterConfirmationOfUniqueValidValue() {
+	public void testNoBackdropAfterConfirmationOfUniqueValidValue() {
 
 		// input some valid text
 		click(inputField);
@@ -262,7 +262,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	}
 
 	@Test
-	public void testNoModalityAfterInvalidValueAndFocusLoss() {
+	public void testNoBackdropAfterInvalidValueAndFocusLoss() {
 
 		// input some invalid text
 		click(inputField);

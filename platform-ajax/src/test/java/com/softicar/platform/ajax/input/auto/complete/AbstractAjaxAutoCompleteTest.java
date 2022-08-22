@@ -121,7 +121,7 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(null);
 	}
 
-	// -------------------- modality -------------------- //
+	// -------------------- backdrop -------------------- //
 
 	protected boolean isAutoCompleteBackdropDisplayed() {
 
