@@ -105,7 +105,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("valueText: [%s]", input.getInputField().getValueText()));
+			executeAlert(IDisplayString.format("valueText: [%s]", input.getValueText()));
 		}
 	}
 

@@ -192,11 +192,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return add((input, engine) -> input.setValue(selectedEntity));
 		}
 
-		public Setup setStringValue(String stringValue) {
-
-			return add((input, engine) -> input.getInputField().setValue(stringValue));
-		}
-
 		public Setup setEntities(AjaxTestEntity...values) {
 
 			return setEntities(Arrays.asList(values));

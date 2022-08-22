@@ -119,11 +119,9 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	// ------------------------------ input field methods ------------------------------ //
 
 	/**
-	 * Returns the native input field that is contained in the auto-complete
-	 * parent element.
+	 * Returns underlying {@link IDomTextualInput} used for textual input.
 	 *
-	 * @return the native input field that is contained in the auto-complete
-	 *         parent element (never null)
+	 * @return the {@link IDomTextualInput} (never <i>null</i>)
 	 */
 	public IDomTextualInput getInputField() {
 

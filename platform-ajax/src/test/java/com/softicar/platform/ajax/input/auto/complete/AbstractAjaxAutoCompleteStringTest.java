@@ -7,7 +7,6 @@ import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAutoCompleteTest {
@@ -41,14 +40,14 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 
 	protected boolean isValueSubmitted() {
 
-		String clientValue = Optional.ofNullable(getAttributeValue(inputField, "value")).orElse("");
+		String clientValue = inputDiv.getValueText();
 		String serverValue = inputDiv.getValue().map(value -> value.getName()).orElse("");
 		return clientValue.equals(serverValue);
 	}
 
 	protected void assertInputValue(AjaxAutoCompleteTestValue value) {
 
-		assertEquals(value.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(value.getName(), inputDiv.getValueText());
 		assertFalse("Auto-complete pop-up still shown.", isAutoCompletePopupDisplayed());
 	}
 
