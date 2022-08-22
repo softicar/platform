@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomBlurEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -21,8 +20,6 @@ class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHa
 		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
 
 		addChangeCallback(input::onChange);
-		unlistenToEvent(DomEventType.CHANGE);
-
 		setListenToKeys(List.of(DomKeys.ARROW_DOWN, DomKeys.ARROW_UP, DomKeys.ENTER, DomKeys.ESCAPE, DomKeys.TAB));
 	}
 

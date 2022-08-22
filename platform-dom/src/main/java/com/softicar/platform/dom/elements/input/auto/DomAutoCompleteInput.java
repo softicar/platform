@@ -6,7 +6,6 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
-import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
@@ -171,12 +170,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	}
 
 	// ------------------------------ event handling ------------------------------ //
-
-	@Override
-	protected void onChangeCallbackAdded() {
-
-		this.inputField.listenToEvent(DomEventType.CHANGE);
-	}
 
 	protected void onInput() {
 
