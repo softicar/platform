@@ -16,6 +16,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
+		waitForServer();
 
 		assertInputValue(VALUE2);
 	}
@@ -27,6 +28,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
 		send(inputField, Key.ENTER);
+		waitForServer();
 
 		// assert popup is not closed but input keeps focus
 		assertTrue(isAutoCompletePopupDisplayed());
@@ -42,6 +44,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 
 		// close popup using ESCAPE
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 		assertFalse(isAutoCompletePopupDisplayed());
 
 		// now press ENTER

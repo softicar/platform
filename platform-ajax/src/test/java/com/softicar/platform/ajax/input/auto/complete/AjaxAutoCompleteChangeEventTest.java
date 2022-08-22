@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -25,6 +24,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, Key.DOWN, Key.ENTER);
+		waitForServer();
 
 		assertEventAndValue(VALUE1);
 	}
@@ -34,6 +34,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, Key.DOWN, Key.TAB);
+		waitForServer();
 
 		assertEventAndValue(VALUE1);
 	}
@@ -43,6 +44,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		clickAutoCompleteValue(VALUE3);
+		waitForServer();
 
 		assertEventAndValue(VALUE3);
 	}
@@ -54,8 +56,8 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
 		send(inputField, Key.ESCAPE);
-
 		waitForServer();
+
 		inputDiv.assertNoEvent();
 		indicator.assertIndicatesIllegal();
 	}
@@ -67,6 +69,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, INVALID_INPUT);
 		waitForAutoCompletePopup();
 		clickBodyNode();
+		waitForServer();
 
 //		assertEventAndValue(INVALID_INPUT); // FIXME decide behavior
 	}
@@ -78,6 +81,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, VALUE3.getName());
 		waitForAutoCompletePopup();
 		clickBodyNode();
+		waitForServer();
 
 		assertEventAndValue(VALUE3);
 	}
@@ -128,18 +132,19 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// set input value
 		send(inputField, Key.ESCAPE);
+		waitForServer();
+
 //		assertUnsubmittedIndicator(true); // FIXME decide behavior
 	}
 
 	// -------------------- backdrop -------------------- //
 
 	@Test
-	@Ignore("Unnecessary test.")
 	public void testBackdropBeforeTyping() {
 
 		openPopup();
 
-		assertFalse(isAutoCompleteBackdropDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -178,6 +183,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// click the value
 		clickAutoCompleteValue(VALUE1);
+		waitForServer();
 
 		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
@@ -225,7 +231,10 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
+		waitForServer();
 
 		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
@@ -243,10 +252,13 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
 
 		// type something
 		send(inputField, "foo");
+		waitForServer();
 
 		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
@@ -261,9 +273,12 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// close the popup
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
 
 		// press enter
 		send(inputField, Key.ENTER);
@@ -314,14 +329,5 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		click(inputField);
 		send(inputField, Key.DOWN);
 		waitForAutoCompletePopup();
-	}
-
-	/**
-	 * Un-focuses the input and re-focuses it.
-	 */
-	private void unfocusAndRefocusInput() {
-
-		clickBodyNode();
-		click(inputField);
 	}
 }

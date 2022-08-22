@@ -34,6 +34,7 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 		// blur and change list of values
 		send(inputField, Key.ESCAPE);
 		click(button);
+		waitForServer();
 
 		// open popup again
 		click(inputField);
