@@ -732,7 +732,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public InputProxy waitForNoPopup() {
 
 			// race assumption: this is the maximum amount of time after which the popup would appear
-			Sleep.sleep(Duration.ofMillis(500));
+			Sleep.sleep(Duration.ofMillis(1000));
 			return this;
 		}
 
