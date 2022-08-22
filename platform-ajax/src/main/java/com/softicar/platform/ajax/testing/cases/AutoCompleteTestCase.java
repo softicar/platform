@@ -5,7 +5,6 @@ import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 
 public class AutoCompleteTestCase extends AbstractTestCaseDiv {
@@ -18,11 +17,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		this.input = appendChild(new AutoCompleteTestCaseInput(this));
 
-		appendChild(
-			new DomActionBar(//
-				new DomActionBar(//
-					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.GENERIC),
-					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.VALIDATION))));
 		appendChild(
 			new DomActionBar(//
 				new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE),
@@ -98,24 +92,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		private void handleClick() {
 
 			input.getConfiguration().setValidationMode(mode);
-		}
-	}
-
-	private class SetIndicatorModeButton extends DomButton {
-
-		private final DomAutoCompleteInputIndicatorMode mode;
-
-		public SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode mode) {
-
-			this.mode = mode;
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("set indicator mode: " + mode.name()));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getConfiguration().setIndicatorMode(mode);
 		}
 	}
 

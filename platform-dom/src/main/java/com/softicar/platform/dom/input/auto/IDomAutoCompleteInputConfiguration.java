@@ -8,41 +8,6 @@ package com.softicar.platform.dom.input.auto;
 public interface IDomAutoCompleteInputConfiguration {
 
 	/**
-	 * @return the {@link DomAutoCompleteInputIndicatorMode} of this input
-	 *         element (never null)
-	 * @see #setIndicatorMode(DomAutoCompleteInputIndicatorMode)
-	 * @see #setIndicatorModeGeneric()
-	 * @see #setIndicatorModeValidation()
-	 */
-	DomAutoCompleteInputIndicatorMode getIndicatorMode();
-
-	/**
-	 * Sets the indicator display mode for the input element.
-	 *
-	 * @param indicatorMode
-	 *            the mode to be set (never null)
-	 */
-	IDomAutoCompleteInputConfiguration setIndicatorMode(DomAutoCompleteInputIndicatorMode indicatorMode);
-
-	/**
-	 * Sets the indicator display mode to
-	 * {@link DomAutoCompleteInputIndicatorMode#GENERIC}.
-	 */
-	default IDomAutoCompleteInputConfiguration setIndicatorModeGeneric() {
-
-		return setIndicatorMode(DomAutoCompleteInputIndicatorMode.GENERIC);
-	}
-
-	/**
-	 * Sets the indicator display mode to
-	 * {@link DomAutoCompleteInputIndicatorMode#VALIDATION}.
-	 */
-	default IDomAutoCompleteInputConfiguration setIndicatorModeValidation() {
-
-		return setIndicatorMode(DomAutoCompleteInputIndicatorMode.VALIDATION);
-	}
-
-	/**
 	 * @return the {@link DomAutoCompleteInputValidationMode} of this input
 	 *         element (never null)
 	 * @see #setValidationMode(DomAutoCompleteInputValidationMode)
