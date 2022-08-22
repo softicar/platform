@@ -30,6 +30,8 @@ import java.util.function.Supplier;
  */
 public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
 
+	public static final int MAXIMUM_ELEMENTS_TO_DISPLAY = 16;
+
 	protected final IDomAutoCompleteInputEngine<T> inputEngine;
 	protected final DomAutoCompleteInputValidationMode validationMode;
 	protected final DomBar inputBar;

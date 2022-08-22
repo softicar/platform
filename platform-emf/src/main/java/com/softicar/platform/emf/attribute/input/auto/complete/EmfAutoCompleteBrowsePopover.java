@@ -3,7 +3,6 @@ package com.softicar.platform.emf.attribute.input.auto.complete;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.dom.elements.popup.modal.DomPopover;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
@@ -30,7 +29,7 @@ class EmfAutoCompleteBrowsePopover<T> extends DomPopover {
 		var table = new EmfAutoCompleteBrowseTable<>(Objects.requireNonNull(inputEngine));
 		new EmfDataTableDivBuilder<>(table)//
 			.setColumnHandler(table.getNameColumn(), new EmfAutoCompleteBrowseColumnHandler<>(inputEngine, this::setInputValueAndHide))
-			.setPageSize(DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY)
+			.setPageSize(DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY)
 			.setHideNavigationActionButtons(true)
 			.buildAndAppendTo(this);
 	}

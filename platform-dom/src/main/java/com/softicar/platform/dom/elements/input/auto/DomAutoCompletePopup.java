@@ -8,7 +8,6 @@ import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,18 +35,18 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		clear();
 		updatePattern();
 
-		var values = inputEngine.findMatches(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY + 1);
+		var values = inputEngine.findMatches(pattern, DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY + 1);
 		if (values.isEmpty()) {
 			appendChild(new NoValuesDisplay());
 		} else {
 			values//
 				.stream()
-				.limit(DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY)
+				.limit(DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY)
 				.forEach(this::addValueDisplay);
 			if (!pattern.isEmpty()) {
 				setSelectionIndex(0);
 			}
-			if (values.size() >= DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_DISPLAY) {
+			if (values.size() >= DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY) {
 				appendChild(new MoreValuesDisplay());
 			}
 		}
