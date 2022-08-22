@@ -41,7 +41,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		input//
 			.focusByClick()
-			.pressEsc();
+			.pressEsc()
+			.waitForServer();
 
 		asserter//
 			.expectValuesNone()
@@ -61,7 +62,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		input//
 			.focusByClick()
-			.pressTab();
+			.pressTab()
+			.waitForServer();
 
 		asserter//
 			.expectValuesNone()
@@ -74,7 +76,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnFilledInputContainingUniqueValue() {
+	public void testTabWithUniqueValueOnFilledInput() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -82,7 +84,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		input//
 			.focusByClick()
-			.pressTab();
+			.pressTab()
+			.waitForServer();
 
 		asserter//
 			.expectValues(ENTITY1)
@@ -95,7 +98,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnFilledInputContainingUnavailableValue() {
+	public void testTabWithIllegalValueOnFilledInput() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -103,7 +106,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		input//
 			.focusByClick()
-			.pressTab();
+			.pressTab()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(UNAVAILABLE_ENTITY)
@@ -111,27 +115,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testDoNotOpenPopupWithEnterOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressEnter()
-			.waitForNoPopup();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
