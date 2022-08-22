@@ -91,6 +91,16 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		inputConstraintRefreshCallbacks.forEach(INullaryVoidFunction::apply);
 	}
 
+	/**
+	 * Returns the {@link IDomAutoCompleteInputEngine} given to the constructor.
+	 *
+	 * @return the {@link IDomAutoCompleteInputEngine} (never <i>null</i>)
+	 */
+	public IDomAutoCompleteInputEngine<T> getInputEngine() {
+
+		return inputEngine;
+	}
+
 	@Override
 	public IDomAutoCompleteInputSelection<T> getSelection() {
 
