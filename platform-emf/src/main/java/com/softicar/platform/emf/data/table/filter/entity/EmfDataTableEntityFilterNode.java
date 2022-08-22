@@ -40,7 +40,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		Optional<T> filterValue = entityInput.getSelection().getValue();
+		Optional<T> filterValue = entityInput.getValue();
 		EmfDataTableEntityFilterType filterType = filterTypeSelect.getSelectedValue();
 		Resetter resetter = new Resetter(filterType, filterValue.orElse(null));
 		if (filterValue.isPresent()) {

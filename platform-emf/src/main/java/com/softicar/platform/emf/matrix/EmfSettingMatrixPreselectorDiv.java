@@ -81,7 +81,7 @@ public class EmfSettingMatrixPreselectorDiv<E extends IEmfEntity<E, ?>> extends 
 
 		public Optional<E> getSelectedValue() {
 
-			return input.getSelection().getValue();
+			return input.getValue();
 		}
 	}
 }

@@ -755,10 +755,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertValues(IDisplayString expectedServerValueExceptionMessage, AjaxTestEntity expectedServerValue, String expectedClientValue) {
 
 			if (expectedServerValueExceptionMessage != null) {
-				assertExceptionMessage(expectedServerValueExceptionMessage, inputNode.getSelection()::getValueOrNull);
+				assertExceptionMessage(expectedServerValueExceptionMessage, inputNode::getValueOrNull);
 				waitForServer();
 			} else {
-				AjaxTestEntity actualServerValue = inputNode.getSelection().getValueOrNull();
+				AjaxTestEntity actualServerValue = inputNode.getValueOrNull();
 				assertEquals(//
 					"Unexpected server-side value.",
 					expectedServerValue,

@@ -42,7 +42,7 @@ public class EmfDataTableCollectionFilterNode<R, C, E> extends DomDiv implements
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		E element = input.getSelection().getValueOrNull();
+		E element = input.getValueOrNull();
 		if (element != null) {
 			return new Filter(element);
 		} else {

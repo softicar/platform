@@ -38,6 +38,6 @@ public class AutoCompleteEntityWithChangeHandlerTestCase extends AbstractTestCas
 
 	private void handleChange() {
 
-		log("callback, value: '%s'", input.getSelection().getValueOrNull());
+		log("callback, value: '%s'", input.getValueOrNull());
 	}
 }

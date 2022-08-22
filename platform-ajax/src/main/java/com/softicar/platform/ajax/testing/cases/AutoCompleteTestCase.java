@@ -24,8 +24,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 				new GetSelectionValueButton(),
 				new GetValueStringOrNullButton(),
 				new GetValueStringOrEmptyButton(),
-				new GetRawValueStringButton(),
-				new FireAssertionButton()));
+				new GetRawValueStringButton()));
 		appendChild(
 			new DomActionBar(//
 				new SetDisabledButton(false),
@@ -61,7 +60,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("value: [%s]", input.getSelection().getValueOrNull()));
+			executeAlert(IDisplayString.format("value: [%s]", input.getValueOrNull()));
 		}
 	}
 
@@ -107,22 +106,6 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		private void handleClick() {
 
 			executeAlert(IDisplayString.format("valueText: [%s]", input.getInputField().getValueText()));
-		}
-	}
-
-	private class FireAssertionButton extends DomButton {
-
-		public FireAssertionButton() {
-
-			setIcon(DomElementsImages.INFO.getResource());
-			setLabel(IDisplayString.create("alert: assert"));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getSelection().assertValid();
-			executeAlert(IDisplayString.create("assertion passed"));
 		}
 	}
 

@@ -112,7 +112,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// assert that empty value was not re-submitted
 		inputDiv.assertNoEvent();
-		assertNull(inputDiv.getSelection().getValueOrNull());
+		assertNull(inputDiv.getValueOrNull());
 		indicator.assertIndicatesNothing();
 	}
 

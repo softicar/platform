@@ -6,13 +6,12 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * The standard implementation of {@link IDomAutoCompleteInputSelection}.
+ * Used internally to determine the value of an {@link DomAutoCompleteInput}.
  * <p>
  * Notes:<br>
  * - {@link #isValid()} and {@link #assertValid()} must correspond to each
@@ -24,7 +23,7 @@ import java.util.function.Function;
  *
  * @author Alexander Schmidt
  */
-class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection<T> {
+class DomAutoCompleteInputSelection<T> {
 
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
 	private final DomAutoCompleteInputValidationMode validationMode;
@@ -40,26 +39,30 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 		this.pattern = pattern;
 	}
 
-	@Override
+	/**
+	 * Returns the optional value of this input element, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, that value is
+	 * returned.</li>
+	 * <li>If the entered text is blank, {@link Optional#empty()} is
+	 * returned.</li>
+	 * <li>If the entered text cannot be mapped to a value, an exception is
+	 * thrown.</li>
+	 * </ul>
+	 *
+	 * @return the value as an {@link Optional} (never <i>null</i>)
+	 */
 	public Optional<T> getValue() {
 
 		assertValid();
 		return getMatchingValue();
 	}
 
-	@Override
-	public T getValueOrNull() {
-
-		return getValue().orElse(null);
-	}
-
-	@Override
-	public T getValueOrThrow() {
-
-		return getValue().orElseThrow(() -> new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY));
-	}
-
-	@Override
+	/**
+	 * Asserts the validity of the entered text.
+	 * <p>
+	 * If {@link #isValid()} would return <i>false</i>, an exception is thrown.
+	 */
 	public void assertValid() {
 
 		if (!isValid()) {
@@ -67,7 +70,17 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 		}
 	}
 
-	@Override
+	/**
+	 * Determines the validity of the entered text, as follows:
+	 * <ul>
+	 * <li>If the entered text can be mapped to a value, <i>true</i> is
+	 * returned.</li>
+	 * <li>If the entered text is blank, <i>true</i> is returned.</li>
+	 * <li>Otherwise, <i>false</i> is returned.</li>
+	 * </ul>
+	 *
+	 * @return <i>true</i> if the entered text is valid; <i>false</i> otherwise
+	 */
 	public boolean isValid() {
 
 		if (isValueEmptyOrModePermissive()) {
@@ -77,7 +90,6 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 		}
 	}
 
-	@Override
 	public boolean isBlankPattern() {
 
 		return pattern.isEmpty();

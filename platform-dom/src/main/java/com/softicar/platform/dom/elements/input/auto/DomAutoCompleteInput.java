@@ -9,7 +9,6 @@ import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
@@ -102,19 +101,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 	}
 
 	@Override
-	public IDomAutoCompleteInputSelection<T> getSelection() {
+	public Optional<T> getValue() {
 
 		return new DomAutoCompleteInputSelection<>(//
 			inputEngine,
 			validationMode,
 			this::getMatchingValues,
-			inputField.getValueTextTrimmed());
-	}
-
-	@Override
-	public Optional<T> getValue() {
-
-		return getSelection().getValue();
+			inputField.getValueTextTrimmed()).getValue();
 	}
 
 	@Override

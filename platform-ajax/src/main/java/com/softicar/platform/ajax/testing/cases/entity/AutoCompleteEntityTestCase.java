@@ -52,7 +52,7 @@ public class AutoCompleteEntityTestCase extends AbstractTestCaseDiv {
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.create(input.getSelection().getValueOrNull() + ""));
+			executeAlert(IDisplayString.create(input.getValueOrNull() + ""));
 		}
 	}
 }

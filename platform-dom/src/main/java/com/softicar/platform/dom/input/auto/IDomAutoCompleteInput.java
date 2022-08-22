@@ -20,14 +20,4 @@ public interface IDomAutoCompleteInput<T> extends IDomParentElement, IDomValueIn
 	 *         parent element (never null)
 	 */
 	IDomTextualInput getInputField();
-
-	/**
-	 * Returns an {@link IDomAutoCompleteInputSelection} instance that
-	 * represents the current selection, and that provides access to the
-	 * selected value.
-	 *
-	 * @return an {@link IDomAutoCompleteInputSelection} instance that
-	 *         represents the current selection (never null)
-	 */
-	IDomAutoCompleteInputSelection<T> getSelection();
 }
