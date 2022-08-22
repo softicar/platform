@@ -34,7 +34,6 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		assertEquals(AMBIGUOUS_INPUT, getAttributeValue(inputField, "value"));
 	}
 
-	// this is a test for #37218
 	@Test
 	public void testEscapeWithSelectedValue() {
 
@@ -51,7 +50,6 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
 
-	// this is a test for #37476
 	@Test
 	public void testEscapeWithValidValue() {
 
