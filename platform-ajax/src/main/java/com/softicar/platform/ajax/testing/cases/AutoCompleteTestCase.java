@@ -26,8 +26,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		appendChild(
 			new DomActionBar(//
 				new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE),
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE),
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.RESTRICTIVE)));
+				new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE)));
 		appendChild(
 			new DomActionBar(//
 				new SetValueMandatoryButton(true),

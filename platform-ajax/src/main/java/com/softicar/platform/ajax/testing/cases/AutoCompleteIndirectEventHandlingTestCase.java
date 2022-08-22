@@ -19,7 +19,6 @@ public class AutoCompleteIndirectEventHandlingTestCase extends AbstractTestCaseD
 		public Wrapper() {
 
 			this.input = appendChild(new AutoCompleteTestCaseInput(AutoCompleteIndirectEventHandlingTestCase.this));
-			this.input.getConfiguration().setValidationModeRestrictive();
 		}
 
 		@Override

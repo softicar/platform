@@ -48,7 +48,6 @@ public interface IDomAutoCompleteInputConfiguration {
 	 * @see #setValidationMode(DomAutoCompleteInputValidationMode)
 	 * @see #setValidationModeDeductive()
 	 * @see #setValidationModePermissive()
-	 * @see #setValidationModeRestrictive()
 	 */
 	DomAutoCompleteInputValidationMode getValidationMode();
 
@@ -76,15 +75,6 @@ public interface IDomAutoCompleteInputConfiguration {
 	default IDomAutoCompleteInputConfiguration setValidationModePermissive() {
 
 		return setValidationMode(DomAutoCompleteInputValidationMode.PERMISSIVE);
-	}
-
-	/**
-	 * Sets the pattern validation mode to
-	 * {@link DomAutoCompleteInputValidationMode#RESTRICTIVE}.
-	 */
-	default IDomAutoCompleteInputConfiguration setValidationModeRestrictive() {
-
-		return setValidationMode(DomAutoCompleteInputValidationMode.RESTRICTIVE);
 	}
 
 	/**

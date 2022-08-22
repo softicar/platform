@@ -1,7 +1,5 @@
 package com.softicar.platform.dom.input.auto;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
-
 /**
  * Enumerates the available pattern validation modes for
  * {@link IDomAutoCompleteInput}.
@@ -49,18 +47,7 @@ public enum DomAutoCompleteInputValidationMode {
 	 * are available as auto-complete filter results. Hence, the raw value
 	 * string must be obtained and interpreted, if necessary.
 	 */
-	PERMISSIVE(2),
-
-	/**
-	 * In {@link DomAutoCompleteInputValidationMode#RESTRICTIVE} mode, the input
-	 * element only indicates an entered pattern to be valid if there is a
-	 * filter result value with the exact same {@link IDisplayString} (case
-	 * sensitive).
-	 * <p>
-	 * Valid values can be retrieved via
-	 * {@link IDomAutoCompleteInput#getSelection()}.
-	 */
-	RESTRICTIVE(3);
+	PERMISSIVE(2);
 
 	private final int id;
 
@@ -88,13 +75,5 @@ public enum DomAutoCompleteInputValidationMode {
 	public boolean isPermissive() {
 
 		return this == PERMISSIVE;
-	}
-
-	/**
-	 * @return true if the mode is {@link #RESTRICTIVE}. false otherwise.
-	 */
-	public boolean isRestrictive() {
-
-		return this == RESTRICTIVE;
 	}
 }

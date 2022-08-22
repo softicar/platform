@@ -58,16 +58,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 			if (matches.size() == 0) {
 				return DomAutoCompleteIndicatorType.ILLEGAL;
 			} else if (matches.size() == 1) {
-				var element = matches.iterator().next();
-				if (configuration.getValidationMode().isRestrictive()) {
-					if (matchesInput(element)) {
-						return DomAutoCompleteIndicatorType.VALID;
-					} else {
-						return DomAutoCompleteIndicatorType.ILLEGAL;
-					}
-				} else {
-					return DomAutoCompleteIndicatorType.VALID;
-				}
+				return DomAutoCompleteIndicatorType.VALID;
 			} else {
 				var firstElement = matches.iterator().next();
 				if (matchesInput(firstElement)) {
@@ -87,11 +78,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	private boolean matchesInput(String elementDisplayString) {
 
-		if (configuration.getValidationMode().isRestrictive()) {
-			return inputField.getValueText().equals(elementDisplayString);
-		} else {
-			return inputField.getValueText().trim().equalsIgnoreCase(elementDisplayString);
-		}
+		return inputField.getValueText().trim().equalsIgnoreCase(elementDisplayString);
 	}
 
 	private static class Image extends DomImage {

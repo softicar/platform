@@ -85,11 +85,7 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 
 	private boolean isValueValid() {
 
-		if (configuration.getValidationMode().isRestrictive()) {
-			return isPatternInValues(true);
-		} else {
-			return isValueUnique() || isPatternInValues(false);
-		}
+		return isValueUnique() || isPatternInValues(false);
 	}
 
 	private boolean isValueEmptyOrModePermissive() {
@@ -111,8 +107,6 @@ class DomAutoCompleteInputSelection<T> implements IDomAutoCompleteInputSelection
 
 		var mode = configuration.getValidationMode();
 		switch (mode) {
-		case RESTRICTIVE:
-			return getFirstMatchingValue(true);
 		case DEDUCTIVE:
 			return getDeducedValue();
 		case PERMISSIVE:
