@@ -3,9 +3,6 @@ package com.softicar.platform.dom.input.auto;
 /**
  * Enumerates the available pattern validation modes for
  * {@link IDomAutoCompleteInput}.
- * <p>
- * Note: The entries and IDs in this enum must reflect those in its JavaScript
- * counterpart.
  *
  * @author Alexander Schmidt
  */
@@ -34,7 +31,7 @@ public enum DomAutoCompleteInputValidationMode {
 	 * Deduced values are accessible via
 	 * {@link IDomAutoCompleteInput#getSelection()}.
 	 */
-	DEDUCTIVE(1),
+	DEDUCTIVE,
 
 	/**
 	 * In {@link DomAutoCompleteInputValidationMode#PERMISSIVE} mode, the input
@@ -47,19 +44,7 @@ public enum DomAutoCompleteInputValidationMode {
 	 * are available as auto-complete filter results. Hence, the raw value
 	 * string must be obtained and interpreted, if necessary.
 	 */
-	PERMISSIVE(2);
-
-	private final int id;
-
-	private DomAutoCompleteInputValidationMode(int id) {
-
-		this.id = id;
-	}
-
-	public int getId() {
-
-		return id;
-	}
+	PERMISSIVE;
 
 	/**
 	 * @return true if the mode is {@link #DEDUCTIVE}. false otherwise.
