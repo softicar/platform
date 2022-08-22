@@ -1,9 +1,7 @@
 package com.softicar.platform.ajax.testing.cases;
 
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -42,12 +40,5 @@ class AutoCompleteTestCaseInput extends DomAutoCompleteInput<String> {
 
 		addChangeCallback(() -> testCaseDiv.log("value: '%s'", getSelection().getValueOrNull()));
 		return this;
-	}
-
-	@Override
-	public DomAutoCompleteList getItemList(String pattern) {
-
-		Sleep.sleep(500);
-		return super.getItemList(pattern);
 	}
 }
