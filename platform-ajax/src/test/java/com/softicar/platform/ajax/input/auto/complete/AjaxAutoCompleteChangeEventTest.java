@@ -165,7 +165,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-//		assertFalse(isAutoCompleteBackdropDisplayed()); // FIXME broken
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
@@ -182,12 +182,8 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
-	/**
-	 * FIXME fix wrong behavior and activate this test
-	 */
 	@Test
-	@Ignore
-	public void testNoBackdropAfterInvalidInputAndEnter() {
+	public void testBackdropAfterInvalidInputAndEnter() {
 
 		// input some invalid text
 		click(inputField);
@@ -196,6 +192,21 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// press enter
 		send(inputField, Key.ENTER);
+		waitForServer();
+
+		assertTrue(isAutoCompleteBackdropDisplayed());
+	}
+
+	@Test
+	public void testNoBackdropAfterInvalidInputAndEscape() {
+
+		// input some invalid text
+		click(inputField);
+		send(inputField, INVALID_INPUT);
+		waitForAutoCompletePopup();
+
+		// press enter
+		send(inputField, Key.ESCAPE);
 		waitForServer();
 
 		assertFalse(isAutoCompleteBackdropDisplayed());
