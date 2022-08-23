@@ -71,7 +71,8 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		clickBodyNode();
 		waitForServer();
 
-//		assertEventAndValue(INVALID_INPUT); // FIXME decide behavior
+		inputDiv.assertNoEvent();
+		indicator.assertIndicatesIllegal();
 	}
 
 	@Test
@@ -118,23 +119,6 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		inputDiv.assertNoEvent();
 		assertNull(inputDiv.getValueOrNull());
 		indicator.assertIndicatesNothing();
-	}
-
-	// -------------------- un-submitted -------------------- //
-
-	@Test
-	public void testUnsubmittedIndicatorWithEscape() {
-
-		// input some invalid text
-		click(inputField);
-		send(inputField, VALUE1.getName());
-		waitForServer();
-
-		// set input value
-		send(inputField, Key.ESCAPE);
-		waitForServer();
-
-//		assertUnsubmittedIndicator(true); // FIXME decide behavior
 	}
 
 	// -------------------- backdrop -------------------- //
