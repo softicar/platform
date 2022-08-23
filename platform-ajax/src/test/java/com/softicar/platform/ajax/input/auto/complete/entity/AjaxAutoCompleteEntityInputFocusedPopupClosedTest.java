@@ -25,7 +25,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.pressArrowDown()
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -49,7 +49,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.pressBackspace(5)
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -75,7 +75,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -117,7 +117,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndBackdropClick() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndClickOnBackdrop() {
 
 		setup//
 			.setSelectedEntity(ENTITY2)
@@ -154,7 +154,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.pressArrowDown()
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -201,7 +201,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -240,7 +240,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testEmptyInputWithTypedUniquePatternAndBackdropClick() {
+	public void testEmptyInputWithTypedUniquePatternAndClickOnBackdrop() {
 
 		setup//
 			.execute();
@@ -261,6 +261,32 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
 			.expectCallbackValue(ENTITY2)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndClickOnPopupRow() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished();
+		popup//
+			.clickEntityNumber(1)
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(ENTITY1)
+			.expectServerValue(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
@@ -298,7 +324,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -309,6 +335,31 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndClickOnPopupRow() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForPopupAndServerFinished();
+		popup//
+			.clickEntityNumber(2)
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY3)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY3)
 			.assertAll();
 	}
 
@@ -347,7 +398,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.focusByClick()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
@@ -362,7 +413,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testEmptyInputWithTypedIllegalPatternAndBackdropClick() {
+	public void testEmptyInputWithTypedIllegalPatternAndClickOnBackdrop() {
 
 		setup//
 			.execute();

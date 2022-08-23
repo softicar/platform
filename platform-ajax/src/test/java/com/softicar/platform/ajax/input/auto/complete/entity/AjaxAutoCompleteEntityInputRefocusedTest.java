@@ -12,20 +12,21 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithClickAndClickOnEmptyInput() {
+	public void testIllegalInputWithFocusLossByTabAndRefocusByClick() {
 
 		setup//
 			.execute();
-
 		input//
 			.focusByClick()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
-			.pressEsc();
-		body//
-			.click();
+			.pressEscape()
+			.pressTab()
+			.waitForServer();
+
 		input//
-			.focusByClick();
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(ILLEGAL_VALUE_NAME)
@@ -39,18 +40,22 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 	}
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithTabAndClickOnEmptyInput() {
+	public void testIllegalInputWithFocusLossByClickAndRefocusByClick() {
 
 		setup//
 			.execute();
-
 		input//
 			.focusByClick()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
-			.pressEsc()
-			.pressTab()
-			.focusByClick();
+			.pressEscape();
+		body//
+			.click()
+			.waitForServer();
+
+		input//
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
 			.expectClientValue(ILLEGAL_VALUE_NAME)

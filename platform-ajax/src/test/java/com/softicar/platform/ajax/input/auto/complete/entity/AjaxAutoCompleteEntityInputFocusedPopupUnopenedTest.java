@@ -135,7 +135,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 
 		input//
 			.focusByClick()
-			.pressEsc()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//

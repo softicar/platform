@@ -7,7 +7,6 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -31,8 +30,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import org.junit.After;
 
@@ -109,10 +106,13 @@ import org.junit.After;
  * popup can be opened and closed many times. However, it is assumed that, if it
  * works twice in a row, arbitrary repetitions will work as well.
  * <p>
- * <b>Test method name anatomy:</b><br>
- * "test[{FeatureOrFeatureCombination}With][{Interaction}On]{InputElementDescription}"<br>
- * definitions:<br>
- * - {InputElementDescription} := [Empty|Filled]Input
+ * <b>Test method name anatomy:</b>
+ *
+ * <pre>
+ * "test{Valid|Ambiguous|Illegal|Empty}Input[With{Interactions}]"
+ *      \__________________________________/ \_________________/
+ *             initial input state            user interactions
+ * </pre>
  *
  * @author Alexander Schmidt
  */
@@ -133,7 +133,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected IDomNode focusPredecessorElement;
 	protected IDomTextualInput inputFieldElement;
 	protected InputProxy input;
-	protected EventTriggerProxy eventTrigger;
 	protected final Setup setup;
 	protected final Asserter asserter;
 	protected final ChangeCallback changeCallback;
@@ -169,7 +168,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected class Setup {
 
 		private boolean executed;
-		private final List<ISetupInstruction> instructions;
+		private final List<TestSetupInstruction> instructions;
 
 		public Setup() {
 
@@ -198,7 +197,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return add((input, engine) -> engine.setLoader(() -> values));
 		}
 
-		public Setup add(ISetupInstruction instruction) {
+		public Setup add(TestSetupInstruction instruction) {
 
 			this.instructions.add(instruction);
 			return this;
@@ -226,7 +225,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			eventTriggerButton = container.getEventTriggerNode();
 			inputFieldElement = inputNode.getInputField();
 			input = new InputProxy();
-			eventTrigger = new EventTriggerProxy();
 			this.executed = true;
 		}
 
@@ -243,29 +241,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 	protected class TestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxTestEntity> {
 
-		private final Lock lock;
-
-		public TestInputEngine() {
-
-			this.lock = new ReentrantLock();
-		}
-
-		// TODO do we still need that?
-		public Locker createLocker() {
-
-			return new Locker(lock);
-		}
-
 		@Override
 		public Collection<AjaxTestEntity> findMatches(String pattern, int limit) {
 
-			try (Locker locker = createLocker()) {
-				return super.findMatches(pattern, limit);
-			}
+			return super.findMatches(pattern, limit);
 		}
 	}
 
-	protected interface ISetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
+	protected interface TestSetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
 
 		// convenience interface
 	}
@@ -661,7 +644,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy pressEsc() {
+		public InputProxy pressEscape() {
 
 			send(inputFieldElement, Key.ESCAPE);
 			return this;
@@ -760,21 +743,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 	}
 
-	protected class EventTriggerProxy {
-
-		public EventTriggerProxy trigger() {
-
-			click(eventTriggerButton);
-			return this;
-		}
-
-		public EventTriggerProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.this.waitForServer();
-			return this;
-		}
-	}
-
 	protected class BodyProxy {
 
 		public BodyProxy click() {
@@ -792,7 +760,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 	protected class PopupProyx {
 
-		public void clickEntityNumber(int number) {
+		public PopupProyx clickEntityNumber(int number) {
 
 			assertTrue(//
 				"The given entity number must not be lower than 1.",
@@ -804,6 +772,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				number <= elementNames.size());
 
 			clickAutoCompletePopupValue(number - 1);
+
+			return this;
+		}
+
+		public PopupProyx waitForServer() {
+
+			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+			return this;
 		}
 
 		public void assertDisplayed(boolean displayed) {

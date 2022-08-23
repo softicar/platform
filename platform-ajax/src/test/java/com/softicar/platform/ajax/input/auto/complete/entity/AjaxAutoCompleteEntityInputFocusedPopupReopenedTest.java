@@ -14,36 +14,9 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	@Ignore("Does not make sense since auto-fill was implemented.")
-	public void testBackdropDisplayedWithUniqueValueNameOnEmptyInputWhilePopupDisplayed() {
+	@Ignore
+	public void test() {
 
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString("fo")
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click();
-		input//
-			.waitForServer()
-			.focusByClick()
-			.pressArrowDown()
-			.waitForPopupAndServerFinished()
-			.sendString("o")
-			.waitForPopupAndServerFinished();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
+		// nothing yet
 	}
 }

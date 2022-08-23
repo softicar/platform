@@ -12,17 +12,17 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testCallbacksWithValidAndValidValueNamesAndEnterOnEmptyInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
 			.execute();
-
 		input//
 			.focusByClick()
 			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
 			.pressEnter()
 			.waitForServer();
+
 		input//
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(ENTITY2.getName())
@@ -42,18 +42,49 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndValidValidValueNamesAndEnterOnEmptyInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndEscape() {
 
 		setup//
 			.execute();
+		input//
+			.focusByClick()
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished()
+			.pressEnter()
+			.waitForServer();
 
 		input//
 			.focusByClick()
+			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
+			.waitForPopupAndServerFinished()
+			.pressEscape()
 			.waitForServer();
+
+		asserter//
+			.expectClientValue(ILLEGAL_VALUE_NAME)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCount(2)
+			.expectCallbackValueNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
+
+		setup//
+			.execute();
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForPopupAndServerFinished()
+			.pressEscape()
+			.waitForServer();
+
 		input//
 			.focusByClick()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
@@ -74,62 +105,27 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	}
 
 	@Test
-	public void testCallbacksWithValidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
+	public void testIllegalInputWithBackspaceTillEmptyAndTypedIllegalPatternAndEscape() {
 
 		setup//
 			.execute();
-
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForPopupAndServerFinished()
-			.pressEnter()
-			.waitForServer();
-		input//
-			.focusByClick()
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
+			.pressEscape()
 			.waitForServer();
 
-		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCount(2)
-			.expectCallbackValueNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testCallbacksWithInvalidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
-			.waitForServer();
 		input//
 			.focusByClick()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
-			.sendString("other invalid value name")
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
+			.sendString("other illegal value name")
+			.waitForPopupAndServerFinished()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("other invalid value name")
+			.expectClientValue("other illegal value name")
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()

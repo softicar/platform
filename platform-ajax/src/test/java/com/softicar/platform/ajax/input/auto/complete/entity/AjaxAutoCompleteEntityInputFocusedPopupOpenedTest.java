@@ -465,7 +465,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		var value2 = new AjaxTestEntity(2, "bar");
 
 		setup//
-			.setAvailableEntities(value1, value2) // replace default values
+			.setAvailableEntities(value1, value2)
 			.execute();
 
 		input//
@@ -492,7 +492,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		var value2 = new AjaxTestEntity(2, "BAR");
 
 		setup//
-			.setAvailableEntities(value1, value2) // replace default values
+			.setAvailableEntities(value1, value2)
 			.execute();
 
 		input//
@@ -520,7 +520,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		var value2 = new AjaxTestEntity(2, "bar");
 
 		setup//
-			.setAvailableEntities(value1, value2) // replace default values
+			.setAvailableEntities(value1, value2)
 			.execute();
 
 		input//
@@ -548,7 +548,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		var value2 = new AjaxTestEntity(2, "BAR");
 
 		setup//
-			.setAvailableEntities(value1, value2) // replace default values
+			.setAvailableEntities(value1, value2)
 			.execute();
 
 		input//
