@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.module.IModule;
 import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
@@ -13,7 +14,6 @@ import com.softicar.platform.core.module.module.instance.ModuleInstanceBasePredi
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.module.IEmfModule;
-import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
@@ -28,7 +28,7 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 	@Override
 	public IEmfPermission<AGModuleInstanceBase> getRequiredPermission() {
 
-		return EmfDefaultModulePermissions.getModuleAdministation();
+		return CoreModule.getModuleAdministation();
 	}
 
 	@Override

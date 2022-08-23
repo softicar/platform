@@ -6,6 +6,8 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.module.AbstractModule;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.emf.page.EmfPagePath;
+import com.softicar.platform.emf.permission.IEmfPermission;
+import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 @SourceCodeReferencePointUuid("a8b076bd-582d-446d-9bce-85a8a180afd5")
 public class CoreModule extends AbstractModule<AGCoreModuleInstance> {
@@ -46,5 +48,21 @@ public class CoreModule extends AbstractModule<AGCoreModuleInstance> {
 	public static EmfPagePath getParentPagePath() {
 
 		return new EmfPagePath().append(PARENT_FOLDER_TITLE);
+	}
+
+	//FIXME Should be removed when PLAT-1099 is done
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleAdministation() {
+
+		return CorePermissions.ADMINISTRATION.<T> of(CoreModuleMapper.get());
+	}
+
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleOperation() {
+
+		return CorePermissions.OPERATION.<T> of(CoreModuleMapper.get());
+	}
+
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleView() {
+
+		return CorePermissions.VIEW.<T> of(CoreModuleMapper.get());
 	}
 }

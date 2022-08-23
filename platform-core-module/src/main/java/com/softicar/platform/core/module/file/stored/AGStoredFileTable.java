@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.file.stored.attribute.StoredFileAttribute;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -27,8 +27,8 @@ public class AGStoredFileTable extends EmfObjectTable<AGStoredFile, AGCoreModule
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGStoredFile, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
-		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
+		authorizer.setEditPermission(EmfPermissions.never());
+		authorizer.setViewPermission(CoreModule.getModuleAdministation());
 	}
 }

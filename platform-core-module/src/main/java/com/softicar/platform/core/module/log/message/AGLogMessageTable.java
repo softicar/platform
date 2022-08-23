@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.log.message;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -33,7 +33,7 @@ public class AGLogMessageTable extends EmfObjectTable<AGLogMessage, AGCoreModule
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGLogMessage, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setViewPermission(CoreModule.getModuleAdministation());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

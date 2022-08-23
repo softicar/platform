@@ -66,11 +66,11 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	}
 
 	@Override
-	public boolean isSuperUser(HttpSession session) {
+	public boolean isAdministrator(HttpSession session) {
 
 		return SofticarAjaxSession//
 			.getInstance(session)
-			.map(SofticarAjaxSession::isSuperUser)
+			.map(SofticarAjaxSession::isCoreModuleAdmin)
 			.orElse(false);
 	}
 

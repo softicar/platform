@@ -69,10 +69,9 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		return AGCoreModuleInstance.getInstance().getSystemUser();
 	}
 
-	@Override
-	public Boolean isSuperUser() {
+	public Boolean isCoreModuleAdmin() {
 
-		return CorePermissions.SUPER_USER.test(AGCoreModuleInstance.getInstance(), getThis());
+		return CorePermissions.ADMINISTRATION.test(AGCoreModuleInstance.getInstance(), getThis());
 	}
 
 	public boolean isPasswordPolicyFulfilled() {

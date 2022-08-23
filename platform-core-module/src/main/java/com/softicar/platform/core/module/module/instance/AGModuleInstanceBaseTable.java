@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.module.instance;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.actions.ModuleInstanceDetailsPopupAction;
 import com.softicar.platform.core.module.module.instance.actions.ModuleInstanceInitializationAction;
@@ -36,9 +37,9 @@ public class AGModuleInstanceBaseTable extends EmfObjectTable<AGModuleInstanceBa
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstanceBase, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
-		authorizer.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
-		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setCreationPermission(CorePermissions.ADMINISTRATION);
+		authorizer.setEditPermission(CoreModule.getModuleAdministation());
+		authorizer.setViewPermission(CoreModule.getModuleAdministation());
 	}
 
 	@Override

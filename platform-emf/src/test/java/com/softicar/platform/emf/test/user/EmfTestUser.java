@@ -64,12 +64,6 @@ public class EmfTestUser extends AbstractEmfObject<EmfTestUser> implements IBasi
 	}
 
 	@Override
-	public Boolean isSuperUser() {
-
-		return false;
-	}
-
-	@Override
 	public ILocale getLocale() {
 
 		return new Locale();

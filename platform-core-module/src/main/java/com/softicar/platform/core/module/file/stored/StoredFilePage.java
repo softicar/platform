@@ -34,6 +34,6 @@ public class StoredFilePage extends AbstractEmfManagementPage<AGCoreModuleInstan
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

@@ -28,7 +28,7 @@ class AjaxDomNodeServiceAjaxStrategy extends AbstractAjaxStrategy {
 	}
 
 	@Override
-	public boolean isSuperUser(HttpSession session) {
+	public boolean isAdministrator(HttpSession session) {
 
 		return true;
 	}

@@ -29,7 +29,7 @@ public class DaemonWatchdogStatePage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.OPERATION;
 	}
 
 	@Override

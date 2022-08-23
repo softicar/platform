@@ -36,8 +36,8 @@ public class AGCoreModuleInstanceTable extends ModuleInstanceTable<AGCoreModuleI
 		authorizer//
 			.setCreationPermission(EmfPermissions.never())
 			.setDeletePermission(EmfPermissions.never())
-			.setEditPermission(CorePermissions.SUPER_USER.toOtherEntityPermission())
-			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+			.setEditPermission(CorePermissions.ADMINISTRATION)
+			.setViewPermission(CorePermissions.ADMINISTRATION);
 	}
 
 	@Override

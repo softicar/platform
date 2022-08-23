@@ -89,18 +89,8 @@ public class ModulePermissionOwnershipUserMatrixPageDivTest extends AbstractModu
 	private void setupCurrentUser() {
 
 		AGUser accessManager = insertUser("Access", "Manager");
-		insertAccessManagerPermission(accessManager);
+		insertPermissionAssignment(accessManager, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 		CurrentUser.set(accessManager);
-	}
-
-	private void insertAccessManagerPermission(AGUser user) {
-
-		new AGModuleInstancePermissionAssignment()
-			.setActive(true)
-			.setModuleInstanceBase(AGCoreModuleInstance.getInstance().pk())
-			.setPermission(CorePermissions.ACCESS_MANAGEMENT.getAnnotatedUuid())
-			.setUser(user)
-			.save();
 	}
 
 	private AGModuleInstancePermissionAssignment getSingleOwnershipRecord() {

@@ -236,7 +236,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 			if (scopeEntity != null) {
 				return entityTable.isCreationPossible(scopeEntity) && entityTable.isCreationAllowed(scopeEntity);
 			} else {
-				return CurrentBasicUser.get().isSuperUser();
+				return false;
 			}
 		}
 

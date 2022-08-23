@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import org.junit.Test;
 
@@ -18,19 +17,14 @@ public class AGUserTest extends AbstractCoreTest {
 	@Test
 	public void testIsSuperUserWithSuperUserPermissionOwnership() {
 
-		new AGModuleInstancePermissionAssignment()//
-			.setActive(true)
-			.setModuleInstanceBase(AGCoreModuleInstance.getInstance().pk())
-			.setPermission(CorePermissions.SUPER_USER.getAnnotatedUuid())
-			.setUser(user)
-			.save();
+		insertPermissionAssignment(user, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 
-		assertTrue(user.isSuperUser());
+		assertTrue(user.isCoreModuleAdmin());
 	}
 
 	@Test
 	public void testIsSuperUserWithoutSuperUserPermissionOwnership() {
 
-		assertFalse(user.isSuperUser());
+		assertFalse(user.isCoreModuleAdmin());
 	}
 }

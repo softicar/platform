@@ -34,12 +34,12 @@ class UserImpersonationStarter {
 	public AGUserImpersonationState start() {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			if (!CurrentUser.get().isSuperUser()) {
+			if (!CurrentUser.get().isCoreModuleAdmin()) {
 				throw new SofticarUserException(CoreI18n.YOU_ARE_NOT_ALLOWED_TO_IMPERSONATE_ANOTHER_USER);
 			}
 
-			if (impersonatedUser.isSuperUser()) {
-				throw new SofticarUserException(CoreI18n.SUPER_USERS_CANNOT_BE_IMPERSONATED);
+			if (impersonatedUser.isCoreModuleAdmin()) {
+				throw new SofticarUserException(CoreI18n.CORE_MODULE_ADMINISTRATORS_CANNOT_BE_IMPERSONATED);
 			}
 
 			informImpersonatedUser();

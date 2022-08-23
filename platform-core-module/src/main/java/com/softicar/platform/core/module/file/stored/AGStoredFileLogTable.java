@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -29,6 +29,6 @@ public class AGStoredFileLogTable extends EmfObjectTable<AGStoredFileLog, AGCore
 			.setCreationPermission(EmfPermissions.never())
 			.setEditPermission(EmfPermissions.never())
 			.setDeletePermission(EmfPermissions.never())
-			.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+			.setViewPermission(CoreModule.getModuleAdministation());
 	}
 }

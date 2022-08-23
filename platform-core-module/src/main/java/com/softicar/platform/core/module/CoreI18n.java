@@ -174,6 +174,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Kern-Sprache");
 	I18n0 CORE_LANGUAGES = new I18n0("Core Languages")//
 		.de("Kern-Sprachen");
+	I18n0 CORE_MODULE_ADMINISTRATORS_CANNOT_BE_IMPERSONATED = new I18n0("Core module administrators cannot be impersonated.")//
+		.de("Kern-Modul Administratoren können nicht verkörpert werden.");
 	I18n0 CORE_MODULE_INSTANCE = new I18n0("Core Module Instance")//
 		.de("Kern-Modulinstanz");
 	I18n0 CORE_MODULE_INSTANCE_LOG = new I18n0("Core Module Instance Log")//
@@ -871,8 +873,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Betreff");
 	I18n0 SUPER_USER = new I18n0("Super User")//
 		.de("Super-Benutzer");
-	I18n0 SUPER_USERS_CANNOT_BE_IMPERSONATED = new I18n0("Super users cannot be impersonated.")//
-		.de("Super-Bernutzer können nicht verkörpert werden.");
 	I18n0 SUPPORT_EMAIL_ADDRESS = new I18n0("Support Email Address")//
 		.de("Support-E-Mail-Adresse");
 	I18n0 SURPLUS_TOKENS = new I18n0("Surplus Tokens")//
