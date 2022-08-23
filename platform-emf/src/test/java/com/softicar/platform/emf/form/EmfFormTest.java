@@ -24,10 +24,6 @@ public class EmfFormTest extends AbstractEmfFormTest {
 	public EmfFormTest() {
 
 		this.scopeObject = insertTestObject("Scope");
-
-		// FIXME remove this when PLAT-1050 was done
-		// trigger early creation of table
-		EmfScopedTestObject.TABLE.createSelect().list();
 	}
 
 	@Test
