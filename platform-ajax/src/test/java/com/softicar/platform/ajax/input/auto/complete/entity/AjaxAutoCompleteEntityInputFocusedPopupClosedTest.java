@@ -9,113 +9,13 @@ import org.junit.Test;
  * <p>
  * All tests in here should end with a closed popup, and a focused input
  * element.
- * <p>
- * FIXME change all method names to begin with the INITIAL situation of the
- * input
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testUniqueInputWithEnter() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueInputWithEscape() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueInputWithTab() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
-			.pressTab()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueInputWithBackdropClick() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(ENTITY2.getName())
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueInputWithArrowDownAndEscape() {
+	public void testValidInputWithArrowDownAndEscape() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -139,106 +39,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testUniqueInputWithBackspaceAndTypedPatternAndEnter() {
-
-		setup//
-			.setSelectedEntity(ENTITY2)
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousInputWithEnter() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousInputWithEscape() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorAmbiguous()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousInputWithArrowDownAndEnter() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
-			.pressArrowDown()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY3)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackValue(ENTITY3)
-			.expectCallbackCountOne()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousInputWithBackspaceAndEscape() {
+	public void testValidInputWithBackspaceTillAmbiguousAndEscape() {
 
 		setup//
 			.setSelectedEntity(ENTITY3)
@@ -264,56 +65,59 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testIllegalInputWithEscape() {
+	public void testValidInputWithBackspaceTillEmptyAndEscape() {
 
 		setup//
+			.setSelectedEntity(ENTITY1)
 			.execute();
 
 		input//
 			.focusByClick()
-			.sendString(ILLEGAL_VALUE_NAME)
+			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.waitForPopupAndServerFinished()
 			.pressEsc()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
+			.expectClientValueNone()
+			.expectServerValueNone()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValueNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testIllegalInputWithBackdropClick() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
+			.setSelectedEntity(ENTITY2)
 			.execute();
 
 		input//
 			.focusByClick()
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished();
-		backdrop//
-			.click()
+			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished()
+			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
 	@Test
-	public void testIllegalInputWithBackspaceAndTypedPatternAndEnter() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndBackdropClick() {
 
 		setup//
 			.setSelectedEntity(ENTITY2)
@@ -341,7 +145,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testEmptyInputWithEscape() {
+	public void testEmptyInputWithArrowDownAndEscape() {
 
 		setup//
 			.execute();
@@ -364,28 +168,221 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	}
 
 	@Test
-	public void testEmptyInputWithBackspaceAndEscape() {
+	public void testEmptyInputWithTypedUniquePatternAndEnter() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
 			.execute();
 
 		input//
 			.focusByClick()
-			.pressBackspace(7)
+			.sendString(ENTITY1.getName())
 			.waitForPopupAndServerFinished()
-			.pressEsc()
+			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValueNone()
+			.expectValues(ENTITY1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValueNone()
+			.expectCallbackValue(ENTITY1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndEscape() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished()
+			.pressEsc()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndTab() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished()
+			.pressTab()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndBackdropClick() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY2.getName())
+			.waitForPopupAndServerFinished();
+		backdrop//
+			.click()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY2)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY2)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndEnter() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForPopupAndServerFinished()
+			.pressEnter()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY2)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY2)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndEscape() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForPopupAndServerFinished()
+			.pressEsc()
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorAmbiguous()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndArrowDownAndEnter() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForPopupAndServerFinished()
+			.pressArrowDown()
+			.pressEnter()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY3)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackValue(ENTITY3)
+			.expectCallbackCountOne()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedIllegalPatternAndEscape() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForPopupAndServerFinished()
+			.pressEsc()
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(ILLEGAL_VALUE_NAME)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedIllegalPatternAndBackdropClick() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForPopupAndServerFinished();
+		backdrop//
+			.click()
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(ILLEGAL_VALUE_NAME)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
 			.assertAll();
 	}
 }

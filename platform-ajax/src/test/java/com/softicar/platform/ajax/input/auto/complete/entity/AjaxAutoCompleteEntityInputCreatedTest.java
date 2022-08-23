@@ -6,31 +6,13 @@ import org.junit.Test;
 /**
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"1
  * Created"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
- * <p>
- * FIXME re-process all method names
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testCreationWithEmptyInput() {
-
-		setup//
-			.execute();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testCreationWithFilledInput() {
+	public void testValidInput() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -47,7 +29,25 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationAndIllegalValueWithFilledInput() {
+	public void testValidInputAfterChange() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.setSelectedEntity(ENTITY2)
+			.execute();
+
+		asserter//
+			.expectValues(ENTITY2)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectNoFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInput() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -65,11 +65,9 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationAndClearedValueWithFilledInput() {
+	public void testEmptyInput() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
-			.setSelectedEntityNone()
 			.execute();
 
 		asserter//
@@ -83,15 +81,15 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testCreationAndChangedValueWithFilledInput() {
+	public void testEmptyInputAfterClear() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
-			.setSelectedEntity(ENTITY2)
+			.setSelectedEntityNone()
 			.execute();
 
 		asserter//
-			.expectValues(ENTITY2)
+			.expectValuesNone()
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

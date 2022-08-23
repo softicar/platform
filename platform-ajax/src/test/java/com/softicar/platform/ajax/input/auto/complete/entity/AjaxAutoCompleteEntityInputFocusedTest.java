@@ -6,55 +6,13 @@ import org.junit.Test;
 /**
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"2
  * Focused"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
- * <p>
- * FIXME re-process all method names
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testFocusByClickOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testFocusByTabOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByTab()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testFocusByClickOnFilledInput() {
+	public void testValidInputWithFocusByClick() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -75,7 +33,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testFocusByTabOnFilledInput() {
+	public void testValidInputWithFocusByTab() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -96,7 +54,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testFocusByClickWithIllegalValueOnFilledInput() {
+	public void testIllegalInputWithFocusByClick() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -118,7 +76,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	}
 
 	@Test
-	public void testFocusByTabWithIllegalValueOnFilledInput() {
+	public void testIllegalInputWithFocusByTab() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -132,6 +90,46 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
 			.expectServerValueExceptionMessage()
 			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithFocusByClick() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.waitForServer();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithFocusByTab() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByTab()
+			.waitForServer();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()

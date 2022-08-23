@@ -208,7 +208,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		final AjaxTestEntity value3 = new AjaxTestEntity(32, "lol"); // the ID of this value contains the ID of another value
 
 		setup//
-			.setEntities(value1, value2, value3) // replace default values
+			.setAvailableEntities(value1, value2, value3) // replace default values
 			.execute();
 
 		try (Locker locker = inputEngine.createLocker()) {
@@ -238,7 +238,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		final AjaxTestEntity value3 = new AjaxTestEntity(32, "lol"); // the ID of this value literally contains the ID of another value
 
 		setup//
-			.setEntities(value1, value2, value3) // replace default values
+			.setAvailableEntities(value1, value2, value3) // replace default values
 			.execute();
 
 		try (Locker locker = inputEngine.createLocker()) {

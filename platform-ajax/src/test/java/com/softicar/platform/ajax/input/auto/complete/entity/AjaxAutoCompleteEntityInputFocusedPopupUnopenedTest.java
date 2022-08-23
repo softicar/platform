@@ -10,16 +10,13 @@ import org.junit.Test;
  * <p>
  * All tests in here should end with the popup not yet being opened, and a
  * focused input element.
- * <p>
- * FIXME change all method names to begin with the INITIAL situation of the
- * input
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testUniqueInputWithEnter() {
+	public void testValidInputWithEnter() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -35,6 +32,28 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testValidInputWithTab() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressTab()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectNoFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
@@ -60,6 +79,30 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInputWithTab() {
+
+		setup//
+			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressTab()
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectNoFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValueNone()
 			.assertAll();
 	}
 
@@ -123,54 +166,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
-			.assertAll();
-	}
-
-	// TODO bad name
-	@Test
-	public void testUniqueInputWithTabWithUniqueValue() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressTab()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	// TODO bad name
-	@Test
-	public void testIllegalInputWithTabWithIllegalValue() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressTab()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
 			.assertAll();
 	}
 }
