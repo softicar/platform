@@ -1,21 +1,12 @@
 package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
-import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.List;
 import org.junit.Test;
 
 public class LocalizationValidatorTest extends AbstractDbTest {
-
-	public LocalizationValidatorTest() {
-
-		// TODO Remove this workaround as soon as PLAT-1050 is done.
-		AGCoreLanguage language = AGCoreLanguageEnum.ENGLISH.getRecord();
-		language.reload();
-		language.save();
-	}
 
 	@Test
 	public void test() {
