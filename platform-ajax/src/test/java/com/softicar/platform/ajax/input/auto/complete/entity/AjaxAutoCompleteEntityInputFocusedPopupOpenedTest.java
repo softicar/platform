@@ -7,13 +7,300 @@ import org.junit.Test;
 /**
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
  * <b>"2.2 Popup Opened"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <p>
+ * All tests in here should end with an open popup, and a focused input element.
+ * <p>
+ * FIXME change all method names to begin with the INITIAL situation of the
+ * input
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testArrowDownOnAmbiguousInput() {
+	public void testUniqueInputWithArrowDown() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressArrowDown()
+			.waitForPopup();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithArrowDownAndClick() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressArrowDown()
+			.waitForPopup()
+			.focusByClick()
+			.waitForServer();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithArrowUp() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressArrowUp()
+			.waitForPopup();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueLast()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithBackspace() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressBackspace()
+			.waitForPopupAndServerFinished();
+
+		asserter//
+			.expectClientValue("foo [1")
+			.expectServerValue(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedPattern() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY1.getName())
+			.waitForPopupAndServerFinished();
+
+		asserter//
+			.expectClientValue(ENTITY1.getName())
+			.expectServerValue(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedPartialPattern() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString("foo [1")
+			.waitForServer();
+
+		asserter//
+			.expectClientValue("foo [1")
+			.expectServerValue(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedPerfectMatchPattern() {
+
+		setup//
+			.add((input, engine) -> engine.setDisplayFunction(value -> value.toDisplayWithoutId()))
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(ENTITY3.getName())
+			.waitForServer();
+
+		asserter//
+			.expectClientValue(ENTITY3.getName())
+			.expectServerValue(ENTITY3)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITY3, ENTITY4)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedLowerCasePatternAndLowerCaseValues() {
+
+		var value1 = new AjaxTestEntity(1, "foo");
+		var value2 = new AjaxTestEntity(2, "bar");
+
+		setup//
+			.setEntities(value1, value2) // replace default values
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString("foo [1]")
+			.waitForServer();
+
+		asserter//
+			.expectValues(value1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(value1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedLowerCasePatternAndUpperCaseValues() {
+
+		var value1 = new AjaxTestEntity(1, "FOO");
+		var value2 = new AjaxTestEntity(2, "BAR");
+
+		setup//
+			.setEntities(value1, value2) // replace default values
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString("foo [1]")
+			.waitForServer();
+
+		asserter//
+			.expectClientValue("foo [1]")
+			.expectServerValue(value1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(value1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedUpperCasePatternAndLowerCaseValues() {
+
+		var value1 = new AjaxTestEntity(1, "foo");
+		var value2 = new AjaxTestEntity(2, "bar");
+
+		setup//
+			.setEntities(value1, value2) // replace default values
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString("FOO [1]")
+			.waitForServer();
+
+		asserter//
+			.expectClientValue("FOO [1]")
+			.expectServerValue(value1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(value1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testUniqueInputWithTypedUpperCasePatternAndUpperCaseValues() {
+
+		var value1 = new AjaxTestEntity(1, "FOO");
+		var value2 = new AjaxTestEntity(2, "BAR");
+
+		setup//
+			.setEntities(value1, value2) // replace default values
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString("FOO [1]")
+			.waitForServer();
+
+		asserter//
+			.expectValues(value1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(value1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testAmbiguousInputWithArrowDown() {
 
 		setup//
 			.execute();
@@ -21,9 +308,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer();
-
-		input//
+			.waitForServer()
 			.pressArrowDown()
 			.waitForServer();
 
@@ -41,7 +326,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testArrowDownAndWrappingOnAmbiguousInput() {
+	public void testAmbiguousInputWithArrowDownAndWrapping() {
 
 		setup//
 			.execute();
@@ -49,9 +334,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer();
-
-		input//
+			.waitForServer()
 			.pressArrowDown()
 			.pressArrowDown()
 			.pressArrowDown()
@@ -71,7 +354,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testArrowUpAndWrappingOnAmbiguousInput() {
+	public void testAmbiguousInputWithArrowUpAndWrapping() {
 
 		setup//
 			.execute();
@@ -79,9 +362,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 		input//
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer();
-
-		input//
+			.waitForServer()
 			.pressArrowUp()
 			.pressArrowUp()
 			.waitForServer();
@@ -100,400 +381,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testArrowDownWithIllegalInput() {
+	public void testAmbiguousInputWithTypedPattern() {
 
 		setup//
 			.execute();
 
 		input//
 			.focusByClick()
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer();
-
-		input//
-			.pressArrowDown()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClickAfterArrowDownOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressArrowDown()
-			.waitForPopup();
-
-		input//
-			.focusByClick()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITIES)
-			.expectPopupSelectedValueNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClickAfterArrowDownOnFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressArrowDown()
-			.waitForPopup();
-
-		input//
-			.focusByClick()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowDownOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick()
-			.pressArrowDownAndWaitForPopup();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testBackspaceOnFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressBackspace()
-			.waitForPopupAndServerFinished();
-
-		asserter//
-			.expectClientValue("foo [1")
-			.expectServerValue(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEnterOnUniqueInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressEnter()
-			.waitForNoPopup();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEnterOnIllegalInput() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressEnter()
-			.waitForNoPopup();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowDownOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowDownAndWaitForPopup();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITIES)
-			.expectPopupSelectedValueNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowDownOnUniqueInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowDownAndWaitForPopup();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowDownOnIllegalInput() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowDownAndWaitForPopup();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowUpOnEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowUpAndWaitForPopup();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITIES)
-			.expectPopupSelectedValueNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowUpOnUniqueInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowUpAndWaitForPopup();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueLast()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testArrowUpOnIllegalInput() {
-
-		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.pressArrowUpAndWaitForPopup();
-
-		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTypeIllegalPatternOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished();
-
-		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorIllegal()
-			.expectPopupDisplayed()
-			.expectPopupEntitiesNone()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTypeUniquePatternOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished();
-
-		asserter//
-			.expectClientValue(ENTITY1.getName())
-			.expectServerValue(ENTITY1)
-			.expectIndicatorNone()
-			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
-			.expectFocus()
-			.expectBackdropDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testTypeAmbiguousPatternNameOnEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusByClick();
-
-		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer();
 
@@ -511,25 +405,23 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypePartialPatternOnEmptyInput() {
+	public void testIllegalInputWithArrowDown() {
 
 		setup//
+			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString("foo [1")
-			.waitForServer();
+			.focusByClick()
+			.pressArrowDown()
+			.waitForPopup();
 
 		asserter//
-			.expectClientValue("foo [1")
-			.expectServerValue(ENTITY1)
-			.expectIndicatorNone()
+			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY1)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntitiesNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()
@@ -537,27 +429,23 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypePerfectMatchPatternOnEmptyInput() {
+	public void testIllegalInputWithArrowUp() {
 
 		setup//
-			.add((input, engine) -> engine.setDisplayFunction(value -> value.toDisplayWithoutId()))
-			.setListenToChange()
+			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString(ENTITY3.getName())
-			.waitForServer();
+			.focusByClick()
+			.pressArrowUp()
+			.waitForPopup();
 
 		asserter//
-			.expectClientValue(ENTITY3.getName())
-			.expectServerValue(ENTITY3)
-			.expectIndicatorNone()
+			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupDisplayed()
-			.expectPopupEntities(ENTITY3, ENTITY4)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntitiesNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()
@@ -565,28 +453,22 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypeLowerCasePatternWithLowerCaseValuesOnEmptyInput() {
-
-		var value1 = new AjaxTestEntity(1, "foo");
-		var value2 = new AjaxTestEntity(2, "bar");
+	public void testIllegalInputWithTypedPattern() {
 
 		setup//
-			.setEntities(value1, value2) // replace default values
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString("foo [1]")
-			.waitForServer();
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForPopupAndServerFinished();
 
 		asserter//
-			.expectValues(value1)
-			.expectIndicatorNone()
+			.expectClientValue(ILLEGAL_VALUE_NAME)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupDisplayed()
-			.expectPopupEntities(value1)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntitiesNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()
@@ -594,29 +476,24 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypeLowerCasePatternWithUpperCaseValuesOnEmptyInput() {
-
-		var value1 = new AjaxTestEntity(1, "FOO");
-		var value2 = new AjaxTestEntity(2, "BAR");
+	public void testIllegalInputWithTypedPatternAndArrowDown() {
 
 		setup//
-			.setEntities(value1, value2) // replace default values
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString("foo [1]")
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressArrowDown()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("foo [1]")
-			.expectServerValue(value1)
-			.expectIndicatorNone()
+			.expectClientValue(ILLEGAL_VALUE_NAME)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupDisplayed()
-			.expectPopupEntities(value1)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntitiesNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()
@@ -624,29 +501,22 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypeUpperCasePatternWithLowerCaseValuesOnEmptyInput() {
-
-		var value1 = new AjaxTestEntity(1, "foo");
-		var value2 = new AjaxTestEntity(2, "bar");
+	public void testEmptyInputWithArrowDown() {
 
 		setup//
-			.setEntities(value1, value2) // replace default values
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString("FOO [1]")
-			.waitForServer();
+			.focusByClick()
+			.pressArrowDown()
+			.waitForPopup();
 
 		asserter//
-			.expectClientValue("FOO [1]")
-			.expectServerValue(value1)
+			.expectValuesNone()
 			.expectIndicatorNone()
 			.expectPopupDisplayed()
-			.expectPopupEntities(value1)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntities(ENTITIES)
+			.expectPopupSelectedValueNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()
@@ -654,28 +524,47 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
-	public void testTypeUpperCasePatternWithUpperCaseValuesOnEmptyInput() {
-
-		var value1 = new AjaxTestEntity(1, "FOO");
-		var value2 = new AjaxTestEntity(2, "BAR");
+	public void testEmptyInputWithArrowDownAndClick() {
 
 		setup//
-			.setEntities(value1, value2) // replace default values
 			.execute();
 
 		input//
-			.focusByClick();
-
-		input//
-			.sendString("FOO [1]")
+			.focusByClick()
+			.pressArrowDown()
+			.waitForPopup()
+			.focusByClick()
 			.waitForServer();
 
 		asserter//
-			.expectValues(value1)
+			.expectValuesNone()
 			.expectIndicatorNone()
 			.expectPopupDisplayed()
-			.expectPopupEntities(value1)
-			.expectPopupSelectedValueFirst()
+			.expectPopupEntities(ENTITIES)
+			.expectPopupSelectedValueNone()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithArrowUp() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressArrowUp()
+			.waitForPopup();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupEntities(ENTITIES)
+			.expectPopupSelectedValueNone()
 			.expectFocus()
 			.expectBackdropDisplayed()
 			.expectCallbackNone()

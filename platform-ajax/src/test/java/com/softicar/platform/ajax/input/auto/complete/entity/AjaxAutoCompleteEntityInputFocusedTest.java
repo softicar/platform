@@ -6,6 +6,8 @@ import org.junit.Test;
 /**
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"2
  * Focused"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <p>
+ * FIXME re-process all method names
  *
  * @author Alexander Schmidt
  */
@@ -15,7 +17,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByClickOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
@@ -36,7 +37,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByTabOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
@@ -57,7 +57,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByClickOnFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.execute();
 
@@ -79,7 +78,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByTabOnFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.execute();
 
@@ -101,7 +99,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByClickWithIllegalValueOnFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
@@ -124,7 +121,6 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testFocusByTabWithIllegalValueOnFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 

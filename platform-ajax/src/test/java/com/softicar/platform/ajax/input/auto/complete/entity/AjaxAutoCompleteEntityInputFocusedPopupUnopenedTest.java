@@ -7,13 +7,64 @@ import org.junit.Test;
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
  * <b>"2.1 Popup Un-Opened"</b> (see
  * {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <p>
+ * All tests in here should end with the popup not yet being opened, and a
+ * focused input element.
+ * <p>
+ * FIXME change all method names to begin with the INITIAL situation of the
+ * input
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testEnterOnEmptyInput() {
+	public void testUniqueInputWithEnter() {
+
+		setup//
+			.setSelectedEntity(ENTITY1)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressEnter()
+			.waitForNoPopup();
+
+		asserter//
+			.expectValues(ENTITY1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInputWithEnter() {
+
+		setup//
+			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.execute();
+
+		input//
+			.focusByClick()
+			.pressEnter()
+			.waitForNoPopup();
+
+		asserter//
+			.expectClientValue(UNAVAILABLE_ENTITY)
+			.expectServerValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithEnter() {
 
 		setup//
 			.execute();
@@ -34,7 +85,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testEscOnEmptyInput() {
+	public void testEmptyInputWithEscape() {
 
 		setup//
 			.execute();
@@ -55,7 +106,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	}
 
 	@Test
-	public void testTabOnEmptyInput() {
+	public void testEmptyInputWithTab() {
 
 		setup//
 			.execute();
@@ -75,8 +126,9 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.assertAll();
 	}
 
+	// TODO bad name
 	@Test
-	public void testTabWithUniqueValueOnFilledInput() {
+	public void testUniqueInputWithTabWithUniqueValue() {
 
 		setup//
 			.setSelectedEntity(ENTITY1)
@@ -97,8 +149,9 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.assertAll();
 	}
 
+	// TODO bad name
 	@Test
-	public void testTabWithIllegalValueOnFilledInput() {
+	public void testIllegalInputWithTabWithIllegalValue() {
 
 		setup//
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
@@ -116,7 +169,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValueNone()
 			.assertAll();
 	}
 }

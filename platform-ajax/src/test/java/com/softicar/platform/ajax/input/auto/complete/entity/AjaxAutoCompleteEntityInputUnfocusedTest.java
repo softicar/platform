@@ -36,7 +36,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
@@ -64,7 +65,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValueNone()
 			.assertAll();
 	}
 
@@ -115,7 +117,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY3)
 			.assertAll();
 	}
 
@@ -139,7 +142,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
@@ -191,7 +195,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
@@ -253,7 +258,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(value2)
 			.assertAll();
 	}
 }

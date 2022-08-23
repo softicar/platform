@@ -175,11 +175,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			this.executed = false;
 			this.instructions = new ArrayList<>();
-		}
-
-		public Setup setListenToChange() {
-
-			return add((input, engine) -> input.addChangeCallback(changeCallback));
+			addListenToChange();
 		}
 
 		public Setup setSelectedEntityNone() {
@@ -237,6 +233,11 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertExecuted() {
 
 			assertTrue("Setup was not executed", executed);
+		}
+
+		private void addListenToChange() {
+
+			add((input, engine) -> input.addChangeCallback(changeCallback));
 		}
 	}
 
@@ -692,26 +693,13 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy pressArrowDownAndWaitForPopup() {
-
-			pressArrowDown();
-			waitForPopup();
-			return this;
-		}
-
 		public InputProxy pressArrowUp() {
 
 			send(inputFieldElement, Key.UP);
 			return this;
 		}
 
-		public InputProxy pressArrowUpAndWaitForPopup() {
-
-			pressArrowUp();
-			waitForPopup();
-			return this;
-		}
-
+		// TODO replace calls with waitForServer, and eliminate?
 		public InputProxy waitForPopupAndServerFinished() {
 
 			waitForServer();
@@ -719,6 +707,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
+		// TODO replace calls with waitForServer, and eliminate?
 		public InputProxy waitForPopup() {
 
 			AbstractAjaxAutoCompleteEntityTest.super.waitForAutoCompletePopup();

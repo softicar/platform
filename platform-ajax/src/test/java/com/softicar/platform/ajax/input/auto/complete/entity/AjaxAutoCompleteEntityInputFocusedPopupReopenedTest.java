@@ -18,7 +18,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReopenedTest extends Abstrac
 	public void testBackdropDisplayedWithUniqueValueNameOnEmptyInputWhilePopupDisplayed() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//

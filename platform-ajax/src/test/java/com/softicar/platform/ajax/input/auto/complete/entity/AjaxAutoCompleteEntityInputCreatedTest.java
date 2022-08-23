@@ -6,6 +6,8 @@ import org.junit.Test;
 /**
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"1
  * Created"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * <p>
+ * FIXME re-process all method names
  *
  * @author Alexander Schmidt
  */
@@ -15,7 +17,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testCreationWithEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		asserter//
@@ -32,7 +33,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testCreationWithFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.execute();
 
@@ -50,7 +50,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testCreationAndIllegalValueWithFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(UNAVAILABLE_ENTITY)
 			.execute();
 
@@ -69,7 +68,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testCreationAndClearedValueWithFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.setSelectedEntityNone()
 			.execute();
@@ -88,7 +86,6 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testCreationAndChangedValueWithFilledInput() {
 
 		setup//
-			.setListenToChange()
 			.setSelectedEntity(ENTITY1)
 			.setSelectedEntity(ENTITY2)
 			.execute();

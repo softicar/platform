@@ -15,7 +15,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	public void testCallbacksWithValidAndValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
@@ -46,7 +45,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	public void testCallbacksWithInvalidAndValidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
@@ -79,7 +77,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	public void testCallbacksWithValidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
@@ -113,7 +110,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 	public void testCallbacksWithInvalidAndInvalidValidValueNamesAndEnterOnEmptyInput() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
