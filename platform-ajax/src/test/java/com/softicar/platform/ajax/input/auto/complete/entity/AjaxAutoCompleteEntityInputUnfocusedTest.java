@@ -13,21 +13,21 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 	@Test
 	public void testValidInputWithBackspaceTillAmbiguousAndEscapeAndClickOnBody() {
-	
+
 		setup//
 			.setSelectedEntity(ENTITY3)
 			.execute();
-	
+
 		input//
 			.focusByClick()
 			.pressBackspace(5)
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 		body//
 			.click()
 			.waitForServer();
-	
+
 		asserter//
 			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.expectServerValueExceptionMessage()
@@ -77,7 +77,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 		input//
 			.focusByClick()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 		body//

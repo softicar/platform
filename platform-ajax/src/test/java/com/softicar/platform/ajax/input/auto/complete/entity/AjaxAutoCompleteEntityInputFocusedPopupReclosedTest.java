@@ -19,14 +19,14 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusByClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		input//
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(ENTITY2.getName())
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
@@ -49,7 +49,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusByClick()
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
@@ -57,7 +57,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusByClick()
 			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
@@ -81,7 +81,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusByClick()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
@@ -89,7 +89,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusByClick()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString(ENTITY1.getName())
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
@@ -112,7 +112,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusByClick()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
@@ -120,7 +120,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.focusByClick()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString("other illegal value name")
-			.waitForPopupAndServerFinished()
+			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 

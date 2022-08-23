@@ -682,21 +682,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		// TODO replace calls with waitForServer, and eliminate?
-		public InputProxy waitForPopupAndServerFinished() {
-
-			waitForServer();
-			waitForPopup();
-			return this;
-		}
-
-		// TODO replace calls with waitForServer, and eliminate?
-		public InputProxy waitForPopup() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForAutoCompletePopup();
-			return this;
-		}
-
 		public InputProxy waitForNoPopup() {
 
 			// race assumption: this is the maximum amount of time after which the popup would appear

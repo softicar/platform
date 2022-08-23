@@ -54,7 +54,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
 
@@ -67,7 +67,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		clickBodyNode();
 		waitForServer();
 
@@ -79,7 +79,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, VALUE3.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		clickBodyNode();
 		waitForServer();
 
@@ -94,7 +94,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input and submit some value
 		openPopup();
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
 		waitForServer();
 		inputDiv.clearEvents();
@@ -103,7 +103,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		while (!getAttributeValue(inputField, "value").isEmpty()) {
 			send(inputField, Key.BACK_SPACE);
 		}
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
 		indicator.assertIndicatesNothing();
@@ -128,7 +128,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some invalid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// set input value
 		send(inputField, Key.ESCAPE);
@@ -153,7 +153,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
@@ -164,7 +164,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
@@ -179,7 +179,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// click the value
 		clickAutoCompleteValue(VALUE1);
@@ -194,7 +194,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
@@ -209,7 +209,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ESCAPE);
@@ -224,7 +224,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
@@ -245,7 +245,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
@@ -269,7 +269,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some valid text
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// close the popup
 		send(inputField, Key.ESCAPE);
@@ -293,7 +293,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		clickBodyNode();
 		waitForServer();
@@ -328,6 +328,6 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 	}
 }

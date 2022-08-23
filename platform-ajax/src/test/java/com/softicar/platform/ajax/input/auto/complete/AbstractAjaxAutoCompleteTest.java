@@ -34,23 +34,6 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedValueIndex();
 	}
 
-	// -------------------- waiting -------------------- //
-
-	protected void waitForAutoCompletePopup() {
-
-		testEngine.getAutoCompleteExtension().waitForAutoCompletePopup();
-	}
-
-	protected void waitForAutoCompletePopupToHide() {
-
-		testEngine.getAutoCompleteExtension().waitForAutoCompletePopupToHide();
-	}
-
-	protected void waitForIndicatorToHide(DomAutoCompleteIndicatorType indicatorType) {
-
-		testEngine.getAutoCompleteExtension().waitForIndicatorToHide(indicatorType);
-	}
-
 	// -------------------- status -------------------- //
 
 	protected boolean isAutoCompletePopupDisplayed() {

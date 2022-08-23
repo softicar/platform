@@ -14,7 +14,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 	public void testEnterKeySelection() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
 		waitForServer();
 
@@ -26,7 +26,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 
 		// enter invalid input and press ENTER
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
 		waitForServer();
 
@@ -40,7 +40,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 
 		// enter valid but incomplete input
 		send(inputField, INCOMPLETE_VALUE1_NAME);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// close popup using ESCAPE
 		send(inputField, Key.ESCAPE);

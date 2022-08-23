@@ -28,7 +28,7 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 		// open popup to fill cache
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertPopupValues(VALUE1, VALUE2);
 
 		// blur and change list of values
@@ -39,7 +39,7 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 		// open popup again
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertPopupValues(VALUE3);
 	}
 }

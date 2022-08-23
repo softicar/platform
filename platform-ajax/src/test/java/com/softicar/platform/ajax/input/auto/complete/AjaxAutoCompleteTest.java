@@ -29,7 +29,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testDisplayPopupOnKeyDown() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertRequests("");
 		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
@@ -40,7 +40,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testDisplayPopupOnKeyUp() {
 
 		send(inputField, Key.UP);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertRequests("");
 		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
@@ -52,7 +52,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		click(inputField);
 		simulateInput(inputField);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertRequests("");
 		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
@@ -65,12 +65,12 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		click(inputField);
 		send(inputField, VALUE3.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertPopupValues(VALUE3, VALUE4);
 	}
@@ -80,12 +80,12 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
 	}
@@ -97,18 +97,18 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		// open popup and close it
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 
 		// try to open popup again
 		clear(inputField);
 		send(inputField, VALUE2.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		assertEquals(VALUE2.getName(), getAttributeValue(inputField, "value"));
 	}
@@ -118,16 +118,16 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		// open popup and close it
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		clickBodyNode();
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		// try to open popup again
 		clear(inputField);
 		send(inputField, VALUE2.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		assertEquals(VALUE2.getName(), getAttributeValue(inputField, "value"));
 	}
@@ -138,16 +138,16 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		// open popup and close it
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		// try to open popup again
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN);
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
@@ -159,10 +159,10 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		clickBodyNode();
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		assertFalse(isAutoCompletePopupDisplayed());
 		indicator.assertIndicatesNothing();
@@ -174,7 +174,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		indicator.assertIndicatesAmbiguous();
 
 		clickBodyNode();
@@ -190,7 +190,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testDisplayValuesWithoutFiltering() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertRequests("");
 		assertPopupValues(VALUE1, VALUE2, VALUE3, VALUE4);
@@ -200,7 +200,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testDisplayValuesWithFiltering() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		assertRequests(AMBIGUOUS_INPUT);
 		assertPopupValues(VALUE1, VALUE3, VALUE4);
@@ -212,7 +212,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testTabKeySelection() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.TAB);
 		waitForServer();
 
@@ -224,7 +224,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		// enter invalid input and press TAB
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.TAB);
 		waitForServer();
 
@@ -239,7 +239,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testSelectionAfterFilteringWithDefaultValue() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
 		waitForServer();
 
@@ -251,7 +251,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testSelectionAfterFilteringWithArrowNavigation() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.ENTER);
 		waitForServer();
 
@@ -263,7 +263,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testSelectionAfterFilteringWithPingpongArrowNavigation() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.UP, Key.ENTER);
 		waitForServer();
 
@@ -275,7 +275,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testSelectionAfterFilteringWithWrappingArrowNavigation() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
 		waitForServer();
 
@@ -287,7 +287,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testValueSelectionWithClick() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		clickAutoCompleteValue(VALUE3);
 		waitWhile(() -> isAutoCompletePopupDisplayed());
@@ -302,7 +302,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testSelectionWhileLoading() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		try (Locker locker = inputDiv.getEngine().lock()) {
 			send(inputField, INVALID_INPUT);
@@ -324,7 +324,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 			inputDiv.getEngine().addValue(value);
 		}
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertTrue(isAutoCompleteMoreValuesInfoElementDisplayed());
 	}
 
@@ -332,7 +332,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testMoreValuesInfoNotDisplayed() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertFalse(isAutoCompleteMoreValuesInfoElementDisplayed());
 	}
 
@@ -341,7 +341,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 
 		inputDiv.getEngine().clearValues();
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertTrue(isAutoCompleteValuePlaceholderElementDisplayed());
 	}
 
@@ -349,7 +349,7 @@ public class AjaxAutoCompleteTest extends AbstractAjaxAutoCompleteStringTest {
 	public void testNoValuePlaceholderNotDisplayed() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		assertFalse(isAutoCompleteValuePlaceholderElementDisplayed());
 	}
 

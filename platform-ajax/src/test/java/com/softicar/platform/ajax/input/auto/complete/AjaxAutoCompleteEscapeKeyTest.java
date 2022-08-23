@@ -14,7 +14,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 	public void testEscapeWithEmptyValue() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
 
@@ -27,7 +27,7 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 	public void testEscapeWithAmbiguousValue() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
 
@@ -42,10 +42,10 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		// select specific value
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN);
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		// now press escape
 		send(inputField, Key.ESCAPE);
@@ -60,11 +60,11 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 		// enter valid value name
 		click(inputField);
 		send(inputField, VALUE1.getName());
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// type ESCAPE
 		send(inputField, Key.ESCAPE);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 		indicator.assertIndicatesNothing();
 
 		// now leave and re-enter

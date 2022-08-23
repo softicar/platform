@@ -37,7 +37,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input some ambiguous text
 		clear(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		indicator.assertIndicatesAmbiguous();
 
 		// press escape
@@ -48,7 +48,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// remove text from input and close popup
 		clear(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
 
@@ -62,7 +62,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input some ambiguous text
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		indicator.assertIndicatesAmbiguous();
 
 		// press escape
@@ -87,7 +87,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		indicator.assertIndicatesIllegal();
 
 		// set input value
@@ -106,7 +106,7 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input invalid text
 		click(inputField);
 		send(inputField, "x");
-		waitForAutoCompletePopup();
+		waitForServer();
 		indicator.assertIndicatesIllegal();
 
 		// leave input

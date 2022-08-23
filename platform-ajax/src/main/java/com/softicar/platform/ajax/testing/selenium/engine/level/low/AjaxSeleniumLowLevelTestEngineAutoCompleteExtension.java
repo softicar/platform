@@ -1,11 +1,9 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestValue;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -14,19 +12,13 @@ import java.util.stream.Collectors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
 
 class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
-	private static final Duration AUTO_COMPLETE_TIMEOUT = Duration.ofSeconds(10);
-	private static final Duration INDICATOR_TIMEOUT = Duration.ofSeconds(10);
-
-	private final IAjaxSeleniumLowLevelTestEngine engine;
 	private final Supplier<WebDriver> webDriverSupplier;
 
 	public AjaxSeleniumLowLevelTestEngineAutoCompleteExtension(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
-		this.engine = parameters.getEngine();
 		this.webDriverSupplier = parameters.getWebDriverSupplier();
 	}
 
@@ -129,36 +121,6 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.stream()
 			.findFirst()
 			.ifPresent(WebElement::click);
-	}
-
-	@Override
-	public void waitForAutoCompletePopup() {
-
-		new FluentWait<>(0)//
-			.withTimeout(AUTO_COMPLETE_TIMEOUT)
-			.withMessage("Timeout while waiting for auto complete popup to appear.")
-			.until(dummy -> isAutoCompletePopupDisplayed());
-	}
-
-	@Override
-	public void waitForAutoCompletePopupToHide() {
-
-		new FluentWait<>(0)//
-			.withTimeout(AUTO_COMPLETE_TIMEOUT)
-			.withMessage("Timeout while waiting for auto complete popup to disappear.")
-			.until(dummy -> !isAutoCompletePopupDisplayed());
-
-		// In case the input listens to change, hiding the pop-up will cause an event - so we must wait here.
-		engine.waitForServer();
-	}
-
-	@Override
-	public void waitForIndicatorToHide(DomAutoCompleteIndicatorType indicatorType) {
-
-		new FluentWait<>(0)//
-			.withTimeout(INDICATOR_TIMEOUT)
-			.withMessage("Timeout while waiting for auto complete indicator to disappear.")
-			.until(dummy -> !isAutoCompleteIndicatorDisplayed(indicatorType));
 	}
 
 	private Optional<WebElement> findValue(IAjaxSeleniumTestDomAutoCompleteTestValue value) {

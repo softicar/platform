@@ -39,10 +39,4 @@ public interface IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 	void clickAutoCompleteValue(IAjaxSeleniumTestDomAutoCompleteTestValue item);
 
 	void clickAutoCompleteBackdrop();
-
-	void waitForAutoCompletePopup();
-
-	void waitForAutoCompletePopupToHide();
-
-	void waitForIndicatorToHide(DomAutoCompleteIndicatorType indicatorType);
 }

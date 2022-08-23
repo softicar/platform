@@ -16,7 +16,7 @@ public class AjaxAutoCompleteConflictingEventHandlerTest extends AbstractAjaxAut
 
 		// use ENTER key for selection
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
 		waitForServer();
 
