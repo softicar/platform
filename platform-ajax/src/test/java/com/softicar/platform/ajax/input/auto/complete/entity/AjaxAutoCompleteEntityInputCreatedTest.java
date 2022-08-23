@@ -15,11 +15,11 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testValidInput() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -32,12 +32,12 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testValidInputAfterChange() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
-			.setSelectedEntity(ENTITY2)
+			.setSelectedValue(VALUE1)
+			.setSelectedValue(VALUE2)
 			.execute();
 
 		asserter//
-			.expectValues(ENTITY2)
+			.expectValues(VALUE2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -50,12 +50,12 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testIllegalInput() {
 
 		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.setSelectedValue(ILLEGAL_VALUE)
 			.execute();
 
 		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE.toDisplayStringWithId())
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -84,8 +84,8 @@ public class AjaxAutoCompleteEntityInputCreatedTest extends AbstractAjaxAutoComp
 	public void testEmptyInputAfterClear() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
-			.setSelectedEntityNone()
+			.setSelectedValue(VALUE1)
+			.setSelectedValueNone()
 			.execute();
 
 		asserter//

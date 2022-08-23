@@ -15,7 +15,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 	public void testValidInputWithBackspaceTillAmbiguousAndEscapeAndClickOnBody() {
 
 		setup//
-			.setSelectedEntity(ENTITY3)
+			.setSelectedValue(VALUE3)
 			.execute();
 
 		input//
@@ -29,8 +29,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -48,7 +48,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
@@ -57,14 +57,14 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1)
-			.expectServerValue(ENTITY1)
+			.expectInputText(VALUE1)
+			.expectSelectedValue(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -85,8 +85,8 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

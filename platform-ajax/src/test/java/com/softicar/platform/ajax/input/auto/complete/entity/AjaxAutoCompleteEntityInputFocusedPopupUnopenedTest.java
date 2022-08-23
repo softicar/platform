@@ -19,7 +19,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	public void testValidInputWithEnter() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
@@ -28,7 +28,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.waitForNoPopup();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -41,7 +41,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	public void testValidInputWithTab() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
@@ -50,7 +50,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
@@ -63,7 +63,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	public void testIllegalInputWithEnter() {
 
 		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.setSelectedValue(ILLEGAL_VALUE)
 			.execute();
 
 		input//
@@ -72,8 +72,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.waitForNoPopup();
 
 		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -86,7 +86,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 	public void testIllegalInputWithTab() {
 
 		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.setSelectedValue(ILLEGAL_VALUE)
 			.execute();
 
 		input//
@@ -95,8 +95,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()

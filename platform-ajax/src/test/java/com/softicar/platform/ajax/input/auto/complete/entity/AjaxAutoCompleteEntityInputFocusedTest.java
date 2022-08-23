@@ -15,7 +15,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testValidInputWithFocusByClick() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
@@ -23,7 +23,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -36,7 +36,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testValidInputWithFocusByTab() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
@@ -44,7 +44,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -57,7 +57,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testIllegalInputWithFocusByClick() {
 
 		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.setSelectedValue(ILLEGAL_VALUE)
 			.execute();
 
 		input//
@@ -65,8 +65,8 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE.toDisplayStringWithId())
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -79,7 +79,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 	public void testIllegalInputWithFocusByTab() {
 
 		setup//
-			.setSelectedEntity(UNAVAILABLE_ENTITY)
+			.setSelectedValue(ILLEGAL_VALUE)
 			.execute();
 
 		input//
@@ -87,8 +87,8 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(UNAVAILABLE_ENTITY.toDisplayStringWithId())
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE.toDisplayStringWithId())
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

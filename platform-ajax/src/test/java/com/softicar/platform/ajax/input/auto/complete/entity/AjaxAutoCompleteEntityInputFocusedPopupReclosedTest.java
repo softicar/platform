@@ -18,26 +18,26 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		input//
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
-			.sendString(ENTITY2.getName())
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
+			.sendString(VALUE2.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY2)
+			.expectValues(VALUE2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCount(2)
-			.expectCallbackValue(ENTITY2)
+			.expectCallbackValue(VALUE2)
 			.assertAll();
 	}
 
@@ -48,22 +48,22 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.execute();
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		input//
 			.focusByClick()
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -88,19 +88,19 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 		input//
 			.focusByClick()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCount(1)
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -125,8 +125,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("other illegal value name")
-			.expectServerValueExceptionMessage()
+			.expectInputText("other illegal value name")
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()

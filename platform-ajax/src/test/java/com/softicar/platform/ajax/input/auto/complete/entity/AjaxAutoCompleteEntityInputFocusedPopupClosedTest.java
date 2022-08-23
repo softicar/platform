@@ -18,7 +18,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	public void testValidInputWithArrowDownAndEscape() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
@@ -29,7 +29,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -42,7 +42,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	public void testValidInputWithBackspaceTillAmbiguousAndEscape() {
 
 		setup//
-			.setSelectedEntity(ENTITY3)
+			.setSelectedValue(VALUE3)
 			.execute();
 
 		input//
@@ -53,8 +53,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -68,19 +68,19 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	public void testValidInputWithBackspaceTillEmptyAndEscape() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
 			.focusByClick()
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
 			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValueNone()
+			.expectInputTextNone()
+			.expectSelectedValueNone()
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -94,25 +94,25 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
-			.setSelectedEntity(ENTITY2)
+			.setSelectedValue(VALUE2)
 			.execute();
 
 		input//
 			.focusByClick()
-			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(ENTITY1.getName())
+			.pressBackspace(VALUE2.toDisplayStringWithId().length())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -120,12 +120,12 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndClickOnBackdrop() {
 
 		setup//
-			.setSelectedEntity(ENTITY2)
+			.setSelectedValue(VALUE2)
 			.execute();
 
 		input//
 			.focusByClick()
-			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
+			.pressBackspace(VALUE2.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer();
 		backdrop//
@@ -133,8 +133,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -175,19 +175,19 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -199,19 +199,19 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -223,19 +223,19 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressTab()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
+			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -247,20 +247,20 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY2.getName())
+			.sendString(VALUE2.getName())
 			.waitForServer();
 		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY2)
+			.expectValues(VALUE2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
+			.expectCallbackValue(VALUE2)
 			.assertAll();
 	}
 
@@ -272,21 +272,21 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 
 		input//
 			.focusByClick()
-			.sendString(ENTITY1.getName())
+			.sendString(VALUE1.getName())
 			.waitForServer();
 		popup//
-			.clickEntityNumber(1)
+			.clickValueNumber(1)
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1)
-			.expectServerValue(ENTITY1)
+			.expectInputText(VALUE1)
+			.expectSelectedValue(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
@@ -304,13 +304,13 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY2)
+			.expectValues(VALUE2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
+			.expectCallbackValue(VALUE2)
 			.assertAll();
 	}
 
@@ -328,8 +328,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -349,17 +349,17 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer();
 		popup//
-			.clickEntityNumber(2)
+			.clickValueNumber(2)
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY3)
+			.expectValues(VALUE3)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY3)
+			.expectCallbackValue(VALUE3)
 			.assertAll();
 	}
 
@@ -378,12 +378,12 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY3)
+			.expectValues(VALUE3)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackValue(ENTITY3)
+			.expectCallbackValue(VALUE3)
 			.expectCallbackCountOne()
 			.assertAll();
 	}
@@ -402,8 +402,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
@@ -427,8 +427,8 @@ public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractA
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ILLEGAL_VALUE_NAME)
-			.expectServerValueExceptionMessage()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
