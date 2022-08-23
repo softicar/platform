@@ -249,6 +249,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.lock = new ReentrantLock();
 		}
 
+		// TODO do we still need that?
 		public Locker createLocker() {
 
 			return new Locker(lock);
