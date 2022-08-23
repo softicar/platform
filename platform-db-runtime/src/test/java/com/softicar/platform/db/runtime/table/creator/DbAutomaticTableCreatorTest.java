@@ -1,8 +1,9 @@
 package com.softicar.platform.db.runtime.table.creator;
 
+import com.softicar.platform.db.core.SofticarSqlException;
 import com.softicar.platform.db.core.connection.DbConnections;
-import com.softicar.platform.db.core.connection.profiler.DbConnectionTestProfiler;
-import com.softicar.platform.db.core.statement.DbStatement;
+import com.softicar.platform.db.core.table.DbTableName;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
@@ -12,34 +13,110 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.db.runtime.table.configuration.DbTableConfiguration;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import java.sql.SQLException;
+import java.util.Set;
+import java.util.TreeSet;
 import org.junit.Test;
 
+/**
+ * Tests for {@link DbAutomaticTableCreator}.
+ * <p>
+ * Testing of {@link DbAutomaticTableCreator} is only possible together with
+ * {@link AbstractDbTest} when the creation of referenced tables is involved, so
+ * we use the {@link DbAutomaticTableCreator} instance from
+ * {@link AbstractDbTest} here.
+ *
+ * @author Oliver Richers
+ */
 public class DbAutomaticTableCreatorTest extends AbstractDbTest {
 
-	private final DbAutomaticTableCreator tableCreator;
+	private static final int DEFAULT_A_ID = 7;
+	private static final int DEFAULT_B_ID = 13;
 
 	public DbAutomaticTableCreatorTest() {
 
-		this.tableCreator = new DbAutomaticTableCreator(() -> 31);
+		setAutoIncrementSupplier(() -> 31);
 	}
 
 	@Test
-	public void test() {
+	public void testTableCreationThroughSelect() {
 
-		DbConnectionTestProfiler profiler = new DbConnectionTestProfiler();
-		DbConnections.setProfiler(profiler);
+		assertEquals("[]", getTables().toString());
 
-		tableCreator.beforeExecution(new DbStatement().addTable(ObjectA.TABLE));
+		var count = ObjectB.TABLE.createSelect().count();
 
-		profiler
-			.assertStatements(//
-				"CREATE SCHEMA IF NOT EXISTS `db`",
-				"CREATE SCHEMA IF NOT EXISTS `db`",
-				"CREATE TABLE `db`.`b` (`id` INT NOT NULL AUTO_INCREMENT(52),PRIMARY KEY (`id`));",
-				"CREATE TABLE `db`.`a` (`id` INT NOT NULL AUTO_INCREMENT(31),`b` INT NOT NULL,PRIMARY KEY (`id`),FOREIGN KEY (`b`) REFERENCES `db`.`b` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);",
-				"INSERT INTO `db`.`b` (`id`) VALUES (?)",
-				"SELECT t.`id` FROM `db`.`b` t WHERE ((t.`id`) IN ((?)))",
-				"INSERT INTO `db`.`a` (`id`, `b`) VALUES (?, ?)");
+		assertEquals(1, count);
+		assertEquals("[`db`.`b`]", getTables().toString());
+	}
+
+	@Test
+	public void testTableCreationWithReferencedTable() {
+
+		assertEquals("[]", getTables().toString());
+
+		var count = ObjectA.TABLE.createSelect().count();
+
+		assertEquals(1, count);
+		assertEquals("[`db`.`a`, `db`.`b`]", getTables().toString());
+	}
+
+	@Test
+	public void testTableCreationWithTransactionCommit() {
+
+		assertEquals("[]", getTables().toString());
+
+		try (var transaction = new DbTransaction()) {
+			// create table and object in B
+			var b = new ObjectB().save();
+			assertEquals("[`db`.`b`]", getTables().toString());
+
+			// create table and object in A
+			new ObjectA().setB(b).save();
+			assertEquals("[`db`.`a`, `db`.`b`]", getTables().toString());
+
+			transaction.commit();
+		}
+
+		assertEquals("[`db`.`a`, `db`.`b`]", getTables().toString());
+		assertEquals("[[id: 7, b: 13], [id: 31, b: 31]]", ObjectA.TABLE.loadAll().toString());
+		assertEquals("[[id: 13], [id: 31]]", ObjectB.TABLE.loadAll().toString());
+	}
+
+	@Test
+	public void testTableCreationWithTransactionRollback() {
+
+		assertEquals("[]", getTables().toString());
+
+		try (var transaction = new DbTransaction()) {
+			// create table and object in B
+			var b = new ObjectB().save();
+			assertEquals("[`db`.`b`]", getTables().toString());
+
+			// create table and object in A
+			new ObjectA().setB(b).save();
+			assertEquals("[`db`.`a`, `db`.`b`]", getTables().toString());
+
+			transaction.rollback();
+		}
+
+		assertEquals("[`db`.`a`, `db`.`b`]", getTables().toString());
+		assertEquals(DEFAULT_A_ID, assertOne(ObjectA.TABLE.loadAll()).getId());
+		assertEquals(DEFAULT_B_ID, assertOne(ObjectB.TABLE.loadAll()).getId());
+	}
+
+	private Set<DbTableName> getTables() {
+
+		var tables = new TreeSet<DbTableName>();
+		try (var resultSet = DbConnections.getMetaData().getTables(null, "db", null, null)) {
+			while (resultSet.next()) {
+				var schema = resultSet.getString("TABLE_SCHEM");
+				var name = resultSet.getString("TABLE_NAME");
+				tables.add(new DbTableName(schema, name));
+			}
+		} catch (SQLException exception) {
+			throw new SofticarSqlException(exception);
+		}
+		return tables;
 	}
 
 	// ------------------------------ ObjectA ------------------------------ //
@@ -58,6 +135,11 @@ public class DbAutomaticTableCreatorTest extends AbstractDbTest {
 
 			return TABLE;
 		}
+
+		public ObjectA setB(ObjectB b) {
+
+			return setValue(ObjectA.B, b);
+		}
 	}
 
 	private static class ObjectATable extends DbObjectTable<ObjectA> {
@@ -73,7 +155,7 @@ public class DbAutomaticTableCreatorTest extends AbstractDbTest {
 			configuration.setDataInitializer(() -> {
 				ObjectA.TABLE//
 					.createInsert()
-					.set(ObjectA.ID, 7)
+					.set(ObjectA.ID, DEFAULT_A_ID)
 					.set(ObjectA.B, ObjectB.TABLE.get(13))
 					.executeWithoutIdGeneration();
 			});
@@ -109,7 +191,7 @@ public class DbAutomaticTableCreatorTest extends AbstractDbTest {
 			configuration.setDataInitializer(() -> {
 				ObjectB.TABLE//
 					.createInsert()
-					.set(ObjectB.ID, 13)
+					.set(ObjectB.ID, DEFAULT_B_ID)
 					.executeWithoutIdGeneration();
 			});
 		}

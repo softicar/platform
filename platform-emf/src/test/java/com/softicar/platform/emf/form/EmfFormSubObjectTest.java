@@ -10,7 +10,6 @@ import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
 import com.softicar.platform.emf.editor.EmfEditAction;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.test.simple.EmfTestObject;
-import com.softicar.platform.emf.transaction.EmfTestTransaction;
 import org.junit.Test;
 
 public class EmfFormSubObjectTest extends AbstractEmfFormTest {
@@ -19,13 +18,6 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 	private static final Day OTHER_DAY = Day.fromYMD(2019, 6, 7);
 	private static final String SOME_NAME = "Foo";
 	private static final String OTHER_NAME = "Bar";
-
-	public EmfFormSubObjectTest() {
-
-		// FIXME remove this when PLAT-1050 was done
-		// trigger early creation of table
-		EmfTestTransaction.TABLE.createSelect().list();
-	}
 
 	@Test
 	public void testCreationOfNewSubObject() {
