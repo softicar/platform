@@ -2,6 +2,10 @@ package com.softicar.platform.db.runtime.table.creator;
 
 import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.db.core.connection.DbConnection;
+import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
+import com.softicar.platform.db.core.connection.IDbConnection;
+import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.db.core.statement.IDbStatement;
 import com.softicar.platform.db.core.statement.IDbStatementExecutionListener;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -22,6 +26,7 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 	private final Collection<IDbTable<?, ?>> existingTablesWithoutForeignKeys;
 	private final Collection<IDbTable<?, ?>> existingTablesWithoutDefaultData;
 	private final Collection<IDbTable<?, ?>> pendingTables;
+	private IDbConnection connection;
 
 	public DbAutomaticTableCreator(Supplier<Integer> autoIncrementSupplier) {
 
@@ -30,6 +35,7 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 		this.existingTablesWithoutForeignKeys = new HashList<>();
 		this.existingTablesWithoutDefaultData = new HashList<>();
 		this.pendingTables = new HashList<>();
+		this.connection = null;
 	}
 
 	@Override
@@ -109,12 +115,12 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 	private void createTable(IDbTable<?, ?> table) {
 
 		if (!existingTables.contains(table) && !pendingTables.contains(table)) {
-			try {
+			try (var scope = new DbConnectionOverrideScope(getConnection())) {
 				new DbTableStructureCreator(table)//
 					.setAutoIncrement(autoIncrementSupplier.get())
 					.create();
 			} catch (Exception exception) {
-				// Print the exception message to avoid silent failures
+				// print exception message to avoid silent failures
 				Log.ferror(exception);
 				throw exception;
 			}
@@ -124,12 +130,22 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 	private void createTableWithoutForeignKeys(IDbTable<?, ?> table) {
 
 		if (!existingTables.contains(table) && !pendingTables.contains(table)) {
-			new DbTableStructureCreator(table)//
-				.setAutoIncrement(autoIncrementSupplier.get())
-				.setSkipForeignKeyCreation(true)
-				.setIfNotExists(true)
-				.create();
+			try (var scope = new DbConnectionOverrideScope(getConnection())) {
+				new DbTableStructureCreator(table)//
+					.setAutoIncrement(autoIncrementSupplier.get())
+					.setSkipForeignKeyCreation(true)
+					.setIfNotExists(true)
+					.create();
+			}
 			existingTablesWithoutForeignKeys.add(table);
 		}
+	}
+
+	private IDbConnection getConnection() {
+
+		if (connection == null) {
+			this.connection = new DbConnection(DbCurrentDatabase.get());
+		}
+		return connection;
 	}
 }
