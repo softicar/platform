@@ -73,6 +73,13 @@ public interface IEmfForm<R extends IEmfTableRow<R, ?>> {
 	void setDirectEditing(boolean enabled);
 
 	/**
+	 * Determines whether direct editing is enabled for this {@link EmfForm}.
+	 *
+	 * @return <i>true</i> if direct editing is enabled; <i>false</i> otherwise
+	 */
+	boolean isDirectEditingEnabled();
+
+	/**
 	 * Returns additional {@link IEmfValidator} objects that should be executed
 	 * before the {@link IEmfTableRow} returned by {@link #getTableRow()} may be
 	 * persisted.
