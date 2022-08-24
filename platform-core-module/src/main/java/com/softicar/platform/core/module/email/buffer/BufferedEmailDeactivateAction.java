@@ -22,7 +22,7 @@ public class BufferedEmailDeactivateAction implements IEmfManagementAction<AGBuf
 	@Override
 	public IEmfPermission<AGBufferedEmail> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

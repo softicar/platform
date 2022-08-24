@@ -29,6 +29,6 @@ public class AGStoredFileTable extends EmfObjectTable<AGStoredFile, AGCoreModule
 
 		authorizer.setCreationPermission(EmfPermissions.never());
 		authorizer.setEditPermission(EmfPermissions.never());
-		authorizer.setViewPermission(CoreModule.getModuleAdministation());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 	}
 }

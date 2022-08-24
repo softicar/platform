@@ -33,7 +33,7 @@ public class AGLogMessageTable extends EmfObjectTable<AGLogMessage, AGCoreModule
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGLogMessage, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CoreModule.getModuleAdministation());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

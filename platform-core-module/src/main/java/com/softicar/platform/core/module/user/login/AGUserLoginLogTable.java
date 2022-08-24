@@ -41,7 +41,7 @@ public class AGUserLoginLogTable extends EmfObjectTable<AGUserLoginLog, AGCoreMo
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginLog, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CoreModule.getModuleAdministation());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

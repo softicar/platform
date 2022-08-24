@@ -51,17 +51,17 @@ public class CoreModule extends AbstractModule<AGCoreModuleInstance> {
 	}
 
 	// TODO Remove with PLAT-1099
-	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleAdministation() {
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getAdministationPermission() {
 
 		return CorePermissions.ADMINISTRATION.<T> of(CoreModuleMapper.get());
 	}
 
-	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleOperation() {
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getOperationPermission() {
 
 		return CorePermissions.OPERATION.<T> of(CoreModuleMapper.get());
 	}
 
-	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleView() {
+	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getViewPermission() {
 
 		return CorePermissions.VIEW.<T> of(CoreModuleMapper.get());
 	}

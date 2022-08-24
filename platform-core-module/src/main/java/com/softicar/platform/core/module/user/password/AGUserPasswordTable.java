@@ -41,6 +41,6 @@ public class AGUserPasswordTable extends EmfObjectTable<AGUserPassword, AGCoreMo
 			.setCreationPermission(EmfPermissions.never())
 			.setEditPermission(EmfPermissions.never())
 			.setDeletePermission(EmfPermissions.never())
-			.setViewPermission(CoreModule.getModuleAdministation());
+			.setViewPermission(CoreModule.getAdministationPermission());
 	}
 }

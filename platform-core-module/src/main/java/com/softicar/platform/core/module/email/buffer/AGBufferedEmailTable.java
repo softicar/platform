@@ -30,7 +30,7 @@ public class AGBufferedEmailTable extends EmfObjectTable<AGBufferedEmail, AGCore
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmail, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CoreModule.getModuleAdministation());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

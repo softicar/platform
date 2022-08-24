@@ -28,7 +28,7 @@ public class ModuleInstanceDetailsPopupAction implements IEmfManagementAction<AG
 	@Override
 	public IEmfPermission<AGModuleInstanceBase> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

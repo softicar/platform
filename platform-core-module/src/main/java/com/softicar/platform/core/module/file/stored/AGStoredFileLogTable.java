@@ -29,6 +29,6 @@ public class AGStoredFileLogTable extends EmfObjectTable<AGStoredFileLog, AGCore
 			.setCreationPermission(EmfPermissions.never())
 			.setEditPermission(EmfPermissions.never())
 			.setDeletePermission(EmfPermissions.never())
-			.setViewPermission(CoreModule.getModuleAdministation());
+			.setViewPermission(CoreModule.getAdministationPermission());
 	}
 }

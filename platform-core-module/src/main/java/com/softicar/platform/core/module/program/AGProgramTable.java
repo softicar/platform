@@ -80,7 +80,7 @@ public class AGProgramTable extends EmfObjectTable<AGProgram, AGCoreModuleInstan
 
 		authorizer//
 			.setCreationPermission(EmfPermissions.never())
-			.setEditPermission(CoreModule.getModuleAdministation())
+			.setEditPermission(CoreModule.getAdministationPermission())
 			.setDeletePermission(EmfPermissions.never());
 	}
 

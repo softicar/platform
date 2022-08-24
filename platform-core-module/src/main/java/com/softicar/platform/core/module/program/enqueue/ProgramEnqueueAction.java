@@ -26,7 +26,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPermission<AGProgram> getRequiredPermission() {
 
-		return CoreModule.getModuleOperation();
+		return CoreModule.getOperationPermission();
 	}
 
 	@Override

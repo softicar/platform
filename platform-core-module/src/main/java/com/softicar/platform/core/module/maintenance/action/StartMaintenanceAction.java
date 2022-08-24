@@ -28,7 +28,7 @@ public class StartMaintenanceAction implements IEmfManagementAction<AGMaintenanc
 	@Override
 	public IEmfPermission<AGMaintenanceWindow> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

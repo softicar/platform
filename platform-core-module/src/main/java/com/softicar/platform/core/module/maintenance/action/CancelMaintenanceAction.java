@@ -24,7 +24,7 @@ public class CancelMaintenanceAction implements IEmfManagementAction<AGMaintenan
 	@Override
 	public IEmfPermission<AGMaintenanceWindow> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

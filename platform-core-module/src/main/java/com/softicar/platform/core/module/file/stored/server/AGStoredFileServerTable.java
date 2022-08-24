@@ -30,7 +30,7 @@ public class AGStoredFileServerTable extends EmfObjectTable<AGStoredFileServer, 
 	public void customizeAuthorizer(EmfAuthorizer<AGStoredFileServer, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ADMINISTRATION);
-		authorizer.setEditPermission(CoreModule.getModuleAdministation());
+		authorizer.setEditPermission(CoreModule.getAdministationPermission());
 	}
 
 	@Override

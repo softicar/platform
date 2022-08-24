@@ -28,8 +28,8 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	public void customizeAuthorizer(EmfAuthorizer<AGMaintenanceWindow, AGCoreModuleInstance> authorizer) {
 
 		authorizer.setCreationPermission(CorePermissions.ADMINISTRATION);
-		authorizer.setEditPermission(CoreModule.getModuleAdministation());
-		authorizer.setViewPermission(CoreModule.getModuleOperation());
+		authorizer.setEditPermission(CoreModule.getAdministationPermission());
+		authorizer.setViewPermission(CoreModule.getOperationPermission());
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class SystemEventConfirmAction extends AbstractEmfButtonAction<AGSystemEv
 	@Override
 	public IEmfPermission<AGSystemEvent> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

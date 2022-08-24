@@ -37,7 +37,7 @@ public class ProgramAbortAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPermission<AGProgram> getRequiredPermission() {
 
-		return CoreModule.getModuleAdministation();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

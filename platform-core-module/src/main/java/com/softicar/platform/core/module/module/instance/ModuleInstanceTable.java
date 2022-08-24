@@ -30,7 +30,7 @@ public class ModuleInstanceTable<I extends IModuleInstance<I>> extends EmfSubObj
 
 		authorizer//
 			.setCreationPermission(CorePermissions.ADMINISTRATION)
-			.setEditPermission(CoreModule.getModuleAdministation())
-			.setViewPermission(CoreModule.getModuleAdministation());
+			.setEditPermission(CoreModule.getAdministationPermission())
+			.setViewPermission(CoreModule.getAdministationPermission());
 	}
 }
