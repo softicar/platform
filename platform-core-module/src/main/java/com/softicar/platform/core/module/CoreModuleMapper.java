@@ -5,6 +5,10 @@ import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
+/**
+ * Conveniently maps permissions to {@link AGCoreModuleInstance}. See
+ * {@link CoreModule} for current implementation.
+ */
 class CoreModuleMapper<T extends IEmfTableRow<T, ?>> implements IEmfTableRowMapper<T, AGCoreModuleInstance> {
 
 	public static <T extends IEmfTableRow<T, ?>> IEmfTableRowMapper<T, AGCoreModuleInstance> get() {

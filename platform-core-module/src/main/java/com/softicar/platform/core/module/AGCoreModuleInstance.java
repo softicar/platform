@@ -7,7 +7,6 @@ import com.softicar.platform.common.core.item.ItemId;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.server.AGServer;
-import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.IUuid;
 import java.util.Optional;
 
@@ -27,11 +26,6 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 	public static String getSystemIdentifier() {
 
 		return AGCoreModuleInstance.getInstance().getSystemName();
-	}
-
-	public Boolean isAdministrator(AGUser user) {
-
-		return CorePermissions.ADMINISTRATION.test(this, user);
 	}
 
 	public AGServer getEmailServerOrThrow() {

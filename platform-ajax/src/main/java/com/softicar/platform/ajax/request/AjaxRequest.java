@@ -134,19 +134,19 @@ public final class AjaxRequest extends HttpServletRequestWrapper implements IAja
 	@Override
 	public boolean isVerbose() {
 
-		return getParameter("verbose") != null && isAdministrator();
+		return getParameter("verbose") != null && isAdministrative();
 	}
 
 	@Override
 	public boolean isDebug() {
 
-		return getParameter("debug") != null && isAdministrator();
+		return getParameter("debug") != null && isAdministrative();
 	}
 
 	@Override
 	public boolean isTest() {
 
-		return getParameter("test") != null && isAdministrator();
+		return getParameter("test") != null && isAdministrative();
 	}
 
 	@Override
@@ -199,8 +199,8 @@ public final class AjaxRequest extends HttpServletRequestWrapper implements IAja
 		return acceptEncoding != null && acceptEncoding.toLowerCase().contains("deflate");
 	}
 
-	private boolean isAdministrator() {
+	private boolean isAdministrative() {
 
-		return ajaxFramework.getAjaxStrategy().isAdministrator(httpSession);
+		return ajaxFramework.getAjaxStrategy().isAdministrative(httpSession);
 	}
 }

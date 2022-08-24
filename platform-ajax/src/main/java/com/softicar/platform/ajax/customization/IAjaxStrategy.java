@@ -76,17 +76,17 @@ public interface IAjaxStrategy {
 	// -------------------- sessions -------------------- //
 
 	/**
-	 * Tests whether the given {@link HttpSession} is a administrator session.
+	 * Tests whether the given {@link HttpSession} is an administrative session.
 	 * <p>
-	 * Some features like debug mode, etc. are only available to administrator
+	 * Some features like debug mode, etc. are only available to administrative
 	 * sessions.
 	 *
 	 * @param session
 	 *            the {@link HttpSession} to test (never <i>null</i>)
-	 * @return <i>true</i> if the given {@link HttpSession} is a administrator
+	 * @return <i>true</i> if the given {@link HttpSession} is an administrative
 	 *         session; <i>false</i> otherwise
 	 */
-	boolean isAdministrator(HttpSession session);
+	boolean isAdministrative(HttpSession session);
 
 	// -------------------- logging -------------------- //
 

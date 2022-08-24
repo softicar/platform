@@ -10,6 +10,7 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.ajax.logging.AjaxLogging;
 import com.softicar.platform.core.module.ajax.page.EmfPageConnectionProfiler;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
@@ -67,11 +68,11 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	}
 
 	@Override
-	public boolean isAdministrator(HttpSession session) {
+	public boolean isAdministrative(HttpSession session) {
 
 		return SofticarAjaxSession//
 			.getInstance(session)
-			.map(ajaxSession -> AGCoreModuleInstance.getInstance().isAdministrator(ajaxSession.getUser()))
+			.map(ajaxSession -> CorePermissions.ADMINISTRATION.test(AGCoreModuleInstance.getInstance(), ajaxSession.getUser()))
 			.orElse(false);
 	}
 
