@@ -89,23 +89,6 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends ISourceCodeRe
 	// -------------------- access -------------------- //
 
 	/**
-	 * Defines if this {@link IEmfPage} allows user impersonation.
-	 * <p>
-	 * If user impersonation is allowed, a user may access this {@link IEmfPage}
-	 * while impersonating another user.
-	 * <p>
-	 * It is usually a bad idea to allow user impersonation for administrative
-	 * pages.
-	 *
-	 * @return <i>true</i> if user impersonation is allowed; <i>false</i>
-	 *         otherwise
-	 */
-	default boolean isUserImpersonationAllowed() {
-
-		return true;
-	}
-
-	/**
 	 * Returns the precondition of this {@link IEmfPage}, determining the
 	 * availability of the {@link IEmfPage} for a given
 	 * {@link IEmfModuleInstance}.
@@ -122,10 +105,11 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends ISourceCodeRe
 	}
 
 	/**
-	 * Returns the necessary {@link IEmfPermission} to access this {@link IEmfPage}.
-	 * <p>
-	 * Only users matching the {@link IEmfPermission} will be able to access this
+	 * Returns the necessary {@link IEmfPermission} to access this
 	 * {@link IEmfPage}.
+	 * <p>
+	 * Only users matching the {@link IEmfPermission} will be able to access
+	 * this {@link IEmfPage}.
 	 *
 	 * @return the {@link IEmfPermission} (never <i>null</i>)
 	 */
