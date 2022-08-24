@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.user.impersonation;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -34,11 +35,12 @@ class UserImpersonationStarter {
 	public AGUserImpersonationState start() {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			if (!CurrentUser.get().isCoreModuleAdmin()) {
+			var instance = AGCoreModuleInstance.getInstance();
+			if (!instance.isAdministrator(CurrentUser.get())) {
 				throw new SofticarUserException(CoreI18n.YOU_ARE_NOT_ALLOWED_TO_IMPERSONATE_ANOTHER_USER);
 			}
 
-			if (impersonatedUser.isCoreModuleAdmin()) {
+			if (instance.isAdministrator(impersonatedUser)) {
 				throw new SofticarUserException(CoreI18n.CORE_MODULE_ADMINISTRATORS_CANNOT_BE_IMPERSONATED);
 			}
 

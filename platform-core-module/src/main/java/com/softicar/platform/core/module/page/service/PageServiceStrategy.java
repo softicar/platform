@@ -8,6 +8,7 @@ import com.softicar.platform.ajax.request.CurrentAjaxRequest;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.ajax.logging.AjaxLogging;
 import com.softicar.platform.core.module.ajax.page.EmfPageConnectionProfiler;
@@ -70,7 +71,7 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 
 		return SofticarAjaxSession//
 			.getInstance(session)
-			.map(SofticarAjaxSession::isCoreModuleAdmin)
+			.map(ajaxSession -> AGCoreModuleInstance.getInstance().isAdministrator(ajaxSession.getUser()))
 			.orElse(false);
 	}
 

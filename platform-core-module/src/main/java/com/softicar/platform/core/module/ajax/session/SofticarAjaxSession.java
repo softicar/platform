@@ -32,11 +32,6 @@ public final class SofticarAjaxSession {
 		return new AjaxSessionAttributeManager(session).getInstance(SofticarAjaxSession.class);
 	}
 
-	public boolean isCoreModuleAdmin() {
-
-		return user.get().isCoreModuleAdmin();
-	}
-
 	public LanguageEnum getLanguage() {
 
 		return user.get().getLocale().getLanguage();

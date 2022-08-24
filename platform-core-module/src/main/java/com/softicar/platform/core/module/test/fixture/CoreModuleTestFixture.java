@@ -75,6 +75,6 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 
 		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
 		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
-		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministation(), moduleInstance);
+		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
 	}
 }

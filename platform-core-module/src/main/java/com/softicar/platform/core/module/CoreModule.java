@@ -50,7 +50,7 @@ public class CoreModule extends AbstractModule<AGCoreModuleInstance> {
 		return new EmfPagePath().append(PARENT_FOLDER_TITLE);
 	}
 
-	//FIXME Should be removed when PLAT-1099 is done
+	// TODO Remove with PLAT-1099
 	public static <T extends IEmfTableRow<T, ?>> IEmfPermission<T> getModuleAdministation() {
 
 		return CorePermissions.ADMINISTRATION.<T> of(CoreModuleMapper.get());

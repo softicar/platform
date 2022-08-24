@@ -8,23 +8,25 @@ import org.junit.Test;
 public class AGUserTest extends AbstractCoreTest {
 
 	private final AGUser user;
+	private final AGCoreModuleInstance instance;
 
 	public AGUserTest() {
 
 		this.user = insertTestUser();
+		this.instance = AGCoreModuleInstance.getInstance();
 	}
 
 	@Test
 	public void testIsSuperUserWithSuperUserPermissionOwnership() {
 
-		insertPermissionAssignment(user, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
+		insertPermissionAssignment(user, CorePermissions.ADMINISTRATION, instance);
 
-		assertTrue(user.isCoreModuleAdmin());
+		assertTrue(CorePermissions.ADMINISTRATION.test(instance, user));
 	}
 
 	@Test
 	public void testIsSuperUserWithoutSuperUserPermissionOwnership() {
 
-		assertFalse(user.isCoreModuleAdmin());
+		assertFalse(CorePermissions.ADMINISTRATION.test(instance, user));
 	}
 }

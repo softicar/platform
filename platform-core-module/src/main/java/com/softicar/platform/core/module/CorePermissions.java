@@ -7,5 +7,5 @@ public interface CorePermissions {
 
 	IEmfModulePermission<AGCoreModuleInstance> VIEW = EmfDefaultModulePermissions.getModuleView();
 	IEmfModulePermission<AGCoreModuleInstance> OPERATION = EmfDefaultModulePermissions.getModuleOperation();
-	IEmfModulePermission<AGCoreModuleInstance> ADMINISTRATION = EmfDefaultModulePermissions.getModuleAdministation();
+	IEmfModulePermission<AGCoreModuleInstance> ADMINISTRATION = EmfDefaultModulePermissions.getModuleAdministration();
 }
