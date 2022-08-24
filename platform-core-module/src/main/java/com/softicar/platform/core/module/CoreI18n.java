@@ -70,8 +70,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("%s Einmal-Passwort wurde an Ihre E-Mail-Adresse gesendet.");
 	I18n1 ARG1_SHOULD_BE_REMOVED = new I18n1("'%s' should be removed.")//
 		.de("'%s' sollte entfernt werden.");
-	I18n2 ARG1_STARTED_A_USER_IMPERSONATION_SESSION_OF_YOUR_USER_ARG2 = new I18n2("%s started a user impersonation session of your user: %s")//
-		.de("%s hat eine Benutzer-Verkörperungs-Sitzung Ihres Benutzers gestartet: %s");
 	I18n0 ASSIGNMENT = new I18n0("Assignment")//
 		.de("Zuweisung");
 	I18n0 AT = new I18n0("At")//
@@ -198,8 +196,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Aktuelle Panic-Einträge");
 	I18n0 CURRENT_PASSWORD = new I18n0("Current Password")//
 		.de("Aktuelles Passwort");
-	I18n0 CURRENTLY_NOT_IMPERSONATING_A_USER = new I18n0("Currently not impersonating a user.")//
-		.de("Momentan wird kein Benutzer verkörpert.");
 	I18n0 DAEMON_WATCHDOG_STATE = new I18n0("Daemon Watchdog State")//
 		.de("Daemon-Watchdog-Status");
 	I18n0 DATA = new I18n0("Data")//
@@ -364,10 +360,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ungültiges Cron-Element-Format: %s.");
 	I18n2 ILLEGAL_UUID_FOR_REQUEST_PARAMETER_ARG1_ARG2 = new I18n2("Illegal UUID for request parameter '%s': '%s'")//
 		.de("Ungültige UUID für Anfrageparameter '%s': '%s'");
-	I18n0 IMPERSONATE_USER = new I18n0("Impersonate User")//
-		.de("Benutzer verkörpern");
-	I18n0 IMPERSONATED_USER = new I18n0("Impersonated User")//
-		.de("Verkörperter Benutzer");
 	I18n0 IN_PROGRESS = new I18n0("In Progress")//
 		.de("In Bearbeitung");
 	I18n0 IN_REPLY_TO = new I18n0("In-Reply-To")//
@@ -616,13 +608,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bitte drücken Sie F5 zum Aktualisieren.");
 	I18n0 PLEASE_SELECT_RECIPIENTS = new I18n0("Please select recipients.")//
 		.de("Bitte Empfänger auswählen.");
-	I18n0 PLEASE_SELECT_THE_USER_TO_IMPERSONATE = new I18n0("Please select the user to impersonate.")//
-		.de("Bitte den Benutzer auswählen, der verkörpert werden soll.");
 	I18n1 PLEASE_SPECIFY_THE_ID_OF_THE_ISSUE_YOU_ARE_WORKING_ON_IN_THE_ARG1_FIELD_FOR_EXAMPLE_I123 =
 			new I18n1("Please specify the ID of the issue you are working on in the '%s' field (for example i123).")//
 				.de("Bitte geben Sie die ID der bearbeiteten Angelegenheit im Feld '%s' an (beispielsweise i123).");
-	I18n0 PLEASE_SPECIFY_THE_RATIONALE_TO_IMPERSONATE_THE_SELECTED_USER = new I18n0("Please specify the rationale to impersonate the selected user.")//
-		.de("Bitte geben Sie die Begründung für die Verkörperung des ausgewählten Benutzers an.");
 	I18n0 PLEASE_USE_A_DIFFERENT_PASSWORD = new I18n0("Please use a different password.")//
 		.de("Bitte benutzen Sie ein anderes Passwort.");
 	I18n1 PLEASE_WAIT_FOR_ARG1_SECONDS = new I18n1("Please wait for %s seconds.")//
@@ -871,8 +859,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Betreff");
 	I18n0 SUPER_USER = new I18n0("Super User")//
 		.de("Super-Benutzer");
-	I18n0 SUPER_USERS_CANNOT_BE_IMPERSONATED = new I18n0("Super users cannot be impersonated.")//
-		.de("Super-Bernutzer können nicht verkörpert werden.");
 	I18n0 SUPPORT_EMAIL_ADDRESS = new I18n0("Support Email Address")//
 		.de("Support-E-Mail-Adresse");
 	I18n0 SURPLUS_TOKENS = new I18n0("Surplus Tokens")//
@@ -943,8 +929,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Die eingegebenen Passwörter stimmen nicht überein.");
 	I18n0 THE_FOLLOWING_RATIONALE_WAS_GIVEN = new I18n0("The following rationale was given.")//
 		.de("Die folgende Begründung wurde gegeben.");
-	I18n0 THE_IMPERSONATED_USER_WILL_BE_INFORMED = new I18n0("The impersonated user will be informed.")//
-		.de("Der verkörperte Benutzer wird informiert.");
 	I18n1 THE_PASSWORD_CONTAINS_AT_LEAST_ARG1_DIGITS = new I18n1("The password contains at least %s digits.")//
 		.de("Das Passwort enthält mindestens %s Ziffern.");
 	I18n1 THE_PASSWORD_CONTAINS_AT_LEAST_ARG1_DISTINCT_CHARACTERS = new I18n1("The password contains at least %s distinct characters.")//
@@ -1040,12 +1024,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benutzer '%s' hat keine E-Mail Adresse.");
 	I18n0 USER_CANNOT_RECEIVE_NOTIFICATION_EMAILS = new I18n0("User cannot receive notification emails.")//
 		.de("Benutzer kann keine Benachrichtigungs-E-Mails erhalten.");
-	I18n0 USER_IMPERSONATION = new I18n0("User Impersonation")//
-		.de("Benutzer-Verkörperung");
-	I18n0 USER_IMPERSONATION_STATE = new I18n0("User Impersonation State")//
-		.de("Benutzer-Verkörperungs-Status");
-	I18n0 USER_IMPERSONATION_STATES = new I18n0("User Impersonation States")//
-		.de("Benutzer-Verkörperungs-Status");
 	I18n0 USER_IS_NOT_SYSTEM_USER = new I18n0("User is not System User")//
 		.de("Benutzer ist kein Systembenutzer");
 	I18n0 USER_LOG = new I18n0("User Log")//
@@ -1114,12 +1092,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Falscher Benutzername oder Passwort.");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
-	I18n0 YOU_ALREADY_IMPERSONATE_ANOTHER_USER = new I18n0("You already impersonate another user.")//
-		.de("Sie verkörpern bereits einen anderen Benutzer.");
-	I18n1 YOU_ARE_CURRENTLY_IMPERSONATING_USER_ARG1 = new I18n1("You are currently impersonating user '%s'.")//
-		.de("Sie verkörpern momentan Benutzer '%s'.");
-	I18n0 YOU_ARE_NOT_ALLOWED_TO_IMPERSONATE_ANOTHER_USER = new I18n0("You are not allowed to impersonate another user.")//
-		.de("Sie dürfen keinen anderen Benutzer verkörpern.");
 	I18n1 YOU_ARE_NOT_ALLOWED_TO_LOG_IN_FROM_THE_FOLLOWING_IP_ADDRESS_ARG1 = new I18n1("You are not allowed to log in from the following IP address: '%s'")//
 		.de("Sie dürfen sich nicht von der folgenden IP-Adresse einloggen: '%s'");
 	I18n2 YOUR_ARG1_ACCOUNT_ARG2 = new I18n2("Your %s account %s")//
