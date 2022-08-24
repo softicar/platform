@@ -10,8 +10,6 @@ import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.MaintenanceWindowsInfoElement;
 import com.softicar.platform.core.module.page.PageButton;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.core.module.user.impersonation.UserImpersonationSessionManager;
-import com.softicar.platform.core.module.user.impersonation.UserImpersonationTerminationDiv;
 import com.softicar.platform.core.module.user.password.change.UserPasswordChangeDiv;
 import com.softicar.platform.core.module.user.password.policy.SofticarPasswordPolicy;
 import com.softicar.platform.dom.element.DomElementTag;
@@ -31,7 +29,6 @@ class StartPageDiv extends DomDiv {
 		addPendingSystemEventsSection(sections);
 		addPendingMaintenanceSection(sections);
 		addPasswordChangeSection(sections);
-		addUserImpersonationTerminationSection(sections);
 		appendSectionsSeparatedByHr(sections);
 
 		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
@@ -66,14 +63,6 @@ class StartPageDiv extends DomDiv {
 		if (CurrentUser.get().isPasswordChangeNecessary()) {
 			sections.add(new UserPasswordChangeDiv(SofticarPasswordPolicy.get()));
 		}
-	}
-
-	private void addUserImpersonationTerminationSection(Collection<IDomElement> sections) {
-
-		UserImpersonationSessionManager//
-			.getImpersonatingUserFromCurrentSession()
-			.map(UserImpersonationTerminationDiv::new)
-			.ifPresent(sections::add);
 	}
 
 	private void appendSectionsSeparatedByHr(Collection<IDomElement> sections) {
