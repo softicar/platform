@@ -172,8 +172,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Kern-Sprache");
 	I18n0 CORE_LANGUAGES = new I18n0("Core Languages")//
 		.de("Kern-Sprachen");
-	I18n0 CORE_MODULE_ADMINISTRATORS_CANNOT_BE_IMPERSONATED = new I18n0("Core module administrators cannot be impersonated.")//
-		.de("Kern-Modul Administratoren können nicht verkörpert werden.");
 	I18n0 CORE_MODULE_INSTANCE = new I18n0("Core Module Instance")//
 		.de("Kern-Modulinstanz");
 	I18n0 CORE_MODULE_INSTANCE_LOG = new I18n0("Core Module Instance Log")//
