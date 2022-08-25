@@ -25,13 +25,15 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 
 		addCssClass(EmfCssClasses.EMF_FORM_SAVE_OR_CANCEL_ACTIONS_INPUT);
 
-		buttonContainer
-			.appendChild(
-				new DomButton()//
-					.setIcon(EmfImages.ENTITY_SAVE.getResource())
-					.setLabel(EmfI18n.SAVE)
-					.addMarker(EmfTestMarker.FORM_SAVE)
-					.setClickCallback(() -> save(false)));
+		if (!formBody.getForm().isDirectEditingEnabled()) {
+			buttonContainer
+				.appendChild(
+					new DomButton()//
+						.setIcon(EmfImages.ENTITY_SAVE.getResource())
+						.setLabel(EmfI18n.SAVE)
+						.addMarker(EmfTestMarker.FORM_SAVE)
+						.setClickCallback(() -> save(false)));
+		}
 		buttonContainer
 			.appendChild(
 				new DomButton()//

@@ -190,32 +190,6 @@ public class EmfFormTest extends AbstractEmfFormTest {
 		frame.assertIsChangedOnRefreshBus(entity);
 	}
 
-	@Test
-	public void testDirectEditOfObjectWithoutClosing() {
-
-		// insert entity and show form
-		EmfScopedTestObject entity = insertScopedTestObject(scopeObject, SOME_NAME, SOME_DAY);
-		var form = appendEntityForm(entity);
-		form.setDirectEditing(true);
-		form.peekAndRefresh();
-
-		// enter input values and save entity
-		enterNameAndDayAndClickSave(EmfScopedTestObject.NAME, EmfScopedTestObject.DAY, OTHER_NAME, OTHER_DAY);
-
-		// verify entity
-		assertEquals(OTHER_NAME, entity.getName());
-		assertEquals(OTHER_DAY, entity.getDay());
-		assertDisplayedValue(EmfScopedTestObject.NAME, OTHER_NAME);
-		assertDisplayedValue(EmfScopedTestObject.DAY, OTHER_DAY.toISOString());
-
-		// verify call-backs
-		assertNone(creationCallbacks);
-
-		// verify UI
-		frame.assertIsNotClosed();
-		frame.assertIsChangedOnRefreshBus(entity);
-	}
-
 	// ------------------------------ view scope ------------------------------ //
 
 	@Test

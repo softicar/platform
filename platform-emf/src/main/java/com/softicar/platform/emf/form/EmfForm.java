@@ -139,7 +139,8 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		this.directEditingEnabled = enabled;
 	}
 
-	protected boolean isDirectEditingEnabled() {
+	@Override
+	public boolean isDirectEditingEnabled() {
 
 		return directEditingEnabled;
 	}
