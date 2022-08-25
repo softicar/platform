@@ -22,6 +22,6 @@ public abstract class AbstractPageDivTest extends AbstractDbTest implements Core
 		AGCoreModuleInstance.getInstance().setDefaultLocalization(localization).save();
 
 		CurrentUser.set(testUser);
-		insertPermissionAssignment(testUser, CorePermissions.SUPER_USER);
+		insertPermissionAssignment(testUser, CorePermissions.OPERATION, AGCoreModuleInstance.getInstance());
 	}
 }

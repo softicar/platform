@@ -83,12 +83,6 @@ public class CurrentUser {
 		}
 
 		@Override
-		public Boolean isSuperUser() {
-
-			return get().isSuperUser();
-		}
-
-		@Override
 		public ILocale getLocale() {
 
 			return get().getLocale();

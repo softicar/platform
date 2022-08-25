@@ -28,7 +28,7 @@ public class SystemEventPage extends AbstractEmfManagementPage<AGCoreModuleInsta
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SYSTEM_ADMINISTRATION;
+		return CorePermissions.OPERATION;
 	}
 
 	@Override

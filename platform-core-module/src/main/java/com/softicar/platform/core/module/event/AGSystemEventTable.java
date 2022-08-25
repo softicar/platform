@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.event.properties.SystemEventPropertiesDisplay;
 import com.softicar.platform.core.module.event.severity.SystemEventSeverityDisplay;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
@@ -35,7 +35,7 @@ public class AGSystemEventTable extends EmfObjectTable<AGSystemEvent, AGCoreModu
 
 		authorizer.setCreationPermission(EmfPermissions.never());
 		authorizer.setEditPermission(EmfPermissions.never());
-		authorizer.setViewPermission(CorePermissions.SYSTEM_ADMINISTRATION.toOtherEntityPermission());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 	}
 
 	@Override

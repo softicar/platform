@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.email.buffer.attachment;
 
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -24,7 +24,7 @@ public class AGBufferedEmailAttachmentTable extends EmfObjectTable<AGBufferedEma
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGBufferedEmailAttachment, AGBufferedEmail> authorizer) {
 
-		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

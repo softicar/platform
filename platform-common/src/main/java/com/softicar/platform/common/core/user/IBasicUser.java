@@ -30,18 +30,6 @@ public interface IBasicUser extends IEntity {
 	String getLoginName();
 
 	/**
-	 * Returns whether this is a super-user or not.
-	 * <p>
-	 * This flag can be used for simple authorization cases. A super user can be
-	 * regarded as the most trusted user and may usually do everything. It is
-	 * comparable to the <i>root</i> user on a <i>Unix</i> system.
-	 *
-	 * @return <i>true</i> if this is a super user, <i>false</i> otherwise
-	 *         (never null)
-	 */
-	Boolean isSuperUser();
-
-	/**
 	 * Returns the {@link ILocale} of this user.
 	 *
 	 * @return the user {@link ILocale} (never <i>null</i>)

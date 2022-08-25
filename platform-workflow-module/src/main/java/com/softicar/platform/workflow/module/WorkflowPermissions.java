@@ -7,5 +7,5 @@ public interface WorkflowPermissions {
 
 	IEmfPermission<AGWorkflowModuleInstance> VIEWER = EmfDefaultModulePermissions.getModuleView();
 	IEmfPermission<AGWorkflowModuleInstance> OPERATOR = EmfDefaultModulePermissions.getModuleOperation();
-	IEmfPermission<AGWorkflowModuleInstance> ADMINISTRATOR = EmfDefaultModulePermissions.getModuleAdministation();
+	IEmfPermission<AGWorkflowModuleInstance> ADMINISTRATOR = EmfDefaultModulePermissions.getModuleAdministration();
 }

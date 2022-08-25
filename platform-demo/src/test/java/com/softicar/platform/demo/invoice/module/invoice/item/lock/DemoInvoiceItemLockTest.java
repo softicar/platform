@@ -45,7 +45,11 @@ public class DemoInvoiceItemLockTest extends AbstractDemoInvoiceModuleTest {
 		// lock the invoice items
 		EmfFormPopupTester popup = findFormPopup(AGDemoInvoice.class);
 		popup.clickCheckbox(AGDemoInvoice.LOCKED_ITEMS);
-		popup.clickSaveButton();
+		popup.clickSaveAndCloseButton();
+
+		// reopen the invoice pop-up
+		invoiceManagementDiv.clickEditButton();
+		popup = findFormPopup(AGDemoInvoice.class);
 
 		// check that invoice items cannot be added
 		popup.clickTab(DemoI18n.DEMO_INVOICE_ITEMS);

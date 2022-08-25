@@ -34,6 +34,6 @@ public class LocalizationPage extends AbstractEmfManagementPage<AGCoreModuleInst
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

@@ -5,7 +5,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.ProgramPredicates;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -26,7 +26,7 @@ public class ProgramEnqueueAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPermission<AGProgram> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER.toOtherEntityPermission();
+		return CoreModule.getOperationPermission();
 	}
 
 	@Override

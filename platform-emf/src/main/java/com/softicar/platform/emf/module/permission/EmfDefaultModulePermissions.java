@@ -11,7 +11,7 @@ import com.softicar.platform.emf.module.IEmfModuleInstance;
  */
 public class EmfDefaultModulePermissions {
 
-	public static <I extends IEmfModuleInstance<I>> IEmfModulePermission<I> getModuleAdministation() {
+	public static <I extends IEmfModuleInstance<I>> IEmfModulePermission<I> getModuleAdministration() {
 
 		return new EmfModulePermissionBuilder<I>()//
 			.setUuid("7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d")
@@ -24,7 +24,7 @@ public class EmfDefaultModulePermissions {
 		return new EmfModulePermissionBuilder<I>()//
 			.setUuid("197bcbf7-0003-4552-8f4d-33d4f1d72a0b")
 			.setTitle(EmfI18n.OPERATION)
-			.impliedBy(getModuleAdministation())
+			.impliedBy(getModuleAdministration())
 			.build();
 	}
 

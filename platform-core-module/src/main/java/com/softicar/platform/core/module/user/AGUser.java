@@ -9,7 +9,6 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
@@ -67,12 +66,6 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	public static AGUser getSystemUser() {
 
 		return AGCoreModuleInstance.getInstance().getSystemUser();
-	}
-
-	@Override
-	public Boolean isSuperUser() {
-
-		return CorePermissions.SUPER_USER.test(AGCoreModuleInstance.getInstance(), getThis());
 	}
 
 	public boolean isPasswordPolicyFulfilled() {

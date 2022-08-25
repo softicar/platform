@@ -50,10 +50,8 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertPermissionAssignment(adminUser, CorePermissions.ACCESS_MANAGEMENT);
-		insertPermissionAssignment(adminUser, CorePermissions.SUPER_USER);
-		insertPermissionAssignment(adminUser, CorePermissions.SYSTEM_ADMINISTRATION);
-		insertPermissionAssignment(adminUser, EmfDefaultModulePermissions.getModuleAdministation(), AGCoreModuleInstance.getInstance());
+		insertPermissionAssignment(adminUser, CorePermissions.OPERATION, AGCoreModuleInstance.getInstance());
+		insertPermissionAssignment(adminUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 
 		new ProgramStandardConfiguration().createAndSaveAll();
 	}
@@ -77,6 +75,6 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 
 		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
 		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
-		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministation(), moduleInstance);
+		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
 	}
 }
