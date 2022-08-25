@@ -59,7 +59,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 	protected EmfManagementDiv(EmfManagementDivBuilder<R, P, S> builder) {
 
-		this.entityTable = builder.getEntityTable();
+		this.entityTable = Objects.requireNonNull(builder.getEntityTable());
 		this.scopeEntity = Objects.requireNonNull(builder.getScopeEntity());
 		this.dataTable = null;
 		this.tableDiv = null;
