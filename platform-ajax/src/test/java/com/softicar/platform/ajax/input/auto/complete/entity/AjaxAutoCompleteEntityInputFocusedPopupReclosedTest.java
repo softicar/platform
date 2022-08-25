@@ -12,135 +12,126 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testCallbacksWithValidAndValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
-			.setListenToChange()
 			.execute();
-
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
+
 		input//
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
-			.sendString(ENTITY2.getName())
-			.waitForPopupAndLoadingFinished()
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
+			.sendString(VALUE2.getName())
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectValues(VALUE2)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCount(2)
-			.expectCallbackValue(ENTITY2)
+			.expectCallbackValue(VALUE2)
 			.assertAll();
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndValidValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndEscape() {
 
 		setup//
-			.setListenToChange()
 			.execute();
-
 		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click()
-			.waitForServer();
-		input//
-			.focusWithClick()
-			.pressBackspace(INVALID_ITEM_NAME.length())
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer()
 			.pressEnter()
 			.waitForServer();
 
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCount(2)
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testCallbacksWithValidAndInvalidValidItemNamesAndEnterOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
-			.pressEnter()
-			.waitForServer();
-		input//
-			.focusWithClick()
-			.pressBackspace(ENTITY1.toDisplayStringWithId().length())
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click()
+			.focusByClick()
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCount(2)
 			.expectCallbackValueNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testCallbacksWithInvalidAndInvalidValidItemNamesAndEnterOnActiveEmptyInput() {
+	public void testIllegalInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
-			.setListenToChange()
 			.execute();
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
 
 		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click()
-			.waitForServer();
-		input//
-			.focusWithClick()
-			.pressBackspace(INVALID_ITEM_NAME.length())
-			.sendString("other invalid item name")
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click()
+			.focusByClick()
+			.pressBackspace(ILLEGAL_VALUE_NAME.length())
+			.sendString(VALUE1.getName())
+			.waitForServer()
+			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue("other invalid item name")
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCount(2)
-			.expectCallbackValueNone()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCount(1)
+			.expectCallbackValue(VALUE1)
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInputWithBackspaceTillEmptyAndTypedIllegalPatternAndEscape() {
+
+		setup//
+			.execute();
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
+
+		input//
+			.focusByClick()
+			.pressBackspace(ILLEGAL_VALUE_NAME.length())
+			.sendString("other illegal value name")
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
+
+		asserter//
+			.expectInputText("other illegal value name")
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
 			.assertAll();
 	}
 }

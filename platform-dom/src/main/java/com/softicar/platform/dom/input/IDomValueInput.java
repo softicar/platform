@@ -2,6 +2,7 @@ package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.Optional;
@@ -25,10 +26,12 @@ public interface IDomValueInput<V> extends IDomInput {
 	 * Assigns a value to this input element and calls all registered change
 	 * callback functions.
 	 * <p>
-	 * The callback functions will be called in the order that they where added.
+	 * The callback functions will be called in the order in which they where
+	 * registered.
 	 *
 	 * @param value
-	 *            the value to assign or <i>null</i>
+	 *            the value to assign, or <i>null</i>
+	 * @see #addChangeCallback(INullaryVoidFunction)
 	 */
 	void setValueAndHandleChangeCallback(V value);
 
@@ -36,14 +39,13 @@ public interface IDomValueInput<V> extends IDomInput {
 	 * Returns the optional value of this input element, as follows:
 	 * <ul>
 	 * <li>If a valid value was entered, the value is returned.</li>
-	 * <li>If no value is entered, {@link Optional#empty()} is returned.</li>
-	 * <li>If an invalid value is entered, an exception is thrown.</li>
+	 * <li>If no value was entered, {@link Optional#empty()} is returned.</li>
+	 * <li>If an invalid value was entered, an {@link Exception} is thrown.</li>
 	 * </ul>
 	 *
 	 * @return the entered value as an {@link Optional}
 	 * @throws DomInputException
-	 *             if the user entered something into this input element which
-	 *             does not represent a valid value
+	 *             if the entered text does not represent a valid value
 	 */
 	Optional<V> getValue();
 
@@ -51,14 +53,13 @@ public interface IDomValueInput<V> extends IDomInput {
 	 * Returns the value of this input element, as follows:
 	 * <ul>
 	 * <li>If a valid value was entered, the value is returned.</li>
-	 * <li>If no value is entered, <i>null</i> is returned.</li>
-	 * <li>If an invalid value is entered, an exception is thrown.</li>
+	 * <li>If no value was entered, <i>null</i> is returned.</li>
+	 * <li>If an invalid value was entered, an {@link Exception} is thrown.</li>
 	 * </ul>
 	 *
 	 * @return the entered value (may be <i>null</i>)
 	 * @throws DomInputException
-	 *             if the user entered something into this input element which
-	 *             does not represent a valid value
+	 *             if the entered text does not represent a valid value
 	 */
 	default V getValueOrNull() {
 
@@ -66,9 +67,28 @@ public interface IDomValueInput<V> extends IDomInput {
 	}
 
 	/**
+	 * Returns the value of this input element, as follows:
+	 * <ul>
+	 * <li>If a valid value was entered, the value is returned.</li>
+	 * <li>If no value was entered, an {@link Exception} is thrown.</li>
+	 * <li>If an invalid value was entered, an {@link Exception} is thrown.</li>
+	 * </ul>
+	 *
+	 * @return the entered value (never <i>null</i>)
+	 * @throws DomInputException
+	 *             if this input element is empty, or if the entered text does
+	 *             not represent a valid value
+	 */
+	default V getValueOrThrow() {
+
+		return getValue().orElseThrow(() -> new DomInputException(DomI18n.MISSING_INPUT_VALUE));
+	}
+
+	/**
 	 * Same as {@link #getValue()} but never throws an {@link Exception}.
 	 * <p>
-	 * Instead of throwing an exception, {@link Optional#empty()} is returned.
+	 * Instead of throwing an {@link Exception}, {@link Optional#empty()} is
+	 * returned.
 	 *
 	 * @return the entered value as an {@link Optional} (never <i>null</i>)
 	 */
@@ -83,12 +103,14 @@ public interface IDomValueInput<V> extends IDomInput {
 	}
 
 	/**
-	 * Registers the given callback to be notified when the value changes.
+	 * Registers the given callback to be executed when the value is changed.
 	 * <p>
-	 * All registered callback functions will be called when a {@link IDomEvent}
-	 * of type {@link DomEventType#CHANGE} occurs, or by manually calling
-	 * {@link #setValueAndHandleChangeCallback}. All callback functions will
-	 * then be called in the order that they were added.
+	 * All registered callback functions will be called when an
+	 * {@link IDomEvent} of type {@link DomEventType#CHANGE} occurs, or by
+	 * manually calling {@link #setValueAndHandleChangeCallback}.
+	 * <p>
+	 * All callback functions are called in the order in which they were
+	 * registered.
 	 *
 	 * @param callback
 	 *            the callback (never <i>null</i>)

@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -15,7 +14,7 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	public AjaxAutoCompleteChangeEventTest() {
 
 		openTestInput(i -> {
-			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
+			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
 			i.listenToChange();
 		});
 	}
@@ -25,8 +24,9 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, Key.DOWN, Key.ENTER);
+		waitForServer();
 
-		assertEventAndValue(ITEM1);
+		assertEventAndValue(VALUE1);
 	}
 
 	@Test
@@ -34,29 +34,32 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, Key.DOWN, Key.TAB);
+		waitForServer();
 
-		assertEventAndValue(ITEM1);
+		assertEventAndValue(VALUE1);
 	}
 
 	@Test
 	public void testChangeEventWithClick() {
 
 		openPopup();
-		clickAutoCompleteItem(ITEM3);
+		clickAutoCompleteValue(VALUE3);
+		waitForServer();
 
-		assertEventAndValue(ITEM3);
+		assertEventAndValue(VALUE3);
 	}
 
 	@Test
-	public void testChangeEventWithEscape() {
+	public void testChangeEventWithEscapeAfterIllegalInput() {
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 
-		assertEvent();
-		indicator.assertValueIllegal(true);
+		inputDiv.assertNoEvent();
+		indicator.assertIndicatesIllegal();
 	}
 
 	@Test
@@ -64,21 +67,24 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		openPopup();
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		clickBodyNode();
+		waitForServer();
 
-//		assertEventAndValue(INVALID_INPUT); // FIXME decide behavior
+		inputDiv.assertNoEvent();
+		indicator.assertIndicatesIllegal();
 	}
 
 	@Test
 	public void testChangeEventWithValidValueAndBlur() {
 
 		openPopup();
-		send(inputField, ITEM3.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE3.getName());
+		waitForServer();
 		clickBodyNode();
+		waitForServer();
 
-		assertEventAndValue(ITEM3);
+		assertEventAndValue(VALUE3);
 	}
 
 	// -------------------- submit without popup -------------------- //
@@ -88,8 +94,8 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// input and submit some value
 		openPopup();
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 		send(inputField, Key.ENTER);
 		waitForServer();
 		inputDiv.clearEvents();
@@ -98,10 +104,10 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		while (!getAttributeValue(inputField, "value").isEmpty()) {
 			send(inputField, Key.BACK_SPACE);
 		}
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
 		waitForServer();
-		indicator.assertValueValid(true);
+		indicator.assertIndicatesNothing();
 		inputDiv.assertOneEvent();
 
 		// now try to submit empty value with ENTER
@@ -111,166 +117,172 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 
 		// assert that empty value was not re-submitted
 		inputDiv.assertNoEvent();
-		assertNull(inputDiv.getSelection().getValueOrNull());
-		indicator.assertValueValid(true);
+		assertNull(inputDiv.getValueOrNull());
+		indicator.assertIndicatesNothing();
 	}
 
-	// -------------------- un-submitted -------------------- //
+	// -------------------- backdrop -------------------- //
 
 	@Test
-	public void testUnsubmittedIndicatorWithEscape() {
-
-		// input some invalid text
-		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
-
-		// set input value
-		send(inputField, Key.ESCAPE);
-//		assertUnsubmittedIndicator(true); // FIXME decide behavior
-	}
-
-	// -------------------- modality -------------------- //
-
-	@Test
-	public void testNoModalityBeforeTyping() {
+	public void testBackdropBeforeTyping() {
 
 		openPopup();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testModalityAfterTyping() {
+	public void testBackdropAfterTyping() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
-		assertTrue(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testNoModalityAfterSelectionWithEnter() {
+	public void testBackdropAfterSelectionWithEnter() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-//		assertFalse(isAutoCompleteModalDivDisplayed()); // FIXME broken
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testNoModalityAfterSelectionWithClickOnItem() {
+	public void testBackdropAfterSelectionWithClickOnValue() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
-		// click the item
-		clickAutoCompleteItem(ITEM1);
+		// click the value
+		clickAutoCompleteValue(VALUE1);
+		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
-	/**
-	 * FIXME fix wrong behavior and activate this test
-	 */
 	@Test
-	@Ignore
-	public void testNoModalityAfterInvalidInputAndEnter() {
+	public void testBackdropAfterInvalidInputAndEnter() {
 
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testNoModalityIfAlreadySubmitted() {
+	public void testBackdropAfterInvalidInputAndEscape() {
+
+		// input some invalid text
+		click(inputField);
+		send(inputField, INVALID_INPUT);
+		waitForServer();
+
+		// press enter
+		send(inputField, Key.ESCAPE);
+		waitForServer();
+
+		assertFalse(isAutoCompleteBackdropDisplayed());
+	}
+
+	@Test
+	public void testBackdropIfAlreadySubmitted() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
 		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
+		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testModalityIfSubmittedAndThenAltered() {
+	public void testBackdropIfSubmittedAndThenAltered() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
 		// press enter
 		send(inputField, Key.ENTER);
 		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
 
 		// type something
 		send(inputField, "foo");
+		waitForServer();
 
-		assertTrue(isAutoCompleteModalDivDisplayed());
+		assertTrue(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testNoModalityAfterConfirmationOfUniqueValidValue() {
+	public void testBackdropAfterConfirmationOfUniqueValidValue() {
 
 		// input some valid text
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
 		// close the popup
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 
 		// remove and regain focus
-		unfocusAndRefocusInput();
+		clickBodyNode();
+		waitForServer();
+		click(inputField);
 
 		// press enter
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
-	public void testNoModalityAfterInvalidValueAndFocusLoss() {
+	public void testBackdropAfterInvalidValueAndFocusLoss() {
 
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 
 		clickBodyNode();
 		waitForServer();
 
-		assertFalse(isAutoCompleteModalDivDisplayed());
+		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	// -------------------- private -------------------- //
@@ -287,28 +299,19 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	/**
 	 * Asserts that a change event was triggered, and the value of the input.
 	 */
-	private void assertEventAndValue(AjaxAutoCompleteTestItem item) {
+	private void assertEventAndValue(AjaxAutoCompleteTestValue value) {
 
 		assertEvent();
-		assertSame(item, inputDiv.getValueOrNull());
+		assertSame(value, inputDiv.getValueOrNull());
 	}
 
 	/**
-	 * Enters the name of the given item and waits for the pop-up.
+	 * Enters the name of the given value and waits for the pop-up.
 	 */
 	private void openPopup() {
 
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
-	}
-
-	/**
-	 * Un-focuses the input and re-focuses it.
-	 */
-	private void unfocusAndRefocusInput() {
-
-		clickBodyNode();
-		click(inputField);
+		waitForServer();
 	}
 }

@@ -13,12 +13,12 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 
 		openTestInput(i -> {
 			this.button = new TestButton(() -> {
-				i.getEngine().clearItems();
-				i.getEngine().addItems(ITEM3);
+				i.getEngine().clearValues();
+				i.getEngine().addValues(VALUE3);
 			});
 			CurrentDomDocument.get().getBody().appendChild(button);
 
-			i.getEngine().addItems(ITEM1, ITEM2);
+			i.getEngine().addValues(VALUE1, VALUE2);
 		});
 	}
 
@@ -28,16 +28,18 @@ public class AjaxAutoCompleteCacheTest extends AbstractAjaxAutoCompleteStringTes
 		// open popup to fill cache
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
-		assertPopupItems(ITEM1, ITEM2);
+		waitForServer();
+		assertPopupValues(VALUE1, VALUE2);
 
-		// blur and change list of items
+		// blur and change list of values
+		send(inputField, Key.ESCAPE);
 		click(button);
+		waitForServer();
 
 		// open popup again
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
-		assertPopupItems(ITEM3);
+		waitForServer();
+		assertPopupValues(VALUE3);
 	}
 }

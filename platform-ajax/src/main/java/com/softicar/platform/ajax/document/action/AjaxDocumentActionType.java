@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.document.action;
 
-import com.softicar.platform.ajax.auto.complete.AjaxAutoCompleteService;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.drag.AjaxDragAndDropService;
 import com.softicar.platform.ajax.event.AjaxDomEventService;
@@ -24,7 +23,6 @@ public enum AjaxDocumentActionType {
 	DOM_EVENT(6, AjaxDomEventService::new),
 	DRAG_AND_DROP(7, AjaxDragAndDropService::new),
 	UPLOAD(8, AjaxUploadService::new),
-	AUTO_COMPLETE(10, AjaxAutoCompleteService::new),
 	//
 	;
 

@@ -1,21 +1,8 @@
 package com.softicar.platform.emf.attribute.input;
 
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.input.IDomValueInput;
 
 public interface IEmfInput<V> extends IDomValueInput<V> {
-
-	/**
-	 * Flags this input as either mandatory or optional.
-	 *
-	 * @param mandatory
-	 *            true if this input is mandatory. false otherwise.
-	 */
-	default void setMandatory(boolean mandatory) {
-
-		DevNull.swallow(mandatory);
-		// nothing to do by default
-	}
 
 	/**
 	 * This method is called when the value of this or another input has

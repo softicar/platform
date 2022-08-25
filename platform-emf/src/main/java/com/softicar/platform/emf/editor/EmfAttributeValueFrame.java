@@ -83,13 +83,11 @@ public class EmfAttributeValueFrame<R extends IEmfTableRow<R, ?>, V> extends Abs
 
 		this.input = attribute.createInput(row);
 		input.addChangeCallback(changeCallback);
-		input.setMandatory(valueMode.isMandatory());
 		input.setValue(attribute.getValue(row));
 	}
 
 	private void updateInput() {
 
-		input.setMandatory(valueMode.isMandatory());
 		input.refreshInputConstraints();
 	}
 

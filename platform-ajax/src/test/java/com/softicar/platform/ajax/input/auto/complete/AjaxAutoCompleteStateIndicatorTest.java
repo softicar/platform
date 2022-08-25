@@ -2,8 +2,8 @@ package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.utils.TestButton;
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -21,23 +21,8 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 			this.button = new TestButton(() -> i.getInputField().setValue(INVALID_INPUT));
 			CurrentDomDocument.get().getBody().appendChild(button);
 
-			i.getEngine().addItems(ITEM1, ITEM2, ITEM3);
+			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
 		});
-	}
-
-	// -------------------- loading -------------------- //
-
-	@Test
-	public void testLoadingIndicator() {
-
-		try (Locker locker = inputDiv.getEngine().lock()) {
-			indicator.assertLoading(false);
-			send(inputField, Key.DOWN);
-			indicator.assertLoading(true);
-		}
-
-		waitForAutoCompletePopup();
-		indicator.assertLoading(false);
 	}
 
 	// -------------------- ambiguous -> valid -------------------- //
@@ -52,39 +37,46 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input some ambiguous text
 		clear(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous(true);
+		waitForServer();
+		indicator.assertIndicatesAmbiguous();
 
 		// press escape
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueAmbiguous(true);
+		waitForServer();
+		indicator.assertIndicatesAmbiguous();
 
 		// remove text from input and close popup
 		clear(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueValid(true);
+		waitForServer();
+
+		indicator.assertIndicatesNothing();
 	}
 
 	@Test
+	@Ignore("This test directly sets the textual field value. This is never going to happen in practice.")
 	public void testTransitionFromAmbiguousToValidIndicatorWithValueFromServer() {
 
 		// input some ambiguous text
 		click(inputField);
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
-		indicator.assertValueAmbiguous(true);
+		waitForServer();
+		indicator.assertIndicatesAmbiguous();
 
 		// press escape
 		send(inputField, Key.ESCAPE);
-		indicator.assertValueAmbiguous(true);
+		waitForServer();
+		indicator.assertIndicatesAmbiguous();
 
 		// set input value
 		click(button);
 		waitForServer();
 		click(inputField);
-		indicator.assertValueValid(true);
+		waitForServer();
+
+		indicator.assertIndicatesIllegal();
 	}
 
 	// -------------------- invalid -> valid -------------------- //
@@ -95,13 +87,15 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input some invalid text
 		click(inputField);
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
-		indicator.assertValueIllegal(true);
+		waitForServer();
+		indicator.assertIndicatesIllegal();
 
 		// set input value
+		send(inputField, Key.ESCAPE);
 		click(button);
 		waitForServer();
-		indicator.assertValueValid(true);
+
+		indicator.assertIndicatesIllegal();
 	}
 
 	// -------------------- invalid -------------------- //
@@ -112,11 +106,13 @@ public class AjaxAutoCompleteStateIndicatorTest extends AbstractAjaxAutoComplete
 		// input invalid text
 		click(inputField);
 		send(inputField, "x");
-		waitForAutoCompletePopup();
-		indicator.assertValueIllegal(true);
+		waitForServer();
+		indicator.assertIndicatesIllegal();
 
 		// leave input
+		send(inputField, Key.ESCAPE);
 		clickBodyNode();
-		indicator.assertNotOkay(true);
+
+		indicator.assertIndicatesIllegal();
 	}
 }

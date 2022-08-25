@@ -14,6 +14,6 @@ public class EmfEnumTableRowInput<R extends IDbEnumTableRow<R, E>, E extends IDb
 
 		super(new EmfEnumTableRowInputEngine<>(targetTable));
 
-		inputBar.appendChild(new EmfAutoCompleteBrowseButton(this, inputEngine));
+		getInputBar().appendChild(new EmfAutoCompleteBrowseButton(this, getInputEngine()));
 	}
 }

@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import org.junit.Test;
 
@@ -8,972 +7,433 @@ import org.junit.Test;
  * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
  * <b>"2.3 Popup Closed"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
  * <p>
- * Note that, for passive input elements, the value is not transferred to the
- * server until the next arbitrary event is handled.
- * <p>
- * All assertions in here should expect a focused input element and a
- * non-displayed popup.
+ * All tests in here should end with a closed popup, and a focused input
+ * element.
  *
  * @author Alexander Schmidt
  */
 public class AjaxAutoCompleteEntityInputFocusedPopupClosedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testUniqueFilteringAndSelectionWithEnterOnPassiveEmptyInput() {
+	public void testValidInputWithArrowDownAndEscape() {
 
 		setup//
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
-			.pressEnter();
-
-		asserter//
-			.expectClientValue(ENTITY1)
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndSelectionWithEnterOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
-			.pressEnter()
+			.focusByClick()
+			.pressArrowDown()
+			.waitForServer()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackValue(ENTITY1)
-			.expectCallbackCountOne()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndSelectionWithEnterOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressEnter();
-
-		asserter//
-			.expectClientValue(ENTITY2)
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testAmbiguousFilteringAndSelectionWithEnterOnActiveEmptyInput() {
+	public void testValidInputWithBackspaceTillAmbiguousAndEscape() {
 
 		setup//
-			.setListenToChange()
+			.setSelectedValue(VALUE3)
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackValue(ENTITY2)
-			.expectCallbackCountOne()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndShiftingAndSelectionWithEnterOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressDownArrow()
-			.pressEnter();
-
-		asserter//
-			.expectClientValue(ENTITY3)
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndShiftingAndSelectionWithEnterOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressDownArrow()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY3)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackValue(ENTITY3)
-			.expectCallbackCountOne()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueNone()
-			.expectIndicatorValueAmbiguous()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testInvalidFilteringAndClosePopupWithEscOnPassiveEmptyInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testInvalidFilteringAndClosePopupWithEscOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testClosePopupWithEscOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testUniqueFilteringAndClosePopupWithEscOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressDownArrow()
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnPassiveFilledInput() {
-
-		setup//
-			.setSelectedEntity(ENTITY3)
-			.execute();
-
-		input//
-			.focusWithClick()
+			.focusByClick()
 			.pressBackspace(5)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValue(ENTITY3)
-			.expectIndicatorValueAmbiguous()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testAmbiguousFilteringAndClosePopupWithEscOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY3)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(5)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
+			.waitForServer()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorAmbiguous()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
 			.expectCallbackValueNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testEmptyFilteringAndClosePopupWithEscOnPassiveFilledInput() {
+	public void testValidInputWithBackspaceTillEmptyAndEscape() {
 
 		setup//
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE1)
 			.execute();
 
 		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
-
-		asserter//
-			.expectClientValueNone()
-			.expectServerValue(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEmptyFilteringAndClosePopupWithEscOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY1)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
+			.focusByClick()
+			.pressBackspace(VALUE1.toDisplayStringWithId().length())
+			.waitForServer()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
+			.expectInputTextNone()
+			.expectSelectedValueNone()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
 			.expectCallbackValueNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnPassiveFilledInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
 
 		setup//
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE2)
 			.execute();
 
 		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc();
+			.focusByClick()
+			.pressBackspace(VALUE2.toDisplayStringWithId().length())
+			.sendString(VALUE1.getName())
+			.waitForServer()
+			.pressEnter()
+			.waitForServer();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValue(ENTITY1)
-			.expectIndicatorValueMissing()
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackNone()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
 	@Test
-	public void testMandatotyAndEmptyFilteringAndClosePopupWithEscOnActiveFilledInput() {
+	public void testValidInputWithBackspaceTillEmptyAndTypedIllegalPatternAndClickOnBackdrop() {
 
 		setup//
-			.setListenToChange()
-			.setMandatory()
-			.setSelectedEntity(ENTITY1)
+			.setSelectedValue(VALUE2)
 			.execute();
 
 		input//
-			.focusWithClick()
-			.pressBackspace(7)
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
+			.focusByClick()
+			.pressBackspace(VALUE2.toDisplayStringWithId().length())
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer();
+		backdrop//
+			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValueNone()
-			.expectServerValueNone()
-			.expectIndicatorValueMissing()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
 			.expectCallbackValueNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testCloseOverlayWithClickOnOverlayOfActiveEmptyInput() {
+	public void testEmptyInputWithArrowDownAndEscape() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(ENTITY2.getName())
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click();
+			.focusByClick()
+			.pressArrowDown()
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY2.getName()) // TODO should this be expanded?
-			.expectServerValue(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectValuesNone()
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testOverlayRemovedWithTabOnActiveEmptyInputWithOpenPopup() {
+	public void testEmptyInputWithTypedUniquePatternAndEnter() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer()
+			.pressEnter()
+			.waitForServer();
+
+		asserter//
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(VALUE1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndEscape() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
+
+		asserter//
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(VALUE1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedUniquePatternAndTab() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer()
 			.pressTab()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE1)
 			.assertAll();
 	}
 
 	@Test
-	public void testOverlayRemovedWithEscOnActiveEmptyInputWithOpenPopup() {
+	public void testEmptyInputWithTypedUniquePatternAndClickOnBackdrop() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
-			.pressEsc()
+			.focusByClick()
+			.sendString(VALUE2.getName())
+			.waitForServer();
+		backdrop//
+			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1.getName()) // TODO we could complete this with the server side value
-			.expectServerValue(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectValues(VALUE2)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE2)
 			.assertAll();
 	}
 
 	@Test
-	public void testLoadingDisplayedWithAmbiguousItemNameOnPassiveEmptyInput() {
+	public void testEmptyInputWithTypedUniquePatternAndClickOnPopupRow() {
 
 		setup//
 			.execute();
 
 		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(AMBIGUOUS_ITEM_NAME_CHUNK);
-
-			asserter//
-				.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-				.expectServerValueNone()
-				.expectIndicatorLoading()
-				.expectPopupNotDisplayed()
-				.expectFocus()
-				.expectOverlayNotDisplayed()
-				.expectCallbackNone()
-				.assertAll();
-		}
-	}
-
-	@Test
-	public void testLoadingDisplayedWithAmbiguousItemNameOnActiveEmptyInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(AMBIGUOUS_ITEM_NAME_CHUNK);
-
-			asserter//
-				.expectClientValue(AMBIGUOUS_ITEM_NAME_CHUNK)
-				.expectServerValueNone()
-				.expectIndicatorLoading()
-				.expectPopupNotDisplayed()
-				.expectFocus()
-				.expectOverlayDisplayed()
-				.expectCallbackNone()
-				.assertAll();
-		}
-	}
-
-	@Test
-	public void testOverlayNotDisplayedWhileLoadingFinishesAfterPopupClosedWithUniqueItemNameOnEmptyPassiveInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(ENTITY1.getName());
-			body//
-				.click();
-
-			asserter//
-				.expectClientValue(ENTITY1.getName())
-				.expectServerValueNone()
-				.expectIndicatorLoading()
-				.expectPopupNotDisplayed()
-				.expectNoFocus()
-				.expectOverlayNotDisplayed()
-				.expectCallbackNone()
-				.assertAll();
-		}
-	}
-
-	@Test
-	public void testOverlayDisplayedWhileLoadingFinishesAfterPopupClosedWithUniqueItemNameOnEmptyActiveInput() {
-
-		setup//
-			.setListenToChange()
-			.execute();
-
-		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(ENTITY1.getName());
-			overlay//
-				.click();
-
-			asserter//
-				.expectClientValue(ENTITY1.getName())
-				.expectServerValueNone()
-				.expectIndicatorCommitting()
-				.expectPopupNotDisplayed()
-				.expectFocus()
-				.expectOverlayDisplayed()
-				.expectCallbackNone()
-				.assertAll();
-		}
-	}
-
-	@Test
-	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyPassiveInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(ENTITY1.getName());
-			body//
-				.click();
-		}
+			.focusByClick()
+			.sendString(VALUE1.getName())
+			.waitForServer();
+		popup//
+			.clickValueNumber(1)
+			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1.getName())
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
+			.expectInputText(VALUE1)
+			.expectSelectedValue(VALUE1)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
-			.expectNoFocus()
-			.expectOverlayNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(VALUE1)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndEnter() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForServer()
+			.pressEnter()
+			.waitForServer();
+
+		asserter//
+			.expectValues(VALUE2)
+			.expectIndicatorNone()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
+			.expectCallbackCountOne()
+			.expectCallbackValue(VALUE2)
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithTypedAmbiguousPatternAndEscape() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForServer()
+			.pressEscape()
+			.waitForServer();
+
+		asserter//
+			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorAmbiguous()
+			.expectPopupNotDisplayed()
+			.expectFocus()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testLoadingFinishesAfterClosingPopupWithUniqueItemNameOnEmptyActiveInput() {
+	public void testEmptyInputWithTypedAmbiguousPatternAndClickOnPopupRow() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick();
-
-		try (Locker lock = inputEngine.createLocker()) {
-			input//
-				.sendString(ENTITY1.getName());
-			overlay//
-				.click();
-		}
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForServer();
+		popup//
+			.clickValueNumber(2)
+			.waitForServer();
 
 		asserter//
-			.expectClientValue(ENTITY1.getName())
-			.expectServerValueNone()
-			.expectIndicatorValueValid()
+			.expectValues(VALUE3)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
+			.expectCallbackValue(VALUE3)
 			.assertAll();
 	}
 
 	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnActiveEmptyInput() {
+	public void testEmptyInputWithTypedAmbiguousPatternAndArrowDownAndEnter() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
+			.focusByClick()
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
+			.waitForServer()
+			.pressArrowDown()
 			.pressEnter()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
+			.expectValues(VALUE3)
+			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
+			.expectCallbackValue(VALUE3)
 			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
 			.assertAll();
 	}
 
 	@Test
-	public void testCallbackWithTypeAmbiguousItemNameAndEnterOnActiveEmptyInput() {
+	public void testEmptyInputWithTypedIllegalPatternAndEscape() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(AMBIGUOUS_ITEM_NAME_CHUNK)
-			.waitForPopupAndLoadingFinished()
-			.pressEnter()
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape()
 			.waitForServer();
 
 		asserter//
-			.expectValues(ENTITY2)
-			.expectIndicatorValueValid()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY2)
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testCallbackWithTypeInvalidItemNameAndClosePopupOnActiveEmptyInput() {
+	public void testEmptyInputWithTypedIllegalPatternAndClickOnBackdrop() {
 
 		setup//
-			.setListenToChange()
 			.execute();
 
 		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
-		overlay//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer();
+		backdrop//
 			.click()
 			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testCallbackWithTypeUniqueItemNameAndEnterOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY2)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(ENTITY1.getName())
-			.waitForPopupAndLoadingFinished()
-			.pressEnter()
-			.waitForServer();
-
-		asserter//
-			.expectValues(ENTITY1)
-			.expectIndicatorValueValid()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(ENTITY1)
-			.assertAll();
-	}
-
-	@Test
-	public void testCallbackWithTypeInvalidItemNameAndEnterOnActiveFilledInput() {
-
-		setup//
-			.setListenToChange()
-			.setSelectedEntity(ENTITY2)
-			.execute();
-
-		input//
-			.focusWithClick()
-			.pressBackspace(ENTITY2.toDisplayStringWithId().length())
-			.sendString(INVALID_ITEM_NAME)
-			.waitForPopupAndLoadingFinished();
-		overlay//
-			.click()
-			.waitForServer();
-
-		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueExceptionMessage()
-			.expectIndicatorValueIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectOverlayNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValueNone()
+			.expectBackdropNotDisplayed()
+			.expectCallbackNone()
 			.assertAll();
 	}
 }

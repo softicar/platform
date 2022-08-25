@@ -31,8 +31,6 @@ class AjaxRequestQueue {
 		this.requestIndex += 1;
 		this.waitingForServer = false;
 
-		// FIXME this ad-hoc call looks like a hack (PLAT-853)
-		AUTO_COMPLETE_ENGINE.notifyChangeEventReturned();
 		KEEP_ALIVE.schedule();
 	}
 

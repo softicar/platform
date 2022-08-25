@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.DomImages;
+import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomFileInput;
 import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
@@ -29,7 +29,7 @@ public class HiddenFileInputTestCase extends AbstractTestCaseDiv {
 
 		public UploadButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("Click to Upload"));
 			setClickCallback(this::handleClick);
 		}

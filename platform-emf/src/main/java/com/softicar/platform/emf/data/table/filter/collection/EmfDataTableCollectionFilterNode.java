@@ -4,7 +4,7 @@ import com.softicar.platform.common.container.data.table.DataTableCollectionFilt
 import com.softicar.platform.common.container.data.table.IDataTableFilterList;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.column.handler.collection.IEmfDataTableCollectionAdapter;
@@ -28,7 +28,7 @@ public class EmfDataTableCollectionFilterNode<R, C, E> extends DomDiv implements
 
 	protected final IEmfDataTableColumn<R, C> column;
 	private final IEmfDataTableCollectionAdapter<C, E> adapter;
-	private final IDomAutoCompleteInput<E> input;
+	private final DomAutoCompleteInput<E> input;
 
 	public EmfDataTableCollectionFilterNode(IEmfDataTableColumn<R, C> column, IEmfDataTableCollectionAdapter<C, E> adapter) {
 
@@ -42,7 +42,7 @@ public class EmfDataTableCollectionFilterNode<R, C, E> extends DomDiv implements
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		E element = input.getSelection().getValueOrNull();
+		E element = input.getValueOrNull();
 		if (element != null) {
 			return new Filter(element);
 		} else {

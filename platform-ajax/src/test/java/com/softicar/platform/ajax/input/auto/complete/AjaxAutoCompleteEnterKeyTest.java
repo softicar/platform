@@ -7,17 +7,18 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 
 	public AjaxAutoCompleteEnterKeyTest() {
 
-		openTestInput(i -> i.getEngine().addItems(ITEM1, ITEM2, ITEM3));
+		openTestInput(i -> i.getEngine().addValues(VALUE1, VALUE2, VALUE3));
 	}
 
 	@Test
 	public void testEnterKeySelection() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN, Key.DOWN, Key.ENTER);
+		waitForServer();
 
-		assertInputValue(ITEM2);
+		assertInputValue(VALUE2);
 	}
 
 	@Test
@@ -25,8 +26,9 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 
 		// enter invalid input and press ENTER
 		send(inputField, INVALID_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ENTER);
+		waitForServer();
 
 		// assert popup is not closed but input keeps focus
 		assertTrue(isAutoCompletePopupDisplayed());
@@ -37,20 +39,21 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 	public void testEnterKeyWithClosedPopupWithValidButIncompleteValue() {
 
 		// enter valid but incomplete input
-		send(inputField, INCOMPLETE_ITEM1_NAME);
-		waitForAutoCompletePopup();
+		send(inputField, INCOMPLETE_VALUE1_NAME);
+		waitForServer();
 
 		// close popup using ESCAPE
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 		assertFalse(isAutoCompletePopupDisplayed());
 
 		// now press ENTER
 		send(inputField, Key.ENTER);
 		waitForServer();
 
-		// assert popup is closed and input has full item name
+		// assert popup is closed and input has full value name
 		assertFalse(isAutoCompletePopupDisplayed());
 		assertFocused(inputField);
-		assertEquals(INCOMPLETE_ITEM1_NAME, getAttributeValue(inputField, "value"));
+		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
 }

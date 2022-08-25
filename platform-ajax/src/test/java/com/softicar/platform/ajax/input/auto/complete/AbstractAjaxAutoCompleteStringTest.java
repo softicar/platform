@@ -7,18 +7,17 @@ import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAutoCompleteTest {
 
 	protected static final String AMBIGUOUS_INPUT = "ir";
-	protected static final String INCOMPLETE_ITEM1_NAME = "fir";
+	protected static final String INCOMPLETE_VALUE1_NAME = "fir";
 	protected static final String INVALID_INPUT = "xxx";
-	protected static final AjaxAutoCompleteTestItem ITEM1 = new AjaxAutoCompleteTestItem("first");
-	protected static final AjaxAutoCompleteTestItem ITEM2 = new AjaxAutoCompleteTestItem("second");
-	protected static final AjaxAutoCompleteTestItem ITEM3 = new AjaxAutoCompleteTestItem("third");
-	protected static final AjaxAutoCompleteTestItem ITEM4 = new AjaxAutoCompleteTestItem("thirdPlusOne");
+	protected static final AjaxAutoCompleteTestValue VALUE1 = new AjaxAutoCompleteTestValue("first");
+	protected static final AjaxAutoCompleteTestValue VALUE2 = new AjaxAutoCompleteTestValue("second");
+	protected static final AjaxAutoCompleteTestValue VALUE3 = new AjaxAutoCompleteTestValue("third");
+	protected static final AjaxAutoCompleteTestValue VALUE4 = new AjaxAutoCompleteTestValue("thirdPlusOne");
 	protected AjaxAutoCompleteTestInput inputDiv;
 	protected IDomTextualInput inputField;
 
@@ -41,26 +40,26 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 
 	protected boolean isValueSubmitted() {
 
-		String clientValue = Optional.ofNullable(getAttributeValue(inputField, "value")).orElse("");
-		String serverValue = inputDiv.getValue().map(item -> item.getName()).orElse("");
+		String clientValue = inputDiv.getValueText();
+		String serverValue = inputDiv.getValue().map(value -> value.getName()).orElse("");
 		return clientValue.equals(serverValue);
 	}
 
-	protected void assertInputValue(AjaxAutoCompleteTestItem item) {
+	protected void assertInputValue(AjaxAutoCompleteTestValue value) {
 
-		assertEquals(item.getName(), getAttributeValue(inputField, "value"));
+		assertEquals(value.getName(), inputDiv.getValueText());
 		assertFalse("Auto-complete pop-up still shown.", isAutoCompletePopupDisplayed());
 	}
 
-	protected void assertPopupItems(AjaxAutoCompleteTestItem...items) {
+	protected void assertPopupValues(AjaxAutoCompleteTestValue...values) {
 
-		assertPopupItems(Arrays.asList(items));
+		assertPopupValues(Arrays.asList(values));
 	}
 
-	protected void assertPopupItems(List<AjaxAutoCompleteTestItem> items) {
+	protected void assertPopupValues(List<AjaxAutoCompleteTestValue> values) {
 
-		super.assertPopupItems(//
-			AjaxAutoCompleteTestItem::getName,
-			items);
+		super.assertPopupValues(//
+			AjaxAutoCompleteTestValue::getName,
+			values);
 	}
 }

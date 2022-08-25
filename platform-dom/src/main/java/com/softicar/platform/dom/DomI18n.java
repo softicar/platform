@@ -14,6 +14,8 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 ALSO_TRIES_TO_AUTOMATICALLY_CONVERT_PURELY_TEXTUAL_VALUES_TO_NUMERICAL_VALUES =
 			new I18n0("Also tries to automatically convert purely textual values to numerical values.")//
 				.de("Außerdem wird versucht, rein-textuelle Werte automatisch in Zahlenwerte zu konvertieren.");
+	I18n0 AMBIGUOUS_INPUT = new I18n0("Ambiguous Input")//
+		.de("Mehrdeutige Eingabe");
 	I18n0 AN_INTERNAL_PROGRAM_ERROR_OCCURRED = new I18n0("An internal program error occurred.")//
 		.de("Ein interner Programmfehler ist aufgetreten.");
 	I18n0 AN_NONEXISTENT_OPTION_WAS_SELECTED = new I18n0("An nonexistent option was selected.")//
@@ -83,6 +85,8 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Für einen Export im ausgewählten Format darf die Anzahl der Tabellen-Zeilen %s nicht übersteigen.");
 	I18n0 FOUR = new I18n0("Four")//
 		.de("Vier");
+	I18n0 FURTHER_ENTRIES_AVAILABLE = new I18n0("further entries available")//
+		.de("weitere Einträge verfügbar");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
 	I18n0 HOURS = new I18n0("Hours")//
@@ -95,6 +99,8 @@ public interface DomI18n extends CommonCoreI18n {
 				"If this option is selected, the name of the exported file will contain a timestamp, indicating the point in time at which the file was exported.")//
 					.de(
 						"Wenn diese Option ausgewählt ist, wird der Name der exportierten Datei einen Zeitstempel beinhalten, der angibt, wann die Datei exportiert wurde.");
+	I18n0 ILLEGAL_INPUT = new I18n0("Illegal Input")//
+		.de("Ungültige Eingabe");
 	I18n0 IN_CASE_NO_EXPLICIT_FORMAT_WAS_DEFINED_A_CONVERSION_TO_A_PURELY_TEXTUAL_FORMAT_IS_APPLIED =
 			new I18n0("In case no explicit format was defined, a conversion to a purely textual format is applied.")//
 				.de("Falls kein explizites Format definiert wurde, wird eine rein-textuelle Konvertierung vorgenommen.");
@@ -106,6 +112,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Speicherverbrauch ist zu hoch.");
 	I18n0 MINUTES = new I18n0("Minutes")//
 		.de("Minuten");
+	I18n0 MISSING_INPUT_VALUE = new I18n0("Missing input value")//
+		.de("Fehlender Eingabewert");
 	I18n0 MULTIPLE_OPTIONS_WERE_SELECTED = new I18n0("Multiple options were selected.")//
 		.de("Mehrere Optionen wurden ausgewählt.");
 	I18n0 NEXT_PAGE = new I18n0("Next Page")//
@@ -114,6 +122,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Nein");
 	I18n1 NO_MORE_THAN_ARG1_DECIMAL_PLACES_ALLOWED = new I18n1("No more than %s decimal places allowed.")//
 		.de("Nicht mehr als %s Dezimalstellen erlaubt.");
+	I18n0 NO_RECORDS_FOUND = new I18n0("No Records Found")//
+		.de("Keine Einträge gefunden");
 	I18n0 NO_TITLE = new I18n0("No Title")//
 		.de("kein Titel");
 	I18n0 NONE = new I18n0("none")//

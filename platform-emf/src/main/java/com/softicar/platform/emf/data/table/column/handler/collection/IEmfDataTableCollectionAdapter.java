@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.data.table.column.handler.collection;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import java.util.Collection;
 import java.util.function.Supplier;
@@ -26,7 +26,7 @@ public interface IEmfDataTableCollectionAdapter<C, E> {
 	 * @param validElementsSupplier
 	 * @return the newly created input node
 	 */
-	IDomAutoCompleteInput<E> createInputNode(Supplier<Collection<E>> validElementsSupplier);
+	DomAutoCompleteInput<E> createInputNode(Supplier<Collection<E>> validElementsSupplier);
 
 	/**
 	 * Pre-fetches all data for the given collections.

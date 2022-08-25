@@ -12,25 +12,25 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
-public class AjaxAutoCompleteTestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxAutoCompleteTestItem> {
+public class AjaxAutoCompleteTestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxAutoCompleteTestValue> {
 
-	private final Collection<AjaxAutoCompleteTestItem> items;
+	private final Collection<AjaxAutoCompleteTestValue> values;
 	private final Lock lock;
 	private Optional<Consumer<String>> requestListener;
 
-	public AjaxAutoCompleteTestInputEngine(AjaxAutoCompleteTestItem...items) {
+	public AjaxAutoCompleteTestInputEngine(AjaxAutoCompleteTestValue...values) {
 
-		this.items = new ArrayList<>();
-		this.items.addAll(Arrays.asList(items));
+		this.values = new ArrayList<>();
+		this.values.addAll(Arrays.asList(values));
 		this.lock = new ReentrantLock();
 		this.requestListener = Optional.empty();
 
-		setLoader(() -> this.items);
-		addDependsOn(this.items);
+		setLoader(() -> this.values);
+		addDependsOn(this.values);
 	}
 
 	@Override
-	public Collection<AjaxAutoCompleteTestItem> findMatches(String pattern, int limit) {
+	public Collection<AjaxAutoCompleteTestValue> findMatches(String pattern, int limit) {
 
 		try (Locker locker = lock()) {
 			requestListener.ifPresent(listener -> listener.accept(pattern));
@@ -38,29 +38,29 @@ public class AjaxAutoCompleteTestInputEngine extends DomAutoCompleteDefaultInput
 		}
 	}
 
-	public AjaxAutoCompleteTestInputEngine clearItems() {
+	public AjaxAutoCompleteTestInputEngine clearValues() {
 
-		items.clear();
+		values.clear();
 		invalidateCache();
 		return this;
 	}
 
-	public AjaxAutoCompleteTestInputEngine addItem(AjaxAutoCompleteTestItem item) {
+	public AjaxAutoCompleteTestInputEngine addValue(AjaxAutoCompleteTestValue value) {
 
-		items.add(item);
+		values.add(value);
 		invalidateCache();
 		return this;
 	}
 
-	public AjaxAutoCompleteTestInputEngine addItems(AjaxAutoCompleteTestItem...items) {
+	public AjaxAutoCompleteTestInputEngine addValues(AjaxAutoCompleteTestValue...values) {
 
-		List.of(items).forEach(this::addItem);
+		List.of(values).forEach(this::addValue);
 		return this;
 	}
 
-	public AjaxAutoCompleteTestInputEngine addStringItem(String name) {
+	public AjaxAutoCompleteTestInputEngine addStringValue(String name) {
 
-		return addItem(new AjaxAutoCompleteTestItem(name));
+		return addValue(new AjaxAutoCompleteTestValue(name));
 	}
 
 	public AjaxAutoCompleteTestInputEngine setRequestListener(Consumer<String> requestListener) {
@@ -76,6 +76,6 @@ public class AjaxAutoCompleteTestInputEngine extends DomAutoCompleteDefaultInput
 
 	private void invalidateCache() {
 
-		CurrentDerivedObjectRegistry.getInstance().invalidateDerivedObjects(items);
+		CurrentDerivedObjectRegistry.getInstance().invalidateDerivedObjects(values);
 	}
 }

@@ -21,7 +21,6 @@ public abstract class AbstractDomValueInputElement<V> extends DomParentElement i
 	public final void addChangeCallback(INullaryVoidFunction callback) {
 
 		changeCallbacks.add(callback);
-		onChangeCallbackAdded();
 	}
 
 	@Override
@@ -38,18 +37,6 @@ public abstract class AbstractDomValueInputElement<V> extends DomParentElement i
 	protected final void executeChangeCallbacks() {
 
 		changeCallbacks.apply();
-	}
-
-	/**
-	 * Override this method to be informed whenever a new callback functions is
-	 * added.
-	 * <p>
-	 * The default implementation does nothing, so there is not need to call
-	 * this super implementation.
-	 */
-	protected void onChangeCallbackAdded() {
-
-		// nothing to do by default
 	}
 
 	// ------------------------------ disable ------------------------------ //

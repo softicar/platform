@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteInputIndicator;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -19,36 +19,19 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	// -------------------- elements -------------------- //
 
-	protected List<String> getAutoCompletePopupItemNames() {
+	protected List<String> getAutoCompletePopupValueNames() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupItemNames();
+		return testEngine.getAutoCompleteExtension().getAutoCompletePopupValueNames();
 	}
 
-	protected void clickAutoCompletePopupItem(int index) {
+	protected void clickAutoCompletePopupValue(int index) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompletePopupItem(index);
+		testEngine.getAutoCompleteExtension().clickAutoCompletePopupValue(index);
 	}
 
-	protected Optional<Integer> getAutoCompletePopupSelectedItemIndex() {
+	protected Optional<Integer> getAutoCompletePopupSelectedValueIndex() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedItemIndex();
-	}
-
-	// -------------------- waiting -------------------- //
-
-	protected void waitForAutoCompletePopup() {
-
-		testEngine.getAutoCompleteExtension().waitForAutoCompletePopup();
-	}
-
-	protected void waitForAutoCompletePopupToHide() {
-
-		testEngine.getAutoCompleteExtension().waitForAutoCompletePopupToHide();
-	}
-
-	protected void waitForIndicatorToHide(IAjaxSeleniumTestDomAutoCompleteInputIndicator indicator) {
-
-		testEngine.getAutoCompleteExtension().waitForIndicatorToHide(indicator);
+		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedValueIndex();
 	}
 
 	// -------------------- status -------------------- //
@@ -58,19 +41,19 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		return testEngine.getAutoCompleteExtension().isAutoCompletePopupDisplayed();
 	}
 
-	protected boolean isAutoCompletePopupItemSelected() {
+	protected boolean isAutoCompletePopupValueSelected() {
 
-		return getAutoCompletePopupSelectedItemIndex().isPresent();
+		return getAutoCompletePopupSelectedValueIndex().isPresent();
 	}
 
-	protected boolean isAutoCompleteItemPlaceholderElementDisplayed() {
+	protected boolean isAutoCompleteValuePlaceholderElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteItemPlaceholderDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteValuePlaceholderDisplayed();
 	}
 
-	protected boolean isAutoCompleteMoreItemsInfoElementDisplayed() {
+	protected boolean isAutoCompleteMoreValuesInfoElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreItemsInfoDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreValuesInfoDisplayed();
 	}
 
 	// -------------------- asserts -------------------- //
@@ -85,21 +68,21 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, I...items) {
+	protected <I> void assertPopupValues(Function<I, String> nameGetter, I...values) {
 
-		assertPopupItems(nameGetter, Arrays.asList(items));
+		assertPopupValues(nameGetter, Arrays.asList(values));
 	}
 
-	protected <I> void assertPopupItems(Function<I, String> nameGetter, List<I> items) {
+	protected <I> void assertPopupValues(Function<I, String> nameGetter, List<I> values) {
 
-		List<String> elementNames = getAutoCompletePopupItemNames();
+		List<String> elementNames = getAutoCompletePopupValueNames();
 		try {
 			assertEquals(//
-				"Unexpected number of items in the popup.",
-				items.size(),
+				"Unexpected number of values in the popup.",
+				values.size(),
 				elementNames.size());
-			for (int i = 0; i < items.size(); i++) {
-				assertContainsText(elementNames.get(i), nameGetter.apply(items.get(i)));
+			for (int i = 0; i < values.size(); i++) {
+				assertContainsText(elementNames.get(i), nameGetter.apply(values.get(i)));
 			}
 		} catch (AssertionError error) {
 			Log.finfo("elements {");
@@ -111,28 +94,33 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	// -------------------- indicators -------------------- //
 
-	protected boolean isAutoCompleteIndicatorDisplayed(Indicator indicator) {
+	protected boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(indicator);
+		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(indicatorType);
 	}
 
-	// -------------------- modality -------------------- //
+	protected boolean isAutoCompleteIndicatorNotDisplayed() {
 
-	protected boolean isAutoCompleteModalDivDisplayed() {
-
-		return testEngine.getAutoCompleteExtension().isAutoCompleteModalDivDisplayed();
+		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(null);
 	}
 
-	protected void clickAutoCompleteModalDiv() {
+	// -------------------- backdrop -------------------- //
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteModalDiv();
+	protected boolean isAutoCompleteBackdropDisplayed() {
+
+		return testEngine.getAutoCompleteExtension().isAutoCompleteBackdropDisplayed();
+	}
+
+	protected void clickAutoCompleteBackdrop() {
+
+		testEngine.getAutoCompleteExtension().clickAutoCompleteBackdrop();
 	}
 
 	// -------------------- miscellaneous -------------------- //
 
-	protected void clickAutoCompleteItem(AjaxAutoCompleteTestItem item) {
+	protected void clickAutoCompleteValue(AjaxAutoCompleteTestValue value) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteItem(item);
+		testEngine.getAutoCompleteExtension().clickAutoCompleteValue(value);
 	}
 
 	// -------------------- private -------------------- //
@@ -142,142 +130,47 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 		assertTrue(String.format("Text '%s' does not contain '%s'.", string, subString), string.contains(subString));
 	}
 
-	public static enum Indicator implements IAjaxSeleniumTestDomAutoCompleteInputIndicator {
-
-		COMMITTING("committing", "AutoCompleteIndicatorCommitting"),
-		LOADING("loading", "AutoCompleteIndicatorLoading"),
-		NOT_OKAY("not-okay", "AutoCompleteIndicatorNotOkay"),
-		VALUE_AMBIGUOUS("value-ambiguous", "AutoCompleteIndicatorValueAmbiguous"),
-		VALUE_ILLEGAL("value-illegal", "AutoCompleteIndicatorValueIllegal"),
-		VALUE_MISSING("value-missing", "AutoCompleteIndicatorValueMissing"),
-		VALUE_VALID("value-valid", "AutoCompleteIndicatorValueValid"),
-		//
-		;
-
-		private final String name;
-		private final String idString;
-
-		private Indicator(String name, String idString) {
-
-			this.name = name;
-			this.idString = idString;
-		}
-
-		@Override
-		public String getName() {
-
-			return name;
-		}
-
-		@Override
-		public String getIdString() {
-
-			return idString;
-		}
-	}
-
 	protected class IndicatorProxy {
 
-		public void assertCommitting() {
+		public void assertIndicatesAmbiguous() {
 
-			assertCommitting(true);
+			assertIndicates(DomAutoCompleteIndicatorType.AMBIGUOUS);
 		}
 
-		public void assertCommitting(boolean displayed) {
+		public void assertIndicatesIllegal() {
 
-			assertIndicates(Indicator.COMMITTING, displayed);
+			assertIndicates(DomAutoCompleteIndicatorType.ILLEGAL);
 		}
 
-		public void assertLoading() {
+		public void assertIndicates(DomAutoCompleteIndicatorType indicatorType) {
 
-			assertLoading(true);
-		}
-
-		public void assertLoading(boolean displayed) {
-
-			assertIndicates(Indicator.LOADING, displayed);
-		}
-
-		public void assertNotOkay() {
-
-			assertNotOkay(true);
-		}
-
-		public void assertNotOkay(boolean displayed) {
-
-			assertIndicates(Indicator.NOT_OKAY, displayed);
-		}
-
-		public void assertValueAmbiguous() {
-
-			assertValueAmbiguous(true);
-		}
-
-		public void assertValueAmbiguous(boolean displayed) {
-
-			assertIndicates(Indicator.VALUE_AMBIGUOUS, displayed);
-		}
-
-		public void assertValueIllegal() {
-
-			assertValueIllegal(true);
-		}
-
-		public void assertValueIllegal(boolean displayed) {
-
-			assertIndicates(Indicator.VALUE_ILLEGAL, displayed);
-		}
-
-		public void assertValueMissing() {
-
-			assertValueMissing(true);
-		}
-
-		public void assertValueMissing(boolean displayed) {
-
-			assertIndicates(Indicator.VALUE_MISSING, displayed);
-		}
-
-		public void assertValueValid() {
-
-			assertValueValid(true);
-		}
-
-		public void assertValueValid(boolean displayed) {
-
-			assertIndicates(Indicator.VALUE_VALID, displayed);
-		}
-
-		public void assertIndicates(Indicator indicator) {
-
-			assertIndicates(indicator, true);
-		}
-
-		public void assertIndicates(Indicator indicator, boolean displayed) {
-
-			if (displayed) {
+			boolean actual = isAutoCompleteIndicatorDisplayed(indicatorType);
+			if (indicatorType != null) {
 				assertTrue(//
-					"Expected " + indicator.getName() + " indicator, but encountered " + getDisplayedIndicatorName() + " indicator.",
-					isAutoCompleteIndicatorDisplayed(indicator));
+					"Expected " + indicatorType.getTitle() + " indicator, but encountered " + getDisplayedIndicatorName() + " indicator.",
+					actual);
 			} else {
-				assertFalse(//
-					"Unexpectedly encountered " + indicator.getName() + " indicator.",
-					isAutoCompleteIndicatorDisplayed(indicator));
+				assertTrue("Unexpectedly encountered an indicator.", actual);
 			}
+		}
+
+		public void assertIndicatesNothing() {
+
+			assertIndicates(null);
 		}
 
 		private String getDisplayedIndicatorName() {
 
 			return getDisplayedIndicator()//
-				.map(it -> it.getName())
+				.map(it -> it.getTitle().toString())
 				.orElse("none");
 		}
 
-		private Optional<Indicator> getDisplayedIndicator() {
+		private Optional<DomAutoCompleteIndicatorType> getDisplayedIndicator() {
 
-			for (Indicator indicator: Indicator.values()) {
-				if (isAutoCompleteIndicatorDisplayed(indicator)) {
-					return Optional.of(indicator);
+			for (DomAutoCompleteIndicatorType indicatorType: DomAutoCompleteIndicatorType.values()) {
+				if (isAutoCompleteIndicatorDisplayed(indicatorType)) {
+					return Optional.of(indicatorType);
 				}
 			}
 			return Optional.empty();

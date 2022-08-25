@@ -4,37 +4,42 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Provides values available for selection in an {@link DomAutoCompleteInput}.
+ *
+ * @author Alexander Schmidt
+ * @author Daniel Klose
+ * @author Oliver Richers
+ */
 public interface IDomAutoCompleteInputEngine<T> {
 
 	/**
-	 * Returns the {@link IDisplayString} of the given item (without
-	 * description).
+	 * Returns the {@link IDisplayString} of the given value.
 	 *
-	 * @param item
-	 *            the item to get the {@link IDisplayString} for
-	 * @return the {@link IDisplayString} to use (never null)
+	 * @param value
+	 *            the value to get the {@link IDisplayString} for (never
+	 *            <i>null</i>)
+	 * @return the {@link IDisplayString} to use (never <i>null</i>)
 	 */
-	IDisplayString getDisplayString(T item);
+	IDisplayString getDisplayString(T value);
 
 	/**
-	 * Determines a Collection that contains a limited number of items which
-	 * match the pattern.
+	 * Determines a {@link Collection} that contains a limited number of values
+	 * which match the pattern.
 	 *
 	 * @param pattern
-	 *            the pattern (never null; may be the empty string; trimmed;
-	 *            lower-case)
+	 *            the pattern (never <i>null</i>; may be the empty string;
+	 *            trimmed; lower-case)
 	 * @param limit
-	 *            the maximum number of items to return (>= 1)
-	 * @return a Collection of items that match the given pattern (never null)
+	 *            the maximum number of values to return (at least 1)
+	 * @return the values that match the given pattern (never <i>null</i>)
 	 */
 	Collection<T> findMatches(String pattern, int limit);
 
 	/**
-	 * Returns a collection of active item filters.
-	 * <p>
-	 * The returned collection of filters will be displayed to the user.
+	 * Returns a {@link Collection} of active value filters.
 	 *
-	 * @return a collection of active filters (never null)
+	 * @return the active filters (never <i>null</i>)
 	 */
 	default Collection<IDomAutoCompleteInputFilter> getFilters() {
 
@@ -42,7 +47,7 @@ public interface IDomAutoCompleteInputEngine<T> {
 	}
 
 	/**
-	 * This method is called to reload the internal state of the engine.
+	 * Reloads the internal state of this {@link IDomAutoCompleteInputEngine}.
 	 */
 	default void refresh() {
 
@@ -50,9 +55,9 @@ public interface IDomAutoCompleteInputEngine<T> {
 	}
 
 	/**
-	 * This method is called to reload possibly cached values.
+	 * Reloads possibly-cached values.
 	 * <p>
-	 * See PLAT-1055 for more details.
+	 * TODO PLAT-1055 this might require optimization
 	 */
 	default void reloadCache() {
 

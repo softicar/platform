@@ -1,12 +1,10 @@
 package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 
 public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
@@ -20,55 +18,24 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		appendChild(
 			new DomActionBar(//
-				new DomActionBar(//
-					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.GENERIC),
-					new SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode.VALIDATION))));
-		appendChild(
-			new DomActionBar(//
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.DEDUCTIVE),
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.PERMISSIVE),
-				new SetValidationModeButton(DomAutoCompleteInputValidationMode.RESTRICTIVE)));
-		appendChild(
-			new DomActionBar(//
-				new SetValueMandatoryButton(true),
-				new SetValueMandatoryButton(false)));
-		appendChild(
-			new DomActionBar(//
-				new MarkAsInvalidButton(),
 				new SetValueButton()));
 		appendChild(
 			new DomActionBar(//
 				new GetSelectionValueButton(),
 				new GetValueStringOrNullButton(),
 				new GetValueStringOrEmptyButton(),
-				new GetRawValueStringButton(),
-				new FireAssertionButton()));
+				new GetRawValueStringButton()));
 		appendChild(
 			new DomActionBar(//
 				new SetDisabledButton(false),
 				new SetDisabledButton(true)));
 	}
 
-	private class MarkAsInvalidButton extends DomButton {
-
-		public MarkAsInvalidButton() {
-
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("mark as invalid"));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			getDomEngine().setAutoCompleteInputInvalid(input);
-		}
-	}
-
 	private class SetValueButton extends DomButton {
 
 		public SetValueButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("set value..."));
 			setClickCallback(this::handleClick);
 		}
@@ -82,72 +49,18 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		}
 	}
 
-	private class SetValueMandatoryButton extends DomButton {
-
-		private final boolean mandatory;
-
-		public SetValueMandatoryButton(boolean mandatory) {
-
-			this.mandatory = mandatory;
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("set mandatory: " + mandatory));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getConfiguration().setMandatory(mandatory);
-		}
-	}
-
-	private class SetValidationModeButton extends DomButton {
-
-		private final DomAutoCompleteInputValidationMode mode;
-
-		public SetValidationModeButton(DomAutoCompleteInputValidationMode mode) {
-
-			this.mode = mode;
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("set validation mode: " + mode.name()));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getConfiguration().setValidationMode(mode);
-		}
-	}
-
-	private class SetIndicatorModeButton extends DomButton {
-
-		private final DomAutoCompleteInputIndicatorMode mode;
-
-		public SetIndicatorModeButton(DomAutoCompleteInputIndicatorMode mode) {
-
-			this.mode = mode;
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("set indicator mode: " + mode.name()));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getConfiguration().setIndicatorMode(mode);
-		}
-	}
-
 	private class GetSelectionValueButton extends DomButton {
 
 		public GetSelectionValueButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: value"));
 			setClickCallback(this::handleClick);
 		}
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("value: [%s]", input.getSelection().getValueOrNull()));
+			executeAlert(IDisplayString.format("value: [%s]", input.getValueOrNull()));
 		}
 	}
 
@@ -155,7 +68,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrNullButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrNull"));
 			setClickCallback(this::handleClick);
 		}
@@ -170,7 +83,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrEmptyButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrEmpty"));
 			setClickCallback(this::handleClick);
 		}
@@ -185,30 +98,14 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetRawValueStringButton() {
 
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: rawValueString"));
 			setClickCallback(this::handleClick);
 		}
 
 		private void handleClick() {
 
-			executeAlert(IDisplayString.format("valueText: [%s]", input.getInputField().getValueText()));
-		}
-	}
-
-	private class FireAssertionButton extends DomButton {
-
-		public FireAssertionButton() {
-
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
-			setLabel(IDisplayString.create("alert: assert"));
-			setClickCallback(this::handleClick);
-		}
-
-		private void handleClick() {
-
-			input.getSelection().assertValid();
-			executeAlert(IDisplayString.create("assertion passed"));
+			executeAlert(IDisplayString.format("valueText: [%s]", input.getValueText()));
 		}
 	}
 
@@ -219,7 +116,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetDisabledButton(boolean disabled) {
 
 			this.disabled = disabled;
-			setIcon(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_VALID.getResource());
+			setIcon(DomElementsImages.INFO.getResource());
 			setLabel(IDisplayString.create("set disabled: " + disabled));
 			setClickCallback(this::handleClick);
 		}
