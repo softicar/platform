@@ -34,6 +34,6 @@ public class UserAllowedIpRulePage extends AbstractEmfManagementPage<AGCoreModul
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

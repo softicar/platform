@@ -28,7 +28,7 @@ public class ProgramPage extends AbstractEmfManagementPage<AGCoreModuleInstance>
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 
 	@Override

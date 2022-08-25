@@ -32,6 +32,7 @@ import com.softicar.platform.emf.management.importing.EmfImportPopup;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -58,8 +59,8 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 	protected EmfManagementDiv(EmfManagementDivBuilder<R, P, S> builder) {
 
-		this.entityTable = builder.getEntityTable();
-		this.scopeEntity = builder.getScopeEntity();
+		this.entityTable = Objects.requireNonNull(builder.getEntityTable());
+		this.scopeEntity = Objects.requireNonNull(builder.getScopeEntity());
 		this.dataTable = null;
 		this.tableDiv = null;
 		this.showInactive = false;
@@ -233,11 +234,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 		private boolean isCreationAllowed() {
 
-			if (scopeEntity != null) {
-				return entityTable.isCreationPossible(scopeEntity) && entityTable.isCreationAllowed(scopeEntity);
-			} else {
-				return CurrentBasicUser.get().isSuperUser();
-			}
+			return entityTable.isCreationPossible(scopeEntity) && entityTable.isCreationAllowed(scopeEntity);
 		}
 
 		private IDisplayString getCreationPredicateTitle() {

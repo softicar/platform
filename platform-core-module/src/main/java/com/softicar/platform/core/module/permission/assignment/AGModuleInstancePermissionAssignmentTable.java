@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.permission.assignment;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.permission.ModulePermissionInput;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
@@ -28,9 +29,9 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGModuleInstancePermissionAssignment, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setCreationPermission(CorePermissions.ACCESS_MANAGEMENT);
-		authorizer.setEditPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());
-		authorizer.setViewPermission(CorePermissions.ACCESS_MANAGEMENT.toOtherEntityPermission());
+		authorizer.setCreationPermission(CorePermissions.ADMINISTRATION);
+		authorizer.setEditPermission(CoreModule.getAdministationPermission());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 	}
 
 	@Override

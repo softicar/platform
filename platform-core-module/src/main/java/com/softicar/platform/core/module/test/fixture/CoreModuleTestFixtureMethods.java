@@ -15,7 +15,6 @@ import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnu
 import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
-import com.softicar.platform.core.module.permission.CoreModulePermission;
 import com.softicar.platform.core.module.permission.assignment.AGModuleInstancePermissionAssignment;
 import com.softicar.platform.core.module.role.AGRole;
 import com.softicar.platform.core.module.role.permission.AGRolePermission;
@@ -98,11 +97,6 @@ public interface CoreModuleTestFixtureMethods {
 	}
 
 	// ------------------------------ module permission ------------------------------ //
-
-	default AGModuleInstancePermissionAssignment insertPermissionAssignment(AGUser user, CoreModulePermission permission) {
-
-		return insertPermissionAssignment(user, permission, AGCoreModuleInstance.getInstance());
-	}
 
 	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(//
 			AGUser user, IEmfModulePermission<I> permission, I moduleInstance) {

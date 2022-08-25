@@ -49,6 +49,6 @@ public class AjaxExceptionsPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

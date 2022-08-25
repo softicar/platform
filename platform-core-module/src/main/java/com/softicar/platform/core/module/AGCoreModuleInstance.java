@@ -4,12 +4,10 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.item.ItemId;
-import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.emf.module.IUuid;
-import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import java.util.Optional;
 
 public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implements IModuleInstance<AGCoreModuleInstance> {
@@ -53,12 +51,6 @@ public class AGCoreModuleInstance extends AGCoreModuleInstanceGenerated implemen
 	public IUuid getModuleUuid() {
 
 		return () -> SourceCodeReferencePoints.getUuidOrThrow(CoreModule.class);
-	}
-
-	@Override
-	public boolean hasPermission(IEmfModulePermission<AGCoreModuleInstance> permission, IBasicUser user) {
-
-		throw new UnsupportedOperationException("Core module is not a standard module, yet.");
 	}
 
 	@Override
