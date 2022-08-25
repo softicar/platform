@@ -9,10 +9,13 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.field.string.EmfStringAttribute;
 import com.softicar.platform.emf.attribute.field.string.EmfStringInput;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.validation.result.EmfValidationResult;
+import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -252,6 +255,23 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		input.setInputValue(BBB);
 		assertEquals(2, changeCallbacks);
+	}
+
+	@Test
+	public void testDiagnosticRemovalOnChange() {
+
+		IEmfValidationResult result = new EmfValidationResult();
+		IDisplayString message = EmfI18n.THE_ATTRIBUTE_ARG1_IS_MANDATORY.toDisplay("TestAttribute");
+		result.addError(attribute, message);
+		startWithMode(EmfAttributeValueMode.MANDATORY_INPUT);
+
+		valueFrame.showDiagnostics(result);
+
+		valueFrameTester.assertContainsText(message);
+
+		valueFrameTester.findNode(EmfStringInput.class).setInputValue(AAA);
+
+		valueFrameTester.assertDoesNotContainText(message);
 	}
 
 	// ------------------------------ assert ------------------------------ //
