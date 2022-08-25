@@ -5,7 +5,7 @@ import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.database.IDbDatabase;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.DomTable;
@@ -196,15 +196,16 @@ public class EmfDataTableDivBuilder<R> {
 	}
 
 	/**
-	 * Adds the given test marker for the specified {@link IDataTableColumn}.
+	 * Adds the given {@link ITestMarker} for the specified
+	 * {@link IDataTableColumn}.
 	 *
 	 * @param column
 	 *            the {@link IDataTableColumn} (never <i>null</i>)
 	 * @param marker
-	 *            the test marker
+	 *            the {@link ITestMarker}
 	 * @return this builder
 	 */
-	public EmfDataTableDivBuilder<R> addColumnMarker(IDataTableColumn<R, ?> column, IStaticObject marker) {
+	public EmfDataTableDivBuilder<R> addColumnMarker(IDataTableColumn<R, ?> column, ITestMarker marker) {
 
 		config.getColumnSettings(column).addMarker(marker);
 		return this;
@@ -489,21 +490,22 @@ public class EmfDataTableDivBuilder<R> {
 	 * {@link IEmfDataTableDiv} to be built.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker (never <i>null</i>)
+	 *            the {@link ITestMarker} marker (never <i>null</i>)
 	 */
-	public EmfDataTableDivBuilder<R> addTableMarker(IStaticObject marker) {
+	public EmfDataTableDivBuilder<R> addTableMarker(ITestMarker marker) {
 
 		this.config.addTableMarker(marker);
 		return this;
 	}
 
 	/**
-	 * Adds a marker to be used for the {@link IEmfDataTableDiv} to be built.
+	 * Adds a {@link ITestMarker} to be used for the {@link IEmfDataTableDiv} to
+	 * be built.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker (never <i>null</i>)
+	 *            the {@link ITestMarker} (never <i>null</i>)
 	 */
-	public EmfDataTableDivBuilder<R> addTableDivMarker(IStaticObject marker) {
+	public EmfDataTableDivBuilder<R> addTableDivMarker(ITestMarker marker) {
 
 		this.config.addTableDivMarker(marker);
 		return this;

@@ -2,7 +2,7 @@ package com.softicar.platform.db.runtime.query;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.runtime.select.IDbSqlSelect;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -14,7 +14,7 @@ import java.util.Optional;
  *
  * @author Oliver Richers
  */
-public interface IDbQueryColumn<R extends IDbQueryRow<R>, T> extends IDataTableColumn<R, T>, IStaticObject {
+public interface IDbQueryColumn<R extends IDbQueryRow<R>, T> extends IDataTableColumn<R, T>, ITestMarker {
 
 	/**
 	 * Returns the name of this column.

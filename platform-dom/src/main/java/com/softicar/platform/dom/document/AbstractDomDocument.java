@@ -4,7 +4,7 @@ import com.softicar.platform.common.container.map.instance.ClassInstanceMap;
 import com.softicar.platform.common.container.map.weak.IWeakMap;
 import com.softicar.platform.common.container.map.weak.WeakIntHashMap;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.attribute.DomAttributeRegistry;
 import com.softicar.platform.dom.attribute.IDomAttributeRegistry;
@@ -144,25 +144,25 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	// -------------------------------- marker -------------------------------- //
 
 	@Override
-	public void addMarker(IDomNode node, IStaticObject marker) {
+	public void addMarker(IDomNode node, ITestMarker marker) {
 
 		markerHolder.addMarker(node, marker);
 	}
 
 	@Override
-	public boolean hasMarker(IDomNode node, IStaticObject...markers) {
+	public boolean hasMarker(IDomNode node, ITestMarker...markers) {
 
 		return markerHolder.hasMarker(node, markers);
 	}
 
 	@Override
-	public Collection<IDomNode> getNodesWithMarker(IStaticObject marker) {
+	public Collection<IDomNode> getNodesWithMarker(ITestMarker marker) {
 
 		return markerHolder.getNodesWithMarker(marker);
 	}
 
 	@Override
-	public Collection<IStaticObject> getMarkers(IDomNode node) {
+	public Collection<ITestMarker> getMarkers(IDomNode node) {
 
 		return markerHolder.getMarkers(node);
 	}

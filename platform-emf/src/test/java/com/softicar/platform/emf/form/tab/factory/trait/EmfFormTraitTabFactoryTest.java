@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.form.tab.factory.trait;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -18,8 +18,8 @@ import org.mockito.Mockito;
 
 public class EmfFormTraitTabFactoryTest extends AbstractEmfTest {
 
-	private static final IStaticObject WITH_TRANSACTION = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject WITHOUT_TRANSACTION = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker WITH_TRANSACTION = Mockito.mock(ITestMarker.class);
+	private static final ITestMarker WITHOUT_TRANSACTION = Mockito.mock(ITestMarker.class);
 	private final EmfTestObject testObject;
 
 	public EmfFormTraitTabFactoryTest() {

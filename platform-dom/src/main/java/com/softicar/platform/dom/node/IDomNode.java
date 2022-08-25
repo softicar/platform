@@ -2,7 +2,7 @@ package com.softicar.platform.dom.node;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomHead;
@@ -181,38 +181,37 @@ public interface IDomNode {
 	// -------------------------------- marker -------------------------------- //
 
 	/**
-	 * Adds an {@link IStaticObject} marker to this {@link IDomNode}.
+	 * Adds an {@link ITestMarker} to this {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the marker to add (never <i>null</i>)
+	 *            the {@link ITestMarker} to add (never <i>null</i>)
 	 * @throws UnsupportedOperationException
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
-	default IDomNode addMarker(IStaticObject marker) {
+	default IDomNode addMarker(ITestMarker marker) {
 
 		getDomDocument().addMarker(this, marker);
 		return this;
 	}
 
 	/**
-	 * Calls {@link #addMarker(IStaticObject)} for all given
-	 * {@link IStaticObject} markers.
+	 * Calls {@link #addMarker(ITestMarker)} for all given {@link ITestMarker}s.
 	 */
-	default IDomNode addMarkers(Collection<IStaticObject> markers) {
+	default IDomNode addMarkers(Collection<ITestMarker> markers) {
 
 		markers.forEach(this::addMarker);
 		return this;
 	}
 
 	/**
-	 * Checks whether this {@link IDomNode} has all given markers.
+	 * Checks whether this {@link IDomNode} has all given {@link ITestMarker}s.
 	 *
 	 * @param markers
-	 *            the markers to check for
+	 *            the {@link ITestMarker}s to check for
 	 * @return <i>true</i> if the node has the given markers, <i>false</i>
 	 *         otherwise
 	 */
-	default boolean hasMarker(IStaticObject...markers) {
+	default boolean hasMarker(ITestMarker...markers) {
 
 		return getDomDocument().hasMarker(this, markers);
 	}

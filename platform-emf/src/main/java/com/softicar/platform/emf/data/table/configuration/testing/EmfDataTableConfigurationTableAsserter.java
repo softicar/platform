@@ -2,7 +2,7 @@ package com.softicar.platform.emf.data.table.configuration.testing;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.testing.node.tester.IDomNodeTesterFindMethods;
 import com.softicar.platform.emf.EmfTestMarker;
@@ -15,10 +15,10 @@ import org.junit.Assert;
 public class EmfDataTableConfigurationTableAsserter {
 
 	private final IDomNodeTesterFindMethods methods;
-	private final IStaticObject tableMarker;
+	private final ITestMarker tableMarker;
 	private int orderingIndex;
 
-	public EmfDataTableConfigurationTableAsserter(IDomNodeTesterFindMethods methods, IStaticObject tableMarker) {
+	public EmfDataTableConfigurationTableAsserter(IDomNodeTesterFindMethods methods, ITestMarker tableMarker) {
 
 		this.methods = methods;
 		this.tableMarker = tableMarker;

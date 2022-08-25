@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.popup.configuration;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
@@ -77,11 +77,11 @@ public interface IDomPopupConfiguration {
 	boolean isConfirmBeforeClose();
 
 	/**
-	 * Returns a {@link List} of {@link IStaticObject} markers to be set on the
+	 * Returns a {@link List} of {@link ITestMarker} to be set on the
 	 * {@link DomPopupFrame} of the {@link DomPopup}, upon creation of the
 	 * former.
 	 *
-	 * @return the {@link IStaticObject} markers for the {@link DomPopupFrame}
+	 * @return the {@link ITestMarker}s for the {@link DomPopupFrame}
 	 */
-	List<IStaticObject> getFrameMarkers();
+	List<ITestMarker> getFrameMarkers();
 }

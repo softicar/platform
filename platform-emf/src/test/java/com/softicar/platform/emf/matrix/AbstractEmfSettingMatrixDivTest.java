@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.matrix;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -289,7 +289,7 @@ public abstract class AbstractEmfSettingMatrixDivTest extends AbstractEmfTest {
 			return this;
 		}
 
-		private Asserter assertTexts(String description, IStaticObject parentMarker, String...texts) {
+		private Asserter assertTexts(String description, ITestMarker parentMarker, String...texts) {
 
 			IDomNodeIterable<IDomNode> nodes = findBody().findNodes(parentMarker);
 			for (String text: texts) {

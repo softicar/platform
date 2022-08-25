@@ -2,7 +2,7 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.node.IDomNode;
@@ -25,9 +25,9 @@ public interface IEmfDataTableConfig<R> {
 
 	IDataTable<R> getDataTable();
 
-	Collection<IStaticObject> getTableMarkers();
+	Collection<ITestMarker> getTableMarkers();
 
-	Collection<IStaticObject> getTableDivMarkers();
+	Collection<ITestMarker> getTableDivMarkers();
 
 	EmfDataTableOrdering<R> getOrdering();
 

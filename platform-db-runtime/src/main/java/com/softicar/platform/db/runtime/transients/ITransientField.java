@@ -1,6 +1,6 @@
 package com.softicar.platform.db.runtime.transients;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.runtime.table.row.IDbBasicTableRow;
 import java.util.Collection;
 
@@ -13,7 +13,7 @@ import java.util.Collection;
  *            the type of the field values
  * @author Oliver Richers
  */
-public interface ITransientField<O extends IDbBasicTableRow<O>, V> extends IDbTransientField<O, V>, IStaticObject {
+public interface ITransientField<O extends IDbBasicTableRow<O>, V> extends IDbTransientField<O, V>, ITestMarker {
 
 	ITransientFieldValueType<V> getValueType();
 

@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.testing.node.iterable;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.node.IDomNode;
@@ -68,7 +68,7 @@ public interface IDomNodeIterable<N extends IDomNode> extends Iterable<N> {
 
 	// ------------------------------ with marker ------------------------------ //
 
-	default IDomNodeIterable<N> withMarker(IStaticObject...marker) {
+	default IDomNodeIterable<N> withMarker(ITestMarker...marker) {
 
 		return filter(node -> node.hasMarker(marker));
 	}

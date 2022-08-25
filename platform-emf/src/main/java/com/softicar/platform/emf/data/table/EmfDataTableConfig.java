@@ -3,7 +3,7 @@ package com.softicar.platform.emf.data.table;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.database.IDbDatabaseScope;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
@@ -39,8 +39,8 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	private boolean hideNavigationActionButtons;
 	private boolean hideNavigationAtBottom;
 	private boolean hideNavigationAtTop;
-	private final Collection<IStaticObject> tableMarkers;
-	private final Collection<IStaticObject> tableDivMarkers;
+	private final Collection<ITestMarker> tableMarkers;
+	private final Collection<ITestMarker> tableDivMarkers;
 	private final EmfDataTableOrdering<R> ordering;
 	private int pageSize;
 	private final List<DomButton> rowSelectionActionButtons;
@@ -224,23 +224,23 @@ class EmfDataTableConfig<R> implements IEmfDataTableConfig<R> {
 	}
 
 	@Override
-	public Collection<IStaticObject> getTableMarkers() {
+	public Collection<ITestMarker> getTableMarkers() {
 
 		return tableMarkers;
 	}
 
-	public void addTableMarker(IStaticObject marker) {
+	public void addTableMarker(ITestMarker marker) {
 
 		this.tableMarkers.add(marker);
 	}
 
 	@Override
-	public Collection<IStaticObject> getTableDivMarkers() {
+	public Collection<ITestMarker> getTableDivMarkers() {
 
 		return tableDivMarkers;
 	}
 
-	public void addTableDivMarker(IStaticObject marker) {
+	public void addTableDivMarker(ITestMarker marker) {
 
 		this.tableDivMarkers.add(marker);
 	}
