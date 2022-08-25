@@ -2,8 +2,6 @@ package com.softicar.platform.emf.attribute.field.foreign.entity.input.edit;
 
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
-import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
-import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
@@ -41,20 +39,20 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 			.test(tableRow, CurrentBasicUser.get());
 	}
 
-	private class FormPopup extends EmfFormPopup<E> implements IDomRefreshBusListener {
+	private class FormPopup extends EmfFormPopup<E> {
 
 		public FormPopup() {
 
 			super(entity);
+			configuration//
+				.setCallbackBeforeClose(this::refreshInput)
+				.setDisplayModeDraggableModal();
 			setDirectEditing(true);
 		}
 
-		@Override
-		public void refresh(IDomRefreshBusEvent event) {
+		private void refreshInput() {
 
-			if (entity != null && event.isChanged(entity)) {
-				input.setValue(entity);
-			}
+			input.setValue(entity);
 		}
 	}
 }
