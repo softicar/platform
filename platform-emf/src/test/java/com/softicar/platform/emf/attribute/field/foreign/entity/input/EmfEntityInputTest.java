@@ -122,12 +122,14 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 	public void testEditEntityWithEditButton() {
 
 		object23.addAuthorizedUser(user);
+		
 		openBrowsePopover();
 		findNode(DomPopover.class).clickNode(IDisplayString.create("twentythree"));
 		clickEditButton();
 		var formPopup = findFormPopup(EmfTestObject.class);
 		formPopup.setInputValue(EmfTestObject.NAME, "edited");
 		formPopup.clickSaveAndCloseButton();
+		
 		assertEquals(object23.toDisplay().toString(), getInput().getInputField().getValueText());
 		assertSame(object23, getValue());
 	}
