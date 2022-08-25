@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.page;
 import com.softicar.platform.ajax.document.AjaxDocumentParameters;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
@@ -21,7 +22,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 
 	public PageDivTest() {
 
-		insertPermissionAssignment(testUser, CorePermissions.SYSTEM_ADMINISTRATION);
+		insertPermissionAssignment(testUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 		setNodeSupplier(() -> new PageDiv(new AjaxDocumentParameters(new TreeMap<>())));
 	}
 

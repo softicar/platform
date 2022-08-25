@@ -43,7 +43,7 @@ public class LogProcessViewPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 
 	@Override

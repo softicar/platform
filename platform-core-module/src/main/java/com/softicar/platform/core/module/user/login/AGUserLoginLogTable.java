@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.user.login;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -41,7 +41,7 @@ public class AGUserLoginLogTable extends EmfObjectTable<AGUserLoginLog, AGCoreMo
 	@Override
 	public void customizeAuthorizer(EmfAuthorizer<AGUserLoginLog, AGCoreModuleInstance> authorizer) {
 
-		authorizer.setViewPermission(CorePermissions.SUPER_USER.toOtherEntityPermission());
+		authorizer.setViewPermission(CoreModule.getAdministationPermission());
 		authorizer.setEditPermission(EmfPermissions.never());
 		authorizer.setCreationPermission(EmfPermissions.never());
 	}

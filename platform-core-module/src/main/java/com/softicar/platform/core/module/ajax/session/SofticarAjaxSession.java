@@ -29,11 +29,6 @@ public final class SofticarAjaxSession {
 		return new AjaxSessionAttributeManager(session).getInstance(SofticarAjaxSession.class);
 	}
 
-	public boolean isSuperUser() {
-
-		return user.get().isSuperUser();
-	}
-
 	public LanguageEnum getLanguage() {
 
 		return user.get().getLocale().getLanguage();

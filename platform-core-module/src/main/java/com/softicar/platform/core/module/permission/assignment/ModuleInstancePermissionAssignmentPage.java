@@ -34,6 +34,6 @@ public class ModuleInstancePermissionAssignmentPage extends AbstractEmfManagemen
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.ACCESS_MANAGEMENT;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

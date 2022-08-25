@@ -42,7 +42,7 @@ public abstract class AbstractAjaxStrategy implements IAjaxStrategy {
 	}
 
 	@Override
-	public boolean isSuperUser(HttpSession session) {
+	public boolean isAdministrative(HttpSession session) {
 
 		return false;
 	}

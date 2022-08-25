@@ -22,7 +22,7 @@ public class ScheduledProgramExecutionPage extends AbstractEmfManagementPage<AGC
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.OPERATION;
 	}
 
 	@Override

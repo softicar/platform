@@ -34,6 +34,6 @@ public class RoleManagementPage extends AbstractEmfManagementPage<AGCoreModuleIn
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.ACCESS_MANAGEMENT;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

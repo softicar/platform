@@ -34,6 +34,6 @@ public class UserLoginFailureLogPage extends AbstractEmfManagementPage<AGCoreMod
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return CorePermissions.ADMINISTRATION;
 	}
 }

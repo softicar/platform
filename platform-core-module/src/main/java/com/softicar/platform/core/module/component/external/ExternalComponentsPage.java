@@ -5,9 +5,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 
 /**
@@ -40,6 +40,6 @@ public class ExternalComponentsPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER;
+		return EmfPermissions.always();
 	}
 }

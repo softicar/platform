@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.emf.action.IEmfSecondaryAction;
@@ -37,7 +37,7 @@ public class ProgramAbortAction implements IEmfSecondaryAction<AGProgram> {
 	@Override
 	public IEmfPermission<AGProgram> getRequiredPermission() {
 
-		return CorePermissions.SUPER_USER.toOtherEntityPermission();
+		return CoreModule.getAdministationPermission();
 	}
 
 	@Override

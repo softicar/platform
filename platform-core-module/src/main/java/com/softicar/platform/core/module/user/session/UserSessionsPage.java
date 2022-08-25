@@ -29,7 +29,7 @@ public class UserSessionsPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.SYSTEM_ADMINISTRATION;
+		return CorePermissions.ADMINISTRATION;
 	}
 
 	@Override
