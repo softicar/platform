@@ -46,7 +46,7 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 
 		var id = AGLocalization.TABLE//
 			.createInsert()
-			.set(AGLocalization.NAME, "[DEFAULT]")
+			.set(AGLocalization.NAME, "International")
 			.set(AGLocalization.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
 			.set(AGLocalization.DECIMAL_SEPARATOR, ".")
 			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, "")
