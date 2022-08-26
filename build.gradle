@@ -17,7 +17,7 @@ project.ext {
 	versions = [
 		asm: "9.1",
 		bcprov: "1.70",
-		byteBuddy: "1.12.7",
+		byteBuddy: "1.12.10",
 		classgraph: "4.8.138",
 		commonsCodec: "1.15",
 		commonsCollections4: "4.4",
@@ -45,7 +45,7 @@ project.ext {
 		netty: "4.1.79.Final",
 		pdfbox: "2.0.25",
 		poi: "5.2.2",
-		selenium: "4.1.2",
+		selenium: "4.2.2",
 		slf4j: "1.7.33",
 		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
