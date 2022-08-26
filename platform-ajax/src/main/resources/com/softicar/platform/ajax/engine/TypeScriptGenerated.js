@@ -944,6 +944,9 @@ class AjaxRequestMessage {
             else if (this.isKeyEventType()) {
                 return false;
             }
+            else if (this.isWheelType()) {
+                return this.isSameDeltaDirections(other);
+            }
             else {
                 return true;
             }
@@ -951,6 +954,19 @@ class AjaxRequestMessage {
         else {
             return false;
         }
+    }
+    isSameDeltaDirections(other) {
+        var _a, _b, _c, _d, _e, _f;
+        let thisDeltaX = +((_a = this.data.get('deltaX')) !== null && _a !== void 0 ? _a : 0);
+        let otherDeltaX = +((_b = other.data.get('deltaX')) !== null && _b !== void 0 ? _b : 0);
+        let deltaXSameSign = thisDeltaX * otherDeltaX >= 0;
+        let thisDeltaY = +((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
+        let otherDeltaY = +((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
+        let deltaYSameSign = thisDeltaY * otherDeltaY >= 0;
+        let thisDeltaZ = +((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
+        let otherDeltaZ = +((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
+        let deltaZSameSign = thisDeltaZ * otherDeltaZ >= 0;
+        return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {
         let nodeId = this.data.get('n');
@@ -981,6 +997,9 @@ class AjaxRequestMessage {
     }
     isKeyEventType() {
         return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
+    }
+    isWheelType() {
+        return this.data.get('e') == 'WHEEL';
     }
     isSent() {
         return this.data.has('x');

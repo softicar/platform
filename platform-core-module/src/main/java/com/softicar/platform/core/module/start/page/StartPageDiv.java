@@ -1,5 +1,7 @@
 package com.softicar.platform.core.module.start.page;
 
+import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
@@ -36,9 +38,11 @@ class StartPageDiv extends DomDiv {
 
 		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 
+		// FIXME remove
 		appendChild(new WheelTestDiv());
 	}
 
+	// FIXME remove
 	private class WheelTestDiv extends DomDiv implements IDomWheelEventHandler {
 
 		public WheelTestDiv() {
@@ -51,9 +55,13 @@ class StartPageDiv extends DomDiv {
 		public void handleWheel(IDomEvent event) {
 
 			if (event.getDeltaY() > 0) {
+				Log.finfo("down");
 				appendChild(new DomDiv()).appendText("down");
+				Sleep.sleep(1000);
 			} else if (event.getDeltaY() < 0) {
+				Log.finfo("up");
 				appendChild(new DomDiv()).appendText("up");
+				Sleep.sleep(1000);
 			}
 		}
 	}

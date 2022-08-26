@@ -134,12 +134,30 @@ class AjaxRequestMessage {
 				return false; // allow new passive events, i.e. implicitly triggered events
 			} else if(this.isKeyEventType()) {
 				return false; // never drop key events
+			} else if(this.isWheelType()) {
+				return this.isSameDeltaDirections(other);
 			} else {
 				return true;
 			}
 		} else {
 			return false;
 		}
+	}
+
+	private isSameDeltaDirections(other: AjaxRequestMessage) {
+		let thisDeltaX: number = +(this.data.get('deltaX') ?? 0);
+		let otherDeltaX: number = +(other.data.get('deltaX') ?? 0);
+		let deltaXSameSign: boolean = thisDeltaX * otherDeltaX >= 0;
+
+		let thisDeltaY: number = +(this.data.get('deltaY') ?? 0);
+		let otherDeltaY: number = +(other.data.get('deltaY') ?? 0);
+		let deltaYSameSign: boolean = thisDeltaY * otherDeltaY >= 0;
+
+		let thisDeltaZ: number = +(this.data.get('deltaZ') ?? 0);
+		let otherDeltaZ: number = +(other.data.get('deltaZ') ?? 0);
+		let deltaZSameSign: boolean = thisDeltaZ * otherDeltaZ >= 0;
+
+		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
 
 	// ------------------------------ obsolete ------------------------------ //
@@ -183,6 +201,10 @@ class AjaxRequestMessage {
 		return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
 	}
 	
+	private isWheelType() {
+		return this.data.get('e') == 'WHEEL';
+	}
+
 	private isSent() {
 		return this.data.has('x');
 	}
