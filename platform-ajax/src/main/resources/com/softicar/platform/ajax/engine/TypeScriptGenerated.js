@@ -501,23 +501,6 @@ function hideWorkingIndicator() {
 function setWorkingIndicatorEnabled(enabled) {
     WORKING_INDICATOR_ENABLED = enabled;
 }
-class ChangeEventManager {
-    setListenToChangeEvent(node, listen) {
-        if (listen) {
-            node.onchange = event => this.handleChangeEvent(event);
-        }
-        else {
-            node.onchange = null;
-        }
-    }
-    handleChangeEvent(event) {
-        let node = event.currentTarget;
-        if (VALUE_NODE_MAP.isValueChanged(node)) {
-            sendOrDelegateEvent(node, event, event.type);
-        }
-    }
-}
-const CHANGE_EVENT_MANAGER = new ChangeEventManager();
 function listenToDomEvent(nodeId, event, doListen) {
     let element = AJAX_ENGINE.getElement(nodeId);
     if (element == null)
@@ -531,7 +514,7 @@ function listenToDomEvent(nodeId, event, doListen) {
             element.onclick = handler;
             break;
         case 'CHANGE':
-            CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen);
+            element.onchange = handler;
             break;
         case 'CONTEXTMENU':
             element.oncontextmenu = doListen ? (event => { handleDomEvent(event); event.preventDefault(); }) : null;
