@@ -12,27 +12,6 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testValidInputWithFocusByClick() {
-
-		setup//
-			.setSelectedValue(VALUE1)
-			.execute();
-
-		input//
-			.focusByClick()
-			.waitForServer();
-
-		asserter//
-			.expectValues(VALUE1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
 	public void testValidInputWithFocusByTab() {
 
 		setup//
@@ -61,7 +40,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputFieldAndClosePopup()
 			.waitForServer();
 
 		asserter//
@@ -71,7 +50,8 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
+			.expectCallbackCountOne()
+			.expectCallbackValue(null)
 			.assertAll();
 	}
 
@@ -104,7 +84,7 @@ public class AjaxAutoCompleteEntityInputFocusedTest extends AbstractAjaxAutoComp
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputFieldAndClosePopup()
 			.waitForServer();
 
 		asserter//

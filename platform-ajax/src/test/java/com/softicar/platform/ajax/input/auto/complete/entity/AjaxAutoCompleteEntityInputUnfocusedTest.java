@@ -19,7 +19,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.pressBackspace(5)
 			.waitForServer()
 			.pressEscape()
@@ -47,7 +47,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
@@ -75,7 +75,7 @@ public class AjaxAutoCompleteEntityInputUnfocusedTest extends AbstractAjaxAutoCo
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressEscape()

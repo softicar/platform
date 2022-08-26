@@ -166,7 +166,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	}
 
 	protected interface TestSetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
-	
+
 		// convenience interface
 	}
 
@@ -646,9 +646,16 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy focusByClick() {
+		public InputProxy clickInputField() {
 
 			click(inputFieldElement);
+			return this;
+		}
+
+		public InputProxy clickInputFieldAndClosePopup() {
+
+			click(inputFieldElement);
+			send(inputFieldElement, Key.ESCAPE);
 			return this;
 		}
 

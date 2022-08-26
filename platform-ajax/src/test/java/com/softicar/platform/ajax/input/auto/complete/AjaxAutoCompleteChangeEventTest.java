@@ -220,6 +220,11 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		click(inputField);
 		waitForServer();
 
+		assertTrue(isAutoCompleteBackdropDisplayed());
+
+		click(inputField);
+		waitForServer();
+
 		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
@@ -311,7 +316,6 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 	private void openPopup() {
 
 		click(inputField);
-		send(inputField, Key.DOWN);
 		waitForServer();
 	}
 }
