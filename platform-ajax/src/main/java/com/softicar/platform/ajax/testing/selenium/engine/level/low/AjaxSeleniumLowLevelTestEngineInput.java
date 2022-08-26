@@ -104,6 +104,23 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 	}
 
 	@Override
+	public void mouseWheelDown(IDomNode node) {
+
+		WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin.fromElement(iframe);
+
+//		new Actions(webDriverSupplier.get())//
+//		.moveToElement(webElementResolver.apply(node))
+//		.
+	}
+
+	@Override
+	public void mouseWheelUp(IDomNode node) {
+
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public void moveCursorBy(int xOffset, int yOffset) {
 
 		new Actions(webDriverSupplier.get())//

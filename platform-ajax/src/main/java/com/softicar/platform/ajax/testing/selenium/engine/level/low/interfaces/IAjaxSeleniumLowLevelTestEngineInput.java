@@ -27,6 +27,10 @@ public interface IAjaxSeleniumLowLevelTestEngineInput {
 
 	void mouseUpUnsafe();
 
+	void mouseWheelDown(IDomNode node);
+
+	void mouseWheelUp(IDomNode node);
+
 	void moveCursorBy(int xOffset, int yOffset);
 
 	void dragAndDrop(IDomNode target, int xOffset, int yOffset);
