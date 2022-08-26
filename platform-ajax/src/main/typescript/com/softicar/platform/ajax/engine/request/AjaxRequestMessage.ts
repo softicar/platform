@@ -147,15 +147,15 @@ class AjaxRequestMessage {
 	private isSameDeltaDirections(other: AjaxRequestMessage) {
 		let thisDeltaX = Number(this.data.get('deltaX') ?? 0);
 		let otherDeltaX = Number(other.data.get('deltaX') ?? 0);
-		let deltaXSameSign = (thisDeltaX == 0 && otherDeltaX == 0) || thisDeltaX * otherDeltaX > 0;
+		let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
 
 		let thisDeltaY = Number(this.data.get('deltaY') ?? 0);
 		let otherDeltaY = Number(other.data.get('deltaY') ?? 0);
-		let deltaYSameSign = (thisDeltaY == 0 && otherDeltaY == 0) || thisDeltaY * otherDeltaY > 0;
+		let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
 
 		let thisDeltaZ = Number(this.data.get('deltaZ') ?? 0);
 		let otherDeltaZ = Number(other.data.get('deltaZ') ?? 0);
-		let deltaZSameSign = (thisDeltaZ == 0 && otherDeltaZ == 0) || thisDeltaZ * otherDeltaZ > 0;
+		let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
 
 		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
