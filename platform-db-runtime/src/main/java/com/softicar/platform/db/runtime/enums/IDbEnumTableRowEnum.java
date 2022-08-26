@@ -1,6 +1,6 @@
 package com.softicar.platform.db.runtime.enums;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Oliver Richers
  */
-public interface IDbEnumTableRowEnum<E extends IDbEnumTableRowEnum<E, R>, R extends IDbEnumTableRow<R, E>> extends IStaticObject {
+public interface IDbEnumTableRowEnum<E extends IDbEnumTableRowEnum<E, R>, R extends IDbEnumTableRow<R, E>> extends ITestMarker {
 
 	/**
 	 * Returns the associated {@link IDbEnumTable} containing the records.

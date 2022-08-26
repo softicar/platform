@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -87,12 +87,12 @@ public class DomModalDialog extends DomPopup {
 
 	/**
 	 * Convenience for
-	 * {@link #appendActionButton(IResource, IDisplayString, INullaryVoidFunction, IStaticObject...)}
+	 * {@link #appendActionButton(IResource, IDisplayString, INullaryVoidFunction, ITestMarker...)}
 	 * without variable arguments.
 	 */
 	public DomModalDialog appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback) {
 
-		return appendActionButton(icon, label, callback, new IStaticObject[0]);
+		return appendActionButton(icon, label, callback, new ITestMarker[0]);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class DomModalDialog extends DomPopup {
 	 *            the markers of the button (never <i>null</i>)
 	 * @return this {@link DomModalDialog}
 	 */
-	public DomModalDialog appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback, IStaticObject...markers) {
+	public DomModalDialog appendActionButton(IResource icon, IDisplayString label, INullaryVoidFunction callback, ITestMarker...markers) {
 
 		IDomNode button = new DomButton()//
 			.setIcon(icon)

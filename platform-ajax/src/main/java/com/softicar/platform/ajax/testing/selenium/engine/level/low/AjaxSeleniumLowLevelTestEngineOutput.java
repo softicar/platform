@@ -6,7 +6,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineOutput;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.dialog.testing.DomModalAlertNodes;
@@ -169,7 +169,7 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 	}
 
 	@Override
-	public Optional<IDomNode> findNode(IStaticObject marker) {
+	public Optional<IDomNode> findNode(ITestMarker marker) {
 
 		Collection<IDomNode> nodes = CurrentDomDocument.get().getNodesWithMarker(marker);
 		if (nodes.isEmpty()) {

@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.time;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.IllegalTimeSpecificationException;
 import com.softicar.platform.common.date.Time;
 import com.softicar.platform.dom.DomI18n;
@@ -79,7 +79,7 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 				secondInput.getTextualValue());
 	}
 
-	private DomIntegerInput createInput(IDisplayString title, IStaticObject testMarker) {
+	private DomIntegerInput createInput(IDisplayString title, ITestMarker testMarker) {
 
 		var input = new DomIntegerInput();
 		input.setTitle(title);

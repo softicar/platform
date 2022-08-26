@@ -1,8 +1,8 @@
 package com.softicar.platform.emf;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 
-public enum EmfTestMarker implements IStaticObject {
+public enum EmfTestMarker implements ITestMarker {
 
 	DATA_TABLE,
 	DATA_TABLE_ACTION_CELL,

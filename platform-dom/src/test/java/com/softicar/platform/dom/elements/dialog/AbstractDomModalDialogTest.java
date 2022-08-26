@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
@@ -12,8 +12,8 @@ import org.mockito.Mockito;
 
 public abstract class AbstractDomModalDialogTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	protected static final IStaticObject OPEN_BUTTON = Mockito.mock(IStaticObject.class);
-	protected static final IStaticObject OUTPUT_ELEMENT = Mockito.mock(IStaticObject.class);
+	protected static final ITestMarker OPEN_BUTTON = Mockito.mock(ITestMarker.class);
+	protected static final ITestMarker OUTPUT_ELEMENT = Mockito.mock(ITestMarker.class);
 	protected static final IDisplayString MESSAGE = IDisplayString.create("some message");
 
 	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();

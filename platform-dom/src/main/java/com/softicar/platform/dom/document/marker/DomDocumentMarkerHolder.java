@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.document.marker;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomProperties;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomDocument;
@@ -30,8 +30,8 @@ import java.util.stream.Stream;
 public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 
 	private final IDomDocument document;
-	private final Map<IStaticObject, Set<Integer>> markerToNodes;
-	private final Map<Integer, Set<IStaticObject>> nodeToMarkers;
+	private final Map<ITestMarker, Set<Integer>> markerToNodes;
+	private final Map<Integer, Set<ITestMarker>> nodeToMarkers;
 	private final boolean testMode;
 
 	public DomDocumentMarkerHolder(IDomDocument document) {
@@ -43,7 +43,7 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public void addMarker(IDomNode node, IStaticObject marker) {
+	public void addMarker(IDomNode node, ITestMarker marker) {
 
 		if (testMode) {
 			markerToNodes//
@@ -56,7 +56,7 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public Collection<IDomNode> getNodesWithMarker(IStaticObject marker) {
+	public Collection<IDomNode> getNodesWithMarker(ITestMarker marker) {
 
 		if (testMode) {
 			return Optional//
@@ -69,7 +69,7 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public Collection<IStaticObject> getMarkers(IDomNode node) {
+	public Collection<ITestMarker> getMarkers(IDomNode node) {
 
 		if (testMode && isAppended(node)) {
 			return nodeToMarkers.getOrDefault(node.getNodeId(), Collections.emptySet());
@@ -79,9 +79,9 @@ public class DomDocumentMarkerHolder implements IDomDocumentMarkerHolder {
 	}
 
 	@Override
-	public boolean hasMarker(IDomNode node, IStaticObject...markers) {
+	public boolean hasMarker(IDomNode node, ITestMarker...markers) {
 
-		Collection<IStaticObject> existingMarkers = getMarkers(node);
+		Collection<ITestMarker> existingMarkers = getMarkers(node);
 		return Stream//
 			.of(markers)
 			.allMatch(existingMarkers::contains);

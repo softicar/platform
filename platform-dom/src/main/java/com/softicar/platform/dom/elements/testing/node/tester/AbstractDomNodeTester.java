@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomTestMarker;
@@ -49,24 +49,25 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 
 	// ------------------------------ input ------------------------------ //
 
-	public AbstractDomNodeTester<N> setInputValue(IStaticObject marker, String value) {
+	public AbstractDomNodeTester<N> setInputValue(ITestMarker marker, String value) {
 
 		findInput(marker).setInputValue(value);
 		return this;
 	}
 
 	/**
-	 * Searches for a node with the given marker and then applies the given time
-	 * string to the respective inputs for hours, minutes and seconds.
+	 * Searches for a node with the given {@link ITestMarker} and then applies
+	 * the given time string to the respective inputs for hours, minutes and
+	 * seconds.
 	 *
 	 * @param marker
-	 *            the test marker
+	 *            the {@link ITestMarker}
 	 * @param timeString
 	 *            the time string in the format <hours>:<minutes>:<seconds>
 	 *            (never <i>null</i>)
 	 * @return this
 	 */
-	public AbstractDomNodeTester<N> setTimeInputValue(IStaticObject marker, String timeString) {
+	public AbstractDomNodeTester<N> setTimeInputValue(ITestMarker marker, String timeString) {
 
 		List<String> elements = new Tokenizer(':', '\\').tokenize(timeString);
 		if (elements.size() != 3) {
@@ -80,11 +81,12 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	}
 
 	/**
-	 * Searches for a node with the given marker and then applies the given
-	 * values to the respective inputs for day, hour, minutes and seconds.
+	 * Searches for a node with the given {@link ITestMarker} and then applies
+	 * the given values to the respective inputs for day, hour, minutes and
+	 * seconds.
 	 *
 	 * @param marker
-	 *            the test marker
+	 *            the {@link ITestMarker}
 	 * @param dayString
 	 *            the literal input value for the day input (never <i>null</i>)
 	 * @param timeString
@@ -92,7 +94,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	 *            (never <i>null</i>)
 	 * @return this
 	 */
-	public AbstractDomNodeTester<N> setDayTimeInputValue(IStaticObject marker, String dayString, String timeString) {
+	public AbstractDomNodeTester<N> setDayTimeInputValue(ITestMarker marker, String dayString, String timeString) {
 
 		findNode(marker).setInputValue(DomTestMarker.DAY_INPUT, dayString);
 		setTimeInputValue(marker, timeString);
@@ -180,7 +182,7 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 
 	// ------------------------------ click child ------------------------------ //
 
-	public void clickNode(IStaticObject marker) {
+	public void clickNode(ITestMarker marker) {
 
 		findNodes()//
 			.withInstanceOf(IDomClickEventHandler.class)

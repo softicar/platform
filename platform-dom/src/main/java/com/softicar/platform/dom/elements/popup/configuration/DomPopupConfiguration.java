@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.popup.configuration;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
 import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupEventCoordinatesPositionStrategy;
@@ -30,7 +30,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	private INullaryVoidFunction callbackBeforeOpen;
 	private INullaryVoidFunction callbackBeforeClose;
 	private boolean confirmBeforeClose;
-	private final List<IStaticObject> frameMarkers;
+	private final List<ITestMarker> frameMarkers;
 
 	/**
 	 * Creates a new instance, with sane defaults.
@@ -369,21 +369,20 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public List<IStaticObject> getFrameMarkers() {
+	public List<ITestMarker> getFrameMarkers() {
 
 		return frameMarkers;
 	}
 
 	/**
-	 * Adds an {@link IStaticObject} marker to be set on the
-	 * {@link DomPopupFrame} of the {@link DomPopup}, upon creation of the
-	 * former.
+	 * Adds an {@link ITestMarker} to be set on the {@link DomPopupFrame} of the
+	 * {@link DomPopup}, upon creation of the former.
 	 *
 	 * @param frameMarker
-	 *            the {@link IStaticObject} marker for the {@link DomPopupFrame}
+	 *            the {@link ITestMarker} for the {@link DomPopupFrame}
 	 * @return this {@link DomPopup}
 	 */
-	public DomPopupConfiguration addFrameMarker(IStaticObject frameMarker) {
+	public DomPopupConfiguration addFrameMarker(ITestMarker frameMarker) {
 
 		this.frameMarkers.add(Objects.requireNonNull(frameMarker));
 		return this;

@@ -1,6 +1,6 @@
 package com.softicar.platform.demo.invoice.module.invoice.constraints;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
@@ -122,14 +122,14 @@ public class DemoInvoiceFormAttributeConstraintUpdateTest extends AbstractDemoIn
 		popup.setInputValue(AGDemoInvoice.DEBTOR, inputValue);
 	}
 
-	private void assertInputShown(IStaticObject marker) {
+	private void assertInputShown(ITestMarker marker) {
 
 		popup//
 			.findNode(marker)
 			.assertDisplayed();
 	}
 
-	private void assertNoInputShown(IStaticObject marker) {
+	private void assertNoInputShown(ITestMarker marker) {
 
 		popup//
 			.findNode(marker)

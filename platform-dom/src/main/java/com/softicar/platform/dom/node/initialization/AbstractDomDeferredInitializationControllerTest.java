@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.node.initialization;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -26,8 +26,8 @@ public abstract class AbstractDomDeferredInitializationControllerTest extends Ab
 
 	protected static class TestDiv extends DomDiv {
 
-		public static final IStaticObject CONNECT_UPPER_NODE_BUTTON = Mockito.mock(IStaticObject.class);
-		public static final IStaticObject CONNECT_MIDDLE_AND_LOWER_NODES_BUTTON = Mockito.mock(IStaticObject.class);
+		public static final ITestMarker CONNECT_UPPER_NODE_BUTTON = Mockito.mock(ITestMarker.class);
+		public static final ITestMarker CONNECT_MIDDLE_AND_LOWER_NODES_BUTTON = Mockito.mock(ITestMarker.class);
 		public DomDiv upperNode;
 		public DomDiv middleNode;
 		public DomDiv lowerNode;

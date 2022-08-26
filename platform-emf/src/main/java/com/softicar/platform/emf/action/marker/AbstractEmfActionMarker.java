@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.action.marker;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 
-public abstract class AbstractEmfActionMarker implements IStaticObject {
+public abstract class AbstractEmfActionMarker implements ITestMarker {
 
 	private final Class<?> actionClass;
 

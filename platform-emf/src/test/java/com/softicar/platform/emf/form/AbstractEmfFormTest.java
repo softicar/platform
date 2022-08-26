@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.form;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfTestMarker;
@@ -43,24 +43,24 @@ public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 		return entity;
 	}
 
-	protected void setInputValue(IStaticObject marker, String value) {
+	protected void setInputValue(ITestMarker marker, String value) {
 
 		findBody().setInputValue(marker, value);
 	}
 
-	protected void setInputValue(IStaticObject marker, Integer value) {
+	protected void setInputValue(ITestMarker marker, Integer value) {
 
 		findBody().setInputValue(marker, "" + value);
 	}
 
-	protected void clickButton(IStaticObject marker) {
+	protected void clickButton(ITestMarker marker) {
 
 		findBody()//
 			.findNode(marker)
 			.click();
 	}
 
-	protected void assertDisplayedValue(IStaticObject marker, String expectedValue) {
+	protected void assertDisplayedValue(ITestMarker marker, String expectedValue) {
 
 		findBody()//
 			.findNode(marker)
@@ -98,14 +98,14 @@ public abstract class AbstractEmfFormTest extends AbstractEmfTest {
 		return object;
 	}
 
-	protected void enterNameAndDayAndClickSave(IStaticObject nameMarker, IStaticObject dayMarker, String name, Day day) {
+	protected void enterNameAndDayAndClickSave(ITestMarker nameMarker, ITestMarker dayMarker, String name, Day day) {
 
 		setInputValue(dayMarker, day.toISOString());
 		setInputValue(nameMarker, name);
 		clickButton(EmfTestMarker.FORM_SAVE);
 	}
 
-	protected void enterNameAndDayAndClickSaveAndClose(IStaticObject nameMarker, IStaticObject dayMarker, String name, Day day) {
+	protected void enterNameAndDayAndClickSaveAndClose(ITestMarker nameMarker, ITestMarker dayMarker, String name, Day day) {
 
 		setInputValue(nameMarker, name);
 		setInputValue(dayMarker, day.toISOString());
