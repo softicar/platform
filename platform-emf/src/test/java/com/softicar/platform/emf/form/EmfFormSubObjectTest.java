@@ -183,31 +183,4 @@ public class EmfFormSubObjectTest extends AbstractEmfFormTest {
 		frame.assertIsClosed();
 		frame.assertIsChangedOnRefreshBus(entity);
 	}
-
-	@Test
-	public void testDirectEditOfSubObjectWithoutClosing() {
-
-		// insert entity and show form
-		EmfTestSubObject entity = insertTestSubObject(SOME_NAME, SOME_DAY);
-		EmfForm<EmfTestSubObject> form = appendEntityForm(entity);
-		form.setDirectEditing(true);
-		form.peekAndRefresh();
-
-		// enter input values and save entity
-		enterNameAndDayAndClickSave(EmfTestSubObject.NAME, EmfTestObject.DAY, OTHER_NAME, OTHER_DAY);
-
-		// verify entity
-		assertEquals(OTHER_NAME, entity.getName());
-		assertEquals(OTHER_DAY, entity.getSimpleEntity().getDay());
-		assertDisplayedValue(EmfTestSubObject.NAME, OTHER_NAME);
-		assertDisplayedValue(EmfTestObject.DAY, OTHER_DAY.toISOString());
-
-		// verify call-backs
-		assertNone(creationCallbacks);
-
-		// verify UI
-		frame.assertIsNotClosed();
-		frame.assertIsChangedOnRefreshBus(entity);
-	}
-
 }

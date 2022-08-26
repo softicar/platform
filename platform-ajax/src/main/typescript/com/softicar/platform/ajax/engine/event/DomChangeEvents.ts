@@ -14,11 +14,6 @@ class ChangeEventManager {
 	private handleChangeEvent(event: Event) {
 		let node = event.currentTarget as HTMLElement;
 
-		// skip native change events for auto-complete inputs
-		if(event.isTrusted && AUTO_COMPLETE_ENGINE.isEnabledForInput(node)) {
-			return;
-		}
-
 		// only send or delegate event if value really changed
 		if(VALUE_NODE_MAP.isValueChanged(node)) {
 			sendOrDelegateEvent(node, event, event.type);

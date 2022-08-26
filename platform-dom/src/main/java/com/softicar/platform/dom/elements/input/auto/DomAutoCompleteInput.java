@@ -1,21 +1,17 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
-import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteList;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputConfiguration;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInputSelection;
+import com.softicar.platform.dom.style.CssPixel;
+import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -29,146 +25,75 @@ import java.util.function.Supplier;
  *
  * @author Alexander Schmidt
  */
-public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> implements IDomAutoCompleteInput<T> {
+public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
-	protected final IDomAutoCompleteInputEngine<T> inputEngine;
-	protected final DomBar inputBar;
-	private final boolean sloppyAmbiguityCheck;
-	private final DomAutoCompleteInputFilterDisplay filterDisplay;
-	private final DomTextInput inputField;
-	private final IDomAutoCompleteInputConfiguration configuration;
+	public static final int MAXIMUM_ELEMENTS_TO_DISPLAY = 16;
+
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
+	private final IDomAutoCompleteInputEngine<T> inputEngine;
+	private final DomAutoCompleteInputValidationMode validationMode;
+	private final DomBar inputBar;
+	private final DomAutoCompleteInputField inputField;
+	private final DomAutoCompleteInputFilterDisplay filterDisplay;
+	private final DomAutoCompleteIndicator<T> indicator;
+	private final DomAutoCompleteBackdrop backdrop;
+	private final DomAutoCompletePopup<T> popup;
+	private T committedValue;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
 
 		this(new DomAutoCompleteDefaultInputEngine<>(loader));
 	}
 
+	public DomAutoCompleteInput(Supplier<Collection<T>> loader, DomAutoCompleteInputValidationMode validationMode) {
+
+		this(new DomAutoCompleteDefaultInputEngine<>(loader), validationMode);
+	}
+
 	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine) {
 
-		this(inputEngine, true, DomAutoCompleteInputValidationMode.DEDUCTIVE);
+		this(inputEngine, DomAutoCompleteInputValidationMode.DEDUCTIVE);
 	}
 
-	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, boolean sloppyAmbiguityCheck, DomAutoCompleteInputValidationMode defaultMode) {
+	public DomAutoCompleteInput(IDomAutoCompleteInputEngine<T> inputEngine, DomAutoCompleteInputValidationMode validationMode) {
 
-		this.inputEngine = inputEngine;
-		this.inputBar = new DomBar();
-		this.sloppyAmbiguityCheck = sloppyAmbiguityCheck;
-		this.filterDisplay = new DomAutoCompleteInputFilterDisplay();
-		this.inputField = new DomTextInput();
-		this.inputField.addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FIELD);
-		this.inputField.addChangeCallback(this::refreshInputValidity);
-		this.inputField.addChangeCallback(this::executeChangeCallbacks);
-		this.inputField.unlistenToEvent(DomEventType.CHANGE);
-		this.configuration = new DomAutoCompleteInputConfiguration(this, inputField);
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
+		this.inputEngine = inputEngine;
+		this.validationMode = validationMode;
+		this.inputBar = new DomBar();
+		this.inputField = new DomAutoCompleteInputField(this);
+		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
+		this.indicator = new DomAutoCompleteIndicator<>(this);
+		this.backdrop = new DomAutoCompleteBackdrop(this);
+		this.popup = new DomAutoCompletePopup<>(this);
+		this.committedValue = null;
 
-		setCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
+		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
 		appendChild(filterDisplay);
+		appendChild(indicator);
 		inputBar.appendChild(inputField);
-
-		refreshFilters();
-
-		initializeAutoComplete(defaultMode);
 	}
 
-	public final void refreshInputConstraints() {
+	/**
+	 * Returns the {@link IDomAutoCompleteInputEngine} given to the constructor.
+	 *
+	 * @return the {@link IDomAutoCompleteInputEngine} (never <i>null</i>)
+	 */
+	public IDomAutoCompleteInputEngine<T> getInputEngine() {
 
-		refreshFilters();
-
-		inputEngine.reloadCache();
-
-		inputConstraintRefreshCallbacks.forEach(INullaryVoidFunction::apply);
+		return inputEngine;
 	}
 
-	public void refreshFilters() {
+	// TODO make final
+	public void refreshInputConstraints() {
 
 		inputEngine.refresh();
-		filterDisplay.refresh(inputEngine);
-		refreshInputValidity();
-	}
+		inputEngine.reloadCache();
+		indicator.refresh();
+		filterDisplay.refresh();
 
-	public boolean isBlank() {
-
-		return inputField.isBlank();
-	}
-
-	@Override
-	public IDomAutoCompleteInputConfiguration getConfiguration() {
-
-		return configuration;
-	}
-
-	@Override
-	public IDomTextualInput getInputField() {
-
-		return inputField;
-	}
-
-	@Override
-	public DomAutoCompleteList getItemList(String pattern) {
-
-		return new DomAutoCompleteListGenerator<>(inputEngine, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD)//
-			.generate(getTrimmedLowerCase(pattern));
-	}
-
-	@Override
-	public IDomAutoCompleteInputSelection<T> getSelection() {
-
-		return new DomAutoCompleteInputSelection<>(//
-			inputEngine,
-			configuration,
-			this::getMatchingItems,
-			inputField.getValueTextTrimmed());
-	}
-
-	@Override
-	public Optional<T> getValue() {
-
-		return getSelection().getValue();
-	}
-
-	@Override
-	public void setValue(T value) {
-
-		String valueString = Optional//
-			.ofNullable(value)
-			.map(inputEngine::getDisplayString)
-			.map(IDisplayString::toString)
-			.orElse("");
-		inputField.setValue(valueString);
-	}
-
-	@Override
-	public void setValueAndValidate(T value) {
-
-		setValue(value);
-		refreshInputValidity();
-	}
-
-	public DomAutoCompleteInput<T> setPlaceholder(IDisplayString placeholder) {
-
-		inputField.setPlaceholder(placeholder);
-		return this;
-	}
-
-	public DomAutoCompleteInput<T> setFocus(boolean focus) {
-
-		inputField.setFocus(focus);
-		return this;
-	}
-
-	public DomAutoCompleteInput<T> select() {
-
-		inputField.selectText();
-		return this;
-	}
-
-	public DomAutoCompleteInput<T> setMaxLength(int maxLength) {
-
-		inputField.setMaxLength(maxLength);
-		return this;
+		inputConstraintRefreshCallbacks.forEach(INullaryVoidFunction::apply);
 	}
 
 	/**
@@ -183,92 +108,209 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> impleme
 		inputConstraintRefreshCallbacks.add(Objects.requireNonNull(refreshCallback));
 	}
 
-	@Override
-	protected void onChangeCallbackAdded() {
+	// ------------------------------ value methods ------------------------------ //
 
-		this.inputField.listenToEvent(DomEventType.CHANGE);
+	@Override
+	public Optional<T> getValue() {
+
+		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		if (valueAndState.isAmbiguousOrIllegal()) {
+			throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+		} else {
+			return Optional.ofNullable(valueAndState.getValue());
+		}
 	}
 
 	@Override
-	protected void doSetDisabled(boolean disabled) {
+	public void setValue(T value) {
 
-		getConfiguration().setDisabled(disabled);
+		setFieldValue(value);
+		this.committedValue = value;
+		refreshIndicator();
 	}
+
+	// ------------------------------ input field methods ------------------------------ //
 
 	/**
-	 * Fetches the current, textual content of the input element, exactly as it
-	 * was entered. No transformations like trimming or case-enforcement are
-	 * applied.
+	 * Returns underlying {@link IDomTextualInput} used for textual input.
 	 *
-	 * @return the raw, non-transformed String value that the input element
-	 *         currently contains (never null)
+	 * @return the {@link IDomTextualInput} (never <i>null</i>)
 	 */
-	protected String getRawValueString() {
+	public IDomTextualInput getInputField() {
+
+		return inputField;
+	}
+
+	public String getValueText() {
 
 		return inputField.getValueText();
 	}
 
-	private Collection<T> getMatchingItems(String pattern) {
+	public boolean isBlank() {
 
-		if (sloppyAmbiguityCheck) {
-			return getMatchingItems(pattern, 2);
+		return inputField.isBlank();
+	}
+
+	public DomAutoCompleteInput<T> setPlaceholder(IDisplayString placeholder) {
+
+		inputField.setPlaceholder(placeholder);
+		return this;
+	}
+
+	public DomAutoCompleteInput<T> setFocus(boolean focus) {
+
+		inputField.setFocus(focus);
+		return this;
+	}
+
+	public DomAutoCompleteInput<T> selectText() {
+
+		inputField.selectText();
+		return this;
+	}
+
+	// ------------------------------ event handling ------------------------------ //
+
+	protected void onInput() {
+
+		refreshPopup();
+		refreshIndicator();
+	}
+
+	protected void onChange() {
+
+		refreshIndicator();
+
+		var value = getValueNoThrow().orElse(null);
+		if (!Objects.equals(value, committedValue)) {
+			this.committedValue = value;
+			executeChangeCallbacks();
+		}
+	}
+
+	protected void onArrowDown() {
+
+		if (popup.isAppended()) {
+			popup.moveSelectionDown();
 		} else {
-			// Assumes that the entered string is among the first DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT matches, respecting capitalization.
-			// FIXME This is still a problem in theory. However, it was neglected because the number of items which have names that only differ in
-			// FIXME capitalization was assumed to always be lower than DomAutoCompleteList.MAXIMUM_ELEMENT_COUNT.
-			return getMatchingItems(pattern, DomAutoCompleteList.MAXIMUM_ELEMENTS_TO_LOAD);
+			refreshPopup();
 		}
 	}
 
-	private Collection<T> getMatchingItems(String pattern, int limit) {
+	protected void onArrowUp() {
 
-		if (!pattern.isEmpty()) {
-			return inputEngine.findMatches(pattern, limit);
+		if (popup.isAppended()) {
+			popup.moveSelectionUp();
 		} else {
-			return Collections.emptySet();
+			refreshPopup();
 		}
 	}
 
-	private String getTrimmed(String pattern) {
+	protected void onEnterOrTab() {
 
-		return Optional.ofNullable(pattern).map(String::trim).orElse("");
-	}
-
-	private String getTrimmedLowerCase(String pattern) {
-
-		return Optional.ofNullable(getTrimmed(pattern)).map(String::toLowerCase).orElse("");
-	}
-
-	private void refreshInputValidity() {
-
-		inputField.setValue(inputField.getValueText());
-		if (!getSelection().isValid()) {
-			getDomEngine().setAutoCompleteInputInvalid(this);
+		if (popup.isAppended()) {
+			popup.applySelection();
 		}
 	}
 
-	/**
-	 * Enables the auto-complete engine features and performs subsequent
-	 * initialization steps.
-	 * <p>
-	 * TODO Must be called as last step to ensure that indicators are shown. As
-	 * soon as CSS based indicators (#38798) are implemented, this can be
-	 * relaxed.
-	 */
-	private void initializeAutoComplete(DomAutoCompleteInputValidationMode defaultMode) {
+	protected void onSelection(T value) {
 
-		getDomEngine().enableAutoComplete(this);
-		initializeEnabledAutoComplete(defaultMode);
+		setFieldValue(value);
+		closePopup();
+		onChange();
+		inputField.focus();
 	}
 
-	/**
-	 * Performs initialization steps that must happen after the auto-complete
-	 * engine feature was enabled.
-	 */
-	private void initializeEnabledAutoComplete(DomAutoCompleteInputValidationMode defaultMode) {
+	protected void onBlur() {
 
-		if (configuration.getValidationMode() != defaultMode) {
-			configuration.setValidationMode(defaultMode);
+		closePopup();
+		deduceValue();
+		onChange();
+	}
+
+	protected void onBackdropClickOrEscape() {
+
+		closePopup();
+		deduceValue();
+		onChange();
+		inputField.focus();
+	}
+
+	// ------------------------------ protected getters ------------------------------ //
+
+	protected String getPattern() {
+
+		return inputField.getValueTextTrimmed().toLowerCase();
+	}
+
+	protected DomAutoCompleteInputValidationMode getValidationMode() {
+
+		return validationMode;
+	}
+
+	protected DomBar getInputBar() {
+
+		return inputBar;
+	}
+
+	// ------------------------------ internal ------------------------------ //
+
+	@Override
+	protected void doSetDisabled(boolean disabled) {
+
+		inputField.setDisabled(disabled);
+	}
+
+	private void refreshIndicator() {
+
+		indicator.refresh();
+	}
+
+	private void refreshPopup() {
+
+		if (!popup.isAppended()) {
+			appendChild(backdrop);
+			getDomEngine().raise(backdrop);
+
+			appendChild(popup);
+			getDomEngine().raise(popup);
+
+			getDomEngine().raise(inputField);
+			getDomEngine().raise(indicator);
 		}
+
+		var rect = getCurrentEvent().getBoundingClientRect();
+		popup.setStyle(CssStyle.TOP, new CssPixel(rect.getHeight()));
+		popup.setStyle(CssStyle.MIN_WIDTH, new CssPixel(rect.getWidth()));
+		popup.refresh();
+	}
+
+	private void closePopup() {
+
+		if (popup.isAppended()) {
+			backdrop.disappend();
+			popup.disappend();
+
+			inputField.unsetStyle(CssStyle.Z_INDEX);
+			indicator.unsetStyle(CssStyle.Z_INDEX);
+		}
+	}
+
+	private void deduceValue() {
+
+		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		if (valueAndState.isValid()) {
+			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
+		}
+	}
+
+	private void setFieldValue(T value) {
+
+		String valueString = Optional//
+			.ofNullable(value)
+			.map(inputEngine::getDisplayString)
+			.map(IDisplayString::toString)
+			.orElse("");
+		inputField.setValue(valueString);
 	}
 }

@@ -44,7 +44,9 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 		public FormPopup() {
 
 			super(entity);
-			configuration.setCallbackBeforeClose(this::refreshInput);
+			configuration//
+				.setCallbackBeforeClose(this::refreshInput)
+				.setDisplayModeDraggableModal();
 			setDirectEditing(true);
 		}
 

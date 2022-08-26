@@ -29,6 +29,12 @@ public abstract class AbstractEmfAdjacentNodeForm<R extends IEmfTableRow<R, ?>> 
 		addCssClass(EmfCssClasses.EMF_ADJACENT_NODE_FORM);
 	}
 
+	@Override
+	public boolean isDirectEditingEnabled() {
+
+		return false;
+	}
+
 	/**
 	 * Creates an {@link IDomNode} to be displayed next to the {@link EmfForm}.
 	 * <p>

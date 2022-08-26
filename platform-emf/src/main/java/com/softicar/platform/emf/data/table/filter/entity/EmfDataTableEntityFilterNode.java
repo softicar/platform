@@ -6,7 +6,6 @@ import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantE
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
@@ -26,7 +25,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 
 	private final IEmfDataTableColumn<R, T> column;
 	private final EmfDataTableEntityFilterTypeSelect filterTypeSelect;
-	private final IDomAutoCompleteInput<T> entityInput;
+	private final DomAutoCompleteInput<T> entityInput;
 
 	public EmfDataTableEntityFilterNode(IEmfDataTableColumn<R, T> column) {
 
@@ -40,7 +39,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	@Override
 	public IEmfDataTableFilter<R> createFilter() {
 
-		Optional<T> filterValue = entityInput.getSelection().getValue();
+		Optional<T> filterValue = entityInput.getValue();
 		EmfDataTableEntityFilterType filterType = filterTypeSelect.getSelectedValue();
 		Resetter resetter = new Resetter(filterType, filterValue.orElse(null));
 		if (filterValue.isPresent()) {

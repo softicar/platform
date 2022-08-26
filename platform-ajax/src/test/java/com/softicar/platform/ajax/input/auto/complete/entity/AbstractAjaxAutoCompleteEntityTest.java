@@ -7,7 +7,6 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.I
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -15,23 +14,22 @@ import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssFlexDirection;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiConsumer;
 import org.junit.After;
 
@@ -108,28 +106,26 @@ import org.junit.After;
  * popup can be opened and closed many times. However, it is assumed that, if it
  * works twice in a row, arbitrary repetitions will work as well.
  * <p>
- * <b>Test method name anatomy:</b><br>
- * "test[{FeatureOrFeatureCombination}With][{Interaction}On]{InputElementDescription}"<br>
- * definitions:<br>
- * - {InputElementDescription} := [Active|Passive][Empty|Filled]Input
+ * <b>Test method name anatomy:</b>
+ *
+ * <pre>
+ * "test{Valid|Ambiguous|Illegal|Empty}Input[With{Interactions}]"
+ *      \__________________________________/ \_________________/
+ *             initial input state            user interactions
+ * </pre>
  *
  * @author Alexander Schmidt
  */
 public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAutoCompleteTest {
 
-	protected static final String AMBIGUOUS_ITEM_NAME_CHUNK = "ba";
-	protected static final String INVALID_ITEM_NAME = "xxx";
-	protected static final AjaxTestEntity ENTITY1 = new AjaxTestEntity(1, "foo"); // name: unique
-	protected static final AjaxTestEntity ENTITY2 = new AjaxTestEntity(2, "bar"); // name: contains combination of letters ("ba") that also appears in several other names
-	protected static final AjaxTestEntity ENTITY3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other item
-	protected static final AjaxTestEntity ENTITY4 = new AjaxTestEntity(4, "bazinga");
-	protected static final List<AjaxTestEntity> ENTITIES = Arrays.asList(ENTITY2, ENTITY3, ENTITY4, ENTITY1);
-	protected static final AjaxTestEntity UNAVAILABLE_ENTITY = new AjaxTestEntity(999, "zzz");
-	protected static final long DURATION_100 = 100;
-	protected static final long DURATION_250 = 250;
-	protected static final long DURATION_500 = 500;
-	protected static final long DURATION_1000 = 1000;
-	protected static final long DURATION_2000 = 2000;
+	protected static final String AMBIGUOUS_VALUE_NAME_CHUNK = "ba";
+	protected static final String ILLEGAL_VALUE_NAME = "xxx";
+	protected static final AjaxTestEntity VALUE1 = new AjaxTestEntity(1, "foo"); // name: unique
+	protected static final AjaxTestEntity VALUE2 = new AjaxTestEntity(2, "bar"); // name: contains combination of letters ("ba") that also appears in several other names
+	protected static final AjaxTestEntity VALUE3 = new AjaxTestEntity(3, "baz"); // name: fully contained in name of other value
+	protected static final AjaxTestEntity VALUE4 = new AjaxTestEntity(4, "bazinga");
+	protected static final List<AjaxTestEntity> VALUES = Arrays.asList(VALUE2, VALUE3, VALUE4, VALUE1);
+	protected static final AjaxTestEntity ILLEGAL_VALUE = new AjaxTestEntity(999, "zzz");
 
 	protected TestInputEngine inputEngine;
 	protected DomAutoCompleteInput<AjaxTestEntity> inputNode;
@@ -137,13 +133,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected IDomNode focusPredecessorElement;
 	protected IDomTextualInput inputFieldElement;
 	protected InputProxy input;
-	protected EventTriggerProxy eventTrigger;
 	protected final Setup setup;
 	protected final Asserter asserter;
 	protected final ChangeCallback changeCallback;
 	protected final BodyProxy body;
 	protected final PopupProyx popup;
-	protected final OverlayProxy overlay;
+	protected final BackdropProxy backdrop;
 	protected final CallbackProxy callback;
 
 	protected AbstractAjaxAutoCompleteEntityTest() {
@@ -153,15 +148,15 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		this.changeCallback = new ChangeCallback();
 		this.body = new BodyProxy();
 		this.popup = new PopupProyx();
-		this.overlay = new OverlayProxy();
+		this.backdrop = new BackdropProxy();
 		this.callback = new CallbackProxy();
 	}
 
-	protected void assertPopupEntities(List<AjaxTestEntity> items) {
+	protected void assertPopupValues(List<AjaxTestEntity> values) {
 
-		super.assertPopupItems(//
+		super.assertPopupValues(//
 			AjaxTestEntity::getName,
-			items);
+			values);
 	}
 
 	@After
@@ -170,68 +165,44 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		assertTrue("Asserter was not executed.", asserter.isExecuted());
 	}
 
+	protected interface TestSetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
+	
+		// convenience interface
+	}
+
 	protected class Setup {
 
 		private boolean executed;
-		private final List<ISetupInstruction> instructions;
+		private final List<TestSetupInstruction> instructions;
 
 		public Setup() {
 
 			this.executed = false;
 			this.instructions = new ArrayList<>();
+			addListenToChange();
 		}
 
-		public Setup setListenToChange() {
+		public Setup setSelectedValueNone() {
 
-			return add((input, engine) -> input.addChangeCallback(changeCallback));
+			return setSelectedValue(null);
 		}
 
-		public Setup setSelectedEntityNone() {
+		public Setup setSelectedValue(AjaxTestEntity value) {
 
-			return setSelectedEntity(null);
+			return add((input, engine) -> input.setValue(value));
 		}
 
-		public Setup setSelectedEntity(AjaxTestEntity selectedEntity) {
+		public Setup setAvailableValues(AjaxTestEntity...values) {
 
-			return add((input, engine) -> input.setValue(selectedEntity));
+			return setAvailableValues(Arrays.asList(values));
 		}
 
-		public Setup setStringValue(String stringValue) {
+		public Setup setAvailableValues(Collection<AjaxTestEntity> values) {
 
-			return add((input, engine) -> input.getInputField().setValue(stringValue));
+			return add((input, engine) -> engine.setLoader(() -> values));
 		}
 
-		public Setup setMandatory() {
-
-			return setMandatory(true);
-		}
-
-		public Setup setMandatory(boolean mandatory) {
-
-			return add((input, engine) -> input.getConfiguration().setMandatory(mandatory));
-		}
-
-		public Setup setMode(DomAutoCompleteInputValidationMode mode) {
-
-			return add((input, engine) -> input.getConfiguration().setValidationMode(mode));
-		}
-
-		public Setup markValueAsInvalid() {
-
-			return add((input, engine) -> input.getDomEngine().setAutoCompleteInputInvalid(input));
-		}
-
-		public Setup setEntities(AjaxTestEntity...items) {
-
-			return setEntities(Arrays.asList(items));
-		}
-
-		public Setup setEntities(Collection<AjaxTestEntity> items) {
-
-			return add((input, engine) -> engine.setLoader(() -> items));
-		}
-
-		public Setup add(ISetupInstruction instruction) {
+		public Setup add(TestSetupInstruction instruction) {
 
 			this.instructions.add(instruction);
 			return this;
@@ -247,10 +218,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 				// create engine
 				inputEngine = new TestInputEngine();
-				inputEngine.setLoader(() -> ENTITIES);
+				inputEngine.setLoader(() -> VALUES);
 
 				// create input
-				DomAutoCompleteInput<AjaxTestEntity> input = new DomAutoCompleteInput<>(inputEngine);
+				var input = new DomAutoCompleteInput<>(inputEngine);
 				this.instructions.forEach(it -> it.accept(input, inputEngine));
 				return new Container(input);
 			});
@@ -259,7 +230,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			eventTriggerButton = container.getEventTriggerNode();
 			inputFieldElement = inputNode.getInputField();
 			input = new InputProxy();
-			eventTrigger = new EventTriggerProxy();
 			this.executed = true;
 		}
 
@@ -267,49 +237,34 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			assertTrue("Setup was not executed", executed);
 		}
+
+		private void addListenToChange() {
+
+			add((input, engine) -> input.addChangeCallback(changeCallback));
+		}
 	}
 
 	protected class TestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxTestEntity> {
 
-		private final Lock lock;
-
-		public TestInputEngine() {
-
-			this.lock = new ReentrantLock();
-		}
-
-		public Locker createLocker() {
-
-			return new Locker(lock);
-		}
-
 		@Override
 		public Collection<AjaxTestEntity> findMatches(String pattern, int limit) {
 
-			try (Locker locker = createLocker()) {
-				return super.findMatches(pattern, limit);
-			}
+			return super.findMatches(pattern, limit);
 		}
-	}
-
-	protected interface ISetupInstruction extends BiConsumer<DomAutoCompleteInput<AjaxTestEntity>, DomAutoCompleteDefaultInputEngine<AjaxTestEntity>> {
-
-		// convenience interface
 	}
 
 	protected class Asserter {
 
 		private boolean executed;
-		private AjaxTestEntity expectedServerValue;
-		private IDisplayString expectedServerValueExceptionMessage;
-		private String expectedClientValue;
-		private Indicator expectedIndicator;
-		private boolean expectedIndicatorPresence;
+		private AjaxTestEntity expectedSelectedValue;
+		private IDisplayString expectedSelectedValueExceptionMessage;
+		private String expectedInputText;
+		private DomAutoCompleteIndicatorType expectedIndicator;
 		private boolean expectedPopupDisplayed;
-		private List<AjaxTestEntity> expectedPopupItems;
-		private Integer expectedSelectedItemNumber;
+		private List<AjaxTestEntity> expectedPopupValues;
+		private Integer expectedSelectedValueNumber;
 		private boolean expectedFocusState;
-		private boolean expectedOverlayDisplayed;
+		private boolean expectedBackdropDisplayed;
 		private AjaxTestEntity expectedCallbackValue;
 		private int expectedCallbackCount;
 
@@ -323,17 +278,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return executed;
 		}
 
-		public IndicatorExpectationSetter expectValues(AjaxTestEntity serverValue, String clientValue) {
+		public IndicatorExpectationSetter expectValues(AjaxTestEntity value) {
 
-			setExpectedServerValue(serverValue);
-			setExpectedClientValue(clientValue);
+			String inputText = Optional.ofNullable(value).map(AjaxTestEntity::toDisplay).map(IDisplayString::toString).orElse("");
+			setExpectedSelectedValue(value);
+			setExpectedInputText(inputText);
 			return new IndicatorExpectationSetter();
-		}
-
-		public IndicatorExpectationSetter expectValues(AjaxTestEntity serverAndClientValue) {
-
-			String clientValue = Optional.ofNullable(serverAndClientValue).map(it -> it.toDisplay().toString()).orElse("");
-			return expectValues(serverAndClientValue, clientValue);
 		}
 
 		public IndicatorExpectationSetter expectValuesNone() {
@@ -341,45 +291,40 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return expectValues(null);
 		}
 
-		public ServerValueExpectationSetter expectClientValue(AjaxTestEntity clientValue) {
+		public SelectedValueExpectationSetter expectInputText(AjaxTestEntity value) {
 
-			return expectClientValue(clientValue.toDisplay().toString());
+			return expectInputText(value.toDisplay().toString());
 		}
 
-		public ServerValueExpectationSetter expectClientValue(String clientValue) {
+		public SelectedValueExpectationSetter expectInputText(String inputText) {
 
-			setExpectedClientValue(clientValue);
-			return new ServerValueExpectationSetter();
+			setExpectedInputText(inputText);
+			return new SelectedValueExpectationSetter();
 		}
 
-		public ServerValueExpectationSetter expectClientValueNone() {
+		public SelectedValueExpectationSetter expectInputTextNone() {
 
-			return expectClientValue((String) null);
+			return expectInputText((String) null);
 		}
 
-		private void setExpectedServerValue(AjaxTestEntity serverValue) {
+		private void setExpectedSelectedValue(AjaxTestEntity value) {
 
-			this.expectedServerValue = serverValue;
+			this.expectedSelectedValue = value;
 		}
 
-		private void setExpectedServerValueExceptionMessage(IDisplayString exceptionMessage) {
+		private void setExpectedSelectedValueExceptionMessage(IDisplayString exceptionMessage) {
 
-			this.expectedServerValueExceptionMessage = exceptionMessage;
+			this.expectedSelectedValueExceptionMessage = exceptionMessage;
 		}
 
-		private void setExpectedClientValue(String clientValue) {
+		private void setExpectedInputText(String inputText) {
 
-			this.expectedClientValue = Optional.ofNullable(clientValue).orElse("");
+			this.expectedInputText = Optional.ofNullable(inputText).orElse("");
 		}
 
-		private void setExpectedIndicator(Indicator indicator) {
+		private void setExpectedIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
-			this.expectedIndicator = indicator;
-		}
-
-		private void setExpectedIndicatorPresence(boolean displayed) {
-
-			this.expectedIndicatorPresence = displayed;
+			this.expectedIndicator = indicatorType;
 		}
 
 		private void setExpectedPopupDisplayed(boolean displayed) {
@@ -387,14 +332,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedPopupDisplayed = displayed;
 		}
 
-		private void setExpectedPopupEntities(List<AjaxTestEntity> items) {
+		private void setExpectedPopupValues(List<AjaxTestEntity> values) {
 
-			this.expectedPopupItems = items;
+			this.expectedPopupValues = values;
 		}
 
-		private void setExpectedSelectedEntityNumber(Integer itemNumber) {
+		private void setExpectedSelectedEntityNumber(Integer valueNumber) {
 
-			this.expectedSelectedItemNumber = itemNumber;
+			this.expectedSelectedValueNumber = valueNumber;
 		}
 
 		private void setExpectedFocusState(boolean focusState) {
@@ -402,9 +347,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedFocusState = focusState;
 		}
 
-		private void setExpectedOverlayDisplayed(boolean displayed) {
+		private void setExpectedBackdropDisplayed(boolean displayed) {
 
-			this.expectedOverlayDisplayed = displayed;
+			this.expectedBackdropDisplayed = displayed;
 		}
 
 		private void setExpectedCallbackValue(AjaxTestEntity value) {
@@ -417,142 +362,76 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedCallbackCount = count;
 		}
 
-		public class ClientValueExpectationSetter {
+		public class InputTextExpectationSetter {
 
-			public IndicatorExpectationSetter expectClientValue(AjaxTestEntity value) {
+			public IndicatorExpectationSetter expectInputText(String inputText) {
 
-				return expectClientValue(value.toDisplay().toString());
-			}
-
-			public IndicatorExpectationSetter expectClientValue(String clientValue) {
-
-				setExpectedClientValue(clientValue);
+				setExpectedInputText(inputText);
 				return new IndicatorExpectationSetter();
 			}
 
-			public IndicatorExpectationSetter expectClientValueNone() {
+			public IndicatorExpectationSetter expectInputTextNone() {
 
-				return expectClientValue((String) null);
+				return expectInputText((String) null);
 			}
 		}
 
-		public class ServerValueExpectationSetter {
+		public class SelectedValueExpectationSetter {
 
-			public IndicatorExpectationSetter expectServerValueExceptionMessage() {
+			public IndicatorExpectationSetter expectSelectedValueExceptionMessage() {
 
-				setExpectedServerValueExceptionMessage(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+				setExpectedSelectedValueExceptionMessage(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
 				return new IndicatorExpectationSetter();
 			}
 
-			public IndicatorExpectationSetter expectServerValue(AjaxTestEntity serverValue) {
+			public IndicatorExpectationSetter expectSelectedValue(AjaxTestEntity value) {
 
-				setExpectedServerValue(serverValue);
+				setExpectedSelectedValue(value);
 				return new IndicatorExpectationSetter();
 			}
 
-			public IndicatorExpectationSetter expectServerValueNone() {
+			public IndicatorExpectationSetter expectSelectedValueNone() {
 
-				return expectServerValue(null);
+				return expectSelectedValue(null);
 			}
 		}
 
 		public class IndicatorExpectationSetter {
 
-			public PopupDisplayExpectationSetter expectIndicatorCommitting() {
+			public PopupDisplayExpectationSetter expectIndicatorAmbiguous() {
 
-				return expectIndicatorCommitting(true);
+				return expectIndicator(DomAutoCompleteIndicatorType.AMBIGUOUS);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicatorCommitting(boolean displayed) {
+			public PopupDisplayExpectationSetter expectIndicatorIllegal() {
 
-				return expectIndicator(Indicator.COMMITTING, displayed);
+				return expectIndicator(DomAutoCompleteIndicatorType.ILLEGAL);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicatorLoading() {
+			public PopupDisplayExpectationSetter expectIndicatorNone() {
 
-				return expectIndicatorLoading(true);
+				return expectIndicator(null);
 			}
 
-			public PopupDisplayExpectationSetter expectIndicatorLoading(boolean displayed) {
+			public PopupDisplayExpectationSetter expectIndicator(DomAutoCompleteIndicatorType indicatorType) {
 
-				return expectIndicator(Indicator.LOADING, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorNotOkay() {
-
-				return expectIndicatorNotOkay(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorNotOkay(boolean displayed) {
-
-				return expectIndicator(Indicator.NOT_OKAY, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous() {
-
-				return expectIndicatorValueAmbiguous(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueAmbiguous(boolean displayed) {
-
-				return expectIndicator(Indicator.VALUE_AMBIGUOUS, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueIllegal() {
-
-				return expectIndicatorValueIllegal(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueIllegal(boolean displayed) {
-
-				return expectIndicator(Indicator.VALUE_ILLEGAL, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueMissing() {
-
-				return expectIndicatorValueMissing(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueMissing(boolean displayed) {
-
-				return expectIndicator(Indicator.VALUE_MISSING, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueValid() {
-
-				return expectIndicatorValueValid(true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicatorValueValid(boolean displayed) {
-
-				return expectIndicator(Indicator.VALUE_VALID, displayed);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicator(Indicator indicator) {
-
-				return expectIndicator(indicator, true);
-			}
-
-			public PopupDisplayExpectationSetter expectIndicator(Indicator indicator, boolean displayed) {
-
-				setExpectedIndicator(indicator);
-				setExpectedIndicatorPresence(displayed);
+				setExpectedIndicator(indicatorType);
 				return new PopupDisplayExpectationSetter();
 			}
 		}
 
 		public class PopupDisplayExpectationSetter {
 
-			public PopupItemsExpectationSetter expectPopupDisplayed() {
+			public PopupValuesExpectationSetter expectPopupDisplayed() {
 
 				expectPopup(true);
-				return new PopupItemsExpectationSetter();
+				return new PopupValuesExpectationSetter();
 			}
 
 			public FocusedStateExpectationSetter expectPopupNotDisplayed() {
 
 				expectPopup(false);
-				setExpectedPopupEntities(Collections.emptyList());
+				setExpectedPopupValues(Collections.emptyList());
 				setExpectedSelectedEntityNumber(null);
 				return new FocusedStateExpectationSetter();
 			}
@@ -563,46 +442,46 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			}
 		}
 
-		public class PopupItemsExpectationSetter {
+		public class PopupValuesExpectationSetter {
 
-			public PopupSelectedItemExpectationSetter expectPopupEntities(AjaxTestEntity...items) {
+			public PopupSelectedValueExpectationSetter expectPopupValues(AjaxTestEntity...values) {
 
-				return expectPopupEntities(Arrays.asList(items));
+				return expectPopupValues(Arrays.asList(values));
 			}
 
-			public PopupSelectedItemExpectationSetter expectPopupEntities(List<AjaxTestEntity> items) {
+			public PopupSelectedValueExpectationSetter expectPopupValues(List<AjaxTestEntity> values) {
 
-				setExpectedPopupEntities(items);
-				return new PopupSelectedItemExpectationSetter();
+				setExpectedPopupValues(values);
+				return new PopupSelectedValueExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupEntitiesNone() {
+			public FocusedStateExpectationSetter expectPopupValuesNone() {
 
-				setExpectedPopupEntities(Collections.emptyList());
+				setExpectedPopupValues(Collections.emptyList());
 				setExpectedSelectedEntityNumber(null);
 				return new FocusedStateExpectationSetter();
 			}
 		}
 
-		public class PopupSelectedItemExpectationSetter {
+		public class PopupSelectedValueExpectationSetter {
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemFirst() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueFirst() {
 
-				return expectPopupSelectedItem(1);
+				return expectPopupSelectedValue(1);
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemLast() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueLast() {
 
-				return expectPopupSelectedItem(expectedPopupItems.size());
+				return expectPopupSelectedValue(expectedPopupValues.size());
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItem(int number) {
+			public FocusedStateExpectationSetter expectPopupSelectedValue(int number) {
 
 				setExpectedSelectedEntityNumber(number);
 				return new FocusedStateExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedItemNone() {
+			public FocusedStateExpectationSetter expectPopupSelectedValueNone() {
 
 				setExpectedSelectedEntityNumber(null);
 				return new FocusedStateExpectationSetter();
@@ -611,38 +490,38 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 		public class FocusedStateExpectationSetter {
 
-			public OverlayExpectationSetter expectNoFocus() {
+			public BackdropExpectationSetter expectNoFocus() {
 
 				return expectFocusState(false);
 			}
 
-			public OverlayExpectationSetter expectFocus() {
+			public BackdropExpectationSetter expectFocus() {
 
 				return expectFocusState(true);
 			}
 
-			public OverlayExpectationSetter expectFocusState(boolean focusState) {
+			public BackdropExpectationSetter expectFocusState(boolean focusState) {
 
 				setExpectedFocusState(focusState);
-				return new OverlayExpectationSetter();
+				return new BackdropExpectationSetter();
 			}
 		}
 
-		public class OverlayExpectationSetter {
+		public class BackdropExpectationSetter {
 
-			public CallbackExpectationSetter expectOverlayDisplayed() {
+			public CallbackExpectationSetter expectBackdropDisplayed() {
 
-				return expectOverlayDisplayed(true);
+				return expectBackdropDisplayed(true);
 			}
 
-			public CallbackExpectationSetter expectOverlayNotDisplayed() {
+			public CallbackExpectationSetter expectBackdropNotDisplayed() {
 
-				return expectOverlayDisplayed(false);
+				return expectBackdropDisplayed(false);
 			}
 
-			public CallbackExpectationSetter expectOverlayDisplayed(boolean displayed) {
+			public CallbackExpectationSetter expectBackdropDisplayed(boolean displayed) {
 
-				setExpectedOverlayDisplayed(displayed);
+				setExpectedBackdropDisplayed(displayed);
 				return new CallbackExpectationSetter();
 			}
 		}
@@ -713,15 +592,15 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 				executed = true;
 				setup.assertExecuted();
-				input.assertValues(expectedServerValueExceptionMessage, expectedServerValue, expectedClientValue);
-				indicator.assertIndicates(expectedIndicator, expectedIndicatorPresence);
+				input.assertValues(expectedSelectedValueExceptionMessage, expectedSelectedValue, expectedInputText);
+				indicator.assertIndicates(expectedIndicator);
 				popup.assertDisplayed(expectedPopupDisplayed);
 				input.assertFocusState(expectedFocusState);
 				if (expectedPopupDisplayed) {
-					popup.assertEntities(expectedPopupItems);
-					popup.assertSelectedEntity(expectedSelectedItemNumber);
+					popup.assertValues(expectedPopupValues);
+					popup.assertSelectedValue(expectedSelectedValueNumber);
 				}
-				overlay.assertDisplayed(expectedOverlayDisplayed);
+				backdrop.assertDisplayed(expectedBackdropDisplayed);
 				callback.assertCalled(expectedCallbackValue, expectedCallbackCount);
 			}
 		}
@@ -755,7 +634,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy pressEsc() {
+		public InputProxy pressEscape() {
 
 			send(inputFieldElement, Key.ESCAPE);
 			return this;
@@ -767,75 +646,36 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy focusWithClick() {
+		public InputProxy focusByClick() {
 
 			click(inputFieldElement);
 			return this;
 		}
 
-		public InputProxy focusWithTab() {
+		public InputProxy focusByTab() {
 
-			// TODO assert absence of overlay and popup here
 			send(focusPredecessorElement, Key.TAB);
-			// TODO assert focus in auto-complete input here
+			waitForServer();
+			assertFocused(inputFieldElement);
 			return this;
 		}
 
-		public InputProxy pressDownArrow() {
+		public InputProxy pressArrowDown() {
 
 			send(inputFieldElement, Key.DOWN);
 			return this;
 		}
 
-		public InputProxy pressDownArrowAndWaitForPopup() {
-
-			pressDownArrow();
-			waitForPopup();
-			return this;
-		}
-
-		public InputProxy pressUpArrow() {
+		public InputProxy pressArrowUp() {
 
 			send(inputFieldElement, Key.UP);
-			return this;
-		}
-
-		public InputProxy pressUpArrowAndWaitForPopup() {
-
-			pressUpArrow();
-			waitForPopup();
-			return this;
-		}
-
-		public InputProxy waitForLoadingFinished() {
-
-			waitForIndicatorToHide(Indicator.LOADING);
-			return this;
-		}
-
-		public InputProxy waitForPopupAndLoadingFinished() {
-
-			waitForIndicatorToHide(Indicator.LOADING);
-			waitForPopup();
-			return this;
-		}
-
-		public InputProxy waitForPopup() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForAutoCompletePopup();
 			return this;
 		}
 
 		public InputProxy waitForNoPopup() {
 
 			// race assumption: this is the maximum amount of time after which the popup would appear
-			sleep500();
-			return this;
-		}
-
-		public InputProxy sleep500() {
-
-			Sleep.sleep(DURATION_500);
+			Sleep.sleep(Duration.ofMillis(1000));
 			return this;
 		}
 
@@ -845,22 +685,22 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public void assertValues(IDisplayString expectedServerValueExceptionMessage, AjaxTestEntity expectedServerValue, String expectedClientValue) {
+		public void assertValues(IDisplayString expectedSelectedValueExceptionMessage, AjaxTestEntity expectedSelectedValue, String expectedInputText) {
 
-			if (expectedServerValueExceptionMessage != null) {
-				assertExceptionMessage(expectedServerValueExceptionMessage, inputNode.getSelection()::getValueOrNull);
+			if (expectedSelectedValueExceptionMessage != null) {
+				assertExceptionMessage(expectedSelectedValueExceptionMessage, inputNode::getValueOrNull);
 				waitForServer();
 			} else {
-				AjaxTestEntity actualServerValue = inputNode.getSelection().getValueOrNull();
+				AjaxTestEntity actualSelectedValue = inputNode.getValueOrNull();
 				assertEquals(//
-					"Unexpected server-side value.",
-					expectedServerValue,
-					actualServerValue);
+					"Unexpected selected value.",
+					expectedSelectedValue,
+					actualSelectedValue);
 			}
 
 			assertEquals(//
-				"Unexpected client-side value.",
-				expectedClientValue,
+				"Unexpected input text.",
+				expectedInputText,
 				getAttributeValue(inputFieldElement, "value"));
 		}
 
@@ -878,43 +718,43 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 	}
 
-	protected class EventTriggerProxy {
-
-		public EventTriggerProxy trigger() {
-
-			click(eventTriggerButton);
-			return this;
-		}
-
-		public EventTriggerProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.this.waitForServer();
-			return this;
-		}
-	}
-
 	protected class BodyProxy {
 
-		public void click() {
+		public BodyProxy click() {
 
 			clickBodyNode();
+			return this;
+		}
+
+		public BodyProxy waitForServer() {
+
+			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+			return this;
 		}
 	}
 
 	protected class PopupProyx {
 
-		public void clickEntityNumber(int number) {
+		public PopupProyx clickValueNumber(int number) {
 
 			assertTrue(//
-				"The given entity number must not be lower than 1.",
+				"The given value number must not be lower than 1.",
 				number >= 1);
 
-			List<String> elementNames = getAutoCompletePopupItemNames();
+			List<String> elementNames = getAutoCompletePopupValueNames();
 			assertTrue(//
-				String.format("Tried to click on entity %s but the list only contained %s entities.", number, elementNames.size()),
+				String.format("Tried to click on value %s but the list only contained %s values.", number, elementNames.size()),
 				number <= elementNames.size());
 
-			clickAutoCompletePopupItem(number - 1);
+			clickAutoCompletePopupValue(number - 1);
+
+			return this;
+		}
+
+		public PopupProyx waitForServer() {
+
+			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+			return this;
 		}
 
 		public void assertDisplayed(boolean displayed) {
@@ -925,52 +765,52 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				isAutoCompletePopupDisplayed());
 		}
 
-		public void assertEntities(List<AjaxTestEntity> entities) {
+		public void assertValues(List<AjaxTestEntity> values) {
 
-			if (entities.isEmpty()) {
+			if (values.isEmpty()) {
 				assertTrue(//
-					"Unexpected popup entity count: Expected placeholder entity but did not find it.",
-					isAutoCompleteItemPlaceholderElementDisplayed());
+					"Unexpected popup value count: Expected placeholder value but did not find it.",
+					isAutoCompleteValuePlaceholderElementDisplayed());
 			} else {
-				assertPopupEntities(entities);
+				assertPopupValues(values);
 			}
 		}
 
-		public void assertSelectedEntity(Integer number) {
+		public void assertSelectedValue(Integer number) {
 
 			if (number != null) {
-				popup.assertSelectedEntityNumber(number);
+				popup.assertSelectedValueNumber(number);
 			} else {
-				popup.assertSelectedEntityNone();
+				popup.assertSelectedValueNone();
 			}
 		}
 
-		private void assertSelectedEntityNone() {
+		private void assertSelectedValueNone() {
 
 			assertFalse(//
-				"Unexpectedly encountered a selected entity.",
-				getAutoCompletePopupSelectedItemIndex().isPresent());
+				"Unexpectedly encountered a selected value.",
+				getAutoCompletePopupSelectedValueIndex().isPresent());
 		}
 
-		private void assertSelectedEntityNumber(int number) {
+		private void assertSelectedValueNumber(int number) {
 
 			assertTrue(//
-				"The given entity number must not be lower than 1.",
+				"The given value number must not be lower than 1.",
 				number >= 1);
 
-			Optional<Integer> selectedItemIndex = getAutoCompletePopupSelectedItemIndex();
+			Optional<Integer> selectedValueIndex = getAutoCompletePopupSelectedValueIndex();
 			assertTrue(//
-				"Failed to identify the selected entity.",
-				selectedItemIndex.isPresent());
+				"Failed to identify the selected value.",
+				selectedValueIndex.isPresent());
 
-			List<String> availableItemElementNames = getAutoCompletePopupItemNames();
+			List<String> availableValueElementNames = getAutoCompletePopupValueNames();
 			assertTrue(//
-				String.format("Expected entity number %s to be selected, but only %s entity/ies was/were available.", number, availableItemElementNames.size()),
-				availableItemElementNames.size() >= number);
+				String.format("Expected value number %s to be selected, but only %s value/s was/were available.", number, availableValueElementNames.size()),
+				availableValueElementNames.size() >= number);
 
-			int selectedIndex = selectedItemIndex.get();
+			int selectedIndex = selectedValueIndex.get();
 			assertTrue(//
-				"Failed to find the selected entity in the list of available entities.",
+				"Failed to find the selected value in the list of available values.",
 				selectedIndex >= 0);
 
 			assertEquals(//
@@ -980,18 +820,18 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		}
 	}
 
-	protected class OverlayProxy {
+	protected class BackdropProxy {
 
-		public OverlayProxy click() {
+		public BackdropProxy click() {
 
 			assertTrue(//
-				"Failed to find modal overlay.",
-				isAutoCompleteModalDivDisplayed());
-			clickAutoCompleteModalDiv();
+				"Failed to find backdrop.",
+				isAutoCompleteBackdropDisplayed());
+			clickAutoCompleteBackdrop();
 			return this;
 		}
 
-		public OverlayProxy waitForServer() {
+		public BackdropProxy waitForServer() {
 
 			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
 			return this;
@@ -1000,9 +840,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertDisplayed(boolean displayed) {
 
 			assertEquals(//
-				"Unexpected display state of modal overlay.",
+				"Unexpected display state of backdrop.",
 				displayed,
-				isAutoCompleteModalDivDisplayed());
+				isAutoCompleteBackdropDisplayed());
 		}
 	}
 
@@ -1011,14 +851,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public void assertCalled(AjaxTestEntity value, int count) {
 
 			assertEquals(//
-				"Unexpected value for most recent callback.",
-				value,
-				changeCallback.getLastValue());
-
-			assertEquals(//
 				"Unexpected total number of callbacks.",
 				count,
 				changeCallback.getCount());
+
+			assertEquals(//
+				"Unexpected value for most recent callback.",
+				value,
+				changeCallback.getLastValue());
 		}
 	}
 

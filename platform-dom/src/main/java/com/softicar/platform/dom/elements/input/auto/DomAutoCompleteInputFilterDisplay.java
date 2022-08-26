@@ -11,16 +11,21 @@ import com.softicar.platform.dom.elements.bar.DomBar;
 
 class DomAutoCompleteInputFilterDisplay extends DomDiv {
 
-	public DomAutoCompleteInputFilterDisplay() {
+	private final IDomAutoCompleteInputEngine<?> inputEngine;
+
+	public DomAutoCompleteInputFilterDisplay(IDomAutoCompleteInputEngine<?> inputEngine) {
+
+		this.inputEngine = inputEngine;
 
 		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY);
+		refresh();
 	}
 
-	public void refresh(IDomAutoCompleteInputEngine<?> engine) {
+	public void refresh() {
 
 		removeChildren();
 
-		for (IDomAutoCompleteInputFilter filter: engine.getFilters()) {
+		for (IDomAutoCompleteInputFilter filter: inputEngine.getFilters()) {
 			if (filter.isActive()) {
 				appendFilter(filter);
 			}

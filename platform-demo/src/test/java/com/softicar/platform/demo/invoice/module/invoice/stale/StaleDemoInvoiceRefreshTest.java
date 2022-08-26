@@ -84,7 +84,7 @@ public class StaleDemoInvoiceRefreshTest extends AbstractDemoInvoiceModuleTest {
 		modifyInvoiceConcurrently();
 
 		formPopup.setInputValue(AGDemoInvoice.INVOICE_DATE, "2021-01-01");
-		formPopup.clickSaveButton();
+		formPopup.clickSaveAndCloseButton();
 		assertStaleDataRefreshButton();
 		clickRefreshButtonAndAssertRecentData();
 	}

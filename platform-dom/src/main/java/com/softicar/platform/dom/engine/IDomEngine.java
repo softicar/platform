@@ -13,13 +13,11 @@ import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
@@ -79,6 +77,8 @@ public interface IDomEngine {
 	 * any event. Also, if you want to listen for example to the <b>x</b> key
 	 * while <i>shift</i> is down or up, you have to listen to lower-case
 	 * <b>x</b> as well as upper-case <b>X</b>.
+	 * <p>
+	 * Common key names are listed in {@link DomKeys}.
 	 *
 	 * @param node
 	 *            the listening {@link IDomNode} (never <i>null</i>)
@@ -186,18 +186,6 @@ public interface IDomEngine {
 	 *            <i>null</i>)
 	 */
 	void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode);
-
-	void enableAutoComplete(IDomAutoCompleteInput<?> input);
-
-	void setAutoCompleteInputInvalid(IDomAutoCompleteInput<?> input);
-
-	void setAutoCompleteInputMandatory(IDomAutoCompleteInput<?> input, boolean mandatory);
-
-	void setAutoCompleteValidationMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode);
-
-	void setAutoCompleteIndicatorMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputIndicatorMode indicatorMode);
-
-	void setAutoCompleteEnabled(IDomAutoCompleteInput<?> input, boolean enabled);
 
 	// -------------------------------- alert, confirm, prompt, export -------------------------------- //
 

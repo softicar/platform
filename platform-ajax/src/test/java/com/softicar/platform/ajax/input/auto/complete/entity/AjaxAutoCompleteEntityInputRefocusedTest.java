@@ -12,53 +12,58 @@ import org.junit.Test;
 public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithClickAndClickOnPassiveEmptyInput() {
+	public void testIllegalInputWithFocusLossByTabAndRefocusByClick() {
 
 		setup//
 			.execute();
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape()
+			.pressTab()
+			.waitForServer();
 
 		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForLoadingFinished()
-			.pressEsc();
-		body//
-			.click();
-		input//
-			.focusWithClick();
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
-			.expectIndicatorValueIllegal()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}
 
 	@Test
-	public void testInvalidIndicatorRetainedAfterFocusLossAndRefocusWithTabAndClickOnPassiveEmptyInput() {
+	public void testIllegalInputWithFocusLossByClickAndRefocusByClick() {
 
 		setup//
 			.execute();
+		input//
+			.focusByClick()
+			.sendString(ILLEGAL_VALUE_NAME)
+			.waitForServer()
+			.pressEscape();
+		body//
+			.click()
+			.waitForServer();
 
 		input//
-			.focusWithClick()
-			.sendString(INVALID_ITEM_NAME)
-			.waitForLoadingFinished()
-			.pressEsc()
-			.pressTab()
-			.focusWithClick();
+			.focusByClick()
+			.waitForServer();
 
 		asserter//
-			.expectClientValue(INVALID_ITEM_NAME)
-			.expectServerValueNone()
-			.expectIndicatorValueIllegal()
+			.expectInputText(ILLEGAL_VALUE_NAME)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
 			.expectFocus()
-			.expectOverlayNotDisplayed()
+			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();
 	}

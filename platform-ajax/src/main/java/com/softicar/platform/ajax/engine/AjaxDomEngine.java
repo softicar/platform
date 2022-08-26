@@ -33,9 +33,6 @@ import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputIndicatorMode;
-import com.softicar.platform.dom.input.auto.DomAutoCompleteInputValidationMode;
-import com.softicar.platform.dom.input.auto.IDomAutoCompleteInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import com.softicar.platform.dom.utils.JavascriptEscaping;
@@ -329,44 +326,6 @@ public class AjaxDomEngine implements IDomEngine {
 
 		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
 		JS_call("makeDraggable", draggedNode, dragHandleNode, limitingNode, notifyOnDrop);
-	}
-
-	// -------------------------------- auto-complete -------------------------------- //
-
-	@Override
-	public void enableAutoComplete(IDomAutoCompleteInput<?> input) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.enableForInput", input, input.getInputField());
-	}
-
-	@Override
-	public void setAutoCompleteInputInvalid(IDomAutoCompleteInput<?> input) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.setInputInvalid", input.getInputField());
-	}
-
-	@Override
-	public void setAutoCompleteInputMandatory(IDomAutoCompleteInput<?> input, boolean mandatory) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.setMandatory", input.getInputField(), mandatory);
-	}
-
-	@Override
-	public void setAutoCompleteValidationMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputValidationMode validationMode) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.setValidationMode", input.getInputField(), validationMode.getId());
-	}
-
-	@Override
-	public void setAutoCompleteIndicatorMode(IDomAutoCompleteInput<?> input, DomAutoCompleteInputIndicatorMode indicatorMode) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.setIndicatorMode", input.getInputField(), indicatorMode.getId());
-	}
-
-	@Override
-	public void setAutoCompleteEnabled(IDomAutoCompleteInput<?> input, boolean enabled) {
-
-		JS_call("AUTO_COMPLETE_ENGINE.setEnabled", input.getInputField(), enabled);
 	}
 
 	// -------------------------------- export -------------------------------- //

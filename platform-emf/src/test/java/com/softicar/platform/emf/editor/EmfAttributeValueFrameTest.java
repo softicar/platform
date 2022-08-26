@@ -9,10 +9,13 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.field.string.EmfStringAttribute;
 import com.softicar.platform.emf.attribute.field.string.EmfStringInput;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
+import com.softicar.platform.emf.validation.result.EmfValidationResult;
+import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -74,7 +77,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithMode(EmfAttributeValueMode.MANDATORY_INPUT);
 
-		assertMandatoryInput(AAA, 0);
+		assertInput(AAA, 0);
 	}
 
 	@Test
@@ -82,7 +85,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithMode(EmfAttributeValueMode.OPTIONAL_INPUT);
 
-		assertOptionalInput(AAA, 0);
+		assertInput(AAA, 0);
 	}
 
 	// ------------------------------ test refresh from HIDDEN ------------------------------ //
@@ -108,7 +111,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.HIDDEN, EmfAttributeValueMode.MANDATORY_INPUT);
 
-		assertMandatoryInput(BBB, 0);
+		assertInput(BBB, 0);
 	}
 
 	@Test
@@ -116,7 +119,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.HIDDEN, EmfAttributeValueMode.OPTIONAL_INPUT);
 
-		assertOptionalInput(BBB, 0);
+		assertInput(BBB, 0);
 	}
 
 	// ------------------------------ test refresh from DISPLAY ------------------------------ //
@@ -142,7 +145,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.DISPLAY, EmfAttributeValueMode.MANDATORY_INPUT);
 
-		assertMandatoryInput(BBB, 0);
+		assertInput(BBB, 0);
 	}
 
 	@Test
@@ -150,7 +153,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.DISPLAY, EmfAttributeValueMode.OPTIONAL_INPUT);
 
-		assertOptionalInput(BBB, 0);
+		assertInput(BBB, 0);
 	}
 
 	// ------------------------------ test refresh from MANDATORY INPUT ------------------------------ //
@@ -176,7 +179,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.MANDATORY_INPUT, EmfAttributeValueMode.MANDATORY_INPUT);
 
-		assertMandatoryInput(AAA, 1);
+		assertInput(AAA, 1);
 	}
 
 	@Test
@@ -184,7 +187,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.MANDATORY_INPUT, EmfAttributeValueMode.OPTIONAL_INPUT);
 
-		assertOptionalInput(AAA, 1);
+		assertInput(AAA, 1);
 	}
 
 	// ------------------------------ test refresh from OPTIONAL INPUT ------------------------------ //
@@ -210,7 +213,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.OPTIONAL_INPUT, EmfAttributeValueMode.MANDATORY_INPUT);
 
-		assertMandatoryInput(AAA, 1);
+		assertInput(AAA, 1);
 	}
 
 	@Test
@@ -218,7 +221,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		startWithModeChangeValueAndRefresh(EmfAttributeValueMode.OPTIONAL_INPUT, EmfAttributeValueMode.OPTIONAL_INPUT);
 
-		assertOptionalInput(AAA, 1);
+		assertInput(AAA, 1);
 	}
 
 	// ------------------------------ special tests ------------------------------ //
@@ -237,7 +240,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 		// change back to input mode and assert input value is retained
 		valueFrame.refresh(EmfAttributeValueMode.OPTIONAL_INPUT);
-		assertOptionalInput(CCC, 1);
+		assertInput(CCC, 1);
 	}
 
 	@Test
@@ -254,6 +257,23 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 		assertEquals(2, changeCallbacks);
 	}
 
+	@Test
+	public void testDiagnosticRemovalOnChange() {
+
+		IEmfValidationResult result = new EmfValidationResult();
+		IDisplayString message = EmfI18n.THE_ATTRIBUTE_ARG1_IS_MANDATORY.toDisplay("TestAttribute");
+		result.addError(attribute, message);
+		startWithMode(EmfAttributeValueMode.MANDATORY_INPUT);
+
+		valueFrame.showDiagnostics(result);
+
+		valueFrameTester.assertContainsText(message);
+
+		valueFrameTester.findNode(EmfStringInput.class).setInputValue(AAA);
+
+		valueFrameTester.assertDoesNotContainText(message);
+	}
+
 	// ------------------------------ assert ------------------------------ //
 
 	private void assertHidden() {
@@ -266,22 +286,11 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 		valueFrameTester.assertContainsText(expectedText);
 	}
 
-	private void assertMandatoryInput(String expectedValue, int expectedRefreshCalls) {
-
-		assertInput(expectedValue, true, expectedRefreshCalls);
-	}
-
-	private void assertOptionalInput(String expectedValue, int expectedRefreshCalls) {
-
-		assertInput(expectedValue, false, expectedRefreshCalls);
-	}
-
-	private void assertInput(String expectedValue, boolean expectedMandatory, int expectedRefreshCalls) {
+	private void assertInput(String expectedValue, int expectedRefreshCalls) {
 
 		DomNodeTester input = valueFrameTester.findNode(TestInput.class);
 
 		input.assertInputValue(expectedValue);
-		input.assertType(TestInput.class).assertMandatory(expectedMandatory);
 		input.assertType(TestInput.class).assertRefreshCalls(expectedRefreshCalls);
 	}
 
@@ -328,24 +337,12 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 
 	private static class TestInput extends EmfStringInput {
 
-		private boolean mandatory = false;
 		private int refreshCalls = 0;
-
-		@Override
-		public void setMandatory(boolean mandatory) {
-
-			this.mandatory = mandatory;
-		}
 
 		@Override
 		public void refreshInputConstraints() {
 
 			refreshCalls++;
-		}
-
-		public void assertMandatory(boolean expectedMandatory) {
-
-			assertEquals(expectedMandatory, mandatory);
 		}
 
 		public void assertRefreshCalls(int expectedCalls) {

@@ -7,18 +7,19 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 
 	public AjaxAutoCompleteEscapeKeyTest() {
 
-		openTestInput(i -> i.getEngine().addItems(ITEM1, ITEM2, ITEM3));
+		openTestInput(i -> i.getEngine().addValues(VALUE1, VALUE2, VALUE3));
 	}
 
 	@Test
 	public void testEscapeWithEmptyValue() {
 
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 
 		assertFalse(isAutoCompletePopupDisplayed());
-		indicator.assertValueAmbiguous(false);
+		indicator.assertIndicatesNothing();
 		assertEquals("", getAttributeValue(inputField, "value"));
 	}
 
@@ -26,48 +27,52 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 	public void testEscapeWithAmbiguousValue() {
 
 		send(inputField, AMBIGUOUS_INPUT);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.ESCAPE);
+		waitForServer();
 
 		assertFalse(isAutoCompletePopupDisplayed());
-		indicator.assertValueAmbiguous(true);
+		indicator.assertIndicatesAmbiguous();
 		assertEquals(AMBIGUOUS_INPUT, getAttributeValue(inputField, "value"));
 	}
 
-	// this is a test for #37218
 	@Test
 	public void testEscapeWithSelectedValue() {
 
-		// select specific item
+		// select specific value
 		click(inputField);
 		send(inputField, Key.DOWN);
-		waitForAutoCompletePopup();
+		waitForServer();
 		send(inputField, Key.DOWN);
 		send(inputField, Key.ENTER);
-		waitForAutoCompletePopupToHide();
+		waitForServer();
 
 		// now press escape
 		send(inputField, Key.ESCAPE);
-		assertEquals(ITEM1.getName(), getAttributeValue(inputField, "value"));
+		waitForServer();
+
+		assertEquals(VALUE1.getName(), getAttributeValue(inputField, "value"));
 	}
 
-	// this is a test for #37476
 	@Test
 	public void testEscapeWithValidValue() {
 
-		// enter valid item name
+		// enter valid value name
 		click(inputField);
-		send(inputField, ITEM1.getName());
-		waitForAutoCompletePopup();
+		send(inputField, VALUE1.getName());
+		waitForServer();
 
 		// type ESCAPE
 		send(inputField, Key.ESCAPE);
-		waitForAutoCompletePopupToHide();
-		indicator.assertValueValid(true);
+		waitForServer();
+		indicator.assertIndicatesNothing();
 
 		// now leave and re-enter
 		clickBodyNode();
+		waitForServer();
 		click(inputField);
-		indicator.assertValueValid(true);
+		waitForServer();
+
+		indicator.assertIndicatesNothing();
 	}
 }

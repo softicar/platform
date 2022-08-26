@@ -33,11 +33,10 @@ public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLev
 
 		send(testDiv.input1, "a");
 		click(testDiv.input2);
-
-		new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
-			.waitForServer(WAIT_TIMEOUT);
+		executeWait();
 
 		send(testDiv.input2, "b");
+		executeWait();
 
 		assertEquals("[FOCUS#1, INPUT#1, BLUR#1, FOCUS#2, CLICK#2, INPUT#2]", events.toString());
 	}
@@ -52,6 +51,12 @@ public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLev
 			TimeoutException.class,
 			() -> new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
 				.waitForServer(Duration.ZERO));
+	}
+
+	private void executeWait() {
+
+		new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
+			.waitForServer(WAIT_TIMEOUT);
 	}
 
 	private class TestDiv extends DomDiv {
