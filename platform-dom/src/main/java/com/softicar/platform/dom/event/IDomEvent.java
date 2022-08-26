@@ -118,8 +118,6 @@ public interface IDomEvent {
 	 */
 	DomRect getBoundingClientRect();
 
-	// TODO javadoc
-
 	/**
 	 * Returns the delta-x value of a {@link DomEventType#WHEEL} event.
 	 * <p>
