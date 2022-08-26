@@ -134,7 +134,7 @@ class AjaxRequestMessage {
 				return false; // allow new passive events, i.e. implicitly triggered events
 			} else if(this.isKeyEventType()) {
 				return false; // never drop key events
-			} else if(this.isWheelType()) {
+			} else if(this.isWheelEventType()) {
 				return this.isSameDeltaDirections(other);
 			} else {
 				return true;
@@ -145,17 +145,17 @@ class AjaxRequestMessage {
 	}
 
 	private isSameDeltaDirections(other: AjaxRequestMessage) {
-		let thisDeltaX: number = +(this.data.get('deltaX') ?? 0);
-		let otherDeltaX: number = +(other.data.get('deltaX') ?? 0);
-		let deltaXSameSign: boolean = thisDeltaX * otherDeltaX >= 0;
+		let thisDeltaX = Number(this.data.get('deltaX') ?? 0);
+		let otherDeltaX = Number(other.data.get('deltaX') ?? 0);
+		let deltaXSameSign = (thisDeltaX == 0 && otherDeltaX == 0) || thisDeltaX * otherDeltaX > 0;
 
-		let thisDeltaY: number = +(this.data.get('deltaY') ?? 0);
-		let otherDeltaY: number = +(other.data.get('deltaY') ?? 0);
-		let deltaYSameSign: boolean = thisDeltaY * otherDeltaY >= 0;
+		let thisDeltaY = Number(this.data.get('deltaY') ?? 0);
+		let otherDeltaY = Number(other.data.get('deltaY') ?? 0);
+		let deltaYSameSign = (thisDeltaY == 0 && otherDeltaY == 0) || thisDeltaY * otherDeltaY > 0;
 
-		let thisDeltaZ: number = +(this.data.get('deltaZ') ?? 0);
-		let otherDeltaZ: number = +(other.data.get('deltaZ') ?? 0);
-		let deltaZSameSign: boolean = thisDeltaZ * otherDeltaZ >= 0;
+		let thisDeltaZ = Number(this.data.get('deltaZ') ?? 0);
+		let otherDeltaZ = Number(other.data.get('deltaZ') ?? 0);
+		let deltaZSameSign = (thisDeltaZ == 0 && otherDeltaZ == 0) || thisDeltaZ * otherDeltaZ > 0;
 
 		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
@@ -201,7 +201,7 @@ class AjaxRequestMessage {
 		return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
 	}
 	
-	private isWheelType() {
+	private isWheelEventType() {
 		return this.data.get('e') == 'WHEEL';
 	}
 

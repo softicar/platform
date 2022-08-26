@@ -34,9 +34,9 @@ public class AjaxDomEvent implements IDomEvent {
 	private final boolean ctrlKey;
 	private final boolean metaKey;
 	private final boolean shiftKey;
-	private final Double deltaX;
-	private final Double deltaY;
-	private final Double deltaZ;
+	private final double deltaX;
+	private final double deltaY;
+	private final double deltaZ;
 	private final IAjaxRequest ajaxRequest;
 
 	/**
@@ -172,19 +172,19 @@ public class AjaxDomEvent implements IDomEvent {
 	}
 
 	@Override
-	public Double getDeltaX() {
+	public double getDeltaX() {
 
 		return deltaX;
 	}
 
 	@Override
-	public Double getDeltaY() {
+	public double getDeltaY() {
 
 		return deltaY;
 	}
 
 	@Override
-	public Double getDeltaZ() {
+	public double getDeltaZ() {
 
 		return deltaZ;
 	}

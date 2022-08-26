@@ -123,27 +123,27 @@ public interface IDomEvent {
 	 * <p>
 	 * Returns 0 for any other {@link DomEventType}.
 	 *
-	 * @return the delta-x value (never <i>null</i>)
+	 * @return the delta-x value
 	 */
-	Double getDeltaX();
+	double getDeltaX();
 
 	/**
 	 * Returns the delta-y value of a {@link DomEventType#WHEEL} event.
 	 * <p>
 	 * Returns 0 for any other {@link DomEventType}.
 	 *
-	 * @return the delta-y value (never <i>null</i>)
+	 * @return the delta-y value
 	 */
-	Double getDeltaY();
+	double getDeltaY();
 
 	/**
 	 * Returns the delta-z value of a {@link DomEventType#WHEEL} event.
 	 * <p>
 	 * Returns 0 for any other {@link DomEventType}.
 	 *
-	 * @return the delta-z value (never <i>null</i>)
+	 * @return the delta-z value
 	 */
-	Double getDeltaZ();
+	double getDeltaZ();
 
 	/**
 	 * Returns whether the ALT key is pressed.

@@ -100,21 +100,21 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
-	public Double getDeltaX() {
+	public double getDeltaX() {
 
-		return 0d;
+		return 0;
 	}
 
 	@Override
-	public Double getDeltaY() {
+	public double getDeltaY() {
 
-		return 0d;
+		return 0;
 	}
 
 	@Override
-	public Double getDeltaZ() {
+	public double getDeltaZ() {
 
-		return 0d;
+		return 0;
 	}
 
 	@Override

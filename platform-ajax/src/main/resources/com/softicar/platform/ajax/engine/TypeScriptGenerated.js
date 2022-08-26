@@ -959,13 +959,13 @@ class AjaxRequestMessage {
         var _a, _b, _c, _d, _e, _f;
         let thisDeltaX = +((_a = this.data.get('deltaX')) !== null && _a !== void 0 ? _a : 0);
         let otherDeltaX = +((_b = other.data.get('deltaX')) !== null && _b !== void 0 ? _b : 0);
-        let deltaXSameSign = thisDeltaX * otherDeltaX >= 0;
+        let deltaXSameSign = (thisDeltaX == 0 && otherDeltaX == 0) || thisDeltaX * otherDeltaX > 0;
         let thisDeltaY = +((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
         let otherDeltaY = +((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
-        let deltaYSameSign = thisDeltaY * otherDeltaY >= 0;
+        let deltaYSameSign = (thisDeltaY == 0 && otherDeltaY == 0) || thisDeltaY * otherDeltaY > 0;
         let thisDeltaZ = +((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
         let otherDeltaZ = +((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
-        let deltaZSameSign = thisDeltaZ * otherDeltaZ >= 0;
+        let deltaZSameSign = (thisDeltaZ == 0 && otherDeltaZ == 0) || thisDeltaZ * otherDeltaZ > 0;
         return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {
