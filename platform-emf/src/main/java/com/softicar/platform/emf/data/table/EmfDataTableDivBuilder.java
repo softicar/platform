@@ -490,7 +490,7 @@ public class EmfDataTableDivBuilder<R> {
 	 * {@link IEmfDataTableDiv} to be built.
 	 *
 	 * @param marker
-	 *            the {@link ITestMarker} marker (never <i>null</i>)
+	 *            the {@link ITestMarker} (never <i>null</i>)
 	 */
 	public EmfDataTableDivBuilder<R> addTableMarker(ITestMarker marker) {
 
