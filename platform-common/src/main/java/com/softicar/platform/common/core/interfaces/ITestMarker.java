@@ -5,7 +5,7 @@ package com.softicar.platform.common.core.interfaces;
  *
  * @author Oliver Richers
  */
-public interface IStaticObject {
+public interface ITestMarker {
 
 	// just a marker interface without behavior
 }

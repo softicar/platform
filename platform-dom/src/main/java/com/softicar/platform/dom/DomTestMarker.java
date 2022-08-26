@@ -1,8 +1,8 @@
 package com.softicar.platform.dom;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 
-public enum DomTestMarker implements IStaticObject {
+public enum DomTestMarker implements ITestMarker {
 
 	DAY_INPUT,
 

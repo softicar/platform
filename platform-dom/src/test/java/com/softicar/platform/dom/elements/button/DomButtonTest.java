@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.button;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
@@ -63,7 +63,7 @@ public class DomButtonTest extends AbstractTest implements IDomTestExecutionEngi
 
 	private static class Button extends DomButton {
 
-		public static final IStaticObject MARKER = Mockito.mock(IStaticObject.class);
+		public static final ITestMarker MARKER = Mockito.mock(ITestMarker.class);
 
 		public Button() {
 

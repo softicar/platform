@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.DomDocument;
@@ -95,15 +95,14 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Calls {@link #findNodes()} and filters for the given
-	 * {@link IStaticObject} markers.
+	 * {@link ITestMarker}s.
 	 *
 	 * @param markers
-	 *            the {@link IStaticObject} markers to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker}s to search for (never <i>null</i>)
 	 * @return all matching {@link IDomNode} objects as an
 	 *         {@link IDomNodeIterable} (never <i>null</i>)
 	 */
-	default IDomNodeIterable<IDomNode> findNodes(IStaticObject...markers) {
+	default IDomNodeIterable<IDomNode> findNodes(ITestMarker...markers) {
 
 		return findNodes().withMarker(markers);
 	}
@@ -129,15 +128,14 @@ public interface IDomNodeTesterFindMethods {
 	 * all given marker.
 	 *
 	 * @param markers
-	 *            the {@link IStaticObject} markers to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker}s to search for (never <i>null</i>)
 	 * @return a {@link DomNodeTester} of the matching {@link IDomNode} (never
 	 *         <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomNodeTester findNode(IStaticObject...markers) {
+	default DomNodeTester findNode(ITestMarker...markers) {
 
 		return findNodes(markers).assertOne();
 	}
@@ -176,19 +174,17 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link DomPopup} with the given {@link IStaticObject}
-	 * markers.
+	 * Searches for a {@link DomPopup} with the given {@link ITestMarker}s.
 	 *
 	 * @param markers
-	 *            the {@link IStaticObject} markers to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker}s to search for (never <i>null</i>)
 	 * @return a {@link DomPopupTester} of the matching {@link IDomNode}
 	 *         instance (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomPopupTester findPopup(IStaticObject...markers) {
+	default DomPopupTester findPopup(ITestMarker...markers) {
 
 		return findNodes(markers)//
 			.withType(DomPopup.class)
@@ -196,19 +192,17 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link DomButton} with the given {@link IStaticObject}
-	 * marker.
+	 * Searches for a {@link DomButton} with the given {@link ITestMarker} .
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomNodeTester} of the matching {@link IDomNode} instance
 	 *         (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomNodeTester findButton(IStaticObject marker) {
+	default DomNodeTester findButton(ITestMarker marker) {
 
 		return findNodes(marker)//
 			.withType(DomButton.class)
@@ -217,17 +211,16 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Searches for the first {@link DomButton} with the given
-	 * {@link IStaticObject} marker.
+	 * {@link ITestMarker}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomNodeTester} of the matching {@link IDomNode} instance
 	 *         (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if no matching {@link DomButton} was found
 	 */
-	default DomNodeTester findFirstButton(IStaticObject marker) {
+	default DomNodeTester findFirstButton(ITestMarker marker) {
 
 		return findNodes(marker)//
 			.withType(DomButton.class)
@@ -238,18 +231,17 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Searches for a {@link IDomTextualInput} with the given
-	 * {@link IStaticObject} marker.
+	 * {@link ITestMarker}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomNodeTester} of the matching {@link IDomNode} instance
 	 *         (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomNodeTester findInput(IStaticObject marker) {
+	default DomNodeTester findInput(ITestMarker marker) {
 
 		return findNodes(marker)//
 			.filter(node -> new DomNodeTester(getEngine(), node).findNodes(IDomTextualInput.class).size() > 0)
@@ -258,19 +250,17 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link DomCheckbox} with the given {@link IStaticObject}
-	 * marker.
+	 * Searches for a {@link DomCheckbox} with the given {@link ITestMarker} .
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to search for (never
-	 *            <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomCheckboxTester} of the matching {@link IDomNode}
 	 *         instance (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching {@link IDomNode}, or none
 	 *             at all
 	 */
-	default DomCheckboxTester findCheckbox(IStaticObject marker) {
+	default DomCheckboxTester findCheckbox(ITestMarker marker) {
 
 		return findNodes(marker)//
 			.withType(DomCheckbox.class)
@@ -278,12 +268,12 @@ public interface IDomNodeTesterFindMethods {
 	}
 
 	/**
-	 * Searches for a {@link DomTable} with the given {@link IStaticObject}
-	 * marker.
+	 * Searches for a {@link DomTable} with the given {@link ITestMarker}.
 	 * <p>
-	 * Same as {@link #findTable()} but ignores all nodes without the marker.
+	 * Same as {@link #findTable()} but ignores all nodes without the
+	 * {@link ITestMarker}.
 	 */
-	default DomTableTester findTable(IStaticObject marker) {
+	default DomTableTester findTable(ITestMarker marker) {
 
 		return findNodes(marker)//
 			.withType(DomTable.class)
@@ -308,17 +298,16 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Recursively searches for a single {@link DomSelect} child node with the
-	 * given {@link IStaticObject} marker, and returns it as an
-	 * {@link DomSelectTester}.
+	 * given {@link ITestMarker}, and returns it as an {@link DomSelectTester}.
 	 *
 	 * @param marker
-	 *            the marker to search for (never <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomSelectTester} of the single matching child node
 	 *         (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching child node, or none at all
 	 */
-	default <T> DomSelectTester<T> findSelect(IStaticObject marker) {
+	default <T> DomSelectTester<T> findSelect(ITestMarker marker) {
 
 		return findNode(marker)//
 			.findNodes(DomSelect.class)
@@ -327,17 +316,17 @@ public interface IDomNodeTesterFindMethods {
 
 	/**
 	 * Recursively searches for a single {@link DomAutoCompleteInput} child node
-	 * with the given {@link IStaticObject} marker, and returns it as an
+	 * with the given {@link ITestMarker}, and returns it as an
 	 * {@link DomAutoCompleteTester}.
 	 *
 	 * @param marker
-	 *            the marker to search for (never <i>null</i>)
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
 	 * @return a {@link DomAutoCompleteTester} of the single matching child node
 	 *         (never <i>null</i>)
 	 * @throws DomNodeAssertionError
 	 *             if there is more than one matching child node, or none at all
 	 */
-	default <T> DomAutoCompleteTester<T> findAutoCompleteInput(IStaticObject marker) {
+	default <T> DomAutoCompleteTester<T> findAutoCompleteInput(ITestMarker marker) {
 
 		return findNode(marker)//
 			.findNodes(DomAutoCompleteInput.class)

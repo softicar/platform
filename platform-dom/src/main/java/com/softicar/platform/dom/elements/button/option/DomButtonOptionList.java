@@ -3,7 +3,7 @@ package com.softicar.platform.dom.elements.button.option;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.Consumers;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomI18n;
@@ -61,7 +61,7 @@ public class DomButtonOptionList<T> extends DomActionBar {
 		return this;
 	}
 
-	public DomButtonOptionList<T> setOptionMarker(T option, IStaticObject marker) {
+	public DomButtonOptionList<T> setOptionMarker(T option, ITestMarker marker) {
 
 		optionButtonMap.get(option).addMarker(marker);
 		return this;

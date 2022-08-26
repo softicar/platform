@@ -1,6 +1,6 @@
 package com.softicar.platform.db.runtime.table;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.cache.DbTableRowCache;
 import com.softicar.platform.db.runtime.field.IDbField;
@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
-public interface IDbBasicTable<R> extends ISqlTable<R>, IStaticObject {
+public interface IDbBasicTable<R> extends ISqlTable<R>, ITestMarker {
 
 	/**
 	 * Returns the row factory of this table.

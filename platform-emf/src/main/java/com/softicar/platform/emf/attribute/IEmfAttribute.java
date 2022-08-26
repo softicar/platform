@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.emf.attribute.field.foreign.row.IEmfForeignRowAttribute;
@@ -91,11 +91,12 @@ public interface IEmfAttribute<R extends IEmfTableRow<R, ?>, V> {
 	IDisplayString getTitle();
 
 	/**
-	 * Returns the {@link IStaticObject} to be used as test marker in the UI.
+	 * Returns the {@link ITestMarker} to be used in the UI.
 	 *
-	 * @return the marker for this {@link IEmfAttribute} (never <i>null</i>)
+	 * @return the {@link ITestMarker} for this {@link IEmfAttribute} (never
+	 *         <i>null</i>)
 	 */
-	IStaticObject getTestMarker();
+	ITestMarker getTestMarker();
 
 	/**
 	 * Returns true if this attribute is the scope, false otherwise.

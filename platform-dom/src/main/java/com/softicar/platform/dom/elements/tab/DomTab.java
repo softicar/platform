@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.tab;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ public class DomTab extends DomDiv {
 	private DomTabBar tabBar;
 	private INullaryVoidFunction onShowRefreshable;
 	private INullaryVoidFunction onHideRefreshable;
-	private Optional<IStaticObject> headerMarker;
+	private Optional<ITestMarker> headerMarker;
 
 	/**
 	 * Constructs a new {@link DomTab} with the given label.
@@ -101,13 +101,13 @@ public class DomTab extends DomDiv {
 		}
 	}
 
-	public DomTab setHeaderMarker(IStaticObject headerMarker) {
+	public DomTab setHeaderMarker(ITestMarker headerMarker) {
 
 		this.headerMarker = Optional.of(headerMarker);
 		return this;
 	}
 
-	public Optional<IStaticObject> getHeaderMarker() {
+	public Optional<ITestMarker> getHeaderMarker() {
 
 		return headerMarker;
 	}

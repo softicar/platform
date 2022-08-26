@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.page.navigation;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -14,7 +14,7 @@ public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMetho
 		return findBody().findNodes(pageNodeClass);
 	}
 
-	default IDomNodeIterable<IDomNode> findPageNode(IStaticObject marker) {
+	default IDomNodeIterable<IDomNode> findPageNode(ITestMarker marker) {
 
 		return findBody().findNodes(marker);
 	}

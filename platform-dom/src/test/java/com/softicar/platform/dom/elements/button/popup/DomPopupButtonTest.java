@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.button.popup;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -21,9 +21,9 @@ import org.mockito.Mockito;
 
 public class DomPopupButtonTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	private static final IStaticObject POPUP = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject OTHER_POPUP = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject TEXT_INPUT = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker POPUP = Mockito.mock(ITestMarker.class);
+	private static final ITestMarker OTHER_POPUP = Mockito.mock(ITestMarker.class);
+	private static final ITestMarker TEXT_INPUT = Mockito.mock(ITestMarker.class);
 
 	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 

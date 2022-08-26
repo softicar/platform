@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.popup.compositor;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -29,9 +29,9 @@ import org.mockito.Mockito;
 
 public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
-	private static final IStaticObject POPUP1 = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject POPUP2 = Mockito.mock(IStaticObject.class);
-	private static final IStaticObject POPUP3 = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker POPUP1 = Mockito.mock(ITestMarker.class);
+	private static final ITestMarker POPUP2 = Mockito.mock(ITestMarker.class);
+	private static final ITestMarker POPUP3 = Mockito.mock(ITestMarker.class);
 	private static final String TEST_TEXT = "Some text in the element-under-test";
 
 	@Rule public IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
@@ -1123,17 +1123,17 @@ public class DomDefaultPopupCompositorTest extends AbstractTest implements IDomT
 
 	// -------------------------------- private -------------------------------- //
 
-	private void assertNone(IStaticObject marker) {
+	private void assertNone(ITestMarker marker) {
 
 		findNodes(marker).assertNone();
 	}
 
-	private DomNodeTester assertOne(IStaticObject marker) {
+	private DomNodeTester assertOne(ITestMarker marker) {
 
 		return findNodes(marker).assertOne();
 	}
 
-	private List<DomNodeTester> assertCount(IStaticObject marker, int count) {
+	private List<DomNodeTester> assertCount(ITestMarker marker, int count) {
 
 		return findNodes(marker).assertSize(count);
 	}
