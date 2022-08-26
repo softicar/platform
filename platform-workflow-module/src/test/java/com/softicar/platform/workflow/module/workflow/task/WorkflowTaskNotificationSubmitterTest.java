@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.task;
 
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
+import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
@@ -21,7 +22,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	public void testWithEnglishLanguage() {
 
 		user//
-			.setLocalization(insertLocalizationPresetInternational())
+			.setLocalization(getEnglishLocalization())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).submit();
@@ -77,5 +78,14 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	private String getMyTasksPageUrl() {
 
 		return new PageUrlBuilder<>(WorkflowTaskPage.class, moduleInstance).build().toString();
+	}
+
+	private AGLocalization getEnglishLocalization() {
+
+		return AGLocalization.TABLE//
+			.createSelect()
+			.where(AGLocalization.NAME.equal("International"))
+			.getOneAsOptional()
+			.orElseThrow();
 	}
 }
