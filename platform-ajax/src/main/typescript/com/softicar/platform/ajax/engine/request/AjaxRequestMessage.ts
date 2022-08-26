@@ -88,6 +88,20 @@ class AjaxRequestMessage {
 		return this;
 	}
 
+	// ------------------------------ delta ------------------------------ //
+
+	public setDeltaX(value: number) {
+		this.setNumber("deltaX", value);
+	}
+
+	public setDeltaY(value: number) {
+		this.setNumber("deltaY", value);
+	}
+
+	public setDeltaZ(value: number) {
+		this.setNumber("deltaZ", value);
+	}
+
 	// ------------------------------ encoding ------------------------------ //
 
 	public encode() {

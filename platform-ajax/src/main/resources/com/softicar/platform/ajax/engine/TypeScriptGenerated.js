@@ -563,6 +563,9 @@ function listenToDomEvent(nodeId, event, doListen) {
         case 'TAB':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
+        case 'WHEEL':
+            element.onwheel = handler;
+            break;
         default: alert('Unknown event ' + event + '.');
     }
 }
@@ -601,6 +604,11 @@ function sendDomEventToServer(event, eventType) {
         message.setModifierKey('ctrlKey', event.ctrlKey);
         message.setModifierKey('metaKey', event.metaKey);
         message.setModifierKey('shiftKey', event.shiftKey);
+    }
+    if (event instanceof WheelEvent) {
+        message.setDeltaX(event.deltaX);
+        message.setDeltaY(event.deltaY);
+        message.setDeltaZ(event.deltaZ);
     }
     AJAX_REQUEST_QUEUE.submit(message);
 }
@@ -896,6 +904,15 @@ class AjaxRequestMessage {
         this.setNumber("bcrW", rect.width);
         this.setNumber("bcrH", rect.height);
         return this;
+    }
+    setDeltaX(value) {
+        this.setNumber("deltaX", value);
+    }
+    setDeltaY(value) {
+        this.setNumber("deltaY", value);
+    }
+    setDeltaZ(value) {
+        this.setNumber("deltaZ", value);
     }
     encode() {
         return new AjaxRequestMessageEncoder(this.data).encode();

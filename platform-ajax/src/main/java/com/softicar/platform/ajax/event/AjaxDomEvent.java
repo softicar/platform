@@ -34,6 +34,9 @@ public class AjaxDomEvent implements IDomEvent {
 	private final boolean ctrlKey;
 	private final boolean metaKey;
 	private final boolean shiftKey;
+	private final Double deltaX;
+	private final Double deltaY;
+	private final Double deltaZ;
 	private final IAjaxRequest ajaxRequest;
 
 	/**
@@ -65,6 +68,9 @@ public class AjaxDomEvent implements IDomEvent {
 		this.ctrlKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "ctrlKey", 0) != 0;
 		this.metaKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "metaKey", 0) != 0;
 		this.shiftKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "shiftKey", 0) != 0;
+		this.deltaX = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaX", 0);
+		this.deltaY = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaY", 0);
+		this.deltaZ = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaZ", 0);
 		this.ajaxRequest = ajaxRequest;
 	}
 
@@ -163,6 +169,24 @@ public class AjaxDomEvent implements IDomEvent {
 	public DomRect getBoundingClientRect() {
 
 		return boundingClientRect;
+	}
+
+	@Override
+	public Double getDeltaX() {
+
+		return deltaX;
+	}
+
+	@Override
+	public Double getDeltaY() {
+
+		return deltaY;
+	}
+
+	@Override
+	public Double getDeltaZ() {
+
+		return deltaZ;
 	}
 
 	@Override

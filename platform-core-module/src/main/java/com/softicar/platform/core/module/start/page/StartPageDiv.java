@@ -18,6 +18,9 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
+import com.softicar.platform.dom.event.IDomEvent;
+import com.softicar.platform.dom.event.IDomWheelEventHandler;
+import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -32,6 +35,27 @@ class StartPageDiv extends DomDiv {
 		appendSectionsSeparatedByHr(sections);
 
 		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
+
+		appendChild(new WheelTestDiv());
+	}
+
+	private class WheelTestDiv extends DomDiv implements IDomWheelEventHandler {
+
+		public WheelTestDiv() {
+
+			appendText("wheel me");
+			setStyle(CssStyle.BACKGROUND_COLOR, "yellow");
+		}
+
+		@Override
+		public void handleWheel(IDomEvent event) {
+
+			if (event.getDeltaY() > 0) {
+				appendChild(new DomDiv()).appendText("down");
+			} else if (event.getDeltaY() < 0) {
+				appendChild(new DomDiv()).appendText("up");
+			}
+		}
 	}
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {
