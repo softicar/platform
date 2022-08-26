@@ -3,13 +3,14 @@ package com.softicar.platform.dom.elements.input.auto;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomBlurEventHandler;
+import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomInputEventHandler;
 import com.softicar.platform.dom.event.IDomKeyDownEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.List;
 
-class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomBlurEventHandler {
+class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomBlurEventHandler, IDomClickEventHandler {
 
 	private final DomAutoCompleteInput<?> input;
 
@@ -47,5 +48,11 @@ class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHa
 	public void handleBlur(IDomEvent event) {
 
 		input.onBlur();
+	}
+
+	@Override
+	public void handleClick(IDomEvent event) {
+
+		input.onClick();
 	}
 }
