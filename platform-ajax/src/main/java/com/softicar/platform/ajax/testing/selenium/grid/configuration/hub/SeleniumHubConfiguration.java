@@ -8,7 +8,9 @@ public class SeleniumHubConfiguration implements ISeleniumHubConfiguration {
 	private Integer sessionTimeout;
 	private Integer maximumSessionCount;
 	private String ip;
-	private Integer port;
+	private Integer portExternal;
+	private Integer portEventBusPublish;
+	private Integer portEventBusSubscribe;
 
 	@Override
 	public Integer getBrowserTimeout() {
@@ -79,19 +81,53 @@ public class SeleniumHubConfiguration implements ISeleniumHubConfiguration {
 	}
 
 	@Override
-	public Integer getPort() {
+	public Integer getPortExternal() {
 
-		return port;
+		return portExternal;
 	}
 
-	public SeleniumHubConfiguration setPort(Integer port) {
+	public SeleniumHubConfiguration setPortExternal(Integer portExternal) {
 
-		this.port = port;
+		this.portExternal = portExternal;
 		return this;
 	}
 
-	public SeleniumHubConfiguration setPort(IProperty<Integer> port) {
+	public SeleniumHubConfiguration setPortExternal(IProperty<Integer> portExternal) {
 
-		return setPort(port.getValue());
+		return setPortExternal(portExternal.getValue());
+	}
+
+	@Override
+	public Integer getPortEventBusPublish() {
+
+		return portEventBusPublish;
+	}
+
+	public SeleniumHubConfiguration setPortEventBusPublish(Integer portEventBusPublish) {
+
+		this.portEventBusPublish = portEventBusPublish;
+		return this;
+	}
+
+	public SeleniumHubConfiguration setPortEventBusPublish(IProperty<Integer> portEventBusPublish) {
+
+		return setPortEventBusPublish(portEventBusPublish.getValue());
+	}
+
+	@Override
+	public Integer getPortEventBusSubscribe() {
+
+		return portEventBusSubscribe;
+	}
+
+	public SeleniumHubConfiguration setPortEventBusSubscribe(Integer portEventBusSubscribe) {
+
+		this.portEventBusSubscribe = portEventBusSubscribe;
+		return this;
+	}
+
+	public SeleniumHubConfiguration setPortEventBusSubscribe(IProperty<Integer> portEventBusSubscribe) {
+
+		return setPortEventBusSubscribe(portEventBusSubscribe.getValue());
 	}
 }

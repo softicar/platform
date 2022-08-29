@@ -31,7 +31,7 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FINISHED = FACTORY.createBooleanProperty("execution.screenshot.on.finished", false);
 
 	// Selenium Grid
-	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "3.141.59-20210713");
+	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "4.2.2-20220622");
 	public static final IProperty<Boolean> GRID_DEFERRED_SHUTDOWN = FACTORY.createBooleanProperty("grid.deferred.shutdown", false);
 	public static final IProperty<String> GRID_SHUTDOWN_SCRIPT = FACTORY.createStringProperty("grid.shutdown.script", "shutdown-grid.sh");
 	public static final IProperty<String> GRID_TEMPORARY_DIRECTORY = FACTORY
@@ -45,7 +45,9 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Integer> HUB_BROWSER_TIMEOUT = FACTORY.createIntegerProperty("hub.browser.timeout", 60);
 	public static final IProperty<String> HUB_IP = FACTORY.createStringProperty("hub.ip", "172.0.0.222");
 	public static final IProperty<Integer> HUB_MAXIMUM_SESSION_COUNT = FACTORY.createIntegerProperty("hub.maximum.session.count", 1);
-	public static final IProperty<Integer> HUB_PORT = FACTORY.createIntegerProperty("hub.port", 4444);
+	public static final IProperty<Integer> HUB_PORT_EXTERNAL = FACTORY.createIntegerProperty("hub.port.external", 4444);
+	public static final IProperty<Integer> HUB_PORT_EVENT_BUS_PUBLISH = FACTORY.createIntegerProperty("hub.port.event.bus.publish", 4442);
+	public static final IProperty<Integer> HUB_PORT_EVENT_BUS_SUBSCRIBE = FACTORY.createIntegerProperty("hub.port.event.bus.subscribe", 4443);
 	public static final IProperty<Integer> HUB_SESSION_TIMEOUT = FACTORY.createIntegerProperty("hub.session.timeout", 20);
 
 	// Selenium Network

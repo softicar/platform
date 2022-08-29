@@ -11,7 +11,6 @@ import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Timeouts;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -34,7 +33,7 @@ public class AjaxSeleniumWebDriverFactory {
 
 	private WebDriver tryToCreateRemoteDriver() {
 
-		Capabilities capabilities = getFirefoxCapabilities();
+		var capabilities = getFirefoxCapabilities();
 		RemoteWebDriver driver = new RemoteWebDriver(getRemoteDriverUrl(), capabilities);
 		driver.setFileDetector(new LocalFileDetector());
 		return driver;
@@ -56,11 +55,8 @@ public class AjaxSeleniumWebDriverFactory {
 
 	private static Capabilities getFirefoxCapabilities() {
 
-		FirefoxOptions capabilities = new FirefoxOptions();
-		capabilities.setCapability(CapabilityType.HAS_NATIVE_EVENTS, true);
-		capabilities.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
-		capabilities.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, true);
-		return capabilities;
+		return new FirefoxOptions()//
+			.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 	}
 
 	private static URL getRemoteDriverUrl() {
@@ -71,7 +67,7 @@ public class AjaxSeleniumWebDriverFactory {
 					.format(//
 						"http://%s:%s/wd/hub",
 						AjaxSeleniumTestProperties.HUB_IP.getValue(),
-						AjaxSeleniumTestProperties.HUB_PORT.getValue()));
+						AjaxSeleniumTestProperties.HUB_PORT_EXTERNAL.getValue()));
 		} catch (MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}
