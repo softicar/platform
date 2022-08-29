@@ -1,5 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.task;
 
+import com.softicar.platform.core.module.CoreModuleInstanceTableDataInitializer;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
@@ -84,7 +85,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 
 		return AGLocalization.TABLE//
 			.createSelect()
-			.where(AGLocalization.NAME.equal("International"))
+			.where(AGLocalization.NAME.equal(CoreModuleInstanceTableDataInitializer.ENGLISH_LOCALIZATION_PRESET_NAME))
 			.getOneAsOptional()
 			.orElseThrow();
 	}
