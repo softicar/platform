@@ -221,11 +221,6 @@ public class AjaxAutoCompleteChangeEventTest extends AbstractAjaxAutoCompleteStr
 		waitForServer();
 
 		assertTrue(isAutoCompleteBackdropDisplayed());
-
-		click(inputField);
-		waitForServer();
-
-		assertFalse(isAutoCompleteBackdropDisplayed());
 	}
 
 	@Test
