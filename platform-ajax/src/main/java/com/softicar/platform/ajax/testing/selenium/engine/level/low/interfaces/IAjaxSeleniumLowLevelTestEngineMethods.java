@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  */
 public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
-	public static final int MOUSE_WHEEL_STEP_AMOUNT = 200;
+	public static final int MOUSE_WHEEL_ROTATION_STEP_PIXELS = 200;
 
 	/**
 	 * The {@link IAjaxSeleniumLowLevelTestEngine} that contains the methods for
@@ -241,7 +241,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelDown(IDomNode node) {
 
-		simulateWheel(node, MOUSE_WHEEL_STEP_AMOUNT);
+		simulateWheel(node, MOUSE_WHEEL_ROTATION_STEP_PIXELS);
 	}
 
 	/**
@@ -253,7 +253,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelUp(IDomNode node) {
 
-		simulateWheel(node, -MOUSE_WHEEL_STEP_AMOUNT);
+		simulateWheel(node, -MOUSE_WHEEL_ROTATION_STEP_PIXELS);
 	}
 
 	/**
@@ -783,6 +783,17 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 		getTestEngine().getEventSimulator().simulateInput(target);
 	}
 
+	/**
+	 * Simulates a vertical mouse wheel rotation by the given number of pixels.
+	 * <p>
+	 * A positive number corresponds to "wheel down", while a negative number
+	 * corresponds to "wheel up".
+	 *
+	 * @param node
+	 *            the target {@link IDomNode} (never <i>null</i>)
+	 * @param deltaY
+	 *            the number of pixels
+	 */
 	default void simulateWheel(IDomNode node, int deltaY) {
 
 		getTestEngine().getEventSimulator().simulateWheel(node, deltaY);
