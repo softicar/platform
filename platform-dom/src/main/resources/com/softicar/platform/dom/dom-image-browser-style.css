@@ -1,0 +1,16 @@
+.DomImageBrowser {
+	align-items: center;
+}
+
+.DomImageBrowser.draggable {
+	height: 85vh;
+	overflow: scroll;
+}
+
+.DomImageBrowserImage {
+	box-shadow: 0px 0px 3px #777777;
+}
+
+.DomImageBrowserImage.rotated {
+	transform: rotate(180deg);
+}

@@ -3,10 +3,11 @@ package com.softicar.platform.core.module;
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplierFactory;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.resource.supplier.DomResourceSupplierProxyFactory;
 
 @ResourceSupplierContainer
-public interface CoreImages {
+public interface CoreImages extends DomImages {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(CoreImages.class);
 
@@ -41,7 +42,6 @@ public interface CoreImages {
 	IResourceSupplier PASSWORD_POLICY = FACTORY.create("password-policy.svg");
 	IResourceSupplier PASSWORD_RESET = FACTORY.create("password-reset.svg");
 	IResourceSupplier QUEUE_REMOVE = FACTORY.create("queue-remove.svg");
-	IResourceSupplier ROTATE = FACTORY.create("rotate.svg");
 	IResourceSupplier SESSION = FACTORY.create("session.svg");
 	IResourceSupplier STORED_FILE = FACTORY.create("stored-file.svg");
 	IResourceSupplier STORED_FILE_DOWNLOAD = FACTORY.create("stored-file-download.svg");
