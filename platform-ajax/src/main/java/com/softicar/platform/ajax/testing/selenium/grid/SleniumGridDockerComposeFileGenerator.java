@@ -80,7 +80,9 @@ public class SleniumGridDockerComposeFileGenerator {
 		builder.appendLine("      - GRID_TIMEOUT=%s", hubConfiguration.getSessionTimeout());
 		builder.appendLine("      - GRID_MAX_SESSION=%s", hubConfiguration.getMaximumSessionCount());
 		builder.appendLine("    ports:");
-		builder.appendLine("      - %s", hubConfiguration.getPort());
+		builder.appendLine("      - %s", hubConfiguration.getPortExternal());
+		builder.appendLine("      - %s", hubConfiguration.getPortEventBusPublish());
+		builder.appendLine("      - %s", hubConfiguration.getPortEventBusSubscribe());
 		builder.appendLine("    networks:");
 		builder.appendLine("      %s:", generateNetworkName());
 		builder.appendLine("        ipv4_address: \"%s\"", hubConfiguration.getIp());
@@ -99,8 +101,9 @@ public class SleniumGridDockerComposeFileGenerator {
 				builder.appendLine("    depends_on:");
 				builder.appendLine("      - %s", generateHubName());
 				builder.appendLine("    environment:");
-				builder.appendLine("      - HUB_HOST=%s", generateHubName());
-				builder.appendLine("      - HUB_PORT=%s", hubConfiguration.getPort());
+				builder.appendLine("      - SE_EVENT_BUS_HOST=%s", generateHubName());
+				builder.appendLine("      - SE_EVENT_BUS_PUBLISH_PORT=%s", hubConfiguration.getPortEventBusPublish());
+				builder.appendLine("      - SE_EVENT_BUS_SUBSCRIBE_PORT=%s", hubConfiguration.getPortEventBusSubscribe());
 				builder.appendLine("    networks:");
 				builder.appendLine("      - %s", generateNetworkName());
 				builder.appendLine("");
