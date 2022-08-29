@@ -1,5 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.grid;
 
+import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.grid.SeleniumGridConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.hub.SeleniumHubConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.network.SeleniumNetworkConfiguration;
@@ -34,7 +35,7 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 	private SeleniumGridConfiguration createGridConfiguration() {
 
 		return new SeleniumGridConfiguration()//
-			.setContainerVersion("3.141.59-20200525")
+			.setContainerVersion(getExpectedGridContainerVersion())
 			.setUuid("29347bab-d26c-4b59-97f3-fea59c8d70fa")
 			.setWorkerThreadCount(2)
 			.setTemporaryDirectory(System.getProperty("java.io.tmpdir") + "/selenium-grid-29347bab-d26c-4b59-97f3-fea59c8d70fa")
@@ -47,7 +48,9 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 			.setBrowserTimeout(60)
 			.setIp("172.0.0.222")
 			.setMaximumSessionCount(1)
-			.setPort(4444)
+			.setPortExternal(4444)
+			.setPortEventBusPublish(4442)
+			.setPortEventBusSubscribe(4443)
 			.setSessionTimeout(20);
 	}
 
@@ -79,7 +82,7 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("version: \"3\"\n");
 		output.append("services:\n");
 		output.append("  selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa:\n");
-		output.append("    image: selenium/hub:3.141.59-20200525\n");
+		output.append("    image: selenium/hub:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
 		output.append("      - GRID_BROWSER_TIMEOUT=60\n");
@@ -87,72 +90,79 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("      - GRID_MAX_SESSION=1\n");
 		output.append("    ports:\n");
 		output.append("      - 4444\n");
+		output.append("      - 4442\n");
+		output.append("      - 4443\n");
 		output.append("    networks:\n");
 		output.append("      selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa:\n");
 		output.append("        ipv4_address: \"172.0.0.222\"\n");
 		output.append("\n");
 		output.append("  selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_1:\n");
-		output.append("    image: selenium/node-chrome:3.141.59-20200525\n");
+		output.append("    image: selenium/node-chrome:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_1\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");
 		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
-		output.append("      - HUB_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - HUB_PORT=4444\n");
+		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
+		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
+		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
 		output.append("  selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_2:\n");
-		output.append("    image: selenium/node-chrome:3.141.59-20200525\n");
+		output.append("    image: selenium/node-chrome:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_2\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");
 		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
-		output.append("      - HUB_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - HUB_PORT=4444\n");
+		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
+		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
+		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
 		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_1:\n");
-		output.append("    image: selenium/node-firefox:3.141.59-20200525\n");
+		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_1\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");
 		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
-		output.append("      - HUB_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - HUB_PORT=4444\n");
+		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
+		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
+		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
 		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_2:\n");
-		output.append("    image: selenium/node-firefox:3.141.59-20200525\n");
+		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_2\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");
 		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
-		output.append("      - HUB_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - HUB_PORT=4444\n");
+		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
+		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
+		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
 		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_3:\n");
-		output.append("    image: selenium/node-firefox:3.141.59-20200525\n");
+		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
 		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_3\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");
 		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("    environment:\n");
-		output.append("      - HUB_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - HUB_PORT=4444\n");
+		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
+		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
+		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
@@ -165,5 +175,12 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("        - subnet: \"172.0.0.0/24\"\n");
 		output.append("\n");
 		return output.toString();
+	}
+
+	private String getExpectedGridContainerVersion() {
+
+		String version = AjaxSeleniumTestProperties.GRID_CONTAINER_VERSION.getValue();
+		assertFalse(version.isBlank());
+		return version;
 	}
 }
