@@ -962,10 +962,10 @@ class AjaxRequestMessage {
         let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
         let thisDeltaY = Number((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
         let otherDeltaY = Number((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
-        let deltaYSameSign = (thisDeltaY == 0 && otherDeltaY == 0) || thisDeltaY * otherDeltaY > 0;
+        let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
         let thisDeltaZ = Number((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
         let otherDeltaZ = Number((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
-        let deltaZSameSign = (thisDeltaZ == 0 && otherDeltaZ == 0) || thisDeltaZ * otherDeltaZ > 0;
+        let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
         return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {

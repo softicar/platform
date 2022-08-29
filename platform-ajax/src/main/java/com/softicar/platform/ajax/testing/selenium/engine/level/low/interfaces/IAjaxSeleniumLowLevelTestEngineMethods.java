@@ -231,6 +231,30 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	}
 
 	/**
+	 * Rotates the mouse wheel downwards.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to rotate the mouse wheel on (never
+	 *            <i>null</i>)
+	 */
+	default void mouseWheelDown(IDomNode node) {
+
+		getTestEngine().getInput().mouseWheelDown(node);
+	}
+
+	/**
+	 * Rotates the mouse wheel upwards.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to rotate the mouse wheel on (never
+	 *            <i>null</i>)
+	 */
+	default void mouseWheelUp(IDomNode node) {
+
+		getTestEngine().getInput().mouseWheelUp(node);
+	}
+
+	/**
 	 * Moves the mouse cursor by the specified offsets, from its current
 	 * position.
 	 *
