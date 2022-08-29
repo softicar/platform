@@ -22,8 +22,34 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressArrowDown()
+			.waitForServer();
+
+		asserter//
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupValues(VALUE1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testValidInputWithArrowDownAndClickOnInput() {
+
+		setup//
+			.setSelectedValue(VALUE1)
+			.execute();
+
+		input//
+			.focusByTab()
+			.pressArrowDown()
+			.waitForServer()
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -46,7 +72,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressArrowUp()
 			.waitForServer();
 
@@ -93,7 +119,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.clickInputField()
 			.pressBackspace()
 			.waitForServer();
 
@@ -188,8 +214,33 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressArrowDown()
+			.waitForServer();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupValues(VALUES)
+			.expectPopupSelectedValueNone()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithArrowDownAndClickOnInput() {
+
+		setup//
+			.execute();
+
+		input//
+			.focusByTab()
+			.pressArrowDown()
+			.waitForServer()
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -211,7 +262,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressArrowUp()
 			.waitForServer();
 

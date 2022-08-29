@@ -23,7 +23,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputField()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -45,7 +45,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
@@ -67,7 +67,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -78,8 +78,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectPopupNotDisplayed()
 			.expectFocus()
 			.expectBackdropNotDisplayed()
-			.expectCallbackCountOne()
-			.expectCallbackValue(null)
+			.expectCallbackNone()
 			.assertAll();
 	}
 
@@ -91,7 +90,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputField()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
@@ -114,7 +113,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputFieldAndClosePopup()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -135,7 +134,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputField()
+			.focusByTab()
 			.pressEscape()
 			.waitForServer();
 
@@ -156,7 +155,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.clickInputField()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
@@ -165,53 +164,6 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
 			.expectNoFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testEmptyInputWithArrowDownAndClickOnInput() {
-
-		setup//
-			.execute();
-
-		input//
-			.clickInputFieldAndClosePopup()
-			.pressArrowDown()
-			.waitForServer()
-			.clickInputField()
-			.waitForServer();
-
-		asserter//
-			.expectValuesNone()
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
-			.expectCallbackNone()
-			.assertAll();
-	}
-
-	@Test
-	public void testValidInputWithArrowDownAndClickOnInput() {
-
-		setup//
-			.setSelectedValue(VALUE1)
-			.execute();
-
-		input//
-			.clickInputFieldAndClosePopup()
-			.pressArrowDown()
-			.waitForServer()
-			.clickInputField()
-			.waitForServer();
-
-		asserter//
-			.expectValues(VALUE1)
-			.expectIndicatorNone()
-			.expectPopupNotDisplayed()
-			.expectFocus()
 			.expectBackdropNotDisplayed()
 			.expectCallbackNone()
 			.assertAll();

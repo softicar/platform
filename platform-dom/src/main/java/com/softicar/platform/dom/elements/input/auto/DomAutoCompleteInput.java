@@ -238,9 +238,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	protected void onClick() {
 
-		if (popup.isAppended()) {
-			closePopup();
-		} else {
+		if (!popup.isAppended()) {
 			refreshPopup();
 		}
 	}

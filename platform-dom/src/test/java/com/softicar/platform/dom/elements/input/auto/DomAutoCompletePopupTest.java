@@ -34,6 +34,14 @@ public class DomAutoCompletePopupTest extends AbstractDomAutoCompleteDefaultInpu
 	}
 
 	@Test
+	public void testPopupStaysDisplayedOnClick() {
+
+		findNode(DomTextInput.class).click();
+		findNode(DomTextInput.class).click();
+		findNode(DomAutoCompletePopup.class).assertDisplayed();
+	}
+
+	@Test
 	public void testPopupDisplayedValues() {
 
 		findNode(DomTextInput.class).click();
