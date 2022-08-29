@@ -55,11 +55,25 @@ public interface ISeleniumHubConfiguration {
 	String getIp();
 
 	/**
-	 * Returns the port on which the hub listens to connections.
+	 * Returns the external port on which the hub listens to connections.
 	 *
-	 * @return the port on which the hub listens to connections
+	 * @return the external port on which the hub listens to connections
 	 */
-	Integer getPort();
+	Integer getPortExternal();
+
+	/**
+	 * Returns the Selenium "event bus publish" port.
+	 *
+	 * @return the "event bus publish" port
+	 */
+	Integer getPortEventBusPublish();
+
+	/**
+	 * Returns the Selenium "event bus subscribe" port.
+	 *
+	 * @return the "event bus subscribe" port
+	 */
+	Integer getPortEventBusSubscribe();
 
 	/**
 	 * Ensures that this {@link ISeleniumHubConfiguration} is valid.
@@ -74,7 +88,7 @@ public interface ISeleniumHubConfiguration {
 		Objects.requireNonNull(getSessionTimeout());
 		Objects.requireNonNull(getMaximumSessionCount());
 		Objects.requireNonNull(getIp());
-		Objects.requireNonNull(getPort());
+		Objects.requireNonNull(getPortExternal());
 		return this;
 	}
 }
