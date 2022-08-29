@@ -1,7 +1,5 @@
 package com.softicar.platform.core.module.start.page;
 
-import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
@@ -20,9 +18,6 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
-import com.softicar.platform.dom.event.IDomEvent;
-import com.softicar.platform.dom.event.IDomWheelEventHandler;
-import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -37,33 +32,6 @@ class StartPageDiv extends DomDiv {
 		appendSectionsSeparatedByHr(sections);
 
 		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
-
-		// FIXME remove
-		appendChild(new WheelTestDiv());
-	}
-
-	// FIXME remove
-	private class WheelTestDiv extends DomDiv implements IDomWheelEventHandler {
-
-		public WheelTestDiv() {
-
-			appendText("wheel me");
-			setStyle(CssStyle.BACKGROUND_COLOR, "yellow");
-		}
-
-		@Override
-		public void handleWheel(IDomEvent event) {
-
-			if (event.getDeltaY() > 0) {
-				Log.finfo("down");
-				appendChild(new DomDiv()).appendText("down");
-				Sleep.sleep(1000);
-			} else if (event.getDeltaY() < 0) {
-				Log.finfo("up");
-				appendChild(new DomDiv()).appendText("up");
-				Sleep.sleep(1000);
-			}
-		}
 	}
 
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {

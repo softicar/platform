@@ -50,7 +50,7 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testMouseWheelDeduplication() {
 
-		var testDiv = openTestNode(() -> new TestDiv().setSleepDuration(Duration.ofSeconds(2)));
+		var testDiv = openTestNode(() -> new TestDiv().setSleepDuration(Duration.ofSeconds(1)));
 
 		mouseWheelDown(testDiv);
 		mouseWheelDown(testDiv);
