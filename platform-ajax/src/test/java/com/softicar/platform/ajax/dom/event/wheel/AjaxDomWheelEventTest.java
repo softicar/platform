@@ -24,9 +24,7 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		var events = testDiv.getEvents();
 		new WheelEventAsserter(events)//
 			.nextEvent()
-			.assertDeltaXZero()
-			.assertDeltaYPositive()
-			.assertDeltaZZero()
+			.assertWheelDown()
 			.assertNoMoreEvents();
 	}
 
@@ -41,9 +39,7 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		var events = testDiv.getEvents();
 		new WheelEventAsserter(events)//
 			.nextEvent()
-			.assertDeltaXZero()
-			.assertDeltaYNegative()
-			.assertDeltaZZero()
+			.assertWheelUp()
 			.assertNoMoreEvents();
 	}
 
@@ -66,14 +62,10 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		new WheelEventAsserter(events)//
 
 			.nextEvent()
-			.assertDeltaXZero()
-			.assertDeltaYPositive()
-			.assertDeltaZZero()
+			.assertWheelDown()
 
 			.nextEvent()
-			.assertDeltaXZero()
-			.assertDeltaYNegative()
-			.assertDeltaZZero()
+			.assertWheelUp()
 
 			// Expect no further "wheel down" event because it is swallowed by
 			// the current client-side implementation of wheel event deduplication.
@@ -90,6 +82,22 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			this.eventIterator = events.iterator();
 			this.currentEvent = null;
+		}
+
+		public WheelEventAsserter assertWheelDown() {
+
+			assertDeltaXZero();
+			assertDeltaYPositive();
+			assertDeltaZZero();
+			return this;
+		}
+
+		public WheelEventAsserter assertWheelUp() {
+
+			assertDeltaXZero();
+			assertDeltaYNegative();
+			assertDeltaZZero();
+			return this;
 		}
 
 		public WheelEventAsserter assertDeltaXZero() {

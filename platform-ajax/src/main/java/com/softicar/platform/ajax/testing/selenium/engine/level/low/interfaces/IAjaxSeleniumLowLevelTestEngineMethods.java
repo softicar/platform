@@ -29,6 +29,8 @@ import java.util.function.Supplier;
  */
 public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
+	public static final int MOUSE_WHEEL_STEP_AMOUNT = 200;
+
 	/**
 	 * The {@link IAjaxSeleniumLowLevelTestEngine} that contains the methods for
 	 * which this interface serves as a wrapper.
@@ -239,7 +241,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelDown(IDomNode node) {
 
-		simulateWheel(node, 200);
+		simulateWheel(node, MOUSE_WHEEL_STEP_AMOUNT);
 	}
 
 	/**
@@ -251,7 +253,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelUp(IDomNode node) {
 
-		simulateWheel(node, -200);
+		simulateWheel(node, -MOUSE_WHEEL_STEP_AMOUNT);
 	}
 
 	/**
