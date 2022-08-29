@@ -2,7 +2,7 @@ package com.softicar.platform.common.testing;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.thread.sleeper.CurrentSleeper;
 import com.softicar.platform.common.core.thread.sleeper.TestSleeper;
 import com.softicar.platform.common.date.ISOCalendar;
@@ -29,14 +29,14 @@ public abstract class AbstractTest extends Asserts {
 	}
 
 	/**
-	 * Creates a new {@link IStaticObject} instance that can be used as test
+	 * Creates a new {@link ITestMarker} instance that can be used as test
 	 * marker.
 	 *
-	 * @return a new instance of {@link IStaticObject} (never <i>null</i>)
+	 * @return a new instance of {@link ITestMarker} (never <i>null</i>)
 	 */
-	public static IStaticObject newMarker() {
+	public static ITestMarker newMarker() {
 
-		return new IStaticObject() { /* nothing to add */ };
+		return new ITestMarker() { /* nothing to add */ };
 	}
 
 	/**

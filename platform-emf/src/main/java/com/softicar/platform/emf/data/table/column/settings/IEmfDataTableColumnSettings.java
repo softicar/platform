@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.data.table.column.settings;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import java.util.Collection;
 
@@ -21,5 +21,5 @@ public interface IEmfDataTableColumnSettings {
 
 	IDisplayString getTitleOverride();
 
-	Collection<IStaticObject> getMarkers();
+	Collection<ITestMarker> getMarkers();
 }

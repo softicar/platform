@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.button;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.document.IDomDocument;
@@ -175,7 +175,7 @@ public class DomButton extends DomParentElement
 	}
 
 	/**
-	 * Defines the {@link IStaticObject} marker for this node.
+	 * Defines the {@link ITestMarker} for this node.
 	 *
 	 * @param marker
 	 *            the marker to set (never <i>null</i>)
@@ -184,7 +184,7 @@ public class DomButton extends DomParentElement
 	 *             if the {@link IDomDocument} does not support marking of nodes
 	 */
 	@Override
-	public DomButton addMarker(IStaticObject marker) {
+	public DomButton addMarker(ITestMarker marker) {
 
 		super.addMarker(marker);
 		return this;

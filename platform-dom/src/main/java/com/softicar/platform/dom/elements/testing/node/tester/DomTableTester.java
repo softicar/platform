@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.testing.node.tester;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.DomCell;
 import com.softicar.platform.dom.elements.DomHeaderCell;
 import com.softicar.platform.dom.elements.DomRow;
@@ -18,21 +18,12 @@ public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 		super(engine, node);
 	}
 
-	public IDomNodeIterable<DomCell> findCells(IStaticObject marker) {
+	public IDomNodeIterable<DomCell> findCells(ITestMarker marker) {
 
 		return findNodes(marker).withType(DomCell.class);
 	}
 
-	/**
-	 * @deprecated use {@link #getTextInCells(IStaticObject)}
-	 */
-	@Deprecated
-	public String getTextInColumns(IStaticObject marker) {
-
-		return getTextInCells(marker);
-	}
-
-	public String getTextInCells(IStaticObject marker) {
+	public String getTextInCells(ITestMarker marker) {
 
 		return findCells(marker)//
 			.stream()
@@ -41,12 +32,12 @@ public class DomTableTester extends AbstractDomNodeTester<DomTable> {
 			.collect(Collectors.joining("|"));
 	}
 
-	public DomNodeTester findHeaderCell(IStaticObject marker) {
+	public DomNodeTester findHeaderCell(ITestMarker marker) {
 
 		return findHeaderCells(marker).assertOne();
 	}
 
-	public IDomNodeIterable<DomHeaderCell> findHeaderCells(IStaticObject marker) {
+	public IDomNodeIterable<DomHeaderCell> findHeaderCells(ITestMarker marker) {
 
 		return findNodes(marker).withType(DomHeaderCell.class);
 	}

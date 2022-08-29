@@ -2,7 +2,7 @@ package com.softicar.platform.db.runtime.field;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public interface IDbField<R, V> extends ISqlField<R, V>, IStaticObject {
+public interface IDbField<R, V> extends ISqlField<R, V>, ITestMarker {
 
 	@Override
 	IDbTable<R, ?> getTable();

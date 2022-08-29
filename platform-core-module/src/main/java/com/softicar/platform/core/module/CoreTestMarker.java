@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 
-public enum CoreTestMarker implements IStaticObject {
+public enum CoreTestMarker implements ITestMarker {
 
 	PAGE_NAVIGATION_FOLDER_TITLE_DIV,
 	PAGE_NAVIGATION_PAGE_CONTENT_DIV,

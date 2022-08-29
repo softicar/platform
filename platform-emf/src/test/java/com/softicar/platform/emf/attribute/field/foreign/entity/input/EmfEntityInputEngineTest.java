@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.connection.profiler.DbConnectionTestProfiler;
@@ -16,9 +16,9 @@ import org.junit.Test;
 
 public class EmfEntityInputEngineTest extends AbstractEmfTest {
 
-	private static final IStaticObject OBJECT_INPUT_MARKER = newMarker();
-	private static final IStaticObject DEPENDENT_INPUT_MARKER = newMarker();
-	private static final IStaticObject NEW_OBJECT_BUTTON_MARKER = newMarker();
+	private static final ITestMarker OBJECT_INPUT_MARKER = newMarker();
+	private static final ITestMarker DEPENDENT_INPUT_MARKER = newMarker();
+	private static final ITestMarker NEW_OBJECT_BUTTON_MARKER = newMarker();
 	private final DbConnectionTestProfiler profiler;
 
 	public EmfEntityInputEngineTest() {

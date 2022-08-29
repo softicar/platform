@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.field;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.emf.attribute.AbstractEmfAttribute;
@@ -84,7 +84,7 @@ public class EmfFieldAttribute<R extends IEmfTableRow<R, ?>, V> extends Abstract
 	}
 
 	@Override
-	public IStaticObject getTestMarker() {
+	public ITestMarker getTestMarker() {
 
 		return field;
 	}

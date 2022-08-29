@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
@@ -16,9 +16,9 @@ import org.mockito.Mockito;
 
 public class DomModalDialogTest extends AbstractDomModalDialogTest {
 
-	private static final IStaticObject CANCEL_BUTTON = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker CANCEL_BUTTON = Mockito.mock(ITestMarker.class);
 	private static final IDisplayString CANCEL_LABEL = IDisplayString.create("cancel");
-	private static final IStaticObject OKAY_BUTTON = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker OKAY_BUTTON = Mockito.mock(ITestMarker.class);
 	private static final IDisplayString OKAY_LABEL = IDisplayString.create("okay");
 
 	private final DomModalDialog dialogPopup;

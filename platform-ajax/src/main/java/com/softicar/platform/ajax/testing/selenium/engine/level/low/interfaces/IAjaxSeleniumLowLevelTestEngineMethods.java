@@ -7,7 +7,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Modifier;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
@@ -103,16 +103,16 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	}
 
 	/**
-	 * Clicks the {@link IDomNode} with given {@link IStaticObject} marker.
+	 * Clicks the {@link IDomNode} with given {@link ITestMarker}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker of the {@link IDomNode} to
-	 *            click (never <i>null</i>)
+	 *            the {@link ITestMarker} of the {@link IDomNode} to click
+	 *            (never <i>null</i>)
 	 * @throws NoSuchElementException
 	 *             if the document does not contain a node with the given
-	 *             {@link IStaticObject} marker
+	 *             {@link ITestMarker}
 	 */
-	default void click(IStaticObject marker) {
+	default void click(ITestMarker marker) {
 
 		click(findNodeOrFail(marker));
 	}
@@ -303,17 +303,17 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	/**
 	 * Sends the given {@link Key}s to the {@link IDomNode} with the given
-	 * {@link IStaticObject} marker.
+	 * {@link ITestMarker}.
 	 * <p>
 	 * The {@link IDomNode} is not necessarily an HTML input element.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker of the {@link IDomNode} to
-	 *            which the keys shall be sent (never <i>null</i>)
+	 *            the {@link ITestMarker} of the {@link IDomNode} to which the
+	 *            keys shall be sent (never <i>null</i>)
 	 * @param keys
 	 *            the {@link Key}s to send (never <i>null</i>)
 	 */
-	default void send(IStaticObject marker, Key...keys) {
+	default void send(ITestMarker marker, Key...keys) {
 
 		send(findNodeOrFail(marker), keys);
 	}
@@ -337,20 +337,20 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	/**
 	 * Sends the keys represented by the given {@link String} to the
-	 * {@link IDomNode} with the given {@link IStaticObject} marker.
+	 * {@link IDomNode} with the given {@link ITestMarker}.
 	 * <p>
 	 * The {@link IDomNode} is not necessarily an HTML input element.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker of the {@link IDomNode} to
-	 *            which the keys shall be sent (never <i>null</i>)
+	 *            the {@link ITestMarker} of the {@link IDomNode} to which the
+	 *            keys shall be sent (never <i>null</i>)
 	 * @param keys
 	 *            the keys to send (never <i>null</i>)
 	 * @throws NoSuchElementException
 	 *             if the document does not contain a node with the given
-	 *             {@link IStaticObject} marker
+	 *             {@link ITestMarker}
 	 */
-	default void send(IStaticObject marker, String keys) {
+	default void send(ITestMarker marker, String keys) {
 
 		send(findNodeOrFail(marker), keys);
 	}
@@ -493,14 +493,14 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	}
 
 	/**
-	 * Asserts that the {@link IDomNode} with the given {@link IStaticObject}
-	 * marker is focused.
+	 * Asserts that the {@link IDomNode} with the given {@link ITestMarker} is
+	 * focused.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker of the {@link IDomNode} which
-	 *            shall be checked for being focused (never <i>null</i>)
+	 *            the {@link ITestMarker} of the {@link IDomNode} which shall be
+	 *            checked for being focused (never <i>null</i>)
 	 */
-	default void assertFocused(IStaticObject marker) {
+	default void assertFocused(ITestMarker marker) {
 
 		getTestEngine().getOutput().assertFocused(marker);
 	}
@@ -559,71 +559,70 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	/**
 	 * Checks whether the rendered document contains an {@link IDomNode} with
-	 * the given {@link IStaticObject} marker, and returns the found
-	 * {@link IDomNode} as an {@link Optional}, if any.
+	 * the given {@link ITestMarker}, and returns the found {@link IDomNode} as
+	 * an {@link Optional}, if any.
 	 * <p>
 	 * If the document does not contain a corresponding node,
 	 * {@link Optional#empty()} is returned.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to check (never <i>null</i>)
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
 	 * @return the found {@link IDomNode} as an {@link Optional}
 	 * @throws AssertionError
 	 *             if the document contains more than one matching node
 	 */
-	default Optional<IDomNode> findNode(IStaticObject marker) {
+	default Optional<IDomNode> findNode(ITestMarker marker) {
 
 		return getTestEngine().getOutput().findNode(marker);
 	}
 
 	/**
 	 * Checks whether the rendered document contains an {@link IDomNode} with
-	 * the given {@link IStaticObject} marker, and returns the found
-	 * {@link IDomNode}.
+	 * the given {@link ITestMarker}, and returns the found {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to check (never <i>null</i>)
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
 	 * @return the found {@link IDomNode} (never <i>null</i>)
 	 * @throws AssertionError
 	 *             if the document contains more than one matching node
 	 * @throws NoSuchElementException
 	 *             if the document does not contain a node with the given
-	 *             {@link IStaticObject} marker
+	 *             {@link ITestMarker}
 	 */
-	default IDomNode findNodeOrFail(IStaticObject marker) {
+	default IDomNode findNodeOrFail(ITestMarker marker) {
 
 		return getTestEngine().getOutput().findNodeOrFail(marker);
 	}
 
 	/**
 	 * Asserts that the rendered document contains an {@link IDomNode} with the
-	 * given {@link IStaticObject} marker, and that the sub-tree spanned by this
-	 * node contains the expected text.
+	 * given {@link ITestMarker} , and that the sub-tree spanned by this node
+	 * contains the expected text.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to check (never <i>null</i>)
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
 	 * @param expectedText
 	 *            the text that is expected to be present in the node or its
 	 *            children (never <i>null</i>)
 	 * @throws NoSuchElementException
 	 *             if the document does not contain a node with the given
-	 *             {@link IStaticObject} marker
+	 *             {@link ITestMarker}
 	 * @throws AssertionError
 	 *             if the node with the marker does not contain the expected
 	 *             text
 	 */
-	default void assertNodeWithText(IStaticObject marker, String expectedText) {
+	default void assertNodeWithText(ITestMarker marker, String expectedText) {
 
 		getTestEngine().getOutput().assertNodeWithText(marker, expectedText);
 	}
 
 	/**
 	 * Asserts that the rendered document contains an {@link IDomNode} with the
-	 * given {@link IStaticObject} marker, and that the given assertion
+	 * given {@link ITestMarker} , and that the given assertion
 	 * {@link Predicate} evaluates to <i>true</i> for this {@link IDomNode}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to check (never <i>null</i>)
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
 	 * @param assertion
 	 *            the assertion {@link Predicate} to check (never <i>null</i>)
 	 * @param errorMessage
@@ -632,25 +631,25 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 *            <i>null</i>)
 	 * @throws NoSuchElementException
 	 *             if the document does not contain a node with the given
-	 *             {@link IStaticObject} marker
+	 *             {@link ITestMarker}
 	 * @throws AssertionError
 	 *             if the assertion {@link Predicate} evaluates to <i>false</i>
 	 */
-	default void assertNode(IStaticObject marker, Predicate<IDomNode> assertion, String errorMessage) {
+	default void assertNode(ITestMarker marker, Predicate<IDomNode> assertion, String errorMessage) {
 
 		getTestEngine().getOutput().assertNode(marker, assertion, errorMessage);
 	}
 
 	/**
 	 * Asserts that the rendered document does not contain an {@link IDomNode}
-	 * with the given {@link IStaticObject} marker.
+	 * with the given {@link ITestMarker}.
 	 *
 	 * @param marker
-	 *            the {@link IStaticObject} marker to check (never <i>null</i>)
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
 	 * @throws AssertionError
 	 *             if the document contains one or several matching nodes
 	 */
-	default void assertNoNode(IStaticObject marker) {
+	default void assertNoNode(ITestMarker marker) {
 
 		getTestEngine().getOutput().assertNoNode(marker);
 	}

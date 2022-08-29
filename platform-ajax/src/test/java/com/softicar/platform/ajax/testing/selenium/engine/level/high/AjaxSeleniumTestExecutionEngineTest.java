@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.high;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 public class AjaxSeleniumTestExecutionEngineTest extends AbstractTest implements IDomTestExecutionEngineMethods {
 
 	@Rule public final IDomTestExecutionEngine engine = new AjaxSeleniumTestExecutionEngine();
-	private static final IStaticObject BUTTON = Mockito.mock(IStaticObject.class);
+	private static final ITestMarker BUTTON = Mockito.mock(ITestMarker.class);
 
 	public AjaxSeleniumTestExecutionEngineTest() {
 

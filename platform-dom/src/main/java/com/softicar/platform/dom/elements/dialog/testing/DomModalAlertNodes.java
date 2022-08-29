@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.dialog.testing;
 
-import com.softicar.platform.common.core.interfaces.IStaticObject;
+import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import java.util.function.Function;
 
 public class DomModalAlertNodes<T> extends DomModalDialogNodes<T> implements IDomModalAlertNodes<T> {
 
-	public DomModalAlertNodes(Function<IStaticObject, T> extractor) {
+	public DomModalAlertNodes(Function<ITestMarker, T> extractor) {
 
 		super(extractor);
 	}
