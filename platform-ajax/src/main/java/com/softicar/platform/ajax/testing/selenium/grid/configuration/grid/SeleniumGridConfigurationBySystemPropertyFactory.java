@@ -45,7 +45,9 @@ public class SeleniumGridConfigurationBySystemPropertyFactory {
 			.setBrowserTimeout(AjaxSeleniumTestProperties.HUB_BROWSER_TIMEOUT)
 			.setIp(AjaxSeleniumTestProperties.HUB_IP)
 			.setMaximumSessionCount(AjaxSeleniumTestProperties.HUB_MAXIMUM_SESSION_COUNT)
-			.setPort(AjaxSeleniumTestProperties.HUB_PORT)
+			.setPortExternal(AjaxSeleniumTestProperties.HUB_PORT_EXTERNAL)
+			.setPortEventBusPublish(AjaxSeleniumTestProperties.HUB_PORT_EVENT_BUS_PUBLISH)
+			.setPortEventBusSubscribe(AjaxSeleniumTestProperties.HUB_PORT_EVENT_BUS_SUBSCRIBE)
 			.setSessionTimeout(AjaxSeleniumTestProperties.HUB_SESSION_TIMEOUT);
 	}
 
