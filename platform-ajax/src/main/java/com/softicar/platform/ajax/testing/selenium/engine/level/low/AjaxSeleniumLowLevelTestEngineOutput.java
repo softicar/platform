@@ -5,7 +5,6 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.IAjaxSeleniumTe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineOutput;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -23,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -32,41 +32,43 @@ import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestEngineOutput {
+/**
+ * Facilitates the examination of the current content and state of a
+ * UI-under-test, and provides assertion methods.
+ *
+ * @author Alexander Schmidt
+ */
+public class AjaxSeleniumLowLevelTestEngineOutput {
 
 	private final Supplier<WebDriver> webDriverSupplier;
 	private final Function<IDomNode, WebElement> webElementResolver;
 	private final Supplier<WebElement> sessionTimeoutDivSupplier;
 
-	public AjaxSeleniumLowLevelTestEngineOutput(AjaxSeleniumLowLevelTestEngineParameters parameters) {
+	AjaxSeleniumLowLevelTestEngineOutput(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
 		this.webDriverSupplier = parameters.getWebDriverSupplier();
 		this.webElementResolver = parameters.getWebElementResolver();
 		this.sessionTimeoutDivSupplier = parameters.getSessionTimeoutDivSupplier();
 	}
 
-	@Override
 	public AjaxSeleniumTestPoint getLocation(IDomNode node) {
 
 		Point point = webElementResolver.apply(node).getLocation();
 		return new AjaxSeleniumTestPoint(point.getX(), point.getY());
 	}
 
-	@Override
 	public AjaxSeleniumTestSegment getSize(IDomNode node) {
 
 		Dimension dimension = webElementResolver.apply(node).getSize();
 		return new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
 	}
 
-	@Override
 	public AjaxSeleniumTestRectangle getRectangle(IDomNode node) {
 
 		Rectangle rectangle = webElementResolver.apply(node).getRect();
 		return new AjaxSeleniumTestRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 	}
 
-	@Override
 	public String getText(IDomNode node) {
 
 		if (node instanceof IDomTextualInput) {
@@ -76,43 +78,36 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		}
 	}
 
-	@Override
 	public boolean isDisplayed(IDomNode node) {
 
 		return webElementResolver.apply(node).isDisplayed();
 	}
 
-	@Override
 	public boolean isFocused(IDomNode node) {
 
 		return webElementResolver.apply(node).equals(webDriverSupplier.get().switchTo().activeElement());
 	}
 
-	@Override
 	public String getAttributeValue(IDomNode node, String attributeName) {
 
 		return webElementResolver.apply(node).getAttribute(attributeName);
 	}
 
-	@Override
 	public String getCssAttributeValue(IDomNode node, String attributeName) {
 
 		return webElementResolver.apply(node).getCssValue(attributeName);
 	}
 
-	@Override
 	public boolean isWaitingDivDisplayed() {
 
 		return webDriverSupplier.get().findElement(By.className(AjaxCssClasses.AJAX_WORKING_INDICATOR.getName())).isDisplayed();
 	}
 
-	@Override
 	public boolean isSessionTimeoutDivDisplayed() {
 
 		return sessionTimeoutDivSupplier.get().isDisplayed();
 	}
 
-	@Override
 	public Optional<String> getFileDownloadSource() {
 
 		List<WebElement> iframes = webDriverSupplier.get().findElements(By.tagName(IAjaxSeleniumTestEngineConstants.FILE_DOWNLOAD_ELEMENT_TAG));
@@ -123,13 +118,11 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		}
 	}
 
-	@Override
 	public String getCookie(String cookieName) {
 
 		return webDriverSupplier.get().manage().getCookieNamed(cookieName).toString();
 	}
 
-	@Override
 	public void assertFocused(IDomNode node) {
 
 		String elementId = webElementResolver.apply(node).getAttribute("id");
@@ -137,14 +130,17 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		Assert.assertEquals(elementId, activeElementId);
 	}
 
-	@Override
+	public void assertFocused(ITestMarker marker) {
+
+		assertFocused(findNodeOrFail(marker));
+	}
+
 	public Optional<IDomNode> getFocusedNode() {
 
 		String idAttribute = webDriverSupplier.get().switchTo().activeElement().getAttribute("id");
 		return Optional.ofNullable(CurrentDomDocument.get().getNode(idAttribute));
 	}
 
-	@Override
 	public void assertChildTags(IDomNode node, String...tags) {
 
 		List<WebElement> children = webElementResolver.apply(node).findElements(By.xpath("*"));
@@ -154,7 +150,6 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		}
 	}
 
-	@Override
 	public Optional<IDomNode> findNode(IDomNode node) {
 
 		String nodeId = node.getNodeIdString();
@@ -168,7 +163,6 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		}
 	}
 
-	@Override
 	public Optional<IDomNode> findNode(ITestMarker marker) {
 
 		Collection<IDomNode> nodes = CurrentDomDocument.get().getNodesWithMarker(marker);
@@ -181,13 +175,38 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		}
 	}
 
-	@Override
+	public IDomNode findNodeOrFail(ITestMarker marker) {
+
+		return findNode(marker).orElseThrow();
+	}
+
+	public void assertNodeWithText(ITestMarker marker, String expectedText) {
+
+		assertNode(//
+			marker,
+			node -> getText(node).contains(expectedText),
+			"The node with marker '%s' did not contain '%s'.".formatted(marker, expectedText));
+	}
+
+	public void assertNode(ITestMarker marker, Predicate<IDomNode> assertion, String errorMessage) {
+
+		if (!assertion.test(findNodeOrFail(marker))) {
+			throw new AssertionError(errorMessage);
+		}
+	}
+
+	public void assertNoNode(ITestMarker marker) {
+
+		if (findNode(marker).isPresent()) {
+			throw new AssertionError("Unexpectedly encountered a node with marker: %s".formatted(marker));
+		}
+	}
+
 	public IDomModalDialogNodes<IDomNode> findModalDialogOrFail() {
 
 		return new DomModalDialogNodes<>(this::findNodeOrFail);
 	}
 
-	@Override
 	public void assertNoModalDialog() {
 
 		assertNoNode(DomTestMarker.MODAL_DIALOG_FRAME);
@@ -196,19 +215,16 @@ class AjaxSeleniumLowLevelTestEngineOutput implements IAjaxSeleniumLowLevelTestE
 		assertNoNode(DomTestMarker.POPUP_BACKDROP);
 	}
 
-	@Override
 	public IDomModalAlertNodes<IDomNode> findModalAlertOrFail() {
 
 		return new DomModalAlertNodes<>(this::findNodeOrFail);
 	}
 
-	@Override
 	public IDomModalConfirmNodes<IDomNode> findModalConfirmOrFail() {
 
 		return new DomModalConfirmNodes<>(this::findNodeOrFail);
 	}
 
-	@Override
 	public IDomModalPromptNodes<IDomNode> findModalPromptOrFail() {
 
 		return new DomModalPromptNodes<>(this::findNodeOrFail);

@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Rule;
 import org.junit.runner.RunWith;

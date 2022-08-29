@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
@@ -16,20 +15,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEngineInput {
+/**
+ * Facilitates sending various kinds of input to a UI-under-test.
+ *
+ * @author Alexander Schmidt
+ */
+public class AjaxSeleniumLowLevelTestEngineInput {
 
 	private final Supplier<WebDriver> webDriverSupplier;
 	private final Function<IDomNode, WebElement> webElementResolver;
 	private final Supplier<WebElement> sessionTimeoutDivSupplier;
 
-	public AjaxSeleniumLowLevelTestEngineInput(AjaxSeleniumLowLevelTestEngineParameters parameters) {
+	AjaxSeleniumLowLevelTestEngineInput(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
 		this.webDriverSupplier = parameters.getWebDriverSupplier();
 		this.webElementResolver = parameters.getWebElementResolver();
 		this.sessionTimeoutDivSupplier = parameters.getSessionTimeoutDivSupplier();
 	}
 
-	@Override
 	public void click(IDomNode node) {
 
 		webElementResolver.apply(node).click();
@@ -40,7 +43,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 	 * in an inconsistent state if the test execution is aborted, as a result of
 	 * the click?
 	 */
-	@Override
 	public void click(IDomNode node, Modifier...modifiers) {
 
 		Actions actions = new Actions(webDriverSupplier.get());
@@ -50,7 +52,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 		actions.perform();
 	}
 
-	@Override
 	public void clickAt(IDomNode node, int xOffset, int yOffset) {
 
 		WebElement webElement = webElementResolver.apply(node);
@@ -62,19 +63,16 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void clickBodyNode() {
 
 		webDriverSupplier.get().findElement(By.tagName("body")).click();
 	}
 
-	@Override
 	public void clickSessionTimeoutDivReturnToLoginButton() {
 
 		sessionTimeoutDivSupplier.get().findElement(By.tagName("button")).click();
 	}
 
-	@Override
 	public void doubleClickAt(IDomNode node, int xOffset, int yOffset) {
 
 		WebElement webElement = webElementResolver.apply(node);
@@ -86,7 +84,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void mouseDownUnsafe(IDomNode node) {
 
 		new Actions(webDriverSupplier.get())//
@@ -95,7 +92,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void mouseUpUnsafe() {
 
 		new Actions(webDriverSupplier.get())//
@@ -103,7 +99,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void moveCursorBy(int xOffset, int yOffset) {
 
 		new Actions(webDriverSupplier.get())//
@@ -111,7 +106,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void dragAndDrop(IDomNode node, int xOffset, int yOffset) {
 
 		new Actions(webDriverSupplier.get())//
@@ -121,7 +115,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.perform();
 	}
 
-	@Override
 	public void send(Key...keys) {
 
 		Arrays//
@@ -131,13 +124,11 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.forEach(webDriverSupplier.get().switchTo().activeElement()::sendKeys);
 	}
 
-	@Override
 	public void send(String keys) {
 
 		webDriverSupplier.get().switchTo().activeElement().sendKeys(keys);
 	}
 
-	@Override
 	public void send(IDomNode node, Key...keys) {
 
 		Arrays//
@@ -147,13 +138,11 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 			.forEach(webElementResolver.apply(node)::sendKeys);
 	}
 
-	@Override
 	public void send(IDomNode node, String keys) {
 
 		webElementResolver.apply(node).sendKeys(keys);
 	}
 
-	@Override
 	public void clear(IDomTextualInput input) {
 
 		webElementResolver.apply(input).clear();
@@ -206,5 +195,34 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 		int centerX = size.getWidth() / 2;
 		int centerY = size.getHeight() / 2;
 		return new Point(position.getX() - centerX, position.getY() - centerY);
+	}
+
+	/**
+	 * Represents a non-modifier key on a keyboard.
+	 *
+	 * @author Alexander Schmidt
+	 */
+	public enum Key {
+
+		BACK_SPACE,
+		DOWN,
+		ENTER,
+		ESCAPE,
+		SPACE,
+		TAB,
+		UP
+	}
+
+	/**
+	 * Represents a modifier key on a keyboard.
+	 *
+	 * @author Alexander Schmidt
+	 */
+	public enum Modifier {
+
+		ALT,
+		CONTROL,
+		META,
+		SHIFT
 	}
 }

@@ -2,9 +2,8 @@ package com.softicar.platform.core.module.page.service.login;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
@@ -18,7 +17,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	private static final String LOGIN_PASSWORD = "somePassword";
 	private static final String LOGIN_USER = "firstname.lastname";
 
-	@Rule public final IAjaxSeleniumLowLevelTestEngine testEngine;
+	@Rule public final AjaxSeleniumLowLevelTestEngine testEngine;
 
 	public PageServiceLoginDivTest() {
 
@@ -28,7 +27,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	}
 
 	@Override
-	public IAjaxSeleniumLowLevelTestEngine getTestEngine() {
+	public AjaxSeleniumLowLevelTestEngine getTestEngine() {
 
 		return testEngine;
 	}

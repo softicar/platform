@@ -21,24 +21,24 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	protected List<String> getAutoCompletePopupValueNames() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupValueNames();
+		return testEngine.getAutoCompleteInput().getAutoCompletePopupValueNames();
 	}
 
 	protected void clickAutoCompletePopupValue(int index) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompletePopupValue(index);
+		testEngine.getAutoCompleteInput().clickAutoCompletePopupValue(index);
 	}
 
 	protected Optional<Integer> getAutoCompletePopupSelectedValueIndex() {
 
-		return testEngine.getAutoCompleteExtension().getAutoCompletePopupSelectedValueIndex();
+		return testEngine.getAutoCompleteInput().getAutoCompletePopupSelectedValueIndex();
 	}
 
 	// -------------------- status -------------------- //
 
 	protected boolean isAutoCompletePopupDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompletePopupDisplayed();
+		return testEngine.getAutoCompleteInput().isAutoCompletePopupDisplayed();
 	}
 
 	protected boolean isAutoCompletePopupValueSelected() {
@@ -48,12 +48,12 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	protected boolean isAutoCompleteValuePlaceholderElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteValuePlaceholderDisplayed();
+		return testEngine.getAutoCompleteInput().isAutoCompleteValuePlaceholderDisplayed();
 	}
 
 	protected boolean isAutoCompleteMoreValuesInfoElementDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteMoreValuesInfoDisplayed();
+		return testEngine.getAutoCompleteInput().isAutoCompleteMoreValuesInfoDisplayed();
 	}
 
 	// -------------------- asserts -------------------- //
@@ -96,31 +96,31 @@ public abstract class AbstractAjaxAutoCompleteTest extends AbstractAjaxSeleniumL
 
 	protected boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(indicatorType);
+		return testEngine.getAutoCompleteInput().isAutoCompleteIndicatorDisplayed(indicatorType);
 	}
 
 	protected boolean isAutoCompleteIndicatorNotDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteIndicatorDisplayed(null);
+		return testEngine.getAutoCompleteInput().isAutoCompleteIndicatorDisplayed(null);
 	}
 
 	// -------------------- backdrop -------------------- //
 
 	protected boolean isAutoCompleteBackdropDisplayed() {
 
-		return testEngine.getAutoCompleteExtension().isAutoCompleteBackdropDisplayed();
+		return testEngine.getAutoCompleteInput().isAutoCompleteBackdropDisplayed();
 	}
 
 	protected void clickAutoCompleteBackdrop() {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteBackdrop();
+		testEngine.getAutoCompleteInput().clickAutoCompleteBackdrop();
 	}
 
 	// -------------------- miscellaneous -------------------- //
 
 	protected void clickAutoCompleteValue(AjaxAutoCompleteTestValue value) {
 
-		testEngine.getAutoCompleteExtension().clickAutoCompleteValue(value);
+		testEngine.getAutoCompleteInput().clickAutoCompleteValue(value);
 	}
 
 	// -------------------- private -------------------- //

@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestValue;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.elements.IAjaxSeleniumAutoCompleteTestValue;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 
-public class AjaxAutoCompleteTestValue implements IAjaxSeleniumTestDomAutoCompleteTestValue {
+public class AjaxAutoCompleteTestValue implements IAjaxSeleniumAutoCompleteTestValue {
 
 	private final String name;
 

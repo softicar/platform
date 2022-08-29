@@ -1,8 +1,7 @@
 package com.softicar.platform.ajax.document;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.dom.node.initialization.AbstractDomDeferredInitializationControllerTest;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import org.junit.Test;
 public class AjaxDomDeferredInitializationControllerTest extends AbstractDomDeferredInitializationControllerTest
 		implements IAjaxSeleniumLowLevelTestEngineMethods {
 
-	@Rule public final IAjaxSeleniumLowLevelTestEngine engine = new AjaxSeleniumLowLevelTestEngine();
+	@Rule public final AjaxSeleniumLowLevelTestEngine engine = new AjaxSeleniumLowLevelTestEngine();
 
 	private final TestDiv testDiv;
 
@@ -20,7 +19,7 @@ public class AjaxDomDeferredInitializationControllerTest extends AbstractDomDefe
 	}
 
 	@Override
-	public IAjaxSeleniumLowLevelTestEngine getTestEngine() {
+	public AjaxSeleniumLowLevelTestEngine getTestEngine() {
 
 		return engine;
 	}
