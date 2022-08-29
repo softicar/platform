@@ -15,7 +15,7 @@ public class AjaxDomWheelEventTest extends AbstractAjaxDomEventTest {
 	}
 
 	@Test
-	public void test() {
+	public void testMouseWheelDown() {
 
 		mouseWheelDown(testDiv);
 		waitForServer();
@@ -27,10 +27,21 @@ public class AjaxDomWheelEventTest extends AbstractAjaxDomEventTest {
 		assertEquals(0d, event.getDeltaX(), Double.MIN_VALUE);
 		assertTrue(event.getDeltaY() > 0);
 		assertEquals(0d, event.getDeltaZ(), Double.MIN_VALUE);
+	}
 
-//		send(testDiv, Key.TAB);
-//		waitForServer();
-//		assertKeyboardEvent(testDiv, DomEventType.TAB, DomKeyCodes.TAB);
+	@Test
+	public void testMouseWheelUp() {
+
+		mouseWheelUp(testDiv);
+		waitForServer();
+
+		var events = testDiv.getEvents();
+		assertEquals(1, events.size());
+		var event = events.get(0);
+		assertEquals(DomEventType.WHEEL, event.getType());
+		assertEquals(0d, event.getDeltaX(), Double.MIN_VALUE);
+		assertTrue(event.getDeltaY() < 0);
+		assertEquals(0d, event.getDeltaZ(), Double.MIN_VALUE);
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv implements IDomWheelEventHandler {

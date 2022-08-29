@@ -15,7 +15,6 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.WheelInput;
 
 class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEngineInput {
 
@@ -102,18 +101,6 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 		new Actions(webDriverSupplier.get())//
 			.release()
 			.perform();
-	}
-
-	@Override
-	public void mouseWheelDown(IDomNode node) {
-
-		rotateMouseWheel(node, 200);
-	}
-
-	@Override
-	public void mouseWheelUp(IDomNode node) {
-
-		rotateMouseWheel(node, -200);
 	}
 
 	@Override
@@ -219,13 +206,5 @@ class AjaxSeleniumLowLevelTestEngineInput implements IAjaxSeleniumLowLevelTestEn
 		int centerX = size.getWidth() / 2;
 		int centerY = size.getHeight() / 2;
 		return new Point(position.getX() - centerX, position.getY() - centerY);
-	}
-
-	private void rotateMouseWheel(IDomNode node, int deltaY) {
-
-		var scrollOrigin = WheelInput.ScrollOrigin.fromElement(webElementResolver.apply(node));
-		new Actions(webDriverSupplier.get())//
-			.scrollFromOrigin(scrollOrigin, 0, deltaY)
-			.perform();
 	}
 }

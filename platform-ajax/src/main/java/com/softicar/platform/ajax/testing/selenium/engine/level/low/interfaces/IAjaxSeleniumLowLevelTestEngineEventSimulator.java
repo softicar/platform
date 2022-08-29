@@ -17,4 +17,6 @@ public interface IAjaxSeleniumLowLevelTestEngineEventSimulator {
 	void simulateChange(IDomNode node);
 
 	void simulateInput(IDomNode node);
+
+	void simulateWheel(IDomNode node, int deltaY);
 }

@@ -239,7 +239,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelDown(IDomNode node) {
 
-		getTestEngine().getInput().mouseWheelDown(node);
+		simulateWheel(node, 200);
 	}
 
 	/**
@@ -251,7 +251,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	 */
 	default void mouseWheelUp(IDomNode node) {
 
-		getTestEngine().getInput().mouseWheelUp(node);
+		simulateWheel(node, -200);
 	}
 
 	/**
@@ -779,5 +779,10 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	default void simulateInput(IDomNode target) {
 
 		getTestEngine().getEventSimulator().simulateInput(target);
+	}
+
+	default void simulateWheel(IDomNode node, int deltaY) {
+
+		getTestEngine().getEventSimulator().simulateWheel(node, deltaY);
 	}
 }
