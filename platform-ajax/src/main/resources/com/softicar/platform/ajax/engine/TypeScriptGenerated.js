@@ -563,6 +563,9 @@ function listenToDomEvent(nodeId, event, doListen) {
         case 'TAB':
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
+        case 'WHEEL':
+            element.onwheel = handler;
+            break;
         default: alert('Unknown event ' + event + '.');
     }
 }
@@ -601,6 +604,11 @@ function sendDomEventToServer(event, eventType) {
         message.setModifierKey('ctrlKey', event.ctrlKey);
         message.setModifierKey('metaKey', event.metaKey);
         message.setModifierKey('shiftKey', event.shiftKey);
+    }
+    if (event instanceof WheelEvent) {
+        message.setDeltaX(event.deltaX);
+        message.setDeltaY(event.deltaY);
+        message.setDeltaZ(event.deltaZ);
     }
     AJAX_REQUEST_QUEUE.submit(message);
 }
@@ -897,6 +905,15 @@ class AjaxRequestMessage {
         this.setNumber("bcrH", rect.height);
         return this;
     }
+    setDeltaX(value) {
+        this.setNumber("deltaX", value);
+    }
+    setDeltaY(value) {
+        this.setNumber("deltaY", value);
+    }
+    setDeltaZ(value) {
+        this.setNumber("deltaZ", value);
+    }
     encode() {
         return new AjaxRequestMessageEncoder(this.data).encode();
     }
@@ -927,6 +944,9 @@ class AjaxRequestMessage {
             else if (this.isKeyEventType()) {
                 return false;
             }
+            else if (this.isWheelEventType()) {
+                return this.isSameDeltaDirections(other);
+            }
             else {
                 return true;
             }
@@ -934,6 +954,19 @@ class AjaxRequestMessage {
         else {
             return false;
         }
+    }
+    isSameDeltaDirections(other) {
+        var _a, _b, _c, _d, _e, _f;
+        let thisDeltaX = Number((_a = this.data.get('deltaX')) !== null && _a !== void 0 ? _a : 0);
+        let otherDeltaX = Number((_b = other.data.get('deltaX')) !== null && _b !== void 0 ? _b : 0);
+        let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
+        let thisDeltaY = Number((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
+        let otherDeltaY = Number((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
+        let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
+        let thisDeltaZ = Number((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
+        let otherDeltaZ = Number((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
+        let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
+        return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {
         let nodeId = this.data.get('n');
@@ -964,6 +997,9 @@ class AjaxRequestMessage {
     }
     isKeyEventType() {
         return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
+    }
+    isWheelEventType() {
+        return this.data.get('e') == 'WHEEL';
     }
     isSent() {
         return this.data.has('x');

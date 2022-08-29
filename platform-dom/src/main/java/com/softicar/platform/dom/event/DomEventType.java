@@ -22,7 +22,8 @@ public enum DomEventType {
 	KEYDOWN(IDomKeyDownEventHandler.class, IDomKeyDownEventHandler::handleKeyDown),
 	KEYUP(IDomKeyUpEventHandler.class, IDomKeyUpEventHandler::handleKeyUp),
 	SPACE(IDomSpaceKeyEventHandler.class, IDomSpaceKeyEventHandler::handleSpaceKey),
-	TAB(IDomTabKeyEventHandler.class, IDomTabKeyEventHandler::handleTabKey);
+	TAB(IDomTabKeyEventHandler.class, IDomTabKeyEventHandler::handleTabKey),
+	WHEEL(IDomWheelEventHandler.class, IDomWheelEventHandler::handleWheel);
 
 	private final DomEventDelegator<?> eventDelegator;
 
