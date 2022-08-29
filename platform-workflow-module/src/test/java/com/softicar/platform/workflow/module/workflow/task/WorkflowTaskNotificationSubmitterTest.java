@@ -23,7 +23,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 	public void testWithEnglishLanguage() {
 
 		user//
-			.setLocalization(getEnglishLocalization())
+			.setLocalization(getInternationalLocalization())
 			.save();
 
 		new WorkflowTaskNotificationSubmitter(task).submit();
@@ -81,11 +81,11 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 		return new PageUrlBuilder<>(WorkflowTaskPage.class, moduleInstance).build().toString();
 	}
 
-	private AGLocalization getEnglishLocalization() {
+	private AGLocalization getInternationalLocalization() {
 
 		return AGLocalization.TABLE//
 			.createSelect()
-			.where(AGLocalization.NAME.equal(CoreModuleInstanceTableDataInitializer.ENGLISH_LOCALIZATION_PRESET_NAME))
+			.where(AGLocalization.NAME.equal(CoreModuleInstanceTableDataInitializer.INTERNATIONAL_LOCALIZATION_PRESET_NAME))
 			.getOneAsOptional()
 			.orElseThrow();
 	}

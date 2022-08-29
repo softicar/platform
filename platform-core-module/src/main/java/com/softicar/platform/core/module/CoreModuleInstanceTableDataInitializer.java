@@ -19,12 +19,12 @@ import com.softicar.platform.db.runtime.table.configuration.IDbTableDataInitiali
  */
 public class CoreModuleInstanceTableDataInitializer implements IDbTableDataInitializer {
 
-	public static final String ENGLISH_LOCALIZATION_PRESET_NAME = "International";
+	public static final String INTERNATIONAL_LOCALIZATION_PRESET_NAME = "International";
 
 	@Override
 	public void initializeData() {
 
-		var localizationPreset = insertEnglishLocalizationPreset();
+		var localizationPreset = insertInternationalLocalizationPreset();
 		var systemUser = insertSystemUser(localizationPreset);
 		var emailServer = insertEmailServer();
 
@@ -44,11 +44,11 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.executeWithoutIdGeneration();
 	}
 
-	private AGLocalization insertEnglishLocalizationPreset() {
+	private AGLocalization insertInternationalLocalizationPreset() {
 
 		var id = AGLocalization.TABLE//
 			.createInsert()
-			.set(AGLocalization.NAME, ENGLISH_LOCALIZATION_PRESET_NAME)
+			.set(AGLocalization.NAME, INTERNATIONAL_LOCALIZATION_PRESET_NAME)
 			.set(AGLocalization.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
 			.set(AGLocalization.DECIMAL_SEPARATOR, ".")
 			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, "")
