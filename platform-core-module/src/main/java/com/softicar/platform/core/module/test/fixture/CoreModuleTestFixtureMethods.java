@@ -91,11 +91,6 @@ public interface CoreModuleTestFixtureMethods {
 		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".", "dd.MM.yyyy");
 	}
 
-	default AGLocalization insertLocalizationPresetInternational() {
-
-		return insertLocalizationPreset("International", LanguageEnum.ENGLISH, ".", ",", "yyyy-MM-dd");
-	}
-
 	// ------------------------------ module permission ------------------------------ //
 
 	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(//
