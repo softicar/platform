@@ -22,7 +22,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowDown()
 			.waitForServer();
 
@@ -46,10 +46,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowDown()
 			.waitForServer()
-			.focusByClick()
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -72,7 +72,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowUp()
 			.waitForServer();
 
@@ -89,6 +89,29 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 	}
 
 	@Test
+	public void testValidInputWithClick() {
+
+		setup//
+			.setSelectedValue(VALUE1)
+			.execute();
+
+		input//
+			.clickInputField()
+			.waitForServer();
+
+		asserter//
+			.expectValues(VALUE1)
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupValues(VALUE1)
+			.expectPopupSelectedValueFirst()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
 	public void testValidInputWithBackspace() {
 
 		setup//
@@ -96,7 +119,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.pressBackspace()
 			.waitForServer();
 
@@ -121,7 +144,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.pressArrowDown()
 			.waitForServer();
 
@@ -145,8 +168,31 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.pressArrowUp()
+			.waitForServer();
+
+		asserter//
+			.expectInputText(ILLEGAL_VALUE)
+			.expectSelectedValueExceptionMessage()
+			.expectIndicatorIllegal()
+			.expectPopupDisplayed()
+			.expectPopupValuesNone()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testIllegalInputWithClick() {
+
+		setup//
+			.setSelectedValue(ILLEGAL_VALUE)
+			.execute();
+
+		input//
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -168,7 +214,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowDown()
 			.waitForServer();
 
@@ -191,10 +237,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowDown()
 			.waitForServer()
-			.focusByClick()
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -216,8 +262,30 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressArrowUp()
+			.waitForServer();
+
+		asserter//
+			.expectValuesNone()
+			.expectIndicatorNone()
+			.expectPopupDisplayed()
+			.expectPopupValues(VALUES)
+			.expectPopupSelectedValueNone()
+			.expectFocus()
+			.expectBackdropDisplayed()
+			.expectCallbackNone()
+			.assertAll();
+	}
+
+	@Test
+	public void testEmptyInputWithClick() {
+
+		setup//
+			.execute();
+
+		input//
+			.clickInputField()
 			.waitForServer();
 
 		asserter//
@@ -239,7 +307,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(VALUE1.getName())
 			.waitForServer();
 
@@ -263,7 +331,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString("foo [1")
 			.waitForServer();
 
@@ -288,7 +356,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(VALUE3.getName())
 			.waitForServer();
 
@@ -312,7 +380,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer();
 
@@ -336,7 +404,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressArrowDown()
@@ -362,7 +430,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressArrowDown()
@@ -390,7 +458,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
 			.waitForServer()
 			.pressArrowUp()
@@ -417,7 +485,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer();
 
@@ -440,7 +508,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressArrowDown()
@@ -469,7 +537,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString("foo [1]")
 			.waitForServer();
 
@@ -496,7 +564,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString("foo [1]")
 			.waitForServer();
 
@@ -524,7 +592,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString("FOO [1]")
 			.waitForServer();
 
@@ -552,7 +620,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupOpenedTest extends AbstractA
 			.execute();
 
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString("FOO [1]")
 			.waitForServer();
 

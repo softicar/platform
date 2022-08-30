@@ -236,6 +236,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		inputField.focus();
 	}
 
+	protected void onClick() {
+
+		if (!popup.isAppended()) {
+			refreshPopup();
+		}
+	}
+
 	// ------------------------------ protected getters ------------------------------ //
 
 	protected String getPattern() {

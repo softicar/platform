@@ -41,7 +41,6 @@ public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStrin
 
 		// select specific value
 		click(inputField);
-		send(inputField, Key.DOWN);
 		waitForServer();
 		send(inputField, Key.DOWN);
 		send(inputField, Key.ENTER);

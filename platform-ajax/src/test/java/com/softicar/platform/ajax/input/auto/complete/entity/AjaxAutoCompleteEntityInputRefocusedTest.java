@@ -17,7 +17,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		setup//
 			.execute();
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressEscape()
@@ -25,7 +25,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		input//
-			.focusByClick()
+			.clickInputFieldAndClosePopup()
 			.waitForServer();
 
 		asserter//
@@ -45,7 +45,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		setup//
 			.execute();
 		input//
-			.focusByClick()
+			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressEscape();
@@ -54,7 +54,7 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 			.waitForServer();
 
 		input//
-			.focusByClick()
+			.clickInputFieldAndClosePopup()
 			.waitForServer();
 
 		asserter//

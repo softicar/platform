@@ -23,7 +23,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -45,7 +45,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
@@ -67,7 +67,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -90,7 +90,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
@@ -113,7 +113,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressEnter()
 			.waitForNoPopup();
 
@@ -134,7 +134,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressEscape()
 			.waitForServer();
 
@@ -155,7 +155,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest extends Abstrac
 			.execute();
 
 		input//
-			.focusByClick()
+			.focusByTab()
 			.pressTab()
 			.waitForServer();
 
