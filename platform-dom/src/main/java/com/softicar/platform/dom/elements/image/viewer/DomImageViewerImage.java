@@ -46,8 +46,9 @@ public class DomImageViewerImage extends DomImage implements IDomClickEventHandl
 		return limitWidth;
 	}
 
-	public void setLimitWidth(boolean limitWidth) {
+	public DomImageViewerImage setLimitWidth(boolean limitWidth) {
 
 		this.limitWidth = limitWidth;
+		return this;
 	}
 }

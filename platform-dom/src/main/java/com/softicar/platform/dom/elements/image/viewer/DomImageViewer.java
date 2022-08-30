@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.IRefreshable;
+import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomImages;
@@ -9,107 +9,112 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.List;
+import java.util.Optional;
 
-public class DomImageViewer extends DomDiv implements IRefreshable {
+public class DomImageViewer extends DomDiv {
 
-	private final DomBar navigationBar;
-	private final DomDiv imageDiv;
-	private final DomDiv rotationDiv;
-	private final DomButton nextImageButton;
-	private final DomButton previousImageButton;
-	private final int allPages;
-	private final List<DomImageViewerImage> previewImages;
-	private int currentPage = 0;
-	private DomImageViewerImage currentImage;
+	private final List<IResource> images;
+	private final ICssLength width;
+	private final NavigationBar navigationBar;
+	private final ImageDiv imageDiv;
+	private final RotationDiv rotationDiv;
+	private int currentIndex;
 
-	public DomImageViewer(List<DomImageViewerImage> previewImages) {
+	public DomImageViewer(List<IResource> images, ICssLength width) {
 
-		this.previewImages = previewImages;
-		this.allPages = previewImages.size();
-		this.navigationBar = new DomBar();
-		this.imageDiv = new DomDiv();
+		this.images = images;
+		this.width = width;
+		this.navigationBar = new NavigationBar();
+		this.imageDiv = new ImageDiv();
 		this.rotationDiv = new RotationDiv();
-		this.nextImageButton = new DomButton()//
-			.setIcon(DomElementsImages.PAGE_NEXT.getResource())
-			.setClickCallback(this::nextImage);
-		this.previousImageButton = new DomButton()//
-			.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
-			.setClickCallback(this::previousImage);
+		this.currentIndex = 0;
+
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER);
-		refresh();
-	}
-
-	public DomImageViewer setInPlaceZoom(ICssLength width) {
-
-		// TODO extract style to CSS
-		addCssClass(DomCssPseudoClasses.DRAGGABLE);
-		imageDiv.setStyle(CssStyle.WIDTH, width);
-		return this;
-	}
-
-	@Override
-	public void refresh() {
-
-		removeChildren();
-		checkCurrentPageIndex();
-		buildNavigationDiv();
-		buildImageDiv();
 		appendChild(navigationBar);
 		appendChild(imageDiv);
 		appendChild(rotationDiv);
-	}
 
-	private void checkCurrentPageIndex() {
-
-		if (currentPage + 1 == allPages) {
-			nextImageButton.setDisabled(true);
-		} else {
-			nextImageButton.setDisabled(false);
-		}
-		if (currentPage == 0) {
-			previousImageButton.setDisabled(true);
-		} else {
-			previousImageButton.setDisabled(false);
-		}
-	}
-
-	private void buildNavigationDiv() {
-
-		navigationBar.removeChildren();
-		navigationBar.appendChild(previousImageButton);
-		navigationBar.appendText(IDisplayString.format("%s / %s", currentPage + 1, allPages));
-		navigationBar.appendChild(nextImageButton);
-	}
-
-	private void buildImageDiv() {
-
-		imageDiv.removeChildren();
-		currentImage = previewImages.get(currentPage);
-		imageDiv.appendChild(currentImage);
+		refresh();
 	}
 
 	private void nextImage() {
 
-		currentPage++;
-		persistZoomStateOfImage();
+		currentIndex++;
 		refresh();
 	}
 
 	private void previousImage() {
 
-		currentPage--;
-		persistZoomStateOfImage();
+		currentIndex--;
 		refresh();
 	}
 
-	private void persistZoomStateOfImage() {
+	private void refresh() {
 
-		DomImageViewerImage nextImage = previewImages.get(currentPage);
-		nextImage.setLimitWidth(currentImage.isLimitWidth());
-		nextImage.refresh();
+		navigationBar.refresh();
+		imageDiv.refresh();
+	}
+
+	private class NavigationBar extends DomBar {
+
+		private final DomButton nextImageButton;
+		private final DomButton previousImageButton;
+
+		public NavigationBar() {
+
+			this.previousImageButton = new DomButton()//
+				.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
+				.setClickCallback(() -> previousImage());
+			this.nextImageButton = new DomButton()//
+				.setIcon(DomElementsImages.PAGE_NEXT.getResource())
+				.setClickCallback(() -> nextImage());
+		}
+
+		private void refresh() {
+
+			removeChildren();
+
+			appendChild(previousImageButton);
+			appendText(IDisplayString.format("%s / %s", currentIndex + 1, images.size()));
+			appendChild(nextImageButton);
+
+			previousImageButton.setEnabled(currentIndex > 0);
+			nextImageButton.setEnabled(currentIndex < images.size() - 1);
+		}
+	}
+
+	private class ImageDiv extends DomDiv {
+
+		private final DomImageViewerImage currentImage;
+
+		public ImageDiv() {
+
+			this.currentImage = null;
+		}
+
+		public void refresh() {
+
+			if (!images.isEmpty()) {
+				var limited = Optional//
+					.ofNullable(currentImage)
+					.map(DomImageViewerImage::isLimitWidth)
+					.orElse(true);
+
+				removeChildren();
+				appendChild(new DomImageViewerImage(images.get(currentIndex), width).setLimitWidth(limited));
+			}
+		}
+
+		public void setRotated(boolean rotated) {
+
+			if (rotated) {
+				currentImage.addCssClass(DomCssPseudoClasses.ROTATED);
+			} else {
+				currentImage.removeCssClass(DomCssPseudoClasses.ROTATED);
+			}
+		}
 	}
 
 	private class RotationDiv extends DomDiv {
@@ -126,12 +131,8 @@ public class DomImageViewer extends DomDiv implements IRefreshable {
 
 		private void rotate() {
 
-			if (rotated) {
-				currentImage.removeCssClass(DomCssPseudoClasses.ROTATED);
-			} else {
-				currentImage.addCssClass(DomCssPseudoClasses.ROTATED);
-			}
 			rotated = !rotated;
+			imageDiv.setRotated(rotated);
 		}
 	}
 }

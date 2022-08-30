@@ -3,10 +3,9 @@ package com.softicar.platform.core.module.file.stored.preview.pdf;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.dom.elements.image.viewer.DomImageViewerImage;
-import com.softicar.platform.dom.style.ICssLength;
 import com.softicar.platform.emf.EmfI18n;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -18,33 +17,31 @@ import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
-public class StoredFilePdfToZoomableImagesConverter {
+public class StoredFilePdfRenderer {
 
 	private static final int PREVIEW_DPI = 125;
 	private static final MimeType MIME_TYPE = MimeType.IMAGE_JPEG;
 	private static final String THUMBNAIL_IMAGE_TYPE = "jpg";
 
 	/**
-	 * This converts a given {@link AGStoredFile} of type PDF to an list of
-	 * {@link DomImageViewerImage}. The converted image type is jpg.
+	 * Renders the pages of a PDF into a list of images.
 	 *
 	 * @param file
-	 *            The file to convert. Needs to be a PDF, or else an exception
-	 *            will be thrown.
-	 * @param initialMaxWidth
-	 *            The initial max width of the converted images when they are
-	 *            not zoomed-in.
-	 * @return An {@link ArrayList} consisting of
-	 *         {@link DomImageViewerImage}.
+	 *            the PDF file to convert (never <i>null</i>)
+	 * @return a {@link List} of {@link IResource} objects representing the
+	 *         pages of the PDF (never <i>null</i>)
+	 * @throws SofticarUserException
+	 *             if the content type of the given {@link AGStoredFile} is not
+	 *             {@link MimeType#APPLICATION_PDF}
 	 */
-	public static List<DomImageViewerImage> convertPagesToImages(AGStoredFile file, ICssLength initialMaxWidth) {
+	public static List<IResource> renderPages(AGStoredFile file) {
 
 		Optional
 			.ofNullable(file.getContentType())
 			.filter(contentType -> contentType.contains("pdf"))
 			.orElseThrow(() -> new SofticarUserException(EmfI18n.THE_FILE_FORMAT_MUST_BE_PDF));
 
-		List<DomImageViewerImage> imageList = new ArrayList<>();
+		List<IResource> imageList = new ArrayList<>();
 		try (InputStream stream = file.getFileContentInputStream()) {
 			try (PDDocument pdDocument = PDDocument.load(stream)) {
 				for (int index = 0; index < pdDocument.getNumberOfPages(); index++) {
@@ -62,7 +59,7 @@ public class StoredFilePdfToZoomableImagesConverter {
 						.concat(String.valueOf(index + 1))
 						.concat(".")
 						.concat(THUMBNAIL_IMAGE_TYPE);
-					imageList.add(new DomImageViewerImage(new ImageByteArrayResource(outputStream, fileName, MIME_TYPE), initialMaxWidth));
+					imageList.add(new ImageByteArrayResource(outputStream, fileName, MIME_TYPE));
 				}
 			}
 		} catch (Throwable throwable) {
