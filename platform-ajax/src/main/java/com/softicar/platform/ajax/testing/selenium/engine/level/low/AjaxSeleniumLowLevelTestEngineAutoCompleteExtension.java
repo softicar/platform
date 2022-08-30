@@ -64,7 +64,6 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 	 *         given type is displayed; <i>true</i> if <i>null</i> is given and
 	 *         no indicator is displayed; <i>false</i> otherwise
 	 */
-
 	public boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
 		if (indicatorType != null) {
