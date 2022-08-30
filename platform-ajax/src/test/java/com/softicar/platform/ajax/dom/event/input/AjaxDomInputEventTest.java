@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.dom.event.input;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomInputEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
@@ -47,7 +47,7 @@ public class AjaxDomInputEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		input.setBlocking(true);
 		send(input, "abc");
 		send(input, "def");
-		send(input, IAjaxSeleniumLowLevelTestEngineInput.Key.TAB);
+		send(input, AjaxSeleniumLowLevelTestEngineInput.Key.TAB);
 		send(input, "ghi");
 		input.setBlocking(false);
 

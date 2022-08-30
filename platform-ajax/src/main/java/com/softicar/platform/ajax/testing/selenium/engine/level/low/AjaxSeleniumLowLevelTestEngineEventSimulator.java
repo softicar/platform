@@ -1,33 +1,33 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineEventSimulator;
 import com.softicar.platform.dom.node.IDomNode;
 
-class AjaxSeleniumLowLevelTestEngineEventSimulator implements IAjaxSeleniumLowLevelTestEngineEventSimulator {
+/**
+ * Facilitates the simulation of events in a UI-under-test.
+ *
+ * @author Alexander Schmidt
+ */
+public class AjaxSeleniumLowLevelTestEngineEventSimulator {
 
-	private final IAjaxSeleniumLowLevelTestEngine engine;
+	private final AjaxSeleniumLowLevelTestEngine engine;
 	private final AjaxSeleniumLowLevelTestJavascriptExecutor javascriptExecutor;
 
-	public AjaxSeleniumLowLevelTestEngineEventSimulator(AjaxSeleniumLowLevelTestEngineParameters parameters) {
+	AjaxSeleniumLowLevelTestEngineEventSimulator(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
 		this.engine = parameters.getEngine();
 		this.javascriptExecutor = new AjaxSeleniumLowLevelTestJavascriptExecutor(parameters.getWebDriverSupplier());
 	}
 
-	@Override
 	public void simulateKeyDown(IDomNode node, int keyCode) {
 
 		simulateKeyboardEvent(node, "keydown", keyCode);
 	}
 
-	@Override
 	public void simulateKeyUp(IDomNode node, int keyCode) {
 
 		simulateKeyboardEvent(node, "keyup", keyCode);
 	}
 
-	@Override
 	public void simulateChange(IDomNode node) {
 
 		String javascript = new StringBuilder()//
@@ -37,7 +37,6 @@ class AjaxSeleniumLowLevelTestEngineEventSimulator implements IAjaxSeleniumLowLe
 		javascriptExecutor.execute(javascript, engine.getOutput().getAttributeValue(node, "id"));
 	}
 
-	@Override
 	public void simulateInput(IDomNode node) {
 
 		String javascript = new StringBuilder()//
@@ -47,7 +46,6 @@ class AjaxSeleniumLowLevelTestEngineEventSimulator implements IAjaxSeleniumLowLe
 		javascriptExecutor.execute(javascript, engine.getOutput().getAttributeValue(node, "id"));
 	}
 
-	@Override
 	public void simulateWheel(IDomNode node, int deltaY) {
 
 		// inspired by https://stackoverflow.com/a/47287595

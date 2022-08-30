@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.elements.IAjaxSeleniumTestDomAutoCompleteTestValue;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.elements.IAjaxSeleniumAutoCompleteTestValue;
 import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.util.Collections;
@@ -13,16 +12,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
+public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 	private final Supplier<WebDriver> webDriverSupplier;
 
-	public AjaxSeleniumLowLevelTestEngineAutoCompleteExtension(AjaxSeleniumLowLevelTestEngineParameters parameters) {
+	AjaxSeleniumLowLevelTestEngineAutoCompleteExtension(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
 		this.webDriverSupplier = parameters.getWebDriverSupplier();
 	}
 
-	@Override
 	public List<String> getAutoCompletePopupValueNames() {
 
 		return getAutoCompleteValueWebElements()//
@@ -31,7 +29,6 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.collect(Collectors.toList());
 	}
 
-	@Override
 	public Optional<Integer> getAutoCompletePopupSelectedValueIndex() {
 
 		List<WebElement> available = getAutoCompleteValueWebElements();
@@ -49,13 +46,24 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 		}
 	}
 
-	@Override
 	public boolean isAutoCompletePopupDisplayed() {
 
 		return getAutoCompletePopup().isPresent();
 	}
 
-	@Override
+	/**
+	 * Determines whether an indicator of the given
+	 * {@link DomAutoCompleteIndicatorType} is displayed.
+	 * <p>
+	 * If <i>null</i> is given, it determines whether <b>no</b> indicator is
+	 * displayed.
+	 *
+	 * @param indicatorType
+	 *            the indicator type to check (may be <i>null</i>)
+	 * @return <i>true</i> if non-<i>null</i> is given and an indicator of the
+	 *         given type is displayed; <i>true</i> if <i>null</i> is given and
+	 *         no indicator is displayed; <i>false</i> otherwise
+	 */
 	public boolean isAutoCompleteIndicatorDisplayed(DomAutoCompleteIndicatorType indicatorType) {
 
 		if (indicatorType != null) {
@@ -75,7 +83,6 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 		}
 	}
 
-	@Override
 	public boolean isAutoCompleteBackdropDisplayed() {
 
 		return !webDriverSupplier//
@@ -84,7 +91,6 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.isEmpty();
 	}
 
-	@Override
 	public boolean isAutoCompleteValuePlaceholderDisplayed() {
 
 		return getAutoCompleteValuePlaceholderElement()//
@@ -92,7 +98,6 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.orElse(false);
 	}
 
-	@Override
 	public boolean isAutoCompleteMoreValuesInfoDisplayed() {
 
 		return getAutoCompleteMoreValuesInfoElement()//
@@ -100,19 +105,16 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.orElse(false);
 	}
 
-	@Override
 	public void clickAutoCompletePopupValue(int index) {
 
 		getAutoCompleteValueWebElements().get(index).click();
 	}
 
-	@Override
-	public void clickAutoCompleteValue(IAjaxSeleniumTestDomAutoCompleteTestValue value) {
+	public void clickAutoCompleteValue(IAjaxSeleniumAutoCompleteTestValue value) {
 
 		findValue(value).get().click();
 	}
 
-	@Override
 	public void clickAutoCompleteBackdrop() {
 
 		webDriverSupplier//
@@ -123,7 +125,7 @@ class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension implements IAjaxSeleni
 			.ifPresent(WebElement::click);
 	}
 
-	private Optional<WebElement> findValue(IAjaxSeleniumTestDomAutoCompleteTestValue value) {
+	private Optional<WebElement> findValue(IAjaxSeleniumAutoCompleteTestValue value) {
 
 		return getAutoCompleteValueWebElements()//
 			.stream()

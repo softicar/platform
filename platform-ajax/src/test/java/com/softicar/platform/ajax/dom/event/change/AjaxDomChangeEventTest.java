@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.dom.event.change;
 
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
@@ -58,7 +58,7 @@ public class AjaxDomChangeEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		testDiv.clearEvents();
 
 		// remove and add the 'o' again --> no change event should occur
-		send(input, IAjaxSeleniumLowLevelTestEngineInput.Key.BACK_SPACE);
+		send(input, AjaxSeleniumLowLevelTestEngineInput.Key.BACK_SPACE);
 		send(input, "o");
 		clickBodyNode();
 		assertEquals("Expected to receive no redundant events.", 0, testDiv.getEvents().size());

@@ -1,12 +1,12 @@
-package com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces;
+package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Modifier;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Modifier;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 
 /**
  * Provides convenience methods for unit tests that use
- * {@link IAjaxSeleniumLowLevelTestEngine}.
+ * {@link AjaxSeleniumLowLevelTestEngine}.
  *
  * @author Alexander Schmidt
  */
@@ -32,12 +32,12 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	public static final int MOUSE_WHEEL_ROTATION_STEP_PIXELS = 200;
 
 	/**
-	 * The {@link IAjaxSeleniumLowLevelTestEngine} that contains the methods for
+	 * The {@link AjaxSeleniumLowLevelTestEngine} that contains the methods for
 	 * which this interface serves as a wrapper.
 	 *
-	 * @return the {@link IAjaxSeleniumLowLevelTestEngine} (never <i>null</i>)
+	 * @return the {@link AjaxSeleniumLowLevelTestEngine} (never <i>null</i>)
 	 */
-	IAjaxSeleniumLowLevelTestEngine getTestEngine();
+	AjaxSeleniumLowLevelTestEngine getTestEngine();
 
 	// -------------------------------- setup -------------------------------- //
 
