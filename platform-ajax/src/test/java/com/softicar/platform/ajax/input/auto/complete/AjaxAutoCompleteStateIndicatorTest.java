@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import org.junit.Ignore;

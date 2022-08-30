@@ -119,6 +119,33 @@ public interface IDomEvent {
 	DomRect getBoundingClientRect();
 
 	/**
+	 * Returns the delta-x value of a {@link DomEventType#WHEEL} event.
+	 * <p>
+	 * Returns 0 for any other {@link DomEventType}.
+	 *
+	 * @return the delta-x value
+	 */
+	double getDeltaX();
+
+	/**
+	 * Returns the delta-y value of a {@link DomEventType#WHEEL} event.
+	 * <p>
+	 * Returns 0 for any other {@link DomEventType}.
+	 *
+	 * @return the delta-y value
+	 */
+	double getDeltaY();
+
+	/**
+	 * Returns the delta-z value of a {@link DomEventType#WHEEL} event.
+	 * <p>
+	 * Returns 0 for any other {@link DomEventType}.
+	 *
+	 * @return the delta-z value
+	 */
+	double getDeltaZ();
+
+	/**
 	 * Returns whether the ALT key is pressed.
 	 *
 	 * @return true if ALT key is pressed

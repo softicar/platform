@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.dialog.prompt;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
 import com.softicar.platform.dom.node.IDomNode;
 import org.junit.Test;

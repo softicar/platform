@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.dom.event.key;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomKeyDownEventHandler;
@@ -60,11 +60,11 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = openTestNode(() -> new TestInput("ArrowDown", "ArrowUp"));
 
-		sendKeysAndWait(IAjaxSeleniumLowLevelTestEngineInput.Key.DOWN);
+		sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key.DOWN);
 		assertKeyDownAndUpEvents("ArrowDown");
 		assertNoFurtherEvents();
 
-		sendKeysAndWait(IAjaxSeleniumLowLevelTestEngineInput.Key.UP);
+		sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key.UP);
 		assertKeyDownAndUpEvents("ArrowUp");
 		assertNoFurtherEvents();
 	}
@@ -128,7 +128,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// ------------------------------ utility ------------------------------ //
 
-	private void sendKeysAndWait(IAjaxSeleniumLowLevelTestEngineInput.Key...keys) {
+	private void sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key...keys) {
 
 		send(input, keys);
 		waitForServer();

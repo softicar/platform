@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.request;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.input.IDomTextualInput;
@@ -170,7 +170,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertSelectedOptions();
 
 		click(testDiv.option2);
-		click(testDiv.option3, IAjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
+		click(testDiv.option3, AjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
 		tester.clickButton();
 		tester.assertValueParameter(testDiv.option2.getNodeIdString() + "," + testDiv.option3.getNodeIdString());
 		tester.assertSelectedOptions(testDiv.option2, testDiv.option3);
@@ -184,8 +184,8 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertNoValueParameter();
 		tester.assertSelectedOptions(testDiv.option1, testDiv.option2);
 
-		click(testDiv.option1, IAjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
-		click(testDiv.option2, IAjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
+		click(testDiv.option1, AjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
+		click(testDiv.option2, AjaxSeleniumLowLevelTestEngineInput.Modifier.CONTROL);
 		tester.clickButton();
 		tester.assertValueParameter("");
 		tester.assertSelectedOptions();
@@ -209,7 +209,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 			click(testDiv.testButton);
 		}
 
-		public void send(IAjaxSeleniumLowLevelTestEngineInput.Key...keys) {
+		public void send(AjaxSeleniumLowLevelTestEngineInput.Key...keys) {
 
 			AjaxRequestInputValuesTest.this.send(node, keys);
 		}

@@ -1,12 +1,12 @@
-package com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces;
+package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Modifier;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Modifier;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
@@ -23,19 +23,21 @@ import java.util.function.Supplier;
 
 /**
  * Provides convenience methods for unit tests that use
- * {@link IAjaxSeleniumLowLevelTestEngine}.
+ * {@link AjaxSeleniumLowLevelTestEngine}.
  *
  * @author Alexander Schmidt
  */
 public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
+	public static final int MOUSE_WHEEL_ROTATION_STEP_PIXELS = 200;
+
 	/**
-	 * The {@link IAjaxSeleniumLowLevelTestEngine} that contains the methods for
+	 * The {@link AjaxSeleniumLowLevelTestEngine} that contains the methods for
 	 * which this interface serves as a wrapper.
 	 *
-	 * @return the {@link IAjaxSeleniumLowLevelTestEngine} (never <i>null</i>)
+	 * @return the {@link AjaxSeleniumLowLevelTestEngine} (never <i>null</i>)
 	 */
-	IAjaxSeleniumLowLevelTestEngine getTestEngine();
+	AjaxSeleniumLowLevelTestEngine getTestEngine();
 
 	// -------------------------------- setup -------------------------------- //
 
@@ -228,6 +230,30 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	default void mouseUpUnsafe() {
 
 		getTestEngine().getInput().mouseUpUnsafe();
+	}
+
+	/**
+	 * Rotates the mouse wheel downwards.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to rotate the mouse wheel on (never
+	 *            <i>null</i>)
+	 */
+	default void mouseWheelDown(IDomNode node) {
+
+		simulateWheel(node, MOUSE_WHEEL_ROTATION_STEP_PIXELS);
+	}
+
+	/**
+	 * Rotates the mouse wheel upwards.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} to rotate the mouse wheel on (never
+	 *            <i>null</i>)
+	 */
+	default void mouseWheelUp(IDomNode node) {
+
+		simulateWheel(node, -MOUSE_WHEEL_ROTATION_STEP_PIXELS);
 	}
 
 	/**
@@ -755,5 +781,21 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	default void simulateInput(IDomNode target) {
 
 		getTestEngine().getEventSimulator().simulateInput(target);
+	}
+
+	/**
+	 * Simulates a vertical mouse wheel rotation by the given number of pixels.
+	 * <p>
+	 * A positive number corresponds to "wheel down", while a negative number
+	 * corresponds to "wheel up".
+	 *
+	 * @param node
+	 *            the target {@link IDomNode} (never <i>null</i>)
+	 * @param deltaY
+	 *            the number of pixels
+	 */
+	default void simulateWheel(IDomNode node, int deltaY) {
+
+		getTestEngine().getEventSimulator().simulateWheel(node, deltaY);
 	}
 }

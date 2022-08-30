@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.common;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomBlurEventHandler;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -17,43 +18,67 @@ import org.openqa.selenium.TimeoutException;
 
 public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	private static final Duration CLICK_HANDLER_DELAY = Duration.ofSeconds(1);
-	private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(10);
+	private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(3);
 	private final TestDiv testDiv;
 	private final List<String> events;
+	private Duration clickDelay;
 
 	public AjaxSeleniumTestServerWaiterTest() {
 
 		this.testDiv = openTestNode(TestDiv::new);
 		this.events = new ArrayList<>();
+		this.clickDelay = null;
 	}
 
+	/**
+	 * In this test, we trigger a series of different events:
+	 * <ol>
+	 * <li>{@link DomEventType#FOCUS} on the input <b>A</b></li>
+	 * <li>{@link DomEventType#INPUT} on the input <b>A</b></li>
+	 * <li>{@link DomEventType#CHANGE} on the input <b>A</b></li>
+	 * <li>{@link DomEventType#BLUR} on the input <b>A</b></li>
+	 * <li>{@link DomEventType#FOCUS} on the input <b>B</b></li>
+	 * <li>{@link DomEventType#CLICK} on the input <b>B</b></li>
+	 * </ol>
+	 * To ensure that {@link AjaxSeleniumTestServerWaiter} waits for all these
+	 * events to be finished, before continuing, we block the last event, that
+	 * is the {@link DomEventType#CLICK} on input <b>B</b> for half of the wait
+	 * timeout of the {@link AjaxSeleniumTestServerWaiter}.
+	 */
 	@Test
-	public void test() {
+	public void testWithoutWaitTimeout() {
 
-		send(testDiv.input1, "a");
-		click(testDiv.input2);
-		executeWait();
+		this.clickDelay = WAIT_TIMEOUT.dividedBy(2);
 
-		send(testDiv.input2, "b");
-		executeWait();
+		triggerEvents();
+		executeWaiter();
 
-		assertEquals("[FOCUS#1, INPUT#1, BLUR#1, FOCUS#2, CLICK#2, INPUT#2]", events.toString());
+		assertEquals("[focus.A, input.A, change.A, blur.A, focus.B, click.B]", events.toString());
 	}
 
+	/**
+	 * In this test, we trigger the same series of different events as in
+	 * {@link #testWithoutWaitTimeout()}. But this time, we provoke a timeout of the
+	 * {@link AjaxSeleniumTestServerWaiter} by blocking the the
+	 * {@link DomEventType#CLICK} on input <b>B</b> for double the wait timeout
+	 * of the {@link AjaxSeleniumTestServerWaiter}.
+	 */
 	@Test
-	public void testWithTimeout() {
+	public void testWithWaitTimeout() {
 
-		send(testDiv.input1, "a");
-		click(testDiv.input2);
+		this.clickDelay = WAIT_TIMEOUT.multipliedBy(2);
 
-		assertException(
-			TimeoutException.class,
-			() -> new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
-				.waitForServer(Duration.ZERO));
+		triggerEvents();
+		assertException(TimeoutException.class, this::executeWaiter);
 	}
 
-	private void executeWait() {
+	private void triggerEvents() {
+
+		send(testDiv.inputA, "a");
+		click(testDiv.inputB);
+	}
+
+	private void executeWaiter() {
 
 		new AjaxSeleniumTestServerWaiter(getTestEngine()::getWebDriver)//
 			.waitForServer(WAIT_TIMEOUT);
@@ -61,16 +86,16 @@ public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLev
 
 	private class TestDiv extends DomDiv {
 
-		private final TestInput input1;
-		private final TestInput input2;
+		private final TestInput inputA;
+		private final TestInput inputB;
 
 		public TestDiv() {
 
-			input1 = new TestInput("1");
-			input2 = new TestInput("2");
+			this.inputA = new TestInput("A");
+			this.inputB = new TestInput("B");
 
-			appendChild(input1);
-			appendChild(input2);
+			appendChild(inputA);
+			appendChild(inputB);
 		}
 	}
 
@@ -81,31 +106,33 @@ public class AjaxSeleniumTestServerWaiterTest extends AbstractAjaxSeleniumLowLev
 		public TestInput(String name) {
 
 			this.name = name;
+
+			addChangeCallback(() -> events.add("change." + name));
 		}
 
 		@Override
 		public void handleInput(IDomEvent event) {
 
-			events.add("INPUT#" + name);
+			events.add("input." + name);
 		}
 
 		@Override
 		public void handleFocus(IDomEvent event) {
 
-			events.add("FOCUS#" + name);
+			events.add("focus." + name);
 		}
 
 		@Override
 		public void handleBlur(IDomEvent event) {
 
-			events.add("BLUR#" + name);
+			events.add("blur." + name);
 		}
 
 		@Override
 		public void handleClick(IDomEvent event) {
 
-			Sleep.sleep(CLICK_HANDLER_DELAY);
-			events.add("CLICK#" + name);
+			Sleep.sleep(clickDelay);
+			events.add("click." + name);
 		}
 	}
 }
