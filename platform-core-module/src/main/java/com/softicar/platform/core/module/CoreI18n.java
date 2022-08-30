@@ -196,6 +196,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("Aktuelle Panic-Einträge");
 	I18n0 CURRENT_PASSWORD = new I18n0("Current Password")//
 		.de("Aktuelles Passwort");
+	I18n0 CURRENT_PROGRAM_EXECUTIONS_WILL_CONTINUE_TO_RUN_UNTIL_THEY_ARE_FINISHED =
+			new I18n0("Current program executions will continue to run until they are finished.")//
+				.de("Laufende Programmausführungen werden so lange fortgesetzt, bis sie beendet sind.");
 	I18n0 DAEMON_WATCHDOG_STATE = new I18n0("Daemon Watchdog State")//
 		.de("Daemon-Watchdog-Status");
 	I18n0 DATA = new I18n0("Data")//
@@ -544,6 +547,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Nächstfolgende");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
+	I18n0 NO_NEW_PROGRAM_EXECUTIONS_WILL_BE_LAUNCHED = new I18n0("No new program executions will be launched.")//
+		.de("Es werden keine neuen Programmausführungen gestartet.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NOT_QUEUED = new I18n0("Not queued")//
@@ -667,8 +672,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-UUID");
 	I18n0 PROGRAMS = new I18n0("Programs")//
 		.de("Programme");
-	I18n0 PROGRAMS_WILL_NOT_BE_EXECUTED = new I18n0("Programs will not be executed.")//
-		.de("Programme werden nicht ausgeführt.");
 	I18n0 PROVIDE_A_POLITE_AND_REASONABLE_RATIONALE = new I18n0("Provide a polite and reasonable rationale.")//
 		.de("Geben Sie eine höfliche und vernünftige Begründung an.");
 	I18n0 PSEUDONYMIZE_USER = new I18n0("Pseudonymize User")//

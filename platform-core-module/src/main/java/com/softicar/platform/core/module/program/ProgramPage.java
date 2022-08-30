@@ -43,7 +43,7 @@ public class ProgramPage extends AbstractEmfManagementPage<AGCoreModuleInstance>
 	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
 		var div = new DomDiv();
-		div.appendChild(new ProgramMaintenanceMessageDiv());
+		div.appendChild(new ProgramMaintenanceMessageBar());
 		div.appendChild(super.createContentNode(moduleInstance));
 		return div;
 	}

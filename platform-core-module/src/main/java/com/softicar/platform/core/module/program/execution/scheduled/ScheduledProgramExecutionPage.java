@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.program.ProgramMaintenanceMessageDiv;
+import com.softicar.platform.core.module.program.ProgramMaintenanceMessageBar;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
@@ -44,7 +44,7 @@ public class ScheduledProgramExecutionPage extends AbstractEmfManagementPage<AGC
 	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
 
 		var div = new DomDiv();
-		div.appendChild(new ProgramMaintenanceMessageDiv());
+		div.appendChild(new ProgramMaintenanceMessageBar());
 		div.appendChild(super.createContentNode(moduleInstance));
 		return div;
 	}
