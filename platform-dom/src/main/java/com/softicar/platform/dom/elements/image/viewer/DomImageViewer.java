@@ -1,10 +1,10 @@
-package com.softicar.platform.core.module.file.stored.preview;
+package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
-import com.softicar.platform.core.module.CoreCssClasses;
-import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -13,7 +13,7 @@ import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.List;
 
-public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable {
+public class DomImageViewer extends DomDiv implements IRefreshable {
 
 	private final DomBar navigationBar;
 	private final DomDiv imageDiv;
@@ -21,11 +21,11 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 	private final DomButton nextImageButton;
 	private final DomButton previousImageButton;
 	private final int allPages;
-	private final List<LimitedWidthZoomableImage> previewImages;
+	private final List<DomImageViewerImage> previewImages;
 	private int currentPage = 0;
-	private LimitedWidthZoomableImage currentImage;
+	private DomImageViewerImage currentImage;
 
-	public LimitedWidthZoomableImageDiv(List<LimitedWidthZoomableImage> previewImages) {
+	public DomImageViewer(List<DomImageViewerImage> previewImages) {
 
 		this.previewImages = previewImages;
 		this.allPages = previewImages.size();
@@ -38,11 +38,11 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 		this.previousImageButton = new DomButton()//
 			.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
 			.setClickCallback(this::previousImage);
-		addCssClass(CoreCssClasses.STORED_FILE_PREVIEW_IMAGE_DIV);
+		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER);
 		refresh();
 	}
 
-	public LimitedWidthZoomableImageDiv setInPlaceZoom(ICssLength width) {
+	public DomImageViewer setInPlaceZoom(ICssLength width) {
 
 		// TODO extract style to CSS
 		addCssClass(DomCssPseudoClasses.DRAGGABLE);
@@ -107,7 +107,7 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 	private void persistZoomStateOfImage() {
 
-		LimitedWidthZoomableImage nextImage = previewImages.get(currentPage);
+		DomImageViewerImage nextImage = previewImages.get(currentPage);
 		nextImage.setLimitWidth(currentImage.isLimitWidth());
 		nextImage.refresh();
 	}
@@ -120,7 +120,7 @@ public class LimitedWidthZoomableImageDiv extends DomDiv implements IRefreshable
 
 			appendChild(
 				new DomButton()//
-					.setIcon(CoreImages.ROTATE.getResource())
+					.setIcon(DomImages.ROTATE.getResource())
 					.setClickCallback(this::rotate));
 		}
 

@@ -1,7 +1,7 @@
-package com.softicar.platform.core.module.file.stored.preview;
+package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.core.module.CoreCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -9,17 +9,17 @@ import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import com.softicar.platform.dom.styles.CssCursor;
 
-public class LimitedWidthZoomableImage extends DomImage implements IDomClickEventHandler {
+public class DomImageViewerImage extends DomImage implements IDomClickEventHandler {
 
 	private final ICssLength maxWidth;
 	private boolean limitWidth;
 
-	public LimitedWidthZoomableImage(IResource resource, ICssLength maxWidth) {
+	public DomImageViewerImage(IResource resource, ICssLength maxWidth) {
 
 		super(resource);
 		this.maxWidth = maxWidth;
 		setLimitWidth(true);
-		addCssClass(CoreCssClasses.STORED_FILE_PREVIEW_IMAGE);
+		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE);
 		refresh();
 	}
 
