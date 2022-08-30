@@ -1,4 +1,4 @@
-package com.softicar.platform.dom.elements.image.browser;
+package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
@@ -9,17 +9,17 @@ import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import com.softicar.platform.dom.styles.CssCursor;
 
-public class DomImageBrowserImage extends DomImage implements IDomClickEventHandler {
+public class DomImageViewerImage extends DomImage implements IDomClickEventHandler {
 
 	private final ICssLength maxWidth;
 	private boolean limitWidth;
 
-	public DomImageBrowserImage(IResource resource, ICssLength maxWidth) {
+	public DomImageViewerImage(IResource resource, ICssLength maxWidth) {
 
 		super(resource);
 		this.maxWidth = maxWidth;
 		setLimitWidth(true);
-		addCssClass(DomCssClasses.DOM_IMAGE_BROWSER_IMAGE);
+		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE);
 		refresh();
 	}
 

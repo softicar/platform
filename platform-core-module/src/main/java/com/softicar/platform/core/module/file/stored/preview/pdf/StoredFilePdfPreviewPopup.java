@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.file.stored.preview.pdf;
 
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.preview.AbstractStoredFilePreviewPopup;
-import com.softicar.platform.dom.elements.image.browser.DomImageBrowser;
-import com.softicar.platform.dom.elements.image.browser.DomImageBrowserImage;
+import com.softicar.platform.dom.elements.image.viewer.DomImageViewer;
+import com.softicar.platform.dom.elements.image.viewer.DomImageViewerImage;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.style.CssPixel;
@@ -25,15 +25,15 @@ public class StoredFilePdfPreviewPopup extends AbstractStoredFilePreviewPopup {
 	public StoredFilePdfPreviewPopup(AGStoredFile file, ICssLength imageInitialMaxWidth) {
 
 		super(file);
-		List<DomImageBrowserImage> previewImages = getPreviewImages(file, imageInitialMaxWidth);
+		List<DomImageViewerImage> previewImages = getPreviewImages(file, imageInitialMaxWidth);
 		if (!previewImages.isEmpty()) {
-			appendChild(new DomImageBrowser(previewImages));
+			appendChild(new DomImageViewer(previewImages));
 		} else {
 			appendChild(new DomMessageDiv(DomMessageType.WARNING, EmfI18n.NO_IMAGE_FOUND_FOR_ARG1.toDisplay(file.getFileName())));
 		}
 	}
 
-	private List<DomImageBrowserImage> getPreviewImages(AGStoredFile file, ICssLength maxWidth) {
+	private List<DomImageViewerImage> getPreviewImages(AGStoredFile file, ICssLength maxWidth) {
 
 		return Optional//
 			.of(file)

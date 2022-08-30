@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.dom.elements.image.browser.DomImageBrowserImage;
+import com.softicar.platform.dom.elements.image.viewer.DomImageViewerImage;
 import com.softicar.platform.dom.style.ICssLength;
 import com.softicar.platform.emf.EmfI18n;
 import java.awt.image.BufferedImage;
@@ -26,7 +26,7 @@ public class StoredFilePdfToZoomableImagesConverter {
 
 	/**
 	 * This converts a given {@link AGStoredFile} of type PDF to an list of
-	 * {@link DomImageBrowserImage}. The converted image type is jpg.
+	 * {@link DomImageViewerImage}. The converted image type is jpg.
 	 *
 	 * @param file
 	 *            The file to convert. Needs to be a PDF, or else an exception
@@ -35,16 +35,16 @@ public class StoredFilePdfToZoomableImagesConverter {
 	 *            The initial max width of the converted images when they are
 	 *            not zoomed-in.
 	 * @return An {@link ArrayList} consisting of
-	 *         {@link DomImageBrowserImage}.
+	 *         {@link DomImageViewerImage}.
 	 */
-	public static List<DomImageBrowserImage> convertPagesToImages(AGStoredFile file, ICssLength initialMaxWidth) {
+	public static List<DomImageViewerImage> convertPagesToImages(AGStoredFile file, ICssLength initialMaxWidth) {
 
 		Optional
 			.ofNullable(file.getContentType())
 			.filter(contentType -> contentType.contains("pdf"))
 			.orElseThrow(() -> new SofticarUserException(EmfI18n.THE_FILE_FORMAT_MUST_BE_PDF));
 
-		List<DomImageBrowserImage> imageList = new ArrayList<>();
+		List<DomImageViewerImage> imageList = new ArrayList<>();
 		try (InputStream stream = file.getFileContentInputStream()) {
 			try (PDDocument pdDocument = PDDocument.load(stream)) {
 				for (int index = 0; index < pdDocument.getNumberOfPages(); index++) {
@@ -62,7 +62,7 @@ public class StoredFilePdfToZoomableImagesConverter {
 						.concat(String.valueOf(index + 1))
 						.concat(".")
 						.concat(THUMBNAIL_IMAGE_TYPE);
-					imageList.add(new DomImageBrowserImage(new ImageByteArrayResource(outputStream, fileName, MIME_TYPE), initialMaxWidth));
+					imageList.add(new DomImageViewerImage(new ImageByteArrayResource(outputStream, fileName, MIME_TYPE), initialMaxWidth));
 				}
 			}
 		} catch (Throwable throwable) {
