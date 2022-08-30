@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.dom.event.space;
 
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTest;
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeyCodes;
 import com.softicar.platform.dom.event.IDomEvent;

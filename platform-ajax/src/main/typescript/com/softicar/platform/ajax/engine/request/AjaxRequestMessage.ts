@@ -88,6 +88,20 @@ class AjaxRequestMessage {
 		return this;
 	}
 
+	// ------------------------------ delta ------------------------------ //
+
+	public setDeltaX(value: number) {
+		this.setNumber("deltaX", value);
+	}
+
+	public setDeltaY(value: number) {
+		this.setNumber("deltaY", value);
+	}
+
+	public setDeltaZ(value: number) {
+		this.setNumber("deltaZ", value);
+	}
+
 	// ------------------------------ encoding ------------------------------ //
 
 	public encode() {
@@ -120,12 +134,30 @@ class AjaxRequestMessage {
 				return false; // allow new passive events, i.e. implicitly triggered events
 			} else if(this.isKeyEventType()) {
 				return false; // never drop key events
+			} else if(this.isWheelEventType()) {
+				return this.isSameDeltaDirections(other);
 			} else {
 				return true;
 			}
 		} else {
 			return false;
 		}
+	}
+
+	private isSameDeltaDirections(other: AjaxRequestMessage) {
+		let thisDeltaX = Number(this.data.get('deltaX') ?? 0);
+		let otherDeltaX = Number(other.data.get('deltaX') ?? 0);
+		let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
+
+		let thisDeltaY = Number(this.data.get('deltaY') ?? 0);
+		let otherDeltaY = Number(other.data.get('deltaY') ?? 0);
+		let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
+
+		let thisDeltaZ = Number(this.data.get('deltaZ') ?? 0);
+		let otherDeltaZ = Number(other.data.get('deltaZ') ?? 0);
+		let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
+
+		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
 
 	// ------------------------------ obsolete ------------------------------ //
@@ -169,6 +201,10 @@ class AjaxRequestMessage {
 		return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
 	}
 	
+	private isWheelEventType() {
+		return this.data.get('e') == 'WHEEL';
+	}
+
 	private isSent() {
 		return this.data.has('x');
 	}

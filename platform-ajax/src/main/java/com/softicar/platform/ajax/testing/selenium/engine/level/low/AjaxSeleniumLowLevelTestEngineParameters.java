@@ -1,6 +1,5 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -9,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 class AjaxSeleniumLowLevelTestEngineParameters {
 
-	private IAjaxSeleniumLowLevelTestEngine engine;
+	private AjaxSeleniumLowLevelTestEngine engine;
 	private Supplier<WebDriver> webDriverSupplier;
 	private Function<IDomNode, WebElement> webElementResolver;
 	private Supplier<WebElement> sessionTimeoutDivSupplier;
@@ -22,7 +21,7 @@ class AjaxSeleniumLowLevelTestEngineParameters {
 		this.sessionTimeoutDivSupplier = null;
 	}
 
-	public AjaxSeleniumLowLevelTestEngineParameters setEngine(IAjaxSeleniumLowLevelTestEngine engine) {
+	public AjaxSeleniumLowLevelTestEngineParameters setEngine(AjaxSeleniumLowLevelTestEngine engine) {
 
 		this.engine = engine;
 		return this;
@@ -46,7 +45,7 @@ class AjaxSeleniumLowLevelTestEngineParameters {
 		return this;
 	}
 
-	public IAjaxSeleniumLowLevelTestEngine getEngine() {
+	public AjaxSeleniumLowLevelTestEngine getEngine() {
 
 		return engine;
 	}

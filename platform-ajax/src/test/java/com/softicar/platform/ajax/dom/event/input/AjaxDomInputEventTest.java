@@ -1,7 +1,7 @@
-package com.softicar.platform.ajax.event;
+package com.softicar.platform.ajax.dom.event.input;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomInputEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
@@ -10,11 +10,11 @@ import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
 
-public class AjaxInputEventTest extends AbstractAjaxSeleniumLowLevelTest {
+public class AjaxDomInputEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private final Input input;
 
-	public AjaxInputEventTest() {
+	public AjaxDomInputEventTest() {
 
 		this.input = openTestNode(() -> new Input());
 	}
@@ -47,7 +47,7 @@ public class AjaxInputEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		input.setBlocking(true);
 		send(input, "abc");
 		send(input, "def");
-		send(input, IAjaxSeleniumLowLevelTestEngineInput.Key.TAB);
+		send(input, AjaxSeleniumLowLevelTestEngineInput.Key.TAB);
 		send(input, "ghi");
 		input.setBlocking(false);
 
@@ -59,15 +59,15 @@ public class AjaxInputEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private class Input extends DomTextInput implements IDomInputEventHandler {
 
+		private final Collection<String> changeEventValues;
+		private final Collection<String> inputEventValues;
 		private volatile boolean blocking;
-		private volatile Collection<String> changeEventValues;
-		private volatile Collection<String> inputEventValues;
 
 		public Input() {
 
-			this.blocking = false;
 			this.changeEventValues = new ArrayList<>();
 			this.inputEventValues = new ArrayList<>();
+			this.blocking = false;
 
 			addChangeCallback(() -> {
 				changeEventValues.add(getValueText());

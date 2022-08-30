@@ -4,12 +4,6 @@ import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.engine.common.AbstractAjaxSeleniumTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineEventSimulator;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineOutput;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineViewport;
 import com.softicar.platform.dom.DomProperties;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.node.IDomNode;
@@ -23,6 +17,9 @@ import org.openqa.selenium.WebElement;
 /**
  * A Selenium based UI test engine which can be used via a JUnit {@link Rule}
  * annotation in internal framework functionality tests.
+ * <p>
+ * Consists of distinct parts which provide functionality to interact with the
+ * UI-under-test, and examine its output.
  * <p>
  * This engine is <b>not</b> meant to be used beyond the AJAX framework itself.
  * It provides complex, low-level and error-prone features that should only be
@@ -38,12 +35,12 @@ import org.openqa.selenium.WebElement;
  * @author Alexander Schmidt
  * @see AjaxSeleniumTestExecutionEngine
  */
-public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngine implements IAjaxSeleniumLowLevelTestEngine {
+public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngine {
 
-	private final IAjaxSeleniumLowLevelTestEngineInput input;
+	private final AjaxSeleniumLowLevelTestEngineInput input;
 	private final AjaxSeleniumLowLevelTestEngineOutput output;
-	private final IAjaxSeleniumLowLevelTestEngineViewport viewport;
-	private final IAjaxSeleniumLowLevelTestEngineEventSimulator eventSimulator;
+	private final AjaxSeleniumLowLevelTestEngineViewport viewport;
+	private final AjaxSeleniumLowLevelTestEngineEventSimulator eventSimulator;
 	private final AjaxSeleniumLowLevelTestEngineAutoCompleteExtension autoCompleteExtension;
 
 	public AjaxSeleniumLowLevelTestEngine() {
@@ -58,50 +55,103 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 		this.autoCompleteExtension = new AjaxSeleniumLowLevelTestEngineAutoCompleteExtension(parameters);
 	}
 
-	@Override
+	/**
+	 * Creates an {@link IDomNode} using the given factory, and initializes it
+	 * as the UI-under-test.
+	 *
+	 * @param <T>
+	 *            the exact type of the {@link IDomNode}
+	 * @param factory
+	 *            the factory that creates the {@link IDomNode}
+	 * @return the initialized {@link IDomNode} (never <i>null</i>)
+	 */
 	public final <T extends IDomNode> T openTestNode(Supplier<T> factory) {
 
 		return testEnvironment.openTestNode(factory);
 	}
 
-	@Override
+	/**
+	 * Creates an {@link IDomNode} using the given factory, and initializes it
+	 * as the UI-under-test.
+	 *
+	 * @param <T>
+	 *            the exact type of the {@link IDomNode}
+	 * @param factory
+	 *            the factory that creates the {@link IDomNode}
+	 * @return the initialized {@link IDomNode} (never <i>null</i>)
+	 */
 	public final <T extends IDomNode> T openTestNode(Function<IAjaxDocument, T> factory) {
 
 		return testEnvironment.openTestNode(factory);
 	}
 
-	@Override
+	/**
+	 * Adds a new screenshot to the internal screenshot queue.
+	 *
+	 * @param fileName
+	 *            the screenshot file name (never <i>null</i>)
+	 */
 	public void takeScreenshot(String fileName) {
 
 		screenshotQueue.addNewScreenshot(fileName);
 	}
 
-	@Override
-	public IAjaxSeleniumLowLevelTestEngineInput getInput() {
+	/**
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineInput} of this
+	 * {@link AjaxSeleniumLowLevelTestEngine}.
+	 *
+	 * @return the {@link AjaxSeleniumLowLevelTestEngineInput} (never
+	 *         <i>null</i>)
+	 */
+	public AjaxSeleniumLowLevelTestEngineInput getInput() {
 
 		return input;
 	}
 
-	@Override
-	public IAjaxSeleniumLowLevelTestEngineOutput getOutput() {
+	/**
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineOutput} of this
+	 * {@link AjaxSeleniumLowLevelTestEngine}.
+	 *
+	 * @return the {@link AjaxSeleniumLowLevelTestEngineOutput} (never
+	 *         <i>null</i>)
+	 */
+	public AjaxSeleniumLowLevelTestEngineOutput getOutput() {
 
 		return output;
 	}
 
-	@Override
-	public IAjaxSeleniumLowLevelTestEngineViewport getViewport() {
+	/**
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineViewport} of this
+	 * {@link AjaxSeleniumLowLevelTestEngine}.
+	 *
+	 * @return the {@link AjaxSeleniumLowLevelTestEngineViewport} (never
+	 *         <i>null</i>)
+	 */
+	public AjaxSeleniumLowLevelTestEngineViewport getViewport() {
 
 		return viewport;
 	}
 
-	@Override
-	public IAjaxSeleniumLowLevelTestEngineEventSimulator getEventSimulator() {
+	/**
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineEventSimulator} of this
+	 * {@link AjaxSeleniumLowLevelTestEngine}.
+	 *
+	 * @return the {@link AjaxSeleniumLowLevelTestEngineEventSimulator} (never
+	 *         <i>null</i>)
+	 */
+	public AjaxSeleniumLowLevelTestEngineEventSimulator getEventSimulator() {
 
 		return eventSimulator;
 	}
 
-	@Override
-	public IAjaxSeleniumLowLevelTestEngineAutoCompleteExtension getAutoCompleteExtension() {
+	/**
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineAutoCompleteExtension} of
+	 * this {@link AjaxSeleniumLowLevelTestEngine}.
+	 *
+	 * @return the {@link AjaxSeleniumLowLevelTestEngineAutoCompleteExtension}
+	 *         (never <i>null</i>)
+	 */
+	public AjaxSeleniumLowLevelTestEngineAutoCompleteExtension getAutoCompleteInput() {
 
 		return autoCompleteExtension;
 	}

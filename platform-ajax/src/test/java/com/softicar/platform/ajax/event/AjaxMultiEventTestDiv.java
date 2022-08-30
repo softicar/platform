@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.event;
 
 import static org.junit.Assert.assertEquals;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineMethods;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.elements.DomDiv;

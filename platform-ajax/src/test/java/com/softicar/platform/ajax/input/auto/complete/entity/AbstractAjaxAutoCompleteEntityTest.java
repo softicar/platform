@@ -3,7 +3,7 @@ package com.softicar.platform.ajax.input.auto.complete.entity;
 import com.softicar.platform.ajax.input.auto.complete.AbstractAjaxAutoCompleteTest;
 import com.softicar.platform.ajax.input.auto.complete.entity.AbstractAjaxAutoCompleteEntityTest.Asserter.AssertionExecutor;
 import com.softicar.platform.ajax.testing.cases.entity.AjaxTestEntity;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;

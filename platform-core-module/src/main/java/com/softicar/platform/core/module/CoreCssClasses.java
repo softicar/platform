@@ -7,8 +7,6 @@ public interface CoreCssClasses {
 
 	ICssClass MAINTENANCE_WINDOWS_INFO_ELEMENT = new CssClass("MaintenanceWindowsInfoElement", CoreCssFiles.MAINTENANCE_WINDOW_STYLE);
 
-	ICssClass STORED_FILE_PREVIEW_IMAGE = new CssClass("StoredFilePreviewImage", CoreCssFiles.STORED_FILE_STYLE);
-	ICssClass STORED_FILE_PREVIEW_IMAGE_DIV = new CssClass("StoredFilePreviewImageDiv", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_TEXT_DISPLAY = new CssClass("StoredFileTextDisplay", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_DIV = new CssClass("StoredFileUploadDiv", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_INPUT = new CssClass("StoredFileUploadInput", CoreCssFiles.STORED_FILE_STYLE);

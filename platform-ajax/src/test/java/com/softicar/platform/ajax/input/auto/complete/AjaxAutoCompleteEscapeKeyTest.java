@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.input.auto.complete;
 
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.interfaces.IAjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import org.junit.Test;
 
 public class AjaxAutoCompleteEscapeKeyTest extends AbstractAjaxAutoCompleteStringTest {

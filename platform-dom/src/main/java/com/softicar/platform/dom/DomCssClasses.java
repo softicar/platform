@@ -6,6 +6,9 @@ import com.softicar.platform.dom.style.ICssClass;
 
 public interface DomCssClasses extends DomElementsCssClasses {
 
+	ICssClass DOM_IMAGE_VIEWER = new CssClass("DomImageViewer", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_IMAGE = new CssClass("DomImageViewerImage", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+
 	ICssClass DOM_JSON_ARRAY_DISPLAY = new CssClass("DomJsonArrayDisplay", DomCssFiles.DOM_JSON_DISPLAY_STYLE);
 	ICssClass DOM_JSON_BOOLEAN_DISPLAY = new CssClass("DomJsonBooleanDisplay", DomCssFiles.DOM_JSON_DISPLAY_STYLE);
 	ICssClass DOM_JSON_ERROR_DISPLAY = new CssClass("DomJsonErrorDisplay", DomCssFiles.DOM_JSON_DISPLAY_STYLE);
