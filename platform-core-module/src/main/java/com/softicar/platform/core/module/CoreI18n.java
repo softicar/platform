@@ -651,6 +651,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-Ausführungs-Log");
 	I18n0 PROGRAM_EXECUTION_LOGS = new I18n0("Program Execution Logs")//
 		.de("Programm-Ausführungs-Logs");
+	I18n0 PROGRAM_EXECUTION_WILL_RESUME_AFTER_MAINTENANCE = new I18n0("Program execution will resume after maintenance.")//
+		.de("Nach der Wartung werden Programme wieder ausgeführt.");
 	I18n0 PROGRAM_EXECUTIONS = new I18n0("Program Executions")//
 		.de("Programm-Ausführungen");
 	I18n0 PROGRAM_LOG = new I18n0("Program Log")//
@@ -665,6 +667,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-UUID");
 	I18n0 PROGRAMS = new I18n0("Programs")//
 		.de("Programme");
+	I18n0 PROGRAMS_WILL_NOT_BE_EXECUTED = new I18n0("Programs will not be executed.")//
+		.de("Programme werden nicht ausgeführt.");
 	I18n0 PROVIDE_A_POLITE_AND_REASONABLE_RATIONALE = new I18n0("Provide a polite and reasonable rationale.")//
 		.de("Geben Sie eine höfliche und vernünftige Begründung an.");
 	I18n0 PSEUDONYMIZE_USER = new I18n0("Pseudonymize User")//
