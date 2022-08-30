@@ -10,7 +10,7 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	{
 	case 'BLUR':        element.onblur = handler; break;
 	case 'CLICK':       element.onclick = handler; break;
-	case 'CHANGE':      CHANGE_EVENT_MANAGER.setListenToChangeEvent(element, doListen); break;
+	case 'CHANGE':      element.onchange = handler; break;
 	case 'CONTEXTMENU': element.oncontextmenu = doListen? (event => {handleDomEvent(event); event.preventDefault();}) : null; break;
 	case 'DBLCLICK':    element.ondblclick = handler; break;
 	case 'ENTER':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
