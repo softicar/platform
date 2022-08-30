@@ -100,6 +100,24 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
+	public double getDeltaX() {
+
+		return 0;
+	}
+
+	@Override
+	public double getDeltaY() {
+
+		return 0;
+	}
+
+	@Override
+	public double getDeltaZ() {
+
+		return 0;
+	}
+
+	@Override
 	public boolean isAltKey() {
 
 		return false;
