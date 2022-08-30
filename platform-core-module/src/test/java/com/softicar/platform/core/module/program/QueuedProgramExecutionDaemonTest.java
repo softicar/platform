@@ -8,6 +8,8 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.testing.Asserts;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
+import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
@@ -263,6 +265,46 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		assertFalse(program.isAbortRequested());
 		assertEquals(now, program.getQueuedAt());
 		assertEquals(user, program.getQueuedBy());
+	}
+
+	@Test
+	public void testWithNoCurrentExecutionAndQueuedAndNoAbortAndSlotsAndMaintenanceInProgress() {
+
+		insertMaintenance(AGMaintenanceStateEnum.IN_PROGRESS);
+		AGProgram program = insertProgram(null, now, user, false);
+
+		daemon.runIteration();
+
+		threadRunner.assertNoQueuedRunnables();
+
+		assertNull(program.getCurrentExecution());
+		assertFalse(program.isAbortRequested());
+		assertEquals(now, program.getQueuedAt());
+		assertEquals(user, program.getQueuedBy());
+	}
+
+	@Test
+	public void testWithNoCurrentExecutionAndQueuedAndNoAbortAndSlotsAndNoMaintenanceInProgress() {
+
+		insertMaintenance(AGMaintenanceStateEnum.PENDING);
+		insertMaintenance(AGMaintenanceStateEnum.FINISHED);
+		insertMaintenance(AGMaintenanceStateEnum.CANCELED);
+		AGProgram program = insertProgram(null, now, user, false);
+
+		daemon.runIteration();
+
+		threadRunner.assertStartedThreads(1);
+
+		AGProgramExecution execution = assertOneExecution();
+		assertEquals(TEST_PROGRAM_UUID, execution.getProgramUuid().getUuid());
+		assertNull(execution.getStartedAt());
+		assertNull(execution.getTerminatedAt());
+		assertEquals("", execution.getOutput());
+
+		assertSame(execution, program.getCurrentExecution());
+		assertFalse(program.isAbortRequested());
+		assertNull(program.getQueuedAt());
+		assertNull(program.getQueuedBy());
 	}
 
 	@Test
@@ -566,7 +608,16 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		return program;
 	}
 
-	public AGProgramExecution assertOneExecution() {
+	private static void insertMaintenance(AGMaintenanceStateEnum state) {
+
+		new AGMaintenanceWindow()//
+			.setState(state.getRecord())
+			.setExpectedStart(DayTime.now())
+			.setExpectedEnd(DayTime.now().plusSeconds(60))
+			.save();
+	}
+
+	private static AGProgramExecution assertOneExecution() {
 
 		return Asserts.assertOne(AGProgramExecution.TABLE.loadAll());
 	}
