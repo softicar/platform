@@ -11,6 +11,7 @@ import com.softicar.platform.core.module.daemon.DaemonProperties;
 import com.softicar.platform.core.module.daemon.IDaemon;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
+import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
@@ -86,7 +87,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 		if (!program.isRunning()) {
 			if (program.isAbortRequested()) {
 				program.resetAll();
-			} else if (program.isQueued() && registeredThreadRunner.hasAvailableSlots()) {
+			} else if (program.isQueued() && registeredThreadRunner.hasAvailableSlots() && !AGMaintenanceWindow.isMaintenanceInProgress()) {
 				addRunnable(program);
 			}
 		}

@@ -196,6 +196,9 @@ public interface CoreI18n extends EmfI18n {
 		.de("Aktuelle Panic-Einträge");
 	I18n0 CURRENT_PASSWORD = new I18n0("Current Password")//
 		.de("Aktuelles Passwort");
+	I18n0 CURRENT_PROGRAM_EXECUTIONS_WILL_CONTINUE_TO_RUN_UNTIL_THEY_ARE_FINISHED =
+			new I18n0("Current program executions will continue to run until they are finished.")//
+				.de("Laufende Programmausführungen werden so lange fortgesetzt, bis sie beendet sind.");
 	I18n0 DAEMON_WATCHDOG_STATE = new I18n0("Daemon Watchdog State")//
 		.de("Daemon-Watchdog-Status");
 	I18n0 DATA = new I18n0("Data")//
@@ -544,6 +547,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Nächstfolgende");
 	I18n0 NO = new I18n0("No")//
 		.de("Nein");
+	I18n0 NO_NEW_PROGRAM_EXECUTIONS_WILL_BE_LAUNCHED = new I18n0("No new program executions will be launched.")//
+		.de("Es werden keine neuen Programmausführungen gestartet.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse");
 	I18n0 NOT_QUEUED = new I18n0("Not queued")//
@@ -651,6 +656,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-Ausführungs-Log");
 	I18n0 PROGRAM_EXECUTION_LOGS = new I18n0("Program Execution Logs")//
 		.de("Programm-Ausführungs-Logs");
+	I18n0 PROGRAM_EXECUTION_WILL_RESUME_AFTER_MAINTENANCE = new I18n0("Program execution will resume after maintenance.")//
+		.de("Nach der Wartung werden Programme wieder ausgeführt.");
 	I18n0 PROGRAM_EXECUTIONS = new I18n0("Program Executions")//
 		.de("Programm-Ausführungen");
 	I18n0 PROGRAM_LOG = new I18n0("Program Log")//
