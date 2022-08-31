@@ -26,6 +26,9 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_X = FACTORY.createIntegerProperty("driver.window.resolution.x", 1920);
 	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_Y = FACTORY.createIntegerProperty("driver.window.resolution.y", 1080);
 
+	// Engine
+	public static final IProperty<Integer> ENGINE_LEVEL_LOW_RETRY_COUNT = FACTORY.createIntegerProperty("engine.level.low.retry.count", 0);
+
 	// Execution
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FAILURE = FACTORY.createBooleanProperty("execution.screenshot.on.failure", false);
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FINISHED = FACTORY.createBooleanProperty("execution.screenshot.on.finished", false);

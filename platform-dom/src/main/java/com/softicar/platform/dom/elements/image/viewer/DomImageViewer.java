@@ -62,7 +62,7 @@ public class DomImageViewer extends DomDiv {
 	private class NavigationBar extends DomBar {
 
 		private final DomButton nextImageButton;
-		private final PageDisplay pageDisplay;
+		private final PageIndicator pageIndicator;
 		private final DomButton previousImageButton;
 
 		public NavigationBar() {
@@ -75,26 +75,26 @@ public class DomImageViewer extends DomDiv {
 				.addMarker(DomTestMarker.IMAGE_VIEWER_NEXT_PAGE_BUTTON)
 				.setIcon(DomElementsImages.PAGE_NEXT.getResource())
 				.setClickCallback(() -> nextImage());
-			this.pageDisplay = new PageDisplay();
+			this.pageIndicator = new PageIndicator();
 
 			appendChild(previousImageButton);
-			appendChild(pageDisplay);
+			appendChild(pageIndicator);
 			appendChild(nextImageButton);
 		}
 
 		private void refresh() {
 
 			previousImageButton.setEnabled(currentIndex > 0);
-			pageDisplay.refresh();
+			pageIndicator.refresh();
 			nextImageButton.setEnabled(currentIndex < images.size() - 1);
 		}
 	}
 
-	private class PageDisplay extends DomSpan {
+	private class PageIndicator extends DomSpan {
 
-		public PageDisplay() {
+		public PageIndicator() {
 
-			addMarker(DomTestMarker.IMAGE_VIEWER_PAGE_DISPLAY);
+			addMarker(DomTestMarker.IMAGE_VIEWER_PAGE_INDICATOR);
 		}
 
 		public void refresh() {

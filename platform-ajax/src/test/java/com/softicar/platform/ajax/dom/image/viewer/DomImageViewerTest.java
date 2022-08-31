@@ -19,29 +19,28 @@ import org.junit.Test;
 
 public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	private static final int PAGE_COUNT = 3;
 	private static final int VIEWER_WIDTH = 300;
 	private static final int IMAGE_WIDTH = 500;
 	private static final int IMAGE_HEIGHT = 700;
+	private final List<IResource> images;
 	private final AjaxSeleniumLowLevelTestEngineInput input;
 	private final AjaxSeleniumLowLevelTestEngineOutput output;
-	private final IDomNode image;
-	private final IDomNode imageDiv;
 
 	public DomImageViewerTest() {
 
-		openTestNode(() -> new DomImageViewer(createImageList(), new CssPixel(VIEWER_WIDTH)));
-
+		this.images = createImageList();
 		this.input = getTestEngine().getInput();
 		this.output = getTestEngine().getOutput();
-		this.image = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE);
-		this.imageDiv = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE_DIV);
+
+		openTestNode(() -> new DomImageViewer(images, new CssPixel(VIEWER_WIDTH)));
 	}
 
 	@Test
 	public void testInitialDisplay() {
 
-		assertPage(1);
+		var image = findImage();
+
+		assertShownPage(1);
 		output.assertCssClasses(List.of(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE), image);
 		output.assertCssMaxWidth(VIEWER_WIDTH + "px", image);
 		output.assertSize(VIEWER_WIDTH, IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, image);
@@ -59,10 +58,30 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	}
 
 	@Test
+	public void testPagingToNextPage() {
+
+		for (int index = 2; index <= images.size(); index++) {
+			clickNextPageButton();
+			assertShownPage(index);
+		}
+	}
+
+	@Test
+	public void testPagingToPreviousPage() {
+
+		goToLastPage();
+
+		for (int index = images.size() - 1; index >= 1; index--) {
+			clickPreviousPageButton();
+			assertShownPage(index);
+		}
+	}
+
+	@Test
 	public void testPagingBeforeFirstPage() {
 
 		clickPreviousPageButton();
-		assertPage(1);
+		assertShownPage(1);
 	}
 
 	@Test
@@ -71,27 +90,30 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		goToLastPage();
 
 		clickNextPageButton();
-		assertPage(PAGE_COUNT);
+		assertShownPage(images.size());
 	}
 
 	private void goToLastPage() {
 
-		for (int i = 0; i < PAGE_COUNT - 1; i++) {
+		for (int i = 2; i <= images.size(); i++) {
 			clickNextPageButton();
 		}
 	}
 
-	private void assertPage(int index) {
+	// ------------------------------ paging ------------------------------ //
 
-		assertPageDisplay("%s / %s".formatted(index, PAGE_COUNT));
+	private void assertShownPage(int index) {
+
+		assertShownImage(index);
+		assertPageIndicator("%s / %s".formatted(index, images.size()));
 		assertEquals("enabled", index > 1, getPreviousPageButton().isEnabled());
-		assertEquals("enabled", index < PAGE_COUNT, getNextPageButton().isEnabled());
+		assertEquals("enabled", index < images.size(), getNextPageButton().isEnabled());
 	}
 
-	private void assertPageDisplay(String expectedText) {
+	private void assertPageIndicator(String expectedText) {
 
-		var pageDisplay = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_PAGE_DISPLAY);
-		assertEquals(expectedText, output.getText(pageDisplay));
+		var pageIndicator = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_PAGE_INDICATOR);
+		assertEquals(expectedText, output.getText(pageIndicator));
 	}
 
 	private void clickNextPageButton() {
@@ -114,6 +136,26 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		return (DomButton) output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_PREVIOUS_PAGE_BUTTON);
 	}
 
+	// ------------------------------ image ------------------------------ //
+
+	private void assertShownImage(int index) {
+
+		var resourceHash = images.get(index - 1).getContentHash().get().toString();
+		assertContains("?resourceHash=" + resourceHash, getAttributeValue(findImage(), "src"));
+	}
+
+	private IDomNode findImage() {
+
+		return output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE);
+	}
+
+	private IDomNode findImageDiv() {
+
+		return output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE_DIV);
+	}
+
+	// ------------------------------ rotation ------------------------------ //
+
 	private void clickRotateButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON));
@@ -122,11 +164,13 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void assertRotated(boolean rotated) {
 
 		if (rotated) {
-			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", imageDiv);
+			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", findImageDiv());
 		} else {
-			output.assertCssTransform("none", imageDiv);
+			output.assertCssTransform("none", findImageDiv());
 		}
 	}
+
+	// ------------------------------ setup ------------------------------ //
 
 	private List<IResource> createImageList() {
 
