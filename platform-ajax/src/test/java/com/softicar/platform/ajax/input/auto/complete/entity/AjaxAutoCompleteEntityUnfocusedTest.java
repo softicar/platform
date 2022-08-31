@@ -1,15 +1,14 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
-import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import org.junit.Test;
 
 /**
- * Contains unit tests for {@link DomAutoCompleteInput} interaction phase <b>"4
- * Re-Focused"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * Initial state of all tests in this class: The input element was focused
+ * before, and lost focus.
  *
  * @author Alexander Schmidt
  */
-public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCompleteEntityTest {
+public class AjaxAutoCompleteEntityUnfocusedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
 	public void testIllegalInputWithFocusLossByTabAndRefocusByClick() {
@@ -19,22 +18,19 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape()
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		input//
-			.clickInputFieldAndClosePopup()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
 			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectPopupDisplayed()
+			.expectPopupValuesNone()
+			.expectFocusOnInput()
 			.expectCallbackNone()
 			.assertAll();
 	}
@@ -47,23 +43,20 @@ public class AjaxAutoCompleteEntityInputRefocusedTest extends AbstractAjaxAutoCo
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape();
 		body//
-			.click()
-			.waitForServer();
+			.click();
 
 		input//
-			.clickInputFieldAndClosePopup()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
 			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
-			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectPopupDisplayed()
+			.expectPopupValuesNone()
+			.expectFocusOnInput()
 			.expectCallbackNone()
 			.assertAll();
 	}

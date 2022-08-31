@@ -14,16 +14,33 @@
 	border-radius: var(--BORDER_RADIUS);
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 	display: inline-grid;
+	grid-auto-columns: max-content;
+	align-self: start;
 	outline-style: none;
+	gap: 0px;
+}
+
+.EmfFormFrame > .EmfForm {
+	padding: 16px;
 }
 
 .EmfFormFrameHeader {
+	display: grid;
+	padding: 8px 16px;
+	align-items: center;
 	border-radius: var(--BORDER_RADIUS) var(--BORDER_RADIUS) 0 0;
 	background-color: var(--LABEL_BACKGROUND_COLOR);
-	display: grid;
-	font-weight: bold;
-	justify-items: center;
-	padding: 8px 16px;
+	box-shadow: var(--BOX_SHADOW_TABLE_HEADER);
+}
+
+.EmfFormFrameCaption {
+	color: var(--PRIMARY_COLOR);
+	font-size: var(--FONT_SIZE_CAPTION);
+}
+
+.EmfFormFrameSubCaption {
+	color: var(--PRIMARY_COLOR);
+	font-size: var(--FONT_SIZE);
 }
 
 .EmfFormIndicatorRow {
@@ -78,9 +95,7 @@
 	grid-column: 1/3;
 }
 
-.EmfFormCommonActionsDiv {
-	gap: 4px;
-	display: flex;
+.DomActionBar.EmfFormCommonActionsDiv {
 	flex-direction: column;
 }
 

@@ -21,13 +21,13 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 		setTitle(EmfI18n.EDIT_ENTRY);
 		setPopupFactory(FormPopup::new);
 		setDisabled(true);
-		setTabIndex(-1);
 	}
 
 	public void refresh(E entity) {
 
 		this.entity = entity;
 		setEnabled(entity != null && isEditAllowed(entity));
+		setTabIndex(-1);
 	}
 
 	private boolean isEditAllowed(E tableRow) {

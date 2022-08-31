@@ -66,6 +66,13 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 		return new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
 	}
 
+	public void assertSize(int expectedWidth, int expectedHeight, IDomNode node) {
+
+		var dimension = getSize(node);
+		assertEquals("width", expectedWidth, dimension.getWidth());
+		assertEquals("height", expectedHeight, dimension.getHeight());
+	}
+
 	public AjaxSeleniumTestRectangle getRectangle(IDomNode node) {
 
 		Rectangle rectangle = webElementResolver.apply(node).getRect();

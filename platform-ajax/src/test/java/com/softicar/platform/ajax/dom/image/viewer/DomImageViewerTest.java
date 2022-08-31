@@ -8,6 +8,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.in.memory.InMemoryImageResource;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.image.viewer.DomImageViewer;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
@@ -18,12 +19,14 @@ import org.junit.Test;
 
 public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
+	private static final int PAGE_COUNT = 3;
 	private static final int VIEWER_WIDTH = 300;
 	private static final int IMAGE_WIDTH = 500;
 	private static final int IMAGE_HEIGHT = 700;
 	private final AjaxSeleniumLowLevelTestEngineInput input;
 	private final AjaxSeleniumLowLevelTestEngineOutput output;
-	private final IDomNode imageNode;
+	private final IDomNode image;
+	private final IDomNode imageDiv;
 
 	public DomImageViewerTest() {
 
@@ -31,33 +34,98 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = getTestEngine().getInput();
 		this.output = getTestEngine().getOutput();
-		this.imageNode = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE);
+		this.image = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE);
+		this.imageDiv = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE_DIV);
 	}
 
 	@Test
 	public void testInitialDisplay() {
 
-		var rect = output.getRectangle(imageNode);
-		assertEquals(VIEWER_WIDTH, rect.getWidth());
-		assertEquals(IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, rect.getHeight());
-		output.assertCssClasses(List.of(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE), imageNode);
-		output.assertCssMaxWidth(VIEWER_WIDTH + "px", imageNode);
-		output.assertCssTransform("none", imageNode);
+		assertPage(1);
+		output.assertCssClasses(List.of(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE), image);
+		output.assertCssMaxWidth(VIEWER_WIDTH + "px", image);
+		output.assertSize(VIEWER_WIDTH, IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, image);
+		assertRotated(false);
 	}
 
 	@Test
 	public void testRotate() {
 
 		clickRotateButton();
-		output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", imageNode);
+		assertRotated(true);
 
 		clickRotateButton();
-		output.assertCssTransform("none", imageNode);
+		assertRotated(false);
+	}
+
+	@Test
+	public void testPagingBeforeFirstPage() {
+
+		clickPreviousPageButton();
+		assertPage(1);
+	}
+
+	@Test
+	public void testPagingAfterLastPage() {
+
+		goToLastPage();
+
+		clickNextPageButton();
+		assertPage(PAGE_COUNT);
+	}
+
+	private void goToLastPage() {
+
+		for (int i = 0; i < PAGE_COUNT - 1; i++) {
+			clickNextPageButton();
+		}
+	}
+
+	private void assertPage(int index) {
+
+		assertPageDisplay("%s / %s".formatted(index, PAGE_COUNT));
+		assertEquals("enabled", index > 1, getPreviousPageButton().isEnabled());
+		assertEquals("enabled", index < PAGE_COUNT, getNextPageButton().isEnabled());
+	}
+
+	private void assertPageDisplay(String expectedText) {
+
+		var pageDisplay = output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_PAGE_DISPLAY);
+		assertEquals(expectedText, output.getText(pageDisplay));
+	}
+
+	private void clickNextPageButton() {
+
+		input.click(getNextPageButton());
+	}
+
+	private DomButton getNextPageButton() {
+
+		return (DomButton) output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_NEXT_PAGE_BUTTON);
+	}
+
+	private void clickPreviousPageButton() {
+
+		input.click(getPreviousPageButton());
+	}
+
+	private DomButton getPreviousPageButton() {
+
+		return (DomButton) output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_PREVIOUS_PAGE_BUTTON);
 	}
 
 	private void clickRotateButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON));
+	}
+
+	private void assertRotated(boolean rotated) {
+
+		if (rotated) {
+			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", imageDiv);
+		} else {
+			output.assertCssTransform("none", imageDiv);
+		}
 	}
 
 	private List<IResource> createImageList() {

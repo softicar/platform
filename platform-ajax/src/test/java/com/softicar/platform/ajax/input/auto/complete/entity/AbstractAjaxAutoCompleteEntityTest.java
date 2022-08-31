@@ -7,12 +7,10 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSelenium
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
@@ -23,7 +21,6 @@ import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
 import com.softicar.platform.dom.styles.CssFlexDirection;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,66 +42,6 @@ import org.junit.After;
  * and perform an explicit call to {@link AssertionExecutor#assertAll()} (see
  * {@link #executeAssertions()}). This corresponds to an enforced, complete
  * definition of the overall result state after each of the tests.
- * <p>
- * Implementations of this class correspond to various linear phases of user
- * interaction with a {@link DomAutoCompleteInput} element. Focus state and
- * opened/closed state of the auto-complete popup serve as primary criteria of
- * distinction between the individual phases. Hence, the correct phase of the a
- * given interaction with the input element depends on the expected resulting
- * state, in terms of (a) focus, (b) popup visibility and (c) repetition count.
- * <p>
- * The linear phases of user interaction with a {@link DomAutoCompleteInput}
- * element are assumed to be:
- * <p>
- * <b>1 Created:</b> The element was created and displayed, and no user
- * interaction took place, yet. See
- * {@link AjaxAutoCompleteEntityInputCreatedTest}
- * <p>
- * <b>2 Focused:</b> The element gained focus, and no further user interaction
- * took place, yet. See {@link AjaxAutoCompleteEntityInputFocusedTest}
- * <p>
- * <b>2.1 Popup Un-Opened:</b> The focused element received user input but the
- * auto-complete popup is not yet opened. See
- * {@link AjaxAutoCompleteEntityInputFocusedPopupUnopenedTest}
- * <p>
- * <b>2.2 Popup Opened:</b> The focused element received user input and the
- * auto-complete popup is opened. See
- * {@link AjaxAutoCompleteEntityInputFocusedPopupOpenedTest}
- * <p>
- * <b>2.3 Popup Closed:</b> The previously-displayed auto-complete popup
- * receives user input and gets closed.
- * {@link AjaxAutoCompleteEntityInputFocusedPopupClosedTest}
- * <p>
- * <b>2.4 Popup Re-Opened:</b> The focused element received user input and the
- * auto-complete popup is opened once again. See
- * {@link AjaxAutoCompleteEntityInputFocusedPopupReopenedTest}
- * <p>
- * <b>2.5 Popup Re-Closed:</b> The previously-displayed auto-complete popup
- * receives user input and gets closed once again. See
- * {@link AjaxAutoCompleteEntityInputFocusedPopupReclosedTest}
- * <p>
- * <b>3 Unfocused:</b> The element receives user input and loses focus. See
- * {@link AjaxAutoCompleteEntityInputUnfocusedTest}
- * <p>
- * <b>4 Re-Focused:</b> The element receives user input and gains focus once
- * again, after having lost focus before. See
- * {@link AjaxAutoCompleteEntityInputRefocusedTest}
- * <p>
- * <b>4.1 Popup Un-Opened:</b> TODO
- * <p>
- * <b>4.2 Popup Opened:</b> TODO
- * <p>
- * <b>4.3 Popup Closed:</b> TODO
- * <p>
- * <b>4.4 Popup Re-Opened:</b> TODO
- * <p>
- * <b>4.5 Popup Re-Closed:</b> TODO
- * <p>
- * <b>5 Re-Unfocused:</b> TODO
- * <p>
- * To some degree, those phases assume induction: For example, an auto-complete
- * popup can be opened and closed many times. However, it is assumed that, if it
- * works twice in a row, arbitrary repetitions will work as well.
  * <p>
  * <b>Test method name anatomy:</b>
  *
@@ -129,15 +66,15 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 	protected TestInputEngine inputEngine;
 	protected DomAutoCompleteInput<AjaxTestEntity> inputNode;
-	protected DomButton eventTriggerButton;
 	protected IDomNode focusPredecessorElement;
+	protected IDomNode focusSuccessorElement;
 	protected IDomTextualInput inputFieldElement;
 	protected InputProxy input;
 	protected final Setup setup;
 	protected final Asserter asserter;
 	protected final ChangeCallback changeCallback;
 	protected final BodyProxy body;
-	protected final PopupProyx popup;
+	protected final PopupProxy popup;
 	protected final BackdropProxy backdrop;
 	protected final CallbackProxy callback;
 
@@ -147,7 +84,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		this.asserter = new Asserter();
 		this.changeCallback = new ChangeCallback();
 		this.body = new BodyProxy();
-		this.popup = new PopupProyx();
+		this.popup = new PopupProxy();
 		this.backdrop = new BackdropProxy();
 		this.callback = new CallbackProxy();
 	}
@@ -226,8 +163,8 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				return new Container(input);
 			});
 			focusPredecessorElement = container.getFocusPredecessorNode();
+			focusSuccessorElement = container.getFocusSuccessorNode();
 			inputNode = container.getInputNode();
-			eventTriggerButton = container.getEventTriggerNode();
 			inputFieldElement = inputNode.getInputField();
 			input = new InputProxy();
 			this.executed = true;
@@ -263,8 +200,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		private boolean expectedPopupDisplayed;
 		private List<AjaxTestEntity> expectedPopupValues;
 		private Integer expectedSelectedValueNumber;
-		private boolean expectedFocusState;
-		private boolean expectedBackdropDisplayed;
+		private FocusTarget expectedFocusTarget;
 		private AjaxTestEntity expectedCallbackValue;
 		private int expectedCallbackCount;
 
@@ -342,14 +278,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			this.expectedSelectedValueNumber = valueNumber;
 		}
 
-		private void setExpectedFocusState(boolean focusState) {
+		private void setExpectedFocusTarget(FocusTarget focusTarget) {
 
-			this.expectedFocusState = focusState;
-		}
-
-		private void setExpectedBackdropDisplayed(boolean displayed) {
-
-			this.expectedBackdropDisplayed = displayed;
+			this.expectedFocusTarget = focusTarget;
 		}
 
 		private void setExpectedCallbackValue(AjaxTestEntity value) {
@@ -428,12 +359,12 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				return new PopupValuesExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupNotDisplayed() {
+			public FocusExpectationSetter expectPopupNotDisplayed() {
 
 				expectPopup(false);
 				setExpectedPopupValues(Collections.emptyList());
 				setExpectedSelectedEntityNumber(null);
-				return new FocusedStateExpectationSetter();
+				return new FocusExpectationSetter();
 			}
 
 			private void expectPopup(boolean displayed) {
@@ -455,73 +386,64 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				return new PopupSelectedValueExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupValuesNone() {
+			public FocusExpectationSetter expectPopupValuesNone() {
 
 				setExpectedPopupValues(Collections.emptyList());
 				setExpectedSelectedEntityNumber(null);
-				return new FocusedStateExpectationSetter();
+				return new FocusExpectationSetter();
 			}
 		}
 
 		public class PopupSelectedValueExpectationSetter {
 
-			public FocusedStateExpectationSetter expectPopupSelectedValueFirst() {
+			public FocusExpectationSetter expectPopupSelectedValueFirst() {
 
 				return expectPopupSelectedValue(1);
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedValueLast() {
+			public FocusExpectationSetter expectPopupSelectedValueLast() {
 
 				return expectPopupSelectedValue(expectedPopupValues.size());
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedValue(int number) {
+			public FocusExpectationSetter expectPopupSelectedValue(int number) {
 
 				setExpectedSelectedEntityNumber(number);
-				return new FocusedStateExpectationSetter();
+				return new FocusExpectationSetter();
 			}
 
-			public FocusedStateExpectationSetter expectPopupSelectedValueNone() {
+			public FocusExpectationSetter expectPopupSelectedValueNone() {
 
 				setExpectedSelectedEntityNumber(null);
-				return new FocusedStateExpectationSetter();
+				return new FocusExpectationSetter();
 			}
 		}
 
-		public class FocusedStateExpectationSetter {
+		public class FocusExpectationSetter {
 
-			public BackdropExpectationSetter expectNoFocus() {
+			public CallbackExpectationSetter expectFocusOnBody() {
 
-				return expectFocusState(false);
+				return expectFocusTarget(FocusTarget.BODY);
 			}
 
-			public BackdropExpectationSetter expectFocus() {
+			public CallbackExpectationSetter expectFocusOnInput() {
 
-				return expectFocusState(true);
+				return expectFocusTarget(FocusTarget.INPUT);
 			}
 
-			public BackdropExpectationSetter expectFocusState(boolean focusState) {
+			public CallbackExpectationSetter expectFocusOnPredecessor() {
 
-				setExpectedFocusState(focusState);
-				return new BackdropExpectationSetter();
-			}
-		}
-
-		public class BackdropExpectationSetter {
-
-			public CallbackExpectationSetter expectBackdropDisplayed() {
-
-				return expectBackdropDisplayed(true);
+				return expectFocusTarget(FocusTarget.PREDECESSOR);
 			}
 
-			public CallbackExpectationSetter expectBackdropNotDisplayed() {
+			public CallbackExpectationSetter expectFocusOnSuccessor() {
 
-				return expectBackdropDisplayed(false);
+				return expectFocusTarget(FocusTarget.SUCCESSOR);
 			}
 
-			public CallbackExpectationSetter expectBackdropDisplayed(boolean displayed) {
+			public CallbackExpectationSetter expectFocusTarget(FocusTarget focustarget) {
 
-				setExpectedBackdropDisplayed(displayed);
+				setExpectedFocusTarget(focustarget);
 				return new CallbackExpectationSetter();
 			}
 		}
@@ -590,17 +512,18 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public void assertAll() {
 
+				AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+
 				executed = true;
 				setup.assertExecuted();
 				input.assertValues(expectedSelectedValueExceptionMessage, expectedSelectedValue, expectedInputText);
 				indicator.assertIndicates(expectedIndicator);
 				popup.assertDisplayed(expectedPopupDisplayed);
-				input.assertFocusState(expectedFocusState);
+				input.assertFocusTarget(expectedFocusTarget);
 				if (expectedPopupDisplayed) {
 					popup.assertValues(expectedPopupValues);
 					popup.assertSelectedValue(expectedSelectedValueNumber);
 				}
-				backdrop.assertDisplayed(expectedBackdropDisplayed);
 				callback.assertCalled(expectedCallbackValue, expectedCallbackCount);
 			}
 		}
@@ -652,18 +575,9 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy clickInputFieldAndClosePopup() {
-
-			click(inputFieldElement);
-			send(inputFieldElement, Key.ESCAPE);
-			return this;
-		}
-
 		public InputProxy focusByTab() {
 
 			send(focusPredecessorElement, Key.TAB);
-			waitForServer();
-			assertFocused(inputFieldElement);
 			return this;
 		}
 
@@ -679,24 +593,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy waitForNoPopup() {
-
-			// race assumption: this is the maximum amount of time after which the popup would appear
-			Sleep.sleep(Duration.ofMillis(1000));
-			return this;
-		}
-
-		public InputProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
-
 		public void assertValues(IDisplayString expectedSelectedValueExceptionMessage, AjaxTestEntity expectedSelectedValue, String expectedInputText) {
 
 			if (expectedSelectedValueExceptionMessage != null) {
 				assertExceptionMessage(expectedSelectedValueExceptionMessage, inputNode::getValueOrNull);
-				waitForServer();
 			} else {
 				AjaxTestEntity actualSelectedValue = inputNode.getValueOrNull();
 				assertEquals(//
@@ -711,16 +611,35 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				getAttributeValue(inputFieldElement, "value"));
 		}
 
-		public void assertFocusState(boolean focusState) {
+		public void assertFocusTarget(FocusTarget focusTarget) {
 
-			if (focusState) {
+			String focusedNodeClass = getFocusedNode().map(it -> it.getClass().getCanonicalName()).orElse("unknown");
+
+			switch (focusTarget) {
+			case BODY:
 				assertTrue(//
-					"Unexpected focus state: The auto-complete input element unexpectedly lost focus.",
+					"Unexpected focus state: Expected the body element to be focused but encountered a focused element of type '%s'."
+						.formatted(focusedNodeClass),
+					isFocused(inputFieldElement.getDomDocument().getBody()));
+				break;
+			case INPUT:
+				assertTrue(//
+					"Unexpected focus state: Expected the input element to be focused but encountered a focused element of type '%s'."
+						.formatted(focusedNodeClass),
 					isFocused(inputFieldElement));
-			} else {
-				assertFalse(//
-					"Unexpected focus state: The auto-complete input element unexpectedly gained focus.",
-					isFocused(inputFieldElement));
+				break;
+			case PREDECESSOR:
+				assertTrue(//
+					"Unexpected focus state: Expected the predecessor element to be focused but encountered a focused element of type '%s'."
+						.formatted(focusedNodeClass),
+					isFocused(focusPredecessorElement));
+				break;
+			case SUCCESSOR:
+				assertTrue(//
+					"Unexpected focus state: Expected the successor element to be focused but encountered a focused element of type '%s'."
+						.formatted(focusedNodeClass),
+					isFocused(focusSuccessorElement));
+				break;
 			}
 		}
 	}
@@ -732,17 +651,11 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			clickBodyNode();
 			return this;
 		}
-
-		public BodyProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
 	}
 
-	protected class PopupProyx {
+	protected class PopupProxy {
 
-		public PopupProyx clickValueNumber(int number) {
+		public PopupProxy clickValueNumber(int number) {
 
 			assertTrue(//
 				"The given value number must not be lower than 1.",
@@ -758,18 +671,16 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public PopupProyx waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
-
 		public void assertDisplayed(boolean displayed) {
 
 			assertEquals(//
 				"Unexpected display state of auto-complete popup.",
 				displayed,
 				isAutoCompletePopupDisplayed());
+			assertEquals(//
+				"Unexpected display state of backdrop.",
+				displayed,
+				isAutoCompleteBackdropDisplayed());
 		}
 
 		public void assertValues(List<AjaxTestEntity> values) {
@@ -838,12 +749,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public BackdropProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
-
 		public void assertDisplayed(boolean displayed) {
 
 			assertEquals(//
@@ -900,26 +805,22 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 	private static class Container extends DomDiv {
 
-		private final IDomNode focusPredecessorNode;
 		private final DomAutoCompleteInput<AjaxTestEntity> inputNode;
-		private final EventTrigger trigger;
+		private final IDomNode focusPredecessorNode;
+		private final IDomNode focusSuccessorNode;
 
 		public Container(DomAutoCompleteInput<AjaxTestEntity> inputNode) {
 
 			setStyle(CssDisplay.FLEX);
 			setStyle(CssFlexDirection.COLUMN);
 
-			// An element that can hold the focus, such that pressing TAB would move the focus to the tested input element.
-			this.focusPredecessorNode = appendChild(createTabTarget("TAB target before the input"));
+			this.inputNode = inputNode;
+			this.focusPredecessorNode = createTabTarget("TAB target before the input");
+			this.focusSuccessorNode = createTabTarget("TAB target after the input");
 
-			this.inputNode = appendChild(inputNode);
-
-			// When TAB is pressed in the tested input element, and if this this TAB press leads to the
-			// tested input element losing focus, this dummy element catches the focus. Without this dummy,
-			// element the TAB focus would leave the document body and jump to a native browser UI component.
-			appendChild(createTabTarget("TAB target after the input"));
-
-			this.trigger = appendChild(new EventTrigger());
+			appendChild(focusPredecessorNode);
+			appendChild(inputNode);
+			appendChild(focusSuccessorNode);
 		}
 
 		public IDomNode getFocusPredecessorNode() {
@@ -927,14 +828,14 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return focusPredecessorNode;
 		}
 
+		public IDomNode getFocusSuccessorNode() {
+
+			return focusSuccessorNode;
+		}
+
 		public DomAutoCompleteInput<AjaxTestEntity> getInputNode() {
 
 			return inputNode;
-		}
-
-		public DomButton getEventTriggerNode() {
-
-			return trigger;
 		}
 
 		/**
@@ -944,22 +845,13 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			return new DomTextInput(description);
 		}
+	}
 
-		/**
-		 * A DOM node that can trigger an event when clicked.
-		 */
-		private class EventTrigger extends DomButton {
+	public enum FocusTarget {
 
-			public EventTrigger() {
-
-				setLabel(IDisplayString.create("event trigger"));
-				setClickCallback(this::handleClick);
-			}
-
-			private void handleClick() {
-
-				// does nothing, by design
-			}
-		}
+		BODY,
+		INPUT,
+		PREDECESSOR,
+		SUCCESSOR;
 	}
 }

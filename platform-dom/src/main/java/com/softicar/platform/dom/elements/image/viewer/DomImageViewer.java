@@ -7,6 +7,7 @@ import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.style.CssStyle;
@@ -61,28 +62,45 @@ public class DomImageViewer extends DomDiv {
 	private class NavigationBar extends DomBar {
 
 		private final DomButton nextImageButton;
+		private final PageDisplay pageDisplay;
 		private final DomButton previousImageButton;
 
 		public NavigationBar() {
 
 			this.previousImageButton = new DomButton()//
+				.addMarker(DomTestMarker.IMAGE_VIEWER_PREVIOUS_PAGE_BUTTON)
 				.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
 				.setClickCallback(() -> previousImage());
 			this.nextImageButton = new DomButton()//
+				.addMarker(DomTestMarker.IMAGE_VIEWER_NEXT_PAGE_BUTTON)
 				.setIcon(DomElementsImages.PAGE_NEXT.getResource())
 				.setClickCallback(() -> nextImage());
+			this.pageDisplay = new PageDisplay();
+
+			appendChild(previousImageButton);
+			appendChild(pageDisplay);
+			appendChild(nextImageButton);
 		}
 
 		private void refresh() {
 
-			removeChildren();
-
-			appendChild(previousImageButton);
-			appendText(IDisplayString.format("%s / %s", currentIndex + 1, images.size()));
-			appendChild(nextImageButton);
-
 			previousImageButton.setEnabled(currentIndex > 0);
+			pageDisplay.refresh();
 			nextImageButton.setEnabled(currentIndex < images.size() - 1);
+		}
+	}
+
+	private class PageDisplay extends DomSpan {
+
+		public PageDisplay() {
+
+			addMarker(DomTestMarker.IMAGE_VIEWER_PAGE_DISPLAY);
+		}
+
+		public void refresh() {
+
+			removeChildren();
+			appendText(IDisplayString.format("%s / %s", currentIndex + 1, images.size()));
 		}
 	}
 
@@ -93,6 +111,8 @@ public class DomImageViewer extends DomDiv {
 		public ImageDiv() {
 
 			this.currentImage = null;
+
+			addMarker(DomTestMarker.IMAGE_VIEWER_IMAGE_DIV);
 		}
 
 		public void refresh() {
@@ -111,12 +131,10 @@ public class DomImageViewer extends DomDiv {
 
 		public void setRotated(boolean rotated) {
 
-			if (currentImage != null) {
-				if (rotated) {
-					currentImage.setStyle(CssStyle.TRANSFORM, "rotate(180deg)");
-				} else {
-					currentImage.unsetStyle(CssStyle.TRANSFORM);
-				}
+			if (rotated) {
+				setStyle(CssStyle.TRANSFORM, "rotate(180deg)");
+			} else {
+				unsetStyle(CssStyle.TRANSFORM);
 			}
 		}
 	}
