@@ -47,7 +47,9 @@ public interface EmfCssClasses {
 	ICssClass EMF_FORM_COMMON_ACTIONS_DIV = new CssClass("EmfFormCommonActionsDiv", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_DELEGATOR = new CssClass("EmfFormDelegator", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME = new CssClass("EmfFormFrame", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_FRAME_CAPTION = new CssClass("EmfFormFrameCaption", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_FRAME_HEADER = new CssClass("EmfFormFrameHeader", EmfCssFiles.EMF_FORM_STYLE);
+	ICssClass EMF_FORM_FRAME_SUBCAPTION = new CssClass("EmfFormFrameSubCaption", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR = new CssClass("EmfFormIndicator", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR_CONTAINER = new CssClass("EmfFormIndicatorContainer", EmfCssFiles.EMF_FORM_STYLE);
 	ICssClass EMF_FORM_INDICATOR_IMAGE = new CssClass("EmfFormIndicatorImage", EmfCssFiles.EMF_FORM_STYLE);
