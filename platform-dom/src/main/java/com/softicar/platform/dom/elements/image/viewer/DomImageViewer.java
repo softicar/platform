@@ -3,26 +3,27 @@ package com.softicar.platform.dom.elements.image.viewer;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
-import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomImages;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.List;
 import java.util.Optional;
 
 public class DomImageViewer extends DomDiv {
 
-	private final List<IResource> images;
+	private final List<? extends IResource> images;
 	private final ICssLength width;
 	private final NavigationBar navigationBar;
 	private final ImageDiv imageDiv;
 	private final RotationDiv rotationDiv;
 	private int currentIndex;
 
-	public DomImageViewer(List<IResource> images, ICssLength width) {
+	public DomImageViewer(List<? extends IResource> images, ICssLength width) {
 
 		this.images = images;
 		this.width = width;
@@ -87,7 +88,7 @@ public class DomImageViewer extends DomDiv {
 
 	private class ImageDiv extends DomDiv {
 
-		private final DomImageViewerImage currentImage;
+		private DomImageViewerImage currentImage;
 
 		public ImageDiv() {
 
@@ -101,18 +102,21 @@ public class DomImageViewer extends DomDiv {
 					.ofNullable(currentImage)
 					.map(DomImageViewerImage::isLimitWidth)
 					.orElse(true);
+				this.currentImage = new DomImageViewerImage(images.get(currentIndex), width, limited);
 
 				removeChildren();
-				appendChild(new DomImageViewerImage(images.get(currentIndex), width).setLimitWidth(limited));
+				appendChild(currentImage);
 			}
 		}
 
 		public void setRotated(boolean rotated) {
 
-			if (rotated) {
-				currentImage.addCssClass(DomCssPseudoClasses.ROTATED);
-			} else {
-				currentImage.removeCssClass(DomCssPseudoClasses.ROTATED);
+			if (currentImage != null) {
+				if (rotated) {
+					currentImage.setStyle(CssStyle.TRANSFORM, "rotate(180deg)");
+				} else {
+					currentImage.unsetStyle(CssStyle.TRANSFORM);
+				}
 			}
 		}
 	}
@@ -125,6 +129,7 @@ public class DomImageViewer extends DomDiv {
 
 			appendChild(
 				new DomButton()//
+					.addMarker(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON)
 					.setIcon(DomImages.ROTATE.getResource())
 					.setClickCallback(this::rotate));
 		}

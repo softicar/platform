@@ -4,24 +4,22 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.common.io.resource.in.memory.InMemoryImageResource;
+import com.softicar.platform.common.pdf.PdfRenderer;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.emf.EmfI18n;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.imageio.ImageIO;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
 
 public class StoredFilePdfRenderer {
 
-	private static final int PREVIEW_DPI = 125;
+	private static final String IMAGE_FORMAT = "jpg";
 	private static final MimeType MIME_TYPE = MimeType.IMAGE_JPEG;
-	private static final String THUMBNAIL_IMAGE_TYPE = "jpg";
+	private static final int PREVIEW_DPI = 125;
 
 	/**
 	 * Renders the pages of a PDF into a list of images.
@@ -41,31 +39,34 @@ public class StoredFilePdfRenderer {
 			.filter(contentType -> contentType.contains("pdf"))
 			.orElseThrow(() -> new SofticarUserException(EmfI18n.THE_FILE_FORMAT_MUST_BE_PDF));
 
-		List<IResource> imageList = new ArrayList<>();
 		try (InputStream stream = file.getFileContentInputStream()) {
-			try (PDDocument pdDocument = PDDocument.load(stream)) {
-				for (int index = 0; index < pdDocument.getNumberOfPages(); index++) {
-					var renderer = new PDFRenderer(pdDocument);
-					renderer.setSubsamplingAllowed(true);
-					BufferedImage image = renderer.renderImageWithDPI(index, PREVIEW_DPI);
-					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					ImageIO.write(image, THUMBNAIL_IMAGE_TYPE, outputStream);
-					String fileName = file//
-						.getFileName()
-						.replace(".pdf", "")
-						.concat(" ")
-						.concat(EmfI18n.PAGE.toString())
-						.concat(" ")
-						.concat(String.valueOf(index + 1))
-						.concat(".")
-						.concat(THUMBNAIL_IMAGE_TYPE);
-					imageList.add(new ImageByteArrayResource(outputStream, fileName, MIME_TYPE));
-				}
-			}
+			return renderPages(stream, file.getFileName());
 		} catch (Throwable throwable) {
 			Log.ferror(StackTraceFormatting.getStackTraceAsString(throwable));
 			return new ArrayList<>();
 		}
-		return imageList;
+	}
+
+	private static List<IResource> renderPages(InputStream stream, String pdfFilename) {
+
+		var images = new ArrayList<IResource>();
+		for (BufferedImage image: new PdfRenderer().setDpi(PREVIEW_DPI).render(stream)) {
+			var imageResource = new InMemoryImageResource(image, IMAGE_FORMAT, MIME_TYPE);
+			imageResource.setFilename(getImageFilename(pdfFilename, images.size()));
+			images.add(imageResource);
+		}
+		return images;
+	}
+
+	private static String getImageFilename(String pdfFilename, int index) {
+
+		return pdfFilename//
+			.replace(".pdf", "")
+			.concat(" ")
+			.concat(EmfI18n.PAGE.toString())
+			.concat(" ")
+			.concat(String.valueOf(index + 1))
+			.concat(".")
+			.concat(IMAGE_FORMAT);
 	}
 }

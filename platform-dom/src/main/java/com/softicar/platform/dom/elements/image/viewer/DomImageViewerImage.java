@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -16,9 +17,16 @@ public class DomImageViewerImage extends DomImage implements IDomClickEventHandl
 
 	public DomImageViewerImage(IResource resource, ICssLength maxWidth) {
 
+		this(resource, maxWidth, true);
+	}
+
+	public DomImageViewerImage(IResource resource, ICssLength maxWidth, boolean limitWidth) {
+
 		super(resource);
 		this.maxWidth = maxWidth;
-		setLimitWidth(true);
+		this.limitWidth = limitWidth;
+
+		addMarker(DomTestMarker.IMAGE_VIEWER_IMAGE);
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE);
 		refresh();
 	}
