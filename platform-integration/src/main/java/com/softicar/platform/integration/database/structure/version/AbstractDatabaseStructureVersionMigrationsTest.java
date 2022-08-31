@@ -20,13 +20,29 @@ import com.softicar.platform.integration.database.structure.DatabaseStructureTab
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinitionsConverter;
 import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class DatabaseStructureVersionMigrationsTest extends AbstractTest {
+/**
+ * Base class of tests to ensure that known database migrations transform a
+ * specific source database structure to a specific target database structure.
+ * <p>
+ * Particularly, migration <i>x</i> is ensured to transform structure <i>x</i>
+ * to structure <i>x+1</i>.
+ * <p>
+ * Uses MariaDB in a local Docker container.
+ * <p>
+ * Any extending class should reside in an <i>integration sub project</i>; i.e.
+ * a sub project that depends on all other sub projects, in a multi-project
+ * build.
+ *
+ * @author Alexander Schmidt
+ */
+public abstract class AbstractDatabaseStructureVersionMigrationsTest extends AbstractTest {
 
 	private static final String MARIADB_PASSWORD = "iamroot";
 	private static final String MARIADB_USER = "root";
@@ -37,6 +53,7 @@ public class DatabaseStructureVersionMigrationsTest extends AbstractTest {
 		"-e MYSQL_ROOT_PASSWORD=" + MARIADB_PASSWORD,
 		"-d",
 		"--rm");
+	private final Class<?> resourceContainerClass;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -55,10 +72,15 @@ public class DatabaseStructureVersionMigrationsTest extends AbstractTest {
 		CONTAINER_CONTROLLER.shutdown();
 	}
 
+	public AbstractDatabaseStructureVersionMigrationsTest(Class<?> resourceContainerClass) {
+
+		this.resourceContainerClass = Objects.requireNonNull(resourceContainerClass);
+	}
+
 	@Test
 	public void testMigrationsCreateTargetStructures() {
 
-		var resourcesMap = new DatabaseStructureVersionResourcesMap();
+		var resourcesMap = new DatabaseStructureVersionResourcesMap(resourceContainerClass);
 		int latestVersion = resourcesMap.getLatestVersion();
 
 		// latest migration
@@ -70,46 +92,48 @@ public class DatabaseStructureVersionMigrationsTest extends AbstractTest {
 
 	private void testMigrationCreatesTargetStructure(DatabaseStructureVersionResourcesMap resourcesMap, int sourceVersion, int targetVersion) {
 
-		var sourceStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(sourceVersion);
-		var targetStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(targetVersion);
 		var migrationResourceSupplier = resourcesMap.getMigrationResourceSupplier(targetVersion);
+		if (migrationResourceSupplier.isPresent()) {
+			var sourceStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(sourceVersion);
+			var targetStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(targetVersion);
 
-		var sourceCreateTableStatements = getCreateTableStatements(sourceStructureResourceSupplier);
-		var targetCreateTableStatements = getCreateTableStatements(targetStructureResourceSupplier);
-		var migrationScript = migrationResourceSupplier.getResource().getContentTextUtf8();
+			var sourceCreateTableStatements = getCreateTableStatements(sourceStructureResourceSupplier);
+			var targetCreateTableStatements = getCreateTableStatements(targetStructureResourceSupplier);
+			var migrationScript = migrationResourceSupplier.get().getResource().getContentTextUtf8();
 
-		try (var connection = createConnection(); var scope = new DbConnectionOverrideScope(connection)) {
-			DbMysqlStatements.setForeignKeyChecksEnabled(false);
+			try (var connection = createConnection(); var scope = new DbConnectionOverrideScope(connection)) {
+				DbMysqlStatements.setForeignKeyChecksEnabled(false);
 
-			// create source structure
-			purgeDatabase(connection);
-			createTables(sourceCreateTableStatements);
-			IDbDatabaseStructure sourceStructure = loadDatabaseStructure();
-			assertFalse(//
-				"Structure v%s creation resulted in an empty database.".formatted(sourceVersion),
-				sourceStructure.getTableNames().isEmpty());
+				// create source structure
+				purgeDatabase(connection);
+				createTables(sourceCreateTableStatements);
+				IDbDatabaseStructure sourceStructure = loadDatabaseStructure();
+				assertFalse(//
+					"Structure v%s creation resulted in an empty database.".formatted(sourceVersion),
+					sourceStructure.getTableNames().isEmpty());
 
-			// TODO Initialize DB content for the respective source structure version, and stop ignoring DML statements.
+				// TODO Initialize DB content for the respective source structure version, and stop ignoring DML statements.
 
-			// migrate source structure to target structure
-			new DbStatement(new MigrationScriptPreprocessor().preprocess(migrationScript)).execute();
-			IDbDatabaseStructure targetStructureViaMigration = loadDatabaseStructure();
+				// migrate source structure to target structure
+				new DbStatement(new MigrationScriptPreprocessor().preprocess(migrationScript)).execute();
+				IDbDatabaseStructure targetStructureViaMigration = loadDatabaseStructure();
 
-			// create target structure
-			purgeDatabase(connection);
-			createTables(targetCreateTableStatements);
-			IDbDatabaseStructure targetStructureViaCreation = loadDatabaseStructure();
-			assertFalse(//
-				"Structure v%s creation resulted in an empty database.".formatted(targetVersion),
-				targetStructureViaCreation.getTableNames().isEmpty());
+				// create target structure
+				purgeDatabase(connection);
+				createTables(targetCreateTableStatements);
+				IDbDatabaseStructure targetStructureViaCreation = loadDatabaseStructure();
+				assertFalse(//
+					"Structure v%s creation resulted in an empty database.".formatted(targetVersion),
+					targetStructureViaCreation.getTableNames().isEmpty());
 
-			var comparisonStrategy = new DbStructureEqualityComparisonStrategy(//
-				IDisplayString.create("structure from creation"),
-				IDisplayString.create("structure from migration"));
-			var diagnosticContainer = new DbDatabaseStructureComparer(comparisonStrategy)//
-				.compareAll(targetStructureViaCreation, targetStructureViaMigration);
-			if (!diagnosticContainer.isEmpty()) {
-				throw new AssertionError(diagnosticContainer);
+				var comparisonStrategy = new DbStructureEqualityComparisonStrategy(//
+					IDisplayString.create("structure from creation"),
+					IDisplayString.create("structure from migration"));
+				var diagnosticContainer = new DbDatabaseStructureComparer(comparisonStrategy)//
+					.compareAll(targetStructureViaCreation, targetStructureViaMigration);
+				if (!diagnosticContainer.isEmpty()) {
+					throw new AssertionError(diagnosticContainer);
+				}
 			}
 		}
 	}

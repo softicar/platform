@@ -155,6 +155,7 @@ subprojects {
 			mandatoryTranslations: ["de"],
 			integrationProjectName: "platform-integration",
 			tablePackagePrefix: "com.softicar.platform",
+			databaseStructureVersionResourceContainerClass: "com.softicar.platform.integration.database.structure.version.PlatformDatabaseStructureVersionResource",
 
 			classesAllowedToHaveMainMethod: [
 				"com.softicar.platform.ajax.server.AjaxDomNodeServer",
