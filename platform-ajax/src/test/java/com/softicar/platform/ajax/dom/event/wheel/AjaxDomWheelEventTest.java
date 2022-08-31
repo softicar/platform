@@ -54,8 +54,6 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		mouseWheelDown(testDiv);
 		mouseWheelUp(testDiv);
 		mouseWheelUp(testDiv);
-		mouseWheelDown(testDiv);
-		mouseWheelDown(testDiv);
 		waitForServer();
 
 		var events = testDiv.getEvents();
@@ -66,9 +64,6 @@ public class AjaxDomWheelEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 			.nextEvent()
 			.assertWheelUp()
-
-			// Expect no further "wheel down" event because it is swallowed by
-			// the current client-side implementation of wheel event deduplication.
 
 			.assertNoMoreEvents();
 	}
