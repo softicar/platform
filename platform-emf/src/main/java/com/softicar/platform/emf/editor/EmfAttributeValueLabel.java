@@ -115,6 +115,7 @@ public class EmfAttributeValueLabel<R extends IEmfTableRow<R, ?>, V> extends Dom
 			setPopupFactory(() -> new HelpPopover(factory));
 			setIcon(EmfImages.ATTRIBUTE_HELP.getResource());
 			setTitle(EmfI18n.SHOW_HELP.concatEllipsis());
+			setTabIndex(-1);
 		}
 	}
 
