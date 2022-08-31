@@ -237,6 +237,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
 
 		AGProgramExecution execution = assertOneExecution();
 		assertEquals(TEST_PROGRAM_UUID, execution.getProgramUuid().getUuid());
@@ -275,6 +276,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		daemon.runIteration();
 
+		threadRunner.assertNoStartedThread();
 		threadRunner.assertNoQueuedRunnables();
 
 		assertNull(program.getCurrentExecution());
@@ -294,6 +296,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		daemon.runIteration();
 
 		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
 
 		AGProgramExecution execution = assertOneExecution();
 		assertEquals(TEST_PROGRAM_UUID, execution.getProgramUuid().getUuid());
