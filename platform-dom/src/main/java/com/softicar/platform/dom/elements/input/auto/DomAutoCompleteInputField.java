@@ -7,10 +7,12 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomInputEventHandler;
 import com.softicar.platform.dom.event.IDomKeyDownEventHandler;
+import com.softicar.platform.dom.event.IDomKeyUpEventHandler;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.List;
 
-class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomBlurEventHandler, IDomClickEventHandler {
+class DomAutoCompleteInputField extends DomTextInput
+		implements IDomInputEventHandler, IDomKeyDownEventHandler, IDomKeyUpEventHandler, IDomBlurEventHandler, IDomClickEventHandler {
 
 	private final DomAutoCompleteInput<?> input;
 
@@ -33,13 +35,14 @@ class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHa
 	@Override
 	public void handleKeyDown(IDomEvent event) {
 
-		if (event.getKey().equals(DomKeys.ARROW_DOWN)) {
+		String key = event.getKey();
+		if (key.equals(DomKeys.ARROW_DOWN)) {
 			input.onArrowDown();
-		} else if (event.getKey().equals(DomKeys.ARROW_UP)) {
+		} else if (key.equals(DomKeys.ARROW_UP)) {
 			input.onArrowUp();
-		} else if (event.getKey().equals(DomKeys.ENTER) || event.getKey().equals(DomKeys.TAB)) {
+		} else if (key.equals(DomKeys.ENTER) || key.equals(DomKeys.TAB)) {
 			input.onEnterOrTab();
-		} else if (event.getKey().equals(DomKeys.ESCAPE)) {
+		} else if (key.equals(DomKeys.ESCAPE)) {
 			input.onBackdropClickOrEscape();
 		}
 	}
@@ -53,6 +56,14 @@ class DomAutoCompleteInputField extends DomTextInput implements IDomInputEventHa
 	@Override
 	public void handleClick(IDomEvent event) {
 
-		input.onClick();
+		input.onClickOrFocusByTab();
+	}
+
+	@Override
+	public void handleKeyUp(IDomEvent event) {
+
+		if (event.getKey().equals(DomKeys.TAB)) {
+			input.onClickOrFocusByTab();
+		}
 	}
 }
