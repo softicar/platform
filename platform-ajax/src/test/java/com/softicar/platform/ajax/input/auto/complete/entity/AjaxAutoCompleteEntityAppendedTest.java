@@ -34,8 +34,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -56,8 +55,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.focusByTab()
-			.waitForServer();
+			.focusByTab();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -112,8 +110,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -134,8 +131,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.focusByTab()
-			.waitForServer();
+			.focusByTab();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -170,8 +166,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectValuesNone()
@@ -191,8 +186,7 @@ public class AjaxAutoCompleteEntityAppendedTest extends AbstractAjaxAutoComplete
 			.execute();
 
 		input//
-			.focusByTab()
-			.waitForServer();
+			.focusByTab();
 
 		asserter//
 			.expectValuesNone()

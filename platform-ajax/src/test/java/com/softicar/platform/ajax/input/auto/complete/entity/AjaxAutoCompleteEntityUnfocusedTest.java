@@ -18,14 +18,11 @@ public class AjaxAutoCompleteEntityUnfocusedTest extends AbstractAjaxAutoComplet
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape()
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		input//
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -46,15 +43,12 @@ public class AjaxAutoCompleteEntityUnfocusedTest extends AbstractAjaxAutoComplet
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape();
 		body//
-			.click()
-			.waitForServer();
+			.click();
 
 		input//
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)

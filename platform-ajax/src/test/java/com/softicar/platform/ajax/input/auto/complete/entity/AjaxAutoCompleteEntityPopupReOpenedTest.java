@@ -18,17 +18,13 @@ public class AjaxAutoCompleteEntityPopupReOpenedTest extends AbstractAjaxAutoCom
 		input//
 			.clickInputField()
 			.sendString(VALUE1.getName())
-			.waitForServer()
 			.pressEnter()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		input//
 			.pressBackspace(VALUE1.toDisplayStringWithId().length())
 			.sendString(VALUE2.getName())
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE2)
@@ -48,17 +44,13 @@ public class AjaxAutoCompleteEntityPopupReOpenedTest extends AbstractAjaxAutoCom
 		input//
 			.clickInputField()
 			.sendString(VALUE1.getName())
-			.waitForServer()
 			.pressEnter()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		input//
 			.pressBackspace(VALUE1.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -79,17 +71,13 @@ public class AjaxAutoCompleteEntityPopupReOpenedTest extends AbstractAjaxAutoCom
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		input//
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -109,17 +97,13 @@ public class AjaxAutoCompleteEntityPopupReOpenedTest extends AbstractAjaxAutoCom
 		input//
 			.clickInputField()
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
 			.pressEscape()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		input//
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString("other illegal value name")
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputText("other illegal value name")
