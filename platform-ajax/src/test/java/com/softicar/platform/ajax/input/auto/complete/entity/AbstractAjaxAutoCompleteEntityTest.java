@@ -74,7 +74,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected final Asserter asserter;
 	protected final ChangeCallback changeCallback;
 	protected final BodyProxy body;
-	protected final PopupProyx popup;
+	protected final PopupProxy popup;
 	protected final BackdropProxy backdrop;
 	protected final CallbackProxy callback;
 
@@ -84,7 +84,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		this.asserter = new Asserter();
 		this.changeCallback = new ChangeCallback();
 		this.body = new BodyProxy();
-		this.popup = new PopupProyx();
+		this.popup = new PopupProxy();
 		this.backdrop = new BackdropProxy();
 		this.callback = new CallbackProxy();
 	}
@@ -512,6 +512,8 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			public void assertAll() {
 
+				AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
+
 				executed = true;
 				setup.assertExecuted();
 				input.assertValues(expectedSelectedValueExceptionMessage, expectedSelectedValue, expectedInputText);
@@ -576,8 +578,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 		public InputProxy focusByTab() {
 
 			send(focusPredecessorElement, Key.TAB);
-			waitForServer();
-			assertFocused(inputFieldElement);
 			return this;
 		}
 
@@ -593,17 +593,10 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			return this;
 		}
 
-		public InputProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
-
 		public void assertValues(IDisplayString expectedSelectedValueExceptionMessage, AjaxTestEntity expectedSelectedValue, String expectedInputText) {
 
 			if (expectedSelectedValueExceptionMessage != null) {
 				assertExceptionMessage(expectedSelectedValueExceptionMessage, inputNode::getValueOrNull);
-				waitForServer();
 			} else {
 				AjaxTestEntity actualSelectedValue = inputNode.getValueOrNull();
 				assertEquals(//
@@ -658,17 +651,11 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			clickBodyNode();
 			return this;
 		}
-
-		public BodyProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
-			return this;
-		}
 	}
 
-	protected class PopupProyx {
+	protected class PopupProxy {
 
-		public PopupProyx clickValueNumber(int number) {
+		public PopupProxy clickValueNumber(int number) {
 
 			assertTrue(//
 				"The given value number must not be lower than 1.",
@@ -681,12 +668,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 
 			clickAutoCompletePopupValue(number - 1);
 
-			return this;
-		}
-
-		public PopupProyx waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
 			return this;
 		}
 
@@ -765,12 +746,6 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 				"Failed to find backdrop.",
 				isAutoCompleteBackdropDisplayed());
 			clickAutoCompleteBackdrop();
-			return this;
-		}
-
-		public BackdropProxy waitForServer() {
-
-			AbstractAjaxAutoCompleteEntityTest.super.waitForServer();
 			return this;
 		}
 

@@ -21,8 +21,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -43,8 +42,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -65,8 +63,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -90,9 +87,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressArrowDown()
-			.waitForServer()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -115,8 +110,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowUp()
-			.waitForServer();
+			.pressArrowUp();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -139,8 +133,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressBackspace()
-			.waitForServer();
+			.pressBackspace();
 
 		asserter//
 			.expectInputText("foo [1")
@@ -165,9 +158,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressBackspace(5)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -191,12 +182,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressBackspace(5)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 		body//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -220,9 +208,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressBackspace(VALUE1.toDisplayStringWithId().length())
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputTextNone()
@@ -247,9 +233,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 		input//
 			.pressBackspace(VALUE2.toDisplayStringWithId().length())
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -272,11 +256,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressBackspace(VALUE2.toDisplayStringWithId().length())
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer();
+			.sendString(ILLEGAL_VALUE_NAME);
 		backdrop//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -300,9 +282,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressArrowDown()
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -323,8 +303,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -346,8 +325,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -370,8 +348,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -394,8 +371,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowUp()
-			.waitForServer();
+			.pressArrowUp();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE)
@@ -417,8 +393,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValuesNone()
@@ -438,8 +413,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectValuesNone()
@@ -459,8 +433,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		asserter//
 			.expectValuesNone()
@@ -480,8 +453,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectValuesNone()
@@ -504,9 +476,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressArrowDown()
-			.waitForServer()
-			.clickInputField()
-			.waitForServer();
+			.clickInputField();
 
 		asserter//
 			.expectValuesNone()
@@ -528,8 +498,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.pressArrowUp()
-			.waitForServer();
+			.pressArrowUp();
 
 		asserter//
 			.expectValuesNone()
@@ -552,9 +521,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.pressArrowDown()
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectValuesNone()
@@ -574,8 +541,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(VALUE1.getName())
-			.waitForServer();
+			.sendString(VALUE1.getName());
 
 		asserter//
 			.expectInputText(VALUE1.getName())
@@ -599,9 +565,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -623,12 +587,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 		body//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectInputText(VALUE1)
@@ -651,9 +612,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -675,9 +634,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(VALUE1.getName())
-			.waitForServer()
-			.pressTab()
-			.waitForServer();
+			.pressTab();
 
 		asserter//
 			.expectValues(VALUE1)
@@ -698,11 +655,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(VALUE2.getName())
-			.waitForServer();
+			.sendString(VALUE2.getName());
 		backdrop//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectValues(VALUE2)
@@ -723,11 +678,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(VALUE1.getName())
-			.waitForServer();
+			.sendString(VALUE1.getName());
 		popup//
-			.clickValueNumber(1)
-			.waitForServer();
+			.clickValueNumber(1);
 
 		asserter//
 			.expectInputText(VALUE1)
@@ -749,8 +702,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString("foo [1")
-			.waitForServer();
+			.sendString("foo [1");
 
 		asserter//
 			.expectInputText("foo [1")
@@ -774,8 +726,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(VALUE3.getName())
-			.waitForServer();
+			.sendString(VALUE3.getName());
 
 		asserter//
 			.expectInputText(VALUE3.getName())
@@ -798,8 +749,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer();
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK);
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -823,9 +773,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE2)
@@ -847,9 +795,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -871,12 +817,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 		body//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -897,11 +840,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer();
+			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK);
 		popup//
-			.clickValueNumber(2)
-			.waitForServer();
+			.clickValueNumber(2);
 
 		asserter//
 			.expectValues(VALUE3)
@@ -923,9 +864,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -949,11 +888,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
 			.pressArrowDown()
 			.pressArrowDown()
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -977,10 +914,8 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
 			.pressArrowDown()
-			.pressEnter()
-			.waitForServer();
+			.pressEnter();
 
 		asserter//
 			.expectValues(VALUE3)
@@ -1002,10 +937,8 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(AMBIGUOUS_VALUE_NAME_CHUNK)
-			.waitForServer()
 			.pressArrowUp()
-			.pressArrowUp()
-			.waitForServer();
+			.pressArrowUp();
 
 		asserter//
 			.expectInputText(AMBIGUOUS_VALUE_NAME_CHUNK)
@@ -1028,8 +961,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer();
+			.sendString(ILLEGAL_VALUE_NAME);
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -1052,9 +984,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
-			.pressEscape()
-			.waitForServer();
+			.pressEscape();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -1075,11 +1005,9 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer();
+			.sendString(ILLEGAL_VALUE_NAME);
 		backdrop//
-			.click()
-			.waitForServer();
+			.click();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -1101,9 +1029,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 
 		input//
 			.sendString(ILLEGAL_VALUE_NAME)
-			.waitForServer()
-			.pressArrowDown()
-			.waitForServer();
+			.pressArrowDown();
 
 		asserter//
 			.expectInputText(ILLEGAL_VALUE_NAME)
@@ -1129,8 +1055,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString("foo [1]")
-			.waitForServer();
+			.sendString("foo [1]");
 
 		asserter//
 			.expectValues(value1)
@@ -1156,8 +1081,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString("foo [1]")
-			.waitForServer();
+			.sendString("foo [1]");
 
 		asserter//
 			.expectInputText("foo [1]")
@@ -1184,8 +1108,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString("FOO [1]")
-			.waitForServer();
+			.sendString("FOO [1]");
 
 		asserter//
 			.expectInputText("FOO [1]")
@@ -1212,8 +1135,7 @@ public class AjaxAutoCompleteEntityFocusedTest extends AbstractAjaxAutoCompleteE
 			.clickInputField();
 
 		input//
-			.sendString("FOO [1]")
-			.waitForServer();
+			.sendString("FOO [1]");
 
 		asserter//
 			.expectValues(value1)
