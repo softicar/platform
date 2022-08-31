@@ -1,5 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
+import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.common.core.utils.DevNull;
 import org.junit.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
@@ -31,8 +32,6 @@ import org.junit.runners.model.InitializationError;
  * @author Oliver Richers
  */
 public class AjaxSeleniumLowLevelTestRetryingRunner extends BlockJUnit4ClassRunner {
-
-	private static final Integer RETRY_COUNT = 1;
 
 	/**
 	 * Constructs a new runner for the given test {@link Class}.
@@ -86,7 +85,7 @@ public class AjaxSeleniumLowLevelTestRetryingRunner extends BlockJUnit4ClassRunn
 				methodBlock(method).evaluate();
 				return;
 			} catch (AssertionError exception) {
-				if (i < RETRY_COUNT) {
+				if (i < AjaxSeleniumTestProperties.ENGINE_LEVEL_LOW_RETRY_COUNT.getValue()) {
 					DevNull.swallow(exception);
 				} else {
 					throw exception;
