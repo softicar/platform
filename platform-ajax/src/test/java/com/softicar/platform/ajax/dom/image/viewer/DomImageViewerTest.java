@@ -93,14 +93,48 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertShownPage(images.size());
 	}
 
+	@Test
+	public void testZoomIn() {
+
+		var image = findImage();
+		click(image);
+
+		assertShownPage(1);
+		output.assertCssMaxWidth("none", image);
+		output.assertSize(IMAGE_WIDTH, IMAGE_HEIGHT, image);
+	}
+
+	@Test
+	public void testZoomInAndGoToNextPage() {
+
+		click(findImage());
+		clickNextPageButton();
+
+		assertShownPage(2);
+		output.assertCssMaxWidth("none", findImage());
+		output.assertSize(IMAGE_WIDTH, IMAGE_HEIGHT, findImage());
+	}
+
+	@Test
+	public void testZoomInAndOut() {
+
+		var image = findImage();
+		click(image);
+		click(image);
+
+		assertShownPage(1);
+		output.assertCssMaxWidth(VIEWER_WIDTH + "px", image);
+		output.assertSize(VIEWER_WIDTH, IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, image);
+	}
+
+	// ------------------------------ paging ------------------------------ //
+
 	private void goToLastPage() {
 
 		for (int i = 2; i <= images.size(); i++) {
 			clickNextPageButton();
 		}
 	}
-
-	// ------------------------------ paging ------------------------------ //
 
 	private void assertShownPage(int index) {
 
