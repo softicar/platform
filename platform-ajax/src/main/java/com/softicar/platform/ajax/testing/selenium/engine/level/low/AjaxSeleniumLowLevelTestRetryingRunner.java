@@ -11,22 +11,15 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 
 /**
- * Retries failed Selenium test executions of the AJAX framework.
+ * Retries failed low-level Selenium test executions.
  * <p>
- * <b>DO NOT USE THIS BEYOND THE AJAX FRAMEWORK PROJECT!</b> Retrying test
- * execution should not be necessary for <b>any</b> project.
+ * <b>DO NOT USE THIS BEYOND THE AJAX SUB-PROJECT!</b> Retrying test execution
+ * should not be necessary for <b>any</b> project.
  * <p>
- * In the test suite of the AJAX framework, there is at least one test which
- * causes an undefined state in a Selenium Web Driver, which in turn can make an
- * arbitrary subsequent test fail. While it's easy to identify a failing test
- * (if any), it is hard to identify the culprit test which breaks the Selenium
- * Web Driver. Due to time pressure, the workaround of retrying failed tests was
- * considered a necessary evil to enable successful builds of the AJAX
- * framework, until a proper fix (of the mentioned culprit test as the actual
- * cause) is in place.
- * <p>
- * TODO This runner should be eliminated, because retrying test execution should
- * not be necessary (see above).
+ * If a unit test causes an undefined state in a Selenium Web Driver instance,
+ * any subsequent test that uses the same driver instance might fail. While it's
+ * easy to identify a failing test, it is hard to identify the culprit test
+ * which caused the undefined state in the Selenium Web Driver.
  *
  * @author Alexander Schmidt
  * @author Oliver Richers
