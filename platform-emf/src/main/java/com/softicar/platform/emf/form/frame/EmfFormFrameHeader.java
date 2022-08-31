@@ -14,7 +14,15 @@ public class EmfFormFrameHeader extends DomDiv {
 	public EmfFormFrameHeader setCaption(IDisplayString entityTitle, IDisplayString operationTitle) {
 
 		removeChildren();
-		appendText(entityTitle.concat(" - ").concat(operationTitle).toString());
+
+		var captionDiv = appendChild(new DomDiv());
+		captionDiv.setCssClass(EmfCssClasses.EMF_FORM_FRAME_CAPTION);
+		captionDiv.appendText(entityTitle);
+
+		var subCaptionDiv = appendChild(new DomDiv());
+		subCaptionDiv.setCssClass(EmfCssClasses.EMF_FORM_FRAME_SUBCAPTION);
+		subCaptionDiv.appendText(operationTitle);
+
 		return this;
 	}
 }
