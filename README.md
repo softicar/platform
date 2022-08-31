@@ -1,3 +1,9 @@
+![workflow](https://img.shields.io/github/workflow/status/softicar/platform/Continuous%20Integration)
+![license](https://img.shields.io/github/license/softicar/platform)
+![contributors](https://img.shields.io/github/contributors/softicar/platform)
+![release](https://img.shields.io/github/v/release/softicar/platform)
+![activity](https://img.shields.io/github/commit-activity/m/softicar/platform)
+
 # SoftiCAR Platform
 
 The _SoftiCAR Platform_ is a lightweight, Java-based library to create interactive business web applications.
