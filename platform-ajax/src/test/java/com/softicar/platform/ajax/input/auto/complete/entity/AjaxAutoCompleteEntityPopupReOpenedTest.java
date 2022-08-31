@@ -1,15 +1,14 @@
 package com.softicar.platform.ajax.input.auto.complete.entity;
 
-import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import org.junit.Test;
 
 /**
- * Contains unit tests for {@link DomAutoCompleteInput} interaction phase
- * <b>"2.3 Popup Closed"</b> (see {@link AbstractAjaxAutoCompleteEntityTest}).
+ * Initial state of all tests in this class: The pop-up was closed, and
+ * re-opened.
  *
  * @author Alexander Schmidt
  */
-public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends AbstractAjaxAutoCompleteEntityTest {
+public class AjaxAutoCompleteEntityPopupReOpenedTest extends AbstractAjaxAutoCompleteEntityTest {
 
 	@Test
 	public void testValidInputWithBackspaceTillEmptyAndTypedUniquePatternAndEnter() {
@@ -21,6 +20,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
+			.clickInputField()
 			.waitForServer();
 
 		input//
@@ -34,8 +34,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectValues(VALUE2)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectFocusOnInput()
 			.expectCallbackCount(2)
 			.expectCallbackValue(VALUE2)
 			.assertAll();
@@ -51,10 +50,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.sendString(VALUE1.getName())
 			.waitForServer()
 			.pressEnter()
+			.clickInputField()
 			.waitForServer();
 
 		input//
-			.clickInputField()
 			.pressBackspace(VALUE1.toDisplayStringWithId().length())
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
@@ -66,8 +65,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectFocusOnInput()
 			.expectCallbackCount(2)
 			.expectCallbackValueNone()
 			.assertAll();
@@ -83,10 +81,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressEscape()
+			.clickInputField()
 			.waitForServer();
 
 		input//
-			.clickInputField()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString(VALUE1.getName())
 			.waitForServer()
@@ -97,8 +95,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectValues(VALUE1)
 			.expectIndicatorNone()
 			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectFocusOnInput()
 			.expectCallbackCount(1)
 			.expectCallbackValue(VALUE1)
 			.assertAll();
@@ -114,10 +111,10 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.sendString(ILLEGAL_VALUE_NAME)
 			.waitForServer()
 			.pressEscape()
+			.clickInputField()
 			.waitForServer();
 
 		input//
-			.clickInputField()
 			.pressBackspace(ILLEGAL_VALUE_NAME.length())
 			.sendString("other illegal value name")
 			.waitForServer()
@@ -129,8 +126,7 @@ public class AjaxAutoCompleteEntityInputFocusedPopupReclosedTest extends Abstrac
 			.expectSelectedValueExceptionMessage()
 			.expectIndicatorIllegal()
 			.expectPopupNotDisplayed()
-			.expectFocus()
-			.expectBackdropNotDisplayed()
+			.expectFocusOnInput()
 			.expectCallbackNone()
 			.assertAll();
 	}

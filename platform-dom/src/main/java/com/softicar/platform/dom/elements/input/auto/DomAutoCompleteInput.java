@@ -210,6 +210,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 		if (popup.isAppended()) {
 			popup.applySelection();
+			closePopup();
 		}
 	}
 
@@ -218,7 +219,6 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		setFieldValue(value);
 		closePopup();
 		onChange();
-		inputField.focus();
 	}
 
 	protected void onBlur() {
@@ -236,7 +236,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		inputField.focus();
 	}
 
-	protected void onClick() {
+	protected void onClickOrFocusByTab() {
 
 		if (!popup.isAppended()) {
 			refreshPopup();

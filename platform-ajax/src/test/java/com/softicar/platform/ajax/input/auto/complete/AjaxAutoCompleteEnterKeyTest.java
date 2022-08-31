@@ -31,7 +31,7 @@ public class AjaxAutoCompleteEnterKeyTest extends AbstractAjaxAutoCompleteString
 		waitForServer();
 
 		// assert popup is not closed but input keeps focus
-		assertTrue(isAutoCompletePopupDisplayed());
+		assertFalse(isAutoCompletePopupDisplayed());
 		assertFocused(inputField);
 	}
 
