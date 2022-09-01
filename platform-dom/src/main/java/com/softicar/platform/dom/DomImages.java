@@ -19,4 +19,6 @@ public interface DomImages {
 	IResourceSupplier EMBLEM_AUTO_COMPLETE_VALUE_AMBIGUOUS = FACTORY.create("emblem-auto-complete-value-ambiguous.svg");
 	IResourceSupplier EMBLEM_AUTO_COMPLETE_VALUE_ILLEGAL = FACTORY.create("emblem-auto-complete-value-illegal.svg");
 	IResourceSupplier ROTATE = FACTORY.create("rotate.svg");
+	IResourceSupplier ZOOM_IN = FACTORY.create("zoom-in.svg");
+	IResourceSupplier ZOOM_OUT = FACTORY.create("zoom-out.svg");
 }

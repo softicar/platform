@@ -26,7 +26,7 @@ public class StoredFilePdfPreviewPopup extends AbstractStoredFilePreviewPopup {
 
 		List<IResource> previewImages = StoredFilePdfRenderer.renderPages(file);
 		if (!previewImages.isEmpty()) {
-			appendChild(new DomImageViewer(previewImages, imageInitialMaxWidth));
+			appendChild(new DomImageViewer(previewImages).setWidth(imageInitialMaxWidth));
 		} else {
 			appendChild(new DomMessageDiv(DomMessageType.WARNING, EmfI18n.NO_IMAGE_FOUND_FOR_ARG1.toDisplay(file.getFileName())));
 		}

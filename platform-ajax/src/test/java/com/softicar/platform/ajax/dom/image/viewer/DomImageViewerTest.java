@@ -6,7 +6,6 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSelenium
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.in.memory.InMemoryImageResource;
-import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.image.viewer.DomImageViewer;
@@ -22,6 +21,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private static final int VIEWER_WIDTH = 300;
 	private static final int IMAGE_WIDTH = 500;
 	private static final int IMAGE_HEIGHT = 700;
+	private static final int IMAGE_PADDING = 10;
 	private final List<IResource> images;
 	private final AjaxSeleniumLowLevelTestEngineInput input;
 	private final AjaxSeleniumLowLevelTestEngineOutput output;
@@ -32,18 +32,14 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = getTestEngine().getInput();
 		this.output = getTestEngine().getOutput();
 
-		openTestNode(() -> new DomImageViewer(images, new CssPixel(VIEWER_WIDTH)));
+		openTestNode(() -> new DomImageViewer(images).setWidth(new CssPixel(VIEWER_WIDTH)));
 	}
 
 	@Test
 	public void testInitialDisplay() {
 
-		var image = findImage();
-
 		assertShownPage(1);
-		output.assertCssClasses(List.of(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE), image);
-		output.assertCssMaxWidth(VIEWER_WIDTH + "px", image);
-		output.assertSize(VIEWER_WIDTH, IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, image);
+		assertZoomLevel(100);
 		assertRotated(false);
 	}
 
@@ -96,35 +92,58 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testZoomIn() {
 
-		var image = findImage();
-		click(image);
+		clickZoomInButton();
 
 		assertShownPage(1);
-		output.assertCssMaxWidth("none", image);
-		output.assertSize(IMAGE_WIDTH, IMAGE_HEIGHT, image);
+		assertZoomLevel(125);
 	}
 
 	@Test
-	public void testZoomInAndGoToNextPage() {
+	public void testZoomOut() {
 
-		click(findImage());
-		clickNextPageButton();
+		clickZoomOutButton();
 
-		assertShownPage(2);
-		output.assertCssMaxWidth("none", findImage());
-		output.assertSize(IMAGE_WIDTH, IMAGE_HEIGHT, findImage());
+		assertShownPage(1);
+		assertZoomLevel(75);
 	}
 
 	@Test
 	public void testZoomInAndOut() {
 
-		var image = findImage();
-		click(image);
-		click(image);
+		// --- zoom in --- //
 
-		assertShownPage(1);
-		output.assertCssMaxWidth(VIEWER_WIDTH + "px", image);
-		output.assertSize(VIEWER_WIDTH, IMAGE_HEIGHT * VIEWER_WIDTH / IMAGE_WIDTH, image);
+		clickZoomInButton();
+		assertZoomLevel(125);
+
+		clickZoomInButton();
+		assertZoomLevel(150);
+
+		clickZoomInButton();
+		assertZoomLevel(175);
+
+		// --- zoom out --- //
+
+		clickZoomOutButton();
+		assertZoomLevel(150);
+
+		clickZoomOutButton();
+		assertZoomLevel(125);
+
+		clickZoomOutButton();
+		assertZoomLevel(100);
+
+		clickZoomOutButton();
+		assertZoomLevel(75);
+	}
+
+	@Test
+	public void testZoomInAndGoToNextPage() {
+
+		clickZoomInButton();
+		clickNextPageButton();
+
+		assertShownPage(2);
+		assertZoomLevel(125);
 	}
 
 	// ------------------------------ paging ------------------------------ //
@@ -183,9 +202,9 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		return output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE);
 	}
 
-	private IDomNode findImageDiv() {
+	private IDomNode findImageHolder() {
 
-		return output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE_DIV);
+		return output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_IMAGE_HOLDER);
 	}
 
 	// ------------------------------ rotation ------------------------------ //
@@ -198,10 +217,45 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void assertRotated(boolean rotated) {
 
 		if (rotated) {
-			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", findImageDiv());
+			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", findImageHolder());
 		} else {
-			output.assertCssTransform("none", findImageDiv());
+			output.assertCssTransform("matrix(1, 0, 0, 1, 0, 0)", findImageHolder());
 		}
+	}
+
+	// ------------------------------ zooming ------------------------------ //
+
+	private void clickZoomInButton() {
+
+		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_IN_BUTTON));
+	}
+
+	private void clickZoomOutButton() {
+
+		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_OUT_BUTTON));
+	}
+
+	private int getZoomedHolderWidth(int zoomPercentage) {
+
+		return (int) Math.round(zoomPercentage / 100.0 * VIEWER_WIDTH);
+	}
+
+	private int getZoomedHolderHeight(int zoomPercentage) {
+
+		var imageElementWidth = getZoomedHolderWidth(zoomPercentage) - 2 * IMAGE_PADDING;
+		var imageElementHeight = imageElementWidth * IMAGE_HEIGHT / IMAGE_WIDTH;
+
+		return Math.round(imageElementHeight + 2 * IMAGE_PADDING);
+	}
+
+	private void assertZoomLevel(int zoomPercentage) {
+
+		var imageHolder = findImageHolder();
+		var expectedWidth = getZoomedHolderWidth(zoomPercentage);
+		var expectedHeight = getZoomedHolderHeight(zoomPercentage);
+
+		output.assertCssWidth(expectedWidth + "px", imageHolder);
+		output.assertSize(expectedWidth, expectedHeight, imageHolder);
 	}
 
 	// ------------------------------ setup ------------------------------ //

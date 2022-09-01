@@ -1,16 +1,35 @@
 .DomImageViewer {
 	align-items: center;
+	display: grid;
+	grid-template-rows: min-content auto;
+	overflow: hidden;
+	resize: both;
 }
 
-.DomImageViewer.draggable {
-	height: 85vh;
-	overflow: scroll;
+.DomImageViewerCanvas {
+	align-self: stretch;
+	min-height: 50px;
+	overflow: auto;
+	position: relative;
+	width: 100%;
 }
 
 .DomImageViewerImage {
-	box-shadow: 0px 0px 3px #777777;
+	box-shadow: 0px 0px 3px 3px #ccc;
 }
 
-.DomImageViewerImage.rotated {
-	transform: rotate(180deg);
+.DomImageViewerImageHolder {
+	box-sizing: border-box;
+	position: absolute;
+	padding: 10px;
+}
+
+.DomImageViewerPageIndicator {
+	white-space: nowrap;
+}
+
+.DomImageViewerToolBar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;	
 }

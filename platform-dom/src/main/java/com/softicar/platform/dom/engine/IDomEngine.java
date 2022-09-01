@@ -105,6 +105,7 @@ public interface IDomEngine {
 	void setPreventDefaultBehavior(IDomNode node, DomEventType type, boolean enabled);
 
 	void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled);
+//	void setPreventDefaultOnWheel(IDomNode node, Set<DomModifierKey> modifiers);
 
 	/**
 	 * Adds an event handler that stops propagation for the given
