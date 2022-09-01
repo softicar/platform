@@ -1,12 +1,12 @@
 package com.softicar.platform.common.io.resource.in.memory;
 
 import com.softicar.platform.common.io.mime.IMimeType;
-import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.hash.AbstractHashableResource;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,17 +23,19 @@ public class InMemoryResource extends AbstractHashableResource {
 
 	/**
 	 * Constructs this {@link InMemoryResource}.
+	 * <p>
+	 * Per default, no filename and character set will be defined.
 	 *
 	 * @param content
 	 *            the content of the {@link IResource} (never <i>null</i>)
 	 * @param mimeType
-	 *            the {@link MimeType} of the {@link IResource} (never
+	 *            the {@link IMimeType} of the {@link IResource} (never
 	 *            <i>null</i>)
 	 */
 	public InMemoryResource(byte[] content, IMimeType mimeType) {
 
-		this.content = content;
-		this.mimeType = mimeType;
+		this.content = Objects.requireNonNull(content);
+		this.mimeType = Objects.requireNonNull(mimeType);
 		this.filename = null;
 		this.charset = null;
 	}

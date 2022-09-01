@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 
 /**
@@ -35,6 +36,9 @@ public class InMemoryImageResource extends InMemoryResource {
 	}
 
 	private static byte[] convertImageToByteArray(RenderedImage image, String imageFormat) {
+
+		Objects.requireNonNull(image);
+		Objects.requireNonNull(imageFormat);
 
 		try {
 			var buffer = new ByteArrayOutputStream();

@@ -1,6 +1,6 @@
 package com.softicar.platform.common.pdf;
 
-import com.softicar.platform.common.core.exceptions.SofticarException;
+import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,7 +81,7 @@ public class PdfRenderer {
 				bufferedImages.add(renderer.renderImageWithDPI(page, dpi, imageType));
 			}
 		} catch (IOException exception) {
-			throw new SofticarException(exception, "Failed to convert PDF InputStream to an image.");
+			throw new SofticarIOException(exception, "Failed to render PDF.");
 		}
 		return bufferedImages;
 	}
