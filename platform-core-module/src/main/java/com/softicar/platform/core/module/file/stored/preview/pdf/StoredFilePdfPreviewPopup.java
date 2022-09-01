@@ -9,9 +9,7 @@ import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.ICssLength;
 import com.softicar.platform.emf.EmfI18n;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class StoredFilePdfPreviewPopup extends AbstractStoredFilePreviewPopup {
 
@@ -25,19 +23,12 @@ public class StoredFilePdfPreviewPopup extends AbstractStoredFilePreviewPopup {
 	public StoredFilePdfPreviewPopup(AGStoredFile file, ICssLength imageInitialMaxWidth) {
 
 		super(file);
-		List<IResource> previewImages = getPreviewImages(file);
+
+		List<IResource> previewImages = StoredFilePdfRenderer.renderPages(file);
 		if (!previewImages.isEmpty()) {
 			appendChild(new DomImageViewer(previewImages, imageInitialMaxWidth));
 		} else {
 			appendChild(new DomMessageDiv(DomMessageType.WARNING, EmfI18n.NO_IMAGE_FOUND_FOR_ARG1.toDisplay(file.getFileName())));
 		}
-	}
-
-	private List<IResource> getPreviewImages(AGStoredFile file) {
-
-		return Optional//
-			.of(file)
-			.map(it -> StoredFilePdfRenderer.renderPages(file))
-			.orElseGet(ArrayList::new);
 	}
 }

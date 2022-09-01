@@ -42,6 +42,7 @@ public class StoredFilePdfRenderer {
 		try (InputStream stream = file.getFileContentInputStream()) {
 			return renderPages(stream, file.getFileName());
 		} catch (Throwable throwable) {
+			Log.ferror("Exception while rendering PDF: %s", file.getFileName());
 			Log.ferror(StackTraceFormatting.getStackTraceAsString(throwable));
 			return new ArrayList<>();
 		}
