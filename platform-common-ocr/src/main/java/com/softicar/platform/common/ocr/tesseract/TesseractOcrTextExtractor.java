@@ -6,7 +6,7 @@ import com.softicar.platform.common.io.zip.ZipLib;
 import com.softicar.platform.common.ocr.IOcrTextExtractor;
 import com.softicar.platform.common.ocr.tesseract.trained.data.ITesseractTrainedDataFileStore;
 import com.softicar.platform.common.ocr.tesseract.trained.data.TesseractTrainedDataFileResourceContainer;
-import com.softicar.platform.common.pdf.converter.PdfToBufferedImageConverter;
+import com.softicar.platform.common.pdf.PdfRenderer;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -110,7 +110,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 	private Collection<BufferedImage> convertToBufferedImages(InputStream inputStream) {
 
-		return new PdfToBufferedImageConverter().convertToBufferedImages(inputStream);
+		return new PdfRenderer().render(inputStream);
 	}
 
 	private TessBaseAPI createTesseractApi() {
