@@ -4,8 +4,8 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 
 /**
- * Removes all sent e-mail from {@link AGBufferedEmail} that are older than a specific
- * age.
+ * Removes all sent e-mail from {@link AGBufferedEmail} that are older than a
+ * specific age.
  *
  * @author Oliver Richers
  */
@@ -26,6 +26,21 @@ public class BufferedEmailCleaner {
 			.where(AGBufferedEmail.SENT_AT.isNotNull())
 			.where(AGBufferedEmail.SENT_AT.isLess(minimumSentAt))
 			.orderBy(AGBufferedEmail.ID)
-			.forEach(AGBufferedEmail::delete);
+			.forEach(this::deleteWithLogs);
+	}
+
+	// TODO PLAT-1134 Rely on on-delete-cascade instead of explicitly deleting the log record.
+	private AGBufferedEmail deleteWithLogs(AGBufferedEmail email) {
+
+		deleteLogs(email);
+		return email.delete();
+	}
+
+	private void deleteLogs(AGBufferedEmail email) {
+
+		AGBufferedEmailLog.TABLE//
+			.createDelete()
+			.where(AGBufferedEmailLog.BUFFERED_EMAIL.equal(email))
+			.execute();
 	}
 }
