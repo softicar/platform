@@ -1,5 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
+import static org.junit.Assert.assertEquals;
 import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.testing.selenium.engine.common.IAjaxSeleniumTestEngineConstants;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
@@ -18,12 +19,14 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -61,6 +64,13 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 
 		Dimension dimension = webElementResolver.apply(node).getSize();
 		return new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
+	}
+
+	public void assertSize(int expectedWidth, int expectedHeight, IDomNode node) {
+
+		var dimension = getSize(node);
+		assertEquals("width", expectedWidth, dimension.getWidth());
+		assertEquals("height", expectedHeight, dimension.getHeight());
 	}
 
 	public AjaxSeleniumTestRectangle getRectangle(IDomNode node) {
@@ -228,5 +238,27 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 	public IDomModalPromptNodes<IDomNode> findModalPromptOrFail() {
 
 		return new DomModalPromptNodes<>(this::findNodeOrFail);
+	}
+
+	// ------------------------------ CSS assert methods ------------------------------ //
+
+	public void assertCssClasses(Collection<ICssClass> expectedClasses, IDomNode node) {
+
+		var expectedValue = expectedClasses//
+			.stream()
+			.map(ICssClass::getName)
+			.sorted()
+			.collect(Collectors.joining(" "));
+		assertEquals(expectedValue, getAttributeValue(node, "class"));
+	}
+
+	public void assertCssMaxWidth(String expectedMaxWidth, IDomNode node) {
+
+		assertEquals(expectedMaxWidth, getCssAttributeValue(node, "max-width"));
+	}
+
+	public void assertCssTransform(String expectedTransform, IDomNode node) {
+
+		assertEquals(expectedTransform, getCssAttributeValue(node, "transform"));
 	}
 }
