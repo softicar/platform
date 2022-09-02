@@ -69,6 +69,10 @@ const AJAX_REQUEST_TIMEOUT = 5;
 const AJAX_REQUEST_DOM_EVENT = 6;
 const AJAX_REQUEST_DRAG_AND_DROP = 7;
 const AJAX_REQUEST_UPLOAD = 8;
+const DOM_MODIFIER_ALT = 'Alt';
+const DOM_MODIFIER_CONTROL = 'Control';
+const DOM_MODIFIER_META = 'Meta';
+const DOM_MODIFIER_SHIFT = 'Shift';
 const DOM_VK_TAB = 9;
 const DOM_VK_ENTER = 13;
 const DOM_VK_ESCAPE = 27;
@@ -547,13 +551,16 @@ function listenToDomEvent(nodeId, event, doListen) {
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
         case 'WHEEL':
-            element.onwheel = handler;
+            WHEEL_EVENT_MANAGER.setListenToWheel(element, doListen);
             break;
-        default: alert('Unknown event ' + event + '.');
+        default: alert('Unknown event: ' + event);
     }
 }
 function setPreventDefaultOnMouseDown(element, enabled) {
     element.onmousedown = enabled ? (event) => event.preventDefault() : null;
+}
+function setPreventDefaultOnWheel(element, modifiers, enabled) {
+    WHEEL_EVENT_MANAGER.setPreventDefaultBehavior(element, new Set(modifiers), enabled);
 }
 function setListenToKeys(element, keys) {
     KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
@@ -700,7 +707,7 @@ class KeyboardEventHandler {
             this.node.onkeyup = event => this.handleKeyUp(event);
         }
         else {
-            console.log('Warning: Skipped installation of keyboard event listeners.');
+            console.log('Warning: Skipped installation of a keyboard event listener.');
         }
         return this;
     }
@@ -782,6 +789,66 @@ class CssClassApplier {
     }
     removeClasses() {
         this.classes.forEach(c => this.node.classList.remove(c));
+    }
+}
+class WheelEventManager {
+    constructor() {
+        this.handlers = new Map();
+    }
+    setListenToWheel(node, enabled) {
+        this.getHandler(node).setListenToWheel(enabled);
+    }
+    setPreventDefaultBehavior(node, modifiers, enabled) {
+        this.getHandler(node).setPreventDefault(modifiers, enabled);
+    }
+    getHandler(node) {
+        let handler = this.handlers.get(node.id);
+        if (!handler) {
+            handler = new WheelEventHandler(node).install();
+            this.handlers.set(node.id, handler);
+        }
+        return handler;
+    }
+}
+const WHEEL_EVENT_MANAGER = new WheelEventManager();
+class WheelEventHandler {
+    constructor(node) {
+        this.preventDefault = new Map();
+        this.listenToWheel = false;
+        this.node = node;
+    }
+    install() {
+        if (!this.node.onwheel) {
+            this.node.onwheel = event => this.handleWheel(event);
+        }
+        else {
+            console.log('Warning: Skipped installation of a wheel event listener.');
+        }
+        return this;
+    }
+    setListenToWheel(enabled) {
+        this.listenToWheel = enabled;
+    }
+    setPreventDefault(modifiers, enabled) {
+        this.preventDefault.set(JSON.stringify(Array.from(modifiers)), enabled);
+    }
+    handleWheel(event) {
+        let modifiers = new Set();
+        if (event.altKey)
+            modifiers.add(DOM_MODIFIER_ALT);
+        if (event.ctrlKey)
+            modifiers.add(DOM_MODIFIER_CONTROL);
+        if (event.metaKey)
+            modifiers.add(DOM_MODIFIER_META);
+        if (event.shiftKey)
+            modifiers.add(DOM_MODIFIER_SHIFT);
+        if (this.listenToWheel) {
+            handleDomEvent(event);
+        }
+        if (this.preventDefault.get(JSON.stringify(Array.from(modifiers)))) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
     }
 }
 class AjaxRequest {

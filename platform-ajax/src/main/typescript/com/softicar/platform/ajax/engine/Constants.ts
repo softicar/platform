@@ -7,6 +7,11 @@ const AJAX_REQUEST_DOM_EVENT       = 6;
 const AJAX_REQUEST_DRAG_AND_DROP   = 7;
 const AJAX_REQUEST_UPLOAD          = 8;
 
+const DOM_MODIFIER_ALT = 'Alt';
+const DOM_MODIFIER_CONTROL = 'Control';
+const DOM_MODIFIER_META = 'Meta';
+const DOM_MODIFIER_SHIFT = 'Shift';
+
 const DOM_VK_TAB    = 9;
 const DOM_VK_ENTER  = 13;
 const DOM_VK_ESCAPE = 27;

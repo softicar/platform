@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
@@ -18,6 +19,7 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * This is implementation of {@link IDomEngine} simply ignores all requests.
@@ -232,6 +234,12 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setPreventDefaultOnWheel(IDomNode node, Set<DomModifier> modifiers, boolean enabled) {
 
 		// nothing to do
 	}
