@@ -58,17 +58,17 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 		AGWorkflowTask
 			.createSelect()
 			.where(AGWorkflowTask.CLOSED.isFalse())
-			.where(AGWorkflowTask.USER.equal(user))
-			.where(AGWorkflowTask.WORKFLOW_ITEM.equal(workflowItem))
+			.where(AGWorkflowTask.USER.isEqual(user))
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
 			.forEach(tasksToClose::add);
 
 		AGWorkflowTask.TABLE
 			.createSelect()
 			.where(AGWorkflowTask.CLOSED.isFalse())
-			.where(AGWorkflowTask.WORKFLOW_ITEM.equal(workflowItem))
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
 			.joinReverse(AGWorkflowTaskDelegation.WORKFLOW_TASK)
 			.where(AGWorkflowTaskDelegation.ACTIVE)
-			.where(AGWorkflowTaskDelegation.TARGET_USER.equal(user))
+			.where(AGWorkflowTaskDelegation.TARGET_USER.isEqual(user))
 			.forEach(tasksToClose::add);
 
 		return tasksToClose;
@@ -78,7 +78,7 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 
 		return !AGWorkflowTransitionExecution//
 			.createSelect()
-			.where(AGWorkflowTransitionExecution.WORKFLOW_TASK.equal(this))
+			.where(AGWorkflowTransitionExecution.WORKFLOW_TASK.isEqual(this))
 			.exists();
 	}
 }

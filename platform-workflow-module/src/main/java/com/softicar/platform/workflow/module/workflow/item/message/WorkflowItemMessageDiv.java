@@ -88,7 +88,7 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 
 		return AGWorkflowItemMessage
 			.createSelect()//
-			.where(AGWorkflowItemMessage.WORKFLOW_ITEM.equal(item))
+			.where(AGWorkflowItemMessage.WORKFLOW_ITEM.isEqual(item))
 			.stream()
 			.map(this::createRow)
 			.collect(Collectors.toList());
@@ -160,7 +160,7 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 			.getAllWorkflowTasks()
 			.stream()
 			.map(it -> AGWorkflowTaskDelegation.TABLE.load(it))
-			.flatMap(it -> AGWorkflowTaskDelegationLog.TABLE.createSelect().where(AGWorkflowTaskDelegationLog.WORKFLOW_TASK_DELEGATION.equal(it)).stream())
+			.flatMap(it -> AGWorkflowTaskDelegationLog.TABLE.createSelect().where(AGWorkflowTaskDelegationLog.WORKFLOW_TASK_DELEGATION.isEqual(it)).stream())
 			.map(this::createRow)
 			.collect(Collectors.toList());
 	}

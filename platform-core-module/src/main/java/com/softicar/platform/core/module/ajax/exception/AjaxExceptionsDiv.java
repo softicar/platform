@@ -68,7 +68,7 @@ class AjaxExceptionsDiv extends DomDiv {
 
 		public SessionInfoPopup(AGAjaxSession session) {
 
-			AGAjaxSessionRevision revision = AGAjaxSessionRevision.TABLE.createSelect().where(AGAjaxSessionRevision.SESSION.equal(session)).getFirst();
+			AGAjaxSessionRevision revision = AGAjaxSessionRevision.TABLE.createSelect().where(AGAjaxSessionRevision.SESSION.isEqual(session)).getFirst();
 			setCaption(CoreI18n.SESSION_INFORMATION);
 			appendChild(new DomLabelGrid())//
 				.add(CoreI18n.SESSION_ID, session.getId().toString())

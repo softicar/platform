@@ -52,21 +52,37 @@ public interface ISqlComparableExpression<BOOL, VALUE> extends ISqlBasicExpressi
 
 	// -------------------- old methods for backwards-compatibility -------------------- //
 
+	/**
+	 * @Deprecated use {@link #isLess(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL less(VALUE other) {
 
 		return isLess(other);
 	}
 
+	/**
+	 * @Deprecated use {@link #isLessEqual(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL lessEqual(VALUE other) {
 
 		return isLessEqual(other);
 	}
 
+	/**
+	 * @Deprecated use {@link #isGreater(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL greater(VALUE other) {
 
 		return isGreater(other);
 	}
 
+	/**
+	 * @Deprecated use {@link #isGreaterEqual(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL greaterEqual(VALUE other) {
 
 		return isGreaterEqual(other);

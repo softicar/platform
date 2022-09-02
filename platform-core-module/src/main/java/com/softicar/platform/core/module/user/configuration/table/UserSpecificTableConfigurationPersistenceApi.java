@@ -73,9 +73,9 @@ public class UserSpecificTableConfigurationPersistenceApi implements IEmfPersist
 
 		return AGUserSpecificTableConfiguration.TABLE//
 			.createSelect(SqlSelectLock.FOR_UPDATE)
-			.where(AGUserSpecificTableConfiguration.USER.equal(CurrentUser.get()))
-			.where(AGUserSpecificTableConfiguration.TABLE_PATH_HASH.equal(tablePathHash))
-			.where(AGUserSpecificTableConfiguration.COLUMN_TITLES_HASH.equal(columnTitlesHash))
+			.where(AGUserSpecificTableConfiguration.USER.isEqual(CurrentUser.get()))
+			.where(AGUserSpecificTableConfiguration.TABLE_PATH_HASH.isEqual(tablePathHash))
+			.where(AGUserSpecificTableConfiguration.COLUMN_TITLES_HASH.isEqual(columnTitlesHash))
 			.getFirstAsOptional();
 	}
 

@@ -22,7 +22,7 @@ public class AGStoredFileSha1 extends AGStoredFileSha1Generated implements IStor
 	@Override
 	public boolean isReferenced() {
 
-		return AGStoredFile.createSelect().where(AGStoredFile.SHA_1.equal(this)).count() > 0;
+		return AGStoredFile.createSelect().where(AGStoredFile.SHA_1.isEqual(this)).count() > 0;
 	}
 
 	@Override

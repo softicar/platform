@@ -32,8 +32,8 @@ public class UserPasswordLoader {
 
 		return AGUserPassword
 			.createSelect()
-			.where(AGUserPassword.USER.equal(user))
-			.where(AGUserPassword.ACTIVE.equal(true))
+			.where(AGUserPassword.USER.isEqual(user))
+			.where(AGUserPassword.ACTIVE.isEqual(true))
 			.orderDescendingBy(AGUserPassword.CREATED_AT)
 			.getFirst();
 	}

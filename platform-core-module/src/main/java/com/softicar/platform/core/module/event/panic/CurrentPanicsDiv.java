@@ -44,7 +44,7 @@ public class CurrentPanicsDiv extends DomDiv {
 				.createUpdate()
 				.set(AGLogMessage.NOTIFICATION_TIME, DayTime.now())
 				.where(AGLogMessage.NOTIFICATION_TIME.isNull())
-				.where(AGLogMessage.LEVEL.equal(AGLogLevelEnum.PANIC.getRecord()))
+				.where(AGLogMessage.LEVEL.isEqual(AGLogLevelEnum.PANIC.getRecord()))
 				.execute();
 			tableDiv.refresh();
 		}

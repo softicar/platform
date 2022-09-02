@@ -22,7 +22,7 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 
 		return AGWorkflowVersion//
 			.createSelect()
-			.where(AGWorkflowVersion.WORKFLOW.equal(this))
+			.where(AGWorkflowVersion.WORKFLOW.isEqual(this))
 			.list();
 	}
 

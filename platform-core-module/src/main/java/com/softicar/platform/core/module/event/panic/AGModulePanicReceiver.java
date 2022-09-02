@@ -21,7 +21,7 @@ public class AGModulePanicReceiver extends AGModulePanicReceiverGenerated implem
 		return AGModulePanicReceiver//
 			.createSelect()
 			.where(AGModulePanicReceiver.ACTIVE)
-			.where(AGModulePanicReceiver.MODULE_UUID.equal(AGUuid.getOrCreate(module.getAnnotatedUuid())))
+			.where(AGModulePanicReceiver.MODULE_UUID.isEqual(AGUuid.getOrCreate(module.getAnnotatedUuid())))
 			.stream()
 			.map(AGModulePanicReceiver::getUser)
 			.map(AGUser::getEmailAddress)

@@ -70,33 +70,56 @@ public interface ISqlBasicExpression<BOOL, VALUE> extends ISqlExpression<VALUE> 
 	}
 
 	// -------------------- old methods for backwards-compatibility -------------------- //
-
+	/**
+	 * @Deprecated use {@link #isEqual(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL equal(VALUE other) {
 
 		return isEqual(other);
 	}
 
+	/**
+	 * @Deprecated use {@link #isNotEqual(ISqlExpression0)} instead
+	 */
+	@Deprecated
 	default BOOL notEqual(VALUE other) {
 
 		return isNotEqual(other);
 	}
 
+	/**
+	 * @Deprecated use {@link #isIn(Iterable)} instead
+	 */
+	@Deprecated
 	default BOOL in(Iterable<VALUE> values) {
 
 		return isIn(values);
 	}
 
+	/**
+	 * @Deprecated use {@link #isIn(Object...)} instead
+	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	default BOOL in(VALUE...values) {
 
 		return isIn(values);
 	}
 
+	/**
+	 * @Deprecated use {@link #isNotIn(Iterable)} instead
+	 */
+	@Deprecated
 	default BOOL notIn(Iterable<VALUE> values) {
 
 		return isNotIn(values);
 	}
 
+	/**
+	 * @Deprecated use {@link #isNotIn(Object...)} instead
+	 */
+	@Deprecated
 	@SuppressWarnings("unchecked")
 	default BOOL notIn(VALUE...values) {
 
