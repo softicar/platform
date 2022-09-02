@@ -5,8 +5,8 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Modifier;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
@@ -96,7 +96,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testWithAltKey() {
 
-		click(testDiv, Modifier.ALT);
+		click(testDiv, DomModifier.ALT);
 		waitForServer();
 		assertModifierKeys(true, false, false, false);
 	}
@@ -104,7 +104,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testWithCtrlKey() {
 
-		click(testDiv, Modifier.CONTROL);
+		click(testDiv, DomModifier.CONTROL);
 		waitForServer();
 		assertModifierKeys(false, true, false, false);
 	}
@@ -112,7 +112,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testWithMetaKey() {
 
-		click(testDiv, Modifier.META);
+		click(testDiv, DomModifier.META);
 		waitForServer();
 		assertModifierKeys(false, false, true, false);
 	}
@@ -120,7 +120,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testWithShiftKey() {
 
-		click(testDiv, Modifier.SHIFT);
+		click(testDiv, DomModifier.SHIFT);
 		waitForServer();
 		assertModifierKeys(false, false, false, true);
 	}
