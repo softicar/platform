@@ -21,13 +21,17 @@ function listenToDomEvent(nodeId: number, event: string, doListen: boolean) {
 	case 'KEYUP':       KEYBOARD_EVENT_MANAGER.setListenToKeyUp(element, doListen); break;
 	case 'SPACE':       KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
 	case 'TAB':         KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen); break;
-	case 'WHEEL':       element.onwheel = handler; break;
-	default: alert('Unknown event ' + event + '.');
+	case 'WHEEL':       WHEEL_EVENT_MANAGER.setListenToWheel(element, doListen); break;
+	default: alert('Unknown event: ' + event);
 	}
 }
 
 function setPreventDefaultOnMouseDown(element: HTMLElement, enabled: boolean) {
 	element.onmousedown = enabled? (event) => event.preventDefault() : null;
+}
+
+function setPreventDefaultOnWheel(element: HTMLElement, modifiers: string[], enabled: boolean) {
+	WHEEL_EVENT_MANAGER.setPreventDefaultBehavior(element, new Set(modifiers), enabled);
 }
 
 function setListenToKeys(element: HTMLElement, keys: string[]) {
