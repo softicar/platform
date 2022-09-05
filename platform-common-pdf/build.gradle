@@ -1,7 +1,7 @@
 dependencies {
 	api project(':platform-common')
 
-	implementation "org.apache.pdfbox:pdfbox:$versions.pdfbox"
+	api "org.apache.pdfbox:pdfbox:$versions.pdfbox"
 
 	// used by pdfbox to render various embedded image formats
 	implementation "com.github.jai-imageio:jai-imageio-jpeg2000:$versions.jaiImageioJpeg2000"
