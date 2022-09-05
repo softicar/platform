@@ -1,8 +1,8 @@
 package com.softicar.platform.dom.elements.tab;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 
@@ -16,7 +16,7 @@ public class DomTabHeader extends DomDiv implements IDomClickEventHandler {
 		this.tab = tab;
 		this.tabBar = tabBar;
 
-		setCssClass(DomElementsCssClasses.DOM_TAB_HEADER);
+		setCssClass(DomCssClasses.DOM_TAB_HEADER);
 
 		if (isCurrentTab()) {
 			addCssClass(DomCssPseudoClasses.SELECTED);

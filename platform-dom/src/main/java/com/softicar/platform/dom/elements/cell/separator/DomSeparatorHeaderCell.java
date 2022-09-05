@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.cell.separator;
 
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomHeaderCell;
 
 /**
@@ -12,6 +12,6 @@ public class DomSeparatorHeaderCell extends DomHeaderCell implements IDomSeparat
 
 	public DomSeparatorHeaderCell() {
 
-		setCssClass(DomElementsCssClasses.DOM_SEPARATOR_CELL);
+		setCssClass(DomCssClasses.DOM_SEPARATOR_CELL);
 	}
 }

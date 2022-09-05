@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.button.popup.help;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
@@ -55,7 +55,7 @@ public class DomHelpPopupButton extends DomButton {
 		this.popupCaption = popupCaption;
 		this.popupSubCaption = popupSubCaption;
 
-		setIcon(DomElementsImages.HELP.getResource());
+		setIcon(DomImages.HELP.getResource());
 		setTitle(DomI18n.DISPLAY_HELP);
 		setClickCallback(this::handleClick);
 	}

@@ -2,8 +2,8 @@ package com.softicar.platform.dom.elements.tables.pageable.navigation;
 
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.navigation.DomPageableTableNavigation.PagingDirection;
@@ -21,11 +21,11 @@ class TurnPageButton extends DomButton {
 		setClickCallback(this::handleClick);
 
 		if (pageTurnDirection == PagingDirection.BACKWARD) {
-			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
+			setIcon(DomImages.PAGE_PREVIOUS.getResource());
 			setTitle(DomI18n.PREVIOUS_PAGE);
 			addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_PREV_BUTTON);
 		} else if (pageTurnDirection == PagingDirection.FORWARD) {
-			setIcon(DomElementsImages.PAGE_NEXT.getResource());
+			setIcon(DomImages.PAGE_NEXT.getResource());
 			setTitle(DomI18n.NEXT_PAGE);
 			addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_PAGE_NEXT_BUTTON);
 		} else {

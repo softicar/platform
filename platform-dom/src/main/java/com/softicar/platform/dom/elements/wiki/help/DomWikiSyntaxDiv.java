@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.elements.wiki.help;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
 import com.softicar.platform.dom.elements.wiki.DomWikiI18n;
@@ -12,7 +12,7 @@ public class DomWikiSyntaxDiv extends DomDiv {
 
 	public DomWikiSyntaxDiv() {
 
-		addCssClass(DomElementsCssClasses.DOM_WIKI_SYNTAX_DIV);
+		addCssClass(DomCssClasses.DOM_WIKI_SYNTAX_DIV);
 		new DomWikiDivBuilder(this)//
 			.addHeadline("======", DomWikiI18n.SOFTICAR_WIKI_SYNTAX)
 			.addLine(DomWikiI18n.THE_SOFTICAR_WIKI_SYNTAX_IS_VERY_SIMILAR_TO_THE_ARG1_DOKUWIKI_SYNTAX.toDisplay("https://www.dokuwiki.org/wiki:syntax"))
@@ -114,7 +114,7 @@ public class DomWikiSyntaxDiv extends DomDiv {
 
 			// resources
 			.addHeadline("=====", DomWikiI18n.RESOURCES)
-			.registerElement("info", new DomImage(DomElementsImages.INFO.getResource()))
+			.registerElement("info", new DomImage(DomImages.INFO.getResource()))
 			.addLine(DomWikiI18n.YOU_CAN_ALSO_ADD_RESOURCES_LIKE_IMAGES_ARG1.toDisplay("{{info}}"))
 			.addEmptyLine()
 			.beginCode()

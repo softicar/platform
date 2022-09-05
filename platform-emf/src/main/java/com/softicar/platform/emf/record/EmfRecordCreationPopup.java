@@ -2,8 +2,8 @@ package com.softicar.platform.emf.record;
 
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.table.row.DbTableRowFlag;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
@@ -48,7 +48,7 @@ public class EmfRecordCreationPopup<R extends IEmfRecord<R, P>, P, S> extends Do
 				.setClickCallback(this::showFormPopup));
 		appendActionNode(
 			new DomButton()//
-				.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
+				.setIcon(DomImages.DIALOG_CANCEL.getResource())
 				.setLabel(EmfI18n.CANCEL)
 				.addMarker(EmfTestMarker.FORM_CANCEL)
 				.setClickCallback(() -> CurrentDomPopupCompositor.get().closeInteractively(this)));

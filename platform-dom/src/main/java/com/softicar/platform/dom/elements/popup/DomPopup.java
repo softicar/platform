@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.elements.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.popup.button.DomPopupCancelButton;
 import com.softicar.platform.dom.elements.popup.button.DomPopupCloseButton;
@@ -57,7 +57,7 @@ public class DomPopup extends DomDiv {
 
 		this.configuration = new DomPopupConfiguration();
 		this.actionBarFooter = null;
-		setCssClass(DomElementsCssClasses.DOM_POPUP);
+		setCssClass(DomCssClasses.DOM_POPUP);
 	}
 
 	// -------------------------------- configuration -------------------------------- //

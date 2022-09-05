@@ -2,7 +2,7 @@ package com.softicar.platform.emf.action;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfTestMarker;
@@ -103,7 +103,7 @@ public class AbstractEmfPromptActionTest extends AbstractEmfTest {
 		@Override
 		public IResource getIcon() {
 
-			return DomElementsImages.DIALOG_OKAY.getResource();
+			return DomImages.DIALOG_OKAY.getResource();
 		}
 
 		@Override

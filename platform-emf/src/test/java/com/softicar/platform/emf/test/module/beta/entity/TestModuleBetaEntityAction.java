@@ -2,7 +2,7 @@ package com.softicar.platform.emf.test.module.beta.entity;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
 import com.softicar.platform.emf.form.section.IEmfFormSectionDiv;
 import com.softicar.platform.emf.permission.EmfAnyPermission;
@@ -30,7 +30,7 @@ public class TestModuleBetaEntityAction implements IEmfPrimaryAction<TestModuleB
 	@Override
 	public IResource getIcon() {
 
-		return DomElementsImages.DIALOG_OKAY.getResource();
+		return DomImages.DIALOG_OKAY.getResource();
 	}
 
 	@Override

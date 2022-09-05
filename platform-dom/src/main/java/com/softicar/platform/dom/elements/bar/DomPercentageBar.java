@@ -2,8 +2,8 @@ package com.softicar.platform.dom.elements.bar;
 
 import com.softicar.platform.common.math.Clamping;
 import com.softicar.platform.common.string.formatting.DoubleFormatter;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.style.CssPercent;
 import com.softicar.platform.dom.style.CssStyle;
 
@@ -50,7 +50,7 @@ public class DomPercentageBar extends DomDiv {
 		this.percentageDiv = new PercentageDiv();
 		this.percentageLabelDiv = new PercentageLabelDiv();
 
-		setCssClass(DomElementsCssClasses.DOM_PERCENTAGE_BAR);
+		setCssClass(DomCssClasses.DOM_PERCENTAGE_BAR);
 		appendChild(percentageDiv);
 		if (showPercentage) {
 			appendChild(percentageLabelDiv);
@@ -68,7 +68,7 @@ public class DomPercentageBar extends DomDiv {
 
 		public PercentageDiv() {
 
-			setCssClass(DomElementsCssClasses.DOM_PERCENTAGE);
+			setCssClass(DomCssClasses.DOM_PERCENTAGE);
 			updatePercentage();
 		}
 
@@ -82,7 +82,7 @@ public class DomPercentageBar extends DomDiv {
 
 		public PercentageLabelDiv() {
 
-			setCssClass(DomElementsCssClasses.DOM_PERCENTAGE_LABEL);
+			setCssClass(DomCssClasses.DOM_PERCENTAGE_LABEL);
 			updatePercentage();
 		}
 

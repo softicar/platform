@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 
@@ -13,7 +13,7 @@ class DomAutoCompleteBackdrop extends DomDiv implements IDomClickEventHandler {
 
 		this.input = input;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_BACKDROP);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_BACKDROP);
 
 		getDomEngine().setPreventDefaultOnMouseDown(this, true);
 	}

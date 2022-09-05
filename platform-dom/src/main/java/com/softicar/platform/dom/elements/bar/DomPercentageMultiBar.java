@@ -3,8 +3,8 @@ package com.softicar.platform.dom.elements.bar;
 import com.softicar.platform.common.math.Clamping;
 import com.softicar.platform.common.string.formatting.DoubleFormatter;
 import com.softicar.platform.common.ui.color.IColor;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.style.CssPercent;
 import com.softicar.platform.dom.style.CssStyle;
 
@@ -19,8 +19,8 @@ public class DomPercentageMultiBar extends DomDiv {
 
 	public DomPercentageMultiBar() {
 
-		setCssClass(DomElementsCssClasses.DOM_PERCENTAGE_BAR);
-		addCssClass(DomElementsCssClasses.DOM_PERCENTAGE_MULTI_BAR);
+		setCssClass(DomCssClasses.DOM_PERCENTAGE_BAR);
+		addCssClass(DomCssClasses.DOM_PERCENTAGE_MULTI_BAR);
 	}
 
 	public DomPercentageMultiBar addPercentage(double percentage, IColor backgroundColor, IColor textColor) {
@@ -35,7 +35,7 @@ public class DomPercentageMultiBar extends DomDiv {
 
 		public PercentageDiv(double percentage, IColor backgroundColor, IColor textColor) {
 
-			setCssClass(DomElementsCssClasses.DOM_PERCENTAGE);
+			setCssClass(DomCssClasses.DOM_PERCENTAGE);
 
 			setBackgroundColor(backgroundColor);
 			setColor(textColor);

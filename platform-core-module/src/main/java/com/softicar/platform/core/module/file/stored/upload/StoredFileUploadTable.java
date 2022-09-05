@@ -7,8 +7,8 @@ import com.softicar.platform.core.module.file.size.FileSize;
 import com.softicar.platform.core.module.file.size.FileSizeFormatter;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.download.StoredFileDownloadButton;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.style.CssStyle;
@@ -114,7 +114,7 @@ class StoredFileUploadTable extends DomDiv {
 		public FileRow(AGStoredFile file) {
 
 			this.removeButton = new DomButton()//
-				.setIcon(DomElementsImages.ENTRY_REMOVE.getResource())
+				.setIcon(DomImages.ENTRY_REMOVE.getResource())
 				.setTitle(EmfI18n.REMOVE_FILE)
 				.setConfirmationMessage(EmfI18n.ARE_YOU_SURE_QUESTION)
 				.setClickCallback(() -> removeFile(file))

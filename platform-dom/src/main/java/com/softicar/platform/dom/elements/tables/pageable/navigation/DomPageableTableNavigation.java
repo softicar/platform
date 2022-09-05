@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.tables.pageable.navigation;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.elements.tables.pageable.IDomPageableTableNavigationButtonBuilder;
@@ -18,7 +18,7 @@ public class DomPageableTableNavigation extends DomBar implements IDomPageableTa
 		this.customButtonBuilders = customButtonBuilders;
 
 		addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION);
-		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
+		addCssClass(DomCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
 	}
 
 	@Override

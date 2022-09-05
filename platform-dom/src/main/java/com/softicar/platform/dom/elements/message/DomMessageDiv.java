@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.elements.message;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
 import com.softicar.platform.dom.node.IDomNode;
@@ -15,7 +15,7 @@ public class DomMessageDiv extends DomDiv {
 	public DomMessageDiv(DomMessageType type) {
 
 		Objects.requireNonNull(type);
-		addCssClass(DomElementsCssClasses.DOM_MESSAGE_DIV);
+		addCssClass(DomCssClasses.DOM_MESSAGE_DIV);
 		addCssClass(type.getStyleClass());
 		appendChild(new DomImage(type.getIcon()));
 	}

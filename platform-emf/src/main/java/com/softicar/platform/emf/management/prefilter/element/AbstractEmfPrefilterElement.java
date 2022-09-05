@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.management.prefilter.element;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
@@ -90,7 +90,7 @@ public abstract class AbstractEmfPrefilterElement<S, E extends IEmfTableRow<E, ?
 		DomActionBar addFilterBar = appendChild(
 			new DomActionBar(
 				new DomButton()//
-					.setIcon(DomElementsImages.FILTER_ADD.getResource())//
+					.setIcon(DomImages.FILTER_ADD.getResource())//
 					.setLabel(EmfI18n.ADD_FILTER)//
 					.setClickCallback(() -> addRow(rowFactory.apply(scope)))));
 		addFilterBar.addCssClass(EmfCssClasses.EMF_PREFILTER_ADD_FILTER_BAR);
@@ -99,7 +99,7 @@ public abstract class AbstractEmfPrefilterElement<S, E extends IEmfTableRow<E, ?
 	private void appendRemoveRowButton(R targetRow, boolean disabled) {
 
 		DomButton removeFilterButton = new DomButton()//
-			.setIcon(DomElementsImages.FILTER_REMOVE.getResource())//
+			.setIcon(DomImages.FILTER_REMOVE.getResource())//
 			.setDisabled(disabled)
 			.setClickCallback(() -> removeRow(targetRow));
 		targetRow.appendRemoveRowButton(removeFilterButton);

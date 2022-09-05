@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.matrix;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomFieldset;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
@@ -52,7 +52,7 @@ public class EmfSettingMatrixViewOptionsDiv extends DomDiv implements IEmfSettin
 		fieldset
 			.appendChild(
 				new DomButton()//
-					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
+					.setIcon(DomImages.DIALOG_OKAY.getResource())
 					.setLabel(EmfI18n.APPLY)
 					.setClickCallback(this::applyOptions)
 					.addMarker(EmfTestMarker.SETTING_MATRIX_APPLY_BUTTON));

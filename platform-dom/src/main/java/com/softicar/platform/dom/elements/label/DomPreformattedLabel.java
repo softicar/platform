@@ -1,8 +1,8 @@
 package com.softicar.platform.dom.elements.label;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomCode;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.styles.CssWhiteSpace;
 
 /**
@@ -18,7 +18,7 @@ public class DomPreformattedLabel extends DomCode {
 
 	public DomPreformattedLabel() {
 
-		addCssClass(DomElementsCssClasses.DOM_PREFORMATTED_LABEL);
+		addCssClass(DomCssClasses.DOM_PREFORMATTED_LABEL);
 	}
 
 	/**

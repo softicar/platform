@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.matrix;
 
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
@@ -68,7 +68,7 @@ public class EmfSettingMatrixPreselectorDiv<E extends IEmfEntity<E, ?>> extends 
 			appendChild(
 				new DomButton()//
 					.setLabel(EmfI18n.SELECT)
-					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
+					.setIcon(DomImages.DIALOG_OKAY.getResource())
 					.setClickCallback(() -> refresh())
 					.addMarker(EmfTestMarker.SETTING_MATRIX_ENTITY_SELECT_BUTTON));
 		}

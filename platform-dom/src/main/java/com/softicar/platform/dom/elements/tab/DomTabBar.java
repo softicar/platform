@@ -2,8 +2,8 @@ package com.softicar.platform.dom.elements.tab;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +20,8 @@ public class DomTabBar extends DomDiv {
 		this.tabBarHeader = new DomTabBarHeader(this);
 		this.tabContentContainer = new DomTabBarContentContainer(this);
 		this.currentTab = null;
-		setCssClass(DomElementsCssClasses.DOM_TAB_BAR);
-		addCssClass(DomElementsCssClasses.DOM_TAB_BAR_HORIZONTAL);
+		setCssClass(DomCssClasses.DOM_TAB_BAR);
+		addCssClass(DomCssClasses.DOM_TAB_BAR_HORIZONTAL);
 
 		appendChild(tabBarHeader);
 		appendChild(tabContentContainer);
@@ -29,8 +29,8 @@ public class DomTabBar extends DomDiv {
 
 	public DomTabBar setVerticalDisplay() {
 
-		removeCssClass(DomElementsCssClasses.DOM_TAB_BAR_HORIZONTAL);
-		addCssClass(DomElementsCssClasses.DOM_TAB_BAR_VERTICAL);
+		removeCssClass(DomCssClasses.DOM_TAB_BAR_HORIZONTAL);
+		addCssClass(DomCssClasses.DOM_TAB_BAR_VERTICAL);
 		return this;
 	}
 

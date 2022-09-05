@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.log.process;
 
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.styles.CssTextAlign;
 import com.softicar.platform.emf.EmfImages;
@@ -38,7 +38,7 @@ public class LogProcessOverview extends DomDiv {
 		public BackToOverviewButton() {
 
 			setLabel(CoreI18n.BACK_TO_OVERVIEW);
-			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
+			setIcon(DomImages.PAGE_PREVIOUS.getResource());
 			setClickCallback(() -> logViewPageDiv.showOverviewScope());
 		}
 	}
@@ -54,7 +54,7 @@ public class LogProcessOverview extends DomDiv {
 				.appendChild(
 					new DomButton()//
 						.setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION)
-						.setIcon(DomElementsImages.ENTRY_REMOVE.getResource())
+						.setIcon(DomImages.ENTRY_REMOVE.getResource())
 						.setClickCallback(() -> {
 							value.delete();
 							table.refresh();

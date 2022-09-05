@@ -3,8 +3,8 @@ package com.softicar.platform.dom.elements.input.auto;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.IDomTextualInput;
@@ -68,7 +68,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.committedValue = null;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_INPUT);
 		appendChild(inputBar);
 		appendChild(filterDisplay);
 		appendChild(indicator);

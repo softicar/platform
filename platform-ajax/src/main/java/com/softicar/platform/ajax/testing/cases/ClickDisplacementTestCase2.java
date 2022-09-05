@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 
@@ -16,7 +16,7 @@ public class ClickDisplacementTestCase2 extends AbstractTestCaseDiv {
 
 		public PromptButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("Click to get a prompt."));
 			setClickCallback(this::handleClick);
 		}
