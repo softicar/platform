@@ -10,7 +10,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Timeouts;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -33,7 +33,7 @@ public class AjaxSeleniumWebDriverFactory {
 
 	private WebDriver tryToCreateRemoteDriver() {
 
-		var capabilities = getFirefoxCapabilities();
+		var capabilities = getBrowserCapabilities();
 		RemoteWebDriver driver = new RemoteWebDriver(getRemoteDriverUrl(), capabilities);
 		driver.setFileDetector(new LocalFileDetector());
 		return driver;
@@ -53,9 +53,9 @@ public class AjaxSeleniumWebDriverFactory {
 			.ifPresent(timeout -> timeouts.scriptTimeout(Duration.ofMillis(timeout)));
 	}
 
-	private static Capabilities getFirefoxCapabilities() {
+	private static Capabilities getBrowserCapabilities() {
 
-		return new FirefoxOptions()//
+		return new ChromeOptions()//
 			.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
 	}
 

@@ -18,12 +18,7 @@
 }
 
 .DomImageViewerCanvas::-webkit-scrollbar {
-	width: 6px;
-	background: var(--GRAY_BACKGROUND_COLOR);
-}
-
-.DomImageViewerCanvas::-webkit-scrollbar-thumb {
-	background: var(--PRIMARY_COLOR);
+	width: 0px;
 }
 
 .DomImageViewerImage {

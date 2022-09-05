@@ -56,15 +56,10 @@ public class AjaxSeleniumTestProperties {
 	// Selenium Network
 	public static final IProperty<String> NETWORK_SUBNETWORK = FACTORY.createStringProperty("network.subnetwork", "172.0.0.0/24");
 
-	// Selenium Node (Chrome)
-	public static final IProperty<BigDecimal> NODE_CHROME_FACTOR = FACTORY.createBigDecimalProperty("node.chrome.factor", BigDecimal.ZERO);
-	public static final IProperty<String> NODE_CHROME_IMAGE_NAME = FACTORY.createStringProperty("node.chrome.image.name", "node-chrome");
-	public static final IProperty<String> NODE_CHROME_NAME_PREFIX = FACTORY.createStringProperty("node.chrome.name.prefix", "selenium-node-chrome");
-
-	// Selenium Node (Firefox)
-	public static final IProperty<BigDecimal> NODE_FIREFOX_FACTOR = FACTORY.createBigDecimalProperty("node.firefox.factor", new BigDecimal("1.5"));
-	public static final IProperty<String> NODE_FIREFOX_IMAGE_NAME = FACTORY.createStringProperty("node.firefox.image.name", "node-firefox");
-	public static final IProperty<String> NODE_FIREFOX_NAME_PREFIX = FACTORY.createStringProperty("node.firefox.name.prefix", "selenium-node-firefox");
+	// Selenium Node
+	public static final IProperty<BigDecimal> NODE_FACTOR = FACTORY.createBigDecimalProperty("node.factor", new BigDecimal("1.5"));
+	public static final IProperty<String> NODE_IMAGE_NAME = FACTORY.createStringProperty("node.image.name", "node-chrome");
+	public static final IProperty<String> NODE_NAME_PREFIX = FACTORY.createStringProperty("node.name.prefix", "selenium-node-chrome");
 
 	// Server
 	public static final IProperty<String> SERVER_IP = FACTORY.createStringProperty("server.ip", "172.0.0.1");

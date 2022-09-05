@@ -4,7 +4,6 @@ import com.softicar.platform.ajax.testing.selenium.grid.configuration.grid.ISele
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.hub.ISeleniumHubConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.network.ISeleniumNetworkConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.node.ISeleniumNodeConfiguration;
-import java.util.Collection;
 
 /**
  * Generates the content of a <tt>docker-compose</tt> YAML file which defines a
@@ -16,14 +15,14 @@ public class SleniumGridDockerComposeFileGenerator {
 
 	private ISeleniumGridConfiguration gridConfiguration;
 	private ISeleniumHubConfiguration hubConfiguration;
-	private Collection<ISeleniumNodeConfiguration> nodeConfigurations;
+	private ISeleniumNodeConfiguration nodeConfiguration;
 	private ISeleniumNetworkConfiguration networkConfiguration;
 
 	public SleniumGridDockerComposeFileGenerator() {
 
 		this.gridConfiguration = null;
 		this.hubConfiguration = null;
-		this.nodeConfigurations = null;
+		this.nodeConfiguration = null;
 		this.networkConfiguration = null;
 	}
 
@@ -41,7 +40,7 @@ public class SleniumGridDockerComposeFileGenerator {
 
 		this.gridConfiguration = gridConfiguration.validate();
 		this.hubConfiguration = gridConfiguration.getHubConfiguration();
-		this.nodeConfigurations = gridConfiguration.getNodeConfigurations();
+		this.nodeConfiguration = gridConfiguration.getNodeConfiguration();
 		this.networkConfiguration = gridConfiguration.getNetworkConfiguration();
 
 		OutputBuilder builder = new OutputBuilder();
@@ -91,23 +90,21 @@ public class SleniumGridDockerComposeFileGenerator {
 
 	private void appendNodeServices(OutputBuilder builder) {
 
-		for (ISeleniumNodeConfiguration nodeConfiguration: nodeConfigurations) {
-			for (int nodeIndex = 1; nodeIndex <= calculateNodeCount(nodeConfiguration); nodeIndex++) {
-				builder.appendLine("  %s:", generateNodeName(nodeConfiguration, nodeIndex));
-				builder.appendLine("    image: selenium/%s:%s", nodeConfiguration.getImageName(), gridConfiguration.getContainerVersion());
-				builder.appendLine("    container_name: %s", generateNodeName(nodeConfiguration, nodeIndex));
-				builder.appendLine("    volumes:");
-				builder.appendLine("      - /dev/shm:/dev/shm");
-				builder.appendLine("    depends_on:");
-				builder.appendLine("      - %s", generateHubName());
-				builder.appendLine("    environment:");
-				builder.appendLine("      - SE_EVENT_BUS_HOST=%s", generateHubName());
-				builder.appendLine("      - SE_EVENT_BUS_PUBLISH_PORT=%s", hubConfiguration.getPortEventBusPublish());
-				builder.appendLine("      - SE_EVENT_BUS_SUBSCRIBE_PORT=%s", hubConfiguration.getPortEventBusSubscribe());
-				builder.appendLine("    networks:");
-				builder.appendLine("      - %s", generateNetworkName());
-				builder.appendLine("");
-			}
+		for (int nodeIndex = 1; nodeIndex <= calculateNodeCount(nodeConfiguration); nodeIndex++) {
+			builder.appendLine("  %s:", generateNodeName(nodeConfiguration, nodeIndex));
+			builder.appendLine("    image: selenium/%s:%s", nodeConfiguration.getImageName(), gridConfiguration.getContainerVersion());
+			builder.appendLine("    container_name: %s", generateNodeName(nodeConfiguration, nodeIndex));
+			builder.appendLine("    volumes:");
+			builder.appendLine("      - /dev/shm:/dev/shm");
+			builder.appendLine("    depends_on:");
+			builder.appendLine("      - %s", generateHubName());
+			builder.appendLine("    environment:");
+			builder.appendLine("      - SE_EVENT_BUS_HOST=%s", generateHubName());
+			builder.appendLine("      - SE_EVENT_BUS_PUBLISH_PORT=%s", hubConfiguration.getPortEventBusPublish());
+			builder.appendLine("      - SE_EVENT_BUS_SUBSCRIBE_PORT=%s", hubConfiguration.getPortEventBusSubscribe());
+			builder.appendLine("    networks:");
+			builder.appendLine("      - %s", generateNetworkName());
+			builder.appendLine("");
 		}
 	}
 

@@ -4,8 +4,6 @@ import com.softicar.platform.ajax.testing.selenium.grid.configuration.hub.ISelen
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.network.ISeleniumNetworkConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.node.ISeleniumNodeConfiguration;
 import com.softicar.platform.common.core.properties.IProperty;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class SeleniumGridConfiguration implements ISeleniumGridConfiguration {
 
@@ -15,7 +13,7 @@ public class SeleniumGridConfiguration implements ISeleniumGridConfiguration {
 	private String temporaryDirectory;
 	private Boolean deferredGridShutdown;
 	private ISeleniumHubConfiguration hubConfiguration;
-	private final Collection<ISeleniumNodeConfiguration> nodeConfigurations = new ArrayList<>();
+	private ISeleniumNodeConfiguration nodeConfiguration;
 	private ISeleniumNetworkConfiguration networkConfiguration;
 
 	@Override
@@ -128,14 +126,14 @@ public class SeleniumGridConfiguration implements ISeleniumGridConfiguration {
 	}
 
 	@Override
-	public Collection<ISeleniumNodeConfiguration> getNodeConfigurations() {
+	public ISeleniumNodeConfiguration getNodeConfiguration() {
 
-		return nodeConfigurations;
+		return nodeConfiguration;
 	}
 
-	public SeleniumGridConfiguration addNodeConfiguration(ISeleniumNodeConfiguration nodeConfiguration) {
+	public SeleniumGridConfiguration setNodeConfiguration(ISeleniumNodeConfiguration nodeConfiguration) {
 
-		this.nodeConfigurations.add(nodeConfiguration);
+		this.nodeConfiguration = nodeConfiguration;
 		return this;
 	}
 }

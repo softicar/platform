@@ -3,7 +3,6 @@ package com.softicar.platform.ajax.testing.selenium.grid.configuration.grid;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.hub.ISeleniumHubConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.network.ISeleniumNetworkConfiguration;
 import com.softicar.platform.ajax.testing.selenium.grid.configuration.node.ISeleniumNodeConfiguration;
-import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -81,13 +80,11 @@ public interface ISeleniumGridConfiguration {
 	ISeleniumHubConfiguration getHubConfiguration();
 
 	/**
-	 * Returns the {@link ISeleniumNodeConfiguration} instances for the Selenium
-	 * grid.
+	 * Returns the {@link ISeleniumNodeConfiguration} for the Selenium grid.
 	 *
-	 * @return the {@link ISeleniumNodeConfiguration} instances (never
-	 *         <i>null</i>)
+	 * @return the {@link ISeleniumNodeConfiguration} (never <i>null</i>)
 	 */
-	Collection<ISeleniumNodeConfiguration> getNodeConfigurations();
+	ISeleniumNodeConfiguration getNodeConfiguration();
 
 	/**
 	 * Returns the {@link ISeleniumNetworkConfiguration} for the Selenium grid.
@@ -111,11 +108,11 @@ public interface ISeleniumGridConfiguration {
 		Objects.requireNonNull(getTemporaryDirectory());
 		Objects.requireNonNull(isDeferredGridShutdown());
 		Objects.requireNonNull(getHubConfiguration());
-		Objects.requireNonNull(getNodeConfigurations());
+		Objects.requireNonNull(getNodeConfiguration());
 		Objects.requireNonNull(getNetworkConfiguration());
 
 		getHubConfiguration().validate();
-		getNodeConfigurations().forEach(ISeleniumNodeConfiguration::validate);
+		getNodeConfiguration().validate();
 		getNetworkConfiguration().validate();
 
 		return this;

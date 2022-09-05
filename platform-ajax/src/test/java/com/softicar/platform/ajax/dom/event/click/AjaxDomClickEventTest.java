@@ -5,12 +5,14 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
+import java.time.Duration;
 import org.junit.Test;
 
 public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -64,6 +66,9 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		// make viewport small enough for scrolling
 		AjaxSeleniumTestSegment backgroundDivSize = getSize(backgroundDiv);
 		setViewportSize(backgroundDivSize.getWidth() - SCROLL_X, backgroundDivSize.getHeight() - SCROLL_Y);
+
+		// race condition: resizing apparently takes some time
+		Sleep.sleep(Duration.ofMillis(500));
 
 		// scroll the window
 		scrollTo(SCROLL_X, SCROLL_Y);

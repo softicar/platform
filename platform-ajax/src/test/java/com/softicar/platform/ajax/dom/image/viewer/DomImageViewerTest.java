@@ -243,9 +243,9 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private int getZoomedHolderHeight(int zoomPercentage) {
 
 		var imageElementWidth = getZoomedHolderWidth(zoomPercentage) - 2 * IMAGE_PADDING;
-		var imageElementHeight = imageElementWidth * IMAGE_HEIGHT / IMAGE_WIDTH;
+		var imageElementHeight = imageElementWidth * IMAGE_HEIGHT / (double) IMAGE_WIDTH;
 
-		return Math.round(imageElementHeight + 2 * IMAGE_PADDING);
+		return (int) Math.round(imageElementHeight + 2 * IMAGE_PADDING);
 	}
 
 	private void assertZoomLevel(int zoomPercentage) {
