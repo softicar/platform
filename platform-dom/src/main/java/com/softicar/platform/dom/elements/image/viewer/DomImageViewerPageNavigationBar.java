@@ -28,14 +28,14 @@ class DomImageViewerPageNavigationBar extends DomBar {
 
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_NAVIGATION_BAR);
 		appendChild(previousImageButton);
-		appendChild(pageIndicator);
 		appendChild(nextImageButton);
+		appendChild(pageIndicator);
 	}
 
-	void refresh() {
+	public void refresh() {
 
 		previousImageButton.setEnabled(viewer.getPageIndex() > 0);
-		pageIndicator.refresh();
 		nextImageButton.setEnabled(viewer.getPageIndex() < viewer.getPageCount() - 1);
+		pageIndicator.refresh();
 	}
 }
