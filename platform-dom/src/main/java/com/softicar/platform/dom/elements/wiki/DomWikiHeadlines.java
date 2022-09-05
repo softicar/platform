@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.elements.wiki;
 
 import com.softicar.platform.common.ui.wiki.element.block.WikiHeadline;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.DomSimpleElement;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.parent.IDomParentElement;
 
 public class DomWikiHeadlines {
@@ -11,7 +11,7 @@ public class DomWikiHeadlines {
 	public static IDomParentElement createHeadline(WikiHeadline headline) {
 
 		DomSimpleElement element = new DomSimpleElement(getHeadlineTag(headline));
-		element.addCssClass(DomElementsCssClasses.DOM_WIKI_HEADLINE);
+		element.addCssClass(DomCssClasses.DOM_WIKI_HEADLINE);
 		return element;
 	}
 

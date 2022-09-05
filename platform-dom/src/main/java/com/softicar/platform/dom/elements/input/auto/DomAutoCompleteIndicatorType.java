@@ -3,16 +3,16 @@ package com.softicar.platform.dom.elements.input.auto;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomImages;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Optional;
 
 public enum DomAutoCompleteIndicatorType {
 
-	AMBIGUOUS(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_AMBIGUOUS, DomI18n.AMBIGUOUS_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOUS),
-	ILLEGAL(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_ILLEGAL, DomI18n.ILLEGAL_INPUT, DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL);
+	AMBIGUOUS(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_AMBIGUOUS, DomI18n.AMBIGUOUS_INPUT, DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR_AMBIGUOUS),
+	ILLEGAL(DomImages.EMBLEM_AUTO_COMPLETE_VALUE_ILLEGAL, DomI18n.ILLEGAL_INPUT, DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR_ILLEGAL);
 
 	private final IResourceSupplier image;
 	private final IDisplayString title;

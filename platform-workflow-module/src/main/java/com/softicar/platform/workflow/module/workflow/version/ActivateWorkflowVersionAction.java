@@ -3,8 +3,8 @@ package com.softicar.platform.workflow.module.workflow.version;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.document.CurrentDomDocument;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.permission.IEmfPermission;
@@ -33,7 +33,7 @@ public class ActivateWorkflowVersionAction implements IEmfManagementAction<AGWor
 	@Override
 	public IResource getIcon() {
 
-		return DomElementsImages.DIALOG_OKAY.getResource();
+		return DomImages.DIALOG_OKAY.getResource();
 	}
 
 	@Override

@@ -2,9 +2,9 @@ package com.softicar.platform.dom.elements.time.day;
 
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 		this.dayInput = createDayInput();
 		this.dayButton = new PickDayButton();
 
-		addCssClass(DomElementsCssClasses.DOM_DAY_INPUT);
+		addCssClass(DomCssClasses.DOM_DAY_INPUT);
 		appendChildren(dayInput, dayButton);
 	}
 

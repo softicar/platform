@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.data.table.export.popup;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
@@ -50,7 +50,7 @@ public class TableExportPopupButton extends DomButton {
 		this.enableDeflateCompression = enableDeflateCompression;
 		this.generalTableExportPreconditions = generalTableExportPreconditions;
 
-		setIcon(DomElementsImages.TABLE_EXPORT.getResource());
+		setIcon(DomImages.TABLE_EXPORT.getResource());
 		addMarker(DomTestMarker.PAGEABLE_TABLE_NAVIGATION_EXPORT_BUTTON);
 
 		if (showLabel) {

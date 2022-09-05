@@ -1,6 +1,6 @@
 package com.softicar.platform.emf.data.table.filter;
 
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
@@ -42,7 +42,7 @@ public class EmfDataTableFilterPopup<R> extends DomDismissablePopup implements I
 
 		public ApplyFilterButton() {
 
-			setIcon(DomElementsImages.FILTER.getResource());
+			setIcon(DomImages.FILTER.getResource());
 			setLabel(EmfDataTableI18n.FILTER);
 			addMarker(EmfTestMarker.DATA_TABLE_FILTER_EXECUTE_BUTTON);
 			setClickCallback(() -> submitFilter());

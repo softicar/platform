@@ -3,9 +3,9 @@ package com.softicar.platform.dom.elements.dialog;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.dialog.testing.DomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
@@ -47,8 +47,8 @@ public class DomModalDialogTest extends AbstractDomModalDialogTest {
 		dialogPopup.appendContent(MESSAGE);
 		dialogPopup.setCallbackBeforeOpen(beforeOpenCallback);
 		dialogPopup.addMarker(DomTestMarker.MODAL_DIALOG_POPUP);
-		dialogPopup.appendActionButton(DomElementsImages.DIALOG_OKAY.getResource(), OKAY_LABEL, okayCallback, OKAY_BUTTON);
-		dialogPopup.appendActionButton(DomElementsImages.DIALOG_CANCEL.getResource(), CANCEL_LABEL, cancelCallback, CANCEL_BUTTON);
+		dialogPopup.appendActionButton(DomImages.DIALOG_OKAY.getResource(), OKAY_LABEL, okayCallback, OKAY_BUTTON);
+		dialogPopup.appendActionButton(DomImages.DIALOG_CANCEL.getResource(), CANCEL_LABEL, cancelCallback, CANCEL_BUTTON);
 
 		beforeOpenCallback.assertNotCalled();
 		assertNoDisplayedModalDialog();

@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.form.error;
 
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.authorizer.EmfAccessPermissionException;
@@ -19,7 +19,7 @@ public class EmfFormAccessDeniedDiv<R extends IEmfTableRow<R, ?>> extends DomDiv
 		appendChild(
 			new DomButton()//
 				.setClickCallback(form::closeFrame)
-				.setIcon(DomElementsImages.DIALOG_CLOSE.getResource())
+				.setIcon(DomImages.DIALOG_CLOSE.getResource())
 				.setLabel(DomI18n.CLOSE));
 	}
 

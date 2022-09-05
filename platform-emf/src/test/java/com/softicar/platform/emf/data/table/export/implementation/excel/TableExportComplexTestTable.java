@@ -5,10 +5,10 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.ui.color.IColor;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.DomSimpleElement;
 import com.softicar.platform.dom.elements.DomCell;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomHeaderCell;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
@@ -467,7 +467,7 @@ public class TableExportComplexTestTable extends DomDataTable {
 
 		public TestButton() {
 
-			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
+			setIcon(DomImages.DIALOG_OKAY.getResource());
 			setLabel(IDisplayString.create(LABEL));
 		}
 	}

@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -15,7 +15,7 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 		this.input = input;
 		this.value = value;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_VALUE);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_VALUE);
 
 		var text = input.getInputEngine().getDisplayString(value).toString();
 		var index = pattern.isEmpty()? -1 : text.toLowerCase().indexOf(pattern);
@@ -48,9 +48,9 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 	public void setSelected(boolean selected) {
 
 		if (selected) {
-			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE);
+			addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE);
 		} else {
-			removeCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE);
+			removeCssClass(DomCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE);
 		}
 	}
 
@@ -58,7 +58,7 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 
 		public MatchSpan(String text) {
 
-			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_MATCH);
+			addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_MATCH);
 			appendText(text);
 		}
 	}

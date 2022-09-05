@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 
 public class DomAutoCompleteIndicator<T> extends DomDiv {
@@ -12,7 +12,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 		this.input = input;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR_PARENT);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR_PARENT);
 	}
 
 	public void refresh() {
@@ -38,7 +38,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 			super(type.getImage());
 
-			addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR);
+			addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR);
 			addCssClass(type.getCssClass());
 			setTitle(type.getTitle());
 		}

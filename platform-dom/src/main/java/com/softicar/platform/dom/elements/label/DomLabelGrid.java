@@ -1,8 +1,8 @@
 package com.softicar.platform.dom.elements.label;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomLabel;
 import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.node.IDomNode;
@@ -18,7 +18,7 @@ public class DomLabelGrid extends DomDiv {
 
 	public DomLabelGrid() {
 
-		addCssClass(DomElementsCssClasses.DOM_LABEL_GRID);
+		addCssClass(DomCssClasses.DOM_LABEL_GRID);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class DomLabelGrid extends DomDiv {
 
 		public DomLabelGridRow() {
 
-			addCssClass(DomElementsCssClasses.DOM_LABEL_GRID_ROW);
+			addCssClass(DomCssClasses.DOM_LABEL_GRID_ROW);
 		}
 	}
 }

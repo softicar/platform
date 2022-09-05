@@ -6,7 +6,6 @@ import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -69,11 +68,11 @@ public class DomImageViewer extends DomDiv {
 
 			this.previousImageButton = new DomButton()//
 				.addMarker(DomTestMarker.IMAGE_VIEWER_PREVIOUS_PAGE_BUTTON)
-				.setIcon(DomElementsImages.PAGE_PREVIOUS.getResource())
+				.setIcon(DomImages.PAGE_PREVIOUS.getResource())
 				.setClickCallback(() -> previousImage());
 			this.nextImageButton = new DomButton()//
 				.addMarker(DomTestMarker.IMAGE_VIEWER_NEXT_PAGE_BUTTON)
-				.setIcon(DomElementsImages.PAGE_NEXT.getResource())
+				.setIcon(DomImages.PAGE_NEXT.getResource())
 				.setClickCallback(() -> nextImage());
 			this.pageIndicator = new PageIndicator();
 

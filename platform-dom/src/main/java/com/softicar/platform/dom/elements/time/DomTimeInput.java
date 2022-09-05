@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.IllegalTimeSpecificationException;
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
@@ -24,7 +24,7 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 		this.minuteInput = createInput(DomI18n.MINUTES, DomTestMarker.TIME_INPUT_MINUTES_INPUT);
 		this.secondInput = createInput(DomI18n.SECONDS, DomTestMarker.TIME_INPUT_SECONDS_INPUT);
 
-		addCssClass(DomElementsCssClasses.DOM_TIME_INPUT);
+		addCssClass(DomCssClasses.DOM_TIME_INPUT);
 		appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
 	}
 
@@ -84,7 +84,7 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 		var input = new DomIntegerInput();
 		input.setTitle(title);
 		input.addMarker(testMarker);
-		input.addCssClass(DomElementsCssClasses.DOM_TIME_INPUT_ELEMENT);
+		input.addCssClass(DomCssClasses.DOM_TIME_INPUT_ELEMENT);
 		input.addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
 		return input;
 	}

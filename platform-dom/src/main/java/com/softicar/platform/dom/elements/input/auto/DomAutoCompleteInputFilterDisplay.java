@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.bar.DomBar;
 
@@ -17,7 +17,7 @@ class DomAutoCompleteInputFilterDisplay extends DomDiv {
 
 		this.inputEngine = inputEngine;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_INPUT_FILTER_DISPLAY);
 		refresh();
 	}
 
@@ -40,7 +40,7 @@ class DomAutoCompleteInputFilterDisplay extends DomDiv {
 
 			DomBar bar = appendChild(new DomBar());
 			bar.setTitle(createActiveFilterMessage(filterTitle, filterValueTitle));
-			bar.appendChild(new DomImage(DomElementsImages.FILTER.getResource()));
+			bar.appendChild(new DomImage(DomImages.FILTER.getResource()));
 			bar//
 				.appendNewChild(DomElementTag.B)//
 				.appendText(filterTitle);

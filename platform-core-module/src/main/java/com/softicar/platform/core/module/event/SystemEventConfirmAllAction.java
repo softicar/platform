@@ -5,8 +5,8 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.document.CurrentDomDocument;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
@@ -31,7 +31,7 @@ public class SystemEventConfirmAllAction implements IEmfScopeAction<AGCoreModule
 	@Override
 	public IResource getIcon() {
 
-		return DomElementsImages.DIALOG_OKAY.getResource();
+		return DomImages.DIALOG_OKAY.getResource();
 	}
 
 	@Override
