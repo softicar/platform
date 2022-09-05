@@ -59,8 +59,8 @@ public class AGDemoInvoiceItemGenerated extends AbstractDbObject<AGDemoInvoiceIt
 
 		return TABLE//
 				.createSelect()
-				.where(INVOICE.equal(invoice))
-				.where(ITEM.equal(item))
+				.where(INVOICE.isEqual(invoice))
+				.where(ITEM.isEqual(item))
 				.getOne();
 	}
 

@@ -63,7 +63,7 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 
 		return TABLE//
 				.createSelect()
-				.where(LOGIN_NAME.equal(loginName))
+				.where(LOGIN_NAME.isEqual(loginName))
 				.getOne();
 	}
 

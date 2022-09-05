@@ -54,9 +54,9 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 
 		return TABLE//
 				.createSelect()
-				.where(USER.equal(user))
-				.where(TABLE_PATH_HASH.equal(tablePathHash))
-				.where(COLUMN_TITLES_HASH.equal(columnTitlesHash))
+				.where(USER.isEqual(user))
+				.where(TABLE_PATH_HASH.isEqual(tablePathHash))
+				.where(COLUMN_TITLES_HASH.isEqual(columnTitlesHash))
 				.getOne();
 	}
 

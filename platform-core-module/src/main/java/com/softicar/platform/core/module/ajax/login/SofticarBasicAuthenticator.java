@@ -109,7 +109,7 @@ class SofticarBasicAuthenticator {
 
 		// check if user exists
 		if (user == null) {
-			logFailure(AGUserLoginFailureTypeEnum.UNKOWN_USER, username);
+			logFailure(AGUserLoginFailureTypeEnum.UNKNOWN_USER, username);
 			return null;
 		}
 

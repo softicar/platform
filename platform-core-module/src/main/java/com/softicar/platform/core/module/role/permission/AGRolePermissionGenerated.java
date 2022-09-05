@@ -55,9 +55,9 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 
 		return TABLE//
 				.createSelect()
-				.where(ROLE.equal(role))
-				.where(PERMISSION_UUID.equal(permissionUuid))
-				.where(MODULE_INSTANCE_BASE.equal(moduleInstanceBase))
+				.where(ROLE.isEqual(role))
+				.where(PERMISSION_UUID.isEqual(permissionUuid))
+				.where(MODULE_INSTANCE_BASE.isEqual(moduleInstanceBase))
 				.getOne();
 	}
 

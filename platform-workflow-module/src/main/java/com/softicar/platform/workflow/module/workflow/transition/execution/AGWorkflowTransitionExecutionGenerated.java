@@ -53,7 +53,7 @@ public class AGWorkflowTransitionExecutionGenerated extends AbstractDbObject<AGW
 
 		return TABLE//
 				.createSelect()
-				.where(WORKFLOW_TASK.equal(workflowTask))
+				.where(WORKFLOW_TASK.isEqual(workflowTask))
 				.getOne();
 	}
 

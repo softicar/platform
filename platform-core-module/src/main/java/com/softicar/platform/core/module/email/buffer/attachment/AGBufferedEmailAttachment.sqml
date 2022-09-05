@@ -10,5 +10,5 @@ TABLE AGBufferedEmailAttachment 'Core.BufferedEmailAttachment' {
 	String type [LENGTHBITS=16]
 	Blob data [LENGTHBITS=32]
 
-	UK email index
+	UK email index 
 }

@@ -47,7 +47,7 @@ public class AGStoredFileSet extends AbstractAGStoredFileSet {
 
 		return TABLE//
 				.createSelect()
-				.where(HASH.equal(hash))
+				.where(HASH.isEqual(hash))
 				.getOne();
 	}
 

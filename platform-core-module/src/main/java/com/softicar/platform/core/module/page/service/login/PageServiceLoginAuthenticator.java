@@ -71,7 +71,7 @@ class PageServiceLoginAuthenticator {
 		// load user and check if user exists
 		AGUser user = AGUser.loadByLoginName(username);
 		if (user == null) {
-			logFailure(AGUserLoginFailureTypeEnum.UNKOWN_USER, username);
+			logFailure(AGUserLoginFailureTypeEnum.UNKNOWN_USER, username);
 			throw new PageServiceLoginExceptionWrongUsernameOrPassword();
 		}
 

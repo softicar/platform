@@ -51,7 +51,7 @@ public class AGStoredFileSha1Generated extends AbstractDbObject<AGStoredFileSha1
 
 		return TABLE//
 				.createSelect()
-				.where(HASH.equal(hash))
+				.where(HASH.isEqual(hash))
 				.getOne();
 	}
 

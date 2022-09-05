@@ -70,11 +70,11 @@ public class AGDemoInvoiceGenerated extends AbstractDbObject<AGDemoInvoice> {
 
 		return TABLE//
 				.createSelect()
-				.where(MODULE_INSTANCE.equal(moduleInstance))
-				.where(CREDITOR.equal(creditor))
-				.where(DEBTOR.equal(debtor))
-				.where(INVOICE_NUMBER.equal(invoiceNumber))
-				.where(INVOICE_DATE.equal(invoiceDate))
+				.where(MODULE_INSTANCE.isEqual(moduleInstance))
+				.where(CREDITOR.isEqual(creditor))
+				.where(DEBTOR.isEqual(debtor))
+				.where(INVOICE_NUMBER.isEqual(invoiceNumber))
+				.where(INVOICE_DATE.isEqual(invoiceDate))
 				.getOne();
 	}
 

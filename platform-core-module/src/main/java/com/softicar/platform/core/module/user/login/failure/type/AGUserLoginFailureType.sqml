@@ -5,7 +5,7 @@ ENUM TABLE AGUserLoginFailureType 'Core.UserLoginFailureType' {
 	String name [MAXLENGTH=255]
 
 	ROW (1, 'MALFORMED_REQUEST')
-	ROW (2, 'UNKOWN_USER')
+	ROW (2, 'UNKNOWN_USER')
 	ROW (3, 'DISABLED_USER')
 	ROW (4, 'NO_ACTIVE_PASSWORD')
 	ROW (5, 'WRONG_PASSWORD')

@@ -51,7 +51,7 @@ public class AGProgramGenerated extends AbstractDbObject<AGProgram> {
 
 		return TABLE//
 				.createSelect()
-				.where(PROGRAM_UUID.equal(programUuid))
+				.where(PROGRAM_UUID.isEqual(programUuid))
 				.getOne();
 	}
 

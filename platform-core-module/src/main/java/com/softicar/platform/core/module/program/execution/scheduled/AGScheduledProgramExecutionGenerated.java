@@ -56,7 +56,7 @@ public class AGScheduledProgramExecutionGenerated extends AbstractDbObject<AGSch
 
 		return TABLE//
 				.createSelect()
-				.where(PROGRAM_UUID.equal(programUuid))
+				.where(PROGRAM_UUID.isEqual(programUuid))
 				.getOne();
 	}
 

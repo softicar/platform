@@ -53,8 +53,8 @@ public class AGRoleUserGenerated extends AbstractDbObject<AGRoleUser> {
 
 		return TABLE//
 				.createSelect()
-				.where(ROLE.equal(role))
-				.where(USER.equal(user))
+				.where(ROLE.isEqual(role))
+				.where(USER.isEqual(user))
 				.getOne();
 	}
 
