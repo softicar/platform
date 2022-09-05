@@ -2,9 +2,9 @@ package com.softicar.platform.emf.form.section.exception;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDivBuilder;
@@ -25,7 +25,7 @@ public class EmfFormExceptionDiv extends DomDiv {
 			.appendChild(
 				new DomButton()//
 					.setLabel(EmfI18n.OK)
-					.setIcon(DomElementsImages.DIALOG_OKAY.getResource())
+					.setIcon(DomImages.DIALOG_OKAY.getResource())
 					.setClickCallback(okayCallback));
 	}
 }

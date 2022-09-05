@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.diagnostics;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 
 public class DomInputDiagnosticsDisplay extends DomDiv {
 
@@ -11,7 +11,7 @@ public class DomInputDiagnosticsDisplay extends DomDiv {
 
 		this.state = DomInputDiagnosticsState.NONE;
 
-		addCssClass(DomElementsCssClasses.DOM_INPUT_DIAGNOSTICS_DISPLAY);
+		addCssClass(DomCssClasses.DOM_INPUT_DIAGNOSTICS_DISPLAY);
 	}
 
 	/**

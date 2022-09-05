@@ -3,9 +3,9 @@ package com.softicar.platform.dom.elements.checkbox;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.NullaryVoidFunctionList;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
@@ -45,7 +45,7 @@ public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDom
 
 		setTabIndex(0);
 
-		setCssClass(DomElementsCssClasses.DOM_CHECKBOX);
+		setCssClass(DomCssClasses.DOM_CHECKBOX);
 
 		getDomEngine().setFireOnKeyUp(this, DomEventType.ENTER, true);
 		getDomEngine().setFireOnKeyUp(this, DomEventType.SPACE, true);
@@ -172,7 +172,7 @@ public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDom
 		public DomCheckboxBox() {
 
 			this.filler = new DomCheckboxBoxFiller();
-			setCssClass(DomElementsCssClasses.DOM_CHECKBOX_BOX);
+			setCssClass(DomCssClasses.DOM_CHECKBOX_BOX);
 		}
 
 		public void setChecked(boolean checked) {
@@ -187,7 +187,7 @@ public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDom
 
 			public DomCheckboxBoxFiller() {
 
-				setCssClass(DomElementsCssClasses.DOM_CHECKBOX_BOX_FILLER);
+				setCssClass(DomCssClasses.DOM_CHECKBOX_BOX_FILLER);
 			}
 		}
 	}
@@ -196,7 +196,7 @@ public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDom
 
 		public DomCheckboxLabel() {
 
-			setCssClass(DomElementsCssClasses.DOM_CHECKBOX_LABEL);
+			setCssClass(DomCssClasses.DOM_CHECKBOX_LABEL);
 		}
 
 		public void setLabel(IDisplayString label) {

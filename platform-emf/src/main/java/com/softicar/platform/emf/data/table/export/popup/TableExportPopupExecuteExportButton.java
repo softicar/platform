@@ -2,7 +2,7 @@ package com.softicar.platform.emf.data.table.export.popup;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
@@ -28,7 +28,7 @@ class TableExportPopupExecuteExportButton extends DomButton {
 		this.exportOptionsProvider = exportOptionsProvider;
 		this.tableModels = tableModels;
 
-		setIcon(DomElementsImages.TABLE_EXPORT.getResource());
+		setIcon(DomImages.TABLE_EXPORT.getResource());
 		setLabel(DomI18n.EXPORT);
 		setClickCallback(this::handleClick);
 	}

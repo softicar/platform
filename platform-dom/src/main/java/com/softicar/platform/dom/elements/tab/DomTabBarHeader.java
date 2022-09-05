@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.tab;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.util.List;
 
 public class DomTabBarHeader extends DomDiv {
@@ -11,7 +11,7 @@ public class DomTabBarHeader extends DomDiv {
 	public DomTabBarHeader(DomTabBar bar) {
 
 		this.bar = bar;
-		setCssClass(DomElementsCssClasses.DOM_TAB_BAR_HEADER);
+		setCssClass(DomCssClasses.DOM_TAB_BAR_HEADER);
 	}
 
 	public void refresh(List<DomTab> tabs) {

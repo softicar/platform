@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.action.wizard;
 
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.emf.EmfCssClasses;
@@ -30,7 +30,7 @@ class EmfWizardActionTitleModifier<R extends IEmfTableRow<R, ?>> extends EmfWiza
 		if (done) {
 			IDomElement button = new DomButton()//
 				.setClickCallback(this::undo)
-				.setIcon(DomElementsImages.UNDO.getResource())
+				.setIcon(DomImages.UNDO.getResource())
 				.setTitle(EmfI18n.UNDO);
 			content.appendChild(button);
 		}

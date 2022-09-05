@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.testing.cases;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 
@@ -35,7 +35,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public SetValueButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("set value..."));
 			setClickCallback(this::handleClick);
 		}
@@ -53,7 +53,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetSelectionValueButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: value"));
 			setClickCallback(this::handleClick);
 		}
@@ -68,7 +68,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrNullButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrNull"));
 			setClickCallback(this::handleClick);
 		}
@@ -83,7 +83,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetValueStringOrEmptyButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: valueStringOrEmpty"));
 			setClickCallback(this::handleClick);
 		}
@@ -98,7 +98,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 
 		public GetRawValueStringButton() {
 
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("alert: rawValueString"));
 			setClickCallback(this::handleClick);
 		}
@@ -116,7 +116,7 @@ public class AutoCompleteTestCase extends AbstractTestCaseDiv {
 		public SetDisabledButton(boolean disabled) {
 
 			this.disabled = disabled;
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setLabel(IDisplayString.create("set disabled: " + disabled));
 			setClickCallback(this::handleClick);
 		}

@@ -2,8 +2,8 @@ package com.softicar.platform.dom.elements.dialog;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -81,7 +81,7 @@ public class DomModalPromptDialog extends DomModalDialog {
 		public OkayButton() {
 
 			setLabel(DomI18n.OK);
-			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
+			setIcon(DomImages.DIALOG_OKAY.getResource());
 			setClickCallback(() -> closeAndApplyInput());
 			addMarker(DomTestMarker.MODAL_CONFIRM_OKAY_BUTTON);
 		}

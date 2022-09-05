@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Arrays;
@@ -43,7 +44,7 @@ public class AjaxSeleniumLowLevelTestEngineInput {
 	 * in an inconsistent state if the test execution is aborted, as a result of
 	 * the click?
 	 */
-	public void click(IDomNode node, Modifier...modifiers) {
+	public void click(IDomNode node, DomModifier...modifiers) {
 
 		Actions actions = new Actions(webDriverSupplier.get());
 		Arrays.asList(modifiers).stream().map(this::getKeysFromModifier).forEach(actions::keyDown);
@@ -148,7 +149,7 @@ public class AjaxSeleniumLowLevelTestEngineInput {
 		webElementResolver.apply(input).clear();
 	}
 
-	private Keys getKeysFromModifier(Modifier modifier) {
+	private Keys getKeysFromModifier(DomModifier modifier) {
 
 		switch (modifier) {
 		case ALT:
@@ -211,18 +212,5 @@ public class AjaxSeleniumLowLevelTestEngineInput {
 		SPACE,
 		TAB,
 		UP
-	}
-
-	/**
-	 * Represents a modifier key on a keyboard.
-	 *
-	 * @author Alexander Schmidt
-	 */
-	public enum Modifier {
-
-		ALT,
-		CONTROL,
-		META,
-		SHIFT
 	}
 }

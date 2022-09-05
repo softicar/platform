@@ -6,12 +6,12 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Modifier;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalConfirmNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalDialogNodes;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.time.Duration;
@@ -121,16 +121,16 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	/**
 	 * Clicks the given {@link IDomNode}, while holding down the given
-	 * {@link Modifier} keys.
+	 * {@link DomModifier} keys.
 	 * <p>
-	 * The {@link Modifier} keys will be released after the click.
+	 * The {@link DomModifier} keys will be released after the click.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} to click (never <i>null</i>)
 	 * @param modifiers
-	 *            the {@link Modifier} keys to hold while clicking
+	 *            the {@link DomModifier} keys to hold while clicking
 	 */
-	default void click(IDomNode node, Modifier...modifiers) {
+	default void click(IDomNode node, DomModifier...modifiers) {
 
 		getTestEngine().getInput().click(node, modifiers);
 	}

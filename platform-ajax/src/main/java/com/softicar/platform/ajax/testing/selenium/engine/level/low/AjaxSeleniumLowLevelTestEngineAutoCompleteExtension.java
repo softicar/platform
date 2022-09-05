@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.elements.IAjaxSeleniumAutoCompleteTestValue;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +34,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 		List<WebElement> available = getAutoCompleteValueWebElements();
 		List<WebElement> selected = getAutoCompletePopup()//
 			.filter(WebElement::isDisplayed)
-			.map(it -> it.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE.getName())))
+			.map(it -> it.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_SELECTED_VALUE.getName())))
 			.orElse(Collections.emptyList());
 		if (selected.isEmpty()) {
 			return Optional.empty();
@@ -76,7 +76,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 		} else {
 			return webDriverSupplier//
 				.get()
-				.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_INDICATOR.getName()))
+				.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR.getName()))
 				.stream()
 				.findFirst()
 				.isEmpty();
@@ -87,7 +87,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 		return !webDriverSupplier//
 			.get()
-			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
+			.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
 			.isEmpty();
 	}
 
@@ -119,7 +119,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 		webDriverSupplier//
 			.get()
-			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
+			.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_BACKDROP.getName()))
 			.stream()
 			.findFirst()
 			.ifPresent(WebElement::click);
@@ -139,7 +139,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 		if (popup.isPresent()) {
 			return popup//
 				.get()
-				.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_VALUE.getName()))
+				.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_VALUE.getName()))
 				.stream()
 				.collect(Collectors.toList());
 		} else {
@@ -151,7 +151,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_POPUP.getName()))
+			.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_POPUP.getName()))
 			.stream()
 			.findFirst();
 	}
@@ -160,7 +160,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_NO_VALUES.getName()))
+			.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_NO_VALUES.getName()))
 			.stream()
 			.findFirst();
 	}
@@ -169,7 +169,7 @@ public class AjaxSeleniumLowLevelTestEngineAutoCompleteExtension {
 
 		return webDriverSupplier//
 			.get()
-			.findElements(By.className(DomElementsCssClasses.DOM_AUTO_COMPLETE_MORE_VALUES.getName()))
+			.findElements(By.className(DomCssClasses.DOM_AUTO_COMPLETE_MORE_VALUES.getName()))
 			.stream()
 			.findFirst();
 	}

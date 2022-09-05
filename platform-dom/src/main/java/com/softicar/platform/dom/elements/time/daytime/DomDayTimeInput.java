@@ -5,7 +5,7 @@ import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.Time;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.time.DomTimeInput;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
@@ -23,7 +23,7 @@ public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 		this.timeInput = new DomTimeInput();
 		this.timeInput.addChangeCallback(this::executeChangeCallbacks);
 
-		addCssClass(DomElementsCssClasses.DOM_DAY_TIME_INPUT);
+		addCssClass(DomCssClasses.DOM_DAY_TIME_INPUT);
 		appendChildren(dayInput, timeInput);
 	}
 

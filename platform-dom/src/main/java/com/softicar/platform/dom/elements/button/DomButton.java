@@ -4,12 +4,12 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomAnchor;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.anchor.DomHiddenLinkAnchor;
 import com.softicar.platform.dom.elements.interfaces.IDomLabeledElement;
@@ -66,7 +66,7 @@ public class DomButton extends DomParentElement
 		setAttribute("type", "button");
 		setTabIndex(0);
 
-		addCssClass(DomElementsCssClasses.DOM_BUTTON);
+		addCssClass(DomCssClasses.DOM_BUTTON);
 
 		getDomEngine().setFireOnKeyUp(this, DomEventType.ENTER, true);
 		getDomEngine().setFireOnKeyUp(this, DomEventType.SPACE, true);
@@ -394,7 +394,7 @@ public class DomButton extends DomParentElement
 		public Icon(IResource iconResource, boolean precolored) {
 
 			super(iconResource);
-			addCssClass(DomElementsCssClasses.DOM_BUTTON_ICON);
+			addCssClass(DomCssClasses.DOM_BUTTON_ICON);
 			if (precolored) {
 				addCssClass(DomCssPseudoClasses.PRECOLORED);
 			}
@@ -405,7 +405,7 @@ public class DomButton extends DomParentElement
 
 		public Label(IDisplayString labelString) {
 
-			addCssClass(DomElementsCssClasses.DOM_BUTTON_LABEL);
+			addCssClass(DomCssClasses.DOM_BUTTON_LABEL);
 			appendText(labelString);
 		}
 	}

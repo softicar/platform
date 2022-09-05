@@ -2,7 +2,7 @@ package com.softicar.platform.emf.data.table.configuration;
 
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomFieldset;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -93,7 +93,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 			public ShowAllButton() {
 
-				setIcon(DomElementsImages.TABLE_SHOW_ALL_ROWS.getResource());
+				setIcon(DomImages.TABLE_SHOW_ALL_ROWS.getResource());
 				setLabel(DomI18n.ALL);
 				setClickCallback(this::handleClick);
 				addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_PAGE_SIZE_ALL_BUTTON);
@@ -111,7 +111,7 @@ class EmfDataTableConfigurationPopup<R> extends DomDismissablePopup {
 
 		public ApplyButton() {
 
-			setIcon(DomElementsImages.DIALOG_OKAY.getResource());
+			setIcon(DomImages.DIALOG_OKAY.getResource());
 			setLabel(EmfDataTableI18n.APPLY);
 			addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_APPLY_BUTTON);
 			setClickCallback(this::handleClick);
