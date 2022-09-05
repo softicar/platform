@@ -21,7 +21,7 @@
 
 .DomImageViewerImageHolder {
 	box-sizing: border-box;
-	position: absolute;
+	position: relative;
 	padding: 10px;
 }
 
