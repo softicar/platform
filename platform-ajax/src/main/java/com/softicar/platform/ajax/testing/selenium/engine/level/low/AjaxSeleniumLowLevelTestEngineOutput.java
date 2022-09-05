@@ -259,7 +259,8 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 
 	public void assertCssTransform(String expectedTransform, IDomNode node) {
 
-		assertEquals(expectedTransform, getCssAttributeValue(node, "transform"));
+		var actualTransform = getCssAttributeValue(node, "transform");
+		new AjaxCssTransformAsserter().assertEquals(expectedTransform, actualTransform);
 	}
 
 	public void assertCssWidth(String expectedWidth, IDomNode node) {
