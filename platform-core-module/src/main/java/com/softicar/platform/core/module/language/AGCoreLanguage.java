@@ -1,11 +1,9 @@
 package com.softicar.platform.core.module.language;
 
 import com.softicar.platform.common.core.entity.IEntity;
-import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +16,7 @@ public class AGCoreLanguage extends AGCoreLanguageGenerated implements IEntity {
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		return getDisplayString(getEnum());
+		return getEnum().toDisplay();
 	}
 
 	public IResource getLangageFlag() {
@@ -86,17 +84,5 @@ public class AGCoreLanguage extends AGCoreLanguageGenerated implements IEntity {
 			.asList(AGCoreLanguageEnum.values())
 			.stream()
 			.map(AGCoreLanguageEnum::getRecord);
-	}
-
-	private static IDisplayString getDisplayString(AGCoreLanguageEnum coreLanguageEnum) {
-
-		switch (coreLanguageEnum) {
-		case ENGLISH:
-			return CoreI18n.ENGLISH;
-		case GERMAN:
-			return CoreI18n.GERMAN;
-		}
-
-		throw new SofticarUnknownEnumConstantException(coreLanguageEnum);
 	}
 }

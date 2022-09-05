@@ -3,7 +3,6 @@ package com.softicar.platform.core.module.email.recipient.type;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.core.module.CoreI18n;
 import javax.mail.Message.RecipientType;
 
 public class AGEmailRecipientType extends AGEmailRecipientTypeGenerated implements IEntity {
@@ -11,15 +10,7 @@ public class AGEmailRecipientType extends AGEmailRecipientTypeGenerated implemen
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
-		switch (getEnum()) {
-		case BCC:
-			return CoreI18n.BCC;
-		case CC:
-			return CoreI18n.CC;
-		case TO:
-			return CoreI18n.TO;
-		}
-		throw new SofticarUnknownEnumConstantException(getEnum());
+		return getEnum().toDisplay();
 	}
 
 	@Override
