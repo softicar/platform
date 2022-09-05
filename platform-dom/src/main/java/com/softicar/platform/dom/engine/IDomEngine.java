@@ -107,6 +107,9 @@ public interface IDomEngine {
 	/**
 	 * Tells the client browser to not perform the default action if an event of
 	 * the given {@link DomEventType} occurs on the given {@link IDomNode}.
+	 * <p>
+	 * Only works for {@link DomEventType} instances that represent a key on a
+	 * keyboard, e.g. {@link DomEventType#SPACE}.
 	 *
 	 * @param node
 	 *            the {@link IDomNode} on which the event might occur (never
