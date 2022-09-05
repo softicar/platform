@@ -135,7 +135,6 @@ public interface IDomEngine {
 	 *            <i>false</i> otherwise
 	 */
 	void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled);
-//	void setPreventDefaultOnWheel(IDomNode node, Set<DomModifierKey> modifiers);
 
 	/**
 	 * Tells the client browser to not perform the default action if a mouse

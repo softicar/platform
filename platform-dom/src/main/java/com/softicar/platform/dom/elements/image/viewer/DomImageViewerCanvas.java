@@ -3,8 +3,10 @@ package com.softicar.platform.dom.elements.image.viewer;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomWheelEventHandler;
+import java.util.Set;
 
 class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 
@@ -19,12 +21,14 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_CANVAS);
 		addMarker(DomTestMarker.IMAGE_VIEWER_CANVAS);
 		appendChild(imageHolder);
+
+		getDomEngine().setPreventDefaultOnWheel(this, Set.of(DomModifier.CONTROL), true);
 	}
 
 	@Override
 	public void handleWheel(IDomEvent event) {
 
-		if (event.isAltKey()) {
+		if (event.isCtrlKey()) {
 			if (event.getDeltaY() > 0) {
 				viewer.zoomIn();
 			} else {
