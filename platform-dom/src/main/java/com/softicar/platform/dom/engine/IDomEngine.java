@@ -14,6 +14,7 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeys;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
@@ -22,6 +23,7 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * This engine maps the manipulation of the {@link IDomDocument} to the actual
@@ -102,10 +104,63 @@ public interface IDomEngine {
 	 */
 	void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled);
 
+	/**
+	 * Tells the client browser to not perform the default action if an event of
+	 * the given {@link DomEventType} occurs on the given {@link IDomNode}.
+	 * <p>
+	 * Only works for {@link DomEventType} instances that represent a key on a
+	 * keyboard, e.g. {@link DomEventType#SPACE}.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} on which the event might occur (never
+	 *            <i>null</i>)
+	 * @param type
+	 *            the {@link DomEventType} of the event that might occur (never
+	 *            <i>null</i>)
+	 * @param enabled
+	 *            <i>true</i> if the default action shall be omitted;
+	 *            <i>false</i> otherwise
+	 */
 	void setPreventDefaultBehavior(IDomNode node, DomEventType type, boolean enabled);
 
+	/**
+	 * Tells the client browser to not perform the default action if a
+	 * mouse-down event occurs on the given {@link IDomNode}.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} on which the event might occur (never
+	 *            <i>null</i>)
+	 * @param enabled
+	 *            <i>true</i> if the default action shall be omitted;
+	 *            <i>false</i> otherwise
+	 */
 	void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled);
 //	void setPreventDefaultOnWheel(IDomNode node, Set<DomModifierKey> modifiers);
+
+	/**
+	 * Tells the client browser to not perform the default action if a mouse
+	 * wheel event occurs on the given {@link IDomNode} while the given
+	 * modifiers are pressed.
+	 * <p>
+	 * For instance, if this method is called with modifiers
+	 * {@link DomModifier#CONTROL} and {@link DomModifier#ALT}, the default
+	 * action is only omitted for mouse wheel events that occur while that
+	 * specific combination of modifiers is pressed.
+	 * <p>
+	 * If an empty set of modifiers is given, the default action is only omitted
+	 * while <b>no</b> modifiers are pressed.
+	 *
+	 * @param node
+	 *            the {@link IDomNode} on which the event might occur (never
+	 *            <i>null</i>)
+	 * @param modifiers
+	 *            the modifiers that are pressed while the event might occur
+	 *            (never <i>null</i>)
+	 * @param enabled
+	 *            <i>true</i> if the default action shall be omitted;
+	 *            <i>false</i> otherwise
+	 */
+	void setPreventDefaultOnWheel(IDomNode node, Set<DomModifier> modifiers, boolean enabled);
 
 	/**
 	 * Adds an event handler that stops propagation for the given

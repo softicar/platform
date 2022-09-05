@@ -26,6 +26,7 @@ import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.engine.IDomExport;
 import com.softicar.platform.dom.engine.IDomScriptLibrary;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomAutoEventHandler;
 import com.softicar.platform.dom.event.IDomDropEventHandler;
 import com.softicar.platform.dom.event.IDomEventHandler;
@@ -286,6 +287,12 @@ public class AjaxDomEngine implements IDomEngine {
 	public void setPreventDefaultOnMouseDown(IDomNode node, boolean enabled) {
 
 		JS_call("setPreventDefaultOnMouseDown", node, enabled);
+	}
+
+	@Override
+	public void setPreventDefaultOnWheel(IDomNode node, Set<DomModifier> modifiers, boolean enabled) {
+
+		JS_call("setPreventDefaultOnWheel", node, modifiers, enabled);
 	}
 
 	@Override
