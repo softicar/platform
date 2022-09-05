@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.tab;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.util.Optional;
 
 class DomTabBarContentContainer extends DomDiv {
@@ -12,7 +12,7 @@ class DomTabBarContentContainer extends DomDiv {
 
 		this.tabBar = tabBar;
 
-		setCssClass(DomElementsCssClasses.DOM_TAB_BAR_CONTENT_CONTAINER);
+		setCssClass(DomCssClasses.DOM_TAB_BAR_CONTENT_CONTAINER);
 	}
 
 	public void refresh() {

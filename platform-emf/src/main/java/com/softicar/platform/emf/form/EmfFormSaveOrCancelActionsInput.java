@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.form;
 
 import com.softicar.platform.db.core.transaction.DbTransaction;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
@@ -44,7 +44,7 @@ class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomD
 		buttonContainer
 			.appendChild(
 				new DomButton()//
-					.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
+					.setIcon(DomImages.DIALOG_CANCEL.getResource())
 					.setLabel(EmfI18n.CANCEL)
 					.addMarker(EmfTestMarker.FORM_CANCEL)
 					.setClickCallback(() -> formBody.cancelEditMode()));

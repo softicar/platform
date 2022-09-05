@@ -4,9 +4,9 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.log.message.ILogMessageTableQuery;
 import com.softicar.platform.core.module.log.process.AGLogProcess;
 import com.softicar.platform.core.module.log.process.LogProcessViewPageDiv;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableWrappedTextColumnHandler;
@@ -39,7 +39,7 @@ public class LogProcessDetailsScope extends DomDiv {
 		public BackToOverviewButton() {
 
 			setLabel(CoreI18n.BACK_TO_OVERVIEW);
-			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
+			setIcon(DomImages.PAGE_PREVIOUS.getResource());
 			setClickCallback(this::handleClick);
 		}
 
@@ -54,7 +54,7 @@ public class LogProcessDetailsScope extends DomDiv {
 		public BackToProcessOverviewButton() {
 
 			setLabel(CoreI18n.BACK_TO_ARG1_PROCESSES.toDisplay(m_logProcess.getClassName()));
-			setIcon(DomElementsImages.PAGE_PREVIOUS.getResource());
+			setIcon(DomImages.PAGE_PREVIOUS.getResource());
 			setClickCallback(this::handleClick);
 		}
 

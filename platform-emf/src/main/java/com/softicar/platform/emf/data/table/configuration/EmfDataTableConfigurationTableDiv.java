@@ -3,8 +3,8 @@ package com.softicar.platform.emf.data.table.configuration;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
@@ -143,11 +143,11 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 				setClickCallback(this::handleClick);
 
 				if (down) {
-					setIcon(DomElementsImages.MOVE_DOWN.getResource());
+					setIcon(DomImages.MOVE_DOWN.getResource());
 					setTitle(EmfDataTableI18n.MOVE_DOWN);
 					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_MOVE_DOWN_BUTTON);
 				} else {
-					setIcon(DomElementsImages.MOVE_UP.getResource());
+					setIcon(DomImages.MOVE_UP.getResource());
 					setTitle(EmfDataTableI18n.MOVE_UP);
 					addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_MOVE_UP_BUTTON);
 				}

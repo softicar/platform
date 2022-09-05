@@ -5,8 +5,8 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.event.panic.ICurrentPanicsQuery.IRow;
 import com.softicar.platform.core.module.log.level.AGLogLevelEnum;
 import com.softicar.platform.core.module.log.message.AGLogMessage;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -32,7 +32,7 @@ public class CurrentPanicsDiv extends DomDiv {
 
 		public DropPanicsButton() {
 
-			setIcon(DomElementsImages.ENTRY_REMOVE.getResource());
+			setIcon(DomImages.ENTRY_REMOVE.getResource());
 			setLabel(CoreI18n.DROP_PANIC_ENTRIES);
 			setClickCallback(this::dropPanics);
 			setConfirmationMessage(CoreI18n.ARE_YOU_SURE_QUESTION);

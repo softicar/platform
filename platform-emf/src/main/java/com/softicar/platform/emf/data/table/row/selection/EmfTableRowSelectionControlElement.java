@@ -2,9 +2,9 @@ package com.softicar.platform.emf.data.table.row.selection;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
+import com.softicar.platform.dom.DomCssClasses;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -32,7 +32,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 		this.table = table;
 		this.statusTextSpan = new StatusTextSpan();
 		addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CONTROL_ELEMENT);
-		addCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
+		addCssClass(DomCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION);
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE_ROW_SELECTION_CONTROL_ELEMENT);
 		refresh();
 	}
@@ -57,7 +57,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 		public SelectAllOnCurrentPageButton() {
 
-			setIcon(DomElementsImages.TABLE_ROW_SELECTION_SELECT_CURRENT_PAGE.getResource());
+			setIcon(DomImages.TABLE_ROW_SELECTION_SELECT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.ALL);
 			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_ALL_ON_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
@@ -73,7 +73,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 		public SelectInvertCurrentPageButton() {
 
-			setIcon(DomElementsImages.TABLE_ROW_SELECTION_INVERT_CURRENT_PAGE.getResource());
+			setIcon(DomImages.TABLE_ROW_SELECTION_INVERT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.INVERT);
 			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_SELECT_INVERT_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
@@ -89,7 +89,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 		public UnselectAllOnCurrentPageButton() {
 
-			setIcon(DomElementsImages.TABLE_ROW_SELECTION_UNSELECT_CURRENT_PAGE.getResource());
+			setIcon(DomImages.TABLE_ROW_SELECTION_UNSELECT_CURRENT_PAGE.getResource());
 			setTitle(EmfDataTableI18n.NONE);
 			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_ON_CURRENT_PAGE);
 			setClickCallback(this::handleClick);
@@ -105,7 +105,7 @@ public class EmfTableRowSelectionControlElement extends DomBar implements IRefre
 
 		public UnselectAllPagesButton() {
 
-			setIcon(DomElementsImages.TABLE_ROW_SELECTION_UNSELECT_ALL_PAGES.getResource());
+			setIcon(DomImages.TABLE_ROW_SELECTION_UNSELECT_ALL_PAGES.getResource());
 			setTitle(EmfDataTableI18n.NONE_ALL_PAGES);
 			addMarker(EmfTestMarker.DATA_TABLE_ROW_SELECTION_BUTTON_UNSELECT_ALL_PAGES);
 			setClickCallback(this::handleClick);

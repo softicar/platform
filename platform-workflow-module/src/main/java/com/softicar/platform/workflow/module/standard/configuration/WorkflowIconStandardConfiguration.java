@@ -8,7 +8,7 @@ import com.softicar.platform.core.module.configuration.AbstractStandardConfigura
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.workflow.image.AGWorkflowIcon;
 import java.io.ByteArrayInputStream;
@@ -33,7 +33,7 @@ public class WorkflowIconStandardConfiguration extends AbstractStandardConfigura
 			List<AGStoredFile> files = new ArrayList<>();
 			List<AGWorkflowIcon> icons = new ArrayList<>();
 
-			for (IResourceSupplier resourceSupplier: IResourceSupplier.getResourceSuppliers(DomElementsImages.class)) {
+			for (IResourceSupplier resourceSupplier: IResourceSupplier.getResourceSuppliers(DomImages.class)) {
 				IResource resource = resourceSupplier.getResource();
 				AGStoredFile file = new AGStoredFile()//
 					.setFileName(resource.getFilename().orElseThrow())

@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.data.table.filter.list;
 
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfCssClasses;
@@ -47,7 +47,7 @@ class EmfDataTableFilterListElementDiv<R, T> extends DomDiv {
 
 		public RemoveFilterButton() {
 
-			setIcon(DomElementsImages.FILTER_REMOVE.getResource());
+			setIcon(DomImages.FILTER_REMOVE.getResource());
 			setTitle(EmfDataTableI18n.REMOVE_FILTER);
 			setClickCallback(this::handleClick);
 		}

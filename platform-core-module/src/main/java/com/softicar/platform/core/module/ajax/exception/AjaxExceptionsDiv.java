@@ -3,8 +3,8 @@ package com.softicar.platform.core.module.ajax.exception;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.AGAjaxSession;
 import com.softicar.platform.core.module.ajax.session.revision.AGAjaxSessionRevision;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomPre;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
@@ -38,7 +38,7 @@ class AjaxExceptionsDiv extends DomDiv {
 					new DomActionBar(//
 						new DomPopupButton()//
 							.setPopupFactory(() -> new SessionInfoPopup(session))
-							.setIcon(DomElementsImages.INFO.getResource())));
+							.setIcon(DomImages.INFO.getResource())));
 		}
 	}
 
@@ -59,7 +59,7 @@ class AjaxExceptionsDiv extends DomDiv {
 		public StackTraceInfoButton(IAjaxExceptionsQuery.IRow row) {
 
 			setPopupFactory(() -> new StacktraceInfoPopup(row.getAjaxException().getExceptionStackTrace()));
-			setIcon(DomElementsImages.INFO.getResource());
+			setIcon(DomImages.INFO.getResource());
 			setTitle(CoreI18n.SHOW_STACK_TRACE);
 		}
 	}

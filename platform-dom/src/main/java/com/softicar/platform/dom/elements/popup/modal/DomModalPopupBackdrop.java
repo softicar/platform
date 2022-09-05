@@ -1,9 +1,9 @@
 package com.softicar.platform.dom.elements.popup.modal;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomContextMenuEventHandler;
@@ -38,7 +38,7 @@ public class DomModalPopupBackdrop extends DomDiv implements IDomClickEventHandl
 
 		this.clickHandler = Objects.requireNonNull(clickHandler);
 		this.visible = visible;
-		setCssClass(DomElementsCssClasses.DOM_MODAL_POPUP_BACKDROP);
+		setCssClass(DomCssClasses.DOM_MODAL_POPUP_BACKDROP);
 		addMarker(DomTestMarker.POPUP_BACKDROP);
 	}
 

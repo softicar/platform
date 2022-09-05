@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.emf.action.AbstractEmfButtonAction;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.form.IEmfFormBody;
@@ -30,7 +30,7 @@ public class SystemEventConfirmAction extends AbstractEmfButtonAction<AGSystemEv
 	@Override
 	public IResource getIcon() {
 
-		return DomElementsImages.DIALOG_OKAY.getResource();
+		return DomImages.DIALOG_OKAY.getResource();
 	}
 
 	@Override

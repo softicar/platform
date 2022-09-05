@@ -9,13 +9,13 @@ import com.softicar.platform.common.date.Week;
 import com.softicar.platform.common.date.Weekday;
 import com.softicar.platform.common.date.Year;
 import com.softicar.platform.common.math.Range;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomI18n;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.AbstractDomValueSelect;
 import com.softicar.platform.dom.elements.DomCell;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTBody;
 import com.softicar.platform.dom.elements.DomTHead;
@@ -50,7 +50,7 @@ public class DomDayChooserDiv extends DomDiv {
 		appendChild(new DomActionBar(yearSelect, monthSelect, new TodayButton()));
 		this.table = appendChild(new DayTable());
 
-		setCssClass(DomElementsCssClasses.DOM_DAY_CHOOSER_DIV);
+		setCssClass(DomCssClasses.DOM_DAY_CHOOSER_DIV);
 	}
 
 	public void setDay(Day day) {
@@ -116,9 +116,9 @@ public class DomDayChooserDiv extends DomDiv {
 				if (!selectedDay.getMonth().getDays().contains(day)) {
 					// do nothing
 				} else if (day.isSaturday() || day.isSunday()) {
-					setCssClass(DomElementsCssClasses.DOM_DAY_CHOOSER_DIV_WEEKEND);
+					setCssClass(DomCssClasses.DOM_DAY_CHOOSER_DIV_WEEKEND);
 				} else {
-					setCssClass(DomElementsCssClasses.DOM_DAY_CHOOSER_DIV_WORKDAY);
+					setCssClass(DomCssClasses.DOM_DAY_CHOOSER_DIV_WORKDAY);
 				}
 				if (day.equals(selectedDay)) {
 					addCssClass(DomCssPseudoClasses.SELECTED);
@@ -251,7 +251,7 @@ public class DomDayChooserDiv extends DomDiv {
 
 		public TodayButton() {
 
-			setIcon(DomElementsImages.CALENDAR_TODAY.getResource());
+			setIcon(DomImages.CALENDAR_TODAY.getResource());
 			setLabel(DomI18n.TODAY);
 			setClickCallback(this::setToCurrentDay);
 		}

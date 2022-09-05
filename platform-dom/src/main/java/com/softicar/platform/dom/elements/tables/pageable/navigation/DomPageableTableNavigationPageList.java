@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.tables.pageable.navigation;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 
 class DomPageableTableNavigationPageList extends DomDiv {
@@ -13,7 +13,7 @@ class DomPageableTableNavigationPageList extends DomDiv {
 
 	public DomPageableTableNavigationPageList(DomPageableTable table) {
 
-		setCssClass(DomElementsCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION_PAGE_LIST);
+		setCssClass(DomCssClasses.DOM_PAGEABLE_TABLE_NAVIGATION_PAGE_LIST);
 
 		if (table.getPageCount() > ELLIPSIS_THRESHOLD) {
 			int lastPage = table.getPageCount() - 1;

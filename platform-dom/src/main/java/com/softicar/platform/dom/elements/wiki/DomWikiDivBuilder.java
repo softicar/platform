@@ -24,13 +24,13 @@ import com.softicar.platform.common.ui.wiki.element.tag.WikiBox;
 import com.softicar.platform.common.ui.wiki.element.tag.WikiRawText;
 import com.softicar.platform.common.ui.wiki.element.tag.WikiRawTextType;
 import com.softicar.platform.common.ui.wiki.parser.WikiParser;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.element.DomSimpleElement;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomAnchor;
 import com.softicar.platform.dom.elements.DomCell;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.DomHeaderCell;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
@@ -160,7 +160,7 @@ public class DomWikiDivBuilder implements IWikiBuilderMethods<DomWikiDivBuilder>
 		public void visit(WikiMonospace monospace) {
 
 			DomDiv text = new DomDiv();
-			text.addCssClass(DomElementsCssClasses.DOM_WIKI_MONOSPACE);
+			text.addCssClass(DomCssClasses.DOM_WIKI_MONOSPACE);
 			appendElementAndChildren(text, monospace);
 		}
 
@@ -203,17 +203,17 @@ public class DomWikiDivBuilder implements IWikiBuilderMethods<DomWikiDivBuilder>
 		public void visit(WikiRawText rawText) {
 
 			IDomParentElement element = new DomDiv();
-			element.addCssClass(DomElementsCssClasses.DOM_WIKI_RAW_TEXT);
+			element.addCssClass(DomCssClasses.DOM_WIKI_RAW_TEXT);
 			if (!rawText.isBlockElement()) {
-				element.addCssClass(DomElementsCssClasses.DOM_WIKI_RAW_TEXT_INLINE);
+				element.addCssClass(DomCssClasses.DOM_WIKI_RAW_TEXT_INLINE);
 			}
 			element.appendText(rawText.getText());
 			appendElement(element);
 
 			if (rawText.getType() == WikiRawTextType.CODE) {
-				element.addCssClass(DomElementsCssClasses.DOM_WIKI_RAW_TEXT_CODE);
+				element.addCssClass(DomCssClasses.DOM_WIKI_RAW_TEXT_CODE);
 				if (rawText.isBlockElement()) {
-					element.addCssClass(DomElementsCssClasses.DOM_WIKI_RAW_TEXT_CODE_BLOCK);
+					element.addCssClass(DomCssClasses.DOM_WIKI_RAW_TEXT_CODE_BLOCK);
 				}
 			}
 		}
@@ -228,7 +228,7 @@ public class DomWikiDivBuilder implements IWikiBuilderMethods<DomWikiDivBuilder>
 		public void visit(WikiUnderline underline) {
 
 			DomDiv text = new DomDiv();
-			text.addCssClass(DomElementsCssClasses.DOM_WIKI_UNDERLINE);
+			text.addCssClass(DomCssClasses.DOM_WIKI_UNDERLINE);
 			appendElementAndChildren(text, underline);
 		}
 

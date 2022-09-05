@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.bar;
 
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.node.IDomNode;
 
@@ -19,6 +19,6 @@ public class DomActionBar extends DomBar {
 	public DomActionBar(IDomNode...children) {
 
 		super(children);
-		addCssClass(DomElementsCssClasses.DOM_ACTION_BAR);
+		addCssClass(DomCssClasses.DOM_ACTION_BAR);
 	}
 }

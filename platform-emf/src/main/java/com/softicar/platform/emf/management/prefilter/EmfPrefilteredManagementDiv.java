@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.management.prefilter;
 
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.emf.EmfI18n;
@@ -28,7 +28,7 @@ public class EmfPrefilteredManagementDiv<R extends IEmfTableRow<R, P>, P, S> ext
 			new DomActionBar(
 				new DomPopupButton()//
 					.setPopupFactory(() -> prefilterPopup)
-					.setIcon(DomElementsImages.FILTER.getResource())
+					.setIcon(DomImages.FILTER.getResource())
 					.setLabel(EmfI18n.PREFILTER)));
 		this.tableContainer = appendChild(new DomDiv());
 		rebuildWithoutPrefilter();

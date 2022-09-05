@@ -1,8 +1,8 @@
 package com.softicar.platform.dom.elements.text;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.DomDelegatingParentElement;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -25,7 +25,7 @@ public class DomVerticalTextBox extends DomDelegatingParentElement {
 		this.inner = new DomDiv();
 		this.outer = new DomDiv();
 
-		outer.setCssClass(DomElementsCssClasses.DOM_VERTICAL_TEXT_BOX);
+		outer.setCssClass(DomCssClasses.DOM_VERTICAL_TEXT_BOX);
 		outer.appendChild(inner);
 	}
 

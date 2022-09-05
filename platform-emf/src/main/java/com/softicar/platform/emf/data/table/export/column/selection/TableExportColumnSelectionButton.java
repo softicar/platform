@@ -2,7 +2,7 @@ package com.softicar.platform.emf.data.table.export.column.selection;
 
 import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
@@ -18,7 +18,7 @@ public class TableExportColumnSelectionButton extends DomPopupButton implements 
 
 		this.tableModel = tableModel;
 		this.currentEngine = currentEngine;
-		setIcon(DomElementsImages.TABLE_COLUMN_SELECTION.getResource());
+		setIcon(DomImages.TABLE_COLUMN_SELECTION.getResource());
 		setPopupFactory(this::createPopup);
 		refresh();
 	}

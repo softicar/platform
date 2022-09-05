@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.input.IDomFocusable;
@@ -42,7 +42,7 @@ public class DomModalDialog extends DomPopup {
 	 */
 	public DomModalDialog() {
 
-		addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP);
+		addCssClass(DomCssClasses.DOM_MODAL_DIALOG_POPUP);
 		addMarker(DomTestMarker.MODAL_DIALOG_POPUP);
 
 		this.contentContainer = appendChild(new Content());
@@ -140,7 +140,7 @@ public class DomModalDialog extends DomPopup {
 
 		public Content() {
 
-			addCssClass(DomElementsCssClasses.DOM_MODAL_DIALOG_POPUP_CONTENT);
+			addCssClass(DomCssClasses.DOM_MODAL_DIALOG_POPUP_CONTENT);
 			addMarker(DomTestMarker.MODAL_DIALOG_CONTENT);
 		}
 	}

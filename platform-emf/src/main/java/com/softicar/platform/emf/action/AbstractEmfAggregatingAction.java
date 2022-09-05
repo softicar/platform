@@ -2,9 +2,9 @@ package com.softicar.platform.emf.action;
 
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.action.marker.EmfCommonActionMarker;
@@ -110,7 +110,7 @@ public abstract class AbstractEmfAggregatingAction<R extends IEmfTableRow<R, ?>>
 
 				appendChild(
 					new DomButton()//
-						.setIcon(DomElementsImages.DIALOG_CANCEL.getResource())
+						.setIcon(DomImages.DIALOG_CANCEL.getResource())
 						.setLabel(EmfI18n.CANCEL)
 						.setClickCallback(() -> formBody.showStandardSectionContainer()));
 			}

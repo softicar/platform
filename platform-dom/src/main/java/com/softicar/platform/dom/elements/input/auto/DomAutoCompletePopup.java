@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.DomElementsCssClasses;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +19,7 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		this.valueDisplays = new ArrayList<>();
 		this.selectionIndex = -1;
 
-		addCssClass(DomElementsCssClasses.DOM_AUTO_COMPLETE_POPUP);
+		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_POPUP);
 	}
 
 	public void refresh() {

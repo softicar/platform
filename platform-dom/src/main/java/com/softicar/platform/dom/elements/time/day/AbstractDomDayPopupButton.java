@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.time.day;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.dom.elements.DomElementsImages;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.button.DomButton;
 
 /**
@@ -25,7 +25,7 @@ abstract class AbstractDomDayPopupButton extends DomButton {
 		this.chooser = chooser;
 		this.popup = new DomDayPopover(chooser, this);
 
-		setIcon(DomElementsImages.CALENDAR_DAY.getResource());
+		setIcon(DomImages.CALENDAR_DAY.getResource());
 		setLabel(IDisplayString.create(chooser.getDay().toString()));
 		setClickCallback(() -> popup.open());
 	}
