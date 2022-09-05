@@ -171,3 +171,11 @@ select:focus {
 select:disabled {
 	opacity: 0.3;
 }
+
+.draggable {
+	cursor: grab;
+}
+
+.draggable.dragging {
+	cursor: grabbing;
+}

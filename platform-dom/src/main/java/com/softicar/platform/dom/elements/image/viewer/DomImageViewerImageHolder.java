@@ -11,12 +11,14 @@ class DomImageViewerImageHolder extends DomDiv {
 
 	private final DomImageViewer viewer;
 
-	public DomImageViewerImageHolder(DomImageViewer viewer) {
+	public DomImageViewerImageHolder(DomImageViewer viewer, DomImageViewerCanvas canvas) {
 
 		this.viewer = viewer;
 
 		addMarker(DomTestMarker.IMAGE_VIEWER_IMAGE_HOLDER);
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE_HOLDER);
+
+		getDomEngine().makeDraggable(this, this, canvas);
 	}
 
 	public void showImage(IResource resource) {
