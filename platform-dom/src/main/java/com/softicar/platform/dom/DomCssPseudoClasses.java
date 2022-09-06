@@ -9,6 +9,7 @@ public interface DomCssPseudoClasses {
 	ICssClass CLICKABLE = new CssClass("clickable");
 	ICssClass DISABLED = new CssClass("disabled");
 	ICssClass DRAGGABLE = new CssClass("draggable");
+	ICssClass DRAGGING = new CssClass("dragging");
 	ICssClass ERROR = new CssClass("error");
 	ICssClass HIGHLIGHTED = new CssClass("highlighted");
 	ICssClass INFO = new CssClass("info");

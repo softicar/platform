@@ -18,7 +18,7 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 	public DomImageViewerCanvas(DomImageViewer viewer) {
 
 		this.viewer = viewer;
-		this.imageHolder = new DomImageViewerImageHolder(viewer);
+		this.imageHolder = new DomImageViewerImageHolder(viewer, this);
 
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_CANVAS);
 		addMarker(DomTestMarker.IMAGE_VIEWER_CANVAS);
