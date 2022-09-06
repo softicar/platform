@@ -22,7 +22,10 @@ class DomImageViewerImageHolder extends DomDiv {
 	public void showImage(IResource resource) {
 
 		removeChildren();
-		appendChild(new DomImageViewerImage(resource));
+
+		var image = new DomImageViewerImage(resource);
+		appendChild(image);
+		getDomEngine().setHeightAndWidthOnLoad(image, viewer);
 	}
 
 	public void applyTransformations() {
