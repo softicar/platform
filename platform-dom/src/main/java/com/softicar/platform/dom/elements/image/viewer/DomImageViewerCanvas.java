@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomWheelEventHandler;
+import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssOverflowX;
 import java.util.Set;
 
@@ -54,7 +55,7 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 		if (viewer.getZoomLevel().getPercentage() < 100) {
 			setStyle(CssOverflowX.HIDDEN);
 		} else {
-			setStyle(CssOverflowX.AUTO);
+			unsetStyle(CssStyle.OVERFLOW_X);
 		}
 
 		imageHolder.applyTransformations();
