@@ -8,6 +8,7 @@ import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomForm;
+import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.DomPopup;
@@ -241,6 +242,18 @@ public interface IDomEngine {
 	 *            <i>null</i>)
 	 */
 	void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode);
+
+	/**
+	 * Sets the height and width attributes of the target node to its computed
+	 * values when the loading of the given {@link DomImage} is finished.
+	 *
+	 * @param image
+	 *            the {@link DomImage} (never <i>null</i>)
+	 * @param targetNode
+	 *            the node on which to set the height and width (never
+	 *            <i>null</i>)
+	 */
+	void setHeightAndWidthOnLoad(DomImage image, IDomNode targetNode);
 
 	// -------------------------------- alert, confirm, prompt, export -------------------------------- //
 

@@ -565,6 +565,21 @@ function setPreventDefaultOnWheel(element, modifiers, enabled) {
 function setListenToKeys(element, keys) {
     KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }
+function setHeightAndWidthToComputedValues(node) {
+    setTimeout(() => {
+        let computedStyle = window.getComputedStyle(node);
+        node.style.height = computedStyle.height;
+        node.style.width = computedStyle.width;
+    });
+}
+function setHeightAndWidthOnLoad(image, targetNode) {
+    if (image.complete) {
+        setHeightAndWidthToComputedValues(targetNode);
+    }
+    else {
+        image.addEventListener('load', _ => setHeightAndWidthToComputedValues(targetNode));
+    }
+}
 function handleDomEvent(event) {
     sendOrDelegateEvent(event.currentTarget, event, event.type);
 }

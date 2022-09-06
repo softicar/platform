@@ -38,6 +38,22 @@ function setListenToKeys(element: HTMLElement, keys: string[]) {
 	KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }
 
+function setHeightAndWidthToComputedValues(node: HTMLElement) {
+	setTimeout(() => {
+		let computedStyle = window.getComputedStyle(node);
+		node.style.height = computedStyle.height;
+		node.style.width = computedStyle.width;
+	});
+}
+
+function setHeightAndWidthOnLoad(image: HTMLImageElement, targetNode: HTMLElement) {
+	if(image.complete) {
+		setHeightAndWidthToComputedValues(targetNode);
+	} else {
+		image.addEventListener('load', _ => setHeightAndWidthToComputedValues(targetNode));
+	}
+}
+
 function handleDomEvent(event: Event) {
 	sendOrDelegateEvent(event.currentTarget as HTMLElement, event, event.type);
 }
