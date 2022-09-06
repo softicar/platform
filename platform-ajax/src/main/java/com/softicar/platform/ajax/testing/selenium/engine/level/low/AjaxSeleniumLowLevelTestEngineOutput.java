@@ -105,11 +105,11 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 		return webElementResolver.apply(node).getAttribute(attributeName);
 	}
 
-	public Object getStyleValue(IDomNode node, String styleName) {
+	public String getStyleValue(IDomNode node, String styleName) {
 
 		String script = "return document.getElementById('%s').style.%s;";
 		String nodeId = getAttributeValue(node, "id");
-		return javascriptExecutor.execute(script, nodeId, styleName);
+		return (String) javascriptExecutor.execute(script, nodeId, styleName);
 	}
 
 	public String getCssAttributeValue(IDomNode node, String attributeName) {

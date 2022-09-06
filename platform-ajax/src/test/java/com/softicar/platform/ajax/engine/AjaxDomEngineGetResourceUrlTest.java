@@ -16,7 +16,6 @@ import java.util.Optional;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-// TODO this should not be a separate test class
 public class AjaxDomEngineGetResourceUrlTest extends AbstractTest {
 
 	private final AjaxDomEngine engine;

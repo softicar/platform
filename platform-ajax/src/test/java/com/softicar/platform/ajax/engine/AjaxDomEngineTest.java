@@ -20,8 +20,8 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		var testDiv = openTestNode(() -> new ImageTestDiv());
 
-		Object width = getStyleValue(testDiv.getInnerDiv(), "width");
-		Object height = getStyleValue(testDiv.getInnerDiv(), "height");
+		var width = getStyleValue(testDiv.getInnerDiv(), "width");
+		var height = getStyleValue(testDiv.getInnerDiv(), "height");
 
 		assertEquals(ImageTestDiv.IMAGE_WIDTH + "px", width);
 		assertEquals(ImageTestDiv.IMAGE_HEIGHT + "px", height);

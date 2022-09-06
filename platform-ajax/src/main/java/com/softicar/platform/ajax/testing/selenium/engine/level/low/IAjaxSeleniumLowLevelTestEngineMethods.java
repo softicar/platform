@@ -486,7 +486,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 		return getTestEngine().getOutput().getAttributeValue(node, attributeName);
 	}
 
-	default Object getStyleValue(IDomNode node, String styleName) {
+	default String getStyleValue(IDomNode node, String styleName) {
 
 		return getTestEngine().getOutput().getStyleValue(node, styleName);
 	}
