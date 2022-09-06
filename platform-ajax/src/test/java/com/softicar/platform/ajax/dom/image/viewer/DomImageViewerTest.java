@@ -18,8 +18,8 @@ import org.junit.Test;
 
 public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	private static final int VIEWER_WIDTH = 300;
-	private static final int IMAGE_WIDTH = 500;
+	private static final int VIEWER_WIDTH = 1000;
+	private static final int IMAGE_WIDTH = 1800;
 	private static final int IMAGE_HEIGHT = 700;
 	private static final int IMAGE_PADDING = 10;
 	private final List<IResource> images;
