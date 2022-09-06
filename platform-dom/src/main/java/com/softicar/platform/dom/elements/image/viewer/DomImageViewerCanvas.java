@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomWheelEventHandler;
+import com.softicar.platform.dom.styles.CssOverflowX;
 import java.util.Set;
 
 class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
@@ -46,6 +47,13 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 	}
 
 	public void applyTransformations() {
+
+		// We use relative positioning for the child element, and we center it
+		// using the 50%-left-transform trick. To avoid an unnecessary horizontal
+		// scroll bar, we need to disable horizontal scrolling below 100% zoom.
+		if (viewer.getZoomLevel().getPercentage() < 100) {
+			setStyle(CssOverflowX.HIDDEN);
+		}
 
 		imageHolder.applyTransformations();
 	}
