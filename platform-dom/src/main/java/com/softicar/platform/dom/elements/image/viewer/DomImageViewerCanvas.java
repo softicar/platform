@@ -31,9 +31,9 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 
 		if (event.isCtrlKey()) {
 			if (event.getDeltaY() > 0) {
-				viewer.zoomIn();
-			} else {
 				viewer.zoomOut();
+			} else {
+				viewer.zoomIn();
 			}
 		}
 	}
@@ -53,6 +53,8 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 		// scroll bar, we need to disable horizontal scrolling below 100% zoom.
 		if (viewer.getZoomLevel().getPercentage() < 100) {
 			setStyle(CssOverflowX.HIDDEN);
+		} else {
+			setStyle(CssOverflowX.AUTO);
 		}
 
 		imageHolder.applyTransformations();

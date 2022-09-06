@@ -3,6 +3,7 @@
 	display: grid;
 	grid-template-rows: min-content auto;
 	min-width: min-content;
+	min-height: 10em;
 	overflow: hidden;
 	resize: both;
 }
