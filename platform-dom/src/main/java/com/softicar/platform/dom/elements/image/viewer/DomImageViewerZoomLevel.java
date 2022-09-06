@@ -45,6 +45,16 @@ class DomImageViewerZoomLevel implements IDisplayable {
 		return getByIndex(index + 1);
 	}
 
+	public boolean hasPrevious() {
+
+		return index > 0;
+	}
+
+	public boolean hasNext() {
+
+		return index < ZOOM_LEVELS.size() - 1;
+	}
+
 	public static DomImageViewerZoomLevel getByIndex(int index) {
 
 		return ZOOM_LEVELS.get(Clamping.clamp(0, ZOOM_LEVELS.size() - 1, index));
