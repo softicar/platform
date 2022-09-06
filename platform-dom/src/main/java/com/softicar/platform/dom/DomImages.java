@@ -50,4 +50,6 @@ public interface DomImages {
 	IResourceSupplier TABLE_ROW_SELECTION_UNSELECT_CURRENT_PAGE = FACTORY.create("table-row-selection-unselect-current-page.svg");
 	IResourceSupplier TABLE_SHOW_ALL_ROWS = FACTORY.create("table-show-all-rows.svg");
 	IResourceSupplier UNDO = FACTORY.create("undo.svg");
+	IResourceSupplier ZOOM_IN = FACTORY.create("zoom-in.svg");
+	IResourceSupplier ZOOM_OUT = FACTORY.create("zoom-out.svg");
 }
