@@ -7,6 +7,7 @@ import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomForm;
+import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.event.DomEventType;
@@ -204,6 +205,12 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setHeightAndWidthOnLoad(DomImage image, IDomNode targetNode) {
 
 		// nothing to do
 	}
