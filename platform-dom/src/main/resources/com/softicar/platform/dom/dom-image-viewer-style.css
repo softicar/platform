@@ -34,5 +34,5 @@
 	flex-direction: row;
 	justify-content: center;
  	gap: 4em;
-	margin: 5px 10px;
+	padding: 5px 10px 0 10px;
 }

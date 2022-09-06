@@ -146,7 +146,7 @@ select {
 	border: 1px solid var(--INPUT_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
 	color: var(--FONT_COLOR);
-	min-width: 10em;
+	min-width: 5em;
 	outline: none;
 	/* Note that there is currently no clean solution to having equally-sized left-paddings in Firefox and Chrome. */
 	/* Firefox erroneously adds some extra left-hand padding; see: https://bugzilla.mozilla.org/show_bug.cgi?id=1582545 */
