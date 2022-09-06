@@ -46,12 +46,14 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 	private final Supplier<WebDriver> webDriverSupplier;
 	private final Function<IDomNode, WebElement> webElementResolver;
 	private final Supplier<WebElement> sessionTimeoutDivSupplier;
+	private final AjaxSeleniumLowLevelTestJavascriptExecutor javascriptExecutor;
 
 	AjaxSeleniumLowLevelTestEngineOutput(AjaxSeleniumLowLevelTestEngineParameters parameters) {
 
 		this.webDriverSupplier = parameters.getWebDriverSupplier();
 		this.webElementResolver = parameters.getWebElementResolver();
 		this.sessionTimeoutDivSupplier = parameters.getSessionTimeoutDivSupplier();
+		this.javascriptExecutor = new AjaxSeleniumLowLevelTestJavascriptExecutor(webDriverSupplier);
 	}
 
 	public AjaxSeleniumTestPoint getLocation(IDomNode node) {
@@ -101,6 +103,13 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 	public String getAttributeValue(IDomNode node, String attributeName) {
 
 		return webElementResolver.apply(node).getAttribute(attributeName);
+	}
+
+	public String getStyleValue(IDomNode node, String styleName) {
+
+		String script = "return document.getElementById('%s').style.%s;";
+		String nodeId = getAttributeValue(node, "id");
+		return (String) javascriptExecutor.execute(script, nodeId, styleName);
 	}
 
 	public String getCssAttributeValue(IDomNode node, String attributeName) {

@@ -1,69 +1,70 @@
 package com.softicar.platform.ajax.engine;
 
-import com.softicar.platform.ajax.customization.AbstractAjaxStrategy;
-import com.softicar.platform.ajax.document.AjaxDocument;
-import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.ajax.framework.AjaxFramework;
-import com.softicar.platform.ajax.request.AjaxRequest;
-import com.softicar.platform.ajax.simple.SimpleHttpSession;
-import com.softicar.platform.ajax.simple.SimpleServletRequest;
-import com.softicar.platform.ajax.simple.SimpleServletResponse;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.common.io.resource.IResourceUrl;
-import com.softicar.platform.common.io.resource.hash.ResourceHash;
-import com.softicar.platform.common.testing.AbstractTest;
-import java.util.Optional;
+import com.softicar.platform.common.io.resource.in.memory.InMemoryImageResource;
+import com.softicar.platform.dom.elements.DomColorEnum;
+import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.DomImage;
+import com.softicar.platform.dom.style.CssStyle;
+import com.softicar.platform.dom.styles.CssDisplay;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
-import org.mockito.Mockito;
 
-public class AjaxDomEngineTest extends AbstractTest {
-
-	private final AjaxDomEngine engine;
-
-	public AjaxDomEngineTest() {
-
-		AjaxFramework framework = new AjaxFramework(new TestStrategy());
-		SimpleServletRequest servletRequest = new SimpleServletRequest().setSession(new SimpleHttpSession(""));
-		SimpleServletResponse servletResponse = new SimpleServletResponse();
-		AjaxRequest request = new AjaxRequest(framework, servletRequest, servletResponse);
-		AjaxDocument document = new AjaxDocument(request);
-		this.engine = new AjaxDomEngine(document);
-	}
+public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	@Test
-	public void testGetResourceUrlWithHash() {
+	public void testSetHeightAndWidthOnLoad() {
 
-		IResource resource = Mockito.mock(IResource.class);
-		Mockito.when(resource.getContentHash()).thenReturn(Optional.of(new ResourceHash("abc")));
+		var testDiv = openTestNode(() -> new ImageTestDiv());
 
-		IResourceUrl resourceUrl = engine.getResourceUrl(resource);
+		var width = getStyleValue(testDiv.getInnerDiv(), "width");
+		var height = getStyleValue(testDiv.getInnerDiv(), "height");
 
-		assertEquals("?resourceHash=abc&suffix", resourceUrl.toString());
+		assertEquals(ImageTestDiv.IMAGE_WIDTH + "px", width);
+		assertEquals(ImageTestDiv.IMAGE_HEIGHT + "px", height);
 	}
 
-	@Test
-	public void testGetResourceUrlWithoutHash() {
+	private static class ImageTestDiv extends DomDiv {
 
-		IResource resource = Mockito.mock(IResource.class);
-		Mockito.when(resource.getContentHash()).thenReturn(Optional.empty());
+		public static final int IMAGE_HEIGHT = 123;
+		public static final int IMAGE_WIDTH = 321;
+		private final DomDiv innerDiv;
 
-		IResourceUrl resourceUrl = engine.getResourceUrl(resource);
+		public ImageTestDiv() {
 
-		assertEquals("?resourceId=1&suffix", resourceUrl.toString());
-	}
+			setBackgroundColor(DomColorEnum.DARK_GREEN);
+			setStyle(CssDisplay.FLEX);
+			setStyle(CssStyle.ALIGN_ITEMS, "flex-start");
 
-	private static class TestStrategy extends AbstractAjaxStrategy {
+			this.innerDiv = new DomDiv();
+			this.innerDiv.setBackgroundColor(DomColorEnum.YELLOW);
+			this.innerDiv.setStyle(CssDisplay.FLEX);
+			this.innerDiv.setStyle(CssStyle.ALIGN_ITEMS, "flex-start");
 
-		@Override
-		public void buildDocument(IAjaxDocument document) {
+			var image = new DomImage(createImage(IMAGE_WIDTH, IMAGE_HEIGHT, new Color(0x0000FF)));
 
-			// nothing to do
+			appendChild(innerDiv);
+			innerDiv.appendChild(image);
+
+			getDomEngine().setHeightAndWidthOnLoad(image, innerDiv);
 		}
 
-		@Override
-		public String getResourceUrlSuffix() {
+		public DomDiv getInnerDiv() {
 
-			return "&suffix";
+			return innerDiv;
+		}
+
+		private IResource createImage(int width, int height, Color color) {
+
+			var image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			var graphics = image.createGraphics();
+			graphics.setPaint(color);
+			graphics.fillRect(0, 0, width, height);
+			graphics.dispose();
+			return new InMemoryImageResource(image, "jpg", MimeType.IMAGE_JPEG);
 		}
 	}
 }
