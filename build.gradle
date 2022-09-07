@@ -175,7 +175,8 @@ subprojects {
 				"java.sql.Statement"
 			],
 			packageTreesAllowedToUseForbiddenClasses: [
-				"com.softicar.platform.db"
+				"com.softicar.platform.db",
+				"com.softicar.platform.integration.database.structure.version"
 			],
 		]
 		arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
