@@ -31,8 +31,8 @@ import org.junit.Test;
  * Base class of tests to ensure that known database migrations transform a
  * specific source database structure to a specific target database structure.
  * <p>
- * Particularly, migration <i>x</i> is ensured to transform structure <i>x</i>
- * to structure <i>x+1</i>.
+ * Particularly, migration <i>x</i> is ensured to transform structure version <i>x</i>
+ * to structure version <i>x+1</i>.
  * <p>
  * Uses MariaDB in a local Docker container.
  * <p>
