@@ -12,6 +12,6 @@ public class StoredFileImagePreviewPopup extends AbstractStoredFilePreviewPopup 
 	public StoredFileImagePreviewPopup(AGStoredFile file, StoredFileResource resource, ICssLength imageInitialMaxWidth) {
 
 		super(file);
-		appendChild(new DomImageViewer(List.of(resource)).setWidth(imageInitialMaxWidth));
+		appendChild(new DomImageViewer(List.of(resource), imageInitialMaxWidth));
 	}
 }

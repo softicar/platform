@@ -27,7 +27,10 @@ class DomImageViewerImageHolder extends DomDiv {
 
 		var image = new DomImageViewerImage(resource);
 		appendChild(image);
-		getDomEngine().setHeightAndWidthOnLoad(image, viewer);
+
+		if (viewer.isWidthDefined()) {
+			getDomEngine().setHeightAndWidthOnLoad(image, viewer);
+		}
 	}
 
 	public void applyTransformations() {
