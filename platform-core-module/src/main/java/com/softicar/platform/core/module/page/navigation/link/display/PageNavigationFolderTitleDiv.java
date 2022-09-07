@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.page.navigation.link.display;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreTestMarker;
-import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomImage;
@@ -20,7 +20,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 		this.clickCallback = clickCallback;
 
 		addMarker(CoreTestMarker.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
-		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
+		setCssClass(CoreCssClasses.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
 		appendModuleIconIfPresent();
 		appendChild(new TitleSpan());
 		appendChild(new FolderChevron());
@@ -52,7 +52,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 
 		public FolderChevron() {
 
-			setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_CHEVRON);
+			setCssClass(CoreCssClasses.PAGE_NAVIGATION_FOLDER_CHEVRON);
 			appendText(">");
 		}
 	}

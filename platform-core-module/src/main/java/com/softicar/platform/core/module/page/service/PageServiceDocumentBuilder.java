@@ -4,11 +4,10 @@ import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreCssFiles;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.page.PageDiv;
-import com.softicar.platform.core.module.page.PageResources;
-import com.softicar.platform.core.module.page.navigation.PageNavigationResources;
 import com.softicar.platform.core.module.page.service.login.PageServiceLoginDiv;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -46,8 +45,8 @@ public class PageServiceDocumentBuilder {
 		if (authenticate()) {
 			document.appendToBody(new PageDiv(document.getParameters()));
 		} else {
-			registerCss(PageResources.PAGE_STYLE);
-			registerCss(PageNavigationResources.PAGE_NAVIGATION_STYLE);
+			registerCss(CoreCssFiles.PAGE_STYLE);
+			registerCss(CoreCssFiles.PAGE_NAVIGATION_STYLE);
 			CurrentLocale.set(AGCoreModuleInstance.getInstance().getDefaultLocalization().getLocale());
 			document.getEngine().setDocumentTitle(CoreI18n.LOGIN.toString());
 			document.appendToBody(new PageServiceLoginDiv(this));

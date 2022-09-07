@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.page;
 import com.softicar.platform.ajax.document.IAjaxDocumentParameters;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointMissingException;
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.dom.elements.DomDiv;
 
@@ -42,9 +42,9 @@ public class PageDiv extends DomDiv {
 		this.navigationOpen = !navigationOpen;
 
 		if (navigationOpen) {
-			removeCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_COLLAPSED);
+			removeCssClass(CoreCssClasses.PAGE_NAVIGATION_COLLAPSED);
 		} else {
-			addCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_COLLAPSED);
+			addCssClass(CoreCssClasses.PAGE_NAVIGATION_COLLAPSED);
 		}
 	}
 }
