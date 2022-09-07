@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.page.navigation.link.display;
 
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.PageUrlBuilder;
-import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
 import com.softicar.platform.core.module.page.navigation.PageNavigationPageController;
-import com.softicar.platform.core.module.page.navigation.PageNavigationResources;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -25,7 +25,7 @@ public class PageNavigationPageLinkDiv extends DomDiv {
 		this.link = link;
 
 		addMarker(CoreTestMarker.PAGE_NAVIGATION_PAGE_LINK_DIV);
-		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_PAGE_LINK_DIV);
+		setCssClass(CoreCssClasses.PAGE_NAVIGATION_PAGE_LINK_DIV);
 		appendChild(new Title());
 		appendChild(new OpenInNewTabButton());
 	}
@@ -50,7 +50,7 @@ public class PageNavigationPageLinkDiv extends DomDiv {
 		public Title() {
 
 			appendText(link.getTitle());
-			setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_PAGE_LINK_TITLE);
+			setCssClass(CoreCssClasses.PAGE_NAVIGATION_PAGE_LINK_TITLE);
 		}
 
 		@Override
@@ -64,7 +64,7 @@ public class PageNavigationPageLinkDiv extends DomDiv {
 
 		public OpenInNewTabButton() {
 
-			setIcon(PageNavigationResources.PAGE_NAVIGATION_OPEN_IN_NEW_TAB_ICON.getResource());
+			setIcon(CoreImages.PAGE_NAVIGATION_OPEN_IN_NEW_TAB_ICON.getResource());
 			setTitle(CoreI18n.CLICK_TO_OPEN_IN_NEW_TAB);
 			setTabIndex(-1);
 			setExternalLink(new PageUrlBuilder<>(link).build().getStartingFromPath());

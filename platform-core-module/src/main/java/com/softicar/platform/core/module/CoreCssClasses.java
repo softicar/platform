@@ -7,12 +7,33 @@ public interface CoreCssClasses {
 
 	ICssClass MAINTENANCE_WINDOWS_INFO_ELEMENT = new CssClass("MaintenanceWindowsInfoElement", CoreCssFiles.MAINTENANCE_WINDOW_STYLE);
 
+	ICssClass PAGE_CONTENT_DIV = new CssClass("PageContentDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_DIV = new CssClass("PageHeaderDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_PATH_DIV = new CssClass("PageHeaderPathDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_PAGE_NAME = new CssClass("PageHeaderPageName", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_SEPARATOR = new CssClass("PageHeaderSeparator", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_USER_DISPLAY = new CssClass("PageHeaderUserDisplay", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_NAVIGATION_COLLAPSED = new CssClass("PageNavigationCollapsed", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_DIV = new CssClass("PageNavigationDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_FOLDER_DIV = new CssClass("PageNavigationFolderDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_FOLDER_CHEVRON = new CssClass("PageNavigationFolderChevron", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_FOLDER_CONTENT_DIV = new CssClass("PageNavigationFolderContentDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_FOLDER_TITLE_DIV = new CssClass("PageNavigationFolderTitleDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_LOGO_DIV = new CssClass("PageNavigationLogoDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_PAGE_LINK_DIV = new CssClass("PageNavigationPageLinkDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_NAVIGATION_PAGE_LINK_TITLE = new CssClass("PageNavigationPageLinkTitle", CoreCssFiles.PAGE_NAVIGATION_STYLE);
+	ICssClass PAGE_SERVICE_LOGIN_DIV = new CssClass("PageServiceLoginDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_SERVICE_LOGIN_ERROR_DIV = new CssClass("PageServiceLoginErrorDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_SERVICE_LOGIN_MAINTENANCE_DIV = new CssClass("PageServiceLoginMaintenanceDiv", CoreCssFiles.PAGE_STYLE);
+
 	ICssClass STORED_FILE_TEXT_DISPLAY = new CssClass("StoredFileTextDisplay", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_DIV = new CssClass("StoredFileUploadDiv", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_INPUT = new CssClass("StoredFileUploadInput", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_TABLE_DIV = new CssClass("StoredFileUploadTableDiv", CoreCssFiles.STORED_FILE_STYLE);
 
 	ICssClass SYSTEM_EVENT_SEVERITY_DISPLAY = new CssClass("SystemEventSeverityDisplay", CoreCssFiles.SYSTEM_EVENT_STYLE);
+
+	ICssClass TEST_SYSTEM = new CssClass("TestSystem", CoreCssFiles.PAGE_STYLE);
 
 	ICssClass USER_PASSWORD_QUALITY_CRITERION_ROW = new CssClass("UserPasswordQualityCriterionRow", CoreCssFiles.USER_PASSWORD_QUALITY_STYLE);
 	ICssClass USER_PASSWORD_QUALITY_CRITERION_VALUE = new CssClass("UserPasswordQualityCriterionValue", CoreCssFiles.USER_PASSWORD_QUALITY_STYLE);
