@@ -32,7 +32,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = getTestEngine().getInput();
 		this.output = getTestEngine().getOutput();
 
-		openTestNode(() -> new DomImageViewer(images).setWidth(new CssPixel(VIEWER_WIDTH)));
+		openTestNode(() -> new DomImageViewer(images, new CssPixel(VIEWER_WIDTH)));
 	}
 
 	@Test
