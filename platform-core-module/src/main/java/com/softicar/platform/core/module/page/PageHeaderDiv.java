@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.event.AjaxDomEvent;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.page.navigation.PageNavigationToggleButton;
@@ -32,7 +33,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 		this.page = link.getPage();
 		this.moduleInstance = link.getModuleInstance();
 		this.module = CastUtils.cast(moduleInstance.getModuleOrThrow());
-		setCssClass(PageCssClasses.PAGE_HEADER_DIV);
+		setCssClass(CoreCssClasses.PAGE_HEADER_DIV);
 		appendChild(new PageNavigationToggleButton(navigationToggleFunction));
 		appendChild(new PagePathDiv());
 		appendChild(new UserDisplay());
@@ -44,7 +45,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
 		public PagePathDiv() {
 
-			setCssClass(PageCssClasses.PAGE_HEADER_PATH_DIV);
+			setCssClass(CoreCssClasses.PAGE_HEADER_PATH_DIV);
 
 			EmfPagePath pagePath = page.getPagePath(module.getDefaultPagePath(moduleInstance));
 			for (String segment: pagePath.getSegments()) {
@@ -59,7 +60,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
 		public Separator() {
 
-			setCssClass(PageCssClasses.PAGE_HEADER_SEPARATOR);
+			setCssClass(CoreCssClasses.PAGE_HEADER_SEPARATOR);
 			appendText(">>");
 		}
 	}
@@ -68,7 +69,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
 		public PageName(String name) {
 
-			setCssClass(PageCssClasses.PAGE_HEADER_PAGE_NAME);
+			setCssClass(CoreCssClasses.PAGE_HEADER_PAGE_NAME);
 			appendText(name);
 		}
 	}
@@ -77,7 +78,7 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
 		public UserDisplay() {
 
-			setCssClass(PageCssClasses.PAGE_HEADER_USER_DISPLAY);
+			setCssClass(CoreCssClasses.PAGE_HEADER_USER_DISPLAY);
 			appendText(CurrentUser.get().toDisplayWithoutId());
 		}
 	}
