@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.page.navigation;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -11,7 +12,7 @@ public class PageNavigationLogoDiv extends DomDiv {
 
 	public PageNavigationLogoDiv() {
 
-		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_LOGO_DIV);
+		setCssClass(CoreCssClasses.PAGE_NAVIGATION_LOGO_DIV);
 
 		Optional//
 			.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())

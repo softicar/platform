@@ -38,6 +38,8 @@ public interface CoreImages extends DomImages {
 	IResourceSupplier NETWORK = FACTORY.create("network.svg");
 	IResourceSupplier NOTIFICATION_SEND = FACTORY.create("notification-send.svg");
 	IResourceSupplier PAGE_ICON = FACTORY.create("page-icon.svg");
+	IResourceSupplier PAGE_NAVIGATION_OPEN_IN_NEW_TAB_ICON = FACTORY.create("page-navigation-open-in-new-tab-icon.svg");
+	IResourceSupplier PAGE_NAVIGATION_TOGGLE_ICON = FACTORY.create("page-navigation-toggle-icon.svg");
 	IResourceSupplier PASSWORD = FACTORY.create("password.svg");
 	IResourceSupplier PASSWORD_POLICY = FACTORY.create("password-policy.svg");
 	IResourceSupplier PASSWORD_RESET = FACTORY.create("password-reset.svg");

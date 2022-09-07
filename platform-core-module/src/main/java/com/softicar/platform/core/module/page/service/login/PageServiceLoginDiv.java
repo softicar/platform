@@ -5,13 +5,13 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
-import com.softicar.platform.core.module.page.PageCssClasses;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomForm;
@@ -40,10 +40,10 @@ public class PageServiceLoginDiv extends DomDiv {
 		this.documentBuilder = documentBuilder;
 		this.loginForm = new LoginForm();
 
-		addCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_DIV);
+		addCssClass(CoreCssClasses.PAGE_SERVICE_LOGIN_DIV);
 		appendChild(loginForm);
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
-			addCssClass(PageCssClasses.TEST_SYSTEM);
+			addCssClass(CoreCssClasses.TEST_SYSTEM);
 		}
 	}
 
@@ -156,7 +156,7 @@ public class PageServiceLoginDiv extends DomDiv {
 
 			public MaintenanceElement() {
 
-				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
+				setCssClass(CoreCssClasses.PAGE_SERVICE_LOGIN_MAINTENANCE_DIV);
 				AGMaintenanceWindow//
 					.getMaintenanceInProgress()
 					.ifPresentOrElse(this::appendMaintenanceInProgressInfo, this::checkIfMaintenanceIsConfiguredForToday);
@@ -204,7 +204,7 @@ public class PageServiceLoginDiv extends DomDiv {
 
 			public LoginErrorElement() {
 
-				setCssClass(PageCssClasses.PAGE_SERVICE_LOGIN_ERROR_DIV);
+				setCssClass(CoreCssClasses.PAGE_SERVICE_LOGIN_ERROR_DIV);
 				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_ERROR_MESSAGE_ELEMENT);
 			}
 
