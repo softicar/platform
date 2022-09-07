@@ -1,5 +1,6 @@
 package com.softicar.platform.integration.database.structure.version;
 
+import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.string.regex.Patterns;
 import com.softicar.platform.common.testing.AbstractTest;
@@ -7,10 +8,29 @@ import com.softicar.platform.integration.database.structure.DatabaseStructureTab
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public class DatabaseStructureVersionResourceTest extends AbstractTest {
+/**
+ * Base class of tests that assert the structure of a
+ * {@link ResourceSupplierContainer} that enumerates database structure version
+ * definition and migration files.
+ * <p>
+ * Any extending class should reside in an <i>integration sub project</i>; i.e.
+ * a sub project that depends on all other sub projects, in a multi-project
+ * build.
+ *
+ * @author Alexander Schmidt
+ */
+public abstract class AbstractDatabaseStructureVersionResourceTest extends AbstractTest {
+
+	private final Class<?> resourceContainerClass;
+
+	public AbstractDatabaseStructureVersionResourceTest(Class<?> resourceContainerClass) {
+
+		this.resourceContainerClass = Objects.requireNonNull(resourceContainerClass);
+	}
 
 	@Test
 	public void testValidResourceSupplierFieldNames() {
@@ -31,7 +51,7 @@ public class DatabaseStructureVersionResourceTest extends AbstractTest {
 	public void testParseableJsonResources() {
 
 		var converter = new DatabaseStructureTableDefinitionsConverter();
-		var resourceSuppliers = DatabaseStructureVersionResources.getAllStructureResourceSuppliers();
+		var resourceSuppliers = new DatabaseStructureVersionResourcesMap(resourceContainerClass).getAllStructureResourceSuppliers();
 		for (var resourceSupplier: resourceSuppliers) {
 			String json = resourceSupplier.getResource().getContentTextUtf8();
 			String fileName = resourceSupplier.getResource().getFilename().get();
@@ -85,7 +105,7 @@ public class DatabaseStructureVersionResourceTest extends AbstractTest {
 	private List<Field> getResourceSupplierFields() {
 
 		return Arrays//
-			.asList(DatabaseStructureVersionResource.class.getDeclaredFields())
+			.asList(resourceContainerClass.getDeclaredFields())
 			.stream()
 			.filter(this::isResourceSupplierField)
 			.collect(Collectors.toList());
