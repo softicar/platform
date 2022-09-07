@@ -6,26 +6,35 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.List;
+import java.util.Optional;
 
 public class DomImageViewer extends DomDiv {
 
 	private final List<? extends IResource> images;
 	private final DomImageViewerToolBar toolBar;
 	private final DomImageViewerCanvas canvas;
+	private final boolean widthDefined;
 	private DomImageViewerZoomLevel zoomLevel;
 	private boolean rotated;
 	private int pageIndex;
 
 	public DomImageViewer(List<? extends IResource> images) {
 
+		this(images, null);
+	}
+
+	public DomImageViewer(List<? extends IResource> images, ICssLength width) {
+
 		this.images = images;
 		this.toolBar = new DomImageViewerToolBar(this);
 		this.canvas = new DomImageViewerCanvas(this);
+		this.widthDefined = width != null;
 		this.zoomLevel = DomImageViewerZoomLevel.getDefault();
 		this.rotated = false;
 		this.pageIndex = 0;
 
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER);
+		Optional.ofNullable(width).ifPresent(it -> setStyle(CssStyle.WIDTH, it));
 
 		appendChild(toolBar);
 		appendChild(canvas);
@@ -33,18 +42,9 @@ public class DomImageViewer extends DomDiv {
 		refresh();
 	}
 
-	// ------------------------------ size ------------------------------ //
+	boolean isWidthDefined() {
 
-	public DomImageViewer setWidth(ICssLength width) {
-
-		setStyle(CssStyle.WIDTH, width);
-		return this;
-	}
-
-	public DomImageViewer setHeight(ICssLength height) {
-
-		setStyle(CssStyle.HEIGHT, height);
-		return this;
+		return widthDefined;
 	}
 
 	// ------------------------------ zoom ------------------------------ //
