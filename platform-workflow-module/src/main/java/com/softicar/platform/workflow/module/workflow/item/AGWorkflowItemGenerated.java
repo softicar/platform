@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module.workflow.item;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -28,8 +29,10 @@ public class AGWorkflowItemGenerated extends AbstractDbObject<AGWorkflowItem> {
 	}
 
 	public static final IDbIdField<AGWorkflowItem> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowItem, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW);
-	public static final IDbForeignField<AGWorkflowItem, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE);
+	public static final IDbForeignField<AGWorkflowItem, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW).setForeignKeyName("WorkflowItem_ibfk_1");
+	public static final IDbForeignField<AGWorkflowItem, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setForeignKeyName("WorkflowItem_ibfk_2");
+	public static final IDbKey<AGWorkflowItem> IK_WORKFLOW = BUILDER.addIndexKey("workflow", WORKFLOW);
+	public static final IDbKey<AGWorkflowItem> IK_WORKFLOW_NODE = BUILDER.addIndexKey("workflowNode", WORKFLOW_NODE);
 	public static final AGWorkflowItemTable TABLE = new AGWorkflowItemTable(BUILDER);
 	// @formatter:on
 

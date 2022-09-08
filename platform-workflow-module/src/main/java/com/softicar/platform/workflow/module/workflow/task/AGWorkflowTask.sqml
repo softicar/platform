@@ -5,11 +5,14 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
 
 TABLE AGWorkflowTask 'Workflow.WorkflowTask' {
-	
 	PK Integer id = SERIAL
-	AGTransaction transaction
-	AGWorkflowItem workflowItem 
-	AGUser user
+	AGTransaction transaction [CONSTRAINT_NAME='WorkflowTask_ibfk_1']
+	AGWorkflowItem workflowItem [CONSTRAINT_NAME='WorkflowTask_ibfk_2']
+	AGUser user [CONSTRAINT_NAME='WorkflowTask_ibfk_3']
 	Boolean closed = FALSE
 	Boolean notify = FALSE
+
+	IK transaction
+	IK workflowItem
+	IK user
 }

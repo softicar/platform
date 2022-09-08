@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -30,12 +31,14 @@ public class AGWorkflowTaskLog extends AbstractDbRecord<AGWorkflowTaskLog, Tuple
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_TASK_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowTaskLog, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK);
-	public static final IDbForeignField<AGWorkflowTaskLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
-	public static final IDbForeignField<AGWorkflowTaskLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowTaskLog, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK).setForeignKeyName("WorkflowTaskLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTaskLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowTaskLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTaskLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null).setForeignKeyName("WorkflowTaskLog_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowTaskLog> CLOSED = BUILDER.addBooleanField("closed", o->o.m_closed, (o,v)->o.m_closed=v).setTitle(WorkflowI18n.CLOSED).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGWorkflowTaskLog> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setNullable().setDefault(null);
 	public static final IDbTableKey<AGWorkflowTaskLog, Tuple2<AGWorkflowTask, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_TASK, TRANSACTION));
+	public static final IDbKey<AGWorkflowTaskLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowTaskLog> IK_USER = BUILDER.addIndexKey("user", USER);
 	public static final DbRecordTable<AGWorkflowTaskLog, Tuple2<AGWorkflowTask, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

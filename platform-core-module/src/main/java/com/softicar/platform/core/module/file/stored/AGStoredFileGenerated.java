@@ -9,6 +9,7 @@ import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -33,10 +34,12 @@ public class AGStoredFileGenerated extends AbstractDbObject<AGStoredFile> {
 	public static final IDbIdField<AGStoredFile> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbStringField<AGStoredFile> FILE_NAME = BUILDER.addStringField("fileName", o->o.m_fileName, (o,v)->o.m_fileName=v).setTitle(CoreI18n.FILE_NAME).setMaximumLength(255);
 	public static final IDbStringField<AGStoredFile> CONTENT_TYPE = BUILDER.addStringField("contentType", o->o.m_contentType, (o,v)->o.m_contentType=v).setTitle(CoreI18n.CONTENT_TYPE).setDefault("").setMaximumLength(255);
-	public static final IDbForeignField<AGStoredFile, AGStoredFileSha1> SHA_1 = BUILDER.addForeignField("sha1", o->o.m_sha1, (o,v)->o.m_sha1=v, AGStoredFileSha1.ID).setTitle(CoreI18n.SHA_1).setNullable().setDefault(null);
-	public static final IDbForeignField<AGStoredFile, AGUser> CREATED_BY = BUILDER.addForeignField("createdBy", o->o.m_createdBy, (o,v)->o.m_createdBy=v, AGUser.ID).setTitle(CoreI18n.CREATED_BY);
+	public static final IDbForeignField<AGStoredFile, AGStoredFileSha1> SHA_1 = BUILDER.addForeignField("sha1", o->o.m_sha1, (o,v)->o.m_sha1=v, AGStoredFileSha1.ID).setTitle(CoreI18n.SHA_1).setNullable().setDefault(null).setForeignKeyName("StoredFile_ibfk_1");
+	public static final IDbForeignField<AGStoredFile, AGUser> CREATED_BY = BUILDER.addForeignField("createdBy", o->o.m_createdBy, (o,v)->o.m_createdBy=v, AGUser.ID).setTitle(CoreI18n.CREATED_BY).setForeignKeyName("StoredFile_ibfk_2");
 	public static final IDbDayTimeField<AGStoredFile> CREATED_AT = BUILDER.addDayTimeField("createdAt", o->o.m_createdAt, (o,v)->o.m_createdAt=v).setTitle(CoreI18n.CREATED_AT).setDefaultNow();
 	public static final IDbDayTimeField<AGStoredFile> REMOVE_AT = BUILDER.addDayTimeField("removeAt", o->o.m_removeAt, (o,v)->o.m_removeAt=v).setTitle(CoreI18n.REMOVE_AT).setNullable().setDefault(null);
+	public static final IDbKey<AGStoredFile> IK_SHA_1 = BUILDER.addIndexKey("sha1", SHA_1);
+	public static final IDbKey<AGStoredFile> IK_CREATED_BY = BUILDER.addIndexKey("createdBy", CREATED_BY);
 	public static final AGStoredFileTable TABLE = new AGStoredFileTable(BUILDER);
 	// @formatter:on
 

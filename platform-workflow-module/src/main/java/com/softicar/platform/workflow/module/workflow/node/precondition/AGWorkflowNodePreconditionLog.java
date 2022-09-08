@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -30,11 +31,13 @@ public class AGWorkflowNodePreconditionLog extends AbstractDbRecord<AGWorkflowNo
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_NODE_PRECONDITION_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGWorkflowNodePrecondition> WORKFLOW_NODE_PRECONDITION = BUILDER.addForeignField("workflowNodePrecondition", o->o.m_workflowNodePrecondition, (o,v)->o.m_workflowNodePrecondition=v, AGWorkflowNodePrecondition.ID).setTitle(WorkflowI18n.WORKFLOW_NODE_PRECONDITION);
-	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
+	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGWorkflowNodePrecondition> WORKFLOW_NODE_PRECONDITION = BUILDER.addForeignField("workflowNodePrecondition", o->o.m_workflowNodePrecondition, (o,v)->o.m_workflowNodePrecondition=v, AGWorkflowNodePrecondition.ID).setTitle(WorkflowI18n.WORKFLOW_NODE_PRECONDITION).setForeignKeyName("WorkflowNodePreconditionLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowNodePreconditionLog_ibfk_2");
 	public static final IDbBooleanField<AGWorkflowNodePreconditionLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
-	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGUuid> FUNCTION = BUILDER.addForeignField("function", o->o.m_function, (o,v)->o.m_function=v, AGUuid.ID).setTitle(WorkflowI18n.FUNCTION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowNodePreconditionLog, AGUuid> FUNCTION = BUILDER.addForeignField("function", o->o.m_function, (o,v)->o.m_function=v, AGUuid.ID).setTitle(WorkflowI18n.FUNCTION).setNullable().setDefault(null).setForeignKeyName("WorkflowNodePreconditionLog_ibfk_3");
 	public static final IDbTableKey<AGWorkflowNodePreconditionLog, Tuple2<AGWorkflowNodePrecondition, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_NODE_PRECONDITION, TRANSACTION));
+	public static final IDbKey<AGWorkflowNodePreconditionLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowNodePreconditionLog> IK_FUNCTION = BUILDER.addIndexKey("function", FUNCTION);
 	public static final DbRecordTable<AGWorkflowNodePreconditionLog, Tuple2<AGWorkflowNodePrecondition, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

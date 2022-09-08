@@ -32,8 +32,8 @@ public class AGUserImpersonationState extends AbstractDbObject<AGUserImpersonati
 	}
 
 	public static final IDbIdField<AGUserImpersonationState> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGUserImpersonationState, AGUser> SOURCE_USER = BUILDER.addForeignField("sourceUser", o->o.m_sourceUser, (o,v)->o.m_sourceUser=v, AGUser.ID).setTitle(CoreI18n.SOURCE_USER);
-	public static final IDbForeignField<AGUserImpersonationState, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(CoreI18n.TARGET_USER);
+	public static final IDbForeignField<AGUserImpersonationState, AGUser> SOURCE_USER = BUILDER.addForeignField("sourceUser", o->o.m_sourceUser, (o,v)->o.m_sourceUser=v, AGUser.ID).setTitle(CoreI18n.SOURCE_USER).setForeignKeyName("UserImpersonationState_ibfk_1");
+	public static final IDbForeignField<AGUserImpersonationState, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(CoreI18n.TARGET_USER).setForeignKeyName("UserImpersonationState_ibfk_2");
 	public static final IDbStringField<AGUserImpersonationState> REASON = BUILDER.addStringField("reason", o->o.m_reason, (o,v)->o.m_reason=v).setTitle(CoreI18n.REASON).setLengthBits(16);
 	public static final IDbDayTimeField<AGUserImpersonationState> STARTED_AT = BUILDER.addDayTimeField("startedAt", o->o.m_startedAt, (o,v)->o.m_startedAt=v).setTitle(CoreI18n.STARTED_AT);
 	public static final IDbDayTimeField<AGUserImpersonationState> FINISHED_AT = BUILDER.addDayTimeField("finishedAt", o->o.m_finishedAt, (o,v)->o.m_finishedAt=v).setTitle(CoreI18n.FINISHED_AT).setNullable().setDefault(null);

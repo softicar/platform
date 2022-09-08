@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,11 @@ public class AGModuleInstanceBaseGenerated extends AbstractDbObject<AGModuleInst
 	}
 
 	public static final IDbIdField<AGModuleInstanceBase> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGModuleInstanceBase, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
+	public static final IDbForeignField<AGModuleInstanceBase, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true).setForeignKeyName("ModuleInstanceBase_ibfk_1");
 	public static final IDbBooleanField<AGModuleInstanceBase> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGModuleInstanceBase, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID);
+	public static final IDbForeignField<AGModuleInstanceBase, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID).setForeignKeyName("ModuleInstanceBase_ibfk_2");
+	public static final IDbKey<AGModuleInstanceBase> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGModuleInstanceBase> IK_MODULE_UUID = BUILDER.addIndexKey("moduleUuid", MODULE_UUID);
 	public static final AGModuleInstanceBaseTable TABLE = new AGModuleInstanceBaseTable(BUILDER);
 	// @formatter:on
 

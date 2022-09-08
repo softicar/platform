@@ -11,6 +11,7 @@ import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -33,15 +34,17 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 		BUILDER.setPluralTitle(CoreI18n.PROGRAM_EXECUTION_LOGS);
 	}
 
-	public static final IDbForeignField<AGProgramExecutionLog, AGProgramExecution> PROGRAM_EXECUTION = BUILDER.addForeignField("programExecution", o->o.m_programExecution, (o,v)->o.m_programExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.PROGRAM_EXECUTION);
-	public static final IDbForeignField<AGProgramExecutionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGProgramExecutionLog, AGProgramExecution> PROGRAM_EXECUTION = BUILDER.addForeignField("programExecution", o->o.m_programExecution, (o,v)->o.m_programExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.PROGRAM_EXECUTION).setForeignKeyName("ProgramExecutionLog_ibfk_1");
+	public static final IDbForeignField<AGProgramExecutionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("ProgramExecutionLog_ibfk_2");
 	public static final IDbDayTimeField<AGProgramExecutionLog> STARTED_AT = BUILDER.addDayTimeField("startedAt", o->o.m_startedAt, (o,v)->o.m_startedAt=v).setTitle(CoreI18n.STARTED_AT).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGProgramExecutionLog> TERMINATED_AT = BUILDER.addDayTimeField("terminatedAt", o->o.m_terminatedAt, (o,v)->o.m_terminatedAt=v).setTitle(CoreI18n.TERMINATED_AT).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgramExecutionLog> FAILED = BUILDER.addBooleanField("failed", o->o.m_failed, (o,v)->o.m_failed=v).setTitle(CoreI18n.FAILED).setNullable().setDefault(null);
 	public static final IDbStringField<AGProgramExecutionLog> OUTPUT = BUILDER.addStringField("output", o->o.m_output, (o,v)->o.m_output=v).setTitle(CoreI18n.OUTPUT).setNullable().setDefault(null).setLengthBits(32);
 	public static final IDbBooleanField<AGProgramExecutionLog> MAXIMUM_RUNTIME_EXCEEDED = BUILDER.addBooleanField("maximumRuntimeExceeded", o->o.m_maximumRuntimeExceeded, (o,v)->o.m_maximumRuntimeExceeded=v).setTitle(CoreI18n.MAXIMUM_RUNTIME_EXCEEDED).setNullable().setDefault(null);
-	public static final IDbForeignField<AGProgramExecutionLog, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null);
+	public static final IDbForeignField<AGProgramExecutionLog, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null).setForeignKeyName("ProgramExecutionLog_ibfk_3");
 	public static final IDbTableKey<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM_EXECUTION, TRANSACTION));
+	public static final IDbKey<AGProgramExecutionLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGProgramExecutionLog> IK_QUEUED_BY = BUILDER.addIndexKey("queuedBy", QUEUED_BY);
 	public static final DbRecordTable<AGProgramExecutionLog, Tuple2<AGProgramExecution, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

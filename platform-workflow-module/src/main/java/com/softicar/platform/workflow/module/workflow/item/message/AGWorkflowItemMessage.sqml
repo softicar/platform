@@ -3,10 +3,12 @@ PACKAGE com.softicar.platform.workflow.module.workflow.item.message
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
 
-TABLE AGWorkflowItemMessage 'Workflow.WorkflowItemMessage' { 
-	
+TABLE AGWorkflowItemMessage 'Workflow.WorkflowItemMessage' {
 	PK Integer id = SERIAL
-	AGWorkflowItem workflowItem
-	AGTransaction transaction
+	AGWorkflowItem workflowItem [CONSTRAINT_NAME='WorkflowItemMessage_ibfk_1']
+	AGTransaction transaction [CONSTRAINT_NAME='WorkflowItemMessage_ibfk_2']
 	String text [LENGTHBITS=16]
+
+	IK workflowItem
+	IK transaction
 }

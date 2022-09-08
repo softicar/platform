@@ -31,7 +31,7 @@ public class AGBufferedEmailAttachmentGenerated extends AbstractDbObject<AGBuffe
 	}
 
 	public static final IDbIdField<AGBufferedEmailAttachment> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGBufferedEmailAttachment, AGBufferedEmail> EMAIL = BUILDER.addForeignField("email", o->o.m_email, (o,v)->o.m_email=v, AGBufferedEmail.ID).setTitle(CoreI18n.EMAIL).setCascade(true, true);
+	public static final IDbForeignField<AGBufferedEmailAttachment, AGBufferedEmail> EMAIL = BUILDER.addForeignField("email", o->o.m_email, (o,v)->o.m_email=v, AGBufferedEmail.ID).setTitle(CoreI18n.EMAIL).setCascade(true, true).setForeignKeyName("BufferedEmailAttachment_ibfk_1");
 	public static final IDbIntegerField<AGBufferedEmailAttachment> INDEX = BUILDER.addIntegerField("index", o->o.m_index, (o,v)->o.m_index=v).setTitle(CoreI18n.INDEX);
 	public static final IDbStringField<AGBufferedEmailAttachment> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setLengthBits(16);
 	public static final IDbStringField<AGBufferedEmailAttachment> TYPE = BUILDER.addStringField("type", o->o.m_type, (o,v)->o.m_type=v).setTitle(CoreI18n.TYPE).setLengthBits(16);

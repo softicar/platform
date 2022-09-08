@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGUserImpersonationState 'Core.UserImpersonationState' {
 	PK Integer id = SERIAL
-	AGUser sourceUser
-	AGUser targetUser
+	AGUser sourceUser [CONSTRAINT_NAME='UserImpersonationState_ibfk_1']
+	AGUser targetUser [CONSTRAINT_NAME='UserImpersonationState_ibfk_2']
 	String reason [LENGTHBITS=16]
 	DayTime startedAt
 	DayTime finishedAt = NULL [NULLABLE]

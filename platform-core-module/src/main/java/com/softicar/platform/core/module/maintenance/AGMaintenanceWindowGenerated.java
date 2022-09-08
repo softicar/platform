@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -32,8 +33,9 @@ public class AGMaintenanceWindowGenerated extends AbstractDbObject<AGMaintenance
 	public static final IDbIdField<AGMaintenanceWindow> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbDayTimeField<AGMaintenanceWindow> EXPECTED_START = BUILDER.addDayTimeField("expectedStart", o->o.m_expectedStart, (o,v)->o.m_expectedStart=v).setTitle(CoreI18n.EXPECTED_START);
 	public static final IDbDayTimeField<AGMaintenanceWindow> EXPECTED_END = BUILDER.addDayTimeField("expectedEnd", o->o.m_expectedEnd, (o,v)->o.m_expectedEnd=v).setTitle(CoreI18n.EXPECTED_END);
-	public static final IDbForeignField<AGMaintenanceWindow, AGMaintenanceState> STATE = BUILDER.addForeignField("state", o->o.m_state, (o,v)->o.m_state=v, AGMaintenanceState.ID).setTitle(CoreI18n.STATE);
+	public static final IDbForeignField<AGMaintenanceWindow, AGMaintenanceState> STATE = BUILDER.addForeignField("state", o->o.m_state, (o,v)->o.m_state=v, AGMaintenanceState.ID).setTitle(CoreI18n.STATE).setForeignKeyName("MaintenanceWindow_ibfk_1");
 	public static final IDbStringField<AGMaintenanceWindow> COMMENT = BUILDER.addStringField("comment", o->o.m_comment, (o,v)->o.m_comment=v).setTitle(CoreI18n.COMMENT).setNullable().setDefault("").setLengthBits(8);
+	public static final IDbKey<AGMaintenanceWindow> IK_STATE = BUILDER.addIndexKey("state", STATE);
 	public static final AGMaintenanceWindowTable TABLE = new AGMaintenanceWindowTable(BUILDER);
 	// @formatter:on
 

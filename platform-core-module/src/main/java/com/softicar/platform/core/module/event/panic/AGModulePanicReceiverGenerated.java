@@ -30,9 +30,9 @@ public class AGModulePanicReceiverGenerated extends AbstractDbObject<AGModulePan
 	}
 
 	public static final IDbIdField<AGModulePanicReceiver> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGModulePanicReceiver, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID);
+	public static final IDbForeignField<AGModulePanicReceiver, AGUuid> MODULE_UUID = BUILDER.addForeignField("moduleUuid", o->o.m_moduleUuid, (o,v)->o.m_moduleUuid=v, AGUuid.ID).setTitle(CoreI18n.MODULE_UUID).setForeignKeyName("ModulePanicReceiver_ibfk_1");
 	public static final IDbBooleanField<AGModulePanicReceiver> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGModulePanicReceiver, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
+	public static final IDbForeignField<AGModulePanicReceiver, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("ModulePanicReceiver_ibfk_2");
 	public static final IDbKey<AGModulePanicReceiver> UK_MODULE_UUID_USER = BUILDER.addUniqueKey("moduleUuidUser", MODULE_UUID, USER);
 	public static final IDbKey<AGModulePanicReceiver> IK_USER = BUILDER.addIndexKey("user", USER);
 	public static final AGModulePanicReceiverTable TABLE = new AGModulePanicReceiverTable(BUILDER);

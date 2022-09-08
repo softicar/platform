@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask
 
 TABLE AGWorkflowTaskDelegation 'Workflow.WorkflowTaskDelegation' {
-	
-	PK AGWorkflowTask workflowTask 
-	AGUser targetUser
-	AGUser delegatedBy
+	PK AGWorkflowTask workflowTask [CONSTRAINT_NAME='WorkflowTaskDelegation_ibfk_1']
+	AGUser targetUser [CONSTRAINT_NAME='WorkflowTaskDelegation_ibfk_2']
+	AGUser delegatedBy [CONSTRAINT_NAME='WorkflowTaskDelegation_ibfk_3']
 	Boolean active = TRUE
+
+	IK targetUser
+	IK delegatedBy
 }

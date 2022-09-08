@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.file.stored.set
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 
 TABLE AGStoredFileSetItem 'Core.StoredFileSetItem' {
-	PK AGStoredFileSet fileSet
-	PK AGStoredFile file
+	PK AGStoredFileSet fileSet [CONSTRAINT_NAME='StoredFileSetItem_ibfk_1']
+	PK AGStoredFile file [CONSTRAINT_NAME='StoredFileSetItem_ibfk_2']
 
 	IK file
 }

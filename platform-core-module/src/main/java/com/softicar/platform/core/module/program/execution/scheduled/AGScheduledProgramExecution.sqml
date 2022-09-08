@@ -3,11 +3,10 @@ PACKAGE com.softicar.platform.core.module.program.execution.scheduled
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGScheduledProgramExecution 'Core.ScheduledProgramExecution' {
-
 	PK Integer id = SERIAL
 	Boolean active = TRUE
 	String cronExpression [MAXLENGTH=255]
-	AGUuid programUuid
+	AGUuid programUuid [CONSTRAINT_NAME='ScheduledProgramExecution_ibfk_1']
 	Integer maximumRuntime = NULL [NULLABLE]
 	Boolean automaticAbort = FALSE
 

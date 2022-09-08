@@ -34,9 +34,9 @@ public class AGUserPasswordGenerated extends AbstractDbObject<AGUserPassword> {
 	}
 
 	public static final IDbIdField<AGUserPassword> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGUserPassword, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
+	public static final IDbForeignField<AGUserPassword, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("UserPassword_ibfk_1");
 	public static final IDbBooleanField<AGUserPassword> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGUserPassword, AGUserPasswordAlgorithm> ALGORITHM = BUILDER.addForeignField("algorithm", o->o.m_algorithm, (o,v)->o.m_algorithm=v, AGUserPasswordAlgorithm.ID).setTitle(CoreI18n.ALGORITHM).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserPassword, AGUserPasswordAlgorithm> ALGORITHM = BUILDER.addForeignField("algorithm", o->o.m_algorithm, (o,v)->o.m_algorithm=v, AGUserPasswordAlgorithm.ID).setTitle(CoreI18n.ALGORITHM).setNullable().setDefault(null).setForeignKeyName("UserPassword_ibfk_2");
 	public static final IDbStringField<AGUserPassword> ENCRYPTED_PASSWORD = BUILDER.addStringField("encryptedPassword", o->o.m_encryptedPassword, (o,v)->o.m_encryptedPassword=v).setTitle(CoreI18n.ENCRYPTED_PASSWORD).setLengthBits(16);
 	public static final IDbDayTimeField<AGUserPassword> CREATED_AT = BUILDER.addDayTimeField("createdAt", o->o.m_createdAt, (o,v)->o.m_createdAt=v).setTitle(CoreI18n.CREATED_AT).setDefaultNow();
 	public static final IDbBooleanField<AGUserPassword> POLICY_FULFILLED = BUILDER.addBooleanField("policyFulfilled", o->o.m_policyFulfilled, (o,v)->o.m_policyFulfilled=v).setTitle(CoreI18n.POLICY_FULFILLED).setDefault(true);

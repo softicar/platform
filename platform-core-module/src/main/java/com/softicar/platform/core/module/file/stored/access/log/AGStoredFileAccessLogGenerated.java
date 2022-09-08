@@ -31,8 +31,8 @@ public class AGStoredFileAccessLogGenerated extends AbstractDbObject<AGStoredFil
 	}
 
 	public static final IDbIdField<AGStoredFileAccessLog> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGStoredFileAccessLog, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE);
-	public static final IDbForeignField<AGStoredFileAccessLog, AGUser> ACCESSED_BY = BUILDER.addForeignField("accessedBy", o->o.m_accessedBy, (o,v)->o.m_accessedBy=v, AGUser.ID).setTitle(CoreI18n.ACCESSED_BY);
+	public static final IDbForeignField<AGStoredFileAccessLog, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setForeignKeyName("StoredFileAccessLog_ibfk_1");
+	public static final IDbForeignField<AGStoredFileAccessLog, AGUser> ACCESSED_BY = BUILDER.addForeignField("accessedBy", o->o.m_accessedBy, (o,v)->o.m_accessedBy=v, AGUser.ID).setTitle(CoreI18n.ACCESSED_BY).setForeignKeyName("StoredFileAccessLog_ibfk_2");
 	public static final IDbDayTimeField<AGStoredFileAccessLog> ACCESSED_AT = BUILDER.addDayTimeField("accessedAt", o->o.m_accessedAt, (o,v)->o.m_accessedAt=v).setTitle(CoreI18n.ACCESSED_AT).setDefaultNow().setTimestamp();
 	public static final IDbKey<AGStoredFileAccessLog> IK_FILE = BUILDER.addIndexKey("file", FILE);
 	public static final IDbKey<AGStoredFileAccessLog> IK_ACCESSED_BY = BUILDER.addIndexKey("accessedBy", ACCESSED_BY);

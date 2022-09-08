@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -32,12 +33,15 @@ public class AGWorkflowTaskDelegationLog extends AbstractDbRecord<AGWorkflowTask
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_TASK_DELEGATION_LOGS);
 	}
 
-	public static final IDbForeignRowField<AGWorkflowTaskDelegationLog, AGWorkflowTaskDelegation, AGWorkflowTask> WORKFLOW_TASK_DELEGATION = BUILDER.addForeignRowField("workflowTaskDelegation", o->o.m_workflowTaskDelegation, (o,v)->o.m_workflowTaskDelegation=v, AGWorkflowTaskDelegation.WORKFLOW_TASK).setTitle(WorkflowI18n.WORKFLOW_TASK_DELEGATION);
-	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
-	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(WorkflowI18n.TARGET_USER).setNullable().setDefault(null);
-	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGUser> DELEGATED_BY = BUILDER.addForeignField("delegatedBy", o->o.m_delegatedBy, (o,v)->o.m_delegatedBy=v, AGUser.ID).setTitle(WorkflowI18n.DELEGATED_BY).setNullable().setDefault(null);
+	public static final IDbForeignRowField<AGWorkflowTaskDelegationLog, AGWorkflowTaskDelegation, AGWorkflowTask> WORKFLOW_TASK_DELEGATION = BUILDER.addForeignRowField("workflowTaskDelegation", o->o.m_workflowTaskDelegation, (o,v)->o.m_workflowTaskDelegation=v, AGWorkflowTaskDelegation.WORKFLOW_TASK).setTitle(WorkflowI18n.WORKFLOW_TASK_DELEGATION).setForeignKeyName("WorkflowTaskDelegationLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowTaskDelegationLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(WorkflowI18n.TARGET_USER).setNullable().setDefault(null).setForeignKeyName("WorkflowTaskDelegationLog_ibfk_3");
+	public static final IDbForeignField<AGWorkflowTaskDelegationLog, AGUser> DELEGATED_BY = BUILDER.addForeignField("delegatedBy", o->o.m_delegatedBy, (o,v)->o.m_delegatedBy=v, AGUser.ID).setTitle(WorkflowI18n.DELEGATED_BY).setNullable().setDefault(null).setForeignKeyName("WorkflowTaskDelegationLog_ibfk_4");
 	public static final IDbBooleanField<AGWorkflowTaskDelegationLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGWorkflowTaskDelegationLog, Tuple2<AGWorkflowTaskDelegation, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_TASK_DELEGATION, TRANSACTION));
+	public static final IDbKey<AGWorkflowTaskDelegationLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowTaskDelegationLog> IK_TARGET_USER = BUILDER.addIndexKey("targetUser", TARGET_USER);
+	public static final IDbKey<AGWorkflowTaskDelegationLog> IK_DELEGATED_BY = BUILDER.addIndexKey("delegatedBy", DELEGATED_BY);
 	public static final DbRecordTable<AGWorkflowTaskDelegationLog, Tuple2<AGWorkflowTaskDelegation, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

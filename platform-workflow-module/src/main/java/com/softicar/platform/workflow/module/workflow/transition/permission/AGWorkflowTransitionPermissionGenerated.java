@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,11 @@ public class AGWorkflowTransitionPermissionGenerated extends AbstractDbObject<AG
 	}
 
 	public static final IDbIdField<AGWorkflowTransitionPermission> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowTransitionPermission, AGWorkflowTransition> TRANSITION = BUILDER.addForeignField("transition", o->o.m_transition, (o,v)->o.m_transition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.TRANSITION);
-	public static final IDbForeignField<AGWorkflowTransitionPermission, AGUuid> PERMISSION = BUILDER.addForeignField("permission", o->o.m_permission, (o,v)->o.m_permission=v, AGUuid.ID).setTitle(WorkflowI18n.PERMISSION);
+	public static final IDbForeignField<AGWorkflowTransitionPermission, AGWorkflowTransition> TRANSITION = BUILDER.addForeignField("transition", o->o.m_transition, (o,v)->o.m_transition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.TRANSITION).setForeignKeyName("WorkflowTransitionPermission_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTransitionPermission, AGUuid> PERMISSION = BUILDER.addForeignField("permission", o->o.m_permission, (o,v)->o.m_permission=v, AGUuid.ID).setTitle(WorkflowI18n.PERMISSION).setForeignKeyName("WorkflowTransitionPermission_ibfk_2");
 	public static final IDbBooleanField<AGWorkflowTransitionPermission> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
+	public static final IDbKey<AGWorkflowTransitionPermission> IK_TRANSITION = BUILDER.addIndexKey("transition", TRANSITION);
+	public static final IDbKey<AGWorkflowTransitionPermission> IK_PERMISSION = BUILDER.addIndexKey("permission", PERMISSION);
 	public static final AGWorkflowTransitionPermissionTable TABLE = new AGWorkflowTransitionPermissionTable(BUILDER);
 	// @formatter:on
 

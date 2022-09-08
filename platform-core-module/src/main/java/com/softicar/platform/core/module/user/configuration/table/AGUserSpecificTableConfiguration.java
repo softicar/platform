@@ -30,7 +30,7 @@ public class AGUserSpecificTableConfiguration extends AbstractDbObject<AGUserSpe
 	}
 
 	public static final IDbIdField<AGUserSpecificTableConfiguration> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGUserSpecificTableConfiguration, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserSpecificTableConfiguration, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null).setForeignKeyName("UserSpecificTableConfiguration_ibfk_1");
 	public static final IDbStringField<AGUserSpecificTableConfiguration> TABLE_PATH_HASH = BUILDER.addStringField("tablePathHash", o->o.m_tablePathHash, (o,v)->o.m_tablePathHash=v).setTitle(CoreI18n.TABLE_PATH_HASH).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGUserSpecificTableConfiguration> COLUMN_TITLES_HASH = BUILDER.addStringField("columnTitlesHash", o->o.m_columnTitlesHash, (o,v)->o.m_columnTitlesHash=v).setTitle(CoreI18n.COLUMN_TITLES_HASH).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGUserSpecificTableConfiguration> SERIALIZATION = BUILDER.addStringField("serialization", o->o.m_serialization, (o,v)->o.m_serialization=v).setTitle(CoreI18n.SERIALIZATION).setDefault("").setLengthBits(16);

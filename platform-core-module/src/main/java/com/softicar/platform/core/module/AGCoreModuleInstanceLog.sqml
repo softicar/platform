@@ -8,23 +8,25 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
-	PK AGCoreModuleInstance coreModuleInstance [ON DELETE CASCADE ON UPDATE CASCADE]
-	PK AGTransaction transaction
-	AGUser systemUser = NULL [NULLABLE]
-	AGStoredFileServer primaryFileServer = NULL [NULLABLE]
-	AGServer emailServer = NULL [NULLABLE]
+	PK AGCoreModuleInstance coreModuleInstance [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_2']
+	AGUser systemUser = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_3']
+	AGStoredFileServer primaryFileServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_4']
+	AGServer emailServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_5']
 	String supportEmailAddress = NULL [NULLABLE MAXLENGTH=255]
 	String noReplyEmailAddress = NULL [NULLABLE MAXLENGTH=255]
 	String portalProtocol = NULL [NULLABLE MAXLENGTH=255]
 	String portalHost = NULL [NULLABLE MAXLENGTH=255]
 	String portalApplication = NULL [NULLABLE MAXLENGTH=255]
 	String systemName = NULL [NULLABLE MAXLENGTH=255]
-	AGStoredFile portalLogo = NULL [NULLABLE]
-	AGLocalization defaultLocalization = NULL [NULLABLE]
+	AGStoredFile portalLogo = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_6']
+	AGLocalization defaultLocalization = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_7']
 	Boolean testSystem = NULL [NULLABLE]
 
 	IK transaction
 	IK primaryFileServer
 	IK systemUser
 	IK emailServer
+	IK portalLogo
+	IK defaultLocalization
 }

@@ -4,10 +4,12 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGWorkflowTaskLog 'Workflow.WorkflowTaskLog' {
-	
-	PK AGWorkflowTask workflowTask
-	PK AGTransaction transaction
-	AGUser user = NULL [NULLABLE]
+	PK AGWorkflowTask workflowTask [CONSTRAINT_NAME='WorkflowTaskLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowTaskLog_ibfk_2']
+	AGUser user = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTaskLog_ibfk_3']
 	Boolean closed = NULL [NULLABLE]
 	Boolean notify = NULL [NULLABLE]
+
+	IK transaction
+	IK user
 }

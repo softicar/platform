@@ -4,9 +4,9 @@ IMPORT com.softicar.platform.core.module.user.login.failure.type.AGUserLoginFail
 
 TABLE AGUserLoginFailureLog 'Core.UserLoginFailureLog' {
 	PK Integer id = SERIAL
-	AGUserLoginFailureType type = NULL [NULLABLE]
+	AGUserLoginFailureType type = NULL [NULLABLE CONSTRAINT_NAME='UserLoginFailureLog_ibfk_1']
 	String username = '' [MAXLENGTH=255]
-	String serverIpAddress = NULL [NULLABLE MAXLENGTH=255] // TODO rename to clientAddress
+	String serverIpAddress = NULL [NULLABLE MAXLENGTH=255]
 	DayTime loginAt
 
 	IK username loginAt

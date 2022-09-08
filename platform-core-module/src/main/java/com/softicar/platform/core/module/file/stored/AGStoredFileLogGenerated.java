@@ -30,10 +30,10 @@ public class AGStoredFileLogGenerated extends AbstractDbObject<AGStoredFileLog> 
 	}
 
 	public static final IDbIdField<AGStoredFileLog> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGStoredFileLog, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setCascade(true, true);
+	public static final IDbForeignField<AGStoredFileLog, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setCascade(true, true).setForeignKeyName("StoredFileLog_ibfk_1");
 	public static final IDbDayTimeField<AGStoredFileLog> REMOVE_AT = BUILDER.addDayTimeField("removeAt", o->o.m_removeAt, (o,v)->o.m_removeAt=v).setTitle(CoreI18n.REMOVE_AT).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGStoredFileLog> LOGGED_AT = BUILDER.addDayTimeField("loggedAt", o->o.m_loggedAt, (o,v)->o.m_loggedAt=v).setTitle(CoreI18n.LOGGED_AT);
-	public static final IDbForeignField<AGStoredFileLog, AGUser> LOGGED_BY = BUILDER.addForeignField("loggedBy", o->o.m_loggedBy, (o,v)->o.m_loggedBy=v, AGUser.ID).setTitle(CoreI18n.LOGGED_BY);
+	public static final IDbForeignField<AGStoredFileLog, AGUser> LOGGED_BY = BUILDER.addForeignField("loggedBy", o->o.m_loggedBy, (o,v)->o.m_loggedBy=v, AGUser.ID).setTitle(CoreI18n.LOGGED_BY).setForeignKeyName("StoredFileLog_ibfk_2");
 	public static final IDbKey<AGStoredFileLog> IK_FILE = BUILDER.addIndexKey("file", FILE);
 	public static final IDbKey<AGStoredFileLog> IK_LOGGED_BY = BUILDER.addIndexKey("loggedBy", LOGGED_BY);
 	public static final IDbKey<AGStoredFileLog> IK_LOGGED_AT = BUILDER.addIndexKey("loggedAt", LOGGED_AT);

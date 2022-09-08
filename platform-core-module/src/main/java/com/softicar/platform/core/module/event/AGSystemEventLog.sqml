@@ -2,8 +2,10 @@ PACKAGE com.softicar.platform.core.module.event
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
-TABLE AGSystemEventLog "Core.SystemEventLog" {
-	PK AGSystemEvent systemEvent
-	PK AGTransaction transaction
+TABLE AGSystemEventLog 'Core.SystemEventLog' {
+	PK AGSystemEvent systemEvent [CONSTRAINT_NAME='SystemEventLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='SystemEventLog_ibfk_2']
 	Boolean needsConfirmation = NULL [NULLABLE]
+
+	IK transaction
 }
