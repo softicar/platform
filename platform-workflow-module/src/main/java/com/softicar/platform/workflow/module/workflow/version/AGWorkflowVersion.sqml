@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.workflow.module.workflow.AGWorkflow
 IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
 
 TABLE AGWorkflowVersion 'Workflow.WorkflowVersion' {
-	
 	PK Integer id = SERIAL
-	AGWorkflow workflow
-	AGWorkflowNode rootNode = NULL [NULLABLE]
+	AGWorkflow workflow [CONSTRAINT_NAME='WorkflowVersion_ibfk_1']
+	AGWorkflowNode rootNode = NULL [NULLABLE CONSTRAINT_NAME='WorkflowVersion_ibfk_2']
 	Boolean draft = TRUE
+
+	IK workflow
+	IK rootNode
 }

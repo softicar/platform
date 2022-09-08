@@ -33,11 +33,12 @@ public class AGWorkflowDemoObjectGenerated extends AbstractDbObject<AGWorkflowDe
 	}
 
 	public static final IDbIdField<AGWorkflowDemoObject> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignRowField<AGWorkflowDemoObject, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGWorkflowDemoObject, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE).setForeignKeyName("WorkflowDemoObject_ibfk_1");
 	public static final IDbStringField<AGWorkflowDemoObject> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(50);
 	public static final IDbBooleanField<AGWorkflowDemoObject> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflowDemoObject, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowDemoObject, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setNullable().setDefault(null).setForeignKeyName("WorkflowDemoObject_ibfk_2");
 	public static final IDbKey<AGWorkflowDemoObject> UK_MODULE_INSTANCE_NAME = BUILDER.addUniqueKey("moduleInstanceName", MODULE_INSTANCE, NAME);
+	public static final IDbKey<AGWorkflowDemoObject> IK_WORKFLOW_ITEM = BUILDER.addIndexKey("workflowItem", WORKFLOW_ITEM);
 	public static final AGWorkflowDemoObjectTable TABLE = new AGWorkflowDemoObjectTable(BUILDER);
 	// @formatter:on
 

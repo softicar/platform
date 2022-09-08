@@ -3,11 +3,11 @@ PACKAGE com.softicar.platform.core.module.user.rule.ip
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGUserAllowedIpRuleLog 'Core.UserAllowedIpRuleLog' {
-	PK AGUserAllowedIpRule userAllowedIpRule
-	PK AGTransaction transaction
+	PK AGUserAllowedIpRule userAllowedIpRule [CONSTRAINT_NAME='UserAllowedIpRuleLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='UserAllowedIpRuleLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String name = NULL [NULLABLE MAXLENGTH=255]
-	String addresses [NULLABLE LENGTHBITS=16]
+	String addresses = NULL [NULLABLE LENGTHBITS=16]
 
 	IK transaction
 }

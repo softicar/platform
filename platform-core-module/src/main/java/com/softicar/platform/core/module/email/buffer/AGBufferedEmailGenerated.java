@@ -34,9 +34,9 @@ public class AGBufferedEmailGenerated extends AbstractDbObject<AGBufferedEmail> 
 
 	public static final IDbIdField<AGBufferedEmail> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGBufferedEmail> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGBufferedEmail, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setCascade(false, true);
+	public static final IDbForeignField<AGBufferedEmail, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setCascade(false, true).setForeignKeyName("BufferedEmail_ibfk_1");
 	public static final IDbDayTimeField<AGBufferedEmail> CREATED_AT = BUILDER.addDayTimeField("createdAt", o->o.m_createdAt, (o,v)->o.m_createdAt=v).setTitle(CoreI18n.CREATED_AT).setDefaultNow().setTimestamp();
-	public static final IDbForeignField<AGBufferedEmail, AGUser> CREATED_BY = BUILDER.addForeignField("createdBy", o->o.m_createdBy, (o,v)->o.m_createdBy=v, AGUser.ID).setTitle(CoreI18n.CREATED_BY);
+	public static final IDbForeignField<AGBufferedEmail, AGUser> CREATED_BY = BUILDER.addForeignField("createdBy", o->o.m_createdBy, (o,v)->o.m_createdBy=v, AGUser.ID).setTitle(CoreI18n.CREATED_BY).setForeignKeyName("BufferedEmail_ibfk_2");
 	public static final IDbDayTimeField<AGBufferedEmail> SENT_AT = BUILDER.addDayTimeField("sentAt", o->o.m_sentAt, (o,v)->o.m_sentAt=v).setTitle(CoreI18n.SENT_AT).setNullable().setDefault(null).setTimestamp();
 	public static final IDbStringField<AGBufferedEmail> FROM = BUILDER.addStringField("from", o->o.m_from, (o,v)->o.m_from=v).setTitle(CoreI18n.FROM).setLengthBits(16);
 	public static final IDbStringField<AGBufferedEmail> SENDER = BUILDER.addStringField("sender", o->o.m_sender, (o,v)->o.m_sender=v).setTitle(CoreI18n.SENDER).setDefault("").setLengthBits(16);
@@ -44,11 +44,11 @@ public class AGBufferedEmailGenerated extends AbstractDbObject<AGBufferedEmail> 
 	public static final IDbStringField<AGBufferedEmail> TO = BUILDER.addStringField("to", o->o.m_to, (o,v)->o.m_to=v).setTitle(CoreI18n.TO).setDefault("").setLengthBits(16);
 	public static final IDbStringField<AGBufferedEmail> CC = BUILDER.addStringField("cc", o->o.m_cc, (o,v)->o.m_cc=v).setTitle(CoreI18n.CC).setDefault("").setLengthBits(16);
 	public static final IDbStringField<AGBufferedEmail> BCC = BUILDER.addStringField("bcc", o->o.m_bcc, (o,v)->o.m_bcc=v).setTitle(CoreI18n.BCC).setDefault("").setLengthBits(16);
-	public static final IDbStringField<AGBufferedEmail> MESSAGE_ID = BUILDER.addStringField("messageId", o->o.m_messageId, (o,v)->o.m_messageId=v).setTitle(CoreI18n.MESSAGE_ID).setNullable().setLengthBits(16);
-	public static final IDbStringField<AGBufferedEmail> IN_REPLY_TO = BUILDER.addStringField("inReplyTo", o->o.m_inReplyTo, (o,v)->o.m_inReplyTo=v).setTitle(CoreI18n.IN_REPLY_TO).setNullable().setLengthBits(16);
-	public static final IDbStringField<AGBufferedEmail> REFERENCES = BUILDER.addStringField("references", o->o.m_references, (o,v)->o.m_references=v).setTitle(CoreI18n.REFERENCES).setNullable().setLengthBits(16);
+	public static final IDbStringField<AGBufferedEmail> MESSAGE_ID = BUILDER.addStringField("messageId", o->o.m_messageId, (o,v)->o.m_messageId=v).setTitle(CoreI18n.MESSAGE_ID).setNullable().setDefault(null).setLengthBits(16);
+	public static final IDbStringField<AGBufferedEmail> IN_REPLY_TO = BUILDER.addStringField("inReplyTo", o->o.m_inReplyTo, (o,v)->o.m_inReplyTo=v).setTitle(CoreI18n.IN_REPLY_TO).setNullable().setDefault(null).setLengthBits(16);
+	public static final IDbStringField<AGBufferedEmail> REFERENCES = BUILDER.addStringField("references", o->o.m_references, (o,v)->o.m_references=v).setTitle(CoreI18n.REFERENCES).setNullable().setDefault(null).setLengthBits(16);
 	public static final IDbStringField<AGBufferedEmail> SUBJECT = BUILDER.addStringField("subject", o->o.m_subject, (o,v)->o.m_subject=v).setTitle(CoreI18n.SUBJECT).setDefault("").setLengthBits(16);
-	public static final IDbStringField<AGBufferedEmail> CONTENT = BUILDER.addStringField("content", o->o.m_content, (o,v)->o.m_content=v).setTitle(CoreI18n.CONTENT).setNullable().setLengthBits(24);
+	public static final IDbStringField<AGBufferedEmail> CONTENT = BUILDER.addStringField("content", o->o.m_content, (o,v)->o.m_content=v).setTitle(CoreI18n.CONTENT).setNullable().setDefault(null).setLengthBits(24);
 	public static final IDbStringField<AGBufferedEmail> CONTENT_TYPE = BUILDER.addStringField("contentType", o->o.m_contentType, (o,v)->o.m_contentType=v).setTitle(CoreI18n.CONTENT_TYPE).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGBufferedEmail> AUTO_SUBMITTED = BUILDER.addStringField("autoSubmitted", o->o.m_autoSubmitted, (o,v)->o.m_autoSubmitted=v).setTitle(CoreI18n.AUTO_SUBMITTED).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbKey<AGBufferedEmail> IK_CREATED_BY = BUILDER.addIndexKey("createdBy", CREATED_BY);

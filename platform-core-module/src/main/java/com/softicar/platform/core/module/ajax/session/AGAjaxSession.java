@@ -34,7 +34,7 @@ public class AGAjaxSession extends AbstractDbObject<AGAjaxSession> {
 	}
 
 	public static final IDbIdField<AGAjaxSession> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGAjaxSession, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null).setCascade(true, true);
+	public static final IDbForeignField<AGAjaxSession, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null).setCascade(true, true).setForeignKeyName("AjaxSession_ibfk_1");
 	public static final IDbStringField<AGAjaxSession> CLIENT_IP_ADDRESS = BUILDER.addStringField("clientIpAddress", o->o.m_clientIpAddress, (o,v)->o.m_clientIpAddress=v).setTitle(CoreI18n.CLIENT_IP_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGAjaxSession> LOCAL_NAME = BUILDER.addStringField("localName", o->o.m_localName, (o,v)->o.m_localName=v).setTitle(CoreI18n.LOCAL_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGAjaxSession> LOCAL_ADDRESS = BUILDER.addStringField("localAddress", o->o.m_localAddress, (o,v)->o.m_localAddress=v).setTitle(CoreI18n.LOCAL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);

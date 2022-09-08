@@ -5,9 +5,12 @@ IMPORT com.softicar.platform.workflow.module.demo.AGWorkflowDemoObject
 
 TABLE AGWorkflowDemoObjectApprover 'Workflow.WorkflowDemoObjectApprover' {
 	PK Integer id = SERIAL
-	AGWorkflowDemoObject object
+	AGWorkflowDemoObject object [CONSTRAINT_NAME='WorkflowDemoObjectApprover_ibfk_1']
 	Integer approvalTier = 0
-	AGUser user
+	AGUser user [CONSTRAINT_NAME='WorkflowDemoObjectApprover_ibfk_2']
 	Boolean active = TRUE
 	Boolean approved = NULL [NULLABLE]
+
+	IK object
+	IK user
 }

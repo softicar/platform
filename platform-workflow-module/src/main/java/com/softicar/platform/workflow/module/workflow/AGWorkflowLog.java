@@ -7,6 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -31,12 +32,14 @@ public class AGWorkflowLog extends AbstractDbRecord<AGWorkflowLog, Tuple2<AGWork
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowLog, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW);
-	public static final IDbForeignField<AGWorkflowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
+	public static final IDbForeignField<AGWorkflowLog, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW).setForeignKeyName("WorkflowLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowLog_ibfk_2");
 	public static final IDbStringField<AGWorkflowLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbBooleanField<AGWorkflowLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
-	public static final IDbForeignField<AGWorkflowLog, AGWorkflowVersion> CURRENT_VERSION = BUILDER.addForeignField("currentVersion", o->o.m_currentVersion, (o,v)->o.m_currentVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.CURRENT_VERSION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowLog, AGWorkflowVersion> CURRENT_VERSION = BUILDER.addForeignField("currentVersion", o->o.m_currentVersion, (o,v)->o.m_currentVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.CURRENT_VERSION).setNullable().setDefault(null).setForeignKeyName("WorkflowLog_ibfk_3");
 	public static final IDbTableKey<AGWorkflowLog, Tuple2<AGWorkflow, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW, TRANSACTION));
+	public static final IDbKey<AGWorkflowLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowLog> IK_CURRENT_VERSION = BUILDER.addIndexKey("currentVersion", CURRENT_VERSION);
 	public static final DbRecordTable<AGWorkflowLog, Tuple2<AGWorkflow, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

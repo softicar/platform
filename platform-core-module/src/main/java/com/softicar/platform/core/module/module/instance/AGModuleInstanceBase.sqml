@@ -5,7 +5,10 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGModuleInstanceBase 'Core.ModuleInstanceBase' {
 	PK Integer id = SERIAL
-	AGTransaction transaction [ON UPDATE CASCADE]
+	AGTransaction transaction [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstanceBase_ibfk_1']
 	Boolean active = TRUE
-	AGUuid moduleUuid 
+	AGUuid moduleUuid [CONSTRAINT_NAME='ModuleInstanceBase_ibfk_2']
+
+	IK transaction
+	IK moduleUuid
 }

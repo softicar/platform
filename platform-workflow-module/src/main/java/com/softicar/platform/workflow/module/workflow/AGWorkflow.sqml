@@ -5,11 +5,14 @@ IMPORT com.softicar.platform.workflow.module.AGWorkflowModuleInstance
 IMPORT com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion
 
 TABLE AGWorkflow 'Workflow.Workflow' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowModuleInstance moduleInstance
+	AGWorkflowModuleInstance moduleInstance [CONSTRAINT_NAME='Workflow_ibfk_1']
 	String name [MAXLENGTH=255]
-	AGUuid entityTable
+	AGUuid entityTable [CONSTRAINT_NAME='Workflow_ibfk_2']
 	Boolean active = TRUE
-	AGWorkflowVersion currentVersion = NULL [NULLABLE]
+	AGWorkflowVersion currentVersion = NULL [NULLABLE CONSTRAINT_NAME='Workflow_ibfk_3']
+
+	IK moduleInstance
+	IK entityTable
+	IK currentVersion
 }

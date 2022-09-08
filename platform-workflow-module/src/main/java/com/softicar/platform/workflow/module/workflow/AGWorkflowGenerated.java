@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -33,11 +34,14 @@ public class AGWorkflowGenerated extends AbstractDbObject<AGWorkflow> {
 	}
 
 	public static final IDbIdField<AGWorkflow> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignRowField<AGWorkflow, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGWorkflow, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE).setForeignKeyName("Workflow_ibfk_1");
 	public static final IDbStringField<AGWorkflow> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
-	public static final IDbForeignField<AGWorkflow, AGUuid> ENTITY_TABLE = BUILDER.addForeignField("entityTable", o->o.m_entityTable, (o,v)->o.m_entityTable=v, AGUuid.ID).setTitle(WorkflowI18n.ENTITY_TABLE);
+	public static final IDbForeignField<AGWorkflow, AGUuid> ENTITY_TABLE = BUILDER.addForeignField("entityTable", o->o.m_entityTable, (o,v)->o.m_entityTable=v, AGUuid.ID).setTitle(WorkflowI18n.ENTITY_TABLE).setForeignKeyName("Workflow_ibfk_2");
 	public static final IDbBooleanField<AGWorkflow> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflow, AGWorkflowVersion> CURRENT_VERSION = BUILDER.addForeignField("currentVersion", o->o.m_currentVersion, (o,v)->o.m_currentVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.CURRENT_VERSION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflow, AGWorkflowVersion> CURRENT_VERSION = BUILDER.addForeignField("currentVersion", o->o.m_currentVersion, (o,v)->o.m_currentVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.CURRENT_VERSION).setNullable().setDefault(null).setForeignKeyName("Workflow_ibfk_3");
+	public static final IDbKey<AGWorkflow> IK_MODULE_INSTANCE = BUILDER.addIndexKey("moduleInstance", MODULE_INSTANCE);
+	public static final IDbKey<AGWorkflow> IK_ENTITY_TABLE = BUILDER.addIndexKey("entityTable", ENTITY_TABLE);
+	public static final IDbKey<AGWorkflow> IK_CURRENT_VERSION = BUILDER.addIndexKey("currentVersion", CURRENT_VERSION);
 	public static final AGWorkflowTable TABLE = new AGWorkflowTable(BUILDER);
 	// @formatter:on
 

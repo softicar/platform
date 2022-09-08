@@ -31,8 +31,8 @@ public class AGStoredFileServerLog extends AbstractDbRecord<AGStoredFileServerLo
 		BUILDER.setPluralTitle(CoreI18n.STORED_FILE_SERVER_LOGS);
 	}
 
-	public static final IDbForeignField<AGStoredFileServerLog, AGStoredFileServer> STORED_FILE_SERVER = BUILDER.addForeignField("storedFileServer", o->o.m_storedFileServer, (o,v)->o.m_storedFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.STORED_FILE_SERVER);
-	public static final IDbForeignField<AGStoredFileServerLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGStoredFileServerLog, AGStoredFileServer> STORED_FILE_SERVER = BUILDER.addForeignField("storedFileServer", o->o.m_storedFileServer, (o,v)->o.m_storedFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.STORED_FILE_SERVER).setForeignKeyName("StoredFileServerLog_ibfk_1");
+	public static final IDbForeignField<AGStoredFileServerLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("StoredFileServerLog_ibfk_2");
 	public static final IDbBooleanField<AGStoredFileServerLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGStoredFileServerLog> URL = BUILDER.addStringField("url", o->o.m_url, (o,v)->o.m_url=v).setTitle(CoreI18n.URL).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGStoredFileServerLog> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setNullable().setDefault(null).setMaximumLength(255);

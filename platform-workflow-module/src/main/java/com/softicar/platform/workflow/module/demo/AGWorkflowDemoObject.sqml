@@ -5,10 +5,11 @@ IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
 
 TABLE AGWorkflowDemoObject 'Workflow.WorkflowDemoObject' {
 	PK Integer id = SERIAL
-	AGWorkflowModuleInstance moduleInstance
+	AGWorkflowModuleInstance moduleInstance [CONSTRAINT_NAME='WorkflowDemoObject_ibfk_1']
 	String name [MAXLENGTH=50]
 	Boolean active = TRUE
-	AGWorkflowItem workflowItem = NULL [NULLABLE]
-	
+	AGWorkflowItem workflowItem = NULL [NULLABLE CONSTRAINT_NAME='WorkflowDemoObject_ibfk_2']
+
 	UK moduleInstance name
+	IK workflowItem
 }

@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -31,13 +32,15 @@ public class AGWorkflowDemoObjectApproverLog extends AbstractDbRecord<AGWorkflow
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_DEMO_OBJECT_APPROVER_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGWorkflowDemoObjectApprover> APPROVER = BUILDER.addForeignField("approver", o->o.m_approver, (o,v)->o.m_approver=v, AGWorkflowDemoObjectApprover.ID).setTitle(WorkflowI18n.APPROVER);
-	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
+	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGWorkflowDemoObjectApprover> APPROVER = BUILDER.addForeignField("approver", o->o.m_approver, (o,v)->o.m_approver=v, AGWorkflowDemoObjectApprover.ID).setTitle(WorkflowI18n.APPROVER).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_2");
 	public static final IDbIntegerField<AGWorkflowDemoObjectApproverLog> APPROVAL_TIER = BUILDER.addIntegerField("approvalTier", o->o.m_approvalTier, (o,v)->o.m_approvalTier=v).setTitle(WorkflowI18n.APPROVAL_TIER).setNullable().setDefault(null);
-	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowDemoObjectApproverLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGWorkflowDemoObjectApproverLog> APPROVED = BUILDER.addBooleanField("approved", o->o.m_approved, (o,v)->o.m_approved=v).setTitle(WorkflowI18n.APPROVED).setNullable().setDefault(null);
 	public static final IDbTableKey<AGWorkflowDemoObjectApproverLog, Tuple2<AGWorkflowDemoObjectApprover, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(APPROVER, TRANSACTION));
+	public static final IDbKey<AGWorkflowDemoObjectApproverLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowDemoObjectApproverLog> IK_USER = BUILDER.addIndexKey("user", USER);
 	public static final DbRecordTable<AGWorkflowDemoObjectApproverLog, Tuple2<AGWorkflowDemoObjectApprover, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 
