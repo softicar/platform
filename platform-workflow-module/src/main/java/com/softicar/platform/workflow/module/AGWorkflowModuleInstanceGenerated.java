@@ -23,7 +23,7 @@ public class AGWorkflowModuleInstanceGenerated extends AbstractDbSubObject<AGWor
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_MODULE_INSTANCES);
 	}
 
-	public static final IDbBaseField<AGWorkflowModuleInstance, AGModuleInstanceBase, Integer> BASE = BUILDER.addBaseField("base", o->o.m_base, (o,v)->o.m_base=v, AGModuleInstanceBase.TABLE).setTitle(WorkflowI18n.BASE);
+	public static final IDbBaseField<AGWorkflowModuleInstance, AGModuleInstanceBase, Integer> BASE = BUILDER.addBaseField("base", o->o.m_base, (o,v)->o.m_base=v, AGModuleInstanceBase.TABLE).setTitle(WorkflowI18n.BASE).setForeignKeyName("WorkflowModuleInstance_ibfk_1").setComment("@base@");
 	public static final AGWorkflowModuleInstanceTable TABLE = new AGWorkflowModuleInstanceTable(BUILDER);
 	// @formatter:on
 

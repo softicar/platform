@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -30,11 +31,12 @@ public class AGWorkflowNodeGenerated extends AbstractDbObject<AGWorkflowNode> {
 	}
 
 	public static final IDbIdField<AGWorkflowNode> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowNode, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION);
+	public static final IDbForeignField<AGWorkflowNode, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION).setForeignKeyName("WorkflowNode_ibfk_1");
 	public static final IDbStringField<AGWorkflowNode> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
 	public static final IDbIntegerField<AGWorkflowNode> X_COORDINATE = BUILDER.addIntegerField("xCoordinate", o->o.m_xCoordinate, (o,v)->o.m_xCoordinate=v).setTitle(WorkflowI18n.X_COORDINATE).setDefault(10);
 	public static final IDbIntegerField<AGWorkflowNode> Y_COORDINATE = BUILDER.addIntegerField("yCoordinate", o->o.m_yCoordinate, (o,v)->o.m_yCoordinate=v).setTitle(WorkflowI18n.Y_COORDINATE).setDefault(150);
 	public static final IDbBooleanField<AGWorkflowNode> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
+	public static final IDbKey<AGWorkflowNode> IK_WORKFLOW_VERSION = BUILDER.addIndexKey("workflowVersion", WORKFLOW_VERSION);
 	public static final AGWorkflowNodeTable TABLE = new AGWorkflowNodeTable(BUILDER);
 	// @formatter:on
 

@@ -11,6 +11,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -33,19 +34,23 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 		BUILDER.setPluralTitle(CoreI18n.USER_LOGS);
 	}
 
-	public static final IDbForeignField<AGUserLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
-	public static final IDbForeignField<AGUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGUserLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("UserLog_ibfk_1");
+	public static final IDbForeignField<AGUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("UserLog_ibfk_2");
 	public static final IDbBooleanField<AGUserLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGUserLog> LOGIN_NAME = BUILDER.addStringField("loginName", o->o.m_loginName, (o,v)->o.m_loginName=v).setTitle(CoreI18n.LOGIN_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(CoreI18n.FIRST_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(CoreI18n.LAST_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> EMAIL_ADDRESS = BUILDER.addStringField("emailAddress", o->o.m_emailAddress, (o,v)->o.m_emailAddress=v).setTitle(CoreI18n.EMAIL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
-	public static final IDbForeignField<AGUserLog, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserLog, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION).setNullable().setDefault(null).setForeignKeyName("UserLog_ibfk_3");
 	public static final IDbBooleanField<AGUserLog> AUTOMATICALLY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("automaticallyCollapseFolders", o->o.m_automaticallyCollapseFolders, (o,v)->o.m_automaticallyCollapseFolders=v).setTitle(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGUserLog> RECURSIVELY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("recursivelyCollapseFolders", o->o.m_recursivelyCollapseFolders, (o,v)->o.m_recursivelyCollapseFolders=v).setTitle(CoreI18n.RECURSIVELY_COLLAPSE_FOLDERS).setNullable().setDefault(null);
-	public static final IDbForeignField<AGUserLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null);
-	public static final IDbForeignField<AGUserLog, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null).setForeignKeyName("UserLog_ibfk_4");
+	public static final IDbForeignField<AGUserLog, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null).setForeignKeyName("UserLog_ibfk_5");
 	public static final IDbTableKey<AGUserLog, Tuple2<AGUser, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(USER, TRANSACTION));
+	public static final IDbKey<AGUserLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGUserLog> IK_LOCALIZATION = BUILDER.addIndexKey("localization", LOCALIZATION);
+	public static final IDbKey<AGUserLog> IK_PASSWORD_POLICY = BUILDER.addIndexKey("passwordPolicy", PASSWORD_POLICY);
+	public static final IDbKey<AGUserLog> IK_ALLOWED_IP_RULE = BUILDER.addIndexKey("allowedIpRule", ALLOWED_IP_RULE);
 	public static final DbRecordTable<AGUserLog, Tuple2<AGUser, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

@@ -4,13 +4,15 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGProgramExecutionLog 'Core.ProgramExecutionLog' {
-
-	PK AGProgramExecution programExecution
-	PK AGTransaction transaction
+	PK AGProgramExecution programExecution [CONSTRAINT_NAME='ProgramExecutionLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='ProgramExecutionLog_ibfk_2']
 	DayTime startedAt = NULL [NULLABLE]
 	DayTime terminatedAt = NULL [NULLABLE]
 	Boolean failed = NULL [NULLABLE]
 	String output = NULL [NULLABLE LENGTHBITS=32]
 	Boolean maximumRuntimeExceeded = NULL [NULLABLE]
-	AGUser queuedBy = NULL [NULLABLE]
+	AGUser queuedBy = NULL [NULLABLE CONSTRAINT_NAME='ProgramExecutionLog_ibfk_3']
+
+	IK transaction
+	IK queuedBy
 }

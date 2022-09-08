@@ -4,10 +4,10 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGStoredFileLog 'Core.StoredFileLog' {
 	PK Integer id = SERIAL
-	AGStoredFile file [ON DELETE CASCADE ON UPDATE CASCADE]
+	AGStoredFile file [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='StoredFileLog_ibfk_1']
 	DayTime removeAt = NULL [NULLABLE]
 	DayTime loggedAt
-	AGUser loggedBy
+	AGUser loggedBy [CONSTRAINT_NAME='StoredFileLog_ibfk_2']
 
 	IK file
 	IK loggedBy

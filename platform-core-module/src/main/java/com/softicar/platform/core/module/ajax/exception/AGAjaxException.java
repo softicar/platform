@@ -34,11 +34,11 @@ public class AGAjaxException extends AbstractDbObject<AGAjaxException> {
 	}
 
 	public static final IDbIdField<AGAjaxException> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGAjaxException, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION).setCascade(true, true);
-	public static final IDbForeignField<AGAjaxException, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null);
+	public static final IDbForeignField<AGAjaxException, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION).setCascade(true, true).setForeignKeyName("AjaxException_ibfk_1");
+	public static final IDbForeignField<AGAjaxException, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null).setForeignKeyName("AjaxException_ibfk_2");
 	public static final IDbDayTimeField<AGAjaxException> EXCEPTION_DATE = BUILDER.addDayTimeField("exceptionDate", o->o.m_exceptionDate, (o,v)->o.m_exceptionDate=v).setTitle(CoreI18n.EXCEPTION_DATE).setDefault(new DayTime(Day.get(719528), 0, 0, 0));
 	public static final IDbStringField<AGAjaxException> EXCEPTION_TYPE = BUILDER.addStringField("exceptionType", o->o.m_exceptionType, (o,v)->o.m_exceptionType=v).setTitle(CoreI18n.EXCEPTION_TYPE).setMaximumLength(255);
-	public static final IDbStringField<AGAjaxException> EXCEPTION_TEXT = BUILDER.addStringField("exceptionText", o->o.m_exceptionText, (o,v)->o.m_exceptionText=v).setTitle(CoreI18n.EXCEPTION_TEXT).setNullable().setLengthBits(16);
+	public static final IDbStringField<AGAjaxException> EXCEPTION_TEXT = BUILDER.addStringField("exceptionText", o->o.m_exceptionText, (o,v)->o.m_exceptionText=v).setTitle(CoreI18n.EXCEPTION_TEXT).setNullable().setDefault(null).setLengthBits(16);
 	public static final IDbStringField<AGAjaxException> EXCEPTION_STACK_TRACE = BUILDER.addStringField("exceptionStackTrace", o->o.m_exceptionStackTrace, (o,v)->o.m_exceptionStackTrace=v).setTitle(CoreI18n.EXCEPTION_STACK_TRACE).setLengthBits(16);
 	public static final IDbKey<AGAjaxException> IK_EXCEPTION_DATE = BUILDER.addIndexKey("exceptionDate", EXCEPTION_DATE);
 	public static final IDbKey<AGAjaxException> IK_SESSION = BUILDER.addIndexKey("session", SESSION);

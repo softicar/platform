@@ -5,11 +5,11 @@ IMPORT com.softicar.platform.core.module.language.AGCoreLanguage
 TABLE AGLocalization 'Core.Localization' {
 	PK Integer id = SERIAL
 	String name [MAXLENGTH=255]
-
-	AGCoreLanguage language
+	AGCoreLanguage language [CONSTRAINT_NAME='Localization_ibfk_1']
 	String decimalSeparator [MAXLENGTH=255]
 	String digitGroupSeparator = '' [MAXLENGTH=255]
 	String dateFormat [MAXLENGTH=255]
 
 	UK name
+	IK language
 }

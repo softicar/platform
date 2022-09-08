@@ -7,10 +7,10 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGModuleInstancePermissionAssignment 'Core.ModuleInstancePermissionAssignment' {
 	PK Integer id = SERIAL
-	AGTransaction transaction [ON UPDATE CASCADE]
-	AGUser user
-	AGModuleInstanceBase moduleInstanceBase [ON UPDATE CASCADE]
-	AGUuid permission
+	AGTransaction transaction [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstancePermissionAssignment_ibfk_1']
+	AGUser user [CONSTRAINT_NAME='ModuleInstancePermissionAssignment_ibfk_2']
+	AGModuleInstanceBase moduleInstanceBase [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstancePermissionAssignment_ibfk_3']
+	AGUuid permission [CONSTRAINT_NAME='ModuleInstancePermissionAssignment_ibfk_4']
 	Boolean active = TRUE
 
 	UK user moduleInstanceBase permission

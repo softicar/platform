@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.table.DbTableBuilder;
@@ -28,11 +29,13 @@ public class AGWorkflowTaskDelegationGenerated extends AbstractDbRecord<AGWorkfl
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_TASK_DELEGATIONS);
 	}
 
-	public static final IDbForeignField<AGWorkflowTaskDelegation, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK);
-	public static final IDbForeignField<AGWorkflowTaskDelegation, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(WorkflowI18n.TARGET_USER);
-	public static final IDbForeignField<AGWorkflowTaskDelegation, AGUser> DELEGATED_BY = BUILDER.addForeignField("delegatedBy", o->o.m_delegatedBy, (o,v)->o.m_delegatedBy=v, AGUser.ID).setTitle(WorkflowI18n.DELEGATED_BY);
+	public static final IDbForeignField<AGWorkflowTaskDelegation, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK).setForeignKeyName("WorkflowTaskDelegation_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTaskDelegation, AGUser> TARGET_USER = BUILDER.addForeignField("targetUser", o->o.m_targetUser, (o,v)->o.m_targetUser=v, AGUser.ID).setTitle(WorkflowI18n.TARGET_USER).setForeignKeyName("WorkflowTaskDelegation_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTaskDelegation, AGUser> DELEGATED_BY = BUILDER.addForeignField("delegatedBy", o->o.m_delegatedBy, (o,v)->o.m_delegatedBy=v, AGUser.ID).setTitle(WorkflowI18n.DELEGATED_BY).setForeignKeyName("WorkflowTaskDelegation_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowTaskDelegation> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
 	public static final IDbTableKey<AGWorkflowTaskDelegation, AGWorkflowTask> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_TASK));
+	public static final IDbKey<AGWorkflowTaskDelegation> IK_TARGET_USER = BUILDER.addIndexKey("targetUser", TARGET_USER);
+	public static final IDbKey<AGWorkflowTaskDelegation> IK_DELEGATED_BY = BUILDER.addIndexKey("delegatedBy", DELEGATED_BY);
 	public static final AGWorkflowTaskDelegationTable TABLE = new AGWorkflowTaskDelegationTable(BUILDER);
 	// @formatter:on
 

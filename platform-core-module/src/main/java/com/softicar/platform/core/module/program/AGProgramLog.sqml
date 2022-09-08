@@ -3,8 +3,9 @@ PACKAGE com.softicar.platform.core.module.program
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGProgramLog 'Core.ProgramLog' {
-	
-	PK AGProgram program
-	PK AGTransaction transaction	
+	PK AGProgram program [CONSTRAINT_NAME='ProgramLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='ProgramLog_ibfk_2']
 	Integer executionRetentionDays = NULL [NULLABLE]
+
+	IK transaction
 }

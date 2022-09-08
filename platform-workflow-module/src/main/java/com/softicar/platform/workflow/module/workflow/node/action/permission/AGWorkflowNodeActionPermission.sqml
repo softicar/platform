@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 IMPORT com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction
 
 TABLE AGWorkflowNodeActionPermission 'Workflow.WorkflowNodeActionPermission' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowNodeAction workflowNodeAction
+	AGWorkflowNodeAction workflowNodeAction [CONSTRAINT_NAME='WorkflowNodeActionPermission_ibfk_1']
 	Boolean active = TRUE
-	AGUuid permissionUuid
+	AGUuid permissionUuid [CONSTRAINT_NAME='WorkflowNodeActionPermission_ibfk_2']
+
+	IK workflowNodeAction
+	IK permissionUuid
 }

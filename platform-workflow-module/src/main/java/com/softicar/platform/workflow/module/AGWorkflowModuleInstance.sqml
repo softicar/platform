@@ -3,6 +3,5 @@ PACKAGE com.softicar.platform.workflow.module
 IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 
 TABLE AGWorkflowModuleInstance 'Workflow.WorkflowModuleInstance' {
-	
-	PK AGModuleInstanceBase base = BASE
+	PK AGModuleInstanceBase base = BASE [CONSTRAINT_NAME='WorkflowModuleInstance_ibfk_1' COMMENT='@base@']
 }

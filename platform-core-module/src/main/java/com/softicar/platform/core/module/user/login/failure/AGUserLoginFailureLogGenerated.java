@@ -31,7 +31,7 @@ public class AGUserLoginFailureLogGenerated extends AbstractDbObject<AGUserLogin
 	}
 
 	public static final IDbIdField<AGUserLoginFailureLog> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGUserLoginFailureLog, AGUserLoginFailureType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGUserLoginFailureType.ID).setTitle(CoreI18n.TYPE).setNullable().setDefault(null);
+	public static final IDbForeignField<AGUserLoginFailureLog, AGUserLoginFailureType> TYPE = BUILDER.addForeignField("type", o->o.m_type, (o,v)->o.m_type=v, AGUserLoginFailureType.ID).setTitle(CoreI18n.TYPE).setNullable().setDefault(null).setForeignKeyName("UserLoginFailureLog_ibfk_1");
 	public static final IDbStringField<AGUserLoginFailureLog> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGUserLoginFailureLog> SERVER_IP_ADDRESS = BUILDER.addStringField("serverIpAddress", o->o.m_serverIpAddress, (o,v)->o.m_serverIpAddress=v).setTitle(CoreI18n.SERVER_IP_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbDayTimeField<AGUserLoginFailureLog> LOGIN_AT = BUILDER.addDayTimeField("loginAt", o->o.m_loginAt, (o,v)->o.m_loginAt=v).setTitle(CoreI18n.LOGIN_AT);

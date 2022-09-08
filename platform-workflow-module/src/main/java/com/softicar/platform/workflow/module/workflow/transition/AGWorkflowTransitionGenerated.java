@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -32,17 +33,22 @@ public class AGWorkflowTransitionGenerated extends AbstractDbObject<AGWorkflowTr
 	}
 
 	public static final IDbIdField<AGWorkflowTransition> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION);
+	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION).setForeignKeyName("WorkflowTransition_ibfk_1");
 	public static final IDbStringField<AGWorkflowTransition> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
 	public static final IDbBooleanField<AGWorkflowTransition> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowNode> SOURCE_NODE = BUILDER.addForeignField("sourceNode", o->o.m_sourceNode, (o,v)->o.m_sourceNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.SOURCE_NODE);
-	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowNode> TARGET_NODE = BUILDER.addForeignField("targetNode", o->o.m_targetNode, (o,v)->o.m_targetNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.TARGET_NODE);
+	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowNode> SOURCE_NODE = BUILDER.addForeignField("sourceNode", o->o.m_sourceNode, (o,v)->o.m_sourceNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.SOURCE_NODE).setForeignKeyName("WorkflowTransition_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowNode> TARGET_NODE = BUILDER.addForeignField("targetNode", o->o.m_targetNode, (o,v)->o.m_targetNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.TARGET_NODE).setForeignKeyName("WorkflowTransition_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowTransition> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setDefault(true);
 	public static final IDbBooleanField<AGWorkflowTransition> AUTO_TRANSITION = BUILDER.addBooleanField("autoTransition", o->o.m_autoTransition, (o,v)->o.m_autoTransition=v).setTitle(WorkflowI18n.AUTO_TRANSITION).setDefault(false);
 	public static final IDbStringField<AGWorkflowTransition> REQUIRED_VOTES = BUILDER.addStringField("requiredVotes", o->o.m_requiredVotes, (o,v)->o.m_requiredVotes=v).setTitle(WorkflowI18n.REQUIRED_VOTES).setMaximumLength(255);
 	public static final IDbStringField<AGWorkflowTransition> HTML_COLOR = BUILDER.addStringField("htmlColor", o->o.m_htmlColor, (o,v)->o.m_htmlColor=v).setTitle(WorkflowI18n.HTML_COLOR).setNullable().setDefault(null).setMaximumLength(7);
-	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowIcon> TRANSITION_ICON = BUILDER.addForeignField("transitionIcon", o->o.m_transitionIcon, (o,v)->o.m_transitionIcon=v, AGWorkflowIcon.ID).setTitle(WorkflowI18n.TRANSITION_ICON).setNullable().setDefault(null);
-	public static final IDbForeignField<AGWorkflowTransition, AGUuid> SIDE_EFFECT = BUILDER.addForeignField("sideEffect", o->o.m_sideEffect, (o,v)->o.m_sideEffect=v, AGUuid.ID).setTitle(WorkflowI18n.SIDE_EFFECT).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowIcon> TRANSITION_ICON = BUILDER.addForeignField("transitionIcon", o->o.m_transitionIcon, (o,v)->o.m_transitionIcon=v, AGWorkflowIcon.ID).setTitle(WorkflowI18n.TRANSITION_ICON).setNullable().setDefault(null).setForeignKeyName("WorkflowTransition_ibfk_4");
+	public static final IDbForeignField<AGWorkflowTransition, AGUuid> SIDE_EFFECT = BUILDER.addForeignField("sideEffect", o->o.m_sideEffect, (o,v)->o.m_sideEffect=v, AGUuid.ID).setTitle(WorkflowI18n.SIDE_EFFECT).setNullable().setDefault(null).setForeignKeyName("WorkflowTransition_ibfk_5");
+	public static final IDbKey<AGWorkflowTransition> IK_WORKFLOW_VERSION = BUILDER.addIndexKey("workflowVersion", WORKFLOW_VERSION);
+	public static final IDbKey<AGWorkflowTransition> IK_SOURCE_NODE = BUILDER.addIndexKey("sourceNode", SOURCE_NODE);
+	public static final IDbKey<AGWorkflowTransition> IK_TARGET_NODE = BUILDER.addIndexKey("targetNode", TARGET_NODE);
+	public static final IDbKey<AGWorkflowTransition> IK_TRANSITION_ICON = BUILDER.addIndexKey("transitionIcon", TRANSITION_ICON);
+	public static final IDbKey<AGWorkflowTransition> IK_SIDE_EFFECT = BUILDER.addIndexKey("sideEffect", SIDE_EFFECT);
 	public static final AGWorkflowTransitionTable TABLE = new AGWorkflowTransitionTable(BUILDER);
 	// @formatter:on
 

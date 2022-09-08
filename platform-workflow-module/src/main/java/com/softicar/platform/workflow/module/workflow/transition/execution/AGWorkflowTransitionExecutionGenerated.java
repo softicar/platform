@@ -30,10 +30,12 @@ public class AGWorkflowTransitionExecutionGenerated extends AbstractDbObject<AGW
 	}
 
 	public static final IDbIdField<AGWorkflowTransitionExecution> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowTransitionExecution, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK);
-	public static final IDbForeignField<AGWorkflowTransitionExecution, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION);
-	public static final IDbForeignField<AGWorkflowTransitionExecution, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
+	public static final IDbForeignField<AGWorkflowTransitionExecution, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK).setForeignKeyName("WorkflowTransitionExecution_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTransitionExecution, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION).setForeignKeyName("WorkflowTransitionExecution_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTransitionExecution, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowTransitionExecution_ibfk_3");
 	public static final IDbKey<AGWorkflowTransitionExecution> UK_WORKFLOW_TASK = BUILDER.addUniqueKey("workflowTask", WORKFLOW_TASK);
+	public static final IDbKey<AGWorkflowTransitionExecution> IK_WORKFLOW_TRANSITION = BUILDER.addIndexKey("workflowTransition", WORKFLOW_TRANSITION);
+	public static final IDbKey<AGWorkflowTransitionExecution> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final AGWorkflowTransitionExecutionTable TABLE = new AGWorkflowTransitionExecutionTable(BUILDER);
 	// @formatter:on
 

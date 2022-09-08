@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,11 @@ public class AGWorkflowNodePreconditionGenerated extends AbstractDbObject<AGWork
 	}
 
 	public static final IDbIdField<AGWorkflowNodePrecondition> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowNodePrecondition, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE);
+	public static final IDbForeignField<AGWorkflowNodePrecondition, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setForeignKeyName("WorkflowNodePrecondition_ibfk_1");
 	public static final IDbBooleanField<AGWorkflowNodePrecondition> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflowNodePrecondition, AGUuid> FUNCTION = BUILDER.addForeignField("function", o->o.m_function, (o,v)->o.m_function=v, AGUuid.ID).setTitle(WorkflowI18n.FUNCTION);
+	public static final IDbForeignField<AGWorkflowNodePrecondition, AGUuid> FUNCTION = BUILDER.addForeignField("function", o->o.m_function, (o,v)->o.m_function=v, AGUuid.ID).setTitle(WorkflowI18n.FUNCTION).setForeignKeyName("WorkflowNodePrecondition_ibfk_2");
+	public static final IDbKey<AGWorkflowNodePrecondition> IK_WORKFLOW_NODE = BUILDER.addIndexKey("workflowNode", WORKFLOW_NODE);
+	public static final IDbKey<AGWorkflowNodePrecondition> IK_FUNCTION = BUILDER.addIndexKey("function", FUNCTION);
 	public static final AGWorkflowNodePreconditionTable TABLE = new AGWorkflowNodePreconditionTable(BUILDER);
 	// @formatter:on
 

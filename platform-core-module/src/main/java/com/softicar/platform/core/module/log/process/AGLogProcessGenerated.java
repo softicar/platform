@@ -35,7 +35,7 @@ public class AGLogProcessGenerated extends AbstractDbObject<AGLogProcess> {
 	public static final IDbStringField<AGLogProcess> SERVER_IP = BUILDER.addStringField("serverIp", o->o.m_serverIp, (o,v)->o.m_serverIp=v).setTitle(CoreI18n.SERVER_IP).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGLogProcess> CLASS_NAME = BUILDER.addStringField("className", o->o.m_className, (o,v)->o.m_className=v).setTitle(CoreI18n.CLASS_NAME).setMaximumLength(255);
 	public static final IDbDayTimeField<AGLogProcess> START_TIME = BUILDER.addDayTimeField("startTime", o->o.m_startTime, (o,v)->o.m_startTime=v).setTitle(CoreI18n.START_TIME).setDefaultNow().setTimestamp();
-	public static final IDbForeignField<AGLogProcess, AGLogLevel> WORST_LEVEL = BUILDER.addForeignField("worstLevel", o->o.m_worstLevel, (o,v)->o.m_worstLevel=v, AGLogLevel.ID).setTitle(CoreI18n.WORST_LEVEL).setNullable().setDefault(null);
+	public static final IDbForeignField<AGLogProcess, AGLogLevel> WORST_LEVEL = BUILDER.addForeignField("worstLevel", o->o.m_worstLevel, (o,v)->o.m_worstLevel=v, AGLogLevel.ID).setTitle(CoreI18n.WORST_LEVEL).setNullable().setDefault(null).setForeignKeyName("LogProcess_ibfk_1");
 	public static final IDbKey<AGLogProcess> IK_START_TIME = BUILDER.addIndexKey("startTime", START_TIME);
 	public static final IDbKey<AGLogProcess> IK_CLASS_NAME = BUILDER.addIndexKey("className", CLASS_NAME);
 	public static final IDbKey<AGLogProcess> IK_WORST_LEVEL = BUILDER.addIndexKey("worstLevel", WORST_LEVEL);

@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGWorkflowNodeActionLog 'Workflow.WorkflowNodeActionLog' {
-	
-	PK AGWorkflowNodeAction workflowNodeAction
-	PK AGTransaction transaction
+	PK AGWorkflowNodeAction workflowNodeAction [CONSTRAINT_NAME='WorkflowNodeActionLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowNodeActionLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
-	AGUuid action = NULL [NULLABLE] 
+	AGUuid action = NULL [NULLABLE CONSTRAINT_NAME='WorkflowNodeActionLog_ibfk_3']
+
+	IK transaction
+	IK action
 }

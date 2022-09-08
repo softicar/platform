@@ -7,9 +7,11 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 TABLE AGRolePermission 'Core.RolePermission' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
-	AGRole role
-	AGModuleInstanceBase moduleInstanceBase
-	AGUuid permissionUuid
-	
+	AGRole role [CONSTRAINT_NAME='RolePermission_ibfk_1']
+	AGModuleInstanceBase moduleInstanceBase [CONSTRAINT_NAME='RolePermission_ibfk_2']
+	AGUuid permissionUuid [CONSTRAINT_NAME='RolePermission_ibfk_3']
+
 	UK role permissionUuid moduleInstanceBase
+	IK moduleInstanceBase
+	IK permissionUuid
 }

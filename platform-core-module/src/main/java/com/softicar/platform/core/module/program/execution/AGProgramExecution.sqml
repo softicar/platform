@@ -4,13 +4,15 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGProgramExecution 'Core.ProgramExecution' {
-
 	PK Long id = SERIAL
-	AGUuid programUuid
+	AGUuid programUuid [CONSTRAINT_NAME='ProgramExecution_ibfk_1']
 	DayTime startedAt = NULL [NULLABLE]
 	DayTime terminatedAt = NULL [NULLABLE]
 	Boolean failed = FALSE
 	String output = '' [LENGTHBITS=32]
 	Boolean maximumRuntimeExceeded = FALSE
-	AGUser queuedBy
+	AGUser queuedBy [CONSTRAINT_NAME='ProgramExecution_ibfk_2']
+
+	IK programUuid
+	IK queuedBy
 }

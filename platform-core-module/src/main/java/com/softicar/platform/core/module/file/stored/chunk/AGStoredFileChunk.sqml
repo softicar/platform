@@ -4,7 +4,7 @@ IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 
 TABLE AGStoredFileChunk 'Core.StoredFileChunk' {
 	PK Integer id = SERIAL
-	AGStoredFile file [ON DELETE CASCADE ON UPDATE CASCADE]
+	AGStoredFile file [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='StoredFileChunk_ibfk_1']
 	Integer chunkIndex = 0
 	Blob chunkData [LENGTHBITS=16]
 	Integer chunkSize = 0

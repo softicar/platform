@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGTransaction 'Core.Transaction' {
 	PK Long id = SERIAL
-	DayTime at [TIMESTAMP]
-	AGUser by
+	DayTime at = NOW [ON UPDATE NOW TIMESTAMP]
+	AGUser by [CONSTRAINT_NAME='Transaction_ibfk_1']
 
 	IK by
 }

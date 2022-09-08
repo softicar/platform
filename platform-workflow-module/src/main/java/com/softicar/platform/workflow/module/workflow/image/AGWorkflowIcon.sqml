@@ -3,11 +3,12 @@ PACKAGE com.softicar.platform.workflow.module.workflow.image
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
 IMPORT com.softicar.platform.workflow.module.AGWorkflowModuleInstance
 
-TABLE AGWorkflowIcon "Workflow.WorkflowIcon" {
+TABLE AGWorkflowIcon 'Workflow.WorkflowIcon' {
 	PK Integer id = SERIAL
-	AGWorkflowModuleInstance moduleInstance
+	AGWorkflowModuleInstance moduleInstance [CONSTRAINT_NAME='WorkflowIcon_ibfk_1']
 	String name [MAXLENGTH=255]
-	AGStoredFile icon
-	
+	AGStoredFile icon [CONSTRAINT_NAME='WorkflowIcon_ibfk_2']
+
 	UK moduleInstance name
+	IK icon
 }

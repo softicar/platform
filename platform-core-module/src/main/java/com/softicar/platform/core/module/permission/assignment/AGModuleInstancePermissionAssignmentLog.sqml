@@ -4,10 +4,11 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGModuleInstancePermissionAssignmentLog 'Core.ModuleInstancePermissionAssignmentLog' {
-	PK AGModuleInstancePermissionAssignment assignment
-	PK AGTransaction transaction [ON UPDATE CASCADE]
+	PK AGModuleInstancePermissionAssignment assignment [CONSTRAINT_NAME='ModuleInstancePermissionAssignmentLog_ibfk_1']
+	PK AGTransaction transaction [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstancePermissionAssignmentLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
-	AGUuid permission = NULL [NULLABLE]
+	AGUuid permission = NULL [NULLABLE CONSTRAINT_NAME='ModuleInstancePermissionAssignmentLog_ibfk_3']
 
 	IK transaction
+	IK permission
 }

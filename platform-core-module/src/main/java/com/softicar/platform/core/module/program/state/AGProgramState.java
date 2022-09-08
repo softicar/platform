@@ -10,6 +10,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -32,12 +33,14 @@ public class AGProgramState extends AbstractDbRecord<AGProgramState, AGProgram> 
 		BUILDER.setPluralTitle(CoreI18n.PROGRAM_STATES);
 	}
 
-	public static final IDbForeignField<AGProgramState, AGProgram> PROGRAM = BUILDER.addForeignField("program", o->o.m_program, (o,v)->o.m_program=v, AGProgram.ID).setTitle(CoreI18n.PROGRAM);
+	public static final IDbForeignField<AGProgramState, AGProgram> PROGRAM = BUILDER.addForeignField("program", o->o.m_program, (o,v)->o.m_program=v, AGProgram.ID).setTitle(CoreI18n.PROGRAM).setForeignKeyName("ProgramState_ibfk_1");
 	public static final IDbDayTimeField<AGProgramState> QUEUED_AT = BUILDER.addDayTimeField("queuedAt", o->o.m_queuedAt, (o,v)->o.m_queuedAt=v).setTitle(CoreI18n.QUEUED_AT).setNullable().setDefault(null);
-	public static final IDbForeignField<AGProgramState, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null);
+	public static final IDbForeignField<AGProgramState, AGUser> QUEUED_BY = BUILDER.addForeignField("queuedBy", o->o.m_queuedBy, (o,v)->o.m_queuedBy=v, AGUser.ID).setTitle(CoreI18n.QUEUED_BY).setNullable().setDefault(null).setForeignKeyName("ProgramState_ibfk_2");
 	public static final IDbBooleanField<AGProgramState> ABORT_REQUESTED = BUILDER.addBooleanField("abortRequested", o->o.m_abortRequested, (o,v)->o.m_abortRequested=v).setTitle(CoreI18n.ABORT_REQUESTED).setDefault(false);
-	public static final IDbForeignField<AGProgramState, AGProgramExecution> CURRENT_EXECUTION = BUILDER.addForeignField("currentExecution", o->o.m_currentExecution, (o,v)->o.m_currentExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.CURRENT_EXECUTION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGProgramState, AGProgramExecution> CURRENT_EXECUTION = BUILDER.addForeignField("currentExecution", o->o.m_currentExecution, (o,v)->o.m_currentExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.CURRENT_EXECUTION).setNullable().setDefault(null).setForeignKeyName("ProgramState_ibfk_3");
 	public static final IDbTableKey<AGProgramState, AGProgram> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(PROGRAM));
+	public static final IDbKey<AGProgramState> IK_QUEUED_BY = BUILDER.addIndexKey("queuedBy", QUEUED_BY);
+	public static final IDbKey<AGProgramState> IK_CURRENT_EXECUTION = BUILDER.addIndexKey("currentExecution", CURRENT_EXECUTION);
 	public static final DbRecordTable<AGProgramState, AGProgram> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

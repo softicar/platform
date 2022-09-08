@@ -6,9 +6,11 @@ IMPORT com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
 
 TABLE AGWorkflowAutoTransitionExecution 'Workflow.WorkflowAutoTransitionExecution' {
 	PK Integer id = SERIAL
-	
-	AGWorkflowItem workflowItem
-	AGWorkflowTransition workflowTransition
-	AGTransaction transaction
-	
+	AGWorkflowItem workflowItem [CONSTRAINT_NAME='WorkflowAutoTransitionExecution_ibfk_1']
+	AGWorkflowTransition workflowTransition [CONSTRAINT_NAME='WorkflowAutoTransitionExecution_ibfk_2']
+	AGTransaction transaction [CONSTRAINT_NAME='WorkflowAutoTransitionExecution_ibfk_3']
+
+	IK workflowItem
+	IK workflowTransition
+	IK transaction
 }

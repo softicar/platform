@@ -7,9 +7,9 @@ TABLE AGLogProcess 'Core.LogProcess' {
 	String serverIp = '' [MAXLENGTH=255]
 	String className [MAXLENGTH=255]
 	DayTime startTime = NOW [TIMESTAMP]
-	AGLogLevel worstLevel = NULL [NULLABLE]
+	AGLogLevel worstLevel = NULL [NULLABLE CONSTRAINT_NAME='LogProcess_ibfk_1']
 
 	IK startTime
 	IK className
 	IK worstLevel
-} 
+}

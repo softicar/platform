@@ -4,9 +4,12 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
 
 TABLE AGWorkflowDemoObjectLog 'Workflow.WorkflowDemoObjectLog' {
-	PK AGWorkflowDemoObject workflowDemoObject
-	PK AGTransaction transaction
-	String name = NULL [MAXLENGTH=50 NULLABLE]
+	PK AGWorkflowDemoObject workflowDemoObject [CONSTRAINT_NAME='WorkflowDemoObjectLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowDemoObjectLog_ibfk_2']
+	String name = NULL [NULLABLE MAXLENGTH=50]
 	Boolean active = NULL [NULLABLE]
-	AGWorkflowItem workflowItem = NULL [NULLABLE]
+	AGWorkflowItem workflowItem = NULL [NULLABLE CONSTRAINT_NAME='WorkflowDemoObjectLog_ibfk_3']
+
+	IK transaction
+	IK workflowItem
 }

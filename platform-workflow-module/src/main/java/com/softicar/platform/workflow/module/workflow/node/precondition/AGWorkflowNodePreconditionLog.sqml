@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGWorkflowNodePreconditionLog 'Workflow.WorkflowNodePreconditionLog' {
-	
-	PK AGWorkflowNodePrecondition workflowNodePrecondition 
-	PK AGTransaction transaction
-    Boolean active = NULL [NULLABLE]
-    AGUuid function = NULL [NULLABLE]
+	PK AGWorkflowNodePrecondition workflowNodePrecondition [CONSTRAINT_NAME='WorkflowNodePreconditionLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowNodePreconditionLog_ibfk_2']
+	Boolean active = NULL [NULLABLE]
+	AGUuid function = NULL [NULLABLE CONSTRAINT_NAME='WorkflowNodePreconditionLog_ibfk_3']
+
+	IK transaction
+	IK function
 }

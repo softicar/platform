@@ -4,6 +4,6 @@ TABLE AGRole 'Core.Role' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
 	String name [MAXLENGTH=255]
-	
+
 	UK name
 }

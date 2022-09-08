@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.file.stored.server
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGStoredFileServerLog 'Core.StoredFileServerLog' {
-	PK AGStoredFileServer storedFileServer
-	PK AGTransaction transaction
+	PK AGStoredFileServer storedFileServer [CONSTRAINT_NAME='StoredFileServerLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='StoredFileServerLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String url = NULL [NULLABLE MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]

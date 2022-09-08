@@ -3,8 +3,10 @@ PACKAGE com.softicar.platform.core.module.role
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGRoleLog 'Core.RoleLog' {
-	PK AGRole role
-	PK AGTransaction transaction
+	PK AGRole role [CONSTRAINT_NAME='RoleLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='RoleLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String name = NULL [NULLABLE MAXLENGTH=255]
+
+	IK transaction
 }

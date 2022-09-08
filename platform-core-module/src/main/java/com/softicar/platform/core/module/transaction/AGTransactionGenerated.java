@@ -31,8 +31,8 @@ public class AGTransactionGenerated extends AbstractDbObject<AGTransaction> {
 	}
 
 	public static final IDbIdField<AGTransaction> ID = BUILDER.addIdFieldForLong("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbDayTimeField<AGTransaction> AT = BUILDER.addDayTimeField("at", o->o.m_at, (o,v)->o.m_at=v).setTitle(CoreI18n.AT).setTimestamp();
-	public static final IDbForeignField<AGTransaction, AGUser> BY = BUILDER.addForeignField("by", o->o.m_by, (o,v)->o.m_by=v, AGUser.ID).setTitle(CoreI18n.BY);
+	public static final IDbDayTimeField<AGTransaction> AT = BUILDER.addDayTimeField("at", o->o.m_at, (o,v)->o.m_at=v).setTitle(CoreI18n.AT).setDefaultNow().setOnUpdateNow().setTimestamp();
+	public static final IDbForeignField<AGTransaction, AGUser> BY = BUILDER.addForeignField("by", o->o.m_by, (o,v)->o.m_by=v, AGUser.ID).setTitle(CoreI18n.BY).setForeignKeyName("Transaction_ibfk_1");
 	public static final IDbKey<AGTransaction> IK_BY = BUILDER.addIndexKey("by", BY);
 	public static final DbObjectTable<AGTransaction> TABLE = new DbObjectTable<>(BUILDER);
 	// @formatter:on

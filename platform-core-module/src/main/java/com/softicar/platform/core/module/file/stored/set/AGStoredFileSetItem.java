@@ -29,8 +29,8 @@ public class AGStoredFileSetItem extends AbstractDbRecord<AGStoredFileSetItem, T
 		BUILDER.setPluralTitle(CoreI18n.STORED_FILE_SET_ITEMS);
 	}
 
-	public static final IDbForeignField<AGStoredFileSetItem, AGStoredFileSet> FILE_SET = BUILDER.addForeignField("fileSet", o->o.m_fileSet, (o,v)->o.m_fileSet=v, AGStoredFileSet.ID).setTitle(CoreI18n.FILE_SET);
-	public static final IDbForeignField<AGStoredFileSetItem, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE);
+	public static final IDbForeignField<AGStoredFileSetItem, AGStoredFileSet> FILE_SET = BUILDER.addForeignField("fileSet", o->o.m_fileSet, (o,v)->o.m_fileSet=v, AGStoredFileSet.ID).setTitle(CoreI18n.FILE_SET).setForeignKeyName("StoredFileSetItem_ibfk_1");
+	public static final IDbForeignField<AGStoredFileSetItem, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setForeignKeyName("StoredFileSetItem_ibfk_2");
 	public static final IDbTableKey<AGStoredFileSetItem, Tuple2<AGStoredFileSet, AGStoredFile>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(FILE_SET, FILE));
 	public static final IDbKey<AGStoredFileSetItem> IK_FILE = BUILDER.addIndexKey("file", FILE);
 	public static final DbRecordTable<AGStoredFileSetItem, Tuple2<AGStoredFileSet, AGStoredFile>> TABLE = new DbRecordTable<>(BUILDER);

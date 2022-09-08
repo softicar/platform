@@ -3,11 +3,12 @@ PACKAGE com.softicar.platform.workflow.module.workflow.node
 IMPORT com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion
 
 TABLE AGWorkflowNode 'Workflow.WorkflowNode' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowVersion workflowVersion
+	AGWorkflowVersion workflowVersion [CONSTRAINT_NAME='WorkflowNode_ibfk_1']
 	String name [MAXLENGTH=255]
 	Integer xCoordinate = 10
 	Integer yCoordinate = 150
 	Boolean active = TRUE
+
+	IK workflowVersion
 }

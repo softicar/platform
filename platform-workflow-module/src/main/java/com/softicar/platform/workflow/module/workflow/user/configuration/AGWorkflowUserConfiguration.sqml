@@ -2,11 +2,12 @@ PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration
 
 IMPORT com.softicar.platform.core.module.user.AGUser
 
-TABLE AGWorkflowUserConfiguration "Workflow.WorkflowUserConfiguration" {
-
-	PK AGUser user
+TABLE AGWorkflowUserConfiguration 'Workflow.WorkflowUserConfiguration' {
+	PK AGUser user [CONSTRAINT_NAME='WorkflowUserConfiguration_ibfk_1']
 	Boolean emailNotificationsForNewTasks = TRUE
-	AGUser substitute = NULL [NULLABLE]
+	AGUser substitute = NULL [NULLABLE CONSTRAINT_NAME='WorkflowUserConfiguration_ibfk_2']
 	Day substituteFrom = NULL [NULLABLE]
 	Day substituteTo = NULL [NULLABLE]
+
+	IK substitute
 }

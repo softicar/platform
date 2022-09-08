@@ -3,10 +3,9 @@ PACKAGE com.softicar.platform.core.module.program
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGProgram 'Core.Program' {
-
 	PK Long id = SERIAL
-	AGUuid programUuid
+	AGUuid programUuid [CONSTRAINT_NAME='Program_ibfk_1']
 	Integer executionRetentionDays = 28
-	
+
 	UK programUuid
 }
