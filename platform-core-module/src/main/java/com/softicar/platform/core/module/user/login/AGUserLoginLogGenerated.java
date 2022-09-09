@@ -31,8 +31,8 @@ public class AGUserLoginLogGenerated extends AbstractDbObject<AGUserLoginLog> {
 	}
 
 	public static final IDbIdField<AGUserLoginLog> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGUserLoginLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
-	public static final IDbForeignField<AGUserLoginLog, AGUserPassword> PASSWORD = BUILDER.addForeignField("password", o->o.m_password, (o,v)->o.m_password=v, AGUserPassword.ID).setTitle(CoreI18n.PASSWORD);
+	public static final IDbForeignField<AGUserLoginLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("UserLoginLog_ibfk_1");
+	public static final IDbForeignField<AGUserLoginLog, AGUserPassword> PASSWORD = BUILDER.addForeignField("password", o->o.m_password, (o,v)->o.m_password=v, AGUserPassword.ID).setTitle(CoreI18n.PASSWORD).setForeignKeyName("UserLoginLog_ibfk_2");
 	public static final IDbDayTimeField<AGUserLoginLog> LOGIN_AT = BUILDER.addDayTimeField("loginAt", o->o.m_loginAt, (o,v)->o.m_loginAt=v).setTitle(CoreI18n.LOGIN_AT);
 	public static final IDbKey<AGUserLoginLog> IK_PASSWORD = BUILDER.addIndexKey("password", PASSWORD);
 	public static final IDbKey<AGUserLoginLog> IK_LOGIN_AT = BUILDER.addIndexKey("loginAt", LOGIN_AT);

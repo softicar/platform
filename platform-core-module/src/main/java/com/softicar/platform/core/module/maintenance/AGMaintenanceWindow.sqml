@@ -2,10 +2,12 @@ PACKAGE com.softicar.platform.core.module.maintenance
 
 IMPORT com.softicar.platform.core.module.maintenance.state.AGMaintenanceState
 
-TABLE AGMaintenanceWindow "Core.MaintenanceWindow" {
+TABLE AGMaintenanceWindow 'Core.MaintenanceWindow' {
 	PK Integer id = SERIAL
 	DayTime expectedStart
 	DayTime expectedEnd
-	AGMaintenanceState state
-	String comment = '' [LENGTHBITS=8 NULLABLE]
+	AGMaintenanceState state [CONSTRAINT_NAME='MaintenanceWindow_ibfk_1']
+	String comment = '' [NULLABLE LENGTHBITS=8]
+
+	IK state
 }

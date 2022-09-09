@@ -7,6 +7,7 @@ import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -29,10 +30,11 @@ public class AGSystemEventLog extends AbstractDbRecord<AGSystemEventLog, Tuple2<
 		BUILDER.setPluralTitle(CoreI18n.SYSTEM_EVENT_LOGS);
 	}
 
-	public static final IDbForeignField<AGSystemEventLog, AGSystemEvent> SYSTEM_EVENT = BUILDER.addForeignField("systemEvent", o->o.m_systemEvent, (o,v)->o.m_systemEvent=v, AGSystemEvent.ID).setTitle(CoreI18n.SYSTEM_EVENT);
-	public static final IDbForeignField<AGSystemEventLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGSystemEventLog, AGSystemEvent> SYSTEM_EVENT = BUILDER.addForeignField("systemEvent", o->o.m_systemEvent, (o,v)->o.m_systemEvent=v, AGSystemEvent.ID).setTitle(CoreI18n.SYSTEM_EVENT).setForeignKeyName("SystemEventLog_ibfk_1");
+	public static final IDbForeignField<AGSystemEventLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("SystemEventLog_ibfk_2");
 	public static final IDbBooleanField<AGSystemEventLog> NEEDS_CONFIRMATION = BUILDER.addBooleanField("needsConfirmation", o->o.m_needsConfirmation, (o,v)->o.m_needsConfirmation=v).setTitle(CoreI18n.NEEDS_CONFIRMATION).setNullable().setDefault(null);
 	public static final IDbTableKey<AGSystemEventLog, Tuple2<AGSystemEvent, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SYSTEM_EVENT, TRANSACTION));
+	public static final IDbKey<AGSystemEventLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final DbRecordTable<AGSystemEventLog, Tuple2<AGSystemEvent, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

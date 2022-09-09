@@ -43,7 +43,12 @@ public interface DomCssClasses {
 	ICssClass DOM_ICON = new CssClass("DomIcon", DomCssFiles.DOM_ICON_STYLE);
 
 	ICssClass DOM_IMAGE_VIEWER = new CssClass("DomImageViewer", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_CANVAS = new CssClass("DomImageViewerCanvas", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 	ICssClass DOM_IMAGE_VIEWER_IMAGE = new CssClass("DomImageViewerImage", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_IMAGE_HOLDER = new CssClass("DomImageViewerImageHolder", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_NAVIGATION_BAR = new CssClass("DomImageViewerNavigationBar", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_PAGE_INDICATOR = new CssClass("DomImageViewerPageIndicator", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_TOOL_BAR = new CssClass("DomImageViewerToolBar", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 
 	ICssClass DOM_INPUT_DIAGNOSTICS_DISPLAY = new CssClass("DomInputDiagnosticsDisplay", DomCssFiles.DOM_INPUT_DIAGNOSTICS_STYLE);
 

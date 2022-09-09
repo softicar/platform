@@ -69,6 +69,10 @@ const AJAX_REQUEST_TIMEOUT = 5;
 const AJAX_REQUEST_DOM_EVENT = 6;
 const AJAX_REQUEST_DRAG_AND_DROP = 7;
 const AJAX_REQUEST_UPLOAD = 8;
+const DOM_MODIFIER_ALT = 'Alt';
+const DOM_MODIFIER_CONTROL = 'Control';
+const DOM_MODIFIER_META = 'Meta';
+const DOM_MODIFIER_SHIFT = 'Shift';
 const DOM_VK_TAB = 9;
 const DOM_VK_ENTER = 13;
 const DOM_VK_ESCAPE = 27;
@@ -84,48 +88,81 @@ const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
 function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
-    new DragContext(draggedNode, limitingNode, notifyOnDrop).setup(dragHandleNode);
+    var handler = DRAG_AND_DROP_MANAGER.getHandler(draggedNode);
+    handler.setLimitingNode(limitingNode);
+    handler.setNotifyOnDrop(notifyOnDrop);
+    handler.install(dragHandleNode);
 }
-class DragContext {
-    constructor(draggedNode, limitingNode, notifyOnDrop) {
+class DragAndDropManager {
+    constructor() {
+        this.handlers = new Map();
+    }
+    getHandler(node) {
+        let handler = this.handlers.get(node.id);
+        if (!handler) {
+            handler = new DragAndDropHandler(node);
+            this.handlers.set(node.id, handler);
+        }
+        return handler;
+    }
+}
+const DRAG_AND_DROP_MANAGER = new DragAndDropManager();
+class DragAndDropHandler {
+    constructor(draggedNode) {
         this.cursorStart = new Point();
         this.dragStart = new Point();
         this.dragPosition = new Point();
         this.dragHandler = (event) => this.onDrag(event);
         this.dropHandler = (event) => this.onDrop(event);
         this.draggedNode = draggedNode;
-        this.limitingNode = limitingNode;
-        this.notifyOnDrop = notifyOnDrop;
+        this.limitingNode = null;
+        this.notifyOnDrop = false;
+        this.dragHandleNode = null;
     }
-    setup(dragHandleNode) {
+    install(dragHandleNode) {
+        this.dragHandleNode = dragHandleNode;
         dragHandleNode.addEventListener("mousedown", event => this.onDragStart(event));
         dragHandleNode.addEventListener("touchstart", event => this.onDragStart(event));
         dragHandleNode.style.userSelect = "none";
         dragHandleNode.style.touchAction = "none";
+        dragHandleNode.ondragstart = function () { return false; };
+        dragHandleNode.classList.add(DRAGGABLE_CSS_CLASS);
+    }
+    setLimitingNode(limitingNode) {
+        this.limitingNode = limitingNode;
+    }
+    setNotifyOnDrop(notifyOnDrop) {
+        this.notifyOnDrop = notifyOnDrop;
     }
     onDragStart(event) {
+        var _a;
         this.addDragListener();
         this.setDocumentTextSelection(false);
         this.cursorStart = this.getCursorPosition(event);
         this.dragStart = this.getDraggedNodePosition();
         this.dragPosition = this.dragStart;
+        (_a = this.dragHandleNode) === null || _a === void 0 ? void 0 : _a.classList.add(DRAGGING_CSS_CLASS);
         AJAX_ENGINE.raise(this.draggedNode);
     }
     onDrag(event) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         let cursor = this.getCursorPosition(event);
         let rect = (_a = this.limitingNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
         let minX = (_b = rect === null || rect === void 0 ? void 0 : rect.left) !== null && _b !== void 0 ? _b : 0;
-        let minY = (_c = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _c !== void 0 ? _c : 0;
-        if (cursor.x >= minX && cursor.y >= minY) {
+        let maxX = (_c = rect === null || rect === void 0 ? void 0 : rect.right) !== null && _c !== void 0 ? _c : Infinity;
+        let minY = (_d = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _d !== void 0 ? _d : 0;
+        let maxY = (_e = rect === null || rect === void 0 ? void 0 : rect.bottom) !== null && _e !== void 0 ? _e : Infinity;
+        if (minX <= cursor.x && cursor.x <= maxX && minY <= cursor.y && cursor.y <= maxY) {
             this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
             this.draggedNode.style.left = this.dragPosition.x + "px";
             this.draggedNode.style.top = this.dragPosition.y + "px";
         }
     }
     onDrop(event) {
+        var _a;
         this.removeDragListener();
         this.setDocumentTextSelection(true);
+        (_a = this.dragHandleNode) === null || _a === void 0 ? void 0 : _a.classList.remove(DRAGGING_CSS_CLASS);
         if (this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
             let message = new AjaxRequestMessage()
                 .setAction(AJAX_REQUEST_DRAG_AND_DROP)
@@ -148,7 +185,7 @@ class DragContext {
         }
     }
     getDraggedNodePosition() {
-        let style = this.draggedNode.style;
+        let style = window.getComputedStyle(this.draggedNode);
         let x = style.left ? parseInt(style.left) : 0;
         let y = style.top ? parseInt(style.top) : 0;
         return new Point(x, y);
@@ -547,16 +584,34 @@ function listenToDomEvent(nodeId, event, doListen) {
             KEYBOARD_EVENT_MANAGER.setListenToKey(element, event, doListen);
             break;
         case 'WHEEL':
-            element.onwheel = handler;
+            WHEEL_EVENT_MANAGER.setListenToWheel(element, doListen);
             break;
-        default: alert('Unknown event ' + event + '.');
+        default: alert('Unknown event: ' + event);
     }
 }
 function setPreventDefaultOnMouseDown(element, enabled) {
     element.onmousedown = enabled ? (event) => event.preventDefault() : null;
 }
+function setPreventDefaultOnWheel(element, modifiers, enabled) {
+    WHEEL_EVENT_MANAGER.setPreventDefaultBehavior(element, new Set(modifiers), enabled);
+}
 function setListenToKeys(element, keys) {
     KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
+}
+function setHeightAndWidthToComputedValues(node) {
+    setTimeout(() => {
+        let computedStyle = window.getComputedStyle(node);
+        node.style.height = computedStyle.height;
+        node.style.width = computedStyle.width;
+    });
+}
+function setHeightAndWidthOnLoad(image, targetNode) {
+    if (image.complete) {
+        setHeightAndWidthToComputedValues(targetNode);
+    }
+    else {
+        image.addEventListener('load', _ => setHeightAndWidthToComputedValues(targetNode));
+    }
 }
 function handleDomEvent(event) {
     sendOrDelegateEvent(event.currentTarget, event, event.type);
@@ -700,7 +755,7 @@ class KeyboardEventHandler {
             this.node.onkeyup = event => this.handleKeyUp(event);
         }
         else {
-            console.log('Warning: Skipped installation of keyboard event listeners.');
+            console.log('Warning: Skipped installation of a keyboard event listener.');
         }
         return this;
     }
@@ -782,6 +837,66 @@ class CssClassApplier {
     }
     removeClasses() {
         this.classes.forEach(c => this.node.classList.remove(c));
+    }
+}
+class WheelEventManager {
+    constructor() {
+        this.handlers = new Map();
+    }
+    setListenToWheel(node, enabled) {
+        this.getHandler(node).setListenToWheel(enabled);
+    }
+    setPreventDefaultBehavior(node, modifiers, enabled) {
+        this.getHandler(node).setPreventDefault(modifiers, enabled);
+    }
+    getHandler(node) {
+        let handler = this.handlers.get(node.id);
+        if (!handler) {
+            handler = new WheelEventHandler(node).install();
+            this.handlers.set(node.id, handler);
+        }
+        return handler;
+    }
+}
+const WHEEL_EVENT_MANAGER = new WheelEventManager();
+class WheelEventHandler {
+    constructor(node) {
+        this.preventDefault = new Map();
+        this.listenToWheel = false;
+        this.node = node;
+    }
+    install() {
+        if (!this.node.onwheel) {
+            this.node.onwheel = event => this.handleWheel(event);
+        }
+        else {
+            console.log('Warning: Skipped installation of a wheel event listener.');
+        }
+        return this;
+    }
+    setListenToWheel(enabled) {
+        this.listenToWheel = enabled;
+    }
+    setPreventDefault(modifiers, enabled) {
+        this.preventDefault.set(JSON.stringify(Array.from(modifiers)), enabled);
+    }
+    handleWheel(event) {
+        let modifiers = new Set();
+        if (event.altKey)
+            modifiers.add(DOM_MODIFIER_ALT);
+        if (event.ctrlKey)
+            modifiers.add(DOM_MODIFIER_CONTROL);
+        if (event.metaKey)
+            modifiers.add(DOM_MODIFIER_META);
+        if (event.shiftKey)
+            modifiers.add(DOM_MODIFIER_SHIFT);
+        if (this.listenToWheel) {
+            handleDomEvent(event);
+        }
+        if (this.preventDefault.get(JSON.stringify(Array.from(modifiers)))) {
+            event.stopPropagation();
+            event.preventDefault();
+        }
     }
 }
 class AjaxRequest {

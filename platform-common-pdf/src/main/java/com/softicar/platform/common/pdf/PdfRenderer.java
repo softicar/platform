@@ -61,27 +61,47 @@ public class PdfRenderer {
 	}
 
 	/**
-	 * Renders the pages of the PDF into one or more {@link BufferedImage}
-	 * instances.
+	 * Renders the pages of the PDF document into one or more
+	 * {@link BufferedImage} instances.
 	 * <p>
 	 * The given {@link InputStream} will <b>not</b> be closed by this method.
 	 *
 	 * @param inputStream
-	 *            the PDF-formatted {@link InputStream} to render; needs to be
-	 *            closed by the caller (never <i>null</i>)
+	 *            the {@link InputStream} providing the PDF document to render;
+	 *            needs to be closed by the caller (never <i>null</i>)
 	 * @return list of rendered images; one per page (never <i>null</i>)
 	 */
 	public List<BufferedImage> render(InputStream inputStream) {
 
-		var bufferedImages = new ArrayList<BufferedImage>();
 		try (var document = PDDocument.load(inputStream)) {
-			var renderer = new PDFRenderer(document);
-			renderer.setSubsamplingAllowed(true);
-			for (var page = 0; page < document.getNumberOfPages(); page++) {
-				bufferedImages.add(renderer.renderImageWithDPI(page, dpi, imageType));
-			}
+			return render(document);
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception, "Failed to render PDF.");
+		}
+	}
+
+	/**
+	 * Renders the pages of the {@link PDDocument} into one or more
+	 * {@link BufferedImage} instances.
+	 * <p>
+	 * The given {@link PDDocument} will <b>not</b> be closed by this method.
+	 *
+	 * @param document
+	 *            the {@link PDDocument} to render; needs to be closed by the
+	 *            caller (never <i>null</i>)
+	 * @return list of rendered images; one per page (never <i>null</i>)
+	 */
+	public List<BufferedImage> render(PDDocument document) {
+
+		var bufferedImages = new ArrayList<BufferedImage>();
+		var renderer = new PDFRenderer(document);
+		renderer.setSubsamplingAllowed(true);
+		for (var page = 0; page < document.getNumberOfPages(); page++) {
+			try {
+				bufferedImages.add(renderer.renderImageWithDPI(page, dpi, imageType));
+			} catch (IOException exception) {
+				throw new SofticarIOException(exception);
+			}
 		}
 		return bufferedImages;
 	}

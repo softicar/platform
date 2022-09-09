@@ -32,10 +32,11 @@ public class AGWorkflowIconGenerated extends AbstractDbObject<AGWorkflowIcon> {
 	}
 
 	public static final IDbIdField<AGWorkflowIcon> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignRowField<AGWorkflowIcon, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE);
+	public static final IDbForeignRowField<AGWorkflowIcon, AGWorkflowModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGWorkflowModuleInstance.BASE).setTitle(WorkflowI18n.MODULE_INSTANCE).setForeignKeyName("WorkflowIcon_ibfk_1");
 	public static final IDbStringField<AGWorkflowIcon> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
-	public static final IDbForeignField<AGWorkflowIcon, AGStoredFile> ICON = BUILDER.addForeignField("icon", o->o.m_icon, (o,v)->o.m_icon=v, AGStoredFile.ID).setTitle(WorkflowI18n.ICON);
+	public static final IDbForeignField<AGWorkflowIcon, AGStoredFile> ICON = BUILDER.addForeignField("icon", o->o.m_icon, (o,v)->o.m_icon=v, AGStoredFile.ID).setTitle(WorkflowI18n.ICON).setForeignKeyName("WorkflowIcon_ibfk_2");
 	public static final IDbKey<AGWorkflowIcon> UK_MODULE_INSTANCE_NAME = BUILDER.addUniqueKey("moduleInstanceName", MODULE_INSTANCE, NAME);
+	public static final IDbKey<AGWorkflowIcon> IK_ICON = BUILDER.addIndexKey("icon", ICON);
 	public static final AGWorkflowIconTable TABLE = new AGWorkflowIconTable(BUILDER);
 	// @formatter:on
 

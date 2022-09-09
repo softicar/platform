@@ -29,7 +29,7 @@ public class AGProgramGenerated extends AbstractDbObject<AGProgram> {
 	}
 
 	public static final IDbIdField<AGProgram> ID = BUILDER.addIdFieldForLong("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGProgram, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID);
+	public static final IDbForeignField<AGProgram, AGUuid> PROGRAM_UUID = BUILDER.addForeignField("programUuid", o->o.m_programUuid, (o,v)->o.m_programUuid=v, AGUuid.ID).setTitle(CoreI18n.PROGRAM_UUID).setForeignKeyName("Program_ibfk_1");
 	public static final IDbIntegerField<AGProgram> EXECUTION_RETENTION_DAYS = BUILDER.addIntegerField("executionRetentionDays", o->o.m_executionRetentionDays, (o,v)->o.m_executionRetentionDays=v).setTitle(CoreI18n.EXECUTION_RETENTION_DAYS).setDefault(28);
 	public static final IDbKey<AGProgram> UK_PROGRAM_UUID = BUILDER.addUniqueKey("programUuid", PROGRAM_UUID);
 	public static final AGProgramTable TABLE = new AGProgramTable(BUILDER);

@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.java.code.validation.JavaCodeValidation
 import com.softicar.platform.common.core.java.code.validation.output.JavaCodeViolations;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
+import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.integration.database.structure.DatabaseStructureJsonFromClasspathExtractor;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableConflictingDefinition;
@@ -18,7 +19,8 @@ import java.util.stream.Collectors;
 
 /**
  * Ensures that the database structure in the classpath matches the most recent
- * structure definition listed in {@link DatabaseStructureVersionResource}.
+ * structure definition listed in
+ * {@link PlatformDatabaseStructureVersionResource}.
  * <p>
  * Does nothing unless {@link #INTEGRATION_PROJECT_NAME_JSON_PATH} and
  * {@link #TABLE_PACKAGE_PREFIX_JSON_PATH} are defined in the
@@ -31,6 +33,7 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 
 	private static final String INTEGRATION_PROJECT_NAME_JSON_PATH = "$.integrationProjectName";
 	private static final String TABLE_PACKAGE_PREFIX_JSON_PATH = "$.tablePackagePrefix";
+	private static final String DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS = "$.databaseStructureVersionResourceContainerClass";
 
 	@Override
 	public void validate(JavaCodeValidationEnvironment environment) {
@@ -41,9 +44,13 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 		JavaClasspath classPath = environment.getClassPath();
 		Optional<String> integrationProjectName = reader.readValue(INTEGRATION_PROJECT_NAME_JSON_PATH);
 		Optional<String> tablePackagePrefix = reader.readValue(TABLE_PACKAGE_PREFIX_JSON_PATH);
+		Optional<String> resourceContainerClassName = environment//
+			.getConfigurationJsonValueReader()
+			.readValue(DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS);
 
-		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix)) {
-			var resourceSupplier = DatabaseStructureVersionResources.getLatestStructureResourceSupplier();
+		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix, resourceContainerClassName)) {
+			Class<?> resourceContainerClass = loadResourceContainerClass(resourceContainerClassName);
+			var resourceSupplier = new DatabaseStructureVersionResourcesMap(resourceContainerClass).getLatestStructureResourceSupplier();
 			String jsonFromResource = loadStructureJsonFromResource(resourceSupplier);
 			String jsonFromClasspath = loadStructureJsonFromClasspath(tablePackagePrefix.get());
 
@@ -87,7 +94,7 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 
 				message//
 					.append(
-						"!! Use '%s' to derive the current structure from the classpath.\n"
+						"!! Use '%s' in an integration project to derive the current structure from the classpath.\n"
 							.formatted(DatabaseStructureJsonFromClasspathExtractor.class.getSimpleName()));
 
 				violations.addViolation(message.toString());
@@ -96,10 +103,12 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 		}
 	}
 
-	private boolean isEnabled(JavaClasspath classPath, Optional<String> integrationProjectName, Optional<String> tablePackagePrefix) {
+	private boolean isEnabled(JavaClasspath classPath, Optional<String> integrationProjectName, Optional<String> tablePackagePrefix,
+			Optional<String> resourceContainerClassName) {
 
 		return integrationProjectName.isPresent()//
 				&& tablePackagePrefix.isPresent()//
+				&& resourceContainerClassName.isPresent()//
 				&& getClasspathDirectories(classPath).contains("/" + integrationProjectName.get() + "/");
 	}
 
@@ -129,6 +138,11 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 	private String loadStructureJsonFromResource(IResourceSupplier resourceSupplier) {
 
 		return resourceSupplier.getResource().getContentTextUtf8();
+	}
+
+	private Class<Object> loadResourceContainerClass(Optional<String> resourceContainerClassName) {
+
+		return ReflectionUtils.tryToLoadClass(getClass().getClassLoader(), resourceContainerClassName.get());
 	}
 
 	private String getClasspathDirectories(JavaClasspath classPath) {

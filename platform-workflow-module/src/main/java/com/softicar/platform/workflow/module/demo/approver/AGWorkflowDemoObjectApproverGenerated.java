@@ -6,6 +6,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -30,11 +31,13 @@ public class AGWorkflowDemoObjectApproverGenerated extends AbstractDbObject<AGWo
 	}
 
 	public static final IDbIdField<AGWorkflowDemoObjectApprover> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowDemoObjectApprover, AGWorkflowDemoObject> OBJECT = BUILDER.addForeignField("object", o->o.m_object, (o,v)->o.m_object=v, AGWorkflowDemoObject.ID).setTitle(WorkflowI18n.OBJECT);
+	public static final IDbForeignField<AGWorkflowDemoObjectApprover, AGWorkflowDemoObject> OBJECT = BUILDER.addForeignField("object", o->o.m_object, (o,v)->o.m_object=v, AGWorkflowDemoObject.ID).setTitle(WorkflowI18n.OBJECT).setForeignKeyName("WorkflowDemoObjectApprover_ibfk_1");
 	public static final IDbIntegerField<AGWorkflowDemoObjectApprover> APPROVAL_TIER = BUILDER.addIntegerField("approvalTier", o->o.m_approvalTier, (o,v)->o.m_approvalTier=v).setTitle(WorkflowI18n.APPROVAL_TIER).setDefault(0);
-	public static final IDbForeignField<AGWorkflowDemoObjectApprover, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER);
+	public static final IDbForeignField<AGWorkflowDemoObjectApprover, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setForeignKeyName("WorkflowDemoObjectApprover_ibfk_2");
 	public static final IDbBooleanField<AGWorkflowDemoObjectApprover> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
 	public static final IDbBooleanField<AGWorkflowDemoObjectApprover> APPROVED = BUILDER.addBooleanField("approved", o->o.m_approved, (o,v)->o.m_approved=v).setTitle(WorkflowI18n.APPROVED).setNullable().setDefault(null);
+	public static final IDbKey<AGWorkflowDemoObjectApprover> IK_OBJECT = BUILDER.addIndexKey("object", OBJECT);
+	public static final IDbKey<AGWorkflowDemoObjectApprover> IK_USER = BUILDER.addIndexKey("user", USER);
 	public static final AGWorkflowDemoObjectApproverTable TABLE = new AGWorkflowDemoObjectApproverTable(BUILDER);
 	// @formatter:on
 

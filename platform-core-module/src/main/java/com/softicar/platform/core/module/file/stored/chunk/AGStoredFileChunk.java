@@ -31,7 +31,7 @@ public class AGStoredFileChunk extends AbstractDbObject<AGStoredFileChunk> {
 	}
 
 	public static final IDbIdField<AGStoredFileChunk> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbForeignField<AGStoredFileChunk, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setCascade(true, true);
+	public static final IDbForeignField<AGStoredFileChunk, AGStoredFile> FILE = BUILDER.addForeignField("file", o->o.m_file, (o,v)->o.m_file=v, AGStoredFile.ID).setTitle(CoreI18n.FILE).setCascade(true, true).setForeignKeyName("StoredFileChunk_ibfk_1");
 	public static final IDbIntegerField<AGStoredFileChunk> CHUNK_INDEX = BUILDER.addIntegerField("chunkIndex", o->o.m_chunkIndex, (o,v)->o.m_chunkIndex=v).setTitle(CoreI18n.CHUNK_INDEX).setDefault(0);
 	public static final IDbByteArrayField<AGStoredFileChunk> CHUNK_DATA = BUILDER.addByteArrayField("chunkData", o->o.m_chunkData, (o,v)->o.m_chunkData=v).setTitle(CoreI18n.CHUNK_DATA).setLengthBits(16);
 	public static final IDbIntegerField<AGStoredFileChunk> CHUNK_SIZE = BUILDER.addIntegerField("chunkSize", o->o.m_chunkSize, (o,v)->o.m_chunkSize=v).setTitle(CoreI18n.CHUNK_SIZE).setDefault(0);

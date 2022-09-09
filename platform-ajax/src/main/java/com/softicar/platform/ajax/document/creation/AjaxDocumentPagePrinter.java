@@ -8,6 +8,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.IResourceUrl;
 import com.softicar.platform.common.io.writer.IManagedPrintWriter;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 
 /**
  * Implementation of the initial page printing for {@link AjaxDocument}.
@@ -79,7 +80,9 @@ class AjaxDocumentPagePrinter {
 	private void printJavascriptFramework() {
 
 		println("<script>");
-		println("var DOCUMENT_INSTANCE_UUID = '%s'", document.getInstanceUuid().toString());
+		println("var DRAGGABLE_CSS_CLASS = '%s';", DomCssPseudoClasses.DRAGGABLE.toString());
+		println("var DRAGGING_CSS_CLASS = '%s';", DomCssPseudoClasses.DRAGGING.toString());
+		println("var DOCUMENT_INSTANCE_UUID = '%s';", document.getInstanceUuid().toString());
 		println("var VERBOSE = %s;", ajaxRequest.isVerbose());
 		println("var DEBUG = %s;", ajaxRequest.isDebug());
 		new AjaxJavascriptPrinter().printAll(writer, !ajaxRequest.isDebug());

@@ -7,8 +7,11 @@ TABLE AGStoredFile 'Core.StoredFile' {
 	PK Integer id = SERIAL
 	String fileName [MAXLENGTH=255]
 	String contentType = '' [MAXLENGTH=255]
-	AGStoredFileSha1 sha1 = NULL [NULLABLE]
-	AGUser createdBy
+	AGStoredFileSha1 sha1 = NULL [NULLABLE CONSTRAINT_NAME='StoredFile_ibfk_1']
+	AGUser createdBy [CONSTRAINT_NAME='StoredFile_ibfk_2']
 	DayTime createdAt = NOW
 	DayTime removeAt = NULL [NULLABLE]
-}  
+
+	IK sha1
+	IK createdBy
+}

@@ -145,8 +145,8 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 	}
 
 	/**
-	 * Returns the {@link AjaxSeleniumLowLevelTestEngineAutoCompleteExtension} of
-	 * this {@link AjaxSeleniumLowLevelTestEngine}.
+	 * Returns the {@link AjaxSeleniumLowLevelTestEngineAutoCompleteExtension}
+	 * of this {@link AjaxSeleniumLowLevelTestEngine}.
 	 *
 	 * @return the {@link AjaxSeleniumLowLevelTestEngineAutoCompleteExtension}
 	 *         (never <i>null</i>)

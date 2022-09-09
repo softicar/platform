@@ -32,8 +32,8 @@ public class AGPasswordPolicyLog extends AbstractDbRecord<AGPasswordPolicyLog, T
 		BUILDER.setPluralTitle(CoreI18n.PASSWORD_POLICY_LOGS);
 	}
 
-	public static final IDbForeignField<AGPasswordPolicyLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY);
-	public static final IDbForeignField<AGPasswordPolicyLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGPasswordPolicyLog, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setForeignKeyName("PasswordPolicyLog_ibfk_1");
+	public static final IDbForeignField<AGPasswordPolicyLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("PasswordPolicyLog_ibfk_2");
 	public static final IDbBooleanField<AGPasswordPolicyLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGPasswordPolicyLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbIntegerField<AGPasswordPolicyLog> MAXIMUM_PASSWORD_REUSE = BUILDER.addIntegerField("maximumPasswordReuse", o->o.m_maximumPasswordReuse, (o,v)->o.m_maximumPasswordReuse=v).setTitle(CoreI18n.MAXIMUM_PASSWORD_REUSE).setNullable().setDefault(null);

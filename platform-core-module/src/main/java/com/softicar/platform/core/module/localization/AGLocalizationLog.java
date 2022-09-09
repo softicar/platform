@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -30,14 +31,16 @@ public class AGLocalizationLog extends AbstractDbRecord<AGLocalizationLog, Tuple
 		BUILDER.setPluralTitle(CoreI18n.LOCALIZATION_LOGS);
 	}
 
-	public static final IDbForeignField<AGLocalizationLog, AGLocalization> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGLocalization.ID).setTitle(CoreI18n.USER);
-	public static final IDbForeignField<AGLocalizationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGLocalizationLog, AGLocalization> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGLocalization.ID).setTitle(CoreI18n.USER).setForeignKeyName("LocalizationLog_ibfk_1");
+	public static final IDbForeignField<AGLocalizationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("LocalizationLog_ibfk_2");
 	public static final IDbStringField<AGLocalizationLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
-	public static final IDbForeignField<AGLocalizationLog, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE).setNullable().setDefault(null);
+	public static final IDbForeignField<AGLocalizationLog, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE).setNullable().setDefault(null).setForeignKeyName("LocalizationLog_ibfk_3");
 	public static final IDbStringField<AGLocalizationLog> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGLocalizationLog> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGLocalizationLog> DATE_FORMAT = BUILDER.addStringField("dateFormat", o->o.m_dateFormat, (o,v)->o.m_dateFormat=v).setTitle(CoreI18n.DATE_FORMAT).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbTableKey<AGLocalizationLog, Tuple2<AGLocalization, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(USER, TRANSACTION));
+	public static final IDbKey<AGLocalizationLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGLocalizationLog> IK_LANGUAGE = BUILDER.addIndexKey("language", LANGUAGE);
 	public static final DbRecordTable<AGLocalizationLog, Tuple2<AGLocalization, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

@@ -32,10 +32,12 @@ public class AGRolePermissionGenerated extends AbstractDbObject<AGRolePermission
 
 	public static final IDbIdField<AGRolePermission> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGRolePermission> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGRolePermission, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE);
-	public static final IDbForeignField<AGRolePermission, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE);
-	public static final IDbForeignField<AGRolePermission, AGUuid> PERMISSION_UUID = BUILDER.addForeignField("permissionUuid", o->o.m_permissionUuid, (o,v)->o.m_permissionUuid=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION_UUID);
+	public static final IDbForeignField<AGRolePermission, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE).setForeignKeyName("RolePermission_ibfk_1");
+	public static final IDbForeignField<AGRolePermission, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE).setForeignKeyName("RolePermission_ibfk_2");
+	public static final IDbForeignField<AGRolePermission, AGUuid> PERMISSION_UUID = BUILDER.addForeignField("permissionUuid", o->o.m_permissionUuid, (o,v)->o.m_permissionUuid=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION_UUID).setForeignKeyName("RolePermission_ibfk_3");
 	public static final IDbKey<AGRolePermission> UK_ROLE_PERMISSION_UUID_MODULE_INSTANCE_BASE = BUILDER.addUniqueKey("rolePermissionUuidModuleInstanceBase", ROLE, PERMISSION_UUID, MODULE_INSTANCE_BASE);
+	public static final IDbKey<AGRolePermission> IK_MODULE_INSTANCE_BASE = BUILDER.addIndexKey("moduleInstanceBase", MODULE_INSTANCE_BASE);
+	public static final IDbKey<AGRolePermission> IK_PERMISSION_UUID = BUILDER.addIndexKey("permissionUuid", PERMISSION_UUID);
 	public static final AGRolePermissionTable TABLE = new AGRolePermissionTable(BUILDER);
 	// @formatter:on
 

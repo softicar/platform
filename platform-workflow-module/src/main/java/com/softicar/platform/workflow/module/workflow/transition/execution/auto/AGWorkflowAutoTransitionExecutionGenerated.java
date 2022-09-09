@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,12 @@ public class AGWorkflowAutoTransitionExecutionGenerated extends AbstractDbObject
 	}
 
 	public static final IDbIdField<AGWorkflowAutoTransitionExecution> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM);
-	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION);
-	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION);
+	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setForeignKeyName("WorkflowAutoTransitionExecution_ibfk_1");
+	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION).setForeignKeyName("WorkflowAutoTransitionExecution_ibfk_2");
+	public static final IDbForeignField<AGWorkflowAutoTransitionExecution, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowAutoTransitionExecution_ibfk_3");
+	public static final IDbKey<AGWorkflowAutoTransitionExecution> IK_WORKFLOW_ITEM = BUILDER.addIndexKey("workflowItem", WORKFLOW_ITEM);
+	public static final IDbKey<AGWorkflowAutoTransitionExecution> IK_WORKFLOW_TRANSITION = BUILDER.addIndexKey("workflowTransition", WORKFLOW_TRANSITION);
+	public static final IDbKey<AGWorkflowAutoTransitionExecution> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final AGWorkflowAutoTransitionExecutionTable TABLE = new AGWorkflowAutoTransitionExecutionTable(BUILDER);
 	// @formatter:on
 

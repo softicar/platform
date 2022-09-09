@@ -209,12 +209,19 @@ public class Asserts extends Assert {
 		}
 	}
 
-	// --------------------------- assertStartsWith --------------------------- //
+	// --------------------------- assertStartsWith and assertEndsWith --------------------------- //
 
 	public static void assertStartsWith(String start, String fullText) {
 
 		if (!fullText.startsWith(start)) {
 			throw new AssertionError(String.format("Failed to find '%s' at beginning of '%s'.", start, fullText));
+		}
+	}
+
+	public static void assertEndsWith(String end, String fullText) {
+
+		if (!fullText.endsWith(end)) {
+			throw new AssertionError(String.format("Failed to find '%s' at ending of '%s'.", end, fullText));
 		}
 	}
 

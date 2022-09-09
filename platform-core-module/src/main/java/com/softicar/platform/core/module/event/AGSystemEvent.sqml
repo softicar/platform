@@ -3,12 +3,15 @@ PACKAGE com.softicar.platform.core.module.event
 IMPORT com.softicar.platform.core.module.event.severity.AGSystemEventSeverity
 IMPORT com.softicar.platform.core.module.user.AGUser
 
-TABLE AGSystemEvent "Core.SystemEvent" {
+TABLE AGSystemEvent 'Core.SystemEvent' {
 	PK Integer id = SERIAL
 	Boolean needsConfirmation
-	AGSystemEventSeverity severity
+	AGSystemEventSeverity severity [CONSTRAINT_NAME='SystemEvent_ibfk_1']
 	DayTime causedAt
-	AGUser causedBy
+	AGUser causedBy [CONSTRAINT_NAME='SystemEvent_ibfk_2']
 	String message [LENGTHBITS=16]
 	String properties [LENGTHBITS=16]
+
+	IK severity
+	IK causedBy
 }

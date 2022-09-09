@@ -4,11 +4,11 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
 
 TABLE AGWorkflowNodeAction 'Workflow.WorkflowNodeAction' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowNode workflowNode
+	AGWorkflowNode workflowNode [CONSTRAINT_NAME='WorkflowNodeAction_ibfk_1']
 	Boolean active = TRUE
-	AGUuid action
-	
+	AGUuid action [CONSTRAINT_NAME='WorkflowNodeAction_ibfk_2']
+
 	UK workflowNode action
+	IK action
 }

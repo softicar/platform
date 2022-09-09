@@ -5,10 +5,12 @@ IMPORT com.softicar.platform.core.module.program.execution.AGProgramExecution
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGProgramState 'Core.ProgramState' {
-	
-	PK AGProgram program	
+	PK AGProgram program [CONSTRAINT_NAME='ProgramState_ibfk_1']
 	DayTime queuedAt = NULL [NULLABLE]
-	AGUser queuedBy = NULL [NULLABLE]
+	AGUser queuedBy = NULL [NULLABLE CONSTRAINT_NAME='ProgramState_ibfk_2']
 	Boolean abortRequested = FALSE
-	AGProgramExecution currentExecution = NULL [NULLABLE]
+	AGProgramExecution currentExecution = NULL [NULLABLE CONSTRAINT_NAME='ProgramState_ibfk_3']
+
+	IK queuedBy
+	IK currentExecution
 }

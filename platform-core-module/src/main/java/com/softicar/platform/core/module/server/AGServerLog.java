@@ -32,8 +32,8 @@ public class AGServerLog extends AbstractDbRecord<AGServerLog, Tuple2<AGServer, 
 		BUILDER.setPluralTitle(CoreI18n.SERVER_LOGS);
 	}
 
-	public static final IDbForeignField<AGServerLog, AGServer> SERVER = BUILDER.addForeignField("server", o->o.m_server, (o,v)->o.m_server=v, AGServer.ID).setTitle(CoreI18n.SERVER).setCascade(false, true);
-	public static final IDbForeignField<AGServerLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
+	public static final IDbForeignField<AGServerLog, AGServer> SERVER = BUILDER.addForeignField("server", o->o.m_server, (o,v)->o.m_server=v, AGServer.ID).setTitle(CoreI18n.SERVER).setCascade(false, true).setForeignKeyName("ServerLog_ibfk_1");
+	public static final IDbForeignField<AGServerLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true).setForeignKeyName("ServerLog_ibfk_2");
 	public static final IDbBooleanField<AGServerLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGServerLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGServerLog> ADDRESS = BUILDER.addStringField("address", o->o.m_address, (o,v)->o.m_address=v).setTitle(CoreI18n.ADDRESS).setNullable().setDefault(null).setMaximumLength(255);

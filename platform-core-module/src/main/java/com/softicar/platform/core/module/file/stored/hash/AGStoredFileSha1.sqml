@@ -5,5 +5,5 @@ TABLE AGStoredFileSha1 'Core.StoredFileSha1' {
 	Blob hash [MAXLENGTH=20]
 	Long size = 0L
 
-	UK hash 
+	UK hash
 }

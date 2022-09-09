@@ -7,4 +7,4 @@ TABLE AGUuid 'Core.Uuid' {
 
 	UK uuidString
 	UK uuidBytes
-} 
+}

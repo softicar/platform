@@ -18,6 +18,7 @@ import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomForm;
+import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
@@ -26,6 +27,7 @@ import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.engine.IDomExport;
 import com.softicar.platform.dom.engine.IDomScriptLibrary;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomAutoEventHandler;
 import com.softicar.platform.dom.event.IDomDropEventHandler;
 import com.softicar.platform.dom.event.IDomEventHandler;
@@ -235,7 +237,7 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_call("AJAX_ENGINE.raise", node);
 	}
 
-	// -------------------------------- DOM events -------------------------------- //
+	// -------------------------------- node events -------------------------------- //
 
 	@Override
 	public void listenToEvent(IDomNode node, DomEventType type) {
@@ -268,8 +270,6 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_callNodeFunction(node, "addEventListener", "\"" + eventName + "\"", "function(event){event.stopPropagation();}");
 	}
 
-	// -------------------------------- key events -------------------------------- //
-
 	@Override
 	public void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled) {
 
@@ -289,6 +289,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setPreventDefaultOnWheel(IDomNode node, Set<DomModifier> modifiers, boolean enabled) {
+
+		JS_call("setPreventDefaultOnWheel", node, modifiers, enabled);
+	}
+
+	@Override
 	public void setCssClassOnKeyDown(IDomNode eventTarget, DomEventType eventType, IDomNode cssTargetNode, Collection<ICssClass> cssClasses) {
 
 		cssClasses.forEach(ICssClass::beforeUse);
@@ -298,8 +304,6 @@ public class AjaxDomEngine implements IDomEngine {
 			.collect(Collectors.joining(" "));
 		JS_call("KEYBOARD_EVENT_MANAGER.setCssClassOnKeyDown", eventTarget, eventType, cssTargetNode, cssClassNames);
 	}
-
-	// -------------------------------- event delegation -------------------------------- //
 
 	@Override
 	public void setClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType, IDomNode targetNode) {
@@ -313,8 +317,6 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_call("setClickTargetForEventDelegation", sourceNode, eventType, false);
 	}
 
-	// -------------------------------- timeout event -------------------------------- //
-
 	@Override
 	public void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds) {
 
@@ -326,6 +328,12 @@ public class AjaxDomEngine implements IDomEngine {
 
 		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
 		JS_call("makeDraggable", draggedNode, dragHandleNode, limitingNode, notifyOnDrop);
+	}
+
+	@Override
+	public void setHeightAndWidthOnLoad(DomImage image, IDomNode targetNode) {
+
+		JS_call("setHeightAndWidthOnLoad", image, targetNode);
 	}
 
 	// -------------------------------- export -------------------------------- //

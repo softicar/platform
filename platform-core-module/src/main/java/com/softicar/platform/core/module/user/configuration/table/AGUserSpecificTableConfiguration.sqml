@@ -3,9 +3,8 @@ PACKAGE com.softicar.platform.core.module.user.configuration.table
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGUserSpecificTableConfiguration 'Core.UserSpecificTableConfiguration' {
-
 	PK Integer id = SERIAL
-	AGUser user = NULL [NULLABLE]
+	AGUser user = NULL [NULLABLE CONSTRAINT_NAME='UserSpecificTableConfiguration_ibfk_1']
 	String tablePathHash = '' [MAXLENGTH=255]
 	String columnTitlesHash = '' [MAXLENGTH=255]
 	String serialization = '' [LENGTHBITS=16]

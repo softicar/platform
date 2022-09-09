@@ -7,8 +7,21 @@ package com.softicar.platform.dom.event;
  */
 public enum DomModifier {
 
-	ALT,
-	CONTROL,
-	META,
-	SHIFT
+	ALT("Alt"),
+	CONTROL("Control"),
+	META("Meta"),
+	SHIFT("Shift");
+
+	private final String javascriptName;
+
+	private DomModifier(String javascriptName) {
+
+		this.javascriptName = javascriptName;
+	}
+
+	@Override
+	public String toString() {
+
+		return javascriptName;
+	}
 }

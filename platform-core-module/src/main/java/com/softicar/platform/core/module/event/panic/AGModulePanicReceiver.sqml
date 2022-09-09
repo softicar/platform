@@ -5,10 +5,10 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGModulePanicReceiver 'Core.ModulePanicReceiver' {
 	PK Integer id = SERIAL
-	AGUuid moduleUuid
+	AGUuid moduleUuid [CONSTRAINT_NAME='ModulePanicReceiver_ibfk_1']
 	Boolean active = TRUE
-	AGUser user
+	AGUser user [CONSTRAINT_NAME='ModulePanicReceiver_ibfk_2']
 
 	UK moduleUuid user
 	IK user
-} 
+}

@@ -6,7 +6,7 @@ TABLE AGServer 'Core.Server' {
 	String name [MAXLENGTH=255]
 	String address [MAXLENGTH=255]
 	Integer port
-	String username = ''[MAXLENGTH=255]
+	String username = '' [MAXLENGTH=255]
 	String password = '' [MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]
 }

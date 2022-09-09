@@ -17,13 +17,11 @@ import com.softicar.platform.common.io.resource.supplier.ResourceSupplierFactory
  * By definition, {@code "vX-migration.sql"} contains the necessary statements
  * to migrate the structure and content of an existing database instance from
  * version {@code "X-1"} to version {@code "X"}.
- *
- * @author Alexander Schmidt
  */
 @ResourceSupplierContainer
-public interface DatabaseStructureVersionResource {
+public interface PlatformDatabaseStructureVersionResource {
 
-	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(DatabaseStructureVersionResource.class);
+	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(PlatformDatabaseStructureVersionResource.class);
 
 	IResourceSupplier V15_STRUCTURE = FACTORY.create("v15-structure.json");
 	IResourceSupplier V16_MIGRATION = FACTORY.create("v16-migration.sql");
@@ -40,4 +38,6 @@ public interface DatabaseStructureVersionResource {
 	IResourceSupplier V21_STRUCTURE = FACTORY.create("v21-structure.json");
 	IResourceSupplier V22_MIGRATION = FACTORY.create("v22-migration.sql");
 	IResourceSupplier V22_STRUCTURE = FACTORY.create("v22-structure.json");
+	IResourceSupplier V23_MIGRATION = FACTORY.create("v23-migration.sql");
+	IResourceSupplier V23_STRUCTURE = FACTORY.create("v23-structure.json");
 }

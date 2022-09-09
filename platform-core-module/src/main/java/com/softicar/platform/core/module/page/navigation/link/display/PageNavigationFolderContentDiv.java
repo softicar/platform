@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.page.navigation.link.display;
 
-import com.softicar.platform.core.module.page.navigation.PageNavigationCssClasses;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -15,7 +15,7 @@ public class PageNavigationFolderContentDiv extends DomDiv {
 		this.navigationDiv = navigationDiv;
 		this.parentLinkDiv = parentLinkDiv;
 
-		setCssClass(PageNavigationCssClasses.PAGE_NAVIGATION_FOLDER_CONTENT_DIV);
+		setCssClass(CoreCssClasses.PAGE_NAVIGATION_FOLDER_CONTENT_DIV);
 		parentLink.getChildren().forEach(this::appendChild);
 	}
 

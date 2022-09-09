@@ -6,16 +6,21 @@ IMPORT com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy
 IMPORT com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule
 
 TABLE AGUserLog 'Core.UserLog' {
-	PK AGUser user
-	PK AGTransaction transaction
+	PK AGUser user [CONSTRAINT_NAME='UserLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='UserLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String loginName = NULL [NULLABLE MAXLENGTH=255]
 	String firstName = NULL [NULLABLE MAXLENGTH=255]
 	String lastName = NULL [NULLABLE MAXLENGTH=255]
 	String emailAddress = NULL [NULLABLE MAXLENGTH=255]
-	AGLocalization localization = NULL [NULLABLE]
+	AGLocalization localization = NULL [NULLABLE CONSTRAINT_NAME='UserLog_ibfk_3']
 	Boolean automaticallyCollapseFolders = NULL [NULLABLE]
 	Boolean recursivelyCollapseFolders = NULL [NULLABLE]
-	AGPasswordPolicy passwordPolicy = NULL [NULLABLE]
-	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE]
-} 
+	AGPasswordPolicy passwordPolicy = NULL [NULLABLE CONSTRAINT_NAME='UserLog_ibfk_4']
+	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE CONSTRAINT_NAME='UserLog_ibfk_5']
+
+	IK transaction
+	IK localization
+	IK passwordPolicy
+	IK allowedIpRule
+}

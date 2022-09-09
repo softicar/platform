@@ -36,6 +36,11 @@ public enum DomPopupDisplayMode {
 	MAXIMIZED(true, true, DomPopupModalMode.NON_MODAL, DomPopupChildClosingMode.INTERACTIVE_ALL),
 
 	/**
+	 * Same as {@link #MAXIMIZED} but without header.
+	 */
+	MAXIMIZED_NO_HEADER(false, true, DomPopupModalMode.NON_MODAL, DomPopupChildClosingMode.INTERACTIVE_ALL),
+
+	/**
 	 * A modal, dismissable, non-draggable {@link DomPopup} without header.
 	 * Provides <b>no</b> visual clue to its modality.
 	 */

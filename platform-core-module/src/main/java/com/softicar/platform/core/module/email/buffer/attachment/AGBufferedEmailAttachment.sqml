@@ -4,7 +4,7 @@ IMPORT com.softicar.platform.core.module.email.buffer.AGBufferedEmail
 
 TABLE AGBufferedEmailAttachment 'Core.BufferedEmailAttachment' {
 	PK Integer id = SERIAL
-	AGBufferedEmail email [ON DELETE CASCADE ON UPDATE CASCADE]
+	AGBufferedEmail email [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='BufferedEmailAttachment_ibfk_1']
 	Integer index
 	String name [LENGTHBITS=16]
 	String type [LENGTHBITS=16]

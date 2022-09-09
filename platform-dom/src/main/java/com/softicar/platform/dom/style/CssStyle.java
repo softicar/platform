@@ -73,6 +73,7 @@ public enum CssStyle implements ICssStyle {
 	GRID_TEMPLATE_COLUMNS("gridTemplateColumns"),
 	GRID_TEMPLATE_ROWS("gridTemplateRows"),
 	HEIGHT("height"),
+	INSET("inset"),
 	JUSTIFY_CONTENT("justifyContent"),
 	LEFT("left"),
 	LINE_HEIGHT("lineHeight"),
