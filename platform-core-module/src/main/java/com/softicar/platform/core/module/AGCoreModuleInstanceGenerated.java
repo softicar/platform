@@ -32,22 +32,24 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 		BUILDER.setPluralTitle(CoreI18n.CORE_MODULE_INSTANCES);
 	}
 
-	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstanceBase, Integer> BASE = BUILDER.addBaseField("base", o->o.m_base, (o,v)->o.m_base=v, AGModuleInstanceBase.TABLE).setTitle(CoreI18n.BASE).setCascade(true, true);
-	public static final IDbForeignField<AGCoreModuleInstance, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null);
-	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setComment("Server used for uploading files");
-	public static final IDbForeignField<AGCoreModuleInstance, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null);
+	public static final IDbBaseField<AGCoreModuleInstance, AGModuleInstanceBase, Integer> BASE = BUILDER.addBaseField("base", o->o.m_base, (o,v)->o.m_base=v, AGModuleInstanceBase.TABLE).setTitle(CoreI18n.BASE).setCascade(true, true).setForeignKeyName("CoreModuleInstance_ibfk_1").setComment("@base@");
+	public static final IDbForeignField<AGCoreModuleInstance, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstance_ibfk_2");
+	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstance_ibfk_3").setComment("Server used for uploading files");
+	public static final IDbForeignField<AGCoreModuleInstance, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstance_ibfk_4");
 	public static final IDbStringField<AGCoreModuleInstance> SUPPORT_EMAIL_ADDRESS = BUILDER.addStringField("supportEmailAddress", o->o.m_supportEmailAddress, (o,v)->o.m_supportEmailAddress=v).setTitle(CoreI18n.SUPPORT_EMAIL_ADDRESS).setDefault("support@example.com").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> NO_REPLY_EMAIL_ADDRESS = BUILDER.addStringField("noReplyEmailAddress", o->o.m_noReplyEmailAddress, (o,v)->o.m_noReplyEmailAddress=v).setTitle(CoreI18n.NO_REPLY_EMAIL_ADDRESS).setDefault("no-reply@example.com").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> PORTAL_PROTOCOL = BUILDER.addStringField("portalProtocol", o->o.m_portalProtocol, (o,v)->o.m_portalProtocol=v).setTitle(CoreI18n.PORTAL_PROTOCOL).setDefault("https").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> PORTAL_HOST = BUILDER.addStringField("portalHost", o->o.m_portalHost, (o,v)->o.m_portalHost=v).setTitle(CoreI18n.PORTAL_HOST).setDefault("www.example.com").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> PORTAL_APPLICATION = BUILDER.addStringField("portalApplication", o->o.m_portalApplication, (o,v)->o.m_portalApplication=v).setTitle(CoreI18n.PORTAL_APPLICATION).setDefault("portal").setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstance> SYSTEM_NAME = BUILDER.addStringField("systemName", o->o.m_systemName, (o,v)->o.m_systemName=v).setTitle(CoreI18n.SYSTEM_NAME).setDefault("Forspace").setMaximumLength(255);
-	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null);
-	public static final IDbForeignField<AGCoreModuleInstance, AGLocalization> DEFAULT_LOCALIZATION = BUILDER.addForeignField("defaultLocalization", o->o.m_defaultLocalization, (o,v)->o.m_defaultLocalization=v, AGLocalization.ID).setTitle(CoreI18n.DEFAULT_LOCALIZATION);
+	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstance_ibfk_5");
+	public static final IDbForeignField<AGCoreModuleInstance, AGLocalization> DEFAULT_LOCALIZATION = BUILDER.addForeignField("defaultLocalization", o->o.m_defaultLocalization, (o,v)->o.m_defaultLocalization=v, AGLocalization.ID).setTitle(CoreI18n.DEFAULT_LOCALIZATION).setForeignKeyName("CoreModuleInstance_ibfk_6");
 	public static final IDbBooleanField<AGCoreModuleInstance> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setDefault(false);
 	public static final IDbKey<AGCoreModuleInstance> IK_PRIMARY_FILE_SERVER = BUILDER.addIndexKey("primaryFileServer", PRIMARY_FILE_SERVER);
 	public static final IDbKey<AGCoreModuleInstance> IK_SYSTEM_USER = BUILDER.addIndexKey("systemUser", SYSTEM_USER);
 	public static final IDbKey<AGCoreModuleInstance> IK_EMAIL_SERVER = BUILDER.addIndexKey("emailServer", EMAIL_SERVER);
+	public static final IDbKey<AGCoreModuleInstance> IK_PORTAL_LOGO = BUILDER.addIndexKey("portalLogo", PORTAL_LOGO);
+	public static final IDbKey<AGCoreModuleInstance> IK_DEFAULT_LOCALIZATION = BUILDER.addIndexKey("defaultLocalization", DEFAULT_LOCALIZATION);
 	public static final AGCoreModuleInstanceTable TABLE = new AGCoreModuleInstanceTable(BUILDER);
 	// @formatter:on
 

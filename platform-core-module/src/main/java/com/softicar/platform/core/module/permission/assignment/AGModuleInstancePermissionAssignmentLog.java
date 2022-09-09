@@ -31,12 +31,13 @@ public class AGModuleInstancePermissionAssignmentLog extends AbstractDbRecord<AG
 		BUILDER.setPluralTitle(CoreI18n.MODULE_INSTANCE_PERMISSION_ASSIGNMENT_LOGS);
 	}
 
-	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGModuleInstancePermissionAssignment> ASSIGNMENT = BUILDER.addForeignField("assignment", o->o.m_assignment, (o,v)->o.m_assignment=v, AGModuleInstancePermissionAssignment.ID).setTitle(CoreI18n.ASSIGNMENT);
-	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true);
+	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGModuleInstancePermissionAssignment> ASSIGNMENT = BUILDER.addForeignField("assignment", o->o.m_assignment, (o,v)->o.m_assignment=v, AGModuleInstancePermissionAssignment.ID).setTitle(CoreI18n.ASSIGNMENT).setForeignKeyName("ModuleInstancePermissionAssignmentLog_ibfk_1");
+	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true).setForeignKeyName("ModuleInstancePermissionAssignmentLog_ibfk_2");
 	public static final IDbBooleanField<AGModuleInstancePermissionAssignmentLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
-	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGUuid> PERMISSION = BUILDER.addForeignField("permission", o->o.m_permission, (o,v)->o.m_permission=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION).setNullable().setDefault(null);
+	public static final IDbForeignField<AGModuleInstancePermissionAssignmentLog, AGUuid> PERMISSION = BUILDER.addForeignField("permission", o->o.m_permission, (o,v)->o.m_permission=v, AGUuid.ID).setTitle(CoreI18n.PERMISSION).setNullable().setDefault(null).setForeignKeyName("ModuleInstancePermissionAssignmentLog_ibfk_3");
 	public static final IDbTableKey<AGModuleInstancePermissionAssignmentLog, Tuple2<AGModuleInstancePermissionAssignment, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(ASSIGNMENT, TRANSACTION));
 	public static final IDbKey<AGModuleInstancePermissionAssignmentLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGModuleInstancePermissionAssignmentLog> IK_PERMISSION = BUILDER.addIndexKey("permission", PERMISSION);
 	public static final DbRecordTable<AGModuleInstancePermissionAssignmentLog, Tuple2<AGModuleInstancePermissionAssignment, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

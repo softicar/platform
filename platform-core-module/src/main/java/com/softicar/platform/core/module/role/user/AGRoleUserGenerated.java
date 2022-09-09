@@ -31,9 +31,10 @@ public class AGRoleUserGenerated extends AbstractDbObject<AGRoleUser> {
 
 	public static final IDbIdField<AGRoleUser> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGRoleUser> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGRoleUser, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE);
-	public static final IDbForeignField<AGRoleUser, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER);
+	public static final IDbForeignField<AGRoleUser, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE).setForeignKeyName("RoleUser_ibfk_1");
+	public static final IDbForeignField<AGRoleUser, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("RoleUser_ibfk_2");
 	public static final IDbKey<AGRoleUser> UK_ROLE_USER = BUILDER.addUniqueKey("roleUser", ROLE, USER);
+	public static final IDbKey<AGRoleUser> IK_USER = BUILDER.addIndexKey("user", USER);
 	public static final AGRoleUserTable TABLE = new AGRoleUserTable(BUILDER);
 	// @formatter:on
 

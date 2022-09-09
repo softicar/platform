@@ -5,12 +5,12 @@ IMPORT com.softicar.platform.core.module.log.process.AGLogProcess
 
 TABLE AGLogMessage 'Core.LogMessage' {
 	PK Integer id = SERIAL
-	AGLogProcess process [ON DELETE CASCADE ON UPDATE NO_ACTION]
-	AGLogLevel level = NULL [NULLABLE]
+	AGLogProcess process [ON DELETE CASCADE ON UPDATE NO_ACTION CONSTRAINT_NAME='LogMessage_ibfk_1']
+	AGLogLevel level = NULL [NULLABLE CONSTRAINT_NAME='LogMessage_ibfk_2']
 	String logText [LENGTHBITS=16]
 	DayTime logTime = NOW [TIMESTAMP]
 	DayTime notificationTime = NULL [NULLABLE]
 
 	IK process
 	IK level
-} 
+}

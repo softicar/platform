@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,11 @@ public class AGWorkflowVersionGenerated extends AbstractDbObject<AGWorkflowVersi
 	}
 
 	public static final IDbIdField<AGWorkflowVersion> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowVersion, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW);
-	public static final IDbForeignField<AGWorkflowVersion, AGWorkflowNode> ROOT_NODE = BUILDER.addForeignField("rootNode", o->o.m_rootNode, (o,v)->o.m_rootNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.ROOT_NODE).setNullable().setDefault(null);
+	public static final IDbForeignField<AGWorkflowVersion, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW).setForeignKeyName("WorkflowVersion_ibfk_1");
+	public static final IDbForeignField<AGWorkflowVersion, AGWorkflowNode> ROOT_NODE = BUILDER.addForeignField("rootNode", o->o.m_rootNode, (o,v)->o.m_rootNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.ROOT_NODE).setNullable().setDefault(null).setForeignKeyName("WorkflowVersion_ibfk_2");
 	public static final IDbBooleanField<AGWorkflowVersion> DRAFT = BUILDER.addBooleanField("draft", o->o.m_draft, (o,v)->o.m_draft=v).setTitle(WorkflowI18n.DRAFT).setDefault(true);
+	public static final IDbKey<AGWorkflowVersion> IK_WORKFLOW = BUILDER.addIndexKey("workflow", WORKFLOW);
+	public static final IDbKey<AGWorkflowVersion> IK_ROOT_NODE = BUILDER.addIndexKey("rootNode", ROOT_NODE);
 	public static final AGWorkflowVersionTable TABLE = new AGWorkflowVersionTable(BUILDER);
 	// @formatter:on
 

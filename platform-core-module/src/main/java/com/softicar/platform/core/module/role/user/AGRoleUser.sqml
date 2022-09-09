@@ -6,8 +6,9 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 TABLE AGRoleUser 'Core.RoleUser' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
-	AGRole role
-	AGUser user
-	
+	AGRole role [CONSTRAINT_NAME='RoleUser_ibfk_1']
+	AGUser user [CONSTRAINT_NAME='RoleUser_ibfk_2']
+
 	UK role user
+	IK user
 }

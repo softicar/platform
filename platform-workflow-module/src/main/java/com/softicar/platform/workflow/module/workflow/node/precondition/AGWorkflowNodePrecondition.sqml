@@ -4,9 +4,11 @@ IMPORT com.softicar.platform.core.module.uuid.AGUuid
 IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
 
 TABLE AGWorkflowNodePrecondition 'Workflow.WorkflowNodePrecondition' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowNode workflowNode 
-    Boolean active = TRUE
-    AGUuid function 
+	AGWorkflowNode workflowNode [CONSTRAINT_NAME='WorkflowNodePrecondition_ibfk_1']
+	Boolean active = TRUE
+	AGUuid function [CONSTRAINT_NAME='WorkflowNodePrecondition_ibfk_2']
+
+	IK workflowNode
+	IK function
 }

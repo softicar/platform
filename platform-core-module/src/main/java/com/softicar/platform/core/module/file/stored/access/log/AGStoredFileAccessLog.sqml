@@ -5,8 +5,8 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGStoredFileAccessLog 'Core.StoredFileAccessLog' {
 	PK Integer id = SERIAL
-	AGStoredFile file
-	AGUser accessedBy
+	AGStoredFile file [CONSTRAINT_NAME='StoredFileAccessLog_ibfk_1']
+	AGUser accessedBy [CONSTRAINT_NAME='StoredFileAccessLog_ibfk_2']
 	DayTime accessedAt = NOW [TIMESTAMP]
 
 	IK file

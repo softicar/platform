@@ -4,11 +4,13 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGWorkflowTaskDelegationLog 'Workflow.WorkflowTaskDelegationLog' {
-	
-	PK AGWorkflowTaskDelegation workflowTaskDelegation 
-	PK AGTransaction transaction
-	AGUser targetUser = NULL [NULLABLE]
-	AGUser delegatedBy = NULL [NULLABLE]
+	PK AGWorkflowTaskDelegation workflowTaskDelegation [CONSTRAINT_NAME='WorkflowTaskDelegationLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowTaskDelegationLog_ibfk_2']
+	AGUser targetUser = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTaskDelegationLog_ibfk_3']
+	AGUser delegatedBy = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTaskDelegationLog_ibfk_4']
 	Boolean active = NULL [NULLABLE]
 
+	IK transaction
+	IK targetUser
+	IK delegatedBy
 }

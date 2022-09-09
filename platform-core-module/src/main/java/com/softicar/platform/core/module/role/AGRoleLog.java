@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.record.AbstractDbRecord;
 import com.softicar.platform.db.runtime.record.DbRecordTable;
@@ -30,11 +31,12 @@ public class AGRoleLog extends AbstractDbRecord<AGRoleLog, Tuple2<AGRole, AGTran
 		BUILDER.setPluralTitle(CoreI18n.ROLE_LOGS);
 	}
 
-	public static final IDbForeignField<AGRoleLog, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE);
-	public static final IDbForeignField<AGRoleLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
+	public static final IDbForeignField<AGRoleLog, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE).setForeignKeyName("RoleLog_ibfk_1");
+	public static final IDbForeignField<AGRoleLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("RoleLog_ibfk_2");
 	public static final IDbBooleanField<AGRoleLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGRoleLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbTableKey<AGRoleLog, Tuple2<AGRole, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(ROLE, TRANSACTION));
+	public static final IDbKey<AGRoleLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final DbRecordTable<AGRoleLog, Tuple2<AGRole, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 

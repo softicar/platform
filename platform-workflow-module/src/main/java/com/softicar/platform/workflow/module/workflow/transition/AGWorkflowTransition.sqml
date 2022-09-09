@@ -6,17 +6,22 @@ IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
 IMPORT com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion
 
 TABLE AGWorkflowTransition 'Workflow.WorkflowTransition' {
-	
 	PK Integer id = SERIAL
-	AGWorkflowVersion workflowVersion
+	AGWorkflowVersion workflowVersion [CONSTRAINT_NAME='WorkflowTransition_ibfk_1']
 	String name [MAXLENGTH=255]
 	Boolean active = TRUE
-	AGWorkflowNode sourceNode
-	AGWorkflowNode targetNode
+	AGWorkflowNode sourceNode [CONSTRAINT_NAME='WorkflowTransition_ibfk_2']
+	AGWorkflowNode targetNode [CONSTRAINT_NAME='WorkflowTransition_ibfk_3']
 	Boolean notify = TRUE
 	Boolean autoTransition = FALSE
 	String requiredVotes [MAXLENGTH=255]
 	String htmlColor = NULL [NULLABLE MAXLENGTH=7]
-	AGWorkflowIcon transitionIcon = NULL [NULLABLE]
-	AGUuid sideEffect = NULL [NULLABLE]
+	AGWorkflowIcon transitionIcon = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransition_ibfk_4']
+	AGUuid sideEffect = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransition_ibfk_5']
+
+	IK workflowVersion
+	IK sourceNode
+	IK targetNode
+	IK transitionIcon
+	IK sideEffect
 }

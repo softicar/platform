@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -29,9 +30,11 @@ public class AGWorkflowNodeActionPermissionGenerated extends AbstractDbObject<AG
 	}
 
 	public static final IDbIdField<AGWorkflowNodeActionPermission> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowNodeActionPermission, AGWorkflowNodeAction> WORKFLOW_NODE_ACTION = BUILDER.addForeignField("workflowNodeAction", o->o.m_workflowNodeAction, (o,v)->o.m_workflowNodeAction=v, AGWorkflowNodeAction.ID).setTitle(WorkflowI18n.WORKFLOW_NODE_ACTION);
+	public static final IDbForeignField<AGWorkflowNodeActionPermission, AGWorkflowNodeAction> WORKFLOW_NODE_ACTION = BUILDER.addForeignField("workflowNodeAction", o->o.m_workflowNodeAction, (o,v)->o.m_workflowNodeAction=v, AGWorkflowNodeAction.ID).setTitle(WorkflowI18n.WORKFLOW_NODE_ACTION).setForeignKeyName("WorkflowNodeActionPermission_ibfk_1");
 	public static final IDbBooleanField<AGWorkflowNodeActionPermission> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflowNodeActionPermission, AGUuid> PERMISSION_UUID = BUILDER.addForeignField("permissionUuid", o->o.m_permissionUuid, (o,v)->o.m_permissionUuid=v, AGUuid.ID).setTitle(WorkflowI18n.PERMISSION_UUID);
+	public static final IDbForeignField<AGWorkflowNodeActionPermission, AGUuid> PERMISSION_UUID = BUILDER.addForeignField("permissionUuid", o->o.m_permissionUuid, (o,v)->o.m_permissionUuid=v, AGUuid.ID).setTitle(WorkflowI18n.PERMISSION_UUID).setForeignKeyName("WorkflowNodeActionPermission_ibfk_2");
+	public static final IDbKey<AGWorkflowNodeActionPermission> IK_WORKFLOW_NODE_ACTION = BUILDER.addIndexKey("workflowNodeAction", WORKFLOW_NODE_ACTION);
+	public static final IDbKey<AGWorkflowNodeActionPermission> IK_PERMISSION_UUID = BUILDER.addIndexKey("permissionUuid", PERMISSION_UUID);
 	public static final AGWorkflowNodeActionPermissionTable TABLE = new AGWorkflowNodeActionPermissionTable(BUILDER);
 	// @formatter:on
 

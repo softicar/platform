@@ -4,7 +4,7 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGAjaxSession 'Core.AjaxSession' {
 	PK Integer id = SERIAL
-	AGUser user = NULL [NULLABLE ON DELETE CASCADE ON UPDATE CASCADE]
+	AGUser user = NULL [NULLABLE ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='AjaxSession_ibfk_1']
 	String clientIpAddress = NULL [NULLABLE MAXLENGTH=255]
 	String localName = NULL [NULLABLE MAXLENGTH=255]
 	String localAddress = NULL [NULLABLE MAXLENGTH=255]

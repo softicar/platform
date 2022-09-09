@@ -30,10 +30,11 @@ public class AGWorkflowNodeActionGenerated extends AbstractDbObject<AGWorkflowNo
 	}
 
 	public static final IDbIdField<AGWorkflowNodeAction> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbForeignField<AGWorkflowNodeAction, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE);
+	public static final IDbForeignField<AGWorkflowNodeAction, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setForeignKeyName("WorkflowNodeAction_ibfk_1");
 	public static final IDbBooleanField<AGWorkflowNodeAction> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setDefault(true);
-	public static final IDbForeignField<AGWorkflowNodeAction, AGUuid> ACTION = BUILDER.addForeignField("action", o->o.m_action, (o,v)->o.m_action=v, AGUuid.ID).setTitle(WorkflowI18n.ACTION);
+	public static final IDbForeignField<AGWorkflowNodeAction, AGUuid> ACTION = BUILDER.addForeignField("action", o->o.m_action, (o,v)->o.m_action=v, AGUuid.ID).setTitle(WorkflowI18n.ACTION).setForeignKeyName("WorkflowNodeAction_ibfk_2");
 	public static final IDbKey<AGWorkflowNodeAction> UK_WORKFLOW_NODE_ACTION = BUILDER.addUniqueKey("workflowNodeAction", WORKFLOW_NODE, ACTION);
+	public static final IDbKey<AGWorkflowNodeAction> IK_ACTION = BUILDER.addIndexKey("action", ACTION);
 	public static final AGWorkflowNodeActionTable TABLE = new AGWorkflowNodeActionTable(BUILDER);
 	// @formatter:on
 

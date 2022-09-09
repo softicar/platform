@@ -6,5 +6,5 @@ TABLE AGUserAllowedIpRule 'Core.UserAllowedIpRule' {
 	String name [MAXLENGTH=255]
 	String addresses [LENGTHBITS=16 COMMENT='each line contains an ip or network address']
 
-	UK name 
+	UK name
 }

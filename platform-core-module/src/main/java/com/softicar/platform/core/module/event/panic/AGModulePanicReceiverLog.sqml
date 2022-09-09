@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.event.panic
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGModulePanicReceiverLog 'Core.ModulePanicReceiverLog' {
-	PK AGModulePanicReceiver modulePanicReceiver
-	PK AGTransaction transaction
+	PK AGModulePanicReceiver modulePanicReceiver [CONSTRAINT_NAME='ModulePanicReceiverLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='ModulePanicReceiverLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 
 	IK transaction

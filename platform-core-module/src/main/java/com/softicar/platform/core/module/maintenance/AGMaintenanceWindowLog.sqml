@@ -3,11 +3,14 @@ PACKAGE com.softicar.platform.core.module.maintenance
 IMPORT com.softicar.platform.core.module.maintenance.state.AGMaintenanceState
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
-TABLE AGMaintenanceWindowLog "Core.MaintenanceWindowLog" {
-	PK AGMaintenanceWindow maintenanceWindow
-	PK AGTransaction transaction
+TABLE AGMaintenanceWindowLog 'Core.MaintenanceWindowLog' {
+	PK AGMaintenanceWindow maintenanceWindow [CONSTRAINT_NAME='MaintenanceWindowLog_ibfk_1']
+	PK AGTransaction transaction [CONSTRAINT_NAME='MaintenanceWindowLog_ibfk_2']
 	DayTime expectedStart = NULL [NULLABLE]
 	DayTime expectedEnd = NULL [NULLABLE]
-	AGMaintenanceState state = NULL [NULLABLE]
-	String comment = NULL [LENGTHBITS=8 NULLABLE]
+	AGMaintenanceState state = NULL [NULLABLE CONSTRAINT_NAME='MaintenanceWindowLog_ibfk_3']
+	String comment = NULL [NULLABLE LENGTHBITS=8]
+
+	IK transaction
+	IK state
 }

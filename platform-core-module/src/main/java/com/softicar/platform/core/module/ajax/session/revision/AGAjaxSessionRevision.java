@@ -29,7 +29,7 @@ public class AGAjaxSessionRevision extends AbstractDbRecord<AGAjaxSessionRevisio
 		BUILDER.setPluralTitle(CoreI18n.AJAX_SESSION_REVISIONS);
 	}
 
-	public static final IDbForeignField<AGAjaxSessionRevision, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION).setOnDelete(DbForeignKeyAction.CASCADE).setOnUpdate(DbForeignKeyAction.NO_ACTION);
+	public static final IDbForeignField<AGAjaxSessionRevision, AGAjaxSession> SESSION = BUILDER.addForeignField("session", o->o.m_session, (o,v)->o.m_session=v, AGAjaxSession.ID).setTitle(CoreI18n.SESSION).setOnDelete(DbForeignKeyAction.CASCADE).setOnUpdate(DbForeignKeyAction.NO_ACTION).setForeignKeyName("AjaxSessionRevision_ibfk_1");
 	public static final IDbStringField<AGAjaxSessionRevision> REVISION = BUILDER.addStringField("revision", o->o.m_revision, (o,v)->o.m_revision=v).setTitle(CoreI18n.REVISION).setDefault("").setMaximumLength(255);
 	public static final IDbTableKey<AGAjaxSessionRevision, AGAjaxSession> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SESSION));
 	public static final DbRecordTable<AGAjaxSessionRevision, AGAjaxSession> TABLE = new DbRecordTable<>(BUILDER);
