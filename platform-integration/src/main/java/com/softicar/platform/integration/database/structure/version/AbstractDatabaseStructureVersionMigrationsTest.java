@@ -80,6 +80,17 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 	 *            the {@link ResourceSupplierContainer}-annotated {@link Class}
 	 *            that enumerates the structure and migration definition files
 	 *            (never <i>null</i>)
+	 */
+	public AbstractDatabaseStructureVersionMigrationsTest(Class<?> resourceContainerClass) {
+
+		this(resourceContainerClass, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * @param resourceContainerClass
+	 *            the {@link ResourceSupplierContainer}-annotated {@link Class}
+	 *            that enumerates the structure and migration definition files
+	 *            (never <i>null</i>)
 	 * @param numberOfRecentMigrations
 	 *            determines how many migrations shall be tested, starting with
 	 *            the most recent one (at least 1; {@link Integer#MAX_VALUE} to
