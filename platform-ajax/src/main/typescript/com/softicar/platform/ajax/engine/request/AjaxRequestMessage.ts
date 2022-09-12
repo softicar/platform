@@ -39,10 +39,6 @@ class AjaxRequestMessage {
 	public setKey(key: string) {
 		return this.setString("key", key);
 	}
-
-	public setKeyCode(keyCode: number) {
-		return this.setNumber('k', keyCode);
-	}
 	
 	public setModifierKey(name: string, value: boolean) {
 		return this.setBooleanIfTrue(name, value);

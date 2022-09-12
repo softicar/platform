@@ -43,12 +43,12 @@ class KeyboardEventManager {
 		return handler;
 	}
 	
-	private getKey(eventName: string): number {
+	private getKey(eventName: string): string {
 		switch(eventName) {
-			case 'ENTER':  return DOM_VK_ENTER;
-			case 'ESCAPE': return DOM_VK_ESCAPE;
-			case 'SPACE':  return DOM_VK_SPACE;
-			case 'TAB':    return DOM_VK_TAB;
+			case 'ENTER':  return "Enter";
+			case 'ESCAPE': return "Escape";
+			case 'SPACE':  return " ";
+			case 'TAB':    return "Tab";
 		}
 		throw new Error("Internal error: Unsupported keyboard event name.");
 	}
@@ -58,14 +58,14 @@ const KEYBOARD_EVENT_MANAGER = new KeyboardEventManager();
 
 class KeyboardEventHandler {
 	private readonly node;
-	private readonly keyCodes = new Map<number, string>();
-	private readonly fireOnKeyUp = new Map<number, boolean>();
-	private readonly preventDefault = new Map<number, boolean>();
-	private readonly cssClassApplier = new Map<number, CssClassApplier>();
+	private readonly keyCodes = new Map<string, string>();
+	private readonly fireOnKeyUp = new Map<string, boolean>();
+	private readonly preventDefault = new Map<string, boolean>();
+	private readonly cssClassApplier = new Map<string, CssClassApplier>();
 	private listenToKeyDown = false;
 	private listenToKeyUp = false;
 	private listenToKeys = new Set<string>();
-	private lastKeyDown = 0;
+	private lastKeyDown = "0";
 
 	public constructor(node: HTMLElement) {
 		this.node = node;
@@ -93,7 +93,7 @@ class KeyboardEventHandler {
 		this.listenToKeys = new Set<string>(keys);
 	}
 
-	public setListenTo(key: number, eventName: string, enabled: boolean) {
+	public setListenTo(key: string, eventName: string, enabled: boolean) {
 		if(enabled) {
 			this.keyCodes.set(key, eventName);
 			this.preventDefault.set(key, true);
@@ -102,25 +102,25 @@ class KeyboardEventHandler {
 		}
 	}
 
-	public setFireOnKeyUp(key: number, enabled: boolean) {
+	public setFireOnKeyUp(key: string, enabled: boolean) {
 		this.fireOnKeyUp.set(key, enabled);
 	}
 
-	public setPreventDefault(key: number, enabled: boolean) {
+	public setPreventDefault(key: string, enabled: boolean) {
 		this.preventDefault.set(key, enabled);
 	}
 
-	public setCssClassApplier(key: number, applier: CssClassApplier) {
+	public setCssClassApplier(key: string, applier: CssClassApplier) {
 		this.cssClassApplier.set(key, applier);
 	}
 
 	private handleKeyDown(event: KeyboardEvent) {
-		let eventName = this.keyCodes.get(event.keyCode);
+		let eventName = this.keyCodes.get(event.key);
 		if(eventName) {
-			if(!this.fireOnKeyUp.get(event.keyCode) && !event.repeat) {
+			if(!this.fireOnKeyUp.get(event.key) && !event.repeat) {
 				sendOrDelegateEvent(this.node, event, eventName);
 			}
-			let applier = this.cssClassApplier.get(event.keyCode);
+			let applier = this.cssClassApplier.get(event.key);
 			if(applier) {
 				applier.addClasses();
 			}
@@ -129,16 +129,16 @@ class KeyboardEventHandler {
 		if(this.listenToKeyDown && this.listenToKeys.has(event.key)) {
 			sendOrDelegateEvent(this.node, event, 'KEYDOWN');
 		}
-		this.lastKeyDown = event.keyCode;
+		this.lastKeyDown = event.key;
 	}
 
 	private handleKeyUp(event: KeyboardEvent) {
-		var eventName = this.keyCodes.get(event.keyCode);
+		var eventName = this.keyCodes.get(event.key);
 		if(eventName) {
-			if(this.fireOnKeyUp.get(event.keyCode) && this.lastKeyDown == event.keyCode) {
+			if(this.fireOnKeyUp.get(event.key) && this.lastKeyDown == event.key) {
 				sendOrDelegateEvent(this.node, event, eventName);
 			}
-			let applier = this.cssClassApplier.get(event.keyCode);
+			let applier = this.cssClassApplier.get(event.key);
 			if(applier) {
 				applier.removeClasses();
 			}
@@ -147,12 +147,12 @@ class KeyboardEventHandler {
 		if(this.listenToKeyUp && this.listenToKeys.has(event.key)) {
 			sendOrDelegateEvent(this.node, event, 'KEYUP');
 		}
-		this.lastKeyDown = 0;
+		this.lastKeyDown = "0";
 	}
 
 	private stopFurtherHandling(event: KeyboardEvent) {
 		event.stopPropagation();
-		if(this.preventDefault.get(event.keyCode)) {
+		if(this.preventDefault.get(event.key)) {
 			event.preventDefault();
 		}
 	}
