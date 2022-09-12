@@ -20,6 +20,11 @@ SELECT `id` INTO @superUserUuidId FROM `Core`.`Uuid` WHERE `uuidString` = 'abeb1
 SELECT `id` INTO @accessManagementUuidId FROM `Core`.`Uuid` WHERE `uuidString` = 'c0b0e2ea-7475-4e39-addf-f977f5eb8986';
 SELECT `id` INTO @systemAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = 'e1bb654c-4a85-4c2f-b0a2-1116b2fca657';
 
+-- create new permissions if necessary
+INSERT IGNORE INTO `Core`.`Uuid` (`uuidBytes`, `uuidString`) VALUES
+	(hex('7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'), '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'),
+	(hex('197bcbf7-0003-4552-8f4d-33d4f1d72a0b'), '197bcbf7-0003-4552-8f4d-33d4f1d72a0b');
+
 -- fetch new permissions
 SELECT `id` INTO @coreAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d';
 SELECT `id` INTO @coreOperationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = '197bcbf7-0003-4552-8f4d-33d4f1d72a0b';
