@@ -22,8 +22,8 @@ SELECT `id` INTO @systemAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidStrin
 
 -- create new permissions if necessary
 INSERT IGNORE INTO `Core`.`Uuid` (`uuidBytes`, `uuidString`) VALUES
-	(hex('7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'), '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'),
-	(hex('197bcbf7-0003-4552-8f4d-33d4f1d72a0b'), '197bcbf7-0003-4552-8f4d-33d4f1d72a0b');
+	(UUID_TO_BIN('7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'), '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'),
+	(UUID_TO_BIN('197bcbf7-0003-4552-8f4d-33d4f1d72a0b'), '197bcbf7-0003-4552-8f4d-33d4f1d72a0b');
 
 -- fetch new permissions
 SELECT `id` INTO @coreAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d';
