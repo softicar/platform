@@ -40,8 +40,7 @@ public class AGModuleInstancePermissionAssignmentTable extends EmfObjectTable<AG
 		attributes//
 			.editAttribute(AGModuleInstancePermissionAssignment.USER)
 			.setImmutable(true)
-			.setPredicateMandatory(EmfPredicates.always())
-			.setInputFactory(ModuleInstancePermissionAssignmentUserInput::new);
+			.setPredicateMandatory(EmfPredicates.always());
 
 		attributes//
 			.editAttribute(AGModuleInstancePermissionAssignment.MODULE_INSTANCE_BASE)
