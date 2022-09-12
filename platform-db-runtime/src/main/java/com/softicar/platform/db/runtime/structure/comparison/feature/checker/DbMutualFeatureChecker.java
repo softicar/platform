@@ -92,7 +92,7 @@ public class DbMutualFeatureChecker<F extends IDbTableStructureFeature> {
 					.setLevel(level)
 					.setTableStructures(comparer.getReferenceStructure(), comparer.getSampleStructure())
 					.build(//
-						"%s  * %s: <pre>%s</pre>  * %s: <pre>%s</pre>",
+						"%s: %s: '%s' vs. %s: '%s'",
 						propertyName,
 						comparer.getReferenceName(),
 						valueToString.apply(referenceValue),
