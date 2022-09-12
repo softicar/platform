@@ -6,7 +6,7 @@ public interface IDomDropEvent {
 
 	/**
 	 * Returns the node that was dragged and dropped.
-	 * 
+	 *
 	 * @return the dropped node, never null
 	 */
 	IDomNode getNode();
@@ -14,30 +14,30 @@ public interface IDomDropEvent {
 	/**
 	 * The x position of the dragged node when the user started the drag and
 	 * drop process.
-	 * 
+	 *
 	 * @return x position at start of drag
 	 */
-	int getStartX();
+	double getStartX();
 
 	/**
 	 * The y position of the dragged node when the user started the drag and
 	 * drop process.
-	 * 
+	 *
 	 * @return y position at start of drag
 	 */
-	int getStartY();
+	double getStartY();
 
 	/**
 	 * The x position of the dragged node when the user dropped it.
-	 * 
+	 *
 	 * @return x position of the dropped node
 	 */
-	int getDropX();
+	double getDropX();
 
 	/**
 	 * The y position of the dragged node when the user dropped it.
-	 * 
+	 *
 	 * @return y position of the dropped node
 	 */
-	int getDropY();
+	double getDropY();
 }

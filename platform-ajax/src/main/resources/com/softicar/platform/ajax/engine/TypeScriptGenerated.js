@@ -64,15 +64,15 @@ class AjaxEngine {
 }
 const AJAX_ENGINE = new AjaxEngine();
 const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
-const AJAX_REQUEST_KEEP_ALIVE = 2;
-const AJAX_REQUEST_TIMEOUT = 5;
-const AJAX_REQUEST_DOM_EVENT = 6;
-const AJAX_REQUEST_DRAG_AND_DROP = 7;
-const AJAX_REQUEST_UPLOAD = 8;
-const DOM_MODIFIER_ALT = 'Alt';
-const DOM_MODIFIER_CONTROL = 'Control';
-const DOM_MODIFIER_META = 'Meta';
-const DOM_MODIFIER_SHIFT = 'Shift';
+const AJAX_REQUEST_KEEP_ALIVE = 'KEEP_ALIVE';
+const AJAX_REQUEST_TIMEOUT = 'TIMEOUT';
+const AJAX_REQUEST_DOM_EVENT = 'DOM_EVENT';
+const AJAX_REQUEST_DRAG_AND_DROP = 'DRAG_AND_DROP';
+const AJAX_REQUEST_UPLOAD = 'UPLOAD';
+const DOM_MODIFIER_ALT = 'ALT';
+const DOM_MODIFIER_CONTROL = 'CONTROL';
+const DOM_MODIFIER_META = 'META';
+const DOM_MODIFIER_SHIFT = 'SHIFT';
 const KEEP_ALIVE_REQUEST_DELAY = 3 * 60 * 1000;
 const KEY_ENTER = 'Enter';
 const KEY_ESCAPE = 'Escape';
@@ -307,14 +307,8 @@ class KeepAlive {
 const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
 class Point {
     constructor(x = 0, y = 0) {
-        this._x = x;
-        this._y = y;
-    }
-    get x() {
-        return this._x;
-    }
-    get y() {
-        return this._y;
+        this.x = x;
+        this.y = y;
     }
     plus(point) {
         return new Point(this.x + point.x, this.y + point.y);
@@ -388,6 +382,17 @@ class DomPopupEngine {
     }
 }
 const POPUP_ENGINE = new DomPopupEngine();
+class Rect {
+    constructor(x = 0, y = 0, width = 0, height = 0) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    static fromDomRect(rect) {
+        return new Rect(rect.x, rect.y, rect.width, rect.height);
+    }
+}
 let SESSION_TIMED_OUT = false;
 let SESSION_TIMEOUT_DIALOG;
 function setSessionTimeoutDialog(dialog) {
@@ -635,10 +640,10 @@ function sendDomEventToServer(event, eventType) {
         message.setKey(event.key);
     }
     if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
-        message.setModifierKey('altKey', event.altKey);
-        message.setModifierKey('ctrlKey', event.ctrlKey);
-        message.setModifierKey('metaKey', event.metaKey);
-        message.setModifierKey('shiftKey', event.shiftKey);
+        message.setModifierKey(DOM_MODIFIER_ALT, event.altKey);
+        message.setModifierKey(DOM_MODIFIER_CONTROL, event.ctrlKey);
+        message.setModifierKey(DOM_MODIFIER_META, event.metaKey);
+        message.setModifierKey(DOM_MODIFIER_SHIFT, event.shiftKey);
     }
     if (event instanceof WheelEvent) {
         message.setDeltaX(event.deltaX);
@@ -943,74 +948,101 @@ class AjaxRequest {
 }
 class AjaxRequestMessage {
     constructor() {
-        this.data = new Map();
-        this.setString('i', DOCUMENT_INSTANCE_UUID);
-        this.setBooleanIfTrue('debug', DEBUG);
-        this.setBooleanIfTrue('verbose', VERBOSE);
+        this.instanceUuid = DOCUMENT_INSTANCE_UUID;
+        this.requestIndex = -1;
+        this.action = null;
+        this.nodeId = null;
+        this.nodeValues = {};
+        this.eventType = null;
+        this.key = "";
+        this.modifierKeys = {};
+        this.cursor = new Point();
+        this.cursorRelative = new Point();
+        this.dragStart = new Point();
+        this.dragPosition = new Point();
+        this.windowPageOffset = new Point();
+        this.windowInnerSize = new Point();
+        this.boundingClientRect = new Rect();
+        this.deltaX = 0;
+        this.deltaY = 0;
+        this.deltaZ = 0;
     }
     copyNodeValues() {
         VALUE_NODE_MAP.copyNodeValues(this);
     }
     setRequestIndex(requestIndex) {
-        return this.setNumber('x', requestIndex);
+        this.requestIndex = requestIndex;
+        return this;
     }
     setAction(action) {
-        return this.setNumber('a', action);
+        this.action = action;
+        return this;
     }
     setNode(node) {
-        return this.setString('n', node.id);
+        this.nodeId = node.id;
+        return this;
     }
     setNodeValue(node, value) {
-        return this.setString('V' + node.id.substring(1), value);
+        this.nodeValues[node.id] = value;
+        return this;
     }
     setEventType(eventType) {
-        return this.setString('e', eventType.toUpperCase());
+        this.eventType = eventType.toUpperCase();
+        return this;
     }
     setKey(key) {
-        return this.setString("key", key);
+        this.key = key;
+        return this;
     }
     setModifierKey(name, value) {
-        return this.setBooleanIfTrue(name, value);
+        this.modifierKeys[name] = value;
+        return this;
     }
     setMousePosition(position) {
-        return this.setPoint('c', position);
+        this.cursor = position;
+        return this;
     }
     setMouseRelativePosition(position) {
-        return this.setPoint('r', position);
+        this.cursorRelative = position;
+        return this;
     }
     setDragStart(start) {
-        return this.setPoint('s', start);
+        this.dragStart = start;
+        return this;
     }
     setDragPosition(position) {
-        return this.setPoint('d', position);
+        this.dragPosition = position;
+        return this;
     }
     setWindowPageOffset(pageOffset) {
-        return this.setPoint('s', pageOffset);
+        this.windowPageOffset = pageOffset;
+        return this;
     }
     setWindowInnerSize(innerSize) {
-        return this.setPoint('w', innerSize);
+        this.windowInnerSize = innerSize;
+        return this;
     }
-    setBoundingClientRect(rect) {
-        this.setNumber("bcrX", rect.x);
-        this.setNumber("bcrY", rect.y);
-        this.setNumber("bcrW", rect.width);
-        this.setNumber("bcrH", rect.height);
+    setBoundingClientRect(boundingClientRect) {
+        this.boundingClientRect = Rect.fromDomRect(boundingClientRect);
         return this;
     }
     setDeltaX(value) {
-        this.setNumber("deltaX", value);
+        this.deltaX = value;
+        return this;
     }
     setDeltaY(value) {
-        this.setNumber("deltaY", value);
+        this.deltaY = value;
+        return this;
     }
     setDeltaZ(value) {
-        this.setNumber("deltaZ", value);
+        this.deltaZ = value;
+        return this;
     }
     encode() {
-        return new AjaxRequestMessageEncoder(this.data).encode();
+        return new AjaxRequestMessageEncoder(this).encode();
     }
     encodeToHex() {
-        return new AjaxRequestMessageEncoder(this.data).encodeToHex();
+        return new AjaxRequestMessageEncoder(this).encodeToHex();
     }
     isRedundantTo(other) {
         if (this.isKeepAlive()) {
@@ -1048,84 +1080,53 @@ class AjaxRequestMessage {
         }
     }
     isSameDeltaDirections(other) {
-        var _a, _b, _c, _d, _e, _f;
-        let thisDeltaX = Number((_a = this.data.get('deltaX')) !== null && _a !== void 0 ? _a : 0);
-        let otherDeltaX = Number((_b = other.data.get('deltaX')) !== null && _b !== void 0 ? _b : 0);
-        let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
-        let thisDeltaY = Number((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
-        let otherDeltaY = Number((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
-        let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
-        let thisDeltaZ = Number((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
-        let otherDeltaZ = Number((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
-        let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
+        let deltaXSameSign = Math.sign(this.deltaX) == Math.sign(other.deltaX);
+        let deltaYSameSign = Math.sign(this.deltaY) == Math.sign(other.deltaY);
+        let deltaZSameSign = Math.sign(this.deltaZ) == Math.sign(other.deltaZ);
         return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {
-        let nodeId = this.data.get('n');
-        if (nodeId) {
-            return document.getElementById(nodeId) === null;
+        if (this.nodeId) {
+            return document.getElementById(this.nodeId) === null;
         }
         else {
             return false;
         }
     }
     isKeepAlive() {
-        return this.data.get('a') === '' + AJAX_REQUEST_KEEP_ALIVE;
+        return this.action == AJAX_REQUEST_KEEP_ALIVE;
     }
     isDomEvent() {
-        return this.data.get('a') === '' + AJAX_REQUEST_DOM_EVENT;
+        return this.action == AJAX_REQUEST_DOM_EVENT;
     }
     isSameAction(other) {
-        return this.data.get('a') === other.data.get('a');
+        return this.action == other.action;
     }
     isOnSameNode(other) {
-        return this.data.get('n') === other.data.get('n');
+        return this.nodeId == other.nodeId;
     }
     isSameEventType(other) {
-        return this.data.get('e') === other.data.get('e');
+        return this.eventType == other.eventType;
     }
     isPassiveEventType() {
-        return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+        return this.eventType == 'CHANGE' || this.eventType == 'INPUT';
     }
     isKeyEventType() {
-        return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
+        return this.eventType == 'KEYDOWN' || this.eventType == 'KEYUP';
     }
     isWheelEventType() {
-        return this.data.get('e') == 'WHEEL';
+        return this.eventType == 'WHEEL';
     }
     isSent() {
-        return this.data.has('x');
-    }
-    setString(key, value) {
-        this.data.set(key, value);
-        return this;
-    }
-    setNumber(key, value) {
-        return this.setString(key, '' + value);
-    }
-    setBooleanIfTrue(key, value) {
-        if (value) {
-            this.setString(key, '1');
-        }
-        return this;
-    }
-    setPoint(key, value) {
-        this.setNumber(key + 'x', value.x);
-        this.setNumber(key + 'y', value.y);
-        return this;
+        return this.requestIndex >= 0;
     }
 }
 class AjaxRequestMessageEncoder {
-    constructor(data) {
-        this.data = data;
+    constructor(message) {
+        this.message = message;
     }
     encode() {
-        let data = [];
-        for (let [key, value] of this.data) {
-            data.push(key.length + "\n" + key);
-            data.push(value.length + "\n" + value);
-        }
-        return data.join("");
+        return JSON.stringify(this.message);
     }
     encodeToHex() {
         return this.encodeTextCharsToHex(this.encode());
@@ -1310,7 +1311,7 @@ class HttpRequest {
     constructor() {
         this.url = '';
         this.message = '';
-        this.contentType = 'text/plain; charset=UTF-8';
+        this.contentType = 'application/json; charset=UTF-8';
     }
     setUrl(url) {
         this.url = url;

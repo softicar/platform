@@ -3,22 +3,24 @@ package com.softicar.platform.ajax.document.service;
 import com.softicar.platform.ajax.document.AjaxDocumentScope;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.exceptions.AjaxHttpBadRequestError;
+import com.softicar.platform.ajax.request.AjaxRequestMessage;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.node.IDomNode;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocumentService {
 
-	private static final String EVENT_NODE_PARAMETER = "n";
-	private static final String INPUT_VALUE_PARAMETER_PREFIX = "V";
+	protected final AjaxRequestMessage message;
 
 	public AbstractAjaxDocumentActionService(IAjaxRequest request, IAjaxDocument document) {
 
 		super(request, document);
+
+		this.message = request.getRequestMessageOrThrow();
 	}
 
 	@Override
@@ -26,8 +28,10 @@ public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocu
 
 		synchronized (document) {
 			try (AjaxDocumentScope scope = new AjaxDocumentScope(document, request)) {
-				updateInputFieldValues(document);
-				service(document);
+				updateInputFieldValues();
+				service(document, getEventNode());
+				executePayloadCode(() -> document.getRefreshBus().submitEvent());
+				document.finishRequestHandling(statementList);
 			}
 		}
 
@@ -40,7 +44,7 @@ public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocu
 	protected <T> void executePayloadCodeOnNode(Class<T> nodeClass, Consumer<T> payloadCode) {
 
 		IDomNode node = Optional//
-			.ofNullable(getEventNode(document))
+			.ofNullable(getEventNode())
 			.orElseThrow(() -> new AjaxHttpBadRequestError("Failed to determine event node for document action."));
 		T castedNode = CastUtils//
 			.tryCast(node, nodeClass)
@@ -48,40 +52,26 @@ public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocu
 		executePayloadCode(() -> payloadCode.accept(castedNode));
 	}
 
-	private void service(IAjaxDocument document) {
+	private IDomNode getEventNode() {
 
-		service(document, getEventNode(document));
-		executePayloadCode(() -> document.getRefreshBus().submitEvent());
-		document.finishRequestHandling(statementList);
+		return message.getNode(document);
 	}
 
-	private IDomNode getEventNode(IAjaxDocument document) {
+	private void updateInputFieldValues() {
 
-		String nodeId = request.getParameter(EVENT_NODE_PARAMETER);
-		return nodeId != null? document.getNode(nodeId) : null;
+		message.getNodeValues().entrySet().forEach(this::updateInputFieldValue);
+		document.getEngine().approveNodeValues();
 	}
 
-	private void updateInputFieldValues(IAjaxDocument document) {
+	private void updateInputFieldValue(Entry<String, String> entry) {
 
-		for (Map.Entry<String, String[]> parameter: request.getParameterMap().entrySet()) {
-			String name = parameter.getKey();
-			String[] value = parameter.getValue();
-			if (name.startsWith(INPUT_VALUE_PARAMETER_PREFIX)) {
-				IDomNode node = document.getNode(Integer.parseInt(name.substring(1)));
-
-				if (node == null) {
-					// node was collected
-					continue;
-				}
-
-				if (node instanceof DomSelect<?>) {
-					((DomSelect<?>) node).setSelectedOptions_noJS(value[0]);
-				} else {
-					node.getAccessor().setAttributeInMap("value", value[0]);
-				}
+		var node = document.getNode(entry.getKey());
+		if (node != null) {
+			if (node instanceof DomSelect<?>) {
+				((DomSelect<?>) node).setSelectedOptions_noJS(entry.getValue());
+			} else {
+				node.getAccessor().setAttributeInMap("value", entry.getValue());
 			}
 		}
-
-		document.getEngine().approveNodeValues();
 	}
 }

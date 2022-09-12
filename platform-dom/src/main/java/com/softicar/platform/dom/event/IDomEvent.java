@@ -32,14 +32,14 @@ public interface IDomEvent {
 	 *
 	 * @return the mouse cursor x position or zero
 	 */
-	int getClientX();
+	double getClientX();
 
 	/**
 	 * Returns the y position of the mouse cursor when the event was triggered.
 	 *
 	 * @return the mouse cursor y position or zero
 	 */
-	int getClientY();
+	double getClientY();
 
 	/**
 	 * Returns the x position of the mouse cursor relative to the target node
@@ -51,7 +51,7 @@ public interface IDomEvent {
 	 *
 	 * @return the relative mouse cursor x position or null
 	 */
-	Double getRelativeX();
+	double getRelativeX();
 
 	/**
 	 * Returns the y position of the mouse cursor relative to the target node
@@ -63,7 +63,7 @@ public interface IDomEvent {
 	 *
 	 * @return the relative mouse cursor y position or null
 	 */
-	Double getRelativeY();
+	double getRelativeY();
 
 	/**
 	 * Returns the x offset by which the document body was scrolled when the
@@ -71,7 +71,7 @@ public interface IDomEvent {
 	 *
 	 * @return the x scroll offset of the document body
 	 */
-	Double getScrollX();
+	double getScrollX();
 
 	/**
 	 * Returns the y offset by which the document body was scrolled when the
@@ -79,7 +79,7 @@ public interface IDomEvent {
 	 *
 	 * @return the y scroll offset of the document body
 	 */
-	Double getScrollY();
+	double getScrollY();
 
 	/**
 	 * Returns the name of the key that triggered this event.
@@ -95,14 +95,14 @@ public interface IDomEvent {
 	 *
 	 * @return the width of the window in pixels
 	 */
-	int getWindowWidth();
+	double getWindowWidth();
 
 	/**
 	 * Returns the height of the browser window when the event was triggered.
 	 *
 	 * @return the height of the window in pixels
 	 */
-	int getWindowHeight();
+	double getWindowHeight();
 
 	/**
 	 * Returns the bounding client {@link DomRect} for the event node.

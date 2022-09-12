@@ -25,7 +25,7 @@ public abstract class AbstractAjaxDomEventTest extends AbstractAjaxSeleniumLowLe
 		assertTrue(0 < event.getClientY());
 		assertEquals(0, event.getScrollX(), 0.1);
 		assertEquals(0, event.getScrollY(), 0.1);
-		assertNull(event.getRelativeX());
-		assertNull(event.getRelativeY());
+		assertEquals(0, event.getRelativeX(), 0.1);
+		assertEquals(0, event.getRelativeY(), 0.1);
 	}
 }

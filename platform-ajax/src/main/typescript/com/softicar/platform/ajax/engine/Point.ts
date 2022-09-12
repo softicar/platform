@@ -2,20 +2,12 @@
  * An immutable 2-dimensional point.
  */
 class Point {
-	private _x: number;
-	private _y: number;
+	public readonly x: number;
+	public readonly y: number;
 	
 	public constructor(x: number = 0, y: number = 0) {
-		this._x = x;
-		this._y = y;
-	}
-	
-	public get x() {
-		return this._x;
-	}
-
-	public get y() {
-		return this._y;
+		this.x = x;
+		this.y = y;
 	}
 	
 	public plus(point: Point) {

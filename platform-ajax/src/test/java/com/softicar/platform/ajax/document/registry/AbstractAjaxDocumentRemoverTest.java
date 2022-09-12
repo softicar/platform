@@ -9,6 +9,7 @@ import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.mockito.Mockito;
 
@@ -23,11 +24,10 @@ abstract class AbstractAjaxDocumentRemoverTest extends AbstractTest {
 		this.request = Mockito.mock(IAjaxRequest.class);
 
 		AjaxFramework ajaxFramework = new AjaxFramework(Mockito.mock(IAjaxStrategy.class));
-		Mockito.when(request.getAjaxFramework()).thenReturn(ajaxFramework);
-
 		HttpSession session = Mockito.mock(HttpSession.class);
+		Mockito.when(request.getAjaxFramework()).thenReturn(ajaxFramework);
+		Mockito.when(request.getHttpRequest()).thenReturn(Mockito.mock(HttpServletRequest.class));
 		Mockito.when(request.getHttpSession()).thenReturn(session);
-
 		Mockito.when(session.getAttribute(AjaxDocumentRegistry.class.getCanonicalName())).thenReturn(new AjaxDocumentRegistry());
 	}
 

@@ -81,10 +81,10 @@ function sendDomEventToServer(event: Event, eventType: string) {
 	}
 
 	if(event instanceof KeyboardEvent || event instanceof MouseEvent) {
-		message.setModifierKey('altKey', event.altKey);
-		message.setModifierKey('ctrlKey', event.ctrlKey);
-		message.setModifierKey('metaKey', event.metaKey);
-		message.setModifierKey('shiftKey', event.shiftKey);
+		message.setModifierKey(DOM_MODIFIER_ALT, event.altKey);
+		message.setModifierKey(DOM_MODIFIER_CONTROL, event.ctrlKey);
+		message.setModifierKey(DOM_MODIFIER_META, event.metaKey);
+		message.setModifierKey(DOM_MODIFIER_SHIFT, event.shiftKey);
 	}
 
 	if(event instanceof WheelEvent) {
