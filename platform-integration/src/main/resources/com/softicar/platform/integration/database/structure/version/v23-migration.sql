@@ -22,45 +22,77 @@ SELECT `id` INTO @systemAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidStrin
 
 -- create new permissions if necessary
 INSERT IGNORE INTO `Core`.`Uuid` (`uuidBytes`, `uuidString`) VALUES
-	(UUID_TO_BIN('7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'), '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'),
-	(UUID_TO_BIN('197bcbf7-0003-4552-8f4d-33d4f1d72a0b'), '197bcbf7-0003-4552-8f4d-33d4f1d72a0b');
+	(UNHEX(REPLACE('7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d', '-','')), '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d'),
+	(UNHEX(REPLACE('197bcbf7-0003-4552-8f4d-33d4f1d72a0b', '-','')), '197bcbf7-0003-4552-8f4d-33d4f1d72a0b');
 
 -- fetch new permissions
 SELECT `id` INTO @coreAdministrationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = '7f61eed0-c9c1-4ac3-a84d-254c8ddb3a6d';
 SELECT `id` INTO @coreOperationUuidId FROM `Core`.`Uuid` WHERE `uuidString` = '197bcbf7-0003-4552-8f4d-33d4f1d72a0b';
-
--- migrate role permissions
-INSERT INTO `Core`.`RolePermissionLog` (`roleUser`, `transaction`, `active`, `role`, `moduleInstanceBase`, `permissionUuid`)
-	SELECT `id`, @transactionId, `active`, `role`, `moduleInstanceBase`, @coreAdministrationUuidId
-	FROM `Core`.`RolePermission`
-	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
-UPDATE `Core`.`RolePermission`
-	SET `permissionUuid` = @coreAdministrationUuidId
-	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
-
-INSERT INTO `Core`.`RolePermissionLog` (`roleUser`, `transaction`, `active`, `role`, `moduleInstanceBase`, `permissionUuid`)
-	SELECT `id`, @transactionId, `active`, `role`, `moduleInstanceBase`, @coreOperationUuidId
-	FROM `Core`.`RolePermission`
-	WHERE `permissionUuid` = @superUserUuidId;
-UPDATE `Core`.`RolePermission`
-	SET `permissionUuid` = @coreOperationUuidId
-	WHERE `permissionUuid` = @superUserUuidId;
 
 -- migrate direct permissions
 INSERT INTO `Core`.`ModuleInstancePermissionAssignmentLog` (`assignment`, `transaction`, `active`, `permission`)
 	SELECT `id`, @transactionId, `active`, @coreAdministrationUuidId
 	FROM `Core`.`ModuleInstancePermissionAssignment`
 	WHERE `permission` IN(@systemAdministrationUuidId, @accessManagementUuidId);
-UPDATE `Core`.`ModuleInstancePermissionAssignment`
+UPDATE IGNORE `Core`.`ModuleInstancePermissionAssignment`
 	SET `permission` = @coreAdministrationUuidId, `transaction` = @transactionId
+	WHERE `permission` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+DELETE FROM `Core`.`ModuleInstancePermissionAssignmentLog`
+	WHERE `permission` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+DELETE FROM `Core`.`ModuleInstancePermissionAssignmentLog`
+	WHERE `assignment` IN(
+		SELECT `id` FROM `Core`.`ModuleInstancePermissionAssignment` WHERE `permission` IN(@systemAdministrationUuidId, @accessManagementUuidId)
+	);
+DELETE FROM `Core`.`ModuleInstancePermissionAssignment`
 	WHERE `permission` IN(@systemAdministrationUuidId, @accessManagementUuidId);
 
 INSERT INTO `Core`.`ModuleInstancePermissionAssignmentLog` (`assignment`, `transaction`, `active`, `permission`)
 	SELECT `id`, @transactionId, `active`, @coreOperationUuidId
 	FROM `Core`.`ModuleInstancePermissionAssignment`
 	WHERE `permission` = @superUserUuidId;
-UPDATE `Core`.`ModuleInstancePermissionAssignment`
+UPDATE IGNORE `Core`.`ModuleInstancePermissionAssignment`
 	SET `permission` = @coreOperationUuidId, `transaction` = @transactionId
 	WHERE `permission` = @superUserUuidId;
+DELETE FROM `Core`.`ModuleInstancePermissionAssignmentLog`
+	WHERE `permission` = @superUserUuidId;
+DELETE FROM `Core`.`ModuleInstancePermissionAssignmentLog`
+	WHERE `assignment` IN(
+		SELECT `id` FROM `Core`.`ModuleInstancePermissionAssignment` WHERE `permission` = @superUserUuidId
+	);
+DELETE FROM `Core`.`ModuleInstancePermissionAssignment`
+	WHERE `permission` = @superUserUuidId;
+
+-- migrate role permissions
+INSERT INTO `Core`.`RolePermissionLog` (`roleUser`, `transaction`, `active`, `role`, `moduleInstanceBase`, `permissionUuid`)
+	SELECT `id`, @transactionId, `active`, `role`, `moduleInstanceBase`, @coreAdministrationUuidId
+	FROM `Core`.`RolePermission`
+	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+UPDATE IGNORE `Core`.`RolePermission`
+	SET `permissionUuid` = @coreAdministrationUuidId
+	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+DELETE FROM `Core`.`RolePermissionLog`
+	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+DELETE FROM `Core`.`RolePermissionLog`
+	WHERE `roleUser` IN(
+		SELECT `id` FROM `Core`.`RolePermission` WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId)
+	);
+DELETE FROM `Core`.`RolePermission`
+	WHERE `permissionUuid` IN(@systemAdministrationUuidId, @accessManagementUuidId);
+
+INSERT INTO `Core`.`RolePermissionLog` (`roleUser`, `transaction`, `active`, `role`, `moduleInstanceBase`, `permissionUuid`)
+	SELECT `id`, @transactionId, `active`, `role`, `moduleInstanceBase`, @coreOperationUuidId
+	FROM `Core`.`RolePermission`
+	WHERE `permissionUuid` = @superUserUuidId;
+UPDATE IGNORE `Core`.`RolePermission`
+	SET `permissionUuid` = @coreOperationUuidId
+	WHERE `permissionUuid` = @superUserUuidId;
+DELETE FROM `Core`.`RolePermissionLog`
+	WHERE `permissionUuid` = @superUserUuidId;
+DELETE FROM `Core`.`RolePermissionLog`
+	WHERE `roleUser` IN(
+		SELECT `id` FROM `Core`.`RolePermission` WHERE `permissionUuid` = @superUserUuidId
+	);
+DELETE FROM `Core`.`RolePermission`
+	WHERE `permissionUuid` = @superUserUuidId;
 
 -- END DML
