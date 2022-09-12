@@ -91,6 +91,20 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	 */
 	IDomTextualInput setPlaceholder(IDisplayString placeholder);
 
+	// -------------------------------- required -------------------------------- //
+
+	/**
+	 * Manages the HTML required attribute.
+	 *
+	 * @param required
+	 *            whether the required attribute should be added or not (never
+	 *            <i>null</i>)
+	 * @return this
+	 */
+	IDomTextualInput setRequired(boolean required);
+
+	boolean isRequired();
+
 	// -------------------------------- read-only -------------------------------- //
 
 	/**

@@ -76,6 +76,16 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 		input.setPlaceholder(placeholder);
 	}
 
+	public void setRequired(boolean required) {
+
+		input.setRequired(required);
+	}
+
+	public boolean isRequired() {
+
+		return input.isRequired();
+	}
+
 	public String getTextualValue() {
 
 		return input.getValueTextTrimmed();
