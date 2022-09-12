@@ -33,7 +33,7 @@ public class DbStructureRestrictiveSampleExclusiveConstraintTest extends Abstrac
 		addConstraintStructure(sample).addColumnPair("a", "b");
 		addConstraintStructure(reference);
 		executeConstraintComparison();
-		new Asserter().assertOnlyErrors(2);
+		new Asserter().assertOnlyErrors(1);
 	}
 
 	@Test
