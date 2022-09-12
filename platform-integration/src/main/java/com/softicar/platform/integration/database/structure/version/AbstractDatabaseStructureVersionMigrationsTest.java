@@ -2,8 +2,10 @@ package com.softicar.platform.integration.database.structure.version;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.string.Imploder;
+import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.core.module.container.docker.DockerContainerController;
 import com.softicar.platform.db.core.connection.DbConnection;
@@ -31,8 +33,8 @@ import org.junit.Test;
  * Base class of tests to ensure that known database migrations transform a
  * specific source database structure to a specific target database structure.
  * <p>
- * Particularly, migration <i>x</i> is ensured to transform structure version <i>x</i>
- * to structure version <i>x+1</i>.
+ * Particularly, migration <i>x</i> is ensured to transform structure version
+ * <i>x</i> to structure version <i>x+1</i>.
  * <p>
  * Uses MariaDB in a local Docker container.
  * <p>
@@ -54,6 +56,7 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 		"-d",
 		"--rm");
 	private final Class<?> resourceContainerClass;
+	private final int numberOfRecentMigrations;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -72,9 +75,36 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 		CONTAINER_CONTROLLER.shutdown();
 	}
 
+	/**
+	 * @param resourceContainerClass
+	 *            the {@link ResourceSupplierContainer}-annotated {@link Class}
+	 *            that enumerates the structure and migration definition files
+	 *            (never <i>null</i>)
+	 */
 	public AbstractDatabaseStructureVersionMigrationsTest(Class<?> resourceContainerClass) {
 
-		this.resourceContainerClass = Objects.requireNonNull(resourceContainerClass);
+		this(resourceContainerClass, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * @param resourceContainerClass
+	 *            the {@link ResourceSupplierContainer}-annotated {@link Class}
+	 *            that enumerates the structure and migration definition files
+	 *            (never <i>null</i>)
+	 * @param numberOfRecentMigrations
+	 *            determines how many migrations shall be tested, starting with
+	 *            the most recent one (at least 1; {@link Integer#MAX_VALUE} to
+	 *            test all enumerated migrations)
+	 */
+	public AbstractDatabaseStructureVersionMigrationsTest(Class<?> resourceContainerClass, int numberOfRecentMigrations) {
+
+		Objects.requireNonNull(resourceContainerClass);
+		if (numberOfRecentMigrations < 1) {
+			throw new IllegalArgumentException();
+		}
+
+		this.numberOfRecentMigrations = numberOfRecentMigrations;
+		this.resourceContainerClass = resourceContainerClass;
 	}
 
 	@Test
@@ -83,17 +113,29 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 		var resourcesMap = new DatabaseStructureVersionResourcesMap(resourceContainerClass);
 		int latestVersion = resourcesMap.getLatestVersion();
 
-		// latest migration
-		testMigrationCreatesTargetStructure(resourcesMap, latestVersion - 1, latestVersion);
-
-		// second latest migration
-		testMigrationCreatesTargetStructure(resourcesMap, latestVersion - 2, latestVersion - 1);
+		for (int i = 0; i < numberOfRecentMigrations; i++) {
+			if (!testMigrationCreatesTargetStructure(resourcesMap, latestVersion - i)) {
+				break;
+			}
+		}
 	}
 
-	private void testMigrationCreatesTargetStructure(DatabaseStructureVersionResourcesMap resourcesMap, int sourceVersion, int targetVersion) {
+	/**
+	 * Validates the migration from the given source version to the given target
+	 * version.
+	 *
+	 * @param resourcesMap
+	 * @param targetVersion
+	 *            the version to migrate to
+	 * @return <i>true</i> if a migration from the given source version to the
+	 *         given target version was found; <i>false</i> otherwise
+	 */
+	private boolean testMigrationCreatesTargetStructure(DatabaseStructureVersionResourcesMap resourcesMap, int targetVersion) {
 
+		var errorFactory = new AssertionErrorFactory(targetVersion);
 		var migrationResourceSupplier = resourcesMap.getMigrationResourceSupplier(targetVersion);
 		if (migrationResourceSupplier.isPresent()) {
+			int sourceVersion = targetVersion - 1;
 			var sourceStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(sourceVersion);
 			var targetStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(targetVersion);
 
@@ -105,12 +147,12 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 				DbMysqlStatements.setForeignKeyChecksEnabled(false);
 
 				// create source structure
-				purgeDatabase(connection);
+				purgeDatabase(connection, errorFactory);
 				createTables(sourceCreateTableStatements);
 				IDbDatabaseStructure sourceStructure = loadDatabaseStructure();
-				assertFalse(//
-					"Structure v%s creation resulted in an empty database.".formatted(sourceVersion),
-					sourceStructure.getTableNames().isEmpty());
+				if (sourceStructure.getTableNames().isEmpty()) {
+					throw errorFactory.create("Structure v%s creation resulted in an empty database.".formatted(sourceVersion));
+				}
 
 				// TODO Initialize DB content for the respective source structure version, and stop ignoring DML statements.
 
@@ -119,32 +161,39 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 				IDbDatabaseStructure targetStructureViaMigration = loadDatabaseStructure();
 
 				// create target structure
-				purgeDatabase(connection);
+				purgeDatabase(connection, errorFactory);
 				createTables(targetCreateTableStatements);
 				IDbDatabaseStructure targetStructureViaCreation = loadDatabaseStructure();
-				assertFalse(//
-					"Structure v%s creation resulted in an empty database.".formatted(targetVersion),
-					targetStructureViaCreation.getTableNames().isEmpty());
+				if (targetStructureViaCreation.getTableNames().isEmpty()) {
+					throw errorFactory.create("Structure v%s creation resulted in an empty database.".formatted(targetVersion));
+				}
 
+				// compare structures
 				var comparisonStrategy = new DbStructureEqualityComparisonStrategy(//
 					IDisplayString.create("structure from creation"),
 					IDisplayString.create("structure from migration"));
 				var diagnosticContainer = new DbDatabaseStructureComparer(comparisonStrategy)//
 					.compareAll(targetStructureViaCreation, targetStructureViaMigration);
+
 				if (!diagnosticContainer.isEmpty()) {
-					throw new AssertionError(diagnosticContainer);
+					throw errorFactory.create(diagnosticContainer);
 				}
+			} catch (Exception exception) {
+				throw errorFactory.create(StackTraceFormatting.getStackTraceAsString(exception));
 			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 
-	private void purgeDatabase(DbConnection connection) {
+	private void purgeDatabase(DbConnection connection, AssertionErrorFactory errorFactory) {
 
 		new DbMysqlDatabasePurger(connection.getDatabase()).purgeAll();
 		var structure = loadDatabaseStructure();
-		assertTrue(//
-			"Database purging was incomplete. Remaining tables: %s".formatted(Imploder.implode(structure.getTableNames(), ", ")),
-			structure.getTableNames().isEmpty());
+		if (!structure.getTableNames().isEmpty()) {
+			throw errorFactory.create("Database purging was incomplete. Remaining tables: %s".formatted(Imploder.implode(structure.getTableNames(), ", ")));
+		}
 	}
 
 	private void createTables(List<CreateTableStatement> createTableStatements) {
@@ -239,6 +288,21 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 				}
 			}
 			return output.toString();
+		}
+	}
+
+	private class AssertionErrorFactory {
+
+		private final int targetVersion;
+
+		public AssertionErrorFactory(int targetVersion) {
+
+			this.targetVersion = targetVersion;
+		}
+
+		public AssertionError create(Object reason) {
+
+			return new AssertionError("Failed to migrate v%s to v%s:\n%s".formatted(targetVersion - 1, targetVersion, reason));
 		}
 	}
 }
