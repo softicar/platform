@@ -103,9 +103,7 @@ public class DbColumnStructureEqualityComparer extends AbstractDbColumnStructure
 
 			if (reference.isPresent() && sample.isPresent()) {
 				return Equals//
-					// HERE BE DRAGONS:
-					// We deliberately ignore (and therefore tolerate) deviations in actual FK names, and instead use synthetic FK names.
-					.comparing(IDbForeignKeyStructure::getSyntheticName)
+					.comparing(IDbForeignKeyStructure::getName)
 					.comparing(it -> it.getTableStructure().getTableName())
 					.comparing(IDbForeignKeyStructure::getColumns)
 					.comparing(IDbForeignKeyStructure::getForeignTableName)

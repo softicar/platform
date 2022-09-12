@@ -155,8 +155,11 @@ public class DbStructureComparisonDiagnosticContainer {
 	private String toStringForLevel(DbStructureComparisonDiagnosticLevel level) {
 
 		StringBuilder output = new StringBuilder();
-		output.append(String.format("%s: %s\n", level, getDiagnosticCount(level)));
-		getCollection(level).forEach(it -> output.append("[" + level + "] " + it + "\n"));
+		int diagnosticCount = getDiagnosticCount(level);
+		if (diagnosticCount > 0) {
+			output.append(String.format("%s: %s\n", level, diagnosticCount));
+			getCollection(level).forEach(it -> output.append(level.getPluralTitle() + ": " + it + "\n"));
+		}
 		return output.toString();
 	}
 
