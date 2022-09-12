@@ -94,15 +94,16 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	// -------------------------------- required -------------------------------- //
 
 	/**
-	 * Manages the HTML required attribute.
-	 *
-	 * @param required
-	 *            whether the required attribute should be added or not (never
-	 *            <i>null</i>)
-	 * @return this
+	 * Marks this {@link IDomTextualInput} as required.
 	 */
 	IDomTextualInput setRequired(boolean required);
 
+	/**
+	 * Tests whether this {@link IDomTextualInput} is required.
+	 *
+	 * @return <i>true</i> if this {@link IDomTextualInput} is required;
+	 *         <i>false</i> otherwise
+	 */
 	boolean isRequired();
 
 	// -------------------------------- read-only -------------------------------- //
