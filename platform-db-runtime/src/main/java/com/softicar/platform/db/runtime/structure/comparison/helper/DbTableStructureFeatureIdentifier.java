@@ -22,7 +22,7 @@ public class DbTableStructureFeatureIdentifier implements Comparable<DbTableStru
 
 	public DbTableStructureFeatureIdentifier(IDbForeignKeyStructure structure) {
 
-		this(structure.getSyntheticName());
+		this(structure.getName().orElse(""));
 	}
 
 	public DbTableStructureFeatureIdentifier(IDbEnumTableRowStructure structure) {
