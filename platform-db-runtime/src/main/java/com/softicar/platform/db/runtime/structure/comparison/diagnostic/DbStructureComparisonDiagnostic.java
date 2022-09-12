@@ -43,18 +43,11 @@ public class DbStructureComparisonDiagnostic implements IDbStructureComparisonDi
 	@Override
 	public String getDiagnosticText() {
 
-		StringBuilder builder = new StringBuilder();
-		builder.append("Table ");
-		builder.append("**''" + getTableName().getCanonicalName() + "''**");
-		builder.append(" / ");
-		builder.append(diagnosticData.getFeatureType().getTitle());
-		Optional
-			.ofNullable(identifier)//
-			.map(identifier -> " **''" + identifier + "''**")
-			.ifPresent(builder::append);
-		builder.append(": ");
-		builder.append(diagnosticData.getFormattedText());
-		return builder.toString();
+		var tableNameText = getTableName().getQuoted();
+		var featureTypeText = diagnosticData.getFeatureType().getTitle();
+		var identifierText = identifier != null? " `" + identifier + "`" : "";
+		var diagnosticText = diagnosticData.getFormattedText();
+		return "Table %s, %s%s: %s".formatted(tableNameText, featureTypeText, identifierText, diagnosticText);
 	}
 
 	@Override
