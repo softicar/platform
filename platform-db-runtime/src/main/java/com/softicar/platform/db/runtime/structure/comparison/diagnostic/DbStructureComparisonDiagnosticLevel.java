@@ -1,41 +1,37 @@
 package com.softicar.platform.db.runtime.structure.comparison.diagnostic;
 
-import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.i18n.IDisplayable;
-
 /**
  * Enumerates existing levels of diagnostics about database structures.
  *
  * @author Alexander Schmidt
  */
-public enum DbStructureComparisonDiagnosticLevel implements IDisplayable {
+public enum DbStructureComparisonDiagnosticLevel {
 
 	/**
 	 * Indicates a critical structural difference.
 	 */
-	ERROR(DbStructureComparisonDiagnosticI18n.ERROR),
+	ERROR("ERRORS"),
 
 	/**
 	 * Indicates a potentially problematic structural difference.
 	 */
-	WARNING(DbStructureComparisonDiagnosticI18n.WARNING),
+	WARNING("WARNINGS"),
 
 	/**
 	 * Indicates an undesirable but not directly problematic structural
 	 * difference.
 	 */
-	INFO(DbStructureComparisonDiagnosticI18n.INFO);
+	INFO("INFOS");
 
-	private final IDisplayString label;
+	private final String pluralTitle;
 
-	private DbStructureComparisonDiagnosticLevel(IDisplayString label) {
+	private DbStructureComparisonDiagnosticLevel(String pluralTitle) {
 
-		this.label = label;
+		this.pluralTitle = pluralTitle;
 	}
 
-	@Override
-	public IDisplayString toDisplay() {
+	public String getPluralTitle() {
 
-		return label;
+		return pluralTitle;
 	}
 }

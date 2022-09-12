@@ -4,7 +4,6 @@ import com.softicar.platform.db.core.table.DbTableName;
 import com.softicar.platform.db.structure.table.IDbTableStructureFeature;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Describes the structure of a foreign key of a database table.
@@ -13,20 +12,6 @@ import java.util.stream.Collectors;
  * @author Alexander Schmidt
  */
 public interface IDbForeignKeyStructure extends IDbTableStructureFeature {
-
-	/**
-	 * Creates a synthetic name for this {@link IDbForeignKeyStructure}.
-	 * <p>
-	 * The returned name comprises the names of all columns that are covered by
-	 * the foreign key. It is guaranteed to be unique in the context of the
-	 * respective table.
-	 *
-	 * @return the synthetic foreign key name (never <i>null</i>)
-	 */
-	default String getSyntheticName() {
-
-		return "FK[%s]".formatted(getColumns().stream().collect(Collectors.joining("|")));
-	}
 
 	/**
 	 * Returns a {@link List} of all {@link DbForeignKeyColumnPair} elements.
