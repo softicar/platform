@@ -30,7 +30,7 @@ public class DbStructureCompatibleSampleExklusiveConstraintTest extends Abstract
 		addConstraintStructure(sample).addColumnPair("a", "b");
 		addConstraintStructure(reference);
 		executeConstraintComparison();
-		new Asserter().assertOnlyWarnings(2);
+		new Asserter().assertOnlyWarnings(1);
 	}
 
 	@Test
