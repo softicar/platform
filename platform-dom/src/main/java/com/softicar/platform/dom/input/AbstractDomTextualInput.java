@@ -69,6 +69,21 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 		return this;
 	}
 
+	// -------------------------------- required -------------------------------- //
+
+	@Override
+	public IDomTextualInput setRequired(boolean required) {
+
+		setAttribute("required", required? "" : null);
+		return this;
+	}
+
+	@Override
+	public boolean isRequired() {
+
+		return getAttributeValue("required").isPresent();
+	}
+
 	// -------------------------------- read-only -------------------------------- //
 
 	@Override

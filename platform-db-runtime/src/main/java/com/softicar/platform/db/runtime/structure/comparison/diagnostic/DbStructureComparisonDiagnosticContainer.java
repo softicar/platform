@@ -157,8 +157,8 @@ public class DbStructureComparisonDiagnosticContainer {
 		StringBuilder output = new StringBuilder();
 		int diagnosticCount = getDiagnosticCount(level);
 		if (diagnosticCount > 0) {
-			output.append(String.format("%s: %s\n", level, diagnosticCount));
-			getCollection(level).forEach(it -> output.append(level.getPluralTitle() + ": " + it + "\n"));
+			output.append(String.format("%s: %s\n", level.getPluralTitle(), diagnosticCount));
+			getCollection(level).forEach(it -> output.append(level + ": " + it + "\n"));
 		}
 		return output.toString();
 	}
