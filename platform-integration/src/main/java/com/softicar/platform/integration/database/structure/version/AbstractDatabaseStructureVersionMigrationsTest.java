@@ -172,8 +172,8 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 				// compare structures
 				var comparisonStrategy = new DbStructureEqualityComparisonStrategy(//
-					IDisplayString.format("Source (v%s)", sourceVersion),
-					IDisplayString.format("Target (v%s)", targetVersion));
+					IDisplayString.format("Expected"),
+					IDisplayString.format("Actual"));
 				var diagnosticContainer = new DbDatabaseStructureComparer(comparisonStrategy)//
 					.compareAll(targetStructureViaCreation, targetStructureViaMigration);
 
