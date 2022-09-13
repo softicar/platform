@@ -91,13 +91,6 @@ public interface IDomEvent {
 	String getKey();
 
 	/**
-	 * Returns the key code of the key that triggered this event.
-	 *
-	 * @return the key code of the event
-	 */
-	Integer getKeyCode();
-
-	/**
 	 * Returns the width of the browser window when the event was triggered.
 	 *
 	 * @return the width of the window in pixels

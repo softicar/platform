@@ -18,14 +18,14 @@ public class AjaxSeleniumLowLevelTestEngineEventSimulator {
 		this.javascriptExecutor = new AjaxSeleniumLowLevelTestJavascriptExecutor(parameters.getWebDriverSupplier());
 	}
 
-	public void simulateKeyDown(IDomNode node, int keyCode) {
+	public void simulateKeyDown(IDomNode node, String key) {
 
-		simulateKeyboardEvent(node, "keydown", keyCode);
+		simulateKeyboardEvent(node, "keydown", key);
 	}
 
-	public void simulateKeyUp(IDomNode node, int keyCode) {
+	public void simulateKeyUp(IDomNode node, String key) {
 
-		simulateKeyboardEvent(node, "keyup", keyCode);
+		simulateKeyboardEvent(node, "keyup", key);
 	}
 
 	public void simulateChange(IDomNode node) {
@@ -62,16 +62,16 @@ public class AjaxSeleniumLowLevelTestEngineEventSimulator {
 		javascriptExecutor.execute(javascript, nodeId, deltaY);
 	}
 
-	private void simulateKeyboardEvent(IDomNode node, String type, int keyCode) {
+	private void simulateKeyboardEvent(IDomNode node, String type, String key) {
 
 		String javascript = new StringBuilder()//
 			.append("var event = new KeyboardEvent('%s', {")
-			.append("keyCode: %s,")
+			.append("key: '%s',")
 			.append("bubbles: true")
 			.append("});")
 			.append("document.getElementById('%s').dispatchEvent(event);")
 			.toString();
 		String nodeId = engine.getOutput().getAttributeValue(node, "id");
-		javascriptExecutor.execute(javascript, type, keyCode, nodeId);
+		javascriptExecutor.execute(javascript, type, key, nodeId);
 	}
 }

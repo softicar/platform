@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTest;
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.event.DomKeyCodes;
+import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomEscapeKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class AjaxDomEscapeEventTest extends AbstractAjaxDomEventTest {
 
 		send(testDiv, Key.ESCAPE);
 		waitForServer();
-		assertKeyboardEvent(testDiv, DomEventType.ESCAPE, DomKeyCodes.ESCAPE);
+		assertKeyboardEvent(testDiv, DomEventType.ESCAPE, DomKeys.ESCAPE);
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv implements IDomEscapeKeyEventHandler {
