@@ -2,10 +2,10 @@ package com.softicar.platform.integration.database.structure.version;
 
 public class PlatformDatabaseStructureVersionMigrationsTest extends AbstractDatabaseStructureVersionMigrationsTest {
 
-	private static final int RECENT_PLATFORM_MIGRATIONS_TO_TEST = 2;
+	private static final int RECENT_MIGRATIONS_TO_TEST = 2;
 
 	public PlatformDatabaseStructureVersionMigrationsTest() {
 
-		super(PlatformDatabaseStructureVersionResource.class, RECENT_PLATFORM_MIGRATIONS_TO_TEST);
+		super(PlatformDatabaseStructureVersionResource.class, RECENT_MIGRATIONS_TO_TEST);
 	}
 }
