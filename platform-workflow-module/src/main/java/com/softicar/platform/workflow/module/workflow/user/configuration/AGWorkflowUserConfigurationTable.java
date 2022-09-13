@@ -1,7 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.user.configuration;
 
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.core.module.user.UserInput;
 import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
@@ -51,8 +50,8 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflowUserConfiguration> attributes) {
 
 		attributes//
-			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE)
-			.setInputFactory(UserInput::new);
+			.editEntityAttribute(AGWorkflowUserConfiguration.SUBSTITUTE)
+			.addFilter(user -> !user.isSystemUser());
 		attributes//
 			.editAttribute(AGWorkflowUserConfiguration.SUBSTITUTE_FROM)
 			.setInputFactoryByEntity(WorkflowUserConfigurationDayInput::new)
