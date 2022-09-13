@@ -4,7 +4,6 @@ import com.softicar.platform.ajax.engine.AjaxDomEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.utils.TestButton;
 import com.softicar.platform.ajax.utils.TestConstants;
-import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.input.AbstractDomInput;
 import com.softicar.platform.dom.input.DomTextInput;
 import java.util.function.BiConsumer;
@@ -116,45 +115,6 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// verification
 		assertEquals("bar", getAttributeValue(input, "value"));
-	}
-
-	@Test
-	public void testMoveCaretToPosition() {
-
-		openTestDiv((input, button) -> {
-			button.setClickCallback(() -> {
-				input.getDomEngine().moveCaretToPosition(input, 3);
-			});
-		});
-
-		// input text then move caret by clicking button and input more text
-		send(input, "foobaz");
-		click(button);
-		waitForServer();
-		send(input, "bar");
-
-		// verification
-		assertEquals("foobarbaz", getAttributeValue(input, "value"));
-	}
-
-	@Test
-	public void testInsertTextAtCaret() {
-
-		openTestDiv((input, button) -> {
-			button.setClickCallback(() -> {
-				IDomEngine engine = input.getDomEngine();
-				engine.moveCaretToPosition(input, 3);
-				engine.insertTextAtCaret(input, "bar");
-			});
-		});
-
-		// input text then insert at caret by clicking button
-		send(input, "foobaz");
-		click(button);
-		waitForServer();
-
-		// verification
-		assertEquals("foobarbaz", getAttributeValue(input, "value"));
 	}
 
 	private void openTestDiv(BiConsumer<DomTextInput, TestButton> setup) {

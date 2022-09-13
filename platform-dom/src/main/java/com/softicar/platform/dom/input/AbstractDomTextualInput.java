@@ -40,19 +40,7 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 		return getValueText().isBlank();
 	}
 
-	// -------------------------------- caret & selection -------------------------------- //
-
-	@Override
-	public void insertTextAtCaret(String text) {
-
-		getDomEngine().insertTextAtCaret(this, text);
-	}
-
-	@Override
-	public void moveCaretToPosition(int position) {
-
-		getDomEngine().moveCaretToPosition(this, position);
-	}
+	// -------------------------------- selection -------------------------------- //
 
 	@Override
 	public void selectText() {
