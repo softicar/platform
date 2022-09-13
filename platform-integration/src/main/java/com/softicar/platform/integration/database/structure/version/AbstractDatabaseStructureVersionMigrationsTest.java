@@ -144,9 +144,9 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 			var migrationScript = migrationResourceSupplier.get().getResource().getContentTextUtf8();
 
 			try (var connection = createConnection(); var scope = new DbConnectionOverrideScope(connection)) {
-				DbMysqlStatements.setForeignKeyChecksEnabled(false);
 
 				// create source structure
+				DbMysqlStatements.setForeignKeyChecksEnabled(false);
 				purgeDatabase(connection, errorFactory);
 				createTables(sourceCreateTableStatements);
 				IDbDatabaseStructure sourceStructure = loadDatabaseStructure();
@@ -157,10 +157,12 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 				// TODO Initialize DB content for the respective source structure version, and stop ignoring DML statements.
 
 				// migrate source structure to target structure
+				DbMysqlStatements.setForeignKeyChecksEnabled(true);
 				new DbStatement(new MigrationScriptPreprocessor().preprocess(migrationScript)).execute();
 				IDbDatabaseStructure targetStructureViaMigration = loadDatabaseStructure();
 
 				// create target structure
+				DbMysqlStatements.setForeignKeyChecksEnabled(false);
 				purgeDatabase(connection, errorFactory);
 				createTables(targetCreateTableStatements);
 				IDbDatabaseStructure targetStructureViaCreation = loadDatabaseStructure();
