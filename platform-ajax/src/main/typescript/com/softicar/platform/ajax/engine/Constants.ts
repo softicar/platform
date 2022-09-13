@@ -12,14 +12,12 @@ const DOM_MODIFIER_CONTROL = 'Control';
 const DOM_MODIFIER_META = 'Meta';
 const DOM_MODIFIER_SHIFT = 'Shift';
 
-const DOM_VK_TAB    = 9;
-const DOM_VK_ENTER  = 13;
-const DOM_VK_ESCAPE = 27;
-const DOM_VK_SPACE  = 32;
-const DOM_VK_UP     = 38;
-const DOM_VK_DOWN   = 40;
-
 const KEEP_ALIVE_REQUEST_DELAY = 3*60*1000
+
+const KEY_ENTER = 'Enter';
+const KEY_ESCAPE = 'Escape';
+const KEY_SPACE = ' ';
+const KEY_TAB = 'Tab';
 
 const HTTP_REQUEST_STATE_UNSET            = 0; 
 const HTTP_REQUEST_STATE_OPENED           = 1; 
