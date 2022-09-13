@@ -76,12 +76,6 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
-	public Integer getKeyCode() {
-
-		return null;
-	}
-
-	@Override
 	public int getWindowWidth() {
 
 		return 0;
