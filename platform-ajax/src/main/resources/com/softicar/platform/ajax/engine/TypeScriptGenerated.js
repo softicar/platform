@@ -400,23 +400,6 @@ function handleSessionTimeout() {
         AJAX_ENGINE.raise(SESSION_TIMEOUT_DIALOG);
     }
 }
-function insertTextAtCaret(input, text) {
-    let selectionStart = input.selectionStart;
-    if (selectionStart !== null) {
-        let value = input.value;
-        let front = value.substring(0, selectionStart);
-        let back = value.substring(selectionStart, value.length);
-        let scrollTop = input.scrollTop;
-        input.value = front + text + back;
-        input.selectionStart = selectionStart;
-        input.selectionEnd = selectionStart;
-        input.scrollTop = scrollTop;
-        input.focus();
-    }
-}
-function moveCaretToPosition(input, position) {
-    input.selectionStart = input.selectionEnd = position;
-}
 function scheduleTimeout(timeoutNode, milliseconds) {
     setTimeout(() => handleTimeout(timeoutNode), milliseconds);
 }
