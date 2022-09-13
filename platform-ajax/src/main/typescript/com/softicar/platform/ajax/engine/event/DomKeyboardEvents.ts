@@ -45,10 +45,10 @@ class KeyboardEventManager {
 	
 	private getKey(eventName: string): string {
 		switch(eventName) {
-			case 'ENTER':  return "Enter";
-			case 'ESCAPE': return "Escape";
-			case 'SPACE':  return " ";
-			case 'TAB':    return "Tab";
+			case 'ENTER':  return KEY_ENTER;
+			case 'ESCAPE': return KEY_ESCAPE;
+			case 'SPACE':  return KEY_SPACE;
+			case 'TAB':    return KEY_TAB;
 		}
 		throw new Error("Internal error: Unsupported keyboard event name.");
 	}
@@ -58,14 +58,14 @@ const KEYBOARD_EVENT_MANAGER = new KeyboardEventManager();
 
 class KeyboardEventHandler {
 	private readonly node;
-	private readonly keyCodes = new Map<string, string>();
+	private readonly keys = new Map<string, string>();
 	private readonly fireOnKeyUp = new Map<string, boolean>();
 	private readonly preventDefault = new Map<string, boolean>();
 	private readonly cssClassApplier = new Map<string, CssClassApplier>();
 	private listenToKeyDown = false;
 	private listenToKeyUp = false;
 	private listenToKeys = new Set<string>();
-	private lastKeyDown = "0";
+	private lastKeyDown = "";
 
 	public constructor(node: HTMLElement) {
 		this.node = node;
@@ -95,10 +95,10 @@ class KeyboardEventHandler {
 
 	public setListenTo(key: string, eventName: string, enabled: boolean) {
 		if(enabled) {
-			this.keyCodes.set(key, eventName);
+			this.keys.set(key, eventName);
 			this.preventDefault.set(key, true);
 		} else {
-			this.keyCodes.delete(key);
+			this.keys.delete(key);
 		}
 	}
 
@@ -115,7 +115,7 @@ class KeyboardEventHandler {
 	}
 
 	private handleKeyDown(event: KeyboardEvent) {
-		let eventName = this.keyCodes.get(event.key);
+		let eventName = this.keys.get(event.key);
 		if(eventName) {
 			if(!this.fireOnKeyUp.get(event.key) && !event.repeat) {
 				sendOrDelegateEvent(this.node, event, eventName);
@@ -133,7 +133,7 @@ class KeyboardEventHandler {
 	}
 
 	private handleKeyUp(event: KeyboardEvent) {
-		var eventName = this.keyCodes.get(event.key);
+		var eventName = this.keys.get(event.key);
 		if(eventName) {
 			if(this.fireOnKeyUp.get(event.key) && this.lastKeyDown == event.key) {
 				sendOrDelegateEvent(this.node, event, eventName);
@@ -147,7 +147,7 @@ class KeyboardEventHandler {
 		if(this.listenToKeyUp && this.listenToKeys.has(event.key)) {
 			sendOrDelegateEvent(this.node, event, 'KEYUP');
 		}
-		this.lastKeyDown = "0";
+		this.lastKeyDown = "";
 	}
 
 	private stopFurtherHandling(event: KeyboardEvent) {

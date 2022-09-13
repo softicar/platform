@@ -14,6 +14,11 @@ const DOM_MODIFIER_SHIFT = 'Shift';
 
 const KEEP_ALIVE_REQUEST_DELAY = 3*60*1000
 
+const KEY_ENTER = 'Enter';
+const KEY_ESCAPE = 'Escape';
+const KEY_SPACE = ' ';
+const KEY_TAB = 'Tab';
+
 const HTTP_REQUEST_STATE_UNSET            = 0; 
 const HTTP_REQUEST_STATE_OPENED           = 1; 
 const HTTP_REQUEST_STATE_HEADERS_RECEIVED = 2; 
