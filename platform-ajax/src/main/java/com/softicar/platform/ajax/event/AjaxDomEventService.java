@@ -18,7 +18,7 @@ public class AjaxDomEventService extends AbstractAjaxDocumentActionService {
 	public void service(IAjaxDocument document, IDomNode eventNode) {
 
 		if (eventNode != null) {
-			var event = new AjaxDomEvent(document, request);
+			var event = new AjaxDomEvent(document, message);
 			var executor = createPayloadCodeExecutor().setEventNode(eventNode);
 			new DomEventHandlerNodeCaller(executor, eventNode, event).call();
 		} else {

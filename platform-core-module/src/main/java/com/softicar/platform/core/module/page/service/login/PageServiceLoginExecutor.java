@@ -42,6 +42,6 @@ class PageServiceLoginExecutor {
 
 	private SofticarAjaxSession createSession(AGUser user) {
 
-		return new SofticarAjaxSession(AjaxLogging.logSessionCreation(request, user), user);
+		return new SofticarAjaxSession(AjaxLogging.logSessionCreation(request.getHttpRequest(), user), user);
 	}
 }

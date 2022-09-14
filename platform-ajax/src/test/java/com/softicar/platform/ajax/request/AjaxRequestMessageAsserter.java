@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import com.softicar.platform.dom.node.IDomNode;
 
-public class AjaxRequestAsserter {
+public class AjaxRequestMessageAsserter {
 
-	private final IAjaxRequest request;
+	private final AjaxRequestMessage message;
 
-	public AjaxRequestAsserter(IAjaxRequest request) {
+	public AjaxRequestMessageAsserter(AjaxRequestMessage message) {
 
-		this.request = request;
+		this.message = message;
 	}
 
 	public void assertNoValueParameter(IDomNode node) {
@@ -25,6 +25,6 @@ public class AjaxRequestAsserter {
 
 	private String getValueParameter(IDomNode node) {
 
-		return request.getParameter("V" + node.getNodeId());
+		return message.getNodeValues().get(node.getNodeIdString());
 	}
 }

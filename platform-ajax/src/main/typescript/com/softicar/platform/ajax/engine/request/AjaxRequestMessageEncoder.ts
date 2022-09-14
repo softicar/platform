@@ -3,24 +3,17 @@
  */
 class AjaxRequestMessageEncoder {
 	private static HEX_DIGITS = "0123456789ABCDEF";
-	private data: Map<string, string>;
+	private message: AjaxRequestMessage;
 	
-	public constructor(data: Map<string, string>) {
-		this.data = data;
+	public constructor(message: AjaxRequestMessage) {
+		this.message = message;
 	}
 
 	/**
 	 * Encodes the {@link AjaxRequestMessage} data into a string.
 	 */
 	public encode(): string {
-		let data = [];
-
-		for(let [key, value] of this.data) {
-			data.push(key.length+"\n"+key);
-			data.push(value.length+"\n"+value);
-		}
-
-		return data.join("");
+		return JSON.stringify(this.message);
 	}
 
 	/**

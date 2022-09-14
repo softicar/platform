@@ -21,6 +21,6 @@ public class AjaxDragAndDropService extends AbstractAjaxDocumentActionService {
 
 	private void handleDrop(IDomDropEventHandler handler) {
 
-		handler.handleDrop(new AjaxDomDropEvent(document, request));
+		handler.handleDrop(new AjaxDomDropEvent(document, message));
 	}
 }
