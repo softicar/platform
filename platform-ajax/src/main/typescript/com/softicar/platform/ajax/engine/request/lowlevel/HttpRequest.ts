@@ -7,7 +7,7 @@ class HttpRequest {
 	public constructor() {
 		this.url = '';
 		this.message = '';
-		this.contentType = 'text/plain; charset=UTF-8';
+		this.contentType = 'application/json; charset=UTF-8';
 	}
 
 	public setUrl(url: string) {

@@ -41,8 +41,8 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 	@Override
 	public void handleDrop(IDomDropEvent dropParameters) {
 
-		int x = (dropParameters.getDropX() + 5) / 10 * 10;
-		int y = (dropParameters.getDropY() + 5) / 10 * 10;
+		int x = (int) Math.round(dropParameters.getDropX() / 10.0) * 10;
+		int y = (int) Math.round(dropParameters.getDropY() / 10.0) * 10;
 		if (x > 0 && y > 0) {
 			workflowNode.setXCoordinate(x);
 			workflowNode.setYCoordinate(y);

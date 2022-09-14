@@ -42,14 +42,14 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		IDomEvent event = testDiv.getEvent();
 		assertEquals(DomEventType.CLICK, event.getType());
 		assertSame(testDiv, event.getCurrentTarget());
-		assertEquals(divLocation.getX() + CLICK_X, event.getClientX());
-		assertEquals(divLocation.getY() + CLICK_Y, event.getClientY());
+		assertEquals(divLocation.getX() + CLICK_X, event.getClientX(), 0.1);
+		assertEquals(divLocation.getY() + CLICK_Y, event.getClientY(), 0.1);
 		assertEquals(CLICK_X, event.getRelativeX(), 0.1);
 		assertEquals(CLICK_Y, event.getRelativeY(), 0.1);
 		assertEquals(0, event.getScrollX(), 0.1);
 		assertEquals(0, event.getScrollY(), 0.1);
-		assertEquals(viewportSize.getWidth(), event.getWindowWidth());
-		assertEquals(viewportSize.getHeight(), event.getWindowHeight());
+		assertEquals(viewportSize.getWidth(), event.getWindowWidth(), 0.1);
+		assertEquals(viewportSize.getHeight(), event.getWindowHeight(), 0.1);
 
 		var boundingClientRect = event.getBoundingClientRect();
 		assertEquals(divRectangle.getX(), boundingClientRect.getX(), 0.001);
@@ -77,14 +77,14 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// assert positions
 		IDomEvent event = testDiv.getEvent();
-		assertEquals(divLocation.getX() - SCROLL_X + CLICK_X, event.getClientX());
-		assertEquals(divLocation.getY() - SCROLL_Y + CLICK_Y, event.getClientY());
+		assertEquals(divLocation.getX() - SCROLL_X + CLICK_X, event.getClientX(), 0.1);
+		assertEquals(divLocation.getY() - SCROLL_Y + CLICK_Y, event.getClientY(), 0.1);
 		assertEquals(CLICK_X, event.getRelativeX(), 0.1);
 		assertEquals(CLICK_Y, event.getRelativeY(), 0.1);
 		assertEquals(SCROLL_X, event.getScrollX(), 0.1);
 		assertEquals(SCROLL_Y, event.getScrollY(), 0.1);
-		assertEquals(viewportSize.getWidth(), event.getWindowWidth());
-		assertEquals(viewportSize.getHeight(), event.getWindowHeight());
+		assertEquals(viewportSize.getWidth(), event.getWindowWidth(), 0.1);
+		assertEquals(viewportSize.getHeight(), event.getWindowHeight(), 0.1);
 
 		var boundingClientRect = event.getBoundingClientRect();
 		assertEquals(divRectangle.getX() - SCROLL_X, boundingClientRect.getX(), 0.001);

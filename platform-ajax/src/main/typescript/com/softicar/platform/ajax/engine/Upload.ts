@@ -3,7 +3,7 @@
  */
 function sendUploadRequestThroughForm(form: HTMLFormElement) {
 	let message = new AjaxRequestMessage()
-		.setAction(AJAX_REQUEST_UPLOAD)
+		.setActionType(AJAX_REQUEST_UPLOAD)
 		.setNode(form);
 	AJAX_REQUEST_QUEUE.submit(message, form);
 }

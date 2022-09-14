@@ -18,7 +18,11 @@ public class DomPopupEventCoordinatesPositionStrategy implements IDomPopupPositi
 	public DomPopupPosition getPosition(IDomEvent event) {
 
 		if (event != null) {
-			return new DomPopupPosition(event.getClientX(), event.getClientY(), DomPopupXAlign.LEFT, DomPopupYAlign.TOP);
+			return new DomPopupPosition(//
+				(int) Math.round(event.getClientX()),
+				(int) Math.round(event.getClientY()),
+				DomPopupXAlign.LEFT,
+				DomPopupYAlign.TOP);
 		} else {
 			return new DomPopupViewportCenterPositionStrategy(CssPercent._50, CssPercent._25).getPosition(event);
 		}

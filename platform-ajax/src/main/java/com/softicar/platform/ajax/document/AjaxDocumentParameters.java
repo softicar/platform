@@ -12,7 +12,7 @@ public class AjaxDocumentParameters implements IAjaxDocumentParameters {
 
 	public AjaxDocumentParameters(IAjaxRequest request) {
 
-		this(request.getParameterMap());
+		this(request.getHttpRequest().getParameterMap());
 	}
 
 	public AjaxDocumentParameters(Map<String, String[]> parameterMap) {

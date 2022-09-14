@@ -2,110 +2,120 @@
  * Contains the payload of an {@link AjaxRequest}.
  */
 class AjaxRequestMessage {
-	private readonly data = new Map<string, string>();
+	protected readonly instanceUuid: string = DOCUMENT_INSTANCE_UUID;
+	protected requestIndex: number = -1;
+	protected actionType: string | null = null;
+	protected eventType: string | null = null;
+	protected nodeId: string | null = null;
+	protected nodeRect: Rect = new Rect();
+	protected nodeValues: any = {};
+	protected key: string = "";
+	protected modifierKeys: any = {};
+	protected cursor: Vector2d = new Vector2d();
+	protected cursorRelative: Vector2d = new Vector2d();
+	protected wheelDelta: Vector3d = new Vector3d();
+	protected dragStart: Vector2d = new Vector2d();
+	protected dragPosition: Vector2d = new Vector2d();
+	protected windowPageOffset: Vector2d = new Vector2d();
+	protected windowInnerSize: Vector2d = new Vector2d();
 
-	public constructor() {
-		this.setString('i', DOCUMENT_INSTANCE_UUID);
-		this.setBooleanIfTrue('debug', DEBUG);
-		this.setBooleanIfTrue('verbose', VERBOSE);
-	}
-	
 	public copyNodeValues() {
 		VALUE_NODE_MAP.copyNodeValues(this);
 	}
 
 	public setRequestIndex(requestIndex: number) {
-		return this.setNumber('x', requestIndex);
+		this.requestIndex = requestIndex;
+		return this;
 	}
 
-	public setAction(action: number) {
-		return this.setNumber('a', action);
-	}
-
-	public setNode(node: HTMLElement) {
-		return this.setString('n', node.id);
-	}
-
-	public setNodeValue(node: HTMLElement, value: string) {
-		return this.setString('V' + node.id.substring(1), value);
+	public setActionType(actionType: string) {
+		this.actionType = actionType;
+		return this;
 	}
 
 	public setEventType(eventType: string) {
-		return this.setString('e', eventType.toUpperCase());
+		this.eventType = eventType.toUpperCase();
+		return this;
+	}
+
+	// ------------------------------ nodes ------------------------------ //
+
+	public setNode(node: HTMLElement) {
+		this.nodeId = node.id;
+		return this;
+	}
+
+	public setNodeRect(boundingClientRect: DOMRect) {
+		this.nodeRect = Rect.fromDomRect(boundingClientRect);
+		return this;
+	}
+
+	public setNodeValue(node: HTMLElement, value: string) {
+		this.nodeValues[node.id] = value;
+		return this;
 	}
 
 	// ------------------------------ keyboard ------------------------------ //
 
 	public setKey(key: string) {
-		return this.setString("key", key);
+		this.key  = key;
+		return this;
 	}
 	
 	public setModifierKey(name: string, value: boolean) {
-		return this.setBooleanIfTrue(name, value);
+		this.modifierKeys[name] = value;
+		return this;
 	}
 
 	// ------------------------------ mouse ------------------------------ //
 
-	public setMousePosition(position: Point) {
-		return this.setPoint('c', position);
+	public setMousePosition(position: Vector2d) {
+		this.cursor = position;
+		return this;
 	}
 
-	public setMouseRelativePosition(position: Point) {
-		return this.setPoint('r', position);
+	public setMouseRelativePosition(position: Vector2d) {
+		this.cursorRelative = position;
+		return this;
+	}
+
+	public setWheelDelta(delta: Vector3d) {
+		this.wheelDelta = delta;
+		return this;
 	}
 
 	// ------------------------------ drag'n'drop ------------------------------ //
 
-	public setDragStart(start: Point) {
-		return this.setPoint('s', start);
+	public setDragStart(start: Vector2d) {
+		this.dragStart = start;
+		return this;
 	}
 
-	public setDragPosition(position: Point) {
-		return this.setPoint('d', position);
+	public setDragPosition(position: Vector2d) {
+		this.dragPosition = position;
+		return this;
 	}
 
 	// ------------------------------ window ------------------------------ //
 
-	public setWindowPageOffset(pageOffset: Point) {
-		return this.setPoint('s', pageOffset);
-	}
-
-	public setWindowInnerSize(innerSize: Point) {
-		return this.setPoint('w', innerSize);
-	}
-
-	// ------------------------------ bounding client rect ------------------------------ //
-
-	public setBoundingClientRect(rect: DOMRect) {
-		this.setNumber("bcrX", rect.x);
-		this.setNumber("bcrY", rect.y);
-		this.setNumber("bcrW", rect.width);
-		this.setNumber("bcrH", rect.height);
+	public setWindowPageOffset(pageOffset: Vector2d) {
+		this.windowPageOffset = pageOffset;
 		return this;
 	}
 
-	// ------------------------------ delta ------------------------------ //
-
-	public setDeltaX(value: number) {
-		this.setNumber("deltaX", value);
-	}
-
-	public setDeltaY(value: number) {
-		this.setNumber("deltaY", value);
-	}
-
-	public setDeltaZ(value: number) {
-		this.setNumber("deltaZ", value);
+	public setWindowInnerSize(innerSize: Vector2d) {
+		this.windowInnerSize = innerSize;
+		return this;
 	}
 
 	// ------------------------------ encoding ------------------------------ //
 
 	public encode() {
-		return new AjaxRequestMessageEncoder(this.data).encode();
+		return new AjaxRequestMessageEncoder(this).encode();
 	}
 
 	public encodeToHex() {
-		return new AjaxRequestMessageEncoder(this.data).encodeToHex();
+		return new AjaxRequestMessageEncoder(this).encodeToHex();
 	}
 
 	// ------------------------------ redundancy ------------------------------ //
@@ -141,27 +151,17 @@ class AjaxRequestMessage {
 	}
 
 	private isSameDeltaDirections(other: AjaxRequestMessage) {
-		let thisDeltaX = Number(this.data.get('deltaX') ?? 0);
-		let otherDeltaX = Number(other.data.get('deltaX') ?? 0);
-		let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
-
-		let thisDeltaY = Number(this.data.get('deltaY') ?? 0);
-		let otherDeltaY = Number(other.data.get('deltaY') ?? 0);
-		let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
-
-		let thisDeltaZ = Number(this.data.get('deltaZ') ?? 0);
-		let otherDeltaZ = Number(other.data.get('deltaZ') ?? 0);
-		let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
-
+		let deltaXSameSign = Math.sign(this.wheelDelta.x) == Math.sign(other.wheelDelta.x);
+		let deltaYSameSign = Math.sign(this.wheelDelta.y) == Math.sign(other.wheelDelta.y);
+		let deltaZSameSign = Math.sign(this.wheelDelta.z) == Math.sign(other.wheelDelta.z);
 		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
 
 	// ------------------------------ obsolete ------------------------------ //
 
 	public isObsolete() {
-		let nodeId = this.data.get('n');
-		if(nodeId) {
-			return document.getElementById(nodeId) === null;
+		if(this.nodeId) {
+			return document.getElementById(this.nodeId) === null;
 		} else {
 			return false;
 		}
@@ -170,62 +170,38 @@ class AjaxRequestMessage {
 	// ------------------------------ getter ------------------------------ //
 
 	private isKeepAlive() {
-		return this.data.get('a') === '' + AJAX_REQUEST_KEEP_ALIVE;
+		return this.actionType == AJAX_REQUEST_KEEP_ALIVE;
 	}
 
 	private isDomEvent() {
-		return this.data.get('a') === '' + AJAX_REQUEST_DOM_EVENT;
+		return this.actionType == AJAX_REQUEST_DOM_EVENT;
 	}
 
 	private isSameAction(other: AjaxRequestMessage) {
-		return this.data.get('a') === other.data.get('a');
+		return this.actionType == other.actionType;
 	}
 
 	private isOnSameNode(other: AjaxRequestMessage) {
-		return this.data.get('n') === other.data.get('n');
+		return this.nodeId == other.nodeId;
 	}
 
 	private isSameEventType(other: AjaxRequestMessage) {
-		return this.data.get('e') === other.data.get('e');
+		return this.eventType == other.eventType;
 	}
 	
 	private isPassiveEventType() {
-		return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+		return this.eventType == 'CHANGE' || this.eventType == 'INPUT';
 	}
 	
 	private isKeyEventType() {
-		return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
+		return this.eventType == 'KEYDOWN' || this.eventType == 'KEYUP';
 	}
 	
 	private isWheelEventType() {
-		return this.data.get('e') == 'WHEEL';
+		return this.eventType == 'WHEEL';
 	}
 
 	private isSent() {
-		return this.data.has('x');
-	}
-
-	// ------------------------------ setter ------------------------------ //
-
-	private setString(key: string, value: string) {
-		this.data.set(key, value);
-		return this;
-	}
-
-	private setNumber(key: string, value: number) {
-		return this.setString(key, '' + value);
-	}
-
-	private setBooleanIfTrue(key: string, value: boolean) {
-		if(value) {
-			this.setString(key, '1');
-		}
-		return this;
-	}
-
-	private setPoint(key: string, value: Point) {
-		this.setNumber(key + 'x', value.x);
-		this.setNumber(key + 'y', value.y);
-		return this;
+		return this.requestIndex >= 0;
 	}
 }

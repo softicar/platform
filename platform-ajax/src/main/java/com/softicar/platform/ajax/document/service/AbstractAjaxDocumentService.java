@@ -45,7 +45,7 @@ public abstract class AbstractAjaxDocumentService extends AbstractAjaxService {
 
 	protected DomPayloadCodeExecutor createPayloadCodeExecutor() {
 
-		return new DomPayloadCodeExecutor().addExceptionHandler(exception -> framework.getAjaxStrategy().logException(exception, request));
+		return new DomPayloadCodeExecutor().addExceptionHandler(exception -> framework.getAjaxStrategy().logException(exception, request.getHttpRequest()));
 	}
 
 	protected void executePayloadCode(INullaryVoidFunction payloadCode) {
