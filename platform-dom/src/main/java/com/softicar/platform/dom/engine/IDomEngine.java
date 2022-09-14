@@ -19,7 +19,6 @@ import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
@@ -266,10 +265,6 @@ public interface IDomEngine {
 	void focus(IDomNode inputNode);
 
 	void selectText(IDomNode inputNode);
-
-	void insertTextAtCaret(IDomTextualInput input, String text);
-
-	void moveCaretToPosition(IDomTextualInput input, int position);
 
 	// -------------------------------- pop-ups -------------------------------- //
 
