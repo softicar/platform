@@ -20,30 +20,29 @@ public class DbTableValidator<R> extends Assert {
 	private final IDbTable<R, ?> table;
 	private final List<? extends IDbField<R, ?>> dataFields;
 	private final Collection<? extends IDbKey<R>> allKeys;
+	private final ErrorList errors;
 
 	public DbTableValidator(IDbTable<R, ?> table) {
 
 		this.table = table;
 		this.dataFields = table.getDataFields();
 		this.allKeys = table.getAllKeys();
+		this.errors = new ErrorList();
 	}
 
 	public void validate() {
 
-		var errors = new ErrorList();
-		errors.addAll(validateStringFields());
-		errors.addAll(validateNullability());
-		errors.addAll(validatePrimaryKey());
-		errors.addAll(validateForeignKeys());
+		validateStringFields();
+		validateNullability();
+		validatePrimaryKey();
+		validateForeignKeys();
 
 		if (!errors.isEmpty()) {
 			throw new AssertionError(Imploder.implode(errors, "\n"));
 		}
 	}
 
-	private List<String> validateStringFields() {
-
-		var errors = new ErrorList();
+	private void validateStringFields() {
 
 		for (IDbField<R, ?> field: dataFields) {
 			if (field.getFieldType().equals(SqlFieldType.STRING)) {
@@ -57,13 +56,9 @@ public class DbTableValidator<R> extends Assert {
 				}
 			}
 		}
-
-		return errors;
 	}
 
-	private List<String> validateNullability() {
-
-		var errors = new ErrorList();
+	private void validateNullability() {
 
 		for (IDbField<R, ?> field: dataFields) {
 			if (field.hasDefault() && field.getDefault() == null && !field.isNullable()) {
@@ -82,13 +77,9 @@ public class DbTableValidator<R> extends Assert {
 						field.getName());
 			}
 		}
-
-		return errors;
 	}
 
-	private List<String> validatePrimaryKey() {
-
-		var errors = new ErrorList();
+	private void validatePrimaryKey() {
 
 		var primaryKey = table.getPrimaryKey();
 		if (primaryKey.isBase()) {
@@ -101,13 +92,9 @@ public class DbTableValidator<R> extends Assert {
 						field.getName());
 			}
 		}
-
-		return errors;
 	}
 
-	private List<String> validateForeignKeys() {
-
-		var errors = new ErrorList();
+	private void validateForeignKeys() {
 
 		var leadingIndexFields = allKeys//
 			.stream()
@@ -133,8 +120,6 @@ public class DbTableValidator<R> extends Assert {
 				}
 			});
 		}
-
-		return errors;
 	}
 
 	private static class ErrorList extends ArrayList<String> {
