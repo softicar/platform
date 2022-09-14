@@ -1,10 +1,12 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import java.time.Duration;
 import java.util.function.Supplier;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Window;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Facilitates controlling the viewport of a UI-under-test.
@@ -34,7 +36,12 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 		AjaxSeleniumTestSegment viewportSize = getViewportSize();
 		int extraWidth = windowSize.getWidth() - viewportSize.getWidth();
 		int extraHeight = windowSize.getHeight() - viewportSize.getHeight();
-		getWindow().setSize(new org.openqa.selenium.Dimension(width + extraWidth, height + extraHeight));
+
+		getWindow().setSize(new Dimension(width + extraWidth, height + extraHeight));
+
+		// wait for the window size to actually change
+		new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
+			.until(drv -> !getViewportSize().equals(viewportSize));
 	}
 
 	public void scrollTo(int x, int y) {
@@ -49,13 +56,11 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 
 	private int getViewportWidth() {
 
-		Long width = (Long) javascriptExecutor.execute("return window.innerWidth;");
-		return width.intValue();
+		return ((Long) javascriptExecutor.execute("return window.innerWidth;")).intValue();
 	}
 
 	private int getViewportHeight() {
 
-		Long height = (Long) javascriptExecutor.execute("return window.innerHeight;");
-		return height.intValue();
+		return ((Long) javascriptExecutor.execute("return window.innerHeight;")).intValue();
 	}
 }
