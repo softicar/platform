@@ -10,7 +10,7 @@ function scheduleTimeout(timeoutNode: HTMLElement, milliseconds: number) {
  */
 function handleTimeout(timeoutNode: HTMLElement) {
 	let message = new AjaxRequestMessage()
-		.setAction(AJAX_REQUEST_TIMEOUT)
+		.setActionType(AJAX_REQUEST_TIMEOUT)
 		.setNode(timeoutNode);
 	AJAX_REQUEST_QUEUE.submit(message);
 }

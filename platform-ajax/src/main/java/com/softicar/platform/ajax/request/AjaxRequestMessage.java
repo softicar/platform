@@ -5,40 +5,62 @@ import com.softicar.platform.ajax.document.action.AjaxDocumentActionType;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomModifier;
-import com.softicar.platform.dom.event.DomVector2d;
 import com.softicar.platform.dom.event.DomRect;
+import com.softicar.platform.dom.event.DomVector2d;
+import com.softicar.platform.dom.event.DomVector3d;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.UUID;
 
 public class AjaxRequestMessage {
 
 	private String instanceUuid;
 	private int requestIndex;
-	private AjaxDocumentActionType action;
-	private String nodeId;
-	private Map<String, String> nodeValues;
+	private AjaxDocumentActionType actionType;
 	private DomEventType eventType;
+	private String nodeId;
+	private DomRect nodeRect;
+	private Map<String, String> nodeValues;
 	private String key;
-	private Integer keyCode;
 	private Map<DomModifier, Boolean> modifierKeys;
 	private DomVector2d cursor;
 	private DomVector2d cursorRelative;
+	private DomVector3d wheelDelta;
 	private DomVector2d dragStart;
 	private DomVector2d dragPosition;
 	private DomVector2d windowPageOffset;
 	private DomVector2d windowInnerSize;
-	private DomRect boundingClientRect;
-	private double deltaX;
-	private double deltaY;
-	private double deltaZ;
+
+	public AjaxRequestMessage() {
+
+		initialize();
+	}
+
+	public AjaxRequestMessage validate() {
+
+		if (instanceUuid == null || instanceUuid.isBlank()) {
+			throw new RuntimeException("Missing document instance UUID.");
+		}
+		if (requestIndex < 0) {
+			throw new RuntimeException("Missing AJAX request index.");
+		}
+		if (actionType == null) {
+			throw new RuntimeException("Missing AJAX action type.");
+		}
+		if (actionType == AjaxDocumentActionType.DOM_EVENT && eventType == null) {
+			throw new RuntimeException("Missing DOM event type.");
+		}
+		return this;
+	}
 
 	public static AjaxRequestMessage parseJson(String json) {
 
 		return new GsonBuilder()//
 			.create()
-			.fromJson(json, AjaxRequestMessage.class);
+			.fromJson(json, AjaxRequestMessage.class)
+			.validate();
 	}
 
 	@Override
@@ -60,19 +82,9 @@ public class AjaxRequestMessage {
 		return requestIndex;
 	}
 
-	public AjaxDocumentActionType getAction() {
+	public AjaxDocumentActionType getActionType() {
 
-		return action;
-	}
-
-	public IDomNode getNode(IDomDocument document) {
-
-		return nodeId != null? document.getNode(nodeId) : null;
-	}
-
-	public Map<String, String> getNodeValues() {
-
-		return nodeValues;
+		return actionType;
 	}
 
 	public DomEventType getEventType() {
@@ -80,20 +92,36 @@ public class AjaxRequestMessage {
 		return eventType;
 	}
 
+	// ------------------------------ nodes ------------------------------ //
+
+	public IDomNode getNode(IDomDocument document) {
+
+		return nodeId != null? document.getNode(nodeId) : null;
+	}
+
+	public DomRect getNodeRect() {
+
+		return nodeRect;
+	}
+
+	public Map<String, String> getNodeValues() {
+
+		return nodeValues;
+	}
+
+	// ------------------------------ keyboard ------------------------------ //
+
 	public String getKey() {
 
 		return key;
-	}
-
-	public Integer getKeyCode() {
-
-		return keyCode;
 	}
 
 	public boolean isModifierKey(DomModifier modifier) {
 
 		return Optional.ofNullable(modifierKeys.get(modifier)).orElse(false);
 	}
+
+	// ------------------------------ mouse ------------------------------ //
 
 	public DomVector2d getCursor() {
 
@@ -105,6 +133,13 @@ public class AjaxRequestMessage {
 		return cursorRelative;
 	}
 
+	public DomVector3d getWheelDelta() {
+
+		return wheelDelta;
+	}
+
+	// ------------------------------ drag'n'drop ------------------------------ //
+
 	public DomVector2d getDragStart() {
 
 		return dragStart;
@@ -114,6 +149,8 @@ public class AjaxRequestMessage {
 
 		return dragPosition;
 	}
+
+	// ------------------------------ window ------------------------------ //
 
 	public DomVector2d getWindowPageOffset() {
 
@@ -125,23 +162,25 @@ public class AjaxRequestMessage {
 		return windowInnerSize;
 	}
 
-	public DomRect getBoundingClientRect() {
+	// ------------------------------ initialize ------------------------------ //
 
-		return boundingClientRect;
-	}
+	private void initialize() {
 
-	public double getDeltaX() {
-
-		return deltaX;
-	}
-
-	public double getDeltaY() {
-
-		return deltaY;
-	}
-
-	public double getDeltaZ() {
-
-		return deltaZ;
+		this.instanceUuid = null;
+		this.requestIndex = -1;
+		this.actionType = null;
+		this.eventType = null;
+		this.nodeId = null;
+		this.nodeRect = new DomRect();
+		this.nodeValues = new TreeMap<>();
+		this.key = "";
+		this.modifierKeys = new TreeMap<>();
+		this.cursor = new DomVector2d();
+		this.cursorRelative = new DomVector2d();
+		this.dragStart = new DomVector2d();
+		this.dragPosition = new DomVector2d();
+		this.wheelDelta = new DomVector3d();
+		this.windowPageOffset = new DomVector2d();
+		this.windowInnerSize = new DomVector2d();
 	}
 }

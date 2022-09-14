@@ -4,22 +4,20 @@
 class AjaxRequestMessage {
 	protected readonly instanceUuid: string = DOCUMENT_INSTANCE_UUID;
 	protected requestIndex: number = -1;
-	protected action: string | null = null;
-	protected nodeId: string | null = null;
-	protected nodeValues: any = {};
+	protected actionType: string | null = null;
 	protected eventType: string | null = null;
+	protected nodeId: string | null = null;
+	protected nodeRect: Rect = new Rect();
+	protected nodeValues: any = {};
 	protected key: string = "";
 	protected modifierKeys: any = {};
-	protected cursor: Point = new Point();
-	protected cursorRelative: Point = new Point();
-	protected dragStart: Point = new Point();
-	protected dragPosition: Point = new Point();
-	protected windowPageOffset: Point = new Point();
-	protected windowInnerSize: Point = new Point();
-	protected boundingClientRect: Rect = new Rect();
-	protected deltaX: number = 0;
-	protected deltaY: number = 0;
-	protected deltaZ: number = 0;
+	protected cursor: Vector2d = new Vector2d();
+	protected cursorRelative: Vector2d = new Vector2d();
+	protected wheelDelta: Vector3d = new Vector3d();
+	protected dragStart: Vector2d = new Vector2d();
+	protected dragPosition: Vector2d = new Vector2d();
+	protected windowPageOffset: Vector2d = new Vector2d();
+	protected windowInnerSize: Vector2d = new Vector2d();
 
 	public copyNodeValues() {
 		VALUE_NODE_MAP.copyNodeValues(this);
@@ -30,23 +28,30 @@ class AjaxRequestMessage {
 		return this;
 	}
 
-	public setAction(action: string) {
-		this.action = action;
+	public setActionType(actionType: string) {
+		this.actionType = actionType;
 		return this;
 	}
+
+	public setEventType(eventType: string) {
+		this.eventType = eventType.toUpperCase();
+		return this;
+	}
+
+	// ------------------------------ nodes ------------------------------ //
 
 	public setNode(node: HTMLElement) {
 		this.nodeId = node.id;
 		return this;
 	}
 
-	public setNodeValue(node: HTMLElement, value: string) {
-		this.nodeValues[node.id] = value;
+	public setNodeRect(boundingClientRect: DOMRect) {
+		this.nodeRect = Rect.fromDomRect(boundingClientRect);
 		return this;
 	}
 
-	public setEventType(eventType: string) {
-		this.eventType = eventType.toUpperCase();
+	public setNodeValue(node: HTMLElement, value: string) {
+		this.nodeValues[node.id] = value;
 		return this;
 	}
 
@@ -64,61 +69,42 @@ class AjaxRequestMessage {
 
 	// ------------------------------ mouse ------------------------------ //
 
-	public setMousePosition(position: Point) {
+	public setMousePosition(position: Vector2d) {
 		this.cursor = position;
 		return this;
 	}
 
-	public setMouseRelativePosition(position: Point) {
+	public setMouseRelativePosition(position: Vector2d) {
 		this.cursorRelative = position;
+		return this;
+	}
+
+	public setWheelDelta(delta: Vector3d) {
+		this.wheelDelta = delta;
 		return this;
 	}
 
 	// ------------------------------ drag'n'drop ------------------------------ //
 
-	public setDragStart(start: Point) {
+	public setDragStart(start: Vector2d) {
 		this.dragStart = start;
 		return this;
 	}
 
-	public setDragPosition(position: Point) {
+	public setDragPosition(position: Vector2d) {
 		this.dragPosition = position;
 		return this;
 	}
 
 	// ------------------------------ window ------------------------------ //
 
-	public setWindowPageOffset(pageOffset: Point) {
+	public setWindowPageOffset(pageOffset: Vector2d) {
 		this.windowPageOffset = pageOffset;
 		return this;
 	}
 
-	public setWindowInnerSize(innerSize: Point) {
+	public setWindowInnerSize(innerSize: Vector2d) {
 		this.windowInnerSize = innerSize;
-		return this;
-	}
-
-	// ------------------------------ bounding client rect ------------------------------ //
-
-	public setBoundingClientRect(boundingClientRect: DOMRect) {
-		this.boundingClientRect = Rect.fromDomRect(boundingClientRect);
-		return this;
-	}
-
-	// ------------------------------ delta ------------------------------ //
-
-	public setDeltaX(value: number) {
-		this.deltaX = value;
-		return this;
-	}
-
-	public setDeltaY(value: number) {
-		this.deltaY = value;
-		return this;
-	}
-
-	public setDeltaZ(value: number) {
-		this.deltaZ = value;
 		return this;
 	}
 
@@ -165,9 +151,9 @@ class AjaxRequestMessage {
 	}
 
 	private isSameDeltaDirections(other: AjaxRequestMessage) {
-		let deltaXSameSign = Math.sign(this.deltaX) == Math.sign(other.deltaX);
-		let deltaYSameSign = Math.sign(this.deltaY) == Math.sign(other.deltaY);
-		let deltaZSameSign = Math.sign(this.deltaZ) == Math.sign(other.deltaZ);
+		let deltaXSameSign = Math.sign(this.wheelDelta.x) == Math.sign(other.wheelDelta.x);
+		let deltaYSameSign = Math.sign(this.wheelDelta.y) == Math.sign(other.wheelDelta.y);
+		let deltaZSameSign = Math.sign(this.wheelDelta.z) == Math.sign(other.wheelDelta.z);
 		return deltaXSameSign && deltaYSameSign && deltaZSameSign;
 	}
 
@@ -184,15 +170,15 @@ class AjaxRequestMessage {
 	// ------------------------------ getter ------------------------------ //
 
 	private isKeepAlive() {
-		return this.action == AJAX_REQUEST_KEEP_ALIVE;
+		return this.actionType == AJAX_REQUEST_KEEP_ALIVE;
 	}
 
 	private isDomEvent() {
-		return this.action == AJAX_REQUEST_DOM_EVENT;
+		return this.actionType == AJAX_REQUEST_DOM_EVENT;
 	}
 
 	private isSameAction(other: AjaxRequestMessage) {
-		return this.action == other.action;
+		return this.actionType == other.actionType;
 	}
 
 	private isOnSameNode(other: AjaxRequestMessage) {

@@ -115,25 +115,25 @@ public class AjaxDomEvent implements IDomEvent {
 	@Override
 	public DomRect getBoundingClientRect() {
 
-		return message.getBoundingClientRect();
+		return message.getNodeRect();
 	}
 
 	@Override
 	public double getDeltaX() {
 
-		return message.getDeltaX();
+		return message.getWheelDelta().getX();
 	}
 
 	@Override
 	public double getDeltaY() {
 
-		return message.getDeltaY();
+		return message.getWheelDelta().getY();
 	}
 
 	@Override
 	public double getDeltaZ() {
 
-		return message.getDeltaZ();
+		return message.getWheelDelta().getZ();
 	}
 
 	@Override

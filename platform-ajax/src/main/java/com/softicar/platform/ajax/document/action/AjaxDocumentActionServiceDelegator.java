@@ -18,7 +18,7 @@ public class AjaxDocumentActionServiceDelegator extends AbstractAjaxService {
 
 		request//
 			.getRequestMessageOrThrow()
-			.getAction()
+			.getActionType()
 			.createService(request, getDocumentOrThrow())
 			.service();
 	}
