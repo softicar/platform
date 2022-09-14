@@ -129,7 +129,7 @@ class PageServiceLoginAuthenticator {
 
 	private String getClientAddress() {
 
-		return HttpServletRequests.getClientAddress(request);
+		return HttpServletRequests.getClientAddress(request.getHttpRequest());
 	}
 
 	private boolean isLegalClientAddress(String clientAddress, AGUserAllowedIpRule allowedIpRule) {

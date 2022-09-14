@@ -14,6 +14,7 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
+import javax.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -28,6 +29,7 @@ public class AjaxResourceLinkRegistryTest extends AbstractTest {
 	public AjaxResourceLinkRegistryTest() {
 
 		IAjaxRequest request = Mockito.mock(IAjaxRequest.class);
+		Mockito.when(request.getHttpRequest()).thenReturn(Mockito.mock(HttpServletRequest.class));
 		Mockito.when(request.getHttpSession()).thenReturn(new SimpleHttpSession(""));
 		Mockito.when(request.getAjaxFramework()).thenReturn(new AjaxFramework(new AjaxTestingStrategy()));
 

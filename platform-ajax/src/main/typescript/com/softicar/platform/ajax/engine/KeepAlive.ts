@@ -40,7 +40,7 @@ class KeepAlive {
 			return;
 		}
 
-		let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
+		let message = new AjaxRequestMessage().setActionType(AJAX_REQUEST_KEEP_ALIVE);
 		AJAX_REQUEST_QUEUE.submit(message);
 	}
 }
