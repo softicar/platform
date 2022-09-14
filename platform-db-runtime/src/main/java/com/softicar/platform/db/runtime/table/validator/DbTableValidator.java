@@ -1,14 +1,13 @@
 package com.softicar.platform.db.runtime.table.validator;
 
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.string.Imploder;
+import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.sql.type.SqlFieldType;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -20,14 +19,14 @@ public class DbTableValidator<R> extends Assert {
 	private final IDbTable<R, ?> table;
 	private final List<? extends IDbField<R, ?>> dataFields;
 	private final Collection<? extends IDbKey<R>> allKeys;
-	private final ErrorList errors;
+	private final AssertionErrorMessageCollector errors;
 
 	public DbTableValidator(IDbTable<R, ?> table) {
 
 		this.table = table;
 		this.dataFields = table.getDataFields();
 		this.allKeys = table.getAllKeys();
-		this.errors = new ErrorList();
+		this.errors = new AssertionErrorMessageCollector();
 	}
 
 	public void validate() {
@@ -37,9 +36,7 @@ public class DbTableValidator<R> extends Assert {
 		validatePrimaryKey();
 		validateForeignKeys();
 
-		if (!errors.isEmpty()) {
-			throw new AssertionError(Imploder.implode(errors, "\n"));
-		}
+		errors.throwIfNecessary();
 	}
 
 	private void validateStringFields() {
@@ -119,14 +116,6 @@ public class DbTableValidator<R> extends Assert {
 							field.getName());
 				}
 			});
-		}
-	}
-
-	private static class ErrorList extends ArrayList<String> {
-
-		public void add(String format, Object...args) {
-
-			add(format.formatted(args));
 		}
 	}
 }

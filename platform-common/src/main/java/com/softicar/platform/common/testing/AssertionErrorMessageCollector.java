@@ -49,7 +49,7 @@ public class AssertionErrorMessageCollector {
 
 		if (!errorMessages.isEmpty()) {
 			StringBuilder message = new StringBuilder();
-			message.append(String.format("Encountered %s errors: %s\n", errorMessages.size(), createDescription(descriptiveMessage, args)));
+			message.append(String.format("Encountered %s errors:%s\n", errorMessages.size(), createDescription(descriptiveMessage, args)));
 			message.append(Imploder.implode(errorMessages, "\n"));
 			throw new AssertionError(message.toString());
 		}
@@ -58,7 +58,7 @@ public class AssertionErrorMessageCollector {
 	private String createDescription(String headerMessage, Object...args) {
 
 		if (headerMessage != null) {
-			return String.format(headerMessage, args);
+			return " " + String.format(headerMessage, args);
 		} else {
 			return "";
 		}
