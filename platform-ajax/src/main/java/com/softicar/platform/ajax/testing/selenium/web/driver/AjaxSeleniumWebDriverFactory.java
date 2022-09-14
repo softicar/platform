@@ -56,7 +56,9 @@ public class AjaxSeleniumWebDriverFactory {
 	private static Capabilities getBrowserCapabilities() {
 
 		return new ChromeOptions()//
-			.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT);
+			.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT)
+			// Avoid a Chrome memory issue, as per https://stackoverflow.com/a/53970825
+			.addArguments("--no-sandbox");
 	}
 
 	private static URL getRemoteDriverUrl() {
