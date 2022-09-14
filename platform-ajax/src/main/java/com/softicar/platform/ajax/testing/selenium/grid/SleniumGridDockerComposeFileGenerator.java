@@ -90,7 +90,8 @@ public class SleniumGridDockerComposeFileGenerator {
 
 	private void appendNodeServices(OutputBuilder builder) {
 
-		for (int nodeIndex = 1; nodeIndex <= calculateNodeCount(nodeConfiguration); nodeIndex++) {
+		var nodeCount =  calculateNodeCount(nodeConfiguration);
+		for (int nodeIndex = 1; nodeIndex <= nodeCount; nodeIndex++) {
 			builder.appendLine("  %s:", generateNodeName(nodeConfiguration, nodeIndex));
 			builder.appendLine("    image: selenium/%s:%s", nodeConfiguration.getImageName(), gridConfiguration.getContainerVersion());
 			builder.appendLine("    container_name: %s", generateNodeName(nodeConfiguration, nodeIndex));
