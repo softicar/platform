@@ -1,7 +1,5 @@
 package com.softicar.platform.integration.database.structure.version;
 
-import com.softicar.platform.common.core.java.classpath.JavaClasspath;
-import com.softicar.platform.common.core.java.classpath.JavaClasspathRootFolder;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validation.output.JavaCodeViolations;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
@@ -13,7 +11,6 @@ import com.softicar.platform.integration.database.structure.DatabaseStructureTab
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinition;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinitionsComparer;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinitionsConverter;
-import java.io.File;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,95 +18,77 @@ import java.util.stream.Collectors;
  * Ensures that the database structure in the classpath matches the most recent
  * structure definition listed in
  * {@link PlatformDatabaseStructureVersionResource}.
- * <p>
- * Does nothing unless {@link #INTEGRATION_PROJECT_NAME_JSON_PATH} and
- * {@link #TABLE_PACKAGE_PREFIX_JSON_PATH} are defined in the
- * {@link JavaCodeValidationEnvironment}.
  *
  * @author Alexander Schmidt
  */
 @JavaCodeValidator
 public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator {
 
-	private static final String INTEGRATION_PROJECT_NAME_JSON_PATH = "$.integrationProjectName";
 	private static final String TABLE_PACKAGE_PREFIX_JSON_PATH = "$.tablePackagePrefix";
 	private static final String DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS = "$.databaseStructureVersionResourceContainerClass";
 
 	@Override
 	public void validate(JavaCodeValidationEnvironment environment) {
 
-		var violations = new JavaCodeViolations();
-
 		var reader = environment.getConfigurationJsonValueReader();
-		JavaClasspath classPath = environment.getClassPath();
-		Optional<String> integrationProjectName = reader.readValue(INTEGRATION_PROJECT_NAME_JSON_PATH);
 		Optional<String> tablePackagePrefix = reader.readValue(TABLE_PACKAGE_PREFIX_JSON_PATH);
 		Optional<String> resourceContainerClassName = environment//
 			.getConfigurationJsonValueReader()
 			.readValue(DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS);
 
-		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix, resourceContainerClassName)) {
-			Class<?> resourceContainerClass = loadResourceContainerClass(resourceContainerClassName);
-			var resourceSupplier = new DatabaseStructureVersionResourcesMap(resourceContainerClass).getLatestStructureResourceSupplier();
-			String jsonFromResource = loadStructureJsonFromResource(resourceSupplier);
-			String jsonFromClasspath = loadStructureJsonFromClasspath(tablePackagePrefix.get());
+		Class<?> resourceContainerClass = loadResourceContainerClass(resourceContainerClassName);
+		var resourceSupplier = new DatabaseStructureVersionResourcesMap(resourceContainerClass).getLatestStructureResourceSupplier();
+		String jsonFromResource = loadStructureJsonFromResource(resourceSupplier);
+		String jsonFromClasspath = loadStructureJsonFromClasspath(tablePackagePrefix.get());
 
-			var converter = new DatabaseStructureTableDefinitionsConverter();
-			var definitionsFromResource = converter.convertToDefinitionList(jsonFromResource);
-			var definitionsFromClasspath = converter.convertToDefinitionList(jsonFromClasspath);
+		var converter = new DatabaseStructureTableDefinitionsConverter();
+		var definitionsFromResource = converter.convertToDefinitionList(jsonFromResource);
+		var definitionsFromClasspath = converter.convertToDefinitionList(jsonFromClasspath);
 
-			var comparison = new DatabaseStructureTableDefinitionsComparer().compare(definitionsFromResource, definitionsFromClasspath);
-			if (!comparison.isNoDifference()) {
-				String latestResourceFilename = resourceSupplier.getResource().getFilename().get();
+		environment.logVerbose("Database structure definition: %s", resourceSupplier.getResourceKey().getBasename());
+		var violations = new JavaCodeViolations();
+		var comparison = new DatabaseStructureTableDefinitionsComparer().compare(definitionsFromResource, definitionsFromClasspath);
+		if (!comparison.isNoDifference()) {
+			String latestResourceFilename = resourceSupplier.getResource().getFilename().get();
 
-				var firstOnlyDefinitions = comparison.getFirstOnlyDefinitions();
-				var secondOnlyDefinitions = comparison.getSecondOnlyDefinitions();
-				var conflictingDefinitions = comparison.getConflictingDefinitions();
+			var firstOnlyDefinitions = comparison.getFirstOnlyDefinitions();
+			var secondOnlyDefinitions = comparison.getSecondOnlyDefinitions();
+			var conflictingDefinitions = comparison.getConflictingDefinitions();
 
-				var message = new StringBuilder()//
-					.append("The database structure in '%s' does not match the database structure in the classpath.\n\n".formatted(latestResourceFilename));
+			var message = new StringBuilder()//
+				.append("The database structure in '%s' does not match the database structure in the classpath.\n\n".formatted(latestResourceFilename));
 
-				if (!firstOnlyDefinitions.isEmpty()) {
-					message//
-						.append("!! Tables that exist only in '%s' (%s):\n\n".formatted(latestResourceFilename, firstOnlyDefinitions.size()))
-						.append(firstOnlyDefinitions.stream().map(this::createProblemString).collect(Collectors.joining()));
-				}
-
-				if (!secondOnlyDefinitions.isEmpty()) {
-					message//
-						.append("!! Tables that exist only in the classpath (%s):\n\n".formatted(secondOnlyDefinitions.size()))
-						.append(secondOnlyDefinitions.stream().map(this::createProblemString).collect(Collectors.joining()));
-				}
-
-				if (!conflictingDefinitions.isEmpty()) {
-					message//
-						.append("!! Tables with conflicting definitions (%s):\n\n".formatted(conflictingDefinitions.size()))
-						.append(conflictingDefinitions.stream().map(it -> createProblemString(it, latestResourceFilename)).collect(Collectors.joining()));
-				}
-
+			if (!firstOnlyDefinitions.isEmpty()) {
 				message//
-					.append(
-						"!! If the structure described in '%s' was already released, save the current structure to a new file, with incremented version number.\n"
-							.formatted(latestResourceFilename));
-
-				message//
-					.append(
-						"!! Use '%s' in an integration project to derive the current structure from the classpath.\n"
-							.formatted(DatabaseStructureJsonFromClasspathExtractor.class.getSimpleName()));
-
-				violations.addViolation(message.toString());
+					.append("!! Tables that exist only in '%s' (%s):\n\n".formatted(latestResourceFilename, firstOnlyDefinitions.size()))
+					.append(firstOnlyDefinitions.stream().map(this::createProblemString).collect(Collectors.joining()));
 			}
-			violations.throwExceptionIfNotEmpty();
+
+			if (!secondOnlyDefinitions.isEmpty()) {
+				message//
+					.append("!! Tables that exist only in the classpath (%s):\n\n".formatted(secondOnlyDefinitions.size()))
+					.append(secondOnlyDefinitions.stream().map(this::createProblemString).collect(Collectors.joining()));
+			}
+
+			if (!conflictingDefinitions.isEmpty()) {
+				message//
+					.append("!! Tables with conflicting definitions (%s):\n\n".formatted(conflictingDefinitions.size()))
+					.append(conflictingDefinitions.stream().map(it -> createProblemString(it, latestResourceFilename)).collect(Collectors.joining()));
+			}
+
+			message//
+				.append(
+					"!! If the structure described in '%s' was already released, save the current structure to a new file, with incremented version number.\n"
+						.formatted(latestResourceFilename));
+
+			message//
+				.append(
+					"!! Use '%s' in an integration project to derive the current structure from the classpath.\n"
+						.formatted(DatabaseStructureJsonFromClasspathExtractor.class.getSimpleName()));
+
+			violations.addViolation(message.toString());
 		}
-	}
-
-	private boolean isEnabled(JavaClasspath classPath, Optional<String> integrationProjectName, Optional<String> tablePackagePrefix,
-			Optional<String> resourceContainerClassName) {
-
-		return integrationProjectName.isPresent()//
-				&& tablePackagePrefix.isPresent()//
-				&& resourceContainerClassName.isPresent()//
-				&& getClasspathDirectories(classPath).contains("/" + integrationProjectName.get() + "/");
+		violations.throwExceptionIfNotEmpty();
 	}
 
 	private String createProblemString(DatabaseStructureTableDefinition definition) {
@@ -143,15 +122,5 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 	private Class<Object> loadResourceContainerClass(Optional<String> resourceContainerClassName) {
 
 		return ReflectionUtils.tryToLoadClass(getClass().getClassLoader(), resourceContainerClassName.get());
-	}
-
-	private String getClasspathDirectories(JavaClasspath classPath) {
-
-		return classPath//
-			.getRootFolders()
-			.stream()
-			.map(JavaClasspathRootFolder::getFile)
-			.map(File::getPath)
-			.collect(Collectors.joining(","));
 	}
 }

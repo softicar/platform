@@ -2,6 +2,7 @@ package com.softicar.platform.common.code.validator;
 
 import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.classpath.IJavaClasspathRoot;
+import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationException;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
@@ -11,27 +12,32 @@ import com.softicar.platform.common.string.Imploder;
 @JavaCodeValidator
 public class PlatformCodeValidator implements IJavaCodeValidator {
 
+	private JavaCodeValidationEnvironment environment;
 	private PlatformCodeValidatorConfiguration configuration;
 	private PlatformCodeViolationCollection violations;
 
 	@Override
 	public void validate(JavaCodeValidationEnvironment environment) {
 
+		this.environment = environment;
 		this.configuration = new PlatformCodeValidatorConfiguration(environment.getConfigurationJsonValueReader());
 		this.violations = new PlatformCodeViolationCollection();
 
-		validateClassesInRootFolders(environment);
+		validateClasses();
 		throwExceptionIfViolationsExists();
 	}
 
-	private void validateClassesInRootFolders(JavaCodeValidationEnvironment environment) {
+	private void validateClasses() {
 
-		environment.getClassPath().getRootFolders().forEach(this::validateRootFolder);
+		JavaClasspath//
+			.getInstance()
+			.getPayloadRoots()
+			.forEach(this::validateRoot);
 	}
 
-	private void validateRootFolder(IJavaClasspathRoot rootFolder) {
+	private void validateRoot(IJavaClasspathRoot root) {
 
-		rootFolder//
+		root//
 			.getAnalyzedClasses()
 			.stream()
 			.forEach(this::validateClass);
@@ -45,9 +51,11 @@ public class PlatformCodeValidator implements IJavaCodeValidator {
 
 	private void checkForMainMethod(AnalyzedJavaClass javaClass) {
 
-		if (!configuration.isAllowedToHaveMainMethod(javaClass.getClassName())) {
-			if (javaClass.hasMainMethod()) {
+		if (javaClass.hasMainMethod()) {
+			if (!configuration.isAllowedToHaveMainMethod(javaClass.getClassName())) {
 				violations.addClassHasMainMethodViolation(javaClass.getClassName());
+			} else {
+				environment.logVerbose("Class with allowed main method: %s", javaClass.getClassName());
 			}
 		}
 	}

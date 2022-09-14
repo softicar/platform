@@ -10,7 +10,7 @@ class ResourceSupplierContainerValidator extends AbstractConstantContainerValida
 	public ResourceSupplierContainerValidator(Class<?> containerClass) {
 
 		super(containerClass, IResourceSupplier.class);
-		addAdditionalValidator(new ResourceSupplierContainerAllFieldsValidator(createFieldExtractor()::extractFields));
+		addAdditionalValidator(new ResourceSupplierContainerResourceKeyUnambiguityValidator(createFieldExtractor()::extractFields));
 		addAdditionalValidator(new ResourceSupplierContainerAnnotationValidator(containerClass));
 	}
 

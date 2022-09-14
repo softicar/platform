@@ -1,5 +1,3 @@
-import groovy.json.*;
-
 // -------------------- plug-ins -------------------- //
 
 plugins {
@@ -142,47 +140,6 @@ subprojects {
 		testImplementation "junit:junit:$versions.junit"
 		testImplementation "org.mockito:mockito-core:$versions.mockito"
 	}
-}
-
-// -------------------- validation -------------------- //
-
-subprojects {
-	apply plugin: 'com.softicar.gradle.code.validation'
-
-	softicarCodeValidationSettings {
-		validationEntryPointClass = "com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint"
-		def configurationJson = [
-			mandatoryTranslations: ["de"],
-			integrationProjectName: "platform-integration",
-			tablePackagePrefix: "com.softicar.platform",
-			databaseStructureVersionResourceContainerClass: "com.softicar.platform.integration.database.structure.version.PlatformDatabaseStructureVersionResource",
-
-			classesAllowedToHaveMainMethod: [
-				"com.softicar.platform.ajax.server.AjaxDomNodeServer",
-				"com.softicar.platform.ajax.testing.cases.TestCasesDiv",
-				"com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint",
-				"com.softicar.platform.core.module.program.ProgramStarter",
-				"com.softicar.platform.db.sql.expressions.SqlAllExpressionsGenerator",
-				"com.softicar.platform.db.sql.SqlMasterGenerator"
-			],
-			forbiddenClasses: [
-				"com.softicar.platform.db.core.statement.DbStatement",
-				"java.sql.Connection",
-				"java.sql.Driver",
-				"java.sql.DriverManager",
-				"java.sql.ResultSet",
-				"java.sql.ResultSetMetaData",
-				"java.sql.Statement"
-			],
-			packageTreesAllowedToUseForbiddenClasses: [
-				"com.softicar.platform.db",
-				"com.softicar.platform.integration.database.structure.version"
-			],
-		]
-		arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
-	}
-
-	check.dependsOn softicarCodeValidation
 }
 
 // -------------------- publishing -------------------- //

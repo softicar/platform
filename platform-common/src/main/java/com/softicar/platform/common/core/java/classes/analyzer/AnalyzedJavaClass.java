@@ -38,7 +38,7 @@ public class AnalyzedJavaClass extends AbstractJavaAccessLevelModifiable {
 	private final Set<JavaClassName> interfaces;
 	private final Set<JavaClassName> referencedClasses;
 	private final Set<JavaMethodReference> referencedMethods;
-	private final Map<JavaIdentifierKey, JavaIdentifierDeclaration> declaredFields;
+	private final Map<String, JavaIdentifierDeclaration> declaredFields;
 	private final Map<JavaIdentifierKey, JavaIdentifierDeclaration> declaredMethods;
 	private JavaClassName className;
 	private JavaClassName superClass;
@@ -116,9 +116,9 @@ public class AnalyzedJavaClass extends AbstractJavaAccessLevelModifiable {
 		return Collections.unmodifiableCollection(declaredFields.values());
 	}
 
-	public Optional<JavaIdentifierDeclaration> findDeclaredField(JavaIdentifierKey fieldKey) {
+	public Optional<JavaIdentifierDeclaration> findDeclaredField(String fieldName) {
 
-		return Optional.ofNullable(declaredFields.get(fieldKey));
+		return Optional.ofNullable(declaredFields.get(fieldName));
 	}
 
 	public Collection<JavaIdentifierDeclaration> getDeclaredMethods() {
@@ -183,9 +183,13 @@ public class AnalyzedJavaClass extends AbstractJavaAccessLevelModifiable {
 		return className.equals(testClassName);
 	}
 
-	public Class<?> loadClass() throws ClassNotFoundException {
+	public Class<?> loadClass() {
 
-		return Class.forName(className.getName());
+		try {
+			return Class.forName(className.getName());
+		} catch (ClassNotFoundException exception) {
+			throw new RuntimeException(exception);
+		}
 	}
 
 	public boolean hasAnnotation(Class<?> annotationClass) {
@@ -242,7 +246,7 @@ public class AnalyzedJavaClass extends AbstractJavaAccessLevelModifiable {
 
 	void addDeclaredField(JavaIdentifierDeclaration fieldDeclaration) {
 
-		this.declaredFields.put(fieldDeclaration.getKey(), fieldDeclaration);
+		this.declaredFields.put(fieldDeclaration.getName(), fieldDeclaration);
 	}
 
 	void addDeclaredMethod(JavaIdentifierDeclaration methodDeclaration) {

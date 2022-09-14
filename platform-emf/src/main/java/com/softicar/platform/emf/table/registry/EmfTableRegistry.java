@@ -33,7 +33,7 @@ public class EmfTableRegistry {
 		this.moduleUuidToTablesMap = new HashMap<>();
 		this.modulePackageMap = new EmfModulePackageMap(IEmfModuleRegistry.get());
 
-		new DbTableFinder<>(IEmfModuleRegistry.get().getClasspathFilesMetadata(), IEmfTable.class, IEmfTableRow.class)//
+		new DbTableFinder<>(IEmfTable.class, IEmfTableRow.class)//
 			.findAllTables()
 			.forEach(table -> registerTable(table.getValueClass(), table));
 	}

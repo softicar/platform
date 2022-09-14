@@ -1,7 +1,8 @@
 package com.softicar.platform.common.code.reference.point;
 
+import com.softicar.platform.common.code.classpath.metadata.ClasspathFilesMetadata;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
-import com.softicar.platform.common.core.java.classes.name.JavaClassName;
+import com.softicar.platform.common.core.utils.ReflectionUtils;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -28,9 +29,12 @@ class SourceCodeReferencePointsLoader {
 	public Map<UUID, ISourceCodeReferencePoint> loadAll() {
 
 		if (!loaded) {
-			new SourceCodeReferencePointClassesFinder()//
-				.findClasses()
-				.forEach(this::loadReferencePoint);
+			ClasspathFilesMetadata//
+				.getInstance()
+				.getDirectlyAnnotatedClasses(SourceCodeReferencePointUuid.class)
+				.stream()
+				.filter(this::isPublic)
+				.forEach(this::addReferencePoint);
 			this.loaded = true;
 		}
 
@@ -38,13 +42,17 @@ class SourceCodeReferencePointsLoader {
 		return referencePoints;
 	}
 
-	private void loadReferencePoint(JavaClassName className) {
+	private boolean isPublic(Class<?> referencePointClass) {
+
+		return ReflectionUtils.isPublic(referencePointClass);
+	}
+
+	private void addReferencePoint(Class<?> referencePointClass) {
 
 		try {
-			Class<?> referencePointClass = Class.forName(className.getName());
 			referencePoints.put(getUuid(referencePointClass), createInstance(referencePointClass));
 		} catch (Exception exception) {
-			exceptionsCollector.add(new SourceCodeReferencePointLoadingException(className, exception));
+			exceptionsCollector.add(new SourceCodeReferencePointLoadingException(referencePointClass, exception));
 		}
 	}
 
