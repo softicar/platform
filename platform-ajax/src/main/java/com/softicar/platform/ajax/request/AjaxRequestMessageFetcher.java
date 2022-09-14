@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.request;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.HexDecoderStream;
 import com.softicar.platform.common.io.StreamUtils;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.string.charset.Charsets;
 import java.io.IOException;
 import java.util.Optional;
@@ -15,26 +16,26 @@ class AjaxRequestMessageFetcher {
 	private final HttpServletRequest request;
 	private final String contentType;
 
-	AjaxRequestMessageFetcher(HttpServletRequest request) {
+	public AjaxRequestMessageFetcher(HttpServletRequest request) {
 
 		this.request = request;
 		this.contentType = request.getContentType();
 	}
 
-	Optional<AjaxRequestMessage> fetchMessage() {
+	public Optional<AjaxRequestMessage> fetchMessage() {
 
-		if (isContentType("application/json")) {
+		if (isContentType(MimeType.APPLICATION_JSON)) {
 			return Optional.of(parseFromRequest());
-		} else if (isContentType("multipart/form-data")) {
+		} else if (isContentType(MimeType.MULTIPART_FORM_DATA)) {
 			return Optional.of(parseFromRequestPart());
 		} else {
 			return Optional.empty();
 		}
 	}
 
-	private boolean isContentType(String prefix) {
+	private boolean isContentType(MimeType mimeType) {
 
-		return contentType != null && contentType.startsWith(prefix);
+		return contentType != null && contentType.startsWith(mimeType.getIdentifier());
 	}
 
 	private AjaxRequestMessage parseFromRequest() {
@@ -52,8 +53,8 @@ class AjaxRequestMessageFetcher {
 			return AjaxRequestMessage.parseJson(StreamUtils.toString(inputStream, Charsets.UTF8));
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
-		} catch (ServletException exception1) {
-			throw new RuntimeException(exception1);
+		} catch (ServletException exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 }
