@@ -33,7 +33,7 @@ public class CreationTransactionField<R extends IDbObject<R>, L extends IDbRecor
 		List<L> logRows = logEntityField//
 			.getTable()
 			.createSelect()
-			.where(logEntityField.in(rows))
+			.where(logEntityField.isIn(rows))
 			.list();
 		logTransactionField.prefetch(logRows);
 

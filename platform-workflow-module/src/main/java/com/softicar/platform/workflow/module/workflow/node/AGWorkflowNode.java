@@ -19,8 +19,8 @@ public class AGWorkflowNode extends AGWorkflowNodeGenerated implements IEmfObjec
 
 		return !AGWorkflowTransition.TABLE//
 			.createSelect()
-			.where(AGWorkflowTransition.WORKFLOW_VERSION.equal(getWorkflowVersion()))
-			.where(AGWorkflowTransition.SOURCE_NODE.equal(this))
+			.where(AGWorkflowTransition.WORKFLOW_VERSION.isEqual(getWorkflowVersion()))
+			.where(AGWorkflowTransition.SOURCE_NODE.isEqual(this))
 			.where(AGWorkflowTransition.ACTIVE)
 			.exists();
 	}
@@ -30,7 +30,7 @@ public class AGWorkflowNode extends AGWorkflowNodeGenerated implements IEmfObjec
 		return AGWorkflowNodeAction.TABLE//
 			.createSelect()
 			.where(AGWorkflowNodeAction.ACTIVE)
-			.where(AGWorkflowNodeAction.WORKFLOW_NODE.equal(this))
+			.where(AGWorkflowNodeAction.WORKFLOW_NODE.isEqual(this))
 			.list();
 	}
 
@@ -39,7 +39,7 @@ public class AGWorkflowNode extends AGWorkflowNodeGenerated implements IEmfObjec
 		return AGWorkflowNodePrecondition.TABLE//
 			.createSelect()
 			.where(AGWorkflowNodePrecondition.ACTIVE)
-			.where(AGWorkflowNodePrecondition.WORKFLOW_NODE.equal(this))
+			.where(AGWorkflowNodePrecondition.WORKFLOW_NODE.isEqual(this))
 			.list();
 	}
 }

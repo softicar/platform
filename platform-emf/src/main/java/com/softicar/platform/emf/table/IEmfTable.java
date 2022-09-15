@@ -6,9 +6,11 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
+import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.table.DbTable;
 import com.softicar.platform.db.runtime.table.IDbTable;
+import com.softicar.platform.db.runtime.table.validator.DbTableValidator;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.db.sql.field.ISqlField;
 import com.softicar.platform.db.sql.field.ISqlForeignRowField;
@@ -79,15 +81,18 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	// ------------------------------ convenience methods ------------------------------ //
 
 	/**
-	 * Validates the {@link IEmfTableConfiguration} of this table.
-	 * <p>
-	 * If the configuration is invalid, an exception will be thrown.
+	 * Validates the configuration of this {@link IEmfTable} and gathers the
+	 * results.
+	 *
+	 * @return the validation results (never <i>null</i>)
 	 */
 	@Override
-	default void assertValidConfigurationOrThrow() {
+	default AssertionErrorMessageCollector validateConfiguration() {
 
-		IDbTable.super.assertValidConfigurationOrThrow();
-		new EmfTableValidator<>(this).validate();
+		var errors = new AssertionErrorMessageCollector();
+		errors.addAll(new DbTableValidator<>(this).validate());
+		errors.addAll(new EmfTableValidator<>(this).validate());
+		return errors;
 	}
 
 	/**

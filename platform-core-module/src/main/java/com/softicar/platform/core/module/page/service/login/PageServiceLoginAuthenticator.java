@@ -58,8 +58,8 @@ class PageServiceLoginAuthenticator {
 		// check for too many login failures
 		int failedLogins = AGUserLoginFailureLog//
 			.createSelect()
-			.where(AGUserLoginFailureLog.USERNAME.equal(username))
-			.where(AGUserLoginFailureLog.LOGIN_AT.greaterEqual(DayTime.now().minusSeconds(loginFailureTimeout)))
+			.where(AGUserLoginFailureLog.USERNAME.isEqual(username))
+			.where(AGUserLoginFailureLog.LOGIN_AT.isGreaterEqual(DayTime.now().minusSeconds(loginFailureTimeout)))
 			.count();
 		if (failedLogins >= maximumLoginFailures) {
 			// Please note that we must fail here even if the user now entered the correct password!
@@ -71,7 +71,7 @@ class PageServiceLoginAuthenticator {
 		// load user and check if user exists
 		AGUser user = AGUser.loadByLoginName(username);
 		if (user == null) {
-			logFailure(AGUserLoginFailureTypeEnum.UNKOWN_USER, username);
+			logFailure(AGUserLoginFailureTypeEnum.UNKNOWN_USER, username);
 			throw new PageServiceLoginExceptionWrongUsernameOrPassword();
 		}
 
@@ -104,8 +104,8 @@ class PageServiceLoginAuthenticator {
 		// check for too many logins
 		int logins = AGUserLoginLog//
 			.createSelect()
-			.where(AGUserLoginLog.USER.equal(user))
-			.where(AGUserLoginLog.LOGIN_AT.greaterEqual(DayTime.now().minusSeconds(MAXIMUM_LOGINS_PERIOD)))
+			.where(AGUserLoginLog.USER.isEqual(user))
+			.where(AGUserLoginLog.LOGIN_AT.isGreaterEqual(DayTime.now().minusSeconds(MAXIMUM_LOGINS_PERIOD)))
 			.count();
 		if (logins >= MAXIMUM_LOGINS) {
 			logFailure(AGUserLoginFailureTypeEnum.TOO_MANY_LOGINS, username);
@@ -129,7 +129,7 @@ class PageServiceLoginAuthenticator {
 
 	private String getClientAddress() {
 
-		return HttpServletRequests.getClientAddress(request);
+		return HttpServletRequests.getClientAddress(request.getHttpRequest());
 	}
 
 	private boolean isLegalClientAddress(String clientAddress, AGUserAllowedIpRule allowedIpRule) {

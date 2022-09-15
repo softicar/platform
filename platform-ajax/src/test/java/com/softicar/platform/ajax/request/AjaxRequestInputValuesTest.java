@@ -26,27 +26,27 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.send("foo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("foo");
+		tester.assertNodeValueParameter("foo");
 		tester.assertTextValue("foo");
 
 		// user clicks button without change
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("foo");
 
 		// application changes value
 		testDiv.textInput.setValue("X");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("X");
 
 		// user writes more text
 		tester.send("foo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("Xfoo");
+		tester.assertNodeValueParameter("Xfoo");
 		tester.assertTextValue("Xfoo");
 
 		// user removed and writes same text again
@@ -54,7 +54,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.send("Xfoo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("Xfoo");
 	}
 
@@ -66,13 +66,13 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("");
 
 		tester.send("bar");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("bar");
+		tester.assertNodeValueParameter("bar");
 		tester.assertTextValue("bar");
 	}
 
@@ -84,13 +84,13 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("foo");
 
 		tester.send("bar");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("foobar");
+		tester.assertNodeValueParameter("foobar");
 		tester.assertTextValue("foobar");
 	}
 
@@ -106,27 +106,27 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.send("foo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("foo");
+		tester.assertNodeValueParameter("foo");
 		tester.assertTextValue("foo");
 
 		// user clicks button without change
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("foo");
 
 		// application changes value
 		testDiv.textArea.setValue("X");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("X");
 
 		// user writes more text
 		tester.send("foo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("Xfoo");
+		tester.assertNodeValueParameter("Xfoo");
 		tester.assertTextValue("Xfoo");
 
 		// user removed and writes same text again
@@ -134,7 +134,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.send("Xfoo");
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertTextValue("Xfoo");
 	}
 
@@ -148,32 +148,31 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter(testDiv.option1.getNodeIdString());
+		tester.assertNodeValueParameter(testDiv.option1.getNodeIdString());
 		tester.assertSelectedOptions(testDiv.option1);
 
 		click(testDiv.select);
 		click(testDiv.option3);
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter(testDiv.option3.getNodeIdString());
+		tester.assertNodeValueParameter(testDiv.option3.getNodeIdString());
 		tester.assertSelectedOptions(testDiv.option3);
 
 		tester.clickButton();
-		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option3);
 
 		testDiv.select.setSelectedOption(testDiv.option1);
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option1);
 
 		click(testDiv.select);
 		click(testDiv.option2);
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter(testDiv.option2.getNodeIdString());
+		tester.assertNodeValueParameter(testDiv.option2.getNodeIdString());
 		tester.assertSelectedOptions(testDiv.option2);
 	}
 
@@ -187,32 +186,31 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions();
 
 		click(testDiv.option2);
 		click(testDiv.option3, DomModifier.CONTROL);
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter(testDiv.option2.getNodeIdString() + "," + testDiv.option3.getNodeIdString());
+		tester.assertNodeValueParameter(testDiv.option2.getNodeIdString() + "," + testDiv.option3.getNodeIdString());
 		tester.assertSelectedOptions(testDiv.option2, testDiv.option3);
 
 		tester.clickButton();
-		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option2, testDiv.option3);
 
 		testDiv.select.setSelectedOptions(List.of(testDiv.option1, testDiv.option2));
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertNoValueParameter();
+		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option1, testDiv.option2);
 
 		click(testDiv.option1, DomModifier.CONTROL);
 		click(testDiv.option2, DomModifier.CONTROL);
 		tester.clickButton();
 		tester.waitForServer();
-		tester.assertValueParameter("");
+		tester.assertNodeValueParameter("");
 		tester.assertSelectedOptions();
 	}
 
@@ -263,19 +261,19 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 			expectedOptions.forEach(option -> assertTrue("expected selected option", actualOptions.contains(option)));
 		}
 
-		public void assertValueParameter(String expectedValue) {
+		public void assertNodeValueParameter(String expectedValue) {
 
-			getRequestAsserter().assertValueParameter(expectedValue, node);
+			getRequestMessageAsserter().assertValueParameter(expectedValue, node);
 		}
 
-		public void assertNoValueParameter() {
+		public void assertNoNodeValueParameter() {
 
-			getRequestAsserter().assertNoValueParameter(node);
+			getRequestMessageAsserter().assertNoValueParameter(node);
 		}
 
-		private AjaxRequestAsserter getRequestAsserter() {
+		private AjaxRequestMessageAsserter getRequestMessageAsserter() {
 
-			return new AjaxRequestAsserter(testDiv.getLastEvent().getAjaxRequest());
+			return new AjaxRequestMessageAsserter(testDiv.getLastEvent().getRequestMessage());
 		}
 	}
 }

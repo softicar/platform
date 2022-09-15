@@ -1,7 +1,7 @@
 package com.softicar.platform.ajax.request;
 
 import com.softicar.platform.ajax.framework.AjaxFramework;
-import com.softicar.platform.ajax.request.parameters.IAjaxRequestParameters;
+import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,31 +11,29 @@ import javax.servlet.http.HttpSession;
  *
  * @author Oliver Richers
  */
-public interface IAjaxRequest extends HttpServletRequest {
+public interface IAjaxRequest {
 
 	AjaxFramework getAjaxFramework();
 
-	IAjaxRequestParameters getParameters();
+	HttpServletRequest getHttpRequest();
+
+	HttpServletResponse getHttpResponse();
 
 	HttpSession getHttpSession();
 
-	HttpServletResponse getServletResponse();
+	AjaxRequestMessage getRequestMessageOrThrow();
+
+	Iterable<IDomFileUpload> getFileUploads();
 
 	boolean isDebug();
 
-	boolean isTest();
-
 	boolean isVerbose();
-
-	boolean isGetMethod();
-
-	boolean isPostMethod();
-
-	boolean isResourceRequest();
 
 	boolean isDocumentActionRequest();
 
 	boolean isDocumentCreationRequest();
+
+	boolean isResourceRequest();
 
 	boolean isFavoriteIconRequest();
 

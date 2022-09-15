@@ -60,9 +60,9 @@ public class AGModuleInstancePermissionAssignmentGenerated extends AbstractDbObj
 
 		return TABLE//
 				.createSelect()
-				.where(USER.equal(user))
-				.where(MODULE_INSTANCE_BASE.equal(moduleInstanceBase))
-				.where(PERMISSION.equal(permission))
+				.where(USER.isEqual(user))
+				.where(MODULE_INSTANCE_BASE.isEqual(moduleInstanceBase))
+				.where(PERMISSION.isEqual(permission))
 				.getOne();
 	}
 

@@ -57,8 +57,8 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 
 		return TABLE//
 				.createSelect()
-				.where(MODULE_INSTANCE.equal(moduleInstance))
-				.where(IDENTITY_CARD_NUMBER.equal(identityCardNumber))
+				.where(MODULE_INSTANCE.isEqual(moduleInstance))
+				.where(IDENTITY_CARD_NUMBER.isEqual(identityCardNumber))
 				.getOne();
 	}
 

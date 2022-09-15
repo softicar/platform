@@ -32,8 +32,8 @@ public class AGWorkflowNodeLog extends AbstractDbRecord<AGWorkflowNodeLog, Tuple
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_NODE_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowNodeLog, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setForeignKeyName("WorkflowNodeLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowNodeLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowNodeLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowNodeLog, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setCascade(true, true).setForeignKeyName("WorkflowNodeLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowNodeLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowNodeLog_ibfk_2");
 	public static final IDbStringField<AGWorkflowNodeLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbIntegerField<AGWorkflowNodeLog> X_COORDINATE = BUILDER.addIntegerField("XCoordinate", o->o.m_xCoordinate, (o,v)->o.m_xCoordinate=v).setTitle(WorkflowI18n.X_COORDINATE).setNullable().setDefault(null);
 	public static final IDbIntegerField<AGWorkflowNodeLog> Y_COORDINATE = BUILDER.addIntegerField("YCoordinate", o->o.m_yCoordinate, (o,v)->o.m_yCoordinate=v).setTitle(WorkflowI18n.Y_COORDINATE).setNullable().setDefault(null);

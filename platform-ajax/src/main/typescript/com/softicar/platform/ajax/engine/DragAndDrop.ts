@@ -26,9 +26,9 @@ class DragAndDropHandler {
 	private dragHandleNode: HTMLElement | null;
 	private limitingNode: HTMLElement | null;
 	private notifyOnDrop: boolean;
-	private cursorStart = new Point();
-	private dragStart = new Point();
-	private dragPosition = new Point();
+	private cursorStart = new Vector2d();
+	private dragStart = new Vector2d();
+	private dragPosition = new Vector2d();
 	private dragHandler = (event: Event) => this.onDrag(event);
 	private dropHandler = (event: Event) => this.onDrop(event);
 
@@ -93,7 +93,7 @@ class DragAndDropHandler {
 		// let the server handle the drop
 		if(this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
 			let message = new AjaxRequestMessage()
-				.setAction(AJAX_REQUEST_DRAG_AND_DROP)
+				.setActionType(AJAX_REQUEST_DRAG_AND_DROP)
 				.setNode(this.draggedNode)
 				.setDragStart(this.dragStart)
 				.setDragPosition(this.dragPosition);
@@ -103,12 +103,12 @@ class DragAndDropHandler {
 
 	private getCursorPosition(event: Event) {
 		if(event instanceof MouseEvent) {
-			return new Point(event.clientX, event.clientY);
+			return new Vector2d(event.clientX, event.clientY);
 		} else if (event instanceof TouchEvent) {
 			let firstTouch = event.touches[0];
-			return new Point(Math.round(firstTouch.clientX), Math.round(firstTouch.clientY));
+			return new Vector2d(Math.round(firstTouch.clientX), Math.round(firstTouch.clientY));
 		} else {
-			return new Point();
+			return new Vector2d();
 		}
 	}
 	
@@ -116,7 +116,7 @@ class DragAndDropHandler {
 		let style = window.getComputedStyle(this.draggedNode);
 		let x = style.left? parseInt(style.left) : 0;
 		let y = style.top? parseInt(style.top) : 0;
-		return new Point(x, y);
+		return new Vector2d(x, y);
 	}
 	
 	private setDocumentTextSelection(enabled: boolean) {

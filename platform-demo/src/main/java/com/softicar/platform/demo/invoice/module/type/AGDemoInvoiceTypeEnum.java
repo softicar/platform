@@ -1,12 +1,15 @@
 package com.softicar.platform.demo.invoice.module.type;
 
 import com.softicar.platform.common.core.annotations.Generated;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.db.runtime.enums.DbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
+import com.softicar.platform.demo.DemoI18n;
 
 @Generated
-public enum AGDemoInvoiceTypeEnum implements IDbEnumTableRowEnum<AGDemoInvoiceTypeEnum, AGDemoInvoiceType> {
+public enum AGDemoInvoiceTypeEnum implements IDbEnumTableRowEnum<AGDemoInvoiceTypeEnum, AGDemoInvoiceType>, IDisplayable {
 
 	INBOUND(1, "Inbound"),
 	OUTBOUND(2, "Outbound"),
@@ -32,6 +35,19 @@ public enum AGDemoInvoiceTypeEnum implements IDbEnumTableRowEnum<AGDemoInvoiceTy
 	public Integer getId() {
 
 		return id;
+	}
+
+	@Override
+	public IDisplayString toDisplay() {
+
+		switch (this) {
+		case INBOUND:
+			return DemoI18n.INBOUND;
+		case OUTBOUND:
+			return DemoI18n.OUTBOUND;
+		}
+
+		throw new IllegalArgumentException("Unknown enumerator: " + name());
 	}
 
 	@Override

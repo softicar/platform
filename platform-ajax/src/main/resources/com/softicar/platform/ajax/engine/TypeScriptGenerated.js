@@ -64,15 +64,15 @@ class AjaxEngine {
 }
 const AJAX_ENGINE = new AjaxEngine();
 const AJAX_CSS_PSEUDO_CLASS_HIDDEN = 'hidden';
-const AJAX_REQUEST_KEEP_ALIVE = 2;
-const AJAX_REQUEST_TIMEOUT = 5;
-const AJAX_REQUEST_DOM_EVENT = 6;
-const AJAX_REQUEST_DRAG_AND_DROP = 7;
-const AJAX_REQUEST_UPLOAD = 8;
-const DOM_MODIFIER_ALT = 'Alt';
-const DOM_MODIFIER_CONTROL = 'Control';
-const DOM_MODIFIER_META = 'Meta';
-const DOM_MODIFIER_SHIFT = 'Shift';
+const AJAX_REQUEST_KEEP_ALIVE = 'KEEP_ALIVE';
+const AJAX_REQUEST_TIMEOUT = 'TIMEOUT';
+const AJAX_REQUEST_DOM_EVENT = 'DOM_EVENT';
+const AJAX_REQUEST_DRAG_AND_DROP = 'DRAG_AND_DROP';
+const AJAX_REQUEST_UPLOAD = 'UPLOAD';
+const DOM_MODIFIER_ALT = 'ALT';
+const DOM_MODIFIER_CONTROL = 'CONTROL';
+const DOM_MODIFIER_META = 'META';
+const DOM_MODIFIER_SHIFT = 'SHIFT';
 const KEEP_ALIVE_REQUEST_DELAY = 3 * 60 * 1000;
 const KEY_ENTER = 'Enter';
 const KEY_ESCAPE = 'Escape';
@@ -107,9 +107,9 @@ class DragAndDropManager {
 const DRAG_AND_DROP_MANAGER = new DragAndDropManager();
 class DragAndDropHandler {
     constructor(draggedNode) {
-        this.cursorStart = new Point();
-        this.dragStart = new Point();
-        this.dragPosition = new Point();
+        this.cursorStart = new Vector2d();
+        this.dragStart = new Vector2d();
+        this.dragPosition = new Vector2d();
         this.dragHandler = (event) => this.onDrag(event);
         this.dropHandler = (event) => this.onDrop(event);
         this.draggedNode = draggedNode;
@@ -163,7 +163,7 @@ class DragAndDropHandler {
         (_a = this.dragHandleNode) === null || _a === void 0 ? void 0 : _a.classList.remove(DRAGGING_CSS_CLASS);
         if (this.notifyOnDrop && (this.dragPosition.x != this.dragStart.x || this.dragPosition.y != this.dragStart.y)) {
             let message = new AjaxRequestMessage()
-                .setAction(AJAX_REQUEST_DRAG_AND_DROP)
+                .setActionType(AJAX_REQUEST_DRAG_AND_DROP)
                 .setNode(this.draggedNode)
                 .setDragStart(this.dragStart)
                 .setDragPosition(this.dragPosition);
@@ -172,21 +172,21 @@ class DragAndDropHandler {
     }
     getCursorPosition(event) {
         if (event instanceof MouseEvent) {
-            return new Point(event.clientX, event.clientY);
+            return new Vector2d(event.clientX, event.clientY);
         }
         else if (event instanceof TouchEvent) {
             let firstTouch = event.touches[0];
-            return new Point(Math.round(firstTouch.clientX), Math.round(firstTouch.clientY));
+            return new Vector2d(Math.round(firstTouch.clientX), Math.round(firstTouch.clientY));
         }
         else {
-            return new Point();
+            return new Vector2d();
         }
     }
     getDraggedNodePosition() {
         let style = window.getComputedStyle(this.draggedNode);
         let x = style.left ? parseInt(style.left) : 0;
         let y = style.top ? parseInt(style.top) : 0;
-        return new Point(x, y);
+        return new Vector2d(x, y);
     }
     setDocumentTextSelection(enabled) {
         document.onselectstart = function () { return enabled; };
@@ -300,29 +300,11 @@ class KeepAlive {
         if (SESSION_TIMED_OUT) {
             return;
         }
-        let message = new AjaxRequestMessage().setAction(AJAX_REQUEST_KEEP_ALIVE);
+        let message = new AjaxRequestMessage().setActionType(AJAX_REQUEST_KEEP_ALIVE);
         AJAX_REQUEST_QUEUE.submit(message);
     }
 }
 const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
-class Point {
-    constructor(x = 0, y = 0) {
-        this._x = x;
-        this._y = y;
-    }
-    get x() {
-        return this._x;
-    }
-    get y() {
-        return this._y;
-    }
-    plus(point) {
-        return new Point(this.x + point.x, this.y + point.y);
-    }
-    minus(point) {
-        return new Point(this.x - point.x, this.y - point.y);
-    }
-}
 class DomPopupEngine {
     initializePopup(popupFrame, autoRaise) {
         if (autoRaise) {
@@ -388,6 +370,17 @@ class DomPopupEngine {
     }
 }
 const POPUP_ENGINE = new DomPopupEngine();
+class Rect {
+    constructor(x = 0, y = 0, width = 0, height = 0) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
+    static fromDomRect(rect) {
+        return new Rect(rect.x, rect.y, rect.width, rect.height);
+    }
+}
 let SESSION_TIMED_OUT = false;
 let SESSION_TIMEOUT_DIALOG;
 function setSessionTimeoutDialog(dialog) {
@@ -405,13 +398,13 @@ function scheduleTimeout(timeoutNode, milliseconds) {
 }
 function handleTimeout(timeoutNode) {
     let message = new AjaxRequestMessage()
-        .setAction(AJAX_REQUEST_TIMEOUT)
+        .setActionType(AJAX_REQUEST_TIMEOUT)
         .setNode(timeoutNode);
     AJAX_REQUEST_QUEUE.submit(message);
 }
 function sendUploadRequestThroughForm(form) {
     let message = new AjaxRequestMessage()
-        .setAction(AJAX_REQUEST_UPLOAD)
+        .setActionType(AJAX_REQUEST_UPLOAD)
         .setNode(form);
     AJAX_REQUEST_QUEUE.submit(message, form);
 }
@@ -500,6 +493,31 @@ class ValueNodeState {
     }
 }
 const VALUE_NODE_MAP = new ValueNodeMap();
+class Vector2d {
+    constructor(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+    }
+    plus(other) {
+        return new Vector2d(this.x + other.x, this.y + other.y);
+    }
+    minus(other) {
+        return new Vector2d(this.x - other.x, this.y - other.y);
+    }
+}
+class Vector3d {
+    constructor(x = 0, y = 0, z = 0) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    plus(other) {
+        return new Vector3d(this.x + other.x, this.y + other.y, this.z + other.z);
+    }
+    minus(other) {
+        return new Vector3d(this.x - other.x, this.y - other.y, this.z - other.z);
+    }
+}
 let WORKING_INDICATOR_ENABLED = true;
 let WORKING_INDICATOR;
 function setWorkingIndicator(indicator) {
@@ -601,32 +619,30 @@ function sendDomEventToServer(event, eventType) {
     let element = event.currentTarget;
     let boundingRect = element.getBoundingClientRect();
     let message = new AjaxRequestMessage()
-        .setAction(AJAX_REQUEST_DOM_EVENT)
+        .setActionType(AJAX_REQUEST_DOM_EVENT)
         .setNode(element)
         .setEventType(eventType)
-        .setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
-        .setWindowInnerSize(new Point(window.innerWidth, window.innerHeight))
-        .setBoundingClientRect(boundingRect);
+        .setWindowPageOffset(new Vector2d(window.pageXOffset, window.pageYOffset))
+        .setWindowInnerSize(new Vector2d(window.innerWidth, window.innerHeight))
+        .setNodeRect(boundingRect);
     if (event instanceof MouseEvent) {
-        message.setMousePosition(new Point(event.clientX, event.clientY));
-        message.setMouseRelativePosition(new Point(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
+        message.setMousePosition(new Vector2d(event.clientX, event.clientY));
+        message.setMouseRelativePosition(new Vector2d(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
     }
     else {
-        message.setMousePosition(new Point(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
+        message.setMousePosition(new Vector2d(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
     }
     if (event instanceof KeyboardEvent) {
         message.setKey(event.key);
     }
     if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
-        message.setModifierKey('altKey', event.altKey);
-        message.setModifierKey('ctrlKey', event.ctrlKey);
-        message.setModifierKey('metaKey', event.metaKey);
-        message.setModifierKey('shiftKey', event.shiftKey);
+        message.setModifierKey(DOM_MODIFIER_ALT, event.altKey);
+        message.setModifierKey(DOM_MODIFIER_CONTROL, event.ctrlKey);
+        message.setModifierKey(DOM_MODIFIER_META, event.metaKey);
+        message.setModifierKey(DOM_MODIFIER_SHIFT, event.shiftKey);
     }
     if (event instanceof WheelEvent) {
-        message.setDeltaX(event.deltaX);
-        message.setDeltaY(event.deltaY);
-        message.setDeltaZ(event.deltaZ);
+        message.setWheelDelta(new Vector3d(event.deltaX, event.deltaY, event.deltaZ));
     }
     AJAX_REQUEST_QUEUE.submit(message);
 }
@@ -926,74 +942,91 @@ class AjaxRequest {
 }
 class AjaxRequestMessage {
     constructor() {
-        this.data = new Map();
-        this.setString('i', DOCUMENT_INSTANCE_UUID);
-        this.setBooleanIfTrue('debug', DEBUG);
-        this.setBooleanIfTrue('verbose', VERBOSE);
+        this.instanceUuid = DOCUMENT_INSTANCE_UUID;
+        this.requestIndex = -1;
+        this.actionType = null;
+        this.eventType = null;
+        this.nodeId = null;
+        this.nodeRect = new Rect();
+        this.nodeValues = {};
+        this.key = "";
+        this.modifierKeys = {};
+        this.cursor = new Vector2d();
+        this.cursorRelative = new Vector2d();
+        this.wheelDelta = new Vector3d();
+        this.dragStart = new Vector2d();
+        this.dragPosition = new Vector2d();
+        this.windowPageOffset = new Vector2d();
+        this.windowInnerSize = new Vector2d();
     }
     copyNodeValues() {
         VALUE_NODE_MAP.copyNodeValues(this);
     }
     setRequestIndex(requestIndex) {
-        return this.setNumber('x', requestIndex);
-    }
-    setAction(action) {
-        return this.setNumber('a', action);
-    }
-    setNode(node) {
-        return this.setString('n', node.id);
-    }
-    setNodeValue(node, value) {
-        return this.setString('V' + node.id.substring(1), value);
-    }
-    setEventType(eventType) {
-        return this.setString('e', eventType.toUpperCase());
-    }
-    setKey(key) {
-        return this.setString("key", key);
-    }
-    setModifierKey(name, value) {
-        return this.setBooleanIfTrue(name, value);
-    }
-    setMousePosition(position) {
-        return this.setPoint('c', position);
-    }
-    setMouseRelativePosition(position) {
-        return this.setPoint('r', position);
-    }
-    setDragStart(start) {
-        return this.setPoint('s', start);
-    }
-    setDragPosition(position) {
-        return this.setPoint('d', position);
-    }
-    setWindowPageOffset(pageOffset) {
-        return this.setPoint('s', pageOffset);
-    }
-    setWindowInnerSize(innerSize) {
-        return this.setPoint('w', innerSize);
-    }
-    setBoundingClientRect(rect) {
-        this.setNumber("bcrX", rect.x);
-        this.setNumber("bcrY", rect.y);
-        this.setNumber("bcrW", rect.width);
-        this.setNumber("bcrH", rect.height);
+        this.requestIndex = requestIndex;
         return this;
     }
-    setDeltaX(value) {
-        this.setNumber("deltaX", value);
+    setActionType(actionType) {
+        this.actionType = actionType;
+        return this;
     }
-    setDeltaY(value) {
-        this.setNumber("deltaY", value);
+    setEventType(eventType) {
+        this.eventType = eventType.toUpperCase();
+        return this;
     }
-    setDeltaZ(value) {
-        this.setNumber("deltaZ", value);
+    setNode(node) {
+        this.nodeId = node.id;
+        return this;
+    }
+    setNodeRect(boundingClientRect) {
+        this.nodeRect = Rect.fromDomRect(boundingClientRect);
+        return this;
+    }
+    setNodeValue(node, value) {
+        this.nodeValues[node.id] = value;
+        return this;
+    }
+    setKey(key) {
+        this.key = key;
+        return this;
+    }
+    setModifierKey(name, value) {
+        this.modifierKeys[name] = value;
+        return this;
+    }
+    setMousePosition(position) {
+        this.cursor = position;
+        return this;
+    }
+    setMouseRelativePosition(position) {
+        this.cursorRelative = position;
+        return this;
+    }
+    setWheelDelta(delta) {
+        this.wheelDelta = delta;
+        return this;
+    }
+    setDragStart(start) {
+        this.dragStart = start;
+        return this;
+    }
+    setDragPosition(position) {
+        this.dragPosition = position;
+        return this;
+    }
+    setWindowPageOffset(pageOffset) {
+        this.windowPageOffset = pageOffset;
+        return this;
+    }
+    setWindowInnerSize(innerSize) {
+        this.windowInnerSize = innerSize;
+        return this;
     }
     encode() {
-        return new AjaxRequestMessageEncoder(this.data).encode();
+        return new AjaxRequestMessageEncoder(this).encode();
     }
     encodeToHex() {
-        return new AjaxRequestMessageEncoder(this.data).encodeToHex();
+        return new AjaxRequestMessageEncoder(this).encodeToHex();
     }
     isRedundantTo(other) {
         if (this.isKeepAlive()) {
@@ -1031,84 +1064,53 @@ class AjaxRequestMessage {
         }
     }
     isSameDeltaDirections(other) {
-        var _a, _b, _c, _d, _e, _f;
-        let thisDeltaX = Number((_a = this.data.get('deltaX')) !== null && _a !== void 0 ? _a : 0);
-        let otherDeltaX = Number((_b = other.data.get('deltaX')) !== null && _b !== void 0 ? _b : 0);
-        let deltaXSameSign = Math.sign(thisDeltaX) == Math.sign(otherDeltaX);
-        let thisDeltaY = Number((_c = this.data.get('deltaY')) !== null && _c !== void 0 ? _c : 0);
-        let otherDeltaY = Number((_d = other.data.get('deltaY')) !== null && _d !== void 0 ? _d : 0);
-        let deltaYSameSign = Math.sign(thisDeltaY) == Math.sign(otherDeltaY);
-        let thisDeltaZ = Number((_e = this.data.get('deltaZ')) !== null && _e !== void 0 ? _e : 0);
-        let otherDeltaZ = Number((_f = other.data.get('deltaZ')) !== null && _f !== void 0 ? _f : 0);
-        let deltaZSameSign = Math.sign(thisDeltaZ) == Math.sign(otherDeltaZ);
+        let deltaXSameSign = Math.sign(this.wheelDelta.x) == Math.sign(other.wheelDelta.x);
+        let deltaYSameSign = Math.sign(this.wheelDelta.y) == Math.sign(other.wheelDelta.y);
+        let deltaZSameSign = Math.sign(this.wheelDelta.z) == Math.sign(other.wheelDelta.z);
         return deltaXSameSign && deltaYSameSign && deltaZSameSign;
     }
     isObsolete() {
-        let nodeId = this.data.get('n');
-        if (nodeId) {
-            return document.getElementById(nodeId) === null;
+        if (this.nodeId) {
+            return document.getElementById(this.nodeId) === null;
         }
         else {
             return false;
         }
     }
     isKeepAlive() {
-        return this.data.get('a') === '' + AJAX_REQUEST_KEEP_ALIVE;
+        return this.actionType == AJAX_REQUEST_KEEP_ALIVE;
     }
     isDomEvent() {
-        return this.data.get('a') === '' + AJAX_REQUEST_DOM_EVENT;
+        return this.actionType == AJAX_REQUEST_DOM_EVENT;
     }
     isSameAction(other) {
-        return this.data.get('a') === other.data.get('a');
+        return this.actionType == other.actionType;
     }
     isOnSameNode(other) {
-        return this.data.get('n') === other.data.get('n');
+        return this.nodeId == other.nodeId;
     }
     isSameEventType(other) {
-        return this.data.get('e') === other.data.get('e');
+        return this.eventType == other.eventType;
     }
     isPassiveEventType() {
-        return this.data.get('e') == 'CHANGE' || this.data.get('e') == 'INPUT';
+        return this.eventType == 'CHANGE' || this.eventType == 'INPUT';
     }
     isKeyEventType() {
-        return this.data.get('e') == 'KEYDOWN' || this.data.get('e') == 'KEYUP';
+        return this.eventType == 'KEYDOWN' || this.eventType == 'KEYUP';
     }
     isWheelEventType() {
-        return this.data.get('e') == 'WHEEL';
+        return this.eventType == 'WHEEL';
     }
     isSent() {
-        return this.data.has('x');
-    }
-    setString(key, value) {
-        this.data.set(key, value);
-        return this;
-    }
-    setNumber(key, value) {
-        return this.setString(key, '' + value);
-    }
-    setBooleanIfTrue(key, value) {
-        if (value) {
-            this.setString(key, '1');
-        }
-        return this;
-    }
-    setPoint(key, value) {
-        this.setNumber(key + 'x', value.x);
-        this.setNumber(key + 'y', value.y);
-        return this;
+        return this.requestIndex >= 0;
     }
 }
 class AjaxRequestMessageEncoder {
-    constructor(data) {
-        this.data = data;
+    constructor(message) {
+        this.message = message;
     }
     encode() {
-        let data = [];
-        for (let [key, value] of this.data) {
-            data.push(key.length + "\n" + key);
-            data.push(value.length + "\n" + value);
-        }
-        return data.join("");
+        return JSON.stringify(this.message);
     }
     encodeToHex() {
         return this.encodeTextCharsToHex(this.encode());
@@ -1293,7 +1295,7 @@ class HttpRequest {
     constructor() {
         this.url = '';
         this.message = '';
-        this.contentType = 'text/plain; charset=UTF-8';
+        this.contentType = 'application/json; charset=UTF-8';
     }
     setUrl(url) {
         this.url = url;

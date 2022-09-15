@@ -73,7 +73,7 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 
 		return AGProgramExecution.TABLE//
 			.createSelect()
-			.where(AGProgramExecution.PROGRAM_UUID.equal(program.getProgramUuid()))
+			.where(AGProgramExecution.PROGRAM_UUID.isEqual(program.getProgramUuid()))
 			.where(AGProgramExecution.STARTED_AT.isGreaterEqual(startedAt))
 			.orderBy(AGProgramExecution.STARTED_AT)
 			.orderBy(AGProgramExecution.ID)

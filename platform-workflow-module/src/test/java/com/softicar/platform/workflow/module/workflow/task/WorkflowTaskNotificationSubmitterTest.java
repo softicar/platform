@@ -85,7 +85,7 @@ public class WorkflowTaskNotificationSubmitterTest extends AbstractTestObjectWor
 
 		return AGLocalization.TABLE//
 			.createSelect()
-			.where(AGLocalization.NAME.equal(CoreModuleInstanceTableDataInitializer.INTERNATIONAL_LOCALIZATION_PRESET_NAME))
+			.where(AGLocalization.NAME.isEqual(CoreModuleInstanceTableDataInitializer.INTERNATIONAL_LOCALIZATION_PRESET_NAME))
 			.getOneAsOptional()
 			.orElseThrow();
 	}

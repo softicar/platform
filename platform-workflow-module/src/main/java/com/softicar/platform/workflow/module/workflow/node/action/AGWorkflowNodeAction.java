@@ -18,7 +18,7 @@ public class AGWorkflowNodeAction extends AGWorkflowNodeActionGenerated implemen
 		return AGWorkflowNodeActionPermission.TABLE//
 			.createSelect()
 			.where(AGWorkflowNodeActionPermission.ACTIVE)
-			.where(AGWorkflowNodeActionPermission.WORKFLOW_NODE_ACTION.equal(this))
+			.where(AGWorkflowNodeActionPermission.WORKFLOW_NODE_ACTION.isEqual(this))
 			.list();
 	}
 }

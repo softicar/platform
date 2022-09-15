@@ -1,4 +1,4 @@
-package com.softicar.platform.ajax.request.parameters;
+package com.softicar.platform.ajax.request;
 
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.util.Iterator;

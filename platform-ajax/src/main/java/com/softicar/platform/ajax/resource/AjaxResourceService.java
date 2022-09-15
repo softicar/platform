@@ -74,13 +74,13 @@ public class AjaxResourceService extends AbstractAjaxService {
 	private Optional<ResourceDescription> getResourceDescription() {
 
 		// check for resource id
-		String resourceId = request.getParameter(AjaxResourceUrl.getIdParameterName());
+		String resourceId = request.getHttpRequest().getParameter(AjaxResourceUrl.getIdParameterName());
 		if (resourceId != null) {
 			return getResourceById(resourceId).map(ResourceDescription::new).map(it -> it.setCachable(false));
 		}
 
 		// check for resource hash
-		String resourceHash = request.getParameter(AjaxResourceUrl.getHashParameterName());
+		String resourceHash = request.getHttpRequest().getParameter(AjaxResourceUrl.getHashParameterName());
 		if (resourceHash != null) {
 			return getResourceByHash(resourceHash).map(ResourceDescription::new).map(it -> it.setCachable(true));
 		}

@@ -53,7 +53,7 @@ public class EmfPrefilterElement<S, E extends IEmfTableRow<E, ?>, T extends IEmf
 	@Override
 	public Collection<T> getFilteredItems() {
 
-		ISqlSelect<T> select = targetTable.createSelect().where(targetTable.getScopeField().get().equal(getScope()));
+		ISqlSelect<T> select = targetTable.createSelect().where(targetTable.getScopeField().get().isEqual(getScope()));
 		List<R> filterRows = getFilterRows();
 		if (filterRows.isEmpty()) {
 			return select.list();

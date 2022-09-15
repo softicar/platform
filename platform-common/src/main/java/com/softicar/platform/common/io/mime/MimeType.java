@@ -13,6 +13,7 @@ import java.util.Optional;
 public enum MimeType implements IMimeType {
 
 	// application
+	APPLICATION_JSON("application/json"),
 	APPLICATION_OCTET_STREAM("application/octet-stream"),
 	APPLICATION_PDF("application/pdf", "pdf"),
 	APPLICATION_X_EXCEL("application/x-excel", "xls"),
@@ -28,6 +29,9 @@ public enum MimeType implements IMimeType {
 	IMAGE_JPEG("image/jpeg", "jpeg", "jpg"),
 	IMAGE_PNG("image/png", "png"),
 	IMAGE_SVG_XML("image/svg+xml", "svg"),
+
+	// multipart
+	MULTIPART_FORM_DATA("multipart/form-data"),
 
 	// text
 	TEXT_CSS("text/css", "css"),

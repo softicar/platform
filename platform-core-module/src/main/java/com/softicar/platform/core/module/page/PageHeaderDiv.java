@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.page;
 
-import com.softicar.platform.ajax.event.AjaxDomEvent;
-import com.softicar.platform.ajax.request.IAjaxRequest;
+import com.softicar.platform.ajax.document.AjaxDocument;
+import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.CoreCssClasses;
@@ -12,15 +12,14 @@ import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink
 import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
-import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.text.DomTextNode;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import javax.servlet.http.HttpSession;
 
 class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
@@ -95,15 +94,17 @@ class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 
 		public void logout() {
 
-			getAjaxRequest().getHttpSession().invalidate();
+			getHttpSession().invalidate();
 			getDomEngine().pushBrowserHistoryState(CoreI18n.LOGIN.toString(), new WebServiceUrlBuilder(PageServiceFactory.class).build().getStartingFromPath());
 			getDomEngine().reloadPage();
 		}
 	}
 
-	private static IAjaxRequest getAjaxRequest() {
+	private static HttpSession getHttpSession() {
 
-		IDomEvent event = CurrentDomDocument.get().getCurrentEvent();
-		return ((AjaxDomEvent) event).getAjaxRequest();
+		return AjaxDocument//
+			.getCurrentDocument()
+			.orElseThrow(() -> new SofticarDeveloperException("Failed to document session."))
+			.getHttpSession();
 	}
 }

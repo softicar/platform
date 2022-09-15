@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGWorkflowTransitionPermissionLog 'Workflow.WorkflowTransitionPermissionLog' {
-	PK AGWorkflowTransitionPermission transitionPermission [CONSTRAINT_NAME='WorkflowTransitionPermissionLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowTransitionPermissionLog_ibfk_2']
+	PK AGWorkflowTransitionPermission transitionPermission [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowTransitionPermissionLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowTransitionPermissionLog_ibfk_2']
 	AGUuid permission = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransitionPermissionLog_ibfk_3']
 	Boolean active = NULL [NULLABLE]
 

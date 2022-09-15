@@ -47,12 +47,12 @@ public class WorkflowTaskManager {
 	public void closeAllTasks() {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(item)).list();
+			List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item)).list();
 			taskList.forEach(task -> task.setClosed(true));
 			AGWorkflowTask.TABLE.saveAll(taskList);
 			AGWorkflowTaskDelegation.TABLE
 				.createSelect()
-				.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.in(taskList))
+				.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.isIn(taskList))
 				.stream()
 				.forEach(delegation -> delegation.setActive(false).save());
 			transaction.commit();
@@ -80,11 +80,11 @@ public class WorkflowTaskManager {
 		for (AGWorkflowTransition transition: AGWorkflowTransition
 			.createSelect()
 			.where(AGWorkflowTransition.ACTIVE)
-			.where(AGWorkflowTransition.SOURCE_NODE.equal(item.getWorkflowNode()))) {
+			.where(AGWorkflowTransition.SOURCE_NODE.isEqual(item.getWorkflowNode()))) {
 			for (AGWorkflowTransitionPermission permission: AGWorkflowTransitionPermission
 				.createSelect()
 				.where(AGWorkflowTransitionPermission.ACTIVE)
-				.where(AGWorkflowTransitionPermission.TRANSITION.equal(transition))) {
+				.where(AGWorkflowTransitionPermission.TRANSITION.isEqual(transition))) {
 				for (AGUser user: AGUser.getAllActive()) {
 					if (permission.testUserAssignmentForItem(user, item)) {
 						userMap.merge(user, transition.isNotify(), (a, b) -> a || b);

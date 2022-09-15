@@ -54,8 +54,8 @@ public class AGModulePanicReceiverGenerated extends AbstractDbObject<AGModulePan
 
 		return TABLE//
 				.createSelect()
-				.where(MODULE_UUID.equal(moduleUuid))
-				.where(USER.equal(user))
+				.where(MODULE_UUID.isEqual(moduleUuid))
+				.where(USER.isEqual(user))
 				.getOne();
 	}
 
