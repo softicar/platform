@@ -32,11 +32,19 @@ public class EmfEntityInputEditButton<E extends IEmfEntity<E, ?>> extends DomPop
 
 	private boolean isEditAllowed(E tableRow) {
 
-		return tableRow//
+		boolean editPossible = tableRow//
+			.table()
+			.getEmfTableConfiguration()
+			.getEditPredicate()
+			.test(tableRow);
+
+		boolean editAuthorized = tableRow//
 			.table()
 			.getAuthorizer()
 			.getEditPermission()
 			.test(tableRow, CurrentBasicUser.get());
+
+		return editPossible && editAuthorized;
 	}
 
 	private class FormPopup extends EmfFormPopup<E> {
