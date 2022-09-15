@@ -22,7 +22,7 @@ public class OpenTasksField extends AbstractTransientSetField<AGWorkflowItem, AG
 
 		AGWorkflowTask//
 			.createSelect()
-			.where(AGWorkflowTask.WORKFLOW_ITEM.in(rows))
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isIn(rows))
 			.where(AGWorkflowTask.CLOSED.not())
 			.where(AGWorkflowTask.NOTIFY)
 			.joinLeftReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)

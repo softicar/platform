@@ -45,7 +45,7 @@ public class BufferedEmailSender {
 			.createSelect()
 			.where(AGBufferedEmail.ACTIVE)
 			.where(AGBufferedEmail.SENT_AT.isNull())
-			.where(AGBufferedEmail.EMAIL_SERVER.equal(emailServer))
+			.where(AGBufferedEmail.EMAIL_SERVER.isEqual(emailServer))
 			.orderBy(AGBufferedEmail.ID)
 			.forEach(this::send);
 		Log.finfo("done");

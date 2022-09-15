@@ -24,7 +24,7 @@ public class UserLastLoginField extends AbstractTransientIntegerField<AGUser> {
 			.from(AGUserLoginLog.TABLE)
 			.select(AGUserLoginLog.USER)
 			.select(AGUserLoginLog.LOGIN_AT.max())
-			.where(AGUserLoginLog.USER.in(users))
+			.where(AGUserLoginLog.USER.isIn(users))
 			.groupBy(AGUserLoginLog.USER)
 			.forEach(record -> accumulator.add(record.get0(), Day.today().minus(record.get1().getDay())));
 	}

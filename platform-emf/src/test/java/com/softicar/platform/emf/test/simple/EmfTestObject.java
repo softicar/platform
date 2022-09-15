@@ -24,7 +24,7 @@ public class EmfTestObject extends EmfTestObjectGenerated implements IEmfObject<
 
 		return EmfTestObjectAuthorizedUser.TABLE//
 			.createSelect()
-			.where(EmfTestObjectAuthorizedUser.OBJECT.equal(this))
+			.where(EmfTestObjectAuthorizedUser.OBJECT.isEqual(this))
 			.where(EmfTestObjectAuthorizedUser.USER.isEqualId(user.getId()))
 			.exists();
 	}

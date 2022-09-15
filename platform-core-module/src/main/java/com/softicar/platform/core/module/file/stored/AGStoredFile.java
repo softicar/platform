@@ -95,7 +95,7 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 		return AGStoredFile//
 			.createSelect()
 			.join(AGStoredFile.SHA_1)
-			.where(AGStoredFileSha1.HASH.equal(hash))
+			.where(AGStoredFileSha1.HASH.isEqual(hash))
 			.list();
 	}
 

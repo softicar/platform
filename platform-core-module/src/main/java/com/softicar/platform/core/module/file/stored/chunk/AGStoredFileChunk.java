@@ -55,8 +55,8 @@ public class AGStoredFileChunk extends AbstractDbObject<AGStoredFileChunk> {
 
 		return TABLE//
 				.createSelect()
-				.where(FILE.equal(file))
-				.where(CHUNK_INDEX.equal(chunkIndex))
+				.where(FILE.isEqual(file))
+				.where(CHUNK_INDEX.isEqual(chunkIndex))
 				.getOne();
 	}
 

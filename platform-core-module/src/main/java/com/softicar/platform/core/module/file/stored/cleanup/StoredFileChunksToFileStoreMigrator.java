@@ -88,7 +88,7 @@ class StoredFileChunksToFileStoreMigrator {
 		byte[] storeHash = computeStoreContentHash();
 
 		if (Arrays.equals(hash, chunkHash) && Arrays.equals(hash, storeHash)) {
-			AGStoredFileChunk.TABLE.createDelete().where(AGStoredFileChunk.FILE.equal(storedFile)).execute();
+			AGStoredFileChunk.TABLE.createDelete().where(AGStoredFileChunk.FILE.isEqual(storedFile)).execute();
 			Log.finfo("savely removed chunk content of file %s", storedFile.getId());
 		} else {
 			throw new SofticarDeveloperException("Hash mismatch with file %s.", storedFile.getId());

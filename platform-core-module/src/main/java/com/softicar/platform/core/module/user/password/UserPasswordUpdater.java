@@ -51,8 +51,8 @@ public class UserPasswordUpdater {
 
 		for (AGUserPassword userPassword: AGUserPassword
 			.createSelect()
-			.where(AGUserPassword.USER.equal(user))
-			.where(AGUserPassword.ACTIVE.equal(true))
+			.where(AGUserPassword.USER.isEqual(user))
+			.where(AGUserPassword.ACTIVE.isEqual(true))
 			.list()) {
 			userPassword.setActive(false);
 			userPassword.save();

@@ -1,12 +1,15 @@
 package com.softicar.platform.core.module.date.weekday;
 
 import com.softicar.platform.common.core.annotations.Generated;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.db.runtime.enums.DbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
 
 @Generated
-public enum AGWeekdayEnum implements IDbEnumTableRowEnum<AGWeekdayEnum, AGWeekday> {
+public enum AGWeekdayEnum implements IDbEnumTableRowEnum<AGWeekdayEnum, AGWeekday>, IDisplayable {
 
 	MONDAY(1, "Monday"),
 	TUESDAY(2, "Tuesday"),
@@ -37,6 +40,29 @@ public enum AGWeekdayEnum implements IDbEnumTableRowEnum<AGWeekdayEnum, AGWeekda
 	public Integer getId() {
 
 		return id;
+	}
+
+	@Override
+	public IDisplayString toDisplay() {
+
+		switch (this) {
+		case MONDAY:
+			return CoreI18n.MONDAY;
+		case TUESDAY:
+			return CoreI18n.TUESDAY;
+		case WEDNESDAY:
+			return CoreI18n.WEDNESDAY;
+		case THURSDAY:
+			return CoreI18n.THURSDAY;
+		case FRIDAY:
+			return CoreI18n.FRIDAY;
+		case SATURDAY:
+			return CoreI18n.SATURDAY;
+		case SUNDAY:
+			return CoreI18n.SUNDAY;
+		}
+
+		throw new IllegalArgumentException("Unknown enumerator: " + name());
 	}
 
 	@Override

@@ -29,7 +29,7 @@ class StoredFilesWithRemoveAtGarbageCollector {
 
 		Objects.requireNonNull(removeAtThreshold);
 		totalFileCount = AGStoredFile.TABLE.countAll();
-		expiredCondition = AGStoredFile.REMOVE_AT.lessEqual(removeAtThreshold);
+		expiredCondition = AGStoredFile.REMOVE_AT.isLessEqual(removeAtThreshold);
 		temporaryCondition = AGStoredFile.REMOVE_AT.isNotNull();
 	}
 

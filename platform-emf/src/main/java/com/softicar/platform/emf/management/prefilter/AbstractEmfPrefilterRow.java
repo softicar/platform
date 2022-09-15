@@ -56,7 +56,7 @@ public abstract class AbstractEmfPrefilterRow<E extends IEmfTableRow<E, ?>> exte
 
 	protected <V> Optional<ISqlBooleanExpression<E>> createFilterExpression(IDbField<E, V> field, Optional<V> value) {
 
-		return value.map(field::equal);
+		return value.map(field::isEqual);
 	}
 
 	protected Optional<ISqlBooleanExpression<E>> createStringFilterExpression(IDbStringField<E> field, Optional<String> value) {

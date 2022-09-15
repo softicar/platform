@@ -49,8 +49,8 @@ public class AGUserPassword extends AGUserPasswordGenerated implements IEmfObjec
 
 		return AGUserPassword.TABLE//
 			.createSelect()
-			.where(AGUserPassword.USER.equal(user))
-			.where(AGUserPassword.ACTIVE.equal(true))
+			.where(AGUserPassword.USER.isEqual(user))
+			.where(AGUserPassword.ACTIVE.isEqual(true))
 			.getFirst();
 	}
 }

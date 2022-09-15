@@ -78,7 +78,7 @@ public class SofticarBasicAuthenticatorTest extends AbstractCoreTest {
 
 		assertNull(authenticatedUser);
 		assertEquals(1, failureLogs.size());
-		assertEquals(AGUserLoginFailureTypeEnum.UNKOWN_USER.getRecord(), failureLogs.get(0).getType());
+		assertEquals(AGUserLoginFailureTypeEnum.UNKNOWN_USER.getRecord(), failureLogs.get(0).getType());
 		assertEquals("foo", failureLogs.get(0).getUsername());
 	}
 

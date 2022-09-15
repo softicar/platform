@@ -50,7 +50,7 @@ public class AGRoleGenerated extends AbstractDbObject<AGRole> {
 
 		return TABLE//
 				.createSelect()
-				.where(NAME.equal(name))
+				.where(NAME.isEqual(name))
 				.getOne();
 	}
 

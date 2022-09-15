@@ -23,7 +23,7 @@ public class StoredFileDatabase implements IStoredFileDatabase {
 		try (DbTransaction transaction = new DbTransaction()) {
 			AGStoredFileSha1 sha1 = AGStoredFileSha1.TABLE//
 				.createSelect(SqlSelectLock.FOR_UPDATE)
-				.where(AGStoredFileSha1.HASH.equal(hash))
+				.where(AGStoredFileSha1.HASH.isEqual(hash))
 				.getOne();
 			if (sha1 == null) {
 				sha1 = new AGStoredFileSha1();

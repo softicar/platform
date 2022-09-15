@@ -28,7 +28,7 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 		return AGWorkflowTransitionPermission.TABLE//
 			.createSelect()
 			.where(AGWorkflowTransitionPermission.ACTIVE)
-			.where(AGWorkflowTransitionPermission.TRANSITION.equal(this))
+			.where(AGWorkflowTransitionPermission.TRANSITION.isEqual(this))
 			.list();
 	}
 

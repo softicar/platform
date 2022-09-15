@@ -23,12 +23,12 @@ public class AjaxExceptionCleanupProgram implements IProgram {
 
 		DayTime minDayTime = Day.today().getRelative(-DAYS_TO_KEEP).toDayTime();
 
-		int remove = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).count();
-		int keep = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.greaterEqual(minDayTime)).count();
+		int remove = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.isLess(minDayTime)).count();
+		int keep = AGAjaxException.createSelect().where(AGAjaxException.EXCEPTION_DATE.isGreaterEqual(minDayTime)).count();
 
 		Log.finfo("Will remove %d entries and keep %d entries\n", remove, keep);
 
-		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.less(minDayTime)).execute();
+		AGAjaxException.TABLE.createDelete().where(AGAjaxException.EXCEPTION_DATE.isLess(minDayTime)).execute();
 	}
 
 	@Override

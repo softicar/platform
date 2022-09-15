@@ -125,7 +125,7 @@ public class UserPasswordChangeDiv extends DomDiv {
 		if (userPasswordPolicy != null) {
 			return AGUserPassword.TABLE//
 				.createSelect()
-				.where(AGUserPassword.USER.equal(user))
+				.where(AGUserPassword.USER.isEqual(user))
 				.orderDescendingBy(AGUserPassword.CREATED_AT)
 				.list(userPasswordPolicy.getMaximumPasswordReuse())
 				.stream()

@@ -49,26 +49,4 @@ public interface ISqlComparableExpression<BOOL, VALUE> extends ISqlBasicExpressi
 
 		return wrapBool(SqlOperations.IS_GREATER_EQUAL.create(SqlValueTypes.BOOLEAN, this, other));
 	}
-
-	// -------------------- old methods for backwards-compatibility -------------------- //
-
-	default BOOL less(VALUE other) {
-
-		return isLess(other);
-	}
-
-	default BOOL lessEqual(VALUE other) {
-
-		return isLessEqual(other);
-	}
-
-	default BOOL greater(VALUE other) {
-
-		return isGreater(other);
-	}
-
-	default BOOL greaterEqual(VALUE other) {
-
-		return isGreaterEqual(other);
-	}
 }
