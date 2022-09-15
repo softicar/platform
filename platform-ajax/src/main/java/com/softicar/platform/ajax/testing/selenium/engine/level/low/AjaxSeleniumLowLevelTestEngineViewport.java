@@ -39,9 +39,10 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 
 		getWindow().setSize(new Dimension(width + extraWidth, height + extraHeight));
 
-		// wait for the window size to actually change
+		// Wait for the window size to actually change.
+		// Inspired by StackOverflow: https://stackoverflow.com/a/40242082
 		new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
-			.until(drv -> !getViewportSize().equals(viewportSize));
+			.until(driver -> !getViewportSize().equals(viewportSize));
 	}
 
 	public void scrollTo(int x, int y) {
