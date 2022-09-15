@@ -30,8 +30,6 @@ public interface CommonDateI18n extends CommonMonthI18n, CommonWeekdayI18n {
 		.de("Heute");
 	I18n0 TOMORROW = new I18n0("Tomorrow")//
 		.de("Morgen");
-	I18n0 TUESDAY = new I18n0("Tuesday")//
-		.de("Dienstag");
 	I18n0 YESTERDAY = new I18n0("Yesterday")//
 		.de("Gestern");
 }

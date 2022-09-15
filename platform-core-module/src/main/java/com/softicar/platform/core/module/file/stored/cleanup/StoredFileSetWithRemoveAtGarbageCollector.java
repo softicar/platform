@@ -74,6 +74,6 @@ public class StoredFileSetWithRemoveAtGarbageCollector {
 
 	private void deleteFileSetItems(AGStoredFileSet fileSet) {
 
-		AGStoredFileSetItem.TABLE.createDelete().where(AGStoredFileSetItem.FILE_SET.equal(fileSet)).execute();
+		AGStoredFileSetItem.TABLE.createDelete().where(AGStoredFileSetItem.FILE_SET.isEqual(fileSet)).execute();
 	}
 }

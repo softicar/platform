@@ -54,8 +54,8 @@ public class AGWorkflowNodeActionGenerated extends AbstractDbObject<AGWorkflowNo
 
 		return TABLE//
 				.createSelect()
-				.where(WORKFLOW_NODE.equal(workflowNode))
-				.where(ACTION.equal(action))
+				.where(WORKFLOW_NODE.isEqual(workflowNode))
+				.where(ACTION.isEqual(action))
 				.getOne();
 	}
 

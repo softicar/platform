@@ -139,8 +139,8 @@ public class ScheduledProgramEnqueuerTest extends AbstractProgramTest {
 	@Test
 	public void testWithMatchingScheduleWithoutProgram() {
 
-		AGProgramLog.TABLE.createDelete().where(AGProgramLog.PROGRAM.equal(program)).execute();
-		AGProgramState.TABLE.createDelete().where(AGProgramState.PROGRAM.equal(program)).execute();
+		AGProgramLog.TABLE.createDelete().where(AGProgramLog.PROGRAM.isEqual(program)).execute();
+		AGProgramState.TABLE.createDelete().where(AGProgramState.PROGRAM.isEqual(program)).execute();
 		program.delete();
 
 		runEnqueuer(noon);

@@ -53,7 +53,7 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 	public void testWithUnknownUser() {
 
 		assertException(PageServiceLoginExceptionWrongUsernameOrPassword.class, () -> authenticate("unknown", ""));
-		assertFailureLog(AGUserLoginFailureTypeEnum.UNKOWN_USER, "unknown");
+		assertFailureLog(AGUserLoginFailureTypeEnum.UNKNOWN_USER, "unknown");
 	}
 
 	@Test

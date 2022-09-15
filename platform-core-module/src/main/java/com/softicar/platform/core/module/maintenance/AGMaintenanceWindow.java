@@ -30,7 +30,7 @@ public class AGMaintenanceWindow extends AGMaintenanceWindowGenerated implements
 
 		return AGMaintenanceWindow.TABLE//
 			.createSelect()
-			.where(AGMaintenanceWindow.STATE.equal(AGMaintenanceStateEnum.PENDING.getRecord()))
+			.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.PENDING.getRecord()))
 			.orderBy(AGMaintenanceWindow.EXPECTED_START)
 			.getFirstAsOptional()
 			.map(it -> it.equals(this))
@@ -42,7 +42,7 @@ public class AGMaintenanceWindow extends AGMaintenanceWindowGenerated implements
 		return AGMaintenanceWindow.TABLE//
 			.createSelect()
 			.where(AGMaintenanceWindow.STATE.isIn(AGMaintenanceStateEnum.PENDING.getRecord(), AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
-			.where(AGMaintenanceWindow.EXPECTED_START.greaterEqual(DayTime.today()))
+			.where(AGMaintenanceWindow.EXPECTED_START.isGreaterEqual(DayTime.today()))
 			.where(AGMaintenanceWindow.EXPECTED_END.isLess(DayTime.today().getTomorrow()))
 			.getFirstAsOptional();
 	}
@@ -51,7 +51,7 @@ public class AGMaintenanceWindow extends AGMaintenanceWindowGenerated implements
 
 		return AGMaintenanceWindow.TABLE//
 			.createSelect()
-			.where(AGMaintenanceWindow.STATE.equal(AGMaintenanceStateEnum.PENDING.getRecord()))
+			.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.PENDING.getRecord()))
 			.orderBy(AGMaintenanceWindow.EXPECTED_START)
 			.list();
 	}
@@ -60,7 +60,7 @@ public class AGMaintenanceWindow extends AGMaintenanceWindowGenerated implements
 
 		return AGMaintenanceWindow.TABLE//
 			.createSelect()
-			.where(AGMaintenanceWindow.STATE.equal(AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
+			.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
 			.getOneAsOptional();
 	}
 

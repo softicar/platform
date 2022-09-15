@@ -79,6 +79,6 @@ public class UserPasswordUpdaterTest extends AbstractCoreTest {
 
 	private static List<AGUserPassword> loadActivePasswords(AGUser user) {
 
-		return AGUserPassword.createSelect().where(AGUserPassword.USER.equal(user)).where(AGUserPassword.ACTIVE.equal(true)).list();
+		return AGUserPassword.createSelect().where(AGUserPassword.USER.isEqual(user)).where(AGUserPassword.ACTIVE.isEqual(true)).list();
 	}
 }

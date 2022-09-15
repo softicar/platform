@@ -29,7 +29,7 @@ class PanicReceiversColumnHandler extends EmfDataTableValueBasedColumnHandler<UU
 			.from(AGModulePanicReceiver.TABLE)
 			.where(AGModulePanicReceiver.ACTIVE)
 			.join(AGModulePanicReceiver.MODULE_UUID)
-			.where(AGUuid.UUID_STRING.in(new MappingCollection<>(values, UUID::toString)))
+			.where(AGUuid.UUID_STRING.isIn(new MappingCollection<>(values, UUID::toString)))
 			.select(AGUuid.UUID_STRING)
 			.joinLeftOnTable0(AGModulePanicReceiver.USER)
 			.select(AGUser.TABLE)) {

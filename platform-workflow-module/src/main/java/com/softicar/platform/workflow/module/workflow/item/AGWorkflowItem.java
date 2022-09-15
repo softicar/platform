@@ -28,14 +28,14 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 
 	public Collection<AGWorkflowTask> getAllWorkflowTasks() {
 
-		return AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.equal(this)).list();
+		return AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(this)).list();
 	}
 
 	public Collection<AGWorkflowAutoTransitionExecution> loadAutoTransitionExecutions() {
 
 		return AGWorkflowAutoTransitionExecution.TABLE//
 			.createSelect()
-			.where(AGWorkflowAutoTransitionExecution.WORKFLOW_ITEM.equal(this))
+			.where(AGWorkflowAutoTransitionExecution.WORKFLOW_ITEM.isEqual(this))
 			.list();
 	}
 
@@ -51,7 +51,7 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 		for (AGWorkflowTransitionExecution transitionExecution: AGWorkflowTransitionExecution//
 			.createSelect()
 			.join(AGWorkflowTransitionExecution.WORKFLOW_TASK)
-			.where(AGWorkflowTask.WORKFLOW_ITEM.equal(getThis()))) {
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(getThis()))) {
 
 			transitionExecutionMap.addToSet(transitionExecution.getWorkflowTransition(), transitionExecution);
 		}

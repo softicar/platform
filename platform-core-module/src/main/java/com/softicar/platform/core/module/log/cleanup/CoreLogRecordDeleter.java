@@ -66,7 +66,7 @@ public class CoreLogRecordDeleter {
 		dayTimeField//
 			.getTable()
 			.createDelete()
-			.where(dayTimeField.less(thresholdDay.toDayTime()))
+			.where(dayTimeField.isLess(thresholdDay.toDayTime()))
 			.execute();
 	}
 

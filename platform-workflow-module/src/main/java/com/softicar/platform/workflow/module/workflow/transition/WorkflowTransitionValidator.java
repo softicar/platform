@@ -41,7 +41,7 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 			}
 			if (!tableRow.impermanent() && AGWorkflowTransitionPermission
 				.createSelect()
-				.where(AGWorkflowTransitionPermission.TRANSITION.equal(tableRow))
+				.where(AGWorkflowTransitionPermission.TRANSITION.isEqual(tableRow))
 				.where(AGWorkflowTransitionPermission.ACTIVE)
 				.exists()) {
 				addError(AGWorkflowTransition.AUTO_TRANSITION, WorkflowI18n.AUTO_TRANSITIONS_MAY_NOT_DEFINE_PERMISSIONS);
