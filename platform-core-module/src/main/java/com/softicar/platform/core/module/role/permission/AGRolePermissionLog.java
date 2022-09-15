@@ -33,8 +33,8 @@ public class AGRolePermissionLog extends AbstractDbRecord<AGRolePermissionLog, T
 		BUILDER.setPluralTitle(CoreI18n.ROLE_PERMISSION_LOGS);
 	}
 
-	public static final IDbForeignField<AGRolePermissionLog, AGRolePermission> ROLE_USER = BUILDER.addForeignField("roleUser", o->o.m_roleUser, (o,v)->o.m_roleUser=v, AGRolePermission.ID).setTitle(CoreI18n.ROLE_USER).setForeignKeyName("RolePermissionLog_ibfk_1");
-	public static final IDbForeignField<AGRolePermissionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("RolePermissionLog_ibfk_2");
+	public static final IDbForeignField<AGRolePermissionLog, AGRolePermission> ROLE_USER = BUILDER.addForeignField("roleUser", o->o.m_roleUser, (o,v)->o.m_roleUser=v, AGRolePermission.ID).setTitle(CoreI18n.ROLE_USER).setCascade(true, true).setForeignKeyName("RolePermissionLog_ibfk_1");
+	public static final IDbForeignField<AGRolePermissionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("RolePermissionLog_ibfk_2");
 	public static final IDbBooleanField<AGRolePermissionLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbForeignField<AGRolePermissionLog, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE).setNullable().setDefault(null).setForeignKeyName("RolePermissionLog_ibfk_3");
 	public static final IDbForeignField<AGRolePermissionLog, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE).setNullable().setDefault(null).setForeignKeyName("RolePermissionLog_ibfk_4");

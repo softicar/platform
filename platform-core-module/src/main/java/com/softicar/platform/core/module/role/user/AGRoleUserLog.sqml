@@ -5,8 +5,8 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGRoleUserLog 'Core.RoleUserLog' {
-	PK AGRoleUser roleUser [CONSTRAINT_NAME='RoleUserLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='RoleUserLog_ibfk_2']
+	PK AGRoleUser roleUser [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='RoleUserLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='RoleUserLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	AGRole role = NULL [NULLABLE CONSTRAINT_NAME='RoleUserLog_ibfk_3']
 	AGUser user = NULL [NULLABLE CONSTRAINT_NAME='RoleUserLog_ibfk_4']

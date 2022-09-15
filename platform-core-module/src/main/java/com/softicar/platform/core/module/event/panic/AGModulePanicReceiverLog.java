@@ -30,8 +30,8 @@ public class AGModulePanicReceiverLog extends AbstractDbRecord<AGModulePanicRece
 		BUILDER.setPluralTitle(CoreI18n.MODULE_PANIC_RECEIVER_LOGS);
 	}
 
-	public static final IDbForeignField<AGModulePanicReceiverLog, AGModulePanicReceiver> MODULE_PANIC_RECEIVER = BUILDER.addForeignField("modulePanicReceiver", o->o.m_modulePanicReceiver, (o,v)->o.m_modulePanicReceiver=v, AGModulePanicReceiver.ID).setTitle(CoreI18n.MODULE_PANIC_RECEIVER).setForeignKeyName("ModulePanicReceiverLog_ibfk_1");
-	public static final IDbForeignField<AGModulePanicReceiverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("ModulePanicReceiverLog_ibfk_2");
+	public static final IDbForeignField<AGModulePanicReceiverLog, AGModulePanicReceiver> MODULE_PANIC_RECEIVER = BUILDER.addForeignField("modulePanicReceiver", o->o.m_modulePanicReceiver, (o,v)->o.m_modulePanicReceiver=v, AGModulePanicReceiver.ID).setTitle(CoreI18n.MODULE_PANIC_RECEIVER).setCascade(true, true).setForeignKeyName("ModulePanicReceiverLog_ibfk_1");
+	public static final IDbForeignField<AGModulePanicReceiverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("ModulePanicReceiverLog_ibfk_2");
 	public static final IDbBooleanField<AGModulePanicReceiverLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGModulePanicReceiverLog, Tuple2<AGModulePanicReceiver, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(MODULE_PANIC_RECEIVER, TRANSACTION));
 	public static final IDbKey<AGModulePanicReceiverLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);

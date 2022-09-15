@@ -31,8 +31,8 @@ public class AGLocalizationLog extends AbstractDbRecord<AGLocalizationLog, Tuple
 		BUILDER.setPluralTitle(CoreI18n.LOCALIZATION_LOGS);
 	}
 
-	public static final IDbForeignField<AGLocalizationLog, AGLocalization> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGLocalization.ID).setTitle(CoreI18n.USER).setForeignKeyName("LocalizationLog_ibfk_1");
-	public static final IDbForeignField<AGLocalizationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("LocalizationLog_ibfk_2");
+	public static final IDbForeignField<AGLocalizationLog, AGLocalization> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGLocalization.ID).setTitle(CoreI18n.USER).setCascade(true, true).setForeignKeyName("LocalizationLog_ibfk_1");
+	public static final IDbForeignField<AGLocalizationLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("LocalizationLog_ibfk_2");
 	public static final IDbStringField<AGLocalizationLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbForeignField<AGLocalizationLog, AGCoreLanguage> LANGUAGE = BUILDER.addForeignField("language", o->o.m_language, (o,v)->o.m_language=v, AGCoreLanguage.ID).setTitle(CoreI18n.LANGUAGE).setNullable().setDefault(null).setForeignKeyName("LocalizationLog_ibfk_3");
 	public static final IDbStringField<AGLocalizationLog> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setNullable().setDefault(null).setMaximumLength(255);

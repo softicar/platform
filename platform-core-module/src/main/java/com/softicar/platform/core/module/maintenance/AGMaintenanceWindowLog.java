@@ -33,8 +33,8 @@ public class AGMaintenanceWindowLog extends AbstractDbRecord<AGMaintenanceWindow
 		BUILDER.setPluralTitle(CoreI18n.MAINTENANCE_WINDOW_LOGS);
 	}
 
-	public static final IDbForeignField<AGMaintenanceWindowLog, AGMaintenanceWindow> MAINTENANCE_WINDOW = BUILDER.addForeignField("maintenanceWindow", o->o.m_maintenanceWindow, (o,v)->o.m_maintenanceWindow=v, AGMaintenanceWindow.ID).setTitle(CoreI18n.MAINTENANCE_WINDOW).setForeignKeyName("MaintenanceWindowLog_ibfk_1");
-	public static final IDbForeignField<AGMaintenanceWindowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("MaintenanceWindowLog_ibfk_2");
+	public static final IDbForeignField<AGMaintenanceWindowLog, AGMaintenanceWindow> MAINTENANCE_WINDOW = BUILDER.addForeignField("maintenanceWindow", o->o.m_maintenanceWindow, (o,v)->o.m_maintenanceWindow=v, AGMaintenanceWindow.ID).setTitle(CoreI18n.MAINTENANCE_WINDOW).setCascade(true, true).setForeignKeyName("MaintenanceWindowLog_ibfk_1");
+	public static final IDbForeignField<AGMaintenanceWindowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("MaintenanceWindowLog_ibfk_2");
 	public static final IDbDayTimeField<AGMaintenanceWindowLog> EXPECTED_START = BUILDER.addDayTimeField("expectedStart", o->o.m_expectedStart, (o,v)->o.m_expectedStart=v).setTitle(CoreI18n.EXPECTED_START).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGMaintenanceWindowLog> EXPECTED_END = BUILDER.addDayTimeField("expectedEnd", o->o.m_expectedEnd, (o,v)->o.m_expectedEnd=v).setTitle(CoreI18n.EXPECTED_END).setNullable().setDefault(null);
 	public static final IDbForeignField<AGMaintenanceWindowLog, AGMaintenanceState> STATE = BUILDER.addForeignField("state", o->o.m_state, (o,v)->o.m_state=v, AGMaintenanceState.ID).setTitle(CoreI18n.STATE).setNullable().setDefault(null).setForeignKeyName("MaintenanceWindowLog_ibfk_3");
