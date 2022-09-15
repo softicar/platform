@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.program.execution.scheduled
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGScheduledProgramExecutionLog 'Core.ScheduledProgramExecutionLog' {
-	PK AGScheduledProgramExecution scheduledProgramExecution [CONSTRAINT_NAME='ScheduledProgramExecutionLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='ScheduledProgramExecutionLog_ibfk_2']
+	PK AGScheduledProgramExecution scheduledProgramExecution [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ScheduledProgramExecutionLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ScheduledProgramExecutionLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String cronExpression = NULL [NULLABLE MAXLENGTH=255]
 	Integer maximumRuntime = NULL [NULLABLE]

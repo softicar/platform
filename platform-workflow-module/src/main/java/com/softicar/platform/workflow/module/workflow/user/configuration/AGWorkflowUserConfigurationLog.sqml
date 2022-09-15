@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.core.module.user.AGUser
 
 TABLE AGWorkflowUserConfigurationLog 'Workflow.WorkflowUserConfigurationLog' {
-	PK AGWorkflowUserConfiguration workflowUserConfiguration [CONSTRAINT_NAME='WorkflowUserConfigurationLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowUserConfigurationLog_ibfk_2']
+	PK AGWorkflowUserConfiguration workflowUserConfiguration [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowUserConfigurationLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowUserConfigurationLog_ibfk_2']
 	Boolean emailNotificationsForNewTasks = NULL [NULLABLE]
 	AGUser substitute = NULL [NULLABLE CONSTRAINT_NAME='WorkflowUserConfigurationLog_ibfk_3']
 	Day substituteFrom = NULL [NULLABLE]

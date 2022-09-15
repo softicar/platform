@@ -7,6 +7,7 @@ import com.softicar.platform.common.core.java.classpath.JavaClasspathRootFolder;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validator.IJavaCodeValidator;
 import com.softicar.platform.common.core.java.code.validator.JavaCodeValidator;
+import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import com.softicar.platform.db.core.test.DbTestDatabase;
 import com.softicar.platform.db.runtime.table.IDbTable;
@@ -40,9 +41,11 @@ public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
 
 		if (isEnabled(classPath, integrationProjectName, tablePackagePrefix)) {
 			try (var databaseScope = new DbDatabaseScope(createTestDatabase())) {
+				var errors = new AssertionErrorMessageCollector();
 				for (IDbTable<?, ?> table: findAllTables(IDbTable.class, IDbTableRow.class, tablePackagePrefix.get())) {
-					table.assertValidConfigurationOrThrow();
+					errors.addAll(table.validateConfiguration());
 				}
+				errors.throwIfNecessary();
 			}
 		}
 	}

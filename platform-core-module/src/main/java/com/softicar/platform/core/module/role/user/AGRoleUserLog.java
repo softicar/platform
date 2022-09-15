@@ -32,8 +32,8 @@ public class AGRoleUserLog extends AbstractDbRecord<AGRoleUserLog, Tuple2<AGRole
 		BUILDER.setPluralTitle(CoreI18n.ROLE_USER_LOGS);
 	}
 
-	public static final IDbForeignField<AGRoleUserLog, AGRoleUser> ROLE_USER = BUILDER.addForeignField("roleUser", o->o.m_roleUser, (o,v)->o.m_roleUser=v, AGRoleUser.ID).setTitle(CoreI18n.ROLE_USER).setForeignKeyName("RoleUserLog_ibfk_1");
-	public static final IDbForeignField<AGRoleUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("RoleUserLog_ibfk_2");
+	public static final IDbForeignField<AGRoleUserLog, AGRoleUser> ROLE_USER = BUILDER.addForeignField("roleUser", o->o.m_roleUser, (o,v)->o.m_roleUser=v, AGRoleUser.ID).setTitle(CoreI18n.ROLE_USER).setCascade(true, true).setForeignKeyName("RoleUserLog_ibfk_1");
+	public static final IDbForeignField<AGRoleUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("RoleUserLog_ibfk_2");
 	public static final IDbBooleanField<AGRoleUserLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbForeignField<AGRoleUserLog, AGRole> ROLE = BUILDER.addForeignField("role", o->o.m_role, (o,v)->o.m_role=v, AGRole.ID).setTitle(CoreI18n.ROLE).setNullable().setDefault(null).setForeignKeyName("RoleUserLog_ibfk_3");
 	public static final IDbForeignField<AGRoleUserLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setNullable().setDefault(null).setForeignKeyName("RoleUserLog_ibfk_4");

@@ -34,8 +34,8 @@ public class AGWorkflowTransitionLog extends AbstractDbRecord<AGWorkflowTransiti
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_TRANSITION_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowTransitionLog, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION).setForeignKeyName("WorkflowTransitionLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowTransitionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowTransitionLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTransitionLog, AGWorkflowTransition> WORKFLOW_TRANSITION = BUILDER.addForeignField("workflowTransition", o->o.m_workflowTransition, (o,v)->o.m_workflowTransition=v, AGWorkflowTransition.ID).setTitle(WorkflowI18n.WORKFLOW_TRANSITION).setCascade(true, true).setForeignKeyName("WorkflowTransitionLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTransitionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowTransitionLog_ibfk_2");
 	public static final IDbStringField<AGWorkflowTransitionLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGWorkflowTransitionLog> HTML_COLOR = BUILDER.addStringField("htmlColor", o->o.m_htmlColor, (o,v)->o.m_htmlColor=v).setTitle(WorkflowI18n.HTML_COLOR).setNullable().setDefault(null).setMaximumLength(7);
 	public static final IDbBooleanField<AGWorkflowTransitionLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);

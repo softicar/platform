@@ -30,8 +30,8 @@ public class AGBufferedEmailLog extends AbstractDbRecord<AGBufferedEmailLog, Tup
 		BUILDER.setPluralTitle(CoreI18n.BUFFERED_EMAIL_LOGS);
 	}
 
-	public static final IDbForeignField<AGBufferedEmailLog, AGBufferedEmail> BUFFERED_EMAIL = BUILDER.addForeignField("bufferedEmail", o->o.m_bufferedEmail, (o,v)->o.m_bufferedEmail=v, AGBufferedEmail.ID).setTitle(CoreI18n.BUFFERED_EMAIL).setForeignKeyName("BufferedEmailLog_ibfk_1");
-	public static final IDbForeignField<AGBufferedEmailLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("BufferedEmailLog_ibfk_2");
+	public static final IDbForeignField<AGBufferedEmailLog, AGBufferedEmail> BUFFERED_EMAIL = BUILDER.addForeignField("bufferedEmail", o->o.m_bufferedEmail, (o,v)->o.m_bufferedEmail=v, AGBufferedEmail.ID).setTitle(CoreI18n.BUFFERED_EMAIL).setCascade(true, true).setForeignKeyName("BufferedEmailLog_ibfk_1");
+	public static final IDbForeignField<AGBufferedEmailLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("BufferedEmailLog_ibfk_2");
 	public static final IDbBooleanField<AGBufferedEmailLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGBufferedEmailLog, Tuple2<AGBufferedEmail, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(BUFFERED_EMAIL, TRANSACTION));
 	public static final IDbKey<AGBufferedEmailLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);

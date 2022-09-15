@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode
 
 TABLE AGWorkflowVersionLog 'Workflow.WorkflowVersionLog' {
-	PK AGWorkflowVersion workflowVersion [CONSTRAINT_NAME='WorkflowVersionLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowVersionLog_ibfk_2']
+	PK AGWorkflowVersion workflowVersion [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowVersionLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='WorkflowVersionLog_ibfk_2']
 	AGWorkflowNode rootNode = NULL [NULLABLE CONSTRAINT_NAME='WorkflowVersionLog_ibfk_3']
 	Boolean draft = NULL [NULLABLE]
 
