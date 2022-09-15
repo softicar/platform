@@ -121,6 +121,8 @@ public interface IDbBasicTable<R> extends ISqlTable<R>, ITestMarker {
 
 	Collection<? extends IDbKey<R>> getUniqueKeys();
 
+	Collection<? extends IDbKey<R>> getIndexKeys();
+
 	// -------------------- statements -------------------- //
 
 	ISqlDelete<R> createDelete();

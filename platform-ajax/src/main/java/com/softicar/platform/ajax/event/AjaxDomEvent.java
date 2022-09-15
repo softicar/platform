@@ -1,14 +1,12 @@
 package com.softicar.platform.ajax.event;
 
-import com.softicar.platform.ajax.request.AjaxParameterUtils;
-import com.softicar.platform.ajax.request.AjaxRequest;
-import com.softicar.platform.ajax.request.IAjaxRequest;
+import com.softicar.platform.ajax.request.AjaxRequestMessage;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.event.DomEventType;
+import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.DomRect;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.IDomNode;
-import java.util.Optional;
 
 /**
  * The AJAX implementation of {@link IDomEvent}.
@@ -17,219 +15,154 @@ import java.util.Optional;
  */
 public class AjaxDomEvent implements IDomEvent {
 
-	private final DomEventType type;
-	private final IDomNode currentTarget;
-	private final Integer clientX;
-	private final Integer clientY;
-	private final Double relativeX;
-	private final Double relativeY;
-	private final Double scrollX;
-	private final Double scrollY;
-	private final String key;
-	private final Integer keyCode;
-	private final Integer windowWidth;
-	private final Integer windowHeight;
-	private final DomRect boundingClientRect;
-	private final boolean altKey;
-	private final boolean ctrlKey;
-	private final boolean metaKey;
-	private final boolean shiftKey;
-	private final double deltaX;
-	private final double deltaY;
-	private final double deltaZ;
-	private final IAjaxRequest ajaxRequest;
+	private final IDomDocument document;
+	private final AjaxRequestMessage message;
 
 	/**
-	 * Constructs a new event object using data supplied by the servlet request.
+	 * Constructs a new {@link AjaxDomEvent} based on the given
+	 * {@link AjaxRequestMessage}.
 	 *
 	 * @param document
 	 *            the associated {@link IDomDocument} that this event was
 	 *            triggered on
-	 * @param ajaxRequest
-	 *            the associated {@link AjaxRequest}, containing information
-	 *            about this event
+	 * @param message
+	 *            the {@link AjaxRequestMessage}, containing information about
+	 *            this event
 	 */
-	public AjaxDomEvent(IDomDocument document, IAjaxRequest ajaxRequest) {
+	public AjaxDomEvent(IDomDocument document, AjaxRequestMessage message) {
 
-		this.type = DomEventType.valueOf(ajaxRequest.getParameter("e").toUpperCase());
-		this.currentTarget = document.getNode(ajaxRequest.getParameter("n"));
-		this.clientX = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "cx", 0).intValue();
-		this.clientY = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "cy", 0).intValue();
-		this.relativeX = AjaxParameterUtils.getDouble(ajaxRequest, "rx");
-		this.relativeY = AjaxParameterUtils.getDouble(ajaxRequest, "ry");
-		this.scrollX = AjaxParameterUtils.getDouble(ajaxRequest, "sx");
-		this.scrollY = AjaxParameterUtils.getDouble(ajaxRequest, "sy");
-		this.key = Optional.ofNullable(ajaxRequest.getParameter("key")).orElse("");
-		this.keyCode = AjaxParameterUtils.getInteger(ajaxRequest, "k");
-		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "wx");
-		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wy");
-		this.boundingClientRect = readBoundingClientRect(ajaxRequest);
-		this.altKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "altKey", 0) != 0;
-		this.ctrlKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "ctrlKey", 0) != 0;
-		this.metaKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "metaKey", 0) != 0;
-		this.shiftKey = AjaxParameterUtils.getIntOrDefault(ajaxRequest, "shiftKey", 0) != 0;
-		this.deltaX = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaX", 0);
-		this.deltaY = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaY", 0);
-		this.deltaZ = AjaxParameterUtils.getDoubleOrDefault(ajaxRequest, "deltaZ", 0);
-		this.ajaxRequest = ajaxRequest;
-	}
-
-	private DomRect readBoundingClientRect(IAjaxRequest ajaxRequest) {
-
-		return new DomRect(//
-			AjaxParameterUtils.getDouble(ajaxRequest, "bcrX"),
-			AjaxParameterUtils.getDouble(ajaxRequest, "bcrY"),
-			AjaxParameterUtils.getDouble(ajaxRequest, "bcrW"),
-			AjaxParameterUtils.getDouble(ajaxRequest, "bcrH"));
+		this.document = document;
+		this.message = message;
 	}
 
 	/**
-	 * Returns the associated {@link AjaxRequest} object.
+	 * Returns the {@link AjaxRequestMessage} that this {@link AjaxDomEvent} is
+	 * based on.
 	 *
-	 * @return associated {@link AjaxRequest}, never null
+	 * @return associated {@link AjaxRequestMessage} (never <i>null</i>)
 	 */
-	public IAjaxRequest getAjaxRequest() {
+	public AjaxRequestMessage getRequestMessage() {
 
-		return ajaxRequest;
+		return message;
 	}
 
 	@Override
 	public DomEventType getType() {
 
-		return type;
+		return message.getEventType();
 	}
 
 	@Override
 	public IDomNode getCurrentTarget() {
 
-		return currentTarget;
+		return message.getNode(document);
 	}
 
 	@Override
-	public int getClientX() {
+	public double getClientX() {
 
-		return clientX;
+		return message.getCursor().getX();
 	}
 
 	@Override
-	public int getClientY() {
+	public double getClientY() {
 
-		return clientY;
+		return message.getCursor().getY();
 	}
 
 	@Override
-	public Double getRelativeX() {
+	public double getRelativeX() {
 
-		return relativeX;
+		return message.getCursorRelative().getX();
 	}
 
 	@Override
-	public Double getRelativeY() {
+	public double getRelativeY() {
 
-		return relativeY;
+		return message.getCursorRelative().getY();
 	}
 
 	@Override
-	public Double getScrollX() {
+	public double getScrollX() {
 
-		return scrollX;
+		return message.getWindowPageOffset().getX();
 	}
 
 	@Override
-	public Double getScrollY() {
+	public double getScrollY() {
 
-		return scrollY;
+		return message.getWindowPageOffset().getY();
 	}
 
 	@Override
 	public String getKey() {
 
-		return key;
+		return message.getKey();
 	}
 
 	@Override
-	public Integer getKeyCode() {
+	public double getWindowWidth() {
 
-		return keyCode;
+		return message.getWindowInnerSize().getX();
 	}
 
 	@Override
-	public int getWindowWidth() {
+	public double getWindowHeight() {
 
-		return windowWidth;
-	}
-
-	@Override
-	public int getWindowHeight() {
-
-		return windowHeight;
+		return message.getWindowInnerSize().getY();
 	}
 
 	@Override
 	public DomRect getBoundingClientRect() {
 
-		return boundingClientRect;
+		return message.getNodeRect();
 	}
 
 	@Override
 	public double getDeltaX() {
 
-		return deltaX;
+		return message.getWheelDelta().getX();
 	}
 
 	@Override
 	public double getDeltaY() {
 
-		return deltaY;
+		return message.getWheelDelta().getY();
 	}
 
 	@Override
 	public double getDeltaZ() {
 
-		return deltaZ;
+		return message.getWheelDelta().getZ();
 	}
 
 	@Override
 	public boolean isAltKey() {
 
-		return altKey;
+		return message.isModifierKey(DomModifier.ALT);
 	}
 
 	@Override
 	public boolean isCtrlKey() {
 
-		return ctrlKey;
+		return message.isModifierKey(DomModifier.CONTROL);
 	}
 
 	@Override
 	public boolean isMetaKey() {
 
-		return metaKey;
+		return message.isModifierKey(DomModifier.META);
 	}
 
 	@Override
 	public boolean isShiftKey() {
 
-		return shiftKey;
+		return message.isModifierKey(DomModifier.SHIFT);
 	}
 
 	@Override
 	public String toString() {
 
-		return String
-			.format(
-				"type(%s) currentTarget(%s) client(%s,%s) scroll(%s,%s) relative(%s,%s) window(%s,%s) key(%s) keyCode(%s)",
-				type.toString(),
-				currentTarget.getNodeId(),
-				clientX,
-				clientY,
-				scrollX,
-				scrollY,
-				relativeX,
-				relativeY,
-				windowWidth,
-				windowHeight,
-				key,
-				keyCode);
+		return message.toString();
 	}
 }

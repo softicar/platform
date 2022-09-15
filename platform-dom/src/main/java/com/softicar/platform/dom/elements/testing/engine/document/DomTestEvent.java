@@ -34,39 +34,39 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
-	public int getClientX() {
+	public double getClientX() {
 
 		return 0;
 	}
 
 	@Override
-	public int getClientY() {
+	public double getClientY() {
 
 		return 0;
 	}
 
 	@Override
-	public Double getRelativeX() {
+	public double getRelativeX() {
 
-		return null;
+		return 0;
 	}
 
 	@Override
-	public Double getRelativeY() {
+	public double getRelativeY() {
 
-		return null;
+		return 0;
 	}
 
 	@Override
-	public Double getScrollX() {
+	public double getScrollX() {
 
-		return 0.0;
+		return 0;
 	}
 
 	@Override
-	public Double getScrollY() {
+	public double getScrollY() {
 
-		return 0.0;
+		return 0;
 	}
 
 	@Override
@@ -76,19 +76,13 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
-	public Integer getKeyCode() {
-
-		return null;
-	}
-
-	@Override
-	public int getWindowWidth() {
+	public double getWindowWidth() {
 
 		return 0;
 	}
 
 	@Override
-	public int getWindowHeight() {
+	public double getWindowHeight() {
 
 		return 0;
 	}

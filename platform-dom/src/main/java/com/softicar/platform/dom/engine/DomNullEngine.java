@@ -15,7 +15,6 @@ import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
@@ -102,12 +101,6 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void insertTextAtCaret(IDomTextualInput input, String text) {
-
-		// nothing to do
-	}
-
-	@Override
 	public void listenToEvent(IDomNode node, DomEventType type) {
 
 		// nothing to do
@@ -121,12 +114,6 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode) {
-
-		// nothing to do
-	}
-
-	@Override
-	public void moveCaretToPosition(IDomTextualInput input, int position) {
 
 		// nothing to do
 	}

@@ -17,6 +17,6 @@ public abstract class AbstractAjaxService implements IAjaxService {
 		this.framework = request.getAjaxFramework();
 		this.strategy = framework.getAjaxStrategy();
 		this.request = request;
-		this.response = request.getServletResponse();
+		this.response = request.getHttpResponse();
 	}
 }

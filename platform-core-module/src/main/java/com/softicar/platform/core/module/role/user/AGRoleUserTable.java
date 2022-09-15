@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.role.user;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 
@@ -10,6 +11,14 @@ public class AGRoleUserTable extends EmfObjectTable<AGRoleUser, AGCoreModuleInst
 	public AGRoleUserTable(IDbObjectTableBuilder<AGRoleUser> builder) {
 
 		super(builder);
+	}
+
+	@Override
+	public void customizeAttributeProperties(IEmfAttributeList<AGRoleUser> attributes) {
+
+		attributes//
+			.editEntityAttribute(AGRoleUser.USER)
+			.addFilter(user -> !user.isSystemUser());
 	}
 
 	@Override

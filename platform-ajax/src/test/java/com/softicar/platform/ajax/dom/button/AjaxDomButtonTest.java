@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.event.DomKeyCodes;
+import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.input.DomTextInput;
 import org.junit.Test;
 
@@ -78,8 +78,8 @@ public class AjaxDomButtonTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testWithSimulatedEvents() {
 
 		send(input, SOME_TEXT);
-		simulateKeyDown(button, DomKeyCodes.ENTER);
-		simulateKeyUp(button, DomKeyCodes.ENTER);
+		simulateKeyDown(button, DomKeys.ENTER);
+		simulateKeyUp(button, DomKeys.ENTER);
 
 		waitForServer();
 		assertEquals(SOME_TEXT, getText(output));
@@ -89,10 +89,10 @@ public class AjaxDomButtonTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testCancelationOfEnterWithEscape() {
 
 		send(input, SOME_TEXT);
-		simulateKeyDown(button, DomKeyCodes.ENTER);
-		simulateKeyDown(button, DomKeyCodes.ESCAPE);
-		simulateKeyUp(button, DomKeyCodes.ESCAPE);
-		simulateKeyUp(button, DomKeyCodes.ENTER);
+		simulateKeyDown(button, DomKeys.ENTER);
+		simulateKeyDown(button, DomKeys.ESCAPE);
+		simulateKeyUp(button, DomKeys.ESCAPE);
+		simulateKeyUp(button, DomKeys.ENTER);
 
 		waitForServer();
 		assertEquals("", getText(output));

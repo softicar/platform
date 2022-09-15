@@ -172,6 +172,12 @@ public class DbTable<R extends IDbTableRow<R, P>, P> implements IDbTable<R, P> {
 		return builder.getUniqueKeys();
 	}
 
+	@Override
+	public Collection<? extends IDbKey<R>> getIndexKeys() {
+
+		return builder.getIndexKeys();
+	}
+
 	// -------------------- primary key -------------------- //
 
 	@Override

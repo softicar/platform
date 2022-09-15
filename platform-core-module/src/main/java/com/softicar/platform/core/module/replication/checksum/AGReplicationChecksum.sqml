@@ -9,8 +9,8 @@ TABLE AGReplicationChecksum 'Core.ReplicationChecksum' {
 	PK Integer chunk
 	Float chunkTime = NULL ['chunk_time' NULLABLE]
 	String chunkIndex = NULL ['chunk_index' NULLABLE MAXLENGTH=200]
-	String lowerBoundary ['lower_boundary' NULLABLE LENGTHBITS=16]
-	String upperBoundary ['upper_boundary' NULLABLE LENGTHBITS=16]
+	String lowerBoundary = NULL ['lower_boundary' NULLABLE LENGTHBITS=16]
+	String upperBoundary = NULL ['upper_boundary' NULLABLE LENGTHBITS=16]
 	String checksum ['this_crc' MAXLENGTH=40]
 	Integer rowCount ['this_cnt']
 	String masterServerChecksum = NULL ['master_crc' NULLABLE MAXLENGTH=40]

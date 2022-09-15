@@ -34,7 +34,6 @@ import com.softicar.platform.dom.event.IDomEventHandler;
 import com.softicar.platform.dom.event.timeout.IDomTimeoutNode;
 import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
 import com.softicar.platform.dom.utils.JavascriptEscaping;
@@ -362,18 +361,6 @@ public class AjaxDomEngine implements IDomEngine {
 	public void selectText(IDomNode inputNode) {
 
 		JS_callNodeFunction(inputNode, "select");
-	}
-
-	@Override
-	public void insertTextAtCaret(IDomTextualInput input, String text) {
-
-		JS_call("insertTextAtCaret", input, text);
-	}
-
-	@Override
-	public void moveCaretToPosition(IDomTextualInput input, int position) {
-
-		JS_call("moveCaretToPosition", input, position);
 	}
 
 	// -------------------------------- pop-ups -------------------------------- //

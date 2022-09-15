@@ -1,4 +1,4 @@
-package com.softicar.platform.ajax.request.parameters;
+package com.softicar.platform.ajax.request;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;

@@ -1,8 +1,7 @@
 package com.softicar.platform.ajax.drag;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.ajax.request.AjaxParameterUtils;
-import com.softicar.platform.ajax.request.IAjaxRequest;
+import com.softicar.platform.ajax.request.AjaxRequestMessage;
 import com.softicar.platform.dom.event.IDomDropEvent;
 import com.softicar.platform.dom.node.IDomNode;
 
@@ -13,19 +12,13 @@ import com.softicar.platform.dom.node.IDomNode;
  */
 public class AjaxDomDropEvent implements IDomDropEvent {
 
+	private final AjaxRequestMessage message;
 	private final IDomNode node;
-	private final int startX;
-	private final int startY;
-	private final int dropX;
-	private final int dropY;
 
-	public AjaxDomDropEvent(IAjaxDocument document, IAjaxRequest ajaxRequest) {
+	public AjaxDomDropEvent(IAjaxDocument document, AjaxRequestMessage message) {
 
-		this.node = document.getNode(ajaxRequest.getParameter("n"));
-		this.startX = AjaxParameterUtils.getInteger(ajaxRequest, "sx");
-		this.startY = AjaxParameterUtils.getInteger(ajaxRequest, "sy");
-		this.dropX = AjaxParameterUtils.getInteger(ajaxRequest, "dx");
-		this.dropY = AjaxParameterUtils.getInteger(ajaxRequest, "dy");
+		this.message = message;
+		this.node = message.getNode(document);
 	}
 
 	@Override
@@ -35,26 +28,26 @@ public class AjaxDomDropEvent implements IDomDropEvent {
 	}
 
 	@Override
-	public int getStartX() {
+	public double getStartX() {
 
-		return startX;
+		return message.getDragStart().getX();
 	}
 
 	@Override
-	public int getStartY() {
+	public double getStartY() {
 
-		return startY;
+		return message.getDragStart().getY();
 	}
 
 	@Override
-	public int getDropX() {
+	public double getDropX() {
 
-		return dropX;
+		return message.getDragPosition().getX();
 	}
 
 	@Override
-	public int getDropY() {
+	public double getDropY() {
 
-		return dropY;
+		return message.getDragPosition().getY();
 	}
 }

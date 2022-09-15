@@ -14,18 +14,18 @@ public abstract class AbstractAjaxDomEventTest extends AbstractAjaxSeleniumLowLe
 		this.testDiv = openTestNode(factory);
 	}
 
-	protected void assertKeyboardEvent(AbstractAjaxDomEventTestDiv testDiv, DomEventType eventType, int keyCode) {
+	protected void assertKeyboardEvent(AbstractAjaxDomEventTestDiv testDiv, DomEventType eventType, String key) {
 
 		IDomEvent event = testDiv.getEvent();
 
 		assertSame(testDiv, event.getCurrentTarget());
 		assertEquals(eventType, event.getType());
-		assertEquals(Integer.valueOf(keyCode), event.getKeyCode());
+		assertEquals(key, event.getKey());
 		assertTrue(0 < event.getClientX());
 		assertTrue(0 < event.getClientY());
 		assertEquals(0, event.getScrollX(), 0.1);
 		assertEquals(0, event.getScrollY(), 0.1);
-		assertNull(event.getRelativeX());
-		assertNull(event.getRelativeY());
+		assertEquals(0, event.getRelativeX(), 0.1);
+		assertEquals(0, event.getRelativeY(), 0.1);
 	}
 }

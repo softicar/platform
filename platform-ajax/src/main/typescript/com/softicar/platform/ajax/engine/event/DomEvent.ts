@@ -62,36 +62,33 @@ function sendDomEventToServer(event: Event, eventType: string) {
 	let element = event.currentTarget as HTMLElement;
 	let boundingRect = element.getBoundingClientRect();
 	let message = new AjaxRequestMessage()
-		.setAction(AJAX_REQUEST_DOM_EVENT)
+		.setActionType(AJAX_REQUEST_DOM_EVENT)
 		.setNode(element)
 		.setEventType(eventType)
-		.setWindowPageOffset(new Point(window.pageXOffset, window.pageYOffset))
-		.setWindowInnerSize(new Point(window.innerWidth, window.innerHeight))
-		.setBoundingClientRect(boundingRect);
+		.setWindowPageOffset(new Vector2d(window.pageXOffset, window.pageYOffset))
+		.setWindowInnerSize(new Vector2d(window.innerWidth, window.innerHeight))
+		.setNodeRect(boundingRect);
 	
 	if(event instanceof MouseEvent) {
-		message.setMousePosition(new Point(event.clientX, event.clientY));
-		message.setMouseRelativePosition(new Point(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
+		message.setMousePosition(new Vector2d(event.clientX, event.clientY));
+		message.setMouseRelativePosition(new Vector2d(event.clientX - boundingRect.left, event.clientY - boundingRect.top));
 	} else {
-		message.setMousePosition(new Point(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
+		message.setMousePosition(new Vector2d(boundingRect.x + boundingRect.width / 2, boundingRect.y + boundingRect.height / 2));
 	}
 
 	if(event instanceof KeyboardEvent) {
 		message.setKey(event.key);
-		message.setKeyCode(event.keyCode);
 	}
 
 	if(event instanceof KeyboardEvent || event instanceof MouseEvent) {
-		message.setModifierKey('altKey', event.altKey);
-		message.setModifierKey('ctrlKey', event.ctrlKey);
-		message.setModifierKey('metaKey', event.metaKey);
-		message.setModifierKey('shiftKey', event.shiftKey);
+		message.setModifierKey(DOM_MODIFIER_ALT, event.altKey);
+		message.setModifierKey(DOM_MODIFIER_CONTROL, event.ctrlKey);
+		message.setModifierKey(DOM_MODIFIER_META, event.metaKey);
+		message.setModifierKey(DOM_MODIFIER_SHIFT, event.shiftKey);
 	}
 
 	if(event instanceof WheelEvent) {
-		message.setDeltaX(event.deltaX);
-		message.setDeltaY(event.deltaY);
-		message.setDeltaZ(event.deltaZ);
+		message.setWheelDelta(new Vector3d(event.deltaX, event.deltaY, event.deltaZ));
 	}
 
 	AJAX_REQUEST_QUEUE.submit(message);

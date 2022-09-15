@@ -40,19 +40,7 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 		return getValueText().isBlank();
 	}
 
-	// -------------------------------- caret & selection -------------------------------- //
-
-	@Override
-	public void insertTextAtCaret(String text) {
-
-		getDomEngine().insertTextAtCaret(this, text);
-	}
-
-	@Override
-	public void moveCaretToPosition(int position) {
-
-		getDomEngine().moveCaretToPosition(this, position);
-	}
+	// -------------------------------- selection -------------------------------- //
 
 	@Override
 	public void selectText() {
@@ -67,6 +55,21 @@ public abstract class AbstractDomTextualInput extends AbstractDomValueInputEleme
 
 		setAttribute("placeholder", placeholder.toString());
 		return this;
+	}
+
+	// -------------------------------- required -------------------------------- //
+
+	@Override
+	public IDomTextualInput setRequired(boolean required) {
+
+		setAttribute("required", required? "" : null);
+		return this;
+	}
+
+	@Override
+	public boolean isRequired() {
+
+		return getAttributeValue("required").isPresent();
 	}
 
 	// -------------------------------- read-only -------------------------------- //

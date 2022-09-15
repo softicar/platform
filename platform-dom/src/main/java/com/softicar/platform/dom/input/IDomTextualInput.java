@@ -56,20 +56,7 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	 */
 	boolean isBlank();
 
-	// -------------------------------- caret & selection -------------------------------- //
-
-	/**
-	 * Inserts the given text at the current caret position.
-	 */
-	void insertTextAtCaret(String text);
-
-	/**
-	 * Moves the caret to the given position.
-	 *
-	 * @param position
-	 *            the index of the desired position
-	 */
-	void moveCaretToPosition(int position);
+	// -------------------------------- selection -------------------------------- //
 
 	/**
 	 * Selects the text in this {@link IDomTextualInput}.
@@ -90,6 +77,21 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	 * @return this
 	 */
 	IDomTextualInput setPlaceholder(IDisplayString placeholder);
+
+	// -------------------------------- required -------------------------------- //
+
+	/**
+	 * Marks this {@link IDomTextualInput} as required.
+	 */
+	IDomTextualInput setRequired(boolean required);
+
+	/**
+	 * Tests whether this {@link IDomTextualInput} is required.
+	 *
+	 * @return <i>true</i> if this {@link IDomTextualInput} is required;
+	 *         <i>false</i> otherwise
+	 */
+	boolean isRequired();
 
 	// -------------------------------- read-only -------------------------------- //
 

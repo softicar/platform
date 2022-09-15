@@ -768,14 +768,14 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	// -------------------- event simulator -------------------- //
 
-	default void simulateKeyDown(IDomNode target, int keyCode) {
+	default void simulateKeyDown(IDomNode target, String key) {
 
-		getTestEngine().getEventSimulator().simulateKeyDown(target, keyCode);
+		getTestEngine().getEventSimulator().simulateKeyDown(target, key);
 	}
 
-	default void simulateKeyUp(IDomNode target, int keyCode) {
+	default void simulateKeyUp(IDomNode target, String key) {
 
-		getTestEngine().getEventSimulator().simulateKeyUp(target, keyCode);
+		getTestEngine().getEventSimulator().simulateKeyUp(target, key);
 	}
 
 	default void simulateChange(IDomNode target) {
