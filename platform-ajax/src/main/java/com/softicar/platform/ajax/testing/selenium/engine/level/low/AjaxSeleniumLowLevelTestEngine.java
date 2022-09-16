@@ -7,12 +7,15 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniu
 import com.softicar.platform.dom.DomProperties;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.node.IDomNode;
+import java.time.Duration;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.Rule;
 import org.junit.runner.Description;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * A Selenium based UI test engine which can be used via a JUnit {@link Rule}
@@ -67,7 +70,13 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 	 */
 	public final <T extends IDomNode> T openTestNode(Supplier<T> factory) {
 
-		return testEnvironment.openTestNode(factory);
+		T testNode = testEnvironment.openTestNode(factory);
+
+		// TODO testing...
+		new WebDriverWait(webDriverController.getWebDriver(), Duration.ofSeconds(10))
+			.until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete"));
+
+		return testNode;
 	}
 
 	/**
