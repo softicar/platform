@@ -2,7 +2,6 @@ package com.softicar.platform.ajax.testing.selenium;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.AjaxTestingServlet;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.web.servlet.HttpServletServer;
 import com.softicar.platform.common.web.servlet.HttpServletServerHandle;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -39,8 +38,8 @@ public class AjaxSeleniumTestEnvironment {
 		CurrentDomDocument.set(bufferedFactory.getDocument());
 		T contentNode = bufferedFactory.getContentNode();
 
-		// FIXME remove
-		Sleep.sleep(2000);
+		// FIXME find a better solution
+//		Sleep.sleep(2000);
 
 		return contentNode;
 	}

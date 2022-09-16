@@ -19,6 +19,7 @@ public class AjaxEventPreventDefaultBehaviorTest extends AbstractAjaxSeleniumLow
 
 		send(testDiv.getInput1(), "foo");
 		send(testDiv.getInput1(), Key.TAB);
+		waitForServer();
 
 		assertFocused(testDiv.getInput1());
 	}
@@ -30,6 +31,7 @@ public class AjaxEventPreventDefaultBehaviorTest extends AbstractAjaxSeleniumLow
 
 		send(testDiv.getInput1(), "foo");
 		send(testDiv.getInput1(), Key.TAB);
+		waitForServer();
 
 		assertFocused(testDiv.getInput2());
 	}

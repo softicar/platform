@@ -159,6 +159,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertSelectedOptions(testDiv.option3);
 
 		tester.clickButton();
+		tester.waitForServer();
 		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option3);
 
@@ -197,6 +198,7 @@ public class AjaxRequestInputValuesTest extends AbstractAjaxSeleniumLowLevelTest
 		tester.assertSelectedOptions(testDiv.option2, testDiv.option3);
 
 		tester.clickButton();
+		tester.waitForServer();
 		tester.assertNoNodeValueParameter();
 		tester.assertSelectedOptions(testDiv.option2, testDiv.option3);
 

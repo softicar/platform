@@ -22,6 +22,7 @@ public class AjaxFireOnKeyUpTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testWithOnlyKeyDown() {
 
 		simulateKeyDown(testDiv, DomKeys.ENTER);
+		waitForServer();
 
 		assertNoEvents();
 	}
@@ -30,6 +31,7 @@ public class AjaxFireOnKeyUpTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testWithOnlyKeyUp() {
 
 		simulateKeyUp(testDiv, DomKeys.ENTER);
+		waitForServer();
 
 		assertNoEvents();
 	}
@@ -39,6 +41,7 @@ public class AjaxFireOnKeyUpTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		simulateKeyDown(testDiv, DomKeys.ENTER);
 		simulateKeyUp(testDiv, DomKeys.ENTER);
+		waitForServer();
 
 		assertEventType(DomEventType.ENTER);
 	}
@@ -49,6 +52,7 @@ public class AjaxFireOnKeyUpTest extends AbstractAjaxSeleniumLowLevelTest {
 		simulateKeyDown(testDiv, DomKeys.ENTER);
 		simulateKeyDown(testDiv, DomKeys.ESCAPE);
 		simulateKeyUp(testDiv, DomKeys.ENTER);
+		waitForServer();
 
 		assertNoEvents();
 	}
@@ -58,6 +62,7 @@ public class AjaxFireOnKeyUpTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		simulateKeyDown(testDiv, DomKeys.SPACE);
 		simulateKeyUp(testDiv, DomKeys.SPACE);
+		waitForServer();
 
 		assertEventType(DomEventType.SPACE);
 	}

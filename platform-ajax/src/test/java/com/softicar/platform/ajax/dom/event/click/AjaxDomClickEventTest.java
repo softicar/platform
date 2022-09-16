@@ -31,12 +31,10 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void test() {
 
-		// TODO leave this here?
+		// click at specific location
 		AjaxSeleniumTestSegment viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
 		AjaxSeleniumTestRectangle divRectangle = getRectangle(testDiv);
-
-		// click at specific location
 		clickAt(testDiv, CLICK_X, CLICK_Y);
 		waitForServer();
 
