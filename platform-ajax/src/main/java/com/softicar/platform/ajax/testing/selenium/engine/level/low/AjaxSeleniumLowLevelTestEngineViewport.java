@@ -31,18 +31,27 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 
 	public void setViewportSize(int width, int height) {
 
-		Dimension dimension = getWindow().getSize();
-		AjaxSeleniumTestSegment windowSize = new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
-		AjaxSeleniumTestSegment viewportSize = getViewportSize();
-		int extraWidth = windowSize.getWidth() - viewportSize.getWidth();
-		int extraHeight = windowSize.getHeight() - viewportSize.getHeight();
+		AjaxSeleniumTestSegment viewportSizeDesired = new AjaxSeleniumTestSegment(width, height);
+		AjaxSeleniumTestSegment viewportSizeBefore = getViewportSize();
 
-		getWindow().setSize(new Dimension(width + extraWidth, height + extraHeight));
+		if (!viewportSizeBefore.equals(viewportSizeDesired)) {
+			Dimension windowDimension = getWindow().getSize();
+			AjaxSeleniumTestSegment windowSize = new AjaxSeleniumTestSegment(windowDimension.getWidth(), windowDimension.getHeight());
+			int extraWidth = windowSize.getWidth() - viewportSizeBefore.getWidth();
+			int extraHeight = windowSize.getHeight() - viewportSizeBefore.getHeight();
 
-		// Wait for the window size to actually change.
-		// Inspired by StackOverflow: https://stackoverflow.com/a/40242082
-		new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
-			.until(driver -> !getViewportSize().equals(viewportSize));
+			getWindow().setSize(new Dimension(width + extraWidth, height + extraHeight));
+
+			// Wait for the window size to actually change.
+			// Inspired by StackOverflow: https://stackoverflow.com/a/40242082
+			new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
+				.until(driver -> {
+//					Log.finfo("waiting...");
+					AjaxSeleniumTestSegment currentViewportSize = getViewportSize();
+//					Log.finfo("   current-size %s equals size-before %s ?", currentViewportSize, viewportSizeBefore);
+					return !currentViewportSize.equals(viewportSizeBefore);
+				});
+		}
 	}
 
 	public void scrollTo(int x, int y) {

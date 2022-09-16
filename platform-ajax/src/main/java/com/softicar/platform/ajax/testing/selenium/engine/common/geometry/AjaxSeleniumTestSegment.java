@@ -48,16 +48,16 @@ public class AjaxSeleniumTestSegment {
 	}
 
 	/**
-	 * Determines whether this {@link AjaxSeleniumTestSegment} is equal to the given
-	 * {@link Object}.
+	 * Determines whether this {@link AjaxSeleniumTestSegment} is equal to the
+	 * given {@link Object}.
 	 * <p>
 	 * If the given object is a {@link AjaxSeleniumTestSegment}, and if the
 	 * respective widths and heights are identical, <i>true</i> is returned.
 	 * <p>
 	 * Otherwise, <i>false</i> is returned.
 	 *
-	 * @return <i>true</i> if this {@link AjaxSeleniumTestSegment} is equal to the
-	 *         given one; <i>false</i> otherwise
+	 * @return <i>true</i> if this {@link AjaxSeleniumTestSegment} is equal to
+	 *         the given one; <i>false</i> otherwise
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -79,5 +79,11 @@ public class AjaxSeleniumTestSegment {
 	public int hashCode() {
 
 		return Objects.hash(width, height);
+	}
+
+	@Override
+	public String toString() {
+
+		return "AjaxSeleniumTestSegment [width=" + width + ", height=" + height + "]";
 	}
 }
