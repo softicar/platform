@@ -43,7 +43,7 @@ softicarCodeValidationSettings {
 			"com.softicar.platform.integration.database.structure.version"
 		],
 	]
-	arguments = [ "--verbose", "--configurationJson", JsonOutput.toJson(configurationJson) ]
+	arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
 }
 
 check.dependsOn softicarCodeValidation
