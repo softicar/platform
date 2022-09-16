@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.document.IAjaxDocument;
+import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.ajax.testing.selenium.engine.common.AbstractAjaxSeleniumTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.dom.DomProperties;
@@ -68,10 +69,10 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 	public final <T extends IDomNode> T openTestNode(Supplier<T> factory) {
 
 		T testNode = testEnvironment.openTestNode(factory);
-
-		// TODO testing...
-		waitForServer();
-
+		viewport
+			.setViewportSize(//
+				AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_X.getValue(),
+				AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_Y.getValue());
 		return testNode;
 	}
 
