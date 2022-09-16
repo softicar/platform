@@ -89,6 +89,7 @@ public class AjaxDomModalDialogTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		var dialog = showDialog();
 		send(dialog.getFrame(), Key.TAB);
+		waitForServer();
 		assertFocused(dialog.getFrame());
 	}
 

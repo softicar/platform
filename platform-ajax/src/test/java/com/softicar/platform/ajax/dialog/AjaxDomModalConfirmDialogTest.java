@@ -154,6 +154,7 @@ public class AjaxDomModalConfirmDialogTest extends AbstractAjaxSeleniumLowLevelT
 
 		var confirm = showConfirm();
 		send(confirm.getFrame(), Key.TAB);
+		waitForServer();
 		assertFocused(confirm.getOkayButton());
 	}
 
@@ -162,6 +163,7 @@ public class AjaxDomModalConfirmDialogTest extends AbstractAjaxSeleniumLowLevelT
 
 		var confirm = showConfirm();
 		send(confirm.getOkayButton(), Key.TAB);
+		waitForServer();
 		assertFocused(confirm.getCancelButton());
 	}
 
@@ -170,6 +172,7 @@ public class AjaxDomModalConfirmDialogTest extends AbstractAjaxSeleniumLowLevelT
 
 		var confirm = showConfirm();
 		send(confirm.getCancelButton(), Key.TAB);
+		waitForServer();
 		assertFocused(confirm.getFrame());
 	}
 

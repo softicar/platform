@@ -235,6 +235,7 @@ public class AjaxDomModalPromptDialogTest extends AbstractAjaxSeleniumLowLevelTe
 
 		var prompt = showPrompt();
 		send(prompt.getFrame(), Key.TAB);
+		waitForServer();
 		assertFocused(prompt.getInputElement());
 	}
 
@@ -243,6 +244,7 @@ public class AjaxDomModalPromptDialogTest extends AbstractAjaxSeleniumLowLevelTe
 
 		var prompt = showPrompt();
 		send(prompt.getInputElement(), Key.TAB);
+		waitForServer();
 		assertFocused(prompt.getOkayButton());
 	}
 
@@ -251,6 +253,7 @@ public class AjaxDomModalPromptDialogTest extends AbstractAjaxSeleniumLowLevelTe
 
 		var prompt = showPrompt();
 		send(prompt.getOkayButton(), Key.TAB);
+		waitForServer();
 		assertFocused(prompt.getCancelButton());
 	}
 
@@ -259,6 +262,7 @@ public class AjaxDomModalPromptDialogTest extends AbstractAjaxSeleniumLowLevelTe
 
 		var prompt = showPrompt();
 		send(prompt.getCancelButton(), Key.TAB);
+		waitForServer();
 		assertFocused(prompt.getFrame());
 	}
 

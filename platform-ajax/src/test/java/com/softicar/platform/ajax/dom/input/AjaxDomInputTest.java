@@ -112,6 +112,7 @@ public class AjaxDomInputTest extends AbstractAjaxSeleniumLowLevelTest {
 		click(button);
 		waitForServer();
 		send(input, "bar");
+		waitForServer();
 
 		// verification
 		assertEquals("bar", getAttributeValue(input, "value"));
