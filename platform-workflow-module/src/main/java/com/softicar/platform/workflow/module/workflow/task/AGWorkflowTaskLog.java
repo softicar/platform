@@ -31,8 +31,8 @@ public class AGWorkflowTaskLog extends AbstractDbRecord<AGWorkflowTaskLog, Tuple
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_TASK_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowTaskLog, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK).setForeignKeyName("WorkflowTaskLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowTaskLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowTaskLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowTaskLog, AGWorkflowTask> WORKFLOW_TASK = BUILDER.addForeignField("workflowTask", o->o.m_workflowTask, (o,v)->o.m_workflowTask=v, AGWorkflowTask.ID).setTitle(WorkflowI18n.WORKFLOW_TASK).setCascade(true, true).setForeignKeyName("WorkflowTaskLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowTaskLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowTaskLog_ibfk_2");
 	public static final IDbForeignField<AGWorkflowTaskLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null).setForeignKeyName("WorkflowTaskLog_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowTaskLog> CLOSED = BUILDER.addBooleanField("closed", o->o.m_closed, (o,v)->o.m_closed=v).setTitle(WorkflowI18n.CLOSED).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGWorkflowTaskLog> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setNullable().setDefault(null);

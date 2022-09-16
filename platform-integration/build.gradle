@@ -26,7 +26,8 @@ softicarCodeValidationSettings {
 			"com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint",
 			"com.softicar.platform.core.module.program.ProgramStarter",
 			"com.softicar.platform.db.sql.expressions.SqlAllExpressionsGenerator",
-			"com.softicar.platform.db.sql.SqlMasterGenerator"
+			"com.softicar.platform.db.sql.SqlMasterGenerator",
+			"com.softicar.platform.integration.database.structure.DatabaseStructureJsonFromClasspathExtractor"
 		],
 		forbiddenClasses: [
 			"com.softicar.platform.db.core.statement.DbStatement",

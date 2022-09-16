@@ -7,9 +7,12 @@ import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.db.runtime.field.IDbForeignRowField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.table.IDbTable;
+import com.softicar.platform.db.runtime.table.validator.IDbTableValidator;
+import com.softicar.platform.db.structure.foreign.key.DbForeignKeyAction;
 import com.softicar.platform.emf.log.EmfDummyLogger;
 import com.softicar.platform.emf.log.EmfPlainChangeLogger;
 import com.softicar.platform.emf.log.IEmfChangeLogger;
@@ -32,7 +35,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.Assert;
 
-public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
+public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert implements IDbTableValidator {
 
 	private final IEmfTable<R, ?, ?> table;
 	private final AssertionErrorMessageCollector errors;
@@ -43,7 +46,8 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		this.errors = new AssertionErrorMessageCollector();
 	}
 
-	public void validate() {
+	@Override
+	public AssertionErrorMessageCollector validate() {
 
 		new ActiveFieldValidator<>(table, errors)//
 			.validateActiveField();
@@ -55,8 +59,8 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 			.validateNoUniqueKeysWithActiveColumn()
 			.validateNoUniqueKeysInLogTable();
 
-		new LoggingValidator<>(table, errors)//
-			.validateLogging();
+		new LogTableValidator<>(table, errors)//
+			.validateLogTable();
 
 		new PermissionValidator<>(table, errors)//
 			.validateNoCyclicPermissions()
@@ -68,7 +72,7 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		new TransactionFieldValidator<>(table, errors)//
 			.validateTransactionField();
 
-		errors.throwIfNecessary();
+		return errors;
 	}
 
 	private static class ActiveFieldValidator<R extends IEmfTableRow<R, ?>> {
@@ -229,27 +233,27 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 		}
 	}
 
-	private static class LoggingValidator<R extends IEmfTableRow<R, ?>> {
+	private static class LogTableValidator<R extends IEmfTableRow<R, ?>> {
 
 		private final IEmfTable<R, ?, ?> table;
 		private final AssertionErrorMessageCollector errors;
 
-		public LoggingValidator(IEmfTable<R, ?, ?> table, AssertionErrorMessageCollector errors) {
+		public LogTableValidator(IEmfTable<R, ?, ?> table, AssertionErrorMessageCollector errors) {
 
 			this.table = table;
 			this.errors = errors;
 		}
 
-		public void validateLogging() {
+		public void validateLogTable() {
 
 			if (!table.getChangeLoggers().isEmpty()) {
 				Set<IDbField<R, ?>> loggedFields = new HashSet<>();
 				for (IEmfChangeLogger<R> changeLogger: table.getChangeLoggers()) {
 					if (changeLogger instanceof EmfPlainChangeLogger) {
-						EmfPlainChangeLogger<?, R, ?> plainChangeLogger = (EmfPlainChangeLogger<?, R, ?>) changeLogger;
-						validatePrimaryKeyOfLogTable(plainChangeLogger);
-						validateLogFields(plainChangeLogger);
-						validateAllLogFieldsAreUsed(plainChangeLogger);
+						var plainChangeLogger = (EmfPlainChangeLogger<?, R, ?>) changeLogger;
+						validateLogTablePimaryKey(plainChangeLogger);
+						validateLogTableFields(plainChangeLogger);
+						validateLogTableFieldsAreAllUsed(plainChangeLogger);
 						validateLoggedStringFieldAttributes(plainChangeLogger);
 						addFields(plainChangeLogger.getLoggedFields(), loggedFields);
 					} else if (changeLogger instanceof EmfDummyLogger) {
@@ -260,32 +264,64 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert {
 			}
 		}
 
-		private void validatePrimaryKeyOfLogTable(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
+		private void validateLogTablePimaryKey(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
 
-			IDbTable<?, ?> logTable = plainChangeLogger.getLogTable();
-			List<?> primaryKeyFields = logTable.getPrimaryKey().getFields();
+			var logTable = plainChangeLogger.getLogTable();
+			var primaryKeyFields = logTable.getPrimaryKey().getFields();
 
 			if (primaryKeyFields.size() != 2) {
-				errors.add("Log table %s must have exactly two primary key columns.", logTable.getFullName());
+				errors.add("Log table %s: The primary key must have exactly two columns.", logTable.getFullName());
 			}
 
-			if (plainChangeLogger.getTableRowField() != primaryKeyFields.get(0)) {
-				errors.add("The first primary key column of log table %s must be the table row field.", logTable.getFullName());
+			// validate table row field
+
+			var tableRowField = primaryKeyFields.get(0);
+			if (!IDbForeignRowField.class.isInstance(tableRowField)) {
+				errors.add("Log table %s: The table row field in the primary key must be a foreign key field.", logTable.getFullName());
 			}
 
-			if (plainChangeLogger.getTransactionField() != primaryKeyFields.get(1)) {
-				errors.add("The second primary key column of log table %s must be the transaction field.", logTable.getFullName());
+			var tableRowForeignRowField = (IDbForeignRowField<?, ?, ?>) tableRowField;
+			if (plainChangeLogger.getTableRowField() != tableRowForeignRowField) {
+				errors.add("Log table %s: The first primary key column must be the table row field.", logTable.getFullName());
+			}
+
+			if (tableRowForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
+				errors.add("Log table %s: The foreign key on the table row field of the primary key must have 'ON DELETE CASCADE'.", logTable.getFullName());
+			}
+
+			if (tableRowForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
+				errors.add("Log table %s: The foreign key on the table row field of the primary key must have 'ON UPDATE CASCADE'.", logTable.getFullName());
+			}
+
+			// validate transaction field
+
+			var transactionField = primaryKeyFields.get(1);
+			if (!IDbForeignRowField.class.isInstance(transactionField)) {
+				errors.add("Log table %s: The transaction field in the primary key must be a foreign key field.", logTable.getFullName());
+			}
+
+			var transactionForeignRowField = (IDbForeignRowField<?, ?, ?>) transactionField;
+			if (plainChangeLogger.getTransactionField() != transactionForeignRowField) {
+				errors.add("Log table %s: The second primary key column must be the transaction field.", logTable.getFullName());
+			}
+
+			if (transactionForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
+				errors.add("Log table %s: The foreign key on the transaction field of the primary key must have 'ON DELETE CASCADE'.", logTable.getFullName());
+			}
+
+			if (transactionForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
+				errors.add("Log table %s: The foreign key on the transaction field of the primary key must have 'ON UPDATE CASCADE'.", logTable.getFullName());
 			}
 		}
 
-		private void validateLogFields(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
+		private void validateLogTableFields(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
 
 			plainChangeLogger//
 				.getLoggedFields()
 				.forEach(field -> validateLogField(field, plainChangeLogger.getLogField(field).get()));
 		}
 
-		private void validateAllLogFieldsAreUsed(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
+		private void validateLogTableFieldsAreAllUsed(EmfPlainChangeLogger<?, R, ?> plainChangeLogger) {
 
 			Set<IDbField<?, ?>> usedLogFields = plainChangeLogger//
 				.getLoggedFields()

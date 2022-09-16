@@ -32,8 +32,8 @@ public class AGWorkflowDemoObjectLog extends AbstractDbRecord<AGWorkflowDemoObje
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_DEMO_OBJECT_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowDemoObjectLog, AGWorkflowDemoObject> WORKFLOW_DEMO_OBJECT = BUILDER.addForeignField("workflowDemoObject", o->o.m_workflowDemoObject, (o,v)->o.m_workflowDemoObject=v, AGWorkflowDemoObject.ID).setTitle(WorkflowI18n.WORKFLOW_DEMO_OBJECT).setForeignKeyName("WorkflowDemoObjectLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowDemoObjectLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowDemoObjectLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowDemoObjectLog, AGWorkflowDemoObject> WORKFLOW_DEMO_OBJECT = BUILDER.addForeignField("workflowDemoObject", o->o.m_workflowDemoObject, (o,v)->o.m_workflowDemoObject=v, AGWorkflowDemoObject.ID).setTitle(WorkflowI18n.WORKFLOW_DEMO_OBJECT).setCascade(true, true).setForeignKeyName("WorkflowDemoObjectLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowDemoObjectLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowDemoObjectLog_ibfk_2");
 	public static final IDbStringField<AGWorkflowDemoObjectLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setNullable().setDefault(null).setMaximumLength(50);
 	public static final IDbBooleanField<AGWorkflowDemoObjectLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbForeignField<AGWorkflowDemoObjectLog, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setNullable().setDefault(null).setForeignKeyName("WorkflowDemoObjectLog_ibfk_3");

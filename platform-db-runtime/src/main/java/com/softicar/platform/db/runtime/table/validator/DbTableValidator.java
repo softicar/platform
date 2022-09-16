@@ -11,10 +11,11 @@ import com.softicar.platform.db.sql.type.SqlFieldType;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.junit.Assert;
 
-public class DbTableValidator<R> extends Assert {
+public class DbTableValidator<R> extends Assert implements IDbTableValidator {
 
 	private final IDbTable<R, ?> table;
 	private final List<? extends IDbField<R, ?>> dataFields;
@@ -29,14 +30,15 @@ public class DbTableValidator<R> extends Assert {
 		this.errors = new AssertionErrorMessageCollector();
 	}
 
-	public void validate() {
+	@Override
+	public AssertionErrorMessageCollector validate() {
 
 		validateStringFields();
 		validateNullability();
 		validatePrimaryKey();
 		validateForeignKeys();
 
-		errors.throwIfNecessary();
+		return errors;
 	}
 
 	private void validateStringFields() {
@@ -98,14 +100,29 @@ public class DbTableValidator<R> extends Assert {
 			.map(key -> key.getFields().get(0))
 			.collect(Collectors.toCollection(() -> new HashSet<>()));
 
-		for (IDbField<R, ?> field: dataFields) {
-			CastUtils.tryCast(field, IDbForeignRowField.class).ifPresent(foreignRowField -> {
-				if (!foreignRowField.getForeignKeyName().isPresent()) {
+		int foreignKeyCounter = 0;
+		for (IDbField<R, ?> field: table.getAllFields()) {
+			if (IDbForeignRowField.class.isInstance(field)) {
+				++foreignKeyCounter;
+				var foreignRowField = (IDbForeignRowField<R, ?, ?>) field;
+				Optional<String> foreignKeyName = foreignRowField.getForeignKeyName();
+				if (!foreignKeyName.isPresent()) {
 					errors
 						.add(//
 							"Foreign-key field %s.`%s` does not have a constraint name.",
 							table.getFullName(),
 							field.getName());
+				} else {
+					String expectedConstraintPrefix = table.getFullName().getSimpleName() + "_ibfk_" + foreignKeyCounter;
+					if (!foreignKeyName.get().startsWith(expectedConstraintPrefix)) {
+						errors
+							.add(//
+								"The foreign-key constraint on %s.`%s` should be called `%s` but it is called `%s`.",
+								table.getFullName(),
+								field.getName(),
+								expectedConstraintPrefix,
+								foreignKeyName.get());
+					}
 				}
 
 				if (!leadingIndexFields.contains(field)) {
@@ -115,7 +132,7 @@ public class DbTableValidator<R> extends Assert {
 							table.getFullName(),
 							field.getName());
 				}
-			});
+			}
 		}
 	}
 }

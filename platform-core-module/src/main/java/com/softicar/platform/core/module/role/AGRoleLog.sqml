@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.role
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGRoleLog 'Core.RoleLog' {
-	PK AGRole role [CONSTRAINT_NAME='RoleLog_ibfk_1']
-	PK AGTransaction transaction [CONSTRAINT_NAME='RoleLog_ibfk_2']
+	PK AGRole role [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='RoleLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='RoleLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String name = NULL [NULLABLE MAXLENGTH=255]
 

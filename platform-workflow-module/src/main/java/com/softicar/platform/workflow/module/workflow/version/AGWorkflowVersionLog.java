@@ -31,8 +31,8 @@ public class AGWorkflowVersionLog extends AbstractDbRecord<AGWorkflowVersionLog,
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_VERSION_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowVersionLog, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION).setForeignKeyName("WorkflowVersionLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowVersionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowVersionLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowVersionLog, AGWorkflowVersion> WORKFLOW_VERSION = BUILDER.addForeignField("workflowVersion", o->o.m_workflowVersion, (o,v)->o.m_workflowVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.WORKFLOW_VERSION).setCascade(true, true).setForeignKeyName("WorkflowVersionLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowVersionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowVersionLog_ibfk_2");
 	public static final IDbForeignField<AGWorkflowVersionLog, AGWorkflowNode> ROOT_NODE = BUILDER.addForeignField("rootNode", o->o.m_rootNode, (o,v)->o.m_rootNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.ROOT_NODE).setNullable().setDefault(null).setForeignKeyName("WorkflowVersionLog_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowVersionLog> DRAFT = BUILDER.addBooleanField("draft", o->o.m_draft, (o,v)->o.m_draft=v).setTitle(WorkflowI18n.DRAFT).setNullable().setDefault(null);
 	public static final IDbTableKey<AGWorkflowVersionLog, Tuple2<AGWorkflowVersion, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_VERSION, TRANSACTION));

@@ -32,8 +32,8 @@ public class AGWorkflowDemoObjectApproverLog extends AbstractDbRecord<AGWorkflow
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_DEMO_OBJECT_APPROVER_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGWorkflowDemoObjectApprover> APPROVER = BUILDER.addForeignField("approver", o->o.m_approver, (o,v)->o.m_approver=v, AGWorkflowDemoObjectApprover.ID).setTitle(WorkflowI18n.APPROVER).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGWorkflowDemoObjectApprover> APPROVER = BUILDER.addForeignField("approver", o->o.m_approver, (o,v)->o.m_approver=v, AGWorkflowDemoObjectApprover.ID).setTitle(WorkflowI18n.APPROVER).setCascade(true, true).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_2");
 	public static final IDbIntegerField<AGWorkflowDemoObjectApproverLog> APPROVAL_TIER = BUILDER.addIntegerField("approvalTier", o->o.m_approvalTier, (o,v)->o.m_approvalTier=v).setTitle(WorkflowI18n.APPROVAL_TIER).setNullable().setDefault(null);
 	public static final IDbForeignField<AGWorkflowDemoObjectApproverLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setNullable().setDefault(null).setForeignKeyName("WorkflowDemoObjectApproverLog_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowDemoObjectApproverLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);

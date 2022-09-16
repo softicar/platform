@@ -31,8 +31,8 @@ public class AGUserAllowedIpRuleLog extends AbstractDbRecord<AGUserAllowedIpRule
 		BUILDER.setPluralTitle(CoreI18n.USER_ALLOWED_IP_RULE_LOGS);
 	}
 
-	public static final IDbForeignField<AGUserAllowedIpRuleLog, AGUserAllowedIpRule> USER_ALLOWED_IP_RULE = BUILDER.addForeignField("userAllowedIpRule", o->o.m_userAllowedIpRule, (o,v)->o.m_userAllowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.USER_ALLOWED_IP_RULE).setForeignKeyName("UserAllowedIpRuleLog_ibfk_1");
-	public static final IDbForeignField<AGUserAllowedIpRuleLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("UserAllowedIpRuleLog_ibfk_2");
+	public static final IDbForeignField<AGUserAllowedIpRuleLog, AGUserAllowedIpRule> USER_ALLOWED_IP_RULE = BUILDER.addForeignField("userAllowedIpRule", o->o.m_userAllowedIpRule, (o,v)->o.m_userAllowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.USER_ALLOWED_IP_RULE).setCascade(true, true).setForeignKeyName("UserAllowedIpRuleLog_ibfk_1");
+	public static final IDbForeignField<AGUserAllowedIpRuleLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("UserAllowedIpRuleLog_ibfk_2");
 	public static final IDbBooleanField<AGUserAllowedIpRuleLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGUserAllowedIpRuleLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(CoreI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserAllowedIpRuleLog> ADDRESSES = BUILDER.addStringField("addresses", o->o.m_addresses, (o,v)->o.m_addresses=v).setTitle(CoreI18n.ADDRESSES).setNullable().setDefault(null).setLengthBits(16);

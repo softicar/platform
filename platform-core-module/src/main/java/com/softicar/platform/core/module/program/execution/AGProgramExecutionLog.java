@@ -34,8 +34,8 @@ public class AGProgramExecutionLog extends AbstractDbRecord<AGProgramExecutionLo
 		BUILDER.setPluralTitle(CoreI18n.PROGRAM_EXECUTION_LOGS);
 	}
 
-	public static final IDbForeignField<AGProgramExecutionLog, AGProgramExecution> PROGRAM_EXECUTION = BUILDER.addForeignField("programExecution", o->o.m_programExecution, (o,v)->o.m_programExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.PROGRAM_EXECUTION).setForeignKeyName("ProgramExecutionLog_ibfk_1");
-	public static final IDbForeignField<AGProgramExecutionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("ProgramExecutionLog_ibfk_2");
+	public static final IDbForeignField<AGProgramExecutionLog, AGProgramExecution> PROGRAM_EXECUTION = BUILDER.addForeignField("programExecution", o->o.m_programExecution, (o,v)->o.m_programExecution=v, AGProgramExecution.ID).setTitle(CoreI18n.PROGRAM_EXECUTION).setCascade(true, true).setForeignKeyName("ProgramExecutionLog_ibfk_1");
+	public static final IDbForeignField<AGProgramExecutionLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("ProgramExecutionLog_ibfk_2");
 	public static final IDbDayTimeField<AGProgramExecutionLog> STARTED_AT = BUILDER.addDayTimeField("startedAt", o->o.m_startedAt, (o,v)->o.m_startedAt=v).setTitle(CoreI18n.STARTED_AT).setNullable().setDefault(null);
 	public static final IDbDayTimeField<AGProgramExecutionLog> TERMINATED_AT = BUILDER.addDayTimeField("terminatedAt", o->o.m_terminatedAt, (o,v)->o.m_terminatedAt=v).setTitle(CoreI18n.TERMINATED_AT).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGProgramExecutionLog> FAILED = BUILDER.addBooleanField("failed", o->o.m_failed, (o,v)->o.m_failed=v).setTitle(CoreI18n.FAILED).setNullable().setDefault(null);

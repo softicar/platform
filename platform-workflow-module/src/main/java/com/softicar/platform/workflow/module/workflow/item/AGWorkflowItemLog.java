@@ -30,8 +30,8 @@ public class AGWorkflowItemLog extends AbstractDbRecord<AGWorkflowItemLog, Tuple
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_ITEM_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowItemLog, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setForeignKeyName("WorkflowItemLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowItemLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowItemLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowItemLog, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setCascade(true, true).setForeignKeyName("WorkflowItemLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowItemLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowItemLog_ibfk_2");
 	public static final IDbForeignField<AGWorkflowItemLog, AGWorkflowNode> WORKFLOW_NODE = BUILDER.addForeignField("workflowNode", o->o.m_workflowNode, (o,v)->o.m_workflowNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.WORKFLOW_NODE).setNullable().setDefault(null).setForeignKeyName("WorkflowItemLog_ibfk_3");
 	public static final IDbTableKey<AGWorkflowItemLog, Tuple2<AGWorkflowItem, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(WORKFLOW_ITEM, TRANSACTION));
 	public static final IDbKey<AGWorkflowItemLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
