@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -33,9 +32,12 @@ public class EmfTableRegistry {
 		this.moduleUuidToTablesMap = new HashMap<>();
 		this.modulePackageMap = new EmfModulePackageMap(IEmfModuleRegistry.get());
 
-		new DbTableFinder<>(IEmfTable.class, IEmfTableRow.class)//
+		new DbTableFinder()//
 			.findAllTables()
-			.forEach(table -> registerTable(table.getValueClass(), table));
+			.stream()
+			.filter(IEmfTable.class::isInstance)
+			.map(IEmfTable.class::cast)
+			.forEach(this::registerTable);
 	}
 
 	/**
@@ -77,11 +79,11 @@ public class EmfTableRegistry {
 
 	// ------------------------------ private ------------------------------ //
 
-	private void registerTable(Class<?> tableRowClass, IEmfTable<?, ?, ?> table) {
+	private void registerTable(IEmfTable<?, ?, ?> table) {
 
 		addToTables(table);
 		addToTraitTables(table);
-		addToModuleToTablesMap(tableRowClass, table);
+		addToModuleToTablesMap(table);
 	}
 
 	private void addToTables(IEmfTable<?, ?, ?> table) {
@@ -97,9 +99,10 @@ public class EmfTableRegistry {
 		}
 	}
 
-	private void addToModuleToTablesMap(Class<?> tableRowClass, IEmfTable<?, ?, ?> table) {
+	private void addToModuleToTablesMap(IEmfTable<?, ?, ?> table) {
 
-		Optional<IEmfModule<?>> module = modulePackageMap.determineModule(tableRowClass);
+		var tableRowClass = table.getValueClass();
+		var module = modulePackageMap.determineModule(tableRowClass);
 		if (module.isPresent()) {
 			moduleUuidToTablesMap.computeIfAbsent(module.get().getAnnotatedUuid(), dummy -> new IdentityHashList<>()).add(table);
 		} else {

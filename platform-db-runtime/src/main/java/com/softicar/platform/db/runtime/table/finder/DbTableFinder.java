@@ -6,44 +6,29 @@ import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import java.lang.reflect.Field;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * Searches the class path for database table instances.
  *
- * @param <T>
- *            the super type of the table instances to find (e.g.
- *            {@link IDbTable})
- * @param <R>
- *            the super type of the row type of the table instances to find
- *            (e.g. {@link IDbTableRow})
  * @author Alexander Schmidt
+ * @author Oliver Richers
  */
-public class DbTableFinder<T, R> {
+public class DbTableFinder {
 
 	private static final String TABLE_FIELD_NAME = "TABLE";
-
-	private final Class<T> tableSuperClass;
-	private final Class<R> tableRowSuperClass;
-
-	public DbTableFinder(Class<T> tableSuperClass, Class<R> tableRowSuperClass) {
-
-		this.tableSuperClass = Objects.requireNonNull(tableSuperClass);
-		this.tableRowSuperClass = Objects.requireNonNull(tableRowSuperClass);
-	}
 
 	/**
 	 * Finds all table instances in the class path.
 	 *
 	 * @return all table instances (never <i>null</i>)
 	 */
-	public Collection<T> findAllTables() {
+	public Collection<IDbTable<?, ?>> findAllTables() {
 
 		return ClasspathFilesMetadata//
 			.getInstance()
-			.getTransitivelyImplementingClasses(tableRowSuperClass)
+			.getTransitivelyImplementingClasses(IDbTableRow.class)
 			.stream()
 			.map(this::getTableField)
 			.flatMap(Optional::stream)
@@ -56,9 +41,9 @@ public class DbTableFinder<T, R> {
 		return ReflectionUtils.getDeclaredField(tableRowClass, TABLE_FIELD_NAME);
 	}
 
-	private T getTableInstance(Field tableField) {
+	private IDbTable<?, ?> getTableInstance(Field tableField) {
 
 		var tableInstance = ReflectionUtils.getStaticValue(tableField);
-		return tableSuperClass.cast(tableInstance);
+		return IDbTable.class.cast(tableInstance);
 	}
 }

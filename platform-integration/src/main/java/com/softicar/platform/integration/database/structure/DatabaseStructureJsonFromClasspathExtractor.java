@@ -3,7 +3,6 @@ package com.softicar.platform.integration.database.structure;
 import com.softicar.platform.db.runtime.structure.DbRuntimeTableStructure;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.finder.DbTableFinder;
-import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.structure.utils.DbTableStructureSqlGenerator;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +31,7 @@ public class DatabaseStructureJsonFromClasspathExtractor {
 
 	private List<DatabaseStructureTableDefinition> loadDefinitions() {
 
-		return new DbTableFinder<>(IDbTable.class, IDbTableRow.class)//
+		return new DbTableFinder()//
 			.findAllTables()
 			.stream()
 			.filter(this::isRelevant)
