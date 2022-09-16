@@ -4,7 +4,6 @@ import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomDoubleClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -29,9 +28,6 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
 		doubleClickAt(testDiv, CLICK_X, CLICK_Y);
 		waitForServer();
-
-		// FIXME testing...
-		Sleep.sleep(1000);
 
 		// assert event and positions
 		IDomEvent event = testDiv.getEvent();

@@ -153,6 +153,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		for (int i = 2; i <= images.size(); i++) {
 			clickNextPageButton();
 		}
+		waitForServer();
 	}
 
 	private void assertShownPage(int index) {
@@ -172,6 +173,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickNextPageButton() {
 
 		input.click(getNextPageButton());
+		waitForServer();
 	}
 
 	private DomButton getNextPageButton() {
@@ -182,6 +184,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickPreviousPageButton() {
 
 		input.click(getPreviousPageButton());
+		waitForServer();
 	}
 
 	private DomButton getPreviousPageButton() {
@@ -212,6 +215,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickRotateButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON));
+		waitForServer();
 	}
 
 	private void assertRotated(boolean rotated) {
@@ -228,11 +232,13 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickZoomInButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_IN_BUTTON));
+		waitForServer();
 	}
 
 	private void clickZoomOutButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_OUT_BUTTON));
+		waitForServer();
 	}
 
 	private int getZoomedHolderWidth(int zoomPercentage) {
