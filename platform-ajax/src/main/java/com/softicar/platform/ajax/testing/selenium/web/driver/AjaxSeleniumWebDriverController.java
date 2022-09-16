@@ -2,6 +2,7 @@ package com.softicar.platform.ajax.testing.selenium.web.driver;
 
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.thread.sleep.Sleep;
 import java.util.Collection;
 import org.junit.runner.Description;
 import org.openqa.selenium.Dimension;
@@ -28,6 +29,9 @@ public class AjaxSeleniumWebDriverController {
 		if (webDriver == null) {
 			this.webDriver = AjaxSeleniumWebDriverPool.getInstance().allocateWebDriver();
 			this.webDriver.manage().window().setSize(getResolution());
+
+			// FIXME just testing...
+			Sleep.sleep(1000);
 		}
 		return webDriver;
 	}
