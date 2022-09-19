@@ -6,17 +6,9 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.event.IDomEvent;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDocumentCreationTest extends AbstractAjaxSeleniumLowLevelTest {
-
-	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
-	}
 
 	@Test
 	public void test() {
