@@ -93,21 +93,21 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(divRectangle.getHeight(), boundingClientRect.getHeight(), 0.001);
 	}
 
-//	@Test
-//	public void testWithAltKey() {
-//
-//		click(testDiv, DomModifier.ALT);
-//		waitForServer();
-//		assertModifierKeys(true, false, false, false);
-//	}
-
 	@Test
-	public void testWithCtrlKey() {
+	public void testWithAltKey() {
 
-		click(testDiv, DomModifier.CONTROL);
+		click(testDiv, DomModifier.ALT);
 		waitForServer();
-		assertModifierKeys(false, true, false, false);
+		assertModifierKeys(true, false, false, false);
 	}
+
+//	@Test
+//	public void testWithCtrlKey() {
+//
+//		click(testDiv, DomModifier.CONTROL);
+//		waitForServer();
+//		assertModifierKeys(false, true, false, false);
+//	}
 
 	@Test
 	public void testWithMetaKey() {
