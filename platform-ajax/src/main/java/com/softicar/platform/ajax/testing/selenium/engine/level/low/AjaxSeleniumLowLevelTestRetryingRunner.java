@@ -52,7 +52,7 @@ public class AjaxSeleniumLowLevelTestRetryingRunner extends BlockJUnit4ClassRunn
 		Description description = describeChild(method);
 
 		// FIXME revert these changes
-		if (isIgnored(method) || !method.getDeclaringClass().getCanonicalName().endsWith(".AjaxDomClickEventTest")) {
+		if (isIgnored(method)/* || !method.getDeclaringClass().getCanonicalName().endsWith(".AjaxDomClickEventTest")*/) {
 			notifier.fireTestIgnored(description);
 		} else {
 			Log.finfo("RUNNING: %s", method);
