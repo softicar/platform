@@ -7,9 +7,17 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomEnterEventTest extends AbstractAjaxDomEventTest {
+
+	// FIXME temporary
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	public AjaxDomEnterEventTest() {
 
