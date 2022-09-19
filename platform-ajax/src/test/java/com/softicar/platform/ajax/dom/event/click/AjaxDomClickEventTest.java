@@ -93,13 +93,13 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(divRectangle.getHeight(), boundingClientRect.getHeight(), 0.001);
 	}
 
-	@Test
-	public void testWithAltKey() {
-
-		click(testDiv, DomModifier.ALT);
-		waitForServer();
-		assertModifierKeys(true, false, false, false);
-	}
+//	@Test
+//	public void testWithAltKey() {
+//
+//		click(testDiv, DomModifier.ALT);
+//		waitForServer();
+//		assertModifierKeys(true, false, false, false);
+//	}
 
 	@Test
 	public void testWithCtrlKey() {
@@ -117,13 +117,13 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertModifierKeys(false, false, true, false);
 	}
 
-//	@Test
-//	public void testWithShiftKey() {
-//
-//		click(testDiv, DomModifier.SHIFT);
-//		waitForServer();
-//		assertModifierKeys(false, false, false, true);
-//	}
+	@Test
+	public void testWithShiftKey() {
+
+		click(testDiv, DomModifier.SHIFT);
+		waitForServer();
+		assertModifierKeys(false, false, false, true);
+	}
 
 	private void assertModifierKeys(boolean alt, boolean ctrl, boolean meta, boolean shift) {
 
