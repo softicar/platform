@@ -7,9 +7,17 @@ import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.elements.DomDiv;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDocumentCreationWithExceptionTest extends AbstractAjaxSeleniumLowLevelTest {
+
+	// FIXME temporary
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	private DomBody body;
 

@@ -9,9 +9,17 @@ import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.dom.styles.CssTextAlign;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomElementTest extends AbstractAjaxSeleniumLowLevelTest {
+
+	// FIXME temporary
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	@Test
 	public void testAppendChild() {

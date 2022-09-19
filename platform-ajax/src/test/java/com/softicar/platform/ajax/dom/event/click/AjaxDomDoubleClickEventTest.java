@@ -7,9 +7,17 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomDoubleClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
+
+	// FIXME temporary
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	private static final int CLICK_X = 13;
 	private static final int CLICK_Y = 17;
