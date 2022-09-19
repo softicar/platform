@@ -13,4 +13,5 @@ jobs:
         run: |
           ./gradlew clean build \
           -PdependencyProxy=http://nexus:8081/repository/maven-central/ \
-          -PpluginProxy=http://nexus:8081/repository/gradle-plugins/
+          -PpluginProxy=http://nexus:8081/repository/gradle-plugins/ \
+          -Dcom.softicar.testing.selenium.engine.level.low.retry.count=1
