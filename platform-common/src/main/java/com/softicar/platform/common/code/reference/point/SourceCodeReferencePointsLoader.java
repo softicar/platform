@@ -33,18 +33,13 @@ class SourceCodeReferencePointsLoader {
 				.getInstance()
 				.getDirectlyAnnotatedClasses(SourceCodeReferencePointUuid.class)
 				.stream()
-				.filter(this::isPublic)
+				.filter(ReflectionUtils::isPublic)
 				.forEach(this::addReferencePoint);
 			this.loaded = true;
 		}
 
 		exceptionsCollector.throwExceptionIfNotEmpty();
 		return referencePoints;
-	}
-
-	private boolean isPublic(Class<?> referencePointClass) {
-
-		return ReflectionUtils.isPublic(referencePointClass);
 	}
 
 	private void addReferencePoint(Class<?> referencePointClass) {

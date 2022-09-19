@@ -17,7 +17,6 @@ softicarCodeValidationSettings {
 	def configurationJson = [
 		jarFilterRegex: 'platform.*jar',
 		mandatoryTranslations: ["de"],
-		tablePackagePrefix: "com.softicar.platform",
 		databaseStructureVersionResourceContainerClass: "com.softicar.platform.integration.database.structure.version.PlatformDatabaseStructureVersionResource",
 
 		classesAllowedToHaveMainMethod: [

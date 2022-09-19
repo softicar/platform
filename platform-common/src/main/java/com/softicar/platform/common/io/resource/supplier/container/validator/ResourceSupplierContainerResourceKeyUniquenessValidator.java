@@ -10,11 +10,11 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-class ResourceSupplierContainerResourceKeyUnambiguityValidator implements IConstantContainerValidator<IResourceSupplier> {
+class ResourceSupplierContainerResourceKeyUniquenessValidator implements IConstantContainerValidator<IResourceSupplier> {
 
 	private final Supplier<Collection<IConstantContainerField<IResourceSupplier>>> fieldsSupplier;
 
-	public ResourceSupplierContainerResourceKeyUnambiguityValidator(Supplier<Collection<IConstantContainerField<IResourceSupplier>>> fieldsSupplier) {
+	public ResourceSupplierContainerResourceKeyUniquenessValidator(Supplier<Collection<IConstantContainerField<IResourceSupplier>>> fieldsSupplier) {
 
 		this.fieldsSupplier = Objects.requireNonNull(fieldsSupplier);
 	}

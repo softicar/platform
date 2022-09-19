@@ -24,14 +24,11 @@ import java.util.stream.Collectors;
 @JavaCodeValidator
 public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator {
 
-	private static final String TABLE_PACKAGE_PREFIX_JSON_PATH = "$.tablePackagePrefix";
 	private static final String DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS = "$.databaseStructureVersionResourceContainerClass";
 
 	@Override
 	public void validate(JavaCodeValidationEnvironment environment) {
 
-		var reader = environment.getConfigurationJsonValueReader();
-		Optional<String> tablePackagePrefix = reader.readValue(TABLE_PACKAGE_PREFIX_JSON_PATH);
 		Optional<String> resourceContainerClassName = environment//
 			.getConfigurationJsonValueReader()
 			.readValue(DATABASE_STRUCTURE_VERSION_RESOURCE_CONTAINER_CLASS);
@@ -39,7 +36,7 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 		Class<?> resourceContainerClass = loadResourceContainerClass(resourceContainerClassName);
 		var resourceSupplier = new DatabaseStructureVersionResourcesMap(resourceContainerClass).getLatestStructureResourceSupplier();
 		String jsonFromResource = loadStructureJsonFromResource(resourceSupplier);
-		String jsonFromClasspath = loadStructureJsonFromClasspath(tablePackagePrefix.get());
+		String jsonFromClasspath = loadStructureJsonFromClasspath();
 
 		var converter = new DatabaseStructureTableDefinitionsConverter();
 		var definitionsFromResource = converter.convertToDefinitionList(jsonFromResource);
@@ -109,9 +106,9 @@ public class DatabaseStructureVersionCodeValidator implements IJavaCodeValidator
 				conflictingDefinition.getSecondCreateStatement());
 	}
 
-	private String loadStructureJsonFromClasspath(String tablePackagePrefix) {
+	private String loadStructureJsonFromClasspath() {
 
-		return new DatabaseStructureJsonFromClasspathExtractor(tablePackagePrefix).extractJson();
+		return new DatabaseStructureJsonFromClasspathExtractor().extractJson();
 	}
 
 	private String loadStructureJsonFromResource(IResourceSupplier resourceSupplier) {
