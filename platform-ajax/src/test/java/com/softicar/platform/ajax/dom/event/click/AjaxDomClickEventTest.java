@@ -101,21 +101,21 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertModifierKeys(true, false, false, false);
 	}
 
-//	@Test
-//	public void testWithCtrlKey() {
-//
-//		click(testDiv, DomModifier.CONTROL);
-//		waitForServer();
-//		assertModifierKeys(false, true, false, false);
-//	}
-
 	@Test
-	public void testWithMetaKey() {
+	public void testWithCtrlKey() {
 
-		click(testDiv, DomModifier.META);
+		click(testDiv, DomModifier.CONTROL);
 		waitForServer();
-		assertModifierKeys(false, false, true, false);
+		assertModifierKeys(false, true, false, false);
 	}
+
+//	@Test
+//	public void testWithMetaKey() {
+//
+//		click(testDiv, DomModifier.META);
+//		waitForServer();
+//		assertModifierKeys(false, false, true, false);
+//	}
 
 	@Test
 	public void testWithShiftKey() {
