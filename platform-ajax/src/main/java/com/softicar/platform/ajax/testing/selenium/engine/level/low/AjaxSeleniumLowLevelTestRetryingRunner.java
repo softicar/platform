@@ -1,6 +1,7 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
 import org.junit.AssumptionViolatedException;
 import org.junit.internal.runners.model.EachTestNotifier;
@@ -49,9 +50,12 @@ public class AjaxSeleniumLowLevelTestRetryingRunner extends BlockJUnit4ClassRunn
 	protected void runChild(final FrameworkMethod method, RunNotifier notifier) {
 
 		Description description = describeChild(method);
-		if (isIgnored(method)) {
+
+		// FIXME revert these changes
+		if (isIgnored(method) || !method.getDeclaringClass().getCanonicalName().endsWith("ClickEventTest")) {
 			notifier.fireTestIgnored(description);
 		} else {
+			Log.finfo("RUNNING: %s", method);
 			runLeafWithRetry(method, description, notifier);
 		}
 	}
