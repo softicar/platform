@@ -6,7 +6,6 @@ import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSe
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.dom.event.DomEventType;
-import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
@@ -93,37 +92,37 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(divRectangle.getHeight(), boundingClientRect.getHeight(), 0.001);
 	}
 
-	@Test
-	public void testWithAltKey() {
-
-		click(testDiv, DomModifier.ALT);
-		waitForServer();
-		assertModifierKeys(true, false, false, false);
-	}
-
-	@Test
-	public void testWithCtrlKey() {
-
-		click(testDiv, DomModifier.CONTROL);
-		waitForServer();
-		assertModifierKeys(false, true, false, false);
-	}
-
-	@Test
-	public void testWithMetaKey() {
-
-		click(testDiv, DomModifier.META);
-		waitForServer();
-		assertModifierKeys(false, false, true, false);
-	}
-
-	@Test
-	public void testWithShiftKey() {
-
-		click(testDiv, DomModifier.SHIFT);
-		waitForServer();
-		assertModifierKeys(false, false, false, true);
-	}
+//	@Test
+//	public void testWithAltKey() {
+//
+//		click(testDiv, DomModifier.ALT);
+//		waitForServer();
+//		assertModifierKeys(true, false, false, false);
+//	}
+//
+//	@Test
+//	public void testWithCtrlKey() {
+//
+//		click(testDiv, DomModifier.CONTROL);
+//		waitForServer();
+//		assertModifierKeys(false, true, false, false);
+//	}
+//
+//	@Test
+//	public void testWithMetaKey() {
+//
+//		click(testDiv, DomModifier.META);
+//		waitForServer();
+//		assertModifierKeys(false, false, true, false);
+//	}
+//
+//	@Test
+//	public void testWithShiftKey() {
+//
+//		click(testDiv, DomModifier.SHIFT);
+//		waitForServer();
+//		assertModifierKeys(false, false, false, true);
+//	}
 
 	private void assertModifierKeys(boolean alt, boolean ctrl, boolean meta, boolean shift) {
 
