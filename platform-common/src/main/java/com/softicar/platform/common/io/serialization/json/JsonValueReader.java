@@ -50,13 +50,14 @@ public class JsonValueReader {
 	 */
 	public Optional<String> readValue(String path) {
 
-		try {
-			String value = readInternal(path);
-			return Optional.ofNullable(value);
-		} catch (ClassCastException exception) {
-			DevNull.swallow(exception);
-			return Optional.empty();
-		}
+		String value = readInternal(path);
+		return Optional.ofNullable(value);
+	}
+
+	public Optional<Boolean> readBoolean(String path) {
+
+		Boolean value = readInternal(path);
+		return Optional.ofNullable(value);
 	}
 
 	/**

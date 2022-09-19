@@ -35,7 +35,7 @@ public class DbTableConfigurationCodeValidator implements IJavaCodeValidator {
 			var errors = new AssertionErrorMessageCollector();
 			for (IDbTable<?, ?> table: findCustomTables()) {
 				environment.logVerbose("Validating class: %s", table.getClass().getCanonicalName());
-				errors.addAll(table.validateConfiguration());
+				errors.addAll(table.validateConfiguration(environment));
 			}
 			errors.throwIfNecessary();
 		}
