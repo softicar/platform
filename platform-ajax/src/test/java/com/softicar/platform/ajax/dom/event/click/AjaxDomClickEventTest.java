@@ -11,7 +11,6 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -27,12 +26,6 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.backgroundDiv = openTestNode(BackgroundDiv::new);
 		this.testDiv = backgroundDiv.getTestDiv();
-	}
-
-	@After
-	public void after() {
-
-		testEngine.discardWebDriver();
 	}
 
 	@Test
