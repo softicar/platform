@@ -162,6 +162,11 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 		return autoCompleteExtension;
 	}
 
+	public void discardWebDriver() {
+
+		webDriverController.discardWebDriver();
+	}
+
 	@Override
 	protected void failed(Throwable throwable, Description description) {
 

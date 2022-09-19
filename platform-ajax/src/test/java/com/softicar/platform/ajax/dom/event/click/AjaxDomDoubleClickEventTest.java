@@ -7,6 +7,7 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomDoubleClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -18,6 +19,12 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 	public AjaxDomDoubleClickEventTest() {
 
 		this.testDiv = openTestNode(TestDiv::new);
+	}
+
+	@After
+	public void after() {
+
+		testEngine.discardWebDriver();
 	}
 
 	@Test

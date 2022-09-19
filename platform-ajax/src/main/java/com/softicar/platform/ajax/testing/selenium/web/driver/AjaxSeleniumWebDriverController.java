@@ -23,12 +23,9 @@ public class AjaxSeleniumWebDriverController {
 
 	public WebDriver getWebDriver() {
 
-		discardWebDriver();
-
-		// TODO
-//		if (webDriver == null) {
-		this.webDriver = AjaxSeleniumWebDriverPool.getInstance().allocateWebDriver();
-//		}
+		if (webDriver == null) {
+			this.webDriver = AjaxSeleniumWebDriverPool.getInstance().allocateWebDriver();
+		}
 		return webDriver;
 	}
 
