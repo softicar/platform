@@ -1,5 +1,6 @@
 package com.softicar.platform.db.runtime.table;
 
+import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.runtime.cache.IDbTableRowCache;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
 import com.softicar.platform.db.runtime.object.sub.IDbSubObjectTable;
@@ -240,12 +241,13 @@ public interface IDbTable<R, P> extends IDbBasicTable<R> {
 	// -------------------- validation -------------------- //
 
 	/**
-	 * Validates the structure of this table.
-	 * <p>
-	 * If it is invalid, an exception will be thrown.
+	 * Validates the configuration of this {@link IDbTable} and gathers the
+	 * results.
+	 *
+	 * @return the validation results (never <i>null</i>)
 	 */
-	default void assertValidConfigurationOrThrow() {
+	default AssertionErrorMessageCollector validateConfiguration() {
 
-		new DbTableValidator<>(this).validate();
+		return new DbTableValidator<>(this).validate();
 	}
 }

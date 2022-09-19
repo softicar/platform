@@ -53,7 +53,7 @@ public class EmfSubObjectPrefilterElement<S, E extends IEmfObject<E>, B extends 
 
 		ISqlJoin<T, B> select = targetTable//
 			.createSelect()
-			.where(targetTable.getScopeField().get().equal(getScope()))
+			.where(targetTable.getScopeField().get().isEqual(getScope()))
 			.join(targetTable.getPrimaryKeyField());
 		List<R> filterRows = getFilterRows();
 		if (filterRows.isEmpty()) {

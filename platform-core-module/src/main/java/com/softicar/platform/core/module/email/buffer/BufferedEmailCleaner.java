@@ -40,7 +40,7 @@ public class BufferedEmailCleaner {
 
 		AGBufferedEmailLog.TABLE//
 			.createDelete()
-			.where(AGBufferedEmailLog.BUFFERED_EMAIL.equal(email))
+			.where(AGBufferedEmailLog.BUFFERED_EMAIL.isEqual(email))
 			.execute();
 	}
 }

@@ -1,12 +1,15 @@
 package com.softicar.platform.core.module.user.password.algorithm;
 
 import com.softicar.platform.common.core.annotations.Generated;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.i18n.IDisplayable;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.db.runtime.enums.DbEnumTable;
 import com.softicar.platform.db.runtime.enums.IDbEnumTableRowEnum;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
 
 @Generated
-public enum AGUserPasswordAlgorithmEnum implements IDbEnumTableRowEnum<AGUserPasswordAlgorithmEnum, AGUserPasswordAlgorithm> {
+public enum AGUserPasswordAlgorithmEnum implements IDbEnumTableRowEnum<AGUserPasswordAlgorithmEnum, AGUserPasswordAlgorithm>, IDisplayable {
 
 	BCRYPT(1, "BCRYPT"),
 	UNIX_CRYPT(2, "UNIX_CRYPT"),
@@ -33,6 +36,21 @@ public enum AGUserPasswordAlgorithmEnum implements IDbEnumTableRowEnum<AGUserPas
 	public Integer getId() {
 
 		return id;
+	}
+
+	@Override
+	public IDisplayString toDisplay() {
+
+		switch (this) {
+		case BCRYPT:
+			return CoreI18n.BCRYPT;
+		case UNIX_CRYPT:
+			return CoreI18n.UNIX_CRYPT;
+		case APR_1:
+			return CoreI18n.APR_1;
+		}
+
+		throw new IllegalArgumentException("Unknown enumerator: " + name());
 	}
 
 	@Override

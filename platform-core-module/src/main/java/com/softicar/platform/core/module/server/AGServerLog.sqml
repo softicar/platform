@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.server
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGServerLog 'Core.ServerLog' {
-	PK AGServer server [ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_1']
-	PK AGTransaction transaction [ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_2']
+	PK AGServer server [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 	String name = NULL [NULLABLE MAXLENGTH=255]
 	String address = NULL [NULLABLE MAXLENGTH=255]

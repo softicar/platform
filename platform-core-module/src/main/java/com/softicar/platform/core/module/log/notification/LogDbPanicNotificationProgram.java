@@ -45,7 +45,7 @@ public class LogDbPanicNotificationProgram implements IProgram {
 		// load open panic messages
 		List<AGLogMessage> openPanics = AGLogMessage.TABLE//
 			.createSelect()
-			.where(AGLogMessage.LEVEL.equal(AGLogLevelEnum.PANIC.getRecord()))
+			.where(AGLogMessage.LEVEL.isEqual(AGLogLevelEnum.PANIC.getRecord()))
 			.where(AGLogMessage.NOTIFICATION_TIME.isNull())
 			.list(MAX_LOG_MESSAGES + 1);
 

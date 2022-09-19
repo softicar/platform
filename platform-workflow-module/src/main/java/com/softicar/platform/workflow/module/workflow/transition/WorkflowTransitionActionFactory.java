@@ -30,7 +30,7 @@ public class WorkflowTransitionActionFactory<R extends IWorkflowableObject<R>> i
 				.where(AGWorkflowTransition.AUTO_TRANSITION.isFalse())
 				.join(AGWorkflowTransition.WORKFLOW_VERSION)
 				.join(AGWorkflowVersion.WORKFLOW)
-				.where(AGWorkflow.ENTITY_TABLE.equal(tableUuid))
+				.where(AGWorkflow.ENTITY_TABLE.isEqual(tableUuid))
 				.forEach(transition -> set.add(new WorkflowTransitionAction<>(transition)));
 		}
 		return set;

@@ -3,8 +3,8 @@ PACKAGE com.softicar.platform.core.module.module.instance
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGModuleInstanceBaseLog 'Core.ModuleInstanceBaseLog' {
-	PK AGModuleInstanceBase moduleInstanceBase [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstanceBaseLog_ibfk_1']
-	PK AGTransaction transaction [ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstanceBaseLog_ibfk_2']
+	PK AGModuleInstanceBase moduleInstanceBase [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstanceBaseLog_ibfk_1']
+	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ModuleInstanceBaseLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
 
 	IK transaction

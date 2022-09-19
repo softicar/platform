@@ -24,7 +24,7 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 
 		return AGWorkflowNode.TABLE//
 			.createSelect()
-			.where(AGWorkflowNode.WORKFLOW_VERSION.equal(this))
+			.where(AGWorkflowNode.WORKFLOW_VERSION.isEqual(this))
 			.where(AGWorkflowNode.ACTIVE)
 			.list();
 	}
@@ -33,7 +33,7 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 
 		return AGWorkflowTransition.TABLE//
 			.createSelect()
-			.where(AGWorkflowTransition.WORKFLOW_VERSION.equal(this))
+			.where(AGWorkflowTransition.WORKFLOW_VERSION.isEqual(this))
 			.where(AGWorkflowTransition.ACTIVE)
 			.list();
 	}

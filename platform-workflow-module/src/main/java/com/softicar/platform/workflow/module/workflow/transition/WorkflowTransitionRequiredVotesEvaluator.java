@@ -29,7 +29,7 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 			.toIntExact(
 				AGWorkflowTask
 					.createSelect()
-					.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
+					.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item))
 					.where(AGWorkflowTask.CLOSED.isFalse())
 					.joinReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
 					.where(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION.isEqual(transition))
@@ -67,7 +67,7 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 			.toIntExact(
 				AGWorkflowTask//
 					.createSelect()
-					.where(AGWorkflowTask.WORKFLOW_ITEM.equal(item))
+					.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item))
 					.where(AGWorkflowTask.CLOSED.isFalse())
 					.stream()
 					.filter(it -> transition.isUserAllowedToSeeTransition(it.getUser(), item))

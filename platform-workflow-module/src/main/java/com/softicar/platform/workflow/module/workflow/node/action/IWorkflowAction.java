@@ -31,7 +31,7 @@ public interface IWorkflowAction<R extends IWorkflowableObject<R>> extends IEmfA
 
 		Set<AGWorkflowNode> validWorkflowNodes = AGWorkflowNodeAction
 			.createSelect()
-			.where(AGWorkflowNodeAction.ACTION.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
+			.where(AGWorkflowNodeAction.ACTION.isEqual(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.where(AGWorkflowNodeAction.ACTIVE)
 			.stream()
 			.map(workflowNodeAction -> workflowNodeAction.getWorkflowNode())
@@ -51,7 +51,7 @@ public interface IWorkflowAction<R extends IWorkflowableObject<R>> extends IEmfA
 		Map<AGWorkflowNode, Collection<AGWorkflowNodeActionPermission>> nodesToPermissionsMap = new TreeMap<>();
 		AGWorkflowNodeAction
 			.createSelect()
-			.where(AGWorkflowNodeAction.ACTION.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
+			.where(AGWorkflowNodeAction.ACTION.isEqual(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.where(AGWorkflowNodeAction.ACTIVE)
 			.forEach(action -> nodesToPermissionsMap.put(action.getWorkflowNode(), action.getAllActiveWorkflowNodeActionPermissions()));
 

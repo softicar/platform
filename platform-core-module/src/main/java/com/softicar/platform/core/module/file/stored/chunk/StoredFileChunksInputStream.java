@@ -51,7 +51,7 @@ public class StoredFileChunksInputStream extends InputStream {
 		++chunkIndex;
 
 		AGStoredFileChunk chunk =
-				AGStoredFileChunk.createSelect().where(AGStoredFileChunk.FILE.equal(file)).where(AGStoredFileChunk.CHUNK_INDEX.equal(chunkIndex)).getOne();
+				AGStoredFileChunk.createSelect().where(AGStoredFileChunk.FILE.isEqual(file)).where(AGStoredFileChunk.CHUNK_INDEX.isEqual(chunkIndex)).getOne();
 
 		return chunk != null? chunk.getChunkData() : null;
 	}

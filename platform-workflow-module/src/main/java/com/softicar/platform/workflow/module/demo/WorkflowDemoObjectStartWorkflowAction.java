@@ -58,7 +58,7 @@ class WorkflowDemoObjectStartWorkflowAction implements IEmfManagementAction<AGWo
 
 		return AGWorkflow//
 			.createSelect()
-			.where(AGWorkflow.ENTITY_TABLE.equal(AGUuid.getOrCreate(WorkflowDemoObjectTableReferencePoint.class)))
+			.where(AGWorkflow.ENTITY_TABLE.isEqual(AGUuid.getOrCreate(WorkflowDemoObjectTableReferencePoint.class)))
 			.getOneAsOptional()
 			.orElseThrow(() -> new SofticarUserException(WorkflowI18n.NO_WORKFLOW_FOUND));
 	}

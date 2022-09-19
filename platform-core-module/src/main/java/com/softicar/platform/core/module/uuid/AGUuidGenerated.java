@@ -51,7 +51,7 @@ public class AGUuidGenerated extends AbstractDbObject<AGUuid> {
 
 		return TABLE//
 				.createSelect()
-				.where(UUID_STRING.equal(uuidString))
+				.where(UUID_STRING.isEqual(uuidString))
 				.getOne();
 	}
 
@@ -59,7 +59,7 @@ public class AGUuidGenerated extends AbstractDbObject<AGUuid> {
 
 		return TABLE//
 				.createSelect()
-				.where(UUID_BYTES.equal(uuidBytes))
+				.where(UUID_BYTES.isEqual(uuidBytes))
 				.getOne();
 	}
 

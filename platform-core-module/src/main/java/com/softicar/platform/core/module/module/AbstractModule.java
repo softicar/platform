@@ -25,7 +25,7 @@ public abstract class AbstractModule<I extends IModuleInstance<I>> extends Abstr
 			.join(table.getPrimaryKeyField())
 			.where(AGModuleInstanceBase.ID.isEqual(moduleInstanceId))
 			.where(AGModuleInstanceBase.ACTIVE)
-			.where(AGModuleInstanceBase.MODULE_UUID.equal(AGUuid.getOrCreate(getAnnotatedUuid())))
+			.where(AGModuleInstanceBase.MODULE_UUID.isEqual(AGUuid.getOrCreate(getAnnotatedUuid())))
 			.getOneAsOptional();
 	}
 

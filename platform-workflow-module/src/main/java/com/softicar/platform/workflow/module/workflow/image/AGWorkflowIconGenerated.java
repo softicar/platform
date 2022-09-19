@@ -56,8 +56,8 @@ public class AGWorkflowIconGenerated extends AbstractDbObject<AGWorkflowIcon> {
 
 		return TABLE//
 				.createSelect()
-				.where(MODULE_INSTANCE.equal(moduleInstance))
-				.where(NAME.equal(name))
+				.where(MODULE_INSTANCE.isEqual(moduleInstance))
+				.where(NAME.isEqual(name))
 				.getOne();
 	}
 

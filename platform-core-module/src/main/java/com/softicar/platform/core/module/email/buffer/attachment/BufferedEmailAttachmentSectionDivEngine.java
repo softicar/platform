@@ -33,7 +33,7 @@ public class BufferedEmailAttachmentSectionDivEngine implements IEmfCountedConte
 
 		return AGBufferedEmailAttachment//
 			.createSelect()
-			.where(AGBufferedEmailAttachment.EMAIL.equal(formBody.getTableRow()))
+			.where(AGBufferedEmailAttachment.EMAIL.isEqual(formBody.getTableRow()))
 			.count();
 	}
 

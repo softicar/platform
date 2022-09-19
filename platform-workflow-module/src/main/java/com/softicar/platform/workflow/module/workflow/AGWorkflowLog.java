@@ -32,8 +32,8 @@ public class AGWorkflowLog extends AbstractDbRecord<AGWorkflowLog, Tuple2<AGWork
 		BUILDER.setPluralTitle(WorkflowI18n.WORKFLOW_LOGS);
 	}
 
-	public static final IDbForeignField<AGWorkflowLog, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW).setForeignKeyName("WorkflowLog_ibfk_1");
-	public static final IDbForeignField<AGWorkflowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowLog_ibfk_2");
+	public static final IDbForeignField<AGWorkflowLog, AGWorkflow> WORKFLOW = BUILDER.addForeignField("workflow", o->o.m_workflow, (o,v)->o.m_workflow=v, AGWorkflow.ID).setTitle(WorkflowI18n.WORKFLOW).setCascade(true, true).setForeignKeyName("WorkflowLog_ibfk_1");
+	public static final IDbForeignField<AGWorkflowLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("WorkflowLog_ibfk_2");
 	public static final IDbStringField<AGWorkflowLog> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbBooleanField<AGWorkflowLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(WorkflowI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbForeignField<AGWorkflowLog, AGWorkflowVersion> CURRENT_VERSION = BUILDER.addForeignField("currentVersion", o->o.m_currentVersion, (o,v)->o.m_currentVersion=v, AGWorkflowVersion.ID).setTitle(WorkflowI18n.CURRENT_VERSION).setNullable().setDefault(null).setForeignKeyName("WorkflowLog_ibfk_3");

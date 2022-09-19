@@ -68,38 +68,4 @@ public interface ISqlBasicExpression<BOOL, VALUE> extends ISqlExpression<VALUE> 
 
 		return wrapBool(SqlOperations.IS_NOT_EQUAL.create(SqlValueTypes.BOOLEAN, this, other));
 	}
-
-	// -------------------- old methods for backwards-compatibility -------------------- //
-
-	default BOOL equal(VALUE other) {
-
-		return isEqual(other);
-	}
-
-	default BOOL notEqual(VALUE other) {
-
-		return isNotEqual(other);
-	}
-
-	default BOOL in(Iterable<VALUE> values) {
-
-		return isIn(values);
-	}
-
-	@SuppressWarnings("unchecked")
-	default BOOL in(VALUE...values) {
-
-		return isIn(values);
-	}
-
-	default BOOL notIn(Iterable<VALUE> values) {
-
-		return isNotIn(values);
-	}
-
-	@SuppressWarnings("unchecked")
-	default BOOL notIn(VALUE...values) {
-
-		return isNotIn(values);
-	}
 }

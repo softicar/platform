@@ -55,7 +55,7 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 
 		return TABLE//
 				.createSelect()
-				.where(NAME.equal(name))
+				.where(NAME.isEqual(name))
 				.getOne();
 	}
 

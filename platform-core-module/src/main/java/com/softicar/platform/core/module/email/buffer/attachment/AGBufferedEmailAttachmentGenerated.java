@@ -56,8 +56,8 @@ public class AGBufferedEmailAttachmentGenerated extends AbstractDbObject<AGBuffe
 
 		return TABLE//
 				.createSelect()
-				.where(EMAIL.equal(email))
-				.where(INDEX.equal(index))
+				.where(EMAIL.isEqual(email))
+				.where(INDEX.isEqual(index))
 				.getOne();
 	}
 

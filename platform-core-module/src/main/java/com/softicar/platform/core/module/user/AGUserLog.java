@@ -34,8 +34,8 @@ public class AGUserLog extends AbstractDbRecord<AGUserLog, Tuple2<AGUser, AGTran
 		BUILDER.setPluralTitle(CoreI18n.USER_LOGS);
 	}
 
-	public static final IDbForeignField<AGUserLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setForeignKeyName("UserLog_ibfk_1");
-	public static final IDbForeignField<AGUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setForeignKeyName("UserLog_ibfk_2");
+	public static final IDbForeignField<AGUserLog, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(CoreI18n.USER).setCascade(true, true).setForeignKeyName("UserLog_ibfk_1");
+	public static final IDbForeignField<AGUserLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("UserLog_ibfk_2");
 	public static final IDbBooleanField<AGUserLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGUserLog> LOGIN_NAME = BUILDER.addStringField("loginName", o->o.m_loginName, (o,v)->o.m_loginName=v).setTitle(CoreI18n.LOGIN_NAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGUserLog> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(CoreI18n.FIRST_NAME).setNullable().setDefault(null).setMaximumLength(255);

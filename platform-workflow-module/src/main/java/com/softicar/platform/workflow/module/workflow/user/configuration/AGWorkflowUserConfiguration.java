@@ -18,9 +18,9 @@ public class AGWorkflowUserConfiguration extends AGWorkflowUserConfigurationGene
 		return Sql
 			.from(AGWorkflowUserConfiguration.TABLE)
 			.select(AGWorkflowUserConfiguration.USER)
-			.where(AGWorkflowUserConfiguration.SUBSTITUTE.equal(substitute))
-			.where(AGWorkflowUserConfiguration.SUBSTITUTE_FROM.lessEqual(day))
-			.where(AGWorkflowUserConfiguration.SUBSTITUTE_TO.greaterEqual(day))
+			.where(AGWorkflowUserConfiguration.SUBSTITUTE.isEqual(substitute))
+			.where(AGWorkflowUserConfiguration.SUBSTITUTE_FROM.isLessEqual(day))
+			.where(AGWorkflowUserConfiguration.SUBSTITUTE_TO.isGreaterEqual(day))
 			.list();
 	}
 }

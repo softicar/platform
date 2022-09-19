@@ -51,7 +51,7 @@ public class AGUserAllowedIpRuleGenerated extends AbstractDbObject<AGUserAllowed
 
 		return TABLE//
 				.createSelect()
-				.where(NAME.equal(name))
+				.where(NAME.isEqual(name))
 				.getOne();
 	}
 

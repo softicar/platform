@@ -30,8 +30,8 @@ public class AGModuleInstanceBaseLog extends AbstractDbRecord<AGModuleInstanceBa
 		BUILDER.setPluralTitle(CoreI18n.MODULE_INSTANCE_BASE_LOGS);
 	}
 
-	public static final IDbForeignField<AGModuleInstanceBaseLog, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE).setCascade(false, true).setForeignKeyName("ModuleInstanceBaseLog_ibfk_1");
-	public static final IDbForeignField<AGModuleInstanceBaseLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(false, true).setForeignKeyName("ModuleInstanceBaseLog_ibfk_2");
+	public static final IDbForeignField<AGModuleInstanceBaseLog, AGModuleInstanceBase> MODULE_INSTANCE_BASE = BUILDER.addForeignField("moduleInstanceBase", o->o.m_moduleInstanceBase, (o,v)->o.m_moduleInstanceBase=v, AGModuleInstanceBase.ID).setTitle(CoreI18n.MODULE_INSTANCE_BASE).setCascade(true, true).setForeignKeyName("ModuleInstanceBaseLog_ibfk_1");
+	public static final IDbForeignField<AGModuleInstanceBaseLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("ModuleInstanceBaseLog_ibfk_2");
 	public static final IDbBooleanField<AGModuleInstanceBaseLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGModuleInstanceBaseLog, Tuple2<AGModuleInstanceBase, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(MODULE_INSTANCE_BASE, TRANSACTION));
 	public static final IDbKey<AGModuleInstanceBaseLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);

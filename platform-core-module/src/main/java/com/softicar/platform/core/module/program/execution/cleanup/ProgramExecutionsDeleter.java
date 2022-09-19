@@ -45,7 +45,7 @@ public class ProgramExecutionsDeleter {
 
 		AGProgramExecution
 			.createSelect()
-			.where(AGProgramExecution.PROGRAM_UUID.equal(program.getProgramUuid()))
+			.where(AGProgramExecution.PROGRAM_UUID.isEqual(program.getProgramUuid()))
 			.where(AGProgramExecution.TERMINATED_AT.isNotNull())
 			.orderBy(AGProgramExecution.TERMINATED_AT)
 			.getFirstAsOptional()
@@ -86,14 +86,14 @@ public class ProgramExecutionsDeleter {
 
 		return AGProgramExecution.TABLE
 			.createSelect()
-			.where(AGProgramExecution.PROGRAM_UUID.equal(program.getProgramUuid()))
-			.where(AGProgramExecution.TERMINATED_AT.less(thresholdDay.toDayTime()))
+			.where(AGProgramExecution.PROGRAM_UUID.isEqual(program.getProgramUuid()))
+			.where(AGProgramExecution.TERMINATED_AT.isLess(thresholdDay.toDayTime()))
 			.list();
 	}
 
 	private void deleteProgramExecutionLogsAndProgramExecutions(List<AGProgramExecution> programExecutions) {
 
-		AGProgramExecutionLog.TABLE.createDelete().where(AGProgramExecutionLog.PROGRAM_EXECUTION.in(programExecutions)).execute();
+		AGProgramExecutionLog.TABLE.createDelete().where(AGProgramExecutionLog.PROGRAM_EXECUTION.isIn(programExecutions)).execute();
 		AGProgramExecution.TABLE.createDelete().where(AGProgramExecution.ID.isIn(programExecutions)).execute();
 	}
 
