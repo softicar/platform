@@ -11,17 +11,9 @@ import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
-
-	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
-	}
 
 	@Test
 	public void testSetHeightAndWidthOnLoad() {
