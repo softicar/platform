@@ -4,8 +4,16 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjax
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.function.Supplier;
+import org.junit.After;
 
 public abstract class AbstractAjaxDomEventTest extends AbstractAjaxSeleniumLowLevelTest {
+
+	// FIXME temporary
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	protected final AbstractAjaxDomEventTestDiv testDiv;
 

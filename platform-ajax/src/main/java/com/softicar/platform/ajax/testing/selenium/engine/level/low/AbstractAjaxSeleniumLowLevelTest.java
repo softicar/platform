@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.common.testing.AbstractTest;
-import org.junit.After;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 
@@ -25,12 +24,5 @@ public abstract class AbstractAjaxSeleniumLowLevelTest extends AbstractTest impl
 	public AjaxSeleniumLowLevelTestEngine getTestEngine() {
 
 		return testEngine;
-	}
-
-	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
 	}
 }
