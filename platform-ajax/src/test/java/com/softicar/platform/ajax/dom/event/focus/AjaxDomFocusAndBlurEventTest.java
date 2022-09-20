@@ -1,7 +1,6 @@
 package com.softicar.platform.ajax.dom.event.focus;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.dom.element.DomElement;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -56,28 +55,11 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		assertEvent(events.get(2), testDiv.input2, DomEventType.CLICK);
 
 		// reset default behavior for mouse down on second input
-		click(testDiv.resetButton);
-		events.clear();
+		click(testDiv.unpreventButton);
+		click(testDiv.clearEventsButton);
 		clickFirstInputAndEnterTextAndThenClickSecondInput("bar");
 
 		// assert normal event sequence
-		// TODO testing...
-
-		IDomEvent event0 = events.get(0);
-		Log.finfo(event0);
-		IDomEvent event1 = events.get(1);
-		Log.finfo(event1);
-		IDomEvent event2 = events.get(2);
-		Log.finfo(event2);
-		IDomEvent event3 = events.get(3);
-		Log.finfo(event3);
-		IDomEvent event4 = events.get(4);
-		Log.finfo(event4);
-		IDomEvent event5 = events.get(5);
-		Log.finfo(event5);
-		IDomEvent event6 = events.get(6);
-		Log.finfo(event6);
-
 		assertEquals("event count", 6, events.size());
 		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
 		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
@@ -106,7 +88,8 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		public final TestInput input1;
 		public final TestInput input2;
 		public final DomButton preventButton;
-		public final DomButton resetButton;
+		public final DomButton unpreventButton;
+		public final DomButton clearEventsButton;
 
 		public TestDiv() {
 
@@ -115,14 +98,18 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 			this.preventButton = new DomButton()//
 				.setLabel("Prevent")
 				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, true));
-			this.resetButton = new DomButton()//
-				.setLabel("Reset")
+			this.unpreventButton = new DomButton()//
+				.setLabel("Unprevent")
 				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, false));
+			clearEventsButton = new DomButton()//
+				.setLabel("ClearEvents")
+				.setClickCallback(() -> events.clear());
 
 			appendChild(input1);
 			appendChild(input2);
 			appendChild(preventButton);
-			appendChild(resetButton);
+			appendChild(unpreventButton);
+			appendChild(clearEventsButton);
 		}
 	}
 
