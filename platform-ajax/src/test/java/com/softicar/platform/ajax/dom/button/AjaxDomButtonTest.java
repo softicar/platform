@@ -6,17 +6,16 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.input.DomTextInput;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomButtonTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
-	}
+//	@After
+//	public void discardWebDriver() {
+//
+//		testEngine.discardWebDriver();
+//	}
 
 	private static final String SOME_TEXT = "Hey there!";
 	private final AjaxDomButtonTestDiv testDiv;

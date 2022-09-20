@@ -5,6 +5,13 @@ import org.junit.Test;
 
 public class AjaxConfirmTest extends AbstractAjaxSeleniumLowLevelTest {
 
+	// FIXME temporary
+//	@After
+//	public void discardWebDriver() {
+//
+//		testEngine.discardWebDriver();
+//	}
+
 	private final AjaxConfirmTestDiv testDiv;
 
 	public AjaxConfirmTest() {

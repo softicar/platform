@@ -1,17 +1,16 @@
 package com.softicar.platform.ajax.dialog.alert;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxAlertTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
-	}
+//	@After
+//	public void discardWebDriver() {
+//
+//		testEngine.discardWebDriver();
+//	}
 
 	private final AjaxAlertTestDiv testDiv;
 

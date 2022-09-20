@@ -6,17 +6,16 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSelenium
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.DomTextInput;
-import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomChangeEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// FIXME temporary
-	@After
-	public void discardWebDriver() {
-
-		testEngine.discardWebDriver();
-	}
+//	@After
+//	public void discardWebDriver() {
+//
+//		testEngine.discardWebDriver();
+//	}
 
 	private final TestDiv testDiv;
 	private final DomTextInput input;
