@@ -85,11 +85,20 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
-function makeDraggable(draggedNode, dragHandleNode, limitingNode, notifyOnDrop) {
+function makeDraggable(draggedNode, dragHandleNode, notifyOnDrop) {
     var handler = DRAG_AND_DROP_MANAGER.getHandler(draggedNode);
-    handler.setLimitingNode(limitingNode);
     handler.setNotifyOnDrop(notifyOnDrop);
     handler.install(dragHandleNode);
+}
+function setDragLimitNode(draggedNode, limitNode) {
+    DRAG_AND_DROP_MANAGER
+        .getHandler(draggedNode)
+        .setLimitNode(limitNode);
+}
+function setDragScrollNode(draggedNode, scrollNode) {
+    DRAG_AND_DROP_MANAGER
+        .getHandler(draggedNode)
+        .setScrollNode(scrollNode);
 }
 class DragAndDropManager {
     constructor() {
@@ -108,12 +117,14 @@ const DRAG_AND_DROP_MANAGER = new DragAndDropManager();
 class DragAndDropHandler {
     constructor(draggedNode) {
         this.cursorStart = new Vector2d();
+        this.scrollStart = new Vector2d();
         this.dragStart = new Vector2d();
         this.dragPosition = new Vector2d();
         this.dragHandler = (event) => this.onDrag(event);
-        this.dropHandler = (event) => this.onDrop(event);
+        this.dropHandler = (_) => this.onDrop();
         this.draggedNode = draggedNode;
-        this.limitingNode = null;
+        this.limitNode = null;
+        this.scrollNode = null;
         this.notifyOnDrop = false;
         this.dragHandleNode = null;
     }
@@ -126,8 +137,11 @@ class DragAndDropHandler {
         dragHandleNode.ondragstart = function () { return false; };
         dragHandleNode.classList.add(DRAGGABLE_CSS_CLASS);
     }
-    setLimitingNode(limitingNode) {
-        this.limitingNode = limitingNode;
+    setLimitNode(limitNode) {
+        this.limitNode = limitNode;
+    }
+    setScrollNode(scrollNode) {
+        this.scrollNode = scrollNode;
     }
     setNotifyOnDrop(notifyOnDrop) {
         this.notifyOnDrop = notifyOnDrop;
@@ -137,26 +151,26 @@ class DragAndDropHandler {
         this.addDragListener();
         this.setDocumentTextSelection(false);
         this.cursorStart = this.getCursorPosition(event);
+        this.scrollStart = this.getScrollPosition();
         this.dragStart = this.getDraggedNodePosition();
         this.dragPosition = this.dragStart;
         (_a = this.dragHandleNode) === null || _a === void 0 ? void 0 : _a.classList.add(DRAGGING_CSS_CLASS);
         AJAX_ENGINE.raise(this.draggedNode);
     }
     onDrag(event) {
-        var _a, _b, _c, _d, _e;
-        let cursor = this.getCursorPosition(event);
-        let rect = (_a = this.limitingNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect();
-        let minX = (_b = rect === null || rect === void 0 ? void 0 : rect.left) !== null && _b !== void 0 ? _b : 0;
-        let maxX = (_c = rect === null || rect === void 0 ? void 0 : rect.right) !== null && _c !== void 0 ? _c : Infinity;
-        let minY = (_d = rect === null || rect === void 0 ? void 0 : rect.top) !== null && _d !== void 0 ? _d : 0;
-        let maxY = (_e = rect === null || rect === void 0 ? void 0 : rect.bottom) !== null && _e !== void 0 ? _e : Infinity;
-        if (minX <= cursor.x && cursor.x <= maxX && minY <= cursor.y && cursor.y <= maxY) {
+        if (this.scrollNode) {
+            let delta = this.getCursorPosition(event).minus(this.cursorStart);
+            let position = this.clampScrollPosition(this.scrollStart.minus(delta));
+            this.scrollNode.scrollTo(position.x, position.y);
+        }
+        else {
+            let cursor = this.getLimitRect().clamp(this.getCursorPosition(event));
             this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
             this.draggedNode.style.left = this.dragPosition.x + "px";
             this.draggedNode.style.top = this.dragPosition.y + "px";
         }
     }
-    onDrop(event) {
+    onDrop() {
         var _a;
         this.removeDragListener();
         this.setDocumentTextSelection(true);
@@ -170,6 +184,20 @@ class DragAndDropHandler {
             AJAX_REQUEST_QUEUE.submit(message);
         }
     }
+    clampScrollPosition(scrollPosition) {
+        var _a, _b;
+        let scrollRect = (_b = (_a = this.scrollNode) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect()) !== null && _b !== void 0 ? _b : new DOMRect(0, 0, 0, 0);
+        let nodeRect = this.draggedNode.getBoundingClientRect();
+        return new Vector2d(clamp(scrollPosition.x, 0, Math.max(nodeRect.width - scrollRect.width, 0)), clamp(scrollPosition.y, 0, Math.max(nodeRect.height - scrollRect.height, 0)));
+    }
+    getLimitRect() {
+        if (this.limitNode) {
+            return Rect.fromDomRect(this.limitNode.getBoundingClientRect());
+        }
+        else {
+            return new Rect(0, 0, Infinity, Infinity);
+        }
+    }
     getCursorPosition(event) {
         if (event instanceof MouseEvent) {
             return new Vector2d(event.clientX, event.clientY);
@@ -181,6 +209,12 @@ class DragAndDropHandler {
         else {
             return new Vector2d();
         }
+    }
+    getScrollPosition() {
+        var _a, _b, _c, _d;
+        let x = (_b = (_a = this.scrollNode) === null || _a === void 0 ? void 0 : _a.scrollLeft) !== null && _b !== void 0 ? _b : 0;
+        let y = (_d = (_c = this.scrollNode) === null || _c === void 0 ? void 0 : _c.scrollTop) !== null && _d !== void 0 ? _d : 0;
+        return new Vector2d(x, y);
     }
     getDraggedNodePosition() {
         let style = window.getComputedStyle(this.draggedNode);
@@ -305,6 +339,11 @@ class KeepAlive {
     }
 }
 const KEEP_ALIVE = new KeepAlive(KEEP_ALIVE_REQUEST_DELAY);
+function clamp(value, minimum, maximum) {
+    value = Math.max(value, minimum);
+    value = Math.min(value, maximum);
+    return value;
+}
 class DomPopupEngine {
     initializePopup(popupFrame, autoRaise) {
         if (autoRaise) {
@@ -379,6 +418,9 @@ class Rect {
     }
     static fromDomRect(rect) {
         return new Rect(rect.x, rect.y, rect.width, rect.height);
+    }
+    clamp(point) {
+        return new Vector2d(clamp(point.x, this.x, this.x + this.width - 1), clamp(point.y, this.y, this.y + this.height - 1));
     }
 }
 let SESSION_TIMED_OUT = false;

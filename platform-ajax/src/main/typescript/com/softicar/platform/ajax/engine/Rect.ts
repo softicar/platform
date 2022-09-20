@@ -16,5 +16,11 @@ class Rect {
 
 	public static fromDomRect(rect: DOMRect) {
 		return new Rect(rect.x, rect.y, rect.width, rect.height);
-	}	
+	}
+	
+	public clamp(point: Vector2d) {
+		return new Vector2d(
+			clamp(point.x, this.x, this.x + this.width - 1),
+			clamp(point.y, this.y, this.y + this.height - 1));
+	}
 }
