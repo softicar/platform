@@ -63,17 +63,28 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		// assert normal event sequence
 		// TODO testing...
 
-		Log.finfo("AjaxDomFocusAndBlurEventTest.testWithPreventDefaultOnMouseDown():");
-		Log.finfo("events: %s", events.size());
-		events.forEach(Log::finfo);
+		IDomEvent event0 = events.get(0);
+		Log.finfo(event0);
+		IDomEvent event1 = events.get(1);
+		Log.finfo(event1);
+		IDomEvent event2 = events.get(2);
+		Log.finfo(event2);
+		IDomEvent event3 = events.get(3);
+		Log.finfo(event3);
+		IDomEvent event4 = events.get(4);
+		Log.finfo(event4);
+		IDomEvent event5 = events.get(5);
+		Log.finfo(event5);
+		IDomEvent event6 = events.get(6);
+		Log.finfo(event6);
 
+		assertEquals("event count", 6, events.size());
 		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
 		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
 		assertEvent(events.get(2), testDiv.input1, DomEventType.CHANGE);
 		assertEvent(events.get(3), testDiv.input1, DomEventType.BLUR);
 		assertEvent(events.get(4), testDiv.input2, DomEventType.FOCUS);
 		assertEvent(events.get(5), testDiv.input2, DomEventType.CLICK);
-		assertEquals("event count", 6, events.size());
 	}
 
 	private void clickFirstInputAndEnterTextAndThenClickSecondInput(String text) {
