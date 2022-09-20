@@ -60,13 +60,14 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		clickFirstInputAndEnterTextAndThenClickSecondInput("bar");
 
 		// assert normal event sequence
-		assertEquals("event count", 6, events.size());
+		// TODO testing...
 		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
 		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
 		assertEvent(events.get(2), testDiv.input1, DomEventType.CHANGE);
 		assertEvent(events.get(3), testDiv.input1, DomEventType.BLUR);
 		assertEvent(events.get(4), testDiv.input2, DomEventType.FOCUS);
 		assertEvent(events.get(5), testDiv.input2, DomEventType.CLICK);
+		assertEquals("event count", 6, events.size());
 	}
 
 	private void clickFirstInputAndEnterTextAndThenClickSecondInput(String text) {
