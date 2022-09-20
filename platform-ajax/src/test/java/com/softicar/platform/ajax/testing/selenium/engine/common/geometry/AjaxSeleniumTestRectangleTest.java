@@ -47,7 +47,7 @@ public class AjaxSeleniumTestRectangleTest extends AbstractTest {
 	@Test
 	public void testGetSize() {
 
-		AjaxSeleniumTestSegment size = rectangle.getSize();
+		AjaxSeleniumTestArea size = rectangle.getSize();
 		assertEquals(30, size.getWidth());
 		assertEquals(40, size.getHeight());
 	}

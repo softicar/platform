@@ -8,7 +8,7 @@ import org.junit.Test;
 public class AjaxTextInputTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	private static final String SOME_TEXT = "foo bar";
-	private static final String SOME_SPECIAL_TEXT = " Ä\tßč ";
+	private static final String SOME_SPECIAL_TEXT = " Ä  ßč ";
 	private final AjaxTextInputTestDiv testDiv;
 	private final DomTextInput input;
 	private final DomButton button;

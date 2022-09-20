@@ -29,6 +29,7 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 		final int yOffset = 17;
 
 		dragAndDrop(anchorDiv, xOffset, yOffset);
+		waitForServer();
 
 		AjaxSeleniumTestPoint finalPosition = getRectangle(targetDiv).getLocation();
 

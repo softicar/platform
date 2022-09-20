@@ -1,10 +1,12 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
+import java.time.Duration;
 import java.util.function.Supplier;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Window;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Facilitates controlling the viewport of a UI-under-test.
@@ -22,19 +24,29 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 		this.javascriptExecutor = new AjaxSeleniumLowLevelTestJavascriptExecutor(webDriverSupplier);
 	}
 
-	public AjaxSeleniumTestSegment getViewportSize() {
+	public AjaxSeleniumTestArea getViewportSize() {
 
-		return new AjaxSeleniumTestSegment(getViewportWidth(), getViewportHeight());
+		return new AjaxSeleniumTestArea(getViewportWidth(), getViewportHeight());
 	}
 
 	public void setViewportSize(int width, int height) {
 
-		Dimension dimension = getWindow().getSize();
-		AjaxSeleniumTestSegment windowSize = new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
-		AjaxSeleniumTestSegment viewportSize = getViewportSize();
-		int extraWidth = windowSize.getWidth() - viewportSize.getWidth();
-		int extraHeight = windowSize.getHeight() - viewportSize.getHeight();
-		getWindow().setSize(new org.openqa.selenium.Dimension(width + extraWidth, height + extraHeight));
+		var viewportSizeDesired = new AjaxSeleniumTestArea(width, height);
+		var viewportSizeBefore = getViewportSize();
+
+		if (!viewportSizeBefore.equals(viewportSizeDesired)) {
+			Dimension windowDimension = getWindow().getSize();
+			AjaxSeleniumTestArea windowSize = new AjaxSeleniumTestArea(windowDimension.getWidth(), windowDimension.getHeight());
+			int extraWidth = windowSize.getWidth() - viewportSizeBefore.getWidth();
+			int extraHeight = windowSize.getHeight() - viewportSizeBefore.getHeight();
+
+			getWindow().setSize(new Dimension(width + extraWidth, height + extraHeight));
+
+			// Wait for the window size to actually change.
+			// Inspired by https://stackoverflow.com/a/40242082
+			new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
+				.until(driver -> !getViewportSize().equals(viewportSizeBefore));
+		}
 	}
 
 	public void scrollTo(int x, int y) {
@@ -49,13 +61,11 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 
 	private int getViewportWidth() {
 
-		Long width = (Long) javascriptExecutor.execute("return window.innerWidth;");
-		return width.intValue();
+		return ((Long) javascriptExecutor.execute("return window.innerWidth;")).intValue();
 	}
 
 	private int getViewportHeight() {
 
-		Long height = (Long) javascriptExecutor.execute("return window.innerHeight;");
-		return height.intValue();
+		return ((Long) javascriptExecutor.execute("return window.innerHeight;")).intValue();
 	}
 }

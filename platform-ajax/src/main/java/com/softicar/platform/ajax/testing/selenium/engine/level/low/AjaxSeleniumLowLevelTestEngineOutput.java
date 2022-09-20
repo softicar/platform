@@ -5,7 +5,7 @@ import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.testing.selenium.engine.common.IAjaxSeleniumTestEngineConstants;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -62,10 +62,10 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 		return new AjaxSeleniumTestPoint(point.getX(), point.getY());
 	}
 
-	public AjaxSeleniumTestSegment getSize(IDomNode node) {
+	public AjaxSeleniumTestArea getSize(IDomNode node) {
 
 		Dimension dimension = webElementResolver.apply(node).getSize();
-		return new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
+		return new AjaxSeleniumTestArea(dimension.getWidth(), dimension.getHeight());
 	}
 
 	public void assertSize(int expectedWidth, int expectedHeight, IDomNode node) {

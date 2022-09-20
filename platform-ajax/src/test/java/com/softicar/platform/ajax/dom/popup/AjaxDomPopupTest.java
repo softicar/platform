@@ -87,10 +87,12 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 		// assert clicking foreground pop-up does not change z-index
 		int zIndex = getZIndex(popup2);
 		clickAt(popup2, 0, 0);
+		waitForServer();
 		assertEquals(zIndex, getZIndex(popup2));
 
 		// assert clicking background pop-up allocates z-index
 		clickAt(popup1, 0, 0);
+		waitForServer();
 		assertEquals(getZIndex(popup2) + 1, getZIndex(popup1));
 	}
 

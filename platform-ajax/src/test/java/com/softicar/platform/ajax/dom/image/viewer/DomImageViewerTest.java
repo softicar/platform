@@ -13,6 +13,8 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import org.junit.Test;
 
@@ -153,6 +155,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		for (int i = 2; i <= images.size(); i++) {
 			clickNextPageButton();
 		}
+		waitForServer();
 	}
 
 	private void assertShownPage(int index) {
@@ -172,6 +175,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickNextPageButton() {
 
 		input.click(getNextPageButton());
+		waitForServer();
 	}
 
 	private DomButton getNextPageButton() {
@@ -182,6 +186,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickPreviousPageButton() {
 
 		input.click(getPreviousPageButton());
+		waitForServer();
 	}
 
 	private DomButton getPreviousPageButton() {
@@ -212,6 +217,7 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickRotateButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON));
+		waitForServer();
 	}
 
 	private void assertRotated(boolean rotated) {
@@ -228,11 +234,13 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private void clickZoomInButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_IN_BUTTON));
+		waitForServer();
 	}
 
 	private void clickZoomOutButton() {
 
 		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ZOOM_OUT_BUTTON));
+		waitForServer();
 	}
 
 	private int getZoomedHolderWidth(int zoomPercentage) {
@@ -243,19 +251,27 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	private int getZoomedHolderHeight(int zoomPercentage) {
 
 		var imageElementWidth = getZoomedHolderWidth(zoomPercentage) - 2 * IMAGE_PADDING;
-		var imageElementHeight = imageElementWidth * IMAGE_HEIGHT / IMAGE_WIDTH;
+		var imageElementHeight = imageElementWidth * IMAGE_HEIGHT / (double) IMAGE_WIDTH;
 
-		return Math.round(imageElementHeight + 2 * IMAGE_PADDING);
+		return (int) Math.round(imageElementHeight + 2 * IMAGE_PADDING);
 	}
 
 	private void assertZoomLevel(int zoomPercentage) {
 
 		var imageHolder = findImageHolder();
-		var expectedWidth = getZoomedHolderWidth(zoomPercentage);
-		var expectedHeight = getZoomedHolderHeight(zoomPercentage);
+		var expectedWidth = new BigDecimal(getZoomedHolderWidth(zoomPercentage));
+		var expectedHeight = new BigDecimal(getZoomedHolderHeight(zoomPercentage));
+
+		var compensator = new ChromeQuirksCompensator(zoomPercentage);
+		expectedWidth = compensator.calculateCompensatedExpectedWidth(expectedWidth);
+		expectedHeight = compensator.calculateCompensatedExpectedHeight(expectedHeight);
 
 		output.assertCssWidth(expectedWidth + "px", imageHolder);
-		output.assertSize(expectedWidth, expectedHeight, imageHolder);
+		output
+			.assertSize(//
+				expectedWidth.setScale(0, RoundingMode.HALF_UP).intValue(),
+				expectedHeight.setScale(0, RoundingMode.HALF_UP).intValue(),
+				imageHolder);
 	}
 
 	// ------------------------------ setup ------------------------------ //
@@ -277,5 +293,45 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		graphics.fillRect(0, 0, width, height);
 		graphics.dispose();
 		return new InMemoryImageResource(image, "jpg", MimeType.IMAGE_JPEG);
+	}
+
+	/**
+	 * Compensates for Google Chrome specific quirks in the size calculation of
+	 * scrollable elements.
+	 */
+	private static class ChromeQuirksCompensator {
+
+		private static final BigDecimal REDUCED_WIDTH_OFFSET = new BigDecimal(3);
+		private static final BigDecimal REDUCED_WIDTH_PER_PERCENT = new BigDecimal("0.03");
+		private static final BigDecimal REDUCED_HEIGHT_OFFSET = new BigDecimal("0.01");
+		private static final BigDecimal REDUCED_HEIGHT_PER_PERCENT = new BigDecimal("0.03");
+		private final int zoomPercentage;
+
+		public ChromeQuirksCompensator(int zoomPercentage) {
+
+			this.zoomPercentage = zoomPercentage;
+		}
+
+		public BigDecimal calculateCompensatedExpectedWidth(BigDecimal expectedWidth) {
+
+			if (zoomPercentage > 100) {
+				var percentsAboveHundred = new BigDecimal(zoomPercentage - 100);
+				var reducedWidth = REDUCED_WIDTH_OFFSET.add(percentsAboveHundred.multiply(REDUCED_WIDTH_PER_PERCENT));
+				return expectedWidth.subtract(reducedWidth).stripTrailingZeros();
+			} else {
+				return expectedWidth;
+			}
+		}
+
+		public BigDecimal calculateCompensatedExpectedHeight(BigDecimal expectedHeight) {
+
+			if (zoomPercentage > 100) {
+				var percentsAboveHundred = new BigDecimal(zoomPercentage - 100);
+				var reducedWidth = REDUCED_HEIGHT_OFFSET.add(percentsAboveHundred.multiply(REDUCED_HEIGHT_PER_PERCENT));
+				return expectedHeight.subtract(reducedWidth).stripTrailingZeros();
+			} else {
+				return expectedHeight;
+			}
+		}
 	}
 }

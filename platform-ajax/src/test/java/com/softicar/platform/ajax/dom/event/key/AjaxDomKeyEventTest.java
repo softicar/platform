@@ -30,12 +30,12 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = openTestNode(() -> new TestInput("x"));
 
 		// press lower-case key
-		sendKeysAndWait("x");
+		sendKeysAndWaitForServer("x");
 		assertKeyDownAndUpEvents("x");
 		assertNoFurtherEvents();
 
 		// press upper-case key
-		sendKeysAndWait("X");
+		sendKeysAndWaitForServer("X");
 		assertNoFurtherEvents();
 	}
 
@@ -46,11 +46,11 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.input = openTestNode(() -> new TestInput("X"));
 
 		// press lower-case key
-		sendKeysAndWait("x");
+		sendKeysAndWaitForServer("x");
 		assertNoFurtherEvents();
 
 		// press upper-case key
-		sendKeysAndWait("X");
+		sendKeysAndWaitForServer("X");
 		assertKeyDownAndUpEvents("X");
 		assertNoFurtherEvents();
 	}
@@ -60,11 +60,11 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = openTestNode(() -> new TestInput("ArrowDown", "ArrowUp"));
 
-		sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key.DOWN);
+		sendKeysAndWaitForServer(AjaxSeleniumLowLevelTestEngineInput.Key.DOWN);
 		assertKeyDownAndUpEvents("ArrowDown");
 		assertNoFurtherEvents();
 
-		sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key.UP);
+		sendKeysAndWaitForServer(AjaxSeleniumLowLevelTestEngineInput.Key.UP);
 		assertKeyDownAndUpEvents("ArrowUp");
 		assertNoFurtherEvents();
 	}
@@ -74,7 +74,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		this.input = openTestNode(() -> new TestInput());
 
-		sendKeysAndWait("x");
+		sendKeysAndWaitForServer("x");
 		assertNoFurtherEvents();
 	}
 
@@ -106,7 +106,7 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 			return input;
 		});
 
-		sendKeysAndWait("x");
+		sendKeysAndWaitForServer("x");
 		assertKeyDownEvent("x");
 		assertNoFurtherEvents();
 	}
@@ -121,20 +121,20 @@ public class AjaxDomKeyEventTest extends AbstractAjaxSeleniumLowLevelTest {
 			return input;
 		});
 
-		sendKeysAndWait("x");
+		sendKeysAndWaitForServer("x");
 		assertKeyUpEvent("x");
 		assertNoFurtherEvents();
 	}
 
 	// ------------------------------ utility ------------------------------ //
 
-	private void sendKeysAndWait(AjaxSeleniumLowLevelTestEngineInput.Key...keys) {
+	private void sendKeysAndWaitForServer(AjaxSeleniumLowLevelTestEngineInput.Key...keys) {
 
 		send(input, keys);
 		waitForServer();
 	}
 
-	private void sendKeysAndWait(String keys) {
+	private void sendKeysAndWaitForServer(String keys) {
 
 		send(input, keys);
 		waitForServer();

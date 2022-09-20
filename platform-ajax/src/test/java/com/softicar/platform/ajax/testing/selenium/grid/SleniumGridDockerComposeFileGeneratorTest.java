@@ -23,8 +23,7 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 
 		SeleniumGridConfiguration gridConfiguration = createGridConfiguration()
 			.setHubConfiguration(createHubConfiguration())
-			.addNodeConfiguration(createChromeNodeConfiguration())
-			.addNodeConfiguration(createFirefoxNodeConfiguration())
+			.setNodeConfiguration(createNodeConfiguration())
 			.setNetworkConfiguration(createNetworkConfiguration());
 
 		String fileContent = generator.generate(gridConfiguration);
@@ -54,20 +53,12 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 			.setSessionTimeout(20);
 	}
 
-	private SeleniumNodeConfiguration createFirefoxNodeConfiguration() {
-
-		return new SeleniumNodeConfiguration()//
-			.setImageName("node-firefox")
-			.setNamePrefix("selenium-node-firefox")
-			.setFactor(BigDecimal.valueOf(1.5));
-	}
-
-	private SeleniumNodeConfiguration createChromeNodeConfiguration() {
+	private SeleniumNodeConfiguration createNodeConfiguration() {
 
 		return new SeleniumNodeConfiguration()//
 			.setImageName("node-chrome")
 			.setNamePrefix("selenium-node-chrome")
-			.setFactor(BigDecimal.valueOf(1));
+			.setFactor(BigDecimal.valueOf(1.5));
 	}
 
 	private SeleniumNetworkConfiguration createNetworkConfiguration() {
@@ -124,37 +115,9 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
-		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_1:\n");
-		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
-		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_1\n");
-		output.append("    volumes:\n");
-		output.append("      - /dev/shm:/dev/shm\n");
-		output.append("    depends_on:\n");
-		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("    environment:\n");
-		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
-		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
-		output.append("    networks:\n");
-		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("\n");
-		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_2:\n");
-		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
-		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_2\n");
-		output.append("    volumes:\n");
-		output.append("      - /dev/shm:/dev/shm\n");
-		output.append("    depends_on:\n");
-		output.append("      - selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("    environment:\n");
-		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
-		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
-		output.append("    networks:\n");
-		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
-		output.append("\n");
-		output.append("  selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_3:\n");
-		output.append("    image: selenium/node-firefox:%s\n".formatted(getExpectedGridContainerVersion()));
-		output.append("    container_name: selenium-node-firefox-29347bab-d26c-4b59-97f3-fea59c8d70fa_3\n");
+		output.append("  selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_3:\n");
+		output.append("    image: selenium/node-chrome:%s\n".formatted(getExpectedGridContainerVersion()));
+		output.append("    container_name: selenium-node-chrome-29347bab-d26c-4b59-97f3-fea59c8d70fa_3\n");
 		output.append("    volumes:\n");
 		output.append("      - /dev/shm:/dev/shm\n");
 		output.append("    depends_on:\n");

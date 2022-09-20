@@ -4,7 +4,7 @@ import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
@@ -456,7 +456,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 		return getTestEngine().getOutput().getLocation(node);
 	}
 
-	default AjaxSeleniumTestSegment getSize(IDomNode node) {
+	default AjaxSeleniumTestArea getSize(IDomNode node) {
 
 		return getTestEngine().getOutput().getSize(node);
 	}
@@ -751,7 +751,7 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 
 	// -------------------- viewport -------------------- //
 
-	default AjaxSeleniumTestSegment getViewportSize() {
+	default AjaxSeleniumTestArea getViewportSize() {
 
 		return getTestEngine().getViewport().getViewportSize();
 	}
