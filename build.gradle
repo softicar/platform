@@ -136,9 +136,6 @@ subprojects {
 	test {
 		maxHeapSize = "2G"
 		systemProperty 'java.awt.headless', 'true'
-
-		// TODO remove
-		testLogging.showStandardStreams = true
 	}
 
 	dependencies {
