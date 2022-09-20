@@ -10,6 +10,7 @@ import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.runner.Description;
 import org.openqa.selenium.By;
@@ -71,8 +72,8 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 		T testNode = testEnvironment.openTestNode(factory);
 		viewport
 			.setViewportSize(//
-				AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_X.getValue(),
-				AjaxSeleniumTestProperties.DRIVER_WINDOW_RESOLUTION_Y.getValue());
+				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_X.getValue(),
+				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_Y.getValue());
 		return testNode;
 	}
 
@@ -162,6 +163,17 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 		return autoCompleteExtension;
 	}
 
+	/**
+	 * Discards the currently-used web driver, so that a new web driver will be
+	 * allocated for subsequent operations (or tests).
+	 * <p>
+	 * For example, this can be used in an {@link After}-annotated method if the
+	 * corresponding test is either known or suspected to leave a web driver in
+	 * an inconsistent state.
+	 * <p>
+	 * Discarding and re-allocating a web driver entails a notable overhead, so
+	 * only use this when necessary.
+	 */
 	public void discardWebDriver() {
 
 		webDriverController.discardWebDriver();

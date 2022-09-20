@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.dom.event.click;
 
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomDoubleClickEventHandler;
@@ -10,13 +10,6 @@ import com.softicar.platform.dom.event.IDomEvent;
 import org.junit.Test;
 
 public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
-
-	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
 
 	private static final int CLICK_X = 13;
 	private static final int CLICK_Y = 17;
@@ -31,7 +24,7 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 	public void test() {
 
 		// click at specific location
-		AjaxSeleniumTestSegment viewportSize = getViewportSize();
+		AjaxSeleniumTestArea viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
 		doubleClickAt(testDiv, CLICK_X, CLICK_Y);
 		waitForServer();

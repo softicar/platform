@@ -5,13 +5,6 @@ import org.junit.Test;
 
 public class AjaxAlertTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
-
 	private final AjaxAlertTestDiv testDiv;
 
 	public AjaxAlertTest() {

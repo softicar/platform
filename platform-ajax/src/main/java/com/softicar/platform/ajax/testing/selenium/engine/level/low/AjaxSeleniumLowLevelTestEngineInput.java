@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.input.IDomTextualInput;
@@ -192,7 +192,7 @@ public class AjaxSeleniumLowLevelTestEngineInput {
 		// corner of the element but it does not. So we move it back from
 		// the center to the top-left corner.
 		Dimension dimension = webElement.getSize();
-		AjaxSeleniumTestSegment size = new AjaxSeleniumTestSegment(dimension.getWidth(), dimension.getHeight());
+		AjaxSeleniumTestArea size = new AjaxSeleniumTestArea(dimension.getWidth(), dimension.getHeight());
 		int centerX = size.getWidth() / 2;
 		int centerY = size.getHeight() / 2;
 		return new Point(position.getX() - centerX, position.getY() - centerY);

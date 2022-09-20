@@ -23,12 +23,8 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Integer> DRIVER_PAGE_LOAD_TIMEOUT = FACTORY.createIntegerProperty("driver.page.load.timeout", null);
 	public static final IProperty<Boolean> DRIVER_REUSE = FACTORY.createBooleanProperty("driver.reuse", true);
 	public static final IProperty<Integer> DRIVER_SCRIPT_TIMEOUT = FACTORY.createIntegerProperty("driver.script.timeout", null);
-	// FIXME misnomer... should be "viewport", because window borders are added on top of that
-	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_X = FACTORY.createIntegerProperty("driver.window.resolution.x", 1920);
-	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_Y = FACTORY.createIntegerProperty("driver.window.resolution.y", 1080);
-
-	// Engine
-	public static final IProperty<Integer> ENGINE_LEVEL_LOW_RETRY_COUNT = FACTORY.createIntegerProperty("engine.level.low.retry.count", 0);
+	public static final IProperty<Integer> DRIVER_VIEWPORT_SIZE_X = FACTORY.createIntegerProperty("driver.viewport.size.x", 1920);
+	public static final IProperty<Integer> DRIVER_VIEWPORT_SIZE_Y = FACTORY.createIntegerProperty("driver.viewport.size.y", 1080);
 
 	// Execution
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FAILURE = FACTORY.createBooleanProperty("execution.screenshot.on.failure", false);

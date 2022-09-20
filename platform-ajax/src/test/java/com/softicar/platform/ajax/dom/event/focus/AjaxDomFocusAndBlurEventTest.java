@@ -1,6 +1,7 @@
 package com.softicar.platform.ajax.dom.event.focus;
 
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.dom.element.DomElement;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -61,6 +62,11 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 
 		// assert normal event sequence
 		// TODO testing...
+
+		Log.finfo("AjaxDomFocusAndBlurEventTest.testWithPreventDefaultOnMouseDown():");
+		Log.finfo("events: %s", events.size());
+		events.forEach(Log::finfo);
+
 		assertEvent(events.get(0), testDiv.input1, DomEventType.FOCUS);
 		assertEvent(events.get(1), testDiv.input1, DomEventType.CLICK);
 		assertEvent(events.get(2), testDiv.input1, DomEventType.CHANGE);

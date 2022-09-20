@@ -10,13 +10,6 @@ import org.junit.Test;
 
 public class AjaxDomButtonTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
-
 	private static final String SOME_TEXT = "Hey there!";
 	private final AjaxDomButtonTestDiv testDiv;
 	private final DomTextInput input;

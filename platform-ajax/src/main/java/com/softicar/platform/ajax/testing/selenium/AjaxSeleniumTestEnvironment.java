@@ -36,12 +36,7 @@ public class AjaxSeleniumTestEnvironment {
 		servlet.getStrategy().setNodeFactory(bufferedFactory);
 		urlConsumer.accept(getPageUrl(getServerHandle().getConnector().getLocalPort()));
 		CurrentDomDocument.set(bufferedFactory.getDocument());
-		T contentNode = bufferedFactory.getContentNode();
-
-		// FIXME find a better solution
-//		Sleep.sleep(2000);
-
-		return contentNode;
+		return bufferedFactory.getContentNode();
 	}
 
 	public void executeAfterTest() {

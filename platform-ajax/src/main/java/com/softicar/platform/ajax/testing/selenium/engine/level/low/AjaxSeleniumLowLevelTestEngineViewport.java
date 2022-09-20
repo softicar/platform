@@ -1,6 +1,6 @@
 package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import java.time.Duration;
 import java.util.function.Supplier;
 import org.openqa.selenium.Dimension;
@@ -24,19 +24,19 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 		this.javascriptExecutor = new AjaxSeleniumLowLevelTestJavascriptExecutor(webDriverSupplier);
 	}
 
-	public AjaxSeleniumTestSegment getViewportSize() {
+	public AjaxSeleniumTestArea getViewportSize() {
 
-		return new AjaxSeleniumTestSegment(getViewportWidth(), getViewportHeight());
+		return new AjaxSeleniumTestArea(getViewportWidth(), getViewportHeight());
 	}
 
 	public void setViewportSize(int width, int height) {
 
-		AjaxSeleniumTestSegment viewportSizeDesired = new AjaxSeleniumTestSegment(width, height);
-		AjaxSeleniumTestSegment viewportSizeBefore = getViewportSize();
+		var viewportSizeDesired = new AjaxSeleniumTestArea(width, height);
+		var viewportSizeBefore = getViewportSize();
 
 		if (!viewportSizeBefore.equals(viewportSizeDesired)) {
 			Dimension windowDimension = getWindow().getSize();
-			AjaxSeleniumTestSegment windowSize = new AjaxSeleniumTestSegment(windowDimension.getWidth(), windowDimension.getHeight());
+			AjaxSeleniumTestArea windowSize = new AjaxSeleniumTestArea(windowDimension.getWidth(), windowDimension.getHeight());
 			int extraWidth = windowSize.getWidth() - viewportSizeBefore.getWidth();
 			int extraHeight = windowSize.getHeight() - viewportSizeBefore.getHeight();
 
@@ -45,12 +45,7 @@ public class AjaxSeleniumLowLevelTestEngineViewport {
 			// Wait for the window size to actually change.
 			// Inspired by StackOverflow: https://stackoverflow.com/a/40242082
 			new WebDriverWait(webDriverSupplier.get(), Duration.ofSeconds(10))//
-				.until(driver -> {
-//					Log.finfo("waiting...");
-					AjaxSeleniumTestSegment currentViewportSize = getViewportSize();
-//					Log.finfo("   current-size %s equals size-before %s ?", currentViewportSize, viewportSizeBefore);
-					return !currentViewportSize.equals(viewportSizeBefore);
-				});
+				.until(driver -> !getViewportSize().equals(viewportSizeBefore));
 		}
 	}
 

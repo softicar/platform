@@ -10,13 +10,6 @@ import org.junit.Test;
 
 public class AjaxDomChangeEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
-
 	private final TestDiv testDiv;
 	private final DomTextInput input;
 

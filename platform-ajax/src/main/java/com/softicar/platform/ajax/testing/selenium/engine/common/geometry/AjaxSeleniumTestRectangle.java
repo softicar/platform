@@ -11,7 +11,7 @@ import java.util.Objects;
 public class AjaxSeleniumTestRectangle {
 
 	private final AjaxSeleniumTestPoint location;
-	private final AjaxSeleniumTestSegment size;
+	private final AjaxSeleniumTestArea area;
 
 	/**
 	 * Constructs a new {@link AjaxSeleniumTestRectangle} with the given geometry.
@@ -27,7 +27,7 @@ public class AjaxSeleniumTestRectangle {
 	 */
 	public AjaxSeleniumTestRectangle(int x, int y, int width, int height) {
 
-		this(new AjaxSeleniumTestPoint(x, y), new AjaxSeleniumTestSegment(width, height));
+		this(new AjaxSeleniumTestPoint(x, y), new AjaxSeleniumTestArea(width, height));
 	}
 
 	/**
@@ -35,13 +35,13 @@ public class AjaxSeleniumTestRectangle {
 	 *
 	 * @param location
 	 *            the top-left corner as a {@link AjaxSeleniumTestPoint}
-	 * @param size
-	 *            the horizontal and vertical size as a {@link AjaxSeleniumTestSegment}
+	 * @param area
+	 *            the horizontal and vertical size as a {@link AjaxSeleniumTestArea}
 	 */
-	public AjaxSeleniumTestRectangle(AjaxSeleniumTestPoint location, AjaxSeleniumTestSegment size) {
+	public AjaxSeleniumTestRectangle(AjaxSeleniumTestPoint location, AjaxSeleniumTestArea area) {
 
 		this.location = location;
-		this.size = size;
+		this.area = area;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class AjaxSeleniumTestRectangle {
 	 */
 	public int getWidth() {
 
-		return size.getWidth();
+		return area.getWidth();
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class AjaxSeleniumTestRectangle {
 	 */
 	public int getHeight() {
 
-		return size.getHeight();
+		return area.getHeight();
 	}
 
 	/**
@@ -114,13 +114,13 @@ public class AjaxSeleniumTestRectangle {
 	}
 
 	/**
-	 * The size of this {@link AjaxSeleniumTestRectangle}, as a {@link AjaxSeleniumTestSegment}.
+	 * The size of this {@link AjaxSeleniumTestRectangle}, as a {@link AjaxSeleniumTestArea}.
 	 *
 	 * @return the size of this {@link AjaxSeleniumTestRectangle} (never <i>null</i>)
 	 */
-	public AjaxSeleniumTestSegment getSize() {
+	public AjaxSeleniumTestArea getSize() {
 
-		return size;
+		return area;
 	}
 
 	@Override
@@ -142,6 +142,6 @@ public class AjaxSeleniumTestRectangle {
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(location, size);
+		return Objects.hash(location, area);
 	}
 }

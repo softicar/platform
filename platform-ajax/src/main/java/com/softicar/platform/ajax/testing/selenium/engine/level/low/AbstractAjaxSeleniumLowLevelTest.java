@@ -2,7 +2,6 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.common.testing.AbstractTest;
 import org.junit.Rule;
-import org.junit.runner.RunWith;
 
 /**
  * Base class of low-level Selenium UI tests.
@@ -10,7 +9,6 @@ import org.junit.runner.RunWith;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-@RunWith(AjaxSeleniumLowLevelTestRetryingRunner.class)
 public abstract class AbstractAjaxSeleniumLowLevelTest extends AbstractTest implements IAjaxSeleniumLowLevelTestEngineMethods {
 
 	@Rule public final AjaxSeleniumLowLevelTestEngine testEngine;

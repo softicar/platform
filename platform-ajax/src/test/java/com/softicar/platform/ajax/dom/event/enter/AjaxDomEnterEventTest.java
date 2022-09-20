@@ -17,7 +17,10 @@ public class AjaxDomEnterEventTest extends AbstractAjaxDomEventTest {
 		super(TestDiv::new);
 	}
 
-	// FIXME temporary
+	/**
+	 * For unknown reasons, this test seems to sometimes leave the web driver in
+	 * an inconsistent state. So we discard it afterwards.
+	 */
 	@After
 	public void discardWebDriver() {
 

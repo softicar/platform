@@ -11,13 +11,6 @@ import org.junit.Test;
 
 public class AjaxDocumentCreationWithExceptionTest extends AbstractAjaxSeleniumLowLevelTest {
 
-	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
-
 	private DomBody body;
 
 	@Test
