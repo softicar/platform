@@ -57,7 +57,7 @@ public class AjaxSeleniumWebDriverFactory {
 
 		return new ChromeOptions()//
 			.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.ACCEPT)
-			// Avoid a Chrome memory issue, as per https://stackoverflow.com/a/53970825
+			// Avoid a memory issue with containerized Chrome; see https://stackoverflow.com/a/53970825
 			.addArguments("--disable-dev-shm-usage");
 	}
 

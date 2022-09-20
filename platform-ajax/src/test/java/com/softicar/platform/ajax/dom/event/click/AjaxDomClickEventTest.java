@@ -30,9 +30,9 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	}
 
 	/**
-	 * One or several of the modifier-related tests in this class seem to
-	 * sometimes leave the web driver in an inconsistent state. So we discard it
-	 * after each method.
+	 * One or several of the test methods in this class seem to sometimes leave
+	 * the web driver in an inconsistent state. So we discard it after each test
+	 * method.
 	 */
 	@After
 	public void discardWebDriver() {
