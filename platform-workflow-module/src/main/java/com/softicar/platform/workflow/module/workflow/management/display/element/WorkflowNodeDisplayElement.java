@@ -59,7 +59,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 	private void applyDraggableStyle() {
 
-		getDomEngine().makeDraggable(this, this, null);
+		getDomEngine().makeDraggable(this, this);
 		addCssClass(DomCssPseudoClasses.DRAGGABLE);
 	}
 

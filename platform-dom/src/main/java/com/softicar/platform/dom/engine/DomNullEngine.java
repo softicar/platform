@@ -120,9 +120,9 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode) {
+	public IDomEngine makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode) {
 
-		// nothing to do
+		return this;
 	}
 
 	@Override
@@ -201,6 +201,18 @@ public class DomNullEngine implements IDomEngine {
 	public void setDocumentTitle(String pageTitle) {
 
 		// nothing to do
+	}
+
+	@Override
+	public IDomEngine setDragLimitNode(IDomNode draggedNode, IDomNode limitNode) {
+
+		return this;
+	}
+
+	@Override
+	public IDomEngine setDragScrollNode(IDomNode draggedNode, IDomNode scrollNode) {
+
+		return this;
 	}
 
 	@Override

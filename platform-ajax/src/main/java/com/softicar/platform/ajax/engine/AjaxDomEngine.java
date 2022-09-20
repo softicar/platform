@@ -324,16 +324,33 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode) {
-
-		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
-		JS_call("makeDraggable", draggedNode, dragHandleNode, limitingNode, notifyOnDrop);
-	}
-
-	@Override
 	public void setHeightAndWidthOnLoad(DomImage image, IDomNode targetNode) {
 
 		JS_call("setHeightAndWidthOnLoad", image, targetNode);
+	}
+
+	// -------------------------------- drag and drop -------------------------------- //
+
+	@Override
+	public AjaxDomEngine makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode) {
+
+		var notifyOnDrop = draggedNode instanceof IDomDropEventHandler;
+		JS_call("makeDraggable", draggedNode, dragHandleNode, notifyOnDrop);
+		return this;
+	}
+
+	@Override
+	public AjaxDomEngine setDragLimitNode(IDomNode draggedNode, IDomNode limitNode) {
+
+		JS_call("setDragLimitNode", draggedNode, limitNode);
+		return this;
+	}
+
+	@Override
+	public AjaxDomEngine setDragScrollNode(IDomNode draggedNode, IDomNode scrollNode) {
+
+		JS_call("setDragScrollNode", draggedNode, scrollNode);
+		return this;
 	}
 
 	// -------------------------------- export -------------------------------- //
