@@ -61,7 +61,7 @@ public class ClasspathResourcesValidator implements IJavaCodeValidator {
 			.of(//
 				"META-INF/MANIFEST\\.MF",
 				".*/[^/]*\\.sqml",
-				".*/logback\\.xml");
+				"logback\\.xml");
 
 		private final Collection<Pattern> filePathBlacklistPatterns;
 
