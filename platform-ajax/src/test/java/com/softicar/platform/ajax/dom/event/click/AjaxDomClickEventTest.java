@@ -11,16 +11,17 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// FIXME temporary
-//	@After
-//	public void discardWebDriver() {
-//
-//		testEngine.discardWebDriver();
-//	}
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
 
 	private static final int CLICK_X = 30;
 	private static final int CLICK_Y = 20;
