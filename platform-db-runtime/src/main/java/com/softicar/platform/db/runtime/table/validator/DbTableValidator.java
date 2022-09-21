@@ -100,10 +100,8 @@ public class DbTableValidator<R> extends Assert implements IDbTableValidator {
 			.map(key -> key.getFields().get(0))
 			.collect(Collectors.toCollection(() -> new HashSet<>()));
 
-		int foreignKeyCounter = 0;
 		for (IDbField<R, ?> field: table.getAllFields()) {
 			if (IDbForeignRowField.class.isInstance(field)) {
-				++foreignKeyCounter;
 				var foreignRowField = (IDbForeignRowField<R, ?, ?>) field;
 				Optional<String> foreignKeyName = foreignRowField.getForeignKeyName();
 				if (!foreignKeyName.isPresent()) {
@@ -113,11 +111,11 @@ public class DbTableValidator<R> extends Assert implements IDbTableValidator {
 							table.getFullName(),
 							field.getName());
 				} else {
-					String expectedConstraintPrefix = table.getFullName().getSimpleName() + "_ibfk_" + foreignKeyCounter;
+					String expectedConstraintPrefix = table.getFullName().getSimpleName() + "_ibfk_";
 					if (!foreignKeyName.get().startsWith(expectedConstraintPrefix)) {
 						errors
 							.add(//
-								"The foreign-key constraint on %s.`%s` should be called `%s` but it is called `%s`.",
+								"The foreign-key constraint name on %s.`%s` should start with `%s` but it is `%s`.",
 								table.getFullName(),
 								field.getName(),
 								expectedConstraintPrefix,

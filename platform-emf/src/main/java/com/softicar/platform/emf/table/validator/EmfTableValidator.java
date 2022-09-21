@@ -2,6 +2,7 @@ package com.softicar.platform.emf.table.validator;
 
 import com.softicar.platform.common.code.java.reflection.DeclaredFieldFinder;
 import com.softicar.platform.common.code.java.reflection.TypeParameterAnalyzer;
+import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
@@ -39,11 +40,13 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert impl
 
 	private final IEmfTable<R, ?, ?> table;
 	private final AssertionErrorMessageCollector errors;
+	private final boolean enforceCascadingFks;
 
-	public EmfTableValidator(IEmfTable<R, ?, ?> table) {
+	public EmfTableValidator(IEmfTable<R, ?, ?> table, JavaCodeValidationEnvironment environment) {
 
 		this.table = Objects.requireNonNull(table);
 		this.errors = new AssertionErrorMessageCollector();
+		this.enforceCascadingFks = environment.getConfigurationJsonValueReader().readBoolean("enforceCascadingFks").orElse(true);
 	}
 
 	@Override
@@ -59,7 +62,7 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert impl
 			.validateNoUniqueKeysWithActiveColumn()
 			.validateNoUniqueKeysInLogTable();
 
-		new LogTableValidator<>(table, errors)//
+		new LogTableValidator()//
 			.validateLogTable();
 
 		new PermissionValidator<>(table, errors)//
@@ -233,16 +236,7 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert impl
 		}
 	}
 
-	private static class LogTableValidator<R extends IEmfTableRow<R, ?>> {
-
-		private final IEmfTable<R, ?, ?> table;
-		private final AssertionErrorMessageCollector errors;
-
-		public LogTableValidator(IEmfTable<R, ?, ?> table, AssertionErrorMessageCollector errors) {
-
-			this.table = table;
-			this.errors = errors;
-		}
+	private class LogTableValidator {
 
 		public void validateLogTable() {
 
@@ -285,11 +279,11 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert impl
 				errors.add("Log table %s: The first primary key column must be the table row field.", logTable.getFullName());
 			}
 
-			if (tableRowForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
+			if (enforceCascadingFks && tableRowForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
 				errors.add("Log table %s: The foreign key on the table row field of the primary key must have 'ON DELETE CASCADE'.", logTable.getFullName());
 			}
 
-			if (tableRowForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
+			if (enforceCascadingFks && tableRowForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
 				errors.add("Log table %s: The foreign key on the table row field of the primary key must have 'ON UPDATE CASCADE'.", logTable.getFullName());
 			}
 
@@ -305,11 +299,11 @@ public class EmfTableValidator<R extends IEmfTableRow<R, ?>> extends Assert impl
 				errors.add("Log table %s: The second primary key column must be the transaction field.", logTable.getFullName());
 			}
 
-			if (transactionForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
+			if (enforceCascadingFks && transactionForeignRowField.getOnDelete() != DbForeignKeyAction.CASCADE) {
 				errors.add("Log table %s: The foreign key on the transaction field of the primary key must have 'ON DELETE CASCADE'.", logTable.getFullName());
 			}
 
-			if (transactionForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
+			if (enforceCascadingFks && transactionForeignRowField.getOnUpdate() != DbForeignKeyAction.CASCADE) {
 				errors.add("Log table %s: The foreign key on the transaction field of the primary key must have 'ON UPDATE CASCADE'.", logTable.getFullName());
 			}
 		}

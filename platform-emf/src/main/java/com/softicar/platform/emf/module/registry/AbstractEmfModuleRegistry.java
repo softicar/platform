@@ -1,8 +1,5 @@
 package com.softicar.platform.emf.module.registry;
 
-import com.softicar.platform.common.code.classpath.iterable.ClasspathFileIterable;
-import com.softicar.platform.common.code.classpath.metadata.ClasspathFilesMetadata;
-import com.softicar.platform.common.code.classpath.metadata.IClasspathFilesMetadata;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.extension.EmfModuleExtensionRegistry;
@@ -20,23 +17,15 @@ import java.util.UUID;
  */
 public abstract class AbstractEmfModuleRegistry implements IEmfModuleRegistry {
 
-	private final IClasspathFilesMetadata classpathFilesMetadata;
 	private final EmfModuleMap moduleMap;
 	private final EmfModuleMessageBus messageBus;
 	private final EmfModuleExtensionRegistry extensionRegistry;
 
 	public AbstractEmfModuleRegistry() {
 
-		this.classpathFilesMetadata = new ClasspathFilesMetadata(new ClasspathFileIterable());
 		this.moduleMap = new EmfModuleMap();
 		this.messageBus = new EmfModuleMessageBus();
 		this.extensionRegistry = new EmfModuleExtensionRegistry();
-	}
-
-	@Override
-	public IClasspathFilesMetadata getClasspathFilesMetadata() {
-
-		return classpathFilesMetadata;
 	}
 
 	// -------------------- modules -------------------- //

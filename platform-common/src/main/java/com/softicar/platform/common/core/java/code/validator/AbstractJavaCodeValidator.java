@@ -2,6 +2,7 @@ package com.softicar.platform.common.core.java.code.validator;
 
 import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.classpath.IJavaClasspathRoot;
+import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.java.code.validation.output.IJavaCodeValidationOuput;
 import com.softicar.platform.common.core.java.code.validation.output.JavaCodeViolations;
@@ -19,7 +20,6 @@ public abstract class AbstractJavaCodeValidator implements IJavaCodeValidator, I
 
 	private final Collection<Consumer<Class<?>>> classValidators;
 	private final Collection<Consumer<AnalyzedJavaClass>> analyzedClassValidators;
-	private Predicate<IJavaClasspathRoot> classPathRootFilter;
 	private Predicate<AnalyzedJavaClass> classFilter;
 	private JavaCodeValidationEnvironment environment;
 	private JavaCodeViolations violations;
@@ -28,7 +28,6 @@ public abstract class AbstractJavaCodeValidator implements IJavaCodeValidator, I
 
 		this.classValidators = new ArrayList<>();
 		this.analyzedClassValidators = new ArrayList<>();
-		this.classPathRootFilter = IJavaClasspathRoot::isFolder;
 		this.classFilter = clazz -> true;
 	}
 
@@ -40,11 +39,10 @@ public abstract class AbstractJavaCodeValidator implements IJavaCodeValidator, I
 		this.environment = environment;
 		this.violations = new JavaCodeViolations();
 
-		environment//
-			.getClassPath()
-			.getAllRoots()
+		JavaClasspath//
+			.getInstance()
+			.getPayloadRoots()
 			.stream()
-			.filter(classPathRootFilter)
 			.map(IJavaClasspathRoot::getAnalyzedClasses)
 			.flatMap(Collection::stream)
 			.filter(classFilter)
@@ -67,7 +65,7 @@ public abstract class AbstractJavaCodeValidator implements IJavaCodeValidator, I
 
 	private void validateClass(AnalyzedJavaClass javaClass) {
 
-		environment.logVerbose("%s: Validating class: %s", getClass().getSimpleName(), javaClass.getClassName());
+		environment.logVerbose("Validating class: %s", javaClass.getClassName());
 		assertValidatorsDefined();
 		executeAnalyzedClassValidators(javaClass);
 		executeLoadedClassValidators(javaClass);
@@ -94,11 +92,6 @@ public abstract class AbstractJavaCodeValidator implements IJavaCodeValidator, I
 	}
 
 	// ------------------------------ configuration ------------------------------ //
-
-	protected void setClassPathRootFilter(Predicate<IJavaClasspathRoot> classPathRootFilter) {
-
-		this.classPathRootFilter = classPathRootFilter;
-	}
 
 	protected void setClassFilter(Predicate<AnalyzedJavaClass> classFilter) {
 

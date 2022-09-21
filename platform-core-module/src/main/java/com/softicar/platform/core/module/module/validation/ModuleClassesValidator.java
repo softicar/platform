@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.module.validation;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
+import com.softicar.platform.common.core.annotations.TestingOnly;
+import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.classes.name.JavaClassName;
 import com.softicar.platform.common.core.java.classes.name.matcher.IJavaClassNameMatcher;
 import com.softicar.platform.common.core.java.classes.name.matcher.JavaClassNameGlobPatternMatcher;
@@ -23,7 +25,7 @@ public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 
 	public ModuleClassesValidator() {
 
-		setClassFilter(javaClass -> hasAnnotation(javaClass, SourceCodeReferencePointUuid.class));
+		setClassFilter(this::isSourceCodeReferencePointAndNotTestingOnly);
 		addClassValidator(this::validateModuleSuperType);
 		addClassValidator(this::validateModuleClassName);
 	}
@@ -62,5 +64,10 @@ public class ModuleClassesValidator extends AbstractJavaCodeValidator {
 	private boolean isModuleClass(Class<?> javaClass) {
 
 		return IEmfModule.class.isAssignableFrom(javaClass);
+	}
+
+	private boolean isSourceCodeReferencePointAndNotTestingOnly(AnalyzedJavaClass javaClass) {
+
+		return hasAnnotation(javaClass, SourceCodeReferencePointUuid.class) && !hasAnnotation(javaClass, TestingOnly.class);
 	}
 }

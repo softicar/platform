@@ -1,6 +1,7 @@
 package com.softicar.platform.common.io.serialization.json;
 
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.common.testing.Asserts;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
@@ -34,8 +35,7 @@ public class JsonValueReaderTest extends AbstractTest {
 	public void testReadValueWithValueArray() {
 
 		var reader = createReader();
-		Optional<String> value = reader.readValue("$.outerElement.innerArray");
-		assertFalse(value.isPresent());
+		Asserts.assertException(ClassCastException.class, () -> reader.readValue("$.outerElement.innerArray"));
 	}
 
 	@Test
