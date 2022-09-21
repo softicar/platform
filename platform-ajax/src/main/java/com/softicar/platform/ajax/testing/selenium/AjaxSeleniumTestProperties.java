@@ -23,11 +23,8 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Integer> DRIVER_PAGE_LOAD_TIMEOUT = FACTORY.createIntegerProperty("driver.page.load.timeout", null);
 	public static final IProperty<Boolean> DRIVER_REUSE = FACTORY.createBooleanProperty("driver.reuse", true);
 	public static final IProperty<Integer> DRIVER_SCRIPT_TIMEOUT = FACTORY.createIntegerProperty("driver.script.timeout", null);
-	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_X = FACTORY.createIntegerProperty("driver.window.resolution.x", 1920);
-	public static final IProperty<Integer> DRIVER_WINDOW_RESOLUTION_Y = FACTORY.createIntegerProperty("driver.window.resolution.y", 1080);
-
-	// Engine
-	public static final IProperty<Integer> ENGINE_LEVEL_LOW_RETRY_COUNT = FACTORY.createIntegerProperty("engine.level.low.retry.count", 0);
+	public static final IProperty<Integer> DRIVER_VIEWPORT_SIZE_X = FACTORY.createIntegerProperty("driver.viewport.size.x", 1920);
+	public static final IProperty<Integer> DRIVER_VIEWPORT_SIZE_Y = FACTORY.createIntegerProperty("driver.viewport.size.y", 1080);
 
 	// Execution
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FAILURE = FACTORY.createBooleanProperty("execution.screenshot.on.failure", false);
@@ -56,15 +53,10 @@ public class AjaxSeleniumTestProperties {
 	// Selenium Network
 	public static final IProperty<String> NETWORK_SUBNETWORK = FACTORY.createStringProperty("network.subnetwork", "172.0.0.0/24");
 
-	// Selenium Node (Chrome)
-	public static final IProperty<BigDecimal> NODE_CHROME_FACTOR = FACTORY.createBigDecimalProperty("node.chrome.factor", BigDecimal.ZERO);
-	public static final IProperty<String> NODE_CHROME_IMAGE_NAME = FACTORY.createStringProperty("node.chrome.image.name", "node-chrome");
-	public static final IProperty<String> NODE_CHROME_NAME_PREFIX = FACTORY.createStringProperty("node.chrome.name.prefix", "selenium-node-chrome");
-
-	// Selenium Node (Firefox)
-	public static final IProperty<BigDecimal> NODE_FIREFOX_FACTOR = FACTORY.createBigDecimalProperty("node.firefox.factor", new BigDecimal("1.5"));
-	public static final IProperty<String> NODE_FIREFOX_IMAGE_NAME = FACTORY.createStringProperty("node.firefox.image.name", "node-firefox");
-	public static final IProperty<String> NODE_FIREFOX_NAME_PREFIX = FACTORY.createStringProperty("node.firefox.name.prefix", "selenium-node-firefox");
+	// Selenium Node
+	public static final IProperty<BigDecimal> NODE_FACTOR = FACTORY.createBigDecimalProperty("node.factor", new BigDecimal("1.5"));
+	public static final IProperty<String> NODE_IMAGE_NAME = FACTORY.createStringProperty("node.image.name", "node-chrome");
+	public static final IProperty<String> NODE_NAME_PREFIX = FACTORY.createStringProperty("node.name.prefix", "selenium-node-chrome");
 
 	// Server
 	public static final IProperty<String> SERVER_IP = FACTORY.createStringProperty("server.ip", "172.0.0.1");

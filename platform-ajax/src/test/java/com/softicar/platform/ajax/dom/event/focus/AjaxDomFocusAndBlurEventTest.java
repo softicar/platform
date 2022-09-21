@@ -55,8 +55,8 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		assertEvent(events.get(2), testDiv.input2, DomEventType.CLICK);
 
 		// reset default behavior for mouse down on second input
-		click(testDiv.resetButton);
-		events.clear();
+		click(testDiv.unpreventButton);
+		click(testDiv.clearEventsButton);
 		clickFirstInputAndEnterTextAndThenClickSecondInput("bar");
 
 		// assert normal event sequence
@@ -88,7 +88,8 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 		public final TestInput input1;
 		public final TestInput input2;
 		public final DomButton preventButton;
-		public final DomButton resetButton;
+		public final DomButton unpreventButton;
+		public final DomButton clearEventsButton;
 
 		public TestDiv() {
 
@@ -97,14 +98,18 @@ public class AjaxDomFocusAndBlurEventTest extends AbstractAjaxSeleniumLowLevelTe
 			this.preventButton = new DomButton()//
 				.setLabel("Prevent")
 				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, true));
-			this.resetButton = new DomButton()//
-				.setLabel("Reset")
+			this.unpreventButton = new DomButton()//
+				.setLabel("Unprevent")
 				.setClickCallback(() -> getDomEngine().setPreventDefaultOnMouseDown(input2, false));
+			clearEventsButton = new DomButton()//
+				.setLabel("ClearEvents")
+				.setClickCallback(() -> events.clear());
 
 			appendChild(input1);
 			appendChild(input2);
 			appendChild(preventButton);
-			appendChild(resetButton);
+			appendChild(unpreventButton);
+			appendChild(clearEventsButton);
 		}
 	}
 

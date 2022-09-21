@@ -15,7 +15,6 @@ import org.junit.runner.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Base class of Selenium based UI test engines which can be used in a JUnit
@@ -46,7 +45,6 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 
 		// "defaultLogLevel" refers to a system property of the employed logging library.
 		System.setProperty("defaultLogLevel", "ERROR");
-		System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
 		// Be less verbose when allocating web drivers.
 		Logger.getLogger("org.openqa.selenium").setLevel(Level.WARNING);

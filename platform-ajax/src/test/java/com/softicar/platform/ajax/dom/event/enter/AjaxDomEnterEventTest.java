@@ -7,6 +7,7 @@ import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomKeys;
 import com.softicar.platform.dom.event.IDomEnterKeyEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomEnterEventTest extends AbstractAjaxDomEventTest {
@@ -14,6 +15,16 @@ public class AjaxDomEnterEventTest extends AbstractAjaxDomEventTest {
 	public AjaxDomEnterEventTest() {
 
 		super(TestDiv::new);
+	}
+
+	/**
+	 * For unknown reasons, this test seems to sometimes leave the web driver in
+	 * an inconsistent state. So we discard it afterwards.
+	 */
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
 	}
 
 	@Test

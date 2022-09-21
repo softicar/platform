@@ -134,4 +134,10 @@ public class DomTestEvent implements IDomEvent {
 
 		return false;
 	}
+
+	@Override
+	public String toString() {
+
+		return "DomTestEvent [target=" + target + ", eventType=" + eventType + "]";
+	}
 }

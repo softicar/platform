@@ -23,8 +23,7 @@ public class SeleniumGridConfigurationBySystemPropertyFactory {
 
 		return createGridConfiguration()
 			.setHubConfiguration(createHubConfiguration())
-			.addNodeConfiguration(createChromeNodeConfiguration())
-			.addNodeConfiguration(createFirefoxNodeConfiguration())
+			.setNodeConfiguration(createNodeConfiguration())
 			.setNetworkConfiguration(createNetworkConfiguration())
 			.validate();
 	}
@@ -51,20 +50,12 @@ public class SeleniumGridConfigurationBySystemPropertyFactory {
 			.setSessionTimeout(AjaxSeleniumTestProperties.HUB_SESSION_TIMEOUT);
 	}
 
-	private SeleniumNodeConfiguration createChromeNodeConfiguration() {
+	private SeleniumNodeConfiguration createNodeConfiguration() {
 
 		return new SeleniumNodeConfiguration()//
-			.setImageName(AjaxSeleniumTestProperties.NODE_CHROME_IMAGE_NAME)
-			.setNamePrefix(AjaxSeleniumTestProperties.NODE_CHROME_NAME_PREFIX)
-			.setFactor(AjaxSeleniumTestProperties.NODE_CHROME_FACTOR);
-	}
-
-	private SeleniumNodeConfiguration createFirefoxNodeConfiguration() {
-
-		return new SeleniumNodeConfiguration()//
-			.setImageName(AjaxSeleniumTestProperties.NODE_FIREFOX_IMAGE_NAME)
-			.setNamePrefix(AjaxSeleniumTestProperties.NODE_FIREFOX_NAME_PREFIX)
-			.setFactor(AjaxSeleniumTestProperties.NODE_FIREFOX_FACTOR);
+			.setImageName(AjaxSeleniumTestProperties.NODE_IMAGE_NAME)
+			.setNamePrefix(AjaxSeleniumTestProperties.NODE_NAME_PREFIX)
+			.setFactor(AjaxSeleniumTestProperties.NODE_FACTOR);
 	}
 
 	private SeleniumNetworkConfiguration createNetworkConfiguration() {

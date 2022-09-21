@@ -21,6 +21,7 @@ import com.softicar.platform.dom.input.DomOption;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.ICssClass;
+import com.softicar.platform.dom.styles.CssPosition;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
@@ -216,33 +217,6 @@ public interface IDomEngine {
 	void scheduleTimeout(IDomTimeoutNode timeoutNode, Double seconds);
 
 	/**
-	 * Makes an {@link IDomNode} movable via drag-and-drop.
-	 * <p>
-	 * The given dragged {@link IDomNode} needs to have CSS style
-	 * {@code "position: absolute"}.
-	 * <p>
-	 * The given drag handle {@link IDomNode} may or may not be the same as the
-	 * given dragged {@link IDomNode}.
-	 * <p>
-	 * If a limiting {@link IDomNode} is given, the top and left edges of its
-	 * bounding box will serve as boundaries for dragging. If no limiting
-	 * {@link IDomNode} is given, the top and left edges of the viewport will
-	 * serve as boundaries.
-	 *
-	 * @param draggedNode
-	 *            the {@link IDomNode} that shall be moved by dragging (never
-	 *            <i>null</i>)
-	 * @param dragHandleNode
-	 *            the {@link IDomNode} that the user needs to drag (never
-	 *            <i>null</i>)
-	 * @param limitingNode
-	 *            an {@link IDomNode} that defines top and left boundaries below
-	 *            which the dragged {@link IDomNode} cannot be moved (may be
-	 *            <i>null</i>)
-	 */
-	void makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode, IDomNode limitingNode);
-
-	/**
 	 * Sets the height and width attributes of the target node to its computed
 	 * values when the loading of the given {@link DomImage} is finished.
 	 *
@@ -254,7 +228,57 @@ public interface IDomEngine {
 	 */
 	void setHeightAndWidthOnLoad(DomImage image, IDomNode targetNode);
 
-	// -------------------------------- alert, confirm, prompt, export -------------------------------- //
+	// -------------------------------- drag and drop -------------------------------- //
+
+	/**
+	 * Makes an {@link IDomNode} movable via drag-and-drop.
+	 * <p>
+	 * The dragged {@link IDomNode} either needs to have
+	 * {@link CssPosition#ABSOLUTE} or {@link CssPosition#RELATIVE} defined, or
+	 * a scroll box has to be defined by calling {@link #setDragScrollNode}.
+	 * <p>
+	 * The given drag handle {@link IDomNode} may or may not be the same as the
+	 * given dragged {@link IDomNode}.
+	 *
+	 * @param draggedNode
+	 *            the {@link IDomNode} that shall be moved by dragging (never
+	 *            <i>null</i>)
+	 * @param dragHandleNode
+	 *            the {@link IDomNode} that the user needs to drag (never
+	 *            <i>null</i>)
+	 * @return this
+	 */
+	IDomEngine makeDraggable(IDomNode draggedNode, IDomNode dragHandleNode);
+
+	/**
+	 * Limits the mouse cursor to the bounding box of the given {@link IDomNode}
+	 * while dragging.
+	 * <p>
+	 * The bounding box of the limit {@link IDomNode} will serve as boundaries
+	 * for dragging.
+	 *
+	 * @param draggedNode
+	 *            the {@link IDomNode} being dragged (never <i>null</i>)
+	 * @param limitNode
+	 *            the {@link IDomNode} limiting the dragging area (never
+	 *            <i>null</i>)
+	 * @return this
+	 */
+	IDomEngine setDragLimitNode(IDomNode draggedNode, IDomNode limitNode);
+
+	/**
+	 * Instead of dragging the given {@link IDomNode} freely, only the scroll
+	 * position of the specified {@link IDomNode} is changed.
+	 *
+	 * @param draggedNode
+	 *            the {@link IDomNode} being dragged (never <i>null</i>)
+	 * @param scrollNode
+	 *            the {@link IDomNode} being scrolled (never <i>null</i>)
+	 * @return this
+	 */
+	IDomEngine setDragScrollNode(IDomNode draggedNode, IDomNode scrollNode);
+
+	// -------------------------------- export -------------------------------- //
 
 	IDomExport createExport();
 

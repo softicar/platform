@@ -6,6 +6,7 @@ import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.style.CssPercent;
 import com.softicar.platform.dom.style.CssStyle;
+import com.softicar.platform.dom.styles.CssPosition;
 
 class DomImageViewerImageHolder extends DomDiv {
 
@@ -18,7 +19,9 @@ class DomImageViewerImageHolder extends DomDiv {
 		addMarker(DomTestMarker.IMAGE_VIEWER_IMAGE_HOLDER);
 		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE_HOLDER);
 
-		getDomEngine().makeDraggable(this, this, canvas);
+		getDomEngine()//
+			.makeDraggable(this, this)
+			.setDragScrollNode(this, canvas);
 	}
 
 	public void showImage(IResource resource) {
@@ -35,14 +38,17 @@ class DomImageViewerImageHolder extends DomDiv {
 
 	public void applyTransformations() {
 
-		var left = "0";
 		var rotation = "0";
 		var translationPercentage = 0;
 
 		// center image when zoomed out
 		if (viewer.getZoomLevel().getPercentage() < 100) {
-			left = "50%";
+			setStyle(CssPosition.RELATIVE);
+			setStyle(CssStyle.LEFT, new CssPercent(50));
 			translationPercentage = -50;
+		} else {
+			unsetStyle(CssStyle.POSITION);
+			unsetStyle(CssStyle.LEFT);
 		}
 
 		// rotate by 180 degrees
@@ -51,7 +57,6 @@ class DomImageViewerImageHolder extends DomDiv {
 			translationPercentage = -translationPercentage;
 		}
 
-		setStyle(CssStyle.LEFT, left);
 		setStyle(CssStyle.TRANSFORM, "rotate(%s) translate(%s%%, 0)".formatted(rotation, translationPercentage));
 		setStyle(CssStyle.WIDTH, new CssPercent(viewer.getZoomLevel().getPercentage()));
 	}

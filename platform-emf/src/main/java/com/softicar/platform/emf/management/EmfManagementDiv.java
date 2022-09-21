@@ -6,6 +6,7 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
+import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.sql.ISqlBooleanExpression;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -110,7 +111,7 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 	@Override
 	public void refresh(IDomRefreshBusEvent event) {
 
-		if (event.isAnyObjectChanged(entityTable.getValueClass())) {
+		if (event.isAnyObjectChanged(IDbTableRow.class)) {
 			tableDiv.refresh();
 			refreshable.ifPresent(IRefreshable::refresh);
 		}

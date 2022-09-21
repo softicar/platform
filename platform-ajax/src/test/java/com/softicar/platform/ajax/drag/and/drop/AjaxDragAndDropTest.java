@@ -29,6 +29,7 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 		final int yOffset = 17;
 
 		dragAndDrop(anchorDiv, xOffset, yOffset);
+		waitForServer();
 
 		AjaxSeleniumTestPoint finalPosition = getRectangle(targetDiv).getLocation();
 
@@ -51,7 +52,7 @@ public class AjaxDragAndDropTest extends AbstractAjaxSeleniumLowLevelTest {
 			this.dragAnchorDiv = dragTargetDiv.appendChild(new Div(50, 50));
 			this.dragAnchorDiv.setBackgroundColor(DomColorEnum.YELLOW);
 
-			getDomEngine().makeDraggable(dragTargetDiv, dragAnchorDiv, null);
+			getDomEngine().makeDraggable(dragTargetDiv, dragAnchorDiv);
 		}
 
 		public DomDiv getDragTargetDiv() {

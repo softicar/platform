@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.dom.event.click;
 
 import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestSegment;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.DomModifier;
@@ -11,6 +11,7 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
+import org.junit.After;
 import org.junit.Test;
 
 public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -28,11 +29,22 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.testDiv = backgroundDiv.getTestDiv();
 	}
 
+	/**
+	 * One or several of the test methods in this class seem to sometimes leave
+	 * the web driver in an inconsistent state. So we discard it after each test
+	 * method.
+	 */
+	@After
+	public void discardWebDriver() {
+
+		testEngine.discardWebDriver();
+	}
+
 	@Test
 	public void test() {
 
 		// click at specific location
-		AjaxSeleniumTestSegment viewportSize = getViewportSize();
+		AjaxSeleniumTestArea viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
 		AjaxSeleniumTestRectangle divRectangle = getRectangle(testDiv);
 		clickAt(testDiv, CLICK_X, CLICK_Y);
@@ -62,14 +74,14 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 	public void testWithScrolledWindow() {
 
 		// make viewport small enough for scrolling
-		AjaxSeleniumTestSegment backgroundDivSize = getSize(backgroundDiv);
+		AjaxSeleniumTestArea backgroundDivSize = getSize(backgroundDiv);
 		setViewportSize(backgroundDivSize.getWidth() - SCROLL_X, backgroundDivSize.getHeight() - SCROLL_Y);
 
 		// scroll the window
 		scrollTo(SCROLL_X, SCROLL_Y);
 
 		// click at specific location
-		AjaxSeleniumTestSegment viewportSize = getViewportSize();
+		AjaxSeleniumTestArea viewportSize = getViewportSize();
 		AjaxSeleniumTestPoint divLocation = getLocation(testDiv);
 		AjaxSeleniumTestRectangle divRectangle = getRectangle(testDiv);
 		clickAt(testDiv, CLICK_X, CLICK_Y);

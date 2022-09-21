@@ -79,6 +79,7 @@ public class AjaxDomModalAlertDialogTest extends AbstractAjaxSeleniumLowLevelTes
 
 		var alert = showAlert();
 		send(alert.getFrame(), Key.TAB);
+		waitForServer();
 		assertFocused(alert.getCloseButton());
 	}
 
@@ -87,6 +88,7 @@ public class AjaxDomModalAlertDialogTest extends AbstractAjaxSeleniumLowLevelTes
 
 		var alert = showAlert();
 		send(alert.getCloseButton(), Key.TAB);
+		waitForServer();
 		assertFocused(alert.getFrame());
 	}
 
