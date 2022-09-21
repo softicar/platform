@@ -42,7 +42,7 @@ public class JsonValueReader {
 	 * {@link String}.
 	 * <p>
 	 * Returns an empty {@link Optional} if no such path exists inside the JSON
-	 * {@link String}, or if the path points to an array of values.
+	 * {@link String}.
 	 *
 	 * @param path
 	 *            the path, in "JsonPath" syntax (never <i>null</i>)
@@ -50,13 +50,25 @@ public class JsonValueReader {
 	 */
 	public Optional<String> readValue(String path) {
 
-		try {
-			String value = readInternal(path);
-			return Optional.ofNullable(value);
-		} catch (ClassCastException exception) {
-			DevNull.swallow(exception);
-			return Optional.empty();
-		}
+		String value = readInternal(path);
+		return Optional.ofNullable(value);
+	}
+
+	/**
+	 * Reads a {@link Boolean} value from the given path inside the JSON
+	 * {@link String}.
+	 * <p>
+	 * Returns an empty {@link Optional} if no such path exists inside the JSON
+	 * {@link String}.
+	 *
+	 * @param path
+	 *            the path, in "JsonPath" syntax (never <i>null</i>)
+	 * @return the {@link Boolean} value to which the given path points
+	 */
+	public Optional<Boolean> readBoolean(String path) {
+
+		Boolean value = readInternal(path);
+		return Optional.ofNullable(value);
 	}
 
 	/**

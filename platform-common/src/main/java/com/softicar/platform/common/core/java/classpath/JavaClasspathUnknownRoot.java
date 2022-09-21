@@ -1,6 +1,6 @@
 package com.softicar.platform.common.core.java.classpath;
 
-import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
+import com.softicar.platform.common.io.classpath.file.IClasspathFile;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +19,13 @@ public class JavaClasspathUnknownRoot extends AbstractJavaClasspathRoot {
 	}
 
 	@Override
-	protected Collection<AnalyzedJavaClass> analyzeClasses() {
+	public String toString() {
+
+		return getFile().getAbsolutePath();
+	}
+
+	@Override
+	public Collection<IClasspathFile> getAllFiles() {
 
 		return Collections.emptyList();
 	}

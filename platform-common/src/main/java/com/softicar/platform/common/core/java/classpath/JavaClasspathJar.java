@@ -1,9 +1,8 @@
 package com.softicar.platform.common.core.java.classpath;
 
-import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
-import com.softicar.platform.common.core.java.classes.analyzer.JavaClassAnalyzer;
 import com.softicar.platform.common.core.java.jar.JarFile;
-import com.softicar.platform.common.core.java.jar.JarFileEntry;
+import com.softicar.platform.common.io.classpath.file.IClasspathFile;
+import com.softicar.platform.common.io.classpath.file.ZipClasspathFile;
 import java.io.File;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -21,23 +20,19 @@ public class JavaClasspathJar extends AbstractJavaClasspathRoot {
 	}
 
 	@Override
-	protected Collection<AnalyzedJavaClass> analyzeClasses() {
+	public String toString() {
+
+		return getFile().getName();
+	}
+
+	@Override
+	public Collection<IClasspathFile> getAllFiles() {
 
 		return new JarFile(getFile())//
 			.getEntries()
 			.stream()
-			.filter(this::isClassFile)
-			.map(this::analyzeClass)
+			.filter(entry -> !entry.isFolder())
+			.map(entry -> new ZipClasspathFile(getFile(), entry.getPath(), false))
 			.collect(Collectors.toList());
-	}
-
-	private boolean isClassFile(JarFileEntry entry) {
-
-		return entry.getPath().endsWith(".class");
-	}
-
-	private AnalyzedJavaClass analyzeClass(JarFileEntry jarFileEntry) {
-
-		return new JavaClassAnalyzer(jarFileEntry::getInputStream).analyze();
 	}
 }

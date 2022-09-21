@@ -1,7 +1,5 @@
 package com.softicar.platform.common.code.reference.point;
 
-import com.softicar.platform.common.core.java.classes.name.JavaClassName;
-
 /**
  * This exception is thrown if the instantiation of an
  * {@link ISourceCodeReferencePoint} fails.
@@ -10,8 +8,8 @@ import com.softicar.platform.common.core.java.classes.name.JavaClassName;
  */
 public class SourceCodeReferencePointLoadingException extends RuntimeException {
 
-	public SourceCodeReferencePointLoadingException(JavaClassName className, Exception cause) {
+	public SourceCodeReferencePointLoadingException(Class<?> referencePointClass, Exception cause) {
 
-		super(String.format("Failed to load %s class: %s", ISourceCodeReferencePoint.class.getSimpleName(), className), cause);
+		super("Failed to load %s class: %s".formatted(ISourceCodeReferencePoint.class.getSimpleName(), referencePointClass.getCanonicalName()), cause);
 	}
 }

@@ -1,7 +1,7 @@
 package com.softicar.platform.common.core.java.classpath;
 
-import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
-import com.softicar.platform.common.core.java.classes.analyzer.JavaClassAnalyzer;
+import com.softicar.platform.common.io.classpath.file.IClasspathFile;
+import com.softicar.platform.common.io.classpath.file.PlainClasspathFile;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,34 +24,19 @@ public class JavaClasspathRootFolder extends AbstractJavaClasspathRoot {
 		addFilesDeep(file);
 	}
 
-	public Collection<File> getFiles() {
+	@Override
+	public String toString() {
 
-		return files;
+		return getFile().getAbsolutePath();
 	}
 
 	@Override
-	protected Collection<AnalyzedJavaClass> analyzeClasses() {
+	public Collection<IClasspathFile> getAllFiles() {
 
-		return getFiles()//
+		return files//
 			.stream()
-			.filter(this::isClassFile)
-			.map(this::analyzeClass)
+			.map(file -> new PlainClasspathFile(getFile(), file))
 			.collect(Collectors.toList());
-	}
-
-	private boolean isClassFile(File file) {
-
-		return file.getName().endsWith(".class");
-	}
-
-	private AnalyzedJavaClass analyzeClass(File file) {
-
-		try {
-			return new JavaClassAnalyzer(file).analyze();
-		} catch (Exception exception) {
-			System.out.printf("failed: %s\n", file.getName());
-			throw exception;
-		}
 	}
 
 	private void addFilesDeep(File currentFolder) {

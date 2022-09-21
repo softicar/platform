@@ -1,11 +1,13 @@
 package com.softicar.platform.common.core.utils;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Optional;
 
 /**
  * This class contains static utility methods for Java reflection.
@@ -159,7 +161,73 @@ public class ReflectionUtils {
 		}
 	}
 
+	/**
+	 * Tests whether the given {@link Class} has the given {@link Annotation}.
+	 *
+	 * @param javaClass
+	 *            the {@link Class} to test (never <i>null</i>)
+	 * @param annotationClass
+	 *            the {@link Annotation} to test for (never <i>null</i>)
+	 * @return <i>true</i> if the given class has the specified
+	 *         {@link Annotation}; <i>false</i> otherwise
+	 */
+	public static boolean hasAnnotation(Class<?> javaClass, Class<? extends Annotation> annotationClass) {
+
+		return javaClass.getAnnotation(annotationClass) != null;
+	}
+
+	/**
+	 * Determines whether the given {@link Class} carries the "public" modifier.
+	 *
+	 * @param javaClass
+	 *            the {@link Class} to test (never <i>null</i>)
+	 * @return <i>true</i> if the {@link Class} is "public"; <i>false</i>
+	 *         otherwise
+	 */
+	public static boolean isPublic(Class<?> javaClass) {
+
+		return Modifier.isPublic(javaClass.getModifiers());
+	}
+
 	// -------------------------------- fields -------------------------------- //
+
+	/**
+	 * Tries to find a declared {@link Field} with the given name in the given
+	 * {@link Class}.
+	 *
+	 * @param javaClass
+	 *            the {@link Class} (never <i>null</i>)
+	 * @param name
+	 *            the {@link Field} name (never <i>null</i>)
+	 * @return the declared {@link Field}
+	 */
+	public static Optional<Field> getDeclaredField(Class<?> javaClass, String name) {
+
+		try {
+			return Optional.of(javaClass.getDeclaredField(name));
+		} catch (NoSuchFieldException exception) {
+			DevNull.swallow(exception);
+			return Optional.empty();
+		}
+	}
+
+	/**
+	 * Returns the declared {@link Field} with the given name in the given
+	 * {@link Class}.
+	 *
+	 * @param javaClass
+	 *            the {@link Class} (never <i>null</i>)
+	 * @param name
+	 *            the {@link Field} name (never <i>null</i>)
+	 * @return the declared {@link Field}
+	 * @throws RuntimeException
+	 *             if no matching field was found
+	 */
+	public static Field getDeclaredFieldOrThrow(Class<?> javaClass, String name) {
+
+		return getDeclaredField(javaClass, name)//
+			.orElseThrow(() -> new RuntimeException("Missing declared field: %s.%s".formatted(javaClass.getCanonicalName(), name)));
+	}
 
 	/**
 	 * Determines whether the given {@link Field} carries each of the "public",

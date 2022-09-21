@@ -1,7 +1,12 @@
 package com.softicar.platform.common.core.java.classpath;
 
+import com.softicar.platform.common.core.java.classpath.finder.JavaClasspathFinder;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Represents the class path of the JVM.
@@ -10,46 +15,51 @@ import java.util.Collection;
  */
 public class JavaClasspath {
 
-	private final Collection<IJavaClasspathRoot> allRoots;
-	private final Collection<JavaClasspathRootFolder> rootFolders;
-	private final Collection<JavaClasspathJar> jars;
+	private static final JavaClasspath INSTANCE = new JavaClasspath();
+	private final Collection<IJavaClasspathRoot> roots;
+	private Predicate<IJavaClasspathRoot> payloadFilter;
 
-	public JavaClasspath() {
+	private JavaClasspath() {
 
-		this.allRoots = new ArrayList<>();
-		this.rootFolders = new ArrayList<>();
-		this.jars = new ArrayList<>();
+		this.roots = loadRoots();
+		this.payloadFilter = new JavaClasspathRootFilter();
+	}
+
+	public static JavaClasspath getInstance() {
+
+		return INSTANCE;
 	}
 
 	public Collection<IJavaClasspathRoot> getAllRoots() {
 
-		return allRoots;
+		return Collections.unmodifiableCollection(roots);
 	}
 
-	public Collection<JavaClasspathRootFolder> getRootFolders() {
+	public synchronized Collection<IJavaClasspathRoot> getPayloadRoots() {
 
-		return rootFolders;
+		return roots//
+			.stream()
+			.filter(payloadFilter)
+			.collect(Collectors.toList());
 	}
 
-	public Collection<JavaClasspathJar> getJars() {
+	public synchronized void setPayloadFilter(Predicate<IJavaClasspathRoot> payloadFilter) {
 
-		return jars;
+		this.payloadFilter = payloadFilter;
 	}
 
-	void addRootFolder(JavaClasspathRootFolder rootFolder) {
+	private static Collection<IJavaClasspathRoot> loadRoots() {
 
-		addRoot(rootFolder);
-		this.rootFolders.add(rootFolder);
-	}
-
-	void addJar(JavaClasspathJar jar) {
-
-		addRoot(jar);
-		this.jars.add(jar);
-	}
-
-	void addRoot(IJavaClasspathRoot root) {
-
-		this.allRoots.add(root);
+		var roots = new ArrayList<IJavaClasspathRoot>();
+		for (File classPathRoot: new JavaClasspathFinder().findAll()) {
+			if (classPathRoot.isDirectory()) {
+				roots.add(new JavaClasspathRootFolder(classPathRoot));
+			} else if (classPathRoot.getName().endsWith(".jar")) {
+				roots.add(new JavaClasspathJar(classPathRoot));
+			} else {
+				roots.add(new JavaClasspathUnknownRoot(classPathRoot));
+			}
+		}
+		return roots;
 	}
 }

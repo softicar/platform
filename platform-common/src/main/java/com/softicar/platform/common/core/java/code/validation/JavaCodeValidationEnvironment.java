@@ -1,26 +1,26 @@
 package com.softicar.platform.common.core.java.code.validation;
 
-import com.softicar.platform.common.core.java.classpath.JavaClasspath;
-import com.softicar.platform.common.core.java.classpath.JavaClasspathLoader;
+import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.io.serialization.json.JsonValueReader;
 import java.util.Arrays;
 
 public class JavaCodeValidationEnvironment {
 
-	private final JavaClasspath classPath;
+	private static final String JAR_FILTER_PARAMETER_NAME = "jarFilterRegex";
 	private final boolean verbose;
 	private final JsonValueReader jsonValueReader;
+	private final String jarFilterRegex;
+	private String logPrefix;
 
 	public JavaCodeValidationEnvironment(String[] arguments) {
 
-		this.classPath = new JavaClasspathLoader().load();
-		this.jsonValueReader = new JsonValueReader(getConfigurationJsonParameter(arguments));
 		this.verbose = parseVerboseParameter(arguments);
-	}
+		this.jsonValueReader = new JsonValueReader(getConfigurationJsonParameter(arguments));
+		this.jarFilterRegex = jsonValueReader//
+			.readValue(JAR_FILTER_PARAMETER_NAME)
+			.orElseThrow(() -> new SofticarDeveloperException("Missing validator configuration parameter: %s", JAR_FILTER_PARAMETER_NAME));
+		this.logPrefix = "";
 
-	public JavaClasspath getClassPath() {
-
-		return classPath;
 	}
 
 	public JsonValueReader getConfigurationJsonValueReader() {
@@ -28,11 +28,26 @@ public class JavaCodeValidationEnvironment {
 		return jsonValueReader;
 	}
 
+	public String getJarFilterRegex() {
+
+		return jarFilterRegex;
+	}
+
+	public void logVerbose(Class<?> context, String message, Object...arguments) {
+
+		logVerbose(context.getSimpleName() + ": " + message.formatted(arguments));
+	}
+
 	public void logVerbose(String message, Object...arguments) {
 
 		if (verbose) {
-			System.err.println(String.format(message, arguments));
+			System.err.println(logPrefix + String.format(message, arguments));
 		}
+	}
+
+	void setLogPrefix(String logPrefix) {
+
+		this.logPrefix = logPrefix;
 	}
 
 	private String getConfigurationJsonParameter(String[] arguments) {

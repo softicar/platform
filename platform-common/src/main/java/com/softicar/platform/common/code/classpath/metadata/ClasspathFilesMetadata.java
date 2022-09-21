@@ -2,15 +2,14 @@ package com.softicar.platform.common.code.classpath.metadata;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.java.classpath.JavaClasspath;
 import com.softicar.platform.common.io.classfile.ClassFile;
-import com.softicar.platform.common.io.classpath.file.IClasspathFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -22,30 +21,38 @@ import java.util.stream.Collectors;
  */
 public class ClasspathFilesMetadata implements IClasspathFilesMetadata {
 
-	private static final String CLASS_FILENAME_ENDING = ".class";
+	private static final ClasspathFilesMetadata INSTANCE = new ClasspathFilesMetadata();
 	private static final String MODULE_INFO_CLASS_FILENAME = "module-info.class";
 	private final Map<String, Set<String>> extendingClasses;
 	private final Map<String, Set<String>> implementingClasses;
 	private final Map<String, Set<String>> annotatedClasses;
 
-	public ClasspathFilesMetadata(Iterable<IClasspathFile> iterable) {
+	private ClasspathFilesMetadata() {
 
 		extendingClasses = new TreeMap<>();
 		implementingClasses = new TreeMap<>();
 		annotatedClasses = new TreeMap<>();
-		for (IClasspathFile file: Objects.requireNonNull(iterable)) {
-			if (file.getName().endsWith(CLASS_FILENAME_ENDING) && !file.getName().equals(MODULE_INFO_CLASS_FILENAME)) {
-				try (InputStream inputStream = file.getInputStream()) {
-					ClassFile classFile = new ClassFile(inputStream);
 
-					parseMetadata(extendingClasses, classFile, Collections.singleton(classFile.getSuperClass()));
-					parseMetadata(implementingClasses, classFile, classFile.getInterfaces());
-					parseMetadata(annotatedClasses, classFile, parseAnnotationsFrom(classFile));
-				} catch (IOException exception) {
-					throw new SofticarIOException(exception);
+		for (var root: JavaClasspath.getInstance().getPayloadRoots()) {
+			for (var file: root.getClassFiles()) {
+				if (!file.getName().equals(MODULE_INFO_CLASS_FILENAME)) {
+					try (InputStream inputStream = file.getInputStream()) {
+						ClassFile classFile = new ClassFile(inputStream);
+
+						parseMetadata(extendingClasses, classFile, Collections.singleton(classFile.getSuperClass()));
+						parseMetadata(implementingClasses, classFile, classFile.getInterfaces());
+						parseMetadata(annotatedClasses, classFile, parseAnnotationsFrom(classFile));
+					} catch (IOException exception) {
+						throw new SofticarIOException(exception);
+					}
 				}
 			}
 		}
+	}
+
+	public static ClasspathFilesMetadata getInstance() {
+
+		return INSTANCE;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.softicar.platform.emf.table;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
+import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.DevNull;
@@ -87,11 +88,11 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	 * @return the validation results (never <i>null</i>)
 	 */
 	@Override
-	default AssertionErrorMessageCollector validateConfiguration() {
+	default AssertionErrorMessageCollector validateConfiguration(JavaCodeValidationEnvironment environment) {
 
 		var errors = new AssertionErrorMessageCollector();
 		errors.addAll(new DbTableValidator<>(this).validate());
-		errors.addAll(new EmfTableValidator<>(this).validate());
+		errors.addAll(new EmfTableValidator<>(this, environment).validate());
 		return errors;
 	}
 
