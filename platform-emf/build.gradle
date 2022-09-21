@@ -1,6 +1,6 @@
 dependencies {
 	api project(':platform-ajax')
-	api project(':platform-db-runtime')
+	api project(':platform-db')
 	api project(':platform-dom')
 	api "org.apache.poi:poi:$versions.poi"
 	api "org.apache.poi:poi-ooxml:$versions.poi"
