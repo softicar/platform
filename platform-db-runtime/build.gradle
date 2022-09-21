@@ -1,5 +1,0 @@
-dependencies {
-	api project(':platform-db')
-
-	implementation "org.apache.commons:commons-collections4:$versions.commonsCollections4"
-}
