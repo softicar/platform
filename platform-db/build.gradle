@@ -3,4 +3,5 @@ dependencies {
 
 	implementation "com.h2database:h2:$versions.h2"
 	implementation "com.zaxxer:HikariCP:$versions.hikariCp"
+	implementation "org.apache.commons:commons-collections4:$versions.commonsCollections4"
 }
