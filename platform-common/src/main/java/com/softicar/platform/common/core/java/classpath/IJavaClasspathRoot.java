@@ -2,6 +2,7 @@ package com.softicar.platform.common.core.java.classpath;
 
 import com.softicar.platform.common.core.java.classes.analyzer.AnalyzedJavaClass;
 import com.softicar.platform.common.core.java.classes.analyzer.IAnalyzedJavaClassProvider;
+import com.softicar.platform.common.io.classpath.file.IClasspathFile;
 import java.io.File;
 import java.util.Collection;
 
@@ -20,6 +21,28 @@ public interface IJavaClasspathRoot extends IAnalyzedJavaClassProvider {
 	 * @return the {@link File} (never null)
 	 */
 	File getFile();
+
+	/**
+	 * Returns all {@link IClasspathFile} instances of this
+	 * {@link IJavaClasspathRoot}.
+	 *
+	 * @return all {@link IClasspathFile} instances (never <i>null</i>)
+	 */
+	Collection<IClasspathFile> getAllFiles();
+
+	/**
+	 * Returns all {@link IClasspathFile} instances that are not class files.
+	 *
+	 * @return all resource paths (never <i>null</i>)
+	 */
+	Collection<IClasspathFile> getClassFiles();
+
+	/**
+	 * Returns all {@link IClasspathFile} instances that are not class files.
+	 *
+	 * @return all resource paths (never <i>null</i>)
+	 */
+	Collection<IClasspathFile> getResourceFiles();
 
 	/**
 	 * Returns all classes provided by this {@link IJavaClasspathRoot}.

@@ -1,5 +1,7 @@
 package com.softicar.platform.db.runtime.table;
 
+import com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEnvironment;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.testing.AssertionErrorMessageCollector;
 import com.softicar.platform.db.runtime.cache.IDbTableRowCache;
 import com.softicar.platform.db.runtime.key.IDbTableKey;
@@ -246,8 +248,9 @@ public interface IDbTable<R, P> extends IDbBasicTable<R> {
 	 *
 	 * @return the validation results (never <i>null</i>)
 	 */
-	default AssertionErrorMessageCollector validateConfiguration() {
+	default AssertionErrorMessageCollector validateConfiguration(JavaCodeValidationEnvironment environment) {
 
+		DevNull.swallow(environment);
 		return new DbTableValidator<>(this).validate();
 	}
 }

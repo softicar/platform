@@ -18,11 +18,11 @@ public class SourceCodeReferencePointValidator extends AbstractJavaCodeValidator
 
 	public SourceCodeReferencePointValidator() {
 
-		setClassFilter(this::isReferencePointClass);
+		setClassFilter(this::isSourceCodeReferencePoint);
 		addClassValidator(this::validateClass);
 	}
 
-	private boolean isReferencePointClass(AnalyzedJavaClass javaClass) {
+	private boolean isSourceCodeReferencePoint(AnalyzedJavaClass javaClass) {
 
 		return hasReferencePointAnnotation(javaClass) || implementsReferencePointInterface(javaClass);
 	}

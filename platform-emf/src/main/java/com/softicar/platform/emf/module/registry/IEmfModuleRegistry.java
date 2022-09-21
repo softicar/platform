@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.module.registry;
 
-import com.softicar.platform.common.code.classpath.metadata.IClasspathFilesMetadata;
 import com.softicar.platform.common.core.java.packages.name.JavaPackageName;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.extension.IEmfModuleExtension;
@@ -20,8 +19,6 @@ public interface IEmfModuleRegistry {
 
 		return CurrentEmfModuleRegistry.get();
 	}
-
-	IClasspathFilesMetadata getClasspathFilesMetadata();
 
 	// -------------------- modules -------------------- //
 

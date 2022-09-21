@@ -5,3 +5,44 @@ dependencies {
 
 	testRuntimeOnly "org.mariadb.jdbc:mariadb-java-client:$versions.mariadbJavaClient"
 }
+
+// -------------------- validation -------------------- //
+
+import groovy.json.*;
+
+apply plugin: 'com.softicar.gradle.code.validation'
+
+softicarCodeValidationSettings {
+	validationEntryPointClass = "com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint"
+	def configurationJson = [
+		jarFilterRegex: 'platform.*jar',
+		mandatoryTranslations: ["de"],
+		databaseStructureVersionResourceContainerClass: "com.softicar.platform.integration.database.structure.version.PlatformDatabaseStructureVersionResource",
+
+		classesAllowedToHaveMainMethod: [
+			"com.softicar.platform.ajax.server.AjaxDomNodeServer",
+			"com.softicar.platform.ajax.testing.cases.TestCasesDiv",
+			"com.softicar.platform.common.core.java.code.validation.JavaCodeValidationEntryPoint",
+			"com.softicar.platform.core.module.program.ProgramStarter",
+			"com.softicar.platform.db.sql.expressions.SqlAllExpressionsGenerator",
+			"com.softicar.platform.db.sql.SqlMasterGenerator",
+			"com.softicar.platform.integration.database.structure.DatabaseStructureJsonFromClasspathExtractor"
+		],
+		forbiddenClasses: [
+			"com.softicar.platform.db.core.statement.DbStatement",
+			"java.sql.Connection",
+			"java.sql.Driver",
+			"java.sql.DriverManager",
+			"java.sql.ResultSet",
+			"java.sql.ResultSetMetaData",
+			"java.sql.Statement"
+		],
+		packageTreesAllowedToUseForbiddenClasses: [
+			"com.softicar.platform.db",
+			"com.softicar.platform.integration.database.structure.version"
+		],
+	]
+	arguments = [ "--configurationJson", JsonOutput.toJson(configurationJson) ]
+}
+
+check.dependsOn softicarCodeValidation
