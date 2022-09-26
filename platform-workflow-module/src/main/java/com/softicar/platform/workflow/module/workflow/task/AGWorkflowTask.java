@@ -9,6 +9,7 @@ import com.softicar.platform.workflow.module.workflow.transition.execution.AGWor
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObject<AGWorkflowTask> {
@@ -36,6 +37,16 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 		Optional//
 			.ofNullable(AGWorkflowTaskDelegation.TABLE.load(this))
 			.ifPresent(it -> it.setActive(false).save());
+	}
+
+	public static List<AGWorkflowTask> getOpenWorkflowTasks(AGUser user, AGWorkflowItem workflowItem) {
+
+		return AGWorkflowTask.TABLE//
+			.createSelect()
+			.where(AGWorkflowTask.USER.isEqual(user))
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
+			.where(AGWorkflowTask.CLOSED.isFalse())
+			.list();
 	}
 
 	public static Collection<AGWorkflowTask> getAllWorkflowTasksAndDelegationTasksAndSubstituteTasksToCloseForUserAndItem(AGUser user,

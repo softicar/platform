@@ -6,12 +6,15 @@ import com.softicar.platform.workflow.module.test.WorkflowTestObject;
 import com.softicar.platform.workflow.module.test.WorkflowTestObjectTable;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
+import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
+import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
 public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWorkflowTest {
 
+	private static final String PREMISSION = "A";
 	private final AGWorkflowNode nextNode;
 	private final AGWorkflowTransition transition;
 	private final AGWorkflowItem workflowItem;
@@ -34,9 +37,9 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	@Test
 	public void testSideEffectExecution() {
 
-		var user1 = insertUserPermissionAndTask("User #1", "A");
-		var user2 = insertUserPermissionAndTask("User #2", "A");
-		var user3 = insertUserPermissionAndTask("User #3", "A");
+		var user1 = insertUserPermissionAndTask("User #1", PREMISSION);
+		var user2 = insertUserPermissionAndTask("User #2", PREMISSION);
+		var user3 = insertUserPermissionAndTask("User #3", PREMISSION);
 
 		new WorkflowTransitionActionExecutor(workflowItem, transition, user1).execute();
 		assertExecutedSideEffects(0);
@@ -54,6 +57,25 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		execution.assertWorkflowNode(nextNode);
 
 		assertSame(nextNode, workflowItem.getWorkflowNode());
+	}
+
+	@Test
+	public void testSideEffectExecutionWithExceptionOnSideEffect() {
+
+		var exceptionMessage = "Intentional exception for side-effect.";
+		var user = insertUserPermissionAndTask("User", PREMISSION);
+
+		WorkflowTransitionTestSideEffect.setConsumer((object, transition) -> {
+			throw new RuntimeException(exceptionMessage);
+		});
+
+		assertExceptionMessage(exceptionMessage, () -> {
+			new WorkflowTransitionActionExecutor(workflowItem, transition, user).execute();
+		});
+
+		assertSame(rootNode, workflowItem.getWorkflowNode());
+		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
+		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 	}
 
 	private AGUser insertUserPermissionAndTask(String username, String permission) {
