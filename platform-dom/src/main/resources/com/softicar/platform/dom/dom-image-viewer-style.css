@@ -11,9 +11,19 @@
 	align-self: stretch;
 	max-height: 100%;
 	min-height: 50px;
-	overflow: auto;
+	overflow: hidden auto;
 	position: relative;
 	width: 100%;
+	scrollbar-color: var(--PRIMARY_COLOR) var(--GRAY_BACKGROUND_COLOR);
+}
+
+.DomImageViewerCanvas::-webkit-scrollbar {
+	width: 6px;
+	background: var(--GRAY_BACKGROUND_COLOR);
+}
+
+.DomImageViewerCanvas::-webkit-scrollbar-thumb {
+	background: var(--PRIMARY_COLOR);
 }
 
 .DomImageViewerImage {
