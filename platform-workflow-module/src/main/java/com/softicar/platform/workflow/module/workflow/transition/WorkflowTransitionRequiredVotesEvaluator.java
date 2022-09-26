@@ -34,6 +34,7 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 					.joinReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
 					.where(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION.isEqual(transition))
 					.stream()
+					// FIXME PLAT-1173 this filter should cause some kind of error notification
 					.filter(it -> transition.isUserAllowedToSeeTransition(it.getUser(), item))
 					.count());
 	}
