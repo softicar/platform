@@ -38,6 +38,16 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 			.ifPresent(it -> it.setActive(false).save());
 	}
 
+	public static Collection<AGWorkflowTask> getOpenWorkflowTasks(AGUser user, AGWorkflowItem workflowItem) {
+
+		return AGWorkflowTask.TABLE//
+			.createSelect()
+			.where(AGWorkflowTask.USER.isEqual(user))
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
+			.where(AGWorkflowTask.CLOSED.isFalse())
+			.list();
+	}
+
 	public static Collection<AGWorkflowTask> getAllWorkflowTasksAndDelegationTasksAndSubstituteTasksToCloseForUserAndItem(AGUser user,
 			AGWorkflowItem workflowItem) {
 

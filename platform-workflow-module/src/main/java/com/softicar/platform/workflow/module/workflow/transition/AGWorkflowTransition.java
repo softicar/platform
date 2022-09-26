@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.image.AGWorkflowIcon;
@@ -47,6 +48,11 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 			.map(StoredFileResource::new)
 			.map(it -> (IResource) it)
 			.orElse(EmfImages.INPUT_PREVIEW.getResource());
+	}
+
+	public AGWorkflowTransition setSideEffect(Class<? extends IWorkflowTransitionSideEffect<?>> sideEffectClass) {
+
+		return super.setSideEffect(AGUuid.getOrCreate(SourceCodeReferencePoints.getUuidOrThrow(sideEffectClass)));
 	}
 
 	public void executeSideEffect(AGWorkflowItem workflowItem) {
