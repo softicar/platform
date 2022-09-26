@@ -39,13 +39,13 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		var user3 = insertUserPermissionAndTask("User #3", "A");
 
 		new WorkflowTransitionActionExecutor(workflowItem, transition, user1).execute();
-		assertEquals("executed side-effects", 0, sideEffectExecutions.size());
+		assertExecutedSideEffects(0);
 
 		new WorkflowTransitionActionExecutor(workflowItem, transition, user2).execute();
-		assertEquals("executed side-effects", 0, sideEffectExecutions.size());
+		assertExecutedSideEffects(0);
 
 		new WorkflowTransitionActionExecutor(workflowItem, transition, user3).execute();
-		assertEquals("executed side-effects", 1, sideEffectExecutions.size());
+		assertExecutedSideEffects(1);
 
 		// assert proper side-effect execution
 		var execution = assertOne(sideEffectExecutions);
@@ -67,6 +67,11 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	private void addSideEffectExecution(WorkflowTestObject object, AGWorkflowTransition transition) {
 
 		sideEffectExecutions.add(new SideEffectExecution(object, transition));
+	}
+
+	private void assertExecutedSideEffects(int expectedCount) {
+
+		assertEquals("executed side-effects", expectedCount, sideEffectExecutions.size());
 	}
 
 	private static class SideEffectExecution {
