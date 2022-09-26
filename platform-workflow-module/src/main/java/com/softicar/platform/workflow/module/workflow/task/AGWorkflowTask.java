@@ -9,7 +9,6 @@ import com.softicar.platform.workflow.module.workflow.transition.execution.AGWor
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 
 public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObject<AGWorkflowTask> {
@@ -39,7 +38,7 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 			.ifPresent(it -> it.setActive(false).save());
 	}
 
-	public static List<AGWorkflowTask> getOpenWorkflowTasks(AGUser user, AGWorkflowItem workflowItem) {
+	public static Collection<AGWorkflowTask> getOpenWorkflowTasks(AGUser user, AGWorkflowItem workflowItem) {
 
 		return AGWorkflowTask.TABLE//
 			.createSelect()

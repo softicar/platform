@@ -16,7 +16,8 @@ import org.junit.Test;
 public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWorkflowTest {
 
 	private static final String PREMISSION = "A";
-	private final AGWorkflowNode nextNode;
+	private final AGWorkflowNode sourceNode;
+	private final AGWorkflowNode targetNode;
 	private final AGWorkflowTransition transition;
 	private final AGWorkflowItem workflowItem;
 	private final WorkflowTestObject workflowObject;
@@ -24,9 +25,10 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 
 	public WorkflowTransitionActionExecutorTest() {
 
-		this.nextNode = insertWorkflowNode(workflowVersion, "Next Node");
-		this.transition = insertWorkflowTransition("Transition", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
-		this.workflowItem = insertWorkflowItem(rootNode);
+		this.sourceNode = rootNode;
+		this.targetNode = insertWorkflowNode(workflowVersion, "Next Node");
+		this.transition = insertWorkflowTransition("Transition", sourceNode, targetNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
+		this.workflowItem = insertWorkflowItem(sourceNode);
 		this.workflowObject = insertWorkflowTestObject("Workflow Test Object", workflowItem);
 		this.sideEffectExecutions = new ArrayList<>();
 
@@ -55,9 +57,9 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		var execution = assertOne(sideEffectExecutions);
 		execution.assertWorkflowObject(workflowObject);
 		execution.assertWorkflowTransition(transition);
-		execution.assertWorkflowNode(nextNode);
+		execution.assertWorkflowNode(targetNode);
 
-		assertSame(nextNode, workflowItem.getWorkflowNode());
+		assertSame(targetNode, workflowItem.getWorkflowNode());
 	}
 
 	@Test
@@ -76,7 +78,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 			new WorkflowTransitionActionExecutor(workflowItem, transition, user).execute();
 		});
 
-		assertSame(rootNode, workflowItem.getWorkflowNode());
+		assertSame(sourceNode, workflowItem.getWorkflowNode());
 		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
 		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 	}
@@ -88,7 +90,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		var user = insertUserPermissionAndTask("User", PREMISSION);
 
 		// setup throwing precondition
-		insertWorkflowNodePrecondition(nextNode, WorkflowNodeTestPrecondition.class);
+		insertWorkflowNodePrecondition(targetNode, WorkflowNodeTestPrecondition.class);
 		WorkflowNodeTestPrecondition.setPredicate((object) -> {
 			throw new RuntimeException(exceptionMessage);
 		});
@@ -98,7 +100,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 			new WorkflowTransitionActionExecutor(workflowItem, transition, user).execute();
 		});
 
-		assertSame(rootNode, workflowItem.getWorkflowNode());
+		assertSame(sourceNode, workflowItem.getWorkflowNode());
 		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
 		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 		assertExecutedSideEffects(0);
