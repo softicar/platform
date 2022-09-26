@@ -95,10 +95,15 @@ public class Asserts extends Assert {
 
 	public static void assertExceptionMessage(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
+		assertExceptionMessage(expectedMessage.toString(), thrower);
+	}
+
+	public static void assertExceptionMessage(String expectedMessage, INullaryVoidFunction thrower) {
+
 		try {
 			thrower.apply();
 		} catch (Throwable throwable) {
-			assertEquals(expectedMessage.toString(), getNonNullMessageOrFail(throwable));
+			assertEquals(expectedMessage, getNonNullMessageOrFail(throwable));
 			return;
 		}
 		fail("Missing expected exception: %s".formatted(expectedMessage));
