@@ -28,6 +28,9 @@
 
 .DomImageViewerImage {
 	box-shadow: 0px 0px 3px 3px #ccc;
+	
+	/* the following is important for Safari to not stretch the image vertically */
+	width: 100%;
 }
 
 .DomImageViewerImageHolder {
