@@ -13,6 +13,7 @@ import com.softicar.platform.core.module.user.login.failure.type.AGUserLoginFail
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import javax.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -28,7 +29,8 @@ public class PageServiceLoginAuthenticatorTest extends AbstractDbTest implements
 	public PageServiceLoginAuthenticatorTest() {
 
 		this.request = Mockito.mock(IAjaxRequest.class);
-		Mockito.when(request.getRemoteAddr()).thenReturn(CLIENT_ADDRESS);
+		Mockito.when(request.getHttpRequest()).thenReturn(Mockito.mock(HttpServletRequest.class));
+		Mockito.when(request.getHttpRequest().getRemoteAddr()).thenReturn(CLIENT_ADDRESS);
 
 		this.user = insertUser("John", "Doe", USERNAME);
 		this.password = insertPassword(user, PASSWORD);

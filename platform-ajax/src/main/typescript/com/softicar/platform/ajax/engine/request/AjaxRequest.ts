@@ -15,7 +15,7 @@ class AjaxRequest {
 	public send(requestIndex: number) {
 		this.message.copyNodeValues();
 		this.message.setRequestIndex(requestIndex);
-	
+
 		if(this.form) {
 			new FormRequest(this.form, response => this.handleFormRequestResponse(response))
 				.setMessage(this.message.encodeToHex())

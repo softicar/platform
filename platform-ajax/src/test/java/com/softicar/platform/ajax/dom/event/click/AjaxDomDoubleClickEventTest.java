@@ -33,14 +33,14 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 		IDomEvent event = testDiv.getEvent();
 		assertEquals(DomEventType.DBLCLICK, event.getType());
 		assertSame(testDiv, event.getCurrentTarget());
-		assertEquals(divLocation.getX() + CLICK_X, event.getClientX());
-		assertEquals(divLocation.getY() + CLICK_Y, event.getClientY());
+		assertEquals(divLocation.getX() + CLICK_X, event.getClientX(), 0.1);
+		assertEquals(divLocation.getY() + CLICK_Y, event.getClientY(), 0.1);
 		assertEquals(CLICK_X, event.getRelativeX(), 0.1);
 		assertEquals(CLICK_Y, event.getRelativeY(), 0.1);
 		assertEquals(0, event.getScrollX(), 0.1);
 		assertEquals(0, event.getScrollY(), 0.1);
-		assertEquals(viewportSize.getWidth(), event.getWindowWidth());
-		assertEquals(viewportSize.getHeight(), event.getWindowHeight());
+		assertEquals(viewportSize.getWidth(), event.getWindowWidth(), 0.1);
+		assertEquals(viewportSize.getHeight(), event.getWindowHeight(), 0.1);
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv implements IDomDoubleClickEventHandler {

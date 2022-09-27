@@ -1,7 +1,8 @@
 package com.softicar.platform.ajax.document.action;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.ajax.request.AjaxParameterUtils;
+import com.softicar.platform.ajax.document.registry.AjaxDocumentRegistry;
+import com.softicar.platform.ajax.exceptions.AjaxHttpGoneError;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.service.AbstractAjaxService;
 
@@ -15,17 +16,21 @@ public class AjaxDocumentActionServiceDelegator extends AbstractAjaxService {
 	@Override
 	public void service() {
 
-		getActionType().createService(request, getDocumentOrThrow()).service();
+		request//
+			.getRequestMessageOrThrow()
+			.getActionType()
+			.createService(request, getDocumentOrThrow())
+			.service();
 	}
 
 	private IAjaxDocument getDocumentOrThrow() {
 
-		return new AjaxDocumentFromRequestFetcher(request).fetchOrThrow();
-	}
-
-	private AjaxDocumentActionType getActionType() {
-
-		int actionId = AjaxParameterUtils.getIntOrThrow(request, "a");
-		return AjaxDocumentActionType.getById(actionId);
+		var instanceUuid = request//
+			.getRequestMessageOrThrow()
+			.getInstanceUuid();
+		return AjaxDocumentRegistry//
+			.getInstance(request.getHttpSession())
+			.getDocument(instanceUuid)
+			.orElseThrow(AjaxHttpGoneError::new);
 	}
 }

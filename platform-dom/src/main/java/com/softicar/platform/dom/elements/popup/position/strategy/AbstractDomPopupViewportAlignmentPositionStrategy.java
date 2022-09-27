@@ -25,8 +25,8 @@ abstract class AbstractDomPopupViewportAlignmentPositionStrategy implements IDom
 	@Override
 	public DomPopupPosition getPosition(IDomEvent event) {
 
-		int x = Optional.ofNullable(event).map(IDomEvent::getWindowWidth).orElse(0) / 100 * (int) Math.round(xPercent.getValue());
-		int y = Optional.ofNullable(event).map(IDomEvent::getWindowHeight).orElse(0) / 100 * (int) Math.round(yPercent.getValue());
+		int x = (int) Math.round(Optional.ofNullable(event).map(IDomEvent::getWindowWidth).orElse(0.0) / 100 * xPercent.getValue());
+		int y = (int) Math.round(Optional.ofNullable(event).map(IDomEvent::getWindowHeight).orElse(0.0) / 100 * yPercent.getValue());
 		return new DomPopupPosition(x, y, xAlign, yAlign);
 	}
 }
