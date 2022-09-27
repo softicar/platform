@@ -26,7 +26,6 @@ public class AjaxDomEvent implements IDomEvent {
 	private final Double scrollX;
 	private final Double scrollY;
 	private final String key;
-	private final Integer keyCode;
 	private final Integer windowWidth;
 	private final Integer windowHeight;
 	private final DomRect boundingClientRect;
@@ -60,7 +59,6 @@ public class AjaxDomEvent implements IDomEvent {
 		this.scrollX = AjaxParameterUtils.getDouble(ajaxRequest, "sx");
 		this.scrollY = AjaxParameterUtils.getDouble(ajaxRequest, "sy");
 		this.key = Optional.ofNullable(ajaxRequest.getParameter("key")).orElse("");
-		this.keyCode = AjaxParameterUtils.getInteger(ajaxRequest, "k");
 		this.windowWidth = AjaxParameterUtils.getInteger(ajaxRequest, "wx");
 		this.windowHeight = AjaxParameterUtils.getInteger(ajaxRequest, "wy");
 		this.boundingClientRect = readBoundingClientRect(ajaxRequest);
@@ -148,12 +146,6 @@ public class AjaxDomEvent implements IDomEvent {
 	}
 
 	@Override
-	public Integer getKeyCode() {
-
-		return keyCode;
-	}
-
-	@Override
 	public int getWindowWidth() {
 
 		return windowWidth;
@@ -218,7 +210,7 @@ public class AjaxDomEvent implements IDomEvent {
 
 		return String
 			.format(
-				"type(%s) currentTarget(%s) client(%s,%s) scroll(%s,%s) relative(%s,%s) window(%s,%s) key(%s) keyCode(%s)",
+				"type(%s) currentTarget(%s) client(%s,%s) scroll(%s,%s) relative(%s,%s) window(%s,%s) key(%s)",
 				type.toString(),
 				currentTarget.getNodeId(),
 				clientX,
@@ -229,7 +221,6 @@ public class AjaxDomEvent implements IDomEvent {
 				relativeY,
 				windowWidth,
 				windowHeight,
-				key,
-				keyCode);
+				key);
 	}
 }

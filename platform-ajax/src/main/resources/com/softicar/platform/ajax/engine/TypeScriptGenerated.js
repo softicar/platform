@@ -73,13 +73,11 @@ const DOM_MODIFIER_ALT = 'Alt';
 const DOM_MODIFIER_CONTROL = 'Control';
 const DOM_MODIFIER_META = 'Meta';
 const DOM_MODIFIER_SHIFT = 'Shift';
-const DOM_VK_TAB = 9;
-const DOM_VK_ENTER = 13;
-const DOM_VK_ESCAPE = 27;
-const DOM_VK_SPACE = 32;
-const DOM_VK_UP = 38;
-const DOM_VK_DOWN = 40;
 const KEEP_ALIVE_REQUEST_DELAY = 3 * 60 * 1000;
+const KEY_ENTER = 'Enter';
+const KEY_ESCAPE = 'Escape';
+const KEY_SPACE = ' ';
+const KEY_TAB = 'Tab';
 const HTTP_REQUEST_STATE_UNSET = 0;
 const HTTP_REQUEST_STATE_OPENED = 1;
 const HTTP_REQUEST_STATE_HEADERS_RECEIVED = 2;
@@ -635,7 +633,6 @@ function sendDomEventToServer(event, eventType) {
     }
     if (event instanceof KeyboardEvent) {
         message.setKey(event.key);
-        message.setKeyCode(event.keyCode);
     }
     if (event instanceof KeyboardEvent || event instanceof MouseEvent) {
         message.setModifierKey('altKey', event.altKey);
@@ -728,10 +725,10 @@ class KeyboardEventManager {
     }
     getKey(eventName) {
         switch (eventName) {
-            case 'ENTER': return DOM_VK_ENTER;
-            case 'ESCAPE': return DOM_VK_ESCAPE;
-            case 'SPACE': return DOM_VK_SPACE;
-            case 'TAB': return DOM_VK_TAB;
+            case 'ENTER': return KEY_ENTER;
+            case 'ESCAPE': return KEY_ESCAPE;
+            case 'SPACE': return KEY_SPACE;
+            case 'TAB': return KEY_TAB;
         }
         throw new Error("Internal error: Unsupported keyboard event name.");
     }
@@ -739,14 +736,14 @@ class KeyboardEventManager {
 const KEYBOARD_EVENT_MANAGER = new KeyboardEventManager();
 class KeyboardEventHandler {
     constructor(node) {
-        this.keyCodes = new Map();
+        this.keys = new Map();
         this.fireOnKeyUp = new Map();
         this.preventDefault = new Map();
         this.cssClassApplier = new Map();
         this.listenToKeyDown = false;
         this.listenToKeyUp = false;
         this.listenToKeys = new Set();
-        this.lastKeyDown = 0;
+        this.lastKeyDown = "";
         this.node = node;
     }
     install() {
@@ -770,11 +767,11 @@ class KeyboardEventHandler {
     }
     setListenTo(key, eventName, enabled) {
         if (enabled) {
-            this.keyCodes.set(key, eventName);
+            this.keys.set(key, eventName);
             this.preventDefault.set(key, true);
         }
         else {
-            this.keyCodes.delete(key);
+            this.keys.delete(key);
         }
     }
     setFireOnKeyUp(key, enabled) {
@@ -787,12 +784,12 @@ class KeyboardEventHandler {
         this.cssClassApplier.set(key, applier);
     }
     handleKeyDown(event) {
-        let eventName = this.keyCodes.get(event.keyCode);
+        let eventName = this.keys.get(event.key);
         if (eventName) {
-            if (!this.fireOnKeyUp.get(event.keyCode) && !event.repeat) {
+            if (!this.fireOnKeyUp.get(event.key) && !event.repeat) {
                 sendOrDelegateEvent(this.node, event, eventName);
             }
-            let applier = this.cssClassApplier.get(event.keyCode);
+            let applier = this.cssClassApplier.get(event.key);
             if (applier) {
                 applier.addClasses();
             }
@@ -801,15 +798,15 @@ class KeyboardEventHandler {
         if (this.listenToKeyDown && this.listenToKeys.has(event.key)) {
             sendOrDelegateEvent(this.node, event, 'KEYDOWN');
         }
-        this.lastKeyDown = event.keyCode;
+        this.lastKeyDown = event.key;
     }
     handleKeyUp(event) {
-        var eventName = this.keyCodes.get(event.keyCode);
+        var eventName = this.keys.get(event.key);
         if (eventName) {
-            if (this.fireOnKeyUp.get(event.keyCode) && this.lastKeyDown == event.keyCode) {
+            if (this.fireOnKeyUp.get(event.key) && this.lastKeyDown == event.key) {
                 sendOrDelegateEvent(this.node, event, eventName);
             }
-            let applier = this.cssClassApplier.get(event.keyCode);
+            let applier = this.cssClassApplier.get(event.key);
             if (applier) {
                 applier.removeClasses();
             }
@@ -818,11 +815,11 @@ class KeyboardEventHandler {
         if (this.listenToKeyUp && this.listenToKeys.has(event.key)) {
             sendOrDelegateEvent(this.node, event, 'KEYUP');
         }
-        this.lastKeyDown = 0;
+        this.lastKeyDown = "";
     }
     stopFurtherHandling(event) {
         event.stopPropagation();
-        if (this.preventDefault.get(event.keyCode)) {
+        if (this.preventDefault.get(event.key)) {
             event.preventDefault();
         }
     }
@@ -971,9 +968,6 @@ class AjaxRequestMessage {
     }
     setKey(key) {
         return this.setString("key", key);
-    }
-    setKeyCode(keyCode) {
-        return this.setNumber('k', keyCode);
     }
     setModifierKey(name, value) {
         return this.setBooleanIfTrue(name, value);

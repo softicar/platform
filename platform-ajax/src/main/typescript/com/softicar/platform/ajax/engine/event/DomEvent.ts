@@ -78,7 +78,6 @@ function sendDomEventToServer(event: Event, eventType: string) {
 
 	if(event instanceof KeyboardEvent) {
 		message.setKey(event.key);
-		message.setKeyCode(event.keyCode);
 	}
 
 	if(event instanceof KeyboardEvent || event instanceof MouseEvent) {
