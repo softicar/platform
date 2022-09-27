@@ -1,9 +1,20 @@
 
-function makeDraggable(draggedNode: HTMLElement, dragHandleNode: HTMLElement, limitingNode: HTMLElement | null, notifyOnDrop: boolean) {
+function makeDraggable(draggedNode: HTMLElement, dragHandleNode: HTMLElement, notifyOnDrop: boolean) {
 	var handler = DRAG_AND_DROP_MANAGER.getHandler(draggedNode);
-	handler.setLimitingNode(limitingNode);
 	handler.setNotifyOnDrop(notifyOnDrop);
 	handler.install(dragHandleNode);
+}
+
+function setDragLimitNode(draggedNode: HTMLElement, limitNode: HTMLElement) {
+	DRAG_AND_DROP_MANAGER
+		.getHandler(draggedNode)
+		.setLimitNode(limitNode);
+}
+
+function setDragScrollNode(draggedNode: HTMLElement, scrollNode: HTMLElement) {
+	DRAG_AND_DROP_MANAGER
+		.getHandler(draggedNode)
+		.setScrollNode(scrollNode);
 }
 
 class DragAndDropManager {
@@ -24,17 +35,20 @@ const DRAG_AND_DROP_MANAGER = new DragAndDropManager();
 class DragAndDropHandler {
 	private draggedNode: HTMLElement;
 	private dragHandleNode: HTMLElement | null;
-	private limitingNode: HTMLElement | null;
+	private limitNode: HTMLElement | null;
+	private scrollNode: HTMLElement | null;
 	private notifyOnDrop: boolean;
 	private cursorStart = new Vector2d();
+	private scrollStart = new Vector2d();
 	private dragStart = new Vector2d();
 	private dragPosition = new Vector2d();
 	private dragHandler = (event: Event) => this.onDrag(event);
-	private dropHandler = (event: Event) => this.onDrop(event);
+	private dropHandler = (_: Event) => this.onDrop();
 
 	public constructor(draggedNode: HTMLElement) {
 		this.draggedNode = draggedNode;
-		this.limitingNode = null;
+		this.limitNode = null;
+		this.scrollNode = null;
 		this.notifyOnDrop = false;
 		this.dragHandleNode = null;
 	}
@@ -49,8 +63,12 @@ class DragAndDropHandler {
 		dragHandleNode.classList.add(DRAGGABLE_CSS_CLASS);
 	}
 	
-	public setLimitingNode(limitingNode: HTMLElement | null) {
-		this.limitingNode = limitingNode;
+	public setLimitNode(limitNode: HTMLElement | null) {
+		this.limitNode = limitNode;
+	}
+	
+	public setScrollNode(scrollNode: HTMLElement | null) {
+		this.scrollNode = scrollNode;
 	}
 	
 	public setNotifyOnDrop(notifyOnDrop: boolean) {
@@ -62,6 +80,7 @@ class DragAndDropHandler {
 		this.setDocumentTextSelection(false);
 
 		this.cursorStart = this.getCursorPosition(event);
+		this.scrollStart = this.getScrollPosition();
 		this.dragStart = this.getDraggedNodePosition();
 		this.dragPosition = this.dragStart;
 
@@ -71,20 +90,19 @@ class DragAndDropHandler {
 	}
 
 	public onDrag(event: Event) {
-		let cursor = this.getCursorPosition(event);
-		let rect = this.limitingNode?.getBoundingClientRect();
-		let minX = rect?.left ?? 0;
-		let maxX = rect?.right ?? Infinity;
-		let minY = rect?.top ?? 0;
-		let maxY = rect?.bottom ?? Infinity;
-		if(minX <= cursor.x && cursor.x <= maxX && minY <= cursor.y && cursor.y <= maxY) {
-			this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart))
+		if(this.scrollNode) {
+			let delta = this.getCursorPosition(event).minus(this.cursorStart);
+			let position = this.clampScrollPosition(this.scrollStart.minus(delta));
+			this.scrollNode.scrollTo(position.x, position.y);
+		} else {
+			let cursor = this.getLimitRect().clamp(this.getCursorPosition(event));
+			this.dragPosition = this.dragStart.plus(cursor.minus(this.cursorStart));
 			this.draggedNode.style.left = this.dragPosition.x + "px";
 			this.draggedNode.style.top = this.dragPosition.y + "px";
 		}
 	}
 
-	public onDrop(event: Event) {
+	public onDrop() {
 		this.removeDragListener();
 		this.setDocumentTextSelection(true);
 
@@ -100,6 +118,22 @@ class DragAndDropHandler {
 			AJAX_REQUEST_QUEUE.submit(message);
 		}
 	}
+	
+	private clampScrollPosition(scrollPosition: Vector2d) {
+		let scrollRect = this.scrollNode?.getBoundingClientRect() ?? new DOMRect(0,0,0,0);
+		let nodeRect = this.draggedNode.getBoundingClientRect();
+		return new Vector2d(
+			clamp(scrollPosition.x, 0, Math.max(nodeRect.width - scrollRect.width, 0)),
+			clamp(scrollPosition.y, 0, Math.max(nodeRect.height - scrollRect.height, 0)));
+	}
+	
+	private getLimitRect() {
+		if(this.limitNode) {
+			return Rect.fromDomRect(this.limitNode.getBoundingClientRect());
+		} else {
+			return new Rect(0, 0, Infinity, Infinity);
+		}
+	}
 
 	private getCursorPosition(event: Event) {
 		if(event instanceof MouseEvent) {
@@ -111,7 +145,13 @@ class DragAndDropHandler {
 			return new Vector2d();
 		}
 	}
-	
+
+	private getScrollPosition() {
+		let x = this.scrollNode?.scrollLeft ?? 0;
+		let y = this.scrollNode?.scrollTop ?? 0;
+		return new Vector2d(x, y);
+	}
+
 	private getDraggedNodePosition() {
 		let style = window.getComputedStyle(this.draggedNode);
 		let x = style.left? parseInt(style.left) : 0;

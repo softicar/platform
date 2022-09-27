@@ -40,7 +40,9 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 		if (configuration.getDisplayMode().isMaximized()) {
 			addCssClass(DomCssPseudoClasses.MAXIMIZED);
 		} else {
-			getDomEngine().makeDraggable(this, header, context);
+			getDomEngine()//
+				.makeDraggable(this, header)
+				.setDragLimitNode(this, context);
 		}
 
 		if (configuration.getDisplayMode().hasHeader()) {
