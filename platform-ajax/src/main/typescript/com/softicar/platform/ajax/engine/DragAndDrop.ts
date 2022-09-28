@@ -126,12 +126,12 @@ class DragAndDropHandler {
 			clamp(scrollPosition.x, 0, Math.max(nodeRect.width - scrollRect.width, 0)),
 			clamp(scrollPosition.y, 0, Math.max(nodeRect.height - scrollRect.height, 0)));
 	}
-	
+
 	private getLimitRect() {
-		if(this.limitNode) {
+		if(this.limitNode && this.limitNode != document.body) {
 			return Rect.fromDomRect(this.limitNode.getBoundingClientRect());
 		} else {
-			return new Rect(0, 0, Infinity, Infinity);
+			return new Rect(0, 0, window.innerWidth, window.innerHeight);
 		}
 	}
 
