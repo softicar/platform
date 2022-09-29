@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.event;
 
+import com.softicar.platform.dom.document.DomDocumentEventScope;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.utils.DomPayloadCodeExecutor;
 import java.util.Objects;
@@ -20,9 +21,8 @@ public class DomEventHandlerNodeCaller {
 	public void call() {
 
 		var document = eventNode.getDomDocument();
-		document.setCurrentEvent(event);
 
-		try {
+		try (var scope = new DomDocumentEventScope(document, event)) {
 			executor.execute(() -> {
 				if (eventNode instanceof IDomEventHandler) {
 					((IDomEventHandler) eventNode).handleDOMEvent(event);
@@ -31,8 +31,6 @@ public class DomEventHandlerNodeCaller {
 				}
 				document.getDeferredInitializationController().handleAllAppended();
 			});
-		} finally {
-			document.unsetCurrentEvent();
 		}
 	}
 }

@@ -2,7 +2,9 @@ package com.softicar.platform.ajax.upload;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.document.service.AbstractAjaxDocumentActionService;
+import com.softicar.platform.ajax.event.AjaxDomEvent;
 import com.softicar.platform.ajax.request.IAjaxRequest;
+import com.softicar.platform.dom.document.DomDocumentEventScope;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.dom.node.IDomNode;
 
@@ -23,7 +25,10 @@ public class AjaxUploadService extends AbstractAjaxDocumentActionService {
 
 		setHiddenFrame(true);
 
-		executePayloadCodeOnNode(IDomFileUploadHandler.class, this::handleFileUploads);
+		var event = new AjaxDomEvent(document, message);
+		try (var scope = new DomDocumentEventScope(document, event)) {
+			executePayloadCodeOnNode(IDomFileUploadHandler.class, this::handleFileUploads);
+		}
 	}
 
 	private void handleFileUploads(IDomFileUploadHandler handler) {
