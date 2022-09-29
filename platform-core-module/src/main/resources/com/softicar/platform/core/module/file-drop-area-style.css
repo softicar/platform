@@ -1,0 +1,36 @@
+.FileDropAreaDiv {
+	display: inline-grid;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	right: 20px;
+    padding: 4px;
+    min-height: 80px;
+	border: 4px dashed var(--INFO_BORDER_COLOR);
+    border-radius: var(--BORDER_RADIUS);
+    font-weight: var(--LABEL_FONT_WEIGHT);
+    color: var(--INFO_FONT_COLOR);
+    background-color: var(--INFO_BACKGROUND_COLOR);
+    justify-content: center;
+    align-content: center;
+    transition-duration: 0.2s;
+	opacity: 0.95;
+	z-index: 10;
+}
+
+.FileDropAreaDivHidden {
+	position: absolute;
+	opacity: 0;
+	z-index: 0;
+}
+
+.FileDropAreaDivHidden * {
+	display: none;
+}
+
+.FileDropAreaDivCloseButton {
+	z-index: 11;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+}

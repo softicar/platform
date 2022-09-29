@@ -142,6 +142,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klassenname");
 	I18n0 CLEANS_FILE_SERVERS_FROM_TEMPORARY_FILES = new I18n0("Cleans file servers from temporary files")//
 		.de("Bereinigt Dateiserver von temporären Dateien");
+	I18n0 CLICK_OR_DROP_FILE_HERE = new I18n0("Click or drop file here")//
+		.de("Hier klicken oder Datei ablegen");
+	I18n0 CLICK_OR_DROP_FILES_HERE = new I18n0("Click or drop files here")//
+		.de("Hier klicken oder Dateien ablegen");
 	I18n0 CLICK_TO_DELETE_THIS_PROCESS = new I18n0("Click to delete this process.")//
 		.de("Klicken, um diesen Prozess zu löschen.");
 	I18n1 CLICK_TO_DOWNLOAD_THE_FILE_ARG1 = new I18n1("Click to download the file: %s")//

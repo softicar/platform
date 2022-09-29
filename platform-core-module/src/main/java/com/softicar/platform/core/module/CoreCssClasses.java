@@ -5,6 +5,10 @@ import com.softicar.platform.dom.style.ICssClass;
 
 public interface CoreCssClasses {
 
+	ICssClass FILE_DROP_AREA_DIV = new CssClass("FileDropAreaDiv", CoreCssFiles.FILE_DROP_AREA_STYLE);
+	ICssClass FILE_DROP_AREA_DIV_HIDDEN = new CssClass("FileDropAreaDivHidden", CoreCssFiles.FILE_DROP_AREA_STYLE);
+	ICssClass FILE_DROP_AREA_DIV_CLOSE_BUTTON = new CssClass("FileDropAreaDivCloseButton", CoreCssFiles.FILE_DROP_AREA_STYLE);
+
 	ICssClass MAINTENANCE_WINDOWS_INFO_ELEMENT = new CssClass("MaintenanceWindowsInfoElement", CoreCssFiles.MAINTENANCE_WINDOW_STYLE);
 
 	ICssClass PAGE_CONTENT_DIV = new CssClass("PageContentDiv", CoreCssFiles.PAGE_STYLE);
