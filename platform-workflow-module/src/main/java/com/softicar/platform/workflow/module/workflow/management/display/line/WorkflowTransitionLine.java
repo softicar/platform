@@ -51,7 +51,17 @@ public class WorkflowTransitionLine {
 		int sourceY = sourceNode.getYCoordinate();
 		int targetX = targetNode.getXCoordinate();
 		int targetY = targetNode.getYCoordinate();
-		if (sourceY + elementHeight < targetY) {
+		if (sourceNode == targetNode) {
+			var startX = sourceX + WIDTH + BORDER * 2;
+			var centerY = sourceY + HEIGHT / 2;
+			var centerX = sourceX + halfElementWidth;
+			var lineX = startX + 20;
+			var lineY = sourceY - 20;
+			drawLine(startX, centerY, lineX, centerY);
+			drawLine(lineX, centerY, lineX, lineY);
+			drawLine(lineX, lineY, centerX, lineY);
+			drawArrow(centerX, lineY, centerX, sourceY - BORDER);
+		} else if (sourceY + elementHeight < targetY) {
 			//Straigh Top-Down Arrow
 			sourceX += halfElementWidth;
 			sourceY += elementHeight;
