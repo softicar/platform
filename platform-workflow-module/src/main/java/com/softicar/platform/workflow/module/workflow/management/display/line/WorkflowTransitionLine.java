@@ -12,6 +12,7 @@ import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
 public class WorkflowTransitionLine {
 
 	private static final int BORDER = AbstractDisplayElement.BORDER;
+	private static final int GAP = 30;
 	private static final int HEIGHT = AbstractDisplayElement.HEIGHT;
 	private static final int WIDTH = AbstractDisplayElement.WIDTH;
 	private final DomParentElement parentElement;
@@ -51,7 +52,21 @@ public class WorkflowTransitionLine {
 		int sourceY = sourceNode.getYCoordinate();
 		int targetX = targetNode.getXCoordinate();
 		int targetY = targetNode.getYCoordinate();
-		if (sourceY + elementHeight < targetY) {
+		if (sourceNode == targetNode) {
+			var halfGap = GAP / 2;
+			var centerX = sourceX + WIDTH / 2;
+			var centerY = sourceY + HEIGHT / 2;
+			var startX = sourceX + WIDTH + BORDER * 2;
+			var startY = centerY - halfGap;
+			var outerX = startX + halfGap;
+			var outerY = sourceY - halfGap;
+			var endX = centerX + halfGap;
+			var endY = sourceY - BORDER;
+			drawLine(startX, startY, outerX, startY);
+			drawLine(outerX, startY, outerX, outerY);
+			drawLine(outerX, outerY, endX, outerY);
+			drawArrow(endX, outerY, endX, endY);
+		} else if (sourceY + elementHeight < targetY) {
 			//Straigh Top-Down Arrow
 			sourceX += halfElementWidth;
 			sourceY += elementHeight;
@@ -65,7 +80,7 @@ public class WorkflowTransitionLine {
 				sourceY += HEIGHT / 2;
 				targetX -= BORDER;
 				targetY += HEIGHT / 2;
-				int lineX = sourceX - 20;
+				int lineX = sourceX - GAP;
 				drawLine(sourceX, sourceY, lineX, sourceY);
 				drawLine(lineX, sourceY, lineX, targetY);
 				drawArrow(lineX, targetY, targetX, targetY);
@@ -75,7 +90,7 @@ public class WorkflowTransitionLine {
 				sourceY += HEIGHT / 2;
 				targetX += WIDTH + BORDER * 2;
 				targetY += HEIGHT / 2;
-				int lineX = sourceX + 20;
+				int lineX = sourceX + GAP;
 				drawLine(sourceX, sourceY, lineX, sourceY);
 				drawLine(lineX, sourceY, lineX, targetY);
 				drawArrow(lineX, targetY, targetX, targetY);
