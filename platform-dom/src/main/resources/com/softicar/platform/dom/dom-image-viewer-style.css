@@ -26,16 +26,38 @@
 	background: var(--PRIMARY_COLOR);
 }
 
-.DomImageViewerImage {
+.DomImageViewerImageFrame {
+	position: relative;
 	box-shadow: 0px 0px 3px 3px #ccc;
+	overflow: hidden;
 	
 	/* the following is important for Safari to not stretch the image vertically */
 	width: 100%;
 }
 
+.DomImageViewerTag {
+	position: absolute;
+	border: 1px solid var(--PRIMARY_COLOR);
+	box-shadow: 0 0 2px 0px var(--SECONDARY_COLOR), inset 0 0 2px 0px var(--SECONDARY_COLOR);
+	box-sizing: border-box;
+}
+
+.DomImageViewerTagCaption {
+	position: absolute;
+	padding: 1px 5px;
+	color: white;
+	font-size: var(--FONT_SIZE_SMALLISH);
+	font-weight: var(--LABEL_FONT_WEIGHT);
+	background: var(--PRIMARY_COLOR);
+	border-radius: 2px 2px 0 0;
+	white-space: nowrap;
+}
+
 .DomImageViewerImageHolder {
 	box-sizing: border-box;
 	padding: 10px;
+	position: relative;
+	transform-origin: left top;
 }
 
 .DomImageViewerPageIndicator {
@@ -46,6 +68,10 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
- 	gap: 4em;
+ 	gap: 1em;
 	padding: 5px 10px 0 10px;
+}
+
+.DomImageViewerToolBarSpacer {
+	flex-grow: 1;
 }

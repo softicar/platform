@@ -3,9 +3,9 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 import static org.junit.Assert.assertEquals;
 import com.softicar.platform.ajax.AjaxCssClasses;
 import com.softicar.platform.ajax.testing.selenium.engine.common.IAjaxSeleniumTestEngineConstants;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.document.CurrentDomDocument;
@@ -197,6 +197,11 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 	public IDomNode findNodeOrFail(ITestMarker marker) {
 
 		return findNode(marker).orElseThrow();
+	}
+
+	public Collection<IDomNode> findNodes(ITestMarker marker) {
+
+		return CurrentDomDocument.get().getNodesWithMarker(marker);
 	}
 
 	public void assertNodeWithText(ITestMarker marker, String expectedText) {
