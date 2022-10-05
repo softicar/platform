@@ -52,3 +52,38 @@
 	width: 24px;
 	height: auto;
 }
+
+.EmfInputLabel {
+	align-self:start;
+	max-height: 14px;
+	color: var(--LABEL_FONT_COLOR);
+	position: absolute;
+	padding: 6px;
+	pointer-events: none;
+	transition: 0.2s;
+	opacity: 0.4;
+}
+
+.EmfLabeledInput input:focus ~ .EmfInputLabel,
+.EmfLabeledInput input:disabled ~ .EmfInputLabel,
+.EmfLabeledInput input:valid ~ .EmfInputLabel,
+.EmfLabeledInput textarea:focus ~ .EmfInputLabel,
+.EmfLabeledInput textarea:disabled ~ .EmfInputLabel,
+.EmfLabeledInput textarea:valid ~ .EmfInputLabel {
+	transform: translateY(-4px);
+   	background-color: var(--INPUT_BACKGROUND_COLOR);
+   	font-size: 7pt;
+   	padding: 0px 1px;
+   	margin-left: 10px;
+	opacity: 1;
+}
+
+.EmfLabeledInput input:focus ~ .EmfInputLabel,
+.EmfLabeledInput textarea:focus ~ .EmfInputLabel {
+	z-index: 10000;
+}
+
+.EmfLabeledInput input:disabled ~ .EmfInputLabel,
+.EmfLabeledInput textarea:disabled ~ .EmfInputLabel {
+	opacity: unset;
+}

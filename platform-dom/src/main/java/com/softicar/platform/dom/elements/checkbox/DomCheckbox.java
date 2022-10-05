@@ -207,4 +207,17 @@ public class DomCheckbox extends DomDiv implements IDomValueInput<Boolean>, IDom
 			}
 		}
 	}
+
+	@Override
+	public IDomValueInput<Boolean> setRequired(boolean required) {
+
+		checkboxBox.setAttribute("required", required? "" : null);
+		return this;
+	}
+
+	@Override
+	public boolean isRequired() {
+
+		return checkboxBox.getAttributeValue("required").isPresent();
+	}
 }

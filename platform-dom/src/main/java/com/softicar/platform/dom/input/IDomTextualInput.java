@@ -78,21 +78,6 @@ public interface IDomTextualInput extends IDomFocusable, IDomValueInput<String> 
 	 */
 	IDomTextualInput setPlaceholder(IDisplayString placeholder);
 
-	// -------------------------------- required -------------------------------- //
-
-	/**
-	 * Marks this {@link IDomTextualInput} as required.
-	 */
-	IDomTextualInput setRequired(boolean required);
-
-	/**
-	 * Tests whether this {@link IDomTextualInput} is required.
-	 *
-	 * @return <i>true</i> if this {@link IDomTextualInput} is required;
-	 *         <i>false</i> otherwise
-	 */
-	boolean isRequired();
-
 	// -------------------------------- read-only -------------------------------- //
 
 	/**

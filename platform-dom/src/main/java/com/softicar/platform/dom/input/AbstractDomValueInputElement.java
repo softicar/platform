@@ -69,6 +69,21 @@ public abstract class AbstractDomValueInputElement<V> extends DomParentElement i
 		return !isDisabled();
 	}
 
+	// -------------------------------- required -------------------------------- //
+
+	@Override
+	public IDomValueInput<V> setRequired(boolean required) {
+
+		setAttribute("required", required? "" : null);
+		return this;
+	}
+
+	@Override
+	public boolean isRequired() {
+
+		return getAttributeValue("required").isPresent();
+	}
+
 	/**
 	 * Does the actual work to disable or enable this input element.
 	 * <p>

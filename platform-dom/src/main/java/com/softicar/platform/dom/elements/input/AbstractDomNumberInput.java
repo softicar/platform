@@ -6,6 +6,7 @@ import com.softicar.platform.common.date.Day;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Optional;
 
 /**
@@ -76,19 +77,15 @@ public abstract class AbstractDomNumberInput<T extends Number> extends AbstractD
 		input.setPlaceholder(placeholder);
 	}
 
-	public void setRequired(boolean required) {
-
-		input.setRequired(required);
-	}
-
-	public boolean isRequired() {
-
-		return input.isRequired();
-	}
-
 	public String getTextualValue() {
 
 		return input.getValueTextTrimmed();
+	}
+
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
+
+		return Optional.of(input);
 	}
 
 	@Override

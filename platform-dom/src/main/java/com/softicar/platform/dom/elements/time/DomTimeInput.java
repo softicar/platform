@@ -10,6 +10,7 @@ import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.input.DomIntegerInput;
 import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Optional;
 
 public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
@@ -87,5 +88,11 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 		input.addCssClass(DomCssClasses.DOM_TIME_INPUT_ELEMENT);
 		input.addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
 		return input;
+	}
+
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
+
+		return hourInput.getInputField();
 	}
 }

@@ -136,9 +136,10 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	 *
 	 * @return the {@link IDomTextualInput} (never <i>null</i>)
 	 */
-	public IDomTextualInput getInputField() {
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
 
-		return inputField;
+		return Optional.of(inputField);
 	}
 
 	public String getValueText() {

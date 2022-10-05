@@ -5,6 +5,7 @@ import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
@@ -37,6 +38,12 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 	public Optional<String> getValue() {
 
 		return passwordInput.getValue();
+	}
+
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
+
+		return Optional.of(passwordInput);
 	}
 
 	private void showText() {
@@ -73,6 +80,7 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 			addCssClass(EmfCssClasses.EMF_PASSWORD_VISIBILITY_BUTTON);
 			setIcon(EmfImages.SHOW_PASSWORD.getResource());
 			setClickCallback(this::handleClick);
+			setTabIndex(-1);
 		}
 
 		private void handleClick() {

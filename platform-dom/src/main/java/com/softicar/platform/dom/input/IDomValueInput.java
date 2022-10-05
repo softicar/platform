@@ -116,4 +116,17 @@ public interface IDomValueInput<V> extends IDomInput {
 	 *            the callback (never <i>null</i>)
 	 */
 	void addChangeCallback(INullaryVoidFunction callback);
+
+	/**
+	 * Marks this {@link IDomValueInput} as required.
+	 */
+	IDomValueInput<V> setRequired(boolean required);
+
+	/**
+	 * Tests whether this {@link IDomValueInput} is required.
+	 *
+	 * @return <i>true</i> if this {@link IDomValueInput} is required;
+	 *         <i>false</i> otherwise
+	 */
+	boolean isRequired();
 }

@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
@@ -36,5 +37,11 @@ public class EmfDummyInput<V> extends AbstractDomValueInputDiv<V> implements IEm
 	protected void doSetDisabled(boolean disabled) {
 
 		// nothing to do
+	}
+
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
+
+		return Optional.empty();
 	}
 }

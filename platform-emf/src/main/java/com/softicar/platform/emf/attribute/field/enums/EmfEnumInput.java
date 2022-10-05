@@ -4,6 +4,7 @@ import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
@@ -36,6 +37,12 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractDomValueInputDiv<E>
 	public void setValue(E value) {
 
 		select.setSelectedValue(value);
+	}
+
+	@Override
+	public Optional<IDomTextualInput> getInputField() {
+
+		return Optional.empty();
 	}
 
 	@Override
