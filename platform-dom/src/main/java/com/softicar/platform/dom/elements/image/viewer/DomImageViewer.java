@@ -159,7 +159,7 @@ public class DomImageViewer extends DomDiv {
 	// ------------------------------ page ------------------------------ //
 
 	/**
-	 * Returns the current page count.
+	 * Returns the number of available pages.
 	 *
 	 * @return the page count
 	 */
@@ -223,7 +223,7 @@ public class DomImageViewer extends DomDiv {
 	 */
 	public void rotateRight() {
 
-		this.rotation = rotation.nextRight();
+		this.rotation = rotation.getNext();
 		canvas.applyTransformations();
 	}
 
@@ -232,22 +232,11 @@ public class DomImageViewer extends DomDiv {
 	 */
 	public void rotateLeft() {
 
-		this.rotation = rotation.nextLeft();
+		this.rotation = rotation.getPrevious();
 		canvas.applyTransformations();
 	}
 
 	// ------------------------------ tags ------------------------------ //
-
-	/**
-	 * Determines whether tags shall currently be displayed.
-	 *
-	 * @return <i>true</i> if tags shall currently be displayed; <i>false</i>
-	 *         otherwise
-	 */
-	public boolean isTagsDisplayed() {
-
-		return tagsDisplayed;
-	}
 
 	/**
 	 * Toggles tags being displayed.
@@ -259,16 +248,16 @@ public class DomImageViewer extends DomDiv {
 	}
 
 	/**
-	 * Returns the {@link DomImageViewerTagDefinition} instances for the
-	 * current page.
+	 * Returns the {@link DomImageViewerTagDefinition} instances for the current
+	 * page.
 	 * <p>
 	 * Returns an empty {@link Collection} if tags shall currently not be
 	 * displayed.
 	 *
-	 * @return the {@link DomImageViewerTagDefinition} instances for the
-	 *         current page (never <i>null</i>)
+	 * @return the {@link DomImageViewerTagDefinition} instances for the current
+	 *         page (never <i>null</i>)
 	 */
-	public Collection<DomImageViewerTagDefinition> getPageTagDefinitions() {
+	Collection<DomImageViewerTagDefinition> getPageTagDefinitions() {
 
 		return tagsDisplayed? tagDefinitionMap.getOrDefault(pageIndex, new ArrayList<>()) : new ArrayList<>();
 	}

@@ -1,15 +1,14 @@
 package com.softicar.platform.dom.elements.image.viewer;
 
-import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTag;
-import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinition;
 import com.softicar.platform.dom.style.CssPercent;
 import com.softicar.platform.dom.style.CssStyle;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 class DomImageViewerImageHolder extends DomDiv {
 
@@ -18,7 +17,7 @@ class DomImageViewerImageHolder extends DomDiv {
 
 	public DomImageViewerImageHolder(DomImageViewer viewer, DomImageViewerCanvas canvas) {
 
-		this.viewer = viewer;
+		this.viewer = Objects.requireNonNull(viewer);
 		this.tags = new ArrayList<>();
 
 		addMarker(DomTestMarker.IMAGE_VIEWER_IMAGE_HOLDER);
@@ -29,7 +28,7 @@ class DomImageViewerImageHolder extends DomDiv {
 			.setDragScrollNode(this, canvas);
 	}
 
-	public void showImage(IResource resource, Collection<DomImageViewerTagDefinition> tagDefinitions) {
+	public void refreshImage() {
 
 		removeChildren();
 		tags.clear();
@@ -37,10 +36,11 @@ class DomImageViewerImageHolder extends DomDiv {
 		var frame = new DomImageViewerImageFrame();
 		appendChild(frame);
 
-		var image = new DomImageViewerImage(resource);
+		var image = new DomImageViewerImage(viewer.getPageImage());
 		frame.appendChild(image);
 
-		tagDefinitions//
+		viewer//
+			.getPageTagDefinitions()
 			.stream()
 			.map(DomImageViewerTag::new)
 			.map(frame::appendChild)

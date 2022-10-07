@@ -19,7 +19,7 @@ public enum DomImageViewerRotation {
 	 *
 	 * @return the next {@link DomImageViewerRotation} (never <i>null</i>)
 	 */
-	public DomImageViewerRotation nextRight() {
+	public DomImageViewerRotation getNext() {
 
 		return switch (this) {
 		case _0:
@@ -40,7 +40,7 @@ public enum DomImageViewerRotation {
 	 *
 	 * @return the previous {@link DomImageViewerRotation} (never <i>null</i>)
 	 */
-	public DomImageViewerRotation nextLeft() {
+	public DomImageViewerRotation getPrevious() {
 
 		return switch (this) {
 		case _0:
