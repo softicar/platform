@@ -105,5 +105,4 @@ public class EmfLabeledInput<V> extends DomDiv implements IEmfInput<V> {
 
 		return emfInput.isRequired();
 	}
-
 }
