@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.transaction.AGTransaction;
+import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
@@ -41,6 +42,8 @@ public class AGServerLog extends AbstractDbRecord<AGServerLog, Tuple2<AGServer, 
 	public static final IDbStringField<AGServerLog> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGServerLog> PASSWORD = BUILDER.addStringField("password", o->o.m_password, (o,v)->o.m_password=v).setTitle(CoreI18n.PASSWORD).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGServerLog> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbForeignField<AGServerLog, AGUuid> CONNECTOR_UUID = BUILDER.addForeignField("connectorUuid", o->o.m_connectorUuid, (o,v)->o.m_connectorUuid=v, AGUuid.ID).setTitle(CoreI18n.CONNECTOR_UUID).setNullable().setDefault(null);
+	public static final IDbStringField<AGServerLog> CONNECTOR_CONFIGURATION = BUILDER.addStringField("connectorConfiguration", o->o.m_connectorConfiguration, (o,v)->o.m_connectorConfiguration=v).setTitle(CoreI18n.CONNECTOR_CONFIGURATION).setNullable().setDefault(null).setLengthBits(24);
 	public static final IDbTableKey<AGServerLog, Tuple2<AGServer, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(SERVER, TRANSACTION));
 	public static final IDbKey<AGServerLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
 	public static final DbRecordTable<AGServerLog, Tuple2<AGServer, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
@@ -145,6 +148,31 @@ public class AGServerLog extends AbstractDbRecord<AGServerLog, Tuple2<AGServer, 
 		return setValue(DOMAIN, value);
 	}
 
+	public final Integer getConnectorUuidID() {
+
+		return getValueId(CONNECTOR_UUID);
+	}
+
+	public final AGUuid getConnectorUuid() {
+
+		return getValue(CONNECTOR_UUID);
+	}
+
+	public final AGServerLog setConnectorUuid(AGUuid value) {
+
+		return setValue(CONNECTOR_UUID, value);
+	}
+
+	public final String getConnectorConfiguration() {
+
+		return getValue(CONNECTOR_CONFIGURATION);
+	}
+
+	public final AGServerLog setConnectorConfiguration(String value) {
+
+		return setValue(CONNECTOR_CONFIGURATION, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -164,5 +192,7 @@ public class AGServerLog extends AbstractDbRecord<AGServerLog, Tuple2<AGServer, 
 	private String m_username;
 	private String m_password;
 	private String m_domain;
+	private AGUuid m_connectorUuid;
+	private String m_connectorConfiguration;
 }
 

@@ -7,17 +7,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Utility methods for classes implementing
- * {@link ISourceCodeReferencePoint}.
+ * Utility methods for classes implementing {@link ISourceCodeReferencePoint}.
  *
  * @author Oliver Richers
  */
 public class SourceCodeReferencePoints {
 
 	/**
-	 * Returns the {@link UUID} of the given
-	 * {@link ISourceCodeReferencePoint} class from the
-	 * {@link SourceCodeReferencePointUuid} annotation.
+	 * Returns the {@link UUID} of the given {@link ISourceCodeReferencePoint}
+	 * class from the {@link SourceCodeReferencePointUuid} annotation.
 	 *
 	 * @param referencePointClass
 	 *            the class of the reference point (never <i>null</i>)
@@ -85,6 +83,25 @@ public class SourceCodeReferencePoints {
 
 		return getReferencePoint(uuid)//
 			.orElseThrow(() -> new SourceCodeReferencePointMissingException(uuid));
+	}
+
+	/**
+	 * Returns the {@link ISourceCodeReferencePoint} matching the given
+	 * {@link UUID} and implementing the given class.
+	 * <p>
+	 * If no matching {@link ISourceCodeReferencePoint} was found, an empty
+	 * {@link Optional} is returned.
+	 *
+	 * @param uuid
+	 *            the {@link UUID} (never <i>null</i>)
+	 * @param targetClass
+	 *            the class to implement (never <i>null</i>)
+	 * @return the optional {@link ISourceCodeReferencePoint} (never
+	 *         <i>null</i>)
+	 */
+	public static <T> Optional<T> getReferencePoint(UUID uuid, Class<T> targetClass) {
+
+		return getReferencePoint(uuid).flatMap(referencePoint -> CastUtils.tryCast(referencePoint, targetClass));
 	}
 
 	/**

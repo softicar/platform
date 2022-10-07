@@ -1,6 +1,7 @@
 PACKAGE com.softicar.platform.core.module.server
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
 
 TABLE AGServerLog 'Core.ServerLog' {
 	PK AGServer server [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_1']
@@ -12,6 +13,8 @@ TABLE AGServerLog 'Core.ServerLog' {
 	String username = NULL [NULLABLE MAXLENGTH=255]
 	String password = NULL [NULLABLE MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]
+	AGUuid connectorUuid = NULL [NULLABLE]
+	String connectorConfiguration = NULL [NULLABLE LENGTHBITS=24]
 
 	IK transaction
 }

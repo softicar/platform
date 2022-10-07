@@ -1,7 +1,11 @@
 package com.softicar.platform.core.module.server;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.server.connector.ServerConnectorConfigurationDisplay;
+import com.softicar.platform.core.module.server.connector.ServerConnectorConfigurationInput;
+import com.softicar.platform.core.module.server.connector.ServerConnectors;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
@@ -37,6 +41,17 @@ public class AGServerTable extends EmfObjectTable<AGServer, AGCoreModuleInstance
 		attributes//
 			.editStringAttribute(AGServer.PASSWORD)
 			.setPasswordMode(true);
+		attributes//
+			.editIndirectEntityAttribute(AGServer.CONNECTOR_UUID)
+			.setEntityLoader(ServerConnectors::getAllServerConnectorsAsIndirectEntities)
+			.setTitle(CoreI18n.CONNECTOR);
+		attributes//
+			.editAttribute(AGServer.CONNECTOR_CONFIGURATION)
+			.setDisplayFactoryByEntity(ServerConnectorConfigurationDisplay::new)
+			.setInputFactoryByEntity(ServerConnectorConfigurationInput::new);
+		attributes//
+			.editAttribute(AGServer.CONNECTOR_CACHE)
+			.setConcealed(true);
 	}
 
 	@Override
@@ -50,6 +65,12 @@ public class AGServerTable extends EmfObjectTable<AGServer, AGCoreModuleInstance
 			.addMapping(AGServer.USERNAME, AGServerLog.USERNAME)
 			.addMapping(AGServer.PASSWORD, AGServerLog.PASSWORD)
 			.addMapping(AGServer.ACTIVE, AGServerLog.ACTIVE)
-			.addMapping(AGServer.DOMAIN, AGServerLog.DOMAIN);
+			.addMapping(AGServer.DOMAIN, AGServerLog.DOMAIN)
+			.addMapping(AGServer.CONNECTOR_UUID, AGServerLog.CONNECTOR_UUID)
+			.addMapping(AGServer.CONNECTOR_CONFIGURATION, AGServerLog.CONNECTOR_CONFIGURATION);
+
+		loggerSet//
+			.addDummyLogger()
+			.addField(AGServer.CONNECTOR_CACHE);
 	}
 }
