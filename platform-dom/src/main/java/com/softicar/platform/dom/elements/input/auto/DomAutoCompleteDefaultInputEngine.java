@@ -6,6 +6,8 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatch;
+import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -215,7 +217,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 		public Collection<T> findMatches(String pattern, int limit) {
 
-			return findIdMatch(pattern).orElse(findStringMatch(pattern, limit));
+			return findIdMatch(pattern).orElse(findStringMatches(pattern, limit));
 		}
 
 		private Optional<Collection<T>> findIdMatch(String pattern) {
@@ -226,14 +228,12 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 				.map(Collections::singleton);
 		}
 
-		private Collection<T> findStringMatch(String pattern, int limit) {
+		private Collection<T> findStringMatches(String pattern, int limit) {
 
-			return stringToValueMap//
-				.entrySet()
+			return new MultiPatternMatcher<>(stringToValueMap)
+				.findMatches(pattern, limit)
 				.stream()
-				.filter(entry -> entry.getKey().toLowerCase().contains(pattern))
-				.map(entry -> entry.getValue())
-				.limit(limit)
+				.map(MultiPatternMatch::getValue)
 				.collect(Collectors.toList());
 		}
 	}

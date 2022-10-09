@@ -2,8 +2,10 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
+import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import java.util.Map;
 
 class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEventHandler {
 
@@ -18,15 +20,21 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_VALUE);
 
 		var text = input.getInputEngine().getDisplayString(value).toString();
-		var index = pattern.isEmpty()? -1 : text.toLowerCase().indexOf(pattern);
-		if (index >= 0) {
-			var prefix = text.substring(0, index);
-			var match = text.substring(index, index + pattern.length());
-			var suffix = text.substring(index + pattern.length());
 
-			appendText(prefix);
-			appendChild(new MatchSpan(match));
-			appendText(suffix);
+		var matches = new MultiPatternMatcher<>(Map.of(text, value)).findMatches(pattern, 1);
+		if (!matches.isEmpty()) {
+			var ranges = matches.get(0).getRanges();
+			var rangeIterator = ranges.iterator();
+			int cursor = 0;
+			while (rangeIterator.hasNext()) {
+				var range = rangeIterator.next();
+				int fromIndex = range.getFromIndex();
+				int toIndex = range.getToIndex();
+				appendText(text.substring(cursor, fromIndex));
+				appendChild(new MatchSpan(text.substring(fromIndex, toIndex)));
+				cursor = toIndex;
+			}
+			appendChild(text.substring(cursor));
 		} else {
 			appendText(text);
 		}

@@ -28,6 +28,11 @@ public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends Abst
 		values.add(new TestValue(displayString, value));
 	}
 
+	protected void clearTestValues() {
+
+		values.clear();
+	}
+
 	protected void assertMap(String expected, Map<String, TestValue> map) {
 
 		var exptectedToString = List//
