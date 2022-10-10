@@ -141,6 +141,32 @@ public class MultiPatternMatcherTest {
 	}
 
 	@Test
+	public void testFindMatchesWithMultiplePatternsAndSubstring() {
+
+		addTestValue("foo bar", VALUE1);
+		addTestValue("foo xxx", VALUE2);
+		addTestValue("foo bar baz", VALUE3);
+
+		// "b" is a substring of "ba"
+		var matches = createMatcher().findMatches("ba b");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE3)
+			.nextRange(4, 5)
+			.nextRange(4, 6)
+			.nextRange(8, 9)
+			.nextRange(8, 10)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE1)
+			.nextRange(4, 5)
+			.nextRange(4, 6)
+			.assertNoMoreRanges()
+
+			.assertNoMoreMatches();
+	}
+
+	@Test
 	public void testFindMatchesWithSingleCharacterPattern() {
 
 		addTestValue("cXxXz", VALUE1);

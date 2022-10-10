@@ -6,6 +6,8 @@ import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEventHandler {
 
@@ -23,18 +25,22 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 
 		var matches = new MultiPatternMatcher<>(Map.of(text, value)).findMatches(pattern, 1);
 		if (!matches.isEmpty()) {
-			var ranges = matches.get(0).getRanges();
-			var rangeIterator = ranges.iterator();
-			int cursor = 0;
-			while (rangeIterator.hasNext()) {
-				var range = rangeIterator.next();
-				int fromIndex = range.getFromIndex();
-				int toIndex = range.getToIndex();
-				appendText(text.substring(cursor, fromIndex));
-				appendChild(new MatchSpan(text.substring(fromIndex, toIndex)));
-				cursor = toIndex;
+			var matchedIndexes = new TreeSet<Integer>();
+			for (var range: matches.get(0).getRanges()) {
+				IntStream//
+					.range(range.getFromIndex(), range.getToIndex())
+					.boxed()
+					.forEach(matchedIndexes::add);
 			}
-			appendChild(text.substring(cursor));
+
+			for (int i = 0; i < text.length(); i++) {
+				String character = text.charAt(i) + "";
+				if (matchedIndexes.contains(i)) {
+					appendChild(new MatchSpan(character));
+				} else {
+					appendText(character);
+				}
+			}
 		} else {
 			appendText(text);
 		}

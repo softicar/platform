@@ -138,6 +138,7 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 		assertEquals("[Some Other Value, Some Test Value, My Test Value]", toDisplayStrings(inputEngine.findMatches("ome lue", 9)));
 		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("t", 9)));
+		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("te t", 9)));
 	}
 
 	// ------------------------------ with id match ------------------------------ //
