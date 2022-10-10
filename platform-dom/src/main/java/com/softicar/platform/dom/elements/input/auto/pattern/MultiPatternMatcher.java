@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto.pattern;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +35,7 @@ public class MultiPatternMatcher<V> {
 	}
 
 	/**
-	 * Same as {@link #findMatches(String, int)} but with practically unlimited
-	 * matches.
+	 * Same as {@link #findMatches(String, int)} but without limit.
 	 */
 	public List<MultiPatternMatch<V>> findMatches(String patterns) {
 
@@ -59,14 +57,14 @@ public class MultiPatternMatcher<V> {
 	 *            the whitespace-separated patterns (never <i>null</i>; may be
 	 *            blank)
 	 * @param limit
-	 *            the maximum number of matches to return
+	 *            the maximum number of matches to return (must be >= 0)
 	 * @return all matches for the given patterns (never <i>null</i>)
 	 */
 	public List<MultiPatternMatch<V>> findMatches(String patterns, int limit) {
 
 		Objects.requireNonNull(patterns);
-		List<String> tokens = splitToTokens(patterns);
 
+		var tokens = splitToTokens(patterns);
 		var matchesByRangeCount = new TreeMap<Integer, List<MultiPatternMatch<V>>>();
 
 		for (var entry: identifierToValueMap.entrySet()) {
@@ -94,8 +92,8 @@ public class MultiPatternMatcher<V> {
 		if (patterns.isBlank()) {
 			return List.of("");
 		} else {
-			return Arrays//
-				.asList(WHITESPACES.split(patterns))
+			return List//
+				.of(WHITESPACES.split(patterns))
 				.stream()
 				.filter(it -> !it.isBlank())
 				.collect(Collectors.toList());
@@ -106,8 +104,7 @@ public class MultiPatternMatcher<V> {
 
 		var ranges = new TreeSet<MultiPatternMatchRange>();
 		for (var needle: needles) {
-			Set<Integer> indexes = getIndexesOf(haystack, needle);
-			for (var index: indexes) {
+			for (var index: getIndexesOf(haystack, needle)) {
 				ranges.add(new MultiPatternMatchRange(index, index + needle.length()));
 			}
 		}

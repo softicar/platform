@@ -18,7 +18,7 @@ public class MultiPatternMatcherTest {
 
 	public MultiPatternMatcherTest() {
 
-		map = new TreeMap<>();
+		this.map = new TreeMap<>();
 	}
 
 	@Test
