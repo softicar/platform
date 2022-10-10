@@ -2,12 +2,11 @@ package com.softicar.platform.dom.elements.input.auto.pattern;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -65,24 +64,19 @@ public class MultiPatternMatcher<V> {
 		Objects.requireNonNull(patterns);
 
 		var tokens = splitToTokens(patterns);
-		var matchesByRangeCount = new TreeMap<Integer, List<MultiPatternMatch<V>>>();
+		var matches = new ArrayList<MultiPatternMatch<V>>();
 
 		for (var entry: identifierToValueMap.entrySet()) {
 			String key = entry.getKey().toLowerCase();
 			var matchRanges = getMatchRanges(key, tokens);
 			if (!matchRanges.isEmpty()) {
-				matchesByRangeCount//
-					.computeIfAbsent(matchRanges.size(), dummy -> new ArrayList<>())
-					.add(new MultiPatternMatch<>(matchRanges, entry.getValue()));
+				matches.add(new MultiPatternMatch<>(matchRanges, entry.getValue()));
 			}
 		}
 
-		return matchesByRangeCount//
-			.descendingMap()
-			.entrySet()
+		return matches//
 			.stream()
-			.map(Entry::getValue)
-			.flatMap(Collection::stream)
+			.sorted(Comparator.comparing(MultiPatternMatch<V>::getRangeCount).reversed())
 			.limit(limit)
 			.collect(Collectors.toList());
 	}

@@ -35,6 +35,16 @@ public class MultiPatternMatch<T> {
 	}
 
 	/**
+	 * Returns the number of matching index ranges.
+	 *
+	 * @return the number of ranges
+	 */
+	public int getRangeCount() {
+
+		return ranges.size();
+	}
+
+	/**
 	 * Returns the value of the matched identifier.
 	 *
 	 * @return the value of the matched identifier (may be <i>null</i>)
