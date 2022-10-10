@@ -1,6 +1,9 @@
 package com.softicar.platform.emf.attribute.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.input.IDomValueInput;
+import com.softicar.platform.emf.EmfCssClasses;
 
 public interface IEmfInput<V> extends IDomValueInput<V> {
 
@@ -25,5 +28,16 @@ public interface IEmfInput<V> extends IDomValueInput<V> {
 	default void executePostSaveHook() {
 
 		// nothing to do by default
+	}
+
+	//TODO write javadoc
+	public IEmfInput<V> appendLabel(IDisplayString label);
+
+	default DomSpan createLabel(IDisplayString label) {
+
+		var labelSpan = new DomSpan();
+		labelSpan.appendText(label);
+		labelSpan.addCssClass(EmfCssClasses.EMF_INPUT_LABEL);
+		return labelSpan;
 	}
 }

@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.attribute.field.item;
 
 import com.softicar.platform.common.core.entity.IEntity;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
@@ -33,14 +33,15 @@ public class EmfReadOnlyBasicEntityInput<V extends IEntity> extends AbstractDomV
 	}
 
 	@Override
-	protected void doSetDisabled(boolean disabled) {
+	public IEmfInput<V> appendLabel(IDisplayString label) {
 
-		// nothing to do
+		//Not supported
+		return this;
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	protected void doSetDisabled(boolean disabled) {
 
-		return Optional.empty();
+		// nothing to do
 	}
 }

@@ -165,7 +165,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 			focusPredecessorElement = container.getFocusPredecessorNode();
 			focusSuccessorElement = container.getFocusSuccessorNode();
 			inputNode = container.getInputNode();
-			inputFieldElement = inputNode.getInputField().get();
+			inputFieldElement = inputNode.getInputField();
 			input = new InputProxy();
 			this.executed = true;
 		}

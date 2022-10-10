@@ -35,7 +35,7 @@ public abstract class AbstractAjaxAutoCompleteStringTest extends AbstractAjaxAut
 			setup.accept(input);
 			return input;
 		});
-		this.inputField = inputDiv.getInputField().get();
+		this.inputField = inputDiv.getInputField();
 	}
 
 	protected boolean isValueSubmitted() {

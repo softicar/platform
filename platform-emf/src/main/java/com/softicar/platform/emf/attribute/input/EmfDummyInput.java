@@ -1,8 +1,8 @@
 package com.softicar.platform.emf.attribute.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
@@ -40,8 +40,9 @@ public class EmfDummyInput<V> extends AbstractDomValueInputDiv<V> implements IEm
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	public IEmfInput<V> appendLabel(IDisplayString label) {
 
-		return Optional.empty();
+		//nothing to do
+		return this;
 	}
 }

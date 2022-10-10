@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.file.stored.attribute;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.upload.StoredFileUploadDiv;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Collection;
@@ -56,9 +56,10 @@ public class StoredFileInput extends AbstractDomValueInputDiv<AGStoredFile> impl
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	public IEmfInput<AGStoredFile> appendLabel(IDisplayString label) {
 
-		return Optional.empty();
+		//Not supported
+		return this;
 	}
 
 	// TODO simplify code with PLAT-887

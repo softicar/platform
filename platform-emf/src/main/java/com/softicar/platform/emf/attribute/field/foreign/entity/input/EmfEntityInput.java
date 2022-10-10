@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.edit.EmfEntityInputEditButton;
@@ -31,5 +32,13 @@ public class EmfEntityInput<E extends IEmfEntity<E, ?>> extends DomAutoCompleteI
 
 		super.setValue(value);
 		editButton.refresh(value);
+	}
+
+	@Override
+	public IEmfInput<E> appendLabel(IDisplayString label) {
+
+		getInputField().setRequired(true);
+		getInputBar().appendChild(createLabel(label));
+		return this;
 	}
 }

@@ -130,7 +130,7 @@ public class EmfEntityInputTest extends AbstractEmfTest {
 		formPopup.setInputValue(EmfTestObject.NAME, "edited");
 		formPopup.clickSaveAndCloseButton();
 
-		assertEquals(object23.toDisplay().toString(), getInput().getInputField().get().getValueText());
+		assertEquals(object23.toDisplay().toString(), getInput().getInputField().getValueText());
 		assertSame(object23, getValue());
 	}
 

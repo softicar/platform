@@ -1,11 +1,11 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomPasswordInput;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
@@ -16,6 +16,7 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 
 	private final DomPasswordInput passwordInput;
 	private final PasswordVisibilityButton passwordVisibilityButton;
+	private final DomBar inputBar;
 	private boolean passwordShown;
 
 	public EmfPasswordInput() {
@@ -25,7 +26,7 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 		this.passwordInput.addCssClass(EmfCssClasses.EMF_PASSWORD_INPUT);
 		this.passwordVisibilityButton = new PasswordVisibilityButton();
 		hideText();
-		appendChild(new DomBar(passwordInput, passwordVisibilityButton));
+		this.inputBar = appendChild(new DomBar(passwordInput, passwordVisibilityButton));
 	}
 
 	@Override
@@ -41,9 +42,11 @@ public class EmfPasswordInput extends AbstractDomValueInputDiv<String> implement
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	public IEmfInput<String> appendLabel(IDisplayString label) {
 
-		return Optional.of(passwordInput);
+		passwordInput.setRequired(true);
+		inputBar.appendChild(createLabel(label));
+		return this;
 	}
 
 	private void showText() {

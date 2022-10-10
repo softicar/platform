@@ -1,7 +1,6 @@
 package com.softicar.platform.dom.input;
 
 import com.softicar.platform.dom.element.DomElementTag;
-import java.util.Optional;
 
 public abstract class AbstractDomValueInputDiv<V> extends AbstractDomValueInputElement<V> {
 
@@ -10,6 +9,4 @@ public abstract class AbstractDomValueInputDiv<V> extends AbstractDomValueInputE
 
 		return DomElementTag.DIV;
 	}
-
-	public abstract Optional<IDomTextualInput> getInputField();
 }

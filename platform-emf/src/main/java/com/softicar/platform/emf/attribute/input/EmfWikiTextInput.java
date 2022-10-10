@@ -6,7 +6,6 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.wiki.DomWikiDiv;
 import com.softicar.platform.dom.elements.wiki.help.DomWikiSyntaxButton;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;
@@ -63,9 +62,12 @@ public class EmfWikiTextInput extends AbstractDomValueInputDiv<String> implement
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	public IEmfInput<String> appendLabel(IDisplayString label) {
 
-		return Optional.of(input);
+		input.setPlaceholder(IDisplayString.EMPTY);
+		input.setRequired(true);
+		appendChild(createLabel(label));
+		return this;
 	}
 
 	private void preview() {

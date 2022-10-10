@@ -1,10 +1,10 @@
 package com.softicar.platform.core.module.file.stored.set.attribute;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.set.AGStoredFileSet;
 import com.softicar.platform.core.module.file.stored.upload.StoredFileUploadDiv;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Collection;
 import java.util.Collections;
@@ -52,9 +52,10 @@ public class StoredFileSetInput extends AbstractDomValueInputDiv<AGStoredFileSet
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
+	public IEmfInput<AGStoredFileSet> appendLabel(IDisplayString label) {
 
-		return Optional.empty();
+		//Not supported
+		return this;
 	}
 
 	private Set<AGStoredFile> getFiles(AGStoredFileSet fileSet) {

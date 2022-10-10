@@ -1,10 +1,10 @@
 package com.softicar.platform.emf.attribute.field.enums;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
@@ -40,15 +40,16 @@ public class EmfEnumInput<E extends Enum<E>> extends AbstractDomValueInputDiv<E>
 	}
 
 	@Override
-	public Optional<IDomTextualInput> getInputField() {
-
-		return Optional.empty();
-	}
-
-	@Override
 	protected void doSetDisabled(boolean disabled) {
 
 		select.setDisabled(disabled);
+	}
+
+	@Override
+	public IEmfInput<E> appendLabel(IDisplayString label) {
+
+		//Not supported
+		return this;
 	}
 
 	private class Select extends DomEnumSelect<E> implements IDomChangeEventHandler {

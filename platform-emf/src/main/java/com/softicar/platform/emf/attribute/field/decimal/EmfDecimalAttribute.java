@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.decimal;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.number.BigDecimalMapper;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.number.decimal.DomDecimalDisplay;
@@ -59,6 +60,14 @@ public class EmfDecimalAttribute<R extends IEmfTableRow<R, ?>, V extends Number>
 			super(mapper);
 
 			setScale(scale);
+		}
+
+		@Override
+		public IEmfInput<V> appendLabel(IDisplayString label) {
+
+			input.setRequired(true);
+			appendChild(createLabel(label));
+			return this;
 		}
 	}
 }

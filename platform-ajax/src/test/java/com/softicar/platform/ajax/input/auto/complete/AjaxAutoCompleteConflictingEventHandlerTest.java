@@ -11,7 +11,7 @@ public class AjaxAutoCompleteConflictingEventHandlerTest extends AbstractAjaxAut
 
 		openTestInput(i -> {
 			i.getEngine().addValues(VALUE1, VALUE2, VALUE3);
-			i.getInputField().get().listenToEvent(DomEventType.ENTER);
+			i.getInputField().listenToEvent(DomEventType.ENTER);
 		});
 
 		// use ENTER key for selection

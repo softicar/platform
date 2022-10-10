@@ -9,12 +9,11 @@ import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.time.DomTimeInput;
 import com.softicar.platform.dom.elements.time.day.DomDayInput;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Optional;
 
 public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 
-	private final DomDayInput dayInput;
+	protected final DomDayInput dayInput;
 	private final DomTimeInput timeInput;
 
 	public DomDayTimeInput() {
@@ -59,11 +58,5 @@ public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 				throw new SofticarUserException(CommonDateI18n.MISSING_TIME_SPECIFICATION);
 			}
 		}
-	}
-
-	@Override
-	public Optional<IDomTextualInput> getInputField() {
-
-		return dayInput.getInputField();
 	}
 }

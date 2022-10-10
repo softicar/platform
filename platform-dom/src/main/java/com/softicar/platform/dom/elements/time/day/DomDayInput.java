@@ -7,7 +7,6 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
 import com.softicar.platform.dom.input.DomTextInput;
-import com.softicar.platform.dom.input.IDomTextualInput;
 import java.util.Optional;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Optional;
  */
 public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 
-	private final DomTextInput dayInput;
+	protected final DomTextInput dayInput;
 	private final PickDayButton dayButton;
 
 	public DomDayInput() {
@@ -53,12 +52,6 @@ public class DomDayInput extends AbstractDomValueInputDiv<Day> {
 
 		dayInput.setValue(day != null? day.toLocalizedString() : "");
 		dayButton.setDay(day);
-	}
-
-	@Override
-	public Optional<IDomTextualInput> getInputField() {
-
-		return Optional.of(dayInput);
 	}
 
 	private DomTextInput createDayInput() {
