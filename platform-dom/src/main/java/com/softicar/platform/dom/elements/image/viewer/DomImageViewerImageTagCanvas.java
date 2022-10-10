@@ -14,10 +14,10 @@ import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTag;
  *
  * @author Alexander Schmidt
  */
-public class DomImageViewerImageFrame extends DomDiv {
+public class DomImageViewerImageTagCanvas extends DomDiv {
 
-	public DomImageViewerImageFrame() {
+	public DomImageViewerImageTagCanvas() {
 
-		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_IMAGE_FRAME);
+		addCssClass(DomCssClasses.DOM_IMAGE_VIEWER_TAG_CANVAS);
 	}
 }

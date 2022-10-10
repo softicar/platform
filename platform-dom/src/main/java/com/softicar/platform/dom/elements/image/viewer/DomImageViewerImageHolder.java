@@ -33,17 +33,17 @@ class DomImageViewerImageHolder extends DomDiv {
 		removeChildren();
 		tags.clear();
 
-		var frame = new DomImageViewerImageFrame();
-		appendChild(frame);
+		var tagCanvas = new DomImageViewerImageTagCanvas();
+		appendChild(tagCanvas);
 
 		var image = new DomImageViewerImage(viewer.getPageImage());
-		frame.appendChild(image);
+		tagCanvas.appendChild(image);
 
 		viewer//
 			.getPageTagDefinitions()
 			.stream()
 			.map(DomImageViewerTag::new)
-			.map(frame::appendChild)
+			.map(tagCanvas::appendChild)
 			.forEach(tags::add);
 
 		if (viewer.isWidthDefined()) {
