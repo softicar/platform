@@ -14,7 +14,7 @@ public class LiveSystemRevision {
 	private static final String BUILD_PROPERTIES_FILEPATH = "/release.properties";
 	private static final LiveSystemRevision CURRENT_REVISION = new LiveSystemRevision();
 	private String name = null;
-	private final String version = null;
+	private String version = null;
 
 	/**
 	 * Returns an object describing the current revision of the project.
@@ -55,7 +55,7 @@ public class LiveSystemRevision {
 		try (InputStream inputStream = LiveSystemRevision.class.getResourceAsStream(BUILD_PROPERTIES_FILEPATH)) {
 			if (inputStream != null) {
 				this.name = parseRevision(inputStream, "revision.id");
-				this.name = parseRevision(inputStream, "revision.version");
+				this.version = parseRevision(inputStream, "revision.version");
 			}
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
