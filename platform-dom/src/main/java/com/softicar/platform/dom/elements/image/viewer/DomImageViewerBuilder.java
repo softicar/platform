@@ -3,9 +3,8 @@ package com.softicar.platform.dom.elements.image.viewer;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinition;
-import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinitionMap;
+import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinitions;
 import com.softicar.platform.dom.style.ICssLength;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +17,7 @@ public class DomImageViewerBuilder {
 
 	private List<? extends IResource> images;
 	private ICssLength width;
-	private final DomImageViewerTagDefinitionMap tagDefinitionMap;
+	private final DomImageViewerTagDefinitions tagDefinitions;
 
 	/**
 	 * Constructs a new {@link DomImageViewerBuilder}.
@@ -27,7 +26,7 @@ public class DomImageViewerBuilder {
 
 		this.images = List.of();
 		this.width = null;
-		this.tagDefinitionMap = new DomImageViewerTagDefinitionMap();
+		this.tagDefinitions = new DomImageViewerTagDefinitions();
 	}
 
 	/**
@@ -101,9 +100,7 @@ public class DomImageViewerBuilder {
 	 */
 	public DomImageViewerBuilder addTag(int pageIndex, double x, double y, double width, double height, String caption) {
 
-		tagDefinitionMap//
-			.computeIfAbsent(pageIndex, dummy -> new ArrayList<>())
-			.add(new DomImageViewerTagDefinition(x, y, width, height, caption));
+		tagDefinitions.add(pageIndex, new DomImageViewerTagDefinition(x, y, width, height, caption));
 		return this;
 	}
 
@@ -114,6 +111,6 @@ public class DomImageViewerBuilder {
 	 */
 	public DomImageViewer build() {
 
-		return new DomImageViewer(images, tagDefinitionMap, width);
+		return new DomImageViewer(images, tagDefinitions, width);
 	}
 }

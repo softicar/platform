@@ -4,7 +4,7 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinition;
-import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinitionMap;
+import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinitions;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssLength;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.Optional;
  * "{@code width}" parameter is given, it is displayed with a fixed width.
  * <p>
  * For each page, <b>tags</b> (i.e. rectangular marked regions) can be defined
- * either via a {@link DomImageViewerTagDefinitionMap}, or via
+ * either via a {@link DomImageViewerTagDefinitions}, or via
  * {@link DomImageViewerBuilder}.
  *
  * @author Alexander Schmidt
@@ -36,7 +36,7 @@ import java.util.Optional;
 public class DomImageViewer extends DomDiv {
 
 	private final List<? extends IResource> images;
-	private final DomImageViewerTagDefinitionMap tagDefinitionMap;
+	private final DomImageViewerTagDefinitions tagDefinitions;
 	private final DomImageViewerToolBar toolBar;
 	private final DomImageViewerCanvas canvas;
 	private final boolean widthDefined;
@@ -67,7 +67,7 @@ public class DomImageViewer extends DomDiv {
 	 */
 	public DomImageViewer(List<? extends IResource> images, ICssLength width) {
 
-		this(images, new DomImageViewerTagDefinitionMap(), width);
+		this(images, new DomImageViewerTagDefinitions(), width);
 	}
 
 	/**
@@ -82,10 +82,10 @@ public class DomImageViewer extends DomDiv {
 	 *            the width of this {@link DomImageViewer} (or <i>null</i> if
 	 *            the width shall be adaptive)
 	 */
-	public DomImageViewer(List<? extends IResource> images, DomImageViewerTagDefinitionMap tagDefinitionMap, ICssLength width) {
+	public DomImageViewer(List<? extends IResource> images, DomImageViewerTagDefinitions tagDefinitionMap, ICssLength width) {
 
 		this.images = Objects.requireNonNull(images);
-		this.tagDefinitionMap = Objects.requireNonNull(tagDefinitionMap);
+		this.tagDefinitions = Objects.requireNonNull(tagDefinitionMap);
 		this.toolBar = new DomImageViewerToolBar(this);
 		this.canvas = new DomImageViewerCanvas(this);
 		this.widthDefined = width != null;
@@ -259,7 +259,7 @@ public class DomImageViewer extends DomDiv {
 	 */
 	Collection<DomImageViewerTagDefinition> getPageTagDefinitions() {
 
-		return tagsDisplayed? tagDefinitionMap.getOrDefault(pageIndex, new ArrayList<>()) : new ArrayList<>();
+		return tagsDisplayed? tagDefinitions.get(pageIndex) : new ArrayList<>();
 	}
 
 	// ------------------------------ internal ------------------------------ //
