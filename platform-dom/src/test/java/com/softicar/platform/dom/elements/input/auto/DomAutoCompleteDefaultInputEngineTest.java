@@ -41,10 +41,10 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	public void testWithOneLetterPattern() {
 
 		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
-		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("e", 1)));
-		assertEquals("[Five, One]", toDisplayStrings(inputEngine.findMatches("e", 2)));
-		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 3)));
-		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+		assertEquals("[Three]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Three, Five]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 4)));
 	}
 
 	@Test
@@ -93,8 +93,8 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Five (1), five (2), Four (1), four (2)]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
 		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("five", 9)));
-		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1", 9)));
-		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1)", 9)));
+		assertEquals("[Five (1), five (2), Four (1)]", toDisplayStrings(inputEngine.findMatches("five (1", 9)));
+		assertEquals("[Five (1), five (2), Four (1)]", toDisplayStrings(inputEngine.findMatches("five (1)", 9)));
 	}
 
 	@Test
@@ -122,7 +122,23 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five", 9)));
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5", 9)));
-		assertEquals("[Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
+		assertEquals("[Five [5], five [55]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
+	}
+
+	// ------------------------------ with multiple patterns ------------------------------ //
+
+	@Test
+	public void testWithMultiplePatterns() {
+
+		clearTestValues();
+		addTestValue("My Test Item", 11);
+		addTestValue("My Test Value", 22);
+		addTestValue("Some Test Value", 33);
+		addTestValue("Some Other Value", 44);
+
+		assertEquals("[Some Other Value, Some Test Value, My Test Value]", toDisplayStrings(inputEngine.findMatches("ome lue", 9)));
+		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("t", 9)));
+		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("te t", 9)));
 	}
 
 	// ------------------------------ with id match ------------------------------ //
@@ -147,7 +163,7 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Twelve [12]]", toDisplayStrings(inputEngine.findMatches("12]", 9)));
 	}
 
-	// ------------------------------ with id match ------------------------------ //
+	// ------------------------------ miscellaneous ------------------------------ //
 
 	@Test
 	public void testGetDisplayStringWithUnkownValue() {

@@ -31,10 +31,10 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	public void testWithOneLetterPattern() {
 
 		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
-		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("e", 1)));
-		assertEquals("[Five, One]", toDisplayStrings(inputEngine.findMatches("e", 2)));
-		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 3)));
-		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+		assertEquals("[Three]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Three, Five]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 4)));
 	}
 
 	@Test
