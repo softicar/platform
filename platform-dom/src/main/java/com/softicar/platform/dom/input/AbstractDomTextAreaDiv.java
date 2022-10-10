@@ -6,7 +6,7 @@ import com.softicar.platform.dom.event.IDomChangeEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.Optional;
 
-public abstract class AbstractDomTextAreaDiv extends AbstractDomValueInputDiv<String> implements IDomTextualInput, IDomChangeEventHandler {
+public abstract class AbstractDomTextAreaDiv extends AbstractDomValueInputDiv<String> implements IDomChangeEventHandler {
 
 	protected final DomTextArea textArea;
 
@@ -16,6 +16,12 @@ public abstract class AbstractDomTextAreaDiv extends AbstractDomValueInputDiv<St
 		this.textArea.addChangeCallback(this::executeChangeCallbacks);
 
 		appendChild(textArea);
+	}
+
+	public AbstractDomTextAreaDiv setPlaceholder(IDisplayString placeholder) {
+
+		textArea.setPlaceholder(placeholder);
+		return this;
 	}
 
 	public AbstractDomTextAreaDiv setSize(int rows, int columns) {
@@ -46,48 +52,6 @@ public abstract class AbstractDomTextAreaDiv extends AbstractDomValueInputDiv<St
 	public Optional<String> getValue() {
 
 		return textArea.getValue();
-	}
-
-	@Override
-	public String getValueText() {
-
-		return textArea.getValueText();
-	}
-
-	@Override
-	public String getValueTextTrimmed() {
-
-		return textArea.getValueTextTrimmed();
-	}
-
-	@Override
-	public boolean isBlank() {
-
-		return textArea.isBlank();
-	}
-
-	@Override
-	public void selectText() {
-
-		textArea.selectText();
-	}
-
-	@Override
-	public IDomTextualInput setPlaceholder(IDisplayString placeholder) {
-
-		return textArea.setPlaceholder(placeholder);
-	}
-
-	@Override
-	public void setReadonly(boolean readonly) {
-
-		textArea.setReadonly(readonly);
-	}
-
-	@Override
-	public boolean isReadonly() {
-
-		return textArea.isReadonly();
 	}
 
 	@Override
