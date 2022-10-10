@@ -112,15 +112,14 @@ public class MultiPatternMatcher<V> {
 		}
 
 		var indexes = new TreeSet<Integer>();
-		int offset = 0;
-		int index;
+		int index = 0;
 		do {
-			index = haystack.indexOf(needle, offset);
-			offset += needle.length();
+			index = haystack.indexOf(needle, index);
 			if (index > -1) {
 				indexes.add(index);
+				index++;
 			}
-		} while (index > -1);
+		} while (index > -1 && index < haystack.length());
 		return indexes;
 	}
 }
