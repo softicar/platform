@@ -27,19 +27,20 @@ public class AjaxSessionPageDiv extends DomDiv {
 				.get()
 				.getHttpSession();
 
+			var revision = LiveSystemRevision.getCurrentRevision();
 			add(CoreI18n.SESSION_ID, httpSession.getId());
 			add(CoreI18n.CREATED_AT, DayTime.fromDate(new Date(httpSession.getCreationTime())).toString());
 			add(CoreI18n.LAST_ACCESS, DayTime.fromDate(new Date(httpSession.getLastAccessedTime())).toString());
 			add(CoreI18n.TIMEOUT_MIN, "" + httpSession.getMaxInactiveInterval() / 60);
-			add(CoreI18n.SYSTEM_REVISION, "" + getSystemRevision());
+			add(CoreI18n.SYSTEM_REVISION, "" + getSystemRevisionInfo(revision.getName()));
+			add(CoreI18n.SYSTEM_VERSION, "" + getSystemRevisionInfo(revision.getVersion()));
 		}
 	}
 
-	private static IDisplayString getSystemRevision() {
+	private static IDisplayString getSystemRevisionInfo(Optional<String> info) {
 
-		Optional<String> revision = LiveSystemRevision.getCurrentRevision().getName();
-		if (revision.isPresent()) {
-			return IDisplayString.create(revision.get());
+		if (info.isPresent()) {
+			return IDisplayString.create(info.get());
 		} else {
 			return CoreI18n.UNKNOWN;
 		}
