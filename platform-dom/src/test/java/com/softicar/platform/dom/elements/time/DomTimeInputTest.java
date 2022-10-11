@@ -17,7 +17,7 @@ public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
 	public void testGetValue() {
 
 		// test empty input
-		assertEmptyResultForGetValue("::");
+		assertEmptyResultForGetValue("");
 
 		// test valid times with hours only
 		assertResultForGetValue("10:00:00", "10");
@@ -33,6 +33,7 @@ public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
 		assertResultForGetValue("23:59:59", "23:59:59");
 
 		// test illegal combinations
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "::");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "x:y:z");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "-1:0:0");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "24:0:0");

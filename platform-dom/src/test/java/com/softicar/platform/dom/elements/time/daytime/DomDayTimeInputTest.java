@@ -20,7 +20,7 @@ public class DomDayTimeInputTest extends AbstractDomValueInputDivTest<DayTime> {
 	public void testGetValue() {
 
 		// test empty input
-		assertEmptyResultForGetValue(",,,");
+		assertEmptyResultForGetValue(",");
 
 		// test valid dates and times
 		assertResultForGetValue("2021-12-15 08:04:02", "2021-12-15,8:4:2");
@@ -31,7 +31,7 @@ public class DomDayTimeInputTest extends AbstractDomValueInputDivTest<DayTime> {
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"), "foo,0:0:0");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("x:y:z"), "2021-01-01,x:y:z");
 		assertExceptionForGetValue(CommonDateI18n.MISSING_DATE_SPECIFICATION, ",0:0:0");
-		assertExceptionForGetValue(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,::");
+		assertExceptionForGetValue(CommonDateI18n.MISSING_TIME_SPECIFICATION, "2021-01-01,");
 	}
 
 	@Override

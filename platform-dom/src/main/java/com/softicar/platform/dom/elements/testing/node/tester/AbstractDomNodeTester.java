@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
@@ -18,7 +17,6 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.text.IDomTextNode;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -69,10 +67,6 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	 */
 	public AbstractDomNodeTester<N> setTimeInputValue(ITestMarker marker, String timeString) {
 
-		List<String> elements = new Tokenizer(':', '\\').tokenize(timeString);
-		if (elements.size() != 3) {
-			throw new IllegalArgumentException("Expected a time string in the form '<hours>:<minutes>:<seconds>' but got: %s".formatted(timeString));
-		}
 		findNode(marker).setInputValue(DomTestMarker.TIME_INPUT, timeString);
 		return this;
 	}

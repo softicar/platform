@@ -40,8 +40,8 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "");
-		popup.setTimeInputValue(AGDemoMoment.TIME, "::");
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "", "::");
+		popup.setTimeInputValue(AGDemoMoment.TIME, "");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "", "");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
@@ -73,7 +73,7 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31", "::");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31", "");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
