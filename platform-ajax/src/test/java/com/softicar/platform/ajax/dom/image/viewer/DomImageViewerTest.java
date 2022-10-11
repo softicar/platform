@@ -3,19 +3,25 @@ package com.softicar.platform.ajax.dom.image.viewer;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineOutput;
+import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.in.memory.InMemoryImageResource;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.image.viewer.DomImageViewer;
+import com.softicar.platform.dom.elements.image.viewer.DomImageViewerBuilder;
+import com.softicar.platform.dom.elements.image.viewer.DomImageViewerRotation;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.style.CssPixel;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
@@ -33,30 +39,58 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 		this.images = createImageList();
 		this.input = getTestEngine().getInput();
 		this.output = getTestEngine().getOutput();
-
-		openTestNode(() -> new DomImageViewer(images, new CssPixel(VIEWER_WIDTH)));
 	}
 
 	@Test
 	public void testInitialDisplay() {
 
+		setupWithoutTags();
+
 		assertShownPage(1);
 		assertZoomLevel(100);
-		assertRotated(false);
+		assertRotation(DomImageViewerRotation._0);
 	}
 
 	@Test
-	public void testRotate() {
+	public void testRotateLeft() {
 
-		clickRotateButton();
-		assertRotated(true);
+		setupWithoutTags();
 
-		clickRotateButton();
-		assertRotated(false);
+		clickRotateLeftButton();
+		assertRotation(DomImageViewerRotation._270);
+
+		clickRotateLeftButton();
+		assertRotation(DomImageViewerRotation._180);
+
+		clickRotateLeftButton();
+		assertRotation(DomImageViewerRotation._90);
+
+		clickRotateLeftButton();
+		assertRotation(DomImageViewerRotation._0);
+	}
+
+	@Test
+	public void testRotateRight() {
+
+		setupWithoutTags();
+
+		clickRotateRightButton();
+		assertRotation(DomImageViewerRotation._90);
+
+		clickRotateRightButton();
+		assertRotation(DomImageViewerRotation._180);
+
+		clickRotateRightButton();
+		assertRotation(DomImageViewerRotation._270);
+
+		clickRotateRightButton();
+		assertRotation(DomImageViewerRotation._0);
 	}
 
 	@Test
 	public void testPagingToNextPage() {
+
+		setupWithoutTags();
 
 		for (int index = 2; index <= images.size(); index++) {
 			clickNextPageButton();
@@ -66,6 +100,8 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	@Test
 	public void testPagingToPreviousPage() {
+
+		setupWithoutTags();
 
 		goToLastPage();
 
@@ -78,12 +114,16 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testPagingBeforeFirstPage() {
 
+		setupWithoutTags();
+
 		clickPreviousPageButton();
 		assertShownPage(1);
 	}
 
 	@Test
 	public void testPagingAfterLastPage() {
+
+		setupWithoutTags();
 
 		goToLastPage();
 
@@ -94,6 +134,8 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testZoomIn() {
 
+		setupWithoutTags();
+
 		clickZoomInButton();
 
 		assertShownPage(1);
@@ -103,6 +145,8 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testZoomOut() {
 
+		setupWithoutTags();
+
 		clickZoomOutButton();
 
 		assertShownPage(1);
@@ -111,6 +155,8 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	@Test
 	public void testZoomInAndOut() {
+
+		setupWithoutTags();
 
 		// --- zoom in --- //
 
@@ -141,11 +187,43 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testZoomInAndGoToNextPage() {
 
+		setupWithoutTags();
+
 		clickZoomInButton();
 		clickNextPageButton();
 
 		assertShownPage(2);
 		assertZoomLevel(125);
+	}
+
+	@Test
+	public void testTagsWithTogglingAndPaging() {
+
+		setupWithTags();
+
+		// toggle tags on first page
+		assertShownTags(1);
+		assertShownTagCaptionsNone();
+		clickTagsToggleButton();
+		assertShownTags(0);
+		assertShownTagCaptionsNone();
+		clickTagsToggleButton();
+		assertShownTags(1);
+		assertShownTagCaptionsNone();
+
+		// proceed to second page
+		clickNextPageButton();
+		assertShownTags(2);
+		assertShownTagCaptions("foo", "bar");
+		clickTagsToggleButton();
+
+		// return to first page, with tags disabled
+		clickPreviousPageButton();
+		assertShownTags(0);
+		assertShownTagCaptionsNone();
+		clickTagsToggleButton();
+		assertShownTags(1);
+		assertShownTagCaptionsNone();
 	}
 
 	// ------------------------------ paging ------------------------------ //
@@ -214,18 +292,47 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 
 	// ------------------------------ rotation ------------------------------ //
 
-	private void clickRotateButton() {
+	private void clickRotateLeftButton() {
 
-		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_BUTTON));
+		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_LEFT_BUTTON));
 		waitForServer();
 	}
 
-	private void assertRotated(boolean rotated) {
+	private void clickRotateRightButton() {
 
-		if (rotated) {
-			output.assertCssTransform("matrix(-1, 0, 0, -1, 0, 0)", findImageHolder());
-		} else {
+		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_ROTATE_RIGHT_BUTTON));
+		waitForServer();
+	}
+
+	/**
+	 * Notes:
+	 * <ul>
+	 * <li>Even though we do not explicitly specify a "{@code matrix}"
+	 * transform, Selenium or Chrome seems to rephrase other transformations
+	 * (e.g. "{@code rotate}" and "{@code translate}") as "{@code matrix}".
+	 * That's odd but we can't do anything about it.</li>
+	 * <li>The asserted "{@code matrix}" transform values were observed while
+	 * manual testing was successful. They could change with future
+	 * CSS/rendering engine updates of the browser (in the Selenium node).</li>
+	 * </ul>
+	 */
+	private void assertRotation(DomImageViewerRotation rotation) {
+
+		switch (rotation) {
+		case _0:
 			output.assertCssTransform("matrix(1, 0, 0, 1, 0, 0)", findImageHolder());
+			return;
+		case _90:
+			output.assertCssTransform("matrix(0, 1, -1, 0, 400, 0)", findImageHolder());
+			return;
+		case _180:
+			output.assertCssTransform("matrix(-1, 0, 0, -1, 1000, 401)", findImageHolder());
+			return;
+		case _270:
+			output.assertCssTransform("matrix(0, -1, 1, 0, 0, 997)", findImageHolder());
+			return;
+		default:
+			throw new SofticarUnknownEnumConstantException(rotation);
 		}
 	}
 
@@ -274,7 +381,49 @@ public class DomImageViewerTest extends AbstractAjaxSeleniumLowLevelTest {
 				imageHolder);
 	}
 
+	// ------------------------------ tags ------------------------------ //
+
+	private void clickTagsToggleButton() {
+
+		input.click(output.findNodeOrFail(DomTestMarker.IMAGE_VIEWER_TAGS_TOGGLE_BUTTON));
+		waitForServer();
+	}
+
+	private void assertShownTags(int count) {
+
+		assertEquals(count, findNodes(DomTestMarker.IMAGE_VIEWER_TAG).size());
+	}
+
+	private void assertShownTagCaptionsNone() {
+
+		assertShownTagCaptions(new String[0]);
+	}
+
+	private void assertShownTagCaptions(String...captionTexts) {
+
+		String expectedCaptions = Arrays.asList(captionTexts).stream().collect(Collectors.joining("|"));
+		String actualCaptions = findNodes(DomTestMarker.IMAGE_VIEWER_TAG_CAPTION).stream().map(this::getText).collect(Collectors.joining("|"));
+		assertEquals(expectedCaptions, actualCaptions);
+	}
+
 	// ------------------------------ setup ------------------------------ //
+
+	private void setupWithoutTags() {
+
+		openTestNode(() -> new DomImageViewer(images, new CssPixel(VIEWER_WIDTH)));
+	}
+
+	private void setupWithTags() {
+
+		openTestNode(
+			() -> new DomImageViewerBuilder()//
+				.setImages(images)
+				.setWidth(new CssPixel(VIEWER_WIDTH))
+				.addTag(0, 10, 20, 30, 15)
+				.addTag(1, 10, 40, 30, 15, "foo")
+				.addTag(1, 10, 60, 30, 15, IDisplayString.create("bar"))
+				.build());
+	}
 
 	private List<IResource> createImageList() {
 

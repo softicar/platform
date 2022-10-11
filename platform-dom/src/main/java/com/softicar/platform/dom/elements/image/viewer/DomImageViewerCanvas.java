@@ -42,7 +42,7 @@ class DomImageViewerCanvas extends DomDiv implements IDomWheelEventHandler {
 	public void refresh() {
 
 		if (viewer.getPageCount() > 0) {
-			imageHolder.showImage(viewer.getPageImage());
+			imageHolder.refreshImage();
 			imageHolder.applyTransformations();
 		}
 	}
