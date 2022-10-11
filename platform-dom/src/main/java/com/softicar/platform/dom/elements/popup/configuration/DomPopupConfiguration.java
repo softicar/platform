@@ -24,7 +24,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 
 	private IDisplayString caption;
 	private IDisplayString subCaption;
-	private DomPopupDisplayMode displayMode;
+	private IDomPopupDisplayMode displayMode;
 	private DomPopupChildClosingMode childClosingMode;
 	private IDomPopupPositionStrategy positionStrategy;
 	private INullaryVoidFunction callbackBeforeOpen;
@@ -39,7 +39,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 
 		this.caption = null;
 		this.subCaption = null;
-		this.displayMode = DomPopupDisplayMode.DRAGGABLE;
+		this.displayMode = DomPopupDisplayModes.DRAGGABLE;
 		this.childClosingMode = null;
 		this.positionStrategy = new DomPopupEventCoordinatesPositionStrategy();
 		this.callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
@@ -87,7 +87,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public DomPopupDisplayMode getDisplayMode() {
+	public IDomPopupDisplayMode getDisplayMode() {
 
 		return displayMode;
 	}
@@ -99,45 +99,45 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	 *            the {@link DomPopupDisplayMode} (never <i>null</i>)
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setDisplayMode(DomPopupDisplayMode displayMode) {
+	public DomPopupConfiguration setDisplayMode(IDomPopupDisplayMode displayMode) {
 
 		this.displayMode = Objects.requireNonNull(displayMode);
 		return this;
 	}
 
 	/**
-	 * Sets {@link DomPopupDisplayMode#DIALOG} for the {@link DomPopup}.
+	 * Sets {@link DomPopupDisplayModes#DIALOG} for the {@link DomPopup}.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
 	public DomPopupConfiguration setDisplayModeDialog() {
 
-		return setDisplayMode(DomPopupDisplayMode.DIALOG);
+		return setDisplayMode(DomPopupDisplayModes.DIALOG);
 	}
 
 	/**
-	 * Sets {@link DomPopupDisplayMode#DRAGGABLE} for the {@link DomPopup}.
+	 * Sets {@link DomPopupDisplayModes#DRAGGABLE} for the {@link DomPopup}.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
 	public DomPopupConfiguration setDisplayModeDraggable() {
 
-		return setDisplayMode(DomPopupDisplayMode.DRAGGABLE);
+		return setDisplayMode(DomPopupDisplayModes.DRAGGABLE);
 	}
 
 	/**
-	 * Sets {@link DomPopupDisplayMode#DRAGGABLE_MODAL} for the
+	 * Sets {@link DomPopupDisplayModes#DRAGGABLE_MODAL} for the
 	 * {@link DomPopup}.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
 	public DomPopupConfiguration setDisplayModeDraggableModal() {
 
-		return setDisplayMode(DomPopupDisplayMode.DRAGGABLE_MODAL);
+		return setDisplayMode(DomPopupDisplayModes.DRAGGABLE_MODAL);
 	}
 
 	/**
-	 * Sets {@link DomPopupDisplayMode#MAXIMIZED} for the {@link DomPopup}.
+	 * Sets {@link DomPopupDisplayModes#MAXIMIZED} for the {@link DomPopup}.
 	 * <p>
 	 * When using this mode, {@link #setChildClosingModeInteractiveAll()} or
 	 * {@link #setChildClosingModeAutomaticAll()} is recommended.
@@ -146,17 +146,17 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	 */
 	public DomPopupConfiguration setDisplayModeMaximized() {
 
-		return setDisplayMode(DomPopupDisplayMode.MAXIMIZED);
+		return setDisplayMode(DomPopupDisplayModes.MAXIMIZED);
 	}
 
 	/**
-	 * Sets {@link DomPopupDisplayMode#POPOVER} for the {@link DomPopup}.
+	 * Sets {@link DomPopupDisplayModes#POPOVER} for the {@link DomPopup}.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
 	public DomPopupConfiguration setDisplayModePopover() {
 
-		return setDisplayMode(DomPopupDisplayMode.POPOVER);
+		return setDisplayMode(DomPopupDisplayModes.POPOVER);
 	}
 
 	@Override
