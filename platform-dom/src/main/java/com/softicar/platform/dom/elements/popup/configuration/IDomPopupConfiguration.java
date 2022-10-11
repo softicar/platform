@@ -35,7 +35,7 @@ public interface IDomPopupConfiguration {
 	 *
 	 * @return the {@link DomPopupDisplayMode} (never <i>null</i>)
 	 */
-	DomPopupDisplayMode getDisplayMode();
+	IDomPopupDisplayMode getDisplayMode();
 
 	/**
 	 * Returns the {@link DomPopupChildClosingMode} of the {@link DomPopup}.
