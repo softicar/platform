@@ -2,9 +2,9 @@ package com.softicar.platform.ajax.testing.selenium.engine.level.low;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
+import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestRectangle;
-import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.dialog.testing.IDomModalAlertNodes;
@@ -15,6 +15,7 @@ import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
 import java.time.Duration;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
@@ -605,6 +606,19 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	default Optional<IDomNode> findNode(ITestMarker marker) {
 
 		return getTestEngine().getOutput().findNode(marker);
+	}
+
+	/**
+	 * Returns all {@link IDomNode} instances that match the given
+	 * {@link ITestMarker} from the rendered document.
+	 *
+	 * @param marker
+	 *            the {@link ITestMarker} to check (never <i>null</i>)
+	 * @return the found {@link IDomNode} instances (never <i>null</i>)
+	 */
+	default Collection<IDomNode> findNodes(ITestMarker marker) {
+
+		return getTestEngine().getOutput().findNodes(marker);
 	}
 
 	/**
