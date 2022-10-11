@@ -12,13 +12,12 @@ import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.user.profile.UserProfilePage;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.popup.popover.action.DomMenuPopover;
 import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupBelowEventNodePositionStrategy;
-import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.page.IEmfPage;
 import javax.servlet.http.HttpSession;
 
-class PageHeaderUserPopover extends DomPopover {
+class PageHeaderUserPopover extends DomMenuPopover {
 
 	private final PageNavigationController controller;
 
@@ -26,7 +25,6 @@ class PageHeaderUserPopover extends DomPopover {
 
 		this.controller = controller;
 		this.configuration.setPositionStrategy(new DomPopupBelowEventNodePositionStrategy());
-		addCssClass(EmfCssClasses.EMF_MANAGEMENT_ACTIONS_POPOVER);
 		addMarker(CoreTestMarker.PAGE_HEADER_USER_POPOVER);
 
 		appendChild(new CoreModulePageButton(UserProfilePage.class)).addMarker(CoreTestMarker.PAGE_HEADER_USER_POPOVER_PROFILE_PAGE_BUTTON);

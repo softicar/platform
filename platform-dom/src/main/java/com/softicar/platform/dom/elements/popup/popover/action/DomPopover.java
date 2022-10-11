@@ -1,6 +1,5 @@
-package com.softicar.platform.dom.elements.popup.modal;
+package com.softicar.platform.dom.elements.popup.popover.action;
 
-import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 
 /**
@@ -14,11 +13,10 @@ import com.softicar.platform.dom.elements.popup.DomPopup;
  *
  * @author Alexander Schmidt
  */
-public class DomPopover extends DomDismissablePopup {
+public class DomPopover extends DomPopup {
 
 	public DomPopover() {
 
-		addCssClass(DomCssClasses.DOM_POPOVER);
 		configuration.setDisplayModePopover();
 	}
 }

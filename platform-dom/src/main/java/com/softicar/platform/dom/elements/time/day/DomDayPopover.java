@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.time.day;
 
 import com.softicar.platform.common.date.Day;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.popup.popover.action.DomPopover;
 
 class DomDayPopover extends DomPopover {
 

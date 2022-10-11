@@ -2,7 +2,7 @@ package com.softicar.platform.emf.attribute.input.auto.complete;
 
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.popup.popover.action.DomPopover;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.attribute.field.foreign.entity.input.EmfEntityInput;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
