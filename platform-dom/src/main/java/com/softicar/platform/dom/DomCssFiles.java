@@ -30,7 +30,6 @@ public interface DomCssFiles {
 	IResourceSupplier DOM_MULTI_LINE_STRING_DISPLAY_STYLE = FACTORY.create("dom-multi-line-string-display-style.css");
 	IResourceSupplier DOM_PAGEABLE_TABLE_STYLE = FACTORY.create("dom-pageable-table-style.css");
 	IResourceSupplier DOM_PERCENTAGE_BAR_STYLE = FACTORY.create("dom-percentage-bar-style.css");
-	IResourceSupplier DOM_POPOVER_STYLE = FACTORY.create("dom-popover-style.css");
 	IResourceSupplier DOM_POPUP_STYLE = FACTORY.create("dom-popup-style.css");
 	IResourceSupplier DOM_PREFORMATTED_LABEL_STYLE = FACTORY.create("dom-preformatted-label-style.css");
 	IResourceSupplier DOM_SEPARATOR_CELL_STYLE = FACTORY.create("dom-separator-cell-style.css");

@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.popup.modal.DomPopover;
+import com.softicar.platform.dom.elements.popup.popover.DomPopover;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.AbstractEmfTest;
