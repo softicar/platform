@@ -8,7 +8,7 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.popup.popover.action.DomMenuPopover;
+import com.softicar.platform.dom.elements.popup.popover.DomMenuPopover;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssColorEnum;
 import com.softicar.platform.dom.styles.CssDisplay;

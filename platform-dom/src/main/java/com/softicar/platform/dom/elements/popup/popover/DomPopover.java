@@ -1,4 +1,4 @@
-package com.softicar.platform.dom.elements.popup.popover.action;
+package com.softicar.platform.dom.elements.popup.popover;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
 

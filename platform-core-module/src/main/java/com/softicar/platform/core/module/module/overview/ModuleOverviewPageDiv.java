@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
-import com.softicar.platform.dom.elements.popup.popover.action.DomMenuPopover;
+import com.softicar.platform.dom.elements.popup.popover.DomMenuPopover;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfImages;

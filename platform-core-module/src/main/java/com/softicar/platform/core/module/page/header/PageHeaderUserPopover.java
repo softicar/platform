@@ -12,7 +12,7 @@ import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.user.profile.UserProfilePage;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.popup.popover.action.DomMenuPopover;
+import com.softicar.platform.dom.elements.popup.popover.DomMenuPopover;
 import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupBelowEventNodePositionStrategy;
 import com.softicar.platform.emf.page.IEmfPage;
 import javax.servlet.http.HttpSession;
