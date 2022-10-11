@@ -27,7 +27,6 @@ public class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 		appendChild(new PageHeaderNavigationToggleButton(navigationToggleFunction));
 		appendChild(new PagePathDiv());
 		appendChild(new PageHeaderUserPopoverButton(controller));
-		appendChild(new DomDiv());
 	}
 
 	private class PagePathDiv extends DomDiv {
