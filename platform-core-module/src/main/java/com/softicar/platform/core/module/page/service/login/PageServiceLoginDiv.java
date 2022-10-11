@@ -63,6 +63,8 @@ public class PageServiceLoginDiv extends DomDiv {
 			this.maintenanceDiv = new MaintenanceElement();
 			this.errorDiv = new LoginErrorElement();
 
+			addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_FORM);
+
 			Optional//
 				.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
 				.ifPresent(this::appendLogo);

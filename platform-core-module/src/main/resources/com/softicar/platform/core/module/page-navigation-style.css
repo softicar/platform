@@ -122,9 +122,9 @@
 	max-width: calc(var(--PAGE_NAVIGATION_WIDTH) - 40px);
 }
 
-/* -------------------- PageNavigationPageLinkDiv -------------------- */
+/* -------------------- PageNavigationLinkDiv -------------------- */
 
-.PageNavigationPageLinkDiv {
+.PageNavigationLinkDiv {
 	min-height: 32px;
 	
 	/* content */
@@ -141,32 +141,32 @@
 	font-weight: normal;
 }
 
-.PageNavigationPageLinkDiv:hover,
-.PageNavigationPageLinkDiv.selected {
+.PageNavigationLinkDiv:hover,
+.PageNavigationLinkDiv.selected {
 	background-color: var(--SELECTION_BACKGROUND_COLOR);
 }
 
-.PageNavigationPageLinkDiv > .PageNavigationPageLinkTitle {
+.PageNavigationLinkDiv > .PageNavigationLinkTitle {
 	min-height: inherit;
 	transition: font-weight 0.1s;
 }
 
-.PageNavigationPageLinkDiv.selected > .PageNavigationPageLinkTitle {
+.PageNavigationLinkDiv.selected > .PageNavigationLinkTitle {
 	font-weight: bold;
 }
 
-.PageNavigationPageLinkDiv > .DomButton {
+.PageNavigationLinkDiv > .DomButton {
 	opacity: 0;
 	transition: opacity 0.2s;
 }
 
-.PageNavigationPageLinkDiv > .DomButton:hover {
+.PageNavigationLinkDiv > .DomButton:hover {
 	opacity: 1;
 }
 
-/* -------------------- PageNavigationPageLinkTitle -------------------- */
+/* -------------------- PageNavigationLinkTitle -------------------- */
 
-.PageNavigationPageLinkTitle {
+.PageNavigationLinkTitle {
 	display: flex;
 	justify-content: center;
 	flex-grow: 1;

@@ -1,26 +1,25 @@
-package com.softicar.platform.core.module.page.navigation.link.display;
+package com.softicar.platform.core.module.page.navigation.entry.folder;
 
 import com.softicar.platform.core.module.CoreCssClasses;
-import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
-import com.softicar.platform.core.module.page.navigation.PageNavigationFolderController;
-import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.core.module.page.navigation.PageNavigationController;
+import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 
 public class PageNavigationFolderDiv extends DomDiv {
 
-	private final PageNavigationFolderController folderController;
+	private final PageNavigationController controller;
 	private final PageNavigationFolderDiv parentFolderDiv;
 	private final PageNavigationFolderContentDiv contentDiv;
 
-	public PageNavigationFolderDiv(PageNavigationDiv navigationDiv, PageNavigationFolderDiv parentFolderDiv, PageNavigationLink<?> link) {
+	public PageNavigationFolderDiv(PageNavigationController controller, PageNavigationFolderDiv parentFolderDiv, PageNavigationEntry<?> folderEntry) {
 
-		this.folderController = navigationDiv.getFolderController();
+		this.controller = controller;
 		this.parentFolderDiv = parentFolderDiv;
-		this.contentDiv = new PageNavigationFolderContentDiv(navigationDiv, this, link);
+		this.contentDiv = new PageNavigationFolderContentDiv(controller, folderEntry, this);
 
 		setCssClass(CoreCssClasses.PAGE_NAVIGATION_FOLDER_DIV);
-		appendChild(new PageNavigationFolderTitleDiv(link, this::toggle));
+		appendChild(new PageNavigationFolderTitleDiv(folderEntry, this::toggle));
 	}
 
 	public PageNavigationFolderDiv getParentFolderDiv() {
@@ -44,6 +43,6 @@ public class PageNavigationFolderDiv extends DomDiv {
 
 	private void toggle() {
 
-		folderController.toggleFolder(this);
+		controller.toggleFolder(this);
 	}
 }

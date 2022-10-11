@@ -114,4 +114,20 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends ISourceCodeRe
 	 * @return the {@link IEmfPermission} (never <i>null</i>)
 	 */
 	IEmfPermission<I> getRequiredPermission();
+
+	/**
+	 * Determines whether links to this {@link IEmfPage} are listed in UIs.
+	 * <p>
+	 * If an {@link IEmfPage} is not listed, it is still accessible via URL,
+	 * assuming that {@link #getPrecondition()} and
+	 * {@link #getRequiredPermission()} are evaluated successfully.
+	 * <p>
+	 * By default, an {@link IEmfPage} is listed.
+	 *
+	 * @return <i>true</i> if links are listed; <i>false</i> otherwise
+	 */
+	default boolean isListed() {
+
+		return true;
+	}
 }

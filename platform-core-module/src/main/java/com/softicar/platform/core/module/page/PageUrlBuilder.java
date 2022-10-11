@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.network.url.Url;
-import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
 import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
@@ -14,10 +14,10 @@ public class PageUrlBuilder<I extends IEmfModuleInstance<I>> {
 	private final IEmfPage<?> page;
 	private final I moduleInstance;
 
-	public PageUrlBuilder(PageNavigationLink<I> link) {
+	public PageUrlBuilder(PageNavigationEntry<I> linkEntry) {
 
-		this.page = Objects.requireNonNull(link.getPage());
-		this.moduleInstance = Objects.requireNonNull(link.getModuleInstance());
+		this.page = Objects.requireNonNull(linkEntry.getPage());
+		this.moduleInstance = Objects.requireNonNull(linkEntry.getModuleInstance());
 	}
 
 	public PageUrlBuilder(Class<? extends IEmfPage<I>> pageClass, I moduleInstance) {

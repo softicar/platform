@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.page.navigation.link;
+package com.softicar.platform.core.module.page.navigation.entry;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.locale.CurrentLocale;
@@ -14,31 +14,39 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
+public class PageNavigationEntry<I extends IEmfModuleInstance<I>> {
 
-	protected final List<PageNavigationLink<I>> children = new ArrayList<>();
 	private final EmfPagePath path;
 	private final IEmfPage<I> page;
 	private final I moduleInstance;
-	private Optional<IResource> icon = Optional.empty();
+	private final List<PageNavigationEntry<I>> children;
+	private Optional<IResource> icon;
 
-	public PageNavigationLink(EmfPagePath path) {
+	public static <I extends IEmfModuleInstance<I>> PageNavigationEntry<I> createFolder(EmfPagePath parentPath) {
+
+		return new PageNavigationEntry<>(parentPath, null, null);
+	}
+
+	public static <I extends IEmfModuleInstance<I>> PageNavigationEntry<I> createPage(EmfPagePath parentPath, IEmfPage<I> page, I moduleInstance) {
+
+		return new PageNavigationEntry<>(
+			page//
+				.getPagePath(parentPath)
+				.append(page.getTitle(moduleInstance)),
+			page,
+			moduleInstance);
+	}
+
+	private PageNavigationEntry(EmfPagePath path, IEmfPage<I> page, I moduleInstance) {
 
 		this.path = path;
-		this.page = null;
-		this.moduleInstance = null;
-	}
-
-	public PageNavigationLink(EmfPagePath moduleFolderPath, IEmfPage<I> page, I moduleInstance) {
-
 		this.page = page;
 		this.moduleInstance = moduleInstance;
-		this.path = page//
-			.getPagePath(moduleFolderPath)
-			.append(page.getTitle(moduleInstance));
+		this.children = new ArrayList<>();
+		this.icon = Optional.empty();
 	}
 
-	public PageNavigationLink<I> setIcon(IResource icon) {
+	public PageNavigationEntry<I> setIcon(IResource icon) {
 
 		this.icon = Optional.ofNullable(icon);
 		return this;
@@ -78,12 +86,12 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 		return page.createContentNode(moduleInstance);
 	}
 
-	public void addChild(PageNavigationLink<I> child) {
+	public void addChild(PageNavigationEntry<I> child) {
 
 		children.add(child);
 	}
 
-	public List<PageNavigationLink<I>> getChildren() {
+	public List<PageNavigationEntry<I>> getChildren() {
 
 		return children;
 	}
@@ -100,8 +108,8 @@ public class PageNavigationLink<I extends IEmfModuleInstance<I>> {
 			.sort(
 				children,
 				(a, b) -> Comparator//
-					.comparing(PageNavigationLink<I>::isFolder, Comparator.reverseOrder())
-					.thenComparing(PageNavigationLink::getTitle, collator)
+					.comparing(PageNavigationEntry<I>::isFolder, Comparator.reverseOrder())
+					.thenComparing(PageNavigationEntry::getTitle, collator)
 					.compare(a, b));
 	}
 
