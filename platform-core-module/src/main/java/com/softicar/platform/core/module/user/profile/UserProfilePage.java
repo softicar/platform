@@ -51,4 +51,10 @@ public class UserProfilePage implements IEmfPage<AGCoreModuleInstance> {
 
 		return CoreImages.USER_PROFILE.getResource();
 	}
+
+	@Override
+	public boolean isListed() {
+
+		return false;
+	}
 }

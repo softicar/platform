@@ -1,23 +1,10 @@
 package com.softicar.platform.core.module.page.navigation;
 
-import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
-import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
-import com.softicar.platform.dom.node.IDomNode;
 import java.util.List;
 
 public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMethods {
-
-	default <T extends IDomNode> IDomNodeIterable<T> findPageNode(Class<T> pageNodeClass) {
-
-		return findBody().findNodes(pageNodeClass);
-	}
-
-	default IDomNodeIterable<IDomNode> findPageNode(ITestMarker marker) {
-
-		return findBody().findNodes(marker);
-	}
 
 	default void assertLinkPresent(String linkName) {
 
@@ -46,7 +33,7 @@ public interface IPageNavigationTestMethods extends IDomTestExecutionEngineMetho
 	default void clickPageLink(String linkName) {
 
 		findBody()//
-			.findNodes(CoreTestMarker.PAGE_NAVIGATION_PAGE_LINK_DIV)
+			.findNodes(CoreTestMarker.PAGE_NAVIGATION_LINK_DIV)
 			.startingWithText(linkName)
 			.assertOne()
 			.click();
