@@ -12,7 +12,7 @@ import com.softicar.platform.dom.elements.popup.button.DomPopupCloseButton;
 import com.softicar.platform.dom.elements.popup.compositor.CurrentDomPopupCompositor;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupChildClosingMode;
 import com.softicar.platform.dom.elements.popup.configuration.DomPopupConfiguration;
-import com.softicar.platform.dom.elements.popup.configuration.DomPopupDisplayMode;
+import com.softicar.platform.dom.elements.popup.configuration.DomPopupDisplayModes;
 import com.softicar.platform.dom.elements.popup.configuration.IDomPopupConfiguration;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ import java.util.function.Consumer;
  * A pop-up element that is displayed on top of the regular {@link IDomDocument}
  * content.
  * <p>
- * The default display mode is {@link DomPopupDisplayMode#DRAGGABLE}.
+ * The default display mode is {@link DomPopupDisplayModes#DRAGGABLE}.
  * <p>
  * The default child-closing mode is
  * {@link DomPopupChildClosingMode#AUTOMATIC_NONE}.
