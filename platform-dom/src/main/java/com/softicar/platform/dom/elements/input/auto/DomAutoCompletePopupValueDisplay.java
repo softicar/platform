@@ -2,8 +2,12 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
+import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEventHandler {
 
@@ -18,15 +22,25 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_VALUE);
 
 		var text = input.getInputEngine().getDisplayString(value).toString();
-		var index = pattern.isEmpty()? -1 : text.toLowerCase().indexOf(pattern);
-		if (index >= 0) {
-			var prefix = text.substring(0, index);
-			var match = text.substring(index, index + pattern.length());
-			var suffix = text.substring(index + pattern.length());
 
-			appendText(prefix);
-			appendChild(new MatchSpan(match));
-			appendText(suffix);
+		var matches = new MultiPatternMatcher<>(Map.of(text, value)).findMatches(pattern, 1);
+		if (!matches.isEmpty()) {
+			var matchedIndexes = new TreeSet<Integer>();
+			for (var range: matches.get(0).getRanges()) {
+				IntStream//
+					.range(range.getFromIndex(), range.getToIndex())
+					.boxed()
+					.forEach(matchedIndexes::add);
+			}
+
+			for (int i = 0; i < text.length(); i++) {
+				String character = text.charAt(i) + "";
+				if (matchedIndexes.contains(i)) {
+					appendChild(new MatchSpan(character));
+				} else {
+					appendText(character);
+				}
+			}
 		} else {
 			appendText(text);
 		}

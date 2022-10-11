@@ -13,7 +13,8 @@ public class LiveSystemRevision {
 
 	private static final String BUILD_PROPERTIES_FILEPATH = "/release.properties";
 	private static final LiveSystemRevision CURRENT_REVISION = new LiveSystemRevision();
-	private String name = null;
+	private static String name = null;
+	private static String version = null;
 
 	/**
 	 * Returns an object describing the current revision of the project.
@@ -26,37 +27,48 @@ public class LiveSystemRevision {
 	}
 
 	/**
-	 * Returns an Optional with the name of the current revision, or an empty
-	 * Optional if the revision name could not be determined.
+	 * Returns an {@link Optional} with the name of the current revision, or an
+	 * empty {@link Optional} if the revision name could not be determined.
 	 *
-	 * @return an Optional with the name of the current revision, or an empty
-	 *         Optional
+	 * @return the optional name of the current revision
 	 */
 	public Optional<String> getName() {
 
 		return Optional.ofNullable(name);
 	}
 
+	/**
+	 * Returns an {@link Optional} with the version of the current revision, or
+	 * an empty {@link Optional} if the revision version could not be
+	 * determined.
+	 *
+	 * @return the optional version of the current revision
+	 */
+	public Optional<String> getVersion() {
+
+		return Optional.ofNullable(version);
+	}
+
 	private LiveSystemRevision() {
 
 		try (InputStream inputStream = LiveSystemRevision.class.getResourceAsStream(BUILD_PROPERTIES_FILEPATH)) {
 			if (inputStream != null) {
-				this.name = parseRevision(inputStream);
+				parseRevisionProperties(inputStream);
 			}
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
 	}
 
-	private static String parseRevision(InputStream inputStream) {
+	private static void parseRevisionProperties(InputStream inputStream) {
 
 		try (Reader reader = BufferedReaderFactory.readUtf8(inputStream)) {
 			Properties properties = new Properties();
 			properties.load(reader);
-			return properties.getProperty("revision.id");
+			name = properties.getProperty("revision.id");
+			version = properties.getProperty("revision.version");
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
-			return null;
 		}
 	}
 }
