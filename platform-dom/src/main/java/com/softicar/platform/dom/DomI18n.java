@@ -89,8 +89,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("weitere Einträge verfügbar");
 	I18n0 HELP = new I18n0("Help")//
 		.de("Hilfe");
-	I18n0 HOURS = new I18n0("Hours")//
-		.de("Stunden");
 	I18n0 IF_THIS_OPTION_IS_SELECTED_THE_EXPORTED_FILE_WILL_BE_COMPRESSED_IN_ZIP_FORMAT =//
 			new I18n0("If this option is selected, the exported file will be compressed in zip format.")//
 				.de("Wenn diese Option ausgewählt ist, wird die exportierte Datei im Zip-Format komprimiert.");
@@ -110,8 +108,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Ungültige Ganzzahl.");
 	I18n0 MEMORY_CONSUMPTION_IS_TOO_HIGH = new I18n0("Memory consumption is too high.")//
 		.de("Speicherverbrauch ist zu hoch.");
-	I18n0 MINUTES = new I18n0("Minutes")//
-		.de("Minuten");
 	I18n0 MISSING_INPUT_VALUE = new I18n0("Missing input value")//
 		.de("Fehlender Eingabewert");
 	I18n0 MULTIPLE_OPTIONS_WERE_SELECTED = new I18n0("Multiple options were selected.")//
@@ -161,8 +157,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Bitte versuchen Sie es erneut.");
 	I18n0 PREVIOUS_PAGE = new I18n0("Previous Page")//
 		.de("vorherige Seite");
-	I18n0 SECONDS = new I18n0("Seconds")//
-		.de("Sekunden");
 	I18n0 SELECT_COLUMNS = new I18n0("Select Columns")//
 		.de("Spalten auswählen");
 	I18n2 SELECT_COLUMNS_ARG1_ARG2 = new I18n2("Select Columns (%s/%s)")//
@@ -192,6 +186,8 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Dies kann Probleme verursachen, wenn versucht wird textuelle, numerische Werte in einer Excel-Datei zu summieren.");
 	I18n0 THREE = new I18n0("Three")//
 		.de("Drei");
+	I18n0 TIME = new I18n0("Time")//
+		.de("Zeit");
 	I18n0 TIMESTAMP = new I18n0("Timestamp")//
 		.de("Zeitstempel");
 	I18n0 TODAY = new I18n0("Today")//

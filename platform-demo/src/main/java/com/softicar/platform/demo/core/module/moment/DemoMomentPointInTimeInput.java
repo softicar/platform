@@ -14,7 +14,7 @@ public class DemoMomentPointInTimeInput extends EmfDayTimeInput {
 	@Override
 	public void refreshInputConstraints() {
 
-		if (moment.getDay() != null) {
+		if (moment.getDay() != null && getValue().isEmpty()) {
 			setValue(moment.getDay().toDayTime());
 		}
 	}

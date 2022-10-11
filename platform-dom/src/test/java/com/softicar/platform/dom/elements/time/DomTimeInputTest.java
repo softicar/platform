@@ -2,11 +2,8 @@ package com.softicar.platform.dom.elements.time;
 
 import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Time;
-import com.softicar.platform.common.string.Tokenizer;
-import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.dom.input.AbstractDomValueInputDivTest;
 import com.softicar.platform.dom.input.IDomTextualInput;
-import java.util.List;
 import org.junit.Test;
 
 public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
@@ -22,7 +19,15 @@ public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
 		// test empty input
 		assertEmptyResultForGetValue("::");
 
-		// test valid dates and times
+		// test valid times with hours only
+		assertResultForGetValue("10:00:00", "10");
+		assertResultForGetValue("05:00:00", "5");
+
+		// test valid times with hours and minutes
+		assertResultForGetValue("10:30:00", "10:30");
+		assertResultForGetValue("05:25:00", "5:25");
+
+		// test valid times with hours, minutes and seconds
 		assertResultForGetValue("00:00:00", "0:0:0");
 		assertResultForGetValue("08:04:02", "8:4:2");
 		assertResultForGetValue("23:59:59", "23:59:59");
@@ -32,18 +37,20 @@ public class DomTimeInputTest extends AbstractDomValueInputDivTest<Time> {
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "-1:0:0");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "24:0:0");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:0");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:0:61");
 		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:60:60");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:0:");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:0:0:");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "000");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:000");
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1, "0:0:000");
 	}
 
 	@Override
 	protected void enterValue(String valueText) {
 
-		List<DomNodeTester> inputs = findNodes(IDomTextualInput.class).toList();
-
-		List<String> values = new Tokenizer(':', '\\').tokenize(valueText);
-		for (int i = 0; i < 3; i++) {
-			inputs.get(i).setInputValue(values.get(i));
-		}
+		findNode(IDomTextualInput.class).setInputValue(valueText);
 	}
 
 	private void assertResultForGetValue(String expectedValue, String valueText) {
