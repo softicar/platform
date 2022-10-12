@@ -261,7 +261,7 @@
   },
   {
     "tableName": "`Core`.`Uuid`",
-    "createStatement": "CREATE TABLE `Core`.`Uuid` (`id` INT NOT NULL AUTO_INCREMENT,`uuidBytes` VARBINARY(16) NOT NULL,`uuidString` VARCHAR(36) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `uuidString` (`uuidString`),UNIQUE KEY `uuidBytes` (`uuidBytes`));"
+    "createStatement": "CREATE TABLE `Core`.`Uuid` (`id` INT NOT NULL AUTO_INCREMENT,`uuidString` VARCHAR(36) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `uuidString` (`uuidString`));"
   },
   {
     "tableName": "`Core`.`Weekday`",

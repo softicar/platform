@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.uuid;
 
-import com.softicar.platform.common.core.uuid.UuidBytes;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
@@ -19,7 +18,7 @@ public class UuidTest extends AbstractDbTest {
 
 		try (DbTransaction transaction = new DbTransaction()) {
 			// enforce a repeatable read for the current transaction
-			AGUuid uuidObject = AGUuid.loadByUuidBytes(UuidBytes.asBytes(TEST_UUID));
+			AGUuid uuidObject = AGUuid.loadByUuidString(TEST_UUID.toString());
 			assertNull(uuidObject);
 
 			// insert the UUID with another connection

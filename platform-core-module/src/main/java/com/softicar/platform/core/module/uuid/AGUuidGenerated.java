@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.uuid;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.db.runtime.field.IDbByteArrayField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.IDbKey;
@@ -28,10 +27,8 @@ public class AGUuidGenerated extends AbstractDbObject<AGUuid> {
 	}
 
 	public static final IDbIdField<AGUuid> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
-	public static final IDbByteArrayField<AGUuid> UUID_BYTES = BUILDER.addByteArrayField("uuidBytes", o->o.m_uuidBytes, (o,v)->o.m_uuidBytes=v).setTitle(CoreI18n.UUID_BYTES).setMaximumLength(16);
 	public static final IDbStringField<AGUuid> UUID_STRING = BUILDER.addStringField("uuidString", o->o.m_uuidString, (o,v)->o.m_uuidString=v).setTitle(CoreI18n.UUID_STRING).setMaximumLength(36);
 	public static final IDbKey<AGUuid> UK_UUID_STRING = BUILDER.addUniqueKey("uuidString", UUID_STRING);
-	public static final IDbKey<AGUuid> UK_UUID_BYTES = BUILDER.addUniqueKey("uuidBytes", UUID_BYTES);
 	public static final AGUuidTable TABLE = new AGUuidTable(BUILDER);
 	// @formatter:on
 
@@ -55,25 +52,7 @@ public class AGUuidGenerated extends AbstractDbObject<AGUuid> {
 				.getOne();
 	}
 
-	public static AGUuid loadByUuidBytes(byte[] uuidBytes) {
-
-		return TABLE//
-				.createSelect()
-				.where(UUID_BYTES.isEqual(uuidBytes))
-				.getOne();
-	}
-
 	// -------------------------------- GETTERS AND SETTERS -------------------------------- //
-
-	public final byte[] getUuidBytes() {
-
-		return getValue(UUID_BYTES);
-	}
-
-	public final AGUuid setUuidBytes(byte[] value) {
-
-		return setValue(UUID_BYTES, value);
-	}
 
 	public final String getUuidString() {
 
@@ -96,7 +75,6 @@ public class AGUuidGenerated extends AbstractDbObject<AGUuid> {
 	// -------------------------------- FIELD MEMBERS -------------------------------- //
 
 	private Integer m_id;
-	private byte[] m_uuidBytes;
 	private String m_uuidString;
 }
 
