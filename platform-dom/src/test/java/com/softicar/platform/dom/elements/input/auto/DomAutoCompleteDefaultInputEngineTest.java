@@ -141,6 +141,21 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("te t", 9)));
 	}
 
+	// ------------------------------ with diactritics ------------------------------ //
+
+	@Test
+	public void testWithDiacritics() {
+
+		clearTestValues();
+		addTestValue("foo", 11);
+		addTestValue("bar", 22);
+		addTestValue("bar", 33);
+		addTestValue("bâr", 44);
+		addTestValue("bár", 55);
+
+		assertEquals("[bar (1), bar (2), bár, bâr]", toDisplayStrings(inputEngine.findMatches("a", 9)));
+	}
+
 	// ------------------------------ with id match ------------------------------ //
 
 	@Test

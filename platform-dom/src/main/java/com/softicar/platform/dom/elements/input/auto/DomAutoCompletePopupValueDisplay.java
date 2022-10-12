@@ -23,7 +23,8 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 
 		var text = input.getInputEngine().getDisplayString(value).toString();
 
-		var matches = new MultiPatternMatcher<>(Map.of(text, value)).findMatches(pattern, 1);
+		var matcher = new MultiPatternMatcher<>(Map.of(text, value)).setIgnoreDiacritics(true);
+		var matches = matcher.findMatches(pattern, 1);
 		if (!matches.isEmpty()) {
 			var matchedIndexes = new TreeSet<Integer>();
 			for (var range: matches.get(0).getRanges()) {
