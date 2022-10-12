@@ -497,9 +497,9 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 		return getTestEngine().getOutput().getCssAttributeValue(node, attributeName);
 	}
 
-	default boolean isWaitingDivDisplayed() {
+	default boolean isWorkingIndicatorDisplayed() {
 
-		return getTestEngine().getOutput().isWaitingDivDisplayed();
+		return getTestEngine().getOutput().isWorkingIndicatorDisplayed();
 	}
 
 	default boolean isSessionTimeoutDivDisplayed() {

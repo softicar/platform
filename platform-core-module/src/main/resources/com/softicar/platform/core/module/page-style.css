@@ -63,7 +63,7 @@
 	/* content layout */
 	column-gap: 1em;
 	display: grid;
-	grid-template-columns: max-content auto max-content 26px max-content;
+	grid-template-columns: max-content auto max-content;
 	padding: 14px;
 	align-items: center;
 	
