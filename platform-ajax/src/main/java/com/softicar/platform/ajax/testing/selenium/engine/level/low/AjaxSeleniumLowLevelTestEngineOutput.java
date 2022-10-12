@@ -23,6 +23,7 @@ import com.softicar.platform.dom.style.ICssClass;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -117,9 +118,13 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 		return webElementResolver.apply(node).getCssValue(attributeName);
 	}
 
-	public boolean isWaitingDivDisplayed() {
+	public boolean isWorkingIndicatorDisplayed() {
 
-		return webDriverSupplier.get().findElement(By.className(AjaxCssClasses.AJAX_WORKING_INDICATOR.getName())).isDisplayed();
+		String classAttribute = webDriverSupplier//
+			.get()
+			.findElement(By.className(AjaxCssClasses.AJAX_WORKING_INDICATOR.getName()))
+			.getAttribute("class");
+		return !Set.of(classAttribute.split(" ")).contains(AjaxCssClasses.HIDDEN.getName());
 	}
 
 	public boolean isSessionTimeoutDivDisplayed() {
