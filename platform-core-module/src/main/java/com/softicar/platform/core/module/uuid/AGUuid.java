@@ -5,7 +5,6 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.uuid.IUuidAnnotated;
-import com.softicar.platform.common.core.uuid.UuidBytes;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.connection.DbServerType;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
@@ -52,7 +51,7 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		}
 
 		// get by UUID from table
-		uuidObject = AGUuid.loadByUuidBytes(UuidBytes.asBytes(uuid));
+		uuidObject = AGUuid.loadByUuidString(uuid.toString());
 		if (uuidObject != null) {
 			CACHE.put(uuid, uuidObject.getId());
 			return uuidObject;
@@ -112,15 +111,14 @@ public class AGUuid extends AGUuidGenerated implements IUuid, IEmfObject<AGUuid>
 		// we must use a separate connection for insertion here
 		try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
 			try (DbTransaction transaction = new DbTransaction()) {
-				byte[] uuidBytes = UuidBytes.asBytes(uuid);
+				String uuidString = uuid.toString();
 				AGUuid uuidObject = AGUuid.TABLE//
 					.createSelect(SqlSelectLock.FOR_UPDATE)
-					.where(AGUuid.UUID_BYTES.isEqual(uuidBytes))
+					.where(AGUuid.UUID_STRING.isEqual(uuidString))
 					.getFirst();
 				if (uuidObject == null) {
 					uuidObject = new AGUuid();
 					uuidObject.setUuidString(uuid.toString());
-					uuidObject.setUuidBytes(uuidBytes);
 					uuidObject.save();
 				}
 				transaction.commit();
