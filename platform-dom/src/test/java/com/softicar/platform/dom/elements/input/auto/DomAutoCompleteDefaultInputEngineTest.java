@@ -153,7 +153,7 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		addTestValue("bâr", 44);
 		addTestValue("bár", 55);
 
-		assertEquals("[bar (1), bar (2), bár, bâr]", toDisplayStrings(inputEngine.findMatches("a", 9)));
+		assertEquals("[bar (1), bar (2), bâr (3), bár (4)]", toDisplayStrings(inputEngine.findMatches("a", 9)));
 	}
 
 	// ------------------------------ with id match ------------------------------ //
