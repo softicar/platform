@@ -531,5 +531,4 @@ ALTER TABLE `Core`.`ServerLog`
 	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
 	ADD COLUMN `connectorConfiguration` MEDIUMTEXT DEFAULT NULL,
 	ADD KEY `connectorUuid` (`connectorUuid`),
-	ADD CONSTRAINT `ServerLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-	ADD CONSTRAINT `ServerLog_ibfk_3` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+	ADD CONSTRAINT `ServerLog_ibfk_3` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
