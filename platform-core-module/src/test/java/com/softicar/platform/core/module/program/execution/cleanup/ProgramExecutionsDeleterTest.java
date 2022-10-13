@@ -5,7 +5,6 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.logging.LogLevel;
-import com.softicar.platform.common.core.uuid.UuidBytes;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
@@ -198,11 +197,9 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	private AGUuid insertUuid(Class<?> referencePointClass) {
 
 		UUID uuid = SourceCodeReferencePoints.getUuidOrThrow(referencePointClass);
-		byte[] uuidBytes = UuidBytes.asBytes(uuid);
 
 		return new AGUuid()//
 			.setUuidString(uuid.toString())
-			.setUuidBytes(uuidBytes)
 			.save();
 	}
 

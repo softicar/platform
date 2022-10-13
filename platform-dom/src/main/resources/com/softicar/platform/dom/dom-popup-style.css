@@ -9,6 +9,10 @@
 	padding: 16px;
 }
 
+.DomPopup.compact {
+	padding: 5px;
+}
+
 .DomPopupCaption {
 	color: var(--PRIMARY_COLOR);
 	font-size: var(--FONT_SIZE_CAPTION);
@@ -73,4 +77,33 @@
 	height: 32px;
 	max-width: 32px;
 	max-height: 32px;
+}
+
+/* -------------------- menu popover -------------------- */
+
+.DomMenuPopover {
+	min-width: 100px;
+	gap: 0;
+}
+
+.DomMenuPopover > .DomButton {
+	justify-content: start;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	width: 100%;
+}
+
+.DomMenuPopover > .DomButton:focus,
+.DomMenuPopover > .DomButton:hover {
+	background-color: var(--SELECTION_BACKGROUND_COLOR);
+	filter: none;
+}
+
+.DomMenuPopover > .DomButton:focus > .DomButtonIcon,
+.DomMenuPopover > .DomButton:hover > .DomButtonLabel {
+	filter: drop-shadow(var(--TEXT_SHADOW_FOCUS));
+}
+
+.DomMenuPopover > .DomButton > .DomButtonLabel {
+	text-align: left;
 }

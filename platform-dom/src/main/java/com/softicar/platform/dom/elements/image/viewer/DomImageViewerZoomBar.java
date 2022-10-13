@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.image.viewer;
 
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -18,10 +19,12 @@ class DomImageViewerZoomBar extends DomBar {
 		this.zoomOutButton = new DomButton()//
 			.addMarker(DomTestMarker.IMAGE_VIEWER_ZOOM_OUT_BUTTON)
 			.setIcon(DomImages.ZOOM_OUT.getResource())
+			.setTitle(DomI18n.ZOOM_OUT)
 			.setClickCallback(() -> viewer.zoomOut());
 		this.zoomInButton = new DomButton()//
 			.addMarker(DomTestMarker.IMAGE_VIEWER_ZOOM_IN_BUTTON)
 			.setIcon(DomImages.ZOOM_IN.getResource())
+			.setTitle(DomI18n.ZOOM_IN)
 			.setClickCallback(() -> viewer.zoomIn());
 		this.zoomSelect = new DomImageViewerZoomSelect(viewer);
 

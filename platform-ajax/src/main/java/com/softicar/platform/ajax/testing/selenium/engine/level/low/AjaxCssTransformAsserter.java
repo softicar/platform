@@ -18,7 +18,11 @@ class AjaxCssTransformAsserter {
 
 	public void assertEquals(String expectedTransform, String actualTransform) {
 
-		assertArrayEquals("css transform", parseToArray(expectedTransform), parseToArray(actualTransform), DELTA);
+		assertArrayEquals(//
+			"Expected CSS transform '%s' but encountered '%s'".formatted(expectedTransform, actualTransform),
+			parseToArray(expectedTransform),
+			parseToArray(actualTransform),
+			DELTA);
 	}
 
 	private double[] parseToArray(String transformMatrix) {

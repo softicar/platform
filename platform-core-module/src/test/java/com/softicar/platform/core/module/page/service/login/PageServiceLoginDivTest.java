@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.page.service.login;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngine;
-import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
+import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
@@ -30,6 +30,12 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	public AjaxSeleniumLowLevelTestEngine getTestEngine() {
 
 		return testEngine;
+	}
+
+	@Test
+	public void testWithoutInteraction() {
+
+		assertLoginFormDisplayed();
 	}
 
 	@Test
@@ -169,6 +175,14 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 
 		findNodeOrFail(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
 		findNodeOrFail(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
+		assertNoModalDialog();
+	}
+
+	private void assertLoginFormDisplayed() {
+
+		findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_FORM);
+		assertNoNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
+		assertNoNode(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 		assertNoModalDialog();
 	}
 }

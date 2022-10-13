@@ -51,7 +51,7 @@ class PageParameterParser {
 			}
 			return SourceCodeReferencePoints.getReferencePointOrThrow(pageUuid.get(), IEmfPage.class);
 		} else {
-			//FIXME This should maybe also manipulate the Url.
+			// TODO This should maybe also manipulate the URL
 			return SourceCodeReferencePoints.getReferencePoint(StartPage.class);
 		}
 	}

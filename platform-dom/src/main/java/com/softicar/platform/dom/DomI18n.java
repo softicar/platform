@@ -157,6 +157,10 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Bitte versuchen Sie es erneut.");
 	I18n0 PREVIOUS_PAGE = new I18n0("Previous Page")//
 		.de("vorherige Seite");
+	I18n0 ROTATE_CLOCKWISE = new I18n0("Rotate Clockwise")//
+		.de("Im Uhrzeigersinn drehen");
+	I18n0 ROTATE_COUNTER_CLOCKWISE = new I18n0("Rotate Counter-Clockwise")//
+		.de("Gegen den Uhrzeigersinn drehen");
 	I18n0 SELECT_COLUMNS = new I18n0("Select Columns")//
 		.de("Spalten auswählen");
 	I18n2 SELECT_COLUMNS_ARG1_ARG2 = new I18n2("Select Columns (%s/%s)")//
@@ -192,6 +196,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Zeitstempel");
 	I18n0 TODAY = new I18n0("Today")//
 		.de("Heute");
+	I18n0 TOGGLE_TAGS = new I18n0("Toggle Tags")//
+		.de("Markierungen umschalten");
 	I18n0 TRIED_TO_SELECT_AN_OPTION_THAT_WAS_NOT_CONTAINED_IN_THE_LIST_OF_AVAILABLE_OPTIONS =//
 			new I18n0("Tried to select an option that was not contained in the list of available options.")//
 				.de("Eine Option wurde gewählt, die nicht in der Liste der verfügbaren Optionen enthalten ist.");
@@ -203,4 +209,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Woche");
 	I18n0 YES = new I18n0("Yes")//
 		.de("Ja");
+	I18n0 ZOOM_IN = new I18n0("Zoom In")//
+		.de("Vergrößern");
+	I18n0 ZOOM_OUT = new I18n0("Zoom Out")//
+		.de("Verkleinern");
 }

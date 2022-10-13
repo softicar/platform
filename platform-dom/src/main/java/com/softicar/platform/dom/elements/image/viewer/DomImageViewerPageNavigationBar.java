@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.image.viewer;
 
 import com.softicar.platform.dom.DomCssClasses;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.bar.DomBar;
@@ -19,10 +20,12 @@ class DomImageViewerPageNavigationBar extends DomBar {
 		this.previousImageButton = new DomButton()//
 			.addMarker(DomTestMarker.IMAGE_VIEWER_PREVIOUS_PAGE_BUTTON)
 			.setIcon(DomImages.PAGE_PREVIOUS.getResource())
+			.setTitle(DomI18n.PREVIOUS_PAGE)
 			.setClickCallback(() -> viewer.showPreviousPage());
 		this.nextImageButton = new DomButton()//
 			.addMarker(DomTestMarker.IMAGE_VIEWER_NEXT_PAGE_BUTTON)
 			.setIcon(DomImages.PAGE_NEXT.getResource())
+			.setTitle(DomI18n.NEXT_PAGE)
 			.setClickCallback(() -> viewer.showNextPage());
 		this.pageIndicator = new DomImageViewerPageIndicator(viewer);
 

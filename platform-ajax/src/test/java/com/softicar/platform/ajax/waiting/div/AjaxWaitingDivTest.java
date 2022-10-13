@@ -32,20 +32,19 @@ public class AjaxWaitingDivTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void test() {
 
-		// precondition: waiting-div is hidden
-		assertFalse(isWaitingDivDisplayed());
+		// precondition: working indicator is hidden
+		assertFalse(isWorkingIndicatorDisplayed());
 
-		// trigger waiting-div
+		// trigger working indicator
 		try (Locker locker = new Locker(lock)) {
 			click(button);
 			waitForSignal(eventHandlerStarted);
-			assertTrue(isWaitingDivDisplayed());
+			waitUntil(() -> isWorkingIndicatorDisplayed());
 			waitingDivChecked.signal();
 		}
 
-		// postcondition: waiting-div is hidden
-		waitForServer();
-		assertFalse(isWaitingDivDisplayed());
+		// postcondition: working indicator is hidden
+		waitUntil(() -> !isWorkingIndicatorDisplayed());
 	}
 
 	private boolean waitForSignal(Condition condition) {

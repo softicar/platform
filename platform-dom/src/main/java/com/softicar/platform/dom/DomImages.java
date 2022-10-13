@@ -41,7 +41,8 @@ public interface DomImages {
 	IResourceSupplier PAGE_NEXT = FACTORY.create("page-next.svg");
 	IResourceSupplier PAGE_PREVIOUS = FACTORY.create("page-previous.svg");
 	IResourceSupplier POPUP_TITLE_BAR_CLOSE = FACTORY.create("popup-title-bar-close.svg");
-	IResourceSupplier ROTATE = FACTORY.create("rotate.svg");
+	IResourceSupplier ROTATE_LEFT = FACTORY.create("rotate-left.svg");
+	IResourceSupplier ROTATE_RIGHT = FACTORY.create("rotate-right.svg");
 	IResourceSupplier TABLE_COLUMN_SELECTION = FACTORY.create("table-column-selection.svg");
 	IResourceSupplier TABLE_EXPORT = FACTORY.create("table-export.svg");
 	IResourceSupplier TABLE_ROW_SELECTION_INVERT_CURRENT_PAGE = FACTORY.create("table-row-selection-invert-current-page.svg");
@@ -49,6 +50,7 @@ public interface DomImages {
 	IResourceSupplier TABLE_ROW_SELECTION_UNSELECT_ALL_PAGES = FACTORY.create("table-row-selection-unselect-all-pages.svg");
 	IResourceSupplier TABLE_ROW_SELECTION_UNSELECT_CURRENT_PAGE = FACTORY.create("table-row-selection-unselect-current-page.svg");
 	IResourceSupplier TABLE_SHOW_ALL_ROWS = FACTORY.create("table-show-all-rows.svg");
+	IResourceSupplier TAG = FACTORY.create("tag.svg");
 	IResourceSupplier UNDO = FACTORY.create("undo.svg");
 	IResourceSupplier ZOOM_IN = FACTORY.create("zoom-in.svg");
 	IResourceSupplier ZOOM_OUT = FACTORY.create("zoom-out.svg");

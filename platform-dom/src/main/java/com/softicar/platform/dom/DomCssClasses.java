@@ -48,7 +48,11 @@ public interface DomCssClasses {
 	ICssClass DOM_IMAGE_VIEWER_IMAGE_HOLDER = new CssClass("DomImageViewerImageHolder", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 	ICssClass DOM_IMAGE_VIEWER_NAVIGATION_BAR = new CssClass("DomImageViewerNavigationBar", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 	ICssClass DOM_IMAGE_VIEWER_PAGE_INDICATOR = new CssClass("DomImageViewerPageIndicator", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_TAG = new CssClass("DomImageViewerTag", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_TAG_CANVAS = new CssClass("DomImageViewerImageTagCanvas", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_TAG_CAPTION = new CssClass("DomImageViewerTagCaption", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 	ICssClass DOM_IMAGE_VIEWER_TOOL_BAR = new CssClass("DomImageViewerToolBar", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
+	ICssClass DOM_IMAGE_VIEWER_TOOL_BAR_SPACER = new CssClass("DomImageViewerToolBarSpacer", DomCssFiles.DOM_IMAGE_VIEWER_STYLE);
 
 	ICssClass DOM_INPUT_DIAGNOSTICS_DISPLAY = new CssClass("DomInputDiagnosticsDisplay", DomCssFiles.DOM_INPUT_DIAGNOSTICS_STYLE);
 
@@ -62,6 +66,8 @@ public interface DomCssClasses {
 
 	ICssClass DOM_LABEL_GRID = new CssClass("DomLabelGrid", DomCssFiles.DOM_LABEL_GRID_STYLE);
 	ICssClass DOM_LABEL_GRID_ROW = new CssClass("DomLabelGridRow", DomCssFiles.DOM_LABEL_GRID_STYLE);
+
+	ICssClass DOM_MENU_POPOVER = new CssClass("DomMenuPopover", DomCssFiles.DOM_POPUP_STYLE);
 
 	ICssClass DOM_MESSAGE_DIV = new CssClass("DomMessageDiv", DomCssFiles.DOM_MESSAGE_DIV_STYLE);
 
@@ -79,8 +85,6 @@ public interface DomCssClasses {
 	ICssClass DOM_PERCENTAGE_BAR = new CssClass("DomPercentageBar", DomCssFiles.DOM_PERCENTAGE_BAR_STYLE);
 	ICssClass DOM_PERCENTAGE_MULTI_BAR = new CssClass("DomPercentageMultiBar", DomCssFiles.DOM_PERCENTAGE_BAR_STYLE);
 	ICssClass DOM_PERCENTAGE_LABEL = new CssClass("DomPercentageLabel", DomCssFiles.DOM_PERCENTAGE_BAR_STYLE);
-
-	ICssClass DOM_POPOVER = new CssClass("DomPopover", DomCssFiles.DOM_POPOVER_STYLE);
 
 	ICssClass DOM_POPUP = new CssClass("DomPopup", DomCssFiles.DOM_POPUP_STYLE);
 	ICssClass DOM_POPUP_CAPTION = new CssClass("DomPopupCaption", DomCssFiles.DOM_POPUP_STYLE);
