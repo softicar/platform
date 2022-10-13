@@ -1,58 +1,60 @@
 package com.softicar.platform.dom.elements.time;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.common.date.IllegalTimeSpecificationException;
 import com.softicar.platform.common.date.Time;
+import com.softicar.platform.common.string.Tokenizer;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
-import com.softicar.platform.dom.elements.input.DomIntegerInput;
-import com.softicar.platform.dom.elements.label.DomPreformattedLabel;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.DomTextInput;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 
-	private final DomIntegerInput hourInput;
-	private final DomIntegerInput minuteInput;
-	private final DomIntegerInput secondInput;
+	private final DomTextInput timeInput;
 
 	public DomTimeInput() {
 
-		this.hourInput = createInput(DomI18n.HOURS, DomTestMarker.TIME_INPUT_HOURS_INPUT);
-		this.minuteInput = createInput(DomI18n.MINUTES, DomTestMarker.TIME_INPUT_MINUTES_INPUT);
-		this.secondInput = createInput(DomI18n.SECONDS, DomTestMarker.TIME_INPUT_SECONDS_INPUT);
-
+		this.timeInput = createInput();
 		addCssClass(DomCssClasses.DOM_TIME_INPUT);
-		appendChildren(hourInput, new DomPreformattedLabel(":"), minuteInput, new DomPreformattedLabel(":"), secondInput);
+		appendChildren(timeInput);
+	}
+
+	public void setPlaceholder(IDisplayString placeholder) {
+
+		timeInput.setPlaceholder(placeholder);
 	}
 
 	@Override
 	protected void doSetDisabled(boolean disabled) {
 
-		this.hourInput.setDisabled(disabled);
-		this.minuteInput.setDisabled(disabled);
-		this.secondInput.setDisabled(disabled);
+		this.timeInput.setDisabled(disabled);
 	}
 
 	@Override
 	public Optional<Time> getValue() {
 
+		var tokens = tokenizeInputValue();
 		try {
-			Integer hours = hourInput.getValue().orElse(null);
-			Integer minutes = minuteInput.getValue().orElse(null);
-			Integer seconds = secondInput.getValue().orElse(null);
-
-			if (hours != null && minutes != null && seconds != null) {
-				return Optional.of(new Time(hours, minutes, seconds));
-			} else if (hours == null && minutes == null && seconds == null) {
+			if (tokens.isEmpty()) {
 				return Optional.empty();
+			} else if (validateTokenLength(tokens)) {
+				while (tokens.size() < 3) {
+					tokens.add("0");
+				}
+				var hours = Integer.valueOf(tokens.get(0));
+				var minutes = Integer.valueOf(tokens.get(1));
+				var seconds = Integer.valueOf(tokens.get(2));
+				return Optional.of(new Time(hours, minutes, seconds));
 			} else {
-				throw new IllegalTimeSpecificationException(getValueAsString());
+				throw new IllegalTimeSpecificationException(timeInput.getValueText());
 			}
 		} catch (Exception exception) {
-			throw new IllegalTimeSpecificationException(exception, getValueAsString());
+			throw new IllegalTimeSpecificationException(exception, timeInput.getValueText());
 		}
 	}
 
@@ -60,32 +62,40 @@ public class DomTimeInput extends AbstractDomValueInputDiv<Time> {
 	public void setValue(Time time) {
 
 		if (time != null) {
-			hourInput.setValue(time.getHour());
-			minuteInput.setValue(time.getMinute());
-			secondInput.setValue(time.getSecond());
+			timeInput.setValue(time.toString());
 		} else {
-			hourInput.setValue(null);
-			minuteInput.setValue(null);
-			secondInput.setValue(null);
+			timeInput.setValue(null);
 		}
 	}
 
-	private String getValueAsString() {
+	private DomTextInput createInput() {
 
-		return "%s:%s:%s"
-			.formatted(//
-				hourInput.getTextualValue(),
-				minuteInput.getTextualValue(),
-				secondInput.getTextualValue());
-	}
-
-	private DomIntegerInput createInput(IDisplayString title, ITestMarker testMarker) {
-
-		var input = new DomIntegerInput();
-		input.setTitle(title);
-		input.addMarker(testMarker);
+		var input = new DomTextInput();
+		input.setTitle(DomI18n.TIME);
+		input.addMarker(DomTestMarker.TIME_INPUT);
 		input.addCssClass(DomCssClasses.DOM_TIME_INPUT_ELEMENT);
 		input.addChangeCallback(DomTimeInput.this::executeChangeCallbacks);
 		return input;
+	}
+
+	private List<String> tokenizeInputValue() {
+
+		var inputText = timeInput.getValueText();
+		if (inputText.isBlank()) {
+			return Collections.emptyList();
+		} else {
+			var tokens = new Tokenizer(':', '\\').tokenize(inputText);
+			if (tokens.size() > 3) {
+				throw new IllegalTimeSpecificationException(inputText);
+			}
+			return tokens;
+		}
+	}
+
+	private boolean validateTokenLength(List<String> tokens) {
+
+		return tokens//
+			.stream()
+			.allMatch(it -> it.length() <= 2);
 	}
 }
