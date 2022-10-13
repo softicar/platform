@@ -51,4 +51,10 @@ public class AjaxSessionPage implements IEmfPage<AGCoreModuleInstance> {
 
 		return CoreImages.SESSION.getResource();
 	}
+
+	@Override
+	public boolean isListed() {
+
+		return false;
+	}
 }

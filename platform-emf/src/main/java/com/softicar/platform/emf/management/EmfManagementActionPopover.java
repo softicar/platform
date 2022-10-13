@@ -8,6 +8,7 @@ import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.popup.popover.DomMenuPopover;
 import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssColorEnum;
 import com.softicar.platform.dom.styles.CssDisplay;
@@ -19,7 +20,7 @@ import com.softicar.platform.emf.action.marker.EmfManagementActionMarker;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
-public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends AbstractEmfManagementActionPopover {
+public class EmfManagementActionPopover<R extends IEmfTableRow<R, P>, P> extends DomMenuPopover {
 
 	private final IEmfTable<R, P, ?> entityTable;
 	private final R tableRow;

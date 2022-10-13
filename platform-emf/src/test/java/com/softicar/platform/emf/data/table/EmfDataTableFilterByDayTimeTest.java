@@ -149,6 +149,6 @@ public class EmfDataTableFilterByDayTimeTest extends AbstractEmfDataTableFilterB
 
 	private String getTimeString(DayTime dayTime) {
 
-		return dayTime != null? dayTime.getTimeAsString() : "::";
+		return dayTime != null? dayTime.getTimeAsString() : "";
 	}
 }

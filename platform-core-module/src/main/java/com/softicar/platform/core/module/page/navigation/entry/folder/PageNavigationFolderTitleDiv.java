@@ -1,9 +1,9 @@
-package com.softicar.platform.core.module.page.navigation.link.display;
+package com.softicar.platform.core.module.page.navigation.entry.folder;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreTestMarker;
-import com.softicar.platform.core.module.page.navigation.link.PageNavigationLink;
+import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
@@ -11,12 +11,12 @@ import com.softicar.platform.dom.event.IDomEvent;
 
 class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandler {
 
-	private final PageNavigationLink<?> link;
+	private final PageNavigationEntry<?> folderEntry;
 	private final INullaryVoidFunction clickCallback;
 
-	public PageNavigationFolderTitleDiv(PageNavigationLink<?> link, INullaryVoidFunction clickCallback) {
+	public PageNavigationFolderTitleDiv(PageNavigationEntry<?> folderEntry, INullaryVoidFunction clickCallback) {
 
-		this.link = link;
+		this.folderEntry = folderEntry;
 		this.clickCallback = clickCallback;
 
 		addMarker(CoreTestMarker.PAGE_NAVIGATION_FOLDER_TITLE_DIV);
@@ -34,7 +34,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 
 	private void appendModuleIconIfPresent() {
 
-		link//
+		folderEntry//
 			.getIcon()
 			.map(DomImage::new)
 			.ifPresent(this::appendChild);
@@ -44,7 +44,7 @@ class PageNavigationFolderTitleDiv extends DomDiv implements IDomClickEventHandl
 
 		public TitleSpan() {
 
-			appendText(link.getTitle());
+			appendText(folderEntry.getTitle());
 		}
 	}
 

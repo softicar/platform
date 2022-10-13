@@ -514,6 +514,12 @@ SELECT 'transaction' INTO @constraintColumn;
 SELECT 'WorkflowVersionLog_ibfk_2' INTO @constraint;
 SET @runString = CONCAT('ALTER TABLE ', @logTable, ' DROP CONSTRAINT `', @constraint, '`;'); PREPARE stmt FROM @runString; EXECUTE stmt; DEALLOCATE PREPARE stmt; SET @runString = CONCAT('ALTER TABLE ', @logTable, ' ADD CONSTRAINT `', @constraint, '` FOREIGN KEY (`', @constraintColumn, '`) REFERENCES ', @targetTable, ' (`', @targetColumn, '`) ON DELETE CASCADE ON UPDATE CASCADE;'); PREPARE stmt FROM @runString; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
+-- ---------------------------------------------------------------
+
+ALTER TABLE `Core`.`Uuid` DROP COLUMN `uuidBytes`;
+
+-- ---------------------------------------------------------------
+
 ALTER TABLE `Core`.`Server`
 	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
 	ADD COLUMN `connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',

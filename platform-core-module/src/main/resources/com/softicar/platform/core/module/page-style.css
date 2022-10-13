@@ -1,5 +1,4 @@
 :root {
-	--PAGE_HEADER_BUTTON_SIZE: 32px;
 	--PAGE_HEADER_HEIGHT: 60px;
 	--PAGE_NAVIGATION_WIDTH: 275px;
 }
@@ -64,7 +63,7 @@
 	/* content layout */
 	column-gap: 1em;
 	display: grid;
-	grid-template-columns: max-content auto max-content 26px max-content;
+	grid-template-columns: max-content auto max-content;
 	padding: 14px;
 	align-items: center;
 	
@@ -78,13 +77,12 @@
 	left: 0px;
 }
 
-.PageHeaderDiv > .DomButton img {
+.PageHeaderDiv > .PageHeaderNavigationToggleButton img {
 
-	max-height: var(--PAGE_HEADER_BUTTON_SIZE);
-	max-width: var(--PAGE_HEADER_BUTTON_SIZE);
-
-	height: var(--PAGE_HEADER_BUTTON_SIZE);
-	width: var(--PAGE_HEADER_BUTTON_SIZE);
+	max-height: 32px;
+	max-width: 32px;
+	height: 32px;
+	width: 32px;
 }
 
 .PageHeaderPathDiv {

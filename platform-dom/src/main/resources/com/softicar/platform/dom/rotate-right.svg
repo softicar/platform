@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   version="1.1"
+   viewBox="0 0 24 24"
+   id="svg20"
+   sodipodi:docname="rotate-right.svg"
+   inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview22"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="35.416667"
+     inkscape:cx="12"
+     inkscape:cy="12.014118"
+     inkscape:window-width="1864"
+     inkscape:window-height="1016"
+     inkscape:window-x="56"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg20" />
+  <defs
+     id="defs3">
+    <path
+       id="b"
+       d="M0 0H24V24H0z" />
+  </defs>
+  <g
+     fill-rule="evenodd"
+     id="g10">
+    <mask
+       id="a"
+       fill="#ffffff">
+      <use
+         width="100%"
+         height="100%"
+         xlink:href="#b"
+         id="use5" />
+    </mask>
+    <path
+       d="M 11.995,4 C 7.572,4 4,7.58 4,12 c 0,4.42 3.572,8 7.995,8 3.732,0 0,0 0,0 v -2 c 0,0 2.612,0 0,0 -3.312,0 -6.004,-2.69 -6.004,-6 0,-3.31 2.692,-6 6.004,-6 1.661,0 3.142,0.69 4.223,1.78 L 13.8684,9.6173 20,11 19.58612,3.8963 17.64902,6.35 C 16.19802,4.9 14.20602,4 11.99502,4 Z"
+       fill="#2e3a59"
+       fill-rule="nonzero"
+       mask="url(#a)"
+       id="path8" />
+  </g>
+  <g
+     transform="matrix(-0.92819,0,0,0.92819,23.08868,0.8712)"
+     stroke-width="1.4006"
+     id="g18">
+    <g
+       transform="matrix(0.85546,0,0,0.85546,1.739,1.7925)"
+       fill="#2e3a59"
+       fill-rule="evenodd"
+       stroke="#2e3a59"
+       stroke-linejoin="round"
+       stroke-width="1.6372"
+       id="g16">
+      <rect
+         x="11.668"
+         y="6.6677999"
+         width="0.66434997"
+         height="10.664"
+         id="rect12" />
+      <rect
+         x="6.6563001"
+         y="11.656"
+         width="10.687"
+         height="0.68731999"
+         id="rect14" />
+    </g>
+  </g>
+</svg>

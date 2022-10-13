@@ -968,6 +968,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("System-Revision");
 	I18n0 SYSTEM_USER = new I18n0("System User")//
 		.de("System-Benutzer");
+	I18n0 SYSTEM_VERSION = new I18n0("System Version")//
+		.de("System-Version");
 	I18n0 TABLE_NAME = new I18n0("Table Name")//
 		.de("Tabellenname");
 	I18n0 TABLE_PATH_HASH = new I18n0("Table Path Hash")//

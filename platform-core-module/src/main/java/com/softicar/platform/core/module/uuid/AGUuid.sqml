@@ -2,9 +2,7 @@ PACKAGE com.softicar.platform.core.module.uuid
 
 TABLE AGUuid 'Core.Uuid' {
 	PK Integer id = SERIAL
-	Blob uuidBytes [MAXLENGTH=16]
 	String uuidString [MAXLENGTH=36]
 
 	UK uuidString
-	UK uuidBytes
 }

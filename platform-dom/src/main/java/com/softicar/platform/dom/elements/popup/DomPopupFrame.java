@@ -45,6 +45,10 @@ public class DomPopupFrame extends DomDiv implements IDomPopupFrame, IDomEscapeK
 				.setDragLimitNode(this, context);
 		}
 
+		if (configuration.getDisplayMode().isCompact()) {
+			popup.addCssClass(DomCssPseudoClasses.COMPACT);
+		}
+
 		if (configuration.getDisplayMode().hasHeader()) {
 			appendChild(header);
 			refreshCaptions();
