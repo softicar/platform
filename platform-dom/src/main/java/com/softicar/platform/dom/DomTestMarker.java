@@ -6,6 +6,8 @@ public enum DomTestMarker implements ITestMarker {
 
 	DAY_INPUT,
 
+	DAY_TIME_INPUT,
+
 	IMAGE_VIEWER_CANVAS,
 	IMAGE_VIEWER_IMAGE,
 	IMAGE_VIEWER_IMAGE_HOLDER,

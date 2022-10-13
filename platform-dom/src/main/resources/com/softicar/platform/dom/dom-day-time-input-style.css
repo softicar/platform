@@ -3,4 +3,38 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	align-content: center;
 }
+
+.DomDayTimeInput > input {
+	flex-grow: 1;
+}
+
+.DomDayTimeInputTooltip {
+	opacity: 0;
+	position: absolute;
+	visibility: hidden;
+	transform: translateY(30px);
+	left: calc(50% - 24px);
+	background-color: #555;
+	color: #fff;
+	padding: 5px;
+	border-radius: 6px;
+	transition: opacity 0.3s;
+}
+
+.DomDayTimeInputTooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+
+.DomDayTimeInput > input:hover ~ .DomDayTimeInputTooltip {
+	visibility: visible;
+	opacity: 1;
+} 

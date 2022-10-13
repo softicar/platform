@@ -35,7 +35,6 @@ public interface DomCssFiles {
 	IResourceSupplier DOM_SEPARATOR_CELL_STYLE = FACTORY.create("dom-separator-cell-style.css");
 	IResourceSupplier DOM_STYLE = FACTORY.create("dom-style.css");
 	IResourceSupplier DOM_TAB_BAR_STYLE = FACTORY.create("dom-tab-bar-style.css");
-	IResourceSupplier DOM_TIME_INPUT_STYLE = FACTORY.create("dom-time-input-style.css");
 	IResourceSupplier DOM_VERTICAL_TEXT_BOX_STYLE = FACTORY.create("dom-vertical-text-box-style.css");
 	IResourceSupplier DOM_WIKI_ELEMENTS_STYLE = FACTORY.create("dom-wiki-elements-style.css");
 }

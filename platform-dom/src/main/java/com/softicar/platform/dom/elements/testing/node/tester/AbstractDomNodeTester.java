@@ -78,17 +78,15 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 	 *
 	 * @param marker
 	 *            the {@link ITestMarker}
-	 * @param dayString
-	 *            the literal input value for the day input (never <i>null</i>)
-	 * @param timeString
-	 *            the time string in the format <hours>:<minutes>:<seconds>
-	 *            (never <i>null</i>)
+	 * @param dayTimeString
+	 *            the day time string in the (locale-specific) format
+	 *            <day>.<month>.<year> <hours>:<minutes>:<seconds>(never
+	 *            <i>null</i>)
 	 * @return this
 	 */
-	public AbstractDomNodeTester<N> setDayTimeInputValue(ITestMarker marker, String dayString, String timeString) {
+	public AbstractDomNodeTester<N> setDayTimeInputValue(ITestMarker marker, String dayTimeString) {
 
-		findNode(marker).setInputValue(DomTestMarker.DAY_INPUT, dayString);
-		setTimeInputValue(marker, timeString);
+		findNode(marker).setInputValue(DomTestMarker.DAY_TIME_INPUT, dayTimeString);
 		return this;
 	}
 

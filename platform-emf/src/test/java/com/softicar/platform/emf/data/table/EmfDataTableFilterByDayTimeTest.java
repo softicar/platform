@@ -138,17 +138,7 @@ public class EmfDataTableFilterByDayTimeTest extends AbstractEmfDataTableFilterB
 
 		DomNodeTester popup = openFilterPopup(column);
 		selectFilterType(filterType);
-		popup.setDayTimeInputValue(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE, getDayString(dayTime), getTimeString(dayTime));
+		popup.setDayTimeInputValue(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE, dayTime != null? dayTime.toLocalizedString() : "");
 		confirmFilterPopup();
-	}
-
-	private String getDayString(DayTime dayTime) {
-
-		return dayTime != null? dayTime.getDay().toString() : "";
-	}
-
-	private String getTimeString(DayTime dayTime) {
-
-		return dayTime != null? dayTime.getTimeAsString() : "";
 	}
 }

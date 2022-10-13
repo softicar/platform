@@ -14,7 +14,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
  * @author Oliver Richers
  * @author Alexander Schmidt
  */
-abstract class AbstractDomDayPopupButton extends DomButton {
+public abstract class AbstractDomDayPopupButton extends DomButton {
 
 	private final DomDayPopover popup;
 	private final DomDayChooserDiv chooser;

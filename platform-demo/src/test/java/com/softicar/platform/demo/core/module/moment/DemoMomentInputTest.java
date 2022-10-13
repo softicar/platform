@@ -41,7 +41,7 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "");
 		popup.setTimeInputValue(AGDemoMoment.TIME, "");
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "", "");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
@@ -58,7 +58,7 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
 		popup.setInputValue(AGDemoMoment.DAY, "foo");
 		popup.setTimeInputValue(AGDemoMoment.TIME, "23:59:");
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-04-31", "42:59:59");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-04-31 42:59:59");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
@@ -73,7 +73,7 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31", "");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
@@ -86,10 +86,10 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "", "13:23:03");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "13:23:03");
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
-		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.MISSING_DATE_SPECIFICATION);
+		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("13:23:03"));
 	}
 }
