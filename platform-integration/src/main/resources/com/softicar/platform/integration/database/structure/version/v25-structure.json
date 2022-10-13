@@ -161,11 +161,11 @@
   },
   {
     "tableName": "`Core`.`ServerLog`",
-    "createStatement": "CREATE TABLE `Core`.`ServerLog` (`server` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`name` VARCHAR(255) DEFAULT NULL,`address` VARCHAR(255) DEFAULT NULL,`port` INT DEFAULT NULL,`username` VARCHAR(255) DEFAULT NULL,`password` VARCHAR(255) DEFAULT NULL,`domain` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`server`, `transaction`),KEY `transaction` (`transaction`),CONSTRAINT `ServerLog_ibfk_1` FOREIGN KEY (`server`) REFERENCES `Core`.`Server` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `ServerLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+    "createStatement": "CREATE TABLE `Core`.`ServerLog` (`server` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`name` VARCHAR(255) DEFAULT NULL,`address` VARCHAR(255) DEFAULT NULL,`port` INT DEFAULT NULL,`username` VARCHAR(255) DEFAULT NULL,`password` VARCHAR(255) DEFAULT NULL,`domain` VARCHAR(255) DEFAULT NULL,`connectorUuid` INT DEFAULT NULL,`connectorConfiguration` MEDIUMTEXT DEFAULT NULL,PRIMARY KEY (`server`, `transaction`),KEY `transaction` (`transaction`),KEY `connectorUuid` (`connectorUuid`),CONSTRAINT `ServerLog_ibfk_1` FOREIGN KEY (`server`) REFERENCES `Core`.`Server` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `ServerLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `ServerLog_ibfk_3` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
   },
   {
     "tableName": "`Core`.`Server`",
-    "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,PRIMARY KEY (`id`));"
+    "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,`connectorUuid` INT DEFAULT NULL,`connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',`connectorCache` MEDIUMTEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),KEY `connectorUuid` (`connectorUuid`),CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`StoredFileAccessLog`",

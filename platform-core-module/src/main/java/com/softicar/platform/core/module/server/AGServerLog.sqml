@@ -13,8 +13,9 @@ TABLE AGServerLog 'Core.ServerLog' {
 	String username = NULL [NULLABLE MAXLENGTH=255]
 	String password = NULL [NULLABLE MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]
-	AGUuid connectorUuid = NULL [NULLABLE]
+	AGUuid connectorUuid = NULL [NULLABLE ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='ServerLog_ibfk_3']
 	String connectorConfiguration = NULL [NULLABLE LENGTHBITS=24]
 
 	IK transaction
+	IK connectorUuid
 }

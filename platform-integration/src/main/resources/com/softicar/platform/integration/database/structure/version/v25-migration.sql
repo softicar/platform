@@ -513,3 +513,17 @@ SELECT 'id' INTO @targetColumn;
 SELECT 'transaction' INTO @constraintColumn;
 SELECT 'WorkflowVersionLog_ibfk_2' INTO @constraint;
 SET @runString = CONCAT('ALTER TABLE ', @logTable, ' DROP CONSTRAINT `', @constraint, '`;'); PREPARE stmt FROM @runString; EXECUTE stmt; DEALLOCATE PREPARE stmt; SET @runString = CONCAT('ALTER TABLE ', @logTable, ' ADD CONSTRAINT `', @constraint, '` FOREIGN KEY (`', @constraintColumn, '`) REFERENCES ', @targetTable, ' (`', @targetColumn, '`) ON DELETE CASCADE ON UPDATE CASCADE;'); PREPARE stmt FROM @runString; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+ALTER TABLE `Core`.`Server`
+	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
+	ADD COLUMN `connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',
+	ADD COLUMN `connectorCache` MEDIUMTEXT NOT NULL DEFAULT '',
+	ADD KEY `connectorUuid` (`connectorUuid`),
+	ADD CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `Core`.`ServerLog`
+	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
+	ADD COLUMN `connectorConfiguration` MEDIUMTEXT DEFAULT NULL,
+	ADD KEY `connectorUuid` (`connectorUuid`),
+	ADD CONSTRAINT `ServerLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	ADD CONSTRAINT `ServerLog_ibfk_3` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;

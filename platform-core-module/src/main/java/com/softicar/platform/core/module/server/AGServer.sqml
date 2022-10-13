@@ -11,7 +11,9 @@ TABLE AGServer 'Core.Server' {
 	String username = '' [MAXLENGTH=255]
 	String password = '' [MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]
-	AGUuid connectorUuid = NULL [NULLABLE]
+	AGUuid connectorUuid = NULL [NULLABLE CONSTRAINT_NAME='Server_ibfk_1']
 	String connectorConfiguration = '' [LENGTHBITS=24]
 	String connectorCache = '' [LENGTHBITS=24]
+	
+	IK connectorUuid
 }

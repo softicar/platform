@@ -8,6 +8,7 @@ import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -37,9 +38,10 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 	public static final IDbStringField<AGServer> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGServer> PASSWORD = BUILDER.addStringField("password", o->o.m_password, (o,v)->o.m_password=v).setTitle(CoreI18n.PASSWORD).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGServer> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setNullable().setDefault(null).setMaximumLength(255);
-	public static final IDbForeignField<AGServer, AGUuid> CONNECTOR_UUID = BUILDER.addForeignField("connectorUuid", o->o.m_connectorUuid, (o,v)->o.m_connectorUuid=v, AGUuid.ID).setTitle(CoreI18n.CONNECTOR_UUID).setNullable().setDefault(null);
+	public static final IDbForeignField<AGServer, AGUuid> CONNECTOR_UUID = BUILDER.addForeignField("connectorUuid", o->o.m_connectorUuid, (o,v)->o.m_connectorUuid=v, AGUuid.ID).setTitle(CoreI18n.CONNECTOR_UUID).setNullable().setDefault(null).setForeignKeyName("Server_ibfk_1");
 	public static final IDbStringField<AGServer> CONNECTOR_CONFIGURATION = BUILDER.addStringField("connectorConfiguration", o->o.m_connectorConfiguration, (o,v)->o.m_connectorConfiguration=v).setTitle(CoreI18n.CONNECTOR_CONFIGURATION).setDefault("").setLengthBits(24);
 	public static final IDbStringField<AGServer> CONNECTOR_CACHE = BUILDER.addStringField("connectorCache", o->o.m_connectorCache, (o,v)->o.m_connectorCache=v).setTitle(CoreI18n.CONNECTOR_CACHE).setDefault("").setLengthBits(24);
+	public static final IDbKey<AGServer> IK_CONNECTOR_UUID = BUILDER.addIndexKey("connectorUuid", CONNECTOR_UUID);
 	public static final AGServerTable TABLE = new AGServerTable(BUILDER);
 	// @formatter:on
 
