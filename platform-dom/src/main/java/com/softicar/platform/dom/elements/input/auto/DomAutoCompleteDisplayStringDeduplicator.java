@@ -21,7 +21,7 @@ import java.util.function.Function;
  * <p>
  * Comparison between display strings is case-insensitive and
  * diacritic-agnostic, meaning that display strings only varying in letter cases
- * and diacritics are also deduplicated, e.g. "foo" and "Foo", or "foo" and
+ * and/or diacritics are also deduplicated, e.g. "foo" and "Foo", or "foo" and
  * "fôo". However, letter cases and diacritics are retained when suffixes are
  * added, resulting in "foo (1)", "Foo (2)" and "fôo (3)".
  * <p>
@@ -33,17 +33,16 @@ import java.util.function.Function;
 class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private final Function<T, IDisplayString> displayFunction;
-	private final Comparator<T> comparator;
-	private final DiacriticNormalizer normalizer;
+	private final Comparator<T> valueComparator;
 	private final Comparator<String> keyComparator;
 	private Map<String, List<T>> listMap;
 	private Map<String, T> resultMap;
 
-	public DomAutoCompleteDisplayStringDeduplicator(Function<T, IDisplayString> displayFunction, Comparator<T> comparator) {
+	public DomAutoCompleteDisplayStringDeduplicator(Function<T, IDisplayString> displayFunction, Comparator<T> valueComparator) {
 
 		this.displayFunction = displayFunction;
-		this.comparator = comparator;
-		this.normalizer = new DiacriticNormalizer();
+		this.valueComparator = valueComparator;
+		var normalizer = new DiacriticNormalizer();
 		this.keyComparator = Comparator.comparing(string -> normalizer.normalize(string).toLowerCase());
 	}
 
@@ -72,7 +71,7 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private void addConflictingValues(List<T> values) {
 
-		Collections.sort(values, comparator);
+		Collections.sort(values, valueComparator);
 
 		var index = 1;
 		for (var value: values) {
