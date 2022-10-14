@@ -2,7 +2,9 @@ package com.softicar.platform.dom.elements.time.daytime;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
+import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.CommonDateI18n;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayParser;
@@ -127,7 +129,12 @@ public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 		public FormatTooltip() {
 
 			addCssClass(DomCssClasses.DOM_DAY_TIME_INPUT_TOOLTIP);
-			appendText(CurrentBasicUser.get().getLocale().getDateFormat() + " hh:mm:ss");
+			var dateFormat = Optional//
+				.ofNullable(CurrentBasicUser.get())
+				.map(IBasicUser::getLocale)
+				.map(ILocale::getDateFormat)
+				.orElse("dd.mm.yyyy");
+			appendText(dateFormat + " hh:mm:ss");
 		}
 	}
 }
