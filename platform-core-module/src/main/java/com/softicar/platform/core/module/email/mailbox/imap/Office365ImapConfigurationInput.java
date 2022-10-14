@@ -10,6 +10,8 @@ import com.softicar.platform.emf.attribute.field.string.EmfPasswordInput;
 
 class Office365ImapConfigurationInput extends DomDiv implements IServerConnectorConfigurationInput {
 
+	private final DomTextInput authorityUrl;
+	private final DomTextInput accessScope;
 	private final DomTextInput tenantId;
 	private final DomTextInput clientId;
 	private final EmfPasswordInput clientSecret;
@@ -17,12 +19,16 @@ class Office365ImapConfigurationInput extends DomDiv implements IServerConnector
 
 	public Office365ImapConfigurationInput() {
 
+		this.authorityUrl = new DomTextInput();
+		this.accessScope = new DomTextInput();
 		this.tenantId = new DomTextInput();
 		this.clientId = new DomTextInput();
 		this.clientSecret = new EmfPasswordInput();
 		this.connectionTimeout = new DomIntegerInput();
 
 		var grid = new DomLabelGrid();
+		grid.add(CoreI18n.AUTHORITY_URL, authorityUrl);
+		grid.add(CoreI18n.ACCESS_SCOPE, accessScope);
 		grid.add(CoreI18n.TENANT_ID, tenantId);
 		grid.add(CoreI18n.CLIENT_ID, clientId);
 		grid.add(CoreI18n.CLIENT_SECRET, clientSecret);
@@ -35,6 +41,8 @@ class Office365ImapConfigurationInput extends DomDiv implements IServerConnector
 
 		var configuration = Office365ImapConfiguration.fromJson(configurationString);
 
+		authorityUrl.setValue(configuration.authorityUrl);
+		accessScope.setValue(configuration.accessScope);
 		tenantId.setValue(configuration.tenantId);
 		clientId.setValue(configuration.clientId);
 		clientSecret.setValue(configuration.clientSecret);
@@ -45,6 +53,8 @@ class Office365ImapConfigurationInput extends DomDiv implements IServerConnector
 	public String getConfiguration() {
 
 		var configuration = new Office365ImapConfiguration();
+		configuration.authorityUrl = authorityUrl.getValueText();
+		configuration.accessScope = accessScope.getValueText();
 		configuration.tenantId = tenantId.getValueText();
 		configuration.clientId = clientId.getValueText();
 		configuration.clientSecret = clientSecret.getValue().orElse("");

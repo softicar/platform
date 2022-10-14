@@ -13,6 +13,8 @@ class Office365ImapConfigurationDisplay extends DomDiv {
 
 		var configuration = Office365ImapConfiguration.fromJson(server.getConnectorConfiguration());
 		var grid = new DomLabelGrid();
+		grid.add(CoreI18n.AUTHORITY_URL, configuration.authorityUrl);
+		grid.add(CoreI18n.ACCESS_SCOPE, configuration.accessScope);
 		grid.add(CoreI18n.TENANT_ID, configuration.tenantId);
 		grid.add(CoreI18n.CLIENT_ID, configuration.clientId);
 		grid.add(CoreI18n.CLIENT_SECRET, new EmfPasswordDisplay(configuration.clientSecret));

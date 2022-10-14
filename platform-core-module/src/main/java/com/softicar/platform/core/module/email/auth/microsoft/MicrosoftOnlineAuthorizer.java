@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 
 public class MicrosoftOnlineAuthorizer {
 
-	private static final String AUTHORITY_URL = "https://login.microsoftonline.com/%s/oauth2/v2.0/token";
+	private static final String DEFAULT_AUTHORITY_URL = "https://login.microsoftonline.com/%s/oauth2/v2.0/token";
+	private String authorityUrl;
 	private String tenantId;
 	private String clientId;
 	private String clientSecret;
@@ -27,6 +28,7 @@ public class MicrosoftOnlineAuthorizer {
 
 	public MicrosoftOnlineAuthorizer() {
 
+		this.authorityUrl = DEFAULT_AUTHORITY_URL;
 		this.tenantId = null;
 		this.clientId = null;
 		this.clientSecret = null;
@@ -34,6 +36,17 @@ public class MicrosoftOnlineAuthorizer {
 		this.username = null;
 		this.password = null;
 		this.scopes = new TreeSet<>();
+	}
+
+	public static String getDefaultAuthorityUrl() {
+
+		return DEFAULT_AUTHORITY_URL;
+	}
+
+	public MicrosoftOnlineAuthorizer setAuthorityUrl(String authorityUrl) {
+
+		this.authorityUrl = authorityUrl;
+		return this;
 	}
 
 	public MicrosoftOnlineAuthorizer setTenantId(String tenantId) {
@@ -81,7 +94,7 @@ public class MicrosoftOnlineAuthorizer {
 	public MicrosoftOnlineAuthorization authorize() {
 
 		try {
-			var address = AUTHORITY_URL.formatted(tenantId);
+			var address = authorityUrl.formatted(tenantId);
 			var request = HttpRequest//
 				.newBuilder()
 				.uri(new URI(address))

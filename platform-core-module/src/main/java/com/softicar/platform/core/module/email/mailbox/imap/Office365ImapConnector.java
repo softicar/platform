@@ -93,13 +93,14 @@ public class Office365ImapConnector implements IMailboxConnector {
 
 		Log.finfo("renewing access token");
 		var accessToken = new MicrosoftOnlineAuthorizer()
+			.setAuthorityUrl(configuration.authorityUrl)
 			.setTenantId(configuration.tenantId)
 			.setClientId(configuration.clientId)
 			.setClientSecret(configuration.clientSecret)
 			.setGrantType("password")
 			.setUsername(server.getUsername())
 			.setPassword(server.getPassword())
-			.addScope("https://outlook.office.com/IMAP.AccessAsUser.All")
+			.addScope(configuration.accessScope)
 			.authorize()
 			.getAccessTokenOrThrow();
 		Office365ImapConnectorData.save(server, accessToken);

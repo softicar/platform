@@ -26,6 +26,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zugriffsverwaltung");
 	I18n0 ACCESS_MANAGER = new I18n0("Access Manager")//
 		.de("Zugriffsmanager");
+	I18n0 ACCESS_SCOPE = new I18n0("Access Scope")//
+		.de("Zugriffsbereich");
 	I18n0 ACCESSED_AT = new I18n0("Accessed At")//
 		.de("Abgerufen am");
 	I18n0 ACCESSED_BY = new I18n0("Accessed By")//
@@ -80,6 +82,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Am");
 	I18n0 ATTACHMENTS = new I18n0("Attachments")//
 		.de("Anhänge");
+	I18n0 AUTHORITY_URL = new I18n0("Authority URL")//
+		.de("Autoritäts-URL");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
 	I18n0 AUTOMATIC_ABORT = new I18n0("Automatic Abort")//
