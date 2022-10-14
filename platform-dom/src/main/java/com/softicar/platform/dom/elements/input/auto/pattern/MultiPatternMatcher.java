@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto.pattern;
 
+import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -21,6 +22,8 @@ public class MultiPatternMatcher<V> {
 
 	private static final Pattern WHITESPACES = Pattern.compile("\\s+");
 	private final Map<String, V> identifierToValueMap;
+	private final DiacriticNormalizer normalizer;
+	private boolean ignoreDiacritics;
 
 	/**
 	 * Constructs a new {@link MultiPatternMatcher}.
@@ -31,6 +34,28 @@ public class MultiPatternMatcher<V> {
 	public MultiPatternMatcher(Map<String, V> identifierToValueMap) {
 
 		this.identifierToValueMap = Objects.requireNonNull(identifierToValueMap);
+		this.normalizer = new DiacriticNormalizer();
+		this.ignoreDiacritics = false;
+	}
+
+	/**
+	 * Determines whether diacritics shall be ignored when matching patterns
+	 * against identifiers.
+	 * <p>
+	 * Example: If diacritics are ignored, pattern {@code "foo"} will match
+	 * identifier {@code "fóô"}.
+	 * <p>
+	 * By default, diacritics are not ignored.
+	 *
+	 * @param ignoreDiacritics
+	 *            <i>true</i> if diacritics shall be ignored; <i>false</i>
+	 *            otherwise
+	 * @return this
+	 */
+	public MultiPatternMatcher<V> setIgnoreDiacritics(boolean ignoreDiacritics) {
+
+		this.ignoreDiacritics = ignoreDiacritics;
+		return this;
 	}
 
 	/**
@@ -111,15 +136,21 @@ public class MultiPatternMatcher<V> {
 			return Set.of(0);
 		}
 
+		haystack = normalize(haystack);
 		var indexes = new TreeSet<Integer>();
 		int index = 0;
 		do {
-			index = haystack.indexOf(needle, index);
+			index = haystack.indexOf(normalize(needle), index);
 			if (index > -1) {
 				indexes.add(index);
 				index++;
 			}
 		} while (index > -1 && index < haystack.length());
 		return indexes;
+	}
+
+	private String normalize(String text) {
+
+		return ignoreDiacritics? normalizer.normalize(text) : text;
 	}
 }

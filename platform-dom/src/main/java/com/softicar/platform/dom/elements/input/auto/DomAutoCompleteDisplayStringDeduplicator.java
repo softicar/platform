@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,10 +19,11 @@ import java.util.function.Function;
  * performed, by appending numeric suffixes to the respective display strings,
  * e.g. "Foo (1)", "Foo (2)", etc.
  * <p>
- * Comparison between display strings is case-insensitive, meaning that display
- * strings only varying in letter cases are also deduplicated, e.g. "foo" and
- * "Foo". However, letter cases are retained when suffixes are added, resulting
- * in "foo (1)" and "Foo (2)".
+ * Comparison between display strings is case-insensitive and
+ * diacritic-agnostic, meaning that display strings only varying in letter cases
+ * and/or diacritics are also deduplicated, e.g. "foo" and "Foo", or "foo" and
+ * "fôo". However, letter cases and diacritics are retained when suffixes are
+ * added, resulting in "foo (1)", "Foo (2)" and "fôo (3)".
  * <p>
  * This class does not perform any deduplication of values. If necessary, such a
  * removal of redundant values should be performed elsewhere.
@@ -31,20 +33,23 @@ import java.util.function.Function;
 class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private final Function<T, IDisplayString> displayFunction;
-	private final Comparator<T> comparator;
+	private final Comparator<T> valueComparator;
+	private final Comparator<String> keyComparator;
 	private Map<String, List<T>> listMap;
 	private Map<String, T> resultMap;
 
-	public DomAutoCompleteDisplayStringDeduplicator(Function<T, IDisplayString> displayFunction, Comparator<T> comparator) {
+	public DomAutoCompleteDisplayStringDeduplicator(Function<T, IDisplayString> displayFunction, Comparator<T> valueComparator) {
 
 		this.displayFunction = displayFunction;
-		this.comparator = comparator;
+		this.valueComparator = valueComparator;
+		var normalizer = new DiacriticNormalizer();
+		this.keyComparator = Comparator.comparing(string -> normalizer.normalize(string).toLowerCase());
 	}
 
 	public Map<String, T> apply(Collection<T> values) {
 
-		this.listMap = new TreeMap<>(String::compareToIgnoreCase);
-		this.resultMap = new TreeMap<>(String::compareToIgnoreCase);
+		this.listMap = new TreeMap<>(keyComparator);
+		this.resultMap = new TreeMap<>(keyComparator);
 
 		for (var value: values) {
 			var string = displayFunction.apply(value).toString();
@@ -66,7 +71,7 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private void addConflictingValues(List<T> values) {
 
-		Collections.sort(values, comparator);
+		Collections.sort(values, valueComparator);
 
 		var index = 1;
 		for (var value: values) {
