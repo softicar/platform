@@ -2,10 +2,13 @@ package com.softicar.platform.core.module.server;
 
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
+import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbIdField;
 import com.softicar.platform.db.runtime.field.IDbIntegerField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
+import com.softicar.platform.db.runtime.key.IDbKey;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
@@ -35,6 +38,10 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 	public static final IDbStringField<AGServer> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGServer> PASSWORD = BUILDER.addStringField("password", o->o.m_password, (o,v)->o.m_password=v).setTitle(CoreI18n.PASSWORD).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGServer> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setNullable().setDefault(null).setMaximumLength(255);
+	public static final IDbForeignField<AGServer, AGUuid> CONNECTOR_UUID = BUILDER.addForeignField("connectorUuid", o->o.m_connectorUuid, (o,v)->o.m_connectorUuid=v, AGUuid.ID).setTitle(CoreI18n.CONNECTOR_UUID).setNullable().setDefault(null).setForeignKeyName("Server_ibfk_1");
+	public static final IDbStringField<AGServer> CONNECTOR_CONFIGURATION = BUILDER.addStringField("connectorConfiguration", o->o.m_connectorConfiguration, (o,v)->o.m_connectorConfiguration=v).setTitle(CoreI18n.CONNECTOR_CONFIGURATION).setDefault("").setLengthBits(24);
+	public static final IDbStringField<AGServer> CONNECTOR_DATA = BUILDER.addStringField("connectorData", o->o.m_connectorData, (o,v)->o.m_connectorData=v).setTitle(CoreI18n.CONNECTOR_DATA).setDefault("").setLengthBits(24);
+	public static final IDbKey<AGServer> IK_CONNECTOR_UUID = BUILDER.addIndexKey("connectorUuid", CONNECTOR_UUID);
 	public static final AGServerTable TABLE = new AGServerTable(BUILDER);
 	// @formatter:on
 
@@ -122,6 +129,41 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 		return setValue(DOMAIN, value);
 	}
 
+	public final Integer getConnectorUuidID() {
+
+		return getValueId(CONNECTOR_UUID);
+	}
+
+	public final AGUuid getConnectorUuid() {
+
+		return getValue(CONNECTOR_UUID);
+	}
+
+	public final AGServer setConnectorUuid(AGUuid value) {
+
+		return setValue(CONNECTOR_UUID, value);
+	}
+
+	public final String getConnectorConfiguration() {
+
+		return getValue(CONNECTOR_CONFIGURATION);
+	}
+
+	public final AGServer setConnectorConfiguration(String value) {
+
+		return setValue(CONNECTOR_CONFIGURATION, value);
+	}
+
+	public final String getConnectorData() {
+
+		return getValue(CONNECTOR_DATA);
+	}
+
+	public final AGServer setConnectorData(String value) {
+
+		return setValue(CONNECTOR_DATA, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -140,5 +182,8 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 	private String m_username;
 	private String m_password;
 	private String m_domain;
+	private AGUuid m_connectorUuid;
+	private String m_connectorConfiguration;
+	private String m_connectorData;
 }
 

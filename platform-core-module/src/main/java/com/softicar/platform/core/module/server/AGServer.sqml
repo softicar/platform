@@ -1,5 +1,7 @@
 PACKAGE com.softicar.platform.core.module.server
 
+IMPORT com.softicar.platform.core.module.uuid.AGUuid
+
 TABLE AGServer 'Core.Server' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
@@ -9,4 +11,9 @@ TABLE AGServer 'Core.Server' {
 	String username = '' [MAXLENGTH=255]
 	String password = '' [MAXLENGTH=255]
 	String domain = NULL [NULLABLE MAXLENGTH=255]
+	AGUuid connectorUuid = NULL [NULLABLE CONSTRAINT_NAME='Server_ibfk_1']
+	String connectorConfiguration = '' [LENGTHBITS=24]
+	String connectorData = '' [LENGTHBITS=24]
+	
+	IK connectorUuid
 }
