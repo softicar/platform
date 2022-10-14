@@ -517,3 +517,18 @@ SET @runString = CONCAT('ALTER TABLE ', @logTable, ' DROP CONSTRAINT `', @constr
 -- ---------------------------------------------------------------
 
 ALTER TABLE `Core`.`Uuid` DROP COLUMN `uuidBytes`;
+
+-- ---------------------------------------------------------------
+
+ALTER TABLE `Core`.`Server`
+	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
+	ADD COLUMN `connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',
+	ADD COLUMN `connectorData` MEDIUMTEXT NOT NULL DEFAULT '',
+	ADD KEY `connectorUuid` (`connectorUuid`),
+	ADD CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `Core`.`ServerLog`
+	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
+	ADD COLUMN `connectorConfiguration` MEDIUMTEXT DEFAULT NULL,
+	ADD KEY `connectorUuid` (`connectorUuid`),
+	ADD CONSTRAINT `ServerLog_ibfk_3` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

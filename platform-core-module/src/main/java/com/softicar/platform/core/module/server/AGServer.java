@@ -1,9 +1,11 @@
 package com.softicar.platform.core.module.server;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.core.module.email.mailbox.IMailbox;
 import com.softicar.platform.core.module.email.transport.IEmailTransportServer;
+import com.softicar.platform.core.module.server.connector.IServerConnector;
 import com.softicar.platform.emf.object.IEmfObject;
+import java.util.Optional;
 
 public class AGServer extends AGServerGenerated implements IEmfObject<AGServer>, IEmailTransportServer {
 
@@ -13,33 +15,10 @@ public class AGServer extends AGServerGenerated implements IEmfObject<AGServer>,
 		return IDisplayString.create(getName());
 	}
 
-	public IMailbox toImapsMailbox() {
+	public Optional<IServerConnector> getConnector() {
 
-		return new IMailbox() {
-
-			@Override
-			public String getProtocol() {
-
-				return "imaps";
-			}
-
-			@Override
-			public String getServer() {
-
-				return getAddress();
-			}
-
-			@Override
-			public String getUsername() {
-
-				return AGServer.this.getUsername();
-			}
-
-			@Override
-			public String getPassword() {
-
-				return AGServer.this.getPassword();
-			}
-		};
+		return Optional//
+			.ofNullable(getConnectorUuid())
+			.flatMap(connectorUuid -> SourceCodeReferencePoints.getReferencePoint(connectorUuid.getUuid(), IServerConnector.class));
 	}
 }

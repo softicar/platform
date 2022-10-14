@@ -10,6 +10,16 @@ import com.softicar.platform.dom.parent.DomParentElement;
  */
 public class DomSpan extends DomParentElement {
 
+	public DomSpan() {
+
+		// nothing to do
+	}
+
+	public DomSpan(String text) {
+
+		appendText(text);
+	}
+
 	@Override
 	public DomElementTag getTag() {
 
