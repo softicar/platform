@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.server.connector.IServerConnector;
 
 /**
- * A {@link IServerConnector} to read mails from a mailbox.
+ * An {@link IServerConnector} to access a mailbox.
  *
  * @author Oliver Richers
  */

@@ -158,11 +158,11 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klicken, um die Prozess-Log-Meldungen zu anzuzeigen.");
 	I18n0 CLICK_TO_SHOW_THE_PROGRAM_LOGS = new I18n0("Click to show the program logs.")//
 		.de("Klicken, um die Programm-Logs anzuzeigen.");
-	I18n0 CLIENT_ID = new I18n0("Client-ID")//
+	I18n0 CLIENT_ID = new I18n0("Client ID")//
 		.de("Client-ID");
 	I18n0 CLIENT_IP_ADDRESS = new I18n0("Client IP Address")//
 		.de("Client IP Adresse");
-	I18n0 CLIENT_SECRET = new I18n0("Client-Secret")//
+	I18n0 CLIENT_SECRET = new I18n0("Client Secret")//
 		.de("Client-Geheimnis");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
@@ -976,7 +976,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tabellen-Pfad-Hash");
 	I18n0 TARGET_USER = new I18n0("Target User")//
 		.de("Ziel-Benutzer");
-	I18n0 TENANT_ID = new I18n0("Tenant-ID")//
+	I18n0 TENANT_ID = new I18n0("Tenant ID")//
 		.de("Mandant-ID");
 	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate All Sessions")//
 		.de("Alle Sitzungen beenden");

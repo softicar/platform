@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnector;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.server.connector.IServerConnectorConfigurationInput;
-import com.softicar.platform.dom.element.DomElement;
+import com.softicar.platform.dom.node.IDomNode;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
@@ -22,7 +22,7 @@ public class ImapConnector implements IMailboxConnector {
 	}
 
 	@Override
-	public DomElement createConfigurationDisplay(AGServer server) {
+	public IDomNode createConfigurationDisplay(AGServer server) {
 
 		return new ImapConfigurationDisplay(server);
 	}
