@@ -40,7 +40,7 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 	public static final IDbStringField<AGServer> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbForeignField<AGServer, AGUuid> CONNECTOR_UUID = BUILDER.addForeignField("connectorUuid", o->o.m_connectorUuid, (o,v)->o.m_connectorUuid=v, AGUuid.ID).setTitle(CoreI18n.CONNECTOR_UUID).setNullable().setDefault(null).setForeignKeyName("Server_ibfk_1");
 	public static final IDbStringField<AGServer> CONNECTOR_CONFIGURATION = BUILDER.addStringField("connectorConfiguration", o->o.m_connectorConfiguration, (o,v)->o.m_connectorConfiguration=v).setTitle(CoreI18n.CONNECTOR_CONFIGURATION).setDefault("").setLengthBits(24);
-	public static final IDbStringField<AGServer> CONNECTOR_CACHE = BUILDER.addStringField("connectorCache", o->o.m_connectorCache, (o,v)->o.m_connectorCache=v).setTitle(CoreI18n.CONNECTOR_CACHE).setDefault("").setLengthBits(24);
+	public static final IDbStringField<AGServer> CONNECTOR_DATA = BUILDER.addStringField("connectorData", o->o.m_connectorData, (o,v)->o.m_connectorData=v).setTitle(CoreI18n.CONNECTOR_DATA).setDefault("").setLengthBits(24);
 	public static final IDbKey<AGServer> IK_CONNECTOR_UUID = BUILDER.addIndexKey("connectorUuid", CONNECTOR_UUID);
 	public static final AGServerTable TABLE = new AGServerTable(BUILDER);
 	// @formatter:on
@@ -154,14 +154,14 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 		return setValue(CONNECTOR_CONFIGURATION, value);
 	}
 
-	public final String getConnectorCache() {
+	public final String getConnectorData() {
 
-		return getValue(CONNECTOR_CACHE);
+		return getValue(CONNECTOR_DATA);
 	}
 
-	public final AGServer setConnectorCache(String value) {
+	public final AGServer setConnectorData(String value) {
 
-		return setValue(CONNECTOR_CACHE, value);
+		return setValue(CONNECTOR_DATA, value);
 	}
 
 	// -------------------------------- UTILS -------------------------------- //
@@ -184,6 +184,6 @@ public class AGServerGenerated extends AbstractDbObject<AGServer> {
 	private String m_domain;
 	private AGUuid m_connectorUuid;
 	private String m_connectorConfiguration;
-	private String m_connectorCache;
+	private String m_connectorData;
 }
 

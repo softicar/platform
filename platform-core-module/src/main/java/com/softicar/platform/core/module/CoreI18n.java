@@ -184,10 +184,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Verbindungs-Timeout");
 	I18n0 CONNECTOR = new I18n0("Connector")//
 		.de("Konnektor");
-	I18n0 CONNECTOR_CACHE = new I18n0("Connector Cache")//
-		.de("Konnektor-Cache");
 	I18n0 CONNECTOR_CONFIGURATION = new I18n0("Connector Configuration")//
 		.de("Konnektor-Konfiguration");
+	I18n0 CONNECTOR_DATA = new I18n0("Connector Data")//
+		.de("Konnektor-Daten");
 	I18n0 CONNECTOR_UUID = new I18n0("Connector UUID")//
 		.de("Konnektor-UUID");
 	I18n0 CONTENT = new I18n0("Content")//

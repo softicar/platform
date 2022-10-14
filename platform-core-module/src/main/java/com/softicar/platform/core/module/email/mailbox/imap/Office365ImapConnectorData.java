@@ -5,12 +5,12 @@ import com.softicar.platform.core.module.server.AGServer;
 import java.util.Objects;
 import java.util.Optional;
 
-class Office365ImapConnectorTokenCache {
+class Office365ImapConnectorData {
 
 	private final String username;
 	private final String accessToken;
 
-	public Office365ImapConnectorTokenCache(String username, String accessToken) {
+	public Office365ImapConnectorData(String username, String accessToken) {
 
 		this.username = username;
 		this.accessToken = accessToken;
@@ -19,8 +19,8 @@ class Office365ImapConnectorTokenCache {
 	public static Optional<String> getAccessToken(AGServer server) {
 
 		return Optional//
-			.ofNullable(server.getConnectorCache())
-			.map(json -> new Gson().fromJson(json, Office365ImapConnectorTokenCache.class))
+			.ofNullable(server.getConnectorData())
+			.map(json -> new Gson().fromJson(json, Office365ImapConnectorData.class))
 			.filter(cache -> cache.isValidFor(server.getUsername()))
 			.map(cache -> cache.getAccessToken());
 	}
@@ -28,7 +28,7 @@ class Office365ImapConnectorTokenCache {
 	public static void save(AGServer server, String accessToken) {
 
 		server//
-			.setConnectorCache(new Office365ImapConnectorTokenCache(server.getUsername(), accessToken).toJson())
+			.setConnectorData(new Office365ImapConnectorData(server.getUsername(), accessToken).toJson())
 			.save();
 	}
 

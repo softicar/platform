@@ -165,7 +165,7 @@
   },
   {
     "tableName": "`Core`.`Server`",
-    "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,`connectorUuid` INT DEFAULT NULL,`connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',`connectorCache` MEDIUMTEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),KEY `connectorUuid` (`connectorUuid`),CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,`connectorUuid` INT DEFAULT NULL,`connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',`connectorData` MEDIUMTEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),KEY `connectorUuid` (`connectorUuid`),CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Core`.`StoredFileAccessLog`",

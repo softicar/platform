@@ -84,7 +84,7 @@ public class Office365ImapConnector implements IMailboxConnector {
 
 	private String getAccessToken(AGServer server, Office365ImapConfiguration configuration) {
 
-		return Office365ImapConnectorTokenCache//
+		return Office365ImapConnectorData//
 			.getAccessToken(server)
 			.orElseGet(() -> renewAccessToken(server, configuration));
 	}
@@ -102,7 +102,7 @@ public class Office365ImapConnector implements IMailboxConnector {
 			.addScope("https://outlook.office.com/IMAP.AccessAsUser.All")
 			.authorize()
 			.getAccessTokenOrThrow();
-		Office365ImapConnectorTokenCache.save(server, accessToken);
+		Office365ImapConnectorData.save(server, accessToken);
 		return accessToken;
 	}
 }

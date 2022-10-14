@@ -523,7 +523,7 @@ ALTER TABLE `Core`.`Uuid` DROP COLUMN `uuidBytes`;
 ALTER TABLE `Core`.`Server`
 	ADD COLUMN `connectorUuid` INT DEFAULT NULL,
 	ADD COLUMN `connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',
-	ADD COLUMN `connectorCache` MEDIUMTEXT NOT NULL DEFAULT '',
+	ADD COLUMN `connectorData` MEDIUMTEXT NOT NULL DEFAULT '',
 	ADD KEY `connectorUuid` (`connectorUuid`),
 	ADD CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 

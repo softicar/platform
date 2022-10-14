@@ -50,7 +50,7 @@ public class AGServerTable extends EmfObjectTable<AGServer, AGCoreModuleInstance
 			.setDisplayFactoryByEntity(ServerConnectorConfigurationDisplay::new)
 			.setInputFactoryByEntity(ServerConnectorConfigurationInput::new);
 		attributes//
-			.editAttribute(AGServer.CONNECTOR_CACHE)
+			.editAttribute(AGServer.CONNECTOR_DATA)
 			.setConcealed(true);
 	}
 
@@ -71,6 +71,6 @@ public class AGServerTable extends EmfObjectTable<AGServer, AGCoreModuleInstance
 
 		loggerSet//
 			.addDummyLogger()
-			.addField(AGServer.CONNECTOR_CACHE);
+			.addField(AGServer.CONNECTOR_DATA);
 	}
 }
