@@ -13,6 +13,7 @@
 .DomDayTimeInputTooltip {
 	opacity: 0;
 	position: absolute;
+	z-index: var(--MAX_Z_INDEX);
 	visibility: hidden;
 	transform: translateY(30px);
 	left: calc(50% - 24px);

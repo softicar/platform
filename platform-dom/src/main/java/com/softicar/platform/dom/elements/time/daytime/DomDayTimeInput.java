@@ -32,8 +32,8 @@ public class DomDayTimeInput extends AbstractDomValueInputDiv<DayTime> {
 
 		this.dayTimeInput = createInput();
 		this.dayButton = new PickDayButton();
-		addCssClass(DomCssClasses.DOM_DAY_TIME_INPUT);
 		appendChildren(dayTimeInput, dayButton, new FormatTooltip());
+		addCssClass(DomCssClasses.DOM_DAY_TIME_INPUT);
 	}
 
 	public void setPlaceholder(IDisplayString placeholder) {
