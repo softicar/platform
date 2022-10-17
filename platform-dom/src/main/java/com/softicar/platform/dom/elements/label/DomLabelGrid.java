@@ -4,9 +4,9 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomLabel;
+import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.input.IDomFocusable;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.dom.text.DomTextNode;
 import com.softicar.platform.dom.text.IDomTextNode;
 
 /**
@@ -72,7 +72,7 @@ public class DomLabelGrid extends DomDiv {
 	 */
 	public DomLabelGrid add(IDisplayString labelText, IDisplayString valueText) {
 
-		return add(labelText, DomTextNode.create(valueText));
+		return add(labelText, valueText.toString());
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class DomLabelGrid extends DomDiv {
 	 */
 	public DomLabelGrid add(IDisplayString labelText, String valueText) {
 
-		return add(labelText, DomTextNode.create(valueText));
+		return add(labelText, new DomSpan(valueText));
 	}
 
 	private class DomLabelGridRow extends DomDiv {

@@ -26,6 +26,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zugriffsverwaltung");
 	I18n0 ACCESS_MANAGER = new I18n0("Access Manager")//
 		.de("Zugriffsmanager");
+	I18n0 ACCESS_SCOPE = new I18n0("Access Scope")//
+		.de("Zugriffsbereich");
 	I18n0 ACCESSED_AT = new I18n0("Accessed At")//
 		.de("Abgerufen am");
 	I18n0 ACCESSED_BY = new I18n0("Accessed By")//
@@ -68,6 +70,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Apr 1");
 	I18n1 ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS = new I18n1("%s is available at the following address")//
 		.de("%s steht unter der folgenden Adresse zur Verfügung");
+	I18n1 ARG1_MESSAGES_FOUND_IN_INBOX = new I18n1("%s messages found in inbox.")//
+		.de("%s Nachrichten im Posteingang gefunden.");
 	I18n1 ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS = new I18n1("%s one-time password has been sent to your email address.")//
 		.de("%s Einmal-Passwort wurde an Ihre E-Mail-Adresse gesendet.");
 	I18n1 ARG1_SHOULD_BE_REMOVED = new I18n1("'%s' should be removed.")//
@@ -78,6 +82,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Am");
 	I18n0 ATTACHMENTS = new I18n0("Attachments")//
 		.de("Anhänge");
+	I18n0 AUTHORITY_URL = new I18n0("Authority URL")//
+		.de("Autoritäts-URL");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
 	I18n0 AUTOMATIC_ABORT = new I18n0("Automatic Abort")//
@@ -156,8 +162,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klicken, um die Prozess-Log-Meldungen zu anzuzeigen.");
 	I18n0 CLICK_TO_SHOW_THE_PROGRAM_LOGS = new I18n0("Click to show the program logs.")//
 		.de("Klicken, um die Programm-Logs anzuzeigen.");
+	I18n0 CLIENT_ID = new I18n0("Client ID")//
+		.de("Client-ID");
 	I18n0 CLIENT_IP_ADDRESS = new I18n0("Client IP Address")//
 		.de("Client IP Adresse");
+	I18n0 CLIENT_SECRET = new I18n0("Client Secret")//
+		.de("Client-Geheimnis");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
@@ -170,6 +180,20 @@ public interface CoreI18n extends EmfI18n {
 		.de("Alle bestätigen");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
 		.de("Bestätigung");
+	I18n0 CONNECTION_FAILED = new I18n0("Connection failed")//
+		.de("Verbindung fehlgeschlagen");
+	I18n0 CONNECTION_SUCCESSFULL = new I18n0("Connection successfull.")//
+		.de("Verbindung erfolgreich.");
+	I18n0 CONNECTION_TIMEOUT = new I18n0("Connection Timeout")//
+		.de("Verbindungs-Timeout");
+	I18n0 CONNECTOR = new I18n0("Connector")//
+		.de("Konnektor");
+	I18n0 CONNECTOR_CONFIGURATION = new I18n0("Connector Configuration")//
+		.de("Konnektor-Konfiguration");
+	I18n0 CONNECTOR_DATA = new I18n0("Connector Data")//
+		.de("Konnektor-Daten");
+	I18n0 CONNECTOR_UUID = new I18n0("Connector UUID")//
+		.de("Konnektor-UUID");
 	I18n0 CONTENT = new I18n0("Content")//
 		.de("Inhalt");
 	I18n0 CONTENT_TYPE = new I18n0("Content Type")//
@@ -243,6 +267,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("'dd' für Tage, 'MM' für Monate, und 'yyyy' für Jahre");
 	I18n0 DEACTIVATED = new I18n0("deactivated")//
 		.de("deaktiviert");
+	I18n0 DEFAULT_IMAP_CONNECTOR = new I18n0("Default IMAP Connector")//
+		.de("Standard IMAP-Konnektor");
 	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
 		.de("Standard-Lokalisierung");
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
@@ -583,6 +609,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Benachrichtigungs-Zeit");
 	I18n1 NOTIFICATION_WAS_SENT_TO_ARG1_USERS = new I18n1("Notification was sent to %s users.")//
 		.de("Benachrichtigung wurde an %s Benutzer gesendet.");
+	I18n0 OFFICE_365_IMAP_CONNECTOR = new I18n0("Office 365 IMAP Connector")//
+		.de("Office 365 IMAP-Konnektor");
 	I18n0 ONE_TIME_PASSWORD = new I18n0("One-Time Password")//
 		.de("Einmal-Passwort");
 	I18n3 ONE_TIME_PASSWORD_ARG1_TO_LOG_IN_TO_YOUR_ARG2_ACCOUNT_ARG3 = new I18n3("One-time password %s to log in to your %s account: '%s'.")//
@@ -698,6 +726,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Programm-UUID");
 	I18n0 PROGRAMS = new I18n0("Programs")//
 		.de("Programme");
+	I18n0 PROTOCOL = new I18n0("Protocol")//
+		.de("Protokoll");
 	I18n0 PROVIDE_A_POLITE_AND_REASONABLE_RATIONALE = new I18n0("Provide a polite and reasonable rationale.")//
 		.de("Geben Sie eine höfliche und vernünftige Begründung an.");
 	I18n0 PSEUDONYMIZE_USER = new I18n0("Pseudonymize User")//
@@ -950,12 +980,16 @@ public interface CoreI18n extends EmfI18n {
 		.de("Tabellen-Pfad-Hash");
 	I18n0 TARGET_USER = new I18n0("Target User")//
 		.de("Ziel-Benutzer");
+	I18n0 TENANT_ID = new I18n0("Tenant ID")//
+		.de("Mandant-ID");
 	I18n0 TERMINATE_ALL_SESSIONS = new I18n0("Terminate All Sessions")//
 		.de("Alle Sitzungen beenden");
 	I18n0 TERMINATE_SESSION = new I18n0("Terminate Session")//
 		.de("Sitzung beenden");
 	I18n0 TERMINATED_AT = new I18n0("Terminated At")//
 		.de("Terminiert um");
+	I18n0 TEST_CONNECTION = new I18n0("Test Connection")//
+		.de("Teste Verbindung");
 	I18n0 TEST_SYSTEM = new I18n0("Test System")//
 		.de("Testsystem");
 	I18n0 TEXT = new I18n0("Text")//
@@ -1043,6 +1077,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zu viele Logins");
 	I18n0 TRANSACTIONS = new I18n0("Transactions")//
 		.de("Transaktionen");
+	I18n0 TRUSTED_HOSTS = new I18n0("Trusted Hosts")//
+		.de("Vertrauenswürdige Hosts");
 	I18n0 TUESDAY = new I18n0("Tuesday")//
 		.de("Dienstag");
 	I18n0 TWO_FACTOR_AUTHENTICATION = new I18n0("Two Factor Authentication")//

@@ -50,11 +50,13 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 		addTestValue("FOO", 1);
 		addTestValue("foo", 2);
 		addTestValue("Foo", 3);
+		addTestValue("fóô", 4);
 
 		// descending values
 		addTestValue("FOO", 9);
 		addTestValue("foo", 8);
 		addTestValue("Foo", 7);
+		addTestValue("fóô", 6);
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
@@ -63,9 +65,11 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 				FOO (1)=1
 				foo (2)=2
 				Foo (3)=3
-				Foo (4)=7
-				foo (5)=8
-				FOO (6)=9""", map);
+				fóô (4)=4
+				fóô (5)=6
+				Foo (6)=7
+				foo (7)=8
+				FOO (8)=9""", map);
 	}
 
 	@Test
@@ -75,8 +79,10 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 		addTestValue("FOO", 3);
 		addTestValue("foo", 3);
 		addTestValue("Foo", 3);
+		addTestValue("fóô", 3);
 
 		// reverse order of display strings
+		addTestValue("fóô", 3);
 		addTestValue("Foo", 3);
 		addTestValue("foo", 3);
 		addTestValue("FOO", 3);
@@ -88,9 +94,11 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 				FOO (1)=3
 				foo (2)=3
 				Foo (3)=3
-				Foo (4)=3
-				foo (5)=3
-				FOO (6)=3""", map);
+				fóô (4)=3
+				fóô (5)=3
+				Foo (6)=3
+				foo (7)=3
+				FOO (8)=3""", map);
 	}
 
 	@Test

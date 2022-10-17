@@ -231,6 +231,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		private Collection<T> findStringMatches(String pattern, int limit) {
 
 			return new MultiPatternMatcher<>(stringToValueMap)
+				.setIgnoreDiacritics(true)
 				.findMatches(pattern, limit)
 				.stream()
 				.map(MultiPatternMatch::getValue)

@@ -292,6 +292,114 @@ public class MultiPatternMatcherTest {
 			.assertNoMoreMatches();
 	}
 
+	@Test
+	public void testFindMatchesWithDiacriticsInIdentifierAndDiacriticsIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bâr", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(true).findMatches("a");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE3)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE2)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.assertNoMoreMatches();
+	}
+
+	@Test
+	public void testFindMatchesWithDiacriticsInIdentifierAndDiacriticsNotIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bâr", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(false).findMatches("a");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE3)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+			.assertNoMoreMatches();
+	}
+
+	@Test
+	public void testFindMatchesWithDiacriticsInIdentifierAndPatternAndDiacriticsIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bâr", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(true).findMatches("â");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE3)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE2)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.assertNoMoreMatches();
+	}
+
+	@Test
+	public void testFindMatchesWithDiacriticsInIdentifierAndPatternAndDiacriticsNotIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bâr", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(false).findMatches("â");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE2)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+			.assertNoMoreMatches();
+	}
+
+	@Test
+	public void testFindMatchesWithDiacriticsInPatternAndDiacriticsIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bar", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(true).findMatches("â");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE2)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE3)
+			.nextRange(1, 2)
+			.assertNoMoreRanges()
+
+			.assertNoMoreMatches();
+	}
+
+	@Test
+	public void testFindMatchesWithDiacriticsInPatternAndDiacriticsNotIgnored() {
+
+		addTestValue("foo", VALUE1);
+		addTestValue("bar", VALUE2);
+		addTestValue("baz", VALUE3);
+
+		var matches = createMatcher().setIgnoreDiacritics(false).findMatches("â");
+
+		new Asserter(matches)//
+			.assertNoMoreMatches();
+	}
+
 	private void addTestValue(String pattern, Integer value) {
 
 		map.put(pattern, value);
