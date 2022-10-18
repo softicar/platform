@@ -182,6 +182,10 @@ public abstract class AbstractDomNode implements IDomNode {
 
 	void setParent(IDomParentElement parent) {
 
+		if (this == parent) {
+			throw new IllegalArgumentException();
+		}
+
 		this.parent = parent;
 	}
 

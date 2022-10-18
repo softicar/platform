@@ -22,19 +22,12 @@ public class DomSelectTester<T> extends AbstractDomNodeTester<DomSelect<?>> {
 
 	public DomSelectTester<T> selectValue(T value) {
 
-		// set selected option
-		DomValueOption<?> option = findNodes(DomValueOption.class)//
-			.filter(node -> Objects.equals(node.getValue(), value))
-			.first()
-			.assertType(DomValueOption.class);
-		node.setSelectedOptions_noJS("n" + option.getNodeId());
+		return selectOption(getOptionByValue(value));
+	}
 
-		// execute CHANGE event
-		if (node instanceof IDomEventHandler) {
-			sendEvent(DomEventType.CHANGE);
-		}
+	public DomSelectTester<T> selectValueByName(String valueName) {
 
-		return this;
+		return selectOption(getOptionByName(valueName));
 	}
 
 	public DomSelectTester<T> assertSelected(String expected) {
@@ -55,5 +48,34 @@ public class DomSelectTester<T> extends AbstractDomNodeTester<DomSelect<?>> {
 			assertNull(message, selectedOption);
 		}
 		return this;
+	}
+
+	private DomSelectTester<T> selectOption(DomValueOption<?> option) {
+
+		// set selected option
+		node.setSelectedOptions_noJS("n" + option.getNodeId());
+
+		// execute CHANGE event
+		if (node instanceof IDomEventHandler) {
+			sendEvent(DomEventType.CHANGE);
+		}
+
+		return this;
+	}
+
+	private DomValueOption<?> getOptionByValue(T value) {
+
+		return findNodes(DomValueOption.class)//
+			.filter(node -> Objects.equals(node.getValue(), value))
+			.first()
+			.assertType(DomValueOption.class);
+	}
+
+	private DomValueOption<?> getOptionByName(String valueName) {
+
+		return findNodes(DomValueOption.class)//
+			.filter(node -> Objects.equals(node.toDisplay().toString(), valueName))
+			.first()
+			.assertType(DomValueOption.class);
 	}
 }

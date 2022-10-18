@@ -4,7 +4,13 @@ import com.softicar.platform.common.core.interfaces.ITestMarker;
 
 public enum DomTestMarker implements ITestMarker {
 
+	DAY_CHOOSER,
+	DAY_CHOOSER_MONTH_SELECT,
+	DAY_CHOOSER_YEAR_SELECT,
 	DAY_INPUT,
+	DAY_POPUP_BUTTON,
+
+	DAY_TIME_INPUT,
 
 	IMAGE_VIEWER_CANVAS,
 	IMAGE_VIEWER_IMAGE,

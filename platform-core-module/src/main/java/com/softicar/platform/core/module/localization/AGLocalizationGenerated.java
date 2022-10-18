@@ -34,6 +34,8 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	public static final IDbStringField<AGLocalization> DECIMAL_SEPARATOR = BUILDER.addStringField("decimalSeparator", o->o.m_decimalSeparator, (o,v)->o.m_decimalSeparator=v).setTitle(CoreI18n.DECIMAL_SEPARATOR).setMaximumLength(255);
 	public static final IDbStringField<AGLocalization> DIGIT_GROUP_SEPARATOR = BUILDER.addStringField("digitGroupSeparator", o->o.m_digitGroupSeparator, (o,v)->o.m_digitGroupSeparator=v).setTitle(CoreI18n.DIGIT_GROUP_SEPARATOR).setDefault("").setMaximumLength(255);
 	public static final IDbStringField<AGLocalization> DATE_FORMAT = BUILDER.addStringField("dateFormat", o->o.m_dateFormat, (o,v)->o.m_dateFormat=v).setTitle(CoreI18n.DATE_FORMAT).setMaximumLength(255);
+	public static final IDbStringField<AGLocalization> LOCALIZED_DATE_FORMAT = BUILDER.addStringField("localizedDateFormat", o->o.m_localizedDateFormat, (o,v)->o.m_localizedDateFormat=v).setTitle(CoreI18n.LOCALIZED_DATE_FORMAT).setMaximumLength(255);
+	public static final IDbStringField<AGLocalization> LOCALIZED_TIME_FORMAT = BUILDER.addStringField("localizedTimeFormat", o->o.m_localizedTimeFormat, (o,v)->o.m_localizedTimeFormat=v).setTitle(CoreI18n.LOCALIZED_TIME_FORMAT).setMaximumLength(255);
 	public static final IDbKey<AGLocalization> UK_NAME = BUILDER.addUniqueKey("name", NAME);
 	public static final IDbKey<AGLocalization> IK_LANGUAGE = BUILDER.addIndexKey("language", LANGUAGE);
 	public static final AGLocalizationTable TABLE = new AGLocalizationTable(BUILDER);
@@ -116,6 +118,26 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 		return setValue(DATE_FORMAT, value);
 	}
 
+	public final String getLocalizedDateFormat() {
+
+		return getValue(LOCALIZED_DATE_FORMAT);
+	}
+
+	public final AGLocalization setLocalizedDateFormat(String value) {
+
+		return setValue(LOCALIZED_DATE_FORMAT, value);
+	}
+
+	public final String getLocalizedTimeFormat() {
+
+		return getValue(LOCALIZED_TIME_FORMAT);
+	}
+
+	public final AGLocalization setLocalizedTimeFormat(String value) {
+
+		return setValue(LOCALIZED_TIME_FORMAT, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -132,5 +154,7 @@ public class AGLocalizationGenerated extends AbstractDbObject<AGLocalization> {
 	private String m_decimalSeparator;
 	private String m_digitGroupSeparator;
 	private String m_dateFormat;
+	private String m_localizedDateFormat;
+	private String m_localizedTimeFormat;
 }
 

@@ -18,8 +18,6 @@ public interface DomCssFiles {
 	IResourceSupplier DOM_CHECKBOX_STYLE = FACTORY.create("dom-checkbox-style.css");
 	IResourceSupplier DOM_DATA_TABLE_STYLE = FACTORY.create("dom-data-table-style.css");
 	IResourceSupplier DOM_DAY_CHOOSER_DIV_STYLE = FACTORY.create("dom-day-chooser-div-style.css");
-	IResourceSupplier DOM_DAY_INPUT_STYLE = FACTORY.create("dom-day-input-style.css");
-	IResourceSupplier DOM_DAY_TIME_INPUT_STYLE = FACTORY.create("dom-day-time-input-style.css");
 	IResourceSupplier DOM_ICON_STYLE = FACTORY.create("dom-icon-style.css");
 	IResourceSupplier DOM_IMAGE_VIEWER_STYLE = FACTORY.create("dom-image-viewer-style.css");
 	IResourceSupplier DOM_INPUT_DIAGNOSTICS_STYLE = FACTORY.create("dom-input-diagnostics-style.css");
@@ -35,7 +33,7 @@ public interface DomCssFiles {
 	IResourceSupplier DOM_SEPARATOR_CELL_STYLE = FACTORY.create("dom-separator-cell-style.css");
 	IResourceSupplier DOM_STYLE = FACTORY.create("dom-style.css");
 	IResourceSupplier DOM_TAB_BAR_STYLE = FACTORY.create("dom-tab-bar-style.css");
-	IResourceSupplier DOM_TIME_INPUT_STYLE = FACTORY.create("dom-time-input-style.css");
+	IResourceSupplier DOM_VALUE_INPUT_STYLE = FACTORY.create("dom-value-input-style.css");
 	IResourceSupplier DOM_VERTICAL_TEXT_BOX_STYLE = FACTORY.create("dom-vertical-text-box-style.css");
 	IResourceSupplier DOM_WIKI_ELEMENTS_STYLE = FACTORY.create("dom-wiki-elements-style.css");
 }

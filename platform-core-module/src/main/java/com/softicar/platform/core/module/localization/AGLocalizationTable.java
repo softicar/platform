@@ -36,6 +36,8 @@ public class AGLocalizationTable extends EmfObjectTable<AGLocalization, AGCoreMo
 			.addMapping(AGLocalization.LANGUAGE, AGLocalizationLog.LANGUAGE)
 			.addMapping(AGLocalization.DECIMAL_SEPARATOR, AGLocalizationLog.DECIMAL_SEPARATOR)
 			.addMapping(AGLocalization.DIGIT_GROUP_SEPARATOR, AGLocalizationLog.DIGIT_GROUP_SEPARATOR)
-			.addMapping(AGLocalization.DATE_FORMAT, AGLocalizationLog.DATE_FORMAT);
+			.addMapping(AGLocalization.DATE_FORMAT, AGLocalizationLog.DATE_FORMAT)
+			.addMapping(AGLocalization.LOCALIZED_DATE_FORMAT, AGLocalizationLog.LOCALIZED_DATE_FORMAT)
+			.addMapping(AGLocalization.LOCALIZED_TIME_FORMAT, AGLocalizationLog.LOCALIZED_TIME_FORMAT);
 	}
 }

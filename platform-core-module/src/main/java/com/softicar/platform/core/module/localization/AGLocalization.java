@@ -26,7 +26,9 @@ public class AGLocalization extends AGLocalizationGenerated implements IEmfObjec
 			.setLanguage(getLanguageEnum())
 			.setDecimalSeparator(getDecimalSeparator())
 			.setDigitGroupSeparator(getDigitGroupSeparator())
-			.setDateFormat(getDateFormat());
+			.setDateFormat(getDateFormat())
+			.setLocalizedDateFormat(getLocalizedDateFormat())
+			.setLocalizedTimeFormat(getLocalizedTimeFormat());
 	}
 
 	private LanguageEnum getLanguageEnum() {

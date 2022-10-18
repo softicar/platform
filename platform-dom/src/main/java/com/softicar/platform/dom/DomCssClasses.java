@@ -37,8 +37,8 @@ public interface DomCssClasses {
 	ICssClass DOM_DAY_CHOOSER_DIV = new CssClass("DomDayChooserDiv", DomCssFiles.DOM_DAY_CHOOSER_DIV_STYLE);
 	ICssClass DOM_DAY_CHOOSER_DIV_WEEKEND = new CssClass("DomDayChooserDivWeekend", DomCssFiles.DOM_DAY_CHOOSER_DIV_STYLE);
 	ICssClass DOM_DAY_CHOOSER_DIV_WORKDAY = new CssClass("DomDayChooserDivWorkday", DomCssFiles.DOM_DAY_CHOOSER_DIV_STYLE);
-	ICssClass DOM_DAY_INPUT = new CssClass("DomDayInput", DomCssFiles.DOM_DAY_INPUT_STYLE);
-	ICssClass DOM_DAY_TIME_INPUT = new CssClass("DomDayTimeInput", DomCssFiles.DOM_DAY_TIME_INPUT_STYLE);
+	ICssClass DOM_DAY_INPUT = new CssClass("DomDayInput", DomCssFiles.DOM_VALUE_INPUT_STYLE);
+	ICssClass DOM_DAY_TIME_INPUT = new CssClass("DomDayTimeInput", DomCssFiles.DOM_VALUE_INPUT_STYLE);
 
 	ICssClass DOM_ICON = new CssClass("DomIcon", DomCssFiles.DOM_ICON_STYLE);
 
@@ -104,8 +104,9 @@ public interface DomCssClasses {
 	ICssClass DOM_TAB_HEADER = new CssClass("DomTabHeader", DomCssFiles.DOM_TAB_BAR_STYLE);
 	ICssClass DOM_TAB_HEADER_SEPARATOR = new CssClass("DomTabHeaderSeparator", DomCssFiles.DOM_TAB_BAR_STYLE);
 
-	ICssClass DOM_TIME_INPUT = new CssClass("DomTimeInput", DomCssFiles.DOM_TIME_INPUT_STYLE);
-	ICssClass DOM_TIME_INPUT_ELEMENT = new CssClass("DomTimeInputElement", DomCssFiles.DOM_TIME_INPUT_STYLE);
+	ICssClass DOM_TIME_INPUT = new CssClass("DomTimeInput", DomCssFiles.DOM_VALUE_INPUT_STYLE);
+
+	ICssClass DOM_VALUE_INPUT_TOOLTIP = new CssClass("DomValueInputTooltip", DomCssFiles.DOM_VALUE_INPUT_STYLE);
 
 	ICssClass DOM_VERTICAL_TEXT_BOX = new CssClass("DomVerticalTextBox", DomCssFiles.DOM_VERTICAL_TEXT_BOX_STYLE);
 

@@ -13,6 +13,7 @@ import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomImages;
+import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.AbstractDomValueSelect;
 import com.softicar.platform.dom.elements.DomCell;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -32,7 +33,7 @@ import java.util.function.Consumer;
  *
  * @author Oliver Richers
  */
-public class DomDayChooserDiv extends DomDiv {
+class DomDayChooserDiv extends DomDiv {
 
 	public static final int MINIMUM_YEAR = 1970;
 	public static final int YEARS_INTO_THE_FUTURE = 20;
@@ -51,6 +52,7 @@ public class DomDayChooserDiv extends DomDiv {
 		this.table = appendChild(new DayTable());
 
 		setCssClass(DomCssClasses.DOM_DAY_CHOOSER_DIV);
+		addMarker(DomTestMarker.DAY_CHOOSER);
 	}
 
 	public void setDay(Day day) {
@@ -155,6 +157,7 @@ public class DomDayChooserDiv extends DomDiv {
 			addValues(MonthName.values());
 			setSelectedValue(selectedDay.getMonth().getName());
 			listenToEvent(DomEventType.CHANGE);
+			addMarker(DomTestMarker.DAY_CHOOSER_MONTH_SELECT);
 		}
 
 		@Override
@@ -193,6 +196,7 @@ public class DomDayChooserDiv extends DomDiv {
 
 			setSelectedValue(selectedDay.getYear());
 			listenToEvent(DomEventType.CHANGE);
+			addMarker(DomTestMarker.DAY_CHOOSER_YEAR_SELECT);
 		}
 
 		@Override

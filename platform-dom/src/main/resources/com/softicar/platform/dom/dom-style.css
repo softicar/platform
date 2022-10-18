@@ -79,6 +79,10 @@
 	--WARNING_BACKGROUND_COLOR: #ffffc0;
 	--WARNING_BORDER_COLOR: #f1cd46;
 	--WARNING_FONT_COLOR: var(--WARNING_BORDER_COLOR);
+
+	/* ---------- positioning ---------- */
+
+	--MAX_Z_INDEX: 2147483647;
 }
 
 body {

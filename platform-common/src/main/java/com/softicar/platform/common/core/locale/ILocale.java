@@ -49,4 +49,35 @@ public interface ILocale {
 	 * @return the date format (never <i>null</i> and not empty)
 	 */
 	String getDateFormat();
+
+	/**
+	 * Returns a human-readable date format that uses abbreviations which
+	 * correspond to the language returned by {@link #getLanguage()}.
+	 *
+	 * @return a localized, human-readable date format (never <i>null</i>)
+	 */
+	String getLocalizedDateFormat();
+
+	/**
+	 * Returns a human-readable time format that uses abbreviations which
+	 * correspond to the language returned by {@link #getLanguage()}.
+	 *
+	 * @return a localized, human-readable time format (never <i>null</i>)
+	 */
+	String getLocalizedTimeFormat();
+
+	/**
+	 * Returns a human-readable daytime format that uses abbreviations which
+	 * correspond to the language returned by {@link #getLanguage()}.
+	 * <p>
+	 * By default, a space-separated concatenation of
+	 * {@link #getLocalizedDateFormat()} and {@link #getLocalizedTimeFormat()}
+	 * is returned.
+	 *
+	 * @return a localized, human-readable daytime format (never <i>null</i>)
+	 */
+	default String getLocalizedDayTimeFormat() {
+
+		return "%s %s".formatted(getLocalizedDateFormat(), getLocalizedTimeFormat());
+	}
 }

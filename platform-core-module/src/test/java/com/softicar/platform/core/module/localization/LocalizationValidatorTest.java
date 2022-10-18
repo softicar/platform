@@ -1,7 +1,8 @@
 package com.softicar.platform.core.module.localization;
 
 import com.softicar.platform.common.core.CommonCoreI18n;
-import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
+import com.softicar.platform.common.core.locale.Locale;
+import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import java.util.List;
 import org.junit.Test;
@@ -71,11 +72,14 @@ public class LocalizationValidatorTest extends AbstractDbTest {
 
 	private AGLocalization createLocalization() {
 
+		var defaultLocale = new Locale();
 		return new AGLocalization()
 			.setName("default")
-			.setLanguage(AGCoreLanguageEnum.ENGLISH.getRecord())
-			.setDecimalSeparator(".")
-			.setDigitGroupSeparator(",")
-			.setDateFormat("yyyy-MM-dd");
+			.setLanguage(AGCoreLanguage.getByLanguageEnum(defaultLocale.getLanguage()).get())
+			.setDecimalSeparator(defaultLocale.getDecimalSeparator())
+			.setDigitGroupSeparator(defaultLocale.getDigitGroupSeparator())
+			.setDateFormat(defaultLocale.getDateFormat())
+			.setLocalizedDateFormat(defaultLocale.getLocalizedDateFormat())
+			.setLocalizedTimeFormat(defaultLocale.getLocalizedTimeFormat());
 	}
 }

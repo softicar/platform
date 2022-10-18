@@ -1,7 +1,8 @@
 package com.softicar.platform.core.module;
 
+import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.common.date.DayTime;
-import com.softicar.platform.core.module.language.AGCoreLanguageEnum;
+import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.server.AGServer;
@@ -46,13 +47,16 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 
 	private AGLocalization insertInternationalLocalizationPreset() {
 
+		var defaultLocale = new Locale();
 		var id = AGLocalization.TABLE//
 			.createInsert()
 			.set(AGLocalization.NAME, INTERNATIONAL_LOCALIZATION_PRESET_NAME)
-			.set(AGLocalization.LANGUAGE, AGCoreLanguageEnum.ENGLISH.getRecord())
-			.set(AGLocalization.DECIMAL_SEPARATOR, ".")
-			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, "")
-			.set(AGLocalization.DATE_FORMAT, "yyyy-MM-dd")
+			.set(AGLocalization.LANGUAGE, AGCoreLanguage.getByLanguageEnum(defaultLocale.getLanguage()).get())
+			.set(AGLocalization.DECIMAL_SEPARATOR, defaultLocale.getDecimalSeparator())
+			.set(AGLocalization.DIGIT_GROUP_SEPARATOR, defaultLocale.getDigitGroupSeparator())
+			.set(AGLocalization.DATE_FORMAT, defaultLocale.getDateFormat())
+			.set(AGLocalization.LOCALIZED_DATE_FORMAT, defaultLocale.getLocalizedDateFormat())
+			.set(AGLocalization.LOCALIZED_TIME_FORMAT, defaultLocale.getLocalizedTimeFormat())
 			.execute();
 		return AGLocalization.TABLE.getStub(id);
 	}

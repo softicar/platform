@@ -1,0 +1,59 @@
+
+/* -------------------- DomDayInput -------------------- */
+
+.DomDayInput {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+}
+
+.DomDayInput > input {
+	flex-grow: 1;
+}
+
+/* -------------------- DomDayTimeInput -------------------- */
+
+.DomDayTimeInput {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+}
+
+.DomDayTimeInput > input {
+	flex-grow: 1;
+}
+
+/* -------------------- DomValueInputTooltip -------------------- */
+
+.DomValueInputTooltip {
+	opacity: 0;
+	position: absolute;
+	z-index: var(--MAX_Z_INDEX);
+	visibility: hidden;
+	transform: translateY(30px);
+	background-color: #555;
+	color: #fff;
+	padding: 5px;
+	border-radius: 6px;
+	transition: opacity 0.2s ease-in;
+}
+
+.DomValueInputTooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+
+.DomDayInput > input:hover ~ .DomValueInputTooltip,
+.DomDayTimeInput > input:hover ~ .DomValueInputTooltip,
+.DomTimeInput > input:hover ~ .DomValueInputTooltip {
+	visibility: visible;
+	opacity: 1;
+}

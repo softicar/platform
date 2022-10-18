@@ -52,7 +52,7 @@ public class EmfDataTablePathTest extends AbstractTest implements IDomTestExecut
 		pageContentElement = createEmfPageContentElement(PAGE_UUID);
 		document.getBody().appendChild(pageContentElement);
 
-		setNodeSupplier(document::getBody);
+		setNodeSupplier(DomDiv::new);
 	}
 
 	@Override

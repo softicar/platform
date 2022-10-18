@@ -74,8 +74,8 @@ public interface CoreModuleTestFixtureMethods {
 
 	// ------------------------------ localization ------------------------------ //
 
-	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator,
-			String dateFormat) {
+	default AGLocalization insertLocalizationPreset(String name, LanguageEnum language, String decimalSeparator, String digitGroupSeparator, String dateFormat,
+			String localizedDateFormat, String localizedTimeFormat) {
 
 		return new AGLocalization()//
 			.setName(name)
@@ -83,12 +83,14 @@ public interface CoreModuleTestFixtureMethods {
 			.setDecimalSeparator(decimalSeparator)
 			.setDigitGroupSeparator(digitGroupSeparator)
 			.setDateFormat(dateFormat)
+			.setLocalizedDateFormat(localizedDateFormat)
+			.setLocalizedTimeFormat(localizedTimeFormat)
 			.save();
 	}
 
 	default AGLocalization insertLocalizationPresetGermany() {
 
-		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".", "dd.MM.yyyy");
+		return insertLocalizationPreset("Deutschland", LanguageEnum.GERMAN, ",", ".", "dd.MM.yyyy", "TT.MM.JJJJ", "SS:MM:ss");
 	}
 
 	// ------------------------------ module permission ------------------------------ //

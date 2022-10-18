@@ -17,7 +17,6 @@ public class EmfDayInputTest extends AbstractTest implements IDomTestExecutionEn
 	public EmfDayInputTest() {
 
 		this.input = new EmfDayInput();
-
 		setNodeSupplier(() -> input);
 	}
 

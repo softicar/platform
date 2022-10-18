@@ -2,6 +2,7 @@ package com.softicar.platform.dom.input;
 
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
@@ -11,13 +12,15 @@ import org.junit.Rule;
 
 public abstract class AbstractDomValueInputDivTest<V> extends AbstractTest implements IDomTestExecutionEngineMethods {
 
+	protected static final DayTime TEST_TIME = DayTime.fromYMD_HMS(1999, 12, 31, 14, 30, 59);
 	@Rule public final IDomTestExecutionEngine engine = new DomDocumentTestExecutionEngine();
 	protected final IDomValueInput<V> input;
 
 	public AbstractDomValueInputDivTest(Supplier<IDomValueInput<V>> inputFactory) {
 
-		this.input = inputFactory.get();
+		testClock.setInstant(TEST_TIME.toInstant());
 
+		this.input = inputFactory.get();
 		setNodeSupplier(() -> input);
 	}
 
@@ -25,6 +28,11 @@ public abstract class AbstractDomValueInputDivTest<V> extends AbstractTest imple
 	public IDomTestExecutionEngine getEngine() {
 
 		return engine;
+	}
+
+	protected void enterValue(String valueText) {
+
+		findNode(IDomTextualInput.class).setInputValue(valueText);
 	}
 
 	protected void assertEmptyResultForGetValue(String valueText) {
@@ -50,8 +58,10 @@ public abstract class AbstractDomValueInputDivTest<V> extends AbstractTest imple
 		assertExceptionForGetValue(expectedMessage.toDisplay(valueText), valueText);
 	}
 
-	protected void enterValue(String valueText) {
+	protected void assertDomTextInputValue(String expectedValue) {
 
-		findNode(IDomTextualInput.class).setInputValue(valueText);
+		var textInput = asTester(input).findNode(DomTextInput.class).assertType(DomTextInput.class);
+		var textInputValue = textInput.getAttributeValue("value").get();
+		assertEquals(expectedValue, textInputValue);
 	}
 }

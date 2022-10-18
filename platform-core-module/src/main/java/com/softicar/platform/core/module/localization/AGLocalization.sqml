@@ -9,6 +9,8 @@ TABLE AGLocalization 'Core.Localization' {
 	String decimalSeparator [MAXLENGTH=255]
 	String digitGroupSeparator = '' [MAXLENGTH=255]
 	String dateFormat [MAXLENGTH=255]
+	String localizedDateFormat [MAXLENGTH=255]
+	String localizedTimeFormat [MAXLENGTH=255]
 
 	UK name
 	IK language

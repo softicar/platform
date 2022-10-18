@@ -190,8 +190,6 @@ public interface DomI18n extends CommonCoreI18n {
 				.de("Dies kann Probleme verursachen, wenn versucht wird textuelle, numerische Werte in einer Excel-Datei zu summieren.");
 	I18n0 THREE = new I18n0("Three")//
 		.de("Drei");
-	I18n0 TIME = new I18n0("Time")//
-		.de("Zeit");
 	I18n0 TIMESTAMP = new I18n0("Timestamp")//
 		.de("Zeitstempel");
 	I18n0 TODAY = new I18n0("Today")//

@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 /**
  * Default implemenation of {@link ILocale}.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class Locale implements ILocale {
@@ -13,6 +14,8 @@ public class Locale implements ILocale {
 	private String decimalSeparator;
 	private String digitGroupSeparator;
 	private String dateFormat;
+	private String localizedDateFormat;
+	private String localizedTimeFormat;
 
 	public Locale() {
 
@@ -20,6 +23,8 @@ public class Locale implements ILocale {
 		this.decimalSeparator = ".";
 		this.digitGroupSeparator = "";
 		this.dateFormat = "yyyy-MM-dd";
+		this.localizedDateFormat = "YYYY-MM-DD";
+		this.localizedTimeFormat = "HH:MM:SS";
 	}
 
 	@Override
@@ -67,6 +72,30 @@ public class Locale implements ILocale {
 	public Locale setDateFormat(String dateFormat) {
 
 		this.dateFormat = dateFormat;
+		return this;
+	}
+
+	@Override
+	public String getLocalizedDateFormat() {
+
+		return localizedDateFormat;
+	}
+
+	public Locale setLocalizedDateFormat(String localizedDateFormat) {
+
+		this.localizedDateFormat = localizedDateFormat;
+		return this;
+	}
+
+	@Override
+	public String getLocalizedTimeFormat() {
+
+		return localizedTimeFormat;
+	}
+
+	public Locale setLocalizedTimeFormat(String localizedTimeFormat) {
+
+		this.localizedTimeFormat = localizedTimeFormat;
 		return this;
 	}
 }

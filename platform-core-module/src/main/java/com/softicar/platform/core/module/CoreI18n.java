@@ -451,6 +451,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Lokalisierungs-Logs");
 	I18n0 LOCALIZATIONS = new I18n0("Localizations")//
 		.de("Lokalisierungen");
+	I18n0 LOCALIZED_DATE_FORMAT = new I18n0("Localized Date Format")//
+		.de("Lokalisiertes Datumsformat");
+	I18n0 LOCALIZED_TIME_FORMAT = new I18n0("Localized Time Format")//
+		.de("Lokalisiertes Zeitformat");
 	I18n0 LOG_DETAILS = new I18n0("Log Details")//
 		.de("Log-Details");
 	I18n0 LOG_LEVEL = new I18n0("Log Level")//

@@ -19,7 +19,6 @@
 	color: var(--PRIMARY_COLOR);
 	font-weight: var(--LABEL_FONT_WEIGHT);
 	box-shadow: var(--BOX_SHADOW_SECTION_HEADER);
-	z-index: 1;
 	cursor: pointer;
 }
 

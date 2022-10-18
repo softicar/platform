@@ -11,6 +11,8 @@ TABLE AGLocalizationLog 'Core.LocalizationLog' {
 	String decimalSeparator = NULL [NULLABLE MAXLENGTH=255]
 	String digitGroupSeparator = NULL [NULLABLE MAXLENGTH=255]
 	String dateFormat = NULL [NULLABLE MAXLENGTH=255]
+	String localizedDateFormat = NULL [NULLABLE MAXLENGTH=255]
+	String localizedTimeFormat = NULL [NULLABLE MAXLENGTH=255]
 
 	IK transaction
 	IK language
