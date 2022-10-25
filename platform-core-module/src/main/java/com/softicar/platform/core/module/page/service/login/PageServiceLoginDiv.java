@@ -12,6 +12,7 @@ import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomForm;
@@ -182,6 +183,7 @@ public class PageServiceLoginDiv extends DomDiv {
 					.where(AGMaintenanceWindow.EXPECTED_START.isGreater(today.getBegin()))
 					.where(AGMaintenanceWindow.EXPECTED_START.isLess(today.getEnd()))
 					.where(AGMaintenanceWindow.EXPECTED_END.isGreater(DayTime.now()))
+					.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.PENDING.getRecord()))
 					.orderBy(AGMaintenanceWindow.EXPECTED_START)
 					.getFirstAsOptional()
 					.ifPresent(this::appendPendingMaintenanceInfo);
