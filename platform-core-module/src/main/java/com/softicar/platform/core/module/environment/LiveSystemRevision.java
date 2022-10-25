@@ -13,8 +13,8 @@ public class LiveSystemRevision {
 
 	private static final String BUILD_PROPERTIES_FILEPATH = "/release.properties";
 	private static final LiveSystemRevision CURRENT_REVISION = new LiveSystemRevision();
-	private static String name = null;
-	private static String version = null;
+	private String name = null;
+	private String version = null;
 
 	/**
 	 * Returns an object describing the current revision of the project.
@@ -60,7 +60,7 @@ public class LiveSystemRevision {
 		}
 	}
 
-	private static void parseRevisionProperties(InputStream inputStream) {
+	private void parseRevisionProperties(InputStream inputStream) {
 
 		try (Reader reader = BufferedReaderFactory.readUtf8(inputStream)) {
 			Properties properties = new Properties();
