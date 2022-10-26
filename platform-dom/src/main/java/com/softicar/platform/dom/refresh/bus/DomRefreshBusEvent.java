@@ -61,19 +61,22 @@ class DomRefreshBusEvent implements IDomRefreshBusEvent {
 		return allChanged;
 	}
 
-	protected void setChanged(Object object) {
+	protected DomRefreshBusEvent setChanged(Object object) {
 
 		objects.add(object);
+		return this;
 	}
 
-	protected void setAllChanged(Class<?> classes) {
+	protected DomRefreshBusEvent setAllChanged(Class<?> classes) {
 
 		this.classes.add(classes);
+		return this;
 	}
 
-	protected void setAllChanged() {
+	protected DomRefreshBusEvent setAllChanged() {
 
 		this.allChanged = true;
+		return this;
 	}
 
 	protected boolean isEmpty() {

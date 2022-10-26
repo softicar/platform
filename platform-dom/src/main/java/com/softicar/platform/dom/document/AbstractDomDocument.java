@@ -46,7 +46,7 @@ public abstract class AbstractDomDocument implements IDomDocument {
 		this.refreshBus = new DomRefreshBus();
 		this.dataMap = new ClassInstanceMap<>();
 		this.markerHolder = new DomDocumentMarkerHolder(this);
-		this.deferredInitializationController = new DomDeferredInitializationController(this);
+		this.deferredInitializationController = new DomDeferredInitializationController();
 		this.head = new DomHead(this);
 		this.body = new DomBody(this);
 		this.maximumExistingNodeCount = 0;

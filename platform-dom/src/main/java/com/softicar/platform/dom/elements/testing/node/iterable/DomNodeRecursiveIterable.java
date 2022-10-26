@@ -11,7 +11,7 @@ import java.util.Collections;
  *
  * @author Oliver Richers
  */
-class DomNodeRecursiveIterable extends RecurseIterable<IDomNode> {
+public class DomNodeRecursiveIterable extends RecurseIterable<IDomNode> {
 
 	public DomNodeRecursiveIterable(IDomNode root) {
 
