@@ -2,8 +2,10 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.document.IAjaxDocument;
+import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.network.url.Url;
+import com.softicar.platform.core.module.ajax.page.EmfPageConnectionProfiler;
 import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
 import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
@@ -46,10 +48,10 @@ public class PageUrlBuilder<I extends IEmfModuleInstance<I>> {
 	private Map<String, String> extractDebuggingParameters() {
 
 		var map = new TreeMap<String, String>();
-		copyParameter("debug", map);
-		copyParameter("profiler", map);
-		copyParameter("stacktrace", map);
-		copyParameter("verbose", map);
+		copyParameter(AjaxRequest.DEBUG_PARAMETER, map);
+		copyParameter(AjaxRequest.VERBOSE_PARAMETER, map);
+		copyParameter(EmfPageConnectionProfiler.PROFILER_PARAMETER, map);
+		copyParameter(EmfPageConnectionProfiler.STACKTRACE_PARAMETER, map);
 		return map;
 	}
 

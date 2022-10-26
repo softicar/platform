@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 
 public class EmfPageConnectionProfiler extends DbConnectionProfiler {
 
-	private static final String PROFILER_PARAMETER = "profiler";
+	public static final String PROFILER_PARAMETER = "profiler";
+	public static final String STACKTRACE_PARAMETER = "stacktrace";
 	private static final int STACK_TRACE_START = 2;
 	private final int statementCount;
 	private final Integer stacktraceLength;
@@ -25,7 +26,7 @@ public class EmfPageConnectionProfiler extends DbConnectionProfiler {
 	public EmfPageConnectionProfiler(IAjaxDocumentParameters parameters) {
 
 		this.statementCount = parameters.getParameterOrNull(PROFILER_PARAMETER, IntegerParser::parse).orElse(20);
-		this.stacktraceLength = parameters.getParameterOrNull("stacktrace", it -> IntegerParser.parse(it).orElse(1000));
+		this.stacktraceLength = parameters.getParameterOrNull(STACKTRACE_PARAMETER, it -> IntegerParser.parse(it).orElse(1000));
 		this.executionCountPerStatementPerStacktrace = new HashMap<>();
 	}
 
