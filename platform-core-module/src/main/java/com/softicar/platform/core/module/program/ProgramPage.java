@@ -30,7 +30,7 @@ public class ProgramPage extends AbstractEmfManagementPage<AGCoreModuleInstance>
 	@Override
 	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return CorePermissions.ADMINISTRATION;
+		return CorePermissions.OPERATION;
 	}
 
 	@Override
