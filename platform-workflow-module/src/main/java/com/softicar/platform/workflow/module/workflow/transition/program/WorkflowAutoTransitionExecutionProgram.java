@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 /**
- * TODO add javadoc
+ * Executes all possible auto-transitions on all workflow items.
  */
 @SourceCodeReferencePointUuid("6e79dc47-e910-4726-b789-a570d2ce4b61")
 public class WorkflowAutoTransitionExecutionProgram implements IProgram {
@@ -25,21 +25,31 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		Log.finfo("Starting auto transition execution.");
+		Log.finfo("Looking for items with possible auto transitions.");
+		var itemToTransitionsMap = loadItemsAndTransitionsToProcess();
+
+		if (itemToTransitionsMap.isEmpty()) {
+			Log.finfo("No items with auto transitions found.");
+		} else {
+			Log.finfo("Evaluating auto transitions for %s items.", itemToTransitionsMap.size());
+			executeAutoTransitions(itemToTransitionsMap);
+		}
+	}
+
+	private void executeAutoTransitions(TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> itemToTransitionsMap) {
+
 		ExceptionsCollector exceptionsCollector = new ExceptionsCollector();
-		TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> itemToTransitionsMap = loadItemsAndTransitionsToProcess();
-		Log.finfo("Evaluating auto transitions for %s items.", itemToTransitionsMap.size());
 		for (AGWorkflowItem item: itemToTransitionsMap.keySet()) {
-			Log.finfo("Evaluating auto transition for %s.", item.toDisplayWithoutId());
 			try {
+				Log.finfo("Evaluating auto transition for %s.", item.toDisplayWithoutId());
 				new WorkflowAutoTransitionExecutor(item, itemToTransitionsMap.get(item)).evaluateAndExecute();
+				Log.finfo("Execution successful.");
 			} catch (Throwable throwable) {
-				Log.finfo("Execution failed.");
+				Log.finfo("FAILURE -- see exceptions below");
 				exceptionsCollector.add(throwable);
 			}
 		}
 		exceptionsCollector.throwExceptionIfNotEmpty();
-		Log.finfo("Auto transition execution finished.");
 	}
 
 	private TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> loadItemsAndTransitionsToProcess() {
