@@ -32,10 +32,10 @@ public class PageHeaderAndContentDiv extends DomDiv {
 
 		removeChildren();
 		CurrentDomPopupCompositor.get().closeAll();
-
 		CurrentDomDocument.get().getDeferredInitializationController().clear();
-
 		DbTableRowCaches.invalidateAll();
+		System.gc();
+
 		CurrentLocale.set(CurrentUser.get().getLocale());
 
 		changeBrowserUrl(linkEntry);
