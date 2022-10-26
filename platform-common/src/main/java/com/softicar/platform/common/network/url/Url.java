@@ -98,14 +98,21 @@ public class Url {
 
 	private static String convertToQueryString(Entry<String, List<String>> parameter) {
 
-		List<String> values = parameter.getValue();
-		if (values.isEmpty()) {
-			return UrlCoding.encodeUtf8(parameter.getKey());
+		var encodedKey = UrlCoding.encodeUtf8(parameter.getKey());
+		var values = parameter.getValue();
+		if (isEmpty(values)) {
+			return encodedKey;
 		} else {
 			return values//
 				.stream()
-				.map(value -> UrlCoding.encodeUtf8(parameter.getKey()) + "=" + UrlCoding.encodeUtf8(value))
+				.map(UrlCoding::encodeUtf8)
+				.map(encodedValue -> encodedKey + "=" + encodedValue)
 				.collect(Collectors.joining("&"));
 		}
+	}
+
+	private static boolean isEmpty(List<String> values) {
+
+		return values.isEmpty() || values.size() == 1 && values.get(0).isEmpty();
 	}
 }

@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
  */
 public final class AjaxRequest implements IAjaxRequest {
 
+	public static final String DEBUG_PARAMETER = "debug";
+	public static final String VERBOSE_PARAMETER = "verbose";
 	private final AjaxFramework ajaxFramework;
 	private final HttpServletRequest httpRequest;
 	private final HttpServletResponse httpResponse;
@@ -92,13 +94,13 @@ public final class AjaxRequest implements IAjaxRequest {
 	@Override
 	public boolean isVerbose() {
 
-		return httpRequest.getParameter("verbose") != null && isAdministrative();
+		return httpRequest.getParameter(VERBOSE_PARAMETER) != null && isAdministrative();
 	}
 
 	@Override
 	public boolean isDebug() {
 
-		return httpRequest.getParameter("debug") != null && isAdministrative();
+		return httpRequest.getParameter(DEBUG_PARAMETER) != null && isAdministrative();
 	}
 
 	@Override
