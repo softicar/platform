@@ -53,6 +53,11 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 		AjaxSeleniumGridController.getInstance().registerRuntimeShutdownHook();
 	}
 
+	public void setUrlParameter(String name, String value) {
+
+		testEnvironment.setUrlParameter(name, value);
+	}
+
 	@Override
 	public void waitForServer(Duration timeout) {
 

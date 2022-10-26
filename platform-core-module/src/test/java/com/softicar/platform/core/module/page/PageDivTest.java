@@ -1,11 +1,14 @@
 package com.softicar.platform.core.module.page;
 
+import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.ajax.document.AjaxDocumentParameters;
+import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.ajax.testing.selenium.engine.level.high.AjaxSeleniumTestExecutionEngine;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.CoreTestMarker;
+import com.softicar.platform.core.module.ajax.page.EmfPageConnectionProfiler;
 import com.softicar.platform.core.module.ajax.session.reset.AjaxSessionPage;
 import com.softicar.platform.core.module.page.header.PageHeaderDiv;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
@@ -19,7 +22,6 @@ import com.softicar.platform.emf.page.IEmfPage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.junit.Ignore;
@@ -33,7 +35,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public PageDivTest() {
 
 		insertPermissionAssignment(testUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
-		setNodeSupplier(() -> new PageDiv(new AjaxDocumentParameters(new TreeMap<>())));
+		setNodeSupplier(() -> new PageDiv(AjaxDocument.getCurrentDocument().get().getParameters()));
 	}
 
 	@Override
@@ -80,6 +82,27 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		clickPageLink("Test Page");
 
 		assertTestPageIsShown();
+	}
+
+	@Test
+	public void testClickOnLinkEntryWithDebuggingParameters() {
+
+		var profiler = "13";
+		var stacktrace = "42";
+		engine.setUrlParameter(AjaxRequest.DEBUG_PARAMETER, "");
+		engine.setUrlParameter(AjaxRequest.VERBOSE_PARAMETER, "");
+		engine.setUrlParameter(EmfPageConnectionProfiler.PROFILER_PARAMETER, profiler);
+		engine.setUrlParameter(EmfPageConnectionProfiler.STACKTRACE_PARAMETER, stacktrace);
+
+		clickFolderLink("[System]");
+		clickFolderLink("Core");
+		clickPageLink("Test Page");
+
+		assertTestPageIsShown();
+		assertContains(AjaxRequest.DEBUG_PARAMETER, engine.getCurrentUrl());
+		assertContains(AjaxRequest.VERBOSE_PARAMETER, engine.getCurrentUrl());
+		assertContains(EmfPageConnectionProfiler.PROFILER_PARAMETER + "=" + profiler, engine.getCurrentUrl());
+		assertContains(EmfPageConnectionProfiler.STACKTRACE_PARAMETER + "=" + stacktrace, engine.getCurrentUrl());
 	}
 
 	@Test
