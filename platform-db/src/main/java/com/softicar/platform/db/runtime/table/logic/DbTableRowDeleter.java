@@ -84,6 +84,7 @@ public class DbTableRowDeleter<R extends IDbTableRow<R, P>, P> extends AbstractD
 
 			// send post-delete notification
 			sendNotification(IDbTableListener::afterDelete, rows);
+			DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.CHANGE, rows);
 			DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.DELETE, rows);
 		}
 	}

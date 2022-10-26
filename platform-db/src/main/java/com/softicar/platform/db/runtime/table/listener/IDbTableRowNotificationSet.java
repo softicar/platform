@@ -38,13 +38,13 @@ public interface IDbTableRowNotificationSet<R> {
 		return getAllTableRows(DbTableRowNotificationType.DELETE);
 	}
 
-	default Collection<R> getLoadedRows() {
-
-		return getAllTableRows(DbTableRowNotificationType.LOAD);
-	}
-
 	default Collection<R> getSavedRows() {
 
 		return getAllTableRows(DbTableRowNotificationType.SAVE);
+	}
+
+	default Collection<R> getChangedRows() {
+
+		return getAllTableRows(DbTableRowNotificationType.CHANGE);
 	}
 }

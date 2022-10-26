@@ -13,12 +13,14 @@ import java.util.stream.Collectors;
 class DbTableRowSaverSlave<R extends IDbTableRow<R, P>, P> extends AbstractDbTableRowModifier<R, P> {
 
 	private final Collection<R> rows;
+	private final Collection<R> changedRows;
 	private int writtenRowCount;
 
 	public DbTableRowSaverSlave(IDbTable<R, P> table, Collection<R> rows) {
 
 		super(table);
 		this.rows = rows;
+		this.changedRows = getRowsWithPersistentChange(rows);
 		this.writtenRowCount = 0;
 	}
 
@@ -51,6 +53,17 @@ class DbTableRowSaverSlave<R extends IDbTableRow<R, P>, P> extends AbstractDbTab
 			sendNotification(IDbTableListener::afterSave, rows);
 			DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.SAVE, rows);
 		}
+		if (!changedRows.isEmpty()) {
+			DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.CHANGE, changedRows);
+		}
+	}
+
+	private Collection<R> getRowsWithPersistentChange(Collection<R> rows) {
+
+		return rows//
+			.stream()
+			.filter(row -> row.dataChanged() || row.impermanent())
+			.collect(Collectors.toList());
 	}
 
 	private Collection<R> getRowsToWrite(boolean lazyMode) {
