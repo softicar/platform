@@ -2,11 +2,14 @@ package com.softicar.platform.ajax.testing.selenium;
 
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.AjaxTestingServlet;
+import com.softicar.platform.common.network.url.UrlBuilder;
 import com.softicar.platform.common.web.servlet.HttpServletServer;
 import com.softicar.platform.common.web.servlet.HttpServletServerHandle;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.node.IDomNode;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -14,14 +17,21 @@ import java.util.function.Supplier;
 public class AjaxSeleniumTestEnvironment {
 
 	private final Consumer<String> urlConsumer;
+	private final Map<String, String> urlParameters;
 	private final AjaxTestingServlet servlet;
 	private HttpServletServerHandle serverHandle;
 
 	public AjaxSeleniumTestEnvironment(Consumer<String> urlConsumer) {
 
 		this.urlConsumer = urlConsumer;
+		this.urlParameters = new TreeMap<>();
 		this.servlet = new AjaxTestingServlet();
 		this.serverHandle = null;
+	}
+
+	public void setUrlParameter(String name, String value) {
+
+		urlParameters.put(name, value);
 	}
 
 	public <T extends IDomNode> T openTestNode(Supplier<T> factory) {
@@ -54,9 +64,15 @@ public class AjaxSeleniumTestEnvironment {
 		return serverHandle;
 	}
 
-	private static String getPageUrl(int port) {
+	private String getPageUrl(int port) {
 
-		return String.format("http://%s:%s/", AjaxSeleniumTestProperties.SERVER_IP.getValue(), port);
+		return new UrlBuilder()//
+			.setScheme("http")
+			.setDomainName(AjaxSeleniumTestProperties.SERVER_IP.getValue())
+			.setPort("" + port)
+			.addParameters(urlParameters)
+			.build()
+			.toString();
 	}
 
 	private static class BufferedFactory<T extends IDomNode> implements Function<IAjaxDocument, IDomNode> {
