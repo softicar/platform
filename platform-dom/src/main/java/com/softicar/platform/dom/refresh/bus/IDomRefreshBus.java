@@ -26,18 +26,6 @@ public interface IDomRefreshBus {
 	IDomRefreshBus addListener(IDomRefreshBusListener listener);
 
 	/**
-	 * Removes the given listener from this bus.
-	 * <p>
-	 * The listener is not removed immediately. The removal is only executed
-	 * right before the submission of the next {@link IDomRefreshBusEvent}.
-	 *
-	 * @param listener
-	 *            the listener (never null)
-	 * @return this bus
-	 */
-	IDomRefreshBus removeListener(IDomRefreshBusListener listener);
-
-	/**
 	 * Adds the given object to the current {@link IDomRefreshBusEvent} object.
 	 *
 	 * @param object

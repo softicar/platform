@@ -20,15 +20,6 @@ public interface IDomRefreshBusEvent {
 	boolean isChanged(Object object);
 
 	/**
-	 * Returns all changes objects that are instance of the given class.
-	 *
-	 * @param objectClass
-	 *            the object class (never null)
-	 * @return a collection of all matching objects
-	 */
-	<T> Collection<? extends T> getChangedObjects(Class<T> objectClass);
-
-	/**
 	 * Checks if any entity of the given classes is to be considered changed.
 	 *
 	 * @param classes

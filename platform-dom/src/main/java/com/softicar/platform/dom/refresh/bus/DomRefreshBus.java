@@ -1,5 +1,7 @@
 package com.softicar.platform.dom.refresh.bus;
 
+import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
@@ -30,13 +32,6 @@ public class DomRefreshBus implements IDomRefreshBus {
 	}
 
 	@Override
-	public IDomRefreshBus removeListener(IDomRefreshBusListener listener) {
-
-		queue.put(listener, false);
-		return this;
-	}
-
-	@Override
 	public IDomRefreshBus setChanged(Object object) {
 
 		refreshEvent.setChanged(object);
@@ -62,6 +57,7 @@ public class DomRefreshBus implements IDomRefreshBus {
 
 		if (!refreshEvent.isEmpty()) {
 			submitQueue();
+			convertListenersNotAppendedToDocument();
 			listeners.keySet().forEach(listener -> listener.invalidateCachedData(refreshEvent));
 			listeners.keySet().forEach(listener -> listener.refresh(refreshEvent));
 			initializeNewEvent();
@@ -91,5 +87,35 @@ public class DomRefreshBus implements IDomRefreshBus {
 			}
 		}
 		queue.clear();
+	}
+
+	private void convertListenersNotAppendedToDocument() {
+
+		for (var listener: new ArrayList<>(listeners.keySet())) {
+			if (!listener.isAppended()) {
+				listeners.remove(listener);
+				listener//
+					.getDomDocument()
+					.getDeferredInitializationController()
+					.addDeferredInitializer(listener, new ReappendedListenerInitializer(listener));
+			}
+		}
+	}
+
+	private class ReappendedListenerInitializer implements INullaryVoidFunction {
+
+		private final IDomRefreshBusListener listener;
+
+		public ReappendedListenerInitializer(IDomRefreshBusListener listener) {
+
+			this.listener = listener;
+		}
+
+		@Override
+		public void apply() {
+
+			listener.refresh(new DomRefreshBusEvent().setAllChanged());
+			listener.getDomDocument().getRefreshBus().addListener(listener);
+		}
 	}
 }

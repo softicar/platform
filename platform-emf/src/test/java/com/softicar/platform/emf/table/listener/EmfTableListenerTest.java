@@ -1,8 +1,5 @@
 package com.softicar.platform.emf.table.listener;
 
-
-
-
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomDocument;
@@ -19,7 +16,7 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 	public void testAfterCommit() {
 
 		CurrentDomDocument.set(new DomDocument());
-		TestDiv testDiv = new TestDiv();
+		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
 
 		EmfTestSubObject entity = new EmfTestSubObject()//
 			.setName("x")
@@ -47,7 +44,7 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 	public void testAfterCommitWithReload() {
 
 		CurrentDomDocument.set(new DomDocument());
-		TestDiv testDiv = new TestDiv();
+		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
 
 		user.reload();
 		CurrentDomDocument.get().getRefreshBus().submitEvent();
@@ -61,7 +58,7 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 	public void testAfterCommitWithReloadForUpdate() {
 
 		CurrentDomDocument.set(new DomDocument());
-		TestDiv testDiv = new TestDiv();
+		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
 
 		try (DbTransaction transaction = new DbTransaction()) {
 			user.reloadForUpdate();
