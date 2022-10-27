@@ -63,8 +63,9 @@ public interface IDomNode {
 	void disappend();
 
 	/**
-	 * Determines whether this node is appended to the {@link DomBody} or
-	 * {@link DomHead} of its {@link IDomDocument}.
+	 * Determines whether this node is appended (either directly or
+	 * transitively) to the {@link DomBody} or {@link DomHead} of its
+	 * {@link IDomDocument}.
 	 *
 	 * @return <i>true</i> if this node is appended; <i>false</i> otherwise
 	 */

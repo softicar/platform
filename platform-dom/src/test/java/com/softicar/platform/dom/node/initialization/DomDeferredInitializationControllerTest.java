@@ -35,7 +35,7 @@ public class DomDeferredInitializationControllerTest extends AbstractDomDeferred
 		assertEquals(1, initializedNodes.size());
 		assertSame(testDiv.upperNode, initializedNodes.get(0));
 
-		// connect lower and middle ndoes
+		// connect lower and middle nodes
 		findButton(TestDiv.CONNECT_MIDDLE_AND_LOWER_NODES_BUTTON).click();
 		assertEquals(3, initializedNodes.size());
 		assertSame(testDiv.upperNode, initializedNodes.get(0));

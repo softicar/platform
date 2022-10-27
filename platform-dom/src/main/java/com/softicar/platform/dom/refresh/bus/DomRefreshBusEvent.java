@@ -4,7 +4,6 @@ import com.softicar.platform.common.container.map.identity.IdentityHashList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 class DomRefreshBusEvent implements IDomRefreshBusEvent {
 
@@ -32,16 +31,6 @@ class DomRefreshBusEvent implements IDomRefreshBusEvent {
 	}
 
 	@Override
-	public <T> Collection<? extends T> getChangedObjects(Class<T> objectClass) {
-
-		return objects//
-			.stream()
-			.filter(objectClass::isInstance)
-			.map(objectClass::cast)
-			.collect(Collectors.toList());
-	}
-
-	@Override
 	public boolean isAnyObjectChanged(Collection<Class<?>> classes) {
 
 		if (allChanged) {
@@ -61,19 +50,22 @@ class DomRefreshBusEvent implements IDomRefreshBusEvent {
 		return allChanged;
 	}
 
-	protected void setChanged(Object object) {
+	protected DomRefreshBusEvent setChanged(Object object) {
 
 		objects.add(object);
+		return this;
 	}
 
-	protected void setAllChanged(Class<?> classes) {
+	protected DomRefreshBusEvent setAllChanged(Class<?> classes) {
 
 		this.classes.add(classes);
+		return this;
 	}
 
-	protected void setAllChanged() {
+	protected DomRefreshBusEvent setAllChanged() {
 
 		this.allChanged = true;
+		return this;
 	}
 
 	protected boolean isEmpty() {
