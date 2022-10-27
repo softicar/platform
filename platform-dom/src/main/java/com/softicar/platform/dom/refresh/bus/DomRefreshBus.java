@@ -1,8 +1,6 @@
 package com.softicar.platform.dom.refresh.bus;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.document.DomBody;
-import com.softicar.platform.dom.elements.popup.compositor.DomParentNodeFinder;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -59,7 +57,7 @@ public class DomRefreshBus implements IDomRefreshBus {
 
 		if (!refreshEvent.isEmpty()) {
 			submitQueue();
-			convertDanglingNodeListeners();
+			convertListenersNotAppendedToDocument();
 			listeners.keySet().forEach(listener -> listener.invalidateCachedData(refreshEvent));
 			listeners.keySet().forEach(listener -> listener.refresh(refreshEvent));
 			initializeNewEvent();
@@ -91,25 +89,24 @@ public class DomRefreshBus implements IDomRefreshBus {
 		queue.clear();
 	}
 
-	private void convertDanglingNodeListeners() {
+	private void convertListenersNotAppendedToDocument() {
 
-		var bodyFinder = new DomParentNodeFinder<>(DomBody.class);
 		for (var listener: new ArrayList<>(listeners.keySet())) {
-			if (bodyFinder.findMostDistantParent(listener).isEmpty()) {
+			if (!listener.isAppended()) {
 				listeners.remove(listener);
 				listener//
 					.getDomDocument()
 					.getDeferredInitializationController()
-					.addDeferredInitializer(listener, new ReappendedNodeInitializer(listener));
+					.addDeferredInitializer(listener, new ReappendedListenerInitializer(listener));
 			}
 		}
 	}
 
-	private class ReappendedNodeInitializer implements INullaryVoidFunction {
+	private class ReappendedListenerInitializer implements INullaryVoidFunction {
 
 		private final IDomRefreshBusListener listener;
 
-		public ReappendedNodeInitializer(IDomRefreshBusListener listener) {
+		public ReappendedListenerInitializer(IDomRefreshBusListener listener) {
 
 			this.listener = listener;
 		}

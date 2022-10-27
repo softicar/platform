@@ -3,8 +3,6 @@ package com.softicar.platform.dom.node.initialization;
 import com.softicar.platform.common.container.iterable.concat.ConcatIterable;
 import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.document.DomBody;
-import com.softicar.platform.dom.elements.popup.compositor.DomParentNodeFinder;
 import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeRecursiveIterable;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.ArrayList;
@@ -67,7 +65,7 @@ public class DomDeferredInitializationController implements IDomDeferredInitiali
 		}
 	}
 
-	private ArrayList<IDomNode> flushQueuedNodes() {
+	private Collection<IDomNode> flushQueuedNodes() {
 
 		var copy = new ArrayList<>(queuedNodes);
 		queuedNodes.clear();
@@ -86,7 +84,7 @@ public class DomDeferredInitializationController implements IDomDeferredInitiali
 		public void initialize(Collection<IDomNode> appendedNodes) {
 
 			for (var node: appendedNodes) {
-				if (isNotInitialized(node) && isConnectedToBody(node)) {
+				if (isNotInitialized(node) && node.isAppended()) {
 					initializeSubTree(node);
 				}
 			}
@@ -95,11 +93,6 @@ public class DomDeferredInitializationController implements IDomDeferredInitiali
 		private boolean isNotInitialized(IDomNode node) {
 
 			return !initializedNodes.contains(node);
-		}
-
-		private boolean isConnectedToBody(IDomNode node) {
-
-			return new DomParentNodeFinder<>(DomBody.class).findMostDistantParent(node).isPresent();
 		}
 
 		private void initializeSubTree(IDomNode root) {
