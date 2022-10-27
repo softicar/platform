@@ -1,15 +1,18 @@
 package com.softicar.platform.dom.node.initialization;
 
+import com.softicar.platform.common.container.iterable.concat.ConcatIterable;
+import com.softicar.platform.common.container.list.HashList;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
-import com.softicar.platform.dom.document.IDomDocument;
-import com.softicar.platform.dom.elements.popup.compositor.DomParentNodeFinder;
+import com.softicar.platform.dom.elements.testing.node.iterable.DomNodeRecursiveIterable;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.WeakHashMap;
 
 /**
@@ -20,21 +23,15 @@ import java.util.WeakHashMap;
  */
 public class DomDeferredInitializationController implements IDomDeferredInitializationController {
 
-	private final IDomDocument document;
-	private final List<IDomNode> appendedNodes;
+	private final Collection<IDomNode> queuedNodes;
 	private final Map<IDomNode, List<INullaryVoidFunction>> initializers;
 
 	/**
 	 * Constructs a new {@link DomDeferredInitializationController}.
-	 *
-	 * @param document
-	 *            the {@link IDomDocument} to which the appended nodes and the
-	 *            initializers refer (never <i>null</i>)
 	 */
-	public DomDeferredInitializationController(IDomDocument document) {
+	public DomDeferredInitializationController() {
 
-		this.document = Objects.requireNonNull(document);
-		this.appendedNodes = new ArrayList<>();
+		this.queuedNodes = new HashList<>();
 		this.initializers = new WeakHashMap<>();
 	}
 
@@ -50,34 +47,68 @@ public class DomDeferredInitializationController implements IDomDeferredInitiali
 	public void queueAppended(IDomNode node) {
 
 		Objects.requireNonNull(node);
-		this.appendedNodes.add(node);
-	}
-
-	@Override
-	public void handleAllAppended() {
-
-		var finder = new DomParentNodeFinder<>(IDomNode.class);
-
-		for (var appendedNode: appendedNodes) {
-			finder.findMostDistantParent(appendedNode).ifPresent(distantParent -> {
-				Optional.ofNullable(initializers.remove(appendedNode)).ifPresent(initializerList -> {
-					initializers.computeIfAbsent(distantParent, dummy -> new ArrayList<>()).addAll(initializerList);
-				});
-			});
-		}
-
-		Optional//
-			.ofNullable(initializers.remove(document.getBody()))
-			.orElse(Collections.emptyList())
-			.forEach(INullaryVoidFunction::apply);
-
-		appendedNodes.clear();
+		this.queuedNodes.add(node);
 	}
 
 	@Override
 	public void clear() {
 
-		appendedNodes.clear();
+		queuedNodes.clear();
 		initializers.clear();
+	}
+
+	@Override
+	public void handleAllAppended() {
+
+		while (!queuedNodes.isEmpty()) {
+			new AppendedNodeInitializer().initialize(flushQueuedNodes());
+		}
+	}
+
+	private Collection<IDomNode> flushQueuedNodes() {
+
+		var copy = new ArrayList<>(queuedNodes);
+		queuedNodes.clear();
+		return copy;
+	}
+
+	private class AppendedNodeInitializer {
+
+		private final Set<IDomNode> initializedNodes;
+
+		public AppendedNodeInitializer() {
+
+			this.initializedNodes = new HashSet<>();
+		}
+
+		public void initialize(Collection<IDomNode> appendedNodes) {
+
+			for (var node: appendedNodes) {
+				if (isNotInitialized(node) && node.isAppended()) {
+					initializeSubTree(node);
+				}
+			}
+		}
+
+		private boolean isNotInitialized(IDomNode node) {
+
+			return !initializedNodes.contains(node);
+		}
+
+		private void initializeSubTree(IDomNode root) {
+
+			for (var node: getSubTree(root)) {
+				Optional//
+					.ofNullable(initializers.remove(node))
+					.orElse(List.of())
+					.forEach(INullaryVoidFunction::apply);
+				initializedNodes.add(node);
+			}
+		}
+
+		private ConcatIterable<IDomNode> getSubTree(IDomNode root) {
+
+			return new ConcatIterable<>(Set.of(root), new DomNodeRecursiveIterable(root));
+		}
 	}
 }
