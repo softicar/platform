@@ -7,7 +7,6 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.demo.invoice.module.AbstractDemoInvoiceModuleTest;
 import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.invoice.module.type.AGDemoInvoiceTypeEnum;
-import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
 import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
@@ -32,8 +31,6 @@ public class StaleDemoInvoiceRefreshTest extends AbstractDemoInvoiceModuleTest {
 	@Test
 	public void testViewActionFromManagementDivWithStaleInvoice() {
 
-		CurrentDomDocument.get().getRefreshBus().discardEvent();
-
 		ensurePageIsShown();
 		modifyInvoiceConcurrently();
 
@@ -45,8 +42,6 @@ public class StaleDemoInvoiceRefreshTest extends AbstractDemoInvoiceModuleTest {
 
 	@Test
 	public void testEditActionFromManagementDivWithStaleInvoice() {
-
-		CurrentDomDocument.get().getRefreshBus().discardEvent();
 
 		ensurePageIsShown();
 		modifyInvoiceConcurrently();
