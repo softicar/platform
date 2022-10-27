@@ -73,11 +73,15 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		findManagementDiv().clickCreateButton();
 
 		EmfFormPopupTester popup = findFormPopup(AGDemoMoment.class);
-		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-31");
+		popup.setInputValue(AGDemoMoment.DAY, "2022-01-01");
+		popup.setTimeInputValue(AGDemoMoment.TIME, "1:2:3");
+		popup.setDayTimeInputValue(AGDemoMoment.POINT_IN_TIME, "2022-01-01");
 		popup.clickSaveAndCloseButton();
 
-		assertNone(AGDemoMoment.TABLE.loadAll());
-		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DAYTIME_SPECIFICATION_ARG1.toDisplay("2022-01-31"));
+		AGDemoMoment moment = assertOne(AGDemoMoment.TABLE.loadAll());
+		assertEquals(Day.fromYMD(2022, 1, 1), moment.getDay());
+		assertEquals(new Time(1, 2, 3), moment.getTime());
+		assertEquals(DayTime.fromYMD_HMS(2022, 1, 1, 0, 0, 0), moment.getPointInTime());
 	}
 
 	@Test
