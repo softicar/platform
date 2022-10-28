@@ -3,10 +3,9 @@ package com.softicar.platform.dom.elements;
 import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.common.io.resource.hash.AbstractHashableResource;
+import com.softicar.platform.common.io.resource.hash.ResourceHash;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -21,7 +20,7 @@ import javax.imageio.ImageIO;
  *
  * @author Oliver Richers
  */
-public class DomImageResourceConverter extends AbstractHashableResource {
+public class DomImageResourceConverter implements IResource {
 
 	private static final MimeType TARGET_MIME_TYPE = MimeType.IMAGE_PNG;
 	private static final String TARGET_FORMAT_NAME = "png";
@@ -38,8 +37,8 @@ public class DomImageResourceConverter extends AbstractHashableResource {
 		var buffer = new ByteArrayOutputStream();
 		try (var stream = originalResource.getResourceAsStream()) {
 			ImageIO.write(ImageIO.read(stream), TARGET_FORMAT_NAME, buffer);
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
+		} catch (Exception exception) {
+			throw new RuntimeException("Failed to load image resource: %s".formatted(originalResource.getFilename().orElse("")), exception);
 		}
 		return new ByteArrayInputStream(buffer.toByteArray());
 	}
@@ -52,6 +51,12 @@ public class DomImageResourceConverter extends AbstractHashableResource {
 
 	@Override
 	public Optional<Charset> getCharset() {
+
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<ResourceHash> getContentHash() {
 
 		return Optional.empty();
 	}

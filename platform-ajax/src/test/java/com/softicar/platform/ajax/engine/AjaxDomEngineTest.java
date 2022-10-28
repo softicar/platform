@@ -26,7 +26,7 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 		var png = openTestNode(() -> new DomImage(AjaxTestResources.TEST_PNG.getResource()));
 
 		// PNG remains PNG
-		var pngResource = assertOne(getResource(getAttributeValue(png, "src")));
+		var pngResource = assertOne(getResourceByHash(getAttributeValue(png, "src")));
 		assertEquals(MimeType.IMAGE_PNG, pngResource.getMimeType());
 		assertEquals("test.png", assertOne(pngResource.getFilename()));
 	}
@@ -41,7 +41,7 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 		var tiff = openTestNode(() -> new DomImage(AjaxTestResources.TEST_TIFF.getResource()));
 
 		// TIFF converted to PNG
-		var tiffResource = assertOne(getResource(getAttributeValue(tiff, "src")));
+		var tiffResource = assertOne(getResourceById(getAttributeValue(tiff, "src")));
 		assertEquals(MimeType.IMAGE_PNG, tiffResource.getMimeType());
 		assertEquals("test.tiff.png", assertOne(tiffResource.getFilename()));
 	}
@@ -58,12 +58,20 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(ImageTestDiv.IMAGE_HEIGHT + "px", height);
 	}
 
-	private Optional<IResource> getResource(String resourceUrl) {
+	private Optional<IResource> getResourceByHash(String resourceUrl) {
 
 		var document = AjaxDocument.getCurrentDocument().get();
 		var resourceRegistry = AjaxResourceRegistry.getInstance(document.getHttpSession());
 		var resourceHash = assertOne(new AjaxResourceUrlParser(resourceUrl).getResourceHash());
 		return resourceRegistry.getResourceByHash(resourceHash);
+	}
+
+	private Optional<IResource> getResourceById(String resourceUrl) {
+
+		var document = AjaxDocument.getCurrentDocument().get();
+		var resourceRegistry = AjaxResourceRegistry.getInstance(document.getHttpSession());
+		var resourceId = assertOne(new AjaxResourceUrlParser(resourceUrl).getResourceId());
+		return resourceRegistry.getResourceById(resourceId);
 	}
 
 	private static class ImageTestDiv extends DomDiv {
