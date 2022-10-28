@@ -5,27 +5,42 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
+import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
+import com.softicar.platform.emf.table.IEmfTable;
 
 /**
  * Basic test fixture for the {@link CoreModule}.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
+public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleInstance>, CoreModuleTestFixtureMethods {
 
-	private final AGUser viewUser;
-	private final AGUser normalUser;
-	private final AGUser adminUser;
+	private AGCoreModuleInstance instance;
+	private AGUser viewUser;
+	private AGUser normalUser;
+	private AGUser adminUser;
 
-	/**
-	 * FIXME This pattern is abysmal - constructors shall never have a side
-	 * effect on the database!
-	 */
 	public CoreModuleTestFixture() {
 
-		AGCoreModuleInstance//
+		this.instance = null;
+		this.viewUser = null;
+		this.normalUser = null;
+		this.adminUser = null;
+	}
+
+	@Override
+	public AGCoreModuleInstance getInstance() {
+
+		return instance;
+	}
+
+	@Override
+	public IModuleTestFixture<AGCoreModuleInstance> apply() {
+
+		this.instance = AGCoreModuleInstance//
 			.getInstance()
 			.setTestSystem(true)
 			.setDefaultLocalization(insertLocalizationPresetGermany())
@@ -54,6 +69,14 @@ public class CoreModuleTestFixture implements CoreModuleTestFixtureMethods {
 		insertPermissionAssignment(adminUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 
 		new ProgramStandardConfiguration().createAndSaveAll();
+
+		return this;
+	}
+
+	@Override
+	public IEmfTable<?, ?, ?> getTable() {
+
+		return AGCoreModuleInstance.TABLE;
 	}
 
 	public AGUser getViewUser() {
