@@ -13,11 +13,11 @@ import java.util.function.Function;
 public class TestFixtureRegistry {
 
 	private final Map<IEmfTable<?, ?, ?>, IModuleTestFixture<?>> testFixtureMap;
-	//FIXME merge this into testFixtureMap once CoreModule is a standard module
 	private final CoreModuleTestFixture coreModuleTestFixture;
 
 	public TestFixtureRegistry(CoreModuleTestFixture coreModuleTestFixture) {
 
+		coreModuleTestFixture.apply();
 		this.coreModuleTestFixture = coreModuleTestFixture;
 		this.testFixtureMap = new HashMap<>();
 	}
