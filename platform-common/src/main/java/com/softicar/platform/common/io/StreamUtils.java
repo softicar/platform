@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.util.function.Supplier;
 
 /**
  * Utility methods for input and output streams.
@@ -76,6 +77,27 @@ public class StreamUtils {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		copyAndClose(inputStream, outputStream);
 		return outputStream.toByteArray();
+	}
+
+	/**
+	 * Uses the given factory to open an {@link InputStream} and copies all data
+	 * into a byte array.
+	 * <p>
+	 * The {@link InputStream} is automatically closed after copying the data.
+	 *
+	 * @param inputStreamFactory
+	 *            the factory to get the stream from (never <i>null</i>)
+	 * @return the byte array containing all data
+	 */
+	public static byte[] toByteArray(Supplier<InputStream> inputStreamFactory) {
+
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		try (var inputStream = inputStreamFactory.get()) {
+			copy(inputStream, buffer);
+		} catch (IOException exception) {
+			throw new SofticarIOException(exception);
+		}
+		return buffer.toByteArray();
 	}
 
 	/**
