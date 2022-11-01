@@ -21,7 +21,7 @@ public abstract class AbstractHashableResource implements IResource {
 	}
 
 	@Override
-	public Optional<ResourceHash> getContentHash() {
+	public final Optional<ResourceHash> getContentHash() {
 
 		return Optional.of(hasher.getHash());
 	}

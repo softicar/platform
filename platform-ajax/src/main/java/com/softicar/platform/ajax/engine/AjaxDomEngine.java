@@ -40,10 +40,12 @@ import com.softicar.platform.dom.utils.JavascriptEscaping;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This engine maps the manipulation of the {@link IDomDocument} to the web
@@ -435,6 +437,14 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setAlternateResourceOnError(DomImage image, IResource resource) {
+
+		Objects.requireNonNull(image);
+		Objects.requireNonNull(resource);
+		addJavascript("%s.onerror=function(){%s.src=%s;%s.onerror=null;};", image, image, getResourceUrl(resource), image);
+	}
+
+	@Override
 	public void approveNodeValues() {
 
 		JS_call("VALUE_NODE_MAP.approveNodeValues");
@@ -536,6 +546,15 @@ public class AjaxDomEngine implements IDomEngine {
 
 		String argumentString = Imploder.implode(getArgumentStringList(Arrays.asList(arguments)), ",");
 		updateCodeJS.appendStatement(function + "(" + argumentString + ");");
+	}
+
+	private void addJavascript(String statement, Object...arguments) {
+
+		var convertedArguments = Stream//
+			.of(arguments)
+			.map(this::getArgumentString)
+			.toArray();
+		updateCodeJS.appendStatement(statement.formatted(convertedArguments));
 	}
 
 	private List<String> getArgumentStringList(Iterable<?> arguments) {

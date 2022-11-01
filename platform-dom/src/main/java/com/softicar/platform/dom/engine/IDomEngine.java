@@ -346,6 +346,8 @@ public interface IDomEngine {
 
 	void setWorkingIndicatorEnabled(boolean enabled);
 
+	void setAlternateResourceOnError(DomImage image, IResource resource);
+
 	void approveNodeValues();
 
 	<O extends DomOption> void setSelectedOptions(DomSelect<O> select, Collection<O> selectedOptions);
