@@ -8,15 +8,15 @@ public class AjaxResourceUrlParserTest extends Asserts {
 	@Test
 	public void testGetResourceHash() {
 
-		assertHash("ab12df", "http://localhost:80/foo?resourceHash=ab12DF&bar=x");
-		assertHash("caffee23", "http://localhost:80/foo?bar=y&resourceHash=Caffee23");
+		assertHash("ab12df", "http://localhost:80/foo?%s=ab12DF&bar=x".formatted(AjaxResourceUrl.getHashParameterName()));
+		assertHash("caffee23", "http://localhost:80/foo?bar=y&%s=Caffee23".formatted(AjaxResourceUrl.getHashParameterName()));
 	}
 
 	@Test
 	public void testGetResourceId() {
 
-		assertId(123, "http://localhost:80/foo?resourceId=123&bar=x");
-		assertId(123, "http://localhost:80/foo?bar=y&resourceId=123");
+		assertId(123, "http://localhost:80/foo?%s=123&bar=x".formatted(AjaxResourceUrl.getIdParameterName()));
+		assertId(123, "http://localhost:80/foo?bar=y&%s=123".formatted(AjaxResourceUrl.getIdParameterName()));
 	}
 
 	private void assertHash(String expectedHash, String url) {
