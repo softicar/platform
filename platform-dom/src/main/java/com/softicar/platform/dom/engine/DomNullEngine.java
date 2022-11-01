@@ -173,6 +173,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setAlternateResourceOnError(DomImage image, IResource resource) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setClickTargetForEventDelegation(IDomNode sourceNode, DomEventType eventType, IDomNode targetNode) {
 
 		// nothing to do

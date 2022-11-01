@@ -6,7 +6,7 @@ import com.softicar.platform.dom.element.DomElement;
 import com.softicar.platform.dom.element.DomElementTag;
 
 /**
- * Represents an Html image.
+ * Represents an HTML image.
  *
  * @author Oliver Richers
  */
@@ -25,6 +25,7 @@ public class DomImage extends DomElement {
 	public DomImage(IResource resource) {
 
 		setResource(resource);
+		setAlternateResourceOnError(new DomImageResourceConverter(resource));
 	}
 
 	/**
@@ -52,6 +53,12 @@ public class DomImage extends DomElement {
 	public IResource getResource() {
 
 		return resource;
+	}
+
+	public DomImage setAlternateResourceOnError(IResource resource) {
+
+		getDomEngine().setAlternateResourceOnError(this, resource);
+		return this;
 	}
 
 	/**
