@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
  */
 public class AjaxResourceUrlParser {
 
-	private static final Pattern HASH_PATTERN = Pattern.compile(".*[?&]resourceHash=([0-9a-fA-F]+).*");
-	private static final Pattern ID_PATTERN = Pattern.compile(".*[?&]resourceId=([0-9]+).*");
+	private static final Pattern HASH_PATTERN = Pattern.compile(".*[?&]%s=([0-9a-fA-F]+).*".formatted(AjaxResourceUrl.getHashParameterName()));
+	private static final Pattern ID_PATTERN = Pattern.compile(".*[?&]%s=([0-9]+).*".formatted(AjaxResourceUrl.getIdParameterName()));
 	private final String resourceUrl;
 
 	public AjaxResourceUrlParser(String resourceUrl) {
