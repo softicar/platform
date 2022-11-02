@@ -78,7 +78,7 @@ public class EmfTableListener<R extends IEmfTableRow<R, ?>> implements IDbTableL
 		Optional//
 			.ofNullable(CurrentDomDocument.get())
 			.map(IDomDocument::getRefreshBus)
-			.ifPresent(refreshBus -> notifications.getAllTableRows().forEach(refreshBus::setChanged));
+			.ifPresent(refreshBus -> notifications.getChangedRows().forEach(refreshBus::setChanged));
 	}
 
 	private void executeSaveHooks(Consumer<IEmfSaveHook<R>> callback) {
