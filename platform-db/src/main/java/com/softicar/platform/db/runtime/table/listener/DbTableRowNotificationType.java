@@ -11,19 +11,19 @@ public enum DbTableRowNotificationType {
 
 	/**
 	 * Denotes that a {@link IDbTableRow} was persistently changed, that is, it
-	 * was saved with changes or loaded with changes or just deleted.
+	 * was either saved with changes, or loaded with changes, or just deleted.
 	 */
 	CHANGE,
 
 	/**
-	 * Denotes that a {@link IDbTableRow} was deleted from the database, i.e.
-	 * <i>DELETE</i>.
+	 * Denotes that a {@link IDbTableRow} was deleted from the database, that
+	 * is, a <i>DELETE</i> was executed.
 	 */
 	DELETE,
 
 	/**
-	 * Denotes that a {@link IDbTableRow} was saved to the database, i.e.
-	 * <i>INSERT</i> or <i>UPDATE</i>.
+	 * Denotes that a {@link IDbTableRow} was saved to the database, that is, an
+	 * <i>INSERT</i> or <i>UPDATE</i> statement was executed.
 	 */
 	SAVE,
 }
