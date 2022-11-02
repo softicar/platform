@@ -2,6 +2,7 @@
 :root {
 	--MODULE_ICON_MARGIN: 4px;
 	--MODULE_ICON_SIZE: 24px;
+	--PAGE_NAVIGATION_ENTRY_HEIGHT: 32px;
 }
 
 /* -------------------- PageNavigationDiv -------------------- */
@@ -75,7 +76,7 @@
 /* -------------------- PageNavigationFolderTitleDiv -------------------- */
 
 .PageNavigationFolderTitleDiv {
-	min-height: 32px;
+	min-height: var(--PAGE_NAVIGATION_ENTRY_HEIGHT);
 	
 	/* content */
 	display: flex;
@@ -125,7 +126,7 @@
 /* -------------------- PageNavigationLinkDiv -------------------- */
 
 .PageNavigationLinkDiv {
-	min-height: 32px;
+	min-height: var(--PAGE_NAVIGATION_ENTRY_HEIGHT);
 	
 	/* content */
 	display: flex;
