@@ -31,12 +31,13 @@ public class PageHeaderAndContentDiv extends DomDiv {
 	public void openPage(PageNavigationEntry<?> linkEntry) {
 
 		removeChildren();
+
 		CurrentDomPopupCompositor.get().closeAll();
 		CurrentDomDocument.get().getDeferredInitializationController().clear();
+		CurrentDomDocument.get().getRefreshBus().discardEvent();
+		CurrentLocale.set(CurrentUser.get().getLocale());
 		DbTableRowCaches.invalidateAll();
 		System.gc();
-
-		CurrentLocale.set(CurrentUser.get().getLocale());
 
 		changeBrowserUrl(linkEntry);
 		appendChild(new PageHeaderDiv<>(linkEntry, navigationToggleFunction, controller));

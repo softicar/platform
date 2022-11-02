@@ -8,6 +8,7 @@ import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.EmfTestSubObject;
+import com.softicar.platform.emf.test.user.EmfTestUser;
 import org.junit.Test;
 
 public class EmfTableListenerTest extends AbstractEmfTest {
@@ -41,11 +42,25 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 	}
 
 	@Test
-	public void testAfterCommitWithReload() {
+	public void testAfterCommitWithReloadOfUnchangedObject() {
 
 		CurrentDomDocument.set(new DomDocument());
 		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
 
+		user.reload();
+		CurrentDomDocument.get().getRefreshBus().submitEvent();
+
+		IDomRefreshBusEvent event = testDiv.getEvent();
+		assertNull(event);
+	}
+
+	@Test
+	public void testAfterCommitWithReloadOfChangedObject() {
+
+		CurrentDomDocument.set(new DomDocument());
+		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
+
+		updateUserInDatabase(user);
 		user.reload();
 		CurrentDomDocument.get().getRefreshBus().submitEvent();
 
@@ -61,6 +76,7 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 		TestDiv testDiv = CurrentDomDocument.get().getBody().appendChild(new TestDiv());
 
 		try (DbTransaction transaction = new DbTransaction()) {
+			updateUserInDatabase(user);
 			user.reloadForUpdate();
 			transaction.commit();
 		}
@@ -78,6 +94,7 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 		TestDiv testDiv = new TestDiv();
 
 		try (DbTransaction transaction = new DbTransaction()) {
+			updateUserInDatabase(user);
 			user.reloadForUpdate();
 			transaction.rollback();
 		}
@@ -97,6 +114,15 @@ public class EmfTableListenerTest extends AbstractEmfTest {
 
 		IDomRefreshBusEvent event = testDiv.getEvent();
 		assertNull(event);
+	}
+
+	private void updateUserInDatabase(EmfTestUser user) {
+
+		EmfTestUser.TABLE//
+			.createUpdate()
+			.set(EmfTestUser.FIRST_NAME, "boo")
+			.where(EmfTestUser.ID.isEqual(user.getId()))
+			.execute();
 	}
 
 	private static class TestDiv extends DomDiv implements IDomRefreshBusListener {
