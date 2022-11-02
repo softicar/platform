@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.page.header;
 import com.softicar.platform.ajax.document.AjaxDocument;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreTestMarker;
@@ -26,6 +27,7 @@ class PageHeaderUserPopover extends DomMenuPopover {
 		this.controller = controller;
 		this.configuration.setPositionStrategy(new DomPopupBelowEventNodePositionStrategy());
 		addMarker(CoreTestMarker.PAGE_HEADER_USER_POPOVER);
+		addCssClass(CoreCssClasses.PAGE_HEADER_USER_POPOVER);
 
 		appendChild(new CoreModulePageButton(UserProfilePage.class)).addMarker(CoreTestMarker.PAGE_HEADER_USER_POPOVER_PROFILE_PAGE_BUTTON);
 		appendChild(new CoreModulePageButton(AjaxSessionPage.class)).addMarker(CoreTestMarker.PAGE_HEADER_USER_POPOVER_SESSION_PAGE_BUTTON);
