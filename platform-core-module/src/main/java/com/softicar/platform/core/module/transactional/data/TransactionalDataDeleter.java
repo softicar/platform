@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.tranactional.data;
+package com.softicar.platform.core.module.transactional.data;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.CoreI18n;
@@ -49,7 +49,7 @@ public class TransactionalDataDeleter {
 			.getAllModules()
 			.stream()
 			.filter(IModule.class::isInstance)
-			.map(IModule.class::cast)
+			.map(module -> (IModule<?>) module)
 			.collect(Collectors.toList());
 	}
 

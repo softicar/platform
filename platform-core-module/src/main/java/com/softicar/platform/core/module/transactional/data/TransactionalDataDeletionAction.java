@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.tranactional.data;
+package com.softicar.platform.core.module.transactional.data;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;

@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.tranactional.data;
+package com.softicar.platform.core.module.transactional.data;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.dom.element.DomElementTag;
