@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
-import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
  * Renders the pages of a PDF file into {@link BufferedImage} instances.
@@ -38,12 +37,12 @@ public class PdfRenderer {
 	}
 
 	/**
-	 * Defines the DPI to use for rendering.
+	 * Defines the DPI value to use for rendering.
 	 * <p>
 	 * Default is {@value #DEFAULT_DPI}.
 	 *
 	 * @param dpi
-	 *            the number of DPI to use (must be positive)
+	 *            the DPI value to use (must be positive)
 	 * @return this {@link PdfRenderer}
 	 */
 	public PdfRenderer setDpi(int dpi) {
@@ -70,11 +69,11 @@ public class PdfRenderer {
 	/**
 	 * Defines the maximum number of concurrent rendering threads.
 	 * <p>
-	 * Defaults to the number of CPU threads available to the {@link Runtime}.
+	 * Defaults to {@link Runtime#availableProcessors}.
 	 *
 	 * @param maxRenderingThreads
-	 *            the maximum number of concurrent rendering threads (at least
-	 *            1)
+	 *            the maximum number of concurrent rendering threads (must be
+	 *            positive)
 	 * @throws IllegalArgumentException
 	 *             if the given number of threads is zero or negative
 	 */
@@ -102,12 +101,12 @@ public class PdfRenderer {
 		byte[] bytes = new ByteBuffer(() -> inputStream).getBytes();
 
 		try (var document = PDDocument.load(bytes)) {
-			var workers = new ArrayList<PageRenderingWorker>();
+			var workers = new ArrayList<PdfSinglePageRenderer>();
 			for (var page = 0; page < document.getNumberOfPages(); page++) {
-				workers.add(new PageRenderingWorker(dpi, imageType, bytes, page));
+				workers.add(new PdfSinglePageRenderer(dpi, imageType, bytes, page));
 			}
 
-			var threadRunner = new LimitedThreadRunner<PageRenderingWorker>(maxRenderingThreads);
+			var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);
 			workers.forEach(threadRunner::addRunnable);
 			do {
 				threadRunner.startThreads();
@@ -116,72 +115,10 @@ public class PdfRenderer {
 
 			return workers//
 				.stream()
-				.map(PageRenderingWorker::getImage)
+				.map(PdfSinglePageRenderer::getImage)
 				.collect(Collectors.toList());
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception, "Failed to render PDF.");
-		}
-	}
-
-	private static class PageRenderingWorker implements Runnable {
-
-		private final int dpi;
-		private final ImageType imageType;
-		private final byte[] bytes;
-		private final int pageIndex;
-		private volatile BufferedImage image;
-
-		public PageRenderingWorker(int dpi, ImageType imageType, byte[] bytes, int pageIndex) {
-
-			this.dpi = dpi;
-			this.imageType = imageType;
-			this.bytes = bytes;
-			this.pageIndex = pageIndex;
-			this.image = null;
-		}
-
-		@Override
-		public void run() {
-
-			try (var document = PDDocument.load(bytes)) {
-				this.image = render(document);
-			} catch (IOException exception) {
-				throw new SofticarIOException(exception, "Failed to render PDF.");
-			}
-		}
-
-		/**
-		 * Returns the rendered image, or <i>null</i> if rendering has not yet
-		 * concluded.
-		 *
-		 * @return the rendered image (may be <i>null</i>)
-		 */
-		public BufferedImage getImage() {
-
-			return image;
-		}
-
-		/**
-		 * Renders the pages of the {@link PDDocument} into one or more
-		 * {@link BufferedImage} instances.
-		 * <p>
-		 * The given {@link PDDocument} will <b>not</b> be closed by this
-		 * method.
-		 *
-		 * @param document
-		 *            the {@link PDDocument} to render; needs to be closed by
-		 *            the caller (never <i>null</i>)
-		 * @return list of rendered images; one per page (never <i>null</i>)
-		 */
-		private BufferedImage render(PDDocument document) {
-
-			var renderer = new PDFRenderer(document);
-			renderer.setSubsamplingAllowed(true);
-			try {
-				return renderer.renderImageWithDPI(pageIndex, dpi, imageType);
-			} catch (IOException exception) {
-				throw new SofticarIOException(exception);
-			}
 		}
 	}
 }
