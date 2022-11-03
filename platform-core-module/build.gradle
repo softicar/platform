@@ -4,9 +4,7 @@ dependencies {
 	api project(':platform-db-sqml-builtin')
 	api project(':platform-emf')
 
-	api "com.sun.mail:imap:$versions.sunMail"
-	api "com.sun.mail:mailapi:$versions.sunMail"
-	api "com.sun.mail:smtp:$versions.sunMail"
+	api "com.sun.mail:jakarta.mail:$versions.jakartaMail"
 
 	implementation "eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
