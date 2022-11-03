@@ -42,7 +42,7 @@ public class DbTestObject extends AbstractDbObject<DbTestObject> {
 	public static final IDbLongField<DbTestObject> LONG_FIELD = BUILDER.addLongField("long", o->o.longValue, (o,v)->o.longValue=v).setNullable();
 	public static final IDbStringField<DbTestObject> STRING_FIELD = BUILDER.addStringField("string", o->o.string, (o,v)->o.string=v).setDefault(DEFAULT_STRING_VALUE).setNullable().setMaximumLength(255);
 	public static final IDbTimeField<DbTestObject> TIME_FIELD = BUILDER.addTimeField("time", o->o.time, (o,v)->o.time=v).setNullable();
-	public static final DbObjectTable<DbTestObject> TABLE = new DbObjectTable<>(BUILDER);
+	public static final DbTestObjectTable TABLE = new DbTestObjectTable(BUILDER);
 	// @formatter:on
 
 	private Integer id;

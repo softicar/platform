@@ -50,16 +50,16 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeSave(C)
 				afterSave(C)
-				beforeCommit(SAVE-C)
-				afterCommit(SAVE-C)
+				beforeCommit(CHANGE-C,SAVE-C)
+				afterCommit(CHANGE-C,SAVE-C)
 				beforeSave(A)
 				afterSave(A)
 				beforeDelete(C)
 				afterDelete(C)
 				beforeSave(B)
 				afterSave(B)
-				beforeCommit(DELETE-C,LOAD-C,SAVE-A,SAVE-B)
-				afterCommit(DELETE-C,LOAD-C,SAVE-A,SAVE-B)
+				beforeCommit(CHANGE-A,CHANGE-B,CHANGE-C,DELETE-C,SAVE-A,SAVE-B)
+				afterCommit(CHANGE-A,CHANGE-B,CHANGE-C,DELETE-C,SAVE-A,SAVE-B)
 				beforeSave(A,B)
 				afterSave(A,B)
 				beforeCommit(SAVE-A,SAVE-B)
@@ -84,8 +84,8 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 				afterSave(A)
 				beforeSave(B)
 				afterSave(B)
-				beforeCommit(SAVE-B)
-				afterCommit(SAVE-B)
+				beforeCommit(CHANGE-B,SAVE-B)
+				afterCommit(CHANGE-B,SAVE-B)
 				""");
 	}
 
@@ -117,14 +117,14 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeSave(A)
 				afterSave(A)
-				beforeCommit(SAVE-A)
+				beforeCommit(CHANGE-A,SAVE-A)
 				beforeSave(B)
 				afterSave(B)
-				beforeCommit(SAVE-B)
+				beforeCommit(CHANGE-B,SAVE-B)
 				beforeSave(C)
 				afterSave(C)
-				beforeCommit(SAVE-C)
-				afterCommit(SAVE-A,SAVE-B,SAVE-C)
+				beforeCommit(CHANGE-C,SAVE-C)
+				afterCommit(CHANGE-A,CHANGE-B,CHANGE-C,SAVE-A,SAVE-B,SAVE-C)
 				""");
 	}
 
@@ -150,10 +150,10 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeSave(A)
 				afterSave(A)
-				beforeCommit(SAVE-A)
+				beforeCommit(CHANGE-A,SAVE-A)
 				beforeSave(A)
 				afterSave(A)
-				afterCommit(SAVE-A)
+				afterCommit(CHANGE-A,SAVE-A)
 					""");
 	}
 
@@ -165,34 +165,62 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 		listener.clearNotifications();
 
 		try (DbTransaction rootTransaction = new DbTransaction()) {
+			DbListeningTestObject.TABLE//
+				.createUpdate()
+				.set(DbListeningTestObject.STRING_FIELD, "X")
+				.where(DbListeningTestObject.ID_FIELD.isEqual(objectB))
+				.execute();
 			objectA.reload();
-			objectB.reloadForUpdate();
+			objectB.reload();
 			rootTransaction.commit();
 		}
 
 		listener.assertNotifications("""
-				beforeCommit(LOAD-A,LOAD-B)
-				afterCommit(LOAD-A,LOAD-B)
+				beforeCommit(CHANGE-X)
+				afterCommit(CHANGE-X)
 				""");
 	}
 
 	@Test
-	public void testWithLoadingObjectsBySelect() {
+	public void testWithSavingChangedAndUnchangedObjects() {
 
 		objectA.save();
 		objectB.save();
 		listener.clearNotifications();
 
 		try (DbTransaction rootTransaction = new DbTransaction()) {
-			DbListeningTestObject.TABLE//
-				.createSelect()
-				.list();
+			objectA.setString("X");
+			objectA.save();
+			objectB.save();
 			rootTransaction.commit();
 		}
 
 		listener.assertNotifications("""
-				beforeCommit(LOAD-A,LOAD-B)
-				afterCommit(LOAD-A,LOAD-B)
+				beforeSave(X)
+				afterSave(X)
+				beforeSave(B)
+				afterSave(B)
+				beforeCommit(CHANGE-X,SAVE-B,SAVE-X)
+				afterCommit(CHANGE-X,SAVE-B,SAVE-X)
+				""");
+	}
+
+	@Test
+	public void testWithLoadingStubObjects() {
+
+		var id = DbListeningTestObject.TABLE//
+			.createInsert()
+			.set(DbListeningTestObject.STRING_FIELD, "X")
+			.execute();
+		var objectX = DbListeningTestObject.TABLE.getStub(id);
+		listener.clearNotifications();
+
+		try (DbTransaction rootTransaction = new DbTransaction()) {
+			objectX.getString();
+			rootTransaction.commit();
+		}
+
+		listener.assertNotifications("""
 				""");
 	}
 
@@ -225,12 +253,12 @@ public class DbTableRowCommitNotifierTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeSave(A)
 				afterSave(A)
-				beforeCommit(SAVE-A)
-				afterCommit(SAVE-A)
+				beforeCommit(CHANGE-A,SAVE-A)
+				afterCommit(CHANGE-A,SAVE-A)
 				beforeDelete(A)
 				afterDelete(A)
-				beforeCommit(DELETE-A)
-				afterCommit(DELETE-A)
+				beforeCommit(CHANGE-A,DELETE-A)
+				afterCommit(CHANGE-A,DELETE-A)
 				""");
 	}
 }

@@ -42,8 +42,8 @@ public class DbTableRowDeleterTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeDelete(A)
 				afterDelete(A)
-				beforeCommit(DELETE-A)
-				afterCommit(DELETE-A)
+				beforeCommit(CHANGE-A,DELETE-A)
+				afterCommit(CHANGE-A,DELETE-A)
 				""");
 
 		// assert transaction was used
@@ -79,8 +79,8 @@ public class DbTableRowDeleterTest extends AbstractDbObjectTest {
 		listener.assertNotifications("""
 				beforeDelete(A)
 				afterDelete(A)
-				beforeCommit(DELETE-A)
-				afterCommit(DELETE-A)
+				beforeCommit(CHANGE-A,DELETE-A)
+				afterCommit(CHANGE-A,DELETE-A)
 				""");
 
 		// assert transaction was used
