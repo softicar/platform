@@ -3,10 +3,11 @@ package com.softicar.platform.emf;
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplierFactory;
+import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.resource.supplier.DomResourceSupplierProxyFactory;
 
 @ResourceSupplierContainer
-public interface EmfImages {
+public interface EmfImages extends DomImages {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(EmfImages.class);
 
