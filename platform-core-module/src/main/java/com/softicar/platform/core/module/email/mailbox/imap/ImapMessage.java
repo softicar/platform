@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.mail.Address;
@@ -27,7 +28,7 @@ class ImapMessage implements IMailboxMessage {
 	public String getSubject() {
 
 		try {
-			return message.getSubject();
+			return Optional.ofNullable(message.getSubject()).orElse("");
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
