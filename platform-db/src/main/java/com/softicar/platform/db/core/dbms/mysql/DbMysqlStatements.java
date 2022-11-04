@@ -287,6 +287,18 @@ public class DbMysqlStatements {
 	}
 
 	/**
+	 * Removes all rows from the given table.
+	 *
+	 * @param tableName
+	 *            the table to truncate (never <i>null</i>)
+	 */
+	public static void truncateTable(DbTableName tableName) {
+
+		Objects.requireNonNull(tableName);
+		executeUncached("TRUNCATE TABLE %s", tableName.getQuoted());
+	}
+
+	/**
 	 * Adds SQL mode {@code NO_AUTO_VALUE_ON_ZERO} to the modes of the current
 	 * session.
 	 */

@@ -3,7 +3,6 @@ package com.softicar.platform.core.module.transactional.data;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.module.IModule;
-import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.dependency.DbTableDependencyGraph;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
@@ -19,9 +18,8 @@ public class TransactionalDataDeleter {
 	public void execute() {
 
 		for (IDbTable<?, ?> table: getTableList()) {
-			try (var transaction = new DbTransaction()) {
+			try {
 				table.createDelete().execute();
-				transaction.commit();
 			} catch (Exception exception) {
 				throw new SofticarUserException(exception, CoreI18n.FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1.toDisplay(table.getFullName()));
 			}
