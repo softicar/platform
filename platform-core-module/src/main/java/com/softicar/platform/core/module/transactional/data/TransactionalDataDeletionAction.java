@@ -5,10 +5,10 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.core.module.CoreModuleInstancePredicates;
 import com.softicar.platform.emf.action.IEmfScopeAction;
 import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
 public class TransactionalDataDeletionAction implements IEmfScopeAction<AGCoreModuleInstance> {
@@ -16,7 +16,7 @@ public class TransactionalDataDeletionAction implements IEmfScopeAction<AGCoreMo
 	@Override
 	public IEmfPredicate<AGCoreModuleInstance> getPrecondition() {
 
-		return EmfPredicates.always();
+		return CoreModuleInstancePredicates.TEST_SYSTEM;
 	}
 
 	@Override
