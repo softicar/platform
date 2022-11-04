@@ -31,6 +31,7 @@ project.ext {
 		// optional dependency of pdfbox; enables rendering of jpeg2000-encoded embedded images
 		jaiImageioJpeg2000: "1.4.0",
 		jakartaActivation: "1.2.2",
+		jakartaMail: "1.6.7",
 		javaxServletApi: "4.0.1",
 		jcifsNg: "2.1.7",
 		jetty: "9.4.48.v20220622",
@@ -45,7 +46,6 @@ project.ext {
 		poi: "5.2.2",
 		selenium: "4.2.2",
 		slf4j: "1.7.33",
-		sunMail: "1.6.7",
 		tesseractPlatform: "4.1.1-1.5.4",
 	]
 }
