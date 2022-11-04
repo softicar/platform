@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.transactional.data;
+package com.softicar.platform.core.module.transaction.data;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 
-public class TransactionalDataDeletionAction implements IEmfScopeAction<AGCoreModuleInstance> {
+public class TransactionDataDeletionAction implements IEmfScopeAction<AGCoreModuleInstance> {
 
 	@Override
 	public IEmfPredicate<AGCoreModuleInstance> getPrecondition() {
@@ -34,12 +34,12 @@ public class TransactionalDataDeletionAction implements IEmfScopeAction<AGCoreMo
 	@Override
 	public IDisplayString getTitle() {
 
-		return CoreI18n.DELETE_ALL_TRANSACTIONAL_DATA;
+		return CoreI18n.DELETE_ALL_TRANSACTION_DATA;
 	}
 
 	@Override
 	public void handleClick(AGCoreModuleInstance scope) {
 
-		new TransactionalDataDeletionPopup().open();
+		new TransactionDataDeletionPopup().open();
 	}
 }

@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.transactional.data;
+package com.softicar.platform.core.module.transaction.data;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.CoreI18n;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TransactionalDataDeleter {
+public class TransactionDataDeleter {
 
 	public void execute() {
 
@@ -33,11 +33,11 @@ public class TransactionalDataDeleter {
 
 	private HashSet<IDbTable<?, ?>> getTransactionDataTables() {
 
-		var transactionalDataTables = new HashSet<IDbTable<?, ?>>();
+		var transactionDataTables = new HashSet<IDbTable<?, ?>>();
 		for (IModule<?> module: getStandardModules()) {
-			transactionalDataTables.addAll(module.getTransactionalDataTables());
+			transactionDataTables.addAll(module.getTransactionDataTables());
 		}
-		return transactionalDataTables;
+		return transactionDataTables;
 	}
 
 	private Collection<IModule<?>> getStandardModules() {

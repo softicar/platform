@@ -20,5 +20,16 @@ public interface IModule<I extends IModuleInstance<I>> extends IEmfModule<I> {
 	 */
 	IModuleInstanceTable<I> getModuleInstanceTable();
 
-	Collection<IDbTable<?, ?>> getTransactionalDataTables();
+	/**
+	 * Returns all {@link IDbTable} objects of this module that contain
+	 * transaction data.
+	 * <p>
+	 * Transaction data is data that records transactions, e.g. orders,
+	 * invoices, deliveries, storage records, etc. In general, transaction data
+	 * is all data that is neither reference data nor master data.
+	 *
+	 * @return all {@link IDbTable} objects containing transaction data (never
+	 *         <i>null</i>)
+	 */
+	Collection<IDbTable<?, ?>> getTransactionDataTables();
 }

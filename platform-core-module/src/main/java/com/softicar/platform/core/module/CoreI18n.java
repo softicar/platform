@@ -58,7 +58,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("AJAX-Sitzungen");
 	I18n0 ALGORITHM = new I18n0("Algorithm")//
 		.de("Algorithmus");
-	I18n0 ALL_TRANSACTIONAL_DATA_WAS_DELETED = new I18n0("All transactional data was deleted.")//
+	I18n0 ALL_TRANSACTION_DATA_WAS_DELETED = new I18n0("All transaction data was deleted.")//
 		.de("Alle Transaktionsdaten wurden gelöscht.");
 	I18n0 ALLOWED_CHARACTERS = new I18n0("Allowed Characters")//
 		.de("Zulässige Zeichen");
@@ -276,7 +276,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
 			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
 				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.");
-	I18n0 DELETE_ALL_TRANSACTIONAL_DATA = new I18n0("Delete All Transactional Data")//
+	I18n0 DELETE_ALL_TRANSACTION_DATA = new I18n0("Delete All Transaction Data")//
 		.de("Alle Transaktionsdaten löschen");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
@@ -353,7 +353,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 FAILED = new I18n0("Failed")//
 		.de("Fehlgeschlagen");
 	I18n1 FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1 = new I18n1("Failed to delete data from table '%s'.")//
-		.de("Daten aus der Tabelle '%s' konnten nicht gelöscht werden");
+		.de("Daten aus der Tabelle '%s' konnten nicht gelöscht werden.");
 	I18n0 FAILED_TO_DETERMINE_PAGE_TITLE = new I18n0("Failed to determine page title")//
 		.de("Seitentitel konnte nicht bestimmt werden");
 	I18n0 FAILED_TO_GENERATE_PASSWORD = new I18n0("Failed to generate password.")//

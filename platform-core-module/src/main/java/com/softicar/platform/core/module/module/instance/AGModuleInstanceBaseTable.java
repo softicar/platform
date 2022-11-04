@@ -7,7 +7,7 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.actions.ModuleInstanceDetailsPopupAction;
 import com.softicar.platform.core.module.module.instance.actions.ModuleInstanceInitializationAction;
-import com.softicar.platform.core.module.transactional.data.TransactionalDataDeletionAction;
+import com.softicar.platform.core.module.transaction.data.TransactionDataDeletionAction;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoints;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
@@ -49,7 +49,7 @@ public class AGModuleInstanceBaseTable extends EmfObjectTable<AGModuleInstanceBa
 		actionSet.addManagementAction(new ModuleInstanceInitializationAction());
 		actionSet.addManagementAction(new ModuleInstanceDetailsPopupAction());
 		actionSet.addPrimaryAction(new ModuleInstanceInitializationAction());
-		actionSet.addScopeAction(new TransactionalDataDeletionAction());
+		actionSet.addScopeAction(new TransactionDataDeletionAction());
 	}
 
 	@Override

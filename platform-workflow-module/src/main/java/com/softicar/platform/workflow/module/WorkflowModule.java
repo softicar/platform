@@ -37,7 +37,7 @@ public class WorkflowModule extends AbstractModule<AGWorkflowModuleInstance> {
 	}
 
 	@Override
-	public Collection<IDbTable<?, ?>> getTransactionalDataTables() {
+	public Collection<IDbTable<?, ?>> getTransactionDataTables() {
 
 		return List
 			.of(//

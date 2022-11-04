@@ -42,7 +42,7 @@ public abstract class AbstractModule<I extends IModuleInstance<I>> extends Abstr
 	}
 
 	@Override
-	public Collection<IDbTable<?, ?>> getTransactionalDataTables() {
+	public Collection<IDbTable<?, ?>> getTransactionDataTables() {
 
 		return Collections.emptyList();
 	}
