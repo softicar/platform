@@ -20,6 +20,7 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 	public EmfFormFrame(R tableRow) {
 
 		this.header = new EmfFormFrameHeader();
+
 		setCssClass(EmfCssClasses.EMF_FORM_FRAME);
 		appendChild(header);
 		appendChild(createForm(tableRow));
