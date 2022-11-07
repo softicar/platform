@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.module.IModule;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.dependency.DbTableDependencyGraph;
+import com.softicar.platform.db.sql.statement.ISqlDelete;
 import com.softicar.platform.emf.module.registry.CurrentEmfModuleRegistry;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,16 +18,27 @@ public class TransactionDataDeleter {
 
 	public void execute() {
 
-		for (IDbTable<?, ?> table: getTableList()) {
-			try {
-				table.createDelete().execute();
-			} catch (Exception exception) {
-				throw new SofticarUserException(exception, CoreI18n.FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1.toDisplay(table.getFullName()));
-			}
+		getTableList().forEach(this::deleteFromTable);
+	}
+
+	public List<ISqlDelete<?>> getStatementList() {
+
+		return getTableList()//
+			.stream()
+			.map(table -> table.createDelete())
+			.collect(Collectors.toList());
+	}
+
+	private void deleteFromTable(IDbTable<?, ?> table) {
+
+		try {
+			table.createDelete().execute();
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, CoreI18n.FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1.toDisplay(table.getFullName()));
 		}
 	}
 
-	public List<IDbTable<?, ?>> getTableList() {
+	private List<IDbTable<?, ?>> getTableList() {
 
 		return new Sorter(new DbTableDependencyGraph(getTransactionDataTables())).sortByDependeny();
 	}

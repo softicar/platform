@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.transaction.data;
 
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.db.sql.statement.ISqlDelete;
 import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
@@ -47,9 +48,9 @@ public class TransactionDataDeletionPopup extends DomPopup {
 	private String getStatements() {
 
 		return deleter//
-			.getTableList()
+			.getStatementList()
 			.stream()
-			.map(table -> "DELETE FROM %s;".formatted(table.getFullName()))
+			.map(ISqlDelete::toString)
 			.collect(Collectors.joining("\r\n"));
 	}
 }

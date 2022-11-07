@@ -21,6 +21,12 @@ public abstract class AbstractSqlDelete<R> extends AbstractSqlConditionalStateme
 	}
 
 	@Override
+	public String toString() {
+
+		return builder.getText().toString();
+	}
+
+	@Override
 	public int execute() {
 
 		return execute(0);
