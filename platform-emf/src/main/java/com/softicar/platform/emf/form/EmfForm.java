@@ -155,12 +155,6 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		modeChangeCallback.accept(mode);
 	}
 
-	@Override
-	public void finishEditMode(boolean closeAfterFinish) {
-
-		body.finishEditMode(closeAfterFinish);
-	}
-
 	// ------------------------------ refresh and initialize ------------------------------ //
 
 	private void initialize() {

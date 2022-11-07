@@ -88,5 +88,4 @@ public interface IEmfForm<R extends IEmfTableRow<R, ?>> {
 	 */
 	Collection<IEmfValidator<R>> getAdditionalValidators();
 
-	void finishEditMode(boolean closeAfterFinish);
 }

@@ -106,12 +106,11 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 	public void finishEditMode(boolean closeAfterFinish) {
 
 		if (upperPart.isEditMode()) {
+			enterViewMode();
+			queueEntityForRefresh();
 			if (closeAfterFinish) {
 				form.closeFrame();
-			} else {
-				enterViewMode();
 			}
-			queueEntityForRefresh();
 		}
 	}
 

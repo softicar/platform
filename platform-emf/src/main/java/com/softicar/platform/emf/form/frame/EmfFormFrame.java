@@ -36,7 +36,7 @@ public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implement
 	@Override
 	public void closeFrame() {
 
-		form.finishEditMode(false);
+		// nothing to do
 	}
 
 	@Override
