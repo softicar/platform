@@ -16,15 +16,13 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 public class EmfFormFrame<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFormFrame<R> {
 
 	private final EmfFormFrameHeader header;
-	private final IEmfForm<R> form;
 
 	public EmfFormFrame(R tableRow) {
 
 		this.header = new EmfFormFrameHeader();
-		this.form = createForm(tableRow);
 		setCssClass(EmfCssClasses.EMF_FORM_FRAME);
 		appendChild(header);
-		appendChild(form);
+		appendChild(createForm(tableRow));
 	}
 
 	@Override

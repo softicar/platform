@@ -87,5 +87,4 @@ public interface IEmfForm<R extends IEmfTableRow<R, ?>> {
 	 * @return an {@link IEmfValidator} (never <i>null</i>)
 	 */
 	Collection<IEmfValidator<R>> getAdditionalValidators();
-
 }
