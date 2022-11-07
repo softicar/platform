@@ -69,4 +69,10 @@ public abstract class AbstractEmfFormDelegator<R extends IEmfTableRow<R, ?>> ext
 
 		return form.getAdditionalValidators();
 	}
+
+	@Override
+	public void finishEditMode(boolean closeAfterFinish) {
+
+		form.finishEditMode(closeAfterFinish);
+	}
 }
