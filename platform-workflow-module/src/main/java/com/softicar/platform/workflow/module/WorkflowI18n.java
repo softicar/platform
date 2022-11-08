@@ -164,8 +164,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergangsberechtigung");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
-	I18n1 VERSION_ARG1 = new I18n1("Version: %s")//
-		.de("Version: %s");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
