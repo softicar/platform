@@ -44,6 +44,7 @@ public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleIns
 			.getInstance()
 			.setTestSystem(true)
 			.setDefaultLocalization(insertLocalizationPresetGermany())
+			.setEmailServer(insertDummyServer())
 			.save();
 
 		this.viewUser = insertUser("View", "User")//

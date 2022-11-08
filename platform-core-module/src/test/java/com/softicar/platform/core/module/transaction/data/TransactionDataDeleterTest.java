@@ -14,7 +14,7 @@ public class TransactionDataDeleterTest extends AbstractDbTest implements CoreMo
 
 	public TransactionDataDeleterTest() {
 
-		insertServer("Test Server", "example.com", 42, "example", "foo", "bar");
+		insertDummyServer();
 		insertSystemErrorEvent("Test Error");
 		insertMaintenanceWindow(DayTime.now(), DayTime.now(), AGMaintenanceStateEnum.IN_PROGRESS);
 	}
