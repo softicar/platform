@@ -58,6 +58,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("AJAX-Sitzungen");
 	I18n0 ALGORITHM = new I18n0("Algorithm")//
 		.de("Algorithmus");
+	I18n0 ALL_TRANSACTION_DATA_WAS_DELETED = new I18n0("All transaction data was deleted.")//
+		.de("Alle Transaktionsdaten wurden gelöscht.");
 	I18n0 ALLOWED_CHARACTERS = new I18n0("Allowed Characters")//
 		.de("Zulässige Zeichen");
 	I18n0 ALLOWED_IP_RULE = new I18n0("Allowed-IP Rule")//
@@ -274,6 +276,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
 			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
 				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.");
+	I18n0 DELETE_ALL_TRANSACTION_DATA = new I18n0("Delete All Transaction Data")//
+		.de("Alle Transaktionsdaten löschen");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
@@ -348,6 +352,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Externe Komponenten");
 	I18n0 FAILED = new I18n0("Failed")//
 		.de("Fehlgeschlagen");
+	I18n1 FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1 = new I18n1("Failed to delete data from table '%s'.")//
+		.de("Daten aus der Tabelle '%s' konnten nicht gelöscht werden.");
 	I18n0 FAILED_TO_DETERMINE_PAGE_TITLE = new I18n0("Failed to determine page title")//
 		.de("Seitentitel konnte nicht bestimmt werden");
 	I18n0 FAILED_TO_GENERATE_PASSWORD = new I18n0("Failed to generate password.")//
@@ -996,6 +1002,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Text");
 	I18n1 THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU = new I18n1("The %s user account has been created or was changed for you.")//
 		.de("Das %s Benutzerkonto wurde für Sie erstellt oder geändert.");
+	I18n0 THE_CONTENT_OF_THE_FOLLOWING_TABLES_WILL_BE_DELETED = new I18n0("The content of the following tables will be deleted.")//
+		.de("Der Inhalt der folgenden Tabellen wird gelöscht.");
 	I18n0 THE_ENTERED_CURRENT_PASSWORD_IS_WRONG = new I18n0("The entered, current password is wrong.")//
 		.de("Das eigegebene, aktuelle Passwort ist falsch.");
 	I18n0 THE_ENTERED_PASSWORDS_DO_NOT_MATCH = new I18n0("The entered passwords do not match.")//

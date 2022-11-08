@@ -2,12 +2,21 @@ package com.softicar.platform.core.module.event;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
+import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import org.junit.Test;
 
 public class SystemEventNotifierTest extends AbstractCoreTest {
 
 	private static final String MESSAGE = "Test";
+	private final AGServer server;
+
+	public SystemEventNotifierTest() {
+
+		this.server = insertDummyServer();
+
+		AGCoreModuleInstance.getInstance().setEmailServer(server).save();
+	}
 
 	@Test
 	public void testWithoutEvents() {
