@@ -37,4 +37,9 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 			.where(AGWorkflowTransition.ACTIVE)
 			.list();
 	}
+
+	public boolean isCurrentVersion() {
+
+		return getWorkflow().getCurrentVersion().is(getThis());
+	}
 }

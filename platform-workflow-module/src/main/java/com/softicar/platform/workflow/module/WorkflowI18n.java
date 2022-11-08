@@ -59,6 +59,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Delegierung");
 	I18n0 DRAFT = new I18n0("Draft")//
 		.de("Entwurf");
+	I18n0 DRAFT_VERSION = new I18n0("Draft Version")//
+		.de("Entwurfsversion");
 	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email Notifications for New Tasks")//
 		.de("E-Mail Benachrichtigungen für neue Aufgaben");
 	I18n0 ENTITY_TABLE = new I18n0("Entity Table")//
@@ -104,6 +106,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Benachrichtigen");
 	I18n0 OBJECT = new I18n0("Object")//
 		.de("Objekt");
+	I18n0 OBSOLETE_VERSION = new I18n0("Obsolete Version")//
+		.de("Veraltete Version");
 	I18n0 OPEN_TASKS = new I18n0("Open Tasks")//
 		.de("Offene Aufgaben");
 	I18n0 PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN = new I18n0("Please refresh the input element or press F5 to reload the screen.")//
@@ -160,6 +164,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergangsberechtigung");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
+	I18n1 VERSION_ARG1 = new I18n1("Version: %s")//
+		.de("Version: %s");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
