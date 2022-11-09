@@ -167,6 +167,36 @@ public class MultiPatternMatcherTest {
 	}
 
 	@Test
+	public void testFindMatchesWithMultiplePatternsAndPerfectMatch() {
+
+		addTestValue("xxx foo bar xxx", VALUE1);
+		addTestValue("foo bar", VALUE2);
+		addTestValue("foo bar bar baz", VALUE3);
+
+		// "foo bar" is a perfect match, and a substring of "foo bar bar baz" and "xxx foo bar xxx"
+		var matches = createMatcher().findMatches("foo bar");
+
+		new Asserter(matches)//
+			.nextMatch(VALUE2)
+			.nextRange(0, 3)
+			.nextRange(4, 7)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE3)
+			.nextRange(0, 3)
+			.nextRange(4, 7)
+			.nextRange(8, 11)
+			.assertNoMoreRanges()
+
+			.nextMatch(VALUE1)
+			.nextRange(4, 7)
+			.nextRange(8, 11)
+			.assertNoMoreRanges()
+
+			.assertNoMoreMatches();
+	}
+
+	@Test
 	public void testFindMatchesWithSingleCharacterPattern() {
 
 		addTestValue("cXxXz", VALUE1);
