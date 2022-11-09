@@ -64,8 +64,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// validate setup
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(0);
+			.assertRows(6)
+			.assertRefreshedRows(0);
 		rowAsserter//
 			.assertInvalidated(rowA, rowB, rowC)
 			.assertStub(rowX, rowY, rowZ);
@@ -75,7 +75,7 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// assert results
 		cacheAsserter//
-			.assertRowCount(6)
+			.assertRows(6)
 			.assertNoInvalidatedRows()
 			.assertNoStubRows();
 		rowAsserter.assertRefreshed(rowB);
@@ -90,8 +90,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// validate setup
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(0);
+			.assertRows(6)
+			.assertRefreshedRows(0);
 		rowAsserter//
 			.assertInvalidated(rowA, rowB, rowC)
 			.assertStub(rowX, rowY, rowZ);
@@ -101,8 +101,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// assert results
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(burstSize);
+			.assertRows(6)
+			.assertRefreshedRows(burstSize);
 		rowAsserter.assertRefreshed(rowB);
 	}
 
@@ -113,8 +113,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// validate setup
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(0);
+			.assertRows(6)
+			.assertRefreshedRows(0);
 		rowAsserter//
 			.assertInvalidated(rowA, rowB, rowC)
 			.assertStub(rowX, rowY, rowZ);
@@ -124,7 +124,7 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// assert results
 		cacheAsserter//
-			.assertRowCount(6)
+			.assertRows(6)
 			.assertNoInvalidatedRows()
 			.assertNoStubRows();
 		rowAsserter.assertRefreshed(rowY);
@@ -139,8 +139,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// validate setup
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(0);
+			.assertRows(6)
+			.assertRefreshedRows(0);
 		rowAsserter//
 			.assertInvalidated(rowA, rowB, rowC)
 			.assertStub(rowX, rowY, rowZ);
@@ -150,8 +150,8 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		// assert results
 		cacheAsserter//
-			.assertRowCount(6)
-			.assertRefreshedRowCount(burstSize);
+			.assertRows(6)
+			.assertRefreshedRows(burstSize);
 		rowAsserter.assertRefreshed(rowY);
 	}
 
@@ -178,7 +178,7 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 		int cacheSizeBefore = TABLE.getCache().getAllValues().size();
 		List.of(ids).forEach(TABLE.getCache()::remove);
-		cacheAsserter.assertRowCount(cacheSizeBefore - ids.length);
+		cacheAsserter.assertRows(cacheSizeBefore - ids.length);
 	}
 
 	private class RowAsserter {
@@ -210,13 +210,13 @@ public class DbTableRowCacheRefresherTest extends AbstractDbTest {
 
 	private class CacheAsserter {
 
-		public CacheAsserter assertRowCount(int count) {
+		public CacheAsserter assertRows(int count) {
 
 			assertEquals(count, TABLE.getCache().getAllValues().size());
 			return this;
 		}
 
-		public CacheAsserter assertRefreshedRowCount(int count) {
+		public CacheAsserter assertRefreshedRows(int count) {
 
 			assertEquals(count, streamRefreshedRows().count());
 			return this;
