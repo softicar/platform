@@ -10,18 +10,24 @@ import java.util.Objects;
  */
 public class MultiPatternMatch<T> {
 
+	private final String patterns;
 	private final List<MultiPatternMatchRange> ranges;
 	private final T value;
+	private final String identifier;
 
-	MultiPatternMatch(List<MultiPatternMatchRange> ranges, T value) {
+	MultiPatternMatch(String patterns, List<MultiPatternMatchRange> ranges, T value, String identifier) {
 
+		Objects.requireNonNull(patterns);
 		Objects.requireNonNull(ranges);
 		if (ranges.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
+		Objects.requireNonNull(identifier);
 
+		this.patterns = patterns;
 		this.ranges = ranges;
 		this.value = value;
+		this.identifier = identifier;
 	}
 
 	/**
@@ -52,5 +58,25 @@ public class MultiPatternMatch<T> {
 	public T getValue() {
 
 		return value;
+	}
+
+	/**
+	 * Returns the identifier of the value.
+	 *
+	 * @return the value identifier (never <i>null</i>)
+	 */
+	public String getIdentifier() {
+
+		return identifier;
+	}
+
+	/**
+	 * Determines whether this match is perfect.
+	 *
+	 * @return <i>true</i> if this match is perfect; <i>false</i> otherwise
+	 */
+	public boolean isPerfect() {
+
+		return patterns.equalsIgnoreCase(identifier);
 	}
 }

@@ -74,8 +74,8 @@ public class MultiPatternMatcher<V> {
 	 * If the given {@link String} is blank, all identifiers (and hence all
 	 * values) will match.
 	 * <p>
-	 * The returned matches are sorted by their respective number of matching
-	 * ranges, in descending order.
+	 * If a perfect match exists, that match will be the first entry in the
+	 * returned {@link List}.
 	 *
 	 * @param patterns
 	 *            the whitespace-separated patterns (never <i>null</i>; may be
@@ -95,15 +95,23 @@ public class MultiPatternMatcher<V> {
 			String key = entry.getKey().toLowerCase();
 			var matchRanges = getMatchRanges(key, tokens);
 			if (!matchRanges.isEmpty()) {
-				matches.add(new MultiPatternMatch<>(matchRanges, entry.getValue()));
+				matches.add(new MultiPatternMatch<>(patterns, matchRanges, entry.getValue(), entry.getKey()));
 			}
 		}
 
 		return matches//
 			.stream()
-			.sorted(Comparator.comparing(MultiPatternMatch<V>::getRangeCount).reversed())
+			.sorted(createComparator())
 			.limit(limit)
 			.collect(Collectors.toList());
+	}
+
+	private Comparator<MultiPatternMatch<V>> createComparator() {
+
+		return Comparator//
+			.comparing(MultiPatternMatch<V>::isPerfect)
+			.reversed()
+			.thenComparing(Comparator.comparing(MultiPatternMatch<V>::getRangeCount).reversed());
 	}
 
 	private List<String> splitToTokens(String patterns) {
