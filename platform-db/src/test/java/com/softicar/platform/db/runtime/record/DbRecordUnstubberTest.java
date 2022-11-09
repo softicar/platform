@@ -19,7 +19,7 @@ public class DbRecordUnstubberTest extends AbstractDbRecordTest {
 		assertTrue(records.get(0).stub());
 		assertTrue(records.get(1).stub());
 
-		DbTestRecord.TABLE.unstubAll(records);
+		DbTestRecord.TABLE.refreshAll(records);
 
 		// check first record
 		assertFalse(records.get(0).stub());
