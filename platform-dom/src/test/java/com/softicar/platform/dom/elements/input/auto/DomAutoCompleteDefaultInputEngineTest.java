@@ -105,7 +105,7 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 		assertEquals("[AFour, Five, Four, FourA]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("fo", 9)));
-		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("four", 9)));
+		assertEquals("[Four, AFour, FourA]", toDisplayStrings(inputEngine.findMatches("four", 9)));
 	}
 
 	// ------------------------------ with custom display function ------------------------------ //
