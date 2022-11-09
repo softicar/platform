@@ -26,6 +26,9 @@ public interface IDomAutoCompleteInputEngine<T> {
 	/**
 	 * Determines a {@link Collection} that contains a limited number of values
 	 * which match the pattern.
+	 * <p>
+	 * If a perfect match exists, that match will be the first entry in the
+	 * returned {@link Collection}.
 	 *
 	 * @param pattern
 	 *            the pattern (never <i>null</i>; may be the empty string;
