@@ -1,5 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.management;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
@@ -14,8 +15,26 @@ public class WorkflowVersionManagementPopup extends DomPopup implements IDomRefr
 
 		this.workflowVersion = workflowVersion;
 		setCaption(WorkflowI18n.MANAGE_WORKFLOW);
-		setSubCaption(workflowVersion.toDisplayWithoutId());
+
+		if (workflowVersion.isDraft()) {
+			setSubCaptionWithVersionType(WorkflowI18n.DRAFT_VERSION);
+		} else if (workflowVersion.isCurrentVersion()) {
+			setSubCaptionWithVersionType(WorkflowI18n.CURRENT_VERSION);
+		} else {
+			setSubCaptionWithVersionType(WorkflowI18n.OBSOLETE_VERSION);
+		}
+
 		appendChild(new WorkflowVersionManagementDiv(workflowVersion));
+	}
+
+	private void setSubCaptionWithVersionType(IDisplayString versionType) {
+
+		setSubCaption(
+			workflowVersion//
+				.toDisplay()
+				.concatColon()
+				.concatSpace()
+				.concat(versionType));
 	}
 
 	@Override
