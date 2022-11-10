@@ -53,7 +53,7 @@ class DbTableRowCacheBurstSizeCalculator {
 		return this;
 	}
 
-	public int getNextBurstSize() {
+	public int calculateNextBurstSize() {
 
 		beforeBurst();
 		int size = nextBurstSize;

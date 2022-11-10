@@ -36,6 +36,6 @@ class DbTableRowCacheRefresher<R extends IDbTableRow<R, P>, P> {
 			.concat(rows.stream(), table.getCache().getAllValues().stream().filter(row -> !rows.contains(row)))
 			.filter(Objects::nonNull)
 			.filter(row -> row.stub() || row.invalidated())
-			.limit(Math.max(calculator.getNextBurstSize(), rows.size()));
+			.limit(Math.max(calculator.calculateNextBurstSize(), rows.size()));
 	}
 }

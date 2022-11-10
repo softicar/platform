@@ -14,77 +14,77 @@ public class DbTableRowCacheBurstSizeCalculatorTest extends AbstractTest {
 	}
 
 	@Test
-	public void testGetNextBurstSizeWithDefaults() {
+	public void testCalculateNextBurstSizeWithDefaults() {
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(2000, calculator.getNextBurstSize());
-		assertEquals(4000, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(2000, calculator.calculateNextBurstSize());
+		assertEquals(4000, calculator.calculateNextBurstSize());
 
 		testClock.add(Duration.ofSeconds(4));
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(2000, calculator.getNextBurstSize());
-		assertEquals(4000, calculator.getNextBurstSize());
-		assertEquals(8000, calculator.getNextBurstSize());
-		assertEquals(16000, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(2000, calculator.calculateNextBurstSize());
+		assertEquals(4000, calculator.calculateNextBurstSize());
+		assertEquals(8000, calculator.calculateNextBurstSize());
+		assertEquals(16000, calculator.calculateNextBurstSize());
 	}
 
 	@Test
-	public void testGetNextBurstSizeWithDefaultsAndModifiedBurstSizeCooldown() {
+	public void testCalculateNextBurstSizeWithDefaultsAndModifiedBurstSizeCooldown() {
 
 		calculator.setBurstSizeCooldown(Duration.ofSeconds(10));
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(2000, calculator.getNextBurstSize());
-		assertEquals(4000, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(2000, calculator.calculateNextBurstSize());
+		assertEquals(4000, calculator.calculateNextBurstSize());
 
 		testClock.add(Duration.ofSeconds(4));
 
-		assertEquals(8000, calculator.getNextBurstSize());
-		assertEquals(16000, calculator.getNextBurstSize());
+		assertEquals(8000, calculator.calculateNextBurstSize());
+		assertEquals(16000, calculator.calculateNextBurstSize());
 
 		testClock.add(Duration.ofSeconds(11));
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(2000, calculator.getNextBurstSize());
-		assertEquals(4000, calculator.getNextBurstSize());
-		assertEquals(8000, calculator.getNextBurstSize());
-		assertEquals(16000, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(2000, calculator.calculateNextBurstSize());
+		assertEquals(4000, calculator.calculateNextBurstSize());
+		assertEquals(8000, calculator.calculateNextBurstSize());
+		assertEquals(16000, calculator.calculateNextBurstSize());
 	}
 
 	@Test
-	public void testGetNextBurstSizeWithModifiedMinBurstSize() {
+	public void testCalculateNextBurstSizeWithModifiedMinBurstSize() {
 
 		calculator.setMinBurstSize(50);
 
-		assertEquals(50, calculator.getNextBurstSize());
-		assertEquals(100, calculator.getNextBurstSize());
-		assertEquals(200, calculator.getNextBurstSize());
-		assertEquals(400, calculator.getNextBurstSize());
-		assertEquals(800, calculator.getNextBurstSize());
+		assertEquals(50, calculator.calculateNextBurstSize());
+		assertEquals(100, calculator.calculateNextBurstSize());
+		assertEquals(200, calculator.calculateNextBurstSize());
+		assertEquals(400, calculator.calculateNextBurstSize());
+		assertEquals(800, calculator.calculateNextBurstSize());
 	}
 
 	@Test
-	public void testGetNextBurstSizeWithModifiedMaxBurstSize() {
+	public void testCalculateNextBurstSizeWithModifiedMaxBurstSize() {
 
 		calculator.setMaxBurstSize(11111);
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(2000, calculator.getNextBurstSize());
-		assertEquals(4000, calculator.getNextBurstSize());
-		assertEquals(8000, calculator.getNextBurstSize());
-		assertEquals(11111, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(2000, calculator.calculateNextBurstSize());
+		assertEquals(4000, calculator.calculateNextBurstSize());
+		assertEquals(8000, calculator.calculateNextBurstSize());
+		assertEquals(11111, calculator.calculateNextBurstSize());
 	}
 
 	@Test
-	public void testGetNextBurstSizeWithModifiedBurstSizeFactor() {
+	public void testCalculateNextBurstSizeWithModifiedBurstSizeFactor() {
 
 		calculator.setBurstSizeFactor(3);
 
-		assertEquals(1000, calculator.getNextBurstSize());
-		assertEquals(3000, calculator.getNextBurstSize());
-		assertEquals(9000, calculator.getNextBurstSize());
-		assertEquals(27000, calculator.getNextBurstSize());
-		assertEquals(81000, calculator.getNextBurstSize());
+		assertEquals(1000, calculator.calculateNextBurstSize());
+		assertEquals(3000, calculator.calculateNextBurstSize());
+		assertEquals(9000, calculator.calculateNextBurstSize());
+		assertEquals(27000, calculator.calculateNextBurstSize());
+		assertEquals(81000, calculator.calculateNextBurstSize());
 	}
 }
