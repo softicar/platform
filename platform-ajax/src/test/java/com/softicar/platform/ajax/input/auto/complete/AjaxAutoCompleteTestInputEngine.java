@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.input.auto.complete;
 import com.softicar.platform.common.container.derived.CurrentDerivedObjectRegistry;
 import com.softicar.platform.common.core.thread.Locker;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
+import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +31,7 @@ public class AjaxAutoCompleteTestInputEngine extends DomAutoCompleteDefaultInput
 	}
 
 	@Override
-	public Collection<AjaxAutoCompleteTestValue> findMatches(String pattern, int limit) {
+	public IAutoCompleteMatches<AjaxAutoCompleteTestValue> findMatches(String pattern, int limit) {
 
 		try (Locker locker = lock()) {
 			requestListener.ifPresent(listener -> listener.accept(pattern));

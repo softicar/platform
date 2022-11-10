@@ -3,10 +3,12 @@ package com.softicar.platform.emf.attribute.field.foreign.entity;
 import com.softicar.platform.common.core.user.CurrentBasicUser;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatch;
 import com.softicar.platform.emf.AbstractEmfTest;
 import com.softicar.platform.emf.test.simple.authorization.EmfTestObjectAuthorizedUser;
 import com.softicar.platform.emf.test.user.EmfTestUser;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 public class EmfForeignEntityAttributeTest extends AbstractEmfTest {
@@ -67,7 +69,13 @@ public class EmfForeignEntityAttributeTest extends AbstractEmfTest {
 
 	private void assertValues(EmfTestUser...expectedValues) {
 
-		var actualValues = createInput().getInputEngine().findMatches("", Integer.MAX_VALUE);
+		var actualValues = createInput()//
+			.getInputEngine()
+			.findMatches("", Integer.MAX_VALUE)
+			.getAll()
+			.stream()
+			.map(AutoCompleteMatch::getValue)
+			.collect(Collectors.toList());
 		assertEquals(List.of(expectedValues), actualValues);
 	}
 

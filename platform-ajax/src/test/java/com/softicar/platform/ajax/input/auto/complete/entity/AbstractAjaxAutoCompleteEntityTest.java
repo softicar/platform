@@ -14,6 +14,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteIndicatorType;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
+import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
 import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
@@ -184,7 +185,7 @@ public abstract class AbstractAjaxAutoCompleteEntityTest extends AbstractAjaxAut
 	protected class TestInputEngine extends DomAutoCompleteDefaultInputEngine<AjaxTestEntity> {
 
 		@Override
-		public Collection<AjaxTestEntity> findMatches(String pattern, int limit) {
+		public IAutoCompleteMatches<AjaxTestEntity> findMatches(String pattern, int limit) {
 
 			return super.findMatches(pattern, limit);
 		}

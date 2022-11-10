@@ -1,6 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -24,20 +25,18 @@ public interface IDomAutoCompleteInputEngine<T> {
 	IDisplayString getDisplayString(T value);
 
 	/**
-	 * Determines a {@link Collection} that contains a limited number of values
-	 * which match the pattern.
-	 * <p>
-	 * If a perfect match exists, that match will be the first entry in the
-	 * returned {@link Collection}.
+	 * Determines an {@link IAutoCompleteMatches} instance that contains a
+	 * limited number of values which match the pattern.
 	 *
 	 * @param pattern
-	 *            the pattern (never <i>null</i>; may be the empty string;
-	 *            trimmed; lower-case)
+	 *            the pattern (never <i>null</i>; may be empty; trimmed;
+	 *            lower-case)
 	 * @param limit
-	 *            the maximum number of values to return (at least 1)
-	 * @return the values that match the given pattern (never <i>null</i>)
+	 *            the maximum number of matches to find (at least 1)
+	 * @return an {@link IAutoCompleteMatches} instance that contains the result
+	 *         (never <i>null</i>)
 	 */
-	Collection<T> findMatches(String pattern, int limit);
+	IAutoCompleteMatches<T> findMatches(String pattern, int limit);
 
 	/**
 	 * Returns a {@link Collection} of active value filters.

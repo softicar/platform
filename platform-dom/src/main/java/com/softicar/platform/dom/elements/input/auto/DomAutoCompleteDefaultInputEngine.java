@@ -6,8 +6,8 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatch;
-import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher;
+import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatcher;
+import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,7 +18,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Default implementation of {@link IDomAutoCompleteInputEngine}.
@@ -46,9 +45,9 @@ import java.util.stream.Collectors;
  * <p>
  * The comparator supplied to {@link #setComparator} will <b>not</b> be used to
  * order the values returned by {@link #findMatches}. Instead,
- * {@link #findMatches} always returns the values ordered by their localized
- * {@link IDisplayString}, in a lexicographical manner. Thus, the order depends
- * on {@link CurrentLocale}.
+ * {@link #findMatches} may return values in an implementation-specific order.
+ * That order may or may not be based upon a notion of <i>confidence</i>, or on
+ * {@link CurrentLocale}.
  *
  * @author Oliver Richers
  */
@@ -165,7 +164,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	@Override
-	public Collection<T> findMatches(String pattern, int limit) {
+	public IAutoCompleteMatches<T> findMatches(String pattern, int limit) {
 
 		return cache.get().findMatches(pattern, limit);
 	}
@@ -215,27 +214,30 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 				.orElse(displayFunction.apply(value));
 		}
 
-		public Collection<T> findMatches(String pattern, int limit) {
+		public IAutoCompleteMatches<T> findMatches(String pattern, int limit) {
 
 			return findIdMatch(pattern).orElse(findStringMatches(pattern, limit));
 		}
 
-		private Optional<Collection<T>> findIdMatch(String pattern) {
+		private Optional<IAutoCompleteMatches<T>> findIdMatch(String pattern) {
 
-			return IntegerParser//
+			Optional<T> value = IntegerParser//
 				.parse(pattern)
-				.map(id -> idToValueMap.get(id))
-				.map(Collections::singleton);
+				.map(id -> idToValueMap.get(id));
+
+			if (value.isPresent()) {
+				var identifier = displayFunction.apply(value.get()).toString();
+				return Optional.of(IAutoCompleteMatches.createForSingleMatch(pattern, identifier, value.get()));
+			} else {
+				return Optional.empty();
+			}
 		}
 
-		private Collection<T> findStringMatches(String pattern, int limit) {
+		private IAutoCompleteMatches<T> findStringMatches(String pattern, int limit) {
 
-			return new MultiPatternMatcher<>(stringToValueMap)
+			return new AutoCompleteMatcher<>(stringToValueMap)//
 				.setIgnoreDiacritics(true)
-				.findMatches(pattern, limit)
-				.stream()
-				.map(MultiPatternMatch::getValue)
-				.collect(Collectors.toList());
+				.findMatches(pattern, limit);
 		}
 	}
 

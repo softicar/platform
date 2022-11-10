@@ -5,7 +5,8 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.dom.DomI18n;
-import java.util.Collection;
+import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatch;
+import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -30,7 +31,6 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	@Test
 	public void testWithEmptyPattern() {
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("", 0)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("", 1)));
 		assertEquals("[Five, Four, One]", toDisplayStrings(inputEngine.findMatches("", 3)));
 		assertEquals("[Five, Four, One, Three, Two]", toDisplayStrings(inputEngine.findMatches("", 5)));
@@ -40,17 +40,15 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 	@Test
 	public void testWithOneLetterPattern() {
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
-		assertEquals("[Three]", toDisplayStrings(inputEngine.findMatches("e", 1)));
-		assertEquals("[Three, Five]", toDisplayStrings(inputEngine.findMatches("e", 2)));
-		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 3)));
-		assertEquals("[Three, Five, One]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Five, One]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Five, One, Three]", toDisplayStrings(inputEngine.findMatches("e", 4)));
 	}
 
 	@Test
 	public void testWithTwoLetterPattern() {
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("iv", 0)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 1)));
 		assertEquals("[Five]", toDisplayStrings(inputEngine.findMatches("iv", 2)));
 	}
@@ -62,12 +60,11 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("e", 0)));
-		assertEquals("[Drei]", toDisplayStrings(inputEngine.findMatches("e", 1)));
-		assertEquals("[Drei, Eins]", toDisplayStrings(inputEngine.findMatches("e", 2)));
-		assertEquals("[Drei, Eins, Vier]", toDisplayStrings(inputEngine.findMatches("e", 3)));
-		assertEquals("[Drei, Eins, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 4)));
-		assertEquals("[Drei, Eins, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 5)));
+		assertEquals("[Eins]", toDisplayStrings(inputEngine.findMatches("e", 1)));
+		assertEquals("[Eins, Drei]", toDisplayStrings(inputEngine.findMatches("e", 2)));
+		assertEquals("[Eins, Drei, Vier]", toDisplayStrings(inputEngine.findMatches("e", 3)));
+		assertEquals("[Eins, Drei, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 4)));
+		assertEquals("[Eins, Drei, Vier, Zwei]", toDisplayStrings(inputEngine.findMatches("e", 5)));
 	}
 
 	@Test
@@ -75,11 +72,10 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 		CurrentLocale.set(new Locale().setLanguage(LanguageEnum.GERMAN));
 
-		assertEquals("[]", toDisplayStrings(inputEngine.findMatches("ei", 0)));
-		assertEquals("[Drei]", toDisplayStrings(inputEngine.findMatches("ei", 1)));
-		assertEquals("[Drei, Eins]", toDisplayStrings(inputEngine.findMatches("ei", 2)));
-		assertEquals("[Drei, Eins, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 3)));
-		assertEquals("[Drei, Eins, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 4)));
+		assertEquals("[Eins]", toDisplayStrings(inputEngine.findMatches("ei", 1)));
+		assertEquals("[Eins, Drei]", toDisplayStrings(inputEngine.findMatches("ei", 2)));
+		assertEquals("[Eins, Drei, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 3)));
+		assertEquals("[Eins, Drei, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 4)));
 	}
 
 	// ------------------------------ redundant display strings ------------------------------ //
@@ -93,8 +89,8 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[Five (1), five (2), Four (1), four (2)]", toDisplayStrings(inputEngine.findMatches("f", 9)));
 		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
 		assertEquals("[Five (1), five (2)]", toDisplayStrings(inputEngine.findMatches("five", 9)));
-		assertEquals("[Five (1), five (2), Four (1)]", toDisplayStrings(inputEngine.findMatches("five (1", 9)));
-		assertEquals("[Five (1), five (2), Four (1)]", toDisplayStrings(inputEngine.findMatches("five (1)", 9)));
+		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1", 9)));
+		assertEquals("[Five (1)]", toDisplayStrings(inputEngine.findMatches("five (1)", 9)));
 	}
 
 	@Test
@@ -103,9 +99,9 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		addTestValue("FourA", 6);
 		addTestValue("AFour", 7);
 
-		assertEquals("[AFour, Five, Four, FourA]", toDisplayStrings(inputEngine.findMatches("f", 9)));
-		assertEquals("[AFour, Four, FourA]", toDisplayStrings(inputEngine.findMatches("fo", 9)));
-		assertEquals("[Four, AFour, FourA]", toDisplayStrings(inputEngine.findMatches("four", 9)));
+		assertEquals("[Five, Four, FourA, AFour]", toDisplayStrings(inputEngine.findMatches("f", 9)));
+		assertEquals("[Four, FourA, AFour]", toDisplayStrings(inputEngine.findMatches("fo", 9)));
+		assertEquals("[Four, FourA, AFour]", toDisplayStrings(inputEngine.findMatches("four", 9)));
 	}
 
 	// ------------------------------ with custom display function ------------------------------ //
@@ -122,7 +118,7 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("fi", 9)));
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five", 9)));
 		assertEquals("[five [55], Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5", 9)));
-		assertEquals("[Five [5], five [55]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
+		assertEquals("[Five [5]]", toDisplayStrings(inputEngine.findMatches("five [5]", 9)));
 	}
 
 	// ------------------------------ with multiple patterns ------------------------------ //
@@ -136,9 +132,9 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 		addTestValue("Some Test Value", 33);
 		addTestValue("Some Other Value", 44);
 
-		assertEquals("[Some Other Value, Some Test Value, My Test Value]", toDisplayStrings(inputEngine.findMatches("ome lue", 9)));
-		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("t", 9)));
-		assertEquals("[My Test Item, My Test Value, Some Test Value, Some Other Value]", toDisplayStrings(inputEngine.findMatches("te t", 9)));
+		assertEquals("[Some Other Value, Some Test Value]", toDisplayStrings(inputEngine.findMatches("ome lue", 9)));
+		assertEquals("[My Test Item, My Test Value, Some Other Value, Some Test Value]", toDisplayStrings(inputEngine.findMatches("t", 9)));
+		assertEquals("[My Test Item, My Test Value, Some Test Value]", toDisplayStrings(inputEngine.findMatches("te t", 9)));
 	}
 
 	// ------------------------------ with diactritics ------------------------------ //
@@ -190,10 +186,12 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 	// ------------------------------ private ------------------------------ //
 
-	private String toDisplayStrings(Collection<TestValue> matches) {
+	private String toDisplayStrings(IAutoCompleteMatches<TestValue> matches) {
 
 		return matches//
+			.getAll()
 			.stream()
+			.map(AutoCompleteMatch::getValue)
 			.map(inputEngine::getDisplayString)
 			.collect(Collectors.toList())
 			.toString();
