@@ -9,6 +9,7 @@ import com.softicar.platform.db.runtime.transients.DbTransientValueCache;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,6 +25,7 @@ public class DbTableRowCache<R extends IDbTableRow<R, P>, P> implements IDbTable
 	private final ReferenceQueue<R> referenceQueue;
 	private final IDbTable<R, P> table;
 	private final DbTransientValueCache<R> transientValueCache;
+	private final DbTableRowCacheRefresher<R, P> cacheRefresher;
 
 	public DbTableRowCache(IDbTable<R, P> table) {
 
@@ -31,6 +33,7 @@ public class DbTableRowCache<R extends IDbTableRow<R, P>, P> implements IDbTable
 		this.referenceQueue = new ReferenceQueue<>();
 		this.table = table;
 		this.transientValueCache = new DbTransientValueCache<>();
+		this.cacheRefresher = new DbTableRowCacheRefresher<>(table);
 	}
 
 	@Override
@@ -130,6 +133,12 @@ public class DbTableRowCache<R extends IDbTableRow<R, P>, P> implements IDbTable
 	public void reloadAll() {
 
 		table.reloadAll(getAllValues());
+	}
+
+	@Override
+	public void refresh(Collection<R> rows) {
+
+		cacheRefresher.refresh(rows);
 	}
 
 	@Override

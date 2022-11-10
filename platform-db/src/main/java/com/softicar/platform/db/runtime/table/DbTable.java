@@ -22,7 +22,6 @@ import com.softicar.platform.db.runtime.table.logic.DbTableRowGetter;
 import com.softicar.platform.db.runtime.table.logic.DbTableRowLoader;
 import com.softicar.platform.db.runtime.table.logic.DbTableRowResultSetReader;
 import com.softicar.platform.db.runtime.table.logic.DbTableRowStubber;
-import com.softicar.platform.db.runtime.table.logic.DbTableRowUnstubber;
 import com.softicar.platform.db.runtime.table.logic.save.DbTableRowSaver;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.runtime.table.statements.DbTableDelete;
@@ -354,9 +353,9 @@ public class DbTable<R extends IDbTableRow<R, P>, P> implements IDbTable<R, P> {
 	}
 
 	@Override
-	public final void unstubAll(Collection<R> stubs) {
+	public final void refreshAll(Collection<R> staleRows) {
 
-		new DbTableRowUnstubber<>(this, stubs).unstub();
+		getCache().refresh(staleRows);
 	}
 
 	// -------------------- saving of rows -------------------- //

@@ -14,7 +14,7 @@ public class DbObjectUnstubberTest extends AbstractDbObjectTest {
 		assertTrue(object.stub());
 		assertFalse(object.impermanent());
 
-		DbTestObject.TABLE.unstubAll(Collections.singleton(object));
+		DbTestObject.TABLE.refreshAll(Collections.singleton(object));
 		assertFalse(object.stub());
 		assertTrue(object.impermanent());
 	}
@@ -28,7 +28,7 @@ public class DbObjectUnstubberTest extends AbstractDbObjectTest {
 		assertTrue(object.stub());
 		assertFalse(object.impermanent());
 
-		DbTestObject.TABLE.unstubAll(Collections.singleton(object));
+		DbTestObject.TABLE.refreshAll(Collections.singleton(object));
 		assertFalse(object.stub());
 		assertFalse(object.impermanent());
 	}
@@ -38,7 +38,7 @@ public class DbObjectUnstubberTest extends AbstractDbObjectTest {
 
 		Integer id = insertObjectRow("foo");
 		List<DbTestObject> stubs = Arrays.asList(DbTestObject.TABLE.getStub(id), null);
-		DbTestObject.TABLE.unstubAll(stubs);
+		DbTestObject.TABLE.refreshAll(stubs);
 		assertFalse(DbTestObject.TABLE.getStub(id).stub());
 	}
 }

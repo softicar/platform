@@ -209,13 +209,22 @@ public interface IDbBasicTable<R> extends ISqlTable<R>, ITestMarker {
 	// -------------------- stubs -------------------- //
 
 	/**
-	 * Converts the given stub rows into real rows by loading them from this
-	 * database table.
+	 * @deprecated use {@link #refreshAll(Collection)} instead
+	 */
+	@Deprecated
+	default void unstubAll(Collection<R> stubRows) {
+
+		refreshAll(stubRows);
+	}
+
+	/**
+	 * Converts the given stub rows or invalidated rows into fully-loaded rows,
+	 * by loading them from this database table.
 	 *
 	 * @param stubRows
 	 *            list of stub rows to load
 	 */
-	void unstubAll(Collection<R> stubRows);
+	void refreshAll(Collection<R> stubRows);
 
 	// -------------------- saving -------------------- //
 

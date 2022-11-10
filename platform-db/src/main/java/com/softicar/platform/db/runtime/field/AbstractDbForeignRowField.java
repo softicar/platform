@@ -182,7 +182,7 @@ public abstract class AbstractDbForeignRowField<R, F extends IDbTableRow<F, FP>,
 	@Override
 	public void prefetchData(Collection<F> values) {
 
-		targetField.getTable().unstubAll(values);
+		targetField.getTable().refreshAll(values);
 	}
 
 	// ------------------------------ setters ------------------------------ //
