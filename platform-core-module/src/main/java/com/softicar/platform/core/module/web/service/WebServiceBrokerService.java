@@ -75,7 +75,7 @@ public class WebServiceBrokerService implements IWebService {
 			throwable.printStackTrace();
 			throw new SofticarDeveloperException(throwable);
 		} finally {
-			CurrentSingletonSet.reset();
+			CurrentSingletonSet.remove();
 		}
 	}
 

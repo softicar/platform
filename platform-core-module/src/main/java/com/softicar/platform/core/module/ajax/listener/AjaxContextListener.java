@@ -39,15 +39,18 @@ public class AjaxContextListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 
-		Log.finfo("CONTEXT SHUTDOWN: %s", sce.getServletContext().getContextPath());
-		DaemonWatchdogControllerSingleton.get().stop();
-		DbDriverManagers.deregisterAllDrivers();
-		DbMysqlConnectionTimers.cancelMySqlConnectionTimer();
-		DbConnectionPoolMap.getSingleton().closeAllAndClear();
-		new BatikCleanerThreadManager().shutdownThread();
-		new IioRegistryManager().deregisterProviders();
-		servletContext = null;
-		Log.finfo("CONTEXT DESTROYED: %s", sce.getServletContext().getContextPath());
-		CurrentSingletonSet.reset();
+		try {
+			Log.finfo("CONTEXT SHUTDOWN: %s", sce.getServletContext().getContextPath());
+			DaemonWatchdogControllerSingleton.get().stop();
+			DbDriverManagers.deregisterAllDrivers();
+			DbMysqlConnectionTimers.cancelMySqlConnectionTimer();
+			DbConnectionPoolMap.getSingleton().closeAllAndClear();
+			new BatikCleanerThreadManager().shutdownThread();
+			new IioRegistryManager().deregisterProviders();
+			servletContext = null;
+			Log.finfo("CONTEXT DESTROYED: %s", sce.getServletContext().getContextPath());
+		} finally {
+			CurrentSingletonSet.remove();
+		}
 	}
 }

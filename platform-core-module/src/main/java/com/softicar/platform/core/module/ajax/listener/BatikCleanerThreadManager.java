@@ -22,7 +22,7 @@ public class BatikCleanerThreadManager {
 				if (new ThreadKiller<>(thread).setTimeout(5000).killAll()) {
 					Log.finfo("Successfull shutdown of %s", BATIK_CLEANER_THREAD_CLASS);
 				} else {
-					Log.finfo("Failed shutdown of %s (stupid thread does not want to die)", BATIK_CLEANER_THREAD_CLASS);
+					Log.finfo("Failed shutdown of %s", BATIK_CLEANER_THREAD_CLASS);
 					Log.finfo("Calling Thread.stop()");
 					thread.stop();
 				}
