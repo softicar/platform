@@ -200,10 +200,12 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 	private void createTables(List<CreateTableStatement> createTableStatements) {
 
+		var multiStatement = new DbStatement();
 		for (var statement: createTableStatements) {
-			new DbStatement("CREATE SCHEMA IF NOT EXISTS `%s`", statement.getDatabaseName()).execute();
-			new DbStatement(statement.getStatementString()).execute();
+			multiStatement.addText("CREATE SCHEMA IF NOT EXISTS `%s`;\n", statement.getDatabaseName());
+			multiStatement.addText(statement.getStatementString() + "\n");
 		}
+		multiStatement.executeUncached();
 	}
 
 	private List<CreateTableStatement> getCreateTableStatements(IResourceSupplier structureResourceSupplier) {
