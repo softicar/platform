@@ -73,6 +73,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Funktion");
 	I18n0 FURTHER_APPROVAL_IS_REQUIRED = new I18n0("Further approval is required.")//
 		.de("Weitere Genehmigung ist notwendig.");
+	I18n0 HAS_CURRENT_VERSION = new I18n0("Has Current Version")//
+		.de("hat aktuelle Version");
 	I18n0 HTML_COLOR = new I18n0("HTML Color")//
 		.de("HTML-Farbe");
 	I18n1 INVALID_WORKFLOW_DEFINITION_IN_TRANSITION_ARG1_VOTING_PERCENTAGE_MUST_BE_GREATER_THAN_0_AND_LESS_EQUAL_TO_100 =

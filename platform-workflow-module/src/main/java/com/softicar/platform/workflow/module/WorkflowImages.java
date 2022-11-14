@@ -2,10 +2,11 @@ package com.softicar.platform.workflow.module;
 
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.dom.resource.supplier.DomResourceSupplierProxyFactory;
 
 @ResourceSupplierContainer
-public interface WorkflowImages {
+public interface WorkflowImages extends CoreImages {
 
 	DomResourceSupplierProxyFactory FACTORY = new DomResourceSupplierProxyFactory(WorkflowImages.class);
 

@@ -14,6 +14,11 @@ public class IndexHashMap<T> implements IIndexMap<T> {
 
 	private final HashMap<T, Integer> map;
 
+	public IndexHashMap() {
+
+		this(Collections.emptyList());
+	}
+
 	public IndexHashMap(Collection<? extends T> values) {
 
 		this.map = new HashMap<>();
@@ -23,6 +28,13 @@ public class IndexHashMap<T> implements IIndexMap<T> {
 			map.put(column, index);
 			index++;
 		}
+	}
+
+	public int add(T value) {
+
+		var newIndex = map.size();
+		var oldIndex = map.putIfAbsent(value, newIndex);
+		return oldIndex != null? oldIndex : newIndex;
 	}
 
 	@Override
