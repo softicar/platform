@@ -1,6 +1,7 @@
 package com.softicar.platform.db.core.dbms.mysql;
 
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.utils.DevNull;
 import java.lang.reflect.Field;
 import java.sql.Driver;
 import java.util.Timer;
@@ -27,6 +28,9 @@ public abstract class DbMysqlConnectionTimers {
 			Timer timer = (Timer) timerField.get(null);
 			timer.cancel();
 			Log.finfo("Successfull shutdown of the MySQL connection timer.");
+		} catch (ClassNotFoundException exception) {
+			DevNull.swallow(exception);
+			Log.finfo("No MySQL connection timer found, so nothing to do.");
 		} catch (Exception exception) {
 			Log.fwarning("Failed shutdown of the MySQL connection timer.");
 			exception.printStackTrace();
