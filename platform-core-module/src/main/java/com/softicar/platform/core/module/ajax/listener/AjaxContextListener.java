@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.ajax.listener;
 
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.singleton.CurrentSingletonSet;
 import com.softicar.platform.core.module.daemon.watchdog.DaemonWatchdogControllerSingleton;
 import com.softicar.platform.db.core.connection.pool.DbConnectionPoolMap;
 import com.softicar.platform.db.core.dbms.mysql.DbMysqlConnectionTimers;
@@ -47,5 +48,6 @@ public class AjaxContextListener implements ServletContextListener {
 		new IioRegistryManager().deregisterProviders();
 		servletContext = null;
 		Log.finfo("CONTEXT DESTROYED: %s", sce.getServletContext().getContextPath());
+		CurrentSingletonSet.reset();
 	}
 }
