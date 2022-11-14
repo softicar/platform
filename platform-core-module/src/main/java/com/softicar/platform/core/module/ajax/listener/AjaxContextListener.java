@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.ajax.listener;
 
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.singleton.CurrentSingletonSet;
 import com.softicar.platform.core.module.daemon.watchdog.DaemonWatchdogControllerSingleton;
 import com.softicar.platform.db.core.connection.pool.DbConnectionPoolMap;
 import com.softicar.platform.db.core.dbms.mysql.DbMysqlConnectionTimers;
@@ -38,14 +39,18 @@ public class AjaxContextListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 
-		Log.finfo("CONTEXT SHUTDOWN: %s", sce.getServletContext().getContextPath());
-		DaemonWatchdogControllerSingleton.get().stop();
-		DbDriverManagers.deregisterAllDrivers();
-		DbMysqlConnectionTimers.cancelMySqlConnectionTimer();
-		DbConnectionPoolMap.getSingleton().closeAllAndClear();
-		new BatikCleanerThreadManager().shutdownThread();
-		new IioRegistryManager().deregisterProviders();
-		servletContext = null;
-		Log.finfo("CONTEXT DESTROYED: %s", sce.getServletContext().getContextPath());
+		try {
+			Log.finfo("CONTEXT SHUTDOWN: %s", sce.getServletContext().getContextPath());
+			DaemonWatchdogControllerSingleton.get().stop();
+			DbDriverManagers.deregisterAllDrivers();
+			DbMysqlConnectionTimers.cancelMySqlConnectionTimer();
+			DbConnectionPoolMap.getSingleton().closeAllAndClear();
+			new BatikCleanerThreadManager().shutdownThread();
+			new IioRegistryManager().deregisterProviders();
+			servletContext = null;
+			Log.finfo("CONTEXT DESTROYED: %s", sce.getServletContext().getContextPath());
+		} finally {
+			CurrentSingletonSet.remove();
+		}
 	}
 }

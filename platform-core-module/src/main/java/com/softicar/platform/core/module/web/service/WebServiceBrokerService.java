@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.singleton.CurrentSingletonSet;
 import com.softicar.platform.common.core.singleton.SingletonSetScope;
 import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.common.web.service.IWebServiceFactory;
@@ -73,6 +74,8 @@ public class WebServiceBrokerService implements IWebService {
 		} catch (Exception throwable) {
 			throwable.printStackTrace();
 			throw new SofticarDeveloperException(throwable);
+		} finally {
+			CurrentSingletonSet.remove();
 		}
 	}
 

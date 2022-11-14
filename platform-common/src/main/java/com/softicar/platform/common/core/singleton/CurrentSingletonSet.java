@@ -37,4 +37,12 @@ public class CurrentSingletonSet {
 
 		INSTANCE.set(singletonSet);
 	}
+
+	/**
+	 * Removes the current {@link SingletonSet}.
+	 */
+	public static void remove() {
+
+		INSTANCE.remove();
+	}
 }
