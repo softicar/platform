@@ -38,6 +38,14 @@ public class IndexHashMap<T> implements IIndexMap<T> {
 	}
 
 	@Override
+	public int add(T value) {
+
+		var newIndex = map.size();
+		var oldIndex = map.putIfAbsent(value, newIndex);
+		return oldIndex != null? oldIndex : newIndex;
+	}
+
+	@Override
 	public Integer getIndex(T value) {
 
 		return map.get(value);

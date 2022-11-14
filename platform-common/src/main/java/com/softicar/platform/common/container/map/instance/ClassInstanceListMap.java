@@ -28,8 +28,8 @@ public class ClassInstanceListMap {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> getInstances(Class<T> instancesClass) {
+	public <T> List<T> getInstances(Class<T> classOfInstances) {
 
-		return (List<T>) map.getOrDefault(instancesClass, Collections.emptyList());
+		return (List<T>) map.getOrDefault(classOfInstances, Collections.emptyList());
 	}
 }

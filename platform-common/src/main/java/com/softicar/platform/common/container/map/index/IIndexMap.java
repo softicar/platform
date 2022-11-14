@@ -20,6 +20,17 @@ public interface IIndexMap<T> extends Comparator<T> {
 	Integer getIndex(T key);
 
 	/**
+	 * Adds the given key to this map and returns its index.
+	 *
+	 * @param key
+	 *            the key to add (never <i>null</i>)
+	 * @return the index of the given key; if the key is already contained, the
+	 *         existing index is returned, otherwise a new index is generated
+	 *         and returned
+	 */
+	int add(T key);
+
+	/**
 	 * Returns all keys contained in the map.
 	 *
 	 * @return all keys (never <i>null</i>)
