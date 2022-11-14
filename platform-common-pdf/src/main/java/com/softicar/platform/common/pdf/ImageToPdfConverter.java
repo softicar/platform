@@ -28,35 +28,22 @@ public class ImageToPdfConverter {
 	private static final float QUALTITY = 1f;
 	private final Supplier<InputStream> inputStreamFactory;
 
+	/**
+	 * Constructs this {@link ImageToPdfConverter}.
+	 *
+	 * @param inputStreamFactory
+	 *            the factory of the {@link InputStream} (never <i>null</i>)
+	 */
 	public ImageToPdfConverter(Supplier<InputStream> inputStreamFactory) {
 
 		this.inputStreamFactory = Objects.requireNonNull(inputStreamFactory);
 	}
 
 	/**
-	 * Adds the image(s) to the given {@link PDDocument}.
-	 *
-	 * @param document
-	 *            the {@link PDDocument} (never {@code null})
-	 */
-	public void addToPdf(PDDocument document) {
-
-		for (var image: Images.readImages(inputStreamFactory)) {
-			PDPage page = new PDPage(new PDRectangle(image.getWidth(), image.getHeight()));
-			document.addPage(page);
-			try (var contentStream = new PDPageContentStream(document, page)) {
-				contentStream.drawImage(JPEGFactory.createFromImage(document, image, QUALTITY), 0, 0);
-			} catch (IOException exception) {
-				throw new SofticarIOException(exception);
-			}
-		}
-	}
-
-	/**
 	 * Converts the image(s) into a PDF.
 	 *
 	 * @returns a byte array representing the content of the PDF (never
-	 *          {@code null})
+	 *          <i>null</i>)
 	 */
 	public byte[] convertToPdf() {
 
@@ -67,6 +54,19 @@ public class ImageToPdfConverter {
 			return buffer.toByteArray();
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
+		}
+	}
+
+	private void addToPdf(PDDocument document) {
+
+		for (var image: Images.readImages(inputStreamFactory)) {
+			PDPage page = new PDPage(new PDRectangle(image.getWidth(), image.getHeight()));
+			document.addPage(page);
+			try (var contentStream = new PDPageContentStream(document, page)) {
+				contentStream.drawImage(JPEGFactory.createFromImage(document, image, QUALTITY), 0, 0);
+			} catch (IOException exception) {
+				throw new SofticarIOException(exception);
+			}
 		}
 	}
 }
