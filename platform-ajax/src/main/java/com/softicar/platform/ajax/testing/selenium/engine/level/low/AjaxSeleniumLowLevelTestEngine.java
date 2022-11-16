@@ -69,12 +69,7 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 	 */
 	public final <T extends IDomNode> T openTestNode(Supplier<T> factory) {
 
-		T testNode = testEnvironment.openTestNode(factory);
-		viewport
-			.setViewportSize(//
-				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_X.getValue(),
-				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_Y.getValue());
-		return testNode;
+		return openTestNode(dummy -> factory.get());
 	}
 
 	/**
@@ -89,7 +84,13 @@ public class AjaxSeleniumLowLevelTestEngine extends AbstractAjaxSeleniumTestEngi
 	 */
 	public final <T extends IDomNode> T openTestNode(Function<IAjaxDocument, T> factory) {
 
-		return testEnvironment.openTestNode(factory);
+		T testNode = testEnvironment.openTestNode(factory);
+		viewport
+			.setViewportSize(//
+				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_X.getValue(),
+				AjaxSeleniumTestProperties.DRIVER_VIEWPORT_SIZE_Y.getValue());
+		waitForDocumentReady();
+		return testNode;
 	}
 
 	/**
