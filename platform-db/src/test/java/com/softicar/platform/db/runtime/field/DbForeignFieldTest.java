@@ -6,7 +6,6 @@ import com.softicar.platform.db.runtime.object.AbstractDbObjectTest;
 import com.softicar.platform.db.runtime.object.DbTestObject;
 import com.softicar.platform.db.sql.type.ISqlValueType;
 import com.softicar.platform.db.sql.type.SqlFieldType;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
@@ -118,43 +117,91 @@ public class DbForeignFieldTest extends AbstractDbObjectTest {
 	}
 
 	@Test
-	public void testPrefetchingLoadsOnlyStubObjectsAndInvalidatedObjects() {
+	public void testPrefetchingLoadsInvalidatedObjects() {
 
-		// insert objects initially
-		DbTestObject stubObject = insertObject("stub");
-		DbTestObject stubReferencingObject = insertObject(stubObject);
-		DbTestObject cachedObject = insertObject("cached");
-		DbTestObject cachedReferencingObject = insertObject(cachedObject);
-		DbTestObject invalidatedObject = insertObject("invalidated");
-		DbTestObject invalidatedReferencingObject = insertObject(invalidatedObject);
+		// setup: insert objects
+		DbTestObject object = insertObject("invalidated");
+		DbTestObject referencingObject = insertObject(object);
 
-		// clear caches
-		CurrentDbTableRowCacheMap.set(null);
+		// setup: invalidate the object
+		object.invalidate();
 
-		// load cached and invalidated objects
-		// we enabled the invalidated flag for the object by invalidating it in the cache
-		DbTestObject.TABLE.get(cachedObject.getId());
-		DbTestObject.TABLE.get(invalidatedObject.getId());
-		DbTestObject.TABLE.getCache().invalidate(invalidatedObject.getId());
-
-		// change all objects in database, circumventing the cache
+		// setup: change the object in the database, circumventing the cache
 		new DbStatement()//
 			.addText("UPDATE " + DbTestObject.TABLE + " SET " + DbTestObject.STRING_FIELD + " = ?")
-			.addParameter("xxx")
+			.addParameter("updated")
 			.executeUpdate();
 
-		// load all referencing objects
-		stubReferencingObject = DbTestObject.TABLE.get(stubReferencingObject.getId());
-		cachedReferencingObject = DbTestObject.TABLE.get(cachedReferencingObject.getId());
-		invalidatedReferencingObject = DbTestObject.TABLE.get(invalidatedReferencingObject.getId());
+		// setup: validate preconditions
+		assertTrue(object.invalidated());
+		assertFalse(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertFalse(referencingObject.stub());
 
-		// prefetch foreign objects and verify values:
-		// - the stub-object was not in the cache and so it will be loaded from the database
-		// - the cached object will not be loaded from the database and retains its values
-		// - the invalidated object will be reloaded from the database
-		DbTestObject.FOREIGN_FIELD.prefetch(Arrays.asList(stubReferencingObject, cachedReferencingObject, invalidatedReferencingObject));
-		assertEquals("xxx", stubReferencingObject.getForeign().getString());
-		assertEquals("cached", cachedReferencingObject.getForeign().getString());
-		assertEquals("xxx", invalidatedReferencingObject.getForeign().getString());
+		// execute: prefetch the referencing object
+		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
+
+		// assert result
+		assertEquals("updated", referencingObject.getForeign().getString());
+	}
+
+	@Test
+	public void testPrefetchingLoadsStubObjects() {
+
+		// setup: insert objects
+		int objectId = new DbStatement()//
+			.addText("INSERT INTO " + DbTestObject.TABLE + " (" + DbTestObject.STRING_FIELD + ") VALUES ('stub')")
+			.executeInsert();
+		int referencingObjectId = new DbStatement()//
+			.addText("INSERT INTO " + DbTestObject.TABLE + " (" + DbTestObject.FOREIGN_FIELD + ") VALUES (" + objectId + ")")
+			.executeInsert();
+
+		// setup: create stubs
+		DbTestObject object = DbTestObject.TABLE.getStub(objectId);
+		DbTestObject referencingObject = DbTestObject.TABLE.getStub(referencingObjectId);
+
+		// setup: change the object in the database, circumventing the cache
+		new DbStatement()//
+			.addText("UPDATE " + DbTestObject.TABLE + " SET " + DbTestObject.STRING_FIELD + " = ?")
+			.addParameter("updated")
+			.executeUpdate();
+
+		// setup: validate preconditions
+		assertFalse(object.invalidated());
+		assertTrue(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertTrue(referencingObject.stub());
+
+		// execute: prefetch the referencing object
+		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
+
+		// assert result
+		assertEquals("updated", referencingObject.getForeign().getString());
+	}
+
+	@Test
+	public void testPrefetchingDoesNotLoadCachedObjects() {
+
+		// setup: insert objects
+		DbTestObject object = insertObject("cached");
+		DbTestObject referencingObject = insertObject(object);
+
+		// setup: change the object in the database, circumventing the cache
+		new DbStatement()//
+			.addText("UPDATE " + DbTestObject.TABLE + " SET " + DbTestObject.STRING_FIELD + " = ?")
+			.addParameter("updated")
+			.executeUpdate();
+
+		// setup: validate preconditions
+		assertFalse(object.invalidated());
+		assertFalse(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertFalse(referencingObject.stub());
+
+		// execute: prefetch the referencing object
+		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
+
+		// assert result
+		assertEquals("cached", referencingObject.getForeign().getString());
 	}
 }
