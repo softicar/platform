@@ -1,6 +1,7 @@
 package com.softicar.platform.ajax.resource;
 
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -17,7 +18,7 @@ public class AjaxResourceUrlParser {
 
 	public AjaxResourceUrlParser(String resourceUrl) {
 
-		this.resourceUrl = resourceUrl;
+		this.resourceUrl = Objects.requireNonNull(resourceUrl);
 	}
 
 	public Optional<ResourceHash> getResourceHash() {
