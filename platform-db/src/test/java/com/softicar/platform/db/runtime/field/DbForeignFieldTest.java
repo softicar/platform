@@ -142,7 +142,11 @@ public class DbForeignFieldTest extends AbstractDbObjectTest {
 		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
 
 		// assert result
-		assertEquals("updated", referencingObject.getForeign().getString());
+		assertFalse(object.invalidated());
+		assertFalse(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertFalse(referencingObject.stub());
+		assertEquals("updated", DbTestObject.STRING_FIELD.getValueDirectly(object));
 	}
 
 	@Test
@@ -176,7 +180,11 @@ public class DbForeignFieldTest extends AbstractDbObjectTest {
 		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
 
 		// assert result
-		assertEquals("updated", referencingObject.getForeign().getString());
+		assertFalse(object.invalidated());
+		assertFalse(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertFalse(referencingObject.stub());
+		assertEquals("updated", DbTestObject.STRING_FIELD.getValueDirectly(object));
 	}
 
 	@Test
@@ -202,6 +210,10 @@ public class DbForeignFieldTest extends AbstractDbObjectTest {
 		DbTestObject.FOREIGN_FIELD.prefetch(List.of(referencingObject));
 
 		// assert result
-		assertEquals("cached", referencingObject.getForeign().getString());
+		assertFalse(object.invalidated());
+		assertFalse(object.stub());
+		assertFalse(referencingObject.invalidated());
+		assertFalse(referencingObject.stub());
+		assertEquals("cached", DbTestObject.STRING_FIELD.getValueDirectly(object));
 	}
 }
