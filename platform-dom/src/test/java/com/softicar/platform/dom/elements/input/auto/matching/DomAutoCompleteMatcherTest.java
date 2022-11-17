@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import org.junit.Test;
 
-public class AutoCompleteMatcherTest {
+public class DomAutoCompleteMatcherTest {
 
 	private static final Pair<Integer, String> FOO_FOO_FOO_1 = new Pair<>(1, "foo foo foo");
 	private static final Pair<Integer, String> AAA_FOO_BAR_2 = new Pair<>(2, "aaa foo bar");
@@ -22,7 +22,7 @@ public class AutoCompleteMatcherTest {
 
 	private final Setup setup;
 
-	public AutoCompleteMatcherTest() {
+	public DomAutoCompleteMatcherTest() {
 
 		setup = new Setup();
 		setup.addEntry(FOO_FOO_FOO_1);
@@ -471,9 +471,9 @@ public class AutoCompleteMatcherTest {
 			.assertNoMoreMatches();
 	}
 
-	private AutoCompleteMatcher<Integer> createMatcher() {
+	private DomAutoCompleteMatcher<Integer> createMatcher() {
 
-		return new AutoCompleteMatcher<>(setup.getEntryMap());
+		return new DomAutoCompleteMatcher<>(setup.getEntryMap());
 	}
 
 	private class Setup {
@@ -510,10 +510,10 @@ public class AutoCompleteMatcherTest {
 
 	private class Asserter {
 
-		private final AutoCompleteMatches<Integer> matches;
+		private final DomAutoCompleteMatches<Integer> matches;
 		private int matchIndex;
 
-		public Asserter(AutoCompleteMatches<Integer> matches) {
+		public Asserter(DomAutoCompleteMatches<Integer> matches) {
 
 			this.matches = matches;
 			this.matchIndex = -1;

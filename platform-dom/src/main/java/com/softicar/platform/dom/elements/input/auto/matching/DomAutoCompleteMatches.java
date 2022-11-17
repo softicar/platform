@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-class AutoCompleteMatches<V> implements IAutoCompleteMatches<V> {
+class DomAutoCompleteMatches<V> implements IDomAutoCompleteMatches<V> {
 
-	private final List<AutoCompleteMatch<V>> matches;
+	private final List<DomAutoCompleteMatch<V>> matches;
 	private V perfectMatchValue;
 
-	public AutoCompleteMatches() {
+	public DomAutoCompleteMatches() {
 
 		this.matches = new ArrayList<>();
 		this.perfectMatchValue = null;
 	}
 
 	@Override
-	public List<AutoCompleteMatch<V>> getAll() {
+	public List<DomAutoCompleteMatch<V>> getAll() {
 
 		return matches;
 	}
@@ -39,7 +39,7 @@ class AutoCompleteMatches<V> implements IAutoCompleteMatches<V> {
 		return matches.size();
 	}
 
-	public AutoCompleteMatches<V> add(AutoCompleteMatch<V> match) {
+	public DomAutoCompleteMatches<V> add(DomAutoCompleteMatch<V> match) {
 
 		matches.add(match);
 		return this;

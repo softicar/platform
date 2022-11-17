@@ -6,14 +6,14 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
-class AutoCompleteMatchesBuilder<V> {
+class DomAutoCompleteMatchesBuilder<V> {
 
 	private final boolean ignoreDiacritics;
 	private final Map<String, V> identifierToValue;
-	private final Map<String, AutoCompleteWordMatches> identifierToWordMatches;
+	private final Map<String, DomAutoCompleteWordMatches> identifierToWordMatches;
 	private String perfectMatchIdentifier;
 
-	public AutoCompleteMatchesBuilder(Map<String, V> identifierToValueMap, boolean ignoreDiacritics) {
+	public DomAutoCompleteMatchesBuilder(Map<String, V> identifierToValueMap, boolean ignoreDiacritics) {
 
 		this.ignoreDiacritics = ignoreDiacritics;
 		this.identifierToValue = Objects.requireNonNull(identifierToValueMap);
@@ -21,7 +21,7 @@ class AutoCompleteMatchesBuilder<V> {
 		this.perfectMatchIdentifier = null;
 	}
 
-	public AutoCompleteMatchesBuilder<V> addMatches(String identifier, AutoCompleteWordMatches wordMatches) {
+	public DomAutoCompleteMatchesBuilder<V> addMatches(String identifier, DomAutoCompleteWordMatches wordMatches) {
 
 		Objects.requireNonNull(identifier);
 		Objects.requireNonNull(wordMatches);
@@ -31,7 +31,7 @@ class AutoCompleteMatchesBuilder<V> {
 		return this;
 	}
 
-	public AutoCompleteMatchesBuilder<V> setPerfectMatch(String identifier) {
+	public DomAutoCompleteMatchesBuilder<V> setPerfectMatch(String identifier) {
 
 		Objects.requireNonNull(identifier);
 		assertValueExists(identifier);
@@ -40,13 +40,13 @@ class AutoCompleteMatchesBuilder<V> {
 		return this;
 	}
 
-	public AutoCompleteMatches<V> build(int limit) {
+	public DomAutoCompleteMatches<V> build(int limit) {
 
-		var matches = new AutoCompleteMatches<V>();
+		var matches = new DomAutoCompleteMatches<V>();
 		identifierToWordMatches//
 			.entrySet()
 			.stream()
-			.sorted(new AutoCompleteMatchEntryComparator<>(ignoreDiacritics, perfectMatchIdentifier))
+			.sorted(new DomAutoCompleteMatchEntryComparator<>(ignoreDiacritics, perfectMatchIdentifier))
 			.map(this::createMatch)
 			.limit(limit)
 			.forEach(matches::add);
@@ -64,10 +64,10 @@ class AutoCompleteMatchesBuilder<V> {
 		}
 	}
 
-	private AutoCompleteMatch<V> createMatch(Entry<String, AutoCompleteWordMatches> entry) {
+	private DomAutoCompleteMatch<V> createMatch(Entry<String, DomAutoCompleteWordMatches> entry) {
 
 		V value = identifierToValue.get(entry.getKey());
 		var matches = entry.getValue();
-		return new AutoCompleteMatch<>(value, matches);
+		return new DomAutoCompleteMatch<>(value, matches);
 	}
 }

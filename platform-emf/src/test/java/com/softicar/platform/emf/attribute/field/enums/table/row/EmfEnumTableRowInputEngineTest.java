@@ -4,8 +4,8 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
-import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatch;
-import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatch;
+import com.softicar.platform.dom.elements.input.auto.matching.IDomAutoCompleteMatches;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -66,12 +66,12 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 		assertEquals("[Eins, Drei, Zwei]", toDisplayStrings(inputEngine.findMatches("ei", 4)));
 	}
 
-	private String toDisplayStrings(IAutoCompleteMatches<EmfTestEnumRow> matches) {
+	private String toDisplayStrings(IDomAutoCompleteMatches<EmfTestEnumRow> matches) {
 
 		return matches//
 			.getAll()
 			.stream()
-			.map(AutoCompleteMatch::getValue)
+			.map(DomAutoCompleteMatch::getValue)
 			.map(inputEngine::getDisplayString)
 			.collect(Collectors.toList())
 			.toString();

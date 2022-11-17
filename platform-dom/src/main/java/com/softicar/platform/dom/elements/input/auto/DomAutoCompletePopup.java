@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
-import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatch;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatch;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +86,7 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		selectionIndex = -1;
 	}
 
-	private void addValueDisplay(AutoCompleteMatch<T> match) {
+	private void addValueDisplay(DomAutoCompleteMatch<T> match) {
 
 		T value = match.getValue();
 		var matchRanges = match.getAllMatchRanges();

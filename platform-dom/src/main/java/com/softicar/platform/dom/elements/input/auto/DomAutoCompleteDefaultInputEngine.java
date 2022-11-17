@@ -6,8 +6,8 @@ import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatcher;
-import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatcher;
+import com.softicar.platform.dom.elements.input.auto.matching.IDomAutoCompleteMatches;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -164,7 +164,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	}
 
 	@Override
-	public IAutoCompleteMatches<T> findMatches(String pattern, int limit) {
+	public IDomAutoCompleteMatches<T> findMatches(String pattern, int limit) {
 
 		return cache.get().findMatches(pattern, limit);
 	}
@@ -187,6 +187,28 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 		cache.invalidate();
 		cache.get();
+	}
+
+	/**
+	 * Creates an {@link IDomAutoCompleteMatches} instance for a single matching
+	 * entry.
+	 *
+	 * @param pattern
+	 *            the search pattern that produces the single match (never
+	 *            <i>null</i>)
+	 * @param value
+	 *            the value that is represented by the auto-complete entry (may
+	 *            be <i>null</i>)
+	 * @return the created {@link IDomAutoCompleteMatches} instance (never
+	 *         <i>null</i>)
+	 */
+	protected IDomAutoCompleteMatches<T> createMatchesForSingleEntry(String pattern, T value) {
+
+		return IDomAutoCompleteMatches
+			.createMatchesForSingleEntry(//
+				pattern,
+				displayFunction.apply(value).toString(),
+				value);
 	}
 
 	private class Cache {
@@ -214,28 +236,27 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 				.orElse(displayFunction.apply(value));
 		}
 
-		public IAutoCompleteMatches<T> findMatches(String pattern, int limit) {
+		public IDomAutoCompleteMatches<T> findMatches(String pattern, int limit) {
 
 			return findIdMatch(pattern).orElse(findStringMatches(pattern, limit));
 		}
 
-		private Optional<IAutoCompleteMatches<T>> findIdMatch(String pattern) {
+		private Optional<IDomAutoCompleteMatches<T>> findIdMatch(String pattern) {
 
 			Optional<T> value = IntegerParser//
 				.parse(pattern)
 				.map(id -> idToValueMap.get(id));
 
 			if (value.isPresent()) {
-				var identifier = displayFunction.apply(value.get()).toString();
-				return Optional.of(IAutoCompleteMatches.createForSingleMatch(pattern, identifier, value.get()));
+				return Optional.of(createMatchesForSingleEntry(pattern, value.get()));
 			} else {
 				return Optional.empty();
 			}
 		}
 
-		private IAutoCompleteMatches<T> findStringMatches(String pattern, int limit) {
+		private IDomAutoCompleteMatches<T> findStringMatches(String pattern, int limit) {
 
-			return new AutoCompleteMatcher<>(stringToValueMap)//
+			return new DomAutoCompleteMatcher<>(stringToValueMap)//
 				.setIgnoreDiacritics(true)
 				.findMatches(pattern, limit);
 		}

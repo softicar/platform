@@ -5,13 +5,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 
-class AutoCompleteMatchEntryComparator<E extends Entry<String, AutoCompleteWordMatches>> implements Comparator<E> {
+class DomAutoCompleteMatchEntryComparator<E extends Entry<String, DomAutoCompleteWordMatches>> implements Comparator<E> {
 
 	private final boolean ignoreDiacritics;
 	private final String perfectMatchIdentifier;
 	private final DiacriticNormalizer normalizer;
 
-	public AutoCompleteMatchEntryComparator(boolean ignoreDiacritics, String perfectMatchIdentifier) {
+	public DomAutoCompleteMatchEntryComparator(boolean ignoreDiacritics, String perfectMatchIdentifier) {
 
 		this.ignoreDiacritics = ignoreDiacritics;
 		this.perfectMatchIdentifier = perfectMatchIdentifier;

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * @author Alexander Schmidt
  */
-public class AutoCompleteMatcher<V> {
+public class DomAutoCompleteMatcher<V> {
 
 	private static final Pattern WHITESPACES = Pattern.compile("\\s+");
 	private final Map<String, V> identifierToValueMap;
@@ -26,13 +26,13 @@ public class AutoCompleteMatcher<V> {
 	private boolean ignoreDiacritics;
 
 	/**
-	 * Constructs a new {@link AutoCompleteMatcher}.
+	 * Constructs a new {@link DomAutoCompleteMatcher}.
 	 *
 	 * @param identifierToValueMap
 	 *            a mapping between identifier and value, for all entries (never
 	 *            <i>null</i>)
 	 */
-	public AutoCompleteMatcher(Map<String, V> identifierToValueMap) {
+	public DomAutoCompleteMatcher(Map<String, V> identifierToValueMap) {
 
 		this.identifierToValueMap = Objects.requireNonNull(identifierToValueMap);
 		this.normalizer = new DiacriticNormalizer();
@@ -54,7 +54,7 @@ public class AutoCompleteMatcher<V> {
 	 *            otherwise
 	 * @return this
 	 */
-	public AutoCompleteMatcher<V> setIgnoreDiacritics(boolean ignoreDiacritics) {
+	public DomAutoCompleteMatcher<V> setIgnoreDiacritics(boolean ignoreDiacritics) {
 
 		this.ignoreDiacritics = ignoreDiacritics;
 		return this;
@@ -63,7 +63,7 @@ public class AutoCompleteMatcher<V> {
 	/**
 	 * Same as {@link #findMatches(String, int)} but without limit.
 	 */
-	public AutoCompleteMatches<V> findMatches(String pattern) {
+	public DomAutoCompleteMatches<V> findMatches(String pattern) {
 
 		return findMatches(pattern, Integer.MAX_VALUE);
 	}
@@ -84,7 +84,7 @@ public class AutoCompleteMatcher<V> {
 	 *            the maximum number of matches to find (must be positive)
 	 * @return the matches for the given search pattern (never <i>null</i>)
 	 */
-	public AutoCompleteMatches<V> findMatches(String pattern, int limit) {
+	public DomAutoCompleteMatches<V> findMatches(String pattern, int limit) {
 
 		if (limit <= 0) {
 			throw new IllegalArgumentException();
@@ -93,7 +93,7 @@ public class AutoCompleteMatcher<V> {
 		pattern = pattern.trim().toLowerCase();
 
 		var words = splitToWords(pattern);
-		var builder = new AutoCompleteMatchesBuilder<>(identifierToValueMap, ignoreDiacritics);
+		var builder = new DomAutoCompleteMatchesBuilder<>(identifierToValueMap, ignoreDiacritics);
 
 		for (var entry: identifierToValueMap.entrySet()) {
 			String identifier = entry.getKey();
@@ -127,26 +127,26 @@ public class AutoCompleteMatcher<V> {
 		}
 	}
 
-	private AutoCompleteWordMatches findWordMatches(String pattern, List<String> words, String identifier) {
+	private DomAutoCompleteWordMatches findWordMatches(String pattern, List<String> words, String identifier) {
 
-		var wordMatches = new AutoCompleteWordMatches(pattern, words);
+		var wordMatches = new DomAutoCompleteWordMatches(pattern, words);
 		for (var word: words) {
 			var ranges = findRanges(identifier, word);
 			if (!ranges.isEmpty()) {
 				wordMatches.put(word, ranges);
 			} else {
 				// return an empty result if no ranges were found for at least one of the words
-				return new AutoCompleteWordMatches(pattern, words);
+				return new DomAutoCompleteWordMatches(pattern, words);
 			}
 		}
 		return wordMatches;
 	}
 
-	private ArrayList<AutoCompleteMatchRange> findRanges(String identifier, String word) {
+	private ArrayList<DomAutoCompleteMatchRange> findRanges(String identifier, String word) {
 
-		var ranges = new ArrayList<AutoCompleteMatchRange>();
+		var ranges = new ArrayList<DomAutoCompleteMatchRange>();
 		for (var index: getIndexesOf(identifier, word)) {
-			ranges.add(new AutoCompleteMatchRange(index, index + word.length()));
+			ranges.add(new DomAutoCompleteMatchRange(index, index + word.length()));
 		}
 		return ranges;
 	}

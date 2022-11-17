@@ -4,21 +4,43 @@ import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Contains the results of a {@link DomAutoCompleteInput} search operation.
  *
  * @author Alexander Schmidt
  */
-public interface IAutoCompleteMatches<V> {
+public interface IDomAutoCompleteMatches<V> {
 
 	/**
-	 * Returns all {@link AutoCompleteMatch} instances that resulted from the
+	 * Returns all {@link DomAutoCompleteMatch} instances that resulted from the
 	 * {@link DomAutoCompleteInput} search operation.
 	 *
 	 * @return all matches (never <i>null</i>; may be empty)
 	 */
-	List<AutoCompleteMatch<V>> getAll();
+	List<DomAutoCompleteMatch<V>> getAll();
+
+	/**
+	 * Returns a {@link List} of all matched values.
+	 *
+	 * @return all matched values (never <i>null</i>)
+	 */
+	default List<V> getAllValues() {
+
+		return getAllValuesAsStream().collect(Collectors.toList());
+	}
+
+	/**
+	 * Returns a {@link Stream} of all matched values.
+	 *
+	 * @return a {@link Stream} of all matched values (never <i>null</i>)
+	 */
+	default Stream<V> getAllValuesAsStream() {
+
+		return getAll().stream().map(DomAutoCompleteMatch::getValue);
+	}
 
 	/**
 	 * Returns the perfectly-matching value of the {@link DomAutoCompleteInput}
@@ -46,7 +68,7 @@ public interface IAutoCompleteMatches<V> {
 	int size();
 
 	/**
-	 * Creates an {@link IAutoCompleteMatches} instance for a single matching
+	 * Creates an {@link IDomAutoCompleteMatches} instance for a single matching
 	 * entry.
 	 *
 	 * @param <T>
@@ -59,17 +81,17 @@ public interface IAutoCompleteMatches<V> {
 	 * @param value
 	 *            the value that is represented by the auto-complete entry (may
 	 *            be <i>null</i>)
-	 * @return the created {@link IAutoCompleteMatches} instance (never
+	 * @return the created {@link IDomAutoCompleteMatches} instance (never
 	 *         <i>null</i>)
 	 */
-	static <T> IAutoCompleteMatches<T> createForSingleMatch(String pattern, String identifier, T value) {
+	static <T> IDomAutoCompleteMatches<T> createMatchesForSingleEntry(String pattern, String identifier, T value) {
 
 		Objects.requireNonNull(pattern);
 		Objects.requireNonNull(identifier);
 
-		var matchRange = new AutoCompleteMatchRange(0, identifier.length());
-		var wordMatches = new AutoCompleteWordMatches(pattern, List.of(pattern)).put(pattern, List.of(matchRange));
-		var match = new AutoCompleteMatch<>(value, wordMatches);
-		return new AutoCompleteMatches<T>().add(match);
+		var matchRange = new DomAutoCompleteMatchRange(0, identifier.length());
+		var wordMatches = new DomAutoCompleteWordMatches(pattern, List.of(pattern)).put(pattern, List.of(matchRange));
+		var match = new DomAutoCompleteMatch<>(value, wordMatches);
+		return new DomAutoCompleteMatches<T>().add(match);
 	}
 }

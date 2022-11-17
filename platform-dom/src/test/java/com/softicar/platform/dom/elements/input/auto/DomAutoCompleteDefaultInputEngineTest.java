@@ -5,8 +5,8 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatch;
-import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatch;
+import com.softicar.platform.dom.elements.input.auto.matching.IDomAutoCompleteMatches;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -186,12 +186,12 @@ public class DomAutoCompleteDefaultInputEngineTest extends AbstractDomAutoComple
 
 	// ------------------------------ private ------------------------------ //
 
-	private String toDisplayStrings(IAutoCompleteMatches<TestValue> matches) {
+	private String toDisplayStrings(IDomAutoCompleteMatches<TestValue> matches) {
 
 		return matches//
 			.getAll()
 			.stream()
-			.map(AutoCompleteMatch::getValue)
+			.map(DomAutoCompleteMatch::getValue)
 			.map(inputEngine::getDisplayString)
 			.collect(Collectors.toList())
 			.toString();

@@ -2,7 +2,7 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
-import com.softicar.platform.dom.elements.input.auto.matching.AutoCompleteMatchRange;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatchRange;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import java.util.List;
@@ -14,7 +14,7 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 	private final DomAutoCompleteInput<T> input;
 	private final T value;
 
-	public DomAutoCompletePopupValueDisplay(DomAutoCompleteInput<T> input, T value, List<AutoCompleteMatchRange> ranges) {
+	public DomAutoCompletePopupValueDisplay(DomAutoCompleteInput<T> input, T value, List<DomAutoCompleteMatchRange> ranges) {
 
 		this.input = input;
 		this.value = value;

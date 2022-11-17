@@ -10,12 +10,12 @@ import java.util.Objects;
  *
  * @author Alexander Schmidt
  */
-public class AutoCompleteMatch<V> {
+public class DomAutoCompleteMatch<V> {
 
 	private final V value;
-	private final AutoCompleteWordMatches wordMatches;
+	private final DomAutoCompleteWordMatches wordMatches;
 
-	AutoCompleteMatch(V value, AutoCompleteWordMatches wordMatches) {
+	DomAutoCompleteMatch(V value, DomAutoCompleteWordMatches wordMatches) {
 
 		this.value = Objects.requireNonNull(value);
 		this.wordMatches = Objects.requireNonNull(wordMatches);
@@ -32,11 +32,11 @@ public class AutoCompleteMatch<V> {
 	}
 
 	/**
-	 * Returns all matched {@link AutoCompleteMatchRange} instances.
+	 * Returns all matched {@link DomAutoCompleteMatchRange} instances.
 	 *
 	 * @return all matched ranges (never <i>null</i>)
 	 */
-	public List<AutoCompleteMatchRange> getAllMatchRanges() {
+	public List<DomAutoCompleteMatchRange> getAllMatchRanges() {
 
 		return wordMatches.getAllMatchRanges();
 	}

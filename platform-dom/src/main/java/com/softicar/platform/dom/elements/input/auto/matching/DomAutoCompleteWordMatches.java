@@ -9,14 +9,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-class AutoCompleteWordMatches {
+class DomAutoCompleteWordMatches {
 
 	private final String searchPattern;
 	private final List<String> searchWords;
-	private final Map<String, List<AutoCompleteMatchRange>> wordToMatchRanges;
+	private final Map<String, List<DomAutoCompleteMatchRange>> wordToMatchRanges;
 	private final List<String> matchedWords;
 
-	public AutoCompleteWordMatches(String searchPattern, List<String> searchWords) {
+	public DomAutoCompleteWordMatches(String searchPattern, List<String> searchWords) {
 
 		this.searchPattern = Objects.requireNonNull(searchPattern);
 		this.searchWords = Objects.requireNonNull(searchWords);
@@ -24,7 +24,7 @@ class AutoCompleteWordMatches {
 		this.matchedWords = new ArrayList<>();
 	}
 
-	public AutoCompleteWordMatches put(String word, List<AutoCompleteMatchRange> matchRanges) {
+	public DomAutoCompleteWordMatches put(String word, List<DomAutoCompleteMatchRange> matchRanges) {
 
 		wordToMatchRanges.put(word, matchRanges);
 		matchedWords.add(word);
@@ -41,7 +41,7 @@ class AutoCompleteWordMatches {
 		return searchWords;
 	}
 
-	public List<AutoCompleteMatchRange> getAllMatchRanges() {
+	public List<DomAutoCompleteMatchRange> getAllMatchRanges() {
 
 		return wordToMatchRanges//
 			.values()
@@ -64,11 +64,11 @@ class AutoCompleteWordMatches {
 		return wordToMatchRanges.isEmpty();
 	}
 
-	private Comparator<AutoCompleteMatchRange> compareByIndexes() {
+	private Comparator<DomAutoCompleteMatchRange> compareByIndexes() {
 
 		return Comparator//
-			.comparing(AutoCompleteMatchRange::getLowerIndex)
-			.thenComparing(AutoCompleteMatchRange::getUpperIndex);
+			.comparing(DomAutoCompleteMatchRange::getLowerIndex)
+			.thenComparing(DomAutoCompleteMatchRange::getUpperIndex);
 	}
 
 	private int getFirstIndex(String matchedWord) {
@@ -76,7 +76,7 @@ class AutoCompleteWordMatches {
 		return wordToMatchRanges//
 			.get(matchedWord)
 			.stream()
-			.mapToInt(AutoCompleteMatchRange::getLowerIndex)
+			.mapToInt(DomAutoCompleteMatchRange::getLowerIndex)
 			.min()
 			.getAsInt();
 	}

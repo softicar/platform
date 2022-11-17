@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.dom.elements.input.auto.matching.IAutoCompleteMatches;
+import com.softicar.platform.dom.elements.input.auto.matching.IDomAutoCompleteMatches;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -25,7 +25,7 @@ public interface IDomAutoCompleteInputEngine<T> {
 	IDisplayString getDisplayString(T value);
 
 	/**
-	 * Determines an {@link IAutoCompleteMatches} instance that contains a
+	 * Determines an {@link IDomAutoCompleteMatches} instance that contains a
 	 * limited number of values which match the pattern.
 	 *
 	 * @param pattern
@@ -33,10 +33,10 @@ public interface IDomAutoCompleteInputEngine<T> {
 	 *            lower-case)
 	 * @param limit
 	 *            the maximum number of matches to find (at least 1)
-	 * @return an {@link IAutoCompleteMatches} instance that contains the result
+	 * @return an {@link IDomAutoCompleteMatches} instance that contains the result
 	 *         (never <i>null</i>)
 	 */
-	IAutoCompleteMatches<T> findMatches(String pattern, int limit);
+	IDomAutoCompleteMatches<T> findMatches(String pattern, int limit);
 
 	/**
 	 * Returns a {@link Collection} of active value filters.

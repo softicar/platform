@@ -10,12 +10,12 @@ import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
  *
  * @author Alexander Schmidt
  */
-public class AutoCompleteMatchRange {
+public class DomAutoCompleteMatchRange {
 
 	private final int lowerIndex;
 	private final int upperIndex;
 
-	AutoCompleteMatchRange(int lowerIndex, int upperIndex) {
+	DomAutoCompleteMatchRange(int lowerIndex, int upperIndex) {
 
 		if (lowerIndex < 0) {
 			throw new IllegalArgumentException();
