@@ -14,6 +14,10 @@ public class DomImage extends DomElement {
 
 	private IResource resource;
 
+	// Keep a strong reference to the alternate resource, to avoid that it gets garbage-collected.
+	// TODO Find a better solution.
+	@SuppressWarnings("unused") private IResource alternateResource;
+
 	/**
 	 * Constructs an image showing the specified resource.
 	 * <p>
@@ -56,6 +60,8 @@ public class DomImage extends DomElement {
 	}
 
 	public DomImage setAlternateResourceOnError(IResource resource) {
+
+		this.alternateResource = resource;
 
 		getDomEngine().setAlternateResourceOnError(this, resource);
 		return this;
