@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.core.locale.Locale;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
-import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatch;
 import com.softicar.platform.dom.elements.input.auto.matching.IDomAutoCompleteMatches;
 import java.util.stream.Collectors;
 import org.junit.Test;
@@ -69,9 +68,7 @@ public class EmfEnumTableRowInputEngineTest extends AbstractDbTest {
 	private String toDisplayStrings(IDomAutoCompleteMatches<EmfTestEnumRow> matches) {
 
 		return matches//
-			.getAll()
-			.stream()
-			.map(DomAutoCompleteMatch::getValue)
+			.getAllValuesAsStream()
 			.map(inputEngine::getDisplayString)
 			.collect(Collectors.toList())
 			.toString();
