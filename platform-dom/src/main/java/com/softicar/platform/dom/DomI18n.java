@@ -30,6 +30,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
+	I18n0 CHOOSE_OR_DROP_FILE = new I18n0("Choose or drop file")//
+		.de("Datei wählen oder ablegen");
 	I18n0 CLOSE = new I18n0("Close")//
 		.de("Schließen");
 	I18n0 CLOSE_ALL = new I18n0("Close All")//

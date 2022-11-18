@@ -52,6 +52,7 @@ public interface DomImages {
 	IResourceSupplier TABLE_SHOW_ALL_ROWS = FACTORY.create("table-show-all-rows.svg");
 	IResourceSupplier TAG = FACTORY.create("tag.svg");
 	IResourceSupplier UNDO = FACTORY.create("undo.svg");
+	IResourceSupplier UPLOAD = FACTORY.create("upload.svg");
 	IResourceSupplier ZOOM_IN = FACTORY.create("zoom-in.svg");
 	IResourceSupplier ZOOM_OUT = FACTORY.create("zoom-out.svg");
 }
