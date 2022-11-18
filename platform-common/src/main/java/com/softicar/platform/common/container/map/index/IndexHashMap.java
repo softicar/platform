@@ -30,13 +30,6 @@ public class IndexHashMap<T> implements IIndexMap<T> {
 		}
 	}
 
-	public int add(T value) {
-
-		var newIndex = map.size();
-		var oldIndex = map.putIfAbsent(value, newIndex);
-		return oldIndex != null? oldIndex : newIndex;
-	}
-
 	@Override
 	public int add(T value) {
 
