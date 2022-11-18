@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+// TODO generalize this class and more to DOM (PLAT-1224)
 public class FileDropArea extends DomForm implements IDomFileUploadHandler {
 
 	private final boolean multipleFiles;
@@ -132,7 +133,7 @@ public class FileDropArea extends DomForm implements IDomFileUploadHandler {
 
 		public FileInput() {
 
-			addCssClass(CoreCssClasses.STORED_FILE_UPLOAD_INPUT);
+			addCssClass(CoreCssClasses.FILE_DROP_AREA_DIV_INPUT);
 			setTabIndex(-1);
 			setMultiple(true);
 			setOnChangeHandler(() -> uploadFiles());

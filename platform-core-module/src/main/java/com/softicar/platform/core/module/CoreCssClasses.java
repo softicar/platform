@@ -7,6 +7,7 @@ public interface CoreCssClasses {
 
 	ICssClass FILE_DROP_AREA_DIV = new CssClass("FileDropAreaDiv", CoreCssFiles.FILE_DROP_AREA_STYLE);
 	ICssClass FILE_DROP_AREA_DIV_HIDDEN = new CssClass("FileDropAreaDivHidden", CoreCssFiles.FILE_DROP_AREA_STYLE);
+	ICssClass FILE_DROP_AREA_DIV_INPUT = new CssClass("FileDropAreaDivInput", CoreCssFiles.FILE_DROP_AREA_STYLE);
 	ICssClass FILE_DROP_AREA_DIV_CLOSE_BUTTON = new CssClass("FileDropAreaDivCloseButton", CoreCssFiles.FILE_DROP_AREA_STYLE);
 
 	ICssClass MAINTENANCE_WINDOWS_INFO_ELEMENT = new CssClass("MaintenanceWindowsInfoElement", CoreCssFiles.MAINTENANCE_WINDOW_STYLE);
@@ -32,8 +33,6 @@ public interface CoreCssClasses {
 	ICssClass PAGE_SERVICE_LOGIN_MAINTENANCE_DIV = new CssClass("PageServiceLoginMaintenanceDiv", CoreCssFiles.PAGE_STYLE);
 
 	ICssClass STORED_FILE_TEXT_DISPLAY = new CssClass("StoredFileTextDisplay", CoreCssFiles.STORED_FILE_STYLE);
-	ICssClass STORED_FILE_UPLOAD_DIV = new CssClass("StoredFileUploadDiv", CoreCssFiles.STORED_FILE_STYLE);
-	ICssClass STORED_FILE_UPLOAD_INPUT = new CssClass("StoredFileUploadInput", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_TABLE_DIV = new CssClass("StoredFileUploadTableDiv", CoreCssFiles.STORED_FILE_STYLE);
 
 	ICssClass SYSTEM_EVENT_SEVERITY_DISPLAY = new CssClass("SystemEventSeverityDisplay", CoreCssFiles.SYSTEM_EVENT_STYLE);

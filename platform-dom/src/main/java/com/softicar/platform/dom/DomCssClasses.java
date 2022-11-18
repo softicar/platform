@@ -107,6 +107,7 @@ public interface DomCssClasses {
 	ICssClass DOM_TIME_INPUT = new CssClass("DomTimeInput", DomCssFiles.DOM_TIME_INPUT_STYLE);
 	ICssClass DOM_TIME_INPUT_ELEMENT = new CssClass("DomTimeInputElement", DomCssFiles.DOM_TIME_INPUT_STYLE);
 
+	ICssClass DOM_UPLOAD_FORM = new CssClass("DomUploadForm", DomCssFiles.DOM_UPLOAD_STYLE);
 	ICssClass DOM_VERTICAL_TEXT_BOX = new CssClass("DomVerticalTextBox", DomCssFiles.DOM_VERTICAL_TEXT_BOX_STYLE);
 
 	ICssClass DOM_WIKI_HEADLINE = new CssClass("DomWikiHeadline", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);

@@ -48,7 +48,6 @@ public interface CoreImages extends EmfImages {
 	IResourceSupplier STORED_FILE = FACTORY.create("stored-file.svg");
 	IResourceSupplier STORED_FILE_DOWNLOAD = FACTORY.create("stored-file-download.svg");
 	IResourceSupplier STORED_FILE_SERVER = FACTORY.create("stored-file-server.svg");
-	IResourceSupplier STORED_FILE_UPLOAD = FACTORY.create("stored-file-upload.svg");
 	IResourceSupplier SYSTEM = FACTORY.create("system.svg");
 	IResourceSupplier TERMINATE = FACTORY.create("terminate.svg");
 	IResourceSupplier USER = FACTORY.create("user.svg");
