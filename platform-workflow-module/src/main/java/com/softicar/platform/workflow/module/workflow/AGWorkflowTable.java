@@ -29,11 +29,11 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflow, AGWorkflowModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(WorkflowPermissions.ADMINISTRATOR)
+			.setCreationPermission(WorkflowPermissions.ADMINISTRATION)
 			.setViewPermission(
-				WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+				WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
 			.setEditPermission(
-				WorkflowPermissions.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
+				WorkflowPermissions.ADMINISTRATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
 	}
 
 	@Override

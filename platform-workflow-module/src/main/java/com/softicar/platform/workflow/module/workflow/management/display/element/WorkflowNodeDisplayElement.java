@@ -27,7 +27,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 		this.workflowNode = workflowNode;
 		this.refreshCallback = refreshCallback;
 		addCssClass(WorkflowCssClasses.WORKFLOW_NODE);
-		if (WorkflowPermissions.ADMINISTRATOR.test(workflowNode.getWorkflowVersion().getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
+		if (WorkflowPermissions.ADMINISTRATION.test(workflowNode.getWorkflowVersion().getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
 			applyDraggableStyle();
 		}
 		setPositionStyle();

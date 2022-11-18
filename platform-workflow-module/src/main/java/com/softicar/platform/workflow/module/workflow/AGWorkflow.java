@@ -25,7 +25,7 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 
 		return Optional//
 			.ofNullable(getCurrentVersion())
-			.orElseThrow(() -> new SofticarUserException(WorkflowI18n.NO_ACTIVE_WORKFLOW_VERSION_FOUND));
+			.orElseThrow(() -> new SofticarUserException(WorkflowI18n.NO_CURRENT_WORKFLOW_VERSION_FOUND));
 	}
 
 	public Collection<AGWorkflowVersion> getWorkflowVersions() {

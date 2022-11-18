@@ -96,8 +96,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Meine Aufgaben");
 	I18n0 NEW_WORKFLOW_TASK = new I18n0("New Workflow Task")//
 		.de("Neue Arbeitsablauf-Aufgabe");
-	I18n0 NO_ACTIVE_WORKFLOW_VERSION_FOUND = new I18n0("No active workflow version found.")//
-		.de("Keine aktive Workflow-Version gefunden.");
+	I18n0 NO_CURRENT_WORKFLOW_VERSION_FOUND = new I18n0("No current workflow version found.")//
+		.de("Keine aktuelle Workflow-Version gefunden.");
 	I18n0 NO_FURTHER_APPROVAL_IS_REQUIRED = new I18n0("No further approval is required.")//
 		.de("Keine weitere Genehmigung ist notwendig.");
 	I18n0 NO_WORKFLOW_FOUND = new I18n0("No workflow found.")//

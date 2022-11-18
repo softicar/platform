@@ -4,8 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
 
+/**
+ * Data transfer object to import and export workflow definitions.
+ * <p>
+ * The structure of this class may <b>not</b> be changed. A new class must be
+ * created to add new features.
+ *
+ * @author Oliver Richers
+ */
 public class WorkflowDtoV1 {
 
+	public int workflowApiVersion = 1;
 	public String name;
 	public String entityType;
 	public List<Node> nodes;

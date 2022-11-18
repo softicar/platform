@@ -29,7 +29,7 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 	@Override
 	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return WorkflowPermissions.ADMINISTRATOR
+		return WorkflowPermissions.ADMINISTRATION
 			.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance()));
 	}
 

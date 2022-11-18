@@ -46,7 +46,7 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 
 		removeChildren();
 		if (!WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.test(workflowVersion)
-				&& WorkflowPermissions.ADMINISTRATOR.test(workflowVersion.getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
+				&& WorkflowPermissions.ADMINISTRATION.test(workflowVersion.getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
 			var actionBar = appendChild(new DomActionBar());
 			actionBar.appendChild(new CreateEntityButton<>(AGWorkflowNode.TABLE, WorkflowI18n.ADD_NEW_NODE));
 			actionBar.appendChild(new CreateEntityButton<>(AGWorkflowTransition.TABLE, WorkflowI18n.ADD_NEW_TRANSITION));

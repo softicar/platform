@@ -45,7 +45,7 @@ public class WorkflowItemMessageDiv extends DomDiv implements IDomRefreshBusList
 					.setPopupFactory(() -> new EmfFormPopup<>(new AGWorkflowItemMessage().setWorkflowItem(item)))
 					.setIcon(EmfImages.ENTITY_CREATE.getResource())
 					.setLabel(WorkflowI18n.ADD_NEW_MESSAGE)
-					.setEnabled(WorkflowPermissions.OPERATOR.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
+					.setEnabled(WorkflowPermissions.OPERATION.test(item.getWorkflow().getModuleInstance(), CurrentBasicUser.get())));
 		this.showTransitionsCheckbox = actionBar//
 			.appendChild(new DomCheckbox(true).setLabel(WorkflowI18n.SHOW_TRANSITIONS));
 		showTransitionsCheckbox.addChangeCallback(this::refresh);

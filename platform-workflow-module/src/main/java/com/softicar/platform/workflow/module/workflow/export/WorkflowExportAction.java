@@ -25,7 +25,7 @@ public class WorkflowExportAction implements IEmfManagementAction<AGWorkflow> {
 	@Override
 	public IEmfPermission<AGWorkflow> getRequiredPermission() {
 
-		return WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance()));
+		return WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance()));
 	}
 
 	@Override
