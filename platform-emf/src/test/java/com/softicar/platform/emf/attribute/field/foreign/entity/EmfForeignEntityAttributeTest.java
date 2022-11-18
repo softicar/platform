@@ -67,7 +67,10 @@ public class EmfForeignEntityAttributeTest extends AbstractEmfTest {
 
 	private void assertValues(EmfTestUser...expectedValues) {
 
-		var actualValues = createInput().getInputEngine().findMatches("", Integer.MAX_VALUE);
+		var actualValues = createInput()//
+			.getInputEngine()
+			.findMatches("", Integer.MAX_VALUE)
+			.getAllValues();
 		assertEquals(List.of(expectedValues), actualValues);
 	}
 

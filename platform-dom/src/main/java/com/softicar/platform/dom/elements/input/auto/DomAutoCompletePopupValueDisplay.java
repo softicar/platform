@@ -2,10 +2,10 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomSpan;
-import com.softicar.platform.dom.elements.input.auto.pattern.MultiPatternMatcher;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatchRange;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
-import java.util.Map;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.IntStream;
 
@@ -14,7 +14,7 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 	private final DomAutoCompleteInput<T> input;
 	private final T value;
 
-	public DomAutoCompletePopupValueDisplay(DomAutoCompleteInput<T> input, T value, String pattern) {
+	public DomAutoCompletePopupValueDisplay(DomAutoCompleteInput<T> input, T value, List<DomAutoCompleteMatchRange> ranges) {
 
 		this.input = input;
 		this.value = value;
@@ -23,16 +23,14 @@ class DomAutoCompletePopupValueDisplay<T> extends DomSpan implements IDomClickEv
 
 		var text = input.getInputEngine().getDisplayString(value).toString();
 
-		var matcher = new MultiPatternMatcher<>(Map.of(text, value)).setIgnoreDiacritics(true);
-		var matches = matcher.findMatches(pattern, 1);
-		if (!matches.isEmpty()) {
+		if (!ranges.isEmpty()) {
 			var matchedIndexes = new TreeSet<Integer>();
-			for (var range: matches.get(0).getRanges()) {
+			ranges.forEach(range -> {
 				IntStream//
-					.range(range.getFromIndex(), range.getToIndex())
+					.range(range.getLowerIndex(), range.getUpperIndex())
 					.boxed()
 					.forEach(matchedIndexes::add);
-			}
+			});
 
 			for (int i = 0; i < text.length(); i++) {
 				String character = text.charAt(i) + "";

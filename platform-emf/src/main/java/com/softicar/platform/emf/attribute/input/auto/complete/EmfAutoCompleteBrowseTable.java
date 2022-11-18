@@ -28,6 +28,8 @@ class EmfAutoCompleteBrowseTable<T> extends AbstractInMemoryDataTable<T> {
 	@Override
 	protected Iterable<T> getTableRows() {
 
-		return inputEngine.findMatches("", Integer.MAX_VALUE);
+		return inputEngine//
+			.findMatches("", Integer.MAX_VALUE)
+			.getAllValues();
 	}
 }
