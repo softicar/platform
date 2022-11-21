@@ -2,7 +2,7 @@ package com.softicar.platform.workflow.module.workflow.version.export;
 
 import com.google.gson.GsonBuilder;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.date.Day;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.writer.ManagedWriter;
 import com.softicar.platform.common.io.writer.OutputStreamWriterFactory;
@@ -29,7 +29,7 @@ public class WorkflowVersionExporter {
 		var export = document//
 			.getEngine()
 			.createExport()
-			.setFilename(workflowVersion.getWorkflow().getName() + "-" + Day.today().toYYMMDDString() + ".json")
+			.setFilename(workflowVersion.getWorkflow().getName() + createTimestampSuffix() + ".json")
 			.setMimeType(MimeType.APPLICATION_JSON)
 			.setCharset(Charsets.UTF8);
 		try (var stream = export.openOutputStream(); var writer = OutputStreamWriterFactory.writeUtf8(stream)) {
@@ -37,5 +37,10 @@ public class WorkflowVersionExporter {
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
+	}
+
+	private String createTimestampSuffix() {
+
+		return "_" + DayTime.now().getTimeAsStringYYYYMMDD_HHMM();
 	}
 }
