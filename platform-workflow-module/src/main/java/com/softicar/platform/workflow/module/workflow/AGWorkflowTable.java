@@ -2,6 +2,7 @@ package com.softicar.platform.workflow.module.workflow;
 
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoints;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -14,6 +15,7 @@ import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.entity.table.IWorkflowTableReferencePoint;
+import com.softicar.platform.workflow.module.workflow.export.WorkflowExportAction;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModuleInstance> {
@@ -27,15 +29,23 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflow, AGWorkflowModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(WorkflowPermissions.ADMINISTRATOR)
-			.setViewPermission(WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
-			.setEditPermission(WorkflowPermissions.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
+			.setCreationPermission(WorkflowPermissions.ADMINISTRATION)
+			.setViewPermission(
+				WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+			.setEditPermission(
+				WorkflowPermissions.ADMINISTRATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
 	}
 
 	@Override
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflow, Integer, AGWorkflowModuleInstance> configuration) {
 
 		configuration.setScopeField(AGWorkflow.MODULE_INSTANCE);
+	}
+
+	@Override
+	public void customizeActionSet(EmfActionSet<AGWorkflow, AGWorkflowModuleInstance> actionSet) {
+
+		actionSet.addManagementAction(new WorkflowExportAction());
 	}
 
 	@Override

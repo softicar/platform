@@ -20,6 +20,7 @@ import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.management.WorkflowVersionManagementAction;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import com.softicar.platform.workflow.module.workflow.version.export.WorkflowVersionExportAction;
 
 public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AGWorkflow> {
 
@@ -33,11 +34,12 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 
 		authorizer//
 			.setCreationPermission(
-				WorkflowPermissions.ADMINISTRATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+				WorkflowPermissions.ADMINISTRATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
 			.setViewPermission(
-				WorkflowPermissions.VIEWER.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
+				WorkflowPermissions.VIEW
+					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
 			.setEditPermission(
-				WorkflowPermissions.ADMINISTRATOR
+				WorkflowPermissions.ADMINISTRATION
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())));
 	}
 
@@ -78,6 +80,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 		actionSet.addManagementAction(new WorkflowVersionManagementAction());
 		actionSet.addManagementAction(new CreateNewWorkflowVersionAction());
 		actionSet.addManagementAction(new ActivateWorkflowVersionAction());
+		actionSet.addManagementAction(new WorkflowVersionExportAction());
 	}
 
 	@Override

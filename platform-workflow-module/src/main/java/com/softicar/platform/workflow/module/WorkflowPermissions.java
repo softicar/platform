@@ -5,7 +5,7 @@ import com.softicar.platform.emf.permission.IEmfPermission;
 
 public interface WorkflowPermissions {
 
-	IEmfPermission<AGWorkflowModuleInstance> VIEWER = EmfDefaultModulePermissions.getModuleView();
-	IEmfPermission<AGWorkflowModuleInstance> OPERATOR = EmfDefaultModulePermissions.getModuleOperation();
-	IEmfPermission<AGWorkflowModuleInstance> ADMINISTRATOR = EmfDefaultModulePermissions.getModuleAdministration();
+	IEmfPermission<AGWorkflowModuleInstance> VIEW = EmfDefaultModulePermissions.getModuleView();
+	IEmfPermission<AGWorkflowModuleInstance> OPERATION = EmfDefaultModulePermissions.getModuleOperation();
+	IEmfPermission<AGWorkflowModuleInstance> ADMINISTRATION = EmfDefaultModulePermissions.getModuleAdministration();
 }

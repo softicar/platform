@@ -61,7 +61,7 @@ public class AGWorkflowTaskDelegationTable extends EmfTraitTable<AGWorkflowTaskD
 		authorizer//
 			.setCreationPermission(EmfPermissions.always())
 			.setViewPermission(
-				WorkflowPermissions.VIEWER
+				WorkflowPermissions.VIEW
 					.of(
 						IEmfTableRowMapper
 							.nonOptional(
