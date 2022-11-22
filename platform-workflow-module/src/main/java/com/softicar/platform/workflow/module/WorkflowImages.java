@@ -15,9 +15,9 @@ public interface WorkflowImages extends CoreImages {
 	IResourceSupplier USER = FACTORY.create("user.svg");
 	IResourceSupplier USERS = FACTORY.create("users.svg");
 	IResourceSupplier WORKFLOW = FACTORY.create("workflow-versions.svg");
+	IResourceSupplier WORKFLOW_GRAPH = FACTORY.create("workflow-graph.svg");
 	IResourceSupplier WORKFLOW_IMAGES = FACTORY.create("workflow-image.svg");
 	IResourceSupplier WORKFLOW_ITEM_MESSAGE = FACTORY.create("workflow-item-message.svg");
-	IResourceSupplier WORKFLOW_GRAPH = FACTORY.create("workflow-graph.svg");
 	IResourceSupplier WORKFLOW_NODE = FACTORY.create("workflow-node.svg");
 	IResourceSupplier WORKFLOW_TRANSITION = FACTORY.create("workflow-transition.svg");
 }
