@@ -20,7 +20,7 @@ public class ActivateWorkflowVersionAction implements IEmfManagementAction<AGWor
 	@Override
 	public IEmfPredicate<AGWorkflowVersion> getPrecondition() {
 
-		return WorkflowPredicates.WORKFLOW_VERSION_DRAFT.and(WorkflowPredicates.IS_CONSISTENT);
+		return WorkflowPredicates.NOT_IS_CURRENT_VERSION.and(WorkflowPredicates.IS_CONSISTENT);
 	}
 
 	@Override
@@ -48,12 +48,11 @@ public class ActivateWorkflowVersionAction implements IEmfManagementAction<AGWor
 		try (DbTransaction transaction = new DbTransaction()) {
 			tableRow//
 				.setDraft(false)
-				.save();
+				.saveIfNecessary();
 			tableRow//
 				.getWorkflow()
 				.setCurrentVersion(tableRow)
 				.save();
-
 			transaction.commit();
 		}
 
