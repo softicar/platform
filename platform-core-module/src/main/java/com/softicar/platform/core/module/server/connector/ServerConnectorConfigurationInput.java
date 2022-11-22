@@ -38,7 +38,8 @@ public class ServerConnectorConfigurationInput extends AbstractDomValueInputDiv<
 	@Override
 	public Optional<String> getValue() {
 
-		return input.map(it -> it.getConfiguration());
+		var value = input.map(it -> it.getConfiguration()).orElse("");
+		return Optional.of(value);
 	}
 
 	@Override
