@@ -59,7 +59,7 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 EXCEL_2003_COMPATIBLE = new I18n0("Excel 2003 compatible")//
 		.de("Excel 2003 - kompatibel");
 	I18n0 EXPORT = new I18n0("Export")//
-		.de("Export");
+		.de("Exportieren");
 	I18n0 EXPORT_CANNOT_BE_PERFORMED_NO_TABLE_SPECIFIED = new I18n0("Export cannot be performed: No table specified.")//
 		.de("Export kann nicht durchgeführt werden: Keine Tabelle angegeben.");
 	I18n0 EXPORT_FORMAT = new I18n0("Export Format")//

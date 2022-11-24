@@ -22,6 +22,12 @@ public interface WorkflowPredicates {
 		WorkflowI18n.IS_CONSISTENT,
 		AGWorkflowVersion::isConsistent);
 
+	IEmfPredicate<AGWorkflowVersion> IS_CURRENT_VERSION = new EmfPredicate<>(//
+		WorkflowI18n.IS_CURRENT_VERSION,
+		AGWorkflowVersion::isCurrentVersion);
+
+	IEmfPredicate<AGWorkflowVersion> NOT_IS_CURRENT_VERSION = IS_CURRENT_VERSION.not();
+
 	IEmfPredicate<AGWorkflow> HAS_CURRENT_VERSION = new EmfPredicate<>(//
 		WorkflowI18n.HAS_CURRENT_VERSION,
 		workflow -> workflow.getCurrentVersion() != null);
