@@ -41,8 +41,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Geschlossen");
 	I18n0 CONFIGURE = new I18n0("Configure")//
 		.de("Konfigurieren");
-	I18n0 COPY_WORKFLOW_VERSION = new I18n0("Copy Workflow Version")//
-		.de("Arbeitsablauf-Version kopieren");
+	I18n0 COPY = new I18n0("Copy")//
+		.de("Kopieren");
 	I18n0 CREATED_AT = new I18n0("Created At")//
 		.de("Erstellt am");
 	I18n0 CREATION_TRANSACTION = new I18n0("Creation Transaction")//
@@ -61,6 +61,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Entwurf");
 	I18n0 DRAFT_VERSION = new I18n0("Draft Version")//
 		.de("Entwurfsversion");
+	I18n0 EDIT_GRAPH = new I18n0("Edit Graph")//
+		.de("Graph bearbeiten");
 	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email Notifications for New Tasks")//
 		.de("E-Mail Benachrichtigungen für neue Aufgaben");
 	I18n0 ENTITY_TABLE = new I18n0("Entity Table")//
@@ -82,6 +84,8 @@ public interface WorkflowI18n extends CoreI18n {
 				.de("Ungültige Workflow-Definition in Übergang '%s': Der Quorum-Prozentsatz muss größer als 0 und kleiner gleich 100 sein.");
 	I18n0 IS_CONSISTENT = new I18n0("Is Consistent")//
 		.de("Ist konsistent");
+	I18n0 IS_CURRENT_VERSION = new I18n0("Is Current Version")//
+		.de("ist aktuelle Version");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
 		.de("Ist Workflow gestartet?");
 	I18n0 MANAGE_WORKFLOW = new I18n0("Manage Workflow")//

@@ -11,11 +11,11 @@ public interface WorkflowImages extends CoreImages {
 	DomResourceSupplierProxyFactory FACTORY = new DomResourceSupplierProxyFactory(WorkflowImages.class);
 
 	IResourceSupplier COPY = FACTORY.create("copy.svg");
-	IResourceSupplier MANAGE_WORKFLOW = FACTORY.create("manage-workflow.svg");
 	IResourceSupplier RIGHT = FACTORY.create("right.svg");
 	IResourceSupplier USER = FACTORY.create("user.svg");
 	IResourceSupplier USERS = FACTORY.create("users.svg");
 	IResourceSupplier WORKFLOW = FACTORY.create("workflow-versions.svg");
+	IResourceSupplier WORKFLOW_GRAPH = FACTORY.create("workflow-graph.svg");
 	IResourceSupplier WORKFLOW_IMAGES = FACTORY.create("workflow-image.svg");
 	IResourceSupplier WORKFLOW_ITEM_MESSAGE = FACTORY.create("workflow-item-message.svg");
 	IResourceSupplier WORKFLOW_NODE = FACTORY.create("workflow-node.svg");

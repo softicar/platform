@@ -58,5 +58,4 @@
 	position: absolute;
 	display: block;
 	border-radius: var(--BORDER_RADIUS);
-	border: 1px solid var(--PRIMARY_COLOR);
 }
