@@ -55,6 +55,7 @@ public class WorkflowDtoV1Importer {
 		workflowDto.transitions.forEach(transition -> addWorkflowTransition(workflowVersion, transition));
 
 		try (var transaction = new DbTransaction()) {
+			saveTableRows(AGWorkflow.TABLE);
 			saveTableRows(AGWorkflowVersion.TABLE);
 			saveTableRows(AGWorkflowNode.TABLE);
 			saveTableRows(AGWorkflowNodeAction.TABLE);
