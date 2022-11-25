@@ -554,7 +554,7 @@ public class DayTime implements Comparable<DayTime>, IDisplayable {
 	public String getTimeAsStringYYYYMMDD_HHMM() {
 
 		return "" + getDay().getYear().getAbsoluteIndex() + Padding.padLeft("" + getDay().getMonth().getIndexWithinYear(), '0', 2)
-				+ Padding.padLeft("" + getDay().getIndexWithinMonth(), '0', 2) + Padding.padLeft("_" + getHour(), '0', 2)
+				+ Padding.padLeft("" + getDay().getIndexWithinMonth(), '0', 2) + "_" + Padding.padLeft("" + getHour(), '0', 2)
 				+ Padding.padLeft("" + getMinute(), '0', 2);
 	}
 
@@ -578,7 +578,7 @@ public class DayTime implements Comparable<DayTime>, IDisplayable {
 	public String getTimeAsStringForEdiInterchange() {
 
 		return "" + getDay().getYear().toYYString() + Padding.padLeft("" + getDay().getMonth().getIndexWithinYear(), '0', 2)
-				+ Padding.padLeft("" + getDay().getIndexWithinMonth(), '0', 2) + Padding.padLeft(":" + getHour(), '0', 2)
+				+ Padding.padLeft("" + getDay().getIndexWithinMonth(), '0', 2) + ":" + Padding.padLeft("" + getHour(), '0', 2)
 				+ Padding.padLeft("" + getMinute(), '0', 2);
 	}
 
