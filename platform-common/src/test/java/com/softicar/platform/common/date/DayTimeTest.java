@@ -322,6 +322,13 @@ public class DayTimeTest extends AbstractTest {
 	}
 
 	@Test
+	public void getTimeAsStringYYYYMMDD_HHMM() {
+
+		assertEquals("20221125_1010", DayTime.fromYMD_HMS(2022, 11, 25, 10, 10, 25).getTimeAsStringYYYYMMDD_HHMM());
+		assertEquals("20220102_0304", DayTime.fromYMD_HMS(2022, 1, 2, 3, 4, 5).getTimeAsStringYYYYMMDD_HHMM());
+	}
+
+	@Test
 	public void testEquals() {
 
 		assertEquals(//
