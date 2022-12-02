@@ -48,8 +48,8 @@ class DomAutoCompleteMatchesBuilder<V> {
 			.entrySet()
 			.stream()
 			.sorted(comparator)
-			.map(this::createMatch)
 			.limit(limit)
+			.map(this::createMatch)
 			.forEach(matches::add);
 		Optional//
 			.ofNullable(perfectMatchIdentifier)
