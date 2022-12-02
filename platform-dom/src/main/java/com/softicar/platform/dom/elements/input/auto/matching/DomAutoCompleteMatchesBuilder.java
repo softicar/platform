@@ -43,7 +43,6 @@ class DomAutoCompleteMatchesBuilder<V> {
 	public DomAutoCompleteMatches<V> build(int limit) {
 
 		var matches = new DomAutoCompleteMatches<V>();
-		// TODO try to pull the comparator out even further, to reuse the cache as much as possible
 		var comparator = new DomAutoCompleteMatchEntryComparator<>(ignoreDiacritics, perfectMatchIdentifier);
 		identifierToWordMatches//
 			.entrySet()
