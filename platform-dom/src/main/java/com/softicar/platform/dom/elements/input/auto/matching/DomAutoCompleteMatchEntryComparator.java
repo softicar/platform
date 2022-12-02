@@ -2,7 +2,9 @@ package com.softicar.platform.dom.elements.input.auto.matching;
 
 import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 class DomAutoCompleteMatchEntryComparator<E extends Entry<String, DomAutoCompleteWordMatches>> implements Comparator<E> {
@@ -10,12 +12,14 @@ class DomAutoCompleteMatchEntryComparator<E extends Entry<String, DomAutoComplet
 	private final boolean ignoreDiacritics;
 	private final String perfectMatchIdentifier;
 	private final DiacriticNormalizer normalizer;
+	private final Map<String, String> normalizedTextCache;
 
 	public DomAutoCompleteMatchEntryComparator(boolean ignoreDiacritics, String perfectMatchIdentifier) {
 
 		this.ignoreDiacritics = ignoreDiacritics;
 		this.perfectMatchIdentifier = perfectMatchIdentifier;
 		this.normalizer = new DiacriticNormalizer();
+		this.normalizedTextCache = new HashMap<>();
 	}
 
 	@Override
@@ -90,6 +94,10 @@ class DomAutoCompleteMatchEntryComparator<E extends Entry<String, DomAutoComplet
 
 	private String normalize(String text) {
 
-		return ignoreDiacritics? normalizer.normalize(text) : text;
+		if (ignoreDiacritics) {
+			return normalizedTextCache.computeIfAbsent(text, normalizer::normalize);
+		} else {
+			return text;
+		}
 	}
 }
