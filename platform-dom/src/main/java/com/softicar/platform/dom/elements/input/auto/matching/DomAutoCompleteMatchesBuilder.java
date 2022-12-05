@@ -43,12 +43,13 @@ class DomAutoCompleteMatchesBuilder<V> {
 	public DomAutoCompleteMatches<V> build(int limit) {
 
 		var matches = new DomAutoCompleteMatches<V>();
+		var comparator = new DomAutoCompleteMatchEntryComparator<>(ignoreDiacritics, perfectMatchIdentifier);
 		identifierToWordMatches//
 			.entrySet()
 			.stream()
-			.sorted(new DomAutoCompleteMatchEntryComparator<>(ignoreDiacritics, perfectMatchIdentifier))
-			.map(this::createMatch)
+			.sorted(comparator)
 			.limit(limit)
+			.map(this::createMatch)
 			.forEach(matches::add);
 		Optional//
 			.ofNullable(perfectMatchIdentifier)
