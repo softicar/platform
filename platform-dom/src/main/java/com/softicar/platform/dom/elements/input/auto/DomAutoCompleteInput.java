@@ -302,10 +302,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	private void deduceValue() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
-		if (valueAndState.isValid()) {
-			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
-		}
+		statefulValueCache//
+			.getValueNoThrow()
+			.map(inputEngine::getDisplayString)
+			.map(IDisplayString::toString)
+			.ifPresent(inputField::setValue);
 	}
 
 	private void setFieldValue(T value) {
@@ -337,6 +338,17 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 				throw new DomInputException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
 			} else {
 				return Optional.ofNullable(statefulValue.getValue());
+			}
+		}
+
+		public Optional<T> getValueNoThrow() {
+
+			updateValueIfNecessary();
+
+			if (statefulValue.isValid()) {
+				return Optional.ofNullable(statefulValue.getValue());
+			} else {
+				return Optional.empty();
 			}
 		}
 
