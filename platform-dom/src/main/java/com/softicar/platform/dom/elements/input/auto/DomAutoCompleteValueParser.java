@@ -11,36 +11,36 @@ class DomAutoCompleteValueParser<T> {
 		this.input = input;
 	}
 
-	public DomAutoCompleteValueAndState<T> parse() {
+	public DomAutoCompleteStatefulValue<T> parse() {
 
 		if (input.isBlank()) {
-			return createResult(DomAutoCompleteValueState.NONE);
+			return createStatefulValue(DomAutoCompleteValueState.NONE);
 		} else if (input.getValidationMode().isPermissive()) {
 			// TODO PLAT-753 This cast should not be necessary. Permissive mode should not even be handled in the same auto-complete input implementation.
-			return createResult(CastUtils.<T> cast(input.getValueText()));
+			return createStatefulValue(CastUtils.<T> cast(input.getValueText()));
 		} else {
 			var matches = input.getInputEngine().findMatches(input.getPattern(), 2);
 			if (matches.isEmpty()) {
-				return createResult(DomAutoCompleteValueState.ILLEGAL);
+				return createStatefulValue(DomAutoCompleteValueState.ILLEGAL);
 			} else {
 				if (matches.size() == 1) {
-					return createResult(matches.getAll().iterator().next().getValue());
+					return createStatefulValue(matches.getAll().iterator().next().getValue());
 				} else if (matches.getPerfectMatchValue().isPresent()) {
-					return createResult(matches.getPerfectMatchValue().get());
+					return createStatefulValue(matches.getPerfectMatchValue().get());
 				} else {
-					return createResult(DomAutoCompleteValueState.AMBIGUOUS);
+					return createStatefulValue(DomAutoCompleteValueState.AMBIGUOUS);
 				}
 			}
 		}
 	}
 
-	private DomAutoCompleteValueAndState<T> createResult(DomAutoCompleteValueState state) {
+	private DomAutoCompleteStatefulValue<T> createStatefulValue(DomAutoCompleteValueState state) {
 
-		return new DomAutoCompleteValueAndState<>(null, state);
+		return new DomAutoCompleteStatefulValue<>(null, state);
 	}
 
-	private DomAutoCompleteValueAndState<T> createResult(T value) {
+	private DomAutoCompleteStatefulValue<T> createStatefulValue(T value) {
 
-		return new DomAutoCompleteValueAndState<>(value, DomAutoCompleteValueState.VALID);
+		return new DomAutoCompleteStatefulValue<>(value, DomAutoCompleteValueState.VALID);
 	}
 }

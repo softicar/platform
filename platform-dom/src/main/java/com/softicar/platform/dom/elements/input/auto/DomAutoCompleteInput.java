@@ -38,6 +38,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	private final DomAutoCompleteIndicator<T> indicator;
 	private final DomAutoCompleteBackdrop backdrop;
 	private final DomAutoCompletePopup<T> popup;
+	private final StatefulValueCache statefulValueCache = new StatefulValueCache();
 	private T committedValue;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
@@ -113,12 +114,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	@Override
 	public Optional<T> getValue() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
-		if (valueAndState.isAmbiguousOrIllegal()) {
-			throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
-		} else {
-			return Optional.ofNullable(valueAndState.getValue());
-		}
+		return statefulValueCache.getValue();
 	}
 
 	@Override
@@ -319,5 +315,38 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 			.map(IDisplayString::toString)
 			.orElse("");
 		inputField.setValue(valueString);
+	}
+
+	private class StatefulValueCache {
+
+		private DomAutoCompleteStatefulValue<T> statefulValue;
+		private String previousValueText;
+
+		public StatefulValueCache() {
+
+			this.statefulValue = null;
+			this.previousValueText = null;
+		}
+
+		public Optional<T> getValue() {
+
+			updateValueIfNecessary();
+
+			if (statefulValue.isAmbiguousOrIllegal()) {
+				// FIXME according to {@link IDomValueInput#getValue}, we should throw {@link DomInputException} here
+				throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+			} else {
+				return Optional.ofNullable(statefulValue.getValue());
+			}
+		}
+
+		private void updateValueIfNecessary() {
+
+			String currentValueText = getValueText();
+			if (!currentValueText.equals(previousValueText)) {
+				this.statefulValue = new DomAutoCompleteValueParser<>(DomAutoCompleteInput.this).parse();
+				this.previousValueText = currentValueText;
+			}
+		}
 	}
 }
