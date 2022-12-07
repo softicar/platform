@@ -92,6 +92,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 		inputEngine.refresh();
 		inputEngine.reloadCache();
+		statefulValueCache.clear();
 		indicator.refresh();
 		filterDisplay.refresh();
 
@@ -325,6 +326,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		private String previousValueText;
 
 		public StatefulValueCache() {
+
+			clear();
+		}
+
+		public void clear() {
 
 			this.statefulValue = null;
 			this.previousValueText = null;
