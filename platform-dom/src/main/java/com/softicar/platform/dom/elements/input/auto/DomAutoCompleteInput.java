@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -334,8 +334,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 			updateValueIfNecessary();
 
 			if (statefulValue.isAmbiguousOrIllegal()) {
-				// FIXME according to {@link IDomValueInput#getValue}, we should throw {@link DomInputException} here
-				throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+				throw new DomInputException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
 			} else {
 				return Optional.ofNullable(statefulValue.getValue());
 			}
