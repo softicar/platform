@@ -32,13 +32,13 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
 	private final DomAutoCompleteInputValidationMode validationMode;
+	private final StatefulValueCache statefulValueCache;
 	private final DomBar inputBar;
 	private final DomAutoCompleteInputField inputField;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
 	private final DomAutoCompleteIndicator<T> indicator;
 	private final DomAutoCompleteBackdrop backdrop;
 	private final DomAutoCompletePopup<T> popup;
-	private final StatefulValueCache statefulValueCache = new StatefulValueCache();
 	private T committedValue;
 
 	public DomAutoCompleteInput(Supplier<Collection<T>> loader) {
@@ -61,6 +61,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.inputEngine = inputEngine;
 		this.validationMode = validationMode;
+		this.statefulValueCache = new StatefulValueCache();
 		this.inputBar = new DomBar();
 		this.inputField = new DomAutoCompleteInputField(this);
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
