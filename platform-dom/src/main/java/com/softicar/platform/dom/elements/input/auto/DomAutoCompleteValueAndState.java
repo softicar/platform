@@ -1,11 +1,11 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-class DomAutoCompleteStatefulValue<T> {
+class DomAutoCompleteValueAndState<T> {
 
 	private final T value;
 	private final DomAutoCompleteValueState state;
 
-	public DomAutoCompleteStatefulValue(T value, DomAutoCompleteValueState state) {
+	public DomAutoCompleteValueAndState(T value, DomAutoCompleteValueState state) {
 
 		this.value = value;
 		this.state = state;

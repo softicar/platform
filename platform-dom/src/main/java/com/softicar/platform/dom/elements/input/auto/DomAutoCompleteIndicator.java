@@ -3,15 +3,15 @@ package com.softicar.platform.dom.elements.input.auto;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomImage;
+import java.util.function.Supplier;
 
 public class DomAutoCompleteIndicator<T> extends DomDiv {
 
-	private final DomAutoCompleteInput<T> input;
+	private final Supplier<DomAutoCompleteValueAndState<T>> valueAndStateSupplier;
 
-	public DomAutoCompleteIndicator(DomAutoCompleteInput<T> input) {
+	public DomAutoCompleteIndicator(Supplier<DomAutoCompleteValueAndState<T>> valueAndStateSupplier) {
 
-		this.input = input;
-
+		this.valueAndStateSupplier = valueAndStateSupplier;
 		addCssClass(DomCssClasses.DOM_AUTO_COMPLETE_INDICATOR_PARENT);
 	}
 
@@ -23,8 +23,7 @@ public class DomAutoCompleteIndicator<T> extends DomDiv {
 
 	private void appendIndicator() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(input).parse();
-
+		var valueAndState = valueAndStateSupplier.get();
 		if (valueAndState.isAmbiguous()) {
 			appendChild(new Image(DomAutoCompleteIndicatorType.AMBIGUOUS));
 		} else if (valueAndState.isIllegal()) {
