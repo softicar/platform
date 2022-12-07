@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -32,6 +32,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
 	private final DomAutoCompleteInputValidationMode validationMode;
+	private final StatefulValueCache statefulValueCache;
 	private final DomBar inputBar;
 	private final DomAutoCompleteInputField inputField;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
@@ -60,6 +61,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.inputEngine = inputEngine;
 		this.validationMode = validationMode;
+		this.statefulValueCache = new StatefulValueCache();
 		this.inputBar = new DomBar();
 		this.inputField = new DomAutoCompleteInputField(this);
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
@@ -113,12 +115,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	@Override
 	public Optional<T> getValue() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
-		if (valueAndState.isAmbiguousOrIllegal()) {
-			throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
-		} else {
-			return Optional.ofNullable(valueAndState.getValue());
-		}
+		return statefulValueCache.getValue();
 	}
 
 	@Override
@@ -319,5 +316,37 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 			.map(IDisplayString::toString)
 			.orElse("");
 		inputField.setValue(valueString);
+	}
+
+	private class StatefulValueCache {
+
+		private DomAutoCompleteStatefulValue<T> statefulValue;
+		private String previousValueText;
+
+		public StatefulValueCache() {
+
+			this.statefulValue = null;
+			this.previousValueText = null;
+		}
+
+		public Optional<T> getValue() {
+
+			updateValueIfNecessary();
+
+			if (statefulValue.isAmbiguousOrIllegal()) {
+				throw new DomInputException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+			} else {
+				return Optional.ofNullable(statefulValue.getValue());
+			}
+		}
+
+		private void updateValueIfNecessary() {
+
+			String currentValueText = getValueText();
+			if (!currentValueText.equals(previousValueText)) {
+				this.statefulValue = new DomAutoCompleteValueParser<>(DomAutoCompleteInput.this).parse();
+				this.previousValueText = currentValueText;
+			}
+		}
 	}
 }
