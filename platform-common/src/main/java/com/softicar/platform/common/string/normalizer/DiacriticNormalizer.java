@@ -1,43 +1,30 @@
 package com.softicar.platform.common.string.normalizer;
 
 import java.text.Normalizer;
-import java.text.Normalizer.Form;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.regex.Pattern;
 
+/**
+ * Removes diacritics (aka. diacritical marks) from text.
+ *
+ * @author Alexander Schmidt
+ */
 public class DiacriticNormalizer {
 
+	private static final Pattern ACCENTS_PATTERN = Pattern.compile("\\p{M}");
+
 	/**
-	 * Some characters (e.g. 'đ') possess no unicode decomposition mapping entry
-	 * (e.g. to 'd'). This map therefore provides manual, explicit decomposition
-	 * mappings.
+	 * Removes diacritics from the characters in the given text.
+	 * <p>
+	 * Relies on Unicode decomposition mappings.
+	 *
+	 * @param text
+	 *            the text to strip of diacritical marks (never <i>null</i>)
+	 * @return the given text, stripped of diacritical marks (never <i>null</i>)
 	 */
-	private static final Map<Character, Character> DECOMPOSITION_MAP = new TreeMap<>();
+	public String normalize(String text) {
 
-	static {
-		DECOMPOSITION_MAP.put('đ', 'd');
-		DECOMPOSITION_MAP.put('Đ', 'D');
-		DECOMPOSITION_MAP.put('ƒ', 'f');
-		DECOMPOSITION_MAP.put('Ƒ', 'F');
-	}
-
-	public String normalize(String string) {
-
-		return applyCustomDecomposition(removeDiacritics(string));
-	}
-
-	private String removeDiacritics(String string) {
-
-		return Normalizer.normalize(string, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-	}
-
-	private String applyCustomDecomposition(String string) {
-
-		StringBuilder output = new StringBuilder();
-		for (char character: string.toCharArray()) {
-			Character replacement = DECOMPOSITION_MAP.get(character);
-			output.append(replacement != null? replacement : character);
-		}
-		return output.toString();
+		return ACCENTS_PATTERN//
+			.matcher(Normalizer.normalize(text, Normalizer.Form.NFKD))
+			.replaceAll("");
 	}
 }
