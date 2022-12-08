@@ -1,6 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto.matching;
 
-import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
+import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ public class DomAutoCompleteMatcher<V> {
 
 	private static final Pattern WHITESPACES = Pattern.compile("\\s+");
 	private final Map<String, V> identifierToValueMap;
-	private final DiacriticNormalizer normalizer;
 	private boolean ignoreDiacritics;
 
 	/**
@@ -35,7 +34,6 @@ public class DomAutoCompleteMatcher<V> {
 	public DomAutoCompleteMatcher(Map<String, V> identifierToValueMap) {
 
 		this.identifierToValueMap = Objects.requireNonNull(identifierToValueMap);
-		this.normalizer = new DiacriticNormalizer();
 		this.ignoreDiacritics = false;
 	}
 
@@ -172,6 +170,6 @@ public class DomAutoCompleteMatcher<V> {
 
 	private String normalize(String text) {
 
-		return ignoreDiacritics? normalizer.normalize(text) : text;
+		return ignoreDiacritics? CurrentDiacriticNormalizationCache.get().normalize(text) : text;
 	}
 }
