@@ -18,6 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Default implementation of {@link IDomAutoCompleteInputEngine}.
@@ -49,6 +50,7 @@ import java.util.function.Supplier;
  * That order may or may not be based upon a notion of <i>confidence</i>, or on
  * {@link CurrentLocale}.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInputEngine<T> {
@@ -58,6 +60,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 	private Supplier<Collection<T>> loader;
 	private Function<T, IDisplayString> displayFunction;
 	private Comparator<T> comparator;
+	private boolean displayStringDeduplicationEnabled;
 
 	public DomAutoCompleteDefaultInputEngine(Supplier<Collection<T>> loader) {
 
@@ -66,6 +69,7 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		this.loader = Objects.requireNonNull(loader);
 		this.displayFunction = new DefaultDisplayFunction();
 		this.comparator = new DefaultComparator();
+		this.displayStringDeduplicationEnabled = true;
 	}
 
 	public DomAutoCompleteDefaultInputEngine() {
@@ -157,6 +161,22 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		return this;
 	}
 
+	/**
+	 * Determines whether equivalent {@link IDisplayString} instances shall be
+	 * avoided by appending numerical suffixes.
+	 * <p>
+	 * {@link IDisplayString} de-duplication is enabled by default.
+	 * <p>
+	 * {@link IDisplayString} de-duplication has a significant performance cost.
+	 *
+	 * @param enabled
+	 *            <i>true</i> to enable de-duplication; <i>false</i> otherwise
+	 */
+	public void setDisplayStringDeduplicationEnabled(boolean enabled) {
+
+		this.displayStringDeduplicationEnabled = enabled;
+	}
+
 	@Override
 	public final IDisplayString getDisplayString(T value) {
 
@@ -219,21 +239,21 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 
 		public Cache() {
 
-			this.stringToValueMap = new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(loader.get());
+			this.stringToValueMap = loadStringToValueMap(loader);
 			this.idToValueMap = new DomAutoCompleteIdMapFactory<>(stringToValueMap).create().orElse(Collections.emptyMap());
 			this.valueToStringMap = new HashMap<>();
-
+			
 			stringToValueMap//
 				.entrySet()
 				.forEach(entry -> valueToStringMap.put(entry.getValue(), entry.getKey()));
 		}
 
 		public IDisplayString getDisplayString(T value) {
-
+ 
 			return Optional//
 				.ofNullable(valueToStringMap.get(value))
 				.map(IDisplayString::create)
-				.orElse(displayFunction.apply(value));
+				.orElseGet(() -> displayFunction.apply(value));
 		}
 
 		public IDomAutoCompleteMatches<T> findMatches(String pattern, int limit) {
@@ -259,6 +279,18 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 			return new DomAutoCompleteMatcher<>(stringToValueMap)//
 				.setIgnoreDiacritics(true)
 				.findMatches(pattern, limit);
+		}
+
+		private Map<String, T> loadStringToValueMap(Supplier<Collection<T>> loader) {
+
+			Collection<T> values = loader.get();
+			if (displayStringDeduplicationEnabled) {
+				return new DomAutoCompleteDisplayStringDeduplicator<>(displayFunction, comparator).apply(values);
+			} else {
+				return values//
+					.stream()
+					.collect(Collectors.toMap(value -> displayFunction.apply(value).toString(), Function.identity()));
+			}
 		}
 	}
 

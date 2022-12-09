@@ -1,9 +1,9 @@
 package com.softicar.platform.emf.attribute.field.foreign.entity.input;
 
 import com.softicar.platform.common.core.utils.DevNull;
-import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteDefaultInputEngine;
 import com.softicar.platform.emf.entity.IEmfEntity;
+import com.softicar.platform.emf.table.IEmfTable;
 import java.util.Collection;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Collection;
  */
 public abstract class AbstractEmfEntityInputEngine<E extends IEmfEntity<E, ?>> extends DomAutoCompleteDefaultInputEngine<E> {
 
-	public AbstractEmfEntityInputEngine(IDbTable<E, ?> table) {
+	public AbstractEmfEntityInputEngine(IEmfTable<E, ?, ?> table) {
 
 		setLoader(() -> {
 			var values = loadItems();
@@ -22,6 +22,7 @@ public abstract class AbstractEmfEntityInputEngine<E extends IEmfEntity<E, ?>> e
 			return values;
 		});
 		addDependsOn(table);
+		setDisplayStringDeduplicationEnabled(table.getEmfTableConfiguration().isDisplayStringDeduplicationEnabled());
 	}
 
 	/**
