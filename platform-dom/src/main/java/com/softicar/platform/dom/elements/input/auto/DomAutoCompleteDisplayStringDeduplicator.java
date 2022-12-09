@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.input.auto;
 
+import com.google.common.collect.Maps;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 	public Map<String, T> apply(Collection<T> values) {
 
 		this.listMap = new TreeMap<>(keyComparator);
-		this.resultMap = new TreeMap<>(keyComparator);
+		this.resultMap = Maps.newHashMapWithExpectedSize(values.size());
 
 		for (var value: values) {
 			var string = displayFunction.apply(value).toString();

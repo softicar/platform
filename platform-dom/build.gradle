@@ -3,7 +3,6 @@ dependencies {
 	api "junit:junit:$versions.junit"
 	api "com.google.code.gson:gson:$versions.gson"
 	
+	implementation "com.google.guava:guava:$versions.guava"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
-	
-	// testImplementation project(':platform-common-testing')
 }
