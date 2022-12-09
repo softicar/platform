@@ -1,7 +1,7 @@
 package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
+import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,8 +42,7 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 		this.displayFunction = displayFunction;
 		this.valueComparator = valueComparator;
-		var normalizer = new DiacriticNormalizer();
-		this.keyComparator = Comparator.comparing(string -> normalizer.normalize(string).toLowerCase());
+		this.keyComparator = Comparator.comparing(string -> CurrentDiacriticNormalizationCache.get().normalize(string).toLowerCase());
 	}
 
 	public Map<String, T> apply(Collection<T> values) {
