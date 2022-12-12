@@ -14,8 +14,8 @@ import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
-import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
+import com.softicar.platform.workflow.module.workflow.node.WorkflowNodePermissions;
 
 public class WorkflowNodeDisplayElement extends AbstractDisplayElement implements IDomDropEventHandler {
 
@@ -27,9 +27,8 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 		this.workflowNode = workflowNode;
 		this.refreshCallback = refreshCallback;
 		addCssClass(WorkflowCssClasses.WORKFLOW_NODE);
-		if (WorkflowPermissions.ADMINISTRATION.test(workflowNode.getWorkflowVersion().getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
-			applyDraggableStyle();
-		}
+
+		makeDraggableIfAppropriate(workflowNode);
 		setPositionStyle();
 
 		appendChild(new EditButton());
@@ -74,6 +73,23 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 		DomDiv nodeNameDiv = appendChild(new DomDiv());
 		nodeNameDiv.addCssClass(WorkflowCssClasses.WORKFLOW_NODE_NAME);
 		nodeNameDiv.appendText(workflowNode.getName());
+	}
+
+	private void makeDraggableIfAppropriate(AGWorkflowNode workflowNode) {
+
+		if (isDraggingPreconditionFulfilled(workflowNode) && isDraggingAuthorized(workflowNode)) {
+			applyDraggableStyle();
+		}
+	}
+
+	private Boolean isDraggingPreconditionFulfilled(AGWorkflowNode workflowNode) {
+
+		return workflowNode.getWorkflowVersion().isDraft();
+	}
+
+	private boolean isDraggingAuthorized(AGWorkflowNode workflowNode) {
+
+		return WorkflowNodePermissions.EDIT.test(workflowNode, CurrentBasicUser.get());
 	}
 
 	private class EditButton extends DomButton {
