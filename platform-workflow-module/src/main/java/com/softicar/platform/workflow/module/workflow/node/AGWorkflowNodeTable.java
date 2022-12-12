@@ -10,6 +10,7 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
+import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
@@ -26,9 +27,9 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowNode, AGWorkflowVersion> authorizer) {
 
 		authorizer//
-			.setCreationPermission(WorkflowNodePermissions.CREATE)
-			.setViewPermission(WorkflowNodePermissions.VIEW)
-			.setEditPermission(WorkflowNodePermissions.EDIT);
+			.setCreationPermission(WorkflowPermissions.VERSION_CREATE)
+			.setViewPermission(WorkflowPermissions.NODE_VIEW)
+			.setEditPermission(WorkflowPermissions.NODE_EDIT);
 	}
 
 	@Override
