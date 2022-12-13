@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.management.display.line;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
@@ -126,8 +127,12 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 		rectangleDiv.setStyle(CssStyle.TOP, "" + y + "px");
 		rectangleDiv.setStyle(CssStyle.WIDTH, "" + width + "px");
 		rectangleDiv.setStyle(CssStyle.HEIGHT, "" + height + "px");
-		rectangleDiv.setStyle(CssStyle.CLIP, "rect(0," + width + "px, " + height + "px,0)");
 		rectangleDiv.setStyle(CssStyle.BACKGROUND_COLOR, color);
+
+		if (transition != null && transition.isAutoTransition()) {
+			rectangleDiv.addCssClass(DomCssPseudoClasses.HIGHLIGHTED);
+		}
+
 		appendChild(rectangleDiv);
 	}
 
