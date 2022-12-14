@@ -19,6 +19,8 @@ public interface IWorkflowPrecondition<R extends IWorkflowableObject<R>> extends
 	@Override
 	default IDisplayString toDisplay() {
 
-		return getTitle();
+		return getTitle()//
+			.concatSpace()
+			.concatInBrackets(IDisplayString.create(getAnnotatedUuid().toString()));
 	}
 }
