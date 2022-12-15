@@ -2,9 +2,11 @@ package com.softicar.platform.workflow.module.workflow.item;
 
 import com.softicar.platform.common.container.map.set.SetMap;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
+import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksLoader;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
@@ -24,6 +26,11 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	public IEmfEntity<?, ?> getEntityOrThrow() {
 
 		return getWorkflow().getTableReferencePointOrThrow().getEntityOrThrow(this);
+	}
+
+	public Collection<AGWorkflowTask> getOpenTasksFor(AGUser user) {
+
+		return new WorkflowTasksLoader(this).getOpenTasksFor(user);
 	}
 
 	public Collection<AGWorkflowTask> getAllWorkflowTasks() {

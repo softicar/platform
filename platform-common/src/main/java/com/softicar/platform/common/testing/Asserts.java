@@ -39,6 +39,17 @@ public class Asserts extends Assert {
 		assertSame(expectedObject, optional.get());
 	}
 
+	public <T> void assertSameElements(Collection<T> expectedElements, Collection<T> actualElements) {
+
+		assertEquals("element count", expectedElements.size(), actualElements.size());
+
+		var expectedElementsIterator = expectedElements.iterator();
+		var actualElementsIterator = actualElements.iterator();
+		while (expectedElementsIterator.hasNext()) {
+			assertSame(expectedElementsIterator.next(), actualElementsIterator.next());
+		}
+	}
+
 	// --------------------------- exceptions --------------------------- //
 
 	/**

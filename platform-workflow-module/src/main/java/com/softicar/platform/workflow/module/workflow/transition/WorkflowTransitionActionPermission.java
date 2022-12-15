@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.user.AGUser;
@@ -23,16 +24,12 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 		Collection<IEmfPermission<R>> permissions = new HashSet<>();
 
 		for (AGWorkflowTransitionPermission workflowTransitionPermission: workflowTransitionPermissions) {
-			var permission = workflowTransitionPermission.getStaticPermission();
-
-			if (permission.isEmpty()) {
-				continue;
-			}
-
-			// TODO: fix ugly cast
-			permissions.add(CastUtils.cast(permission.get()));
+			workflowTransitionPermission//
+				.getStaticPermission()
+				.ifPresent(permission -> permissions.add(CastUtils.cast(permission)));
 		}
-		anyPermission = new EmfAnyPermission<>(permissions);
+
+		this.anyPermission = new EmfAnyPermission<>(permissions);
 	}
 
 	@Override
@@ -44,7 +41,7 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	@Override
 	public boolean test(R tableRow, IBasicUser user) {
 
-		return testWithInheritedPermissions(tableRow, user);
+		return testWithInheritedPermissions(tableRow, AGUser.get(user.getId()));
 	}
 
 	/**
@@ -60,11 +57,12 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	 *         that delegated the task to the user (or defined the user as
 	 *         substitute) has this permission
 	 */
-	protected boolean testWithInheritedPermissions(R tableRow, IBasicUser user) {
+	private boolean testWithInheritedPermissions(R tableRow, AGUser user) {
 
-		AGUser currentUser = AGUser.get(user.getId());
-		return AGWorkflowTask
-			.getAllWorkflowTasksAndDelegationTasksAndSubstituteTasksToCloseForUserAndItem(currentUser, tableRow.getWorkflowItem()) //TODO check if this includes current user tasks (probably)
+		Log.finfo("testWithInheritedPermissions(%s, %s)", tableRow.toDisplay(), user.toDisplay());
+		return tableRow//
+			.getWorkflowItem()
+			.getOpenTasksFor(user)
 			.stream()
 			.filter(AGWorkflowTask::wasNotExecuted) // FIXME: find a better method to check available actions
 			.map(it -> it.getUser())
