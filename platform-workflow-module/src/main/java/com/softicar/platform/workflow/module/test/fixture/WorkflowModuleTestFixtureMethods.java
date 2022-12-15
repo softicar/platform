@@ -133,7 +133,8 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.save();
 	}
 
-	default AGWorkflowNodeAction insertWorkflowNodeAction(AGWorkflowNode node, Class<? extends IWorkflowAction<?>> actionClass, IEmfStaticPermission<?> permission) {
+	default AGWorkflowNodeAction insertWorkflowNodeAction(AGWorkflowNode node, Class<? extends IWorkflowAction<?>> actionClass,
+			IEmfStaticPermission<?> permission) {
 
 		AGWorkflowNodeAction action = new AGWorkflowNodeAction()//
 			.setWorkflowNode(node)
@@ -176,7 +177,12 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.save();
 	}
 
-	default AGWorkflowTaskDelegation insertWorkflowTaskDelegation(AGWorkflowTask task, Boolean active, AGUser targetUser, AGUser delegatedByUser) {
+	default AGWorkflowTaskDelegation insertWorkflowTaskDelegation(AGWorkflowTask task, AGUser targetUser) {
+
+		return insertWorkflowTaskDelegation(task, true, targetUser, task.getUser());
+	}
+
+	default AGWorkflowTaskDelegation insertWorkflowTaskDelegation(AGWorkflowTask task, boolean active, AGUser targetUser, AGUser delegatedByUser) {
 
 		return AGWorkflowTaskDelegation.TABLE//
 			.getOrCreate(task)

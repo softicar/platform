@@ -54,8 +54,7 @@ public class WorkflowTransitionActionExecutor {
 
 	private void storeTransitionExecutionForAllRelevantTasks() {
 
-		for (AGWorkflowTask task: AGWorkflowTask.getAllWorkflowTasksAndDelegationTasksAndSubstituteTasksToCloseForUserAndItem(user, item)) {
-
+		for (AGWorkflowTask task: item.getOpenTasksFor(user)) {
 			new AGWorkflowTransitionExecution()//
 				.setWorkflowTask(task)
 				.setWorkflowTransition(transition)
