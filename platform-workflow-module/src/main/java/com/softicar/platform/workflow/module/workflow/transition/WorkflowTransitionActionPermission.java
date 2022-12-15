@@ -1,7 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.user.AGUser;
@@ -59,7 +58,6 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	 */
 	private boolean testWithInheritedPermissions(R tableRow, AGUser user) {
 
-		Log.finfo("testWithInheritedPermissions(%s, %s)", tableRow.toDisplay(), user.toDisplay());
 		return tableRow//
 			.getWorkflowItem()
 			.getOpenTasksFor(user)

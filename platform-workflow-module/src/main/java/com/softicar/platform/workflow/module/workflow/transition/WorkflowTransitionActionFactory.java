@@ -1,6 +1,5 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.action.IEmfPrimaryAction;
 import com.softicar.platform.emf.action.factory.IEmfPrimaryActionFactory;
@@ -34,8 +33,6 @@ public class WorkflowTransitionActionFactory<R extends IWorkflowableObject<R>> i
 				.where(AGWorkflow.ENTITY_TABLE.isEqual(tableUuid))
 				.forEach(transition -> set.add(new WorkflowTransitionAction<>(transition)));
 		}
-		Log.finfo("WorkflowTransitionActionFactory.apply:");
-		set.forEach(action -> Log.finfo(action.getTitle()));
 		return set;
 	}
 }
