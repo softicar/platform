@@ -103,7 +103,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private IEmfDeleteStrategy<R> deleteStrategy;
 	private IEmfTableRowDeactivationStrategy<R> deactivationStrategy;
 	private IDbKey<R> businessKey;
-	private boolean displayStringDeduplicationEnabled;
 
 	public EmfTableConfiguration(IEmfTable<R, P, S> table) {
 
@@ -134,7 +133,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.tableRowsFinder = Optional.empty();
 		this.deleteStrategy = new EmfDeleteStrategyBuilder<R>().build();
 		this.deactivationStrategy = new EmfTableRowDeactivationStrategy<>(table);
-		this.displayStringDeduplicationEnabled = true;
 	}
 
 	// ------------------------------ setters ------------------------------ //
@@ -251,22 +249,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.deactivationStrategy = deactivationStrategy;
 	}
 
-	/**
-	 * Specifies whether equivalent {@link IEmfTableRow#toDisplay()} values
-	 * shall be avoided in input elements, by appending numerical suffixes.
-	 * <p>
-	 * De-duplication is enabled by default.
-	 * <p>
-	 * De-duplication has a significant performance cost.
-	 *
-	 * @param enabled
-	 *            <i>true</i> to enable de-duplication; <i>false</i> otherwise
-	 */
-	public void setDisplayStringDeduplicationEnabled(boolean enabled) {
-
-		this.displayStringDeduplicationEnabled = enabled;
-	}
-
 	// ------------------------------ display and input ------------------------------ //
 
 	@Override
@@ -297,12 +279,6 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfFormTabConfiguration<R> getFormTabConfiguration() {
 
 		return tabConfigurationSupplier.get();
-	}
-
-	@Override
-	public boolean isDisplayStringDeduplicationEnabled() {
-
-		return displayStringDeduplicationEnabled;
 	}
 
 	// ------------------------------ attributes ------------------------------ //
