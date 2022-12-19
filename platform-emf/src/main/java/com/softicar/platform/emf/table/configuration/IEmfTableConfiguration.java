@@ -54,8 +54,6 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 
 	IEmfFormTabConfiguration<R> getFormTabConfiguration();
 
-	boolean isDisplayStringDeduplicationEnabled();
-
 	// ------------------------------ attributes ------------------------------ //
 
 	List<IEmfAttribute<R, ?>> getAttributes();
