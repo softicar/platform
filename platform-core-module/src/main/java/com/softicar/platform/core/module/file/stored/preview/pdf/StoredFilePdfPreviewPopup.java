@@ -22,9 +22,19 @@ public class StoredFilePdfPreviewPopup extends AbstractStoredFilePreviewPopup {
 
 	public StoredFilePdfPreviewPopup(AGStoredFile file, ICssLength imageInitialMaxWidth) {
 
+		this(file, imageInitialMaxWidth, new StoredFilePdfRenderer());
+	}
+
+	public StoredFilePdfPreviewPopup(AGStoredFile file, ICssLength imageInitialMaxWidth, int dpi) {
+
+		this(file, imageInitialMaxWidth, new StoredFilePdfRenderer().setDpi(dpi));
+	}
+
+	private StoredFilePdfPreviewPopup(AGStoredFile file, ICssLength imageInitialMaxWidth, StoredFilePdfRenderer renderer) {
+
 		super(file);
 
-		List<IResource> previewImages = StoredFilePdfRenderer.renderPages(file);
+		List<IResource> previewImages = renderer.renderPages(file);
 		if (!previewImages.isEmpty()) {
 			appendChild(new DomImageViewer(previewImages, imageInitialMaxWidth));
 		} else {
