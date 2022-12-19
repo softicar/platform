@@ -2,15 +2,14 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.google.common.collect.Maps;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
-import java.util.ArrayList;
+import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Ensures that each value of a {@link DomAutoCompleteInput} has a unique
@@ -31,54 +30,58 @@ import java.util.function.Function;
  *
  * @author Oliver Richers
  */
-class DomAutoCompleteDisplayStringDeduplicator<T> {
+public class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private final Function<T, IDisplayString> displayFunction;
 	private final Comparator<T> valueComparator;
-	private final Comparator<String> keyComparator;
-	private Map<String, List<T>> listMap;
+	private final DiacriticNormalizer normalizer;
+	private Map<String, List<ValueMapping>> listMap;
 	private Map<String, T> resultMap;
 
 	public DomAutoCompleteDisplayStringDeduplicator(Function<T, IDisplayString> displayFunction, Comparator<T> valueComparator) {
 
 		this.displayFunction = displayFunction;
 		this.valueComparator = valueComparator;
-		this.keyComparator = Comparator.comparing(string -> CurrentDiacriticNormalizationCache.get().normalize(string).toLowerCase());
+		this.normalizer = new DiacriticNormalizer();
 	}
 
 	public Map<String, T> apply(Collection<T> values) {
 
-		this.listMap = new TreeMap<>(keyComparator);
+		// compute value to display-string pairs
+		var valueMappings = values//
+			.stream()
+			.map(ValueMapping::new)
+			.collect(Collectors.toList());
+
+		// normalization
+		this.listMap = valueMappings//
+			.parallelStream()
+			.map(ValueMapping::computeNormalizedDisplayString)
+			.collect(Collectors.groupingBy(it -> it.getNormalizedDisplayString()));
+
+		// de-duplication
 		this.resultMap = Maps.newHashMapWithExpectedSize(values.size());
-
-		for (var value: values) {
-			var string = displayFunction.apply(value).toString();
-			listMap.computeIfAbsent(string, dummy -> new ArrayList<>()).add(value);
-		}
-
-		for (var entry: listMap.entrySet()) {
-			var key = entry.getKey();
-			var list = entry.getValue();
+		for (var list: listMap.values()) {
 			if (list.size() > 1) {
 				addConflictingValues(list);
 			} else {
-				addValue(key, list.get(0));
+				var valueMapping = list.get(0);
+				addValue(valueMapping.getDisplayString(), valueMapping.getValue());
 			}
 		}
-
 		return resultMap;
 	}
 
-	private void addConflictingValues(List<T> values) {
+	private void addConflictingValues(List<ValueMapping> valueMappings) {
 
-		Collections.sort(values, valueComparator);
+		Collections.sort(valueMappings, (a, b) -> valueComparator.compare(a.getValue(), b.getValue()));
 
 		var index = 1;
-		for (var value: values) {
+		for (var valueMapping: valueMappings) {
 			for (;; index++) {
-				var substituteKey = displayFunction.apply(value) + " (" + index + ")";
-				if (!listMap.containsKey(substituteKey)) {
-					addValue(substituteKey, value);
+				var substitute = valueMapping.getNormalizedDisplayString(index);
+				if (!listMap.containsKey(substitute)) {
+					addValue(valueMapping.getDisplayString(index), valueMapping.getValue());
 					index++;
 					break;
 				}
@@ -89,5 +92,55 @@ class DomAutoCompleteDisplayStringDeduplicator<T> {
 	private void addValue(String key, T value) {
 
 		resultMap.put(key, value);
+	}
+
+	private class ValueMapping {
+
+		private final T value;
+		private final String displayString;
+		private String normalizedDisplayString;
+
+		public ValueMapping(T value) {
+
+			this.value = value;
+			this.displayString = displayFunction.apply(value).toString();
+			this.normalizedDisplayString = null;
+		}
+
+		public T getValue() {
+
+			return value;
+		}
+
+		public String getDisplayString() {
+
+			return displayString;
+		}
+
+		public String getDisplayString(int index) {
+
+			return displayString + getIndexSuffix(index);
+		}
+
+		public String getNormalizedDisplayString() {
+
+			return normalizedDisplayString;
+		}
+
+		public String getNormalizedDisplayString(int index) {
+
+			return normalizedDisplayString + getIndexSuffix(index);
+		}
+
+		public ValueMapping computeNormalizedDisplayString() {
+
+			this.normalizedDisplayString = normalizer.normalize(displayString).toLowerCase();
+			return this;
+		}
+
+		private String getIndexSuffix(int index) {
+
+			return " (" + index + ")";
+		}
 	}
 }
