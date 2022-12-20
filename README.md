@@ -1,4 +1,4 @@
-![workflow](https://img.shields.io/github/workflow/status/softicar/platform/Continuous%20Integration)
+![workflow](https://img.shields.io/github/actions/workflow/status/softicar/platform/continuous-integration.yml?branch=main)
 ![license](https://img.shields.io/github/license/softicar/platform)
 ![contributors](https://img.shields.io/github/contributors/softicar/platform)
 ![release](https://img.shields.io/github/v/release/softicar/platform)
