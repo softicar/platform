@@ -8,7 +8,7 @@
 	resize: both;
 }
 
-.DomPopupFrame.maximized .DomImageViewer{
+.DomPopupFrame.maximized .DomImageViewer {
 	resize: none;
 }
 
