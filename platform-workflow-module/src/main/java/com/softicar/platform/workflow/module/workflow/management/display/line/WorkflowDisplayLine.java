@@ -29,6 +29,8 @@ public class WorkflowDisplayLine extends DomDiv implements IDomClickEventHandler
 		this.transition = transition;
 		this.refreshCallback = Optional.ofNullable(refreshCallback).orElse(INullaryVoidFunction.NO_OPERATION);
 		this.width = width;
+
+		addCssClass(WorkflowCssClasses.WORKFLOW_DISPLAY_LINE);
 		if (transition != null) {
 			setStyle(CssCursor.POINTER);
 		}
