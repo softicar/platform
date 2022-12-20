@@ -36,7 +36,6 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 	private final Function<T, IDisplayString> displayFunction;
 	private final Comparator<T> valueComparator;
 	private final DiacriticNormalizationCache normalizer;
-//	private final DiacriticNormalizer normalizer;
 	private Map<String, List<ValueMapping>> listMap;
 	private Map<String, T> resultMap;
 
@@ -45,7 +44,6 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 		this.displayFunction = displayFunction;
 		this.valueComparator = valueComparator;
 		this.normalizer = CurrentDiacriticNormalizationCache.get();
-//		this.normalizer = new DiacriticNormalizer();
 	}
 
 	public Map<String, T> apply(Collection<T> values) {
@@ -59,7 +57,6 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 		// normalization
 		this.listMap = valueMappings//
 			.stream()
-//			.parallelStream()
 			.map(ValueMapping::computeNormalizedDisplayString)
 			.collect(Collectors.groupingBy(it -> it.getNormalizedDisplayString()));
 
