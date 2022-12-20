@@ -1,27 +1,26 @@
-package com.softicar.platform.workflow.module.workflow.management;
+package com.softicar.platform.workflow.module.workflow;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.resource.IResource;
-import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
-import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
-import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
+import com.softicar.platform.workflow.module.workflow.management.WorkflowVersionManagementAction;
+import java.util.Optional;
 
-public class WorkflowVersionManagementAction implements IEmfManagementAction<AGWorkflowVersion> {
+public class WorkflowShowGraphAction implements IEmfManagementAction<AGWorkflow> {
 
 	@Override
-	public IEmfPredicate<AGWorkflowVersion> getPrecondition() {
+	public IEmfPredicate<AGWorkflow> getPrecondition() {
 
-		return EmfPredicates.always();
+		return WorkflowPredicates.HAS_CURRENT_VERSION;
 	}
 
 	@Override
-	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
+	public IEmfPermission<AGWorkflow> getRequiredPermission() {
 
 		return EmfPermissions.always();
 	}
@@ -39,11 +38,10 @@ public class WorkflowVersionManagementAction implements IEmfManagementAction<AGW
 	}
 
 	@Override
-	public void handleClick(AGWorkflowVersion workflow) {
+	public void handleClick(AGWorkflow workflow) {
 
-		DomPopupManager//
-			.getInstance()
-			.getPopup(workflow, WorkflowVersionManagementPopup.class, WorkflowVersionManagementPopup::new)
-			.open();
+		Optional//
+			.ofNullable(workflow.getCurrentVersion())
+			.ifPresent(version -> new WorkflowVersionManagementAction().handleClick(version));
 	}
 }
