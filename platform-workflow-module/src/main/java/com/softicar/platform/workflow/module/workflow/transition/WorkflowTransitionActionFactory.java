@@ -27,6 +27,7 @@ public class WorkflowTransitionActionFactory<R extends IWorkflowableObject<R>> i
 			AGUuid tableUuid = AGUuid.getOrCreate(referencePointClass);
 			AGWorkflowTransition
 				.createSelect()
+				.where(AGWorkflowTransition.ACTIVE)
 				.where(AGWorkflowTransition.AUTO_TRANSITION.isFalse())
 				.join(AGWorkflowTransition.WORKFLOW_VERSION)
 				.join(AGWorkflowVersion.WORKFLOW)
