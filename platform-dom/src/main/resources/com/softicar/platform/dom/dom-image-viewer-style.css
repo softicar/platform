@@ -8,6 +8,10 @@
 	resize: both;
 }
 
+.DomPopupFrame.maximized .DomImageViewer{
+	resize: none;
+}
+
 .DomImageViewerCanvas {
 	align-self: stretch;
 	max-height: 100%;
