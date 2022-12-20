@@ -30,8 +30,7 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 
 		authorizer//
 			.setCreationPermission(WorkflowPermissions.ADMINISTRATION)
-			.setViewPermission(
-				WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
+			.setViewPermission(WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
 			.setEditPermission(
 				WorkflowPermissions.ADMINISTRATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())));
 	}
@@ -45,6 +44,7 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 	@Override
 	public void customizeActionSet(EmfActionSet<AGWorkflow, AGWorkflowModuleInstance> actionSet) {
 
+		actionSet.addManagementAction(new WorkflowShowGraphAction());
 		actionSet.addManagementAction(new WorkflowExportAction());
 	}
 

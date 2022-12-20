@@ -61,8 +61,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Entwurf");
 	I18n0 DRAFT_VERSION = new I18n0("Draft Version")//
 		.de("Entwurfsversion");
-	I18n0 EDIT_GRAPH = new I18n0("Edit Graph")//
-		.de("Graph bearbeiten");
 	I18n0 EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = new I18n0("Email Notifications for New Tasks")//
 		.de("E-Mail Benachrichtigungen für neue Aufgaben");
 	I18n0 ENTITY_TABLE = new I18n0("Entity Table")//
@@ -128,6 +126,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Benötigte Stimmen nicht gültig.");
 	I18n0 ROOT_NODE = new I18n0("Root Node")//
 		.de("Wurzel-Knoten");
+	I18n0 SHOW_GRAPH = new I18n0("Show Graph")//
+		.de("Graph anzeigen");
 	I18n0 SHOW_TASKS_DELEGATED_BY_ME = new I18n0("Show Tasks Delegated By Me")//
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//
