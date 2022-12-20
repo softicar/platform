@@ -2,7 +2,8 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.google.common.collect.Maps;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.string.normalizer.DiacriticNormalizer;
+import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
+import com.softicar.platform.common.string.normalizer.DiacriticNormalizationCache;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +35,8 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 	private final Function<T, IDisplayString> displayFunction;
 	private final Comparator<T> valueComparator;
-	private final DiacriticNormalizer normalizer;
+	private final DiacriticNormalizationCache normalizer;
+//	private final DiacriticNormalizer normalizer;
 	private Map<String, List<ValueMapping>> listMap;
 	private Map<String, T> resultMap;
 
@@ -42,7 +44,8 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 		this.displayFunction = displayFunction;
 		this.valueComparator = valueComparator;
-		this.normalizer = new DiacriticNormalizer();
+		this.normalizer = CurrentDiacriticNormalizationCache.get();
+//		this.normalizer = new DiacriticNormalizer();
 	}
 
 	public Map<String, T> apply(Collection<T> values) {
@@ -55,7 +58,8 @@ public class DomAutoCompleteDisplayStringDeduplicator<T> {
 
 		// normalization
 		this.listMap = valueMappings//
-			.parallelStream()
+			.stream()
+//			.parallelStream()
 			.map(ValueMapping::computeNormalizedDisplayString)
 			.collect(Collectors.groupingBy(it -> it.getNormalizedDisplayString()));
 
