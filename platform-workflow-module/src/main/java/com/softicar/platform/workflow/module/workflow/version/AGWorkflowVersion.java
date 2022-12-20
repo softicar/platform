@@ -40,6 +40,6 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 
 	public boolean isCurrentVersion() {
 
-		return getWorkflow().getCurrentVersion().is(getThis());
+		return is(getWorkflow().getCurrentVersion());
 	}
 }
