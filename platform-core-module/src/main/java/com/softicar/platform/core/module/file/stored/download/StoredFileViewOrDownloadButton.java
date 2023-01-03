@@ -9,21 +9,18 @@ import com.softicar.platform.common.string.binary.BinaryOrTextDiscriminator;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
+import com.softicar.platform.core.module.file.stored.preview.email.StoredFileEmailPreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.image.StoredFileImagePreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfPreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.text.StoredFileTextPreviewPopup;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.style.CssPixel;
-import com.softicar.platform.dom.style.ICssLength;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
 public class StoredFileViewOrDownloadButton extends DomButton {
-
-	private static final ICssLength IMAGE_INITIAL_MAX_WIDTH = new CssPixel(480);
 
 	private final AGStoredFile file;
 	private final StoredFileResource resource;
@@ -127,10 +124,12 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 		try {
 			switch (fileType) {
+			case EML:
+				return new StoredFileEmailPreviewPopup(file);
 			case IMAGE:
-				return new StoredFileImagePreviewPopup(file, resource, IMAGE_INITIAL_MAX_WIDTH);
+				return new StoredFileImagePreviewPopup(file, resource);
 			case PDF:
-				return new StoredFilePdfPreviewPopup(file, IMAGE_INITIAL_MAX_WIDTH);
+				return new StoredFilePdfPreviewPopup(file);
 			case TEXT:
 				return new StoredFileTextPreviewPopup(file);
 			case UNKNOWN:
