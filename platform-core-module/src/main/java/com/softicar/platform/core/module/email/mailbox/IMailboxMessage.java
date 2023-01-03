@@ -50,6 +50,16 @@ public interface IMailboxMessage {
 	Collection<String> getAllRecipients();
 
 	/**
+	 * Returns all headers for this header name. Returns an empty collection if
+	 * no headers for this header name are available.
+	 *
+	 * @param headerName
+	 *            the name of this header
+	 * @return the value fields for all headers with this name
+	 */
+	Collection<String> getHeader(String headerName);
+
+	/**
 	 * Returns the content object of this {@link IMailboxMessage}.
 	 * <p>
 	 * TODO improve API
