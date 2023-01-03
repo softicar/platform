@@ -54,8 +54,8 @@ public interface IMailboxMessage {
 	 * no headers for this header name are available.
 	 *
 	 * @param headerName
-	 *            the name of this header
-	 * @return the value fields for all headers with this name
+	 *            the name of the header (never <i>null</i>)
+	 * @return the values for all headers with this name (never <i>null</i>)
 	 */
 	Collection<String> getHeader(String headerName);
 
