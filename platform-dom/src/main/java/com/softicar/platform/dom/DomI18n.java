@@ -64,18 +64,8 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Export kann nicht durchgeführt werden: Keine Tabelle angegeben.");
 	I18n0 EXPORT_FORMAT = new I18n0("Export Format")//
 		.de("Export-Format");
-	I18n0 EXPORT_PRECONDITIONS_WERE_NOT_MET = new I18n0("Export preconditions were not met.")//
-		.de("Die Vorbedingungen für den Export konnten nicht erfüllt werden.");
 	I18n0 EXPORT_TABLE = new I18n0("Export Table")//
 		.de("Tabelle exportieren");
-	I18n0 FAILED_TO_FINISH_THE_FILE_FOR_EXPORT = new I18n0("Failed to finish the file for export.")//
-		.de("Die zu exportierende Datei konnte nicht finalisiert werden.");
-	I18n0 FAILED_TO_GENERATE_TABLE_BODY = new I18n0("Failed to generate table body.")//
-		.de("Tabellen-Inhalt konnte nicht erzeugt werden.");
-	I18n0 FAILED_TO_GENERATE_TABLE_HEADER = new I18n0("Failed to generate table header.")//
-		.de("Tabellen-Kopfzeile konnte nicht erzeugt werden.");
-	I18n0 FAILED_TO_PREPARE_THE_FILE_FOR_EXPORT = new I18n0("Failed to prepare the file for export.")//
-		.de("Die Datei konnte nicht für den Export vorbereitet werden.");
 	I18n0 FILE_NAME = new I18n0("File Name")//
 		.de("Dateiname");
 	I18n0 FILTER = new I18n0("Filter")//
@@ -173,6 +163,10 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Standard");
 	I18n0 STRICT = new I18n0("Strict")//
 		.de("Streng");
+	I18n0 TABLE_EXPORT_FAILED = new I18n0("Table export failed.")//
+		.de("Tabellenexport fehlgeschlagen.");
+	I18n0 TABLE_EXPORT_PRECONDITIONS_WERE_NOT_FULFILLED = new I18n0("Table export preconditions were not fulfilled.")//
+		.de("Die Vorbedingungen für den Tabellen-Export waren nicht erfüllt.");
 	I18n0 THE_FOLLOWING_PROBLEM_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problem can occur when exporting the table")//
 		.de("Das folgende Problem kann beim Exportieren der Tabelle auftreten");
 	I18n0 THE_FOLLOWING_PROBLEMS_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problems can occur when exporting the table")//

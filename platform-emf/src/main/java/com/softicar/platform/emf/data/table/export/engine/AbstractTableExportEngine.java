@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -161,101 +162,14 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 	@Override
 	public void export(Collection<TableExportTableModel> tableModels) {
 
-		// -------- check preconditions -------- //
-
-		TableExportPreconditionResultContainer errorMessages = getCreatingFactory().checkPreconditions(tableModels);
-		if (errorMessages == null) {
-			errorMessages = new TableExportPreconditionResultContainer();
+		if (!checkPreconditions(tableModels).getAllByLevel(Level.ERROR).isEmpty()) {
+			throw new SofticarUserException(DomI18n.TABLE_EXPORT_PRECONDITIONS_WERE_NOT_FULFILLED);
 		}
 
-		if (!errorMessages.getAllByLevel(Level.ERROR).isEmpty()) {
-			throw new SofticarUserException(DomI18n.EXPORT_PRECONDITIONS_WERE_NOT_MET);
-		}
-
-		// -------- gather table configurations -------- //
-
-		List<TableExportTableConfiguration<CT>> tableConfigurations = new ArrayList<>();
-
-		for (TableExportTableModel tableModel: tableModels) {
-			Map<Integer, TableExportColumnModel> selectedColumnModels = tableModel.getSelectedColumnModels();
-
-			ITableExportNodeConverter<CT> headerConverter = getNodeConverterFactoryConfiguration().getHeaderFactory().create();
-			Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn =
-					getNodeConverterFactorySelectionModel().fetchNodeConvertersByColumn(selectedColumnModels.keySet());
-			TableExportColumnConfiguration<CT> columnConfiguration =
-					new TableExportColumnConfiguration<>(selectedColumnModels, nodeConvertersByColumn, headerConverter);
-			tableConfigurations.add(new TableExportTableConfiguration<>(tableModel, columnConfiguration));
-		}
-
-		// -------- prepare exports for all tables -------- //
-
-		TableExportFileNameWithOmittableSuffix outputFileName;
-		byte[] bytes;
-
-		try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-			try {
-				this.columnFilterer = new TableExportSpanningElementColumnFilterer<>();
-				prepareExport(buffer, tableConfigurations);
-			} catch (Exception exception) {
-				throw new SofticarUserException(exception, DomI18n.FAILED_TO_PREPARE_THE_FILE_FOR_EXPORT);
-			}
-
-			// -------- execute per-table export implementations -------- //
-
-			for (TableExportTableConfiguration<CT> tableConfiguration: tableConfigurations) {
-				// Run any implementation's queries in a transaction to avoid rows being dropped or duplicated
-				// when paging an SQL resultset based DomPageableTable, in case the underlying database table gets
-				// altered during the export process. Requires a "repeatable reads" style transaction isolation level.
-				try (AutoCloseable transaction = tableConfiguration.startTransaction()) {
-					var table = tableConfiguration.getTable();
-					var columnConfiguration = tableConfiguration.getColumnConfiguration();
-					prepareTable(tableConfiguration);
-					appendHeader(table, columnConfiguration);
-					appendBody(table, columnConfiguration);
-					finishTable();
-				} catch (Exception exception) {
-					throw new RuntimeException(exception);
-				}
-			}
-
-			try {
-				finishExport(buffer);
-			} catch (Exception exception) {
-				throw new SofticarUserException(exception, DomI18n.FAILED_TO_FINISH_THE_FILE_FOR_EXPORT);
-			}
-
-			outputFileName = this.fileNameCreator
-				.createFileName(
-					this.fileNamePrefix,
-					this.fileExtension,
-					this.appendTimestamp? TableExportFileTimestampMode.CURRENT_TIME : TableExportFileTimestampMode.NONE,
-					enableDeflateCompression);
-
-			if (this.enableDeflateCompression) {
-				bytes = ZipLib.zipSingleFile(buffer, outputFileName.getFileName(true), false);
-			} else {
-				bytes = buffer.toByteArray();
-			}
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
-		}
-
-		String fileName = outputFileName.getFileName(false);
-
-		if (this.outputStreamSupplierFunction == null) {
-			this.outputStreamSupplierFunction = () -> CurrentDomDocument//
-				.get()
-				.getEngine()
-				.createExport()
-				.setFilename(fileName)
-				.setMimeType(MimeType.APPLICATION_OCTET_STREAM)
-				.openOutputStream();
-		}
-
-		try (OutputStream targetOutputStream = this.outputStreamSupplierFunction.get()) {
-			targetOutputStream.write(bytes);
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
+		try {
+			executeExport(tableModels);
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, DomI18n.TABLE_EXPORT_FAILED);
 		}
 	}
 
@@ -321,62 +235,141 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 		this.rowsOnCurrentSheet = 0;
 	}
 
+	private TableExportPreconditionResultContainer checkPreconditions(Collection<TableExportTableModel> tableModels) {
+
+		var resultContainer = getCreatingFactory().checkPreconditions(tableModels);
+		return Optional.ofNullable(resultContainer).orElse(new TableExportPreconditionResultContainer());
+	}
+
+	private void executeExport(Collection<TableExportTableModel> tableModels) {
+
+		// -------- gather table configurations -------- //
+
+		List<TableExportTableConfiguration<CT>> tableConfigurations = new ArrayList<>();
+
+		for (TableExportTableModel tableModel: tableModels) {
+			Map<Integer, TableExportColumnModel> selectedColumnModels = tableModel.getSelectedColumnModels();
+
+			ITableExportNodeConverter<CT> headerConverter = getNodeConverterFactoryConfiguration().getHeaderFactory().create();
+			Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn =
+					getNodeConverterFactorySelectionModel().fetchNodeConvertersByColumn(selectedColumnModels.keySet());
+			TableExportColumnConfiguration<CT> columnConfiguration =
+					new TableExportColumnConfiguration<>(selectedColumnModels, nodeConvertersByColumn, headerConverter);
+			tableConfigurations.add(new TableExportTableConfiguration<>(tableModel, columnConfiguration));
+		}
+
+		// -------- prepare exports for all tables -------- //
+
+		TableExportFileNameWithOmittableSuffix outputFileName;
+		byte[] bytes;
+
+		try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+			this.columnFilterer = new TableExportSpanningElementColumnFilterer<>();
+			prepareExport(buffer, tableConfigurations);
+
+			// -------- execute per-table export implementations -------- //
+
+			for (TableExportTableConfiguration<CT> tableConfiguration: tableConfigurations) {
+				// Run any implementation's queries in a transaction to avoid rows being dropped or duplicated
+				// when paging an SQL resultset based DomPageableTable, in case the underlying database table gets
+				// altered during the export process. Requires a "repeatable reads" style transaction isolation level.
+				try (AutoCloseable transaction = tableConfiguration.startTransaction()) {
+					var table = tableConfiguration.getTable();
+					var columnConfiguration = tableConfiguration.getColumnConfiguration();
+					prepareTable(tableConfiguration);
+					appendHeader(table, columnConfiguration);
+					appendBody(table, columnConfiguration);
+					finishTable();
+				} catch (Exception exception) {
+					throw new RuntimeException(exception);
+				}
+			}
+
+			finishExport(buffer);
+
+			outputFileName = this.fileNameCreator
+				.createFileName(
+					this.fileNamePrefix,
+					this.fileExtension,
+					this.appendTimestamp? TableExportFileTimestampMode.CURRENT_TIME : TableExportFileTimestampMode.NONE,
+					enableDeflateCompression);
+
+			if (this.enableDeflateCompression) {
+				bytes = ZipLib.zipSingleFile(buffer, outputFileName.getFileName(true), false);
+			} else {
+				bytes = buffer.toByteArray();
+			}
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+
+		String fileName = outputFileName.getFileName(false);
+
+		if (this.outputStreamSupplierFunction == null) {
+			this.outputStreamSupplierFunction = () -> CurrentDomDocument//
+				.get()
+				.getEngine()
+				.createExport()
+				.setFilename(fileName)
+				.setMimeType(MimeType.APPLICATION_OCTET_STREAM)
+				.openOutputStream();
+		}
+
+		try (OutputStream targetOutputStream = this.outputStreamSupplierFunction.get()) {
+			targetOutputStream.write(bytes);
+		} catch (IOException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
 	private void appendHeader(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
 
-		try {
-			List<DomRow> rows = TableExportChildElementFetcher.getHeaderRows(table);
-			this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, true, this.rowsOnCurrentSheet);
-		} catch (Exception exception) {
-			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_HEADER);
-		}
+		List<DomRow> rows = TableExportChildElementFetcher.getHeaderRows(table);
+		this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, true, this.rowsOnCurrentSheet);
 	}
 
 	private void appendBody(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
 
-		try {
-			TableExportLib.assertPageableIfScrollable(table);
+		TableExportLib.assertPageableIfScrollable(table);
 
-			if (table instanceof DomPageableTable) {
-				DomPageableTable pageableTable = (DomPageableTable) table;
+		if (table instanceof DomPageableTable) {
+			DomPageableTable pageableTable = (DomPageableTable) table;
 
-				DomDocumentStasher stasher = new DomDocumentStasher();
+			DomDocumentStasher stasher = new DomDocumentStasher();
 
-				try {
-					stasher.stashDomDocumentOrThrow(new DomDocument());
-					int totalNumRows = Math.max(pageableTable.getTotalRowCount(), 0);
-					List<Pair<Integer, Integer>> chunkBoundaries =
-							TableExportChunkBoundaryCalculator.calculateChunkBoundaries(totalNumRows, PAGEABLE_TABLE_EXPORT_CHUNK_SIZE);
+			try {
+				stasher.stashDomDocumentOrThrow(new DomDocument());
+				int totalNumRows = Math.max(pageableTable.getTotalRowCount(), 0);
+				List<Pair<Integer, Integer>> chunkBoundaries =
+						TableExportChunkBoundaryCalculator.calculateChunkBoundaries(totalNumRows, PAGEABLE_TABLE_EXPORT_CHUNK_SIZE);
 
-					if (chunkBoundaries != null) {
-						for (Pair<Integer, Integer> boundary: chunkBoundaries) {
-							int lowerIndex = boundary.getFirst();
-							int upperIndex = boundary.getSecond();
+				if (chunkBoundaries != null) {
+					for (Pair<Integer, Integer> boundary: chunkBoundaries) {
+						int lowerIndex = boundary.getFirst();
+						int upperIndex = boundary.getSecond();
 
-							// >>>> FIXME: potential performance bottleneck: does this still internally fetch the RS several
-							// times? >>>>
-							List<DomRow> rows = new ArrayList<>(pageableTable.getRowsUncached(lowerIndex, upperIndex));
-							// <<<< FIXME: potential performance bottleneck: does this still internally fetch the RS several
-							// times? <<<<
+						// >>>> FIXME: potential performance bottleneck: does this still internally fetch the RS several
+						// times? >>>>
+						List<DomRow> rows = new ArrayList<>(pageableTable.getRowsUncached(lowerIndex, upperIndex));
+						// <<<< FIXME: potential performance bottleneck: does this still internally fetch the RS several
+						// times? <<<<
 
-							this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
-						}
+						this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
 					}
-				} finally {
-					stasher.unstashDomDocumentOrThrow();
 				}
+			} finally {
+				stasher.unstashDomDocumentOrThrow();
 			}
-
-			// any other (non-pageable) DomTable
-			else {
-				List<DomRow> rows = TableExportChildElementFetcher.getBodyRows(table);
-
-				this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
-			}
-
-			this.rowsOnCurrentSheet += Math.max(0, appendTableSpacerRows(this.rowsOnCurrentSheet));
-		} catch (Exception exception) {
-			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_BODY);
 		}
+
+		// any other (non-pageable) DomTable
+		else {
+			List<DomRow> rows = TableExportChildElementFetcher.getBodyRows(table);
+
+			this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
+		}
+
+		this.rowsOnCurrentSheet += Math.max(0, appendTableSpacerRows(this.rowsOnCurrentSheet));
 	}
 
 	/**
