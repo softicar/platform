@@ -1,6 +1,5 @@
 package com.softicar.platform.dom.elements;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.DomParentElement;
 import com.softicar.platform.dom.parent.IDomParentElement;
@@ -8,47 +7,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class DomChildElementFinder {
 
-	public static List<AbstractDomCell> getCells(DomRow row) {
+	public static <T extends IDomNode> List<T> getChildrenWithClass(IDomParentElement parent, Class<T> childClass) {
 
-		return DomChildElementFinder.getChildrenByClass(row, AbstractDomCell.class, null, null);
+		return getChildrenWithClass(parent, childClass, null, null);
 	}
 
-	public static <T extends IDomNode> List<T> getChildrenByClass(IDomParentElement parent, Class<T> childClass, Collection<Integer> skipChildIndexes,
+	public static <T extends IDomNode> List<T> getChildrenWithClass(IDomParentElement parent, Class<T> childClass, Collection<Integer> skipChildIndexes,
 			List<Class<? extends T>> ignoreChildSubClasses) {
 
-		if (childClass != null) {
-			if (parent != null) {
-				List<T> filteredChildren = new ArrayList<>();
-				List<IDomNode> children = parent.getChildren();
+		Objects.requireNonNull(parent);
+		Objects.requireNonNull(childClass);
 
-				if (ignoreChildSubClasses == null) {
-					ignoreChildSubClasses = new ArrayList<>();
+		List<T> filteredChildren = new ArrayList<>();
+		List<IDomNode> children = parent.getChildren();
+
+		if (ignoreChildSubClasses == null) {
+			ignoreChildSubClasses = new ArrayList<>();
+		}
+
+		for (int i = 0; i < children.size(); i++) {
+			IDomNode child = children.get(i);
+
+			if (child != null && childClass.isInstance(child) && !isIndexSkipped(skipChildIndexes, i)) {
+				if (!ignoreChildSubClasses.contains(child.getClass())) {
+					filteredChildren.add(childClass.cast(child));
 				}
-
-				for (int i = 0; i < children.size(); i++) {
-					IDomNode child = children.get(i);
-
-					if (child != null && childClass.isInstance(child) && !isIndexSkipped(skipChildIndexes, i)) {
-						if (!ignoreChildSubClasses.contains(child.getClass())) {
-							filteredChildren.add(childClass.cast(child));
-						}
-					}
-				}
-
-				return filteredChildren;
-			}
-
-			else {
-				throw new SofticarDeveloperException("The given parent element must not be null.");
 			}
 		}
 
-		else {
-			throw new SofticarDeveloperException("The given child class must not be null.");
-		}
+		return filteredChildren;
 	}
 
 	public static List<IDomNode> fetchChildrenAtIndexPath(IDomNode parent, Integer...indexPath) {

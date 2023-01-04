@@ -2,10 +2,9 @@ package com.softicar.platform.emf.data.table.export.engine;
 
 import com.softicar.platform.common.container.pair.Pair;
 import com.softicar.platform.dom.document.DomDocument;
-import com.softicar.platform.dom.elements.AbstractDomCell;
-import com.softicar.platform.dom.elements.DomChildElementFinder;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
+import com.softicar.platform.dom.elements.IDomCell;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.data.table.export.chunking.TableExportChunkBoundaryCalculator;
@@ -192,7 +191,8 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 
 				TableExportLib.Timing.begin("332 cell fetching");
 				TableExportSpanningElementList<TableExportSpanningCell> cells = new TableExportSpanningElementList<>();
-				for (AbstractDomCell cell: DomChildElementFinder.getCells(row)) {
+				List<IDomCell> cellsFromRow = TableExportChildElementFetcher.getCells(row);
+				for (IDomCell cell: cellsFromRow) {
 					int colspan = TableExportSpanFetcher.getColspanFromCell(cell);
 					int rowspan = TableExportSpanFetcher.getRowspanFromCell(cell);
 
