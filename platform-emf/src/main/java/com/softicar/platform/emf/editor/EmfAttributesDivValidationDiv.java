@@ -20,18 +20,9 @@ public class EmfAttributesDivValidationDiv<R extends IEmfTableRow<R, ?>> extends
 		for (IEmfAttribute<?, ?> attribute: validationResult.getAttributes()) {
 			if (!alreadyShownAttributes.contains(attribute.getOriginalAttribute())) {
 				for (IEmfDiagnostic diagnostic: validationResult.getDiagnostics(attribute)) {
-					appendChild(new ErrorRow(diagnostic));
+					appendError(diagnostic.getMessage());
 				}
 			}
-		}
-	}
-
-	private class ErrorRow extends DomInputDiagnosticsDisplay {
-
-		public ErrorRow(IEmfDiagnostic diagnostic) {
-
-			setErrorState();
-			appendText(diagnostic.getMessage().toString());
 		}
 	}
 }

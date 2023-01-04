@@ -1,5 +1,6 @@
 package com.softicar.platform.dom.elements.input.diagnostics;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
 
@@ -75,5 +76,19 @@ public class DomInputDiagnosticsDisplay extends DomDiv {
 	public DomInputDiagnosticsDisplay setErrorState() {
 
 		return setState(DomInputDiagnosticsState.ERROR);
+	}
+
+	public void appendError(IDisplayString message) {
+
+		appendChild(new ErrorRow(message));
+	}
+
+	private class ErrorRow extends DomInputDiagnosticsDisplay {
+
+		public ErrorRow(IDisplayString message) {
+
+			setErrorState();
+			appendText(message);
+		}
 	}
 }

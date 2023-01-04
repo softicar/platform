@@ -1,12 +1,11 @@
 package com.softicar.platform.workflow.module.workflow.transition;
 
-import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.uuid.AGUuid;
-import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 import com.softicar.platform.emf.validation.EmfValidationException;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -102,9 +101,15 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 
 	private void assertValidSideEffect(IWorkflowTransitionSideEffect<?> sideEffect) {
 
-		IEmfTable<?, ?, ?> table = tableRow.getWorkflowVersion().getWorkflow().getTableReferencePointOrThrow().getTable();
-		if (!sideEffect.getValueClass().isAssignableFrom(table.getValueClass())) {
-			addError(AGWorkflowTransition.SIDE_EFFECT, WorkflowI18n.SIDE_EFFECT_IS_NOT_COMPATIBLE_WITH_ARG1.toDisplay(table.getTitle()));
-		}
+		tableRow//
+			.getWorkflowVersion()
+			.getWorkflow()
+			.getTableReferencePoint()
+			.ifPresent(referencePoint -> {
+				var table = referencePoint.getTable();
+				if (!sideEffect.getValueClass().isAssignableFrom(table.getValueClass())) {
+					addError(AGWorkflowTransition.SIDE_EFFECT, WorkflowI18n.SIDE_EFFECT_IS_NOT_COMPATIBLE_WITH_ARG1.toDisplay(table.getTitle()));
+				}
+			});
 	}
 }

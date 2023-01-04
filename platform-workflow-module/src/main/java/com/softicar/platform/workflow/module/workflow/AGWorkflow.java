@@ -36,6 +36,13 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 			.list();
 	}
 
+	@SuppressWarnings("rawtypes")
+	public Optional<IWorkflowTableReferencePoint> getTableReferencePoint() {
+
+		return SourceCodeReferencePoints//
+			.getReferencePoint(getEntityTable().getUuid(), IWorkflowTableReferencePoint.class);
+	}
+
 	public IWorkflowTableReferencePoint<?> getTableReferencePointOrThrow() {
 
 		return SourceCodeReferencePoints//

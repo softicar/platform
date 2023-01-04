@@ -1,10 +1,11 @@
 package com.softicar.platform.emf.validation.result;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.Imploder;
 import java.util.Collection;
 import java.util.TreeSet;
 
-class EmfDiagnosticCollection {
+public class EmfDiagnosticCollection {
 
 	private final Collection<IEmfDiagnostic> diagnostics;
 
@@ -38,5 +39,10 @@ class EmfDiagnosticCollection {
 	public void addDiagnostic(IEmfDiagnostic diagnostic) {
 
 		diagnostics.add(diagnostic);
+	}
+
+	public void addError(IDisplayString message) {
+
+		addDiagnostic(new EmfDiagnostic(EmfDiagnosticLevel.ERROR, message));
 	}
 }
