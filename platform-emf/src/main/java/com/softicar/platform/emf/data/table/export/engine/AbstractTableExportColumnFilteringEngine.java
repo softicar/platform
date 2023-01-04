@@ -191,8 +191,7 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 
 				TableExportLib.Timing.begin("332 cell fetching");
 				TableExportSpanningElementList<TableExportSpanningCell> cells = new TableExportSpanningElementList<>();
-				List<IDomCell> cellsFromRow = TableExportChildElementFetcher.getCells(row);
-				for (IDomCell cell: cellsFromRow) {
+				for (IDomCell cell: TableExportChildElementFetcher.getCells(row)) {
 					int colspan = TableExportSpanFetcher.getColspanFromCell(cell);
 					int rowspan = TableExportSpanFetcher.getRowspanFromCell(cell);
 
