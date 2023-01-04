@@ -49,7 +49,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Alexander Schmidt
  */
-public class TableExportExcelEngine extends AbstractTableExportEngine<TableExportTypedNodeValue, Row, Cell> {
+public class TableExportExcelEngine extends AbstractTableExportEngine<Row, Cell> {
 
 	public static final int NUM_TABLE_SPACER_ROWS = 2;
 
@@ -79,12 +79,12 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<TableExpor
 	private int maxColumnIndex;
 
 	public TableExportExcelEngine(TableExportEngineConfiguration configuration, TableExportExcelExportConfiguration poiExportConfiguration,
-			ITableExportEngineFactory<? extends ITableExportEngine<TableExportTypedNodeValue>> creatingFactory) {
+			ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory) {
 
 		super(
 			configuration,
 			creatingFactory,
-			new TableExportNodeConverterFactoryConfiguration<>(new TableExportTextOnlyNodeConverterFactory(), new TableExportDefaultNodeConverterFactory())
+			new TableExportNodeConverterFactoryConfiguration(new TableExportTextOnlyNodeConverterFactory(), new TableExportDefaultNodeConverterFactory())
 				.addAvailableFactories(new TableExportStrictNodeConverterFactory(), new TableExportTextOnlyNodeConverterFactory()));
 
 		this.poiExportConfiguration = poiExportConfiguration;
@@ -95,7 +95,7 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<TableExpor
 	}
 
 	@Override
-	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<TableExportTypedNodeValue>> tableConfigurations) {
+	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		this.workbook = TableExportExcelWorkbookCreator.createWorkbook(poiExportConfiguration.getFormat());
 		assertStreamingWorkbook(this.workbook);
@@ -120,7 +120,7 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<TableExpor
 	}
 
 	@Override
-	protected void prepareTable(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	protected void prepareTable(TableExportTableConfiguration tableConfiguration) {
 
 		if (sheet == null || poiExportConfiguration.isSheetPerTable()) {
 			this.sheet = this.workbook.createSheet(getNextSheetTitle(tableConfiguration));
@@ -136,8 +136,8 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<TableExpor
 	}
 
 	@Override
-	protected Cell createAndAppendCell(Row documentRow, int targetColIndex, boolean isHeader,
-			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
+	protected Cell createAndAppendCell(Row documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
+			TableExportNodeStyle exportNodeStyle) {
 
 		TableExportCellAlignment cellAlignment = exportNodeStyle.getAlignment();
 		IColor backgroundColor = exportNodeStyle.getBackgroundColor();
@@ -269,7 +269,7 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<TableExpor
 		return (short) (fontHeight + spacing + VERTIAL_PADDING_COMPENSATION);
 	}
 
-	private String getNextSheetTitle(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	private String getNextSheetTitle(TableExportTableConfiguration tableConfiguration) {
 
 		if (poiExportConfiguration.isSheetPerTable()) {
 			return tableConfiguration//

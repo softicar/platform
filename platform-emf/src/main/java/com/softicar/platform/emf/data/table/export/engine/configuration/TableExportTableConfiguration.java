@@ -6,12 +6,12 @@ import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 import com.softicar.platform.emf.data.table.export.node.style.TableExportTableCssClass;
 import java.util.Optional;
 
-public class TableExportTableConfiguration<CT> {
+public class TableExportTableConfiguration {
 
 	private final TableExportTableModel tableModel;
-	private final TableExportColumnConfiguration<CT> columnConfiguration;
+	private final TableExportColumnConfiguration columnConfiguration;
 
-	public TableExportTableConfiguration(TableExportTableModel tableModel, TableExportColumnConfiguration<CT> columnConfiguration) {
+	public TableExportTableConfiguration(TableExportTableModel tableModel, TableExportColumnConfiguration columnConfiguration) {
 
 		this.tableModel = tableModel;
 		this.columnConfiguration = columnConfiguration;
@@ -32,7 +32,7 @@ public class TableExportTableConfiguration<CT> {
 		return new TableExportTableCssClass(getTable());
 	}
 
-	public TableExportColumnConfiguration<CT> getColumnConfiguration() {
+	public TableExportColumnConfiguration getColumnConfiguration() {
 
 		return columnConfiguration;
 	}

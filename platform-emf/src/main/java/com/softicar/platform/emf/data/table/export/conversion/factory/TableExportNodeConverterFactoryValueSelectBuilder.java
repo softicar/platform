@@ -18,34 +18,33 @@ import java.util.List;
  *
  * @author Alexander Schmidt
  */
-public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSimpleValueSelectBuilder<TableExportNodeConverterFactoryWrapper<CT>> {
+public class TableExportNodeConverterFactoryValueSelectBuilder extends DomSimpleValueSelectBuilder<TableExportNodeConverterFactoryWrapper> {
 
 	private final int targetColumn;
-	private final TableExportNodeConverterFactorySelectionModel<CT> nodeConverterFactorySelectionModel;
+	private final TableExportNodeConverterFactorySelectionModel nodeConverterFactorySelectionModel;
 	private final DomParentElement converterFactoryHelpElementParent;
 
-	private TableExportNodeConverterFactoryWrapper<CT> preselectedFactoryWrapper = null;
-	private TableExportNodeConverterFactoryWrapper<CT> defaultFactoryWrapper = null;
+	private TableExportNodeConverterFactoryWrapper preselectedFactoryWrapper = null;
+	private TableExportNodeConverterFactoryWrapper defaultFactoryWrapper = null;
 
-	public TableExportNodeConverterFactoryValueSelectBuilder(TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration,
-			TableExportNodeConverterFactorySelectionModel<CT> nodeConverterFactorySelectionModel, int targetColumn,
+	public TableExportNodeConverterFactoryValueSelectBuilder(TableExportNodeConverterFactoryConfiguration nodeConverterFactoryConfiguration,
+			TableExportNodeConverterFactorySelectionModel nodeConverterFactorySelectionModel, int targetColumn,
 			DomParentElement converterFactoryHelpElementParent) {
 
 		this.targetColumn = targetColumn;
 		this.nodeConverterFactorySelectionModel = nodeConverterFactorySelectionModel;
 		this.converterFactoryHelpElementParent = converterFactoryHelpElementParent;
 
-		List<TableExportNodeConverterFactoryWrapper<CT>> factoryWrappers = new ArrayList<>();
+		List<TableExportNodeConverterFactoryWrapper> factoryWrappers = new ArrayList<>();
 
-		ITableExportNodeConverterFactory<CT> defaultFactory = nodeConverterFactoryConfiguration.getDefaultFactory();
-		List<ITableExportNodeConverterFactory<CT>> factories = nodeConverterFactoryConfiguration.getAvailableFactories();
-		ITableExportNodeConverterFactory<CT> preselectedFactory =
-				nodeConverterFactorySelectionModel.getSelectedConverterFactoriesByColumn().get(this.targetColumn);
+		ITableExportNodeConverterFactory defaultFactory = nodeConverterFactoryConfiguration.getDefaultFactory();
+		List<ITableExportNodeConverterFactory> factories = nodeConverterFactoryConfiguration.getAvailableFactories();
+		ITableExportNodeConverterFactory preselectedFactory = nodeConverterFactorySelectionModel.getSelectedConverterFactoriesByColumn().get(this.targetColumn);
 
 		for (int i = 0; i < factories.size(); i++) {
-			ITableExportNodeConverterFactory<CT> factory = factories.get(i);
+			ITableExportNodeConverterFactory factory = factories.get(i);
 
-			TableExportNodeConverterFactoryWrapper<CT> factoryWrapper = new TableExportNodeConverterFactoryWrapper<>(factory, i);
+			TableExportNodeConverterFactoryWrapper factoryWrapper = new TableExportNodeConverterFactoryWrapper(factory, i);
 			factoryWrappers.add(factoryWrapper);
 
 			if (factory.equals(defaultFactory)) {
@@ -63,9 +62,9 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 	}
 
 	@Override
-	public DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> build() {
+	public DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> build() {
 
-		DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> select = super.build();
+		DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> select = super.build();
 
 		ModelRefresher modelRefresher = new ModelRefresher(select);
 		HelpCellRefresher helpCellRefresher = new HelpCellRefresher(select);
@@ -89,9 +88,9 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 
 	private class ModelRefresher {
 
-		private final DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> select;
+		private final DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> select;
 
-		public ModelRefresher(DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> select) {
+		public ModelRefresher(DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> select) {
 
 			this.select = select;
 		}
@@ -100,7 +99,7 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 
 			var factoryWrapper = this.select.getSelectedValue();
 			if (factoryWrapper.isPresent()) {
-				ITableExportNodeConverterFactory<CT> converterFactory = factoryWrapper.get().getConverterFactory();
+				ITableExportNodeConverterFactory converterFactory = factoryWrapper.get().getConverterFactory();
 				nodeConverterFactorySelectionModel.selectConverterFactory(targetColumn, converterFactory);
 			} else {
 				nodeConverterFactorySelectionModel.unselectConverterFactory(targetColumn);
@@ -110,9 +109,9 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 
 	private class HelpCellRefresher {
 
-		private final DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> select;
+		private final DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> select;
 
-		public HelpCellRefresher(DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper<CT>> select) {
+		public HelpCellRefresher(DomSimpleValueSelect<TableExportNodeConverterFactoryWrapper> select) {
 
 			this.select = select;
 		}
@@ -126,7 +125,7 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 
 			var selectedValue = select.getSelectedValue();
 			if (selectedValue.isPresent()) {
-				ITableExportNodeConverterFactory<CT> converterFactory = selectedValue.get().getConverterFactory();
+				ITableExportNodeConverterFactory converterFactory = selectedValue.get().getConverterFactory();
 
 				if (converterFactory != null) {
 					converterDescription = converterFactory.getConverterDescription();
@@ -135,10 +134,8 @@ public class TableExportNodeConverterFactoryValueSelectBuilder<CT> extends DomSi
 			}
 
 			if (converterDescription != null) {
-				DomButton helpButton = new DomHelpPopupButton(
-					DomI18n.HELP,
-					DomI18n.CONVERSION.concatFormat(": \"%s\"", converterDisplayString),
-					converterDescription);
+				DomButton helpButton =
+						new DomHelpPopupButton(DomI18n.HELP, DomI18n.CONVERSION.concatFormat(": \"%s\"", converterDisplayString), converterDescription);
 
 				converterFactoryHelpElementParent.appendChild(helpButton);
 			}

@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TableExportNodeConverterFactoryConfiguration<CT> {
+public class TableExportNodeConverterFactoryConfiguration {
 
-	private final ITableExportNodeConverterFactory<CT> headerFactory;
-	private final ITableExportNodeConverterFactory<CT> defaultFactory;
-	private final List<ITableExportNodeConverterFactory<CT>> availableFactories = new ArrayList<>();
+	private final ITableExportNodeConverterFactory headerFactory;
+	private final ITableExportNodeConverterFactory defaultFactory;
+	private final List<ITableExportNodeConverterFactory> availableFactories = new ArrayList<>();
 
 	/**
 	 * @param headerFactory
 	 * @param defaultFactory
 	 */
-	public TableExportNodeConverterFactoryConfiguration(ITableExportNodeConverterFactory<CT> headerFactory,
-			ITableExportNodeConverterFactory<CT> defaultFactory) {
+	public TableExportNodeConverterFactoryConfiguration(ITableExportNodeConverterFactory headerFactory, ITableExportNodeConverterFactory defaultFactory) {
 
 		validateArgumentConverterFactory(headerFactory);
 		validateArgumentConverterFactory(defaultFactory);
@@ -29,7 +28,7 @@ public class TableExportNodeConverterFactoryConfiguration<CT> {
 	}
 
 	@SafeVarargs
-	public final TableExportNodeConverterFactoryConfiguration<CT> addAvailableFactories(ITableExportNodeConverterFactory<CT>...availableFactories) {
+	public final TableExportNodeConverterFactoryConfiguration addAvailableFactories(ITableExportNodeConverterFactory...availableFactories) {
 
 		if (availableFactories != null) {
 			this.availableFactories.addAll(Arrays.asList(availableFactories));
@@ -38,22 +37,22 @@ public class TableExportNodeConverterFactoryConfiguration<CT> {
 		return this;
 	}
 
-	public ITableExportNodeConverterFactory<CT> getHeaderFactory() {
+	public ITableExportNodeConverterFactory getHeaderFactory() {
 
 		return headerFactory;
 	}
 
-	public ITableExportNodeConverterFactory<CT> getDefaultFactory() {
+	public ITableExportNodeConverterFactory getDefaultFactory() {
 
 		return defaultFactory;
 	}
 
-	public List<ITableExportNodeConverterFactory<CT>> getAvailableFactories() {
+	public List<ITableExportNodeConverterFactory> getAvailableFactories() {
 
 		return availableFactories;
 	}
 
-	private static final void validateArgumentConverterFactory(ITableExportNodeConverterFactory<?> converter) {
+	private static final void validateArgumentConverterFactory(ITableExportNodeConverterFactory converter) {
 
 		if (converter == null) {
 			throw new SofticarDeveloperException("The given %s must not be null.", ITableExportNodeConverterFactory.class.getSimpleName());

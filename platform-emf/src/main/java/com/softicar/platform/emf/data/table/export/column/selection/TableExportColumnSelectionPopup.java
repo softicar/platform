@@ -14,7 +14,7 @@ public class TableExportColumnSelectionPopup extends DomDismissablePopup {
 	private final TableExportTableModel tableModel;
 	private final TableExportColumnSelectionTableDiv tableDiv;
 
-	public TableExportColumnSelectionPopup(TableExportTableModel tableModel, IRefreshable refreshable, ITableExportEngine<?> currentEngine) {
+	public TableExportColumnSelectionPopup(TableExportTableModel tableModel, IRefreshable refreshable, ITableExportEngine currentEngine) {
 
 		this.tableModel = tableModel;
 		this.refreshable = refreshable;
