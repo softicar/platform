@@ -3,15 +3,15 @@ package com.softicar.platform.emf.data.table.export.element;
 import com.softicar.platform.common.container.matrix.IMatrixTraits;
 import com.softicar.platform.common.core.exceptions.SofticarNotImplementedYetException;
 import com.softicar.platform.common.string.unicode.UnicodeEnum;
-import com.softicar.platform.dom.elements.AbstractDomCell;
+import com.softicar.platform.dom.elements.IDomCell;
 import java.io.Serializable;
 
 public class TableExportNamedDomCell {
 
 	private final String name;
-	private final AbstractDomCell cell;
+	private final IDomCell cell;
 
-	public TableExportNamedDomCell(String name, AbstractDomCell cell) {
+	public TableExportNamedDomCell(String name, IDomCell cell) {
 
 		this.name = name;
 		this.cell = cell;
@@ -22,7 +22,7 @@ public class TableExportNamedDomCell {
 		return name;
 	}
 
-	public AbstractDomCell getCell() {
+	public IDomCell getCell() {
 
 		return cell;
 	}

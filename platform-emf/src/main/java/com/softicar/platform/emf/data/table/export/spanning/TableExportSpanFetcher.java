@@ -3,10 +3,11 @@ package com.softicar.platform.emf.data.table.export.spanning;
 import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.dom.attribute.IDomAttribute;
 import com.softicar.platform.dom.elements.AbstractDomCell;
+import com.softicar.platform.dom.elements.IDomCell;
 
 /**
  * Determines col- and rowspans from {@link AbstractDomCell}s.
- * 
+ *
  * @author Alexander Schmidt
  */
 public class TableExportSpanFetcher {
@@ -14,12 +15,12 @@ public class TableExportSpanFetcher {
 	private static final String COLSPAN_HTML_ATTRIBUTE_NAME = "colspan";
 	private static final String ROWSPAN_HTML_ATTRIBUTE_NAME = "rowspan";
 
-	public static int getColspanFromCell(AbstractDomCell cell) {
+	public static int getColspanFromCell(IDomCell cell) {
 
 		return getAttributeOrOneFromCell(cell, COLSPAN_HTML_ATTRIBUTE_NAME);
 	}
 
-	public static int getRowspanFromCell(AbstractDomCell cell) {
+	public static int getRowspanFromCell(IDomCell cell) {
 
 		return getAttributeOrOneFromCell(cell, ROWSPAN_HTML_ATTRIBUTE_NAME);
 	}
@@ -31,7 +32,7 @@ public class TableExportSpanFetcher {
 	 *         attribute is not set, 1 is returned. Guaranteed to return at
 	 *         least 1 in any case.
 	 */
-	private static int getAttributeOrOneFromCell(AbstractDomCell cell, String attributeName) {
+	private static int getAttributeOrOneFromCell(IDomCell cell, String attributeName) {
 
 		int colSpanValue = 0;
 		IDomAttribute attribute = cell.getAttribute(attributeName);

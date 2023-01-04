@@ -7,7 +7,7 @@ import com.softicar.platform.dom.parent.DomParentElement;
  *
  * @author Oliver Richers
  */
-public abstract class AbstractDomCell extends DomParentElement {
+public abstract class AbstractDomCell extends DomParentElement implements IDomCell {
 
 	public AbstractDomCell setColSpan(int colSpan) {
 
