@@ -7,6 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
+import com.softicar.platform.emf.form.IEmfAttributesDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.EmfValidationException;
 import com.softicar.platform.emf.validation.IEmfValidator;
@@ -25,7 +26,7 @@ import java.util.Set;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
+public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfAttributesDiv<R> {
 
 	protected final R tableRow;
 	protected final boolean editMode;
@@ -52,6 +53,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		appendChild(attributeGrid);
 	}
 
+	@Override
 	public void refresh() {
 
 		attributes.forEach(attribute -> {
@@ -132,6 +134,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 	 * @return <i>true</i> if validation and saving succeeded, <i>false</i>
 	 *         otherwise
 	 */
+	@Override
 	public boolean tryToApplyValidateAndSave() {
 
 		try {
@@ -153,6 +156,7 @@ public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		additionalValidators.add(validator);
 	}
 
+	@Override
 	public void addAdditionalValidators(Collection<IEmfValidator<R>> validators) {
 
 		additionalValidators.addAll(validators);

@@ -21,6 +21,7 @@ import com.softicar.platform.emf.authorizer.IEmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAuthorizer;
 import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
+import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivConfiguration;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
@@ -47,6 +48,8 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	IResource getIcon();
 
 	Function<R, IDomElement> getDisplayFactory();
+
+	IEmfFormAttributesDivConfiguration<R> getFormAttributesDivConfiguration();
 
 	IEmfFormIndicatorConfiguration<R> getFormIndicatorConfiguration();
 

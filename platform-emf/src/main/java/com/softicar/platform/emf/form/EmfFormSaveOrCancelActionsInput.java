@@ -14,10 +14,10 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 class EmfFormSaveOrCancelActionsInput<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 	private final IEmfFormBody<R> formBody;
-	private final EmfFormAttributesDiv<R> attributesDiv;
+	private final IEmfAttributesDiv<R> attributesDiv;
 	private final DomDiv buttonContainer;
 
-	public EmfFormSaveOrCancelActionsInput(IEmfFormBody<R> formBody, EmfFormAttributesDiv<R> attributesDiv) {
+	public EmfFormSaveOrCancelActionsInput(IEmfFormBody<R> formBody, IEmfAttributesDiv<R> attributesDiv) {
 
 		this.formBody = formBody;
 		this.attributesDiv = attributesDiv;

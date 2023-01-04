@@ -8,7 +8,7 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 
 class EmfFormSaveOrCancelActions<R extends IEmfTableRow<R, ?>> extends EmfFormSectionDiv<R> {
 
-	public EmfFormSaveOrCancelActions(IEmfFormBody<R> formBody, EmfFormAttributesDiv<R> attributesDiv) {
+	public EmfFormSaveOrCancelActions(IEmfFormBody<R> formBody, IEmfAttributesDiv<R> attributesDiv) {
 
 		super(formBody, new EmfFormSectionHeader().setIcon(EmfImages.ENTITY_ACTIONS.getResource()).setCaption(EmfI18n.ACTIONS));
 
