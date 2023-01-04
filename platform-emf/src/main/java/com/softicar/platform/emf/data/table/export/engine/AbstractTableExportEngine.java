@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table.export.engine;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.zip.ZipLib;
@@ -27,7 +26,6 @@ import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult.Level;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
-import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,6 +34,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -75,9 +74,7 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 	public AbstractTableExportEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine<CT>> creatingFactory,
 			TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration) {
 
-		if (configuration == null) {
-			throw new SofticarDeveloperException("The given %s must not be null.", TableExportEngineConfiguration.class.getSimpleName());
-		}
+		Objects.requireNonNull(configuration);
 
 		this.fileExtension = configuration.getFileNameExtension();
 		this.appendTimestamp = configuration.isAppendTimestamp();
@@ -119,12 +116,10 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 		// check preconditions
 		//
 
-		TableExportLib.Timing.begin("000 Preconditions");
 		TableExportPreconditionResultContainer errorMessages = getCreatingFactory().checkPreconditions(tableModels);
 		if (errorMessages == null) {
 			errorMessages = new TableExportPreconditionResultContainer();
 		}
-		TableExportLib.Timing.end("000 Preconditions");
 
 		if (!errorMessages.getAllByLevel(Level.ERROR).isEmpty()) {
 			throw new SofticarUserException(DomI18n.EXPORT_PRECONDITIONS_WERE_NOT_MET);
@@ -174,8 +169,6 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 			}
 
 			exportFinalization(buffer);
-
-			TableExportLib.Timing.log();
 
 			outputFileName = this.fileNameCreator
 				.createFileName(

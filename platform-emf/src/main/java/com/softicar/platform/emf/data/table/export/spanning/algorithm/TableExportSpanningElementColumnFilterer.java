@@ -2,7 +2,6 @@ package com.softicar.platform.emf.data.table.export.spanning.algorithm;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.emf.data.table.export.spanning.element.ITableExportSpanningElement;
-import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
@@ -62,44 +61,6 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 	}
 
 	/**
-	 * @param rowsWithCells
-	 *            A List of Lists of {@link ITableExportSpanningElement}s. Each
-	 *            inner List represents a row, while each element of each inner
-	 *            List is an {@link ITableExportSpanningElement} (e.g. an HTML
-	 *            cell) in the respective row.
-	 * @param initialRowIndex
-	 *            An initial row index offset to be applied to the result.
-	 * @param retainColumns
-	 *            A zero-based Set of column indexes to be retained (i.e.
-	 *            columns with indexes not contained in the Set are dropped). If
-	 *            the Set is null, no columns are dropped.
-	 * @return A shallow matrix of {@link ITableExportSpanningElement}s. The
-	 *         keys in the outer map are row indexes while the keys in the inner
-	 *         map are column indexes. The respective referenced
-	 *         {@link ITableExportSpanningElement} 's top-left corner is to be
-	 *         placed at the corresponding indexes.
-	 */
-	public Map<Integer, Map<Integer, TableExportSpanningElementFilterResult<OT>>> filter(TableExportSpanningElementListList<OT> rowsWithCells,
-			int initialRowIndex, Set<Integer> retainColumns) {
-
-		TableExportLib.Timing.begin("AAA row map creation");
-		SortedMap<Integer, SortedMap<Integer, OT>> rowMap = this.layouter.placeSpanningElements(rowsWithCells, initialRowIndex);
-		TableExportLib.Timing.end("AAA row map creation");
-
-		RowMapFilterExecutor rowMapFilterExecutor = new RowMapFilterExecutor();
-
-		if (!rowMap.isEmpty()) {
-			Integer lastRowIndex = rowMap.lastKey();
-
-			for (int r = 0; r <= lastRowIndex; r++) {
-				rowMapFilterExecutor.processRow(rowMap, r, retainColumns);
-			}
-		}
-
-		return rowMapFilterExecutor.getFilteredRowMap();
-	}
-
-	/**
 	 * Creates a filtered row map by consecutive calls of
 	 * {@link #processRow(Map, int, Set)}.
 	 *
@@ -116,8 +77,6 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 
 		public void processRow(Map<Integer, SortedMap<Integer, OT>> originalRowMap, int rowIndex, Set<Integer> retainColumns) {
 
-			TableExportLib.Timing.begin("BAA row iteration");
-
 			SortedMap<Integer, OT> colMap = originalRowMap.get(rowIndex);
 
 			if (colMap != null && !colMap.isEmpty()) {
@@ -126,7 +85,6 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 				OT lastCell = null;
 				int processedColsOfLastCell = 0;
 
-				TableExportLib.Timing.begin("BBA cell iteration #1");
 				for (int colIndex = 0; colIndex <= lastColIndex; colIndex++) {
 					++processedColsOfLastCell;
 
@@ -147,11 +105,9 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 						}
 					}
 				}
-				TableExportLib.Timing.end("BBA cell iteration #1");
 
 				int targetColCounter = 0;
 
-				TableExportLib.Timing.begin("BBB cell iteration #2");
 				for (int colIndex = 0; colIndex <= lastColIndex; colIndex++) {
 					OT cell = colMap.get(colIndex);
 
@@ -182,10 +138,7 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 						}
 					}
 				}
-				TableExportLib.Timing.end("BBB cell iteration #2");
 			}
-
-			TableExportLib.Timing.end("BAA row iteration");
 		}
 	}
 
@@ -194,10 +147,7 @@ public class TableExportSpanningElementColumnFilterer<OT extends ITableExportSpa
 	//
 
 	public static class TableExportSpanningElementList<OT extends ITableExportSpanningElement<?>> extends ArrayList<OT> {
-		// nothing
-	}
 
-	public static class TableExportSpanningElementListList<OT extends ITableExportSpanningElement<?>> extends ArrayList<ArrayList<OT>> {
 		// nothing
 	}
 }

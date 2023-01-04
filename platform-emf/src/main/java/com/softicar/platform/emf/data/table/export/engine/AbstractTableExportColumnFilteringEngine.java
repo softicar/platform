@@ -116,38 +116,28 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 		TableExportLib.assertPageableIfScrollable(table);
 
 		if (table instanceof DomPageableTable) {
-			TableExportLib.Timing.begin("310 Pre row iteration");
-
-			DomPageableTable pTable = (DomPageableTable) table;
+			DomPageableTable pageableTable = (DomPageableTable) table;
 
 			DomDocumentStasher stasher = new DomDocumentStasher();
 
 			try {
 				stasher.stashDomDocumentOrThrow(new DomDocument());
-				int totalNumRows = Math.max(pTable.getTotalRowCount(), 0);
+				int totalNumRows = Math.max(pageableTable.getTotalRowCount(), 0);
 				List<Pair<Integer, Integer>> chunkBoundaries =
 						TableExportChunkBoundaryCalculator.calculateChunkBoundaries(totalNumRows, PAGEABLE_TABLE_EXPORT_CHUNK_SIZE);
-
-				TableExportLib.Timing.end("310 Pre row iteration");
 
 				if (chunkBoundaries != null) {
 					for (Pair<Integer, Integer> boundary: chunkBoundaries) {
 						int lowerIndex = boundary.getFirst();
 						int upperIndex = boundary.getSecond();
 
-						TableExportLib.Timing.begin("320 row fetching");
-
 						// >>>> FIXME: potential performance bottleneck: does this still internally fetch the RS several
 						// times? >>>>
-						List<DomRow> rows = new ArrayList<>(pTable.getRowsUncached(lowerIndex, upperIndex));
+						List<DomRow> rows = new ArrayList<>(pageableTable.getRowsUncached(lowerIndex, upperIndex));
 						// <<<< FIXME: potential performance bottleneck: does this still internally fetch the RS several
 						// times? <<<<
 
-						TableExportLib.Timing.end("320 row fetching");
-
-						TableExportLib.Timing.begin("330 row appending");
 						this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
-						TableExportLib.Timing.end("330 row appending");
 					}
 				}
 			} finally {
@@ -184,12 +174,8 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 				int targetRowIndex = rowIndex + rowOffset;
 
 				DomRow row = rows.get(rowIndex);
-
-				TableExportLib.Timing.begin("331 createAndAppendRow");
 				ROW documentRow = createAndAppendRow(targetRowIndex, isHeader);
-				TableExportLib.Timing.end("331 createAndAppendRow");
 
-				TableExportLib.Timing.begin("332 cell fetching");
 				TableExportSpanningElementList<TableExportSpanningCell> cells = new TableExportSpanningElementList<>();
 				for (IDomCell cell: TableExportChildElementFetcher.getCells(row)) {
 					int colspan = TableExportSpanFetcher.getColspanFromCell(cell);
@@ -197,12 +183,9 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 
 					cells.add(new TableExportSpanningCell(cell, colspan, rowspan));
 				}
-				TableExportLib.Timing.end("332 cell fetching");
 
-				TableExportLib.Timing.begin("333 filtering");
 				Map<Integer, Map<Integer, TableExportSpanningElementFilterResult<TableExportSpanningCell>>> filtered =
 						this.columnFilterer.filter(cells, targetRowIndex, columnConfiguration.getSelectedColumnModels().keySet());
-				TableExportLib.Timing.end("333 filtering");
 
 				Map<Integer, TableExportSpanningElementFilterResult<TableExportSpanningCell>> filteredColMap = filtered.get(targetRowIndex);
 
@@ -226,10 +209,8 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 						IDomNode cellNode = spanningCell.get();
 						NodeConverterResult<CT> nodeConverterResult = nodeConverter.convertNode(cellNode);
 
-						TableExportLib.Timing.begin("334 cell creation");
 						CELL documentCell =
 								createAndAppendCell(documentRow, targetColIndex, isHeader, nodeConverterResult, TableExportNodeStyle.createFromNode(cellNode));
-						TableExportLib.Timing.end("334 cell creation");
 
 						int effectiveColspan = spanningCell.getEffectiveColspan();
 						int rowspan = spanningCell.getRowspan();
@@ -240,20 +221,14 @@ public abstract class AbstractTableExportColumnFilteringEngine<CT, ROW, CELL> ex
 							int firstCol = targetColIndex;
 							int lastCol = firstCol + effectiveColspan - 1;
 
-							TableExportLib.Timing.begin("335 merging");
 							mergeRectangularRegion(documentRow, documentCell, firstRow, lastRow, firstCol, lastCol);
-							TableExportLib.Timing.end("335 merging");
 						}
 
-						TableExportLib.Timing.begin("336 finish cell");
 						finishCell(documentCell);
-						TableExportLib.Timing.end("336 finish cell");
 					}
 				}
 
-				TableExportLib.Timing.begin("339 finish row");
 				finishRow(documentRow);
-				TableExportLib.Timing.end("339 finish row");
 			}
 
 			return rows.size();
