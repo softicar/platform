@@ -11,7 +11,7 @@ import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
  */
 public interface ITableExportPopupOptionsProvider {
 
-	ITableExportEngine<?> getCurrentEngineOrNull();
+	ITableExportEngine getCurrentEngineOrNull();
 
 	DomPopup getColumnSelectionPopup();
 

@@ -10,13 +10,11 @@ import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeCo
  * {@link ITableExportNodeConverterFactory}s can be selected on a per-column
  * basis.
  *
- * @param <CT>
- *            content type
  * @author Alexander Schmidt
  */
-public interface ITableExportNodeConverterFactory<CT> {
+public interface ITableExportNodeConverterFactory {
 
-	ITableExportNodeConverter<CT> create();
+	ITableExportNodeConverter create();
 
 	IDisplayString getConverterDisplayString();
 

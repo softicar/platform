@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 
-public abstract class AbstractTableExportEngineFactory<ET extends ITableExportEngine<?>> implements ITableExportEngineFactory<ET> {
+public abstract class AbstractTableExportEngineFactory<ET extends ITableExportEngine> implements ITableExportEngineFactory<ET> {
 
 	protected final TableExportEngineConfiguration engineConfiguration;
 

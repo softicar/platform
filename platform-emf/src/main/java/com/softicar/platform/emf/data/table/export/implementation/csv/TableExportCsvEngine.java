@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  *
  * @author Alexander Schmidt
  */
-public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportTypedNodeValue, CsvRow, CsvCell> {
+public class TableExportCsvEngine extends AbstractTableExportEngine<CsvRow, CsvCell> {
 
 	private static final String ALL_COMMA_SEPARATORS = "\\,\t;";
 	private static final char QUOTATION_CHAR = '"';
@@ -52,14 +52,13 @@ public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportT
 	 *            Excel, that must be ';'.
 	 * @param prependByteOrderMark
 	 */
-	public TableExportCsvEngine(TableExportEngineConfiguration configuration,
-			ITableExportEngineFactory<? extends ITableExportEngine<TableExportTypedNodeValue>> creatingFactory, char outputSeparator,
-			boolean prependByteOrderMark) {
+	public TableExportCsvEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory,
+			char outputSeparator, boolean prependByteOrderMark) {
 
 		super(
 			configuration, //
 			creatingFactory,
-			new TableExportNodeConverterFactoryConfiguration<>(//
+			new TableExportNodeConverterFactoryConfiguration(//
 				new TableExportTextOnlyNodeConverterFactory(),
 				new TableExportDefaultNodeConverterFactory()//
 			).addAvailableFactories(new TableExportStrictNodeConverterFactory(), new TableExportTextOnlyNodeConverterFactory())//
@@ -70,7 +69,7 @@ public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportT
 	}
 
 	@Override
-	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<TableExportTypedNodeValue>> tableConfigurations) {
+	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(targetOutputStream, OUTPUT_FILE_CHARSET);
 
@@ -89,7 +88,7 @@ public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportT
 	}
 
 	@Override
-	protected void prepareTable(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	protected void prepareTable(TableExportTableConfiguration tableConfiguration) {
 
 		// nothing to do
 	}
@@ -101,8 +100,8 @@ public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportT
 	}
 
 	@Override
-	protected CsvCell createAndAppendCell(CsvRow documentRow, int targetColIndex, boolean isHeader,
-			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
+	protected CsvCell createAndAppendCell(CsvRow documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
+			TableExportNodeStyle exportNodeStyle) {
 
 		return documentRow.addCell(targetColIndex, new CsvCell(convertedCellContent.getContent()));
 	}

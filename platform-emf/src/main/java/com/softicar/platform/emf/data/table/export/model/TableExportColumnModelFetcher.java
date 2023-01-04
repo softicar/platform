@@ -12,7 +12,6 @@ import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeCo
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.element.TableExportChildElementFetcher;
 import com.softicar.platform.emf.data.table.export.element.TableExportNamedDomCell;
-import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 import com.softicar.platform.emf.data.table.export.spanning.TableExportSpanFetcher;
 import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementLayouter;
 import com.softicar.platform.emf.data.table.export.spanning.element.TableExportSpanningCell;
@@ -121,8 +120,7 @@ public class TableExportColumnModelFetcher {
 
 		SimpleMatrix<Integer, Integer, TableExportNamedDomCell> result = new SimpleMatrix<>(new TableExportNamedDomCell.NamedDomCellMatrixTraits());
 
-		ITableExportNodeConverter<TableExportTypedNodeValue> textConverter =
-				new TableExportTextOnlyNodeConverterFactory(HEADER_CELL_CONTENT_SEPARATOR).create();
+		ITableExportNodeConverter textConverter = new TableExportTextOnlyNodeConverterFactory(HEADER_CELL_CONTENT_SEPARATOR).create();
 
 		for (Entry<Integer, SortedMap<Integer, TableExportSpanningCell>> outerEntry: placedSpanningObjects.entrySet()) {
 			for (Entry<Integer, TableExportSpanningCell> innerEntry: outerEntry.getValue().entrySet()) {

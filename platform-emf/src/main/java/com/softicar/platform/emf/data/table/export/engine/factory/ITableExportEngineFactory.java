@@ -14,7 +14,7 @@ import java.util.Collection;
  *            the type of the {@link ITableExportEngine} to create
  * @author Alexander Schmidt
  */
-public interface ITableExportEngineFactory<ET extends ITableExportEngine<?>> extends IDisplayable {
+public interface ITableExportEngineFactory<ET extends ITableExportEngine> extends IDisplayable {
 
 	/**
 	 * @return a new instance of an {@link ITableExportEngine} (never null)

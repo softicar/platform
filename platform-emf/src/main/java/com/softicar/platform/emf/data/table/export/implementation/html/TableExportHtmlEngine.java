@@ -31,7 +31,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import org.apache.commons.text.StringEscapeUtils;
 
-public class TableExportHtmlEngine extends AbstractTableExportEngine<TableExportTypedNodeValue, HtmlRow, HtmlCell> {
+public class TableExportHtmlEngine extends AbstractTableExportEngine<HtmlRow, HtmlCell> {
 
 	private static final Charset OUTPUT_FILE_CHARSET = StandardCharsets.UTF_8;
 	private static final Charset CSS_FILE_CHARSET = StandardCharsets.UTF_8;
@@ -43,13 +43,12 @@ public class TableExportHtmlEngine extends AbstractTableExportEngine<TableExport
 	private StringBuilder currentTableBodyBuilder = null;
 	private TableExportTableCssClass currentTableCssClass = null;
 
-	public TableExportHtmlEngine(TableExportEngineConfiguration configuration,
-			ITableExportEngineFactory<? extends ITableExportEngine<TableExportTypedNodeValue>> creatingFactory) {
+	public TableExportHtmlEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory) {
 
 		super(
 			configuration, //
 			creatingFactory,
-			new TableExportNodeConverterFactoryConfiguration<>(//
+			new TableExportNodeConverterFactoryConfiguration(//
 				new TableExportTextOnlyNodeConverterFactory(),
 				new TableExportDefaultNodeConverterFactory()//
 			).addAvailableFactories(new TableExportStrictNodeConverterFactory(), new TableExportTextOnlyNodeConverterFactory())//
@@ -57,7 +56,7 @@ public class TableExportHtmlEngine extends AbstractTableExportEngine<TableExport
 	}
 
 	@Override
-	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<TableExportTypedNodeValue>> tableConfigurations) {
+	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(targetOutputStream, OUTPUT_FILE_CHARSET);
 
@@ -90,7 +89,7 @@ public class TableExportHtmlEngine extends AbstractTableExportEngine<TableExport
 	}
 
 	@Override
-	protected void prepareTable(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	protected void prepareTable(TableExportTableConfiguration tableConfiguration) {
 
 		this.currentTableCssClass = tableConfiguration.getTableCssClass();
 
@@ -121,8 +120,8 @@ public class TableExportHtmlEngine extends AbstractTableExportEngine<TableExport
 	 * export engine. Instead it uses {@link DomCssFiles#DOM_STYLE}.
 	 */
 	@Override
-	protected HtmlCell createAndAppendCell(HtmlRow documentRow, int targetColIndex, boolean isHeader,
-			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
+	protected HtmlCell createAndAppendCell(HtmlRow documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
+			TableExportNodeStyle exportNodeStyle) {
 
 		return documentRow.addCell(targetColIndex, new HtmlCell(convertedCellContent.getContent(), isHeader));
 	}

@@ -32,7 +32,6 @@ import com.softicar.platform.emf.data.table.export.file.name.TableExportFileName
 import com.softicar.platform.emf.data.table.export.file.name.TableExportFileTimestampMode;
 import com.softicar.platform.emf.data.table.export.model.TableExportColumnModel;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
-import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 import com.softicar.platform.emf.data.table.export.node.style.TableExportNodeStyle;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult.Level;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
@@ -65,23 +64,19 @@ import java.util.stream.Collectors;
  * Note: Assumes the database being configured for a "repeatable reads" style
  * transaction isolation level.
  *
- * @param <CT>
- *            The type to which table cell contents get converted for the
- *            export. Though not mandatory, {@link TableExportTypedNodeValue} is
- *            recommended for any implementation.
  * @param <ROW>
  *            The type of the rows to be generated in the implementation
  * @param <CELL>
  *            The type of the cells to be generated in the implementation
  * @author Alexander Schmidt
  */
-public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITableExportEngine<CT> {
+public abstract class AbstractTableExportEngine<ROW, CELL> implements ITableExportEngine {
 
 	private static final int PAGEABLE_TABLE_EXPORT_CHUNK_SIZE = 2500;
 
-	private final ITableExportEngineFactory<? extends ITableExportEngine<CT>> creatingFactory;
-	private final TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration;
-	private final TableExportNodeConverterFactorySelectionModel<CT> nodeConverterFactorySelectionModel;
+	private final ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory;
+	private final TableExportNodeConverterFactoryConfiguration nodeConverterFactoryConfiguration;
+	private final TableExportNodeConverterFactorySelectionModel nodeConverterFactorySelectionModel;
 	private final ITableExportFileNameCreator fileNameCreator;
 
 	private String fileNamePrefix = null;
@@ -93,8 +88,8 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 	private TableExportSpanningElementColumnFilterer<TableExportSpanningCell> columnFilterer;
 	private int rowsOnCurrentSheet;
 
-	public AbstractTableExportEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine<CT>> creatingFactory,
-			TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration) {
+	public AbstractTableExportEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory,
+			TableExportNodeConverterFactoryConfiguration nodeConverterFactoryConfiguration) {
 
 		Objects.requireNonNull(configuration);
 
@@ -103,18 +98,18 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 		this.enableDeflateCompression = configuration.isCompressed();
 		this.creatingFactory = creatingFactory;
 		this.nodeConverterFactoryConfiguration = nodeConverterFactoryConfiguration;
-		this.nodeConverterFactorySelectionModel = new TableExportNodeConverterFactorySelectionModel<>(nodeConverterFactoryConfiguration);
+		this.nodeConverterFactorySelectionModel = new TableExportNodeConverterFactorySelectionModel(nodeConverterFactoryConfiguration);
 		this.fileNameCreator = new TableExportDefaultFileNameCreator();
 
 		this.columnFilterer = null;
 		resetRowsOnCurrentSheet();
 	}
 
-	protected abstract void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tableConfigurations);
+	protected abstract void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations);
 
 	protected abstract void finishExport(OutputStream targetOutputStream) throws IOException;
 
-	protected abstract void prepareTable(TableExportTableConfiguration<CT> tableConfiguration);
+	protected abstract void prepareTable(TableExportTableConfiguration tableConfiguration);
 
 	protected abstract void finishTable();
 
@@ -128,7 +123,7 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 	 */
 	protected abstract int appendTableSpacerRows(int targetRowIndex);
 
-	protected abstract CELL createAndAppendCell(ROW documentRow, int targetColIndex, boolean isHeader, NodeConverterResult<CT> convertedCellContent,
+	protected abstract CELL createAndAppendCell(ROW documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
 			TableExportNodeStyle exportNodeStyle);
 
 	protected abstract void finishCell(CELL documentCell);
@@ -174,56 +169,56 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 	}
 
 	@Override
-	public ITableExportEngine<CT> setFileNamePrefix(String fileNamepPrefix) {
+	public ITableExportEngine setFileNamePrefix(String fileNamepPrefix) {
 
 		this.fileNamePrefix = fileNamepPrefix.trim();
 		return this;
 	}
 
 	@Override
-	public ITableExportEngine<CT> setAppendTimestamp(boolean appendTimestamp) {
+	public ITableExportEngine setAppendTimestamp(boolean appendTimestamp) {
 
 		this.appendTimestamp = appendTimestamp;
 		return this;
 	}
 
 	@Override
-	public ITableExportEngine<CT> setEnableDeflateCompression(boolean enableDeflateCompression) {
+	public ITableExportEngine setEnableDeflateCompression(boolean enableDeflateCompression) {
 
 		this.enableDeflateCompression = enableDeflateCompression;
 		return this;
 	}
 
 	@Override
-	public ITableExportEngine<CT> setOutputStreamCreationFunction(Supplier<OutputStream> outputStreamSupplierFunction) {
+	public ITableExportEngine setOutputStreamCreationFunction(Supplier<OutputStream> outputStreamSupplierFunction) {
 
 		this.outputStreamSupplierFunction = outputStreamSupplierFunction;
 		return this;
 	}
 
 	@Override
-	public ITableExportEngineFactory<? extends ITableExportEngine<CT>> getCreatingFactory() {
+	public ITableExportEngineFactory<? extends ITableExportEngine> getCreatingFactory() {
 
 		return creatingFactory;
 	}
 
 	@Override
-	public TableExportNodeConverterFactoryConfiguration<CT> getNodeConverterFactoryConfiguration() {
+	public TableExportNodeConverterFactoryConfiguration getNodeConverterFactoryConfiguration() {
 
 		return nodeConverterFactoryConfiguration;
 	}
 
 	@Override
-	public TableExportNodeConverterFactorySelectionModel<CT> getNodeConverterFactorySelectionModel() {
+	public TableExportNodeConverterFactorySelectionModel getNodeConverterFactorySelectionModel() {
 
 		return this.nodeConverterFactorySelectionModel;
 	}
 
 	@Override
-	public DomSimpleValueSelectBuilder<TableExportNodeConverterFactoryWrapper<CT>> createConverterFactoryValueSelectBuiler(int targetColumn,
+	public DomSimpleValueSelectBuilder<TableExportNodeConverterFactoryWrapper> createConverterFactoryValueSelectBuiler(int targetColumn,
 			DomParentElement converterFactoryHelpElementContainer) {
 
-		return new TableExportNodeConverterFactoryValueSelectBuilder<>(
+		return new TableExportNodeConverterFactoryValueSelectBuilder(
 			this.nodeConverterFactoryConfiguration,
 			this.nodeConverterFactorySelectionModel,
 			targetColumn,
@@ -245,17 +240,17 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 
 		// -------- gather table configurations -------- //
 
-		List<TableExportTableConfiguration<CT>> tableConfigurations = new ArrayList<>();
+		List<TableExportTableConfiguration> tableConfigurations = new ArrayList<>();
 
 		for (TableExportTableModel tableModel: tableModels) {
 			Map<Integer, TableExportColumnModel> selectedColumnModels = tableModel.getSelectedColumnModels();
 
-			ITableExportNodeConverter<CT> headerConverter = getNodeConverterFactoryConfiguration().getHeaderFactory().create();
-			Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn =
+			ITableExportNodeConverter headerConverter = getNodeConverterFactoryConfiguration().getHeaderFactory().create();
+			Map<Integer, ITableExportNodeConverter> nodeConvertersByColumn =
 					getNodeConverterFactorySelectionModel().fetchNodeConvertersByColumn(selectedColumnModels.keySet());
-			TableExportColumnConfiguration<CT> columnConfiguration =
-					new TableExportColumnConfiguration<>(selectedColumnModels, nodeConvertersByColumn, headerConverter);
-			tableConfigurations.add(new TableExportTableConfiguration<>(tableModel, columnConfiguration));
+			TableExportColumnConfiguration columnConfiguration =
+					new TableExportColumnConfiguration(selectedColumnModels, nodeConvertersByColumn, headerConverter);
+			tableConfigurations.add(new TableExportTableConfiguration(tableModel, columnConfiguration));
 		}
 
 		// -------- prepare exports for all tables -------- //
@@ -269,7 +264,7 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 
 			// -------- execute per-table export implementations -------- //
 
-			for (TableExportTableConfiguration<CT> tableConfiguration: tableConfigurations) {
+			for (TableExportTableConfiguration tableConfiguration: tableConfigurations) {
 				// Run any implementation's queries in a transaction to avoid rows being dropped or duplicated
 				// when paging an SQL resultset based DomPageableTable, in case the underlying database table gets
 				// altered during the export process. Requires a "repeatable reads" style transaction isolation level.
@@ -322,13 +317,13 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 		}
 	}
 
-	private void appendHeader(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
+	private void appendHeader(DomTable table, TableExportColumnConfiguration columnConfiguration) {
 
 		List<DomRow> rows = TableExportChildElementFetcher.getHeaderRows(table);
 		this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, true, this.rowsOnCurrentSheet);
 	}
 
-	private void appendBody(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
+	private void appendBody(DomTable table, TableExportColumnConfiguration columnConfiguration) {
 
 		TableExportLib.assertPageableIfScrollable(table);
 
@@ -379,7 +374,7 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 	 * @param rowOffset
 	 * @return The number rows that were appended to the output document.
 	 */
-	private int appendRows(TableExportColumnConfiguration<CT> columnConfiguration, List<DomRow> rows, boolean isHeader, int rowOffset) {
+	private int appendRows(TableExportColumnConfiguration columnConfiguration, List<DomRow> rows, boolean isHeader, int rowOffset) {
 
 		if (rows != null) {
 			for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
@@ -409,7 +404,7 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 						TableExportSpanningElementFilterResult<TableExportSpanningCell> spanningCellResult = colEntry.getValue();
 						TableExportSpanningCell spanningCell = spanningCellResult.getSpanningElement();
 
-						ITableExportNodeConverter<CT> nodeConverter;
+						ITableExportNodeConverter nodeConverter;
 
 						if (isHeader) {
 							nodeConverter = columnConfiguration.getHeaderConverter();
@@ -419,7 +414,7 @@ public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITable
 						}
 
 						IDomNode cellNode = spanningCell.get();
-						NodeConverterResult<CT> nodeConverterResult = nodeConverter.convertNode(cellNode);
+						NodeConverterResult nodeConverterResult = nodeConverter.convertNode(cellNode);
 
 						CELL documentCell =
 								createAndAppendCell(documentRow, targetColIndex, isHeader, nodeConverterResult, TableExportNodeStyle.createFromNode(cellNode));
