@@ -7,7 +7,7 @@ import com.softicar.platform.emf.data.table.export.conversion.factory.TableExpor
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportStrictNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.configuration.TableExportNodeConverterFactoryConfiguration;
-import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportColumnFilteringEngine;
+import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  *
  * @author Alexander Schmidt
  */
-public class TableExportCsvEngine extends AbstractTableExportColumnFilteringEngine<TableExportTypedNodeValue, CsvRow, CsvCell> {
+public class TableExportCsvEngine extends AbstractTableExportEngine<TableExportTypedNodeValue, CsvRow, CsvCell> {
 
 	private static final String ALL_COMMA_SEPARATORS = "\\,\t;";
 	private static final char QUOTATION_CHAR = '"';

@@ -10,7 +10,7 @@ import com.softicar.platform.emf.data.table.export.conversion.factory.TableExpor
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportStrictNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.configuration.TableExportNodeConverterFactoryConfiguration;
-import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportColumnFilteringEngine;
+import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
@@ -49,7 +49,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Alexander Schmidt
  */
-public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEngine<TableExportTypedNodeValue, Row, Cell> {
+public class TableExportExcelEngine extends AbstractTableExportEngine<TableExportTypedNodeValue, Row, Cell> {
 
 	public static final int NUM_TABLE_SPACER_ROWS = 2;
 

@@ -1,18 +1,27 @@
 package com.softicar.platform.emf.data.table.export.engine;
 
+import com.softicar.platform.common.container.pair.Pair;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.zip.ZipLib;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.document.CurrentDomDocument;
+import com.softicar.platform.dom.document.DomDocument;
+import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
+import com.softicar.platform.dom.elements.IDomCell;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelectBuilder;
+import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.dom.parent.DomParentElement;
+import com.softicar.platform.emf.data.table.export.chunking.TableExportChunkBoundaryCalculator;
 import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeConverter;
+import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeConverter.NodeConverterResult;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportNodeConverterFactoryValueSelectBuilder;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportNodeConverterFactoryWrapper;
 import com.softicar.platform.emf.data.table.export.conversion.factory.configuration.TableExportNodeConverterFactoryConfiguration;
 import com.softicar.platform.emf.data.table.export.conversion.factory.selection.TableExportNodeConverterFactorySelectionModel;
+import com.softicar.platform.emf.data.table.export.element.TableExportChildElementFetcher;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportColumnConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
@@ -24,8 +33,15 @@ import com.softicar.platform.emf.data.table.export.file.name.TableExportFileTime
 import com.softicar.platform.emf.data.table.export.model.TableExportColumnModel;
 import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
+import com.softicar.platform.emf.data.table.export.node.style.TableExportNodeStyle;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResult.Level;
 import com.softicar.platform.emf.data.table.export.precondition.TableExportPreconditionResultContainer;
+import com.softicar.platform.emf.data.table.export.spanning.TableExportSpanFetcher;
+import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementColumnFilterer;
+import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementColumnFilterer.TableExportSpanningElementList;
+import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementFilterResult;
+import com.softicar.platform.emf.data.table.export.spanning.element.TableExportSpanningCell;
+import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,12 +50,16 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * Base of all {@link ITableExportEngine} implementations.
+ * <p>
+ * Performs span-based content layouting while also allowing for subsequent
+ * column filtering.
  * <p>
  * Note: Assumes the database being configured for a "repeatable reads" style
  * transaction isolation level.
@@ -48,17 +68,15 @@ import java.util.stream.Collectors;
  *            The type to which table cell contents get converted for the
  *            export. Though not mandatory, {@link TableExportTypedNodeValue} is
  *            recommended for any implementation.
+ * @param <ROW>
+ *            The type of the rows to be generated in the implementation
+ * @param <CELL>
+ *            The type of the cells to be generated in the implementation
  * @author Alexander Schmidt
  */
-public abstract class AbstractTableExportEngine<CT> implements ITableExportEngine<CT> {
+public abstract class AbstractTableExportEngine<CT, ROW, CELL> implements ITableExportEngine<CT> {
 
-	protected abstract void exportPreparation(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tablesWithColumnModel);
-
-	protected abstract void exportImplementation(OutputStream targetOutputStream, TableExportTableConfiguration<CT> tableConfiguration);
-
-	protected abstract void exportFinalization(OutputStream targetOutputStream);
-
-	// ----
+	private static final int PAGEABLE_TABLE_EXPORT_CHUNK_SIZE = 2500;
 
 	private final ITableExportEngineFactory<? extends ITableExportEngine<CT>> creatingFactory;
 	private final TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration;
@@ -70,6 +88,9 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 	private boolean appendTimestamp = false;
 	private boolean enableDeflateCompression = true;
 	private Supplier<OutputStream> outputStreamSupplierFunction = null;
+
+	private TableExportSpanningElementColumnFilterer<TableExportSpanningCell> columnFilterer;
+	private int rowsOnCurrentSheet;
 
 	public AbstractTableExportEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine<CT>> creatingFactory,
 			TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration) {
@@ -83,7 +104,35 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 		this.nodeConverterFactoryConfiguration = nodeConverterFactoryConfiguration;
 		this.nodeConverterFactorySelectionModel = new TableExportNodeConverterFactorySelectionModel<>(nodeConverterFactoryConfiguration);
 		this.fileNameCreator = new TableExportDefaultFileNameCreator();
+
+		this.columnFilterer = null;
+		resetRowsOnCurrentSheet();
 	}
+
+	protected abstract void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tableConfigurations);
+
+	protected abstract void finishExport(OutputStream targetOutputStream) throws IOException;
+
+	protected abstract void prepareTable(TableExportTableConfiguration<CT> tableConfiguration);
+
+	protected abstract void finishTable();
+
+	protected abstract ROW createAndAppendRow(int targetRowIndex, boolean isHeader);
+
+	protected abstract void finishRow(ROW documentRow);
+
+	protected abstract CELL createAndAppendCell(ROW documentRow, int targetColIndex, boolean isHeader, NodeConverterResult<CT> convertedCellContent,
+			TableExportNodeStyle exportNodeStyle);
+
+	protected abstract void finishCell(CELL documentCell);
+
+	protected abstract void mergeRectangularRegion(ROW documentRow, CELL documentCell, int firstRow, int lastRow, int firstCol, int lastCol);
+
+	/**
+	 * @param targetRowIndex
+	 * @return The number of rows the appended table spacer comprises.
+	 */
+	protected abstract int appendTableSpacerRows(int targetRowIndex);
 
 	@Override
 	public void export(DomTable table) {
@@ -162,7 +211,7 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 				// when paging an SQL resultset based DomPageableTable, in case the underlying database table gets
 				// altered during the export process. Requires a "repeatable reads" style transaction isolation level.
 				try (AutoCloseable transaction = tableConfiguration.startTransaction()) {
-					exportImplementation(buffer, tableConfiguration);
+					exportImplementation(tableConfiguration);
 				} catch (Exception exception) {
 					throw new RuntimeException(exception);
 				}
@@ -260,5 +309,192 @@ public abstract class AbstractTableExportEngine<CT> implements ITableExportEngin
 			this.nodeConverterFactorySelectionModel,
 			targetColumn,
 			converterFactoryHelpElementContainer);
+	}
+
+	protected final void resetRowsOnCurrentSheet() {
+
+		this.rowsOnCurrentSheet = 0;
+	}
+
+	private void prepare(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tableConfigurations) {
+
+		this.columnFilterer = new TableExportSpanningElementColumnFilterer<>();
+
+		prepareExport(targetOutputStream, tableConfigurations);
+	}
+
+	private void finish(OutputStream targetOutputStream) throws IOException {
+
+		finishExport(targetOutputStream);
+	}
+
+	private void appendHeader(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
+
+		List<DomRow> rows = TableExportChildElementFetcher.getHeaderRows(table);
+
+		this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, true, this.rowsOnCurrentSheet);
+	}
+
+	private void appendBody(DomTable table, TableExportColumnConfiguration<CT> columnConfiguration) {
+
+		TableExportLib.assertPageableIfScrollable(table);
+
+		if (table instanceof DomPageableTable) {
+			DomPageableTable pageableTable = (DomPageableTable) table;
+
+			DomDocumentStasher stasher = new DomDocumentStasher();
+
+			try {
+				stasher.stashDomDocumentOrThrow(new DomDocument());
+				int totalNumRows = Math.max(pageableTable.getTotalRowCount(), 0);
+				List<Pair<Integer, Integer>> chunkBoundaries =
+						TableExportChunkBoundaryCalculator.calculateChunkBoundaries(totalNumRows, PAGEABLE_TABLE_EXPORT_CHUNK_SIZE);
+
+				if (chunkBoundaries != null) {
+					for (Pair<Integer, Integer> boundary: chunkBoundaries) {
+						int lowerIndex = boundary.getFirst();
+						int upperIndex = boundary.getSecond();
+
+						// >>>> FIXME: potential performance bottleneck: does this still internally fetch the RS several
+						// times? >>>>
+						List<DomRow> rows = new ArrayList<>(pageableTable.getRowsUncached(lowerIndex, upperIndex));
+						// <<<< FIXME: potential performance bottleneck: does this still internally fetch the RS several
+						// times? <<<<
+
+						this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
+					}
+				}
+			} finally {
+				stasher.unstashDomDocumentOrThrow();
+			}
+		}
+
+		// any other (non-pageable) DomTable
+		else {
+			List<DomRow> rows = TableExportChildElementFetcher.getBodyRows(table);
+
+			this.rowsOnCurrentSheet += appendRows(columnConfiguration, rows, false, this.rowsOnCurrentSheet);
+		}
+
+		this.rowsOnCurrentSheet += Math.max(0, appendTableSpacerRows(this.rowsOnCurrentSheet));
+	}
+
+	/**
+	 * @param columnConfiguration
+	 * @param rows
+	 * @param isHeader
+	 * @param rowOffset
+	 * @return The number rows that were appended to the output document.
+	 */
+	private int appendRows(TableExportColumnConfiguration<CT> columnConfiguration, List<DomRow> rows, boolean isHeader, int rowOffset) {
+
+		if (rows != null) {
+			for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+				int targetRowIndex = rowIndex + rowOffset;
+
+				DomRow row = rows.get(rowIndex);
+				ROW documentRow = createAndAppendRow(targetRowIndex, isHeader);
+
+				TableExportSpanningElementList<TableExportSpanningCell> cells = new TableExportSpanningElementList<>();
+				for (IDomCell cell: TableExportChildElementFetcher.getCells(row)) {
+					int colspan = TableExportSpanFetcher.getColspanFromCell(cell);
+					int rowspan = TableExportSpanFetcher.getRowspanFromCell(cell);
+
+					cells.add(new TableExportSpanningCell(cell, colspan, rowspan));
+				}
+
+				Map<Integer, Map<Integer, TableExportSpanningElementFilterResult<TableExportSpanningCell>>> filtered =
+						this.columnFilterer.filter(cells, targetRowIndex, columnConfiguration.getSelectedColumnModels().keySet());
+
+				Map<Integer, TableExportSpanningElementFilterResult<TableExportSpanningCell>> filteredColMap = filtered.get(targetRowIndex);
+
+				if (filteredColMap != null) {
+					for (Entry<Integer, TableExportSpanningElementFilterResult<TableExportSpanningCell>> colEntry: filteredColMap.entrySet()) {
+
+						int targetColIndex = colEntry.getKey();
+
+						TableExportSpanningElementFilterResult<TableExportSpanningCell> spanningCellResult = colEntry.getValue();
+						TableExportSpanningCell spanningCell = spanningCellResult.getSpanningElement();
+
+						ITableExportNodeConverter<CT> nodeConverter;
+
+						if (isHeader) {
+							nodeConverter = columnConfiguration.getHeaderConverter();
+						} else {
+							int originalColumnIndex = spanningCellResult.getOriginalColumnIndex();
+							nodeConverter = columnConfiguration.getNodeConvertersByColumn().get(originalColumnIndex);
+						}
+
+						IDomNode cellNode = spanningCell.get();
+						NodeConverterResult<CT> nodeConverterResult = nodeConverter.convertNode(cellNode);
+
+						CELL documentCell =
+								createAndAppendCell(documentRow, targetColIndex, isHeader, nodeConverterResult, TableExportNodeStyle.createFromNode(cellNode));
+
+						int effectiveColspan = spanningCell.getEffectiveColspan();
+						int rowspan = spanningCell.getRowspan();
+
+						if (effectiveColspan > 1 || rowspan > 1) {
+							int firstRow = targetRowIndex;
+							int lastRow = firstRow + rowspan - 1;
+							int firstCol = targetColIndex;
+							int lastCol = firstCol + effectiveColspan - 1;
+
+							mergeRectangularRegion(documentRow, documentCell, firstRow, lastRow, firstCol, lastCol);
+						}
+
+						finishCell(documentCell);
+					}
+				}
+
+				finishRow(documentRow);
+			}
+
+			return rows.size();
+		}
+
+		else {
+			return 0;
+		}
+	}
+
+	private void exportPreparation(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tablesWithColumnModel) {
+
+		try {
+			prepare(targetOutputStream, tablesWithColumnModel);
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, DomI18n.FAILED_TO_PREPARE_THE_FILE_FOR_EXPORT);
+		}
+	}
+
+	private void exportImplementation(TableExportTableConfiguration<CT> tableConfiguration) {
+
+		DomTable table = tableConfiguration.getTable();
+		TableExportColumnConfiguration<CT> columnConfiguration = tableConfiguration.getColumnConfiguration();
+
+		prepareTable(tableConfiguration);
+
+		try {
+			appendHeader(table, columnConfiguration);
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_HEADER);
+		}
+
+		try {
+			appendBody(table, columnConfiguration);
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_BODY);
+		}
+
+		finishTable();
+	}
+
+	private void exportFinalization(OutputStream targetOutputStream) {
+
+		try {
+			finish(targetOutputStream);
+		} catch (Exception exception) {
+			throw new SofticarUserException(exception, DomI18n.FAILED_TO_FINISH_THE_FILE_FOR_EXPORT);
+		}
 	}
 }
