@@ -1,7 +1,6 @@
 package com.softicar.platform.emf.data.table.export.util;
 
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
-import com.softicar.platform.common.core.logging.TimingLog;
 import com.softicar.platform.common.string.regex.PatternFinder;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
@@ -16,7 +15,6 @@ import java.util.TreeSet;
  */
 public class TableExportLib {
 
-	public static final boolean MASTER_SWITCH_TIMING = false;
 	public static final String FILE_NAME_INVALID_CHARS = "\\/:*?\"<>|";
 	public static final String DEFLATE_COMPRESSION_FILE_NAME_EXTENSION = "zip";
 
@@ -85,32 +83,6 @@ public class TableExportLib {
 
 		else {
 			return null;
-		}
-	}
-
-	// ----
-
-	public static class Timing {
-
-		public static void begin(String name) {
-
-			if (MASTER_SWITCH_TIMING) {
-				TimingLog.begin(name);
-			}
-		}
-
-		public static void end(String name) {
-
-			if (MASTER_SWITCH_TIMING) {
-				TimingLog.end(name);
-			}
-		}
-
-		public static void log() {
-
-			if (MASTER_SWITCH_TIMING) {
-				TimingLog.log();
-			}
 		}
 	}
 }

@@ -9,7 +9,6 @@ import com.softicar.platform.emf.data.table.export.engine.configuration.TableExp
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.factory.ITableExportEngineFactory;
 import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
-import com.softicar.platform.emf.data.table.export.util.TableExportLib;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
@@ -56,9 +55,7 @@ public abstract class AbstractTableExportSubdividedEngine<CT> extends AbstractTa
 	protected void exportPreparation(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<CT>> tablesWithColumnModel) {
 
 		try {
-			TableExportLib.Timing.begin("100 Prepare");
 			prepare(targetOutputStream, tablesWithColumnModel);
-			TableExportLib.Timing.end("100 Prepare");
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, DomI18n.FAILED_TO_PREPARE_THE_FILE_FOR_EXPORT);
 		}
@@ -73,17 +70,13 @@ public abstract class AbstractTableExportSubdividedEngine<CT> extends AbstractTa
 		prepareTable(tableConfiguration);
 
 		try {
-			TableExportLib.Timing.begin("200 Header");
 			appendHeader(table, columnConfiguration);
-			TableExportLib.Timing.end("200 Header");
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_HEADER);
 		}
 
 		try {
-			TableExportLib.Timing.begin("300 Body");
 			appendBody(table, columnConfiguration);
-			TableExportLib.Timing.end("300 Body");
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, DomI18n.FAILED_TO_GENERATE_TABLE_BODY);
 		}
@@ -95,9 +88,7 @@ public abstract class AbstractTableExportSubdividedEngine<CT> extends AbstractTa
 	protected void exportFinalization(OutputStream targetOutputStream) {
 
 		try {
-			TableExportLib.Timing.begin("400 Finish");
 			finish(targetOutputStream);
-			TableExportLib.Timing.end("400 Finish");
 		} catch (Exception exception) {
 			throw new SofticarUserException(exception, DomI18n.FAILED_TO_FINISH_THE_FILE_FOR_EXPORT);
 		}
