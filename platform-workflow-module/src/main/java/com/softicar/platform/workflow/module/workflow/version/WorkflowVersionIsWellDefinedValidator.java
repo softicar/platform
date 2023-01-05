@@ -14,12 +14,18 @@ import com.softicar.platform.workflow.module.workflow.transition.permission.AGWo
 import java.util.Optional;
 import java.util.function.Function;
 
-public class WorkflowVersionRunnableValidator {
+/**
+ * Checks that the {@link AGWorkflowVersion} is well-defined, that is, it has a
+ * valid root node and all source code reference points can be found.
+ *
+ * @author Oliver Richers
+ */
+public class WorkflowVersionIsWellDefinedValidator {
 
 	private final AGWorkflowVersion version;
 	private EmfDiagnosticCollection diagnostics;
 
-	public WorkflowVersionRunnableValidator(AGWorkflowVersion version) {
+	public WorkflowVersionIsWellDefinedValidator(AGWorkflowVersion version) {
 
 		this.version = version;
 	}
@@ -56,7 +62,7 @@ public class WorkflowVersionRunnableValidator {
 
 		validateReferencePoint(//
 			action.getAction(),
-			uuid -> WorkflowI18n.ACTION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING.toDisplay(uuid, action.getWorkflowNode().getName()));
+			uuid -> WorkflowI18n.ACTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING.toDisplay(uuid, action.getWorkflowNode().getName()));
 	}
 
 	// ------------------------------ node action permissions ------------------------------ //
@@ -70,7 +76,7 @@ public class WorkflowVersionRunnableValidator {
 
 		validatePermission(//
 			permission.getPermissionUuid(),
-			uuid -> WorkflowI18n.ACTION_PERMISSION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING
+			uuid -> WorkflowI18n.ACTION_PERMISSION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING
 				.toDisplay(uuid, permission.getWorkflowNodeAction().getWorkflowNode().getName()));
 	}
 
@@ -85,7 +91,7 @@ public class WorkflowVersionRunnableValidator {
 
 		validateReferencePoint(//
 			precondition.getFunction(),
-			uuid -> WorkflowI18n.PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING.toDisplay(uuid, precondition.getWorkflowNode().getName()));
+			uuid -> WorkflowI18n.PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING.toDisplay(uuid, precondition.getWorkflowNode().getName()));
 	}
 
 	// ------------------------------ transitions ------------------------------ //
@@ -102,7 +108,7 @@ public class WorkflowVersionRunnableValidator {
 			.ifPresent(sideEffect -> {
 				validateReferencePoint(//
 					sideEffect,
-					uuid -> WorkflowI18n.SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_MISSING.toDisplay(uuid, transition.getName()));
+					uuid -> WorkflowI18n.SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING.toDisplay(uuid, transition.getName()));
 			});
 	}
 
@@ -117,7 +123,7 @@ public class WorkflowVersionRunnableValidator {
 
 		validatePermission(//
 			permission.getPermission(),
-			uuid -> WorkflowI18n.PERMISSION_ARG1_OF_WORKFLOW_TRANSITION_ARG2_MISSING.toDisplay(uuid, permission.getTransition().getName()));
+			uuid -> WorkflowI18n.PERMISSION_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING.toDisplay(uuid, permission.getTransition().getName()));
 	}
 
 	// ------------------------------ utilities ------------------------------ //

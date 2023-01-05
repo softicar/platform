@@ -107,7 +107,7 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 			.getTableReferencePoint()
 			.ifPresent(referencePoint -> {
 				var table = referencePoint.getTable();
-				if (!sideEffect.getValueClass().isAssignableFrom(table.getValueClass())) {
+				if (!sideEffect.isCompatible(table)) {
 					addError(AGWorkflowTransition.SIDE_EFFECT, WorkflowI18n.SIDE_EFFECT_IS_NOT_COMPATIBLE_WITH_ARG1.toDisplay(table.getTitle()));
 				}
 			});

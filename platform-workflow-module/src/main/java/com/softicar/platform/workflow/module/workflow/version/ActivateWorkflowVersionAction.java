@@ -49,8 +49,7 @@ public class ActivateWorkflowVersionAction implements IEmfManagementAction<AGWor
 	public void handleClick(AGWorkflowVersion version) {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			version.reloadForUpdate();
-			var diagnostics = new WorkflowVersionRunnableValidator(version).validate();
+			var diagnostics = new WorkflowVersionIsWellDefinedValidator(version).validate();
 			if (diagnostics.hasErrors()) {
 				new ErrorDialog(diagnostics).open();
 			} else {
