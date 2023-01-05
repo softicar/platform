@@ -36,8 +36,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 			.setCreationPermission(
 				WorkflowPermissions.ADMINISTRATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getModuleInstance())))
 			.setViewPermission(
-				WorkflowPermissions.VIEW
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
+				WorkflowPermissions.VIEW.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
 			.setEditPermission(
 				WorkflowPermissions.ADMINISTRATION
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())));
@@ -62,6 +61,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	@Override
 	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflowVersion> attributes) {
 
+		attributes.addTransientAttribute(new WorkflowVersionHashField());
 		attributes//
 			.editAttribute(AGWorkflowVersion.DRAFT)
 			.setPredicateEditable(EmfPredicates.never());
