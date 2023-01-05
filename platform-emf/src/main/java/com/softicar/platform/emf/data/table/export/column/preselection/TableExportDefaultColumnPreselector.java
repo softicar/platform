@@ -10,7 +10,7 @@ public class TableExportDefaultColumnPreselector implements ITableExportColumnPr
 	@Override
 	public boolean isPreselected(Collection<TableExportNamedDomCell> namedCells) {
 
-		if (firstCellIsSeparatorHeader(namedCells)) {
+		if (containsAnySeparatorHeaderCell(namedCells)) {
 			return false;
 		}
 
@@ -29,13 +29,11 @@ public class TableExportDefaultColumnPreselector implements ITableExportColumnPr
 			.anyMatch(IEmfDataTableActionHeaderCell.class::isInstance);
 	}
 
-	private boolean firstCellIsSeparatorHeader(Collection<TableExportNamedDomCell> namedCells) {
+	private boolean containsAnySeparatorHeaderCell(Collection<TableExportNamedDomCell> namedCells) {
 
 		return namedCells//
 			.stream()
-			.findFirst()
 			.map(TableExportNamedDomCell::getCell)
-			.filter(DomSeparatorHeaderCell.class::isInstance)
-			.isPresent();
+			.anyMatch(DomSeparatorHeaderCell.class::isInstance);
 	}
 }
