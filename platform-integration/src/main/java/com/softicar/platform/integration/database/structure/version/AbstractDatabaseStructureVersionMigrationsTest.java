@@ -111,31 +111,35 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 	public void testMigrationsCreateTargetStructures() {
 
 		var resourcesMap = new DatabaseStructureVersionResourcesMap(resourceContainerClass);
-		int latestVersion = resourcesMap.getLatestVersion();
-
 		for (int i = 0; i < numberOfRecentMigrations; i++) {
-			if (!testMigrationCreatesTargetStructure(resourcesMap, latestVersion - i)) {
+			if (!testMigrationCreatesTargetStructure(resourcesMap, i)) {
 				break;
 			}
 		}
 	}
 
 	/**
-	 * Validates the migration from the given source version to the given target
-	 * version.
+	 * Validates the migration to the structure version with the given reverse
+	 * version index.
+	 * <p>
+	 * In the list of existing versions, a reverse version index of 0 refers to
+	 * the latest version. A reverse version index of 1 refers to the second
+	 * latest version, and so on.
 	 *
 	 * @param resourcesMap
-	 * @param targetVersion
-	 *            the version to migrate to
+	 * @param reverseVersionIndex
+	 *            the reverse index of the version to migrate to
 	 * @return <i>true</i> if a migration from the given source version to the
 	 *         given target version was found; <i>false</i> otherwise
 	 */
-	private boolean testMigrationCreatesTargetStructure(DatabaseStructureVersionResourcesMap resourcesMap, int targetVersion) {
+	private boolean testMigrationCreatesTargetStructure(DatabaseStructureVersionResourcesMap resourcesMap, int reverseVersionIndex) {
+
+		int targetVersion = resourcesMap.getRecentVersion(reverseVersionIndex);
+		int sourceVersion = resourcesMap.getRecentVersion(reverseVersionIndex + 1);
 
 		var errorFactory = new AssertionErrorFactory(targetVersion);
 		var migrationResourceSupplier = resourcesMap.getMigrationResourceSupplier(targetVersion);
 		if (migrationResourceSupplier.isPresent()) {
-			int sourceVersion = targetVersion - 1;
 			var sourceStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(sourceVersion);
 			var targetStructureResourceSupplier = resourcesMap.getStructureResourceSupplier(targetVersion);
 
@@ -306,7 +310,7 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 		public AssertionError create(Object reason) {
 
-			return new AssertionError("Failed to migrate v%s to v%s:\n%s".formatted(targetVersion - 1, targetVersion, reason));
+			return new AssertionError("Failed to migrate to v%s:\n%s".formatted(targetVersion, reason));
 		}
 	}
 }

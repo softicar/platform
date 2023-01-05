@@ -49,17 +49,17 @@ public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleIns
 
 		this.viewUser = insertUser("View", "User")//
 			.setEmailAddress("view.user@example.com")
-			.setAutomaticallyCollapseFolders(false)
+			.updatePreferences(preferences -> preferences.setAutomaticallyCollapseFolders(false))
 			.save();
 
 		this.normalUser = insertUser("Normal", "User")//
 			.setEmailAddress("normal.user@example.com")
-			.setAutomaticallyCollapseFolders(false)
+			.updatePreferences(preferences -> preferences.setAutomaticallyCollapseFolders(false))
 			.save();
 
 		this.adminUser = insertUser("Admin", "User")//
 			.setEmailAddress("admin.user@example.com")
-			.setAutomaticallyCollapseFolders(false)
+			.updatePreferences(preferences -> preferences.setAutomaticallyCollapseFolders(false))
 			.save();
 
 		insertPassword(viewUser, "test");

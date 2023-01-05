@@ -1,11 +1,14 @@
 package com.softicar.platform.core.module.user;
 
+import com.google.gson.Gson;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.LocaleScope;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
@@ -25,7 +28,9 @@ import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasicUser {
 
@@ -246,5 +251,32 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	public IDisplayString toDisplay() {
 
 		return toDisplayWithoutId();
+	}
+
+	public UserPreferences getPreferences() {
+
+		UserPreferences preferences = null;
+		try {
+			preferences = new Gson().fromJson(getPreferencesJson(), UserPreferences.class);
+		} catch (Exception exception) {
+			DevNull.swallow(exception);
+			Log.ferror("Failed to retrieve preferences for user '%s'. Using defaults.", toDisplay());
+		}
+		return Optional.ofNullable(preferences).orElse(new UserPreferences());
+	}
+
+	public AGUser savePreferences(UserPreferences preferences) {
+
+		Objects.requireNonNull(preferences);
+		String preferencesJson = new Gson().toJson(preferences);
+		setPreferencesJson(preferencesJson).save();
+		return this;
+	}
+
+	public AGUser updatePreferences(Consumer<UserPreferences> preferencesModifier) {
+
+		var preferences = getPreferences();
+		preferencesModifier.accept(preferences);
+		return savePreferences(preferences);
 	}
 }

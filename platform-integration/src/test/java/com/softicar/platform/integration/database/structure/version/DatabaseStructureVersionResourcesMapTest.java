@@ -17,7 +17,7 @@ public class DatabaseStructureVersionResourcesMapTest extends AbstractTest {
 	@Test
 	public void testGetMigrationResourceSupplier() {
 
-		int latestVersion = map.getLatestVersion();
+		int latestVersion = map.getRecentVersion(0);
 		var resourceSupplier = map.getMigrationResourceSupplier(latestVersion).get();
 
 		assertEquals(//
@@ -28,15 +28,16 @@ public class DatabaseStructureVersionResourcesMapTest extends AbstractTest {
 	@Test
 	public void testGetStructureResourceSupplier() {
 
-		int latestVersion = map.getLatestVersion();
-		var sourceResourceSupplier = map.getStructureResourceSupplier(latestVersion - 1);
-		var targetResourceSupplier = map.getStructureResourceSupplier(latestVersion);
+		int targetVersion = map.getRecentVersion(0);
+		int sourceVersion = map.getRecentVersion(1);
+		var sourceResourceSupplier = map.getStructureResourceSupplier(sourceVersion);
+		var targetResourceSupplier = map.getStructureResourceSupplier(targetVersion);
 
 		assertEquals(//
-			"v%s-structure.json".formatted(latestVersion - 1),
+			"v%s-structure.json".formatted(sourceVersion),
 			sourceResourceSupplier.getResource().getFilename().get());
 		assertEquals(//
-			"v%s-structure.json".formatted(latestVersion),
+			"v%s-structure.json".formatted(targetVersion),
 			targetResourceSupplier.getResource().getFilename().get());
 	}
 
@@ -67,11 +68,27 @@ public class DatabaseStructureVersionResourcesMapTest extends AbstractTest {
 	}
 
 	@Test
-	public void testGetLatestVersion() {
+	public void testGetRecentVersion() {
 
-		int latestVersion = map.getLatestVersion();
+		int latestVersion = map.getRecentVersion(0);
+		int previousVersion = map.getRecentVersion(1);
 
-		// Cannot really test this without adapting the test every time a new version is created.
+		// Expecting explicit version numbers here would entail touching the test every time a new version is added.
+		// Hence this heuristic approach.
 		assertTrue(latestVersion > 1);
+		assertTrue(previousVersion > 1);
+		assertTrue(latestVersion > previousVersion);
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testGetRecentVersionWithReverseIndexOutOfBounds() {
+
+		map.getRecentVersion(Integer.MAX_VALUE);
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testGetRecentVersionWithReverseIndexNegative() {
+
+		map.getRecentVersion(-1);
 	}
 }

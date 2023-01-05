@@ -29,4 +29,124 @@ public class AGUserTest extends AbstractCoreTest {
 
 		assertFalse(CorePermissions.ADMINISTRATION.test(instance, user));
 	}
+
+	@Test
+	public void testGetPreferences() {
+
+		// setup
+		user.setPreferencesJson("""
+				{"automaticallyCollapseFolders":true,"recursivelyCollapseFolders":true}
+				""").save();
+
+		// execute
+		var preferences = user.getPreferences();
+
+		// assert results
+		assertTrue(preferences.isAutomaticallyCollapseFolders());
+		assertTrue(preferences.isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testGetPreferencesWithEmptyJsonField() {
+
+		// assert precondition
+		assertTrue(user.getPreferencesJson().isEmpty());
+
+		// execute
+		var preferences = user.getPreferences();
+
+		// assert results
+		assertFalse(preferences.isAutomaticallyCollapseFolders());
+		assertFalse(preferences.isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testGetPreferencesWithCorruptedJsonField() {
+
+		// setup
+		user.setPreferencesJson("not-a-json-string").save();
+
+		// execute
+		var preferences = user.getPreferences();
+
+		// assert results
+		assertFalse(preferences.isAutomaticallyCollapseFolders());
+		assertFalse(preferences.isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testSavePreferences() {
+
+		// setup
+		user.setPreferencesJson("""
+				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false}
+				""").save();
+		var preferences = new UserPreferences();
+		preferences.setAutomaticallyCollapseFolders(true);
+		preferences.setRecursivelyCollapseFolders(true);
+
+		// execute
+		user.savePreferences(preferences);
+
+		// assert results
+		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
+		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testSavePreferencesWithEmptyJsonField() {
+
+		// assert precondition
+		assertTrue(user.getPreferencesJson().isEmpty());
+
+		// setup
+		var preferences = new UserPreferences();
+		preferences.setAutomaticallyCollapseFolders(true);
+		preferences.setRecursivelyCollapseFolders(true);
+
+		// execute
+		user.savePreferences(preferences);
+
+		// assert results
+		assertFalse(user.getPreferencesJson().isEmpty());
+		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
+		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testUpdatePreferences() {
+
+		// setup
+		user.setPreferencesJson("""
+				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false}
+				""").save();
+
+		// execute
+		user.updatePreferences(preferences -> {
+			preferences.setAutomaticallyCollapseFolders(true);
+			preferences.setRecursivelyCollapseFolders(true);
+		});
+
+		// assert results
+		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
+		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+	}
+
+	@Test
+	public void testUpdatePreferencesWithEmptyJsonField() {
+
+		// assert precondition
+		assertTrue(user.getPreferencesJson().isEmpty());
+
+		// execute
+		user.updatePreferences(preferences -> {
+			preferences.setAutomaticallyCollapseFolders(true);
+			preferences.setRecursivelyCollapseFolders(true);
+		});
+
+		// assert results
+		assertFalse(user.getPreferencesJson().isEmpty());
+		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
+		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+	}
 }

@@ -1,23 +1,22 @@
 package com.softicar.platform.core.module.user.navigation;
 
-import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.UserPreferences;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
 
 public class RecursivelyCollapseFoldersInput extends EmfBooleanInput {
 
-	private final AGUser user;
+	private final UserPreferences preferences;
 
-	public RecursivelyCollapseFoldersInput(AGUser user) {
+	public RecursivelyCollapseFoldersInput(UserPreferences preferences) {
 
-		super(user.isRecursivelyCollapseFolders());
-		this.user = user;
-		refreshInputConstraints();
+		super(preferences.recursivelyCollapseFolders);
+		this.preferences = preferences;
+		addChangeCallback(this::handleChange);
 	}
 
-	@Override
-	public void refreshInputConstraints() {
+	private void handleChange() {
 
-		if (user.isAutomaticallyCollapseFolders()) {
+		if (preferences.automaticallyCollapseFolders) {
 			setValue(true);
 			setDisabled(true);
 		} else {
