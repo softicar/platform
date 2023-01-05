@@ -24,6 +24,7 @@ public class WorkflowDtoV1Exporter {
 	private Map<AGWorkflowNode, WorkflowDtoV1.Node> nodeDtoMap;
 	private Map<AGWorkflowNodeAction, WorkflowDtoV1.NodeAction> actionDtoMap;
 	private Map<AGWorkflowTransition, WorkflowDtoV1.Transition> transitionDtoMap;
+	private boolean skipNodePositions;
 
 	public WorkflowDtoV1Exporter(AGWorkflow workflow) {
 
@@ -33,6 +34,13 @@ public class WorkflowDtoV1Exporter {
 	public WorkflowDtoV1Exporter(AGWorkflowVersion workflowVersion) {
 
 		this.workflowVersion = Objects.requireNonNull(workflowVersion);
+		this.skipNodePositions = false;
+	}
+
+	public WorkflowDtoV1Exporter setSkipNodePositions(boolean skipNodePositions) {
+
+		this.skipNodePositions = skipNodePositions;
+		return this;
 	}
 
 	public WorkflowDtoV1 exportWorkflow() {
@@ -81,8 +89,8 @@ public class WorkflowDtoV1Exporter {
 
 		var nodeDto = new WorkflowDtoV1.Node();
 		nodeDto.name = node.getName();
-		nodeDto.x = node.getXCoordinate();
-		nodeDto.y = node.getYCoordinate();
+		nodeDto.x = skipNodePositions? 0 : node.getXCoordinate();
+		nodeDto.y = skipNodePositions? 0 : node.getYCoordinate();
 		nodeDto.actions = new ArrayList<>();
 		nodeDto.preconditions = new ArrayList<>();
 
