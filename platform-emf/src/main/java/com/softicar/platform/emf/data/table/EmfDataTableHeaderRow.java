@@ -49,7 +49,7 @@ class EmfDataTableHeaderRow<R> extends DomRow {
 		return actionColumn + headerCellMap.values().size();
 	}
 
-	private static class ActionHeaderCell extends DomHeaderCell {
+	private static class ActionHeaderCell extends DomHeaderCell implements IEmfDataTableActionHeaderCell {
 
 		public ActionHeaderCell() {
 

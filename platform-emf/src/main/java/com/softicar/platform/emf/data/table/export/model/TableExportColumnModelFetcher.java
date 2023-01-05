@@ -61,9 +61,8 @@ public class TableExportColumnModelFetcher {
 						if (!namedCell.isEmptyName()) {
 							columnHeaderLabels.add(namedCell.getName());
 						}
+						cellsInColumn.add(namedCell);
 					}
-
-					cellsInColumn.add(namedCell);
 				}
 
 				boolean overallEmpty = columnHeaderLabels.isEmpty();
