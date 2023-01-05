@@ -4,14 +4,14 @@ import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeCo
 import com.softicar.platform.emf.data.table.export.model.TableExportColumnModel;
 import java.util.Map;
 
-public class TableExportColumnConfiguration<CT> {
+public class TableExportColumnConfiguration {
 
 	private final Map<Integer, TableExportColumnModel> selectedColumnModels;
-	private final Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn;
-	private final ITableExportNodeConverter<CT> headerConverter;
+	private final Map<Integer, ITableExportNodeConverter> nodeConvertersByColumn;
+	private final ITableExportNodeConverter headerConverter;
 
-	public TableExportColumnConfiguration(Map<Integer, TableExportColumnModel> selectedColumnModels, Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn,
-			ITableExportNodeConverter<CT> headerConverter) {
+	public TableExportColumnConfiguration(Map<Integer, TableExportColumnModel> selectedColumnModels,
+			Map<Integer, ITableExportNodeConverter> nodeConvertersByColumn, ITableExportNodeConverter headerConverter) {
 
 		this.selectedColumnModels = selectedColumnModels;
 		this.nodeConvertersByColumn = nodeConvertersByColumn;
@@ -23,12 +23,12 @@ public class TableExportColumnConfiguration<CT> {
 		return selectedColumnModels;
 	}
 
-	public Map<Integer, ITableExportNodeConverter<CT>> getNodeConvertersByColumn() {
+	public Map<Integer, ITableExportNodeConverter> getNodeConvertersByColumn() {
 
 		return nodeConvertersByColumn;
 	}
 
-	public ITableExportNodeConverter<CT> getHeaderConverter() {
+	public ITableExportNodeConverter getHeaderConverter() {
 
 		return headerConverter;
 	}

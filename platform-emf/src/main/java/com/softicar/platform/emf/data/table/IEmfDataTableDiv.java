@@ -57,5 +57,5 @@ public interface IEmfDataTableDiv<R> extends IDomElement, IRefreshable {
 
 	// -------------------- export -------------------- //
 
-	void export(ITableExportEngine<?> engine);
+	void export(ITableExportEngine engine);
 }

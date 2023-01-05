@@ -5,7 +5,6 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeConverter;
 import com.softicar.platform.emf.data.table.export.conversion.TableExportTypedNodeConverter;
 import com.softicar.platform.emf.data.table.export.node.ITableExportTypedNode;
-import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 
 /**
  * Creates an {@link ITableExportNodeConverter} that converts all node contents
@@ -13,7 +12,7 @@ import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValu
  *
  * @author Alexander Schmidt
  */
-public class TableExportTextOnlyNodeConverterFactory implements ITableExportNodeConverterFactory<TableExportTypedNodeValue> {
+public class TableExportTextOnlyNodeConverterFactory implements ITableExportNodeConverterFactory {
 
 	private final String cellContentSeparator;
 
@@ -28,7 +27,7 @@ public class TableExportTextOnlyNodeConverterFactory implements ITableExportNode
 	}
 
 	@Override
-	public ITableExportNodeConverter<TableExportTypedNodeValue> create() {
+	public ITableExportNodeConverter create() {
 
 		TableExportTypedNodeConverter converter = new TableExportTypedNodeConverter().setEnableAutomaticTypeConversion(false).setForceStringValues(true);
 

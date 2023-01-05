@@ -1,38 +1,37 @@
 package com.softicar.platform.emf.data.table.export.conversion;
 
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 
 /**
  * Implementations convert the content of the given {@link IDomNode} to an
  * object of the given type.
- * 
- * @param <CT>
- *            the type to which the content of a node is to be converted
+ *
  * @author Alexander Schmidt
  */
-public interface ITableExportNodeConverter<CT> {
+public interface ITableExportNodeConverter {
 
 	/**
 	 * @param node
 	 * @return A Pair of extracted node content and an integer number of lines
 	 *         this content comprises.
 	 */
-	NodeConverterResult<CT> convertNode(IDomNode node);
+	NodeConverterResult convertNode(IDomNode node);
 
 	// ----
 
-	public static class NodeConverterResult<CT> {
+	public static class NodeConverterResult {
 
-		private final CT content;
+		private final TableExportTypedNodeValue content;
 		private final int contentLineCount;
 
-		public NodeConverterResult(CT content, int contentLineCount) {
+		public NodeConverterResult(TableExportTypedNodeValue content, int contentLineCount) {
 
 			this.content = content;
 			this.contentLineCount = contentLineCount;
 		}
 
-		public CT getContent() {
+		public TableExportTypedNodeValue getContent() {
 
 			return content;
 		}

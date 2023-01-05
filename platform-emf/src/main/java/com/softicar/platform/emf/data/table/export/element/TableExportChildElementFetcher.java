@@ -6,6 +6,7 @@ import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTBody;
 import com.softicar.platform.dom.elements.DomTHead;
 import com.softicar.platform.dom.elements.DomTable;
+import com.softicar.platform.dom.elements.IDomCell;
 import com.softicar.platform.dom.elements.tables.DomDataTable;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.emf.data.table.export.util.TableExportLib;
@@ -33,7 +34,7 @@ public class TableExportChildElementFetcher {
 
 		DomTHead tHead = getTableHeadOrNull(table);
 		if (tHead != null) {
-			return DomChildElementFinder.getChildrenByClass(tHead, DomRow.class, createHeaderRowSkipIndexs(table), null);
+			return DomChildElementFinder.getChildrenWithClass(tHead, DomRow.class, createHeaderRowSkipIndexs(table), null);
 		} else {
 			return new ArrayList<>();
 		}
@@ -46,10 +47,15 @@ public class TableExportChildElementFetcher {
 			tBody = ((DomDataTable) table).getBody();
 		}
 		if (tBody != null) {
-			return DomChildElementFinder.getChildrenByClass(tBody, DomRow.class, null, null);
+			return DomChildElementFinder.getChildrenWithClass(tBody, DomRow.class);
 		} else {
 			return new ArrayList<>();
 		}
+	}
+
+	public static List<IDomCell> getCells(DomRow row) {
+
+		return DomChildElementFinder.getChildrenWithClass(row, IDomCell.class);
 	}
 
 	// TODO: this is really nasty

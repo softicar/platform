@@ -181,7 +181,7 @@ class EmfDataTableDiv<R> extends DomDiv implements IEmfDataTableDiv<R> {
 	// -------------------- export -------------------- //
 
 	@Override
-	public void export(ITableExportEngine<?> engine) {
+	public void export(ITableExportEngine engine) {
 
 		engine.export(table);
 	}

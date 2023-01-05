@@ -11,10 +11,10 @@ import com.softicar.platform.emf.data.table.export.model.TableExportTableModel;
 public class TableExportColumnSelectionButton extends DomPopupButton implements IRefreshable {
 
 	private final TableExportTableModel tableModel;
-	private final ITableExportEngine<?> currentEngine;
+	private final ITableExportEngine currentEngine;
 	private TableExportColumnSelectionPopup columnSelectionPopup;
 
-	public TableExportColumnSelectionButton(TableExportTableModel tableModel, ITableExportEngine<?> currentEngine) {
+	public TableExportColumnSelectionButton(TableExportTableModel tableModel, ITableExportEngine currentEngine) {
 
 		this.tableModel = tableModel;
 		this.currentEngine = currentEngine;
