@@ -11,10 +11,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Eine neue Arbeitsablauf-Aufgabe erfordert Ihre Aufmerksamkeit.");
 	I18n0 A_SUBSTITUTE_MUST_BE_DEFINED = new I18n0("A substitute must be defined.")//
 		.de("Eine Vertretung muss definiert sein.");
-	I18n2 ACTION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING = new I18n2("Action %s of workflow node '%s' missing.")//
-		.de("Aktion %s des Workflow-Knotens %s fehlt.");
-	I18n2 ACTION_PERMISSION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING = new I18n2("Action permission %s of workflow node '%s' missing.")//
-		.de("Aktionberechtigung %s des Workflow-Knotens %s fehlt.");
+	I18n2 ACTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING = new I18n2("Action '%s' of workflow node '%s' is missing.")//
+		.de("Aktion %s des Arbeitsablauf-Knotens %s fehlt.");
+	I18n2 ACTION_PERMISSION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING = new I18n2("Action permission '%s' of workflow node '%s' is missing.")//
+		.de("Aktionberechtigung %s des Arbeitsablauf-Knotens %s fehlt.");
 	I18n0 ACTIVATE = new I18n0("Activate")//
 		.de("Aktivieren");
 	I18n0 ADD_NEW_MESSAGE = new I18n0("Add New Message")//
@@ -85,13 +85,11 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Import erfolgreich");
 	I18n1 INVALID_WORKFLOW_DEFINITION_IN_TRANSITION_ARG1_VOTING_PERCENTAGE_MUST_BE_GREATER_THAN_0_AND_LESS_EQUAL_TO_100 =
 			new I18n1("Invalid workflow definition in transition '%s': Voting-percentage must be greater than 0 and less equal to 100'.")//
-				.de("Ungültige Workflow-Definition in Übergang '%s': Der Quorum-Prozentsatz muss größer als 0 und kleiner gleich 100 sein.");
+				.de("Ungültige Arbeitsablauf-Definition in Übergang '%s': Der Quorum-Prozentsatz muss größer als 0 und kleiner gleich 100 sein.");
 	I18n0 IS_CURRENT_VERSION = new I18n0("Is Current Version")//
 		.de("ist aktuelle Version");
-	I18n0 IS_RUNNABLE = new I18n0("Is Consistent")//
-		.de("Ist konsistent");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
-		.de("Ist Workflow gestartet?");
+		.de("Ist Arbeitsablauf gestartet?");
 	I18n0 MANAGE_WORKFLOW = new I18n0("Manage Workflow")//
 		.de("Arbeitsablauf verwalten");
 	I18n2 MESSAGE_FOR_ITEM_ARG1_AT_ARG2 = new I18n2("Message for Item '%s' at '%s'")//
@@ -107,11 +105,11 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n0 NEW_WORKFLOW_TASK = new I18n0("New Workflow Task")//
 		.de("Neue Arbeitsablauf-Aufgabe");
 	I18n0 NO_CURRENT_WORKFLOW_VERSION_FOUND = new I18n0("No current workflow version found.")//
-		.de("Keine aktuelle Workflow-Version gefunden.");
+		.de("Keine aktuelle Arbeitsablauf-Version gefunden.");
 	I18n0 NO_FURTHER_APPROVAL_IS_REQUIRED = new I18n0("No further approval is required.")//
 		.de("Keine weitere Genehmigung ist notwendig.");
 	I18n0 NO_WORKFLOW_FOUND = new I18n0("No workflow found.")//
-		.de("Kein Workflow gefunden.");
+		.de("Kein Arbeitsablauf gefunden.");
 	I18n0 NODES = new I18n0("Nodes")//
 		.de("Knoten");
 	I18n0 NOTIFY = new I18n0("Notify")//
@@ -122,12 +120,12 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Veraltete Version");
 	I18n0 OPEN_TASKS = new I18n0("Open Tasks")//
 		.de("Offene Aufgaben");
-	I18n2 PERMISSION_ARG1_OF_WORKFLOW_TRANSITION_ARG2_MISSING = new I18n2("Permission %s of workflow transition '%s' missing.")//
-		.de("Berechtigung %s des Workflow-Übergangs %s fehlt.");
+	I18n2 PERMISSION_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING = new I18n2("Permission '%s' of workflow transition '%s' is missing.")//
+		.de("Berechtigung %s des Arbeitsablauf-Übergangs %s fehlt.");
 	I18n0 PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN = new I18n0("Please refresh the input element or press F5 to reload the screen.")//
 		.de("Bitte das Eingabeelement aktualisieren oder F5 drücken, um den Bildschirm neu zu laden.");
-	I18n2 PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_MISSING = new I18n2("Precondition function %s of workflow node '%s' missing.")//
-		.de("Vorbedingungsfunktion %s des Workflow-Knotens %s fehlt.");
+	I18n2 PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING = new I18n2("Precondition function '%s' of workflow node '%s' is missing.")//
+		.de("Vorbedingungsfunktion %s des Arbeitsablauf-Knotens %s fehlt.");
 	I18n0 PRECONDITIONS = new I18n0("Preconditions")//
 		.de("Vorbedingungen");
 	I18n0 REQUIRED_VOTES = new I18n0("Required Votes")//
@@ -144,8 +142,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergänge anzeigen");
 	I18n0 SIDE_EFFECT = new I18n0("Side Effect")//
 		.de("Nebeneffekt");
-	I18n2 SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_MISSING = new I18n2("Side effect %s of workflow transition '%s' missing.")//
-		.de("Nebeneffekt %s des Workflow-Übergangs %s fehlt.");
+	I18n2 SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING = new I18n2("Side effect '%s' of workflow transition '%s' is missing.")//
+		.de("Nebeneffekt %s des Arbeitsablauf-Übergangs %s fehlt.");
 	I18n1 SIDE_EFFECT_IS_NOT_COMPATIBLE_WITH_ARG1 = new I18n1("Side effect is not compatible with %s.")//
 		.de("Nebeneffekt ist nicht kompatibel mit %s.");
 	I18n0 SOURCE_CODE_REFERENCE_POINT_IS_NOT_A_VALID_SIDE_EFFECT = new I18n0("Source code reference point is not a valid side effect.")//
@@ -191,27 +189,27 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n0 WORKFLOW_ACTION_AVAILABLE = new I18n0("Workflow action available")//
 		.de("Arbeitsablauf-Aktion verfügbar");
 	I18n0 WORKFLOW_ALREADY_STARTED = new I18n0("Workflow already started.")//
-		.de("Workflow bereits gestartet.");
+		.de("Arbeitsablauf bereits gestartet.");
 	I18n0 WORKFLOW_AUTO_TRANSITION_EXECUTION = new I18n0("Workflow Auto Transition Execution")//
 		.de("Ausführung eines automatischen Arbeitsablauf-Übergangs");
 	I18n0 WORKFLOW_AUTO_TRANSITION_EXECUTIONS = new I18n0("Workflow Auto Transition Executions")//
 		.de("Ausführungen eines automatischen Arbeitsablauf-Übergangs");
 	I18n0 WORKFLOW_DEMO_OBJECT = new I18n0("Workflow Demo Object")//
-		.de("Workflow-Demo-Objekt");
+		.de("Arbeitsablauf-Demo-Objekt");
 	I18n0 WORKFLOW_DEMO_OBJECT_APPROVER = new I18n0("Workflow Demo Object Approver")//
-		.de("Workflow-Demo-Objekt-Genehmiger");
+		.de("Arbeitsablauf-Demo-Objekt-Genehmiger");
 	I18n0 WORKFLOW_DEMO_OBJECT_APPROVER_LOG = new I18n0("Workflow Demo Object Approver Log")//
-		.de("Workflow-Demo-Objekt-Genehmiger-Log");
+		.de("Arbeitsablauf-Demo-Objekt-Genehmiger-Log");
 	I18n0 WORKFLOW_DEMO_OBJECT_APPROVER_LOGS = new I18n0("Workflow Demo Object Approver Logs")//
-		.de("Workflow-Demo-Objekt-Genehmiger-Logs");
+		.de("Arbeitsablauf-Demo-Objekt-Genehmiger-Logs");
 	I18n0 WORKFLOW_DEMO_OBJECT_APPROVERS = new I18n0("Workflow Demo Object Approvers")//
-		.de("Workflow-Demo-Objekt-Genehmiger");
+		.de("Arbeitsablauf-Demo-Objekt-Genehmiger");
 	I18n0 WORKFLOW_DEMO_OBJECT_LOG = new I18n0("Workflow Demo Object Log")//
-		.de("Workflow-Demo-Objekt-Log");
+		.de("Arbeitsablauf-Demo-Objekt-Log");
 	I18n0 WORKFLOW_DEMO_OBJECT_LOGS = new I18n0("Workflow Demo Object Logs")//
-		.de("Workflow-Demo-Objekt-Logs");
+		.de("Arbeitsablauf-Demo-Objekt-Logs");
 	I18n0 WORKFLOW_DEMO_OBJECTS = new I18n0("Workflow Demo Objects")//
-		.de("Workflow-Demo-Objekte");
+		.de("Arbeitsablauf-Demo-Objekte");
 	I18n0 WORKFLOW_ICON = new I18n0("Workflow Icon")//
 		.de("Arbeitsablauf-Icon");
 	I18n0 WORKFLOW_ICON_LOG = new I18n0("Workflow Icon Log")//
@@ -280,9 +278,9 @@ public interface WorkflowI18n extends CoreI18n {
 	I18n0 WORKFLOW_NODES = new I18n0("Workflow Nodes")//
 		.de("Arbeitsablauf-Knoten");
 	I18n0 WORKFLOW_STARTED = new I18n0("Workflow started.")//
-		.de("Workflow gestartet.");
+		.de("Arbeitsablauf gestartet.");
 	I18n0 WORKFLOW_STATUS = new I18n0("Workflow Status")//
-		.de("Workflow-Status");
+		.de("Arbeitsablauf-Status");
 	I18n0 WORKFLOW_TASK = new I18n0("Workflow Task")//
 		.de("Arbeitsablauf-Aufgabe");
 	I18n0 WORKFLOW_TASK_DELEGATION = new I18n0("Workflow Task Delegation")//
