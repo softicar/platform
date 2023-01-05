@@ -7,7 +7,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class TableExportExcelWorkbookCreator {
 
-	private static final int STREAMING_ROW_WINDOW_SIZE = 128;
+	private static final int XLSX_STREAMING_ROW_WINDOW_SIZE = 128;
 
 	public static Workbook createWorkbook(TableExportExcelExportFormat format) {
 
@@ -15,8 +15,9 @@ public class TableExportExcelWorkbookCreator {
 			return new HSSFWorkbook();
 		}
 
-		else if (format == TableExportExcelExportFormat.XLSX_STREAMING) {
-			return new SXSSFWorkbook(STREAMING_ROW_WINDOW_SIZE);
+		else if (format == TableExportExcelExportFormat.XLSX) {
+			// Use SXSSFWorkbook instead of XSSFWorkbook, for streaming support.
+			return new SXSSFWorkbook(XLSX_STREAMING_ROW_WINDOW_SIZE);
 		}
 
 		else {

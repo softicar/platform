@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table.export.implementation.excel;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.ui.color.IColor;
@@ -41,8 +40,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Exports {@link DomTable}s to XLS or XLSX format using Apache POI.
@@ -98,9 +95,8 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<Row, Cell>
 	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		this.workbook = TableExportExcelWorkbookCreator.createWorkbook(poiExportConfiguration.getFormat());
-		assertStreamingWorkbook(this.workbook);
 
-		TableExportExcelColorManager colorManager = new TableExportExcelColorManager(this.workbook);
+		var colorManager = new TableExportExcelColorManager(this.workbook);
 
 		this.cellStyleManager = new TableExportExcelCellStyleManager(//
 			this.workbook,
@@ -302,16 +298,6 @@ public class TableExportExcelEngine extends AbstractTableExportEngine<Row, Cell>
 
 			int newColumnWidth = Math.min(this.sheet.getColumnWidth(i) + ADDITIONAL_COLUMN_WIDTH, MAX_COLUMN_WIDTH);
 			this.sheet.setColumnWidth(i, newColumnWidth);
-		}
-	}
-
-	private static void assertStreamingWorkbook(Workbook workbook) {
-
-		if (workbook instanceof XSSFWorkbook) {
-			throw new SofticarDeveloperException(
-				"You just tried to create a non-streaming %s (\"xlsx format\"). Since that won't scale well, you should use %s instead.",
-				XSSFWorkbook.class.getSimpleName(),
-				SXSSFWorkbook.class.getSimpleName());
 		}
 	}
 }

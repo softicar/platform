@@ -12,7 +12,7 @@ public class TableExportExcelExportConfiguration {
 
 	public TableExportExcelExportConfiguration() {
 
-		this.format = TableExportExcelExportFormat.XLSX_STREAMING;
+		this.format = TableExportExcelExportFormat.XLSX;
 		this.defaultSheetTitle = DomI18n.SHEET;
 		this.sheetPerTable = false;
 	}
