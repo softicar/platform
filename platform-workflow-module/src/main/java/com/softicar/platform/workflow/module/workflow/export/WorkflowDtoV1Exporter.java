@@ -11,7 +11,6 @@ import com.softicar.platform.workflow.module.workflow.transition.permission.AGWo
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,12 +50,12 @@ public class WorkflowDtoV1Exporter {
 		this.actionDtoMap = new HashMap<>();
 		this.transitionDtoMap = new HashMap<>();
 
-		loadNodes().forEach(this::addNodeDto);
-		loadNodeActions().forEach(this::addNodeAction);
-		loadNodeActionPermissions().forEach(this::addNodeActionPermission);
-		loadNodePreconditions().forEach(this::addNodePrecondition);
-		loadTransitions().forEach(this::addTransition);
-		loadTransitionPermissions().forEach(this::addTransitionPermission);
+		workflowVersion.getAllActiveWorkflowNodes().forEach(this::addNodeDto);
+		workflowVersion.getAllActiveWorkflowNodeActions().forEach(this::addNodeAction);
+		workflowVersion.getAllActiveWorkflowNodeActionPermissions().forEach(this::addNodeActionPermission);
+		workflowVersion.getAllActiveWorkflowNodePreconditions().forEach(this::addNodePrecondition);
+		workflowVersion.getAllActiveTransitions().forEach(this::addTransition);
+		workflowVersion.getAllActiveTransitionPermissions().forEach(this::addTransitionPermission);
 
 		workflowDto.rootNode = nodeIndexMap.getIndex(workflowVersion.getRootNode());
 		return workflowDto;
@@ -75,16 +74,6 @@ public class WorkflowDtoV1Exporter {
 
 	// ------------------------------ nodes ------------------------------ //
 
-	private List<AGWorkflowNode> loadNodes() {
-
-		return AGWorkflowNode.TABLE//
-			.createSelect()
-			.where(AGWorkflowNode.ACTIVE)
-			.where(AGWorkflowNode.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.orderBy(AGWorkflowNode.ID)
-			.list();
-	}
-
 	private void addNodeDto(AGWorkflowNode node) {
 
 		var nodeDto = new WorkflowDtoV1.Node();
@@ -101,18 +90,6 @@ public class WorkflowDtoV1Exporter {
 
 	// ------------------------------ node actions ------------------------------ //
 
-	private List<AGWorkflowNodeAction> loadNodeActions() {
-
-		return AGWorkflowNodeAction.TABLE//
-			.createSelect()
-			.where(AGWorkflowNodeAction.ACTIVE)
-			.orderBy(AGWorkflowNodeAction.ID)
-			.join(AGWorkflowNodeAction.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ACTIVE)
-			.where(AGWorkflowNode.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.list();
-	}
-
 	private void addNodeAction(AGWorkflowNodeAction action) {
 
 		var actionDto = new WorkflowDtoV1.NodeAction();
@@ -125,20 +102,6 @@ public class WorkflowDtoV1Exporter {
 
 	// ------------------------------ node action permissions ------------------------------ //
 
-	private List<AGWorkflowNodeActionPermission> loadNodeActionPermissions() {
-
-		return AGWorkflowNodeActionPermission.TABLE//
-			.createSelect()
-			.where(AGWorkflowNodeActionPermission.ACTIVE)
-			.orderBy(AGWorkflowNodeActionPermission.ID)
-			.join(AGWorkflowNodeActionPermission.WORKFLOW_NODE_ACTION)
-			.where(AGWorkflowNodeAction.ACTIVE)
-			.join(AGWorkflowNodeAction.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ACTIVE)
-			.where(AGWorkflowNode.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.list();
-	}
-
 	private void addNodeActionPermission(AGWorkflowNodeActionPermission permission) {
 
 		actionDtoMap.get(permission.getWorkflowNodeAction()).permissions.add(permission.getPermissionUuid().getUuidString());
@@ -146,34 +109,12 @@ public class WorkflowDtoV1Exporter {
 
 	// ------------------------------ node preconditions ------------------------------ //
 
-	private List<AGWorkflowNodePrecondition> loadNodePreconditions() {
-
-		return AGWorkflowNodePrecondition.TABLE//
-			.createSelect()
-			.where(AGWorkflowNodePrecondition.ACTIVE)
-			.orderBy(AGWorkflowNodePrecondition.ID)
-			.join(AGWorkflowNodePrecondition.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ACTIVE)
-			.where(AGWorkflowNode.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.list();
-	}
-
 	private void addNodePrecondition(AGWorkflowNodePrecondition precondition) {
 
 		nodeDtoMap.get(precondition.getWorkflowNode()).preconditions.add(precondition.getFunction().getUuidString());
 	}
 
 	// ------------------------------ transitions ------------------------------ //
-
-	private List<AGWorkflowTransition> loadTransitions() {
-
-		return AGWorkflowTransition.TABLE//
-			.createSelect()
-			.where(AGWorkflowTransition.ACTIVE)
-			.where(AGWorkflowTransition.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.orderBy(AGWorkflowTransition.ID)
-			.list();
-	}
 
 	private void addTransition(AGWorkflowTransition transition) {
 
@@ -194,18 +135,6 @@ public class WorkflowDtoV1Exporter {
 	}
 
 	// ------------------------------ transition permissions ------------------------------ //
-
-	private List<AGWorkflowTransitionPermission> loadTransitionPermissions() {
-
-		return AGWorkflowTransitionPermission.TABLE//
-			.createSelect()
-			.where(AGWorkflowTransitionPermission.ACTIVE)
-			.orderBy(AGWorkflowTransitionPermission.ID)
-			.join(AGWorkflowTransitionPermission.TRANSITION)
-			.where(AGWorkflowTransition.ACTIVE)
-			.where(AGWorkflowTransition.WORKFLOW_VERSION.isEqual(workflowVersion))
-			.list();
-	}
 
 	private void addTransitionPermission(AGWorkflowTransitionPermission permission) {
 
