@@ -3,6 +3,7 @@ package com.softicar.platform.dom.elements.image.viewer;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinition;
 import com.softicar.platform.dom.elements.image.viewer.tag.DomImageViewerTagDefinitions;
 import com.softicar.platform.dom.style.CssStyle;
@@ -101,6 +102,12 @@ public class DomImageViewer extends DomDiv {
 		appendChild(canvas);
 
 		refresh();
+	}
+
+	public DomImageViewer addButton(DomButton button) {
+
+		toolBar.appendChild(button);
+		return this;
 	}
 
 	boolean isWidthDefined() {

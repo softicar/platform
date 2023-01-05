@@ -8,6 +8,7 @@ enum StoredFileViewType {
 
 	// IMPORTANT: sort from most specific to least specific
 	PDF(CoreImages.FILE_TYPE_PDF.getResource(), "application/pdf"),
+	EML(CoreImages.FILE_TYPE_TEXT.getResource(), "message/rfc822"),
 	IMAGE(CoreImages.FILE_TYPE_IMAGE.getResource(), "image/.*"),
 	TEXT(CoreImages.FILE_TYPE_TEXT.getResource(), "text/.*"),
 	UNKNOWN(CoreImages.FILE_TYPE_UNKNOWN.getResource(), ".*");

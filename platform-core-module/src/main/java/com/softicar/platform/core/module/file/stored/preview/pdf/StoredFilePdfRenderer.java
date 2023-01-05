@@ -76,7 +76,7 @@ public class StoredFilePdfRenderer {
 		}
 	}
 
-	private List<IResource> renderPages(InputStream stream, String pdfFilename) {
+	public List<IResource> renderPages(InputStream stream, String pdfFilename) {
 
 		var images = new ArrayList<IResource>();
 		for (BufferedImage image: new PdfRenderer().setDpi(dpi).render(stream)) {

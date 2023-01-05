@@ -18,6 +18,7 @@ public enum License {
 	LGPL_2_1("LGPL v2.1"),
 	MIT("MIT"),
 	MIT_0("MIT-0"),
+	MPL_1_1("MPL 1.1"),
 	OFL_1_1("OFL v1.1"),
 	//
 	;

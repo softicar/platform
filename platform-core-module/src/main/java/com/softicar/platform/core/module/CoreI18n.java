@@ -292,6 +292,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Deaktivierter Benutzer");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
+	I18n0 DOWNLOAD_FILE = new I18n0("Download File")//
+		.de("Datei herunterladen");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
 		.de("Panik-Einträge verwerfen");
 	I18n0 EMAIL = new I18n0("Email")//
@@ -651,6 +653,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort-Richtlinien-Log");
 	I18n0 PASSWORD_POLICY_LOGS = new I18n0("Password Policy Logs")//
 		.de("Passwort-Richtlinien-Logs");
+	I18n0 PDF = new I18n0("PDF")//
+		.de("PDF");
 	I18n0 PENDING = new I18n0("Pending")//
 		.de("Ausstehend");
 	I18n0 PENDING_MAINTENANCE = new I18n0("Pending Maintenance")//
@@ -754,6 +758,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Begründung");
 	I18n1 RATIONALE_NEEDS_A_MINIMUM_OF_ARG1_CHARACTERS = new I18n1("Rationale needs a minimum of %s characters.")//
 		.de("Begründung muss mindestens %s Zeichen lang sein.");
+	I18n0 RAW_DATA = new I18n0("Raw Data")//
+		.de("Rohdaten");
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
 	I18n0 RECIPIENT = new I18n0("Recipient")//
