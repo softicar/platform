@@ -32,7 +32,6 @@ import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAttributeAuthorizer;
 import com.softicar.platform.emf.authorizer.IEmfAuthorizer;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
-import com.softicar.platform.emf.form.attribute.factory.EmfFormAttributesDivConfiguration;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorAlignment;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
@@ -366,11 +365,6 @@ public interface IEmfTable<R extends IEmfTableRow<R, P>, P, S> extends IDbTable<
 	default void customizeEmfTableConfiguration(EmfTableConfiguration<R, P, S> configuration) {
 
 		DevNull.swallow(configuration);
-	}
-
-	default void customizeFormAttributesDiv(EmfFormAttributesDivConfiguration<R> attributesDivConfiguration) {
-
-		DevNull.swallow(attributesDivConfiguration);
 	}
 
 	default void customizeFormIndicators(EmfFormIndicatorConfiguration<R> indicatorConfiguration) {
