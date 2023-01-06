@@ -9,6 +9,7 @@ import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.authorizer.EmfAccessPermissionException;
+import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFactory;
 import com.softicar.platform.emf.form.error.EmfFormAccessDeniedDiv;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorRow;
 import com.softicar.platform.emf.form.tab.EmfFormTabBar;
@@ -24,6 +25,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 	private final IEmfFormFrame<R> frame;
 	private final R tableRow;
+	private final IEmfFormAttributesDivFactory<R> formAttributesDivFactory;
 	private final IEmfFormTabConfiguration<R> tabConfiguration;
 	private final Collection<IEmfValidator<R>> additionalValidators;
 	private EmfFormTabBar<R> tabBar;
@@ -39,6 +41,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 
 		this.frame = Objects.requireNonNull(frame);
 		this.tableRow = Objects.requireNonNull(tableRow);
+		this.formAttributesDivFactory = tableRow.table().getEmfTableConfiguration().getFormAttributesDivFactory();
 		this.tabConfiguration = tableRow.table().getEmfTableConfiguration().getFormTabConfiguration();
 		this.additionalValidators = new ArrayList<>();
 		this.tabBar = null;
@@ -162,7 +165,7 @@ public class EmfForm<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEm
 		boolean showTabBar = isShowTabBar();
 
 		this.indicatorRow = new EmfFormIndicatorRow<>(tableRow);
-		this.body = new EmfFormBody<>(this);
+		this.body = new EmfFormBody<>(this, formAttributesDivFactory);
 		this.tabBar = showTabBar? new EmfFormTabBar<>(this, tabConfiguration, body) : null;
 		appendChild(indicatorRow);
 		appendChild(showTabBar? tabBar : body);
