@@ -42,8 +42,8 @@ public class AGUserTest extends AbstractCoreTest {
 		var preferences = user.getPreferences();
 
 		// assert results
-		assertTrue(preferences.isAutomaticallyCollapseFolders());
-		assertTrue(preferences.isRecursivelyCollapseFolders());
+		assertTrue(preferences.automaticallyCollapseFolders);
+		assertTrue(preferences.recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -56,8 +56,8 @@ public class AGUserTest extends AbstractCoreTest {
 		var preferences = user.getPreferences();
 
 		// assert results
-		assertFalse(preferences.isAutomaticallyCollapseFolders());
-		assertFalse(preferences.isRecursivelyCollapseFolders());
+		assertFalse(preferences.automaticallyCollapseFolders);
+		assertFalse(preferences.recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -70,8 +70,8 @@ public class AGUserTest extends AbstractCoreTest {
 		var preferences = user.getPreferences();
 
 		// assert results
-		assertFalse(preferences.isAutomaticallyCollapseFolders());
-		assertFalse(preferences.isRecursivelyCollapseFolders());
+		assertFalse(preferences.automaticallyCollapseFolders);
+		assertFalse(preferences.recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -82,15 +82,15 @@ public class AGUserTest extends AbstractCoreTest {
 				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false}
 				""").save();
 		var preferences = new UserPreferences();
-		preferences.setAutomaticallyCollapseFolders(true);
-		preferences.setRecursivelyCollapseFolders(true);
+		preferences.automaticallyCollapseFolders = true;
+		preferences.recursivelyCollapseFolders = true;
 
 		// execute
 		user.savePreferences(preferences);
 
 		// assert results
-		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+		assertTrue(user.getPreferences().automaticallyCollapseFolders);
+		assertTrue(user.getPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -101,16 +101,16 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// setup
 		var preferences = new UserPreferences();
-		preferences.setAutomaticallyCollapseFolders(true);
-		preferences.setRecursivelyCollapseFolders(true);
+		preferences.automaticallyCollapseFolders = true;
+		preferences.recursivelyCollapseFolders = true;
 
 		// execute
 		user.savePreferences(preferences);
 
 		// assert results
 		assertFalse(user.getPreferencesJson().isEmpty());
-		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+		assertTrue(user.getPreferences().automaticallyCollapseFolders);
+		assertTrue(user.getPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -123,13 +123,13 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// execute
 		user.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(true);
-			preferences.setRecursivelyCollapseFolders(true);
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = true;
 		});
 
 		// assert results
-		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+		assertTrue(user.getPreferences().automaticallyCollapseFolders);
+		assertTrue(user.getPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -140,13 +140,13 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// execute
 		user.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(true);
-			preferences.setRecursivelyCollapseFolders(true);
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = true;
 		});
 
 		// assert results
 		assertFalse(user.getPreferencesJson().isEmpty());
-		assertTrue(user.getPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(user.getPreferences().isRecursivelyCollapseFolders());
+		assertTrue(user.getPreferences().automaticallyCollapseFolders);
+		assertTrue(user.getPreferences().recursivelyCollapseFolders);
 	}
 }

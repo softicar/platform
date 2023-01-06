@@ -253,18 +253,27 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		return toDisplayWithoutId();
 	}
 
+	/**
+	 * Derives the current {@link UserPreferences} from the current value of
+	 * {@link #PREFERENCES_JSON}.
+	 * <p>
+	 * If the processed JSON value is empty or invalid, a
+	 * {@link UserPreferences} instance with default values is returned.
+	 *
+	 * @return the {@link UserPreferences} (never <i>null</i>)
+	 */
 	public UserPreferences getPreferences() {
 
-		UserPreferences preferences = null;
-		try {
-			preferences = new Gson().fromJson(getPreferencesJson(), UserPreferences.class);
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			Log.ferror("Failed to retrieve preferences for user '%s'. Using defaults.", toDisplay());
-		}
-		return Optional.ofNullable(preferences).orElse(new UserPreferences());
+		return getPreferencesFromJson().orElse(new UserPreferences());
 	}
 
+	/**
+	 * Saves the given {@link UserPreferences} for this {@link AGUser}.
+	 *
+	 * @param preferences
+	 *            the {@link UserPreferences} to save (never <i>null</i>)
+	 * @return this
+	 */
 	public AGUser savePreferences(UserPreferences preferences) {
 
 		Objects.requireNonNull(preferences);
@@ -273,10 +282,30 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 		return this;
 	}
 
+	/**
+	 * Fetches the current {@link UserPreferences}, modifies them with the given
+	 * {@link Consumer}, and saves the result.
+	 *
+	 * @param preferencesModifier
+	 *            modifies the loaded {@link UserPreferences} (never
+	 *            <i>null</i>)
+	 * @return this
+	 */
 	public AGUser updatePreferences(Consumer<UserPreferences> preferencesModifier) {
 
 		var preferences = getPreferences();
 		preferencesModifier.accept(preferences);
 		return savePreferences(preferences);
+	}
+
+	private Optional<UserPreferences> getPreferencesFromJson() {
+
+		try {
+			return Optional.ofNullable(new Gson().fromJson(getPreferencesJson(), UserPreferences.class));
+		} catch (Exception exception) {
+			DevNull.swallow(exception);
+			Log.ferror("Failed to retrieve preferences for user '%s'.", toDisplay());
+			return Optional.empty();
+		}
 	}
 }

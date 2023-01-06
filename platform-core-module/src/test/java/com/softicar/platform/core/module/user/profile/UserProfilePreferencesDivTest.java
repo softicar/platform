@@ -17,14 +17,14 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	public void testInitialState() {
 
 		var preferences = new UserPreferences();
-		preferences.setAutomaticallyCollapseFolders(true);
-		preferences.setRecursivelyCollapseFolders(true);
+		preferences.automaticallyCollapseFolders = true;
+		preferences.recursivelyCollapseFolders = true;
 		CurrentUser.get().savePreferences(preferences);
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
-		assertTrue(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(getUserPreferences().isRecursivelyCollapseFolders());
+		assertTrue(getUserPreferences().automaticallyCollapseFolders);
+		assertTrue(getUserPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -32,8 +32,8 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertFalse(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertFalse(getUserPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -43,13 +43,13 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertFalse(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertFalse(getUserPreferences().recursivelyCollapseFolders);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
-		assertTrue(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(getUserPreferences().isRecursivelyCollapseFolders());
+		assertTrue(getUserPreferences().automaticallyCollapseFolders);
+		assertTrue(getUserPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -59,13 +59,13 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertFalse(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertFalse(getUserPreferences().recursivelyCollapseFolders);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertTrue(getUserPreferences().recursivelyCollapseFolders);
 	}
 
 	@Test
@@ -75,13 +75,13 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertFalse(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertFalse(getUserPreferences().recursivelyCollapseFolders);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
-		assertFalse(getUserPreferences().isAutomaticallyCollapseFolders());
-		assertTrue(getUserPreferences().isRecursivelyCollapseFolders());
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertTrue(getUserPreferences().recursivelyCollapseFolders);
 	}
 
 	private UserPreferences getUserPreferences() {

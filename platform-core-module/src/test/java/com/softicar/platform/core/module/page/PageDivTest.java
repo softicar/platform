@@ -163,8 +163,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testMultipleOpenFoldersWithAutomaticAndNonRecursiveCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(true);
-			preferences.setRecursivelyCollapseFolders(false);
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = false;
 		});
 
 		clickFolderLink("[System]");
@@ -181,8 +181,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testMultipleOpenFoldersWithNonAutomaticAndNonRecursiveCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(false);
-			preferences.setRecursivelyCollapseFolders(false);
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = false;
 		});
 
 		clickFolderLink("[System]");
@@ -204,8 +204,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testMultipleOpenFoldersWithNonAutomaticAndRecursiveCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(false);
-			preferences.setRecursivelyCollapseFolders(true);
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = true;
 		});
 
 		clickFolderLink("[System]");
@@ -225,8 +225,8 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testMultipleOpenFoldersWithAutomaticAndRecursiveCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.setAutomaticallyCollapseFolders(true);
-			preferences.setRecursivelyCollapseFolders(true);
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = true;
 		});
 
 		clickFolderLink("[System]");

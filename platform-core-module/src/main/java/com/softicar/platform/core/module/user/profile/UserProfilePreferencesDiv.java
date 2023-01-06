@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.user.profile;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -27,7 +28,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 			new PreferencesElement()//
 				.addInput(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS, new AutomaticallyCollapseFoldersCheckbox())
 				.addInput(CoreI18n.RECURSIVELY_COLLAPSE_FOLDERS, new RecursivelyCollapseFoldersCheckbox())
-				.refreshInputConstraints());
+				.refreshAllInputs());
 		appendChild(
 			new DomActionBar(
 				new DomButton()//
@@ -44,29 +45,29 @@ class UserProfilePreferencesDiv extends DomDiv {
 
 	private class PreferencesElement extends DomLabelGrid {
 
-		private final List<IEmfInput<?>> inputs;
+		private final List<IRefreshable> inputs;
 
 		public PreferencesElement() {
 
 			this.inputs = new ArrayList<>();
 		}
 
-		public PreferencesElement addInput(IDisplayString labelText, IEmfInput<?> input) {
+		public <T extends IEmfInput<?> & IRefreshable> PreferencesElement addInput(IDisplayString labelText, T input) {
 
 			add(labelText, input);
-			input.addChangeCallback(this::refreshInputConstraints);
+			input.addChangeCallback(this::refreshAllInputs);
 			inputs.add(input);
 			return this;
 		}
 
-		public PreferencesElement refreshInputConstraints() {
+		public PreferencesElement refreshAllInputs() {
 
-			inputs.forEach(IEmfInput::refreshInputConstraints);
+			inputs.forEach(IRefreshable::refresh);
 			return this;
 		}
 	}
 
-	private class AutomaticallyCollapseFoldersCheckbox extends EmfBooleanInput {
+	private class AutomaticallyCollapseFoldersCheckbox extends EmfBooleanInput implements IRefreshable {
 
 		public AutomaticallyCollapseFoldersCheckbox() {
 
@@ -75,13 +76,13 @@ class UserProfilePreferencesDiv extends DomDiv {
 		}
 
 		@Override
-		public void refreshInputConstraints() {
+		public void refresh() {
 
 			preferences.automaticallyCollapseFolders = getValueOrThrow();
 		}
 	}
 
-	private class RecursivelyCollapseFoldersCheckbox extends EmfBooleanInput {
+	private class RecursivelyCollapseFoldersCheckbox extends EmfBooleanInput implements IRefreshable {
 
 		public RecursivelyCollapseFoldersCheckbox() {
 
@@ -90,7 +91,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 		}
 
 		@Override
-		public void refreshInputConstraints() {
+		public void refresh() {
 
 			if (preferences.automaticallyCollapseFolders) {
 				setValue(true);
