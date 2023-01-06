@@ -24,6 +24,7 @@ import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
 import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFactory;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
+import com.softicar.platform.emf.form.popup.IEmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.IEmfFormTabConfiguration;
 import com.softicar.platform.emf.log.IEmfChangeLogger;
@@ -50,6 +51,8 @@ public interface IEmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> {
 	Function<R, IDomElement> getDisplayFactory();
 
 	IEmfFormIndicatorConfiguration<R> getFormIndicatorConfiguration();
+
+	IEmfFormPopupConfiguration getFormPopupConfiguration();
 
 	IEmfFormSectionConfiguration<R> getFormSectionConfiguration();
 

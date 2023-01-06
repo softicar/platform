@@ -39,6 +39,8 @@ import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFac
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
+import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
+import com.softicar.platform.emf.form.popup.IEmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -82,6 +84,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Supplier<EmfAttributeList<R, P>> attributeListSupplier;
 	private final Supplier<EmfAttributeDefaultValueSet<R, S>> attributeDefaultValueSetSupplier;
 	private final Supplier<EmfFormIndicatorConfiguration<R>> indicatorConfigurationSupplier;
+	private final Supplier<EmfFormPopupConfiguration> popupConfigurationSupplier;
 	private final Supplier<EmfFormSectionConfiguration<R>> sectionConfigurationSupplier;
 	private final Supplier<EmfFormTabConfiguration<R>> tabConfigurationSupplier;
 	private final Supplier<EmfChangeLoggerSet<R>> loggerSetSupplier;
@@ -114,6 +117,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.attributeListSupplier = new EmfLazySupplier<>(table, EmfAttributeList::new, this::customizeAttributesAndOrder);
 		this.attributeDefaultValueSetSupplier = new EmfLazySupplier<>(table, EmfAttributeDefaultValueSet::new, table::customizeAttributeDefaultValues);
 		this.indicatorConfigurationSupplier = new EmfLazySupplier<>(EmfFormIndicatorConfiguration::new, table::customizeFormIndicators);
+		this.popupConfigurationSupplier = new EmfLazySupplier<>(EmfFormPopupConfiguration::new, table::customizeFormPopup);
 		this.sectionConfigurationSupplier = new EmfLazySupplier<>(EmfFormSectionConfiguration::new, table::customizeFormSections);
 		this.tabConfigurationSupplier = new EmfLazySupplier<>(() -> new EmfFormTabConfiguration<>(table), table::customizeFormTabs);
 		this.loggerSetSupplier = new EmfLazySupplier<>(EmfChangeLoggerSet::new, table::customizeLoggers);
@@ -276,6 +280,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfFormIndicatorConfiguration<R> getFormIndicatorConfiguration() {
 
 		return indicatorConfigurationSupplier.get();
+	}
+
+	@Override
+	public IEmfFormPopupConfiguration getFormPopupConfiguration() {
+
+		return popupConfigurationSupplier.get();
 	}
 
 	@Override
