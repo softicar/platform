@@ -13,10 +13,9 @@ TABLE AGUser 'Core.User' {
 	String emailAddress = '' [MAXLENGTH=255]
 	Boolean systemUser = FALSE
 	AGLocalization localization [CONSTRAINT_NAME='User_ibfk_1']
-	Boolean automaticallyCollapseFolders = TRUE
-	Boolean recursivelyCollapseFolders = FALSE
 	AGPasswordPolicy passwordPolicy = NULL [NULLABLE CONSTRAINT_NAME='User_ibfk_2']
 	AGUserAllowedIpRule allowedIpRule = NULL [NULLABLE CONSTRAINT_NAME='User_ibfk_3']
+	String preferencesJson = '' [LENGTHBITS=16]
 
 	UK loginName
 	IK localization
