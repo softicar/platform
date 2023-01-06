@@ -8,7 +8,7 @@ import java.util.Collection;
 
 class EmfAttributesTableContainer<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
-	private final IEmfAttributesDiv<R> attributesDiv;
+	private final IEmfFormAttributesDiv<R> attributesDiv;
 
 	public EmfAttributesTableContainer(IEmfFormAttributesDivFactory<R> formAttributesDivFactory, R tableRow, boolean editMode) {
 
@@ -23,7 +23,7 @@ class EmfAttributesTableContainer<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		return this;
 	}
 
-	public IEmfAttributesDiv<R> getAttributesDiv() {
+	public IEmfFormAttributesDiv<R> getAttributesDiv() {
 
 		return attributesDiv;
 	}

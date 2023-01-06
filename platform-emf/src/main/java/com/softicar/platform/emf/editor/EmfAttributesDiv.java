@@ -7,7 +7,7 @@ import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.emf.attribute.IEmfAttribute;
-import com.softicar.platform.emf.form.IEmfAttributesDiv;
+import com.softicar.platform.emf.form.IEmfFormAttributesDiv;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.EmfValidationException;
 import com.softicar.platform.emf.validation.IEmfValidator;
@@ -26,7 +26,7 @@ import java.util.Set;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfAttributesDiv<R> {
+public class EmfAttributesDiv<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFormAttributesDiv<R> {
 
 	protected final R tableRow;
 	protected final boolean editMode;

@@ -4,7 +4,7 @@ import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
 import java.util.Collection;
 
-public interface IEmfAttributesDiv<R extends IEmfTableRow<R, ?>> {
+public interface IEmfFormAttributesDiv<R extends IEmfTableRow<R, ?>> {
 
 	void refresh();
 

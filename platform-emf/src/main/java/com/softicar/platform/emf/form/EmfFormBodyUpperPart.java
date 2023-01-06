@@ -86,7 +86,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		}
 	}
 
-	public IEmfAttributesDiv<R> getAttributesDiv() {
+	public IEmfFormAttributesDiv<R> getAttributesDiv() {
 
 		return attributesContainer.getAttributesDiv();
 	}
