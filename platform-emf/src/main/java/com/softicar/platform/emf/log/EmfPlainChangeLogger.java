@@ -9,6 +9,7 @@ import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.emf.attribute.field.transaction.EmfTransactionRecordManager;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.transaction.IEmfTransactionObject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -83,17 +84,21 @@ public class EmfPlainChangeLogger<L, R extends IEmfTableRow<R, ?>, T extends IEm
 	}
 
 	@Override
-	public void logChange(R tableRow) {
+	public void logChange(Collection<R> tableRows) {
 
-		if (isChanged(tableRow)) {
-			L logRecord = logTable.getRowFactory().get();
-			tableRowField.setValue(logRecord, tableRow);
-			transactionField.setValue(logRecord, getTransactionLog());
-			for (FieldMapping<?> fieldMapping: fieldMappings.values()) {
-				fieldMapping.applyValue(tableRow, logRecord);
+		var logRecords = new ArrayList<L>();
+		for (R tableRow: tableRows) {
+			if (isChanged(tableRow)) {
+				L logRecord = logTable.getRowFactory().get();
+				tableRowField.setValue(logRecord, tableRow);
+				transactionField.setValue(logRecord, getTransactionLog());
+				for (FieldMapping<?> fieldMapping: fieldMappings.values()) {
+					fieldMapping.applyValue(tableRow, logRecord);
+				}
+				logRecords.add(logRecord);
 			}
-			logTable.save(logRecord);
 		}
+		logTable.saveAll(logRecords);
 	}
 
 	private boolean isChanged(R tableRow) {
