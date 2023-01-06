@@ -171,6 +171,13 @@ public abstract class AbstractDomNodeTester<N extends IDomNode> implements IDomN
 			.orElse(false);
 	}
 
+	public void assertNodeDisabled(boolean disabled) {
+
+		if (isNodeDisabled() != disabled) {
+			throw new AssertionError("Expected the node to be %s.".formatted(disabled? "disabled" : "enabled"));
+		}
+	}
+
 	// ------------------------------ click child ------------------------------ //
 
 	public void clickNode(ITestMarker marker) {

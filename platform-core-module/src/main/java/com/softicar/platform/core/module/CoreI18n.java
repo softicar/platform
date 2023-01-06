@@ -696,6 +696,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Portal-Logo");
 	I18n0 PORTAL_PROTOCOL = new I18n0("Portal Protocol")//
 		.de("Portal-Protokoll");
+	I18n0 PREFERENCES = new I18n0("Preferences")//
+		.de("Einstellungen");
+	I18n0 PREFERENCES_JSON = new I18n0("Preferences JSON")//
+		.de("Einstellungen JSON");
 	I18n0 PREFERENCES_SAVED = new I18n0("Preferences saved.")//
 		.de("Einstellungen gespeichert.");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//

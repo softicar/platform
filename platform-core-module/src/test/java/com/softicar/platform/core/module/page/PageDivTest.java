@@ -162,8 +162,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	@Test
 	public void testMultipleOpenFoldersWithAutomaticAndNonRecursiveCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(true).save();
-		testUser.setRecursivelyCollapseFolders(false).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = false;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -178,8 +180,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	@Test
 	public void testMultipleOpenFoldersWithNonAutomaticAndNonRecursiveCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(false).save();
-		testUser.setRecursivelyCollapseFolders(false).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = false;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -199,8 +203,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	@Test
 	public void testMultipleOpenFoldersWithNonAutomaticAndRecursiveCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(false).save();
-		testUser.setRecursivelyCollapseFolders(true).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = true;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -218,8 +224,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	@Test
 	public void testMultipleOpenFoldersWithAutomaticAndRecursiveCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(true).save();
-		testUser.setRecursivelyCollapseFolders(true).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = true;
+			preferences.recursivelyCollapseFolders = true;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -272,7 +280,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		findPageContentDiv()//
 			.assertContainsText("Password")
 			.assertContainsText("Localization")
-			.assertContainsText("Navigation");
+			.assertContainsText("Preferences");
 
 		// TODO Assert that no page link has the "selected" class - but we cannot do that with a high-level Selenium test.
 	}

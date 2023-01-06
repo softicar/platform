@@ -4,8 +4,10 @@ import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -46,7 +48,7 @@ class DatabaseStructureVersionResourcesMap {
 
 	public IResourceSupplier getLatestStructureResourceSupplier() {
 
-		return getStructureResourceSupplier(getLatestVersion());
+		return getStructureResourceSupplier(getRecentVersion(0));
 	}
 
 	public Collection<IResourceSupplier> getAllStructureResourceSuppliers() {
@@ -54,9 +56,11 @@ class DatabaseStructureVersionResourcesMap {
 		return structureMap.values();
 	}
 
-	public int getLatestVersion() {
+	public int getRecentVersion(int reverseVersionIndex) {
 
-		return Collections.max(structureMap.keySet());
+		List<Integer> versions = new ArrayList<>(structureMap.keySet());
+		Collections.reverse(versions);
+		return versions.get(reverseVersionIndex);
 	}
 
 	private Matcher createStructureFieldMatcher(Field field) {
