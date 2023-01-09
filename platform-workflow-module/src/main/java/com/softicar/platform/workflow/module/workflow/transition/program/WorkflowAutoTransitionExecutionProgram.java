@@ -25,13 +25,13 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		Log.finfo("Looking for items with possible auto transitions.");
+		Log.fverbose("Looking for items with possible auto transitions.");
 		var itemToTransitionsMap = loadItemsAndTransitionsToProcess();
 
 		if (itemToTransitionsMap.isEmpty()) {
-			Log.finfo("No items with auto transitions found.");
+			Log.fverbose("No items with auto transitions found.");
 		} else {
-			Log.finfo("Evaluating auto transitions for %s items.", itemToTransitionsMap.size());
+			Log.fverbose("Evaluating auto transitions for %s items.", itemToTransitionsMap.size());
 			executeAutoTransitions(itemToTransitionsMap);
 		}
 	}
@@ -41,11 +41,11 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 		ExceptionsCollector exceptionsCollector = new ExceptionsCollector();
 		for (AGWorkflowItem item: itemToTransitionsMap.keySet()) {
 			try {
-				Log.finfo("Evaluating auto transition for %s.", item.toDisplayWithoutId());
+				Log.fverbose("Evaluating auto transition for %s.", item.toDisplayWithoutId());
 				new WorkflowAutoTransitionExecutor(item, itemToTransitionsMap.get(item)).evaluateAndExecute();
-				Log.finfo("Execution successful.");
+				Log.fverbose("Execution successful.");
 			} catch (Throwable throwable) {
-				Log.finfo("FAILURE -- see exceptions below");
+				Log.fverbose("FAILURE -- see exceptions below");
 				exceptionsCollector.add(throwable);
 			}
 		}
