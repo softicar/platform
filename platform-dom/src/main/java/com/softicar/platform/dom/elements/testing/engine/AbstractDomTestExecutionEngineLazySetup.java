@@ -6,6 +6,7 @@ import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.engine.DomTestEngine;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.IDomParentElement;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTestExecutionEngineLazySetup {
 
 	private IDomNode node;
+	private IDomParentElement bodyNode;
 	private Supplier<IDomNode> nodeSupplier;
 	private Function<Supplier<IDomNode>, IDomNode> nodeInitializer;
 
@@ -38,6 +40,7 @@ public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTes
 		System.setProperty(DomProperties.TEST_MODE.getPropertyName().toString(), "true");
 		CurrentDomDocument.set(new DomDocument(new DomTestEngine()));
 		this.node = null;
+		this.bodyNode = null;
 		this.nodeSupplier = null;
 		this.nodeInitializer = Supplier::get;
 	}
@@ -46,7 +49,7 @@ public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTes
 	public IDomNode getBodyNode() {
 
 		initializeNode();
-		return node.getParent();
+		return bodyNode;
 	}
 
 	@Override
@@ -69,6 +72,7 @@ public abstract class AbstractDomTestExecutionEngineLazySetup implements IDomTes
 
 			// Create the node-under-test.
 			this.node = createNode();
+			this.bodyNode = node.getParent();
 
 			// Explicitly perform deferred initialization for appended nodes, because we have no DOM event that would have triggered this automatically.
 			CurrentDomDocument.get().getDeferredInitializationController().handleAllAppended();
