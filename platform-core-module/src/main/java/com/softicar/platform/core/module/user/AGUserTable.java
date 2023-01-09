@@ -44,6 +44,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, AGCoreModuleInstance> {
 
 		attributes.editAttribute(AGUser.SYSTEM_USER).setImmutable(true);
 		attributes.addTransientAttribute(AGUser.LAST_LOGIN);
+		attributes.editAttribute(AGUser.PREFERENCES_JSON).setConcealed(true);
 	}
 
 	@Override
