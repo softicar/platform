@@ -76,7 +76,7 @@ public class EmfFormPopupTest extends AbstractEmfTest {
 		DomPopupManager//
 			.getInstance()
 			.getPopup(entity, EmfFormPopup.class, it -> new EmfFormPopup<>(it))
-			.configure(DomPopupConfiguration::setPositionStrategyByViewportCenter)
+			.configure(DomPopupConfiguration::setPlacementStrategyByViewportCenter)
 			.open();
 	}
 }

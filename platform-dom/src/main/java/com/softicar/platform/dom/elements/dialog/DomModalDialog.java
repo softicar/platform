@@ -47,7 +47,7 @@ public class DomModalDialog extends DomPopup {
 
 		this.contentContainer = appendChild(new Content());
 
-		this.configuration.setPositionStrategyByViewportCenter(CssPercent._50, CssPercent._25);
+		this.configuration.setPlacementStrategyByViewportCenter(CssPercent._50, CssPercent._25);
 		this.configuration.setDisplayModeDialog();
 		this.configuration.addFrameMarker(DomTestMarker.MODAL_DIALOG_FRAME);
 	}

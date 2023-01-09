@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.UserPreferences;
+import com.softicar.platform.core.module.user.UserPreferencesPreferredPopupPlacement;
 import org.junit.Test;
 
 public class UserProfilePreferencesDivTest extends AbstractCoreTest {
@@ -19,12 +20,15 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 		var preferences = new UserPreferences();
 		preferences.automaticallyCollapseFolders = true;
 		preferences.recursivelyCollapseFolders = true;
+		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		CurrentUser.get().savePreferences(preferences);
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.CENTERED);
 		assertTrue(getUserPreferences().automaticallyCollapseFolders);
 		assertTrue(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -32,8 +36,10 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES);
 		assertFalse(getUserPreferences().automaticallyCollapseFolders);
 		assertFalse(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test

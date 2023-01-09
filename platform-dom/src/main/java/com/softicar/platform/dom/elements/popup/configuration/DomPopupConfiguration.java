@@ -5,11 +5,12 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupEventCoordinatesPositionStrategy;
-import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewportCenterPositionStrategy;
-import com.softicar.platform.dom.elements.popup.position.strategy.DomPopupViewportOriginPositionStrategy;
-import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupEventCoordinatesPlacementStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupViewportCenterPlacementStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupViewportOriginPlacementStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.IDomPopupPlacementStrategy;
 import com.softicar.platform.dom.style.CssPercent;
+import com.softicar.platform.dom.user.CurrentDomPreferences;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +27,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	private IDisplayString subCaption;
 	private IDomPopupDisplayMode displayMode;
 	private DomPopupChildClosingMode childClosingMode;
-	private IDomPopupPositionStrategy positionStrategy;
+	private IDomPopupPlacementStrategy placementStrategy;
 	private INullaryVoidFunction callbackBeforeOpen;
 	private INullaryVoidFunction callbackBeforeClose;
 	private boolean confirmBeforeClose;
@@ -41,7 +42,7 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 		this.subCaption = null;
 		this.displayMode = DomPopupDisplayModes.DRAGGABLE;
 		this.childClosingMode = null;
-		this.positionStrategy = new DomPopupEventCoordinatesPositionStrategy();
+		this.placementStrategy = null;
 		this.callbackBeforeOpen = INullaryVoidFunction.NO_OPERATION;
 		this.callbackBeforeClose = INullaryVoidFunction.NO_OPERATION;
 		this.confirmBeforeClose = false;
@@ -160,9 +161,13 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	@Override
-	public IDomPopupPositionStrategy getPositionStrategy() {
+	public IDomPopupPlacementStrategy getPlacementStrategy() {
 
-		return positionStrategy;
+		if (displayMode == DomPopupDisplayModes.POPOVER) {
+			return Optional.ofNullable(placementStrategy).orElse(new DomPopupEventCoordinatesPlacementStrategy());
+		} else {
+			return Optional.ofNullable(placementStrategy).orElse(CurrentDomPreferences.get().getPreferredPopupPlacementStrategy());
+		}
 	}
 
 	/**
@@ -240,71 +245,71 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	}
 
 	/**
-	 * Defines the {@link IDomPopupPositionStrategy} for the {@link DomPopup}.
+	 * Defines the {@link IDomPopupPlacementStrategy} for the {@link DomPopup}.
 	 *
-	 * @param positionStrategy
-	 *            the {@link IDomPopupPositionStrategy} (never <i>null</i>)
+	 * @param placementStrategy
+	 *            the {@link IDomPopupPlacementStrategy} (never <i>null</i>)
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setPositionStrategy(IDomPopupPositionStrategy positionStrategy) {
+	public DomPopupConfiguration setPlacementStrategy(IDomPopupPlacementStrategy placementStrategy) {
 
-		this.positionStrategy = Objects.requireNonNull(positionStrategy);
+		this.placementStrategy = Objects.requireNonNull(placementStrategy);
 		return this;
 	}
 
 	/**
-	 * Defines a position strategy that displays the {@link DomPopup} at the
+	 * Defines a placement strategy that displays the {@link DomPopup} at the
 	 * current event coordinates.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setPositionStrategyByEvent() {
+	public DomPopupConfiguration setPlacementStrategyByEvent() {
 
-		return setPositionStrategy(new DomPopupEventCoordinatesPositionStrategy());
+		return setPlacementStrategy(CurrentDomPreferences.get().getPreferredPopupPlacementStrategy());
 	}
 
 	/**
-	 * Defines a position strategy that displays the {@link DomPopup} at the
+	 * Defines a placement strategy that displays the {@link DomPopup} at the
 	 * center of the viewport.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setPositionStrategyByViewportCenter() {
+	public DomPopupConfiguration setPlacementStrategyByViewportCenter() {
 
-		return setPositionStrategyByViewportCenter(CssPercent._50, CssPercent._50);
+		return setPlacementStrategyByViewportCenter(CssPercent._50, CssPercent._50);
 	}
 
 	/**
-	 * Defines a position strategy that displays the {@link DomPopup} relative
+	 * Defines a placement strategy that displays the {@link DomPopup} relative
 	 * to the center of the viewport.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setPositionStrategyByViewportCenter(CssPercent xPercent, CssPercent yPercent) {
+	public DomPopupConfiguration setPlacementStrategyByViewportCenter(CssPercent xPercent, CssPercent yPercent) {
 
-		return setPositionStrategy(new DomPopupViewportCenterPositionStrategy(xPercent, yPercent));
+		return setPlacementStrategy(new DomPopupViewportCenterPlacementStrategy(xPercent, yPercent));
 	}
 
 	/**
-	 * Defines a position strategy that displays the {@link DomPopup} at the
+	 * Defines a placement strategy that displays the {@link DomPopup} at the
 	 * top-left corner of the viewport.
 	 *
 	 * @return this {@link DomPopupConfiguration}
 	 */
-	public DomPopupConfiguration setPositionStrategyByViewportOrigin() {
+	public DomPopupConfiguration setPlacementStrategyByViewportOrigin() {
 
-		return setPositionStrategyByViewportOrigin(CssPercent._0, CssPercent._0);
+		return setPlacementStrategyByViewportOrigin(CssPercent._0, CssPercent._0);
 	}
 
 	/**
-	 * Defines a position strategy that displays the {@link DomPopup} relative
+	 * Defines a placement strategy that displays the {@link DomPopup} relative
 	 * to the top-left corner of the viewport.
 	 *
 	 * @return this {@link DomPopup}
 	 */
-	public DomPopupConfiguration setPositionStrategyByViewportOrigin(CssPercent xPercent, CssPercent yPercent) {
+	public DomPopupConfiguration setPlacementStrategyByViewportOrigin(CssPercent xPercent, CssPercent yPercent) {
 
-		return setPositionStrategy(new DomPopupViewportOriginPositionStrategy(xPercent, yPercent));
+		return setPlacementStrategy(new DomPopupViewportOriginPlacementStrategy(xPercent, yPercent));
 	}
 
 	@Override

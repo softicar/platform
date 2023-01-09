@@ -35,7 +35,7 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// setup
 		user.setPreferencesJson("""
-				{"automaticallyCollapseFolders":true,"recursivelyCollapseFolders":true}
+				{"automaticallyCollapseFolders":true,"recursivelyCollapseFolders":true,"preferredPopupPlacement":"CENTERED"}
 				""").save();
 
 		// execute
@@ -44,6 +44,7 @@ public class AGUserTest extends AbstractCoreTest {
 		// assert results
 		assertTrue(preferences.automaticallyCollapseFolders);
 		assertTrue(preferences.recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -58,6 +59,7 @@ public class AGUserTest extends AbstractCoreTest {
 		// assert results
 		assertFalse(preferences.automaticallyCollapseFolders);
 		assertFalse(preferences.recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -72,6 +74,7 @@ public class AGUserTest extends AbstractCoreTest {
 		// assert results
 		assertFalse(preferences.automaticallyCollapseFolders);
 		assertFalse(preferences.recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -79,11 +82,12 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// setup
 		user.setPreferencesJson("""
-				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false}
+				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false,"preferredPopupPlacement":"AT_EVENT_COORDINATES"}
 				""").save();
 		var preferences = new UserPreferences();
 		preferences.automaticallyCollapseFolders = true;
 		preferences.recursivelyCollapseFolders = true;
+		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 
 		// execute
 		user.savePreferences(preferences);
@@ -91,6 +95,7 @@ public class AGUserTest extends AbstractCoreTest {
 		// assert results
 		assertTrue(user.getPreferences().automaticallyCollapseFolders);
 		assertTrue(user.getPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -103,6 +108,7 @@ public class AGUserTest extends AbstractCoreTest {
 		var preferences = new UserPreferences();
 		preferences.automaticallyCollapseFolders = true;
 		preferences.recursivelyCollapseFolders = true;
+		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 
 		// execute
 		user.savePreferences(preferences);
@@ -111,6 +117,7 @@ public class AGUserTest extends AbstractCoreTest {
 		assertFalse(user.getPreferencesJson().isEmpty());
 		assertTrue(user.getPreferences().automaticallyCollapseFolders);
 		assertTrue(user.getPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -118,18 +125,20 @@ public class AGUserTest extends AbstractCoreTest {
 
 		// setup
 		user.setPreferencesJson("""
-				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false}
+				{"automaticallyCollapseFolders":false,"recursivelyCollapseFolders":false,"preferredPopupPlacement":"AT_EVENT_COORDINATES"}
 				""").save();
 
 		// execute
 		user.updatePreferences(preferences -> {
 			preferences.automaticallyCollapseFolders = true;
 			preferences.recursivelyCollapseFolders = true;
+			preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		});
 
 		// assert results
 		assertTrue(user.getPreferences().automaticallyCollapseFolders);
 		assertTrue(user.getPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, user.getPreferences().preferredPopupPlacement);
 	}
 
 	@Test
@@ -142,11 +151,13 @@ public class AGUserTest extends AbstractCoreTest {
 		user.updatePreferences(preferences -> {
 			preferences.automaticallyCollapseFolders = true;
 			preferences.recursivelyCollapseFolders = true;
+			preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		});
 
 		// assert results
 		assertFalse(user.getPreferencesJson().isEmpty());
 		assertTrue(user.getPreferences().automaticallyCollapseFolders);
 		assertTrue(user.getPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, user.getPreferences().preferredPopupPlacement);
 	}
 }
