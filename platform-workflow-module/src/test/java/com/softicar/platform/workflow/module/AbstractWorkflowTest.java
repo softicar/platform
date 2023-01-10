@@ -13,7 +13,7 @@ public abstract class AbstractWorkflowTest extends AbstractDbTest implements Wor
 
 	public AbstractWorkflowTest() {
 
-		this.user = insertUser("Test User")//
+		this.user = insertTestUser()//
 			.setEmailAddress("user@example.com")
 			.save();
 		this.moduleInstance = insertWorkflowModuleInstance();

@@ -54,13 +54,13 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 			.exists();
 	}
 
-	public Optional<AGWorkflowTaskDelegation> getDelegation() {
+	public Optional<AGWorkflowTaskDelegation> getActiveDelegation() {
 
-		return Optional.ofNullable(AGWorkflowTaskDelegation.TABLE.get(this));
+		return Optional.ofNullable(AGWorkflowTaskDelegation.TABLE.get(this)).filter(it -> it.isActive());
 	}
 
 	public boolean hasActiveDelegation() {
 
-		return getDelegation().map(delegation -> delegation.isActive()).orElse(false);
+		return getActiveDelegation().isPresent();
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 public class AGWorkflowTaskDelegation extends AGWorkflowTaskDelegationGenerated implements IEmfTrait<AGWorkflowTaskDelegation, AGWorkflowTask> {
 
 	public Optional<DayTime> getLastModificationTimeFormLog() {
+		// TODO: PLAT-1272 Add a transaction column to AGWorkflowDelegation and read time form there
 
 		return AGWorkflowTaskDelegationLog.TABLE
 			.createSelect()
