@@ -18,8 +18,7 @@ class UserProfileChangeLocalizationDiv extends DomDiv {
 	public UserProfileChangeLocalizationDiv() {
 
 		this.localizationInput = new LocalizationInput();
-		var labelGrid = new DomLabelGrid().add(CoreI18n.LOCALIZATION, localizationInput);
-		appendChild(labelGrid);
+		appendChild(new DomLabelGrid().add(CoreI18n.LOCALIZATION, localizationInput));
 		appendChild(new DomActionBar(new SaveButton()));
 	}
 
