@@ -31,6 +31,7 @@ public interface DomCssClasses {
 	ICssClass DOM_CHECKBOX = new CssClass("DomCheckbox", DomCssFiles.DOM_CHECKBOX_STYLE);
 	ICssClass DOM_CHECKBOX_BOX = new CssClass("DomCheckboxBox", DomCssFiles.DOM_CHECKBOX_STYLE);
 	ICssClass DOM_CHECKBOX_BOX_FILLER = new CssClass("DomCheckboxBoxFiller", DomCssFiles.DOM_CHECKBOX_STYLE);
+	ICssClass DOM_CHECKBOX_GROUP = new CssClass("DomCheckboxGroup", DomCssFiles.DOM_CHECKBOX_STYLE);
 	ICssClass DOM_CHECKBOX_LABEL = new CssClass("DomCheckboxLabel", DomCssFiles.DOM_CHECKBOX_STYLE);
 	ICssClass DOM_CHECKBOX_LIST = new CssClass("DomCheckboxList", DomCssFiles.DOM_CHECKBOX_STYLE);
 	ICssClass DOM_DATA_TABLE = new CssClass("DomDataTable", DomCssFiles.DOM_DATA_TABLE_STYLE);
