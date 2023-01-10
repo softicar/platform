@@ -155,6 +155,17 @@ public class DomCheckboxGroupTest extends AbstractTest implements IDomTestExecut
 		assertEquals(4, callback.getCallCount());
 	}
 
+	@Test
+	public void testSetValueWithoutOptions() {
+
+		var group = initializeGroup();
+
+		group.setValue(new Option(20));
+
+		var option = group.getValue();
+		assertTrue(option.isEmpty());
+	}
+
 	private DomCheckboxGroup<Option> initializeGroup() {
 
 		return node.appendChild(new DomCheckboxGroup<>());
