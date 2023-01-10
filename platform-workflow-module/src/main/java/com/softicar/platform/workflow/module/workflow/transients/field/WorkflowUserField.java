@@ -63,65 +63,64 @@ public class WorkflowUserField<R extends IDbTableRow<R, ?>> extends AbstractTran
 			.collect(Collectors.toList());
 	}
 
-	private Map<UserAndDelegationUser, DayTime> getUserTaskCreationMap(Set<AGWorkflowTask> tasks) {
+	private Map<Delegation, DayTime> getUserTaskCreationMap(Set<AGWorkflowTask> tasks) {
 
 		AGWorkflowTask.CREATION_TRANSACTION.prefetchAll(tasks);
 
-		Map<UserAndDelegationUser, DayTime> userTaskCreationMap = new HashMap<>();
+		Map<Delegation, DayTime> userTaskCreationMap = new HashMap<>();
 		for (AGWorkflowTask task: tasks) {
 			Optional<AGTransaction> creationTransaction = Optional.ofNullable(AGWorkflowTask.CREATION_TRANSACTION.getValue(task));
 
-			if (creationTransaction.isPresent() && !task.hasActiveDelegation()) {
-				userTaskCreationMap.merge(new UserAndDelegationUser(task.getUser(), task.getUser()), creationTransaction.get().getAt(), DayTime::min);
-			} else if (task.hasActiveDelegation()) {
+			if (task.hasActiveDelegation()) {
 				AGWorkflowTaskDelegation delegation = task.getActiveDelegation().get();
 				Optional<DayTime> lastModificationTimeFormLog = delegation.getLastModificationTimeFormLog();
 				if (lastModificationTimeFormLog.isPresent()) {
-					userTaskCreationMap
-						.merge(new UserAndDelegationUser(task.getUser(), delegation.getTargetUser()), lastModificationTimeFormLog.get(), DayTime::min);
+					userTaskCreationMap.merge(new Delegation(task.getUser(), delegation.getTargetUser()), lastModificationTimeFormLog.get(), DayTime::min);
 				}
+			} else if (creationTransaction.isPresent()) {
+				userTaskCreationMap.merge(new Delegation(task.getUser(), task.getUser()), creationTransaction.get().getAt(), DayTime::min);
 			}
-
 		}
 		return userTaskCreationMap;
 	}
 
-	private String getUserTaskAgeString(UserAndDelegationUser userAndCurrentDelegation, int days) {
+	private String getUserTaskAgeString(Delegation userAndCurrentDelegation, int days) {
 
-		if (userAndCurrentDelegation.getUserDefinedInTask() == userAndCurrentDelegation.getUserInCharge()) {
+		if (userAndCurrentDelegation.isDelegated()) {
 			return String
-				.format(
-					"%s (%s %s)",
-					userAndCurrentDelegation.getUserDefinedInTask().toDisplayWithoutId(),
-					days,
-					days == 1? WorkflowI18n.DAY : WorkflowI18n.DAYS);
+				.format("%s (%s %s)", userAndCurrentDelegation.getOriginalUser().toDisplayWithoutId(), days, days == 1? WorkflowI18n.DAY : WorkflowI18n.DAYS);
 		} else {
 			return String
 				.format(
 					"%s -> %s (%s %s)",
-					userAndCurrentDelegation.getUserDefinedInTask().toDisplayWithoutId(),
-					userAndCurrentDelegation.getUserInCharge().toDisplayWithoutId(),
+					userAndCurrentDelegation.getOriginalUser().toDisplayWithoutId(),
+					userAndCurrentDelegation.getDelegatee().toDisplayWithoutId(),
 					days,
 					days == 1? WorkflowI18n.DAY : WorkflowI18n.DAYS);
 		}
 
 	}
 
-	private static class UserAndDelegationUser extends Pair<AGUser, AGUser> {
+	private static class Delegation extends Pair<AGUser, AGUser> {
 
-		UserAndDelegationUser(AGUser userDefinedInTask, AGUser userInCharge) {
+		Delegation(AGUser originalUser, AGUser delegatee) {
 
-			super(userDefinedInTask, userInCharge);
+			super(originalUser, delegatee);
 		}
 
-		AGUser getUserDefinedInTask() {
+		AGUser getOriginalUser() {
 
 			return getFirst();
 		}
 
-		AGUser getUserInCharge() {
+		AGUser getDelegatee() {
 
 			return getSecond();
+		}
+
+		boolean isDelegated() {
+
+			return getOriginalUser() == getDelegatee();
 		}
 	}
 }

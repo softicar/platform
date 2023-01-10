@@ -18,19 +18,20 @@ public class WorkflowUserFieldTest extends AbstractTestObjectWorkflowTest {
 	private final AGUser user2;
 	private final AGWorkflowDemoObject object;
 	private final int TEST_AGE = 3;
+	private final String DAY_SUFFIX = " Days";
 
 	public WorkflowUserFieldTest() {
 
-		item = insertWorkflowItem(rootNode);
+		this.item = insertWorkflowItem(rootNode);
 		this.task = insertWorkflowTaskOpen(user, item);
 
-		object = new AGWorkflowDemoObject() //
+		this.object = new AGWorkflowDemoObject() //
 			.setModuleInstance(item.getWorkflow().getModuleInstance())
 			.setName("TestObject")
 			.setWorkflowItem(item)
 			.save();
 
-		user2 = insertUser("Max", "Mustermann")//
+		this.user2 = insertUser("Max", "Mustermann")//
 			.setEmailAddress("max@example.com")
 			.save();
 	}
@@ -45,25 +46,13 @@ public class WorkflowUserFieldTest extends AbstractTestObjectWorkflowTest {
 		String text = valueSet.iterator().next();
 		assertContains(user.getFirstName(), text);
 		assertContains(user.getLastName(), text);
-		assertContains("0 Days", text);
-	}
-
-	private void delegationSetup(boolean active) {
-
-		AGWorkflowTaskDelegation delegation =
-				AGWorkflowTaskDelegation.TABLE.getOrCreate(task).setDelegatedBy(user).setActive(active).setTargetUser(user2).save();
-		AGWorkflowTaskDelegationLog.TABLE
-			.createSelect()
-			.where(AGWorkflowTaskDelegationLog.WORKFLOW_TASK_DELEGATION.isEqual(delegation))
-			.getOne()
-			.getTransaction()
-			.setAt(DayTime.now().minusDays(TEST_AGE));
+		assertContains("0" + DAY_SUFFIX, text);
 	}
 
 	@Test
 	public void testWithDelegation() {
 
-		delegationSetup(true);
+		insertDelegation(true);
 
 		WorkflowUserField<AGWorkflowDemoObject> workflowUserField = new WorkflowUserField<>(AGWorkflowDemoObject.WORKFLOW_ITEM);
 		Set<String> valueSet = workflowUserField.getValue(object);
@@ -73,13 +62,13 @@ public class WorkflowUserFieldTest extends AbstractTestObjectWorkflowTest {
 		assertContains(user.getLastName(), text);
 		assertContains(user2.getFirstName(), text);
 		assertContains(user2.getLastName(), text);
-		assertContains("" + TEST_AGE, text);
+		assertContains(TEST_AGE + DAY_SUFFIX, text);
 	}
 
 	@Test
 	public void testWithInactiveDelegation() {
 
-		delegationSetup(false);
+		insertDelegation(false);
 
 		WorkflowUserField<AGWorkflowDemoObject> workflowUserField = new WorkflowUserField<>(AGWorkflowDemoObject.WORKFLOW_ITEM);
 		Set<String> valueSet = workflowUserField.getValue(object);
@@ -87,13 +76,13 @@ public class WorkflowUserFieldTest extends AbstractTestObjectWorkflowTest {
 		String text = valueSet.iterator().next();
 		assertContains(user.getFirstName(), text);
 		assertContains(user.getLastName(), text);
-		assertContains("0 Days", text);
+		assertContains("0" + DAY_SUFFIX, text);
 	}
 
 	@Test
 	public void testWithMultipleTasks() {
 
-		delegationSetup(true);
+		insertDelegation(true);
 
 		insertWorkflowTaskOpen(user2, item);
 
@@ -106,6 +95,18 @@ public class WorkflowUserFieldTest extends AbstractTestObjectWorkflowTest {
 		assertContains(user2.getFirstName(), text);
 		assertContains(user2.getLastName(), text);
 		assertContains("" + TEST_AGE, text);
-		assertContains("0 Days", text);
+		assertContains("0" + DAY_SUFFIX, text);
+	}
+
+	private void insertDelegation(boolean active) {
+
+		AGWorkflowTaskDelegation delegation =
+				AGWorkflowTaskDelegation.TABLE.getOrCreate(task).setDelegatedBy(user).setActive(active).setTargetUser(user2).save();
+		AGWorkflowTaskDelegationLog.TABLE
+			.createSelect()
+			.where(AGWorkflowTaskDelegationLog.WORKFLOW_TASK_DELEGATION.isEqual(delegation))
+			.getOne()
+			.getTransaction()
+			.setAt(DayTime.now().minusDays(TEST_AGE));
 	}
 }
