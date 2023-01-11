@@ -46,7 +46,7 @@ class UuidCache {
 					.setUuidString(uuid)
 					.save();
 			} catch (Exception exception) {
-				// assuming some one else inserted the UUID concurrently
+				// assuming someone else inserted the UUID concurrently
 				return AGUuid.TABLE//
 					.createSelect()
 					.where(AGUuid.UUID_STRING.isEqual(uuid))
