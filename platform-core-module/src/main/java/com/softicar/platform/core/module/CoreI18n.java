@@ -273,8 +273,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Standard IMAP-Konnektor");
 	I18n0 DEFAULT_LOCALIZATION = new I18n0("Default Localization")//
 		.de("Standard-Lokalisierung");
-	I18n0 PREFERRED_POPUP_PLACEMENT = new I18n0("Preferred Popup Placement")//
-		.de("Bevorzugte Popup-Platzierung");
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
 			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
 				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.");
@@ -704,6 +702,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einstellungen JSON");
 	I18n0 PREFERENCES_SAVED = new I18n0("Preferences saved.")//
 		.de("Einstellungen gespeichert.");
+	I18n0 PREFERRED_POPUP_PLACEMENT = new I18n0("Preferred Popup Placement")//
+		.de("Bevorzugte Popup-Platzierung");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
 		.de("Haupt-Datei-Server");
 	I18n0 PROCESS = new I18n0("Process")//
