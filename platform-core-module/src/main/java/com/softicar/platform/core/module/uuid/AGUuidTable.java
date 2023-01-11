@@ -14,7 +14,7 @@ public class AGUuidTable extends EmfObjectTable<AGUuid, AGCoreModuleInstance> {
 
 	public AGUuidTable(IDbObjectTableBuilder<AGUuid> builder) {
 
-		super(builder);
+		super(builder, false);
 	}
 
 	@Override

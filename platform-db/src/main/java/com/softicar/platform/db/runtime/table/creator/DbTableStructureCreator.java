@@ -11,6 +11,7 @@ public class DbTableStructureCreator {
 
 	private final IDbTable<?, ?> table;
 	private boolean setIfNotExists;
+	private boolean skipDatabaseCreation;
 	private boolean skipForeignKeyCreation;
 	private Integer autoIncrement;
 	private final DbRuntimeTableStructure tableStructure;
@@ -21,12 +22,19 @@ public class DbTableStructureCreator {
 		this.tableStructure = new DbRuntimeTableStructure(table);
 		this.setIfNotExists = false;
 		this.skipForeignKeyCreation = false;
+		this.skipDatabaseCreation = false;
 		this.autoIncrement = null;
 	}
 
 	public DbTableStructureCreator setIfNotExists(boolean setIfNotExists) {
 
 		this.setIfNotExists = setIfNotExists;
+		return this;
+	}
+
+	public DbTableStructureCreator setSkipDatabaseCreation(boolean skipDatabaseCreation) {
+
+		this.skipDatabaseCreation = skipDatabaseCreation;
 		return this;
 	}
 
@@ -44,7 +52,9 @@ public class DbTableStructureCreator {
 
 	public void create() {
 
-		createDatabaseIfNotExists();
+		if (!skipDatabaseCreation) {
+			createDatabaseIfNotExists();
+		}
 		createTable();
 	}
 

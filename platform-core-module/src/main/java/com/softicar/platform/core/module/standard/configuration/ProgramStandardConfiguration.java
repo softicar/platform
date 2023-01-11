@@ -1,50 +1,72 @@
 package com.softicar.platform.core.module.standard.configuration;
 
-import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.configuration.AbstractStandardConfiguration;
 import com.softicar.platform.core.module.program.AGProgram;
-import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
+import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoint;
-import com.softicar.platform.db.core.transaction.DbTransactions;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ProgramStandardConfiguration extends AbstractStandardConfiguration {
 
 	@Override
 	public void createAndSaveAll() {
 
-		Programs//
+		var programs = createPrograms();
+
+		saveAll(programs);
+		saveAll(createStates(programs));
+		saveAll(createScheduledExecutions(programs));
+	}
+
+	private Collection<AGProgram> createPrograms() {
+
+		return Programs//
 			.getAllProgramsAsIndirectEntities()
 			.stream()
 			.map(AGUuidBasedSourceCodeReferencePoint::getRepresentedEntity)
-			.forEach(it -> DbTransactions.wrap(this::registerProgramAndDefaultSchedule).accept(it));
+			.map(this::createProgram)
+			.collect(Collectors.toList());
 	}
 
-	private void registerProgramAndDefaultSchedule(AGUuid uuid) {
+	private AGProgram createProgram(AGUuid uuid) {
 
-		AGProgram program = new AGProgram()//
-			.setProgramUuid(uuid.getUuid())
-			.save();
-		program.getState().save();
-		registerDefaultScheduleIfPossible(uuid);
+		return new AGProgram().setProgramUuid(uuid.getUuid());
 	}
 
-	private void registerDefaultScheduleIfPossible(AGUuid uuid) {
+	private Collection<AGProgramState> createStates(Collection<AGProgram> programs) {
 
-		SourceCodeReferencePoints
-			.getReferencePointOrThrow(uuid.getUuid(), IProgram.class)//
+		return AGProgramState.TABLE//
+			.getOrCreateAsMap(programs)
+			.values();
+	}
+
+	private Collection<AGScheduledProgramExecution> createScheduledExecutions(Collection<AGProgram> programs) {
+
+		return programs//
+			.stream()
+			.map(this::createScheduledProgramExecution)
+			.flatMap(Optional::stream)
+			.collect(Collectors.toList());
+	}
+
+	private Optional<AGScheduledProgramExecution> createScheduledProgramExecution(AGProgram program) {
+
+		return program//
+			.getProgram()
 			.getDefaultCronExpression()
-			.ifPresent(cronExpression -> insertScheduledProgramExecution(cronExpression, uuid));
+			.map(cronExpression -> createScheduledProgramExecution(program, cronExpression));
 	}
 
-	private void insertScheduledProgramExecution(String cronExpression, AGUuid uuid) {
+	private AGScheduledProgramExecution createScheduledProgramExecution(AGProgram program, String cronExpression) {
 
-		new AGScheduledProgramExecution()//
+		return new AGScheduledProgramExecution()//
 			.setActive(true)
 			.setCronExpression(cronExpression)
-			.setProgramUuid(uuid.getUuid())
-			.save();
+			.setProgramUuid(program.getProgramUuid().getUuid());
 	}
 }
