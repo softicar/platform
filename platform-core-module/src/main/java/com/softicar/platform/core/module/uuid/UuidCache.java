@@ -40,7 +40,7 @@ class UuidCache {
 	private AGUuid insertUuid(String uuid) {
 
 		// we must use a separate connection for insertion here
-		try (DbConnectionOverrideScope scope = new DbConnectionOverrideScope()) {
+		try (var scope = new DbConnectionOverrideScope()) {
 			try {
 				return new AGUuid()//
 					.setUuidString(uuid)
