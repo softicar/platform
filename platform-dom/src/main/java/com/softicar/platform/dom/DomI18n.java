@@ -30,8 +30,6 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
 	I18n0 AT_CLICK_POSITION = new I18n0("At click position")//
 		.de("Bei Klick-Position");
-	I18n0 BELOW_CLICKED_ELEMENT = new I18n0("Below clicked element")//
-		.de("Unter angeklicktem Element");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
 	I18n0 CENTERED = new I18n0("Centered")//
