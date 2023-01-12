@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.module.overview;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -44,15 +45,21 @@ public class ModulePagesTable extends AbstractInMemoryDataTable<IEmfPage<?>> {
 			.addColumn();
 	}
 
-	public IDataTableColumn<IEmfPage<?>, EmfPermissionWrapper> getRequiredPermissionColumn() {
+	@Override
+	public DataTableIdentifier getIdentifier() {
 
-		return requiredPermissionColumn;
+		return new DataTableIdentifier("c578da61-b743-469a-b077-da504a54e2bc");
 	}
 
 	@Override
 	protected Iterable<IEmfPage<?>> getTableRows() {
 
 		return new ArrayList<>(EmfPages.getPages(module));
+	}
+
+	public IDataTableColumn<IEmfPage<?>, EmfPermissionWrapper> getRequiredPermissionColumn() {
+
+		return requiredPermissionColumn;
 	}
 
 	private EmfPermissionWrapper getPermissionFromPage(IEmfPage<?> page) {

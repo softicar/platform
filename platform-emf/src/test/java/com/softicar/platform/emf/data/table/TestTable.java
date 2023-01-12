@@ -69,7 +69,7 @@ public class TestTable extends AbstractInMemoryDataTable<TestTableRow> {
 			.addColumn();
 		this.rowSupplier = rowSupplier;
 
-		this.identifier = super.getIdentifier();
+		this.identifier = new DataTableIdentifier("04f98441-20ad-4b39-959e-50739c539d16");
 	}
 
 	@Override

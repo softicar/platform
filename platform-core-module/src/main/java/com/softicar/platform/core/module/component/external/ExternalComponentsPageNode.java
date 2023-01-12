@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.component.external;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayable;
@@ -57,6 +58,12 @@ class ExternalComponentsPageNode extends DomDiv {
 				.setGetter(IExternalComponent::getLicense)
 				.setTitle(CoreI18n.LICENSE)
 				.addColumn();
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return new DataTableIdentifier("21362d1f-33a7-4a2c-9f54-5c8c1fa213c8");
 		}
 
 		@Override

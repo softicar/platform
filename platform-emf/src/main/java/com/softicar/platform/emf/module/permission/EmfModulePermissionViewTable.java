@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.module.permission;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -33,6 +34,18 @@ public class EmfModulePermissionViewTable extends AbstractInMemoryDataTable<IEmf
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("0da6cc2b-fa19-46b8-9271-1492db5f0895");
+	}
+
+	@Override
+	protected Iterable<IEmfPermission<?>> getTableRows() {
+	
+		return CurrentEmfPermissionRegistry.get().getAtomicPermissions(module);
+	}
+
 	public IDataTableColumn<IEmfPermission<?>, IDisplayString> getUsedPermissionColumn() {
 
 		return usedPermissionColumn;
@@ -46,11 +59,5 @@ public class EmfModulePermissionViewTable extends AbstractInMemoryDataTable<IEmf
 	public IDataTableColumn<IEmfPermission<?>, EmfPermissionWrapper> getPagesColumn() {
 
 		return pagesColumn;
-	}
-
-	@Override
-	protected Iterable<IEmfPermission<?>> getTableRows() {
-
-		return CurrentEmfPermissionRegistry.get().getAtomicPermissions(module);
 	}
 }
