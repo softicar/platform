@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.submit;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -64,6 +65,12 @@ public class EmfImportSubmitDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 			for (IDbField<R, ?> field: engine.getTable().getAllFields()) {
 				addFieldColumn(field);
 			}
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return DataTableIdentifier.empty();
 		}
 
 		@Override

@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.entity.table.action;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -48,6 +49,21 @@ public class EmfTableActionOverviewTable extends AbstractInMemoryDataTable<IEmfA
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("7fc2be5f-59ce-4789-a44a-d10698e76ca5");
+	}
+
+	@Override
+	protected Iterable<IEmfAction<?>> getTableRows() {
+
+		List<IEmfAction<?>> actionList = new ArrayList<>();
+		table.getPrimaryActions().forEach(action -> actionList.add(action));
+		table.getCommonActions().forEach(action -> addActionAndCheckForAggregatingActions(action, actionList));
+		return actionList;
+	}
+
 	public IDataTableColumn<IEmfAction<?>, IResource> getIconColumn() {
 
 		return iconColumn;
@@ -71,15 +87,6 @@ public class EmfTableActionOverviewTable extends AbstractInMemoryDataTable<IEmfA
 	public IDataTableColumn<IEmfAction<?>, EmfPermissionWrapper> getRequiredPermissionColumn() {
 
 		return requiredPermissionColumn;
-	}
-
-	@Override
-	protected Iterable<IEmfAction<?>> getTableRows() {
-
-		List<IEmfAction<?>> actionList = new ArrayList<>();
-		table.getPrimaryActions().forEach(action -> actionList.add(action));
-		table.getCommonActions().forEach(action -> addActionAndCheckForAggregatingActions(action, actionList));
-		return actionList;
 	}
 
 	private void addActionAndCheckForAggregatingActions(IEmfCommonAction<?> action, List<IEmfAction<?>> actionList) {

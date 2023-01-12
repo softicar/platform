@@ -21,4 +21,9 @@ public class DataTableIdentifier {
 
 		return text;
 	}
+
+	public static DataTableIdentifier empty() {
+
+		return new DataTableIdentifier("");
+	}
 }

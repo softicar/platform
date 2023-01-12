@@ -1,5 +1,6 @@
 package com.softicar.platform.common.container.matrix.data.table;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.container.matrix.IMatrix;
@@ -36,6 +37,12 @@ public class MatrixDataTable<R, C, V> extends AbstractInMemoryDataTable<MatrixDa
 		for (R row: matrix.getRows()) {
 			this.rows.add(new MatrixDataTableRow<>(row, matrix.getRowMap(row)));
 		}
+	}
+
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return DataTableIdentifier.empty();
 	}
 
 	@Override

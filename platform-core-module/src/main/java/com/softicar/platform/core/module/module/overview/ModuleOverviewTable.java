@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.module.overview;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.core.module.CoreI18n;
@@ -33,7 +34,13 @@ public class ModuleOverviewTable extends AbstractInMemoryDataTable<IEmfModule<?>
 	}
 
 	@Override
-	public Iterable<IEmfModule<?>> getTableRows() {
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("d749484b-d48b-44fc-a3ee-29b920b48414");
+	}
+
+	@Override
+	protected Iterable<IEmfModule<?>> getTableRows() {
 
 		return IEmfModuleRegistry.get().getAllModules();
 	}

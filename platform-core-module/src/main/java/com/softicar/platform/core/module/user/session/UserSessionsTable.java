@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.user.session;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.date.DayTime;
@@ -42,15 +43,21 @@ public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 			.addColumn();
 	}
 
-	public IDataTableColumn<HttpSession, AGUser> getUserColumn() {
+	@Override
+	public DataTableIdentifier getIdentifier() {
 
-		return userColumn;
+		return new DataTableIdentifier("507403ff-b130-414c-bbb5-5626353b56d1");
 	}
 
 	@Override
 	protected Iterable<HttpSession> getTableRows() {
 
 		return new UserSessionManager().getAllSessions();
+	}
+
+	public IDataTableColumn<HttpSession, AGUser> getUserColumn() {
+
+		return userColumn;
 	}
 
 	private AGUser getUserFromSession(HttpSession session) {

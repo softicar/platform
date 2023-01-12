@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.input.auto.complete;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.dom.elements.input.auto.IDomAutoCompleteInputEngine;
@@ -20,9 +21,10 @@ class EmfAutoCompleteBrowseTable<T> extends AbstractInMemoryDataTable<T> {
 			.addColumn();
 	}
 
-	public IDataTableColumn<T, String> getNameColumn() {
+	@Override
+	public DataTableIdentifier getIdentifier() {
 
-		return nameColumn;
+		return DataTableIdentifier.empty();
 	}
 
 	@Override
@@ -31,5 +33,10 @@ class EmfAutoCompleteBrowseTable<T> extends AbstractInMemoryDataTable<T> {
 		return inputEngine//
 			.findMatches("", Integer.MAX_VALUE)
 			.getAllValues();
+	}
+
+	public IDataTableColumn<T, String> getNameColumn() {
+
+		return nameColumn;
 	}
 }
