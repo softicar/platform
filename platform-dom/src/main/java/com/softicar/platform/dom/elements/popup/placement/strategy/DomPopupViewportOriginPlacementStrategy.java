@@ -12,7 +12,7 @@ import com.softicar.platform.dom.style.CssPercent;
  *
  * @author Alexander Schmidt
  */
-public class DomPopupViewportOriginPlacementStrategy extends AbstractDomPopupViewportAlignmentPlacementStrategy {
+public class DomPopupViewportOriginPlacementStrategy extends AbstractDomPopupViewportAlignedPlacementStrategy {
 
 	/**
 	 * Constructs a new {@link DomPopupViewportOriginPlacementStrategy}.

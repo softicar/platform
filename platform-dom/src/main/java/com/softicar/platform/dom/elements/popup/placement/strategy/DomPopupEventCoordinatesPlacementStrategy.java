@@ -26,7 +26,7 @@ public class DomPopupEventCoordinatesPlacementStrategy implements IDomPopupPlace
 				DomPopupXAlign.LEFT,
 				DomPopupYAlign.TOP);
 		} else {
-			return new DomPopupViewportCenterPlacementStrategy(CssPercent._50, CssPercent._25).getPlacement(event);
+			return new DomPopupViewportCenterPlacementStrategy(CssPercent._50, CssPercent._25).getPlacement(null);
 		}
 	}
 }

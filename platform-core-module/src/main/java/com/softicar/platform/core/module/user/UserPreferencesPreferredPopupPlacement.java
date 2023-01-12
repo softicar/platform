@@ -49,7 +49,7 @@ public enum UserPreferencesPreferredPopupPlacement implements IDisplayable {
 	 *
 	 * @return the {@link IDomPopupPlacementStrategy} (never <i>null</i>)
 	 */
-	public IDomPopupPlacementStrategy get() {
+	public IDomPopupPlacementStrategy getStrategy() {
 
 		return strategy;
 	}

@@ -24,7 +24,7 @@ public class UserSpecificDomPreferences implements IDomPreferences {
 			.ofNullable(CurrentUser.get())
 			.map(AGUser::getPreferences)
 			.map(preferences -> preferences.preferredPopupPlacement)
-			.map(UserPreferencesPreferredPopupPlacement::get)
+			.map(UserPreferencesPreferredPopupPlacement::getStrategy)
 			.orElse(new DomDefaultPreferences().getPreferredPopupPlacementStrategy());
 	}
 }

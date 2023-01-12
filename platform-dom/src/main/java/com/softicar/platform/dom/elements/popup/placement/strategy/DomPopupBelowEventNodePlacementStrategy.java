@@ -25,7 +25,7 @@ public class DomPopupBelowEventNodePlacementStrategy implements IDomPopupPlaceme
 			int y = Double.valueOf(rect.getY() + rect.getHeight()).intValue();
 			return new DomPopupPlacement(x, y, DomPopupOffsetUnit.PIXELS, DomPopupXAlign.RIGHT, DomPopupYAlign.TOP);
 		} else {
-			return new DomPopupViewportCenterPlacementStrategy(CssPercent._50, CssPercent._25).getPlacement(event);
+			return new DomPopupViewportCenterPlacementStrategy(CssPercent._50, CssPercent._25).getPlacement(null);
 		}
 	}
 }

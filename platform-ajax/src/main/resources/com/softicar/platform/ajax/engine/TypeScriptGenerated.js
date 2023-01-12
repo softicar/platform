@@ -375,75 +375,75 @@ class DomPopupEngine {
     }
     movePopupByPercent(popupFrame, x, y, xAlign, yAlign) {
         let popupWidth = popupFrame.offsetWidth;
-        let popupLeft = 0;
+        let xHandle = 0;
         switch (xAlign) {
             case "LEFT":
-                popupLeft = 0;
+                xHandle = 0;
                 break;
             case "CENTER":
-                popupLeft = popupWidth / 2;
+                xHandle = popupWidth / 2;
                 break;
             case "RIGHT":
-                popupLeft = popupWidth;
+                xHandle = popupWidth;
                 break;
         }
         let popupHeight = popupFrame.offsetHeight;
-        let popupTop = 0;
+        let yHandle = 0;
         switch (yAlign) {
             case "TOP":
-                popupTop = 0;
+                yHandle = 0;
                 break;
             case "CENTER":
-                popupTop = popupHeight / 2;
+                yHandle = popupHeight / 2;
                 break;
             case "BOTTOM":
-                popupTop = popupHeight;
+                yHandle = popupHeight;
                 break;
         }
-        popupFrame.style.left = `calc(${x}% - ${popupLeft}px)`;
-        popupFrame.style.top = `calc(${y}% - ${popupTop}px)`;
+        popupFrame.style.left = `calc(${x}% - ${xHandle}px)`;
+        popupFrame.style.top = `calc(${y}% - ${yHandle}px)`;
     }
     movePopupByPixels(parent, popupFrame, x, y, xAlign, yAlign) {
         let scrollX = window.scrollX + parent.scrollLeft;
         let scrollY = window.scrollY + parent.scrollTop;
         let sizeX = window.innerWidth;
         let popupWidth = popupFrame.offsetWidth;
-        let popupLeft = 0;
+        let xHandle = 0;
         switch (xAlign) {
             case "LEFT":
-                popupLeft = scrollX + x;
+                xHandle = scrollX + x;
                 break;
             case "CENTER":
-                popupLeft = scrollX + x - popupWidth / 2;
+                xHandle = scrollX + x - popupWidth / 2;
                 break;
             case "RIGHT":
-                popupLeft = scrollX + x - popupWidth + 1;
+                xHandle = scrollX + x - popupWidth + 1;
                 break;
         }
-        popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
-        popupLeft = Math.max(popupLeft, scrollX);
+        xHandle = Math.min(xHandle, scrollX + sizeX - popupWidth);
+        xHandle = Math.max(xHandle, scrollX);
         let popupHeight = popupFrame.offsetHeight;
-        let popupTop = 0;
+        let yHandle = 0;
         switch (yAlign) {
             case "TOP":
-                popupTop = scrollY + y;
+                yHandle = scrollY + y;
                 break;
             case "CENTER":
-                popupTop = scrollY + y - popupHeight / 2;
+                yHandle = scrollY + y - popupHeight / 2;
                 break;
             case "BOTTOM":
-                popupTop = scrollY + y - popupHeight + 1;
+                yHandle = scrollY + y - popupHeight + 1;
                 break;
         }
         if (parent != document.body) {
             let parentRect = parent.getBoundingClientRect();
-            popupLeft -= parentRect.left;
-            popupTop -= parentRect.top;
+            xHandle -= parentRect.left;
+            yHandle -= parentRect.top;
         }
-        popupLeft = Math.max(popupLeft, 0);
-        popupTop = Math.max(popupTop, 0);
-        popupFrame.style.left = popupLeft + 'px';
-        popupFrame.style.top = popupTop + 'px';
+        xHandle = Math.max(xHandle, 0);
+        yHandle = Math.max(yHandle, 0);
+        popupFrame.style.left = xHandle + 'px';
+        popupFrame.style.top = yHandle + 'px';
     }
 }
 const POPUP_ENGINE = new DomPopupEngine();
