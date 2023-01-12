@@ -46,7 +46,7 @@ public interface IFtpClientConfig {
 	 * If present, the value is applied to
 	 * {@link FTPClient#setDataTimeout(Duration)}
 	 */
-	default Optional<Integer> getDataTimeout() {
+	default Optional<Duration> getDataTimeout() {
 
 		return Optional.empty();
 	}
@@ -55,7 +55,7 @@ public interface IFtpClientConfig {
 	 * If present, the value is applied to
 	 * {@link FTPClient#setControlKeepAliveTimeout(Duration)}
 	 */
-	default Optional<Integer> getControlKeepAliveTimeout() {
+	default Optional<Duration> getControlKeepAliveTimeout() {
 
 		return Optional.empty();
 	}
@@ -64,7 +64,7 @@ public interface IFtpClientConfig {
 	 * If present, the value is applied to
 	 * {@link FTPClient#setControlKeepAliveReplyTimeout(Duration)}
 	 */
-	default Optional<Integer> getControlKeepAliveReplyTimeout() {
+	default Optional<Duration> getControlKeepAliveReplyTimeout() {
 
 		return Optional.empty();
 	}
