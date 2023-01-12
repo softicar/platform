@@ -43,6 +43,7 @@ public class AGWorkflowTransitionLog extends AbstractDbRecord<AGWorkflowTransiti
 	public static final IDbForeignField<AGWorkflowTransitionLog, AGWorkflowNode> TARGET_NODE = BUILDER.addForeignField("targetNode", o->o.m_targetNode, (o,v)->o.m_targetNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.TARGET_NODE).setNullable().setDefault(null).setForeignKeyName("WorkflowTransitionLog_ibfk_4");
 	public static final IDbBooleanField<AGWorkflowTransitionLog> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setNullable().setDefault(null);
 	public static final IDbBooleanField<AGWorkflowTransitionLog> AUTO_TRANSITION = BUILDER.addBooleanField("autoTransition", o->o.m_autoTransition, (o,v)->o.m_autoTransition=v).setTitle(WorkflowI18n.AUTO_TRANSITION).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGWorkflowTransitionLog> COMMENT_REQUIRED = BUILDER.addBooleanField("commentRequired", o->o.m_commentRequired, (o,v)->o.m_commentRequired=v).setTitle(WorkflowI18n.COMMENT_REQUIRED).setNullable().setDefault(null);
 	public static final IDbStringField<AGWorkflowTransitionLog> REQUIRED_VOTES = BUILDER.addStringField("requiredVotes", o->o.m_requiredVotes, (o,v)->o.m_requiredVotes=v).setTitle(WorkflowI18n.REQUIRED_VOTES).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbForeignField<AGWorkflowTransitionLog, AGWorkflowIcon> TRANSITION_ICON = BUILDER.addForeignField("transitionIcon", o->o.m_transitionIcon, (o,v)->o.m_transitionIcon=v, AGWorkflowIcon.ID).setTitle(WorkflowI18n.TRANSITION_ICON).setNullable().setDefault(null).setForeignKeyName("WorkflowTransitionLog_ibfk_5");
 	public static final IDbForeignField<AGWorkflowTransitionLog, AGUuid> SIDE_EFFECT = BUILDER.addForeignField("sideEffect", o->o.m_sideEffect, (o,v)->o.m_sideEffect=v, AGUuid.ID).setTitle(WorkflowI18n.SIDE_EFFECT).setNullable().setDefault(null).setForeignKeyName("WorkflowTransitionLog_ibfk_6");
@@ -164,6 +165,16 @@ public class AGWorkflowTransitionLog extends AbstractDbRecord<AGWorkflowTransiti
 		return setValue(AUTO_TRANSITION, value);
 	}
 
+	public final Boolean isCommentRequired() {
+
+		return getValue(COMMENT_REQUIRED);
+	}
+
+	public final AGWorkflowTransitionLog setCommentRequired(Boolean value) {
+
+		return setValue(COMMENT_REQUIRED, value);
+	}
+
 	public final String getRequiredVotes() {
 
 		return getValue(REQUIRED_VOTES);
@@ -223,6 +234,7 @@ public class AGWorkflowTransitionLog extends AbstractDbRecord<AGWorkflowTransiti
 	private AGWorkflowNode m_targetNode;
 	private Boolean m_notify;
 	private Boolean m_autoTransition;
+	private Boolean m_commentRequired;
 	private String m_requiredVotes;
 	private AGWorkflowIcon m_transitionIcon;
 	private AGUuid m_sideEffect;

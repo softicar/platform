@@ -65,9 +65,10 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 			"Approve",
 			approvalNode,
 			isFurtherApprovalNecessayNode,
-			"100%",
+			"1",
 			true,
 			AGWorkflowDemoObjectTable.APPROVER)//
+				.setCommentRequired(true)
 				.setSideEffect(AGUuid.getOrCreate(WorkflowDemoObjectApproveSideEffect.class))
 				.save();
 		insertWorkflowTransition(//

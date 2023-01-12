@@ -43,6 +43,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine benötigten Stimmen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
+	I18n0 COMMENT_REQUIRED = new I18n0("Comment Required")//
+		.de("Kommentar erforderlich");
 	I18n0 CONFIGURE = new I18n0("Configure")//
 		.de("Konfigurieren");
 	I18n0 COPY = new I18n0("Copy")//
@@ -122,6 +124,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Offene Aufgaben");
 	I18n2 PERMISSION_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING = new I18n2("Permission '%s' of workflow transition '%s' is missing.")//
 		.de("Berechtigung %s des Arbeitsablauf-Übergangs %s fehlt.");
+	I18n0 PLEASE_PROVIDE_A_RATIONALE = new I18n0("Please provide a rationale.")//
+		.de("Bitte geben Sie eine Begründung an.");
 	I18n0 PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN = new I18n0("Please refresh the input element or press F5 to reload the screen.")//
 		.de("Bitte das Eingabeelement aktualisieren oder F5 drücken, um den Bildschirm neu zu laden.");
 	I18n2 PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING = new I18n2("Precondition function '%s' of workflow node '%s' is missing.")//
@@ -174,6 +178,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Aufgabe '%s' hat den Übergang '%s' ausgeführt.");
 	I18n1 TASK_DELEGATED_TO_ARG1 = new I18n1("Task delegated to %s.")//
 		.de("Aufgabe delegiert an %s.");
+	I18n0 THE_ITEM_RESIDES_IN_THE_WRONG_WORKFLOW_NODE = new I18n0("The item resides in the wrong workflow node.")//
+		.de("Das Element befindet sich im falschen Arbeitsablaufknoten.");
+	I18n0 THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE = new I18n0("This action is not available anymore.")//
+		.de("Diese Aktion ist nicht mehr verfügbar.");
 	I18n0 TRANSITION = new I18n0("Transition")//
 		.de("Übergang");
 	I18n0 TRANSITION_ICON = new I18n0("Transition Icon")//
