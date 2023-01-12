@@ -163,6 +163,12 @@ public class DbConnections {
 			.flatMap(transaction -> transaction.getData(dataClass));
 	}
 
+	public static <T> Optional<T> getTransactionDataIncludingParents(Class<T> dataClass) {
+
+		return getCurrentTransaction()//
+			.flatMap(transaction -> transaction.getDataIncludingParents(dataClass));
+	}
+
 	/**
 	 * Returns the point in time at which the root {@link IDbTransaction} was
 	 * started.

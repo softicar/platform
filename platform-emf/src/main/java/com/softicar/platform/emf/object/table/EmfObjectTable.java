@@ -20,12 +20,19 @@ public class EmfObjectTable<O extends IEmfObject<O>, S> extends DbObjectTable<O>
 
 	public EmfObjectTable(IDbObjectTableBuilder<O> builder) {
 
+		this(builder, true);
+	}
+
+	public EmfObjectTable(IDbObjectTableBuilder<O> builder, boolean addTableListener) {
+
 		super(builder);
 
 		this.configuration = new EmfTableConfiguration<>(this);
-
-		addTableListener(new EmfTableListener<>(this));
 		customizeEmfTableConfiguration(configuration);
+
+		if (addTableListener) {
+			addTableListener(new EmfTableListener<>(this));
+		}
 	}
 
 	@Override
