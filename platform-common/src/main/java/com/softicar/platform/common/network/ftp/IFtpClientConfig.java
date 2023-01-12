@@ -1,5 +1,6 @@
 package com.softicar.platform.common.network.ftp;
 
+import java.time.Duration;
 import java.util.Optional;
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -42,7 +43,8 @@ public interface IFtpClientConfig {
 	}
 
 	/**
-	 * If present, the value is applied to {@link FTPClient#setDataTimeout(int)}
+	 * If present, the value is applied to
+	 * {@link FTPClient#setDataTimeout(Duration)}
 	 */
 	default Optional<Integer> getDataTimeout() {
 
@@ -51,7 +53,7 @@ public interface IFtpClientConfig {
 
 	/**
 	 * If present, the value is applied to
-	 * {@link FTPClient#setControlKeepAliveTimeout(long)}
+	 * {@link FTPClient#setControlKeepAliveTimeout(Duration)}
 	 */
 	default Optional<Integer> getControlKeepAliveTimeout() {
 
@@ -60,7 +62,7 @@ public interface IFtpClientConfig {
 
 	/**
 	 * If present, the value is applied to
-	 * {@link FTPClient#setControlKeepAliveReplyTimeout(int)}
+	 * {@link FTPClient#setControlKeepAliveReplyTimeout(Duration)}
 	 */
 	default Optional<Integer> getControlKeepAliveReplyTimeout() {
 
