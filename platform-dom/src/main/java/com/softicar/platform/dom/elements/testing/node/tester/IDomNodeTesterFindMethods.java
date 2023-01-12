@@ -7,6 +7,7 @@ import com.softicar.platform.dom.document.DomDocument;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
+import com.softicar.platform.dom.elements.checkbox.DomCheckboxGroup;
 import com.softicar.platform.dom.elements.input.auto.DomAutoCompleteInput;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
@@ -265,6 +266,26 @@ public interface IDomNodeTesterFindMethods {
 		return findNodes(marker)//
 			.withType(DomCheckbox.class)
 			.assertOne(node -> new DomCheckboxTester(getEngine(), node));
+	}
+
+	/**
+	 * Searches for a {@link DomCheckboxGroup} with the given
+	 * {@link ITestMarker} .
+	 *
+	 * @param marker
+	 *            the {@link ITestMarker} to search for (never <i>null</i>)
+	 * @return a {@link DomCheckboxGroupTester} of the matching {@link IDomNode}
+	 *         instance (never <i>null</i>)
+	 * @throws DomNodeAssertionError
+	 *             if there is more than one matching {@link IDomNode}, or none
+	 *             at all
+	 */
+	@SuppressWarnings("unchecked")
+	default <T> DomCheckboxGroupTester<T> findCheckboxGroup(ITestMarker marker) {
+
+		return findNodes(marker)//
+			.withType(DomCheckboxGroup.class)
+			.assertOne(node -> new DomCheckboxGroupTester<T>(getEngine(), node));
 	}
 
 	/**

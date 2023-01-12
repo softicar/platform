@@ -1,21 +1,21 @@
-package com.softicar.platform.dom.elements.popup.position.strategy;
+package com.softicar.platform.dom.elements.popup.placement.strategy;
 
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
+import com.softicar.platform.dom.elements.popup.placement.DomPopupPlacement;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
 import com.softicar.platform.dom.style.CssPercent;
 
 /**
- * Determines a {@link DomPopupPosition}, relative to the center of the
+ * Determines a {@link DomPopupPlacement}, relative to the center of the
  * viewport.
  *
  * @author Alexander Schmidt
  */
-public class DomPopupViewportCenterPositionStrategy extends AbstractDomPopupViewportAlignmentPositionStrategy {
+public class DomPopupViewportCenterPlacementStrategy extends AbstractDomPopupViewportAlignedPlacementStrategy {
 
 	/**
-	 * Constructs a new {@link DomPopupViewportCenterPositionStrategy}.
+	 * Constructs a new {@link DomPopupViewportCenterPlacementStrategy}.
 	 * <p>
 	 * The given percentages represent the horizontal and vertical offsets by
 	 * which the {@link DomPopup} shall be positioned, relative to the center of
@@ -28,7 +28,7 @@ public class DomPopupViewportCenterPositionStrategy extends AbstractDomPopupView
 	 *            the vertical position, relative to the center (never
 	 *            <i>null</i>)
 	 */
-	public DomPopupViewportCenterPositionStrategy(CssPercent xPercent, CssPercent yPercent) {
+	public DomPopupViewportCenterPlacementStrategy(CssPercent xPercent, CssPercent yPercent) {
 
 		super(xPercent, yPercent, DomPopupXAlign.CENTER, DomPopupYAlign.CENTER);
 	}

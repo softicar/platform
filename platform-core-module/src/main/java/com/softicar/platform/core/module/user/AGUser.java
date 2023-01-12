@@ -1,14 +1,11 @@
 package com.softicar.platform.core.module.user;
 
-import com.google.gson.Gson;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.locale.ILocale;
 import com.softicar.platform.common.core.locale.LocaleScope;
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.user.IBasicUser;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
@@ -23,12 +20,13 @@ import com.softicar.platform.core.module.user.password.UserPasswordGenerator;
 import com.softicar.platform.core.module.user.password.UserPasswordLoader;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
+import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesManager;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -264,7 +262,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	 */
 	public UserPreferences getPreferences() {
 
-		return getPreferencesFromJson().orElse(new UserPreferences());
+		return new UserPreferencesManager(this).getPreferences();
 	}
 
 	/**
@@ -272,14 +270,10 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	 *
 	 * @param preferences
 	 *            the {@link UserPreferences} to save (never <i>null</i>)
-	 * @return this
 	 */
-	public AGUser savePreferences(UserPreferences preferences) {
+	public void savePreferences(UserPreferences preferences) {
 
-		Objects.requireNonNull(preferences);
-		String preferencesJson = new Gson().toJson(preferences);
-		setPreferencesJson(preferencesJson).save();
-		return this;
+		new UserPreferencesManager(this).savePreferences(preferences);
 	}
 
 	/**
@@ -289,23 +283,9 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	 * @param preferencesModifier
 	 *            modifies the loaded {@link UserPreferences} (never
 	 *            <i>null</i>)
-	 * @return this
 	 */
-	public AGUser updatePreferences(Consumer<UserPreferences> preferencesModifier) {
+	public void updatePreferences(Consumer<UserPreferences> preferencesModifier) {
 
-		var preferences = getPreferences();
-		preferencesModifier.accept(preferences);
-		return savePreferences(preferences);
-	}
-
-	private Optional<UserPreferences> getPreferencesFromJson() {
-
-		try {
-			return Optional.ofNullable(new Gson().fromJson(getPreferencesJson(), UserPreferences.class));
-		} catch (Exception exception) {
-			DevNull.swallow(exception);
-			Log.ferror("Failed to retrieve preferences for user '%s'.", toDisplay());
-			return Optional.empty();
-		}
+		new UserPreferencesManager(this).updatePreferences(preferencesModifier);
 	}
 }

@@ -9,7 +9,8 @@ import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.position.DomPopupPosition;
+import com.softicar.platform.dom.elements.popup.placement.DomPopupPlacement;
+import com.softicar.platform.dom.engine.DomPopupOffsetUnit;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -150,7 +151,7 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 		public PopupButton() {
 
 			this.popup = new Popup();
-			this.popup.configure(it -> it.setPositionStrategy(this::createPosition));
+			this.popup.configure(it -> it.setPlacementStrategy(this::determinePlacement));
 			this.closed = true;
 			this.x = X;
 			this.y = Y;
@@ -169,10 +170,10 @@ public class AjaxDomPopupTest extends AbstractAjaxSeleniumLowLevelTest {
 			return popup;
 		}
 
-		private DomPopupPosition createPosition(IDomEvent dummy) {
+		private DomPopupPlacement determinePlacement(IDomEvent event) {
 
-			DevNull.swallow(dummy);
-			return new DomPopupPosition(x, y, DomPopupXAlign.LEFT, DomPopupYAlign.TOP);
+			DevNull.swallow(event);
+			return new DomPopupPlacement(x, y, DomPopupOffsetUnit.PIXELS, DomPopupXAlign.LEFT, DomPopupYAlign.TOP);
 		}
 
 		private void togglePopup() {

@@ -302,9 +302,12 @@ public interface IDomEngine {
 	 * @param popupFrame
 	 *            the {@link IDomPopupFrame} to move (never <i>null</i>)
 	 * @param x
-	 *            the horizontal position of the {@link IDomPopupFrame}
+	 *            the horizontal offset of the {@link IDomPopupFrame}
 	 * @param y
-	 *            the vertical position of the {@link IDomPopupFrame}
+	 *            the vertical offset of the {@link IDomPopupFrame}
+	 * @param offsetUnit
+	 *            the unit in which the horizontal and vertical offsets are
+	 *            specified (never <i>null</i>)
 	 * @param xAlign
 	 *            the horizontal alignment of the {@link IDomPopupFrame} (never
 	 *            <i>null</i>)
@@ -312,7 +315,7 @@ public interface IDomEngine {
 	 *            the vertical alignment of the {@link IDomPopupFrame} (never
 	 *            <i>null</i>)
 	 */
-	void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign);
+	void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupOffsetUnit offsetUnit, DomPopupXAlign xAlign, DomPopupYAlign yAlign);
 
 	void initializePopup(IDomPopupFrame popupFrame, boolean autoRaise);
 

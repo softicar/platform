@@ -28,14 +28,6 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 	private IDisplayString buttonLabel;
 	private INullaryVoidFunction preClickCallback;
 
-	private PopupPosition popupPosition = PopupPosition.CENTERED_ON_VIEWPORT;
-
-	public static enum PopupPosition {
-		AT_MOUSE_CURSOR,
-		CENTERED_ON_VIEWPORT,
-		UPPER_LEFT;
-	}
-
 	public StoredFileViewOrDownloadButton(AGStoredFile file) {
 
 		this.file = file;
@@ -69,12 +61,6 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 		return this;
 	}
 
-	public StoredFileViewOrDownloadButton setPopupPosition(PopupPosition popupPosition) {
-
-		this.popupPosition = popupPosition;
-		return this;
-	}
-
 	public StoredFileViewOrDownloadButton setPreClickCallback(INullaryVoidFunction preClickCallback) {
 
 		this.preClickCallback = preClickCallback;
@@ -100,21 +86,9 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 		DomPopup previewPopup = createPreviewPopup();
 		if (previewPopup != null) {
-			switch (popupPosition) {
-			case AT_MOUSE_CURSOR:
-				previewPopup.open();
-				break;
-			case CENTERED_ON_VIEWPORT:
-				previewPopup//
-					.configure(it -> it.setPositionStrategyByViewportCenter())
-					.open();
-				break;
-			case UPPER_LEFT:
-				previewPopup//
-					.configure(it -> it.setPositionStrategyByViewportOrigin())
-					.open();
-				break;
-			}
+			previewPopup//
+				.configure(it -> it.setPlacementStrategyByViewportCenter())
+				.open();
 		} else {
 			downloadFile();
 		}
