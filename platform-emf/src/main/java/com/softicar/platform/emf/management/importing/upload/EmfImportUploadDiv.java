@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.upload;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.charset.Charsets;
@@ -79,6 +80,12 @@ public class EmfImportUploadDiv<R extends IEmfTableRow<R, P>, P, S> extends DomD
 		public UploadTable() {
 
 			engine.getFieldsToImport().forEach(this::addColumn);
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return DataTableIdentifier.empty();
 		}
 
 		@Override

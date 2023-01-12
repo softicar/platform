@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.data.table.configuration;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
@@ -30,6 +31,12 @@ class EmfDataTableConfigurationTable<R> extends AbstractInMemoryDataTable<EmfDat
 			.setGetter(EmfDataTableConfigurationTableRow::getIndex)
 			.setTitle(EmfDataTableI18n.ORDERING_PRIORITY)
 			.addColumn();
+	}
+
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return DataTableIdentifier.empty();
 	}
 
 	@Override

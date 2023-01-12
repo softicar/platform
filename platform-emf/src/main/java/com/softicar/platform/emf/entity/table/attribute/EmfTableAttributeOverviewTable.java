@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.entity.table.attribute;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -56,7 +57,18 @@ public class EmfTableAttributeOverviewTable extends AbstractInMemoryDataTable<IE
 			.setGetter(attribute -> new EmfPredicateWrapper(attribute.getPredicateMandatory()))
 			.setTitle(EmfI18n.MANDATORINESS_PREDICATE)
 			.addColumn();
+	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("fc54f4cb-ba83-44dc-9f3c-8ea2b727c0b9");
+	}
+
+	@Override
+	protected Iterable<IEmfAttribute<?, ?>> getTableRows() {
+	
+		return new ArrayList<>(table.getAttributes());
 	}
 
 	public IDataTableColumn<IEmfAttribute<?, ?>, IDisplayString> getTitleColumn() {
@@ -97,11 +109,5 @@ public class EmfTableAttributeOverviewTable extends AbstractInMemoryDataTable<IE
 	public IDataTableColumn<IEmfAttribute<?, ?>, EmfPredicateWrapper> getPredicateMandatoryColumn() {
 
 		return predicateMandatoryColumn;
-	}
-
-	@Override
-	protected Iterable<IEmfAttribute<?, ?>> getTableRows() {
-
-		return new ArrayList<>(table.getAttributes());
 	}
 }

@@ -12,13 +12,16 @@ public interface IDataTable<R> extends IDataTableRowMethods<R> {
 
 	/**
 	 * Returns a {@link DataTableIdentifier} for this {@link IDataTable}.
+	 * <p>
+	 * The identifier will be used to restore previously saved user-specific
+	 * settings when this table is displayed. It must therefore be guaranteed to
+	 * uniquely identify this table. If user-specific settings shall not be
+	 * restored for this table, {@link DataTableIdentifier#empty()} can be
+	 * returned.
 	 *
 	 * @return the {@link DataTableIdentifier} (never <i>null</i>)
 	 */
-	default DataTableIdentifier getIdentifier() {
-
-		return new DataTableIdentifier("");
-	}
+	DataTableIdentifier getIdentifier();
 
 	// -------------------- columns -------------------- //
 

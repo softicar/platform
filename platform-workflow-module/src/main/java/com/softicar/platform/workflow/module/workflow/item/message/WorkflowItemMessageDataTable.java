@@ -1,5 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.item.message;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.date.DayTime;
@@ -33,6 +34,21 @@ public class WorkflowItemMessageDataTable extends AbstractInMemoryDataTable<Work
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("b3e48cc3-7f2c-41a4-87f4-2d882112d0f6");
+	}
+
+	@Override
+	protected Iterable<WorkflowItemMessageRow> getTableRows() {
+	
+		return rows//
+			.stream()
+			.filter(row -> showTransitions? true : !row.isTransition())
+			.collect(Collectors.toList());
+	}
+
 	public IDataTableColumn<WorkflowItemMessageRow, AGUser> getByColumn() {
 
 		return byColumn;
@@ -41,14 +57,5 @@ public class WorkflowItemMessageDataTable extends AbstractInMemoryDataTable<Work
 	public IDataTableColumn<WorkflowItemMessageRow, DayTime> getAtColumn() {
 
 		return atColumn;
-	}
-
-	@Override
-	protected Iterable<WorkflowItemMessageRow> getTableRows() {
-
-		return rows//
-			.stream()
-			.filter(row -> showTransitions? true : !row.isTransition())
-			.collect(Collectors.toList());
 	}
 }
