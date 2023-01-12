@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.program;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
@@ -136,6 +137,11 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	public AGProgramState getState() {
 
 		return AGProgramState.TABLE.getOrCreate(getThis());
+	}
+
+	public IProgram getProgram() {
+
+		return SourceCodeReferencePoints.getReferencePointOrThrow(getProgramUuid().getUuid(), IProgram.class);
 	}
 
 	public void lockProgramState() {

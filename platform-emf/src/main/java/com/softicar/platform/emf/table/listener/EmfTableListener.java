@@ -107,9 +107,11 @@ public class EmfTableListener<R extends IEmfTableRow<R, ?>> implements IDbTableL
 
 	private void writeLogs(Collection<R> rows) {
 
-		table//
-			.getChangeLoggers()
-			.forEach(logger -> logger.logChange(rows));
+		if (EmfTableListenerSettings.isLoggingEnabled()) {
+			table//
+				.getChangeLoggers()
+				.forEach(logger -> logger.logChange(rows));
+		}
 	}
 
 	private void validateEntities(Collection<R> rows) {
