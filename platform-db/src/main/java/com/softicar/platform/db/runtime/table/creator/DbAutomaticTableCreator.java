@@ -6,11 +6,13 @@ import com.softicar.platform.db.core.connection.DbConnection;
 import com.softicar.platform.db.core.connection.DbConnectionOverrideScope;
 import com.softicar.platform.db.core.connection.IDbConnection;
 import com.softicar.platform.db.core.database.DbCurrentDatabase;
+import com.softicar.platform.db.core.statement.DbStatement;
 import com.softicar.platform.db.core.statement.IDbStatement;
 import com.softicar.platform.db.core.statement.IDbStatementExecutionListener;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.function.Supplier;
 
 /**
@@ -22,6 +24,7 @@ import java.util.function.Supplier;
 public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 
 	private final Supplier<Integer> autoIncrementSupplier;
+	private final Collection<String> existingDatabases;
 	private final Collection<IDbTable<?, ?>> existingTables;
 	private final Collection<IDbTable<?, ?>> existingTablesWithoutForeignKeys;
 	private final Collection<IDbTable<?, ?>> existingTablesWithoutDefaultData;
@@ -31,6 +34,7 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 	public DbAutomaticTableCreator(Supplier<Integer> autoIncrementSupplier) {
 
 		this.autoIncrementSupplier = autoIncrementSupplier;
+		this.existingDatabases = new HashSet<>();
 		this.existingTables = new HashList<>();
 		this.existingTablesWithoutForeignKeys = new HashList<>();
 		this.existingTablesWithoutDefaultData = new HashList<>();
@@ -116,8 +120,10 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 
 		if (!existingTables.contains(table) && !pendingTables.contains(table)) {
 			try (var scope = new DbConnectionOverrideScope(getConnection())) {
+				createDatabaseIfMissing(table);
 				new DbTableStructureCreator(table)//
 					.setAutoIncrement(autoIncrementSupplier.get())
+					.setSkipDatabaseCreation(true)
 					.create();
 			} catch (Exception exception) {
 				// print exception message to avoid silent failures
@@ -131,9 +137,11 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 
 		if (!existingTables.contains(table) && !pendingTables.contains(table)) {
 			try (var scope = new DbConnectionOverrideScope(getConnection())) {
+				createDatabaseIfMissing(table);
 				new DbTableStructureCreator(table)//
 					.setAutoIncrement(autoIncrementSupplier.get())
 					.setSkipForeignKeyCreation(true)
+					.setSkipDatabaseCreation(true)
 					.setIfNotExists(true)
 					.create();
 			}
@@ -147,5 +155,16 @@ public class DbAutomaticTableCreator implements IDbStatementExecutionListener {
 			this.connection = new DbConnection(DbCurrentDatabase.get());
 		}
 		return connection;
+	}
+
+	private void createDatabaseIfMissing(IDbTable<?, ?> table) {
+
+		var databaseName = table.getFullName().getDatabaseName();
+		if (!existingDatabases.contains(databaseName.toLowerCase())) {
+			new DbStatement()//
+				.addText(String.format("CREATE SCHEMA IF NOT EXISTS `%s`", databaseName))
+				.execute();
+			existingDatabases.add(databaseName.toLowerCase());
+		}
 	}
 }

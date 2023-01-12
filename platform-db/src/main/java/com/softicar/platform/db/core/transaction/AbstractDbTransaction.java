@@ -170,6 +170,12 @@ public abstract class AbstractDbTransaction implements IDbTransaction {
 	}
 
 	@Override
+	public <T> Optional<T> getDataIncludingParents(Class<T> dataClass) {
+
+		return new DbTransactionInheritedDataFetcher<>(this, dataClass).getData();
+	}
+
+	@Override
 	public <T> T getOrPutData(Class<T> dataClass, Supplier<T> dataFactory) {
 
 		if (dataMap == null) {
