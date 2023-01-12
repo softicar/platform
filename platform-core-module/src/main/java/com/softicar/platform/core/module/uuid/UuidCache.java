@@ -6,6 +6,11 @@ import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Optimizes the loading and insertion of {@link AGUuid} records.
+ *
+ * @author Oliver Richers
+ */
 class UuidCache {
 
 	private Map<UUID, AGUuid> cache;
