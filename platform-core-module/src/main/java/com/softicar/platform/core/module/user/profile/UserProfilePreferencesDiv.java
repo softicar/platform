@@ -5,15 +5,18 @@ import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.core.module.user.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
+import com.softicar.platform.dom.elements.checkbox.DomCheckboxGroup;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
+import com.softicar.platform.dom.input.IDomValueInput;
 import com.softicar.platform.emf.EmfI18n;
-import com.softicar.platform.emf.attribute.field.bool.EmfBooleanInput;
-import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class UserProfilePreferencesDiv extends DomDiv {
@@ -28,6 +31,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 			new PreferencesElement()//
 				.addInput(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS, new AutomaticallyCollapseFoldersCheckbox())
 				.addInput(CoreI18n.RECURSIVELY_COLLAPSE_FOLDERS, new RecursivelyCollapseFoldersCheckbox())
+				.addInput(CoreI18n.PREFERRED_POPUP_PLACEMENT, new PreferredPopupPlacementInput())
 				.refreshAllInputs());
 		appendChild(
 			new DomActionBar(
@@ -52,7 +56,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 			this.inputs = new ArrayList<>();
 		}
 
-		public <T extends IEmfInput<?> & IRefreshable> PreferencesElement addInput(IDisplayString labelText, T input) {
+		public <T extends IDomValueInput<?> & IRefreshable> PreferencesElement addInput(IDisplayString labelText, T input) {
 
 			add(labelText, input);
 			input.addChangeCallback(this::refreshAllInputs);
@@ -67,7 +71,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 		}
 	}
 
-	private class AutomaticallyCollapseFoldersCheckbox extends EmfBooleanInput implements IRefreshable {
+	private class AutomaticallyCollapseFoldersCheckbox extends DomCheckbox implements IRefreshable {
 
 		public AutomaticallyCollapseFoldersCheckbox() {
 
@@ -82,7 +86,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 		}
 	}
 
-	private class RecursivelyCollapseFoldersCheckbox extends EmfBooleanInput implements IRefreshable {
+	private class RecursivelyCollapseFoldersCheckbox extends DomCheckbox implements IRefreshable {
 
 		public RecursivelyCollapseFoldersCheckbox() {
 
@@ -101,6 +105,22 @@ class UserProfilePreferencesDiv extends DomDiv {
 			}
 
 			preferences.recursivelyCollapseFolders = getValueOrThrow();
+		}
+	}
+
+	private class PreferredPopupPlacementInput extends DomCheckboxGroup<UserPreferencesPreferredPopupPlacement> implements IRefreshable {
+
+		public PreferredPopupPlacementInput() {
+
+			Arrays.asList(UserPreferencesPreferredPopupPlacement.values()).forEach(this::addOption);
+			setValue(preferences.preferredPopupPlacement);
+			addMarker(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT);
+		}
+
+		@Override
+		public void refresh() {
+
+			preferences.preferredPopupPlacement = getValueOrNull();
 		}
 	}
 }

@@ -28,8 +28,12 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Sollen dieses Fenster und alle Unterfenster wirklich geschlossen werden?");
 	I18n0 ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION = new I18n0("Are you sure to close this window?")//
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
+	I18n0 AT_CLICK_POSITION = new I18n0("At click position")//
+		.de("Bei Klick-Position");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
+	I18n0 CENTERED = new I18n0("Centered")//
+		.de("Zentriert");
 	I18n0 CHOOSE_OR_DROP_FILE = new I18n0("Choose or drop file")//
 		.de("Datei wählen oder ablegen");
 	I18n0 CLOSE = new I18n0("Close")//
@@ -194,6 +198,10 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Heute");
 	I18n0 TOGGLE_TAGS = new I18n0("Toggle Tags")//
 		.de("Markierungen umschalten");
+	I18n0 TOP_CENTERED = new I18n0("Top centered")//
+		.de("Oben zentriert");
+	I18n0 TOP_LEFT = new I18n0("Top left")//
+		.de("Oben links");
 	I18n0 TRIED_TO_SELECT_AN_OPTION_THAT_WAS_NOT_CONTAINED_IN_THE_LIST_OF_AVAILABLE_OPTIONS =//
 			new I18n0("Tried to select an option that was not contained in the list of available options.")//
 				.de("Eine Option wurde gewählt, die nicht in der Liste der verfügbaren Optionen enthalten ist.");

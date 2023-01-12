@@ -21,6 +21,7 @@ import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomImage;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
 import com.softicar.platform.dom.elements.popup.IDomPopupFrame;
+import com.softicar.platform.dom.engine.DomPopupOffsetUnit;
 import com.softicar.platform.dom.engine.DomPopupXAlign;
 import com.softicar.platform.dom.engine.DomPopupYAlign;
 import com.softicar.platform.dom.engine.IDomEngine;
@@ -391,9 +392,9 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
-	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
+	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupOffsetUnit offsetUnit, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
-		JS_call("POPUP_ENGINE.movePopup", popupFrame, x, y, xAlign, yAlign);
+		JS_call("POPUP_ENGINE.movePopup", popupFrame, x, y, offsetUnit, xAlign, yAlign);
 	}
 
 	// -------------------------------- scripting -------------------------------- //
