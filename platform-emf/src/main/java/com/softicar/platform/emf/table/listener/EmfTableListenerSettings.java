@@ -45,7 +45,7 @@ public class EmfTableListenerSettings {
 	public static boolean isLoggingEnabled() {
 
 		return DbConnections//
-			.getTransactionData(EmfTableListenerSettings.class)
+			.getTransactionDataIncludingParents(EmfTableListenerSettings.class)
 			.map(settings -> settings.loggingEnabled)
 			.orElse(DEFAULT_LOGGING_ENABLED);
 	}
