@@ -3,8 +3,8 @@ package com.softicar.platform.core.module.user.profile;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.core.module.user.UserPreferences;
-import com.softicar.platform.core.module.user.UserPreferencesPreferredPopupPlacement;
+import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
 import org.junit.Test;
 
 public class UserProfilePreferencesDivTest extends AbstractCoreTest {

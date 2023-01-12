@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user.preferences;
 
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
-import com.softicar.platform.core.module.user.UserPreferencesPreferredPopupPlacement;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupContextCenterPlacementStrategy;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupEventCoordinatesPlacementStrategy;
 import org.junit.Test;

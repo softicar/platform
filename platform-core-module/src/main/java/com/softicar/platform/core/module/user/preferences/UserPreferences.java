@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.user;
+package com.softicar.platform.core.module.user.preferences;
 
 /**
  * Provides user specific preferences.

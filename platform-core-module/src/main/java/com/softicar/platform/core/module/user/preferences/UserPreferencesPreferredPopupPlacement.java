@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.user;
+package com.softicar.platform.core.module.user.preferences;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
