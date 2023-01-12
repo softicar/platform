@@ -5,6 +5,10 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
+import com.softicar.platform.dom.elements.popup.compositor.IDomPopupContext;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupContextCenterPlacementStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupContextTopCenterPlacementStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupContextTopLeftPlacementStrategy;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupEventCoordinatesPlacementStrategy;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupViewportCenterPlacementStrategy;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupViewportOriginPlacementStrategy;
@@ -266,6 +270,39 @@ public class DomPopupConfiguration implements IDomPopupConfiguration {
 	public DomPopupConfiguration setPlacementStrategyByEvent() {
 
 		return setPlacementStrategy(CurrentDomPreferences.get().getPreferredPopupPlacementStrategy());
+	}
+
+	/**
+	 * Defines a placement strategy that displays the {@link DomPopup} at the
+	 * center of the {@link IDomPopupContext}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setPlacementStrategyByContextCenter() {
+
+		return setPlacementStrategy(new DomPopupContextCenterPlacementStrategy());
+	}
+
+	/**
+	 * Defines a placement strategy that displays the {@link DomPopup}
+	 * horizontally centered and top-aligned in the {@link IDomPopupContext}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setPlacementStrategyByContextTopCenter() {
+
+		return setPlacementStrategy(new DomPopupContextTopCenterPlacementStrategy());
+	}
+
+	/**
+	 * Defines a placement strategy that displays the {@link DomPopup} in the
+	 * top-left corner of the {@link IDomPopupContext}.
+	 *
+	 * @return this {@link DomPopupConfiguration}
+	 */
+	public DomPopupConfiguration setPlacementStrategyByContextTopLeft() {
+
+		return setPlacementStrategy(new DomPopupContextTopLeftPlacementStrategy());
 	}
 
 	/**
