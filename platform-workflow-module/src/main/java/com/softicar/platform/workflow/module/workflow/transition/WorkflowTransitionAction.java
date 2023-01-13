@@ -56,7 +56,7 @@ public class WorkflowTransitionAction<R extends IWorkflowableObject<R>> extends 
 
 		tableRow.getWorkflowItemAsOptional().ifPresent(item -> {
 			new WorkflowTransitionActionExecutor(item, transition, CurrentUser.get())//
-				.setAfterExecutionCallback(() -> CurrentDomDocument.get().getRefreshBus().setChanged(tableRow))
+				.setCallbackAfterExecution(() -> CurrentDomDocument.get().getRefreshBus().setChanged(tableRow))
 				.execute();
 		});
 	}

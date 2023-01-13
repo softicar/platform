@@ -23,19 +23,19 @@ public class WorkflowTransitionActionExecutor {
 	private final AGWorkflowItem item;
 	private final AGWorkflowTransition transition;
 	private final AGUser user;
-	private INullaryVoidFunction afterExecutionCallback;
+	private INullaryVoidFunction callbackAfterExecution;
 
 	public WorkflowTransitionActionExecutor(AGWorkflowItem item, AGWorkflowTransition transition, AGUser user) {
 
 		this.item = Objects.requireNonNull(item);
 		this.transition = Objects.requireNonNull(transition);
 		this.user = Objects.requireNonNull(user);
-		this.afterExecutionCallback = INullaryVoidFunction.NO_OPERATION;
+		this.callbackAfterExecution = INullaryVoidFunction.NO_OPERATION;
 	}
 
-	public WorkflowTransitionActionExecutor setAfterExecutionCallback(INullaryVoidFunction afterExecutionCallback) {
+	public WorkflowTransitionActionExecutor setCallbackAfterExecution(INullaryVoidFunction callbackAfterExecution) {
 
-		this.afterExecutionCallback = afterExecutionCallback;
+		this.callbackAfterExecution = callbackAfterExecution;
 		return this;
 	}
 
@@ -93,7 +93,7 @@ public class WorkflowTransitionActionExecutor {
 			}
 			transaction.commit();
 		}
-		afterExecutionCallback.apply();
+		callbackAfterExecution.apply();
 	}
 
 	private void storeTransitionExecutionForAllRelevantTasks() {

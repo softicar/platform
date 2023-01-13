@@ -56,7 +56,7 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 
 	public void assertInSourceNode(AGWorkflowItem item) {
 
-		assertInSourceNode(item, () -> new SofticarUserException(WorkflowI18n.THE_ITEM_RESIDES_IN_THE_WRONG_WORKFLOW_NODE));
+		assertInSourceNode(item, () -> new SofticarUserException(WorkflowI18n.THE_ITEM_RESIDES_IN_AN_UNEXPECTED_WORKFLOW_NODE));
 	}
 
 	public void assertInSourceNode(AGWorkflowItem item, Supplier<? extends RuntimeException> exceptionSupplier) {

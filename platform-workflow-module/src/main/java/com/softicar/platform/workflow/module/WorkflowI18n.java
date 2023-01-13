@@ -178,8 +178,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Aufgabe '%s' hat den Übergang '%s' ausgeführt.");
 	I18n1 TASK_DELEGATED_TO_ARG1 = new I18n1("Task delegated to %s.")//
 		.de("Aufgabe delegiert an %s.");
-	I18n0 THE_ITEM_RESIDES_IN_THE_WRONG_WORKFLOW_NODE = new I18n0("The item resides in the wrong workflow node.")//
-		.de("Das Element befindet sich im falschen Arbeitsablaufknoten.");
+	I18n0 THE_ITEM_RESIDES_IN_AN_UNEXPECTED_WORKFLOW_NODE = new I18n0("The item resides in an unexpected workflow node.")//
+		.de("Das Element befindet sich in einem unerwarteten Arbeitsablaufknoten.");
 	I18n0 THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE = new I18n0("This action is not available anymore.")//
 		.de("Diese Aktion ist nicht mehr verfügbar.");
 	I18n0 TRANSITION = new I18n0("Transition")//
