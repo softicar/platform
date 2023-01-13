@@ -15,11 +15,3 @@ ALTER TABLE `Core`.`User`
 ALTER TABLE `Core`.`UserLog`
 	DROP COLUMN `automaticallyCollapseFolders`,
 	DROP COLUMN `recursivelyCollapseFolders`;
-
--- -------- PLAT-1232 --------
-
-ALTER TABLE `Workflow`.`WorkflowTransition`
-	ADD COLUMN `commentRequired` BOOL NOT NULL DEFAULT '0';
-
-ALTER TABLE `Workflow`.`WorkflowTransitionLog`
-	ADD COLUMN `commentRequired` BOOL DEFAULT NULL;
