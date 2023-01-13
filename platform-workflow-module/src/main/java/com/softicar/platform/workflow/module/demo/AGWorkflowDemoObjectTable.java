@@ -12,6 +12,7 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.demo.approver.AGWorkflowDemoObjectApprover;
+import com.softicar.platform.workflow.module.workflow.item.message.ShowWorkflowItemMessageAction;
 import com.softicar.platform.workflow.module.workflow.transients.field.display.WorkflowNodeFieldDisplay;
 import com.softicar.platform.workflow.module.workflow.transition.WorkflowTransitionActionFactory;
 
@@ -49,6 +50,7 @@ public class AGWorkflowDemoObjectTable extends EmfObjectTable<AGWorkflowDemoObje
 	public void customizeActionSet(EmfActionSet<AGWorkflowDemoObject, AGWorkflowModuleInstance> actionSet) {
 
 		actionSet.addPrimaryActionFactory(new WorkflowTransitionActionFactory<>(WorkflowDemoObjectTableReferencePoint.class));
+		actionSet.addManagementAction(new ShowWorkflowItemMessageAction<>());
 		actionSet.addManagementAction(new WorkflowDemoObjectStartWorkflowAction());
 	}
 

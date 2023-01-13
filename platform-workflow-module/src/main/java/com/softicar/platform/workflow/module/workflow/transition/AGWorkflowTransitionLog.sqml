@@ -15,6 +15,7 @@ TABLE AGWorkflowTransitionLog 'Workflow.WorkflowTransitionLog' {
 	AGWorkflowNode targetNode = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransitionLog_ibfk_4']
 	Boolean notify = NULL [NULLABLE]
 	Boolean autoTransition = NULL [NULLABLE]
+	Boolean commentRequired = NULL [NULLABLE]
 	String requiredVotes = NULL [NULLABLE MAXLENGTH=255]
 	AGWorkflowIcon transitionIcon = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransitionLog_ibfk_5']
 	AGUuid sideEffect = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransitionLog_ibfk_6']

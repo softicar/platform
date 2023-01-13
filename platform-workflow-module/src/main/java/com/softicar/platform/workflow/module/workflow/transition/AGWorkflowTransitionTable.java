@@ -97,6 +97,7 @@ public class AGWorkflowTransitionTable extends EmfObjectTable<AGWorkflowTransiti
 			.addMapping(AGWorkflowTransition.ACTIVE, AGWorkflowTransitionLog.ACTIVE)
 			.addMapping(AGWorkflowTransition.NOTIFY, AGWorkflowTransitionLog.NOTIFY)
 			.addMapping(AGWorkflowTransition.AUTO_TRANSITION, AGWorkflowTransitionLog.AUTO_TRANSITION)
+			.addMapping(AGWorkflowTransition.COMMENT_REQUIRED, AGWorkflowTransitionLog.COMMENT_REQUIRED)
 			.addMapping(AGWorkflowTransition.REQUIRED_VOTES, AGWorkflowTransitionLog.REQUIRED_VOTES)
 			.addMapping(AGWorkflowTransition.TRANSITION_ICON, AGWorkflowTransitionLog.TRANSITION_ICON)
 			.addMapping(AGWorkflowTransition.SIDE_EFFECT, AGWorkflowTransitionLog.SIDE_EFFECT)
