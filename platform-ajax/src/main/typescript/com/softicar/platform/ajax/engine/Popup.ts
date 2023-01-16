@@ -24,7 +24,7 @@ class DomPopupEngine {
 			popupFrame.style.position = 'absolute';
 
 			if(offsetUnit == "PERCENT") {
-				this.movePopupByPercent(popupFrame, x, y, xAlign, yAlign);
+				this.movePopupByPercent(parent, popupFrame, x, y, xAlign, yAlign);
 			} else {
 				this.movePopupByPixels(parent, popupFrame, x, y, xAlign, yAlign);
 			}
@@ -45,7 +45,11 @@ class DomPopupEngine {
 		AJAX_ENGINE.raise(popupFrame);
 	}
 
-	private movePopupByPercent(popupFrame: HTMLElement, x: number, y: number, xAlign: string, yAlign: string) {
+	private movePopupByPercent(parent: HTMLElement, popupFrame: HTMLElement, x: number, y: number, xAlign: string, yAlign: string) {
+		// get window size and scrolling position
+		let scrollX = window.scrollX + parent.scrollLeft;
+		let scrollY = window.scrollY + parent.scrollTop;
+
 		// compute left
 		let popupWidth = popupFrame.offsetWidth;
 		let xHandle = 0;
@@ -65,8 +69,8 @@ class DomPopupEngine {
 		}
 
 		// move popup
-		popupFrame.style.left = `calc(${x}% - ${xHandle}px)`;
-		popupFrame.style.top = `calc(${y}% - ${yHandle}px)`;
+		popupFrame.style.left = `max(0px, ${x}% - ${xHandle}px + ${scrollX}px)`;
+		popupFrame.style.top = `max(0px, ${y}% - ${yHandle}px + ${scrollY}px)`;
 	}
 
 	private movePopupByPixels(parent: HTMLElement, popupFrame: HTMLElement, x: number, y: number, xAlign: string, yAlign: string) {
