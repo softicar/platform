@@ -206,7 +206,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	public void testMultipleOpenFoldersWithAutomaticCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 		});
 
 		clickFolderLink("[System]");

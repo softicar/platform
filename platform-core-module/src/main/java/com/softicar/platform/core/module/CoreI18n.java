@@ -523,8 +523,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Fehlerhafte Anfrage");
 	I18n0 MANUAL = new I18n0("Manual")//
 		.de("Manuell");
-	I18n0 MANUAL_RECURSIVE = new I18n0("Manual / recursive")//
-		.de("Manuell / rekursiv");
+	I18n0 MANUAL_RECURSIVE = new I18n0("Manual (recursive)")//
+		.de("Manuell (rekursiv)");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//

@@ -33,9 +33,9 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	public void testInitialStateWithDefaults() {
 
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE)
-			.assertValue(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE);
+			.assertValue(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC);
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES);
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, getUserPreferences().navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, getUserPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, getUserPreferences().preferredPopupPlacement);
 	}
 
@@ -43,7 +43,7 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	public void testWithNavigationFolderCollapseModeChanged() {
 
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE).selectValue(UserPreferencesNavigationFolderCollapseMode.MANUAL);
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, getUserPreferences().navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, getUserPreferences().navigationFolderCollapseMode);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 

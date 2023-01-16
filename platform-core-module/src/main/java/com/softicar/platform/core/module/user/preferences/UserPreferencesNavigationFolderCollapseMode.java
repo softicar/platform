@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public enum UserPreferencesNavigationFolderCollapseMode implements IDisplayable {
 
-	AUTOMATIC_RECURSIVE(CoreI18n.AUTOMATIC, true, true),
+	AUTOMATIC(CoreI18n.AUTOMATIC, true, true),
 	MANUAL(CoreI18n.MANUAL, false, false),
 	MANUAL_RECURSIVE(CoreI18n.MANUAL_RECURSIVE, false, true),
 	//

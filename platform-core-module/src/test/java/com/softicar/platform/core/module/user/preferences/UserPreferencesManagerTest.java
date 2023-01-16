@@ -42,7 +42,7 @@ public class UserPreferencesManagerTest extends AbstractCoreTest {
 		var preferences = manager.getPreferences();
 
 		// assert results
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, preferences.navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, preferences.navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, preferences.preferredPopupPlacement);
 	}
 
@@ -56,7 +56,7 @@ public class UserPreferencesManagerTest extends AbstractCoreTest {
 		var preferences = manager.getPreferences();
 
 		// assert results
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, preferences.navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, preferences.navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, preferences.preferredPopupPlacement);
 	}
 
@@ -68,14 +68,14 @@ public class UserPreferencesManagerTest extends AbstractCoreTest {
 				{"navigationFolderCollapseMode":"MANUAL","preferredPopupPlacement":"AT_EVENT_COORDINATES"}
 				""").save();
 		var preferences = new UserPreferences();
-		preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE;
+		preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 
 		// execute
 		manager.savePreferences(preferences);
 
 		// assert results
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, manager.getPreferences().navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, manager.getPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, manager.getPreferences().preferredPopupPlacement);
 	}
 
@@ -109,12 +109,12 @@ public class UserPreferencesManagerTest extends AbstractCoreTest {
 
 		// execute
 		manager.updatePreferences(preferences -> {
-			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 			preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		});
 
 		// assert results
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, manager.getPreferences().navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, manager.getPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, manager.getPreferences().preferredPopupPlacement);
 	}
 
@@ -126,13 +126,13 @@ public class UserPreferencesManagerTest extends AbstractCoreTest {
 
 		// execute
 		manager.updatePreferences(preferences -> {
-			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 			preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		});
 
 		// assert results
 		assertFalse(user.getPreferencesJson().isEmpty());
-		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, manager.getPreferences().navigationFolderCollapseMode);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC, manager.getPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, manager.getPreferences().preferredPopupPlacement);
 	}
 }
