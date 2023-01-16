@@ -13,7 +13,7 @@ import java.util.Objects;
 
 /**
  * Enumerates preferred {@link DomPopup} placements that can be selected as a
- * user preferences.
+ * user preference.
  * <p>
  * <b>WARNING:</b> Used in {@link UserPreferences}. Renaming constants in this
  * enum will partially invalidate stored user preferences.

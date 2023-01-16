@@ -6,11 +6,11 @@ import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
-import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.checkbox.DomCheckboxGroup;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.input.IDomValueInput;
@@ -29,8 +29,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 
 		appendChild(
 			new PreferencesElement()//
-				.addInput(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS, new AutomaticallyCollapseFoldersCheckbox())
-				.addInput(CoreI18n.RECURSIVELY_COLLAPSE_FOLDERS, new RecursivelyCollapseFoldersCheckbox())
+				.addInput(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS, new NavigationFolderCollapseModeInput())
 				.addInput(CoreI18n.PREFERRED_POPUP_PLACEMENT, new PreferredPopupPlacementInput())
 				.refreshAllInputs());
 		appendChild(
@@ -71,40 +70,19 @@ class UserProfilePreferencesDiv extends DomDiv {
 		}
 	}
 
-	private class AutomaticallyCollapseFoldersCheckbox extends DomCheckbox implements IRefreshable {
+	private class NavigationFolderCollapseModeInput extends DomCheckboxGroup<UserPreferencesNavigationFolderCollapseMode> implements IRefreshable {
 
-		public AutomaticallyCollapseFoldersCheckbox() {
+		public NavigationFolderCollapseModeInput() {
 
-			super(preferences.automaticallyCollapseFolders);
-			addMarker(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX);
+			Arrays.asList(UserPreferencesNavigationFolderCollapseMode.values()).forEach(this::addOption);
+			setValue(preferences.navigationFolderCollapseMode);
+			addMarker(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE);
 		}
 
 		@Override
 		public void refresh() {
 
-			preferences.automaticallyCollapseFolders = getValueOrThrow();
-		}
-	}
-
-	private class RecursivelyCollapseFoldersCheckbox extends DomCheckbox implements IRefreshable {
-
-		public RecursivelyCollapseFoldersCheckbox() {
-
-			super(preferences.recursivelyCollapseFolders);
-			addMarker(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX);
-		}
-
-		@Override
-		public void refresh() {
-
-			if (preferences.automaticallyCollapseFolders) {
-				setValue(true);
-				setDisabled(true);
-			} else {
-				setDisabled(false);
-			}
-
-			preferences.recursivelyCollapseFolders = getValueOrThrow();
+			preferences.navigationFolderCollapseMode = getValueOrNull();
 		}
 	}
 
