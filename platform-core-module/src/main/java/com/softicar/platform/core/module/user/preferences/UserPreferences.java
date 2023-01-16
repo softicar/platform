@@ -10,7 +10,6 @@ package com.softicar.platform.core.module.user.preferences;
  */
 public class UserPreferences {
 
-	public boolean automaticallyCollapseFolders = true;
-	public boolean recursivelyCollapseFolders = true;
+	public UserPreferencesNavigationFolderCollapseMode navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE;
 	public UserPreferencesPreferredPopupPlacement preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES;
 }

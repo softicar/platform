@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
 import org.junit.Test;
 
@@ -18,91 +19,46 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	public void testInitialState() {
 
 		var preferences = new UserPreferences();
-		preferences.automaticallyCollapseFolders = false;
-		preferences.recursivelyCollapseFolders = false;
+		preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.MANUAL;
 		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		CurrentUser.get().savePreferences(preferences);
 
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE).assertValue(UserPreferencesNavigationFolderCollapseMode.MANUAL);
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.CENTERED);
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertFalse(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.MANUAL, getUserPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test
 	public void testInitialStateWithDefaults() {
 
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE)
+			.assertValue(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE);
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES);
-		assertTrue(getUserPreferences().automaticallyCollapseFolders);
-		assertTrue(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, getUserPreferences().navigationFolderCollapseMode);
 		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test
-	public void testWithTogglingAutomaticallyCollapseFolders() {
+	public void testWithNavigationFolderCollapseModeChanged() {
 
-		CurrentUser.get().updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = false;
-			preferences.recursivelyCollapseFolders = false;
-		});
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).click();
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertFalse(getUserPreferences().recursivelyCollapseFolders);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_NAVIGATION_FOLDER_COLLAPSE_MODE).selectValue(UserPreferencesNavigationFolderCollapseMode.MANUAL);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.AUTOMATIC_RECURSIVE, getUserPreferences().navigationFolderCollapseMode);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
-		assertTrue(getUserPreferences().automaticallyCollapseFolders);
-		assertTrue(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesNavigationFolderCollapseMode.MANUAL, getUserPreferences().navigationFolderCollapseMode);
 	}
 
 	@Test
-	public void testWithTogglingAutomaticallyCollapseFoldersAgain() {
+	public void testWithPreferredPopupPlacementChanged() {
 
-		CurrentUser.get().updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = false;
-			preferences.recursivelyCollapseFolders = false;
-		});
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).click().click();
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertFalse(getUserPreferences().recursivelyCollapseFolders);
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).selectValue(UserPreferencesPreferredPopupPlacement.CENTERED);
+		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, getUserPreferences().preferredPopupPlacement);
 
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertTrue(getUserPreferences().recursivelyCollapseFolders);
-	}
-
-	@Test
-	public void testWithTogglingRecursivelyCollapseFolders() {
-
-		CurrentUser.get().updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = false;
-			preferences.recursivelyCollapseFolders = false;
-		});
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).click();
-
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertFalse(getUserPreferences().recursivelyCollapseFolders);
-
-		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
-
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertTrue(getUserPreferences().recursivelyCollapseFolders);
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
 	}
 
 	private UserPreferences getUserPreferences() {

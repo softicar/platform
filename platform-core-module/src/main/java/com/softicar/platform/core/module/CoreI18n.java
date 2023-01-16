@@ -88,10 +88,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Autoritäts-URL");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
+	I18n0 AUTOMATIC = new I18n0("Automatic")//
+		.de("Automatisch");
 	I18n0 AUTOMATIC_ABORT = new I18n0("Automatic Abort")//
 		.de("Automatischer Abbruch");
-	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
-		.de("Ordner automatisch einklappen");
 	I18n1 BACK_TO_ARG1_PROCESSES = new I18n1("Back to %s Processes")//
 		.de("Zurück zu %s-Prozessen");
 	I18n0 BACK_TO_OVERVIEW = new I18n0("Back to Overview")//
@@ -170,6 +170,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Client IP Adresse");
 	I18n0 CLIENT_SECRET = new I18n0("Client Secret")//
 		.de("Client-Geheimnis");
+	I18n0 COLLAPSE_NAVIGATION_FOLDERS = new I18n0("Collapse Navigation Folders")//
+		.de("Navigations-Ordner einklappen");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
@@ -519,6 +521,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartungsfenster");
 	I18n0 MALFORMED_REQUEST = new I18n0("Malformed Request")//
 		.de("Fehlerhafte Anfrage");
+	I18n0 MANUAL = new I18n0("Manual")//
+		.de("Manuell");
+	I18n0 MANUAL_RECURSIVE = new I18n0("Manual / recursive")//
+		.de("Manuell / rekursiv");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//
@@ -770,8 +776,6 @@ public interface CoreI18n extends EmfI18n {
 		.de("Grund");
 	I18n0 RECIPIENT = new I18n0("Recipient")//
 		.de("Empfänger");
-	I18n0 RECURSIVELY_COLLAPSE_FOLDERS = new I18n0("Recursively Collapse Folders")//
-		.de("Ordner rekursiv einklappen");
 	I18n0 REFERENCES = new I18n0("References")//
 		.de("References");
 	I18n0 REMOTE_ADDRESS = new I18n0("Remote address")//
