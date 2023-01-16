@@ -13,6 +13,7 @@ import com.softicar.platform.core.module.ajax.session.reset.AjaxSessionPage;
 import com.softicar.platform.core.module.page.header.PageHeaderDiv;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.profile.UserProfilePage;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -160,29 +161,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithAutomaticAndNonRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithManualCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = true;
-			preferences.recursivelyCollapseFolders = false;
-		});
-
-		clickFolderLink("[System]");
-		clickFolderLink("Core");
-		clickFolderLink("Email");
-		assertLinkPresent("Buffered Emails");
-
-		clickFolderLink("Events");
-		assertEventsFolderLinksPresent();
-		assertNoLinkPresent("Buffered Emails");
-	}
-
-	@Test
-	public void testMultipleOpenFoldersWithNonAutomaticAndNonRecursiveCollapse() {
-
-		testUser.updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = false;
-			preferences.recursivelyCollapseFolders = false;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.MANUAL;
 		});
 
 		clickFolderLink("[System]");
@@ -201,11 +183,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithNonAutomaticAndRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithManualRecursiveCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = false;
-			preferences.recursivelyCollapseFolders = true;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.MANUAL_RECURSIVE;
 		});
 
 		clickFolderLink("[System]");
@@ -222,11 +203,10 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithAutomaticAndRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithAutomaticCollapse() {
 
 		testUser.updatePreferences(preferences -> {
-			preferences.automaticallyCollapseFolders = true;
-			preferences.recursivelyCollapseFolders = true;
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 		});
 
 		clickFolderLink("[System]");
