@@ -103,7 +103,7 @@ public class PageNavigationController {
 			desiredFolderDivs.add(folderDiv);
 			folderDiv = folderDiv.getParentFolderDiv();
 		}
-		if (CurrentUser.get().getPreferences().automaticallyCollapseFolders) {
+		if (CurrentUser.get().getPreferences().navigationFolderCollapseMode.isAutomatic()) {
 			Sets.difference(openFolderDivs, desiredFolderDivs).forEach(this::close);
 		}
 		Sets.difference(desiredFolderDivs, openFolderDivs).forEach(this::open);
@@ -117,7 +117,7 @@ public class PageNavigationController {
 
 	private void close(PageNavigationFolderDiv folderDiv) {
 
-		new FolderCloser(CurrentUser.get().getPreferences().recursivelyCollapseFolders).close(folderDiv);
+		new FolderCloser(CurrentUser.get().getPreferences().navigationFolderCollapseMode.isRecursive()).close(folderDiv);
 	}
 
 	private void openStartPageWithAlert(IDisplayString message) {

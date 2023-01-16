@@ -14,6 +14,13 @@ public class DomCheckboxGroupTester<V> extends AbstractDomNodeTester<DomCheckbox
 		this.checkboxGroup = checkboxGroup;
 	}
 
+	public DomCheckboxGroupTester<V> selectValue(V value) {
+
+		checkboxGroup.setValue(value);
+		assertValue(value);
+		return this;
+	}
+
 	public DomCheckboxGroupTester<V> assertValue(V value) {
 
 		Assert.assertEquals(value, checkboxGroup.getValueOrThrow());
