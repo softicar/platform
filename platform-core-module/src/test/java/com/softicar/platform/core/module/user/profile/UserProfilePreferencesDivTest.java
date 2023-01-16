@@ -18,32 +18,37 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	public void testInitialState() {
 
 		var preferences = new UserPreferences();
-		preferences.automaticallyCollapseFolders = true;
-		preferences.recursivelyCollapseFolders = true;
+		preferences.automaticallyCollapseFolders = false;
+		preferences.recursivelyCollapseFolders = false;
 		preferences.preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.CENTERED;
 		CurrentUser.get().savePreferences(preferences);
 
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
+		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
+		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.CENTERED);
-		assertTrue(getUserPreferences().automaticallyCollapseFolders);
-		assertTrue(getUserPreferences().recursivelyCollapseFolders);
+		assertFalse(getUserPreferences().automaticallyCollapseFolders);
+		assertFalse(getUserPreferences().recursivelyCollapseFolders);
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test
 	public void testInitialStateWithDefaults() {
 
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
-		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(false).assertNodeDisabled(false);
+		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(false);
+		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).assertChecked(true).assertNodeDisabled(true);
 		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).assertValue(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES);
-		assertFalse(getUserPreferences().automaticallyCollapseFolders);
-		assertFalse(getUserPreferences().recursivelyCollapseFolders);
+		assertTrue(getUserPreferences().automaticallyCollapseFolders);
+		assertTrue(getUserPreferences().recursivelyCollapseFolders);
 		assertEquals(UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES, getUserPreferences().preferredPopupPlacement);
 	}
 
 	@Test
-	public void testWithClickOnAutomaticallyCollapseFoldersCheckbox() {
+	public void testWithTogglingAutomaticallyCollapseFolders() {
+
+		CurrentUser.get().updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = false;
+		});
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).click();
 
@@ -59,7 +64,12 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testWithClickOnAutomaticallyCollapseFoldersCheckboxTwice() {
+	public void testWithTogglingAutomaticallyCollapseFoldersAgain() {
+
+		CurrentUser.get().updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = false;
+		});
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_AUTOMATICALLY_COLLAPSE_FOLDERS_CHECKBOX).click().click();
 
@@ -75,7 +85,12 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testWithClickOnRecursivelyCollapseFoldersCheckbox() {
+	public void testWithTogglingRecursivelyCollapseFolders() {
+
+		CurrentUser.get().updatePreferences(preferences -> {
+			preferences.automaticallyCollapseFolders = false;
+			preferences.recursivelyCollapseFolders = false;
+		});
 
 		findCheckbox(CoreTestMarker.USER_PREFERENCES_RECURSIVELY_COLLAPSE_FOLDERS_CHECKBOX).click();
 
