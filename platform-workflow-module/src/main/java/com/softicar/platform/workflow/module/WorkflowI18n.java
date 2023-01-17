@@ -43,6 +43,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine benötigten Stimmen definieren.");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
+	I18n1 COMMENT_ARG1 = new I18n1("Comment: %s")//
+		.de("Kommentar: %s");
 	I18n0 COMMENT_REQUIRED = new I18n0("Comment Required")//
 		.de("Kommentar erforderlich");
 	I18n0 CONFIGURE = new I18n0("Configure")//
@@ -140,6 +142,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Wurzel-Knoten");
 	I18n0 SHOW_GRAPH = new I18n0("Show Graph")//
 		.de("Graph anzeigen");
+	I18n0 SHOW_MORE = new I18n0("Show More")//
+		.de("Zeige mehr");
 	I18n0 SHOW_TASKS_DELEGATED_BY_ME = new I18n0("Show Tasks Delegated By Me")//
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//
@@ -188,6 +192,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergangs-Icon");
 	I18n0 TRANSITION_PERMISSION = new I18n0("Transition Permission")//
 		.de("Übergangsberechtigung");
+	I18n1 TRANSITION_TO_ARG1 = new I18n1("Transition to '%s'")//
+		.de("Übergang nach '%s'");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
 	I18n0 VERSIONS = new I18n0("Versions")//
@@ -233,6 +239,8 @@ public interface WorkflowI18n extends CoreI18n {
 				.de("Arbeitsablauf-Element '%s' hat mehr als einen ausführbaren automatischen Übergang:\n%s");
 	I18n0 WORKFLOW_ITEM_HAS_ALREADY_BEEN_CHANGED = new I18n0("Workflow item has already been changed.")//
 		.de("Arbeitsablaufelement wurde bereits geändert.");
+	I18n0 WORKFLOW_ITEM_HISTORY = new I18n0("Workflow Item History")//
+		.de("Arbeitsablauf-Element-Historie");
 	I18n0 WORKFLOW_ITEM_LOG = new I18n0("Workflow Item Log")//
 		.de("Arbeitsablauf-Element Log");
 	I18n0 WORKFLOW_ITEM_LOGS = new I18n0("Workflow Item Logs")//
@@ -249,6 +257,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Log");
 	I18n0 WORKFLOW_LOGS = new I18n0("Workflow Logs")//
 		.de("Arbeitsablauf-Logs");
+	I18n0 WORKFLOW_MESSAGE_SEVERITIES = new I18n0("Workflow Message Severities")//
+		.de("Arbeitsablauf-Nachrichtenschweregrade");
+	I18n0 WORKFLOW_MESSAGE_SEVERITY = new I18n0("Workflow Message Severity")//
+		.de("Arbeitsablauf-Nachrichtenschweregrad");
 	I18n0 WORKFLOW_MODULE_INSTANCE = new I18n0("Workflow Module Instance")//
 		.de("Arbeitsablauf-Modulinstanz");
 	I18n0 WORKFLOW_MODULE_INSTANCES = new I18n0("Workflow Module Instances")//
@@ -271,6 +283,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Knoten-Aktionsberechtigungen");
 	I18n0 WORKFLOW_NODE_ACTIONS = new I18n0("Workflow Node Actions")//
 		.de("Arbeitsablauf-Knoten-Aktionen");
+	I18n1 WORKFLOW_NODE_ARG1 = new I18n1("Workflow Node: %s")//
+		.de("Arbeitsablaufknoten: %s");
 	I18n0 WORKFLOW_NODE_LOG = new I18n0("Workflow Node Log")//
 		.de("Arbeitsablauf-Knoten-Log");
 	I18n0 WORKFLOW_NODE_LOGS = new I18n0("Workflow Node Logs")//

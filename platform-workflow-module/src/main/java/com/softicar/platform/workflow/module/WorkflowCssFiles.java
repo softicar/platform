@@ -11,4 +11,5 @@ public interface WorkflowCssFiles {
 	ResourceSupplierFactory FACTORY = new ResourceSupplierFactory(WorkflowCssFiles.class, Charsets.UTF8);
 
 	IResourceSupplier WORKFLOW_DISPLAY_ELEMENTS_STYLE = FACTORY.create("workflow-display-elements-style.css");
+	IResourceSupplier WORKFLOW_ITEM_HISTORY_STYLE = FACTORY.create("workflow-item-history-style.css");
 }

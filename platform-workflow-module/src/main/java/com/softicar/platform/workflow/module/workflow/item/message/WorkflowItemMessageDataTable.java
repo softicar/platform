@@ -6,27 +6,37 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.WorkflowI18n;
+import com.softicar.platform.workflow.module.workflow.item.message.severity.AGWorkflowMessageSeverityEnum;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class WorkflowItemMessageDataTable extends AbstractInMemoryDataTable<WorkflowItemMessageRow> {
 
-	private final boolean showTransitions;
+	private final boolean verbose;
 	private final List<WorkflowItemMessageRow> rows;
+	private final IDataTableColumn<WorkflowItemMessageRow, Integer> indexColumn;
 	private final IDataTableColumn<WorkflowItemMessageRow, DayTime> atColumn;
 	private final IDataTableColumn<WorkflowItemMessageRow, AGUser> byColumn;
 
-	public WorkflowItemMessageDataTable(Boolean showTransitions, List<WorkflowItemMessageRow> rows) {
+	public WorkflowItemMessageDataTable(boolean verbose, List<WorkflowItemMessageRow> rows) {
 
-		this.showTransitions = showTransitions;
+		this.verbose = verbose;
 		this.rows = rows;
-		this.byColumn = newColumn(AGUser.class)//
-			.setGetter(WorkflowItemMessageRow::getCreatedBy)
-			.setTitle(WorkflowI18n.BY)
+		this.indexColumn = newColumn(Integer.class)//
+			.setGetter(WorkflowItemMessageRow::getIndex)
+			.setTitle(WorkflowI18n.INDEX)
+			.addColumn();
+		newColumn(String.class)//
+			.setGetter(WorkflowItemMessageRow::getNodeName)
+			.setTitle(WorkflowI18n.WORKFLOW_NODE)
 			.addColumn();
 		newColumn(String.class)//
 			.setGetter(WorkflowItemMessageRow::getText)
 			.setTitle(WorkflowI18n.TEXT)
+			.addColumn();
+		this.byColumn = newColumn(AGUser.class)//
+			.setGetter(WorkflowItemMessageRow::getCreatedBy)
+			.setTitle(WorkflowI18n.BY)
 			.addColumn();
 		this.atColumn = newColumn(DayTime.class)//
 			.setGetter(WorkflowItemMessageRow::getCreatedAt)
@@ -42,11 +52,16 @@ public class WorkflowItemMessageDataTable extends AbstractInMemoryDataTable<Work
 
 	@Override
 	protected Iterable<WorkflowItemMessageRow> getTableRows() {
-	
+
 		return rows//
 			.stream()
-			.filter(row -> showTransitions? true : !row.isTransition())
+			.filter(row -> verbose || row.getSeverity().isMoreImportantThan(AGWorkflowMessageSeverityEnum.VERBOSE))
 			.collect(Collectors.toList());
+	}
+
+	public IDataTableColumn<WorkflowItemMessageRow, Integer> getIndexColumn() {
+
+		return indexColumn;
 	}
 
 	public IDataTableColumn<WorkflowItemMessageRow, AGUser> getByColumn() {

@@ -72,8 +72,7 @@
 .EmfFormSectionHeaderIcon {
 	
 	display: flex;
-	width: 24px;
-	height: 24px;
+	width: var(--DOM_BUTTON_ICON_SIZE);
 	pointer-events: none;
 	user-select: none;
 }

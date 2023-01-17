@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.item.message.severity
+
+ENUM TABLE AGWorkflowMessageSeverity 'Workflow.WorkflowMessageSeverity' {
+	PK Integer id = SERIAL
+	String name
+	
+	ROW(1, 'VERBOSE')
+	ROW(2, 'INFORMATION')
+	ROW(3, 'WARNING')
+	ROW(4, 'ERROR')
+}

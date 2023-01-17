@@ -2,13 +2,16 @@ PACKAGE com.softicar.platform.workflow.module.workflow.item.message
 
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 IMPORT com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem
+IMPORT com.softicar.platform.workflow.module.workflow.item.message.severity.AGWorkflowMessageSeverity
 
 TABLE AGWorkflowItemMessage 'Workflow.WorkflowItemMessage' {
 	PK Integer id = SERIAL
 	AGWorkflowItem workflowItem [CONSTRAINT_NAME='WorkflowItemMessage_ibfk_1']
 	AGTransaction transaction [CONSTRAINT_NAME='WorkflowItemMessage_ibfk_2']
 	String text [LENGTHBITS=16]
+	AGWorkflowMessageSeverity severity = 2 [CONSTRAINT_NAME='WorkflowItemMessage_ibfk_3']
 
 	IK workflowItem
 	IK transaction
+	IK severity
 }
