@@ -12,28 +12,25 @@ import java.util.Optional;
  */
 public enum MimeType implements IMimeType {
 
-	// application
 	APPLICATION_JSON("application/json"),
 	APPLICATION_OCTET_STREAM("application/octet-stream"),
 	APPLICATION_PDF("application/pdf", "pdf"),
 	APPLICATION_X_EXCEL("application/x-excel", "xls"),
 
-	// audio
 	AUDIO_MPEG("audio/mpeg", "mpeg", "mpg"),
 	AUDIO_OGG("audio/ogg", "ogg"),
 	AUDIO_WAV("audio/wav", "wav"),
 
-	// image
 	IMAGE_BMP("image/bmp", "bmp"),
 	IMAGE_GIF("image/gif", "gif"),
 	IMAGE_JPEG("image/jpeg", "jpeg", "jpg"),
 	IMAGE_PNG("image/png", "png"),
 	IMAGE_SVG_XML("image/svg+xml", "svg"),
 
-	// multipart
+	MESSAGE_RFC822("message/rfc822"),
+
 	MULTIPART_FORM_DATA("multipart/form-data"),
 
-	// text
 	TEXT_CSS("text/css", "css"),
 	TEXT_CSV("text/csv", "csv"),
 	TEXT_HTML("text/html", "html"),
