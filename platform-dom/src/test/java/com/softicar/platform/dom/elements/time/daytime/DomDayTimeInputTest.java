@@ -150,7 +150,7 @@ public class DomDayTimeInputTest extends AbstractDomValueInputDivTest<DayTime> i
 
 	private void assertException(String inputValue) {
 
-		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_DAYTIME_SPECIFICATION_ARG1, inputValue);
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_DATE_WITH_TIME_ARG1, inputValue);
 
 		// assert that the value text remains unchanged
 		assertDomTextInputValue(inputValue);

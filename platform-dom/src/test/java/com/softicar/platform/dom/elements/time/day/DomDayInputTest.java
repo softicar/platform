@@ -116,7 +116,7 @@ public class DomDayInputTest extends AbstractDomValueInputDivTest<Day> implement
 
 	private void assertException(String inputValue) {
 
-		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1, inputValue);
+		assertExceptionForGetValue(CommonDateI18n.ILLEGAL_DATE_ARG1, inputValue);
 
 		// assert that the value text remains unchanged
 		assertDomTextInputValue(inputValue);

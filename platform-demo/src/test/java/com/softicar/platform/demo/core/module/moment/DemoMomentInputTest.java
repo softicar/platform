@@ -62,9 +62,9 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
-		popup.findNode(AGDemoMoment.DAY).assertContainsText(CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("foo"));
-		popup.findNode(AGDemoMoment.TIME).assertContainsText(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay("23:59:"));
-		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DAYTIME_SPECIFICATION_ARG1.toDisplay("2022-04-31 42:59:59"));
+		popup.findNode(AGDemoMoment.DAY).assertContainsText(CommonDateI18n.ILLEGAL_DATE_ARG1.toDisplay("foo"));
+		popup.findNode(AGDemoMoment.TIME).assertContainsText(CommonDateI18n.ILLEGAL_TIME_ARG1.toDisplay("23:59:"));
+		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DATE_WITH_TIME_ARG1.toDisplay("2022-04-31 42:59:59"));
 	}
 
 	@Test
@@ -94,6 +94,6 @@ public class DemoMomentInputTest extends AbstractDemoCoreModuleTest {
 		popup.clickSaveAndCloseButton();
 
 		assertNone(AGDemoMoment.TABLE.loadAll());
-		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DAYTIME_SPECIFICATION_ARG1.toDisplay("13:23:03"));
+		popup.findNode(AGDemoMoment.POINT_IN_TIME).assertContainsText(CommonDateI18n.ILLEGAL_DATE_WITH_TIME_ARG1.toDisplay("13:23:03"));
 	}
 }

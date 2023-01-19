@@ -108,6 +108,6 @@ public class DomTimeInputParserTest extends AbstractTest {
 
 	private void assertException(String input) {
 
-		assertExceptionMessage(CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay(input), () -> parse(input));
+		assertExceptionMessage(CommonDateI18n.ILLEGAL_TIME_ARG1.toDisplay(input), () -> parse(input));
 	}
 }

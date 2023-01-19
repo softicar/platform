@@ -16,6 +16,6 @@ public class IllegalTimeSpecificationException extends SofticarUserException {
 
 	public IllegalTimeSpecificationException(Exception cause, String text) {
 
-		super(cause, CommonDateI18n.ILLEGAL_TIME_SPECIFICATION_ARG1.toDisplay(text));
+		super(cause, CommonDateI18n.ILLEGAL_TIME_ARG1.toDisplay(text));
 	}
 }

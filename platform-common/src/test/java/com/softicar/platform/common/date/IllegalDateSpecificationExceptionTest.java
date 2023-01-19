@@ -9,7 +9,7 @@ public class IllegalDateSpecificationExceptionTest extends AbstractTest {
 	public void testFormatting() {
 
 		assertEquals(//
-			CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay("2022-02-03").toString(),
+			CommonDateI18n.ILLEGAL_DATE_ARG1.toDisplay("2022-02-03").toString(),
 			new IllegalDateSpecificationException(2022, 2, 3).getMessage());
 	}
 }

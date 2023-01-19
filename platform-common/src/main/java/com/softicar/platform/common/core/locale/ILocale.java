@@ -67,14 +67,15 @@ public interface ILocale {
 	String getLocalizedTimeFormat();
 
 	/**
-	 * Returns a human-readable daytime format that uses abbreviations which
-	 * correspond to the language returned by {@link #getLanguage()}.
+	 * Returns a human-readable date-and-time format that uses abbreviations
+	 * which correspond to the language returned by {@link #getLanguage()}.
 	 * <p>
 	 * By default, a space-separated concatenation of
 	 * {@link #getLocalizedDateFormat()} and {@link #getLocalizedTimeFormat()}
 	 * is returned.
 	 *
-	 * @return a localized, human-readable daytime format (never <i>null</i>)
+	 * @return a localized, human-readable date-and-time format (never
+	 *         <i>null</i>)
 	 */
 	default String getLocalizedDayTimeFormat() {
 

@@ -27,6 +27,6 @@ public class IllegalDateSpecificationException extends SofticarUserException {
 
 	public IllegalDateSpecificationException(Exception cause, String text) {
 
-		super(cause, CommonDateI18n.ILLEGAL_DATE_SPECIFICATION_ARG1.toDisplay(text));
+		super(cause, CommonDateI18n.ILLEGAL_DATE_ARG1.toDisplay(text));
 	}
 }

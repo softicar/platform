@@ -18,12 +18,12 @@ public interface CommonDateI18n extends CommonMonthI18n, CommonWeekdayI18n {
 		.de("%sh %smin %ss");
 	I18n2 ARG1MIN_ARG2S = new I18n2("%smin %ss")//
 		.de("%smin %ss");
-	I18n1 ILLEGAL_DATE_SPECIFICATION_ARG1 = new I18n1("Illegal date specification: %s")//
-		.de("Ungültige Datumsangabe: %s");
-	I18n1 ILLEGAL_DAYTIME_SPECIFICATION_ARG1 = new I18n1("Illegal daytime specification: %s")//
-		.de("Ungültige Tageszeitangabe: %s");
-	I18n1 ILLEGAL_TIME_SPECIFICATION_ARG1 = new I18n1("Illegal time specification: %s")//
-		.de("Ungültige Zeitangabe: %s");
+	I18n1 ILLEGAL_DATE_ARG1 = new I18n1("Illegal date: %s")//
+		.de("Ungültiges Datum: %s");
+	I18n1 ILLEGAL_DATE_WITH_TIME_ARG1 = new I18n1("Illegal date with time: %s")//
+		.de("Ungültiges Datum mit Uhrzeit: %s");
+	I18n1 ILLEGAL_TIME_ARG1 = new I18n1("Illegal time: %s")//
+		.de("Ungültige Uhrzeit: %s");
 	I18n0 TODAY = new I18n0("Today")//
 		.de("Heute");
 	I18n0 TOMORROW = new I18n0("Tomorrow")//
