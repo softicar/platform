@@ -7,7 +7,7 @@ TABLE AGLogMessage 'Core.LogMessage' {
 	PK Integer id = SERIAL
 	AGLogProcess process [ON DELETE CASCADE ON UPDATE NO_ACTION CONSTRAINT_NAME='LogMessage_ibfk_1']
 	AGLogLevel level = NULL [NULLABLE CONSTRAINT_NAME='LogMessage_ibfk_2']
-	String logText [LENGTHBITS=16]
+	String logText [LENGTHBITS=24]
 	DayTime logTime = NOW [TIMESTAMP]
 	DayTime notificationTime = NULL [NULLABLE]
 
