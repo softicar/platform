@@ -7,11 +7,11 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.emf.action.IEmfManagementAction;
 import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.permission.IEmfPermission;
+import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
@@ -23,13 +23,13 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 	@Override
 	public IEmfPredicate<AGWorkflowVersion> getPrecondition() {
 
-		return WorkflowPredicates.WORKFLOW_VERSION_FINALIZED;
+		return EmfPredicates.always();
 	}
 
 	@Override
 	public IEmfPermission<AGWorkflowVersion> getRequiredPermission() {
 
-		return WorkflowPermissions.ADMINISTRATOR
+		return WorkflowPermissions.ADMINISTRATION
 			.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance()));
 	}
 
@@ -42,7 +42,7 @@ public class CreateNewWorkflowVersionAction implements IEmfManagementAction<AGWo
 	@Override
 	public IDisplayString getTitle() {
 
-		return WorkflowI18n.COPY_WORKFLOW_VERSION;
+		return WorkflowI18n.COPY;
 	}
 
 	@Override

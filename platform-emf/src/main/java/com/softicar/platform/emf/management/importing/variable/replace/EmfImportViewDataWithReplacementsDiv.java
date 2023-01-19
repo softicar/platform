@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.management.importing.variable.replace;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -68,6 +69,12 @@ public class EmfImportViewDataWithReplacementsDiv<R extends IEmfTableRow<R, P>, 
 				addColumn(field, index);
 				index++;
 			}
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return DataTableIdentifier.empty();
 		}
 
 		@Override

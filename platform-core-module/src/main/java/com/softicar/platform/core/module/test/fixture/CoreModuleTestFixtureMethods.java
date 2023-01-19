@@ -163,6 +163,11 @@ public interface CoreModuleTestFixtureMethods {
 
 	// ------------------------------ server ------------------------------ //
 
+	default AGServer insertDummyServer() {
+
+		return insertServer("dummy", "127.0.0.1", 42, "", "", "");
+	}
+
 	default AGServer insertServer(String name, String serverAddress, Integer port, String domain, String username, String password) {
 
 		return new AGServer()

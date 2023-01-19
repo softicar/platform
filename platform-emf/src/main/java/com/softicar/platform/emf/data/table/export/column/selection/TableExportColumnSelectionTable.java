@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.data.table.export.column.selection;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -33,6 +34,24 @@ class TableExportColumnSelectionTable extends AbstractInMemoryDataTable<TableExp
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return DataTableIdentifier.empty();
+	}
+
+	@Override
+	protected Iterable<TableExportColumnSelectionTableRow> getTableRows() {
+
+		List<TableExportColumnSelectionTableRow> rows = new ArrayList<>();
+		List<TableExportColumnModel> columnModels = tableModel.getTableColumnModels();
+
+		for (int index = 0; index < columnModels.size(); index++) {
+			rows.add(new TableExportColumnSelectionTableRow(columnModels.get(index).getName(), index));
+		}
+		return rows;
+	}
+
 	public IDataTableColumn<TableExportColumnSelectionTableRow, Integer> getPositionColumn() {
 
 		return positionColumn;
@@ -46,17 +65,5 @@ class TableExportColumnSelectionTable extends AbstractInMemoryDataTable<TableExp
 	public IDataTableColumn<TableExportColumnSelectionTableRow, TableExportColumnSelectionTableRow> getConversionColumn() {
 
 		return conversionColumn;
-	}
-
-	@Override
-	protected Iterable<TableExportColumnSelectionTableRow> getTableRows() {
-
-		List<TableExportColumnSelectionTableRow> rows = new ArrayList<>();
-		List<TableExportColumnModel> columnModels = tableModel.getTableColumnModels();
-
-		for (int index = 0; index < columnModels.size(); index++) {
-			rows.add(new TableExportColumnSelectionTableRow(columnModels.get(index).getName(), index));
-		}
-		return rows;
 	}
 }

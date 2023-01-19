@@ -28,6 +28,16 @@
 	display: none;
 }
 
+.FileDropAreaDivInput {
+	position: absolute;
+	opacity: 0;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	z-index: 1;
+	left: -2px;
+	top: -2px;
+}
+
 .FileDropAreaDivCloseButton {
 	z-index: 11;
 	position: absolute;

@@ -20,12 +20,15 @@ import com.softicar.platform.core.module.user.password.UserPasswordGenerator;
 import com.softicar.platform.core.module.user.password.UserPasswordLoader;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
+import com.softicar.platform.core.module.user.preferences.UserPreferences;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesManager;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasicUser {
 
@@ -246,5 +249,43 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	public IDisplayString toDisplay() {
 
 		return toDisplayWithoutId();
+	}
+
+	/**
+	 * Derives the current {@link UserPreferences} from the current value of
+	 * {@link #PREFERENCES_JSON}.
+	 * <p>
+	 * If the processed JSON value is empty or invalid, a
+	 * {@link UserPreferences} instance with default values is returned.
+	 *
+	 * @return the {@link UserPreferences} (never <i>null</i>)
+	 */
+	public UserPreferences getPreferences() {
+
+		return new UserPreferencesManager(this).getPreferences();
+	}
+
+	/**
+	 * Saves the given {@link UserPreferences} for this {@link AGUser}.
+	 *
+	 * @param preferences
+	 *            the {@link UserPreferences} to save (never <i>null</i>)
+	 */
+	public void savePreferences(UserPreferences preferences) {
+
+		new UserPreferencesManager(this).savePreferences(preferences);
+	}
+
+	/**
+	 * Fetches the current {@link UserPreferences}, modifies them with the given
+	 * {@link Consumer}, and saves the result.
+	 *
+	 * @param preferencesModifier
+	 *            modifies the loaded {@link UserPreferences} (never
+	 *            <i>null</i>)
+	 */
+	public void updatePreferences(Consumer<UserPreferences> preferencesModifier) {
+
+		new UserPreferencesManager(this).updatePreferences(preferencesModifier);
 	}
 }

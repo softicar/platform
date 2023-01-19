@@ -15,8 +15,10 @@ import com.softicar.platform.core.module.ajax.logging.AjaxLogging;
 import com.softicar.platform.core.module.ajax.page.EmfPageConnectionProfiler;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.configuration.table.UserSpecificTableConfigurationPersistenceApi;
+import com.softicar.platform.core.module.user.preferences.UserSpecificDomPreferences;
 import com.softicar.platform.dom.resource.set.CurrentDomResourceSet;
 import com.softicar.platform.dom.resource.set.DomResourceSet;
+import com.softicar.platform.dom.user.CurrentDomPreferences;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +38,7 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	public void buildDocument(IAjaxDocument document) {
 
 		defaultTheme.ifPresent(CurrentDomResourceSet::set);
+		CurrentDomPreferences.set(new UserSpecificDomPreferences());
 		CurrentEmfPersistenceApi.set(new UserSpecificTableConfigurationPersistenceApi());
 
 		new PageServiceDocumentBuilder(document).build();

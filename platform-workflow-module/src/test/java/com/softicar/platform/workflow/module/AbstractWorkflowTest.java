@@ -1,5 +1,6 @@
 package com.softicar.platform.workflow.module;
 
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
@@ -12,11 +13,12 @@ public abstract class AbstractWorkflowTest extends AbstractDbTest implements Wor
 
 	public AbstractWorkflowTest() {
 
-		this.user = insertUser("Test User")//
+		this.user = insertTestUser()//
 			.setEmailAddress("user@example.com")
 			.save();
 		this.moduleInstance = insertWorkflowModuleInstance();
 
+		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
 		CurrentUser.set(user);
 	}
 }

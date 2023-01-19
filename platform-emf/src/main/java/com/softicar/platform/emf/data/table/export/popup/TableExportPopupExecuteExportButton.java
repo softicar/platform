@@ -35,7 +35,7 @@ class TableExportPopupExecuteExportButton extends DomButton {
 
 	private void handleClick() {
 
-		ITableExportEngine<?> engine = this.exportOptionsProvider.getCurrentEngineOrNull();
+		ITableExportEngine engine = this.exportOptionsProvider.getCurrentEngineOrNull();
 
 		if (engine != null) {
 			String fileNamePrefix = this.exportOptionsProvider.getFileNamePrefixOrNull();

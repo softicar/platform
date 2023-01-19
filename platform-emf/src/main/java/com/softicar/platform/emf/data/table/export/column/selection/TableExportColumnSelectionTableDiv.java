@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 
 class TableExportColumnSelectionTableDiv extends DomDiv {
 
-	private final ITableExportEngine<?> currentEngine;
+	private final ITableExportEngine currentEngine;
 	private final IEmfDataTableDiv<TableExportColumnSelectionTableRow> tableDiv;
 
-	public TableExportColumnSelectionTableDiv(TableExportTableModel tableModel, ITableExportEngine<?> currentEngine) {
+	public TableExportColumnSelectionTableDiv(TableExportTableModel tableModel, ITableExportEngine currentEngine) {
 
 		this.currentEngine = currentEngine;
 		TableExportColumnSelectionTable table = new TableExportColumnSelectionTable(tableModel);

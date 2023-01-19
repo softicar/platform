@@ -33,17 +33,17 @@ public class AGWorkflowTransitionPermissionTable extends EmfObjectTable<AGWorkfl
 
 		authorizer//
 			.setCreationPermission(
-				WorkflowPermissions.ADMINISTRATOR
+				WorkflowPermissions.ADMINISTRATION
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowVersion().getWorkflow().getModuleInstance())))
 			.setViewPermission(
-				WorkflowPermissions.VIEWER
+				WorkflowPermissions.VIEW
 					.of(
 						IEmfTableRowMapper
 							.nonOptional(
 								WorkflowI18n.WORKFLOW_MODULE_INSTANCE,
 								it -> it.getTransition().getWorkflowVersion().getWorkflow().getModuleInstance())))
 			.setEditPermission(
-				WorkflowPermissions.ADMINISTRATOR
+				WorkflowPermissions.ADMINISTRATION
 					.of(
 						IEmfTableRowMapper
 							.nonOptional(

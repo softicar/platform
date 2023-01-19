@@ -15,6 +15,10 @@
 	border-radius: var(--BORDER_RADIUS);
 }
 
+.WorkflowDisplayLine {
+	display: block;
+}
+
 .WorkflowCircleDisplayElement {
 	width: 20px;
 	height: 20px;
@@ -57,6 +61,8 @@
 .WorkflowDisplayLinePixel {
 	position: absolute;
 	display: block;
-	border-radius: var(--BORDER_RADIUS);
-	border: 1px solid var(--PRIMARY_COLOR);
+}
+
+.WorkflowDisplayLinePixel.highlighted {
+	box-shadow: 0 0 3px #f44;
 }

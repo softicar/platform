@@ -40,9 +40,9 @@ public class AGWorkflowIconTable extends EmfObjectTable<AGWorkflowIcon, AGWorkfl
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowIcon, AGWorkflowModuleInstance> authorizer) {
 
 		authorizer//
-			.setCreationPermission(WorkflowPermissions.ADMINISTRATOR)
-			.setEditPermission(WorkflowPermissions.ADMINISTRATOR.of(AGWorkflowIcon.MODULE_INSTANCE))
-			.setViewPermission(WorkflowPermissions.VIEWER.of(AGWorkflowIcon.MODULE_INSTANCE));
+			.setCreationPermission(WorkflowPermissions.ADMINISTRATION)
+			.setEditPermission(WorkflowPermissions.ADMINISTRATION.of(AGWorkflowIcon.MODULE_INSTANCE))
+			.setViewPermission(WorkflowPermissions.VIEW.of(AGWorkflowIcon.MODULE_INSTANCE));
 	}
 
 	@Override

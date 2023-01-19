@@ -216,4 +216,10 @@ public interface IAjaxSeleniumTestEngineWaitMethods {
 	 *            the amount of time before giving up (never <i>null</i>)
 	 */
 	void waitForServer(Duration timeout);
+
+	/**
+	 * Waits until the document is fully loaded, i.e. until
+	 * {@code Document.readyState==="complete"} is <i>true</i>.
+	 */
+	void waitForDocumentReady();
 }

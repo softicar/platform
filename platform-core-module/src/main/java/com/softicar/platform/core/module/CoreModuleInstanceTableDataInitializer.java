@@ -5,7 +5,6 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.language.AGCoreLanguage;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
-import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -27,7 +26,6 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 
 		var localizationPreset = insertInternationalLocalizationPreset();
 		var systemUser = insertSystemUser(localizationPreset);
-		var emailServer = insertEmailServer();
 
 		AGModuleInstanceBase.TABLE//
 			.createInsert()
@@ -41,7 +39,6 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGCoreModuleInstance.BASE, AGModuleInstanceBase.TABLE.getStub(AGCoreModuleInstance.SINGLETON_INSTANCE_ID))
 			.set(AGCoreModuleInstance.DEFAULT_LOCALIZATION, localizationPreset)
 			.set(AGCoreModuleInstance.SYSTEM_USER, systemUser)
-			.set(AGCoreModuleInstance.EMAIL_SERVER, emailServer)
 			.executeWithoutIdGeneration();
 	}
 
@@ -73,19 +70,6 @@ public class CoreModuleInstanceTableDataInitializer implements IDbTableDataIniti
 			.set(AGUser.SYSTEM_USER, true)
 			.execute();
 		return AGUser.TABLE.getStub(id);
-	}
-
-	private AGServer insertEmailServer() {
-
-		var id = AGServer.TABLE//
-			.createInsert()
-			.set(AGServer.NAME, "default")
-			.set(AGServer.ADDRESS, "0.0.0.0")
-			.set(AGServer.PORT, 0)
-			.set(AGServer.USERNAME, "")
-			.set(AGServer.PASSWORD, "")
-			.execute();
-		return AGServer.TABLE.getStub(id);
 	}
 
 	private AGTransaction insertTransaction(AGUser user) {

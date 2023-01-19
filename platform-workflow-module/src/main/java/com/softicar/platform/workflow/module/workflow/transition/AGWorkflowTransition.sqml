@@ -14,6 +14,7 @@ TABLE AGWorkflowTransition 'Workflow.WorkflowTransition' {
 	AGWorkflowNode targetNode [CONSTRAINT_NAME='WorkflowTransition_ibfk_3']
 	Boolean notify = TRUE
 	Boolean autoTransition = FALSE
+	Boolean commentRequired = FALSE
 	String requiredVotes [MAXLENGTH=255]
 	String htmlColor = NULL [NULLABLE MAXLENGTH=7]
 	AGWorkflowIcon transitionIcon = NULL [NULLABLE CONSTRAINT_NAME='WorkflowTransition_ibfk_4']

@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.ajax.login;
 import com.softicar.platform.ajax.simple.SimpleHttpSession;
 import com.softicar.platform.ajax.simple.SimpleServletOutputStream;
 import com.softicar.platform.common.testing.Asserts;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.AGUser;
@@ -31,6 +32,7 @@ public class SofticarAjaxTwoFactorAuthenticatorTest extends AbstractCoreTest {
 		this.session = new SimpleHttpSession("");
 		this.authenticator = new SofticarAjaxTwoFactorAuthenticator(user, request, response);
 
+		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
 		setupMocking();
 	}
 
@@ -51,6 +53,7 @@ public class SofticarAjaxTwoFactorAuthenticatorTest extends AbstractCoreTest {
 		assertEquals(1, password.getIndex());
 
 		AGBufferedEmail email = Asserts.assertOne(AGBufferedEmail.TABLE.loadAll());
+		assertEquals(AGCoreModuleInstance.getInstance().getEmailServer(), email.getEmailServer());
 		assertEquals("One-Time Password", email.getSubject());
 		assertEquals(USER_EMAIL_ADDRESS, email.getTo());
 		Asserts.assertContains(password.getText(), email.getContent());

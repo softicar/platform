@@ -49,7 +49,7 @@ import java.util.Optional;
  *
  * @author Alexander Schmidt
  */
-public class TableExportTypedNodeConverter implements ITableExportNodeConverter<TableExportTypedNodeValue> {
+public class TableExportTypedNodeConverter implements ITableExportNodeConverter {
 
 	private static final String DEFAULT_CELL_CONTENT_SEPARATOR = " ";
 	private static final String DAY_STRING_REGEX = "[123][0-9]{3}-[01][0-9]-[0123][0-9]";
@@ -92,7 +92,7 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 	}
 
 	@Override
-	public NodeConverterResult<TableExportTypedNodeValue> convertNode(IDomNode node) {
+	public NodeConverterResult convertNode(IDomNode node) {
 
 		TypedExportNodeValueList nodeValueList = convert(node, 0);
 
@@ -113,18 +113,12 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 		}
 
 		else {
-			NodeConverterResult<String> implodedValueList = implodeValueList(nodeValueList);
-			String contentString = implodedValueList.getContent();
+			NodeConverterResult implodedValueList = implodeValueList(nodeValueList);
+			result = implodedValueList.getContent();
 			numLines = Math.max(1, implodedValueList.getContentLineCount());
-
-			if (!this.cellContentSeparator.isEmpty() && contentString.endsWith(this.cellContentSeparator)) {
-				contentString = contentString.substring(0, contentString.length() - this.cellContentSeparator.length());
-			}
-
-			result = createStringExportNodeValue(contentString);
 		}
 
-		return new NodeConverterResult<>(assertValidResult(result), numLines);
+		return new NodeConverterResult(assertValidResult(result), numLines);
 	}
 
 	/**
@@ -144,12 +138,9 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 	/**
 	 * FIXME: fix the logical chaos in this method.
 	 */
-	private NodeConverterResult<String> implodeValueList(TypedExportNodeValueList nodeValueList) {
+	private NodeConverterResult implodeValueList(TypedExportNodeValueList nodeValueList) {
 
 		debugPrint(0, String.format("Imploding a value list of size %s...", nodeValueList.size()));
-
-//		List<StringBuilder> lines = new ArrayList<>();
-//		StringBuilder currentLine = null;
 
 		List<LineWithSubLines> lines = new ArrayList<>();
 		LineWithSubLines currentLine = null;
@@ -163,7 +154,6 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 				String stringValue = value.toString();
 
 				if (currentLine == null) {
-//					currentLine = new StringBuilder();
 					currentLine = new LineWithSubLines();
 					lines.add(currentLine);
 				}
@@ -186,10 +176,6 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 					}
 
 					currentLine.getStringBuilder().append(stringValue);
-
-//					stringValue = stringValue.trim().replaceAll("\\s+", " ");
-//					stringValue += this.cellContentSeparator;
-//					currentLine.append(stringValue);
 				}
 			}
 		}
@@ -199,8 +185,6 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 
 		debugPrint(1, "aggregating results");
 
-//		for (StringBuilder line: lines) {
-//		String lineString = line.toString().trim();
 		for (LineWithSubLines line: lines) {
 			String lineString = line.getStringBuilder().toString().trim();
 
@@ -218,7 +202,13 @@ public class TableExportTypedNodeConverter implements ITableExportNodeConverter<
 			}
 		}
 
-		NodeConverterResult<String> result = new NodeConverterResult<>(output.toString().trim(), numLines);
+		String nodeValueString = output.toString().trim();
+		if (!this.cellContentSeparator.isEmpty() && nodeValueString.endsWith(this.cellContentSeparator)) {
+			nodeValueString = nodeValueString.substring(0, nodeValueString.length() - this.cellContentSeparator.length());
+		}
+
+		TableExportTypedNodeValue nodeValue = new TableExportTypedNodeValue(TableExportNodeValueType.STRING, nodeValueString);
+		NodeConverterResult result = new NodeConverterResult(nodeValue, numLines);
 
 		debugPrint(0, String.format("...value list imploded. Number of lines: %s. result: [%s]", numLines, result.getContent()));
 

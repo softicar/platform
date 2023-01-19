@@ -28,8 +28,14 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Sollen dieses Fenster und alle Unterfenster wirklich geschlossen werden?");
 	I18n0 ARE_YOU_SURE_TO_CLOSE_THIS_WINDOW_QUESTION = new I18n0("Are you sure to close this window?")//
 		.de("Soll dieses Fenster wirklich geschlossen werden?");
+	I18n0 AT_CLICK_POSITION = new I18n0("At click position")//
+		.de("Bei Klick-Position");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen");
+	I18n0 CENTERED = new I18n0("Centered")//
+		.de("Zentriert");
+	I18n0 CHOOSE_OR_DROP_FILE = new I18n0("Choose or drop file")//
+		.de("Datei wählen oder ablegen");
 	I18n0 CLOSE = new I18n0("Close")//
 		.de("Schließen");
 	I18n0 CLOSE_ALL = new I18n0("Close All")//
@@ -57,23 +63,13 @@ public interface DomI18n extends CommonCoreI18n {
 	I18n0 EXCEL_2003_COMPATIBLE = new I18n0("Excel 2003 compatible")//
 		.de("Excel 2003 - kompatibel");
 	I18n0 EXPORT = new I18n0("Export")//
-		.de("Export");
+		.de("Exportieren");
 	I18n0 EXPORT_CANNOT_BE_PERFORMED_NO_TABLE_SPECIFIED = new I18n0("Export cannot be performed: No table specified.")//
 		.de("Export kann nicht durchgeführt werden: Keine Tabelle angegeben.");
 	I18n0 EXPORT_FORMAT = new I18n0("Export Format")//
 		.de("Export-Format");
-	I18n0 EXPORT_PRECONDITIONS_WERE_NOT_MET = new I18n0("Export preconditions were not met.")//
-		.de("Die Vorbedingungen für den Export konnten nicht erfüllt werden.");
 	I18n0 EXPORT_TABLE = new I18n0("Export Table")//
 		.de("Tabelle exportieren");
-	I18n0 FAILED_TO_FINISH_THE_FILE_FOR_EXPORT = new I18n0("Failed to finish the file for export.")//
-		.de("Die zu exportierende Datei konnte nicht finalisiert werden.");
-	I18n0 FAILED_TO_GENERATE_TABLE_BODY = new I18n0("Failed to generate table body.")//
-		.de("Tabellen-Inhalt konnte nicht erzeugt werden.");
-	I18n0 FAILED_TO_GENERATE_TABLE_HEADER = new I18n0("Failed to generate table header.")//
-		.de("Tabellen-Kopfzeile konnte nicht erzeugt werden.");
-	I18n0 FAILED_TO_PREPARE_THE_FILE_FOR_EXPORT = new I18n0("Failed to prepare the file for export.")//
-		.de("Die Datei konnte nicht für den Export vorbereitet werden.");
 	I18n0 FILE_NAME = new I18n0("File Name")//
 		.de("Dateiname");
 	I18n0 FILTER = new I18n0("Filter")//
@@ -171,6 +167,10 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Standard");
 	I18n0 STRICT = new I18n0("Strict")//
 		.de("Streng");
+	I18n0 TABLE_EXPORT_FAILED = new I18n0("Table export failed.")//
+		.de("Tabellenexport fehlgeschlagen.");
+	I18n0 TABLE_EXPORT_PRECONDITIONS_WERE_NOT_FULFILLED = new I18n0("Table export preconditions were not fulfilled.")//
+		.de("Die Vorbedingungen für den Tabellen-Export waren nicht erfüllt.");
 	I18n0 THE_FOLLOWING_PROBLEM_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problem can occur when exporting the table")//
 		.de("Das folgende Problem kann beim Exportieren der Tabelle auftreten");
 	I18n0 THE_FOLLOWING_PROBLEMS_CAN_OCCUR_WHEN_EXPORTING_THE_TABLE = new I18n0("The following problems can occur when exporting the table")//
@@ -196,6 +196,10 @@ public interface DomI18n extends CommonCoreI18n {
 		.de("Heute");
 	I18n0 TOGGLE_TAGS = new I18n0("Toggle Tags")//
 		.de("Markierungen umschalten");
+	I18n0 TOP_CENTERED = new I18n0("Top centered")//
+		.de("Oben zentriert");
+	I18n0 TOP_LEFT = new I18n0("Top left")//
+		.de("Oben links");
 	I18n0 TRIED_TO_SELECT_AN_OPTION_THAT_WAS_NOT_CONTAINED_IN_THE_LIST_OF_AVAILABLE_OPTIONS =//
 			new I18n0("Tried to select an option that was not contained in the list of available options.")//
 				.de("Eine Option wurde gewählt, die nicht in der Liste der verfügbaren Optionen enthalten ist.");

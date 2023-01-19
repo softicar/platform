@@ -29,13 +29,13 @@ public class WorkflowVersionManagementAction implements IEmfManagementAction<AGW
 	@Override
 	public IResource getIcon() {
 
-		return WorkflowImages.MANAGE_WORKFLOW.getResource();
+		return WorkflowImages.WORKFLOW_GRAPH.getResource();
 	}
 
 	@Override
 	public IDisplayString getTitle() {
 
-		return WorkflowI18n.MANAGE_WORKFLOW;
+		return WorkflowI18n.SHOW_GRAPH;
 	}
 
 	@Override

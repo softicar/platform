@@ -2,6 +2,7 @@ package com.softicar.platform.emf.log;
 
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class EmfDummyLogger<R extends IEmfTableRow<R, ?>> implements IEmfChangeL
 	}
 
 	@Override
-	public void logChange(R tableRow) {
+	public void logChange(Collection<R> tableRows) {
 
 		// nothing to do by design
 	}

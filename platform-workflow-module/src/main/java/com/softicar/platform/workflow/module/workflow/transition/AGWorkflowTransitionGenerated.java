@@ -40,6 +40,7 @@ public class AGWorkflowTransitionGenerated extends AbstractDbObject<AGWorkflowTr
 	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowNode> TARGET_NODE = BUILDER.addForeignField("targetNode", o->o.m_targetNode, (o,v)->o.m_targetNode=v, AGWorkflowNode.ID).setTitle(WorkflowI18n.TARGET_NODE).setForeignKeyName("WorkflowTransition_ibfk_3");
 	public static final IDbBooleanField<AGWorkflowTransition> NOTIFY = BUILDER.addBooleanField("notify", o->o.m_notify, (o,v)->o.m_notify=v).setTitle(WorkflowI18n.NOTIFY).setDefault(true);
 	public static final IDbBooleanField<AGWorkflowTransition> AUTO_TRANSITION = BUILDER.addBooleanField("autoTransition", o->o.m_autoTransition, (o,v)->o.m_autoTransition=v).setTitle(WorkflowI18n.AUTO_TRANSITION).setDefault(false);
+	public static final IDbBooleanField<AGWorkflowTransition> COMMENT_REQUIRED = BUILDER.addBooleanField("commentRequired", o->o.m_commentRequired, (o,v)->o.m_commentRequired=v).setTitle(WorkflowI18n.COMMENT_REQUIRED).setDefault(false);
 	public static final IDbStringField<AGWorkflowTransition> REQUIRED_VOTES = BUILDER.addStringField("requiredVotes", o->o.m_requiredVotes, (o,v)->o.m_requiredVotes=v).setTitle(WorkflowI18n.REQUIRED_VOTES).setMaximumLength(255);
 	public static final IDbStringField<AGWorkflowTransition> HTML_COLOR = BUILDER.addStringField("htmlColor", o->o.m_htmlColor, (o,v)->o.m_htmlColor=v).setTitle(WorkflowI18n.HTML_COLOR).setNullable().setDefault(null).setMaximumLength(7);
 	public static final IDbForeignField<AGWorkflowTransition, AGWorkflowIcon> TRANSITION_ICON = BUILDER.addForeignField("transitionIcon", o->o.m_transitionIcon, (o,v)->o.m_transitionIcon=v, AGWorkflowIcon.ID).setTitle(WorkflowI18n.TRANSITION_ICON).setNullable().setDefault(null).setForeignKeyName("WorkflowTransition_ibfk_4");
@@ -151,6 +152,16 @@ public class AGWorkflowTransitionGenerated extends AbstractDbObject<AGWorkflowTr
 		return setValue(AUTO_TRANSITION, value);
 	}
 
+	public final Boolean isCommentRequired() {
+
+		return getValue(COMMENT_REQUIRED);
+	}
+
+	public final AGWorkflowTransition setCommentRequired(Boolean value) {
+
+		return setValue(COMMENT_REQUIRED, value);
+	}
+
 	public final String getRequiredVotes() {
 
 		return getValue(REQUIRED_VOTES);
@@ -219,6 +230,7 @@ public class AGWorkflowTransitionGenerated extends AbstractDbObject<AGWorkflowTr
 	private AGWorkflowNode m_targetNode;
 	private Boolean m_notify;
 	private Boolean m_autoTransition;
+	private Boolean m_commentRequired;
 	private String m_requiredVotes;
 	private String m_htmlColor;
 	private AGWorkflowIcon m_transitionIcon;

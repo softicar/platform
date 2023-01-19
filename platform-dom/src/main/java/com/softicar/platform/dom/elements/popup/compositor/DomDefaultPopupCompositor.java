@@ -221,8 +221,15 @@ public class DomDefaultPopupCompositor implements IDomPopupCompositor {
 	private void movePopup(IDomPopupConfiguration configuration, DomPopupFrame frame) {
 
 		if (!configuration.getDisplayMode().isMaximized()) {
-			var position = configuration.getPositionStrategy().getPosition(getCurrentEvent());
-			getDomEngine().movePopup(frame, position.getX(), position.getY(), position.getXAlign(), position.getYAlign());
+			var placement = configuration.getPlacementStrategy().getPlacement(getCurrentEvent());
+			getDomEngine()
+				.movePopup(//
+					frame,
+					placement.getX(),
+					placement.getY(),
+					placement.getOffsetUnit(),
+					placement.getXAlign(),
+					placement.getYAlign());
 		}
 	}
 

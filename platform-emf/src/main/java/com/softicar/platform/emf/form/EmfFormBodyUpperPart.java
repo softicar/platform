@@ -3,6 +3,7 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfCssClasses;
+import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFactory;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import java.util.Optional;
 
@@ -16,13 +17,15 @@ import java.util.Optional;
 class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 
 	private final EmfFormBody<R> formBody;
+	private final IEmfFormAttributesDivFactory<R> formAttributesDivFactory;
 	private EmfAttributesTableContainer<R> attributesContainer;
 	private EmfFormCommonActionsDiv<R> commonActionsDiv;
 	private boolean editMode;
 
-	public EmfFormBodyUpperPart(EmfFormBody<R> formBody) {
+	public EmfFormBodyUpperPart(EmfFormBody<R> formBody, IEmfFormAttributesDivFactory<R> formAttributesDivFactory) {
 
 		this.formBody = formBody;
+		this.formAttributesDivFactory = formAttributesDivFactory;
 		this.attributesContainer = null;
 		this.commonActionsDiv = null;
 		this.editMode = false;
@@ -46,7 +49,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		Optional.ofNullable(attributesContainer).ifPresent(IDomNode::disappend);
 		Optional.ofNullable(commonActionsDiv).ifPresent(IDomNode::disappend);
 
-		this.attributesContainer = new EmfAttributesTableContainer<>(formBody.getTableRow(), true);
+		this.attributesContainer = new EmfAttributesTableContainer<>(formAttributesDivFactory, formBody.getTableRow(), true);
 		this.attributesContainer.addAdditionalValidators(formBody.getForm().getAdditionalValidators());
 		this.commonActionsDiv = null;
 		this.editMode = true;
@@ -64,7 +67,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		Optional.ofNullable(attributesContainer).ifPresent(IDomNode::disappend);
 		Optional.ofNullable(commonActionsDiv).ifPresent(IDomNode::disappend);
 
-		this.attributesContainer = new EmfAttributesTableContainer<>(formBody.getTableRow(), false);
+		this.attributesContainer = new EmfAttributesTableContainer<>(formAttributesDivFactory, formBody.getTableRow(), false);
 		this.commonActionsDiv = new EmfFormCommonActionsDiv<>(formBody);
 		this.editMode = false;
 
@@ -83,7 +86,7 @@ class EmfFormBodyUpperPart<R extends IEmfTableRow<R, ?>> extends DomDiv {
 		}
 	}
 
-	public EmfFormAttributesDiv<R> getAttributesDiv() {
+	public IEmfFormAttributesDiv<R> getAttributesDiv() {
 
 		return attributesContainer.getAttributesDiv();
 	}

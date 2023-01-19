@@ -13,6 +13,7 @@ import com.softicar.platform.core.module.ajax.session.reset.AjaxSessionPage;
 import com.softicar.platform.core.module.page.header.PageHeaderDiv;
 import com.softicar.platform.core.module.page.navigation.IPageNavigationTestMethods;
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.profile.UserProfilePage;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -160,26 +161,11 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithAutomaticAndNonRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithManualCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(true).save();
-		testUser.setRecursivelyCollapseFolders(false).save();
-
-		clickFolderLink("[System]");
-		clickFolderLink("Core");
-		clickFolderLink("Email");
-		assertLinkPresent("Buffered Emails");
-
-		clickFolderLink("Events");
-		assertEventsFolderLinksPresent();
-		assertNoLinkPresent("Buffered Emails");
-	}
-
-	@Test
-	public void testMultipleOpenFoldersWithNonAutomaticAndNonRecursiveCollapse() {
-
-		testUser.setAutomaticallyCollapseFolders(false).save();
-		testUser.setRecursivelyCollapseFolders(false).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.MANUAL;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -197,10 +183,11 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithNonAutomaticAndRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithManualRecursiveCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(false).save();
-		testUser.setRecursivelyCollapseFolders(true).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.MANUAL_RECURSIVE;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -216,10 +203,11 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 	}
 
 	@Test
-	public void testMultipleOpenFoldersWithAutomaticAndRecursiveCollapse() {
+	public void testMultipleOpenFoldersWithAutomaticCollapse() {
 
-		testUser.setAutomaticallyCollapseFolders(true).save();
-		testUser.setRecursivelyCollapseFolders(true).save();
+		testUser.updatePreferences(preferences -> {
+			preferences.navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
+		});
 
 		clickFolderLink("[System]");
 		clickFolderLink("Core");
@@ -272,7 +260,7 @@ public class PageDivTest extends AbstractPageDivTest implements IPageNavigationT
 		findPageContentDiv()//
 			.assertContainsText("Password")
 			.assertContainsText("Localization")
-			.assertContainsText("Navigation");
+			.assertContainsText("Preferences");
 
 		// TODO Assert that no page link has the "selected" class - but we cannot do that with a high-level Selenium test.
 	}

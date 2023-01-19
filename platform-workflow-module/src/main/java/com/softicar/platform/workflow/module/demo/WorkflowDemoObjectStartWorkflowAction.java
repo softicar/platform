@@ -69,7 +69,7 @@ class WorkflowDemoObjectStartWorkflowAction implements IEmfManagementAction<AGWo
 			workflow.startWorkflow(object);
 			new DomModalAlertDialog(WorkflowI18n.WORKFLOW_STARTED).open();
 		} else {
-			throw new SofticarUserException(WorkflowI18n.NO_ACTIVE_WORKFLOW_VERSION_FOUND);
+			throw new SofticarUserException(WorkflowI18n.NO_CURRENT_WORKFLOW_VERSION_FOUND);
 		}
 	}
 }

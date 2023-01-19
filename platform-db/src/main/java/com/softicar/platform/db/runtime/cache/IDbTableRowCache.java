@@ -3,6 +3,7 @@ package com.softicar.platform.db.runtime.cache;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import com.softicar.platform.db.runtime.transients.DbTransientValueCache;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public interface IDbTableRowCache<R, P> {
 	 *
 	 * @param primaryKey
 	 *            the primary key of the table row
-	 * @return the table row or null if no matching row is cached
+	 * @return the table row or <i>null</i> if no matching row is cached
 	 */
 	R getSimple(P primaryKey);
 
@@ -48,7 +49,7 @@ public interface IDbTableRowCache<R, P> {
 	 * nothing.
 	 *
 	 * @param primaryKey
-	 *            the primary key of the table row to remove, never null
+	 *            the primary key of the table row to remove, never <i>null</i>
 	 */
 	void remove(P primaryKey);
 
@@ -56,9 +57,9 @@ public interface IDbTableRowCache<R, P> {
 	 * Adds the specified table row to this cache.
 	 *
 	 * @param primaryKey
-	 *            the primary key of the table row to add, never null
+	 *            the primary key of the table row to add, never <i>null</i>
 	 * @param object
-	 *            the table row to add, never null
+	 *            the table row to add, never <i>null</i>
 	 */
 	void put(P primaryKey, R object);
 
@@ -72,7 +73,8 @@ public interface IDbTableRowCache<R, P> {
 	 * nothing.
 	 *
 	 * @param primaryKey
-	 *            the primary key of the table row to invalidate (never null)
+	 *            the primary key of the table row to invalidate (never
+	 *            <i>null</i>)
 	 */
 	void invalidate(P primaryKey);
 
@@ -92,7 +94,7 @@ public interface IDbTableRowCache<R, P> {
 	 * does nothing.
 	 *
 	 * @param primaryKey
-	 *            the primary key of the table row to reload (never null)
+	 *            the primary key of the table row to reload (never <i>null</i>)
 	 */
 	void reload(P primaryKey);
 
@@ -102,9 +104,17 @@ public interface IDbTableRowCache<R, P> {
 	void reloadAll();
 
 	/**
+	 * Refreshes the given stub rows and/or invalidated rows in this cache.
+	 *
+	 * @param rows
+	 *            the rows to refresh (never <i>null</i>)
+	 */
+	void refresh(Collection<R> rows);
+
+	/**
 	 * Returns the transient value cache.
 	 *
-	 * @return the transient value cache (never null)
+	 * @return the transient value cache (never <i>null</i>)
 	 */
 	DbTransientValueCache<R> getTransientValueCache();
 }

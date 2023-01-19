@@ -87,7 +87,7 @@ public interface IDbField<R, V> extends ISqlField<R, V>, ITestMarker {
 	 */
 	default Collection<V> getValues(Collection<R> tableRows) {
 
-		getTable().unstubAll(tableRows);
+		getTable().refreshAll(tableRows);
 
 		return tableRows//
 			.stream()

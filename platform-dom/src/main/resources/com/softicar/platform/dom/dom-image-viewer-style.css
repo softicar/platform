@@ -5,6 +5,11 @@
 	min-width: min-content;
 	min-height: 10em;
 	overflow: hidden;
+	resize: both;
+}
+
+.DomPopupFrame.maximized .DomImageViewer {
+	resize: none;
 }
 
 .DomImageViewerCanvas {

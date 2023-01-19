@@ -4,9 +4,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayable;
 import com.softicar.platform.common.testing.AbstractTest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends AbstractTest {
@@ -33,13 +35,15 @@ public abstract class AbstractDomAutoCompleteDefaultInputEngineTest extends Abst
 		values.clear();
 	}
 
-	protected void assertMap(String expected, Map<String, TestValue> map) {
+	protected void assertMapInArbitraryOrder(Map<String, TestValue> map, String...expectedEntries) {
 
-		var exptectedToString = List//
-			.of(expected.split("\n"))
-			.stream()
-			.collect(Collectors.joining(", "));
-		assertEquals("{" + exptectedToString + "}", map.toString());
+		Set<String> actualEntries = map.entrySet().stream().map(Entry::toString).collect(Collectors.toSet());
+		Arrays.asList(expectedEntries).forEach(expectedEntry -> {
+			assertTrue(//
+				"Entry '%s' was not found in: '%s'".formatted(expectedEntry, actualEntries),
+				actualEntries.contains(expectedEntry));
+		});
+		assertEquals(expectedEntries.length, map.size());
 	}
 
 	protected static class TestValue implements IDisplayable, Comparable<TestValue> {

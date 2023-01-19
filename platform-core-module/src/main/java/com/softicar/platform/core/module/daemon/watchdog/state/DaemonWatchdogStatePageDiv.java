@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.daemon.watchdog.state;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.clock.CurrentClock;
@@ -162,6 +163,12 @@ public class DaemonWatchdogStatePageDiv extends DomDiv {
 		}
 
 		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return new DataTableIdentifier("c6fd7f6b-8ab2-4411-880f-a661cd0bdaf9");
+		}
+
+		@Override
 		protected Iterable<DaemonWatchdogLogEntry> getTableRows() {
 
 			return rows;
@@ -224,6 +231,12 @@ public class DaemonWatchdogStatePageDiv extends DomDiv {
 				.setGetter(this::getKillTimeoutAsString)
 				.setTitle(CoreI18n.TIMEOUT)
 				.addColumn();
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return new DataTableIdentifier("c4f9f2ae-4471-477e-b082-21d7d6cb8ab2");
 		}
 
 		@Override

@@ -18,8 +18,16 @@ public class EmfFormPopup<R extends IEmfTableRow<R, ?>> extends DomPopup impleme
 	public EmfFormPopup(R tableRow) {
 
 		Objects.requireNonNull(tableRow);
-		this.form = tableRow.table().getFormFactory().createForm(this, tableRow);
+		var table = tableRow.table();
+
+		this.form = table.getFormFactory().createForm(this, tableRow);
 		configuration.setCallbackBeforeOpen(form::peekAndRefresh);
+
+		table//
+			.getFormPopupConfiguration()
+			.getConfigurationModifiers()
+			.forEach(this::configure);
+
 		appendChild(form);
 	}
 

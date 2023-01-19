@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.DomPopupFrame;
-import com.softicar.platform.dom.elements.popup.position.strategy.IDomPopupPositionStrategy;
+import com.softicar.platform.dom.elements.popup.placement.strategy.IDomPopupPlacementStrategy;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,11 +45,11 @@ public interface IDomPopupConfiguration {
 	DomPopupChildClosingMode getChildClosingMode();
 
 	/**
-	 * Returns the {@link IDomPopupPositionStrategy} of the {@link DomPopup}.
+	 * Returns the {@link IDomPopupPlacementStrategy} of the {@link DomPopup}.
 	 *
-	 * @return the {@link IDomPopupPositionStrategy} (never <i>null</i>)
+	 * @return the {@link IDomPopupPlacementStrategy} (never <i>null</i>)
 	 */
-	IDomPopupPositionStrategy getPositionStrategy();
+	IDomPopupPlacementStrategy getPlacementStrategy();
 
 	/**
 	 * Returns the callback to be executed directly before the {@link DomPopup}

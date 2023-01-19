@@ -3,17 +3,15 @@ package com.softicar.platform.emf.data.table.export.model;
 import com.softicar.platform.common.container.matrix.simple.SimpleMatrix;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.dom.DomI18n;
-import com.softicar.platform.dom.elements.AbstractDomCell;
-import com.softicar.platform.dom.elements.DomChildElementFinder;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
+import com.softicar.platform.dom.elements.IDomCell;
 import com.softicar.platform.dom.elements.tables.pageable.DomPageableTable;
 import com.softicar.platform.emf.data.table.export.column.preselection.ITableExportColumnPreselector;
 import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeConverter;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.element.TableExportChildElementFetcher;
 import com.softicar.platform.emf.data.table.export.element.TableExportNamedDomCell;
-import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 import com.softicar.platform.emf.data.table.export.spanning.TableExportSpanFetcher;
 import com.softicar.platform.emf.data.table.export.spanning.algorithm.TableExportSpanningElementLayouter;
 import com.softicar.platform.emf.data.table.export.spanning.element.TableExportSpanningCell;
@@ -63,9 +61,8 @@ public class TableExportColumnModelFetcher {
 						if (!namedCell.isEmptyName()) {
 							columnHeaderLabels.add(namedCell.getName());
 						}
+						cellsInColumn.add(namedCell);
 					}
-
-					cellsInColumn.add(namedCell);
 				}
 
 				boolean overallEmpty = columnHeaderLabels.isEmpty();
@@ -107,7 +104,7 @@ public class TableExportColumnModelFetcher {
 		for (DomRow headerRow: headerRows) {
 			List<TableExportSpanningCell> headerSpanningCells = new ArrayList<>();
 
-			for (AbstractDomCell cell: DomChildElementFinder.getCells(headerRow)) {
+			for (IDomCell cell: TableExportChildElementFetcher.getCells(headerRow)) {
 				headerSpanningCells
 					.add(new TableExportSpanningCell(cell, TableExportSpanFetcher.getColspanFromCell(cell), TableExportSpanFetcher.getRowspanFromCell(cell)));
 			}
@@ -122,16 +119,15 @@ public class TableExportColumnModelFetcher {
 
 		SimpleMatrix<Integer, Integer, TableExportNamedDomCell> result = new SimpleMatrix<>(new TableExportNamedDomCell.NamedDomCellMatrixTraits());
 
-		ITableExportNodeConverter<TableExportTypedNodeValue> textConverter =
-				new TableExportTextOnlyNodeConverterFactory(HEADER_CELL_CONTENT_SEPARATOR).create();
+		ITableExportNodeConverter textConverter = new TableExportTextOnlyNodeConverterFactory(HEADER_CELL_CONTENT_SEPARATOR).create();
 
 		for (Entry<Integer, SortedMap<Integer, TableExportSpanningCell>> outerEntry: placedSpanningObjects.entrySet()) {
 			for (Entry<Integer, TableExportSpanningCell> innerEntry: outerEntry.getValue().entrySet()) {
 
-				AbstractDomCell abstractDomCell = innerEntry.getValue().get();
-				String label = textConverter.convertNode(abstractDomCell).getContent().getString();
+				IDomCell domCell = innerEntry.getValue().get();
+				String label = textConverter.convertNode(domCell).getContent().getString();
 
-				result.addValue(outerEntry.getKey(), innerEntry.getKey(), new TableExportNamedDomCell(label, abstractDomCell));
+				result.addValue(outerEntry.getKey(), innerEntry.getKey(), new TableExportNamedDomCell(label, domCell));
 			}
 		}
 
@@ -160,7 +156,7 @@ public class TableExportColumnModelFetcher {
 		for (DomRow row: rows) {
 			int numColumnsInRow = 0;
 
-			for (AbstractDomCell cell: DomChildElementFinder.getCells(row)) {
+			for (IDomCell cell: TableExportChildElementFetcher.getCells(row)) {
 				numColumnsInRow += TableExportSpanFetcher.getColspanFromCell(cell);
 			}
 

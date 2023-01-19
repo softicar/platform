@@ -44,6 +44,10 @@ public interface PlatformDatabaseStructureVersionResource {
 	IResourceSupplier V24_STRUCTURE = FACTORY.create("v24-structure.json");
 	IResourceSupplier V25_MIGRATION = FACTORY.create("v25-migration.sql");
 	IResourceSupplier V25_STRUCTURE = FACTORY.create("v25-structure.json");
-	IResourceSupplier V26_MIGRATION = FACTORY.create("v26-migration.sql");
-	IResourceSupplier V26_STRUCTURE = FACTORY.create("v26-structure.json");
+	IResourceSupplier V30_MIGRATION = FACTORY.create("v30-migration.sql");
+	IResourceSupplier V30_STRUCTURE = FACTORY.create("v30-structure.json");
+	IResourceSupplier V31_MIGRATION = FACTORY.create("v31-migration.sql");
+	IResourceSupplier V31_STRUCTURE = FACTORY.create("v31-structure.json");
+	IResourceSupplier V32_MIGRATION = FACTORY.create("v32-migration.sql");
+	IResourceSupplier V32_STRUCTURE = FACTORY.create("v32-structure.json");
 }

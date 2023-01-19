@@ -78,7 +78,7 @@ public class EmfTableListener<R extends IEmfTableRow<R, ?>> implements IDbTableL
 		Optional//
 			.ofNullable(CurrentDomDocument.get())
 			.map(IDomDocument::getRefreshBus)
-			.ifPresent(refreshBus -> notifications.getAllTableRows().forEach(refreshBus::setChanged));
+			.ifPresent(refreshBus -> notifications.getChangedRows().forEach(refreshBus::setChanged));
 	}
 
 	private void executeSaveHooks(Consumer<IEmfSaveHook<R>> callback) {
@@ -107,11 +107,10 @@ public class EmfTableListener<R extends IEmfTableRow<R, ?>> implements IDbTableL
 
 	private void writeLogs(Collection<R> rows) {
 
-		// TODO change log strategy to burst mode
-		for (R row: rows) {
+		if (EmfTableListenerSettings.isLoggingEnabled()) {
 			table//
 				.getChangeLoggers()
-				.forEach(logger -> logger.logChange(row));
+				.forEach(logger -> logger.logChange(rows));
 		}
 	}
 

@@ -71,8 +71,8 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 				beforeSave(A,B)
 				HOOK
 				afterSave(A,B)
-				beforeCommit(SAVE-A,SAVE-B)
-				afterCommit(SAVE-A,SAVE-B)
+				beforeCommit(CHANGE-A,CHANGE-B,SAVE-A,SAVE-B)
+				afterCommit(CHANGE-A,CHANGE-B,SAVE-A,SAVE-B)
 				""");
 
 		// assert transaction was used
@@ -89,7 +89,7 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 	 * <ol>
 	 * <li>We call {@link DbTableRowSaver#save} without transaction.</li>
 	 * <li>The table has table listeners.</li>
-	 * <li>An exception occurs during save.</li>
+	 * <li>An exception is caused by an additional commit listener.</li>
 	 * </ol>
 	 * <p>
 	 * We assert that an implicit transaction is automatically opened by
@@ -110,7 +110,10 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 		});
 
 		try {
-			createSaver().addRow(objectA).addRow(objectB).save();
+			createSaver()//
+				.addRow(objectA)
+				.addRow(objectB)
+				.save();
 			fail("Expected exception.");
 		} catch (RuntimeException exception) {
 			// expected
@@ -122,7 +125,7 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 				beforeSave(A,B)
 				HOOK
 				afterSave(A,B)
-				beforeCommit(SAVE-A,SAVE-B)
+				beforeCommit(CHANGE-A,CHANGE-B,SAVE-A,SAVE-B)
 				""");
 
 		// assert transaction was reverted
@@ -187,8 +190,8 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 				beforeSave(A,B)
 				HOOK
 				afterSave(A,B)
-				beforeCommit(SAVE-A,SAVE-B)
-				afterCommit(SAVE-A,SAVE-B)
+				beforeCommit(CHANGE-A,CHANGE-B,SAVE-A,SAVE-B)
+				afterCommit(CHANGE-A,CHANGE-B,SAVE-A,SAVE-B)
 				""");
 
 		// assert no extra transaction was opened
@@ -236,8 +239,8 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 				beforeSave(A,C,X)
 				HOOK
 				afterSave(A,C,X)
-				beforeCommit(SAVE-A,SAVE-C,SAVE-X)
-				afterCommit(SAVE-A,SAVE-C,SAVE-X)
+				beforeCommit(CHANGE-C,CHANGE-X,SAVE-A,SAVE-C,SAVE-X)
+				afterCommit(CHANGE-C,CHANGE-X,SAVE-A,SAVE-C,SAVE-X)
 				""");
 
 		// assert INSERT and UPDATE was executed
@@ -258,7 +261,8 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 	 * flag.</li>
 	 * </ol>
 	 * <p>
-	 * We assert that all dirty flags are disabled afterwards.
+	 * We assert that all dirty flags are disabled afterwards and that no change
+	 * notification occurs.
 	 */
 	@Test
 	public void testSaveWithDirtyObjectAndWithLazyMode() {
@@ -288,6 +292,8 @@ public class DbTableRowSaverTest extends AbstractDbObjectTest {
 
 		assertEquals(0, writtenRows);
 	}
+
+	// ------------------------------ private ------------------------------ //
 
 	private DbTableRowSaver<DbListeningTestObject, Integer> createSaver() {
 

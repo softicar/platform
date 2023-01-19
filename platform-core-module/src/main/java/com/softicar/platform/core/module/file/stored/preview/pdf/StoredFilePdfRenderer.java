@@ -15,11 +15,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Renders a PDF {@link AGStoredFile} to rasterized images.
+ *
+ * @author Alexander Schmidt
+ * @author Oliver Richers
+ */
 public class StoredFilePdfRenderer {
 
 	private static final String IMAGE_FORMAT = "jpg";
 	private static final MimeType MIME_TYPE = MimeType.IMAGE_JPEG;
-	private static final int PREVIEW_DPI = 125;
+	private static final int DEFAULT_DPI = 250;
+	private int dpi;
+
+	/**
+	 * Constructs a new {@link StoredFilePdfRenderer}.
+	 */
+	public StoredFilePdfRenderer() {
+
+		this.dpi = DEFAULT_DPI;
+	}
+
+	/**
+	 * Sets the number of DPI for rendering.
+	 *
+	 * @param dpi
+	 *            the rendering DPI
+	 * @return this
+	 */
+	public StoredFilePdfRenderer setDpi(int dpi) {
+
+		this.dpi = dpi;
+		return this;
+	}
 
 	/**
 	 * Renders the pages of a PDF into a list of images.
@@ -32,7 +60,7 @@ public class StoredFilePdfRenderer {
 	 *             if the content type of the given {@link AGStoredFile} is not
 	 *             {@link MimeType#APPLICATION_PDF}
 	 */
-	public static List<IResource> renderPages(AGStoredFile file) {
+	public List<IResource> renderPages(AGStoredFile file) {
 
 		Optional
 			.ofNullable(file.getContentType())
@@ -48,10 +76,10 @@ public class StoredFilePdfRenderer {
 		}
 	}
 
-	private static List<IResource> renderPages(InputStream stream, String pdfFilename) {
+	public List<IResource> renderPages(InputStream stream, String pdfFilename) {
 
 		var images = new ArrayList<IResource>();
-		for (BufferedImage image: new PdfRenderer().setDpi(PREVIEW_DPI).render(stream)) {
+		for (BufferedImage image: new PdfRenderer().setDpi(dpi).render(stream)) {
 			var imageResource = new InMemoryImageResource(image, IMAGE_FORMAT, MIME_TYPE);
 			imageResource.setFilename(getImageFilename(pdfFilename, images.size()));
 			images.add(imageResource);
@@ -59,7 +87,7 @@ public class StoredFilePdfRenderer {
 		return images;
 	}
 
-	private static String getImageFilename(String pdfFilename, int index) {
+	private String getImageFilename(String pdfFilename, int index) {
 
 		return pdfFilename//
 			.replace(".pdf", "")

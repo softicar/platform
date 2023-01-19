@@ -8,17 +8,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class TableExportNodeConverterFactorySelectionModel<CT> {
+public class TableExportNodeConverterFactorySelectionModel {
 
-	private final TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration;
-	private final Map<Integer, ITableExportNodeConverterFactory<CT>> selectedConverterFactoriesByColumn = new TreeMap<>();
+	private final TableExportNodeConverterFactoryConfiguration nodeConverterFactoryConfiguration;
+	private final Map<Integer, ITableExportNodeConverterFactory> selectedConverterFactoriesByColumn = new TreeMap<>();
 
-	public TableExportNodeConverterFactorySelectionModel(TableExportNodeConverterFactoryConfiguration<CT> nodeConverterFactoryConfiguration) {
+	public TableExportNodeConverterFactorySelectionModel(TableExportNodeConverterFactoryConfiguration nodeConverterFactoryConfiguration) {
 
 		this.nodeConverterFactoryConfiguration = nodeConverterFactoryConfiguration;
 	}
 
-	public void selectConverterFactory(int column, ITableExportNodeConverterFactory<CT> converterFactory) {
+	public void selectConverterFactory(int column, ITableExportNodeConverterFactory converterFactory) {
 
 		if (converterFactory != null) {
 			if (this.nodeConverterFactoryConfiguration.getAvailableFactories().contains(converterFactory)) {
@@ -39,18 +39,18 @@ public class TableExportNodeConverterFactorySelectionModel<CT> {
 		selectConverterFactory(column, null);
 	}
 
-	public Map<Integer, ITableExportNodeConverterFactory<CT>> getSelectedConverterFactoriesByColumn() {
+	public Map<Integer, ITableExportNodeConverterFactory> getSelectedConverterFactoriesByColumn() {
 
 		return selectedConverterFactoriesByColumn;
 	}
 
-	public Map<Integer, ITableExportNodeConverter<CT>> fetchNodeConvertersByColumn(Set<Integer> selectedColumnIndexes) {
+	public Map<Integer, ITableExportNodeConverter> fetchNodeConvertersByColumn(Set<Integer> selectedColumnIndexes) {
 
-		Map<Integer, ITableExportNodeConverter<CT>> nodeConvertersByColumn = new TreeMap<>();
+		Map<Integer, ITableExportNodeConverter> nodeConvertersByColumn = new TreeMap<>();
 
 		for (Integer columnIndex: selectedColumnIndexes) {
-			ITableExportNodeConverterFactory<CT> selectedConverterFactory = this.selectedConverterFactoriesByColumn.get(columnIndex);
-			ITableExportNodeConverter<CT> nodeConverter;
+			ITableExportNodeConverterFactory selectedConverterFactory = this.selectedConverterFactoriesByColumn.get(columnIndex);
+			ITableExportNodeConverter nodeConverter;
 
 			if (selectedConverterFactory != null) {
 				nodeConverter = selectedConverterFactory.create();

@@ -14,8 +14,9 @@ public class DomCheckboxTester extends AbstractDomNodeTester<DomCheckbox> {
 		this.checkbox = checkbox;
 	}
 
-	public void assertChecked(boolean checked) {
+	public DomCheckboxTester assertChecked(boolean checked) {
 
 		Assert.assertEquals(checked, checkbox.isChecked());
+		return this;
 	}
 }

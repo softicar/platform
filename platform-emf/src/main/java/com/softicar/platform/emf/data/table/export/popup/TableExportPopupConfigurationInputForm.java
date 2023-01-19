@@ -44,11 +44,11 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	private final EmfBooleanInput inputEnableDeflateCompression;
 	private final FileNameSuffixDiv fileNameSuffixDiv;
 	private final DomSimpleValueSelect<ITableExportEngineFactory<?>> inputEngineFactorySelect;
-	private final Map<String, ITableExportEngine<?>> engineByFactoryClassName = new TreeMap<>();
+	private final Map<String, ITableExportEngine> engineByFactoryClassName = new TreeMap<>();
 
 	private TableExportColumnSelectionButton columnSelectionButton;
 
-	private ITableExportEngine<?> currentEngine = null;
+	private ITableExportEngine currentEngine = null;
 
 	public TableExportPopupConfigurationInputForm(TableExportTableModel mainTableModel, ITableExportFileNameSuffixCreator fileNameSuffixCreator,
 			TableExportPopupLowerMessageDiv lowerMessageDiv, boolean appendTimestamp, boolean enableDeflateCompression) {
@@ -78,7 +78,7 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	}
 
 	@Override
-	public ITableExportEngine<?> getCurrentEngineOrNull() {
+	public ITableExportEngine getCurrentEngineOrNull() {
 
 		return this.currentEngine;
 	}
@@ -168,10 +168,10 @@ public class TableExportPopupConfigurationInputForm extends DomLabelGrid impleme
 	 * @param factory
 	 * @return An {@link ITableExportEngine} as created by the given factory.
 	 */
-	private ITableExportEngine<?> fetchOrCreateEngine(ITableExportEngineFactory<?> factory) {
+	private ITableExportEngine fetchOrCreateEngine(ITableExportEngineFactory<?> factory) {
 
 		String factoryClassName = factory.getClass().getCanonicalName();
-		ITableExportEngine<?> engine = this.engineByFactoryClassName.get(factoryClassName);
+		ITableExportEngine engine = this.engineByFactoryClassName.get(factoryClassName);
 
 		if (engine == null) {
 			engine = factory.create();

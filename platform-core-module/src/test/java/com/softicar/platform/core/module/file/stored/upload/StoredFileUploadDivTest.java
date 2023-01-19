@@ -7,12 +7,14 @@ import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.DomTestMarker;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
 import com.softicar.platform.dom.elements.testing.engine.document.DomDocumentTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.node.tester.DomNodeTester;
+import com.softicar.platform.dom.elements.upload.DomUploadForm;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import java.io.InputStream;
@@ -67,7 +69,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 			new FileUpload("bar.txt", "this is bar"));
 
 		// assert results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable("foo.txt", "bar.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(0);
@@ -87,7 +89,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 			new FileUpload("qwe.txt", "this is qwe"));
 
 		// assert results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable("foo.txt", "bar.txt", "qwe.txt");
 		assertAddHandlerCalls(2);
 		assertRemoveHandlerCalls(0);
@@ -103,7 +105,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadFiles(new FileUpload("foo.txt", "this is foo"));
 
 		// assert results
-		assertAddFileElementAbsent();
+		assertUploadFormAbsent();
 		assertFileTable("foo.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(0);
@@ -138,7 +140,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		removeFile("bar.txt");
 
 		// assert results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable("foo.txt", "qwe.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(1);
@@ -153,7 +155,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		useMultipleStoredFileUploadDiv();
 
 		// assert results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable();
 		assertNoAddHandlerCalls();
 		assertNoRemoveHandlerCalls();
@@ -177,7 +179,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadDiv.setFiles(earlierFiles);
 
 		// assert results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable("foo.txt", "bar.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(0);
@@ -186,7 +188,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadDiv.setFiles(laterFiles);
 
 		// assert more results
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 		assertFileTable("qwe.txt", "asd.txt");
 		assertAddHandlerCalls(2);
 		assertRemoveHandlerCalls(1);
@@ -205,7 +207,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadDiv.setFiles(List.of(fooFile));
 
 		// assert results
-		assertAddFileElementAbsent();
+		assertUploadFormAbsent();
 		assertFileTable("foo.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(0);
@@ -214,7 +216,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadDiv.setFiles(List.of(barFile));
 
 		// assert more results
-		assertAddFileElementAbsent();
+		assertUploadFormAbsent();
 		assertFileTable("bar.txt");
 		assertAddHandlerCalls(2);
 		assertRemoveHandlerCalls(1);
@@ -233,7 +235,7 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		uploadDiv.setFiles(List.of(fooFile, barFile));
 
 		// assert results
-		assertAddFileElementAbsent();
+		assertUploadFormAbsent();
 		assertFileTable("foo.txt", "bar.txt");
 		assertAddHandlerCalls(1);
 		assertRemoveHandlerCalls(0);
@@ -251,13 +253,13 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		assertFileTable("foo.txt", "bar.txt");
 
 		// assert initial state
-		assertAddFileElementPresent();
+		assertUploadFormPresent();
 
 		// execute
 		uploadDiv.setDisabled(true);
 
 		// assert results
-		assertAddFileElementAbsent();
+		assertUploadFormAbsent();
 		findNodes(CoreTestMarker.STORED_FILE_REMOVE_FILE_BUTTON)//
 			.assertNone();
 		findNodes(CoreTestMarker.STORED_FILE_DOWNLOAD_FILE_BUTTON)//
@@ -298,12 +300,12 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 
 	/**
 	 * Performs file uploads by simulating a user interaction with
-	 * {@link CoreTestMarker#STORED_FILE_UPLOAD_FORM}. Since we cannot leverage
-	 * native windows while testing, this must be sufficient.
+	 * {@link DomUploadForm}. Since we cannot leverage native windows while
+	 * testing, this must be sufficient.
 	 */
 	private void uploadFiles(IDomFileUpload...fileUploads) {
 
-		var uploadHandlerNode = findNode(CoreTestMarker.STORED_FILE_UPLOAD_FORM).getNode();
+		var uploadHandlerNode = findNode(DomUploadForm.class).getNode();
 		var uploadHandler = (IDomFileUploadHandler) uploadHandlerNode;
 		uploadHandler.handleFileUploads(Arrays.asList(fileUploads));
 	}
@@ -319,14 +321,14 @@ public class StoredFileUploadDivTest extends AbstractDbTest implements IDomTestE
 		findNode(DomTestMarker.MODAL_CONFIRM_OKAY_BUTTON).click();
 	}
 
-	private void assertAddFileElementPresent() {
+	private void assertUploadFormPresent() {
 
-		findNode(CoreTestMarker.STORED_FILE_ADD_FILE_ELEMENT).assertContainsText("Choose or drop file");
+		findNode(DomUploadForm.class).assertContainsText(DomI18n.CHOOSE_OR_DROP_FILE);
 	}
 
-	private void assertAddFileElementAbsent() {
+	private void assertUploadFormAbsent() {
 
-		findNodes(CoreTestMarker.STORED_FILE_ADD_FILE_ELEMENT).assertNone();
+		findNodes(DomUploadForm.class).assertNone();
 	}
 
 	private void assertFileTable(String...filenames) {

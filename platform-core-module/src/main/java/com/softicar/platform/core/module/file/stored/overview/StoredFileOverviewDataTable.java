@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.file.stored.overview;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.item.ItemId;
@@ -31,6 +32,12 @@ class StoredFileOverviewDataTable extends AbstractInMemoryDataTable<StoredFileOv
 			.setGetter(StoredFileOverviewRow::getFileHashString)
 			.setTitle(EmfI18n.SHA_1_HASH)
 			.addColumn();
+	}
+
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("7114faf0-737f-4223-8498-dbc9f52d6d5a");
 	}
 
 	@Override

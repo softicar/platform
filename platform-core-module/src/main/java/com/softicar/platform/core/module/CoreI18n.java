@@ -58,6 +58,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("AJAX-Sitzungen");
 	I18n0 ALGORITHM = new I18n0("Algorithm")//
 		.de("Algorithmus");
+	I18n0 ALL_TRANSACTION_DATA_WAS_DELETED = new I18n0("All transaction data was deleted.")//
+		.de("Alle Transaktionsdaten wurden gelöscht.");
 	I18n0 ALLOWED_CHARACTERS = new I18n0("Allowed Characters")//
 		.de("Zulässige Zeichen");
 	I18n0 ALLOWED_IP_RULE = new I18n0("Allowed-IP Rule")//
@@ -86,10 +88,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Autoritäts-URL");
 	I18n0 AUTO_SUBMITTED = new I18n0("Auto-Submitted")//
 		.de("Auto-Submitted");
+	I18n0 AUTOMATIC = new I18n0("Automatic")//
+		.de("Automatisch");
 	I18n0 AUTOMATIC_ABORT = new I18n0("Automatic Abort")//
 		.de("Automatischer Abbruch");
-	I18n0 AUTOMATICALLY_COLLAPSE_FOLDERS = new I18n0("Automatically Collapse Folders")//
-		.de("Ordner automatisch einklappen");
 	I18n1 BACK_TO_ARG1_PROCESSES = new I18n1("Back to %s Processes")//
 		.de("Zurück zu %s-Prozessen");
 	I18n0 BACK_TO_OVERVIEW = new I18n0("Back to Overview")//
@@ -168,6 +170,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Client IP Adresse");
 	I18n0 CLIENT_SECRET = new I18n0("Client Secret")//
 		.de("Client-Geheimnis");
+	I18n0 COLLAPSE_NAVIGATION_FOLDERS = new I18n0("Collapse Navigation Folders")//
+		.de("Navigations-Ordner einklappen");
 	I18n0 COLLAPSE_OR_EXPAND_NAVIGATION = new I18n0("Collapse or expand navigation")//
 		.de("Navigation ein- oder ausklappen");
 	I18n0 COLUMN_TITLES_HASH = new I18n0("Column Titles Hash")//
@@ -274,6 +278,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
 			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
 				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.");
+	I18n0 DELETE_ALL_TRANSACTION_DATA = new I18n0("Delete All Transaction Data")//
+		.de("Alle Transaktionsdaten löschen");
 	I18n1 DELETES_AJAX_EXCEPTIONS_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes AJAX Exceptions older than %s days")//
 		.de("Löscht AJAX-Ausnahmen, die älter als %s Tage sind");
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
@@ -288,6 +294,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Deaktivierter Benutzer");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
+	I18n0 DOWNLOAD_FILE = new I18n0("Download File")//
+		.de("Datei herunterladen");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
 		.de("Panik-Einträge verwerfen");
 	I18n0 EMAIL = new I18n0("Email")//
@@ -348,6 +356,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Externe Komponenten");
 	I18n0 FAILED = new I18n0("Failed")//
 		.de("Fehlgeschlagen");
+	I18n1 FAILED_TO_DELETE_DATA_FROM_TABLE_ARG1 = new I18n1("Failed to delete data from table '%s'.")//
+		.de("Daten aus der Tabelle '%s' konnten nicht gelöscht werden.");
 	I18n0 FAILED_TO_DETERMINE_PAGE_TITLE = new I18n0("Failed to determine page title")//
 		.de("Seitentitel konnte nicht bestimmt werden");
 	I18n0 FAILED_TO_GENERATE_PASSWORD = new I18n0("Failed to generate password.")//
@@ -515,6 +525,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartungsfenster");
 	I18n0 MALFORMED_REQUEST = new I18n0("Malformed Request")//
 		.de("Fehlerhafte Anfrage");
+	I18n0 MANUAL = new I18n0("Manual")//
+		.de("Manuell");
+	I18n0 MANUAL_RECURSIVE = new I18n0("Manual (recursive)")//
+		.de("Manuell (rekursiv)");
 	I18n0 MASTER_DATA = new I18n0("Master Data")//
 		.de("Stammdaten");
 	I18n0 MASTER_SERVER_CHECKSUM = new I18n0("Master Server Checksum")//
@@ -649,6 +663,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Passwort-Richtlinien-Log");
 	I18n0 PASSWORD_POLICY_LOGS = new I18n0("Password Policy Logs")//
 		.de("Passwort-Richtlinien-Logs");
+	I18n0 PDF = new I18n0("PDF")//
+		.de("PDF");
 	I18n0 PENDING = new I18n0("Pending")//
 		.de("Ausstehend");
 	I18n0 PENDING_MAINTENANCE = new I18n0("Pending Maintenance")//
@@ -690,8 +706,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Portal-Logo");
 	I18n0 PORTAL_PROTOCOL = new I18n0("Portal Protocol")//
 		.de("Portal-Protokoll");
+	I18n0 PREFERENCES = new I18n0("Preferences")//
+		.de("Einstellungen");
+	I18n0 PREFERENCES_JSON = new I18n0("Preferences JSON")//
+		.de("Einstellungen JSON");
 	I18n0 PREFERENCES_SAVED = new I18n0("Preferences saved.")//
 		.de("Einstellungen gespeichert.");
+	I18n0 PREFERRED_POPUP_PLACEMENT = new I18n0("Preferred Popup Placement")//
+		.de("Bevorzugte Popup-Platzierung");
 	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
 		.de("Haupt-Datei-Server");
 	I18n0 PROCESS = new I18n0("Process")//
@@ -752,12 +774,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Begründung");
 	I18n1 RATIONALE_NEEDS_A_MINIMUM_OF_ARG1_CHARACTERS = new I18n1("Rationale needs a minimum of %s characters.")//
 		.de("Begründung muss mindestens %s Zeichen lang sein.");
+	I18n0 RAW_DATA = new I18n0("Raw Data")//
+		.de("Rohdaten");
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
 	I18n0 RECIPIENT = new I18n0("Recipient")//
 		.de("Empfänger");
-	I18n0 RECURSIVELY_COLLAPSE_FOLDERS = new I18n0("Recursively Collapse Folders")//
-		.de("Ordner rekursiv einklappen");
 	I18n0 REFERENCES = new I18n0("References")//
 		.de("References");
 	I18n0 REMOTE_ADDRESS = new I18n0("Remote address")//
@@ -1000,6 +1022,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Text");
 	I18n1 THE_ARG1_USER_ACCOUNT_HAS_BEEN_CREATED_OR_WAS_CHANGED_FOR_YOU = new I18n1("The %s user account has been created or was changed for you.")//
 		.de("Das %s Benutzerkonto wurde für Sie erstellt oder geändert.");
+	I18n0 THE_CONTENT_OF_THE_FOLLOWING_TABLES_WILL_BE_DELETED = new I18n0("The content of the following tables will be deleted.")//
+		.de("Der Inhalt der folgenden Tabellen wird gelöscht.");
 	I18n0 THE_ENTERED_CURRENT_PASSWORD_IS_WRONG = new I18n0("The entered, current password is wrong.")//
 		.de("Das eigegebene, aktuelle Passwort ist falsch.");
 	I18n0 THE_ENTERED_PASSWORDS_DO_NOT_MATCH = new I18n0("The entered passwords do not match.")//

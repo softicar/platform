@@ -21,8 +21,8 @@ public class UserProfilePageDiv extends DomDiv {
 		languageFieldSet.appendChild(new UserProfileChangeLocalizationDiv());
 
 		DomDiv navigationDiv = appendChild(new DomDiv());
-		DomFieldset navigationFieldSet = navigationDiv.appendChild(new DomFieldset());
-		navigationFieldSet.setLegend(CoreI18n.NAVIGATION);
-		navigationFieldSet.appendChild(new UserProfileConfigureNavigationDiv());
+		DomFieldset preferencesFieldSet = navigationDiv.appendChild(new DomFieldset());
+		preferencesFieldSet.setLegend(CoreI18n.PREFERENCES);
+		preferencesFieldSet.appendChild(new UserProfilePreferencesDiv());
 	}
 }

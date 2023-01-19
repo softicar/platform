@@ -1,5 +1,6 @@
 package com.softicar.platform.common.container.data.table.in.memory;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
@@ -50,6 +51,12 @@ public class AbstractInMemoryDataTableTest extends AbstractTest {
 				.setGetter(it -> it)
 				.setTitle(IDisplayString.create("Foo"))
 				.addColumn();
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return DataTableIdentifier.empty();
 		}
 
 		@Override

@@ -79,8 +79,24 @@
 }
 
 /* ------------------------------ list ------------------------------ */
+
 .DomCheckboxList {
 	display: grid;
 	grid-auto-flow: row;
 	gap: var(--COLUMN_GAP);
+}
+
+/* ------------------------------ group ------------------------------ */
+
+.DomCheckboxGroup {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.DomCheckboxGroup .DomCheckboxBox {
+	border-radius: 10px;
+}
+
+.DomCheckboxGroup .DomCheckboxBox > .DomCheckboxBoxFiller {
+	border-radius: 5px;
 }

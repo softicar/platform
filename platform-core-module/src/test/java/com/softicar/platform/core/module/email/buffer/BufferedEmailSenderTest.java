@@ -13,7 +13,7 @@ public class BufferedEmailSenderTest extends AbstractCoreTest {
 	// FIXME This test can only be active after PLAT-1025
 	public BufferedEmailSenderTest() {
 
-		this.testServer = insertServer("Server", "1.1.1.1", 25, "domain", "username", "password");
+		this.testServer = insertDummyServer();
 	}
 
 	@Ignore

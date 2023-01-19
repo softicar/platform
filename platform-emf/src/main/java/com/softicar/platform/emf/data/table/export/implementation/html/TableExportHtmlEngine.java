@@ -9,7 +9,7 @@ import com.softicar.platform.emf.data.table.export.conversion.factory.TableExpor
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportStrictNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.configuration.TableExportNodeConverterFactoryConfiguration;
-import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportColumnFilteringEngine;
+import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
@@ -31,13 +31,11 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import org.apache.commons.text.StringEscapeUtils;
 
-public class TableExportHtmlEngine extends AbstractTableExportColumnFilteringEngine<TableExportTypedNodeValue, HtmlRow, HtmlCell> {
+public class TableExportHtmlEngine extends AbstractTableExportEngine<HtmlRow, HtmlCell> {
 
 	private static final Charset OUTPUT_FILE_CHARSET = StandardCharsets.UTF_8;
 	private static final Charset CSS_FILE_CHARSET = StandardCharsets.UTF_8;
 	private static final int NUM_TABLE_SPACER_ROWS = 2;
-
-//	private static final char OUTPUT_SEPARATOR = ' ';
 
 	private PrintWriter printWriter = null;
 
@@ -45,13 +43,12 @@ public class TableExportHtmlEngine extends AbstractTableExportColumnFilteringEng
 	private StringBuilder currentTableBodyBuilder = null;
 	private TableExportTableCssClass currentTableCssClass = null;
 
-	public TableExportHtmlEngine(TableExportEngineConfiguration configuration,
-			ITableExportEngineFactory<? extends ITableExportEngine<TableExportTypedNodeValue>> creatingFactory) {
+	public TableExportHtmlEngine(TableExportEngineConfiguration configuration, ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory) {
 
 		super(
 			configuration, //
 			creatingFactory,
-			new TableExportNodeConverterFactoryConfiguration<>(//
+			new TableExportNodeConverterFactoryConfiguration(//
 				new TableExportTextOnlyNodeConverterFactory(),
 				new TableExportDefaultNodeConverterFactory()//
 			).addAvailableFactories(new TableExportStrictNodeConverterFactory(), new TableExportTextOnlyNodeConverterFactory())//
@@ -59,7 +56,7 @@ public class TableExportHtmlEngine extends AbstractTableExportColumnFilteringEng
 	}
 
 	@Override
-	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<TableExportTypedNodeValue>> tableConfigurations) {
+	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		OutputStreamWriter outputStreamWriter = new OutputStreamWriter(targetOutputStream, OUTPUT_FILE_CHARSET);
 
@@ -92,7 +89,7 @@ public class TableExportHtmlEngine extends AbstractTableExportColumnFilteringEng
 	}
 
 	@Override
-	protected void prepareTable(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	protected void prepareTable(TableExportTableConfiguration tableConfiguration) {
 
 		this.currentTableCssClass = tableConfiguration.getTableCssClass();
 
@@ -123,8 +120,8 @@ public class TableExportHtmlEngine extends AbstractTableExportColumnFilteringEng
 	 * export engine. Instead it uses {@link DomCssFiles#DOM_STYLE}.
 	 */
 	@Override
-	protected HtmlCell createAndAppendCell(HtmlRow documentRow, int targetColIndex, boolean isHeader,
-			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
+	protected HtmlCell createAndAppendCell(HtmlRow documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
+			TableExportNodeStyle exportNodeStyle) {
 
 		return documentRow.addCell(targetColIndex, new HtmlCell(convertedCellContent.getContent(), isHeader));
 	}

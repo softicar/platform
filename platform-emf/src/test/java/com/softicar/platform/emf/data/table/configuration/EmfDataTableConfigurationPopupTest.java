@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.data.table.configuration;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -569,6 +570,12 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 			addRow("bar", new BigDecimal("33.33"));
 			addRow("bar", new BigDecimal("11.11"));
 			addRow("baz", new BigDecimal("22.22"));
+		}
+
+		@Override
+		public DataTableIdentifier getIdentifier() {
+
+			return new DataTableIdentifier("8624bd05-ed90-4fd8-b77f-89efb1d7b11a");
 		}
 
 		@Override

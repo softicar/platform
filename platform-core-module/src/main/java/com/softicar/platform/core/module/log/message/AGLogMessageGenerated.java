@@ -35,7 +35,7 @@ public class AGLogMessageGenerated extends AbstractDbObject<AGLogMessage> {
 	public static final IDbIdField<AGLogMessage> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbForeignField<AGLogMessage, AGLogProcess> PROCESS = BUILDER.addForeignField("process", o->o.m_process, (o,v)->o.m_process=v, AGLogProcess.ID).setTitle(CoreI18n.PROCESS).setOnDelete(DbForeignKeyAction.CASCADE).setOnUpdate(DbForeignKeyAction.NO_ACTION).setForeignKeyName("LogMessage_ibfk_1");
 	public static final IDbForeignField<AGLogMessage, AGLogLevel> LEVEL = BUILDER.addForeignField("level", o->o.m_level, (o,v)->o.m_level=v, AGLogLevel.ID).setTitle(CoreI18n.LEVEL).setNullable().setDefault(null).setForeignKeyName("LogMessage_ibfk_2");
-	public static final IDbStringField<AGLogMessage> LOG_TEXT = BUILDER.addStringField("logText", o->o.m_logText, (o,v)->o.m_logText=v).setTitle(CoreI18n.LOG_TEXT).setLengthBits(16);
+	public static final IDbStringField<AGLogMessage> LOG_TEXT = BUILDER.addStringField("logText", o->o.m_logText, (o,v)->o.m_logText=v).setTitle(CoreI18n.LOG_TEXT).setLengthBits(24);
 	public static final IDbDayTimeField<AGLogMessage> LOG_TIME = BUILDER.addDayTimeField("logTime", o->o.m_logTime, (o,v)->o.m_logTime=v).setTitle(CoreI18n.LOG_TIME).setDefaultNow().setTimestamp();
 	public static final IDbDayTimeField<AGLogMessage> NOTIFICATION_TIME = BUILDER.addDayTimeField("notificationTime", o->o.m_notificationTime, (o,v)->o.m_notificationTime=v).setTitle(CoreI18n.NOTIFICATION_TIME).setNullable().setDefault(null);
 	public static final IDbKey<AGLogMessage> IK_PROCESS = BUILDER.addIndexKey("process", PROCESS);

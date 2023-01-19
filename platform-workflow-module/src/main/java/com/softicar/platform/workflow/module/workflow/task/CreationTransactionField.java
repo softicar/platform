@@ -29,7 +29,7 @@ public class CreationTransactionField<R extends IDbObject<R>, L extends IDbRecor
 	@Override
 	protected void loadValues(Set<R> rows, IValueSetter<R, AGTransaction> setter) {
 
-		logEntityField.getTargetTable().unstubAll(rows);
+		logEntityField.getTargetTable().refreshAll(rows);
 		List<L> logRows = logEntityField//
 			.getTable()
 			.createSelect()

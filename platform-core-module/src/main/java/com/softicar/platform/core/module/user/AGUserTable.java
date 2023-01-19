@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.user;
 
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.core.module.user.navigation.RecursivelyCollapseFoldersInput;
 import com.softicar.platform.core.module.user.password.UserResetPasswordAction;
 import com.softicar.platform.core.module.user.pseudonymization.UserPseudonymizationAction;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
@@ -45,7 +44,7 @@ public class AGUserTable extends EmfObjectTable<AGUser, AGCoreModuleInstance> {
 
 		attributes.editAttribute(AGUser.SYSTEM_USER).setImmutable(true);
 		attributes.addTransientAttribute(AGUser.LAST_LOGIN);
-		attributes.editAttribute(AGUser.RECURSIVELY_COLLAPSE_FOLDERS).setInputFactoryByEntity(RecursivelyCollapseFoldersInput::new);
+		attributes.editAttribute(AGUser.PREFERENCES_JSON).setConcealed(true);
 	}
 
 	@Override
@@ -65,9 +64,8 @@ public class AGUserTable extends EmfObjectTable<AGUser, AGCoreModuleInstance> {
 			.addMapping(AGUser.LAST_NAME, AGUserLog.LAST_NAME)
 			.addMapping(AGUser.EMAIL_ADDRESS, AGUserLog.EMAIL_ADDRESS)
 			.addMapping(AGUser.LOCALIZATION, AGUserLog.LOCALIZATION)
-			.addMapping(AGUser.AUTOMATICALLY_COLLAPSE_FOLDERS, AGUserLog.AUTOMATICALLY_COLLAPSE_FOLDERS)
-			.addMapping(AGUser.RECURSIVELY_COLLAPSE_FOLDERS, AGUserLog.RECURSIVELY_COLLAPSE_FOLDERS)
 			.addMapping(AGUser.PASSWORD_POLICY, AGUserLog.PASSWORD_POLICY)
-			.addMapping(AGUser.ALLOWED_IP_RULE, AGUserLog.ALLOWED_IP_RULE);
+			.addMapping(AGUser.ALLOWED_IP_RULE, AGUserLog.ALLOWED_IP_RULE)
+			.addMapping(AGUser.PREFERENCES_JSON, AGUserLog.PREFERENCES_JSON);
 	}
 }

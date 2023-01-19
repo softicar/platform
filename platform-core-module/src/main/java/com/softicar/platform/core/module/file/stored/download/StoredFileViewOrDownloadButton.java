@@ -9,35 +9,24 @@ import com.softicar.platform.common.string.binary.BinaryOrTextDiscriminator;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
+import com.softicar.platform.core.module.file.stored.preview.email.StoredFileEmailPreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.image.StoredFileImagePreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfPreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.text.StoredFileTextPreviewPopup;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
-import com.softicar.platform.dom.style.CssPixel;
-import com.softicar.platform.dom.style.ICssLength;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
 public class StoredFileViewOrDownloadButton extends DomButton {
 
-	private static final ICssLength IMAGE_INITIAL_MAX_WIDTH = new CssPixel(480);
-
 	private final AGStoredFile file;
 	private final StoredFileResource resource;
 	private final StoredFileViewType fileType;
 	private IDisplayString buttonLabel;
 	private INullaryVoidFunction preClickCallback;
-
-	private PopupPosition popupPosition = PopupPosition.CENTERED_ON_VIEWPORT;
-
-	public static enum PopupPosition {
-		AT_MOUSE_CURSOR,
-		CENTERED_ON_VIEWPORT,
-		UPPER_LEFT;
-	}
 
 	public StoredFileViewOrDownloadButton(AGStoredFile file) {
 
@@ -72,12 +61,6 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 		return this;
 	}
 
-	public StoredFileViewOrDownloadButton setPopupPosition(PopupPosition popupPosition) {
-
-		this.popupPosition = popupPosition;
-		return this;
-	}
-
 	public StoredFileViewOrDownloadButton setPreClickCallback(INullaryVoidFunction preClickCallback) {
 
 		this.preClickCallback = preClickCallback;
@@ -103,21 +86,9 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 		DomPopup previewPopup = createPreviewPopup();
 		if (previewPopup != null) {
-			switch (popupPosition) {
-			case AT_MOUSE_CURSOR:
-				previewPopup.open();
-				break;
-			case CENTERED_ON_VIEWPORT:
-				previewPopup//
-					.configure(it -> it.setPositionStrategyByViewportCenter())
-					.open();
-				break;
-			case UPPER_LEFT:
-				previewPopup//
-					.configure(it -> it.setPositionStrategyByViewportOrigin())
-					.open();
-				break;
-			}
+			previewPopup//
+				.configure(it -> it.setPlacementStrategyByViewportCenter())
+				.open();
 		} else {
 			downloadFile();
 		}
@@ -127,10 +98,12 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 		try {
 			switch (fileType) {
+			case EML:
+				return new StoredFileEmailPreviewPopup(file);
 			case IMAGE:
-				return new StoredFileImagePreviewPopup(file, resource, IMAGE_INITIAL_MAX_WIDTH);
+				return new StoredFileImagePreviewPopup(file, resource);
 			case PDF:
-				return new StoredFilePdfPreviewPopup(file, IMAGE_INITIAL_MAX_WIDTH);
+				return new StoredFilePdfPreviewPopup(file);
 			case TEXT:
 				return new StoredFileTextPreviewPopup(file);
 			case UNKNOWN:

@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.entity.table.overview;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -70,6 +71,20 @@ public class EmfTableOverviewTable extends AbstractInMemoryDataTable<IEmfTable<?
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("588e9590-0cdb-44bb-8152-f2fa12f96e5c");
+	}
+
+	@Override
+	protected Iterable<IEmfTable<?, ?, ?>> getTableRows() {
+	
+		return EmfTableRegistry//
+			.getInstance()
+			.getTables(IEmfModuleRegistry.get().getModule(module.getAnnotatedUuid()).get());
+	}
+
 	public IDataTableColumn<IEmfTable<?, ?, ?>, IResource> getIconColumn() {
 
 		return iconColumn;
@@ -118,13 +133,5 @@ public class EmfTableOverviewTable extends AbstractInMemoryDataTable<IEmfTable<?
 	public IDataTableColumn<IEmfTable<?, ?, ?>, Boolean> getHasChangeLoggersColumn() {
 
 		return hasChangeLoggersColumn;
-	}
-
-	@Override
-	protected Iterable<IEmfTable<?, ?, ?>> getTableRows() {
-
-		return EmfTableRegistry//
-			.getInstance()
-			.getTables(IEmfModuleRegistry.get().getModule(module.getAnnotatedUuid()).get());
 	}
 }

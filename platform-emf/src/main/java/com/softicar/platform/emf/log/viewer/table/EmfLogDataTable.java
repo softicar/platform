@@ -1,6 +1,7 @@
 package com.softicar.platform.emf.log.viewer.table;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.user.IBasicUser;
@@ -48,6 +49,12 @@ class EmfLogDataTable<R extends IEmfTableRow<R, ?>> extends AbstractInMemoryData
 		this.loggedAttributes = loader.getLoggedAttributes();
 
 		addColumns(tableRow);
+	}
+
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return DataTableIdentifier.empty();
 	}
 
 	@Override

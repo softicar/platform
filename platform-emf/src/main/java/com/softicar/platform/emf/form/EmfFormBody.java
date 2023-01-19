@@ -3,6 +3,7 @@ package com.softicar.platform.emf.form;
 import com.softicar.platform.db.runtime.cache.DbTableRowCaches;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBus;
+import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFactory;
 import com.softicar.platform.emf.form.section.IEmfFormSectionContainer;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 
@@ -14,11 +15,11 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 	private final EmfFormBodyLowerPart<R> lowerPart;
 	private boolean creationMode;
 
-	public EmfFormBody(EmfForm<R> form) {
+	public EmfFormBody(EmfForm<R> form, IEmfFormAttributesDivFactory<R> formAttributesDivFactory) {
 
 		this.form = form;
 		this.tableRow = form.getTableRow();
-		this.upperPart = new EmfFormBodyUpperPart<>(this);
+		this.upperPart = new EmfFormBodyUpperPart<>(this, formAttributesDivFactory);
 		this.lowerPart = new EmfFormBodyLowerPart<>(this);
 		appendChild(upperPart);
 		appendChild(lowerPart);
@@ -106,12 +107,11 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 	public void finishEditMode(boolean closeAfterFinish) {
 
 		if (upperPart.isEditMode()) {
+			enterViewMode();
+			queueEntityForRefresh();
 			if (closeAfterFinish) {
 				form.closeFrame();
-			} else {
-				enterViewMode();
 			}
-			queueEntityForRefresh();
 		}
 	}
 

@@ -15,16 +15,18 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 	@Test
 	public void testWithDistinctDisplayStringsAndDistinctValues() {
 
+		// different strings with different values
 		addTestValue("FOO", 1);
 		addTestValue("baz", 2);
 		addTestValue("Bar", 3);
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
-		assertMap("""
-				Bar=3
-				baz=2
-				FOO=1""", map);
+		assertMapInArbitraryOrder(//
+			map,
+			"FOO=1",
+			"baz=2",
+			"Bar=3");
 	}
 
 	@Test
@@ -37,22 +39,23 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
-		assertMap("""
-				Bar=3
-				baz=3
-				FOO=3""", map);
+		assertMapInArbitraryOrder(//
+			map,
+			"FOO=3",
+			"baz=3",
+			"Bar=3");
 	}
 
 	@Test
 	public void testWithRedundantDisplayStringsAndDistinctValues() {
 
-		// ascending values
+		// some entries
 		addTestValue("FOO", 1);
 		addTestValue("foo", 2);
 		addTestValue("Foo", 3);
 		addTestValue("fóô", 4);
 
-		// descending values
+		// further entries, with redundant strings but different values
 		addTestValue("FOO", 9);
 		addTestValue("foo", 8);
 		addTestValue("Foo", 7);
@@ -60,28 +63,28 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
-		// assert ordered by value
-		assertMap("""
-				FOO (1)=1
-				foo (2)=2
-				Foo (3)=3
-				fóô (4)=4
-				fóô (5)=6
-				Foo (6)=7
-				foo (7)=8
-				FOO (8)=9""", map);
+		assertMapInArbitraryOrder(//
+			map,
+			"FOO (1)=1",
+			"foo (2)=2",
+			"Foo (3)=3",
+			"fóô (4)=4",
+			"fóô (5)=6",
+			"Foo (6)=7",
+			"foo (7)=8",
+			"FOO (8)=9");
 	}
 
 	@Test
 	public void testWithRedundantDisplayStringsAndRedundantValues() {
 
-		// initial order of display strings
+		// some entries
 		addTestValue("FOO", 3);
 		addTestValue("foo", 3);
 		addTestValue("Foo", 3);
 		addTestValue("fóô", 3);
 
-		// reverse order of display strings
+		// further entries, with redundant strings and redundant values
 		addTestValue("fóô", 3);
 		addTestValue("Foo", 3);
 		addTestValue("foo", 3);
@@ -89,16 +92,16 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
-		// assert insertion order
-		assertMap("""
-				FOO (1)=3
-				foo (2)=3
-				Foo (3)=3
-				fóô (4)=3
-				fóô (5)=3
-				Foo (6)=3
-				foo (7)=3
-				FOO (8)=3""", map);
+		assertMapInArbitraryOrder(//
+			map,
+			"FOO (1)=3",
+			"foo (2)=3",
+			"Foo (3)=3",
+			"fóô (4)=3",
+			"fóô (5)=3",
+			"Foo (6)=3",
+			"foo (7)=3",
+			"FOO (8)=3");
 	}
 
 	@Test
@@ -115,14 +118,15 @@ public class DomAutoCompleteDisplayStringDeduplicatorTest extends AbstractDomAut
 
 		Map<String, TestValue> map = deduplicator.apply(values);
 
-		assertMap("""
-				foo (1) (1)=4
-				Foo (1) (2)=5
-				foo (1) (3)=9
-				Foo (2)=2
-				foo (3)=6
-				foo (4)=3
-				fOO (5)=7
-				foobar=1""", map);
+		assertMapInArbitraryOrder(//
+			map,
+			"foo (1) (1)=4",
+			"Foo (1) (2)=5",
+			"foo (1) (3)=9",
+			"Foo (2)=2",
+			"foo (3)=6",
+			"foo (4)=3",
+			"fOO (5)=7",
+			"foobar=1");
 	}
 }

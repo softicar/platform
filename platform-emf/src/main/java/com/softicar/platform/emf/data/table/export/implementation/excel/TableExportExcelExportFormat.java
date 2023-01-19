@@ -3,7 +3,7 @@ package com.softicar.platform.emf.data.table.export.implementation.excel;
 public enum TableExportExcelExportFormat {
 
 	XLS(65536),
-	XLSX_STREAMING(1048576);
+	XLSX(1048576);
 
 	private final int maxRows;
 

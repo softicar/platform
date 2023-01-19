@@ -7,6 +7,7 @@ import com.softicar.platform.db.runtime.table.listener.DbTableRowCommitNotifier;
 import com.softicar.platform.db.runtime.table.listener.DbTableRowNotificationType;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
 import java.util.List;
+import java.util.Objects;
 
 public class DbTableRowResultSetReader<R extends IDbTableRow<R, P>, P> {
 
@@ -38,33 +39,38 @@ public class DbTableRowResultSetReader<R extends IDbTableRow<R, P>, P> {
 				.initializer()
 				.initializeFlagsAndSetPkFields(primaryKey);
 			table.getCache().put(primaryKey, row);
-			initializeDataFieldsFromResultSet(row);
-			queueNotification(row);
+			setDataFieldsFromResultSet(row);
 		} else if (row.dirty() && !row.invalidated()) {
 			// retain pending modifications
 		} else {
-			initializeDataFieldsFromResultSet(row);
+			var changed = setDataFieldsFromResultSet(row);
+			addNotification(row, changed);
 			new DbTableRowFlagWriter(row).clearFlags();
-			queueNotification(row);
 		}
 		return row;
 	}
 
-	private void initializeDataFieldsFromResultSet(R row) {
+	private boolean setDataFieldsFromResultSet(R row) {
 
+		var changed = false;
 		for (IDbField<R, ?> field: row.table().getDataFields()) {
-			initializeFieldFromResultSet(row, field, baseIndex + field.getIndex());
+			changed |= setFieldFromResultSet(row, field, baseIndex + field.getIndex());
 		}
+		return changed;
 	}
 
-	private <V> void initializeFieldFromResultSet(R row, IDbField<R, V> field, int index) {
+	private <V> boolean setFieldFromResultSet(R row, IDbField<R, V> field, int index) {
 
-		V value = field.getValueType().getValue(resultSet, index);
-		field.setValueDirectly(row, value);
+		var oldValue = field.getValueDirectly(row);
+		var newValue = field.getValueType().getValue(resultSet, index);
+		field.setValueDirectly(row, newValue);
+		return !Objects.equals(oldValue, newValue);
 	}
 
-	private void queueNotification(R row) {
+	private void addNotification(R row, boolean changed) {
 
-		DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.LOAD, List.of(row));
+		if (changed && !row.stub()) {
+			DbTableRowCommitNotifier.addNotification(table, DbTableRowNotificationType.CHANGE, List.of(row));
+		}
 	}
 }

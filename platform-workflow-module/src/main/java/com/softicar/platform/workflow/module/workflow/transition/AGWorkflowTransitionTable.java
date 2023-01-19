@@ -30,13 +30,13 @@ public class AGWorkflowTransitionTable extends EmfObjectTable<AGWorkflowTransiti
 
 		authorizer//
 			.setCreationPermission(
-				WorkflowPermissions.ADMINISTRATOR
+				WorkflowPermissions.ADMINISTRATION
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
 			.setViewPermission(
-				WorkflowPermissions.VIEWER
+				WorkflowPermissions.VIEW
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowVersion().getWorkflow().getModuleInstance())))
 			.setEditPermission(
-				WorkflowPermissions.ADMINISTRATOR
+				WorkflowPermissions.ADMINISTRATION
 					.of(
 						IEmfTableRowMapper
 							.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowVersion().getWorkflow().getModuleInstance())));
@@ -97,6 +97,7 @@ public class AGWorkflowTransitionTable extends EmfObjectTable<AGWorkflowTransiti
 			.addMapping(AGWorkflowTransition.ACTIVE, AGWorkflowTransitionLog.ACTIVE)
 			.addMapping(AGWorkflowTransition.NOTIFY, AGWorkflowTransitionLog.NOTIFY)
 			.addMapping(AGWorkflowTransition.AUTO_TRANSITION, AGWorkflowTransitionLog.AUTO_TRANSITION)
+			.addMapping(AGWorkflowTransition.COMMENT_REQUIRED, AGWorkflowTransitionLog.COMMENT_REQUIRED)
 			.addMapping(AGWorkflowTransition.REQUIRED_VOTES, AGWorkflowTransitionLog.REQUIRED_VOTES)
 			.addMapping(AGWorkflowTransition.TRANSITION_ICON, AGWorkflowTransitionLog.TRANSITION_ICON)
 			.addMapping(AGWorkflowTransition.SIDE_EFFECT, AGWorkflowTransitionLog.SIDE_EFFECT)

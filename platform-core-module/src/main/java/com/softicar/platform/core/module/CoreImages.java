@@ -3,11 +3,11 @@ package com.softicar.platform.core.module;
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplierFactory;
-import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.resource.supplier.DomResourceSupplierProxyFactory;
+import com.softicar.platform.emf.EmfImages;
 
 @ResourceSupplierContainer
-public interface CoreImages extends DomImages {
+public interface CoreImages extends EmfImages {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(CoreImages.class);
 
@@ -48,7 +48,6 @@ public interface CoreImages extends DomImages {
 	IResourceSupplier STORED_FILE = FACTORY.create("stored-file.svg");
 	IResourceSupplier STORED_FILE_DOWNLOAD = FACTORY.create("stored-file-download.svg");
 	IResourceSupplier STORED_FILE_SERVER = FACTORY.create("stored-file-server.svg");
-	IResourceSupplier STORED_FILE_UPLOAD = FACTORY.create("stored-file-upload.svg");
 	IResourceSupplier SYSTEM = FACTORY.create("system.svg");
 	IResourceSupplier TERMINATE = FACTORY.create("terminate.svg");
 	IResourceSupplier USER = FACTORY.create("user.svg");

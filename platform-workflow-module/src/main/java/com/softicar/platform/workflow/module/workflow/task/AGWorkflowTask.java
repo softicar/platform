@@ -6,9 +6,7 @@ import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
-import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 
 public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObject<AGWorkflowTask> {
@@ -48,47 +46,21 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 			.list();
 	}
 
-	public static Collection<AGWorkflowTask> getAllWorkflowTasksAndDelegationTasksAndSubstituteTasksToCloseForUserAndItem(AGUser user,
-			AGWorkflowItem workflowItem) {
-
-		HashSet<AGWorkflowTask> tasksToClose = new HashSet<>();
-
-		tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
-		AGWorkflowUserConfiguration.loadAllUsersWithSubstitute(user).forEach(it -> {
-			tasksToClose.addAll(getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(user, workflowItem));
-		});
-
-		return tasksToClose;
-
-	}
-
-	public static Collection<AGWorkflowTask> getAllWorkflowTasksAndDelegationTasksToCloseForUserAndItem(AGUser user, AGWorkflowItem workflowItem) {
-
-		HashSet<AGWorkflowTask> tasksToClose = new HashSet<>();
-		AGWorkflowTask
-			.createSelect()
-			.where(AGWorkflowTask.CLOSED.isFalse())
-			.where(AGWorkflowTask.USER.isEqual(user))
-			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
-			.forEach(tasksToClose::add);
-
-		AGWorkflowTask.TABLE
-			.createSelect()
-			.where(AGWorkflowTask.CLOSED.isFalse())
-			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(workflowItem))
-			.joinReverse(AGWorkflowTaskDelegation.WORKFLOW_TASK)
-			.where(AGWorkflowTaskDelegation.ACTIVE)
-			.where(AGWorkflowTaskDelegation.TARGET_USER.isEqual(user))
-			.forEach(tasksToClose::add);
-
-		return tasksToClose;
-	}
-
 	public boolean wasNotExecuted() {
 
 		return !AGWorkflowTransitionExecution//
 			.createSelect()
 			.where(AGWorkflowTransitionExecution.WORKFLOW_TASK.isEqual(this))
 			.exists();
+	}
+
+	public Optional<AGWorkflowTaskDelegation> getActiveDelegation() {
+
+		return Optional.ofNullable(AGWorkflowTaskDelegation.TABLE.get(this)).filter(it -> it.isActive());
+	}
+
+	public boolean hasActiveDelegation() {
+
+		return getActiveDelegation().isPresent();
 	}
 }

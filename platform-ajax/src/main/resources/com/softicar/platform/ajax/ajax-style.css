@@ -31,7 +31,6 @@
 	border: 1px solid var(--ERROR_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
-	cursor: pointer;
 	user-select: none;
 }
 

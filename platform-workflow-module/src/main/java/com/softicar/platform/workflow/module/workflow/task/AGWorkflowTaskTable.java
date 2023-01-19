@@ -22,12 +22,12 @@ public class AGWorkflowTaskTable extends EmfObjectTable<AGWorkflowTask, AGWorkfl
 
 		authorizer//
 			.setCreationPermission(
-				WorkflowPermissions.OPERATOR.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
+				WorkflowPermissions.OPERATION.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
 			.setViewPermission(
-				WorkflowPermissions.VIEWER
+				WorkflowPermissions.VIEW
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowItem().getWorkflow().getModuleInstance())))
 			.setEditPermission(
-				WorkflowPermissions.OPERATOR
+				WorkflowPermissions.OPERATION
 					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowItem().getWorkflow().getModuleInstance())));
 	}
 

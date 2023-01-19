@@ -4,8 +4,10 @@ import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.module.instance.IModuleInstanceTable;
 import com.softicar.platform.core.module.uuid.AGUuid;
+import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.emf.module.AbstractEmfModule;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -37,5 +39,11 @@ public abstract class AbstractModule<I extends IModuleInstance<I>> extends Abstr
 			.join(getModuleInstanceTable().getPrimaryKeyField())
 			.where(AGModuleInstanceBase.ACTIVE)
 			.list();
+	}
+
+	@Override
+	public Collection<IDbTable<?, ?>> getTransactionDataTables() {
+
+		return Collections.emptyList();
 	}
 }

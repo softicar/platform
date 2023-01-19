@@ -5,6 +5,7 @@ import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import com.softicar.platform.db.core.database.IDbDatabase;
 import com.softicar.platform.db.core.table.DbTableName;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,12 +37,13 @@ public class DbMysqlDatabasePurger {
 	private void purgeDatabase(String database) {
 
 		Log.fverbose("Purging %s", database);
+		var tableNames = new ArrayList<DbTableName>();
 		try (DbResultSet resultSet = DbMysqlStatements.showTableStatusFrom(database)) {
 			while (resultSet.next()) {
-				String table = resultSet.getString("Name");
-				DbMysqlStatements.dropTable(new DbTableName(database, table));
+				tableNames.add(new DbTableName(database, resultSet.getString("Name")));
 			}
 		}
+		DbMysqlStatements.dropTables(tableNames);
 		DbMysqlStatements.dropDatabase(database);
 	}
 }

@@ -119,7 +119,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
+	public void movePopup(IDomPopupFrame popupFrame, int x, int y, DomPopupOffsetUnit placementUnit, DomPopupXAlign xAlign, DomPopupYAlign yAlign) {
 
 		// nothing to do
 	}
@@ -168,6 +168,12 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void selectText(IDomNode inputNode) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void setAlternateResourceOnError(DomImage image, IResource resource) {
 
 		// nothing to do
 	}

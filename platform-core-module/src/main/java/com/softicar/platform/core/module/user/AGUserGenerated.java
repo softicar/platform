@@ -39,10 +39,9 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 	public static final IDbStringField<AGUser> EMAIL_ADDRESS = BUILDER.addStringField("emailAddress", o->o.m_emailAddress, (o,v)->o.m_emailAddress=v).setTitle(CoreI18n.EMAIL_ADDRESS).setDefault("").setMaximumLength(255);
 	public static final IDbBooleanField<AGUser> SYSTEM_USER = BUILDER.addBooleanField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v).setTitle(CoreI18n.SYSTEM_USER).setDefault(false);
 	public static final IDbForeignField<AGUser, AGLocalization> LOCALIZATION = BUILDER.addForeignField("localization", o->o.m_localization, (o,v)->o.m_localization=v, AGLocalization.ID).setTitle(CoreI18n.LOCALIZATION).setForeignKeyName("User_ibfk_1");
-	public static final IDbBooleanField<AGUser> AUTOMATICALLY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("automaticallyCollapseFolders", o->o.m_automaticallyCollapseFolders, (o,v)->o.m_automaticallyCollapseFolders=v).setTitle(CoreI18n.AUTOMATICALLY_COLLAPSE_FOLDERS).setDefault(true);
-	public static final IDbBooleanField<AGUser> RECURSIVELY_COLLAPSE_FOLDERS = BUILDER.addBooleanField("recursivelyCollapseFolders", o->o.m_recursivelyCollapseFolders, (o,v)->o.m_recursivelyCollapseFolders=v).setTitle(CoreI18n.RECURSIVELY_COLLAPSE_FOLDERS).setDefault(false);
 	public static final IDbForeignField<AGUser, AGPasswordPolicy> PASSWORD_POLICY = BUILDER.addForeignField("passwordPolicy", o->o.m_passwordPolicy, (o,v)->o.m_passwordPolicy=v, AGPasswordPolicy.ID).setTitle(CoreI18n.PASSWORD_POLICY).setNullable().setDefault(null).setForeignKeyName("User_ibfk_2");
 	public static final IDbForeignField<AGUser, AGUserAllowedIpRule> ALLOWED_IP_RULE = BUILDER.addForeignField("allowedIpRule", o->o.m_allowedIpRule, (o,v)->o.m_allowedIpRule=v, AGUserAllowedIpRule.ID).setTitle(CoreI18n.ALLOWED_IP_RULE).setNullable().setDefault(null).setForeignKeyName("User_ibfk_3");
+	public static final IDbStringField<AGUser> PREFERENCES_JSON = BUILDER.addStringField("preferencesJson", o->o.m_preferencesJson, (o,v)->o.m_preferencesJson=v).setTitle(CoreI18n.PREFERENCES_JSON).setDefault("").setLengthBits(16);
 	public static final IDbKey<AGUser> UK_LOGIN_NAME = BUILDER.addUniqueKey("loginName", LOGIN_NAME);
 	public static final IDbKey<AGUser> IK_LOCALIZATION = BUILDER.addIndexKey("localization", LOCALIZATION);
 	public static final IDbKey<AGUser> IK_PASSWORD_POLICY = BUILDER.addIndexKey("passwordPolicy", PASSWORD_POLICY);
@@ -147,26 +146,6 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 		return setValue(LOCALIZATION, value);
 	}
 
-	public final Boolean isAutomaticallyCollapseFolders() {
-
-		return getValue(AUTOMATICALLY_COLLAPSE_FOLDERS);
-	}
-
-	public final AGUser setAutomaticallyCollapseFolders(Boolean value) {
-
-		return setValue(AUTOMATICALLY_COLLAPSE_FOLDERS, value);
-	}
-
-	public final Boolean isRecursivelyCollapseFolders() {
-
-		return getValue(RECURSIVELY_COLLAPSE_FOLDERS);
-	}
-
-	public final AGUser setRecursivelyCollapseFolders(Boolean value) {
-
-		return setValue(RECURSIVELY_COLLAPSE_FOLDERS, value);
-	}
-
 	public final Integer getPasswordPolicyID() {
 
 		return getValueId(PASSWORD_POLICY);
@@ -197,6 +176,16 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 		return setValue(ALLOWED_IP_RULE, value);
 	}
 
+	public final String getPreferencesJson() {
+
+		return getValue(PREFERENCES_JSON);
+	}
+
+	public final AGUser setPreferencesJson(String value) {
+
+		return setValue(PREFERENCES_JSON, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -215,9 +204,8 @@ public class AGUserGenerated extends AbstractDbObject<AGUser> {
 	private String m_emailAddress;
 	private Boolean m_systemUser;
 	private AGLocalization m_localization;
-	private Boolean m_automaticallyCollapseFolders;
-	private Boolean m_recursivelyCollapseFolders;
 	private AGPasswordPolicy m_passwordPolicy;
 	private AGUserAllowedIpRule m_allowedIpRule;
+	private String m_preferencesJson;
 }
 

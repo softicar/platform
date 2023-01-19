@@ -5,7 +5,6 @@ import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.emf.data.table.export.conversion.ITableExportNodeConverter;
 import com.softicar.platform.emf.data.table.export.conversion.TableExportTypedNodeConverter;
 import com.softicar.platform.emf.data.table.export.node.ITableExportTypedNode;
-import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValue;
 
 /**
  * Creates an {@link ITableExportNodeConverter} that performs type safe content
@@ -16,10 +15,10 @@ import com.softicar.platform.emf.data.table.export.node.TableExportTypedNodeValu
  *
  * @author Alexander Schmidt
  */
-public class TableExportStrictNodeConverterFactory implements ITableExportNodeConverterFactory<TableExportTypedNodeValue> {
+public class TableExportStrictNodeConverterFactory implements ITableExportNodeConverterFactory {
 
 	@Override
-	public ITableExportNodeConverter<TableExportTypedNodeValue> create() {
+	public ITableExportNodeConverter create() {
 
 		return new TableExportTypedNodeConverter().setEnableAutomaticTypeConversion(false);
 	}

@@ -5,7 +5,6 @@ import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
-import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
@@ -28,17 +27,9 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowNode, AGWorkflowVersion> authorizer) {
 
 		authorizer//
-			.setCreationPermission(
-				WorkflowPermissions.ADMINISTRATOR
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflow().getModuleInstance())))
-			.setViewPermission(
-				WorkflowPermissions.VIEWER
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowVersion().getWorkflow().getModuleInstance())))
-			.setEditPermission(
-				WorkflowPermissions.ADMINISTRATOR
-					.of(
-						IEmfTableRowMapper
-							.nonOptional(WorkflowI18n.WORKFLOW_MODULE_INSTANCE, it -> it.getWorkflowVersion().getWorkflow().getModuleInstance())));
+			.setCreationPermission(WorkflowPermissions.VERSION_CREATE)
+			.setViewPermission(WorkflowPermissions.NODE_VIEW)
+			.setEditPermission(WorkflowPermissions.NODE_EDIT);
 	}
 
 	@Override

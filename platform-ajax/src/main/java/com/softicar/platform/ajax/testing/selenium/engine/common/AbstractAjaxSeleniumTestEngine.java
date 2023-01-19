@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -65,6 +66,12 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	}
 
 	@Override
+	public void waitForDocumentReady() {
+
+		waitUntil(this::isDocumentReady);
+	}
+
+	@Override
 	protected void finished(Description description) {
 
 		screenshotQueue.writeAll(description);
@@ -106,5 +113,16 @@ public abstract class AbstractAjaxSeleniumTestEngine extends TestWatcher impleme
 	private void navigateTo(String url) {
 
 		getWebDriver().get(url);
+	}
+
+	private boolean isDocumentReady() {
+
+		String readyState = (String) getJavascriptExecutor().executeScript("return document.readyState;");
+		return "complete".equals(readyState);
+	}
+
+	private JavascriptExecutor getJavascriptExecutor() {
+
+		return (JavascriptExecutor) webDriverController.getWebDriver();
 	}
 }

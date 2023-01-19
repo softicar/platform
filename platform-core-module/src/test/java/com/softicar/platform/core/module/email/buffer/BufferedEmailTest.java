@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.email.buffer;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.string.charset.Charsets;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.buffer.attachment.AGBufferedEmailAttachment;
 import com.softicar.platform.core.module.server.AGServer;
@@ -16,10 +17,14 @@ import org.junit.Test;
 public class BufferedEmailTest extends AbstractCoreTest {
 
 	private final AGUser user;
+	private final AGServer server;
 
 	public BufferedEmailTest() {
 
 		this.user = insertTestUser();
+		this.server = insertDummyServer();
+
+		AGCoreModuleInstance.getInstance().setEmailServer(server).save();
 		CurrentUser.set(user);
 	}
 
@@ -33,6 +38,7 @@ public class BufferedEmailTest extends AbstractCoreTest {
 
 		AGBufferedEmail email = DbAssertUtils.assertOne(AGBufferedEmail.TABLE);
 		assertSame(user, email.getCreatedBy());
+		assertSame(server, email.getEmailServer());
 		assertEquals("from@example.com", email.getFrom());
 		assertEquals("", email.getReplyTo());
 		assertEquals("to@example.com", email.getTo());

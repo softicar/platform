@@ -3,8 +3,10 @@ package com.softicar.platform.core.module.email.mailbox.imap;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.mail.Address;
@@ -27,7 +29,7 @@ class ImapMessage implements IMailboxMessage {
 	public String getSubject() {
 
 		try {
-			return message.getSubject();
+			return Optional.ofNullable(message.getSubject()).orElse("");
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
@@ -78,6 +80,19 @@ class ImapMessage implements IMailboxMessage {
 
 		try {
 			return toStrings(message.getAllRecipients());
+		} catch (MessagingException exception) {
+			throw new RuntimeException(exception);
+		}
+	}
+
+	@Override
+	public Collection<String> getHeader(String headerName) {
+
+		try {
+			return Optional//
+				.ofNullable(message.getHeader(headerName))
+				.map(Arrays::asList)
+				.orElse(Collections.emptyList());
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}

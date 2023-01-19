@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.data.table;
 
+import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.in.memory.AbstractInMemoryDataTable;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -27,6 +28,18 @@ public class TestDataTable extends AbstractInMemoryDataTable<TestDataTableRow> {
 			.addColumn();
 	}
 
+	@Override
+	public DataTableIdentifier getIdentifier() {
+
+		return new DataTableIdentifier("484f32ad-3733-4033-8a0d-b740bb196429");
+	}
+
+	@Override
+	protected Iterable<TestDataTableRow> getTableRows() {
+
+		return rows;
+	}
+
 	public IDataTableColumn<TestDataTableRow, Integer> getIntegerColumn() {
 
 		return integerColumn;
@@ -41,11 +54,5 @@ public class TestDataTable extends AbstractInMemoryDataTable<TestDataTableRow> {
 
 		rows.add(row);
 		return this;
-	}
-
-	@Override
-	public Iterable<TestDataTableRow> getTableRows() {
-
-		return rows;
 	}
 }

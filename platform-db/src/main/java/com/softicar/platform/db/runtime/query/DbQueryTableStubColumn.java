@@ -50,6 +50,6 @@ public class DbQueryTableStubColumn<R extends IDbQueryRow<R>, T> extends DbQuery
 	@Override
 	public void prefetchData(Collection<T> values) {
 
-		table.unstubAll(values);
+		table.refreshAll(values);
 	}
 }

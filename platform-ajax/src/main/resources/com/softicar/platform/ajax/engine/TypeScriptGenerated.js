@@ -350,50 +350,16 @@ class DomPopupEngine {
             this.addEventListeners(popupFrame);
         }
     }
-    movePopup(popupFrame, x, y, xAlign, yAlign) {
+    movePopup(popupFrame, x, y, offsetUnit, xAlign, yAlign) {
         let parent = popupFrame.parentElement;
         if (parent != null) {
             popupFrame.style.position = 'absolute';
-            let scrollX = window.scrollX + parent.scrollLeft;
-            let scrollY = window.scrollY + parent.scrollTop;
-            let sizeX = window.innerWidth;
-            let popupWidth = popupFrame.offsetWidth;
-            let popupLeft = 0;
-            switch (xAlign) {
-                case "LEFT":
-                    popupLeft = scrollX + x;
-                    break;
-                case "CENTER":
-                    popupLeft = scrollX + x - popupWidth / 2;
-                    break;
-                case "RIGHT":
-                    popupLeft = scrollX + x - popupWidth + 1;
-                    break;
+            if (offsetUnit == "PERCENT") {
+                this.movePopupByPercent(parent, popupFrame, x, y, xAlign, yAlign);
             }
-            popupLeft = Math.min(popupLeft, scrollX + sizeX - popupWidth);
-            popupLeft = Math.max(popupLeft, scrollX);
-            let popupHeight = popupFrame.offsetHeight;
-            let popupTop = 0;
-            switch (yAlign) {
-                case "TOP":
-                    popupTop = scrollY + y;
-                    break;
-                case "CENTER":
-                    popupTop = scrollY + y - popupHeight / 2;
-                    break;
-                case "BOTTOM":
-                    popupTop = scrollY + y - popupHeight + 1;
-                    break;
+            else {
+                this.movePopupByPixels(parent, popupFrame, x, y, xAlign, yAlign);
             }
-            if (parent != document.body) {
-                let parentRect = parent.getBoundingClientRect();
-                popupLeft -= parentRect.left;
-                popupTop -= parentRect.top;
-            }
-            popupLeft = Math.max(popupLeft, 0);
-            popupTop = Math.max(popupTop, 0);
-            popupFrame.style.left = popupLeft + 'px';
-            popupFrame.style.top = popupTop + 'px';
         }
         else {
             console.log("Warning: Ignored an attempt to move a non-appended popup. Popup frame ID: " + popupFrame.id);
@@ -406,6 +372,80 @@ class DomPopupEngine {
     }
     raise(popupFrame) {
         AJAX_ENGINE.raise(popupFrame);
+    }
+    movePopupByPercent(parent, popupFrame, x, y, xAlign, yAlign) {
+        let scrollX = window.scrollX + parent.scrollLeft;
+        let scrollY = window.scrollY + parent.scrollTop;
+        let popupWidth = popupFrame.offsetWidth;
+        let xHandle = 0;
+        switch (xAlign) {
+            case "LEFT":
+                xHandle = 0;
+                break;
+            case "CENTER":
+                xHandle = popupWidth / 2;
+                break;
+            case "RIGHT":
+                xHandle = popupWidth;
+                break;
+        }
+        let popupHeight = popupFrame.offsetHeight;
+        let yHandle = 0;
+        switch (yAlign) {
+            case "TOP":
+                yHandle = 0;
+                break;
+            case "CENTER":
+                yHandle = popupHeight / 2;
+                break;
+            case "BOTTOM":
+                yHandle = popupHeight;
+                break;
+        }
+        popupFrame.style.left = `max(0px, ${x}% - ${xHandle}px + ${scrollX}px)`;
+        popupFrame.style.top = `max(0px, ${y}% - ${yHandle}px + ${scrollY}px)`;
+    }
+    movePopupByPixels(parent, popupFrame, x, y, xAlign, yAlign) {
+        let scrollX = window.scrollX + parent.scrollLeft;
+        let scrollY = window.scrollY + parent.scrollTop;
+        let sizeX = window.innerWidth;
+        let popupWidth = popupFrame.offsetWidth;
+        let xHandle = 0;
+        switch (xAlign) {
+            case "LEFT":
+                xHandle = scrollX + x;
+                break;
+            case "CENTER":
+                xHandle = scrollX + x - popupWidth / 2;
+                break;
+            case "RIGHT":
+                xHandle = scrollX + x - popupWidth + 1;
+                break;
+        }
+        xHandle = Math.min(xHandle, scrollX + sizeX - popupWidth);
+        xHandle = Math.max(xHandle, scrollX);
+        let popupHeight = popupFrame.offsetHeight;
+        let yHandle = 0;
+        switch (yAlign) {
+            case "TOP":
+                yHandle = scrollY + y;
+                break;
+            case "CENTER":
+                yHandle = scrollY + y - popupHeight / 2;
+                break;
+            case "BOTTOM":
+                yHandle = scrollY + y - popupHeight + 1;
+                break;
+        }
+        if (parent != document.body) {
+            let parentRect = parent.getBoundingClientRect();
+            xHandle -= parentRect.left;
+            yHandle -= parentRect.top;
+        }
+        xHandle = Math.max(xHandle, 0);
+        yHandle = Math.max(yHandle, 0);
+        popupFrame.style.left = xHandle + 'px';
+        popupFrame.style.top = yHandle + 'px';
     }
 }
 const POPUP_ENGINE = new DomPopupEngine();

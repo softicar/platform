@@ -12,7 +12,7 @@ public class TableExportExcelXlsxEngineFactory extends AbstractTableExportExcelE
 
 	public TableExportExcelXlsxEngineFactory() {
 
-		super(TableExportExcelExportFormat.XLSX_STREAMING);
+		super(TableExportExcelExportFormat.XLSX);
 
 		engineConfiguration//
 			.setEngineDisplayString(IDisplayString.create("Excel 2007 - 2013"))

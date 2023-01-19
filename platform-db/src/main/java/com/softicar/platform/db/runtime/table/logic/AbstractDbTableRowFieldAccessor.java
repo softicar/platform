@@ -2,6 +2,7 @@ package com.softicar.platform.db.runtime.table.logic;
 
 import com.softicar.platform.db.runtime.field.IDbField;
 import com.softicar.platform.db.runtime.table.row.IDbTableRow;
+import java.util.Collections;
 
 public abstract class AbstractDbTableRowFieldAccessor<R extends IDbTableRow<R, ?>, V> {
 
@@ -29,7 +30,7 @@ public abstract class AbstractDbTableRowFieldAccessor<R extends IDbTableRow<R, ?
 
 		if (!row.table().getPrimaryKey().containsField(field) && !row.impermanent()) {
 			if (row.stub() || row.invalidated()) {
-				row.reload();
+				row.table().refreshAll(Collections.singleton(row));
 			}
 		}
 	}

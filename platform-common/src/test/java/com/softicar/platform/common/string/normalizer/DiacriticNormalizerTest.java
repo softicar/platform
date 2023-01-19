@@ -130,17 +130,6 @@ public class DiacriticNormalizerTest extends AbstractTest {
 	}
 
 	/**
-	 * https://en.wikipedia.org/wiki/Hook_%28diacritic%29
-	 */
-	@Test
-	public void testHookRemoval() {
-
-		String input = "ƒƑ";
-		String output = new DiacriticNormalizer().normalize(input);
-		assertEquals("fF", output);
-	}
-
-	/**
 	 * https://en.wikipedia.org/wiki/Hook_above
 	 */
 	@Test
@@ -237,16 +226,5 @@ public class DiacriticNormalizerTest extends AbstractTest {
 		String input = "ἀὠ";
 		String output = new DiacriticNormalizer().normalize(input);
 		assertEquals("αω", output);
-	}
-
-	/**
-	 * https://en.wikipedia.org/wiki/Bar_%28diacritic%29
-	 */
-	@Test
-	public void testBarRemoval() {
-
-		String input = "đĐ";
-		String output = new DiacriticNormalizer().normalize(input);
-		assertEquals("dD", output);
 	}
 }

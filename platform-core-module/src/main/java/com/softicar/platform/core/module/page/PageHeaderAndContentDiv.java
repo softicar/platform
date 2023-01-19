@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.page;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.locale.CurrentLocale;
+import com.softicar.platform.common.string.normalizer.CurrentDiacriticNormalizationCache;
 import com.softicar.platform.core.module.page.header.PageHeaderDiv;
 import com.softicar.platform.core.module.page.navigation.PageNavigationController;
 import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
@@ -31,12 +32,14 @@ public class PageHeaderAndContentDiv extends DomDiv {
 	public void openPage(PageNavigationEntry<?> linkEntry) {
 
 		removeChildren();
+
 		CurrentDomPopupCompositor.get().closeAll();
 		CurrentDomDocument.get().getDeferredInitializationController().clear();
-		DbTableRowCaches.invalidateAll();
-		System.gc();
-
+		CurrentDomDocument.get().getRefreshBus().discardEvent();
 		CurrentLocale.set(CurrentUser.get().getLocale());
+		DbTableRowCaches.invalidateAll();
+		CurrentDiacriticNormalizationCache.get().clear();
+		System.gc();
 
 		changeBrowserUrl(linkEntry);
 		appendChild(new PageHeaderDiv<>(linkEntry, navigationToggleFunction, controller));

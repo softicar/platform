@@ -107,6 +107,17 @@
 	font-weight: bold;
 }
 
+.PageHeaderUserPopover.DomMenuPopover > .DomButton {
+
+	height: var(--PAGE_NAVIGATION_ENTRY_HEIGHT);
+	padding: 8px;
+}
+
+.PageHeaderDiv > .DomButton {
+
+	font-size: var(--FONT_SIZE_BIGGER);
+}
+
 /* -------------------- PageServiceLoginDiv -------------------- */
 
 .PageServiceLoginDiv {

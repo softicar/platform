@@ -282,8 +282,35 @@ public class DbMysqlStatements {
 	 */
 	public static void dropTable(DbTableName tableName) {
 
-		Objects.requireNonNull(tableName);
 		executeUncached("DROP TABLE %s", tableName.getQuoted());
+	}
+
+	/**
+	 * Drops the given tables.
+	 *
+	 * @param tableNames
+	 *            the tables to drop (never <i>null</i>)
+	 */
+	public static void dropTables(Collection<DbTableName> tableNames) {
+
+		executeUncached(
+			"DROP TABLE %s",
+			tableNames//
+				.stream()
+				.map(tableName -> tableName.getQuoted())
+				.collect(Collectors.joining(",")));
+	}
+
+	/**
+	 * Removes all rows from the given table.
+	 *
+	 * @param tableName
+	 *            the table to truncate (never <i>null</i>)
+	 */
+	public static void truncateTable(DbTableName tableName) {
+
+		Objects.requireNonNull(tableName);
+		executeUncached("TRUNCATE TABLE %s", tableName.getQuoted());
 	}
 
 	/**

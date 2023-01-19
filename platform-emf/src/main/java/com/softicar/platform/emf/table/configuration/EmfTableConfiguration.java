@@ -34,9 +34,13 @@ import com.softicar.platform.emf.deactivation.IEmfTableRowDeactivationStrategy;
 import com.softicar.platform.emf.delete.EmfDeleteStrategyBuilder;
 import com.softicar.platform.emf.delete.IEmfDeleteStrategy;
 import com.softicar.platform.emf.form.EmfForm;
+import com.softicar.platform.emf.form.EmfFormAttributesDiv;
+import com.softicar.platform.emf.form.attribute.factory.IEmfFormAttributesDivFactory;
 import com.softicar.platform.emf.form.factory.IEmfFormFactory;
 import com.softicar.platform.emf.form.indicator.EmfFormIndicatorConfiguration;
 import com.softicar.platform.emf.form.indicator.IEmfFormIndicatorConfiguration;
+import com.softicar.platform.emf.form.popup.EmfFormPopupConfiguration;
+import com.softicar.platform.emf.form.popup.IEmfFormPopupConfiguration;
 import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.section.IEmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -80,6 +84,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Supplier<EmfAttributeList<R, P>> attributeListSupplier;
 	private final Supplier<EmfAttributeDefaultValueSet<R, S>> attributeDefaultValueSetSupplier;
 	private final Supplier<EmfFormIndicatorConfiguration<R>> indicatorConfigurationSupplier;
+	private final Supplier<EmfFormPopupConfiguration> popupConfigurationSupplier;
 	private final Supplier<EmfFormSectionConfiguration<R>> sectionConfigurationSupplier;
 	private final Supplier<EmfFormTabConfiguration<R>> tabConfigurationSupplier;
 	private final Supplier<EmfChangeLoggerSet<R>> loggerSetSupplier;
@@ -91,6 +96,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	private final Collection<IEmfSaveHook<R>> saveHooks;
 	private final Collection<IEmfValidator<R>> validators;
 	private IEmfFormFactory<R> formFactory;
+	private IEmfFormAttributesDivFactory<R> formAttributesDivFactory;
 	private IEmfPredicate<S> creationPredicate;
 	private IEmfPredicate<R> editPredicate;
 	private IEmfPredicate<R> deactivationPredicate;
@@ -111,6 +117,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.attributeListSupplier = new EmfLazySupplier<>(table, EmfAttributeList::new, this::customizeAttributesAndOrder);
 		this.attributeDefaultValueSetSupplier = new EmfLazySupplier<>(table, EmfAttributeDefaultValueSet::new, table::customizeAttributeDefaultValues);
 		this.indicatorConfigurationSupplier = new EmfLazySupplier<>(EmfFormIndicatorConfiguration::new, table::customizeFormIndicators);
+		this.popupConfigurationSupplier = new EmfLazySupplier<>(EmfFormPopupConfiguration::new, table::customizeFormPopup);
 		this.sectionConfigurationSupplier = new EmfLazySupplier<>(EmfFormSectionConfiguration::new, table::customizeFormSections);
 		this.tabConfigurationSupplier = new EmfLazySupplier<>(() -> new EmfFormTabConfiguration<>(table), table::customizeFormTabs);
 		this.loggerSetSupplier = new EmfLazySupplier<>(EmfChangeLoggerSet::new, table::customizeLoggers);
@@ -118,6 +125,7 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.managementConfigurationSupplier = new EmfLazySupplier<>(table, EmfManagementConfiguration::new, table::customizeManagementConfiguraton);
 		this.authorizerSupplier = new EmfLazySupplier<>(EmfAuthorizer::new, table::customizeAuthorizer);
 		this.formFactory = EmfForm::new;
+		this.formAttributesDivFactory = EmfFormAttributesDiv::new;
 		this.commitHooks = new ArrayList<>();
 		this.deleteHooks = new ArrayList<>();
 		this.saveHooks = new ArrayList<>();
@@ -219,6 +227,11 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 		this.formFactory = formFactory;
 	}
 
+	public void setFormAttributesDivFactory(IEmfFormAttributesDivFactory<R> formAttributesDivFactory) {
+
+		this.formAttributesDivFactory = formAttributesDivFactory;
+	}
+
 	public final void setCreationPredicate(IEmfPredicate<S> creationPredicate) {
 
 		this.creationPredicate = creationPredicate;
@@ -267,6 +280,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public final IEmfFormIndicatorConfiguration<R> getFormIndicatorConfiguration() {
 
 		return indicatorConfigurationSupplier.get();
+	}
+
+	@Override
+	public IEmfFormPopupConfiguration getFormPopupConfiguration() {
+
+		return popupConfigurationSupplier.get();
 	}
 
 	@Override
@@ -432,6 +451,12 @@ public class EmfTableConfiguration<R extends IEmfTableRow<R, P>, P, S> implement
 	public IEmfFormFactory<R> getFormFactory() {
 
 		return formFactory;
+	}
+
+	@Override
+	public IEmfFormAttributesDivFactory<R> getFormAttributesDivFactory() {
+
+		return formAttributesDivFactory;
 	}
 
 	@Override

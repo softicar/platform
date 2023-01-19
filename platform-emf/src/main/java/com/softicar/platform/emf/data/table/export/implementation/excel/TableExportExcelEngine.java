@@ -1,6 +1,5 @@
 package com.softicar.platform.emf.data.table.export.implementation.excel;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.ui.color.IColor;
@@ -10,7 +9,7 @@ import com.softicar.platform.emf.data.table.export.conversion.factory.TableExpor
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportStrictNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.TableExportTextOnlyNodeConverterFactory;
 import com.softicar.platform.emf.data.table.export.conversion.factory.configuration.TableExportNodeConverterFactoryConfiguration;
-import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportColumnFilteringEngine;
+import com.softicar.platform.emf.data.table.export.engine.AbstractTableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.ITableExportEngine;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportEngineConfiguration;
 import com.softicar.platform.emf.data.table.export.engine.configuration.TableExportTableConfiguration;
@@ -41,15 +40,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Exports {@link DomTable}s to XLS or XLSX format using Apache POI.
  *
  * @author Alexander Schmidt
  */
-public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEngine<TableExportTypedNodeValue, Row, Cell> {
+public class TableExportExcelEngine extends AbstractTableExportEngine<Row, Cell> {
 
 	public static final int NUM_TABLE_SPACER_ROWS = 2;
 
@@ -79,12 +76,12 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 	private int maxColumnIndex;
 
 	public TableExportExcelEngine(TableExportEngineConfiguration configuration, TableExportExcelExportConfiguration poiExportConfiguration,
-			ITableExportEngineFactory<? extends ITableExportEngine<TableExportTypedNodeValue>> creatingFactory) {
+			ITableExportEngineFactory<? extends ITableExportEngine> creatingFactory) {
 
 		super(
 			configuration,
 			creatingFactory,
-			new TableExportNodeConverterFactoryConfiguration<>(new TableExportTextOnlyNodeConverterFactory(), new TableExportDefaultNodeConverterFactory())
+			new TableExportNodeConverterFactoryConfiguration(new TableExportTextOnlyNodeConverterFactory(), new TableExportDefaultNodeConverterFactory())
 				.addAvailableFactories(new TableExportStrictNodeConverterFactory(), new TableExportTextOnlyNodeConverterFactory()));
 
 		this.poiExportConfiguration = poiExportConfiguration;
@@ -95,12 +92,11 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 	}
 
 	@Override
-	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration<TableExportTypedNodeValue>> tableConfigurations) {
+	protected void prepareExport(OutputStream targetOutputStream, Collection<TableExportTableConfiguration> tableConfigurations) {
 
 		this.workbook = TableExportExcelWorkbookCreator.createWorkbook(poiExportConfiguration.getFormat());
-		assertStreamingWorkbook(this.workbook);
 
-		TableExportExcelColorManager colorManager = new TableExportExcelColorManager(this.workbook);
+		var colorManager = new TableExportExcelColorManager(this.workbook);
 
 		this.cellStyleManager = new TableExportExcelCellStyleManager(//
 			this.workbook,
@@ -120,7 +116,7 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 	}
 
 	@Override
-	protected void prepareTable(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	protected void prepareTable(TableExportTableConfiguration tableConfiguration) {
 
 		if (sheet == null || poiExportConfiguration.isSheetPerTable()) {
 			this.sheet = this.workbook.createSheet(getNextSheetTitle(tableConfiguration));
@@ -136,8 +132,8 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 	}
 
 	@Override
-	protected Cell createAndAppendCell(Row documentRow, int targetColIndex, boolean isHeader,
-			NodeConverterResult<TableExportTypedNodeValue> convertedCellContent, TableExportNodeStyle exportNodeStyle) {
+	protected Cell createAndAppendCell(Row documentRow, int targetColIndex, boolean isHeader, NodeConverterResult convertedCellContent,
+			TableExportNodeStyle exportNodeStyle) {
 
 		TableExportCellAlignment cellAlignment = exportNodeStyle.getAlignment();
 		IColor backgroundColor = exportNodeStyle.getBackgroundColor();
@@ -269,7 +265,7 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 		return (short) (fontHeight + spacing + VERTIAL_PADDING_COMPENSATION);
 	}
 
-	private String getNextSheetTitle(TableExportTableConfiguration<TableExportTypedNodeValue> tableConfiguration) {
+	private String getNextSheetTitle(TableExportTableConfiguration tableConfiguration) {
 
 		if (poiExportConfiguration.isSheetPerTable()) {
 			return tableConfiguration//
@@ -302,16 +298,6 @@ public class TableExportExcelEngine extends AbstractTableExportColumnFilteringEn
 
 			int newColumnWidth = Math.min(this.sheet.getColumnWidth(i) + ADDITIONAL_COLUMN_WIDTH, MAX_COLUMN_WIDTH);
 			this.sheet.setColumnWidth(i, newColumnWidth);
-		}
-	}
-
-	private static void assertStreamingWorkbook(Workbook workbook) {
-
-		if (workbook instanceof XSSFWorkbook) {
-			throw new SofticarDeveloperException(
-				"You just tried to create a non-streaming %s (\"xlsx format\"). Since that won't scale well, you should use %s instead.",
-				XSSFWorkbook.class.getSimpleName(),
-				SXSSFWorkbook.class.getSimpleName());
 		}
 	}
 }

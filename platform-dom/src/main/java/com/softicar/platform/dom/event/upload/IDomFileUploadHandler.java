@@ -5,6 +5,7 @@ package com.softicar.platform.dom.event.upload;
  *
  * @author Oliver Richers
  */
+@FunctionalInterface
 public interface IDomFileUploadHandler {
 
 	/**

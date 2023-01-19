@@ -1,12 +1,12 @@
 package com.softicar.platform.dom.elements.input.auto;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.elements.bar.DomBar;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.dom.input.DomInputException;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.style.CssPixel;
 import com.softicar.platform.dom.style.CssStyle;
@@ -32,6 +32,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	private final Collection<INullaryVoidFunction> inputConstraintRefreshCallbacks;
 	private final IDomAutoCompleteInputEngine<T> inputEngine;
 	private final DomAutoCompleteInputValidationMode validationMode;
+	private final DomAutoCompleteValueAndStateCache<T> valueAndStateCache;
 	private final DomBar inputBar;
 	private final DomAutoCompleteInputField inputField;
 	private final DomAutoCompleteInputFilterDisplay filterDisplay;
@@ -60,10 +61,11 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		this.inputConstraintRefreshCallbacks = new ArrayList<>();
 		this.inputEngine = inputEngine;
 		this.validationMode = validationMode;
+		this.valueAndStateCache = new DomAutoCompleteValueAndStateCache<>(this);
 		this.inputBar = new DomBar();
 		this.inputField = new DomAutoCompleteInputField(this);
 		this.filterDisplay = new DomAutoCompleteInputFilterDisplay(inputEngine);
-		this.indicator = new DomAutoCompleteIndicator<>(this);
+		this.indicator = new DomAutoCompleteIndicator<>(valueAndStateCache::getValueAndState);
 		this.backdrop = new DomAutoCompleteBackdrop(this);
 		this.popup = new DomAutoCompletePopup<>(this);
 		this.committedValue = null;
@@ -90,6 +92,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 		inputEngine.refresh();
 		inputEngine.reloadCache();
+		valueAndStateCache.clear();
 		indicator.refresh();
 		filterDisplay.refresh();
 
@@ -113,9 +116,9 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	@Override
 	public Optional<T> getValue() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		var valueAndState = valueAndStateCache.getValueAndState();
 		if (valueAndState.isAmbiguousOrIllegal()) {
-			throw new SofticarUserException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
+			throw new DomInputException(DomI18n.PLEASE_SELECT_A_VALID_ENTRY);
 		} else {
 			return Optional.ofNullable(valueAndState.getValue());
 		}
@@ -305,7 +308,7 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	private void deduceValue() {
 
-		var valueAndState = new DomAutoCompleteValueParser<>(this).parse();
+		var valueAndState = valueAndStateCache.getValueAndState();
 		if (valueAndState.isValid()) {
 			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
 		}

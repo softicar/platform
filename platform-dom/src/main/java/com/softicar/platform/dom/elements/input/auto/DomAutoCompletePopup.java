@@ -2,6 +2,7 @@ package com.softicar.platform.dom.elements.input.auto;
 
 import com.softicar.platform.dom.DomCssClasses;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.input.auto.matching.DomAutoCompleteMatch;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,18 +28,19 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		clear();
 
 		var pattern = input.getPattern();
-		var values = inputEngine.findMatches(pattern, DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY + 1);
-		if (values.isEmpty()) {
+		var matches = inputEngine.findMatches(pattern, DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY + 1);
+		if (matches.isEmpty()) {
 			appendChild(new DomAutoCompletePopupNoValuesDisplay(pattern));
 		} else {
-			values//
+			matches//
+				.getAll()
 				.stream()
 				.limit(DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY)
-				.forEach(value -> addValueDisplay(value, pattern));
+				.forEach(this::addValueDisplay);
 			if (!pattern.isEmpty()) {
 				setSelectionIndex(0);
 			}
-			if (values.size() >= DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY) {
+			if (matches.size() >= DomAutoCompleteInput.MAXIMUM_ELEMENTS_TO_DISPLAY) {
 				appendChild(new DomAutoCompletePopupMoreValuesDisplay());
 			}
 		}
@@ -84,9 +86,11 @@ class DomAutoCompletePopup<T> extends DomDiv {
 		selectionIndex = -1;
 	}
 
-	private void addValueDisplay(T value, String pattern) {
+	private void addValueDisplay(DomAutoCompleteMatch<T> match) {
 
-		var display = new DomAutoCompletePopupValueDisplay<>(input, value, pattern);
+		T value = match.getValue();
+		var matchRanges = match.getAllMatchRanges();
+		var display = new DomAutoCompletePopupValueDisplay<>(input, value, matchRanges);
 		appendChild(display);
 		valueDisplays.add(display);
 	}
