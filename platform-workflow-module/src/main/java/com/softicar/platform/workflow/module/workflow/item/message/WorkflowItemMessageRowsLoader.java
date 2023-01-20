@@ -128,7 +128,7 @@ public class WorkflowItemMessageRowsLoader {
 
 		return new WorkflowItemMessageRow(//
 			WorkflowI18n.TASK_DELEGATED_TO_ARG1.toDisplay(delegationLog.getTargetUser().toDisplay()),
-			AGWorkflowMessageSeverityEnum.INFORMATION.getRecord(),
+			AGWorkflowMessageSeverityEnum.INFO.getRecord(),
 			delegationLog.getTransaction());
 	}
 

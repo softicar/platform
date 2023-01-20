@@ -12,7 +12,7 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 public enum AGWorkflowMessageSeverityEnum implements IDbEnumTableRowEnum<AGWorkflowMessageSeverityEnum, AGWorkflowMessageSeverity>, IDisplayable {
 
 	VERBOSE(1, "VERBOSE"),
-	INFORMATION(2, "INFORMATION"),
+	INFO(2, "INFO"),
 	WARNING(3, "WARNING"),
 	ERROR(4, "ERROR"),
 	//
@@ -45,8 +45,8 @@ public enum AGWorkflowMessageSeverityEnum implements IDbEnumTableRowEnum<AGWorkf
 		switch (this) {
 		case VERBOSE:
 			return WorkflowI18n.VERBOSE;
-		case INFORMATION:
-			return WorkflowI18n.INFORMATION;
+		case INFO:
+			return WorkflowI18n.INFO;
 		case WARNING:
 			return WorkflowI18n.WARNING;
 		case ERROR:

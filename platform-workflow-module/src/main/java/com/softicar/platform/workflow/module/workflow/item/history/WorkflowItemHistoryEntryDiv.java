@@ -26,7 +26,7 @@ public class WorkflowItemHistoryEntryDiv extends DomDiv {
 
 		return switch (row.getSeverity().getEnum()) {
 		case ERROR -> DomCssPseudoClasses.ERROR;
-		case INFORMATION -> DomCssPseudoClasses.INFO;
+		case INFO -> DomCssPseudoClasses.INFO;
 		case VERBOSE -> DomCssPseudoClasses.VERBOSE;
 		case WARNING -> DomCssPseudoClasses.WARNING;
 		};

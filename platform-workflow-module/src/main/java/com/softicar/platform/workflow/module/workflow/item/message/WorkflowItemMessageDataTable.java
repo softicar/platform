@@ -55,7 +55,7 @@ public class WorkflowItemMessageDataTable extends AbstractInMemoryDataTable<Work
 
 		return rows//
 			.stream()
-			.filter(row -> verbose || row.getSeverity().isMoreImportantThan(AGWorkflowMessageSeverityEnum.VERBOSE))
+			.filter(row -> verbose || row.getSeverity().isMoreSevereThan(AGWorkflowMessageSeverityEnum.VERBOSE))
 			.collect(Collectors.toList());
 	}
 

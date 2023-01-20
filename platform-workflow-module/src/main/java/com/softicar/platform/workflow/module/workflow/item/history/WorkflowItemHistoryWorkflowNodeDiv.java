@@ -19,7 +19,7 @@ public class WorkflowItemHistoryWorkflowNodeDiv extends DomDiv {
 		public Label(WorkflowItemMessageRow row) {
 
 			addCssClass(WorkflowCssClasses.WORKFLOW_ITEM_HISTORY_WORKFLOW_NODE_LABEL);
-			appendText(WorkflowI18n.WORKFLOW_NODE_ARG1.toDisplay(row.getNodeName()));
+			appendText(WorkflowI18n.NODE_ARG1.toDisplay(row.getNodeName()));
 		}
 	}
 }

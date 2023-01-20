@@ -114,6 +114,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Keine weitere Genehmigung ist notwendig.");
 	I18n0 NO_WORKFLOW_FOUND = new I18n0("No workflow found.")//
 		.de("Kein Arbeitsablauf gefunden.");
+	I18n1 NODE_ARG1 = new I18n1("Node: %s")//
+		.de("Knoten: %s");
 	I18n0 NODES = new I18n0("Nodes")//
 		.de("Knoten");
 	I18n0 NOTIFY = new I18n0("Notify")//
@@ -283,8 +285,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Knoten-Aktionsberechtigungen");
 	I18n0 WORKFLOW_NODE_ACTIONS = new I18n0("Workflow Node Actions")//
 		.de("Arbeitsablauf-Knoten-Aktionen");
-	I18n1 WORKFLOW_NODE_ARG1 = new I18n1("Workflow Node: %s")//
-		.de("Arbeitsablaufknoten: %s");
 	I18n0 WORKFLOW_NODE_LOG = new I18n0("Workflow Node Log")//
 		.de("Arbeitsablauf-Knoten-Log");
 	I18n0 WORKFLOW_NODE_LOGS = new I18n0("Workflow Node Logs")//

@@ -26,7 +26,7 @@ public class AGWorkflowMessageSeverityGenerated extends AbstractDbEnumTableRow<A
 	}
 
 	public static final IDbIdField<AGWorkflowMessageSeverity> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(WorkflowI18n.ID);
-	public static final IDbStringField<AGWorkflowMessageSeverity> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME);
+	public static final IDbStringField<AGWorkflowMessageSeverity> NAME = BUILDER.addStringField("name", o->o.m_name, (o,v)->o.m_name=v).setTitle(WorkflowI18n.NAME).setMaximumLength(255);
 	public static final DbEnumTable<AGWorkflowMessageSeverity, AGWorkflowMessageSeverityEnum> TABLE = new DbEnumTable<>(BUILDER, AGWorkflowMessageSeverityEnum.values());
 	// @formatter:on
 

@@ -11,7 +11,7 @@ public class AGWorkflowMessageSeverity extends AGWorkflowMessageSeverityGenerate
 		return getEnum().toDisplay();
 	}
 
-	public boolean isMoreImportantThan(AGWorkflowMessageSeverityEnum severityEnum) {
+	public boolean isMoreSevereThan(AGWorkflowMessageSeverityEnum severityEnum) {
 
 		return getEnum().ordinal() > severityEnum.ordinal();
 	}
