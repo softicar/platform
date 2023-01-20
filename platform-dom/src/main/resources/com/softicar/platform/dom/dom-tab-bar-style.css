@@ -41,9 +41,10 @@
 	white-space: nowrap;
 	
 	font-weight: bold;
-	
-	min-width: 45px;
+
 	min-height: 20px;
+	min-width: 45px;
+	width: fit-content;
 }
 
 .DomTabHeader.selected {
