@@ -19,7 +19,7 @@ public class WorkflowDtoV1 {
 	public String entityType;
 	public List<Node> nodes;
 	public List<Transition> transitions;
-	public int rootNode;
+	public Integer rootNode;
 
 	public static class Node {
 

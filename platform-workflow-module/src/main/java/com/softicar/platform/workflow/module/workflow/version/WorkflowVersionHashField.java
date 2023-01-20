@@ -25,9 +25,14 @@ public class WorkflowVersionHashField extends AbstractTransientObjectField<AGWor
 	protected void loadValues(Set<AGWorkflowVersion> versions, IValueSetter<AGWorkflowVersion, String> setter) {
 
 		versions.forEach(version -> {
-			var dto = new WorkflowDtoV1Exporter(version).setSkipNodePositions(true).exportWorkflow();
-			var hash = Hash.SHA1.getHashStringLC(dto.toString()).substring(0, 7);
-			setter.set(version, hash);
+			try {
+				var dto = new WorkflowDtoV1Exporter(version).setSkipNodePositions(true).exportWorkflow();
+				var hash = Hash.SHA1.getHashStringLC(dto.toString()).substring(0, 7);
+				setter.set(version, hash);
+			} catch (Exception exception) {
+				exception.printStackTrace();
+				setter.set(version, WorkflowI18n.UNKNOWN.toString());
+			}
 		});
 	}
 
