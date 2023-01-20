@@ -15,6 +15,7 @@ import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkfl
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
+import java.util.Optional;
 import java.util.UUID;
 
 public class WorkflowDtoV1Importer {
@@ -63,7 +64,9 @@ public class WorkflowDtoV1Importer {
 			saveTableRows(AGWorkflowNodePrecondition.TABLE);
 			saveTableRows(AGWorkflowTransition.TABLE);
 			saveTableRows(AGWorkflowTransitionPermission.TABLE);
-			workflowVersion.setRootNode(getWorkflowNode(workflowDto.rootNode)).save();
+			Optional//
+				.ofNullable(workflowDto.rootNode)
+				.ifPresent(rootNode -> workflowVersion.setRootNode(getWorkflowNode(rootNode)).save());
 			transaction.commit();
 		}
 

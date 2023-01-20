@@ -57,7 +57,7 @@ public class WorkflowDtoV1Exporter {
 		workflowVersion.getAllActiveTransitions().forEach(this::addTransition);
 		workflowVersion.getAllActiveTransitionPermissions().forEach(this::addTransitionPermission);
 
-		workflowDto.rootNode = nodeIndexMap.getIndex(workflowVersion.getRootNode());
+		workflowDto.rootNode = Optional.ofNullable(workflowVersion.getRootNode()).map(nodeIndexMap::getIndex).orElse(null);
 		return workflowDto;
 	}
 
