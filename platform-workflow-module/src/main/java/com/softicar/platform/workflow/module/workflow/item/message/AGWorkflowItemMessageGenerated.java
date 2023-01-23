@@ -11,6 +11,7 @@ import com.softicar.platform.db.runtime.object.DbObjectTableBuilder;
 import com.softicar.platform.db.sql.statement.ISqlSelect;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
+import com.softicar.platform.workflow.module.workflow.item.message.severity.AGWorkflowMessageSeverity;
 
 /**
  * This is the automatically generated class AGWorkflowItemMessage for
@@ -33,8 +34,10 @@ public class AGWorkflowItemMessageGenerated extends AbstractDbObject<AGWorkflowI
 	public static final IDbForeignField<AGWorkflowItemMessage, AGWorkflowItem> WORKFLOW_ITEM = BUILDER.addForeignField("workflowItem", o->o.m_workflowItem, (o,v)->o.m_workflowItem=v, AGWorkflowItem.ID).setTitle(WorkflowI18n.WORKFLOW_ITEM).setForeignKeyName("WorkflowItemMessage_ibfk_1");
 	public static final IDbForeignField<AGWorkflowItemMessage, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(WorkflowI18n.TRANSACTION).setForeignKeyName("WorkflowItemMessage_ibfk_2");
 	public static final IDbStringField<AGWorkflowItemMessage> TEXT = BUILDER.addStringField("text", o->o.m_text, (o,v)->o.m_text=v).setTitle(WorkflowI18n.TEXT).setLengthBits(16);
+	public static final IDbForeignField<AGWorkflowItemMessage, AGWorkflowMessageSeverity> SEVERITY = BUILDER.addForeignField("severity", o->o.m_severity, (o,v)->o.m_severity=v, AGWorkflowMessageSeverity.ID).setTitle(WorkflowI18n.SEVERITY).setDefault(2).setForeignKeyName("WorkflowItemMessage_ibfk_3");
 	public static final IDbKey<AGWorkflowItemMessage> IK_WORKFLOW_ITEM = BUILDER.addIndexKey("workflowItem", WORKFLOW_ITEM);
 	public static final IDbKey<AGWorkflowItemMessage> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
+	public static final IDbKey<AGWorkflowItemMessage> IK_SEVERITY = BUILDER.addIndexKey("severity", SEVERITY);
 	public static final AGWorkflowItemMessageTable TABLE = new AGWorkflowItemMessageTable(BUILDER);
 	// @formatter:on
 
@@ -92,6 +95,21 @@ public class AGWorkflowItemMessageGenerated extends AbstractDbObject<AGWorkflowI
 		return setValue(TEXT, value);
 	}
 
+	public final Integer getSeverityID() {
+
+		return getValueId(SEVERITY);
+	}
+
+	public final AGWorkflowMessageSeverity getSeverity() {
+
+		return getValue(SEVERITY);
+	}
+
+	public final AGWorkflowItemMessage setSeverity(AGWorkflowMessageSeverity value) {
+
+		return setValue(SEVERITY, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -106,5 +124,6 @@ public class AGWorkflowItemMessageGenerated extends AbstractDbObject<AGWorkflowI
 	private AGWorkflowItem m_workflowItem;
 	private AGTransaction m_transaction;
 	private String m_text;
+	private AGWorkflowMessageSeverity m_severity;
 }
 

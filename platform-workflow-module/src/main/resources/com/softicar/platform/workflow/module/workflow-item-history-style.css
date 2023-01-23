@@ -1,0 +1,64 @@
+.WorkflowItemHistoryDiv {
+	flex-grow: 1;
+}
+
+.WorkflowItemHistoryEntryDate {
+	font-size: var(--FONT_SIZE_SMALL);
+	font-weight: lighter;
+	grid-area: date;
+}
+
+.WorkflowItemHistoryEntryDiv {
+	background-color: var(--GRAY_BACKGROUND_COLOR);
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+	display: grid;
+	gap: 0 1em;
+	grid: "user text" "date text" / max-content auto;
+	padding: 3px 6px;
+}
+
+.WorkflowItemHistoryEntryDiv.error {
+	background-color: var(--ERROR_BACKGROUND_COLOR);
+	border-color: var(--ERROR_BORDER_COLOR);
+}
+
+.WorkflowItemHistoryEntryDiv.info {
+	background-color: var(--INFO_BACKGROUND_COLOR);
+	border-color: var(--INFO_BORDER_COLOR);
+}
+
+.WorkflowItemHistoryEntryDiv.warning {
+	background-color: var(--WARNING_BACKGROUND_COLOR);
+	border-color: var(--WARNING_BORDER_COLOR);
+}
+
+.WorkflowItemHistoryEntryText {
+	align-self: center;
+	justify-self: start;
+	grid-area: text;
+}
+
+.WorkflowItemHistoryEntryUser {
+	font-weight: bold;
+	grid-area: user;
+}
+
+.WorkflowItemHistoryShowMoreDiv {
+	background-color: var(--GRAY_BACKGROUND_COLOR);
+	border: 1px solid var(--INPUT_BORDER_COLOR);
+	border-radius: var(--BORDER_RADIUS);
+}
+
+.WorkflowItemHistoryWorkflowNodeLabel {
+	display: grid;
+	grid-template-columns: auto max-content auto;
+	font-size: var(--FONT_SIZE_SMALL);
+}
+
+.WorkflowItemHistoryWorkflowNodeLabel::after,
+.WorkflowItemHistoryWorkflowNodeLabel::before {
+	content: '';
+	border-top: 1px solid var(--INPUT_BORDER_COLOR);
+	align-self: center;
+}

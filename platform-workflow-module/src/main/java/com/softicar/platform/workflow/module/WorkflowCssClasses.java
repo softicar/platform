@@ -14,4 +14,13 @@ public interface WorkflowCssClasses {
 	ICssClass WORKFLOW_NODE_SEPARATOR = new CssClass("WorkflowNodeSeparator", WorkflowCssFiles.WORKFLOW_DISPLAY_ELEMENTS_STYLE);
 	ICssClass WORKFLOW_NODE_NAME = new CssClass("WorkflowNodeName", WorkflowCssFiles.WORKFLOW_DISPLAY_ELEMENTS_STYLE);
 	ICssClass WORKFLOW_DISPLAY_LINE_PIXEL = new CssClass("WorkflowDisplayLinePixel", WorkflowCssFiles.WORKFLOW_DISPLAY_ELEMENTS_STYLE);
+
+	ICssClass WORKFLOW_ITEM_HISTORY_DIV = new CssClass("WorkflowItemHistoryDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_DATE = new CssClass("WorkflowItemHistoryEntryDate", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_DIV = new CssClass("WorkflowItemHistoryEntryDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_TEXT = new CssClass("WorkflowItemHistoryEntryText", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_USER = new CssClass("WorkflowItemHistoryEntryUser", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_SHOW_MORE_DIV = new CssClass("WorkflowItemHistoryShowMoreDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_WORKFLOW_NODE_DIV = new CssClass("WorkflowItemHistoryWorkflowNodeDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+	ICssClass WORKFLOW_ITEM_HISTORY_WORKFLOW_NODE_LABEL = new CssClass("WorkflowItemHistoryWorkflowNodeLabel", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
 }
