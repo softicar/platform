@@ -30,9 +30,11 @@ public class PdfPageRemover {
 	 */
 	public byte[] removeLeadingBlankPages(byte[] pdfBytes) {
 
-		var blankPageIndexes = determineBlankPageIndexes(pdfBytes);
 		try (var document = PDDocument.load(pdfBytes)) {
-			blankPageIndexes.stream().sorted(Collections.reverseOrder()).forEach(document::removePage);
+			determineBlankPageIndexes(pdfBytes)//
+				.stream()
+				.sorted(Collections.reverseOrder())
+				.forEach(document::removePage);
 			var outputStream = new ByteArrayOutputStream();
 			document.save(outputStream);
 			return outputStream.toByteArray();
