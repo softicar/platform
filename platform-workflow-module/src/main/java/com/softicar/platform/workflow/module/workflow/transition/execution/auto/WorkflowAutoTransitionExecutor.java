@@ -45,7 +45,7 @@ public class WorkflowAutoTransitionExecutor {
 				var targetNode = transition.getTargetNode();
 				Log
 					.finfo(//
-						"Executing transition %s into target node %s for item %s.",
+						"Executing transition '%s' into target node '%s' for item '%s'.",
 						transition.toDisplayWithoutId(),
 						targetNode.toDisplayWithoutId(),
 						item.toDisplay());
