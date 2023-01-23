@@ -11,42 +11,58 @@ import org.junit.Test;
 public class StoredFileConverterTest extends AbstractCoreTest {
 
 	@Test
-	public void testConvertEmailToPdfBytesWithEmlFile() {
+	public void testFromEmailToPdfBytesWithEmlFile() {
 
 		AGStoredFile file = insertStoredFile("foo.eml", MimeType.MESSAGE_RFC822, EmailToPdfConverterTestFiles.EML_HTML);
-		Optional<byte[]> pdfBytes = StoredFileConverter.convertEmailToPdfBytes(file);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
 		assertTrue(pdfBytes.isPresent());
 	}
 
 	@Test
-	public void testConvertEmailToPdfBytesWithEmlFileAndOctetStream() {
+	public void testFromEmailToPdfBytesWithEmlFileAndOctetStream() {
 
 		AGStoredFile file = insertStoredFile("foo.eml", MimeType.APPLICATION_OCTET_STREAM, EmailToPdfConverterTestFiles.EML_HTML);
-		Optional<byte[]> pdfBytes = StoredFileConverter.convertEmailToPdfBytes(file);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
 		assertTrue(pdfBytes.isPresent());
 	}
 
 	@Test
-	public void testConvertEmailToPdfBytesWithMsgFile() {
+	public void testFromEmailToPdfBytesWithEmlFileAndDifferentExtension() {
+
+		AGStoredFile file = insertStoredFile("foo.xxx", MimeType.MESSAGE_RFC822, EmailToPdfConverterTestFiles.EML_HTML);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
+		assertTrue(pdfBytes.isPresent());
+	}
+
+	@Test
+	public void testFromEmailToPdfBytesWithMsgFile() {
 
 		AGStoredFile file = insertStoredFile("foo.msg", MimeType.APPLICATION_VND_MS_OUTLOOK, EmailToPdfConverterTestFiles.MSG_HTML);
-		Optional<byte[]> pdfBytes = StoredFileConverter.convertEmailToPdfBytes(file);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
 		assertTrue(pdfBytes.isPresent());
 	}
 
 	@Test
-	public void testConvertEmailToPdfBytesWithMsgFileAndOctetStream() {
+	public void testFromEmailToPdfBytesWithMsgFileAndOctetStream() {
 
 		AGStoredFile file = insertStoredFile("foo.msg", MimeType.APPLICATION_OCTET_STREAM, EmailToPdfConverterTestFiles.MSG_HTML);
-		Optional<byte[]> pdfBytes = StoredFileConverter.convertEmailToPdfBytes(file);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
 		assertTrue(pdfBytes.isPresent());
 	}
 
 	@Test
-	public void testConvertEmailToPdfBytesWithUnknownFile() {
+	public void testFromEmailToPdfBytesWithMsgFileAndDifferentExtension() {
+
+		AGStoredFile file = insertStoredFile("foo.xxx", MimeType.APPLICATION_VND_MS_OUTLOOK, EmailToPdfConverterTestFiles.MSG_HTML);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
+		assertTrue(pdfBytes.isPresent());
+	}
+
+	@Test
+	public void testFromEmailToPdfBytesWithUnknownFile() {
 
 		AGStoredFile file = insertStoredFile("foo.xxx", MimeType.APPLICATION_OCTET_STREAM, EmailToPdfConverterTestFiles.EML_HTML);
-		Optional<byte[]> pdfBytes = StoredFileConverter.convertEmailToPdfBytes(file);
+		Optional<byte[]> pdfBytes = file.convert().fromEmailToPdfBytes();
 		assertFalse(pdfBytes.isPresent());
 	}
 

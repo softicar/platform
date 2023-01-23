@@ -6,35 +6,48 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Facilitates conversion of {@link AGStoredFile} instances.
+ * Facilitates conversion of {@link AGStoredFile} records.
+ * <p>
+ * Instantiated via {@link AGStoredFile#convert()}
  *
  * @author Alexander Schmidt
  */
 public class StoredFileConverter {
 
+	private final AGStoredFile file;
+
 	/**
-	 * Converts the given email {@link AGStoredFile} to a PDF byte array.
+	 * Constructs a new {@link StoredFileConverter}.
+	 *
+	 * @param file
+	 *            the {@link AGStoredFile} to convert(never <i>null</i>)
+	 */
+	StoredFileConverter(AGStoredFile file) {
+
+		this.file = Objects.requireNonNull(file);
+	}
+
+	/**
+	 * Converts an email {@link AGStoredFile} to a PDF byte array.
 	 * <p>
 	 * Supports EML and MSG as input formats.
 	 * <p>
-	 * If no conversion strategy can be identified for the given
-	 * {@link AGStoredFile}, {@link Optional#empty()} is returned.
+	 * If no conversion strategy can be identified for the {@link AGStoredFile},
+	 * {@link Optional#empty()} is returned.
 	 *
-	 * @param emailFile
-	 *            the email {@link AGStoredFile} (never <i>null</i>)
 	 * @return the PDF byte array
 	 */
-	public static Optional<byte[]> convertEmailToPdfBytes(AGStoredFile emailFile) {
+	public Optional<byte[]> fromEmailToPdfBytes() {
 
-		Objects.requireNonNull(emailFile);
+		Objects.requireNonNull(file);
 		var converter = new EmailToPdfConverter();
 
-		if (emailFile.hasMimeType(MimeType.MESSAGE_RFC822) || emailFile.hasFileNameExtension("eml")) {
-			return Optional.of(converter.convertEmlToPdf(emailFile::getFileContentInputStream));
+		if (file.hasMimeType(MimeType.MESSAGE_RFC822) || file.hasFileNameExtension("eml")) {
+			return Optional.of(converter.convertEmlToPdf(file::getFileContentInputStream));
 		}
 
-		else if (emailFile.hasMimeType(MimeType.APPLICATION_VND_MS_OUTLOOK) || emailFile.hasFileNameExtension("msg")) {
-			return Optional.of(converter.convertMsgToPdf(emailFile::getFileContentInputStream));
+		else if (file.hasMimeType(MimeType.APPLICATION_VND_MS_OUTLOOK) || file.hasFileNameExtension("msg")) {
+			return Optional.of(converter.convertMsgToPdf(file::getFileContentInputStream));
 		}
 
 		else {

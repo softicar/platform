@@ -2,7 +2,6 @@ package com.softicar.platform.core.module.file.stored.preview.email;
 
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.core.module.file.stored.StoredFileConverter;
 import com.softicar.platform.core.module.file.stored.preview.AbstractStoredFilePreviewPopup;
 import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfDisplay;
 import com.softicar.platform.core.module.file.stored.preview.pdf.StoredFilePdfDisplayConfiguration;
@@ -30,7 +29,7 @@ public class StoredFileEmailPreviewPopup extends AbstractStoredFilePreviewPopup 
 		public PdfTab(AGStoredFile file) {
 
 			super(CoreI18n.PDF);
-			StoredFileConverter.convertEmailToPdfBytes(file).ifPresentOrElse(this::appendPdfDisplay, this::appendFailureMessage);
+			file.convert().fromEmailToPdfBytes().ifPresentOrElse(this::appendPdfDisplay, this::appendFailureMessage);
 		}
 
 		private void appendPdfDisplay(byte[] pdfBytes) {
