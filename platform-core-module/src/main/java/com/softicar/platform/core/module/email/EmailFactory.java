@@ -4,10 +4,10 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.email.buffer.BufferedEmail;
 import com.softicar.platform.core.module.email.transport.EmailTransport;
 import com.softicar.platform.core.module.email.transport.IEmailTransportServer;
+import jakarta.mail.NoSuchProviderException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
 import java.util.Properties;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Transport;
 
 public class EmailFactory {
 

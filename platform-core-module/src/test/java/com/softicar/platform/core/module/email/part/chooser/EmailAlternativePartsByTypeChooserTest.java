@@ -3,11 +3,11 @@ package com.softicar.platform.core.module.email.part.chooser;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.email.part.AbstractEmailPartsTest;
 import com.softicar.platform.core.module.email.part.sequencer.EmailPartsSequencer;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Part;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import org.junit.Test;
 
 public class EmailAlternativePartsByTypeChooserTest extends AbstractEmailPartsTest {

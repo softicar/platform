@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.email.buffer;
 
 import com.softicar.platform.core.module.server.AGServer;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 
 public class BufferedEmailSenderSessionManager {
 

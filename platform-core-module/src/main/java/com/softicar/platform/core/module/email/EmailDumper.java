@@ -2,14 +2,14 @@ package com.softicar.platform.core.module.email;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
 public class EmailDumper {
 

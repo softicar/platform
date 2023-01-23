@@ -134,4 +134,46 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 
 		return new CustomMimeType(getContentType());
 	}
+
+	/**
+	 * Determines whether the content type of this {@link AGStoredFile} matches
+	 * the given {@link IMimeType}.
+	 * <p>
+	 * The comparison is case-insensitive.
+	 *
+	 * @param mimeType
+	 *            the suspected {@link IMimeType} (never <i>null</i>)
+	 * @return <i>true</i> if this {@link AGStoredFile} has the given
+	 *         {@link IMimeType}; <i>false</i> otherwise
+	 */
+	public boolean hasMimeType(IMimeType mimeType) {
+
+		return getMimeType().getIdentifier().equalsIgnoreCase(mimeType.getIdentifier());
+	}
+
+	/**
+	 * Determines whether the name of this {@link AGStoredFile} ends with the
+	 * given file name extension.
+	 * <p>
+	 * The comparison is case-insensitive.
+	 *
+	 * @param extension
+	 *            the file name extension (never <i>null</i>)
+	 * @return <i>true</i> if this {@link AGStoredFile} has the given extension;
+	 *         <i>false</i> otherwise
+	 */
+	public boolean hasFileNameExtension(String extension) {
+
+		return getFileName().toLowerCase().endsWith("." + extension.toLowerCase());
+	}
+
+	/**
+	 * Creates a new {@link StoredFileConverter} for this {@link AGStoredFile}.
+	 *
+	 * @return the {@link StoredFileConverter} (never <i>null</i>)
+	 */
+	public StoredFileConverter convert() {
+
+		return new StoredFileConverter(this);
+	}
 }

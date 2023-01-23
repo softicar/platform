@@ -1,15 +1,15 @@
 package com.softicar.platform.core.module.email.part.sequencer;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Part;
+import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
 
 /**
  * Flattens the hierarchical structure of a {@link MimeMessage} into a sequence

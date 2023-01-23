@@ -8,17 +8,17 @@ import com.softicar.platform.core.module.email.EmailSystemProperties;
 import com.softicar.platform.core.module.email.buffer.attachment.AGBufferedEmailAttachment;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.db.core.transaction.DbTransaction;
-import javax.activation.DataHandler;
-import javax.mail.Address;
-import javax.mail.BodyPart;
-import javax.mail.Message.RecipientType;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.mail.Address;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message.RecipientType;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.util.ByteArrayDataSource;
 
 /**
  * Sends all e-mails in {@link AGBufferedEmail} that have not been sent yet.

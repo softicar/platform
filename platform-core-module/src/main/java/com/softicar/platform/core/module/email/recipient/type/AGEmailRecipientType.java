@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.email.recipient.type;
 import com.softicar.platform.common.core.entity.IEntity;
 import com.softicar.platform.common.core.exceptions.SofticarUnknownEnumConstantException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import javax.mail.Message.RecipientType;
+import jakarta.mail.Message.RecipientType;
 
 public class AGEmailRecipientType extends AGEmailRecipientTypeGenerated implements IEntity {
 

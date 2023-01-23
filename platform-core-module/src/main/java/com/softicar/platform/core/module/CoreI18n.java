@@ -362,6 +362,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Seitentitel konnte nicht bestimmt werden");
 	I18n0 FAILED_TO_GENERATE_PASSWORD = new I18n0("Failed to generate password.")//
 		.de("Generierung eines Passworts fehlgeschlagen.");
+	I18n0 FAILED_TO_GENERATE_PREVIEW = new I18n0("Failed to generate preview.")//
+		.de("Fehler beim Erzeugen der Vorschau.");
 	I18n1 FAILED_TO_LOAD_THE_CONTENT_OF_THE_FILE_ARG1 = new I18n1("Failed to load the content of the file '%s'.")//
 		.de("Laden des Inhalts der Datei '%s' fehlgeschlagen.");
 	I18n0 FIELD = new I18n0("Field")//
