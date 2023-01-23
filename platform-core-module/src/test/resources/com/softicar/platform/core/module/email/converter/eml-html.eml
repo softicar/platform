@@ -1,0 +1,26 @@
+Message-ID: <da3d18dd-9ddd-04f7-f4d4-94107f440023@forspace-solutions.com>
+Date: Thu, 19 Jan 2023 14:53:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Oliver Richers <oliver.richers@forspace-solutions.com>
+From: Alexander Schmidt <alexander.schmidt@forspace-solutions.com>
+Subject: HTML Test Email
+X-Mozilla-Draft-Info: internal/draft; vcard=0; receipt=0; DSN=0; uuencode=0;
+ attachmentreminder=0; deliveryformat=2
+X-Identity-Key: id1
+Fcc: owl://alexander.schmidt%40forspace-solutions.com@outlook.office.com/Sent%20Items
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p>Hi,<br>
+      this is an HTML email.</p>
+    <p>Bye.<br>
+    </p>
+  </body>
+</html>

@@ -18,13 +18,13 @@ import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
+import jakarta.mail.internet.InternetAddress;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import javax.mail.internet.InternetAddress;
 
 public class BufferedEmail implements IEmail {
 

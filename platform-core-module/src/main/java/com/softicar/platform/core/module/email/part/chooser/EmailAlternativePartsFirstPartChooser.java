@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.email.part.chooser;
 
+import jakarta.mail.Part;
 import java.util.Collection;
-import javax.mail.Part;
 
 /**
  * Returns the first {@link Part} from a {@link Collection} of {@link Part}

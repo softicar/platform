@@ -134,4 +134,14 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 
 		return new CustomMimeType(getContentType());
 	}
+
+	public boolean hasMimeType(IMimeType mimeType) {
+
+		return getMimeType().getIdentifier().equalsIgnoreCase(mimeType.getIdentifier());
+	}
+
+	public boolean hasFileNameExtension(String extension) {
+
+		return getFileName().toLowerCase().endsWith("." + extension.toLowerCase());
+	}
 }

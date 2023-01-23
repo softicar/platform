@@ -1,0 +1,20 @@
+Message-ID: <2162e77f-5c0e-f27e-11c2-f49e5c4896ca@forspace-solutions.com>
+Date: Thu, 19 Jan 2023 14:57:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Oliver Richers <oliver.richers@forspace-solutions.com>
+From: Alexander Schmidt <alexander.schmidt@forspace-solutions.com>
+Subject: Plain Text Test Email
+X-Mozilla-Draft-Info: internal/draft; vcard=0; receipt=0; DSN=0; uuencode=0;
+ attachmentreminder=0; deliveryformat=0
+X-Identity-Key: id1
+Fcc: owl://alexander.schmidt%40forspace-solutions.com@outlook.office.com/Sent%20Items
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+Hi,
+this is a plain text email.
+
+Bye.

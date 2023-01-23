@@ -3,17 +3,17 @@ package com.softicar.platform.core.module.email.mailbox.imap;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
+import jakarta.mail.Flags;
+import jakarta.mail.Folder;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Store;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.mail.Flags;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Store;
 
 class ImapConnection implements IMailboxConnection {
 

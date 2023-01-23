@@ -1,11 +1,11 @@
 package com.softicar.platform.core.module.email.part;
 
 import com.softicar.platform.common.testing.Asserts;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
 
 public abstract class AbstractEmailPartsTest extends Asserts {
 

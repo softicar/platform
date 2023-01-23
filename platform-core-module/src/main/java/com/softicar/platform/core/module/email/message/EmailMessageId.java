@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.email.message;
 
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 import java.util.Objects;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 
 public class EmailMessageId implements Comparable<EmailMessageId> {
 

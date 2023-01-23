@@ -2,11 +2,11 @@ package com.softicar.platform.core.module.email.message;
 
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.Asserts;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 import java.util.List;
 import java.util.Properties;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 import org.junit.Test;
 
 public class EmailMessageUtilsTest extends AbstractTest {

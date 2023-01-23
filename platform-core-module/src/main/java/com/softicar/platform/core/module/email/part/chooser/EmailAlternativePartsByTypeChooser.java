@@ -2,12 +2,12 @@ package com.softicar.platform.core.module.email.part.chooser;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.mime.MimeType;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Part;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
-import javax.mail.MessagingException;
-import javax.mail.Part;
 
 /**
  * Chooses the {@link Part} from a {@link Collection} of {@link Part} elements

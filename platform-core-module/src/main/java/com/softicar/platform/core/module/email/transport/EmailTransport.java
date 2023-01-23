@@ -1,12 +1,12 @@
 package com.softicar.platform.core.module.email.transport;
 
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import jakarta.mail.Address;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Transport;
 import java.util.List;
 import java.util.function.Supplier;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Transport;
 
 public class EmailTransport {
 

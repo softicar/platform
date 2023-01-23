@@ -8,9 +8,9 @@ import com.softicar.platform.core.module.email.mailbox.IMailboxConnector;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.server.connector.IServerConnectorConfigurationInput;
 import com.softicar.platform.dom.node.IDomNode;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Store;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Store;
 
 @SourceCodeReferencePointUuid("d4992229-1a91-4b51-abc8-f44440a89070")
 public class ImapConnector implements IMailboxConnector {

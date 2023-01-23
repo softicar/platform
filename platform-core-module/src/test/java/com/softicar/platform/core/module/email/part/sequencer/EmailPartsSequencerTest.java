@@ -1,8 +1,8 @@
 package com.softicar.platform.core.module.email.part.sequencer;
 
 import com.softicar.platform.core.module.email.part.AbstractEmailPartsTest;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMultipart;
 import org.junit.Test;
 
 public class EmailPartsSequencerTest extends AbstractEmailPartsTest {

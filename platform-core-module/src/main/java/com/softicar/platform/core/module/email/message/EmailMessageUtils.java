@@ -1,6 +1,10 @@
 package com.softicar.platform.core.module.email.message;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.ContentType;
+import jakarta.mail.internet.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,10 +12,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.ContentType;
-import javax.mail.internet.ParseException;
 
 /**
  * Some utility methods for email {@link Message}.

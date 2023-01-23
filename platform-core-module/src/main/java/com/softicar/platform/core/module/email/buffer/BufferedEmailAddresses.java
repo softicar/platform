@@ -1,9 +1,9 @@
 package com.softicar.platform.core.module.email.buffer;
 
+import jakarta.mail.Address;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
 import java.util.Collection;
-import javax.mail.Address;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 
 class BufferedEmailAddresses {
 

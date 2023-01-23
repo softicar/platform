@@ -15,6 +15,7 @@ public enum MimeType implements IMimeType {
 	APPLICATION_JSON("application/json"),
 	APPLICATION_OCTET_STREAM("application/octet-stream"),
 	APPLICATION_PDF("application/pdf", "pdf"),
+	APPLICATION_VND_MS_OUTLOOK("application/vnd.ms-outlook", "msg"),
 	APPLICATION_X_EXCEL("application/x-excel", "xls"),
 
 	AUDIO_MPEG("audio/mpeg", "mpeg", "mpg"),
@@ -27,7 +28,7 @@ public enum MimeType implements IMimeType {
 	IMAGE_PNG("image/png", "png"),
 	IMAGE_SVG_XML("image/svg+xml", "svg"),
 
-	MESSAGE_RFC822("message/rfc822"),
+	MESSAGE_RFC822("message/rfc822", "eml"),
 
 	MULTIPART_FORM_DATA("multipart/form-data"),
 

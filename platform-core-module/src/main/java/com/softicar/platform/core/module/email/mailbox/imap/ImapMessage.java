@@ -1,6 +1,10 @@
 package com.softicar.platform.core.module.email.mailbox.imap;
 
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
+import jakarta.mail.Address;
+import jakarta.mail.Message;
+import jakarta.mail.Message.RecipientType;
+import jakarta.mail.MessagingException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -9,10 +13,6 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.mail.Address;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage.RecipientType;
 
 class ImapMessage implements IMailboxMessage {
 
