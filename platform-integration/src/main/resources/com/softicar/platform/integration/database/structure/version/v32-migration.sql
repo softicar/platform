@@ -12,10 +12,12 @@ CREATE TABLE `Workflow`.`WorkflowMessageSeverity` (
 	PRIMARY KEY (`id`)
 ) COMMENT='@enum@';
 
+-- BEGIN DML
 INSERT INTO `Workflow`.`WorkflowMessageSeverity` (id,name) VALUES (1,'VERBOSE');
 INSERT INTO `Workflow`.`WorkflowMessageSeverity` (id,name) VALUES (2,'INFO');
 INSERT INTO `Workflow`.`WorkflowMessageSeverity` (id,name) VALUES (3,'WARNING');
 INSERT INTO `Workflow`.`WorkflowMessageSeverity` (id,name) VALUES (4,'ERROR');
+-- END DML
 
 ALTER TABLE `Workflow`.`WorkflowItemMessage`
 	ADD COLUMN `severity` INT NOT NULL DEFAULT '2',
