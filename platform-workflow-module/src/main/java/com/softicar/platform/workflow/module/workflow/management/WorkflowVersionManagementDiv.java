@@ -33,11 +33,13 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 	private static final Integer MIN_WIDTH = 360;
 	private static final Integer MIN_HEIGHT = 280;
 	private final AGWorkflowVersion workflowVersion;
+	private final AGWorkflowNode currentNode;
 	private List<AGWorkflowNode> workflowNodes;
 
-	public WorkflowVersionManagementDiv(AGWorkflowVersion workflowVersion) {
+	public WorkflowVersionManagementDiv(AGWorkflowVersion workflowVersion, AGWorkflowNode currentNode) {
 
 		this.workflowVersion = workflowVersion;
+		this.currentNode = currentNode;
 		addCssClass(WorkflowCssClasses.WORKFLOW_MANAGEMENT_DIV);
 		repaint();
 	}
@@ -93,7 +95,7 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 
 		workflowNodes//
 			.stream()
-			.forEach(node -> appendChild(new WorkflowNodeDisplayElement(node, this::repaint)));
+			.forEach(node -> appendChild(new WorkflowNodeDisplayElement(node, this::repaint, node == currentNode)));
 	}
 
 	private void drawStartAndEndNodes() {

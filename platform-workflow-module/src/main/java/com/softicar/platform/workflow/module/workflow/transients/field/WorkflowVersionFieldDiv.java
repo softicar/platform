@@ -21,7 +21,7 @@ public class WorkflowVersionFieldDiv extends WorkflowNodeFieldDisplay {
 
 		appendChild(
 			new DomPopupButton()//
-				.setPopupFactory(() -> new WorkflowVersionManagementPopup(workflowNode.getWorkflowVersion()))
+				.setPopupFactory(() -> new WorkflowVersionManagementPopup(workflowNode))
 				.setIcon(EmfImages.ENTITY_VIEW.getResource())
 				.setTitle(WorkflowI18n.WORKFLOW)
 				.setStyle(CssStyle.VERTICAL_ALIGN, "middle"));

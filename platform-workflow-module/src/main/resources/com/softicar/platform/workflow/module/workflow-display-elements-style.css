@@ -1,7 +1,6 @@
 .WorkflowManagementDiv {
 	position: relative;
 	resize: both;
-	overflow: auto;
 	min-width: 1024px;
 	min-height: 768px;
 }
@@ -13,6 +12,10 @@
 	box-shadow: var(--BOX_SHADOW_HEADER);
 	border: 1px solid var(--LABEL_BORDER_COLOR);
 	border-radius: var(--BORDER_RADIUS);
+}
+
+.WorkflowDisplayElement.highlighted {
+	box-shadow: 0 0 3px var(--SECONDARY_COLOR);
 }
 
 .WorkflowDisplayLine {
@@ -64,5 +67,5 @@
 }
 
 .WorkflowDisplayLinePixel.highlighted {
-	box-shadow: 0 0 3px #f44;
+	box-shadow: 0 0 3px var(--SECONDARY_COLOR);
 }

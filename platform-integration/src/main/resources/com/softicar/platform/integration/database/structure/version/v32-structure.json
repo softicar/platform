@@ -301,7 +301,7 @@
   },
   {
     "tableName": "`Workflow`.`WorkflowItemMessage`",
-    "createStatement": "CREATE TABLE `Workflow`.`WorkflowItemMessage` (`id` INT NOT NULL AUTO_INCREMENT,`workflowItem` INT NOT NULL,`transaction` BIGINT NOT NULL,`text` TEXT NOT NULL,PRIMARY KEY (`id`),KEY `workflowItem` (`workflowItem`),KEY `transaction` (`transaction`),CONSTRAINT `WorkflowItemMessage_ibfk_1` FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowItemMessage_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowItemMessage` (`id` INT NOT NULL AUTO_INCREMENT,`workflowItem` INT NOT NULL,`transaction` BIGINT NOT NULL,`text` TEXT NOT NULL,`severity` INT NOT NULL DEFAULT '2',PRIMARY KEY (`id`),KEY `workflowItem` (`workflowItem`),KEY `transaction` (`transaction`),KEY `severity` (`severity`),CONSTRAINT `WorkflowItemMessage_ibfk_1` FOREIGN KEY (`workflowItem`) REFERENCES `Workflow`.`WorkflowItem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowItemMessage_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowItemMessage_ibfk_3` FOREIGN KEY (`severity`) REFERENCES `Workflow`.`WorkflowMessageSeverity` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Workflow`.`WorkflowItem`",
@@ -310,6 +310,10 @@
   {
     "tableName": "`Workflow`.`WorkflowLog`",
     "createStatement": "CREATE TABLE `Workflow`.`WorkflowLog` (`workflow` INT NOT NULL,`transaction` BIGINT NOT NULL,`name` VARCHAR(255) DEFAULT NULL,`active` BOOL DEFAULT NULL,`currentVersion` INT DEFAULT NULL,PRIMARY KEY (`workflow`, `transaction`),KEY `transaction` (`transaction`),KEY `currentVersion` (`currentVersion`),CONSTRAINT `WorkflowLog_ibfk_1` FOREIGN KEY (`workflow`) REFERENCES `Workflow`.`Workflow` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowLog_ibfk_3` FOREIGN KEY (`currentVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowMessageSeverity`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowMessageSeverity` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
   },
   {
     "tableName": "`Workflow`.`WorkflowModuleInstance`",

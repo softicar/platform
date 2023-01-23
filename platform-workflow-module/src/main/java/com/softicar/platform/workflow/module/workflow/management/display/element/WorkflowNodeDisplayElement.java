@@ -22,11 +22,14 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 	private final AGWorkflowNode workflowNode;
 	private final INullaryVoidFunction refreshCallback;
 
-	public WorkflowNodeDisplayElement(AGWorkflowNode workflowNode, INullaryVoidFunction refreshCallback) {
+	public WorkflowNodeDisplayElement(AGWorkflowNode workflowNode, INullaryVoidFunction refreshCallback, boolean currentNode) {
 
 		this.workflowNode = workflowNode;
 		this.refreshCallback = refreshCallback;
 		addCssClass(WorkflowCssClasses.WORKFLOW_NODE);
+		if (currentNode) {
+			addCssClass(DomCssPseudoClasses.HIGHLIGHTED);
+		}
 
 		makeDraggableIfAppropriate(workflowNode);
 		setPositionStyle();

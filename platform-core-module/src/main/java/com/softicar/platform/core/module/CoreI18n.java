@@ -1188,7 +1188,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n3 VALUE_OUT_OF_RANGE_ARG1_ARG2_ARG3 = new I18n3("Value out of range [%s-%s]: '%s'")//
 		.de("Wert außerhalb des Bereichs [%s-%s]: '%s'.");
 	I18n0 VERBOSE = new I18n0("Verbose")//
-		.de("Verbose");
+		.de("Detailiert");
 	I18n0 VERSION = new I18n0("Version")//
 		.de("Version");
 	I18n0 WATCHED_DAEMONS = new I18n0("Watched Daemons")//

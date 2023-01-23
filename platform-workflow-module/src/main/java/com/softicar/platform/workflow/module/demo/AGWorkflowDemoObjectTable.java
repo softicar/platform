@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module.demo;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
+import com.softicar.platform.emf.form.section.EmfFormSectionConfiguration;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -12,6 +13,7 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.demo.approver.AGWorkflowDemoObjectApprover;
+import com.softicar.platform.workflow.module.workflow.item.history.section.WorkflowItemHistorySectionDiv;
 import com.softicar.platform.workflow.module.workflow.item.message.ShowWorkflowItemMessageAction;
 import com.softicar.platform.workflow.module.workflow.transients.field.display.WorkflowNodeFieldDisplay;
 import com.softicar.platform.workflow.module.workflow.transition.WorkflowTransitionActionFactory;
@@ -58,6 +60,12 @@ public class AGWorkflowDemoObjectTable extends EmfObjectTable<AGWorkflowDemoObje
 	public void customizeFormTabs(EmfFormTabConfiguration<AGWorkflowDemoObject> tabConfiguration) {
 
 		tabConfiguration.addManagementTab(AGWorkflowDemoObjectApprover.TABLE);
+	}
+
+	@Override
+	public void customizeFormSections(EmfFormSectionConfiguration<AGWorkflowDemoObject> sectionConfiguration) {
+
+		sectionConfiguration.addSection(WorkflowItemHistorySectionDiv::new);
 	}
 
 	@Override
