@@ -23,6 +23,12 @@ import java.util.function.Supplier;
 public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implements IEmfObject<AGWorkflowTransition> {
 
 	@Override
+	public IDisplayString toDisplay() {
+
+		return toDisplayWithoutId();
+	}
+
+	@Override
 	public IDisplayString toDisplayWithoutId() {
 
 		return IDisplayString.create(getName());

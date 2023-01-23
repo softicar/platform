@@ -41,13 +41,19 @@ public class WorkflowAutoTransitionExecutor {
 					WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
 						.toDisplay(item.toDisplayWithoutId(), Imploder.implode(transitionTitles, "\n")));
 			} else if (validTransitions.size() == 1) {
-				AGWorkflowTransition transition = validTransitions.get(0);
-				Log.finfo("Executing transition %s into target node %s.", transition.toDisplayWithoutId(), transition.getTargetNode().toDisplayWithoutId());
+				var transition = validTransitions.get(0);
+				var targetNode = transition.getTargetNode();
+				Log
+					.finfo(//
+						"Executing transition '%s' into target node '%s' for item '%s'.",
+						transition.toDisplayWithoutId(),
+						targetNode.toDisplayWithoutId(),
+						item.toDisplay());
 				transition.executeSideEffect(item);
-				new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(transition.getTargetNode());
+				new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(targetNode);
 				new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
 			} else {
-				Log.finfo("No executable auto transition found.");
+				Log.fverbose("No executable auto transition found.");
 			}
 			transaction.commit();
 		}
