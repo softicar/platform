@@ -34,6 +34,17 @@ public class PdfMergerTest extends Asserts {
 		}
 	}
 
+	@Test
+	public void testWithNoAddedPdfs() throws IOException {
+
+		var mergedPdf = new ByteArrayOutputStream();
+		new PdfMerger(() -> mergedPdf).merge();
+
+		try (var document = PDDocument.load(mergedPdf.toByteArray())) {
+			assertEquals(0, document.getNumberOfPages());
+		}
+	}
+
 	private byte[] createPdf(String...texts) {
 
 		try (var document = new PDDocument()) {

@@ -12,8 +12,9 @@ import java.util.function.Supplier;
  * {@link InputStream} objects.
  * <p>
  * This class implements {@link AutoCloseable} and guarantees the proper closing
- * of all successfully opened {@link InputStream}, as long as the {@link #close}
- * method is called, which should be done by a try-block.
+ * of all successfully opened {@link InputStream} instances, as long as the
+ * {@link #close} method is called, which should be done by a try-with-resource
+ * block.
  *
  * @author Oliver Richers
  */
@@ -27,8 +28,8 @@ public class InputStreamCollection implements AutoCloseable {
 	}
 
 	/**
-	 * Uses the given {@link Supplier} to open the {@link InputStream} and adds
-	 * it to the internal collection of all opened {@link InputStream}
+	 * Uses the given {@link Supplier} to obtain the {@link InputStream} and
+	 * adds it to the internal collection of all open {@link InputStream}
 	 * instances.
 	 *
 	 * @param supplier
@@ -60,13 +61,13 @@ public class InputStreamCollection implements AutoCloseable {
 	 *
 	 * @return all {@link InputStream} instances (never <i>null</i>)
 	 */
-	public Collection<InputStream> getAll() {
+	public Collection<InputStream> getAllInputStreams() {
 
 		return Collections.unmodifiableCollection(streams);
 	}
 
 	/**
-	 * Safely closes all opened {@link InputStream} instances.
+	 * Closes all successfully obtained {@link InputStream} instances.
 	 */
 	@Override
 	public void close() {
