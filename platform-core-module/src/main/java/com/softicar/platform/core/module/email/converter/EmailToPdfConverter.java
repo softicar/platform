@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.email.converter;
 
+import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.pdf.PdfPageRemover;
 import com.softicar.platform.core.module.email.part.chooser.EmailAlternativePartsByTypeChooser;
@@ -21,7 +22,6 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.simplejavamail.converter.EmailConverter;
@@ -99,9 +99,9 @@ public class EmailToPdfConverter {
 			String filename = entry.getKey();
 			Base64Image image = entry.getValue();
 			String inlineImage = "data:%s;base64,%s".formatted(image.getContentType(), image.getBase64Data());
-			String search = "src=\"cid:%s\"".formatted(filename);
-			String replacement = "src=\"%s\"".formatted(inlineImage);
-			htmlString = htmlString.replace(search, replacement);
+			String search = "src\\s*=\\s*['\"]cid:%s['\"]".formatted(filename);
+			String replacement = "src='%s'".formatted(inlineImage);
+			htmlString = htmlString.replaceAll(search, replacement);
 		}
 
 		renderHtml(htmlString, output);
@@ -132,20 +132,20 @@ public class EmailToPdfConverter {
 	private void render(Part part) {
 
 		try {
-			String mimeType = determineMimeType(part);
 			Object content = part.getContent();
 
-			if (mimeType.startsWith("text/")) {
+			if (part.isMimeType("text/*")) {
 				String contentString = (String) content;
 				if (part.isMimeType(MimeType.TEXT_HTML.getIdentifier())) {
 					html.append(contentString);
 				} else if (part.isMimeType(MimeType.TEXT_PLAIN.getIdentifier())) {
-					html.append("<html><body><pre>" + escapeHtml(contentString) + "</pre></body></html>");
+					html.append("<html><body><pre>" + escapePlainTextForHtml(contentString) + "</pre></body></html>");
 				}
 			}
 
-			if (mimeType.startsWith("image/")) {
+			else if (part.isMimeType("image/*")) {
 				String base64Data = getBase64Data((InputStream) content);
+				String mimeType = determineMimeType(part);
 				base64ImageMap.put(part.getFileName(), new Base64Image(mimeType, base64Data));
 			}
 
@@ -214,9 +214,9 @@ public class EmailToPdfConverter {
 	 * @return the base64 encoded content of the input stream (never
 	 *         <i>null</i>)
 	 */
-	private static String getBase64Data(InputStream imageDecoderStream) throws IOException {
+	private static String getBase64Data(InputStream imageDecoderStream) {
 
-		byte[] contentBytes = IOUtils.toByteArray(imageDecoderStream);
+		byte[] contentBytes = StreamUtils.toByteArray(imageDecoderStream);
 		return Base64.getEncoder().encodeToString(contentBytes);
 	}
 
@@ -239,15 +239,15 @@ public class EmailToPdfConverter {
 	}
 
 	/**
-	 * Escapes characters that are invalid in HTML.
+	 * In a plain text string, escapes characters that are invalid in HTML.
 	 *
-	 * @param htmlText
-	 *            the original HTML (never <i>null</i>)
-	 * @return the escaped HTML (never <i>null</i>)
+	 * @param plainText
+	 *            the plain text (never <i>null</i>)
+	 * @return the text with its characters escaped for HTML (never <i>null</i>)
 	 */
-	private static String escapeHtml(String htmlText) {
+	private static String escapePlainTextForHtml(String plainText) {
 
-		return htmlText//
+		return plainText//
 			.replace("<", "&lt;")
 			.replace(">", "&gt;")
 			.replace("&", "&amp;");

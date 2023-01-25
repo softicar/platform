@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.email.converter;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.pdf.PdfRenderer;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.common.ui.image.Images;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -59,7 +60,7 @@ public class EmailToPdfConverterTest extends AbstractTest {
 		assertEquals(1, pageImages.size());
 		assertTrue(//
 			"Failed to find pixels in the marker color of an embedded image. Assuming that the embedded image is missing from the rendered PDF document.",
-			countPixelsWithColor(pageImages.get(0), EMBEDDED_IMAGE_MARKER_COLOR) > 10);
+			Images.countPixelsWithColor(pageImages.get(0), EMBEDDED_IMAGE_MARKER_COLOR) > 10);
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -124,22 +125,5 @@ public class EmailToPdfConverterTest extends AbstractTest {
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
-	}
-
-	private long countPixelsWithColor(BufferedImage image, Color expectedColor) {
-
-		int height = image.getHeight();
-		int width = image.getWidth();
-
-		long matchingPixels = 0;
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				if (expectedColor.equals(new Color(image.getRGB(x, y)))) {
-					matchingPixels++;
-				}
-			}
-		}
-
-		return matchingPixels;
 	}
 }

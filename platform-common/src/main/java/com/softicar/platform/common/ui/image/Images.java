@@ -2,11 +2,13 @@ package com.softicar.platform.common.ui.image;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 
@@ -65,5 +67,65 @@ public class Images {
 			throw new SofticarIOException(exception);
 		}
 		return images;
+	}
+
+	/**
+	 * Determines whether all pixels in the {@link BufferedImage} have the given
+	 * {@link Color}.
+	 *
+	 * @param image
+	 *            the image to probe (never <i>null</i>)
+	 * @param expectedColor
+	 *            the color to probe with (never <i>null</i>)
+	 * @return <i>true</i> if all pixels have the given {@link Color};
+	 *         <i>false</i> otherwise
+	 */
+	public static boolean isSingleColor(BufferedImage image, Color expectedColor) {
+
+		Objects.requireNonNull(image);
+		Objects.requireNonNull(expectedColor);
+
+		int height = image.getHeight();
+		int width = image.getWidth();
+
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (!new Color(image.getRGB(x, y)).equals(expectedColor)) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Counts the number of pixels in the {@link BufferedImage} which have the
+	 * given {@link Color}.
+	 *
+	 * @param image
+	 *            the image to probe (never <i>null</i>)
+	 * @param expectedColor
+	 *            the color to probe with (never <i>null</i>)
+	 * @return the number if pixels with the given {@link Color}
+	 */
+	public static long countPixelsWithColor(BufferedImage image, Color expectedColor) {
+
+		Objects.requireNonNull(image);
+		Objects.requireNonNull(expectedColor);
+
+		int height = image.getHeight();
+		int width = image.getWidth();
+
+		long matchingPixels = 0;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (new Color(image.getRGB(x, y)).equals(expectedColor)) {
+					matchingPixels++;
+				}
+			}
+		}
+
+		return matchingPixels;
 	}
 }
