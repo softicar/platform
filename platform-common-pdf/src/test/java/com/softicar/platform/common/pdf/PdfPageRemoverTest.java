@@ -14,7 +14,7 @@ public class PdfPageRemoverTest extends AbstractTest {
 
 		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITH_TWO_LEADING_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
 
-		byte[] outputPdfBytes = new PdfPageRemover().removeLeadingBlankPages(inputPdfBytes);
+		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeLeadingBlankPages();
 
 		try (var document = PDDocument.load(outputPdfBytes)) {
 			assertEquals(1, document.getNumberOfPages());
@@ -27,7 +27,7 @@ public class PdfPageRemoverTest extends AbstractTest {
 
 		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITHOUT_LEADING_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
 
-		byte[] outputPdfBytes = new PdfPageRemover().removeLeadingBlankPages(inputPdfBytes);
+		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeLeadingBlankPages();
 
 		try (var document = PDDocument.load(outputPdfBytes)) {
 			assertEquals(3, document.getNumberOfPages());

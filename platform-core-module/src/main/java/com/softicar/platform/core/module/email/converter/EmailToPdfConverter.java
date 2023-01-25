@@ -72,8 +72,7 @@ public class EmailToPdfConverter {
 
 		var buffer = new ByteArrayOutputStream();
 		convertToPdf(message, buffer);
-		byte[] pdfBytes = buffer.toByteArray();
-		return new PdfPageRemover().removeLeadingBlankPages(pdfBytes);
+		return new PdfPageRemover(buffer.toByteArray()).removeLeadingBlankPages();
 	}
 
 	private void convertToPdf(Part message, OutputStream output) {

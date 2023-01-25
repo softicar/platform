@@ -3,7 +3,6 @@ package com.softicar.platform.common.pdf;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
-import com.softicar.platform.common.io.buffer.ByteBuffer;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +28,9 @@ public class PdfRenderer {
 	private ImageType imageType;
 	private int maxRenderingThreads;
 
+	/**
+	 * Constructs a {@link PdfRenderer}.
+	 */
 	public PdfRenderer() {
 
 		this.dpi = DEFAULT_DPI;
@@ -98,27 +100,42 @@ public class PdfRenderer {
 	 */
 	public List<BufferedImage> render(InputStream inputStream) {
 
-		byte[] bytes = new ByteBuffer(() -> inputStream).getBytes();
-
-		try (var document = PDDocument.load(bytes)) {
-			var workers = new ArrayList<PdfSinglePageRenderer>();
-			for (var page = 0; page < document.getNumberOfPages(); page++) {
-				workers.add(new PdfSinglePageRenderer(dpi, imageType, bytes, page));
-			}
-
-			var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);
-			workers.forEach(threadRunner::addRunnable);
-			do {
-				threadRunner.startThreads();
-				Sleep.sleep(Duration.ofMillis(10));
-			} while (!threadRunner.isFinished());
-
-			return workers//
-				.stream()
-				.map(PdfSinglePageRenderer::getImage)
-				.collect(Collectors.toList());
+		try (var document = PDDocument.load(inputStream)) {
+			return render(document);
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception, "Failed to render PDF.");
 		}
+
+	}
+
+	/**
+	 * Renders the pages of the PDF document into one or more
+	 * {@link BufferedImage} instances.
+	 * <p>
+	 * The given {@link PDDocument} will <b>not</b> be closed by this method.
+	 *
+	 * @param document
+	 *            the {@link PDDocument} to render; needs to be closed by the
+	 *            caller (never <i>null</i>)
+	 * @return list of rendered images; one per page (never <i>null</i>)
+	 */
+	public List<BufferedImage> render(PDDocument document) {
+
+		var workers = new ArrayList<PdfSinglePageRenderer>();
+		for (var page = 0; page < document.getNumberOfPages(); page++) {
+			workers.add(new PdfSinglePageRenderer(dpi, imageType, page, document));
+		}
+
+		var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);
+		workers.forEach(threadRunner::addRunnable);
+		do {
+			threadRunner.startThreads();
+			Sleep.sleep(Duration.ofMillis(10));
+		} while (!threadRunner.isFinished());
+
+		return workers//
+			.stream()
+			.map(PdfSinglePageRenderer::getImage)
+			.collect(Collectors.toList());
 	}
 }

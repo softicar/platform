@@ -8,7 +8,8 @@ import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
- * Renders a single page of a PDF file into a {@link BufferedImage} instance.
+ * Renders a single page of a PDF document into a {@link BufferedImage}
+ * instance.
  *
  * @author Alexander Schmidt
  */
@@ -16,16 +17,16 @@ class PdfSinglePageRenderer implements Runnable {
 
 	private final int dpi;
 	private final ImageType imageType;
-	private final byte[] bytes;
 	private final int pageIndex;
+	private final PDDocument document;
 	private volatile BufferedImage image;
 
-	public PdfSinglePageRenderer(int dpi, ImageType imageType, byte[] bytes, int pageIndex) {
+	public PdfSinglePageRenderer(int dpi, ImageType imageType, int pageIndex, PDDocument document) {
 
 		this.dpi = dpi;
 		this.imageType = imageType;
-		this.bytes = bytes;
 		this.pageIndex = pageIndex;
+		this.document = document;
 		this.image = null;
 	}
 
@@ -39,7 +40,7 @@ class PdfSinglePageRenderer implements Runnable {
 	@Override
 	public void run() {
 
-		try (var document = PDDocument.load(bytes)) {
+		try {
 			var renderer = new PDFRenderer(document);
 			renderer.setSubsamplingAllowed(true);
 			this.image = renderer.renderImageWithDPI(pageIndex, dpi, imageType);
