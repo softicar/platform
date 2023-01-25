@@ -47,9 +47,9 @@ public class EmailToPdfConverterTest extends AbstractTest {
 	}
 
 	@Test
-	public void testConvertEmlToPdfWithNonEscapedAmpersandInScriptAndBase64Images() {
+	public void testConvertEmlToPdfWithNonEscapedAmpersandInScriptAndEmbeddedImages() {
 
-		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_WITH_NON_ESCAPED_AMPERSAND_IN_SCRIPT_AND_BASE64_IMAGES);
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_NON_ESCAPED_AMPERSAND_IN_SCRIPT_AND_EMBEDDED_IMAGES);
 		assertTextInPdf(//
 			"Hope you had time to recharge.",
 			"Did you find this email helpful?",

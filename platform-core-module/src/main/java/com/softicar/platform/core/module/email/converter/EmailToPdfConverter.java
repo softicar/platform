@@ -3,7 +3,6 @@ package com.softicar.platform.core.module.email.converter;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.email.part.chooser.EmailAlternativePartsByTypeChooser;
 import com.softicar.platform.core.module.email.part.sequencer.EmailPartsSequencer;
-import com.sun.mail.util.BASE64DecoderStream;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Part;
 import jakarta.mail.internet.MimeMessage;
@@ -145,7 +144,7 @@ public class EmailToPdfConverter {
 			}
 
 			if (mimeType.startsWith("image/")) {
-				String base64Data = getBase64Data((BASE64DecoderStream) content);
+				String base64Data = getBase64Data((InputStream) content);
 				base64ImageMap.put(part.getFileName(), new Base64Image(mimeType, base64Data));
 			}
 
@@ -167,7 +166,7 @@ public class EmailToPdfConverter {
 
 		try {
 			if (message.getHeader("MIME-Version") == null) {
-				throw new RuntimeException("Expected EML format but got something else.");
+				throw new RuntimeException("Expected a message in EML format but failed to find a 'MIME-Version' header.");
 			}
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
@@ -214,7 +213,7 @@ public class EmailToPdfConverter {
 	 * @return the base64 encoded content of the input stream (never
 	 *         <i>null</i>)
 	 */
-	private static String getBase64Data(BASE64DecoderStream imageDecoderStream) throws IOException {
+	private static String getBase64Data(InputStream imageDecoderStream) throws IOException {
 
 		byte[] contentBytes = IOUtils.toByteArray(imageDecoderStream);
 		return Base64.getEncoder().encodeToString(contentBytes);
