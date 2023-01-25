@@ -3,6 +3,7 @@ package com.softicar.platform.common.pdf;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
+import com.softicar.platform.common.io.buffer.ByteBuffer;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,48 +95,44 @@ public class PdfRenderer {
 	 * The given {@link InputStream} will <b>not</b> be closed by this method.
 	 *
 	 * @param inputStream
-	 *            the {@link InputStream} providing the PDF document to render;
-	 *            needs to be closed by the caller (never <i>null</i>)
+	 *            the {@link InputStream} that provides the PDF document to
+	 *            render; needs to be closed by the caller (never <i>null</i>)
 	 * @return list of rendered images; one per page (never <i>null</i>)
 	 */
 	public List<BufferedImage> render(InputStream inputStream) {
 
-		try (var document = PDDocument.load(inputStream)) {
-			return render(document);
-		} catch (IOException exception) {
-			throw new SofticarIOException(exception, "Failed to render PDF.");
-		}
-
+		return render(new ByteBuffer(() -> inputStream).getBytes());
 	}
 
 	/**
 	 * Renders the pages of the PDF document into one or more
 	 * {@link BufferedImage} instances.
-	 * <p>
-	 * The given {@link PDDocument} will <b>not</b> be closed by this method.
 	 *
-	 * @param document
-	 *            the {@link PDDocument} to render; needs to be closed by the
-	 *            caller (never <i>null</i>)
+	 * @param pdfBytes
+	 *            the bytes of the PDF document to render (never <i>null</i>)
 	 * @return list of rendered images; one per page (never <i>null</i>)
 	 */
-	public List<BufferedImage> render(PDDocument document) {
+	public List<BufferedImage> render(byte[] pdfBytes) {
 
-		var workers = new ArrayList<PdfSinglePageRenderer>();
-		for (var page = 0; page < document.getNumberOfPages(); page++) {
-			workers.add(new PdfSinglePageRenderer(dpi, imageType, page, document));
+		try (var document = PDDocument.load(pdfBytes)) {
+			var workers = new ArrayList<PdfSinglePageRenderer>();
+			for (var page = 0; page < document.getNumberOfPages(); page++) {
+				workers.add(new PdfSinglePageRenderer(dpi, imageType, page, pdfBytes));
+			}
+
+			var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);
+			workers.forEach(threadRunner::addRunnable);
+			do {
+				threadRunner.startThreads();
+				Sleep.sleep(Duration.ofMillis(10));
+			} while (!threadRunner.isFinished());
+
+			return workers//
+				.stream()
+				.map(PdfSinglePageRenderer::getImage)
+				.collect(Collectors.toList());
+		} catch (IOException exception) {
+			throw new SofticarIOException(exception, "Failed to render PDF.");
 		}
-
-		var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);
-		workers.forEach(threadRunner::addRunnable);
-		do {
-			threadRunner.startThreads();
-			Sleep.sleep(Duration.ofMillis(10));
-		} while (!threadRunner.isFinished());
-
-		return workers//
-			.stream()
-			.map(PdfSinglePageRenderer::getImage)
-			.collect(Collectors.toList());
 	}
 }

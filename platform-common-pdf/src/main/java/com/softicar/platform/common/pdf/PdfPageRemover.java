@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
@@ -18,7 +17,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 public class PdfPageRemover {
 
 	private static final int DEFAULT_DPI = 30;
-	private final Supplier<PDDocument> documentSupplier;
+	private final byte[] pdfBytes;
 	private int dpi;
 
 	/**
@@ -29,19 +28,7 @@ public class PdfPageRemover {
 	 */
 	public PdfPageRemover(byte[] pdfBytes) {
 
-		this(() -> createDocument(pdfBytes));
-	}
-
-	/**
-	 * Constructs a {@link PdfPageRemover}.
-	 *
-	 * @param documentSupplier
-	 *            a {@link Supplier} of an {@link PDDocument} (never
-	 *            <i>null</i>)
-	 */
-	public PdfPageRemover(Supplier<PDDocument> documentSupplier) {
-
-		this.documentSupplier = documentSupplier;
+		this.pdfBytes = pdfBytes;
 		this.dpi = DEFAULT_DPI;
 	}
 
@@ -71,8 +58,8 @@ public class PdfPageRemover {
 	 */
 	public byte[] removeBlankPages() {
 
-		try (var document = documentSupplier.get()) {
-			determineBlankPageIndexes(document)//
+		try (var document = PDDocument.load(pdfBytes)) {
+			determineBlankPageIndexes(dpi, pdfBytes)//
 				.stream()
 				.sorted(Collections.reverseOrder())
 				.forEach(document::removePage);
@@ -84,10 +71,10 @@ public class PdfPageRemover {
 		}
 	}
 
-	private ArrayList<Integer> determineBlankPageIndexes(PDDocument document) {
+	private static List<Integer> determineBlankPageIndexes(int dpi, byte[] pdfBytes) {
 
 		var blankPageIndexes = new ArrayList<Integer>();
-		List<BufferedImage> pageImages = new PdfRenderer().setDpi(dpi).render(document);
+		List<BufferedImage> pageImages = new PdfRenderer().setDpi(dpi).render(pdfBytes);
 		for (int pageIndex = 0; pageIndex < pageImages.size(); pageIndex++) {
 			BufferedImage image = pageImages.get(pageIndex);
 			if (isBlank(image)) {
@@ -97,7 +84,7 @@ public class PdfPageRemover {
 		return blankPageIndexes;
 	}
 
-	private boolean isBlank(BufferedImage image) {
+	private static boolean isBlank(BufferedImage image) {
 
 		int height = image.getHeight();
 		int width = image.getWidth();
@@ -111,14 +98,5 @@ public class PdfPageRemover {
 		}
 
 		return true;
-	}
-
-	private static PDDocument createDocument(byte[] pdfBytes) {
-
-		try {
-			return PDDocument.load(pdfBytes);
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
-		}
 	}
 }

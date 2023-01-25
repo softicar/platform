@@ -18,15 +18,15 @@ class PdfSinglePageRenderer implements Runnable {
 	private final int dpi;
 	private final ImageType imageType;
 	private final int pageIndex;
-	private final PDDocument document;
+	private final byte[] pdfBytes;
 	private volatile BufferedImage image;
 
-	public PdfSinglePageRenderer(int dpi, ImageType imageType, int pageIndex, PDDocument document) {
+	public PdfSinglePageRenderer(int dpi, ImageType imageType, int pageIndex, byte[] pdfBytes) {
 
 		this.dpi = dpi;
 		this.imageType = imageType;
 		this.pageIndex = pageIndex;
-		this.document = document;
+		this.pdfBytes = pdfBytes;
 		this.image = null;
 	}
 
@@ -40,7 +40,7 @@ class PdfSinglePageRenderer implements Runnable {
 	@Override
 	public void run() {
 
-		try {
+		try (var document = PDDocument.load(pdfBytes)) {
 			var renderer = new PDFRenderer(document);
 			renderer.setSubsamplingAllowed(true);
 			this.image = renderer.renderImageWithDPI(pageIndex, dpi, imageType);
