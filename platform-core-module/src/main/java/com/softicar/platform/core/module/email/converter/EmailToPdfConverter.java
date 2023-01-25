@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.email.converter;
 
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.pdf.PdfPageRemover;
 import com.softicar.platform.core.module.email.part.chooser.EmailAlternativePartsByTypeChooser;
 import com.softicar.platform.core.module.email.part.sequencer.EmailPartsSequencer;
 import jakarta.mail.MessagingException;
@@ -71,7 +72,7 @@ public class EmailToPdfConverter {
 
 		var buffer = new ByteArrayOutputStream();
 		convertToPdf(message, buffer);
-		return buffer.toByteArray();
+		return new PdfPageRemover(buffer.toByteArray()).removeBlankPages();
 	}
 
 	private void convertToPdf(Part message, OutputStream output) {

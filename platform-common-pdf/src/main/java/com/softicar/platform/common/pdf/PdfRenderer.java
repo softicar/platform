@@ -29,6 +29,9 @@ public class PdfRenderer {
 	private ImageType imageType;
 	private int maxRenderingThreads;
 
+	/**
+	 * Constructs a {@link PdfRenderer}.
+	 */
 	public PdfRenderer() {
 
 		this.dpi = DEFAULT_DPI;
@@ -92,18 +95,29 @@ public class PdfRenderer {
 	 * The given {@link InputStream} will <b>not</b> be closed by this method.
 	 *
 	 * @param inputStream
-	 *            the {@link InputStream} providing the PDF document to render;
-	 *            needs to be closed by the caller (never <i>null</i>)
+	 *            the {@link InputStream} that provides the PDF document to
+	 *            render; needs to be closed by the caller (never <i>null</i>)
 	 * @return list of rendered images; one per page (never <i>null</i>)
 	 */
 	public List<BufferedImage> render(InputStream inputStream) {
 
-		byte[] bytes = new ByteBuffer(() -> inputStream).getBytes();
+		return render(new ByteBuffer(() -> inputStream).getBytes());
+	}
 
-		try (var document = PDDocument.load(bytes)) {
+	/**
+	 * Renders the pages of the PDF document into one or more
+	 * {@link BufferedImage} instances.
+	 *
+	 * @param pdfBytes
+	 *            the bytes of the PDF document to render (never <i>null</i>)
+	 * @return list of rendered images; one per page (never <i>null</i>)
+	 */
+	public List<BufferedImage> render(byte[] pdfBytes) {
+
+		try (var document = PDDocument.load(pdfBytes)) {
 			var workers = new ArrayList<PdfSinglePageRenderer>();
 			for (var page = 0; page < document.getNumberOfPages(); page++) {
-				workers.add(new PdfSinglePageRenderer(dpi, imageType, bytes, page));
+				workers.add(new PdfSinglePageRenderer(dpi, imageType, page, pdfBytes));
 			}
 
 			var threadRunner = new LimitedThreadRunner<PdfSinglePageRenderer>(maxRenderingThreads);

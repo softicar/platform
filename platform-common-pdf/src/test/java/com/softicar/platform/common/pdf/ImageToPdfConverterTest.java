@@ -8,12 +8,10 @@ import org.junit.Test;
 
 public class ImageToPdfConverterTest extends Asserts {
 
-	private static final String MULTI_IMAGE_TIF = "multi-image.tif";
-
 	@Test
 	public void testConvertToPdf() throws IOException {
 
-		var pdfBytes = new ImageToPdfConverter(() -> getClass().getResourceAsStream(MULTI_IMAGE_TIF)).convertToPdf();
+		var pdfBytes = new ImageToPdfConverter(PdfTestFiles.TIF_MULTI_IMAGE.getResource()::getResourceAsStream).convertToPdf();
 
 		try (var pdfDocument = PDDocument.load(pdfBytes)) {
 			assertEquals(3, pdfDocument.getNumberOfPages());
