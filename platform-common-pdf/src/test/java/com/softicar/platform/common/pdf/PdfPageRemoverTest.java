@@ -10,28 +10,28 @@ import org.junit.Test;
 public class PdfPageRemoverTest extends AbstractTest {
 
 	@Test
-	public void testRemoveLeadingBlankPagesWithLeadingBlankPages() throws IOException {
+	public void testRemoveBlankPagesWithBlankPages() throws IOException {
 
-		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITH_TWO_LEADING_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
+		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITH_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
 
-		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeLeadingBlankPages();
+		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeBlankPages();
 
 		try (var document = PDDocument.load(outputPdfBytes)) {
-			assertEquals(1, document.getNumberOfPages());
-			assertEquals("Third page\n", new PDFTextStripper().getText(document));
+			assertEquals(2, document.getNumberOfPages());
+			assertEquals("Third page\nFifth page\n", new PDFTextStripper().getText(document));
 		}
 	}
 
 	@Test
-	public void testRemoveLeadingBlankPagesWithoutLeadingBlankPages() throws IOException {
+	public void testRemoveBlankPagesWithoutBlankPages() throws IOException {
 
-		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITHOUT_LEADING_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
+		byte[] inputPdfBytes = new ByteBuffer(PdfTestFiles.PDF_WITHOUT_BLANK_PAGES.getResource()::getResourceAsStream).getBytes();
 
-		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeLeadingBlankPages();
+		byte[] outputPdfBytes = new PdfPageRemover(inputPdfBytes).removeBlankPages();
 
 		try (var document = PDDocument.load(outputPdfBytes)) {
-			assertEquals(3, document.getNumberOfPages());
-			assertEquals("First page\nSecond page\nThird page\n", new PDFTextStripper().getText(document));
+			assertEquals(5, document.getNumberOfPages());
+			assertEquals("First page\nSecond page\nThird page\nFourth page\nFifth page\n", new PDFTextStripper().getText(document));
 		}
 	}
 }

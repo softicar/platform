@@ -64,13 +64,12 @@ public class PdfPageRemover {
 	}
 
 	/**
-	 * Identifies all consecutive leading blank pages in the original PDF, and
-	 * returns a new PDF byte array in which those leading blank pages are
-	 * omitted.
+	 * Identifies all blank pages in the original PDF, and returns a new PDF
+	 * byte array in which those blank pages are omitted.
 	 *
 	 * @return the resulting PDF, as a byte array (never <i>null</i>)
 	 */
-	public byte[] removeLeadingBlankPages() {
+	public byte[] removeBlankPages() {
 
 		try (var document = documentSupplier.get()) {
 			determineBlankPageIndexes(document)//

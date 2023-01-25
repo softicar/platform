@@ -10,7 +10,7 @@ public interface PdfTestFiles {
 
 	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(PdfTestFiles.class);
 
-	IResourceSupplier PDF_WITH_TWO_LEADING_BLANK_PAGES = FACTORY.create("pdf-with-two-leading-blank-pages.pdf");
-	IResourceSupplier PDF_WITHOUT_LEADING_BLANK_PAGES = FACTORY.create("pdf-without-leading-blank-pages.pdf");
+	IResourceSupplier PDF_WITH_BLANK_PAGES = FACTORY.create("pdf-with-blank-pages.pdf");
+	IResourceSupplier PDF_WITHOUT_BLANK_PAGES = FACTORY.create("pdf-without-blank-pages.pdf");
 	IResourceSupplier TIF_MULTI_IMAGE = FACTORY.create("tif-multi-image.tif");
 }
