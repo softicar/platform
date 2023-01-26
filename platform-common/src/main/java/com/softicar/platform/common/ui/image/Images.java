@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 /**
  * Convenience methods for {@link ImageIO}.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class Images {
@@ -90,7 +91,7 @@ public class Images {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (!new Color(image.getRGB(x, y)).equals(expectedColor)) {
+				if (image.getRGB(x, y) != expectedColor.getRGB()) {
 					return false;
 				}
 			}
@@ -120,7 +121,7 @@ public class Images {
 		long matchingPixels = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (new Color(image.getRGB(x, y)).equals(expectedColor)) {
+				if (image.getRGB(x, y) == expectedColor.getRGB()) {
 					matchingPixels++;
 				}
 			}
