@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.constant.container.field.ConstantContai
 import com.softicar.platform.common.core.constant.container.field.IConstantContainerField;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.key.IResourceKey;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,20 @@ public interface IResourceSupplier {
 	 * @return the {@link IResourceKey} (never <i>null</i>)
 	 */
 	IResourceKey getResourceKey();
+
+	/**
+	 * Returns the resource as an input stream.
+	 * <p>
+	 * When the resource is requested, the complete data returned by this input
+	 * stream is sent to the requester.
+	 *
+	 * @return input stream with the content of the resource (may be
+	 *         <i>null</i>)
+	 */
+	default InputStream getResourceAsStream() {
+
+		return getResource().getResourceAsStream();
+	}
 
 	/**
 	 * Returns all {@link IResourceSupplier} that are in a given interface.

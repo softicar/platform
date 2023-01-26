@@ -1,5 +1,6 @@
 package com.softicar.platform.common.pdf;
 
+import com.softicar.platform.common.ui.image.Images;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -77,26 +78,10 @@ public class PdfPageRemover {
 		List<BufferedImage> pageImages = new PdfRenderer().setDpi(dpi).render(pdfBytes);
 		for (int pageIndex = 0; pageIndex < pageImages.size(); pageIndex++) {
 			BufferedImage image = pageImages.get(pageIndex);
-			if (isBlank(image)) {
+			if (Images.isSingleColor(image, Color.WHITE)) {
 				blankPageIndexes.add(pageIndex);
 			}
 		}
 		return blankPageIndexes;
-	}
-
-	private static boolean isBlank(BufferedImage image) {
-
-		int height = image.getHeight();
-		int width = image.getWidth();
-
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				if (!new Color(image.getRGB(x, y)).equals(Color.WHITE)) {
-					return false;
-				}
-			}
-		}
-
-		return true;
 	}
 }

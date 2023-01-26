@@ -1,13 +1,22 @@
 package com.softicar.platform.core.module.email.converter;
 
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
+import com.softicar.platform.common.pdf.PdfRenderer;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.common.ui.image.Images;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 
 public class EmailToPdfConverterTest extends AbstractTest {
+
+	private static final int FAST_RENDERING_DPI = 30;
+	private static final Color EMBEDDED_IMAGE_MARKER_COLOR = new Color(255, 0, 151);
 
 	private final EmailToPdfConverter converter;
 	private byte[] pdfBytes;
@@ -36,6 +45,22 @@ public class EmailToPdfConverterTest extends AbstractTest {
 			"Hi,",
 			"this is a plain text email.",
 			"Bye.");
+	}
+
+	@Test
+	public void testConvertEmlToPdfWithNonEscapedAmpersandInScriptAndEmbeddedImages() {
+
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_NON_ESCAPED_AMPERSAND_IN_SCRIPT_AND_EMBEDDED_IMAGES);
+		assertTextInPdf(//
+			"Hope you had time to recharge.",
+			"Did you find this email helpful?",
+			"This is a mandatory service communication.");
+
+		List<BufferedImage> pageImages = new PdfRenderer().setDpi(FAST_RENDERING_DPI).render(new ByteArrayInputStream(pdfBytes));
+		assertEquals(1, pageImages.size());
+		assertTrue(//
+			"Failed to find pixels in the marker color of an embedded image. Assuming that the embedded image is missing from the rendered PDF document.",
+			Images.countPixelsWithColor(pageImages.get(0), EMBEDDED_IMAGE_MARKER_COLOR) > 10);
 	}
 
 	@Test(expected = RuntimeException.class)

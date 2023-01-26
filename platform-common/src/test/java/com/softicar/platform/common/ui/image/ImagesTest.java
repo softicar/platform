@@ -1,33 +1,25 @@
 package com.softicar.platform.common.ui.image;
 
+import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.testing.Asserts;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
 import org.junit.Test;
 
 public class ImagesTest extends Asserts {
 
-	private static final String IMAGE_300x150_JPG = "image300x150.jpg";
-	private static final String IMAGE_350x200_PNG = "image350x200.png";
-	private static final String IMAGE_400x200_TIF = "image400x200.tif";
-	private static final String MULTI_IMAGE_TIF = "multi-image.tif";
-
 	@Test
 	public void testReadImage() {
 
-		assertImage(300, 150, 0xFF9D7400, readImage(IMAGE_300x150_JPG));
-		assertImage(350, 200, 0xFF10900C, readImage(IMAGE_350x200_PNG));
-		assertImage(400, 200, 0xFFCD4990, readImage(IMAGE_400x200_TIF));
+		assertImage(300, 150, 0xFF9D7400, readImage(ImagesTestFiles.JPG_IMAGE_300X150));
+		assertImage(350, 200, 0xFF10900C, readImage(ImagesTestFiles.PNG_IMAGE_350X200));
+		assertImage(400, 200, 0xFFCD4990, readImage(ImagesTestFiles.TIF_IMAGE_400X200));
 	}
 
 	@Test
 	public void testReadImages() {
 
-		var images = Images.readImages(() -> getClass().getResourceAsStream(MULTI_IMAGE_TIF));
+		var images = Images.readImages(() -> ImagesTestFiles.TIF_MULTI_IMAGE.getResourceAsStream());
 
 		assertNotNull(images);
 		assertEquals(3, images.size());
@@ -36,9 +28,43 @@ public class ImagesTest extends Asserts {
 		assertImage(400, 200, 0xFFCD4990, images.get(2));
 	}
 
-	private BufferedImage readImage(String name) {
+	@Test
+	public void testIsSingleColor() {
 
-		return Images.readImage(() -> getClass().getResourceAsStream(name));
+		Color expectedColor = new Color(16, 144, 12);
+		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200_SINGLE_COLOR);
+		assertTrue(Images.isSingleColor(image, expectedColor));
+	}
+
+	@Test
+	public void testIsSingleColorWithNonMatchingColor() {
+
+		Color expectedColor = new Color(255, 255, 255);
+		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200_SINGLE_COLOR);
+		assertFalse(Images.isSingleColor(image, expectedColor));
+	}
+
+	@Test
+	public void testIsSingleColorWithMultiColorImage() {
+
+		Color expectedColor = new Color(16, 144, 12);
+		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200);
+		assertFalse(Images.isSingleColor(image, expectedColor));
+	}
+
+	@Test
+	public void testCountPixelsWithColor() {
+
+		Color backgroundColor = new Color(16, 144, 12);
+		Color textColor = new Color(185, 124, 46);
+		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200);
+		assertEquals(63165, Images.countPixelsWithColor(image, backgroundColor));
+		assertEquals(3067, Images.countPixelsWithColor(image, textColor));
+	}
+
+	private BufferedImage readImage(IResourceSupplier resourceSupplier) {
+
+		return Images.readImage(resourceSupplier::getResourceAsStream);
 	}
 
 	private void assertImage(int expectedWidth, int expectedHeight, int expectedColor, BufferedImage image) {
@@ -47,28 +73,5 @@ public class ImagesTest extends Asserts {
 		assertEquals(expectedColor, image.getRGB(0, 0));
 		assertEquals("width", expectedWidth, image.getWidth());
 		assertEquals("height", expectedHeight, image.getHeight());
-	}
-
-	public static void main(String[] args) throws IOException {
-
-		var image1 = Images.readImage(() -> ImagesTest.class.getResourceAsStream(IMAGE_300x150_JPG));
-		var image2 = Images.readImage(() -> ImagesTest.class.getResourceAsStream(IMAGE_350x200_PNG));
-		var image3 = Images.readImage(() -> ImagesTest.class.getResourceAsStream(IMAGE_400x200_TIF));
-
-		var writers = ImageIO.getImageWritersByFormatName("tif");
-		if (writers.hasNext()) {
-			var writer = writers.next();
-			try (var output = ImageIO.createImageOutputStream(new File("/home/richers/tmp/multi-image.tif"))) {
-				writer.setOutput(output);
-				ImageWriteParam params = writer.getDefaultWriteParam();
-				params.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-				params.setCompressionType("Deflate");
-				writer.prepareWriteSequence(null);
-				writer.writeToSequence(new IIOImage(image1, null, null), params);
-				writer.writeToSequence(new IIOImage(image2, null, null), params);
-				writer.writeToSequence(new IIOImage(image3, null, null), params);
-				writer.endWriteSequence();
-			}
-		}
 	}
 }
