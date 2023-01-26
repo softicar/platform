@@ -2,10 +2,12 @@ package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.email.converter.EmailToPdfConverter;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Facilitates conversion of {@link AGStoredFile} records.
@@ -14,10 +16,10 @@ import java.util.function.Function;
  */
 public class StoredFileConverter {
 
-	private static final Map<MimeType, Function<AGStoredFile, byte[]>> CONVERTERS = Map
+	private static final Map<MimeType, Function<Supplier<InputStream>, byte[]>> CONVERTERS = Map
 		.ofEntries(//
-			Map.entry(MimeType.MESSAGE_RFC822, file -> new EmailToPdfConverter().convertEmlToPdf(file::getFileContentInputStream)),
-			Map.entry(MimeType.APPLICATION_VND_MS_OUTLOOK, file -> new EmailToPdfConverter().convertMsgToPdf(file::getFileContentInputStream))
+			Map.entry(MimeType.MESSAGE_RFC822, new EmailToPdfConverter()::convertEmlToPdf),
+			Map.entry(MimeType.APPLICATION_VND_MS_OUTLOOK, new EmailToPdfConverter()::convertMsgToPdf)
 		//
 		);
 	private final AGStoredFile file;
@@ -47,7 +49,7 @@ public class StoredFileConverter {
 	public Optional<byte[]> toPdfBytes() {
 
 		Objects.requireNonNull(file);
-		return getConverterFunction().map(it -> it.apply(file));
+		return getConverterFunction().map(it -> it.apply(file::getFileContentInputStream));
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class StoredFileConverter {
 		return getConverterFunction().isPresent();
 	}
 
-	private Optional<Function<AGStoredFile, byte[]>> getConverterFunction() {
+	private Optional<Function<Supplier<InputStream>, byte[]>> getConverterFunction() {
 
 		return CONVERTERS//
 			.entrySet()
