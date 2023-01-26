@@ -29,7 +29,7 @@ public class StoredFileEmailPreviewPopup extends AbstractStoredFilePreviewPopup 
 		public PdfTab(AGStoredFile file) {
 
 			super(CoreI18n.PDF);
-			file.convert().fromEmailToPdfBytes().ifPresentOrElse(this::appendPdfDisplay, this::appendFailureMessage);
+			file.convert().toPdfBytes().ifPresentOrElse(this::appendPdfDisplay, this::appendFailureMessage);
 		}
 
 		private void appendPdfDisplay(byte[] pdfBytes) {
