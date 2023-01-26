@@ -24,7 +24,7 @@ project.ext {
 		commonsNet: "3.9.0",
 		commonsText: "1.10.0",
 		flyingSaucerPdf: "9.1.22",
-		gson: "2.8.9",
+		gson: "2.10.1",
 		guava: "31.1-jre",
 		h2: "2.1.214",
 		hikariCp: "5.0.1",
