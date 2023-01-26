@@ -70,7 +70,7 @@ public class StoredFileConverter {
 			.entrySet()
 			.stream()
 			.filter(entry -> file.hasMimeTypeOrExtension(entry.getKey()))
-			.findFirst()
+			.findAny()
 			.map(entry -> entry.getValue());
 	}
 }
