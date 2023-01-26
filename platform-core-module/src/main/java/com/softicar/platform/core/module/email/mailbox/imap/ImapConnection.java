@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.email.mailbox.imap;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
-import jakarta.mail.Flags;
+import com.sun.mail.imap.IMAPFolder;
 import jakarta.mail.Folder;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -57,11 +57,12 @@ class ImapConnection implements IMailboxConnection {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public void moveMessageTo(Message message, String targetFolderName) {
 
 		try {
-			copyMessageTo(message, targetFolderName);
-			message.setFlag(Flags.Flag.DELETED, true);
+			var imapFolder = (IMAPFolder) getOpenFolder(message.getFolder().getFullName());
+			imapFolder.moveMessages(new Message[] { message }, getOpenFolder(targetFolderName));
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}

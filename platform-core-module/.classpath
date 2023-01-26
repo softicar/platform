@@ -28,7 +28,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15/">
 		<accessrules>
-			<accessrule kind="nonaccessible" pattern="com/sun/**"/>
 			<accessrule kind="nonaccessible" pattern="java/applet/**"/>
 			<accessrule kind="nonaccessible" pattern="java/awt/List"/>
 			<accessrule kind="nonaccessible" pattern="javax/swing/**"/>
