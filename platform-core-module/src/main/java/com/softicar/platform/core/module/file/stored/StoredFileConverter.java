@@ -18,7 +18,7 @@ public class StoredFileConverter {
 	 * Constructs a new {@link StoredFileConverter}.
 	 *
 	 * @param file
-	 *            the {@link AGStoredFile} to convert(never <i>null</i>)
+	 *            the {@link AGStoredFile} to convert (never <i>null</i>)
 	 */
 	public StoredFileConverter(AGStoredFile file) {
 
@@ -33,9 +33,6 @@ public class StoredFileConverter {
 	 * <li>EML</li>
 	 * <li>MSG</li>
 	 * </ul>
-	 * If the {@link AGStoredFile} format is not recognized,
-	 * {@link Optional#empty()} is returned. In that case,
-	 * {@link #isConvertibleToPdf()} is guaranteed to return <i>false</i>.
 	 *
 	 * @return the PDF byte array
 	 */
