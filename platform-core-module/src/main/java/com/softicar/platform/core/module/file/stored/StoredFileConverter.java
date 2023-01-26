@@ -2,8 +2,12 @@ package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.email.converter.EmailToPdfConverter;
+import java.io.InputStream;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Facilitates conversion of {@link AGStoredFile} records.
@@ -12,6 +16,12 @@ import java.util.Optional;
  */
 public class StoredFileConverter {
 
+	private static final Map<MimeType, Function<Supplier<InputStream>, byte[]>> CONVERTERS = Map
+		.ofEntries(//
+			Map.entry(MimeType.MESSAGE_RFC822, new EmailToPdfConverter()::convertEmlToPdf),
+			Map.entry(MimeType.APPLICATION_VND_MS_OUTLOOK, new EmailToPdfConverter()::convertMsgToPdf)
+		//
+		);
 	private final AGStoredFile file;
 
 	/**
@@ -39,18 +49,7 @@ public class StoredFileConverter {
 	public Optional<byte[]> toPdfBytes() {
 
 		Objects.requireNonNull(file);
-
-		if (isEmlEmail()) {
-			return Optional.of(new EmailToPdfConverter().convertEmlToPdf(file::getFileContentInputStream));
-		}
-
-		else if (isMsgEmail()) {
-			return Optional.of(new EmailToPdfConverter().convertMsgToPdf(file::getFileContentInputStream));
-		}
-
-		else {
-			return Optional.empty();
-		}
+		return getConverterFunction().map(it -> it.apply(file::getFileContentInputStream));
 	}
 
 	/**
@@ -62,16 +61,16 @@ public class StoredFileConverter {
 	 */
 	public boolean isConvertibleToPdf() {
 
-		return isEmlEmail() || isMsgEmail();
+		return getConverterFunction().isPresent();
 	}
 
-	private boolean isEmlEmail() {
+	private Optional<Function<Supplier<InputStream>, byte[]>> getConverterFunction() {
 
-		return file.hasMimeType(MimeType.MESSAGE_RFC822) || file.hasFileNameExtension("eml");
-	}
-
-	private boolean isMsgEmail() {
-
-		return file.hasMimeType(MimeType.APPLICATION_VND_MS_OUTLOOK) || file.hasFileNameExtension("msg");
+		return CONVERTERS//
+			.entrySet()
+			.stream()
+			.filter(entry -> file.hasMimeTypeOrExtension(entry.getKey()))
+			.findAny()
+			.map(entry -> entry.getValue());
 	}
 }
