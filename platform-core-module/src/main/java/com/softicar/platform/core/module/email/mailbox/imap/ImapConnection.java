@@ -1,7 +1,6 @@
 package com.softicar.platform.core.module.email.mailbox.imap;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
-import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
 import com.sun.mail.imap.IMAPFolder;
@@ -62,8 +61,7 @@ class ImapConnection implements IMailboxConnection {
 	public void moveMessageTo(Message message, String targetFolderName) {
 
 		try {
-			Folder folder = getOpenFolder(message.getFolder().getFullName());
-			IMAPFolder imapFolder = CastUtils.cast(folder);
+			var imapFolder = (IMAPFolder) getOpenFolder(message.getFolder().getFullName());
 			imapFolder.moveMessages(new Message[] { message }, getOpenFolder(targetFolderName));
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
