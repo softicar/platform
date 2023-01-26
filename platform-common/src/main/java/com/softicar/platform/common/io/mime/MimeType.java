@@ -1,9 +1,12 @@
 
 package com.softicar.platform.common.io.mime;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Enumeration of common MIME types.
@@ -42,10 +45,24 @@ public enum MimeType implements IMimeType {
 	//
 	;
 
+	private static final Set<String> SUFFIXES = new TreeSet<>();
 	private static final MimeType DEFAULT_MIME_TYPE = APPLICATION_OCTET_STREAM;
 	private String superType;
 	private String subType;
 	private Collection<String> filenameSuffixes;
+
+	static {
+		Arrays//
+			.asList(values())
+			.stream()
+			.map(MimeType::getFilenameSuffixes)
+			.flatMap(Collection::stream)
+			.forEach(suffix -> {
+				if (!SUFFIXES.add(suffix)) {
+					throw new IllegalArgumentException("Tried to register suffix '%s' for different mime types.".formatted(suffix));
+				}
+			});
+	}
 
 	private MimeType(String identifier, String...filenameSuffixes) {
 

@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.io.mime.CustomMimeType;
 import com.softicar.platform.common.io.mime.IMimeType;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.file.stored.chunk.AGStoredFileChunk;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentInputStreamCreator;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentOutputStreamCreator;
@@ -136,8 +137,8 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	}
 
 	/**
-	 * Determines whether the content type of this {@link AGStoredFile} matches
-	 * the given {@link IMimeType}.
+	 * Determines whether {@link AGStoredFile#getContentType()} matches the
+	 * given {@link IMimeType}.
 	 * <p>
 	 * The comparison is case-insensitive.
 	 *
@@ -161,10 +162,31 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	 *            the file name extension (never <i>null</i>)
 	 * @return <i>true</i> if this {@link AGStoredFile} has the given extension;
 	 *         <i>false</i> otherwise
+	 * @throws IllegalArgumentException
+	 *             if the given extension is blank
 	 */
 	public boolean hasFileNameExtension(String extension) {
 
-		return getFileName().toLowerCase().endsWith("." + extension.toLowerCase());
+		if (extension.isBlank()) {
+			throw new IllegalArgumentException();
+		}
+		return getFileName().toLowerCase().endsWith("." + extension.trim().toLowerCase());
+	}
+
+	/**
+	 * Determines whether {@link AGStoredFile#getContentType()} matches the
+	 * given {@link MimeType} <b>and/or</b> the name of this
+	 * {@link AGStoredFile} ends with one of the file name extensions associated
+	 * with the given {@link MimeType}.
+	 *
+	 * @param mimeType
+	 *            the {@link MimeType} to check against (never <i>null</i>)
+	 * @return <i>true</i> if the mime type and/or file name extension matches;
+	 *         <i>false</i> otherwise
+	 */
+	public boolean hasMimeTypeOrExtension(MimeType mimeType) {
+
+		return hasMimeType(mimeType) || mimeType.getFilenameSuffixes().stream().anyMatch(this::hasFileNameExtension);
 	}
 
 	/**

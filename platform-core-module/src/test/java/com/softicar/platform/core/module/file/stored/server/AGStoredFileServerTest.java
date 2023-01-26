@@ -51,7 +51,7 @@ public class AGStoredFileServerTest extends AbstractDbTest {
 
 		insertStoredFileServer("first");
 		this.primaryServer = insertStoredFileServer("primary");
-		AGCoreModuleInstance.getInstance().setPrimaryFileServer(primaryServer);
+		AGCoreModuleInstance.getInstance().setPrimaryFileServer(primaryServer).save();
 		insertStoredFileServer("junk1");
 		insertStoredFileServer("junk2");
 		insertStoredFileServer("inactive").setActive(false).save();
