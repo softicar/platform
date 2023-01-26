@@ -7,8 +7,6 @@ import java.util.Optional;
 
 /**
  * Facilitates conversion of {@link AGStoredFile} records.
- * <p>
- * Instantiated via {@link AGStoredFile#convert()}
  *
  * @author Alexander Schmidt
  */
@@ -20,38 +18,60 @@ public class StoredFileConverter {
 	 * Constructs a new {@link StoredFileConverter}.
 	 *
 	 * @param file
-	 *            the {@link AGStoredFile} to convert(never <i>null</i>)
+	 *            the {@link AGStoredFile} to convert (never <i>null</i>)
 	 */
-	StoredFileConverter(AGStoredFile file) {
+	public StoredFileConverter(AGStoredFile file) {
 
 		this.file = Objects.requireNonNull(file);
 	}
 
 	/**
-	 * Converts an email {@link AGStoredFile} to a PDF byte array.
+	 * Converts an {@link AGStoredFile} to a PDF byte array.
 	 * <p>
-	 * Supports EML and MSG as input formats.
-	 * <p>
-	 * If no conversion strategy can be identified for the {@link AGStoredFile},
-	 * {@link Optional#empty()} is returned.
+	 * Supports the following {@link AGStoredFile} formats:
+	 * <ul>
+	 * <li>EML</li>
+	 * <li>MSG</li>
+	 * </ul>
 	 *
 	 * @return the PDF byte array
 	 */
-	public Optional<byte[]> fromEmailToPdfBytes() {
+	public Optional<byte[]> toPdfBytes() {
 
 		Objects.requireNonNull(file);
-		var converter = new EmailToPdfConverter();
 
-		if (file.hasMimeType(MimeType.MESSAGE_RFC822) || file.hasFileNameExtension("eml")) {
-			return Optional.of(converter.convertEmlToPdf(file::getFileContentInputStream));
+		if (isEmlEmail()) {
+			return Optional.of(new EmailToPdfConverter().convertEmlToPdf(file::getFileContentInputStream));
 		}
 
-		else if (file.hasMimeType(MimeType.APPLICATION_VND_MS_OUTLOOK) || file.hasFileNameExtension("msg")) {
-			return Optional.of(converter.convertMsgToPdf(file::getFileContentInputStream));
+		else if (isMsgEmail()) {
+			return Optional.of(new EmailToPdfConverter().convertMsgToPdf(file::getFileContentInputStream));
 		}
 
 		else {
 			return Optional.empty();
 		}
+	}
+
+	/**
+	 * Determines whether this {@link StoredFileConverter} can convert the
+	 * {@link AGStoredFile} to PDF.
+	 *
+	 * @return <i>true</i> if the {@link AGStoredFile} is convertible;
+	 *         <i>false</i> otherwise
+	 */
+	public boolean isConvertibleToPdf() {
+
+		return isEmlEmail() || isMsgEmail();
+	}
+
+	private boolean isEmlEmail() {
+
+		return file.hasMimeType(MimeType.MESSAGE_RFC822) || file.hasFileNameExtension("eml");
+	}
+
+	private boolean isMsgEmail() {
+
+		return file.hasMimeType(MimeType.APPLICATION_VND_MS_OUTLOOK) || file.hasFileNameExtension("msg");
 	}
 }
