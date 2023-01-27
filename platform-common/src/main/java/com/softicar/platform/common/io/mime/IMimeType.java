@@ -3,6 +3,7 @@ package com.softicar.platform.common.io.mime;
 /**
  * Interface for media type descriptions.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public interface IMimeType {
