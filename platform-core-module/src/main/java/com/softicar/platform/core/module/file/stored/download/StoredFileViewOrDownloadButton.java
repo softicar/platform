@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.mime.IMimeType;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.string.binary.BinaryOrTextDiscriminator;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
@@ -74,10 +75,18 @@ public class StoredFileViewOrDownloadButton extends DomButton {
 
 	private String getMimeTypeIdentifier(StoredFileResource resource) {
 
-		return Optional//
-			.ofNullable(resource.getMimeType())
-			.map(IMimeType::getIdentifier)
-			.orElse("");
+		if (resource.getMimeType().is(MimeType.APPLICATION_OCTET_STREAM)) {
+			return resource//
+				.getFilename()
+				.flatMap(MimeType::getByFilename)
+				.orElse(MimeType.APPLICATION_OCTET_STREAM)
+				.getIdentifier();
+		} else {
+			return Optional//
+				.ofNullable(resource.getMimeType())
+				.map(IMimeType::getIdentifier)
+				.orElse("");
+		}
 	}
 
 	private void handleClick() {

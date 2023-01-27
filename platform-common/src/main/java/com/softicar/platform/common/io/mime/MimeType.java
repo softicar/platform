@@ -8,6 +8,7 @@ import java.util.Optional;
 /**
  * Enumeration of common MIME types.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public enum MimeType implements IMimeType {
@@ -58,6 +59,18 @@ public enum MimeType implements IMimeType {
 		this.superType = parts[0];
 		this.subType = parts[1];
 		this.filenameSuffixes = List.of(filenameSuffixes);
+	}
+
+	@Override
+	public String getIdentifier() {
+
+		return superType + '/' + subType;
+	}
+
+	@Override
+	public String toString() {
+
+		return getIdentifier();
 	}
 
 	/**
@@ -141,17 +154,5 @@ public enum MimeType implements IMimeType {
 	public Collection<String> getFilenameSuffixes() {
 
 		return filenameSuffixes;
-	}
-
-	@Override
-	public String getIdentifier() {
-
-		return superType + '/' + subType;
-	}
-
-	@Override
-	public String toString() {
-
-		return getIdentifier();
 	}
 }
