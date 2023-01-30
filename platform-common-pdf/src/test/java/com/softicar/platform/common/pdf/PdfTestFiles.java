@@ -12,5 +12,5 @@ public interface PdfTestFiles {
 
 	IResourceSupplier PDF_WITH_BLANK_PAGES = FACTORY.create("pdf-with-blank-pages.pdf");
 	IResourceSupplier PDF_WITHOUT_BLANK_PAGES = FACTORY.create("pdf-without-blank-pages.pdf");
-	IResourceSupplier TIF_MULTI_IMAGE = FACTORY.create("tif-multi-image.tif");
+	IResourceSupplier TIFF_MULTI_IMAGE = FACTORY.create("tiff-multi-image.tiff");
 }

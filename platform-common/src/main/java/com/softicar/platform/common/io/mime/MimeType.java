@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public enum MimeType implements IMimeType {
 
-	APPLICATION_JSON("application/json"),
+	APPLICATION_JSON("application/json", "json"),
 	APPLICATION_OCTET_STREAM("application/octet-stream"),
 	APPLICATION_PDF("application/pdf", "pdf"),
 	APPLICATION_VND_MS_OUTLOOK("application/vnd.ms-outlook", "msg"),
@@ -28,6 +28,7 @@ public enum MimeType implements IMimeType {
 	IMAGE_JPEG("image/jpeg", "jpeg", "jpg"),
 	IMAGE_PNG("image/png", "png"),
 	IMAGE_SVG_XML("image/svg+xml", "svg"),
+	IMAGE_TIFF("image/tiff", "tiff", "tif"),
 
 	MESSAGE_RFC822("message/rfc822", "eml"),
 

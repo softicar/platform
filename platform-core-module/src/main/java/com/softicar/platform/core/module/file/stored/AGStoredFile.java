@@ -137,6 +137,27 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	}
 
 	/**
+	 * Extracts the extension (i.e. the characters after the last {@code "."}
+	 * from the file name, if any.
+	 * <p>
+	 * The returned {@link String} is always in lower case and never blank.
+	 *
+	 * @return the file name extension
+	 */
+	public Optional<String> getFilenameExtension() {
+
+		String fileName = getFileName();
+		int dotIndex = fileName.lastIndexOf(".");
+		if (dotIndex >= 0) {
+			String extension = fileName.substring(dotIndex + 1);
+			if (!extension.isBlank()) {
+				return Optional.of(extension.toLowerCase().trim());
+			}
+		}
+		return Optional.empty();
+	}
+
+	/**
 	 * Determines whether {@link AGStoredFile#getContentType()} matches the
 	 * given {@link IMimeType}.
 	 * <p>
