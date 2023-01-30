@@ -23,12 +23,12 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testSetAlternateResourceOnErrorWithPng() {
 
-		var png = openTestNode(() -> new DomImage(AjaxTestResources.TEST_PNG.getResource()));
+		var png = openTestNode(() -> new DomImage(AjaxTestResources.PNG_TEST.getResource()));
 
 		// PNG remains PNG
 		var pngResource = assertOne(getResourceByHash(getAttributeValue(png, "src")));
 		assertEquals(MimeType.IMAGE_PNG, pngResource.getMimeType());
-		assertEquals("test.png", assertOne(pngResource.getFilename()));
+		assertEquals("png-test.png", assertOne(pngResource.getFilename()));
 	}
 
 	/**
@@ -38,12 +38,12 @@ public class AjaxDomEngineTest extends AbstractAjaxSeleniumLowLevelTest {
 	@Test
 	public void testSetAlternateResourceOnErrorWithTiff() {
 
-		var tiff = openTestNode(() -> new DomImage(AjaxTestResources.TEST_TIFF.getResource()));
+		var tiff = openTestNode(() -> new DomImage(AjaxTestResources.TIFF_TEST.getResource()));
 
 		// TIFF converted to PNG
 		var tiffResource = assertOne(getResourceById(getAttributeValue(tiff, "src")));
 		assertEquals(MimeType.IMAGE_PNG, tiffResource.getMimeType());
-		assertEquals("test.tiff.png", assertOne(tiffResource.getFilename()));
+		assertEquals("tiff-test.tiff.png", assertOne(tiffResource.getFilename()));
 	}
 
 	@Test
