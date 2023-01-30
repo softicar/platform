@@ -21,7 +21,6 @@ import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
  * all images converted to JPEG, one image per page. The dimensions of each page
  * correspond to the dimensions of each image.
  *
- * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class ImageToPdfConverter {
