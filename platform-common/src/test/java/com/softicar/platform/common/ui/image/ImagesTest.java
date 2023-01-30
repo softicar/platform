@@ -64,32 +64,32 @@ public class ImagesTest extends Asserts {
 	}
 
 	@Test
-	public void testIsSupportedWithMimeTypeJpg() {
+	public void testIsReadableWithMimeType() {
 
-		assertTrue(Images.isSupported(MimeType.IMAGE_JPEG));
-		assertTrue(Images.isSupported(MimeType.IMAGE_PNG));
-		assertTrue(Images.isSupported(MimeType.IMAGE_TIFF));
-		assertFalse(Images.isSupported(MimeType.APPLICATION_PDF));
+		assertTrue(Images.isReadable(MimeType.IMAGE_JPEG));
+		assertTrue(Images.isReadable(MimeType.IMAGE_PNG));
+		assertTrue(Images.isReadable(MimeType.IMAGE_TIFF));
+		assertFalse(Images.isReadable(MimeType.APPLICATION_PDF));
 	}
 
 	@Test
-	public void testIsSupportedWithSuffixJpg() {
+	public void testIsReadableWithSuffix() {
 
-		assertTrue(Images.isSupported("jpg"));
-		assertTrue(Images.isSupported("JPG"));
-		assertTrue(Images.isSupported("jpeg"));
-		assertTrue(Images.isSupported("JPEG"));
+		assertTrue(Images.isReadable("jpg"));
+		assertTrue(Images.isReadable("JPG"));
+		assertTrue(Images.isReadable("jpeg"));
+		assertTrue(Images.isReadable("JPEG"));
 
-		assertTrue(Images.isSupported("png"));
-		assertTrue(Images.isSupported("PNG"));
+		assertTrue(Images.isReadable("png"));
+		assertTrue(Images.isReadable("PNG"));
 
-		assertTrue(Images.isSupported("tif"));
-		assertTrue(Images.isSupported("TIF"));
-		assertTrue(Images.isSupported("tiff"));
-		assertTrue(Images.isSupported("TIFF"));
+		assertTrue(Images.isReadable("tif"));
+		assertTrue(Images.isReadable("TIF"));
+		assertTrue(Images.isReadable("tiff"));
+		assertTrue(Images.isReadable("TIFF"));
 
-		assertFalse(Images.isSupported("pdf"));
-		assertFalse(Images.isSupported("PDF"));
+		assertFalse(Images.isReadable("pdf"));
+		assertFalse(Images.isReadable("PDF"));
 	}
 
 	private BufferedImage readImage(IResourceSupplier resourceSupplier) {

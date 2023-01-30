@@ -102,11 +102,11 @@ public class StoredFileConverter {
 
 	private Boolean isConvertibleImageByExtension() {
 
-		return file.getFilenameExtension().map(Images::isSupported).orElse(false);
+		return file.getFilenameExtension().map(Images::isReadable).orElse(false);
 	}
 
 	private boolean isConvertibleImageByMimeType() {
 
-		return Images.isSupported(file.getMimeType());
+		return Images.isReadable(file.getMimeType());
 	}
 }

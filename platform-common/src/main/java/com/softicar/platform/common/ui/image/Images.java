@@ -140,7 +140,7 @@ public class Images {
 	 * @return <i>true</i> if the given image {@link IMimeType} is supported;
 	 *         <i>false</i> otherwise
 	 */
-	public static boolean isSupported(IMimeType mimeType) {
+	public static boolean isReadable(IMimeType mimeType) {
 
 		Objects.requireNonNull(mimeType);
 		return ImageIO.getImageReadersByMIMEType(mimeType.getIdentifier()).hasNext();
@@ -155,7 +155,7 @@ public class Images {
 	 * @return <i>true</i> if the given file name suffix is supported;
 	 *         <i>false</i> otherwise
 	 */
-	public static boolean isSupported(String suffix) {
+	public static boolean isReadable(String suffix) {
 
 		Objects.requireNonNull(suffix);
 		return ImageIO.getImageReadersBySuffix(suffix).hasNext();
