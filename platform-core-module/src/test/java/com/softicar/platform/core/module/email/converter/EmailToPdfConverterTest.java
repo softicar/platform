@@ -16,7 +16,6 @@ import org.junit.Test;
 public class EmailToPdfConverterTest extends AbstractTest {
 
 	private static final int FAST_RENDERING_DPI = 30;
-	private static final Color EMBEDDED_IMAGE_MARKER_COLOR = new Color(255, 0, 151);
 
 	private final EmailToPdfConverter converter;
 	private byte[] pdfBytes;
@@ -28,39 +27,58 @@ public class EmailToPdfConverterTest extends AbstractTest {
 	}
 
 	@Test
-	public void testConvertEmlToPdfWithEmlHtmlFile() {
+	public void testConvertEmlToPdfWithEmlHtml() {
 
 		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML);
-		assertTextInPdf(//
+		assertPdfContainsText(//
 			"Hi,",
 			"this is an HTML email.",
 			"Bye.");
 	}
 
 	@Test
-	public void testConvertEmlToPdfWithEmlPlainFile() {
+	public void testConvertEmlToPdfWithEmlHtmlAndEmbeddedImageViaContentId() {
 
-		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_PLAIN);
-		assertTextInPdf(//
-			"Hi,",
-			"this is a plain text email.",
-			"Bye.");
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_EMBEDDED_IMAGE_VIA_CONTENT_ID);
+		assertPdfContainsText(//
+			"Hello,",
+			"consider this:",
+			"Yadda yadda.",
+			"Kind regards.");
+		assertPdfContainsPixelsWithColor(new Color(16, 144, 12), 100);
 	}
 
 	@Test
-	public void testConvertEmlToPdfWithNonEscapedAmpersandInScriptAndEmbeddedImages() {
+	public void testConvertEmlToPdfWithEmlHtmlAndEmbeddedImageViaContentIdAndBodyEncodingBase64() {
 
-		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_NON_ESCAPED_AMPERSAND_IN_SCRIPT_AND_EMBEDDED_IMAGES);
-		assertTextInPdf(//
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_EMBEDDED_IMAGE_VIA_CONTENT_ID_AND_BODY_ENCODING_BASE64);
+		assertPdfContainsText(//
 			"Hope you had time to recharge.",
 			"Did you find this email helpful?",
 			"This is a mandatory service communication.");
+		assertPdfContainsPixelsWithColor(new Color(255, 0, 151), 10);
+	}
 
-		List<BufferedImage> pageImages = new PdfRenderer().setDpi(FAST_RENDERING_DPI).render(new ByteArrayInputStream(pdfBytes));
-		assertEquals(1, pageImages.size());
-		assertTrue(//
-			"Failed to find pixels in the marker color of an embedded image. Assuming that the embedded image is missing from the rendered PDF document.",
-			Images.countPixelsWithColor(pageImages.get(0), EMBEDDED_IMAGE_MARKER_COLOR) > 10);
+	@Test
+	public void testConvertEmlToPdfWithEmlHtmlAndEmbeddedImageViaXAttachmentId() {
+
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_HTML_WITH_EMBEDDED_IMAGE_VIA_X_ATTACHMENT_ID);
+		assertPdfContainsText(//
+			"Hello,",
+			"consider this:",
+			"Yadda yadda.",
+			"Kind regards.");
+		assertPdfContainsPixelsWithColor(new Color(16, 144, 12), 100);
+	}
+
+	@Test
+	public void testConvertEmlToPdfWithEmlPlainFile() {
+
+		convertEmlToPdf(EmailToPdfConverterTestFiles.EML_PLAIN);
+		assertPdfContainsText(//
+			"Hi,",
+			"this is a plain text email.",
+			"Bye.");
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -73,7 +91,7 @@ public class EmailToPdfConverterTest extends AbstractTest {
 	public void testConvertMsgToPdfWithMsgHtmlFile() {
 
 		convertMsgToPdf(EmailToPdfConverterTestFiles.MSG_HTML);
-		assertTextInPdf(//
+		assertPdfContainsText(//
 			"Hi,",
 			"das ist eine Mail mit HTML.",
 			"Bye.");
@@ -83,7 +101,7 @@ public class EmailToPdfConverterTest extends AbstractTest {
 	public void testConvertMsgToPdfWithMsgPlainFile() {
 
 		convertMsgToPdf(EmailToPdfConverterTestFiles.MSG_PLAIN);
-		assertTextInPdf(//
+		assertPdfContainsText(//
 			"Hi,",
 			"das ist eine Mail ohne HTML.",
 			"Bye.");
@@ -105,7 +123,12 @@ public class EmailToPdfConverterTest extends AbstractTest {
 		this.pdfBytes = converter.convertMsgToPdf(testResourceSupplier.getResource()::getResourceAsStream);
 	}
 
-	private void assertTextInPdf(String...expectedTokens) {
+	private List<BufferedImage> renderPageImages() {
+
+		return new PdfRenderer().setDpi(FAST_RENDERING_DPI).render(new ByteArrayInputStream(pdfBytes));
+	}
+
+	private void assertPdfContainsText(String...expectedTokens) {
 
 		String actualText = extractText(pdfBytes);
 		int cursor = -1;
@@ -116,6 +139,15 @@ public class EmailToPdfConverterTest extends AbstractTest {
 					"Expected tokens are out of sequence, or token '%s' was not contained in: '%s'".formatted(expectedToken, actualText));
 			}
 		}
+	}
+
+	private void assertPdfContainsPixelsWithColor(Color expectedColor, int expectedColorPixels) {
+
+		List<BufferedImage> pageImages = renderPageImages();
+		assertEquals(1, pageImages.size());
+		assertTrue(//
+			"Failed to find pixels in the marker color of an embedded image. Assuming that the embedded image is missing from the rendered PDF document.",
+			Images.countPixelsWithColor(pageImages.get(0), expectedColor) >= expectedColorPixels);
 	}
 
 	private String extractText(byte[] pdfBytes) {

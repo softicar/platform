@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -96,11 +97,11 @@ public class EmailToPdfConverter {
 		String htmlString = html.toString();
 
 		for (Entry<String, Base64Image> entry: base64ImageMap.entrySet()) {
-			String filename = entry.getKey();
+			String identifier = entry.getKey();
 			Base64Image image = entry.getValue();
 			String inlineImage = "data:%s;base64,%s".formatted(image.getContentType(), image.getBase64Data());
-			String search = "src\\s*=\\s*['\"]cid:%s['\"]".formatted(filename);
-			String replacement = "src='%s'".formatted(inlineImage);
+			String search = "['\"]cid:%s['\"]".formatted(identifier);
+			String replacement = "'%s'".formatted(inlineImage);
 			htmlString = htmlString.replaceAll(search, replacement);
 		}
 
@@ -146,13 +147,29 @@ public class EmailToPdfConverter {
 			else if (part.isMimeType("image/*")) {
 				String base64Data = getBase64Data((InputStream) content);
 				String mimeType = determineMimeType(part);
-				base64ImageMap.put(part.getFileName(), new Base64Image(mimeType, base64Data));
+				var image = new Base64Image(mimeType, base64Data);
+				getImageId(part).ifPresent(imageId -> base64ImageMap.put(imageId, image));
 			}
 
 		} catch (MessagingException | IOException exception) {
 			throw new RuntimeException(exception);
 		}
 
+	}
+
+	private Optional<String> getImageId(Part part) throws MessagingException {
+
+		String[] contentIds = part.getHeader("Content-ID");
+		if (contentIds != null && contentIds.length > 0) {
+			return Optional.of(contentIds[0].replace("<", "").replace(">", ""));
+		}
+
+		String[] xAttachmentIds = part.getHeader("X-Attachment-Id");
+		if (xAttachmentIds != null && xAttachmentIds.length > 0) {
+			return Optional.of(xAttachmentIds[0]);
+		}
+
+		return Optional.empty();
 	}
 
 	private void renderHtml(String html, OutputStream output) {
