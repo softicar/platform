@@ -1,4 +1,4 @@
-package com.softicar.platform.common.ui.image;
+package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
@@ -6,13 +6,11 @@ import com.softicar.platform.common.io.resource.supplier.IResourceSupplierFactor
 import com.softicar.platform.common.io.resource.supplier.ResourceSupplierFactory;
 
 @ResourceSupplierContainer
-public interface ImagesTestFiles {
+public interface StoredFileConverterTestFiles {
 
-	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(ImagesTestFiles.class);
+	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(StoredFileConverterTestFiles.class);
 
 	IResourceSupplier JPG_IMAGE_300X150 = FACTORY.create("jpg-image-300x150.jpg");
 	IResourceSupplier PNG_IMAGE_350X200 = FACTORY.create("png-image-350x200.png");
-	IResourceSupplier PNG_IMAGE_350X200_SINGLE_COLOR = FACTORY.create("png-image-350x200-single-color.png");
 	IResourceSupplier TIFF_IMAGE_400X200 = FACTORY.create("tiff-image-400x200.tiff");
-	IResourceSupplier TIFF_MULTI_IMAGE = FACTORY.create("tiff-multi-image.tiff");
 }

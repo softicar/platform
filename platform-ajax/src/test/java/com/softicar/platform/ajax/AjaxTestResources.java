@@ -16,6 +16,6 @@ public interface AjaxTestResources {
 
 	IResourceSupplierFactory FACTORY = new DomResourceSupplierProxyFactory(AjaxTestResources.class);
 
-	IResourceSupplier TEST_PNG = FACTORY.create("test.png");
-	IResourceSupplier TEST_TIFF = FACTORY.create("test.tiff");
+	IResourceSupplier PNG_TEST = FACTORY.create("png-test.png");
+	IResourceSupplier TIFF_TEST = FACTORY.create("tiff-test.tiff");
 }

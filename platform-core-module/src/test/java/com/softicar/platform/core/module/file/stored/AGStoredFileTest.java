@@ -8,6 +8,21 @@ import org.junit.Test;
 public class AGStoredFileTest extends AbstractCoreTest {
 
 	@Test
+	public void testGetFilenameExtension() {
+
+		assertEquals("txt", insertStoredFile("foo.txt").getFilenameExtension().get());
+		assertEquals("txt", insertStoredFile("foo.txt ").getFilenameExtension().get());
+		assertEquals("txt", insertStoredFile("foo. txt").getFilenameExtension().get());
+		assertEquals("txt", insertStoredFile("FOO.TXT").getFilenameExtension().get());
+		assertEquals("txt", insertStoredFile("foo.bar.txt").getFilenameExtension().get());
+		assertEquals("txt", insertStoredFile(".txt").getFilenameExtension().get());
+
+		assertTrue(insertStoredFile("foo.").getFilenameExtension().isEmpty());
+		assertTrue(insertStoredFile("foo").getFilenameExtension().isEmpty());
+		assertTrue(insertStoredFile(".").getFilenameExtension().isEmpty());
+	}
+
+	@Test
 	public void testHasMimeType() {
 
 		AGStoredFile txtFileWithTextPlain = insertStoredFile("foo.txt", MimeType.TEXT_PLAIN);

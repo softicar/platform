@@ -11,7 +11,7 @@ public class ImageToPdfConverterTest extends Asserts {
 	@Test
 	public void testConvertToPdf() throws IOException {
 
-		var pdfBytes = new ImageToPdfConverter(PdfTestFiles.TIF_MULTI_IMAGE.getResource()::getResourceAsStream).convertToPdf();
+		var pdfBytes = new ImageToPdfConverter(PdfTestFiles.TIFF_MULTI_IMAGE.getResource()::getResourceAsStream).convertToPdf();
 
 		try (var pdfDocument = PDDocument.load(pdfBytes)) {
 			assertEquals(3, pdfDocument.getNumberOfPages());

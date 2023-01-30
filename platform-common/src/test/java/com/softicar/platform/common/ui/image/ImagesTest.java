@@ -1,5 +1,6 @@
 package com.softicar.platform.common.ui.image;
 
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.testing.Asserts;
 import java.awt.Color;
@@ -13,13 +14,13 @@ public class ImagesTest extends Asserts {
 
 		assertImage(300, 150, 0xFF9D7400, readImage(ImagesTestFiles.JPG_IMAGE_300X150));
 		assertImage(350, 200, 0xFF10900C, readImage(ImagesTestFiles.PNG_IMAGE_350X200));
-		assertImage(400, 200, 0xFFCD4990, readImage(ImagesTestFiles.TIF_IMAGE_400X200));
+		assertImage(400, 200, 0xFFCD4990, readImage(ImagesTestFiles.TIFF_IMAGE_400X200));
 	}
 
 	@Test
 	public void testReadImages() {
 
-		var images = Images.readImages(() -> ImagesTestFiles.TIF_MULTI_IMAGE.getResourceAsStream());
+		var images = Images.readImages(() -> ImagesTestFiles.TIFF_MULTI_IMAGE.getResourceAsStream());
 
 		assertNotNull(images);
 		assertEquals(3, images.size());
@@ -60,6 +61,35 @@ public class ImagesTest extends Asserts {
 		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200);
 		assertEquals(63165, Images.countPixelsWithColor(image, backgroundColor));
 		assertEquals(3067, Images.countPixelsWithColor(image, textColor));
+	}
+
+	@Test
+	public void testIsReadableWithMimeType() {
+
+		assertTrue(Images.isReadable(MimeType.IMAGE_JPEG));
+		assertTrue(Images.isReadable(MimeType.IMAGE_PNG));
+		assertTrue(Images.isReadable(MimeType.IMAGE_TIFF));
+		assertFalse(Images.isReadable(MimeType.APPLICATION_PDF));
+	}
+
+	@Test
+	public void testIsReadableWithSuffix() {
+
+		assertTrue(Images.isReadable("jpg"));
+		assertTrue(Images.isReadable("JPG"));
+		assertTrue(Images.isReadable("jpeg"));
+		assertTrue(Images.isReadable("JPEG"));
+
+		assertTrue(Images.isReadable("png"));
+		assertTrue(Images.isReadable("PNG"));
+
+		assertTrue(Images.isReadable("tif"));
+		assertTrue(Images.isReadable("TIF"));
+		assertTrue(Images.isReadable("tiff"));
+		assertTrue(Images.isReadable("TIFF"));
+
+		assertFalse(Images.isReadable("pdf"));
+		assertFalse(Images.isReadable("PDF"));
 	}
 
 	private BufferedImage readImage(IResourceSupplier resourceSupplier) {

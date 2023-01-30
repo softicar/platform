@@ -2,6 +2,7 @@ package com.softicar.platform.common.ui.image;
 
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.io.mime.IMimeType;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -128,5 +129,35 @@ public class Images {
 		}
 
 		return matchingPixels;
+	}
+
+	/**
+	 * Determines whether {@link #readImages(Supplier)} can handle images with
+	 * the given {@link IMimeType}.
+	 *
+	 * @param mimeType
+	 *            the image {@link IMimeType} (never <i>null</i>)
+	 * @return <i>true</i> if the given image {@link IMimeType} is supported;
+	 *         <i>false</i> otherwise
+	 */
+	public static boolean isReadable(IMimeType mimeType) {
+
+		Objects.requireNonNull(mimeType);
+		return ImageIO.getImageReadersByMIMEType(mimeType.getIdentifier()).hasNext();
+	}
+
+	/**
+	 * Determines whether {@link #readImages(Supplier)} can handle images with
+	 * the given suffix (i.e. file name extension).
+	 *
+	 * @param suffix
+	 *            the image file name suffix (never <i>null</i>)
+	 * @return <i>true</i> if the given file name suffix is supported;
+	 *         <i>false</i> otherwise
+	 */
+	public static boolean isReadable(String suffix) {
+
+		Objects.requireNonNull(suffix);
+		return ImageIO.getImageReadersBySuffix(suffix).hasNext();
 	}
 }

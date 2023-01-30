@@ -1,6 +1,8 @@
 package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.pdf.ImageToPdfConverter;
+import com.softicar.platform.common.ui.image.Images;
 import com.softicar.platform.core.module.email.converter.EmailToPdfConverter;
 import java.io.InputStream;
 import java.util.Map;
@@ -66,11 +68,45 @@ public class StoredFileConverter {
 
 	private Optional<Function<Supplier<InputStream>, byte[]>> getConverterFunction() {
 
+		return getRegisteredConverterFunction().or(this::getDynamicConverterFunction);
+	}
+
+	private Optional<Function<Supplier<InputStream>, byte[]>> getRegisteredConverterFunction() {
+
 		return CONVERTERS//
 			.entrySet()
 			.stream()
 			.filter(entry -> file.hasMimeTypeOrExtension(entry.getKey()))
 			.findAny()
 			.map(entry -> entry.getValue());
+	}
+
+	private Optional<Function<Supplier<InputStream>, byte[]>> getDynamicConverterFunction() {
+
+		if (isConvertibleImage()) {
+			return Optional.of(this::convertImage);
+		} else {
+			return Optional.empty();
+		}
+	}
+
+	private byte[] convertImage(Supplier<InputStream> inputStreamFactory) {
+
+		return new ImageToPdfConverter(inputStreamFactory).convertToPdf();
+	}
+
+	private boolean isConvertibleImage() {
+
+		return isConvertibleImageByMimeType() || isConvertibleImageByExtension();
+	}
+
+	private Boolean isConvertibleImageByExtension() {
+
+		return file.getFilenameExtension().map(Images::isReadable).orElse(false);
+	}
+
+	private boolean isConvertibleImageByMimeType() {
+
+		return Images.isReadable(file.getMimeType());
 	}
 }
