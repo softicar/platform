@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.file.stored;
 
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.pdf.ImageToPdfConverter;
+import com.softicar.platform.common.ui.image.Images;
 import com.softicar.platform.core.module.email.converter.EmailToPdfConverter;
 import java.io.InputStream;
 import java.util.Map;
@@ -101,11 +102,11 @@ public class StoredFileConverter {
 
 	private Boolean isConvertibleImageByExtension() {
 
-		return file.getFilenameExtension().map(ImageToPdfConverter::isConvertibleToPdf).orElse(false);
+		return file.getFilenameExtension().map(Images::isSupported).orElse(false);
 	}
 
 	private boolean isConvertibleImageByMimeType() {
 
-		return ImageToPdfConverter.isConvertibleToPdf(file.getMimeType());
+		return Images.isSupported(file.getMimeType());
 	}
 }

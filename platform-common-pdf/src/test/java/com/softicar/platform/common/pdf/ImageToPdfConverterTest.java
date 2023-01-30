@@ -1,6 +1,5 @@
 package com.softicar.platform.common.pdf;
 
-import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.testing.Asserts;
 import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -20,35 +19,6 @@ public class ImageToPdfConverterTest extends Asserts {
 			assertMediaBox(350, 200, pdfDocument.getPage(1));
 			assertMediaBox(400, 200, pdfDocument.getPage(2));
 		}
-	}
-
-	@Test
-	public void testIsConvertibleToPdfWithMimeTypeJpg() {
-
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf(MimeType.IMAGE_JPEG));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf(MimeType.IMAGE_PNG));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf(MimeType.IMAGE_TIFF));
-		assertFalse(ImageToPdfConverter.isConvertibleToPdf(MimeType.APPLICATION_PDF));
-	}
-
-	@Test
-	public void testIsConvertibleToPdfWithSuffixJpg() {
-
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("jpg"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("JPG"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("jpeg"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("JPEG"));
-
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("png"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("PNG"));
-
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("tif"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("TIF"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("tiff"));
-		assertTrue(ImageToPdfConverter.isConvertibleToPdf("TIFF"));
-
-		assertFalse(ImageToPdfConverter.isConvertibleToPdf("pdf"));
-		assertFalse(ImageToPdfConverter.isConvertibleToPdf("PDF"));
 	}
 
 	private void assertMediaBox(int expectedWidth, int expectedHeight, PDPage page) {

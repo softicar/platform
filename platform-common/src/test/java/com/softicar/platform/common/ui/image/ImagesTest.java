@@ -1,5 +1,6 @@
 package com.softicar.platform.common.ui.image;
 
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.testing.Asserts;
 import java.awt.Color;
@@ -60,6 +61,35 @@ public class ImagesTest extends Asserts {
 		BufferedImage image = readImage(ImagesTestFiles.PNG_IMAGE_350X200);
 		assertEquals(63165, Images.countPixelsWithColor(image, backgroundColor));
 		assertEquals(3067, Images.countPixelsWithColor(image, textColor));
+	}
+
+	@Test
+	public void testIsSupportedWithMimeTypeJpg() {
+
+		assertTrue(Images.isSupported(MimeType.IMAGE_JPEG));
+		assertTrue(Images.isSupported(MimeType.IMAGE_PNG));
+		assertTrue(Images.isSupported(MimeType.IMAGE_TIFF));
+		assertFalse(Images.isSupported(MimeType.APPLICATION_PDF));
+	}
+
+	@Test
+	public void testIsSupportedWithSuffixJpg() {
+
+		assertTrue(Images.isSupported("jpg"));
+		assertTrue(Images.isSupported("JPG"));
+		assertTrue(Images.isSupported("jpeg"));
+		assertTrue(Images.isSupported("JPEG"));
+
+		assertTrue(Images.isSupported("png"));
+		assertTrue(Images.isSupported("PNG"));
+
+		assertTrue(Images.isSupported("tif"));
+		assertTrue(Images.isSupported("TIF"));
+		assertTrue(Images.isSupported("tiff"));
+		assertTrue(Images.isSupported("TIFF"));
+
+		assertFalse(Images.isSupported("pdf"));
+		assertFalse(Images.isSupported("PDF"));
 	}
 
 	private BufferedImage readImage(IResourceSupplier resourceSupplier) {

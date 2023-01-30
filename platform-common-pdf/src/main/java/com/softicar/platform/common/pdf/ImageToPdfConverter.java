@@ -1,14 +1,12 @@
 package com.softicar.platform.common.pdf;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
-import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.common.ui.image.Images;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.function.Supplier;
-import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -71,35 +69,5 @@ public class ImageToPdfConverter {
 				throw new SofticarIOException(exception);
 			}
 		}
-	}
-
-	/**
-	 * Determines whether {@link ImageToPdfConverter} is able to convert an
-	 * image file with the given {@link IMimeType} to PDF.
-	 *
-	 * @param mimeType
-	 *            the image {@link IMimeType} (never <i>null</i>)
-	 * @return <i>true</i> if the given image {@link IMimeType} is convertible
-	 *         to PDF; <i>false</i> otherwise
-	 */
-	public static boolean isConvertibleToPdf(IMimeType mimeType) {
-
-		Objects.requireNonNull(mimeType);
-		return ImageIO.getImageReadersByMIMEType(mimeType.getIdentifier()).hasNext();
-	}
-
-	/**
-	 * Determines whether {@link ImageToPdfConverter} is able to convert an
-	 * image file with the given suffix (i.e. file name extension) to PDF.
-	 *
-	 * @param suffix
-	 *            the image file name suffix (never <i>null</i>)
-	 * @return <i>true</i> if the given file name suffix is convertible to PDF;
-	 *         <i>false</i> otherwise
-	 */
-	public static boolean isConvertibleToPdf(String suffix) {
-
-		Objects.requireNonNull(suffix);
-		return ImageIO.getImageReadersBySuffix(suffix).hasNext();
 	}
 }
