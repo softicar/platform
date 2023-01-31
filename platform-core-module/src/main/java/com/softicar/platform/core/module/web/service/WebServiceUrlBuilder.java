@@ -17,7 +17,7 @@ public class WebServiceUrlBuilder extends UrlBuilder {
 		setScheme(coreModuleInstance.getPortalProtocol());
 		setDomainName(coreModuleInstance.getPortalHost());
 		setPath(coreModuleInstance.getPortalApplicationPath() + WEB_SERVICE_SERVLET_NAME);
-		addParameter(WebServiceIdFetcher.getIdParameterName(), serviceUuid.toString());
+		addParameter(WebServiceUuidFetcher.getIdParameterName(), serviceUuid.toString());
 	}
 
 	public WebServiceUrlBuilder(Class<? extends IWebServiceFactory> factoryClass) {

@@ -57,7 +57,7 @@ public class WebServiceBrokerService implements IWebService {
 
 		try (SingletonSetScope scope = new SingletonSetScope()) {
 			// get service id
-			var serviceUuid = new WebServiceIdFetcher().getServiceIdOrThrow(request);
+			var serviceUuid = new WebServiceUuidFetcher(request).getServiceUuidOrThrow();
 
 			environment.setupEnvironment();
 
