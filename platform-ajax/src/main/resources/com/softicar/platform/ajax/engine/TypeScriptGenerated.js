@@ -85,6 +85,49 @@ const HTTP_REQUEST_STATE_LOADING = 3;
 const HTTP_REQUEST_STATE_DONE = 4;
 const HTTP_STATUS_SUCCESS = 200;
 const HTTP_STATUS_GONE = 410;
+class DelayedExecutor {
+    constructor(functionToExecute) {
+        this.delayMillis = 100;
+        this.remainingMillis = 60000;
+        this.functionToExecute = functionToExecute;
+        this.predicates = [];
+    }
+    addWaitForPredicate(predicate) {
+        this.predicates.push(predicate);
+        return this;
+    }
+    addWaitForVariable(variable) {
+        return this.addWaitForPredicate(() => window.hasOwnProperty(variable));
+    }
+    addWaitForNodeWithId(nodeId) {
+        return this.addWaitForPredicate(() => document.getElementById(nodeId) !== null);
+    }
+    setDelayMillis(delayMillis) {
+        this.delayMillis = delayMillis;
+        return this;
+    }
+    setMaximumMillis(maximumMillis) {
+        this.remainingMillis = maximumMillis;
+        return this;
+    }
+    start() {
+        if (this.testPredicates()) {
+            this.functionToExecute();
+        }
+        else if (this.remainingMillis > 0) {
+            this.remainingMillis -= this.delayMillis;
+            setTimeout(() => this.start(), this.delayMillis);
+        }
+    }
+    testPredicates() {
+        for (let predicate of this.predicates) {
+            if (!predicate()) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 function makeDraggable(draggedNode, dragHandleNode, notifyOnDrop) {
     var handler = DRAG_AND_DROP_MANAGER.getHandler(draggedNode);
     handler.setNotifyOnDrop(notifyOnDrop);

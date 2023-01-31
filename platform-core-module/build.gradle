@@ -12,6 +12,7 @@ dependencies {
 	implementation "org.simplejavamail:simple-java-mail:$versions.simpleJavaMail"
 	implementation "org.simplejavamail:outlook-module:$versions.simpleJavaMail"
 	implementation "org.xhtmlrenderer:flying-saucer-pdf-openpdf:$versions.flyingSaucerPdf"
+	implementation "org.webjars.bower:tinymce:$versions.tinymce"
 }
 
 // configure Eclipse project to export all dependencies

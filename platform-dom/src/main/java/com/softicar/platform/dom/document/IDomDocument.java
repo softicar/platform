@@ -1,8 +1,11 @@
 package com.softicar.platform.dom.document;
 
 import com.softicar.platform.common.container.map.instance.ClassInstanceMap;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.dom.attribute.IDomAttributeRegistry;
 import com.softicar.platform.dom.document.marker.IDomDocumentMarkerHolder;
+import com.softicar.platform.dom.element.DomElement;
+import com.softicar.platform.dom.elements.DomScript;
 import com.softicar.platform.dom.engine.IDomEngine;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.node.AbstractDomNode;
@@ -154,4 +157,25 @@ public interface IDomDocument extends IDomDocumentMarkerHolder {
 	 * @return the internal {@link IDomAttributeRegistry}
 	 */
 	IDomAttributeRegistry getAttributeRegistry();
+
+	/**
+	 * Adds a {@link DomScript} element to the {@link DomHead} if none with the
+	 * same URL exists yet.
+	 * <p>
+	 * The source URL is compared to existing {@link DomScript} elements
+	 * literally, so care must be taken to not add sightly different but
+	 * effectively equivalent {@link DomScript} entries, pointing to the same
+	 * resource. For example, the URLs <code>http://example.org/foo</code> and
+	 * <code>http://example.org/foo/</code> will be considered to be different
+	 * even though they point to the same resource.
+	 * <p>
+	 * The check for existing {@link DomScript} elements is efficient, so
+	 * calling the method from the constructor of a {@link DomElement} is fine.
+	 *
+	 * @param scriptUrl
+	 *            the script URL (never <i>null</i>)
+	 * @param mimeType
+	 *            the script {@link MimeType} (never <i>null</i>)
+	 */
+	void registerScript(String scriptUrl, MimeType mimeType);
 }

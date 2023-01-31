@@ -5,6 +5,7 @@ import com.softicar.platform.common.container.map.weak.IWeakMap;
 import com.softicar.platform.common.container.map.weak.WeakIntHashMap;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.interfaces.ITestMarker;
+import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.dom.DomI18n;
 import com.softicar.platform.dom.attribute.DomAttributeRegistry;
 import com.softicar.platform.dom.attribute.IDomAttributeRegistry;
@@ -191,6 +192,12 @@ public abstract class AbstractDomDocument implements IDomDocument {
 	public final IDomAttributeRegistry getAttributeRegistry() {
 
 		return attributeRegistry;
+	}
+
+	@Override
+	public void registerScript(String scriptUrl, MimeType mimeType) {
+
+		DomDocumentScriptRegistry.getInstance(this).registerScript(scriptUrl, mimeType);
 	}
 
 	// -------------------------------- private -------------------------------- //

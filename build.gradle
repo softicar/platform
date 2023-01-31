@@ -50,6 +50,7 @@ project.ext {
 		simpleJavaMail: "7.7.0",
 		slf4j: "1.7.33",
 		tesseract: "4.1.1-1.5.6",
+		tinymce: "6.3.1",
 	]
 }
 

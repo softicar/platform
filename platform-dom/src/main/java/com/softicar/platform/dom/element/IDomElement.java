@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.ui.color.IColor;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.dom.parent.IDomParentElement;
 import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.style.ICssClass;
 import com.softicar.platform.dom.style.ICssStyle;
@@ -31,6 +32,20 @@ public interface IDomElement extends IDomNode {
 	 * @return the HTML element tag of this element
 	 */
 	DomElementTag getTag();
+
+	/**
+	 * Convenience method to append this {@link IDomElement} to the given
+	 * {@link IDomParentElement}.
+	 *
+	 * @param parent
+	 *            the {@link IDomParentElement} (never <i>null</i>)
+	 * @return this
+	 */
+	default IDomElement appendTo(IDomParentElement parent) {
+
+		parent.appendChild(this);
+		return this;
+	}
 
 	// -------------------- events -------------------- //
 

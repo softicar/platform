@@ -17,5 +17,6 @@ public interface CoreCssFiles {
 	IResourceSupplier PAGE_STYLE = FACTORY.create("page-style.css");
 	IResourceSupplier STORED_FILE_STYLE = FACTORY.create("stored-file-style.css");
 	IResourceSupplier SYSTEM_EVENT_STYLE = FACTORY.create("system-event-style.css");
+	IResourceSupplier TINY_MCE_STYLE = FACTORY.create("tiny-mce-style.css");
 	IResourceSupplier USER_PASSWORD_QUALITY_STYLE = FACTORY.create("user-password-quality-style.css");
 }

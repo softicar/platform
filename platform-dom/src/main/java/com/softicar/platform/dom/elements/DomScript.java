@@ -74,23 +74,27 @@ public class DomScript extends DomParentElement {
 		return resource;
 	}
 
-	public void setSrc(String src) {
+	public DomScript setSrc(String src) {
 
 		setAttribute("src", src);
+		return this;
 	}
 
-	public void setType(IMimeType mimeType) {
+	public DomScript setType(IMimeType mimeType) {
 
 		setAttribute("type", mimeType.getIdentifier());
+		return this;
 	}
 
-	public void setAsync(boolean async) {
+	public DomScript setAsync(boolean async) {
 
 		setAttribute("async", async);
+		return this;
 	}
 
-	public void setDefer(boolean defer) {
+	public DomScript setDefer(boolean defer) {
 
 		setAttribute("defer", defer);
+		return this;
 	}
 }
