@@ -11,9 +11,11 @@ public interface EmailToPdfConverterTestFiles {
 	IResourceSupplierFactory FACTORY = new ResourceSupplierFactory(EmailToPdfConverterTestFiles.class);
 
 	IResourceSupplier EML_HTML = FACTORY.create("eml-html.eml");
+	IResourceSupplier EML_HTML_WITH_EMBEDDED_IMAGE_VIA_CONTENT_ID = FACTORY.create("eml-html-with-embedded-image-via-content-id.eml");
+	IResourceSupplier EML_HTML_WITH_EMBEDDED_IMAGE_VIA_CONTENT_ID_AND_BODY_ENCODING_BASE64 =
+			FACTORY.create("eml-html-with-embedded-image-via-content-id-and-body-encoding-base64.eml");
+	IResourceSupplier EML_HTML_WITH_EMBEDDED_IMAGE_VIA_X_ATTACHMENT_ID = FACTORY.create("eml-html-with-embedded-image-via-x-attachment-id.eml");
 	IResourceSupplier EML_PLAIN = FACTORY.create("eml-plain.eml");
-	IResourceSupplier EML_HTML_WITH_NON_ESCAPED_AMPERSAND_IN_SCRIPT_AND_EMBEDDED_IMAGES =
-			FACTORY.create("eml-html-with-non-escaped-ampersand-in-script-and-embedded-images.eml");
 	IResourceSupplier MSG_HTML = FACTORY.create("msg-html.msg");
 	IResourceSupplier MSG_PLAIN = FACTORY.create("msg-plain.msg");
 }
