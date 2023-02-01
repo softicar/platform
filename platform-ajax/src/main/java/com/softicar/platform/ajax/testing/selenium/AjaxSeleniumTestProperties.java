@@ -31,7 +31,7 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FINISHED = FACTORY.createBooleanProperty("execution.screenshot.on.finished", false);
 
 	// Selenium Grid
-	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "4.2.2-20220622");
+	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "4.8.0-20230131");
 	public static final IProperty<Boolean> GRID_DEFERRED_SHUTDOWN = FACTORY.createBooleanProperty("grid.deferred.shutdown", false);
 	public static final IProperty<String> GRID_SHUTDOWN_SCRIPT = FACTORY.createStringProperty("grid.shutdown.script", "shutdown-grid.sh");
 	public static final IProperty<String> GRID_TEMPORARY_DIRECTORY = FACTORY
