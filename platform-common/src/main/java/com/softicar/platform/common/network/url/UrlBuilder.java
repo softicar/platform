@@ -1,7 +1,9 @@
 package com.softicar.platform.common.network.url;
 
+import com.softicar.platform.common.string.Trim;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A builder for {@link Url}.
@@ -41,6 +43,13 @@ public class UrlBuilder {
 		return this;
 	}
 
+	public UrlBuilder addPathElement(String pathElement) {
+
+		var path = Optional.ofNullable(this.url.path).orElse("");
+		this.url.path = Trim.trimRight(path, '/') + '/' + Trim.trimLeft(pathElement, '/');
+		return this;
+	}
+
 	public UrlBuilder addParameter(String name, String value) {
 
 		this.url.parameters.addToList(name, value);
@@ -51,7 +60,7 @@ public class UrlBuilder {
 
 		parameters//
 			.entrySet()
-			.forEach(entry -> this.addParameter(entry.getKey(), entry.getValue()));
+			.forEach(entry -> addParameter(entry.getKey(), entry.getValue()));
 		return this;
 	}
 

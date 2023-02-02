@@ -7,7 +7,6 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.string.unicode.Utf8Convering;
 import com.softicar.platform.common.web.service.IWebService;
-import com.softicar.platform.core.module.web.service.WebServiceIdFetcher;
 import com.softicar.platform.core.module.web.service.WebServiceUrlBuilder;
 import java.io.InputStream;
 import java.util.Base64;
@@ -29,15 +28,13 @@ public class WebServiceRequester {
 	public WebServiceRequester(UUID serviceUuid) {
 
 		this.request = new SimpleServletRequest();
-		this.request.setParameter(WebServiceIdFetcher.getIdParameterName(), serviceUuid.toString());
 		this.request.setRequestUrl(getServiceUrl(serviceUuid));
 		this.request.setSession(new SimpleHttpSession(""));
 	}
 
 	private static String getServiceUrl(UUID serviceUuid) {
 
-		String absoluteUrl = new WebServiceUrlBuilder(serviceUuid).build().toString();
-		return absoluteUrl.split("\\?", 2)[0];
+		return new WebServiceUrlBuilder(serviceUuid).build().toString();
 	}
 
 	public WebServiceRequester setRequestMethod(WebServiceRequestMethod requestMethod) {
