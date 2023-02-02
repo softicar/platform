@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Renders a PDF {@link AGStoredFile} to rasterized images.
@@ -50,33 +49,55 @@ public class StoredFilePdfRenderer {
 	}
 
 	/**
-	 * Renders the pages of a PDF into a list of images.
+	 * Renders the pages of the given PDF into a list of images.
+	 * <p>
+	 * If rendering fails, an empty {@link List} is returned.
 	 *
 	 * @param file
-	 *            the PDF file to convert (never <i>null</i>)
+	 *            the PDF file to render (never <i>null</i>)
 	 * @return a {@link List} of {@link IResource} objects representing the
 	 *         pages of the PDF (never <i>null</i>)
 	 * @throws SofticarUserException
-	 *             if the content type of the given {@link AGStoredFile} is not
-	 *             {@link MimeType#APPLICATION_PDF}
+	 *             if the given {@link AGStoredFile} is not a PDF
 	 */
 	public List<IResource> renderPages(AGStoredFile file) {
 
-		Optional
-			.ofNullable(file.getContentType())
-			.filter(contentType -> contentType.contains("pdf"))
-			.orElseThrow(() -> new SofticarUserException(EmfI18n.THE_FILE_FORMAT_MUST_BE_PDF));
+		if (!file.hasMimeTypeOrExtension(MimeType.APPLICATION_PDF)) {
+			throw new SofticarUserException(EmfI18n.THE_FILE_FORMAT_MUST_BE_PDF);
+		}
 
-		try (InputStream stream = file.getFileContentInputStream()) {
-			return renderPages(stream, file.getFileName());
-		} catch (Throwable throwable) {
-			Log.ferror("Exception while rendering PDF: %s", file.getFileName());
-			Log.ferror(StackTraceFormatting.getStackTraceAsString(throwable));
+		try (InputStream inputStream = file.getFileContentInputStream()) {
+			return renderPagesInternal(inputStream, file.getFileName());
+		} catch (Exception exception) {
+			logRenderingException(exception, file.getFileName());
 			return new ArrayList<>();
 		}
 	}
 
-	public List<IResource> renderPages(InputStream stream, String pdfFilename) {
+	/**
+	 * Renders the pages of the given PDF into a list of images.
+	 * <p>
+	 * If rendering fails, an empty {@link List} is returned.
+	 * <p>
+	 * The caller is obliged to close the given {@link InputStream}.
+	 *
+	 * @param inputStream
+	 *            an {@link InputStream} of the the PDF file to render (never
+	 *            <i>null</i>)
+	 * @return a {@link List} of {@link IResource} objects representing the
+	 *         pages of the PDF (never <i>null</i>)
+	 */
+	public List<IResource> renderPages(InputStream inputStream, String pdfFilename) {
+
+		try {
+			return renderPagesInternal(inputStream, pdfFilename);
+		} catch (Exception exception) {
+			logRenderingException(exception, pdfFilename);
+			return new ArrayList<>();
+		}
+	}
+
+	private List<IResource> renderPagesInternal(InputStream stream, String pdfFilename) {
 
 		var images = new ArrayList<IResource>();
 		for (BufferedImage image: new PdfRenderer().setDpi(dpi).render(stream)) {
@@ -97,5 +118,11 @@ public class StoredFilePdfRenderer {
 			.concat(String.valueOf(index + 1))
 			.concat(".")
 			.concat(IMAGE_FORMAT);
+	}
+
+	private void logRenderingException(Throwable throwable, String pdfFilename) {
+
+		Log.ferror("Exception while rendering PDF: %s", pdfFilename);
+		Log.ferror(StackTraceFormatting.getStackTraceAsString(throwable));
 	}
 }
