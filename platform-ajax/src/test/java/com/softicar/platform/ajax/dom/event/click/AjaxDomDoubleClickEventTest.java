@@ -4,6 +4,7 @@ import com.softicar.platform.ajax.dom.event.AbstractAjaxDomEventTestDiv;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestArea;
 import com.softicar.platform.ajax.testing.selenium.engine.common.geometry.AjaxSeleniumTestPoint;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AbstractAjaxSeleniumLowLevelTest;
+import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomDoubleClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -22,6 +23,8 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 
 	@Test
 	public void test() {
+
+		Sleep.sleep(2000);
 
 		// click at specific location
 		AjaxSeleniumTestArea viewportSize = getViewportSize();
