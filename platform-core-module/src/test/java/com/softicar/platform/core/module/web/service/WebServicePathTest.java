@@ -8,11 +8,11 @@ public class WebServicePathTest extends Asserts {
 	@Test
 	public void testParseWithValidPath() {
 
-		assertEquals("[,]", assertOne(WebServicePath.parse("/service/")).toString());
-		assertEquals("[,/]", assertOne(WebServicePath.parse("/service//")).toString());
-		assertEquals("[0815,]", assertOne(WebServicePath.parse("/service/0815")).toString());
-		assertEquals("[0815,/]", assertOne(WebServicePath.parse("/service/0815/")).toString());
-		assertEquals("[0815,/foo/bar]", assertOne(WebServicePath.parse("/service/0815/foo/bar")).toString());
+		assertIdentifierAndPath("", "", WebServicePath.parseOrThrow("/service/"));
+		assertIdentifierAndPath("", "/", WebServicePath.parseOrThrow("/service//"));
+		assertIdentifierAndPath("0815", "", WebServicePath.parseOrThrow("/service/0815"));
+		assertIdentifierAndPath("0815", "/", WebServicePath.parseOrThrow("/service/0815/"));
+		assertIdentifierAndPath("0815", "/foo/bar", WebServicePath.parseOrThrow("/service/0815/foo/bar"));
 	}
 
 	@Test
@@ -20,9 +20,16 @@ public class WebServicePathTest extends Asserts {
 
 		assertEmpty(WebServicePath.parse(null));
 		assertEmpty(WebServicePath.parse(""));
+		assertEmpty(WebServicePath.parse(" "));
 		assertEmpty(WebServicePath.parse("/"));
 		assertEmpty(WebServicePath.parse("/foo"));
 		assertEmpty(WebServicePath.parse("/foo/"));
 		assertEmpty(WebServicePath.parse("/service"));
+	}
+
+	private void assertIdentifierAndPath(String expectedServiceIdentifier, String expectedResourcePath, WebServicePath servicePath) {
+
+		assertEquals(expectedServiceIdentifier, servicePath.getServiceIdentifier());
+		assertEquals(expectedResourcePath, servicePath.getResourcePath());
 	}
 }

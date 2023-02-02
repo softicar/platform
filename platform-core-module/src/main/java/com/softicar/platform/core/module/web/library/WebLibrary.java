@@ -17,12 +17,12 @@ public class WebLibrary implements IWebServiceFactory {
 	/**
 	 * The Java package path to the content of the web library.
 	 * <p>
-	 * It is assumed that the web library is included into the Java class path
-	 * as a Jar file.
+	 * It is assumed that the web library is part of the Java class path as a
+	 * Jar file.
 	 * <p>
 	 * <b>Warning:</b> Be sure to supply a path as deep as possible to not
 	 * expose resources that should remain confidential. For example, supplying
-	 * the path <code>"/"</code> would provide access to the whole code base.
+	 * the path {@code "/"} would provide access to the whole code base.
 	 *
 	 * @param packagePath
 	 *            the package path (never <i>null</i>)
@@ -35,6 +35,6 @@ public class WebLibrary implements IWebServiceFactory {
 	@Override
 	public IWebService createInstance() {
 
-		return new WebLibraryService(packagePath);
+		return new WebLibraryResourceService(packagePath);
 	}
 }

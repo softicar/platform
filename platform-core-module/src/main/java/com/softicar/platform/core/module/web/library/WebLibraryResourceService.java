@@ -12,6 +12,8 @@ import com.softicar.platform.core.module.web.service.WebServicePath;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
+import java.util.function.Function;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,13 +22,30 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Oliver Richers
  */
-class WebLibraryService implements IWebService {
+class WebLibraryResourceService implements IWebService {
 
 	private final String packagePath;
+	private Function<String, MimeType> mimeTypeDeterminer;
 
-	public WebLibraryService(String packagePath) {
+	public WebLibraryResourceService(String packagePath) {
 
 		this.packagePath = Trim.trimRight(packagePath, '/');
+		this.mimeTypeDeterminer = MimeType::getByFilenameOrDefault;
+	}
+
+	/**
+	 * Overrides the default {@link MimeType} determiner.
+	 * <p>
+	 * By default, {@link MimeType#getByFilenameOrDefault} is used to determine
+	 * the {@link MimeType} of a given resource path.
+	 *
+	 * @param mimeTypeDeterminer
+	 *            a {@link Function} mapping from the resource path to the
+	 *            respective {@link MimeType} (never <i>null</i>)
+	 */
+	public void setMimeTypeDeterminer(Function<String, MimeType> mimeTypeDeterminer) {
+
+		this.mimeTypeDeterminer = Objects.requireNonNull(mimeTypeDeterminer);
 	}
 
 	@Override
@@ -35,9 +54,9 @@ class WebLibraryService implements IWebService {
 		var resourcePath = WebServicePath.parseOrThrow(request.getPathInfo()).getResourcePath();
 		try (var resourceStream = getClass().getResourceAsStream(packagePath + resourcePath)) {
 			if (resourceStream != null) {
-				response.setContentType(determineContentType(resourcePath).getIdentifier());
+				response.setContentType(mimeTypeDeterminer.apply(resourcePath).getIdentifier());
 				try (var responseStream = response.getOutputStream()) {
-					copySafely(resourceStream, responseStream);
+					copyNoThrow(resourceStream, responseStream);
 				}
 			} else {
 				throw new IllegalArgumentException("Missing resource: " + resourcePath);
@@ -47,7 +66,7 @@ class WebLibraryService implements IWebService {
 		}
 	}
 
-	private void copySafely(InputStream inputStream, OutputStream outputStream) {
+	private void copyNoThrow(InputStream inputStream, OutputStream outputStream) {
 
 		try {
 			new StreamCopy(inputStream, outputStream).copyAndClose();
@@ -55,10 +74,5 @@ class WebLibraryService implements IWebService {
 			DevNull.swallow(exception);
 			Log.error("Failed to transfer resource to HTTP client. The client probably closed the connection prematurely.");
 		}
-	}
-
-	private MimeType determineContentType(String path) {
-
-		return MimeType.getByFilenameOrDefault(path);
 	}
 }

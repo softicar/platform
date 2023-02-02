@@ -58,6 +58,9 @@ public class WebServicePath {
 
 	/**
 	 * Returns the service identifier (usually a UUID).
+	 * <p>
+	 * For example, for the path <code>/service/123/some/resource</code> the
+	 * service identifier <code>123</code> is returned.
 	 *
 	 * @return the service identifier (never <i>null</i>)
 	 */
@@ -69,17 +72,14 @@ public class WebServicePath {
 	/**
 	 * Returns the service resource path, that is, the part after the service
 	 * identifier.
+	 * <p>
+	 * For example, for the path <code>/service/123/some/resource</code> the
+	 * resource path <code>/some/resource</code> is returned.
 	 *
 	 * @return the resource path (never <i>null</i>)
 	 */
 	public String getResourcePath() {
 
 		return resourcePath;
-	}
-
-	@Override
-	public String toString() {
-
-		return "[" + serviceIdentifier + "," + resourcePath + "]";
 	}
 }

@@ -1198,9 +1198,9 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 WEB_SERVICE_PATH_IS_ILLEGAL = new I18n0("Web service path is illegal.")//
 		.de("Webservice-Pfad ist ungültig.");
 	I18n0 WEB_SERVICE_UUID_IS_ILLEGAL = new I18n0("Web service UUID is illegal.")//
-		.de("Webservice UUID ist ungültig.");
+		.de("Webservice-UUID ist ungültig.");
 	I18n0 WEB_SERVICE_UUID_IS_MISSING = new I18n0("Web service UUID is missing.")//
-		.de("Webservice UUID fehlt.");
+		.de("Webservice-UUID fehlt.");
 	I18n0 WEDNESDAY = new I18n0("Wednesday")//
 		.de("Mittwoch");
 	I18n0 WEEKDAY = new I18n0("Weekday")//
