@@ -15,7 +15,7 @@ public class WebServiceUrlBuilderTest extends AbstractDbTest {
 
 		Url url = new WebServiceUrlBuilder(PageServiceFactory.class).addParameter("foo", "7").build();
 
-		assertEquals("/portal/service?foo=7&id=" + NAVIGATION_SERVICE_UUID, url.getStartingFromPath());
-		assertEquals("https://www.example.com/portal/service?foo=7&id=" + NAVIGATION_SERVICE_UUID, url.toString());
+		assertEquals("/portal/service/%s?foo=7".formatted(NAVIGATION_SERVICE_UUID), url.getStartingFromPath());
+		assertEquals("https://www.example.com/portal/service/%s?foo=7".formatted(NAVIGATION_SERVICE_UUID), url.toString());
 	}
 }
