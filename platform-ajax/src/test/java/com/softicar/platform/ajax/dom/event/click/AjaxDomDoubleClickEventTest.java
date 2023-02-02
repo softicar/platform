@@ -24,6 +24,8 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 	@Test
 	public void test() {
 
+		// TODO For unknown reasons, this delay in the test setup makes the final assertions (viewport size vs. window size from event) deterministic.
+		// TODO This should not be necessary.
 		Sleep.sleep(2000);
 
 		// click at specific location
