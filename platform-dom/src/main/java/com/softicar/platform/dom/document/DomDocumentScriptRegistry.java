@@ -16,9 +16,9 @@ class DomDocumentScriptRegistry {
 	private final IDomDocument document;
 	private final Set<String> registeredUrls;
 
-	public DomDocumentScriptRegistry(IDomDocument document) {
+	private DomDocumentScriptRegistry(IDomDocument document) {
 
-		this.document = document;
+		this.document = Objects.requireNonNull(document);
 		this.registeredUrls = new TreeSet<>();
 	}
 

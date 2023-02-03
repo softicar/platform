@@ -15,6 +15,7 @@ abstract class AbstractTinyMceScript {
 
 		var script = """
 				new DelayedExecutor(() => %s)
+					.setFailureFunction(() => console.log('Timeout while waiting for TinyMCE library and input element to become ready.'))
 					.addWaitForVariable('tinymce')
 					.addWaitForNodeWithId('%s')
 					.start();

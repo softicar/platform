@@ -88,9 +88,14 @@ const HTTP_STATUS_GONE = 410;
 class DelayedExecutor {
     constructor(functionToExecute) {
         this.delayMillis = 100;
-        this.remainingMillis = 60000;
+        this.remainingMillis = 10000;
         this.functionToExecute = functionToExecute;
+        this.failureFunction = () => console.log("Timeout while waiting for predicates to become true.");
         this.predicates = [];
+    }
+    setFailureFunction(failureFunction) {
+        this.failureFunction = failureFunction;
+        return this;
     }
     addWaitForPredicate(predicate) {
         this.predicates.push(predicate);
@@ -117,6 +122,9 @@ class DelayedExecutor {
         else if (this.remainingMillis > 0) {
             this.remainingMillis -= this.delayMillis;
             setTimeout(() => this.start(), this.delayMillis);
+        }
+        else {
+            this.failureFunction();
         }
     }
     testPredicates() {

@@ -1,21 +1,32 @@
 /**
  * Waits for a set of predicates before executing a given function.
  * <p>
- * This class periodically checks all given predicates and executes the given
- * function only if all predicates are true.
+ * Periodically checks all given predicates and finally executes the given
+ * function as soon as all predicates are true.
  */
 class DelayedExecutor {
 	private functionToExecute: () => void;
+	private failureFunction: () => void;
 	private predicates: (() => boolean)[];
 	private delayMillis = 100;
-	private remainingMillis = 60000;
+	private remainingMillis = 10000;
 
 	/**
 	 * Constructs this instance to execute the given function.
 	 */
 	public constructor(functionToExecute: () => void) {
 		this.functionToExecute = functionToExecute;
+		this.failureFunction = () => console.log("Timeout while waiting for predicates to become true.");
 		this.predicates = [];
+	}
+
+	/**
+	 * Defines a function to be executed if the time expires before all
+	 * prediacates became true. 
+	 */
+	public setFailureFunction(failureFunction: () => void) {
+		this.failureFunction = failureFunction;
+		return this;
 	}
 	
 	/**
@@ -58,7 +69,7 @@ class DelayedExecutor {
 		this.remainingMillis = maximumMillis;
 		return this;
 	}
-
+	
 	/**
 	 * Starts the periodic check of all predicates, and finally the execution
 	 * of the given function if all predicates are true.
@@ -69,6 +80,8 @@ class DelayedExecutor {
 		} else if(this.remainingMillis > 0) {
 			this.remainingMillis -= this.delayMillis;
 			setTimeout(() => this.start(), this.delayMillis);
+		} else {
+			this.failureFunction();
 		}
 	}
 	

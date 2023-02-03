@@ -2,12 +2,11 @@ package com.softicar.platform.common.core.java.code.validator;
 
 import com.softicar.platform.common.core.java.code.validation.output.IJavaCodeValidationOuput;
 import com.softicar.platform.common.core.java.reflection.ClassHierarchyUtils;
+import java.lang.constant.Constable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.stream.Stream;
-import javax.xml.stream.events.Characters;
 
 /**
  * Provides assert methods to test properties of a given Java {@link Class}.
@@ -16,17 +15,6 @@ import javax.xml.stream.events.Characters;
  */
 public class JavaClassValidator {
 
-	private static final Set<Class<?>> IMMUTABLE_TYPES = Set
-		.of(//
-			Boolean.class,
-			Byte.class,
-			Characters.class,
-			Double.class,
-			Float.class,
-			Integer.class,
-			Long.class,
-			Short.class,
-			String.class);
 	private final IJavaCodeValidationOuput output;
 	private final Class<?> javaClass;
 
@@ -144,6 +132,6 @@ public class JavaClassValidator {
 
 	private boolean hasImmutableType(Field field) {
 
-		return field.getType().isPrimitive() || IMMUTABLE_TYPES.contains(field.getType());
+		return field.getType().isPrimitive() || Constable.class.isAssignableFrom(field.getType());
 	}
 }
