@@ -108,8 +108,10 @@ subprojects {
 
 // -------------------- compile -------------------- //
 
+sourceCompatibility = "15"
+
 subprojects {
-	apply plugin: 'com.softicar.gradle.java.library' 
+	apply plugin: 'com.softicar.gradle.java.library'
 
 	sourceCompatibility = "15"
 	targetCompatibility = "15"
