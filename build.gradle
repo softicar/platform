@@ -49,7 +49,7 @@ project.ext {
 		selenium: "4.8.0",
 		simpleJavaMail: "7.7.0",
 		slf4j: "1.7.33",
-		tesseractPlatform: "4.1.1-1.5.4",
+		tesseract: "4.1.1-1.5.6",
 	]
 }
 
