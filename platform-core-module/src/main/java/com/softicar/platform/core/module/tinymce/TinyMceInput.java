@@ -5,9 +5,10 @@ import com.softicar.platform.core.module.tinymce.scripts.TinyMceLoadScript;
 import com.softicar.platform.core.module.tinymce.scripts.TinyMceSetModeScript;
 import com.softicar.platform.dom.elements.DomTextArea;
 import com.softicar.platform.dom.input.AbstractDomValueInputDiv;
+import com.softicar.platform.emf.attribute.input.IEmfInput;
 import java.util.Optional;
 
-public class TinyMceInput extends AbstractDomValueInputDiv<String> {
+public class TinyMceInput extends AbstractDomValueInputDiv<String> implements IEmfInput<String> {
 
 	private final DomTextArea textArea;
 
