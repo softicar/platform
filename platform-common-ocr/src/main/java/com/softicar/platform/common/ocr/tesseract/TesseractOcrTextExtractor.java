@@ -31,11 +31,13 @@ import org.bytedeco.tesseract.TessBaseAPI;
  */
 public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
-	private static final int DEFAULT_DPI = 300;
+	private static final int DEFAULT_PDF_RENDERING_DPI = 120;
+	private static final int DEFAULT_TESSERACT_DPI = 120;
 	private final TesseractLanguage language;
 	private final Supplier<ITesseractTrainedDataFileStore> trainedDataFileStoreSupplier;
 	private ITesseractTrainedDataFileStore trainedDataFileStore;
-	private int dpi;
+	private int pdfRenderingDpi;
+	private int tesseractDpi;
 
 	/**
 	 * Constructs a new {@link TesseractOcrTextExtractor}.
@@ -53,7 +55,8 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		this.language = Objects.requireNonNull(language);
 		this.trainedDataFileStoreSupplier = Objects.requireNonNull(trainedDataFileStoreSupplier);
 		this.trainedDataFileStore = null;
-		this.dpi = DEFAULT_DPI;
+		this.pdfRenderingDpi = DEFAULT_PDF_RENDERING_DPI;
+		this.tesseractDpi = DEFAULT_TESSERACT_DPI;
 	}
 
 	@Override
@@ -68,15 +71,28 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 	}
 
 	/**
-	 * Defines the DPI for Tesseract rendering.
+	 * Defines the DPI for PDF rendering.
 	 *
 	 * @param dpi
 	 *            the DPI value
 	 * @return this
 	 */
-	public TesseractOcrTextExtractor setDpi(int dpi) {
+	public TesseractOcrTextExtractor setPdfRenderingDpi(int dpi) {
 
-		this.dpi = dpi;
+		this.pdfRenderingDpi = dpi;
+		return this;
+	}
+
+	/**
+	 * Defines the DPI for Tesseract.
+	 *
+	 * @param dpi
+	 *            the DPI value
+	 * @return this
+	 */
+	public TesseractOcrTextExtractor setTesseractDpi(int dpi) {
+
+		this.tesseractDpi = dpi;
 		return this;
 	}
 
@@ -125,7 +141,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 	private Collection<BufferedImage> convertToBufferedImages(InputStream inputStream) {
 
-		return new PdfRenderer().render(inputStream);
+		return new PdfRenderer().setDpi(pdfRenderingDpi).render(inputStream);
 	}
 
 	private TessBaseAPI createTesseractApi() {
@@ -137,7 +153,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 		var api = new TessBaseAPI();
 		api.Init(trainedDataDirectory.getAbsolutePath(), language.getIso6393Code());
-		setVariableOrThrow(api, "user_defined_dpi", dpi + "");
+		setVariableOrThrow(api, "user_defined_dpi", tesseractDpi + "");
 		return api;
 	}
 
