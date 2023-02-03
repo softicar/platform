@@ -31,10 +31,11 @@ import org.bytedeco.tesseract.TessBaseAPI;
  */
 public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
-	private static final int DPI = 300;
+	private static final int DEFAULT_DPI = 300;
 	private final TesseractLanguage language;
 	private final Supplier<ITesseractTrainedDataFileStore> trainedDataFileStoreSupplier;
 	private ITesseractTrainedDataFileStore trainedDataFileStore;
+	private int dpi;
 
 	/**
 	 * Constructs a new {@link TesseractOcrTextExtractor}.
@@ -52,6 +53,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		this.language = Objects.requireNonNull(language);
 		this.trainedDataFileStoreSupplier = Objects.requireNonNull(trainedDataFileStoreSupplier);
 		this.trainedDataFileStore = null;
+		this.dpi = DEFAULT_DPI;
 	}
 
 	@Override
@@ -63,6 +65,19 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * Defines the DPI for Tesseract rendering.
+	 *
+	 * @param dpi
+	 *            the DPI value
+	 * @return this
+	 */
+	public TesseractOcrTextExtractor setDpi(int dpi) {
+
+		this.dpi = dpi;
+		return this;
 	}
 
 	private String extractTextFromImages(Collection<ByteBuffer> imageByteBuffers) {
@@ -122,7 +137,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 		var api = new TessBaseAPI();
 		api.Init(trainedDataDirectory.getAbsolutePath(), language.getIso6393Code());
-		setVariableOrThrow(api, "user_defined_dpi", DPI + "");
+		setVariableOrThrow(api, "user_defined_dpi", dpi + "");
 		return api;
 	}
 
