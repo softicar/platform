@@ -72,6 +72,14 @@ public class AGStoredFileTest extends AbstractCoreTest {
 		assertFalse(unknownFileWithOctetStream.hasMimeType(MimeType.TEXT_PLAIN));
 	}
 
+	@Test
+	public void testSetContentType() {
+
+		assertEquals("image/png", new AGStoredFile().setContentType(MimeType.IMAGE_PNG).getContentType());
+		assertEquals("application/octet-stream", new AGStoredFile().setContentType(MimeType.APPLICATION_OCTET_STREAM).getContentType());
+		assertEquals("foo", new AGStoredFile().setContentType(IMimeType.createCustom("foo")).getContentType());
+	}
+
 	private AGStoredFile insertStoredFile(String filename, IMimeType mimeType) {
 
 		return insertStoredFile(filename).setContentType(mimeType.getIdentifier()).save();

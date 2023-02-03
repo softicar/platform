@@ -16,7 +16,7 @@ public class StoredFileBuilder {
 		this.storedFile.setCreatedBy(CurrentUser.get());
 		this.storedFile.setCreatedAt(DayTime.now());
 		this.storedFile.setFileName(null);
-		this.storedFile.setContentType(null);
+		this.storedFile.setContentType((String) null);
 		this.storedFile.setRemoveAt(null);
 	}
 
