@@ -31,6 +31,7 @@ import org.bytedeco.tesseract.TessBaseAPI;
  */
 public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
+	private static final int DPI = 300;
 	private final TesseractLanguage language;
 	private final Supplier<ITesseractTrainedDataFileStore> trainedDataFileStoreSupplier;
 	private ITesseractTrainedDataFileStore trainedDataFileStore;
@@ -71,8 +72,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		try (TessBaseAPI tesseractApi = createTesseractApi()) {
 			StringBuilder output = new StringBuilder();
 			for (ByteBuffer imageByteBuffer: imageByteBuffers) {
-				String pageOutput = extractTextFromImage(tesseractApi, imageByteBuffer);
-				output.append(pageOutput);
+				output.append(extractTextFromImage(tesseractApi, imageByteBuffer));
 			}
 			return output.toString();
 		} catch (Exception exception) {
@@ -119,9 +119,19 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		if (!trainedDataDirectory.exists()) {
 			throw new SofticarException("Failed to locate Tesseract trained-data directory at '%s'.", trainedDataDirectory.getAbsolutePath());
 		}
-		TessBaseAPI api = new TessBaseAPI();
+
+		var api = new TessBaseAPI();
 		api.Init(trainedDataDirectory.getAbsolutePath(), language.getIso6393Code());
+		setVariableOrThrow(api, "user_defined_dpi", DPI + "");
 		return api;
+	}
+
+	private void setVariableOrThrow(TessBaseAPI api, String key, String value) {
+
+		boolean success = api.SetVariable(key, value);
+		if (!success) {
+			throw new IllegalArgumentException("Unknown variable: '%s'".formatted(key));
+		}
 	}
 
 	private void prepareTrainedData(TesseractLanguage language) {
