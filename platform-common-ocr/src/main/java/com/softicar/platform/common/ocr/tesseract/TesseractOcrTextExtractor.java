@@ -6,13 +6,13 @@ import com.softicar.platform.common.io.zip.ZipLib;
 import com.softicar.platform.common.ocr.IOcrTextExtractor;
 import com.softicar.platform.common.ocr.tesseract.trained.data.ITesseractTrainedDataFileStore;
 import com.softicar.platform.common.ocr.tesseract.trained.data.TesseractTrainedDataFileResourceContainer;
+import com.softicar.platform.common.ocr.tesseract.trained.data.TesseractTrainedDataTemporaryFileStore;
 import com.softicar.platform.common.pdf.PdfRenderer;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -40,6 +40,19 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 	private int tesseractDpi;
 
 	/**
+	 * Constructs a new {@link TesseractOcrTextExtractor}, using the default
+	 * {@link ITesseractTrainedDataFileStore}.
+	 *
+	 * @param language
+	 *            the language of the PDF document to process (never
+	 *            <i>null</i>)
+	 */
+	public TesseractOcrTextExtractor(TesseractLanguage language) {
+
+		this(language, TesseractTrainedDataTemporaryFileStore::new);
+	}
+
+	/**
 	 * Constructs a new {@link TesseractOcrTextExtractor}.
 	 *
 	 * @param language
@@ -62,9 +75,9 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 	@Override
 	public String extractText(InputStream inputStream) {
 
-		Collection<ByteBuffer> imageByteBuffers = convertToImageByteBuffers(inputStream);
-		if (!imageByteBuffers.isEmpty()) {
-			return extractTextFromImages(imageByteBuffers);
+		Collection<byte[]> imageBytesCollection = convertToImageBytesCollection(inputStream);
+		if (!imageBytesCollection.isEmpty()) {
+			return extractTextFromImages(imageBytesCollection);
 		} else {
 			return "";
 		}
@@ -96,14 +109,14 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		return this;
 	}
 
-	private String extractTextFromImages(Collection<ByteBuffer> imageByteBuffers) {
+	private String extractTextFromImages(Collection<byte[]> imageBytesCollection) {
 
 		prepareTrainedData(language);
 
 		try (TessBaseAPI tesseractApi = createTesseractApi()) {
 			StringBuilder output = new StringBuilder();
-			for (ByteBuffer imageByteBuffer: imageByteBuffers) {
-				output.append(extractTextFromImage(tesseractApi, imageByteBuffer));
+			for (byte[] imageBytes: imageBytesCollection) {
+				output.append(extractTextFromImage(tesseractApi, imageBytes));
 			}
 			return output.toString();
 		} catch (Exception exception) {
@@ -111,9 +124,9 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		}
 	}
 
-	private String extractTextFromImage(TessBaseAPI tesseractApi, ByteBuffer imageByteBuffer) {
+	private String extractTextFromImage(TessBaseAPI tesseractApi, byte[] imageBytes) {
 
-		try (PIX imagePix = lept.pixReadMem(imageByteBuffer, imageByteBuffer.position() - 1)) {
+		try (PIX imagePix = lept.pixReadMemBmp(imageBytes, imageBytes.length)) {
 			tesseractApi.SetImage(imagePix);
 			try (BytePointer textPointer = tesseractApi.GetUTF8Text()) {
 				return textPointer.getString();
@@ -121,19 +134,19 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		}
 	}
 
-	private Collection<ByteBuffer> convertToImageByteBuffers(InputStream inputStream) {
+	private Collection<byte[]> convertToImageBytesCollection(InputStream inputStream) {
 
 		return convertToBufferedImages(inputStream)//
 			.stream()
-			.map(this::convertToByteBuffer)
+			.map(this::convertToBytes)
 			.collect(Collectors.toList());
 	}
 
-	private ByteBuffer convertToByteBuffer(BufferedImage bufferedImage) {
+	private byte[] convertToBytes(BufferedImage bufferedImage) {
 
-		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-			ImageIO.write(bufferedImage, "png", outputStream);
-			return ByteBuffer.wrap(outputStream.toByteArray());
+		try (var outputStream = new ByteArrayOutputStream()) {
+			ImageIO.write(bufferedImage, "bmp", outputStream);
+			return outputStream.toByteArray();
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}
