@@ -211,6 +211,19 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	}
 
 	/**
+	 * Sets the given {@link IMimeType} as {@link AGStoredFile#CONTENT_TYPE}.
+	 *
+	 * @param mimeType
+	 *            the {@link IMimeType} (never <i>null</i>)
+	 * @return this
+	 */
+	public AGStoredFile setContentTypeByMimeType(IMimeType mimeType) {
+
+		setContentType(mimeType.getIdentifier().toLowerCase());
+		return this;
+	}
+
+	/**
 	 * Creates a new {@link StoredFileConverter} for this {@link AGStoredFile}.
 	 *
 	 * @return the {@link StoredFileConverter} (never <i>null</i>)
