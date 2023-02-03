@@ -46,6 +46,6 @@ public class SourceCodeReferencePointValidator extends AbstractJavaCodeValidator
 			.assertImplementsInterface(ISourceCodeReferencePoint.class)
 			.assertHasAnnotation(SourceCodeReferencePointUuid.class)
 			.assertHasParameterlessConstructor()
-			.assertHasNoNonStaticFieldsDeep();
+			.assertHasNoMutableInstanceFieldsDeep();
 	}
 }
