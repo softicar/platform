@@ -104,20 +104,28 @@ public class JavaClassValidatorTest extends AbstractTest {
 		output.assertViolationCount(0);
 	}
 
-	// ------------------------------ non-static fields ------------------------------ //
+	// ------------------------------ mutable instance fields ------------------------------ //
 
 	@Test
-	public void testHasNoNonStaticFieldsWithViolation() {
+	public void testHasNoMutableInstanceFieldsWithNonStaticNonFinalField() {
 
-		new JavaClassValidator(output, TestClassDerivedFromClassWithNonStaticField.class).assertHasNoNonStaticFieldsDeep();
+		new JavaClassValidator(output, TestClassDerivedFromClassWithNonStaticField.class).assertHasNoMutableInstanceFieldsDeep();
 
 		output.assertViolationCount(1);
 	}
 
 	@Test
-	public void testHasNoNonStaticFieldsWithoutViolation() {
+	public void testHasNoMutableInstanceFieldsWithNonStaticFinalStringField() {
 
-		new JavaClassValidator(output, ConcreteTestClass.class).assertHasNoNonStaticFieldsDeep();
+		new JavaClassValidator(output, TestClassWithNonStaticFinalStringField.class).assertHasNoMutableInstanceFieldsDeep();
+
+		output.assertViolationCount(0);
+	}
+
+	@Test
+	public void testHasNoMutableInstanceFieldsWithoutAnyFields() {
+
+		new JavaClassValidator(output, ConcreteTestClass.class).assertHasNoMutableInstanceFieldsDeep();
 
 		output.assertViolationCount(0);
 	}
@@ -154,6 +162,11 @@ public class JavaClassValidatorTest extends AbstractTest {
 	public static class TestClassWithNonStaticField {
 
 		@SuppressWarnings("unused") private String field;
+	}
+
+	public static class TestClassWithNonStaticFinalStringField {
+
+		@SuppressWarnings("unused") private final String field = "";
 	}
 
 	public static class TestClassDerivedFromClassWithNonStaticField extends TestClassWithNonStaticField {

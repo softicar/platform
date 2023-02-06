@@ -1,0 +1,6 @@
+
+.tox div {
+	display: block;
+	flex-direction: row;
+	gap: 0;
+}

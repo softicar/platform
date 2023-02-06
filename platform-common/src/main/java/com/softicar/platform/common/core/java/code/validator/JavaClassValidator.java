@@ -2,6 +2,7 @@ package com.softicar.platform.common.core.java.code.validator;
 
 import com.softicar.platform.common.core.java.code.validation.output.IJavaCodeValidationOuput;
 import com.softicar.platform.common.core.java.reflection.ClassHierarchyUtils;
+import java.lang.constant.Constable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -82,35 +83,55 @@ public class JavaClassValidator {
 		return this;
 	}
 
-	public JavaClassValidator assertHasNoNonStaticFieldsShallow() {
+	public JavaClassValidator assertHasNoMutableInstanceFieldsShallow() {
 
-		if (hasNonStaticFields()) {
+		if (hasMutableInstanceFields()) {
 			output
 				.formatViolation(//
-					"Unexpected non-static field in class: %s",
+					"Unexpected mutable instance field in class: %s",
 					javaClass.getCanonicalName());
 		}
 		return this;
 	}
 
-	public JavaClassValidator assertHasNoNonStaticFieldsDeep() {
+	public JavaClassValidator assertHasNoMutableInstanceFieldsDeep() {
 
-		ClassHierarchyUtils.forEachClassInHierarchy(javaClass, it -> new JavaClassValidator(output, it).assertHasNoNonStaticFieldsShallow());
+		ClassHierarchyUtils.forEachClassInHierarchy(javaClass, it -> new JavaClassValidator(output, it).assertHasNoMutableInstanceFieldsShallow());
 		return this;
 	}
 
 	// ------------------------------ private auxiliary methods ------------------------------ //
 
-	private boolean hasNonStaticFields() {
+	private boolean hasMutableInstanceFields() {
 
 		return Arrays//
 			.asList(javaClass.getDeclaredFields())
 			.stream()
-			.anyMatch(this::isNonStaticField);
+			.anyMatch(this::isMutableInstanceField);
 	}
 
-	private boolean isNonStaticField(Field field) {
+	private boolean isMutableInstanceField(Field field) {
 
-		return !Modifier.isStatic(field.getModifiers());
+		return !isImmutable(field) && !isStatic(field);
+	}
+
+	private boolean isStatic(Field field) {
+
+		return Modifier.isStatic(field.getModifiers());
+	}
+
+	private boolean isImmutable(Field field) {
+
+		return isFinal(field) && hasImmutableType(field);
+	}
+
+	private boolean isFinal(Field field) {
+
+		return Modifier.isFinal(field.getModifiers());
+	}
+
+	private boolean hasImmutableType(Field field) {
+
+		return field.getType().isPrimitive() || Constable.class.isAssignableFrom(field.getType());
 	}
 }

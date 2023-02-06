@@ -125,6 +125,11 @@ public class ExternalComponentLicensePredefinedRules {
 		// https://github.com/bytedeco/javacpp-presets/blob/master/tesseract/LICENSE (C++ wrapper; Apache 2.0)
 		// https://github.com/tesseract-ocr/tesseract/blob/master/LICENSE (Tesseract library; Apache 2.0)
 		addLibrary("tesseract(-platform)?", ".*", License.APACHE_2_0);
+
+		// Artifact does not contain license information.
+		// License defined at:
+		// https://github.com/tinymce/tinymce/blob/develop/LICENSE.TXT
+		addLibrary("tinymce", "6.*", License.MIT);
 	}
 
 	private void addLibrary(String namePattern, String versionPattern, License license) {
