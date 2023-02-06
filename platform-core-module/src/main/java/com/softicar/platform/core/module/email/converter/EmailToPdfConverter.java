@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.email.converter;
 
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.pdf.PdfPageRemover;
@@ -180,11 +179,6 @@ public class EmailToPdfConverter {
 	private void renderHtml(String html, OutputStream output) {
 
 		var xhtml = convertHtmltoXhtml(html);
-
-		Log.finfo(">>>>");
-		Log.finfo(xhtml);
-		Log.finfo("<<<<");
-
 		renderer.setDocumentFromString(xhtml);
 		renderer.layout();
 		renderer.createPDF(output, false);
