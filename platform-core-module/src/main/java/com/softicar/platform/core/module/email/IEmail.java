@@ -5,6 +5,7 @@ import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.core.module.email.message.EmailMessageId;
 import com.softicar.platform.core.module.email.recipient.EmailRecipient;
 import com.softicar.platform.core.module.user.AGUser;
+import jakarta.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Collection;
@@ -290,4 +291,11 @@ public interface IEmail {
 	 * later.
 	 */
 	void submit();
+
+	/**
+	 * Converts this {@link IEmail} into a {@link MimeMessage}.
+	 *
+	 * @return the {@link MimeMessage} (never <i>null</i>)
+	 */
+	MimeMessage toMimeMessage();
 }

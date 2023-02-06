@@ -325,7 +325,12 @@ public class Email implements IEmail {
 	@Override
 	public IEmail addBccRecipient(AGUser recipient) {
 
-		// TODO Auto-generated method stub
-		return null;
+		return addBccRecipient(recipient.getEmailAddress());
+	}
+
+	@Override
+	public MimeMessage toMimeMessage() {
+
+		return mailMessage;
 	}
 }
