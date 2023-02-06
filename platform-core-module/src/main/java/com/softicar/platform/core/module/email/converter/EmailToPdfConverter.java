@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -25,6 +27,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.simplejavamail.converter.EmailConverter;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
@@ -251,8 +255,58 @@ public class EmailToPdfConverter {
 		Document document = Jsoup.parse(html);
 		document.head().append("<style type='text/css'><!--@page { margin: 0; }--></style>");
 		document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
+		getTransitiveChildren(document).forEach(EmailToPdfConverter::removeRedundantAttributes);
 		String xhtml = document.html();
 		return escapeXml(xhtml);
+	}
+
+	/**
+	 * Fetches the transitive children of the given element.
+	 *
+	 * @param element
+	 *            the parent element (never <i>null</i>)
+	 * @return the transitive children of the parent element (never <i>null</i>)
+	 */
+	private static Collection<Element> getTransitiveChildren(Element element) {
+
+		List<Element> result = new ArrayList<>();
+		Elements children = element.children();
+		result.addAll(children);
+		for (Element child: children) {
+			result.addAll(getTransitiveChildren(child));
+		}
+		return result;
+	}
+
+	/**
+	 * Removes all attributes (including redundant ones) with the given name
+	 * from the given element.
+	 *
+	 * @param element
+	 *            the element to remove attributes from (never <i>null</i>)
+	 */
+	private static void removeRedundantAttributes(Element element) {
+
+		for (Entry<String, Integer> entry: getRedundantAttributes(element).entrySet()) {
+			String key = entry.getKey();
+			Integer count = entry.getValue();
+			for (int i = 0; i < count; i++) {
+				element.removeAttr(key);
+			}
+		}
+	}
+
+	private static Map<String, Integer> getRedundantAttributes(Element element) {
+
+		return element
+			.attributes()
+			.asList()
+			.stream()
+			.collect(Collectors.groupingBy(it -> it.getKey()))
+			.entrySet()
+			.stream()
+			.filter(entry -> entry.getValue().size() > 1)
+			.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().size()));
 	}
 
 	/**
