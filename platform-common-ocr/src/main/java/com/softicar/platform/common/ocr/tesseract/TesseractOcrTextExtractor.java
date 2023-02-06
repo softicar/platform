@@ -33,11 +33,14 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 	private static final int DEFAULT_PDF_RENDERING_DPI = 120;
 	private static final int DEFAULT_TESSERACT_DPI = 120;
+	private static final TesseractPageSegmentationMode DEFAULT_PAGE_SEGMENTATION_MODE = TesseractPageSegmentationMode.PSM_SINGLE_BLOCK;
+
 	private final TesseractLanguage language;
 	private final Supplier<ITesseractTrainedDataFileStore> trainedDataFileStoreSupplier;
 	private ITesseractTrainedDataFileStore trainedDataFileStore;
 	private int pdfRenderingDpi;
 	private int tesseractDpi;
+	private TesseractPageSegmentationMode pageSegmentationMode;
 
 	/**
 	 * Constructs a new {@link TesseractOcrTextExtractor}, using the default
@@ -70,6 +73,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		this.trainedDataFileStore = null;
 		this.pdfRenderingDpi = DEFAULT_PDF_RENDERING_DPI;
 		this.tesseractDpi = DEFAULT_TESSERACT_DPI;
+		this.pageSegmentationMode = DEFAULT_PAGE_SEGMENTATION_MODE;
 	}
 
 	@Override
@@ -109,6 +113,17 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		return this;
 	}
 
+	/**
+	 * Defines the {@link TesseractPageSegmentationMode}.
+	 *
+	 * @param pageSegmentationMode
+	 *            the mode (never <i>null</i>)
+	 */
+	public void setPageSegmentationMode(TesseractPageSegmentationMode pageSegmentationMode) {
+
+		this.pageSegmentationMode = Objects.requireNonNull(pageSegmentationMode);
+	}
+
 	private String extractTextFromImages(Collection<byte[]> imageBytesCollection) {
 
 		prepareTrainedData(language);
@@ -128,6 +143,7 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 
 		try (PIX imagePix = lept.pixReadMemBmp(imageBytes, imageBytes.length)) {
 			tesseractApi.SetImage(imagePix);
+
 			try (BytePointer textPointer = tesseractApi.GetUTF8Text()) {
 				return textPointer.getString();
 			}
@@ -167,9 +183,17 @@ public class TesseractOcrTextExtractor implements IOcrTextExtractor {
 		var api = new TessBaseAPI();
 		api.Init(trainedDataDirectory.getAbsolutePath(), language.getIso6393Code());
 		setVariableOrThrow(api, "user_defined_dpi", tesseractDpi + "");
+		setVariableOrThrow(api, "tessedit_pageseg_mode", pageSegmentationMode.getModeIndex() + "");
 		return api;
 	}
 
+	/**
+	 * Sets the given variable.
+	 * <p>
+	 * See the <a href=
+	 * "https://tesseract-ocr.github.io/tessapi/4.0.0/a02358.html#pub-attribs">documentation</a>
+	 * for a complete list.
+	 */
 	private void setVariableOrThrow(TessBaseAPI api, String key, String value) {
 
 		boolean success = api.SetVariable(key, value);
