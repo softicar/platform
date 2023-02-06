@@ -19,6 +19,7 @@ import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -28,22 +29,22 @@ import java.util.Objects;
 
 public class BufferedEmail implements IEmail {
 
-	private AGServer emailServer;
-	private InternetAddress from;
-	private InternetAddress sender;
-	private InternetAddress replyTo;
-	private final List<InternetAddress> toAddresses;
-	private final List<InternetAddress> ccAddresses;
-	private final List<InternetAddress> bccAddresses;
-	private EmailMessageId messageId;
-	private EmailMessageId inReplyTo;
-	private final Collection<EmailMessageId> references;
-	private String subject;
-	private String content;
-	private EmailContentType contentType;
-	private String autoSubmitted;
-	private final List<BufferedEmailAttachment> attachments;
-	private final UtfNonBmpCharacterReplacer characterReplacer;
+	protected AGServer emailServer;
+	protected InternetAddress from;
+	protected InternetAddress sender;
+	protected InternetAddress replyTo;
+	protected final List<InternetAddress> toAddresses;
+	protected final List<InternetAddress> ccAddresses;
+	protected final List<InternetAddress> bccAddresses;
+	protected EmailMessageId messageId;
+	protected EmailMessageId inReplyTo;
+	protected final Collection<EmailMessageId> references;
+	protected String subject;
+	protected String content;
+	protected EmailContentType contentType;
+	protected String autoSubmitted;
+	protected final List<BufferedEmailAttachment> attachments;
+	protected final UtfNonBmpCharacterReplacer characterReplacer;
 
 	public BufferedEmail() {
 
@@ -256,6 +257,12 @@ public class BufferedEmail implements IEmail {
 		}
 
 		Programs.enqueueExecution(BufferedEmailSendProgram.class);
+	}
+
+	@Override
+	public MimeMessage toMimeMessage() {
+
+		return new BufferedEmailToMimeMessageConverter(this).convert();
 	}
 
 	protected String getInvalidCharacterReplacement() {
