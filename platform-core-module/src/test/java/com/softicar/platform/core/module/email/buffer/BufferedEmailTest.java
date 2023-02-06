@@ -46,7 +46,7 @@ public class BufferedEmailTest extends AbstractCoreTest {
 		assertEquals("", email.getBcc());
 		assertEquals("", email.getSubject());
 		assertEquals("", email.getContent());
-		assertEquals("text/plain;charset=utf-8", email.getContentType());
+		assertEquals("text/plain; charset=utf-8", email.getContentType());
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -105,7 +105,7 @@ public class BufferedEmailTest extends AbstractCoreTest {
 		assertEquals("d@example.com", email.getBcc());
 		assertEquals("This is the topic.", email.getSubject());
 		assertEquals("This is some content.", email.getContent());
-		assertEquals("text/plain;charset=utf-8", email.getContentType());
+		assertEquals("text/plain; charset=utf-8", email.getContentType());
 	}
 
 	@Test
