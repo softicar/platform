@@ -255,7 +255,7 @@ public class EmailToPdfConverter {
 		Document document = Jsoup.parse(html);
 		document.head().append("<style type='text/css'><!--@page { margin: 0; }--></style>");
 		document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
-		getTransitiveChildren(document).forEach(child -> removeAllAttributes(child, "alt"));
+		getTransitiveChildren(document).forEach(EmailToPdfConverter::removeRedundantAttributes);
 		String xhtml = document.html();
 		return escapeXml(xhtml);
 	}
@@ -284,14 +284,29 @@ public class EmailToPdfConverter {
 	 *
 	 * @param element
 	 *            the element to remove attributes from (never <i>null</i>)
-	 * @param attributeName
-	 *            the name of the attribute to remove (never <i>null</i>)
 	 */
-	private static void removeAllAttributes(Element element, String attributeName) {
+	private static void removeRedundantAttributes(Element element) {
 
-		while (element.hasAttr(attributeName)) {
-			element.removeAttr(attributeName);
+		for (Entry<String, Integer> entry: getRedundantAttributes(element).entrySet()) {
+			String key = entry.getKey();
+			Integer count = entry.getValue();
+			for (int i = 0; i < count; i++) {
+				element.removeAttr(key);
+			}
 		}
+	}
+
+	private static Map<String, Integer> getRedundantAttributes(Element element) {
+
+		return element
+			.attributes()
+			.asList()
+			.stream()
+			.collect(Collectors.groupingBy(it -> it.getKey()))
+			.entrySet()
+			.stream()
+			.filter(entry -> entry.getValue().size() > 1)
+			.collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().size()));
 	}
 
 	/**
@@ -325,15 +340,6 @@ public class EmailToPdfConverter {
 			.replace("&amp;", "&")
 			.replace("&", "&amp;");
 	}
-
-//	private static String stripIrrelevantAttributes(String xmlText) {
-//
-//
-//
-////		xmlText.replaceAll("", xmlText)
-//
-//		// alt="dbi analytics logo" alt="DBI Logo"
-//	}
 
 	private static class Base64Image {
 
