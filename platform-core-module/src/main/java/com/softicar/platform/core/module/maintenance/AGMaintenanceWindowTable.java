@@ -57,7 +57,7 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	@Override
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGMaintenanceWindow> configuration) {
 
-		configuration.addOrderBy(AGMaintenanceWindow.EXPECTED_START, OrderDirection.ASCENDING);
+		configuration.addOrderBy(AGMaintenanceWindow.EXPECTED_START, OrderDirection.DESCENDING);
 	}
 
 	@Override
