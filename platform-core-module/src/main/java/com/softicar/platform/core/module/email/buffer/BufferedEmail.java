@@ -48,7 +48,7 @@ public class BufferedEmail implements IEmail {
 
 	public BufferedEmail() {
 
-		this.emailServer = AGCoreModuleInstance.getInstance().getEmailServerOrThrow();
+		this.emailServer = null;
 		this.from = null;
 		this.sender = null;
 		this.replyTo = null;
@@ -224,7 +224,7 @@ public class BufferedEmail implements IEmail {
 		validate();
 
 		AGBufferedEmail mail = new AGBufferedEmail();
-		mail.setEmailServer(emailServer);
+		mail.setEmailServer(emailServer != null? emailServer : AGCoreModuleInstance.getInstance().getEmailServerOrThrow());
 		mail.setCreatedAt(DayTime.now());
 		mail.setCreatedBy(CurrentUser.get());
 		mail.setSentAt(null);

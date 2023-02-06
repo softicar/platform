@@ -26,7 +26,7 @@ public class BufferedEmailToMimeMessageConverter {
 	public MimeMessage convert() {
 
 		try {
-			var message = new MimeMessage((Session) null);
+			var message = new CustomMimeMessage();
 
 			// set addresses
 			if (email.from != null) {
@@ -58,6 +58,7 @@ public class BufferedEmailToMimeMessageConverter {
 				multipart.addBodyPart(createAttachmentBodyPart(attachment));
 			}
 			message.setContent(multipart);
+			message.saveChanges();
 
 			return message;
 		} catch (MessagingException exception) {
@@ -76,7 +77,7 @@ public class BufferedEmailToMimeMessageConverter {
 
 		var part = new MimeBodyPart();
 		part.setContent(email.content, email.contentType.getContentTypeString());
-		part.setDisposition("inline");
+		part.setDisposition(MimeMessage.INLINE);
 		return part;
 	}
 
@@ -87,7 +88,23 @@ public class BufferedEmailToMimeMessageConverter {
 		BodyPart part = new MimeBodyPart();
 		part.setDataHandler(new DataHandler(dataSource));
 		part.setFileName(attachment.getName());
-		part.setDisposition("attachment");
+		part.setDisposition(MimeMessage.ATTACHMENT);
 		return part;
+	}
+
+	private class CustomMimeMessage extends MimeMessage {
+
+		public CustomMimeMessage() {
+
+			super((Session) null);
+		}
+
+		@Override
+		protected void updateMessageID() throws MessagingException {
+
+			if (getMessageID() == null) {
+				super.updateMessageID();
+			}
+		}
 	}
 }
