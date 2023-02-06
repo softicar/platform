@@ -118,10 +118,12 @@ public class TesseractOcrTextExtractor implements IPdfTextExtractor {
 	 *
 	 * @param pageSegmentationMode
 	 *            the mode (never <i>null</i>)
+	 * @return this
 	 */
-	public void setPageSegmentationMode(TesseractPageSegmentationMode pageSegmentationMode) {
+	public TesseractOcrTextExtractor setPageSegmentationMode(TesseractPageSegmentationMode pageSegmentationMode) {
 
 		this.pageSegmentationMode = Objects.requireNonNull(pageSegmentationMode);
+		return this;
 	}
 
 	private String extractTextFromImages(Collection<byte[]> imageBytesCollection) {
