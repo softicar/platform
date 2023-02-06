@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.maintenance;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
+import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
@@ -44,6 +45,8 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	public void customizeAttributeDefaultValues(EmfAttributeDefaultValueSet<AGMaintenanceWindow, AGCoreModuleInstance> defaultValueSet) {
 
 		defaultValueSet.setSupplier(AGMaintenanceWindow.STATE, AGMaintenanceStateEnum.PENDING::getRecord);
+		defaultValueSet.setSupplier(AGMaintenanceWindow.EXPECTED_START, DayTime::now);
+		defaultValueSet.setSupplier(AGMaintenanceWindow.EXPECTED_END, DayTime::now);
 	}
 
 	@Override
@@ -57,7 +60,7 @@ public class AGMaintenanceWindowTable extends EmfObjectTable<AGMaintenanceWindow
 	@Override
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGMaintenanceWindow> configuration) {
 
-		configuration.addOrderBy(AGMaintenanceWindow.EXPECTED_START, OrderDirection.ASCENDING);
+		configuration.addOrderBy(AGMaintenanceWindow.EXPECTED_START, OrderDirection.DESCENDING);
 	}
 
 	@Override
