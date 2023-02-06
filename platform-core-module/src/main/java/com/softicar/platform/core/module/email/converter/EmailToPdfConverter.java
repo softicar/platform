@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.email.converter;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.pdf.PdfPageRemover;
@@ -14,8 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -25,6 +28,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.simplejavamail.converter.EmailConverter;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
@@ -175,6 +180,11 @@ public class EmailToPdfConverter {
 	private void renderHtml(String html, OutputStream output) {
 
 		var xhtml = convertHtmltoXhtml(html);
+
+		Log.finfo(">>>>");
+		Log.finfo(xhtml);
+		Log.finfo("<<<<");
+
 		renderer.setDocumentFromString(xhtml);
 		renderer.layout();
 		renderer.createPDF(output, false);
@@ -251,8 +261,43 @@ public class EmailToPdfConverter {
 		Document document = Jsoup.parse(html);
 		document.head().append("<style type='text/css'><!--@page { margin: 0; }--></style>");
 		document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
+		getTransitiveChildren(document).forEach(child -> removeAllAttributes(child, "alt"));
 		String xhtml = document.html();
 		return escapeXml(xhtml);
+	}
+
+	/**
+	 * Fetches the transitive children of the given element.
+	 *
+	 * @param element
+	 *            the parent element (never <i>null</i>)
+	 * @return the transitive children of the parent element (never <i>null</i>)
+	 */
+	private static Collection<Element> getTransitiveChildren(Element element) {
+
+		List<Element> result = new ArrayList<>();
+		Elements children = element.children();
+		result.addAll(children);
+		for (Element child: children) {
+			result.addAll(getTransitiveChildren(child));
+		}
+		return result;
+	}
+
+	/**
+	 * Removes all attributes (including redundant ones) with the given name
+	 * from the given element.
+	 *
+	 * @param element
+	 *            the element to remove attributes from (never <i>null</i>)
+	 * @param attributeName
+	 *            the name of the attribute to remove (never <i>null</i>)
+	 */
+	private static void removeAllAttributes(Element element, String attributeName) {
+
+		while (element.hasAttr(attributeName)) {
+			element.removeAttr(attributeName);
+		}
 	}
 
 	/**
@@ -286,6 +331,15 @@ public class EmailToPdfConverter {
 			.replace("&amp;", "&")
 			.replace("&", "&amp;");
 	}
+
+//	private static String stripIrrelevantAttributes(String xmlText) {
+//
+//
+//
+////		xmlText.replaceAll("", xmlText)
+//
+//		// alt="dbi analytics logo" alt="DBI Logo"
+//	}
 
 	private static class Base64Image {
 
