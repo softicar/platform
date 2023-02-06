@@ -3,10 +3,10 @@ package com.softicar.platform.common.ocr.tesseract;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.zip.ZipLib;
-import com.softicar.platform.common.ocr.IOcrTextExtractor;
 import com.softicar.platform.common.ocr.tesseract.trained.data.ITesseractTrainedDataFileStore;
 import com.softicar.platform.common.ocr.tesseract.trained.data.TesseractTrainedDataFileResourceContainer;
 import com.softicar.platform.common.ocr.tesseract.trained.data.TesseractTrainedDataTemporaryFileStore;
+import com.softicar.platform.common.pdf.IPdfTextExtractor;
 import com.softicar.platform.common.pdf.PdfRenderer;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +29,7 @@ import org.bytedeco.tesseract.TessBaseAPI;
  *
  * @author Alexander Schmidt
  */
-public class TesseractOcrTextExtractor implements IOcrTextExtractor {
+public class TesseractOcrTextExtractor implements IPdfTextExtractor {
 
 	private static final int DEFAULT_PDF_RENDERING_DPI = 120;
 	private static final int DEFAULT_TESSERACT_DPI = 120;
