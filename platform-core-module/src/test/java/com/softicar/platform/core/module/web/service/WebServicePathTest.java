@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.testing.Asserts;
+import java.util.Optional;
 import org.junit.Test;
 
 public class WebServicePathTest extends Asserts {
@@ -8,11 +9,11 @@ public class WebServicePathTest extends Asserts {
 	@Test
 	public void testParseWithValidPath() {
 
-		assertIdentifierAndPath("", "", WebServicePath.parseOrThrow("/service/"));
-		assertIdentifierAndPath("", "/", WebServicePath.parseOrThrow("/service//"));
-		assertIdentifierAndPath("0815", "", WebServicePath.parseOrThrow("/service/0815"));
-		assertIdentifierAndPath("0815", "/", WebServicePath.parseOrThrow("/service/0815/"));
-		assertIdentifierAndPath("0815", "/foo/bar", WebServicePath.parseOrThrow("/service/0815/foo/bar"));
+		assertIdentifierAndPath("", "", WebServicePath.parse("/service/"));
+		assertIdentifierAndPath("", "/", WebServicePath.parse("/service//"));
+		assertIdentifierAndPath("0815", "", WebServicePath.parse("/service/0815"));
+		assertIdentifierAndPath("0815", "/", WebServicePath.parse("/service/0815/"));
+		assertIdentifierAndPath("0815", "/foo/bar", WebServicePath.parse("/service/0815/foo/bar"));
 	}
 
 	@Test
@@ -27,9 +28,9 @@ public class WebServicePathTest extends Asserts {
 		assertEmpty(WebServicePath.parse("/service"));
 	}
 
-	private void assertIdentifierAndPath(String expectedServiceIdentifier, String expectedResourcePath, WebServicePath servicePath) {
+	private void assertIdentifierAndPath(String expectedServiceIdentifier, String expectedResourcePath, Optional<WebServicePath> servicePath) {
 
-		assertEquals(expectedServiceIdentifier, servicePath.getServiceIdentifier());
-		assertEquals(expectedResourcePath, servicePath.getResourcePath());
+		assertEquals(expectedServiceIdentifier, servicePath.get().getServiceIdentifier());
+		assertEquals(expectedResourcePath, servicePath.get().getResourcePath());
 	}
 }
