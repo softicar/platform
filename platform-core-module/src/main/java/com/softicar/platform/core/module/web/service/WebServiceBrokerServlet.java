@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-@WebServlet("/service")
+@WebServlet("/service/*")
 @MultipartConfig
 public class WebServiceBrokerServlet extends HttpServlet {
 
