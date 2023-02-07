@@ -39,7 +39,7 @@ public class WebServiceUuidFetcherTest extends Asserts {
 		Mockito.when(request.getRequestURI()).thenReturn("/service");
 		Mockito.when(request.getContextPath()).thenReturn("");
 
-		assertExceptionMessage("Failed to determine web service path from request URL.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
+		assertExceptionMessage("Failed to determine web service path from request URI.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
 	}
 
 	@Test
