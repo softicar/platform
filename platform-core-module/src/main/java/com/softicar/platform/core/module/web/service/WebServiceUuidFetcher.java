@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.CoreI18n;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,8 +27,10 @@ public class WebServiceUuidFetcher {
 
 	private Optional<String> getFromPath() {
 
+		String requestUri = Optional.ofNullable(request.getRequestURI()).orElse("");
+		String contextPath = Optional.ofNullable(request.getContextPath()).orElse("");
 		return WebServicePath//
-			.parse(request.getPathInfo())
+			.parse(Trim.trimPrefix(requestUri, contextPath))
 			.map(WebServicePath::getServiceIdentifier);
 	}
 

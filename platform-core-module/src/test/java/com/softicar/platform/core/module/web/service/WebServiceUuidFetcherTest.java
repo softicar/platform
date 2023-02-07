@@ -15,10 +15,32 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	public void testWithUuidInPath() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
-		Mockito.when(request.getPathInfo()).thenReturn("/service/" + UUID_A);
+		Mockito.when(request.getRequestURI()).thenReturn("/context/service/" + UUID_A);
+		Mockito.when(request.getContextPath()).thenReturn("/context");
 		var serviceUuid = new WebServiceUuidFetcher(request).getServiceUuidOrThrow();
 
 		assertEquals(UUID_A, serviceUuid);
+	}
+
+	@Test
+	public void testWithUuidInPathAndEmptyContextPath() {
+
+		var request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURI()).thenReturn("/service/" + UUID_A);
+		Mockito.when(request.getContextPath()).thenReturn("");
+		var serviceUuid = new WebServiceUuidFetcher(request).getServiceUuidOrThrow();
+
+		assertEquals(UUID_A, serviceUuid);
+	}
+
+	@Test
+	public void testWithUuidInPathAndNullContextPath() {
+
+		var request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURI()).thenReturn("/context/service/" + UUID_A);
+		Mockito.when(request.getContextPath()).thenReturn(null);
+
+		assertExceptionMessage("Web service UUID is missing.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
 	}
 
 	@Test
@@ -35,7 +57,8 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	public void testWithUuidInPathAndParameter() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
-		Mockito.when(request.getPathInfo()).thenReturn("/service/" + UUID_A);
+		Mockito.when(request.getRequestURI()).thenReturn("/context/service/" + UUID_A);
+		Mockito.when(request.getContextPath()).thenReturn("/context");
 		Mockito.when(request.getParameter("id")).thenReturn(UUID_B.toString());
 		var serviceUuid = new WebServiceUuidFetcher(request).getServiceUuidOrThrow();
 
