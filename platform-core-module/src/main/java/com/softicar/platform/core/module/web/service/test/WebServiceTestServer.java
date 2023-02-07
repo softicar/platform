@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.web.service.test;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.web.service.WebServiceServer;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.page.service.PageServiceFactory;
 import com.softicar.platform.db.core.database.IDbDatabase;
 
 /**
@@ -20,9 +22,8 @@ import com.softicar.platform.db.core.database.IDbDatabase;
  *         database.apply(() -> {...});
  *
  *         new WebServiceTestServer(database)//
- *             .setRequestString(...)
  *             .setPort(9000)
- *             .start();
+ *             .startAndJoin();
  *     }
  * }
  * </pre>
@@ -36,5 +37,6 @@ public class WebServiceTestServer extends WebServiceServer {
 		super(new WebServiceTestService(database));
 
 		setContextName(AGCoreModuleInstance.PORTAL_APPLICATION.getDefault());
+		setRequestString("service/" + SourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class));
 	}
 }

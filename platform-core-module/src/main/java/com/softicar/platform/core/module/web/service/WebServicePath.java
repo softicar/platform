@@ -1,8 +1,7 @@
 package com.softicar.platform.core.module.web.service;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.network.http.error.HttpBadRequestError;
 import com.softicar.platform.common.web.service.IWebService;
-import com.softicar.platform.core.module.CoreI18n;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -53,7 +52,7 @@ public class WebServicePath {
 	 */
 	public static WebServicePath parseOrThrow(String path) {
 
-		return parse(path).orElseThrow(() -> new SofticarUserException(CoreI18n.WEB_SERVICE_PATH_IS_ILLEGAL));
+		return parse(path).orElseThrow(() -> new HttpBadRequestError("Illegal web service path."));
 	}
 
 	/**

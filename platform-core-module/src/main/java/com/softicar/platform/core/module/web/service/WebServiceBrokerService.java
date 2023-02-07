@@ -71,9 +71,8 @@ public class WebServiceBrokerService implements IWebService {
 			service.service(request, response);
 
 			environment.cleanupEnvironment();
-		} catch (Exception throwable) {
-			throwable.printStackTrace();
-			throw new SofticarDeveloperException(throwable);
+		} catch (Exception exception) {
+			new WebServiceBrokerServiceExceptionHandler(exception, response).handleException();
 		} finally {
 			CurrentSingletonSet.remove();
 		}

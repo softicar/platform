@@ -1,7 +1,5 @@
 package com.softicar.platform.ajax.resource;
 
-import com.softicar.platform.ajax.exceptions.AjaxHttpBadRequestError;
-import com.softicar.platform.ajax.exceptions.AjaxHttpNotFoundError;
 import com.softicar.platform.ajax.export.AjaxDomExportNode;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.ajax.resource.registry.AjaxResourceRegistry;
@@ -15,6 +13,8 @@ import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
 import com.softicar.platform.common.io.stream.copy.StreamCopy;
 import com.softicar.platform.common.io.stream.copy.StreamCopyOutputException;
+import com.softicar.platform.common.network.http.error.HttpBadRequestError;
+import com.softicar.platform.common.network.http.error.HttpNotFoundError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -68,7 +68,7 @@ public class AjaxResourceService extends AbstractAjaxService {
 
 	private ResourceDescription getResourceDescriptionOrThrow() {
 
-		return getResourceDescription().orElseThrow(AjaxHttpNotFoundError::new);
+		return getResourceDescription().orElseThrow(HttpNotFoundError::new);
 	}
 
 	private Optional<ResourceDescription> getResourceDescription() {
@@ -85,14 +85,14 @@ public class AjaxResourceService extends AbstractAjaxService {
 			return getResourceByHash(resourceHash).map(ResourceDescription::new).map(it -> it.setCachable(true));
 		}
 
-		throw new AjaxHttpBadRequestError("Missing resource URL parameter.");
+		throw new HttpBadRequestError("Missing resource URL parameter.");
 	}
 
 	private Optional<IResource> getResourceById(String resourceIdString) {
 
 		int resourceId = IntegerParser//
 			.parse(resourceIdString)
-			.orElseThrow(() -> new AjaxHttpBadRequestError("Illegal resource ID: '%s'", resourceIdString));
+			.orElseThrow(() -> new HttpBadRequestError("Illegal resource ID: '%s'", resourceIdString));
 		return getResourceRegistry().getResourceById(resourceId);
 	}
 

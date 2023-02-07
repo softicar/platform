@@ -1,6 +1,6 @@
-package com.softicar.platform.ajax.exceptions;
+package com.softicar.platform.common.network.http.error;
 
-import javax.servlet.http.HttpServletResponse;
+import com.softicar.platform.common.network.http.HttpStatusCode;
 
 /**
  * Represents the HTTP error <i>410 Gone</i>.
@@ -15,20 +15,20 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Oliver Richers
  */
-public class AjaxHttpGoneError extends AjaxHttpError {
+public class HttpGoneError extends HttpError {
 
-	public AjaxHttpGoneError() {
+	public HttpGoneError() {
 
 		this("Gone");
 	}
 
-	public AjaxHttpGoneError(String message, Object...arguments) {
+	public HttpGoneError(String message, Object...arguments) {
 
 		this(null, message, arguments);
 	}
 
-	public AjaxHttpGoneError(Throwable cause, String message, Object...arguments) {
+	public HttpGoneError(Throwable cause, String message, Object...arguments) {
 
-		super(HttpServletResponse.SC_GONE, cause, message, arguments);
+		super(HttpStatusCode.GONE, cause, message, arguments);
 	}
 }

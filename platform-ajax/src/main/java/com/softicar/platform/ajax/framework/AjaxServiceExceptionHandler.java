@@ -1,10 +1,11 @@
 package com.softicar.platform.ajax.framework;
 
-import com.softicar.platform.ajax.exceptions.AjaxHttpError;
-import com.softicar.platform.ajax.exceptions.AjaxHttpInternalServerError;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.core.utils.DevNull;
+import com.softicar.platform.common.network.http.HttpStatusCode;
+import com.softicar.platform.common.network.http.error.HttpError;
+import com.softicar.platform.common.network.http.error.HttpInternalServerError;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,26 +24,26 @@ public class AjaxServiceExceptionHandler {
 
 	public void handleException(Throwable throwable) {
 
-		AjaxHttpError error = getHttpError(throwable);
+		HttpError error = getHttpError(throwable);
 
-		sendHttpError(error.getHttpStatusCode());
+		sendHttpError(error.getStatusCode());
 
-		if (error.isServerError()) {
+		if (error.getStatusCode().isServerError()) {
 			framework.getAjaxStrategy().logException(throwable, request);
 		}
 	}
 
-	private AjaxHttpError getHttpError(Throwable throwable) {
+	private HttpError getHttpError(Throwable throwable) {
 
 		return CastUtils//
-			.tryCast(throwable, AjaxHttpError.class)
-			.orElseGet(() -> new AjaxHttpInternalServerError(throwable));
+			.tryCast(throwable, HttpError.class)
+			.orElseGet(() -> new HttpInternalServerError(throwable));
 	}
 
-	private void sendHttpError(int errorCode) {
+	private void sendHttpError(HttpStatusCode statusCode) {
 
 		try {
-			response.sendError(errorCode);
+			response.sendError(statusCode.getCode());
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			Log.ferror("Failed to send HTTP error to client. The HTTP client probably closed the connection prematurely.");
