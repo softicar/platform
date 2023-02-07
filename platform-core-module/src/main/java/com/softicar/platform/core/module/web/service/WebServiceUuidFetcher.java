@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class WebServiceUuidFetcher {
 
-	private static final String ID_PARAMETER_NAME = "id";
 	private final HttpServletRequest request;
 
 	public WebServiceUuidFetcher(HttpServletRequest request) {
@@ -20,7 +19,6 @@ public class WebServiceUuidFetcher {
 	public UUID getServiceUuidOrThrow() {
 
 		return getFromPath()//
-			.or(this::getFromParameter)
 			.map(this::parseUuid)
 			.orElseThrow(() -> new SofticarUserException(CoreI18n.WEB_SERVICE_UUID_IS_MISSING));
 	}
@@ -32,11 +30,6 @@ public class WebServiceUuidFetcher {
 		return WebServicePath//
 			.parse(Trim.trimPrefix(requestUri, contextPath))
 			.map(WebServicePath::getServiceIdentifier);
-	}
-
-	private Optional<String> getFromParameter() {
-
-		return Optional.ofNullable(request.getParameter(ID_PARAMETER_NAME));
 	}
 
 	private UUID parseUuid(String uuidString) {

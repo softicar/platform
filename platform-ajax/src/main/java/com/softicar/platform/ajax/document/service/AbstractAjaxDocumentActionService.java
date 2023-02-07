@@ -2,10 +2,10 @@ package com.softicar.platform.ajax.document.service;
 
 import com.softicar.platform.ajax.document.AjaxDocumentScope;
 import com.softicar.platform.ajax.document.IAjaxDocument;
-import com.softicar.platform.ajax.exceptions.AjaxHttpBadRequestError;
 import com.softicar.platform.ajax.request.AjaxRequestMessage;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.core.utils.CastUtils;
+import com.softicar.platform.common.network.http.error.HttpBadRequestError;
 import com.softicar.platform.dom.input.DomSelect;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Map.Entry;
@@ -45,10 +45,10 @@ public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocu
 
 		IDomNode node = Optional//
 			.ofNullable(getEventNode())
-			.orElseThrow(() -> new AjaxHttpBadRequestError("Failed to determine event node for document action."));
+			.orElseThrow(() -> new HttpBadRequestError("Failed to determine event node for document action."));
 		T castedNode = CastUtils//
 			.tryCast(node, nodeClass)
-			.orElseThrow(() -> new AjaxHttpBadRequestError("Failed to cast event node for document action."));
+			.orElseThrow(() -> new HttpBadRequestError("Failed to cast event node for document action."));
 		executePayloadCode(() -> payloadCode.accept(castedNode));
 	}
 

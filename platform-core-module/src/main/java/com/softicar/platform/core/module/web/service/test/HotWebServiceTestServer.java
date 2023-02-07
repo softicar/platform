@@ -1,8 +1,10 @@
 package com.softicar.platform.core.module.web.service.test;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.common.web.service.hot.HotWebServiceServer;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
+import com.softicar.platform.core.module.page.service.PageServiceFactory;
 
 /**
  * A {@link HotWebServiceServer} for {@link WebServiceTestService}.
@@ -21,10 +23,9 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
  *
  *     public static void main(String[] args) {
  *
- *          new HotDeploymentWebServiceServer(TestService.class)//
- *              .setRequestString("service?id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class))
+ *          new HotWebServiceTestServer(TestService.class)//
  *              .setPort(9000)
- *              .start();
+ *              .startAndJoin();
  *     }
  * }
  * </pre>
@@ -38,5 +39,6 @@ public class HotWebServiceTestServer extends HotWebServiceServer {
 		super(serviceClass);
 
 		setContextName(AGCoreModuleInstance.PORTAL_APPLICATION.getDefault());
+		setRequestString("service/" + SourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class));
 	}
 }

@@ -1,10 +1,10 @@
 package com.softicar.platform.ajax.request;
 
-import com.softicar.platform.ajax.exceptions.AjaxHttpBadRequestError;
 import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.resource.AjaxResourceUrl;
 import com.softicar.platform.ajax.service.AbstractAjaxService;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.network.http.error.HttpBadRequestError;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +78,7 @@ public final class AjaxRequest implements IAjaxRequest {
 	public AjaxRequestMessage getRequestMessageOrThrow() {
 
 		return requestMessage//
-			.orElseThrow(() -> new AjaxHttpBadRequestError("Missing request message."));
+			.orElseThrow(() -> new HttpBadRequestError("Missing request message."));
 	}
 
 	@Override
