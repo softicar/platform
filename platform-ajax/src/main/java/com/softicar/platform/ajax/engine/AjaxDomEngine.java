@@ -462,8 +462,7 @@ public class AjaxDomEngine implements IDomEngine {
 
 		return AjaxResourceRegistry//
 			.getInstance(document.getHttpSession())
-			.register(resource)
-			.concat(ajaxFramework.getAjaxStrategy().getResourceUrlSuffix());
+			.register(resource);
 	}
 
 	@Override

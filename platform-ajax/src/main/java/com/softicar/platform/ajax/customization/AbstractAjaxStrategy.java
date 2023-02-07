@@ -24,12 +24,6 @@ public abstract class AbstractAjaxStrategy implements IAjaxStrategy {
 	}
 
 	@Override
-	public String getResourceUrlSuffix() {
-
-		return "";
-	}
-
-	@Override
 	public Optional<IResource> getFaviconResource() {
 
 		return Optional.empty();
