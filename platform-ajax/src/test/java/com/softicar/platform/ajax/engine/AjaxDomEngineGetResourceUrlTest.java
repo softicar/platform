@@ -38,7 +38,7 @@ public class AjaxDomEngineGetResourceUrlTest extends AbstractTest {
 
 		IResourceUrl resourceUrl = engine.getResourceUrl(resource);
 
-		assertEquals("?resourceHash=abc&suffix", resourceUrl.toString());
+		assertEquals("?resourceHash=abc", resourceUrl.toString());
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class AjaxDomEngineGetResourceUrlTest extends AbstractTest {
 
 		IResourceUrl resourceUrl = engine.getResourceUrl(resource);
 
-		assertEquals("?resourceId=1&suffix", resourceUrl.toString());
+		assertEquals("?resourceId=1", resourceUrl.toString());
 	}
 
 	private static class TestStrategy extends AbstractAjaxStrategy {
@@ -58,12 +58,6 @@ public class AjaxDomEngineGetResourceUrlTest extends AbstractTest {
 		public void buildDocument(IAjaxDocument document) {
 
 			// nothing to do
-		}
-
-		@Override
-		public String getResourceUrlSuffix() {
-
-			return "&suffix";
 		}
 	}
 }

@@ -6,7 +6,6 @@ import com.softicar.platform.ajax.export.AjaxInMemoryExportBuffer;
 import com.softicar.platform.ajax.export.IAjaxExportBuffer;
 import com.softicar.platform.ajax.request.CurrentAjaxRequest;
 import com.softicar.platform.ajax.request.IAjaxRequest;
-import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreImages;
@@ -56,12 +55,6 @@ class PageServiceStrategy extends AbstractAjaxStrategy {
 	public IAjaxExportBuffer createExportBuffer() {
 
 		return new AjaxInMemoryExportBuffer(MAXIMUM_EXPORT_BUFFER_SIZE, PageServiceExportBuffer::new);
-	}
-
-	@Override
-	public String getResourceUrlSuffix() {
-
-		return "&id=" + SourceCodeReferencePoints.getUuidOrThrow(PageServiceFactory.class);
 	}
 
 	@Override

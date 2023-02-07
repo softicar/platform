@@ -54,18 +54,6 @@ public interface IAjaxStrategy {
 	// -------------------- resources -------------------- //
 
 	/**
-	 * Returns the URL suffix to append to all resource requests.
-	 * <p>
-	 * Depending on the servlet implementation, it may be necessary to supply
-	 * additional HTTP query parameters on every request. If no additional
-	 * suffix is necessary, this method should return an empty string, not
-	 * <i>null</i>.
-	 *
-	 * @return the URL suffix to use when requesting resources (never null)
-	 */
-	String getResourceUrlSuffix();
-
-	/**
 	 * Returns an {@link IResource} that represents the site's favicon (favorite
 	 * icon; cf. <a href="https://en.wikipedia.org/wiki/Favicon">Wikipedia</a>).
 	 *
