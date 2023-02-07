@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.network.http.HttpStatusCode;
 import com.softicar.platform.common.network.http.error.HttpError;
 import java.io.IOException;
+import java.util.Objects;
 import javax.servlet.http.HttpServletResponse;
 
 public class WebServiceBrokerServiceExceptionHandler {
@@ -14,8 +15,8 @@ public class WebServiceBrokerServiceExceptionHandler {
 
 	public WebServiceBrokerServiceExceptionHandler(Exception exception, HttpServletResponse response) {
 
-		this.exception = exception;
-		this.response = response;
+		this.exception = Objects.requireNonNull(exception);
+		this.response = Objects.requireNonNull(response);
 	}
 
 	public void handleException() {
