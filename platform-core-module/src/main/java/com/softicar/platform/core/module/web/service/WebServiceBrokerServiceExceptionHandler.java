@@ -1,7 +1,7 @@
 package com.softicar.platform.core.module.web.service;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.network.http.HttpStatusCode;
 import com.softicar.platform.common.network.http.error.HttpError;
 import java.io.IOException;
@@ -41,8 +41,7 @@ public class WebServiceBrokerServiceExceptionHandler {
 		try {
 			response.sendError(statusCode.getCode(), message);
 		} catch (IOException exception) {
-			// ignoring I/O exceptions; probably the client closed the connection
-			DevNull.swallow(exception);
+			Log.fverbose("Failed to send error code to HTTP client: " + exception.getMessage());
 		}
 	}
 }

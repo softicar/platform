@@ -1,7 +1,7 @@
 package com.softicar.platform.common.network.http;
 
 /**
- * Enumerates all HTTP (error) codes.
+ * Enumerates all HTTP status codes.
  *
  * @author Oliver Richers
  */
@@ -63,26 +63,26 @@ public enum HttpStatusCode {
 
 	public boolean isInformational() {
 
-		return code > 100 && code < 200;
+		return code >= 100 && code < 200;
 	}
 
 	public boolean isSuccessful() {
 
-		return code > 200 && code < 300;
+		return code >= 200 && code < 300;
 	}
 
 	public boolean isRedirection() {
 
-		return code > 300 && code < 400;
+		return code >= 300 && code < 400;
 	}
 
 	public boolean isClientError() {
 
-		return code > 400 && code < 500;
+		return code >= 400 && code < 500;
 	}
 
 	public boolean isServerError() {
 
-		return code > 500 && code < 600;
+		return code >= 500 && code < 600;
 	}
 }

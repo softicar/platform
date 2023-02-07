@@ -11,7 +11,7 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	private static final UUID SERVICE_UUID = UUID.fromString("784e5e46-201a-4a02-b657-04e24e329621");
 
 	@Test
-	public void testWithUuidInPath() {
+	public void testWithProperUuid() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
 		Mockito.when(request.getRequestURI()).thenReturn("/context/service/" + SERVICE_UUID);
@@ -22,7 +22,7 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	}
 
 	@Test
-	public void testWithUuidInPathAndEmptyContextPath() {
+	public void testWithEmptyContextPath() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
 		Mockito.when(request.getRequestURI()).thenReturn("/service/" + SERVICE_UUID);
@@ -33,12 +33,32 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	}
 
 	@Test
-	public void testWithUuidInPathAndNullContextPath() {
+	public void testWithMissingServiceUuid() {
+
+		var request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURI()).thenReturn("/service");
+		Mockito.when(request.getContextPath()).thenReturn("");
+
+		assertExceptionMessage("Request URL is missing web service UUID.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
+	}
+
+	@Test
+	public void testWithMalformedServiceUuid() {
+
+		var request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURI()).thenReturn("/service/foo");
+		Mockito.when(request.getContextPath()).thenReturn("");
+
+		assertExceptionMessage("Request URL contains malformed web service UUID.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
+	}
+
+	@Test
+	public void testWithNullContextPath() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
 		Mockito.when(request.getRequestURI()).thenReturn("/context/service/" + SERVICE_UUID);
 		Mockito.when(request.getContextPath()).thenReturn(null);
 
-		assertExceptionMessage("Web service UUID is missing.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
+		assertExceptionMessage("Failed to retrieve servlet context path.", () -> new WebServiceUuidFetcher(request).getServiceUuidOrThrow());
 	}
 }
