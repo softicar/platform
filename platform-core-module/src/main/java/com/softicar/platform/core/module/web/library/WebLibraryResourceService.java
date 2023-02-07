@@ -8,7 +8,7 @@ import com.softicar.platform.common.io.stream.copy.StreamCopy;
 import com.softicar.platform.common.io.stream.copy.StreamCopyOutputException;
 import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.common.web.service.IWebService;
-import com.softicar.platform.core.module.web.service.WebServicePath;
+import com.softicar.platform.core.module.web.service.WebServicePathExtractor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -51,7 +51,7 @@ class WebLibraryResourceService implements IWebService {
 	@Override
 	public void service(HttpServletRequest request, HttpServletResponse response) {
 
-		var resourcePath = WebServicePath.parseOrThrow(request.getPathInfo()).getResourcePath();
+		var resourcePath = new WebServicePathExtractor(request).extractPathOrThrow().getResourcePath();
 		try (var resourceStream = getClass().getResourceAsStream(packagePath + resourcePath)) {
 			if (resourceStream != null) {
 				response.setContentType(mimeTypeDeterminer.apply(resourcePath).getIdentifier());

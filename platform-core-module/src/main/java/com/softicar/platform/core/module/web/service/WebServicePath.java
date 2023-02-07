@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.web.service;
 
-import com.softicar.platform.common.network.http.error.HttpBadRequestError;
 import com.softicar.platform.common.web.service.IWebService;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,18 +40,6 @@ public class WebServicePath {
 			}
 		}
 		return Optional.empty();
-	}
-
-	/**
-	 * Parses the given URL path and throws an exception on failure.
-	 *
-	 * @param path
-	 *            the path (never <i>null</i>)
-	 * @return the parsed {@link WebServicePath}
-	 */
-	public static WebServicePath parseOrThrow(String path) {
-
-		return parse(path).orElseThrow(() -> new HttpBadRequestError("Illegal web service path."));
 	}
 
 	/**
