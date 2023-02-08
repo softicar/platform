@@ -33,6 +33,16 @@ public class WebServiceUuidFetcherTest extends Asserts {
 	}
 
 	@Test
+	public void testWithIdRequestParameter() {
+
+		var request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getParameter(Mockito.eq("id"))).thenReturn(SERVICE_UUID.toString());
+		var serviceUuid = new WebServiceUuidFetcher(request).getServiceUuidOrThrow();
+
+		assertEquals(SERVICE_UUID, serviceUuid);
+	}
+
+	@Test
 	public void testWithMissingServiceUuid() {
 
 		var request = Mockito.mock(HttpServletRequest.class);
