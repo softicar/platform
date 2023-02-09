@@ -1,16 +1,31 @@
 package com.softicar.platform.common.core.logging;
 
 import com.softicar.platform.common.testing.AbstractTest;
+import java.util.List;
 import org.junit.Test;
 
 public class MultiLogOutputTest extends AbstractTest {
 
 	@Test
-	public void test() {
+	public void testWithVarargsConstructor() {
 
 		var firstOutput = new Output();
 		var secondOutput = new Output();
 		var multiLogOutput = new MultiLogOutput(firstOutput, secondOutput);
+
+		multiLogOutput.logLine("foo");
+		multiLogOutput.logLine("bar");
+
+		assertEquals("foo\nbar\n", firstOutput.getText());
+		assertEquals("foo\nbar\n", secondOutput.getText());
+	}
+
+	@Test
+	public void testWithCollectionConstructor() {
+
+		var firstOutput = new Output();
+		var secondOutput = new Output();
+		var multiLogOutput = new MultiLogOutput(List.of(firstOutput, secondOutput));
 
 		multiLogOutput.logLine("foo");
 		multiLogOutput.logLine("bar");

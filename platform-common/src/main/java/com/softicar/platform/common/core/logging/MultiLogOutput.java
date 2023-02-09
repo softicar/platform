@@ -1,5 +1,6 @@
 package com.softicar.platform.common.core.logging;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -14,7 +15,12 @@ public class MultiLogOutput implements ILogOutput {
 
 	public MultiLogOutput(ILogOutput...outputs) {
 
-		this.outputs = Arrays.asList(outputs);
+		this(Arrays.asList(outputs));
+	}
+
+	public MultiLogOutput(Collection<ILogOutput> outputs) {
+
+		this.outputs = new ArrayList<>(outputs);
 	}
 
 	@Override

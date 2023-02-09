@@ -2,8 +2,8 @@ package com.softicar.platform.common.core.logging;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ import java.util.Objects;
 public class LogFileOutput implements ILogOutput, AutoCloseable {
 
 	private final File file;
-	private FileWriter fileWriter;
+	private PrintWriter writer;
 
 	/**
 	 * Constructs a new {@link LogFileOutput} for the given {@link File}.
@@ -31,7 +31,7 @@ public class LogFileOutput implements ILogOutput, AutoCloseable {
 	public LogFileOutput(File file) {
 
 		this.file = assertValidFile(file);
-		this.fileWriter = null;
+		this.writer = null;
 	}
 
 	@SuppressWarnings("resource")
@@ -39,7 +39,9 @@ public class LogFileOutput implements ILogOutput, AutoCloseable {
 	public void logLine(String line) {
 
 		try {
-			getOrCreateFileWriter(file).append(line).append("\n");
+			var writer = getOrCreateWriter(file);
+			writer.println(line);
+			writer.flush();
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
@@ -48,22 +50,18 @@ public class LogFileOutput implements ILogOutput, AutoCloseable {
 	@Override
 	public void close() {
 
-		if (fileWriter != null) {
-			try {
-				fileWriter.close();
-			} catch (IOException exception) {
-				throw new SofticarIOException(exception);
-			}
+		if (writer != null) {
+			writer.close();
 		}
 	}
 
-	private FileWriter getOrCreateFileWriter(File file) throws IOException {
+	private PrintWriter getOrCreateWriter(File file) throws IOException {
 
-		if (fileWriter == null) {
+		if (writer == null) {
 			Files.createDirectories(file.getParentFile().toPath());
-			fileWriter = new FileWriter(file);
+			writer = new PrintWriter(file);
 		}
-		return fileWriter;
+		return writer;
 	}
 
 	private File assertValidFile(File file) {
