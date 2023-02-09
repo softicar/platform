@@ -1,9 +1,13 @@
 package com.softicar.platform.dom.engine;
 
+import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.common.io.mime.MimeType;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.util.function.Supplier;
 
 /**
  * Represents the export of data through the {@link IDomEngine}.
@@ -56,4 +60,14 @@ public interface IDomExport {
 	 * @return the {@link OutputStream} (never <i>null</i>)
 	 */
 	OutputStream openOutputStream();
+
+	default void write(Supplier<InputStream> inputStreamSupplier) {
+
+		StreamUtils.copy(inputStreamSupplier, this::openOutputStream);
+	}
+
+	default void write(byte[] data) {
+
+		write(() -> new ByteArrayInputStream(data));
+	}
 }

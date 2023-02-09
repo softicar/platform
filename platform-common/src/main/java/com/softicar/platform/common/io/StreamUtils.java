@@ -53,6 +53,15 @@ public class StreamUtils {
 		}
 	}
 
+	public static void copy(Supplier<InputStream> inputStreamSupplier, Supplier<OutputStream> outputStreamSupplier) {
+
+		try (var inputStream = inputStreamSupplier.get(); var outputStream = outputStreamSupplier.get()) {
+			copy(inputStream, outputStream);
+		} catch (IOException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
 	public static void copy(InputStream input, OutputStream output) {
 
 		new StreamCopy(input, output).copyAndFlush();

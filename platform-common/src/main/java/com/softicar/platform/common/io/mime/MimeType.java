@@ -2,6 +2,7 @@
 package com.softicar.platform.common.io.mime;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,18 @@ public enum MimeType implements IMimeType {
 	public String getIdentifier() {
 
 		return superType + '/' + subType;
+	}
+
+	@Override
+	public Collection<String> getParameters() {
+
+		return Collections.emptyList();
+	}
+
+	@Override
+	public Optional<String> getParameter(String parameter) {
+
+		return Optional.empty();
 	}
 
 	@Override

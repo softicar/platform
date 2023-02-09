@@ -14,6 +14,8 @@ import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.attachment.AGBufferedEmailAttachment;
 import com.softicar.platform.core.module.email.buffer.attachment.BufferedEmailAttachment;
 import com.softicar.platform.core.module.email.message.EmailMessageId;
+import com.softicar.platform.core.module.email.recipient.EmailRecipient;
+import com.softicar.platform.core.module.email.recipient.type.AGEmailRecipientTypeEnum;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.user.AGUser;
@@ -24,8 +26,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class BufferedEmail implements IEmail {
 
@@ -63,6 +67,8 @@ public class BufferedEmail implements IEmail {
 		this.attachments = new ArrayList<>();
 		this.characterReplacer = new UtfNonBmpCharacterReplacer();
 	}
+
+	// ------------------------------ setter ------------------------------ //
 
 	public BufferedEmail setEmailServer(AGServer transportServer) {
 
@@ -147,6 +153,15 @@ public class BufferedEmail implements IEmail {
 		return this;
 	}
 
+	public IEmail setRecipients(Collection<EmailRecipient> recipients) {
+
+		toAddresses.clear();
+		ccAddresses.clear();
+		bccAddresses.clear();
+		recipients.forEach(this::addRecipient);
+		return this;
+	}
+
 	@Override
 	public IEmail setMessageId(EmailMessageId messageId) {
 
@@ -201,6 +216,13 @@ public class BufferedEmail implements IEmail {
 	public IEmail addFile(File file) {
 
 		attachments.add(new BufferedEmailAttachment(file.getName(), MimeType.APPLICATION_OCTET_STREAM, () -> FileInputStreamFactory.create(file)));
+		return this;
+	}
+
+	public IEmail setAttachments(Collection<BufferedEmailAttachment> attachments) {
+
+		this.attachments.clear();
+		this.attachments.addAll(attachments);
 		return this;
 	}
 
@@ -264,6 +286,74 @@ public class BufferedEmail implements IEmail {
 
 		return new BufferedEmailToMimeMessageConverter(this).convert();
 	}
+
+	// ------------------------------ getter ------------------------------ //
+
+	public Optional<InternetAddress> getFrom() {
+
+		return Optional.ofNullable(from);
+	}
+
+	public Optional<InternetAddress> getSender() {
+
+		return Optional.ofNullable(sender);
+	}
+
+	public Optional<InternetAddress> getReplyTo() {
+
+		return Optional.ofNullable(replyTo);
+	}
+
+	public Collection<EmailRecipient> getRecipients() {
+
+		var recipients = new ArrayList<EmailRecipient>();
+		toAddresses.stream().map(address -> new EmailRecipient(address.toString(), AGEmailRecipientTypeEnum.TO)).forEach(recipients::add);
+		ccAddresses.stream().map(address -> new EmailRecipient(address.toString(), AGEmailRecipientTypeEnum.CC)).forEach(recipients::add);
+		bccAddresses.stream().map(address -> new EmailRecipient(address.toString(), AGEmailRecipientTypeEnum.BCC)).forEach(recipients::add);
+		return recipients;
+	}
+
+	public Optional<EmailMessageId> getMessageId() {
+
+		return Optional.ofNullable(messageId);
+	}
+
+	public Optional<EmailMessageId> getInReplyTo() {
+
+		return Optional.ofNullable(inReplyTo);
+	}
+
+	public Collection<EmailMessageId> getReferences() {
+
+		return Collections.unmodifiableCollection(references);
+	}
+
+	public String getSubject() {
+
+		return subject;
+	}
+
+	public String getContent() {
+
+		return content;
+	}
+
+	public EmailContentType getContentType() {
+
+		return contentType;
+	}
+
+	public Optional<String> getAutoSubmitted() {
+
+		return Optional.ofNullable(autoSubmitted);
+	}
+
+	public Collection<BufferedEmailAttachment> getAttachments() {
+
+		return Collections.unmodifiableList(attachments);
+	}
+
+	// ------------------------------ internal ------------------------------ //
 
 	protected String getInvalidCharacterReplacement() {
 
