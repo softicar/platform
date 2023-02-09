@@ -1,9 +1,9 @@
-package com.softicar.platform.common.ocr.tesseract.trained.data;
+package com.softicar.platform.common.ocr.tesseract;
 
 import com.softicar.platform.common.io.resource.IResource;
 import java.util.Objects;
 
-public class TesseractTrainedDataFileResourceContainer {
+class TesseractTrainedDataFileResourceContainer {
 
 	private static final String TRAINED_DATA_FILE_SUFFIX = ".traineddata";
 
