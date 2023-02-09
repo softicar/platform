@@ -4,7 +4,7 @@ package com.softicar.platform.common.core.properties;
  * This class enumerates all valid system properties.
  * <p>
  * These are the standard properties returned by {@link System#getProperties()}.
- * 
+ *
  * @author Oliver Richers
  */
 public enum SystemPropertyEnum {
@@ -12,6 +12,7 @@ public enum SystemPropertyEnum {
 	FILE_SEPARATOR("file.separator"),
 	JAVA_CLASS_PATH("java.class.path"),
 	JAVA_HOME("java.home"),
+	JAVA_IO_TMPDIR("java.io.tmpdir"),
 	JAVA_VENDOR("java.vendor"),
 	JAVA_VENDOR_URL("java.vendor.url"),
 	JAVA_VERSION("java.version"),
@@ -35,7 +36,7 @@ public enum SystemPropertyEnum {
 	 * <p>
 	 * The returned name is the actual name of the system property represented
 	 * by this enum constant.
-	 * 
+	 *
 	 * @return the property name
 	 */
 	public String getName() {
@@ -45,7 +46,7 @@ public enum SystemPropertyEnum {
 
 	/**
 	 * Returns the value of this property.
-	 * 
+	 *
 	 * @return the value as string
 	 */
 	public String get() {

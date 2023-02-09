@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 public class SofticarConfiguration implements IPropertyMap {
 
-	private static final String CONFIGURATION_FILENAME = ".softicar/config.properties";
+	private static final String CONFIGURATION_FILENAME = "config.properties";
 	private static final SofticarConfiguration SINGLETON = new SofticarConfiguration();
 	private volatile Properties properties;
 
@@ -80,6 +80,6 @@ public class SofticarConfiguration implements IPropertyMap {
 
 	private static File getConfigFile() {
 
-		return new File(SystemPropertyEnum.USER_HOME.get() + SystemPropertyEnum.FILE_SEPARATOR.get() + CONFIGURATION_FILENAME);
+		return SofticarHome.getPath().resolve(CONFIGURATION_FILENAME).toFile();
 	}
 }
