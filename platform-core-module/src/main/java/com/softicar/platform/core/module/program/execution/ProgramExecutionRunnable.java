@@ -116,6 +116,7 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private Path getLogFilePath(AGProgramExecution execution) {
 
+		// TODO if we write to tmp, there is no random component in the absolute file path. this might be bad. reconsider.
 		String logFilename = "softicar-program-execution-%s.log".formatted(execution.getId());
 		return getLogDirectory().resolve(logFilename);
 	}
