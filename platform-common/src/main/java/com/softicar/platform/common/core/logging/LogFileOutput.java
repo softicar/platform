@@ -1,10 +1,10 @@
 package com.softicar.platform.common.core.logging;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Objects;
 
 /**
@@ -14,24 +14,23 @@ import java.util.Objects;
  */
 public class LogFileOutput implements ILogOutput, AutoCloseable {
 
-	private final Path filePath;
+	private final File file;
 	private FileWriter fileWriter;
 
 	/**
-	 * Constructs a new {@link LogFileOutput} for the file referenced by the
-	 * given {@link Path}.
+	 * Constructs a new {@link LogFileOutput} for the given {@link File}.
 	 * <p>
 	 * The parent directories of the file will be created when the first log
 	 * line is written.
 	 *
-	 * @param filePath
-	 *            the {@link Path} to the log file (never <i>null</i>)
+	 * @param file
+	 *            the log {@link File} (never <i>null</i>)
 	 * @throws IllegalArgumentException
-	 *             if the given path refers to a directory
+	 *             if an existing directory is given
 	 */
-	public LogFileOutput(Path filePath) {
+	public LogFileOutput(File file) {
 
-		this.filePath = assertValidFilePath(filePath);
+		this.file = assertValidFile(file);
 		this.fileWriter = null;
 	}
 
@@ -40,7 +39,7 @@ public class LogFileOutput implements ILogOutput, AutoCloseable {
 	public void logLine(String line) {
 
 		try {
-			getOrCreateFileWriter(filePath).append(line).append("\n");
+			getOrCreateFileWriter(file).append(line).append("\n");
 		} catch (IOException exception) {
 			throw new SofticarIOException(exception);
 		}
@@ -58,24 +57,21 @@ public class LogFileOutput implements ILogOutput, AutoCloseable {
 		}
 	}
 
-	private FileWriter getOrCreateFileWriter(Path filePath) throws IOException {
+	private FileWriter getOrCreateFileWriter(File file) throws IOException {
 
 		if (fileWriter == null) {
-			var file = filePath.toFile();
 			Files.createDirectories(file.getParentFile().toPath());
 			fileWriter = new FileWriter(file);
 		}
 		return fileWriter;
 	}
 
-	private Path assertValidFilePath(Path filePath) {
+	private File assertValidFile(File file) {
 
-		Objects.requireNonNull(filePath);
-
-		if (filePath.toFile().isDirectory()) {
-			throw new IllegalArgumentException("The given path must not refer to a directory: %s".formatted(filePath));
+		Objects.requireNonNull(file);
+		if (file.isDirectory()) {
+			throw new IllegalArgumentException("The given file handle referred to a directory: %s".formatted(file));
 		}
-
-		return filePath;
+		return file;
 	}
 }

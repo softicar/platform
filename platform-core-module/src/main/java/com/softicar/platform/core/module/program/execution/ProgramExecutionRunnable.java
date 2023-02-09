@@ -81,7 +81,7 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private void executeProgram() {
 
-		try (var logFileOutput = new LogFileOutput(logFilePath)) {
+		try (var logFileOutput = new LogFileOutput(logFilePath.toFile())) {
 			var logOutputDistributor = new MultiLogOutput(logFileOutput, logBuffer);
 			try (var scope = new LogOutputScope(logOutputDistributor)) {
 				new ProgramStarter(getProgramUuid()).start();
