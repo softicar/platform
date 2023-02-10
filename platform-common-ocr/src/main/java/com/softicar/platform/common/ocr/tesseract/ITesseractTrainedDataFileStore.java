@@ -1,4 +1,4 @@
-package com.softicar.platform.common.ocr.tesseract.trained.data;
+package com.softicar.platform.common.ocr.tesseract;
 
 import java.io.File;
 
