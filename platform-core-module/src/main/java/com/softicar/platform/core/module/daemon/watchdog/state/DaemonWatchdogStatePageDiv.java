@@ -6,18 +6,18 @@ import com.softicar.platform.common.container.data.table.in.memory.AbstractInMem
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.daemon.watchdog.DaemonWatchdogControllerSingleton;
 import com.softicar.platform.core.module.daemon.watchdog.log.DaemonWatchdogLogEntry;
 import com.softicar.platform.core.module.daemon.watched.runnable.WatchedDaemonState;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.element.DomElementTag;
-import com.softicar.platform.dom.elements.DomColorEnum;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
-import com.softicar.platform.dom.styles.CssFontWeight;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
@@ -137,8 +137,8 @@ public class DaemonWatchdogStatePageDiv extends DomDiv {
 		public void update(DaemonWatchdogState state) {
 
 			removeChildren();
-			add(CoreI18n.THREAD_EXISTS, new BooleanDisplayElement(state.isThreadExists()));
-			add(CoreI18n.THREAD_ACTIVE, new BooleanDisplayElement(state.isThreadAlive()));
+			add(CoreI18n.THREAD_EXISTS, new BooleanDisplay(state.isThreadExists()));
+			add(CoreI18n.THREAD_ACTIVE, new BooleanDisplay(state.isThreadAlive()));
 			add(CoreI18n.STARTED_AT, new InstantDisplayElement(state.getStartedAt()));
 			add(CoreI18n.STOPPED_AT, new InstantDisplayElement(state.getStoppedAt()));
 		}
@@ -288,21 +288,21 @@ public class DaemonWatchdogStatePageDiv extends DomDiv {
 		@Override
 		public void buildCell(IEmfDataTableCell<?, Boolean> cell, Boolean value) {
 
-			cell.appendChild(new BooleanDisplayElement(value));
+			cell.appendChild(new BooleanDisplay(value));
 		}
 	}
 
-	private class BooleanDisplayElement extends DomDiv {
+	private class BooleanDisplay extends DomDiv {
 
-		public BooleanDisplayElement(boolean value) {
+		public BooleanDisplay(boolean value) {
 
-			setStyle(CssFontWeight.BOLD);
+			addCssClass(CoreCssClasses.PROGRAM_EXECUTION_BOOLEAN_DISPLAY);
 			if (value) {
 				appendText(CoreI18n.YES);
-				setColor(DomColorEnum.DARK_GREEN);
+				addCssClass(DomCssPseudoClasses.SUCCESS);
 			} else {
 				appendText(CoreI18n.NO);
-				setColor(DomColorEnum.DARK_RED);
+				addCssClass(DomCssPseudoClasses.ERROR);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.Programs;
+import com.softicar.platform.core.module.program.execution.status.ProgramExecutionStatusField;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.object.IEmfObject;
 import java.time.Duration;
@@ -16,6 +17,7 @@ import java.util.function.Supplier;
 public class AGProgramExecution extends AGProgramExecutionGenerated implements IEmfObject<AGProgramExecution> {
 
 	public static final ProgramExecutionRuntimeField RUNTIME_FIELD = new ProgramExecutionRuntimeField();
+	public static final ProgramExecutionStatusField STATUS_FIELD = new ProgramExecutionStatusField();
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {

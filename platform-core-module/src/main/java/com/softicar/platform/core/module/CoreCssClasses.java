@@ -32,7 +32,9 @@ public interface CoreCssClasses {
 	ICssClass PAGE_SERVICE_LOGIN_ERROR_DIV = new CssClass("PageServiceLoginErrorDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_SERVICE_LOGIN_MAINTENANCE_DIV = new CssClass("PageServiceLoginMaintenanceDiv", CoreCssFiles.PAGE_STYLE);
 
+	ICssClass PROGRAM_EXECUTION_BOOLEAN_DISPLAY = new CssClass("ProgramExecutionBooleanDisplay", CoreCssFiles.PROGRAM_EXECUTION_STYLE);
 	ICssClass PROGRAM_EXECUTION_OUTPUT_AREA = new CssClass("ProgramExecutionOutputArea", CoreCssFiles.PROGRAM_EXECUTION_STYLE);
+	ICssClass PROGRAM_EXECUTION_STATUS_DISPLAY = new CssClass("ProgramExecutionStatusDisplay", CoreCssFiles.PROGRAM_EXECUTION_STYLE);
 
 	ICssClass STORED_FILE_TEXT_DISPLAY = new CssClass("StoredFileTextDisplay", CoreCssFiles.STORED_FILE_STYLE);
 	ICssClass STORED_FILE_UPLOAD_TABLE_DIV = new CssClass("StoredFileUploadTableDiv", CoreCssFiles.STORED_FILE_STYLE);

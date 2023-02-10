@@ -1,6 +1,48 @@
+:root {
+	--PROGRAM_EXECUTION_COLOR_ERROR: #dc3545;
+	--PROGRAM_EXECUTION_COLOR_INFO: #407fbf;
+	--PROGRAM_EXECUTION_COLOR_OKAY: #4bb91e;
+}
+
+/* ------------------------------ .ProgramExecutionOutputArea ------------------------------ */
 
 .ProgramExecutionOutputArea {
 	font-family: monospace;
 	width: 80em;
 	height: 40em;
+}
+
+/* ------------------------------ .ProgramExecutionStatusDisplay ------------------------------ */
+
+.ProgramExecutionStatusDisplay {
+	font-weight: bold;
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusFailed,
+.ProgramExecutionStatusDisplay.programExecutionStatusOrphaned,
+.ProgramExecutionStatusDisplay.programExecutionStatusRuntimeExceeded,
+.ProgramExecutionStatusDisplay.programExecutionStatusUnknown {
+	color: var(--PROGRAM_EXECUTION_COLOR_ERROR);
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusRunning {
+	color: var(--PROGRAM_EXECUTION_COLOR_INFO);
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusSuccessful {
+	color: var(--PROGRAM_EXECUTION_COLOR_OKAY);
+}
+
+/* ------------------------------ .ProgramExecutionBooleanDisplay ------------------------------ */
+
+.ProgramExecutionBooleanDisplay {
+	font-weight: bold;
+}
+
+.ProgramExecutionBooleanDisplay.error {
+	color: var(--PROGRAM_EXECUTION_COLOR_ERROR);
+}
+
+.ProgramExecutionBooleanDisplay.success {
+	color: var(--PROGRAM_EXECUTION_COLOR_OKAY);
 }

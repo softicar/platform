@@ -31,6 +31,12 @@ public class EmfAttributeReorderer<R extends IEmfTableRow<R, ?>> {
 		return moveAttribute(attributeList.getAttribute(transientField));
 	}
 
+	@SafeVarargs
+	public final Mover moveAttributes(ITransientField<R, ?>...transientFields) {
+
+		return moveAttributes(Arrays.asList(transientFields).stream().map(attributeList::getAttribute).collect(Collectors.toList()));
+	}
+
 	public final Mover moveAttribute(IEmfAttribute<R, ?> attribute) {
 
 		return new Mover(Collections.singletonList(attribute));

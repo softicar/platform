@@ -88,4 +88,21 @@ public class ProgramExecutionRunnableRegistry {
 			.ofNullable(runnableMap.get(programExecution.getId()))
 			.map(ProgramExecutionRunnable::getLogs);
 	}
+
+	/**
+	 * Determines whether a {@link ProgramExecutionRunnable} is registered for
+	 * the given {@link AGProgramExecution}.
+	 *
+	 * @param programExecution
+	 *            the {@link AGProgramExecution} for which a
+	 *            {@link ProgramExecutionRunnable} shall be looked up (never
+	 *            <i>null</i>)
+	 * @return <i>true</i> if a {@link ProgramExecutionRunnable} is registered;
+	 *         <i>false</i> otherwise
+	 */
+	public synchronized boolean hasRunnable(AGProgramExecution programExecution) {
+
+		Objects.requireNonNull(programExecution);
+		return runnableMap.get(programExecution.getId()) != null;
+	}
 }
