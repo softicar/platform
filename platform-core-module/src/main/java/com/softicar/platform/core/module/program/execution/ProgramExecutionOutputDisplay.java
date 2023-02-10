@@ -1,30 +1,31 @@
 package com.softicar.platform.core.module.program.execution;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreImages;
+import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
+import com.softicar.platform.dom.elements.DomTextArea;
+import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
-import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
 
 public class ProgramExecutionOutputDisplay extends DomDiv {
 
 	public ProgramExecutionOutputDisplay(AGProgramExecution programExecution) {
 
-		if (programExecution.isTerminated()) {
-			appendChild(new OutputButton(programExecution.getOutput()));
-		} else {
-			appendText(CoreI18n.NOT_TERMINATED_YET.encloseInParentheses());
-		}
+		appendChild(new OutputButton(programExecution));
 	}
 
 	private class OutputButton extends DomButton {
 
-		private final String output;
+		private final AGProgramExecution programExecution;
 
-		public OutputButton(String output) {
+		public OutputButton(AGProgramExecution programExecution) {
 
-			this.output = output;
+			this.programExecution = programExecution;
 			setLabel(CoreI18n.SHOW_OUTPUT);
 			setClickCallback(this::showOutputPopup);
 		}
@@ -33,18 +34,87 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 
 			DomPopupManager//
 				.getInstance()
-				.getPopup(output, OutputPopup.class, OutputPopup::new)
+				.getPopup(programExecution, OutputPopup.class, OutputPopup::new)
 				.open();
 		}
 	}
 
 	private class OutputPopup extends DomPopup {
 
-		public OutputPopup(String output) {
+		private final AGProgramExecution programExecution;
+		private final ProgramExecutionOutputArea outputElement;
 
+		public OutputPopup(AGProgramExecution programExecution) {
+
+			this.programExecution = programExecution;
+			this.outputElement = new ProgramExecutionOutputArea();
 			setCaption(CoreI18n.OUTPUT);
-			appendChild(new DomMultilineStringDisplay(output));
+			setSubCaption(createSubCaption(programExecution));
+
+			DomButton refreshButton = new DomButton()//
+				.setLabel(CoreI18n.REFRESH)
+				.setIcon(CoreImages.REFRESH.getResource())
+				.setClickCallback(this::refresh);
+
+			appendChild(new DomActionBar()).appendChild(refreshButton);
+			appendNewChild(DomElementTag.HR);
+			appendChild(this.outputElement);
 			appendCloseButton();
+
+			refresh();
+		}
+
+		private void refresh() {
+
+			outputElement.setValue(getOutput(programExecution));
+			outputElement.scrollToButtom();
+		}
+
+		private String getOutput(AGProgramExecution programExecution) {
+
+			return ProgramExecutionRunnableRegistry//
+				.getInstance()
+				.getOutput(programExecution)
+				.orElse(reloadOutput(programExecution));
+		}
+
+		private String reloadOutput(AGProgramExecution programExecution) {
+
+			programExecution.reload();
+			return programExecution.getOutput();
+		}
+
+		private IDisplayString createSubCaption(AGProgramExecution programExecution) {
+
+			return IDisplayString
+				.create(
+					"%s - %s %s - %s: %s"
+						.formatted(
+							programExecution.getProgram().toDisplayWithoutId(),
+							CoreI18n.EXECUTION,
+							programExecution.getId(),
+							CoreI18n.STARTED_AT,
+							programExecution.getStartedAt()));
+		}
+	}
+
+	private class ProgramExecutionOutputArea extends DomTextArea {
+
+		public ProgramExecutionOutputArea() {
+
+			setReadonly(true);
+			setAttribute("wrap", "off");
+			addCssClass(CoreCssClasses.PROGRAM_EXECUTION_OUTPUT_AREA);
+		}
+
+		public void scrollToButtom() {
+
+			getDomEngine().executeScriptCode("""
+					let outputArea = document.getElementById('%s');
+					if(outputArea) {
+						outputArea.scrollTop = outputArea.scrollHeight;
+					}
+					""".formatted(getNodeIdString()));
 		}
 	}
 }
