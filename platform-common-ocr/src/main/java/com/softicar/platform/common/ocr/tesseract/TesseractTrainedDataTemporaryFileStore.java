@@ -20,7 +20,7 @@ import java.nio.file.Path;
  *
  * @author Alexander Schmidt
  */
-class TesseractTrainedDataTemporaryFileStore implements ITesseractTrainedDataFileStore {
+public class TesseractTrainedDataTemporaryFileStore implements ITesseractTrainedDataFileStore {
 
 	private static final String TESSERACT_DATA_TEMPORARY_DIRECTORY_PREFIX = "tesseract-trained-data-";
 
