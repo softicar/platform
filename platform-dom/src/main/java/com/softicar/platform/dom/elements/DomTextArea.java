@@ -51,11 +51,6 @@ public class DomTextArea extends AbstractDomTextualInput {
 
 	public void scrollToBottom() {
 
-		getDomEngine().executeScriptCode("""
-				let outputArea = document.getElementById('%s');
-				if(outputArea) {
-					outputArea.scrollTop = outputArea.scrollHeight;
-				}
-				""".formatted(getNodeIdString()));
+		getDomEngine().scrollToBottom(this);
 	}
 }

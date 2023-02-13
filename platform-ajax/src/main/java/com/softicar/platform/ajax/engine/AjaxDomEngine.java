@@ -383,6 +383,17 @@ public class AjaxDomEngine implements IDomEngine {
 		JS_callNodeFunction(inputNode, "select");
 	}
 
+	@Override
+	public void scrollToBottom(IDomNode inputNode) {
+
+		executeScriptCode("""
+				let outputArea = document.getElementById('%s');
+				if(outputArea) {
+					outputArea.scrollTop = outputArea.scrollHeight;
+				}
+				""".formatted(inputNode.getNodeIdString()));
+	}
+
 	// -------------------------------- pop-ups -------------------------------- //
 
 	@Override
