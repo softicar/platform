@@ -340,6 +340,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausnahmetext");
 	I18n0 EXCEPTION_TYPE = new I18n0("Exception Type")//
 		.de("Ausnahmetyp");
+	I18n0 EXECUTION = new I18n0("Execution")//
+		.de("Ausführung");
 	I18n0 EXECUTION_RETENTION_DAYS = new I18n0("Execution Retention Days")//
 		.de("Speicherungstage für Ausführungen");
 	I18n0 EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0 = new I18n0("Execution retention days must be at least 0.")//

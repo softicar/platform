@@ -290,6 +290,14 @@ public interface IDomEngine {
 
 	void selectText(IDomNode inputNode);
 
+	/**
+	 * Scrolls the given text area to the bottom.
+	 *
+	 * @param inputNode
+	 *            the text area (never <i>null</i>)
+	 */
+	void scrollToBottom(IDomNode inputNode);
+
 	// -------------------------------- pop-ups -------------------------------- //
 
 	/**

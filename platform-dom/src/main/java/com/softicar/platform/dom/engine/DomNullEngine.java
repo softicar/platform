@@ -173,6 +173,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void scrollToBottom(IDomNode inputNode) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void setAlternateResourceOnError(DomImage image, IResource resource) {
 
 		// nothing to do
