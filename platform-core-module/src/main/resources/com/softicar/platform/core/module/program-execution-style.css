@@ -1,0 +1,43 @@
+
+/* ------------------------------ .ProgramExecutionOutputArea ------------------------------ */
+
+.ProgramExecutionOutputArea {
+	font-family: monospace;
+	width: 80em;
+	height: 40em;
+}
+
+/* ------------------------------ .ProgramExecutionStatusDisplay ------------------------------ */
+
+.ProgramExecutionStatusDisplay {
+	font-weight: bold;
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusFailed,
+.ProgramExecutionStatusDisplay.programExecutionStatusOrphaned,
+.ProgramExecutionStatusDisplay.programExecutionStatusRuntimeExceeded,
+.ProgramExecutionStatusDisplay.programExecutionStatusUnknown {
+	color: var(--ERROR_FONT_COLOR);
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusRunning {
+	color: var(--INFO_FONT_COLOR);
+}
+
+.ProgramExecutionStatusDisplay.programExecutionStatusSuccessful {
+	color: var(--SUCCESS_FONT_COLOR);
+}
+
+/* ------------------------------ .ProgramExecutionBooleanDisplay ------------------------------ */
+
+.ProgramExecutionBooleanDisplay {
+	font-weight: bold;
+}
+
+.ProgramExecutionBooleanDisplay.error {
+	color: var(--ERROR_FONT_COLOR);
+}
+
+.ProgramExecutionBooleanDisplay.success {
+	color: var(--SUCCESS_FONT_COLOR);
+}

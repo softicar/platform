@@ -46,4 +46,11 @@ public class DomTextArea extends AbstractDomTextualInput {
 		setAttribute("cols", col);
 		return this;
 	}
+
+	// -------------------------------- misc -------------------------------- //
+
+	public void scrollToBottom() {
+
+		getDomEngine().scrollToBottom(this);
+	}
 }

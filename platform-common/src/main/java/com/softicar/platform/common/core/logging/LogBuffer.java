@@ -18,7 +18,7 @@ public class LogBuffer implements ILogOutput {
 	}
 
 	@Override
-	public void logLine(String line) {
+	public synchronized void logLine(String line) {
 
 		builder.append(line).append("\n");
 	}
@@ -27,7 +27,7 @@ public class LogBuffer implements ILogOutput {
 	 * Returns all logged text.
 	 */
 	@Override
-	public String toString() {
+	public synchronized String toString() {
 
 		return builder.toString();
 	}
@@ -35,7 +35,7 @@ public class LogBuffer implements ILogOutput {
 	/**
 	 * Clears this buffer by discarding all previously logged text.
 	 */
-	public void clear() {
+	public synchronized void clear() {
 
 		builder.setLength(0);
 	}

@@ -1,5 +1,7 @@
 package com.softicar.platform.core.module.program.execution;
 
+import com.softicar.platform.common.core.logging.ILogOutput;
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.logging.LogBuffer;
 import com.softicar.platform.common.core.logging.LogOutputScope;
 import com.softicar.platform.common.date.DayTime;
@@ -11,25 +13,31 @@ import com.softicar.platform.core.module.program.ProgramStarter;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class ProgramExecutionRunnable implements Runnable {
 
 	private final Supplier<AGProgramExecution> executionProxy;
-	private final LogBuffer logBuffer;
+	private final ILogOutput logOutput;
 	private boolean failed;
 
 	public ProgramExecutionRunnable(AGProgramExecution execution) {
 
 		this.executionProxy = new DbTableRowProxy<>(execution);
-		this.logBuffer = new LogBuffer();
+		this.logOutput = new TimestampedLogOutput(new LogBuffer());
 		this.failed = false;
 	}
 
 	@Override
 	public void run() {
 
+		ProgramExecutionRunnableRegistry.getInstance().register(getExecution(), this);
 		updateStartedAt();
 		try {
 			try {
@@ -46,6 +54,7 @@ public class ProgramExecutionRunnable implements Runnable {
 			throwable.printStackTrace();
 		} finally {
 			DbConnections.closeAll();
+			ProgramExecutionRunnableRegistry.getInstance().unregister(getExecution());
 		}
 	}
 
@@ -61,6 +70,11 @@ public class ProgramExecutionRunnable implements Runnable {
 			.getUuid();
 	}
 
+	public String getLogs() {
+
+		return logOutput.toString();
+	}
+
 	private AGProgramExecution updateStartedAt() {
 
 		return getExecution()//
@@ -70,8 +84,10 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private void executeProgram() {
 
-		try (LogOutputScope scope = new LogOutputScope(logBuffer)) {
+		try (var scope = new LogOutputScope(logOutput)) {
+			Log.finfo("[PROGRAM START]");
 			new ProgramStarter(getProgramUuid()).start();
+			Log.finfo("[PROGRAM END]");
 		} catch (Throwable throwable) {
 			this.failed = true;
 			logStackTrace(throwable);
@@ -80,7 +96,7 @@ public class ProgramExecutionRunnable implements Runnable {
 
 	private void logStackTrace(Throwable throwable) {
 
-		logBuffer.logLine(StackTraceFormatting.getStackTraceAsString(throwable));
+		logOutput.logLine(StackTraceFormatting.getStackTraceAsString(throwable));
 	}
 
 	private void updateOutputAndTerminatedAt() {
@@ -91,9 +107,41 @@ public class ProgramExecutionRunnable implements Runnable {
 			execution//
 				.setTerminatedAt(DayTime.now())
 				.setFailed(failed)
-				.setOutput(logBuffer.toString())
+				.setOutput(logOutput.toString())
 				.save();
 			transaction.commit();
+		}
+	}
+
+	private static class TimestampedLogOutput implements ILogOutput {
+
+		private final ILogOutput originalOutput;
+
+		public TimestampedLogOutput(ILogOutput originalOutput) {
+
+			this.originalOutput = Objects.requireNonNull(originalOutput);
+		}
+
+		@Override
+		public void logLine(String line) {
+
+			line = Arrays//
+				.asList(line.split("\n"))
+				.stream()
+				.map(subLine -> "[%s] %s".formatted(getCurrentTimeString(), subLine))
+				.collect(Collectors.joining("\n"));
+			originalOutput.logLine(line);
+		}
+
+		@Override
+		public String toString() {
+
+			return originalOutput.toString();
+		}
+
+		private String getCurrentTimeString() {
+
+			return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		}
 	}
 }

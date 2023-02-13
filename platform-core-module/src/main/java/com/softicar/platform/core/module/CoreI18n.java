@@ -340,6 +340,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausnahmetext");
 	I18n0 EXCEPTION_TYPE = new I18n0("Exception Type")//
 		.de("Ausnahmetyp");
+	I18n0 EXECUTION = new I18n0("Execution")//
+		.de("Ausführung");
 	I18n0 EXECUTION_RETENTION_DAYS = new I18n0("Execution Retention Days")//
 		.de("Speicherungstage für Ausführungen");
 	I18n0 EXECUTION_RETENTION_DAYS_MUST_BE_AT_LEAST_0 = new I18n0("Execution retention days must be at least 0.")//
@@ -633,6 +635,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einmal-Passwort %s für den Login in Ihr %s Benutzerkonto: '%s'.");
 	I18n0 ONLY_A_SINGLE_FILE_MAY_BE_UPLOADED = new I18n0("Only a single file may be uploaded.")//
 		.de("Es darf nur eine einzige Datei hochgeladen werden.");
+	I18n0 ORPHANED = new I18n0("Orphaned")//
+		.de("Verwaist");
 	I18n0 ORPHANED_PROGRAM_EXECUTION_CLEANUP = new I18n0("Orphaned program execution cleanup.")//
 		.de("Bereinigung verwaister Programmausführungen.");
 	I18n0 OUTPUT = new I18n0("Output")//
@@ -826,8 +830,12 @@ public interface CoreI18n extends EmfI18n {
 		.de("Rollen");
 	I18n0 ROW_COUNT = new I18n0("Row Count")//
 		.de("Zeilenanzahl");
+	I18n0 RUNNING = new I18n0("Running")//
+		.de("Läuft");
 	I18n0 RUNTIME = new I18n0("Runtime")//
 		.de("Laufzeit");
+	I18n0 RUNTIME_EXCEEDED = new I18n0("Runtime Exceeded")//
+		.de("Laufzeit überschritten");
 	I18n0 SATURDAY = new I18n0("Saturday")//
 		.de("Samstag");
 	I18n0 SAVE_PASSWORD = new I18n0("Save Password")//
@@ -902,6 +910,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gestartet am");
 	I18n0 STATE = new I18n0("State")//
 		.de("Zustand");
+	I18n0 STATUS = new I18n0("Status")//
+		.de("Status");
 	I18n0 STOP_WATCHDOG = new I18n0("Stop Watchdog")//
 		.de("Watchdog stoppen");
 	I18n0 STOPPED_AT = new I18n0("Stopped At")//
@@ -946,6 +956,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gespeicherte Dateien");
 	I18n0 SUBJECT = new I18n0("Subject")//
 		.de("Betreff");
+	I18n0 SUCCESSFUL = new I18n0("Successful")//
+		.de("Erfolgreich");
 	I18n0 SUNDAY = new I18n0("Sunday")//
 		.de("Sonntag");
 	I18n0 SUPER_USER = new I18n0("Super User")//
