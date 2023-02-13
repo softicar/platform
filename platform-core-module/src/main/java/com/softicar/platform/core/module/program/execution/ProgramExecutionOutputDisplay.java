@@ -61,7 +61,7 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 			appendChild(this.outputElement);
 			appendCloseButton();
 
-			refresh();
+			addDeferredInitializer(this::refresh);
 		}
 
 		private void refresh() {
