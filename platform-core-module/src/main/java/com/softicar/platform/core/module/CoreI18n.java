@@ -154,6 +154,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Hier klicken oder Datei ablegen");
 	I18n0 CLICK_OR_DROP_FILES_HERE = new I18n0("Click or drop files here")//
 		.de("Hier klicken oder Dateien ablegen");
+	I18n0 CLICK_TO_CHANGE = new I18n0("Click to Change")//
+		.de("Zum Ändern klicken");
 	I18n0 CLICK_TO_DELETE_THIS_PROCESS = new I18n0("Click to delete this process.")//
 		.de("Klicken, um diesen Prozess zu löschen.");
 	I18n1 CLICK_TO_DOWNLOAD_THE_FILE_ARG1 = new I18n1("Click to download the file: %s")//
@@ -781,6 +783,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 REASON = new I18n0("Reason")//
 		.de("Grund");
 	I18n0 RECIPIENT = new I18n0("Recipient")//
+		.de("Empfänger");
+	I18n0 RECIPIENTS = new I18n0("Recipients")//
 		.de("Empfänger");
 	I18n0 REFERENCES = new I18n0("References")//
 		.de("References");
