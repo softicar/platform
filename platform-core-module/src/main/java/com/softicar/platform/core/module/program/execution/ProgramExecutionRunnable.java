@@ -13,6 +13,8 @@ import com.softicar.platform.core.module.program.ProgramStarter;
 import com.softicar.platform.db.core.connection.DbConnections;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.table.row.DbTableRowProxy;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
@@ -83,9 +85,9 @@ public class ProgramExecutionRunnable implements Runnable {
 	private void executeProgram() {
 
 		try (var scope = new LogOutputScope(logOutput)) {
-			Log.finfo("Program started.");
+			Log.finfo("[PROGRAM START]");
 			new ProgramStarter(getProgramUuid()).start();
-			Log.finfo("Program finished.");
+			Log.finfo("[PROGRAM END]");
 		} catch (Throwable throwable) {
 			this.failed = true;
 			// TODO this seems to duplicate some log lines we already have
@@ -127,7 +129,7 @@ public class ProgramExecutionRunnable implements Runnable {
 			line = Arrays//
 				.asList(line.split("\n"))
 				.stream()
-				.map(subLine -> "[%s] %s".formatted(DayTime.now(), subLine))
+				.map(subLine -> "[%s] %s".formatted(getCurrentTimeString(), subLine))
 				.collect(Collectors.joining("\n"));
 			originalOutput.logLine(line);
 		}
@@ -136,6 +138,11 @@ public class ProgramExecutionRunnable implements Runnable {
 		public String toString() {
 
 			return originalOutput.toString();
+		}
+
+		private String getCurrentTimeString() {
+
+			return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
 		}
 	}
 }

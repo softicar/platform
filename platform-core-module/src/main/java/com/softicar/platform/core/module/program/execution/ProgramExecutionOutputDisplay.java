@@ -67,7 +67,7 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 		private void refresh() {
 
 			outputElement.setValue(getOutput(programExecution));
-			outputElement.scrollToButtom();
+			outputElement.scrollToBottom();
 		}
 
 		private String getOutput(AGProgramExecution programExecution) {
@@ -105,16 +105,6 @@ public class ProgramExecutionOutputDisplay extends DomDiv {
 			setReadonly(true);
 			setAttribute("wrap", "off");
 			addCssClass(CoreCssClasses.PROGRAM_EXECUTION_OUTPUT_AREA);
-		}
-
-		public void scrollToButtom() {
-
-			getDomEngine().executeScriptCode("""
-					let outputArea = document.getElementById('%s');
-					if(outputArea) {
-						outputArea.scrollTop = outputArea.scrollHeight;
-					}
-					""".formatted(getNodeIdString()));
 		}
 	}
 }

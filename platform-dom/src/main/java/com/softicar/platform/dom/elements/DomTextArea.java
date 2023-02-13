@@ -46,4 +46,16 @@ public class DomTextArea extends AbstractDomTextualInput {
 		setAttribute("cols", col);
 		return this;
 	}
+
+	// -------------------------------- misc -------------------------------- //
+
+	public void scrollToBottom() {
+
+		getDomEngine().executeScriptCode("""
+				let outputArea = document.getElementById('%s');
+				if(outputArea) {
+					outputArea.scrollTop = outputArea.scrollHeight;
+				}
+				""".formatted(getNodeIdString()));
+	}
 }
