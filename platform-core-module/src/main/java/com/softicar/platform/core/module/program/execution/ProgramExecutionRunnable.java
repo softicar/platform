@@ -90,7 +90,6 @@ public class ProgramExecutionRunnable implements Runnable {
 			Log.finfo("[PROGRAM END]");
 		} catch (Throwable throwable) {
 			this.failed = true;
-			// TODO this seems to duplicate some log lines we already have
 			logStackTrace(throwable);
 		}
 	}
