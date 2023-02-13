@@ -1,8 +1,5 @@
 package com.softicar.platform.common.io.mime;
 
-import java.util.Collection;
-import java.util.Optional;
-
 /**
  * Interface for media type descriptions.
  *
@@ -17,10 +14,6 @@ public interface IMimeType {
 	 * @return the media type identifier
 	 */
 	String getIdentifier();
-
-	Collection<String> getParameters();
-
-	Optional<String> getParameter(String parameter);
 
 	/**
 	 * Determines whether this {@link IMimeType} is equal to the given
