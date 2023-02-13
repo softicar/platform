@@ -44,7 +44,7 @@ public class AGWorkflowDemoObjectTable extends EmfObjectTable<AGWorkflowDemoObje
 			.editAttribute(AGWorkflowDemoObject.WORKFLOW_ITEM)
 			.setConcealed(true);
 		attributes//
-			.addTransientAttribute(AGWorkflowDemoObject.WORKFLOW_STATUS)
+			.addTransientAttribute(AGWorkflowDemoObject.WORKFLOW_NODE)
 			.setDisplayFactory(WorkflowNodeFieldDisplay::new);
 	}
 
