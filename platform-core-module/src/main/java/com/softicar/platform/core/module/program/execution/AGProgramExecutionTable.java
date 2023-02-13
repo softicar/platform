@@ -5,6 +5,7 @@ import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.Programs;
+import com.softicar.platform.core.module.program.execution.status.ProgramExecutionStatusDisplay;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
@@ -41,18 +42,32 @@ public class AGProgramExecutionTable extends EmfObjectTable<AGProgramExecution, 
 			.setDisplayFactory(value -> new EmfDayTimeDisplay(value, DayTime::toDisplay));
 
 		attributes//
+			.editAttribute(AGProgramExecution.FAILED)
+			.setConcealed(true);
+
+		attributes//
 			.editAttribute(AGProgramExecution.OUTPUT)
 			.setDisplayFactoryByEntity(ProgramExecutionOutputDisplay::new);
 
 		attributes//
+			.editAttribute(AGProgramExecution.MAXIMUM_RUNTIME_EXCEEDED)
+			.setConcealed(true);
+
+		attributes//
 			.addTransientAttribute(AGProgramExecution.RUNTIME_FIELD)
 			.setDisplayFactory(EmfDurationDisplay::new);
+
+		attributes//
+			.addTransientAttribute(AGProgramExecution.STATUS_FIELD)
+			.setDisplayFactory(ProgramExecutionStatusDisplay::new);
 	}
 
 	@Override
 	public void customizeAttributeOrdering(EmfAttributeReorderer<AGProgramExecution> reorderer) {
 
-		reorderer.moveAttribute(AGProgramExecution.RUNTIME_FIELD).behind(AGProgramExecution.TERMINATED_AT);
+		reorderer//
+			.moveAttributes(AGProgramExecution.STATUS_FIELD, AGProgramExecution.RUNTIME_FIELD)
+			.behind(AGProgramExecution.PROGRAM_UUID);
 	}
 
 	@Override
