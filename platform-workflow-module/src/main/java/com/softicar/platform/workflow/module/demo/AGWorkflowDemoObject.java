@@ -4,7 +4,6 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.sql.Sql;
-import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.demo.approver.AGWorkflowDemoObjectApprover;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
 import com.softicar.platform.workflow.module.workflow.transients.field.WorkflowNodeField;
@@ -12,8 +11,7 @@ import java.util.Optional;
 
 public class AGWorkflowDemoObject extends AGWorkflowDemoObjectGenerated implements IWorkflowableObject<AGWorkflowDemoObject> {
 
-	public static final WorkflowNodeField<AGWorkflowDemoObject> WORKFLOW_STATUS =
-			new WorkflowNodeField<>(AGWorkflowDemoObject.WORKFLOW_ITEM, WorkflowI18n.WORKFLOW_STATUS);
+	public static final WorkflowNodeField<AGWorkflowDemoObject> WORKFLOW_NODE = new WorkflowNodeField<>(AGWorkflowDemoObject.WORKFLOW_ITEM);
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {
