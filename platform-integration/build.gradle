@@ -1,4 +1,16 @@
 dependencies {
+	implementation project(':platform-ajax')
+	implementation project(':platform-common')
+	implementation project(':platform-common-excel')
+	implementation project(':platform-common-ocr')
+	implementation project(':platform-common-pdf')
+	implementation project(':platform-common-web')
+	implementation project(':platform-core-module')
+	implementation project(':platform-db')
+	implementation project(':platform-db-sqml-builtin')
+//	implementation project(':platform-demo')
+	implementation project(':platform-dom')
+	implementation project(':platform-emf')
 	implementation project(':platform-workflow-module')
 	implementation "com.google.code.gson:gson:$versions.gson"
 	implementation "io.github.classgraph:classgraph:$versions.classgraph"
