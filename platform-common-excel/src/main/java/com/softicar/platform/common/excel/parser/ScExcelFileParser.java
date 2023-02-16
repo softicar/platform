@@ -196,9 +196,6 @@ public class ScExcelFileParser {
 	 * <p>
 	 * If a sheet was completely empty, its index won't occur as a key in the
 	 * returned map.
-	 * <p>
-	 * TODO change return type to Map<Integer, List<ScExcelRow>> as soon as we
-	 * have test coverage
 	 *
 	 * @return a map from zero-based sheet index to the corresponding
 	 *         {@link List} of {@link ScExcelRow} instances (never <i>null</i>)
