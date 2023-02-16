@@ -4,9 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.buffer.BufferedEmail;
-import com.softicar.platform.core.module.test.SofticarTestDatabase;
 import com.softicar.platform.core.module.tinymce.TinyMceInput;
-import com.softicar.platform.db.core.database.DbCurrentDatabase;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.emf.attribute.field.string.EmfStringInput;
@@ -26,8 +24,6 @@ public class EmailComposerDiv extends DomDiv {
 
 	public EmailComposerDiv() {
 
-		DbCurrentDatabase.set(new SofticarTestDatabase());
-
 		this.fromAddress = new EmfStringInput();
 		this.recipientsDiv = new EmailRecipientListDiv(this::getKnownRecipients);
 		this.subject = new EmfStringInput();
@@ -42,14 +38,6 @@ public class EmailComposerDiv extends DomDiv {
 			.add(CoreI18n.ATTACHMENTS, attachmentsDiv)
 			.appendTo(this);
 		appendChild(content);
-
-		var email = new BufferedEmail();
-		email.setFrom("oliver.richers@gmail.com");
-		email.addToRecipient("oliver.richers@gmail.com");
-		email.setSubject(IDisplayString.create("Eine Beispiel-E-Mail"));
-		email.setContent("<p>Das ist ein Test.</p>", EmailContentType.HTML);
-		load(email);
-//		load(new BufferedEmail());
 	}
 
 	public EmailComposerDiv setRecipientsSupplier(Supplier<Collection<String>> recipientsSupplier) {
@@ -58,13 +46,14 @@ public class EmailComposerDiv extends DomDiv {
 		return this;
 	}
 
-	public void load(BufferedEmail email) {
+	public EmailComposerDiv load(BufferedEmail email) {
 
 		fromAddress.setValue(email.getFrom().map(InternetAddress::toString).orElse(""));
 		recipientsDiv.setRecipients(email.getRecipients());
 		subject.setValue(email.getSubject());
 		content.setValue(email.getContent());
 		attachmentsDiv.setAttachments(email.getAttachments());
+		return this;
 	}
 
 	public BufferedEmail save() {
