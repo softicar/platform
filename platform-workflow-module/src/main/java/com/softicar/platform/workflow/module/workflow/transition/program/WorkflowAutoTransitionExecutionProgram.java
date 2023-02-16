@@ -62,6 +62,7 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 			.where(AGWorkflowNode.ACTIVE)
 			.joinReverse(AGWorkflowTransition.SOURCE_NODE)
 			.where(AGWorkflowTransition.AUTO_TRANSITION)
+			.where(AGWorkflowTransition.ACTIVE)
 			.select(AGWorkflowTransition.TABLE)
 			.forEach(
 				it -> itemToTransitionsMap//
