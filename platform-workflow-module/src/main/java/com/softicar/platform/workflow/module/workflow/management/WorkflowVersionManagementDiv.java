@@ -56,6 +56,7 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 		}
 		workflowNodes = workflowVersion//
 			.getAllActiveWorkflowNodes();
+		AGWorkflowNode.ITEM_COUNT_FIELD.reloadAll(workflowNodes);
 		resizeManagementDiv();
 		drawWorkflowNodes();
 		drawStartAndEndNodes();
