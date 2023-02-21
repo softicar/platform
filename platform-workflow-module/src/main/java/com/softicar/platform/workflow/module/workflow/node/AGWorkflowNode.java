@@ -9,6 +9,8 @@ import java.util.List;
 
 public class AGWorkflowNode extends AGWorkflowNodeGenerated implements IEmfObject<AGWorkflowNode> {
 
+	public static final WorkflowNodeItemCountField ITEM_COUNT_FIELD = new WorkflowNodeItemCountField();
+
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 

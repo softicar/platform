@@ -12,6 +12,9 @@ import java.util.List;
 
 public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEmfObject<AGWorkflowVersion> {
 
+	public static final WorkflowVersionHashField HASH_FIELD = new WorkflowVersionHashField();
+	public static final WorkflowVersionItemCountField ITEM_COUNT_FIELD = new WorkflowVersionItemCountField();
+
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 

@@ -61,7 +61,8 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	@Override
 	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflowVersion> attributes) {
 
-		attributes.addTransientAttribute(new WorkflowVersionHashField());
+		attributes.addTransientAttribute(AGWorkflowVersion.HASH_FIELD);
+		attributes.addTransientAttribute(AGWorkflowVersion.ITEM_COUNT_FIELD);
 		attributes//
 			.editAttribute(AGWorkflowVersion.DRAFT)
 			.setPredicateEditable(EmfPredicates.never());

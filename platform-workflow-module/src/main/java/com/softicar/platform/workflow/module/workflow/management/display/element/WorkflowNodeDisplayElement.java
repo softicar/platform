@@ -75,7 +75,7 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 		DomDiv nodeNameDiv = appendChild(new DomDiv());
 		nodeNameDiv.addCssClass(WorkflowCssClasses.WORKFLOW_NODE_NAME);
-		nodeNameDiv.appendText(workflowNode.getName());
+		nodeNameDiv.appendText(workflowNode.getName() + " (" + AGWorkflowNode.ITEM_COUNT_FIELD.getValue(workflowNode) + ")");
 	}
 
 	private void makeDraggableIfAppropriate(AGWorkflowNode workflowNode) {
