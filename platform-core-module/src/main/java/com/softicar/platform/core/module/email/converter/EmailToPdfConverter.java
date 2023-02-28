@@ -253,7 +253,19 @@ public class EmailToPdfConverter {
 	private static String convertHtmltoXhtml(String html) {
 
 		Document document = Jsoup.parse(html);
+
+		// Add Microsoft name spaces if necessary
+		Elements htmlElement = document.select("html");
+		if (htmlElement.attr("xmlns").isEmpty()) {
+			htmlElement.attr("xmlns", "http://www.w3.org/TR/REC-html40");
+			htmlElement.attr("xmlns:m", "http://schemas.microsoft.com/office/2004/12/omml");
+			htmlElement.attr("xmlns:o", "urn:schemas-microsoft-com:office:office");
+			htmlElement.attr("xmlns:v", "urn:schemas-microsoft-com:vml");
+			htmlElement.attr("xmlns:w", "urn:schemas-microsoft-com:office:word");
+		}
+
 		document.head().append("<style type='text/css'><!--@page { margin: 0; }--></style>");
+
 		document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
 		getTransitiveChildren(document).forEach(EmailToPdfConverter::removeRedundantAttributes);
 		String xhtml = document.html();
