@@ -197,8 +197,8 @@ public interface IStoredFileContentStore {
 	 * @param directoryPath
 	 *            the relative path of a directory in this content store (never
 	 *            <i>null</i>)
-	 * @return all relative file paths in the sub directory identified by the
-	 *         given relative path (never <i>null</i>)
+	 * @return all file paths, relative to the content store root, in the given
+	 *         sub directory (never <i>null</i>)
 	 */
 	Collection<String> getAllFilePaths(String directoryPath);
 }
