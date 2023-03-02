@@ -18,6 +18,10 @@ public interface IStoredFileContentStore {
 	/**
 	 * Returns a String that informally describes the location of this content
 	 * store.
+	 * <p>
+	 * The return value of this method may be an arbitrary text. Therefore, it
+	 * shall only be used for output purposes, e.g. in log or exception
+	 * messages.
 	 *
 	 * @return the informal location of this content store (never <i>null</i>)
 	 */
