@@ -53,7 +53,7 @@ class StoredFileStoreGarbageCollector {
 
 				if (store.exists(fullFilename)) {
 					Log.fverbose("deleting %s", fullFilename);
-					store.removeFile(fullFilename);
+					store.deleteFile(fullFilename);
 				} else {
 					Log.fwarning("file vanished: %s", fullFilename);
 				}

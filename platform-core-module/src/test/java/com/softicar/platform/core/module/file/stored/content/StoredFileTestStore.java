@@ -29,7 +29,7 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isReady() {
 
 		return true;
 	}
@@ -41,7 +41,7 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public String getUrl() {
+	public String getLocation() {
 
 		return "test://";
 	}
@@ -53,19 +53,19 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public void createFolderIfDoesNotExist(String folderName) {
+	public void createDirectories(String folderName) {
 
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public OutputStream createFile(String fileName) {
+	public OutputStream getFileOutputStream(String fileName) {
 
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public InputStream readFile(String filename) {
+	public InputStream getFileInputStream(String filename) {
 
 		return new ByteArrayInputStream(files.get(filename));
 	}
@@ -77,7 +77,7 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public void removeFile(String filename) {
+	public void deleteFile(String filename) {
 
 		files.remove(filename);
 	}
@@ -95,13 +95,13 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public Collection<String> getAllFiles() {
+	public Collection<String> getAllFilePaths() {
 
 		return files.keySet();
 	}
 
 	@Override
-	public Collection<String> getAllFiles(String root) {
+	public Collection<String> getAllFilePaths(String root) {
 
 		throw new UnsupportedOperationException();
 	}

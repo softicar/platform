@@ -34,7 +34,7 @@ public class StoredFileChunksToFileStoreMigratorTest extends AbstractDbTest {
 
 		StoredFileChunksToFileStoreMigrator.migrateAll(new StoredFileDatabase(), store);
 
-		assertEquals("[" + EXPECTED_FILENAME + "]", store.getAllFiles().toString());
+		assertEquals("[" + EXPECTED_FILENAME + "]", store.getAllFilePaths().toString());
 		assertEmpty(AGStoredFileChunk.TABLE.loadAll());
 		assertOne(AGStoredFileSha1.TABLE.loadAll());
 		assertEquals("Hello, World!", Utf8Convering.fromUtf8(store.getFileContent(EXPECTED_FILENAME)));

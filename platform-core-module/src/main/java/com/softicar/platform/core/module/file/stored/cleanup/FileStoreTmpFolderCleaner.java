@@ -18,12 +18,12 @@ class FileStoreTmpFolderCleaner {
 	public void cleanAll() {
 
 		DayTime now = DayTime.now();
-		for (String filename: store.getAllFiles("/tmp/")) {
+		for (String filename: store.getAllFilePaths("/tmp/")) {
 			DayTime lastModified = store.getLastModified(filename);
 			int ageInDays = new Duration(lastModified, now).clamp().getDays();
 			if (ageInDays > MINIMUM_DAYS_BEFORE_REMOVAL) {
 				Log.finfo("removing temporary file '%s' (last modified: %s, age: %d days)", filename, lastModified, ageInDays);
-				store.removeFile(filename);
+				store.deleteFile(filename);
 			} else {
 				Log.finfo("keeping temporary file '%s' for now (last modified: %s, age: %d days)", filename, lastModified, ageInDays);
 			}

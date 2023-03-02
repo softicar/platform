@@ -9,6 +9,7 @@ import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
+import com.softicar.platform.core.module.file.smb.SmbIOException;
 import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,6 +17,14 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * An implementation of {@link IStoredFileContentStore} that stores files in an
+ * SMB share.
+ *
+ * @author Alexander Schmidt
+ * @author Daniel Klose
+ * @author Oliver Richers
+ */
 public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	private final Optional<AGStoredFileServer> server;
@@ -36,13 +45,19 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public String getUrl() {
+	public String getLocation() {
 
 		return getServerOrThrow().getUrl();
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isEnabled() {
+
+		return server.isPresent();
+	}
+
+	@Override
+	public boolean isReady() {
 
 		try {
 			return createSmbEntry("/").exists();
@@ -53,81 +68,80 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public boolean isEnabled() {
-
-		return server.isPresent();
-	}
-
-	@Override
 	public long getFreeDiskSpace() {
 
 		return createSmbEntry("/").getFreeDiskSpace();
 	}
 
 	@Override
-	public OutputStream createFile(String fileName) {
+	public void createDirectories(String directoryPath) {
 
-		return createSmbFile(fileName).createOutputStream();
+		createSmbEntry(directoryPath).asDirectory().ifPresent(ISmbDirectory::makeDirectories);
 	}
 
 	@Override
-	public InputStream readFile(String fileName) {
+	public OutputStream getFileOutputStream(String filePath) {
 
-		return createSmbFile(fileName).createInputStream();
+		return createSmbFile(filePath).createOutputStream();
 	}
 
 	@Override
-	public void moveFile(String sourceName, String targetName) {
+	public InputStream getFileInputStream(String filePath) {
 
-		createSmbFile(sourceName).moveTo(createSmbFile(targetName));
+		return createSmbFile(filePath).createInputStream();
 	}
 
 	@Override
-	public void createFolderIfDoesNotExist(String folderName) {
+	public void moveFile(String sourceFilePath, String targetFilePath) {
 
-		createSmbEntry(folderName).asDirectory().ifPresent(ISmbDirectory::makeDirectories);
+		createSmbFile(sourceFilePath).moveTo(createSmbFile(targetFilePath));
 	}
 
 	@Override
-	public void removeFile(String fileName) {
+	public void deleteFile(String filePath) {
 
-		createSmbEntry(fileName).delete();
+		createSmbEntry(filePath).delete();
 	}
 
 	@Override
-	public boolean exists(String name) {
+	public boolean exists(String path) {
 
-		return createSmbEntry(name).exists();
+		return createSmbEntry(path).exists();
 	}
 
 	@Override
-	public long getFileSize(String filename) {
+	public long getFileSize(String filePath) {
 
-		return createSmbFile(filename).getSize();
+		try {
+			return createSmbFile(filePath).getSize();
+		} catch (SmbIOException exception) {
+			DevNull.swallow(exception);
+			return 0;
+		}
 	}
 
 	@Override
-	public Collection<String> getAllFiles() {
+	public DayTime getLastModified(String path) {
 
-		return getAllFiles("");
+		return createSmbEntry(path).getLastModifiedDate();
 	}
 
 	@Override
-	public Collection<String> getAllFiles(String root) {
+	public Collection<String> getAllFilePaths() {
 
-		return createSmbEntry(root)//
+		return getAllFilePaths("");
+	}
+
+	@Override
+	public Collection<String> getAllFilePaths(String directoryPath) {
+
+		return createSmbEntry(directoryPath)//
 			.asDirectory()
 			.orElseThrow()
 			.listFilesRecursively()
 			.stream()
 			.map(ISmbFile::getUrl)
 			.collect(Collectors.toList());
-	}
-
-	@Override
-	public DayTime getLastModified(String filename) {
-
-		return createSmbEntry(filename).getLastModifiedDate();
 	}
 
 	private ISmbEntry createSmbEntry(String name) {
