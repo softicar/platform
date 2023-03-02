@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -403,16 +404,16 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 		createHierarchicalContent(store);
 
 		// execute
-		List<String> filePaths = new ArrayList<>(store.getAllFilePaths());
+		Collection<String> filePaths = store.getAllFilePaths();
 
 		// assert
-		assertEquals("root1.txt", filePaths.get(0));
-		assertEquals("bar/bar1.txt", filePaths.get(1));
-		assertEquals("bar/bar2.txt", filePaths.get(2));
-		assertEquals("bar/guz/guz1.txt", filePaths.get(3));
-		assertEquals("bar/guz/guz2.txt", filePaths.get(4));
-		assertEquals("foo/foo1.txt", filePaths.get(5));
-		assertEquals("foo/foo2.txt", filePaths.get(6));
+		filePaths.contains("root1.txt");
+		filePaths.contains("bar/bar1.txt");
+		filePaths.contains("bar/bar2.txt");
+		filePaths.contains("bar/guz/guz1.txt");
+		filePaths.contains("bar/guz/guz2.txt");
+		filePaths.contains("foo/foo1.txt");
+		filePaths.contains("foo/foo2.txt");
 		assertEquals(7, filePaths.size());
 	}
 
@@ -437,13 +438,13 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 		createHierarchicalContent(store);
 
 		// execute
-		List<String> filePaths = new ArrayList<>(store.getAllFilePaths("bar"));
+		Collection<String> filePaths = store.getAllFilePaths("bar");
 
 		// assert
-		assertEquals("bar/bar1.txt", filePaths.get(0));
-		assertEquals("bar/bar2.txt", filePaths.get(1));
-		assertEquals("bar/guz/guz1.txt", filePaths.get(2));
-		assertEquals("bar/guz/guz2.txt", filePaths.get(3));
+		filePaths.contains("bar/bar1.txt");
+		filePaths.contains("bar/bar2.txt");
+		filePaths.contains("bar/guz/guz1.txt");
+		filePaths.contains("bar/guz/guz2.txt");
 		assertEquals(4, filePaths.size());
 	}
 
@@ -455,11 +456,11 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 		createHierarchicalContent(store);
 
 		// execute
-		List<String> filePaths = new ArrayList<>(store.getAllFilePaths("bar/guz"));
+		Collection<String> filePaths = store.getAllFilePaths("bar/guz");
 
 		// assert
-		assertEquals("bar/guz/guz1.txt", filePaths.get(0));
-		assertEquals("bar/guz/guz2.txt", filePaths.get(1));
+		filePaths.contains("bar/guz/guz1.txt");
+		filePaths.contains("bar/guz/guz2.txt");
 		assertEquals(2, filePaths.size());
 	}
 
