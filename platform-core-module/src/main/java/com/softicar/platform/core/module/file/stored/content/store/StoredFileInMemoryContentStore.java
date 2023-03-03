@@ -27,9 +27,9 @@ public class StoredFileInMemoryContentStore implements IStoredFileContentStore {
 	private final Map<String, ByteArrayOutputStream> files = new TreeMap<>();
 
 	@Override
-	public boolean isAvailable() {
+	public String getLocation() {
 
-		return true;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class StoredFileInMemoryContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public String getUrl() {
+	public boolean isReady() {
 
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 	@Override
@@ -51,71 +51,71 @@ public class StoredFileInMemoryContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public void createFolderIfDoesNotExist(String folderName) {
+	public void createDirectories(String directoryPath) {
 
-		folders.add(folderName);
+		folders.add(directoryPath);
 	}
 
 	@Override
-	public OutputStream createFile(String fileName) {
+	public OutputStream getFileOutputStream(String filePath) {
 
 		var stream = new ByteArrayOutputStream();
-		files.put(fileName, stream);
+		files.put(filePath, stream);
 		return stream;
 	}
 
 	@Override
-	public InputStream readFile(String fileName) {
+	public InputStream getFileInputStream(String filePath) {
 
-		return new ByteArrayInputStream(files.getOrDefault(fileName, new ByteArrayOutputStream()).toByteArray());
+		return new ByteArrayInputStream(files.getOrDefault(filePath, new ByteArrayOutputStream()).toByteArray());
 	}
 
 	@Override
-	public void moveFile(String sourceName, String targetName) {
+	public void moveFile(String sourceFilePath, String targetFilePath) {
 
-		files.put(targetName, files.remove(sourceName));
+		files.put(targetFilePath, files.remove(sourceFilePath));
 	}
 
 	@Override
-	public void removeFile(String fileName) {
+	public void deleteFile(String filePath) {
 
-		files.remove(fileName);
+		files.remove(filePath);
 	}
 
 	@Override
-	public boolean exists(String name) {
+	public boolean exists(String path) {
 
-		return files.containsKey(name) || folders.contains(name);
+		return files.containsKey(path) || folders.contains(path);
 	}
 
 	@Override
-	public long getFileSize(String filename) {
+	public long getFileSize(String filePath) {
 
 		return Optional//
-			.ofNullable(files.get(filename))
+			.ofNullable(files.get(filePath))
 			.map(ByteArrayOutputStream::size)
 			.orElse(0);
 	}
 
 	@Override
-	public Collection<String> getAllFiles() {
+	public DayTime getLastModified(String path) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<String> getAllFilePaths() {
 
 		return files.keySet();
 	}
 
 	@Override
-	public Collection<String> getAllFiles(String root) {
+	public Collection<String> getAllFilePaths(String directoryPath) {
 
-		return getAllFiles()//
+		return getAllFilePaths()//
 			.stream()
-			.filter(name -> name.startsWith(root + "/"))
+			.filter(name -> name.startsWith(directoryPath + "/"))
 			.collect(Collectors.toList());
-	}
-
-	@Override
-	public DayTime getLastModified(String filename) {
-
-		throw new UnsupportedOperationException();
 	}
 
 	public byte[] getFileContent(String filename) {

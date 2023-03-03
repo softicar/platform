@@ -88,7 +88,7 @@ public class StoredFileContentInputStreamCreator {
 		for (IStoredFileContentStore store: contentStores) {
 			try {
 				if (store.exists(contentName.getFullFilename())) {
-					return store.readFile(contentName.getFullFilename());
+					return store.getFileInputStream(contentName.getFullFilename());
 				}
 			} catch (Exception exception) {
 				exceptionsCollector.add(exception);

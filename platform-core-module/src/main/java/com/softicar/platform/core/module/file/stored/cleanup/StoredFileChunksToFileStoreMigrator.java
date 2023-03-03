@@ -107,7 +107,7 @@ class StoredFileChunksToFileStoreMigrator {
 	private byte[] computeStoreContentHash() throws IOException {
 
 		MessageDigest digest = Hash.SHA1.createDigest();
-		try (InputStream inputStream = store.readFile(new StoredFileContentName(database.getFileHash(storedFile).getHash()).getFullFilename())) {
+		try (InputStream inputStream = store.getFileInputStream(new StoredFileContentName(database.getFileHash(storedFile).getHash()).getFullFilename())) {
 			StreamUtils.copy(inputStream, digest);
 		}
 		return digest.digest();

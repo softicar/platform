@@ -51,7 +51,7 @@ public class StoredFileStoreGarbageCollectorTest extends AbstractTest {
 
 		new StoredFileStoreGarbageCollector(database, store).collect();
 
-		Mockito.verify(store).removeFile(CONTENT_FILENAME);
+		Mockito.verify(store).deleteFile(CONTENT_FILENAME);
 	}
 
 	@Test
@@ -63,7 +63,7 @@ public class StoredFileStoreGarbageCollectorTest extends AbstractTest {
 
 		new StoredFileStoreGarbageCollector(database, store).collect();
 
-		Mockito.verify(store, Mockito.never()).removeFile(ArgumentMatchers.anyString());
+		Mockito.verify(store, Mockito.never()).deleteFile(ArgumentMatchers.anyString());
 	}
 
 	@Test
@@ -101,7 +101,7 @@ public class StoredFileStoreGarbageCollectorTest extends AbstractTest {
 
 		InOrder inOrder = Mockito.inOrder(hash, store, transaction);
 		inOrder.verify(hash).lock();
-		inOrder.verify(store).removeFile(CONTENT_FILENAME);
+		inOrder.verify(store).deleteFile(CONTENT_FILENAME);
 		inOrder.verify(transaction).commit();
 	}
 
@@ -113,7 +113,7 @@ public class StoredFileStoreGarbageCollectorTest extends AbstractTest {
 
 		new StoredFileStoreGarbageCollector(database, store).collect();
 
-		Mockito.verify(store, Mockito.never()).removeFile(ArgumentMatchers.anyString());
+		Mockito.verify(store, Mockito.never()).deleteFile(ArgumentMatchers.anyString());
 		Mockito.verify(hash, Mockito.never()).delete();
 	}
 }

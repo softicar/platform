@@ -42,7 +42,7 @@ class UnreferencedStoredFileCleaner {
 			Duration age = new Duration(lastModified, DayTime.now()).clamp();
 			if (age.getTotalSeconds() > MINIMUM_AGE_BEFORE_REMOVAL) {
 				Log.finfo("removing %s (last modified: %s", contentName.getFullFilename(), lastModified);
-				store.removeFile(contentName.getFullFilename());
+				store.deleteFile(contentName.getFullFilename());
 			} else {
 				Log.finfo("keeping %s for now (last modified: %s, age: %s days)", contentName.getFullFilename(), lastModified, age.getDays());
 			}
@@ -52,7 +52,7 @@ class UnreferencedStoredFileCleaner {
 	private void collectFilesOnFileStore() {
 
 		Log.finfo("collecting files on file store...");
-		for (String filename: store.getAllFiles()) {
+		for (String filename: store.getAllFilePaths()) {
 			DayTime lastModified = store.getLastModified(filename);
 			if (StoredFileContentName.isCorrectFilename(filename)) {
 				StoredFileContentName contentName = StoredFileContentName.createFromFilename(filename);

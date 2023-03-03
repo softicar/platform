@@ -48,19 +48,19 @@ class StoredFileContentUploader {
 			return useChunks();
 		}
 
-		if (store.isAvailable()) {
+		if (store.isReady()) {
 			long freeDiskSpace = store.getFreeDiskSpace();
 			if (freeDiskSpace >= MINIMUM_FREE_SPACE) {
 				return useStore();
 			} else {
 				String message = "File store '%s' has not enough free space (%s free space required but only %s available). Falling back to database store."
-					.formatted(store.getUrl(), MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1), MemoryFormatting.formatMemory(freeDiskSpace, 1));
+					.formatted(store.getLocation(), MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1), MemoryFormatting.formatMemory(freeDiskSpace, 1));
 				Log.ferror(message);
 				LogDb.panic(message);
 				return useChunks();
 			}
 		} else {
-			String message = "File store '%s' is not available. Falling back to database store.".formatted(store.getUrl());
+			String message = "File store '%s' is not available. Falling back to database store.".formatted(store.getLocation());
 			Log.ferror(message);
 			LogDb.panic(message);
 			return useChunks();
@@ -74,9 +74,9 @@ class StoredFileContentUploader {
 
 	private OutputStream useStore() {
 
-		store.createFolderIfDoesNotExist(TEMPORARY_FILE_FOLDER);
+		store.createDirectories(TEMPORARY_FILE_FOLDER);
 
-		HashingOutputStream outputStream = new HashingOutputStream(() -> store.createFile(getTemporaryFileName()), StoredFileUtils.FILE_HASH);
+		HashingOutputStream outputStream = new HashingOutputStream(() -> store.getFileOutputStream(getTemporaryFileName()), StoredFileUtils.FILE_HASH);
 		outputStream.setOnCloseCallback(this::onClose);
 		return outputStream;
 	}
@@ -105,7 +105,7 @@ class StoredFileContentUploader {
 
 	private void createFolders(String folderName) {
 
-		store.createFolderIfDoesNotExist(folderName);
+		store.createDirectories(folderName);
 	}
 
 	private void moveFileToFolder(String targetName) {
@@ -115,7 +115,7 @@ class StoredFileContentUploader {
 		if (store.exists(targetName)) {
 
 			verifyFileSizes(sourceName, targetName);
-			store.removeFile(sourceName);
+			store.deleteFile(sourceName);
 		} else {
 			store.moveFile(sourceName, targetName);
 		}

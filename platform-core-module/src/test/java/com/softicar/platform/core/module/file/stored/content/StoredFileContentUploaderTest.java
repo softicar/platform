@@ -52,9 +52,9 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	private void setupMocking() {
 
 		Mockito.when(store.isEnabled()).thenReturn(true);
-		Mockito.when(store.isAvailable()).thenReturn(true);
+		Mockito.when(store.isReady()).thenReturn(true);
 		Mockito.when(store.getFreeDiskSpace()).thenReturn(Long.MAX_VALUE);
-		Mockito.when(store.createFile(ArgumentMatchers.anyString())).thenReturn(output);
+		Mockito.when(store.getFileOutputStream(ArgumentMatchers.anyString())).thenReturn(output);
 		Mockito.when(database.createChunksOutputStream(storedFile)).thenReturn(output);
 	}
 
@@ -97,7 +97,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 
 		InOrder inOrder = Mockito.inOrder(database, store);
 		inOrder.verify(database).saveFileHash(ArgumentMatchers.any(AGStoredFile.class), ArgumentMatchers.any(byte[].class), ArgumentMatchers.anyLong());
-		inOrder.verify(store).removeFile(ArgumentMatchers.anyString());
+		inOrder.verify(store).deleteFile(ArgumentMatchers.anyString());
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 
 		upload();
 
-		Mockito.verify(store).createFolderIfDoesNotExist("/tmp");
+		Mockito.verify(store).createDirectories("/tmp");
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 
 		upload();
 
-		Mockito.verify(store).createFolderIfDoesNotExist("/76");
+		Mockito.verify(store).createDirectories("/76");
 	}
 
 	@Test
@@ -129,7 +129,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	public void usesDatabaseOutputStreamIfFileStoreNotAvailable() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isReady()).thenReturn(false);
 
 		upload();
 
@@ -163,7 +163,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	public void sendsPanicIfFileStoreNotAvailable() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isReady()).thenReturn(false);
 
 		upload();
 
@@ -185,7 +185,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	public void doesNotSaveHashIfFileStoreNotAvailable() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isReady()).thenReturn(false);
 
 		upload();
 
@@ -202,7 +202,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 
 		upload();
 
-		Mockito.verify(store).removeFile(TMP_FILENAME);
+		Mockito.verify(store).deleteFile(TMP_FILENAME);
 		Mockito.verify(store, Mockito.never()).moveFile(ArgumentMatchers.anyString(), ArgumentMatchers.anyString());
 	}
 

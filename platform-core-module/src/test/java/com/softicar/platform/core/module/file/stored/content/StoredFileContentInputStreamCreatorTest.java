@@ -161,7 +161,7 @@ public class StoredFileContentInputStreamCreatorTest extends AbstractDbTest impl
 
 		IStoredFileContentStore brokenStore = Mockito.mock(IStoredFileContentStore.class);
 		Mockito.when(brokenStore.exists(Mockito.any())).thenThrow(new RuntimeException());
-		Mockito.when(brokenStore.readFile(Mockito.any())).thenThrow(new RuntimeException());
+		Mockito.when(brokenStore.getFileInputStream(Mockito.any())).thenThrow(new RuntimeException());
 		return brokenStore;
 	}
 
