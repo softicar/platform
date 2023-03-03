@@ -7,9 +7,8 @@ import com.softicar.platform.core.module.file.stored.chunk.AGStoredFileChunk;
 import com.softicar.platform.core.module.file.stored.content.database.IStoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.database.StoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
-import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
+import com.softicar.platform.core.module.file.stored.content.store.StoredFileContentStores;
 import com.softicar.platform.core.module.file.stored.hash.IStoredFileHash;
-import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
 import com.softicar.platform.core.module.log.LogDb;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -23,6 +22,7 @@ import java.util.Collection;
  * stores. Only if none of the content stores contains the file, the content
  * will be fetched from {@link AGStoredFileChunk}.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 public class StoredFileContentInputStreamCreator {
@@ -37,9 +37,9 @@ public class StoredFileContentInputStreamCreator {
 		this.database = new StoredFileDatabase();
 		this.contentStores = new ArrayList<>();
 
-		AGStoredFileServer//
-			.getAllActiveWithPrimaryFirst()
-			.forEach(server -> addContentStore(new StoredFileSmbContentStore(server)));
+		StoredFileContentStores//
+			.getAvailableContentStores()
+			.forEach(this::addContentStore);
 	}
 
 	public StoredFileContentInputStreamCreator addContentStore(IStoredFileContentStore store) {
@@ -52,7 +52,7 @@ public class StoredFileContentInputStreamCreator {
 
 		IStoredFileHash hash = getFileHash();
 		if (hash != null) {
-			return readFromSmbStore(hash);
+			return readFromStores(hash);
 		} else {
 			InputStream inputStream = readFromDatabase(storedFile);
 			if (inputStream != null) {
@@ -81,13 +81,13 @@ public class StoredFileContentInputStreamCreator {
 		return database.getFileHash(storedFile);
 	}
 
-	private InputStream readFromSmbStore(IStoredFileHash hash) {
+	private InputStream readFromStores(IStoredFileHash hash) {
 
-		ExceptionsCollector exceptionsCollector = new ExceptionsCollector();
-		StoredFileContentName contentName = new StoredFileContentName(hash.getHash());
+		var exceptionsCollector = new ExceptionsCollector();
+		var contentName = new StoredFileContentName(hash.getHash());
 		for (IStoredFileContentStore store: contentStores) {
 			try {
-				if (store.exists(contentName.getFullFilename())) {
+				if (store.isAvailable() && store.exists(contentName.getFullFilename())) {
 					return store.getFileInputStream(contentName.getFullFilename());
 				}
 			} catch (Exception exception) {

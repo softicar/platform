@@ -70,6 +70,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bereinigt außerdem verwaiste Einträge.");
 	I18n0 APR_1 = new I18n0("Apr 1")//
 		.de("Apr 1");
+	I18n1 ARG1_FOR_A_LOCAL_DIRECTORY = new I18n1("%s for a local directory")//
+		.de("%s für ein lokales Verzeichnis");
+	I18n1 ARG1_FOR_AN_SMB_SHARE = new I18n1("%s for an SMB share")//
+		.de("%s für eine SMB-Freigabe");
 	I18n1 ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS = new I18n1("%s is available at the following address")//
 		.de("%s steht unter der folgenden Adresse zur Verfügung");
 	I18n1 ARG1_MESSAGES_FOUND_IN_INBOX = new I18n1("%s messages found in inbox.")//
@@ -120,8 +124,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Durch");
 	I18n0 CANCELED = new I18n0("Canceled")//
 		.de("Abgebrochen");
-	I18n0 CANNOT_DEACTIVATE_PRIMARY_FILE_SERVER = new I18n0("Cannot deactivate primary file server.")//
-		.de("Primärer Dateiserver kann nicht deaktiviert werden.");
+	I18n0 CANNOT_DEACTIVATE_THE_PRIMARY_FILE_REPOSITORY = new I18n0("Cannot deactivate the primary file repository.")//
+		.de("Die primäre Dateiablage kann nicht deaktiviert werden.");
 	I18n0 CANNOT_LOGIN_DURING_MAINTENANCE = new I18n0("Cannot login during maintenance.")//
 		.de("Login ist während Wartungsarbeiten nicht möglich.");
 	I18n0 CAUSED_AT = new I18n0("Caused At")//
@@ -148,8 +152,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Klasse");
 	I18n0 CLASS_NAME = new I18n0("Class Name")//
 		.de("Klassenname");
-	I18n0 CLEANS_FILE_SERVERS_FROM_TEMPORARY_FILES = new I18n0("Cleans file servers from temporary files")//
-		.de("Bereinigt Dateiserver von temporären Dateien");
+	I18n0 CLEANS_FILE_REPOSITORIES_FROM_TEMPORARY_FILES = new I18n0("Cleans file repositories from temporary files")//
+		.de("Bereinigt Dateiablagen von temporären Dateien");
 	I18n0 CLICK_OR_DROP_FILE_HERE = new I18n0("Click or drop file here")//
 		.de("Hier klicken oder Datei ablegen");
 	I18n0 CLICK_OR_DROP_FILES_HERE = new I18n0("Click or drop files here")//
@@ -287,9 +291,9 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
 			new I18n0("Deletes execution records of all programs according to their execution retention days value")//
 				.de("Löscht Ausführungsdatensätze aller Programme entsprechend dem Wert ihrer Speicherungstage für Ausführungen");
-	I18n1 DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_SERVERS_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE =
-			new I18n1("Deletes files older than %s days from file servers that are no longer referenced in the database")//
-				.de("Löscht Dateien älter als %s Tage von Dateiservern, die nicht mehr in der Datenbank referenziert werden");
+	I18n1 DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_REPOSITORIES_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE =
+			new I18n1("Deletes files older than %s days from file repositories that are no longer referenced in the database")//
+				.de("Löscht Dateien älter als %s Tage von Dateiablagen, die nicht mehr in der Datenbank referenziert werden");
 	I18n1 DELETES_RECORDS_OF_CORE_LOG_TABLES_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes records of core log tables older than %s days")//
 		.de("Löscht Datensätze von Kern-Logtabellen, die älter als %s Tage sind");
 	I18n0 DISABLED_USER = new I18n0("Disabled User")//
@@ -455,6 +459,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Lizenz");
 	I18n0 LOCAL_ADDRESS = new I18n0("Local Address")//
 		.de("Lokale Adresse");
+	I18n0 LOCAL_FILE_STORE_DIRECTORY = new I18n0("Local File Store Directory")//
+		.de("Lokales Dateispeicher-Verzeichnis");
 	I18n0 LOCAL_NAME = new I18n0("Local Name")//
 		.de("Lokaler Name");
 	I18n0 LOCAL_PORT = new I18n0("Local Port")//
@@ -718,8 +724,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Einstellungen gespeichert.");
 	I18n0 PREFERRED_POPUP_PLACEMENT = new I18n0("Preferred Popup Placement")//
 		.de("Bevorzugte Popup-Platzierung");
-	I18n0 PRIMARY_FILE_SERVER = new I18n0("Primary File Server")//
-		.de("Haupt-Datei-Server");
+	I18n0 PRIMARY_FILE_REPOSITORY = new I18n0("Primary File Repository")//
+		.de("Haupt-Dateiablage");
 	I18n0 PROCESS = new I18n0("Process")//
 		.de("Prozess");
 	I18n0 PROCESS_CLASS_NAME = new I18n0("Process Class Name")//
@@ -936,14 +942,14 @@ public interface CoreI18n extends EmfI18n {
 		.de("Gespeicherte-Datei-Log von '%s'");
 	I18n0 STORED_FILE_LOGS = new I18n0("Stored File Logs")//
 		.de("Gespeicherte-Datei-Logs");
-	I18n0 STORED_FILE_SERVER = new I18n0("Stored File Server")//
-		.de("Gespeicherte-Dateien-Server");
-	I18n0 STORED_FILE_SERVER_LOG = new I18n0("Stored File Server Log")//
-		.de("Gespeicherte-Dateien-Server-Log");
-	I18n0 STORED_FILE_SERVER_LOGS = new I18n0("Stored File Server Logs")//
-		.de("Gespeicherte-Dateien-Server-Logs");
-	I18n0 STORED_FILE_SERVERS = new I18n0("Stored File Servers")//
-		.de("Gespeicherte-Dateien-Server");
+	I18n0 STORED_FILE_REPOSITORIES = new I18n0("Stored File Repositories")//
+		.de("Gespeicherte-Dateien-Ablagen");
+	I18n0 STORED_FILE_REPOSITORY = new I18n0("Stored File Repository")//
+		.de("Gespeicherte-Dateien-Ablage");
+	I18n0 STORED_FILE_REPOSITORY_LOG = new I18n0("Stored File Repository Log")//
+		.de("Gespeicherte-Dateien-Ablage-Log");
+	I18n0 STORED_FILE_REPOSITORY_LOGS = new I18n0("Stored File Repository Logs")//
+		.de("Gespeicherte-Dateien-Ablagen-Logs");
 	I18n0 STORED_FILE_SET = new I18n0("Stored File Set")//
 		.de("Gespeicherte-Datei-Satz");
 	I18n0 STORED_FILE_SET_ITEM = new I18n0("Stored File Set Item")//
@@ -968,6 +974,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Super-Benutzer");
 	I18n0 SUPPORT_EMAIL_ADDRESS = new I18n0("Support Email Address")//
 		.de("Support-E-Mail-Adresse");
+	I18n0 SUPPORTED_URLS = new I18n0("Supported URLs")//
+		.de("Unterstützte URLs");
 	I18n0 SURPLUS_TOKENS = new I18n0("Surplus Tokens")//
 		.de("Überschüssige Zeichen");
 	I18n0 SYSTEM = new I18n0("System")//

@@ -11,6 +11,7 @@ import com.softicar.platform.core.module.file.stored.content.store.IStoredFileCo
 import com.softicar.platform.core.module.file.stored.hash.AGStoredFileSha1;
 import com.softicar.platform.core.module.log.LogDb;
 import java.io.OutputStream;
+import java.util.Optional;
 
 /**
  * This class manages the upload of the content of a stored file to the file
@@ -32,35 +33,43 @@ class StoredFileContentUploader {
 	private static final String TEMPORARY_FILE_FOLDER = "/tmp";
 
 	private final IStoredFileDatabase database;
-	private final IStoredFileContentStore store;
 	private final AGStoredFile storedFile;
+	private final Optional<IStoredFileContentStore> store;
 
-	public StoredFileContentUploader(IStoredFileDatabase database, IStoredFileContentStore store, AGStoredFile storedFile) {
+	public StoredFileContentUploader(IStoredFileDatabase database, AGStoredFile storedFile, IStoredFileContentStore store) {
+
+		this(database, storedFile, Optional.ofNullable(store));
+	}
+
+	public StoredFileContentUploader(IStoredFileDatabase database, AGStoredFile storedFile, Optional<IStoredFileContentStore> store) {
 
 		this.database = database;
-		this.store = store;
 		this.storedFile = storedFile;
+		this.store = store;
 	}
 
 	public OutputStream createOutputStream() {
 
-		if (!store.isEnabled()) {
+		if (!store.isPresent()) {
 			return useChunks();
 		}
 
-		if (store.isReady()) {
-			long freeDiskSpace = store.getFreeDiskSpace();
+		if (store.get().isAvailable()) {
+			long freeDiskSpace = store.get().getFreeDiskSpace();
 			if (freeDiskSpace >= MINIMUM_FREE_SPACE) {
 				return useStore();
 			} else {
 				String message = "File store '%s' has not enough free space (%s free space required but only %s available). Falling back to database store."
-					.formatted(store.getLocation(), MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1), MemoryFormatting.formatMemory(freeDiskSpace, 1));
+					.formatted(
+						store.get().getLocation(),
+						MemoryFormatting.formatMemory(MINIMUM_FREE_SPACE, 1),
+						MemoryFormatting.formatMemory(freeDiskSpace, 1));
 				Log.ferror(message);
 				LogDb.panic(message);
 				return useChunks();
 			}
 		} else {
-			String message = "File store '%s' is not available. Falling back to database store.".formatted(store.getLocation());
+			String message = "File store '%s' is not ready. Falling back to database store.".formatted(store.get().getLocation());
 			Log.ferror(message);
 			LogDb.panic(message);
 			return useChunks();
@@ -74,9 +83,9 @@ class StoredFileContentUploader {
 
 	private OutputStream useStore() {
 
-		store.createDirectories(TEMPORARY_FILE_FOLDER);
+		store.get().createDirectories(TEMPORARY_FILE_FOLDER);
 
-		HashingOutputStream outputStream = new HashingOutputStream(() -> store.getFileOutputStream(getTemporaryFileName()), StoredFileUtils.FILE_HASH);
+		HashingOutputStream outputStream = new HashingOutputStream(() -> store.get().getFileOutputStream(getTemporaryFileName()), StoredFileUtils.FILE_HASH);
 		outputStream.setOnCloseCallback(this::onClose);
 		return outputStream;
 	}
@@ -105,26 +114,25 @@ class StoredFileContentUploader {
 
 	private void createFolders(String folderName) {
 
-		store.createDirectories(folderName);
+		store.get().createDirectories(folderName);
 	}
 
 	private void moveFileToFolder(String targetName) {
 
 		String sourceName = getTemporaryFileName();
 
-		if (store.exists(targetName)) {
-
+		if (store.get().exists(targetName)) {
 			verifyFileSizes(sourceName, targetName);
-			store.deleteFile(sourceName);
+			store.get().deleteFile(sourceName);
 		} else {
-			store.moveFile(sourceName, targetName);
+			store.get().moveFile(sourceName, targetName);
 		}
 	}
 
 	private void verifyFileSizes(String sourceName, String targetName) {
 
-		long sourceSize = store.getFileSize(sourceName);
-		long targetSize = store.getFileSize(targetName);
+		long sourceSize = store.get().getFileSize(sourceName);
+		long targetSize = store.get().getFileSize(targetName);
 
 		if (sourceSize != targetSize) {
 			throw new SofticarDeveloperException(//

@@ -1,0 +1,10 @@
+PACKAGE com.softicar.platform.core.module.file.stored.repository
+
+TABLE AGStoredFileRepository 'Core.StoredFileRepository' {
+	PK Integer id = SERIAL
+	Boolean active = TRUE
+	String url [MAXLENGTH=255]
+	String domain = '' [MAXLENGTH=255]
+	String username = '' [MAXLENGTH=255]
+	String password = '' [MAXLENGTH=255]
+}

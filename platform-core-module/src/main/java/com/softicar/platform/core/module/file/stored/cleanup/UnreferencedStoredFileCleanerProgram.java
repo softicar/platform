@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.file.stored.cleanup;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.file.stored.content.store.StoredFileContentStores;
 import com.softicar.platform.core.module.program.IProgram;
 import java.util.Optional;
 
@@ -17,7 +18,9 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		new UnreferencedStoredFileCleaner().cleanAll();
+		StoredFileContentStores//
+			.getAvailableContentStores()
+			.forEach(store -> new UnreferencedStoredFileCleaner(store).cleanAll());
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 
 		return Optional
 			.of(//
-				CoreI18n.DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_SERVERS_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE
+				CoreI18n.DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_REPOSITORIES_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE
 					.toDisplay(UnreferencedStoredFileCleaner.MINIMUM_DAYS_BEFORE_REMOVAL));
 	}
 }

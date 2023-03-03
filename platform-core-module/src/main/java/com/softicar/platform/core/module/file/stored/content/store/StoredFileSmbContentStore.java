@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.file.stored.content.store;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
@@ -10,11 +9,11 @@ import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
 import com.softicar.platform.core.module.file.smb.SmbCredentials;
 import com.softicar.platform.core.module.file.smb.SmbIOException;
-import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
+import com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepository;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -27,37 +26,21 @@ import java.util.stream.Collectors;
  */
 public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
-	private final Optional<AGStoredFileServer> server;
+	private final AGStoredFileRepository repository;
 
-	public StoredFileSmbContentStore() {
+	public StoredFileSmbContentStore(AGStoredFileRepository repository) {
 
-		this(AGStoredFileServer.getPrimary());
-	}
-
-	public StoredFileSmbContentStore(AGStoredFileServer server) {
-
-		this(Optional.ofNullable(server));
-	}
-
-	public StoredFileSmbContentStore(Optional<AGStoredFileServer> server) {
-
-		this.server = server;
+		this.repository = Objects.requireNonNull(repository);
 	}
 
 	@Override
 	public String getLocation() {
 
-		return getServerOrThrow().getUrl();
+		return repository.getUrl();
 	}
 
 	@Override
-	public boolean isEnabled() {
-
-		return server.isPresent();
-	}
-
-	@Override
-	public boolean isReady() {
+	public boolean isAvailable() {
 
 		try {
 			return createSmbEntry("/").exists();
@@ -156,17 +139,11 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	private String createSmbUrl(String name) {
 
-		return Trim.trimRight(getServerOrThrow().getUrl(), '/') + "/" + Trim.trimLeft(name, '/');
+		return Trim.trimRight(repository.getUrl(), '/') + "/" + Trim.trimLeft(name, '/');
 	}
 
 	private SmbCredentials getSmbCredentials() {
 
-		AGStoredFileServer fileServer = getServerOrThrow();
-		return new SmbCredentials(fileServer.getDomain(), fileServer.getUsername(), fileServer.getPassword());
-	}
-
-	private AGStoredFileServer getServerOrThrow() {
-
-		return server.orElseThrow(() -> new SofticarDeveloperException("File server was not defined."));
+		return new SmbCredentials(repository.getDomain(), repository.getUsername(), repository.getPassword());
 	}
 }

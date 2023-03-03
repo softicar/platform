@@ -4,12 +4,16 @@ h6.DomWikiHeadline {
 	border-bottom: 1px solid var(--LABEL_BORDER_COLOR);
 }
 
+.DomWikiList {
+	margin-top: 0;
+}
+
 .DomWikiMonospace {
 	display: inline;
 	color: #880000;
 	background-color: #f0f0f0;
 	border-radius: var(--BORDER_RADIUS);
-	box-sahdow: 0 0 0 1px #cccccc inset;
+	box-shadow: 0 0 0 1px #cccccc inset;
 	padding: 0 5px;
 	font-family: monospace;
 }

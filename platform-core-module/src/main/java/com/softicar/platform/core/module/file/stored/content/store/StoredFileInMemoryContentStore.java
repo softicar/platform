@@ -33,13 +33,7 @@ public class StoredFileInMemoryContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public boolean isEnabled() {
-
-		return true;
-	}
-
-	@Override
-	public boolean isReady() {
+	public boolean isAvailable() {
 
 		return true;
 	}

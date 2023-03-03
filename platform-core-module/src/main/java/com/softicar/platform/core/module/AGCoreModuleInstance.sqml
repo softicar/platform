@@ -1,7 +1,7 @@
 PACKAGE com.softicar.platform.core.module
 
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
-IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
+IMPORT com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepository
 IMPORT com.softicar.platform.core.module.localization.AGLocalization
 IMPORT com.softicar.platform.core.module.module.instance.AGModuleInstanceBase
 IMPORT com.softicar.platform.core.module.server.AGServer
@@ -10,7 +10,7 @@ IMPORT com.softicar.platform.core.module.user.AGUser
 TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
 	PK AGModuleInstanceBase base = BASE [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='CoreModuleInstance_ibfk_1' COMMENT='@base@']
 	AGUser systemUser = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstance_ibfk_2']
-	AGStoredFileServer primaryFileServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstance_ibfk_3' COMMENT='Server used for uploading files']
+	AGStoredFileRepository primaryFileRepository = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstance_ibfk_3']
 	AGServer emailServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstance_ibfk_4']
 	String supportEmailAddress = 'support@example.com' [MAXLENGTH=255]
 	String noReplyEmailAddress = 'no-reply@example.com' [MAXLENGTH=255]
@@ -22,7 +22,7 @@ TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
 	AGLocalization defaultLocalization [CONSTRAINT_NAME='CoreModuleInstance_ibfk_6']
 	Boolean testSystem = FALSE
 
-	IK primaryFileServer
+	IK primaryFileRepository
 	IK systemUser
 	IK emailServer
 	IK portalLogo

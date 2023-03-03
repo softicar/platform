@@ -10,9 +10,7 @@ import com.softicar.platform.core.module.file.stored.chunk.AGStoredFileChunk;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentName;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentOutputStreamCreator;
 import com.softicar.platform.core.module.file.stored.content.database.IStoredFileDatabase;
-import com.softicar.platform.core.module.file.stored.content.database.StoredFileDatabase;
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
-import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
 import com.softicar.platform.core.module.file.stored.hash.IStoredFileHash;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,16 +24,11 @@ class StoredFileChunksToFileStoreMigrator {
 	private final IStoredFileContentStore store;
 	private final AGStoredFile storedFile;
 
-	public StoredFileChunksToFileStoreMigrator(IStoredFileDatabase database, IStoredFileContentStore store, AGStoredFile storedFile) {
+	private StoredFileChunksToFileStoreMigrator(IStoredFileDatabase database, IStoredFileContentStore store, AGStoredFile storedFile) {
 
 		this.database = database;
 		this.store = store;
 		this.storedFile = storedFile;
-	}
-
-	public static void migrateAll() {
-
-		migrateAll(new StoredFileDatabase(), new StoredFileSmbContentStore());
 	}
 
 	public static void migrateAll(IStoredFileDatabase database, IStoredFileContentStore store) {

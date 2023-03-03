@@ -28,31 +28,13 @@ public interface IStoredFileContentStore {
 	String getLocation();
 
 	/**
-	 * Determines whether this content store should be used, according to some
-	 * configuration.
+	 * Determines whether this content store is technically ready to receive and
+	 * provide data.
 	 *
-	 * @return <i>true</i> if this content store should be used; <i>false</i>
-	 *         otherwise
-	 */
-	boolean isEnabled();
-
-	/**
-	 * Determines whether this content store is ready to be used, from a
-	 * technical perspective.
-	 *
-	 * @return <i>true</i> if this content store is ready to be used;
+	 * @return <i>true</i> if this content store is technically ready;
 	 *         <i>false</i> otherwise
 	 */
-	boolean isReady();
-
-	/**
-	 * @deprecated use {@link #isReady()} instead
-	 */
-	@Deprecated
-	default boolean isAvailable() {
-
-		return isReady();
-	}
+	boolean isAvailable();
 
 	/**
 	 * Determines the disk space in bytes that is still available in this

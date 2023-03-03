@@ -63,7 +63,7 @@ public class AGCoreModuleInstanceTable extends ModuleInstanceTable<AGCoreModuleI
 		loggerSet
 			.addPlainChangeLogger(AGCoreModuleInstanceLog.CORE_MODULE_INSTANCE, AGCoreModuleInstanceLog.TRANSACTION)//
 			.addMapping(AGCoreModuleInstance.SYSTEM_USER, AGCoreModuleInstanceLog.SYSTEM_USER)
-			.addMapping(AGCoreModuleInstance.PRIMARY_FILE_SERVER, AGCoreModuleInstanceLog.PRIMARY_FILE_SERVER)
+			.addMapping(AGCoreModuleInstance.PRIMARY_FILE_REPOSITORY, AGCoreModuleInstanceLog.PRIMARY_FILE_REPOSITORY)
 			.addMapping(AGCoreModuleInstance.EMAIL_SERVER, AGCoreModuleInstanceLog.EMAIL_SERVER)
 			.addMapping(AGCoreModuleInstance.SUPPORT_EMAIL_ADDRESS, AGCoreModuleInstanceLog.SUPPORT_EMAIL_ADDRESS)
 			.addMapping(AGCoreModuleInstance.NO_REPLY_EMAIL_ADDRESS, AGCoreModuleInstanceLog.NO_REPLY_EMAIL_ADDRESS)
