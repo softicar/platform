@@ -132,6 +132,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("CC");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
 		.de("Passwort überprüfen");
+	I18n0 CHECKS_FILES_AGAINST_METADATA_IN_DATABASE = new I18n0("Checks files against metadata in database.")//
+		.de("Prüft Dateien gegen Metadaten in der Datenbank.");
 	I18n0 CHECKSUM = new I18n0("Checksum")//
 		.de("Checksumme");
 	I18n0 CHUNK = new I18n0("Chunk")//
