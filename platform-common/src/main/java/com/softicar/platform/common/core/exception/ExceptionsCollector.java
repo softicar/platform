@@ -3,11 +3,11 @@ package com.softicar.platform.common.core.exception;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 
 /**
@@ -17,13 +17,13 @@ import java.util.function.Consumer;
  */
 public class ExceptionsCollector {
 
-	private final Map<List<StackTraceElement>, List<Throwable>> throwables;
+	private final Map<String, ExceptionCollection> exceptionCollections;
 	private String preamble;
 	private int count;
 
 	public ExceptionsCollector() {
 
-		this.throwables = new HashMap<>();
+		this.exceptionCollections = new TreeMap<>();
 		this.preamble = "";
 		this.count = 0;
 	}
@@ -36,8 +36,10 @@ public class ExceptionsCollector {
 
 	public ExceptionsCollector add(Throwable throwable) {
 
-		List<StackTraceElement> stackTrace = Arrays.asList(throwable.getStackTrace());
-		throwables.computeIfAbsent(stackTrace, trace -> new ArrayList<>()).add(throwable);
+		List<StackTraceElement> stackTrace = List.of(throwable.getStackTrace());
+		exceptionCollections//
+			.computeIfAbsent(stackTrace.toString(), dummy -> new ExceptionCollection(stackTrace))
+			.add(throwable);
 		count++;
 		return this;
 	}
@@ -45,6 +47,11 @@ public class ExceptionsCollector {
 	public int getExceptionCount() {
 
 		return count;
+	}
+
+	public Collection<ExceptionCollection> getExceptionCollections() {
+
+		return Collections.unmodifiableCollection(exceptionCollections.values());
 	}
 
 	public boolean isEmpty() {
@@ -62,11 +69,11 @@ public class ExceptionsCollector {
 		StringWriter buffer = new StringWriter();
 		try (PrintWriter printer = new PrintWriter(buffer)) {
 			printer.append(preamble);
-			for (Entry<List<StackTraceElement>, List<Throwable>> entry: throwables.entrySet()) {
+			for (var exceptionCollection: exceptionCollections.values()) {
 				printer.append("\n\n");
-				printer.printf("Gathered %s exceptions with the same stacktrace.", entry.getValue().size());
+				printer.printf("Gathered %s exceptions with the same stacktrace.", exceptionCollection.getThrowables().size());
 				printer.append("\n\n");
-				for (Throwable throwable: entry.getValue()) {
+				for (Throwable throwable: exceptionCollection.getThrowables()) {
 					throwable.printStackTrace(printer);
 				}
 			}
@@ -96,6 +103,33 @@ public class ExceptionsCollector {
 
 		if (count > 0) {
 			messageConsumer.accept(getMessage());
+		}
+	}
+
+	public static class ExceptionCollection {
+
+		private final List<StackTraceElement> stackTraceElements;
+		private final List<Throwable> throwables;
+
+		public ExceptionCollection(List<StackTraceElement> stackTraceElements) {
+
+			this.stackTraceElements = stackTraceElements;
+			this.throwables = new ArrayList<>();
+		}
+
+		public List<StackTraceElement> getStackTraceElements() {
+
+			return Collections.unmodifiableList(stackTraceElements);
+		}
+
+		public List<Throwable> getThrowables() {
+
+			return Collections.unmodifiableList(throwables);
+		}
+
+		public void add(Throwable throwable) {
+
+			this.throwables.add(throwable);
 		}
 	}
 }
