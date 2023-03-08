@@ -7,6 +7,7 @@ import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
+import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import java.util.Collection;
@@ -17,11 +18,18 @@ public class WorkflowAutoTransitionExecutor {
 
 	private final AGWorkflowItem item;
 	private final Collection<AGWorkflowTransition> transitions;
+	private boolean suppressConcurrentModificationException;
 
 	public WorkflowAutoTransitionExecutor(AGWorkflowItem item, Collection<AGWorkflowTransition> transitions) {
 
 		this.item = item;
 		this.transitions = transitions;
+	}
+
+	public WorkflowAutoTransitionExecutor setSuppressConcurrentModificationException(boolean value) {
+
+		this.suppressConcurrentModificationException = value;
+		return this;
 	}
 
 	public void evaluateAndExecute() {
@@ -41,8 +49,22 @@ public class WorkflowAutoTransitionExecutor {
 					WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
 						.toDisplay(item.toDisplayWithoutId(), Imploder.implode(transitionTitles, "\n")));
 			} else if (validTransitions.size() == 1) {
-				var transition = validTransitions.get(0);
-				var targetNode = transition.getTargetNode();
+				evaluateAndExecute(validTransitions.get(0));
+			} else {
+				Log.fverbose("No executable auto transition found.");
+			}
+			transaction.commit();
+		}
+	}
+
+	private void evaluateAndExecute(AGWorkflowTransition transition) {
+
+		if (item.reloadForUpdate()) {
+			if (!suppressConcurrentModificationException) {
+				transition.assertInSourceNode(item, () -> new SofticarUserException(WorkflowI18n.THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE));
+			}
+			if (item.getWorkflowNode().is(transition.getSourceNode())) {
+				AGWorkflowNode targetNode = transition.getTargetNode();
 				Log
 					.finfo(//
 						"Executing transition '%s' into target node '%s' for item '%s'.",
@@ -53,9 +75,12 @@ public class WorkflowAutoTransitionExecutor {
 				new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(targetNode);
 				new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
 			} else {
-				Log.fverbose("No executable auto transition found.");
+				Log.finfo("The transition '%s' was skipped because it was no longer pending.", transition.toDisplayWithoutId());
 			}
-			transaction.commit();
+		} else {
+			throw new SofticarUserException(
+				WorkflowI18n.UNABLE_TO_EXECUTE_TRANSITION_ARG1_BECAUSE_THE_RELATED_WORKFLOW_ITEM_DOES_NOT_EXIST_ANYMORE
+					.toDisplay(transition.toDisplayWithoutId()));
 		}
 	}
 

@@ -49,8 +49,9 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 		for (AGWorkflowItem item: itemToTransitionsMap.keySet()) {
 			try {
 				Log.fverbose("Evaluating auto transition for %s.", item.toDisplayWithoutId());
-				new WorkflowAutoTransitionExecutor(item, itemToTransitionsMap.get(item)).evaluateAndExecute();
-				Log.fverbose("Execution successful.");
+				new WorkflowAutoTransitionExecutor(item, itemToTransitionsMap.get(item))//
+					.setSuppressConcurrentModificationException(true)
+					.evaluateAndExecute();
 			} catch (Throwable throwable) {
 				Log.fverbose("FAILURE -- see exceptions below");
 				exceptionsCollector.add(throwable);

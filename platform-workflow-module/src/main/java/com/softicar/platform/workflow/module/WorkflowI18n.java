@@ -198,6 +198,9 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergang nach '%s'");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
+	I18n1 UNABLE_TO_EXECUTE_TRANSITION_ARG1_BECAUSE_THE_RELATED_WORKFLOW_ITEM_DOES_NOT_EXIST_ANYMORE =
+			new I18n1("Unable to execute transition 'ARG1' because the related workflow item does not exist anymore.")//
+				.de("Der Übergang 'ARG1' kann nicht ausgeführt werden, da das zugehörige Arbeitsablauf-Element nicht mehr existiert.");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
