@@ -1,7 +1,6 @@
 package com.softicar.platform.workflow.module.demo.sideeffect;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
-import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.workflow.module.demo.AGWorkflowDemoObject;
 import com.softicar.platform.workflow.module.demo.approver.AGWorkflowDemoObjectApprover;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
@@ -16,7 +15,6 @@ public class WorkflowDemoObjectApproveSideEffect implements IWorkflowTransitionS
 		AGWorkflowDemoObjectApprover.TABLE//
 			.createSelect()
 			.where(AGWorkflowDemoObjectApprover.OBJECT.isEqual(object))
-			.where(AGWorkflowDemoObjectApprover.USER.isEqual(CurrentUser.get()))
 			.forEach(approver -> approver.setApproved(true).save());
 	}
 

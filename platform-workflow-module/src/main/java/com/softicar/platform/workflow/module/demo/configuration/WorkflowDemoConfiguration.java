@@ -17,6 +17,7 @@ import com.softicar.platform.workflow.module.demo.sideeffect.WorkflowDemoObjectR
 import com.softicar.platform.workflow.module.test.fixture.WorkflowModuleTestFixtureMethods;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
+import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public class WorkflowDemoConfiguration extends AbstractStandardConfiguration implements WorkflowModuleTestFixtureMethods {
@@ -61,7 +62,7 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 		insertWorkflowAutoTransition("Auto", isFurtherApprovalNecessayNode, approvalNode);
 		insertWorkflowAutoTransition("Auto", isFurtherApprovalNecessayNode, approvedNode);
 
-		insertWorkflowTransition(//
+		AGWorkflowTransition approveTransition = insertWorkflowTransition(//
 			"Approve",
 			approvalNode,
 			isFurtherApprovalNecessayNode,
@@ -71,6 +72,16 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 				.setCommentRequired(true)
 				.setSideEffect(AGUuid.getOrCreate(WorkflowDemoObjectApproveSideEffect.class))
 				.save();
+
+		// insert automatic approve transaction
+		approveTransition//
+			.copy()
+			.setName("Automatic " + approveTransition.getName())
+			.setAutoTransition(true)
+			.setRequiredVotes("0")
+			.setNotify(false)
+			.save();
+
 		insertWorkflowTransition(//
 			"Reject",
 			approvalNode,
