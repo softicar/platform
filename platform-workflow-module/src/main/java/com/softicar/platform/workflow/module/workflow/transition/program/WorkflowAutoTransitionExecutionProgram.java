@@ -32,13 +32,6 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 			Log.fverbose("No items with auto transitions found.");
 		} else {
 			Log.fverbose("Evaluating auto transitions for %s items.", itemToTransitionsMap.size());
-			try {
-				Log.finfo("Sleeping for 10 seconds...");
-				Thread.sleep(10000L);
-				Log.finfo("Sleeping done.");
-			} catch (InterruptedException exception) {
-				throw new RuntimeException(exception);
-			}
 			executeAutoTransitions(itemToTransitionsMap);
 		}
 	}
