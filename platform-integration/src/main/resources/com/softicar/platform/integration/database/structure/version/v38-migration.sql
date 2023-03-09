@@ -3,4 +3,4 @@
 -- EXP-2731
 
 ALTER TABLE `Workflow`.`WorkflowUserConfiguration`
-	CHANGE COLUMN `emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '0';
+	MODIFY COLUMN `emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '0';
