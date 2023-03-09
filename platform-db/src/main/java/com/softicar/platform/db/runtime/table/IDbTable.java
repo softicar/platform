@@ -107,7 +107,7 @@ public interface IDbTable<R, P> extends IDbBasicTable<R> {
 	 * {@link Optional#ofNullable}.
 	 *
 	 * @param primaryKey
-	 *            the primary key of the row (may be null)
+	 *            the primary key of the row (may be <i>null</i>)
 	 * @return the matching table row as {@link Optional} (never <i>null</i>)
 	 */
 	default Optional<R> getAsOptional(P primaryKey) {
