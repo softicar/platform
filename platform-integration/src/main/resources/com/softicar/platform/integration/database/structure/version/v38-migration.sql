@@ -1,4 +1,4 @@
--- migration from platform-33 to platform-34
+-- migration from platform-33 to platform-38
 
 -- -------------------------------- PLAT-1331 --------------------------------
 
