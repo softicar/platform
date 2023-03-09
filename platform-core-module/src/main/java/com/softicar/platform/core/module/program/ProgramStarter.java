@@ -45,9 +45,6 @@ public class ProgramStarter {
 		try (var scope = new CurrentUserScope(AGUser.getSystemUser())) {
 			prepareExecution();
 			program.executeProgram();
-		} catch (Exception exception) {
-			LogDb.panic(exception);
-			throw exception;
 		}
 	}
 
