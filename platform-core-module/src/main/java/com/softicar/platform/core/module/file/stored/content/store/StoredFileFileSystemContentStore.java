@@ -35,7 +35,7 @@ public class StoredFileFileSystemContentStore implements IStoredFileContentStore
 	 *            the absolute path to an existing, writable directory (never
 	 *            <i>null</i>)
 	 */
-	public StoredFileFileSystemContentStore(String absolutePath) {
+	StoredFileFileSystemContentStore(String absolutePath) {
 
 		if (!absolutePath.startsWith("/")) {
 			throw new IllegalArgumentException("Expected an absolute path but encountered: '%s'".formatted(absolutePath));

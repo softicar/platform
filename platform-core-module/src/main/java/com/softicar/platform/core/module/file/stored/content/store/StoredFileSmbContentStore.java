@@ -28,7 +28,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	private final AGStoredFileRepository repository;
 
-	public StoredFileSmbContentStore(AGStoredFileRepository repository) {
+	StoredFileSmbContentStore(AGStoredFileRepository repository) {
 
 		this.repository = Objects.requireNonNull(repository);
 	}
