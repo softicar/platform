@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.email.buffer;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
+import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.email.EmailDumper;
@@ -73,7 +74,7 @@ public class BufferedEmailSender {
 			email.save();
 			transaction.commit();
 		} catch (Exception exception) {
-			exceptionsCollector.add(exception);
+			exceptionsCollector.add(new SofticarException(exception, "Failed to send buffered email: %s", email.getId()));
 		}
 	}
 
