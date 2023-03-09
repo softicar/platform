@@ -69,7 +69,7 @@ class StoredFileContentUploader {
 				return useChunks();
 			}
 		} else {
-			String message = "File store '%s' is not ready. Falling back to database store.".formatted(store.get().getLocation());
+			String message = "File store '%s' is not available. Falling back to database store.".formatted(store.get().getLocation());
 			Log.ferror(message);
 			LogDb.panic(message);
 			return useChunks();
