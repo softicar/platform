@@ -1,6 +1,5 @@
 package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
 import com.softicar.platform.workflow.module.test.FalsePrecondition;
 import com.softicar.platform.workflow.module.test.WorkflowTestObject;
@@ -50,7 +49,7 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 		assertEquals(rootNode, item.getWorkflowNode());
 	}
 
-	@Test(expected = SofticarUserException.class)
+	@Test
 	public void testWrongAutoTransition() {
 
 		new WorkflowAutoTransitionExecutor(item, Arrays.asList(autoTransitionA, autoTransitionB, autoTransitionC)).evaluateAndExecute();
