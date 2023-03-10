@@ -53,6 +53,7 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 	public void testWrongAutoTransition() {
 
 		new WorkflowAutoTransitionExecutor(item, Arrays.asList(autoTransitionA, autoTransitionB, autoTransitionC)).evaluateAndExecute();
+		assertEquals(rootNode, item.getWorkflowNode());
 	}
 
 	@Test
