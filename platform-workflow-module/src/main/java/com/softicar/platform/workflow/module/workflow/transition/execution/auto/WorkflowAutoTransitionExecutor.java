@@ -74,7 +74,7 @@ public class WorkflowAutoTransitionExecutor {
 			if (!sourceNode.equals(item.getWorkflowNode())) {
 				Log
 					.fwarning(
-						"WARNING: Skipping item '%s' because it is no longer in expected source node '%s' but in '%s'.",
+						"WARNING: Skipping workflow item %s because it is no longer in expected source node '%s' but in '%s'.",
 						item.getId(),
 						sourceNode.toDisplay(),
 						item.getWorkflowNode().toDisplay());
