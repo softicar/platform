@@ -20,6 +20,7 @@ import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
+import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.After;
@@ -54,6 +55,10 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	public void testTaskCreationAndNotification() {
 
 		AGUser otherUser = insertUser("Other");
+		AGWorkflowUserConfiguration.TABLE//
+			.getOrCreate(user)
+			.setEmailNotificationsForNewTasks(true)
+			.save();
 
 		// setup user transitions for task notifications
 		AGWorkflowNode nodeC = insertWorkflowNode(workflowVersion, "C");
