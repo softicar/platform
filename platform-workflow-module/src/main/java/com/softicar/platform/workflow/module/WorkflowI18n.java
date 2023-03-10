@@ -186,6 +186,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Aufgabe delegiert an %s.");
 	I18n0 THE_ITEM_RESIDES_IN_AN_UNEXPECTED_WORKFLOW_NODE = new I18n0("The item resides in an unexpected workflow node.")//
 		.de("Das Element befindet sich in einem unerwarteten Arbeitsablaufknoten.");
+	I18n0 THE_WORKFLOW_ITEM_COULD_NOT_BE_RELOADED = new I18n0("The workflow item could not be reloaded.")//
+		.de("Das Arbeitsablauf-Element konnte nicht erneut geladen werden.");
 	I18n0 THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE = new I18n0("This action is not available anymore.")//
 		.de("Diese Aktion ist nicht mehr verfügbar.");
 	I18n0 TRANSITION = new I18n0("Transition")//
@@ -198,9 +200,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Übergang nach '%s'");
 	I18n0 TRANSITIONS = new I18n0("Transitions")//
 		.de("Übergänge");
-	I18n1 UNABLE_TO_EXECUTE_TRANSITION_ARG1_BECAUSE_THE_RELATED_WORKFLOW_ITEM_DOES_NOT_EXIST_ANYMORE =
-			new I18n1("Unable to execute transition '%s' because the related workflow item does not exist anymore.")//
-				.de("Der Übergang '%s' kann nicht ausgeführt werden, da das zugehörige Arbeitsablauf-Element nicht mehr existiert.");
 	I18n0 VERSIONS = new I18n0("Versions")//
 		.de("Versionen");
 	I18n0 WORKFLOW = new I18n0("Workflow")//
