@@ -31,7 +31,7 @@ public class AGWorkflowUserConfigurationGenerated extends AbstractDbRecord<AGWor
 	}
 
 	public static final IDbForeignField<AGWorkflowUserConfiguration, AGUser> USER = BUILDER.addForeignField("user", o->o.m_user, (o,v)->o.m_user=v, AGUser.ID).setTitle(WorkflowI18n.USER).setForeignKeyName("WorkflowUserConfiguration_ibfk_1");
-	public static final IDbBooleanField<AGWorkflowUserConfiguration> EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = BUILDER.addBooleanField("emailNotificationsForNewTasks", o->o.m_emailNotificationsForNewTasks, (o,v)->o.m_emailNotificationsForNewTasks=v).setTitle(WorkflowI18n.EMAIL_NOTIFICATIONS_FOR_NEW_TASKS).setDefault(true);
+	public static final IDbBooleanField<AGWorkflowUserConfiguration> EMAIL_NOTIFICATIONS_FOR_NEW_TASKS = BUILDER.addBooleanField("emailNotificationsForNewTasks", o->o.m_emailNotificationsForNewTasks, (o,v)->o.m_emailNotificationsForNewTasks=v).setTitle(WorkflowI18n.EMAIL_NOTIFICATIONS_FOR_NEW_TASKS).setDefault(false);
 	public static final IDbForeignField<AGWorkflowUserConfiguration, AGUser> SUBSTITUTE = BUILDER.addForeignField("substitute", o->o.m_substitute, (o,v)->o.m_substitute=v, AGUser.ID).setTitle(WorkflowI18n.SUBSTITUTE).setNullable().setDefault(null).setForeignKeyName("WorkflowUserConfiguration_ibfk_2");
 	public static final IDbDayField<AGWorkflowUserConfiguration> SUBSTITUTE_FROM = BUILDER.addDayField("substituteFrom", o->o.m_substituteFrom, (o,v)->o.m_substituteFrom=v).setTitle(WorkflowI18n.SUBSTITUTE_FROM).setNullable().setDefault(null);
 	public static final IDbDayField<AGWorkflowUserConfiguration> SUBSTITUTE_TO = BUILDER.addDayField("substituteTo", o->o.m_substituteTo, (o,v)->o.m_substituteTo=v).setTitle(WorkflowI18n.SUBSTITUTE_TO).setNullable().setDefault(null);

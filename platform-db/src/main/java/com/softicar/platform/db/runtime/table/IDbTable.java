@@ -13,6 +13,7 @@ import com.softicar.platform.db.sql.statement.SqlSelectLock;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -100,6 +101,19 @@ public interface IDbTable<R, P> extends IDbBasicTable<R> {
 	 * @see IDbTableRowCache
 	 */
 	R get(P primaryKey);
+
+	/**
+	 * Same as {@link #get} but wraps the result with
+	 * {@link Optional#ofNullable}.
+	 *
+	 * @param primaryKey
+	 *            the primary key of the row (may be <i>null</i>)
+	 * @return the matching table row as {@link Optional} (never <i>null</i>)
+	 */
+	default Optional<R> getAsOptional(P primaryKey) {
+
+		return Optional.ofNullable(get(primaryKey));
+	}
 
 	/**
 	 * Gets all rows with the specified primary keys from this table.

@@ -393,7 +393,7 @@
   },
   {
     "tableName": "`Workflow`.`WorkflowUserConfiguration`",
-    "createStatement": "CREATE TABLE `Workflow`.`WorkflowUserConfiguration` (`user` INT NOT NULL,`emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '1',`substitute` INT DEFAULT NULL,`substituteFrom` DATE DEFAULT NULL,`substituteTo` DATE DEFAULT NULL,PRIMARY KEY (`user`),KEY `substitute` (`substitute`),CONSTRAINT `WorkflowUserConfiguration_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowUserConfiguration_ibfk_2` FOREIGN KEY (`substitute`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowUserConfiguration` (`user` INT NOT NULL,`emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '0',`substitute` INT DEFAULT NULL,`substituteFrom` DATE DEFAULT NULL,`substituteTo` DATE DEFAULT NULL,PRIMARY KEY (`user`),KEY `substitute` (`substitute`),CONSTRAINT `WorkflowUserConfiguration_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowUserConfiguration_ibfk_2` FOREIGN KEY (`substitute`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
     "tableName": "`Workflow`.`WorkflowVersionLog`",

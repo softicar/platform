@@ -1,9 +1,13 @@
 -- migration from platform-33 to platform-38
 
--- -------------------------------- PLAT-1331 --------------------------------
+-- EXP-2731
+
+ALTER TABLE `Workflow`.`WorkflowUserConfiguration`
+	MODIFY COLUMN `emailNotificationsForNewTasks` BOOL NOT NULL DEFAULT '0';
+
+-- PLAT-1331
 
 -- StoredFileServer/StoredFileRepository
-
 RENAME TABLE `Core`.`StoredFileServer` TO `Core`.`StoredFileRepository`;
 ALTER TABLE `Core`.`StoredFileRepository`
 	CHANGE COLUMN `domain` `domain` VARCHAR(255) NOT NULL DEFAULT '',
@@ -12,7 +16,6 @@ ALTER TABLE `Core`.`StoredFileRepository`
 ;
 
 -- StoredFileServerLog/StoredFileRepositoryLog
-
 RENAME TABLE `Core`.`StoredFileServerLog` TO `Core`.`StoredFileRepositoryLog`;
 ALTER TABLE `Core`.`StoredFileRepositoryLog`
 	RENAME COLUMN `storedFileServer` TO `storedFileRepository`
