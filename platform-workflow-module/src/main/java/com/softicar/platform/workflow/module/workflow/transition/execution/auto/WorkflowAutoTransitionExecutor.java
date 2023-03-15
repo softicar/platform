@@ -28,20 +28,21 @@ public class WorkflowAutoTransitionExecutor {
 
 		try (DbTransaction transaction = new DbTransaction()) {
 			boolean reloaded = item.reloadForUpdate();
-			if(!reloaded) {
-				Log.fwarning("Workflow item '%s' could not be reloaded.", item.getId());
-			} else if (checkSourceNodeOfTransitions()) {
-				List<AGWorkflowTransition> validTransitions = transitions//
-					.stream()
-					.filter(it -> validateNodePreconditions(item, it))
-					.collect(Collectors.toList());
-				evaluateAndExecute(validTransitions);
+			if (!reloaded) {
+				Log.fwarning("WARNING: Workflow item %s could not be reloaded.", item.getId());
+			} else if (allTransitionsHaveExpectedSourceNode()) {
+				loadAndExecuteTransitions();
 			}
 			transaction.commit();
 		}
 	}
 
-	private void evaluateAndExecute(List<AGWorkflowTransition> validTransitions) {
+	private void loadAndExecuteTransitions() {
+
+		List<AGWorkflowTransition> validTransitions = transitions//
+			.stream()
+			.filter(it -> validateNodePreconditions(item, it))
+			.collect(Collectors.toList());
 
 		if (validTransitions.size() > 1) {
 			List<IDisplayString> transitionTitles = validTransitions//
@@ -68,7 +69,7 @@ public class WorkflowAutoTransitionExecutor {
 		}
 	}
 
-	private boolean checkSourceNodeOfTransitions() {
+	private boolean allTransitionsHaveExpectedSourceNode() {
 
 		for (AGWorkflowTransition transition: transitions) {
 
