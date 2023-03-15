@@ -57,16 +57,16 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 	}
 
 	@Test
-	public void testWithOutdatedWorkflowItem() {
+	public void testWithStaleWorkflowItem() {
 
 		assertEquals(rootNode, item.getWorkflowNode());
 
-		// Update of database records without updating the AG-class cache
+		// Update database records without updating the AG cache
 		AGWorkflowItem.TABLE.createUpdate().set(AGWorkflowItem.WORKFLOW_NODE, nodeB).execute();
 
 		assertEquals(rootNode, item.getWorkflowNode());
 
-		new WorkflowAutoTransitionExecutor(item, Collections.singletonList(autoTransitionA)).evaluateAndExecute();
+		new WorkflowAutoTransitionExecutor(item, List.of(autoTransitionA)).evaluateAndExecute();
 		assertEquals(nodeB, item.getWorkflowNode());
 	}
 }

@@ -27,8 +27,10 @@ public class WorkflowAutoTransitionExecutor {
 	public void evaluateAndExecute() {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			item.reloadForUpdate();
-			if (checkSourceNodeOfTransitions()) {
+			boolean reloaded = item.reloadForUpdate();
+			if(!reloaded) {
+				Log.fwarning("Workflow item '%s' could not be reloaded.", item.getId());
+			} else if (checkSourceNodeOfTransitions()) {
 				List<AGWorkflowTransition> validTransitions = transitions//
 					.stream()
 					.filter(it -> validateNodePreconditions(item, it))
