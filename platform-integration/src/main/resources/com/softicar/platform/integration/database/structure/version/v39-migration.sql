@@ -35,4 +35,3 @@ ALTER TABLE `Core`.`CoreModuleInstanceLog`
 	ADD KEY `primaryFileRepository` (`primaryFileRepository`),
 	ADD CONSTRAINT `CoreModuleInstanceLog_ibfk_4` FOREIGN KEY (`primaryFileRepository`) REFERENCES `Core`.`StoredFileRepository` (`id`)
 ;
-
