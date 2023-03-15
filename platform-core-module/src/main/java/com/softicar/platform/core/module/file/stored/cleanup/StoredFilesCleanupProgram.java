@@ -25,16 +25,16 @@ public class StoredFilesCleanupProgram implements IProgram {
 
 		var removeAtThreshold = DayTime.now();
 		var storedFileDatabase = new StoredFileDatabase();
-		var contentStores = StoredFileContentStores.getAvailableContentStores();
+		var primaryContentStore = StoredFileContentStores.getPrimaryContentStore();
 		var preferredContentStore = StoredFileContentStores.getPreferredAvailableContentStore();
 
-		contentStores.forEach(store -> new FileStoreTmpFolderCleaner(store).cleanAll());
+		primaryContentStore.ifPresent(store -> new FileStoreTmpFolderCleaner(store).cleanAll());
 
 		new StoredFileSetWithRemoveAtGarbageCollector(removeAtThreshold).collect();
 
 		new StoredFilesWithRemoveAtGarbageCollector(removeAtThreshold).collect();
 
-		contentStores.forEach(store -> new StoredFileStoreGarbageCollector(storedFileDatabase, store).collect());
+		primaryContentStore.ifPresent(store -> new StoredFileStoreGarbageCollector(storedFileDatabase, store).collect());
 
 		preferredContentStore.ifPresent(store -> StoredFileChunksToFileStoreMigrator.migrateAll(storedFileDatabase, store));
 	}

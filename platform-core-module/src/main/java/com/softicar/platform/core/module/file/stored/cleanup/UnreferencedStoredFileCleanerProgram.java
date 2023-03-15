@@ -10,6 +10,7 @@ import java.util.Optional;
 /**
  * This class is only used manually on occasion.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 @SourceCodeReferencePointUuid("04e5d280-83a1-4464-b376-3a2fa0ab5473")
@@ -19,8 +20,8 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 	public void executeProgram() {
 
 		StoredFileContentStores//
-			.getAvailableContentStores()
-			.forEach(store -> new UnreferencedStoredFileCleaner(store).cleanAll());
+			.getPrimaryContentStore()
+			.ifPresent(store -> new UnreferencedStoredFileCleaner(store).cleanAll());
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 
 		return Optional
 			.of(//
-				CoreI18n.DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_REPOSITORIES_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE
+				CoreI18n.DELETES_FILES_FROM_THE_PRIMARY_FILE_REPOSITORY_IF_THEY_ARE_OLDER_THAN_ARG1_DAYS_AND_NO_LONGER_REFERENCED_FROM_THE_DATABASE
 					.toDisplay(UnreferencedStoredFileCleaner.MINIMUM_DAYS_BEFORE_REMOVAL));
 	}
 }

@@ -291,9 +291,9 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DELETES_EXECUTION_RECORDS_OF_ALL_PROGRAMS_ACCORDING_TO_THEIR_EXECUTION_RETENTION_DAYS_VALUE =
 			new I18n0("Deletes execution records of all programs according to their execution retention days value")//
 				.de("Löscht Ausführungsdatensätze aller Programme entsprechend dem Wert ihrer Speicherungstage für Ausführungen");
-	I18n1 DELETES_FILES_OLDER_THAN_ARG1_DAYS_FROM_FILE_REPOSITORIES_THAT_ARE_NO_LONGER_REFERENCED_IN_THE_DATABASE =
-			new I18n1("Deletes files older than %s days from file repositories that are no longer referenced in the database")//
-				.de("Löscht Dateien älter als %s Tage von Dateiablagen, die nicht mehr in der Datenbank referenziert werden");
+	I18n1 DELETES_FILES_FROM_THE_PRIMARY_FILE_REPOSITORY_IF_THEY_ARE_OLDER_THAN_ARG1_DAYS_AND_NO_LONGER_REFERENCED_FROM_THE_DATABASE =
+			new I18n1("Deletes files from the primary file repository if they are older than %s days and no longer referenced from the database.")//
+				.de("Löscht Dateien aus der primären Dateiablage wenn sie älter als %s Tage sind und nicht mehr aus der Datenbank referenziert werden.");
 	I18n1 DELETES_RECORDS_OF_CORE_LOG_TABLES_OLDER_THAN_ARG1_DAYS = new I18n1("Deletes records of core log tables older than %s days")//
 		.de("Löscht Datensätze von Kern-Logtabellen, die älter als %s Tage sind");
 	I18n0 DISABLED_USER = new I18n0("Disabled User")//

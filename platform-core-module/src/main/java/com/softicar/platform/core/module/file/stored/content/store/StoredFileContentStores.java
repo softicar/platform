@@ -60,6 +60,19 @@ public class StoredFileContentStores {
 			.findFirst();
 	}
 
+	/**
+	 * Returns the primary content store if it is defined and available.
+	 *
+	 * @return the available primary content store
+	 */
+	public static Optional<IStoredFileContentStore> getPrimaryContentStore() {
+
+		return AGStoredFileRepository//
+			.getPrimaryIfActive()
+			.flatMap(new StoredFileContentStoreFactory()::create)
+			.filter(store -> store.isAvailable());
+	}
+
 	private static List<IStoredFileContentStore> getAllContentStores() {
 
 		return AGStoredFileRepository//

@@ -25,25 +25,26 @@ public class StoredFileContentStoresTest extends AbstractCoreTest {
 	@Test
 	public void testGetAvailableContentStoresWithoutRepositories() {
 
-		var contentStores = StoredFileContentStores.getAvailableContentStores();
-		assertTrue(contentStores.isEmpty());
+		var stores = StoredFileContentStores.getAvailableContentStores();
+		assertTrue(stores.isEmpty());
 	}
 
 	@Test
 	public void testGetAvailableContentStoresWithValidPrimaryRepository() {
 
-		insertValidPrimaryRepository();
-		var contentStores = StoredFileContentStores.getAvailableContentStores();
-		assertEquals(1, contentStores.size());
-		assertTrue(StoredFileFileSystemContentStore.class.isInstance(contentStores.iterator().next()));
+		insertValidPrimaryRepository(getDirectoryUrl(directory1));
+		var stores = StoredFileContentStores.getAvailableContentStores();
+		assertEquals(1, stores.size());
+		assertTrue(StoredFileFileSystemContentStore.class.isInstance(stores.iterator().next()));
+		assertEquals(directory1.getPath(), stores.iterator().next().getLocation());
 	}
 
 	@Test
 	public void testGetAvailableContentStoresWithInvalidPrimaryRepository() {
 
 		insertInvalidPrimaryRepository();
-		var contentStores = StoredFileContentStores.getAvailableContentStores();
-		assertTrue(contentStores.isEmpty());
+		var stores = StoredFileContentStores.getAvailableContentStores();
+		assertTrue(stores.isEmpty());
 	}
 
 	@Test
@@ -60,25 +61,26 @@ public class StoredFileContentStoresTest extends AbstractCoreTest {
 	@Test
 	public void testGetPreferredAvailableContentStoreWithoutRepositories() {
 
-		var contentStore = StoredFileContentStores.getPreferredAvailableContentStore();
-		assertTrue(contentStore.isEmpty());
+		var store = StoredFileContentStores.getPreferredAvailableContentStore();
+		assertTrue(store.isEmpty());
 	}
 
 	@Test
 	public void testGetPreferredAvailableContentStoreWithValidPrimaryRepository() {
 
-		insertValidPrimaryRepository();
-		var contentStore = StoredFileContentStores.getPreferredAvailableContentStore();
-		assertTrue(contentStore.isPresent());
-		assertTrue(StoredFileFileSystemContentStore.class.isInstance(contentStore.get()));
+		insertValidPrimaryRepository(getDirectoryUrl(directory1));
+		var store = StoredFileContentStores.getPreferredAvailableContentStore();
+		assertTrue(store.isPresent());
+		assertTrue(StoredFileFileSystemContentStore.class.isInstance(store.get()));
+		assertEquals(directory1.getPath(), store.get().getLocation());
 	}
 
 	@Test
 	public void testGetPreferredAvailableContentStoreWithInvalidPrimaryRepository() {
 
 		insertInvalidPrimaryRepository();
-		var contentStore = StoredFileContentStores.getPreferredAvailableContentStore();
-		assertTrue(contentStore.isEmpty());
+		var store = StoredFileContentStores.getPreferredAvailableContentStore();
+		assertTrue(store.isEmpty());
 	}
 
 	@Test
@@ -89,14 +91,41 @@ public class StoredFileContentStoresTest extends AbstractCoreTest {
 		assertEquals(directory2.getPath(), store.get().getLocation());
 	}
 
-	private void insertValidPrimaryRepository() {
+	@Test
+	public void testGetPrimaryContentStore() {
 
-		makePrimary(insertRepository(getDirectoryUrl(directory1)));
+		insertMultipleRepositories();
+		var store = StoredFileContentStores.getPrimaryContentStore();
+		assertTrue(store.isPresent());
+		assertTrue(StoredFileFileSystemContentStore.class.isInstance(store.get()));
+		assertEquals(directory2.getPath(), store.get().getLocation());
 	}
 
-	private void insertInvalidPrimaryRepository() {
+	@Test
+	public void testGetPrimaryContentStoreWithInactivePrimary() {
 
-		makePrimary(insertRepository("file:///nonexistent"));
+		insertInactivePrimaryRepository(getDirectoryUrl(directory2));
+		var store = StoredFileContentStores.getPrimaryContentStore();
+		assertTrue(store.isEmpty());
+	}
+
+	@Test
+	public void testGetPrimaryContentStoreWithUndefinedPrimary() {
+
+		var store = StoredFileContentStores.getPrimaryContentStore();
+		assertTrue(store.isEmpty());
+	}
+
+	private void insertValidPrimaryRepository(String url) {
+
+		makePrimary(insertRepository(url));
+	}
+
+	private void insertInactivePrimaryRepository(String url) {
+
+		var repository = insertRepository(url);
+		repository.setActive(false).save();
+		makePrimary(repository);
 	}
 
 	private AGStoredFileRepository insertRepository(String url) {
@@ -104,6 +133,11 @@ public class StoredFileContentStoresTest extends AbstractCoreTest {
 		return new AGStoredFileRepository()//
 			.setUrl(url)
 			.save();
+	}
+
+	private void insertInvalidPrimaryRepository() {
+
+		makePrimary(insertRepository("file:///nonexistent"));
 	}
 
 	private void insertMultipleRepositories() {
