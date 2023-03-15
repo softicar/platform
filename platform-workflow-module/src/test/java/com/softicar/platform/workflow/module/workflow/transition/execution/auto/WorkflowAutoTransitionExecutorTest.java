@@ -1,6 +1,5 @@
 package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
 import com.softicar.platform.workflow.module.test.FalsePrecondition;
 import com.softicar.platform.workflow.module.test.WorkflowTestObject;
@@ -9,6 +8,7 @@ import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import org.junit.Test;
 
 public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkflowTest {
@@ -50,9 +50,24 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 		assertEquals(rootNode, item.getWorkflowNode());
 	}
 
-	@Test(expected = SofticarUserException.class)
+	@Test
 	public void testWrongAutoTransition() {
 
 		new WorkflowAutoTransitionExecutor(item, Arrays.asList(autoTransitionA, autoTransitionB, autoTransitionC)).evaluateAndExecute();
+		assertEquals(rootNode, item.getWorkflowNode());
+	}
+
+	@Test
+	public void testWithStaleWorkflowItem() {
+
+		assertEquals(rootNode, item.getWorkflowNode());
+
+		// Update database records without updating the AG cache
+		AGWorkflowItem.TABLE.createUpdate().set(AGWorkflowItem.WORKFLOW_NODE, nodeB).execute();
+
+		assertEquals(rootNode, item.getWorkflowNode());
+
+		new WorkflowAutoTransitionExecutor(item, List.of(autoTransitionA)).evaluateAndExecute();
+		assertEquals(nodeB, item.getWorkflowNode());
 	}
 }
