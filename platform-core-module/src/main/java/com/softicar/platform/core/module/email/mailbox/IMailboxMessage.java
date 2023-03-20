@@ -81,6 +81,8 @@ public interface IMailboxMessage {
 	 *
 	 * @param folder
 	 *            the target folder name (never <i>null</i>)
+	 * @throws UnsupportedOperationException
+	 *             if no connection is available
 	 */
 	void copyTo(String folder);
 
@@ -89,6 +91,8 @@ public interface IMailboxMessage {
 	 *
 	 * @param folder
 	 *            the target folder name (never <i>null</i>)
+	 * @throws UnsupportedOperationException
+	 *             if no connection is available
 	 */
 	void moveTo(String folder);
 }

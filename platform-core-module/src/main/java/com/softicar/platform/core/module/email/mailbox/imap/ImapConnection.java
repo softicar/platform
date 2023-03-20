@@ -47,6 +47,7 @@ class ImapConnection implements IMailboxConnection {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("resource")
 	public void copyMessageTo(Message message, String targetFolderName) {
 
@@ -57,6 +58,7 @@ class ImapConnection implements IMailboxConnection {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("resource")
 	public void moveMessageTo(Message message, String targetFolderName) {
 

@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.email.mailbox.imap;
 
+import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
 import jakarta.mail.Address;
 import jakarta.mail.Message;
@@ -14,12 +15,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class ImapMessage implements IMailboxMessage {
+// TODO EXP-2769 Should be renamed to "MailboxMessage", and moved to another
+// package. There is nothing IMAP specific in here.
+public class ImapMessage implements IMailboxMessage {
 
-	private final ImapConnection connection;
+	private final IMailboxConnection connection;
 	private final Message message;
 
-	public ImapMessage(ImapConnection connection, Message message) {
+	public ImapMessage(Message message) {
+
+		this(null, message);
+	}
+
+	public ImapMessage(IMailboxConnection connection, Message message) {
 
 		this.connection = connection;
 		this.message = message;
@@ -121,12 +129,18 @@ class ImapMessage implements IMailboxMessage {
 	@Override
 	public void copyTo(String folder) {
 
+		if (connection == null) {
+			throw new UnsupportedOperationException("No connection available.");
+		}
 		connection.copyMessageTo(message, folder);
 	}
 
 	@Override
 	public void moveTo(String folder) {
 
+		if (connection == null) {
+			throw new UnsupportedOperationException("No connection available.");
+		}
 		connection.moveMessageTo(message, folder);
 	}
 
