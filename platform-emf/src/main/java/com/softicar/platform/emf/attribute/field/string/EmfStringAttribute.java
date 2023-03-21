@@ -2,6 +2,7 @@ package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.common.string.trim.MultiLineStringTrimmer;
 import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
@@ -23,7 +24,7 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 		this.autoTrimming = true;
 		this.multiline = false;
 		this.passwordMode = false;
-		this.maximumLength = 0;
+		this.maximumLength = getMaximumLengthFromField();
 
 		addValidator(new EmfStringAttributeValidator<>(this));
 		setDisplayFactory(this::createDisplay);
@@ -183,5 +184,14 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 		} else {
 			return value;
 		}
+	}
+
+	private int getMaximumLengthFromField() {
+
+		int maximumLength = 0;
+		if (field instanceof IDbStringField) {
+			maximumLength = ((IDbStringField<R>) field).getMaximumLength();
+		}
+		return maximumLength;
 	}
 }
