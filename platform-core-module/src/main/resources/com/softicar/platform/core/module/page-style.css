@@ -63,7 +63,7 @@
 	/* content layout */
 	column-gap: 1em;
 	display: grid;
-	grid-template-columns: max-content auto max-content;
+	grid-template-columns: max-content auto max-content max-content;
 	padding: 14px;
 	align-items: center;
 	
@@ -116,6 +116,12 @@
 .PageHeaderDiv > .DomButton {
 
 	font-size: var(--FONT_SIZE_BIGGER);
+}
+
+/* -------------------- PageHeaderMaintenanceNotificationArea -------------------- */
+
+.PageHeaderMaintenanceNotificationArea .DomMessageDiv {
+	padding: 2px 10px;
 }
 
 /* -------------------- PageServiceLoginDiv -------------------- */
