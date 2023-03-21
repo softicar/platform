@@ -8,6 +8,7 @@ import com.softicar.platform.common.date.Duration;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
+import java.util.Comparator;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,7 @@ public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 			.setTitle(CoreI18n.CREATED_AT)
 			.addColumn();
 		newColumn(Duration.class)//
+			.setComparator(new DurationComparator())
 			.setGetter(session -> getElapsedTime(session.getCreationTime()))
 			.setTitle(CoreI18n.AGE)
 			.addColumn();
@@ -38,6 +40,7 @@ public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 			.setTitle(CoreI18n.LAST_ACCESS)
 			.addColumn();
 		newColumn(Duration.class)//
+			.setComparator(new DurationComparator())
 			.setGetter(session -> getElapsedTime(session.getLastAccessedTime()))
 			.setTitle(CoreI18n.INACTIVE_FOR)
 			.addColumn();
@@ -76,5 +79,14 @@ public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 	private Duration getElapsedTime(long millis) {
 
 		return convertToDayTime(millis).getDuration(DayTime.now());
+	}
+
+	private static class DurationComparator implements Comparator<Duration> {
+
+		@Override
+		public int compare(Duration first, Duration second) {
+
+			return (int) (first.getTotalSeconds() - second.getTotalSeconds());
+		}
 	}
 }
