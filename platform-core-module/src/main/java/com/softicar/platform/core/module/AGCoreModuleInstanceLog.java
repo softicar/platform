@@ -3,7 +3,7 @@ package com.softicar.platform.core.module;
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.Generated;
 import com.softicar.platform.core.module.file.stored.AGStoredFile;
-import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
+import com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepository;
 import com.softicar.platform.core.module.localization.AGLocalization;
 import com.softicar.platform.core.module.module.instance.AGModuleInstanceBase;
 import com.softicar.platform.core.module.server.AGServer;
@@ -40,7 +40,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	public static final IDbForeignRowField<AGCoreModuleInstanceLog, AGCoreModuleInstance, AGModuleInstanceBase> CORE_MODULE_INSTANCE = BUILDER.addForeignRowField("coreModuleInstance", o->o.m_coreModuleInstance, (o,v)->o.m_coreModuleInstance=v, AGCoreModuleInstance.BASE).setTitle(CoreI18n.CORE_MODULE_INSTANCE).setCascade(true, true).setForeignKeyName("CoreModuleInstanceLog_ibfk_1");
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("CoreModuleInstanceLog_ibfk_2");
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGUser> SYSTEM_USER = BUILDER.addForeignField("systemUser", o->o.m_systemUser, (o,v)->o.m_systemUser=v, AGUser.ID).setTitle(CoreI18n.SYSTEM_USER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_3");
-	public static final IDbForeignField<AGCoreModuleInstanceLog, AGStoredFileServer> PRIMARY_FILE_SERVER = BUILDER.addForeignField("primaryFileServer", o->o.m_primaryFileServer, (o,v)->o.m_primaryFileServer=v, AGStoredFileServer.ID).setTitle(CoreI18n.PRIMARY_FILE_SERVER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_4");
+	public static final IDbForeignField<AGCoreModuleInstanceLog, AGStoredFileRepository> PRIMARY_FILE_REPOSITORY = BUILDER.addForeignField("primaryFileRepository", o->o.m_primaryFileRepository, (o,v)->o.m_primaryFileRepository=v, AGStoredFileRepository.ID).setTitle(CoreI18n.PRIMARY_FILE_REPOSITORY).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_4");
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGServer> EMAIL_SERVER = BUILDER.addForeignField("emailServer", o->o.m_emailServer, (o,v)->o.m_emailServer=v, AGServer.ID).setTitle(CoreI18n.EMAIL_SERVER).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_5");
 	public static final IDbStringField<AGCoreModuleInstanceLog> SUPPORT_EMAIL_ADDRESS = BUILDER.addStringField("supportEmailAddress", o->o.m_supportEmailAddress, (o,v)->o.m_supportEmailAddress=v).setTitle(CoreI18n.SUPPORT_EMAIL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
 	public static final IDbStringField<AGCoreModuleInstanceLog> NO_REPLY_EMAIL_ADDRESS = BUILDER.addStringField("noReplyEmailAddress", o->o.m_noReplyEmailAddress, (o,v)->o.m_noReplyEmailAddress=v).setTitle(CoreI18n.NO_REPLY_EMAIL_ADDRESS).setNullable().setDefault(null).setMaximumLength(255);
@@ -53,7 +53,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	public static final IDbBooleanField<AGCoreModuleInstanceLog> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setNullable().setDefault(null);
 	public static final IDbTableKey<AGCoreModuleInstanceLog, Tuple2<AGCoreModuleInstance, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(CORE_MODULE_INSTANCE, TRANSACTION));
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
-	public static final IDbKey<AGCoreModuleInstanceLog> IK_PRIMARY_FILE_SERVER = BUILDER.addIndexKey("primaryFileServer", PRIMARY_FILE_SERVER);
+	public static final IDbKey<AGCoreModuleInstanceLog> IK_PRIMARY_FILE_REPOSITORY = BUILDER.addIndexKey("primaryFileRepository", PRIMARY_FILE_REPOSITORY);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_SYSTEM_USER = BUILDER.addIndexKey("systemUser", SYSTEM_USER);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_EMAIL_SERVER = BUILDER.addIndexKey("emailServer", EMAIL_SERVER);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_PORTAL_LOGO = BUILDER.addIndexKey("portalLogo", PORTAL_LOGO);
@@ -100,19 +100,19 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 		return setValue(SYSTEM_USER, value);
 	}
 
-	public final Integer getPrimaryFileServerID() {
+	public final Integer getPrimaryFileRepositoryID() {
 
-		return getValueId(PRIMARY_FILE_SERVER);
+		return getValueId(PRIMARY_FILE_REPOSITORY);
 	}
 
-	public final AGStoredFileServer getPrimaryFileServer() {
+	public final AGStoredFileRepository getPrimaryFileRepository() {
 
-		return getValue(PRIMARY_FILE_SERVER);
+		return getValue(PRIMARY_FILE_REPOSITORY);
 	}
 
-	public final AGCoreModuleInstanceLog setPrimaryFileServer(AGStoredFileServer value) {
+	public final AGCoreModuleInstanceLog setPrimaryFileRepository(AGStoredFileRepository value) {
 
-		return setValue(PRIMARY_FILE_SERVER, value);
+		return setValue(PRIMARY_FILE_REPOSITORY, value);
 	}
 
 	public final Integer getEmailServerID() {
@@ -243,7 +243,7 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	private AGCoreModuleInstance m_coreModuleInstance;
 	private AGTransaction m_transaction;
 	private AGUser m_systemUser;
-	private AGStoredFileServer m_primaryFileServer;
+	private AGStoredFileRepository m_primaryFileRepository;
 	private AGServer m_emailServer;
 	private String m_supportEmailAddress;
 	private String m_noReplyEmailAddress;

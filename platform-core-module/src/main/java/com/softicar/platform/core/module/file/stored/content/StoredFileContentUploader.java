@@ -14,11 +14,11 @@ import java.io.OutputStream;
 
 /**
  * This class manages the upload of the content of a stored file to the file
- * server.
+ * store.
  * <p>
  * This class requires the existence of a {@link AGStoredFile} entry,
  * representing the file to be uploaded. This class then manages the upload of
- * the associated file content to the file server.
+ * the associated file content to the file store.
  * <p>
  * Besides the upload of the file content, this class will also compute the hash
  * of the file content and save it to the database table

@@ -39,10 +39,8 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	/**
 	 * Creates a new {@link InputStream} to download the file content.
 	 * <p>
-	 * Currently there are three possible content stores: a database field,
-	 * database chunks and on the file server, the correct one will be chosen
-	 * automatically. Sooner or later all content will be moved to the file
-	 * server.
+	 * If the file content is not found on the primary file store, secondary
+	 * file stores and the in-database file store are searched as fallback.
 	 *
 	 * @return new input stream
 	 */
