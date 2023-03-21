@@ -3,7 +3,7 @@ package com.softicar.platform.emf.editor;
 import com.softicar.platform.common.core.annotations.TestingOnly;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngine;
 import com.softicar.platform.dom.elements.testing.engine.IDomTestExecutionEngineMethods;
@@ -28,7 +28,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 	private static final String BBB = "BBB";
 	private static final String CCC = "CCC";
 	private final TestObject object;
-	private final IDbField<TestObject, String> field;
+	private final IDbStringField<TestObject> field;
 	private final EmfStringAttribute<TestObject> attribute;
 	private String value;
 	private int changeCallbacks;
@@ -38,7 +38,7 @@ public class EmfAttributeValueFrameTest extends AbstractTest implements IDomTest
 	public EmfAttributeValueFrameTest() {
 
 		this.object = new TestObject();
-		this.field = Mockito.mock(IDbField.class);
+		this.field = Mockito.mock(IDbStringField.class);
 		this.attribute = new EmfStringAttribute<>(field);
 		this.value = AAA;
 		this.changeCallbacks = 0;
