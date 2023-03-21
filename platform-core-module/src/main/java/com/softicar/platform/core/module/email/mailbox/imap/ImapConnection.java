@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.email.mailbox.imap;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
+import com.softicar.platform.core.module.email.mailbox.MailboxMessage;
 import com.sun.mail.imap.IMAPFolder;
 import jakarta.mail.Folder;
 import jakarta.mail.Message;
@@ -40,13 +41,14 @@ class ImapConnection implements IMailboxConnection {
 		try {
 			return Stream//
 				.of(getOpenFolder(folderName).getMessages())
-				.map(message -> new ImapMessage(this, message))
+				.map(message -> new MailboxMessage(message, this))
 				.collect(Collectors.toList());
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
 	}
 
+	@Override
 	@SuppressWarnings("resource")
 	public void copyMessageTo(Message message, String targetFolderName) {
 
@@ -57,6 +59,7 @@ class ImapConnection implements IMailboxConnection {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("resource")
 	public void moveMessageTo(Message message, String targetFolderName) {
 
