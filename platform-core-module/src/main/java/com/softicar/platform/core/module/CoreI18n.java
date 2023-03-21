@@ -679,6 +679,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Ausstehend");
 	I18n0 PENDING_MAINTENANCE = new I18n0("Pending Maintenance")//
 		.de("Bevorstehende Wartungsarbeiten");
+	I18n2 PENDING_MAINTENANCE_FROM_ARG1_TO_ARG2 = new I18n2("Pending maintenance from %s to %s")//
+		.de("Bevorstehende Wartungsarbeiten von %s bis %s");
 	I18n0 PERMISSION_UUID = new I18n0("Permission UUID")//
 		.de("Berechtigungs-UUID");
 	I18n0 PERMISSIONS = new I18n0("Permissions")//

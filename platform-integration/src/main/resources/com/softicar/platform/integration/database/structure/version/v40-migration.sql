@@ -1,4 +1,4 @@
--- migration to platform-39
+-- migration to platform-40
 
 -- PLAT-1331
 
@@ -35,3 +35,4 @@ ALTER TABLE `Core`.`CoreModuleInstanceLog`
 	ADD KEY `primaryFileRepository` (`primaryFileRepository`),
 	ADD CONSTRAINT `CoreModuleInstanceLog_ibfk_4` FOREIGN KEY (`primaryFileRepository`) REFERENCES `Core`.`StoredFileRepository` (`id`)
 ;
+

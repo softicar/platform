@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.email.mailbox;
 
 import com.softicar.platform.core.module.server.AGServer;
+import jakarta.mail.Message;
 import java.util.Collection;
 
 /**
@@ -33,9 +34,29 @@ public interface IMailboxConnection extends AutoCloseable {
 	 * Returns a {@link Collection} of all messages contained in the given
 	 * mailbox folder.
 	 *
-	 * @param folder
+	 * @param folderName
 	 *            the folder name or path (never <i>null</i>)
 	 * @return the contained {@link IMailboxMessage} objects
 	 */
-	Collection<IMailboxMessage> getMessagesInFolder(String folder);
+	Collection<IMailboxMessage> getMessagesInFolder(String folderName);
+
+	/**
+	 * Copies the given {@link Message} to the given mailbox folder.
+	 *
+	 * @param message
+	 *            the message to copy (never <i>null</i>)
+	 * @param targetFolderName
+	 *            the target folder name or path (never <i>null</i>)
+	 */
+	void copyMessageTo(Message message, String targetFolderName);
+
+	/**
+	 * Moves the given {@link Message} to the given mailbox folder.
+	 *
+	 * @param message
+	 *            the message to move (never <i>null</i>)
+	 * @param targetFolderName
+	 *            the target folder name or path (never <i>null</i>)
+	 */
+	void moveMessageTo(Message message, String targetFolderName);
 }

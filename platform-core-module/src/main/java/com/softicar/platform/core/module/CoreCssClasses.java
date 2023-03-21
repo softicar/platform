@@ -16,6 +16,7 @@ public interface CoreCssClasses {
 	ICssClass PAGE_HEADER_DIV = new CssClass("PageHeaderDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_PATH_DIV = new CssClass("PageHeaderPathDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_PAGE_NAME = new CssClass("PageHeaderPageName", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_HEADER_MAINTENANCE_NOTIFICATION_AREA = new CssClass("PageHeaderMaintenanceNotificationArea", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_NAVIGATION_TOGGLE_BUTTON = new CssClass("PageHeaderNavigationToggleButton", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_SEPARATOR = new CssClass("PageHeaderSeparator", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_USER_POPOVER = new CssClass("PageHeaderUserPopover", CoreCssFiles.PAGE_STYLE);

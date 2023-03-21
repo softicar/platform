@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.page.header;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.CoreCssClasses;
+import com.softicar.platform.core.module.page.header.notification.PageHeaderMaintenanceNotificationArea;
 import com.softicar.platform.core.module.page.navigation.PageNavigationController;
 import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
 import com.softicar.platform.dom.elements.DomDiv;
@@ -26,6 +27,7 @@ public class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 		setCssClass(CoreCssClasses.PAGE_HEADER_DIV);
 		appendChild(new PageHeaderNavigationToggleButton(navigationToggleFunction));
 		appendChild(new PagePathDiv());
+		appendChild(new PageHeaderMaintenanceNotificationArea());
 		appendChild(new PageHeaderUserPopoverButton(controller));
 	}
 

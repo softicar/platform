@@ -1,7 +1,7 @@
 package com.softicar.platform.emf.attribute.field.string;
 
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.db.runtime.field.IDbField;
+import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.test.EmfTestSubObject;
 import com.softicar.platform.emf.validation.result.EmfValidationResult;
@@ -16,17 +16,19 @@ public class EmfStringAttributeTest extends AbstractTest {
 	private static final String ABC_WITH_WHITESPACE = " \nabc \t";
 	private static final String MULTI_LINE = " abc\n\n\nabc\t";
 	private static final String MULTI_LINE_WITH_EMPTY_LINES = " \n abc\n\n\nabc\t\n\t";
+	private static final int MAXIMUM_LENGTH = 15;
 	private final EmfTestSubObject subObject;
-	private final IDbField<EmfTestSubObject, String> field;
+	private final IDbStringField<EmfTestSubObject> field;
 	private final EmfStringAttribute<EmfTestSubObject> attribute;
 	private final EmfValidationResult result;
 
 	public EmfStringAttributeTest() {
 
 		this.subObject = new EmfTestSubObject();
-		this.field = Mockito.mock(IDbField.class);
+		this.field = Mockito.mock(IDbStringField.class);
 		Mockito.when(field.getName()).thenReturn(ABC);
 		Mockito.when(field.getComment()).thenReturn(Optional.empty());
+		Mockito.when(field.getMaximumLength()).thenReturn(MAXIMUM_LENGTH);
 		this.attribute = new EmfStringAttribute<>(field);
 		this.result = new EmfValidationResult();
 	}
@@ -233,6 +235,27 @@ public class EmfStringAttributeTest extends AbstractTest {
 
 		attribute.setMaximumLength(9);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789");
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
+	@Test
+	public void testLengthValidationFromDbFieldWithTooLongValue() {
+
+		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789101112131415");
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	@Test
+	public void testLengthValidationFromDbFieldWithProperValue() {
+
+		Mockito.when(field.getValue(Mockito.any())).thenReturn("12345678910");
 
 		attribute.validate(subObject, result);
 
