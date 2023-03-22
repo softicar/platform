@@ -1,6 +1,6 @@
 package com.softicar.platform.core.module.file.smb;
 
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Holds the credentials used for {@link ISmbClient} methods.
@@ -15,9 +15,9 @@ public class SmbCredentials {
 
 	public SmbCredentials(String domain, String username, String password) {
 
-		this.domain = Objects.requireNonNull(domain);
-		this.username = Objects.requireNonNull(username);
-		this.password = Objects.requireNonNull(password);
+		this.domain = Optional.ofNullable(domain).orElse("");
+		this.username = Optional.ofNullable(username).orElse("");
+		this.password = Optional.ofNullable(password).orElse("");
 	}
 
 	public String getDomain() {

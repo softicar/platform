@@ -1,6 +1,7 @@
 package com.softicar.platform.core.module.file.stored.content.store;
 
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.testing.Asserts;
 import java.io.File;
@@ -35,6 +36,12 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 		FileUtils.deleteDirectory(storeRootDirectory);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructorWithRelativePath() {
+
+		DevNull.swallow(new StoredFileFileSystemContentStore("foo/bar"));
+	}
+
 	@Test
 	public void testGetLocation() {
 
@@ -45,37 +52,30 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 	@Test
 	public void testGetLocationWithNonexistentDirectory() {
 
-		var store = createStore(new File("/nowhere"));
+		var store = createStore("/nowhere");
 		assertEquals("/nowhere", store.getLocation());
 	}
 
 	@Test
-	public void testIsEnabled() {
+	public void testIsAvailable() {
 
 		var store = createStore();
-		assertTrue(store.isEnabled());
+		assertTrue(store.isAvailable());
 	}
 
 	@Test
-	public void testIsReady() {
+	public void testIsAvailableWithNonexistentDirectory() {
 
-		var store = createStore();
-		assertTrue(store.isReady());
+		var store = createStore("/nowhere");
+		assertFalse(store.isAvailable());
 	}
 
 	@Test
-	public void testIsReadyWithNonexistentDirectory() {
-
-		var store = createStore(new File("/nowhere"));
-		assertFalse(store.isReady());
-	}
-
-	@Test
-	public void testIsReadyWithFileInsteadOfDirectory() {
+	public void testIsAvailableWithFileInsteadOfDirectory() {
 
 		var file = createTempFile();
-		var store = createStore(file);
-		assertFalse(store.isReady());
+		var store = createStore(file.getPath());
+		assertFalse(store.isAvailable());
 	}
 
 	@Test
@@ -90,6 +90,14 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 
 		var store = createStore();
 		store.createDirectories("foo");
+		assertTrue(storeRootPath.resolve("foo").toFile().isDirectory());
+	}
+
+	@Test
+	public void testCreateDirectoriesInStoreRootWithLeadingSlash() {
+
+		var store = createStore();
+		store.createDirectories("/foo");
 		assertTrue(storeRootPath.resolve("foo").toFile().isDirectory());
 	}
 
@@ -477,12 +485,12 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 
 	private StoredFileFileSystemContentStore createStore() {
 
-		return createStore(storeRootDirectory);
+		return createStore(storeRootDirectory.getPath());
 	}
 
-	private StoredFileFileSystemContentStore createStore(File directory) {
+	private StoredFileFileSystemContentStore createStore(String absolutePath) {
 
-		return new StoredFileFileSystemContentStore(directory);
+		return new StoredFileFileSystemContentStore(absolutePath);
 	}
 
 	private File createTempFile() {

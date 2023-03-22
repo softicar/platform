@@ -1,6 +1,5 @@
 package com.softicar.platform.core.module.file.stored.content.store;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.string.Trim;
@@ -14,7 +13,7 @@ import com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepo
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -27,37 +26,21 @@ import java.util.stream.Collectors;
  */
 public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
-	private final Optional<AGStoredFileRepository> repository;
+	private final AGStoredFileRepository repository;
 
-	public StoredFileSmbContentStore() {
+	StoredFileSmbContentStore(AGStoredFileRepository repository) {
 
-		this(AGStoredFileRepository.getPrimary());
-	}
-
-	public StoredFileSmbContentStore(AGStoredFileRepository repository) {
-
-		this(Optional.ofNullable(repository));
-	}
-
-	public StoredFileSmbContentStore(Optional<AGStoredFileRepository> repository) {
-
-		this.repository = repository;
+		this.repository = Objects.requireNonNull(repository);
 	}
 
 	@Override
 	public String getLocation() {
 
-		return getRepositoryOrThrow().getUrl();
+		return repository.getUrl();
 	}
 
 	@Override
-	public boolean isEnabled() {
-
-		return repository.isPresent();
-	}
-
-	@Override
-	public boolean isReady() {
+	public boolean isAvailable() {
 
 		try {
 			return createSmbEntry("/").exists();
@@ -156,17 +139,11 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 
 	private String createSmbUrl(String name) {
 
-		return Trim.trimRight(getRepositoryOrThrow().getUrl(), '/') + "/" + Trim.trimLeft(name, '/');
+		return Trim.trimRight(repository.getUrl(), '/') + "/" + Trim.trimLeft(name, '/');
 	}
 
 	private SmbCredentials getSmbCredentials() {
 
-		AGStoredFileRepository fileRepository = getRepositoryOrThrow();
-		return new SmbCredentials(fileRepository.getDomain(), fileRepository.getUsername(), fileRepository.getPassword());
-	}
-
-	private AGStoredFileRepository getRepositoryOrThrow() {
-
-		return repository.orElseThrow(() -> new SofticarDeveloperException("File repository was not defined."));
+		return new SmbCredentials(repository.getDomain(), repository.getUsername(), repository.getPassword());
 	}
 }

@@ -9,7 +9,6 @@ import com.softicar.platform.common.date.Duration;
 import com.softicar.platform.common.string.formatting.MemoryFormatting;
 import com.softicar.platform.core.module.file.stored.content.StoredFileContentName;
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
-import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
 import com.softicar.platform.core.module.file.stored.hash.AGStoredFileSha1;
 import java.util.Map;
 import java.util.Set;
@@ -18,15 +17,15 @@ class UnreferencedStoredFileCleaner {
 
 	static final int MINIMUM_DAYS_BEFORE_REMOVAL = 7;
 	private static final long MINIMUM_AGE_BEFORE_REMOVAL = MINIMUM_DAYS_BEFORE_REMOVAL * 24 * 60 * 60;
+	private final IStoredFileContentStore store;
 	private final Set<byte[]> filesInDatabase;
 	private final Map<byte[], StoredFileContentName> filesOnFileStore;
-	private final IStoredFileContentStore store;
 
-	public UnreferencedStoredFileCleaner() {
+	public UnreferencedStoredFileCleaner(IStoredFileContentStore store) {
 
+		this.store = store;
 		this.filesOnFileStore = MapFactory.createTreeMap(ByteArrayComparator.get());
 		this.filesInDatabase = SetFactory.createTreeSet(ByteArrayComparator.get());
-		this.store = new StoredFileSmbContentStore();
 	}
 
 	public void cleanAll() {

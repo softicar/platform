@@ -112,6 +112,7 @@ public interface DomCssClasses {
 	ICssClass DOM_VERTICAL_TEXT_BOX = new CssClass("DomVerticalTextBox", DomCssFiles.DOM_VERTICAL_TEXT_BOX_STYLE);
 
 	ICssClass DOM_WIKI_HEADLINE = new CssClass("DomWikiHeadline", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);
+	ICssClass DOM_WIKI_LIST = new CssClass("DomWikiList", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);
 	ICssClass DOM_WIKI_MONOSPACE = new CssClass("DomWikiMonospace", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);
 	ICssClass DOM_WIKI_RAW_TEXT = new CssClass("DomWikiRawText", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);
 	ICssClass DOM_WIKI_RAW_TEXT_CODE = new CssClass("DomWikiRawTextCode", DomCssFiles.DOM_WIKI_ELEMENTS_STYLE);
