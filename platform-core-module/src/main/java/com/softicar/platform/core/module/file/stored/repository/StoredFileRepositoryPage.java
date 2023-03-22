@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.file.stored.server;
+package com.softicar.platform.core.module.file.stored.repository;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
@@ -11,7 +11,7 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.table.IEmfTable;
 
 @SourceCodeReferencePointUuid("08a801ac-1d24-4e9f-8e03-030c3411ec66")
-public class StoredFileServerPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
+public class StoredFileRepositoryPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
 
 	@Override
 	public Class<CoreModule> getModuleClass() {
@@ -28,7 +28,7 @@ public class StoredFileServerPage extends AbstractEmfManagementPage<AGCoreModule
 	@Override
 	protected IEmfTable<?, ?, AGCoreModuleInstance> getTable() {
 
-		return AGStoredFileServer.TABLE;
+		return AGStoredFileRepository.TABLE;
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 PACKAGE com.softicar.platform.core.module
 
 IMPORT com.softicar.platform.core.module.file.stored.AGStoredFile
-IMPORT com.softicar.platform.core.module.file.stored.server.AGStoredFileServer
+IMPORT com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepository
 IMPORT com.softicar.platform.core.module.localization.AGLocalization
 IMPORT com.softicar.platform.core.module.server.AGServer
 IMPORT com.softicar.platform.core.module.transaction.AGTransaction
@@ -11,7 +11,7 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	PK AGCoreModuleInstance coreModuleInstance [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_1']
 	PK AGTransaction transaction [ON DELETE CASCADE ON UPDATE CASCADE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_2']
 	AGUser systemUser = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_3']
-	AGStoredFileServer primaryFileServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_4']
+	AGStoredFileRepository primaryFileRepository = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_4']
 	AGServer emailServer = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_5']
 	String supportEmailAddress = NULL [NULLABLE MAXLENGTH=255]
 	String noReplyEmailAddress = NULL [NULLABLE MAXLENGTH=255]
@@ -24,7 +24,7 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	Boolean testSystem = NULL [NULLABLE]
 
 	IK transaction
-	IK primaryFileServer
+	IK primaryFileRepository
 	IK systemUser
 	IK emailServer
 	IK portalLogo

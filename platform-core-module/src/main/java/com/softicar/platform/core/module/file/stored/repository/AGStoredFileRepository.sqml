@@ -1,6 +1,6 @@
-PACKAGE com.softicar.platform.core.module.file.stored.server
+PACKAGE com.softicar.platform.core.module.file.stored.repository
 
-TABLE AGStoredFileServer 'Core.StoredFileServer' {
+TABLE AGStoredFileRepository 'Core.StoredFileRepository' {
 	PK Integer id = SERIAL
 	Boolean active = TRUE
 	String url [MAXLENGTH=255]

@@ -9,7 +9,7 @@ import com.softicar.platform.core.module.file.stored.content.database.StoredFile
 import com.softicar.platform.core.module.file.stored.content.store.IStoredFileContentStore;
 import com.softicar.platform.core.module.file.stored.content.store.StoredFileSmbContentStore;
 import com.softicar.platform.core.module.file.stored.hash.IStoredFileHash;
-import com.softicar.platform.core.module.file.stored.server.AGStoredFileServer;
+import com.softicar.platform.core.module.file.stored.repository.AGStoredFileRepository;
 import com.softicar.platform.core.module.log.LogDb;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -37,9 +37,11 @@ public class StoredFileContentInputStreamCreator {
 		this.database = new StoredFileDatabase();
 		this.contentStores = new ArrayList<>();
 
-		AGStoredFileServer//
+		AGStoredFileRepository//
 			.getAllActiveWithPrimaryFirst()
-			.forEach(server -> addContentStore(new StoredFileSmbContentStore(server)));
+			.stream()
+			.map(StoredFileSmbContentStore::new)
+			.forEach(this::addContentStore);
 	}
 
 	public StoredFileContentInputStreamCreator addContentStore(IStoredFileContentStore store) {
