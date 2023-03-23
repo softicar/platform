@@ -373,4 +373,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Sie verteten: %s");
 	I18n0 YOU_CAN_NOT_SUBSTITUTE_YOURSELF = new I18n0("You can not substitute yourself")//
 		.de("Sie können sich nicht selbst vertreten");
+	I18n0 SHOW_USERS = new I18n0("Show Users")//
+		.de("Zeige Benutzer");
+	I18n0 HIDE_USERS = new I18n0("Hide Users")//
+		.de("Verstecke Benutzer");
 }
