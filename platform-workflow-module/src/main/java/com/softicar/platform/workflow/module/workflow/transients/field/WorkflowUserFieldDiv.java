@@ -4,16 +4,23 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class WorkflowUserFieldDiv extends DomDiv {
 
 	public WorkflowUserFieldDiv(Set<String> users) {
 
-		if (users.size() > 0) {
+		if (users.size() == 1) {
+			appendChild(new DomDiv()).appendText(users.iterator().next());
+		} else if (users.size() > 1) {
 			var userListDiv = new DomDiv();
 			appendChild(new ToggleUserListButton(userListDiv, users.size()));
 
-			for (String user: users) {
+			for (String user: users//
+				.stream()
+				.sorted()
+				.collect(Collectors.toList())) {
+
 				userListDiv.appendChild(new DomDiv()).appendText(user);
 			}
 		}
