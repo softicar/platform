@@ -83,6 +83,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Weitere Genehmigung ist notwendig.");
 	I18n0 HAS_CURRENT_VERSION = new I18n0("Has Current Version")//
 		.de("hat aktuelle Version");
+	I18n0 HIDE_USERS = new I18n0("Hide Users")//
+		.de("Verstecke Benutzer");
 	I18n0 HTML_COLOR = new I18n0("HTML Color")//
 		.de("HTML-Farbe");
 	I18n0 IMPORT_SUCCESSFUL = new I18n0("Import Successful")//
@@ -150,6 +152,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//
 		.de("Übergänge anzeigen");
+	I18n0 SHOW_USERS = new I18n0("Show Users")//
+		.de("Zeige Benutzer");
 	I18n0 SIDE_EFFECT = new I18n0("Side Effect")//
 		.de("Nebeneffekt");
 	I18n2 SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING = new I18n2("Side effect '%s' of workflow transition '%s' is missing.")//
@@ -373,8 +377,4 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Sie verteten: %s");
 	I18n0 YOU_CAN_NOT_SUBSTITUTE_YOURSELF = new I18n0("You can not substitute yourself")//
 		.de("Sie können sich nicht selbst vertreten");
-	I18n0 SHOW_USERS = new I18n0("Show Users")//
-		.de("Zeige Benutzer");
-	I18n0 HIDE_USERS = new I18n0("Hide Users")//
-		.de("Verstecke Benutzer");
 }
