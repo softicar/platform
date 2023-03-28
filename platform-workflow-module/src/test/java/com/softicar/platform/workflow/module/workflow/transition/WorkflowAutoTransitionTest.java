@@ -67,9 +67,9 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 
 		// setup object and permission ownership
 		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		testObject.addPermissionAssignment(user, "A");
-		testObject.addPermissionAssignment(user, "B");
-		testObject.addPermissionAssignment(otherUser, "B");
+		insertPermissionA(user, testObject);
+		insertPermissionB(user, testObject);
+		insertPermissionB(otherUser, testObject);
 
 		waitForProgramExecutions(1);
 		DbTableRowCaches.invalidateAll();

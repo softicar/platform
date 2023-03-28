@@ -2,9 +2,7 @@ package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
-import com.softicar.platform.common.core.number.parser.IntegerParser;
 import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.common.string.Trim;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.validation.AbstractEmfValidator;
 import com.softicar.platform.emf.validation.EmfValidationException;
@@ -26,13 +24,13 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 		}
 
 		if (!tableRow.isAutoTransition() && tableRow.getRequiredVotes() != null) {
-			if (!requiredVotesStringIsValid(tableRow.getRequiredVotes())) {
+			if (!new WorkflowTransitionRequiredVotesParser(tableRow).isValid()) {
 				addError(AGWorkflowTransition.REQUIRED_VOTES, WorkflowI18n.REQUIRED_VOTES_NOT_VALID);
 			}
 		}
 
 		if (tableRow.isAutoTransition()) {
-			if (!tableRow.getRequiredVotes().equals("0")) {
+			if (!new WorkflowTransitionRequiredVotesParser(tableRow).isZero()) {
 				addError(AGWorkflowTransition.REQUIRED_VOTES, WorkflowI18n.AUTO_TRANSITIONS_MAY_NOT_DEFINE_REQUIRED_VOTES);
 			}
 			if (tableRow.isNotify()) {
@@ -48,24 +46,6 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 		}
 
 		validateSideEffectAttribute();
-	}
-
-	private boolean requiredVotesStringIsValid(String requiredVotesString) {
-
-		return IntegerParser.isInteger(requiredVotesString) || isValidPercentageString(requiredVotesString);
-	}
-
-	private boolean isValidPercentageString(String requiredVotesString) {
-
-		if (requiredVotesString.endsWith("%")) {
-			String percentageString = Trim.trimSuffix(requiredVotesString, "%");
-			if (IntegerParser.isInteger(percentageString)) {
-				int percentage = Integer.parseInt(percentageString);
-				return percentage > 0 && percentage <= 100;
-			}
-		}
-
-		return false;
 	}
 
 	// ------------------------------ side-effect ------------------------------ //
