@@ -43,6 +43,21 @@ public class AGWorkflowTransition extends AGWorkflowTransitionGenerated implemen
 			.list();
 	}
 
+	/**
+	 * Checks whether this {@link AGWorkflowTransition} is a voting transition
+	 * or not.
+	 * <p>
+	 * A voting transition has a required voting count that is different from
+	 * <i>1</i>.
+	 *
+	 * @return <i>true</i> if this is a voting transition; <i>false</i>
+	 *         otherwise
+	 */
+	public boolean isVotingTransition() {
+
+		return !new WorkflowTransitionRequiredVotesParser(this).isOne();
+	}
+
 	public boolean isUserAllowedToSeeTransition(AGUser user, AGWorkflowItem item) {
 
 		return getAllActiveWorkflowTransitionPermissions()//

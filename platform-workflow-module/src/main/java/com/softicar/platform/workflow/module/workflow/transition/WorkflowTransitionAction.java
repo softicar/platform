@@ -31,7 +31,7 @@ public class WorkflowTransitionAction<R extends IWorkflowableObject<R>> extends 
 	public IEmfPermission<R> getRequiredPermission() {
 
 		//TODO add permissions for all transitions
-		return new WorkflowTransitionActionPermission<>(transition.getAllActiveWorkflowTransitionPermissions());
+		return new WorkflowTransitionActionPermission<>(transition);
 	}
 
 	@Override

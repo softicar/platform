@@ -98,7 +98,7 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 	}
 
 	default AGWorkflowTransition insertWorkflowTransition(String name, AGWorkflowNode sourceNode, AGWorkflowNode targetNode, String requiredVotes,
-			boolean notify, IEmfStaticPermission<?> permission) {
+			boolean notify, IEmfStaticPermission<?>...permissions) {
 
 		AGWorkflowTransition transition = new AGWorkflowTransition()//
 			.setWorkflowVersion(sourceNode.getWorkflowVersion())
@@ -109,10 +109,12 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.setNotify(notify)
 			.save();
 
-		new AGWorkflowTransitionPermission()//
-			.setTransition(transition)
-			.setPermission(AGUuid.getOrCreate(permission.getAnnotatedUuid()))
-			.save();
+		for (var permission: permissions) {
+			new AGWorkflowTransitionPermission()//
+				.setTransition(transition)
+				.setPermission(AGUuid.getOrCreate(permission.getAnnotatedUuid()))
+				.save();
+		}
 
 		return transition;
 	}
