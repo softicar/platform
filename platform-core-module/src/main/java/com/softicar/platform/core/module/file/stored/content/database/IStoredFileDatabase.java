@@ -46,7 +46,7 @@ public interface IStoredFileDatabase {
 	/**
 	 * Creates an {@link OutputStream} for the given file into the database.
 	 * <p>
-	 * This method should be used if the usual file store is not available. The
+	 * This method should be used if the usual file store is not accessible. The
 	 * content is saved into small data chunks.
 	 *
 	 * @param storedFile
