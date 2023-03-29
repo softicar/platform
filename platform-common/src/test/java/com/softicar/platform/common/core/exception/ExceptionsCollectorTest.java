@@ -1,5 +1,6 @@
 package com.softicar.platform.common.core.exception;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.common.testing.TextLinesAsserter;
 import org.junit.Assert;
@@ -21,15 +22,17 @@ public class ExceptionsCollectorTest extends AbstractTest {
 		collector.add(new RuntimeException("Foo"));
 		generateExceptionsWithSameStacktrace(3);
 
+		Log.finfo(collector.getMessage());
 		assertFalse(collector.isEmpty());
 		assertEquals(4, collector.getExceptions().size());
 		new TextLinesAsserter(collector.getMessage())//
 			.assertLine("Preamble")
-			.assertLine("Gathered 3 exceptions with the same stacktrace.")
+			.assertLine("Gathered a total of 4 exceptions with 2 different stack traces.")
+			.assertLine("-------------------- 3 exceptions with stack trace #0 --------------------")
 			.assertLine("java.lang.RuntimeException: exception #0")
 			.assertLine("java.lang.RuntimeException: exception #1")
 			.assertLine("java.lang.RuntimeException: exception #2")
-			.assertLine("Gathered 1 exceptions with the same stacktrace.")
+			.assertLine("-------------------- 1 exceptions with stack trace #1 --------------------")
 			.assertLine("java.lang.RuntimeException: Foo");
 		assertThrows(MultiException.class, collector::throwIfNotEmpty);
 		assertThrows(collector.getMessage(), RuntimeException.class, () -> collector.applyIfNotEmpty(message -> {
