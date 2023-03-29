@@ -1,5 +1,7 @@
 package com.softicar.platform.workflow.module.test;
 
+import com.softicar.platform.common.core.user.IBasicUser;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.AbstractWorkflowTest;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
@@ -27,6 +29,25 @@ public abstract class AbstractTestObjectWorkflowTest extends AbstractWorkflowTes
 		return new WorkflowTestObject()//
 			.setName(name)
 			.setWorkflowItem(item)
+			.save();
+	}
+
+	public void insertPermissionA(IBasicUser user, WorkflowTestObject testObject) {
+
+		insertPermission(user, testObject, "A");
+	}
+
+	public void insertPermissionB(IBasicUser user, WorkflowTestObject testObject) {
+
+		insertPermission(user, testObject, "B");
+	}
+
+	public void insertPermission(IBasicUser user, WorkflowTestObject testObject, String permission) {
+
+		new WorkflowTestObjectPermissionAssignment()//
+			.setPermission(permission)
+			.setObject(testObject)
+			.setUser(AGUser.get(user))
 			.save();
 	}
 }

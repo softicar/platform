@@ -15,7 +15,6 @@ import org.junit.Test;
 
 public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWorkflowTest {
 
-	private static final String PREMISSION = "A";
 	private final AGWorkflowNode sourceNode;
 	private final AGWorkflowNode targetNode;
 	private final AGWorkflowTransition transition;
@@ -40,9 +39,9 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	@Test
 	public void testSideEffectExecution() {
 
-		var user1 = insertUserPermissionAndTask("User #1", PREMISSION);
-		var user2 = insertUserPermissionAndTask("User #2", PREMISSION);
-		var user3 = insertUserPermissionAndTask("User #3", PREMISSION);
+		var user1 = insertUserPermissionAndTask("User #1");
+		var user2 = insertUserPermissionAndTask("User #2");
+		var user3 = insertUserPermissionAndTask("User #3");
 
 		new WorkflowTransitionActionExecutor(workflowItem, transition, user1).execute();
 		assertExecutedSideEffects(0);
@@ -66,7 +65,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	public void testSideEffectExecutionWithExceptionOnSideEffect() {
 
 		var exceptionMessage = "Intentional exception for side-effect.";
-		var user = insertUserPermissionAndTask("User", PREMISSION);
+		var user = insertUserPermissionAndTask("User");
 
 		// setup throwing side-effect
 		WorkflowTransitionTestSideEffect.setConsumer((object, transition) -> {
@@ -87,7 +86,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	public void testSideEffectExecutionWithExceptionOnPreconditionTest() {
 
 		var exceptionMessage = "Intentional exception for pre-condition.";
-		var user = insertUserPermissionAndTask("User", PREMISSION);
+		var user = insertUserPermissionAndTask("User");
 
 		// setup throwing precondition
 		insertWorkflowNodePrecondition(targetNode, WorkflowNodeTestPrecondition.class);
@@ -108,10 +107,10 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 
 	// ------------------------------ private ------------------------------ //
 
-	private AGUser insertUserPermissionAndTask(String username, String permission) {
+	private AGUser insertUserPermissionAndTask(String username) {
 
 		var user = insertUser(username);
-		workflowObject.addPermissionAssignment(user, permission);
+		insertPermissionA(user, workflowObject);
 		insertWorkflowTaskOpen(user, workflowItem);
 		return user;
 	}

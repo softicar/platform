@@ -83,13 +83,12 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Weitere Genehmigung ist notwendig.");
 	I18n0 HAS_CURRENT_VERSION = new I18n0("Has Current Version")//
 		.de("hat aktuelle Version");
+	I18n0 HIDE_USERS = new I18n0("Hide Users")//
+		.de("Verstecke Benutzer");
 	I18n0 HTML_COLOR = new I18n0("HTML Color")//
 		.de("HTML-Farbe");
 	I18n0 IMPORT_SUCCESSFUL = new I18n0("Import Successful")//
 		.de("Import erfolgreich");
-	I18n1 INVALID_WORKFLOW_DEFINITION_IN_TRANSITION_ARG1_VOTING_PERCENTAGE_MUST_BE_GREATER_THAN_0_AND_LESS_EQUAL_TO_100 =
-			new I18n1("Invalid workflow definition in transition '%s': Voting-percentage must be greater than 0 and less equal to 100'.")//
-				.de("Ungültige Arbeitsablauf-Definition in Übergang '%s': Der Quorum-Prozentsatz muss größer als 0 und kleiner gleich 100 sein.");
 	I18n0 IS_CURRENT_VERSION = new I18n0("Is Current Version")//
 		.de("ist aktuelle Version");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
@@ -150,6 +149,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//
 		.de("Übergänge anzeigen");
+	I18n0 SHOW_USERS = new I18n0("Show Users")//
+		.de("Zeige Benutzer");
 	I18n0 SIDE_EFFECT = new I18n0("Side Effect")//
 		.de("Nebeneffekt");
 	I18n2 SIDE_EFFECT_ARG1_OF_WORKFLOW_TRANSITION_ARG2_IS_MISSING = new I18n2("Side effect '%s' of workflow transition '%s' is missing.")//
@@ -190,6 +191,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Diese Aktion ist nicht mehr verfügbar.");
 	I18n0 TRANSITION = new I18n0("Transition")//
 		.de("Übergang");
+	I18n2 TRANSITION_FROM_WORKFLOW_NODE_ARG1_TO_ARG2 = new I18n2("Transition from workflow node %s to %s.")//
+		.de("Übergang von Arbeitsablaufknoten %s zu %s.");
 	I18n0 TRANSITION_ICON = new I18n0("Transition Icon")//
 		.de("Übergangs-Icon");
 	I18n0 TRANSITION_PERMISSION = new I18n0("Transition Permission")//

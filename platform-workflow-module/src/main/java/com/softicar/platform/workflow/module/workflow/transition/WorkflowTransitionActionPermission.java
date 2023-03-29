@@ -12,23 +12,24 @@ import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>> implements IEmfPermission<R> {
 
-	private final EmfAnyPermission<R> anyPermission;
+	private final AGWorkflowTransition transition;
+	private final EmfAnyPermission<R> permission;
 
-	public WorkflowTransitionActionPermission(List<AGWorkflowTransitionPermission> workflowTransitionPermissions) {
+	public WorkflowTransitionActionPermission(AGWorkflowTransition transition) {
 
 		Collection<IEmfPermission<R>> permissions = new HashSet<>();
 
-		for (AGWorkflowTransitionPermission workflowTransitionPermission: workflowTransitionPermissions) {
+		for (AGWorkflowTransitionPermission workflowTransitionPermission: transition.getAllActiveWorkflowTransitionPermissions()) {
 			workflowTransitionPermission//
 				.getStaticPermission()
 				.ifPresent(permission -> permissions.add(CastUtils.cast(permission)));
 		}
 
-		this.anyPermission = new EmfAnyPermission<>(permissions);
+		this.transition = transition;
+		this.permission = new EmfAnyPermission<>(permissions);
 	}
 
 	@Override
@@ -40,7 +41,13 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	@Override
 	public boolean test(R tableRow, IBasicUser user) {
 
-		return testWithInheritedPermissions(tableRow, AGUser.get(user.getId()));
+		if (transition.isVotingTransition()) {
+			// voting transitions require the user to have a task
+			return hasTask(tableRow, AGUser.get(user.getId()));
+		} else {
+			// non-voting transitions are also allowed without task
+			return permission.test(tableRow, user) || hasTask(tableRow, AGUser.get(user.getId()));
+		}
 	}
 
 	/**
@@ -56,7 +63,7 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 	 *         that delegated the task to the user (or defined the user as
 	 *         substitute) has this permission
 	 */
-	private boolean testWithInheritedPermissions(R tableRow, AGUser user) {
+	private boolean hasTask(R tableRow, AGUser user) {
 
 		return tableRow//
 			.getWorkflowItem()
@@ -64,6 +71,6 @@ public class WorkflowTransitionActionPermission<R extends IWorkflowableObject<R>
 			.stream()
 			.filter(AGWorkflowTask::wasNotExecuted) // FIXME: find a better method to check available actions
 			.map(it -> it.getUser())
-			.anyMatch(it -> anyPermission.test(tableRow, it));
+			.anyMatch(it -> permission.test(tableRow, it));
 	}
 }

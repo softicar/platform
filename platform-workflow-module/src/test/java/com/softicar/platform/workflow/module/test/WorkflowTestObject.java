@@ -69,15 +69,6 @@ public class WorkflowTestObject extends AbstractDbObject<WorkflowTestObject> imp
 		return setValue(ITEM, item);
 	}
 
-	public void addPermissionAssignment(IBasicUser user, String permission) {
-
-		new WorkflowTestObjectPermissionAssignment()//
-			.setPermission(permission)
-			.setObject(this)
-			.setUser(AGUser.get(user))
-			.save();
-	}
-
 	public boolean hasPermission(IBasicUser user, String permission) {
 
 		return WorkflowTestObjectPermissionAssignment.TABLE//
