@@ -3,12 +3,14 @@ package com.softicar.platform.core.module.file.stored.cleanup;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.file.stored.content.store.StoredFileContentStores;
 import com.softicar.platform.core.module.program.IProgram;
 import java.util.Optional;
 
 /**
  * This class is only used manually on occasion.
  *
+ * @author Alexander Schmidt
  * @author Oliver Richers
  */
 @SourceCodeReferencePointUuid("04e5d280-83a1-4464-b376-3a2fa0ab5473")
@@ -17,7 +19,9 @@ public class UnreferencedStoredFileCleanerProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		new UnreferencedStoredFileCleaner().cleanAll();
+		StoredFileContentStores//
+			.getPrimaryContentStore()
+			.ifPresent(store -> new UnreferencedStoredFileCleaner(store).cleanAll());
 	}
 
 	@Override

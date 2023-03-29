@@ -29,9 +29,9 @@ public class AGStoredFileRepositoryGenerated extends AbstractDbObject<AGStoredFi
 	public static final IDbIdField<AGStoredFileRepository> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGStoredFileRepository> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
 	public static final IDbStringField<AGStoredFileRepository> URL = BUILDER.addStringField("url", o->o.m_url, (o,v)->o.m_url=v).setTitle(CoreI18n.URL).setMaximumLength(255);
-	public static final IDbStringField<AGStoredFileRepository> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setMaximumLength(255);
-	public static final IDbStringField<AGStoredFileRepository> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setMaximumLength(255);
-	public static final IDbStringField<AGStoredFileRepository> PASSWORD = BUILDER.addStringField("password", o->o.m_password, (o,v)->o.m_password=v).setTitle(CoreI18n.PASSWORD).setMaximumLength(255);
+	public static final IDbStringField<AGStoredFileRepository> DOMAIN = BUILDER.addStringField("domain", o->o.m_domain, (o,v)->o.m_domain=v).setTitle(CoreI18n.DOMAIN).setDefault("").setMaximumLength(255);
+	public static final IDbStringField<AGStoredFileRepository> USERNAME = BUILDER.addStringField("username", o->o.m_username, (o,v)->o.m_username=v).setTitle(CoreI18n.USERNAME).setDefault("").setMaximumLength(255);
+	public static final IDbStringField<AGStoredFileRepository> PASSWORD = BUILDER.addStringField("password", o->o.m_password, (o,v)->o.m_password=v).setTitle(CoreI18n.PASSWORD).setDefault("").setMaximumLength(255);
 	public static final AGStoredFileRepositoryTable TABLE = new AGStoredFileRepositoryTable(BUILDER);
 	// @formatter:on
 

@@ -70,6 +70,10 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bereinigt außerdem verwaiste Einträge.");
 	I18n0 APR_1 = new I18n0("Apr 1")//
 		.de("Apr 1");
+	I18n1 ARG1_FOR_A_LOCAL_DIRECTORY = new I18n1("%s for a local directory")//
+		.de("%s für ein lokales Verzeichnis");
+	I18n1 ARG1_FOR_AN_SMB_SHARE = new I18n1("%s for an SMB share")//
+		.de("%s für eine SMB-Freigabe");
 	I18n1 ARG1_IS_AVAILABLE_AT_THE_FOLLOWING_ADDRESS = new I18n1("%s is available at the following address")//
 		.de("%s steht unter der folgenden Adresse zur Verfügung");
 	I18n1 ARG1_MESSAGES_FOUND_IN_INBOX = new I18n1("%s messages found in inbox.")//
@@ -455,6 +459,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Lizenz");
 	I18n0 LOCAL_ADDRESS = new I18n0("Local Address")//
 		.de("Lokale Adresse");
+	I18n0 LOCAL_FILE_STORE_DIRECTORY = new I18n0("Local File Store Directory")//
+		.de("Lokales Dateispeicher-Verzeichnis");
 	I18n0 LOCAL_NAME = new I18n0("Local Name")//
 		.de("Lokaler Name");
 	I18n0 LOCAL_PORT = new I18n0("Local Port")//
@@ -970,6 +976,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Super-Benutzer");
 	I18n0 SUPPORT_EMAIL_ADDRESS = new I18n0("Support Email Address")//
 		.de("Support-E-Mail-Adresse");
+	I18n0 SUPPORTED_URLS = new I18n0("Supported URLs")//
+		.de("Unterstützte URLs");
 	I18n0 SURPLUS_TOKENS = new I18n0("Surplus Tokens")//
 		.de("Überschüssige Zeichen");
 	I18n0 SYSTEM = new I18n0("System")//

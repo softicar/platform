@@ -25,7 +25,7 @@ public class AGStoredFileRepository extends AGStoredFileRepositoryGenerated impl
 	public static List<AGStoredFileRepository> getAllActiveWithPrimaryFirst() {
 
 		List<AGStoredFileRepository> repositories = new ArrayList<>();
-		Optional<AGStoredFileRepository> primaryRepository = getPrimary().filter(AGStoredFileRepository::isActive);
+		Optional<AGStoredFileRepository> primaryRepository = getPrimaryIfActive();
 		primaryRepository.ifPresent(repositories::add);
 		AGStoredFileRepository.TABLE//
 			.createSelect()
@@ -41,5 +41,10 @@ public class AGStoredFileRepository extends AGStoredFileRepositoryGenerated impl
 		return Optional//
 			.ofNullable(AGCoreModuleInstance.getInstance())
 			.map(AGCoreModuleInstance::getPrimaryFileRepository);
+	}
+
+	public static Optional<AGStoredFileRepository> getPrimaryIfActive() {
+
+		return getPrimary().filter(AGStoredFileRepository::isActive);
 	}
 }

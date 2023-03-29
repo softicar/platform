@@ -36,6 +36,8 @@ import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.wiki.box.DomWikiBox;
 import com.softicar.platform.dom.parent.IDomParentElement;
+import com.softicar.platform.dom.style.ICssClass;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
@@ -147,7 +149,7 @@ public class DomWikiDivBuilder implements IWikiBuilderMethods<DomWikiDivBuilder>
 		public void visit(WikiList list) {
 
 			DomElementTag tag = list.getListType() == WikiListType.ORDERED? DomElementTag.OL : DomElementTag.UL;
-			appendElementAndChildren(tag, list);
+			appendElementAndChildren(tag, list, DomCssClasses.DOM_WIKI_LIST);
 		}
 
 		@Override
@@ -242,9 +244,11 @@ public class DomWikiDivBuilder implements IWikiBuilderMethods<DomWikiDivBuilder>
 			appendElement(anchor);
 		}
 
-		private void appendElementAndChildren(DomElementTag elementTag, IWikiParentElement wikiElement) {
+		private void appendElementAndChildren(DomElementTag elementTag, IWikiParentElement wikiElement, ICssClass...cssClasses) {
 
-			appendElementAndChildren(new DomSimpleElement(elementTag), wikiElement);
+			var element = new DomSimpleElement(elementTag);
+			Arrays.asList(cssClasses).forEach(element::addCssClass);
+			appendElementAndChildren(element, wikiElement);
 		}
 
 		private void appendElementAndChildren(IDomParentElement domElement, IWikiParentElement wikiElement) {
