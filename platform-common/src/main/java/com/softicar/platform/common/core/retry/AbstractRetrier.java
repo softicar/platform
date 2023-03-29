@@ -82,8 +82,8 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 	 * trying again.
 	 *
 	 * @param retryDelay
-	 *            the re-try delay; the default is {@link Duration#ZERO} (never
-	 *            <i>null</i> and never negative)
+	 *            the retry delay; the default is {@link #DEFAULT_RETRY_DELAY}
+	 *            (never <i>null</i> and never negative)
 	 * @throws IllegalArgumentException
 	 *             if the delay is negative
 	 * @return this object
@@ -91,7 +91,7 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 	public T setRetryDelay(Duration retryDelay) {
 
 		if (retryDelay.isNegative()) {
-			throw new IllegalArgumentException(String.format("The re-try delay may not be negative."));
+			throw new IllegalArgumentException(String.format("The retry delay may not be negative."));
 		}
 		this.retryDelay = retryDelay;
 		return getThis();
