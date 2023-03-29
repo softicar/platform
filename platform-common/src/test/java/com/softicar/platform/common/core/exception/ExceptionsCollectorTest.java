@@ -1,8 +1,8 @@
 package com.softicar.platform.common.core.exception;
 
-import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.testing.AbstractTest;
-import java.util.List;
+import com.softicar.platform.common.testing.TextLinesAsserter;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ExceptionsCollectorTest extends AbstractTest {
@@ -21,18 +21,30 @@ public class ExceptionsCollectorTest extends AbstractTest {
 		collector.add(new RuntimeException("Foo"));
 		generateExceptionsWithSameStacktrace(3);
 
-		assertEquals(4, collector.getExceptionCount());
-		assertEquals(2, collector.getExceptionCollections().size());
-		String message = collector.getMessage();
-		assertTrue(message.startsWith("Preamble"));
-		assertTrue(message.contains("Foo"));
+		assertFalse(collector.isEmpty());
+		assertEquals(4, collector.getExceptions().size());
+		new TextLinesAsserter(collector.getMessage())//
+			.assertLine("Preamble")
+			.assertLine("Gathered 3 exceptions with the same stacktrace.")
+			.assertLine("java.lang.RuntimeException: exception #0")
+			.assertLine("java.lang.RuntimeException: exception #1")
+			.assertLine("java.lang.RuntimeException: exception #2")
+			.assertLine("Gathered 1 exceptions with the same stacktrace.")
+			.assertLine("java.lang.RuntimeException: Foo");
+		assertThrows(MultiException.class, collector::throwIfNotEmpty);
+		assertThrows(collector.getMessage(), RuntimeException.class, () -> collector.applyIfNotEmpty(message -> {
+			throw new RuntimeException(message);
+		}));
 	}
 
 	@Test
 	public void testWithEmptyCollector() {
 
-		assertEquals(0, collector.getExceptionCount());
+		assertTrue(collector.isEmpty());
+		assertEquals(0, collector.getExceptions().size());
 		assertEquals("", collector.getMessage());
+		collector.throwIfNotEmpty();
+		collector.applyIfNotEmpty(message -> Assert.fail("not expected"));
 	}
 
 	private void generateExceptionsWithSameStacktrace(int count) {
@@ -41,7 +53,6 @@ public class ExceptionsCollectorTest extends AbstractTest {
 			try {
 				provokeException("exception #" + i);
 			} catch (Exception exception) {
-				Log.finfo(List.of(exception.getStackTrace()));
 				collector.add(exception);
 			}
 		}

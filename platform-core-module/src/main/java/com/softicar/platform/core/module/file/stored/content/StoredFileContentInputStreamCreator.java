@@ -97,7 +97,7 @@ public class StoredFileContentInputStreamCreator {
 			}
 		}
 		exceptionsCollector.setPreamble("Failed to locate content of stored file %s '%s'", storedFile.getId(), contentName.getFullFilename());
-		exceptionsCollector.consumeIfNotEmpty(LogDb::panic);
+		exceptionsCollector.applyIfNotEmpty(LogDb::panic);
 		throw new StoredFileContentNotFoundException(storedFile);
 	}
 

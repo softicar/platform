@@ -38,7 +38,7 @@ class SourceCodeReferencePointsLoader {
 			this.loaded = true;
 		}
 
-		exceptionsCollector.throwExceptionIfNotEmpty();
+		exceptionsCollector.throwIfNotEmpty();
 		return referencePoints;
 	}
 
