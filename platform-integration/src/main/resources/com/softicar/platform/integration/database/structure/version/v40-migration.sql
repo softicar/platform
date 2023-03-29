@@ -30,3 +30,11 @@ ALTER TABLE `Core`.`CoreModuleInstanceLog`
 	ADD KEY `primaryFileRepository` (`primaryFileRepository`),
 	ADD CONSTRAINT `CoreModuleInstanceLog_ibfk_4` FOREIGN KEY (`primaryFileRepository`) REFERENCES `Core`.`StoredFileRepository` (`id`)
 ;
+
+-- PLAT-1331-3
+
+ALTER TABLE `Core`.`StoredFileRepository`
+	CHANGE COLUMN `domain` `domain` VARCHAR(255) NOT NULL DEFAULT '',
+	CHANGE COLUMN `username` `username` VARCHAR(255) NOT NULL DEFAULT '',
+	CHANGE COLUMN `password` `password` VARCHAR(255) NOT NULL DEFAULT ''
+;

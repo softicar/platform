@@ -185,7 +185,7 @@
   },
   {
     "tableName": "`Core`.`StoredFileRepository`",
-    "createStatement": "CREATE TABLE `Core`.`StoredFileRepository` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`url` VARCHAR(255) NOT NULL,`domain` VARCHAR(255) NOT NULL,`username` VARCHAR(255) NOT NULL,`password` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`));"
+    "createStatement": "CREATE TABLE `Core`.`StoredFileRepository` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`url` VARCHAR(255) NOT NULL,`domain` VARCHAR(255) NOT NULL DEFAULT '',`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',PRIMARY KEY (`id`));"
   },
   {
     "tableName": "`Core`.`StoredFileSetItem`",

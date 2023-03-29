@@ -29,13 +29,7 @@ class StoredFileTestStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public boolean isReady() {
-
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
+	public boolean isAccessible() {
 
 		return true;
 	}
