@@ -40,7 +40,7 @@ public class StoredFileSmbContentStore implements IStoredFileContentStore {
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isAccessible() {
 
 		try {
 			return createSmbEntry("/").exists();

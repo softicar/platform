@@ -51,7 +51,7 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	@SuppressWarnings("resource")
 	private void setupMocking() {
 
-		Mockito.when(store.isAvailable()).thenReturn(true);
+		Mockito.when(store.isAccessible()).thenReturn(true);
 		Mockito.when(store.getFreeDiskSpace()).thenReturn(Long.MAX_VALUE);
 		Mockito.when(store.getFileOutputStream(ArgumentMatchers.anyString())).thenReturn(output);
 		Mockito.when(database.createChunksOutputStream(storedFile)).thenReturn(output);
@@ -125,10 +125,10 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 
 	@SuppressWarnings("resource")
 	@Test
-	public void usesDatabaseOutputStreamIfFileStoreNotAvailable() {
+	public void usesDatabaseOutputStreamIfFileStoreNotAccessible() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isAccessible()).thenReturn(false);
 
 		upload();
 
@@ -137,10 +137,10 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	}
 
 	@Test
-	public void sendsPanicIfFileStoreNotAvailable() {
+	public void sendsPanicIfFileStoreNotAccessible() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isAccessible()).thenReturn(false);
 
 		upload();
 
@@ -159,10 +159,10 @@ public class StoredFileContentUploaderTest extends AbstractDbTest implements Cor
 	}
 
 	@Test
-	public void doesNotSaveHashIfFileStoreNotAvailable() {
+	public void doesNotSaveHashIfFileStoreNotAccessible() {
 
 		setupPanicLogging();
-		Mockito.when(store.isAvailable()).thenReturn(false);
+		Mockito.when(store.isAccessible()).thenReturn(false);
 
 		upload();
 

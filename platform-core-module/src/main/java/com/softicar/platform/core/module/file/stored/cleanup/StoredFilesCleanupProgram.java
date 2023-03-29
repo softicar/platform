@@ -11,7 +11,7 @@ import com.softicar.platform.core.module.program.IProgram;
 import java.util.Optional;
 
 /**
- * Performs cleanup operations for {@link AGStoredFile} and relates tables, as
+ * Performs cleanup operations for {@link AGStoredFile} and related tables, as
  * well as related file stores.
  *
  * @author Alexander Schmidt
@@ -27,15 +27,15 @@ public class StoredFilesCleanupProgram implements IProgram {
 		var storedFileDatabase = new StoredFileDatabase();
 		var primaryContentStore = StoredFileContentStores.getPrimaryContentStore();
 
-		primaryContentStore.ifPresent(store -> new FileStoreTmpFolderCleaner(store).cleanAll());
-
 		new StoredFileSetWithRemoveAtGarbageCollector(removeAtThreshold).collect();
 
 		new StoredFilesWithRemoveAtGarbageCollector(removeAtThreshold).collect();
 
-		primaryContentStore.ifPresent(store -> new StoredFileStoreGarbageCollector(storedFileDatabase, store).collect());
-
-		primaryContentStore.ifPresent(store -> StoredFileChunksToFileStoreMigrator.migrateAll(storedFileDatabase, store));
+		primaryContentStore.ifPresent(store -> {
+			new FileStoreTmpFolderCleaner(store).cleanAll();
+			new StoredFileStoreGarbageCollector(storedFileDatabase, store).collect();
+			StoredFileChunksToFileStoreMigrator.migrateAll(storedFileDatabase, store);
+		});
 	}
 
 	@Override

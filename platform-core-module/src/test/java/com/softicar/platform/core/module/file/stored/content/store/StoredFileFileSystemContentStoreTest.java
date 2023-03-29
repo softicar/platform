@@ -57,25 +57,25 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 	}
 
 	@Test
-	public void testIsAvailable() {
+	public void testIsAccessible() {
 
 		var store = createStore();
-		assertTrue(store.isAvailable());
+		assertTrue(store.isAccessible());
 	}
 
 	@Test
-	public void testIsAvailableWithNonexistentDirectory() {
+	public void testIsAccessibleWithNonexistentDirectory() {
 
 		var store = createStore("/nowhere");
-		assertFalse(store.isAvailable());
+		assertFalse(store.isAccessible());
 	}
 
 	@Test
-	public void testIsAvailableWithFileInsteadOfDirectory() {
+	public void testIsAccessibleWithFileInsteadOfDirectory() {
 
 		var file = createTempFile();
 		var store = createStore(file.getPath());
-		assertFalse(store.isAvailable());
+		assertFalse(store.isAccessible());
 	}
 
 	@Test

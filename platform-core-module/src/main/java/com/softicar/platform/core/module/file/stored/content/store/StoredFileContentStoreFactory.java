@@ -30,6 +30,15 @@ class StoredFileContentStoreFactory {
 		return Optional.empty();
 	}
 
+	/**
+	 * Represents a URL in one of the following formats:
+	 *
+	 * <pre>
+	 * file:///dir/subdir  - an absolute path
+	 * file://dir/subdir   - a relative path
+	 * file:/dir/subdir    - an absolute path (short form)
+	 * </pre>
+	 */
 	private static class SimpleUrl {
 
 		private static final Pattern PATTERN = Pattern.compile("([a-z]+):(.+)");

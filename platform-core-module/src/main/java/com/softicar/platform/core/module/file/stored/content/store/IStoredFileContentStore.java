@@ -34,7 +34,7 @@ public interface IStoredFileContentStore {
 	 * @return <i>true</i> if this content store is technically ready;
 	 *         <i>false</i> otherwise
 	 */
-	boolean isAvailable();
+	boolean isAccessible();
 
 	/**
 	 * Determines the disk space in bytes that is still available in this

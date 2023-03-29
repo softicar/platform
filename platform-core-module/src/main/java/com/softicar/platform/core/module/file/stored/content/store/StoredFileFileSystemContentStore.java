@@ -51,7 +51,7 @@ public class StoredFileFileSystemContentStore implements IStoredFileContentStore
 	}
 
 	@Override
-	public boolean isAvailable() {
+	public boolean isAccessible() {
 
 		return directory != null && directory.isDirectory() && directory.canWrite();
 	}

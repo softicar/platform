@@ -11,66 +11,40 @@ import java.util.stream.Collectors;
  *
  * @author Alexander Schmidt
  */
-public class StoredFileContentStores {
-
-	private StoredFileContentStores() {
-
-		// do not instantiate
-	}
+public interface StoredFileContentStores {
 
 	/**
-	 * Determines all content stores that are currently available.
+	 * Determines all content stores that are currently accessible.
 	 * <p>
-	 * If there is a primary content store that is <i>available</i> (according
-	 * to {@link IStoredFileContentStore#isAvailable()}), that content store
+	 * If there is a primary content store that is <i>accessible</i> (according
+	 * to {@link IStoredFileContentStore#isAccessible()}), that content store
 	 * will be the first element in the returned {@link Collection}.
 	 * <p>
 	 * If no content store can be determined, an empty {@link Collection} is
 	 * returned.
 	 *
-	 * @return all currently available content stores
-	 * @see IStoredFileContentStore#isAvailable()
+	 * @return all currently accessible content stores
+	 * @see IStoredFileContentStore#isAccessible()
 	 */
-	public static Collection<IStoredFileContentStore> getAvailableContentStores() {
+	public static Collection<IStoredFileContentStore> getAccessibleContentStores() {
 
 		return getAllContentStores()//
 			.stream()
-			.filter(store -> store.isAvailable())
+			.filter(store -> store.isAccessible())
 			.collect(Collectors.toList());
 	}
 
 	/**
-	 * Determines the currently preferred and available content store.
-	 * <p>
-	 * If there is a primary content store that is <i>available</i> (according
-	 * to {@link IStoredFileContentStore#isAvailable()}), that content store
-	 * will be returned. Otherwise, an available non-primary content store may
-	 * be returned.
-	 * <p>
-	 * If no content store can be determined, {@link Optional#empty()} is
-	 * returned.
+	 * Returns the primary content store if it is defined and accessible.
 	 *
-	 * @return the currently preferred and available content store
-	 * @see IStoredFileContentStore#isAvailable()
-	 */
-	public static Optional<IStoredFileContentStore> getPreferredAvailableContentStore() {
-
-		return getAvailableContentStores()//
-			.stream()
-			.findFirst();
-	}
-
-	/**
-	 * Returns the primary content store if it is defined and available.
-	 *
-	 * @return the available primary content store
+	 * @return the accessible primary content store
 	 */
 	public static Optional<IStoredFileContentStore> getPrimaryContentStore() {
 
 		return AGStoredFileRepository//
 			.getPrimaryIfActive()
 			.flatMap(new StoredFileContentStoreFactory()::create)
-			.filter(store -> store.isAvailable());
+			.filter(store -> store.isAccessible());
 	}
 
 	private static List<IStoredFileContentStore> getAllContentStores() {

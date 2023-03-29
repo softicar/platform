@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 class StoredFileChunksToFileStoreMigrator {
 
@@ -26,9 +27,9 @@ class StoredFileChunksToFileStoreMigrator {
 
 	private StoredFileChunksToFileStoreMigrator(IStoredFileDatabase database, IStoredFileContentStore store, AGStoredFile storedFile) {
 
-		this.database = database;
-		this.store = store;
-		this.storedFile = storedFile;
+		this.database = Objects.requireNonNull(database);
+		this.store = Objects.requireNonNull(store);
+		this.storedFile = Objects.requireNonNull(storedFile);
 	}
 
 	public static void migrateAll(IStoredFileDatabase database, IStoredFileContentStore store) {

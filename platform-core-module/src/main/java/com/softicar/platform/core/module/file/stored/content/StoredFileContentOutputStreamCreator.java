@@ -10,7 +10,7 @@ import com.softicar.platform.core.module.file.stored.content.store.StoredFileCon
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Optional;
+import java.util.Objects;
 
 /**
  * Creates an output stream to write the content of an {@link AGStoredFile}.
@@ -22,18 +22,18 @@ public class StoredFileContentOutputStreamCreator {
 
 	private final AGStoredFile storedFile;
 	private final IStoredFileDatabase database;
-	private Optional<IStoredFileContentStore> store;
+	private IStoredFileContentStore store;
 
 	public StoredFileContentOutputStreamCreator(AGStoredFile storedFile) {
 
-		this.storedFile = storedFile;
+		this.storedFile = Objects.requireNonNull(storedFile);
 		this.database = new StoredFileDatabase();
-		this.store = StoredFileContentStores.getPreferredAvailableContentStore();
+		this.store = StoredFileContentStores.getPrimaryContentStore().orElse(null);
 	}
 
 	public StoredFileContentOutputStreamCreator setStore(IStoredFileContentStore store) {
 
-		this.store = Optional.ofNullable(store);
+		this.store = store;
 		return this;
 	}
 

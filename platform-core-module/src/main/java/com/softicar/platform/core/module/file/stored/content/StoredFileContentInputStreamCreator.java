@@ -38,14 +38,8 @@ public class StoredFileContentInputStreamCreator {
 		this.contentStores = new ArrayList<>();
 
 		StoredFileContentStores//
-			.getAvailableContentStores()
+			.getAccessibleContentStores()
 			.forEach(this::addContentStore);
-	}
-
-	public StoredFileContentInputStreamCreator addContentStore(IStoredFileContentStore store) {
-
-		contentStores.add(store);
-		return this;
 	}
 
 	public InputStream create() {
@@ -76,6 +70,12 @@ public class StoredFileContentInputStreamCreator {
 		}
 	}
 
+	StoredFileContentInputStreamCreator addContentStore(IStoredFileContentStore store) {
+
+		contentStores.add(store);
+		return this;
+	}
+
 	private IStoredFileHash getFileHash() {
 
 		return database.getFileHash(storedFile);
@@ -87,7 +87,7 @@ public class StoredFileContentInputStreamCreator {
 		var contentName = new StoredFileContentName(hash.getHash());
 		for (IStoredFileContentStore store: contentStores) {
 			try {
-				if (store.isAvailable() && store.exists(contentName.getFullFilename())) {
+				if (store.exists(contentName.getFullFilename())) {
 					return store.getFileInputStream(contentName.getFullFilename());
 				}
 			} catch (Exception exception) {
