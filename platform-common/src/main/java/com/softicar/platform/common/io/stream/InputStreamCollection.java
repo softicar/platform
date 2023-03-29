@@ -80,6 +80,6 @@ public class InputStreamCollection implements AutoCloseable {
 				collector.add(exception);
 			}
 		});
-		collector.throwExceptionIfNotEmpty();
+		collector.throwIfNotEmpty();
 	}
 }

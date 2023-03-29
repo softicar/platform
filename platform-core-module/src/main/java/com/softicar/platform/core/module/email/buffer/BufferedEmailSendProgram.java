@@ -60,7 +60,7 @@ public class BufferedEmailSendProgram implements IProgram {
 				.where(AGBufferedEmail.SENT_AT.isNull())
 				.forEach(this::sendEmails);
 
-			collector.throwExceptionIfNotEmpty();
+			collector.throwIfNotEmpty();
 		}
 
 		private void sendEmails(AGServer server) {

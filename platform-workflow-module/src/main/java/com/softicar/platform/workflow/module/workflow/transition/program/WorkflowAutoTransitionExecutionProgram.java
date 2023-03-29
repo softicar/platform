@@ -49,7 +49,7 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 				exceptionsCollector.add(throwable);
 			}
 		}
-		exceptionsCollector.throwExceptionIfNotEmpty();
+		exceptionsCollector.throwIfNotEmpty();
 	}
 
 	private TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> loadItemsAndTransitionsToProcess() {

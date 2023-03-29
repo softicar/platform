@@ -85,6 +85,6 @@ class StoredFilesWithRemoveAtGarbageCollector {
 		}
 		Log.finfo("%s stored files deleted.", filesToDelete.size());
 
-		exceptionsCollector.throwExceptionIfNotEmpty();
+		exceptionsCollector.throwIfNotEmpty();
 	}
 }

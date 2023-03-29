@@ -1,6 +1,9 @@
 package com.softicar.platform.common.core.exception;
 
+import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.testing.AbstractTest;
+import com.softicar.platform.common.testing.TextLinesAsserter;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ExceptionsCollectorTest extends AbstractTest {
@@ -17,17 +20,53 @@ public class ExceptionsCollectorTest extends AbstractTest {
 
 		collector.setPreamble("Preamble");
 		collector.add(new RuntimeException("Foo"));
+		generateExceptionsWithSameStacktrace(3);
 
-		String message = collector.getMessage();
-		assertEquals(1, collector.getExceptionCount());
-		assertTrue(message.startsWith("Preamble"));
-		assertTrue(message.contains("Foo"));
+		Log.finfo(collector.getMessage());
+		assertFalse(collector.isEmpty());
+		assertEquals(4, collector.getExceptions().size());
+		new TextLinesAsserter(collector.getMessage())//
+			.assertLine("Preamble")
+			.assertLine("Gathered a total of 4 exceptions with 2 different stack traces.")
+			.assertLine("-------------------- 3 exceptions with stack trace #0 --------------------")
+			.assertLine("java.lang.RuntimeException: exception #0")
+			.assertLine("java.lang.RuntimeException: exception #1")
+			.assertLine("java.lang.RuntimeException: exception #2")
+			.assertLine("-------------------- 1 exceptions with stack trace #1 --------------------")
+			.assertLine("java.lang.RuntimeException: Foo");
+		assertThrows(MultiException.class, collector::throwIfNotEmpty);
+		assertThrows(collector.getMessage(), RuntimeException.class, () -> collector.applyIfNotEmpty(message -> {
+			throw new RuntimeException(message);
+		}));
 	}
 
 	@Test
 	public void testWithEmptyCollector() {
 
-		assertEquals(0, collector.getExceptionCount());
+		assertTrue(collector.isEmpty());
+		assertEquals(0, collector.getExceptions().size());
 		assertEquals("", collector.getMessage());
+		collector.throwIfNotEmpty();
+		collector.applyIfNotEmpty(message -> Assert.fail("not expected"));
+	}
+
+	private void generateExceptionsWithSameStacktrace(int count) {
+
+		for (int i = 0; i < count; i++) {
+			try {
+				provokeException("exception #" + i);
+			} catch (Exception exception) {
+				collector.add(exception);
+			}
+		}
+	}
+
+	private void provokeException(String message) {
+
+		try {
+			throw new RuntimeException("inner");
+		} catch (Exception exception) {
+			throw new RuntimeException(message, exception);
+		}
 	}
 }
