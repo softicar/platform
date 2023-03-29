@@ -98,23 +98,6 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 	}
 
 	/**
-	 * Defines the number of milliseconds to wait after a failed execution,
-	 * before trying again.
-	 *
-	 * @param delayMillis
-	 *            the delay in milliseconds; the default is 0 (never negative)
-	 * @throws IllegalArgumentException
-	 *             if the delay is negative
-	 * @return this object
-	 * @deprecated use {@link #setRetryDelay(Duration)}
-	 */
-	@Deprecated
-	public T setRetryDelayMillis(long delayMillis) {
-
-		return setRetryDelay(Duration.ofMillis(delayMillis));
-	}
-
-	/**
 	 * Defines a function to check for a caught exception if the execution shall
 	 * be tried again.
 	 * <p>
