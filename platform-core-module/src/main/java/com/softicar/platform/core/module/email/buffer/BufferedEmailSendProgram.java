@@ -4,9 +4,11 @@ import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoin
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
+import com.softicar.platform.common.core.retry.Retrier;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.IProgram;
 import com.softicar.platform.core.module.server.AGServer;
+import java.time.Duration;
 import java.util.Optional;
 
 /**
@@ -19,13 +21,22 @@ import java.util.Optional;
 @SourceCodeReferencePointUuid("0bec6bee-e588-47f7-81cc-ba4dfd9ca720")
 public class BufferedEmailSendProgram implements IProgram {
 
+	private static final Duration RETRY_DELAY_MILLIS = Duration.ofMinutes(1);
+
 	@Override
 	public void executeProgram() {
 
+		Log.finfo("Sending emails...");
+		new Retrier(this::sendForAllServers)//
+			.setRetryDelay(RETRY_DELAY_MILLIS)
+			.apply();
+
 		Log.finfo("Cleaning emails...");
 		new BufferedEmailCleaner().cleanAll();
+	}
 
-		Log.finfo("Sending emails...");
+	private void sendForAllServers() {
+
 		new Sender().sendForAllServers();
 	}
 

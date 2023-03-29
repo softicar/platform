@@ -3,6 +3,7 @@ package com.softicar.platform.common.core.retry;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.core.throwable.Throwables;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -17,15 +18,15 @@ import java.util.function.Function;
 public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 
 	public static final int DEFAULT_TRY_COUNT = 3;
-	public static final long DEFAULT_RETRY_DELAY = 0L;
+	public static final Duration DEFAULT_RETRY_DELAY = Duration.ZERO;
 	private int tryCount;
-	private long delayMillis;
+	private Duration retryDelay;
 	private Function<Exception, Boolean> retryDecider;
 
 	public AbstractRetrier() {
 
 		this.tryCount = DEFAULT_TRY_COUNT;
-		this.delayMillis = DEFAULT_RETRY_DELAY;
+		this.retryDelay = DEFAULT_RETRY_DELAY;
 		this.retryDecider = exception -> true;
 	}
 
@@ -77,23 +78,40 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 	}
 
 	/**
-	 * Defines the number of milliseconds to wait after a failed execution.
+	 * Defines the {@link Duration} to wait after a failed execution, before
+	 * trying again.
 	 *
-	 * @param delayMillis
-	 *            delay in milliseconds (the default is 0)
+	 * @param retryDelay
+	 *            the re-try delay; the default is {@link Duration#ZERO} (never
+	 *            <i>null</i> and never negative)
 	 * @throws IllegalArgumentException
 	 *             if the delay is negative
 	 * @return this object
 	 */
+	public T setRetryDelay(Duration retryDelay) {
+
+		if (retryDelay.isNegative()) {
+			throw new IllegalArgumentException(String.format("The re-try delay may not be negative."));
+		}
+		this.retryDelay = retryDelay;
+		return getThis();
+	}
+
+	/**
+	 * Defines the number of milliseconds to wait after a failed execution,
+	 * before trying again.
+	 *
+	 * @param delayMillis
+	 *            the delay in milliseconds; the default is 0 (never negative)
+	 * @throws IllegalArgumentException
+	 *             if the delay is negative
+	 * @return this object
+	 * @deprecated use {@link #setRetryDelay(Duration)}
+	 */
+	@Deprecated
 	public T setRetryDelayMillis(long delayMillis) {
 
-		if (delayMillis < 0) {
-			throw new IllegalArgumentException(String.format("Illegal number of %s millisecond for the re-try delay.", delayMillis));
-		}
-
-		this.delayMillis = delayMillis;
-
-		return getThis();
+		return setRetryDelay(Duration.ofMillis(delayMillis));
 	}
 
 	/**
@@ -137,8 +155,8 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 				}
 			}
 
-			if (delayMillis > 0) {
-				Sleep.sleep(delayMillis);
+			if (!retryDelay.isZero()) {
+				Sleep.sleep(retryDelay);
 			}
 		}
 	}

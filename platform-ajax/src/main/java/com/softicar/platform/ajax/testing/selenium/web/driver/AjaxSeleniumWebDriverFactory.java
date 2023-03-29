@@ -27,7 +27,7 @@ public class AjaxSeleniumWebDriverFactory {
 
 		return new RetryingSupplier<>(this::tryToCreateRemoteDriver)//
 			.setRetryCount(AjaxSeleniumTestProperties.DRIVER_CREATION_RETRY_COUNT.getValue())
-			.setRetryDelayMillis(AjaxSeleniumTestProperties.DRIVER_CREATION_RETRY_DELAY.getValue())
+			.setRetryDelay(Duration.ofMillis(AjaxSeleniumTestProperties.DRIVER_CREATION_RETRY_DELAY.getValue()))
 			.get();
 	}
 
