@@ -14,6 +14,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Properties;
 import javax.sql.DataSource;
 
@@ -29,7 +30,7 @@ public abstract class AbstractDbConnector implements IDbConnector {
 
 		return new RetryingSupplier<>(() -> doConnect(database))//
 			.setTryCount(getConnectionAttempts())
-			.setRetryDelayMillis(getConnectionAttemptDelay())
+			.setRetryDelay(getConnectionAttemptDelay())
 			.get();
 	}
 
@@ -93,10 +94,10 @@ public abstract class AbstractDbConnector implements IDbConnector {
 		return Clamping.clamp(1, MAXIMUM_CONNECTION_ATTEMPTS, attempts);
 	}
 
-	private long getConnectionAttemptDelay() {
+	private Duration getConnectionAttemptDelay() {
 
 		long delay = DbProperties.CONNECTION_RETRY_DELAY.getValue();
-		return Math.max(MINIMUN_CONNECTION_ATTEMPT_DELAY, delay);
+		return Duration.ofMillis(Math.max(MINIMUN_CONNECTION_ATTEMPT_DELAY, delay));
 	}
 
 	private void logError(String url, SQLException exception) {

@@ -2,6 +2,7 @@ package com.softicar.platform.common.core.retry;
 
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.testing.AbstractTest;
+import java.time.Duration;
 import org.junit.Test;
 
 public class RetrierTest extends AbstractTest {
@@ -13,7 +14,7 @@ public class RetrierTest extends AbstractTest {
 
 		new Retrier(testFunction)//
 			.setTryCount(3)
-			.setRetryDelayMillis(0)
+			.setRetryDelay(Duration.ZERO)
 			.apply();
 
 		assertEquals(1, testFunction.getApplyCount());
@@ -26,7 +27,7 @@ public class RetrierTest extends AbstractTest {
 
 		new Retrier(testFunction)//
 			.setTryCount(3)
-			.setRetryDelayMillis(0)
+			.setRetryDelay(Duration.ZERO)
 			.apply();
 
 		assertEquals(3, testFunction.getApplyCount());
@@ -37,7 +38,7 @@ public class RetrierTest extends AbstractTest {
 
 		new Retrier(new TestFunction(3))//
 			.setTryCount(3)
-			.setRetryDelayMillis(0)
+			.setRetryDelay(Duration.ZERO)
 			.apply();
 	}
 
