@@ -67,6 +67,7 @@ function sendDomEventToServer(event: Event, eventType: string) {
 		.setEventType(eventType)
 		.setWindowPageOffset(new Vector2d(window.pageXOffset, window.pageYOffset))
 		.setWindowInnerSize(new Vector2d(window.innerWidth, window.innerHeight))
+		.setWindowSelection()
 		.setNodeRect(boundingRect);
 	
 	if(event instanceof MouseEvent) {

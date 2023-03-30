@@ -2,22 +2,23 @@
  * Contains the payload of an {@link AjaxRequest}.
  */
 class AjaxRequestMessage {
-	protected readonly instanceUuid: string = DOCUMENT_INSTANCE_UUID;
+	protected readonly instanceUuid = DOCUMENT_INSTANCE_UUID;
 	protected requestIndex: number = -1;
 	protected actionType: string | null = null;
 	protected eventType: string | null = null;
 	protected nodeId: string | null = null;
-	protected nodeRect: Rect = new Rect();
+	protected nodeRect = new Rect();
 	protected nodeValues: any = {};
-	protected key: string = "";
+	protected key = '';
 	protected modifierKeys: any = {};
-	protected cursor: Vector2d = new Vector2d();
-	protected cursorRelative: Vector2d = new Vector2d();
-	protected wheelDelta: Vector3d = new Vector3d();
-	protected dragStart: Vector2d = new Vector2d();
-	protected dragPosition: Vector2d = new Vector2d();
-	protected windowPageOffset: Vector2d = new Vector2d();
-	protected windowInnerSize: Vector2d = new Vector2d();
+	protected cursor = new Vector2d();
+	protected cursorRelative = new Vector2d();
+	protected wheelDelta = new Vector3d();
+	protected dragStart = new Vector2d();
+	protected dragPosition = new Vector2d();
+	protected windowPageOffset = new Vector2d();
+	protected windowInnerSize = new Vector2d();
+	protected windowSelection = '';
 
 	public copyNodeValues() {
 		VALUE_NODE_MAP.copyNodeValues(this);
@@ -105,6 +106,11 @@ class AjaxRequestMessage {
 
 	public setWindowInnerSize(innerSize: Vector2d) {
 		this.windowInnerSize = innerSize;
+		return this;
+	}
+
+	public setWindowSelection() {
+		this.windowSelection = window?.getSelection()?.toString() ?? '';
 		return this;
 	}
 

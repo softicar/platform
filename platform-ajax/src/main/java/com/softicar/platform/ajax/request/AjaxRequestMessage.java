@@ -32,6 +32,7 @@ public class AjaxRequestMessage {
 	private DomVector2d dragPosition;
 	private DomVector2d windowPageOffset;
 	private DomVector2d windowInnerSize;
+	private String windowSelection;
 
 	public AjaxRequestMessage() {
 
@@ -160,6 +161,11 @@ public class AjaxRequestMessage {
 	public DomVector2d getWindowInnerSize() {
 
 		return windowInnerSize;
+	}
+
+	public String getWindowSelection() {
+
+		return windowSelection;
 	}
 
 	// ------------------------------ initialize ------------------------------ //

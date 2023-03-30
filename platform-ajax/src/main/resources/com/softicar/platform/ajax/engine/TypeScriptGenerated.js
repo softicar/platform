@@ -507,11 +507,28 @@ class Rect {
         this.width = width;
         this.height = height;
     }
+    right() {
+        return this.x + this.width;
+    }
+    bottom() {
+        return this.y + this.height;
+    }
     static fromDomRect(rect) {
         return new Rect(rect.x, rect.y, rect.width, rect.height);
     }
     clamp(point) {
-        return new Vector2d(clamp(point.x, this.x, this.x + this.width - 1), clamp(point.y, this.y, this.y + this.height - 1));
+        return new Vector2d(clamp(point.x, this.x, this.right() - 1), clamp(point.y, this.y, this.bottom() - 1));
+    }
+    getMergedWith(other) {
+        let x = Math.min(this.x, other.x);
+        let y = Math.min(this.y, other.y);
+        let right = Math.max(this.right(), other.right());
+        let bottom = Math.max(this.bottom(), other.bottom());
+        return new Rect(x, y, right - x, bottom - y);
+    }
+    contains(point) {
+        return point.x >= this.x && point.x < this.right() &&
+            point.y >= this.y && point.y < this.bottom();
     }
 }
 let SESSION_TIMED_OUT = false;
@@ -761,6 +778,7 @@ function sendDomEventToServer(event, eventType) {
         .setEventType(eventType)
         .setWindowPageOffset(new Vector2d(window.pageXOffset, window.pageYOffset))
         .setWindowInnerSize(new Vector2d(window.innerWidth, window.innerHeight))
+        .setWindowSelection()
         .setNodeRect(boundingRect);
     if (event instanceof MouseEvent) {
         message.setMousePosition(new Vector2d(event.clientX, event.clientY));
@@ -1086,7 +1104,7 @@ class AjaxRequestMessage {
         this.nodeId = null;
         this.nodeRect = new Rect();
         this.nodeValues = {};
-        this.key = "";
+        this.key = '';
         this.modifierKeys = {};
         this.cursor = new Vector2d();
         this.cursorRelative = new Vector2d();
@@ -1095,6 +1113,7 @@ class AjaxRequestMessage {
         this.dragPosition = new Vector2d();
         this.windowPageOffset = new Vector2d();
         this.windowInnerSize = new Vector2d();
+        this.windowSelection = '';
     }
     copyNodeValues() {
         VALUE_NODE_MAP.copyNodeValues(this);
@@ -1157,6 +1176,11 @@ class AjaxRequestMessage {
     }
     setWindowInnerSize(innerSize) {
         this.windowInnerSize = innerSize;
+        return this;
+    }
+    setWindowSelection() {
+        var _a, _b;
+        this.windowSelection = (_b = (_a = window === null || window === void 0 ? void 0 : window.getSelection()) === null || _a === void 0 ? void 0 : _a.toString()) !== null && _b !== void 0 ? _b : '';
         return this;
     }
     encode() {

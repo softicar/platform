@@ -2,6 +2,7 @@ package com.softicar.platform.emf.management;
 
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.elements.popup.manager.DomPopupManager;
+import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.emf.data.table.IEmfDataTableRowEventHandler;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -11,13 +12,16 @@ public class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>,
 	@Override
 	public void handleEvent(R row) {
 
-		switch (CurrentDomDocument.get().getCurrentEvent().getType()) {
+		IDomEvent event = CurrentDomDocument.get().getCurrentEvent();
+		switch (event.getType()) {
 		case CONTEXTMENU: {
 			new EmfManagementActionPopover<>(row).open();
 			break;
 		}
 		case DBLCLICK: {
-			showFormPopup(row);
+			if (event.getWindowSelection().isEmpty()) {
+				showFormPopup(row);
+			}
 			break;
 		}
 		default:

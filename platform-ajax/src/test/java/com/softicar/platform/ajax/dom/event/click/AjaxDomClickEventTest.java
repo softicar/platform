@@ -62,6 +62,7 @@ public class AjaxDomClickEventTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertEquals(0, event.getScrollY(), 0.1);
 		assertEquals(viewportSize.getWidth(), event.getWindowWidth(), 0.1);
 		assertEquals(viewportSize.getHeight(), event.getWindowHeight(), 0.1);
+		assertEquals("", event.getWindowSelection());
 
 		var boundingClientRect = event.getBoundingClientRect();
 		assertEquals(divRectangle.getX(), boundingClientRect.getX(), 0.001);
