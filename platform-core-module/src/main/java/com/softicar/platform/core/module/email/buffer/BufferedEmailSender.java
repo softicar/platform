@@ -50,7 +50,7 @@ public class BufferedEmailSender {
 			.orderBy(AGBufferedEmail.ID)
 			.forEach(this::send);
 		Log.finfo("done");
-		exceptionsCollector.throwExceptionIfNotEmpty();
+		exceptionsCollector.throwIfNotEmpty();
 	}
 
 	private void send(AGBufferedEmail email) {

@@ -114,7 +114,7 @@ class ImapConnection implements IMailboxConnection {
 
 			closeFolders();
 			closeStore();
-			collector.throwExceptionIfNotEmpty();
+			collector.throwIfNotEmpty();
 		}
 
 		private void closeFolders() {
