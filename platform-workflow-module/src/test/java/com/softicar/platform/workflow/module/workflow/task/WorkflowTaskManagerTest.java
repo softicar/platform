@@ -52,7 +52,7 @@ public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
 
 		new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(nodeX);
 
-		// assert existing tasks where closed and new tasks were opened
+		// assert existing tasks were closed and new tasks were opened
 		var tasks = AGWorkflowTask.TABLE//
 			.createSelect()
 			.orderBy(AGWorkflowTask.ID)
