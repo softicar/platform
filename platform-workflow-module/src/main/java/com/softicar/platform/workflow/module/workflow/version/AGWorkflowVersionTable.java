@@ -8,6 +8,7 @@ import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.attribute.field.bool.EmfBooleanDisplay;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
+import com.softicar.platform.emf.data.table.IEmfDataTableRow;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.management.EmfManagementConfiguration;
@@ -50,12 +51,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGWorkflowVersion> configuration) {
 
 		configuration.addOrderBy(AGWorkflowVersion.ID, OrderDirection.DESCENDING);
-		configuration.setRowCustomizer(row -> {
-			row.addCssClass(WorkflowCssClasses.WORKFLOW_VERSION_ROW);
-			if (row.getDataRow().isCurrentVersion()) {
-				row.addCssClass(DomCssPseudoClasses.ACTIVE);
-			}
-		});
+		configuration.setRowCustomizer(this::customizeRow);
 	}
 
 	@Override
@@ -115,5 +111,13 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 			.addPlainChangeLogger(AGWorkflowVersionLog.WORKFLOW_VERSION, AGWorkflowVersionLog.TRANSACTION)//
 			.addMapping(AGWorkflowVersion.ROOT_NODE, AGWorkflowVersionLog.ROOT_NODE)
 			.addMapping(AGWorkflowVersion.DRAFT, AGWorkflowVersionLog.DRAFT);
+	}
+
+	private void customizeRow(IEmfDataTableRow<AGWorkflowVersion> row) {
+
+		row.addCssClass(WorkflowCssClasses.WORKFLOW_VERSION_ROW);
+		if (row.getDataRow().isCurrentVersion()) {
+			row.addCssClass(DomCssPseudoClasses.ACTIVE);
+		}
 	}
 }
