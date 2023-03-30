@@ -87,6 +87,9 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 		reorderer//
 			.moveAttribute(AGWorkflowVersion.CURRENT_VERSION_FIELD)
 			.inFrontOf(AGWorkflowVersion.DRAFT);
+		reorderer//
+			.moveAttribute(AGWorkflowVersion.ROOT_NODE)
+			.toBack();
 	}
 
 	@Override
@@ -112,11 +115,5 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 			.addPlainChangeLogger(AGWorkflowVersionLog.WORKFLOW_VERSION, AGWorkflowVersionLog.TRANSACTION)//
 			.addMapping(AGWorkflowVersion.ROOT_NODE, AGWorkflowVersionLog.ROOT_NODE)
 			.addMapping(AGWorkflowVersion.DRAFT, AGWorkflowVersionLog.DRAFT);
-	}
-
-	@Override
-	public void customizeAttributeOrdering(EmfAttributeReorderer<AGWorkflowVersion> reorderer) {
-
-		reorderer.moveAttribute(AGWorkflowVersion.ROOT_NODE).toBack();
 	}
 }
