@@ -20,6 +20,7 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.item.message.WorkflowItemMessagePopup;
+import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.IWorkflowTaskQuery.IRow;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
@@ -87,10 +88,12 @@ public class WorkflowTaskDiv extends DomDiv {
 					new EmfDataTableDivBuilder<>(query)//
 						.setActionColumnHandler(new ActionColumnHandler())
 						.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
+						.setColumnHandler(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, new NodeColumnHandler())
 						.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
 						.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
 						.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
 						.setColumnTitle(IWorkflowTaskQuery.TASK_COLUMN, WorkflowI18n.TASK)
+						.setColumnTitle(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, WorkflowI18n.NODE)
 						.setColumnTitle(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, WorkflowI18n.DELEGATION)
 						.setColumnTitle(IWorkflowTaskQuery.CREATED_AT_COLUMN, WorkflowI18n.CREATED_AT)
 						.build());
@@ -117,6 +120,15 @@ public class WorkflowTaskDiv extends DomDiv {
 						.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowTaskDelegation.TABLE.getOrCreate(row.getTask())).setDirectEditing(true))
 						.setIcon(WorkflowImages.RIGHT.getResource()) //FIXME check/change icon
 						.setTitle(WorkflowI18n.DELEGATE));
+		}
+	}
+
+	private class NodeColumnHandler extends EmfDataTableValueBasedColumnHandler<AGWorkflowNode> {
+
+		@Override
+		public void buildCell(IEmfDataTableCell<?, AGWorkflowNode> cell, AGWorkflowNode node) {
+
+			cell.appendText(node.toDisplayWithoutId());
 		}
 	}
 

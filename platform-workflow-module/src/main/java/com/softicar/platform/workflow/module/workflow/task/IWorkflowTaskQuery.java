@@ -36,6 +36,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 	IDbQueryTableColumn<IRow, AGWorkflowItem> ITEM_COLUMN = new DbQueryTableStubColumn<>(IRow::getItem, "item", AGWorkflowItem.TABLE);
 	IDbQueryTableColumn<IRow, AGWorkflowTask> TASK_COLUMN = new DbQueryTableStubColumn<>(IRow::getTask, "task", AGWorkflowTask.TABLE);
+	IDbQueryTableColumn<IRow, AGWorkflowNode> WORKFLOW_NODE_COLUMN = new DbQueryTableStubColumn<>(IRow::getWorkflowNode, "workflowNode", AGWorkflowNode.TABLE);
 	IDbQueryTableColumn<IRow, AGUser> DELEGATED_BY_COLUMN = new DbQueryTableStubColumn<>(IRow::getDelegatedBy, "delegatedBy", AGUser.TABLE);
 	IDbQueryColumn<IRow, DayTime> CREATED_AT_COLUMN = new DbQueryColumn<>(IRow::getCreatedAt, "createdAt", SqlValueTypes.DAY_TIME);
 	IFactory FACTORY = new Implementation.Factory();
@@ -46,6 +47,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 		AGWorkflowItem getItem();
 		AGWorkflowTask getTask();
+		AGWorkflowNode getWorkflowNode();
 		AGUser getDelegatedBy();
 		DayTime getCreatedAt();
 	}
@@ -71,12 +73,13 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 		private static class Factory implements IFactory {
 
-			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(4);
+			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(5);
 
 			public Factory() {
 
 				this.columns.add(ITEM_COLUMN);
 				this.columns.add(TASK_COLUMN);
+				this.columns.add(WORKFLOW_NODE_COLUMN);
 				this.columns.add(DELEGATED_BY_COLUMN);
 				this.columns.add(CREATED_AT_COLUMN);
 			}
@@ -154,6 +157,10 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 					addIdentifier("task", AGWorkflowTask.ID);
 					addToken(SqlKeyword.AS);
 					addIdentifier("task");
+					SELECT(WORKFLOW_NODE_COLUMN);
+					addIdentifier("workflowNode", AGWorkflowNode.ID);
+					addToken(SqlKeyword.AS);
+					addIdentifier("workflowNode");
 					SELECT(DELEGATED_BY_COLUMN);
 					addIdentifier("delegation", AGWorkflowTaskDelegation.DELEGATED_BY);
 					addToken(SqlKeyword.AS);
@@ -281,6 +288,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 			private final AGWorkflowItem item;
 			private final AGWorkflowTask task;
+			private final AGWorkflowNode workflowNode;
 			private final AGUser delegatedBy;
 			private final DayTime createdAt;
 
@@ -290,6 +298,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 				this.item = ITEM_COLUMN.loadValue(select, resultSet);
 				this.task = TASK_COLUMN.loadValue(select, resultSet);
+				this.workflowNode = WORKFLOW_NODE_COLUMN.loadValue(select, resultSet);
 				this.delegatedBy = DELEGATED_BY_COLUMN.loadValue(select, resultSet);
 				this.createdAt = CREATED_AT_COLUMN.loadValue(select, resultSet);
 			}
@@ -310,6 +319,12 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 			public AGWorkflowTask getTask() {
 
 				return this.task;
+			}
+
+			@Override
+			public AGWorkflowNode getWorkflowNode() {
+
+				return this.workflowNode;
 			}
 
 			@Override

@@ -113,6 +113,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Keine weitere Genehmigung ist notwendig.");
 	I18n0 NO_WORKFLOW_FOUND = new I18n0("No workflow found.")//
 		.de("Kein Arbeitsablauf gefunden.");
+	I18n0 NODE = new I18n0("Node")//
+		.de("Knoten");
 	I18n1 NODE_ARG1 = new I18n1("Node: %s")//
 		.de("Knoten: %s");
 	I18n0 NODES = new I18n0("Nodes")//
