@@ -6,6 +6,7 @@ import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
+import com.softicar.platform.emf.attribute.field.bool.EmfBooleanDisplay;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
@@ -73,8 +74,19 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 		attributes.addTransientAttribute(AGWorkflowVersion.HASH_FIELD);
 		attributes.addTransientAttribute(AGWorkflowVersion.ITEM_COUNT_FIELD);
 		attributes//
+			.addTransientAttribute(AGWorkflowVersion.CURRENT_VERSION_FIELD)
+			.setDisplayFactory(EmfBooleanDisplay::new);
+		attributes//
 			.editAttribute(AGWorkflowVersion.DRAFT)
 			.setPredicateEditable(EmfPredicates.never());
+	}
+
+	@Override
+	public void customizeAttributeOrdering(EmfAttributeReorderer<AGWorkflowVersion> reorderer) {
+
+		reorderer//
+			.moveAttribute(AGWorkflowVersion.CURRENT_VERSION_FIELD)
+			.inFrontOf(AGWorkflowVersion.DRAFT);
 	}
 
 	@Override
