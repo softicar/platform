@@ -13,7 +13,6 @@ import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTrans
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.program.WorkflowAutoTransitionExecutionProgram;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,6 +35,7 @@ public class WorkflowTaskManager {
 			checkConcurrentModificationOfWorkflowItem(oldNodeOfWorkflowItem);
 
 			closeAllTasks();
+			closeAllDelegations();
 			item.setWorkflowNode(nextNode).save();
 			insertTasks();
 			Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
@@ -44,19 +44,27 @@ public class WorkflowTaskManager {
 		}
 	}
 
-	public void closeAllTasks() {
+	private void closeAllTasks() {
 
-		try (DbTransaction transaction = new DbTransaction()) {
-			List<AGWorkflowTask> taskList = AGWorkflowTask.createSelect().where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item)).list();
-			taskList.forEach(task -> task.setClosed(true));
-			AGWorkflowTask.TABLE.saveAll(taskList);
-			AGWorkflowTaskDelegation.TABLE
-				.createSelect()
-				.where(AGWorkflowTaskDelegation.WORKFLOW_TASK.isIn(taskList))
-				.stream()
-				.forEach(delegation -> delegation.setActive(false).save());
-			transaction.commit();
-		}
+		var tasks = AGWorkflowTask.TABLE//
+			.createSelect()
+			.where(AGWorkflowTask.CLOSED.isFalse())
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item))
+			.list();
+		tasks.forEach(task -> task.setClosed(true));
+		AGWorkflowTask.TABLE.saveAll(tasks);
+	}
+
+	private void closeAllDelegations() {
+
+		var delegations = AGWorkflowTaskDelegation.TABLE
+			.createSelect()
+			.where(AGWorkflowTaskDelegation.ACTIVE)
+			.join(AGWorkflowTaskDelegation.WORKFLOW_TASK)
+			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item))
+			.list();
+		delegations.forEach(delegation -> delegation.setActive(false));
+		AGWorkflowTaskDelegation.TABLE.saveAll(delegations);
 	}
 
 	private void checkConcurrentModificationOfWorkflowItem(AGWorkflowNode oldNodeOfWorkflowItem) {
