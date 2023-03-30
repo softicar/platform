@@ -2,12 +2,14 @@ package com.softicar.platform.workflow.module.workflow.version;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;
+import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
+import java.util.Collection;
 import java.util.List;
 
 public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEmfObject<AGWorkflowVersion> {
@@ -94,5 +96,13 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 	public boolean isCurrentVersion() {
 
 		return is(getWorkflow().getCurrentVersion());
+	}
+
+	public static Collection<AGWorkflowVersion> getCurrentVersions() {
+
+		return AGWorkflowVersion.TABLE//
+			.createSelect()
+			.joinReverse(AGWorkflow.CURRENT_VERSION)
+			.list();
 	}
 }

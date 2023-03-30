@@ -52,6 +52,13 @@ public class AGWorkflowTable extends EmfObjectTable<AGWorkflow, AGWorkflowModule
 	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflow> attributes) {
 
 		attributes//
+			.addTransientAttribute(AGWorkflow.ITEM_COUNT_FIELD);
+
+		attributes//
+			.addTransientAttribute(AGWorkflow.ITEM_COUNT_IN_INACTIVE_VERSIONS_FIELD)
+			.setColumnHandlerFactory(WorkflowItemCountInInavticeVersionsColumnHandler::new);
+
+		attributes//
 			.editIndirectEntityAttribute(AGWorkflow.ENTITY_TABLE)
 			.setEntityLoader(() -> AGUuidBasedSourceCodeReferencePoints.getAll(IWorkflowTableReferencePoint.class))
 			.setImmutable(true)
