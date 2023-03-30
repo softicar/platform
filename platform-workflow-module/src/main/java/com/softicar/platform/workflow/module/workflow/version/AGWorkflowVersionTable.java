@@ -2,7 +2,9 @@ package com.softicar.platform.workflow.module.workflow.version;
 
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.emf.action.EmfActionSet;
+import com.softicar.platform.emf.attribute.EmfAttributeReorderer;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -12,6 +14,7 @@ import com.softicar.platform.emf.mapper.IEmfTableRowMapper;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
+import com.softicar.platform.workflow.module.WorkflowCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
@@ -46,6 +49,12 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	public void customizeManagementConfiguraton(EmfManagementConfiguration<AGWorkflowVersion> configuration) {
 
 		configuration.addOrderBy(AGWorkflowVersion.ID, OrderDirection.DESCENDING);
+		configuration.setRowCustomizer(row -> {
+			row.addCssClass(WorkflowCssClasses.WORKFLOW_VERSION_ROW);
+			if (row.getDataRow().isCurrentVersion()) {
+				row.addCssClass(DomCssPseudoClasses.ACTIVE);
+			}
+		});
 	}
 
 	@Override
@@ -91,5 +100,11 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 			.addPlainChangeLogger(AGWorkflowVersionLog.WORKFLOW_VERSION, AGWorkflowVersionLog.TRANSACTION)//
 			.addMapping(AGWorkflowVersion.ROOT_NODE, AGWorkflowVersionLog.ROOT_NODE)
 			.addMapping(AGWorkflowVersion.DRAFT, AGWorkflowVersionLog.DRAFT);
+	}
+
+	@Override
+	public void customizeAttributeOrdering(EmfAttributeReorderer<AGWorkflowVersion> reorderer) {
+
+		reorderer.moveAttribute(AGWorkflowVersion.ROOT_NODE).toBack();
 	}
 }

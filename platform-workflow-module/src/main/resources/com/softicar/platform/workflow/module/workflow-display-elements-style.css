@@ -74,3 +74,8 @@
 	color: var(--ERROR_FONT_COLOR);
 	font-weight: bold;
 }
+
+.WorkflowVersionRow.active {
+	color: var(--SECONDARY_COLOR);
+	font-weight: bold;
+}
