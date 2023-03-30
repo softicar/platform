@@ -6,7 +6,7 @@ import com.softicar.platform.db.runtime.transients.IValueSetter;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import java.util.Set;
 
-public class WorkflowVersionIsCurrentField extends AbstractTransientBooleanField<AGWorkflowVersion> {
+public class WorkflowVersionCurrentVersionField extends AbstractTransientBooleanField<AGWorkflowVersion> {
 
 	@Override
 	public IDisplayString getTitle() {

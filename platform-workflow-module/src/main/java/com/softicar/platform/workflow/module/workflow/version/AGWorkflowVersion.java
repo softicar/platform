@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEmfObject<AGWorkflowVersion> {
 
-	public static final WorkflowVersionIsCurrentField IS_CURRENT_FIELD = new WorkflowVersionIsCurrentField();
+	public static final WorkflowVersionCurrentVersionField CURRENT_VERSION_FIELD = new WorkflowVersionCurrentVersionField();
 	public static final WorkflowVersionHashField HASH_FIELD = new WorkflowVersionHashField();
 	public static final WorkflowVersionItemCountField ITEM_COUNT_FIELD = new WorkflowVersionItemCountField();
 

@@ -66,7 +66,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 		attributes.addTransientAttribute(AGWorkflowVersion.HASH_FIELD);
 		attributes.addTransientAttribute(AGWorkflowVersion.ITEM_COUNT_FIELD);
 		attributes//
-			.addTransientAttribute(AGWorkflowVersion.IS_CURRENT_FIELD)
+			.addTransientAttribute(AGWorkflowVersion.CURRENT_VERSION_FIELD)
 			.setDisplayFactory(EmfBooleanDisplay::new);
 		attributes//
 			.editAttribute(AGWorkflowVersion.DRAFT)
@@ -77,7 +77,7 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 	public void customizeAttributeOrdering(EmfAttributeReorderer<AGWorkflowVersion> reorderer) {
 
 		reorderer//
-			.moveAttribute(AGWorkflowVersion.IS_CURRENT_FIELD)
+			.moveAttribute(AGWorkflowVersion.CURRENT_VERSION_FIELD)
 			.inFrontOf(AGWorkflowVersion.DRAFT);
 	}
 
