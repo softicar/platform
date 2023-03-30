@@ -115,6 +115,7 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 			.createSelect()
 			.where(AGUser.ACTIVE)
 			.where(AGUser.SYSTEM_USER.isFalse())
+			.orderBy(AGUser.ID)
 			.list();
 	}
 
