@@ -15,6 +15,9 @@ public interface WorkflowCssClasses {
 	ICssClass WORKFLOW_NODE_NAME = new CssClass("WorkflowNodeName", WorkflowCssFiles.WORKFLOW_DISPLAY_ELEMENTS_STYLE);
 	ICssClass WORKFLOW_DISPLAY_LINE_PIXEL = new CssClass("WorkflowDisplayLinePixel", WorkflowCssFiles.WORKFLOW_DISPLAY_ELEMENTS_STYLE);
 
+	ICssClass WORKFLOW_ITEM_COUNT_IN_INAVTICE_VERSIONS_CELL =
+			new CssClass("WorkflowItemCountInInavticeVersionsCell", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
+
 	ICssClass WORKFLOW_ITEM_HISTORY_DIV = new CssClass("WorkflowItemHistoryDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
 	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_DATE = new CssClass("WorkflowItemHistoryEntryDate", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);
 	ICssClass WORKFLOW_ITEM_HISTORY_ENTRY_DIV = new CssClass("WorkflowItemHistoryEntryDiv", WorkflowCssFiles.WORKFLOW_ITEM_HISTORY_STYLE);

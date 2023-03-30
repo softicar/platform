@@ -17,7 +17,6 @@ public class WorkflowManagementPage extends AbstractEmfManagementPage<AGWorkflow
 	public IDomNode createContentNode(AGWorkflowModuleInstance moduleInstance) {
 
 		if (AGWorkflow.TABLE.getAuthorizer().getCreationPermission().test(moduleInstance, CurrentUser.get())) {
-
 			var div = new DomDiv();
 			div.appendChild(new WorkflowUploadForm(moduleInstance));
 			div.appendChild(super.createContentNode(moduleInstance));

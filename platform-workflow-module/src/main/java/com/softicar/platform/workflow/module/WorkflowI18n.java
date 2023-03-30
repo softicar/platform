@@ -93,6 +93,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("ist aktuelle Version");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
 		.de("Ist Arbeitsablauf gestartet?");
+	I18n0 ITEMS = new I18n0("Items")//
+		.de("Elemente");
+	I18n0 ITEMS_IN_INACTIVE_VERSIONS = new I18n0("Items in Inactive Versions")//
+		.de("Elemente in inaktiven Versionen");
 	I18n0 MANAGE_WORKFLOW = new I18n0("Manage Workflow")//
 		.de("Arbeitsablauf verwalten");
 	I18n2 MESSAGE_FOR_ITEM_ARG1_AT_ARG2 = new I18n2("Message for Item '%s' at '%s'")//
