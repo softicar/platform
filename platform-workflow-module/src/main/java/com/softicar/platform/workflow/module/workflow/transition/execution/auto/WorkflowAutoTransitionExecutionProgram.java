@@ -1,4 +1,4 @@
-package com.softicar.platform.workflow.module.workflow.transition.program;
+package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
@@ -10,7 +10,6 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionExecutor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +45,7 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 				Log.fverbose("Execution successful.");
 			} catch (Throwable throwable) {
 				Log.fverbose("FAILURE -- see exceptions below");
-				exceptionsCollector.add(throwable);
+				exceptionsCollector.add(new WorkflowAutoTransitionFailedException(throwable, item));
 			}
 		}
 		exceptionsCollector.throwIfNotEmpty();
