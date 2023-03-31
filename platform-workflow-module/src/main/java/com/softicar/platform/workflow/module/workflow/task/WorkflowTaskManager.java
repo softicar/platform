@@ -30,8 +30,7 @@ public class WorkflowTaskManager {
 
 		AGWorkflowNode oldNodeOfWorkflowItem = item.getWorkflowNode();
 
-		try (DbTransaction transaction = new DbTransaction()) {
-
+		try (var transaction = new DbTransaction()) {
 			checkConcurrentModificationOfWorkflowItem(oldNodeOfWorkflowItem);
 
 			closeAllTasks();
@@ -40,6 +39,15 @@ public class WorkflowTaskManager {
 			insertTasks();
 			Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
 
+			transaction.commit();
+		}
+	}
+
+	public void closeAllTasksAndDelegations() {
+
+		try (var transaction = new DbTransaction()) {
+			closeAllTasks();
+			closeAllDelegations();
 			transaction.commit();
 		}
 	}

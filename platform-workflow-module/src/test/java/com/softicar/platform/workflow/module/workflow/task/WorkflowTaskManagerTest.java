@@ -39,7 +39,7 @@ public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
 	}
 
 	@Test
-	public void test() {
+	public void testSetNextNodeAndGenerateTasks() {
 
 		// setup permissions
 		insertPermissionA(userX, testObject);
@@ -61,7 +61,25 @@ public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
 			.collect(Collectors.toList());
 		assertEquals("[x closed, y closed, x open, z open]", tasks.toString());
 
-		// assert all delegations were closed
+		// assert all existing delegations were closed
+		assertFalse(assertOne(AGWorkflowTaskDelegation.TABLE.loadAll()).isActive());
+	}
+
+	@Test
+	public void testCloseAllTasksAndDelegations() {
+
+		// insert tasks and delegations
+		insertWorkflowTaskOpen(userX, item);
+		insertWorkflowTaskDelegation(insertWorkflowTaskOpen(userY, item), userZ);
+
+		new WorkflowTaskManager(item).closeAllTasksAndDelegations();
+
+		// assert all existing tasks were closed
+		var tasks = AGWorkflowTask.TABLE.loadAll();
+		assertCount(2, tasks);
+		tasks.forEach(task -> assertTrue("Expected task to be closed: %s".formatted(task.toString()), task.isClosed()));
+
+		// assert all existing delegations were closed
 		assertFalse(assertOne(AGWorkflowTaskDelegation.TABLE.loadAll()).isActive());
 	}
 }
