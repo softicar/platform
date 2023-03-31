@@ -258,7 +258,7 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 DAYS = new I18n0("Days")//
 		.de("Tage");
 	I18n0 DAYS_SINCE_LAST_LOGIN = new I18n0("Days Since Last Login")//
-		.de("Tage seit letzten Einloggen");
+		.de("Tage seit letztem Login");
 	I18n0 DBMS_CONFIGURATION = new I18n0("DBMS Configuration")//
 		.de("DBMS-Konfiguration");
 	I18n0 DBMS_CONFIGURATION_LOG = new I18n0("DBMS Configuration Log")//
