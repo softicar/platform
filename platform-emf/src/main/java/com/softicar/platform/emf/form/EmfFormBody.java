@@ -95,7 +95,7 @@ class EmfFormBody<R extends IEmfTableRow<R, ?>> extends DomDiv implements IEmfFo
 	public void cancelEditMode() {
 
 		if (upperPart.isEditMode()) {
-			if (form.isDirectEditingEnabled() || creationMode) {
+			if (creationMode) {
 				form.closeFrame();
 			} else {
 				enterViewMode();
