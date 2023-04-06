@@ -76,7 +76,7 @@ public class WorkflowTransitionActionExecutor {
 			transition.assertInSourceNode(item, () -> new SofticarUserException(WorkflowI18n.THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE));
 			storeTransitionExecutionForAllRelevantTasks();
 
-			if (new WorkflowTransitionRequiredVotesEvaluator(transition, item).hasEnoughVotes()) {
+			if (!transition.isVotingTransition() || new WorkflowTransitionRequiredVotesEvaluator(transition, item).hasEnoughVotes()) {
 				List<IDisplayString> errorMessages = transition//
 					.getTargetNode()
 					.getAllActiveWorkflowNodePreconditions()
