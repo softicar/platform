@@ -59,7 +59,6 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 
 		configuration.setScopeField(AGWorkflowVersion.WORKFLOW);
 		configuration.setCreationPredicate(WorkflowPredicates.WORKFLOW_VERSION_PRESENT.not());
-		configuration.setEditPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.not());
 		configuration.setIcon(WorkflowImages.WORKFLOW);
 		configuration.addCommitHook(WorkflowVersionCommitHook::new);
 	}

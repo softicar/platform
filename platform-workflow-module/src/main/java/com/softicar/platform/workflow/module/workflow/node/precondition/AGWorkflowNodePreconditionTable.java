@@ -11,7 +11,6 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 
 public class AGWorkflowNodePreconditionTable extends EmfObjectTable<AGWorkflowNodePrecondition, AGWorkflowNode> {
@@ -48,17 +47,6 @@ public class AGWorkflowNodePreconditionTable extends EmfObjectTable<AGWorkflowNo
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNodePrecondition, Integer, AGWorkflowNode> configuration) {
 
 		configuration.setScopeField(AGWorkflowNodePrecondition.WORKFLOW_NODE);
-		configuration
-			.setCreationPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_FINALIZED
-					.not()
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_VERSION, AGWorkflowNode::getWorkflowVersion)));
-		configuration
-			.setEditPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_FINALIZED
-					.not()
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_VERSION, it -> it.getWorkflowNode().getWorkflowVersion())));
-
 		configuration.addValidator(WorkflowNodePreconditionValidator::new);
 	}
 

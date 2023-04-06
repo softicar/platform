@@ -36,8 +36,6 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNode, Integer, AGWorkflowVersion> configuration) {
 
 		configuration.setScopeField(AGWorkflowNode.WORKFLOW_VERSION);
-		configuration.setCreationPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.not());
-		configuration.setEditPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.of(AGWorkflowNode.WORKFLOW_VERSION).not());
 		configuration.addValidator(WorkflowNodeValidator::new);
 		configuration.setIcon(WorkflowImages.WORKFLOW_NODE);
 	}
@@ -56,7 +54,7 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 			.setPredicateMandatory(EmfPredicates.always());
 		attributes//
 			.editAttribute(AGWorkflowNode.ACTIVE)
-			.setPredicateEditable(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.of(AGWorkflowNode.WORKFLOW_VERSION).not());
+			.setPredicateEditable(WorkflowPredicates.WORKFLOW_VERSION_DRAFT.of(AGWorkflowNode.WORKFLOW_VERSION));
 	}
 
 	@Override

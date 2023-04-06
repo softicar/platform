@@ -11,9 +11,6 @@ public interface WorkflowPredicates {
 		WorkflowI18n.DRAFT,
 		AGWorkflowVersion::isDraft);
 
-	// FIXME strange, not-draft implies finalized?
-	IEmfPredicate<AGWorkflowVersion> WORKFLOW_VERSION_FINALIZED = WORKFLOW_VERSION_DRAFT.not();
-
 	IEmfPredicate<AGWorkflow> WORKFLOW_VERSION_PRESENT = new EmfPredicate<>(//
 		WorkflowI18n.WORKFLOW_VERSION_PRESENT,
 		it -> !it.getWorkflowVersions().isEmpty());
