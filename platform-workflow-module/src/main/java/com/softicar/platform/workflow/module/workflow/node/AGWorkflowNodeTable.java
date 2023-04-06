@@ -11,7 +11,6 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
@@ -52,9 +51,6 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 		attributes//
 			.editAttribute(AGWorkflowNode.Y_COORDINATE)
 			.setPredicateMandatory(EmfPredicates.always());
-		attributes//
-			.editAttribute(AGWorkflowNode.ACTIVE)
-			.setPredicateEditable(WorkflowPredicates.WORKFLOW_VERSION_DRAFT.of(AGWorkflowNode.WORKFLOW_VERSION));
 	}
 
 	@Override

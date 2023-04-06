@@ -74,6 +74,9 @@ public class AGWorkflowVersionTable extends EmfObjectTable<AGWorkflowVersion, AG
 		attributes//
 			.editAttribute(AGWorkflowVersion.DRAFT)
 			.setPredicateEditable(EmfPredicates.never());
+		attributes//
+			.editAttribute(AGWorkflowVersion.ROOT_NODE)
+			.setPredicateEditable(WorkflowPredicates.WORKFLOW_VERSION_DRAFT);
 	}
 
 	@Override
