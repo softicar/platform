@@ -12,7 +12,6 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.image.AGWorkflowIcon;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.transition.side.effect.WorkflowTransitionSideEffects;
@@ -46,8 +45,6 @@ public class AGWorkflowTransitionTable extends EmfObjectTable<AGWorkflowTransiti
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowTransition, Integer, AGWorkflowVersion> configuration) {
 
 		configuration.setScopeField(AGWorkflowTransition.WORKFLOW_VERSION);
-		configuration.setCreationPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.not());
-		configuration.setEditPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.of(AGWorkflowTransition.WORKFLOW_VERSION).not());
 		configuration.addValidator(WorkflowTransitionValidator::new);
 		configuration.setIcon(WorkflowImages.WORKFLOW_TRANSITION);
 	}

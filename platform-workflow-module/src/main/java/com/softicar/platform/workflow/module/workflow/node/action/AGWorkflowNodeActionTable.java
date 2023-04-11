@@ -12,7 +12,6 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.permission.AGWorkflowNodeActionPermission;
 
@@ -50,17 +49,6 @@ public class AGWorkflowNodeActionTable extends EmfObjectTable<AGWorkflowNodeActi
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNodeAction, Integer, AGWorkflowNode> configuration) {
 
 		configuration.setScopeField(AGWorkflowNodeAction.WORKFLOW_NODE);
-		configuration
-			.setCreationPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_FINALIZED
-					.not()
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_VERSION, AGWorkflowNode::getWorkflowVersion)));
-		configuration
-			.setEditPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_FINALIZED
-					.not()
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_VERSION, it -> it.getWorkflowNode().getWorkflowVersion())));
-
 		configuration.addValidator(WorkflowNodeActionValidator::new);
 	}
 
