@@ -15,7 +15,6 @@ import com.softicar.platform.emf.object.table.IEmfObjectTable;
 import com.softicar.platform.workflow.module.WorkflowCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.management.display.element.AbstractDisplayElement;
 import com.softicar.platform.workflow.module.workflow.management.display.element.WorkflowEndCircleDisplayElement;
 import com.softicar.platform.workflow.module.workflow.management.display.element.WorkflowNodeDisplayElement;
@@ -47,8 +46,7 @@ public class WorkflowVersionManagementDiv extends DomDiv {
 	private void repaint() {
 
 		removeChildren();
-		if (!WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.test(workflowVersion)
-				&& WorkflowPermissions.ADMINISTRATION.test(workflowVersion.getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
+		if (WorkflowPermissions.ADMINISTRATION.test(workflowVersion.getWorkflow().getModuleInstance(), CurrentBasicUser.get())) {
 			var actionBar = appendChild(new DomActionBar());
 			actionBar.appendChild(new CreateEntityButton<>(AGWorkflowNode.TABLE, WorkflowI18n.ADD_NEW_NODE));
 			actionBar.appendChild(new CreateEntityButton<>(AGWorkflowTransition.TABLE, WorkflowI18n.ADD_NEW_TRANSITION));

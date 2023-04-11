@@ -16,8 +16,10 @@ import org.junit.Test;
 public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWorkflowTest {
 
 	private final AGWorkflowNode sourceNode;
-	private final AGWorkflowNode targetNode;
-	private final AGWorkflowTransition transition;
+	private final AGWorkflowNode votingNode;
+	private final AGWorkflowNode nonVotingNode;
+	private final AGWorkflowTransition votingTransition;
+	private final AGWorkflowTransition nonVotingTransition;
 	private final AGWorkflowItem workflowItem;
 	private final WorkflowTestObject workflowObject;
 	private final List<SideEffectExecution> sideEffectExecutions;
@@ -25,47 +27,66 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	public WorkflowTransitionActionExecutorTest() {
 
 		this.sourceNode = rootNode;
-		this.targetNode = insertWorkflowNode(workflowVersion, "Next Node");
-		this.transition = insertWorkflowTransition("Transition", sourceNode, targetNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
+		this.votingNode = insertWorkflowNode(workflowVersion, "Voting Node");
+		this.nonVotingNode = insertWorkflowNode(workflowVersion, "Non Voting Node");
+		this.votingTransition = insertWorkflowTransition("Transition", sourceNode, votingNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
+		this.nonVotingTransition = insertWorkflowTransition("Transition", sourceNode, nonVotingNode, "1", true, WorkflowTestObjectTable.PERMISSION_B);
 		this.workflowItem = insertWorkflowItem(sourceNode);
 		this.workflowObject = insertWorkflowTestObject("Workflow Test Object", workflowItem);
 		this.sideEffectExecutions = new ArrayList<>();
 
 		// setup side-effect execution
-		transition.setSideEffect(WorkflowTransitionTestSideEffect.class);
+		votingTransition.setSideEffect(WorkflowTransitionTestSideEffect.class);
+		nonVotingTransition.setSideEffect(WorkflowTransitionTestSideEffect.class);
 		WorkflowTransitionTestSideEffect.setConsumer(this::addSideEffectExecution);
 	}
 
 	@Test
-	public void testSideEffectExecution() {
+	public void testSideEffectWithNonVotingTransition() {
 
-		var user1 = insertUserPermissionAndTask("User #1");
-		var user2 = insertUserPermissionAndTask("User #2");
-		var user3 = insertUserPermissionAndTask("User #3");
-
-		new WorkflowTransitionActionExecutor(workflowItem, transition, user1).execute();
-		assertExecutedSideEffects(0);
-
-		new WorkflowTransitionActionExecutor(workflowItem, transition, user2).execute();
-		assertExecutedSideEffects(0);
-
-		new WorkflowTransitionActionExecutor(workflowItem, transition, user3).execute();
+		var user1 = insertUserPermissionBWithoutTask("User #1");
+		new WorkflowTransitionActionExecutor(workflowItem, nonVotingTransition, user1).execute();
 		assertExecutedSideEffects(1);
 
 		// assert proper side-effect execution
 		var execution = assertOne(sideEffectExecutions);
 		execution.assertWorkflowObject(workflowObject);
-		execution.assertWorkflowTransition(transition);
-		execution.assertWorkflowNode(targetNode);
+		execution.assertWorkflowTransition(nonVotingTransition);
+		execution.assertWorkflowNode(nonVotingNode);
 
-		assertSame(targetNode, workflowItem.getWorkflowNode());
+		assertSame(nonVotingNode, workflowItem.getWorkflowNode());
+	}
+
+	@Test
+	public void testSideEffectExecution() {
+
+		var user1 = insertUserPermissionAWithTask("User #1");
+		var user2 = insertUserPermissionAWithTask("User #2");
+		var user3 = insertUserPermissionAWithTask("User #3");
+
+		new WorkflowTransitionActionExecutor(workflowItem, votingTransition, user1).execute();
+		assertExecutedSideEffects(0);
+
+		new WorkflowTransitionActionExecutor(workflowItem, votingTransition, user2).execute();
+		assertExecutedSideEffects(0);
+
+		new WorkflowTransitionActionExecutor(workflowItem, votingTransition, user3).execute();
+		assertExecutedSideEffects(1);
+
+		// assert proper side-effect execution
+		var execution = assertOne(sideEffectExecutions);
+		execution.assertWorkflowObject(workflowObject);
+		execution.assertWorkflowTransition(votingTransition);
+		execution.assertWorkflowNode(votingNode);
+
+		assertSame(votingNode, workflowItem.getWorkflowNode());
 	}
 
 	@Test
 	public void testSideEffectExecutionWithExceptionOnSideEffect() {
 
 		var exceptionMessage = "Intentional exception for side-effect.";
-		var user = insertUserPermissionAndTask("User");
+		var user = insertUserPermissionAWithTask("User");
 
 		// setup throwing side-effect
 		WorkflowTransitionTestSideEffect.setConsumer((object, transition) -> {
@@ -74,7 +95,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 
 		// try to execute transition
 		assertExceptionMessage(exceptionMessage, () -> {
-			new WorkflowTransitionActionExecutor(workflowItem, transition, user).execute();
+			new WorkflowTransitionActionExecutor(workflowItem, votingTransition, user).execute();
 		});
 
 		assertSame(sourceNode, workflowItem.getWorkflowNode());
@@ -86,17 +107,17 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 	public void testSideEffectExecutionWithExceptionOnPreconditionTest() {
 
 		var exceptionMessage = "Intentional exception for pre-condition.";
-		var user = insertUserPermissionAndTask("User");
+		var user = insertUserPermissionAWithTask("User");
 
 		// setup throwing precondition
-		insertWorkflowNodePrecondition(targetNode, WorkflowNodeTestPrecondition.class);
+		insertWorkflowNodePrecondition(votingNode, WorkflowNodeTestPrecondition.class);
 		WorkflowNodeTestPrecondition.setPredicate((object) -> {
 			throw new RuntimeException(exceptionMessage);
 		});
 
 		// try to execute transition
 		assertExceptionMessage(exceptionMessage, () -> {
-			new WorkflowTransitionActionExecutor(workflowItem, transition, user).execute();
+			new WorkflowTransitionActionExecutor(workflowItem, votingTransition, user).execute();
 		});
 
 		assertSame(sourceNode, workflowItem.getWorkflowNode());
@@ -107,11 +128,18 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 
 	// ------------------------------ private ------------------------------ //
 
-	private AGUser insertUserPermissionAndTask(String username) {
+	private AGUser insertUserPermissionAWithTask(String username) {
 
 		var user = insertUser(username);
 		insertPermissionA(user, workflowObject);
 		insertWorkflowTaskOpen(user, workflowItem);
+		return user;
+	}
+
+	private AGUser insertUserPermissionBWithoutTask(String username) {
+
+		var user = insertUser(username);
+		insertPermissionB(user, workflowObject);
 		return user;
 	}
 

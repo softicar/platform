@@ -11,7 +11,6 @@ import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
@@ -36,8 +35,6 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNode, Integer, AGWorkflowVersion> configuration) {
 
 		configuration.setScopeField(AGWorkflowNode.WORKFLOW_VERSION);
-		configuration.setCreationPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.not());
-		configuration.setEditPredicate(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.of(AGWorkflowNode.WORKFLOW_VERSION).not());
 		configuration.addValidator(WorkflowNodeValidator::new);
 		configuration.setIcon(WorkflowImages.WORKFLOW_NODE);
 	}
@@ -54,9 +51,6 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 		attributes//
 			.editAttribute(AGWorkflowNode.Y_COORDINATE)
 			.setPredicateMandatory(EmfPredicates.always());
-		attributes//
-			.editAttribute(AGWorkflowNode.ACTIVE)
-			.setPredicateEditable(WorkflowPredicates.WORKFLOW_VERSION_FINALIZED.of(AGWorkflowNode.WORKFLOW_VERSION).not());
 	}
 
 	@Override
