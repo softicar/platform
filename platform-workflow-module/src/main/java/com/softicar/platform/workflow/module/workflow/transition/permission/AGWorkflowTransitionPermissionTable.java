@@ -15,7 +15,6 @@ import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
-import com.softicar.platform.workflow.module.workflow.WorkflowPredicates;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.WorkflowTransitionPredicates;
 import java.util.Collection;
@@ -55,17 +54,7 @@ public class AGWorkflowTransitionPermissionTable extends EmfObjectTable<AGWorkfl
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowTransitionPermission, Integer, AGWorkflowTransition> configuration) {
 
 		configuration.setScopeField(AGWorkflowTransitionPermission.TRANSITION);
-		//TODO .not() wouldn't work on predicate WORKFLOW_VERSION_FINALIZED, because it then returns predicate of type object when using a IEmfTableRowMapper
-		configuration
-			.setEditPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_DRAFT
-					.of(IEmfTableRowMapper.nonOptional(WorkflowI18n.WORKFLOW_VERSION, it -> it.getTransition().getWorkflowVersion())));
-		configuration//
-			.setCreationPredicate(
-				WorkflowPredicates.WORKFLOW_VERSION_FINALIZED
-					.of(AGWorkflowTransition.WORKFLOW_VERSION)
-					.not()
-					.and(WorkflowTransitionPredicates.AUTO_TRANSITION.not()));
+		configuration.setCreationPredicate(WorkflowTransitionPredicates.AUTO_TRANSITION.not());
 	}
 
 	@Override
