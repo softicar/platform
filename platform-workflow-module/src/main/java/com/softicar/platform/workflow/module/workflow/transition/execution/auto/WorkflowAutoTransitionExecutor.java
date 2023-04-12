@@ -10,34 +10,55 @@ import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class WorkflowAutoTransitionExecutor {
 
 	private final AGWorkflowItem item;
-	private final List<AGWorkflowTransition> transitions;
 
-	public WorkflowAutoTransitionExecutor(AGWorkflowItem item, List<AGWorkflowTransition> transitions) {
+	public WorkflowAutoTransitionExecutor(AGWorkflowItem item) {
 
-		this.item = item;
-		this.transitions = transitions;
+		this.item = Objects.requireNonNull(item);
 	}
 
-	public void evaluateAndExecute() {
+	/**
+	 * Executes an automatic {@link AGWorkflowTransition} for the
+	 * {@link AGWorkflowItem}.
+	 * <p>
+	 * Throws {@link SofticarUserException} if there is more than one
+	 * {@link AGWorkflowTransition} with a valid precondition.
+	 * <p>
+	 * Returns <i>true</i> if there is only one {@link AGWorkflowTransition}
+	 * with a valid precondition, and if that transition was successfully
+	 * executed.
+	 * <p>
+	 * Returns <i>false</i> otherwise.
+	 *
+	 * @param transitions
+	 *            the potential transitions to execute (never <i>null</i>)
+	 * @return <i>true</i> if a sole automatic {@link AGWorkflowTransition} was
+	 *         successfully executed; <i>false</i> otherwise
+	 */
+	public boolean evaluateAndExecute(Collection<AGWorkflowTransition> transitions) {
 
+		Objects.requireNonNull(transitions);
+		boolean executed = false;
 		try (DbTransaction transaction = new DbTransaction()) {
 			boolean reloaded = item.reloadForUpdate();
 			if (!reloaded) {
 				Log.fwarning("WARNING: Workflow item %s could not be reloaded.", item.getId());
-			} else if (allTransitionsHaveExpectedSourceNode()) {
-				loadAndExecuteTransitions();
+			} else if (allTransitionsHaveExpectedSourceNode(transitions)) {
+				executed = loadAndExecuteTransitions(transitions);
 			}
 			transaction.commit();
 		}
+		return executed;
 	}
 
-	private void loadAndExecuteTransitions() {
+	private boolean loadAndExecuteTransitions(Collection<AGWorkflowTransition> transitions) {
 
 		List<AGWorkflowTransition> validTransitions = transitions//
 			.stream()
@@ -64,15 +85,16 @@ public class WorkflowAutoTransitionExecutor {
 			transition.executeSideEffect(item);
 			new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(targetNode);
 			new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
+			return true;
 		} else {
 			Log.fverbose("No executable auto transition found.");
+			return false;
 		}
 	}
 
-	private boolean allTransitionsHaveExpectedSourceNode() {
+	private boolean allTransitionsHaveExpectedSourceNode(Collection<AGWorkflowTransition> transitions) {
 
 		for (AGWorkflowTransition transition: transitions) {
-
 			AGWorkflowNode sourceNode = transition.getSourceNode();
 			if (!sourceNode.equals(item.getWorkflowNode())) {
 				Log
