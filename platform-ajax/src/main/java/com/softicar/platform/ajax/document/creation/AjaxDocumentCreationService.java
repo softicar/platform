@@ -44,6 +44,8 @@ public class AjaxDocumentCreationService extends AbstractAjaxDocumentService {
 		document.getEngine().registerCssResourceLink(AjaxCssFiles.AJAX_STYLE.getResource());
 		document.getEngine().registerCssResourceLink(DomCssFiles.DOM_STYLE.getResource());
 
+		document.getDeferredInitializationController().handleAllAppended();
+
 		document.finishRequestHandling(statementList);
 	}
 
