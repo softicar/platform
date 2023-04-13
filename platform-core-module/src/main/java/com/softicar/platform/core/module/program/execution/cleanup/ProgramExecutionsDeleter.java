@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author Thees Koester
  */
-public class ProgramExecutionsDeleter {
+class ProgramExecutionsDeleter {
 
 	private final int throttlingMilliseconds;
 	private final Day referenceDay;

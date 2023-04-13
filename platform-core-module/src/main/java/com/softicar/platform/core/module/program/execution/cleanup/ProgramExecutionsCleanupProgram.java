@@ -27,7 +27,6 @@ public class ProgramExecutionsCleanupProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		new ProgramExecutionsCleaner().cleanupOrphanedRecords();
 		new ProgramExecutionsDeleter(THROTTLING_MILLISECONDS).delete();
 	}
 

@@ -1,10 +1,9 @@
-package com.softicar.platform.core.module.program.execution.cleanup;
+package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.TestProgram;
-import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.CurrentUser;
@@ -22,21 +21,24 @@ public class ProgramExecutionsCleanerTest extends AbstractCoreTest {
 	@Test
 	public void testOrphanedExecutionCleanup() {
 
-		AGProgramExecution activeExecution = insertProgramExecution();
-		insertProgramState(program, activeExecution);
+		AGProgramExecution executionWithState = insertProgramExecution();
+		insertProgramState(program, executionWithState);
+		assertFalse(executionWithState.isFailed());
+		assertNull(executionWithState.getTerminatedAt());
 
-		AGProgramExecution orphanedExecution = insertProgramExecution();
-		assertFalse(orphanedExecution.isFailed());
-		assertNull(orphanedExecution.getTerminatedAt());
+		AGProgramExecution executionWithoutState = insertProgramExecution();
+		assertFalse(executionWithoutState.isFailed());
+		assertNull(executionWithoutState.getTerminatedAt());
 
-		new ProgramExecutionsCleaner().cleanupOrphanedRecords();
+		new ProgramExecutionsCleaner().cleanupOrphanedExecutions();
 
-		assertTrue(orphanedExecution.isFailed());
-		assertNotNull(orphanedExecution.getTerminatedAt());
-		assertOne(AGSystemEvent.TABLE.loadAll());
+		assertTrue(executionWithoutState.isFailed());
+		assertNotNull(executionWithoutState.getTerminatedAt());
 
-		assertFalse(activeExecution.isFailed());
-		assertNull(activeExecution.getTerminatedAt());
+		assertTrue(executionWithState.isFailed());
+		assertNotNull(executionWithState.getTerminatedAt());
+
+		assertCount(2, AGSystemEvent.TABLE.loadAll());
 	}
 
 	private AGProgram insertProgram() {
