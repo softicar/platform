@@ -14,6 +14,17 @@ package com.softicar.platform.core.module.daemon;
 public interface IDaemon {
 
 	/**
+	 * Executed once before the daemon's main loop is entered, i.e. before the
+	 * very first call to {@link #runIteration()}.
+	 * <p>
+	 * Does nothing by default.
+	 */
+	default void setup() {
+
+		// nothing
+	}
+
+	/**
 	 * Executes a single iteration of the daemon's main loop.
 	 * <p>
 	 * Implementations must call {@link Thread#sleep(long)}, to throttle
@@ -25,7 +36,8 @@ public interface IDaemon {
 	void runIteration();
 
 	/**
-	 * Executes cleanup operations after the daemon's main loop has terminated.
+	 * Executed once after the daemon's main loop has terminated, i.e. after the
+	 * very last call to {@link #runIteration()}.
 	 * <p>
 	 * Does nothing by default.
 	 */

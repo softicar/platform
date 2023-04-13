@@ -24,6 +24,7 @@ class WatchedDaemonRunnable implements Runnable {
 
 		try (LogOutputScope scope = new LogOutputScope(manager::log)) {
 			try {
+				daemon.setup();
 				while (manager.isIterationEnabled()) {
 					manager.updateHeartbeat();
 					daemon.runIteration();
