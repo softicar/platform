@@ -14,8 +14,8 @@ package com.softicar.platform.core.module.daemon;
 public interface IDaemon {
 
 	/**
-	 * Executes setup operations to perform before entering the daemon's main
-	 * loop.
+	 * Executed once before the daemon's main loop is entered, i.e. before the
+	 * very first call to {@link #runIteration()}.
 	 * <p>
 	 * Does nothing by default.
 	 */
@@ -36,7 +36,8 @@ public interface IDaemon {
 	void runIteration();
 
 	/**
-	 * Executes cleanup operations after the daemon's main loop has terminated.
+	 * Executed once after the daemon's main loop has terminated, i.e. after the
+	 * very last call to {@link #runIteration()}.
 	 * <p>
 	 * Does nothing by default.
 	 */
