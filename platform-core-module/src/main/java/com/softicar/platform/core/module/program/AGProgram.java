@@ -125,7 +125,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	}
 
 	/**
-	 * @deprecated user {@link #resetState()} instead
+	 * @deprecated use {@link #resetState()} instead
 	 */
 	@Deprecated
 	public void resetAll() {
