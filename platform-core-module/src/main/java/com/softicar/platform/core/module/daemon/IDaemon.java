@@ -14,6 +14,17 @@ package com.softicar.platform.core.module.daemon;
 public interface IDaemon {
 
 	/**
+	 * Executes setup operations to perform before entering the daemon's main
+	 * loop.
+	 * <p>
+	 * Does nothing by default.
+	 */
+	default void setup() {
+
+		// nothing
+	}
+
+	/**
 	 * Executes a single iteration of the daemon's main loop.
 	 * <p>
 	 * Implementations must call {@link Thread#sleep(long)}, to throttle
