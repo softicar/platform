@@ -114,7 +114,7 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 	 * {@link AGProgram#QUEUED_BY} and {@link AGProgram#ABORT_REQUESTED} to
 	 * their respective default values.
 	 */
-	public void resetAll() {
+	public void resetState() {
 
 		getState()//
 			.setCurrentExecution(null)
@@ -122,6 +122,15 @@ public class AGProgram extends AGProgramGenerated implements IEmfObject<AGProgra
 			.setQueuedBy(null)
 			.setAbortRequested(false)
 			.save();
+	}
+
+	/**
+	 * @deprecated use {@link #resetState()} instead
+	 */
+	@Deprecated
+	public void resetAll() {
+
+		resetState();
 	}
 
 	/**
