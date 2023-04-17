@@ -16,13 +16,6 @@ public class WorkflowTransitionValidator extends AbstractEmfValidator<AGWorkflow
 	@Override
 	protected void validate() {
 
-		// FIXME this is completely awkward; this test tries to prevent modifications to a non-draft workflow through validation?!
-		if (tableRow.impermanent() || tableRow.dataChanged()) {
-			if (!tableRow.getWorkflowVersion().isDraft()) {
-				addError(AGWorkflowTransition.WORKFLOW_VERSION, WorkflowI18n.WORKFLOW_VERSION_FINALIZED);
-			}
-		}
-
 		if (!tableRow.isAutoTransition() && tableRow.getRequiredVotes() != null) {
 			if (!new WorkflowTransitionRequiredVotesParser(tableRow).isValid()) {
 				addError(AGWorkflowTransition.REQUIRED_VOTES, WorkflowI18n.REQUIRED_VOTES_NOT_VALID);

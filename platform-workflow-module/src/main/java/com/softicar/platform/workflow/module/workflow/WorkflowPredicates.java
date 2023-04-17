@@ -7,10 +7,6 @@ import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public interface WorkflowPredicates {
 
-	IEmfPredicate<AGWorkflowVersion> WORKFLOW_VERSION_DRAFT = new EmfPredicate<>(//
-		WorkflowI18n.DRAFT,
-		AGWorkflowVersion::isDraft);
-
 	IEmfPredicate<AGWorkflow> WORKFLOW_VERSION_PRESENT = new EmfPredicate<>(//
 		WorkflowI18n.WORKFLOW_VERSION_PRESENT,
 		it -> !it.getWorkflowVersions().isEmpty());
