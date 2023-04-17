@@ -49,7 +49,6 @@ public class AGWorkflowNodeActionTable extends EmfObjectTable<AGWorkflowNodeActi
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNodeAction, Integer, AGWorkflowNode> configuration) {
 
 		configuration.setScopeField(AGWorkflowNodeAction.WORKFLOW_NODE);
-		configuration.addValidator(WorkflowNodeActionValidator::new);
 	}
 
 	@Override

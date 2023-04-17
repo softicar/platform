@@ -35,7 +35,6 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNode, Integer, AGWorkflowVersion> configuration) {
 
 		configuration.setScopeField(AGWorkflowNode.WORKFLOW_VERSION);
-		configuration.addValidator(WorkflowNodeValidator::new);
 		configuration.setIcon(WorkflowImages.WORKFLOW_NODE);
 	}
 
