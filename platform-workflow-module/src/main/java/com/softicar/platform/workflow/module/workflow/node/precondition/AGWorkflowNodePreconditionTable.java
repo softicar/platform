@@ -47,7 +47,6 @@ public class AGWorkflowNodePreconditionTable extends EmfObjectTable<AGWorkflowNo
 	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowNodePrecondition, Integer, AGWorkflowNode> configuration) {
 
 		configuration.setScopeField(AGWorkflowNodePrecondition.WORKFLOW_NODE);
-		configuration.addValidator(WorkflowNodePreconditionValidator::new);
 	}
 
 	@Override
