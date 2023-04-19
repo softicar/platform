@@ -5,15 +5,12 @@ import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.core.module.program.IProgram;
-import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
-import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.TreeMap;
 
 /**
  * Executes all possible auto-transitions on all workflow items.
@@ -25,7 +22,7 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 	public void executeProgram() {
 
 		Log.fverbose("Looking for items with possible auto transitions.");
-		var itemToTransitionsMap = loadItemsAndTransitionsToProcess();
+		var itemToTransitionsMap = new WorkflowAutoTransitionsLoader().loadTransitionsByItem();
 
 		if (itemToTransitionsMap.isEmpty()) {
 			Log.fverbose("No items with auto transitions found.");
@@ -35,13 +32,13 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 		}
 	}
 
-	private void executeAutoTransitions(TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> itemToTransitionsMap) {
+	private void executeAutoTransitions(Map<AGWorkflowItem, List<AGWorkflowTransition>> itemToTransitionsMap) {
 
-		ExceptionsCollector exceptionsCollector = new ExceptionsCollector();
+		var exceptionsCollector = new ExceptionsCollector();
 		for (AGWorkflowItem item: itemToTransitionsMap.keySet()) {
 			try {
 				Log.fverbose("Evaluating auto transition for %s.", item.toDisplayWithoutId());
-				new WorkflowAutoTransitionExecutor(item, itemToTransitionsMap.get(item)).evaluateAndExecute();
+				new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(itemToTransitionsMap.get(item));
 				Log.fverbose("Execution successful.");
 			} catch (Throwable throwable) {
 				Log.fverbose("FAILURE -- see exceptions below");
@@ -49,25 +46,6 @@ public class WorkflowAutoTransitionExecutionProgram implements IProgram {
 			}
 		}
 		exceptionsCollector.throwIfNotEmpty();
-	}
-
-	private TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> loadItemsAndTransitionsToProcess() {
-
-		TreeMap<AGWorkflowItem, List<AGWorkflowTransition>> itemToTransitionsMap = new TreeMap<>();
-		Sql//
-			.from(AGWorkflowItem.TABLE)
-			.select(AGWorkflowItem.TABLE)
-			.join(AGWorkflowItem.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ACTIVE)
-			.joinReverse(AGWorkflowTransition.SOURCE_NODE)
-			.where(AGWorkflowTransition.AUTO_TRANSITION)
-			.where(AGWorkflowTransition.ACTIVE)
-			.select(AGWorkflowTransition.TABLE)
-			.forEach(
-				it -> itemToTransitionsMap//
-					.computeIfAbsent(it.get0(), dummy -> new ArrayList<>())
-					.add(it.get1()));
-		return itemToTransitionsMap;
 	}
 
 	@Override

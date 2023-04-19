@@ -34,6 +34,22 @@ public interface IWorkflowableObject<R extends IEmfObject<R>> extends IEmfObject
 		return getWorkflowItem() != null;
 	}
 
+	/**
+	 * Executes the longest possible cascade of auto transitions for the
+	 * {@link AGWorkflowItem}.
+	 * <p>
+	 * If this {@link IWorkflowableObject} is not associated with a
+	 * {@link AGWorkflowItem}, nothing will happen.
+	 *
+	 * @see #getWorkflowItem()
+	 */
+	default void executeAllAutoTransitions() {
+
+		Optional//
+			.ofNullable(getWorkflowItem())
+			.ifPresent(AGWorkflowItem::executeAllAutoTransitions);
+	}
+
 	Boolean isActive();
 
 	R setWorkflowItem(AGWorkflowItem item);

@@ -10,6 +10,7 @@ import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksLoader;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionCascadedExecutor;
 import java.util.Collection;
 import java.util.Set;
 
@@ -49,6 +50,15 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	public Collection<Set<AGWorkflowTransitionExecution>> loadTransitionExecutionSets() {
 
 		return loadTransitionExecutionMap().getSets();
+	}
+
+	/**
+	 * Executes the longest possible cascade of auto transitions for this
+	 * {@link AGWorkflowItem}.
+	 */
+	public void executeAllAutoTransitions() {
+
+		new WorkflowAutoTransitionCascadedExecutor(this).evaluateAndExecuteCascaded();
 	}
 
 	private SetMap<AGWorkflowTransition, AGWorkflowTransitionExecution> loadTransitionExecutionMap() {
