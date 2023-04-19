@@ -14,6 +14,7 @@ import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnu
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
+import com.softicar.platform.core.module.program.execution.ProgramExecutionsCleaner;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
 import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -42,7 +43,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	@Override
 	public void setup() {
 
-		AGProgram.TABLE.loadAll().forEach(AGProgram::resetState);
+		new ProgramExecutionsCleaner().cleanupOrphanedExecutions();
 	}
 
 	@Override
