@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program.execution.cleanup;
+package com.softicar.platform.core.module.program.execution.deleter;
 
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
@@ -19,12 +19,12 @@ import java.util.List;
  *
  * @author Thees Koester
  */
-public class ProgramExecutionsDeleter {
+class OldProgramExecutionsDeleter {
 
 	private final int throttlingMilliseconds;
 	private final Day referenceDay;
 
-	public ProgramExecutionsDeleter(int throttlingMilliseconds) {
+	public OldProgramExecutionsDeleter(int throttlingMilliseconds) {
 
 		this.throttlingMilliseconds = throttlingMilliseconds;
 		this.referenceDay = Day.today();
@@ -32,7 +32,7 @@ public class ProgramExecutionsDeleter {
 
 	public void delete() {
 
-		Log.finfo("%s started for %s", ProgramExecutionsDeleter.class.getSimpleName(), referenceDay);
+		Log.finfo("%s started for %s", OldProgramExecutionsDeleter.class.getSimpleName(), referenceDay);
 
 		for (AGProgram program: AGProgram.TABLE.createSelect().orderBy(AGProgram.ID)) {
 			deleteExecutionsOfProgram(program);

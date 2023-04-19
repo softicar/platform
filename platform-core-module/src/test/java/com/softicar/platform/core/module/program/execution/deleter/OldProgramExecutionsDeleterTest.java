@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program.execution.cleanup;
+package com.softicar.platform.core.module.program.execution.deleter;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 import org.junit.Test;
 
-public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
+public class OldProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 	private static final DayTime CURRENT_DAYTIME = Day.fromYMD(2022, 1, 24).getBegin();
 
@@ -29,7 +29,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 	private static final DayTime YESTERDAY_AT_MIDNIGHT = TODAY_AT_MIDNIGHT.getYesterday();
 	private static final DayTime TWO_DAYS_AGO_AT_MIDNIGHT = YESTERDAY_AT_MIDNIGHT.getYesterday();
 
-	public ProgramExecutionsDeleterTest() {
+	public OldProgramExecutionsDeleterTest() {
 
 		// Suppress lower-level log output under test
 		LogLevel.ERROR.set();
@@ -48,7 +48,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertCount(3, AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		AGProgramExecution loadedExecution = DbAssertUtils.assertOne(AGProgramExecution.TABLE);
 		assertSame(executionToBeRetained, loadedExecution);
@@ -64,7 +64,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertCount(3, AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		List<AGProgramExecution> loadedExecutions = DbAssertUtils.assertCount(2, AGProgramExecution.TABLE);
 		assertTrue(loadedExecutions.contains(executionToBeRetained1));
@@ -81,7 +81,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertCount(3, AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		List<AGProgramExecution> loadedExecutions = DbAssertUtils.assertCount(3, AGProgramExecution.TABLE);
 		assertTrue(loadedExecutions.contains(executionToBeRetained1));
@@ -102,7 +102,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertCount(6, AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		List<AGProgramExecution> loadedExecutions = DbAssertUtils.assertCount(2, AGProgramExecution.TABLE);
 		assertTrue(loadedExecutions.contains(executionToBeRetained1));
@@ -117,7 +117,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertOne(AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		AGProgramExecution loadedExecution = DbAssertUtils.assertOne(AGProgramExecution.TABLE);
 		assertSame(notTerminatedExecution, loadedExecution);
@@ -143,7 +143,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertCount(9, AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		List<AGProgramExecution> loadedExecutions = DbAssertUtils.assertCount(6, AGProgramExecution.TABLE);
 		assertTrue(loadedExecutions.contains(executionToBeRetained01));
@@ -164,7 +164,7 @@ public class ProgramExecutionsDeleterTest extends AbstractCoreTest {
 
 		DbAssertUtils.assertOne(AGProgramExecution.TABLE);
 
-		new ProgramExecutionsDeleter(0).delete();
+		new OldProgramExecutionsDeleter(0).delete();
 
 		DbAssertUtils.assertNone(AGProgramExecution.TABLE);
 	}

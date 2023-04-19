@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program.execution.cleanup;
+package com.softicar.platform.core.module.program.execution.deleter;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePointUuid;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -13,22 +13,18 @@ import java.util.Optional;
  * Deletes {@link AGProgramExecution} records and their corresponding
  * {@link AGProgramExecutionLog} records if they are older than the return value
  * of {@link AGProgram#getExecutionRetentionDays()}.
- * <p>
- * Also cleans up any orphaned {@link AGProgramExecution} record that may be
- * left behind.
  *
  * @author Thees Köster
  */
 @SourceCodeReferencePointUuid("3cf637ec-952d-455d-a1be-7a324fff02a6")
-public class ProgramExecutionsCleanupProgram implements IProgram {
+public class OldProgramExecutionsDeleterProgram implements IProgram {
 
 	private static final int THROTTLING_MILLISECONDS = 3000;
 
 	@Override
 	public void executeProgram() {
 
-		new ProgramExecutionsCleaner().cleanupOrphanedRecords();
-		new ProgramExecutionsDeleter(THROTTLING_MILLISECONDS).delete();
+		new OldProgramExecutionsDeleter(THROTTLING_MILLISECONDS).delete();
 	}
 
 	@Override
