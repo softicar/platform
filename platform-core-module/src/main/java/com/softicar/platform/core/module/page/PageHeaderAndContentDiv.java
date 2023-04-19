@@ -44,8 +44,6 @@ public class PageHeaderAndContentDiv extends DomDiv {
 		changeBrowserUrl(linkEntry);
 		appendChild(new PageHeaderDiv<>(linkEntry, navigationToggleFunction, controller));
 		appendChild(new PageContentDiv(linkEntry));
-
-		CurrentDomDocument.get().getDeferredInitializationController().handleAllAppended();
 	}
 
 	private void changeBrowserUrl(PageNavigationEntry<?> linkEntry) {
