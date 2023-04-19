@@ -40,6 +40,12 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	}
 
 	@Override
+	public void setup() {
+
+		AGProgram.TABLE.loadAll().forEach(AGProgram::resetState);
+	}
+
+	@Override
 	public void runIteration() {
 
 		loadAllRelevantPrograms().forEach(DbTransactions.wrap(this::handleProgram));
@@ -86,7 +92,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 		if (!program.isRunning()) {
 			if (program.isAbortRequested()) {
-				program.resetAll();
+				program.resetState();
 			} else if (program.isQueued() && registeredThreadRunner.hasAvailableSlots() && !AGMaintenanceWindow.isMaintenanceInProgress()) {
 				addRunnable(program);
 			}
@@ -101,7 +107,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 	private void terminateProgram(AGProgram program) {
 
 		terminate(getRunningRunnableThreads(program));
-		program.resetAll();
+		program.resetState();
 	}
 
 	private void terminate(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
@@ -145,7 +151,7 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 			.map(AGUuid::getOrCreate)
 			.map(AGProgram::loadByProgramUuid)
 			.filter(Objects::nonNull)
-			.forEach(AGProgram::resetAll);
+			.forEach(AGProgram::resetState);
 	}
 
 	private Collection<IRunnableThread<ProgramExecutionRunnable>> getRunningRunnableThreads(AGProgram program) {
