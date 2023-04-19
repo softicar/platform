@@ -1,18 +1,21 @@
-package com.softicar.platform.core.module.program.execution.cleanup;
+package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
-import com.softicar.platform.core.module.program.execution.AGProgramExecution;
+import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.state.AGProgramState;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 
 public class ProgramExecutionsCleaner {
 
-	public void cleanupOrphanedRecords() {
+	public void cleanupOrphanedExecutions() {
 
 		try (var transaction = new DbTransaction()) {
+			AGProgram.TABLE//
+				.loadAll()
+				.forEach(AGProgram::resetState);
 			AGProgramExecution.TABLE//
 				.createSelect()
 				.where(AGProgramExecution.TERMINATED_AT.isNull())
