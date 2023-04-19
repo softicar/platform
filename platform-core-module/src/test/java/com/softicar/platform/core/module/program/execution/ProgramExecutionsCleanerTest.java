@@ -19,12 +19,7 @@ public class ProgramExecutionsCleanerTest extends AbstractCoreTest {
 	}
 
 	@Test
-	public void testOrphanedExecutionCleanup() {
-
-		AGProgramExecution executionWithState = insertProgramExecution();
-		insertProgramState(program, executionWithState);
-		assertFalse(executionWithState.isFailed());
-		assertNull(executionWithState.getTerminatedAt());
+	public void testCleanupOrphanedExecutionsWithoutStateRecord() {
 
 		AGProgramExecution executionWithoutState = insertProgramExecution();
 		assertFalse(executionWithoutState.isFailed());
@@ -35,10 +30,23 @@ public class ProgramExecutionsCleanerTest extends AbstractCoreTest {
 		assertTrue(executionWithoutState.isFailed());
 		assertNotNull(executionWithoutState.getTerminatedAt());
 
+		assertCount(1, AGSystemEvent.TABLE.loadAll());
+	}
+
+	@Test
+	public void testCleanupOrphanedExecutionsWithStateRecord() {
+
+		AGProgramExecution executionWithState = insertProgramExecution();
+		insertProgramState(program, executionWithState);
+		assertFalse(executionWithState.isFailed());
+		assertNull(executionWithState.getTerminatedAt());
+
+		new ProgramExecutionsCleaner().cleanupOrphanedExecutions();
+
 		assertTrue(executionWithState.isFailed());
 		assertNotNull(executionWithState.getTerminatedAt());
 
-		assertCount(2, AGSystemEvent.TABLE.loadAll());
+		assertCount(1, AGSystemEvent.TABLE.loadAll());
 	}
 
 	private AGProgram insertProgram() {
