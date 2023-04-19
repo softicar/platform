@@ -35,6 +35,8 @@ public class BufferedEmailSenderSessionManager {
 	 */
 	private static class SessionProperties extends Properties {
 
+		private static final long SMTP_TIMEOUT = Duration.ofSeconds(30).toMillis();
+
 		public SessionProperties(AGServer server) {
 
 			// connection
@@ -49,9 +51,9 @@ public class BufferedEmailSenderSessionManager {
 			put("mail.smtp.starttls.enable", "true");
 
 			// timeouts
-			put("mail.smtp.connectiontimeout", Duration.ofSeconds(30).toMillis());
-			put("mail.smtp.timeout", Duration.ofSeconds(30).toMillis());
-			put("mail.smtp.writetimeout", Duration.ofSeconds(30).toMillis());
+			put("mail.smtp.connectiontimeout", SMTP_TIMEOUT);
+			put("mail.smtp.timeout", SMTP_TIMEOUT);
+			put("mail.smtp.writetimeout", SMTP_TIMEOUT);
 		}
 	}
 
