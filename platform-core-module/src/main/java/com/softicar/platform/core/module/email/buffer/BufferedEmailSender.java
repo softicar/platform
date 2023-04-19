@@ -41,7 +41,7 @@ public class BufferedEmailSender {
 
 	public void sendAll() {
 
-		Log.finfo("Sending e-mails...");
+		Log.finfo("Sending emails...");
 		AGBufferedEmail.TABLE//
 			.createSelect()
 			.where(AGBufferedEmail.ACTIVE)
@@ -49,7 +49,7 @@ public class BufferedEmailSender {
 			.where(AGBufferedEmail.EMAIL_SERVER.isEqual(emailServer))
 			.orderBy(AGBufferedEmail.ID)
 			.forEach(this::send);
-		Log.finfo("done");
+		Log.finfo("Done sending emails.");
 		exceptionsCollector.throwIfNotEmpty();
 	}
 

@@ -4,6 +4,7 @@ import com.softicar.platform.core.module.server.AGServer;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -27,18 +28,32 @@ public class BufferedEmailSenderSessionManager {
 		return Session.getInstance(new SessionProperties(server), new PasswordAuthenticator(server));
 	}
 
+	/**
+	 * See <a href=
+	 * "https://javaee.github.io/javamail/docs/api/index.html?com/sun/mail/smtp/package-summary.html">com.sun.mail.smtp
+	 * properties documentation</a>.
+	 */
 	private static class SessionProperties extends Properties {
+
+		private static final long SMTP_TIMEOUT = Duration.ofSeconds(30).toMillis();
 
 		public SessionProperties(AGServer server) {
 
-			put("mail.transport.protocol", "smtp");
-			put("mail.smtp.starttls.enable", "true");
-//			put("mail.smtp.starttls.required", "true");
+			// connection
 			put("mail.smtp.host", server.getAddress());
 			put("mail.smtp.port", server.getPort());
 			put("mail.smtp.user", server.getUsername());
+			put("mail.transport.protocol", "smtp");
+
+			// security
 			put("mail.smtp.auth", "true");
 			put("mail.smtp.ssl.trust", "*");
+			put("mail.smtp.starttls.enable", "true");
+
+			// timeouts
+			put("mail.smtp.connectiontimeout", SMTP_TIMEOUT);
+			put("mail.smtp.timeout", SMTP_TIMEOUT);
+			put("mail.smtp.writetimeout", SMTP_TIMEOUT);
 		}
 	}
 
