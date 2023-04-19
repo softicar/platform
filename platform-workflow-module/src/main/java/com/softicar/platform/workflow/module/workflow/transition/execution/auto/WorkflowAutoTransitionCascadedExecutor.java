@@ -57,7 +57,7 @@ public class WorkflowAutoTransitionCascadedExecutor {
 		while (evaluateAndExecute()) {
 			counter++;
 			if (counter >= cascadeLengthLimit) {
-				throw new SofticarException("Exceeded the maximum cascade length of %s.", cascadeLengthLimit);
+				throw new SofticarException("Exceeded the maximum auto transition cascade length of %s.", cascadeLengthLimit);
 			}
 		}
 	}

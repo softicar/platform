@@ -56,7 +56,7 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	 * Executes the longest possible cascade of auto transitions for this
 	 * {@link AGWorkflowItem}.
 	 */
-	public void executeCascadingAutoTransitions() {
+	public void executeAllAutoTransitions() {
 
 		new WorkflowAutoTransitionCascadedExecutor(this).evaluateAndExecuteCascaded();
 	}

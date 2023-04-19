@@ -43,11 +43,11 @@ public interface IWorkflowableObject<R extends IEmfObject<R>> extends IEmfObject
 	 *
 	 * @see #getWorkflowItem()
 	 */
-	default void executeCascadingAutoTransitions() {
+	default void executeAllAutoTransitions() {
 
 		Optional//
 			.ofNullable(getWorkflowItem())
-			.ifPresent(AGWorkflowItem::executeCascadingAutoTransitions);
+			.ifPresent(AGWorkflowItem::executeAllAutoTransitions);
 	}
 
 	Boolean isActive();

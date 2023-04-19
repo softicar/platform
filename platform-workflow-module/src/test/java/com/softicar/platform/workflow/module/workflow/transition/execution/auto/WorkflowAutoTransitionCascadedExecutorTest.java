@@ -76,7 +76,7 @@ public class WorkflowAutoTransitionCascadedExecutorTest extends AbstractTestObje
 
 		// execute and assert
 		var executor = new WorkflowAutoTransitionCascadedExecutor(item).setCascadeLengthLimit(5);
-		assertExceptionMessage("Exceeded the maximum cascade length of 5.", executor::evaluateAndExecuteCascaded);
+		assertExceptionMessage("Exceeded the maximum auto transition cascade length of 5.", executor::evaluateAndExecuteCascaded);
 	}
 
 	private void evaluateAndExecuteCascaded(AGWorkflowItem item) {

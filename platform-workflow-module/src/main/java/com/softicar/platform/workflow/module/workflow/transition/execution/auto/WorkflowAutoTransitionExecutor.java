@@ -32,8 +32,8 @@ public class WorkflowAutoTransitionExecutor {
 	 * {@link AGWorkflowTransition} with a valid precondition.
 	 * <p>
 	 * Returns <i>true</i> if there is only one {@link AGWorkflowTransition}
-	 * with a valid precondition, and if that transition was successfully
-	 * executed.
+	 * with a valid precondition and a source node equal to the current node of
+	 * the item, and if that transition was successfully executed.
 	 * <p>
 	 * Returns <i>false</i> otherwise.
 	 *
