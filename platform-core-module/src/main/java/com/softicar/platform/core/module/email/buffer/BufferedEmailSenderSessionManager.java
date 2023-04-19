@@ -37,21 +37,21 @@ public class BufferedEmailSenderSessionManager {
 
 		public SessionProperties(AGServer server) {
 
-			// basics
+			// connection
 			put("mail.smtp.host", server.getAddress());
 			put("mail.smtp.port", server.getPort());
 			put("mail.smtp.user", server.getUsername());
 			put("mail.transport.protocol", "smtp");
 
-			// timeouts
-			put("mail.smtp.connectiontimeout", Duration.ofSeconds(30).toMillis());
-			put("mail.smtp.timeout", Duration.ofSeconds(30).toMillis());
-			put("mail.smtp.writetimeout", Duration.ofSeconds(30).toMillis());
-
 			// security
 			put("mail.smtp.auth", "true");
 			put("mail.smtp.ssl.trust", "*");
 			put("mail.smtp.starttls.enable", "true");
+
+			// timeouts
+			put("mail.smtp.connectiontimeout", Duration.ofSeconds(30).toMillis());
+			put("mail.smtp.timeout", Duration.ofSeconds(30).toMillis());
+			put("mail.smtp.writetimeout", Duration.ofSeconds(30).toMillis());
 		}
 	}
 
