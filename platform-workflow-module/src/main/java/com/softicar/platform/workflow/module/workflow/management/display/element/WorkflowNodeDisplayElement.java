@@ -80,14 +80,9 @@ public class WorkflowNodeDisplayElement extends AbstractDisplayElement implement
 
 	private void makeDraggableIfAppropriate(AGWorkflowNode workflowNode) {
 
-		if (isDraggingPreconditionFulfilled(workflowNode) && isDraggingAuthorized(workflowNode)) {
+		if (isDraggingAuthorized(workflowNode)) {
 			applyDraggableStyle();
 		}
-	}
-
-	private Boolean isDraggingPreconditionFulfilled(AGWorkflowNode workflowNode) {
-
-		return workflowNode.getWorkflowVersion().isDraft();
 	}
 
 	private boolean isDraggingAuthorized(AGWorkflowNode workflowNode) {
