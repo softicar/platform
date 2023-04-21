@@ -88,6 +88,12 @@ public class DomTestEvent implements IDomEvent {
 	}
 
 	@Override
+	public String getWindowSelection() {
+
+		return "";
+	}
+
+	@Override
 	public DomRect getBoundingClientRect() {
 
 		return new DomRect();

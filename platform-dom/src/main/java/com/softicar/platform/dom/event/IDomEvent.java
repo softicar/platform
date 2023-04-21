@@ -85,7 +85,6 @@ public interface IDomEvent {
 	 * Returns the name of the key that triggered this event.
 	 * <p>
 	 * If no key triggered the event, the empty string is returned.
-	 *
 	 * @return the key name (never <i>null</i>)
 	 */
 	String getKey();
@@ -103,6 +102,15 @@ public interface IDomEvent {
 	 * @return the height of the window in pixels
 	 */
 	double getWindowHeight();
+
+	/**
+	 * Returns the selected text in the browser window.
+	 * <p>
+	 * If no text is selected, this returns a empty {@link String}.
+	 *
+	 * @return the selected text (never <i>null</i>)
+	 */
+	String getWindowSelection();
 
 	/**
 	 * Returns the bounding client {@link DomRect} for the event node.

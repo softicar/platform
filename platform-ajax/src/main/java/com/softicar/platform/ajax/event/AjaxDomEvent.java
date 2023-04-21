@@ -113,6 +113,12 @@ public class AjaxDomEvent implements IDomEvent {
 	}
 
 	@Override
+	public String getWindowSelection() {
+
+		return message.getWindowSelection();
+	}
+
+	@Override
 	public DomRect getBoundingClientRect() {
 
 		return message.getNodeRect();
