@@ -311,6 +311,12 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void setPreventDoubleClickSelection(IDomNode node, boolean enabled) {
+
+		JS_call("setPreventDoubleClickSelection", node, enabled);
+	}
+
+	@Override
 	public void setCssClassOnKeyDown(IDomNode eventTarget, DomEventType eventType, IDomNode cssTargetNode, Collection<ICssClass> cssClasses) {
 
 		cssClasses.forEach(ICssClass::beforeUse);

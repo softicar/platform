@@ -300,6 +300,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Deaktivierter Benutzer");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
+	I18n0 DOUBLE_CLICK_ON_TABLE_ROWS_OPENS_POPUP = new I18n0("Double Click on Table Row Opens Popup")//
+		.de("Doppelklick auf Tabellenzeile öffnet Popup");
 	I18n0 DOWNLOAD_FILE = new I18n0("Download File")//
 		.de("Datei herunterladen");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
@@ -318,6 +320,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("E-Mail-Server nicht konfiguriert.");
 	I18n0 EMPTY_CRON_ELEMENT = new I18n0("Empty Cron element.")//
 		.de("Leeres Cron-Element.");
+	I18n0 ENABLING_THIS_PREVENT_TEXT_SELECTION_WITH_DOUBLE_CLICK = new I18n0("Enabling this prevent text selection with double click.")//
+		.de("Wenn Sie diese Option aktivieren, wird die Textauswahl per Doppelklick verhindert.");
 	I18n0 ENCRYPTED_PASSWORD = new I18n0("Encrypted Password")//
 		.de("verschlüsseltes Passwort");
 	I18n0 ENGLISH = new I18n0("English")//
