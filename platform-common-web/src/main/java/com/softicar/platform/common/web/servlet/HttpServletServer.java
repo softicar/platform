@@ -118,9 +118,19 @@ public class HttpServletServer {
 		ServletHolder servletHolder = prepareServletHolder();
 		Server server = createServer(servletHolder);
 		ServerConnector connector = addConnector(server);
-		CheckedExceptions.wrap(() -> server.start());
+		tryToStart(server);
 		this.localPort = connector.getLocalPort();
 		return new HttpServletServerHandle(server, connector, servletHolder);
+	}
+
+	private void tryToStart(Server server) {
+
+		try {
+			server.start();
+		} catch (Exception exception) {
+			CheckedExceptions.wrap(server::stop);
+			throw CheckedExceptions.toRuntimeException(exception);
+		}
 	}
 
 	/**
