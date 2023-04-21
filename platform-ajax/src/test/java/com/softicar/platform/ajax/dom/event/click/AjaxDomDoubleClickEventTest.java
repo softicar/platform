@@ -14,6 +14,7 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 
 	private static final int CLICK_X = 13;
 	private static final int CLICK_Y = 17;
+	private static final String TEXT = "Text";
 	private final TestDiv testDiv;
 
 	public AjaxDomDoubleClickEventTest() {
@@ -46,9 +47,15 @@ public class AjaxDomDoubleClickEventTest extends AbstractAjaxSeleniumLowLevelTes
 		assertEquals(0, event.getScrollY(), 0.1);
 		assertEquals(viewportSize.getWidth(), event.getWindowWidth(), 0.1);
 		assertEquals(viewportSize.getHeight(), event.getWindowHeight(), 0.1);
+		assertEquals(TEXT, event.getWindowSelection());
 	}
 
 	private static class TestDiv extends AbstractAjaxDomEventTestDiv implements IDomDoubleClickEventHandler {
+
+		public TestDiv() {
+
+			appendText(TEXT);
+		}
 
 		@Override
 		public void handleDoubleClick(IDomEvent event) {
