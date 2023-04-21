@@ -2,6 +2,7 @@ package com.softicar.platform.emf.page;
 
 import com.softicar.platform.common.code.reference.point.ISourceCodeReferencePoint;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfImages;
@@ -10,6 +11,8 @@ import com.softicar.platform.emf.module.IEmfModuleInstance;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Common interface of all EMF web pages.
@@ -84,6 +87,19 @@ public interface IEmfPage<I extends IEmfModuleInstance<I>> extends ISourceCodeRe
 	default IResource getIcon() {
 
 		return EmfImages.PAGE_DEFAULT.getResource();
+	}
+
+	/**
+	 * Returns all {@link EmfPageBadge} instances to show.
+	 *
+	 * @param moduleInstance
+	 *            the {@link IEmfModuleInstance} (never <i>null</i>)
+	 * @return the {@link EmfPageBadge} instances (never <i>null</i>)
+	 */
+	default Collection<EmfPageBadge> getBadges(I moduleInstance) {
+
+		DevNull.swallow(moduleInstance);
+		return Collections.emptyList();
 	}
 
 	// -------------------- access -------------------- //

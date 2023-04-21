@@ -5,11 +5,17 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
+import com.softicar.platform.emf.page.EmfPageBadge;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.IEmfTable;
+import com.softicar.platform.emf.validation.result.EmfDiagnosticLevel;
+import java.util.Collection;
+import java.util.List;
+import java.util.function.Supplier;
 
 @SourceCodeReferencePointUuid("3e68157b-990c-4148-a4e8-8c804104adb6")
 public class MaintenanceWindowPage extends AbstractEmfManagementPage<AGCoreModuleInstance> {
@@ -36,5 +42,22 @@ public class MaintenanceWindowPage extends AbstractEmfManagementPage<AGCoreModul
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
 		return modulePath.append(CoreI18n.MAINTENANCE);
+	}
+
+	@Override
+	public Collection<EmfPageBadge> getBadges(AGCoreModuleInstance moduleInstance) {
+
+		Supplier<Integer> inProgressCountSupplier = () -> AGMaintenanceWindow.TABLE//
+			.createSelect()
+			.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.IN_PROGRESS.getRecord()))
+			.count();
+		Supplier<Integer> pendingCountSupplier = () -> AGMaintenanceWindow.TABLE//
+			.createSelect()
+			.where(AGMaintenanceWindow.STATE.isEqual(AGMaintenanceStateEnum.PENDING.getRecord()))
+			.count();
+		return List
+			.of(//
+				new EmfPageBadge(EmfDiagnosticLevel.WARNING, inProgressCountSupplier).setRefreshClasses(AGMaintenanceWindow.class),
+				new EmfPageBadge(EmfDiagnosticLevel.INFO, pendingCountSupplier).setRefreshClasses(AGMaintenanceWindow.class));
 	}
 }
