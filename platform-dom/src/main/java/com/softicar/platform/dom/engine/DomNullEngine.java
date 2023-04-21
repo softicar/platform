@@ -287,7 +287,7 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void sendKeyboardEvent(IDomNode node, String eventType, String key) {
+	public void sendBubblingKeyboardEvent(IDomNode node, String eventType, String key) {
 
 		// nothing to do
 	}

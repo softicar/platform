@@ -238,9 +238,10 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 
 	protected void onEscape() {
 
-		boolean popupWasAppended = popup.isAppended();
-		closePopupAndDeduceValueAndHandleChange();
-		if (!popupWasAppended) {
+		if (popup.isAppended()) {
+			closePopupAndDeduceValueAndHandleChange();
+		} else {
+			closePopupAndDeduceValueAndHandleChange();
 			sendEscKeyToParent();
 		}
 	}
@@ -331,8 +332,8 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 	private void sendEscKeyToParent() {
 
 		Optional.ofNullable(getParent()).ifPresent(parent -> {
-			getDomEngine().sendKeyboardEvent(parent, "keydown", "Escape");
-			getDomEngine().sendKeyboardEvent(parent, "keyup", "Escape");
+			getDomEngine().sendBubblingKeyboardEvent(parent, "keydown", "Escape");
+			getDomEngine().sendBubblingKeyboardEvent(parent, "keyup", "Escape");
 		});
 	}
 

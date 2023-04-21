@@ -185,7 +185,7 @@ public interface IDomEngine {
 	 * @param key
 	 *            the keyboard key, e.g. "Escape" or "a" (never <i>null</i>)
 	 */
-	void sendKeyboardEvent(IDomNode node, String eventType, String key);
+	void sendBubblingKeyboardEvent(IDomNode node, String eventType, String key);
 
 	/**
 	 * Defines the CSS classes to assign to a given {@link IDomNode} while a key
