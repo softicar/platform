@@ -273,6 +273,24 @@ public class AjaxDomEngine implements IDomEngine {
 	}
 
 	@Override
+	public void sendKeyboardEvent(IDomNode node, String eventType, String key) {
+
+		Objects.requireNonNull(node);
+		Objects.requireNonNull(eventType);
+		Objects.requireNonNull(key);
+
+		String script = new StringBuilder()//
+			.append("var event = new KeyboardEvent('%s', {")
+			.append("key: '%s',")
+			.append("bubbles: true")
+			.append("});")
+			.append("document.getElementById('%s').dispatchEvent(event);")
+			.toString()
+			.formatted(eventType, key, node.getNodeIdString());
+		executeScriptCode(script);
+	}
+
+	@Override
 	public void setFireOnKeyUp(IDomNode node, DomEventType type, boolean enabled) {
 
 		JS_call("KEYBOARD_EVENT_MANAGER.setFireOnKeyUp", node, type, enabled);

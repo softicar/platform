@@ -175,6 +175,19 @@ public interface IDomEngine {
 	void stopPropagation(IDomNode node, String eventName);
 
 	/**
+	 * Sends a bubbling keyboard event to the given {@link IDomNode}.
+	 *
+	 * @param node
+	 *            the node to which the event shall be sent (never <i>null</i>)
+	 * @param eventType
+	 *            the event type, i.e. "keydown", "keypress", or "keyup" (never
+	 *            <i>null</i>)
+	 * @param key
+	 *            the keyboard key, e.g. "Escape" or "a" (never <i>null</i>)
+	 */
+	void sendKeyboardEvent(IDomNode node, String eventType, String key);
+
+	/**
 	 * Defines the CSS classes to assign to a given {@link IDomNode} while a key
 	 * is pressed down on it.
 	 *

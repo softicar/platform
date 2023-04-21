@@ -231,12 +231,18 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		onChange();
 	}
 
-	protected void onBackdropClickOrEscape() {
+	protected void onBackdropClick() {
 
-		closePopup();
-		deduceValue();
-		onChange();
-		inputField.focus();
+		closePopupAndDeduceValueAndHandleChange();
+	}
+
+	protected void onEscape() {
+
+		boolean popupWasAppended = popup.isAppended();
+		closePopupAndDeduceValueAndHandleChange();
+		if (!popupWasAppended) {
+			sendEscKeyToParent();
+		}
 	}
 
 	protected void onClickOrFocusByTab() {
@@ -312,6 +318,22 @@ public class DomAutoCompleteInput<T> extends AbstractDomValueInputDiv<T> {
 		if (valueAndState.isValid()) {
 			inputField.setValue(inputEngine.getDisplayString(valueAndState.getValue()).toString());
 		}
+	}
+
+	private void closePopupAndDeduceValueAndHandleChange() {
+
+		closePopup();
+		deduceValue();
+		onChange();
+		inputField.focus();
+	}
+
+	private void sendEscKeyToParent() {
+
+		Optional.ofNullable(getParent()).ifPresent(parent -> {
+			getDomEngine().sendKeyboardEvent(parent, "keydown", "Escape");
+			getDomEngine().sendKeyboardEvent(parent, "keyup", "Escape");
+		});
 	}
 
 	private void setFieldValue(T value) {
