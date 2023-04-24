@@ -300,7 +300,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("Deaktivierter Benutzer");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
-	I18n0 DOUBLE_CLICK_ON_TABLE_ROWS_OPENS_POPUP = new I18n0("Double Click on Table Row Opens Popup")//
+	I18n0 DOUBLE_CLICK_ON_TABLE_ROW_OPENS_POPUP = new I18n0("Double Click on Table Row Opens Popup")//
 		.de("Doppelklick auf Tabellenzeile öffnet Popup");
 	I18n0 DOWNLOAD_FILE = new I18n0("Download File")//
 		.de("Datei herunterladen");

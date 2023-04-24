@@ -32,7 +32,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 			new PreferencesElement()//
 				.addInput(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS, new NavigationFolderCollapseModeInput())
 				.addInput(CoreI18n.PREFERRED_POPUP_PLACEMENT, new PreferredPopupPlacementInput())
-				.addInput(CoreI18n.DOUBLE_CLICK_ON_TABLE_ROWS_OPENS_POPUP, new DoubleClickOnTableRowInput())
+				.addInput(CoreI18n.DOUBLE_CLICK_ON_TABLE_ROW_OPENS_POPUP, new DoubleClickOnTableRowInput())
 				.refreshAllInputs());
 		appendChild(
 			new DomActionBar(
