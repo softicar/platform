@@ -9,6 +9,7 @@ import com.softicar.platform.common.core.user.IBasicUser;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
 import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
@@ -64,6 +65,11 @@ public class AGUser extends AGUserGenerated implements IEmfObject<AGUser>, IBasi
 	public IDisplayString toDisplayWithoutId() {
 
 		return IDisplayString.format("%s %s", getFirstName(), getLastName());
+	}
+
+	public boolean isCoreAdministrator() {
+
+		return CorePermissions.ADMINISTRATION.test(AGCoreModuleInstance.getInstance(), this);
 	}
 
 	public static AGUser getSystemUser() {

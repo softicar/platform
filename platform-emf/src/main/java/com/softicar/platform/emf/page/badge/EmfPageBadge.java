@@ -1,9 +1,12 @@
-package com.softicar.platform.emf.page;
+package com.softicar.platform.emf.page.badge;
 
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
+import com.softicar.platform.emf.page.IEmfPage;
 import com.softicar.platform.emf.validation.result.EmfDiagnosticLevel;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -16,6 +19,7 @@ public class EmfPageBadge {
 
 	private final EmfDiagnosticLevel level;
 	private final Supplier<Integer> countSupplier;
+	private IDisplayString title;
 	private Predicate<IDomRefreshBusEvent> refreshPredicate;
 	private boolean hideZero;
 
@@ -32,8 +36,22 @@ public class EmfPageBadge {
 
 		this.level = Objects.requireNonNull(level);
 		this.countSupplier = Objects.requireNonNull(countSupplier);
+		this.title = null;
 		this.refreshPredicate = event -> event.isAllChanged();
 		this.hideZero = true;
+	}
+
+	/**
+	 * Defines the title of this {@link EmfPageBadge}.
+	 *
+	 * @param title
+	 *            the title (may be <i>null</i>)
+	 * @return this
+	 */
+	public EmfPageBadge setTitle(IDisplayString title) {
+
+		this.title = title;
+		return this;
 	}
 
 	/**
@@ -106,6 +124,16 @@ public class EmfPageBadge {
 			throwable.printStackTrace();
 			return -1;
 		}
+	}
+
+	/**
+	 * Returns the optional title of this {@link EmfPageBadge}.
+	 *
+	 * @return the title as {@link Optional}
+	 */
+	public Optional<IDisplayString> getTitle() {
+
+		return Optional.ofNullable(title);
 	}
 
 	/**

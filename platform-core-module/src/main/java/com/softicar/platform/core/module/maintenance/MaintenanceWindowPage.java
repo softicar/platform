@@ -7,12 +7,13 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.emf.management.page.AbstractEmfManagementPage;
-import com.softicar.platform.emf.page.EmfPageBadge;
 import com.softicar.platform.emf.page.EmfPagePath;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
+import com.softicar.platform.emf.page.badge.EmfPageInfoBadge;
+import com.softicar.platform.emf.page.badge.EmfPageWarningBadge;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.table.IEmfTable;
-import com.softicar.platform.emf.validation.result.EmfDiagnosticLevel;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
@@ -57,7 +58,11 @@ public class MaintenanceWindowPage extends AbstractEmfManagementPage<AGCoreModul
 			.count();
 		return List
 			.of(//
-				new EmfPageBadge(EmfDiagnosticLevel.WARNING, inProgressCountSupplier).setRefreshClasses(AGMaintenanceWindow.class),
-				new EmfPageBadge(EmfDiagnosticLevel.INFO, pendingCountSupplier).setRefreshClasses(AGMaintenanceWindow.class));
+				new EmfPageWarningBadge(inProgressCountSupplier)//
+					.setTitle(CoreI18n.MAINTENANCE_WINDOWS_IN_PROGRESS)
+					.setRefreshClasses(AGMaintenanceWindow.class),
+				new EmfPageInfoBadge(pendingCountSupplier)//
+					.setTitle(CoreI18n.PENDING_MAINTENANCE_WINDOWS)
+					.setRefreshClasses(AGMaintenanceWindow.class));
 	}
 }

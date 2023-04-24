@@ -1,7 +1,8 @@
 package com.softicar.platform.core.module.event;
 
-import com.softicar.platform.emf.page.EmfPageBadge;
-import com.softicar.platform.emf.validation.result.EmfDiagnosticLevel;
+import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
+import com.softicar.platform.emf.page.badge.EmfPageErrorBadge;
 
 /**
  * Utility methods for {@link AGSystemEvent}.
@@ -33,6 +34,8 @@ public class SystemEvents {
 	 */
 	public static EmfPageBadge getPageBadgeForNumberOfEventsToConfirm() {
 
-		return new EmfPageBadge(EmfDiagnosticLevel.ERROR, SystemEvents::getNumberOfEventsToConfirm).setRefreshClasses(AGSystemEvent.class);
+		return new EmfPageErrorBadge(SystemEvents::getNumberOfEventsToConfirm)//
+			.setTitle(CoreI18n.UNCONFIRMED_EVENTS)
+			.setRefreshClasses(AGSystemEvent.class);
 	}
 }

@@ -8,6 +8,7 @@ import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.module.IEmfModule;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import com.softicar.platform.emf.predicate.EmfPredicates;
 import com.softicar.platform.emf.predicate.IEmfPredicate;

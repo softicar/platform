@@ -5,9 +5,9 @@ import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.module.IEmfModuleInstance;
-import com.softicar.platform.emf.page.EmfPageBadge;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -75,7 +75,12 @@ public class PageNavigationEntry<I extends IEmfModuleInstance<I>> {
 
 	public Collection<EmfPageBadge> getPageBadges() {
 
-		return page.getBadges(moduleInstance);
+		try {
+			return page.getBadges(moduleInstance);
+		} catch (Throwable throwable) {
+			throwable.printStackTrace();
+			return Collections.emptyList();
+		}
 	}
 
 	public I getModuleInstance() {

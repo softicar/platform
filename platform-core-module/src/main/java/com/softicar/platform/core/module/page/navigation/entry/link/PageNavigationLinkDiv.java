@@ -47,7 +47,7 @@ public class PageNavigationLinkDiv extends DomDiv {
 		entry//
 			.getPageBadges()
 			.stream()
-			.map(PageNavigationBadge::new)
+			.map(PageNavigationBadgeDiv::new)
 			.forEach(this::appendChild);
 	}
 

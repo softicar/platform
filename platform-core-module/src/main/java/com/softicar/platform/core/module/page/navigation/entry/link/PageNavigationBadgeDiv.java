@@ -6,17 +6,19 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.dom.style.ICssClass;
-import com.softicar.platform.emf.page.EmfPageBadge;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
 import com.softicar.platform.emf.validation.result.EmfDiagnosticLevel;
+import java.util.Objects;
 
-public class PageNavigationBadge extends DomDiv implements IDomRefreshBusListener {
+public class PageNavigationBadgeDiv extends DomDiv implements IDomRefreshBusListener {
 
 	private final EmfPageBadge badge;
 
-	public PageNavigationBadge(EmfPageBadge badge) {
+	public PageNavigationBadgeDiv(EmfPageBadge badge) {
 
-		this.badge = badge;
+		this.badge = Objects.requireNonNull(badge);
 		refresh();
+		badge.getTitle().ifPresent(this::setTitle);
 	}
 
 	@Override

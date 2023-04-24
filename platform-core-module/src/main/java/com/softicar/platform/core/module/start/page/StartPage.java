@@ -6,13 +6,15 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.event.SystemEvents;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.page.EmfPageBadge;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -56,6 +58,6 @@ public class StartPage implements IEmfPage<AGCoreModuleInstance> {
 	@Override
 	public Collection<EmfPageBadge> getBadges(AGCoreModuleInstance moduleInstance) {
 
-		return List.of(SystemEvents.getPageBadgeForNumberOfEventsToConfirm());
+		return CurrentUser.get().isCoreAdministrator()? List.of(SystemEvents.getPageBadgeForNumberOfEventsToConfirm()) : Collections.emptyList();
 	}
 }
