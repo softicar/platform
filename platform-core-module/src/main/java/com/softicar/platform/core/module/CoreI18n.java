@@ -320,7 +320,7 @@ public interface CoreI18n extends EmfI18n {
 		.de("E-Mail-Server nicht konfiguriert.");
 	I18n0 EMPTY_CRON_ELEMENT = new I18n0("Empty Cron element.")//
 		.de("Leeres Cron-Element.");
-	I18n0 ENABLING_THIS_PREVENT_TEXT_SELECTION_WITH_DOUBLE_CLICK = new I18n0("Enabling this prevent text selection with double click.")//
+	I18n0 ENABLING_THIS_PREVENTS_TEXT_SELECTION_WITH_DOUBLE_CLICK = new I18n0("Enabling this prevents text selection with double click.")//
 		.de("Wenn Sie diese Option aktivieren, wird die Textauswahl per Doppelklick verhindert.");
 	I18n0 ENCRYPTED_PASSWORD = new I18n0("Encrypted Password")//
 		.de("verschlüsseltes Passwort");
