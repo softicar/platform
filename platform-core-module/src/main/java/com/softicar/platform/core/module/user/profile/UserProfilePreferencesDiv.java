@@ -109,7 +109,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 		public DoubleClickOnTableRowInput() {
 
 			super(preferences.enableDoubleClickOnTableRows);
-			setTitle(CoreI18n.ENABLING_THIS_PREVENT_TEXT_SELECTION_WITH_DOUBLE_CLICK);
+			setTitle(CoreI18n.ENABLING_THIS_PREVENTS_TEXT_SELECTION_WITH_DOUBLE_CLICK);
 		}
 
 		@Override
