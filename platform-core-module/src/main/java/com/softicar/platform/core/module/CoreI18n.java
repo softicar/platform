@@ -535,6 +535,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartungsfenster-Logs");
 	I18n0 MAINTENANCE_WINDOWS = new I18n0("Maintenance Windows")//
 		.de("Wartungsfenster");
+	I18n0 MAINTENANCE_WINDOWS_IN_PROGRESS = new I18n0("Maintenance Windows in Progress")//
+		.de("Wartungsfenster in Bearbeitung");
 	I18n0 MALFORMED_REQUEST = new I18n0("Malformed Request")//
 		.de("Fehlerhafte Anfrage");
 	I18n0 MANUAL = new I18n0("Manual")//
@@ -685,6 +687,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bevorstehende Wartungsarbeiten");
 	I18n2 PENDING_MAINTENANCE_FROM_ARG1_TO_ARG2 = new I18n2("Pending maintenance from %s to %s")//
 		.de("Bevorstehende Wartungsarbeiten von %s bis %s");
+	I18n0 PENDING_MAINTENANCE_WINDOWS = new I18n0("Pending Maintenance Windows")//
+		.de("Bevorstehende Wartungsfenster");
 	I18n0 PERMISSION_UUID = new I18n0("Permission UUID")//
 		.de("Berechtigungs-UUID");
 	I18n0 PERMISSIONS = new I18n0("Permissions")//
@@ -1143,6 +1147,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zwei-Faktor-Authentifizierung ist aktiv.");
 	I18n0 TYPE = new I18n0("Type")//
 		.de("Typ");
+	I18n0 UNCONFIRMED_EVENTS = new I18n0("Unconfirmed Events")//
+		.de("Unbestätigte Ereignisse");
 	I18n0 UNIX_CRYPT = new I18n0("Unix Crypt")//
 		.de("Unix Crypt");
 	I18n0 UNKNOWN = new I18n0("unknown")//

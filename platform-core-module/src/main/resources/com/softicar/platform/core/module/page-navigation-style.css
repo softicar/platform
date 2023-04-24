@@ -5,6 +5,29 @@
 	--PAGE_NAVIGATION_ENTRY_HEIGHT: 32px;
 }
 
+/* -------------------- PageNavigationBadge -------------------- */
+
+.PageNavigationBadge {
+	border-radius: 100%;
+	color: #fff;
+	margin-left: 0.2em; 
+	min-width: 1em;
+	padding: 0.2em;
+	text-align: center;
+}
+
+.PageNavigationBadge.error {
+	background-color: var(--ERROR_BORDER_COLOR);
+}
+
+.PageNavigationBadge.info {
+	background-color: var(--INFO_BORDER_COLOR);
+}
+
+.PageNavigationBadge.warning {
+	background-color: var(--WARNING_BORDER_COLOR);
+}
+
 /* -------------------- PageNavigationDiv -------------------- */
 
 .PageNavigationDiv {

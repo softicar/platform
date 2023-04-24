@@ -5,11 +5,17 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
+import com.softicar.platform.core.module.event.SystemEvents;
+import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
+import com.softicar.platform.emf.page.badge.EmfPageBadge;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.permission.IEmfPermission;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This is the home page which is displayed to a user after logging in.
@@ -47,5 +53,11 @@ public class StartPage implements IEmfPage<AGCoreModuleInstance> {
 	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
 		return EmfPagePath.EMPTY_PATH;
+	}
+
+	@Override
+	public Collection<EmfPageBadge> getBadges(AGCoreModuleInstance moduleInstance) {
+
+		return CurrentUser.get().isCoreAdministrator()? List.of(SystemEvents.getPageBadgeForNumberOfEventsToConfirm()) : Collections.emptyList();
 	}
 }
