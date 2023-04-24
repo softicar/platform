@@ -19,9 +19,7 @@ public class EmfManagementDataTableRowEventHandler<R extends IEmfTableRow<R, P>,
 			break;
 		}
 		case DBLCLICK: {
-			if (event.getWindowSelection().isEmpty()) {
-				showFormPopup(row);
-			}
+			showFormPopup(row);
 			break;
 		}
 		default:

@@ -11,6 +11,7 @@ import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferr
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.checkbox.DomCheckboxGroup;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.input.IDomValueInput;
@@ -31,6 +32,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 			new PreferencesElement()//
 				.addInput(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS, new NavigationFolderCollapseModeInput())
 				.addInput(CoreI18n.PREFERRED_POPUP_PLACEMENT, new PreferredPopupPlacementInput())
+				.addInput(CoreI18n.DOUBLE_CLICK_ON_TABLE_ROW_OPENS_POPUP, new DoubleClickOnTableRowInput())
 				.refreshAllInputs());
 		appendChild(
 			new DomActionBar(
@@ -99,6 +101,21 @@ class UserProfilePreferencesDiv extends DomDiv {
 		public void refresh() {
 
 			preferences.preferredPopupPlacement = getValueOrNull();
+		}
+	}
+
+	private class DoubleClickOnTableRowInput extends DomCheckbox implements IRefreshable {
+
+		public DoubleClickOnTableRowInput() {
+
+			super(preferences.enableDoubleClickOnTableRows);
+			setTitle(CoreI18n.ENABLING_THIS_PREVENT_TEXT_SELECTION_WITH_DOUBLE_CLICK);
+		}
+
+		@Override
+		public void refresh() {
+
+			preferences.enableDoubleClickOnTableRows = isChecked();
 		}
 	}
 }
