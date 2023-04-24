@@ -163,25 +163,6 @@ public interface IDomEngine {
 	void setPreventDefaultOnWheel(IDomNode node, Set<DomModifier> modifiers, boolean enabled);
 
 	/**
-	 * Prevents double click text selection for the given {@link IDomNode}.
-	 * <p>
-	 * I contrast to the CSS style <i>user-select</i>, this only effects double
-	 * clicks directly on the given {@link IDomNode} and not its children. It
-	 * also does not prevent other types of text selections.
-	 * <p>
-	 * <b>Warning:</b> should not be used in combination with
-	 * {@link #setPreventDefaultOnMouseDown}.
-	 *
-	 * @param node
-	 *            the {@link IDomNode} on which to prevent the double click
-	 *            selection (never <i>null</i>)
-	 * @param enabled
-	 *            <i>true</i> if double click selection shall be prevented;
-	 *            <i>false</i> otherwise
-	 */
-	void setPreventDoubleClickSelection(IDomNode node, boolean enabled);
-
-	/**
 	 * Adds an event handler that stops propagation for the given
 	 * {@link IDomNode}, and the event with the given name (e.g.
 	 * {@code "onmousedown"}).

@@ -748,24 +748,6 @@ function setPreventDefaultOnMouseDown(element, enabled) {
 function setPreventDefaultOnWheel(element, modifiers, enabled) {
     WHEEL_EVENT_MANAGER.setPreventDefaultBehavior(element, new Set(modifiers), enabled);
 }
-function setPreventDoubleClickSelection(element, enabled) {
-    if (enabled) {
-        element.onmousedown = (event) => {
-            if (event.target === element && event.detail > 1) {
-                element.onselectstart = function () { return false; };
-            }
-        };
-        element.onmouseup = (event) => {
-            if (event.target === element && event.detail > 1) {
-                element.onselectstart = null;
-            }
-        };
-    }
-    else {
-        element.onmousedown = null;
-        element.onmouseup = null;
-    }
-}
 function setListenToKeys(element, keys) {
     KEYBOARD_EVENT_MANAGER.setListenToKeys(element, keys);
 }

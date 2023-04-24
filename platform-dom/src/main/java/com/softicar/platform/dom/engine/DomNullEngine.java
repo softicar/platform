@@ -263,12 +263,6 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void setPreventDoubleClickSelection(IDomNode node, boolean enabled) {
-
-		// nothing to do
-	}
-
-	@Override
 	public void setReloadPageOnClick(IDomNode node) {
 
 		// nothing to do
