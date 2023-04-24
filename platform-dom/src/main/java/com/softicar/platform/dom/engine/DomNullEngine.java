@@ -293,6 +293,12 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
+	public void sendBubblingKeyboardEvent(IDomNode node, String eventType, String key) {
+
+		// nothing to do
+	}
+
+	@Override
 	public void trapTabFocus(IDomNode node) {
 
 		// nothing to do
