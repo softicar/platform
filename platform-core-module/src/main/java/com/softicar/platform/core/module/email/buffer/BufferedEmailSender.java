@@ -61,6 +61,7 @@ public class BufferedEmailSender {
 				MimeMessage mimeMessage = createMimeMessage(email);
 				// send email
 				if (EmailSystemProperties.SENDING_ENABLED.getValue()) {
+					Log.finfo("Sending email #%s...", email.getId());
 					Transport.send(mimeMessage);
 					Log.finfo("Sent email #%s.", email.getId());
 				}
