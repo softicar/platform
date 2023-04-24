@@ -13,7 +13,6 @@ class EmfDataTableCell<R, T> extends DomCell implements IEmfDataTableCell<R, T> 
 
 		this.tableRow = tableRow;
 		this.column = column;
-		getDomEngine().setPreventDoubleClickSelection(this, true);
 		addMarker(EmfTestMarker.DATA_TABLE_BODY_CELL);
 		column.getSettings().getMarkers().forEach(this::addMarker);
 	}
