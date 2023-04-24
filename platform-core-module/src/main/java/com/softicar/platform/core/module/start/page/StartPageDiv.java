@@ -4,8 +4,8 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.CoreTestMarker;
-import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.SystemEventPage;
+import com.softicar.platform.core.module.event.SystemEvents;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.MaintenanceWindowsInfoElement;
 import com.softicar.platform.core.module.page.PageButton;
@@ -37,7 +37,7 @@ class StartPageDiv extends DomDiv {
 	private void addPendingSystemEventsSection(Collection<IDomElement> sections) {
 
 		if (CorePermissions.ADMINISTRATION.test(AGCoreModuleInstance.getInstance(), CurrentUser.get())) {
-			var count = AGSystemEvent.TABLE.createSelect().where(AGSystemEvent.NEEDS_CONFIRMATION).count();
+			var count = SystemEvents.getNumberOfEventsToConfirm();
 			if (count > 0) {
 				var message = CoreI18n.THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION.toDisplay(count);
 				var pageButton = new PageButton<>(SystemEventPage.class, AGCoreModuleInstance.getInstance())//

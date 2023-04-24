@@ -28,6 +28,7 @@ public class PageNavigationLinkDiv extends DomDiv {
 		addMarker(CoreTestMarker.PAGE_NAVIGATION_LINK_DIV);
 		setCssClass(CoreCssClasses.PAGE_NAVIGATION_LINK_DIV);
 		appendChild(new Title());
+		appendBadges();
 		appendChild(new OpenInNewTabButton());
 	}
 
@@ -39,6 +40,15 @@ public class PageNavigationLinkDiv extends DomDiv {
 	public PageNavigationEntry<?> getEntry() {
 
 		return entry;
+	}
+
+	private void appendBadges() {
+
+		entry//
+			.getPageBadges()
+			.stream()
+			.map(PageNavigationBadgeDiv::new)
+			.forEach(this::appendChild);
 	}
 
 	private class Title extends DomDiv implements IDomClickEventHandler {
