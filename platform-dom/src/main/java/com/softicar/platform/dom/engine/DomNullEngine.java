@@ -167,13 +167,13 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void selectText(IDomNode inputNode) {
+	public void scrollToBottom(IDomNode inputNode) {
 
 		// nothing to do
 	}
 
 	@Override
-	public void scrollToBottom(IDomNode inputNode) {
+	public void selectText(IDomNode inputNode) {
 
 		// nothing to do
 	}
