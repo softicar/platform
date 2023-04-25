@@ -26,10 +26,11 @@ public class BufferedEmailSendProgram implements IProgram {
 	@Override
 	public void executeProgram() {
 
-		Log.finfo("Sending emails...");
+		Log.finfo("Sending emails for all servers...");
 		new Retrier(this::sendForAllServers)//
 			.setRetryDelay(RETRY_DELAY_MILLIS)
 			.apply();
+		Log.finfo("Done sending emails for all servers.");
 
 		Log.finfo("Cleaning emails...");
 		new BufferedEmailCleaner().cleanAll();

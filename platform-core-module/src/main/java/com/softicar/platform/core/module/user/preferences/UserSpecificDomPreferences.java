@@ -23,6 +23,16 @@ public class UserSpecificDomPreferences implements IDomPreferences {
 			.map(AGUser::getPreferences)
 			.map(preferences -> preferences.preferredPopupPlacement)
 			.map(UserPreferencesPreferredPopupPlacement::getStrategy)
-			.orElse(new DomDefaultPreferences().getPreferredPopupPlacementStrategy());
+			.orElse(DomDefaultPreferences.getInstance().getPreferredPopupPlacementStrategy());
+	}
+
+	@Override
+	public boolean enableDoubleClickOnTableRows() {
+
+		return Optional//
+			.ofNullable(CurrentUser.get())
+			.map(AGUser::getPreferences)
+			.map(preferences -> preferences.enableDoubleClickOnTableRows)
+			.orElse(DomDefaultPreferences.getInstance().enableDoubleClickOnTableRows());
 	}
 }

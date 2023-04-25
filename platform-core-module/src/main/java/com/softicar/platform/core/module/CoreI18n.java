@@ -300,6 +300,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Deaktivierter Benutzer");
 	I18n0 DOMAIN = new I18n0("Domain")//
 		.de("Domäne");
+	I18n0 DOUBLE_CLICK_ON_TABLE_ROW_OPENS_POPUP = new I18n0("Double Click on Table Row Opens Popup")//
+		.de("Doppelklick auf Tabellenzeile öffnet Popup");
 	I18n0 DOWNLOAD_FILE = new I18n0("Download File")//
 		.de("Datei herunterladen");
 	I18n0 DROP_PANIC_ENTRIES = new I18n0("Drop Panic Entries")//
@@ -318,6 +320,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("E-Mail-Server nicht konfiguriert.");
 	I18n0 EMPTY_CRON_ELEMENT = new I18n0("Empty Cron element.")//
 		.de("Leeres Cron-Element.");
+	I18n0 ENABLING_THIS_PREVENTS_TEXT_SELECTION_WITH_DOUBLE_CLICK = new I18n0("Enabling this prevents text selection with double click.")//
+		.de("Wenn Sie diese Option aktivieren, wird die Textauswahl per Doppelklick verhindert.");
 	I18n0 ENCRYPTED_PASSWORD = new I18n0("Encrypted Password")//
 		.de("verschlüsseltes Passwort");
 	I18n0 ENGLISH = new I18n0("English")//
@@ -531,6 +535,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wartungsfenster-Logs");
 	I18n0 MAINTENANCE_WINDOWS = new I18n0("Maintenance Windows")//
 		.de("Wartungsfenster");
+	I18n0 MAINTENANCE_WINDOWS_IN_PROGRESS = new I18n0("Maintenance Windows in Progress")//
+		.de("Wartungsfenster in Bearbeitung");
 	I18n0 MALFORMED_REQUEST = new I18n0("Malformed Request")//
 		.de("Fehlerhafte Anfrage");
 	I18n0 MANUAL = new I18n0("Manual")//
@@ -681,6 +687,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bevorstehende Wartungsarbeiten");
 	I18n2 PENDING_MAINTENANCE_FROM_ARG1_TO_ARG2 = new I18n2("Pending maintenance from %s to %s")//
 		.de("Bevorstehende Wartungsarbeiten von %s bis %s");
+	I18n0 PENDING_MAINTENANCE_WINDOWS = new I18n0("Pending Maintenance Windows")//
+		.de("Bevorstehende Wartungsfenster");
 	I18n0 PERMISSION_UUID = new I18n0("Permission UUID")//
 		.de("Berechtigungs-UUID");
 	I18n0 PERMISSIONS = new I18n0("Permissions")//
@@ -1139,6 +1147,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Zwei-Faktor-Authentifizierung ist aktiv.");
 	I18n0 TYPE = new I18n0("Type")//
 		.de("Typ");
+	I18n0 UNCONFIRMED_EVENTS = new I18n0("Unconfirmed Events")//
+		.de("Unbestätigte Ereignisse");
 	I18n0 UNIX_CRYPT = new I18n0("Unix Crypt")//
 		.de("Unix Crypt");
 	I18n0 UNKNOWN = new I18n0("unknown")//

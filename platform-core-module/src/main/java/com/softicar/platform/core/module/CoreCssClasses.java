@@ -20,6 +20,7 @@ public interface CoreCssClasses {
 	ICssClass PAGE_HEADER_NAVIGATION_TOGGLE_BUTTON = new CssClass("PageHeaderNavigationToggleButton", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_SEPARATOR = new CssClass("PageHeaderSeparator", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_USER_POPOVER = new CssClass("PageHeaderUserPopover", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_NAVIGATION_BADGE = new CssClass("PageNavigationBadge", CoreCssFiles.PAGE_NAVIGATION_STYLE);
 	ICssClass PAGE_NAVIGATION_COLLAPSED = new CssClass("PageNavigationCollapsed", CoreCssFiles.PAGE_NAVIGATION_STYLE);
 	ICssClass PAGE_NAVIGATION_DIV = new CssClass("PageNavigationDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);
 	ICssClass PAGE_NAVIGATION_FOLDER_DIV = new CssClass("PageNavigationFolderDiv", CoreCssFiles.PAGE_NAVIGATION_STYLE);

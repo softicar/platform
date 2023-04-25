@@ -167,13 +167,13 @@ public class DomNullEngine implements IDomEngine {
 	}
 
 	@Override
-	public void selectText(IDomNode inputNode) {
+	public void scrollToBottom(IDomNode inputNode) {
 
 		// nothing to do
 	}
 
 	@Override
-	public void scrollToBottom(IDomNode inputNode) {
+	public void selectText(IDomNode inputNode) {
 
 		// nothing to do
 	}
@@ -282,6 +282,12 @@ public class DomNullEngine implements IDomEngine {
 
 	@Override
 	public void stopPropagation(IDomNode node, String eventName) {
+
+		// nothing to do
+	}
+
+	@Override
+	public void sendBubblingKeyboardEvent(IDomNode node, String eventType, String key) {
 
 		// nothing to do
 	}

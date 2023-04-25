@@ -35,7 +35,7 @@ public class BufferedEmailSenderSessionManager {
 	 */
 	private static class SessionProperties extends Properties {
 
-		private static final long SMTP_TIMEOUT = Duration.ofSeconds(30).toMillis();
+		private static final String SMTP_TIMEOUT = Duration.ofSeconds(30).toMillis() + "";
 
 		public SessionProperties(AGServer server) {
 

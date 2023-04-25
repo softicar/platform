@@ -43,7 +43,7 @@ class DomAutoCompleteInputField extends DomTextInput
 		} else if (key.equals(DomKeys.ENTER) || key.equals(DomKeys.TAB)) {
 			input.onEnterOrTab();
 		} else if (key.equals(DomKeys.ESCAPE)) {
-			input.onBackdropClickOrEscape();
+			input.onEscape();
 		}
 	}
 

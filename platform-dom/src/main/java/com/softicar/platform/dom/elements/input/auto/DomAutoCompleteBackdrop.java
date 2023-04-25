@@ -21,6 +21,6 @@ class DomAutoCompleteBackdrop extends DomDiv implements IDomClickEventHandler {
 	@Override
 	public void handleClick(IDomEvent event) {
 
-		input.onBackdropClickOrEscape();
+		input.onBackdropClick();
 	}
 }
