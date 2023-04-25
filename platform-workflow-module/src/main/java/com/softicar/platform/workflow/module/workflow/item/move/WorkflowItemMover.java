@@ -1,5 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.item.move;
 
+import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
@@ -11,35 +12,22 @@ import java.util.stream.Collectors;
 
 public class WorkflowItemMover {
 
-	private final AGWorkflowNode workflowNode;
+	private final AGWorkflowNode sourceNode;
 
 	public WorkflowItemMover(AGWorkflowNode workflowNode) {
 
-		this.workflowNode = workflowNode;
+		this.sourceNode = workflowNode;
 	}
 
 	public void moveItemsToNode(AGWorkflowNode targetNode) {
 
 		if (!targetNode.isActive()) {
-			throw new RuntimeException();
-		}
-
-		if (targetNode.equals(workflowNode)) {
-			throw new RuntimeException();
-		}
-
-		List<AGWorkflowItem> workflowItems = AGWorkflowItem //
-			.createSelect()
-			.join(AGWorkflowItem.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ID.isEqual(workflowNode.getId()))
-			.where(AGWorkflowNode.ACTIVE)
-			.stream()
-			.collect(Collectors.toList());
-
-		String itemMessageText = createItemMessageText(targetNode);
-
-		for (AGWorkflowItem item: workflowItems) {
-			lockAndUpdateItem(item, targetNode, itemMessageText);
+			throw new SofticarDeveloperException("targetNode must be active");
+		} else if (sourceNode.equals(targetNode)) {
+			Log.finfo("Moving isn't necessary.");
+		} else {
+			String itemMessageText = createItemMessageText(targetNode);
+			moveItemsToNode(targetNode, itemMessageText);
 		}
 	}
 
@@ -48,24 +36,44 @@ public class WorkflowItemMover {
 		return String
 			.format(
 				"Item was moved from node \"%s\" [%s] of workflow version ID %s to node \"%s\" [%s] of workflow version ID %s.",
-				workflowNode.getName(),
-				workflowNode.getId(),
-				workflowNode.getWorkflowVersionID(),
+				sourceNode.getName(),
+				sourceNode.getId(),
+				sourceNode.getWorkflowVersionID(),
 				targetNode.getName(),
 				targetNode.getId(),
 				targetNode.getWorkflowVersionID());
 	}
 
+	private void moveItemsToNode(AGWorkflowNode targetNode, String itemMessageText) {
+
+		List<AGWorkflowItem> workflowItems = AGWorkflowItem //
+			.createSelect()
+			.join(AGWorkflowItem.WORKFLOW_NODE)
+			.where(AGWorkflowNode.ID.isEqual(sourceNode.getId()))
+			.stream()
+			.collect(Collectors.toList());
+
+		for (AGWorkflowItem item: workflowItems) {
+			lockAndUpdateItem(item, targetNode, itemMessageText);
+		}
+	}
+
 	private void lockAndUpdateItem(AGWorkflowItem item, AGWorkflowNode targetNode, String itemMessageText) {
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			if (!item.reloadForUpdate()) {
+			boolean reload = item.reloadForUpdate();
+			AGWorkflowNode currentNode = item.getWorkflowNode();
+
+			if (!reload) {
 				Log.fwarning("WARNING: Workflow item ID %s could not be reloaded.", item.getId());
-			} else if (!workflowNode.equals(item.getWorkflowNode())) {
-				Log.fwarning("WARNING: Workflow item \"%s\" is not in workflow node \"%s\" anymore.", item.toDisplay(), workflowNode.toDisplay());
+			} else if (currentNode.equals(targetNode)) {
+				Log.finfo("Workflow item \"%s\" is already in workflow node \"%s\".", item.toDisplay(), targetNode.toDisplay());
+			} else if (!currentNode.equals(sourceNode)) {
+				Log.finfo("Workflow item \"%s\" is not in workflow node \"%s\" anymore.", item.toDisplay(), sourceNode.toDisplay());
 			} else {
 				updateItemAndInsertMessage(item, targetNode, itemMessageText);
 			}
+
 			transaction.commit();
 		}
 	}
