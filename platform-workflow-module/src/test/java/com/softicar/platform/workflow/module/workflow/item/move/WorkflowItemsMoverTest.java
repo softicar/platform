@@ -119,7 +119,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 	@Test
 	public void testMoveItemsWithSourceEqualsTarget() {
 
-		assertCount(0, AGWorkflowItemMessage.createSelect());
+		assertCount(3, AGWorkflowItem.createSelect().where(AGWorkflowItem.WORKFLOW_NODE.isEqual(rootNode)));
 
 		new WorkflowItemsMover(rootNode).moveItemsToNode(rootNode);
 
