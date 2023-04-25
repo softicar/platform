@@ -14,9 +14,9 @@ public class WorkflowItemsMover {
 
 	private final AGWorkflowNode sourceNode;
 
-	public WorkflowItemsMover(AGWorkflowNode workflowNode) {
+	public WorkflowItemsMover(AGWorkflowNode sourceNode) {
 
-		this.sourceNode = workflowNode;
+		this.sourceNode = sourceNode;
 	}
 
 	public void moveItemsToNode(AGWorkflowNode targetNode) {
