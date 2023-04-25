@@ -46,16 +46,19 @@ public class WorkflowItemMover {
 
 	private void moveItemsToNode(AGWorkflowNode targetNode, String itemMessageText) {
 
-		List<AGWorkflowItem> workflowItems = AGWorkflowItem //
+		for (AGWorkflowItem item: loadWorkflowItems()) {
+			lockAndUpdateItem(item, targetNode, itemMessageText);
+		}
+	}
+
+	private List<AGWorkflowItem> loadWorkflowItems() {
+
+		return AGWorkflowItem //
 			.createSelect()
 			.join(AGWorkflowItem.WORKFLOW_NODE)
 			.where(AGWorkflowNode.ID.isEqual(sourceNode.getId()))
 			.stream()
 			.collect(Collectors.toList());
-
-		for (AGWorkflowItem item: workflowItems) {
-			lockAndUpdateItem(item, targetNode, itemMessageText);
-		}
 	}
 
 	private void lockAndUpdateItem(AGWorkflowItem item, AGWorkflowNode targetNode, String itemMessageText) {
@@ -67,9 +70,9 @@ public class WorkflowItemMover {
 			if (!reload) {
 				Log.fwarning("WARNING: Workflow item ID %s could not be reloaded.", item.getId());
 			} else if (currentNode.equals(targetNode)) {
-				Log.finfo("Workflow item \"%s\" is already in workflow node \"%s\".", item.toDisplay(), targetNode.toDisplay());
+				Log.finfo("Workflow item \"%s\" is already in target workflow node \"%s\".", item.toDisplay(), targetNode.toDisplay());
 			} else if (!currentNode.equals(sourceNode)) {
-				Log.finfo("Workflow item \"%s\" is not in workflow node \"%s\" anymore.", item.toDisplay(), sourceNode.toDisplay());
+				Log.finfo("Workflow item \"%s\" is not in source workflow node \"%s\" anymore.", item.toDisplay(), sourceNode.toDisplay());
 			} else {
 				updateItemAndInsertMessage(item, targetNode, itemMessageText);
 			}
