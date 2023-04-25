@@ -47,7 +47,7 @@ public class WorkflowItemMover {
 
 		return String
 			.format(
-				"Item was moved from node \"%s\" [%s] of workflow version ID %s to node \"%s\" [506] of workflow version ID %s.",
+				"Item was moved from node \"%s\" [%s] of workflow version ID %s to node \"%s\" [%s] of workflow version ID %s.",
 				workflowNode.getName(),
 				workflowNode.getId(),
 				workflowNode.getWorkflowVersionID(),
