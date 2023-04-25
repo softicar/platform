@@ -10,11 +10,11 @@ import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WorkflowItemMover {
+public class WorkflowItemsMover {
 
 	private final AGWorkflowNode sourceNode;
 
-	public WorkflowItemMover(AGWorkflowNode workflowNode) {
+	public WorkflowItemsMover(AGWorkflowNode workflowNode) {
 
 		this.sourceNode = workflowNode;
 	}

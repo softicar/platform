@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
-public class WorkflowItemMoverTest extends AbstractWorkflowTest {
+public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 
 	private final AGWorkflowNode rootNode;
 	private final AGWorkflowNode nodeA;
@@ -24,7 +24,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 	private final AGWorkflowItem itemTwo;
 	private final AGWorkflowItem itemThree;
 
-	public WorkflowItemMoverTest() {
+	public WorkflowItemsMoverTest() {
 
 		AGWorkflow workflow = insertWorkflow(moduleInstance, "Test Workflow", WorkflowTestObjectTableReferencePoint.class);
 		AGWorkflowVersion workflowVersion = insertWorkflowVersion(workflow, false);
@@ -55,7 +55,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 
 		assertCount(0, AGWorkflowItemMessage.createSelect());
 
-		new WorkflowItemMover(rootNode).moveItemsToNode(nodeA);
+		new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA);
 
 		assertEquals(nodeA, itemOne.getWorkflowNode());
 		assertEquals(nodeA, itemTwo.getWorkflowNode());
@@ -87,7 +87,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 
 		assertEquals(rootNode, itemThree.getWorkflowNode());
 
-		new WorkflowItemMover(rootNode).moveItemsToNode(nodeA);
+		new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA);
 
 		assertEquals(nodeA, itemOne.getWorkflowNode());
 		assertEquals(nodeB, itemTwo.getWorkflowNode());
@@ -113,7 +113,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 
 		nodeA.setActive(false).save();
 
-		new WorkflowItemMover(rootNode).moveItemsToNode(nodeA);
+		new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA);
 	}
 
 	@Test
@@ -121,7 +121,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 
 		assertCount(0, AGWorkflowItemMessage.createSelect());
 
-		new WorkflowItemMover(rootNode).moveItemsToNode(rootNode);
+		new WorkflowItemsMover(rootNode).moveItemsToNode(rootNode);
 
 		assertCount(0, AGWorkflowItemMessage.createSelect());
 	}
@@ -136,7 +136,7 @@ public class WorkflowItemMoverTest extends AbstractWorkflowTest {
 
 		assertEquals(nodeA, itemOne.getWorkflowNode());
 
-		new WorkflowItemMover(nodeA).moveItemsToNode(rootNode);
+		new WorkflowItemsMover(nodeA).moveItemsToNode(rootNode);
 
 		assertCount(3, AGWorkflowItem.createSelect().where(AGWorkflowItem.WORKFLOW_NODE.isEqual(nodeB)));
 		assertCount(0, AGWorkflowItemMessage.createSelect());
