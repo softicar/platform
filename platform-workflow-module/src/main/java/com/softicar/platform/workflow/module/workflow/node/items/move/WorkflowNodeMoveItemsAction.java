@@ -35,7 +35,7 @@ public class WorkflowNodeMoveItemsAction implements IEmfSecondaryAction<AGWorkfl
 	@Override
 	public IDisplayString getTitle() {
 
-		return WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_NODE;
+		return WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE;
 	}
 
 	@Override

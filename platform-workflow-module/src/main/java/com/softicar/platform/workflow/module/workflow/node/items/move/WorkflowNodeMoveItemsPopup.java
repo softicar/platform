@@ -37,22 +37,20 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 
 	private void setup() {
 
-		setCaption(WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_NODE);
-		setSubCaption(WorkflowI18n.WORKFLOW_NODE.concatColon().concatSpace().concat(sourceNode.getName()));
+		setCaption(WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE);
+		setSubCaption(WorkflowI18n.FROM_WORKFLOW_NODE_ARG1.toDisplay(sourceNode.toDisplay()));
 
 		WorkflowVersionSelect versionSelect = new WorkflowVersionSelect(sourceNode.getWorkflow());
-
-		appendText(WorkflowI18n.PLEASE_SELECT_THE_TARGET_WORKFLOW_NODE);
 
 		DomTable table = appendChild(new DomTable());
 		table.setCssClass(EmfCssClasses.EMF_FORM);
 
 		DomRow firstRow = table.appendChild(new DomRow());
-		firstRow.appendCell().appendText(WorkflowI18n.WORKFLOW_VERSION);
+		firstRow.appendCell().appendText(WorkflowI18n.WORKFLOW_VERSION.concatColon());
 		firstRow.appendCell().appendChild(versionSelect);
 
 		DomRow secondRow = table.appendChild(new DomRow());
-		secondRow.appendCell().appendText(WorkflowI18n.WORKFLOW_NODE);
+		secondRow.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_NODE.concatColon());
 		secondRow.appendCell().appendChild(nodeSelect);
 
 		if (!versionSelect.getValueList().isEmpty()) {
