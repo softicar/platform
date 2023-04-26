@@ -107,6 +107,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Quellcode-Referenzpunkt fehlt.");
 	I18n0 MISSING_WORKFLOW_ROOT_NODE = new I18n0("Missing workflow root node.")//
 		.de("Wurzel-Knoten des Arbeitsablaufs fehlt.");
+	I18n0 MOVE_WORKFLOW_ITEMS_TO_ANOTHER_NODE = new I18n0("Move Workflow Items to Another Node")//
+		.de("Arbeitsablauf-Elemente in anderen Knoten verschieben");
 	I18n0 MY_TASKS = new I18n0("My Tasks")//
 		.de("Meine Aufgaben");
 	I18n0 NEW_WORKFLOW_TASK = new I18n0("New Workflow Task")//
@@ -137,6 +139,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Bitte geben Sie eine Begründung an.");
 	I18n0 PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN = new I18n0("Please refresh the input element or press F5 to reload the screen.")//
 		.de("Bitte das Eingabeelement aktualisieren oder F5 drücken, um den Bildschirm neu zu laden.");
+	I18n0 PLEASE_SELECT_THE_TARGET_WORKFLOW_NODE = new I18n0("Please select the target workflow node:")//
+		.de("Bitte den Ziel-Arbeitsablauf-Knoten auswählen:");
 	I18n2 PRECONDITION_FUNCTION_ARG1_OF_WORKFLOW_NODE_ARG2_IS_MISSING = new I18n2("Precondition function '%s' of workflow node '%s' is missing.")//
 		.de("Vorbedingungsfunktion %s des Arbeitsablauf-Knotens %s fehlt.");
 	I18n0 PRECONDITIONS = new I18n0("Preconditions")//
@@ -294,6 +298,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Knoten-Aktionsberechtigungen");
 	I18n0 WORKFLOW_NODE_ACTIONS = new I18n0("Workflow Node Actions")//
 		.de("Arbeitsablauf-Knoten-Aktionen");
+	I18n0 WORKFLOW_NODE_CONTAINS_ONE_OR_MORE_ITEMS = new I18n0("Workflow Node Contains One or More Items")//
+		.de("Arbeitsablauf-Knoten enthält ein oder mehrere Elemente");
 	I18n0 WORKFLOW_NODE_LOG = new I18n0("Workflow Node Log")//
 		.de("Arbeitsablauf-Knoten-Log");
 	I18n0 WORKFLOW_NODE_LOGS = new I18n0("Workflow Node Logs")//

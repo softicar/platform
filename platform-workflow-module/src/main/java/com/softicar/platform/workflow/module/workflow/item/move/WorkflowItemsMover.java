@@ -7,8 +7,6 @@ import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.item.message.severity.AGWorkflowMessageSeverityEnum;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class WorkflowItemsMover {
 
@@ -46,19 +44,9 @@ public class WorkflowItemsMover {
 
 	private void moveItemsToNode(AGWorkflowNode targetNode, String itemMessageText) {
 
-		for (AGWorkflowItem item: loadWorkflowItems()) {
+		for (AGWorkflowItem item: sourceNode.getAllWorkflowItems()) {
 			lockAndUpdateItem(item, targetNode, itemMessageText);
 		}
-	}
-
-	private List<AGWorkflowItem> loadWorkflowItems() {
-
-		return AGWorkflowItem //
-			.createSelect()
-			.join(AGWorkflowItem.WORKFLOW_NODE)
-			.where(AGWorkflowNode.ID.isEqual(sourceNode.getId()))
-			.stream()
-			.collect(Collectors.toList());
 	}
 
 	private void lockAndUpdateItem(AGWorkflowItem item, AGWorkflowNode targetNode, String itemMessageText) {
