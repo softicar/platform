@@ -35,14 +35,7 @@ public class WorkflowVersionManagementPopup extends DomPopup implements IDomRefr
 		this.workflowVersion = workflowVersion;
 		this.currentNodeSupplier = currentNodeSupplier;
 		setCaption(WorkflowI18n.MANAGE_WORKFLOW);
-
-		if (workflowVersion.isDraft()) {
-			setSubCaptionWithVersionType(WorkflowI18n.DRAFT_VERSION);
-		} else if (workflowVersion.isCurrentVersion()) {
-			setSubCaptionWithVersionType(WorkflowI18n.CURRENT_VERSION);
-		} else {
-			setSubCaptionWithVersionType(WorkflowI18n.OBSOLETE_VERSION);
-		}
+		setSubCaptionWithVersionType(workflowVersion.getVersionType());
 
 		refresh();
 	}

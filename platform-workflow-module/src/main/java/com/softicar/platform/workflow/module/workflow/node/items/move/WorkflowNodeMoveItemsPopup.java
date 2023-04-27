@@ -125,7 +125,7 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 		@Override
 		protected IDisplayString getValueDisplayString(AGWorkflowVersion version) {
 
-			return version.toDisplay();
+			return version.toDisplay().concatSpace().concatInParentheses(version.getVersionType());
 		}
 
 		@Override
