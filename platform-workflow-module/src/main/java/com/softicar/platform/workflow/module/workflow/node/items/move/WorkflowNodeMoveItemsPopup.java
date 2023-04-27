@@ -114,6 +114,7 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 
 			if (preselectedVersion != null) {
 				refreshNodeSelect(preselectedVersion);
+				setSelectedValue(preselectedVersion);
 				listenToEvent(DomEventType.CHANGE);
 			}
 		}
