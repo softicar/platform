@@ -31,7 +31,7 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("genehmigt");
 	I18n0 APPROVER = new I18n0("Approver")//
 		.de("Genehmiger");
-	I18n2 ARG1_ITEMS_OF_SOURCE_WORKFLOW_NODE_ARG2 = new I18n2("%s item(s) of source workflow node '%s'")//
+	I18n2 ARG1_ITEM_S_OF_SOURCE_WORKFLOW_NODE_ARG2 = new I18n2("%s item(s) of source workflow node '%s'")//
 		.de("%s Element(e) aus Ursprungs-Arbeitsablauf-Knoten '%s'");
 	I18n0 AUTO_TRANSITION = new I18n0("Auto Transition")//
 		.de("Automatischer Übergang");
