@@ -77,8 +77,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Ausgeführte Aktion '%s'.");
 	I18n0 EXECUTES_WORKFLOW_TRANSITIONS = new I18n0("Executes workflow transitions")//
 		.de("Führt Arbeitsablauf-Übergänge aus");
-	I18n1 FROM_WORKFLOW_NODE_ARG1 = new I18n1("From Workflow Node: %s")//
-		.de("Aus Arbeitsablauf-Knoten: %s");
 	I18n0 FUNCTION = new I18n0("Function")//
 		.de("Funktion");
 	I18n0 FURTHER_APPROVAL_IS_REQUIRED = new I18n0("Further approval is required.")//
@@ -171,6 +169,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Quellcode-Referenzpunkt ist kein gültiger Nebeneffekt.");
 	I18n0 SOURCE_NODE = new I18n0("Source Node")//
 		.de("Ursprungsknoten");
+	I18n1 SOURCE_WORKFLOW_NODE_ARG1 = new I18n1("Source Workflow Node: %s")//
+		.de("Ursprungs-Arbeitsablauf-Knoten: %s");
 	I18n0 START_WORKFLOW = new I18n0("Start Workflow")//
 		.de("Arbeitsablauf starten");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//
@@ -191,6 +191,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Ziel-Benutzer ist System-Benutzer.");
 	I18n0 TARGET_WORKFLOW_NODE = new I18n0("Target Workflow Node")//
 		.de("Ziel-Arbeitsablauf-Knoten");
+	I18n0 TARGET_WORKFLOW_VERSION = new I18n0("Target Workflow Version")//
+		.de("Ziel-Arbeitsablauf-Version");
 	I18n0 TASK = new I18n0("Task")//
 		.de("Aufgabe");
 	I18n2 TASK_ARG1_EXECUTED_TRANSITION_ARG2 = new I18n2("Task '%s' executed transition '%s'.")//

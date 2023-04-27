@@ -38,20 +38,11 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 	private void setup() {
 
 		setCaption(WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE);
-		setSubCaption(WorkflowI18n.FROM_WORKFLOW_NODE_ARG1.toDisplay(sourceNode.toDisplay()));
+		setSubCaption(WorkflowI18n.SOURCE_WORKFLOW_NODE_ARG1.toDisplay(sourceNode.toDisplay()));
 
 		WorkflowVersionSelect versionSelect = new WorkflowVersionSelect(sourceNode.getWorkflow());
 
-		DomTable table = appendChild(new DomTable());
-		table.setCssClass(EmfCssClasses.EMF_FORM);
-
-		DomRow firstRow = table.appendChild(new DomRow());
-		firstRow.appendCell().appendText(WorkflowI18n.WORKFLOW_VERSION.concatColon());
-		firstRow.appendCell().appendChild(versionSelect);
-
-		DomRow secondRow = table.appendChild(new DomRow());
-		secondRow.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_NODE.concatColon());
-		secondRow.appendCell().appendChild(nodeSelect);
+		appendChild(buildTargetWorkflowNodeSelectionTable(versionSelect));
 
 		if (!versionSelect.getValueList().isEmpty()) {
 			appendActionNode(
@@ -61,6 +52,31 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 					.setClickCallback(this::moveWorkflowItems));
 		}
 		appendCancelButton();
+	}
+
+	private DomTable buildTargetWorkflowNodeSelectionTable(WorkflowVersionSelect versionSelect) {
+
+		DomTable table = new DomTable();
+		table.setCssClass(EmfCssClasses.EMF_FORM);
+		table.appendChild(buildTargetWorkflowVersionRow(versionSelect));
+		table.appendChild(buildTargetWorkflowNodeRow());
+		return table;
+	}
+
+	private DomRow buildTargetWorkflowVersionRow(WorkflowVersionSelect versionSelect) {
+
+		DomRow row = new DomRow();
+		row.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_VERSION.concatColon());
+		row.appendCell().appendChild(versionSelect);
+		return row;
+	}
+
+	private DomRow buildTargetWorkflowNodeRow() {
+
+		DomRow row = new DomRow();
+		row.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_NODE.concatColon());
+		row.appendCell().appendChild(nodeSelect);
+		return row;
 	}
 
 	private void moveWorkflowItems() {
