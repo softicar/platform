@@ -31,6 +31,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("genehmigt");
 	I18n0 APPROVER = new I18n0("Approver")//
 		.de("Genehmiger");
+	I18n2 ARG1_ITEMS_OF_SOURCE_WORKFLOW_NODE_ARG2 = new I18n2("%s item(s) of source workflow node '%s'")//
+		.de("%s Element(e) aus Ursprungs-Arbeitsablauf-Knoten '%s'");
 	I18n0 AUTO_TRANSITION = new I18n0("Auto Transition")//
 		.de("Automatischer Übergang");
 	I18n2 AUTO_TRANSITION_ARG1_ARG2 = new I18n2("Auto transition: %s -> %s")//
@@ -169,8 +171,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Quellcode-Referenzpunkt ist kein gültiger Nebeneffekt.");
 	I18n0 SOURCE_NODE = new I18n0("Source Node")//
 		.de("Ursprungsknoten");
-	I18n1 SOURCE_WORKFLOW_NODE_ARG1 = new I18n1("Source Workflow Node: %s")//
-		.de("Ursprungs-Arbeitsablauf-Knoten: %s");
 	I18n0 START_WORKFLOW = new I18n0("Start Workflow")//
 		.de("Arbeitsablauf starten");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//

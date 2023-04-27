@@ -38,7 +38,7 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 	private void setup() {
 
 		setCaption(WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE);
-		setSubCaption(WorkflowI18n.SOURCE_WORKFLOW_NODE_ARG1.toDisplay(sourceNode.toDisplay()));
+		setSubCaption(WorkflowI18n.ARG1_ITEMS_OF_SOURCE_WORKFLOW_NODE_ARG2.toDisplay(sourceNode.getAllWorkflowItems().size(), sourceNode.toDisplay()));
 
 		WorkflowVersionSelect versionSelect = new WorkflowVersionSelect(sourceNode.getWorkflow());
 
