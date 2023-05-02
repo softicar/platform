@@ -1,6 +1,6 @@
 package com.softicar.platform.workflow.module.workflow.item.move;
 
-import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.db.runtime.utils.DbAssertUtils;
 import com.softicar.platform.workflow.module.AbstractWorkflowTest;
 import com.softicar.platform.workflow.module.test.WorkflowTestObject;
@@ -68,7 +68,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 
 		String expectedText = String
 			.format(
-				"Item was moved from node \"Root Node\" [%s] of workflow version ID %s to node \"Node A\" [%s] of workflow version ID %s.",
+				"Item was moved from node 'Root Node' [%s] of workflow version ID %s to node 'Node A' [%s] of workflow version ID %s.",
 				rootNode.getId(),
 				rootNode.getWorkflowVersionID(),
 				nodeA.getId(),
@@ -99,7 +99,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 
 		String expectedText = String
 			.format(
-				"Item was moved from node \"Root Node\" [%s] of workflow version ID %s to node \"Node A\" [%s] of workflow version ID %s.",
+				"Item was moved from node 'Root Node' [%s] of workflow version ID %s to node 'Node A' [%s] of workflow version ID %s.",
 				rootNode.getId(),
 				rootNode.getWorkflowVersionID(),
 				nodeA.getId(),
@@ -108,7 +108,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 		assertEquals(expectedText, messageRecord.getText());
 	}
 
-	@Test(expected = SofticarDeveloperException.class)
+	@Test(expected = SofticarUserException.class)
 	public void testMoveItemsToNodeWithInactiveTargetNode() {
 
 		nodeA.setActive(false).save();
@@ -116,14 +116,12 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 		new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA);
 	}
 
-	@Test
+	@Test(expected = SofticarUserException.class)
 	public void testMoveItemsWithSourceEqualsTarget() {
 
 		assertCount(3, AGWorkflowItem.createSelect().where(AGWorkflowItem.WORKFLOW_NODE.isEqual(rootNode)));
 
 		new WorkflowItemsMover(rootNode).moveItemsToNode(rootNode);
-
-		assertCount(0, AGWorkflowItemMessage.createSelect());
 	}
 
 	@Test

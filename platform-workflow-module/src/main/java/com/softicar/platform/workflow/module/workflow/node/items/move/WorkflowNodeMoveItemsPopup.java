@@ -3,14 +3,15 @@ package com.softicar.platform.workflow.module.workflow.node.items.move;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.dom.elements.AbstractDomValueSelect;
 import com.softicar.platform.dom.elements.DomRow;
 import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.DomPopup;
+import com.softicar.platform.dom.elements.select.value.DomEntitySelect;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
@@ -25,57 +26,37 @@ import java.util.stream.Collectors;
 class WorkflowNodeMoveItemsPopup extends DomPopup {
 
 	private final AGWorkflowNode sourceNode;
-	private final WorkflowNodeSelect nodeSelect;
+	private final DomEntitySelect<AGWorkflowNode> nodeSelect;
 
 	public WorkflowNodeMoveItemsPopup(AGWorkflowNode sourceNode) {
 
 		this.sourceNode = sourceNode;
-		this.nodeSelect = new WorkflowNodeSelect();
-
-		setup();
-	}
-
-	private void setup() {
-
+		this.nodeSelect = new DomEntitySelect<>();
 		setCaption(WorkflowI18n.MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE);
 		setSubCaption(WorkflowI18n.ARG1_ITEM_S_OF_SOURCE_WORKFLOW_NODE_ARG2.toDisplay(sourceNode.getAllWorkflowItems().size(), sourceNode.toDisplay()));
-
-		WorkflowVersionSelect versionSelect = new WorkflowVersionSelect(sourceNode.getWorkflow());
-
-		appendChild(buildTargetWorkflowNodeSelectionTable(versionSelect));
-
-		if (!versionSelect.getValueList().isEmpty()) {
-			appendActionNode(
-				new DomButton()//
-					.setLabel(WorkflowI18n.OK)
-					.setIcon(CoreImages.DIALOG_OKAY.getResource())
-					.setClickCallback(this::moveWorkflowItems));
-		}
+		appendTargetWorkflowNodeSelectionTable();
+		appendActionNode(
+			new DomButton()//
+				.setLabel(WorkflowI18n.OK)
+				.setIcon(CoreImages.DIALOG_OKAY.getResource())
+				.setClickCallback(this::moveWorkflowItems));
 		appendCancelButton();
 	}
 
-	private DomTable buildTargetWorkflowNodeSelectionTable(WorkflowVersionSelect versionSelect) {
+	private void appendTargetWorkflowNodeSelectionTable() {
 
 		DomTable table = new DomTable();
 		table.setCssClass(EmfCssClasses.EMF_FORM);
-		table.appendChild(buildTargetWorkflowVersionRow(versionSelect));
-		table.appendChild(buildTargetWorkflowNodeRow());
-		return table;
+		table.appendChild(buildRow(WorkflowI18n.TARGET_WORKFLOW_VERSION, new WorkflowVersionSelect(sourceNode.getWorkflow())));
+		table.appendChild(buildRow(WorkflowI18n.TARGET_WORKFLOW_NODE, nodeSelect));
+		appendChild(table);
 	}
 
-	private DomRow buildTargetWorkflowVersionRow(WorkflowVersionSelect versionSelect) {
+	private DomRow buildRow(IDisplayString title, IDomNode child) {
 
 		DomRow row = new DomRow();
-		row.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_VERSION.concatColon());
-		row.appendCell().appendChild(versionSelect);
-		return row;
-	}
-
-	private DomRow buildTargetWorkflowNodeRow() {
-
-		DomRow row = new DomRow();
-		row.appendCell().appendText(WorkflowI18n.TARGET_WORKFLOW_NODE.concatColon());
-		row.appendCell().appendChild(nodeSelect);
+		row.appendCell().appendText(title.concatColon());
+		row.appendCell().appendChild(child);
 		return row;
 	}
 
@@ -91,7 +72,6 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 	private void refreshNodeSelect(AGWorkflowVersion selectedVersion) {
 
 		nodeSelect.removeValues();
-
 		List<AGWorkflowNode> workflowNodes = selectedVersion//
 			.getAllActiveWorkflowNodes()
 			.stream()
@@ -99,13 +79,12 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 			.sorted(Comparator.comparingInt(AGWorkflowNode::getId).reversed())
 			.collect(Collectors.toList());
 		nodeSelect.addValuesSortedByDisplayString(workflowNodes);
-
 		if (!workflowNodes.isEmpty()) {
 			nodeSelect.setSelectedValue(workflowNodes.get(0));
 		}
 	}
 
-	private class WorkflowVersionSelect extends AbstractDomValueSelect<AGWorkflowVersion> implements IDomEventHandler {
+	private class WorkflowVersionSelect extends DomEntitySelect<AGWorkflowVersion> implements IDomEventHandler {
 
 		public WorkflowVersionSelect(AGWorkflow workflow) {
 
@@ -134,36 +113,15 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 		}
 
 		@Override
-		protected Integer getValueId(AGWorkflowVersion version) {
-
-			return version.getId();
-		}
-
-		@Override
 		protected IDisplayString getValueDisplayString(AGWorkflowVersion version) {
 
-			return version.toDisplay().concatSpace().concatInParentheses(version.getVersionType());
+			return super.getValueDisplayString(version).concatSpace().concatInParentheses(version.getVersionType());
 		}
 
 		@Override
 		public void handleDOMEvent(IDomEvent event) {
 
 			refreshNodeSelect(getSelectedValue());
-		}
-	}
-
-	private class WorkflowNodeSelect extends AbstractDomValueSelect<AGWorkflowNode> {
-
-		@Override
-		protected Integer getValueId(AGWorkflowNode node) {
-
-			return node.getId();
-		}
-
-		@Override
-		protected IDisplayString getValueDisplayString(AGWorkflowNode node) {
-
-			return node.toDisplay();
 		}
 	}
 }

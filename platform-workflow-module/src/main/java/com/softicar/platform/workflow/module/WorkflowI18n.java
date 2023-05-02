@@ -187,6 +187,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Vertretung bis");
 	I18n0 TARGET_NODE = new I18n0("Target Node")//
 		.de("Zielknoten");
+	I18n0 TARGET_NODE_MUST_BE_ACTIVE = new I18n0("Target node must be active.")//
+		.de("Zielknoten muss aktiv sein.");
+	I18n0 TARGET_NODE_MUST_BE_DIFFERENT_THAN_SOURCE_NODE = new I18n0("Target node must be different than source node.")//
+		.de("Zielknoten muss sich von dem Ausgangsknoten unterscheiden.");
 	I18n0 TARGET_USER_IS_SYSTEM_USER = new I18n0("Target user is system user.")//
 		.de("Ziel-Benutzer ist System-Benutzer.");
 	I18n0 TARGET_WORKFLOW_NODE = new I18n0("Target Workflow Node")//
