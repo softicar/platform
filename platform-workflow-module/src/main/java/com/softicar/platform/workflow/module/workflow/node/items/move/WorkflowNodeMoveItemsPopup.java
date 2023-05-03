@@ -3,16 +3,13 @@ package com.softicar.platform.workflow.module.workflow.node.items.move;
 import com.softicar.platform.common.container.comparator.OrderDirection;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.CoreImages;
-import com.softicar.platform.dom.elements.DomRow;
-import com.softicar.platform.dom.elements.DomTable;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.popup.DomPopup;
 import com.softicar.platform.dom.elements.select.value.DomEntitySelect;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.event.IDomEventHandler;
-import com.softicar.platform.dom.node.IDomNode;
-import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.item.move.WorkflowItemsMover;
@@ -45,19 +42,10 @@ class WorkflowNodeMoveItemsPopup extends DomPopup {
 
 	private void appendTargetWorkflowNodeSelectionTable() {
 
-		DomTable table = new DomTable();
-		table.setCssClass(EmfCssClasses.EMF_FORM);
-		table.appendChild(buildRow(WorkflowI18n.TARGET_WORKFLOW_VERSION, new WorkflowVersionSelect(sourceNode.getWorkflow())));
-		table.appendChild(buildRow(WorkflowI18n.TARGET_WORKFLOW_NODE, nodeSelect));
-		appendChild(table);
-	}
-
-	private DomRow buildRow(IDisplayString title, IDomNode child) {
-
-		DomRow row = new DomRow();
-		row.appendCell().appendText(title.concatColon());
-		row.appendCell().appendChild(child);
-		return row;
+		DomLabelGrid grid = new DomLabelGrid();
+		grid.add(WorkflowI18n.TARGET_WORKFLOW_VERSION, new WorkflowVersionSelect(sourceNode.getWorkflow()));
+		grid.add(WorkflowI18n.TARGET_WORKFLOW_NODE, nodeSelect);
+		appendChild(grid);
 	}
 
 	private void moveWorkflowItems() {
