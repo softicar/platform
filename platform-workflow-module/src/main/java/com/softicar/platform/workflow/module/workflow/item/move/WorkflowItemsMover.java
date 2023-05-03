@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.item.move;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
+import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -25,32 +26,13 @@ public class WorkflowItemsMover {
 		} else if (sourceNode.equals(targetNode)) {
 			throw new SofticarUserException(WorkflowI18n.TARGET_NODE_MUST_BE_DIFFERENT_THAN_SOURCE_NODE);
 		} else {
-			String itemMessageText = createItemMessageText(targetNode);
-			moveItemsToNode(targetNode, itemMessageText);
+			for (AGWorkflowItem item: sourceNode.getAllWorkflowItems()) {
+				lockAndUpdateItem(item, targetNode);
+			}
 		}
 	}
 
-	private String createItemMessageText(AGWorkflowNode targetNode) {
-
-		return String
-			.format(
-				"Item was moved from node '%s' [%s] of workflow version ID %s to node '%s' [%s] of workflow version ID %s.",
-				sourceNode.getName(),
-				sourceNode.getId(),
-				sourceNode.getWorkflowVersionID(),
-				targetNode.getName(),
-				targetNode.getId(),
-				targetNode.getWorkflowVersionID());
-	}
-
-	private void moveItemsToNode(AGWorkflowNode targetNode, String itemMessageText) {
-
-		for (AGWorkflowItem item: sourceNode.getAllWorkflowItems()) {
-			lockAndUpdateItem(item, targetNode, itemMessageText);
-		}
-	}
-
-	private void lockAndUpdateItem(AGWorkflowItem item, AGWorkflowNode targetNode, String itemMessageText) {
+	private void lockAndUpdateItem(AGWorkflowItem item, AGWorkflowNode targetNode) {
 
 		try (DbTransaction transaction = new DbTransaction()) {
 			boolean reload = item.reloadForUpdate();
@@ -63,19 +45,25 @@ public class WorkflowItemsMover {
 			} else if (!currentNode.equals(sourceNode)) {
 				Log.finfo("Workflow item '%s' is not in source workflow node '%s' anymore.", item.toDisplay(), sourceNode.toDisplay());
 			} else {
-				updateItemAndInsertMessage(item, targetNode, itemMessageText);
+				updateItemAndInsertMessage(item, targetNode);
 			}
 			transaction.commit();
 		}
 	}
 
-	private void updateItemAndInsertMessage(AGWorkflowItem item, AGWorkflowNode targetNode, String itemMessageText) {
+	private void updateItemAndInsertMessage(AGWorkflowItem item, AGWorkflowNode targetNode) {
 
 		item.setWorkflowNode(targetNode).save();
 		new AGWorkflowItemMessage()//
 			.setWorkflowItem(item)
 			.setSeverity(AGWorkflowMessageSeverityEnum.INFO.getRecord())
-			.setText(itemMessageText)
+			.setText(createItemMessageText(targetNode).toString())
 			.save();
+	}
+
+	private IDisplayString createItemMessageText(AGWorkflowNode targetNode) {
+
+		return WorkflowI18n.ITEM_WAS_MOVED_FROM_NODE_ARG1_OF_VERSION_ARG2_TO_ARG3_OF_VERSION_ARG4
+			.toDisplay(sourceNode.toDisplay(), sourceNode.getWorkflowVersionID(), targetNode.toDisplay(), targetNode.getWorkflowVersionID());
 	}
 }

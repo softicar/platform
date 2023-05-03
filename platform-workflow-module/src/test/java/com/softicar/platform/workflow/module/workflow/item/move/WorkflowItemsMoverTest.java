@@ -1,8 +1,8 @@
 package com.softicar.platform.workflow.module.workflow.item.move;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.db.runtime.utils.DbAssertUtils;
 import com.softicar.platform.workflow.module.AbstractWorkflowTest;
+import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.test.WorkflowTestObject;
 import com.softicar.platform.workflow.module.test.WorkflowTestObjectTableReferencePoint;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
@@ -68,7 +68,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 
 		String expectedText = String
 			.format(
-				"Item was moved from node 'Root Node' [%s] of workflow version ID %s to node 'Node A' [%s] of workflow version ID %s.",
+				"Item was moved from node 'Root Node [%s]' of version '%s' to 'Node A [%s]' of version '%s'.",
 				rootNode.getId(),
 				rootNode.getWorkflowVersionID(),
 				nodeA.getId(),
@@ -99,7 +99,7 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 
 		String expectedText = String
 			.format(
-				"Item was moved from node 'Root Node' [%s] of workflow version ID %s to node 'Node A' [%s] of workflow version ID %s.",
+				"Item was moved from node 'Root Node [%s]' of version '%s' to 'Node A [%s]' of version '%s'.",
 				rootNode.getId(),
 				rootNode.getWorkflowVersionID(),
 				nodeA.getId(),
@@ -108,20 +108,21 @@ public class WorkflowItemsMoverTest extends AbstractWorkflowTest {
 		assertEquals(expectedText, messageRecord.getText());
 	}
 
-	@Test(expected = SofticarUserException.class)
+	@Test
 	public void testMoveItemsToNodeWithInactiveTargetNode() {
 
 		nodeA.setActive(false).save();
-
-		new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA);
+		assertExceptionMessage(WorkflowI18n.TARGET_NODE_MUST_BE_ACTIVE.toString(), () -> new WorkflowItemsMover(rootNode).moveItemsToNode(nodeA));
 	}
 
-	@Test(expected = SofticarUserException.class)
+	@Test
 	public void testMoveItemsWithSourceEqualsTarget() {
 
 		assertCount(3, AGWorkflowItem.createSelect().where(AGWorkflowItem.WORKFLOW_NODE.isEqual(rootNode)));
 
-		new WorkflowItemsMover(rootNode).moveItemsToNode(rootNode);
+		assertExceptionMessage(
+			WorkflowI18n.TARGET_NODE_MUST_BE_DIFFERENT_THAN_SOURCE_NODE.toString(),
+			() -> new WorkflowItemsMover(rootNode).moveItemsToNode(rootNode));
 	}
 
 	@Test

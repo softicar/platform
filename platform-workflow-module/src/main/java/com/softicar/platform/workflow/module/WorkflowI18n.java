@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module;
 import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.I18n2;
+import com.softicar.platform.common.core.i18n.I18n4;
 import com.softicar.platform.core.module.CoreI18n;
 
 public interface WorkflowI18n extends CoreI18n {
@@ -95,6 +96,9 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("ist aktuelle Version");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
 		.de("Ist Arbeitsablauf gestartet?");
+	I18n4 ITEM_WAS_MOVED_FROM_NODE_ARG1_OF_VERSION_ARG2_TO_ARG3_OF_VERSION_ARG4 =
+			new I18n4("Item was moved from node '%s' of version '%s' to '%s' of version '%s'.")//
+				.de("Element wurde von Knoten '%s' aus Version '%s' in Knoten '%s' von Version '%s' verschoben.");
 	I18n0 ITEMS = new I18n0("Items")//
 		.de("Elemente");
 	I18n0 ITEMS_IN_INACTIVE_VERSIONS = new I18n0("Items in Inactive Versions")//
