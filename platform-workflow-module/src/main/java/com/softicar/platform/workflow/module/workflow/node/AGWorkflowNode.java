@@ -2,6 +2,8 @@ package com.softicar.platform.workflow.module.workflow.node;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;
+import com.softicar.platform.workflow.module.workflow.AGWorkflow;
+import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
@@ -43,5 +45,19 @@ public class AGWorkflowNode extends AGWorkflowNodeGenerated implements IEmfObjec
 			.where(AGWorkflowNodePrecondition.ACTIVE)
 			.where(AGWorkflowNodePrecondition.WORKFLOW_NODE.isEqual(this))
 			.list();
+	}
+
+	public List<AGWorkflowItem> getAllWorkflowItems() {
+
+		return AGWorkflowItem//
+			.createSelect()
+			.join(AGWorkflowItem.WORKFLOW_NODE)
+			.where(AGWorkflowNode.ID.isEqual(getThis().getId()))
+			.list();
+	}
+
+	public AGWorkflow getWorkflow() {
+
+		return getWorkflowVersion().getWorkflow();
 	}
 }

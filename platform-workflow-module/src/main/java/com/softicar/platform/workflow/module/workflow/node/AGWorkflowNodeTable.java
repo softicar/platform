@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.node;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
+import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
@@ -12,6 +13,7 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowImages;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
+import com.softicar.platform.workflow.module.workflow.node.items.move.WorkflowNodeMoveItemsAction;
 import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkflowNodePrecondition;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
@@ -50,6 +52,12 @@ public class AGWorkflowNodeTable extends EmfObjectTable<AGWorkflowNode, AGWorkfl
 		attributes//
 			.editAttribute(AGWorkflowNode.Y_COORDINATE)
 			.setPredicateMandatory(EmfPredicates.always());
+	}
+
+	@Override
+	public void customizeActionSet(EmfActionSet<AGWorkflowNode, AGWorkflowVersion> actionSet) {
+
+		actionSet.addCommonAction(new WorkflowNodeMoveItemsAction());
 	}
 
 	@Override

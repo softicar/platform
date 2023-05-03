@@ -2,6 +2,7 @@ package com.softicar.platform.workflow.module.workflow.version;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.emf.object.IEmfObject;
+import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.AGWorkflow;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.node.action.AGWorkflowNodeAction;
@@ -97,6 +98,17 @@ public class AGWorkflowVersion extends AGWorkflowVersionGenerated implements IEm
 	public boolean isCurrentVersion() {
 
 		return is(getWorkflow().getCurrentVersion());
+	}
+
+	public IDisplayString getVersionType() {
+
+		if (getThis().isDraft()) {
+			return WorkflowI18n.DRAFT_VERSION;
+		} else if (getThis().isCurrentVersion()) {
+			return WorkflowI18n.CURRENT_VERSION;
+		} else {
+			return WorkflowI18n.OBSOLETE_VERSION;
+		}
 	}
 
 	public static Collection<AGWorkflowVersion> getCurrentVersions() {

@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module.workflow;
 import com.softicar.platform.emf.predicate.EmfPredicate;
 import com.softicar.platform.emf.predicate.IEmfPredicate;
 import com.softicar.platform.workflow.module.WorkflowI18n;
+import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
 public interface WorkflowPredicates {
@@ -20,4 +21,8 @@ public interface WorkflowPredicates {
 	IEmfPredicate<AGWorkflow> HAS_CURRENT_VERSION = new EmfPredicate<>(//
 		WorkflowI18n.HAS_CURRENT_VERSION,
 		workflow -> workflow.getCurrentVersion() != null);
+
+	IEmfPredicate<AGWorkflowNode> WORKFLOW_NODE_CONTAINS_ONE_OR_MORE_ITEMS = new EmfPredicate<>(//
+		WorkflowI18n.WORKFLOW_NODE_CONTAINS_ONE_OR_MORE_ITEMS,
+		it -> !it.getAllWorkflowItems().isEmpty());
 }

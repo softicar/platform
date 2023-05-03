@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module;
 import com.softicar.platform.common.core.i18n.I18n0;
 import com.softicar.platform.common.core.i18n.I18n1;
 import com.softicar.platform.common.core.i18n.I18n2;
+import com.softicar.platform.common.core.i18n.I18n4;
 import com.softicar.platform.core.module.CoreI18n;
 
 public interface WorkflowI18n extends CoreI18n {
@@ -31,6 +32,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("genehmigt");
 	I18n0 APPROVER = new I18n0("Approver")//
 		.de("Genehmiger");
+	I18n2 ARG1_ITEM_S_OF_SOURCE_WORKFLOW_NODE_ARG2 = new I18n2("%s item(s) of source workflow node '%s'")//
+		.de("%s Element(e) aus Ursprungs-Arbeitsablauf-Knoten '%s'");
 	I18n0 AUTO_TRANSITION = new I18n0("Auto Transition")//
 		.de("Automatischer Übergang");
 	I18n2 AUTO_TRANSITION_ARG1_ARG2 = new I18n2("Auto transition: %s -> %s")//
@@ -93,6 +96,9 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("ist aktuelle Version");
 	I18n0 IS_WORKFLOW_STARTED_QUESTION = new I18n0("Is Workflow Started?")//
 		.de("Ist Arbeitsablauf gestartet?");
+	I18n4 ITEM_WAS_MOVED_FROM_NODE_ARG1_OF_VERSION_ARG2_TO_ARG3_OF_VERSION_ARG4 =
+			new I18n4("Item was moved from node '%s' of version '%s' to '%s' of version '%s'.")//
+				.de("Element wurde von Knoten '%s' aus Version '%s' in Knoten '%s' von Version '%s' verschoben.");
 	I18n0 ITEMS = new I18n0("Items")//
 		.de("Elemente");
 	I18n0 ITEMS_IN_INACTIVE_VERSIONS = new I18n0("Items in Inactive Versions")//
@@ -107,6 +113,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Quellcode-Referenzpunkt fehlt.");
 	I18n0 MISSING_WORKFLOW_ROOT_NODE = new I18n0("Missing workflow root node.")//
 		.de("Wurzel-Knoten des Arbeitsablaufs fehlt.");
+	I18n0 MOVE_WORKFLOW_ITEMS_TO_ANOTHER_WORKFLOW_NODE = new I18n0("Move Workflow Items to Another Workflow Node")//
+		.de("Arbeitsablauf-Elemente in anderen Arbeitsablauf-Knoten verschieben");
 	I18n0 MY_TASKS = new I18n0("My Tasks")//
 		.de("Meine Aufgaben");
 	I18n0 NEW_WORKFLOW_TASK = new I18n0("New Workflow Task")//
@@ -183,8 +191,16 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Vertretung bis");
 	I18n0 TARGET_NODE = new I18n0("Target Node")//
 		.de("Zielknoten");
+	I18n0 TARGET_NODE_MUST_BE_ACTIVE = new I18n0("Target node must be active.")//
+		.de("Zielknoten muss aktiv sein.");
+	I18n0 TARGET_NODE_MUST_BE_DIFFERENT_THAN_SOURCE_NODE = new I18n0("Target node must be different than source node.")//
+		.de("Zielknoten muss sich von dem Ausgangsknoten unterscheiden.");
 	I18n0 TARGET_USER_IS_SYSTEM_USER = new I18n0("Target user is system user.")//
 		.de("Ziel-Benutzer ist System-Benutzer.");
+	I18n0 TARGET_WORKFLOW_NODE = new I18n0("Target Workflow Node")//
+		.de("Ziel-Arbeitsablauf-Knoten");
+	I18n0 TARGET_WORKFLOW_VERSION = new I18n0("Target Workflow Version")//
+		.de("Ziel-Arbeitsablauf-Version");
 	I18n0 TASK = new I18n0("Task")//
 		.de("Aufgabe");
 	I18n2 TASK_ARG1_EXECUTED_TRANSITION_ARG2 = new I18n2("Task '%s' executed transition '%s'.")//
@@ -294,6 +310,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Knoten-Aktionsberechtigungen");
 	I18n0 WORKFLOW_NODE_ACTIONS = new I18n0("Workflow Node Actions")//
 		.de("Arbeitsablauf-Knoten-Aktionen");
+	I18n0 WORKFLOW_NODE_CONTAINS_ONE_OR_MORE_ITEMS = new I18n0("Workflow Node Contains One or More Items")//
+		.de("Arbeitsablauf-Knoten enthält ein oder mehrere Elemente");
 	I18n0 WORKFLOW_NODE_LOG = new I18n0("Workflow Node Log")//
 		.de("Arbeitsablauf-Knoten-Log");
 	I18n0 WORKFLOW_NODE_LOGS = new I18n0("Workflow Node Logs")//
