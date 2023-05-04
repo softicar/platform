@@ -34,6 +34,10 @@ public interface EmfDataTableI18n {
 		.de("enthält Text");
 	I18n0 CONTAINS_WORDS = new I18n0("contains words")//
 		.de("enthält Wörter");
+	I18n0 DOES_NOT_CONTAIN = new I18n0("does not contain")//
+		.de("enthält nicht");
+	I18n0 DOES_NOT_CONTAIN_TEXT = new I18n0("does not contain text")//
+		.de("enthält nicht Text");
 	I18n0 EQUALS_TEXT = new I18n0("equals text")//
 		.de("entspricht Text");
 	I18n0 FILTER = new I18n0("Filter")//
