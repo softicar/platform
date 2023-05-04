@@ -37,7 +37,7 @@ public class EmfDataTableStringFilterNode<R> extends AbstractEmfDataTableMultiTy
 			case CONTAINS_TEXT:
 				return new ContainsTextFilter<>(column.getDataColumn(), filterText, resetter);
 			case CONTAINS_NOT_TEXT:
-				return new ContainsNotTextFilter<>(column.getDataColumn(), filterText, resetter);
+				return new DoesNotContainTextFilter<>(column.getDataColumn(), filterText, resetter);
 			case EQUALS_TEXT:
 				return new EqualsTextFilter<>(column.getDataColumn(), filterText, resetter);
 			case MATCHES_REGEXP:

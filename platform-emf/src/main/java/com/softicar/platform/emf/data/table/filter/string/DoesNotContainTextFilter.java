@@ -8,13 +8,13 @@ import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
 
-class ContainsNotTextFilter<R> implements IEmfDataTableFilter<R> {
+class DoesNotContainTextFilter<R> implements IEmfDataTableFilter<R> {
 
 	private final IDataTableColumn<R, String> column;
 	private final String text;
 	private final INullaryVoidFunction resetter;
 
-	public ContainsNotTextFilter(IDataTableColumn<R, String> column, String text, INullaryVoidFunction resetter) {
+	public DoesNotContainTextFilter(IDataTableColumn<R, String> column, String text, INullaryVoidFunction resetter) {
 
 		this.column = column;
 		this.text = text;
@@ -36,6 +36,6 @@ class ContainsNotTextFilter<R> implements IEmfDataTableFilter<R> {
 	@Override
 	public IDisplayString getDisplayString() {
 
-		return EmfDataTableI18n.CONTAINS_NOT.concat("('").concat(text).concat("')");
+		return EmfDataTableI18n.DOES_NOT_CONTAIN.concat("('").concat(text).concat("')");
 	}
 }
