@@ -25,9 +25,9 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 		this.nodeA = insertWorkflowNode(workflowVersion, "A");
 		this.nodeB = insertWorkflowNode(workflowVersion, "B");
 		insertWorkflowNodePrecondition(nodeB, FalsePrecondition.class);
-		this.autoTransitionA = insertWorkflowAutoTransition(rootNode, nodeA, "Auto Transition A");
-		this.autoTransitionB = insertWorkflowAutoTransition(rootNode, nodeB, "Auto Transition B");
-		this.autoTransitionC = insertWorkflowAutoTransition(nodeA, nodeB, "Auto Transition C");
+		this.autoTransitionA = insertWorkflowAutoTransition("Auto Transition A", rootNode, nodeA);
+		this.autoTransitionB = insertWorkflowAutoTransition("Auto Transition B", rootNode, nodeB);
+		this.autoTransitionC = insertWorkflowAutoTransition("Auto Transition C", nodeA, nodeB);
 
 		WorkflowTestObject testObject = new WorkflowTestObject()//
 			.setName("TestName")

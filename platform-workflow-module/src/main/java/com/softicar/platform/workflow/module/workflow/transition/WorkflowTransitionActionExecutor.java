@@ -88,7 +88,11 @@ public class WorkflowTransitionActionExecutor {
 				if (!errorMessages.isEmpty()) {
 					throw new SofticarUserException(IDisplayString.create(Imploder.implode(errorMessages, "\n")));
 				}
-				new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(transition.getTargetNode());
+
+				var taskManager = new WorkflowTaskManager(item);
+				taskManager.closeTasksAndDelegations();
+				item.setWorkflowNode(transition.getTargetNode()).save();
+				taskManager.insertTasks();
 				transition.executeSideEffect(item);
 			}
 			transaction.commit();

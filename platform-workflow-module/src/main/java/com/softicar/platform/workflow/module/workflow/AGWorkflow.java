@@ -3,6 +3,7 @@ package com.softicar.platform.workflow.module.workflow;
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -55,22 +56,26 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 
 	public void startWorkflow(IWorkflowableObject<?> object) {
 
-		if (object.getWorkflowItem() == null) {
-			AGWorkflowItem item = new AGWorkflowItem() //
-				.setWorkflow(this)
-				.setWorkflowNode(getCurrentVersion().getRootNode())
-				.save();
+		try (var transaction = new DbTransaction()) {
+			if (object.getWorkflowItem() == null) {
+				AGWorkflowItem item = new AGWorkflowItem() //
+					.setWorkflow(this)
+					.setWorkflowNode(getCurrentVersion().getRootNode())
+					.save();
 
-			object.setWorkflowItem(item);
-			object.save();
-		} else {
-			object//
-				.getWorkflowItem()
-				.setWorkflow(this)
-				.setWorkflowNode(getCurrentVersion().getRootNode())
-				.save();
+				object.setWorkflowItem(item);
+				object.save();
+			} else {
+				object//
+					.getWorkflowItem()
+					.setWorkflow(this)
+					.setWorkflowNode(getCurrentVersion().getRootNode())
+					.save();
+			}
+
+			new WorkflowTaskManager(object.getWorkflowItem()).insertTasks();
+
+			transaction.commit();
 		}
-
-		new WorkflowTaskManager(object.getWorkflowItem()).setNextNodeAndGenerateTasks(getCurrentVersion().getRootNode());
 	}
 }

@@ -10,7 +10,7 @@ import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksLoader;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
-import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionCascadedExecutor;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionsExecutor;
 import java.util.Collection;
 import java.util.Set;
 
@@ -58,7 +58,7 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	 */
 	public void executeAllAutoTransitions() {
 
-		new WorkflowAutoTransitionCascadedExecutor(this).evaluateAndExecuteCascaded();
+		new WorkflowAutoTransitionsExecutor().setWorkflowItemFilter(this).executeTransitions();
 	}
 
 	private SetMap<AGWorkflowTransition, AGWorkflowTransitionExecution> loadTransitionExecutionMap() {
