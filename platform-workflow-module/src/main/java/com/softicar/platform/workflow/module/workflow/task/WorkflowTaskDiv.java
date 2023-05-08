@@ -14,6 +14,7 @@ import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
+import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBasedColumnHandler;
 import com.softicar.platform.emf.form.popup.EmfFormPopup;
 import com.softicar.platform.workflow.module.WorkflowI18n;
@@ -50,55 +51,53 @@ public class WorkflowTaskDiv extends DomDiv {
 	private class WorkflowTaskForUserDiv extends DomDiv implements IDomRefreshBusListener {
 
 		private final DomCheckbox showDelegatedTasksCheckbox;
-		private final DomDiv contentDiv;
-		private final AGUser user;
+		private final IWorkflowTaskQuery query;
+		private final IEmfDataTableDiv<IRow> tableDiv;
 
 		public WorkflowTaskForUserDiv(AGUser user) {
 
-			this.user = user;
-			this.showDelegatedTasksCheckbox = appendChild(new DomCheckbox(false).setLabel(WorkflowI18n.SHOW_TASKS_DELEGATED_BY_ME));
-			showDelegatedTasksCheckbox.addChangeCallback(this::refresh);
-			appendChild(contentDiv = new DomDiv());
-			refresh(null);
+			this.showDelegatedTasksCheckbox = new ShowDelegatedTasksCheckbox();
+			this.query = IWorkflowTaskQuery.FACTORY//
+				.createQuery()
+				.setUser(user)
+				.setShowMyDelegations(showDelegatedTasksCheckbox.isChecked());
+			this.tableDiv = new EmfDataTableDivBuilder<>(query)//
+				.setActionColumnHandler(new ActionColumnHandler())
+				.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
+				.setColumnHandler(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, new NodeColumnHandler())
+				.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
+				.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
+				.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
+				.setColumnTitle(IWorkflowTaskQuery.TASK_COLUMN, WorkflowI18n.TASK)
+				.setColumnTitle(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, WorkflowI18n.NODE)
+				.setColumnTitle(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, WorkflowI18n.DELEGATION)
+				.setColumnTitle(IWorkflowTaskQuery.CREATED_AT_COLUMN, WorkflowI18n.CREATED_AT)
+				.build();
+
+			appendChild(showDelegatedTasksCheckbox);
+			appendChild(tableDiv);
 		}
 
 		@Override
 		public void refresh(IDomRefreshBusEvent event) {
 
-			refresh();
+			tableDiv.refresh();
 		}
 
-		private void refresh() {
+		private class ShowDelegatedTasksCheckbox extends DomCheckbox {
 
-			contentDiv.removeChildren();
-			contentDiv.appendChild(buildDiv());
-		}
+			public ShowDelegatedTasksCheckbox() {
 
-		private DomDiv buildDiv() {
+				super(false);
+				addChangeCallback(this::handleToggle);
+				setLabel(WorkflowI18n.SHOW_TASKS_DELEGATED_BY_ME);
+			}
 
-			DomDiv userDiv = new DomDiv();
+			private void handleToggle() {
 
-			IWorkflowTaskQuery query = IWorkflowTaskQuery.FACTORY//
-				.createQuery()
-				.setUser(user)
-				.setShowMyDelegations(showDelegatedTasksCheckbox.isChecked());
-
-			userDiv
-				.appendChild(
-					new EmfDataTableDivBuilder<>(query)//
-						.setActionColumnHandler(new ActionColumnHandler())
-						.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
-						.setColumnHandler(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, new NodeColumnHandler())
-						.setColumnHandler(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, new DelegationColumnHandler())
-						.setConcealed(IWorkflowTaskQuery.ITEM_COLUMN, true)
-						.setOrderBy(IWorkflowTaskQuery.CREATED_AT_COLUMN, OrderDirection.DESCENDING)
-						.setColumnTitle(IWorkflowTaskQuery.TASK_COLUMN, WorkflowI18n.TASK)
-						.setColumnTitle(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, WorkflowI18n.NODE)
-						.setColumnTitle(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, WorkflowI18n.DELEGATION)
-						.setColumnTitle(IWorkflowTaskQuery.CREATED_AT_COLUMN, WorkflowI18n.CREATED_AT)
-						.build());
-
-			return userDiv;
+				query.setShowMyDelegations(isChecked());
+				tableDiv.refresh();
+			}
 		}
 	}
 

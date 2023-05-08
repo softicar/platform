@@ -6,7 +6,7 @@ IMPORT com.softicar.platform.workflow.module.workflow.transition.execution.AGWor
 
 QUERY WorkflowTaskQuery {
 	AGUser user
-	Boolean showMyDelegations
+	OPTIONAL Boolean showMyDelegations
 	
 	SELECT item
 	SELECT task
