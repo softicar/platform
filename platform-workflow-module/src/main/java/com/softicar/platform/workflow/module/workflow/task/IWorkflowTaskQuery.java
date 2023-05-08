@@ -41,6 +41,10 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 	IDbQueryColumn<IRow, DayTime> CREATED_AT_COLUMN = new DbQueryColumn<>(IRow::getCreatedAt, "createdAt", SqlValueTypes.DAY_TIME);
 	IFactory FACTORY = new Implementation.Factory();
 
+	// -------------------------------- METHODS -------------------------------- //
+
+	IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations);
+
 	// -------------------------------- INTERFACES -------------------------------- //
 
 	interface IRow extends IDbQueryRow<IRow> {
@@ -59,12 +63,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 	interface IUserSetter {
 
-		IShowMyDelegationsSetter setUser(AGUser user);
-	}
-
-	interface IShowMyDelegationsSetter {
-
-		IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations);
+		IWorkflowTaskQuery setUser(AGUser user);
 	}
 
 	// -------------------------------- IMPLEMENTATION -------------------------------- //
@@ -125,22 +124,18 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 				return new QuerySqlBuilder();
 			}
 
+			public IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations) {
+
+				this.parameters.showMyDelegations = showMyDelegations;
+				return this;
+			}
+
 			public class UserSetter implements IUserSetter {
 
 				@Override
-				public final IShowMyDelegationsSetter setUser(AGUser user) {
+				public final IWorkflowTaskQuery setUser(AGUser user) {
 
 					Query.this.parameters.user = user;
-					return Query.this.new ShowMyDelegationsSetter();
-				}
-			}
-
-			public class ShowMyDelegationsSetter implements IShowMyDelegationsSetter {
-
-				@Override
-				public final IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations) {
-
-					Query.this.parameters.showMyDelegations = showMyDelegations;
 					return Query.this;
 				}
 			}
