@@ -34,7 +34,7 @@ public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
 		insertWorkflowTransition("x->z", nodeX, nodeZ, "1", false, WorkflowTestObjectTable.PERMISSION_B);
 
 		this.item = insertWorkflowItem(rootNode);
-		this.testObject = insertWorkflowTestObject("foo", item);
+		this.testObject = insertWorkflowTestEntity("foo", item);
 	}
 
 	@Test

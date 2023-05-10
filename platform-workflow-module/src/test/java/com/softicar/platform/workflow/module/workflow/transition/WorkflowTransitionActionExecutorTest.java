@@ -32,7 +32,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		this.votingTransition = insertWorkflowTransition("Transition", sourceNode, votingNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
 		this.nonVotingTransition = insertWorkflowTransition("Transition", sourceNode, nonVotingNode, "1", true, WorkflowTestObjectTable.PERMISSION_B);
 		this.workflowItem = insertWorkflowItem(sourceNode);
-		this.workflowObject = insertWorkflowTestObject("Workflow Test Object", workflowItem);
+		this.workflowObject = insertWorkflowTestEntity("Workflow Test Object", workflowItem);
 		this.sideEffectExecutions = new ArrayList<>();
 
 		// setup side-effect execution
@@ -124,6 +124,28 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
 		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 		assertExecutedSideEffects(0);
+	}
+
+	@Test
+	public void testAutoTransitionExecution() {
+
+		AGWorkflowNode tailingNodeA = insertWorkflowNode(workflowVersion, "Tailing Node A");
+		AGWorkflowNode tailingNodeB = insertWorkflowNode(workflowVersion, "Tailing Node B");
+		AGWorkflowNode tailingNodeC = insertWorkflowNode(workflowVersion, "Tailing Node C");
+		insertWorkflowAutoTransition("Auto 1", nonVotingNode, tailingNodeA);
+		insertWorkflowAutoTransition("Auto 2", tailingNodeA, tailingNodeB);
+		insertWorkflowTransition("Tailing Manual Transition", tailingNodeB, tailingNodeC, "1", false, WorkflowTestObjectTable.PERMISSION_B);
+
+		var user1 = insertUserPermissionBWithoutTask("User #1");
+		new WorkflowTransitionActionExecutor(workflowItem, nonVotingTransition, user1).execute();
+
+		// assert
+		assertSame(tailingNodeB, workflowItem.getWorkflowNode());
+
+		var task = assertOne(AGWorkflowTask.TABLE.loadAll());
+		assertSame(workflowItem, task.getWorkflowItem());
+		assertSame(user1, task.getUser());
+		assertFalse(task.isClosed());
 	}
 
 	// ------------------------------ private ------------------------------ //

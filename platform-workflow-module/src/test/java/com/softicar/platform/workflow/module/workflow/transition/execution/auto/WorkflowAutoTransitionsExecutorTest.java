@@ -31,8 +31,8 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 
 		// setup
 		inserter.insert();
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
 		assertInNode(rootNode, itemA, itemB);
 
 		// execute and assert
@@ -54,8 +54,8 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 	public void testProcessBurstWithEmptyWorkflow() {
 
 		// setup
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
 		assertInNode(rootNode, itemA, itemB);
 
 		// execute and assert
@@ -70,9 +70,9 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 
 		// setup
 		inserter.insert().addInfiniteLoopTransition();
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
-		AGWorkflowItem itemX = startWorkflow(insertTestDocument("Document X", 99));
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
+		AGWorkflowItem itemX = initializeWorkflowItem(insertTestDocument("Document X", 99));
 		assertInNode(rootNode, itemA, itemB, itemX);
 
 		// execute and assert
@@ -90,8 +90,8 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 
 		// setup
 		inserter.insert();
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
 		assertInNode(rootNode, itemA, itemB);
 
 		// execute and assert
@@ -111,8 +111,8 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 	public void testProcessBurstWithSpecificItemAndWithEmptyWorkflow() {
 
 		// setup
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
 		assertInNode(rootNode, itemA, itemB);
 
 		// execute and assert
@@ -127,9 +127,9 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 
 		// setup
 		inserter.insert().addInfiniteLoopTransition();
-		AGWorkflowItem itemA = startWorkflow(documentA);
-		AGWorkflowItem itemB = startWorkflow(documentB);
-		AGWorkflowItem itemX = startWorkflow(insertTestDocument("Document X", 99));
+		AGWorkflowItem itemA = initializeWorkflowItem(documentA);
+		AGWorkflowItem itemB = initializeWorkflowItem(documentB);
+		AGWorkflowItem itemX = initializeWorkflowItem(insertTestDocument("Document X", 99));
 		assertInNode(rootNode, itemA, itemB, itemX);
 
 		// execute and assert
@@ -152,18 +152,19 @@ public class WorkflowAutoTransitionsExecutorTest extends AbstractTestDocumentWor
 
 	private void executeTransitions(AGWorkflowItem item) {
 
-		new WorkflowAutoTransitionsExecutor().setWorkflowItemFilter(item).executeTransitions();
+		new WorkflowAutoTransitionsExecutor().setWorkflowItemWhitelist(item).executeTransitions();
 	}
 
 	private void executeTransitions(AGWorkflowItem item, int cascadeLengthLimit) {
 
-		new WorkflowAutoTransitionsExecutor().setWorkflowItemFilter(item).setCascadeLengthLimit(cascadeLengthLimit).executeTransitions();
+		new WorkflowAutoTransitionsExecutor().setWorkflowItemWhitelist(item).setCascadeLengthLimit(cascadeLengthLimit).executeTransitions();
 	}
 
-	private AGWorkflowItem startWorkflow(WorkflowTestDocument testDocument) {
+	private AGWorkflowItem initializeWorkflowItem(WorkflowTestDocument testDocument) {
 
+		Objects.requireNonNull(testDocument);
 		insertPermissionA(user, testDocument);
-		workflow.startWorkflow(testDocument);
+		initializeItemAndObject(testDocument);
 		return testDocument.getWorkflowItem();
 	}
 

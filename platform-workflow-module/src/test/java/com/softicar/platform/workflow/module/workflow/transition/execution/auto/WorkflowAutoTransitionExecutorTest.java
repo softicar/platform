@@ -29,10 +29,10 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 		this.autoTransitionB = insertWorkflowAutoTransition("Auto Transition B", rootNode, nodeB);
 		this.autoTransitionC = insertWorkflowAutoTransition("Auto Transition C", nodeA, nodeB);
 
-		WorkflowTestObject testObject = new WorkflowTestObject()//
+		var testObject = new WorkflowTestObject()//
 			.setName("TestName")
 			.save();
-		workflow.startWorkflow(testObject);
+		initializeItemAndObject(testObject);
 		this.item = testObject.getWorkflowItem();
 	}
 

@@ -8,33 +8,39 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 class WorkflowAutoTransitionsLoader {
 
-	private final Collection<AGWorkflowItem> workflowItemFilter;
+	private final Collection<AGWorkflowItem> workflowItemWhitelist;
 	private final Collection<AGWorkflowItem> workflowItemBlacklist;
 
 	public WorkflowAutoTransitionsLoader() {
 
-		this.workflowItemFilter = new HashSet<>();
+		this.workflowItemWhitelist = new HashSet<>();
 		this.workflowItemBlacklist = new HashSet<>();
 	}
 
-	public void setFilter(Collection<AGWorkflowItem> workflowItems) {
+	public void setWhitelist(Collection<AGWorkflowItem> workflowItems) {
 
-		this.workflowItemFilter.clear();
-		addToFilter(workflowItems);
+		this.workflowItemWhitelist.clear();
+		addToWhitelist(workflowItems);
 	}
 
-	public void addToFilter(Collection<AGWorkflowItem> workflowItems) {
+	public void addToWhitelist(Collection<AGWorkflowItem> workflowItems) {
 
-		this.workflowItemFilter.addAll(workflowItems);
+		this.workflowItemWhitelist.addAll(workflowItems);
+	}
+
+	public void addToBlacklist(Collection<AGWorkflowItem> workflowItems) {
+
+		this.workflowItemBlacklist.addAll(workflowItems);
 	}
 
 	public void addToBlacklist(AGWorkflowItem workflowItem) {
 
 		Objects.requireNonNull(workflowItem);
-		this.workflowItemBlacklist.add(workflowItem);
+		addToBlacklist(Set.of(workflowItem));
 	}
 
 	public WorkflowAutoTransitionsMap loadTransitionsMap() {
@@ -43,7 +49,7 @@ class WorkflowAutoTransitionsLoader {
 		Sql//
 			.from(AGWorkflowItem.TABLE)
 			.select(AGWorkflowItem.TABLE)
-			.whereIf(!workflowItemFilter.isEmpty(), () -> AGWorkflowItem.ID.isIn(workflowItemFilter))
+			.whereIf(!workflowItemWhitelist.isEmpty(), () -> AGWorkflowItem.ID.isIn(workflowItemWhitelist))
 			.whereIf(!workflowItemBlacklist.isEmpty(), () -> AGWorkflowItem.ID.isNotIn(workflowItemBlacklist))
 			.join(AGWorkflowItem.WORKFLOW_NODE)
 			.where(AGWorkflowNode.ACTIVE)

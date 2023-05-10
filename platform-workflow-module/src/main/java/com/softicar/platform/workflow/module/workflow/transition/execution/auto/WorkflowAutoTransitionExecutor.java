@@ -14,6 +14,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Executes the next possible auto transition for a given workflow item.
+ * <p>
+ * Executes the transition side-effect but does <b>not</b> touch any workflow
+ * tasks.
+ *
+ * @author Alexander Schmidt
+ * @author Oliver Richers
+ */
 class WorkflowAutoTransitionExecutor {
 
 	private final AGWorkflowItem item;

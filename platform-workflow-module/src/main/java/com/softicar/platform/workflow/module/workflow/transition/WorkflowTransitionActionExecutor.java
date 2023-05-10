@@ -39,6 +39,16 @@ public class WorkflowTransitionActionExecutor {
 		return this;
 	}
 
+	/**
+	 * Executes the given {@link AGWorkflowTransition} for the given
+	 * {@link AGWorkflowItem}.
+	 * <p>
+	 * Executes side effects of that transition, if any.
+	 * <p>
+	 * Executes auto transitions to subsequent nodes, if any.
+	 * <p>
+	 * Inserts workflow tasks as appropriate.
+	 */
 	public void execute() {
 
 		if (transition.isCommentRequired()) {
@@ -92,8 +102,11 @@ public class WorkflowTransitionActionExecutor {
 				var taskManager = new WorkflowTaskManager(item);
 				taskManager.closeTasksAndDelegations();
 				item.setWorkflowNode(transition.getTargetNode()).save();
-				taskManager.insertTasks();
 				transition.executeSideEffect(item);
+
+				if (!item.executeAllAutoTransitions()) {
+					taskManager.insertTasks();
+				}
 			}
 			transaction.commit();
 		}

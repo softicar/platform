@@ -44,9 +44,9 @@ public class WorkflowAutoTransitionsExecutor {
 	 *            executed (never <i>null</i>)
 	 * @return this
 	 */
-	public WorkflowAutoTransitionsExecutor setWorkflowItemFilter(AGWorkflowItem item) {
+	public WorkflowAutoTransitionsExecutor setWorkflowItemWhitelist(AGWorkflowItem item) {
 
-		this.autoTransitionsLoader.setFilter(Set.of(item));
+		this.autoTransitionsLoader.setWhitelist(Set.of(item));
 		return this;
 	}
 
@@ -54,6 +54,8 @@ public class WorkflowAutoTransitionsExecutor {
 	 * Defines the maximum length of an auto transition cascade.
 	 *
 	 * @param cascadeLengthLimit
+	 *            the maximum number of consecutive auto transitions to execute
+	 *            per workflow item
 	 * @return this
 	 */
 	public WorkflowAutoTransitionsExecutor setCascadeLengthLimit(int cascadeLengthLimit) {
@@ -65,12 +67,18 @@ public class WorkflowAutoTransitionsExecutor {
 	/**
 	 * Executes the longest possible cascade of auto transitions for one or
 	 * several workflow items, using {@link WorkflowAutoTransitionExecutor}.
+	 * <p>
+	 * Throws an exception if an exception was caught while trying to execute at
+	 * least one auto transition, or while creating tasks.
+	 *
+	 * @return the result of the execution (never <i>null</i>)
 	 */
-	public void executeTransitions() {
+	public WorkflowAutoTransitionsResult executeTransitions() {
 
 		var overallResult = executeMainLoop();
 		updateTasksAndDelegations(overallResult);
 		exceptionsCollector.throwIfNotEmpty();
+		return overallResult;
 	}
 
 	private WorkflowAutoTransitionsResult executeMainLoop() {
@@ -87,11 +95,11 @@ public class WorkflowAutoTransitionsExecutor {
 				var burstResult = processBurst(autoTransitionsMap);
 				overallResult.addAll(burstResult);
 
-				burstResult.getFailed().forEach(autoTransitionsLoader::addToBlacklist);
-				burstResult.getOmitted().forEach(autoTransitionsLoader::addToBlacklist);
-
 				// restrict subsequent iterations to successfully transitioned items
-				autoTransitionsLoader.addToFilter(burstResult.getTransitioned());
+				autoTransitionsLoader.addToWhitelist(burstResult.getTransitioned());
+
+				autoTransitionsLoader.addToBlacklist(burstResult.getFailed());
+				autoTransitionsLoader.addToBlacklist(burstResult.getOmitted());
 			} else {
 				Log.fverbose("No more items to process.");
 				break;
