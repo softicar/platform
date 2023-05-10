@@ -53,11 +53,23 @@ public enum Hash {
 	 */
 	public byte[] getHash(String text) {
 
-		return createDigest().digest(text.getBytes(StandardCharsets.UTF_8));
+		return getHash(text.getBytes(StandardCharsets.UTF_8));
 	}
 
 	/**
-	 * Computes the hash of the data provided by the given input stream..
+	 * Computes the hash of the given bytes.
+	 *
+	 * @param bytes
+	 *            the byte array (never <i>null</i>)
+	 * @return the hash of the bytes
+	 */
+	public byte[] getHash(byte[] bytes) {
+
+		return createDigest().digest(bytes);
+	}
+
+	/**
+	 * Computes the hash of the data provided by the given input stream.
 	 * <p>
 	 * The input stream is automatically closed, even in case of an exception.
 	 *

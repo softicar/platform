@@ -1227,6 +1227,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Wert außerhalb des Bereichs [%s-%s]: '%s'.");
 	I18n0 VERBOSE = new I18n0("Verbose")//
 		.de("Detailiert");
+	I18n0 VERIFIES_FILE_CONTENT_ON_CONTENT_STORE = new I18n0("Verifies file content on content store.")//
+		.de("Verifiziert den Inhalt von Dateien im Inhaltsspeicher.");
 	I18n0 VERSION = new I18n0("Version")//
 		.de("Version");
 	I18n0 WATCHED_DAEMONS = new I18n0("Watched Daemons")//
