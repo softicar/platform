@@ -68,6 +68,12 @@ public class StoredFileContentName {
 		return getFolderName() + "/" + getHashSuffix();
 	}
 
+	@Override
+	public String toString() {
+
+		return getFullFilename();
+	}
+
 	private String getHashPrefix() {
 
 		return hashString.substring(0, PREFIX_SIZE);

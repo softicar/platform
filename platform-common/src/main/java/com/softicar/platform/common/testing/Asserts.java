@@ -43,10 +43,9 @@ public class Asserts extends Assert {
 
 		assertEquals("element count", expectedElements.size(), actualElements.size());
 
-		var expectedElementsIterator = expectedElements.iterator();
 		var actualElementsIterator = actualElements.iterator();
-		while (expectedElementsIterator.hasNext()) {
-			assertSame(expectedElementsIterator.next(), actualElementsIterator.next());
+		for (Object expectedElement: expectedElements) {
+			assertSame(expectedElement, actualElementsIterator.next());
 		}
 	}
 
@@ -122,16 +121,31 @@ public class Asserts extends Assert {
 
 	public static void assertExceptionMessageContains(IDisplayString expectedMessage, INullaryVoidFunction thrower) {
 
+		assertExceptionMessageContains(expectedMessage.toString(), thrower);
+	}
+
+	public static void assertExceptionMessageContains(String expectedMessage, INullaryVoidFunction thrower) {
+
 		try {
 			thrower.apply();
 		} catch (Throwable throwable) {
 			String message = getNonNullMessageOrFail(throwable);
 			assertTrue(//
 				"The expected text\n\"%s\"\n is not contained in the encountered exception message:\n\"%s\"".formatted(expectedMessage.toString(), message),
-				throwable.getMessage().contains(expectedMessage.toString()));
+				throwable.getMessage().contains(expectedMessage));
 			return;
 		}
 		fail("Missing expected exception with message: %s".formatted(expectedMessage));
+	}
+
+	public static TextLinesAsserter assertExceptionMessageLines(INullaryVoidFunction thrower) {
+
+		try {
+			thrower.apply();
+		} catch (Throwable throwable) {
+			return new TextLinesAsserter(throwable.getMessage());
+		}
+		throw new AssertionError("Missing expected exception.");
 	}
 
 	// --------------------------- assertCount --------------------------- //
