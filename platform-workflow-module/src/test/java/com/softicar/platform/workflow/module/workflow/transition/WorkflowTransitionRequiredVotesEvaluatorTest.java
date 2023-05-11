@@ -20,7 +20,7 @@ public class WorkflowTransitionRequiredVotesEvaluatorTest extends AbstractTestOb
 		this.nextNode = insertWorkflowNode(workflowVersion, "Next Node");
 		this.transition = insertWorkflowTransition("Transition", rootNode, nextNode, "100%", true, WorkflowTestObjectTable.PERMISSION_A);
 		this.item = insertWorkflowItem(rootNode);
-		this.testObject = insertWorkflowTestObject("Workflow Test Object", item);
+		this.testObject = insertWorkflowTestEntity("Workflow Test Object", item);
 		insertPermissionA(user, testObject);
 	}
 

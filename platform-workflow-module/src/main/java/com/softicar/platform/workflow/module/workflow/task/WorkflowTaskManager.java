@@ -1,18 +1,14 @@
 package com.softicar.platform.workflow.module.workflow.task;
 
-import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.core.transaction.DbTransaction;
-import com.softicar.platform.db.sql.statement.SqlSelectLock;
-import com.softicar.platform.workflow.module.WorkflowI18n;
+import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
-import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionExecutionProgram;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,29 +21,45 @@ public class WorkflowTaskManager {
 		this.item = item;
 	}
 
-	// FIXME the non-task related logic should not be part of this class
-	public void setNextNodeAndGenerateTasks(AGWorkflowNode nextNode) {
-
-		AGWorkflowNode oldNodeOfWorkflowItem = item.getWorkflowNode();
+	public void closeTasksAndDelegations() {
 
 		try (var transaction = new DbTransaction()) {
-			checkConcurrentModificationOfWorkflowItem(oldNodeOfWorkflowItem);
-
 			closeAllTasks();
 			closeAllDelegations();
-			item.setWorkflowNode(nextNode).save();
-			insertTasks();
-			Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
-
 			transaction.commit();
 		}
 	}
 
-	public void closeAllTasksAndDelegations() {
+	public void insertTasks() {
 
 		try (var transaction = new DbTransaction()) {
-			closeAllTasks();
-			closeAllDelegations();
+			Map<AGUser, Boolean> userMap = new TreeMap<>();
+			List<AGUser> activeUsers = AGUser.getAllActive();
+
+			Sql//
+				.from(AGWorkflowTransitionPermission.TABLE)
+				.select(AGWorkflowTransitionPermission.TABLE)
+				.select(AGWorkflowTransitionPermission.TRANSITION)
+				.where(AGWorkflowTransitionPermission.ACTIVE)
+				.join(AGWorkflowTransitionPermission.TRANSITION)
+				.where(AGWorkflowTransition.ACTIVE)
+				.where(AGWorkflowTransition.SOURCE_NODE.isEqual(item.getWorkflowNode()))
+				.list()
+				.forEach(row -> {
+					AGWorkflowTransitionPermission permission = row.get0();
+					AGWorkflowTransition transition = row.get1();
+					for (AGUser user: activeUsers) {
+						if (permission.testUserAssignmentForItem(user, item)) {
+							userMap.merge(user, transition.isNotify(), (a, b) -> a || b);
+						}
+					}
+				});
+
+			// create one task per user
+			userMap//
+				.entrySet()
+				.forEach(entry -> insertTask(entry.getKey(), entry.getValue()));
+
 			transaction.commit();
 		}
 	}
@@ -73,46 +85,6 @@ public class WorkflowTaskManager {
 			.list();
 		delegations.forEach(delegation -> delegation.setActive(false));
 		AGWorkflowTaskDelegation.TABLE.saveAll(delegations);
-	}
-
-	private void checkConcurrentModificationOfWorkflowItem(AGWorkflowNode oldNodeOfWorkflowItem) {
-
-		item.reload(SqlSelectLock.FOR_UPDATE);
-
-		AGWorkflowNode currentNodeOfWorkflowItem = item.getWorkflowNode();
-
-		if (!oldNodeOfWorkflowItem.is(currentNodeOfWorkflowItem)) {
-			throw new SofticarUserException(
-				WorkflowI18n.WORKFLOW_ITEM_HAS_ALREADY_BEEN_CHANGED
-					.concat(" ")
-					.concat(WorkflowI18n.PLEASE_REFRESH_THE_INPUT_ELEMENT_OR_PRESS_F5_TO_RELOAD_THE_SCREEN));
-		}
-	}
-
-	private void insertTasks() {
-
-		// gather involved users
-		Map<AGUser, Boolean> userMap = new TreeMap<>();
-		for (AGWorkflowTransition transition: AGWorkflowTransition
-			.createSelect()
-			.where(AGWorkflowTransition.ACTIVE)
-			.where(AGWorkflowTransition.SOURCE_NODE.isEqual(item.getWorkflowNode()))) {
-			for (AGWorkflowTransitionPermission permission: AGWorkflowTransitionPermission
-				.createSelect()
-				.where(AGWorkflowTransitionPermission.ACTIVE)
-				.where(AGWorkflowTransitionPermission.TRANSITION.isEqual(transition))) {
-				for (AGUser user: AGUser.getAllActive()) {
-					if (permission.testUserAssignmentForItem(user, item)) {
-						userMap.merge(user, transition.isNotify(), (a, b) -> a || b);
-					}
-				}
-			}
-		}
-
-		// create one task per user
-		userMap//
-			.entrySet()
-			.forEach(entry -> insertTask(entry.getKey(), entry.getValue()));
 	}
 
 	private void insertTask(AGUser user, boolean notify) {

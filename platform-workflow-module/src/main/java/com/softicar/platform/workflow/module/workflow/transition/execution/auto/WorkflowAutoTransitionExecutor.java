@@ -8,14 +8,22 @@ import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
-import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class WorkflowAutoTransitionExecutor {
+/**
+ * Executes the next possible auto transition for a given workflow item.
+ * <p>
+ * Executes the transition side-effect but does <b>not</b> touch any workflow
+ * tasks.
+ *
+ * @author Alexander Schmidt
+ * @author Oliver Richers
+ */
+class WorkflowAutoTransitionExecutor {
 
 	private final AGWorkflowItem item;
 
@@ -83,7 +91,7 @@ public class WorkflowAutoTransitionExecutor {
 					targetNode.toDisplayWithoutId(),
 					item.toDisplay());
 			transition.executeSideEffect(item);
-			new WorkflowTaskManager(item).setNextNodeAndGenerateTasks(targetNode);
+			item.setWorkflowNode(targetNode).save();
 			new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
 			return true;
 		} else {

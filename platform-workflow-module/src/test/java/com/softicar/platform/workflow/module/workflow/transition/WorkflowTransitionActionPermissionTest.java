@@ -22,7 +22,7 @@ public class WorkflowTransitionActionPermissionTest extends AbstractTestObjectWo
 		this.sourceNode = rootNode;
 		this.targetNode = insertWorkflowNode(workflowVersion, "Next Node");
 		this.workflowItem = insertWorkflowItem(sourceNode);
-		this.workflowObject = insertWorkflowTestObject("Workflow Test Object", workflowItem);
+		this.workflowObject = insertWorkflowTestEntity("Workflow Test Object", workflowItem);
 
 		this.normalTransition = insertWorkflowTransition("T", sourceNode, targetNode, "1", true, WorkflowTestObjectTable.PERMISSION_A);
 		this.votingTransitionAbsolute = insertWorkflowTransition("T", sourceNode, targetNode, "2", true, WorkflowTestObjectTable.PERMISSION_A);

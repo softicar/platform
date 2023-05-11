@@ -1,10 +1,11 @@
-package com.softicar.platform.workflow.module.workflow.transition;
+package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.core.module.daemon.watchdog.DaemonWatchdogControllerSingleton;
 import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
+import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
@@ -18,7 +19,7 @@ import com.softicar.platform.workflow.module.test.WorkflowTestObject;
 import com.softicar.platform.workflow.module.test.WorkflowTestObjectTable;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
-import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionExecutionProgram;
+import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
 import java.util.List;
@@ -26,19 +27,18 @@ import java.util.stream.Collectors;
 import org.junit.After;
 import org.junit.Test;
 
-// TODO split this class to better match the actual class under test
-public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
+public class WorkflowAutoTransitionExecutionProgramTest extends AbstractTestObjectWorkflowTest {
 
 	private static final int PROGRAM_EXECUTION_TIMEOUT = 30000;
 	private final AGWorkflowNode nodeA;
 	private final AGWorkflowNode nodeB;
 	private final AGWorkflowTransition autoTransition;
 
-	public WorkflowAutoTransitionTest() {
+	public WorkflowAutoTransitionExecutionProgramTest() {
 
 		this.nodeA = insertWorkflowNode(workflowVersion, "A");
 		this.nodeB = insertWorkflowNode(workflowVersion, "B");
-		this.autoTransition = insertWorkflowAutoTransition(rootNode, nodeA, "Auto Transition");
+		this.autoTransition = insertWorkflowAutoTransition("Auto Transition", rootNode, nodeA);
 
 		DaemonWatchdogControllerSingleton.get().start();
 	}
@@ -66,13 +66,12 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 		insertWorkflowTransition("User Transition without Notify", nodeA, nodeC, "1", false, WorkflowTestObjectTable.PERMISSION_B);
 
 		// setup object and permission ownership
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
+		WorkflowTestObject testObject = insertTestObject();
 		insertPermissionA(user, testObject);
 		insertPermissionB(user, testObject);
 		insertPermissionB(otherUser, testObject);
 
-		waitForProgramExecutions(1);
-		DbTableRowCaches.invalidateAll();
+		executeProgramViaDaemon();
 
 		// assert task for transition with notify
 		AGWorkflowTask taskWithNotify = assertOne(AGWorkflowTask.TABLE.createSelect().where(AGWorkflowTask.NOTIFY));
@@ -92,9 +91,9 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	@Test
 	public void testAutoTransitionExecution() {
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
+		WorkflowTestObject testObject = insertTestObject();
 
-		new WorkflowAutoTransitionExecutionProgram().executeProgram();
+		executeProgramViaDaemon();
 
 		assertSame(nodeA, testObject.getWorkflowItem().getWorkflowNode());
 	}
@@ -102,21 +101,24 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	@Test
 	public void testSimultaneousAutoTransitionExecutionFailed() {
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		insertWorkflowAutoTransition(rootNode, nodeB, "Auto Transition");
-		try {
-			new WorkflowAutoTransitionExecutionProgram().executeProgram();
-		} catch (RuntimeException exception) {
-			List<IDisplayString> transitionNames = AGWorkflowTransition.TABLE//
-				.loadAll()
-				.stream()
-				.map(AGWorkflowTransition::toDisplayWithoutId)
-				.collect(Collectors.toList());
-			String errorString = WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
-				.toDisplay(testObject.getWorkflowItem().toDisplayWithoutId(), Imploder.implode(transitionNames, "\n"))
-				.toString();
-			assertTrue(exception.getMessage().contains(errorString));
-		}
+		WorkflowTestObject testObject = insertTestObject();
+		insertWorkflowAutoTransition("Auto Transition", rootNode, nodeB);
+
+		executeProgramViaDaemon();
+
+		List<IDisplayString> transitionNames = AGWorkflowTransition.TABLE//
+			.loadAll()
+			.stream()
+			.map(AGWorkflowTransition::toDisplayWithoutId)
+			.collect(Collectors.toList());
+		String errorString = WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
+			.toDisplay(testObject.getWorkflowItem().toDisplayWithoutId(), Imploder.implode(transitionNames, "\n"))
+			.toString();
+
+		var execution = assertOne(AGProgramExecution.TABLE.loadAll());
+		assertTrue(getOutputWithoutTimestamps(execution).contains(errorString));
+
+		assertSame(rootNode, testObject.getWorkflowItem().getWorkflowNode());
 	}
 
 	// ---------- subsequent auto transitions ---------- //
@@ -125,12 +127,12 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	public void testSubsequentAutoTransitions() {
 
 		AGWorkflowNode nodeC = insertWorkflowNode(workflowVersion, "C");
-		insertWorkflowAutoTransition(nodeA, nodeB, "Auto Transition");
-		insertWorkflowAutoTransition(nodeB, nodeC, "Auto Transition");
+		insertWorkflowAutoTransition("Auto Transition", nodeA, nodeB);
+		insertWorkflowAutoTransition("Auto Transition", nodeB, nodeC);
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		waitForProgramExecutions(3);
-		DbTableRowCaches.invalidateAll();
+		WorkflowTestObject testObject = insertTestObject();
+
+		executeProgramViaDaemon();
 
 		assertSame(nodeC, testObject.getWorkflowItem().getWorkflowNode());
 	}
@@ -140,10 +142,10 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	@Test
 	public void testOneAutoTransitionWithTruePrecondition() {
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
+		WorkflowTestObject testObject = insertTestObject();
 		insertWorkflowNodePrecondition(nodeA, TruePrecondition.class);
 
-		new WorkflowAutoTransitionExecutionProgram().executeProgram();
+		executeProgramViaDaemon();
 
 		assertSame(nodeA, testObject.getWorkflowItem().getWorkflowNode());
 	}
@@ -151,11 +153,11 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	@Test
 	public void testOneAutoTransitionWithFalsePrecondition() {
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		insertWorkflowAutoTransition(rootNode, nodeB, "Blocked Auto Transition");
+		WorkflowTestObject testObject = insertTestObject();
+		insertWorkflowAutoTransition("Blocked Auto Transition", rootNode, nodeB);
 		insertWorkflowNodePrecondition(nodeB, FalsePrecondition.class);
 
-		new WorkflowAutoTransitionExecutionProgram().executeProgram();
+		executeProgramViaDaemon();
 
 		assertSame(nodeA, testObject.getWorkflowItem().getWorkflowNode());
 	}
@@ -163,12 +165,12 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 	@Test
 	public void testAllAutoTransitionWithFalsePrecondition() {
 
-		WorkflowTestObject testObject = insertTestObjectAndStartWorkflow();
-		insertWorkflowAutoTransition(rootNode, nodeB, "Blocked Auto Transition");
+		WorkflowTestObject testObject = insertTestObject();
+		insertWorkflowAutoTransition("Blocked Auto Transition", rootNode, nodeB);
 		insertWorkflowNodePrecondition(nodeB, FalsePrecondition.class);
 		insertWorkflowNodePrecondition(nodeA, FalsePrecondition.class);
 
-		new WorkflowAutoTransitionExecutionProgram().executeProgram();
+		executeProgramViaDaemon();
 
 		assertSame(rootNode, testObject.getWorkflowItem().getWorkflowNode());
 	}
@@ -201,23 +203,29 @@ public class WorkflowAutoTransitionTest extends AbstractTestObjectWorkflowTest {
 
 	// ------------------------------ auxiliary ------------------------------ //
 
-	private WorkflowTestObject insertTestObjectAndStartWorkflow() {
+	private WorkflowTestObject insertTestObject() {
 
-		// create object
-		WorkflowTestObject testObject = new WorkflowTestObject()//
-			.setName("TestName")
-			.save();
-		assertNull(testObject.getWorkflowItem());
+		return insertWorkflowTestEntity("TestName", insertWorkflowItem(rootNode));
+	}
 
-		// start workflow
-		workflow.startWorkflow(testObject);
-		assertNotNull(testObject.getWorkflowItem());
-		assertSame(rootNode, testObject.getWorkflowItem().getWorkflowNode());
+	private String getOutputWithoutTimestamps(AGProgramExecution execution) {
 
-		return testObject;
+		return execution.getOutput().replaceAll("\\[.*\\] ", "");
 	}
 
 	// ------------------------------ program execution ------------------------------ //
+
+	private void executeProgramViaDaemon() {
+
+		enqueueProgramExecution();
+		waitForProgramExecutions(1);
+		DbTableRowCaches.invalidateAll();
+	}
+
+	private void enqueueProgramExecution() {
+
+		Programs.enqueueExecution(WorkflowAutoTransitionExecutionProgram.class);
+	}
 
 	private void waitForProgramExecutions(int minimumCount) {
 

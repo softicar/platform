@@ -71,19 +71,6 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 			.save();
 	}
 
-	default AGWorkflowTransition insertWorkflowAutoTransition(AGWorkflowNode sourceNode, AGWorkflowNode targetNode, String name) {
-
-		return new AGWorkflowTransition()//
-			.setWorkflowVersion(sourceNode.getWorkflowVersion())
-			.setName(name)
-			.setSourceNode(sourceNode)
-			.setTargetNode(targetNode)
-			.setAutoTransition(true)
-			.setRequiredVotes("0")
-			.setNotify(false)
-			.save();
-	}
-
 	default AGWorkflowTransition insertWorkflowAutoTransition(String name, AGWorkflowNode sourceNode, AGWorkflowNode targetNode) {
 
 		return new AGWorkflowTransition()//

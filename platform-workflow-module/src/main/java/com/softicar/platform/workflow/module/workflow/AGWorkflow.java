@@ -7,9 +7,7 @@ import com.softicar.platform.db.runtime.transients.ITransientField;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.entity.table.IWorkflowTableReferencePoint;
-import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.IWorkflowableObject;
-import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 import java.util.Collection;
 import java.util.Optional;
@@ -55,22 +53,6 @@ public class AGWorkflow extends AGWorkflowGenerated implements IEmfObject<AGWork
 
 	public void startWorkflow(IWorkflowableObject<?> object) {
 
-		if (object.getWorkflowItem() == null) {
-			AGWorkflowItem item = new AGWorkflowItem() //
-				.setWorkflow(this)
-				.setWorkflowNode(getCurrentVersion().getRootNode())
-				.save();
-
-			object.setWorkflowItem(item);
-			object.save();
-		} else {
-			object//
-				.getWorkflowItem()
-				.setWorkflow(this)
-				.setWorkflowNode(getCurrentVersion().getRootNode())
-				.save();
-		}
-
-		new WorkflowTaskManager(object.getWorkflowItem()).setNextNodeAndGenerateTasks(getCurrentVersion().getRootNode());
+		new WorkflowStarter(this).startWorkflow(object);
 	}
 }

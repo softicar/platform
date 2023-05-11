@@ -10,7 +10,8 @@ import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksLoader;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
-import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionCascadedExecutor;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionsExecutor;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionsResult;
 import java.util.Collection;
 import java.util.Set;
 
@@ -55,10 +56,14 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	/**
 	 * Executes the longest possible cascade of auto transitions for this
 	 * {@link AGWorkflowItem}.
+	 *
+	 * @return <i>true</i> if at least one auto transition was executed for this
+	 *         item; <i>false</i> otherwise
 	 */
-	public void executeAllAutoTransitions() {
+	public boolean executeAllAutoTransitions() {
 
-		new WorkflowAutoTransitionCascadedExecutor(this).evaluateAndExecuteCascaded();
+		WorkflowAutoTransitionsResult result = new WorkflowAutoTransitionsExecutor().setWorkflowItemWhitelist(this).executeTransitions();
+		return !result.getTransitioned().isEmpty();
 	}
 
 	private SetMap<AGWorkflowTransition, AGWorkflowTransitionExecution> loadTransitionExecutionMap() {
