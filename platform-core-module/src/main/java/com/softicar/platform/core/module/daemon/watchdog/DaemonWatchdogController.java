@@ -10,7 +10,7 @@ import com.softicar.platform.core.module.daemon.watchdog.log.DaemonWatchdogLogEn
 import com.softicar.platform.core.module.daemon.watchdog.log.DaemonWatchdogLogEntryList;
 import com.softicar.platform.core.module.daemon.watchdog.state.DaemonWatchdogState;
 import com.softicar.platform.core.module.daemon.watched.runnable.WatchedDaemonState;
-import com.softicar.platform.core.module.program.QueuedProgramExecutionDaemonDefinition;
+import com.softicar.platform.core.module.program.execution.daemon.ProgramExecutionDaemonDefinition;
 import com.softicar.platform.core.module.program.execution.scheduled.ScheduledProgramEnqueuerDaemonDefinition;
 import java.time.Instant;
 import java.util.Collection;
@@ -132,7 +132,7 @@ public class DaemonWatchdogController {
 		return List
 			.of(//
 				new ScheduledProgramEnqueuerDaemonDefinition(),
-				new QueuedProgramExecutionDaemonDefinition());
+				new ProgramExecutionDaemonDefinition());
 	}
 
 	private List<WatchedDaemonState> getWatchedDaemonStates() {

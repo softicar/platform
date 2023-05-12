@@ -14,6 +14,11 @@ public class Programs {
 		return SourceCodeReferencePoints.getReferencePointOrThrow(uuid).toDisplay();
 	}
 
+	public static Collection<IProgram> getAllPrograms() {
+
+		return SourceCodeReferencePoints.getReferencePoints(IProgram.class);
+	}
+
 	public static Collection<AGUuidBasedSourceCodeReferencePoint> getAllProgramsAsIndirectEntities() {
 
 		return AGUuidBasedSourceCodeReferencePoints.getAll(IProgram.class);

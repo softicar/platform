@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program;
+package com.softicar.platform.core.module.program.execution.daemon;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.logging.Log;
@@ -12,6 +12,9 @@ import com.softicar.platform.core.module.daemon.IDaemon;
 import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
+import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.MissingProgramsInserter;
+import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionsCleaner;
@@ -25,24 +28,25 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-class QueuedProgramExecutionDaemon implements IDaemon {
+class ProgramExecutionDaemon implements IDaemon {
 
-	private static final Duration SLEEP_DURATION = Duration.ofMillis(DaemonProperties.QUEUED_PROGRAM_EXECUTION_DAEMON_SLEEP_MILLIS.getValue());
-	private final QueuedProgramExecutionRegisteredThreadRunner registeredThreadRunner;
+	private static final Duration SLEEP_DURATION = Duration.ofMillis(DaemonProperties.PROGRAM_EXECUTION_DAEMON_SLEEP_MILLIS.getValue());
+	private final ProgramExecutionRegisteredThreadRunner registeredThreadRunner;
 
-	public QueuedProgramExecutionDaemon() {
+	public ProgramExecutionDaemon() {
 
-		this(new LimitedThreadRunner<>(DaemonProperties.QUEUED_PROGRAM_EXECUTION_THREAD_COUNT.getValue()));
+		this(new LimitedThreadRunner<>(DaemonProperties.PROGRAM_EXECUTION_THREAD_COUNT.getValue()));
 	}
 
-	public QueuedProgramExecutionDaemon(ILimitedThreadRunner<ProgramExecutionRunnable> threadRunner) {
+	public ProgramExecutionDaemon(ILimitedThreadRunner<ProgramExecutionRunnable> threadRunner) {
 
-		this.registeredThreadRunner = new QueuedProgramExecutionRegisteredThreadRunner(threadRunner);
+		this.registeredThreadRunner = new ProgramExecutionRegisteredThreadRunner(threadRunner);
 	}
 
 	@Override
 	public void setup() {
 
+		new MissingProgramsInserter().insertMissingPrograms();
 		new ProgramExecutionsCleaner().cleanupOrphanedExecutions();
 	}
 
@@ -107,18 +111,22 @@ class QueuedProgramExecutionDaemon implements IDaemon {
 
 	private void terminateProgram(AGProgram program) {
 
-		terminate(getRunningRunnableThreads(program));
-		program.resetState();
+		if (terminate(getRunningRunnableThreads(program))) {
+			program.resetState();
+		}
 	}
 
-	private void terminate(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
+	private boolean terminate(Collection<IRunnableThread<ProgramExecutionRunnable>> runnableThreads) {
 
-		for (IRunnableThread<ProgramExecutionRunnable> runnableThread: runnableThreads) {
-			boolean killed = runnableThread.kill();
+		var allKilled = true;
+		for (var runnableThread: runnableThreads) {
+			var killed = runnableThread.kill();
 			if (!killed) {
+				allKilled = false;
 				Log.ferror("Timeout while trying to terminate a thread for program: %s", getProgramName(runnableThread));
 			}
 		}
+		return allKilled;
 	}
 
 	private void handleMaximumRuntime(AGProgram program, AGProgramExecution currentExecution) {
