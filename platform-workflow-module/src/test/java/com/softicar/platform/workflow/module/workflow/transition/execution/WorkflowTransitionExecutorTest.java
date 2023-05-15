@@ -1,4 +1,4 @@
-package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
+package com.softicar.platform.workflow.module.workflow.transition.execution;
 
 import com.softicar.platform.workflow.module.test.AbstractTestObjectWorkflowTest;
 import com.softicar.platform.workflow.module.test.FalsePrecondition;
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
-public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkflowTest {
+public class WorkflowTransitionExecutorTest extends AbstractTestObjectWorkflowTest {
 
 	private final AGWorkflowNode nodeA;
 	private final AGWorkflowNode nodeB;
@@ -20,7 +20,7 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 	private final AGWorkflowTransition autoTransitionC;
 	private final AGWorkflowItem item;
 
-	public WorkflowAutoTransitionExecutorTest() {
+	public WorkflowTransitionExecutorTest() {
 
 		this.nodeA = insertWorkflowNode(workflowVersion, "A");
 		this.nodeB = insertWorkflowNode(workflowVersion, "B");
@@ -39,21 +39,21 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 	@Test
 	public void testAutoTransitionExecution() {
 
-		new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(Arrays.asList(autoTransitionA, autoTransitionB));
+		new WorkflowTransitionExecutor(item).evaluateAndExecute(Arrays.asList(autoTransitionA, autoTransitionB));
 		assertEquals(nodeA, item.getWorkflowNode());
 	}
 
 	@Test
 	public void testNoAutoTransitionExecution() {
 
-		new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(Collections.singletonList(autoTransitionB));
+		new WorkflowTransitionExecutor(item).evaluateAndExecute(Collections.singletonList(autoTransitionB));
 		assertEquals(rootNode, item.getWorkflowNode());
 	}
 
 	@Test
 	public void testWrongAutoTransition() {
 
-		new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(Arrays.asList(autoTransitionA, autoTransitionB, autoTransitionC));
+		new WorkflowTransitionExecutor(item).evaluateAndExecute(Arrays.asList(autoTransitionA, autoTransitionB, autoTransitionC));
 		assertEquals(rootNode, item.getWorkflowNode());
 	}
 
@@ -67,7 +67,7 @@ public class WorkflowAutoTransitionExecutorTest extends AbstractTestObjectWorkfl
 
 		assertEquals(rootNode, item.getWorkflowNode());
 
-		new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(List.of(autoTransitionA));
+		new WorkflowTransitionExecutor(item).evaluateAndExecute(List.of(autoTransitionA));
 		assertEquals(nodeB, item.getWorkflowNode());
 	}
 }
