@@ -50,6 +50,18 @@ public class ExceptionsCollectorTest extends AbstractTest {
 		collector.applyIfNotEmpty(message -> Assert.fail("not expected"));
 	}
 
+	@Test
+	public void testWithInterruptedException() {
+
+		assertExceptionMessage(//
+			"ExceptionsCollector encountered an InterruptedException.",
+			() -> collector.add(new InterruptedException()));
+
+		assertExceptionMessage(//
+			"ExceptionsCollector encountered an InterruptedException.",
+			() -> collector.add(new RuntimeException(new InterruptedException())));
+	}
+
 	private void generateExceptionsWithSameStacktrace(int count) {
 
 		for (int i = 0; i < count; i++) {
