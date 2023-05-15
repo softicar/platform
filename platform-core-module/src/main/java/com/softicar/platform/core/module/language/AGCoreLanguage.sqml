@@ -10,4 +10,7 @@ ENUM TABLE AGCoreLanguage 'Core.CoreLanguage' {
 
 	ROW (1, 'English', 'en')
 	ROW (2, 'German', 'de')
+	ROW (3, 'Bosnian', 'bs')
+	ROW (4, 'Croatian', 'hr')
+	ROW (5, 'Serbian', 'sr')
 }
