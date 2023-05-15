@@ -1,5 +1,6 @@
 package com.softicar.platform.common.core.exception;
 
+import com.softicar.platform.common.core.throwable.Throwables;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -30,6 +31,10 @@ public class ExceptionsCollector {
 
 	/**
 	 * Adds the given {@link Exception} to this {@link ExceptionsCollector}.
+	 * <p>
+	 * If the given {@link Exception} is an {@link InterruptedException} or
+	 * caused by one, the added {@link Exception} will be wrapped in a
+	 * {@link RuntimeException}, and thrown.
 	 *
 	 * @param exception
 	 *            the {@link Exception} (never <i>null</i>)
@@ -38,6 +43,11 @@ public class ExceptionsCollector {
 	public ExceptionsCollector add(Throwable exception) {
 
 		exceptions.add(Objects.requireNonNull(exception));
+		if (Throwables.isCausedBy(InterruptedException.class, exception)) {
+			throw new RuntimeException(
+				"%s encountered an %s.".formatted(ExceptionsCollector.class.getSimpleName(), InterruptedException.class.getSimpleName()),
+				exception);
+		}
 		return this;
 	}
 
