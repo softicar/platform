@@ -108,6 +108,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Bcrypt");
 	I18n0 BEST_REGARDS = new I18n0("Best regards")//
 		.de("Mit besten Grüßen");
+	I18n0 BOSNIAN = new I18n0("Bosnian")//
+		.de("Bosnisch");
 	I18n0 BUFFERED_EMAIL = new I18n0("Buffered Email")//
 		.de("Gepufferte E-Mail");
 	I18n0 BUFFERED_EMAIL_ATTACHMENT = new I18n0("Buffered Email Attachment")//
@@ -230,6 +232,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Erstellt am");
 	I18n0 CREATED_BY = new I18n0("Created By")//
 		.de("Erstellt von");
+	I18n0 CROATIAN = new I18n0("Croatian")//
+		.de("Kroatisch");
 	I18n0 CRON_EXPRESSION = new I18n0("Cron Expression")///
 		.de("Cron-Ausdruck");
 	I18n0 CURRENT_EXECUTION = new I18n0("Current Execution")//
@@ -880,6 +884,8 @@ public interface CoreI18n extends EmfI18n {
 		.de("Sendet gespeicherte E-Mails und löscht bereits gesendete E-Mails nach %s Tagen");
 	I18n0 SENT_AT = new I18n0("Sent At")//
 		.de("Gesendet am");
+	I18n0 SERBIAN = new I18n0("Serbian")//
+		.de("Serbisch");
 	I18n0 SERIALIZATION = new I18n0("Serialization")//
 		.de("Serialisierung");
 	I18n0 SERVER = new I18n0("Server")//
