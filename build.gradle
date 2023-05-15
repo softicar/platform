@@ -109,13 +109,14 @@ subprojects {
 
 // -------------------- compile -------------------- //
 
-sourceCompatibility = "15"
+sourceCompatibility = "17"
+targetCompatibility = "17"
 
 subprojects {
 	apply plugin: 'com.softicar.gradle.java.library'
 
-	sourceCompatibility = "15"
-	targetCompatibility = "15"
+	sourceCompatibility = "17"
+	targetCompatibility = "17"
 
 	compileJava {
 		options.encoding = "UTF-8"
