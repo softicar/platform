@@ -24,10 +24,10 @@ public interface CoreImages extends EmfImages {
 	IResourceSupplier FILE_TYPE_TEXT = FACTORY.create("file-type-text.svg");
 	IResourceSupplier FILE_TYPE_UNKNOWN = FACTORY.create("file-type-unknown.svg");
 	IResourceSupplier FINISH_MAINTENANCE = FACTORY.create("finish-maintenance.svg");
-	IResourceSupplier FLAG_BOSNIA = FACTORY.create("flag-bosnian.svg");
-	IResourceSupplier FLAG_CROATIA = FACTORY.create("flag-croation.svg");
+	IResourceSupplier FLAG_BOSNIA = FACTORY.create("flag-bosnia.svg");
+	IResourceSupplier FLAG_CROATIA = FACTORY.create("flag-croatia.svg");
 	IResourceSupplier FLAG_GERMANY = FACTORY.create("flag-germany.svg");
-	IResourceSupplier FLAG_SERBIA = FACTORY.create("flag-serbian.svg");
+	IResourceSupplier FLAG_SERBIA = FACTORY.create("flag-serbia.svg");
 	IResourceSupplier FLAG_UNITED_KINGDOM = FACTORY.create("flag-united-kingdom.svg");
 	IResourceSupplier LOGIN = FACTORY.create("login.svg");
 	IResourceSupplier LOGIN_FAILURE = FACTORY.create("login-failure.svg");
