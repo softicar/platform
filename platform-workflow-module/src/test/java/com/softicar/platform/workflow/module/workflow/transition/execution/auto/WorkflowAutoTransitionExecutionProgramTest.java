@@ -111,7 +111,7 @@ public class WorkflowAutoTransitionExecutionProgramTest extends AbstractTestObje
 			.stream()
 			.map(AGWorkflowTransition::toDisplayWithoutId)
 			.collect(Collectors.toList());
-		String errorString = WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
+		String errorString = WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_TRANSITION_ARG2
 			.toDisplay(testObject.getWorkflowItem().toDisplayWithoutId(), Imploder.implode(transitionNames, "\n"))
 			.toString();
 

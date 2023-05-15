@@ -1,4 +1,4 @@
-package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
+package com.softicar.platform.workflow.module.workflow.transition.execution;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -7,15 +7,15 @@ import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
-import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Executes the next possible auto transition for a given workflow item.
+ * Executes a transition for a given workflow item.
  * <p>
  * Executes the transition side-effect but does <b>not</b> touch any workflow
  * tasks.
@@ -23,21 +23,20 @@ import java.util.stream.Collectors;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-class WorkflowAutoTransitionExecutor {
+public class WorkflowTransitionExecutor {
 
 	private final AGWorkflowItem item;
 
-	public WorkflowAutoTransitionExecutor(AGWorkflowItem item) {
+	public WorkflowTransitionExecutor(AGWorkflowItem item) {
 
 		this.item = Objects.requireNonNull(item);
 	}
 
 	/**
-	 * Executes an automatic {@link AGWorkflowTransition} for the
-	 * {@link AGWorkflowItem}.
+	 * Executes an {@link AGWorkflowTransition} for the {@link AGWorkflowItem}.
 	 * <p>
-	 * Throws {@link SofticarUserException} if there is more than one
-	 * {@link AGWorkflowTransition} with a valid precondition.
+	 * Throws {@link SofticarUserException} if more than one
+	 * {@link AGWorkflowTransition} has a valid precondition.
 	 * <p>
 	 * Returns <i>true</i> if there is only one {@link AGWorkflowTransition}
 	 * with a valid precondition and a source node equal to the current node of
@@ -47,7 +46,7 @@ class WorkflowAutoTransitionExecutor {
 	 *
 	 * @param transitions
 	 *            the potential transitions to execute (never <i>null</i>)
-	 * @return <i>true</i> if a sole automatic {@link AGWorkflowTransition} was
+	 * @return <i>true</i> if a sole {@link AGWorkflowTransition} was
 	 *         successfully executed; <i>false</i> otherwise
 	 */
 	public boolean evaluateAndExecute(Collection<AGWorkflowTransition> transitions) {
@@ -79,23 +78,25 @@ class WorkflowAutoTransitionExecutor {
 				.map(AGWorkflowTransition::toDisplayWithoutId)
 				.collect(Collectors.toList());
 			throw new SofticarUserException(//
-				WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2
+				WorkflowI18n.WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_TRANSITION_ARG2
 					.toDisplay(item.toDisplayWithoutId(), Imploder.implode(transitionTitles, "\n")));
 		} else if (validTransitions.size() == 1) {
 			var transition = validTransitions.get(0);
+			var sourceNode = transition.getSourceNode();
 			var targetNode = transition.getTargetNode();
 			Log
 				.finfo(//
-					"Executing transition '%s' into target node '%s' for item '%s'.",
+					"Executing transition '%s' from source node '%s' into target node '%s' for item '%s'.",
 					transition.toDisplayWithoutId(),
+					sourceNode.toDisplayWithoutId(),
 					targetNode.toDisplayWithoutId(),
 					item.toDisplay());
 			transition.executeSideEffect(item);
 			item.setWorkflowNode(targetNode).save();
-			new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
+			logTransitionExecution(transition);
 			return true;
 		} else {
-			Log.fverbose("No executable auto transition found.");
+			Log.fverbose("No executable transition found.");
 			return false;
 		}
 	}
@@ -103,11 +104,11 @@ class WorkflowAutoTransitionExecutor {
 	private boolean allTransitionsHaveExpectedSourceNode(Collection<AGWorkflowTransition> transitions) {
 
 		for (AGWorkflowTransition transition: transitions) {
-			AGWorkflowNode sourceNode = transition.getSourceNode();
+			var sourceNode = transition.getSourceNode();
 			if (!sourceNode.equals(item.getWorkflowNode())) {
 				Log
 					.fwarning(
-						"WARNING: Skipping workflow item %s because it is no longer in expected source node '%s' but in '%s'.",
+						"WARNING: Skipping workflow item #%s because it is no longer in expected source node '%s' but in '%s'.",
 						item.getId(),
 						sourceNode.toDisplay(),
 						item.getWorkflowNode().toDisplay());
@@ -124,5 +125,12 @@ class WorkflowAutoTransitionExecutor {
 			.getAllActiveWorkflowNodePreconditions()
 			.stream()
 			.allMatch(it -> it.test(item));
+	}
+
+	private void logTransitionExecution(AGWorkflowTransition transition) {
+
+		if (transition.isAutoTransition()) {
+			new AGWorkflowAutoTransitionExecution().setWorkflowItem(item).setWorkflowTransition(transition).save();
+		}
 	}
 }

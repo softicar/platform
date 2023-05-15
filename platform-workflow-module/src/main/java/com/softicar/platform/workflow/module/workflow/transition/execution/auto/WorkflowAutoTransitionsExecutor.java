@@ -3,11 +3,10 @@ package com.softicar.platform.workflow.module.workflow.transition.execution.auto
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.db.core.transaction.DbTransaction;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
-import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskCreationFailedException;
-import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
+import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksAndDelegationsUpdater;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
+import com.softicar.platform.workflow.module.workflow.transition.execution.WorkflowTransitionExecutor;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,7 +65,7 @@ public class WorkflowAutoTransitionsExecutor {
 
 	/**
 	 * Executes the longest possible cascade of auto transitions for one or
-	 * several workflow items, using {@link WorkflowAutoTransitionExecutor}.
+	 * several workflow items, using {@link WorkflowTransitionExecutor}.
 	 * <p>
 	 * Throws an exception if an exception was caught while trying to execute at
 	 * least one auto transition, or while creating tasks.
@@ -126,7 +125,7 @@ public class WorkflowAutoTransitionsExecutor {
 						item.getId());
 				}
 
-				if (new WorkflowAutoTransitionExecutor(item).evaluateAndExecute(transitions)) {
+				if (new WorkflowTransitionExecutor(item).evaluateAndExecute(transitions)) {
 					Log.fverbose("Execution successful.");
 					result.addTransitioned(item);
 					cascadeLengthMap.merge(item, 1, Integer::sum);
@@ -148,24 +147,9 @@ public class WorkflowAutoTransitionsExecutor {
 
 		Log.fverbose("Updating tasks and delegations...");
 
-		// close existing tasks and delegations in a single transaction
-		try (var transaction = new DbTransaction()) {
-			result.getTransitioned().forEach(item -> {
-				new WorkflowTaskManager(item).closeTasksAndDelegations();
-			});
-			transaction.commit();
-		}
-
-		// create new tasks in distinct transactions, and catch exceptions
-		result.getTransitioned().forEach(item -> {
-			try (var transaction = new DbTransaction()) {
-				new WorkflowTaskManager(item).insertTasks();
-				transaction.commit();
-			} catch (Throwable throwable) {
-				Log.fverbose("FAILURE -- see exceptions below");
-				exceptionsCollector.add(new WorkflowTaskCreationFailedException(throwable, item));
-			}
-		});
+		new WorkflowTasksAndDelegationsUpdater()//
+			.setExceptionsCollector(exceptionsCollector)
+			.updateAll(result.getTransitioned());
 
 		Log.fverbose("Updated tasks and delegations.");
 	}
