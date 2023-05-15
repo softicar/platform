@@ -261,9 +261,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Arbeitsablauf-Icons");
 	I18n0 WORKFLOW_ITEM = new I18n0("Workflow Item")//
 		.de("Arbeitsablauf-Element");
-	I18n2 WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_AUTO_TRANSITION_ARG2 =
-			new I18n2("Workflow item '%s' has more than one executable auto transition:\n%s")//
-				.de("Arbeitsablauf-Element '%s' hat mehr als einen ausführbaren automatischen Übergang:\n%s");
+	I18n2 WORKFLOW_ITEM_ARG1_HAS_MORE_THAN_ONE_EXECUTABLE_TRANSITION_ARG2 = new I18n2("Workflow item '%s' has more than one executable transition:\n%s")//
+		.de("Arbeitsablauf-Element '%s' hat mehr als einen ausführbaren Übergang:\n%s");
 	I18n0 WORKFLOW_ITEM_HAS_ALREADY_BEEN_CHANGED = new I18n0("Workflow item has already been changed.")//
 		.de("Arbeitsablaufelement wurde bereits geändert.");
 	I18n0 WORKFLOW_ITEM_HISTORY = new I18n0("Workflow Item History")//
