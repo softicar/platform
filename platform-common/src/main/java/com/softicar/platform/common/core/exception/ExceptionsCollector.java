@@ -33,8 +33,8 @@ public class ExceptionsCollector {
 	 * Adds the given {@link Exception} to this {@link ExceptionsCollector}.
 	 * <p>
 	 * If the given {@link Exception} is an {@link InterruptedException} or
-	 * caused by one, {@link Thread#interrupt()} will be called on the current
-	 * thread.
+	 * caused by one, the added Exception will be wrapped in a
+	 * {@link RuntimeException}, and thrown.
 	 *
 	 * @param exception
 	 *            the {@link Exception} (never <i>null</i>)
