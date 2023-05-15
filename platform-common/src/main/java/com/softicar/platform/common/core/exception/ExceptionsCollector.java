@@ -33,7 +33,7 @@ public class ExceptionsCollector {
 	 * Adds the given {@link Exception} to this {@link ExceptionsCollector}.
 	 * <p>
 	 * If the given {@link Exception} is an {@link InterruptedException} or
-	 * caused by one, the added Exception will be wrapped in a
+	 * caused by one, the added {@link Exception} will be wrapped in a
 	 * {@link RuntimeException}, and thrown.
 	 *
 	 * @param exception
