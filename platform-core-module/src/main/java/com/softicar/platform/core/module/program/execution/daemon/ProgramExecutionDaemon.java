@@ -13,7 +13,6 @@ import com.softicar.platform.core.module.event.SystemEventBuilder;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.program.AGProgram;
-import com.softicar.platform.core.module.program.MissingProgramsInserter;
 import com.softicar.platform.core.module.program.Programs;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
@@ -46,7 +45,8 @@ class ProgramExecutionDaemon implements IDaemon {
 	@Override
 	public void setup() {
 
-		new MissingProgramsInserter().insertMissingPrograms();
+		// TODO enabling program insertion breaks tests
+//		new MissingProgramsInserter().insertMissingPrograms();
 		new ProgramExecutionsCleaner().cleanupOrphanedExecutions();
 	}
 

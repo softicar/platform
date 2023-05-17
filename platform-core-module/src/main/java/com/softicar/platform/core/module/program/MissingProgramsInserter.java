@@ -29,9 +29,7 @@ public class MissingProgramsInserter {
 
 		var programUuid = program.getAnnotatedUuid();
 		if (!existingPrograms.contains(programUuid)) {
-			new AGProgram()//
-				.setProgramUuid(programUuid)
-				.save();
+			AGProgram.loadOrInsert(AGUuid.getOrCreate(programUuid));
 		}
 	}
 

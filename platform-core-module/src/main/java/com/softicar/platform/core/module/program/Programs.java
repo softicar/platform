@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.program;
 
 import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.program.enqueue.ProgramEnqueuer;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoint;
 import com.softicar.platform.core.module.uuid.AGUuidBasedSourceCodeReferencePoints;
 import java.util.Collection;
@@ -26,6 +27,6 @@ public class Programs {
 
 	public static <P extends IProgram> void enqueueExecution(Class<P> programClass) {
 
-		new ProgramEnqueuer<>(programClass).enqueue();
+		new ProgramEnqueuer(programClass).enqueueProgram();
 	}
 }
