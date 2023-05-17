@@ -21,13 +21,13 @@ public class AGCoreLanguage extends AGCoreLanguageGenerated implements IEntity {
 
 	public IResource getLangageFlag() {
 
-		switch (getEnum()) {
-		case ENGLISH:
-			return CoreImages.FLAG_UNITED_KINGDOM.getResource();
-		case GERMAN:
-			return CoreImages.FLAG_GERMANY.getResource();
-		}
-		return CoreImages.FLAG_UNITED_KINGDOM.getResource();
+		return switch (getEnum()) {
+		case BOSNIAN -> CoreImages.FLAG_BOSNIA.getResource();
+		case CROATIAN -> CoreImages.FLAG_CROATIA.getResource();
+		case ENGLISH -> CoreImages.FLAG_UNITED_KINGDOM.getResource();
+		case GERMAN -> CoreImages.FLAG_GERMANY.getResource();
+		case SERBIAN -> CoreImages.FLAG_SERBIA.getResource();
+		};
 	}
 
 	public Optional<LanguageEnum> getLanguageEnum() {

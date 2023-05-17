@@ -13,6 +13,9 @@ public enum AGCoreLanguageEnum implements IDbEnumTableRowEnum<AGCoreLanguageEnum
 
 	ENGLISH(1, "English", "en"),
 	GERMAN(2, "German", "de"),
+	BOSNIAN(3, "Bosnian", "bs"),
+	CROATIAN(4, "Croatian", "hr"),
+	SERBIAN(5, "Serbian", "sr"),
 	//
 	;
 
@@ -47,6 +50,12 @@ public enum AGCoreLanguageEnum implements IDbEnumTableRowEnum<AGCoreLanguageEnum
 			return CoreI18n.ENGLISH;
 		case GERMAN:
 			return CoreI18n.GERMAN;
+		case BOSNIAN:
+			return CoreI18n.BOSNIAN;
+		case CROATIAN:
+			return CoreI18n.CROATIAN;
+		case SERBIAN:
+			return CoreI18n.SERBIAN;
 		}
 
 		throw new IllegalArgumentException("Unknown enumerator: " + name());
