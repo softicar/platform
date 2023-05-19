@@ -5,6 +5,7 @@ import com.softicar.platform.common.core.i18n.DisplayString;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.emf.EmfI18n;
+import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.validation.result.IEmfDiagnostic;
 import com.softicar.platform.emf.validation.result.IEmfValidationResult;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ public class EmfValidationException extends SofticarUserException {
 
 	private final IEmfValidationResult validationResult;
 
-	public EmfValidationException(IEmfValidationResult validationResult) {
+	public EmfValidationException(IEmfTable<?, ?, ?> table, IEmfValidationResult validationResult) {
 
-		super(new Message(validationResult));
+		super(new Message(table, validationResult));
 
 		this.validationResult = validationResult;
 	}
@@ -30,9 +31,9 @@ public class EmfValidationException extends SofticarUserException {
 
 		private final List<IDisplayString> lines = new ArrayList<>();
 
-		public Message(IEmfValidationResult validationResult) {
+		public Message(IEmfTable<?, ?, ?> table, IEmfValidationResult validationResult) {
 
-			lines.add(EmfI18n.VALIDATION_FAILED.concat(":"));
+			lines.add(EmfI18n.VALIDATION_OF_ARG1_FAILED.toDisplay(table.getTitle()).concat(":"));
 			for (IEmfDiagnostic diagnostic: validationResult.getDiagnostics()) {
 				lines
 					.add(

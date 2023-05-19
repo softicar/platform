@@ -94,7 +94,7 @@ class EmfAttributesApplier<R extends IEmfTableRow<R, ?>> {
 			additionalValidators.forEach(validator -> validator.validate(tableRow, validationResult));
 
 			if (validationResult.hasErrors()) {
-				throw new EmfValidationException(validationResult);
+				throw new EmfValidationException(tableRow.table(), validationResult);
 			}
 		}
 

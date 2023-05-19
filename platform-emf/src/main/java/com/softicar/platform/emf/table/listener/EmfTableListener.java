@@ -120,7 +120,7 @@ public class EmfTableListener<R extends IEmfTableRow<R, ?>> implements IDbTableL
 			IEmfValidationResult validationResult = new EmfValidationResult();
 			row.validate(validationResult);
 			if (validationResult.hasErrors()) {
-				throw new EmfValidationException(validationResult);
+				throw new EmfValidationException(table, validationResult);
 			}
 		}
 	}
