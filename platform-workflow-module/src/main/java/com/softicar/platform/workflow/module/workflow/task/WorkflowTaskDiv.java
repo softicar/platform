@@ -6,11 +6,13 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.element.DomElementTag;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
+import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.button.popup.DomPopupButton;
 import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusEvent;
 import com.softicar.platform.dom.refresh.bus.IDomRefreshBusListener;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableActionColumnHandler;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
@@ -61,6 +63,7 @@ public class WorkflowTaskDiv extends DomDiv {
 				.createQuery()
 				.setUser(user)
 				.setShowMyDelegations(showDelegatedTasksCheckbox.isChecked());
+			var closeTasksButton = new CloseTasksButton();
 			this.tableDiv = new EmfDataTableDivBuilder<>(query)//
 				.setActionColumnHandler(new ActionColumnHandler())
 				.setColumnHandler(IWorkflowTaskQuery.TASK_COLUMN, new TaskColumnHandler())
@@ -72,9 +75,11 @@ public class WorkflowTaskDiv extends DomDiv {
 				.setColumnTitle(IWorkflowTaskQuery.WORKFLOW_NODE_COLUMN, WorkflowI18n.NODE)
 				.setColumnTitle(IWorkflowTaskQuery.DELEGATED_BY_COLUMN, WorkflowI18n.DELEGATION)
 				.setColumnTitle(IWorkflowTaskQuery.CREATED_AT_COLUMN, WorkflowI18n.CREATED_AT)
+				.setRowSelectionModeMulti()
+				.setRowSelectionCallback(closeTasksButton::updateState)
 				.build();
 
-			appendChild(showDelegatedTasksCheckbox);
+			new DomActionBar(closeTasksButton, showDelegatedTasksCheckbox).appendTo(this);
 			appendChild(tableDiv);
 		}
 
@@ -82,6 +87,28 @@ public class WorkflowTaskDiv extends DomDiv {
 		public void refresh(IDomRefreshBusEvent event) {
 
 			tableDiv.refresh();
+		}
+
+		private class CloseTasksButton extends DomButton {
+
+			public CloseTasksButton() {
+
+				setIcon(WorkflowImages.ENTITY_DEACTIVATE.getResource());
+				setLabel(WorkflowI18n.CLOSE_SELECTED_TASKS);
+				setClickCallback(this::closeAllSelected);
+				setConfirmationMessage(WorkflowI18n.ARE_YOU_SURE_QUESTION);
+				setDisabled(true);
+			}
+
+			public void updateState(IEmfDataTable<?> dataTable) {
+
+				setDisabled(dataTable.getController().getSelectedRows().isEmpty());
+			}
+
+			private void closeAllSelected() {
+
+				tableDiv.getSelectedRows().forEach(row -> row.getTask().close());
+			}
 		}
 
 		private class ShowDelegatedTasksCheckbox extends DomCheckbox {
