@@ -29,7 +29,7 @@ public class WorkflowItemMessageRowsLoader {
 
 	public List<WorkflowItemMessageRow> loadAllRows() {
 
-		// please note, loading order is important
+		// Loading order is important!
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
 		rows.addAll(loadMessageRows());
 		rows.addAll(loadTaskExecutionRows());
@@ -38,12 +38,12 @@ public class WorkflowItemMessageRowsLoader {
 		rows.addAll(loadItemLogs());
 
 		Collections.sort(rows);
-		removedDuplicates(rows);
+		removeDuplicates(rows);
 		fillNodeAndIndex(rows);
 		return rows;
 	}
 
-	private void removedDuplicates(List<WorkflowItemMessageRow> rows) {
+	private void removeDuplicates(List<WorkflowItemMessageRow> rows) {
 
 		var previousRow = (WorkflowItemMessageRow) null;
 		var iterator = rows.iterator();
