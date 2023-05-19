@@ -44,6 +44,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Automatische Übergänge dürfen keine Berechtigungen definieren.");
 	I18n0 AUTO_TRANSITIONS_MAY_NOT_DEFINE_REQUIRED_VOTES = new I18n0("Auto transitions may not define required votes.")//
 		.de("Automatische Übergänge dürfen keine benötigten Stimmen definieren.");
+	I18n0 CLOSE_SELECTED_TASKS = new I18n0("Close Selected Tasks")//
+		.de("Selektierte Aufgaben schließen");
 	I18n0 CLOSED = new I18n0("Closed")//
 		.de("Geschlossen");
 	I18n1 COMMENT_ARG1 = new I18n1("Comment: %s")//
