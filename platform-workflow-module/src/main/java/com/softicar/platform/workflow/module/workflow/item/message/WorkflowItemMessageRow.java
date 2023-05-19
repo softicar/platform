@@ -94,7 +94,6 @@ public class WorkflowItemMessageRow implements Comparable<WorkflowItemMessageRow
 
 		return Comparator//
 			.comparing(WorkflowItemMessageRow::getTransaction)
-			.thenComparing(WorkflowItemMessageRow::getText)
 			.compare(this, other);
 	}
 }
