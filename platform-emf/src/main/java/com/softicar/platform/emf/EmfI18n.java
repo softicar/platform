@@ -423,8 +423,8 @@ public interface EmfI18n extends DomI18n {
 		.de("Benutzte Berechtigungen");
 	I18n0 UUID = new I18n0("UUID")//
 		.de("UUID");
-	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//
-		.de("Validierung fehlgeschlagen");
+	I18n1 VALIDATION_OF_ARG1_FAILED = new I18n1("Validation of %s failed")//
+		.de("Validierung von %s fehlgeschlagen");
 	I18n1 VALUE_ARG1_IS_OUT_OF_RANGE = new I18n1("Value '%s' is out of range")//
 		.de("Wert '%s' liegt außerhalb des Wertebereichs");
 	I18n0 VALUE_CLASS = new I18n0("Value Class")//
