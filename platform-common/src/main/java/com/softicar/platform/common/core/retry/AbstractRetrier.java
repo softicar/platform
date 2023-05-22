@@ -82,8 +82,8 @@ public abstract class AbstractRetrier<T extends AbstractRetrier<T>> {
 	 * trying again.
 	 *
 	 * @param retryDelay
-	 *            the retry delay; the default is {@value #DEFAULT_RETRY_DELAY}
-	 *            (never <i>null</i> and never negative)
+	 *            the retry delay (never <i>null</i> or negative); the default
+	 *            is {@link Duration#ZERO}
 	 * @throws IllegalArgumentException
 	 *             if the delay is negative
 	 * @return this object

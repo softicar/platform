@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program;
+package com.softicar.platform.core.module.program.execution.daemon;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.daemon.DaemonProperties;
@@ -6,7 +6,7 @@ import com.softicar.platform.core.module.daemon.IDaemon;
 import com.softicar.platform.core.module.daemon.IDaemonDefinition;
 import java.time.Duration;
 
-public class QueuedProgramExecutionDaemonDefinition implements IDaemonDefinition {
+public class ProgramExecutionDaemonDefinition implements IDaemonDefinition {
 
 	@Override
 	public IDisplayString toDisplay() {
@@ -17,12 +17,12 @@ public class QueuedProgramExecutionDaemonDefinition implements IDaemonDefinition
 	@Override
 	public IDaemon create() {
 
-		return new QueuedProgramExecutionDaemon();
+		return new ProgramExecutionDaemon();
 	}
 
 	@Override
 	public Duration getKillTimeout() {
 
-		return Duration.ofSeconds(DaemonProperties.QUEUED_PROGRAM_EXECUTION_DAEMON_HEARTBEAT_TIMEOUT.getValue());
+		return Duration.ofSeconds(DaemonProperties.PROGRAM_EXECUTION_DAEMON_HEARTBEAT_TIMEOUT.getValue());
 	}
 }

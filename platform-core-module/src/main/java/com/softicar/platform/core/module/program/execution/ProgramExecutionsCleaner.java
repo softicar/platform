@@ -13,17 +13,27 @@ public class ProgramExecutionsCleaner {
 	public void cleanupOrphanedExecutions() {
 
 		try (var transaction = new DbTransaction()) {
-			AGProgram.TABLE//
-				.loadAll()
-				.forEach(AGProgram::resetState);
-			AGProgramExecution.TABLE//
-				.createSelect()
-				.where(AGProgramExecution.TERMINATED_AT.isNull())
-				.joinLeftReverse(AGProgramState.CURRENT_EXECUTION)
-				.where(AGProgramState.PROGRAM.isNull())
-				.forEach(this::terminateExecutionAndCreateEvent);
+			resetAllProgramStates();
+			terminateAllProgramExecutions();
 			transaction.commit();
 		}
+	}
+
+	private void resetAllProgramStates() {
+
+		AGProgram.TABLE//
+			.loadAll()
+			.forEach(AGProgram::resetState);
+	}
+
+	private void terminateAllProgramExecutions() {
+
+		AGProgramExecution.TABLE//
+			.createSelect()
+			.where(AGProgramExecution.TERMINATED_AT.isNull())
+			.joinLeftReverse(AGProgramState.CURRENT_EXECUTION)
+			.where(AGProgramState.PROGRAM.isNull())
+			.forEach(this::terminateExecutionAndCreateEvent);
 	}
 
 	private void terminateExecutionAndCreateEvent(AGProgramExecution execution) {

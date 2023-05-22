@@ -1,4 +1,4 @@
-package com.softicar.platform.core.module.program;
+package com.softicar.platform.core.module.program.execution.daemon;
 
 import com.softicar.platform.common.core.thread.IRunnableThread;
 import com.softicar.platform.common.core.thread.runner.ILimitedThreadRunner;
@@ -14,12 +14,12 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-class QueuedProgramExecutionRegisteredThreadRunner implements ILimitedThreadRunner<ProgramExecutionRunnable> {
+class ProgramExecutionRegisteredThreadRunner implements ILimitedThreadRunner<ProgramExecutionRunnable> {
 
 	private final ILimitedThreadRunner<ProgramExecutionRunnable> wrappedThreadRunner;
 	private final Map<UUID, Collection<IRunnableThread<ProgramExecutionRunnable>>> registeredThreadMap;
 
-	public QueuedProgramExecutionRegisteredThreadRunner(ILimitedThreadRunner<ProgramExecutionRunnable> wrappedThreadRunner) {
+	public ProgramExecutionRegisteredThreadRunner(ILimitedThreadRunner<ProgramExecutionRunnable> wrappedThreadRunner) {
 
 		this.wrappedThreadRunner = Objects.requireNonNull(wrappedThreadRunner);
 		this.registeredThreadMap = new TreeMap<>();

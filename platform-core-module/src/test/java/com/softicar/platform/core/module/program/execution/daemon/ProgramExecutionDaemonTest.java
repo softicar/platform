@@ -1,5 +1,6 @@
-package com.softicar.platform.core.module.program;
+package com.softicar.platform.core.module.program.execution.daemon;
 
+import com.softicar.platform.common.code.reference.point.SourceCodeReferencePoints;
 import com.softicar.platform.common.core.thread.runner.LimitedThreadRunner;
 import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.core.thread.sleeper.DefaultSleeper;
@@ -9,6 +10,13 @@ import com.softicar.platform.core.module.event.AGSystemEvent;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
+import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.program.AbstractProgramTest;
+import com.softicar.platform.core.module.program.IProgram;
+import com.softicar.platform.core.module.program.NonInterruptableTestProgram;
+import com.softicar.platform.core.module.program.TestProgram;
+import com.softicar.platform.core.module.program.abort.ProgramAbortRequester;
+import com.softicar.platform.core.module.program.enqueue.ProgramEnqueuer;
 import com.softicar.platform.core.module.program.execution.AGProgramExecution;
 import com.softicar.platform.core.module.program.execution.ProgramExecutionRunnable;
 import com.softicar.platform.core.module.program.execution.scheduled.AGScheduledProgramExecution;
@@ -17,7 +25,7 @@ import java.time.Duration;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link QueuedProgramExecutionDaemon}.
+ * Unit tests for {@link ProgramExecutionDaemon}.
  * <p>
  * Test methods cover all possible permutations of following properties:
  * <ol>
@@ -30,19 +38,19 @@ import org.junit.Test;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
+public class ProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static final int THREAD_LIMIT = 2;
 	private final TestThreadRunner threadRunner;
-	private final QueuedProgramExecutionDaemon daemon;
+	private final ProgramExecutionDaemon daemon;
 	private final DayTime now;
 
-	public QueuedProgramExecutionDaemonTest() {
+	public ProgramExecutionDaemonTest() {
 
 		setupTestSleeper();
 
 		this.threadRunner = new TestThreadRunner();
-		this.daemon = new QueuedProgramExecutionDaemon(threadRunner);
+		this.daemon = new ProgramExecutionDaemon(threadRunner);
 		this.now = DayTime.now();
 	}
 
@@ -515,6 +523,37 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 		assertNull(program.getQueuedBy());
 	}
 
+	// ------------------------------ Non-Terminating Program ------------------------------ //
+
+	@Test
+	public void testNonInterruptableProgram() {
+
+		var program = insertProgram(NonInterruptableTestProgram.class, null, now, user, false);
+
+		// enqueue program
+		new ProgramEnqueuer(program).enqueueProgram();
+		daemon.runIteration();
+		assertOneProgramThreadRunning(program);
+
+		// abort program
+		new ProgramAbortRequester(program).requestAbort();
+		daemon.runIteration();
+		assertOneProgramThreadRunning(program);
+
+		// enqueue program (again)
+		new ProgramEnqueuer(program).enqueueProgram();
+		daemon.runIteration();
+		assertOneProgramThreadRunning(program);
+	}
+
+	private void assertOneProgramThreadRunning(AGProgram program) {
+
+		threadRunner.assertStartedThreads(1);
+		threadRunner.assertNoQueuedRunnables();
+		assertNotNull(program.getCurrentExecution());
+		assertNull(assertOneExecution().getTerminatedAt());
+	}
+
 	// ------------------------------ Exceeded Runtime ------------------------------ //
 
 	// do not use test timeouts; it will break this test
@@ -533,15 +572,7 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 		// initial iteration; should start thread
 		daemon.runIteration();
-		threadRunner.assertStartedThreads(1);
-		threadRunner.assertNoQueuedRunnables();
-		assertNotNull(program.getCurrentExecution());
-		assertFalse(program.isAbortRequested());
-		assertNull(program.getQueuedAt());
-		assertNull(program.getQueuedBy());
-		assertFalse(assertOneExecution().isMaximumRuntimeExceeded());
-		assertNull(assertOneExecution().getTerminatedAt());
-		assertNone(AGSystemEvent.TABLE.loadAll());
+		assertOneProgramThreadRunning(program);
 
 		// iteration before maximum runtime is exceeded
 		Sleep.sleep(Duration.ofMinutes(3));
@@ -595,8 +626,14 @@ public class QueuedProgramExecutionDaemonTest extends AbstractProgramTest {
 
 	private static AGProgram insertProgram(AGProgramExecution currentExecution, DayTime queuedAt, AGUser user, boolean abortRequested) {
 
+		return insertProgram(TestProgram.class, currentExecution, queuedAt, user, abortRequested);
+	}
+
+	private static AGProgram insertProgram(Class<? extends IProgram> programClass, AGProgramExecution currentExecution, DayTime queuedAt, AGUser user,
+			boolean abortRequested) {
+
 		AGProgram program = new AGProgram()//
-			.setProgramUuid(TestProgram.UUID)
+			.setProgramUuid(SourceCodeReferencePoints.getUuidOrThrow(programClass))
 			.save();
 		program//
 			.getState()
