@@ -1,5 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.item.message;
 
+import com.softicar.platform.common.core.utils.equals.Equals;
+import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItemLog;
@@ -8,6 +10,7 @@ import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegationLog;
 import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,14 +29,39 @@ public class WorkflowItemMessageRowsLoader {
 
 	public List<WorkflowItemMessageRow> loadAllRows() {
 
+		// Loading order is important!
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
-		rows.addAll(loadItemLogs());
-		rows.addAll(loadTransitionRows());
 		rows.addAll(loadMessageRows());
+		rows.addAll(loadTaskExecutionRows());
 		rows.addAll(loadDelegationRows());
+		rows.addAll(loadAutoTransitionSourceRows());
+		rows.addAll(loadItemLogs());
+
 		Collections.sort(rows);
+		removeDuplicates(rows);
 		fillNodeAndIndex(rows);
 		return rows;
+	}
+
+	private void removeDuplicates(List<WorkflowItemMessageRow> rows) {
+
+		var previousRow = (WorkflowItemMessageRow) null;
+		var iterator = rows.iterator();
+		while (iterator.hasNext()) {
+			var row = iterator.next();
+			if (previousRow != null && isEqual(row, previousRow)) {
+				iterator.remove();
+			}
+			previousRow = row;
+		}
+	}
+
+	private boolean isEqual(WorkflowItemMessageRow a, WorkflowItemMessageRow b) {
+
+		return Equals//
+			.comparing(WorkflowItemMessageRow::getText)
+			.comparing(WorkflowItemMessageRow::getTransaction)
+			.compare(a, b);
 	}
 
 	private void fillNodeAndIndex(List<WorkflowItemMessageRow> rows) {
@@ -79,35 +107,59 @@ public class WorkflowItemMessageRowsLoader {
 
 	private WorkflowItemMessageRow createRow(AGWorkflowItemLog itemLog) {
 
-		return new WorkflowItemMessageRow(//
-			WorkflowI18n.TRANSITION_TO_ARG1.toDisplay(itemLog.getWorkflowNode().getName()),
-			itemLog.getTransaction())//
-				.setWorkflowNode(itemLog.getWorkflowNode(), true);
+		return createTransitionRow(//
+			itemLog.getWorkflowNode(),
+			itemLog.getTransaction());
 	}
 
-	private List<WorkflowItemMessageRow> loadTransitionRows() {
+	private List<WorkflowItemMessageRow> loadAutoTransitionSourceRows() {
+
+		return AGWorkflowAutoTransitionExecution.TABLE//
+			.createSelect()
+			.where(AGWorkflowAutoTransitionExecution.WORKFLOW_ITEM.isEqual(item))
+			.orderBy(AGWorkflowAutoTransitionExecution.TRANSACTION)
+			.orderBy(AGWorkflowAutoTransitionExecution.ID)
+			.stream()
+			.map(this::createAutoTransitionSourceRow)
+			.collect(Collectors.toList());
+	}
+
+	private WorkflowItemMessageRow createAutoTransitionSourceRow(AGWorkflowAutoTransitionExecution transitionExecution) {
+
+		return createTransitionRow(//
+			transitionExecution.getWorkflowTransition().getSourceNode(),
+			transitionExecution.getTransaction());
+	}
+
+	private WorkflowItemMessageRow createTransitionRow(AGWorkflowNode targetNode, AGTransaction transaction) {
+
+		var message = WorkflowI18n.TRANSITION_TO_ARG1.toDisplay(targetNode.getName());
+		return new WorkflowItemMessageRow(message, transaction).setWorkflowNode(targetNode, true);
+	}
+
+	private List<WorkflowItemMessageRow> loadTaskExecutionRows() {
 
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
 		for (Set<AGWorkflowTransitionExecution> transitionExecutionSet: item.loadTransitionExecutionSets()) {
-			rows.addAll(createTransitionExecutionRows(transitionExecutionSet.iterator()));
+			rows.addAll(createTaskExecutionRows(transitionExecutionSet.iterator()));
 		}
 		return rows;
 	}
 
-	private List<WorkflowItemMessageRow> createTransitionExecutionRows(Iterator<AGWorkflowTransitionExecution> transitionExecutionIterator) {
+	private List<WorkflowItemMessageRow> createTaskExecutionRows(Iterator<AGWorkflowTransitionExecution> transitionExecutionIterator) {
 
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
 
 		AGWorkflowTransitionExecution transitionExecution;
 		do {
 			transitionExecution = transitionExecutionIterator.next();
-			rows.add(createTransitionExecutionRow(transitionExecution));
+			rows.add(createTaskExecutionRow(transitionExecution));
 		} while (transitionExecutionIterator.hasNext());
 
 		return rows;
 	}
 
-	private WorkflowItemMessageRow createTransitionExecutionRow(AGWorkflowTransitionExecution transitionExecution) {
+	private WorkflowItemMessageRow createTaskExecutionRow(AGWorkflowTransitionExecution transitionExecution) {
 
 		var text = WorkflowI18n.EXECUTED_ACTION_ARG1.toDisplay(transitionExecution.getWorkflowTransition().toDisplay());
 		return new WorkflowItemMessageRow(text, transitionExecution.getTransaction());
