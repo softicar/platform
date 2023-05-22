@@ -24,12 +24,12 @@ public class DaemonProperties {
 	public static final IProperty<Integer> WATCHDOG_LOG_ENTRY_LIMIT = FACTORY.createIntegerProperty("watchdog.log.entry.limit", 10000);
 	public static final IProperty<Integer> WATCHDOG_SLEEP_MILLIS = FACTORY.createIntegerProperty("watchdog.sleep.millis", 100);
 
-	public static final IProperty<Integer> QUEUED_PROGRAM_EXECUTION_DAEMON_HEARTBEAT_TIMEOUT =//
-			FACTORY.createIntegerProperty("queued.program.execution.daemon.heartbeat.timeout", 60);
-	public static final IProperty<Integer> QUEUED_PROGRAM_EXECUTION_DAEMON_SLEEP_MILLIS =//
-			FACTORY.createIntegerProperty("queued.program.execution.daemon.sleep.millis", 1000);
-	public static final IProperty<Integer> QUEUED_PROGRAM_EXECUTION_THREAD_COUNT =//
-			FACTORY.createIntegerProperty("queued.program.execution.thread.limit", 4);
+	public static final IProperty<Integer> PROGRAM_EXECUTION_DAEMON_HEARTBEAT_TIMEOUT =//
+			FACTORY.createIntegerProperty("program.execution.daemon.heartbeat.timeout", 60);
+	public static final IProperty<Integer> PROGRAM_EXECUTION_DAEMON_SLEEP_MILLIS =//
+			FACTORY.createIntegerProperty("program.execution.daemon.sleep.millis", 1000);
+	public static final IProperty<Integer> PROGRAM_EXECUTION_THREAD_COUNT =//
+			FACTORY.createIntegerProperty("program.execution.thread.limit", 4);
 
 	public static final IProperty<Integer> SCHEDULED_PROGRAM_ENQUEUER_DAEMON_HEARTBEAT_TIMEOUT =//
 			FACTORY.createIntegerProperty("scheduled.program.enqueuer.daemon.heartbeat.timeout", 90);
