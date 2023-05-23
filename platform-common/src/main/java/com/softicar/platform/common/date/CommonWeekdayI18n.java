@@ -22,8 +22,8 @@ public interface CommonWeekdayI18n {
 	I18n0 SUNDAY = new I18n0("Sunday")//
 		.de("Sonntag")
 		.bs("Nedjelja")
-		.sr("Nedjelja")
-		.hr("Nedelja");
+		.sr("Nedelja")
+		.hr("Nedjelja");
 	I18n0 THURSDAY = new I18n0("Thursday")//
 		.de("Donnerstag")
 		.bs("Četvrtak")
