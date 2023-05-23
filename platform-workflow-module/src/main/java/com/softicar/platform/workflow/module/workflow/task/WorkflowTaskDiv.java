@@ -143,9 +143,19 @@ public class WorkflowTaskDiv extends DomDiv {
 			cell
 				.appendChild(
 					new DomPopupButton()//
-						.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowTaskDelegation.TABLE.getOrCreate(row.getTask())).setDirectEditing(true))
+						.setPopupFactory(
+							() -> new EmfFormPopup<>(AGWorkflowTaskDelegation.TABLE.getOrCreate(row.getTask()))//
+								.setDirectEditing(true)
+								.setCallbackAfterCreation(this::sendNotification))
 						.setIcon(WorkflowImages.RIGHT.getResource()) //FIXME check/change icon
 						.setTitle(WorkflowI18n.DELEGATE));
+		}
+
+		private void sendNotification(AGWorkflowTaskDelegation delegation) {
+
+			new WorkflowTaskNotificationSubmitter(delegation.getWorkflowTask())//
+				.setNotificationRecipient(delegation.getTargetUser())
+				.submit();
 		}
 	}
 
