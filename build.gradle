@@ -80,7 +80,7 @@ subprojects {
 			force "com.google.guava:guava:$versions.guava";
 			force "com.sun.activation:jakarta.activation:$versions.jakartaActivation"
 			force "commons-codec:commons-codec:$versions.commonsCodec"
-			force "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
+			force "jakarta.servlet:jakarta.servlet-api:$versions.jakartaServletApi"
 			force "net.bytebuddy:byte-buddy:$versions.byteBuddy"
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
