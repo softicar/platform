@@ -42,7 +42,7 @@ public class ProgramExecutionsCleaner {
 			.setFailed(true)
 			.setTerminatedAt(DayTime.now())
 			.save();
-		new SystemEventBuilder(AGSystemEventSeverityEnum.WARNING, CoreI18n.ORPHANED_PROGRAM_EXECUTION_CLEANUP.toString())//
+		new SystemEventBuilder(AGSystemEventSeverityEnum.INFORMATION, CoreI18n.ORPHANED_PROGRAM_EXECUTION_CLEANUP.toString())//
 			.addProperty("program", execution.getProgram().toDisplay())
 			.save();
 	}
