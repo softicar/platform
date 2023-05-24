@@ -26,7 +26,7 @@ public class DockerComposeCommandGenerator {
 
 		return String
 			.format(//
-				"docker-compose -f %s -p %s --ansi never down --remove-orphans",
+				"docker-compose -f %s -p %s --no-ansi down --remove-orphans",
 				composeFile.getAbsolutePath(),
 				projectName);
 	}
@@ -47,7 +47,7 @@ public class DockerComposeCommandGenerator {
 
 		return String
 			.format(//
-				"docker-compose -f %s -p %s --ansi never up -d",
+				"docker-compose -f %s -p %s --no-ansi up -d",
 				composeFile.getAbsolutePath(),
 				projectName);
 	}

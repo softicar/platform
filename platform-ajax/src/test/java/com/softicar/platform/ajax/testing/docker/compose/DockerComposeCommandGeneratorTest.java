@@ -22,7 +22,7 @@ public class DockerComposeCommandGeneratorTest extends AbstractTest {
 		String downCommand = generator.generateDownCommand(gridId, composeFile);
 
 		assertEquals(//
-			"docker-compose -f /path/to/file/docker-compose.yml -p 888b440b-5b39-4984-9231-c935323a65b8 --ansi never down --remove-orphans",
+			"docker-compose -f /path/to/file/docker-compose.yml -p 888b440b-5b39-4984-9231-c935323a65b8 --no-ansi down --remove-orphans",
 			downCommand);
 	}
 
@@ -35,7 +35,7 @@ public class DockerComposeCommandGeneratorTest extends AbstractTest {
 		String upCommand = generator.generateUpCommand(gridId, composeFile);
 
 		assertEquals(//
-			"docker-compose -f /path/to/file/docker-compose.yml -p 2a785e41-d075-438e-8c68-87331e7248fd --ansi never up -d",
+			"docker-compose -f /path/to/file/docker-compose.yml -p 2a785e41-d075-438e-8c68-87331e7248fd --no-ansi up -d",
 			upCommand);
 	}
 }
