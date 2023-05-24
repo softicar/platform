@@ -155,9 +155,9 @@ public interface EmfI18n extends DomI18n {
 		.sr("Bussiness-key konflikt sa postojećim unosom: %s");
 	I18n1 CALENDAR_DAY_ARG1_DOES_NOT_EXIST = new I18n1("Calendar day '%s' does not exist")//
 		.de("Kalendertag '%s' existiert nicht")
-		.bs("Pretraži")
-		.hr("Pretraži")
-		.sr("Pretraži");
+		.bs("Kalendarski datum '%s' ne postoji")
+		.hr("Kalendarski datum '%s' ne postoji")
+		.sr("Kalendarski datum '%s' ne postoji");
 	I18n0 CANCEL = new I18n0("Cancel")//
 		.de("Abbrechen")
 		.bs("Odgodi")
