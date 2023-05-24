@@ -13,13 +13,13 @@ plugins {
 // The identifiers below correspond to artifact names in camelCase.
 project.ext {
 	versions = [
-		asm: "9.1",
+		asm: "9.3",
 		bcprov: "1.70",
-		byteBuddy: "1.12.22",
-		classgraph: "4.8.138",
+		byteBuddy: "1.14.4",
+		classgraph: "4.8.158",
 		commonsCodec: "1.15",
 		commonsCollections4: "4.4",
-		commonsCompress: "1.21",
+		commonsCompress: "1.23.0",
 		commonsLang3: "3.12.0",
 		commonsNet: "3.9.0",
 		commonsText: "1.10.0",
@@ -28,27 +28,27 @@ project.ext {
 		guava: "31.1-jre",
 		h2: "2.1.214",
 		hikariCp: "5.0.1",
-		imageioJpeg: "3.8.2",
+		imageioJpeg: "3.9.4",
 		// optional dependency of pdfbox; enables rendering of jpeg2000-encoded embedded images
 		jaiImageioJpeg2000: "1.4.0",
 		jakartaActivation: "2.0.1",
 		jakartaMail: "2.0.1",
-		javaxServletApi: "4.0.1",
-		jcifsNg: "2.1.7",
-		jetty: "9.4.48.v20220622",
+		jakartaServletApi: "4.0.4",
+		jcifsNg: "2.1.9",
+		jetty: "10.0.15",
 		jsch: "0.1.55",
-		jsonPath: "2.7.0",
-		jsoup: "1.15.3",
+		jsonPath: "2.8.0",
+		jsoup: "1.16.1",
 		junit: "4.13.2",
-		log4j: "2.17.2",
-		mariadbJavaClient: "2.7.0",
-		mockito: "4.3.1",
-		netty: "4.1.87.Final",
-		pdfbox: "2.0.25",
+		log4j: "2.20.0",
+		mariadbJavaClient: "2.6.2",
+		mockito: "4.11.0",
+		netty: "4.1.92.Final",
+		pdfbox: "2.0.27",
 		poi: "5.2.2",
-		selenium: "4.8.0",
-		simpleJavaMail: "7.7.0",
-		slf4j: "1.7.33",
+		selenium: "4.9.1",
+		simpleJavaMail: "8.1.0",
+		slf4j: "2.0.7",
 		tesseract: "4.1.1-1.5.6",
 		tinymce: "6.3.1",
 	]
@@ -80,7 +80,7 @@ subprojects {
 			force "com.google.guava:guava:$versions.guava";
 			force "com.sun.activation:jakarta.activation:$versions.jakartaActivation"
 			force "commons-codec:commons-codec:$versions.commonsCodec"
-			force "javax.servlet:javax.servlet-api:$versions.javaxServletApi"
+			force "jakarta.servlet:jakarta.servlet-api:$versions.jakartaServletApi"
 			force "net.bytebuddy:byte-buddy:$versions.byteBuddy"
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
