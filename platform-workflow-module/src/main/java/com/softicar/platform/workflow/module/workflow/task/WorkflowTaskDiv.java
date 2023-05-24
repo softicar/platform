@@ -53,16 +53,19 @@ public class WorkflowTaskDiv extends DomDiv {
 	private class WorkflowTaskForUserDiv extends DomDiv implements IDomRefreshBusListener {
 
 		private final DomCheckbox showDelegatedTasksCheckbox;
+		private final DomCheckbox showExclusiveTasksOnlyCheckbox;
 		private final IWorkflowTaskQuery query;
 		private final IEmfDataTableDiv<IRow> tableDiv;
 
 		public WorkflowTaskForUserDiv(AGUser user) {
 
 			this.showDelegatedTasksCheckbox = new ShowDelegatedTasksCheckbox();
+			this.showExclusiveTasksOnlyCheckbox = new ShowExclusiveTasksOnlyCheckbox();
 			this.query = IWorkflowTaskQuery.FACTORY//
 				.createQuery()
 				.setUser(user)
-				.setShowMyDelegations(showDelegatedTasksCheckbox.isChecked());
+				.setShowMyDelegations(showDelegatedTasksCheckbox.isChecked())
+				.setShowExclusiveTasksOnly(showExclusiveTasksOnlyCheckbox.isChecked());
 			var closeTasksButton = new CloseTasksButton();
 			this.tableDiv = new EmfDataTableDivBuilder<>(query)//
 				.setActionColumnHandler(new ActionColumnHandler())
@@ -79,7 +82,7 @@ public class WorkflowTaskDiv extends DomDiv {
 				.setRowSelectionCallback(closeTasksButton::updateState)
 				.build();
 
-			new DomActionBar(closeTasksButton, showDelegatedTasksCheckbox).appendTo(this);
+			new DomActionBar(closeTasksButton, showDelegatedTasksCheckbox, showExclusiveTasksOnlyCheckbox).appendTo(this);
 			appendChild(tableDiv);
 		}
 
@@ -123,6 +126,22 @@ public class WorkflowTaskDiv extends DomDiv {
 			private void handleToggle() {
 
 				query.setShowMyDelegations(isChecked());
+				tableDiv.refresh();
+			}
+		}
+
+		private class ShowExclusiveTasksOnlyCheckbox extends DomCheckbox {
+
+			public ShowExclusiveTasksOnlyCheckbox() {
+
+				super(false);
+				addChangeCallback(this::handleToggle);
+				setLabel(WorkflowI18n.SHOW_ONLY_EXCLUSIVE_TASKS);
+			}
+
+			private void handleToggle() {
+
+				query.setShowExclusiveTasksOnly(isChecked());
 				tableDiv.refresh();
 			}
 		}

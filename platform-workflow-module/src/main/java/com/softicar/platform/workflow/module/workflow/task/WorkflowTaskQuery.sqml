@@ -7,6 +7,7 @@ IMPORT com.softicar.platform.workflow.module.workflow.transition.execution.AGWor
 QUERY WorkflowTaskQuery {
 	AGUser user
 	OPTIONAL Boolean showMyDelegations
+	OPTIONAL Boolean showExclusiveTasksOnly
 	
 	SELECT item
 	SELECT task
@@ -24,14 +25,17 @@ QUERY WorkflowTaskQuery {
 	LEFT JOIN AGWorkflowTaskDelegation AS delegation ON delegation.workflowTask = task AND delegation.active
 	LEFT JOIN AGWorkflowTransitionExecution execution ON execution.workflowTask = task 
 	
-	GROUP BY item, task
-	WHERE ((task.user = $user AND IF ($showMyDelegations, TRUE, delegation IS NULL))
-	 OR (delegation.targetUser=$user))
-	
 	WHERE NOT task.closed
 	WHERE task.notify
-	
 	WHERE execution IS NULL
-	
+	WHERE ((task.user = $user AND IF ($showMyDelegations, TRUE, delegation IS NULL))
+		OR (delegation.targetUser=$user))
+
+	#IF $showExclusiveTasksOnly {
+		LEFT JOIN AGWorkflowTask AS allTasksOnItem ON allTasksOnItem.workflowItem = item
+		HAVING countDistinct(allTasksOnItem.id) = 1
+	}
+
+	GROUP BY item, task
 	ORDER BY createdAt DESC
 }
