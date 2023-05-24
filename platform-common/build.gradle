@@ -10,4 +10,5 @@ dependencies {
 	implementation "org.ow2.asm:asm:$versions.asm"
 	// Required to avoid SLF4J warnings during Gradle based builds.
 	implementation "org.slf4j:slf4j-simple:$versions.slf4j"
+	implementation "org.apache.logging.log4j:log4j-core:$versions.log4j"
 }
