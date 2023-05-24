@@ -66,6 +66,44 @@ FUNCTION Integer count(DayTime x) {
 	SQL {COUNT($x)}
 }
 
+// -------------------- countDistinct(x) -------------------- //
+
+FUNCTION Integer countDistinct(Boolean x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Integer x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Long x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Float x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Double x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Decimal x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(String x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(Day x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
+FUNCTION Integer countDistinct(DayTime x) {
+	SQL {COUNT(DISTINCT $x)}
+}
+
 // -------------------- max(x) -------------------- //
 
 FUNCTION Integer max(Integer x) {

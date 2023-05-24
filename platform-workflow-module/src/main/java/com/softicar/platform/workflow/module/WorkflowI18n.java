@@ -161,6 +161,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.de("Graph anzeigen");
 	I18n0 SHOW_MORE = new I18n0("Show More")//
 		.de("Zeige mehr");
+	I18n0 SHOW_ONLY_EXCLUSIVE_TASKS = new I18n0("Show Only Exclusive Tasks")//
+		.de("Nur exklusive Aufgaben anzeigen");
 	I18n0 SHOW_TASKS_DELEGATED_BY_ME = new I18n0("Show Tasks Delegated By Me")//
 		.de("Von mir delegierte Aufgaben anzeigen");
 	I18n0 SHOW_TRANSITIONS = new I18n0("Show Transitions")//

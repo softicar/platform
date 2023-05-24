@@ -15,6 +15,7 @@ import com.softicar.platform.db.runtime.query.IDbQueryFactory;
 import com.softicar.platform.db.runtime.query.IDbQueryRow;
 import com.softicar.platform.db.runtime.query.IDbQueryTableColumn;
 import com.softicar.platform.db.runtime.query.builder.AbstractDbQuerySqlBuilder;
+import com.softicar.platform.db.runtime.select.DbSqlRawToken;
 import com.softicar.platform.db.runtime.select.IDbSqlSelect;
 import com.softicar.platform.db.sql.token.SqlKeyword;
 import com.softicar.platform.db.sql.token.SqlSymbol;
@@ -44,6 +45,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 	// -------------------------------- METHODS -------------------------------- //
 
 	IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations);
+	IWorkflowTaskQuery setShowExclusiveTasksOnly(Boolean showExclusiveTasksOnly);
 
 	// -------------------------------- INTERFACES -------------------------------- //
 
@@ -100,6 +102,7 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 
 			private AGUser user;
 			private Boolean showMyDelegations;
+			private Boolean showExclusiveTasksOnly;
 		}
 
 		private static class Query extends AbstractDbQuery<IRow> implements IWorkflowTaskQuery {
@@ -127,6 +130,12 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 			public IWorkflowTaskQuery setShowMyDelegations(Boolean showMyDelegations) {
 
 				this.parameters.showMyDelegations = showMyDelegations;
+				return this;
+			}
+
+			public IWorkflowTaskQuery setShowExclusiveTasksOnly(Boolean showExclusiveTasksOnly) {
+
+				this.parameters.showExclusiveTasksOnly = showExclusiveTasksOnly;
 				return this;
 			}
 
@@ -234,10 +243,15 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 					addIdentifier("execution", AGWorkflowTransitionExecution.WORKFLOW_TASK);
 					addToken(SqlSymbol.EQUAL);
 					addIdentifier("task", AGWorkflowTask.ID);
-					GROUP_BY();
-					addIdentifier("item", AGWorkflowItem.ID);
-					GROUP_BY();
-					addIdentifier("task", AGWorkflowTask.ID);
+					WHERE();
+					addToken(SqlKeyword.NOT);
+					addIdentifier("task", AGWorkflowTask.CLOSED);
+					WHERE();
+					addIdentifier("task", AGWorkflowTask.NOTIFY);
+					WHERE();
+					addIdentifier("execution", AGWorkflowTransitionExecution.ID);
+					addToken(SqlKeyword.IS);
+					addToken(SqlKeyword.NULL);
 					WHERE();
 					addToken(SqlSymbol.LEFT_PARENTHESIS);
 					addToken(SqlSymbol.LEFT_PARENTHESIS);
@@ -263,15 +277,29 @@ public interface IWorkflowTaskQuery extends IDbQuery<IWorkflowTaskQuery.IRow> {
 					addParameter(parameters.user);
 					addToken(SqlSymbol.RIGHT_PARENTHESIS);
 					addToken(SqlSymbol.RIGHT_PARENTHESIS);
-					WHERE();
-					addToken(SqlKeyword.NOT);
-					addIdentifier("task", AGWorkflowTask.CLOSED);
-					WHERE();
-					addIdentifier("task", AGWorkflowTask.NOTIFY);
-					WHERE();
-					addIdentifier("execution", AGWorkflowTransitionExecution.ID);
-					addToken(SqlKeyword.IS);
-					addToken(SqlKeyword.NULL);
+					if(parameters.showExclusiveTasksOnly) {
+						JOIN(SqlKeyword.LEFT);
+						addIdentifier(AGWorkflowTask.TABLE);
+						addToken(SqlKeyword.AS);
+						addIdentifier("allTasksOnItem");
+						ON();
+						addIdentifier("allTasksOnItem", AGWorkflowTask.WORKFLOW_ITEM);
+						addToken(SqlSymbol.EQUAL);
+						addIdentifier("item", AGWorkflowItem.ID);
+						HAVING();
+						addToken(new DbSqlRawToken("COUNT"));
+						addToken(SqlSymbol.LEFT_PARENTHESIS);
+						addToken(SqlKeyword.DISTINCT);
+						addIdentifier("allTasksOnItem", AGWorkflowTask.ID);
+						addToken(SqlSymbol.RIGHT_PARENTHESIS);
+						addToken(SqlSymbol.EQUAL);
+						addLiteral(1);
+					}
+
+					GROUP_BY();
+					addIdentifier("item", AGWorkflowItem.ID);
+					GROUP_BY();
+					addIdentifier("task", AGWorkflowTask.ID);
 					ORDER_BY();
 					addIdentifier("createdAt");
 					addToken(SqlKeyword.DESC);
