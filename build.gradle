@@ -41,7 +41,7 @@ project.ext {
 		jsoup: "1.16.1",
 		junit: "4.13.2",
 		log4j: "2.20.0",
-		mariadbJavaClient: "2.6.2",
+		mariadbJavaClient: "2.7.9",
 		mockito: "4.11.0",
 		netty: "4.1.92.Final",
 		pdfbox: "2.0.27",

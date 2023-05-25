@@ -1041,6 +1041,11 @@ public interface EmfI18n extends DomI18n {
 		.bs("UUID")
 		.hr("UUID")
 		.sr("UUID");
+	I18n0 VALIDATION_FAILED = new I18n0("Validation failed")//
+		.de("Validierung fehlgeschlagen")
+		.bs("Validacija neuspješna")
+		.hr("Validacija neuspješna")
+		.sr("Validacija neuspešna");
 	I18n1 VALIDATION_OF_ARG1_FAILED = new I18n1("Validation of %s failed")//
 		.de("Validierung von %s fehlgeschlagen")
 		.bs("Validacija %s nije uspjela")
