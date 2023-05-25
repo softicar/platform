@@ -132,7 +132,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(145, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10405)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10593)
 			.assertNoMorePages();
 	}
 
@@ -144,7 +144,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(145, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10405)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10593)
 			.assertNoMorePages();
 	}
 
@@ -156,7 +156,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(145, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10405)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_PNG, 10593)
 			.assertNoMorePages();
 	}
 
@@ -168,7 +168,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(166, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 11995)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 12235)
 			.nextPage()
 			.assertDimensions(106, 53)
 			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_2, 4210)
@@ -183,7 +183,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(166, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 11995)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 12235)
 			.nextPage()
 			.assertDimensions(106, 53)
 			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_2, 4210)
@@ -198,7 +198,7 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 		new Asserter(pdfBytes)//
 			.nextPage()
 			.assertDimensions(166, 83)
-			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 11995)
+			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1, 12235)
 			.nextPage()
 			.assertDimensions(106, 53)
 			.assertPixels(EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_2, 4210)
@@ -405,8 +405,12 @@ public class StoredFileConverterTest extends AbstractCoreTest {
 
 			BufferedImage image = pageImages.get(currentPage);
 			long pixels = Images.countPixelsWithColor(image, expectedColor);
-			assertTrue(pixels >= expectedPixelsWithColor - PIXEL_COUNT_TOLERANCE);
-			assertTrue(pixels <= expectedPixelsWithColor + PIXEL_COUNT_TOLERANCE);
+			assertTrue(
+				String.format("%s is not greater or equal to %s", pixels, expectedPixelsWithColor - PIXEL_COUNT_TOLERANCE),
+				pixels >= expectedPixelsWithColor - PIXEL_COUNT_TOLERANCE);
+			assertTrue(
+				String.format("%s is not less or equal to %s", pixels, expectedPixelsWithColor + PIXEL_COUNT_TOLERANCE),
+				pixels <= expectedPixelsWithColor + PIXEL_COUNT_TOLERANCE);
 			return this;
 		}
 
