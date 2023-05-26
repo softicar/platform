@@ -1,6 +1,5 @@
 dependencies {
 	api project(':platform-common')
 
-	api "jakarta.servlet:jakarta.servlet-api:$versions.jakartaServletApi"
 	api "org.eclipse.jetty:jetty-servlet:$versions.jetty"
 }

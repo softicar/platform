@@ -15,6 +15,11 @@ public class EmfValidationException extends SofticarUserException {
 
 	private final IEmfValidationResult validationResult;
 
+	public EmfValidationException(IEmfValidationResult validationResult) {
+
+		this(null, validationResult);
+	}
+
 	public EmfValidationException(IEmfTable<?, ?, ?> table, IEmfValidationResult validationResult) {
 
 		super(new Message(table, validationResult));
@@ -33,7 +38,11 @@ public class EmfValidationException extends SofticarUserException {
 
 		public Message(IEmfTable<?, ?, ?> table, IEmfValidationResult validationResult) {
 
-			lines.add(EmfI18n.VALIDATION_OF_ARG1_FAILED.toDisplay(table.getTitle()).concat(":"));
+			if (table != null) {
+				lines.add(EmfI18n.VALIDATION_OF_ARG1_FAILED.toDisplay(table.getTitle()).concat(":"));
+			} else {
+				lines.add(EmfI18n.VALIDATION_FAILED.concat(":"));
+			}
 			for (IEmfDiagnostic diagnostic: validationResult.getDiagnostics()) {
 				lines
 					.add(
