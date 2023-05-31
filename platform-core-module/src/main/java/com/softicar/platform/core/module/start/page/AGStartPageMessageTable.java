@@ -36,8 +36,8 @@ public class AGStartPageMessageTable extends EmfObjectTable<AGStartPageMessage, 
 			.setMultiline(true);
 		attributes//
 			.editAttribute(AGStartPageMessage.MESSAGE_DATE)
-			.setEditable(false)
-			.setPredicateVisible(EmfPredicates.never());
+			.setImmutable(true)
+			.setPredicateVisibleEditable(EmfPredicates.never());
 	}
 
 	@Override

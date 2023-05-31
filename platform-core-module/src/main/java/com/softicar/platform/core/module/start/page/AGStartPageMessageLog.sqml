@@ -4,8 +4,8 @@ IMPORT com.softicar.platform.core.module.transaction.AGTransaction
 
 TABLE AGStartPageMessageLog 'Core.StartPageMessageLog' {
 	
-	PK AGStartPageMessage startPageMessage
-	PK AGTransaction transaction
+	PK AGStartPageMessage startPageMessage [ON UPDATE CASCADE ON DELETE CASCADE]
+	PK AGTransaction transaction [ON UPDATE CASCADE ON DELETE CASCADE]
 	Boolean active = NULL [NULLABLE]
 	String message = NULL [NULLABLE LENGTHBITS=8]
 }
