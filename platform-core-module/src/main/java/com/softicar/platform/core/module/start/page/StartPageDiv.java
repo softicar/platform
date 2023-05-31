@@ -29,6 +29,7 @@ class StartPageDiv extends DomDiv {
 		addPendingSystemEventsSection(sections);
 		addPendingMaintenanceSection(sections);
 		addPasswordChangeSection(sections);
+		addMessageSection(sections);
 		appendSectionsSeparatedByHr(sections);
 
 		addMarker(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
@@ -63,6 +64,11 @@ class StartPageDiv extends DomDiv {
 		if (CurrentUser.get().isPasswordChangeNecessary()) {
 			sections.add(new UserPasswordChangeDiv(SofticarPasswordPolicy.get()));
 		}
+	}
+
+	private void addMessageSection(Collection<IDomElement> sections) {
+
+		sections.add(new StartPageMessagesDiv());
 	}
 
 	private void appendSectionsSeparatedByHr(Collection<IDomElement> sections) {
