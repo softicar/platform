@@ -1,0 +1,11 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration.specific
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+
+TABLE AGWorkflowSpecificUserConfigurationLog 'Workflow.WorkflowSpecificUserConfigurationLog' {
+	PK AGWorkflowSpecificUserConfiguration configuration [CONSTRAINT_NAME='WorkflowSpecificUserConfigurationLog_ibfk_1' ON DELETE CASCADE ON UPDATE CASCADE]
+	PK AGTransaction transaction [CONSTRAINT_NAME='WorkflowSpecificUserConfigurationLog_ibfk_2' ON DELETE CASCADE ON UPDATE CASCADE]
+	Boolean subscribed = NULL [NULLABLE]
+	
+	IK transaction
+}

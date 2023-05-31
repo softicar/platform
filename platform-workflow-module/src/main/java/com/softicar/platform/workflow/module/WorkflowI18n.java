@@ -128,6 +128,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.bs("Kopiraj")
 		.hr("Kopiraj")
 		.sr("Kopiraj");
+	I18n0 CREATE_WORKFLOW_TASKS = new I18n0("Create Workflow Tasks")//
+		.de("Erstelle Arbeitsaufgaben");
 	I18n0 CREATED_AT = new I18n0("Created At")//
 		.de("Erstellt am")
 		.bs("Kreirano")
@@ -439,6 +441,8 @@ public interface WorkflowI18n extends CoreI18n {
 		.bs("Pokreni tok rada")
 		.hr("Pokreni tijek rada")
 		.sr("Pokreni tok rada");
+	I18n0 SUBSCRIBED = new I18n0("Subscribed")//
+		.de("Abboniert");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//
 		.de("Vertretung")
 		.bs("Zamjena")
@@ -454,7 +458,6 @@ public interface WorkflowI18n extends CoreI18n {
 		.bs("Zamjena za %s")
 		.hr("Zamjena za %s")
 		.sr("Zamena za %s");
-
 	I18n0 SUBSTITUTE_FROM = new I18n0("Substitute from")//
 		.de("Vertretung seit")
 		.bs("Zamjena od")
@@ -810,6 +813,14 @@ public interface WorkflowI18n extends CoreI18n {
 		.bs("Čvorovi radnog toka")
 		.hr("Čvorovi radnog tijeka")
 		.sr("Čvorovi radnog toka");
+	I18n0 WORKFLOW_SPECIFIC_USER_CONFIGURATION = new I18n0("Workflow Specific User Configuration")//
+		.de("Arbeitsablaufspezifische Benutzerkonfiguration");
+	I18n0 WORKFLOW_SPECIFIC_USER_CONFIGURATION_LOG = new I18n0("Workflow Specific User Configuration Log")//
+		.de("Arbeitsablaufspezifische Benutzerkonfigurationlog");
+	I18n0 WORKFLOW_SPECIFIC_USER_CONFIGURATION_LOGS = new I18n0("Workflow Specific User Configuration Logs")//
+		.de("Arbeitsablaufspezifische Benutzerkonfigurationlogs");
+	I18n0 WORKFLOW_SPECIFIC_USER_CONFIGURATIONS = new I18n0("Workflow Specific User Configurations")//
+		.de("Arbeitsablaufspezifische Benutzerkonfigurationen");
 	I18n0 WORKFLOW_STARTED = new I18n0("Workflow started.")//
 		.de("Arbeitsablauf gestartet.")
 		.bs("Radni tok započet.")

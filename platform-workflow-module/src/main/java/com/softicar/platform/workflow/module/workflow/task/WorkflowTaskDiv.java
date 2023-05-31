@@ -37,7 +37,7 @@ public class WorkflowTaskDiv extends DomDiv {
 		appendChild(new DomActionBar())
 			.appendChild(
 				new DomPopupButton()//
-					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserConfiguration.TABLE.getOrCreate(currentUser)))
+					.setPopupFactory(() -> new EmfFormPopup<>(AGWorkflowUserConfiguration.TABLE.getOrCreate(currentUser).save()))
 					.setIcon(WorkflowImages.USERS.getResource())
 					.setLabel(WorkflowI18n.CONFIGURE));
 

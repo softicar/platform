@@ -8,7 +8,8 @@ import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflow
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.user.configuration.AGWorkflowUserConfiguration;
-import java.util.List;
+import com.softicar.platform.workflow.module.workflow.user.configuration.specific.AGWorkflowSpecificUserConfiguration;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -33,9 +34,10 @@ public class WorkflowTaskManager {
 	public void insertTasks() {
 
 		try (var transaction = new DbTransaction()) {
-			Map<AGUser, Boolean> userMap = new TreeMap<>();
-			List<AGUser> activeUsers = AGUser.getAllActive();
+			Collection<AGUser> subscribedUsers = AGWorkflowSpecificUserConfiguration.loadSubscribedUsers(item.getWorkflow());
 
+			// gather users to inform
+			Map<AGUser, Boolean> userMap = new TreeMap<>();
 			Sql//
 				.from(AGWorkflowTransitionPermission.TABLE)
 				.select(AGWorkflowTransitionPermission.TABLE)
@@ -48,7 +50,7 @@ public class WorkflowTaskManager {
 				.forEach(row -> {
 					AGWorkflowTransitionPermission permission = row.get0();
 					AGWorkflowTransition transition = row.get1();
-					for (AGUser user: activeUsers) {
+					for (AGUser user: subscribedUsers) {
 						if (permission.testUserAssignmentForItem(user, item)) {
 							userMap.merge(user, transition.isNotify(), (a, b) -> a || b);
 						}
