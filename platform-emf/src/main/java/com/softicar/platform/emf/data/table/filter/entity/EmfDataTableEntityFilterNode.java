@@ -25,6 +25,7 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 
 		this.column = column;
 		this.filterTypeSelect = new EmfDataTableEntityFilterTypeSelect(this);
+		this.filterTypeSelect.addMarker(EmfTestMarker.DATA_TABLE_FILTER_SELECT_ENTITY);
 		this.entityInput = new EmfDataTableEntityFilterEntityInput<>(column);
 		this.entityInput.addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_ENTITY);
 		this.textInput = new DomTextInput();

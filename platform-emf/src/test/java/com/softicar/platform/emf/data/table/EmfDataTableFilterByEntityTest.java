@@ -2,8 +2,7 @@ package com.softicar.platform.emf.data.table;
 
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.core.entity.IEntity;
-import com.softicar.platform.common.core.utils.CastUtils;
-import com.softicar.platform.dom.elements.testing.node.iterable.IDomNodeIterable;
+import com.softicar.platform.dom.input.DomTextInput;
 import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterNode;
 import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterType;
@@ -53,7 +52,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 	@Test
 	public void testFilteringWithEmptyEqualsFilter() {
 
-		applyFilter(EmfDataTableEntityFilterType.IS, null);
+		applyFilter(EmfDataTableEntityFilterType.IS, (TestEntity) null);
 
 		assertNumberOfTableBodyRows(rows.size());
 	}
@@ -69,7 +68,7 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 	@Test
 	public void testFilteringWithEmptyNotEqualsFilter() {
 
-		applyFilter(EmfDataTableEntityFilterType.IS_NOT, null);
+		applyFilter(EmfDataTableEntityFilterType.IS_NOT, (TestEntity) null);
 
 		assertNumberOfTableBodyRows(rows.size());
 	}
@@ -90,6 +89,39 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 		assertNumberOfTableBodyRows(4);
 	}
 
+	@Test
+	public void testFilteringWithContainsTextFilter() {
+
+		applyFilter(EmfDataTableEntityFilterType.CONTAINS_TEXT, "ENTity");
+
+		assertRowsInColumnContainTexts(//
+			column,
+			entity1.toDisplay().toString(),
+			entity2.toDisplay().toString(),
+			entity2.toDisplay().toString(),
+			entity3.toDisplay().toString());
+	}
+
+	@Test
+	public void testFilteringWithDoesNotContainsTextFilter() {
+
+		applyFilter(EmfDataTableEntityFilterType.DOES_NOT_CONTAIN_TEXT, "ENTity2");
+
+		assertRowsInColumnContainTexts(//
+			column,
+			entity1.toDisplay().toString(),
+			entity3.toDisplay().toString(),
+			null);
+	}
+
+	private void applyFilter(EmfDataTableEntityFilterType filterType, String filterText) {
+
+		openFilterPopup(column);
+		selectFilterType(filterType);
+		findNode(DomTextInput.class).setInputValue(filterText);
+		confirmFilterPopup();
+	}
+
 	private void applyFilter(EmfDataTableEntityFilterType filterType, TestEntity item) {
 
 		openFilterPopup(column);
@@ -107,9 +139,9 @@ public class EmfDataTableFilterByEntityTest extends AbstractEmfDataTableFilterTe
 
 	private void selectFilterType(EmfDataTableEntityFilterType filterType) {
 
-		IDomNodeIterable<EmfDataTableEntityFilterNode<?, ?>> filterNodes = CastUtils.cast(findNodes(EmfDataTableEntityFilterNode.class));
-		filterNodes.assertOne();
-		EmfDataTableEntityFilterNode<?, ?> filterNode = filterNodes.iterator().next();
-		filterNode.getFilterSelect().setSelectedType(filterType);
+		findNodes(EmfDataTableEntityFilterNode.class)//
+			.assertOne()
+			.findSelect(EmfTestMarker.DATA_TABLE_FILTER_SELECT_ENTITY)
+			.selectValue(filterType);
 	}
 }
