@@ -15,6 +15,6 @@ CREATE TABLE `Core`.`StartPageMessageLog` (
 	`active` BOOL DEFAULT NULL,
 	`message` TINYTEXT DEFAULT NULL,
 	PRIMARY KEY (`startPageMessage`, `transaction`),
-	CONSTRAINT `startPageMessage` FOREIGN KEY (`startPageMessage`) REFERENCES `Core`.`StartPageMessage` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `transaction` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT `StartPageMessageLog_ibfk_1` FOREIGN KEY (`startPageMessage`) REFERENCES `Core`.`StartPageMessage` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `StartPageMessageLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
