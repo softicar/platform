@@ -7,6 +7,9 @@ import com.softicar.platform.demo.invoice.module.invoice.AGDemoInvoice;
 import com.softicar.platform.demo.person.module.AGDemoPerson;
 import com.softicar.platform.dom.elements.testing.node.tester.DomAutoCompleteTester;
 import com.softicar.platform.dom.elements.testing.node.tester.DomPopupTester;
+import com.softicar.platform.emf.EmfTestMarker;
+import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterNode;
+import com.softicar.platform.emf.data.table.filter.entity.EmfDataTableEntityFilterType;
 import com.softicar.platform.emf.data.table.testing.EmfDataTableTester;
 import org.junit.Test;
 
@@ -31,6 +34,11 @@ public class DemoInvoiceContactReportPageTest extends AbstractDemoInvoiceModuleT
 
 		EmfDataTableTester table = findEmfDataTable(AGDemoInvoice.TABLE);
 		DomPopupTester popup = table.openFilterPopup(IDemoInvoiceContactReportQuery.CONTACT_COLUMN);
+		popup
+			.findNodes(EmfDataTableEntityFilterNode.class)//
+			.assertOne()
+			.findSelect(EmfTestMarker.DATA_TABLE_FILTER_SELECT_ENTITY)
+			.selectValue(EmfDataTableEntityFilterType.IS);
 		DomAutoCompleteTester<AGDemoPerson> input = popup.findAutoCompleteInput(IDemoInvoiceContactReportQuery.CONTACT_COLUMN);
 		input.selectValue(person);
 		assertSame(person, input.getNode().getValueOrNull());

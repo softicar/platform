@@ -18,7 +18,7 @@ class EmfDataTableEntityFilterTypeSelect extends AbstractDomValueSelect<EmfDataT
 		this.refreshable = refreshable;
 
 		addValues(EmfDataTableEntityFilterType.values());
-		setSelectedValue(EmfDataTableEntityFilterType.IS);
+		setSelectedValue(EmfDataTableEntityFilterType.CONTAINS_TEXT);
 
 		listenToEvent(DomEventType.CHANGE);
 	}
