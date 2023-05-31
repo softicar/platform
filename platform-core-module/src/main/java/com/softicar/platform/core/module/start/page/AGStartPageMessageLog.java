@@ -2,11 +2,9 @@ package com.softicar.platform.core.module.start.page;
 
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.annotations.Generated;
-import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.db.runtime.field.IDbBooleanField;
-import com.softicar.platform.db.runtime.field.IDbDayTimeField;
 import com.softicar.platform.db.runtime.field.IDbForeignField;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.key.DbTableKeyFactory;
@@ -36,7 +34,6 @@ public class AGStartPageMessageLog extends AbstractDbRecord<AGStartPageMessageLo
 	public static final IDbForeignField<AGStartPageMessageLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION);
 	public static final IDbBooleanField<AGStartPageMessageLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
 	public static final IDbStringField<AGStartPageMessageLog> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setNullable().setDefault(null).setLengthBits(8);
-	public static final IDbDayTimeField<AGStartPageMessageLog> MESSAGE_DATE = BUILDER.addDayTimeField("messageDate", o->o.m_messageDate, (o,v)->o.m_messageDate=v).setTitle(CoreI18n.MESSAGE_DATE).setNullable().setDefault(null);
 	public static final IDbTableKey<AGStartPageMessageLog, Tuple2<AGStartPageMessage, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(START_PAGE_MESSAGE, TRANSACTION));
 	public static final DbRecordTable<AGStartPageMessageLog, Tuple2<AGStartPageMessage, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
@@ -90,16 +87,6 @@ public class AGStartPageMessageLog extends AbstractDbRecord<AGStartPageMessageLo
 		return setValue(MESSAGE, value);
 	}
 
-	public final DayTime getMessageDate() {
-
-		return getValue(MESSAGE_DATE);
-	}
-
-	public final AGStartPageMessageLog setMessageDate(DayTime value) {
-
-		return setValue(MESSAGE_DATE, value);
-	}
-
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -114,6 +101,5 @@ public class AGStartPageMessageLog extends AbstractDbRecord<AGStartPageMessageLo
 	private AGTransaction m_transaction;
 	private Boolean m_active;
 	private String m_message;
-	private DayTime m_messageDate;
 }
 

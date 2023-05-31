@@ -8,5 +8,4 @@ TABLE AGStartPageMessageLog 'Core.StartPageMessageLog' {
 	PK AGTransaction transaction
 	Boolean active = NULL [NULLABLE]
 	String message = NULL [NULLABLE LENGTHBITS=8]
-	DayTime messageDate = NULL [NULLABLE]
 }

@@ -14,7 +14,6 @@ CREATE TABLE `Core`.`StartPageMessageLog` (
 	`transaction` BIGINT NOT NULL,
 	`active` BOOL DEFAULT NULL,
 	`message` TINYTEXT DEFAULT NULL,
-	`messageDate` DATETIME DEFAULT NULL,
 	PRIMARY KEY (`startPageMessage`, `transaction`),
 	CONSTRAINT `startPageMessage` FOREIGN KEY (`startPageMessage`) REFERENCES `Core`.`StartPageMessage` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT `transaction` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
