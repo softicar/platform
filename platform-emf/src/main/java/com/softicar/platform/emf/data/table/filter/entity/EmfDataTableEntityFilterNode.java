@@ -40,12 +40,6 @@ public class EmfDataTableEntityFilterNode<R, T extends IEntity> extends Abstract
 	}
 
 	@Override
-	public void refresh() {
-
-		super.refresh();
-	}
-
-	@Override
 	public IEmfDataTableFilterTypeSelect<EmfDataTableEntityFilterType> getFilterSelect() {
 
 		return filterTypeSelect;
