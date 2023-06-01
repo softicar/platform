@@ -4,6 +4,6 @@ TABLE AGStartPageMessage 'Core.StartPageMessage' {
 	
 	PK Integer id = SERIAL
 	Boolean active = TRUE
-	String message [LENGTHBITS=8]
+	String message [LENGTHBITS=24]
 	DayTime messageDate = NOW
 }

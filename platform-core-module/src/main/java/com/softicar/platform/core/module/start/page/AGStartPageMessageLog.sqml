@@ -7,5 +7,5 @@ TABLE AGStartPageMessageLog 'Core.StartPageMessageLog' {
 	PK AGStartPageMessage startPageMessage [ON UPDATE CASCADE ON DELETE CASCADE CONSTRAINT_NAME='StartPageMessageLog_ibfk_1']
 	PK AGTransaction transaction [ON UPDATE CASCADE ON DELETE CASCADE CONSTRAINT_NAME='StartPageMessageLog_ibfk_2']
 	Boolean active = NULL [NULLABLE]
-	String message = NULL [NULLABLE LENGTHBITS=8]
+	String message = NULL [NULLABLE LENGTHBITS=24]
 }

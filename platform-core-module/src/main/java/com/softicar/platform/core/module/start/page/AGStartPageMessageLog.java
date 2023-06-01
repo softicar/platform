@@ -33,7 +33,7 @@ public class AGStartPageMessageLog extends AbstractDbRecord<AGStartPageMessageLo
 	public static final IDbForeignField<AGStartPageMessageLog, AGStartPageMessage> START_PAGE_MESSAGE = BUILDER.addForeignField("startPageMessage", o->o.m_startPageMessage, (o,v)->o.m_startPageMessage=v, AGStartPageMessage.ID).setTitle(CoreI18n.START_PAGE_MESSAGE).setCascade(true, true).setForeignKeyName("StartPageMessageLog_ibfk_1");
 	public static final IDbForeignField<AGStartPageMessageLog, AGTransaction> TRANSACTION = BUILDER.addForeignField("transaction", o->o.m_transaction, (o,v)->o.m_transaction=v, AGTransaction.ID).setTitle(CoreI18n.TRANSACTION).setCascade(true, true).setForeignKeyName("StartPageMessageLog_ibfk_2");
 	public static final IDbBooleanField<AGStartPageMessageLog> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setNullable().setDefault(null);
-	public static final IDbStringField<AGStartPageMessageLog> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setNullable().setDefault(null).setLengthBits(8);
+	public static final IDbStringField<AGStartPageMessageLog> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setNullable().setDefault(null).setLengthBits(24);
 	public static final IDbTableKey<AGStartPageMessageLog, Tuple2<AGStartPageMessage, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(START_PAGE_MESSAGE, TRANSACTION));
 	public static final DbRecordTable<AGStartPageMessageLog, Tuple2<AGStartPageMessage, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on

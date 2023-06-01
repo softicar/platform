@@ -30,7 +30,7 @@ public class AGStartPageMessageGenerated extends AbstractDbObject<AGStartPageMes
 
 	public static final IDbIdField<AGStartPageMessage> ID = BUILDER.addIdField("id", o->o.m_id, (o,v)->o.m_id=v).setTitle(CoreI18n.ID);
 	public static final IDbBooleanField<AGStartPageMessage> ACTIVE = BUILDER.addBooleanField("active", o->o.m_active, (o,v)->o.m_active=v).setTitle(CoreI18n.ACTIVE).setDefault(true);
-	public static final IDbStringField<AGStartPageMessage> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setLengthBits(8);
+	public static final IDbStringField<AGStartPageMessage> MESSAGE = BUILDER.addStringField("message", o->o.m_message, (o,v)->o.m_message=v).setTitle(CoreI18n.MESSAGE).setLengthBits(24);
 	public static final IDbDayTimeField<AGStartPageMessage> MESSAGE_DATE = BUILDER.addDayTimeField("messageDate", o->o.m_messageDate, (o,v)->o.m_messageDate=v).setTitle(CoreI18n.MESSAGE_DATE).setDefaultNow();
 	public static final AGStartPageMessageTable TABLE = new AGStartPageMessageTable(BUILDER);
 	// @formatter:on

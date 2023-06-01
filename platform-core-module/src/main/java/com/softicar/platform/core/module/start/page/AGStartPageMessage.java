@@ -6,20 +6,18 @@ import java.util.List;
 
 public class AGStartPageMessage extends AGStartPageMessageGenerated implements IEmfObject<AGStartPageMessage> {
 
-	private static final int DEFAULT_MESSAGE_AMOUNT_TO_LOAD = 5;
-
 	@Override
 	public IDisplayString toDisplayWithoutId() {
 
 		return IDisplayString.create(getMessage());
 	}
 
-	public static List<AGStartPageMessage> getLatestMessages() {
+	public static List<AGStartPageMessage> getLatestMessages(int limit) {
 
 		return AGStartPageMessage.TABLE//
 			.createSelect()
 			.where(AGStartPageMessage.ACTIVE)
 			.orderDescendingBy(MESSAGE_DATE)
-			.list(DEFAULT_MESSAGE_AMOUNT_TO_LOAD);
+			.list(limit);
 	}
 }

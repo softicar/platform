@@ -5,6 +5,7 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
+import com.softicar.platform.emf.attribute.input.EmfWikiTextInput;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
@@ -25,7 +26,7 @@ public class AGStartPageMessageTable extends EmfObjectTable<AGStartPageMessage, 
 			.setCreationPermission(CorePermissions.ADMINISTRATION)
 			.setDeletePermission(EmfPermissions.never())
 			.setEditPermission(CoreModule.getAdministationPermission())
-			.setViewPermission(CoreModule.getOperationPermission());
+			.setViewPermission(CoreModule.getViewPermission());
 	}
 
 	@Override
@@ -33,7 +34,7 @@ public class AGStartPageMessageTable extends EmfObjectTable<AGStartPageMessage, 
 
 		attributes//
 			.editStringAttribute(AGStartPageMessage.MESSAGE)
-			.setMultiline(true);
+			.setInputFactory(EmfWikiTextInput::new);
 		attributes//
 			.editAttribute(AGStartPageMessage.MESSAGE_DATE)
 			.setImmutable(true)
