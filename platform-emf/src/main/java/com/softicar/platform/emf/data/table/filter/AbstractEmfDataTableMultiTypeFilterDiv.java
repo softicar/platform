@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfCssClasses;
+import java.util.Objects;
 
 public abstract class AbstractEmfDataTableMultiTypeFilterDiv<R, FilterType> extends DomDiv implements IEmfDataTableFilterNode<R>, IRefreshable {
 
@@ -31,7 +32,7 @@ public abstract class AbstractEmfDataTableMultiTypeFilterDiv<R, FilterType> exte
 		} else {
 			// refresh filter input if necessary
 			FilterType filterType = filterSelect.getSelectedType();
-			if (!filterType.equals(filterType)) {
+			if (!Objects.equals(filterType, this.filterType)) {
 				removeChild(filterInput);
 				appendFilterInput();
 			}
