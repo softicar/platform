@@ -7,6 +7,7 @@ import com.softicar.platform.workflow.module.test.WorkflowTestObjectTable;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
+import com.softicar.platform.workflow.module.workflow.user.configuration.specific.AGWorkflowSpecificUserConfiguration;
 import org.junit.Test;
 
 public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
@@ -73,5 +74,31 @@ public class WorkflowTaskManagerTest extends AbstractTestObjectWorkflowTest {
 		var tasks = AGWorkflowTask.TABLE.loadAll();
 		assertCount(2, tasks);
 		tasks.forEach(task -> assertTrue("Expected task to be open: %s".formatted(task.toString()), !task.isClosed()));
+	}
+
+	@Test
+	public void testInsertTasksWithUnsubscription() {
+
+		// unsubscribe from workflow for user X
+		new AGWorkflowSpecificUserConfiguration()//
+			.setUser(userX)
+			.setWorkflow(workflow)
+			.setSubscribed(false)
+			.save();
+
+		// setup permissions
+		insertPermissionA(userX, testObject);
+		insertPermissionB(userX, testObject);
+		insertPermissionA(userZ, testObject);
+
+		item.setWorkflowNode(nodeX).save();
+
+		// execute
+		new WorkflowTaskManager(item).insertTasks();
+
+		// assert tasks were created
+		var task = assertOne(AGWorkflowTask.TABLE.loadAll());
+		assertSame(userZ, task.getUser());
+		assertFalse(task.isClosed());
 	}
 }

@@ -360,6 +360,14 @@
     "createStatement": "CREATE TABLE `Workflow`.`WorkflowNode` (`id` INT NOT NULL AUTO_INCREMENT,`workflowVersion` INT NOT NULL,`name` VARCHAR(255) NOT NULL,`xCoordinate` INT NOT NULL DEFAULT '10',`yCoordinate` INT NOT NULL DEFAULT '150',`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),KEY `workflowVersion` (`workflowVersion`),CONSTRAINT `WorkflowNode_ibfk_1` FOREIGN KEY (`workflowVersion`) REFERENCES `Workflow`.`WorkflowVersion` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
+    "tableName": "`Workflow`.`WorkflowSpecificUserConfigurationLog`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowSpecificUserConfigurationLog` (`configuration` INT NOT NULL,`transaction` BIGINT NOT NULL,`subscribed` BOOL DEFAULT NULL,PRIMARY KEY (`configuration`, `transaction`),KEY `transaction` (`transaction`),CONSTRAINT `WorkflowSpecificUserConfigurationLog_ibfk_1` FOREIGN KEY (`configuration`) REFERENCES `Workflow`.`WorkflowSpecificUserConfiguration` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowSpecificUserConfigurationLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+  },
+  {
+    "tableName": "`Workflow`.`WorkflowSpecificUserConfiguration`",
+    "createStatement": "CREATE TABLE `Workflow`.`WorkflowSpecificUserConfiguration` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT NOT NULL,`workflow` INT NOT NULL,`subscribed` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `userWorkflow` (`user`, `workflow`),KEY `workflow` (`workflow`),CONSTRAINT `WorkflowSpecificUserConfiguration_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowSpecificUserConfiguration_ibfk_2` FOREIGN KEY (`workflow`) REFERENCES `Workflow`.`Workflow` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
+  },
+  {
     "tableName": "`Workflow`.`WorkflowTaskDelegationLog`",
     "createStatement": "CREATE TABLE `Workflow`.`WorkflowTaskDelegationLog` (`workflowTaskDelegation` INT NOT NULL,`transaction` BIGINT NOT NULL,`targetUser` INT DEFAULT NULL,`delegatedBy` INT DEFAULT NULL,`active` BOOL DEFAULT NULL,PRIMARY KEY (`workflowTaskDelegation`, `transaction`),KEY `transaction` (`transaction`),KEY `targetUser` (`targetUser`),KEY `delegatedBy` (`delegatedBy`),CONSTRAINT `WorkflowTaskDelegationLog_ibfk_1` FOREIGN KEY (`workflowTaskDelegation`) REFERENCES `Workflow`.`WorkflowTaskDelegation` (`workflowTask`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowTaskDelegationLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `WorkflowTaskDelegationLog_ibfk_3` FOREIGN KEY (`targetUser`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `WorkflowTaskDelegationLog_ibfk_4` FOREIGN KEY (`delegatedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
