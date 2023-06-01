@@ -45,7 +45,10 @@ public interface LanguageEnumI18n {
 	I18n0 BISLAMA = new I18n0("Bislama")//
 		.de("Bislama");
 	I18n0 BOSNIAN = new I18n0("Bosnian")//
-		.de("Bosnisch");
+		.de("Bosnisch")
+		.bs("Bosanski")
+		.sr("Bosanski")
+		.hr("Bosanski");
 	I18n0 BRETON = new I18n0("Breton")//
 		.de("Bretonisch");
 	I18n0 BULGARIAN = new I18n0("Bulgarian")//
@@ -71,7 +74,10 @@ public interface LanguageEnumI18n {
 	I18n0 CREE = new I18n0("Cree")//
 		.de("Cree");
 	I18n0 CROATIAN = new I18n0("Croatian")//
-		.de("Kroatisch");
+		.de("Kroatisch")
+		.bs("Hrvatski")
+		.sr("Hrvatski")
+		.hr("Hrvatski");
 	I18n0 CZECH = new I18n0("Czech")//
 		.de("Tschechisch");
 	I18n0 DANISH = new I18n0("Danish")//
@@ -81,7 +87,10 @@ public interface LanguageEnumI18n {
 	I18n0 DZONGKHA = new I18n0("Dzongkha")//
 		.de("Dzongkha");
 	I18n0 ENGLISH = new I18n0("English")//
-		.de("Englisch");
+		.de("Englisch")
+		.bs("Engleski")
+		.sr("Engleski")
+		.hr("Engleski");
 	I18n0 ESPERANTO = new I18n0("Esperanto")//
 		.de("Esperanto");
 	I18n0 ESTONIAN = new I18n0("Estonian")//
@@ -105,7 +114,10 @@ public interface LanguageEnumI18n {
 	I18n0 GEORGIAN = new I18n0("Georgian")//
 		.de("Georgisch");
 	I18n0 GERMAN = new I18n0("German")//
-		.de("Deutsch");
+		.de("Deutsch")
+		.bs("Njemački")
+		.sr("Njemački")
+		.hr("Njemački");
 	I18n0 GREEK = new I18n0("Greek")//
 		.de("Griechisch");
 	I18n0 GUARANI = new I18n0("Guarani")//
@@ -255,7 +267,10 @@ public interface LanguageEnumI18n {
 	I18n0 SCOTTISH_GAELIC = new I18n0("Scottish Gaelic")//
 		.de("Schottisch-Gälisch");
 	I18n0 SERBIAN = new I18n0("Serbian")//
-		.de("Serbisch");
+		.de("Serbisch")
+		.bs("Srpski")
+		.sr("Srpski")
+		.hr("Srpski");
 	I18n0 SHONA = new I18n0("Shona")//
 		.de("Shona");
 	I18n0 SINHALA = new I18n0("Sinhala")//
