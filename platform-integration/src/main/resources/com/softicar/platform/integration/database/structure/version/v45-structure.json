@@ -168,14 +168,6 @@
     "createStatement": "CREATE TABLE `Core`.`Server` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`name` VARCHAR(255) NOT NULL,`address` VARCHAR(255) NOT NULL,`port` INT NOT NULL,`username` VARCHAR(255) NOT NULL DEFAULT '',`password` VARCHAR(255) NOT NULL DEFAULT '',`domain` VARCHAR(255) DEFAULT NULL,`connectorUuid` INT DEFAULT NULL,`connectorConfiguration` MEDIUMTEXT NOT NULL DEFAULT '',`connectorData` MEDIUMTEXT NOT NULL DEFAULT '',PRIMARY KEY (`id`),KEY `connectorUuid` (`connectorUuid`),CONSTRAINT `Server_ibfk_1` FOREIGN KEY (`connectorUuid`) REFERENCES `Core`.`Uuid` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
   {
-    "tableName": "`Core`.`StartPageMessageLog`",
-    "createStatement": "CREATE TABLE `Core`.`StartPageMessageLog` (`startPageMessage` INT NOT NULL,`transaction` BIGINT NOT NULL,`active` BOOL DEFAULT NULL,`message` MEDIUMTEXT DEFAULT NULL,PRIMARY KEY (`startPageMessage`, `transaction`),CONSTRAINT `StartPageMessageLog_ibfk_1` FOREIGN KEY (`startPageMessage`) REFERENCES `Core`.`StartPageMessage` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `StartPageMessageLog_ibfk_2` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);"
-  },
-  {
-    "tableName": "`Core`.`StartPageMessage`",
-    "createStatement": "CREATE TABLE `Core`.`StartPageMessage` (`id` INT NOT NULL AUTO_INCREMENT,`active` BOOL NOT NULL DEFAULT '1',`message` MEDIUMTEXT NOT NULL,`messageDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`id`));"
-  },
-  {
     "tableName": "`Core`.`StoredFileAccessLog`",
     "createStatement": "CREATE TABLE `Core`.`StoredFileAccessLog` (`id` INT NOT NULL AUTO_INCREMENT,`file` INT NOT NULL,`accessedBy` INT NOT NULL,`accessedAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,PRIMARY KEY (`id`),KEY `file` (`file`),KEY `accessedBy` (`accessedBy`),CONSTRAINT `StoredFileAccessLog_ibfk_1` FOREIGN KEY (`file`) REFERENCES `Core`.`StoredFile` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `StoredFileAccessLog_ibfk_2` FOREIGN KEY (`accessedBy`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
