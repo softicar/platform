@@ -1,4 +1,4 @@
--- migration to platform-45
+-- migration to platform-46
 
 -- EXP-2954
 CREATE TABLE `Core`.`StartPageMessage` (
