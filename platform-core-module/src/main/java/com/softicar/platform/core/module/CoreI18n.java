@@ -1385,6 +1385,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Poruka")
 		.sr("Poruka")
 		.hr("Poruka");
+	I18n0 MESSAGE_DATE = new I18n0("Message Date")//
+		.de("Nachrichtendatum");
 	I18n0 MESSAGE_ID = new I18n0("Message ID")//
 		.de("Nachrichten-ID")
 		.bs("ID poruke")
@@ -2295,6 +2297,14 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Početna stranica")
 		.sr("Početna stranica")
 		.hr("Početna stranica");
+	I18n0 START_PAGE_MESSAGE = new I18n0("Start Page Message")//
+		.de("Startseitennachricht");
+	I18n0 START_PAGE_MESSAGE_LOG = new I18n0("Start Page Message Log")//
+		.de("Startseitennachrichten-Log");
+	I18n0 START_PAGE_MESSAGE_LOGS = new I18n0("Start Page Message Logs")//
+		.de("Startseitennachrichten-Logs");
+	I18n0 START_PAGE_MESSAGES = new I18n0("Start Page Messages")//
+		.de("Startseitennachrichten");
 	I18n0 START_TIME = new I18n0("Start Time")//
 		.de("Startzeitpunkt")
 		.bs("Vrijeme početka")
