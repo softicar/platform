@@ -78,11 +78,11 @@ public class WorkflowAutoTransitionsExecutor {
 
 		var overallResult = executeMainLoop();
 		updateTasksAndDelegations(overallResult);
-		throwIfExceptionsOccurred();
+		throwIfAtLeastOneExceptionOccurred();
 		return overallResult;
 	}
 
-	private void throwIfExceptionsOccurred() {
+	private void throwIfAtLeastOneExceptionOccurred() {
 
 		Collection<Throwable> exceptions = exceptionsCollector.getExceptions();
 
