@@ -3,6 +3,7 @@ PACKAGE com.softicar.platform.workflow.module.workflow.task
 IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation
 IMPORT com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution
+IMPORT com.softicar.platform.workflow.module.workflow.user.configuration.specific.AGWorkflowSpecificUserConfiguration
 
 QUERY WorkflowTaskQuery {
 	AGUser user
@@ -23,13 +24,19 @@ QUERY WorkflowTaskQuery {
 	JOIN workflowNode.workflowVersion AS workflowVersion
 	LEFT JOIN task.transaction AS transaction
 	LEFT JOIN AGWorkflowTaskDelegation AS delegation ON delegation.workflowTask = task AND delegation.active
-	LEFT JOIN AGWorkflowTransitionExecution execution ON execution.workflowTask = task 
+	LEFT JOIN AGWorkflowTransitionExecution AS execution ON execution.workflowTask = task
+	LEFT JOIN AGWorkflowSpecificUserConfiguration AS configuration ON configuration.user = $user AND configuration.workflow = item.workflow
 	
 	WHERE NOT task.closed
 	WHERE task.notify
 	WHERE execution IS NULL
-	WHERE ((task.user = $user AND IF ($showMyDelegations, TRUE, delegation IS NULL))
-		OR (delegation.targetUser=$user))
+	WHERE IFNULL(configuration.subscribed, TRUE)
+
+	#IF $showMyDelegations {
+		WHERE delegation.targetUser = $user OR task.user = $user
+	} ELSE {
+		WHERE delegation.targetUser = $user OR (task.user = $user AND delegation IS NULL)
+	}
 
 	#IF $showExclusiveTasksOnly {
 		LEFT JOIN AGWorkflowTask AS allTasksOnItem ON allTasksOnItem.workflowItem = item

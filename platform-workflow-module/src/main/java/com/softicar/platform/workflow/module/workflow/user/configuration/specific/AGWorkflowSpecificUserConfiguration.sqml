@@ -1,0 +1,14 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.user.configuration.specific
+
+IMPORT com.softicar.platform.core.module.user.AGUser
+IMPORT com.softicar.platform.workflow.module.workflow.AGWorkflow
+
+TABLE AGWorkflowSpecificUserConfiguration 'Workflow.WorkflowSpecificUserConfiguration' {
+	PK Integer id = SERIAL
+	AGUser user [CONSTRAINT_NAME='WorkflowSpecificUserConfiguration_ibfk_1' ON DELETE CASCADE ON UPDATE CASCADE]
+	AGWorkflow workflow [CONSTRAINT_NAME='WorkflowSpecificUserConfiguration_ibfk_2' ON DELETE CASCADE ON UPDATE CASCADE]
+	Boolean subscribed = TRUE
+	
+	UK user workflow  
+	IK workflow
+}

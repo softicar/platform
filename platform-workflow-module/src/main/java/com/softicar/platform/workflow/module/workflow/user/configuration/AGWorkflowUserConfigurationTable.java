@@ -4,11 +4,13 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.table.IDbTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.authorizer.EmfAuthorizer;
+import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
 import com.softicar.platform.emf.log.EmfChangeLoggerSet;
 import com.softicar.platform.emf.permission.EmfPermissions;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 import com.softicar.platform.emf.trait.table.EmfTraitTable;
 import com.softicar.platform.workflow.module.WorkflowImages;
+import com.softicar.platform.workflow.module.workflow.user.configuration.specific.AGWorkflowSpecificUserConfiguration;
 
 public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUserConfiguration, AGUser> {
 
@@ -33,6 +35,12 @@ public class AGWorkflowUserConfigurationTable extends EmfTraitTable<AGWorkflowUs
 		configuration.setScopeField(AGWorkflowUserConfiguration.USER);
 		configuration.addValidator(WorkflowUserConfigurationValidator::new);
 		configuration.setIcon(WorkflowImages.USER);
+	}
+
+	@Override
+	public void customizeFormTabs(EmfFormTabConfiguration<AGWorkflowUserConfiguration> tabConfiguration) {
+
+		tabConfiguration.addManagementTab(AGWorkflowSpecificUserConfiguration.TABLE, AGWorkflowUserConfiguration::getUser);
 	}
 
 	@Override
