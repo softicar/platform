@@ -161,7 +161,7 @@ public interface EmfDataTableI18n {
 		.bs("Nema sortiranja kolona '%s'.")
 		.sr("Nema sortiranja kolona '%s'.")
 		.hr("Nema sortiranja kolona '%s'.");
-	I18n0 NONE = new I18n0("Ništa (sve stranice)")//
+	I18n0 NONE = new I18n0("Nothing")//
 		.de("Nichts")
 		.bs("Ništa")
 		.sr("Ništa")
@@ -208,14 +208,14 @@ public interface EmfDataTableI18n {
 		.hr("Izbor");
 	I18n1 SORT_VALUES_OF_COLUMN_ARG1_IN_ASCENDING_ORDER = new I18n1("Sort values of column '%s' in ascending order.")//
 		.de("Sortiere Werte in Spalte '%s' in aufsteigender Reihenfolge.")
-		.bs("")
-		.sr("")
-		.hr("");
+		.bs("Poredati vrijednosti kolona '%s' uzlaznim redoslijedom.")
+		.sr("Poredati vrednosti kolona '%s' uzlaznim redoslijedom.")
+		.hr("Poredati vrijednosti kolona '%s' uzlaznim redoslijedom.");
 	I18n1 SORT_VALUES_OF_COLUMN_ARG1_IN_DESCENDING_ORDER = new I18n1("Sort values of column '%s' in descending order.")//
 		.de("Sortiere Werte in Spalte '%s' in absteigender Reihenfolge.")
-		.bs("")
-		.sr("")
-		.hr("");
+		.bs("Poredati vrijednosti kolona '%s' silaznim redoslijedom.")
+		.sr("Poredati vrednosti kolona '%s' silaznim redoslijedom.")
+		.hr("Poredati vrijednosti kolona '%s' silaznim redoslijedom.");
 	I18n0 TABLE_CONFIGURATION = new I18n0("Table Configuration")//
 		.de("Tabellen-Konfiguration")
 		.bs("Konfiguracija tabele")
