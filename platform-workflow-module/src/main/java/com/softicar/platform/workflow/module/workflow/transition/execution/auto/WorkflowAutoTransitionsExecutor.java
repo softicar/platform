@@ -2,11 +2,13 @@ package com.softicar.platform.workflow.module.workflow.transition.execution.auto
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.exceptions.SofticarException;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksAndDelegationsUpdater;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
 import com.softicar.platform.workflow.module.workflow.transition.execution.WorkflowTransitionExecutor;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -76,8 +78,21 @@ public class WorkflowAutoTransitionsExecutor {
 
 		var overallResult = executeMainLoop();
 		updateTasksAndDelegations(overallResult);
-		exceptionsCollector.throwIfNotEmpty();
+		throwIfExceptionsOccurred();
 		return overallResult;
+	}
+
+	private void throwIfExceptionsOccurred() {
+
+		Collection<Throwable> exceptions = exceptionsCollector.getExceptions();
+
+		if (exceptions.size() == 1) {
+			var causeThrowable = exceptions.iterator().next().getCause();
+			if (causeThrowable instanceof SofticarUserException) {
+				throw (SofticarUserException) causeThrowable;
+			}
+		}
+		exceptionsCollector.throwIfNotEmpty();
 	}
 
 	private WorkflowAutoTransitionsResult executeMainLoop() {
