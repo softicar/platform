@@ -161,7 +161,7 @@ public interface EmfDataTableI18n {
 		.bs("Nema sortiranja kolona '%s'.")
 		.sr("Nema sortiranja kolona '%s'.")
 		.hr("Nema sortiranja kolona '%s'.");
-	I18n0 NONE = new I18n0("Nothing")//
+	I18n0 NONE = new I18n0("None")//
 		.de("Nichts")
 		.bs("Ništa")
 		.sr("Ništa")
