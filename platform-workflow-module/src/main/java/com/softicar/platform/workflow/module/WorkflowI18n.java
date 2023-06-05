@@ -856,6 +856,10 @@ public interface WorkflowI18n extends CoreI18n {
 		.bs("Delegacije zadataka radnog toka")
 		.hr("Delegacije zadataka radnog tijeka")
 		.sr("Delegacije zadataka radnog toka");
+	I18n0 WORKFLOW_TASK_EXECUTION = new I18n0("Workflow Task Execution")//
+		.de("Arbeitsablauf-Aufgabenausführung");
+	I18n0 WORKFLOW_TASK_EXECUTIONS = new I18n0("Workflow Task Executions")//
+		.de("Arbeitsablauf-Aufgabenausführungen");
 	I18n0 WORKFLOW_TASK_LOG = new I18n0("Workflow Task Log")//
 		.de("Arbeitsablauf-Aufgabe-Log")
 		.bs("Zapisnik zadatka radnog toka")

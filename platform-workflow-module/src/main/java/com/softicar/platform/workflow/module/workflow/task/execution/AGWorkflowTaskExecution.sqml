@@ -1,0 +1,16 @@
+PACKAGE com.softicar.platform.workflow.module.workflow.task.execution
+
+IMPORT com.softicar.platform.core.module.transaction.AGTransaction
+IMPORT com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask
+IMPORT com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition
+
+TABLE AGWorkflowTaskExecution 'Workflow.WorkflowTaskExecution' {
+	PK Integer id = SERIAL
+	AGWorkflowTask workflowTask [CONSTRAINT_NAME='WorkflowTaskExecution_ibfk_1']
+	AGWorkflowTransition workflowTransition [CONSTRAINT_NAME='WorkflowTaskExecution_ibfk_2']
+	AGTransaction transaction [CONSTRAINT_NAME='WorkflowTaskExecution_ibfk_3']
+
+	UK workflowTask
+	IK workflowTransition
+	IK transaction
+}

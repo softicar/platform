@@ -10,7 +10,7 @@ import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
 import java.util.Collection;
 import java.util.List;
@@ -45,6 +45,6 @@ public class WorkflowModule extends AbstractModule<AGWorkflowModuleInstance> {
 				AGWorkflowItem.TABLE,
 				AGWorkflowItemMessage.TABLE,
 				AGWorkflowTask.TABLE,
-				AGWorkflowTransitionExecution.TABLE);
+				AGWorkflowTaskExecution.TABLE);
 	}
 }

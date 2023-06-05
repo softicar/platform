@@ -5,7 +5,7 @@ import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -48,9 +48,9 @@ public class AGWorkflowTask extends AGWorkflowTaskGenerated implements IEmfObjec
 
 	public boolean wasNotExecuted() {
 
-		return !AGWorkflowTransitionExecution//
+		return !AGWorkflowTaskExecution//
 			.createSelect()
-			.where(AGWorkflowTransitionExecution.WORKFLOW_TASK.isEqual(this))
+			.where(AGWorkflowTaskExecution.WORKFLOW_TASK.isEqual(this))
 			.exists();
 	}
 

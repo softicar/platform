@@ -8,7 +8,7 @@ import com.softicar.platform.workflow.module.workflow.WorkflowNodeTestPreconditi
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -99,7 +99,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		});
 
 		assertSame(sourceNode, workflowItem.getWorkflowNode());
-		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
+		assertEmpty(AGWorkflowTaskExecution.TABLE.loadAll());
 		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 	}
 
@@ -121,7 +121,7 @@ public class WorkflowTransitionActionExecutorTest extends AbstractTestObjectWork
 		});
 
 		assertSame(sourceNode, workflowItem.getWorkflowNode());
-		assertEmpty(AGWorkflowTransitionExecution.TABLE.loadAll());
+		assertEmpty(AGWorkflowTaskExecution.TABLE.loadAll());
 		assertOne(AGWorkflowTask.getOpenWorkflowTasks(user, workflowItem));
 		assertExecutedSideEffects(0);
 	}

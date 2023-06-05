@@ -7,8 +7,8 @@ import com.softicar.platform.emf.entity.IEmfEntity;
 import com.softicar.platform.emf.object.IEmfObject;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksLoader;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionsExecutor;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.WorkflowAutoTransitionsResult;
@@ -48,9 +48,9 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 			.list();
 	}
 
-	public Collection<Set<AGWorkflowTransitionExecution>> loadTransitionExecutionSets() {
+	public Collection<Set<AGWorkflowTaskExecution>> loadTaskExecutionSets() {
 
-		return loadTransitionExecutionMap().getSets();
+		return loadTaskExecutionMap().getSets();
 	}
 
 	/**
@@ -66,18 +66,18 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 		return !result.getTransitioned().isEmpty();
 	}
 
-	private SetMap<AGWorkflowTransition, AGWorkflowTransitionExecution> loadTransitionExecutionMap() {
+	private SetMap<AGWorkflowTransition, AGWorkflowTaskExecution> loadTaskExecutionMap() {
 
-		SetMap<AGWorkflowTransition, AGWorkflowTransitionExecution> transitionExecutionMap = new SetMap<>();
+		SetMap<AGWorkflowTransition, AGWorkflowTaskExecution> taskExecutionMap = new SetMap<>();
 
-		for (AGWorkflowTransitionExecution transitionExecution: AGWorkflowTransitionExecution//
+		for (AGWorkflowTaskExecution taskExecution: AGWorkflowTaskExecution//
 			.createSelect()
-			.join(AGWorkflowTransitionExecution.WORKFLOW_TASK)
+			.join(AGWorkflowTaskExecution.WORKFLOW_TASK)
 			.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(getThis()))) {
 
-			transitionExecutionMap.addToSet(transitionExecution.getWorkflowTransition(), transitionExecution);
+			taskExecutionMap.addToSet(taskExecution.getWorkflowTransition(), taskExecution);
 		}
-		return transitionExecutionMap;
+		return taskExecutionMap;
 	}
 
 }
