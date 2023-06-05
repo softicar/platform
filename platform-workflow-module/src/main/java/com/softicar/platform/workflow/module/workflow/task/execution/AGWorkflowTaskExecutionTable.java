@@ -1,4 +1,4 @@
-package com.softicar.platform.workflow.module.workflow.transition.execution;
+package com.softicar.platform.workflow.module.workflow.task.execution;
 
 import com.softicar.platform.db.runtime.object.IDbObjectTableBuilder;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
@@ -11,15 +11,15 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.WorkflowPermissions;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 
-public class AGWorkflowTransitionExecutionTable extends EmfObjectTable<AGWorkflowTransitionExecution, AGWorkflowTask> {
+public class AGWorkflowTaskExecutionTable extends EmfObjectTable<AGWorkflowTaskExecution, AGWorkflowTask> {
 
-	public AGWorkflowTransitionExecutionTable(IDbObjectTableBuilder<AGWorkflowTransitionExecution> builder) {
+	public AGWorkflowTaskExecutionTable(IDbObjectTableBuilder<AGWorkflowTaskExecution> builder) {
 
 		super(builder);
 	}
 
 	@Override
-	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowTransitionExecution, AGWorkflowTask> authorizer) {
+	public void customizeAuthorizer(EmfAuthorizer<AGWorkflowTaskExecution, AGWorkflowTask> authorizer) {
 
 		authorizer//
 			.setCreationPermission(
@@ -42,20 +42,20 @@ public class AGWorkflowTransitionExecutionTable extends EmfObjectTable<AGWorkflo
 	}
 
 	@Override
-	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowTransitionExecution, Integer, AGWorkflowTask> configuration) {
+	public void customizeEmfTableConfiguration(EmfTableConfiguration<AGWorkflowTaskExecution, Integer, AGWorkflowTask> configuration) {
 
-		configuration.setScopeField(AGWorkflowTransitionExecution.WORKFLOW_TASK);
+		configuration.setScopeField(AGWorkflowTaskExecution.WORKFLOW_TASK);
 	}
 
 	@Override
-	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflowTransitionExecution> attributes) {
+	public void customizeAttributeProperties(IEmfAttributeList<AGWorkflowTaskExecution> attributes) {
 
 		attributes//
-			.editAttribute(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION)
+			.editAttribute(AGWorkflowTaskExecution.WORKFLOW_TRANSITION)
 			.setImmutable(true)
 			.setPredicateMandatory(EmfPredicates.always());
 		attributes//
-			.editAttribute(AGWorkflowTransitionExecution.WORKFLOW_TASK)
+			.editAttribute(AGWorkflowTaskExecution.WORKFLOW_TASK)
 			.setPredicateMandatory(EmfPredicates.always());
 	}
 }
