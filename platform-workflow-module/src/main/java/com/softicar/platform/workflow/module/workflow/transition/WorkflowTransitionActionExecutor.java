@@ -12,7 +12,7 @@ import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.message.AGWorkflowItemMessage;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTaskManager;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -84,7 +84,7 @@ public class WorkflowTransitionActionExecutor {
 		try (var transaction = new DbTransaction()) {
 			item.reloadForUpdate();
 			transition.assertInSourceNode(item, () -> new SofticarUserException(WorkflowI18n.THIS_ACTION_IS_NOT_AVAILABLE_ANYMORE));
-			storeTransitionExecutionForAllRelevantTasks();
+			insertTaskExecutionsForAllRelevantTasks();
 
 			if (!transition.isVotingTransition() || new WorkflowTransitionRequiredVotesEvaluator(transition, item).hasEnoughVotes()) {
 				List<IDisplayString> errorMessages = transition//
@@ -113,10 +113,10 @@ public class WorkflowTransitionActionExecutor {
 		callbackAfterExecution.apply();
 	}
 
-	private void storeTransitionExecutionForAllRelevantTasks() {
+	private void insertTaskExecutionsForAllRelevantTasks() {
 
 		for (AGWorkflowTask task: item.getOpenTasksFor(user)) {
-			new AGWorkflowTransitionExecution()//
+			new AGWorkflowTaskExecution()//
 				.setWorkflowTask(task)
 				.setWorkflowTransition(transition)
 				.save();

@@ -2,7 +2,7 @@ PACKAGE com.softicar.platform.workflow.module.workflow.task
 
 IMPORT com.softicar.platform.core.module.user.AGUser
 IMPORT com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation
-IMPORT com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution
+IMPORT com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution
 IMPORT com.softicar.platform.workflow.module.workflow.user.configuration.specific.AGWorkflowSpecificUserConfiguration
 
 QUERY WorkflowTaskQuery {
@@ -24,12 +24,12 @@ QUERY WorkflowTaskQuery {
 	JOIN workflowNode.workflowVersion AS workflowVersion
 	LEFT JOIN task.transaction AS transaction
 	LEFT JOIN AGWorkflowTaskDelegation AS delegation ON delegation.workflowTask = task AND delegation.active
-	LEFT JOIN AGWorkflowTransitionExecution AS execution ON execution.workflowTask = task
+	LEFT JOIN AGWorkflowTaskExecution AS taskExecution ON taskExecution.workflowTask = task
 	LEFT JOIN AGWorkflowSpecificUserConfiguration AS configuration ON configuration.user = $user AND configuration.workflow = item.workflow
 	
 	WHERE NOT task.closed
 	WHERE task.notify
-	WHERE execution IS NULL
+	WHERE taskExecution IS NULL
 	WHERE IFNULL(configuration.subscribed, TRUE)
 
 	#IF $showMyDelegations {

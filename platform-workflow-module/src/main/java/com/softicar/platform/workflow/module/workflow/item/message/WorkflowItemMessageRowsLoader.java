@@ -9,7 +9,7 @@ import com.softicar.platform.workflow.module.workflow.item.message.severity.AGWo
 import com.softicar.platform.workflow.module.workflow.node.AGWorkflowNode;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegationLog;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import com.softicar.platform.workflow.module.workflow.transition.execution.auto.AGWorkflowAutoTransitionExecution;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -140,29 +140,29 @@ public class WorkflowItemMessageRowsLoader {
 	private List<WorkflowItemMessageRow> loadTaskExecutionRows() {
 
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
-		for (Set<AGWorkflowTransitionExecution> transitionExecutionSet: item.loadTransitionExecutionSets()) {
-			rows.addAll(createTaskExecutionRows(transitionExecutionSet.iterator()));
+		for (Set<AGWorkflowTaskExecution> taskExecutionSet: item.loadTaskExecutionSets()) {
+			rows.addAll(createTaskExecutionRows(taskExecutionSet.iterator()));
 		}
 		return rows;
 	}
 
-	private List<WorkflowItemMessageRow> createTaskExecutionRows(Iterator<AGWorkflowTransitionExecution> transitionExecutionIterator) {
+	private List<WorkflowItemMessageRow> createTaskExecutionRows(Iterator<AGWorkflowTaskExecution> taskExecutionIterator) {
 
 		List<WorkflowItemMessageRow> rows = new ArrayList<>();
 
-		AGWorkflowTransitionExecution transitionExecution;
+		AGWorkflowTaskExecution taskExecution;
 		do {
-			transitionExecution = transitionExecutionIterator.next();
-			rows.add(createTaskExecutionRow(transitionExecution));
-		} while (transitionExecutionIterator.hasNext());
+			taskExecution = taskExecutionIterator.next();
+			rows.add(createTaskExecutionRow(taskExecution));
+		} while (taskExecutionIterator.hasNext());
 
 		return rows;
 	}
 
-	private WorkflowItemMessageRow createTaskExecutionRow(AGWorkflowTransitionExecution transitionExecution) {
+	private WorkflowItemMessageRow createTaskExecutionRow(AGWorkflowTaskExecution taskExecution) {
 
-		var text = WorkflowI18n.EXECUTED_ACTION_ARG1.toDisplay(transitionExecution.getWorkflowTransition().toDisplay());
-		return new WorkflowItemMessageRow(text, transitionExecution.getTransaction());
+		var text = WorkflowI18n.EXECUTED_ACTION_ARG1.toDisplay(taskExecution.getWorkflowTransition().toDisplay());
+		return new WorkflowItemMessageRow(text, taskExecution.getTransaction());
 	}
 
 	private List<WorkflowItemMessageRow> loadDelegationRows() {

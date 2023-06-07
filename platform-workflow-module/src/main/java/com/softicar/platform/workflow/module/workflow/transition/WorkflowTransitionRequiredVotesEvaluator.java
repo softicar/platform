@@ -2,7 +2,7 @@ package com.softicar.platform.workflow.module.workflow.transition;
 
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import java.util.Objects;
 
 public class WorkflowTransitionRequiredVotesEvaluator {
@@ -29,8 +29,8 @@ public class WorkflowTransitionRequiredVotesEvaluator {
 					.createSelect()
 					.where(AGWorkflowTask.WORKFLOW_ITEM.isEqual(item))
 					.where(AGWorkflowTask.CLOSED.isFalse())
-					.joinReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
-					.where(AGWorkflowTransitionExecution.WORKFLOW_TRANSITION.isEqual(transition))
+					.joinReverse(AGWorkflowTaskExecution.WORKFLOW_TASK)
+					.where(AGWorkflowTaskExecution.WORKFLOW_TRANSITION.isEqual(transition))
 					.stream()
 					// FIXME PLAT-1173 this filter should cause some kind of error notification
 					.filter(it -> transition.isUserAllowedToSeeTransition(it.getUser(), item))

@@ -17,8 +17,8 @@ import com.softicar.platform.workflow.module.workflow.node.precondition.AGWorkfl
 import com.softicar.platform.workflow.module.workflow.node.precondition.IWorkflowPrecondition;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
 import com.softicar.platform.workflow.module.workflow.task.delegation.AGWorkflowTaskDelegation;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
 import com.softicar.platform.workflow.module.workflow.transition.permission.AGWorkflowTransitionPermission;
 import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 
@@ -106,9 +106,9 @@ public interface WorkflowModuleTestFixtureMethods extends CoreModuleTestFixtureM
 		return transition;
 	}
 
-	default AGWorkflowTransitionExecution insertWorkflowTransitionExecution(AGWorkflowTask task, AGWorkflowTransition transition) {
+	default AGWorkflowTaskExecution insertWorkflowTaskExecution(AGWorkflowTask task, AGWorkflowTransition transition) {
 
-		return new AGWorkflowTransitionExecution()//
+		return new AGWorkflowTaskExecution()//
 			.setWorkflowTask(task)
 			.setWorkflowTransition(transition)
 			.save();

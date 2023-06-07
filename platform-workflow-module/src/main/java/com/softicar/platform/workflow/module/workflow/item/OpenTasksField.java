@@ -5,7 +5,7 @@ import com.softicar.platform.db.runtime.transients.AbstractTransientSetField;
 import com.softicar.platform.db.runtime.transients.IValueAccumulator;
 import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.task.AGWorkflowTask;
-import com.softicar.platform.workflow.module.workflow.transition.execution.AGWorkflowTransitionExecution;
+import com.softicar.platform.workflow.module.workflow.task.execution.AGWorkflowTaskExecution;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,8 +25,8 @@ public class OpenTasksField extends AbstractTransientSetField<AGWorkflowItem, AG
 			.where(AGWorkflowTask.WORKFLOW_ITEM.isIn(rows))
 			.where(AGWorkflowTask.CLOSED.not())
 			.where(AGWorkflowTask.NOTIFY)
-			.joinLeftReverse(AGWorkflowTransitionExecution.WORKFLOW_TASK)
-			.where(AGWorkflowTransitionExecution.WORKFLOW_TASK.isNull())
+			.joinLeftReverse(AGWorkflowTaskExecution.WORKFLOW_TASK)
+			.where(AGWorkflowTaskExecution.WORKFLOW_TASK.isNull())
 			.stream()
 			.collect(Collectors.groupingBy(AGWorkflowTask::getWorkflowItem))
 			.entrySet()

@@ -1,4 +1,4 @@
-package com.softicar.platform.workflow.module.workflow.transition.execution;
+package com.softicar.platform.workflow.module.workflow.task.execution;
 
 import com.softicar.platform.common.container.tuple.Tuple2;
 import com.softicar.platform.common.core.i18n.IDisplayString;
@@ -7,7 +7,7 @@ import com.softicar.platform.workflow.module.WorkflowI18n;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItemLog;
 
-public class AGWorkflowTransitionExecution extends AGWorkflowTransitionExecutionGenerated implements IEmfObject<AGWorkflowTransitionExecution> {
+public class AGWorkflowTaskExecution extends AGWorkflowTaskExecutionGenerated implements IEmfObject<AGWorkflowTaskExecution> {
 
 	@Override
 	public IDisplayString toDisplayWithoutId() {

@@ -134,6 +134,6 @@ public class WorkflowTransitionRequiredVotesEvaluatorTest extends AbstractTestOb
 	private void insertOpenTaskWithTransitionExecution(AGWorkflowTransition transition) {
 
 		AGWorkflowTask task = insertOpenTask();
-		insertWorkflowTransitionExecution(task, transition);
+		insertWorkflowTaskExecution(task, transition);
 	}
 }
