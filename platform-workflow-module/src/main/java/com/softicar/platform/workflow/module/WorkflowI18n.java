@@ -442,7 +442,7 @@ public interface WorkflowI18n extends CoreI18n {
 		.hr("Pokreni tijek rada")
 		.sr("Pokreni tok rada");
 	I18n0 SUBSCRIBED = new I18n0("Subscribed")//
-		.de("Abboniert");
+		.de("Abonniert");
 	I18n0 SUBSTITUTE = new I18n0("Substitute")//
 		.de("Vertretung")
 		.bs("Zamjena")
