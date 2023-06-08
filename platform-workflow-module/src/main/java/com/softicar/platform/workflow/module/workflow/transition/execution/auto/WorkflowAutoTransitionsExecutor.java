@@ -72,12 +72,14 @@ public class WorkflowAutoTransitionsExecutor {
 	 * <p>
 	 * Note that the default value is {@value #DEFAULT_COLLECT_EXCEPTIONS}.
 	 *
-	 * @param value
+	 * @param collectExceptions
+	 *                 <i>true</i> to collect all exceptions and throw a {@link MultiException}
+	 *                 at the end; <i>false</i> to immediately throw any occurring exception
 	 * @return this
 	 */
-	public WorkflowAutoTransitionsExecutor setCollectExceptions(boolean value) {
+	public WorkflowAutoTransitionsExecutor setCollectExceptions(boolean collectExceptions) {
 
-		this.collectExceptions = value;
+		this.collectExceptions = collectExceptions;
 		return this;
 	}
 
