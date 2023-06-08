@@ -62,7 +62,10 @@ public class AGWorkflowItem extends AGWorkflowItemGenerated implements IEmfObjec
 	 */
 	public boolean executeAllAutoTransitions() {
 
-		WorkflowAutoTransitionsResult result = new WorkflowAutoTransitionsExecutor().setWorkflowItemWhitelist(this).executeTransitions();
+		WorkflowAutoTransitionsResult result = new WorkflowAutoTransitionsExecutor()//
+			.setCollectExceptions(false)
+			.setWorkflowItemWhitelist(this)
+			.executeTransitions();
 		return !result.getTransitioned().isEmpty();
 	}
 
