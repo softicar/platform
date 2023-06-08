@@ -1,6 +1,7 @@
 package com.softicar.platform.workflow.module.workflow.transition.execution.auto;
 
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
+import com.softicar.platform.common.core.exception.MultiException;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
@@ -73,8 +74,9 @@ public class WorkflowAutoTransitionsExecutor {
 	 * Note that the default value is {@value #DEFAULT_COLLECT_EXCEPTIONS}.
 	 *
 	 * @param collectExceptions
-	 *                 <i>true</i> to collect all exceptions and throw a {@link MultiException}
-	 *                 at the end; <i>false</i> to immediately throw any occurring exception
+	 *            <i>true</i> to collect all exceptions and throw a
+	 *            {@link MultiException} at the end; <i>false</i> to immediately
+	 *            throw any occurring exception
 	 * @return this
 	 */
 	public WorkflowAutoTransitionsExecutor setCollectExceptions(boolean collectExceptions) {
