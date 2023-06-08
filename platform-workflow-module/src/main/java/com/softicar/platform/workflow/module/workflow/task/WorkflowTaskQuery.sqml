@@ -13,6 +13,7 @@ QUERY WorkflowTaskQuery {
 	SELECT item
 	SELECT task
 	SELECT workflowNode
+	SELECT workflow
 	SELECT delegation.delegatedBy AS delegatedBy
 	SELECT transaction.at AS createdAt
 	
