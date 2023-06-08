@@ -3,7 +3,6 @@ package com.softicar.platform.workflow.module.workflow.transition.execution.auto
 import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.common.core.exceptions.SofticarException;
 import com.softicar.platform.common.core.logging.Log;
-import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.workflow.module.workflow.item.AGWorkflowItem;
 import com.softicar.platform.workflow.module.workflow.task.WorkflowTasksAndDelegationsUpdater;
 import com.softicar.platform.workflow.module.workflow.transition.AGWorkflowTransition;
@@ -21,17 +20,21 @@ import java.util.TreeMap;
 public class WorkflowAutoTransitionsExecutor {
 
 	private static final int DEFAULT_CASCADE_LENGTH_LIMIT = 100;
+	private static final boolean DEFAULT_COLLECT_EXCEPTIONS = true;
 
 	private final ExceptionsCollector exceptionsCollector;
 	private final Map<AGWorkflowItem, Integer> cascadeLengthMap;
 	private final WorkflowAutoTransitionsLoader autoTransitionsLoader;
-	private int cascadeLengthLimit = DEFAULT_CASCADE_LENGTH_LIMIT;
+	private int cascadeLengthLimit;
+	private boolean collectExceptions;
 
 	public WorkflowAutoTransitionsExecutor() {
 
 		this.exceptionsCollector = new ExceptionsCollector();
 		this.cascadeLengthMap = new TreeMap<>();
 		this.autoTransitionsLoader = new WorkflowAutoTransitionsLoader();
+		this.cascadeLengthLimit = DEFAULT_CASCADE_LENGTH_LIMIT;
+		this.collectExceptions = DEFAULT_COLLECT_EXCEPTIONS;
 	}
 
 	/**
@@ -61,6 +64,20 @@ public class WorkflowAutoTransitionsExecutor {
 	public WorkflowAutoTransitionsExecutor setCascadeLengthLimit(int cascadeLengthLimit) {
 
 		this.cascadeLengthLimit = cascadeLengthLimit;
+		return this;
+	}
+
+	/**
+	 * Specifies if exceptions should be collected.
+	 * <p>
+	 * Note that the default value is {@value #DEFAULT_COLLECT_EXCEPTIONS}.
+	 *
+	 * @param value
+	 * @return this
+	 */
+	public WorkflowAutoTransitionsExecutor setCollectExceptions(boolean value) {
+
+		this.collectExceptions = value;
 		return this;
 	}
 
@@ -135,7 +152,7 @@ public class WorkflowAutoTransitionsExecutor {
 					result.addOmitted(item);
 				}
 			} catch (Throwable throwable) {
-				if (CurrentUser.get().isSystemUser()) {
+				if (collectExceptions) {
 					Log.fverbose("FAILURE -- see exceptions below");
 					exceptionsCollector.add(new WorkflowAutoTransitionFailedException(throwable, item));
 					result.addFailed(item);
