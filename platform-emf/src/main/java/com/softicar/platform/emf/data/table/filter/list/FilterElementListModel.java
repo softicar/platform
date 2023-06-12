@@ -9,7 +9,7 @@ class FilterElementListModel<R> {
 
 	public FilterElementListModel() {
 
-		operator = DataTableFilterListOperator.AND;
+		operator = DataTableFilterListOperator.OR;
 		filterElementList = new FilterElementList<>();
 	}
 
