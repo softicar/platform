@@ -5,9 +5,12 @@ import com.softicar.platform.common.container.data.table.IDataTable;
 import com.softicar.platform.common.container.data.table.IDataTableColumn;
 import com.softicar.platform.common.container.data.table.IDataTableFilterList;
 import com.softicar.platform.common.container.data.table.IDataTableSorterList;
+import com.softicar.platform.common.core.utils.CastUtils;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Abstract implementation of memory based {@link IDataTable}.
@@ -96,6 +99,8 @@ public abstract class AbstractInMemoryDataTable<R> implements IDataTable<R> {
 		rowProvider.invalidateCaches();
 	}
 
+	// -------------------- columns -------------------- //
+
 	/**
 	 * Initiates the creation of a new table column.
 	 *
@@ -106,6 +111,18 @@ public abstract class AbstractInMemoryDataTable<R> implements IDataTable<R> {
 	public <V> InMemoryDataTableColumnBuilder<R, V>.GetterSetter newColumn(Class<V> valueClass) {
 
 		return tableStructure.newColumn(valueClass);
+	}
+
+	@SuppressWarnings("unused")
+	public <V> InMemoryDataTableColumnBuilder<R, Collection<V>>.GetterSetter newCollectionColumn(Class<V> elementClass) {
+
+		return CastUtils.cast(newColumn(Collection.class));
+	}
+
+	@SuppressWarnings("unused")
+	public <V> InMemoryDataTableColumnBuilder<R, Set<V>>.GetterSetter newSetColumn(Class<V> elementClass) {
+
+		return CastUtils.cast(newColumn(Set.class));
 	}
 
 	// -------------------- protected -------------------- //
