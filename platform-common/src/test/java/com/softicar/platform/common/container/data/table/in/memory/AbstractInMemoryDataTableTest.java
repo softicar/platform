@@ -4,6 +4,7 @@ import com.softicar.platform.common.container.data.table.DataTableIdentifier;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import org.junit.Test;
@@ -50,6 +51,14 @@ public class AbstractInMemoryDataTableTest extends AbstractTest {
 			newColumn(String.class)//
 				.setGetter(it -> it)
 				.setTitle(IDisplayString.create("Foo"))
+				.addColumn();
+			newCollectionColumn(String.class)//
+				.setGetter(it -> List.of(it))
+				.setTitle(IDisplayString.create("Bar"))
+				.addColumn();
+			newSetColumn(String.class)//
+				.setGetter(it -> Set.of(it))
+				.setTitle(IDisplayString.create("Baz"))
 				.addColumn();
 		}
 
