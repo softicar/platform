@@ -52,21 +52,13 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 		this.primaryHeaderRow = new EmfDataTableHeaderRow<>(this);
 		this.footerRows = createFooterRows(config);
 
-		setPostPagingHook(controller);
-
-		appendHeaderRows();
-		refreshHeaderRows();
-
-		refreshBody();
-
-		appendFooterRows();
-		refreshFooterRows();
-
 		addCssClass(EmfCssClasses.EMF_DATA_TABLE);
 
-		addDeferredInitializer(controller::restorePersistentTableConfiguration);
+		appendHeaderRows();
+		appendFooterRows();
 
-		refresh();
+		setPostPagingHook(controller);
+		addDeferredInitializer(controller::restoreTableConfigurationAndRefresh);
 	}
 
 	@Override
