@@ -72,7 +72,7 @@ public class EmfDataTablePrimaryHeaderVisualizationTest extends AbstractEmfDataT
 
 		builder.setColumnTitle(getDataTable().getIntegerColumn(), "foo");
 		builder.setHidden(getDataTable().getLongColumn(), true);
-		return setNode(builder.build());
+		return appendNodeUnderTest(builder.build());
 	}
 
 	private void executeAssertions(IEmfDataTableDiv<TestTableRow> dataTableDiv) {

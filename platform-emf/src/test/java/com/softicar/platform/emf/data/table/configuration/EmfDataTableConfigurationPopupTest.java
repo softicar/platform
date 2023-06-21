@@ -27,7 +27,7 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 	public EmfDataTableConfigurationPopupTest() {
 
 		this.dataTable = new TestTable();
-		setNodeSupplier(new EmfDataTableDivBuilder<>(dataTable)::build);
+		setNodeSupplier(() -> new EmfDataTableDivBuilder<>(dataTable).build());
 
 		this.interactor = new EmfDataTableConfigurationPopupTestInteractor(this);
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, EmfTestMarker.DATA_TABLE);

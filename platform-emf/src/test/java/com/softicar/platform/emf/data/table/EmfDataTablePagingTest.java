@@ -31,7 +31,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 	@Test
 	public void testPagingWithNextPageButton() {
 
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
+		IEmfDataTableDiv<TestTableRow> dataTableDiv = appendNodeUnderTest(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
 		clickNextPageButton();
@@ -41,7 +41,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 	@Test
 	public void testPagingWithPrevPageButton() {
 
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
+		IEmfDataTableDiv<TestTableRow> dataTableDiv = appendNodeUnderTest(builder.build());
 		dataTableDiv.setCurrentPage(1);
 
 		assertSecondPageDisplayed(dataTableDiv);
@@ -52,7 +52,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 	@Test
 	public void testPagingWithPageNumberButton() {
 
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
+		IEmfDataTableDiv<TestTableRow> dataTableDiv = appendNodeUnderTest(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
 		clickPageNumberButton(1);
@@ -65,7 +65,7 @@ public class EmfDataTablePagingTest extends AbstractEmfDataTableTest {
 		final int pageSize = 18;
 
 		builder.setPageSize(pageSize);
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
+		IEmfDataTableDiv<TestTableRow> dataTableDiv = appendNodeUnderTest(builder.build());
 
 		assertFirstPageDisplayed(dataTableDiv);
 		clickEllipsisButton();

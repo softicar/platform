@@ -28,7 +28,7 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 	@Test
 	public void testVisualizationWithEmptyTable() {
 
-		setNodeSupplier(createDataTableDivBuilder(ArrayList::new)::build);
+		appendNodeUnderTest(createDataTableDivBuilder(ArrayList::new).build());
 
 		findNodes(EmfTestMarker.DATA_TABLE_TABLE_DIV)//
 			.assertOne()
@@ -46,7 +46,7 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 		EmfDataTableDivBuilder<TestTableRow> builder = createDataTableDivBuilder(rowSupplier);
 		builder.setHidden(getDataTable().getLongColumn(), true);
 		IEmfDataTableDiv<TestTableRow> dataTableDiv = builder.build();
-		setNodeSupplier(() -> dataTableDiv);
+		appendNodeUnderTest(dataTableDiv);
 
 		assertRowValues(rowSupplier, dataTableDiv);
 	}
@@ -59,7 +59,7 @@ public class EmfDataTableBodyVisualizationTest extends AbstractEmfDataTableTest 
 		builder.setHidden(getDataTable().getLongColumn(), true);
 		builder.setRowSelectionMode(EmfDataTableRowSelectionMode.MULTI);
 		IEmfDataTableDiv<TestTableRow> dataTableDiv = builder.build();
-		setNodeSupplier(() -> dataTableDiv);
+		appendNodeUnderTest(dataTableDiv);
 
 		assertRowValues(rowSupplier, dataTableDiv);
 	}
