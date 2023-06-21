@@ -7,6 +7,7 @@ import com.softicar.platform.dom.DomImages;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomEnumSelect;
 import com.softicar.platform.dom.elements.button.DomButton;
+import com.softicar.platform.dom.elements.checkbox.DomCheckbox;
 import com.softicar.platform.dom.elements.select.value.simple.DomSimpleValueSelect;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -15,13 +16,10 @@ import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
 import com.softicar.platform.emf.data.table.EmfDataTableI18n;
-import com.softicar.platform.emf.data.table.IEmfDataTable;
 import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableNonSortableNonFilterableColumnHandler;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,42 +33,24 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 
 		this.model = model;
 
-		var selectedColumns = model.getSelectedColumns();
-
 		var table = new EmfDataTableConfigurationTable<>(this::getConfigurationRows);
 		var tableDiv = new EmfDataTableDivBuilder<>(table)//
+			.setColumnHandler(table.getSelectionColumn(), new SelectionHandler())
 			.setColumnHandler(table.getPositionColumn(), new PositionHandler())
 			.setColumnHandler(table.getTitleColumn(), new TitleHandler())
 			.setColumnHandler(table.getOrderingColumn(), new OrderHandler())
-			.setRowSelectionModeMulti()
 			.setHideNavigation(true)
 			.setPageSize(model.getColumns().size())
-			.setRowSelectionCallback(this::handleRowSelection)
 			.addTableMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE)
 			.addTableDivMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_TABLE_DIV)
 			.build();
 		this.tableDiv = appendChild(tableDiv);
 
-		selectColumns(selectedColumns);
 	}
 
 	public void refreshTable() {
 
-		var selectedColumns = model.getSelectedColumns();
 		tableDiv.refresh();
-		selectColumns(selectedColumns);
-	}
-
-	private void selectColumns(Collection<IDataTableColumn<R, ?>> columns) {
-
-		this.tableDiv//
-			.getDisplayedTableRows()
-			.stream()
-			// This is inefficient because the row-selection callback will fire for each selected row,
-			// while in fact we only need it to fire once (after all desired rows were selected).
-			// To improve this, we'd need to implement burst-selection of rows.
-			// Yet, this probably does not matter in practice, since we won't configure tables with thousands of columns, or so.
-			.forEach(row -> row.setSelected(columns.contains(row.getDataRow().getColumn()), true));
 	}
 
 	private ArrayList<EmfDataTableConfigurationTableRow<R>> getConfigurationRows() {
@@ -83,15 +63,24 @@ class EmfDataTableConfigurationTableDiv<R> extends DomDiv {
 		return rows;
 	}
 
-	private void handleRowSelection(IEmfDataTable<EmfDataTableConfigurationTableRow<R>> dataTable) {
+	private class SelectionHandler extends EmfDataTableNonSortableNonFilterableColumnHandler<EmfDataTableConfigurationTableRow<R>, Object> {
 
-		List<IDataTableColumn<R, ?>> selectedColumns = dataTable//
-			.getController()
-			.getSelectedRows()
-			.stream()
-			.map(EmfDataTableConfigurationTableRow::getColumn)
-			.collect(Collectors.toList());
-		model.select(selectedColumns);
+		@Override
+		public void buildCell(IEmfDataTableCell<EmfDataTableConfigurationTableRow<R>, Object> cell, EmfDataTableConfigurationTableRow<R> row) {
+
+			cell.appendChild(new SelectionCheckbox(row.getColumn()));
+		}
+
+		private class SelectionCheckbox extends DomCheckbox {
+
+			public SelectionCheckbox(IDataTableColumn<R, ?> column) {
+
+				super(model.isSelected(column));
+
+				addMarker(EmfTestMarker.DATA_TABLE_CONFIGURATION_SELECTION_CHECKBOX);
+				addChangeCallback(() -> model.setSelected(column, isChecked()));
+			}
+		}
 	}
 
 	private class PositionHandler extends EmfDataTableNonSortableNonFilterableColumnHandler<EmfDataTableConfigurationTableRow<R>, Object> {

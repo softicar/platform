@@ -40,7 +40,7 @@ public class EmfDataTableConfigurationPopupAsserter {
 
 		this.row = rows.get().get(index);
 		row//
-			.findCheckbox(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX)
+			.findCheckbox(EmfTestMarker.DATA_TABLE_CONFIGURATION_SELECTION_CHECKBOX)
 			.assertChecked(checked);
 		row//
 			.findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_TITLE_CELL)

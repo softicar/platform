@@ -10,12 +10,10 @@ import com.softicar.platform.emf.data.table.IEmfDataTableController;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.util.ListShifter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -111,18 +109,31 @@ public class EmfDataTableConfigurationModel<R> {
 	}
 
 	/**
-	 * Returns the currently selected columns.
+	 * Returns whether the given column is selected.
 	 *
-	 * @return the selected columns (never <i>null</i>)
+	 * @return <i>true</i> if column is selected; <i>false</i> otherwise
 	 */
-	public Collection<IDataTableColumn<R, ?>> getSelectedColumns() {
+	public boolean isSelected(IDataTableColumn<R, ?> column) {
 
-		return stateMap//
-			.entrySet()
-			.stream()
-			.filter(entry -> entry.getValue().isSelected())
-			.map(Entry::getKey)
-			.collect(Collectors.toList());
+		return Optional//
+			.ofNullable(stateMap.get(column))
+			.map(ColumnState::isSelected)
+			.orElse(true);
+	}
+
+	/**
+	 * Defines if the given column is selected.
+	 *
+	 * @param column
+	 *            the column to toggle (never <i>null</i>)
+	 * @param selected
+	 *            <i>true</i> to select the column; <i>false</i> otherwise
+	 */
+	public void setSelected(IDataTableColumn<R, ?> column, boolean selected) {
+
+		Optional//
+			.ofNullable(stateMap.get(column))
+			.ifPresent(state -> state.setSelected(selected));
 	}
 
 	/**
@@ -179,19 +190,6 @@ public class EmfDataTableConfigurationModel<R> {
 			targetIndex = Clamping.clamp(0, columnList.size() - 1, targetIndex);
 			ListShifter.shiftList(columnList, currentIndex, targetIndex);
 		}
-	}
-
-	/**
-	 * Selects the given columns.
-	 *
-	 * @param selectedColumns
-	 *            the columns to select (never <i>null</i>)
-	 */
-	public void select(Collection<IDataTableColumn<R, ?>> selectedColumns) {
-
-		Objects.requireNonNull(selectedColumns);
-		stateMap.values().forEach(state -> state.setSelected(false));
-		selectedColumns.stream().map(stateMap::get).forEach(state -> state.setSelected(true));
 	}
 
 	/**

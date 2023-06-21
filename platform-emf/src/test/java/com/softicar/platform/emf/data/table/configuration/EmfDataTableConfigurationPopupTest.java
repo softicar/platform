@@ -174,66 +174,6 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 	}
 
 	@Test
-	public void testHideSomeColumnsAndInvert() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionInvert()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("ID", "Amount");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(true, "ID")
-			.assertRow(false, "Name")
-			.assertRow(true, "Amount")
-			.assertRow(false, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
-	public void testHideSomeColumnsAndSelectAll() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionAll()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("ID", "Name", "Amount", "Day");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(true, "ID")
-			.assertRow(true, "Name")
-			.assertRow(true, "Amount")
-			.assertRow(true, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
-	public void testHideSomeColumnsAndSelectNone() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionNone()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(false, "ID")
-			.assertRow(false, "Name")
-			.assertRow(false, "Amount")
-			.assertRow(false, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
 	public void testHideAllColumns() {
 
 		interactor//
