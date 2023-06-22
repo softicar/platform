@@ -397,7 +397,7 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	}
 
 	@Override
-	public void restoreTableConfigurationAndRefresh() {
+	public void restorePersistentTableConfigurationAndRefresh() {
 
 		var restored = new EmfPersistentTableConfigurationRestorer<>(this).restore();
 		if (!restored) {

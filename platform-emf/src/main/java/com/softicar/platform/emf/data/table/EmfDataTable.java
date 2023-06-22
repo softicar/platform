@@ -58,7 +58,7 @@ class EmfDataTable<R> extends DomPageableTable implements IEmfDataTable<R>, ITab
 		appendFooterRows();
 
 		setPostPagingHook(controller);
-		addDeferredInitializer(controller::restoreTableConfigurationAndRefresh);
+		addDeferredInitializer(controller::restorePersistentTableConfigurationAndRefresh);
 	}
 
 	@Override
