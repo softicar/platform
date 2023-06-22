@@ -12,6 +12,7 @@ public class AbstractTransientOptionalFieldTest extends TransientFieldTestBase {
 	private static final Optional<String> EMPTY = Optional.empty();
 	private static final Optional<String> X = Optional.of("X");
 	private static final Optional<String> Y = Optional.of("Y");
+	private static final Optional<String> Z = Optional.of("Z");
 	private final TransientOptionalField field = new TransientOptionalField();
 	private final Map<TestObject, Optional<String>> valuesInStore;
 
@@ -32,6 +33,31 @@ public class AbstractTransientOptionalFieldTest extends TransientFieldTestBase {
 		assertEquals(X, field.getValue(objectA));
 		assertEquals(Y, field.getValue(objectB));
 		assertEquals(EMPTY, field.getValue(objectC));
+	}
+
+	@Test
+	public void testGetValueRetention() {
+
+		// load and cache initial value
+		setOptionalStringValueInStore(objectA, X);
+		assertEquals(X, field.getValue(objectA));
+
+		// change value in store and assume retention of cached value
+		setOptionalStringValueInStore(objectA, Y);
+		assertEquals(X, field.getValue(objectA));
+
+		// trigger data-change flag and assume value is reloaded
+		TestObject.VALUE.setValue(objectA, "something");
+		assertEquals(Y, field.getValue(objectA));
+
+		// retain data-change flag and assume value is reloaded
+		setOptionalStringValueInStore(objectA, Z);
+		assertEquals(Z, field.getValue(objectA));
+
+		// reset change flag and assume retention of cache value
+		TestObject.TABLE.save(objectA);
+		setOptionalStringValueInStore(objectA, X);
+		assertEquals(Z, field.getValue(objectA));
 	}
 
 	private void setOptionalStringValueInStore(TestObject foo, Optional<String> value) {

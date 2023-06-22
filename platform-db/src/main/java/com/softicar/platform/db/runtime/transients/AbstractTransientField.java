@@ -42,7 +42,7 @@ abstract class AbstractTransientField<O extends IDbBasicTableRow<O>, V> extends 
 	public final V getValue(O object) {
 
 		V value = readValueFromCache(object);
-		if (value == null) {
+		if (value == null || object.dataChanged()) {
 			reloadAll(Collections.singleton(object));
 			value = readValueFromCache(object);
 		}

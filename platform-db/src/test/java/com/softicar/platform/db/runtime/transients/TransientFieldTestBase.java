@@ -1,6 +1,7 @@
 package com.softicar.platform.db.runtime.transients;
 
 import com.softicar.platform.db.runtime.field.IDbIdField;
+import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.db.runtime.logic.AbstractDbObject;
 import com.softicar.platform.db.runtime.logic.DbObjectTable;
 import com.softicar.platform.db.runtime.logic.IDbObjectTable;
@@ -30,8 +31,10 @@ public class TransientFieldTestBase extends AbstractDbTest {
 
 		private static final DbObjectTableBuilder<TestObject, TestObject> BUILDER = new DbObjectTableBuilder<>("db", "foo", TestObject::new, TestObject.class);
 		public static final IDbIdField<TestObject> ID = BUILDER.addIdField("id", o -> o.id, (o, v) -> o.id = v);
+		public static final IDbStringField<TestObject> VALUE = BUILDER.addStringField("value", o -> o.value, (o, v) -> o.value = v);
 		public static final TestObjectTable TABLE = new TestObjectTable(BUILDER);
 		private Integer id;
+		private String value;
 
 		@Override
 		public IDbObjectTable<TestObject> table() {
