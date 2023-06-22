@@ -64,7 +64,7 @@ public class EmfDataTableConfigurationPopupTestInteractor {
 
 	public EmfDataTableConfigurationPopupTestInteractor toggle(String expectedTextInRow) {
 
-		getRow(expectedTextInRow).findNode(EmfTestMarker.DATA_TABLE_ROW_SELECTION_CHECKBOX).click();
+		getRow(expectedTextInRow).findNode(EmfTestMarker.DATA_TABLE_CONFIGURATION_SELECTION_CHECKBOX).click();
 		return this;
 	}
 

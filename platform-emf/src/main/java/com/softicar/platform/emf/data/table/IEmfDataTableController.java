@@ -169,5 +169,5 @@ public interface IEmfDataTableController<R> extends IPostPagingHook {
 
 	void savePersistentTableConfiguration();
 
-	void restorePersistentTableConfiguration();
+	void restorePersistentTableConfigurationAndRefresh();
 }

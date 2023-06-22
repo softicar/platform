@@ -32,7 +32,11 @@ public class EmfDataTableMultiRowSelectionMultiPageTest extends AbstractEmfDataT
 
 	public EmfDataTableMultiRowSelectionMultiPageTest() {
 
-		dataTableDiv = setNode(createDataTableDivBuilder(() -> rows).setPageSize(PAGE_SIZE).setRowSelectionMode(EmfDataTableRowSelectionMode.MULTI).build());
+		dataTableDiv = appendNodeUnderTest(
+			createDataTableDivBuilder(() -> rows)//
+				.setPageSize(PAGE_SIZE)
+				.setRowSelectionMode(EmfDataTableRowSelectionMode.MULTI)
+				.build());
 	}
 
 	@Test

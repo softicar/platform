@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class EmfPersistentTableConfigurationRestorer<R> {
 
 	private final IEmfDataTableController<R> controller;
+	private boolean restored;
 
 	/**
 	 * Constructs a new {@link EmfPersistentTableConfigurationRestorer} that
@@ -33,13 +34,16 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 	public EmfPersistentTableConfigurationRestorer(IEmfDataTableController<R> controller) {
 
 		this.controller = Objects.requireNonNull(controller);
+		this.restored = false;
 	}
 
 	/**
 	 * Loads a persistently-saved column configuration, and restores it by
 	 * applying it to the {@link IEmfDataTableController}.
+	 *
+	 * @return <i>true</i> if configuration was restored; <i>false</i> otherwise
 	 */
-	public void restore() {
+	public boolean restore() {
 
 		var identifier = controller.getDataTable().getIdentifier();
 		if (identifier.isPresent()) {
@@ -48,6 +52,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 				.loadPersistentTableConfiguration(controller.getEmfDataTablePath(), new EmfDataTableColumnTitlesHasher(controller))
 				.ifPresent(this::apply);
 		}
+		return restored;
 	}
 
 	private void apply(EmfPersistentTableConfiguration configuration) {
@@ -56,6 +61,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 		applyHiddenColumnIndexes(configuration);
 		applyColumnOrderBys(configuration);
 		applyPageSize(configuration);
+		this.restored = true;
 	}
 
 	private void applyColumnPositions(EmfPersistentTableConfiguration configuration) {

@@ -78,6 +78,19 @@ public interface IDomTestExecutionEngineMethods extends IDomNodeTesterFindMethod
 	}
 
 	/**
+	 * Appends the node-under-test to the test document.
+	 *
+	 * @param node
+	 *            the node to test (never <i>null</i>)
+	 */
+	default <T extends IDomNode> T appendNodeUnderTest(T node) {
+
+		setNodeSupplier(() -> node);
+		getEngine().getBodyNode();
+		return node;
+	}
+
+	/**
 	 * Specifies a {@link Supplier} that provides the node-under-test.
 	 *
 	 * @param nodeSupplier

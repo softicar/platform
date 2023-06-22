@@ -94,7 +94,7 @@ public class EmfDataTableNavigationVisualizationTest extends AbstractEmfDataTabl
 	private void assertEllipsisRendering(int totalRowCount, int pageSize, int targetPageIndex, int expectedNumberOfEllipsis) {
 
 		EmfDataTableDivBuilder<TestTableRow> builder = createDataTableDivBuilder(new TestTableGeneratedRowSupplier(totalRowCount)).setPageSize(pageSize);
-		IEmfDataTableDiv<TestTableRow> dataTableDiv = setNode(builder.build());
+		IEmfDataTableDiv<TestTableRow> dataTableDiv = appendNodeUnderTest(builder.build());
 		dataTableDiv.setCurrentPage(targetPageIndex);
 		for (DomNodeTester navigation: getAndAssertOneNavigationElement()) {
 			assertNavigationLayoutMultiPage(navigation, dataTableDiv);

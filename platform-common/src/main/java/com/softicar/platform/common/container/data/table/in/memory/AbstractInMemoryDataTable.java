@@ -52,7 +52,7 @@ public abstract class AbstractInMemoryDataTable<R> implements IDataTable<R> {
 	// -------------------- IDataTable -------------------- //
 
 	@Override
-	public List<? extends IDataTableColumn<R, ?>> getTableColumns() {
+	public List<IDataTableColumn<R, ?>> getTableColumns() {
 
 		return tableStructure.getTableColumns();
 	}

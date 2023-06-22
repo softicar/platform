@@ -27,7 +27,7 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 	public EmfDataTableConfigurationPopupTest() {
 
 		this.dataTable = new TestTable();
-		setNodeSupplier(new EmfDataTableDivBuilder<>(dataTable)::build);
+		setNodeSupplier(() -> new EmfDataTableDivBuilder<>(dataTable).build());
 
 		this.interactor = new EmfDataTableConfigurationPopupTestInteractor(this);
 		this.tableAsserter = new EmfDataTableConfigurationTableAsserter(this, EmfTestMarker.DATA_TABLE);
@@ -170,66 +170,6 @@ public class EmfDataTableConfigurationPopupTest extends AbstractEmfTest {
 			.assertRow(true, "Name")
 			.assertRow(false, "Amount")
 			.assertRow(true, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
-	public void testHideSomeColumnsAndInvert() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionInvert()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("ID", "Amount");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(true, "ID")
-			.assertRow(false, "Name")
-			.assertRow(true, "Amount")
-			.assertRow(false, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
-	public void testHideSomeColumnsAndSelectAll() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionAll()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("ID", "Name", "Amount", "Day");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(true, "ID")
-			.assertRow(true, "Name")
-			.assertRow(true, "Amount")
-			.assertRow(true, "Day")
-			.assertNoMoreRows();
-	}
-
-	@Test
-	public void testHideSomeColumnsAndSelectNone() {
-
-		interactor//
-			.openConfiguration()
-			.toggle("ID")
-			.toggle("Amount")
-			.clickRowSelectionNone()
-			.clickApply();
-		tableAsserter.assertDisplayedColumns("");
-
-		interactor.openConfiguration();
-		popupAsserter//
-			.assertRow(false, "ID")
-			.assertRow(false, "Name")
-			.assertRow(false, "Amount")
-			.assertRow(false, "Day")
 			.assertNoMoreRows();
 	}
 
