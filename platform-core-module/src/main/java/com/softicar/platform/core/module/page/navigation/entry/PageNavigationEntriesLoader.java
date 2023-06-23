@@ -42,7 +42,10 @@ public class PageNavigationEntriesLoader<I extends IEmfModuleInstance<I>> {
 
 	private void loadEntriesForModule(IEmfModule<I> module) {
 
-		for (I moduleInstance: module.getActiveModuleInstances()) {
+		var activeModuleInstances = module.getActiveModuleInstances();
+		module.prefetchPageLinkGenerationData(activeModuleInstances);
+
+		for (I moduleInstance: activeModuleInstances) {
 			EmfPagePath moduleFolderPath = module.getDefaultPagePath(moduleInstance);
 			for (IEmfPage<I> page: EmfPages.getPages(module)) {
 				if (isAccessGranted(page, moduleInstance)) {
