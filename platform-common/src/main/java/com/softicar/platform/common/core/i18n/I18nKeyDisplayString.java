@@ -35,6 +35,6 @@ class I18nKeyDisplayString implements IDisplayString {
 
 	private String getFallbackTranslation() {
 
-		return InternalI18nTranslator.translate(key.toEnglish(), arguments);
+		return InternalI18nTranslator.translate(key.getDefault(), arguments);
 	}
 }
