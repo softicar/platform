@@ -24,7 +24,7 @@ import java.util.Optional;
 class I18nKeyContainerFieldValueValidator extends AbstractConstantContainerFieldValueValidator<II18nKey> {
 
 	private final Collection<LanguageEnum> mandatoryLanguages;
-	private String englishString;
+	private String defaultEnglishString;
 	private int formatSpecifierCount;
 	private ConstantContainerValidatorResult<II18nKey> result;
 	private II18nKey fieldValue;
@@ -41,8 +41,8 @@ class I18nKeyContainerFieldValueValidator extends AbstractConstantContainerField
 		this.result = result;
 		this.fieldValue = fieldValue;
 
-		this.englishString = fieldValue.toEnglish();
-		this.formatSpecifierCount = new I18nKeyComputer(englishString).computeArgumentCount();
+		this.defaultEnglishString = fieldValue.getDefault();
+		this.formatSpecifierCount = new I18nKeyComputer(defaultEnglishString).computeArgumentCount();
 
 		validateEnglishString();
 		validateMandatoryTranslations();
@@ -53,12 +53,12 @@ class I18nKeyContainerFieldValueValidator extends AbstractConstantContainerField
 
 	private void validateEnglishString() {
 
-		if (englishString.isEmpty()) {
-			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "English string is empty."));
-		} else if (!englishString.trim().equals(englishString)) {
-			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "English string has leading or trailing whitespace."));
-		} else if (isMoreThanOneSentence(englishString)) {
-			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "English string contains more than one sentence."));
+		if (defaultEnglishString.isEmpty()) {
+			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "Default English string is empty."));
+		} else if (!defaultEnglishString.trim().equals(defaultEnglishString)) {
+			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "Default English string has leading or trailing whitespace."));
+		} else if (isMoreThanOneSentence(defaultEnglishString)) {
+			result.addError(new I18nKeyContainerFieldIllegalEnglishStringError(field, "Default English string contains more than one sentence."));
 		}
 	}
 
@@ -109,7 +109,7 @@ class I18nKeyContainerFieldValueValidator extends AbstractConstantContainerField
 
 	private void validateFieldName() {
 
-		String expectedName = new I18nKeyComputer(englishString).compute();
+		String expectedName = new I18nKeyComputer(defaultEnglishString).compute();
 		if (!field.getName().equals(expectedName)) {
 			result.addError(new ConstantContainerFieldUnexpectedNameError<>(field, expectedName));
 		}

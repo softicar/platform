@@ -16,6 +16,13 @@ import java.util.Optional;
 public interface II18nKey {
 
 	/**
+	 * Returns the default {@link String} of this {@link II18nKey}.
+	 *
+	 * @return the default {@link String} (never null)
+	 */
+	String getDefault();
+
+	/**
 	 * Returns the English {@link String} of this {@link II18nKey}.
 	 *
 	 * @return the English {@link String} (never null)

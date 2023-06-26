@@ -19,6 +19,8 @@ public abstract class AbstractI18nKey<T extends AbstractI18nKey<T>> implements I
 
 	private final Map<LanguageEnum, String> texts;
 
+	private final String defaultEnglish;
+
 	/**
 	 * Constructs this object with the English text as key.
 	 *
@@ -28,7 +30,14 @@ public abstract class AbstractI18nKey<T extends AbstractI18nKey<T>> implements I
 	protected AbstractI18nKey(String english) {
 
 		this.texts = new HashMap<>();
+		this.defaultEnglish = english;
 		put(LanguageEnum.ENGLISH, english);
+	}
+
+	@Override
+	public String getDefault() {
+
+		return defaultEnglish;
 	}
 
 	@Override
@@ -58,6 +67,18 @@ public abstract class AbstractI18nKey<T extends AbstractI18nKey<T>> implements I
 	public String toString() {
 
 		return toEnglish();
+	}
+
+	/**
+	 * Overwrites the English text.
+	 *
+	 * @param english
+	 *            the new English text (never <i>null</i>)
+	 * @return this
+	 */
+	public T en(String english) {
+
+		return put(LanguageEnum.ENGLISH, english);
 	}
 
 	/**
