@@ -6,7 +6,7 @@ TABLE AGDemoPerson 'Demo.DemoPerson' {
 	AGDemoPersonModuleInstance moduleInstance
 	String firstName
 	String lastName
-	Integer identityCardNumber
+	Integer identityCardNumber = NULL [NULLABLE]
 	Day birthDate = NULL [NULLABLE]
 
 	UK moduleInstance identityCardNumber

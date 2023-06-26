@@ -2,7 +2,9 @@ package com.softicar.platform.emf.data.table.filter.value;
 
 import com.softicar.platform.common.container.data.table.DataTableValueFilterOperator;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
+import com.softicar.platform.dom.elements.DomSpan;
 import com.softicar.platform.dom.input.IDomValueInput;
+import com.softicar.platform.dom.node.IDomNode;
 import com.softicar.platform.emf.EmfTestMarker;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.AbstractEmfDataTableMultiTypeFilterDiv;
@@ -16,6 +18,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	private final IEmfDataTableColumn<R, T> column;
 	private final EmfDataTableValueFilterOperatorSelect filterOperatorSelect;
 	private final IDomValueInput<T> valueFilterInput;
+	private final DomSpan dummyInput;
 
 	public EmfDataTableValueFilterNode(IEmfDataTableColumn<R, T> column, Supplier<IDomValueInput<T>> inputFactory) {
 
@@ -23,7 +26,7 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 		this.filterOperatorSelect = new EmfDataTableValueFilterOperatorSelect(this);
 		this.valueFilterInput = inputFactory.get();
 		this.valueFilterInput.addMarker(EmfTestMarker.DATA_TABLE_FILTER_INPUT_VALUE);
-
+		this.dummyInput = new DomSpan();
 		refresh();
 	}
 
@@ -31,6 +34,16 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	public IEmfDataTableFilter<R> createFilter() {
 
 		DataTableValueFilterOperator filterOperator = filterOperatorSelect.getSelectedValue();
+
+		return switch (filterOperator) {
+		case EMPTY -> new EmfDataTableEmptyValueFilter<>(column.getDataColumn(), new Resetter(filterOperator, null));
+		case NOT_EMPTY -> new EmfDataTableNotEmptyValueFilter<>(column.getDataColumn(), new Resetter(filterOperator, null));
+		default -> createFilter(filterOperator);
+		};
+	}
+
+	private IEmfDataTableFilter<R> createFilter(DataTableValueFilterOperator filterOperator) {
+
 		T filterValue = valueFilterInput.getValue().orElse(null);
 		Resetter resetter = new Resetter(filterOperator, filterValue);
 
@@ -48,9 +61,13 @@ public class EmfDataTableValueFilterNode<R, T> extends AbstractEmfDataTableMulti
 	}
 
 	@Override
-	public IDomValueInput<T> getFilterInput(DataTableValueFilterOperator filterType) {
+	public IDomNode getFilterInput(DataTableValueFilterOperator filterType) {
 
-		return valueFilterInput;
+		return switch (filterType) {
+		case EMPTY -> dummyInput;
+		case NOT_EMPTY -> dummyInput;
+		default -> valueFilterInput;
+		};
 	}
 
 	private class Resetter implements INullaryVoidFunction {
