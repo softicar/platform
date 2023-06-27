@@ -128,7 +128,7 @@ public class WorkflowItemMessageRowsLoader {
 
 		return createTransitionRow(//
 			transitionExecution.getWorkflowTransition().getSourceNode(),
-			transitionExecution.getTransaction());
+			transitionExecution.getTransaction()).setIsAutoTransitionMessage(true);
 	}
 
 	private WorkflowItemMessageRow createTransitionRow(AGWorkflowNode targetNode, AGTransaction transaction) {

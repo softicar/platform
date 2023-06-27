@@ -2,6 +2,7 @@ package com.softicar.platform.workflow.module.workflow.item.message;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.transaction.AGTransaction;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.workflow.module.workflow.item.message.severity.AGWorkflowMessageSeverity;
@@ -12,12 +13,14 @@ import java.util.Optional;
 
 public class WorkflowItemMessageRow implements Comparable<WorkflowItemMessageRow> {
 
+	private final static AGUser SYSTEM_USER = AGCoreModuleInstance.getInstance().getSystemUser();
 	private final String text;
 	private final AGWorkflowMessageSeverity severity;
 	private final AGTransaction transaction;
 	private AGWorkflowNode workflowNode;
 	private boolean transition;
 	private Integer index;
+	private boolean isAutoTransitionMessage;
 
 	public WorkflowItemMessageRow(IDisplayString text, AGTransaction transaction) {
 
@@ -29,6 +32,7 @@ public class WorkflowItemMessageRow implements Comparable<WorkflowItemMessageRow
 		this.text = text.toString();
 		this.severity = severity;
 		this.transaction = transaction;
+		this.isAutoTransitionMessage = false;
 	}
 
 	public String getText() {
@@ -48,12 +52,21 @@ public class WorkflowItemMessageRow implements Comparable<WorkflowItemMessageRow
 
 	public AGUser getCreatedBy() {
 
+		if (isAutoTransitionMessage) {
+			return SYSTEM_USER;
+		}
 		return transaction.getBy();
 	}
 
 	public AGTransaction getTransaction() {
 
 		return transaction;
+	}
+
+	public WorkflowItemMessageRow setIsAutoTransitionMessage(boolean isAutoTransitionMessage) {
+
+		this.isAutoTransitionMessage = isAutoTransitionMessage;
+		return this;
 	}
 
 	public WorkflowItemMessageRow setWorkflowNode(AGWorkflowNode workflowNode, boolean transition) {
