@@ -12,6 +12,7 @@ import com.softicar.platform.db.runtime.table.logic.DbTableRowLoader;
 import com.softicar.platform.db.runtime.table.logic.save.DbTableRowSaver;
 import com.softicar.platform.db.runtime.utils.DbObjectStringBuilder;
 import com.softicar.platform.db.sql.statement.SqlSelectLock;
+import java.util.Optional;
 
 public abstract class AbstractDbTableRow<R extends AbstractDbTableRow<R, P>, P> implements IDbTableRow<R, P> {
 
@@ -43,6 +44,16 @@ public abstract class AbstractDbTableRow<R extends AbstractDbTableRow<R, P>, P> 
 	protected <V> V getValue(IDbField<R, V> field) {
 
 		return field.getValue(getThis());
+	}
+
+	protected <V> Optional<V> getValueAsOptional(IDbField<R, V> field) {
+
+		return Optional.ofNullable(field.getValue(getThis()));
+	}
+
+	protected <V> V getValueOrThrow(IDbField<R, V> field) {
+
+		return getValueAsOptional(field).orElseThrow(() -> new DbMissingFieldValueException(this, field));
 	}
 
 	protected Integer getValueId(IDbForeignField<R, ?> field) {
