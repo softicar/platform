@@ -35,7 +35,7 @@ public class AGDemoPersonGenerated extends AbstractDbObject<AGDemoPerson> {
 	public static final IDbForeignRowField<AGDemoPerson, AGDemoPersonModuleInstance, AGModuleInstanceBase> MODULE_INSTANCE = BUILDER.addForeignRowField("moduleInstance", o->o.m_moduleInstance, (o,v)->o.m_moduleInstance=v, AGDemoPersonModuleInstance.BASE).setTitle(DemoI18n.MODULE_INSTANCE);
 	public static final IDbStringField<AGDemoPerson> FIRST_NAME = BUILDER.addStringField("firstName", o->o.m_firstName, (o,v)->o.m_firstName=v).setTitle(DemoI18n.FIRST_NAME);
 	public static final IDbStringField<AGDemoPerson> LAST_NAME = BUILDER.addStringField("lastName", o->o.m_lastName, (o,v)->o.m_lastName=v).setTitle(DemoI18n.LAST_NAME);
-	public static final IDbIntegerField<AGDemoPerson> IDENTITY_CARD_NUMBER = BUILDER.addIntegerField("identityCardNumber", o->o.m_identityCardNumber, (o,v)->o.m_identityCardNumber=v).setTitle(DemoI18n.IDENTITY_CARD_NUMBER);
+	public static final IDbIntegerField<AGDemoPerson> IDENTITY_CARD_NUMBER = BUILDER.addIntegerField("identityCardNumber", o->o.m_identityCardNumber, (o,v)->o.m_identityCardNumber=v).setTitle(DemoI18n.IDENTITY_CARD_NUMBER).setNullable().setDefault(null);
 	public static final IDbDayField<AGDemoPerson> BIRTH_DATE = BUILDER.addDayField("birthDate", o->o.m_birthDate, (o,v)->o.m_birthDate=v).setTitle(DemoI18n.BIRTH_DATE).setNullable().setDefault(null);
 	public static final IDbKey<AGDemoPerson> UK_MODULE_INSTANCE_IDENTITY_CARD_NUMBER = BUILDER.addUniqueKey("moduleInstanceIdentityCardNumber", MODULE_INSTANCE, IDENTITY_CARD_NUMBER);
 	public static final AGDemoPersonTable TABLE = new AGDemoPersonTable(BUILDER);
