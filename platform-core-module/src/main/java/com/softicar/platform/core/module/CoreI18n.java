@@ -1510,8 +1510,8 @@ public interface CoreI18n extends EmfI18n {
 	I18n0 MODULE_PANIC_RECEIVERS = new I18n0("Module Panic Receivers")//
 		.de("Modul-Panik-Empfänger")
 		.bs("Primaoci panic poruka u modulu")
-		.sr("Primaoc panic poruka u modulu")
-		.hr("Primaoc panic poruka u modulu");
+		.sr("Primaoci panic poruka u modulu")
+		.hr("Primaoci panic poruka u modulu");
 	I18n0 MODULE_UUID = new I18n0("Module UUID")//
 		.de("Modul-UUID")
 		.bs("UUID modul")
