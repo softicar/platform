@@ -3,6 +3,8 @@ package com.softicar.platform.emf.data.table.filter.list;
 import com.softicar.platform.common.container.data.table.DataTableFilterListOperator;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
+import com.softicar.platform.dom.input.IDomFocusable;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.emf.EmfCssClasses;
 import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
 import com.softicar.platform.emf.data.table.filter.IEmfDataTableFilter;
@@ -80,6 +82,16 @@ public class EmfDataTableFilterListDiv<R> extends DomDiv implements IEmfDataTabl
 			} else {
 				appendChild(new DomActionBar(new FilterElementAddButton(this::addFilterElement)));
 			}
+		}
+
+		focusLastFilterElement(filterElements);
+	}
+
+	private void focusLastFilterElement(List<EmfDataTableFilterListElementDiv<R, ?>> filterElements) {
+
+		if (!filterElements.isEmpty()) {
+			var lastFilterElement = filterElements.get(filterElements.size() - 1);
+			IDomFocusable.focusFirst(IDomTextualInput.class, lastFilterElement);
 		}
 	}
 
