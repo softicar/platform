@@ -1494,24 +1494,24 @@ public interface CoreI18n extends EmfI18n {
 		.hr("Instance modula");
 	I18n0 MODULE_PANIC_RECEIVER = new I18n0("Module Panic Receiver")//
 		.de("Modul-Panik-Empfänger")
-		.bs("Prijemnik modula u panici")
-		.sr("Prijemnik modula u panici")
-		.hr("Prijemnik modula u panici");
+		.bs("Primaoc panic poruka u modulu")
+		.sr("Primaoc panic poruka u modulu")
+		.hr("Primaoc panic poruka u modulu");
 	I18n0 MODULE_PANIC_RECEIVER_LOG = new I18n0("Module Panic Receiver Log")//
 		.de("Modul-Panik-Empfänger-Log")
-		.bs("Zapis prijemnika modula u panici")
-		.sr("Zapis prijemnika modula u panici")
-		.hr("Zapis prijemnika modula u panici");
+		.bs("Zapis primaoca panic poruka u modulu")
+		.sr("Zapis primaoca panic poruka u modulu")
+		.hr("Zapis primaoca panic poruka u modulu");
 	I18n0 MODULE_PANIC_RECEIVER_LOGS = new I18n0("Module Panic Receiver Logs")//
 		.de("Modul-Panik-Empfänger-Logs")
-		.bs("Zapisi prijemnika modula u panici")
-		.sr("Zapisi prijemnika modula u panici")
-		.hr("Zapisi prijemnika modula u panici");
+		.bs("Zapisi primaoca panic poruka u modulu")
+		.sr("Zapisi primaoca panic poruka u modulu")
+		.hr("Zapisi primaoca panic poruka u modulu");
 	I18n0 MODULE_PANIC_RECEIVERS = new I18n0("Module Panic Receivers")//
 		.de("Modul-Panik-Empfänger")
-		.bs("Prijemnici modula u panici")
-		.sr("Prijemnici modula u panici")
-		.hr("Prijemnici modula u panici");
+		.bs("Primaoci panic poruka u modulu")
+		.sr("Primaoc panic poruka u modulu")
+		.hr("Primaoc panic poruka u modulu");
 	I18n0 MODULE_UUID = new I18n0("Module UUID")//
 		.de("Modul-UUID")
 		.bs("UUID modul")
