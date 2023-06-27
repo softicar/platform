@@ -159,6 +159,10 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 }
 
+.PageServiceLoginDiv>form>img {
+	max-width:250px;
+}
+
 .PageServiceLoginMaintenanceDiv {
 	padding-bottom: 5px;
 }
