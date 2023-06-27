@@ -28,6 +28,8 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomInput;
 import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.dom.style.CssPixel;
+import com.softicar.platform.dom.style.CssStyle;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.util.Optional;
 
@@ -85,7 +87,7 @@ public class PageServiceLoginDiv extends DomDiv {
 
 		private void appendLogo(AGStoredFile logoFile) {
 
-			appendChild(new DomImage(new StoredFileResource(logoFile)));
+			appendChild(new DomImage(new StoredFileResource(logoFile)).setStyle(CssStyle.MAX_WIDTH, new CssPixel(250)));
 		}
 
 		private void login() {
