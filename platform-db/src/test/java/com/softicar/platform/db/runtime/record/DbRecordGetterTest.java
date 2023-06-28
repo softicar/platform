@@ -54,6 +54,6 @@ public class DbRecordGetterTest extends AbstractDbRecordTest {
 		record.delete();
 
 		assertTrue(record.impermanent());
-		assertSame(record, DbTestRecord.TABLE.get(new Tuple2<>("foo", 18)));
+		assertNull(DbTestRecord.TABLE.get(new Tuple2<>("foo", 18)));
 	}
 }
