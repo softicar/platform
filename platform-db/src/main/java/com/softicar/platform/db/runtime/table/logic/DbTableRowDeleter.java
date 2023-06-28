@@ -96,6 +96,7 @@ public class DbTableRowDeleter<R extends IDbTableRow<R, P>, P> extends AbstractD
 		if (delete.execute() == 1) {
 			new DbTableRowFlagWriter(row).clearFlags();
 			new DbTableRowFlagWriter(row).setImpermanent(true);
+			new DbTableRowInvalidator<>(row).invalidate();
 		} else {
 			throw new DbException(row, "Tried to delete a non-persistent table row.");
 		}
