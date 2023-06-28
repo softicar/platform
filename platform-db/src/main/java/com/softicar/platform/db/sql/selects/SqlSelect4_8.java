@@ -26,7 +26,7 @@ public final class SqlSelect4_8<T0, T1, T2, T3, V0, V1, V2, V3, V4, V5, V6, V7> 
 
 	public <T4> SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7> join(ISqlTable<T4> table) {
 
-		return _join(new SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7>(other, expression), table, JoinType.JOIN);
+		return _join(new SqlSelect5_8<>(other, expression), table, JoinType.JOIN);
 	}
 
 	public <T4> SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7> join(ISqlForeignRowField<T3, T4, ?> foreignField) {
@@ -81,7 +81,7 @@ public final class SqlSelect4_8<T0, T1, T2, T3, V0, V1, V2, V3, V4, V5, V6, V7> 
 
 	public <T4> SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7> joinLeft(ISqlTable<T4> table) {
 
-		return _join(new SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7>(other, expression), table, JoinType.LEFT_JOIN);
+		return _join(new SqlSelect5_8<>(other, expression), table, JoinType.LEFT_JOIN);
 	}
 
 	public <T4> SqlSelect5_8<T0, T1, T2, T3, T4, V0, V1, V2, V3, V4, V5, V6, V7> joinLeft(ISqlForeignRowField<T3, T4, ?> foreignField) {

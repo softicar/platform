@@ -249,7 +249,7 @@ public abstract class AbstractDomValueSelect<T> extends DomSelect<DomValueOption
 	 */
 	public final void prependNilValue(IDisplayString displayString) {
 
-		nilOption = prependChild(new DomValueOption<T>(null, displayString));
+		nilOption = prependChild(new DomValueOption<>(null, displayString));
 	}
 
 	/**
@@ -260,7 +260,7 @@ public abstract class AbstractDomValueSelect<T> extends DomSelect<DomValueOption
 	 */
 	public final void addNilValue(IDisplayString displayString) {
 
-		nilOption = appendChild(new DomValueOption<T>(null, displayString));
+		nilOption = appendChild(new DomValueOption<>(null, displayString));
 	}
 
 	/**

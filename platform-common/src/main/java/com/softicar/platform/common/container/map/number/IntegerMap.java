@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 /**
  * A {@link NumberMap} for integers.
- * 
+ *
  * @param <K>
  *            the type of the keys
  * @author Oliver Richers
@@ -16,12 +16,12 @@ public class IntegerMap<K> extends NumberMap<K, Integer> {
 
 	public IntegerMap() {
 
-		this(new TreeMap<K, Integer>());
+		this(new TreeMap<>());
 	}
 
 	public IntegerMap(Comparator<K> comparator) {
 
-		this(new TreeMap<K, Integer>(comparator));
+		this(new TreeMap<>(comparator));
 	}
 
 	public IntegerMap(Map<K, Integer> data) {
