@@ -47,6 +47,7 @@ public interface CoreImages extends EmfImages {
 	IResourceSupplier PASSWORD_POLICY = FACTORY.create("password-policy.svg");
 	IResourceSupplier PASSWORD_RESET = FACTORY.create("password-reset.svg");
 	IResourceSupplier QUEUE_REMOVE = FACTORY.create("queue-remove.svg");
+	IResourceSupplier RESET_PASSWORD = FACTORY.create("reset-password.svg");
 	IResourceSupplier SESSION = FACTORY.create("session.svg");
 	IResourceSupplier STORED_FILE = FACTORY.create("stored-file.svg");
 	IResourceSupplier STORED_FILE_DOWNLOAD = FACTORY.create("stored-file-download.svg");

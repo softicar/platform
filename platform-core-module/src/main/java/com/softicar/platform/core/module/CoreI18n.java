@@ -1747,6 +1747,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Molimo unesite neki sadržaj.")
 		.sr("Molimo unesite neki sadržaj.")
 		.hr("Molimo unesite neki sadržaj.");
+	I18n0 PLEASE_ENTER_THE_USER_YOU_WANT_TO_RESET_THE_PASSWORD_FOR = new I18n0("Please enter the user you want to reset the password for.")//
+		.de("Bitte den Benutzer eingeben für den Sie das Passwort zurücksetzen möchten.");
 	I18n0 PLEASE_PRESS_F5_TO_REFRESH = new I18n0("Please press F5 to refresh.")//
 		.de("Bitte drücken Sie F5 zum Aktualisieren.")
 		.bs("Molimo pritisnite F5 za osvježavanje.")
@@ -2693,6 +2695,8 @@ public interface CoreI18n extends EmfI18n {
 		.hr("Lozinka sadrži samo ASCII karaktere.");
 	I18n0 THE_PASSWORD_DOES_NOT_FULFILL_THE_REQUIRED_SECURITY_CRITERIA = new I18n0("The password does not fulfill the required security criteria.")//
 		.de("Das Passwort erfüllt nicht die erforderlichen Sicherheitskriterien.");
+	I18n1 THE_PASSWORD_FOR_USER_ARG1_HAS_BEEN_RESET = new I18n1("The password for user '%s' has been reset.")//
+		.de("Das Password für Benutzer '%s' wurde zurückgesetzt.");
 	I18n2 THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2 = new I18n2("The password for user '%s' is now: %s")//
 		.de("Das Password für Benutzer '%s' lautet jetzt: %s")
 		.bs("Lozinka korisnika '%s' je sada: %s")
