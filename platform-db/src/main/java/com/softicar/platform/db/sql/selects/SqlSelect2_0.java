@@ -47,7 +47,7 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 
 	public <T2> SqlSelect3_0<T0, T1, T2> join(ISqlTable<T2> table) {
 
-		return _join(new SqlSelect3_0<T0, T1, T2>(), table, JoinType.JOIN);
+		return _join(new SqlSelect3_0<>(), table, JoinType.JOIN);
 	}
 
 	public <T2> SqlSelect3_0<T0, T1, T2> join(ISqlForeignRowField<T1, T2, ?> foreignField) {
@@ -82,7 +82,7 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 
 	public <T2> SqlSelect3_0<T0, T1, T2> joinLeft(ISqlTable<T2> table) {
 
-		return _join(new SqlSelect3_0<T0, T1, T2>(), table, JoinType.LEFT_JOIN);
+		return _join(new SqlSelect3_0<>(), table, JoinType.LEFT_JOIN);
 	}
 
 	public <T2> SqlSelect3_0<T0, T1, T2> joinLeft(ISqlForeignRowField<T1, T2, ?> foreignField) {
@@ -174,7 +174,7 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 		public <V> SqlSelect2_1<T0, T1, V> t1(ISqlExpression1<V, T1> expression) { return t1().x(expression); }
 		public SelectChooser1<T0> t0() { return new SelectChooser1<>(this, 0); }
 		public SelectChooser1<T1> t1() { return new SelectChooser1<>(this, 1); }
-		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression0<V> expression) { return addExpression(new SqlSelect2_1<T0, T1, V>(SqlSelect2_0.this, expression), expression); }
+		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression0<V> expression) { return addExpression(new SqlSelect2_1<>(SqlSelect2_0.this, expression), expression); }
 		SelectChooser0() { /* non-public */ }
 	}
 
@@ -184,7 +184,7 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 		public <V> SqlSelect2_1<T0, T1, V> t1(ISqlExpression2<V, E0, T1> expression) { return t1().x(expression); }
 		public SelectChooser2<E0, T0> t0() { return new SelectChooser2<>(this, 0); }
 		public SelectChooser2<E0, T1> t1() { return new SelectChooser2<>(this, 1); }
-		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression1<V, E0> expression) { return addExpression(new SqlSelect2_1<T0, T1, V>(SqlSelect2_0.this, expression), expression); }
+		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression1<V, E0> expression) { return addExpression(new SqlSelect2_1<>(SqlSelect2_0.this, expression), expression); }
 		SelectChooser1(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
@@ -194,7 +194,7 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 		public <V> SqlSelect2_1<T0, T1, V> t1(ISqlExpression3<V, E0, E1, T1> expression) { return t1().x(expression); }
 		public SelectChooser3<E0, E1, T0> t0() { return new SelectChooser3<>(this, 0); }
 		public SelectChooser3<E0, E1, T1> t1() { return new SelectChooser3<>(this, 1); }
-		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression2<V, E0, E1> expression) { return addExpression(new SqlSelect2_1<T0, T1, V>(SqlSelect2_0.this, expression), expression); }
+		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression2<V, E0, E1> expression) { return addExpression(new SqlSelect2_1<>(SqlSelect2_0.this, expression), expression); }
 		SelectChooser2(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
@@ -204,13 +204,13 @@ public final class SqlSelect2_0<T0, T1> extends SqlSelectBase0 implements ISqlSe
 		public <V> SqlSelect2_1<T0, T1, V> t1(ISqlExpression4<V, E0, E1, E2, T1> expression) { return t1().x(expression); }
 		public SelectChooser4<E0, E1, E2, T0> t0() { return new SelectChooser4<>(this, 0); }
 		public SelectChooser4<E0, E1, E2, T1> t1() { return new SelectChooser4<>(this, 1); }
-		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression3<V, E0, E1, E2> expression) { return addExpression(new SqlSelect2_1<T0, T1, V>(SqlSelect2_0.this, expression), expression); }
+		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression3<V, E0, E1, E2> expression) { return addExpression(new SqlSelect2_1<>(SqlSelect2_0.this, expression), expression); }
 		SelectChooser3(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
 	public final class SelectChooser4<E0, E1, E2, E3> extends SelectChooserBase {
 
-		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression4<V, E0, E1, E2, E3> expression) { return addExpression(new SqlSelect2_1<T0, T1, V>(SqlSelect2_0.this, expression), expression); }
+		<V> SqlSelect2_1<T0, T1, V> x(ISqlExpression4<V, E0, E1, E2, E3> expression) { return addExpression(new SqlSelect2_1<>(SqlSelect2_0.this, expression), expression); }
 		SelectChooser4(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 }

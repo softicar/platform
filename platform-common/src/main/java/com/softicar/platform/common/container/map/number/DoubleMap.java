@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 /**
  * A {@link NumberMap} for doubles.
- * 
+ *
  * @param <K>
  *            the type of the keys
  * @author Oliver Richers
@@ -16,12 +16,12 @@ public class DoubleMap<K> extends NumberMap<K, Double> {
 
 	public DoubleMap() {
 
-		this(new TreeMap<K, Double>());
+		this(new TreeMap<>());
 	}
 
 	public DoubleMap(Comparator<K> comparator) {
 
-		this(new TreeMap<K, Double>(comparator));
+		this(new TreeMap<>(comparator));
 	}
 
 	public DoubleMap(Map<K, Double> data) {

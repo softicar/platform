@@ -45,7 +45,7 @@ public class ScExcelFileParser {
 	 */
 	public ScExcelFileParser(File file) {
 
-		this(file, new ArrayList<Integer>());
+		this(file, new ArrayList<>());
 	}
 
 	/**
