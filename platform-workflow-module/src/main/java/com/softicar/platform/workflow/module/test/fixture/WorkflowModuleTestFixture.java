@@ -1,41 +1,26 @@
 package com.softicar.platform.workflow.module.test.fixture;
 
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
-import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
-import com.softicar.platform.emf.table.IEmfTable;
+import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
+import com.softicar.platform.core.module.test.fixture.ITestFixture;
 import com.softicar.platform.workflow.module.AGWorkflowModuleInstance;
 import com.softicar.platform.workflow.module.demo.configuration.WorkflowDemoConfiguration;
 import com.softicar.platform.workflow.module.standard.configuration.WorkflowIconStandardConfiguration;
 
-public class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMethods, IModuleTestFixture<AGWorkflowModuleInstance> {
+public final class WorkflowModuleTestFixture implements WorkflowModuleTestFixtureMethods, ITestFixture {
 
-	private AGWorkflowModuleInstance workflowModuleInstance;
-	private final TestFixtureRegistry registry;
+	private AGWorkflowModuleInstance moduleInstance;
 
-	public WorkflowModuleTestFixture(TestFixtureRegistry registry) {
+	public AGWorkflowModuleInstance getModuleInstance() {
 
-		this.registry = registry;
+		return moduleInstance;
 	}
 
 	@Override
-	public AGWorkflowModuleInstance getInstance() {
+	public void apply() {
 
-		return workflowModuleInstance;
-	}
-
-	@Override
-	public IModuleTestFixture<AGWorkflowModuleInstance> apply() {
-
-		this.workflowModuleInstance = insertWorkflowModuleInstance();
-		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(workflowModuleInstance);
-		new WorkflowIconStandardConfiguration(workflowModuleInstance).createAndSaveAll();
-		new WorkflowDemoConfiguration(workflowModuleInstance, registry.getCoreModuleTestFixture()).createAndSaveAll();
-		return this;
-	}
-
-	@Override
-	public IEmfTable<?, ?, ?> getTable() {
-
-		return AGWorkflowModuleInstance.TABLE;
+		this.moduleInstance = insertWorkflowModuleInstance();
+		use(CoreModuleTestFixture.class).insertStandardPermissionAssignments(moduleInstance);
+		new WorkflowIconStandardConfiguration(moduleInstance).createAndSaveAll();
+		new WorkflowDemoConfiguration(moduleInstance, use(CoreModuleTestFixture.class)).createAndSaveAll();
 	}
 }

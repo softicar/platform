@@ -1,41 +1,24 @@
 package com.softicar.platform.demo.person.module.test.fixtures;
 
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
-import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
-import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
+import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
+import com.softicar.platform.core.module.test.fixture.ITestFixture;
 import com.softicar.platform.demo.core.module.test.fixture.DemoCoreModuleTestFixture;
 import com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance;
-import com.softicar.platform.emf.table.IEmfTable;
 
-public class DemoPersonModuleTestFixture implements DemoPersonModuleTestFixtureMethods, IModuleTestFixture<AGDemoPersonModuleInstance> {
+public final class DemoPersonModuleTestFixture implements DemoPersonModuleTestFixtureMethods, ITestFixture {
 
-	private final TestFixtureRegistry registry;
 	private AGDemoPersonModuleInstance moduleInstance;
 
-	public DemoPersonModuleTestFixture(TestFixtureRegistry registry) {
-
-		this.registry = registry;
-		this.registry.registerIfMissing(DemoCoreModuleTestFixture::new);
-	}
-
-	@Override
-	public AGDemoPersonModuleInstance getInstance() {
+	public AGDemoPersonModuleInstance getModuleInstance() {
 
 		return moduleInstance;
 	}
 
 	@Override
-	public IEmfTable<?, ?, ?> getTable() {
+	public void apply() {
 
-		return AGDemoPersonModuleInstance.TABLE;
-	}
-
-	@Override
-	public IModuleTestFixture<AGDemoPersonModuleInstance> apply() {
-
-		moduleInstance = insertDemoPersonModuleInstance(registry.getModuleInstance(AGDemoCoreModuleInstance.TABLE));
-		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
+		moduleInstance = insertDemoPersonModuleInstance(use(DemoCoreModuleTestFixture.class).getModuleInstance());
+		use(CoreModuleTestFixture.class).insertStandardPermissionAssignments(moduleInstance);
 		new DemoPersonsTestFixtures(moduleInstance).apply();
-		return this;
 	}
 }

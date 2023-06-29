@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
+import com.softicar.platform.core.module.test.fixture.TestFixtures;
 import com.softicar.platform.db.core.transaction.DbOptionalLazyTransaction;
 import com.softicar.platform.emf.table.IEmfTable;
 import com.softicar.platform.emf.table.listener.EmfTableListenerSettings;
@@ -15,14 +16,10 @@ import java.util.function.Function;
 public class TestFixtureRegistry {
 
 	private final Map<IEmfTable<?, ?, ?>, IModuleTestFixture<?>> testFixtureMap;
-	private final CoreModuleTestFixture coreModuleTestFixture;
 
-	public TestFixtureRegistry(CoreModuleTestFixture coreModuleTestFixture) {
+	public TestFixtureRegistry() {
 
-		this.coreModuleTestFixture = coreModuleTestFixture;
 		this.testFixtureMap = new HashMap<>();
-
-		applyFixture(coreModuleTestFixture);
 	}
 
 	public <T extends IModuleTestFixture<?>> T registerIfMissing(Function<TestFixtureRegistry, T> function) {
@@ -51,7 +48,7 @@ public class TestFixtureRegistry {
 
 	public CoreModuleTestFixture getCoreModuleTestFixture() {
 
-		return coreModuleTestFixture;
+		return TestFixtures.use(CoreModuleTestFixture.class);
 	}
 
 	private <T extends IModuleTestFixture<?>> boolean isAlreadyRegistered(T testFixture) {

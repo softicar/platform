@@ -5,10 +5,8 @@ import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.module.instance.IModuleInstance;
 import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
-import com.softicar.platform.emf.table.IEmfTable;
 
 /**
  * Basic test fixture for the {@link CoreModule}.
@@ -16,31 +14,30 @@ import com.softicar.platform.emf.table.IEmfTable;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleInstance>, CoreModuleTestFixtureMethods {
+public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTestFixtureMethods {
 
-	private AGCoreModuleInstance instance;
+	private AGCoreModuleInstance moduleInstance;
 	private AGUser viewUser;
 	private AGUser normalUser;
 	private AGUser adminUser;
 
 	public CoreModuleTestFixture() {
 
-		this.instance = null;
+		this.moduleInstance = null;
 		this.viewUser = null;
 		this.normalUser = null;
 		this.adminUser = null;
 	}
 
-	@Override
-	public AGCoreModuleInstance getInstance() {
+	public AGCoreModuleInstance getModuleInstance() {
 
-		return instance;
+		return moduleInstance;
 	}
 
 	@Override
-	public IModuleTestFixture<AGCoreModuleInstance> apply() {
+	public void apply() {
 
-		this.instance = AGCoreModuleInstance//
+		this.moduleInstance = AGCoreModuleInstance//
 			.getInstance()
 			.setTestSystem(true)
 			.setDefaultLocalization(insertLocalizationPresetGermany())
@@ -67,14 +64,6 @@ public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleIns
 		insertPermissionAssignment(adminUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
 
 		new ProgramStandardConfiguration().createAndSaveAll();
-
-		return this;
-	}
-
-	@Override
-	public IEmfTable<?, ?, ?> getTable() {
-
-		return AGCoreModuleInstance.TABLE;
 	}
 
 	public AGUser getViewUser() {
@@ -97,5 +86,13 @@ public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleIns
 		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
 		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
 		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
+	}
+
+	public CoreModuleTestFixture insertUsers(int count) {
+
+		for (int i = 0; i < count; i++) {
+			insertUser("user#" + i);
+		}
+		return this;
 	}
 }
