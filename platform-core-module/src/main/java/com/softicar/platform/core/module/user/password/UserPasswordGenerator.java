@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.policy.SofticarPasswordPolicy;
@@ -55,7 +56,9 @@ public class UserPasswordGenerator {
 		try (DbTransaction transaction = new DbTransaction()) {
 			String password = new UserPasswordGenerator().generatePassword();
 			new UserPasswordUpdater(user, password).update();
-			AGUser.sendPaswordResetNotification(user, password);
+			if (AGCoreModuleInstance.getInstance().getEmailServer() != null) {
+				AGUser.sendPaswordResetNotification(user, password);
+			}
 			IDisplayString firstMessagePart;
 			if (showNewPassword) {
 				firstMessagePart = CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2.toDisplay(user.getLoginName(), password);

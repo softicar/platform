@@ -4,10 +4,13 @@ import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngine;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
+import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
+import com.softicar.platform.dom.DomTestMarker;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -160,6 +163,42 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 		assertFocused(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
 	}
 
+	@Test
+	public void testResetPasswordForExistingUser() {
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON, Key.ENTER);
+		waitForServer();
+
+		send(findModalPromptOrFail().getInputElement(), LOGIN_USER);
+		send(findModalPromptOrFail().getOkayButton(), Key.ENTER);
+		waitForServer();
+
+		//assert correct message
+		assertModalAlertWithText(CoreI18n.THE_PASSWORD_FOR_USER_ARG1_HAS_BEEN_RESET.toDisplay(LOGIN_USER));
+		send(findModalAlertOrFail().getCloseButton(), Key.ENTER);
+
+		//assert password was changed
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+		waitForServer();
+
+		assertLoginFailure();
+	}
+
+	@Test
+	public void testResetPasswordForNonExistingUser() {
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON, Key.ENTER);
+		waitForServer();
+
+		send(findModalPromptOrFail().getInputElement(), "invalid-user");
+		send(findModalPromptOrFail().getOkayButton(), Key.ENTER);
+		waitForServer();
+
+		assertModalAlertWithText(CoreI18n.COULD_NOT_RESET_USER_PASSWORD);
+	}
+
 	private PageServiceLoginDiv createLoginDiv(IAjaxDocument document) {
 
 		return new PageServiceLoginDiv(new PageServiceDocumentBuilder(document));
@@ -184,5 +223,11 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 		assertNoNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
 		assertNoNode(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 		assertNoModalDialog();
+	}
+
+	private void assertModalAlertWithText(IDisplayString text) {
+
+		findModalAlertOrFail();
+		assertNodeWithText(DomTestMarker.MODAL_DIALOG_CONTENT, text.toString());
 	}
 }

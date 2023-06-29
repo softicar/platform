@@ -104,12 +104,14 @@ public class PageServiceLoginDiv extends DomDiv {
 
 		private IDomElement buildPromptButton() {
 
-			return new DomPromptButtonBuilder()//
+			var button = new DomPromptButtonBuilder()//
 				.setIcon(CoreImages.RESET_PASSWORD.getResource())
 				.setLabel(CoreI18n.RESET_PASSWORD)
 				.setPromptMessage(CoreI18n.PLEASE_ENTER_THE_USER_YOU_WANT_TO_RESET_THE_PASSWORD_FOR)
 				.setPromptCallback(this::resetUser)
 				.build();
+			button.addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON);
+			return button;
 		}
 
 		private void resetUser(String loginName) {
