@@ -21,8 +21,10 @@ public class PrintWriters {
 	 */
 	public static String printToString(Consumer<PrintWriter> consumer) {
 
-		StringWriter stringWriter = new StringWriter();
-		consumer.accept(new PrintWriter(stringWriter));
+		var stringWriter = new StringWriter();
+		try (var printWriter = new PrintWriter(stringWriter)) {
+			consumer.accept(printWriter);
+		}
 		return stringWriter.toString();
 	}
 }
