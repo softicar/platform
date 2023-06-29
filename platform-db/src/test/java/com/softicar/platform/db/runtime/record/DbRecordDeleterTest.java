@@ -23,7 +23,7 @@ public class DbRecordDeleterTest extends AbstractDbRecordTest {
 		DbTestRecord record = DbTestRecord.TABLE.get(KEY);
 		record.delete();
 
-		assertSame(record, DbTestRecord.TABLE.get(KEY));
+		assertNull(DbTestRecord.TABLE.get(KEY));
 		assertTrue(record.impermanent());
 	}
 
@@ -35,7 +35,7 @@ public class DbRecordDeleterTest extends AbstractDbRecordTest {
 		insertRecord(KEY, "bar");
 		record.delete();
 
-		assertSame(record, DbTestRecord.TABLE.get(KEY));
+		assertNull(DbTestRecord.TABLE.get(KEY));
 		assertTrue(record.impermanent());
 		assertEquals(0, DbTestRecord.TABLE.createSelect().list().size());
 	}
@@ -47,11 +47,24 @@ public class DbRecordDeleterTest extends AbstractDbRecordTest {
 		insertRecord(KEY, "bar");
 		DbTestRecord record = DbTestRecord.TABLE.get(KEY);
 		record.delete();
-		assertSame(record, DbTestRecord.TABLE.get(KEY));
+		assertNull(DbTestRecord.TABLE.get(KEY));
 
 		// insert row concurrently again and delete record again
 		insertRecord(KEY, "bar");
+		assertSame(record, DbTestRecord.TABLE.get(KEY));
 		record.delete();
-		assertSame(record, DbTestRecord.TABLE.get(new Tuple2<>("foo", 18)));
+		assertNull(DbTestRecord.TABLE.get(KEY));
+	}
+
+	@Test
+	public void testInvalidationOfDeletedRecord() {
+
+		insertRecord(KEY, "bar");
+		DbTestRecord record = DbTestRecord.TABLE.get(KEY);
+		assertSame(record, DbTestRecord.TABLE.get(KEY));
+
+		record.delete();
+		assertTrue("Record is not invalidated.", record.invalidated());
+		assertNull(DbTestRecord.TABLE.get(KEY));
 	}
 }
