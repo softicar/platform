@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * Replaces tags in a given string with a replacement.
  * <p>
  * The tag matching is done case-sensitive.
- * 
+ *
  * @author Oliver Richers
  */
 public class TagReplacer {
@@ -34,18 +34,18 @@ public class TagReplacer {
 
 	/**
 	 * Creates a new empty instance with the given pattern.
-	 * 
+	 *
 	 * @param pattern
 	 *            the pattern to use for tag matching
 	 */
 	public TagReplacer(String pattern) {
 
-		this(new TreeMap<String, String>(), pattern);
+		this(new TreeMap<>(), pattern);
 	}
 
 	/**
 	 * Creates a new instance with the given tag map and pattern.
-	 * 
+	 *
 	 * @param tags
 	 *            a map from the tag to the replacement
 	 * @param pattern
@@ -67,7 +67,7 @@ public class TagReplacer {
 
 	/**
 	 * Adds a new tag mapping.
-	 * 
+	 *
 	 * @param tag
 	 *            the tag used for matching
 	 * @param replacement
@@ -80,7 +80,7 @@ public class TagReplacer {
 
 	/**
 	 * Replaces all tags in the input string with the respective replacements.
-	 * 
+	 *
 	 * @param input
 	 *            the input string to process
 	 * @throws SofticarException

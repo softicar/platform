@@ -25,7 +25,7 @@ public final class SqlSelect1_8<T0, V0, V1, V2, V3, V4, V5, V6, V7> extends SqlS
 
 	public <T1> SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7> join(ISqlTable<T1> table) {
 
-		return _join(new SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7>(other, expression), table, JoinType.JOIN);
+		return _join(new SqlSelect2_8<>(other, expression), table, JoinType.JOIN);
 	}
 
 	public <T1> SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7> join(ISqlForeignRowField<T0, T1, ?> foreignField) {
@@ -50,7 +50,7 @@ public final class SqlSelect1_8<T0, V0, V1, V2, V3, V4, V5, V6, V7> extends SqlS
 
 	public <T1> SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7> joinLeft(ISqlTable<T1> table) {
 
-		return _join(new SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7>(other, expression), table, JoinType.LEFT_JOIN);
+		return _join(new SqlSelect2_8<>(other, expression), table, JoinType.LEFT_JOIN);
 	}
 
 	public <T1> SqlSelect2_8<T0, T1, V0, V1, V2, V3, V4, V5, V6, V7> joinLeft(ISqlForeignRowField<T0, T1, ?> foreignField) {

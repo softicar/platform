@@ -150,7 +150,7 @@ public class DomSimpleValueSelect<V> extends DomSelect<DomValueOption<V>> implem
 	private void appendNilOptionIfAppropriate() {
 
 		if (configuration.isNilOptionAvailable() && !containsNilOption()) {
-			this.nilOption = appendChild(new DomValueOption<V>(null, configuration.getNilOptionDisplayString()));
+			this.nilOption = appendChild(new DomValueOption<>(null, configuration.getNilOptionDisplayString()));
 		}
 	}
 

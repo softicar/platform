@@ -16,7 +16,7 @@ public class SqlSelect0_0 extends SqlSelectBase0 {
 
 	public <T0> SqlSelect1_0<T0> from(ISqlTable<T0> table) {
 
-		return _join(new SqlSelect1_0<T0>(), table, JoinType.FROM);
+		return _join(new SqlSelect1_0<>(), table, JoinType.FROM);
 	}
 
 	public SelectChooser0 select() {

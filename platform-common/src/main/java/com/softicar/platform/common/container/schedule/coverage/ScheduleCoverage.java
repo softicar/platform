@@ -9,7 +9,7 @@ public class ScheduleCoverage<Row, Column, Quantity extends Comparable<Quantity>
 
 	public ScheduleCoverage(IArithmetic<Quantity> arithmetica) {
 
-		super(new ScheduleCoverageTraits<Column, Quantity>(arithmetica));
+		super(new ScheduleCoverageTraits<>(arithmetica));
 		this.arithmetic = arithmetica;
 	}
 
@@ -20,6 +20,6 @@ public class ScheduleCoverage<Row, Column, Quantity extends Comparable<Quantity>
 
 	public void addUnassignedQuantity(Row row, Column sourceColumn, Quantity quantity) {
 
-		addValue(row, sourceColumn, new ScheduleCoverageEntry<Column, Quantity>(arithmetic, quantity));
+		addValue(row, sourceColumn, new ScheduleCoverageEntry<>(arithmetic, quantity));
 	}
 }
