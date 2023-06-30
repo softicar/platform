@@ -48,6 +48,7 @@ public class DomDocumentTestExecutionEngine extends TestWatcher implements IDomT
 		var executor = new DomPayloadCodeExecutor().setEventNode(node);
 		new DomEventHandlerNodeCaller(executor, node, event).call();
 		node.getDomDocument().getRefreshBus().submitEvent();
+		node.getDomDocument().getDeferredInitializationController().handleAllAppended();
 	}
 
 	@Override
