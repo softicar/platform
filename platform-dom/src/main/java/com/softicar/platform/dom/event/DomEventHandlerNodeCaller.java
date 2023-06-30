@@ -29,7 +29,6 @@ public class DomEventHandlerNodeCaller {
 				} else {
 					event.getType().handleEvent(eventNode, event);
 				}
-				document.getDeferredInitializationController().handleAllAppended();
 			});
 		}
 	}
