@@ -26,27 +26,38 @@ public class DbQueryCollectionFilter<V> implements IDbQueryFilter {
 	@Override
 	public void buildCondition(IDbSqlBuilder builder) {
 
-		if (column.isTable() && !column.isStub()) {
-			List<IDbField<V, ?>> fields = column.getTable().getPrimaryKey().getFields();
-			if (fields.size() == 1) {
-				builder.addIdentifier(column.getName() + "$" + fields.get(0).getName());
-			} else {
-				throw new SofticarDeveloperException("Filtering not supported for foreign keys with more than one column.");
+		if (values.isEmpty()) {
+			switch (operator) {
+			case IN:
+				builder.addToken(SqlKeyword.FALSE);
+				break;
+			case NOT_IN:
+				builder.addToken(SqlKeyword.TRUE);
+				break;
 			}
 		} else {
-			builder.addIdentifier(column.getName());
+			if (column.isTable() && !column.isStub()) {
+				List<IDbField<V, ?>> fields = column.getTable().getPrimaryKey().getFields();
+				if (fields.size() == 1) {
+					builder.addIdentifier(column.getName() + "$" + fields.get(0).getName());
+				} else {
+					throw new SofticarDeveloperException("Filtering not supported for foreign keys with more than one column.");
+				}
+			} else {
+				builder.addIdentifier(column.getName());
+			}
+			switch (operator) {
+			case IN:
+				builder.addToken(SqlKeyword.IN);
+				break;
+			case NOT_IN:
+				builder.addToken(SqlKeyword.NOT);
+				builder.addToken(SqlKeyword.IN);
+				break;
+			}
+			builder.addToken(SqlSymbol.LEFT_PARENTHESIS);
+			builder.addParameters(values);
+			builder.addToken(SqlSymbol.RIGHT_PARENTHESIS);
 		}
-		switch (operator) {
-		case IN:
-			builder.addToken(SqlKeyword.IN);
-			break;
-		case NOT_IN:
-			builder.addToken(SqlKeyword.NOT);
-			builder.addToken(SqlKeyword.IN);
-			break;
-		}
-		builder.addToken(SqlSymbol.LEFT_PARENTHESIS);
-		builder.addParameters(values);
-		builder.addToken(SqlSymbol.RIGHT_PARENTHESIS);
 	}
 }
