@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 /**
  * A {@link NumberMap} for longs.
- * 
+ *
  * @param <K>
  *            the type of the keys
  * @author Oliver Richers
@@ -16,12 +16,12 @@ public class LongMap<K> extends NumberMap<K, Long> {
 
 	public LongMap() {
 
-		this(new TreeMap<K, Long>());
+		this(new TreeMap<>());
 	}
 
 	public LongMap(Comparator<K> comparator) {
 
-		this(new TreeMap<K, Long>(comparator));
+		this(new TreeMap<>(comparator));
 	}
 
 	public LongMap(Map<K, Long> data) {

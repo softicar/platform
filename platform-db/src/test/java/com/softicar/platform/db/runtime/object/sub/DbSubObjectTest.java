@@ -3,6 +3,7 @@ package com.softicar.platform.db.runtime.object.sub;
 import com.softicar.platform.db.runtime.entity.IDbEntity;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.runtime.table.logic.DbTableRowFlagsAsserter;
+import com.softicar.platform.db.runtime.table.row.DbTableRowFlag;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import org.junit.Test;
 
@@ -145,7 +146,7 @@ public class DbSubObjectTest extends AbstractDbTest {
 		subSubObject.save();
 		subSubObject.pk().pk().delete();
 
-		assertImpermanent(baseObject);
+		assertImpermanentAndInvalidated(baseObject);
 		assertProperlySavedWithoutTableRow(subObject);
 		assertProperlySavedWithoutTableRow(subSubObject);
 	}
@@ -156,8 +157,8 @@ public class DbSubObjectTest extends AbstractDbTest {
 		subSubObject.save();
 		subSubObject.pk().delete();
 
-		assertImpermanent(baseObject);
-		assertImpermanent(subObject);
+		assertImpermanentAndInvalidated(baseObject);
+		assertImpermanentAndInvalidated(subObject);
 		assertProperlySavedWithoutTableRow(subSubObject);
 	}
 
@@ -167,9 +168,9 @@ public class DbSubObjectTest extends AbstractDbTest {
 		subSubObject.save();
 		subSubObject.delete();
 
-		assertImpermanent(baseObject);
-		assertImpermanent(subObject);
-		assertImpermanent(subSubObject);
+		assertImpermanentAndInvalidated(baseObject);
+		assertImpermanentAndInvalidated(subObject);
+		assertImpermanentAndInvalidated(subSubObject);
 	}
 
 	// ------------------------------ copy ------------------------------ //
@@ -212,6 +213,13 @@ public class DbSubObjectTest extends AbstractDbTest {
 		assertTableRowCount(object.table(), 0);
 	}
 
+	private <T extends IDbEntity<T, ?>> void assertImpermanentAndInvalidated(T object) {
+
+		assertHasSameIdAsBase(object);
+		assertImpermanentAndInvalidatedFlags(object);
+		assertTableRowCount(object.table(), 0);
+	}
+
 	private void assertHasId(IDbEntity<?, ?> entity) {
 
 		assertNotNull(entity.getId());
@@ -232,6 +240,11 @@ public class DbSubObjectTest extends AbstractDbTest {
 	private <T extends IDbEntity<T, ?>> void assertImpermanentFlag(T object) {
 
 		new DbTableRowFlagsAsserter(object).assertOnlyImpermanent();
+	}
+
+	private <T extends IDbEntity<T, ?>> void assertImpermanentAndInvalidatedFlags(T object) {
+
+		new DbTableRowFlagsAsserter(object).assertOnly(DbTableRowFlag.IMPERMANENT, DbTableRowFlag.INVALIDATED);
 	}
 
 	private <T extends IDbEntity<T, ?>> void assertSingleTableRow(T object) {

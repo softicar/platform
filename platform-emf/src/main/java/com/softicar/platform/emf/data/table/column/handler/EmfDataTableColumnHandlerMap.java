@@ -27,7 +27,7 @@ public class EmfDataTableColumnHandlerMap<R> {
 
 	public <T> void setColumnHandler(IDataTableColumn<R, T> column, IEmfDataTableValueBasedColumnHandler<T> columnHandler) {
 
-		setColumnHandler(column, new EmfDataTableRowBasedColumnHandler<R, T>(columnHandler));
+		setColumnHandler(column, new EmfDataTableRowBasedColumnHandler<>(columnHandler));
 	}
 
 	public <T> IEmfDataTableRowBasedColumnHandler<R, T> getColumnHandler(IDataTableColumn<R, T> column) {

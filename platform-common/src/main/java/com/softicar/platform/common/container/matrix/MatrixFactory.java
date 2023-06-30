@@ -24,12 +24,12 @@ public class MatrixFactory {
 
 	public static <R, C, V> IMatrix<R, C, V> createObjectMatrix() {
 
-		return createMatrix(new ObjectMatrixTraits<V>());
+		return createMatrix(new ObjectMatrixTraits<>());
 	}
 
 	public static <R, C, V> IMatrix<R, C, V> createObjectMatrix(Comparator<R> rowComparator, Comparator<C> columnComparator) {
 
-		return createMatrix(new ObjectMatrixTraits<V>(), rowComparator, columnComparator);
+		return createMatrix(new ObjectMatrixTraits<>(), rowComparator, columnComparator);
 	}
 
 	public static <R, C> IMatrix<R, C, Integer> createIntegerMatrix() {

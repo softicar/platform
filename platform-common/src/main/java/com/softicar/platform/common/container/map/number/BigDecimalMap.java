@@ -18,12 +18,12 @@ public class BigDecimalMap<K> extends NumberMap<K, BigDecimal> {
 
 	public BigDecimalMap() {
 
-		this(new TreeMap<K, BigDecimal>());
+		this(new TreeMap<>());
 	}
 
 	public BigDecimalMap(Comparator<K> comparator) {
 
-		this(new TreeMap<K, BigDecimal>(comparator));
+		this(new TreeMap<>(comparator));
 	}
 
 	public BigDecimalMap(Map<K, BigDecimal> data) {

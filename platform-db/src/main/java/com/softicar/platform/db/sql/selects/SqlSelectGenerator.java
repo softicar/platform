@@ -279,7 +279,7 @@ public class SqlSelectGenerator extends AbstractSqlJavaCodePrinter {
 			"<V> %s x(%s expression) { return addExpression(new %s(%s.this, expression), expression); }",
 			nextSelectType,
 			expressionType,
-			tableCount > 0? nextSelectType : nextSelectTypeRaw + "<>",
+			nextSelectTypeRaw + "<>",
 			getRawClassName(tableCount, valueCount));
 
 		// constructor
@@ -294,7 +294,7 @@ public class SqlSelectGenerator extends AbstractSqlJavaCodePrinter {
 
 	private void printJoinFunctions(String resultType, String joinType, String joinFunction) {
 
-		String ctorCall = String.format("%s(%s)", getClassName(tableCount + 1, valueCount), valueCount > 0? "other, expression" : "");
+		String ctorCall = String.format("%s<>(%s)", getRawClassName(tableCount + 1, valueCount), valueCount > 0? "other, expression" : "");
 
 		// the general join(ISqlTable) method
 		beginMethod("public <T%s> %s %s(%s<T%s> table)", tableCount, resultType, joinFunction, ISqlTable.class.getSimpleName(), tableCount);

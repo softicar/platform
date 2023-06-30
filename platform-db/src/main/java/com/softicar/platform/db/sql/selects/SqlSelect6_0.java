@@ -47,7 +47,7 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 
 	public <T6> SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6> join(ISqlTable<T6> table) {
 
-		return _join(new SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6>(), table, JoinType.JOIN);
+		return _join(new SqlSelect7_0<>(), table, JoinType.JOIN);
 	}
 
 	public <T6> SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6> join(ISqlForeignRowField<T5, T6, ?> foreignField) {
@@ -122,7 +122,7 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 
 	public <T6> SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6> joinLeft(ISqlTable<T6> table) {
 
-		return _join(new SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6>(), table, JoinType.LEFT_JOIN);
+		return _join(new SqlSelect7_0<>(), table, JoinType.LEFT_JOIN);
 	}
 
 	public <T6> SqlSelect7_0<T0, T1, T2, T3, T4, T5, T6> joinLeft(ISqlForeignRowField<T5, T6, ?> foreignField) {
@@ -262,7 +262,7 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 		public SelectChooser1<T3> t3() { return new SelectChooser1<>(this, 3); }
 		public SelectChooser1<T4> t4() { return new SelectChooser1<>(this, 4); }
 		public SelectChooser1<T5> t5() { return new SelectChooser1<>(this, 5); }
-		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression0<V> expression) { return addExpression(new SqlSelect6_1<T0, T1, T2, T3, T4, T5, V>(SqlSelect6_0.this, expression), expression); }
+		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression0<V> expression) { return addExpression(new SqlSelect6_1<>(SqlSelect6_0.this, expression), expression); }
 		SelectChooser0() { /* non-public */ }
 	}
 
@@ -280,7 +280,7 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 		public SelectChooser2<E0, T3> t3() { return new SelectChooser2<>(this, 3); }
 		public SelectChooser2<E0, T4> t4() { return new SelectChooser2<>(this, 4); }
 		public SelectChooser2<E0, T5> t5() { return new SelectChooser2<>(this, 5); }
-		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression1<V, E0> expression) { return addExpression(new SqlSelect6_1<T0, T1, T2, T3, T4, T5, V>(SqlSelect6_0.this, expression), expression); }
+		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression1<V, E0> expression) { return addExpression(new SqlSelect6_1<>(SqlSelect6_0.this, expression), expression); }
 		SelectChooser1(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
@@ -298,7 +298,7 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 		public SelectChooser3<E0, E1, T3> t3() { return new SelectChooser3<>(this, 3); }
 		public SelectChooser3<E0, E1, T4> t4() { return new SelectChooser3<>(this, 4); }
 		public SelectChooser3<E0, E1, T5> t5() { return new SelectChooser3<>(this, 5); }
-		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression2<V, E0, E1> expression) { return addExpression(new SqlSelect6_1<T0, T1, T2, T3, T4, T5, V>(SqlSelect6_0.this, expression), expression); }
+		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression2<V, E0, E1> expression) { return addExpression(new SqlSelect6_1<>(SqlSelect6_0.this, expression), expression); }
 		SelectChooser2(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
@@ -316,13 +316,13 @@ public final class SqlSelect6_0<T0, T1, T2, T3, T4, T5> extends SqlSelectBase0 i
 		public SelectChooser4<E0, E1, E2, T3> t3() { return new SelectChooser4<>(this, 3); }
 		public SelectChooser4<E0, E1, E2, T4> t4() { return new SelectChooser4<>(this, 4); }
 		public SelectChooser4<E0, E1, E2, T5> t5() { return new SelectChooser4<>(this, 5); }
-		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression3<V, E0, E1, E2> expression) { return addExpression(new SqlSelect6_1<T0, T1, T2, T3, T4, T5, V>(SqlSelect6_0.this, expression), expression); }
+		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression3<V, E0, E1, E2> expression) { return addExpression(new SqlSelect6_1<>(SqlSelect6_0.this, expression), expression); }
 		SelectChooser3(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 
 	public final class SelectChooser4<E0, E1, E2, E3> extends SelectChooserBase {
 
-		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression4<V, E0, E1, E2, E3> expression) { return addExpression(new SqlSelect6_1<T0, T1, T2, T3, T4, T5, V>(SqlSelect6_0.this, expression), expression); }
+		<V> SqlSelect6_1<T0, T1, T2, T3, T4, T5, V> x(ISqlExpression4<V, E0, E1, E2, E3> expression) { return addExpression(new SqlSelect6_1<>(SqlSelect6_0.this, expression), expression); }
 		SelectChooser4(SelectChooserBase other, int tableIndex) { super(other, tableIndex); }
 	}
 }

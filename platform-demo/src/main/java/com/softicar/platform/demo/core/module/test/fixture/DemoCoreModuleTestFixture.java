@@ -1,37 +1,22 @@
 package com.softicar.platform.demo.core.module.test.fixture;
 
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
-import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
+import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
+import com.softicar.platform.core.module.test.fixture.ITestFixture;
 import com.softicar.platform.demo.core.module.AGDemoCoreModuleInstance;
-import com.softicar.platform.emf.table.IEmfTable;
 
-public class DemoCoreModuleTestFixture implements DemoCoreModuleTestFixtureMethods, IModuleTestFixture<AGDemoCoreModuleInstance> {
+public final class DemoCoreModuleTestFixture implements DemoCoreModuleTestFixtureMethods, ITestFixture {
 
-	private final TestFixtureRegistry registry;
 	private AGDemoCoreModuleInstance moduleInstance;
 
-	public DemoCoreModuleTestFixture(TestFixtureRegistry registry) {
-
-		this.registry = registry;
-	}
-
-	@Override
-	public AGDemoCoreModuleInstance getInstance() {
+	public AGDemoCoreModuleInstance getModuleInstance() {
 
 		return moduleInstance;
 	}
 
 	@Override
-	public IEmfTable<?, ?, ?> getTable() {
-
-		return AGDemoCoreModuleInstance.TABLE;
-	}
-
-	@Override
-	public IModuleTestFixture<AGDemoCoreModuleInstance> apply() {
+	public void apply() {
 
 		this.moduleInstance = insertDemoModuleInstance();
-		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
-		return this;
+		use(CoreModuleTestFixture.class).insertStandardPermissionAssignments(moduleInstance);
 	}
 }
