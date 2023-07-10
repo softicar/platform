@@ -178,6 +178,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 		send(findModalPromptOrFail().getOkayButton(), Key.ENTER);
 		waitForServer();
 		send(findModalAlertOrFail().getCloseButton(), Key.ENTER);
+		waitForServer();
 
 		//assert password reset request has been saved
 		assertEquals(1, AGUserPasswordResetRequest.TABLE.countAll());
