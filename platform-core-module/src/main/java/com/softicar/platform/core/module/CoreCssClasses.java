@@ -34,6 +34,9 @@ public interface CoreCssClasses {
 	ICssClass PAGE_SERVICE_LOGIN_ERROR_DIV = new CssClass("PageServiceLoginErrorDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_SERVICE_LOGIN_MAINTENANCE_DIV = new CssClass("PageServiceLoginMaintenanceDiv", CoreCssFiles.PAGE_STYLE);
 
+	ICssClass PAGE_SERVICE_PASSWORD_RESET_DIV = new CssClass("PageServicePasswordResetDiv", CoreCssFiles.PAGE_STYLE);
+	ICssClass PAGE_SERVICE_PASSWORD_RESET_ERROR_DIV = new CssClass("PageServicePasswordResetErrorDiv", CoreCssFiles.PAGE_STYLE);
+
 	ICssClass PROGRAM_EXECUTION_BOOLEAN_DISPLAY = new CssClass("ProgramExecutionBooleanDisplay", CoreCssFiles.PROGRAM_EXECUTION_STYLE);
 	ICssClass PROGRAM_EXECUTION_OUTPUT_AREA = new CssClass("ProgramExecutionOutputArea", CoreCssFiles.PROGRAM_EXECUTION_STYLE);
 	ICssClass PROGRAM_EXECUTION_STATUS_DISPLAY = new CssClass("ProgramExecutionStatusDisplay", CoreCssFiles.PROGRAM_EXECUTION_STYLE);

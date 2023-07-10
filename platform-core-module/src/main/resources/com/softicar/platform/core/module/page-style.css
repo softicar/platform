@@ -126,7 +126,7 @@
 
 /* -------------------- PageServiceLoginDiv -------------------- */
 
-.PageServiceLoginDiv {
+.PageServiceLoginDiv, .PageServicePasswordResetDiv {
 	
 	/* position */
 	box-sizing: border-box;
@@ -145,7 +145,8 @@
 	background: var(--GRAY_BACKGROUND_COLOR);	
 }
 
-.PageServiceLoginDiv form {
+.PageServiceLoginDiv form,
+.PageServicePasswordResetDiv form {
 
 	/* content layout */
 	display: grid;
@@ -159,7 +160,8 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 }
 
-.PageServiceLoginDiv>form>img {
+.PageServiceLoginDiv>form>img,
+.PageServicePasswordResetDiv>form>img {
 	max-width:250px;
 }
 
@@ -167,7 +169,7 @@
 	padding-bottom: 5px;
 }
 
-.PageServiceLoginErrorDiv {
+.PageServiceLoginErrorDiv, .PageServicePasswordResetErrorDiv {
 	
 	display: grid;
 	justify-content: center;

@@ -5,10 +5,12 @@ import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSelenium
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.AjaxSeleniumLowLevelTestEngineInput.Key;
 import com.softicar.platform.ajax.testing.selenium.engine.level.low.IAjaxSeleniumLowLevelTestEngineMethods;
 import com.softicar.platform.common.core.i18n.IDisplayString;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
+import com.softicar.platform.core.module.user.password.reset.AGUserPasswordResetRequest;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.dom.DomTestMarker;
 import org.junit.Rule;
@@ -166,24 +168,19 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testResetPasswordForExistingUser() {
 
+		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
+		assertEquals(0, AGUserPasswordResetRequest.TABLE.countAll());
+
 		send(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON, Key.ENTER);
 		waitForServer();
 
 		send(findModalPromptOrFail().getInputElement(), LOGIN_USER);
 		send(findModalPromptOrFail().getOkayButton(), Key.ENTER);
 		waitForServer();
-
-		//assert correct message
-		assertModalAlertWithText(CoreI18n.THE_PASSWORD_FOR_USER_ARG1_HAS_BEEN_RESET.toDisplay(LOGIN_USER));
 		send(findModalAlertOrFail().getCloseButton(), Key.ENTER);
 
-		//assert password was changed
-		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
-		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
-		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
-		waitForServer();
-
-		assertLoginFailure();
+		//assert password reset request has been saved
+		assertEquals(1, AGUserPasswordResetRequest.TABLE.countAll());
 	}
 
 	@Test

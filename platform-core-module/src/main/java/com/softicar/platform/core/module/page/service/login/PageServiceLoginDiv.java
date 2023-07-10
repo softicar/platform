@@ -15,7 +15,7 @@ import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.core.module.user.password.UserPasswordGenerator;
+import com.softicar.platform.core.module.user.password.reset.PasswordResetRequestGenerator;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomForm;
@@ -84,7 +84,7 @@ public class PageServiceLoginDiv extends DomDiv {
 			loginFormDiv.appendChild(errorDiv);
 
 			appendChild(loginFormDiv);
-			appendChild(new DomActionBar(loginButton, buildPromptButton()));
+			appendChild(new DomActionBar(loginButton, buildResetPasswordButton()));
 		}
 
 		private void appendLogo(AGStoredFile logoFile) {
@@ -102,26 +102,26 @@ public class PageServiceLoginDiv extends DomDiv {
 			}
 		}
 
-		private IDomElement buildPromptButton() {
+		private IDomElement buildResetPasswordButton() {
 
 			var button = new DomPromptButtonBuilder()//
 				.setIcon(CoreImages.RESET_PASSWORD.getResource())
 				.setLabel(CoreI18n.RESET_PASSWORD)
 				.setPromptMessage(CoreI18n.PLEASE_ENTER_THE_USER_YOU_WANT_TO_RESET_THE_PASSWORD_FOR)
-				.setPromptCallback(this::resetUser)
+				.setPromptCallback(this::createResetRequest)
 				.build();
 			button.addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON);
 			return button;
 		}
 
-		private void resetUser(String loginName) {
+		private void createResetRequest(String loginName) {
 
 			AGUser.TABLE
 				.createSelect()
 				.where(AGUser.ACTIVE)
 				.where(AGUser.LOGIN_NAME.isEqual(loginName))
 				.getOneAsOptional()
-				.ifPresentOrElse(user -> new UserPasswordGenerator().resetUserPassword(user, false), this::showCouldNotResetPasswordMessage);
+				.ifPresentOrElse(it -> new PasswordResetRequestGenerator(it).createResetRequest(), this::showCouldNotResetPasswordMessage);
 		}
 
 		private void showCouldNotResetPasswordMessage() {

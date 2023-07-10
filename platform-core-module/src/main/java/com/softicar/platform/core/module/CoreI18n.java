@@ -13,6 +13,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Period održavanja je konfigurisan za danas.")
 		.sr("Period održavanja je konfigurisan za danas.")
 		.hr("Period održavanja je konfiguriran za danas.");
+	I18n0 A_PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED_FOR_YOUR_ACCOUNT = new I18n0("A password reset request has been created for your account.")//
+		.de("Für Ihr Konto wurde eine Anfrage zum Zurücksetzen des Passworts erstellt.");
 	I18n0 A_SYSTEM_ERROR_EVENT_IS_TRIGGERED_WHEN_THE_MAXIMUM_RUNTIME_IS_EXCEEDED =//
 			new I18n0("A system error event is triggered when the maximum runtime is exceeded.")//
 				.de("Ein Systemfehlerereignis wird ausgelöst, wenn die maximale Laufzeit überschritten wird.")
@@ -325,6 +327,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("CC")
 		.sr("CC")
 		.hr("CC");
+	I18n0 CHANGE_PASSWORD = new I18n0("Change Password")//
+		.de("Passwort ändern");
 	I18n0 CHECK_PASSWORD = new I18n0("Check Password")//
 		.de("Passwort überprüfen")
 		.bs("Provjera lozinke")
@@ -460,6 +464,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Potvrdite sve")
 		.sr("Potvrdite sve")
 		.hr("Potvrdite sve");
+	I18n0 CONFIRM_PASSWORD = new I18n0("Confirm Password")//
+		.de("Passwort bestätigen");
 	I18n0 CONFIRMATION = new I18n0("Confirmation")//
 		.de("Bestätigung")
 		.bs("Potvrda")
@@ -1034,12 +1040,17 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Sat")
 		.sr("Sat")
 		.hr("Sat");
+	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL =
+			new I18n0("If an email server is configured the user will be notified via email.")//
+				.de("Wenn ein E-Mail-Server konfiguriert ist wird der Benutzer via E-Mail informiert.");
 	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL =
 			new I18n0("If an email server is configured, the user will receive this password via email.")//
 				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer dieses Passwort via E-Mail erhalten.")
 				.bs("Ako je poslužitelj emaila konfigurisan, korisnik će primiti ovu lozinku putem emaila.")
 				.sr("Ako je poslužitelj emaila konfigurisan, korisnik će primiti ovu lozinku putem emaila.")
 				.hr("Ako je poslužitelj emaila konfiguriran, korisnik će primiti ovu lozinku putem emaila.");
+	I18n0 IF_YOU_DID_NOT_REQUEST_THIS_YOU_CAN_IGNORE_THIS_EMAIL = new I18n0("If you did not request this you can ignore this email.")//
+		.de("Wenn Sie dies nicht beantragt haben, können Sie diese E-Mail ignorieren.");
 	I18n1 ILLEGAL_CRON_ELEMENT_FORMAT_ARG1 = new I18n1("Illegal Cron element format: '%s'")//
 		.de("Ungültiges Cron-Element-Format: %s.")
 		.bs("Nevažeći Cron element format: '%s'")
@@ -1567,6 +1578,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Neće se pokretati nova izvršavanja programa.")
 		.sr("Neće se pokretati nova izvršavanja programa.")
 		.hr("Neće se pokretati nova izvršavanja programa.");
+	I18n0 NO_PASSWORD_RESET_REQUEST_FOUND = new I18n0("No password reset request found.")//
+		.de("Anfrage zum zurücksetzen des Passworts wurde nicht gefunden.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse")
 		.bs("Email adresa bez odgovora")
@@ -1687,6 +1700,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Zapisi pravila lozinke")
 		.sr("Zapisi pravila lozinke")
 		.hr("Zapisi pravila lozinke");
+	I18n0 PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED = new I18n0("Password reset request has been created.")//
+		.de("Eine Anforderung zum Zurücksetzen des Passworts wurde erstellt.");
 	I18n0 PDF = new I18n0("PDF")//
 		.de("PDF")
 		.bs("PDF")
@@ -1722,6 +1737,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Dopuštenja")
 		.sr("Dopuštenja")
 		.hr("Dopuštenja");
+	I18n0 PLEASE_CLICK_THIS_LINK_TO_RESET_YOUR_PASSWORD = new I18n0("Please click this link to reset your password.")//
+		.de("Bitte klicken Sie auf diesen Link, um Ihr Passwort zurückzusetzen.");
 	I18n0 PLEASE_DEFINE_A_NEW_PASSWORD_BELOW = new I18n0("Please define a new password below.")//
 		.de("Bitte unten ein neues Password definieren.")
 		.bs("Molimo definirajte novu lozinku u nastavku.")
@@ -2831,6 +2848,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Previše prijava")
 		.sr("Previše prijava")
 		.hr("Previše prijava");
+	I18n0 TOO_MANY_PASSWORD_RESET_REQUESTS = new I18n0("Too many password reset requests")//
+		.de("Zu viele Anfragen zum Zurücksetzen des Passworts");
 	I18n0 TRANSACTIONS = new I18n0("Transactions")//
 		.de("Transaktionen")
 		.bs("Transakcije")
@@ -2996,6 +3015,12 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Resetovanje korisničke lozinke")
 		.sr("Resetovanje korisničke lozinke")
 		.hr("Resetovanje korisničke lozinke");
+	I18n0 USER_PASSWORD_RESET_REQUEST = new I18n0("User Password Reset Request")//
+		.de("Antrag auf Zurücksetzen des Benutzerpassworts");
+	I18n0 USER_PASSWORD_RESET_REQUESTED = new I18n0("User password reset requested")//
+		.de("Zurücksetzen des Benutzerpassworts wurde angefordert");
+	I18n0 USER_PASSWORD_RESET_REQUESTS = new I18n0("User Password Reset Requests")//
+		.de("Anträge auf Zurücksetzen des Benutzerpassworts");
 	I18n0 USER_PASSWORDS = new I18n0("User Passwords")//
 		.de("Benutzer-Passwörter")
 		.bs("Korisničke lozinke")
