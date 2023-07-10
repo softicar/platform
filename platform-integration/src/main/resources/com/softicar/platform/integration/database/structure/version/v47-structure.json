@@ -256,6 +256,10 @@
     "createStatement": "CREATE TABLE `Core`.`UserPasswordAlgorithm` (`id` INT NOT NULL AUTO_INCREMENT,`name` VARCHAR(255) NOT NULL,PRIMARY KEY (`id`)) COMMENT='@enum@';"
   },
   {
+    "tableName": "`Core`.`UserPasswordResetRequest`",
+    "createStatement": "CREATE TABLE `Core`.`UserPasswordResetRequest` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT NOT NULL,`uuid` VARCHAR(255) NOT NULL,`createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,`active` BOOL NOT NULL DEFAULT '1',PRIMARY KEY (`id`),UNIQUE KEY `uuid` (`uuid`),KEY `user` (`user`),CONSTRAINT `UserPasswordReset_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
+  },
+  {
     "tableName": "`Core`.`UserPassword`",
     "createStatement": "CREATE TABLE `Core`.`UserPassword` (`id` INT NOT NULL AUTO_INCREMENT,`user` INT NOT NULL,`active` BOOL NOT NULL DEFAULT '1',`algorithm` INT DEFAULT NULL,`encryptedPassword` TEXT NOT NULL,`createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,`policyFulfilled` BOOL NOT NULL DEFAULT '1',`compromised` BOOL NOT NULL DEFAULT '0',`lastLoginAt` DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00',PRIMARY KEY (`id`),KEY `user` (`user`),KEY `algorithm` (`algorithm`),CONSTRAINT `UserPassword_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,CONSTRAINT `UserPassword_ibfk_2` FOREIGN KEY (`algorithm`) REFERENCES `Core`.`UserPasswordAlgorithm` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT);"
   },
