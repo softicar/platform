@@ -166,7 +166,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	}
 
 	@Test
-	public void testResetPasswordForExistingUser() {
+	public void testCreateResetPasswordRequestForExistingUser() {
 
 		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
 		assertEquals(0, AGUserPasswordResetRequest.TABLE.countAll());
@@ -185,7 +185,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	}
 
 	@Test
-	public void testResetPasswordForNonExistingUser() {
+	public void testCreateResetPasswordRequestForNonExistingUser() {
 
 		send(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON, Key.ENTER);
 		waitForServer();
