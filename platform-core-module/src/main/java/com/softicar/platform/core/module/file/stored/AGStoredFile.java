@@ -11,6 +11,7 @@ import com.softicar.platform.core.module.file.stored.content.StoredFileContentOu
 import com.softicar.platform.core.module.file.stored.hash.AGStoredFileSha1;
 import com.softicar.platform.db.sql.Sql;
 import com.softicar.platform.emf.object.IEmfObject;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
@@ -59,9 +60,15 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 		return new StoredFileContentInputStreamCreator(this).getBytes();
 	}
 
-	public void uploadFileContent(InputStream inputStream) {
+	public AGStoredFile uploadFileContent(byte[] content) {
+
+		return uploadFileContent(new ByteArrayInputStream(content));
+	}
+
+	public AGStoredFile uploadFileContent(InputStream inputStream) {
 
 		new StoredFileContentOutputStreamCreator(this).upload(inputStream);
+		return this;
 	}
 
 	public Long getFileSize() {
@@ -217,7 +224,7 @@ public class AGStoredFile extends AGStoredFileGenerated implements IEmfObject<AG
 	 */
 	public AGStoredFile setContentType(IMimeType mimeType) {
 
-		setContentType(mimeType.getIdentifier().toLowerCase());
+		setContentType(mimeType != null? mimeType.getIdentifier().toLowerCase() : "");
 		return this;
 	}
 

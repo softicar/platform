@@ -3,11 +3,11 @@ package com.softicar.platform.demo.person.module.test.fixtures;
 import com.softicar.platform.common.date.Day;
 import com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance;
 
-public class DemoPersonsTestFixtures implements DemoPersonModuleTestFixtureMethods {
+public class DemoPersonsTestFixture implements DemoPersonModuleTestFixtureMethods {
 
 	private final AGDemoPersonModuleInstance moduleInstance;
 
-	public DemoPersonsTestFixtures(AGDemoPersonModuleInstance moduleInstance) {
+	public DemoPersonsTestFixture(AGDemoPersonModuleInstance moduleInstance) {
 
 		this.moduleInstance = moduleInstance;
 	}

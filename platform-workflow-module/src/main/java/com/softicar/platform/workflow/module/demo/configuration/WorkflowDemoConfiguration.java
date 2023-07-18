@@ -1,7 +1,6 @@
 package com.softicar.platform.workflow.module.demo.configuration;
 
 import com.softicar.platform.core.module.configuration.AbstractStandardConfiguration;
-import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixture;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
@@ -22,7 +21,6 @@ import com.softicar.platform.workflow.module.workflow.version.AGWorkflowVersion;
 public class WorkflowDemoConfiguration extends AbstractStandardConfiguration implements WorkflowModuleTestFixtureMethods {
 
 	private final AGWorkflowModuleInstance moduleInstance;
-	private final CoreModuleTestFixture coreModuleTestFixture;
 	private AGWorkflow workflow;
 	private AGWorkflowVersion workflowVersion;
 	private AGWorkflowNode isFurtherApprovalNecessayNode;
@@ -30,10 +28,9 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 	private AGWorkflowNode rejectedNode;
 	private AGWorkflowNode approvedNode;
 
-	public WorkflowDemoConfiguration(AGWorkflowModuleInstance moduleInstance, CoreModuleTestFixture coreModuleTestFixture) {
+	public WorkflowDemoConfiguration(AGWorkflowModuleInstance moduleInstance) {
 
 		this.moduleInstance = moduleInstance;
-		this.coreModuleTestFixture = coreModuleTestFixture;
 	}
 
 	@Override
@@ -93,8 +90,8 @@ public class WorkflowDemoConfiguration extends AbstractStandardConfiguration imp
 		insertPassword(demoUser, "test");
 		insertPermissionAssignment(demoUser, EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
 		AGWorkflowDemoObject demoObject = new AGWorkflowDemoObject().setName("Test Object").setModuleInstance(moduleInstance).save();
-		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getAdminUser(), 1);
-		insertWorkflowDemoObjectApprover(demoObject, coreModuleTestFixture.getNormalUser(), 1);
+		insertWorkflowDemoObjectApprover(demoObject, getAdminUser(), 1);
+		insertWorkflowDemoObjectApprover(demoObject, getNormalUser(), 1);
 		insertWorkflowDemoObjectApprover(demoObject, demoUser, 2);
 	}
 
