@@ -5,8 +5,11 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.mime.IMimeType;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -159,5 +162,42 @@ public class Images {
 
 		Objects.requireNonNull(suffix);
 		return ImageIO.getImageReadersBySuffix(suffix).hasNext();
+	}
+
+	/**
+	 * Writes the {@link RenderedImage} to the {@link OutputStream}.
+	 *
+	 * @param image
+	 *            the {@link RenderedImage} to write to the {@link OutputStream}
+	 *            (never <i>null</i>)
+	 * @param format
+	 *            the format given to {@link ImageIO#write} (never <i>null</i>)
+	 * @param outputStreamFactory
+	 *            the factory for the {@link OutputStream} (never <i>null</i>)
+	 */
+	public static void writeImage(RenderedImage image, String format, Supplier<OutputStream> outputStreamFactory) {
+
+		try (var outputStream = outputStreamFactory.get()) {
+			ImageIO.write(image, format, outputStream);
+		} catch (IOException exception) {
+			throw new SofticarIOException(exception);
+		}
+	}
+
+	/**
+	 * Writes the {@link RenderedImage} into a byte array.
+	 *
+	 * @param image
+	 *            the {@link RenderedImage} to write to the byte array (never
+	 *            <i>null</i>)
+	 * @param format
+	 *            the format given to {@link ImageIO#write} (never <i>null</i>)
+	 * @return the byte array (never <i>null</i>)
+	 */
+	public static byte[] writeImageToByteArray(BufferedImage image, String format) {
+
+		var buffer = new ByteArrayOutputStream();
+		writeImage(image, format, () -> buffer);
+		return buffer.toByteArray();
 	}
 }

@@ -1,12 +1,13 @@
 package com.softicar.platform.core.module.test.fixture;
 
+import com.softicar.platform.common.core.supplier.LazySupplier;
+import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.ui.image.Images;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.IModuleInstance;
-import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
+import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
+import java.awt.image.BufferedImage;
 
 /**
  * Basic test fixture for the {@link CoreModule}.
@@ -16,10 +17,12 @@ import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
  */
 public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTestFixtureMethods {
 
+	private static final byte[] DUMMY_PNG = Images.writeImageToByteArray(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), "PNG");
 	private AGCoreModuleInstance moduleInstance;
 	private AGUser viewUser;
 	private AGUser normalUser;
 	private AGUser adminUser;
+	private final LazySupplier<AGStoredFile> dummyPngFile;
 
 	public CoreModuleTestFixture() {
 
@@ -27,6 +30,7 @@ public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTest
 		this.viewUser = null;
 		this.normalUser = null;
 		this.adminUser = null;
+		this.dummyPngFile = new LazySupplier<>(() -> insertStoredFile("dummy.png", MimeType.IMAGE_PNG).uploadFileContent(DUMMY_PNG));
 	}
 
 	public AGCoreModuleInstance getModuleInstance() {
@@ -44,48 +48,33 @@ public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTest
 			.setEmailServer(insertDummyServer())
 			.save();
 
-		this.viewUser = insertUser("View", "User")//
-			.setEmailAddress("view.user@example.com")
-			.save();
-
-		this.normalUser = insertUser("Normal", "User")//
-			.setEmailAddress("normal.user@example.com")
-			.save();
-
-		this.adminUser = insertUser("Admin", "User")//
-			.setEmailAddress("admin.user@example.com")
-			.save();
+		this.viewUser = insertUser("View", "User");
+		this.normalUser = insertUser("Normal", "User");
+		this.adminUser = insertUser("Admin", "User");
 
 		insertPassword(viewUser, "test");
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertPermissionAssignment(adminUser, CorePermissions.OPERATION, AGCoreModuleInstance.getInstance());
-		insertPermissionAssignment(adminUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
-
-		new ProgramStandardConfiguration().createAndSaveAll();
+		insertStandardPermissionAssignments(AGCoreModuleInstance.getInstance());
 	}
 
+	@Override
 	public AGUser getViewUser() {
 
 		return viewUser;
 	}
 
+	@Override
 	public AGUser getNormalUser() {
 
 		return normalUser;
 	}
 
+	@Override
 	public AGUser getAdminUser() {
 
 		return adminUser;
-	}
-
-	public <I extends IModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
-
-		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
-		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
-		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
 	}
 
 	public CoreModuleTestFixture insertUsers(int count) {
@@ -94,5 +83,10 @@ public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTest
 			insertUser("user#" + i);
 		}
 		return this;
+	}
+
+	public AGStoredFile getDummyPngFile() {
+
+		return dummyPngFile.get();
 	}
 }

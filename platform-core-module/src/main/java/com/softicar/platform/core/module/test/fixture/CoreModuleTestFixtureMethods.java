@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.test.fixture;
 
 import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.io.mime.IMimeType;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.event.AGSystemEvent;
@@ -26,6 +27,7 @@ import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.password.UserPasswordUpdater;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.module.IEmfModule;
+import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
 import com.softicar.platform.emf.module.permission.IEmfModulePermission;
 import java.util.UUID;
 
@@ -34,7 +36,7 @@ import java.util.UUID;
  *
  * @author Oliver Richers
  */
-public interface CoreModuleTestFixtureMethods {
+public interface CoreModuleTestFixtureMethods extends TestFixtureMethods {
 
 	// ------------------------------ user ------------------------------ //
 
@@ -60,9 +62,24 @@ public interface CoreModuleTestFixtureMethods {
 			.setFirstName(firstName)
 			.setLastName(lastName)
 			.setLoginName(loginName)
-			.setEmailAddress(String.format("%s@test.com", loginName))
+			.setEmailAddress(String.format("%s@example.com", loginName))
 			.setLocalization(AGCoreModuleInstance.getInstance().getDefaultLocalization())
 			.save();
+	}
+
+	default AGUser getViewUser() {
+
+		return use(CoreModuleTestFixture.class).getViewUser();
+	}
+
+	default AGUser getNormalUser() {
+
+		return use(CoreModuleTestFixture.class).getNormalUser();
+	}
+
+	default AGUser getAdminUser() {
+
+		return use(CoreModuleTestFixture.class).getAdminUser();
 	}
 
 	// ------------------------------ password ------------------------------ //
@@ -92,6 +109,13 @@ public interface CoreModuleTestFixtureMethods {
 	}
 
 	// ------------------------------ module permission ------------------------------ //
+
+	default <I extends IModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
+
+		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
+		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
+		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
+	}
 
 	default <I extends IModuleInstance<I>> AGModuleInstancePermissionAssignment insertPermissionAssignment(//
 			AGUser user, IEmfModulePermission<I> permission, I moduleInstance) {
@@ -211,8 +235,14 @@ public interface CoreModuleTestFixtureMethods {
 
 	default AGStoredFile insertStoredFile(String filename) {
 
+		return insertStoredFile(filename, null);
+	}
+
+	default AGStoredFile insertStoredFile(String filename, IMimeType contentType) {
+
 		return new AGStoredFile()//
 			.setFileName(filename)
+			.setContentType(contentType)
 			.setCreatedBy(CurrentUser.get())
 			.setRemoveAt(null)
 			.save();
