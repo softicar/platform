@@ -5,8 +5,10 @@ import com.softicar.platform.demo.DemoI18n;
 import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
 import com.softicar.platform.demo.invoice.module.invoice.item.AGDemoInvoiceItem;
 import com.softicar.platform.demo.person.module.AGDemoPerson;
+import com.softicar.platform.emf.action.EmfActionSet;
 import com.softicar.platform.emf.attribute.IEmfAttributeList;
 import com.softicar.platform.emf.form.tab.factory.EmfFormTabConfiguration;
+import com.softicar.platform.emf.management.importing.EmfImportAction;
 import com.softicar.platform.emf.object.table.EmfObjectTable;
 import com.softicar.platform.emf.table.configuration.EmfTableConfiguration;
 
@@ -30,6 +32,12 @@ public class AGDemoInvoiceTable extends EmfObjectTable<AGDemoInvoice, AGDemoInvo
 	public void customizeFormTabs(EmfFormTabConfiguration<AGDemoInvoice> tabConfiguration) {
 
 		tabConfiguration.addManagementTab(AGDemoInvoiceItem.TABLE);
+	}
+
+	@Override
+	public void customizeActionSet(EmfActionSet<AGDemoInvoice, AGDemoInvoiceModuleInstance> actionSet) {
+
+		actionSet.addScopeAction(new EmfImportAction<>(this));
 	}
 
 	@Override
