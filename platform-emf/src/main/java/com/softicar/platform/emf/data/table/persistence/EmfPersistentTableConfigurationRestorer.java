@@ -50,17 +50,18 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 			CurrentEmfPersistenceApi//
 				.get()
 				.loadPersistentTableConfiguration(controller.getEmfDataTablePath(), new EmfDataTableColumnTitlesHasher(controller))
-				.ifPresent(this::apply);
+				.ifPresent(this::restore);
 		}
 		return restored;
 	}
 
-	private void apply(EmfPersistentTableConfiguration configuration) {
+	private void restore(EmfPersistentTableConfiguration configuration) {
 
 		applyColumnPositions(configuration);
 		applyHiddenColumnIndexes(configuration);
 		applyColumnOrderBys(configuration);
 		applyPageSize(configuration);
+		controller.refreshEmfDataTable();
 		this.restored = true;
 	}
 
@@ -79,7 +80,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 
 		var columns = controller.getColumnsInDefaultOrder();
 		for (Integer index: configuration.hiddenColumnIndexes) {
-			columns.get(index).setHidden(true);
+			controller.setHiddenWithoutRefresh(columns.get(index), true);
 		}
 	}
 
@@ -91,7 +92,7 @@ public class EmfPersistentTableConfigurationRestorer<R> {
 			IEmfDataTableColumn<R, ?> column = columns.get(orderBy.columnIndex);
 			ordering.add(column.getDataColumn(), orderBy.direction);
 		}
-		controller.setOrdering(ordering);
+		controller.setOrderingWithoutRefresh(ordering);
 	}
 
 	private void applyPageSize(EmfPersistentTableConfiguration configuration) {
