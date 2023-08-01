@@ -168,10 +168,16 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	// -------------------- column hiding -------------------- //
 
 	@Override
+	public void setHiddenWithoutRefresh(IEmfDataTableColumn<R, ?> column, boolean hidden) {
+
+		config.getColumnSettings(column.getDataColumn()).setHidden(hidden);
+	}
+
+	@Override
 	public void setHidden(IEmfDataTableColumn<R, ?> column, boolean hidden) {
 
 		if (hidden != column.isHidden()) {
-			config.getColumnSettings(column.getDataColumn()).setHidden(hidden);
+			setHiddenWithoutRefresh(column, hidden);
 			emfDataTable.refresh();
 		}
 	}
@@ -185,10 +191,16 @@ class EmfDataTableController<R> implements IEmfDataTableController<R> {
 	}
 
 	@Override
-	public void setOrdering(EmfDataTableOrdering<R> ordering) {
+	public void setOrderingWithoutRefresh(EmfDataTableOrdering<R> ordering) {
 
 		this.ordering = ordering;
 		applyOrderingToDataTable();
+	}
+
+	@Override
+	public void setOrdering(EmfDataTableOrdering<R> ordering) {
+
+		setOrderingWithoutRefresh(ordering);
 		emfDataTable.refresh();
 	}
 
