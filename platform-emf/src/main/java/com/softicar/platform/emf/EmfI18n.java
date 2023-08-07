@@ -8,8 +8,6 @@ import com.softicar.platform.dom.DomI18n;
 
 public interface EmfI18n extends DomI18n {
 
-	I18n0 TEXT_IS_TOO_LONG = new I18n0("Text is too long.")//
-		.de("Text ist zu lang.");
 	I18n1 A_VALUE_OF_TYPE_ARG1_IS_MISSING = new I18n1("A value of type '%s' is missing")//
 		.de("Ein Wert vom Typ '%s' fehlt")
 		.bs("Vrijednos tipa '%s' nedostaje")
@@ -910,6 +908,8 @@ public interface EmfI18n extends DomI18n {
 		.bs("Tekst")
 		.hr("Tekst")
 		.sr("Tekst");
+	I18n0 TEXT_IS_TOO_LONG = new I18n0("Text is too long.")//
+		.de("Text ist zu lang.");
 	I18n1 THE_ATTRIBUTE_ARG1_IS_MANDATORY = new I18n1("The attribute '%s' is mandatory.")//
 		.de("Das Attribut '%s' ist erforderlich.")
 		.bs("Atribut '%s' je obavezan.")
