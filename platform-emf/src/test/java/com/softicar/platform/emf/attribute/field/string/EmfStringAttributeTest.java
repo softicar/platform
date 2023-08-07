@@ -17,6 +17,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	private static final String MULTI_LINE = " abc\n\n\nabc\t";
 	private static final String MULTI_LINE_WITH_EMPTY_LINES = " \n abc\n\n\nabc\t\n\t";
 	private static final int MAXIMUM_LENGTH = 15;
+	private static final int LENGTHBITS = 8;
 	private final EmfTestSubObject subObject;
 	private final IDbStringField<EmfTestSubObject> field;
 	private final EmfStringAttribute<EmfTestSubObject> attribute;
@@ -29,6 +30,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 		Mockito.when(field.getName()).thenReturn(ABC);
 		Mockito.when(field.getComment()).thenReturn(Optional.empty());
 		Mockito.when(field.getMaximumLength()).thenReturn(MAXIMUM_LENGTH);
+		Mockito.when(field.getLengthBits()).thenReturn(LENGTHBITS);
 		this.attribute = new EmfStringAttribute<>(field);
 		this.result = new EmfValidationResult();
 	}
@@ -223,6 +225,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	public void testLengthValidationWithTooLongValue() {
 
 		attribute.setMaximumLength(8);
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789");
 
 		attribute.validate(subObject, result);
@@ -234,6 +237,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	public void testLengthValidationWithProperValue() {
 
 		attribute.setMaximumLength(9);
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789");
 
 		attribute.validate(subObject, result);
@@ -245,6 +249,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	@Test
 	public void testLengthValidationFromDbFieldWithTooLongValue() {
 
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789101112131415");
 
 		attribute.validate(subObject, result);
@@ -255,7 +260,56 @@ public class EmfStringAttributeTest extends AbstractTest {
 	@Test
 	public void testLengthValidationFromDbFieldWithProperValue() {
 
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("12345678910");
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
+	@Test
+	public void testLengthBitsValidationWithTooLongValue() {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(8);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(getStringWithLength(256));
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	@Test
+	public void testLengthBitsValidationWithProperValue() {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(24);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(getStringWithLength(16777215));
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
+	@Test
+	public void testLengthBitsValidationFromDbFieldWithTooLongValue() {
+
+		attribute.setMaximumLength(0);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(getStringWithLength(256));
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	@Test
+	public void testLengthBitsValidationFromDbFieldWithProperValue() {
+
+		attribute.setMaximumLength(0);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(getStringWithLength(255));
 
 		attribute.validate(subObject, result);
 
@@ -283,5 +337,14 @@ public class EmfStringAttributeTest extends AbstractTest {
 		attribute.setValue(subObject, EMPTY_STRING);
 
 		Mockito.verify(field).setValue(subObject, EMPTY_STRING);
+	}
+
+	private String getStringWithLength(int length) {
+
+		var builder = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			builder.append("a");
+		}
+		return builder.toString();
 	}
 }

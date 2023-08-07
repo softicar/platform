@@ -8,6 +8,8 @@ import com.softicar.platform.dom.DomI18n;
 
 public interface EmfI18n extends DomI18n {
 
+	I18n0 TEXT_IS_TOO_LONG = new I18n0("Text is too long.")//
+		.de("Text ist zu lang.");
 	I18n1 A_VALUE_OF_TYPE_ARG1_IS_MISSING = new I18n1("A value of type '%s' is missing")//
 		.de("Ein Wert vom Typ '%s' fehlt")
 		.bs("Vrijednos tipa '%s' nedostaje")
@@ -108,6 +110,8 @@ public interface EmfI18n extends DomI18n {
 		.bs("'%s' se ne primjenjuje")
 		.hr("'%s' se ne primjenjuje")
 		.sr("'%s' se ne primenjuje");
+	I18n1 ARG1_IS_NOT_A_VALID_BIT_LENGTH = new I18n1("%s is not a valid bit length.")//
+		.de("%s ist keine gültige Bitlänge.");
 	I18n2 ARG1_IS_NOT_OF_TYPE_ARG2 = new I18n2("'%s' is not of type '%s'")//
 		.de("'%s' ist nicht vom Typ '%s'")
 		.bs("'%s' nije tipa '%s'")
