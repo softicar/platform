@@ -32,10 +32,11 @@ public class EmfStringAttributeValidator<R extends IEmfTableRow<R, ?>> implement
 		if (value != null && lengthBits > 0) {
 			if (lengthBits == 16 && value.getBytes().length > 65535) {
 				result.addError(attribute, EmfI18n.TEXT_IS_TOO_LONG);
-			}
-			var maxCharacters = getLengthBitsMaximumCharacters(lengthBits);
-			if (value.length() > maxCharacters) {
-				result.addError(attribute, EmfI18n.MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED.toDisplay(maxCharacters));
+			} else if (lengthBits != 16) {
+				var maxCharacters = getLengthBitsMaximumCharacters(lengthBits);
+				if (value.length() > maxCharacters) {
+					result.addError(attribute, EmfI18n.MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED.toDisplay(maxCharacters));
+				}
 			}
 		}
 	}
