@@ -120,11 +120,15 @@ public interface IEmfDataTableController<R> extends IPostPagingHook {
 
 	// -------------------- column hiding -------------------- //
 
+	void setHiddenWithoutRefresh(IEmfDataTableColumn<R, ?> column, boolean hidden);
+
 	void setHidden(IEmfDataTableColumn<R, ?> column, boolean hidden);
 
 	// -------------------- ordering -------------------- //
 
 	EmfDataTableOrdering<R> getOrdering();
+
+	void setOrderingWithoutRefresh(EmfDataTableOrdering<R> ordering);
 
 	void setOrdering(EmfDataTableOrdering<R> ordering);
 

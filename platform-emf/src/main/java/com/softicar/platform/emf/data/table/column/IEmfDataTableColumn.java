@@ -31,8 +31,6 @@ public interface IEmfDataTableColumn<R, T> {
 
 	// -------------------- hiding -------------------- //
 
-	void setHidden(boolean hidden);
-
 	boolean isHidden();
 
 	// -------------------- ordering -------------------- //

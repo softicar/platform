@@ -84,14 +84,14 @@ public class EmfDataTableConfigurationModel<R> {
 		for (var entry: stateMap.entrySet()) {
 			var column = entry.getKey();
 			var state = entry.getValue();
-			controller.setHidden(controller.getEmfColumn(column), !state.isSelected());
+			controller.setHiddenWithoutRefresh(controller.getEmfColumn(column), !state.isSelected());
 		}
 
 		var ordering = new EmfDataTableOrdering<R>();
 		for (var orderedColumn: getOrderedColumns()) {
 			ordering.add(orderedColumn.getColumn(), orderedColumn.getDirection());
 		}
-		controller.setOrdering(ordering);
+		controller.setOrderingWithoutRefresh(ordering);
 
 		controller.setCustomColumnIndexMap(new IndexHashMap<>(getColumns()));
 		controller.setPageSize(Math.max(1, IntegerParser.parse(pageSize + "").orElse(controller.getDefaultPageSize())));

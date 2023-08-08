@@ -79,12 +79,6 @@ public class EmfDataTableColumn<R, V> implements IEmfDataTableColumn<R, V> {
 	// -------------------- hiding -------------------- //
 
 	@Override
-	public void setHidden(boolean hidden) {
-
-		controller.setHidden(this, hidden);
-	}
-
-	@Override
 	public boolean isHidden() {
 
 		return getSettings().isHidden();
