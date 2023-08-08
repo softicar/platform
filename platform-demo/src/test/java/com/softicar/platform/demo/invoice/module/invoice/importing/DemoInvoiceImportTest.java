@@ -8,7 +8,9 @@ import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import com.softicar.platform.dom.event.upload.IDomFileUploadHandler;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.EmfTestMarker;
+import com.softicar.platform.emf.action.marker.EmfScopeActionMarker;
 import com.softicar.platform.emf.management.EmfManagementDivBuilder;
+import com.softicar.platform.emf.management.importing.EmfImportAction;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -32,7 +34,7 @@ public class DemoInvoiceImportTest extends AbstractDemoInvoiceModuleTest {
 	@Test
 	public void testNormalImport() {
 
-		findButton(EmfTestMarker.MANAGEMENT_TABLE_IMPORT_BUTTON).click();
+		findButton(new EmfScopeActionMarker(EmfImportAction.class)).click();
 
 		var popup = findPopup(EmfTestMarker.MANAGEMENT_TABLE_IMPORT_POPUP);
 		popup//
