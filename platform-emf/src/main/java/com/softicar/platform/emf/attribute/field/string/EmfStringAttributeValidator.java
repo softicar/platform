@@ -44,11 +44,9 @@ public class EmfStringAttributeValidator<R extends IEmfTableRow<R, ?>> implement
 
 		switch (lengthBits) {
 		case 8:
-			return 255;
 		case 16:
-			return 65535;
 		case 24:
-			return 16777215;
+			return (1 << lengthBits) - lengthBits / 8;
 		case 32:
 			return Integer.MAX_VALUE;
 		}
