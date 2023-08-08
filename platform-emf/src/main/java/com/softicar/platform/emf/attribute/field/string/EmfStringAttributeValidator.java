@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
@@ -29,15 +30,8 @@ public class EmfStringAttributeValidator<R extends IEmfTableRow<R, ?>> implement
 		}
 
 		int lengthBits = attribute.getLengthBits();
-		if (value != null && lengthBits > 0) {
-			if (lengthBits == 16 && value.getBytes().length > 65535) {
-				result.addError(attribute, EmfI18n.TEXT_IS_TOO_LONG);
-			} else if (lengthBits != 16) {
-				var maxCharacters = getLengthBitsMaximumCharacters(lengthBits);
-				if (value.length() > maxCharacters) {
-					result.addError(attribute, EmfI18n.MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED.toDisplay(maxCharacters));
-				}
-			}
+		if (value != null && lengthBits > 0 && value.getBytes(Charsets.UTF8).length > getMaximumBytes(lengthBits)) {
+			result.addError(attribute, EmfI18n.TEXT_IS_TOO_LONG);
 		}
 	}
 
@@ -46,11 +40,13 @@ public class EmfStringAttributeValidator<R extends IEmfTableRow<R, ?>> implement
 		return value == null || value.isEmpty();
 	}
 
-	private int getLengthBitsMaximumCharacters(int lengthBits) {
+	private int getMaximumBytes(int lengthBits) {
 
 		switch (lengthBits) {
 		case 8:
 			return 255;
+		case 16:
+			return 65535;
 		case 24:
 			return 16777215;
 		case 32:
