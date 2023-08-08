@@ -270,54 +270,78 @@ public class EmfStringAttributeTest extends AbstractTest {
 		assertTrue(result.getDiagnostics().isEmpty());
 	}
 
+	// ------------------------------ bitlength validation ------------------------------ //
+
 	@Test
-	public void testLengthBitsValidationWithTooLongValue() {
+	public void testTinyTextValidationWithTooLongValue() {
 
-		attribute.setMaximumLength(0);
-		attribute.setLengthBits(8);
-		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('a', 256));
-
-		attribute.validate(subObject, result);
-
-		assertTrue(result.hasErrors());
+		assertLengthBitsValidationWithTooLongValue(8, Padding.generate('a', 256));
 	}
 
 	@Test
-	public void testLengthBitsValidationWithTooLongValueAndDoubleByteChar() {
+	public void testTinyTextValidationWithTooLongValueAndDoubleByteChar() {
 
-		attribute.setMaximumLength(0);
-		attribute.setLengthBits(8);
-		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('ä', 128));
-
-		attribute.validate(subObject, result);
-
-		assertTrue(result.hasErrors());
+		assertLengthBitsValidationWithTooLongValue(8, Padding.generate('ä', 128));
 	}
 
 	@Test
-	public void testLengthBitsValidationWithProperValue() {
+	public void testTinyTextValidationWithProperValue() {
 
-		attribute.setMaximumLength(0);
-		attribute.setLengthBits(24);
-		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('a', 16777213));
-
-		attribute.validate(subObject, result);
-
-		assertFalse(result.hasErrors());
-		assertTrue(result.getDiagnostics().isEmpty());
+		assertLengthBitValidationWithProperValue(8, Padding.generate('a', 255));
 	}
 
 	@Test
-	public void testLengthBitsValidationWithProperValueAndDoubleByteChar() {
+	public void testTinyTextValidationWithProperValueAndDoubleByteChar() {
 
-		attribute.setMaximumLength(0);
-		attribute.setLengthBits(16);
-		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('ä', 127));
+		assertLengthBitValidationWithProperValue(8, Padding.generate('ä', 127));
+	}
 
-		attribute.validate(subObject, result);
+	@Test
+	public void testTextValidationWithTooLongValue() {
 
-		assertFalse(result.hasErrors());
-		assertTrue(result.getDiagnostics().isEmpty());
+		assertLengthBitsValidationWithTooLongValue(16, Padding.generate('a', 65535));
+	}
+
+	@Test
+	public void testTextValidationWithTooLongValueAndDoubleByteChar() {
+
+		assertLengthBitsValidationWithTooLongValue(16, Padding.generate('ä', 32768));
+	}
+
+	@Test
+	public void testTextValidationWithProperValue() {
+
+		assertLengthBitValidationWithProperValue(16, Padding.generate('a', 65534));
+	}
+
+	@Test
+	public void testTextValidationWithProperValueAndDoubleByteChar() {
+
+		assertLengthBitValidationWithProperValue(16, Padding.generate('ä', 32767));
+	}
+
+	@Test
+	public void testMediumTextValidationWithTooLongValue() {
+
+		assertLengthBitsValidationWithTooLongValue(24, Padding.generate('a', 16777214));
+	}
+
+	@Test
+	public void testMediumTextValidationWithTooLongValueAndDoubleByteChar() {
+
+		assertLengthBitsValidationWithTooLongValue(24, Padding.generate('ä', 8388607));
+	}
+
+	@Test
+	public void testMediumTextValidationWithProperValue() {
+
+		assertLengthBitValidationWithProperValue(24, Padding.generate('a', 16777213));
+	}
+
+	@Test
+	public void testMediumTextValidationWithProperValueAndDoubleByteChar() {
+
+		assertLengthBitValidationWithProperValue(24, Padding.generate('ä', 8388606));
 	}
 
 	@Test
@@ -364,4 +388,29 @@ public class EmfStringAttributeTest extends AbstractTest {
 
 		Mockito.verify(field).setValue(subObject, EMPTY_STRING);
 	}
+
+	// ------------------------------ convenience methods ------------------------------ //
+	private void assertLengthBitsValidationWithTooLongValue(int lengthBits, String value) {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(lengthBits);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(value);
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	private void assertLengthBitValidationWithProperValue(int lengthBits, String value) {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(lengthBits);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(value);
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
 }
