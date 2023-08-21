@@ -46,7 +46,7 @@ public class UserResetPasswordAction implements IEmfManagementAction<AGUser> {
 	@Override
 	public void handleClick(AGUser user) {
 
-		new UserPasswordGenerator().resetUserPassword(user, true);
+		new UserPasswordGenerator().resetUserPassword(user);
 	}
 
 	@Override

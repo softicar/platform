@@ -1,8 +1,6 @@
 package com.softicar.platform.core.module.user.password;
 
 import com.softicar.platform.common.core.exceptions.SofticarUserException;
-import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.policy.SofticarPasswordPolicy;
@@ -44,7 +42,7 @@ public class UserPasswordGenerator {
 		throw new SofticarUserException(CoreI18n.FAILED_TO_GENERATE_PASSWORD);
 	}
 
-	public void resetUserPassword(AGUser user, boolean showNewPassword) {
+	public void resetUserPassword(AGUser user) {
 
 		if (user.getEmailAddress() == null || user.getEmailAddress().isEmpty()) {
 			throw new SofticarUserException(
@@ -54,18 +52,12 @@ public class UserPasswordGenerator {
 		}
 
 		try (DbTransaction transaction = new DbTransaction()) {
-			AGCoreModuleInstance.getInstance().getEmailServerOrThrow();
 			String password = new UserPasswordGenerator().generatePassword();
 			new UserPasswordUpdater(user, password).update();
 			AGUser.sendPaswordResetNotification(user, password);
-			IDisplayString firstMessagePart;
-			if (showNewPassword) {
-				firstMessagePart = CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2.toDisplay(user.getLoginName(), password);
-			} else {
-				firstMessagePart = CoreI18n.THE_PASSWORD_FOR_USER_ARG1_HAS_BEEN_RESET.toDisplay(user.getLoginName());
-			}
 			new DomModalAlertDialog(
-				firstMessagePart//
+				CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2
+					.toDisplay(user.getLoginName(), password)//
 					.concat("\n\n")
 					.concat(CoreI18n.IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL)).open();
 			transaction.commit();

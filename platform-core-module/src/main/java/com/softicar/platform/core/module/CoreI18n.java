@@ -1044,9 +1044,6 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Sat")
 		.sr("Sat")
 		.hr("Sat");
-	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL =
-			new I18n0("If an email server is configured the user will be notified via email.")//
-				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer via E-Mail informiert.");
 	I18n0 IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL =
 			new I18n0("If an email server is configured, the user will receive this password via email.")//
 				.de("Wenn ein E-Mail-Server konfiguriert ist, wird der Benutzer dieses Passwort via E-Mail erhalten.")
@@ -2718,8 +2715,6 @@ public interface CoreI18n extends EmfI18n {
 		.hr("Lozinka sadrži samo ASCII karaktere.");
 	I18n0 THE_PASSWORD_DOES_NOT_FULFILL_THE_REQUIRED_SECURITY_CRITERIA = new I18n0("The password does not fulfill the required security criteria.")//
 		.de("Das Passwort erfüllt nicht die erforderlichen Sicherheitskriterien.");
-	I18n1 THE_PASSWORD_FOR_USER_ARG1_HAS_BEEN_RESET = new I18n1("The password for user '%s' has been reset.")//
-		.de("Das Password für Benutzer '%s' wurde zurückgesetzt.");
 	I18n2 THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2 = new I18n2("The password for user '%s' is now: %s")//
 		.de("Das Password für Benutzer '%s' lautet jetzt: %s")
 		.bs("Lozinka korisnika '%s' je sada: %s")
