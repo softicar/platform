@@ -57,7 +57,7 @@ public class UserPasswordGenerator {
 			AGUser.sendPaswordResetNotification(user, password);
 			new DomModalAlertDialog(
 				CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2
-					.toDisplay(user.getLoginName(), password)//
+					.toDisplay(user.getLoginName(), password)
 					.concat("\n\n")
 					.concat(CoreI18n.IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_RECEIVE_THIS_PASSWORD_VIA_EMAIL)).open();
 			transaction.commit();
