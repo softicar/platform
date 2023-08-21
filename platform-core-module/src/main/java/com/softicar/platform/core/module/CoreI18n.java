@@ -992,7 +992,7 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Font")
 		.sr("Font")
 		.hr("Font");
-	I18n0 FORGOT_PASSWORD = new I18n0("Forgot passsword")//
+	I18n0 FORGOT_PASSWORD = new I18n0("Forgot password")//
 		.de("Passwort vergessen");
 	I18n0 FRIDAY = new I18n0("Friday")//
 		.de("Freitag")
