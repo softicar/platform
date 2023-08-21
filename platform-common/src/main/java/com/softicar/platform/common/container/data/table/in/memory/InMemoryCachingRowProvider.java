@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  */
 class InMemoryCachingRowProvider<R> implements IInMemoryRowProvider<R> {
 
-	private static final int DEFAULT_MAX_CACHE_SIZE = 1000;
+	private static final int DEFAULT_MAX_CACHE_SIZE = 10000;
 
 	private final Supplier<? extends Iterable<R>> rowSupplier;
 	private final IInMemoryDataTableFilterList<R> filterList;

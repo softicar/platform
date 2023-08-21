@@ -1,14 +1,13 @@
 package com.softicar.platform.core.module.test.fixture;
 
+import com.softicar.platform.common.core.supplier.LazySupplier;
+import com.softicar.platform.common.io.mime.MimeType;
+import com.softicar.platform.common.ui.image.Images;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreModule;
-import com.softicar.platform.core.module.CorePermissions;
-import com.softicar.platform.core.module.module.instance.IModuleInstance;
-import com.softicar.platform.core.module.standard.configuration.ProgramStandardConfiguration;
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
+import com.softicar.platform.core.module.file.stored.AGStoredFile;
 import com.softicar.platform.core.module.user.AGUser;
-import com.softicar.platform.emf.module.permission.EmfDefaultModulePermissions;
-import com.softicar.platform.emf.table.IEmfTable;
+import java.awt.image.BufferedImage;
 
 /**
  * Basic test fixture for the {@link CoreModule}.
@@ -16,86 +15,78 @@ import com.softicar.platform.emf.table.IEmfTable;
  * @author Alexander Schmidt
  * @author Oliver Richers
  */
-public class CoreModuleTestFixture implements IModuleTestFixture<AGCoreModuleInstance>, CoreModuleTestFixtureMethods {
+public final class CoreModuleTestFixture implements ITestFixture, CoreModuleTestFixtureMethods {
 
-	private AGCoreModuleInstance instance;
+	private static final byte[] DUMMY_PNG = Images.writeImageToByteArray(new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB), "PNG");
+	private AGCoreModuleInstance moduleInstance;
 	private AGUser viewUser;
 	private AGUser normalUser;
 	private AGUser adminUser;
+	private final LazySupplier<AGStoredFile> dummyPngFile;
 
 	public CoreModuleTestFixture() {
 
-		this.instance = null;
+		this.moduleInstance = null;
 		this.viewUser = null;
 		this.normalUser = null;
 		this.adminUser = null;
+		this.dummyPngFile = new LazySupplier<>(() -> insertStoredFile("dummy.png", MimeType.IMAGE_PNG).uploadFileContent(DUMMY_PNG));
+	}
+
+	public AGCoreModuleInstance getModuleInstance() {
+
+		return moduleInstance;
 	}
 
 	@Override
-	public AGCoreModuleInstance getInstance() {
+	public void apply() {
 
-		return instance;
-	}
-
-	@Override
-	public IModuleTestFixture<AGCoreModuleInstance> apply() {
-
-		this.instance = AGCoreModuleInstance//
+		this.moduleInstance = AGCoreModuleInstance//
 			.getInstance()
 			.setTestSystem(true)
 			.setDefaultLocalization(insertLocalizationPresetGermany())
 			.setEmailServer(insertDummyServer())
 			.save();
 
-		this.viewUser = insertUser("View", "User")//
-			.setEmailAddress("view.user@example.com")
-			.save();
-
-		this.normalUser = insertUser("Normal", "User")//
-			.setEmailAddress("normal.user@example.com")
-			.save();
-
-		this.adminUser = insertUser("Admin", "User")//
-			.setEmailAddress("admin.user@example.com")
-			.save();
+		this.viewUser = insertUser("View", "User");
+		this.normalUser = insertUser("Normal", "User");
+		this.adminUser = insertUser("Admin", "User");
 
 		insertPassword(viewUser, "test");
 		insertPassword(normalUser, "test");
 		insertPassword(adminUser, "test");
 
-		insertPermissionAssignment(adminUser, CorePermissions.OPERATION, AGCoreModuleInstance.getInstance());
-		insertPermissionAssignment(adminUser, CorePermissions.ADMINISTRATION, AGCoreModuleInstance.getInstance());
-
-		new ProgramStandardConfiguration().createAndSaveAll();
-
-		return this;
+		insertStandardPermissionAssignments(AGCoreModuleInstance.getInstance());
 	}
 
 	@Override
-	public IEmfTable<?, ?, ?> getTable() {
-
-		return AGCoreModuleInstance.TABLE;
-	}
-
 	public AGUser getViewUser() {
 
 		return viewUser;
 	}
 
+	@Override
 	public AGUser getNormalUser() {
 
 		return normalUser;
 	}
 
+	@Override
 	public AGUser getAdminUser() {
 
 		return adminUser;
 	}
 
-	public <I extends IModuleInstance<I>> void insertStandardPermissionAssignments(I moduleInstance) {
+	public CoreModuleTestFixture insertUsers(int count) {
 
-		insertPermissionAssignment(getViewUser(), EmfDefaultModulePermissions.getModuleView(), moduleInstance);
-		insertPermissionAssignment(getNormalUser(), EmfDefaultModulePermissions.getModuleOperation(), moduleInstance);
-		insertPermissionAssignment(getAdminUser(), EmfDefaultModulePermissions.getModuleAdministration(), moduleInstance);
+		for (int i = 0; i < count; i++) {
+			insertUser("user#" + i);
+		}
+		return this;
+	}
+
+	public AGStoredFile getDummyPngFile() {
+
+		return dummyPngFile.get();
 	}
 }

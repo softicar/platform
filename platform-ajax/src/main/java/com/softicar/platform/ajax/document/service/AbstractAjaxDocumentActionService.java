@@ -31,6 +31,7 @@ public abstract class AbstractAjaxDocumentActionService extends AbstractAjaxDocu
 				updateInputFieldValues();
 				service(document, getEventNode());
 				executePayloadCode(() -> document.getRefreshBus().submitEvent());
+				executePayloadCode(() -> document.getDeferredInitializationController().handleAllAppended());
 				document.finishRequestHandling(statementList);
 			}
 		}

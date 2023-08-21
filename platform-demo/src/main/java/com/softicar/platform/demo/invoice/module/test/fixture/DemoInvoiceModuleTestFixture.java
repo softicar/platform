@@ -1,41 +1,23 @@
 package com.softicar.platform.demo.invoice.module.test.fixture;
 
-import com.softicar.platform.core.module.test.instance.registry.IModuleTestFixture;
-import com.softicar.platform.core.module.test.instance.registry.TestFixtureRegistry;
+import com.softicar.platform.core.module.test.fixture.ITestFixture;
 import com.softicar.platform.demo.invoice.module.AGDemoInvoiceModuleInstance;
-import com.softicar.platform.demo.person.module.AGDemoPersonModuleInstance;
 import com.softicar.platform.demo.person.module.test.fixtures.DemoPersonModuleTestFixture;
-import com.softicar.platform.emf.table.IEmfTable;
 
-public class DemoInvoiceModuleTestFixture implements DemoInvoiceModuleTestFixtureMethods, IModuleTestFixture<AGDemoInvoiceModuleInstance> {
+public final class DemoInvoiceModuleTestFixture implements DemoInvoiceModuleTestFixtureMethods, ITestFixture {
 
-	private final TestFixtureRegistry registry;
 	private AGDemoInvoiceModuleInstance moduleInstance;
 
-	public DemoInvoiceModuleTestFixture(TestFixtureRegistry registry) {
-
-		this.registry = registry;
-		this.registry.registerIfMissing(DemoPersonModuleTestFixture::new);
-	}
-
-	@Override
-	public AGDemoInvoiceModuleInstance getInstance() {
+	public AGDemoInvoiceModuleInstance getModuleInstance() {
 
 		return moduleInstance;
 	}
 
 	@Override
-	public IEmfTable<?, ?, ?> getTable() {
+	public void apply() {
 
-		return AGDemoInvoiceModuleInstance.TABLE;
-	}
-
-	@Override
-	public IModuleTestFixture<AGDemoInvoiceModuleInstance> apply() {
-
-		this.moduleInstance = insertDemoInvoiceModuleInstance(registry.getModuleInstance(AGDemoPersonModuleInstance.TABLE));
-		registry.getCoreModuleTestFixture().insertStandardPermissionAssignments(moduleInstance);
+		this.moduleInstance = insertDemoInvoiceModuleInstance(use(DemoPersonModuleTestFixture.class).getModuleInstance());
+		insertStandardPermissionAssignments(moduleInstance);
 		new DemoInvoicesTestFixture(moduleInstance).apply();
-		return this;
 	}
 }

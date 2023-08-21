@@ -1,9 +1,11 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.string.trim.MultiLineStringTrimmer;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.text.DomMultilineStringDisplay;
+import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.attribute.field.EmfFieldAttribute;
 import com.softicar.platform.emf.attribute.input.IEmfInput;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
@@ -15,6 +17,7 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 	private boolean multiline;
 	private boolean passwordMode;
 	private int maximumLength;
+	private int lengthBits;
 
 	public EmfStringAttribute(IDbStringField<R> field) {
 
@@ -24,6 +27,7 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 		this.multiline = false;
 		this.passwordMode = false;
 		this.maximumLength = field.getMaximumLength();
+		this.lengthBits = field.getLengthBits();
 
 		addValidator(new EmfStringAttributeValidator<>(this));
 		setDisplayFactory(this::createDisplay);
@@ -121,6 +125,30 @@ public class EmfStringAttribute<R extends IEmfTableRow<R, ?>> extends EmfFieldAt
 	public int getMaximumLength() {
 
 		return maximumLength;
+	}
+
+	public EmfStringAttribute<R> setLengthBits(int lengthBits) {
+
+		switch (lengthBits) {
+		case 0, 8, 16, 24, 32: {
+			this.lengthBits = lengthBits;
+			break;
+		}
+		default:
+			throw new SofticarUserException(EmfI18n.ARG1_IS_NOT_A_VALID_BIT_LENGTH.toDisplay(lengthBits));
+		}
+		return this;
+	}
+
+	/**
+	 * Returns the lengthBits of this attribute if not limited by
+	 * {@link #getMaximumLength()}.
+	 *
+	 * @return the lengthBits of this field; 0 for other limitation
+	 */
+	public int getLengthBits() {
+
+		return lengthBits;
 	}
 
 	// ------------------------------ overwrite ------------------------------ //

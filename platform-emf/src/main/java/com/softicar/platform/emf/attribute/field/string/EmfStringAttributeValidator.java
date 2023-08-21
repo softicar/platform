@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.emf.EmfI18n;
 import com.softicar.platform.emf.table.row.IEmfTableRow;
 import com.softicar.platform.emf.validation.IEmfValidator;
@@ -27,10 +28,28 @@ public class EmfStringAttributeValidator<R extends IEmfTableRow<R, ?>> implement
 		if (value != null && maximumLength > 0 && value.length() > maximumLength) {
 			result.addError(attribute, EmfI18n.MAXIMUM_LENGTH_OF_ARG1_CHARACTERS_EXCEEDED.toDisplay(maximumLength));
 		}
+
+		int lengthBits = attribute.getLengthBits();
+		if (value != null && lengthBits > 0 && value.getBytes(Charsets.UTF8).length > getMaximumBytes(lengthBits)) {
+			result.addError(attribute, EmfI18n.TEXT_IS_TOO_LONG);
+		}
 	}
 
 	private boolean isEmpty(String value) {
 
 		return value == null || value.isEmpty();
+	}
+
+	private int getMaximumBytes(int lengthBits) {
+
+		switch (lengthBits) {
+		case 8:
+		case 16:
+		case 24:
+			return (1 << lengthBits) - lengthBits / 8;
+		case 32:
+			return Integer.MAX_VALUE;
+		}
+		return 0;
 	}
 }

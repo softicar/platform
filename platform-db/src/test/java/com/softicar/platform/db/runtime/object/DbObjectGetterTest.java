@@ -24,7 +24,7 @@ public class DbObjectGetterTest extends AbstractDbObjectTest {
 
 		DbTestObject object = insertObject("foo");
 		object.delete();
-		assertSame(object, DbTestObject.TABLE.get(object.getId()));
+		assertNull(DbTestObject.TABLE.get(object.getId()));
 	}
 
 	@Test

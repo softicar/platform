@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.common.io.writer.PrintWriters;
 import com.softicar.platform.common.string.formatting.StackTraceFormatting;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverity;
 import com.softicar.platform.core.module.event.severity.AGSystemEventSeverityEnum;
@@ -14,6 +15,7 @@ import com.softicar.platform.emf.module.IEmfModuleInstance;
 
 public class SystemEventBuilder {
 
+	private static final String KEY_EXCEPTION = "exception";
 	private static final String KEY_MODULE_INSTANCE_ID = "moduleInstanceId";
 	private static final String KEY_STACK_TRACE = "stackTrace";
 	private final AGSystemEventSeverity severity;
@@ -80,6 +82,12 @@ public class SystemEventBuilder {
 	public SystemEventBuilder addProperty(String key, IDisplayString value) {
 
 		properties.addProperty(key, value.toString());
+		return this;
+	}
+
+	public SystemEventBuilder addException(Throwable throwable) {
+
+		properties.addProperty(KEY_EXCEPTION, PrintWriters.printToString(throwable::printStackTrace));
 		return this;
 	}
 

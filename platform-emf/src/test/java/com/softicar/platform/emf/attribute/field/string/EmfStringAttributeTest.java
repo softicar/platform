@@ -1,5 +1,6 @@
 package com.softicar.platform.emf.attribute.field.string;
 
+import com.softicar.platform.common.string.Padding;
 import com.softicar.platform.common.testing.AbstractTest;
 import com.softicar.platform.db.runtime.field.IDbStringField;
 import com.softicar.platform.emf.predicate.EmfPredicates;
@@ -17,6 +18,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	private static final String MULTI_LINE = " abc\n\n\nabc\t";
 	private static final String MULTI_LINE_WITH_EMPTY_LINES = " \n abc\n\n\nabc\t\n\t";
 	private static final int MAXIMUM_LENGTH = 15;
+	private static final int LENGTHBITS = 8;
 	private final EmfTestSubObject subObject;
 	private final IDbStringField<EmfTestSubObject> field;
 	private final EmfStringAttribute<EmfTestSubObject> attribute;
@@ -29,6 +31,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 		Mockito.when(field.getName()).thenReturn(ABC);
 		Mockito.when(field.getComment()).thenReturn(Optional.empty());
 		Mockito.when(field.getMaximumLength()).thenReturn(MAXIMUM_LENGTH);
+		Mockito.when(field.getLengthBits()).thenReturn(LENGTHBITS);
 		this.attribute = new EmfStringAttribute<>(field);
 		this.result = new EmfValidationResult();
 	}
@@ -223,6 +226,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	public void testLengthValidationWithTooLongValue() {
 
 		attribute.setMaximumLength(8);
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789");
 
 		attribute.validate(subObject, result);
@@ -234,6 +238,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	public void testLengthValidationWithProperValue() {
 
 		attribute.setMaximumLength(9);
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789");
 
 		attribute.validate(subObject, result);
@@ -245,6 +250,7 @@ public class EmfStringAttributeTest extends AbstractTest {
 	@Test
 	public void testLengthValidationFromDbFieldWithTooLongValue() {
 
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("123456789101112131415");
 
 		attribute.validate(subObject, result);
@@ -255,7 +261,105 @@ public class EmfStringAttributeTest extends AbstractTest {
 	@Test
 	public void testLengthValidationFromDbFieldWithProperValue() {
 
+		attribute.setLengthBits(0);
 		Mockito.when(field.getValue(Mockito.any())).thenReturn("12345678910");
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
+	// ------------------------------ bitlength validation ------------------------------ //
+
+	@Test
+	public void testTinyTextValidationWithTooLongValue() {
+
+		assertLengthBitsValidationWithTooLongValue(8, Padding.generate('a', 256));
+	}
+
+	@Test
+	public void testTinyTextValidationWithTooLongValueAndDoubleByteChar() {
+
+		assertLengthBitsValidationWithTooLongValue(8, Padding.generate('ä', 128));
+	}
+
+	@Test
+	public void testTinyTextValidationWithProperValue() {
+
+		assertLengthBitValidationWithProperValue(8, Padding.generate('a', 255));
+	}
+
+	@Test
+	public void testTinyTextValidationWithProperValueAndDoubleByteChar() {
+
+		assertLengthBitValidationWithProperValue(8, Padding.generate('ä', 127));
+	}
+
+	@Test
+	public void testTextValidationWithTooLongValue() {
+
+		assertLengthBitsValidationWithTooLongValue(16, Padding.generate('a', 65535));
+	}
+
+	@Test
+	public void testTextValidationWithTooLongValueAndDoubleByteChar() {
+
+		assertLengthBitsValidationWithTooLongValue(16, Padding.generate('ä', 32768));
+	}
+
+	@Test
+	public void testTextValidationWithProperValue() {
+
+		assertLengthBitValidationWithProperValue(16, Padding.generate('a', 65534));
+	}
+
+	@Test
+	public void testTextValidationWithProperValueAndDoubleByteChar() {
+
+		assertLengthBitValidationWithProperValue(16, Padding.generate('ä', 32767));
+	}
+
+	@Test
+	public void testMediumTextValidationWithTooLongValue() {
+
+		assertLengthBitsValidationWithTooLongValue(24, Padding.generate('a', 16777214));
+	}
+
+	@Test
+	public void testMediumTextValidationWithTooLongValueAndDoubleByteChar() {
+
+		assertLengthBitsValidationWithTooLongValue(24, Padding.generate('ä', 8388607));
+	}
+
+	@Test
+	public void testMediumTextValidationWithProperValue() {
+
+		assertLengthBitValidationWithProperValue(24, Padding.generate('a', 16777213));
+	}
+
+	@Test
+	public void testMediumTextValidationWithProperValueAndDoubleByteChar() {
+
+		assertLengthBitValidationWithProperValue(24, Padding.generate('ä', 8388606));
+	}
+
+	@Test
+	public void testLengthBitsValidationFromDbFieldWithTooLongValue() {
+
+		attribute.setMaximumLength(0);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('a', 256));
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	@Test
+	public void testLengthBitsValidationFromDbFieldWithProperValue() {
+
+		attribute.setMaximumLength(0);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(Padding.generate('a', 255));
 
 		attribute.validate(subObject, result);
 
@@ -284,4 +388,29 @@ public class EmfStringAttributeTest extends AbstractTest {
 
 		Mockito.verify(field).setValue(subObject, EMPTY_STRING);
 	}
+
+	// ------------------------------ convenience methods ------------------------------ //
+	private void assertLengthBitsValidationWithTooLongValue(int lengthBits, String value) {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(lengthBits);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(value);
+
+		attribute.validate(subObject, result);
+
+		assertTrue(result.hasErrors());
+	}
+
+	private void assertLengthBitValidationWithProperValue(int lengthBits, String value) {
+
+		attribute.setMaximumLength(0);
+		attribute.setLengthBits(lengthBits);
+		Mockito.when(field.getValue(Mockito.any())).thenReturn(value);
+
+		attribute.validate(subObject, result);
+
+		assertFalse(result.hasErrors());
+		assertTrue(result.getDiagnostics().isEmpty());
+	}
+
 }
