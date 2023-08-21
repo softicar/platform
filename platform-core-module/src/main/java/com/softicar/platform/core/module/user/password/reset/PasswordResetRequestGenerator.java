@@ -1,7 +1,9 @@
 package com.softicar.platform.core.module.user.password.reset;
 
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.network.url.Url;
+import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.email.EmailContentType;
 import com.softicar.platform.core.module.email.IEmail;
@@ -25,8 +27,9 @@ public class PasswordResetRequestGenerator {
 	public void createResetRequest() {
 
 		if (AGUserPasswordResetRequest.isResetLimitReachedForUser(user)) {
-			new DomModalAlertDialog(CoreI18n.TOO_MANY_PASSWORD_RESET_REQUESTS).open();
+			throw new SofticarUserException(CoreI18n.TOO_MANY_PASSWORD_RESET_REQUESTS);
 		} else {
+			AGCoreModuleInstance.getInstance().getEmailServerOrThrow();
 			try (DbTransaction transaction = new DbTransaction()) {
 				var request = new AGUserPasswordResetRequest()//
 					.setUser(user)
@@ -38,7 +41,8 @@ public class PasswordResetRequestGenerator {
 			new DomModalAlertDialog(
 				CoreI18n.PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED//
 					.concat("\n\n")
-					.concat(CoreI18n.IF_AN_EMAIL_SERVER_IS_CONFIGURED_THE_USER_WILL_BE_NOTIFIED_VIA_EMAIL)).open();
+					.concat(CoreI18n.AN_EMAIL_WAS_SENT_TO_YOUR_ACCOUNT)
+					.concat(CoreI18n.PLEASE_CHECK_YOUR_INBOX)).open();
 		}
 	}
 

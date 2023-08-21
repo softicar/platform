@@ -54,11 +54,10 @@ public class UserPasswordGenerator {
 		}
 
 		try (DbTransaction transaction = new DbTransaction()) {
+			AGCoreModuleInstance.getInstance().getEmailServerOrThrow();
 			String password = new UserPasswordGenerator().generatePassword();
 			new UserPasswordUpdater(user, password).update();
-			if (AGCoreModuleInstance.getInstance().getEmailServer() != null) {
-				AGUser.sendPaswordResetNotification(user, password);
-			}
+			AGUser.sendPaswordResetNotification(user, password);
 			IDisplayString firstMessagePart;
 			if (showNewPassword) {
 				firstMessagePart = CoreI18n.THE_PASSWORD_FOR_USER_ARG1_IS_NOW_ARG2.toDisplay(user.getLoginName(), password);
