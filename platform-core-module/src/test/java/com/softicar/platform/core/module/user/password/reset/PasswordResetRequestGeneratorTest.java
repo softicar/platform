@@ -2,6 +2,7 @@ package com.softicar.platform.core.module.user.password.reset;
 
 import com.softicar.platform.common.core.clock.CurrentClock;
 import com.softicar.platform.common.core.clock.TestClock;
+import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.test.AbstractCoreTest;
 import com.softicar.platform.core.module.user.AGUser;
@@ -29,7 +30,7 @@ public class PasswordResetRequestGeneratorTest extends AbstractCoreTest {
 		assertRequestLimitNotReached();
 	}
 
-	@Test
+	@Test(expected = SofticarUserException.class)
 	public void testRequestLimit() {
 
 		//Create requests while under limit
@@ -44,7 +45,6 @@ public class PasswordResetRequestGeneratorTest extends AbstractCoreTest {
 
 		//Try to create more requests
 		generator.createResetRequest();
-		assertCreatedRequests(3);
 	}
 
 	@Test
