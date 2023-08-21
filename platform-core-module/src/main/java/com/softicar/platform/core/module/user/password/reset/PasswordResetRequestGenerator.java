@@ -42,7 +42,7 @@ public class PasswordResetRequestGenerator {
 				CoreI18n.PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED//
 					.concat("\n\n")
 					.concat(CoreI18n.AN_EMAIL_WAS_SENT_TO_YOUR_ACCOUNT)
-					.concat(CoreI18n.PLEASE_CHECK_YOUR_INBOX)).open();
+					.concatSentence(CoreI18n.PLEASE_CHECK_YOUR_INBOX)).open();
 		}
 	}
 

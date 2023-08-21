@@ -160,6 +160,10 @@
 	box-shadow: var(--BOX_SHADOW_OVERLAY);
 }
 
+.PageServiceLoginDiv>form>div{
+	align-items: center;
+}
+
 .PageServiceLoginDiv>form>img,
 .PageServicePasswordResetDiv>form>img {
 	max-width:250px;

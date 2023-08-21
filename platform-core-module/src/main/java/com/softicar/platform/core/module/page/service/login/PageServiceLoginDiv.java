@@ -108,7 +108,7 @@ public class PageServiceLoginDiv extends DomDiv {
 		private IDomElement buildResetPasswordButton() {
 
 			var button = new DomPromptButtonBuilder()//
-				.setLabel(CoreI18n.RESET_PASSWORD)
+				.setLabel(CoreI18n.FORGOT_PASSWORD)
 				.setPromptMessage(CoreI18n.PLEASE_ENTER_THE_USER_YOU_WANT_TO_RESET_THE_PASSWORD_FOR)
 				.setPromptCallback(this::createResetRequest)
 				.setDefaultValueSupplier(userInput::getValueText)
