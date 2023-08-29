@@ -27,6 +27,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	public PageServiceLoginDivTest() {
 
 		this.testEngine = new AjaxSeleniumLowLevelTestEngine();
+		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
 		insertPassword(insertUser("foo", "bar", LOGIN_USER), LOGIN_PASSWORD);
 		openTestNode(this::createLoginDiv);
 	}
@@ -168,20 +169,19 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	@Test
 	public void testCreateResetPasswordRequestForExistingUser() {
 
-		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
 		assertEquals(0, AGUserPasswordResetRequest.TABLE.countAll());
 
-		send(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON, Key.ENTER);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON);
 		waitForServer();
 
 		send(findModalPromptOrFail().getInputElement(), LOGIN_USER);
-		send(findModalPromptOrFail().getOkayButton(), Key.ENTER);
+		click(findModalPromptOrFail().getOkayButton());
 		waitForServer();
 
-		send(findModalAlertOrFail().getCloseButton(), Key.ENTER);
+		assertModalAlertWithText(CoreI18n.PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED);
+		click(findModalAlertOrFail().getCloseButton());
 
-		//FIXME this somehow fails in GitHub but not locally
-//		assertEquals(1, AGUserPasswordResetRequest.TABLE.countAll());
+		assertEquals(1, AGUserPasswordResetRequest.TABLE.countAll());
 	}
 
 	@Test

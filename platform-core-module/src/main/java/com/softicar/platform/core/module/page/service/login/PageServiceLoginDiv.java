@@ -124,7 +124,7 @@ public class PageServiceLoginDiv extends DomDiv {
 				.where(AGUser.ACTIVE)
 				.where(AGUser.LOGIN_NAME.isEqual(loginName))
 				.getOneAsOptional()
-				.ifPresentOrElse(it -> new PasswordResetRequestGenerator(it).createResetRequest(), this::showCouldNotResetPasswordMessage);
+				.ifPresentOrElse(it -> new PasswordResetRequestGenerator(it).insertResetRequest(), this::showCouldNotResetPasswordMessage);
 		}
 
 		private void showCouldNotResetPasswordMessage() {

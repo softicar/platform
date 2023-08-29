@@ -24,7 +24,7 @@ public class PasswordResetRequestGenerator {
 		this.user = user;
 	}
 
-	public void createResetRequest() {
+	public void insertResetRequest() {
 
 		if (AGUserPasswordResetRequest.isResetLimitReachedForUser(user)) {
 			throw new SofticarUserException(CoreI18n.TOO_MANY_PASSWORD_RESET_REQUESTS);

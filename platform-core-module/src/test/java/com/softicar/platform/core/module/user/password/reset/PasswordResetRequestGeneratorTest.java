@@ -25,7 +25,7 @@ public class PasswordResetRequestGeneratorTest extends AbstractCoreTest {
 	@Test
 	public void testCreateRequestForUser() {
 
-		generator.createResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(1);
 		assertRequestLimitNotReached();
 	}
@@ -34,30 +34,30 @@ public class PasswordResetRequestGeneratorTest extends AbstractCoreTest {
 	public void testRequestLimit() {
 
 		//Create requests while under limit
-		generator.createResetRequest();
-		generator.createResetRequest();
+		generator.insertResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(2);
 		assertRequestLimitNotReached();
 
-		generator.createResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(3);
 		assertRequestLimitReached();
 
 		//Try to create more requests
-		generator.createResetRequest();
+		generator.insertResetRequest();
 	}
 
 	@Test
 	public void testRequestLimitAfterWaiting() {
 
 		//Create requests while under limit
-		generator.createResetRequest();
-		generator.createResetRequest();
+		generator.insertResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(2);
 		assertRequestLimitNotReached();
 
 		//Create requests to reach limit
-		generator.createResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(3);
 		assertRequestLimitReached();
 
@@ -65,7 +65,7 @@ public class PasswordResetRequestGeneratorTest extends AbstractCoreTest {
 		CurrentClock.set(new TestClock(Instant.now().plusSeconds(86400)));
 
 		assertRequestLimitNotReached();
-		generator.createResetRequest();
+		generator.insertResetRequest();
 		assertCreatedRequests(4);
 	}
 

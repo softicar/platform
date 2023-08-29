@@ -211,10 +211,11 @@ public class AjaxSeleniumLowLevelTestEngineOutput {
 
 	public void assertNodeWithText(ITestMarker marker, String expectedText) {
 
-		assertNode(//
-			marker,
-			node -> getText(node).contains(expectedText),
-			"The node with marker '%s' did not contain '%s'.".formatted(marker, expectedText));
+		var node = findNodeOrFail(marker);
+		var text = getText(node);
+		if (!text.contains(expectedText)) {
+			throw new AssertionError("The node with marker '%s' did not contain '%s'; text: '%s'".formatted(marker, expectedText, text));
+		}
 	}
 
 	public void assertNode(ITestMarker marker, Predicate<IDomNode> assertion, String errorMessage) {
