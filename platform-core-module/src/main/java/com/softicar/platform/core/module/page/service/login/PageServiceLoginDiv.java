@@ -14,6 +14,9 @@ import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
+import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.password.reset.PasswordResetRequestGenerator;
+import com.softicar.platform.dom.element.IDomElement;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.DomForm;
 import com.softicar.platform.dom.elements.DomImage;
@@ -23,6 +26,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import com.softicar.platform.dom.elements.message.DomMessageDiv;
 import com.softicar.platform.dom.elements.message.style.DomMessageType;
+import com.softicar.platform.dom.elements.prompt.DomPromptButtonBuilder;
 import com.softicar.platform.dom.event.DomEventType;
 import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
@@ -80,7 +84,10 @@ public class PageServiceLoginDiv extends DomDiv {
 			loginFormDiv.appendChild(errorDiv);
 
 			appendChild(loginFormDiv);
-			appendChild(new DomActionBar(loginButton));
+			var buttonDiv = new DomDiv();
+			buttonDiv.appendChild(new DomActionBar(loginButton));
+			buttonDiv.appendChild(buildResetPasswordButton());
+			appendChild(buttonDiv);
 		}
 
 		private void appendLogo(AGStoredFile logoFile) {
@@ -96,6 +103,33 @@ public class PageServiceLoginDiv extends DomDiv {
 			} catch (SofticarUserException exception) {
 				errorDiv.showError(exception.getMessage());
 			}
+		}
+
+		private IDomElement buildResetPasswordButton() {
+
+			var button = new DomPromptButtonBuilder()//
+				.setLabel(CoreI18n.FORGOT_PASSWORD)
+				.setPromptMessage(CoreI18n.PLEASE_ENTER_THE_USER_YOU_WANT_TO_RESET_THE_PASSWORD_FOR)
+				.setPromptCallback(this::createResetRequest)
+				.setDefaultValueSupplier(userInput::getValueText)
+				.build();
+			button.addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_RESET_PASSWORD_BUTTON);
+			return button;
+		}
+
+		private void createResetRequest(String loginName) {
+
+			AGUser.TABLE
+				.createSelect()
+				.where(AGUser.ACTIVE)
+				.where(AGUser.LOGIN_NAME.isEqual(loginName))
+				.getOneAsOptional()
+				.ifPresentOrElse(it -> new PasswordResetRequestGenerator(it).insertResetRequest(), this::showCouldNotResetPasswordMessage);
+		}
+
+		private void showCouldNotResetPasswordMessage() {
+
+			throw new SofticarUserException(CoreI18n.COULD_NOT_RESET_USER_PASSWORD);
 		}
 
 		private class LoginButton extends DomButton {

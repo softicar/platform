@@ -1,4 +1,4 @@
--- migration to platform-46
+-- migration to platform-47
 
 -- PLAT-1389
 
@@ -14,3 +14,4 @@ ALTER TABLE `Workflow`.`WorkflowTaskExecution`
 	ADD CONSTRAINT `WorkflowTaskExecution_ibfk_1` FOREIGN KEY (`workflowTask`) REFERENCES `Workflow`.`WorkflowTask` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	ADD CONSTRAINT `WorkflowTaskExecution_ibfk_2` FOREIGN KEY (`workflowTransition`) REFERENCES `Workflow`.`WorkflowTransition` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	ADD CONSTRAINT `WorkflowTaskExecution_ibfk_3` FOREIGN KEY (`transaction`) REFERENCES `Core`.`Transaction` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
