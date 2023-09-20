@@ -19,6 +19,13 @@ import java.util.Properties;
 @SourceCodeReferencePointUuid("88d66637-d757-4f95-8eef-3683f41f32c4")
 public class Office365ImapConnector implements IMailboxConnector {
 
+	private final Properties additionalProperties;
+
+	public Office365ImapConnector() {
+
+		this.additionalProperties = new Properties();
+	}
+
 	@Override
 	public IDisplayString toDisplay() {
 
@@ -35,6 +42,13 @@ public class Office365ImapConnector implements IMailboxConnector {
 	public IServerConnectorConfigurationInput createConfigurationInput(AGServer server) {
 
 		return new Office365ImapConfigurationInput();
+	}
+
+	@Override
+	public Office365ImapConnector putProperty(String name, Object value) {
+
+		additionalProperties.put(name, value);
+		return this;
 	}
 
 	@Override
@@ -79,6 +93,7 @@ public class Office365ImapConnector implements IMailboxConnector {
 		properties.put("mail.imap.connectiontimeout", configuration.connectionTimeout);
 		properties.put("mail.imap.port", server.getPort());
 		properties.put("mail.imap.ssl.enable", true);
+		properties.putAll(additionalProperties);
 		return properties;
 	}
 

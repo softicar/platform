@@ -11,9 +11,17 @@ import com.softicar.platform.dom.node.IDomNode;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.Store;
+import java.util.Properties;
 
 @SourceCodeReferencePointUuid("d4992229-1a91-4b51-abc8-f44440a89070")
 public class ImapConnector implements IMailboxConnector {
+
+	private final Properties additionalProperties;
+
+	public ImapConnector() {
+
+		this.additionalProperties = new Properties();
+	}
 
 	@Override
 	public IDisplayString toDisplay() {
@@ -34,6 +42,13 @@ public class ImapConnector implements IMailboxConnector {
 	}
 
 	@Override
+	public ImapConnector putProperty(String name, Object value) {
+
+		additionalProperties.put(name, value);
+		return this;
+	}
+
+	@Override
 	public IMailboxConnection connectTo(AGServer server) {
 
 		return new ImapConnection(() -> createStore(server));
@@ -42,12 +57,19 @@ public class ImapConnector implements IMailboxConnector {
 	private Store createStore(AGServer server) {
 
 		try {
-			var properties = ImapConfiguration.fromJson(server.getConnectorConfiguration()).getProperties();
-			var store = Session.getInstance(properties).getStore();
+			var store = Session.getInstance(getProperties(server)).getStore();
 			store.connect(server.getAddress(), server.getUsername(), server.getPassword());
 			return store;
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
+	}
+
+	private Properties getProperties(AGServer server) {
+
+		Properties properties = new Properties();
+		properties.putAll(ImapConfiguration.fromJson(server.getConnectorConfiguration()).getProperties());
+		properties.putAll(additionalProperties);
+		return properties;
 	}
 }

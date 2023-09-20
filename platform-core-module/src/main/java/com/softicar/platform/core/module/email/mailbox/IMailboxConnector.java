@@ -17,6 +17,19 @@ public interface IMailboxConnector extends IServerConnector {
 	}
 
 	/**
+	 * Sets the value for the property with the specified name.
+	 * <p>
+	 * This method must be called before calling {@link #connectTo}.
+	 *
+	 * @param name
+	 *            the name of the property (never <i>null</i>)
+	 * @param value
+	 *            the value of the property (may be <i>null</i>)
+	 * @return this
+	 */
+	IMailboxConnector putProperty(String name, Object value);
+
+	/**
 	 * Connects to the mailbox on the given {@link AGServer}.
 	 *
 	 * @param server
