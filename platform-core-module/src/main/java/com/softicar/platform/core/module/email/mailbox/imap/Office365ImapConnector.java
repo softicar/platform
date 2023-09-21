@@ -38,40 +38,41 @@ public class Office365ImapConnector implements IMailboxConnector {
 	}
 
 	@Override
-	public IMailboxConnection connectTo(AGServer server) {
+	public IMailboxConnection connectTo(AGServer server, Properties additionalProperties) {
 
-		return new ImapConnection(() -> createStore(server));
+		return new ImapConnection(() -> createStore(server, additionalProperties));
 	}
 
-	private Store createStore(AGServer server) {
+	private Store createStore(AGServer server, Properties additionalProperties) {
 
 		try {
-			return createStoreWithRetry(server);
+			return createStoreWithRetry(server, additionalProperties);
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
 	}
 
-	private Store createStoreWithRetry(AGServer server) throws MessagingException {
+	private Store createStoreWithRetry(AGServer server, Properties additionalProperties) throws MessagingException {
 
 		var configuration = Office365ImapConfiguration.fromJson(server.getConnectorConfiguration());
 		try {
-			return tryToCreateStore(server, configuration, getAccessToken(server, configuration));
+			return tryToCreateStore(server, configuration, additionalProperties, getAccessToken(server, configuration));
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			renewAccessToken(server, configuration);
-			return tryToCreateStore(server, configuration, getAccessToken(server, configuration));
+			return tryToCreateStore(server, configuration, additionalProperties, getAccessToken(server, configuration));
 		}
 	}
 
-	private Store tryToCreateStore(AGServer server, Office365ImapConfiguration configuration, String token) throws MessagingException {
+	private Store tryToCreateStore(AGServer server, Office365ImapConfiguration configuration, Properties additionalProperties, String token)
+			throws MessagingException {
 
-		var store = Session.getInstance(getProperties(server, configuration)).getStore();
+		var store = Session.getInstance(getProperties(server, configuration, additionalProperties)).getStore();
 		store.connect(server.getAddress(), server.getUsername(), token);
 		return store;
 	}
 
-	public Properties getProperties(AGServer server, Office365ImapConfiguration configuration) {
+	public Properties getProperties(AGServer server, Office365ImapConfiguration configuration, Properties additionalProperties) {
 
 		var properties = new Properties();
 		properties.put("mail.store.protocol", "imap");
@@ -79,6 +80,7 @@ public class Office365ImapConnector implements IMailboxConnector {
 		properties.put("mail.imap.connectiontimeout", configuration.connectionTimeout);
 		properties.put("mail.imap.port", server.getPort());
 		properties.put("mail.imap.ssl.enable", true);
+		properties.putAll(additionalProperties);
 		return properties;
 	}
 
