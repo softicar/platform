@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.email.mailbox;
 import com.softicar.platform.core.module.server.AGServer;
 import jakarta.mail.Message;
 import java.util.Collection;
+import java.util.Properties;
 
 /**
  * A connection to a mailbox.
@@ -14,6 +15,21 @@ public interface IMailboxConnection extends AutoCloseable {
 	/**
 	 * Creates a new {@link IMailboxConnection} to the mailbox as defined by the
 	 * given {@link AGServer}.
+	 *
+	 * @param server
+	 *            a {@link AGServer} (never <i>null</i>)
+	 * @param additionalProperties
+	 *            additional connection properties (never <i>null</i>)
+	 * @return the new {@link IMailboxConnection} (never <i>null</i>)
+	 */
+	static IMailboxConnection getInstance(AGServer server, Properties additionalProperties) {
+
+		return IMailboxConnector.getInstance(server).connectTo(server, additionalProperties);
+	}
+
+	/**
+	 * Same as {@link #getInstance(AGServer, Properties)} but with no additional
+	 * properties.
 	 *
 	 * @param server
 	 *            a {@link AGServer} (never <i>null</i>)
