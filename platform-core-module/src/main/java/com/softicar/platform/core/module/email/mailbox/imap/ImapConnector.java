@@ -16,13 +16,6 @@ import java.util.Properties;
 @SourceCodeReferencePointUuid("d4992229-1a91-4b51-abc8-f44440a89070")
 public class ImapConnector implements IMailboxConnector {
 
-	private final Properties additionalProperties;
-
-	public ImapConnector() {
-
-		this.additionalProperties = new Properties();
-	}
-
 	@Override
 	public IDisplayString toDisplay() {
 
@@ -42,22 +35,15 @@ public class ImapConnector implements IMailboxConnector {
 	}
 
 	@Override
-	public ImapConnector putProperty(String name, Object value) {
+	public IMailboxConnection connectTo(AGServer server, Properties additionalProperties) {
 
-		additionalProperties.put(name, value);
-		return this;
+		return new ImapConnection(() -> createStore(server, additionalProperties));
 	}
 
-	@Override
-	public IMailboxConnection connectTo(AGServer server) {
-
-		return new ImapConnection(() -> createStore(server));
-	}
-
-	private Store createStore(AGServer server) {
+	private Store createStore(AGServer server, Properties additionalProperties) {
 
 		try {
-			var store = Session.getInstance(getProperties(server)).getStore();
+			var store = Session.getInstance(getProperties(server, additionalProperties)).getStore();
 			store.connect(server.getAddress(), server.getUsername(), server.getPassword());
 			return store;
 		} catch (MessagingException exception) {
@@ -65,7 +51,7 @@ public class ImapConnector implements IMailboxConnector {
 		}
 	}
 
-	private Properties getProperties(AGServer server) {
+	private Properties getProperties(AGServer server, Properties additionalProperties) {
 
 		Properties properties = new Properties();
 		properties.putAll(ImapConfiguration.fromJson(server.getConnectorConfiguration()).getProperties());

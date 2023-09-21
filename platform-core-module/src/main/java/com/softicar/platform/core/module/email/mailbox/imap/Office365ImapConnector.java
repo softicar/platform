@@ -19,13 +19,6 @@ import java.util.Properties;
 @SourceCodeReferencePointUuid("88d66637-d757-4f95-8eef-3683f41f32c4")
 public class Office365ImapConnector implements IMailboxConnector {
 
-	private final Properties additionalProperties;
-
-	public Office365ImapConnector() {
-
-		this.additionalProperties = new Properties();
-	}
-
 	@Override
 	public IDisplayString toDisplay() {
 
@@ -45,47 +38,41 @@ public class Office365ImapConnector implements IMailboxConnector {
 	}
 
 	@Override
-	public Office365ImapConnector putProperty(String name, Object value) {
+	public IMailboxConnection connectTo(AGServer server, Properties additionalProperties) {
 
-		additionalProperties.put(name, value);
-		return this;
+		return new ImapConnection(() -> createStore(server, additionalProperties));
 	}
 
-	@Override
-	public IMailboxConnection connectTo(AGServer server) {
-
-		return new ImapConnection(() -> createStore(server));
-	}
-
-	private Store createStore(AGServer server) {
+	private Store createStore(AGServer server, Properties additionalProperties) {
 
 		try {
-			return createStoreWithRetry(server);
+			return createStoreWithRetry(server, additionalProperties);
 		} catch (MessagingException exception) {
 			throw new RuntimeException(exception);
 		}
 	}
 
-	private Store createStoreWithRetry(AGServer server) throws MessagingException {
+	private Store createStoreWithRetry(AGServer server, Properties additionalProperties) throws MessagingException {
 
 		var configuration = Office365ImapConfiguration.fromJson(server.getConnectorConfiguration());
 		try {
-			return tryToCreateStore(server, configuration, getAccessToken(server, configuration));
+			return tryToCreateStore(server, configuration, additionalProperties, getAccessToken(server, configuration));
 		} catch (Exception exception) {
 			DevNull.swallow(exception);
 			renewAccessToken(server, configuration);
-			return tryToCreateStore(server, configuration, getAccessToken(server, configuration));
+			return tryToCreateStore(server, configuration, additionalProperties, getAccessToken(server, configuration));
 		}
 	}
 
-	private Store tryToCreateStore(AGServer server, Office365ImapConfiguration configuration, String token) throws MessagingException {
+	private Store tryToCreateStore(AGServer server, Office365ImapConfiguration configuration, Properties additionalProperties, String token)
+			throws MessagingException {
 
-		var store = Session.getInstance(getProperties(server, configuration)).getStore();
+		var store = Session.getInstance(getProperties(server, configuration, additionalProperties)).getStore();
 		store.connect(server.getAddress(), server.getUsername(), token);
 		return store;
 	}
 
-	public Properties getProperties(AGServer server, Office365ImapConfiguration configuration) {
+	public Properties getProperties(AGServer server, Office365ImapConfiguration configuration, Properties additionalProperties) {
 
 		var properties = new Properties();
 		properties.put("mail.store.protocol", "imap");

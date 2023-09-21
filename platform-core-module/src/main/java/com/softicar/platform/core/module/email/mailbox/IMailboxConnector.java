@@ -3,6 +3,7 @@ package com.softicar.platform.core.module.email.mailbox;
 import com.softicar.platform.core.module.email.mailbox.imap.ImapConnector;
 import com.softicar.platform.core.module.server.AGServer;
 import com.softicar.platform.core.module.server.connector.IServerConnector;
+import java.util.Properties;
 
 /**
  * An {@link IServerConnector} to access a mailbox.
@@ -17,24 +18,26 @@ public interface IMailboxConnector extends IServerConnector {
 	}
 
 	/**
-	 * Sets the value for the property with the specified name.
-	 * <p>
-	 * This method must be called before calling {@link #connectTo}.
+	 * Connects to the mailbox on the given {@link AGServer}.
 	 *
-	 * @param name
-	 *            the name of the property (never <i>null</i>)
-	 * @param value
-	 *            the value of the property (may be <i>null</i>)
-	 * @return this
+	 * @param server
+	 *            the {@link AGServer} (never <i>null</i>)
+	 * @param additionalProperties
+	 *            additional connection properties (never <i>null</i>)
+	 * @return the new {@link IMailboxConnection} to access the mailbox
 	 */
-	IMailboxConnector putProperty(String name, Object value);
+	IMailboxConnection connectTo(AGServer server, Properties additionalProperties);
 
 	/**
-	 * Connects to the mailbox on the given {@link AGServer}.
+	 * Same as {@link #connectTo(AGServer, Properties)} but with no additional
+	 * properties.
 	 *
 	 * @param server
 	 *            the {@link AGServer} (never <i>null</i>)
 	 * @return the new {@link IMailboxConnection} to access the mailbox
 	 */
-	IMailboxConnection connectTo(AGServer server);
+	default IMailboxConnection connectTo(AGServer server) {
+
+		return connectTo(server, new Properties());
+	}
 }
