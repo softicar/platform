@@ -1,7 +1,10 @@
 package com.softicar.platform.core.module.program.execution;
 
 import com.softicar.platform.common.core.annotations.Generated;
+import com.softicar.platform.common.date.DayTime;
+import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.program.AGProgram;
+import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.db.core.DbResultSet;
 import com.softicar.platform.db.runtime.query.AbstractDbQuery;
@@ -27,8 +30,14 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 	// -------------------------------- CONSTANTS -------------------------------- //
 
-	IDbQueryColumn<IRow, Long> ID_COLUMN = new DbQueryColumn<>(IRow::getId, "id", SqlValueTypes.LONG);
-	IDbQueryTableColumn<IRow, AGProgram> PROGRAM_COLUMN = new DbQueryTableStubColumn<>(IRow::getProgram, "program", AGProgram.TABLE);
+	IDbQueryColumn<IRow, Long> ID_COLUMN = new DbQueryColumn<>(IRow::getId, "id", SqlValueTypes.LONG, CoreI18n.ID);
+	IDbQueryTableColumn<IRow, AGProgram> PROGRAM_COLUMN = new DbQueryTableStubColumn<>(IRow::getProgram, "program", AGProgram.TABLE, CoreI18n.PROGRAM);
+	IDbQueryColumn<IRow, Long> STATUS_COLUMN = new DbQueryColumn<>(IRow::getStatus, "status", SqlValueTypes.LONG, CoreI18n.STATUS);
+	IDbQueryColumn<IRow, Long> RUNTIME_COLUMN = new DbQueryColumn<>(IRow::getRuntime, "runtime", SqlValueTypes.LONG, CoreI18n.RUNTIME);
+	IDbQueryColumn<IRow, DayTime> STARTED_AT_COLUMN = new DbQueryColumn<>(IRow::getStartedAt, "startedAt", SqlValueTypes.DAY_TIME, CoreI18n.STARTED_AT);
+	IDbQueryColumn<IRow, DayTime> TERMINATED_AT_COLUMN = new DbQueryColumn<>(IRow::getTerminatedAt, "terminatedAt", SqlValueTypes.DAY_TIME, CoreI18n.TERMINATED_AT);
+	IDbQueryColumn<IRow, Long> OUTPUT_COLUMN = new DbQueryColumn<>(IRow::getOutput, "output", SqlValueTypes.LONG, CoreI18n.OUTPUT);
+	IDbQueryTableColumn<IRow, AGUser> QUEUED_BY_COLUMN = new DbQueryTableStubColumn<>(IRow::getQueuedBy, "queuedBy", AGUser.TABLE, CoreI18n.QUEUED_BY);
 	IFactory FACTORY = new Implementation.Factory();
 
 	// -------------------------------- INTERFACES -------------------------------- //
@@ -37,6 +46,12 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 		Long getId();
 		AGProgram getProgram();
+		Long getStatus();
+		Long getRuntime();
+		DayTime getStartedAt();
+		DayTime getTerminatedAt();
+		Long getOutput();
+		AGUser getQueuedBy();
 	}
 
 	interface IFactory extends IDbQueryFactory<IRow> {
@@ -50,12 +65,18 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 		private static class Factory implements IFactory {
 
-			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(2);
+			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(8);
 
 			public Factory() {
 
 				this.columns.add(ID_COLUMN);
 				this.columns.add(PROGRAM_COLUMN);
+				this.columns.add(STATUS_COLUMN);
+				this.columns.add(RUNTIME_COLUMN);
+				this.columns.add(STARTED_AT_COLUMN);
+				this.columns.add(TERMINATED_AT_COLUMN);
+				this.columns.add(OUTPUT_COLUMN);
+				this.columns.add(QUEUED_BY_COLUMN);
 			}
 
 			@Override
@@ -103,6 +124,30 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 					addIdentifier("program", AGProgram.ID);
 					addToken(SqlKeyword.AS);
 					addIdentifier("program");
+					SELECT(STATUS_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.ID);
+					addToken(SqlKeyword.AS);
+					addIdentifier("status");
+					SELECT(RUNTIME_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.ID);
+					addToken(SqlKeyword.AS);
+					addIdentifier("runtime");
+					SELECT(STARTED_AT_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.STARTED_AT);
+					addToken(SqlKeyword.AS);
+					addIdentifier("startedAt");
+					SELECT(TERMINATED_AT_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.TERMINATED_AT);
+					addToken(SqlKeyword.AS);
+					addIdentifier("terminatedAt");
+					SELECT(OUTPUT_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.ID);
+					addToken(SqlKeyword.AS);
+					addIdentifier("output");
+					SELECT(QUEUED_BY_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.QUEUED_BY);
+					addToken(SqlKeyword.AS);
+					addIdentifier("queuedBy");
 					FROM();
 					addIdentifier(AGProgramExecution.TABLE);
 					addToken(SqlKeyword.AS);
@@ -131,6 +176,12 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 			private final Long id;
 			private final AGProgram program;
+			private final Long status;
+			private final Long runtime;
+			private final DayTime startedAt;
+			private final DayTime terminatedAt;
+			private final Long output;
+			private final AGUser queuedBy;
 
 			private Row(IProgramExecutionsQuery query, IDbSqlSelect select, DbResultSet resultSet) {
 
@@ -138,6 +189,12 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 				this.id = ID_COLUMN.loadValue(select, resultSet);
 				this.program = PROGRAM_COLUMN.loadValue(select, resultSet);
+				this.status = STATUS_COLUMN.loadValue(select, resultSet);
+				this.runtime = RUNTIME_COLUMN.loadValue(select, resultSet);
+				this.startedAt = STARTED_AT_COLUMN.loadValue(select, resultSet);
+				this.terminatedAt = TERMINATED_AT_COLUMN.loadValue(select, resultSet);
+				this.output = OUTPUT_COLUMN.loadValue(select, resultSet);
+				this.queuedBy = QUEUED_BY_COLUMN.loadValue(select, resultSet);
 			}
 
 			@Override
@@ -156,6 +213,42 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 			public AGProgram getProgram() {
 
 				return this.program;
+			}
+
+			@Override
+			public Long getStatus() {
+
+				return this.status;
+			}
+
+			@Override
+			public Long getRuntime() {
+
+				return this.runtime;
+			}
+
+			@Override
+			public DayTime getStartedAt() {
+
+				return this.startedAt;
+			}
+
+			@Override
+			public DayTime getTerminatedAt() {
+
+				return this.terminatedAt;
+			}
+
+			@Override
+			public Long getOutput() {
+
+				return this.output;
+			}
+
+			@Override
+			public AGUser getQueuedBy() {
+
+				return this.queuedBy;
 			}
 		}
 	}

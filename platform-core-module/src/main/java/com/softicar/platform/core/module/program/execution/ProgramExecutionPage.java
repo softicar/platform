@@ -6,9 +6,12 @@ import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreModule;
 import com.softicar.platform.core.module.CorePermissions;
+import com.softicar.platform.core.module.program.ProgramMaintenanceMessageBar;
+import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.node.IDomNode;
+import com.softicar.platform.emf.module.permission.IEmfModulePermission;
+import com.softicar.platform.emf.page.EmfPagePath;
 import com.softicar.platform.emf.page.IEmfPage;
-import com.softicar.platform.emf.permission.IEmfPermission;
 
 @SourceCodeReferencePointUuid("5ff82872-cd52-46ec-a76a-f35ca142322a")
 public class ProgramExecutionPage implements IEmfPage<AGCoreModuleInstance> {
@@ -26,14 +29,23 @@ public class ProgramExecutionPage implements IEmfPage<AGCoreModuleInstance> {
 	}
 
 	@Override
-	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
+	public IEmfModulePermission<AGCoreModuleInstance> getRequiredPermission() {
 
-		return new ProgramExecutionsDiv();
+		return CorePermissions.OPERATION;
 	}
 
 	@Override
-	public IEmfPermission<AGCoreModuleInstance> getRequiredPermission() {
+	public EmfPagePath getPagePath(EmfPagePath modulePath) {
 
-		return CorePermissions.OPERATION;
+		return modulePath.append(CoreI18n.PROGRAMS);
+	}
+
+	@Override
+	public IDomNode createContentNode(AGCoreModuleInstance moduleInstance) {
+
+		DomDiv div = new DomDiv();
+		div.appendChild(new ProgramMaintenanceMessageBar());
+		div.appendChild(new ProgramExecutionsDiv());
+		return div;
 	}
 }

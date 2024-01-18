@@ -7,7 +7,10 @@ import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.emf.EmfImages;
 import com.softicar.platform.emf.data.table.EmfDataTableDivBuilder;
+import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
+import com.softicar.platform.emf.data.table.column.IEmfDataTableColumn;
+import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBasedColumnHandler;
 
 class ProgramExecutionsDiv extends DomDiv {
 
@@ -16,9 +19,7 @@ class ProgramExecutionsDiv extends DomDiv {
 	public ProgramExecutionsDiv() {
 
 		table = new EmfDataTableDivBuilder<>(IProgramExecutionsQuery.FACTORY.createQuery())//
-//			.setActionColumnHandler(this::buildActionCell)
-//			.setColumnHandler(IProgramExecutionsQuery.FILE_COLUMN, new StoredFileColumnHandler())
-//			.setColumnHandler(IProgramExecutionsQuery.JSON_COLUMN, new JsonColumnHandler())
+			.setColumnHandler(IProgramExecutionsQuery.STATUS_COLUMN, new StatusColumnHandler())
 			.build();
 
 		appendChild(new DomActionBar(new RefreshButton()));
@@ -35,20 +36,19 @@ class ProgramExecutionsDiv extends DomDiv {
 		}
 	}
 
-//	private static class JsonColumnHandler extends EmfDataTableRowBasedColumnHandler<IParashiftDocumentsQuery.IRow, String> {
-//
-//		@Override
-//		public void buildCell(IEmfDataTableCell<IParashiftDocumentsQuery.IRow, String> cell, IParashiftDocumentsQuery.IRow row) {
-//
-//			DomActionBar actionBar = new DomActionBar();
-//			actionBar.appendChild(new JsonDisplayPopupButtonDiv(row.getJson()));
-//			cell.appendChild(actionBar);
-//		}
-//
-//		@Override
-//		public boolean isSortable(IEmfDataTableColumn<?, String> column) {
-//
-//			return false;
-//		}
-//	}
+	private static class StatusColumnHandler extends EmfDataTableValueBasedColumnHandler<Long> {
+
+		@Override
+		public void buildCell(IEmfDataTableCell<?, Long> cell, Long value) {
+
+			AGProgramExecution programExecution = AGProgramExecution.get(value.intValue());
+			cell.appendText(programExecution.getStatus().toDisplay());
+		}
+
+		@Override
+		public boolean isSortable(IEmfDataTableColumn<?, Long> column) {
+
+			return super.isSortable(column);
+		}
+	}
 }

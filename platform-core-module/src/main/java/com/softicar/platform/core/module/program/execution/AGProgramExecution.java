@@ -4,6 +4,7 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.core.module.program.AGProgram;
 import com.softicar.platform.core.module.program.Programs;
+import com.softicar.platform.core.module.program.execution.status.ProgramExecutionStatus;
 import com.softicar.platform.core.module.program.execution.status.ProgramExecutionStatusField;
 import com.softicar.platform.core.module.uuid.AGUuid;
 import com.softicar.platform.emf.object.IEmfObject;
@@ -101,5 +102,10 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 			.ofNullable(getTerminatedAt())
 			.orElse(DayTime.now())
 			.toInstant();
+	}
+
+	public ProgramExecutionStatus getStatus() {
+
+		return STATUS_FIELD.getValue(this);
 	}
 }
