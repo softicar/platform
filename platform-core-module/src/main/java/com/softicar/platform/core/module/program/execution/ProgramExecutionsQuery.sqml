@@ -1,0 +1,13 @@
+PACKAGE com.softicar.platform.core.module.program.execution
+
+IMPORT com.softicar.platform.core.module.program.AGProgram
+
+QUERY ProgramExecutionsQuery {
+	
+	SELECT programExecution.id
+	SELECT program
+	
+	FROM AGProgramExecution programExecution
+	JOIN programExecution.programUuid programUuid
+	JOIN AGProgram program ON program.programUuid = programUuid		
+}
