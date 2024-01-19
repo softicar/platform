@@ -1,0 +1,21 @@
+PACKAGE com.softicar.platform.core.module.program.execution
+
+IMPORT com.softicar.platform.core.module.program.AGProgram
+
+
+QUERY ProgramExecutionsQuery {
+	
+	SELECT programExecution.id TITLE 'ID'
+	SELECT program TITLE 'Program'
+	SELECT programExecution.id AS status TITLE 'Status'
+	SELECT programExecution.failed TITLE 'Failed'
+	SELECT programExecution.id AS runtime TITLE 'Runtime'
+	SELECT programExecution.startedAt TITLE 'Started at'
+	SELECT programExecution.terminatedAt TITLE 'Terminated at'
+	SELECT programExecution.id AS output TITLE 'Output'
+	SELECT programExecution.queuedBy TITLE 'Queued by'
+	
+	FROM AGProgramExecution programExecution
+	JOIN programExecution.programUuid programUuid
+	JOIN AGProgram program ON program.programUuid = programUuid		
+}
