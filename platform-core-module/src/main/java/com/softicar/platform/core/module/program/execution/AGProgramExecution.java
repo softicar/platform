@@ -104,6 +104,11 @@ public class AGProgramExecution extends AGProgramExecutionGenerated implements I
 			.toInstant();
 	}
 
+	public Duration getRuntime() {
+
+		return RUNTIME_FIELD.getValue(this);
+	}
+
 	public ProgramExecutionStatus getStatus() {
 
 		return STATUS_FIELD.getValue(this);

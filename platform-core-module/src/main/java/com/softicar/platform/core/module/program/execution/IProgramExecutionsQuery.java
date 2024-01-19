@@ -33,6 +33,7 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 	IDbQueryColumn<IRow, Long> ID_COLUMN = new DbQueryColumn<>(IRow::getId, "id", SqlValueTypes.LONG, CoreI18n.ID);
 	IDbQueryTableColumn<IRow, AGProgram> PROGRAM_COLUMN = new DbQueryTableStubColumn<>(IRow::getProgram, "program", AGProgram.TABLE, CoreI18n.PROGRAM);
 	IDbQueryColumn<IRow, Long> STATUS_COLUMN = new DbQueryColumn<>(IRow::getStatus, "status", SqlValueTypes.LONG, CoreI18n.STATUS);
+	IDbQueryColumn<IRow, Boolean> FAILED_COLUMN = new DbQueryColumn<>(IRow::getFailed, "failed", SqlValueTypes.BOOLEAN, CoreI18n.FAILED);
 	IDbQueryColumn<IRow, Long> RUNTIME_COLUMN = new DbQueryColumn<>(IRow::getRuntime, "runtime", SqlValueTypes.LONG, CoreI18n.RUNTIME);
 	IDbQueryColumn<IRow, DayTime> STARTED_AT_COLUMN = new DbQueryColumn<>(IRow::getStartedAt, "startedAt", SqlValueTypes.DAY_TIME, CoreI18n.STARTED_AT);
 	IDbQueryColumn<IRow, DayTime> TERMINATED_AT_COLUMN = new DbQueryColumn<>(IRow::getTerminatedAt, "terminatedAt", SqlValueTypes.DAY_TIME, CoreI18n.TERMINATED_AT);
@@ -47,6 +48,7 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 		Long getId();
 		AGProgram getProgram();
 		Long getStatus();
+		Boolean getFailed();
 		Long getRuntime();
 		DayTime getStartedAt();
 		DayTime getTerminatedAt();
@@ -65,13 +67,14 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 
 		private static class Factory implements IFactory {
 
-			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(8);
+			private List<IDbQueryColumn<IRow, ?>> columns = new ArrayList<>(9);
 
 			public Factory() {
 
 				this.columns.add(ID_COLUMN);
 				this.columns.add(PROGRAM_COLUMN);
 				this.columns.add(STATUS_COLUMN);
+				this.columns.add(FAILED_COLUMN);
 				this.columns.add(RUNTIME_COLUMN);
 				this.columns.add(STARTED_AT_COLUMN);
 				this.columns.add(TERMINATED_AT_COLUMN);
@@ -128,6 +131,10 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 					addIdentifier("programExecution", AGProgramExecution.ID);
 					addToken(SqlKeyword.AS);
 					addIdentifier("status");
+					SELECT(FAILED_COLUMN);
+					addIdentifier("programExecution", AGProgramExecution.FAILED);
+					addToken(SqlKeyword.AS);
+					addIdentifier("failed");
 					SELECT(RUNTIME_COLUMN);
 					addIdentifier("programExecution", AGProgramExecution.ID);
 					addToken(SqlKeyword.AS);
@@ -177,6 +184,7 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 			private final Long id;
 			private final AGProgram program;
 			private final Long status;
+			private final Boolean failed;
 			private final Long runtime;
 			private final DayTime startedAt;
 			private final DayTime terminatedAt;
@@ -190,6 +198,7 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 				this.id = ID_COLUMN.loadValue(select, resultSet);
 				this.program = PROGRAM_COLUMN.loadValue(select, resultSet);
 				this.status = STATUS_COLUMN.loadValue(select, resultSet);
+				this.failed = FAILED_COLUMN.loadValue(select, resultSet);
 				this.runtime = RUNTIME_COLUMN.loadValue(select, resultSet);
 				this.startedAt = STARTED_AT_COLUMN.loadValue(select, resultSet);
 				this.terminatedAt = TERMINATED_AT_COLUMN.loadValue(select, resultSet);
@@ -219,6 +228,12 @@ public interface IProgramExecutionsQuery extends IDbQuery<IProgramExecutionsQuer
 			public Long getStatus() {
 
 				return this.status;
+			}
+
+			@Override
+			public Boolean getFailed() {
+
+				return this.failed;
 			}
 
 			@Override

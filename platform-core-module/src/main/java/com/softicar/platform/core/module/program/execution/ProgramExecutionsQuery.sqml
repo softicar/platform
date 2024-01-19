@@ -2,11 +2,18 @@ PACKAGE com.softicar.platform.core.module.program.execution
 
 IMPORT com.softicar.platform.core.module.program.AGProgram
 
+
+FUNCTION String getInt(String value) {
+	SQL {CONCAT($value, ' :-)')}
+}
+
+
 QUERY ProgramExecutionsQuery {
 	
 	SELECT programExecution.id TITLE 'ID'
 	SELECT program TITLE 'Program'
 	SELECT programExecution.id AS status TITLE 'Status'
+	SELECT programExecution.failed TITLE 'Failed'
 	SELECT programExecution.id AS runtime TITLE 'Runtime'
 	SELECT programExecution.startedAt TITLE 'Started at'
 	SELECT programExecution.terminatedAt TITLE 'Terminated at'
