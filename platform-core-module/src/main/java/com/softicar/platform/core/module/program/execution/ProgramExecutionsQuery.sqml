@@ -3,11 +3,6 @@ PACKAGE com.softicar.platform.core.module.program.execution
 IMPORT com.softicar.platform.core.module.program.AGProgram
 
 
-FUNCTION String getInt(String value) {
-	SQL {CONCAT($value, ' :-)')}
-}
-
-
 QUERY ProgramExecutionsQuery {
 	
 	SELECT programExecution.id TITLE 'ID'
