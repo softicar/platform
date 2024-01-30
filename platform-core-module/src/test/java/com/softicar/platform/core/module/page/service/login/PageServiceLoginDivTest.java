@@ -27,7 +27,11 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	public PageServiceLoginDivTest() {
 
 		this.testEngine = new AjaxSeleniumLowLevelTestEngine();
-		AGCoreModuleInstance.getInstance().setEmailServer(insertDummyServer()).save();
+		AGCoreModuleInstance
+			.getInstance()//
+			.setEmailServer(insertDummyServer())
+			.setPasswordResetFunctionality(true)
+			.save();
 		insertPassword(insertUser("foo", "bar", LOGIN_USER), LOGIN_PASSWORD);
 		openTestNode(this::createLoginDiv);
 	}

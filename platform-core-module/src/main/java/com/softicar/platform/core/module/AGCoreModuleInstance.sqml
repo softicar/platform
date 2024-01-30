@@ -21,10 +21,11 @@ TABLE AGCoreModuleInstance 'Core.CoreModuleInstance' {
 	AGStoredFile portalLogo = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstance_ibfk_5']
 	AGLocalization defaultLocalization [CONSTRAINT_NAME='CoreModuleInstance_ibfk_6']
 	Boolean testSystem = FALSE
+	Boolean passwordResetFunctionality = FALSE
 
-	IK primaryFileRepository
 	IK systemUser
 	IK emailServer
 	IK portalLogo
 	IK defaultLocalization
+	IK primaryFileRepository
 }

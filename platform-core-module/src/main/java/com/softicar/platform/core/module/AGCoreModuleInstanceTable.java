@@ -73,6 +73,7 @@ public class AGCoreModuleInstanceTable extends ModuleInstanceTable<AGCoreModuleI
 			.addMapping(AGCoreModuleInstance.PORTAL_LOGO, AGCoreModuleInstanceLog.PORTAL_LOGO)
 			.addMapping(AGCoreModuleInstance.SYSTEM_NAME, AGCoreModuleInstanceLog.SYSTEM_NAME)
 			.addMapping(AGCoreModuleInstance.DEFAULT_LOCALIZATION, AGCoreModuleInstanceLog.DEFAULT_LOCALIZATION)
-			.addMapping(AGCoreModuleInstance.TEST_SYSTEM, AGCoreModuleInstanceLog.TEST_SYSTEM);
+			.addMapping(AGCoreModuleInstance.TEST_SYSTEM, AGCoreModuleInstanceLog.TEST_SYSTEM)
+			.addMapping(AGCoreModuleInstance.PASSWORD_RESET_FUNCTIONALITY, AGCoreModuleInstanceLog.PASSWORD_RESET_FUNCTIONALITY);
 	}
 }

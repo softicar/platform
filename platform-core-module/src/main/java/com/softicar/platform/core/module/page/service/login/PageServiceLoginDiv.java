@@ -86,7 +86,9 @@ public class PageServiceLoginDiv extends DomDiv {
 			appendChild(loginFormDiv);
 			var buttonDiv = new DomDiv();
 			buttonDiv.appendChild(new DomActionBar(loginButton));
-			buttonDiv.appendChild(buildResetPasswordButton());
+			if (AGCoreModuleInstance.getInstance().isPasswordResetFunctionality()) {
+				buttonDiv.appendChild(buildResetPasswordButton());
+			}
 			appendChild(buttonDiv);
 		}
 
