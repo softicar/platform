@@ -51,13 +51,14 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_6");
 	public static final IDbForeignField<AGCoreModuleInstanceLog, AGLocalization> DEFAULT_LOCALIZATION = BUILDER.addForeignField("defaultLocalization", o->o.m_defaultLocalization, (o,v)->o.m_defaultLocalization=v, AGLocalization.ID).setTitle(CoreI18n.DEFAULT_LOCALIZATION).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstanceLog_ibfk_7");
 	public static final IDbBooleanField<AGCoreModuleInstanceLog> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setNullable().setDefault(null);
+	public static final IDbBooleanField<AGCoreModuleInstanceLog> PASSWORD_RESET_FUNCTIONALITY = BUILDER.addBooleanField("passwordResetFunctionality", o->o.m_passwordResetFunctionality, (o,v)->o.m_passwordResetFunctionality=v).setTitle(CoreI18n.PASSWORD_RESET_FUNCTIONALITY).setNullable().setDefault(null);
 	public static final IDbTableKey<AGCoreModuleInstanceLog, Tuple2<AGCoreModuleInstance, AGTransaction>> PRIMARY_KEY = BUILDER.setPrimaryKey(DbTableKeyFactory.createKey(CORE_MODULE_INSTANCE, TRANSACTION));
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_TRANSACTION = BUILDER.addIndexKey("transaction", TRANSACTION);
-	public static final IDbKey<AGCoreModuleInstanceLog> IK_PRIMARY_FILE_REPOSITORY = BUILDER.addIndexKey("primaryFileRepository", PRIMARY_FILE_REPOSITORY);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_SYSTEM_USER = BUILDER.addIndexKey("systemUser", SYSTEM_USER);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_EMAIL_SERVER = BUILDER.addIndexKey("emailServer", EMAIL_SERVER);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_PORTAL_LOGO = BUILDER.addIndexKey("portalLogo", PORTAL_LOGO);
 	public static final IDbKey<AGCoreModuleInstanceLog> IK_DEFAULT_LOCALIZATION = BUILDER.addIndexKey("defaultLocalization", DEFAULT_LOCALIZATION);
+	public static final IDbKey<AGCoreModuleInstanceLog> IK_PRIMARY_FILE_REPOSITORY = BUILDER.addIndexKey("primaryFileRepository", PRIMARY_FILE_REPOSITORY);
 	public static final DbRecordTable<AGCoreModuleInstanceLog, Tuple2<AGCoreModuleInstance, AGTransaction>> TABLE = new DbRecordTable<>(BUILDER);
 	// @formatter:on
 
@@ -230,6 +231,16 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 		return setValue(TEST_SYSTEM, value);
 	}
 
+	public final Boolean isPasswordResetFunctionality() {
+
+		return getValue(PASSWORD_RESET_FUNCTIONALITY);
+	}
+
+	public final AGCoreModuleInstanceLog setPasswordResetFunctionality(Boolean value) {
+
+		return setValue(PASSWORD_RESET_FUNCTIONALITY, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -254,5 +265,6 @@ public class AGCoreModuleInstanceLog extends AbstractDbRecord<AGCoreModuleInstan
 	private AGStoredFile m_portalLogo;
 	private AGLocalization m_defaultLocalization;
 	private Boolean m_testSystem;
+	private Boolean m_passwordResetFunctionality;
 }
 

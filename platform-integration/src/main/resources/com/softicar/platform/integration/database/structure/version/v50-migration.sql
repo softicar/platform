@@ -12,3 +12,7 @@ CREATE TABLE `Core`.`UserPasswordResetRequest` (
 	UNIQUE KEY `uuid` (`uuid`),
 	CONSTRAINT `UserPasswordReset_ibfk_1` FOREIGN KEY (`user`) REFERENCES `Core`.`User` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
+
+-- PLAT-1423
+ALTER TABLE `Core`.`CoreModuleInstance` ADD `passwordResetFunctionality` TINYINT(1) NOT NULL DEFAULT '0' AFTER `testSystem`;
+ALTER TABLE `Core`.`CoreModuleInstanceLog` ADD `passwordResetFunctionality` TINYINT(1) NULL DEFAULT NULL AFTER `testSystem`; 

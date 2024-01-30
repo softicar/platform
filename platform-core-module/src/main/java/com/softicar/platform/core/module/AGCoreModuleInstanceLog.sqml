@@ -22,11 +22,12 @@ TABLE AGCoreModuleInstanceLog 'Core.CoreModuleInstanceLog' {
 	AGStoredFile portalLogo = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_6']
 	AGLocalization defaultLocalization = NULL [NULLABLE CONSTRAINT_NAME='CoreModuleInstanceLog_ibfk_7']
 	Boolean testSystem = NULL [NULLABLE]
+	Boolean passwordResetFunctionality = NULL [NULLABLE]
 
 	IK transaction
-	IK primaryFileRepository
 	IK systemUser
 	IK emailServer
 	IK portalLogo
 	IK defaultLocalization
+	IK primaryFileRepository
 }

@@ -45,11 +45,12 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 	public static final IDbForeignField<AGCoreModuleInstance, AGStoredFile> PORTAL_LOGO = BUILDER.addForeignField("portalLogo", o->o.m_portalLogo, (o,v)->o.m_portalLogo=v, AGStoredFile.ID).setTitle(CoreI18n.PORTAL_LOGO).setNullable().setDefault(null).setForeignKeyName("CoreModuleInstance_ibfk_5");
 	public static final IDbForeignField<AGCoreModuleInstance, AGLocalization> DEFAULT_LOCALIZATION = BUILDER.addForeignField("defaultLocalization", o->o.m_defaultLocalization, (o,v)->o.m_defaultLocalization=v, AGLocalization.ID).setTitle(CoreI18n.DEFAULT_LOCALIZATION).setForeignKeyName("CoreModuleInstance_ibfk_6");
 	public static final IDbBooleanField<AGCoreModuleInstance> TEST_SYSTEM = BUILDER.addBooleanField("testSystem", o->o.m_testSystem, (o,v)->o.m_testSystem=v).setTitle(CoreI18n.TEST_SYSTEM).setDefault(false);
-	public static final IDbKey<AGCoreModuleInstance> IK_PRIMARY_FILE_REPOSITORY = BUILDER.addIndexKey("primaryFileRepository", PRIMARY_FILE_REPOSITORY);
+	public static final IDbBooleanField<AGCoreModuleInstance> PASSWORD_RESET_FUNCTIONALITY = BUILDER.addBooleanField("passwordResetFunctionality", o->o.m_passwordResetFunctionality, (o,v)->o.m_passwordResetFunctionality=v).setTitle(CoreI18n.PASSWORD_RESET_FUNCTIONALITY).setDefault(false);
 	public static final IDbKey<AGCoreModuleInstance> IK_SYSTEM_USER = BUILDER.addIndexKey("systemUser", SYSTEM_USER);
 	public static final IDbKey<AGCoreModuleInstance> IK_EMAIL_SERVER = BUILDER.addIndexKey("emailServer", EMAIL_SERVER);
 	public static final IDbKey<AGCoreModuleInstance> IK_PORTAL_LOGO = BUILDER.addIndexKey("portalLogo", PORTAL_LOGO);
 	public static final IDbKey<AGCoreModuleInstance> IK_DEFAULT_LOCALIZATION = BUILDER.addIndexKey("defaultLocalization", DEFAULT_LOCALIZATION);
+	public static final IDbKey<AGCoreModuleInstance> IK_PRIMARY_FILE_REPOSITORY = BUILDER.addIndexKey("primaryFileRepository", PRIMARY_FILE_REPOSITORY);
 	public static final AGCoreModuleInstanceTable TABLE = new AGCoreModuleInstanceTable(BUILDER);
 	// @formatter:on
 
@@ -205,6 +206,16 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 		return setValue(TEST_SYSTEM, value);
 	}
 
+	public final Boolean isPasswordResetFunctionality() {
+
+		return getValue(PASSWORD_RESET_FUNCTIONALITY);
+	}
+
+	public final AGCoreModuleInstance setPasswordResetFunctionality(Boolean value) {
+
+		return setValue(PASSWORD_RESET_FUNCTIONALITY, value);
+	}
+
 	// -------------------------------- UTILS -------------------------------- //
 
 	@Override
@@ -228,5 +239,6 @@ public class AGCoreModuleInstanceGenerated extends AbstractDbSubObject<AGCoreMod
 	private AGStoredFile m_portalLogo;
 	private AGLocalization m_defaultLocalization;
 	private Boolean m_testSystem;
+	private Boolean m_passwordResetFunctionality;
 }
 

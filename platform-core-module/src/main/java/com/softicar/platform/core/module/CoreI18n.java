@@ -1701,6 +1701,8 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Zapisi pravila lozinke")
 		.sr("Zapisi pravila lozinke")
 		.hr("Zapisi pravila lozinke");
+	I18n0 PASSWORD_RESET_FUNCTIONALITY = new I18n0("Password Reset Functionality")//
+		.de("Passwort-Rücksetzfunktion");
 	I18n0 PASSWORD_RESET_REQUEST_HAS_BEEN_CREATED = new I18n0("Password reset request has been created.")//
 		.de("Eine Anforderung zum Zurücksetzen des Passworts wurde erstellt.");
 	I18n0 PDF = new I18n0("PDF")//
