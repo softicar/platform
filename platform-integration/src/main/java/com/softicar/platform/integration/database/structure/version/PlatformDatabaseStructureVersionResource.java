@@ -68,4 +68,6 @@ public interface PlatformDatabaseStructureVersionResource {
 	IResourceSupplier V47_STRUCTURE = FACTORY.create("v47-structure.json");
 	IResourceSupplier V50_MIGRATION = FACTORY.create("v50-migration.sql");
 	IResourceSupplier V50_STRUCTURE = FACTORY.create("v50-structure.json");
+	IResourceSupplier V51_MIGRATION = FACTORY.create("v51-migration.sql");
+	IResourceSupplier V51_STRUCTURE = FACTORY.create("v51-structure.json");
 }
