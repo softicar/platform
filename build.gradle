@@ -5,7 +5,7 @@ plugins {
 	id 'com.softicar.gradle.code.validation' version '4.0.5' apply false
 	id 'com.softicar.gradle.dependency.validation' version '4.0.5' apply false
 	id 'com.softicar.gradle.selenium.grid' version '4.0.5'
-	id 'com.softicar.gradle.test.logger' version '4.0.5' apply false
+	id 'com.softicar.gradle.test.logger' version '4.0.5' apply false	
 }
 
 // -------------------- dependencies -------------------- //
@@ -13,44 +13,46 @@ plugins {
 // The identifiers below correspond to artifact names in camelCase.
 project.ext {
 	versions = [
-		asm: "9.3",
-		bcprov: "1.70",
-		byteBuddy: "1.14.4",
-		classgraph: "4.8.158",
-		commonsCodec: "1.15",
+		asm: "9.6",
+		bcprov: "1.77",
+		byteBuddy: "1.14.12",
+		classgraph: "4.8.168",
+		commonsCodec: "1.16.1",
 		commonsCollections4: "4.4",
-		commonsCompress: "1.23.0",
-		commonsLang3: "3.12.0",
-		commonsNet: "3.9.0",
-		commonsText: "1.10.0",
-		flyingSaucerPdf: "9.1.22",
+		commonsCompress: "1.26.1",
+		commonsIo: "2.15.1",
+		commonsLang3: "3.14.0",
+		commonsNet: "3.10.0",
+		commonsText: "1.11.0",
+		flyingSaucerPdf: "9.7.1",
 		gson: "2.10.1",
-		guava: "32.0.1-jre",
-		h2: "2.1.214",
-		hikariCp: "5.0.1",
-		imageioJpeg: "3.9.4",
+		guava: "33.1.0-jre",
+		h2: "2.2.224",
+		hikariCp: "5.1.0",
+		imageioJpeg: "3.10.1",
 		// optional dependency of pdfbox; enables rendering of jpeg2000-encoded embedded images
 		jaiImageioJpeg2000: "1.4.0",
 		jakartaActivation: "2.0.1",
 		jakartaMail: "2.0.1",
 		jakartaServletApi: "4.0.4",
-		jcifsNg: "2.1.9",
-		jetty: "10.0.15",
+		jcifsNg: "2.1.10",
+		jetty: "10.0.20",
 		jsch: "0.1.55",
-		jsonPath: "2.8.0",
-		jsoup: "1.16.1",
+		jsonSmart: "2.5.1",
+		jsonPath: "2.9.0",
+		jsoup: "1.17.2",
 		junit: "4.13.2",
-		log4j: "2.20.0",
+		log4j: "2.21.1",
 		mariadbJavaClient: "2.7.9",
-		mockito: "4.11.0",
-		netty: "4.1.92.Final",
-		pdfbox: "2.0.28",
-		poi: "5.2.2",
-		selenium: "4.9.1",
-		simpleJavaMail: "8.1.0",
-		slf4j: "2.0.7",
+		mockito: "5.11.0",
+		netty: "4.1.108.Final",
+		pdfbox: "2.0.31",
+		poi: "5.2.5",
+		selenium: "4.18.1",
+		simpleJavaMail: "8.8.0",
+		slf4j: "2.0.12",
 		tesseract: "4.1.1-1.5.6",
-		tinymce: "6.3.1",
+		tinymce: "6.8.3",
 	]
 }
 
@@ -87,6 +89,11 @@ subprojects {
 			force "org.apache.logging.log4j:log4j-api:$versions.log4j"
 			force "org.bouncycastle:bcprov-jdk15on:$versions.bcprov"
 			force "org.slf4j:slf4j-api:$versions.slf4j"
+			force "net.minidev:accessors-smart:$versions.jsonSmart"
+			force "net.minidev:json-smart:$versions.jsonSmart"
+			force "org.apache.poi:poi:$versions.poi"
+			force "org.apache.commons:commons-lang3:$versions.commonsLang3"
+			force "commons-io:commons-io:$versions.commonsIo"
 
 			eachDependency { details ->
 				// force version for most 'io.netty' dependencies
@@ -109,16 +116,28 @@ subprojects {
 
 // -------------------- compile -------------------- //
 
-sourceCompatibility = "17"
-targetCompatibility = "17"
+java {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+	options.encoding = "UTF-8"
+}
 
 subprojects {
 	apply plugin: 'com.softicar.gradle.java.library'
 
-	sourceCompatibility = "17"
-	targetCompatibility = "17"
-
+	java {
+		sourceCompatibility = JavaVersion.VERSION_21
+		targetCompatibility = JavaVersion.VERSION_21
+	}
+	
 	compileJava {
+		sourceCompatibility = JavaVersion.VERSION_21
+		targetCompatibility = JavaVersion.VERSION_21
 		options.encoding = "UTF-8"
 	}
 

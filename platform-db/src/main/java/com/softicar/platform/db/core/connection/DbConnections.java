@@ -57,7 +57,7 @@ public class DbConnections {
 			Log
 				.fverbose(//
 					"Thread %s: Connecting %s database %s with %s@%s.",
-					Thread.currentThread().getId(),
+					Thread.currentThread().threadId(),
 					database.getServerType(),
 					database.getDatabaseName(),
 					database.getConnectionProperties().getUsername(),

@@ -3,6 +3,7 @@ package com.softicar.platform.ajax.testing.selenium.web.driver;
 import com.softicar.platform.ajax.testing.selenium.AjaxSeleniumTestProperties;
 import com.softicar.platform.common.core.retry.RetryingSupplier;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.util.Optional;
@@ -64,12 +65,15 @@ public class AjaxSeleniumWebDriverFactory {
 	private static URL getRemoteDriverUrl() {
 
 		try {
-			return new URL(
-				String
-					.format(//
-						"http://%s:%s/wd/hub",
-						AjaxSeleniumTestProperties.HUB_IP.getValue(),
-						AjaxSeleniumTestProperties.HUB_PORT_EXTERNAL.getValue()));
+
+			String source = String
+				.format(//
+					"http://%s:%s/wd/hub",
+					AjaxSeleniumTestProperties.HUB_IP.getValue(),
+					AjaxSeleniumTestProperties.HUB_PORT_EXTERNAL.getValue());
+
+			return URL.of(URI.create(source), null);
+
 		} catch (MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}

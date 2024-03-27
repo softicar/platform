@@ -9,7 +9,6 @@ public class BatikCleanerThreadManager {
 
 	private static final String BATIK_CLEANER_THREAD_CLASS = "org.apache.batik.util.CleanerThread";
 
-	@SuppressWarnings("deprecation")
 	public void shutdownThread() {
 
 		Log.finfo("Starting shutdown of %s", BATIK_CLEANER_THREAD_CLASS);

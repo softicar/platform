@@ -33,7 +33,7 @@ public enum LanguageEnum implements IDisplayable {
 	BENGALI(() -> LanguageEnumI18n.BENGALI, "bn"),
 	BIHARI(() -> LanguageEnumI18n.BIHARI, "bh"),
 	BISLAMA(() -> LanguageEnumI18n.BISLAMA, "bi"),
-	BOSNIAN(() -> LanguageEnumI18n.BOSNIAN, "bs", new Locale("bs", "BA")),
+	BOSNIAN(() -> LanguageEnumI18n.BOSNIAN, "bs", Locale.of("bs", "BA")),
 	BRETON(() -> LanguageEnumI18n.BRETON, "br"),
 	BULGARIAN(() -> LanguageEnumI18n.BULGARIAN, "bg"),
 	BURMESE(() -> LanguageEnumI18n.BURMESE, "my"),
@@ -51,19 +51,19 @@ public enum LanguageEnum implements IDisplayable {
 	DANISH(() -> LanguageEnumI18n.DANISH, "da"),
 	DUTCH(() -> LanguageEnumI18n.DUTCH, "nl"),
 	DZONGKHA(() -> LanguageEnumI18n.DZONGKHA, "dz"),
-	ENGLISH(() -> LanguageEnumI18n.ENGLISH, "en", new Locale("en", "US")),
+	ENGLISH(() -> LanguageEnumI18n.ENGLISH, "en", Locale.of("en", "US")),
 	ESPERANTO(() -> LanguageEnumI18n.ESPERANTO, "eo"),
 	ESTONIAN(() -> LanguageEnumI18n.ESTONIAN, "et"),
 	EWE(() -> LanguageEnumI18n.EWE, "ee"),
 	FAROESE(() -> LanguageEnumI18n.FAROESE, "fo"),
 	FIJIAN(() -> LanguageEnumI18n.FIJIAN, "fj"),
 	FINNISH(() -> LanguageEnumI18n.FINNISH, "fi"),
-	FRENCH(() -> LanguageEnumI18n.FRENCH, "fr", new Locale("fr", "FR")),
+	FRENCH(() -> LanguageEnumI18n.FRENCH, "fr", Locale.of("fr", "FR")),
 	FULAH(() -> LanguageEnumI18n.FULAH, "ff"),
 	GALICIAN(() -> LanguageEnumI18n.GALICIAN, "gl"),
 	GANDA(() -> LanguageEnumI18n.GANDA, "lg"),
 	GEORGIAN(() -> LanguageEnumI18n.GEORGIAN, "ka"),
-	GERMAN(() -> LanguageEnumI18n.GERMAN, "de", new Locale("de", "DE")),
+	GERMAN(() -> LanguageEnumI18n.GERMAN, "de", Locale.of("de", "DE")),
 	GREEK(() -> LanguageEnumI18n.GREEK, "el"),
 	GUARANI(() -> LanguageEnumI18n.GUARANI, "gn"),
 	GUJARATI(() -> LanguageEnumI18n.GUJARATI, "gu"),
@@ -130,7 +130,7 @@ public enum LanguageEnum implements IDisplayable {
 	POLISH(() -> LanguageEnumI18n.POLISH, "pl"),
 	PORTUGUESE(() -> LanguageEnumI18n.PORTUGUESE, "pt"),
 	QUECHUA(() -> LanguageEnumI18n.QUECHUA, "qu"),
-	ROMANIAN(() -> LanguageEnumI18n.ROMANIAN, "ro", new Locale("ru", "RU")),
+	ROMANIAN(() -> LanguageEnumI18n.ROMANIAN, "ro", Locale.of("ru", "RU")),
 	ROMANSH(() -> LanguageEnumI18n.ROMANSH, "rm"),
 	RUSSIAN(() -> LanguageEnumI18n.RUSSIAN, "ru"),
 	SAMOAN(() -> LanguageEnumI18n.SAMOAN, "sm"),
@@ -142,11 +142,11 @@ public enum LanguageEnum implements IDisplayable {
 	SHONA(() -> LanguageEnumI18n.SHONA, "sn"),
 	SINHALA(() -> LanguageEnumI18n.SINHALA, "si"),
 	SLOVAK(() -> LanguageEnumI18n.SLOVAK, "sk"),
-	SLOVENE(() -> LanguageEnumI18n.SLOVENE, "sl", new Locale("sl", "SI")),
+	SLOVENE(() -> LanguageEnumI18n.SLOVENE, "sl", Locale.of("sl", "SI")),
 	SOMALI(() -> LanguageEnumI18n.SOMALI, "so"),
 	SOUTHERN_NDEBELE(() -> LanguageEnumI18n.SOUTHERN_NDEBELE, "nr"),
 	SOUTHERN_SOTHO(() -> LanguageEnumI18n.SOUTHERN_SOTHO, "st"),
-	SPANISH(() -> LanguageEnumI18n.SPANISH, "es", new Locale("es", "ES")),
+	SPANISH(() -> LanguageEnumI18n.SPANISH, "es", Locale.of("es", "ES")),
 	SUNDANESE(() -> LanguageEnumI18n.SUNDANESE, "su"),
 	SWAHILI(() -> LanguageEnumI18n.SWAHILI, "sw"),
 	SWATI(() -> LanguageEnumI18n.SWATI, "ss"),
@@ -161,7 +161,7 @@ public enum LanguageEnum implements IDisplayable {
 	TONGA(() -> LanguageEnumI18n.TONGA, "to"),
 	TSONGA(() -> LanguageEnumI18n.TSONGA, "ts"),
 	TSWANA(() -> LanguageEnumI18n.TSWANA, "tn"),
-	TURKISH(() -> LanguageEnumI18n.TURKISH, "tr", new Locale("tr", "TR")),
+	TURKISH(() -> LanguageEnumI18n.TURKISH, "tr", Locale.of("tr", "TR")),
 	TURKMEN(() -> LanguageEnumI18n.TURKMEN, "tk"),
 	TWI(() -> LanguageEnumI18n.TWI, "tw"),
 	UKRAINIAN(() -> LanguageEnumI18n.UKRAINIAN, "uk"),
@@ -178,9 +178,9 @@ public enum LanguageEnum implements IDisplayable {
 	ZULU(() -> LanguageEnumI18n.ZULU, "zu");
 
 	private static final Map<String, LanguageEnum> ISO6391_MAP = new TreeMap<>();
-	private Supplier<IDisplayString> nameSupplier;
-	private String iso6391;
-	private Locale locale;
+	private final Supplier<IDisplayString> nameSupplier;
+	private final String iso6391;
+	private final Locale locale;
 
 	private LanguageEnum(Supplier<IDisplayString> nameSupplier, String iso6391) {
 

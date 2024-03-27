@@ -8,6 +8,7 @@ import com.softicar.platform.core.module.web.service.dispatch.IWebServiceDispatc
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Enumeration;
@@ -84,7 +85,7 @@ public class HttpWebServiceDispatcher implements IWebServiceDispatcher {
 	private static URL createUrl(String url) {
 
 		try {
-			return new URL(url);
+			return URL.of(URI.create(url), null);
 		} catch (MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}

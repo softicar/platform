@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class AjaxDownloadTest extends AbstractAjaxSeleniumLowLevelTest {
 
 		// assert resource has correct content
 		try {
-			URLConnection connection = new URL(source).openConnection();
+			URLConnection connection = URL.of(URI.create(source), null).openConnection();
 			connection.setRequestProperty("Cookie", getSessionCookie());
 			try (InputStream inputStream = connection.getInputStream()) {
 				ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -61,7 +62,7 @@ public class AjaxDownloadTest extends AbstractAjaxSeleniumLowLevelTest {
 		assertTrue(source.matches("http.*?resourceId=1"));
 
 		// assert resource is not available
-		try (InputStream inputStream = new URL(source).openStream()) {
+		try (InputStream inputStream = URL.of(URI.create(source), null).openStream()) {
 			fail("unexpected");
 		}
 	}

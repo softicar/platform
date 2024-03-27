@@ -100,11 +100,14 @@ public class MicrosoftOnlineAuthorizer {
 				.uri(new URI(address))
 				.POST(HttpRequest.BodyPublishers.ofString(getParameterString()))
 				.build();
-			var response = HttpClient//
+
+			try (var client = HttpClient//
 				.newBuilder()
-				.build()
-				.send(request, HttpResponse.BodyHandlers.ofString());
-			return new MicrosoftOnlineAuthorization(response);
+				.build()) {
+				var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+				return new MicrosoftOnlineAuthorization(response);
+			}
+
 		} catch (IOException | URISyntaxException | InterruptedException exception) {
 			throw new RuntimeException(exception);
 		}
