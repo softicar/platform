@@ -26,7 +26,7 @@ public class ExternalComponentLicensePredefinedRules {
 		// Artifact does not contain license information.
 		// License defined at:
 		// https://www.bouncycastle.org/licence.html
-		addLibrary("bcprov-jdk15on", ".*", License.BOUNCY_CASTLE);
+		addLibrary("bcprov-jdk18on", ".*", License.BOUNCY_CASTLE);
 
 		// Artifact does not contain license information.
 		// License defined at:
@@ -40,8 +40,8 @@ public class ExternalComponentLicensePredefinedRules {
 
 		// Artifact does not contain license information.
 		// License defined at:
-		// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf-openpdf
-		addLibrary("flying-saucer-pdf-openpdf", ".*", License.LGPL_2_1);
+		// https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf
+		addLibrary("flying-saucer-pdf", ".*", License.LGPL_2_1);
 
 		// Artifact does not contain license information.
 		// License defined at:
