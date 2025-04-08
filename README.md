@@ -26,8 +26,8 @@ See the [SoftiCAR Platform Example Project](https://github.com/softicar/platform
 
 To build and develop the code in this repository, an **Ubuntu 20.04 (Focal)** based workstation is recommended, with the following software installed:
 
-1. [AdoptOpenJDK 15 with HotSpot JVM](https://adoptopenjdk.net/archive.html?variant=openjdk15&jvmVariant=hotspot), with `java` in the `PATH`
-2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2020-09 (4.17)](https://www.eclipse.org/downloads/packages/release/2020-09/r)
+1. [Java Eclipse Temurin 21](https://adoptium.net/en-GB/download/), with `java` in the `PATH`
+2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2025-03 (4.35)](https://www.eclipse.org/downloads/packages/release/2025-03/r)
 3. [SQML Eclipse Plugin](https://github.com/softicar/sqml)
 
 In _Eclipse_, the code shall be imported via _File / Import / Gradle / Existing Gradle Project_.
