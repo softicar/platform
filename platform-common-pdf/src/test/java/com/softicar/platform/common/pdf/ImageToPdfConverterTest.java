@@ -2,6 +2,8 @@ package com.softicar.platform.common.pdf;
 
 import com.softicar.platform.common.testing.Asserts;
 import java.io.IOException;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.Test;
@@ -13,7 +15,7 @@ public class ImageToPdfConverterTest extends Asserts {
 
 		var pdfBytes = new ImageToPdfConverter(PdfTestFiles.TIFF_MULTI_IMAGE.getResource()::getResourceAsStream).convertToPdf();
 
-		try (var pdfDocument = PDDocument.load(pdfBytes)) {
+		try (var pdfDocument = Loader.loadPDF(pdfBytes)) {
 			assertEquals(3, pdfDocument.getNumberOfPages());
 			assertMediaBox(300, 150, pdfDocument.getPage(0));
 			assertMediaBox(350, 200, pdfDocument.getPage(1));

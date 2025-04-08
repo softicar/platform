@@ -4,11 +4,14 @@ import com.softicar.platform.common.testing.Asserts;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 
@@ -28,7 +31,7 @@ public class PdfMergerTest extends Asserts {
 			.addPdf(() -> new ByteArrayInputStream(pdfCBytes))
 			.merge();
 
-		try (var document = PDDocument.load(mergedPdf.toByteArray())) {
+		try (var document = Loader.loadPDF(mergedPdf.toByteArray())) {
 			assertEquals(6, document.getNumberOfPages());
 			assertEquals("A.first\nA.second\nA.third\nB.first\nC.first\nC.second\n", new PDFTextStripper().getText(document));
 		}
@@ -40,7 +43,7 @@ public class PdfMergerTest extends Asserts {
 		var mergedPdf = new ByteArrayOutputStream();
 		new PdfMerger(() -> mergedPdf).merge();
 
-		try (var document = PDDocument.load(mergedPdf.toByteArray())) {
+		try (var document = Loader.loadPDF(mergedPdf.toByteArray())) {
 			assertEquals(0, document.getNumberOfPages());
 		}
 	}
@@ -53,7 +56,7 @@ public class PdfMergerTest extends Asserts {
 				document.addPage(page);
 				try (var contentStream = new PDPageContentStream(document, page)) {
 					contentStream.beginText();
-					contentStream.setFont(PDType1Font.TIMES_ROMAN, 12);
+					contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.TIMES_ROMAN), 12);
 					contentStream.newLineAtOffset(25, 500);
 					contentStream.showText(text);
 					contentStream.endText();

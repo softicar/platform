@@ -24,7 +24,7 @@ public class BatikCleanerThreadManager {
 				} else {
 					Log.finfo("Failed shutdown of %s", BATIK_CLEANER_THREAD_CLASS);
 					Log.finfo("Calling Thread.stop()");
-					thread.stop();
+					thread.interrupt();
 				}
 			} else {
 				Log.finfo("Skipping shutdown of %s (no thread started)", BATIK_CLEANER_THREAD_CLASS);

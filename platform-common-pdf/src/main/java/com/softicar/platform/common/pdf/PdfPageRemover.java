@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
@@ -59,7 +61,7 @@ public class PdfPageRemover {
 	 */
 	public byte[] removeBlankPages() {
 
-		try (var document = PDDocument.load(pdfBytes)) {
+		try (var document = Loader.loadPDF(pdfBytes)) {
 			determineBlankPageIndexes(dpi, pdfBytes)//
 				.stream()
 				.sorted(Collections.reverseOrder())

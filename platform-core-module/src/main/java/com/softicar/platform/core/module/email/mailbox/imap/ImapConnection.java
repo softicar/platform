@@ -4,11 +4,12 @@ import com.softicar.platform.common.core.exception.ExceptionsCollector;
 import com.softicar.platform.core.module.email.mailbox.IMailboxConnection;
 import com.softicar.platform.core.module.email.mailbox.IMailboxMessage;
 import com.softicar.platform.core.module.email.mailbox.MailboxMessage;
-import com.sun.mail.imap.IMAPFolder;
 import jakarta.mail.Folder;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Store;
+import org.eclipse.angus.mail.imap.IMAPFolder;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;

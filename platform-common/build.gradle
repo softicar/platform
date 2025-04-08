@@ -1,5 +1,6 @@
 dependencies {
-	api "com.jcraft:jsch:$versions.jsch"
+	api "com.github.mwiede:jsch:$versions.jsch"
+
 	api "junit:junit:$versions.junit"
 	api "org.mockito:mockito-core:$versions.mockito"
 

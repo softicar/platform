@@ -151,7 +151,6 @@ public class WeakIntHashMapTest extends AbstractTest {
 	public static void collectOnce() {
 
 		System.gc();
-		System.runFinalization();
 		Sleep.sleep(COLLECT_SLEEP_MILLIS);
 	}
 }

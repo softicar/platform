@@ -4,3 +4,11 @@ build/
 .gradle/
 org.eclipse.buildship.core.prefs
 
+.DS_Store
+*/.DS_Store
+
+.idea
+/.idea/
+
+.vscode
+/.vscode/

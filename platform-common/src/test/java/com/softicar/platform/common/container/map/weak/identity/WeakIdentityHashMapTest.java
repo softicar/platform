@@ -72,7 +72,6 @@ public class WeakIdentityHashMapTest extends AbstractTest {
 			}
 
 			System.gc();
-			System.runFinalization();
 			Sleep.sleep(10);
 		}
 

@@ -48,7 +48,7 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 	private static final String MARIADB_PASSWORD = "iamroot";
 	private static final String MARIADB_USER = "root";
-	private static final String MARIADB_VERSION = "10.5.8";
+	private static final String MARIADB_VERSION = "10.11";
 	private static final DockerContainerController CONTAINER_CONTROLLER = new DockerContainerController(//
 		"mariadb-migration-test",
 		"mariadb:" + MARIADB_VERSION,

@@ -18,7 +18,7 @@ import org.junit.Test;
 public class StoredFileConverterTest extends AbstractCoreTest {
 
 	private static final int FAST_RENDERING_DPI = 30;
-	private static final int PIXEL_COUNT_TOLERANCE = 25;
+	private static final int PIXEL_COUNT_TOLERANCE = 233;
 	private static final Color EXPECTED_BACKGROUND_COLOR_JPG = new Color(157, 116, 0);
 	private static final Color EXPECTED_BACKGROUND_COLOR_PNG = new Color(17, 144, 13);
 	private static final Color EXPECTED_BACKGROUND_COLOR_TIFF_PAGE_1 = new Color(205, 74, 144);

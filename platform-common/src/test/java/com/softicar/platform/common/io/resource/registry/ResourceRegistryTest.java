@@ -57,12 +57,11 @@ public class ResourceRegistryTest extends AbstractTest {
 
 		// loop until resource has been collected
 		for (int i = 0; i < 10; ++i) {
-			if (resourceRegistry.getResource(resourceId2) == null) {
+			if (resourceRegistry.getResource(resourceId2).isEmpty()) {
 				break;
 			}
 
 			System.gc();
-			System.runFinalization();
 			Sleep.sleep(10);
 		}
 

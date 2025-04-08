@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.leptonica.PIX;
-import org.bytedeco.leptonica.global.lept;
+import org.bytedeco.leptonica.global.leptonica;
 import org.bytedeco.tesseract.TessBaseAPI;
 
 /**
@@ -140,7 +140,7 @@ public class TesseractOcrTextExtractor implements IPdfTextExtractor {
 
 	private String extractTextFromImage(TessBaseAPI tesseractApi, byte[] imageBytes) {
 
-		try (PIX imagePix = lept.pixReadMemBmp(imageBytes, imageBytes.length)) {
+		try (PIX imagePix = leptonica.pixReadMemBmp(imageBytes, imageBytes.length)) {
 			tesseractApi.SetImage(imagePix);
 
 			try (BytePointer textPointer = tesseractApi.GetUTF8Text()) {

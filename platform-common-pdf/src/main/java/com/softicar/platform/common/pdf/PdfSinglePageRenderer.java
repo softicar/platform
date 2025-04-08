@@ -3,6 +3,8 @@ package com.softicar.platform.common.pdf;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -40,7 +42,7 @@ class PdfSinglePageRenderer implements Runnable {
 	@Override
 	public void run() {
 
-		try (var document = PDDocument.load(pdfBytes)) {
+		try (var document = Loader.loadPDF(pdfBytes)) {
 			var renderer = new PDFRenderer(document);
 			renderer.setSubsamplingAllowed(true);
 			this.image = renderer.renderImageWithDPI(pageIndex, dpi, imageType);

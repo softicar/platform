@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
-import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 
@@ -147,12 +147,12 @@ public class EmailToPdfConverterTest extends AbstractTest {
 		assertEquals(1, pageImages.size());
 		assertTrue(//
 			"Failed to find pixels in the marker color of an embedded image. Assuming that the embedded image is missing from the rendered PDF document.",
-			Images.countPixelsWithColor(pageImages.get(0), expectedColor) >= expectedColorPixels);
+			Images.countPixelsWithColor(pageImages.getFirst(), expectedColor) >= expectedColorPixels);
 	}
 
 	private String extractText(byte[] pdfBytes) {
 
-		try (var document = PDDocument.load(pdfBytes)) {
+		try (var document = Loader.loadPDF(pdfBytes)) {
 			return new PDFTextStripper().getText(document);
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);

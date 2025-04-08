@@ -4,14 +4,15 @@ dependencies {
 	api project(':platform-db-sqml-builtin')
 	api project(':platform-emf')
 
-	api "com.sun.mail:jakarta.mail:$versions.jakartaMail"
+	api "jakarta.mail:jakarta.mail-api:$versions.jakartaMail"
+	api "org.eclipse.angus:angus-mail:$versions.angusMail"
 
 	implementation "eu.agno3.jcifs:jcifs-ng:$versions.jcifsNg"
 	implementation "org.apache.commons:commons-lang3:$versions.commonsLang3"
 	implementation "org.jsoup:jsoup:$versions.jsoup"
 	implementation "org.simplejavamail:simple-java-mail:$versions.simpleJavaMail"
 	implementation "org.simplejavamail:outlook-module:$versions.simpleJavaMail"
-	implementation "org.xhtmlrenderer:flying-saucer-pdf-openpdf:$versions.flyingSaucerPdf"
+	implementation "org.xhtmlrenderer:flying-saucer-pdf:$versions.flyingSaucerPdf"
 	implementation "org.webjars.bower:tinymce:$versions.tinymce"
 }
 

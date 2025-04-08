@@ -20,7 +20,7 @@ enum MatchableLicense {
 			".*Apache (Software )?(License[\\s,]+)?(Version )?2\\.0.*",//
 			"apache\\.org/licenses/LICENSE-2\\.0"),
 	BOUNCY_CASTLE(License.BOUNCY_CASTLE,//
-			".*Bouncy Castle.*"),
+			".*Bouncy Castle Licence.*", "Bouncy Castle Licence", ".*Bouncy Castle.*",  "Bouncy Castle"),
 	BSD_3_CLAUSE(//
 			License.BSD_3_CLAUSE,//
 			".*((Revised|New|Modified) BSD|BSD-3-Clause).*"),

@@ -11,6 +11,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 
@@ -114,7 +116,7 @@ public class PdfRenderer {
 	 */
 	public List<BufferedImage> render(byte[] pdfBytes) {
 
-		try (var document = PDDocument.load(pdfBytes)) {
+		try (var document = Loader.loadPDF(pdfBytes)) {
 			var workers = new ArrayList<PdfSinglePageRenderer>();
 			for (var page = 0; page < document.getNumberOfPages(); page++) {
 				workers.add(new PdfSinglePageRenderer(dpi, imageType, page, pdfBytes));

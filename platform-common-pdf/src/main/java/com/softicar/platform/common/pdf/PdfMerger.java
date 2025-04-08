@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.function.Supplier;
+
+import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.multipdf.PDFMergerUtility.DocumentMergeMode;
 
@@ -63,11 +66,17 @@ public class PdfMerger {
 		var mergerUtility = new PDFMergerUtility();
 		try (var inputStreamCollection = new InputStreamCollection()) {
 			inputStreamCollection.addAll(pdfInputStreamSuppliers);
-			inputStreamCollection.getAllInputStreams().forEach(mergerUtility::addSource);
+			inputStreamCollection.getAllInputStreams().stream().map(it-> {
+                try {
+                    return new RandomAccessReadBuffer(it);
+                } catch (IOException e) {
+                    throw new SofticarIOException(e);
+                }
+            }).forEach(mergerUtility::addSource);
 			try (var outputStream = outputStreamSupplier.get()) {
 				mergerUtility.setDestinationStream(outputStream);
 				mergerUtility.setDocumentMergeMode(DocumentMergeMode.OPTIMIZE_RESOURCES_MODE);
-				mergerUtility.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+				mergerUtility.mergeDocuments(IOUtils.createMemoryOnlyStreamCache());
 			} catch (IOException exception) {
 				throw new SofticarIOException(exception);
 			}
