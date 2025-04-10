@@ -17,7 +17,7 @@ import com.softicar.platform.core.module.web.servlet.HttpServletRequests;
 import com.softicar.platform.db.core.transaction.DbTransaction;
 import java.sql.SQLException;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class AjaxLogging {
 

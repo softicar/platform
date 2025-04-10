@@ -5,7 +5,7 @@ import com.softicar.platform.common.network.http.error.HttpInternalServerError;
 import com.softicar.platform.common.string.Trim;
 import java.util.Objects;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Extracts the {@link WebServicePath} from an {@link HttpServletRequest}.

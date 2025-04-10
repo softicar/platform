@@ -16,19 +16,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUpgradeHandler;
-import javax.servlet.http.Part;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 public class SimpleServletRequest implements HttpServletRequest {
 
@@ -304,13 +294,6 @@ public class SimpleServletRequest implements HttpServletRequest {
 
 	@Override
 	@Deprecated
-	public boolean isRequestedSessionIdFromUrl() {
-
-		return false;
-	}
-
-	@Override
-	@Deprecated
 	public boolean isRequestedSessionIdValid() {
 
 		return false;
@@ -505,13 +488,6 @@ public class SimpleServletRequest implements HttpServletRequest {
 	// -------------------- context and paths -------------------- //
 
 	@Override
-	@Deprecated
-	public String getRealPath(String arg0) {
-
-		return null;
-	}
-
-	@Override
 	public String getContextPath() {
 
 		return null;
@@ -578,6 +554,21 @@ public class SimpleServletRequest implements HttpServletRequest {
 	@Override
 	public DispatcherType getDispatcherType() {
 
+		return null;
+	}
+
+	@Override
+	public String getRequestId() {
+		return null;
+	}
+
+	@Override
+	public String getProtocolRequestId() {
+		return null;
+	}
+
+	@Override
+	public ServletConnection getServletConnection() {
 		return null;
 	}
 

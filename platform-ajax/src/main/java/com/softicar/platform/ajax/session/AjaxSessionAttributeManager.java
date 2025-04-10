@@ -3,7 +3,7 @@ package com.softicar.platform.ajax.session;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import java.util.Optional;
 import java.util.function.Supplier;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * A class to safely add or retrieve {@link Class} instances from the attributes

@@ -39,7 +39,8 @@ project.ext {
 		jakartaMail: "2.1.3",
 		jakartaServletApi: "6.0.0",
 		jcifsNg: "2.1.10",
-		jetty: "10.0.25",
+		jettyServlet: "12.0.19",
+		jettyServer: "12.0.19",
 		jsch: "0.2.24",
 		jsonPath: "2.9.0",
 		jsonSmart: "2.5.2",
@@ -124,7 +125,7 @@ subprojects {
 			force "org.apache.pdfbox:pdfbox:$versions.pdfbox"
 			force "org.bytedeco:tesseract-platform:$versions.tesseract"
 			force "org.eclipse.angus:angus-mail:$versions.angusMail"
-			force "org.eclipse.jetty:jetty-servlet:$versions.jetty"
+			force "org.eclipse.jetty.ee10:jetty-ee10-servlet:$versions.jettyServlet"
 			force "org.jsoup:jsoup:$versions.jsoup"
 			force "org.mariadb.jdbc:mariadb-java-client:$versions.mariadbJavaClient"
 			force "org.mockito:mockito-core:$versions.mockito"

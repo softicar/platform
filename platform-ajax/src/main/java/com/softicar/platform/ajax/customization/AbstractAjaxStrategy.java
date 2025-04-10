@@ -6,8 +6,8 @@ import com.softicar.platform.ajax.export.IAjaxExportBuffer;
 import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.io.resource.IResource;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public abstract class AbstractAjaxStrategy implements IAjaxStrategy {
 

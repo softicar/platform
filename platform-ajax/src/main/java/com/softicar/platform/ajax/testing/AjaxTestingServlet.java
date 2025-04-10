@@ -1,9 +1,9 @@
 package com.softicar.platform.ajax.testing;
 
 import com.softicar.platform.ajax.framework.AjaxFramework;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class AjaxTestingServlet extends HttpServlet {
 

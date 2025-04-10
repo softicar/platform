@@ -1,9 +1,9 @@
 package com.softicar.platform.common.web.servlet;
 
 import com.softicar.platform.common.core.exception.CheckedExceptions;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletHolder;
 
 public class HttpServletServerHandle implements AutoCloseable {
 

@@ -3,8 +3,8 @@ package com.softicar.platform.common.web.service.hot;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.common.web.service.IWebService;
 import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Default implementation of {@link IHotWebServiceLoader}.

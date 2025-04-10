@@ -13,7 +13,7 @@ import com.softicar.platform.core.module.user.login.failure.type.AGUserLoginFail
 import com.softicar.platform.core.module.user.password.AGUserPassword;
 import com.softicar.platform.core.module.user.rule.ip.AGUserAllowedIpRule;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -4,8 +4,8 @@ import com.softicar.platform.core.module.test.SofticarTestDatabase;
 import com.softicar.platform.core.module.web.service.WebServiceBrokerService;
 import com.softicar.platform.db.core.database.DbDatabaseScope;
 import com.softicar.platform.db.core.database.IDbDatabase;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class WebServiceTestService extends WebServiceBrokerService {
 

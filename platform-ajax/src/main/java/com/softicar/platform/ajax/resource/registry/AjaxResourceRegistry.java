@@ -5,7 +5,7 @@ import com.softicar.platform.ajax.session.AjaxSessionAttributeManager;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 public class AjaxResourceRegistry {
 

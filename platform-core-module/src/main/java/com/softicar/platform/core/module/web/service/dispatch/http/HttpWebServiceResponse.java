@@ -14,7 +14,7 @@ public class HttpWebServiceResponse extends SimpleServletResponse {
 	public HttpWebServiceResponse(HttpURLConnection connection) {
 
 		try {
-			setStatus(connection.getResponseCode(), connection.getResponseMessage());
+			setStatus(connection.getResponseCode());
 			setContentType(connection.getContentType());
 			setCharacterEncoding(connection.getContentEncoding());
 			copyContent(connection);

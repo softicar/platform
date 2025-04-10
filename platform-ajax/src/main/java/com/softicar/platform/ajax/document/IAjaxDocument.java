@@ -8,7 +8,7 @@ import com.softicar.platform.dom.document.DomBody;
 import com.softicar.platform.dom.document.IDomDocument;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.UUID;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * AJAX extension of the {@link IDomDocument} interface.

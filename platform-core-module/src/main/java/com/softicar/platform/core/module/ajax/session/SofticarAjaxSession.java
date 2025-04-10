@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.i18n.LanguageEnum;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.db.runtime.object.DbObjectProxy;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * An instance of this class is saved as an attribute of the

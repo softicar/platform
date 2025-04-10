@@ -20,8 +20,8 @@ import com.softicar.platform.dom.resource.set.DomResourceSet;
 import com.softicar.platform.dom.user.CurrentDomPreferences;
 import com.softicar.platform.emf.persistence.CurrentEmfPersistenceApi;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 class PageServiceStrategy extends AbstractAjaxStrategy {
 

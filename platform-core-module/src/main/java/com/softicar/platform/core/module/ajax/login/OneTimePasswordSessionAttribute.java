@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.ajax.login;
 
 import com.softicar.platform.ajax.session.AjaxSessionAttributeManager;
 import java.util.Objects;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 class OneTimePasswordSessionAttribute {
 

@@ -5,7 +5,7 @@ import com.softicar.platform.ajax.customization.IAjaxStrategy;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Simple implementation of {@link IAjaxStrategy}.

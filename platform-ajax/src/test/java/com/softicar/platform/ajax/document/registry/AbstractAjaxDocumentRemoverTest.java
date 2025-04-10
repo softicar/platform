@@ -9,8 +9,8 @@ import com.softicar.platform.common.testing.AbstractTest;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.mockito.Mockito;
 
 abstract class AbstractAjaxDocumentRemoverTest extends AbstractTest {

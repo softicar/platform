@@ -10,7 +10,7 @@ import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.user.AGUser;
 import java.util.Comparator;
 import java.util.Date;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 public class UserSessionsTable extends AbstractInMemoryDataTable<HttpSession> {
 

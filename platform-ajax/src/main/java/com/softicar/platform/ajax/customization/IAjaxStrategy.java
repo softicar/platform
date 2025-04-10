@@ -7,8 +7,8 @@ import com.softicar.platform.ajax.request.IAjaxRequest;
 import com.softicar.platform.common.io.resource.IResource;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Customization point for {@link AjaxFramework}.

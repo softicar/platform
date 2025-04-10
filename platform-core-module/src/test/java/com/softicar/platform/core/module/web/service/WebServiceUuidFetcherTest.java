@@ -2,7 +2,7 @@ package com.softicar.platform.core.module.web.service;
 
 import com.softicar.platform.common.testing.Asserts;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -4,8 +4,8 @@ import com.softicar.platform.common.container.iterator.IteratorEnumeration;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 public class SimpleHttpSession implements HttpSession {
 
@@ -84,41 +84,6 @@ public class SimpleHttpSession implements HttpSession {
 	public int getMaxInactiveInterval() {
 
 		return maxInactiveInterval;
-	}
-
-	@Override
-	@Deprecated
-	public javax.servlet.http.HttpSessionContext getSessionContext() {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	@Deprecated
-	public Object getValue(String name) {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	@Deprecated
-	public String[] getValueNames() {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	@Deprecated
-	public void putValue(String name, Object value) {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	@Deprecated
-	public void removeValue(String name) {
-
-		throw new UnsupportedOperationException();
 	}
 
 	@Override

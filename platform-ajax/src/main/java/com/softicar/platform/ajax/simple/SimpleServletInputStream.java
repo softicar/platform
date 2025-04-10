@@ -1,8 +1,8 @@
 package com.softicar.platform.ajax.simple;
 
 import java.io.ByteArrayInputStream;
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletInputStream;
 
 public class SimpleServletInputStream extends ServletInputStream {
 

@@ -7,9 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class SimpleServletResponse implements HttpServletResponse {
 
@@ -45,13 +45,6 @@ public class SimpleServletResponse implements HttpServletResponse {
 	public void setStatus(int status) {
 
 		this.status = status;
-	}
-
-	@Override
-	public void setStatus(int status, String message) {
-
-		this.status = status;
-		this.statusMessage = message;
 	}
 
 	@Override
@@ -244,21 +237,7 @@ public class SimpleServletResponse implements HttpServletResponse {
 	}
 
 	@Override
-	@Deprecated
-	public String encodeRedirectUrl(String arg0) {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public String encodeURL(String arg0) {
-
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	@Deprecated
-	public String encodeUrl(String arg0) {
 
 		throw new UnsupportedOperationException();
 	}

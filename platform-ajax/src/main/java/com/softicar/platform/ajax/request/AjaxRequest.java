@@ -7,9 +7,9 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.network.http.error.HttpBadRequestError;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Represents an {@link HttpServletRequest} that must be executed by an instance

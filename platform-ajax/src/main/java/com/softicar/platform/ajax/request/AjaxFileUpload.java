@@ -4,7 +4,7 @@ import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.dom.event.upload.IDomFileUpload;
 import java.io.IOException;
 import java.io.InputStream;
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 class AjaxFileUpload implements IDomFileUpload {
 

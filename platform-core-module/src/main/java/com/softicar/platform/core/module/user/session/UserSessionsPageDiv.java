@@ -15,7 +15,7 @@ import com.softicar.platform.emf.data.table.IEmfDataTableCell;
 import com.softicar.platform.emf.data.table.IEmfDataTableDiv;
 import com.softicar.platform.emf.data.table.column.handler.EmfDataTableValueBasedColumnHandler;
 import com.softicar.platform.emf.table.row.EmfTableRowDisplay;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 public class UserSessionsPageDiv extends DomDiv {
 

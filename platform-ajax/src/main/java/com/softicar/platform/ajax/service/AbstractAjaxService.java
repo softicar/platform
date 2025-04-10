@@ -3,7 +3,7 @@ package com.softicar.platform.ajax.service;
 import com.softicar.platform.ajax.customization.IAjaxStrategy;
 import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.ajax.request.IAjaxRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class AbstractAjaxService implements IAjaxService {
 

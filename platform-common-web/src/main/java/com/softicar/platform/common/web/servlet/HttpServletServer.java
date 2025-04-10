@@ -4,15 +4,15 @@ import com.softicar.platform.common.core.exception.CheckedExceptions;
 import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.CastUtils;
 import java.util.function.Supplier;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.http.HttpServlet;
+
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.http.HttpServlet;
 import org.eclipse.jetty.http.HttpCookie.SameSite;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.servlet.ServletHolder.Registration;
+import org.eclipse.jetty.ee10.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee10.servlet.ServletHolder;
+import org.eclipse.jetty.ee10.servlet.ServletHolder.Registration;
 
 /**
  * An HTTP server for {@link HttpServlet} instances.
@@ -159,7 +159,7 @@ public class HttpServletServer {
 	private ServletHolder applyDefaultMultipartConfig(ServletHolder holder) {
 
 		var registration = holder.getRegistration();
-		if (CastUtils.tryCast(registration, Registration.class).map(Registration::getMultipartConfig).isEmpty()) {
+		if (CastUtils.tryCast(registration, Registration.class).map(Registration::getMultipartConfigElement).isEmpty()) {
 			registration.setMultipartConfig(new MultipartConfigElement(""));
 		}
 		return holder;

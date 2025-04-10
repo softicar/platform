@@ -5,8 +5,8 @@ import com.softicar.platform.common.core.utils.ReflectionUtils;
 import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.dom.node.IDomNode;
 import java.util.function.Supplier;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 class AjaxDomNodeService implements IWebService {
 

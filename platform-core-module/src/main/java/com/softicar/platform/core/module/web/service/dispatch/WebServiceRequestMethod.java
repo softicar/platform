@@ -3,7 +3,7 @@ package com.softicar.platform.core.module.web.service.dispatch;
 import com.softicar.platform.common.core.exceptions.SofticarDeveloperException;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Enumeration of all value HTTP request methods.

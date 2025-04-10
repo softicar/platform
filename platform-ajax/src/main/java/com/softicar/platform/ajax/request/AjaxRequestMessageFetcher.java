@@ -7,8 +7,8 @@ import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.common.string.charset.Charsets;
 import java.io.IOException;
 import java.util.Optional;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 
 class AjaxRequestMessageFetcher {
 

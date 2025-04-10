@@ -14,10 +14,10 @@ import com.softicar.platform.core.module.web.service.html.AbstractHtmlServiceReq
 import com.softicar.platform.core.module.web.servlet.HttpServletRequests;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Base class for {@link IWebService} request handlers.

@@ -5,9 +5,9 @@ import com.softicar.platform.ajax.customization.IAjaxSettings;
 import com.softicar.platform.ajax.customization.IAjaxStrategy;
 import com.softicar.platform.ajax.request.AjaxRequest;
 import com.softicar.platform.ajax.service.AjaxServiceDelegator;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Central controlling point of the AJAX framework.

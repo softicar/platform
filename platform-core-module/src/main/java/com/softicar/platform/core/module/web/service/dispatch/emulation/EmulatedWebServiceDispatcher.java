@@ -9,7 +9,7 @@ import com.softicar.platform.core.module.web.service.WebServiceBrokerService;
 import com.softicar.platform.core.module.web.service.dispatch.IWebServiceDispatcher;
 import java.lang.Thread.State;
 import java.util.Objects;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * This dispatcher uses an internal server thread to emulate a real host.

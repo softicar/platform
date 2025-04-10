@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.session;
 
 import com.softicar.platform.ajax.simple.SimpleHttpSession;
 import com.softicar.platform.common.testing.AbstractTest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import org.junit.Test;
 
 public class AjaxSessionAttributeManagerTest extends AbstractTest {

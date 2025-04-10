@@ -5,7 +5,7 @@ import com.softicar.platform.common.web.service.IWebService;
 import com.softicar.platform.common.web.service.hot.HotWebServiceLoader;
 import com.softicar.platform.dom.node.IDomNode;
 import java.lang.reflect.Constructor;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 class AjaxDomNodeServiceLoader extends HotWebServiceLoader {
 

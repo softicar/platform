@@ -16,7 +16,7 @@ import com.softicar.platform.dom.elements.button.DomButton;
 import com.softicar.platform.dom.elements.popup.placement.strategy.DomPopupBelowEventNodePlacementStrategy;
 import com.softicar.platform.dom.elements.popup.popover.DomMenuPopover;
 import com.softicar.platform.emf.page.IEmfPage;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 class PageHeaderUserPopover extends DomMenuPopover {
 

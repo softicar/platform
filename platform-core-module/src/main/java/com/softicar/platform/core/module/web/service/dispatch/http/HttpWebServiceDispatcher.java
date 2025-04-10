@@ -14,7 +14,7 @@ import java.util.Enumeration;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class HttpWebServiceDispatcher implements IWebServiceDispatcher {
 

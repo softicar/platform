@@ -2,7 +2,7 @@ package com.softicar.platform.ajax.resource;
 
 import com.softicar.platform.common.io.resource.ResourceUrl;
 import com.softicar.platform.common.io.resource.hash.ResourceHash;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class AjaxResourceUrl extends ResourceUrl {
 

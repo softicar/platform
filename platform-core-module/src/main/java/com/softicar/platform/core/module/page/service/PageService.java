@@ -2,8 +2,8 @@ package com.softicar.platform.core.module.page.service;
 
 import com.softicar.platform.ajax.framework.AjaxFramework;
 import com.softicar.platform.common.web.service.IWebService;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class PageService implements IWebService {
 

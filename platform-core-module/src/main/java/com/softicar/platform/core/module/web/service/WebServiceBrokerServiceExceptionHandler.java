@@ -6,7 +6,7 @@ import com.softicar.platform.common.network.http.HttpStatusCode;
 import com.softicar.platform.common.network.http.error.HttpError;
 import java.io.IOException;
 import java.util.Objects;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class WebServiceBrokerServiceExceptionHandler {
 

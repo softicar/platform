@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.DayTimeParser;
 import com.softicar.platform.core.module.CoreI18n;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Utility methods for {@link HttpServletRequest}.

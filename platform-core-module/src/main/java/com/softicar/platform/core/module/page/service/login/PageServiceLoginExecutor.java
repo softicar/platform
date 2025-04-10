@@ -11,7 +11,7 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.IDomDocument;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 class PageServiceLoginExecutor {
 

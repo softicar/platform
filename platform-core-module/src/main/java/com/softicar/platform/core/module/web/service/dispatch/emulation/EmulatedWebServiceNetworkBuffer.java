@@ -5,7 +5,7 @@ import com.softicar.platform.common.core.threading.InterruptedRuntimeException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * A buffer that can be used to emulate web service related client-server

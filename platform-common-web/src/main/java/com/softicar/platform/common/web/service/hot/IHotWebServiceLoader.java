@@ -1,8 +1,8 @@
 package com.softicar.platform.common.web.service.hot;
 
 import com.softicar.platform.common.web.service.IWebService;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Used by {@link HotWebServiceServer} to load new {@link IWebService}

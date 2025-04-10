@@ -5,8 +5,8 @@ import com.softicar.platform.ajax.framework.listener.AjaxSessionListener;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CorePermissions;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 
 public class UserSessionManager {
 

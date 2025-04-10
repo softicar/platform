@@ -9,7 +9,7 @@ import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.label.DomLabelGrid;
 import java.util.Date;
 import java.util.Optional;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 public class AjaxSessionPageDiv extends DomDiv {
 

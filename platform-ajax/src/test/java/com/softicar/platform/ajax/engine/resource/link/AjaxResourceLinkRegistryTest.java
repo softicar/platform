@@ -14,7 +14,7 @@ import com.softicar.platform.dom.document.CurrentDomDocument;
 import com.softicar.platform.dom.document.DomHead;
 import com.softicar.platform.dom.elements.DomLink;
 import com.softicar.platform.dom.elements.DomLink.Relationship;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.Test;
 import org.mockito.Mockito;
 

@@ -6,8 +6,8 @@ import com.softicar.platform.common.core.utils.DevNull;
 import com.softicar.platform.common.network.http.HttpStatusCode;
 import com.softicar.platform.common.network.http.error.HttpError;
 import com.softicar.platform.common.network.http.error.HttpInternalServerError;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class AjaxServiceExceptionHandler {
 
