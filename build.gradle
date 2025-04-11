@@ -93,6 +93,7 @@ subprojects {
 			force "commons-codec:commons-codec:$versions.commonsCodec"
 			force "jakarta.servlet:jakarta.servlet-api:$versions.jakartaServletApi"
 			force "net.bytebuddy:byte-buddy:$versions.byteBuddy"
+			force "net.bytebuddy:byte-buddy-agent:$versions.byteBuddy"
 			// versions below 1.21 have known vulnerabilities
 			force "org.apache.commons:commons-compress:$versions.commonsCompress"
 			force "org.apache.logging.log4j:log4j-api:$versions.log4j"
@@ -104,6 +105,7 @@ subprojects {
 			force "org.apache.commons:commons-lang3:$versions.commonsLang3"
 			force "org.apache.poi:poi:$versions.poi"
 			force "org.apache.poi:poi-ooxml:$versions.poi"
+			force "org.apache.poi:poi-scratchpad:$versions.poi"
 			force "org.ow2.asm:asm:$versions.asm"
 			force "commons-io:commons-io:$versions.commonsIo"
 			force "junit:junit:$versions.junit"
