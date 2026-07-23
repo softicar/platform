@@ -13,14 +13,14 @@ import java.util.Properties;
  */
 public class DbH2MemoryConnector extends AbstractDbConnector {
 
-	private boolean databaseToUpper;
+	private Boolean databaseToUpper;
 
 	public DbH2MemoryConnector() {
 
 		this.databaseToUpper = false;
 	}
 
-	public void setDatabaseToUpper(boolean databaseToUpper) {
+	public void setDatabaseToUpper(Boolean databaseToUpper) {
 
 		this.databaseToUpper = databaseToUpper;
 	}
@@ -41,9 +41,15 @@ public class DbH2MemoryConnector extends AbstractDbConnector {
 	protected Properties createDefaultProperties(IDbDatabase database) {
 
 		Properties properties = new Properties();
-		properties.put("DATABASE_TO_UPPER", databaseToUpper? "true" : "false");
 		properties.put("MODE", "MySQL");
-		properties.put("IGNORECASE", "TRUE");
+		properties.put("DEFAULT_NULL_ORDERING", "HIGH");
+		if (databaseToUpper != null) {
+			if (databaseToUpper) {
+				properties.put("DATABASE_TO_UPPER", "true");
+			} else {
+				properties.put("DATABASE_TO_LOWER", "true");
+			}
+		}
 		return properties;
 	}
 }

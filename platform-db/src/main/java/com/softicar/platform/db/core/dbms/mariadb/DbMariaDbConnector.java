@@ -32,6 +32,7 @@ public class DbMariaDbConnector extends AbstractDbConnector {
 		Properties properties = new Properties();
 		properties.put("allowMultiQueries", "true");
 		properties.put("characterEncoding", "utf8");
+		properties.put("returnMultiValuesGeneratedIds", "true");
 		return properties;
 	}
 }
