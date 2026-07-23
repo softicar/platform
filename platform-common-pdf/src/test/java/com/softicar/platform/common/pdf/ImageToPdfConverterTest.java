@@ -2,9 +2,7 @@ package com.softicar.platform.common.pdf;
 
 import com.softicar.platform.common.testing.Asserts;
 import java.io.IOException;
-
 import org.apache.pdfbox.Loader;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.Test;
 

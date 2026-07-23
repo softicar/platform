@@ -135,11 +135,8 @@ public class ZipFileReader {
 	private List<Path> findFilePaths(Predicate<String> filenamePredicate) {
 
 		Objects.requireNonNull(filenamePredicate);
-		try (var fileSystem = FileSystems.newFileSystem(zipFile.toPath())) {
-			return Files//
-				.walk(fileSystem.getPath("."))
-				.filter(filePath -> filenamePredicate.test(filePath.getFileName().toString()))
-				.collect(Collectors.toList());
+		try (var fileSystem = FileSystems.newFileSystem(zipFile.toPath()); var stream = Files.walk(fileSystem.getPath("."))) {
+			return stream.filter(filePath -> filenamePredicate.test(filePath.getFileName().toString())).collect(Collectors.toList());
 		} catch (IOException exception) {
 			throw new RuntimeException(exception);
 		}

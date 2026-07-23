@@ -5,16 +5,17 @@ import com.softicar.platform.ajax.simple.SimpleServletResponse;
 import com.softicar.platform.common.core.exceptions.SofticarIOException;
 import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.core.module.web.service.dispatch.IWebServiceDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.security.SecureRandom;
 import java.util.Enumeration;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import jakarta.servlet.http.HttpServletRequest;
 
 public class HttpWebServiceDispatcher implements IWebServiceDispatcher {
 
@@ -84,7 +85,7 @@ public class HttpWebServiceDispatcher implements IWebServiceDispatcher {
 	private static URL createUrl(String url) {
 
 		try {
-			return new URL(url);
+			return URI.create(url).toURL();
 		} catch (MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}

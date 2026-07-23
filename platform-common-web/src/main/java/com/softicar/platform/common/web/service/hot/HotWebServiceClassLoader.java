@@ -5,6 +5,8 @@ import com.softicar.platform.common.core.logging.Log;
 import com.softicar.platform.common.core.utils.DevNull;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Map;
@@ -46,8 +48,8 @@ class HotWebServiceClassLoader extends URLClassLoader {
 	private void addPath(File path) {
 
 		try {
-			addURL(new URL("file", "", getAbsolutePath(path)));
-		} catch (MalformedURLException exception) {
+			addURL(new URI("file", "", getAbsolutePath(path), null).toURL());
+		} catch (MalformedURLException | URISyntaxException exception) {
 			throw new RuntimeException(exception);
 		}
 	}

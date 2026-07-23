@@ -8,9 +8,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import org.apache.commons.net.util.Base64;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 /**
  * A simple {@link URL} requester fetching data from a given HTTP address.
@@ -46,7 +48,7 @@ public class UrlRequester {
 	public UrlRequester setUrl(String urlString, Object...args) {
 
 		try {
-			this.url = new URL(Formatting.format(urlString, args));
+			this.url = URI.create(Formatting.format(urlString, args)).toURL();
 		} catch (MalformedURLException exception) {
 			throw new RuntimeException(exception);
 		}
@@ -97,7 +99,8 @@ public class UrlRequester {
 	private String getAuthString() {
 
 		String authString = username + ":" + password;
-		byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+
+		byte[] authEncBytes = Base64.getEncoder().encode(authString.getBytes(StandardCharsets.UTF_8));
 		return new String(authEncBytes);
 	}
 

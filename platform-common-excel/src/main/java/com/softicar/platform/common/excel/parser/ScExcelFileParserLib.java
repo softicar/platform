@@ -73,7 +73,6 @@ class ScExcelFileParserLib {
 	/**
 	 * Note: Caller is expected to close the returned instance.
 	 */
-	@SuppressWarnings("resource")
 	public static Workbook getWorkbookFromInputStream(InputStream inputStream) throws IOException {
 
 		ByteBuffer byteBuffer = new ByteBuffer(StreamUtils.toByteArray(inputStream));

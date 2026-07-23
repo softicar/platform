@@ -93,17 +93,16 @@ public class MicrosoftOnlineAuthorizer {
 
 	public MicrosoftOnlineAuthorization authorize() {
 
-		try {
+		try (var httpClient = HttpClient//
+			.newBuilder()
+			.build()) {
 			var address = authorityUrl.formatted(tenantId);
 			var request = HttpRequest//
 				.newBuilder()
 				.uri(new URI(address))
 				.POST(HttpRequest.BodyPublishers.ofString(getParameterString()))
 				.build();
-			var response = HttpClient//
-				.newBuilder()
-				.build()
-				.send(request, HttpResponse.BodyHandlers.ofString());
+			var response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 			return new MicrosoftOnlineAuthorization(response);
 		} catch (IOException | URISyntaxException | InterruptedException exception) {
 			throw new RuntimeException(exception);

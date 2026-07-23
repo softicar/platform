@@ -1,13 +1,12 @@
 package com.softicar.platform.common.web.servlet;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Response;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.util.Callback;
 
-class HttpServletRedirectionHandler extends AbstractHandler {
+class HttpServletRedirectionHandler extends Handler.Abstract {
 
 	private final String sourceUri;
 	private final String targetUri;
@@ -19,7 +18,8 @@ class HttpServletRedirectionHandler extends AbstractHandler {
 	}
 
 	@Override
-	public boolean handle(Request request, Response response, Callback callback) throws Exception {
+	public boolean handle(Request request, Response response, Callback callback) {
+
 		if (request.getHttpURI().getCanonicalPath().equals(sourceUri)) {
 			response.setStatus(HttpServletResponse.SC_FOUND);
 			response.getHeaders().add("Location", targetUri);

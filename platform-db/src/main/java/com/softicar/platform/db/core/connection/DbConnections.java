@@ -31,7 +31,6 @@ public class DbConnections {
 	 * @return a connection to the current database or the connection override
 	 *         (never null)
 	 */
-	@SuppressWarnings("resource")
 	public static IDbConnection getConnection() {
 
 		IDbConnection override = DbConnectionOverride.getOverride();
@@ -57,7 +56,7 @@ public class DbConnections {
 			Log
 				.fverbose(//
 					"Thread %s: Connecting %s database %s with %s@%s.",
-					Thread.currentThread().getId(),
+					Thread.currentThread().threadId(),
 					database.getServerType(),
 					database.getDatabaseName(),
 					database.getConnectionProperties().getUsername(),

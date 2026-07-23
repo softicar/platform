@@ -60,8 +60,8 @@ public class Threads {
 	 */
 	public static <T> T runInChildThread(Supplier<T> supplier) {
 
-		try {
-			return Executors.newSingleThreadExecutor().submit(() -> supplier.get()).get();
+		try (var thread = Executors.newSingleThreadExecutor()) {
+			return thread.submit(() -> supplier.get()).get();
 		} catch (InterruptedException exception) {
 			throw new InterruptedRuntimeException(exception);
 		} catch (ExecutionException exception) {

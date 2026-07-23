@@ -3,9 +3,7 @@ package com.softicar.platform.common.pdf;
 import com.softicar.platform.common.io.buffer.ByteBuffer;
 import com.softicar.platform.common.testing.AbstractTest;
 import java.io.IOException;
-
 import org.apache.pdfbox.Loader;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.Test;
 
