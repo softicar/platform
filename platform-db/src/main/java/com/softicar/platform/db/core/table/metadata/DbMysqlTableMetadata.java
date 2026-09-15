@@ -55,16 +55,16 @@ public class DbMysqlTableMetadata implements IDbTableMetadata {
 
 	private String getCatalogName() {
 
-		return isMySql()? tableName.getDatabaseName() : null;
+		return isMySqlOrMariaDB()? tableName.getDatabaseName() : null;
 	}
 
 	private String getSchemaName() {
 
-		return isMySql()? null : tableName.getDatabaseName();
+		return isMySqlOrMariaDB()? null : tableName.getDatabaseName();
 	}
 
-	private boolean isMySql() {
+	private boolean isMySqlOrMariaDB() {
 
-		return DbConnections.isServerType(DbServerType.MYSQL);
+		return DbConnections.isServerType(DbServerType.MYSQL) || DbConnections.isServerType(DbServerType.MARIA_DB);
 	}
 }

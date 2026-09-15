@@ -89,13 +89,13 @@ class TableRowGetter implements AutoCloseable {
 		return new DbStatement()
 			.addText("SELECT * FROM %s", tableDefinition.getTableName())
 			.addStatement(getWhereClause())
-			.addText(" ORDER BY %s", getImplodedPrimaryKeyColumnNames())
+			.addText(!getImplodedPrimaryKeyColumnNames().isEmpty(), " ORDER BY %s", getImplodedPrimaryKeyColumnNames())
 			.addText(" LIMIT %s", limit);
 	}
 
 	private DbStatement getWhereClause() {
 
-		DbStatement statement = new DbStatement("WHERE 1");
+		DbStatement statement = new DbStatement(" WHERE 1");
 		if (range != null) {
 			DbStatement lowerBound = new QueryBoundaryExpressionGenerator(range.getMin(), Mode.INCLUSIVE_LOWER_BOUND).generate();
 			DbStatement upperBound = new QueryBoundaryExpressionGenerator(range.getMax(), Mode.INCLUSIVE_UPPER_BOUND).generate();

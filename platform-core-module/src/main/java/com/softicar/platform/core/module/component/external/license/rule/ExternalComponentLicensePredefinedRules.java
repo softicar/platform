@@ -135,6 +135,10 @@ public class ExternalComponentLicensePredefinedRules {
 		// License defined at:
 		// https://github.com/tinymce/tinymce/blob/develop/LICENSE.TXT
 		addLibrary("tinymce", "6.*", License.MIT);
+
+		addLibrary("annotations", ".*", License.APACHE_2_0);
+		addLibrary("xml-apis-ext", ".*", License.APACHE_2_0);
+		addLibrary("service", ".*", License.APACHE_2_0);
 	}
 
 	private void addLibrary(String namePattern, String versionPattern, License license) {

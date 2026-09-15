@@ -174,6 +174,8 @@ public interface IDbConnection extends Closeable {
 	 */
 	DatabaseMetaData getMetaData();
 
+	String getCatalog();
+
 	/**
 	 * Sets the {@link IDbConnectionProfiler} to use.
 	 * <p>

@@ -380,6 +380,16 @@ public class DbConnection implements IDbConnection {
 	}
 
 	@Override
+	public String getCatalog() {
+
+		try {
+			return connection.getCatalog();
+		} catch (SQLException exception) {
+			throw new SofticarSqlException(exception);
+		}
+	}
+
+	@Override
 	public void setProfiler(IDbConnectionProfiler profiler) {
 
 		this.profiler = profiler != null? profiler : getDefaultProfiler();

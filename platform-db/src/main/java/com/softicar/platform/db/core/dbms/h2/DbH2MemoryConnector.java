@@ -20,9 +20,10 @@ public class DbH2MemoryConnector extends AbstractDbConnector {
 		this.databaseToUpper = false;
 	}
 
-	public void setDatabaseToUpper(Boolean databaseToUpper) {
+	public DbH2MemoryConnector setDatabaseToUpper(Boolean databaseToUpper) {
 
 		this.databaseToUpper = databaseToUpper;
+		return this;
 	}
 
 	@Override
@@ -42,6 +43,7 @@ public class DbH2MemoryConnector extends AbstractDbConnector {
 
 		Properties properties = new Properties();
 		properties.put("MODE", "MySQL");
+		properties.put("IGNORECASE", "true");
 		properties.put("DEFAULT_NULL_ORDERING", "HIGH");
 		if (databaseToUpper != null) {
 			if (databaseToUpper) {

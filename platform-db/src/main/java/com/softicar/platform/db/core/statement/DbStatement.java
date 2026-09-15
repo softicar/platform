@@ -105,6 +105,35 @@ public final class DbStatement implements IDbStatement {
 	}
 
 	/**
+	 * Appends the given text to this statement.
+	 * <p>
+	 * The text will be formatted using the {@link String#format} method.
+	 * <p>
+	 * The formatting is fail-safe in the sense that text formatting is only
+	 * attempted when proper format parameters are given. Otherwise, the text
+	 * will be appended literally as given.
+	 *
+	 * @param condition
+	 *            the condition would append statement
+	 * @param text
+	 *            the text to add (never null)
+	 * @param formatParameters
+	 *            the {@link String#format} parameters
+	 * @return this object
+	 */
+	public DbStatement addText(boolean condition, String text, Object...formatParameters) {
+
+		if (condition) {
+			if (formatParameters != null && formatParameters.length > 0) {
+				textBuilder.append(String.format(text, formatParameters));
+			} else {
+				textBuilder.append(text);
+			}
+		}
+		return this;
+	}
+
+	/**
 	 * Adds the given prepared statement parameter.
 	 *
 	 * @param parameter

@@ -26,7 +26,7 @@ import com.softicar.platform.db.core.dbms.postgresql.DbPostgreSqlConnector;
 public enum DbServerType implements IDbServerType {
 
 	NONE(new DbNoneConnector(), new DbDefaultQuirks()),
-	H2_MEMORY(new DbH2MemoryConnector(), new DbH2Quirks()),
+	H2_MEMORY(new DbH2MemoryConnector().setDatabaseToUpper(null), new DbH2Quirks()),
 	IBM_AS400(new DbIbmAs400Connector(), new DbIbmAs400Quirks()),
 	IBM_INFORMIX(new DbIbmInformixConnector(), new DbDefaultQuirks()),
 	MARIA_DB(new DbMariaDbConnector(), new DbMariaDbQuirks()),
@@ -36,7 +36,7 @@ public enum DbServerType implements IDbServerType {
 	POSTGRE_SQL(new DbPostgreSqlConnector(), new DbDefaultQuirks());
 
 	private final IDbConnector connector;
-	private IDbServerQuirks quirks;
+	private final IDbServerQuirks quirks;
 
 	private DbServerType(IDbConnector connector, IDbServerQuirks quirks) {
 
