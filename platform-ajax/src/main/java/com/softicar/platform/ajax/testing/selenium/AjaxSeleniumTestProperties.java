@@ -31,7 +31,7 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<Boolean> EXECUTION_SCREENSHOT_ON_FINISHED = FACTORY.createBooleanProperty("execution.screenshot.on.finished", false);
 
 	// Selenium Grid
-	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "4.30.0");
+	public static final IProperty<String> GRID_CONTAINER_VERSION = FACTORY.createStringProperty("grid.container.version", "4.49.0");
 	public static final IProperty<Boolean> GRID_DEFERRED_SHUTDOWN = FACTORY.createBooleanProperty("grid.deferred.shutdown", false);
 	public static final IProperty<String> GRID_SHUTDOWN_SCRIPT = FACTORY.createStringProperty("grid.shutdown.script", "shutdown-grid.sh");
 	public static final IProperty<String> GRID_TEMPORARY_DIRECTORY = FACTORY
@@ -55,8 +55,8 @@ public class AjaxSeleniumTestProperties {
 
 	// Selenium Node
 	public static final IProperty<BigDecimal> NODE_FACTOR = FACTORY.createBigDecimalProperty("node.factor", new BigDecimal("1.5"));
-	public static final IProperty<String> NODE_IMAGE_NAME = FACTORY.createStringProperty("node.image.name", "node-chrome");
-	public static final IProperty<String> NODE_NAME_PREFIX = FACTORY.createStringProperty("node.name.prefix", "selenium-node-chrome");
+	public static final IProperty<String> NODE_IMAGE_NAME = FACTORY.createStringProperty("node.image.name", "node-chromium");
+	public static final IProperty<String> NODE_NAME_PREFIX = FACTORY.createStringProperty("node.name.prefix", "selenium-node-chromium");
 
 	// Server
 	public static final IProperty<String> SERVER_IP = FACTORY.createStringProperty("server.ip", "172.0.0.1");
