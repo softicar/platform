@@ -5,8 +5,6 @@ import com.softicar.platform.common.core.locale.LocaleScope;
 import com.softicar.platform.common.io.mime.MimeType;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
-import com.softicar.platform.core.module.email.EmailContentType;
-import com.softicar.platform.core.module.email.buffer.BufferedEmailFactory;
 import com.softicar.platform.core.module.user.AGUser;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,8 +64,8 @@ class SofticarAjaxTwoFactorAuthenticator {
 			.getInstance(request.getSession())
 			.generateAndStorePasswort();
 
+		new OneTimePasswordEmailSender(user).send(password);
 		try (var scope = new LocaleScope(user.getLocale())) {
-			sendEmail(password);
 			printTokenInputPage(password.getIndex(), response);
 		}
 	}
@@ -75,24 +73,6 @@ class SofticarAjaxTwoFactorAuthenticator {
 	private String getOneTimePasswordFromRequest() {
 
 		return request.getParameter(ONE_TIME_PASSWORD_REQUEST_PARAMETER);
-	}
-
-	private void sendEmail(OneTimePassword password) {
-
-		BufferedEmailFactory//
-			.createNoReplyEmail()
-			.setSubject(CoreI18n.ONE_TIME_PASSWORD)
-			.addToRecipient(user)
-			.setContent(//
-				new DisplayString()
-					.append(
-						CoreI18n.ONE_TIME_PASSWORD_ARG1_TO_LOG_IN_TO_YOUR_ARG2_ACCOUNT_ARG3
-							.toDisplay("#" + password.getIndex(), AGCoreModuleInstance.getSystemIdentifier(), user.getLoginName()))
-					.append("\r\n\r\n")
-					.append(password.getText())
-					.toString(),
-				EmailContentType.PLAIN)
-			.submit();
 	}
 
 	private void printTokenInputPage(int passwordCounter, HttpServletResponse response) {

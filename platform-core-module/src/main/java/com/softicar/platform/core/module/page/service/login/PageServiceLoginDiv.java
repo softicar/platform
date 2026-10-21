@@ -9,7 +9,7 @@ import com.softicar.platform.core.module.CoreCssClasses;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreImages;
 import com.softicar.platform.core.module.CoreTestMarker;
-import com.softicar.platform.core.module.file.stored.AGStoredFile;
+import com.softicar.platform.core.module.ajax.login.OneTimePasswordChallenge;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
@@ -32,24 +32,40 @@ import com.softicar.platform.dom.event.IDomClickEventHandler;
 import com.softicar.platform.dom.event.IDomEvent;
 import com.softicar.platform.dom.input.AbstractDomInput;
 import com.softicar.platform.dom.input.DomTextInput;
+import com.softicar.platform.dom.input.IDomFocusable;
+import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.styles.CssDisplay;
 import java.util.Optional;
 
 public class PageServiceLoginDiv extends DomDiv {
 
 	private final PageServiceDocumentBuilder documentBuilder;
-	private final LoginForm loginForm;
+	private int passwordIndex;
 
 	public PageServiceLoginDiv(PageServiceDocumentBuilder documentBuilder) {
 
 		this.documentBuilder = documentBuilder;
-		this.loginForm = new LoginForm();
+		this.passwordIndex = 0;
 
 		addCssClass(CoreCssClasses.PAGE_SERVICE_LOGIN_DIV);
-		appendChild(loginForm);
+		appendChild(new LoginForm());
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
 			addCssClass(CoreCssClasses.TEST_SYSTEM);
 		}
+	}
+
+	private void showForm(DomForm form) {
+
+		removeChildren();
+		appendChild(form);
+		IDomFocusable.focusFirst(IDomTextualInput.class, form);
+	}
+
+	private void appendPortalLogo(DomForm form) {
+
+		Optional//
+			.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
+			.ifPresent(logoFile -> form.appendChild(new DomImage(new StoredFileResource(logoFile))));
 	}
 
 	private class LoginForm extends DomForm {
@@ -62,17 +78,14 @@ public class PageServiceLoginDiv extends DomDiv {
 
 		public LoginForm() {
 
-			this.loginButton = new LoginButton();
+			this.loginButton = new LoginButton(this::login);
 			this.userInput = new UserInput();
 			this.passwordInput = new PasswordInput();
 			this.maintenanceDiv = new MaintenanceElement();
 			this.errorDiv = new LoginErrorElement();
 
 			addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_FORM);
-
-			Optional//
-				.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
-				.ifPresent(this::appendLogo);
+			appendPortalLogo(this);
 
 			DomDiv loginFormDiv = new DomDiv();
 			DomLabelGrid display = new DomLabelGrid();
@@ -92,16 +105,17 @@ public class PageServiceLoginDiv extends DomDiv {
 			appendChild(buttonDiv);
 		}
 
-		private void appendLogo(AGStoredFile logoFile) {
+		public void showError(String message) {
 
-			appendChild(new DomImage(new StoredFileResource(logoFile)));
+			errorDiv.showError(message);
 		}
 
 		private void login() {
 
 			try {
-				new PageServiceLoginExecutor(userInput.getValueText(), passwordInput.getValueText()).executeLogin();
-				documentBuilder.refreshBody();
+				new PageServiceLoginExecutor()//
+					.executeLogin(userInput.getValueText(), passwordInput.getValueText(), ++passwordIndex)
+					.ifPresentOrElse(challenge -> showForm(new OneTimePasswordForm(challenge)), documentBuilder::refreshBody);
 			} catch (SofticarUserException exception) {
 				errorDiv.showError(exception.getMessage());
 			}
@@ -132,37 +146,6 @@ public class PageServiceLoginDiv extends DomDiv {
 		private void showCouldNotResetPasswordMessage() {
 
 			throw new SofticarUserException(CoreI18n.COULD_NOT_RESET_USER_PASSWORD);
-		}
-
-		private class LoginButton extends DomButton {
-
-			public LoginButton() {
-
-				setIcon(CoreImages.LOGIN.getResource());
-				setLabel(CoreI18n.LOGIN);
-				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
-
-				HiddenSubmitInput submitInput = new HiddenSubmitInput();
-				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.CLICK, submitInput);
-				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, submitInput);
-				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.SPACE, submitInput);
-				appendChild(submitInput);
-			}
-		}
-
-		private class HiddenSubmitInput extends AbstractDomInput implements IDomClickEventHandler {
-
-			public HiddenSubmitInput() {
-
-				setAttribute("type", "submit");
-				setStyle(CssDisplay.NONE);
-			}
-
-			@Override
-			public void handleClick(IDomEvent event) {
-
-				login();
-			}
 		}
 
 		private class UserInput extends DomTextInput {
@@ -253,6 +236,101 @@ public class PageServiceLoginDiv extends DomDiv {
 				removeChildren();
 				appendChild(new DomMessageDiv(DomMessageType.ERROR, IDisplayString.create(message)));
 			}
+		}
+	}
+
+	private class OneTimePasswordForm extends DomForm {
+
+		private final OneTimePasswordChallenge challenge;
+		private final LoginButton loginButton;
+		private final OneTimePasswordInput oneTimePasswordInput;
+
+		public OneTimePasswordForm(OneTimePasswordChallenge challenge) {
+
+			this.challenge = challenge;
+			this.loginButton = new LoginButton(this::login);
+			this.oneTimePasswordInput = new OneTimePasswordInput();
+
+			addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_FORM);
+			appendPortalLogo(this);
+
+			DomDiv oneTimePasswordFormDiv = new DomDiv();
+			oneTimePasswordFormDiv
+				.appendChild(
+					new DomMessageDiv(
+						DomMessageType.INFO,
+						CoreI18n.TWO_FACTOR_AUTHENTICATION_IS_ACTIVE
+							.concat("\n")
+							.concat(CoreI18n.ARG1_ONE_TIME_PASSWORD_HAS_BEEN_SENT_TO_YOUR_EMAIL_ADDRESS.toDisplay(AGCoreModuleInstance.getSystemIdentifier()))));
+			DomLabelGrid display = new DomLabelGrid();
+			display.add(CoreI18n.ONE_TIME_PASSWORD.concat(" #" + challenge.getPasswordIndex()), oneTimePasswordInput);
+			oneTimePasswordFormDiv.appendChild(display);
+
+			appendChild(oneTimePasswordFormDiv);
+			var buttonDiv = new DomDiv();
+			buttonDiv.appendChild(new DomActionBar(loginButton));
+			appendChild(buttonDiv);
+		}
+
+		private void login() {
+
+			try {
+				new PageServiceLoginExecutor().completeLogin(challenge, oneTimePasswordInput.getValueText());
+				documentBuilder.refreshBody();
+			} catch (SofticarUserException exception) {
+				// the one-time password is invalidated, so the user needs to start over
+				var loginForm = new LoginForm();
+				showForm(loginForm);
+				loginForm.showError(exception.getMessage());
+			}
+		}
+
+		private class OneTimePasswordInput extends DomTextInput {
+
+			public OneTimePasswordInput() {
+
+				setAttribute("name", "one-time-code");
+				setAttribute("autocomplete", "one-time-code");
+
+				addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_INPUT);
+
+				getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, loginButton);
+			}
+		}
+	}
+
+	private class LoginButton extends DomButton {
+
+		public LoginButton(Runnable loginAction) {
+
+			setIcon(CoreImages.LOGIN.getResource());
+			setLabel(CoreI18n.LOGIN);
+			addMarker(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+
+			HiddenSubmitInput submitInput = new HiddenSubmitInput(loginAction);
+			getDomEngine().setClickTargetForEventDelegation(this, DomEventType.CLICK, submitInput);
+			getDomEngine().setClickTargetForEventDelegation(this, DomEventType.ENTER, submitInput);
+			getDomEngine().setClickTargetForEventDelegation(this, DomEventType.SPACE, submitInput);
+			appendChild(submitInput);
+		}
+	}
+
+	private class HiddenSubmitInput extends AbstractDomInput implements IDomClickEventHandler {
+
+		private final Runnable loginAction;
+
+		public HiddenSubmitInput(Runnable loginAction) {
+
+			this.loginAction = loginAction;
+
+			setAttribute("type", "submit");
+			setStyle(CssDisplay.NONE);
+		}
+
+		@Override
+		public void handleClick(IDomEvent event) {
+
+			loginAction.run();
 		}
 	}
 }

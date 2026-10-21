@@ -8,8 +8,11 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
+import com.softicar.platform.core.module.email.buffer.AGBufferedEmail;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.test.fixture.CoreModuleTestFixtureMethods;
+import com.softicar.platform.core.module.user.AGUser;
+import com.softicar.platform.core.module.user.password.policy.AGPasswordPolicy;
 import com.softicar.platform.core.module.user.password.reset.AGUserPasswordResetRequest;
 import com.softicar.platform.db.runtime.test.AbstractDbTest;
 import com.softicar.platform.dom.DomTestMarker;
@@ -23,6 +26,7 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	private static final String LOGIN_USER = "firstname.lastname";
 
 	@Rule public final AjaxSeleniumLowLevelTestEngine testEngine;
+	private final AGUser user;
 
 	public PageServiceLoginDivTest() {
 
@@ -32,7 +36,8 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 			.setEmailServer(insertDummyServer())
 			.setPasswordResetFunctionality(true)
 			.save();
-		insertPassword(insertUser("foo", "bar", LOGIN_USER), LOGIN_PASSWORD);
+		this.user = insertUser("foo", "bar", LOGIN_USER);
+		insertPassword(user, LOGIN_PASSWORD);
 		openTestNode(this::createLoginDiv);
 	}
 
@@ -155,6 +160,60 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 	}
 
 	@Test
+	public void testWithTwoFactorAuthentication() {
+
+		requireTwoFactorAuthentication();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+		waitForServer();
+
+		assertOneTimePasswordFormDisplayed();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_INPUT, getOneTimePassword());
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+		waitForServer();
+
+		assertLoginSuccess();
+	}
+
+	@Test
+	public void testWithTwoFactorAuthenticationAndEnterOnOneTimePasswordInput() {
+
+		requireTwoFactorAuthentication();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, Key.ENTER);
+		waitForServer();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_INPUT, getOneTimePassword());
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_INPUT, Key.ENTER);
+		waitForServer();
+
+		assertLoginSuccess();
+	}
+
+	@Test
+	public void testWithTwoFactorAuthenticationAndWrongOneTimePassword() {
+
+		requireTwoFactorAuthentication();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT, LOGIN_USER);
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_PASSWORD_INPUT, LOGIN_PASSWORD);
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+		waitForServer();
+
+		send(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_INPUT, "wrong");
+		click(CoreTestMarker.PAGE_SERVICE_LOGIN_LOGIN_BUTTON);
+		waitForServer();
+
+		assertLoginFormDisplayed();
+		assertNodeWithText(CoreTestMarker.PAGE_SERVICE_LOGIN_ERROR_MESSAGE_ELEMENT, CoreI18n.WRONG_OR_EXPIRED_ONE_TIME_PASSWORD.toString());
+	}
+
+	@Test
 	public void testWithTabOnUserInput() {
 
 		send(findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_USER_INPUT), Key.TAB);
@@ -225,6 +284,29 @@ public class PageServiceLoginDivTest extends AbstractDbTest implements IAjaxSele
 		assertNoNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
 		assertNoNode(CoreTestMarker.START_PAGE_MAIN_ELEMENT);
 		assertNoModalDialog();
+	}
+
+	private void assertOneTimePasswordFormDisplayed() {
+
+		findNodeOrFail(CoreTestMarker.PAGE_SERVICE_LOGIN_ONE_TIME_PASSWORD_FORM);
+		assertNoNode(CoreTestMarker.PAGE_SERVICE_LOGIN_FORM);
+		assertNoNode(CoreTestMarker.PAGE_NAVIGATION_PAGE_CONTENT_DIV);
+		assertNoModalDialog();
+	}
+
+	private void requireTwoFactorAuthentication() {
+
+		var policy = new AGPasswordPolicy()//
+			.setName("Two-Factor Policy")
+			.setTwoFactorAuthentication(true)
+			.save();
+		user.setPasswordPolicy(policy).save();
+	}
+
+	private String getOneTimePassword() {
+
+		String[] lines = assertOne(AGBufferedEmail.TABLE.loadAll()).getContent().split("\r\n");
+		return lines[lines.length - 1];
 	}
 
 	private void assertModalAlertWithText(IDisplayString text) {

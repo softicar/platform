@@ -3144,6 +3144,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Log najgore razine")
 		.sr("Log najgore razine")
 		.hr("Log najgore razine");
+	I18n0 WRONG_OR_EXPIRED_ONE_TIME_PASSWORD = new I18n0("Wrong or expired one-time password.")//
+		.de("Falsches oder abgelaufenes Einmal-Passwort.")
+		.bs("Pogrešna ili istekla jednokratna lozinka.")
+		.sr("Pogrešna ili istekla jednokratna lozinka.")
+		.hr("Pogrešna ili istekla jednokratna lozinka.");
 	I18n0 WRONG_PASSWORD = new I18n0("Wrong Password")//
 		.de("Falsches Passwort")
 		.bs("Pogrešna lozinka")
