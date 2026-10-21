@@ -57,7 +57,7 @@ project.ext {
 		simpleJavaMail: "9.3.4",
 		slf4j: "2.0.19",
 		tesseract: "5.5.3-1.5.14",
-		tinymce: "6.8.3",
+		tinymce: "6.8.6",
 	]
 }
 
@@ -136,7 +136,7 @@ subprojects {
 			force "org.simplejavamail:outlook-module:$versions.simpleJavaMail"
 			force "org.simplejavamail:simple-java-mail:$versions.simpleJavaMail"
 			force "org.slf4j:slf4j-simple:$versions.slf4j"
-			force "org.webjars.bower:tinymce:$versions.tinymce"
+			force "org.webjars.npm:tinymce:$versions.tinymce"
 			force "org.xhtmlrenderer:flying-saucer-pdf:$versions.flyingSaucerPdf"
 			
 			force "org.eclipse.angus:angus-mail:$versions.angusMail"

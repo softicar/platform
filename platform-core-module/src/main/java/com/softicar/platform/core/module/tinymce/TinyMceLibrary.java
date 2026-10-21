@@ -10,7 +10,7 @@ import com.softicar.platform.dom.document.IDomDocument;
 @SourceCodeReferencePointUuid("12ddc505-76c1-4e7f-957d-5f5480e22414")
 public class TinyMceLibrary extends WebLibrary {
 
-	private static final String ROOT = "/META-INF/resources/webjars/tinymce/6.3.1";
+	static final String ROOT = "/META-INF/resources/webjars/tinymce/6.8.6";
 
 	public TinyMceLibrary() {
 
