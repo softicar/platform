@@ -5,7 +5,10 @@ import com.softicar.platform.common.core.exceptions.SofticarUserException;
 import com.softicar.platform.common.date.DayTime;
 import com.softicar.platform.common.date.DayTimeParser;
 import com.softicar.platform.core.module.CoreI18n;
+import com.softicar.platform.core.module.CoreProperties;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.Enumeration;
 
 /**
  * Utility methods for {@link HttpServletRequest}.
@@ -115,9 +118,10 @@ public class HttpServletRequests {
 	/**
 	 * Returns the client address from the given {@link HttpServletRequest}.
 	 * <p>
-	 * This method first checks for the <i>x-forwarded-for</i> header in the
-	 * request and returns the first IP address listed in this header.
-	 * Otherwise, if no such header exists, this method returns
+	 * If the request was received from one of the
+	 * {@link CoreProperties#TRUSTED_PROXIES}, the client address is taken from
+	 * the <i>X-Forwarded-For</i> header, as described in
+	 * {@link ClientAddressDeterminer}. Otherwise, this method returns
 	 * {@link HttpServletRequest#getRemoteAddr()}.
 	 *
 	 * @param request
@@ -126,20 +130,23 @@ public class HttpServletRequests {
 	 */
 	public static String getClientAddress(HttpServletRequest request) {
 
-		String forwardedForAddrees = getForwardedForAddrees(request);
-		if (forwardedForAddrees != null && !forwardedForAddrees.isEmpty()) {
-			return forwardedForAddrees;
-		} else {
-			return request.getRemoteAddr();
-		}
+		return getClientAddress(request, CoreProperties.TRUSTED_PROXIES.getValue());
 	}
 
-	private static String getForwardedForAddrees(HttpServletRequest request) {
+	static String getClientAddress(HttpServletRequest request, String trustedProxies) {
 
-		String xffHeader = request.getHeader("X-Forwarded-For");
-		if (xffHeader != null) {
-			String[] parts = xffHeader.split(",", 2);
-			return parts.length > 0? parts[0].trim() : null;
+		return new ClientAddressDeterminer(trustedProxies).determine(request.getRemoteAddr(), getForwardedFor(request));
+	}
+
+	/**
+	 * Joins all <i>X-Forwarded-For</i> headers, since a proxy might add its own
+	 * header instead of appending to the one supplied by the client.
+	 */
+	private static String getForwardedFor(HttpServletRequest request) {
+
+		Enumeration<String> headers = request.getHeaders("X-Forwarded-For");
+		if (headers != null && headers.hasMoreElements()) {
+			return String.join(",", Collections.list(headers));
 		} else {
 			return null;
 		}
