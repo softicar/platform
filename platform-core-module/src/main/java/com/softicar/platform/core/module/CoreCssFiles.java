@@ -13,6 +13,7 @@ public interface CoreCssFiles {
 
 	IResourceSupplier FILE_DROP_AREA_STYLE = FACTORY.create("file-drop-area-style.css");
 	IResourceSupplier MAINTENANCE_WINDOW_STYLE = FACTORY.create("maintenance-window-style.css");
+	IResourceSupplier MODERN_THEME_STYLE = FACTORY.create("modern-theme-style.css");
 	IResourceSupplier PAGE_NAVIGATION_STYLE = FACTORY.create("page-navigation-style.css");
 	IResourceSupplier PAGE_STYLE = FACTORY.create("page-style.css");
 	IResourceSupplier PROGRAM_EXECUTION_STYLE = FACTORY.create("program-execution-style.css");

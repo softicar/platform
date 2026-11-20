@@ -84,7 +84,9 @@ public interface EmfCssClasses {
 	ICssClass EMF_LOG_FEED_TRANSACTION_LEGEND = new CssClass("EmfLogFeedTransactionLegend", EmfCssFiles.EMF_LOG_FEED_STYLE);
 
 	ICssClass EMF_MANAGEMENT_ACTIONS_BUTTON = new CssClass("EmfManagementActionsButton", EmfCssFiles.EMF_MANAGEMENT_STYLE);
+	ICssClass EMF_MANAGEMENT_CREATE_BUTTON = new CssClass("EmfManagementCreateButton", EmfCssFiles.EMF_MANAGEMENT_STYLE);
 	ICssClass EMF_MANAGEMENT_DIV = new CssClass("EmfManagementDiv", EmfCssFiles.EMF_MANAGEMENT_STYLE);
+	ICssClass EMF_MANAGEMENT_REFRESH_BUTTON = new CssClass("EmfManagementRefreshButton", EmfCssFiles.EMF_MANAGEMENT_STYLE);
 
 	ICssClass EMF_PREFILTER_ELEMENT = new CssClass("EmfPrefilterElement", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);
 	ICssClass EMF_PREFILTER_ROW_CONTENT = new CssClass("EmfPrefilterRowContent", EmfCssFiles.EMF_PREFILTER_ROW_STYLE);

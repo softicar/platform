@@ -175,21 +175,24 @@ public class EmfManagementDiv<R extends IEmfTableRow<R, P>, P, S> extends DomDiv
 
 		public ActionBar() {
 
-			appendChild(
-				new DomButton()//
-					.setClickCallback(this::invalidateCachesAndRefreshAll)
-					.setIcon(EmfImages.REFRESH.getResource())
-					.setLabel(EmfI18n.REFRESH)
-					.addMarker(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON));
-			appendChild(
-				new DomPopupButton()//
-					.setPopupFactory(() -> createNewEntityPopup())
-					.setRetainOpen(false)
-					.setIcon(EmfImages.ENTITY_CREATE.getResource())
-					.setLabel(EmfI18n.CREATE)
-					.addMarker(EmfTestMarker.MANAGEMENT_TABLE_CREATE_BUTTON)
-					.setEnabled(isCreationAllowed())
-					.setTitle(getCreationPredicateTitle()));
+			DomButton refreshButton = new DomButton()//
+				.setClickCallback(this::invalidateCachesAndRefreshAll)
+				.setIcon(EmfImages.REFRESH.getResource())
+				.setLabel(EmfI18n.REFRESH);
+			refreshButton.addMarker(EmfTestMarker.MANAGEMENT_TABLE_REFRESH_BUTTON);
+			refreshButton.addCssClass(EmfCssClasses.EMF_MANAGEMENT_REFRESH_BUTTON);
+			appendChild(refreshButton);
+
+			DomPopupButton createButton = new DomPopupButton()//
+				.setPopupFactory(() -> createNewEntityPopup())
+				.setRetainOpen(false);
+			createButton.setIcon(EmfImages.ENTITY_CREATE.getResource());
+			createButton.setLabel(EmfI18n.CREATE);
+			createButton.addMarker(EmfTestMarker.MANAGEMENT_TABLE_CREATE_BUTTON);
+			createButton.addCssClass(EmfCssClasses.EMF_MANAGEMENT_CREATE_BUTTON);
+			createButton.setEnabled(isCreationAllowed());
+			createButton.setTitle(getCreationPredicateTitle());
+			appendChild(createButton);
 			if (entityTable.getEmfTableConfiguration().getDeactivationStrategy().isDeactivationSupported()) {
 				appendActiveCheckbox();
 			}

@@ -1,0 +1,2198 @@
+/*
+ * Modern theme (PageTheme.MODERN): the look of the "Forspace Modern" theme of
+ * the SoftiCAR ERP, on top of the classic platform styles.
+ *
+ * Active when the body element has the class "ModernTheme". Every rule is
+ * scoped to that class: the order in which the platform links its style
+ * sheets is not fixed, so the extra class is what makes these rules win.
+ */
+
+/* -------------------- DESIGN TOKENS -------------------- */
+
+.ModernTheme {
+
+	/* palette of the modern theme */
+	--fp-font: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+	--fp-content-font: Helvetica, tahoma, verdana, sans-serif, arial;
+
+	--fp-bg: #f8f9fb;
+	--fp-surface: #ffffff;
+	--fp-surface-muted: #fafbfc;
+	--fp-surface-strip: #f1f4f7;
+	--fp-border: #e5e7eb;
+	--fp-border-strong: #d1d5db;
+	--fp-row-divider: #f1f3f5;
+	--fp-control-border: #d4dae1;
+
+	--fp-text: #111827;
+	--fp-text-content: #404040;
+	--fp-text-muted: #6b7280;
+	--fp-text-crumb: #707d8c;
+	--fp-text-nav: #5e5c64;
+
+	--fp-primary: #2563eb;
+	--fp-primary-soft: #eff6ff;
+	--fp-hover: #f8fafc;
+	--fp-radius: 6px;
+
+	/* tokens of single rules (the variants change them) */
+	--fp-text-2: #374151;
+	--fp-text-3: #4b5563;
+	--fp-caption: #1f3d52;
+	--fp-caption-bg: #e3ebf2;
+	--fp-caption-border: #c7d4de;
+	--fp-caption-icon: #4a6478;
+	--fp-label-text: #333333;
+	--fp-form-header-bg: #eef3f7;
+	--fp-icon-muted: #6b7280;
+	--fp-scrollbar: #c4cbd4;
+	--fp-avatar-bg: #dbe4ee;
+	--fp-avatar-hover: #c9d6e4;
+	--fp-card-accent-top: #eef4ff;
+	--fp-card-accent-bottom: #f8fbff;
+	--fp-button-top: #ffffff;
+	--fp-button-bottom: #f6f8fa;
+	--fp-button-hover-bottom: #eef1f5;
+	--fp-button-border: #c9d1da;
+	--fp-button-hover-border: #aeb8c4;
+	--fp-button-selected-border: #bfd3f5;
+	--fp-button-text: #222222;
+	--fp-checkbox-border: #9ca3af;
+	--fp-zebra: #fafafa;
+	--fp-row-hover: var(--fp-hover);
+	--fp-th-bg: var(--fp-surface-muted);
+	--fp-th-border: var(--fp-border);
+	--fp-th-text: var(--fp-text-muted);
+	--fp-bar-bg: var(--fp-surface-strip);
+	--fp-control-edge: var(--fp-control-border);
+	/* vertical lines between table cells: none, a border value in the classic variant */
+	--fp-grid-line: none;
+	--fp-shadow-color: rgba(16, 24, 40, 0.14);
+	--fp-shadow-color-soft: rgba(16, 24, 40, 0.08);
+	--fp-danger: #dc2626;
+	--fp-danger-text: #b91c1c;
+	--fp-danger-ink: #7f1d1d;
+	--fp-danger-soft: #fef2f2;
+	--fp-danger-line: #fecaca;
+	--fp-danger-hover: #fdf2f2;
+	/* icon colours as filters over the black or grey icons */
+	--fp-icon-ink: brightness(0);
+	--fp-icon-blue: brightness(0) saturate(100%) invert(44%) sepia(91%) saturate(1784%) hue-rotate(204deg) brightness(99%) contrast(94%);
+	--fp-icon-green: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(531%) hue-rotate(83deg) brightness(93%) contrast(90%);
+	--fp-icon-steel: brightness(0) saturate(100%) invert(38%) sepia(14%) saturate(910%) hue-rotate(166deg) brightness(92%) contrast(87%);
+
+	/* platform variables mapped to the palette */
+	--PRIMARY_COLOR: var(--fp-text-2);
+	--PRIMARY_DISABLED_COLOR: var(--fp-surface-strip);
+	--SECONDARY_COLOR: var(--fp-primary);
+	--FONT_FAMILY: var(--fp-content-font);
+	--FONT_SIZE: 13px;
+	--FONT_SIZE_BIGGER: 13px;
+	--FONT_COLOR: var(--fp-text-content);
+	--GRAY_BACKGROUND_COLOR: var(--fp-bg);
+	--GRAY_FONT_COLOR: var(--fp-text-muted);
+	--INPUT_BORDER_COLOR: var(--fp-control-border);
+	--LABEL_BORDER_COLOR: var(--fp-border);
+	--LABEL_BACKGROUND_COLOR: var(--fp-surface-muted);
+	--LABEL_FONT_COLOR: var(--fp-text-muted);
+	--SELECTION_BACKGROUND_COLOR: var(--fp-primary-soft);
+	--SELECTION_BACKGROUND_ALTERNATE_COLOR: #e3edfd;
+	--BORDER_RADIUS: 4px;
+	--BOX_SHADOW_OVERLAY: 0 10px 30px rgba(16, 24, 40, 0.18), 0 1px 3px rgba(16, 24, 40, 0.1);
+	--BOX_SHADOW_TABLE_HEADER: none;
+	--PAGE_BOX_SHADOW: none;
+
+	--PAGE_HEADER_HEIGHT: 56px;
+	--PAGE_NAVIGATION_WIDTH: 296px;
+	--PAGE_NAVIGATION_ENTRY_HEIGHT: 29px;
+
+	/* neutral buttons instead of filled primary buttons */
+	--DOM_BUTTON_DECORATION_BACKGROUND_COLOR: transparent;
+	--DOM_BUTTON_DECORATION_COLOR: var(--fp-button-text);
+	--DOM_BUTTON_DECORATION_HEIGHT: 26px;
+	--DOM_BUTTON_DECORATION_PADDING: 0px 9px;
+	--DOM_BUTTON_DECORATION_INTERACTION_BOX_SHADOW: none;
+	--DOM_BUTTON_LABEL_DECORATION_TEXT_TRANSFORM: none;
+	--DOM_BUTTON_DECORATED_ICON_SIZE: 16px;
+	--DOM_BUTTON_ICON_DECORATION_FILTER: var(--fp-icon-ink) opacity(0.62);
+
+	background: var(--fp-bg);
+}
+
+/* -------------------- PAGE -------------------- */
+
+.ModernTheme .PageContentDiv {
+	padding: 12px;
+	background: var(--fp-bg);
+	box-shadow: none;
+	scrollbar-color: var(--fp-scrollbar) transparent;
+}
+
+.ModernTheme .PageContentDiv::-webkit-scrollbar-thumb {
+	background: var(--fp-scrollbar);
+	border-radius: 3px;
+}
+
+/* no striped wallpaper of a test system in this theme (user's wish) */
+.ModernTheme .PageContentDiv.TestSystem {
+	background: var(--fp-bg);
+}
+
+/* -------------------- HEADER -------------------- */
+
+.ModernTheme .PageHeaderDiv {
+	padding: 0 16px;
+	column-gap: 12px;
+	background: var(--fp-bg);
+	color: var(--fp-text-crumb);
+	font-family: var(--fp-font);
+	font-size: 13px;
+}
+
+.ModernTheme .PageHeaderDiv > .PageHeaderNavigationToggleButton img {
+	width: 20px;
+	height: 20px;
+	max-width: 20px;
+	max-height: 20px;
+	filter: var(--fp-icon-ink) opacity(0.55);
+}
+
+.ModernTheme .PageHeaderPathDiv {
+	gap: 8px;
+	font-family: var(--fp-font);
+	color: var(--fp-text-crumb);
+}
+
+/* the ">>" separators become a slash, as in the breadcrumbs of the ERP */
+.ModernTheme .PageHeaderSeparator {
+	font-size: 0;
+	font-weight: normal;
+}
+
+.ModernTheme .PageHeaderSeparator::before {
+	content: "/";
+	font-size: 13px;
+	color: var(--fp-border-strong);
+}
+
+.ModernTheme .PageHeaderPageName {
+	color: var(--fp-text);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.ModernTheme .PageHeaderDiv > .DomButton,
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .DomButton {
+	color: var(--fp-text-2);
+	font-family: var(--fp-font);
+	font-size: 13px;
+	border-radius: var(--fp-radius);
+}
+
+.ModernTheme .PageHeaderDiv .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-ink) opacity(0.6);
+}
+
+.ModernTheme .PageHeaderDiv .DomButton:hover:not(.disabled) {
+	filter: none;
+	background-color: var(--fp-surface);
+}
+
+/* -------------------- USER MENU (avatar) -------------------- */
+
+/* as in the ERP: a card with avatar, greeting and e-mail, then the entries and the red logout */
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover {
+	min-width: 280px;
+	padding: 0 0 6px 0;
+	gap: 0;
+	font-family: var(--fp-font);
+	overflow: hidden;
+}
+
+.ModernTheme .ModernHeaderUserCard {
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 6px;
+	padding: 14px 16px;
+	background: linear-gradient(var(--fp-card-accent-top), var(--fp-card-accent-bottom));
+	border-bottom: 1px solid var(--fp-border);
+}
+
+.ModernTheme .ModernHeaderUserCard > div:first-child {
+	width: 42px;
+	height: 42px;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	background-color: var(--fp-avatar-bg);
+	color: var(--fp-caption);
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.ModernTheme .ModernHeaderUserCard > div:last-child {
+	gap: 2px;
+	min-width: 0;
+}
+
+.ModernTheme .ModernHeaderUserCard > div:last-child > div:first-child {
+	color: var(--fp-text);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.ModernTheme .ModernHeaderUserCard > div:last-child > div:last-child {
+	color: var(--fp-text-muted);
+	font-size: 12px;
+}
+
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .DomButton {
+	padding: 8px 10px;
+	gap: 10px;
+	color: var(--fp-text-2);
+	font-size: 13px;
+}
+
+.ModernTheme .ModernHeaderUserDivider {
+	height: 1px;
+	margin: 6px 0;
+	background-color: var(--fp-border);
+}
+
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .ModernHeaderUserLogout {
+	color: var(--fp-danger-text);
+}
+
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .ModernHeaderUserLogout > .DomButtonIcon[data-icon]:not(.precolored) {
+	filter: brightness(0) saturate(100%) invert(22%) sepia(93%) saturate(4029%) hue-rotate(352deg) brightness(90%) contrast(92%);
+}
+
+/* -------------------- LOGIN (PageServiceLoginDiv, PageServicePasswordResetDiv) -------------------- */
+
+/* as in the ERP: a dark brand panel with the logo on the left, the form on the right; narrow screens get the panel as
+   a band above the form */
+.ModernTheme .PageServiceLoginDiv,
+.ModernTheme .PageServiceLoginDiv.TestSystem {
+	display: grid;
+	grid-template-columns: minmax(0, 1.36fr) minmax(460px, 1fr);
+	align-content: stretch;
+	justify-items: stretch;
+	gap: 0;
+	padding: 0;
+	background: var(--fp-surface);
+	font-family: var(--fp-font);
+}
+
+.ModernTheme .ModernLoginBrand {
+	align-items: flex-start;
+	padding: 40px 48px;
+	background-color: #0b2a42;
+	background-image:
+		radial-gradient(ellipse 60% 50% at 78% 82%, rgba(37, 99, 235, 0.35), transparent 70%),
+		radial-gradient(ellipse 45% 40% at 18% 20%, rgba(56, 189, 248, 0.16), transparent 70%),
+		linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+		linear-gradient(160deg, #0d3150 0%, #051f35 100%);
+	background-size: auto, auto, 32px 32px, 32px 32px, auto;
+}
+
+/* the logo of the installation is made for light backgrounds: white on the dark panel */
+.ModernTheme .ModernLoginBrand > img {
+	height: 30px;
+	width: auto;
+	max-width: 100%;
+	filter: brightness(0) invert(1);
+}
+
+.ModernTheme .ModernLoginBrand > div {
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+.ModernTheme .ModernLoginMain {
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 0;
+	min-height: 0;
+	padding: 40px 64px 28px;
+	overflow-y: auto;
+}
+
+/* the form in the middle, the language at the bottom */
+.ModernTheme .ModernLoginForm {
+	align-self: stretch;
+	align-items: flex-start;
+	margin: auto 0;
+	padding: 24px 0;
+}
+
+.ModernTheme .ModernLoginFooter {
+	flex-direction: row;
+	align-items: center;
+	gap: 4px;
+	width: 100%;
+	max-width: 368px;
+	margin-left: -6px;
+	color: var(--fp-text-muted);
+}
+
+/* a globe before the language */
+.ModernTheme .ModernLoginFooter::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	background-color: #5b6472;
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M2 12h20'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>") center / 16px 16px no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M2 12h20'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>") center / 16px 16px no-repeat;
+}
+
+.ModernTheme .ModernLoginFooter > select,
+.ModernTheme .ModernLoginFooter > select:not([multiple]),
+.ModernTheme .ModernLoginFooter > select:not([multiple]):hover:not([disabled]) {
+	appearance: none;
+	-webkit-appearance: none;
+	height: auto;
+	padding: 4px 22px 4px 6px;
+	color: #374151;
+	font-family: var(--fp-font);
+	font-size: 13px;
+	background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235b6472' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 6px center;
+	border: 1px solid transparent;
+	border-radius: var(--fp-radius);
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.ModernTheme .ModernLoginFooter > select:hover {
+	border-color: #d1d5db;
+}
+
+.ModernTheme .ModernLoginFooter > select:focus-visible {
+	outline: 2px solid var(--fp-primary);
+	outline-offset: 1px;
+}
+
+.ModernTheme .ModernLoginForm > form {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 0;
+	width: 100%;
+	max-width: 368px;
+	padding: 0;
+	row-gap: 0;
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.ModernTheme .ModernLoginForm > form > div {
+	align-items: stretch;
+	gap: 0;
+}
+
+.ModernTheme .ModernLoginHead {
+	gap: 4px;
+}
+
+.ModernTheme .ModernLoginHead > div:first-child {
+	color: var(--fp-text);
+	font-size: 28px;
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+}
+
+.ModernTheme .ModernLoginHead > div:last-child {
+	color: var(--fp-text-muted);
+	font-size: 14px;
+}
+
+/* labels above the fields */
+.ModernTheme .ModernLoginMain .DomLabelGrid {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 0;
+}
+
+.ModernTheme .ModernLoginMain .DomLabelGridRow {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 6px;
+	margin-top: 18px;
+}
+
+.ModernTheme .ModernLoginMain .DomLabelGridRow > label {
+	padding: 0;
+	color: #374151;
+	font-size: 13px;
+	font-weight: 500;
+	text-align: left;
+	background: none;
+	border: 0;
+}
+
+.ModernTheme .ModernLoginMain input[type=text],
+.ModernTheme .ModernLoginMain input[type=password] {
+	box-sizing: border-box;
+	width: 100%;
+	height: 42px;
+	padding: 0 12px;
+	color: var(--fp-text);
+	font-family: var(--fp-font);
+	font-size: 15px;
+	background: var(--fp-surface);
+	border: 1px solid #8a94a6;
+	border-radius: var(--fp-radius);
+	transition: border-color 120ms, box-shadow 120ms;
+}
+
+.ModernTheme .ModernLoginMain input[type=text]:hover,
+.ModernTheme .ModernLoginMain input[type=password]:hover {
+	border-color: #6b7484;
+}
+
+.ModernTheme .ModernLoginMain input[type=text]:focus,
+.ModernTheme .ModernLoginMain input[type=password]:focus {
+	outline: none;
+	border-color: var(--fp-primary);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22);
+}
+
+.ModernTheme .ModernLoginMain .PageServiceLoginMaintenanceDiv {
+	padding: 0;
+}
+
+.ModernTheme .ModernLoginMain .PageServiceLoginMaintenanceDiv > * {
+	margin-top: 20px;
+}
+
+.ModernTheme .ModernLoginMain .PageServiceLoginErrorDiv {
+	display: flex;
+	padding: 0;
+}
+
+.ModernTheme .ModernLoginMain .PageServiceLoginErrorDiv > * {
+	margin-top: 18px;
+}
+
+/* the login button: primary, over the whole width */
+.ModernTheme .ModernLoginMain .DomActionBar {
+	display: flex;
+	margin-top: 24px;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton {
+	justify-content: center;
+	width: 100%;
+	height: 42px;
+	padding: 0 16px;
+	color: #ffffff;
+	font-family: var(--fp-font);
+	font-size: 15px;
+	font-weight: 600;
+	background: var(--fp-primary);
+	border: 1px solid transparent;
+	border-radius: var(--fp-radius);
+	box-shadow: none;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton:hover:not(.disabled) {
+	background: #1d4ed8;
+	filter: none;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton:active {
+	background: #1e40af;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton:focus-visible {
+	outline: 2px solid var(--fp-primary);
+	outline-offset: 2px;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton > .DomButtonIcon {
+	display: none;
+}
+
+.ModernTheme .ModernLoginMain .DomActionBar > .DomButton > .DomButtonLabel {
+	color: #ffffff;
+}
+
+/* "forgot password" as a quiet link under the button */
+.ModernTheme .ModernLoginMain form > div:last-child > .DomButton {
+	align-self: center;
+	margin-top: 14px;
+	color: var(--fp-primary);
+	font-family: var(--fp-font);
+	font-size: 13px;
+	background: none;
+	border: 0;
+	box-shadow: none;
+}
+
+.ModernTheme .ModernLoginMain form > div:last-child > .DomButton:hover {
+	text-decoration: underline;
+	background: none;
+}
+
+.ModernTheme .ModernLoginMain form > div:last-child > .DomButton > .DomButtonIcon {
+	display: none;
+}
+
+/* the password reset page keeps its card, without the test stripes */
+.ModernTheme .PageServicePasswordResetDiv {
+	background: var(--fp-bg);
+	font-family: var(--fp-font);
+}
+
+.ModernTheme .PageServicePasswordResetDiv form {
+	border: 1px solid var(--fp-border);
+	border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+
+	.ModernTheme .PageServiceLoginDiv,
+	.ModernTheme .PageServiceLoginDiv.TestSystem {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr;
+	}
+
+	.ModernTheme .ModernLoginBrand {
+		min-height: 112px;
+		padding: 20px;
+		justify-content: flex-end;
+	}
+
+	.ModernTheme .ModernLoginMain {
+		justify-content: flex-start;
+		padding: 28px 20px 20px;
+	}
+
+	.ModernTheme .ModernLoginForm > form {
+		max-width: 440px;
+	}
+
+	.ModernTheme .ModernLoginHead > div:first-child {
+		font-size: 24px;
+	}
+}
+
+/* -------------------- NAVIGATION (ModernNavigationDiv) -------------------- */
+
+/* an icon rail with the modules of the tenant and a panel with the modules, one module or the search results */
+.ModernTheme {
+	--fp-rail-width: 56px;
+}
+
+.ModernTheme .ModernNavigation {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	box-sizing: border-box;
+	width: var(--PAGE_NAVIGATION_WIDTH);
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+	overflow: hidden;
+	background-color: var(--fp-surface);
+	border-right: 1px solid var(--fp-border);
+	font-family: var(--fp-font);
+	font-size: 13px;
+	user-select: none;
+	transition: width 0.3s;
+}
+
+/* all divs of the platform are flex columns with a gap; the navigation sets its own (same specificity as the
+   class rules below, which come later and win) */
+.ModernTheme .ModernNavigation :where(div) {
+	gap: 0;
+}
+
+/* collapsed: only the rail stays, header and content move left */
+.ModernTheme .PageNavigationCollapsed > .ModernNavigation {
+	width: var(--fp-rail-width);
+}
+
+.ModernTheme .PageNavigationCollapsed .ModernNavigationPanel {
+	display: none;
+}
+
+.ModernTheme .PageNavigationCollapsed .PageContentDiv,
+.ModernTheme .PageNavigationCollapsed .PageHeaderDiv {
+	left: var(--fp-rail-width);
+}
+
+/* the toggle sits in the rail */
+.ModernTheme .PageHeaderDiv > .PageHeaderNavigationToggleButton {
+	display: none;
+}
+
+.ModernTheme .PageHeaderDiv {
+	grid-template-columns: auto max-content max-content max-content;
+}
+
+/* header actions as in the ERP: a line icon for the start page and the avatar with the initials */
+.ModernTheme .PageHeaderDiv > .ModernHeaderHome {
+	width: 36px;
+	height: 36px;
+	border-radius: 8px;
+}
+
+.ModernTheme .PageHeaderDiv > .ModernHeaderHome::before {
+	content: "";
+	width: 20px;
+	height: 20px;
+	background-color: var(--fp-text-3);
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.5V21h5v-6h4v6h5V9.5'/></svg>") center / 20px 20px no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M3 10.5 12 3l9 7.5'/><path d='M5 9.5V21h5v-6h4v6h5V9.5'/></svg>") center / 20px 20px no-repeat;
+}
+
+.ModernTheme .PageHeaderDiv > .ModernHeaderHome:hover {
+	background-color: var(--fp-surface);
+	filter: none;
+}
+
+.ModernTheme .PageHeaderDiv > .ModernHeaderHome:hover::before {
+	background-color: var(--fp-primary);
+}
+
+.ModernTheme .ModernHeaderAvatar.DomButton {
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border-radius: 50%;
+	background-color: var(--fp-avatar-bg);
+	color: var(--fp-caption);
+	font-family: var(--fp-font);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.ModernTheme .ModernHeaderAvatar.DomButton:hover {
+	background-color: var(--fp-avatar-hover);
+	filter: none;
+}
+
+/* ---------- rail ---------- */
+
+.ModernTheme .ModernNavigationRail {
+	width: var(--fp-rail-width);
+	flex: 0 0 var(--fp-rail-width);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 10px 0;
+	border-right: 1px solid var(--fp-border);
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+
+.ModernTheme .ModernNavigationRailLogo {
+	width: 36px;
+	height: 36px;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 12px;
+}
+
+.ModernTheme .ModernNavigationRailLogo img {
+	max-width: 32px;
+	max-height: 32px;
+}
+
+.ModernTheme .ModernNavigationRailToggle {
+	width: 28px;
+	height: 28px;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	align-items: center;
+	justify-content: center;
+	margin: 0 0 8px 0;
+	border: 1px solid var(--fp-border-strong);
+	border-radius: 50%;
+	background-color: var(--fp-surface);
+	box-shadow: 0 1px 2px var(--fp-shadow-color-soft);
+	cursor: pointer;
+}
+
+.ModernTheme .ModernNavigationRailToggle:hover {
+	border-color: var(--fp-primary);
+}
+
+/* the chevron points left while the panel is open, right when only the rail is left */
+.ModernTheme .ModernNavigationRailToggle > div {
+	width: 7px;
+	height: 7px;
+	border-left: 2px solid var(--fp-text-muted);
+	border-bottom: 2px solid var(--fp-text-muted);
+	transform: translateX(2px) rotate(45deg);
+	transition: transform 150ms;
+}
+
+.ModernTheme .ModernNavigationRailToggle:hover > div {
+	border-color: var(--fp-primary);
+}
+
+.ModernTheme .PageNavigationCollapsed .ModernNavigationRailToggle > div {
+	transform: translateX(-2px) rotate(-135deg);
+}
+
+.ModernTheme .ModernNavigationRailDivider {
+	width: 28px;
+	height: 1px;
+	flex-shrink: 0;
+	margin: 0 0 8px 0;
+	background-color: var(--fp-border-strong);
+}
+
+.ModernTheme .ModernNavigationRailItem {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 120ms;
+}
+
+.ModernTheme .ModernNavigationRailItem:hover {
+	background-color: var(--fp-hover);
+}
+
+.ModernTheme .ModernNavigationRailItem.selected {
+	background-color: var(--fp-primary-soft);
+}
+
+.ModernTheme .ModernNavigationRailItem img {
+	width: 20px;
+	height: 20px;
+}
+
+
+
+.ModernTheme .ModernNavigationRailAll {
+	margin-bottom: 6px;
+}
+
+/* while the panel lists all modules (or search results) it shows their icons itself; the rail shows them in a
+   module (to jump to another one) and while the panel is collapsed */
+.ModernTheme :not(.PageNavigationCollapsed) > .ModernNavigation:not([data-view='module']) .ModernNavigationRailItem[data-module] {
+	display: none;
+}
+
+.ModernTheme .ModernNavigationRailAll > div {
+	width: 20px;
+	height: 20px;
+	background-color: var(--fp-icon-muted);
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><rect x='2' y='2' width='4' height='4' rx='1'/><rect x='8' y='2' width='4' height='4' rx='1'/><rect x='14' y='2' width='4' height='4' rx='1'/><rect x='2' y='8' width='4' height='4' rx='1'/><rect x='8' y='8' width='4' height='4' rx='1'/><rect x='14' y='8' width='4' height='4' rx='1'/><rect x='2' y='14' width='4' height='4' rx='1'/><rect x='8' y='14' width='4' height='4' rx='1'/><rect x='14' y='14' width='4' height='4' rx='1'/></svg>") center / 20px 20px no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><rect x='2' y='2' width='4' height='4' rx='1'/><rect x='8' y='2' width='4' height='4' rx='1'/><rect x='14' y='2' width='4' height='4' rx='1'/><rect x='2' y='8' width='4' height='4' rx='1'/><rect x='8' y='8' width='4' height='4' rx='1'/><rect x='14' y='8' width='4' height='4' rx='1'/><rect x='2' y='14' width='4' height='4' rx='1'/><rect x='8' y='14' width='4' height='4' rx='1'/><rect x='14' y='14' width='4' height='4' rx='1'/></svg>") center / 20px 20px no-repeat;
+}
+
+/* ---------- panel ---------- */
+
+.ModernTheme .ModernNavigationPanel {
+	flex: 1 1 auto;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.ModernTheme .ModernNavigationTenant {
+	position: relative;
+	flex-shrink: 0;
+	padding: 12px 12px 8px 12px;
+}
+
+.ModernTheme .ModernNavigationTenantCard {
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 10px 8px 12px;
+	border: 1px solid var(--fp-border);
+	border-radius: var(--fp-radius);
+	background-color: var(--fp-surface);
+	color: var(--fp-text);
+	cursor: pointer;
+	transition: border-color 120ms, box-shadow 120ms;
+}
+
+.ModernTheme .ModernNavigationTenantCard:hover {
+	border-color: var(--fp-border-strong);
+}
+
+.ModernTheme .ModernNavigationTenantCard.active {
+	border-color: var(--fp-primary);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.ModernTheme .ModernNavigationTenantCard > div:first-child {
+	flex-grow: 1;
+	min-width: 0;
+	gap: 2px;
+}
+
+.ModernTheme .ModernNavigationTenantLabel {
+	color: var(--fp-text-muted);
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.ModernTheme .ModernNavigationTenantName {
+	display: block;
+	overflow: hidden;
+	font-size: 13px;
+	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ModernTheme .ModernNavigationTenantChevron {
+	width: 7px;
+	height: 7px;
+	flex-shrink: 0;
+	margin-right: 4px;
+	border-right: 2px solid var(--fp-text-muted);
+	border-bottom: 2px solid var(--fp-text-muted);
+	transform: translateY(-2px) rotate(45deg);
+	transition: transform 120ms;
+}
+
+.ModernTheme .ModernNavigationTenantCard.active .ModernNavigationTenantChevron {
+	transform: translateY(2px) rotate(225deg);
+}
+
+.ModernTheme .ModernNavigationTenantMenu {
+	position: absolute;
+	top: calc(100% - 4px);
+	left: 12px;
+	right: 12px;
+	z-index: 5;
+	padding: 8px;
+	background-color: var(--fp-surface);
+	border: 1px solid var(--fp-border);
+	border-radius: 10px;
+	box-shadow: 0 10px 30px var(--fp-shadow-color), 0 1px 3px var(--fp-shadow-color-soft);
+}
+
+.ModernTheme .ModernNavigationTenantOption {
+	display: block;
+	overflow: hidden;
+	padding: 7px 10px;
+	border-radius: var(--fp-radius);
+	color: var(--fp-text);
+	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ModernTheme .ModernNavigationTenantOption:hover {
+	background-color: var(--fp-hover);
+}
+
+.ModernTheme .ModernNavigationTenantOption.selected {
+	background-color: var(--fp-primary-soft);
+	color: var(--fp-primary);
+	font-weight: 500;
+}
+
+.ModernTheme input[type=text].ModernNavigationSearch {
+	flex-shrink: 0;
+	box-sizing: border-box;
+	height: 32px;
+	margin: 4px 12px 8px 12px;
+	border-color: var(--fp-border);
+	border-radius: var(--fp-radius);
+	font-family: var(--fp-font);
+}
+
+.ModernTheme .ModernNavigation[data-view='module'] .ModernNavigationSearch {
+	display: none;
+}
+
+.ModernTheme .ModernNavigationBody {
+	display: block;
+	flex: 1 1 auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 8px 8px 8px;
+	scrollbar-width: thin;
+}
+
+/* a module: a row in the list of all modules, the head (with the way back) of the opened one */
+.ModernTheme .ModernNavigationModuleHead {
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 10px;
+	border-radius: var(--fp-radius);
+	color: var(--fp-text-nav);
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.ModernTheme .ModernNavigationModuleHead:hover {
+	background-color: var(--fp-hover);
+}
+
+.ModernTheme .ModernNavigationModuleHead.selected {
+	margin-bottom: 4px;
+	color: var(--fp-text);
+	font-weight: 600;
+}
+
+.ModernTheme .ModernNavigationModuleHead.selected::before {
+	content: "";
+	width: 7px;
+	height: 7px;
+	flex-shrink: 0;
+	margin: 0 -2px 0 4px;
+	border-left: 2px solid var(--fp-text-muted);
+	border-bottom: 2px solid var(--fp-text-muted);
+	transform: rotate(45deg);
+}
+
+.ModernTheme .ModernNavigationModuleHead.selected:hover::before {
+	border-color: var(--fp-primary);
+}
+
+.ModernTheme .ModernNavigationModuleIcon {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+}
+
+/* module icons keep their colours as in the ERP; only the plain one-colour icons of the platform are tinted */
+.ModernTheme .ModernNavigation img[data-icon='module-default'],
+.ModernTheme .ModernNavigation img[data-icon='core-module'] {
+	filter: var(--fp-icon-steel);
+}
+
+.ModernTheme .ModernNavigationModuleTitle {
+	display: block;
+	flex-grow: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.ModernTheme .ModernNavigationCount {
+	display: block;
+	flex-shrink: 0;
+	color: var(--fp-text-muted);
+	font-size: 11px;
+	font-weight: normal;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.ModernTheme .ModernNavigationSectionTitle {
+	flex-direction: row;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 10px 4px 10px;
+	color: var(--fp-text-muted);
+	font-size: 12px;
+	font-weight: 600;
+}
+
+/* groups: collapsible, nested ones indented along a guide line */
+.ModernTheme .ModernNavigationGroup {
+	display: block;
+	margin: 2px 0;
+}
+
+.ModernTheme .ModernNavigationGroup .ModernNavigationGroup {
+	margin-left: 12px;
+	padding-left: 8px;
+	border-left: 1px solid var(--fp-border);
+}
+
+.ModernTheme .ModernNavigationGroupHead {
+	flex-direction: row;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 8px 6px 6px;
+	border-radius: var(--fp-radius);
+	color: var(--fp-text-muted);
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.ModernTheme .ModernNavigationGroupHead:hover {
+	background-color: var(--fp-hover);
+	color: var(--fp-text);
+}
+
+.ModernTheme .ModernNavigationGroupChevron {
+	width: 5px;
+	height: 5px;
+	flex-shrink: 0;
+	margin: 0 4px 0 2px;
+	border-right: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: rotate(-45deg);
+	transition: transform 120ms;
+}
+
+.ModernTheme .ModernNavigationGroup.selected > .ModernNavigationGroupHead .ModernNavigationGroupChevron {
+	transform: translateY(-1px) rotate(45deg);
+}
+
+.ModernTheme .ModernNavigationGroupTitle {
+	display: block;
+	flex-grow: 1;
+	overflow: hidden;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-overflow: ellipsis;
+	text-transform: uppercase;
+}
+
+.ModernTheme .ModernNavigationGroupBody {
+	display: block;
+	padding: 0 0 4px 0;
+}
+
+/* pages */
+.ModernTheme .ModernNavigationLinkRow {
+	flex-direction: row;
+	align-items: stretch;
+	border-radius: var(--fp-radius);
+}
+
+.ModernTheme .ModernNavigationLinkRow:hover {
+	background-color: var(--fp-hover);
+}
+
+/* as in the default look of the ERP: the open page has the soft blue tint, its text stays grey */
+.ModernTheme .ModernNavigationLinkRow.selected {
+	background-color: var(--fp-primary-soft);
+}
+
+.ModernTheme .ModernNavigationLink {
+	display: block;
+	flex-grow: 1;
+	min-width: 0;
+	padding: 6px 10px 6px 20px;
+	color: var(--fp-text-nav);
+	cursor: pointer;
+	line-height: 1.3;
+	white-space: normal;
+}
+
+.ModernTheme .ModernNavigationLinkRow.selected > .ModernNavigationLink {
+	font-weight: 500;
+}
+
+.ModernTheme .ModernNavigationGroupBody > .ModernNavigationLinkRow > .ModernNavigationLink {
+	padding-left: 24px;
+}
+
+.ModernTheme .ModernNavigation[data-view='all'] .ModernNavigationBody > .ModernNavigationLinkRow > .ModernNavigationLink {
+	padding-left: 10px;
+}
+
+.ModernTheme .ModernNavigationRootLinks {
+	display: block;
+	margin-top: 10px;
+	padding-top: 8px;
+	border-top: 1px solid var(--fp-border);
+}
+
+.ModernTheme .ModernNavigation[data-view='all'] .ModernNavigationRootLinks .ModernNavigationLink {
+	padding-left: 20px;
+}
+
+.ModernTheme .ModernNavigationLinkRow > .PageNavigationBadge {
+	align-self: center;
+	margin-right: 4px;
+}
+
+.ModernTheme .ModernNavigationNewTabButton {
+	padding: 0 6px;
+	opacity: 0;
+	transition: opacity 0.15s;
+}
+
+.ModernTheme .ModernNavigationLinkRow:hover > .ModernNavigationNewTabButton {
+	opacity: 0.6;
+}
+
+.ModernTheme .ModernNavigationLinkRow > .ModernNavigationNewTabButton:hover {
+	opacity: 1;
+}
+
+/* as in the ERP: a small frameless "two windows" icon, no button frame */
+.ModernTheme .ModernNavigationNewTabButton,
+.ModernTheme .ModernNavigationNewTabButton:hover:not(.disabled) {
+	background: none;
+	border: none;
+	box-shadow: none;
+	filter: none;
+	width: 24px;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ModernTheme .ModernNavigationNewTabButton img {
+	display: none;
+}
+
+.ModernTheme .ModernNavigationNewTabButton::before {
+	content: "";
+	display: block;
+	width: 13px;
+	height: 13px;
+	background-color: var(--fp-icon-muted);
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4'><rect x='5.5' y='1.5' width='9' height='9' rx='1.5'/><path d='M3.5 5.5h-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-1'/></svg>") center / 13px 13px no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4'><rect x='5.5' y='1.5' width='9' height='9' rx='1.5'/><path d='M3.5 5.5h-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-1'/></svg>") center / 13px 13px no-repeat;
+}
+
+.ModernTheme .ModernNavigationNewTabButton:hover::before {
+	background-color: var(--fp-primary);
+}
+
+.ModernTheme .ModernNavigationFooter {
+	flex-shrink: 0;
+	flex-direction: row;
+	align-items: center;
+	box-sizing: border-box;
+	height: 44px;
+	padding: 0 8px 0 16px;
+	overflow: hidden;
+	border-top: 1px solid var(--fp-border);
+	color: var(--fp-text-muted);
+	font-size: 11px;
+	font-weight: 500;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* -------------------- BUTTONS -------------------- */
+
+.ModernTheme .DomActionBar > .DomButton {
+	background: linear-gradient(var(--fp-button-top), var(--fp-button-bottom));
+	border: 1px solid var(--fp-button-border);
+	border-radius: 3px;
+	box-sizing: border-box;
+	color: var(--fp-button-text);
+	font-weight: bold;
+	gap: 6px;
+}
+
+.ModernTheme .DomActionBar > .DomButton:hover:not(.disabled) {
+	background: linear-gradient(var(--fp-button-top), var(--fp-button-hover-bottom));
+	border-color: var(--fp-button-hover-border);
+	filter: none;
+}
+
+.ModernTheme .DomActionBar > .DomButton.selected {
+	background: var(--fp-primary-soft);
+	border-color: var(--fp-button-selected-border);
+}
+
+.ModernTheme td .DomActionBar > .DomButton {
+	background: none;
+	border: none;
+	font-weight: normal;
+}
+
+.ModernTheme .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-ink) opacity(0.75);
+}
+
+/* coloured icons as in the ERP: refresh blue, create green, the row actions blue */
+.ModernTheme .DomActionBar > .EmfManagementRefreshButton > .DomButtonIcon:not(.precolored),
+.ModernTheme .EmfManagementActionsButton .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+.ModernTheme .DomActionBar > .EmfManagementCreateButton > .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-green);
+}
+
+.ModernTheme .DomActionBar > .EmfManagementCreateButton.disabled > .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-ink) opacity(0.4);
+}
+
+.ModernTheme .EmfManagementActionsButton {
+	opacity: 1;
+}
+
+/* the refresh icon keeps its thin lines (thickened it looked heavy) */
+.ModernTheme .DomActionBar > .EmfManagementRefreshButton > .DomButtonIcon[data-icon]:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+/* the create button keeps the plain plus icon, coloured green (the round plus was tried and dropped) */
+
+.ModernTheme .DomPageableTableNavigation > .DomButton > .DomButtonIcon {
+	width: 16px;
+	height: 16px;
+}
+
+/* table footer tools in the blue of the other tools (refresh, row actions); green stays for creating */
+.ModernTheme .DomPageableTableNavigation > .DomButton > .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+/* -------------------- DATA TABLES -------------------- */
+
+.ModernTheme .EmfDataTableDiv,
+.ModernTheme .DomDataTable {
+	background-color: var(--fp-surface);
+	border: 1px solid var(--fp-border);
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+.ModernTheme .EmfDataTableDiv {
+	row-gap: 0;
+}
+
+.ModernTheme .EmfDataTableDiv > .EmfDataTable {
+	border: none;
+	border-radius: 0;
+}
+
+.ModernTheme .DomDataTable > thead {
+	box-shadow: none;
+}
+
+.ModernTheme .DomDataTable > thead > tr > th {
+	background-color: var(--fp-th-bg);
+	border-bottom: 1px solid var(--fp-th-border);
+	color: var(--fp-th-text);
+	font-weight: bold;
+	height: 34px;
+	padding: 0 8px;
+	text-align: left;
+}
+
+.ModernTheme .DomDataTable > thead > tr > th:not(:last-child) {
+	border-right: var(--fp-grid-line);
+}
+
+.ModernTheme .DomDataTable > tbody > tr > td:not(:last-child) {
+	border-right: var(--fp-grid-line);
+}
+
+.ModernTheme .DomDataTable tr > td {
+	border-bottom: 1px solid var(--fp-row-divider);
+	color: var(--fp-text-content);
+	height: 32px;
+	padding: 0 8px;
+}
+
+.ModernTheme .DomDataTable > :first-child > tr:first-child > :first-child,
+.ModernTheme .DomDataTable > :first-child > tr:first-child > :last-child {
+	border-radius: 0;
+}
+
+/* zebra as in the ERP: every second row barely grey */
+.ModernTheme .DomDataTable tr:nth-child(2n) > td {
+	background-color: var(--fp-zebra);
+}
+
+.ModernTheme .DomDataTable tr:hover:not(.selected) > td {
+	background-color: var(--fp-row-hover);
+}
+
+/* column heads: the title is the filter button, the sort icon is a second button; the icons show on hover */
+.ModernTheme .EmfDataTableHeaderCellDiv .DomButton {
+	color: var(--fp-th-text);
+	font-weight: bold;
+}
+
+.ModernTheme .EmfDataTableHeaderCellDiv .DomButton > .DomButtonIcon {
+	width: 12px;
+	height: 12px;
+	max-width: 12px;
+	max-height: 12px;
+	opacity: 0;
+	transition: opacity 0.15s;
+}
+
+/* as in the ERP the sort icon shows only on the column under the mouse, and stays on a sorted column */
+.ModernTheme th:hover .EmfDataTableHeaderCellDiv .DomButton > .DomButtonIcon {
+	opacity: 0.6;
+}
+
+.ModernTheme .EmfDataTableHeaderCellDiv .DomButton > .DomButtonIcon[data-icon='table-column-sort-ascending'],
+.ModernTheme .EmfDataTableHeaderCellDiv .DomButton > .DomButtonIcon[data-icon='table-column-sort-descending'] {
+	opacity: 0.8;
+}
+
+/* table footer: a light strip with the tools and the pages */
+.ModernTheme .EmfDataTableDiv > :last-child:not(table),
+.ModernTheme .DomPageableTableNavigation {
+	background-color: var(--fp-bar-bg);
+	border-top: 1px solid var(--fp-row-divider);
+	padding: 4px 8px;
+}
+
+.ModernTheme .DomPageableTableNavigationPageList {
+	background-color: transparent;
+	border-radius: 0;
+}
+
+.ModernTheme .DomPageableTableNavigationPageList > .DomButton {
+	background-color: transparent;
+	border-radius: 3px;
+	color: var(--fp-text-nav);
+	font-weight: normal;
+	min-width: 18px;
+	height: 20px;
+}
+
+.ModernTheme .DomPageableTableNavigationPageList > .DomButton.selected {
+	background-color: transparent;
+	color: var(--fp-text);
+	font-weight: bold;
+}
+
+/* -------------------- POPUPS -------------------- */
+
+/* light steel title bar with a dark caption, as the popups of the ERP */
+.ModernTheme .DomPopupFrame {
+	border-color: var(--fp-caption-border);
+	border-radius: var(--fp-radius);
+}
+
+.ModernTheme .DomPopupFrameHeader {
+	background-color: var(--fp-caption-bg);
+	box-shadow: none;
+	padding: 6px 8px 6px 12px;
+	grid-template-columns: auto 24px;
+}
+
+.ModernTheme .DomPopupCaption {
+	color: var(--fp-caption);
+	font-family: var(--fp-font);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.ModernTheme .DomPopupSubCaption {
+	color: var(--fp-caption-icon);
+	font-family: var(--fp-font);
+	font-size: 12px;
+}
+
+/* the close button as in the ERP: a red round button with a white cross */
+.ModernTheme .DomPopupFrameHeader > .DomButton img {
+	display: none;
+}
+
+.ModernTheme .DomPopupFrameHeader > .DomButton {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' stroke-width='2.6' stroke-linecap='round'><path d='M8 8l8 8M16 8l-8 8'/></svg>") center / 18px 18px no-repeat, #d9534f;
+}
+
+.ModernTheme .DomPopupFrameHeader > .DomButton:hover {
+	background-color: #c9302c;
+	filter: none;
+}
+
+.ModernTheme .DomPopup {
+	padding: 12px;
+}
+
+/* -------------------- FORMS -------------------- */
+
+/* labels as bold text instead of grey boxes */
+.ModernTheme .DomLabelGrid > .DomLabelGridRow > label {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	color: var(--fp-label-text);
+	font-weight: bold;
+	padding: 0 12px 0 0;
+}
+
+.ModernTheme .DomLabelGrid > .DomLabelGridRow:hover > label {
+	background-color: transparent;
+}
+
+.ModernTheme .EmfFormFrame {
+	border: 1px solid var(--fp-border);
+	box-shadow: none;
+}
+
+.ModernTheme .EmfFormFrameHeader {
+	background-color: var(--fp-form-header-bg);
+	box-shadow: none;
+}
+
+.ModernTheme .EmfFormFrameCaption,
+.ModernTheme .EmfFormFrameSubCaption {
+	color: var(--fp-caption);
+	font-family: var(--fp-font);
+}
+
+.ModernTheme .EmfFormFrameCaption {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+/* -------------------- CHECKBOXES -------------------- */
+
+/* 13px as the check boxes of the ERP */
+.ModernTheme .DomCheckboxBox {
+	width: 7px;
+	height: 7px;
+	padding: 2px;
+	background: var(--fp-surface);
+	border-color: var(--fp-checkbox-border);
+	border-radius: 3px;
+}
+
+.ModernTheme .DomCheckboxBoxFiller {
+	border-radius: 1px;
+}
+
+.ModernTheme .DomCheckbox:hover:not(.disabled) > .DomCheckboxBox,
+.ModernTheme .DomCheckbox:focus:not(.disabled) > .DomCheckboxBox {
+	border-color: var(--fp-primary);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.ModernTheme .DomCheckboxBoxFiller {
+	background-color: var(--fp-primary);
+}
+
+/* -------------------- TABS -------------------- */
+
+/* as in the ERP: grey tabs in a row on a line, the open one white with a blue top edge */
+.ModernTheme .DomTabBarHorizontal .DomTabBarHeader {
+	gap: 0;
+	border-bottom: 1px solid var(--fp-border-strong);
+}
+
+.ModernTheme .DomTabBarVertical .DomTabBarHeader {
+	gap: 0;
+	border-right: 1px solid var(--fp-border-strong);
+}
+
+.ModernTheme .DomTabHeader {
+	border: 1px solid var(--fp-border-strong);
+	font-family: var(--fp-content-font);
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.ModernTheme .DomTabBarHorizontal .DomTabHeader {
+	margin: 0 -1px -1px 0;
+	padding: 5px 12px;
+	border-radius: 0;
+}
+
+.ModernTheme .DomTabBarHorizontal .DomTabHeader:first-child {
+	border-top-left-radius: 3px;
+}
+
+.ModernTheme .DomTabBarHorizontal .DomTabHeader:last-child {
+	border-top-right-radius: 3px;
+}
+
+.ModernTheme .DomTabBarVertical .DomTabHeader {
+	margin: 0 -1px -1px 0;
+	border-radius: 0;
+}
+
+.ModernTheme .DomTabHeader:not(.selected) {
+	background: var(--fp-surface-strip);
+	color: var(--fp-text-3);
+}
+
+.ModernTheme .DomTabHeader:not(.selected):hover {
+	color: var(--fp-text);
+}
+
+.ModernTheme .DomTabHeader.selected {
+	background: var(--fp-surface);
+	color: var(--fp-text);
+	border-bottom-color: var(--fp-surface);
+	box-shadow: inset 0 2px 0 var(--fp-primary);
+}
+
+.ModernTheme .DomTabBarVertical .DomTabHeader.selected {
+	border-bottom-color: var(--fp-border-strong);
+	border-right-color: var(--fp-surface);
+	box-shadow: inset 2px 0 0 var(--fp-primary);
+}
+
+/* the content sits directly on the tab line: no gap, a card in it continues the line instead of a second frame */
+.ModernTheme .DomTabBar {
+	gap: 0;
+}
+
+.ModernTheme .DomTabBarHorizontal > .DomTabBarContentContainer .EmfFormBodyUpperPart {
+	border-top: none;
+	border-radius: 0 0 var(--fp-radius) var(--fp-radius);
+}
+
+/* -------------------- MESSAGES -------------------- */
+
+.ModernTheme .DomMessageDiv.error {
+	background-color: var(--fp-danger-soft);
+	border: 1px solid var(--fp-danger-line);
+	border-left: 4px solid var(--fp-danger);
+	border-radius: 10px;
+	color: var(--fp-danger-ink);
+}
+
+/* -------------------- FORM DETAILS -------------------- */
+
+.ModernTheme .EmfAttributeValueMandatoryIndicator {
+	color: var(--fp-danger);
+}
+
+.ModernTheme .EmfFormSectionHeaderTitle {
+	color: var(--fp-caption);
+}
+
+.ModernTheme .EmfDataTableConfigurationPopup fieldset {
+	box-shadow: none;
+	border-color: var(--fp-border);
+}
+
+.ModernTheme .EmfDataTableOrderByButtonCountElement {
+	background-color: var(--fp-text-muted);
+}
+
+/* -------------------- RECORD VIEW (EMF form) -------------------- */
+
+/* as in the ERP: the attributes in a white card, a thin line between the rows, the form tools beside them */
+.ModernTheme .EmfFormBodyUpperPart {
+	padding: 6px 8px 6px 14px;
+	background-color: var(--fp-surface);
+	border: 1px solid var(--fp-border);
+	border-radius: var(--fp-radius);
+}
+
+.ModernTheme .EmfFormBodyUpperPart .DomLabelGrid {
+	column-gap: 0;
+	row-gap: 0;
+	min-width: 360px;
+}
+
+.ModernTheme .EmfFormBodyUpperPart .DomLabelGrid > .DomLabelGridRow > * {
+	min-height: 32px;
+	box-sizing: border-box;
+	padding: 6px 16px 6px 0;
+	border-bottom: 1px solid var(--fp-row-divider);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+.ModernTheme .EmfFormBodyUpperPart .DomLabelGrid > .DomLabelGridRow > label {
+	min-width: 140px;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.ModernTheme .EmfFormBodyUpperPart .DomLabelGrid > .DomLabelGridRow:last-child > * {
+	border-bottom: none;
+}
+
+.ModernTheme .EmfFormCommonActionsDiv {
+	gap: 6px;
+}
+
+.ModernTheme .EmfFormCommonActionsDiv > .DomButton {
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	justify-content: center;
+	border-radius: 4px;
+}
+
+.ModernTheme .EmfFormCommonActionsDiv > .DomButton > .DomButtonIcon {
+	width: 18px;
+	height: 18px;
+}
+
+.ModernTheme .EmfFormCommonActionsDiv > .DomButton > .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+/* form buttons by meaning: saving green, postponing stays grey, the actions header blue */
+.ModernTheme .EmfFormSaveOrCancelActionsInput .DomActionBar > .DomButton:nth-child(-n+2) > .DomButtonIcon:not(.precolored) {
+	filter: var(--fp-icon-green);
+}
+
+.ModernTheme .EmfFormSectionHeaderDiv img:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+/* -------------------- ICON COLOURS BY MEANING -------------------- */
+
+/* every button icon carries its name in data-icon; one blue for all tools and actions, green for creating and
+   saving, grey for cancelling and sorting (orange and red for editing/deactivating looked restless) */
+.ModernTheme .DomButton > .DomButtonIcon[data-icon]:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='entity-create']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='entity-create-next-step']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='entity-save']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='entity-save-and-close']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='dialog-okay']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='dialog-okay-all']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='entry-add']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='diagnostic-success']:not(.precolored) {
+	filter: var(--fp-icon-green);
+}
+
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='dialog-cancel']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='dialog-close']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='popup-title-bar-close']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='undo']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='reset']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='table-column-sort-none']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='table-column-sort-ascending']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='table-column-sort-descending']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='move-up']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='move-down']:not(.precolored),
+.ModernTheme .DomButton > .DomButtonIcon[data-icon='move-vertical']:not(.precolored) {
+	filter: var(--fp-icon-ink) opacity(0.6);
+}
+
+/* menus stay calm: muted steel blue icons (the tone of the popup captions), bright blue only on the entry under the
+   mouse or in focus */
+.ModernTheme .DomMenuPopover > .DomButton > .DomButtonIcon[data-icon]:not(.precolored) {
+	filter: var(--fp-icon-steel);
+}
+
+.ModernTheme .DomMenuPopover > .DomButton:hover > .DomButtonIcon[data-icon]:not(.precolored),
+.ModernTheme .DomMenuPopover > .DomButton:focus > .DomButtonIcon[data-icon]:not(.precolored) {
+	filter: var(--fp-icon-blue);
+}
+
+/* menu entries as in the ERP: a soft grey rounded highlight inset from the edges, no glow on the label */
+.ModernTheme .DomMenuPopover > .DomButton {
+	width: auto;
+	margin: 1px 6px;
+	border-radius: var(--fp-radius);
+}
+
+.ModernTheme .DomMenuPopover > .DomButton:focus,
+.ModernTheme .DomMenuPopover > .DomButton:hover {
+	background-color: var(--fp-surface-strip);
+}
+
+.ModernTheme .DomMenuPopover > .DomButton:focus > .DomButtonIcon,
+.ModernTheme .DomMenuPopover > .DomButton:hover > .DomButtonLabel {
+	filter: none;
+}
+
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .ModernHeaderUserLogout:focus,
+.ModernTheme .PageHeaderUserPopover.DomMenuPopover > .ModernHeaderUserLogout:hover {
+	background-color: var(--fp-danger-hover);
+}
+
+/* -------------------- INPUTS -------------------- */
+
+.ModernTheme input[type=text],
+.ModernTheme input[type=password],
+.ModernTheme textarea,
+.ModernTheme select {
+	border-color: var(--fp-control-border);
+	border-bottom-color: var(--fp-control-edge);
+	border-radius: 3px;
+	font-family: var(--fp-content-font);
+	font-size: 13px;
+}
+
+.ModernTheme input[type=text]:focus,
+.ModernTheme input[type=password]:focus,
+.ModernTheme textarea:focus,
+.ModernTheme select:focus {
+	border-color: var(--fp-primary);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* ==================== VARIANT CHOOSER (PageThemeVariantChooser) ==================== */
+
+/* one tile per variant: a small picture of it, the name and a description; the chosen one framed in blue */
+.ModernTheme .PageThemeVariantTiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 8px;
+}
+
+.ModernTheme .PageThemeVariantTile {
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 10px;
+	border: 1px solid var(--fp-border);
+	border-radius: 8px;
+	background-color: var(--fp-surface);
+	cursor: pointer;
+	user-select: none;
+}
+
+.ModernTheme .PageThemeVariantTile:hover {
+	background-color: var(--fp-hover);
+	border-color: var(--fp-border-strong);
+}
+
+.ModernTheme .PageThemeVariantTile:focus-visible {
+	outline: 2px solid var(--fp-primary);
+	outline-offset: 1px;
+}
+
+.ModernTheme .PageThemeVariantTile.PageThemeVariantSelected {
+	background-color: var(--fp-primary-soft);
+	border-color: var(--fp-primary);
+	box-shadow: inset 0 0 0 1px var(--fp-primary);
+}
+
+.ModernTheme .PageThemeVariantText {
+	gap: 0;
+	min-width: 0;
+	align-items: flex-start;
+}
+
+.ModernTheme .PageThemeVariantName {
+	color: var(--fp-text);
+	font-family: var(--fp-font);
+	font-weight: 600;
+}
+
+.ModernTheme .PageThemeVariantDescription {
+	color: var(--fp-text-muted);
+	font-size: 12px;
+	line-height: 1.35;
+}
+
+.ModernTheme .PageThemeVariantHint {
+	margin-top: 10px;
+	color: var(--fp-text-muted);
+	font-size: 12px;
+}
+
+.ModernTheme .PageThemeVariantMenu {
+	align-items: flex-start;
+	margin-top: 10px;
+	color: var(--fp-text);
+	font-size: 13px;
+}
+
+/* the picture: menu strip, page and a card with two lines, in the colours of the variant */
+.ModernTheme .PageThemeVariantPreview {
+	position: relative;
+	flex-shrink: 0;
+	width: 52px;
+	height: 36px;
+	border: 1px solid #a7b0bc;
+	border-radius: 5px;
+	overflow: hidden;
+	background: var(--pv-page);
+}
+
+.ModernTheme .PageThemeVariantPreview::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 12px;
+	background: var(--pv-menu);
+	border-right: 1px solid var(--pv-line);
+}
+
+.ModernTheme .PageThemeVariantPreview::after {
+	content: "";
+	position: absolute;
+	left: 18px;
+	top: 7px;
+	right: 5px;
+	bottom: 6px;
+	background: linear-gradient(var(--pv-line), var(--pv-line)) 4px 9px / calc(100% - 8px) 1px no-repeat,
+		linear-gradient(var(--pv-line), var(--pv-line)) 4px 16px / calc(100% - 8px) 1px no-repeat, var(--pv-card);
+	border: 1px solid var(--pv-line);
+	border-radius: 3px;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="light"] .PageThemeVariantPreview {
+	--pv-page: #f8f9fb;
+	--pv-card: #ffffff;
+	--pv-menu: #ffffff;
+	--pv-line: #e5e7eb;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="contrast"] .PageThemeVariantPreview {
+	--pv-page: #f8f9fb;
+	--pv-card: #ffffff;
+	--pv-menu: #ffffff;
+	--pv-line: #8a94a3;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="classic"] .PageThemeVariantPreview {
+	--pv-page: #e8eef1;
+	--pv-card: #ffffff;
+	--pv-menu: #ffffff;
+	--pv-line: #c3ccd2;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="structured"] .PageThemeVariantPreview {
+	--pv-page: #edf0f4;
+	--pv-card: #ffffff;
+	--pv-menu: #ffffff;
+	--pv-line: #c3cad3;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="dimmed"] .PageThemeVariantPreview {
+	--pv-page: #dde2e8;
+	--pv-card: #f0f2f5;
+	--pv-menu: #f0f2f5;
+	--pv-line: #b4bcc7;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="dark-menu"] .PageThemeVariantPreview {
+	--pv-page: #f8f9fb;
+	--pv-card: #ffffff;
+	--pv-menu: #1b3a50;
+	--pv-line: #d9dee5;
+}
+
+.ModernTheme .PageThemeVariantTile[data-variant="dark"] .PageThemeVariantPreview {
+	--pv-page: #0f1620;
+	--pv-card: #18212d;
+	--pv-menu: #18212d;
+	--pv-line: #3a4a5e;
+}
+
+/* the compact form in the user menu of the page header: a row of small pictures under the name of the chosen variant */
+.ModernTheme .PageThemeVariantCompact {
+	gap: 0;
+	padding: 6px 16px 4px;
+}
+
+.ModernTheme .PageThemeVariantCompactHead {
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 8px;
+	margin-bottom: 8px;
+	color: var(--fp-text);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.ModernTheme .PageThemeVariantCurrent {
+	color: var(--fp-text-muted);
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantTiles {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 0;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantTile {
+	gap: 0;
+	padding: 2px;
+	border-color: transparent;
+	border-radius: 7px;
+	background-color: transparent;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantTile:hover {
+	border-color: var(--fp-border-strong);
+	background-color: transparent;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantTile.PageThemeVariantSelected {
+	border-color: var(--fp-primary);
+	background-color: transparent;
+	box-shadow: none;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantPreview {
+	width: 28px;
+	height: 20px;
+	border-radius: 4px;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantPreview::before {
+	width: 7px;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantPreview::after {
+	left: 10px;
+	top: 4px;
+	right: 3px;
+	bottom: 4px;
+	background: linear-gradient(var(--pv-line), var(--pv-line)) 2px 4px / calc(100% - 4px) 1px no-repeat,
+		linear-gradient(var(--pv-line), var(--pv-line)) 2px 8px / calc(100% - 4px) 1px no-repeat, var(--pv-card);
+	border-radius: 2px;
+}
+
+.ModernTheme .PageThemeVariantCompact .PageThemeVariantMenu {
+	margin-top: 6px;
+	font-size: 12px;
+}
+
+/* ==================== VARIANTS (data-fp-variant and data-fp-menu on the body, chosen per user) ==================== */
+/* Without the attributes nothing below applies and the theme looks exactly as above (the default, "Light"). A variant
+   changes colours only, never sizes, spacing or fonts: mostly token values, then the few rules that need more. Ids as
+   in PageThemeVariant: contrast, classic, structured, dimmed, dark-menu, dark. */
+
+/* -------------------- tokens shared by all variants: visible edges of controls, lines, secondary text -------------------- */
+.ModernTheme[data-fp-variant] {
+	--fp-text-muted: #56606f;
+	--fp-border: #d9dee5;
+	--fp-border-strong: #a7b0bc;
+	--fp-row-divider: #dfe3e8;
+	--fp-primary-soft: #e3eeff;
+	--fp-control-border: #b4bcc7;
+	--fp-control-edge: #7f8a99;
+	--fp-checkbox-border: var(--fp-control-edge);
+	--fp-th-text: var(--fp-text-2);
+	--fp-row-hover: #eaf2fb;
+	--fp-bar-bg: #f1f4f7;
+}
+
+/* -------------------- Increased contrast: darker secondary text, stronger lines and edges -------------------- */
+.ModernTheme[data-fp-variant="contrast"] {
+	--fp-text-muted: #4b5563;
+	--fp-text-content: #262626;
+	--fp-border: #c3cad3;
+	--fp-border-strong: #8a94a3;
+	--fp-row-divider: #d2d8df;
+	--fp-control-border: #8a94a3;
+	--fp-control-edge: #6b7686;
+	--fp-text-nav: #1f2937;
+	--fp-th-bg: #eef1f5;
+	--fp-th-border: #a7b0bc;
+	--fp-th-text: #1f2937;
+	--fp-zebra: #f3f5f8;
+	--fp-bar-bg: #eceff3;
+}
+
+/* -------------------- Structured (and Dimmed, which builds on it): tonal steps between page, cards and tables -------------------- */
+.ModernTheme:is([data-fp-variant="structured"], [data-fp-variant="dimmed"]) {
+	--fp-bg: #edf0f4;
+	--fp-surface-muted: #f3f5f8;
+	--fp-surface-strip: #e3e7ed;
+	--fp-border: #d2d8df;
+	--fp-row-divider: #e4e8ed;
+	--fp-hover: #eef2f6;
+	--fp-th-bg: #eaeef3;
+	--fp-th-border: #c3cad3;
+	--fp-zebra: #f4f6f9;
+	--fp-row-hover: #e2edfb;
+	--fp-bar-bg: #e9edf2;
+}
+
+/* -------------------- Dimmed: no pure white on large areas; only input fields stay white -------------------- */
+.ModernTheme[data-fp-variant="dimmed"] {
+	--fp-bg: #dde2e8;
+	--fp-surface: #f0f2f5;
+	--fp-surface-muted: #e6e9ee;
+	--fp-surface-strip: #d9dee5;
+	--fp-border: #c0c8d1;
+	--fp-border-strong: #99a3b0;
+	--fp-row-divider: #d8dde4;
+	--fp-text-muted: #485261;
+	--fp-hover: #e2e6ec;
+	--fp-primary-soft: #d9e6fb;
+	--fp-control-edge: #6f7a8a;
+	--fp-th-bg: #d8dde5;
+	--fp-th-border: #b4bcc7;
+	--fp-zebra: #e7eaef;
+	--fp-row-hover: #d6e4f7;
+	--fp-bar-bg: #d8dde5;
+	--fp-caption-bg: #d8e1ea;
+	--fp-form-header-bg: #e4eaf0;
+	--fp-card-accent-top: #e3ebf7;
+	--fp-card-accent-bottom: #eef2f8;
+	--fp-button-top: #fbfcfd;
+	--fp-button-bottom: #e6eaef;
+	--fp-button-hover-bottom: #dce1e8;
+	--fp-button-border: #a7b0bc;
+	--fp-button-hover-border: #8a94a3;
+}
+
+/* -------------------- Classic: the steel blue bands and the table grid of the old theme, flat and with softer lines -------------------- */
+.ModernTheme[data-fp-variant="classic"] {
+	--fp-bg: #f3f5f6;
+	--fp-surface-muted: #f4f6f7;
+	--fp-surface-strip: #e2e9ed;
+	--fp-border: #d3d9dd;
+	--fp-border-strong: #a9b4bb;
+	--fp-row-divider: #dcdfe2;
+	--fp-text-muted: #55606a;
+	--fp-hover: #edf2f5;
+	--fp-th-bg: #e8eef1;
+	--fp-th-border: #c3ccd2;
+	--fp-th-text: #33414c;
+	--fp-zebra: #f2f2f2;
+	--fp-row-hover: #e3edf6;
+	--fp-bar-bg: #eef2f4;
+	--fp-grid-line: 1px solid #dcdfe2;
+}
+
+/* -------------------- Dark: dark surfaces and light text -------------------- */
+.ModernTheme[data-fp-variant="dark"] {
+	color-scheme: dark;
+	--fp-bg: #0f1620;
+	--fp-surface: #18212d;
+	--fp-surface-muted: #1e2937;
+	--fp-surface-strip: #233041;
+	--fp-border: #2c3a4c;
+	--fp-border-strong: #44556b;
+	--fp-row-divider: #243142;
+	--fp-text: #e6ebf1;
+	--fp-text-content: #d5dde7;
+	--fp-text-muted: #9fadbd;
+	--fp-text-crumb: #9fadbd;
+	--fp-text-nav: #cfd8e3;
+	--fp-text-2: #d5dde7;
+	--fp-text-3: #b9c6d6;
+	--fp-primary: #6ea8ff;
+	--fp-primary-soft: #1d3557;
+	--fp-hover: #202c3b;
+	--fp-control-border: #3a4a5e;
+	--fp-control-edge: #6b7d93;
+	--fp-th-bg: #223044;
+	--fp-th-border: #3a4a5e;
+	--fp-th-text: #d5dde7;
+	--fp-zebra: #1d2734;
+	--fp-row-hover: #22364f;
+	--fp-bar-bg: #1e2937;
+	--fp-caption: #e6ebf1;
+	--fp-caption-bg: #223044;
+	--fp-caption-border: #3a4a5e;
+	--fp-caption-icon: #9fadbd;
+	--fp-label-text: #c3cdd9;
+	--fp-form-header-bg: #1e2937;
+	--fp-icon-muted: #9fadbd;
+	--fp-scrollbar: #3a4a5e;
+	--fp-avatar-bg: #2c3f57;
+	--fp-avatar-hover: #375070;
+	--fp-card-accent-top: #1d2b3d;
+	--fp-card-accent-bottom: #18212d;
+	--fp-button-top: #263345;
+	--fp-button-bottom: #1f2a39;
+	--fp-button-hover-bottom: #263345;
+	--fp-button-border: #3a4a5e;
+	--fp-button-hover-border: #4d607a;
+	--fp-button-selected-border: #3d6aa8;
+	--fp-button-text: #e6ebf1;
+	--fp-checkbox-border: var(--fp-control-edge);
+	--fp-shadow-color: rgba(0, 0, 0, 0.5);
+	--fp-shadow-color-soft: rgba(0, 0, 0, 0.35);
+	--fp-danger: #f87171;
+	--fp-danger-text: #fca5a5;
+	--fp-danger-ink: #fecaca;
+	--fp-danger-soft: #3a1d22;
+	--fp-danger-line: #7f2a33;
+	--fp-danger-hover: #3a1d22;
+	--SELECTION_BACKGROUND_ALTERNATE_COLOR: #1d3a5f;
+	--BOX_SHADOW_OVERLAY: 0 10px 30px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+	--fp-icon-ink: brightness(0) invert(1);
+	--fp-icon-blue: brightness(0) saturate(100%) invert(64%) sepia(42%) saturate(2116%) hue-rotate(195deg) brightness(102%) contrast(101%);
+	--fp-icon-green: brightness(0) saturate(100%) invert(72%) sepia(35%) saturate(640%) hue-rotate(84deg) brightness(95%) contrast(90%);
+	--fp-icon-steel: brightness(0) saturate(100%) invert(80%) sepia(9%) saturate(520%) hue-rotate(169deg) brightness(92%) contrast(88%);
+	--INPUT_BACKGROUND_COLOR: #101823;
+	--INFO_BACKGROUND_COLOR: #1d3557;
+	--INFO_BORDER_COLOR: #3d6aa8;
+	--SUCCESS_BACKGROUND_COLOR: #173a2a;
+	--SUCCESS_BORDER_COLOR: #2f8f5b;
+	--WARNING_BACKGROUND_COLOR: #3a3320;
+	--WARNING_BORDER_COLOR: #b8962e;
+	--ERROR_BACKGROUND_COLOR: #3a1d22;
+	--ERROR_BORDER_COLOR: #c2414f;
+}
+
+/* -------------------- the dark menu: the navigation in the dark navy of the brand, with any variant but Dark, whose
+   menu is dark anyway; the variant "Dark menu" is the default with this menu -------------------- */
+.ModernTheme[data-fp-menu="dark"]:not([data-fp-variant="dark"]) .ModernNavigation {
+	--fp-surface: #1b3a50;
+	--fp-surface-muted: #21445b;
+	--fp-surface-strip: #173246;
+	--fp-border: #2d5069;
+	--fp-border-strong: #44667f;
+	--fp-text: #eef3f7;
+	--fp-text-muted: #a9bccb;
+	--fp-text-nav: #dbe5ed;
+	--fp-text-2: #dbe5ed;
+	--fp-hover: #254c66;
+	--fp-primary: #8ec5ff;
+	--fp-primary-soft: #2c5876;
+	--fp-control-border: #44667f;
+	--fp-control-edge: #6d8ba3;
+	--fp-icon-muted: #a9bccb;
+	color-scheme: dark;
+}
+.ModernTheme[data-fp-menu="dark"]:not([data-fp-variant="dark"]) .ModernNavigation {
+	--fp-icon-ink: brightness(0) invert(1);
+	--fp-icon-steel: brightness(0) saturate(100%) invert(80%) sepia(9%) saturate(520%) hue-rotate(169deg) brightness(92%) contrast(88%);
+	--INPUT_BACKGROUND_COLOR: #173246;
+}
+
+/* -------------------- rules of all variants: surfaces the platform paints white -------------------- */
+.ModernTheme[data-fp-variant] :is(.DomPopupFrame, .DomDataTable, .EmfFormFrame, .EmfDataTableDiv, .PageHeaderDiv) {
+	background-color: var(--fp-surface);
+}
+
+/* Dimmed: input fields stay white, so they are the lightest spot of the page */
+.ModernTheme[data-fp-variant="dimmed"] :is(input[type=text], input[type=password], textarea, select):not(:disabled) {
+	background-color: #ffffff;
+}
+
+/* -------------------- Dark: what the platform draws with literal light colours -------------------- */
+.ModernTheme[data-fp-variant="dark"] :is(input, textarea) {
+	color: var(--fp-text);
+}
+
+.ModernTheme[data-fp-variant="dark"] select:not([multiple]),
+.ModernTheme[data-fp-variant="dark"] select:not([multiple]):hover:not([disabled]) {
+	background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' fill='rgb(213, 221, 231)'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat calc(100% - 10px) 50% var(--INPUT_BACKGROUND_COLOR);
+	color: var(--fp-text);
+}
+
+.ModernTheme[data-fp-variant="dark"] .DomCheckboxBox {
+	background-image: none;
+	background-color: var(--INPUT_BACKGROUND_COLOR);
+}
+
+.ModernTheme[data-fp-variant="dark"] .DomWikiMonospace {
+	color: #f0a8a8;
+	background-color: var(--fp-surface-strip);
+	box-shadow: 0 0 0 1px var(--fp-border) inset;
+}

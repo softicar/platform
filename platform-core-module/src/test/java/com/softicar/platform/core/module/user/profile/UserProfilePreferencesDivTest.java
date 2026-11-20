@@ -6,6 +6,8 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.preferences.UserPreferences;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesTheme;
+import com.softicar.platform.dom.document.CurrentDomDocument;
 import org.junit.Test;
 
 public class UserProfilePreferencesDivTest extends AbstractCoreTest {
@@ -59,6 +61,46 @@ public class UserProfilePreferencesDivTest extends AbstractCoreTest {
 		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
 
 		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
+	}
+
+	@Test
+	public void testWithThemeChanged() {
+
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_THEME).assertValue(UserPreferencesTheme.STANDARD);
+
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_THEME).selectValue(UserPreferencesTheme.MODERN);
+		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
+
+		assertEquals(UserPreferencesTheme.MODERN, getUserPreferences().theme);
+		assertTrue(getBodyClasses().contains("ModernTheme"));
+
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_THEME).selectValue(UserPreferencesTheme.CLASSIC);
+		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
+
+		assertEquals(UserPreferencesTheme.CLASSIC, getUserPreferences().theme);
+		assertFalse(getBodyClasses().contains("ModernTheme"));
+	}
+
+	@Test
+	public void testSaveKeepsTheVariantChosenMeanwhile() {
+
+		findCheckboxGroup(CoreTestMarker.USER_PREFERENCES_PREFERRED_POPUP_PLACEMENT).selectValue(UserPreferencesPreferredPopupPlacement.CENTERED);
+		// the variant chooser saves at once, after this div was built
+		CurrentUser.get().updatePreferences(preferences -> {
+			preferences.themeVariant = "dark";
+			preferences.themeMenu = "light";
+		});
+
+		findButton(CoreTestMarker.USER_PREFERENCES_SAVE_BUTTON).click();
+
+		assertEquals(UserPreferencesPreferredPopupPlacement.CENTERED, getUserPreferences().preferredPopupPlacement);
+		assertEquals("dark", getUserPreferences().themeVariant);
+		assertEquals("light", getUserPreferences().themeMenu);
+	}
+
+	private String getBodyClasses() {
+
+		return CurrentDomDocument.get().getBody().getAttributeValue("class").orElse("");
 	}
 
 	private UserPreferences getUserPreferences() {

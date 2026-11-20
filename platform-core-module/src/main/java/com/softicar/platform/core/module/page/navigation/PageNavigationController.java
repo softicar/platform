@@ -14,10 +14,12 @@ import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.dom.DomCssPseudoClasses;
 import com.softicar.platform.dom.elements.dialog.DomModalAlertDialog;
 import com.softicar.platform.emf.page.IEmfPage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -29,6 +31,7 @@ public class PageNavigationController {
 	private final Map<PageNavigationEntryKey, PageNavigationEntry<?>> linkEntryMap;
 	private final Map<PageNavigationEntryKey, PageNavigationLinkDiv> linkDivMap;
 	private final Set<PageNavigationFolderDiv> openFolderDivs;
+	private final List<Consumer<PageNavigationEntry<?>>> pageOpenListeners;
 	private PageNavigationLinkDiv currentLinkDiv;
 
 	public PageNavigationController(Consumer<PageNavigationEntry<?>> pageOpener, PageNavigationEntry<?> rootEntry) {
@@ -37,9 +40,23 @@ public class PageNavigationController {
 		this.linkEntryMap = new HashMap<>();
 		this.linkDivMap = new HashMap<>();
 		this.openFolderDivs = new HashSet<>();
+		this.pageOpenListeners = new ArrayList<>();
 		this.currentLinkDiv = null;
 
 		registerTransitiveLinkEntries(rootEntry);
+	}
+
+	/**
+	 * Adds a listener that is notified after a page was opened, e.g. to update
+	 * a navigation other than {@link PageNavigationLinkDiv} elements.
+	 *
+	 * @param listener
+	 *            the listener, receiving the opened link entry (never
+	 *            <i>null</i>)
+	 */
+	public void addPageOpenListener(Consumer<PageNavigationEntry<?>> listener) {
+
+		pageOpenListeners.add(Objects.requireNonNull(listener));
 	}
 
 	public PageNavigationLinkDiv registerLinkDiv(PageNavigationLinkDiv linkDiv) {
@@ -66,6 +83,7 @@ public class PageNavigationController {
 				selectLinkDiv(linkDiv);
 				openFolder(linkDiv.getFolderDiv());
 			});
+		pageOpenListeners.forEach(listener -> listener.accept(linkEntry));
 	}
 
 	public void openStartPageForInaccessiblePage() {

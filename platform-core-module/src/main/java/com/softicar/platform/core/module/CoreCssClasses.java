@@ -12,6 +12,13 @@ public interface CoreCssClasses {
 
 	ICssClass MAINTENANCE_WINDOWS_INFO_ELEMENT = new CssClass("MaintenanceWindowsInfoElement", CoreCssFiles.MAINTENANCE_WINDOW_STYLE);
 
+	ICssClass MODERN_LOGIN_BRAND = new CssClass("ModernLoginBrand", CoreCssFiles.MODERN_THEME_STYLE);
+	ICssClass MODERN_LOGIN_FOOTER = new CssClass("ModernLoginFooter", CoreCssFiles.MODERN_THEME_STYLE);
+	ICssClass MODERN_LOGIN_FORM = new CssClass("ModernLoginForm", CoreCssFiles.MODERN_THEME_STYLE);
+	ICssClass MODERN_LOGIN_HEAD = new CssClass("ModernLoginHead", CoreCssFiles.MODERN_THEME_STYLE);
+	ICssClass MODERN_LOGIN_MAIN = new CssClass("ModernLoginMain", CoreCssFiles.MODERN_THEME_STYLE);
+	ICssClass MODERN_THEME = new CssClass("ModernTheme", CoreCssFiles.MODERN_THEME_STYLE);
+
 	ICssClass PAGE_CONTENT_DIV = new CssClass("PageContentDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_DIV = new CssClass("PageHeaderDiv", CoreCssFiles.PAGE_STYLE);
 	ICssClass PAGE_HEADER_PATH_DIV = new CssClass("PageHeaderPathDiv", CoreCssFiles.PAGE_STYLE);

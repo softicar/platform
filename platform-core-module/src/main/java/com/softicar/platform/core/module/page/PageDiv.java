@@ -8,12 +8,13 @@ import com.softicar.platform.core.module.page.navigation.PageNavigationControlle
 import com.softicar.platform.core.module.page.navigation.PageNavigationDiv;
 import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntriesLoader;
 import com.softicar.platform.core.module.page.navigation.entry.PageNavigationEntry;
+import com.softicar.platform.core.module.page.navigation.modern.ModernNavigationDiv;
 import com.softicar.platform.dom.elements.DomDiv;
 
 public class PageDiv extends DomDiv {
 
 	private final PageHeaderAndContentDiv pageHeaderAndContentDiv;
-	private final PageNavigationDiv navigationDiv;
+	private final DomDiv navigationDiv;
 	private boolean navigationOpen = true;
 
 	public PageDiv(IAjaxDocumentParameters documentParameters) {
@@ -22,12 +23,21 @@ public class PageDiv extends DomDiv {
 		var controller = new PageNavigationController(this::openPage, rootEntry);
 
 		this.pageHeaderAndContentDiv = new PageHeaderAndContentDiv(controller, this::collapseOrExpandNavigation);
-		this.navigationDiv = new PageNavigationDiv(controller, rootEntry);
+		this.navigationDiv = createNavigationDiv(controller, rootEntry);
 
 		appendChild(navigationDiv);
 		appendChild(pageHeaderAndContentDiv);
 
 		handleDocumentParameters(documentParameters, controller);
+	}
+
+	private DomDiv createNavigationDiv(PageNavigationController controller, PageNavigationEntry<?> rootEntry) {
+
+		if (PageTheme.getCurrent() == PageTheme.MODERN) {
+			return new ModernNavigationDiv(controller, rootEntry, this::collapseOrExpandNavigation);
+		} else {
+			return new PageNavigationDiv(controller, rootEntry);
+		}
 	}
 
 	private void handleDocumentParameters(IAjaxDocumentParameters documentParameters, PageNavigationController controller) {

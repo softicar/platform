@@ -395,6 +395,8 @@ public class DomButton extends DomParentElement
 
 			super(iconResource);
 			addCssClass(DomCssClasses.DOM_BUTTON_ICON);
+			// the name of the icon (e.g. "entity-edit"), so that a theme can colour icons by their meaning
+			iconResource.getFilename().map(name -> name.replaceFirst("\\.[A-Za-z0-9]+$", "")).ifPresent(name -> setAttribute("data-icon", name));
 			if (precolored) {
 				addCssClass(DomCssPseudoClasses.PRECOLORED);
 			}

@@ -81,7 +81,9 @@ public class PageNavigationEntriesLoader<I extends IEmfModuleInstance<I>> {
 			entry = PageNavigationEntry.createFolder(folderPath);
 			if (entry.getPath().getParent().isEmpty()) {
 				entry.setIcon(module.getIcon());
+				entry.setModernIcon(module.getModernIcon());
 			}
+			module.getModernFolderIcon(folderPath).ifPresent(entry::setModernIcon);
 			return registerNewEntry(module, entry);
 		}
 	}

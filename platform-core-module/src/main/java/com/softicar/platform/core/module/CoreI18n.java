@@ -8,6 +8,11 @@ import com.softicar.platform.emf.EmfI18n;
 
 public interface CoreI18n extends EmfI18n {
 
+	I18n0 A_DARK_MENU_WITH_LIGHT_CONTENT = new I18n0("A dark menu with light content.")//
+		.de("Ein dunkles Menü mit hellem Inhalt.")
+		.bs("Meni u tamnoj boji, sadržaj svijetao.")
+		.sr("Meni u tamnoj boji, sadržaj svetao.")
+		.hr("Izbornik u tamnoj boji, sadržaj svijetao.");
 	I18n0 A_MAINTENANCE_WINDOW_IS_CONFIGURED_FOR_TODAY = new I18n0("A maintenance window is configured for today.")//
 		.de("Für heute ist ein Wartungsfenster konfiguriert.")
 		.bs("Period održavanja je konfigurisan za danas.")
@@ -132,6 +137,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Algoritam")
 		.sr("Algoritam")
 		.hr("Algoritam");
+	I18n0 ALL_MODULES = new I18n0("All Modules")//
+		.de("Alle Module")
+		.bs("Svi moduli")
+		.sr("Svi moduli")
+		.hr("Svi moduli");
 	I18n0 ALL_TRANSACTION_DATA_WAS_DELETED = new I18n0("All transaction data was deleted.")//
 		.de("Alle Transaktionsdaten wurden gelöscht.")
 		.bs("Svi transakcijski podaci su izbrisani.")
@@ -159,6 +169,16 @@ public interface CoreI18n extends EmfI18n {
 		.hr("Također uklanja sve zapise bez roditelja.");
 	I18n0 AN_EMAIL_WAS_SENT_TO_YOUR_ACCOUNT = new I18n0("An email was sent to your account.")//
 		.de("Eine Email wurde an ihren Account gesendet.");
+	I18n0 APPEARANCE = new I18n0("Appearance")//
+		.de("Erscheinungsbild")
+		.bs("Izgled")
+		.sr("Izgled")
+		.hr("Izgled");
+	I18n0 APPLIES_AT_ONCE_AND_ON_EVERY_DEVICE_YOU_LOG_IN_WITH = new I18n0("Applies at once and on every device you log in with.")//
+		.de("Gilt sofort und auf jedem Gerät, mit dem Sie sich anmelden.")
+		.bs("Vrijedi odmah i na svakom uređaju na koji se prijavite.")
+		.sr("Važi odmah i na svakom uređaju na koji se prijavite.")
+		.hr("Vrijedi odmah i na svakom uređaju na koji se prijavite.");
 	I18n0 APR_1 = new I18n0("Apr 1")//
 		.de("Apr 1")
 		.bs("Apr 1")
@@ -376,6 +396,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Ime klase")
 		.sr("Ime klase")
 		.hr("Ime klase");
+	I18n0 CLASSIC = new I18n0("Classic")//
+		.de("Klassisch")
+		.bs("Klasična")
+		.sr("Klasična")
+		.hr("Klasična");
 	I18n0 CLEANS_FILE_REPOSITORIES_FROM_TEMPORARY_FILES = new I18n0("Cleans file repositories from temporary files")//
 		.de("Bereinigt Dateiablagen von temporären Dateien")
 		.bs("Čisti repizitorij od privremenih datoteka")
@@ -456,6 +481,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Komentar")
 		.sr("Komentar")
 		.hr("Komentar");
+	I18n0 COMPANY = new I18n0("Company")//
+		.de("Firma")
+		.bs("Firma")
+		.sr("Firma")
+		.hr("Tvrtka");
 	I18n0 COMPROMISED = new I18n0("Compromised")//
 		.de("kompromittiert")
 		.bs("Kompromitovan")
@@ -609,6 +639,26 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Daemon Watchdog Stanje")
 		.sr("Daemon Watchdog Stanje")
 		.hr("Daemon Watchdog Stanje");
+	I18n0 DARK = new I18n0("Dark")//
+		.de("Dunkel")
+		.bs("Tamna")
+		.sr("Tamna")
+		.hr("Tamna");
+	I18n0 DARK_MENU = new I18n0("Dark menu")//
+		.de("Dunkles Menü")
+		.bs("Tamni meni")
+		.sr("Tamni meni")
+		.hr("Tamni izbornik");
+	I18n0 DARK_SURFACES_AND_LIGHT_TEXT_FOR_WORKING_IN_DIM_LIGHT = new I18n0("Dark surfaces and light text for working in dim light.")//
+		.de("Dunkle Flächen und heller Text für die Arbeit bei wenig Licht.")
+		.bs("Tamna podloga i svijetao tekst za rad pri slabijem svjetlu.")
+		.sr("Tamna podloga i svetao tekst za rad pri slabijem svetlu.")
+		.hr("Tamna podloga i svijetao tekst za rad pri slabijem svjetlu.");
+	I18n0 DARKER_TEXT_STRONGER_LINES_AND_FIELD_BORDERS_FOR_WEAKER_EYESIGHT_AND_BRIGHT_ROOMS = new I18n0("Darker text, stronger lines and field borders for weaker eyesight and bright rooms.")//
+		.de("Dunklerer Text, kräftigere Linien und Feldränder für schwächere Augen und helle Räume.")
+		.bs("Tamniji tekst, jače linije i rubovi polja za slabiji vid i jako svjetlo.")
+		.sr("Tamniji tekst, jače linije i ivice polja za slabiji vid i jako svetlo.")
+		.hr("Tamniji tekst, jače linije i rubovi polja za slabiji vid i jako svjetlo.");
 	I18n0 DATA = new I18n0("Data")//
 		.de("Daten")
 		.bs("Podaci")
@@ -704,6 +754,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Podrazumijevana lokalizacija")
 		.sr("Podrazumevana lokalizacija")
 		.hr("Podrazumijevana lokalizacija");
+	I18n0 DEFAULT_WHITE_AND_AIRY_AS_BEFORE = new I18n0("Default: white and airy, as before.")//
+		.de("Standard: weiß und luftig, wie bisher.")
+		.bs("Zadana: bijela i prozračna, kao do sada.")
+		.sr("Podrazumevana: bela i prozračna, kao do sada.")
+		.hr("Zadana: bijela i prozračna, kao do sada.");
 	I18n0 DEFINES_THE_MAXIMUM_ALLOWED_RUNTIME_OF_THE_PROGRAM_IN_MINUTES =//
 			new I18n0("Defines the maximum allowed runtime of the program in minutes.")//
 				.de("Legt die maximal zulässige Laufzeit des Programms in Minuten fest.")
@@ -737,6 +792,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Briše zapise osnovnih zapisa tabela starijih od %s dana")
 		.sr("Briše zapise osnovnih zapisa tabela starijih od %s dana")
 		.hr("Briše zapise osnovnih zapisa tabela starijih od %s dana");
+	I18n0 DIMMED = new I18n0("Dimmed")//
+		.de("Gedämpft")
+		.bs("Prigušena")
+		.sr("Prigušena")
+		.hr("Prigušena");
 	I18n0 DISABLED_USER = new I18n0("Disabled User")//
 		.de("Deaktivierter Benutzer")
 		.bs("Deaktiviran korisnik")
@@ -1024,6 +1084,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Njemački")
 		.sr("Njemački")
 		.hr("Njemački");
+	I18n0 GREY_PAGE_WHITE_CARDS_AND_CLEARLY_SEPARATED_TABLE_ROWS = new I18n0("Grey page, white cards and clearly separated table rows.")//
+		.de("Graue Seite, weiße Karten und klar getrennte Tabellenzeilen.")
+		.bs("Siva podloga, bijele kartice i jasno odvojeni redovi tabela.")
+		.sr("Siva podloga, bele kartice i jasno odvojeni redovi tabela.")
+		.hr("Siva podloga, bijele kartice i jasno odvojeni retci tablica.");
 	I18n0 HASH = new I18n0("Hash")//
 		.de("Hash")
 		.bs("Hash")
@@ -1082,6 +1147,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Neaktivno za")
 		.sr("Neaktivno za")
 		.hr("Neaktivno za");
+	I18n0 INCREASED_CONTRAST = new I18n0("Increased contrast")//
+		.de("Erhöhter Kontrast")
+		.bs("Pojačan kontrast")
+		.sr("Pojačan kontrast")
+		.hr("Pojačan kontrast");
 	I18n0 INFO = new I18n0("Info")//
 		.de("Info")
 		.bs("Info")
@@ -1152,6 +1222,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Licenca")
 		.sr("Licenca")
 		.hr("Licenca");
+	I18n0 LIGHT = new I18n0("Light")//
+		.de("Hell")
+		.bs("Svijetla")
+		.sr("Svetla")
+		.hr("Svijetla");
 	I18n0 LOCAL_ADDRESS = new I18n0("Local Address")//
 		.de("Lokale Adresse")
 		.bs("Lokalna adresa")
@@ -1419,6 +1494,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Nedostaje UUID programa.")
 		.sr("Nedostaje UUID programa.")
 		.hr("Nedostaje UUID programa.");
+	I18n0 MODERN = new I18n0("Modern")//
+		.de("Modern")
+		.bs("Moderna")
+		.sr("Moderna")
+		.hr("Moderna");
 	I18n0 MODULE = new I18n0("Module")//
 		.de("Modul")
 		.bs("Modul")
@@ -1581,6 +1661,11 @@ public interface CoreI18n extends EmfI18n {
 		.hr("Neće se pokretati nova izvršavanja programa.");
 	I18n0 NO_PASSWORD_RESET_REQUEST_FOUND = new I18n0("No password reset request found.")//
 		.de("Anfrage zum zurücksetzen des Passworts wurde nicht gefunden.");
+	I18n0 NO_PURE_WHITE_LESS_GLARE_FOR_A_FULL_WORKING_DAY_AT_THE_SCREEN = new I18n0("No pure white, less glare for a full working day at the screen.")//
+		.de("Kein reines Weiß, weniger Blendung für einen ganzen Arbeitstag am Bildschirm.")
+		.bs("Bez čiste bijele i s manje bliještanja, za cijeli radni dan pred ekranom.")
+		.sr("Bez čiste bele i sa manje blještanja, za ceo radni dan pred ekranom.")
+		.hr("Bez čiste bijele i s manje bliještanja, za cijeli radni dan pred zaslonom.");
 	I18n0 NO_REPLY_EMAIL_ADDRESS = new I18n0("No-Reply Email Address")//
 		.de("No-Reply-E-Mail-Adresse")
 		.bs("Email adresa bez odgovora")
@@ -2181,6 +2266,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Planirana izvršavanja programa")
 		.sr("Planirana izvršavanja programa")
 		.hr("Planirana izvršavanja programa");
+	I18n0 SEARCH = new I18n0("Search")//
+		.de("Suchen")
+		.bs("Traži")
+		.sr("Traži")
+		.hr("Traži");
 	I18n0 SEND = new I18n0("Send")//
 		.de("Senden")
 		.bs("Pošaljite")
@@ -2459,6 +2549,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Spremljene datoteke")
 		.sr("Spremljene datoteke")
 		.hr("Spremljene datoteke");
+	I18n0 STRUCTURED = new I18n0("Structured")//
+		.de("Strukturiert")
+		.bs("Pregledna")
+		.sr("Pregledna")
+		.hr("Pregledna");
 	I18n0 SUBJECT = new I18n0("Subject")//
 		.de("Betreff")
 		.bs("Predmet")
@@ -2659,6 +2754,11 @@ public interface CoreI18n extends EmfI18n {
 		.bs("Korisnički račun %s je kreiran ili je promijenjen.")
 		.sr("Korisnički račun %s je kreiran ili je promenjen.")
 		.hr("Korisnički račun %s je kreiran ili je promijenjen.");
+	I18n0 THE_BLUE_GREY_BANDS_AND_TABLE_GRID_OF_THE_OLD_THEME_IN_A_MODERN_STYLE = new I18n0("The blue-grey bands and table grid of the old theme in a modern style.")//
+		.de("Die blaugrauen Bänder und das Tabellengitter des alten Themas in modernem Stil.")
+		.bs("Plavosive trake i mreža tabela kao u staroj temi, u modernom izdanju.")
+		.sr("Plavosive trake i mreža tabela kao u staroj temi, u modernom izdanju.")
+		.hr("Plavosive trake i mreža tablica kao u staroj temi, u modernom izdanju.");
 	I18n0 THE_CONTENT_OF_THE_FOLLOWING_TABLES_WILL_BE_DELETED = new I18n0("The content of the following tables will be deleted.")//
 		.de("Der Inhalt der folgenden Tabellen wird gelöscht.")
 		.bs("Sadržaj sljedećih tabela će biti obrisan.")
@@ -2774,6 +2874,11 @@ public interface CoreI18n extends EmfI18n {
 				.bs("Vrijednost parametra servleta '%s' mora biti cijeli broj, ali je bila '%s'.")
 				.sr("Vrednost parametra servleta '%s' mora biti celi broj, ali je bila '%s'.")
 				.hr("Vrijednost parametra servleta '%s' mora biti cijeli broj, ali je bila '%s'.");
+	I18n0 THEME = new I18n0("Theme")//
+		.de("Design")
+		.bs("Tema")
+		.sr("Tema")
+		.hr("Tema");
 	I18n1 THERE_ARE_ARG1_SYSTEM_EVENTS_THAT_NEED_YOUR_ATTENTION = new I18n1("There are %s system events that need your attention.")//
 		.de("Es gibt %s Systemereignisse, die Ihre Aufmerksamkeit erfordern.")
 		.bs("Postoji %s  sistemskih događaja na koje trebate obratiti pažnju.")

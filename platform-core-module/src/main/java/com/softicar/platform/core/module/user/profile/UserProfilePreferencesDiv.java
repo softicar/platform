@@ -4,10 +4,12 @@ import com.softicar.platform.common.core.i18n.IDisplayString;
 import com.softicar.platform.common.core.interfaces.IRefreshable;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.CoreTestMarker;
+import com.softicar.platform.core.module.page.PageTheme;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.preferences.UserPreferences;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesNavigationFolderCollapseMode;
 import com.softicar.platform.core.module.user.preferences.UserPreferencesPreferredPopupPlacement;
+import com.softicar.platform.core.module.user.preferences.UserPreferencesTheme;
 import com.softicar.platform.dom.elements.DomDiv;
 import com.softicar.platform.dom.elements.bar.DomActionBar;
 import com.softicar.platform.dom.elements.button.DomButton;
@@ -33,6 +35,7 @@ class UserProfilePreferencesDiv extends DomDiv {
 				.addInput(CoreI18n.COLLAPSE_NAVIGATION_FOLDERS, new NavigationFolderCollapseModeInput())
 				.addInput(CoreI18n.PREFERRED_POPUP_PLACEMENT, new PreferredPopupPlacementInput())
 				.addInput(CoreI18n.DOUBLE_CLICK_ON_TABLE_ROW_OPENS_POPUP, new DoubleClickOnTableRowInput())
+				.addInput(CoreI18n.THEME, new ThemeInput())
 				.refreshAllInputs());
 		appendChild(
 			new DomActionBar(
@@ -44,8 +47,20 @@ class UserProfilePreferencesDiv extends DomDiv {
 
 	private void save() {
 
+		PageTheme themeBefore = PageTheme.getCurrent();
+		// the variant chooser saves at once, so keep what it saved since this div was built
+		UserPreferences storedPreferences = CurrentUser.get().getPreferences();
+		preferences.themeVariant = storedPreferences.themeVariant;
+		preferences.themeMenu = storedPreferences.themeMenu;
 		CurrentUser.get().savePreferences(preferences);
-		executeAlert(CoreI18n.PREFERENCES_SAVED);
+		PageTheme theme = PageTheme.getCurrent();
+		theme.applyTo(getDomDocument().getBody());
+		if (theme != themeBefore) {
+			// the themes have different navigations, so the page is built again
+			getDomEngine().reloadPage();
+		} else {
+			executeAlert(CoreI18n.PREFERENCES_SAVED);
+		}
 	}
 
 	private class PreferencesElement extends DomLabelGrid {
@@ -101,6 +116,22 @@ class UserProfilePreferencesDiv extends DomDiv {
 		public void refresh() {
 
 			preferences.preferredPopupPlacement = getValueOrNull();
+		}
+	}
+
+	private class ThemeInput extends DomCheckboxGroup<UserPreferencesTheme> implements IRefreshable {
+
+		public ThemeInput() {
+
+			Arrays.asList(UserPreferencesTheme.values()).forEach(this::addOption);
+			setValue(preferences.theme);
+			addMarker(CoreTestMarker.USER_PREFERENCES_THEME);
+		}
+
+		@Override
+		public void refresh() {
+
+			preferences.theme = getValueOrNull();
 		}
 	}
 

@@ -15,4 +15,9 @@ public class UserPreferences {
 	public UserPreferencesNavigationFolderCollapseMode navigationFolderCollapseMode = UserPreferencesNavigationFolderCollapseMode.AUTOMATIC;
 	public UserPreferencesPreferredPopupPlacement preferredPopupPlacement = UserPreferencesPreferredPopupPlacement.AT_EVENT_COORDINATES;
 	public boolean enableDoubleClickOnTableRows = DomDefaultPreferences.getInstance().enableDoubleClickOnTableRows();
+	public UserPreferencesTheme theme = UserPreferencesTheme.STANDARD;
+	/** the identifier of the variant of the modern theme, see PageThemeVariant */
+	public String themeVariant = "";
+	/** the identifier of the menu of the modern theme, empty for the menu of the variant, see PageThemeMenu */
+	public String themeMenu = "";
 }

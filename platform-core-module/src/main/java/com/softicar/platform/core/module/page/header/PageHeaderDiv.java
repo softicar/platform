@@ -1,5 +1,6 @@
 package com.softicar.platform.core.module.page.header;
 
+import com.softicar.platform.core.module.page.PageTheme;
 import com.softicar.platform.common.core.interfaces.INullaryVoidFunction;
 import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.core.module.CoreCssClasses;
@@ -28,6 +29,9 @@ public class PageHeaderDiv<I extends IEmfModuleInstance<I>> extends DomDiv {
 		appendChild(new PageHeaderNavigationToggleButton(navigationToggleFunction));
 		appendChild(new PagePathDiv());
 		appendChild(new PageHeaderMaintenanceNotificationArea());
+		if (PageTheme.getCurrent() == PageTheme.MODERN) {
+			appendChild(new PageHeaderHomeButton(controller));
+		}
 		appendChild(new PageHeaderUserPopoverButton(controller));
 	}
 

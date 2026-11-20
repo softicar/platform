@@ -23,6 +23,7 @@ public class PageNavigationEntry<I extends IEmfModuleInstance<I>> {
 	private final I moduleInstance;
 	private final List<PageNavigationEntry<I>> children;
 	private Optional<IResource> icon;
+	private Optional<IResource> modernIcon;
 
 	public static <I extends IEmfModuleInstance<I>> PageNavigationEntry<I> createFolder(EmfPagePath parentPath) {
 
@@ -46,6 +47,7 @@ public class PageNavigationEntry<I extends IEmfModuleInstance<I>> {
 		this.moduleInstance = moduleInstance;
 		this.children = new ArrayList<>();
 		this.icon = Optional.empty();
+		this.modernIcon = Optional.empty();
 	}
 
 	public PageNavigationEntry<I> setIcon(IResource icon) {
@@ -91,6 +93,30 @@ public class PageNavigationEntry<I extends IEmfModuleInstance<I>> {
 	public Optional<IResource> getIcon() {
 
 		return icon;
+	}
+
+	/**
+	 * Sets the icon of this entry in the navigation of the modern page theme.
+	 *
+	 * @param modernIcon
+	 *            the icon (may be <i>null</i>)
+	 * @return this
+	 */
+	public PageNavigationEntry<I> setModernIcon(IResource modernIcon) {
+
+		this.modernIcon = Optional.ofNullable(modernIcon);
+		return this;
+	}
+
+	/**
+	 * Returns the icon of this entry in the navigation of the modern page
+	 * theme.
+	 *
+	 * @return the optional icon
+	 */
+	public Optional<IResource> getModernIcon() {
+
+		return modernIcon;
 	}
 
 	public IDomNode createContentNode() {

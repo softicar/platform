@@ -3,12 +3,13 @@ package com.softicar.platform.core.module.page.service;
 import com.softicar.platform.ajax.document.IAjaxDocument;
 import com.softicar.platform.common.core.locale.CurrentLocale;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
-import com.softicar.platform.core.module.AGCoreModuleInstance;
 import com.softicar.platform.core.module.CoreCssFiles;
 import com.softicar.platform.core.module.CoreI18n;
 import com.softicar.platform.core.module.ajax.session.SofticarAjaxSession;
 import com.softicar.platform.core.module.page.PageDiv;
+import com.softicar.platform.core.module.page.PageTheme;
 import com.softicar.platform.core.module.page.service.login.PageServiceLoginDiv;
+import com.softicar.platform.core.module.page.service.login.PageServiceLoginLanguage;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.CurrentUser;
 import com.softicar.platform.core.module.user.password.reset.PasswordResetDiv;
@@ -44,12 +45,14 @@ public class PageServiceDocumentBuilder {
 
 	private void buildBody() {
 
-		if (authenticate()) {
+		boolean authenticated = authenticate();
+		PageTheme.getCurrent().applyTo(document.getBody());
+		if (authenticated) {
 			document.appendToBody(new PageDiv(document.getParameters()));
 		} else {
 			registerCss(CoreCssFiles.PAGE_STYLE);
 			registerCss(CoreCssFiles.PAGE_NAVIGATION_STYLE);
-			CurrentLocale.set(AGCoreModuleInstance.getInstance().getDefaultLocalization().getLocale());
+			CurrentLocale.set(PageServiceLoginLanguage.getLocale(document));
 			if (isPasswordResetRequest()) {
 				document.getEngine().setDocumentTitle(CoreI18n.RESET_PASSWORD.toString());
 				document.appendToBody(new PasswordResetDiv(this, document));

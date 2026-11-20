@@ -61,6 +61,38 @@ public interface IEmfModule<I extends IEmfModuleInstance<I>> extends ISourceCode
 		return EmfImages.MODULE_DEFAULT.getResource();
 	}
 
+	/**
+	 * Returns the icon of this {@link IEmfModule} in the navigation of the
+	 * modern page theme, which shows the modules with coloured icons.
+	 * <p>
+	 * By default, this is {@link #getIcon()}. The classic navigation always
+	 * uses {@link #getIcon()}.
+	 *
+	 * @return the icon (never <i>null</i>)
+	 */
+	default IResource getModernIcon() {
+
+		return getIcon();
+	}
+
+	/**
+	 * Returns the icon of a navigation folder that the pages of this
+	 * {@link IEmfModule} create with their page paths (see
+	 * {@link IEmfPage#getPagePath}), in the navigation of the modern page
+	 * theme.
+	 * <p>
+	 * By default, folders have no icon of their own. The classic navigation
+	 * does not use these icons.
+	 *
+	 * @param folderPath
+	 *            the {@link EmfPagePath} of the folder (never <i>null</i>)
+	 * @return the optional icon of the folder
+	 */
+	default Optional<IResource> getModernFolderIcon(EmfPagePath folderPath) {
+
+		return Optional.empty();
+	}
+
 	// ------------------------------ instances ------------------------------ //
 
 	/**

@@ -13,6 +13,7 @@ import com.softicar.platform.core.module.ajax.login.OneTimePasswordChallenge;
 import com.softicar.platform.core.module.file.stored.StoredFileResource;
 import com.softicar.platform.core.module.maintenance.AGMaintenanceWindow;
 import com.softicar.platform.core.module.maintenance.state.AGMaintenanceStateEnum;
+import com.softicar.platform.core.module.page.PageTheme;
 import com.softicar.platform.core.module.page.service.PageServiceDocumentBuilder;
 import com.softicar.platform.core.module.user.AGUser;
 import com.softicar.platform.core.module.user.password.reset.PasswordResetRequestGenerator;
@@ -40,15 +41,31 @@ import java.util.Optional;
 public class PageServiceLoginDiv extends DomDiv {
 
 	private final PageServiceDocumentBuilder documentBuilder;
+	private final boolean modern;
+	private final DomDiv formContainer;
 	private int passwordIndex;
 
 	public PageServiceLoginDiv(PageServiceDocumentBuilder documentBuilder) {
 
 		this.documentBuilder = documentBuilder;
+		this.modern = PageTheme.getCurrent() == PageTheme.MODERN;
 		this.passwordIndex = 0;
 
 		addCssClass(CoreCssClasses.PAGE_SERVICE_LOGIN_DIV);
-		appendChild(new LoginForm());
+		if (modern) {
+			// a brand panel with the logo next to the form, the language of the page below the form
+			appendChild(new ModernBrandDiv());
+			DomDiv mainDiv = appendChild(new DomDiv());
+			mainDiv.addCssClass(CoreCssClasses.MODERN_LOGIN_MAIN);
+			this.formContainer = mainDiv.appendChild(new DomDiv());
+			formContainer.addCssClass(CoreCssClasses.MODERN_LOGIN_FORM);
+			DomDiv footerDiv = mainDiv.appendChild(new DomDiv());
+			footerDiv.addCssClass(CoreCssClasses.MODERN_LOGIN_FOOTER);
+			footerDiv.appendChild(new PageServiceLoginLanguageSelect());
+		} else {
+			this.formContainer = this;
+		}
+		formContainer.appendChild(new LoginForm());
 		if (AGCoreModuleInstance.getInstance().isTestSystem()) {
 			addCssClass(CoreCssClasses.TEST_SYSTEM);
 		}
@@ -56,16 +73,46 @@ public class PageServiceLoginDiv extends DomDiv {
 
 	private void showForm(DomForm form) {
 
-		removeChildren();
-		appendChild(form);
+		formContainer.removeChildren();
+		formContainer.appendChild(form);
 		IDomFocusable.focusFirst(IDomTextualInput.class, form);
 	}
 
 	private void appendPortalLogo(DomForm form) {
 
-		Optional//
-			.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
-			.ifPresent(logoFile -> form.appendChild(new DomImage(new StoredFileResource(logoFile))));
+		if (modern) {
+			form.appendChild(new ModernHeadDiv());
+		} else {
+			Optional//
+				.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
+				.ifPresent(logoFile -> form.appendChild(new DomImage(new StoredFileResource(logoFile))));
+		}
+	}
+
+	private static class ModernBrandDiv extends DomDiv {
+
+		public ModernBrandDiv() {
+
+			addCssClass(CoreCssClasses.MODERN_LOGIN_BRAND);
+			Optional//
+				.ofNullable(AGCoreModuleInstance.getInstance().getPortalLogo())
+				.ifPresentOrElse(//
+					logoFile -> appendChild(new DomImage(new StoredFileResource(logoFile))),
+					() -> appendChild(new DomDiv()).appendText(AGCoreModuleInstance.getSystemIdentifier()));
+		}
+	}
+
+	private static class ModernHeadDiv extends DomDiv {
+
+		public ModernHeadDiv() {
+
+			addCssClass(CoreCssClasses.MODERN_LOGIN_HEAD);
+			DomDiv title = appendChild(new DomDiv());
+			title.setAttribute("role", "heading");
+			title.setAttribute("aria-level", "1");
+			title.appendText(CoreI18n.LOGIN);
+			appendChild(new DomDiv()).appendText(AGCoreModuleInstance.getSystemIdentifier());
+		}
 	}
 
 	private class LoginForm extends DomForm {

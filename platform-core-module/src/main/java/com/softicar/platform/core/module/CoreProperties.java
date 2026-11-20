@@ -12,6 +12,16 @@ public interface CoreProperties {
 	IProperty<File> DEFAULT_THEME = FACTORY.createFileProperty("default.theme", null);
 
 	/**
+	 * The theme of the pages of the installation: "classic" (the default) or
+	 * "modern".
+	 * <p>
+	 * Every user can override it in the user preferences.
+	 *
+	 * @see com.softicar.platform.core.module.page.PageTheme
+	 */
+	IProperty<String> PAGE_THEME = FACTORY.createStringProperty("page.theme", "classic");
+
+	/**
 	 * The proxies from which the <i>X-Forwarded-For</i> header is accepted, as
 	 * comma separated IPv4 addresses or networks in CIDR notation.
 	 * <p>
