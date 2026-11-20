@@ -33,6 +33,8 @@ public class DbMariaDbConnector extends AbstractDbConnector {
 		properties.put("allowMultiQueries", "true");
 		properties.put("characterEncoding", "utf8");
 		properties.put("returnMultiValuesGeneratedIds", "true");
+		// Connector/J 4 defaults to "verify-full". Keep the former unencrypted default; TLS can be enabled via the "sslMode" connection property.
+		properties.put("sslMode", "disable");
 		return properties;
 	}
 }
