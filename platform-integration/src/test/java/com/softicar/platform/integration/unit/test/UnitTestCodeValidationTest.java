@@ -23,7 +23,13 @@ public class UnitTestCodeValidationTest extends AbstractTest {
 	@Test
 	public void test() {
 
-		try (ScanResult scanResult = new ClassGraph().ignoreClassVisibility().enableAnnotationInfo().enableMethodInfo().scan()) {
+		try (ScanResult scanResult = new ClassGraph()//
+			.enableClasspath()
+			.enableClassInfo()
+			.ignoreClassVisibility()
+			.enableAnnotationInfo()
+			.enableMethodInfo()
+			.scan()) {
 			List<String> badClasses = scanResult//
 				.getClassesWithMethodAnnotation(Test.class.getCanonicalName())
 				.stream()

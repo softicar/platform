@@ -10,6 +10,7 @@ import com.softicar.platform.common.io.resource.key.ResourceKey;
 import com.softicar.platform.common.io.resource.static_.IStaticResourceSupplier;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfo;
 import io.github.classgraph.ScanResult;
 import java.util.Collection;
 import java.util.HashMap;
@@ -64,10 +65,26 @@ public class DefaultDomResourceSet implements IDomResourceSet {
 
 	private List<Class<?>> loadContainerClasses() {
 
-		try (ScanResult scanResult = new ClassGraph().ignoreParentClassLoaders().enableAnnotationInfo().scan()) {
+		try (ScanResult scanResult = new ClassGraph()//
+			.enableClasspath()
+			.enableNonSystemModules()
+			.enableClassInfo()
+			.enableAnnotationInfo()
+			.scan()) {
 			return scanResult//
 				.getClassesWithAnnotation(ResourceSupplierContainer.class.getCanonicalName())
-				.loadClasses();
+				.stream()
+				.map(DefaultDomResourceSet::loadClass)
+				.toList();
+		}
+	}
+
+	private static Class<?> loadClass(ClassInfo classInfo) {
+
+		try {
+			return Class.forName(classInfo.getName());
+		} catch (ClassNotFoundException exception) {
+			throw new RuntimeException(exception);
 		}
 	}
 

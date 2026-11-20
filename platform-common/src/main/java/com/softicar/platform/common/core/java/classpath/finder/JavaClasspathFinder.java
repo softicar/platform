@@ -1,7 +1,6 @@
 package com.softicar.platform.common.core.java.classpath.finder;
 
 import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ScanResult;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,15 +50,14 @@ public class JavaClasspathFinder {
 
 	private Collection<File> getAllRoots() {
 
-		try (ScanResult scanResult = new ClassGraph().scan()) {
-			return scanResult//
-				.getClasspathURLs()
-				.stream()
-				.map(this::toUri)
-				.filter(this::isFile)
-				.map(File::new)
-				.collect(Collectors.toList());
-		}
+		return new ClassGraph()//
+			.enableClasspath()
+			.getClasspathURLs()
+			.stream()
+			.map(this::toUri)
+			.filter(this::isFile)
+			.map(File::new)
+			.collect(Collectors.toList());
 	}
 
 	private URI toUri(URL url) {
