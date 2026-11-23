@@ -57,6 +57,35 @@ public class DockerContainerController {
 	}
 
 	/**
+	 * Returns the port on the Docker host to which the given container port
+	 * was published, e.g. by the {@code "docker run"} options
+	 * {@code "-p", "127.0.0.1::445"}.
+	 * <p>
+	 * Unlike the container IP address, a published port is also reachable
+	 * where the containers run in a virtual machine, e.g. under Docker Desktop
+	 * on macOS.
+	 *
+	 * @param containerPort
+	 *            the TCP port inside the container
+	 * @return the published TCP port on the Docker host
+	 * @throws RuntimeException
+	 *             if the container was not yet started, or if the given
+	 *             container port was not published
+	 */
+	public int getPublishedPort(int containerPort) {
+
+		if (containerIpAddress == null) {
+			throw new RuntimeException("Failed to retrieve the published port of the container: The container was not yet started.");
+		}
+		String address = commandExecutor.executePublishedAddressRetrieval(containerPort).lines().findFirst().orElse("");
+		try {
+			return Integer.parseInt(address.substring(address.lastIndexOf(':') + 1));
+		} catch (NumberFormatException exception) {
+			throw new RuntimeException("Failed to parse the published address of container port %s: '%s'".formatted(containerPort, address), exception);
+		}
+	}
+
+	/**
 	 * Registers a shutdown hook in the current {@link Runtime}, to terminate
 	 * the container upon {@link Runtime} shutdown.
 	 *
@@ -126,6 +155,11 @@ public class DockerContainerController {
 		public String executeContainerIpAddressRetrieval() {
 
 			return new ContainerIpAddressCommand(containerName).execute();
+		}
+
+		public String executePublishedAddressRetrieval(int containerPort) {
+
+			return new ContainerPublishedAddressCommand(containerName, containerPort).execute();
 		}
 
 		private void waitForService() {
@@ -252,6 +286,14 @@ public class DockerContainerController {
 		public ContainerIpAddressCommand(String containerName) {
 
 			super("docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' %s", containerName);
+		}
+	}
+
+	private static class ContainerPublishedAddressCommand extends ShellCommand {
+
+		public ContainerPublishedAddressCommand(String containerName, int containerPort) {
+
+			super("docker port %s %s/tcp", containerName, containerPort);
 		}
 	}
 }

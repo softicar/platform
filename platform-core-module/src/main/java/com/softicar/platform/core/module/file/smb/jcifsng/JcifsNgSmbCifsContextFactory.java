@@ -63,6 +63,10 @@ class JcifsNgSmbCifsContextFactory {
 			// We enforce at least SMB 2.1 ("SMB210") here - see enum "jcifs.DialectVersion" for possible values.
 			properties.setProperty("jcifs.smb.client.minVersion", "SMB210");
 
+			// Allow up to SMB 3.1.1, the highest dialect supported by jcifs-ng. Its default maximum is SMB 2.1,
+			// which would fail on servers that require SMB 3. Note that jcifs-ng does not support SMB encryption.
+			properties.setProperty("jcifs.smb.client.maxVersion", "SMB311");
+
 			return new BaseContext(new PropertyConfiguration(properties));
 		} catch (CIFSException exception) {
 			throw new SmbIOException(exception);

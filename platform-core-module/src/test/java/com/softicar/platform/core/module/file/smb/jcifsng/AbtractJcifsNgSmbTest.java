@@ -7,7 +7,6 @@ import com.softicar.platform.common.io.StreamUtils;
 import com.softicar.platform.common.string.Imploder;
 import com.softicar.platform.common.string.charset.Charsets;
 import com.softicar.platform.common.testing.AbstractTest;
-import com.softicar.platform.core.module.container.docker.DockerContainerController;
 import com.softicar.platform.core.module.file.smb.ISmbDirectory;
 import com.softicar.platform.core.module.file.smb.ISmbEntry;
 import com.softicar.platform.core.module.file.smb.ISmbFile;
@@ -23,19 +22,13 @@ import org.junit.BeforeClass;
  * Provides an ephemeral, Docker-based SMB server to extending JUnit test
  * classes.
  *
+ * @see SambaTestingServer
+ *
  * @author Alexander Schmidt
  */
 public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
-	private static final String TEST_PASSWORD = "testpassword";
-	private static final String TEST_SHARE = "testshare";
-	private static final String TEST_USER = "testuser";
-	private static final String TEST_WORKGROUP = "WORKGROUP";
-	private static final DockerContainerController CONTAINER_CONTROLLER = new DockerContainerController(//
-		"smb-test",
-		"softicar/samba-testing-server",
-		"-dit",
-		"--rm");
+	private static final SambaTestingServer SERVER = new SambaTestingServer();
 
 	protected SmbCredentials credentials;
 	protected DayTime startTime;
@@ -56,22 +49,21 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 	@BeforeClass
 	public static void beforeClass() {
 
-		CONTAINER_CONTROLLER.startup();
-		CONTAINER_CONTROLLER.registerRuntimeShutdownHook();
+		SERVER.startup();
 	}
 
 	@AfterClass
 	public static void afterClass() {
 
-		CONTAINER_CONTROLLER.shutdown();
+		SERVER.shutdown();
 	}
 
 	@Before
 	public void beforeTest() {
 
-		this.credentials = new SmbCredentials(TEST_WORKGROUP, TEST_USER, TEST_PASSWORD);
+		this.credentials = SERVER.getCredentials();
 		this.startTime = DayTime.now();
-		this.shareUrl = "smb://" + CONTAINER_CONTROLLER.getContainerIpAddress() + "/" + TEST_SHARE;
+		this.shareUrl = SERVER.getShareUrl();
 		this.shareUrlSlash = shareUrl.concat("/");
 		this.someEntryUrl = shareUrl.concat("/someEntry");
 		this.someEntryUrlSlash = someEntryUrl.concat("/");
@@ -157,7 +149,7 @@ public abstract class AbtractJcifsNgSmbTest extends AbstractTest {
 
 	protected static void assertSmbServerUrl(String url) {
 
-		assertTrue(url.matches("smb://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/"));
+		assertTrue(url, url.matches("smb://[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}(:[0-9]{1,5})?/"));
 	}
 
 	private void flushShareRoot() {
