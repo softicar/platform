@@ -26,7 +26,7 @@ See the [SoftiCAR Platform Example Project](https://github.com/softicar/platform
 
 To build and develop the code in this repository, an **Ubuntu 26.04 LTS (Resolute Raccoon)** based workstation is recommended, with the following software installed:
 
-1. [Java Eclipse Temurin 21](https://adoptium.net/temurin/releases/?version=21), with `java` in the `PATH`
+1. [Java Eclipse Temurin 25](https://adoptium.net/temurin/releases/?version=25), with `java` in the `PATH`
 2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2026-09 (4.41)](https://www.eclipse.org/downloads/packages/release/2026-09/r)
 3. [SQML Eclipse Plugin](https://github.com/softicar/sqml)
 4. [Docker Engine](https://docs.docker.com/engine/install/ubuntu/), for the tests that start containers (SMB, MariaDB migrations and Selenium)

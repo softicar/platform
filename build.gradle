@@ -18,7 +18,7 @@ project.ext {
 		asm: "9.11.1",
 		bcprov: "1.87",
 		byteBuddy: "1.18.17",
-		classgraph: "5.0.2",
+		classgraph: "6.0.2",
 		commonsCodec: "1.23.0",
 		commonsCollections4: "4.6.0",
 		commonsCompress: "1.28.0",
@@ -169,27 +169,27 @@ subprojects {
 
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 subprojects {
 	apply plugin: 'com.softicar.gradle.java.library'
 
 	java {
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+		sourceCompatibility = JavaVersion.VERSION_25
+		targetCompatibility = JavaVersion.VERSION_25
 	}
 
 	compileJava {
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+		sourceCompatibility = JavaVersion.VERSION_25
+		targetCompatibility = JavaVersion.VERSION_25
 		options.encoding = "UTF-8"
 	}
 
 	compileTestJava {
-		sourceCompatibility = JavaVersion.VERSION_21
-		targetCompatibility = JavaVersion.VERSION_21
+		sourceCompatibility = JavaVersion.VERSION_25
+		targetCompatibility = JavaVersion.VERSION_25
 		options.encoding = "UTF-8"
 	}
 
