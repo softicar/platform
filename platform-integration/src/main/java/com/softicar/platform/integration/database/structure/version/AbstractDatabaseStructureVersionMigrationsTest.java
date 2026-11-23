@@ -1,7 +1,6 @@
 package com.softicar.platform.integration.database.structure.version;
 
 import com.softicar.platform.common.core.i18n.IDisplayString;
-import com.softicar.platform.common.core.thread.sleep.Sleep;
 import com.softicar.platform.common.io.resource.container.ResourceSupplierContainer;
 import com.softicar.platform.common.io.resource.supplier.IResourceSupplier;
 import com.softicar.platform.common.string.Imploder;
@@ -20,7 +19,6 @@ import com.softicar.platform.db.structure.database.IDbDatabaseStructure;
 import com.softicar.platform.db.structure.mysql.DbMysqlDatabaseStructureLoader;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinition;
 import com.softicar.platform.integration.database.structure.DatabaseStructureTableDefinitionsConverter;
-import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -49,12 +47,21 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 	private static final String MARIADB_PASSWORD = "iamroot";
 	private static final String MARIADB_USER = "root";
 	private static final String MARIADB_VERSION = "11.8";
+	private static final int MARIADB_PORT = 3306;
 	private static final DockerContainerController CONTAINER_CONTROLLER = new DockerContainerController(//
 		"mariadb-migration-test",
 		"mariadb:" + MARIADB_VERSION,
 		"-e MYSQL_ROOT_PASSWORD=" + MARIADB_PASSWORD,
+		// Published on the host, because container IP addresses are not reachable everywhere, e.g. under Docker Desktop on macOS.
+		"-p 127.0.0.1::" + MARIADB_PORT,
+		// The image has no health check of its own. This one only succeeds when the final server accepts TCP connections,
+		// not while the entrypoint initializes the database with a temporary server.
+		"--health-cmd='healthcheck.sh --connect --innodb_initialized'",
+		"--health-interval=500ms",
+		"--health-retries=120",
 		"-d",
 		"--rm");
+	private static String mariadbAddress;
 	private final Class<?> resourceContainerClass;
 	private final int numberOfRecentMigrations;
 
@@ -63,10 +70,7 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 		CONTAINER_CONTROLLER.startup();
 		CONTAINER_CONTROLLER.registerRuntimeShutdownHook();
-
-		// Wait until the containerized MariaDB server is ready.
-		// TODO Find a less dumb way to avoid connecting too early.
-		Sleep.sleep(Duration.ofSeconds(5));
+		mariadbAddress = "127.0.0.1:" + CONTAINER_CONTROLLER.getPublishedPort(MARIADB_PORT);
 	}
 
 	@AfterClass
@@ -232,7 +236,7 @@ public abstract class AbstractDatabaseStructureVersionMigrationsTest extends Abs
 
 		return new DbConnection(//
 			DbServerType.MARIA_DB,
-			CONTAINER_CONTROLLER.getContainerIpAddress() + "",
+			mariadbAddress,
 			"",
 			MARIADB_USER,
 			MARIADB_PASSWORD);
