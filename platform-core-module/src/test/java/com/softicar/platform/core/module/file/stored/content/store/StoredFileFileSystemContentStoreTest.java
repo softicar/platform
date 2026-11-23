@@ -46,7 +46,7 @@ public class StoredFileFileSystemContentStoreTest extends Asserts {
 	public void testGetLocation() {
 
 		var store = createStore();
-		assertTrue(store.getLocation().matches("/tmp/%s[0-9]+".formatted(getClass().getSimpleName())));
+		assertEquals(storeRootDirectory.getPath(), store.getLocation());
 	}
 
 	@Test

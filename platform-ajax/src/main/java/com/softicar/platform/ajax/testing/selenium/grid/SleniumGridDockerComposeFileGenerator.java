@@ -78,10 +78,11 @@ public class SleniumGridDockerComposeFileGenerator {
 		builder.appendLine("      - GRID_BROWSER_TIMEOUT=%s", hubConfiguration.getBrowserTimeout());
 		builder.appendLine("      - GRID_TIMEOUT=%s", hubConfiguration.getSessionTimeout());
 		builder.appendLine("      - GRID_MAX_SESSION=%s", hubConfiguration.getMaximumSessionCount());
+		// Only the port for web drivers is published, on a random port of the loopback interface. Unlike the container IP
+		// address, it is also reachable where the containers run in a virtual machine, e.g. under Docker Desktop on macOS.
+		// The event bus ports are only used by the nodes, within the network of the grid.
 		builder.appendLine("    ports:");
-		builder.appendLine("      - %s", hubConfiguration.getPortExternal());
-		builder.appendLine("      - %s", hubConfiguration.getPortEventBusPublish());
-		builder.appendLine("      - %s", hubConfiguration.getPortEventBusSubscribe());
+		builder.appendLine("      - \"127.0.0.1::%s\"", hubConfiguration.getPortExternal());
 		builder.appendLine("    networks:");
 		builder.appendLine("      %s:", generateNetworkName());
 		builder.appendLine("        ipv4_address: \"%s\"", hubConfiguration.getIp());
@@ -103,6 +104,9 @@ public class SleniumGridDockerComposeFileGenerator {
 			builder.appendLine("      - SE_EVENT_BUS_HOST=%s", generateHubName());
 			builder.appendLine("      - SE_EVENT_BUS_PUBLISH_PORT=%s", hubConfiguration.getPortEventBusPublish());
 			builder.appendLine("      - SE_EVENT_BUS_SUBSCRIBE_PORT=%s", hubConfiguration.getPortEventBusSubscribe());
+			// Lets the browser reach the test server on the Docker host, on Linux as well as under Docker Desktop.
+			builder.appendLine("    extra_hosts:");
+			builder.appendLine("      - \"host.docker.internal:host-gateway\"");
 			builder.appendLine("    networks:");
 			builder.appendLine("      - %s", generateNetworkName());
 			builder.appendLine("");
@@ -122,7 +126,7 @@ public class SleniumGridDockerComposeFileGenerator {
 
 	private String generateHubName() {
 
-		return String.format("selenium-hub-%s", gridConfiguration.getUuid());
+		return gridConfiguration.getHubContainerName();
 	}
 
 	private String generateNodeName(ISeleniumNodeConfiguration nodeConfiguration, int nodeIndex) {

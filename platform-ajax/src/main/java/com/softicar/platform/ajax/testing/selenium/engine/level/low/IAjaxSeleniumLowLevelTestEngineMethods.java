@@ -14,6 +14,9 @@ import com.softicar.platform.dom.elements.dialog.testing.IDomModalPromptNodes;
 import com.softicar.platform.dom.event.DomModifier;
 import com.softicar.platform.dom.input.IDomTextualInput;
 import com.softicar.platform.dom.node.IDomNode;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -510,6 +513,35 @@ public interface IAjaxSeleniumLowLevelTestEngineMethods {
 	default Optional<String> getFileDownloadSource() {
 
 		return getTestEngine().getOutput().getFileDownloadSource();
+	}
+
+	/**
+	 * Converts a URL of the test server, as used by the browser, into a URL
+	 * that the current test can open itself.
+	 * <p>
+	 * The test server runs in the JVM of the test, but the browser reaches it
+	 * via the address of the Docker host (see
+	 * {@link AjaxSeleniumTestProperties#SERVER_IP}), which the JVM might not
+	 * resolve; e.g. {@code "host.docker.internal"} on macOS. The returned URL
+	 * uses the loopback address instead, with the same port, path and query.
+	 *
+	 * @param browserUrl
+	 *            a URL of the test server, as used by the browser; e.g. from
+	 *            {@link #getFileDownloadSource()} (never <i>null</i>)
+	 * @return the URL with the loopback address as its host (never
+	 *         <i>null</i>)
+	 */
+	default URL toLocalUrl(String browserUrl) {
+
+		URI uri = URI.create(browserUrl);
+		String port = uri.getPort() < 0? "" : ":" + uri.getPort();
+		String path = Optional.ofNullable(uri.getRawPath()).orElse("");
+		String query = Optional.ofNullable(uri.getRawQuery()).map(it -> "?" + it).orElse("");
+		try {
+			return URI.create(uri.getScheme() + "://127.0.0.1" + port + path + query).toURL();
+		} catch (MalformedURLException exception) {
+			throw new RuntimeException(exception);
+		}
 	}
 
 	/**

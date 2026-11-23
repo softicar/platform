@@ -94,6 +94,16 @@ public interface ISeleniumGridConfiguration {
 	ISeleniumNetworkConfiguration getNetworkConfiguration();
 
 	/**
+	 * Returns the name of the Docker container of the Selenium hub.
+	 *
+	 * @return the name of the hub container (never <i>null</i>)
+	 */
+	default String getHubContainerName() {
+
+		return "selenium-hub-%s".formatted(getUuid());
+	}
+
+	/**
 	 * Ensures that this {@link ISeleniumGridConfiguration} is valid.
 	 * <p>
 	 * Throws an {@link Exception} if the validation fails.

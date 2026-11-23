@@ -80,9 +80,7 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("      - GRID_TIMEOUT=20\n");
 		output.append("      - GRID_MAX_SESSION=1\n");
 		output.append("    ports:\n");
-		output.append("      - 4444\n");
-		output.append("      - 4442\n");
-		output.append("      - 4443\n");
+		output.append("      - \"127.0.0.1::4444\"\n");
 		output.append("    networks:\n");
 		output.append("      selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa:\n");
 		output.append("        ipv4_address: \"172.0.0.222\"\n");
@@ -98,6 +96,8 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
 		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
+		output.append("    extra_hosts:\n");
+		output.append("      - \"host.docker.internal:host-gateway\"\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
@@ -112,6 +112,8 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
 		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
+		output.append("    extra_hosts:\n");
+		output.append("      - \"host.docker.internal:host-gateway\"\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");
@@ -126,6 +128,8 @@ public class SleniumGridDockerComposeFileGeneratorTest extends AbstractTest {
 		output.append("      - SE_EVENT_BUS_HOST=selenium-hub-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("      - SE_EVENT_BUS_PUBLISH_PORT=4442\n");
 		output.append("      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443\n");
+		output.append("    extra_hosts:\n");
+		output.append("      - \"host.docker.internal:host-gateway\"\n");
 		output.append("    networks:\n");
 		output.append("      - selenium-grid-network-29347bab-d26c-4b59-97f3-fea59c8d70fa\n");
 		output.append("\n");

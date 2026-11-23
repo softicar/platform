@@ -59,5 +59,18 @@ public class AjaxSeleniumTestProperties {
 	public static final IProperty<String> NODE_NAME_PREFIX = FACTORY.createStringProperty("node.name.prefix", "selenium-node-chromium");
 
 	// Server
-	public static final IProperty<String> SERVER_IP = FACTORY.createStringProperty("server.ip", "172.0.0.1");
+	// The address under which the browsers in the grid reach the test server on the Docker host.
+	public static final IProperty<String> SERVER_IP = FACTORY.createStringProperty("server.ip", getDefaultServerIp());
+
+	/**
+	 * On Linux, the containers run on the Docker host itself, and reach it via
+	 * the gateway of the grid network. Elsewhere, e.g. under Docker Desktop on
+	 * macOS, they run in a virtual machine, and reach the host via
+	 * {@code "host.docker.internal"}, which the nodes of the grid also resolve
+	 * on Linux.
+	 */
+	private static String getDefaultServerIp() {
+
+		return System.getProperty("os.name", "").startsWith("Linux")? "172.0.0.1" : "host.docker.internal";
+	}
 }

@@ -10,6 +10,9 @@ import com.softicar.platform.common.io.file.lock.LockFile;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Facilitates startup and shutdown of a Selenium grid, to enable Docker based
@@ -24,6 +27,7 @@ public class AjaxSeleniumGridController {
 	private final TemporaryFileManager fileManager;
 	private final ComposeCommandExecutor commandExecutor;
 	private boolean shutdownHookRegistered;
+	private URL hubUrl;
 
 	private AjaxSeleniumGridController() {
 
@@ -31,6 +35,7 @@ public class AjaxSeleniumGridController {
 		this.fileManager = new TemporaryFileManager(gridConfiguration);
 		this.commandExecutor = new ComposeCommandExecutor(gridConfiguration, fileManager.getComposeFile());
 		this.shutdownHookRegistered = false;
+		this.hubUrl = null;
 	}
 
 	/**
@@ -94,6 +99,36 @@ public class AjaxSeleniumGridController {
 					fileManager.deleteDirectory();
 				}
 			}
+		}
+		this.hubUrl = null;
+	}
+
+	/**
+	 * Returns the URL of the Selenium hub, to which remote web drivers connect.
+	 * <p>
+	 * The hub port is published on a random port of the loopback interface of
+	 * the Docker host, which is determined when this method is first called.
+	 *
+	 * @return the URL of the Selenium hub (never <i>null</i>)
+	 * @throws RuntimeException
+	 *             if the grid is not running
+	 */
+	public synchronized URL getHubUrl() {
+
+		if (hubUrl == null) {
+			hubUrl = createHubUrl(commandExecutor.executePublishedHubAddressRetrieval());
+		}
+		return hubUrl;
+	}
+
+	private URL createHubUrl(String publishedAddress) {
+
+		String address = publishedAddress.lines().findFirst().orElse("");
+		try {
+			int port = Integer.parseInt(address.substring(address.lastIndexOf(':') + 1));
+			return URI.create("http://127.0.0.1:%s/wd/hub".formatted(port)).toURL();
+		} catch (NumberFormatException | MalformedURLException exception) {
+			throw new RuntimeException("Failed to parse the published address of the Selenium hub: '%s'".formatted(address), exception);
 		}
 	}
 
@@ -178,7 +213,14 @@ public class AjaxSeleniumGridController {
 			execute(command, "startup");
 		}
 
-		private void execute(String command, String commandPurpose) {
+		public String executePublishedHubAddressRetrieval() {
+
+			String command = "docker port %s %s/tcp"
+				.formatted(gridConfiguration.getHubContainerName(), gridConfiguration.getHubConfiguration().getPortExternal());
+			return execute(command, "hub port retrieval");
+		}
+
+		private String execute(String command, String commandPurpose) {
 
 			ShellCommandExecutor executor = new ShellCommandExecutor();
 			executor.execute(command);
@@ -197,6 +239,7 @@ public class AjaxSeleniumGridController {
 				message += "<<<<\n";
 				throw new RuntimeException(message);
 			}
+			return executor.getOutput().trim();
 		}
 	}
 
