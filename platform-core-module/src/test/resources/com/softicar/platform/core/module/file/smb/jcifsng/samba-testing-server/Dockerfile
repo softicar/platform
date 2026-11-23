@@ -5,7 +5,7 @@
 #
 # Share: testshare, user: testuser, password: testpassword, workgroup: WORKGROUP
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 RUN	apt-get update \
 	&& apt-get install -y --no-install-recommends \

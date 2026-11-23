@@ -16,7 +16,7 @@ The _SoftiCAR Platform_ is a lightweight, Java-based library to create interacti
   - Custom workflows for business objects (work in progress)
 - Lightweight web applications based on a server-side _document object model (DOM)_
   - All business logic defined in Java and running on server
-  - Interactive web pages using asynchronous Javascript ([AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)))
+  - Interactive web pages using asynchronous JavaScript ([AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)))
 
 ## 2 Example Web Application
 
@@ -24,42 +24,47 @@ See the [SoftiCAR Platform Example Project](https://github.com/softicar/platform
 
 ## 3 Building and Development
 
-To build and develop the code in this repository, an **Ubuntu 20.04 (Focal)** based workstation is recommended, with the following software installed:
+To build and develop the code in this repository, an **Ubuntu 26.04 LTS (Resolute Raccoon)** based workstation is recommended, with the following software installed:
 
-1. [Java Eclipse Temurin 21](https://adoptium.net/en-GB/download/), with `java` in the `PATH`
-2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2025-03 (4.35)](https://www.eclipse.org/downloads/packages/release/2025-03/r)
+1. [Java Eclipse Temurin 21](https://adoptium.net/temurin/releases/?version=21), with `java` in the `PATH`
+2. [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/), e.g. [2026-09 (4.41)](https://www.eclipse.org/downloads/packages/release/2026-09/r)
 3. [SQML Eclipse Plugin](https://github.com/softicar/sqml)
+4. [Docker Engine](https://docs.docker.com/engine/install/ubuntu/), for the tests that start containers (SMB, MariaDB migrations and Selenium)
 
 In _Eclipse_, the code shall be imported via _File / Import / Gradle / Existing Gradle Project_.
 
-For prototyping purposes, an integrated [Jetty Server](https://www.eclipse.org/jetty/) and an integrated ephemeral [H2-Database](https://www.h2database.com/html/main.html) can be used:
+For prototyping purposes, an integrated [Jetty Server](https://jetty.org/) and an integrated ephemeral [H2 Database](https://www.h2database.com/html/main.html) can be used:
+
 - To start such a server, create a Java class like this:
+
   ```java
-  public class DevelopmentServlet extends HotDeploymentWebServiceServlet {
+  public class DevelopmentService extends WebServiceTestService {
 
-      public DevelopmentServlet() {
+      public DevelopmentService() {
 
-          database.applyFixture(() -> {
-              TestFixtureRegistry registry = new TestFixtureRegistry(new CoreModuleTestFixture());
-              registry.registerIfMissing(WorkflowModuleTestFixture::new);
-              return registry;
+          database.apply(() -> {
+              TestFixtures.use(CoreModuleTestFixture.class);
+              TestFixtures.use(WorkflowModuleTestFixture.class);
           });
       }
 
       public static void main(String[] args) {
 
-          new HotDeploymentWebServiceServer(DevelopmentServlet.class)//
-                  .setRequestString("service?id=" + EmfSourceCodeReferencePoints.getUuidOrThrow(PageService.class))
-                  .setPort(8000).startAndJoin();
+          new HotWebServiceTestServer(DevelopmentService.class)//
+              .setPort(8000)
+              .startAndJoin();
       }
   }
   ```
+
 - When executed, it will print something like this:
-  ```
+
+  ```text
   Server started at http://localhost:8000
   Full URL:
-  http://localhost:8000/portal/service?id=95cf1a1b-c12e-4594-9d20-783988fe32b9
+  http://localhost:8000/portal/service/95cf1a1b-c12e-4594-9d20-783988fe32b9
   ```
+
 - Open a web browser and enter the URL.
 - To log in, use one of the default users: `admin.user`, `normal.user` or `view.user`. The password is `test` for each of those.
 
@@ -67,7 +72,7 @@ For prototyping purposes, an integrated [Jetty Server](https://www.eclipse.org/j
 
 Releases of this repository follow the [Semantic Versioning](https://semver.org/) principle.
 
-```
+```text
      1.2.3
     /  |  \
 major  |  patch
@@ -93,7 +98,7 @@ Please read the [contribution guidelines](CONTRIBUTING.md) for this repository a
 
 To convert all SVGs in a directory tree to an uncluttered and optimized format, use `scour` (`sudo apt install scour`):
 
-```
+```bash
 find . -type f -name "*.svg" | xargs -d $'\n' sh -c 'for file do\
   scour -i "$file" -o "$file"-opt --strip-xml-prolog --remove-metadata --enable-id-stripping --enable-comment-stripping;\
   mv -v -- "$file"-opt "$file";\

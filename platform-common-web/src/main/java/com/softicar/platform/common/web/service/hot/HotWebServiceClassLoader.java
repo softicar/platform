@@ -31,6 +31,9 @@ class HotWebServiceClassLoader extends URLClassLoader {
 
 		addIgnoredPrefix("java.");
 		addIgnoredPrefix("javax.");
+		// The Jakarta Servlet API must come from the parent class loader, like the javax API before it. Otherwise,
+		// the servlet container and the hot deployed service would use different copies of its classes.
+		addIgnoredPrefix("jakarta.");
 
 		new JavaClasspathFinder().findAll().forEach(this::addPath);
 	}
