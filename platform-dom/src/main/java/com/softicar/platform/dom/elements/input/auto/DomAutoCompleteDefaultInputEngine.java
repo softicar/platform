@@ -280,8 +280,8 @@ public class DomAutoCompleteDefaultInputEngine<T> implements IDomAutoCompleteInp
 		@Override
 		public int compare(T a, T b) {
 
-			Comparable<T> comparableA = CastUtils.castOrNull(a, Comparable.class);
-			if (comparableA != null) {
+			if (a instanceof Comparable) {
+				Comparable<T> comparableA = CastUtils.cast(a);
 				return comparableA.compareTo(b);
 			} else {
 				return 0;

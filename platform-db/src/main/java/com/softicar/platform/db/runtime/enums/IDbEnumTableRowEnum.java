@@ -1,7 +1,6 @@
 package com.softicar.platform.db.runtime.enums;
 
 import com.softicar.platform.common.core.interfaces.ITestMarker;
-import com.softicar.platform.common.core.utils.CastUtils;
 import com.softicar.platform.db.runtime.table.IDbTable;
 import com.softicar.platform.db.sql.field.ISqlFieldValueConsumer;
 import java.util.Objects;
@@ -43,8 +42,9 @@ public interface IDbEnumTableRowEnum<E extends IDbEnumTableRowEnum<E, R>, R exte
 	default R getRecord() {
 
 		Integer id = Objects.requireNonNull(getId());
-		// TODO PLAT-755 This casting magic should not be necessary.
-		return CastUtils.cast(IDbTable.class.cast(getTable()).getStub(id));
+		// As an IDbEntityTable, the table also declares getStub(Integer), which makes the call ambiguous otherwise.
+		IDbTable<R, Integer> table = getTable();
+		return table.getStub(id);
 	}
 
 	/**
